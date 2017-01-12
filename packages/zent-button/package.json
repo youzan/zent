@@ -4,7 +4,7 @@
   "description": "基本组件按钮，提供default primary...等基础需求以及disable、loading等状态",
   "main": "./lib/index.js",
   "scripts": {
-    "lint": "eslint ./src ./examples",
+    "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "zent": {

@@ -4,7 +4,7 @@
   "description": "这是一个React Loading组件",
   "main": "./lib/index.js",
   "scripts": {
-    "lint": "eslint ./src ./examples",
+    "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "yanweiqing",

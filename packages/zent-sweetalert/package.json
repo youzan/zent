@@ -4,7 +4,7 @@
   "description": "封装好的dialog组件，可快捷调用弹窗",
   "main": "./lib/index.js",
   "scripts": {
-    "lint": "eslint ./src ./examples",
+    "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "zhengxin",

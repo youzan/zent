@@ -4,7 +4,7 @@
   "description": "Tree ui react component for zent",
   "main": "./lib/Index.js",
   "scripts": {
-    "lint": "eslint ./src ./examples",
+    "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "wangchao@youzan",

@@ -4,7 +4,7 @@
   "description": "点击元素，弹出气泡框。",
   "main": "./lib/index.js",
   "scripts": {
-    "lint": "eslint ./src ./examples",
+    "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "yanweiqing",

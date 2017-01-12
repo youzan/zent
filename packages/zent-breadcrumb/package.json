@@ -4,7 +4,7 @@
   "description": "基础面包屑组件，在一个带有层次的导航结构中标明当前页面的位置。",
   "main": "./lib/index.js",
   "scripts": {
-    "lint": "eslint ./src ./examples",
+    "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "zhengxin",
