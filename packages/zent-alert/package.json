@@ -1,0 +1,33 @@
+{
+  "name": "@youzan/zent-alert",
+  "version": "0.1.5",
+  "description": "警告／提示组件",
+  "repository": "http://gitlab.qima-inc.com/zent/zent-alert",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "lichen",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  },
+  "dependencies": {
+    "classnames": "2.2.x",
+    "lodash": "4.17.x"
+  },
+  "devDependencies": {
+    "@youzan/zent-button": "*",
+    "@youzan/zent-icon": "*"
+  }
+}

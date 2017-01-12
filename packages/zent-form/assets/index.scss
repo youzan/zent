@@ -1,0 +1,115 @@
+.zent-form {
+    margin-bottom: 30px;
+    width: auto;
+
+    select[readonly], textarea[readonly] {
+        background-color: #fff;
+        cursor: text;
+    }
+}
+
+.zent-form__control-group {
+    margin-bottom: 20px;
+
+    &:hover {
+        .zent-form__help-block,
+        .zent-form__help-desc {
+            opacity: 1;
+        }
+    }
+    &.with-text {
+        margin-bottom: 5px;
+        p {
+            margin-bottom: 0;
+        }
+    }
+    &.with-action {
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px dashed #ccc;
+    }
+    &.has-error {
+        input,
+        select,
+        textarea,
+        .zent-form__checkbox,
+        .zent-form__radio,
+        .zent-form__control-label,
+        .zent-form__help-block {
+            color: #b94a48;
+        }
+        input,
+        select,
+        textarea {
+            border-color: #b94a48;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #953b39;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+        }
+    }
+}
+
+.zent-form__static-value {
+    padding-top: 5px;
+    font-size: 14px;
+    line-height: 18px;
+    padding-bottom: 5px;
+    word-break: break-all;
+}
+
+.zent-form__control-action {
+    padding-top: 5px;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.zent-form__required {
+    font-size: 16px;
+    color: #f00;
+    vertical-align: middle;
+}
+
+.zent-form__help-block,
+.zent-form__help-desc {
+    opacity: .6;
+    line-height: 14px;
+    font-size: 12px;
+    margin-top: 6px;
+    margin-bottom: 0;
+    color: #999;
+    ul li {
+        font-size: 12px;
+        line-height: 12px;
+    }
+    &:empty {
+        margin-top: 0 !important;
+    }
+}
+
+.zent-form--horizontal {
+    .zent-form__control-label {
+        float: left;
+        padding-top: 5px;
+        width: 120px;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: right;
+    }
+
+    .zent-form__controls {
+        margin-left: 130px;
+        word-break: break-all;
+    }
+
+    .zent-form__form-actions {
+        padding: 0 0 0 130px;
+        margin: 25px 0 10px;
+        background: none;
+        border: none;
+    }
+}

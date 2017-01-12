@@ -1,0 +1,22 @@
+{
+  "name": "@youzan/zent-layout",
+  "version": "0.1.5",
+  "description": "24栅格布局系统",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "nino (nino@youzan.com)",
+  "license": "MIT",
+  "dependencies": {
+    "classnames": "2.2.x"
+  },
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ]
+}

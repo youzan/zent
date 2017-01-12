@@ -1,0 +1,26 @@
+{
+  "name": "@youzan/zent-select",
+  "version": "0.1.57",
+  "description": "这是一个select组件",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "zent": {
+    "port": 7788
+  },
+  "author": "youzan",
+  "license": "MIT",
+  "files": [
+    "assets/",
+    "lib/",
+    "examples/",
+    "src/",
+    "dist/"
+  ],
+  "dependencies": {
+    "lodash": "4.17.x",
+    "object-assign": "4.1.x"
+  }
+}

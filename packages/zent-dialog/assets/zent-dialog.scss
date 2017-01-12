@@ -1,0 +1,104 @@
+$normalcolor: #333;
+$graycolor: #999;
+$whitecolor: #fff;
+$darkgraycolor: #666;
+$bordercolor: #e8e8e8;
+$maskbgcolor: #373737;
+$rgbamaskbgcolor: rgba(0, 0, 0, .6);
+
+
+.zent-dialog-r {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: top 0.5s;
+  background-color: $whitecolor;
+  border-radius: 4px;
+  padding: 20px;
+  width: 450px;
+  box-sizing: border-box;
+  font-size: 14px;
+  z-index: 1041;
+  box-sizing: border-box;
+}
+
+.zent-dialog-r-title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid $bordercolor;
+  margin: 0;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.zent-dialog-r-title-text {
+    font-size: 14px;
+    line-height: 1;
+    font-weight: bold;
+    color: $normalcolor;
+}
+
+.zent-dialog-r-close {
+  position: absolute;
+  display: block;
+  top: 4px;
+  right: 10px;
+  color: $graycolor;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: right;
+  vertical-align: middle;
+  cursor: pointer;
+  border: none;
+  background-color: $whitecolor;
+  outline: none;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+  &:link,
+  &:active,
+  &:focus {
+    color: $graycolor;
+  }
+
+  &.zent-dialog-r-has-title {
+    top: 14px;
+    right: 18px;
+  }
+}
+
+.zent-dialog-r-body {
+  color: $darkgraycolor;
+  &.with-success-icon,
+  &.with-warning-icon {
+    padding-left: 30px;
+  }
+}
+
+.zent-dialog-r-footer {
+  text-align: right;
+  margin-top: 30px;
+}
+
+.zent-dialog-r-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $rgbamaskbgcolor;
+  height: 100%;
+  z-index: 1050;
+}
+
+.zent-dialog-r-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}

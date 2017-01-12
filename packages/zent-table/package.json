@@ -1,0 +1,25 @@
+{
+  "name": "@youzan/zent-table",
+  "version": "0.2.19",
+  "description": "表格组件",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "zhangmengxuan",
+  "license": "MIT",
+  "files": [
+    "assets/",
+    "lib/",
+    "examples/",
+    "dist/",
+    "src/"
+  ],
+  "dependencies": {
+    "@youzan/zent-checkbox": "*",
+    "@youzan/zent-loading": "*",
+    "@youzan/zent-pagination": "*",
+    "lodash": "4.17.x"
+  }
+}

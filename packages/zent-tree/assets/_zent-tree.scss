@@ -1,0 +1,207 @@
+.zent-tree {
+    color: #333;
+    font-size: 18px;
+
+    ul, li {
+        list-style: none;
+    }
+}
+
+.zent-tree.zent-tree-large {
+    font-size: 20px;
+
+    .zent-tree-bar {
+        .switcher {
+            line-height: 20px;
+            &:after {
+                border: 6px solid transparent;
+                border-left: 9px solid red;
+            }
+        }
+    }
+
+    .checkbox {
+        height: 16px;
+        width: 16px;
+
+        &.half-checked {
+            &:after {
+                top: 7px;
+                width: 12px;
+            }
+        }
+
+        &.checked {
+            &:after {
+                left: 0;
+                top: -11px;
+                font-size: 23px;
+            }
+        }
+    }
+}
+
+.zent-tree.zent-tree-small {
+    font-size: 14px;
+
+    .zent-tree-bar {
+        .switcher {
+            line-height: 12px;
+            &:after {
+                border: 4px solid transparent;
+                border-left: 6px solid red;
+            }
+        }
+    }
+
+    .checkbox {
+        height: 12px;
+        width: 12px;
+
+        &.half-checked {
+            &:after {
+                top: 5px;
+                width: 8px;
+            }
+        }
+
+        &.checked {
+            &:after {
+                left: 1px;
+                top: -8px;
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.zent-tree-bar {
+    position: relative;
+
+    .switcher {
+        position: absolute;
+        top: 2px;
+        left: -24px;
+        width: 16px;
+        height: 16px;
+        line-height: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        border: 0 none;
+        cursor: pointer;
+        outline: none;
+
+        &:after {
+            content: '';
+            display: inline-block;
+            border: 5px solid transparent;
+            border-left: 7.5px solid red;
+            color: #666;
+            transform: rotate(90deg);
+            transform-origin: 23.09% 50%;
+            transition: transform 0.3s ease;
+        }
+    }
+
+    &.off {
+        .switcher {
+            &:after {
+                transform: rotate(0deg);
+            }
+        }
+    }
+
+    &:hover {
+        .operation {
+            opacity: 0.8;
+        }
+    }
+
+    .zent-tree-node {
+        display: inline-block;
+        line-height: 1.42857143;
+        cursor: pointer;
+
+        .content {
+            margin-left: -4px;
+            padding: 0 4px;
+            display: inline-block;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: transparent;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                border-color: #3283fa;
+                background-color: #ecf4ff;
+            }
+        }
+
+        .operation {
+            display: inline-block;
+            margin-left: 10px;
+            opacity: 0;
+            font-size: 0.8em;
+            color: black;
+            transition: opacity 0.3s ease-in;
+
+            & > span.opt:not(:last-of-type) {
+                margin-right: 8px;
+                padding-right: 8px;
+                border-right: 2px solid #ccc;
+            }
+        }
+    }
+
+    .checkbox {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        height: 14px;
+        width: 14px;
+        margin: 0 8px 0 -6px;
+        border: 1px solid #3283fa;
+        border-radius: 2px;
+        background-color: #f6f6f6;
+
+        &.disabled {
+            border-color: #d9d9d9;
+            background-color: #f3f3f3;
+
+            &.half-checked:after,
+            &.checked:after {
+                color: #d9d9d9;
+                border-color: #d9d9d9;
+            }
+        }
+
+        &.half-checked {
+            &:after {
+                content: '';
+                position: absolute;
+                left: 1px;
+                top: 6px;
+                width: 10px;
+                border: 1px solid #3283fa;
+                border-radius: 1px;
+                transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+            }
+        }
+
+        &.checked {
+            &:after {
+                content: '√';
+                position: absolute;
+                top: -10px;
+                left: 0px;
+                font-size: 20px;
+                color: #3283fa;
+                transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+            }
+        }
+    }
+}
+
+.zent-tree-child {
+    overflow: hidden;
+}

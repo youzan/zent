@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+HOOK_TYPE="post-merge"
+PROJECT=`pwd`
+. $PROJECT/.multi_hooks/collector/runner.sh $*

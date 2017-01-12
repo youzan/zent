@@ -1,0 +1,43 @@
+.zenticon {
+    display: inline-block;
+    speak: none;
+
+    font-style: normal;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    font-variant: normal;
+    text-rendering: auto;
+    text-decoration: inherit;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:before {
+        box-sizing: border-box;
+        display: block;
+        font-family: "zenticon" !important;
+    }
+
+    &.zenticon-spin {
+        animation: zenticon-animation-spin 2s infinite linear;
+    }
+}
+
+@keyframes zenticon-animation-spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+

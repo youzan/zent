@@ -1,0 +1,27 @@
+{
+  "name": "@youzan/zent-checkbox",
+  "version": "0.1.11",
+  "description": "Checkbox 多选框",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "nino (nino@youzan.com)",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "dependencies": {
+    "classnames": "2.2.x"
+  },
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  }
+}

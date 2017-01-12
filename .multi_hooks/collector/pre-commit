@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+HOOK_TYPE="pre-commit"
+PROJECT=`pwd`
+. $PROJECT/.multi_hooks/collector/runner.sh $*

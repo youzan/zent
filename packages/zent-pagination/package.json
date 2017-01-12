@@ -1,0 +1,22 @@
+{
+  "name": "@youzan/zent-pagination",
+  "version": "0.2.13",
+  "description": "zent分页组件",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "zhangmengxuan",
+  "license": "MIT",
+  "dependencies": {
+    "@youzan/zent-select": "*"
+  },
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ]
+}

@@ -1,0 +1,18 @@
+.demo-grid {
+    .demo-grid-row:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .zenticon {
+        margin-right: 0.5em;
+    }
+
+    .zenticon-shop {
+        color: #ee3eb3;
+    }
+
+    .zenticon-casher {
+        font-size: 24px;
+        vertical-align: middle;
+    }
+}

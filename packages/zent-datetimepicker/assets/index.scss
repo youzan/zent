@@ -1,0 +1,298 @@
+$active_color: #3388FF;
+$light_blue: #eaf3ff;
+$light_grey: #f2f2f2;
+$disable_color: #999;
+$disable_cell_color: #e5e5e5;
+$disable_bg: #f8f8f8;
+$border_color: #CACACA;
+$disable_border_color: #e5e5e5;
+$disable_input_text_color: #CACACA;
+$default-width: 240px;
+$double-default-width: 480px;
+.zent-datetime-picker {
+    box-sizing: border-box;
+    display: inline-block;
+    width: $default-width;
+    background: #fff;
+    line-height: normal;
+    .picker-wrapper {
+        position: relative;
+        width: 100%;
+        display: inline-block;
+    }
+    .picker-input {
+        box-sizing: border-box;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        font-size: 12px;
+        border: 1px solid $border_color;
+        border-radius: 2px;
+        &--empty {
+            color: #999;
+        }
+        &--disabled {
+            background: $disable_bg;
+            color: $disable_input_text_color;
+            cursor: not-allowed;
+        }
+    }
+    .date-picker,
+    .month-picker,
+    .time-picker,
+    .range-picker {
+        background: #fff;
+        position: absolute;
+        top: 32px;
+        width: $default-width;
+        font-size: 12px;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+        overflow: hidden;
+        z-index: 10;
+    }
+    .range-picker {
+        width: $double-default-width;
+        .date-picker {
+            position: static;
+            display: inline-block;
+            box-shadow: none;
+            &+.date-picker {
+                left: $default-width;
+            }
+            .month-panel {
+                .grid-cell {
+                    padding: 7.5px 23px;
+                }
+            }
+            .year-panel {
+                .grid-cell {
+                    padding: 7.5px 14px;
+                }
+            }
+        }
+    }
+    .date-panel,
+    .month-panel,
+    .year-panel,
+    .time-panel {
+        position: relative;
+        width: $default-width;
+        background: #fff;
+        color: #333;
+    }
+    .date-picker {
+        .date-panel {
+            .grid-cell {
+                padding: 2px 0;
+            }
+        }
+        .month-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            .grid-cell {
+                padding: 12px 23px;
+            }
+        }
+        .year-panel {
+            .grid-cell {
+                padding: 12px 14px;
+            }
+        }
+        .time-panel {
+            height: 134px;
+            border-top: 1px solid $border_color;
+            &__select {
+                height: 102px;
+            }
+        }
+    }
+    .month-picker {
+        .month-panel {
+            .panel__table {
+                width: 100%;
+                padding-top: 6px;
+            }
+            .grid-cell {
+                padding: 3px 23px;
+            }
+            .year-panel {
+                .grid-cell {
+                    padding: 9px 14px;
+                }
+            }
+        }
+    }
+    .panel__header {
+        box-sizing: border-box;
+        text-align: center;
+        height: 36px;
+        line-height: 36px;
+        border-bottom: 1px solid $border_color;
+        .link--prev {
+            cursor: pointer;
+            float: left;
+            margin-left: 25px;
+            font-size: 8px;
+            .zenticon {
+                transform: rotate(180deg)
+            }
+        }
+        .link--next {
+            cursor: pointer;
+            float: right;
+            margin-right: 25px;
+            font-size: 8px;
+        }
+        .panel__title {
+            cursor: pointer;
+        }
+    }
+    .panel__footer {
+        box-sizing: border-box;
+        height: 54px;
+        line-height: 54px;
+        padding-right: 10px;
+        text-align: right;
+        border-top: 1px solid $border_color;
+        .btn--confirm {
+            line-height: normal;
+            background: $active_color;
+            color: #fff;
+            border: none;
+            border-radius: 2px;
+            padding: 10px 10px;
+            margin-left: 15px;
+        }
+        .link--current {
+            color: $active_color;
+            cursor: pointer;
+        }
+        .link--disabled {
+            color: $disable_color;
+        }
+    }
+    .panel__table {
+        width: 100%;
+        text-align: center;
+        td,
+        th {
+            padding: 5px 0;
+            width: 14.28%;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .panel__cell {
+            display: inline-block;
+            box-sizing: border-box;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 2px;
+            cursor: pointer;
+            &:hover {
+                background: $light_blue;
+            }
+            &--in-range {
+                background: $light_blue;
+            }
+            &--current {
+                border: 1px solid $active_color;
+                color: $active_color;
+            }
+            &--disabled {
+                cursor: not-allowed;
+                color: $disable_cell_color;
+                &:hover {
+                    background: #fff;
+                }
+            }
+            &--selected {
+                background: $active_color;
+                color: #fff;
+                &:hover {
+                    background: $active_color;
+                }
+            }
+            &--different {
+                color: $disable_color;
+                background: none;
+            }
+            &.date-panel__cell {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+            }
+            &.month-panel__cell {
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+            }
+            &.year-panel__cell {
+                width: 50px;
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+    }
+    .year-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .time-panel {
+        height: 208px;
+        overflow: hidden;
+        &__select {
+            height: 176px;
+            overflow: hidden;
+        }
+        &__cell {
+            padding: 3px;
+            transition: background ease-in-out .1s;
+            cursor: pointer;
+            &:hover {
+                background: $light_blue;
+            }
+            &--selected {
+                background: $light_grey;
+            }
+            &--disabled {
+                cursor: not-allowed;
+                color: $disable_color;
+                &:hover {
+                    background: none;
+                }
+            }
+        }
+        &__preview {
+            padding: 8px 0;
+            border-top: 1px solid $border_color;
+            text-align: center;
+        }
+    }
+    .time-select {
+        box-sizing: border-box;
+        width: 33.3%;
+        display: inline-block;
+        vertical-align: top;
+        border-left: 1px solid $border_color;
+        &:first-child {
+            border-left: none;
+        }
+        .time-select-wrapper {
+            height: 176px;
+            overflow: hidden;
+            &:hover {
+                overflow-y: scroll;
+            }
+            ul {
+                list-style: none;
+                padding: 0 0 156px;
+                margin: 0;
+                text-align: center;
+            }
+        }
+    }
+}

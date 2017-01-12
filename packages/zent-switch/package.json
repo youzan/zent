@@ -1,0 +1,28 @@
+{
+  "name": "@youzan/zent-switch",
+  "version": "0.1.9",
+  "description": "这是一个开关组件",
+  "repository": "http://gitlab.qima-inc.com/zent/zent-switch.git",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "ronghang",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  },
+  "dependencies": {
+    "classnames": "2.2.x"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@youzan/zent-button",
+  "version": "0.1.14",
+  "description": "基本组件按钮，提供default primary...等基础需求以及disable、loading等状态",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "zent": {
+    "port": 7788
+  },
+  "author": "yanweiqing",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "dependencies": {
+    "classnames": "2.2.x",
+    "lodash": "4.17.x"
+  }
+}

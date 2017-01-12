@@ -1,0 +1,19 @@
+{
+  "name": "@youzan/zent-tabs",
+  "version": "0.2.0",
+  "description": "tabs组件",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "lianchengjie",
+  "license": "MIT",
+  "files": [
+    "assets/",
+    "lib/",
+    "examples/",
+    "dist/",
+    "src/"
+  ]
+}

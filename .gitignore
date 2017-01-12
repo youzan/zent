@@ -1,0 +1,6 @@
+.DS_Store
+dist/
+lib/
+node_modules/
+node_modules.tar
+*.log

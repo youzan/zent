@@ -1,0 +1,28 @@
+{
+  "name": "@youzan/zent-tree",
+  "version": "0.1.8",
+  "description": "Tree ui react component for zent",
+  "main": "./lib/Index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "wangchao@youzan",
+  "email": "wangchao@youzan",
+  "license": "MIT",
+  "files": [
+    "assets/",
+    "lib/",
+    "dist/",
+    "examples/",
+    "src/"
+  ],
+  "dependencies": {
+    "classnames": "2.2.x",
+    "object-assign": "4.1.x"
+  },
+  "devDependencies": {
+    "superagent": "2.3.0",
+    "superagent-jsonp": "0.1.1"
+  }
+}

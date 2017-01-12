@@ -1,0 +1,26 @@
+{
+  "name": "@youzan/zent-dialog",
+  "version": "0.1.21",
+  "description": "基本弹窗组件",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "zhengxin",
+  "contributors": [
+    "lichen"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@youzan/zent-portal": "*",
+    "classnames": "2.2.x"
+  },
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ]
+}

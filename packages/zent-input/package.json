@@ -1,0 +1,25 @@
+{
+  "name": "@youzan/zent-input",
+  "version": "0.1.5",
+  "description": "Input输入组件",
+  "repository": "http://gitlab.qima-inc.com/zent/zent-input",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "wangwanlu@youzan && jinfeng@youzan.com",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/",
+    "readme.md"
+  ],
+  "dependencies": {
+    "classnames": "2.2.x",
+    "lodash": "4.17.x"
+  }
+}

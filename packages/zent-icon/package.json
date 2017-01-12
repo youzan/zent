@@ -1,0 +1,28 @@
+{
+  "name": "@youzan/zent-icon",
+  "version": "0.1.4",
+  "description": "zent的图标库",
+  "repository": "http://gitlab.qima-inc.com/zent/zent-icon",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "lichen, houzi",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  },
+  "dependencies": {
+    "classnames": "2.2.x"
+  }
+}

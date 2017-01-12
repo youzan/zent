@@ -1,0 +1,22 @@
+{
+  "name": "@youzan/zent-pop",
+  "version": "0.3.8",
+  "description": "点击元素，弹出气泡框。",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "yanweiqing",
+  "license": "MIT",
+  "files": [
+    "assets/",
+    "lib/",
+    "examples/",
+    "src/",
+    "dist/"
+  ],
+  "zent": {
+    "port": 7789
+  }
+}

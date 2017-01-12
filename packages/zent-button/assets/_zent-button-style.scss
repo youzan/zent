@@ -1,0 +1,191 @@
+.zent-btn-primary {
+    color: $btn-white;
+    background: $btn-blue;
+    border-color: $btn-blue;
+
+    &:link,
+    &:visited,
+    &:focus {
+        color: $btn-white;
+    }
+    &:hover {
+        color: $btn-white;
+        background: $btn-light-blue;
+        border-color: $btn-deep-blue;
+    }
+    &:active {
+        color: $btn-white;
+        background: $btn-deep-deep-blue;
+        border-color: $btn-deep-blue;
+    }
+
+    &.zent-btn-loading {
+        &:hover,
+        &:active {
+            background: $btn-blue;
+            border-color: $btn-blue;
+        }
+        &::after {
+            border-color: $btn-white transparent transparent transparent;
+        }
+    }
+}
+.zent-btn-primary-outline {
+    color: $btn-blue;
+    border-color: $btn-blue;
+    background: $btn-white;
+
+    &:link,
+    &:visited,
+    &:focus {
+        color: $btn-blue;
+    }
+    &:hover {
+        color: $btn-deep-deep-blue;
+        border-color: $btn-deep-deep-blue;
+    }
+    &:active {
+        color: $btn-deep-deep-blue;
+        background: $btn-light-gray;
+        border-color: $btn-blue;
+    }
+
+    &.zent-btn-loading {
+        &:hover,
+        &:active {
+            border-color: $btn-blue;
+            background: $btn-white;
+        }
+        &::after {
+            border-color: $btn-blue transparent transparent transparent;
+        }
+    }
+}
+
+.zent-btn-danger {
+    color: $btn-white;
+    background: $btn-red;
+    border-color: $btn-deep-red;
+
+    &:link,
+    &:visited,
+    &:focus {
+        color: $btn-white;
+    }
+    &:hover {
+        color: $btn-white;
+        background: $btn-light-red;
+        border-color: $btn-deep-red;
+    }
+    &:active {
+        color: $btn-white;
+        background: $btn-deep-deep-red;
+        border-color: $btn-deep-red;
+    }
+
+    &.zent-btn-loading {
+        &:hover,
+        &:active {
+            background: $btn-red;
+            border-color: $btn-deep-red;
+        }
+        &::after {
+            border-color: $btn-white transparent transparent transparent;
+        }
+    }
+}
+.zent-btn-danger-outline {
+    color: $btn-red;
+    border-color: $btn-red;
+    background: $btn-white;
+
+    &:link,
+    &:visited,
+    &:focus {
+        color: $btn-red;
+    }
+    &:hover {
+        color: $btn-deep-deep-red;
+        border-color: $btn-deep-deep-red;
+    }
+    &:active {
+        color: $btn-deep-deep-red;
+        background: $btn-light-gray;
+        border-color: $btn-red;
+    }
+
+    &.zent-btn-loading {
+        &:hover,
+        &:active {
+            border-color: $btn-red;
+            background: $btn-white;
+        }
+        &::after {
+            border-color: $btn-red transparent transparent transparent;
+        }
+    }
+}
+
+.zent-btn-success {
+    color: $btn-white;
+    background: $btn-green;
+    border-color: $btn-deep-green;
+
+    &:link,
+    &:visited,
+    &:focus {
+        color: $btn-white;
+    }
+    &:hover {
+        color: $btn-white;
+        background: $btn-light-green;
+        border-color: $btn-deep-green;
+    }
+    &:active {
+        color: $btn-white;
+        background: $btn-deep-deep-green;
+        border-color: $btn-deep-green;
+    }
+
+    &.zent-btn-loading {
+        &:hover,
+        &:active {
+            background: $btn-green;
+            border-color: $btn-deep-green;
+        }
+        &::after {
+            border-color: $btn-white transparent transparent transparent;
+        }
+    }
+}
+.zent-btn-success-outline {
+    color: $btn-green;
+    border-color: $btn-green;
+    background: $btn-white;
+
+    &:link,
+    &:visited,
+    &:focus {
+        color: $btn-green;
+    }
+    &:hover {
+        color: $btn-deep-deep-green;
+        border-color: $btn-deep-deep-green;
+    }
+    &:active {
+        color: $btn-deep-deep-green;
+        background: $btn-light-gray;
+        border-color: $btn-green;
+    }
+
+    &.zent-btn-loading {
+        &:hover,
+        &:active {
+            border-color: $btn-green;
+            background: $btn-white;
+        }
+        &::after {
+            border-color: $btn-green transparent transparent transparent;
+        }
+    }
+}
