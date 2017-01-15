@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY } from './utils';
-import { format } from './utils/format';
+import { format, parse } from './utils/format';
 import clickOutSide from './utils/clickOutside';
 import { DATE_PROPS, TIME_PROPS } from './constants/';
 
@@ -17,7 +17,8 @@ class DatePicker extends Component {
     let actived;
     if (props.value) {
       showPlaceholder = false;
-      actived = selected = new Date(props.value);
+      const dateArr = parse(props.value, props.format);
+      actived = selected = new Date(...dateArr);
     } else {
       showPlaceholder = true;
       actived = new Date();
