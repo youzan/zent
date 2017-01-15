@@ -106,22 +106,29 @@ function dateFnFactory(type) {
       date = undefined;
     }
 
+    mask = dateMasks[mask] || mask || dateMasks.default;
+
     let arr = [];
     mask.replace(token, $0 => {
-        arr.push($0);
+      arr.push($0);
     });
     let regArr = arr.map(item => {
-        console.log(item)
-        return `(\\d{${item.length}})`;
+      return `(\\d{${item.length}})`;
     });
     let regStr = regArr.join('[^\\d]?');
-    let dateArr = String(date).match(new RegExp(regStr))
-    console.log(dateArr)
-        // Passing date through Date applies Date.parse, if necessary
-    date = date ? new Date(date) : new Date();
-    if (isNaN(date)) throw new SyntaxError('invalid date');
+    let dateArr = String(date).match(new RegExp(regStr));
+    if (!dateArr || dateArr.length !== arr.length + 1) {
+      console.error('invalid date');
+      return;
+    }
+    dateArr = dateArr.splice(1);
+    if (type === 'parse') {
+      return dateArr;
+    }
 
-    mask = dateMasks[mask] || mask || dateMasks.default;
+        // Passing date through Date applies Date.parse, if necessary
+    date = date ? new Date(...dateArr) : new Date();
+    if (isNaN(date)) throw new SyntaxError('invalid date');
 
         // Allow setting the utc argument via the mask
     if (mask.slice(0, 4) === 'UTC:') {
@@ -135,12 +142,6 @@ function dateFnFactory(type) {
         return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
       });
     }
-
-    let ret = [];
-    mask.replace(token, ($0) => {
-      ret.push(flags[$0]);
-    });
-    return ret;
   };
 }
 export default {

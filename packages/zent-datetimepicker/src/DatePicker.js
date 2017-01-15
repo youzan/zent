@@ -18,6 +18,7 @@ class DatePicker extends Component {
     if (props.value) {
       showPlaceholder = false;
       const dateArr = parse(props.value, props.format);
+      if (!dateArr) return;
       actived = selected = new Date(...dateArr);
     } else {
       showPlaceholder = true;

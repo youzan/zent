@@ -15,7 +15,7 @@ export default class Simple extends Component {
     super(props);
     this.state = {
       logs: [],
-      value: '2017.1.1'
+      value: '2017.01.01'
     };
   }
   isDisabledDate(val) {
@@ -73,48 +73,57 @@ export default class Simple extends Component {
     });
     return (
       <div>
-        <p>disabled</p>
         <DatePicker
           format="yyyy-mm-dd"
-          disabledTime={this.isDisabledTime}
-          disabled
-          onChange={this.onChangeDate}
-          />
-        <br /><br />
-        <DatePicker
-          format="yyyy-mm-dd"
-          min="2016.1.3"
-          max="2017.1.6"
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
           value={this.state.value}
           />
         <button type="button" onClick={this.reset}>reset</button>
         <br /><br />
-        <DatePicker
-          format="yyyy-mm-dd HH:MM:ss"
-          showTime
-          placeholder="请选择日期和时间"
-          disabledDate={this.isDisabledDate}
-          disabledTime={this.isDisabledTime}
-          onChange={this.onChangeDate}
-          />
-        <br /><br />
-        <TimePicker
-          disabledTime={this.isDisabledTime}
-          onChange={this.onChangeTime}
-          format="HH:MM"
-          />
-        <br /><br />
-        <MonthPicker
-          onChange={this.onChangeTime}
-          />
-        <br /><br />
-        <RangePicker />
-        <ul>
-          {logList}
-        </ul>
       </div>
     );
   }
 }
+
+// <p>disabled</p>
+//         <DatePicker
+//           format="yyyy-mm-dd"
+//           disabledTime={this.isDisabledTime}
+//           disabled
+//           onChange={this.onChangeDate}
+//           />
+//         <br /><br />
+//         <DatePicker
+//           format="yyyy-mm-dd"
+//           min="2016.1.3"
+//           max="2017.1.6"
+//           disabledTime={this.isDisabledTime}
+//           onChange={this.onChangeDate}
+//           value={this.state.value}
+//           />
+//         <button type="button" onClick={this.reset}>reset</button>
+//         <br /><br />
+//         <DatePicker
+//           format="yyyy-mm-dd HH:MM:ss"
+//           showTime
+//           placeholder="请选择日期和时间"
+//           disabledDate={this.isDisabledDate}
+//           disabledTime={this.isDisabledTime}
+//           onChange={this.onChangeDate}
+//           />
+//         <br /><br />
+//         <TimePicker
+//           disabledTime={this.isDisabledTime}
+//           onChange={this.onChangeTime}
+//           format="HH:MM"
+//           />
+//         <br /><br />
+//         <MonthPicker
+//           onChange={this.onChangeTime}
+//           />
+//         <br /><br />
+//         <RangePicker />
+//         <ul>
+//           {logList}
+//         </ul>
