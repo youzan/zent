@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-alert",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "警告／提示组件",
   "repository": "http://gitlab.qima-inc.com/zent/zent-alert",
   "main": "./lib/index.js",
@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "@youzan/zent-button": "^0.1.16",
-    "@youzan/zent-icon": "^0.1.9"
+    "@youzan/zent-icon": "^0.1.10"
   }
 }
