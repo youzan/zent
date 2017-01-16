@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-table",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "description": "表格组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -17,9 +17,9 @@
     "src/"
   ],
   "dependencies": {
-    "@youzan/zent-checkbox": "*",
-    "@youzan/zent-loading": "*",
-    "@youzan/zent-pagination": "*",
+    "@youzan/zent-checkbox": "^0.1.12",
+    "@youzan/zent-loading": "^0.1.8",
+    "@youzan/zent-pagination": "^0.2.15",
     "lodash": "4.17.x"
   }
 }
