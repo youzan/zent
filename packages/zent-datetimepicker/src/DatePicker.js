@@ -114,7 +114,7 @@ class DatePicker extends Component {
     if (!selected) return;
     if (this.props.showTime) {
       const tmp = new Date(selected.getFullYear(),
-        selected.getMonth() + 1,
+        selected.getMonth(),
         selected.getDate(),
         activedTime.getHours(),
         activedTime.getMinutes(),
