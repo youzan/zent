@@ -32,12 +32,6 @@ npm-debug.log
 .tmp/
 .DS_Store
 
-# 自动生成的，不要提交
-assets/_zenticon-codes.scss
-assets/_fontface.scss
-assets/LICENSE.txt
-examples/01-grid.js
-
 alert/
 breadcrumb/
 button/
