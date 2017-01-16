@@ -1,5 +1,5 @@
 export const CURRENT = new Date();
-export const CURRENT_DAY = new Date(`${CURRENT.getFullYear()}-${CURRENT.getMonth() + 1}-${CURRENT.getDate()}`);
+export const CURRENT_DAY = new Date(CURRENT.getFullYear(), CURRENT.getMonth() + 1, CURRENT.getDate());
 export const CURRENT_YEAR = CURRENT.getFullYear();
 export const CURRENT_MONTH = CURRENT.getMonth();
 export const CURRENT_DATE = CURRENT.getDate();

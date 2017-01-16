@@ -17,8 +17,8 @@ class DatePicker extends Component {
     let actived;
     if (props.value) {
       showPlaceholder = false;
-      const dateArr = parse(props.value, props.format);
-      if (!dateArr) return;
+      let dateArr = parse(props.value, props.format);
+      if (!dateArr) dateArr = [0];
       actived = selected = new Date(...dateArr);
     } else {
       showPlaceholder = true;
@@ -113,14 +113,13 @@ class DatePicker extends Component {
     const { selected, activedTime } = this.state;
     if (!selected) return;
     if (this.props.showTime) {
-      const tmp = new Date(`
-        ${selected.getFullYear()}-
-        ${selected.getMonth() + 1}-
-        ${selected.getDate()}
-        ${activedTime.getHours()}:
-        ${activedTime.getMinutes()}:
-        ${activedTime.getSeconds()}
-      `);
+      const tmp = new Date(selected.getFullYear(),
+        selected.getMonth() + 1,
+        selected.getDate(),
+        activedTime.getHours(),
+        activedTime.getMinutes(),
+        activedTime.getSeconds()
+      );
       value = format(tmp, this.props.format);
     } else {
       value = format(selected, this.props.format);

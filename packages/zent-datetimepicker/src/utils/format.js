@@ -89,48 +89,43 @@ const getFlags = (date, utc, locale) => {
   return flags;
 };
 
-const defaultOptions = {
-  utc: false,
-  locale: 'zh'
-};
-
 function dateFnFactory(type) {
   return function (date, mask, options) {
-    options = Object.assign({}, defaultOptions, options);
-    let utc = options.utc;
-    let locale = options.locale;
+    options = options || {};
+    let utc = options.utc || false;
+    let locale = options.locale || 'zh';
 
-        // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+    // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
     if (arguments.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
       mask = date;
       date = undefined;
     }
 
     mask = dateMasks[mask] || mask || dateMasks.default;
-
-    let arr = [];
-    mask.replace(token, $0 => {
-      arr.push($0);
-    });
-    let regArr = arr.map(item => {
-      return `(\\d{${item.length}})`;
-    });
-    let regStr = regArr.join('[^\\d]?');
-    let dateArr = String(date).match(new RegExp(regStr));
-    if (!dateArr || dateArr.length !== arr.length + 1) {
-      console.error('invalid date');
-      return;
-    }
-    dateArr = dateArr.splice(1);
     if (type === 'parse') {
+      let arr = [];
+      mask.replace(token, $0 => {
+        arr.push($0);
+      });
+      let regArr = arr.map(item => {
+        return `(\\d{${item.length}})`;
+      });
+      let regStr = regArr.join('[^\\d]?');
+      let dateArr = String(date).match(new RegExp(regStr));
+      if (!dateArr || dateArr.length !== arr.length + 1) {
+        // eslint-disable-next-line 
+        console.error('invalid date');
+        return;
+      }
+      dateArr = dateArr.splice(1);
+
       return dateArr;
     }
-
-        // Passing date through Date applies Date.parse, if necessary
-    date = date ? new Date(...dateArr) : new Date();
+    // Passing date through Date applies Date.parse, if necessary
+    date = date ? new Date(date) : new Date();
     if (isNaN(date)) throw new SyntaxError('invalid date');
 
-        // Allow setting the utc argument via the mask
+    // Allow setting the utc argument via the mask
     if (mask.slice(0, 4) === 'UTC:') {
       mask = mask.slice(4);
       utc = true;
@@ -145,28 +140,28 @@ function dateFnFactory(type) {
   };
 }
 export default {
-    /**
-     * 时间格式化
-     * @param  {Date} date 待格式化的时间
-     * @param  {string} mask 格式化字符串
-     * @param  {Object} options 高级选项，可以指定locale，utc
-     * @return {string} 格式化后的字符串
-     *
-     * 支持的格式化选项包括:
-     * 年：yy(97), yyyy(1997)
-     * 月：m(1), mm(01), mmm(1月), mmmm(一月)
-     * 日：d(5), dd(05), ddd(周五)，dddd(星期五)，小写是日期，大写是星期几
-     * 小时：h(2), hh(02), H(14), HH(14)，小写是12小时制，大写是24小时制
-     * 分：M(3), MM(03),
-     * 秒：s(8), ss(08)
-     * 毫秒：l(056), L(56), l三位，L两位
-     *
-     * 其他：
-     * t, tt, T, TT: a/p, am/pm, A/P, AM/PM
-     * Z: 时区, UTC, CST等
-     * o: 时区offset: +0800
-     * S: 英语中的序数：st, nd, rd或th，一般和d一起使用
-     */
+  /**
+   * 时间格式化
+   * @param  {Date} date 待格式化的时间
+   * @param  {string} mask 格式化字符串
+   * @param  {Object} options 高级选项，可以指定locale，utc
+   * @return {string} 格式化后的字符串
+   *
+   * 支持的格式化选项包括:
+   * 年：yy(97), yyyy(1997)
+   * 月：m(1), mm(01), mmm(1月), mmmm(一月)
+   * 日：d(5), dd(05), ddd(周五)，dddd(星期五)，小写是日期，大写是星期几
+   * 小时：h(2), hh(02), H(14), HH(14)，小写是12小时制，大写是24小时制
+   * 分：M(3), MM(03),
+   * 秒：s(8), ss(08)
+   * 毫秒：l(056), L(56), l三位，L两位
+   *
+   * 其他：
+   * t, tt, T, TT: a/p, am/pm, A/P, AM/PM
+   * Z: 时区, UTC, CST等
+   * o: 时区offset: +0800
+   * S: 英语中的序数：st, nd, rd或th，一般和d一起使用
+   */
   format: dateFnFactory('format'),
 
   parse: dateFnFactory('parse'),

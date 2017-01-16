@@ -40,7 +40,7 @@ export default class DatePanelBody extends Component {
     const props = this.props;
     let days = [];
     let index = 0;
-    let copy = new Date(props.actived.getFullYear(), props.actived.getMonth() + 1, props.actived.getDate());
+    let copy = new Date(props.actived.getFullYear(), props.actived.getMonth(), props.actived.getDate());
     let firstDay = new Date(copy.setDate(1));
     let diff = parseInt(firstDay.getDay(), 10);
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
