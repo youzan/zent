@@ -16,10 +16,14 @@ class DatePicker extends Component {
     let selected;
     let actived;
     if (props.value) {
-      showPlaceholder = false;
       let dateArr = parse(props.value, props.format);
-      if (!dateArr) dateArr = [0];
-      actived = selected = new Date(...dateArr);
+      if (!dateArr) {
+        showPlaceholder = true;
+        actived = new Date();
+      } else {
+        showPlaceholder = false;
+        actived = selected = new Date(...dateArr);
+      }
     } else {
       showPlaceholder = true;
       actived = new Date();

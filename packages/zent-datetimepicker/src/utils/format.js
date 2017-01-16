@@ -113,8 +113,6 @@ function dateFnFactory(type) {
       let regStr = regArr.join('[^\\d]?');
       let dateArr = String(date).match(new RegExp(regStr));
       if (!dateArr || dateArr.length !== arr.length + 1) {
-        // eslint-disable-next-line 
-        console.error('invalid date');
         return;
       }
       dateArr = dateArr.splice(1);
