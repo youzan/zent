@@ -63,7 +63,7 @@ lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes
 **注意：不是所有人都有发包权限的**
 
 1. 更新代码到最新: `git pull`
-2. `lerna publish`选择需要的版本即可
+2. `./scripts/publish.sh`选择需要的版本即可(**不要直接运行`lerna publish`**)
 
 ### Tips
 
