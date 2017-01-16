@@ -9,7 +9,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "npm run lint && zent-kit prepublish"
+    "prepublish": "npm run lint && ./scripts/copy-modules.sh && zent-kit prepublish"
   },
   "author": "Youzan FE",
   "license": "MIT",

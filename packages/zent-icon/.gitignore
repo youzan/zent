@@ -34,3 +34,8 @@ npm-debug.log
 
 svg/
 build/
+
+examples/01-grid.js
+assets/_fontface.scss
+assets/_zenticon-codes.scss
+assets/LICENSE.txt
