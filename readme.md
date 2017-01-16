@@ -58,6 +58,18 @@ lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes
 * `zent-kit dev`: 启动一个本地开发模式的server
 * `zent-kit test`: 运行组件的测试用例
 
+## 发布
+
+**注意：不是所有人都有发包权限的**
+
+1. 更新代码到最新: `git pull`
+2. `lerna publish`选择需要的版本即可
+
+### Tips
+
+* `lerna updated`可以查看哪些包有改动。
+* 如果A依赖B，B改动的话A也会发新包。
+
 ## 注意
 
 现在所有代码修改请拉一个新分支，修改完成后发一个Merge Request给我，后续会把权限开放给更多人，但是以后所有代码修改都需要发Merge 
