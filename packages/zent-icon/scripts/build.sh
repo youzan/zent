@@ -15,10 +15,8 @@ $basepath/generate-font.sh
 cp -a $basepath/../build/css/zenticon-codes.css $basepath/../assets/_zenticon-codes.scss
 cp -a $basepath/../build/LICENSE.txt $basepath/../assets
 
-# upload font files to CDN
-for fontfile in $basepath/../build/font/zenticon-*; do
-  superman cdn $fontfile $server_prefix
-done
+# upload to cdn
+superman cdn $server_prefix $basepath/../build/font/zenticon-*
 
 # generate fontface style
 eot=$(fontname eot)
