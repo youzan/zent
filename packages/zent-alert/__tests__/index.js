@@ -49,7 +49,12 @@ describe('Alert', () => {
 
   it('has error style', () => {
     const wrapper = mount(<Alert type="error" />);
-    expect(wrapper.find('.zent-alert-style-error').length).toBe(1);
+    expect(wrapper.find('.zent-alert-style-danger').length).toBe(1);
+  });
+
+  it('has danger style', () => {
+    const wrapper = mount(<Alert type="danger" />);
+    expect(wrapper.find('.zent-alert-style-danger').length).toBe(1);
   });
 
   it('can have rounded border', () => {

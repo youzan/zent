@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-pagination",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "zent分页组件",
   "main": "./lib/index.js",
   "scripts": {
