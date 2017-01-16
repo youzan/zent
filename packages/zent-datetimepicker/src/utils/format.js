@@ -164,51 +164,5 @@ export default {
    */
   format: dateFnFactory('format'),
 
-  parse: dateFnFactory('parse'),
-
-  getCurrentDay(time) {
-    time = time || new Date();
-    let month = time.getMonth() + 1;
-    month = month.toString().length === 1 ? `0${month}` : month;
-    let day = time.getDate();
-    day = day.toString().length === 1 ? `0${day}` : day;
-    return `${time.getFullYear()}-${month}-${day}`;
-  },
-
-  getFullTime(time) {
-    time = time || new Date();
-
-    function format(str) {
-      return str.toString().length === 1 ? `0${str}` : str;
-    }
-    let month = time.getMonth() + 1;
-    month = format(month);
-    let day = time.getDate();
-    day = format(day);
-    let hour = time.getHours();
-    hour = format(hour);
-    let min = time.getMinutes();
-    min = format(min);
-    let sec = time.getSeconds();
-    sec = format(sec);
-    return `${time.getFullYear()}-${month}-${day} ${hour}:${min}:${sec}`;
-  },
-
-  getDateFromStr(timeStr, time) {
-    time = time || new Date();
-
-    timeStr.toString().replace(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/, (match, year, month, day, hour, minute, sec) => {
-      time.setFullYear(year);
-      time.setMonth(parseInt(month, 10) - 1);
-      time.setDate(parseInt(day, 10));
-      time.setHours(parseInt(hour, 10));
-      time.setMinutes(parseInt(minute, 10));
-      time.setSeconds(parseInt(sec, 10));
-
-      return match;
-    });
-
-    return time;
-  }
-
+  parse: dateFnFactory('parse')
 };
