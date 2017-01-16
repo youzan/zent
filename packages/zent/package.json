@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
   "repository": {
     "type": "git",
@@ -49,7 +49,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@youzan/zent-alert": "^0.1.11",
+    "@youzan/zent-alert": "^0.1.12",
     "@youzan/zent-breadcrumb": "^0.1.10",
     "@youzan/zent-button": "^0.1.16",
     "@youzan/zent-checkbox": "^0.1.12",
