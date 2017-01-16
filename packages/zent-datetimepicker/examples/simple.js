@@ -15,7 +15,7 @@ export default class Simple extends Component {
     super(props);
     this.state = {
       logs: [],
-      value: '2017.1.1'
+      value: '2017.01.01'
     };
   }
   isDisabledDate(val) {
@@ -83,8 +83,8 @@ export default class Simple extends Component {
         <br /><br />
         <DatePicker
           format="yyyy-mm-dd"
-          min="2016.1.3"
-          max="2017.1.6"
+          min="2016.01.03"
+          max="2017.01.06"
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
           value={this.state.value}

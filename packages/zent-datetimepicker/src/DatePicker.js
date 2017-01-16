@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY } from './utils';
-import { format } from './utils/format';
+import { format, parse } from './utils/format';
 import clickOutSide from './utils/clickOutside';
 import { DATE_PROPS, TIME_PROPS } from './constants/';
 
@@ -16,8 +16,14 @@ class DatePicker extends Component {
     let selected;
     let actived;
     if (props.value) {
-      showPlaceholder = false;
-      actived = selected = new Date(props.value);
+      let dateArr = parse(props.value, props.format);
+      if (!dateArr) {
+        showPlaceholder = true;
+        actived = new Date();
+      } else {
+        showPlaceholder = false;
+        actived = selected = new Date(...dateArr);
+      }
     } else {
       showPlaceholder = true;
       actived = new Date();
@@ -111,14 +117,13 @@ class DatePicker extends Component {
     const { selected, activedTime } = this.state;
     if (!selected) return;
     if (this.props.showTime) {
-      const tmp = new Date(`
-        ${selected.getFullYear()}-
-        ${selected.getMonth() + 1}-
-        ${selected.getDate()}
-        ${activedTime.getHours()}:
-        ${activedTime.getMinutes()}:
-        ${activedTime.getSeconds()}
-      `);
+      const tmp = new Date(selected.getFullYear(),
+        selected.getMonth(),
+        selected.getDate(),
+        activedTime.getHours(),
+        activedTime.getMinutes(),
+        activedTime.getSeconds()
+      );
       value = format(tmp, this.props.format);
     } else {
       value = format(selected, this.props.format);
