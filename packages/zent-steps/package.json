@@ -20,9 +20,7 @@
   "jest": {
     "verbose": true,
     "automock": false,
-    "collectCoverage": true,
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$",
-    "moduleFileExtensions": ["js", "json", "jsx"]
+    "collectCoverage": true
   },
   "dependencies": {
     "@youzan/zent-icon": "*",

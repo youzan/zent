@@ -23,7 +23,7 @@ export default class NumberSteps extends Component {
     if (domNode.children.length > 0) {
       // +1 for fit edge bug of digit width, like 35.4px
       const lastStepOffsetWidth = domNode.lastChild.offsetWidth + 1;
-      if (this.state.lastStepOffsetWidth === lastStepOffsetWidth) {
+      if (isNaN(lastStepOffsetWidth) || this.state.lastStepOffsetWidth === lastStepOffsetWidth) {
         return;
       }
 
