@@ -46,6 +46,7 @@ import '@youzan/zent/lib/index.css';
 安装上述工具后执行:
 
 ```bash
+ynpm install
 felint init -6
 lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes，否则下次无法运行lerna bootstrap命令
 ```
