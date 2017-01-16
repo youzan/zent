@@ -47,13 +47,13 @@ describe('Alert', () => {
     expect(wrapper.find('.zent-alert-style-warning').length).toBe(1);
   });
 
-  it('has error style', () => {
-    const wrapper = mount(<Alert type="error" />);
+  it('has danger style', () => {
+    const wrapper = mount(<Alert type="danger" />);
     expect(wrapper.find('.zent-alert-style-danger').length).toBe(1);
   });
 
-  it('has danger style', () => {
-    const wrapper = mount(<Alert type="danger" />);
+  it('error is an alias to danger', () => {
+    const wrapper = mount(<Alert type="error" />);
     expect(wrapper.find('.zent-alert-style-danger').length).toBe(1);
   });
 
