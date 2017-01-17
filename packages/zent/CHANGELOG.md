@@ -1,5 +1,6 @@
 ## Change logs
 
+* 2017-01-17, 0.3.20, `zent-datetimepicker` 日期解析bug修复
 * 2017-01-11, 0.3.11, `zent-form`为内置封装的`SelectField`做`onChange`回调参数的兼容
 * 2017-01-10, 0.3.10, `zent-form`增加`required`支持
 * 2017-01-06, 0.3.9, `zent-select`更新样式，`zent-datetimepicker`bug修复
