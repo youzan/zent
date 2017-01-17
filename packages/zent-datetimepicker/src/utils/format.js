@@ -103,6 +103,8 @@ function dateFnFactory(type) {
 
     mask = dateMasks[mask] || mask || dateMasks.default;
     if (type === 'parse') {
+      if (typeof date === 'number') return new Date(date);
+      if (date instanceof Date) return date;
       let arr = [];
       mask.replace(token, $0 => {
         arr.push($0);
@@ -117,7 +119,7 @@ function dateFnFactory(type) {
       }
       dateArr = dateArr.splice(1);
 
-      return dateArr;
+      return new Date(...dateArr);
     }
     // Passing date through Date applies Date.parse, if necessary
     date = date ? new Date(date) : new Date();

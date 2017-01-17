@@ -1,3 +1,6 @@
+## 2017.01.17
+添加value 类型判断，支持timestamp 和Date 对象
+
 ## v0.0.22
 
 ### Bugfix
