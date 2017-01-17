@@ -7,7 +7,7 @@ class Tab extends React.Component {
     prefix: React.PropTypes.string,
     actived: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
-    id: React.PropTypes.string,
+    id: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     minWidth: React.PropTypes.string,
     onSelected: React.PropTypes.func,
     onDelete: React.PropTypes.func,

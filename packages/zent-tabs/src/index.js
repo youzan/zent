@@ -13,10 +13,10 @@ class Tabs extends React.Component {
     className: React.PropTypes.string,
     prefix: React.PropTypes.string,
     type: React.PropTypes.oneOf(['normal', 'card', 'slider']),
-    activeKey: React.PropTypes.string,
+    activeKey: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     // 推荐使用activeId代替原来的activeKey
     // 更直观
-    activeId: React.PropTypes.string,
+    activeId: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     size: React.PropTypes.oneOf(['huge', 'normal']),
     align: React.PropTypes.oneOf(['left', 'right', 'center']),
     onTabChange: React.PropTypes.func,

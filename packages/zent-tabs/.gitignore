@@ -31,3 +31,5 @@ lib/
 .tmp/
 npm-debug.log
 .DS_Store
+
+coverage

@@ -1,12 +1,12 @@
 {
   "name": "@youzan/zent-icon",
-  "version": "0.1.4",
+  "version": "0.1.10",
   "description": "zent的图标库",
   "repository": "http://gitlab.qima-inc.com/zent/zent-icon",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "npm run lint && zent-kit prepublish"
+    "prepublish": "npm run lint && ./scripts/build.sh && zent-kit prepublish"
   },
   "author": "lichen, houzi",
   "license": "MIT",

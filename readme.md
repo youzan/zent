@@ -46,6 +46,7 @@ import '@youzan/zent/lib/index.css';
 安装上述工具后执行:
 
 ```bash
+ynpm install
 felint init -6
 lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes，否则下次无法运行lerna bootstrap命令
 ```
@@ -56,6 +57,18 @@ lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes
 
 * `zent-kit dev`: 启动一个本地开发模式的server
 * `zent-kit test`: 运行组件的测试用例
+
+## 发布
+
+**注意：不是所有人都有发包权限的**
+
+1. 更新代码到最新: `git pull`
+2. `./scripts/publish.sh`选择需要的版本即可(**不要直接运行`lerna publish`**)
+
+### Tips
+
+* `lerna updated`可以查看哪些包有改动。
+* 如果A依赖B，B改动的话A也会发新包。
 
 ## 注意
 

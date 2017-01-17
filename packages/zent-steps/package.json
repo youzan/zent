@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-steps",
-  "version": "0.1.3",
+  "version": "0.1.9",
   "description": "React实现的Steps组件",
   "repository": "git@gitlab.qima-inc.com:zent/zent-steps.git",
   "main": "./lib/index.js",
@@ -20,12 +20,10 @@
   "jest": {
     "verbose": true,
     "automock": false,
-    "collectCoverage": true,
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$",
-    "moduleFileExtensions": ["js", "json", "jsx"]
+    "collectCoverage": true
   },
   "dependencies": {
-    "@youzan/zent-icon": "*",
+    "@youzan/zent-icon": "^0.1.10",
     "classnames": "2.2.x"
   }
 }
