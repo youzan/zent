@@ -1,5 +1,14 @@
 {
   "lerna": "2.0.0-beta.32",
+  "publishConfig": {
+    "ignore": [
+      ".npmrc",
+      ".eslintrc",
+      ".eslintignore",
+      ".gitignore",
+      "__tests__/**"
+    ]
+  },
   "packages": [
     "packages/*"
   ],
