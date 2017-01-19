@@ -90,13 +90,15 @@ const getFlags = (date, utc, locale) => {
 };
 
 function dateFnFactory(type) {
-  return function (date, mask, options) {
-    options = options || {};
+  return function (...args) {
+    let date = args.date;
+    let mask = args.mask;
+    let options = args.options || {};
     let utc = options.utc || false;
     let locale = options.locale || 'zh';
 
     // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-    if (arguments.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
+    if (args.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
       mask = date;
       date = undefined;
     }

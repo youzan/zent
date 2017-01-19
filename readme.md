@@ -42,6 +42,7 @@ import '@youzan/zent/lib/index.css';
 * zent-kit: `ynpm install -g zent-kit`
 * felint: `ynpm install -g felint`
 * lerna: `ynpm install -g lerna`
+* 移步 zent-icon 的 [readme](http://gitlab.qima-inc.com/zent/zent/tree/master/packages/zent-icon), 有一堆东西要装
 
 安装上述工具后执行:
 
