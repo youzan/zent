@@ -39,8 +39,8 @@ import '@youzan/zent/lib/index.css';
 
 开发依赖以下工具：
 
-* zent-kit: `ynpm install -g zent-kit`
-* felint: `ynpm install -g felint`
+* zent-kit: `ynpm install -g @youzan/zent-kit`
+* felint: `ynpm install -g @youzan/felint`
 * lerna: `ynpm install -g lerna`
 
 安装上述工具后执行:
