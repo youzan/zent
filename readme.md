@@ -67,6 +67,8 @@ felint init -6 --youzan
 lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes，否则下次无法运行lerna bootstrap命令
 ```
 
+**如果`lerna bootstrap`在lint某个包的时候失败，请确认你的`eslint`符合`felint`的版本要求(现在是2.11.1)。**
+
 执行完这些之后不需要再在`packages/zent-xxx`目录下去单独执行`npm install`了。
 
 如果`packages/zent-xxx`需要添加新包，两种情况
