@@ -16,7 +16,7 @@ npm_major_version () {
 }
 
 npm_install () {
-    npm --registry=http://registry.npm.qima-inc.com --disturl=http://npm.taobao.org/mirrors/node "$@"
+    npm --registry=http://registry.npm.qima-inc.com --disturl=http://npm.taobao.org/mirrors/node install "$@"
 }
 
 fontforge_python_extension_loaded () {
