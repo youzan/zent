@@ -14,7 +14,7 @@ check_error () {
 }
 
 command_exists () {
-    type "$1" >/dev/null 2>&1;
+    type "$1" >/dev/null 2>&1
 }
 
 npm_major_version () {
@@ -23,16 +23,23 @@ npm_major_version () {
 
 npm_install () {
     npm --registry=http://registry.npm.qima-inc.com --disturl=http://npm.taobao.org/mirrors/node install -g "$@"
-    check_error
+    check_error "install $@ failed"
 }
 
 fontforge_python_extension_loaded () {
     python -c "import fontforge" >/dev/null 2>&1
 }
 
+check_xcode () {
+    xcodebuildxxx -version >/dev/null 2>&1
+    check_error 'Xcode command line tools not found.\nInstall Xcode from AppStore or run `xcode-select --install` without installing Xcode.'
+}
+
 if [[ "$OSTYPE" != "darwin"* ]]; then
     fail 'This script is indended for OSX, please manually install dependencies on other platforms.'
 fi
+
+check_xcode
 
 if ! command_exists node ; then
     fail 'node.js is required, please install node first.\nhttps://github.com/creationix/nvm is the recommended way to manage node versions.'
@@ -74,28 +81,28 @@ fi
 if ! command_exists brew ; then
     echo 'install homebrew...'
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    check_error
+    check_error 'install homebrew failed'
 fi
 
 brew update
-check_error
+check_error 'brew update failed'
 
 if ! command_exists jq ; then
     echo 'Installing jq with homebrew...'
     brew install jq
-    check_error
+    check_error 'install jq failed'
 fi
 
 if ! command_exists ttfautohint ; then
     echo 'Installing ttfautohint with homebrew...'
     brew install ttfautohint
-    check_error    
+    check_error 'install ttfautohint failed'
 fi
 
 if ! command_exists python ; then
     printf 'Installing python with homebrew...\n'
     brew install python
-    check_error    
+    check_error 'install python failed' 
 else
     pythonUserSitePackageDir=`python -c "import site; print(site.getusersitepackages())"`
     mkdir -p $pythonUserSitePackageDir
@@ -104,14 +111,14 @@ else
     if [ ! -f $homebrewPythonPathFile ]; then
         echo "Add homebrew python site package to python..."
         echo "$(brew --prefix)/lib/$(python -c 'import sys; print("python{}.{}".format(*sys.version_info[:2]))')/site-packages" > $homebrewPythonPathFile
-        check_error
+        check_error 'failed to add homebrew python site package to your python'
     fi
 fi
 
 if ! fontforge_python_extension_loaded ; then
     echo 'Installing fontforge with homebrew...'
     brew install fontforge
-    check_error
+    check_error 'install fontforge failed'
 fi;
 
 if ! fontforge_python_extension_loaded ; then
@@ -124,6 +131,6 @@ if ! command_exists sketchtool ; then
     else
         echo 'Installing sketchtool...'
         /Applications/Sketch.app/Contents/Resources/sketchtool/install.sh
-        check_error
+        check_error 'install sketchtool failed'
     fi
 fi
