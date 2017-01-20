@@ -22,8 +22,15 @@ npm_major_version () {
 }
 
 npm_install () {
+    echo "Install $@"
     npm --registry=http://registry.npm.qima-inc.com --disturl=http://npm.taobao.org/mirrors/node install -g "$@"
-    check_error "install $@ failed"
+    check_error "Install $@ failed"
+}
+
+brew_install () {
+    echo "Install $@"
+    brew install "$@"
+    check_error "Install $@ failed."
 }
 
 fontforge_python_extension_loaded () {
@@ -54,27 +61,22 @@ if [ `npm_major_version` -lt "3" ] ; then
 fi
 
 if ! command_exists zent-kit ; then
-    echo 'Install zent-kit...'
     npm_install @youzan/zent-kit
 fi
 
 if ! command_exists felint ; then
-    echo 'Installing felint...'
     npm_install @youzan/felint
 fi
 
 if ! command_exists fount ; then
-    echo 'Installing fount...'
     npm_install @youzan/fount
 fi
 
 if ! command_exists superman ; then
-    echo 'Installing superman...'
     npm_install @youzan/superman
 fi
 
 if ! command_exists lerna ; then
-    echo 'Installing lerna...'
     npm_install lerna
 fi
 
@@ -89,21 +91,15 @@ brew update
 check_error 'brew update failed'
 
 if ! command_exists jq ; then
-    echo 'Installing jq with homebrew...'
-    brew install jq
-    check_error 'install jq failed'
+    brew_install jq
 fi
 
 if ! command_exists ttfautohint ; then
-    echo 'Installing ttfautohint with homebrew...'
-    brew install ttfautohint
-    check_error 'install ttfautohint failed'
+    brew_install ttfautohint
 fi
 
 if ! command_exists python ; then
-    printf 'Installing python with homebrew...\n'
-    brew install python
-    check_error 'install python failed' 
+    brew_install python
 else
     pythonUserSitePackageDir=`python -c "import site; print(site.getusersitepackages())"`
     mkdir -p $pythonUserSitePackageDir
@@ -119,9 +115,7 @@ else
 fi
 
 if ! fontforge_python_extension_loaded ; then
-    echo 'Installing fontforge with homebrew...'
-    brew install fontforge
-    check_error 'install fontforge failed'
+    brew_install fontforge
 fi;
 
 if ! fontforge_python_extension_loaded ; then
@@ -134,6 +128,6 @@ if ! command_exists sketchtool ; then
     else
         echo 'Installing sketchtool...'
         /Applications/Sketch.app/Contents/Resources/sketchtool/install.sh
-        check_error 'install sketchtool failed'
+        check_error 'Install sketchtool failed'
     fi
 fi
