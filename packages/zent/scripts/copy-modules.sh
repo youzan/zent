@@ -6,10 +6,10 @@ copy_from_node_modules() {
   echo "copy $1"
   
   local_name=$(echo $1 | cut -d '-' -f 2)
-  
+
   rm -rf $local_name
   cp -rfp node_modules/$1 $local_name
-  rm -rf $local_name/**/node_modules
+  rm -rf $local_name/node_modules
 }
 
 # make a copy to root

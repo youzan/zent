@@ -6,7 +6,8 @@
       ".eslintrc",
       ".eslintignore",
       ".gitignore",
-      "__tests__/**"
+      "__tests__/**",
+      "scripts/**"
     ]
   },
   "packages": [

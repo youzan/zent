@@ -37,18 +37,24 @@ import '@youzan/zent/lib/index.css';
 
 ## 开发 zent
 
+**OSX可以直接运行`./scripts/install-dependencies.sh`安装以下依赖。**
+
 开发依赖以下工具：
 
+* jq: `brew install jq`, [其他安装方式](https://stedolan.github.io/jq/download/)
+* ttfautohint: `brew install ttfautohint`, [其他安装方式](https://www.freetype.org/ttfautohint/#download)
+* fontforge: `brew install fontforge`, 需要python扩展。[其他安装方式](http://fontforge.github.io/en-US/downloads/)
 * zent-kit: `ynpm install -g @youzan/zent-kit`
 * felint: `ynpm install -g @youzan/felint`
+* fount: `ynpm install -g @youzan/fount`
+* superman: `ynpm install -g @youzan/superman`
 * lerna: `ynpm install -g lerna`
-* 移步 zent-icon 的 [readme](http://gitlab.qima-inc.com/zent/zent/tree/master/packages/zent-icon), 有一堆东西要装
 
 安装上述工具后执行:
 
 ```bash
 ynpm install
-felint init -6
+felint init -6 --youzan
 lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes，否则下次无法运行lerna bootstrap命令
 ```
 
