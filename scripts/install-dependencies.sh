@@ -30,16 +30,16 @@ fontforge_python_extension_loaded () {
     python -c "import fontforge" >/dev/null 2>&1
 }
 
-check_xcode () {
-    xcodebuildxxx -version >/dev/null 2>&1
-    check_error 'Xcode command line tools not found.\nInstall Xcode from AppStore or run `xcode-select --install` without installing Xcode.'
+check_xcodebuild () {
+    xcodebuild -version >/dev/null 2>&1
+    check_error 'xcodebuild not found.\nInstall Xcode from AppStore.'
 }
 
 if [[ "$OSTYPE" != "darwin"* ]]; then
     fail 'This script is indended for OSX, please manually install dependencies on other platforms.'
 fi
 
-check_xcode
+check_xcodebuild
 
 if ! command_exists node ; then
     fail 'node.js is required, please install node first.\nhttps://github.com/creationix/nvm is the recommended way to manage node versions.'
@@ -84,6 +84,7 @@ if ! command_exists brew ; then
     check_error 'install homebrew failed'
 fi
 
+echo 'brew update, it may take a while...'
 brew update
 check_error 'brew update failed'
 
@@ -110,7 +111,9 @@ else
     homebrewPythonPathFile=$pythonUserSitePackageDir/homebrew.pth
     if [ ! -f $homebrewPythonPathFile ]; then
         echo "Add homebrew python site package to python..."
+        set -v
         echo "$(brew --prefix)/lib/$(python -c 'import sys; print("python{}.{}".format(*sys.version_info[:2]))')/site-packages" > $homebrewPythonPathFile
+        set +v
         check_error 'failed to add homebrew python site package to your python'
     fi
 fi
