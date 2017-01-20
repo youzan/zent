@@ -7,6 +7,12 @@ fail () {
     exit -1
 }
 
+check_error () {
+    if [ $? -ne 0 ]; then
+        fail "$@"
+    fi
+}
+
 command_exists () {
     type "$1" >/dev/null 2>&1;
 }
@@ -16,7 +22,8 @@ npm_major_version () {
 }
 
 npm_install () {
-    npm --registry=http://registry.npm.qima-inc.com --disturl=http://npm.taobao.org/mirrors/node install "$@"
+    npm --registry=http://registry.npm.qima-inc.com --disturl=http://npm.taobao.org/mirrors/node install -g "$@"
+    check_error
 }
 
 fontforge_python_extension_loaded () {
@@ -67,26 +74,28 @@ fi
 if ! command_exists brew ; then
     echo 'install homebrew...'
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    check_error
 fi
 
 brew update
-if [ $? -ne 0 ]; then
-    fail 'brew update failed.'
-fi
+check_error
 
 if ! command_exists jq ; then
     echo 'Installing jq with homebrew...'
     brew install jq
+    check_error
 fi
 
 if ! command_exists ttfautohint ; then
     echo 'Installing ttfautohint with homebrew...'
     brew install ttfautohint
+    check_error    
 fi
 
 if ! command_exists python ; then
     printf 'Installing python with homebrew...\n'
     brew install python
+    check_error    
 else
     pythonUserSitePackageDir=`python -c "import site; print(site.getusersitepackages())"`
     mkdir -p $pythonUserSitePackageDir
@@ -95,12 +104,14 @@ else
     if [ ! -f $homebrewPythonPathFile ]; then
         echo "Add homebrew python site package to python..."
         echo "$(brew --prefix)/lib/$(python -c 'import sys; print("python{}.{}".format(*sys.version_info[:2]))')/site-packages" > $homebrewPythonPathFile
+        check_error
     fi
 fi
 
 if ! fontforge_python_extension_loaded ; then
     echo 'Installing fontforge with homebrew...'
     brew install fontforge
+    check_error
 fi;
 
 if ! fontforge_python_extension_loaded ; then
@@ -113,5 +124,6 @@ if ! command_exists sketchtool ; then
     else
         echo 'Installing sketchtool...'
         /Applications/Sketch.app/Contents/Resources/sketchtool/install.sh
+        check_error
     fi
 fi
