@@ -84,6 +84,7 @@ if ! command_exists brew ; then
     check_error 'install homebrew failed'
 fi
 
+echo 'brew update, it may take a while...'
 brew update
 check_error 'brew update failed'
 
@@ -110,7 +111,9 @@ else
     homebrewPythonPathFile=$pythonUserSitePackageDir/homebrew.pth
     if [ ! -f $homebrewPythonPathFile ]; then
         echo "Add homebrew python site package to python..."
+        set -v
         echo "$(brew --prefix)/lib/$(python -c 'import sys; print("python{}.{}".format(*sys.version_info[:2]))')/site-packages" > $homebrewPythonPathFile
+        set +v
         check_error 'failed to add homebrew python site package to your python'
     fi
 fi
