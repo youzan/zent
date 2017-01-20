@@ -3,7 +3,7 @@
 RED='\033[0;31m'
 
 fail () {
-    printf "${RED}$@"
+    printf "${RED}$@\nAborting\n"
     exit -1
 }
 
@@ -23,20 +23,20 @@ fontforge_python_extension_loaded () {
     python -c "import fontforge" >/dev/null 2>&1
 }
 
-if [[ "$OSTYPE" != "darwinx"* ]]; then
-    fail 'This script is indended for OSX, please manually install dependencies on other platforms.\nAborting.\n'
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    fail 'This script is indended for OSX, please manually install dependencies on other platforms.'
 fi
 
 if ! command_exists node ; then
-    fail 'node.js is required, please install node first.\nhttps://github.com/creationix/nvm is the recommended way to manage node versions.\nAborting.\n'
+    fail 'node.js is required, please install node first.\nhttps://github.com/creationix/nvm is the recommended way to manage node versions.'
 fi
 
 if ! command_exists npm ; then
-    fail 'npm not found.\nTry reinstalling your node.js.\nAborting.\n'
+    fail 'npm not found.\nTry reinstalling your node.js.'
 fi
 
 if [ `npm_major_version` -lt "3" ] ; then
-    fail 'Requires npm >= 3. Please upgrade your npm.\nAborting.\n'
+    fail 'Requires npm >= 3. Please upgrade your npm.'
 fi
 
 if ! command_exists zent-kit ; then
@@ -70,6 +70,9 @@ if ! command_exists brew ; then
 fi
 
 brew update
+if [ $? -ne 0 ]; then
+    fail 'brew update failed.'
+fi
 
 if ! command_exists jq ; then
     echo 'Installing jq with homebrew...'
@@ -101,5 +104,14 @@ if ! fontforge_python_extension_loaded ; then
 fi;
 
 if ! fontforge_python_extension_loaded ; then
-    fail 'fontforge python extension install failed.\nPlease check this faq: http://gitlab.qima-inc.com/fe/fount/blob/master/doc/fontforge.md.\nAborting\n';
+    fail 'fontforge python extension install failed.\nPlease check this faq: http://gitlab.qima-inc.com/fe/fount/blob/master/doc/fontforge.md.';
+fi
+
+if ! command_exists sketchtool ; then
+    if [ ! -f /Applications/Sketch.app/Contents/Resources/sketchtool/install.sh ]; then
+        fail 'sketchtool is required for building icon font. Please follow the instructions here: https://www.sketchapp.com/tool/'
+    else
+        echo 'Installing sketchtool...'
+        /Applications/Sketch.app/Contents/Resources/sketchtool/install.sh
+    fi
 fi

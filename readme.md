@@ -37,13 +37,20 @@ import '@youzan/zent/lib/index.css';
 
 ## 开发 zent
 
-**OSX可以直接运行`./scripts/install-dependencies.sh`安装以下依赖。**
+### 注意！注意！注意！重要的事说三遍！
 
-开发依赖以下工具：
+**OSX可以直接运行`./scripts/install-dependencies.sh`安装依赖。**
+
+**OSX可以直接运行`./scripts/install-dependencies.sh`安装依赖。**
+
+**OSX可以直接运行`./scripts/install-dependencies.sh`安装依赖。**
+
+### 开发依赖：
 
 * jq: `brew install jq`, [其他安装方式](https://stedolan.github.io/jq/download/)
 * ttfautohint: `brew install ttfautohint`, [其他安装方式](https://www.freetype.org/ttfautohint/#download)
 * fontforge: `brew install fontforge`, 需要python扩展。[其他安装方式](http://fontforge.github.io/en-US/downloads/)
+* sketchtool: https://www.sketchapp.com/tool/
 * zent-kit: `ynpm install -g @youzan/zent-kit`
 * felint: `ynpm install -g @youzan/felint`
 * fount: `ynpm install -g @youzan/fount`
