@@ -6,11 +6,14 @@
     line-height: 14px;
     margin: 0;
     padding: 0;
+    margin-right: 15px;
+
     &.zent-checkbox-disabled {
         cursor: not-allowed;
     }
-    & + .zent-checkbox-wrap {
-        margin-left: 15px;
+
+    &:last-child {
+        margin-right: 0;
     }
 }
 .zent-checkbox {
