@@ -52,7 +52,7 @@ describe('Input', () => {
     expect(wrapper.find('div').childAt(2).text()).toBe('foo');
   });
 
-  it('can proxy onChange event', () => {
+  it('can handle onChange event', () => {
     const onChangeMock = jest.fn();
     const wrapper = shallow(<Input onChange={onChangeMock} />);
     wrapper.find('input').simulate('change');
