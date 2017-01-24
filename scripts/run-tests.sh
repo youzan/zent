@@ -9,9 +9,11 @@ run_test () {
 
 for package in packages/*
 do
-    (cd "$package" && run_test)
+    if [ -d "$package" ] ; then
+        (cd "$package" && run_test)
 
-    if [ "$?" != 0 ] ; then
-        exit -1
+        if [ "$?" != 0 ] ; then
+            exit -1
+        fi
     fi
 done
