@@ -16,7 +16,7 @@ describe('Layout', () => {
     expect(wrapper.hasClass('foo')).toBe(true);
   });
 
-  it('Row can load custom other props', () => {
+  it('Row can load other custom props', () => {
     const wrapper = shallow(<Row foo="bar" />);
     expect(wrapper.props().foo).toBe('bar');
   });
@@ -46,7 +46,7 @@ describe('Layout', () => {
     expect(wrapper.hasClass('foo')).toBe(true);
   });
 
-  it('Col have props span and offset', () => {
+  it('Col have span and offset prop(number)', () => {
     const wrapper = shallow(<Col span={8} offset={4} />);
     expect(wrapper.hasClass('zent-col-8')).toBe(true);
     expect(wrapper.hasClass('zent-col-offset-4')).toBe(true);

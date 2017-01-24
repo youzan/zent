@@ -48,7 +48,7 @@ describe('Breadcrumb', () => {
     expect(wrapper.find('span.bread-span').text()).toBe('foobar');
   });
 
-  it('can append items from children props and array prop: breads simultaneously, children ahead', () => {
+  it('can append items from children props and breads prop(array) simultaneously, children ahead', () => {
     const breads = [
       {
         name: 'foo',
@@ -68,7 +68,7 @@ describe('Breadcrumb', () => {
     expect(wrapper.find('.barfoo').length).toBe(1);
   });
 
-  it('will render a empty div without prop or children', () => {
+  it('will render a empty div without props or children', () => {
     const wrapper = mount(<Breadcrumb />);
     expect(wrapper.contains(
       <div className="zent-breadcrumb " />
@@ -103,7 +103,7 @@ describe('Breadcrumb', () => {
       .isEmpty()).toBe(false);
   });
 
-  it('can load custom props to Breadcrumb.Item', () => {
+  it('can pass custom props to Breadcrumb.Item', () => {
     const breads = [
       {
         name: 'foo',
