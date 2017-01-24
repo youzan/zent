@@ -4,7 +4,7 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY } from './utils';
 import { format, parse } from './utils/format';
-import clickOutSide from './utils/clickOutside';
+import clickOutside from './utils/clickOutside';
 import { DATE_PROPS, TIME_PROPS } from './constants/';
 
 class DatePicker extends Component {
@@ -67,7 +67,7 @@ class DatePicker extends Component {
     }
   }
 
-  clickOutSide = e => {
+  clickOutside = e => {
     if (!this.picker.contains(e.target)) {
       this.setState({
         openPanel: false
@@ -197,4 +197,4 @@ class DatePicker extends Component {
   }
 }
 
-export default clickOutSide(DatePicker);
+export default clickOutside(DatePicker);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { goMonths } from './utils';
 import { format } from './utils/format';
-import clickOutSide from './utils/clickOutside';
+import clickOutside from './utils/clickOutside';
 import PanelFooter from './common/PanelFooter';
 import DatePanel from './date/DatePanel';
 import { RANGE_PROPS, TIME_PROPS } from './constants';
@@ -56,7 +56,7 @@ class RangePicker extends Component {
       });
     }
   }
-  clickOutSide = e => {
+  clickOutside = e => {
     if (!this.picker.contains(e.target)) {
       this.setState({
         openPanel: false
@@ -221,4 +221,4 @@ class RangePicker extends Component {
   }
 }
 
-export default clickOutSide(RangePicker);
+export default clickOutside(RangePicker);
