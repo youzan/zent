@@ -80,4 +80,19 @@ describe('Input', () => {
     expect(onKeyDownMock.mock.calls.length).toBe(4);
     expect(onKeyUpMock.mock.calls.length).toBe(2);
   });
+
+  // hack branch
+  it('can load with only the enterPress function', () => {
+    const onPressEnterMock = jest.fn();
+    const wrapper = shallow(<Input onPressEnter={onPressEnterMock} />);
+    expect(typeof wrapper.find('input').props().onKeyDown).toBe('function');
+    wrapper.find('input').simulate('keyDown', { keyCode: 13 });
+    expect(onPressEnterMock.mock.calls.length).toBe(1);
+    wrapper.find('input').simulate('keyDown', { keyCode: 12 });
+    wrapper.find('input').simulate('keyDown', { keyCode: 12 });
+    wrapper.find('input').simulate('keyDown', { keyCode: 13 });
+    wrapper.find('input').simulate('keyUp', { keyCode: 13 });
+    wrapper.find('input').simulate('keyUp', { keyCode: 12 });
+    expect(onPressEnterMock.mock.calls.length).toBe(2);
+  });
 });

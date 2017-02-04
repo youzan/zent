@@ -3,6 +3,10 @@ import { shallow } from 'enzyme';
 
 import { Row, Col } from '../src';
 
+/**
+ * 只开了一个 Section 因为这个组件结构简单，主要功能做在css上
+ */
+
 describe('Layout', () => {
   it('Row will render an empty div without any props', () => {
     const wrapper = shallow(<Row />);

@@ -3,6 +3,10 @@ import { mount, shallow } from 'enzyme';
 
 import Breadcrumb from '../src';
 
+/**
+ * 只开了一个 Section 因为这个组件结构比较简单
+ */
+
 describe('Breadcrumb', () => {
   it('can append item through jsx', () => {
     const wrapper = mount(
@@ -48,7 +52,8 @@ describe('Breadcrumb', () => {
     expect(wrapper.find('span.bread-span').text()).toBe('foobar');
   });
 
-  it('can append items from children props and breads prop(array) simultaneously, children ahead', () => {
+  // NOTE: support two way of appending
+  it('can append items from children props and breads(array) simultaneously, children ahead', () => {
     const breads = [
       {
         name: 'foo',
