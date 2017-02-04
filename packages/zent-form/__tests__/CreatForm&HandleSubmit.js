@@ -41,7 +41,7 @@ describe('CreatedForm and HandleSubmit', () => {
     expect(onSubmitMock.mock.calls.length).toBe(2);
   });
 
-  it('onSubmit of CreatedForm can be a function returns promise passed to handleSubmit', () => {
+  it('onSubmit of CreatedForm can be a function passed to handleSubmit', () => {
     jest.useFakeTimers();
     const submitFunc = (values) => {
       return new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
@@ -127,7 +127,7 @@ describe('CreatedForm and HandleSubmit', () => {
     }).toThrow();
   });
 
-  it('HandleSubmit method of CreatedForm can handle error occurred while submit', () => {
+  it('While submit, HandleSubmit method of CreatedForm can handle occurred errors', () => {
     const submit = () => {
       throw new Error('Error in Unit Test');
     };

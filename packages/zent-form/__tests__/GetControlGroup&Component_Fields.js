@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import ZentForm from '../src';
 import Option from '@youzan/zent-select';
 
-describe('GetControlGroup', () => {
+describe('GetControlGroup and Component_Fields', () => {
   const { Form, createForm, Field, getControlGroup } = ZentForm;
   const FormCreated = createForm()(Form);
   const context = mount(
@@ -28,7 +28,7 @@ describe('GetControlGroup', () => {
     expect(wrapper.find('input').length).toBe(1);
   });
 
-  it('controlGroup have three render switch: required, helpDesc and showError', () => {
+  it('ControlGroup have three render switch: required, helpDesc and showError', () => {
     const addtionInput = getControlGroup(props => (<input type="text" {...props} />));
     const wrapper = mount(<Field name="foo" component={addtionInput} required helpDesc={'foo'} validations={{ isEmail: true }} validationErrors={{ isEmail: '必须输入有效的Email地址' }} />, { context });
     expect(wrapper.find('.zent-form__required').length).toBe(1);
@@ -76,6 +76,7 @@ describe('GetControlGroup', () => {
     expect(wrapper.find('Select').length).toBe(1);
 
     // HACK: select is hard to test the onChange
+    // NOTE: it will pass onChange event.
     wrapper.find('Select').prop('onChange')({ target: { value: 'foo' } }, { value: '选项hack' });
   });
 });

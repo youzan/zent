@@ -7,7 +7,7 @@ import ZentForm from '../src';
 describe('Form', () => {
   const { Form } = ZentForm;
 
-  it('will render an empty form element without any props or children', () => {
+  it('Form will render an empty form element without any props or children', () => {
     const wrapper = shallow(<Form />);
     expect(wrapper.type()).toBe('form');
     expect(wrapper.children().length).toBe(0);
@@ -15,7 +15,7 @@ describe('Form', () => {
     expect(wrapper.props().onSubmit()).toBe(undefined);
   });
 
-  it('can have custom prefix, className, horizontal, inline and style', () => {
+  it('Form can have custom prefix, className, horizontal, inline and style props', () => {
     const style = { color: 'red' };
     const wrapper = shallow(<Form className="foo" prefix="bar" horizontal inline style={style} />);
     expect(wrapper.hasClass('foo')).toBe(true);
@@ -25,7 +25,7 @@ describe('Form', () => {
     expect(wrapper.props().style).toBe(style);
   });
 
-  it('can have custom children and onSubmit function', () => {
+  it('Form can have custom children and onSubmit function', () => {
     const submitMock = jest.fn();
     const wrapper = shallow(<Form onSubmit={submitMock}>
       <span className="zent-form-child">childSpan_1</span>

@@ -15,7 +15,7 @@ describe('CreateForm and Field', () => {
     </FormCreated>
   ).find(Field).getNode().context;
 
-  it('createForm return a function that have arg[0] using with react.createElement.\nThat returnedFunction return a react class with default state, props, functions', () => {
+  it('createForm return a function that have arg[0] using react.createElement.\nThat returnedFunction return a react class with default state, props, methods', () => {
     expect(typeof returnedFunction).toBe('function');
     let wrapper = mount(<DivCreated />);
     expect(wrapper.find('div').length).toBe(1);
@@ -34,7 +34,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode()._isMounted).toBe(true);
   });
 
-  it('Field must in a created zent-form, and must have name and component props', () => {
+  it('Field must in a created zent-form. Must have name and component props', () => {
     expect(() => { shallow(<Field />) }).toThrow();
     expect(() => { mount(<Field />) }).toThrow();
     expect(() => { mount(<FormCreated><Field component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).toThrow();
@@ -42,7 +42,7 @@ describe('CreateForm and Field', () => {
     expect(() => { mount(<FormCreated><Field name="foo" component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).not.toThrow();
   });
 
-  it('Field will load context from created zent-form and default state while render', () => {
+  it('While render, Field will load default state and contextObj from created zent-form', () => {
     const nestedWrapper = mount(
       <FormCreated>
         <Field name="bar" component={props => (<div {...props} />)} />
@@ -92,7 +92,7 @@ describe('CreateForm and Field', () => {
     expect(detachFromFormMock.mock.calls[0][0]).toBe(wrapper.getNode());
   });
 
-  it('In Field render function, an element based on component prop will be created and will load some processed props on component (add "checked" on checkbox and delete "value" on both checkbox and file)', () => {
+  it('In Field render function, an element based on component prop will be created and will load its different processed props(add "checked" on checkbox and delete "value" on both checkbox and file)', () => {
     let wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} />, { context });
     expect(wrapper.find('.foo').type()).toBe('div');
     expect(wrapper.find('.foo').length).toBe(1);
@@ -148,15 +148,15 @@ describe('CreateForm and Field', () => {
     expect(normalizeMock.mock.calls[2][3].bar).toBe('foo');
   });
 
-  it('Field have an unused getWrappedField function', () => {
+  it('Field have an unused getWrappedField method(not metioned in docs)', () => {
     let wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} />, { context });
     expect(typeof wrapper.getNode().getWrappedField).toBe('function');
 
-    // NOTE: 'this.wrappedField = ref then wrappedField turns out null'
+    // NOTE: 'this.wrappedField = ref' turns out null, need catch up.
     expect(wrapper.getNode().getWrappedField()).toBe(null);
   });
 
-  // branch hack
+  // HACK: branch
   it('Field will return an empty array if isValid return false and _validationError is false value', () => {
     let wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} />, { context });
     expect(wrapper.state('_validationError').length).toBe(0);
@@ -195,7 +195,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().fields[1].state._validationError).toBe(321);
   });
 
-  it('CreatedForm will revalidate when names of fields change, and it can reset, while reset will revalidate, too', () => {
+  it('CreatedForm will revalidate when names of fields change, and it has reset method which will be excuted with another revalidate', () => {
     class FormForTest extends React.Component {
       static propTypes = {
         fieldName: React.PropTypes.string.isRequired
@@ -233,7 +233,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('isFormValid')).toBe(true);
   });
 
-  it('CreatedForm have isValid and getFieldError functions', () => {
+  it('CreatedForm have isValid and getFieldError methods', () => {
     class FormForTest extends React.Component {
       static propTypes = {
         fieldName: React.PropTypes.string.isRequired
@@ -261,6 +261,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().getFieldError('bar')).toBe('不能为空');
   });
 
+  // NOTE: need catch up.
   it('CreatedForm have an unused function "isValidValue"', () => {
     class FormForTest extends React.Component {
       static propTypes = {
@@ -287,8 +288,8 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().isValidValue(wrapper.find(Field).getNode(), '非空')).toBe(true);
   });
 
-  // each of them has an unreachable else branch
   it('CreatedForm have attach and detach methods', () => {
+    // NOTE: each of them has an unreachable else branch
     class FormForTest extends React.Component {
       static propTypes = {
         foo: React.PropTypes.bool.isRequired,
@@ -320,7 +321,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.find('.bar-div').length).toBe(1);
   });
 
-  it('CreatedForm have a validation system with Field', () => {
+  it('CreatedForm have a complicate validation system with Field', () => {
     class FormForThrow extends React.Component {
       render() {
         return (
