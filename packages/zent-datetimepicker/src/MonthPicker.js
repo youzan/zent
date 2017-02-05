@@ -115,6 +115,7 @@ class MonthPicker extends Component {
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? placeholder : state.value}
+            <span className="zenticon zenticon-calendar-o"></span>
           </div>
           {state.openPanel ? monthPicker : ''}
         </div>

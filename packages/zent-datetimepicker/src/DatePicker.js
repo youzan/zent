@@ -53,7 +53,7 @@ class DatePicker extends Component {
         });
       } else {
         let showPlaceholder = true;
-        let actived = new Date;
+        let actived = new Date();
 
         this.setState({
           value: '',
@@ -117,7 +117,8 @@ class DatePicker extends Component {
     const { selected, activedTime } = this.state;
     if (!selected) return;
     if (this.props.showTime) {
-      const tmp = new Date(selected.getFullYear(),
+      const tmp = new Date(
+        selected.getFullYear(),
         selected.getMonth(),
         selected.getDate(),
         activedTime.getHours(),
@@ -174,13 +175,13 @@ class DatePicker extends Component {
             disabledDate={this.isDisabled}
             onSelect={this.onSelectDate}
             onChange={this.onChangeDate}
-            />
+          />
           <PanelFooter
             linkText="今天"
             linkCls={linkCls}
             onClickLink={() => this.onSelectDate(CURRENT_DAY)}
             onClickButton={this.onConfirm}
-            />
+          />
         </div>
       );
     }
@@ -189,6 +190,7 @@ class DatePicker extends Component {
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? props.placeholder : state.value}
+            <span className="zenticon zenticon-calendar-o"></span>
           </div>
           {state.openPanel ? datePicker : ''}
         </div>

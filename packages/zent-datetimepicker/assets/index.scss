@@ -37,6 +37,11 @@ $double-default-width: 480px;
             color: $disable_input_text_color;
             cursor: not-allowed;
         }
+        .zenticon {
+          position: absolute;
+          right: 10px;
+          top: 0;
+        }
     }
     .date-picker,
     .month-picker,
