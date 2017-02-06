@@ -117,6 +117,7 @@ export default {
     let locale = options.locale || 'zh';
 
     // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+    // eslint-disable-next-line
     if (arguments.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
       mask = date;
       date = undefined;
