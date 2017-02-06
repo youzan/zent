@@ -29,10 +29,7 @@ const toggleSlide = (el, isClose) => {
     el.style.height = 0;
   }
   const maxDelay = 300;
-
-  // hack for unit test
   const height = el.scrollHeight;
-
   const speed = Math.max(height / maxDelay, 0.5); // px/ms
   let sum = 0;
 
