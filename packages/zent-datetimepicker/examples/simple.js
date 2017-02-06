@@ -15,7 +15,8 @@ export default class Simple extends Component {
     super(props);
     this.state = {
       logs: [],
-      value: '2017.01.01'
+      value: '2017.01.01',
+      range: ['2017.01.01', '2017.06.01']
     };
   }
   isDisabledDate(val) {
@@ -110,7 +111,7 @@ export default class Simple extends Component {
           onChange={this.onChangeTime}
           />
         <br /><br />
-        <RangePicker />
+        <RangePicker disabledDate={this.state.range} />
         <ul>
           {logList}
         </ul>

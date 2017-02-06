@@ -88,59 +88,6 @@ const getFlags = (date, utc, locale) => {
   };
   return flags;
 };
-
-function dateFnFactory(type) {
-  return function (...args) {
-    let date = args.date;
-    let mask = args.mask;
-    let options = args.options || {};
-    let utc = options.utc || false;
-    let locale = options.locale || 'zh';
-
-    // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-    if (args.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
-      mask = date;
-      date = undefined;
-    }
-
-    mask = dateMasks[mask] || mask || dateMasks.default;
-    if (type === 'parse') {
-      if (typeof date === 'number') return new Date(date);
-      if (date instanceof Date) return date;
-      let arr = [];
-      mask.replace(token, $0 => {
-        arr.push($0);
-      });
-      let regArr = arr.map(item => {
-        return `(\\d{${item.length}})`;
-      });
-      let regStr = regArr.join('[^\\d]?');
-      let dateArr = String(date).match(new RegExp(regStr));
-      if (!dateArr || dateArr.length !== arr.length + 1) {
-        return;
-      }
-      dateArr = dateArr.splice(1);
-
-      return new Date(...dateArr);
-    }
-    // Passing date through Date applies Date.parse, if necessary
-    date = date ? new Date(date) : new Date();
-    if (isNaN(date)) throw new SyntaxError('invalid date');
-
-    // Allow setting the utc argument via the mask
-    if (mask.slice(0, 4) === 'UTC:') {
-      mask = mask.slice(4);
-      utc = true;
-    }
-    const flags = getFlags(date, utc, locale);
-
-    if (type === 'format') {
-      return mask.replace(token, ($0) => {
-        return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
-      });
-    }
-  };
-}
 export default {
   /**
    * 时间格式化
@@ -164,7 +111,63 @@ export default {
    * o: 时区offset: +0800
    * S: 英语中的序数：st, nd, rd或th，一般和d一起使用
    */
-  format: dateFnFactory('format'),
+  format(date, mask, options) {
+    options = options || {};
+    let utc = options.utc || false;
+    let locale = options.locale || 'zh';
 
-  parse: dateFnFactory('parse')
+    // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+    // eslint-disable-next-line
+    if (arguments.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
+      mask = date;
+      date = undefined;
+    }
+
+    mask = dateMasks[mask] || mask || dateMasks.default;
+
+    // Passing date through Date applies Date.parse, if necessary
+    date = date ? new Date(date) : new Date();
+    if (isNaN(date)) throw new SyntaxError('invalid date');
+
+    // Allow setting the utc argument via the mask
+    if (mask.slice(0, 4) === 'UTC:') {
+      mask = mask.slice(4);
+      utc = true;
+    }
+    const flags = getFlags(date, utc, locale);
+    return mask.replace(token, ($0) => {
+      return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
+    });
+  },
+
+  parse(...args) {
+    let date = args.date;
+    let mask = args.mask;
+
+    // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+    if (args.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
+      mask = date;
+      date = undefined;
+    }
+
+    mask = dateMasks[mask] || mask || dateMasks.default;
+
+    if (typeof date === 'number') return new Date(date);
+    if (date instanceof Date) return date;
+    let arr = [];
+    mask.replace(token, $0 => {
+      arr.push($0);
+    });
+    let regArr = arr.map(item => {
+      return `(\\d{${item.length}})`;
+    });
+    let regStr = regArr.join('[^\\d]?');
+    let dateArr = String(date).match(new RegExp(regStr));
+    if (!dateArr || dateArr.length !== arr.length + 1) {
+      return;
+    }
+    dateArr = dateArr.splice(1);
+
+    return new Date(...dateArr);
+  }
 };

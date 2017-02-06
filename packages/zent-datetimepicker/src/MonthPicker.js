@@ -4,7 +4,7 @@ import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
 import { format } from './utils/format';
-import clickOutSide from './utils/clickOutside';
+import clickOutside from './utils/clickOutside';
 import { MONTH_PROPS } from './constants/';
 
 class MonthPicker extends Component {
@@ -45,7 +45,7 @@ class MonthPicker extends Component {
     }
   }
 
-  clickOutSide = e => {
+  clickOutside = e => {
     if (!this.picker.contains(e.target)) {
       this.setState({
         openPanel: false
@@ -115,6 +115,7 @@ class MonthPicker extends Component {
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? placeholder : state.value}
+            <span className="zenticon zenticon-calendar-o"></span>
           </div>
           {state.openPanel ? monthPicker : ''}
         </div>
@@ -123,4 +124,4 @@ class MonthPicker extends Component {
   }
 }
 
-export default clickOutSide(MonthPicker);
+export default clickOutside(MonthPicker);

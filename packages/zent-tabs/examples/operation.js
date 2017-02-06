@@ -15,32 +15,31 @@ let uniqId = 4;
 
 const Simple = React.createClass({
   getInitialState() {
-    let self = this;
     return {
       align: 'left',
       size: 'normal',
       type: 'normal',
       candel: true,
       canadd: true,
-      onTabChange(id) {
-        self.setState({
+      onTabChange: ((id) => {
+        this.setState({
           activeId: id
         });
-      },
-      onTabAdd() {
-        let { panels } = self.state;
+      }),
+      onTabAdd: (() => {
+        let { panels } = this.state;
         panels.push({
           tab: `选项${uniqId}`,
           id: `${uniqId++}`,
           disabled: false,
           content: Date.now()
         });
-        self.setState({
+        this.setState({
           panels
         });
-      },
-      onTabDel(id) {
-        let { panels } = self.state;
+      }),
+      onTabDel: ((id) => {
+        let { panels } = this.state;
         let index = -1;
         panels.some((p, i) => {
           if (p.id === id) {
@@ -51,25 +50,25 @@ const Simple = React.createClass({
         });
         if (index > -1) {
           panels.splice(index, 1);
-          self.setState({
+          this.setState({
             panels
           });
         }
-      },
+      }),
       activeId: '2',
       panels: [{
         tab: '选项一',
         id: '1',
         disabled: true,
-        content: '选项一，呦呦'
+        content: '选项一的内容'
       }, {
         tab: '选项二',
         id: '2',
-        content: <div>哈哈哈</div>
+        content: <div>选项二的内容</div>
       }, {
         tab: '选项三',
         id: '3',
-        content: '从前有棵树'
+        content: '选项三的内容'
       }]
     };
   },
