@@ -56,3 +56,11 @@ export const goYears = (val, diff) => {
 export const padLeft = (val) => {
   return val < 10 ? `0${val}` : val;
 };
+
+export const isArray = (val) => {
+  return Array.isArray(val);
+};
+
+export const isFunction = (val) => {
+  return Object.prototype.toString.call(val) === '[object Function]';
+};

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { goMonths } from './utils';
-import { format } from './utils/format';
-import clickOutSide from './utils/clickOutside';
-import PanelFooter from './common/PanelFooter';
 import DatePanel from './date/DatePanel';
+import PanelFooter from './common/PanelFooter';
+import { goMonths, isFunction, isArray } from './utils';
+import { format, parse } from './utils/format';
+import clickOutside from './utils/clickOutside';
 import { RANGE_PROPS, TIME_PROPS } from './constants';
 
 class RangePicker extends Component {
@@ -16,7 +16,7 @@ class RangePicker extends Component {
     let actived = [];
     if (props.value) {
       showPlaceholder = false;
-      const tmp = [new Date(props.value[0]), new Date(props.value[1])];
+      const tmp = [parse(props.value[0], props.format), parse(props.value[1], props.format)];
       selected = tmp.slice();
       actived = tmp.slice();
     } else {
@@ -34,6 +34,7 @@ class RangePicker extends Component {
       showPlaceholder
     };
   }
+
   componentWillReceiveProps(next) {
     if (next.value) {
       let showPlaceholder = false;
@@ -56,13 +57,15 @@ class RangePicker extends Component {
       });
     }
   }
-  clickOutSide = e => {
+
+  clickOutside = e => {
     if (!this.picker.contains(e.target)) {
       this.setState({
         openPanel: false
       });
     }
   }
+
   onHover = (val) => {
     const { selected, range } = this.state;
     const scp = selected.slice();
@@ -79,6 +82,7 @@ class RangePicker extends Component {
       });
     }
   }
+
   onSelect = (val) => {
     const { selected, actived, range } = this.state;
     const scp = selected.slice();
@@ -105,6 +109,20 @@ class RangePicker extends Component {
       range: rcp
     });
   }
+
+  isDisabled = (val) => {
+    const props = this.props;
+    if (props.disabledDate) {
+      if (isFunction(props.disabledDate)) {
+        return props.disabledDate(val);
+      }
+      if (isArray(props.disabledDate)) {
+        return !(val > new Date(props.disabledDate[0]) && val < new Date(props.disabledDate[1]));
+      }
+    }
+    return false;
+  }
+
   onChangeDate = (val, i) => {
     const acp = this.state.actived.slice();
     acp.splice(i, 1, val);
@@ -112,12 +130,15 @@ class RangePicker extends Component {
       actived: acp
     });
   }
+
   onChangeStart = (val) => {
     this.onChangeDate(val, 0);
   }
+
   onChangeEnd = (val) => {
     this.onChangeDate(val, 1);
   }
+
   onChangeTime = (val, i) => {
     const { activedTime } = this.state;
     const tcp = activedTime.slice();
@@ -126,17 +147,21 @@ class RangePicker extends Component {
       activedTime: tcp
     });
   }
+
   onChangeStartTime = (val) => {
     this.onChangeTime(val, 0);
   }
+
   onChangeEndTime = (val) => {
     this.onChangeTime(val, 1);
   }
+
   onClickInput = () => {
     this.setState({
       openPanel: !this.state.openPanel
     });
   }
+
   onConfirm = () => {
     const { value, selected } = this.state;
     const props = this.props;
@@ -151,6 +176,7 @@ class RangePicker extends Component {
       openPanel: false
     });
   }
+
   render() {
     const state = this.state;
     const props = this.props;
@@ -183,11 +209,11 @@ class RangePicker extends Component {
               showTime={showTime}
               actived={state.actived[0]}
               selected={state.selected}
-              disabledDate={props.disabledDate}
+              disabledDate={this.isDisabled}
               onSelect={this.onSelect}
               onChange={this.onChangeStart}
               onHover={this.onHover}
-              />
+            />
           </div>
           <div className="date-picker">
             <DatePanel
@@ -195,15 +221,15 @@ class RangePicker extends Component {
               showTime={showTime}
               actived={state.actived[1]}
               selected={state.selected}
-              disabledDate={props.disabledDate}
+              disabledDate={this.isDisabled}
               onSelect={this.onSelect}
               onChange={this.onChangeEnd}
               onHover={this.onHover}
-              />
+            />
           </div>
           <PanelFooter
             onClickButton={this.onConfirm}
-            />
+          />
         </div>
       );
     }
@@ -213,6 +239,7 @@ class RangePicker extends Component {
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? props.placeholder.join(' ~ ') : state.value.join(' ~ ')}
+            <span className="zenticon zenticon-calendar-o"></span>
           </div>
           {state.openPanel ? rangePicker : ''}
         </div>
@@ -221,4 +248,4 @@ class RangePicker extends Component {
   }
 }
 
-export default clickOutSide(RangePicker);
+export default clickOutside(RangePicker);

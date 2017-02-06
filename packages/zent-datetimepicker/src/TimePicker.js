@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
 import { format } from './utils/format';
-import clickOutSide from './utils/clickOutside';
+import clickOutside from './utils/clickOutside';
 import { TIME_PROPS } from './constants/';
 
 class TimePicker extends Component {
@@ -29,7 +29,7 @@ class TimePicker extends Component {
     };
   }
 
-  clickOutSide = e => {
+  clickOutside = e => {
     if (!this.picker.contains(e.target)) {
       this.setState({
         openPanel: false
@@ -105,4 +105,4 @@ class TimePicker extends Component {
   }
 }
 
-export default clickOutSide(TimePicker);
+export default clickOutside(TimePicker);

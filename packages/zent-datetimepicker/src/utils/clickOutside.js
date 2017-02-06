@@ -8,11 +8,11 @@ const clickOutside = ComposedComponent => class extends Component {
     };
   }
   componentDidMount() {
-    document.addEventListener('click', this.picker.clickOutSide, true);
+    document.addEventListener('click', this.picker.clickOutside, true);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.picker.clickOutSide, true);
+    document.removeEventListener('click', this.picker.clickOutside, true);
   }
 
   render() {
