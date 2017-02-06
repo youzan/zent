@@ -13,10 +13,10 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
   top: 50%;
   transform: translate(-50%, -50%);
   transition: top 0.5s;
+  margin: auto;
   background-color: $whitecolor;
   border-radius: 4px;
   padding: 20px;
-  width: 450px;
   box-sizing: border-box;
   font-size: 14px;
   z-index: 1041;
@@ -69,6 +69,8 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
 
 .zent-dialog-r-body {
   color: $darkgraycolor;
+  word-wrap: break-word;
+  word-break: normal;
   &.with-success-icon,
   &.with-warning-icon {
     padding-left: 30px;
