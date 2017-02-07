@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent",
-  "version": "0.3.21",
+  "version": "0.3.22",
   "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
   "repository": {
     "type": "git",
@@ -53,7 +53,7 @@
     "@youzan/zent-breadcrumb": "^0.1.10",
     "@youzan/zent-button": "^0.1.16",
     "@youzan/zent-checkbox": "^0.1.13",
-    "@youzan/zent-datetimepicker": "^0.0.32",
+    "@youzan/zent-datetimepicker": "^0.0.33",
     "@youzan/zent-dialog": "^0.1.23",
     "@youzan/zent-form": "^0.1.12",
     "@youzan/zent-icon": "^0.1.10",
