@@ -175,6 +175,7 @@ class RangePicker extends Component {
       showPlaceholder: false,
       openPanel: false
     });
+    this.props.onChange(vcp);
   }
 
   render() {

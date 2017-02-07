@@ -61,6 +61,11 @@ export default class Simple extends Component {
       logs: [...this.state.logs, `选择时间 ${val}`]
     });
   }
+  onChangeRange = (val) => {
+    this.setState({
+      logs: [...this.state.logs, `选择时间段 ${val.join('~')}`]
+    });
+  }
   reset = () => {
     this.setState({
       value: ''
@@ -80,7 +85,7 @@ export default class Simple extends Component {
           disabledTime={this.isDisabledTime}
           disabled
           onChange={this.onChangeDate}
-          />
+        />
         <br /><br />
         <DatePicker
           format="yyyy-mm-dd"
@@ -89,7 +94,7 @@ export default class Simple extends Component {
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
           value={this.state.value}
-          />
+        />
         <button type="button" onClick={this.reset}>reset</button>
         <br /><br />
         <DatePicker
@@ -99,19 +104,19 @@ export default class Simple extends Component {
           disabledDate={this.isDisabledDate}
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
-          />
+        />
         <br /><br />
         <TimePicker
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeTime}
           format="HH:MM"
-          />
+        />
         <br /><br />
         <MonthPicker
           onChange={this.onChangeTime}
-          />
+        />
         <br /><br />
-        <RangePicker disabledDate={this.state.range} />
+        <RangePicker disabledDate={this.state.range} onChange={this.onChangeRange} />
         <ul>
           {logList}
         </ul>
