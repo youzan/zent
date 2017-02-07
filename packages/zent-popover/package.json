@@ -1,0 +1,32 @@
+{
+  "name": "@youzan/zent-popover",
+  "version": "0.0.1",
+  "description": "可扩展的弹层组件",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "lichen",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "dependencies": {
+    "@youzan/zent-portal": "*",
+    "lodash": "4.17.x",
+    "classnames": "2.2.x"
+  },
+  "devDependencies": {
+    "@youzan/zent-dialog": "*"
+  },
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  }
+}

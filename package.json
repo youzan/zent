@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
   "scripts": {
-    "lint": "eslint packages/*/src packages/*/examples",
     "test": "./scripts/run-tests.sh",
-    "eslint-fix": "eslint packages/*/src packages/*/examples --fix"
+    "lint": "eslint utils/* packages/*/src packages/*/examples",
+    "eslint-fix": "eslint utils/* packages/*/src packages/*/examples --fix"
   },
   "private": true,
   "repository": {
