@@ -7,7 +7,7 @@ import { format, parse } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { RANGE_PROPS, TIME_PROPS } from './constants';
 
-class RangePicker extends Component {
+class DateRangePicker extends Component {
   static defaultProps = RANGE_PROPS
   constructor(props) {
     super(props);
@@ -175,6 +175,7 @@ class RangePicker extends Component {
       showPlaceholder: false,
       openPanel: false
     });
+    this.props.onChange(vcp);
   }
 
   render() {
@@ -248,4 +249,4 @@ class RangePicker extends Component {
   }
 }
 
-export default clickOutside(RangePicker);
+export default clickOutside(DateRangePicker);

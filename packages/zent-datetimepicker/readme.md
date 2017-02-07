@@ -47,3 +47,12 @@ zent-datetimepicker, React 时间选择组件，目前提供最简单的 Date �
 | format | 返回日期字符串格式 | string | 'yyyy-mm-dd' | '' | 否 |
 | showTime | 是否显示时间筛选以及 TimePicker 配置 | boolean/object | TimePicker 默认配置 | '' | 否 |
 | disabled | 是否处于disabled 状态 | boolean | false | '' | 否 |
+
+### RangePicker
+| 参数 | 说明 | 类型 | 默认值 | 备选值 | 是否必须 |
+| className | 额外的 css 类 | string | '' | '' | 否 |
+| prefix | 自定义前缀 | string | 'zent' | '' | 否 |
+| value | 默认选择日期 | array  | [] | '' | 否 |
+| disabledDate | 判断日期是否可选函数 | func | noop | null | 否 |
+| onChange | 确认日期回调函数 | func | noop | null | 是 | 
+| format | 返回日期字符串格式 | string | 'yyyy-mm-dd' | '' | 否 |
