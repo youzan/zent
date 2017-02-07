@@ -25,16 +25,21 @@ const Simple = React.createClass({
         tab: '选项一',
         id: '1',
         disabled: true,
-        content: '选项一，呦呦'
+        content: '选项二'
       }, {
         tab: '选项二',
         id: '2',
-        content: <div>哈哈哈</div>
+        content: <div>选项一的内容</div>
       }, {
         tab: '选项三',
         id: '3',
-        content: '从前有棵树'
-      }]
+        content: '选项三的内容'
+      }],
+      onTabChange: ((id) => {
+        this.setState({
+          activeId: id
+        });
+      })
     };
   },
 

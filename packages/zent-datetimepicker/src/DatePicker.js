@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY } from './utils';
-import { format } from './utils/format';
-import clickOutSide from './utils/clickOutside';
+import { format, parse } from './utils/format';
+import clickOutside from './utils/clickOutside';
 import { DATE_PROPS, TIME_PROPS } from './constants/';
 
 class DatePicker extends Component {
@@ -16,8 +16,14 @@ class DatePicker extends Component {
     let selected;
     let actived;
     if (props.value) {
-      showPlaceholder = false;
-      actived = selected = new Date(props.value);
+      let tmpDate = parse(props.value, props.format);
+      if (!tmpDate) {
+        showPlaceholder = true;
+        actived = new Date();
+      } else {
+        showPlaceholder = false;
+        actived = selected = tmpDate;
+      }
     } else {
       showPlaceholder = true;
       actived = new Date();
@@ -47,7 +53,7 @@ class DatePicker extends Component {
         });
       } else {
         let showPlaceholder = true;
-        let actived = new Date;
+        let actived = new Date();
 
         this.setState({
           value: '',
@@ -61,7 +67,7 @@ class DatePicker extends Component {
     }
   }
 
-  clickOutSide = e => {
+  clickOutside = e => {
     if (!this.picker.contains(e.target)) {
       this.setState({
         openPanel: false
@@ -111,14 +117,14 @@ class DatePicker extends Component {
     const { selected, activedTime } = this.state;
     if (!selected) return;
     if (this.props.showTime) {
-      const tmp = new Date(`
-        ${selected.getFullYear()}-
-        ${selected.getMonth() + 1}-
-        ${selected.getDate()}
-        ${activedTime.getHours()}:
-        ${activedTime.getMinutes()}:
-        ${activedTime.getSeconds()}
-      `);
+      const tmp = new Date(
+        selected.getFullYear(),
+        selected.getMonth(),
+        selected.getDate(),
+        activedTime.getHours(),
+        activedTime.getMinutes(),
+        activedTime.getSeconds()
+      );
       value = format(tmp, this.props.format);
     } else {
       value = format(selected, this.props.format);
@@ -169,13 +175,13 @@ class DatePicker extends Component {
             disabledDate={this.isDisabled}
             onSelect={this.onSelectDate}
             onChange={this.onChangeDate}
-            />
+          />
           <PanelFooter
             linkText="今天"
             linkCls={linkCls}
             onClickLink={() => this.onSelectDate(CURRENT_DAY)}
             onClickButton={this.onConfirm}
-            />
+          />
         </div>
       );
     }
@@ -184,6 +190,7 @@ class DatePicker extends Component {
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? props.placeholder : state.value}
+            <span className="zenticon zenticon-calendar-o"></span>
           </div>
           {state.openPanel ? datePicker : ''}
         </div>
@@ -192,4 +199,4 @@ class DatePicker extends Component {
   }
 }
 
-export default clickOutSide(DatePicker);
+export default clickOutside(DatePicker);

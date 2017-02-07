@@ -38,14 +38,20 @@ export default class Dialog extends Component {
   };
 
   render() {
-    const { visible, prefix, closeBtn } = this.props;
+    const { visible, prefix, closeBtn, style } = this.props;
+
+    // load default max/min-width value when width is not specified in style prop
+    const elStyle = {
+      ...style.width ? {} : { minWidth: '450px', maxWidth: '75%' },
+      ...style
+    };
 
     // 有关闭按钮的时候同时具有ESC关闭的行为
     const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
 
     return (
       <PortalComponent visible={visible} onClose={this.onClose} className={`${prefix}-dialog-r-anchor`}>
-        <DialogEl {...this.props} onClose={this.onClose}>
+        <DialogEl {...this.props} onClose={this.onClose} style={elStyle}>
           {this.props.children}
         </DialogEl>
       </PortalComponent>

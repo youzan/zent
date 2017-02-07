@@ -44,6 +44,12 @@
 | prefix | 自定义前缀 | string | 'zent' |  |
 | style | 自定义样式 | object | {} |  |
 
+### 指定Dialog宽度
+
+在`style`中可以指定宽度，e.g. `style={{ width: '600px' }}`。
+
+默认行为是自适应内容的宽度，同时有最小宽度和最大宽度。
+
 
 [version-image]: http://npm.qima-inc.com/badge/v/@youzan/zent-dialog.svg?style=flat-square
 [download-image]: http://npm.qima-inc.com/badge/d/@youzan/zent-dialog.svg?style=flat-square

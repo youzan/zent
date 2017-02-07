@@ -17,7 +17,8 @@ export default class OpenDemo extends Component {
       footer: <button className="zent-btn zent-btn-primary" onClick={() => closeDialog()}>关闭</button>,
       onClose() {
         console.log('outer dialog closed'); // eslint-disable-line
-      }
+      },
+      style: { width: '500px' }
     });
   };
 
@@ -39,7 +40,8 @@ export default class OpenDemo extends Component {
         } else {
           console.log('inner ref changed to invalid'); // eslint-disable-line
         }
-      }
+      },
+      style: { width: '300px' }
     });
   };
 
