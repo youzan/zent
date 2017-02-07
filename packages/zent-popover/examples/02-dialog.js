@@ -7,8 +7,8 @@ import '@youzan/zent-dialog/lib/index.css';
 import '../assets/index.scss';
 import '../assets/01-simple.scss';
 
-/**
- * Popover在其他弹层中时位置是对的。
+/*
+ Popover在其他弹层中时位置是对的。
  */
 export default class DialogDemo extends Component {
   state = {
