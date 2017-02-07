@@ -2,7 +2,7 @@ import Alert from '@youzan/zent-alert';
 import Breadcrumb from '@youzan/zent-breadcrumb';
 import Button from '@youzan/zent-button';
 import Checkbox from '@youzan/zent-checkbox';
-import { MonthPicker, DatePicker, TimePicker } from '@youzan/zent-datetimepicker';
+import { MonthPicker, DatePicker, TimePicker, DateRangePicker } from '@youzan/zent-datetimepicker';
 import Dialog from '@youzan/zent-dialog';
 import Form from '@youzan/zent-form';
 import Layout from '@youzan/zent-layout';
@@ -28,6 +28,7 @@ const Zent = {
   Button,
   Checkbox,
   DatePicker,
+  DateRangePicker,
   Dialog,
   Form,
   Layout,
