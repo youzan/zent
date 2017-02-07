@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DatePicker, TimePicker, MonthPicker, RangePicker } from '../src';
+import { DatePicker, TimePicker, MonthPicker, DateRangePicker } from '../src';
 import '../assets/reset.scss';
 import '../assets/index.scss';
 import '@youzan/zent-icon/lib/index.css';
@@ -116,7 +116,7 @@ export default class Simple extends Component {
           onChange={this.onChangeTime}
         />
         <br /><br />
-        <RangePicker disabledDate={this.state.range} onChange={this.onChangeRange} />
+        <DateRangePicker disabledDate={this.state.range} onChange={this.onChangeRange} />
         <ul>
           {logList}
         </ul>
