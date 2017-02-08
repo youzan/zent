@@ -242,8 +242,7 @@ export default class PopoverHoverTrigger extends Trigger {
         callHook(enterRecognizer, 'local', hookName);
         callHook(leaveRecognizer, 'local', hookName);
 
-        const eventHandler = child.props[evtName];
-        eventHandler && eventHandler(evt);
+        this.triggerEvent(child, evtName, evt);
       };
 
       return events;

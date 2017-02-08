@@ -23,6 +23,12 @@ export default class PopoverTrigger extends Component {
     return {};
   }
 
+  // helper to trigger event on child
+  triggerEvent(element, eventName, event) {
+    const handler = element[eventName];
+    if (handler) handler(event);
+  }
+
   validateChildren() {
     const child = Children.only(this.props.children);
 

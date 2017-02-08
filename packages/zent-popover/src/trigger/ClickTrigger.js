@@ -36,12 +36,10 @@ export default class PopoverClickTrigger extends Trigger {
   };
 
   getTriggerProps(child) {
-    const { onClick } = child.props;
-
     return {
       onClick: evt => {
         this.props.open();
-        onClick && onClick(evt);
+        this.triggerEvent(child, 'onClick', evt);
       }
     };
   }

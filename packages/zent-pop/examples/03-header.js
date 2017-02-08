@@ -1,4 +1,7 @@
 import React from 'react';
+
+import Button from '@youzan/zent-button';
+
 import Pop from '../src/index.js';
 
 import '@youzan/zent-popover/assets/index.scss';
@@ -11,8 +14,7 @@ import '../assets/example.scss';
 const content = function () {
   return (
     <div style={{ width: 160 }}>
-      <p>我在测试</p>
-      <p>我在测试</p>
+      <div>Pop内容</div>
     </div>
   );
 };
@@ -29,15 +31,13 @@ const Single = function (props) {
     >
       <Pop
         content={content()}
-        trigger="hover"
+        trigger="click"
         position={props.position}
         header={props.header}
       >
-        <button
-          className="zent-btn zent-btn-default"
-        >
+        <Button block>
           {props.header ? '带头部' : 'Normal'}
-        </button>
+        </Button>
       </Pop>
     </div>
   );
@@ -49,18 +49,6 @@ const Demo = function () {
       <div className="row">
         <Single position="top-center" />
         <Single header={header()} position="top-center" />
-      </div>
-      <div className="row">
-        <Single position="right-center" />
-        <Single header={header()} position="right-center" />
-      </div>
-      <div className="row">
-        <Single position="bottom-center" />
-        <Single header={header()} position="bottom-center" />
-      </div>
-      <div className="row">
-        <Single position="left-center" />
-        <Single header={header()} position="left-center" />
       </div>
     </div>
   );

@@ -2,17 +2,15 @@ import Trigger from './Trigger';
 
 export default class FocusTrigger extends Trigger {
   getTriggerProps(child) {
-    const { onFocus, onBlur } = child.props;
-
     return {
       onFocus: evt => {
         this.props.open();
-        onFocus && onFocus(evt);
+        this.triggerEvent(child, 'onFocus', evt);
       },
 
       onBlur: evt => {
         this.props.close();
-        onBlur && onBlur(evt);
+        this.triggerEvent(child, 'onBlur', evt);
       }
     };
   }

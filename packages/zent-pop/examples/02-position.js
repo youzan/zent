@@ -1,4 +1,7 @@
 import React from 'react';
+
+import Button from '@youzan/zent-button';
+
 import Pop from '../src';
 
 import '@youzan/zent-popover/assets/index.scss';
@@ -27,14 +30,10 @@ const Single = function (props) {
     >
       <Pop
         content={content()}
-        trigger="click"
+        trigger="hover"
         position={props.type}
       >
-        <button
-          className="zent-btn zent-btn-default"
-        >
-          {props.type}
-        </button>
+        <Button block>{props.type}</Button>
       </Pop>
     </div>
   );
