@@ -1,4 +1,5 @@
 import React from 'react';
+import helper from '../helper';
 import Checkbox from '@youzan/zent-checkbox';
 
 const Td = React.createClass({
@@ -44,6 +45,7 @@ const Td = React.createClass({
 
     let { needSelect, canSelect } = selection;
     let self = this;
+    let width = helper.getCalculatedWidth(column.width);
 
     if (needSelect) {
       className += ' cell--selection';
@@ -54,7 +56,7 @@ const Td = React.createClass({
     }
 
     return (
-      <td className={className}>
+      <div className={className} style={{ flexBasis: width }}>
         {
           needSelect && (
             <Checkbox
@@ -66,7 +68,7 @@ const Td = React.createClass({
           )
         }
         {this.renderContent()}
-      </td>
+      </div>
     );
   }
 });

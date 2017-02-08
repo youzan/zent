@@ -29,13 +29,11 @@
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
 | children | 必填参数，只支持一个child | string | | |
-| selector | 可选参数，渲染child的DOM节点 | string|DOM Element | `'body'` | 合法的CSS selector或者某个DOM节点 |
+| selector | 可选参数，渲染child的DOM节点 | string or DOM Element | `'body'` | 合法的CSS selector或者某个DOM节点 |
 | visible | 可选参数，是否渲染child | bool | `true` | `true`, `false` |
 | className | 可选参数，自定义额外类名 | string | `''` | `''` |
+| css | 可选参数，额外的css样式。例如，`{ 'margin-left': '10px' }` | object | `{}` | | |
 | prefix | 可选参数，自定义前缀 | string | `'zent'` | | |
-
-*注意:* 不支持在portal上设置内联样式，实现要么依赖`React`内部API，要么代价太大。如果真有这个
-需求，我们还是可以做的。
 
 ## withESCToClose
 
