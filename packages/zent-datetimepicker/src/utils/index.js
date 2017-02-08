@@ -5,20 +5,20 @@ export const CURRENT_MONTH = CURRENT.getMonth();
 export const CURRENT_DATE = CURRENT.getDate();
 export const ONEDAY = 24 * 60 * 60 * 1000;
 
-const padMonth = (month) => {
-  return month < 10 ? `0${month}` : month;
+export const padLeft = (val) => {
+  return val < 10 ? `0${val}` : val;
 };
 
 export const getMonthStr = (val) => {
-  return `${val.getFullYear()}-${padMonth(val.getMonth() + 1)}`;
+  return `${val.getFullYear()}-${padLeft(val.getMonth() + 1)}`;
 };
 
 export const getDateStr = (val) => {
-  return `${val.getFullYear()}-${padMonth(val.getMonth() + 1)}-${val.getDate()}`;
+  return `${val.getFullYear()}-${padLeft(val.getMonth() + 1)}-${val.getDate()}`;
 };
 
-export const isCurrentDate = (val) => {
-  return val.getFullYear() === CURRENT_YEAR && val.getMonth() === CURRENT_MONTH && val.getDate() === CURRENT_DATE;
+export const isSameDate = (val, cmp) => {
+  return val.getFullYear() === cmp.getFullYear() && val.getMonth() === cmp.getMonth() && val.getDate() === cmp.getDate();
 };
 
 export const isCurrentMonth = (val) => {
@@ -51,10 +51,6 @@ export const goMonths = (val, diff) => {
 export const goYears = (val, diff) => {
   const cp = new Date(val);
   return new Date(cp.setFullYear(cp.getFullYear() + diff));
-};
-
-export const padLeft = (val) => {
-  return val < 10 ? `0${val}` : val;
 };
 
 export const isArray = (val) => {

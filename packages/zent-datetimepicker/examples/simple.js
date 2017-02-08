@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import { DatePicker, TimePicker, MonthPicker, DateRangePicker } from '../src';
+import { DatePicker, MonthPicker, DateRangePicker } from '../src';
 import '../assets/reset.scss';
 import '../assets/index.scss';
 import '@youzan/zent-icon/lib/index.css';
-
-/*
-## Write Something here
-
-You can write guides for users here
-*/
 
 export default class Simple extends Component {
   constructor(props) {
@@ -40,11 +34,6 @@ export default class Simple extends Component {
       disabledSecond
     };
   }
-  getTimeConfig = () => {
-    return {
-      format: 'HH:MM'
-    };
-  }
   onChangeMonth = (val) => {
     this.setState({
       logs: [...this.state.logs, `选择月份 ${val}`]
@@ -54,11 +43,6 @@ export default class Simple extends Component {
     this.setState({
       value: val,
       logs: [...this.state.logs, `选择日期 ${val}`]
-    });
-  }
-  onChangeTime = (val) => {
-    this.setState({
-      logs: [...this.state.logs, `选择时间 ${val}`]
     });
   }
   onChangeRange = (val) => {
@@ -104,12 +88,6 @@ export default class Simple extends Component {
           disabledDate={this.isDisabledDate}
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
-        />
-        <br /><br />
-        <TimePicker
-          disabledTime={this.isDisabledTime}
-          onChange={this.onChangeTime}
-          format="HH:MM"
         />
         <br /><br />
         <MonthPicker

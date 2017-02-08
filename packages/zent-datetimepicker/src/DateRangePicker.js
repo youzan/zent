@@ -183,7 +183,8 @@ class DateRangePicker extends Component {
     const props = this.props;
     const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
-      'picker-input': true,
+      'picker-input--showTime': props.showTime,
+      'picker-input--range picker-input': true,
       'picker-input--empty': state.showPlaceholder
     });
     let showTime;

@@ -140,16 +140,7 @@ export default {
     });
   },
 
-  parse(...args) {
-    let date = args.date;
-    let mask = args.mask;
-
-    // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-    if (args.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
-      mask = date;
-      date = undefined;
-    }
-
+  parse(date, mask) {
     mask = dateMasks[mask] || mask || dateMasks.default;
 
     if (typeof date === 'number') return new Date(date);
