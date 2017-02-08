@@ -7,13 +7,13 @@ const Body = React.createClass({
     let { datasets, columns, emptyLabel, rowKey, selection, getRowConf } = this.props;
 
     return (
-      <tbody>
+      <div className="tbody">
         {datasets.length !== 0 ?
           datasets.map((rowData, rowIndex) => {
             let { canSelect = true, rowClass = '' } = getRowConf(rowData, rowIndex);
 
             return (
-              <tr className={rowClass} key={rowData[rowKey] ? rowData[rowKey] : rowIndex}>
+              <div className={`${rowClass} tr`} key={rowData[rowKey] ? rowData[rowKey] : rowIndex}>
                 {columns.map((item, columnIndex) => {
                   // 位置信息
                   let pos = {
@@ -42,14 +42,14 @@ const Body = React.createClass({
                     />
                   );
                 })}
-              </tr>
+              </div>
             );
           }) : (
-          <tr>
-            <td className="empty-data" colSpan={columns.length}>{emptyLabel}</td>
-          </tr>
+          <div className="tbody">
+            <div className="empty-data" colSpan={columns.length}>{emptyLabel}</div>
+          </div>
         )}
-      </tbody>
+      </div>
     );
   }
 });

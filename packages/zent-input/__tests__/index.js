@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import Input from '../src';
 
 describe('Input', () => {
-  it('render a input in wrapper div without any props', () => {
+  it('will render div wrapper contains an input without any props', () => {
     const wrapper = shallow(<Input />);
     expect(wrapper.type()).toBe('div');
     expect(wrapper.hasClass('zent-input-wrapper')).toBe(true);
@@ -28,7 +28,7 @@ describe('Input', () => {
     expect(wrapper.find('span').at(1).hasClass('foo-input-addon-after')).toBe(true);
   });
 
-  it('load any props to real input element except "className" & "prefix"', () => {
+  it('pass any props to real input element except "className" & "prefix"', () => {
     let wrapper = shallow(<Input defaultValue="not placeholder" min={8} max={11} readOnly type="number" className="foo" />);
     expect(wrapper.find('input').props().className).toBe('zent-input');
     expect(wrapper.find('input').props().prefix).toBe(undefined);
@@ -43,7 +43,7 @@ describe('Input', () => {
     expect(wrapper.find('input').props().disabled).toBe(true);
   });
 
-  it('can insert span aside controlled by prop addon(Before|After)', () => {
+  it('can insert span aside controlled by prop addon(Before|After)(node)', () => {
     const wrapper = shallow(<Input addonAfter="foo" addonBefore="bar" />);
     expect(wrapper.find('div').childAt(0).type()).toBe('span');
     expect(wrapper.find('div').childAt(0).text()).toBe('bar');
@@ -79,5 +79,20 @@ describe('Input', () => {
     expect(onPressEnterMock.mock.calls.length).toBe(2);
     expect(onKeyDownMock.mock.calls.length).toBe(4);
     expect(onKeyUpMock.mock.calls.length).toBe(2);
+  });
+
+  // hack branch
+  it('can load with only the enterPress function', () => {
+    const onPressEnterMock = jest.fn();
+    const wrapper = shallow(<Input onPressEnter={onPressEnterMock} />);
+    expect(typeof wrapper.find('input').props().onKeyDown).toBe('function');
+    wrapper.find('input').simulate('keyDown', { keyCode: 13 });
+    expect(onPressEnterMock.mock.calls.length).toBe(1);
+    wrapper.find('input').simulate('keyDown', { keyCode: 12 });
+    wrapper.find('input').simulate('keyDown', { keyCode: 12 });
+    wrapper.find('input').simulate('keyDown', { keyCode: 13 });
+    wrapper.find('input').simulate('keyUp', { keyCode: 13 });
+    wrapper.find('input').simulate('keyUp', { keyCode: 12 });
+    expect(onPressEnterMock.mock.calls.length).toBe(2);
   });
 });

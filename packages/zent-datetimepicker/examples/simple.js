@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DatePicker, TimePicker, MonthPicker, RangePicker } from '../src';
+import { DatePicker, TimePicker, MonthPicker, DateRangePicker } from '../src';
 import '../assets/reset.scss';
 import '../assets/index.scss';
 import '@youzan/zent-icon/lib/index.css';
@@ -15,7 +15,8 @@ export default class Simple extends Component {
     super(props);
     this.state = {
       logs: [],
-      value: '2017.01.01'
+      value: '2017.01.01',
+      range: ['2017.01.01', '2017.06.01']
     };
   }
   isDisabledDate(val) {
@@ -60,6 +61,11 @@ export default class Simple extends Component {
       logs: [...this.state.logs, `选择时间 ${val}`]
     });
   }
+  onChangeRange = (val) => {
+    this.setState({
+      logs: [...this.state.logs, `选择时间段 ${val.join('~')}`]
+    });
+  }
   reset = () => {
     this.setState({
       value: ''
@@ -79,7 +85,7 @@ export default class Simple extends Component {
           disabledTime={this.isDisabledTime}
           disabled
           onChange={this.onChangeDate}
-          />
+        />
         <br /><br />
         <DatePicker
           format="yyyy-mm-dd"
@@ -88,7 +94,7 @@ export default class Simple extends Component {
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
           value={this.state.value}
-          />
+        />
         <button type="button" onClick={this.reset}>reset</button>
         <br /><br />
         <DatePicker
@@ -98,19 +104,19 @@ export default class Simple extends Component {
           disabledDate={this.isDisabledDate}
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
-          />
+        />
         <br /><br />
         <TimePicker
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeTime}
           format="HH:MM"
-          />
+        />
         <br /><br />
         <MonthPicker
           onChange={this.onChangeTime}
-          />
+        />
         <br /><br />
-        <RangePicker />
+        <DateRangePicker disabledDate={this.state.range} onChange={this.onChangeRange} />
         <ul>
           {logList}
         </ul>

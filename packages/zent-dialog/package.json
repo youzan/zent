@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-dialog",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "基本弹窗组件",
   "main": "./lib/index.js",
   "scripts": {

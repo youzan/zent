@@ -3,7 +3,7 @@ import DatePicker from './DatePicker';
 import MonthPicker from './MonthPicker';
 // import WeekPicker from './WeekPicker'
 import TimePicker from './TimePicker';
-import RangePicker from './RangePicker';
+import DateRangePicker from './DateRangePicker';
 
 export default DatePicker;
 export {
@@ -12,5 +12,5 @@ export {
   MonthPicker,
   // WeekPicker,
   TimePicker,
-  RangePicker
+  DateRangePicker
 };

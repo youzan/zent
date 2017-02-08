@@ -3,51 +3,62 @@ $darkblue: #27f;
 $orange: #f60;
 
 
-a {
-    color: #38f;
-    cursor: pointer;
-    &:hover {
-        color:#27f;
-        cursor:pointer;
-        text-decoration: none;
-    }
-}
-
 .zent-table {
     margin-bottom:20px;
     width:100%;
     border-spacing: 0;
-
-    thead {
-        border-bottom:1px solid #e5e5e5;
-        tr {
-            background: #f2f2f2;
-            border-top: none;
+    a {
+        color: #38f;
+        cursor: pointer;
+        &:hover {
+            color:#27f;
+            cursor:pointer;
+            text-decoration: none;
         }
     }
 
-    tbody {
-        tr {
+    .tr {
+        display: flex;
+        border-bottom:1px solid #DCDCDC;
+        &:last-child {
+            border-bottom:none;
+        }
+    }
+
+    .thead {
+        .tr {
+            border-top: none;
+            border-bottom:1px solid #e5e5e5;
+            background: #f2f2f2;
+        }
+    }
+
+    .tbody {
+        .tr {
             &:hover {
                 background: #f8f8f8;
             }
         }
     }
 
-    tr {
-        border:1px solid #e5e5e5;
-        border-left:none;
-        border-right:none;
-    }
-
-    th,
-    td {
+    .cell {
+        position: relative;
+        display: inline-block;
         text-align: left;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding:10px;
+        padding-left:0;
+        line-height: 30px;
+        font-size:12px;
+
         &:first-child {
             padding-left:10px;
         }
         &:last-child {
             text-align: right;
+            flex-grow: 1;
+            flex-shrink: 1;
         }
 
         .asc,
@@ -80,14 +91,8 @@ a {
         &.cell--money {
             text-align: right
         }
-    }
 
-    .cell {
-        position: relative;
-        padding:10px;
-        padding-left:0;
-        line-height: 30px;
-        font-size:12px;
+
         .select-check {
             position: absolute;
             left:10px;

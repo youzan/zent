@@ -200,14 +200,14 @@ const Table = React.createClass({
       <div className={`${prefix}-table-container`}>
         <Loading show={this.props.loading} static>
           {columns && (
-            <table className={`${prefix}-table ${className}`}>
+            <div className={`${prefix}-table ${className}`}>
               {
                 this.state.placeHolderHeight &&
-                  <thead className="place-holder">
-                    <tr>
+                  <div className="thead place-holder">
+                    <div className="tr">
                       {this.cloneHeaderContent()}
-                    </tr>
-                  </thead>
+                    </div>
+                  </div>
               }
               <Head
                 ref={(c) => this.head = c}
@@ -236,7 +236,7 @@ const Table = React.createClass({
                   onSelect: this.onSelectOneRow
                 }}
               />
-            </table>
+            </div>
           )}
         </Loading>
         {pageInfo && (

@@ -11,6 +11,8 @@ export default class Radio extends Component {
     value: PropTypes.any,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
+
+    // will be rewrite by RadioGroup
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -24,7 +26,9 @@ export default class Radio extends Component {
     onChange() {},
   }
 
-  onChange = (evt) => {
+  // event liftup
+  // link: https://facebook.github.io/react/docs/lifting-state-up.html
+  handleChange = (evt) => {
     const props = this.props;
 
     props.onChange({
@@ -78,7 +82,7 @@ export default class Radio extends Component {
             checked={!!checked}
             disabled={disabled}
             readOnly={readOnly}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           />
         </span>
         {children !== undefined ? <span>{children}</span> : null}

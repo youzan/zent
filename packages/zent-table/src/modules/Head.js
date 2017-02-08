@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
+import helper from '../helper';
 import Checkbox from '@youzan/zent-checkbox';
 
 let rect;
@@ -19,8 +20,8 @@ const Head = React.createClass({
     if (this.props.autoStick) {
       let self = this;
 
-      window.addEventListener('scroll', throttle(self.setHeadStyle, 100));
-      window.addEventListener('resize', throttle(self.setHeadStyle, 100));
+      window.addEventListener('scroll', throttle(self.setHeadStyle, 50));
+      window.addEventListener('resize', throttle(self.setHeadStyle, 50));
 
       this.getRect();
       self.setHeadStyle();
@@ -32,7 +33,7 @@ const Head = React.createClass({
     let tmpRect = ReactDOM.findDOMNode(this).getBoundingClientRect();
     rect = {
       top: tmpRect.top,
-      height: tmpRect.height,
+      height: tmpRect.height - 1,
       width: tmpRect.width
     };
     relativeTop = rect.top - document.body.getBoundingClientRect().top;
@@ -104,10 +105,9 @@ const Head = React.createClass({
     let className = isFixTr ? fixRowClass : stickRowClass;
 
     return (
-      <tr className={className} style={style} ref={(c) => { this[className] = c }}>
+      <div className={`${className} tr`} style={style} ref={(c) => { this[className] = c }}>
         {this.props.columns.map((item, index) => {
           let cellClass = 'cell';
-          let num;
           if (index === 0 && needSelect) {
             cellClass += ' cell--selection';
           }
@@ -116,30 +116,15 @@ const Head = React.createClass({
             cellClass += ' cell--money';
           }
 
-          if (item.width) {
-            width = `${item.width}`;
-            if (!(/px$/.test(width))) {
-              if (!(/%$/.test(width))) {
-                width += '%';
-              }
-              num = parseFloat(width.replace(/%$/, ''), 10);
-            }
-          } else {
-            width = '';
-          }
-
-          if (isFixTr) {
-            if (!width) {
-              num = rect.width / this.props.columns.length;
-            }
-            width = `${(num / 100 * rect.width).toFixed(2)}px`;
-          }
+          width = helper.getCalculatedWidth(item.width);
 
           return (
-            <th
+            <div
               key={index}
               className={cellClass}
-              width={width}
+              style={{
+                flexBasis: width
+              }}
             >
                 {
                   index === 0 && needSelect && (
@@ -152,10 +137,10 @@ const Head = React.createClass({
                   )
                 }
                 {this.getChild(item)}
-            </th>
+            </div>
           );
         })}
-      </tr>
+      </div>
     );
   },
 
@@ -164,10 +149,10 @@ const Head = React.createClass({
     let { isShowFixRow, fixStyle } = this.state;
 
     return (
-      <thead className="table__head" style={style}>
+      <div className="thead" style={style}>
         {this.renderTr(false)}
         {isShowFixRow && this.renderTr(true, fixStyle)}
-      </thead>
+      </div>
     );
   }
 });

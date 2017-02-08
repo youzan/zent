@@ -37,6 +37,12 @@ $double-default-width: 480px;
             color: $disable_input_text_color;
             cursor: not-allowed;
         }
+        .zenticon {
+            line-height: 30px;
+            position: absolute;
+            right: 10px;
+            top: 0;
+        }
     }
     .date-picker,
     .month-picker,
@@ -63,12 +69,16 @@ $double-default-width: 480px;
             }
             .month-panel {
                 .grid-cell {
-                    padding: 7.5px 23px;
+                    height: 44px;
+                    vertical-align: middle;
+                    padding: 0;
                 }
             }
             .year-panel {
                 .grid-cell {
-                    padding: 7.5px 14px;
+                    height: 44px;
+                    vertical-align: middle;
+                    padding: 0;
                 }
             }
         }
@@ -93,12 +103,16 @@ $double-default-width: 480px;
             top: 0;
             left: 0;
             .grid-cell {
-                padding: 12px 23px;
+                height: 55.5px;
+                vertical-align: middle;
+                padding: 0;
             }
         }
         .year-panel {
             .grid-cell {
-                padding: 12px 14px;
+                height: 55.5px;
+                vertical-align: middle;
+                padding: 0;
             }
         }
         .time-panel {
@@ -111,9 +125,8 @@ $double-default-width: 480px;
     }
     .month-picker {
         .month-panel {
-            .panel__table {
-                width: 100%;
-                padding-top: 6px;
+            .month-table {
+                margin: 10px 0;
             }
             .grid-cell {
                 padding: 3px 23px;
