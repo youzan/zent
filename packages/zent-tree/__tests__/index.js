@@ -10,7 +10,9 @@ beforeAll(() => {
   window.requestAnimationFrame = function (fn) {
     fn(timestamp += 10);
   };
-  Element.scrollHeight = 10;
+
+  // FIXME: if test fails, you may need to adjust this value
+  HTMLElement.prototype.scrollHeight = 75;
 });
 // jest.useFakeTimers();
 
