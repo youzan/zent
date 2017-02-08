@@ -1,3 +1,11 @@
+/**
+ * 设计：
+ *
+ * Popover组件只是一个壳子，负责组装Trigger和Content。
+ *
+ * 弹层实际的打开／关闭都是Content完成的，而什么情况打开弹层是Trigger控制的。
+ */
+
 import React, { Component, PropTypes, Children } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
@@ -77,6 +85,7 @@ export default class Popover extends Component {
   constructor(props) {
     super(props);
 
+    // id用来唯一标识popover实例
     this.id = uniqueId(`${props.prefix}-popover-internal-id-`);
   }
 
