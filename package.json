@@ -22,15 +22,13 @@
     "url": "http://gitlab.qima-inc.com/zent/zent/issues"
   },
   "homepage": "http://gitlab.qima-inc.com/zent/zent",
-  "dependencies": {
-  },
-  "files": [
-  ],
+  "dependencies": {},
+  "files": [],
   "devDependencies": {
     "enzyme": "2.6.x",
     "react": "15.0.2",
     "react-addons-test-utils": "15.0.2",
     "react-dom": "15.0.2",
-    "lerna": "2.0.0-beta.32"
+    "lerna": "2.0.0-beta.36"
   }
 }
