@@ -63,7 +63,7 @@ import '@youzan/zent/lib/index.css';
 
 ```bash
 ynpm install
-felint init -6 --youzan
+felint youzan && felint init -6
 lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes，否则下次无法运行lerna bootstrap命令
 ```
 
