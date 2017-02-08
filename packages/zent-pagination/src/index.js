@@ -16,12 +16,12 @@ const ZentPagination = React.createClass({
 
       if (typeof pageSize === 'number') {
         if (pageSize < 0) {
-          throw new Error('pageSize必须大等于0');
+          return new Error('pageSize必须大等于0');
         }
       } else if (Array.isArray(pageSize)) {
         let isAllNumber;
         if (pageSize.length === 0) {
-          throw new Error('pageSize的长度必须大于0');
+          return new Error('pageSize的长度必须大于0');
         }
 
         isAllNumber = pageSize.every((item) => {
@@ -29,10 +29,10 @@ const ZentPagination = React.createClass({
         });
 
         if (!isAllNumber) {
-          throw new Error('pageSize每一项必须是数字或对象');
+          return new Error('pageSize每一项必须是数字或对象');
         }
       } else {
-        throw Error('pageSize只能是数字或数组');
+        return new Error('pageSize只能是数字或数组');
       }
     },
     onChange: func

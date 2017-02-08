@@ -20,8 +20,9 @@ export function getNodeFromSelector(selector) {
   return node || document.body;
 }
 
-export function getCssClass(prefix, additionalClass) {
-  return cx(`${prefix}-portal`, additionalClass);
+export function prepareNode(node, prefix, className, css) {
+  node.className = cx(`${prefix}-portal`, className);
+  node.style.cssText = Object.keys(css || {}).map(k => `${k}: ${css[k]}`).join('; ');
 }
 
 export function openPortal(props) {
@@ -30,10 +31,10 @@ export function openPortal(props) {
   // 确保container存在，这个container是必须的，因为React的render会覆盖这个节点下的所有东西。
   let node = this.node;
   if (!node) {
-    const { selector, prefix, className } = props;
+    const { selector, prefix, className, css } = props;
     const parentNode = getNodeFromSelector(selector);
     this.node = node = createContainerNode(parentNode);
-    node.className = getCssClass(prefix, className);
+    prepareNode(node, prefix, className, css);
   }
 
   // 这个API虽然是unstable，但是现在实现portal只能用它，如果用ReactDOM.render会导致

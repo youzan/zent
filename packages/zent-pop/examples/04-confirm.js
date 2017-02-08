@@ -2,7 +2,12 @@
 
 import React from 'react';
 import Pop from '../src/index.js';
+
+import '@youzan/zent-popover/assets/index.scss';
+import '@youzan/zent-button/assets/index.scss';
+import '@youzan/zent-layout/assets/index.scss';
 import '../assets/index.scss';
+import '../assets/example.scss';
 
 function confirm() {
   console.log('点击了确定');
@@ -22,6 +27,7 @@ const Demo = function () {
         style={{ textAlign: 'center', marginBottom: 10 }}
       >
         <Pop
+          trigger="click"
           content="测试内容"
           position="bottom-center"
           onConfirm={confirm}

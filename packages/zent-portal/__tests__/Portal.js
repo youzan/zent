@@ -61,7 +61,7 @@ describe('Portal', () => {
     removeContainer(container);
   });
 
-  it('should supports custom className', () => {
+  it('should support custom className', () => {
     const wrapper = mount(
       <Portal className="custom-className">
         <div className="portal-child"></div>
@@ -73,7 +73,21 @@ describe('Portal', () => {
     unmountPortal(wrapper);
   });
 
-  it('should supports custom prefix', () => {
+  it('should support custom css style', () => {
+    const wrapper = mount(
+      <Portal css={{ top: '100px', position: 'absolute' }}>
+        <div className="portal-child"></div>
+      </Portal>
+    );
+    const container = document.body.querySelector('.zent-portal');
+    expect(container).toBeTruthy();
+    expect(container.style.position).toBe('absolute');
+    expect(container.style.top).toBe('100px');
+    expect(container.querySelector('.portal-child')).toBeTruthy();
+    unmountPortal(wrapper);
+  });
+
+  it('should support custom prefix', () => {
     const wrapper = mount(
       <Portal prefix="custom-prefix">
         <div className="portal-child"></div>

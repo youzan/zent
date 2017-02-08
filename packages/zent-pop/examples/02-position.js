@@ -1,6 +1,14 @@
 import React from 'react';
-import Pop from '../src/index.js';
+
+import Button from '@youzan/zent-button';
+
+import Pop from '../src';
+
+import '@youzan/zent-popover/assets/index.scss';
+import '@youzan/zent-button/assets/index.scss';
+import '@youzan/zent-layout/assets/index.scss';
 import '../assets/index.scss';
+import '../assets/example.scss';
 
 /* 为 pop 设置 position 字段可以影响组件的展示方式，我们使用pos-pos的组合，第一个代表 pop 框相对于目标元素的位置，第二个是他们的对齐标线的位置 */
 
@@ -25,11 +33,7 @@ const Single = function (props) {
         trigger="hover"
         position={props.type}
       >
-        <button
-          className="zent-btn zent-btn-default zent-btn-block"
-        >
-          {props.type}
-        </button>
+        <Button block>{props.type}</Button>
       </Pop>
     </div>
   );
