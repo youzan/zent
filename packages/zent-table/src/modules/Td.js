@@ -56,7 +56,7 @@ const Td = React.createClass({
     }
 
     return (
-      <div className={className} style={{flexBasis: width}}>
+      <div className={className} style={{ flexBasis: width }}>
         {
           needSelect && (
             <Checkbox
