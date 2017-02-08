@@ -228,7 +228,7 @@ export default class PopoverHoverTrigger extends Trigger {
     return true;
   }
 
-  getAddtionalProps(child) {
+  getTriggerProps(child) {
     const { enterRecognizer, leaveRecognizer } = this.state;
     const enterHooks = (enterRecognizer && enterRecognizer.local) || {};
     const leaveHooks = (leaveRecognizer && leaveRecognizer.local) || {};

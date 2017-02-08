@@ -19,7 +19,7 @@ export default class PopoverTrigger extends Component {
   };
 
   // Override this function to add custom event handlers
-  getAddtionalProps() {
+  getTriggerProps() {
     return {};
   }
 
@@ -38,7 +38,7 @@ export default class PopoverTrigger extends Component {
 
     return React.cloneElement(child, {
       ref: this.props.onTriggerRefChange,
-      ...this.getAddtionalProps(child)
+      ...this.getTriggerProps(child)
     });
   }
 }

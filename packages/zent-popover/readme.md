@@ -79,7 +79,7 @@ API 主要分为几块：`Popover`, `Trigger`, `Content`, `Position`以及一些
 
 #### `Trigger.Base`
 
-所有trigger的基类，实现自定义trigger需继承这个类，继承时一般需要重写`getAdditionalProps`方法给trigger添加事件，然后在事件
+所有trigger的基类，实现自定义trigger需继承这个类，继承时一般需要重写`getTriggerProps`方法给trigger添加事件，然后在事件
 处理函数中打开／关闭弹层。
 
 Trigger的`props`上有以下API可以在基类中使用。

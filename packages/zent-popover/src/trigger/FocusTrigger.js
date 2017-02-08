@@ -1,7 +1,7 @@
 import Trigger from './Trigger';
 
 export default class FocusTrigger extends Trigger {
-  getAddtionalProps(child) {
+  getTriggerProps(child) {
     const { onFocus, onBlur } = child.props;
 
     return {

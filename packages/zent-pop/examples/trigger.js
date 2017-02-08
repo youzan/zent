@@ -2,7 +2,12 @@
 
 import React from 'react';
 import Pop from '../src/index.js';
+
+import '@youzan/zent-popover/assets/index.scss';
+import '@youzan/zent-button/assets/index.scss';
+import '@youzan/zent-layout/assets/index.scss';
 import '../assets/index.scss';
+import '../assets/example.scss';
 
 /* pop 有三种触发方式 */
 
@@ -32,7 +37,7 @@ const Single = function (props) {
         position="bottom-center"
       >
         <button
-          className="zent-btn zent-btn-default zent-btn-block"
+          className="zent-btn zent-btn-default"
           onClick={addClick}
         >
           {props.trigger}

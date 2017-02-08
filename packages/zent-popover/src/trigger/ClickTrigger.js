@@ -35,7 +35,7 @@ export default class PopoverClickTrigger extends Trigger {
     }
   };
 
-  getAddtionalProps(child) {
+  getTriggerProps(child) {
     const { onClick } = child.props;
 
     return {
@@ -46,15 +46,18 @@ export default class PopoverClickTrigger extends Trigger {
     };
   }
 
-  componentDidMount() {
-    if (this.props.autoClose) {
-      window.addEventListener('click', this.onClickOutside, true);
-    }
-  }
+  componentWillReceiveProps(nextProps) {
+    // bind global events only when popover is visible
+    const { contentVisible, autoClose } = nextProps;
+    if (contentVisible !== this.props.contentVisible) {
+      if (autoClose && contentVisible) {
+        return window.addEventListener('click', this.onClickOutside, true);
+      }
 
-  componentWillUnmount() {
-    if (this.props.autoClose) {
-      window.removeEventListener('click', this.onClickOutside, true);
+      // Ensure handler is removed even if autoClose is false
+      if (!contentVisible) {
+        return window.removeEventListener('click', this.onClickOutside, true);
+      }
     }
   }
 }

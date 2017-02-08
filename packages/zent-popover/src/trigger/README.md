@@ -4,7 +4,7 @@
 
 ## Override methods
 
-`getAddtionalProps: () => Object`, returns additional props for the trigger node, these props are usually
+`getTriggerProps: () => Object`, returns additional props for the trigger node, these props are usually
 event handlers.
 
 You can do whatever a valid React component can.

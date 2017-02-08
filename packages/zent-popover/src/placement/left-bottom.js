@@ -8,7 +8,7 @@ import createPlacement from './create';
  */
 export default createPlacement((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
   const x = anchorBoundingBox.left - contentDimension.width - options.cushion;
-  const y = anchorBoundingBox.bottom;
+  const y = anchorBoundingBox.bottom - contentDimension.height;
 
   return {
     getCSSStyle() {

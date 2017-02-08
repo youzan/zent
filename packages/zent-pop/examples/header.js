@@ -1,6 +1,11 @@
 import React from 'react';
 import Pop from '../src/index.js';
+
+import '@youzan/zent-popover/assets/index.scss';
+import '@youzan/zent-button/assets/index.scss';
+import '@youzan/zent-layout/assets/index.scss';
 import '../assets/index.scss';
+import '../assets/example.scss';
 
 /* 设置 header 属性可以给 pop 添加一个头部，header 可以是一个字符串，也可以是 react 元素 */
 const content = function () {
@@ -29,7 +34,7 @@ const Single = function (props) {
         header={props.header}
       >
         <button
-          className="zent-btn zent-btn-default zent-btn-block"
+          className="zent-btn zent-btn-default"
         >
           {props.header ? '带头部' : 'Normal'}
         </button>

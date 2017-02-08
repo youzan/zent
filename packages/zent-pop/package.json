@@ -16,6 +16,15 @@
     "src/",
     "dist/"
   ],
+  "dependencies": {
+    "@youzan/zent-popover": "*",
+    "@youzan/zent-button": "*",
+    "lodash": "4.17.x",
+    "classnames": "2.2.x"
+  },
+  "devDependencies": {
+    "@youzan/zent-layout": "*"
+  },
   "zent": {
     "port": 7789
   }
