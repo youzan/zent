@@ -6,8 +6,12 @@ import '@youzan/zent-button/assets/index.scss';
 
 export default class Demo extends Component {
 
+  closeCallback = () => {
+    alert('Notify has over');
+  }
+
   testSuccess = () => {
-    Notify.success('Hello', 1000);
+    Notify.success('Hello', 1000, this.closeCallback);
   }
 
   testError = () => {
