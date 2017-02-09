@@ -23,6 +23,7 @@
     "classnames": "2.2.x"
   },
   "devDependencies": {
+    "@youzan/zent-button": "*",
     "@youzan/zent-dialog": "0.1.25"
   },
   "jest": {
