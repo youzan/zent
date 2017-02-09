@@ -12,6 +12,7 @@ import Input from '@youzan/zent-input';
 import Notify from '@youzan/zent-notify';
 import Pagination from '@youzan/zent-pagination';
 import Pop from '@youzan/zent-pop';
+import Popover from '@youzan/zent-popover';
 import Portal from '@youzan/zent-portal';
 import Radio from '@youzan/zent-radio';
 import Select from '@youzan/zent-select';
@@ -39,6 +40,7 @@ const Zent = {
   Notify,
   Pagination,
   Pop,
+  Popover,
   Portal,
   Radio,
   Select,

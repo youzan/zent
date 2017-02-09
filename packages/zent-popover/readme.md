@@ -101,7 +101,7 @@ Trigger的`props`上有以下API可以在基类中使用。
 
 ### Position API
 
-Positon是用来给弹层定位的，内置12中定位，可以自定义定位算法。`Popover`上的`cushion`参数会影响定位。
+Positon是用来给弹层定位的，内置12种定位，可以自定义定位算法。`Popover`上的`cushion`参数会影响定位，通常用来加上一定量的偏移量。
 
 ```text
                     TopLeft     TopCenter     TopRight

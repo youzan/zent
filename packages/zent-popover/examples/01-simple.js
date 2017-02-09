@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import Button from '@youzan/zent-button';
 
 import Popover from '../src';
 
 import '../assets/index.scss';
+import '@youzan/zent-button/lib/index.css';
 import '../assets/01-simple.scss';
 
 const PopoverContent = Popover.Content;
@@ -17,10 +19,12 @@ const HoverContent = withPopover(function HoverContent({ popover }) { // eslint-
       <div>popover content</div>
       <div>line two</div>
       <div>line three</div>
-      <button onClick={popover.close}>close</button>
+      <Button onClick={popover.close}>close</Button>
     </div>
   );
 });
+
+const separator = <span style={{ width: 20, display: 'inline-block' }}></span>;
 
 export default class Simple extends Component {
   showPopover = () => {
@@ -40,7 +44,7 @@ export default class Simple extends Component {
       <div>
         <Popover position={Popover.Position.BottomLeft} display="inline">
           <PopoverClickTrigger>
-            <button>click me</button>
+            <Button>click me</Button>
           </PopoverClickTrigger>
           <PopoverContent>
             <div>popover content</div>
@@ -48,18 +52,22 @@ export default class Simple extends Component {
           </PopoverContent>
         </Popover>
 
+        {separator}
+
         <Popover position={Popover.Position.RightTop} display="inline">
           <PopoverHoverTrigger showDelay={500} hideDelay={200}>
-            <button style={{ marginLeft: 100 }}>hover on me</button>
+            <Button>hover on me</Button>
           </PopoverHoverTrigger>
           <PopoverContent>
             <HoverContent />
           </PopoverContent>
         </Popover>
 
+        {separator}
+
         <Popover position={Popover.Position.TopRight} display="inline" cushion={10}>
           <PopoverFocusTrigger>
-            <input style={{ marginLeft: 100 }} placeholder="focus on me" />
+            <input placeholder="focus on me" />
           </PopoverFocusTrigger>
           <PopoverContent>
             <div>popover content</div>

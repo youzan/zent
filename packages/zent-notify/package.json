@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-notify",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Notify用于展示各种操作成功或者失败时展示给用户的一些提示信息",
   "repository": "git@gitlab.qima-inc.com:zent/zent-notify.git",
   "main": "./lib/index.js",
@@ -18,7 +18,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@youzan/zent-portal": "0.1.9"
+    "@youzan/zent-portal": "0.1.10"
   },
   "devDependencies": {
     "@youzan/zent-button": "^0.1.16"
