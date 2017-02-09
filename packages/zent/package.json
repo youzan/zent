@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
   "repository": {
     "type": "git",
@@ -55,7 +55,7 @@
     "@youzan/zent-breadcrumb": "^0.1.10",
     "@youzan/zent-button": "^0.1.16",
     "@youzan/zent-checkbox": "^0.1.13",
-    "@youzan/zent-datetimepicker": "0.0.34",
+    "@youzan/zent-datetimepicker": "0.0.35",
     "@youzan/zent-dialog": "0.1.25",
     "@youzan/zent-form": "0.1.13",
     "@youzan/zent-icon": "^0.1.10",
@@ -64,8 +64,8 @@
     "@youzan/zent-loading": "^0.1.8",
     "@youzan/zent-notify": "0.1.12",
     "@youzan/zent-pagination": "0.2.16",
-    "@youzan/zent-pop": "0.4.2",
-    "@youzan/zent-popover": "0.0.4",
+    "@youzan/zent-pop": "0.4.3",
+    "@youzan/zent-popover": "0.0.5",
     "@youzan/zent-portal": "0.1.10",
     "@youzan/zent-radio": "0.1.8",
     "@youzan/zent-select": "^0.1.58",

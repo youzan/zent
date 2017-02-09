@@ -39,12 +39,16 @@ export default class Simple extends Component {
     this.button = instance;
   };
 
+  onCustomEvent(evt) {
+    console.log(`custom event: ${evt.type}`); // eslint-disable-line
+  }
+
   render() {
     return (
       <div>
         <Popover position={Popover.Position.BottomLeft} display="inline">
           <PopoverClickTrigger>
-            <Button>click me</Button>
+            <Button onClick={this.onCustomEvent}>click me</Button>
           </PopoverClickTrigger>
           <PopoverContent>
             <div>popover content</div>
@@ -56,7 +60,7 @@ export default class Simple extends Component {
 
         <Popover position={Popover.Position.RightTop} display="inline">
           <PopoverHoverTrigger showDelay={500} hideDelay={200}>
-            <Button>hover on me</Button>
+            <Button onMouseEnter={this.onCustomEvent} onMouseLeave={this.onCustomEvent}>hover on me</Button>
           </PopoverHoverTrigger>
           <PopoverContent>
             <HoverContent />
@@ -67,7 +71,7 @@ export default class Simple extends Component {
 
         <Popover position={Popover.Position.TopRight} display="inline" cushion={10}>
           <PopoverFocusTrigger>
-            <input placeholder="focus on me" />
+            <input placeholder="focus on me" onFocus={this.onCustomEvent} onBlur={this.onCustomEvent} />
           </PopoverFocusTrigger>
           <PopoverContent>
             <div>popover content</div>

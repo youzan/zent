@@ -29,7 +29,12 @@
         "react/jsx-no-bind": 0,
         "no-param-reassign": 0,
         "no-return-assign": 0,
-        "no-underscore-dangle": 1,
+        "no-underscore-dangle": [
+            1,
+            {
+                "allowAfterThis": true
+            }
+        ],
         "consistent-return": 0,
         "no-unused-expressions": 0,
         "no-multiple-empty-lines": [
