@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-popover",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "可扩展的弹层组件",
   "main": "./lib/index.js",
   "scripts": {
