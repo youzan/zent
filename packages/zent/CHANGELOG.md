@@ -1,5 +1,6 @@
 ## Change logs
 
+* 2017-02-09, 0.4.1, 修复文件找不到的bug
 * 2017-02-09, 0.4.0,  不兼容改动：`zent-table`布局用`flex`实现，`zent-pop`重写；其它改动：`zent-notify`增加关闭回掉函数，`zent-datetimepicker`新的时间选择UI以及bug修复。
 * 2017-02-07, 0.3.22, 添加RangePicker, `Dialog`宽度自适应
 * 2017-01-23, 0.3.21, `zent-checkbox`和`zent-radio`样式修改

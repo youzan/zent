@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 import Portal from '@youzan/zent-portal';
+import WindowResizeHandler from '@youzan/zent-utils/lib/component/WindowResizeHandler';
+import findPositionedParent from '@youzan/zent-utils/lib/dom/findPositionedParent';
 import throttle from 'lodash/throttle';
 
 import invisiblePlacement from './placement/invisible';
-import WindowResizeHandler from '../../../utils/WindowResizeHandler';
-import * as dom from '../../../utils/dom';
 
 const EMPTY_BB = {
   top: 0,
@@ -66,15 +66,15 @@ export default class PopoverContent extends Component {
     return this.props.getAnchor();
   }
 
-  findPositionedParent() {
-    // dom.findPositionedParent() returns null on fail
+  getPositionedParent() {
+    // findPositionedParent returns null on fail
     if (this.positionedParent !== undefined) {
       return this.positionedParent;
     }
 
     const { containerSelector } = this.props;
     const container = document.querySelector(containerSelector);
-    const parent = dom.findPositionedParent(container, true);
+    const parent = findPositionedParent(container, true);
     this.positionedParent = parent;
     return parent;
   }
@@ -95,7 +95,7 @@ export default class PopoverContent extends Component {
     const anchor = this.getAnchor();
     const boundingBox = anchor.getBoundingClientRect();
 
-    const parent = this.findPositionedParent();
+    const parent = this.getPositionedParent();
     const parentBoundingBox = parent.getBoundingClientRect();
 
     const contentBoundingBox = content ? content.getBoundingClientRect() : EMPTY_BB;

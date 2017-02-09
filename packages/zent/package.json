@@ -41,7 +41,8 @@
     "switch/",
     "table/",
     "tabs/",
-    "tree/"
+    "tree/",
+    "utils"
   ],
   "jest": {
     "verbose": true,
@@ -71,6 +72,7 @@
     "@youzan/zent-switch": "^0.1.10",
     "@youzan/zent-table": "0.3.0",
     "@youzan/zent-tabs": "^0.2.3",
-    "@youzan/zent-tree": "0.1.10"
+    "@youzan/zent-tree": "0.1.10",
+    "@youzan/zent-utils": "*"
   }
 }
