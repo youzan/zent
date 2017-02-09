@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-tree",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Tree ui react component for zent",
   "main": "./lib/index.js",
   "scripts": {

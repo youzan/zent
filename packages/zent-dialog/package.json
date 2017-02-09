@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-dialog",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "description": "基本弹窗组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-portal": "^0.1.8",
+    "@youzan/zent-portal": "0.1.9",
     "classnames": "2.2.x"
   },
   "files": [

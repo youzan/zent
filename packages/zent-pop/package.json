@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-pop",
-  "version": "0.3.9",
+  "version": "0.4.0",
   "description": "点击元素，弹出气泡框。",
   "main": "./lib/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@youzan/zent-popover": "*",
+    "@youzan/zent-popover": "0.0.2",
     "@youzan/zent-button": "*",
     "lodash": "4.17.x",
     "classnames": "2.2.x"
