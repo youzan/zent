@@ -2,7 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 
-import * as dom from './dom';
+import getViewportSize from '../dom/getViewportSize';
 import WindowEventHandler from './WindowEventHandler';
 
 /**
@@ -17,7 +17,7 @@ export default class WindowResizeHandler extends Component {
   };
 
   onResize = evt => {
-    const viewportSize = dom.getViewportSize();
+    const viewportSize = getViewportSize();
     const prevViewportSize = this._prevViewportSize;
     const delta = {
       deltaX: viewportSize.width - prevViewportSize.width,
@@ -33,7 +33,7 @@ export default class WindowResizeHandler extends Component {
   };
 
   componentDidMount() {
-    this._prevViewportSize = dom.getViewportSize();
+    this._prevViewportSize = getViewportSize();
   }
 
   render() {

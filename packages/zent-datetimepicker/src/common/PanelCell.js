@@ -12,13 +12,13 @@ export default class PanelCell extends Component {
       let tds = row.map((col, j) => {
         return (
           <td className="grid-cell" role="gridcell" key={j}>
-            <span
+            <div
               onClick={() => this.onClickCell(col)}
               onMouseOver={() => onHover(col.value)}
               className={col.className}
               title={col.value}>
               {col.text}
-            </span>
+            </div>
           </td>
         );
       });

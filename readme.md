@@ -37,14 +37,6 @@ import '@youzan/zent/lib/index.css';
 
 ## 开发 zent
 
-### 注意！注意！注意！重要的事说三遍！
-
-**OSX可以直接运行`./scripts/install-dependencies.sh`安装依赖。**
-
-**OSX可以直接运行`./scripts/install-dependencies.sh`安装依赖。**
-
-**OSX可以直接运行`./scripts/install-dependencies.sh`安装依赖。**
-
 ### 开发依赖：
 
 * jq: `brew install jq`, [其他安装方式](https://stedolan.github.io/jq/download/)
@@ -57,13 +49,21 @@ import '@youzan/zent/lib/index.css';
 * superman: `ynpm install -g @youzan/superman`
 * lerna: `ynpm install -g lerna`
 
+### 注意！注意！注意！重要的事说三遍！
+
+**OSX可以直接运行`./scripts/install-dependencies.sh`安装上面的所有依赖。**
+
+**OSX可以直接运行`./scripts/install-dependencies.sh`安装上面的所有依赖。**
+
+**OSX可以直接运行`./scripts/install-dependencies.sh`安装上面的所有依赖。**
+
 ### 初始化项目:
 
 大哥大姐，既然你已经看到这里了，请把这个文档看完吧～
 
 ```bash
 ynpm install
-felint youzan && felint init -6
+felint update
 lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes，否则下次无法运行lerna bootstrap命令
 ```
 

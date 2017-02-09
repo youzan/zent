@@ -1,0 +1,24 @@
+{
+  "name": "@youzan/zent-utils",
+  "version": "0.0.2",
+  "description": "zent工具库",
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "lichen",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  }
+}

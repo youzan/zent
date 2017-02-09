@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
 
 export default class WindowEventHandler extends Component {
   static propTypes = {
@@ -22,6 +22,6 @@ export default class WindowEventHandler extends Component {
   }
 
   render() {
-    return React.DOM.noscript();
+    return null;
   }
 }
