@@ -305,6 +305,9 @@ $double_default_width: 480px;
             line-height: 31px;
             border: 1px solid $border_color;
             text-align: center;
+            .time__number{
+              padding: 0 5px;
+            }
         }
     }
 }

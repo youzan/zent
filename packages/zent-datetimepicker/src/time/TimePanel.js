@@ -90,9 +90,11 @@ export default class TimePanel extends Component {
         {openSecond ? <SecondPanel disabledSecond={disabledTime.disabledSecond} onSelect={this.onSelectSecond} selected={time} hidePanel={this.hidePanel} /> : null}
 
         <div className="time-panel__preview">
-          <span onClick={this.openHour}>{padLeft(time.getHours())}:</span>
-          <span onClick={this.openMinute}>{padLeft(time.getMinutes())}:</span>
-          <span onClick={this.openSecond}>{padLeft(time.getSeconds())}</span>
+          <span className="time__number" onClick={this.openHour}>{padLeft(time.getHours())}</span>
+          <span className="time__diliver">:</span>
+          <span className="time__number" onClick={this.openMinute}>{padLeft(time.getMinutes())}</span>
+          <span className="time__diliver">:</span>
+          <span className="time__number" onClick={this.openSecond}>{padLeft(time.getSeconds())}</span>
         </div>
       </div>
     );
