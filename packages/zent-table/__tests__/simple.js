@@ -9,20 +9,25 @@ describe('Simple', () => {
     expect(wrapper.find('.zent-table-container').length).toBe(1);
   });
 
-  it('table thead render', () => {
-    expect(wrapper.find('.zent-table-container thead').length).toBe(1);
-    expect(wrapper.find('.zent-table-container thead th').length).toBe(4);
-    expect(wrapper.find('.zent-table-container thead th').first().hasClass('cell')).toBeTruthy();
-    expect(wrapper.find('.zent-table-container thead th').first().text()).toBe('商品');
-    expect(wrapper.find('.zent-table-container thead th').last().text()).toBe('总销量');
+  it('table Head render', () => {
+    expect(wrapper.find('.zent-table-container Head').length).toBe(1);
+    expect(wrapper.find('.zent-table-container Head .cell').length).toBe(4);
+    expect(wrapper.find('.zent-table-container Head .cell').first().hasClass('cell')).toBe(true);
+    expect(wrapper.find('.zent-table-container Head .cell').first().text()).toBe('商品');
+    expect(wrapper.find('.zent-table-container Head .cell').last().text()).toBe('总销量');
   });
 
-  it('table tbody render', () => {
-    expect(wrapper.find('.zent-table-container tbody').length).toBe(1);
-    expect(wrapper.find('.zent-table-container tbody tr').length).toBe(3);
-    expect(wrapper.find('.zent-table-container tbody tr').first().find('td').length).toBe(4);
-    expect(wrapper.find('.zent-table-container tbody tr td').first().text()).toBe('5024278');
-    expect(wrapper.find('.zent-table-container tbody tr td').last().text()).toBe('0');
+  it('table Body render', () => {
+    expect(wrapper.find('.zent-table-container Body').length).toBe(1);
+    expect(wrapper.find('.zent-table-container Body .tr').length).toBe(3);
+    expect(wrapper.find('.zent-table-container Body .tr').first().find('Td').length).toBe(4);
+    expect(wrapper.find('.zent-table-container Body .tr Td').first().text()).toBe('5024278');
+    expect(wrapper.find('.zent-table-container Body .tr Td').last().text()).toBe('0');
+  });
+
+  // HACK: branch line unused onChange simple.js line 46
+  it('table onChange', () => {
+    wrapper.find('Table').prop('onChange')({ current: 1 });
   });
 
   it('table unmount', () => {

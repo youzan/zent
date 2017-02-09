@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import Loading from '../examples/loading';
 
 describe('Loading', () => {
+  jest.useFakeTimers();
   const wrapper = mount(<Loading />);
 
   it('table render', () => {
@@ -11,10 +12,12 @@ describe('Loading', () => {
 
   it('table loading', () => {
     expect(wrapper.find('.zent-page-loading').length).toBe(1);
-    wrapper.setState({
-      loading: false
-    });
+    jest.runAllTimers();
     expect(wrapper.find('.zent-page-loading').length).toBe(0);
+  });
+
+  it('table onChange', () => {
+    wrapper.find('Table').prop('onChange')({ current: 1 });
   });
 
   it('table unmount', () => {
