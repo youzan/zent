@@ -41,8 +41,7 @@ class DatePicker extends Component {
     if (next.hasOwnProperty('value')) {
       if (next.value) {
         let showPlaceholder = false;
-        let selected = new Date(next.value);
-
+        let selected = parse(next.value, next.format || this.props.format);
         this.setState({
           value: format(selected, next.format || this.props.format),
           actived: selected,
@@ -157,6 +156,7 @@ class DatePicker extends Component {
         },
         props.showTime || {},
         {
+          disabledTime: this.props.disabledTime,
           onChange: this.onChangeTime
         }
       );
