@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { padLeft } from '../utils'
+import { padLeft } from '../utils';
 import HourPanel from './HourPanel';
 import MinutePanel from './MinutePanel';
 import SecondPanel from './SecondPanel';
@@ -10,7 +10,7 @@ const stateMap = {
   hour: 'openHour',
   minute: 'openMinute',
   second: 'openSecond'
-}
+};
 
 export default class TimePanel extends Component {
   static defaultProps = {
@@ -72,13 +72,13 @@ export default class TimePanel extends Component {
   openSecond = () => {
     this.setState({
       openSecond: true
-    })
+    });
   }
   hidePanel = (type) => {
-    var key = stateMap[type]
+    const key = stateMap[type];
     this.setState({
       [key]: false
-    })
+    });
   }
   render() {
     const { time, openHour, openMinute, openSecond } = this.state;

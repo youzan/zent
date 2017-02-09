@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ajax from 'superagent';
 import jsonp from 'superagent-jsonp';
-import Tree from '../src/Index';
+import Tree from '../src/index';
 import '../assets/index.scss';
 
 /*
