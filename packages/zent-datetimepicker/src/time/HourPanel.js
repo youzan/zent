@@ -52,7 +52,7 @@ export default class HourPanel extends Component {
     const title = '选择小时';
     return (
       <div className="hour-panel">
-        <PanelHeader title={title} showNext={false} prev={() => { this.props.hidePanel('hour')}} />
+        <PanelHeader title={title} showNext={false} prev={() => { this.props.hidePanel('hour') }} />
         <table className="hour-table panel__table">
           <TimeCell cells={hours} onSelect={this.props.onSelect} />
         </table>

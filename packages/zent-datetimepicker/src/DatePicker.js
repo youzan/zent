@@ -156,7 +156,7 @@ class DatePicker extends Component {
         },
         props.showTime || {},
         {
-          disabledTime: this.props.disabledTime,
+          disabledTime: props.disabledTime && props.disabledTime(),
           onChange: this.onChangeTime
         }
       );

@@ -52,7 +52,7 @@ export default class MinutePanel extends Component {
     const title = '选择分钟';
     return (
       <div className="minute-panel">
-        <PanelHeader title={title} showNext={false} prev={() => { this.props.hidePanel('minute')}} />
+        <PanelHeader title={title} showNext={false} prev={() => { this.props.hidePanel('minute') }} />
         <table className="minute-table panel__table">
           <TimeCell cells={minutes} onSelect={this.props.onSelect} />
         </table>
