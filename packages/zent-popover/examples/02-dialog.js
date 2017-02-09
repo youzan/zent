@@ -12,7 +12,20 @@ import '../assets/01-simple.scss';
  */
 export default class DialogDemo extends Component {
   state = {
-    value: ''
+    value: '',
+    dialogVisible: false
+  };
+
+  closeDialog = () => {
+    this.setState({
+      dialogVisible: false
+    });
+  };
+
+  openDialog = () => {
+    this.setState({
+      dialogVisible: true
+    });
   };
 
   onInputChange = (evt) => {
@@ -23,21 +36,24 @@ export default class DialogDemo extends Component {
 
   render() {
     return (
-      <Dialog visible title="dialog">
-        <div>
-          <p>dialog content</p>
+      <div>
+        <button onClick={this.openDialog}>open dialog</button>
+        <Dialog visible={this.state.dialogVisible} title="dialog" onClose={this.closeDialog}>
+          <div>
+            <p>dialog content</p>
 
-          <Popover position={Popover.Position.TopCenter}>
-            <Popover.Trigger.Click>
-              <button>click me</button>
-            </Popover.Trigger.Click>
-            <Popover.Content>
-              <div>popover content</div>
-              <input value={this.state.value} onChange={this.onInputChange} placeholder="type here..." />
-            </Popover.Content>
-          </Popover>
-        </div>
-      </Dialog>
+            <Popover position={Popover.Position.TopCenter}>
+              <Popover.Trigger.Click>
+                <button>click me</button>
+              </Popover.Trigger.Click>
+              <Popover.Content>
+                <div>popover content</div>
+                <input value={this.state.value} onChange={this.onInputChange} placeholder="type here..." />
+              </Popover.Content>
+            </Popover>
+          </div>
+        </Dialog>
+      </div>
     );
   }
 }
