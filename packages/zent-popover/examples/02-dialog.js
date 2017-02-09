@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Dialog from '@youzan/zent-dialog';
+import Button from '@youzan/zent-button';
 
 import Popover from '../src';
 
+import '@youzan/zent-button/lib/index.css';
 import '@youzan/zent-dialog/lib/index.css';
 import '../assets/index.scss';
 import '../assets/01-simple.scss';
@@ -37,14 +39,14 @@ export default class DialogDemo extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.openDialog}>open dialog</button>
+        <Button onClick={this.openDialog}>open dialog</Button>
         <Dialog visible={this.state.dialogVisible} title="dialog" onClose={this.closeDialog}>
           <div>
             <p>dialog content</p>
 
             <Popover position={Popover.Position.TopCenter}>
               <Popover.Trigger.Click>
-                <button>click me</button>
+                <Button>click me</Button>
               </Popover.Trigger.Click>
               <Popover.Content>
                 <div>popover content</div>
