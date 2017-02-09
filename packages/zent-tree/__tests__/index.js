@@ -12,7 +12,7 @@ beforeAll(() => {
   };
 
   // FIXME: if test fails, you may need to adjust this value
-  HTMLElement.prototype.scrollHeight = 75;
+  HTMLElement.scrollHeight = 75;
 });
 // jest.useFakeTimers();
 
