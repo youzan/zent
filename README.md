@@ -1,8 +1,10 @@
-# zent
+# Zent
 
-React Component Ecosystem，一套前端设计语言和基于React的实现。
+一套前端设计语言和基于React的实现。
 
 立志于让前端开发更快速、简单，所有开发者都能快速上手。
+
+[![NPM](https://nodei.co/npm/zent.png?downloads=true&downloadRank=true)](https://nodei.co/npm/zent/)
 
 ## 安装
 
