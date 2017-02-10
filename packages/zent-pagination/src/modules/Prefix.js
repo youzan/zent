@@ -10,11 +10,10 @@ const Prefix = React.createClass({
     setPageSize: func
   },
 
+  // delete unused typecheck
   changePageSize(e, data) {
     let { setPageSize } = this.props;
-    if (typeof setPageSize === 'function') {
-      setPageSize(data.text);
-    }
+    setPageSize(data.text);
   },
 
   renderSelect() {
