@@ -1,6 +1,6 @@
 {
   "name": "zent-breadcrumb",
-  "version": "0.1.13",
+  "version": "1.0.0",
   "description": "基础面包屑组件，在一个带有层次的导航结构中标明当前页面的位置。",
   "repository": {
     "type": "git",

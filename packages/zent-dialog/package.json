@@ -1,6 +1,6 @@
 {
   "name": "zent-dialog",
-  "version": "0.1.28",
+  "version": "1.0.0",
   "description": "基本弹窗组件",
   "main": "./lib/index.js",
   "repository": {
@@ -17,8 +17,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "zent-portal": "0.1.13",
-    "zent-utils": "*"
+    "zent-portal": "1.0.0",
+    "zent-utils": "1.0.0"
   },
   "files": [
     "src/",

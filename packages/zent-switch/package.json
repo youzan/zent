@@ -1,6 +1,6 @@
 {
   "name": "zent-switch",
-  "version": "0.1.13",
+  "version": "1.0.0",
   "description": "这是一个开关组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -26,6 +26,6 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "zent-utils": "*"
+    "zent-utils": "1.0.0"
   }
 }

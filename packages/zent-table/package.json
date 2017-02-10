@@ -1,6 +1,6 @@
 {
   "name": "zent-table",
-  "version": "0.3.4",
+  "version": "1.0.0",
   "description": "表格组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -21,9 +21,9 @@
     "src/"
   ],
   "dependencies": {
-    "zent-checkbox": "0.1.16",
-    "zent-loading": "0.1.12",
-    "zent-pagination": "0.2.20",
-    "zent-utils": "*"
+    "zent-checkbox": "1.0.0",
+    "zent-loading": "1.0.0",
+    "zent-pagination": "1.0.0",
+    "zent-utils": "1.0.0"
   }
 }

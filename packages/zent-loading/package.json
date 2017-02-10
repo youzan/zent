@@ -1,6 +1,6 @@
 {
   "name": "zent-loading",
-  "version": "0.1.12",
+  "version": "1.0.0",
   "description": "这是一个React Loading组件",
   "main": "./lib/index.js",
   "repository": {

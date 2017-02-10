@@ -1,6 +1,6 @@
 {
   "name": "zent-input",
-  "version": "0.1.9",
+  "version": "1.0.0",
   "description": "Input输入组件",
   "repository": {
     "type": "git",
@@ -21,6 +21,6 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "*"
+    "zent-utils": "1.0.0"
   }
 }
