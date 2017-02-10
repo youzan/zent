@@ -53,7 +53,6 @@ const ZentPagination = React.createClass({
    * @method getCurrentPageSize
    * @param  {[Array]}           ps [从parsePageSize返回的标准数组]
    * @return {[Number]}              [返回currentPageSize的数字值]
-   * author: fancy
    */
   getCurrentPageSize(ps) {
     for (let i = 0, len = ps.length; i < len; i++) {
@@ -61,7 +60,7 @@ const ZentPagination = React.createClass({
         return ps[i].value;
       }
     }
-    throw new Error('pageSize数据有错误');
+    throw new Error(`pageSize 数据有错误 ${ps}`);
   },
 
   parsePageSize(pageSize) {
