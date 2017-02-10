@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-steps",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "React实现的Steps组件",
   "repository": "git@gitlab.qima-inc.com:zent/zent-steps.git",
   "main": "./lib/index.js",
@@ -23,7 +23,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@youzan/zent-icon": "0.1.13",
+    "@youzan/zent-icon": "0.1.14",
     "classnames": "2.2.x"
   }
 }
