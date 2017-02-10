@@ -10,7 +10,8 @@
   "author": "zhangmengxuan",
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-select": "^0.1.58"
+    "@youzan/zent-select": "^0.1.58",
+    "lodash": "4.17.x"
   },
   "files": [
     "src/",

@@ -1,6 +1,7 @@
 import React from 'react';
 import CorePagination from './modules/CorePagination';
 import Prefix from './modules/Prefix';
+import isEqual from 'lodash/isEqual';
 
 const { number, func, string, oneOfType } = React.PropTypes;
 
@@ -47,22 +48,19 @@ const ZentPagination = React.createClass({
     };
   },
 
-  getCurrentPageSize(pageSize) {
-    let currentPageSize;
-
-    if (typeof pageSize === 'number') {
-      currentPageSize = pageSize;
-    } else {
-      pageSize.forEach((item) => {
-        if (item.isCurrent) {
-          currentPageSize = item.value;
-        }
-      });
-
-      currentPageSize = currentPageSize || pageSize[0].value;
+  /**
+   * [getCurrentPageSize description]
+   * @method getCurrentPageSize
+   * @param  {[Array]}           ps [从parsePageSize返回的标准数组]
+   * @return {[Number]}              [返回currentPageSize的数字值]
+   */
+  getCurrentPageSize(ps) {
+    for (let i = 0, len = ps.length; i < len; i++) {
+      if (ps[i].isCurrent) {
+        return ps[i].value;
+      }
     }
-
-    return currentPageSize;
+    throw new Error(`pageSize 数据有错误 ${ps}`);
   },
 
   parsePageSize(pageSize) {
@@ -98,12 +96,15 @@ const ZentPagination = React.createClass({
     return ps;
   },
 
+  // BUG: 使用pager翻页之后会丢失原来的pageSize状态
   componentWillReceiveProps(nextProps) {
-    let pageSize = this.parsePageSize(nextProps.pageSize);
-    let currentPageSize = this.getCurrentPageSize(pageSize);
-    this.setState({
-      currentPageSize
-    });
+    if (!isEqual(this.props.pageSize, nextProps.pageSize)) {
+      let pageSize = this.parsePageSize(nextProps.pageSize);
+      let currentPageSize = this.getCurrentPageSize(pageSize);
+      this.setState({
+        currentPageSize
+      });
+    }
   },
 
   getDefaultProps() {
