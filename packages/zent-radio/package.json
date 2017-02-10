@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-radio",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Radio 单选框",
   "main": "./lib/index.js",
   "scripts": {

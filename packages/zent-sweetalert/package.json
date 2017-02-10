@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-sweetalert",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "封装好的dialog组件，可快捷调用弹窗",
   "main": "./lib/index.js",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "zhengxin",
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-button": "^0.1.16",
-    "@youzan/zent-dialog": "0.1.25",
-    "@youzan/zent-icon": "0.1.11",
+    "@youzan/zent-button": "0.1.17",
+    "@youzan/zent-dialog": "0.1.26",
+    "@youzan/zent-icon": "0.1.12",
     "classnames": "2.2.x"
   },
   "files": [

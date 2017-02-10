@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-tabs",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "tabs组件",
   "main": "./lib/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-checkbox",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Checkbox 多选框",
   "main": "./lib/index.js",
   "scripts": {

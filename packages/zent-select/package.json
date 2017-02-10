@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-select",
-  "version": "0.1.58",
+  "version": "0.1.59",
   "description": "这是一个select组件",
   "main": "./lib/index.js",
   "scripts": {

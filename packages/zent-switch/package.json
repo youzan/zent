@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-switch",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "这是一个开关组件",
   "repository": "http://gitlab.qima-inc.com/zent/zent-switch.git",
   "main": "./lib/index.js",
