@@ -56,7 +56,7 @@ export default class DatePanel extends Component {
         <TimePanel
           actived={props.showTime.actived}
           format={props.showTime.format}
-          disabledTime={props.showTime.disabledTime && props.showTime.disabledTime()}
+          disabledTime={props.showTime.disabledTime}
           onChange={props.showTime.onChange}
           />
       );

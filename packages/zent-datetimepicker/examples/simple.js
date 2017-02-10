@@ -34,6 +34,22 @@ export default class Simple extends Component {
       disabledSecond
     };
   }
+  isDisabledRangeTime(type) {
+    const disabledHour = (val) => {
+      return type === 'start' ? val < 12 : val > 12;
+    };
+    const disabledMinute = (val) => {
+      return type === 'start' ? val > 30 : val > 30;
+    };
+    const disabledSecond = (val) => {
+      return type === 'start' ? val < 20 : val > 40;
+    };
+    return {
+      disabledHour,
+      disabledMinute,
+      disabledSecond
+    };
+  }
   onChangeMonth = (val) => {
     this.setState({
       logs: [...this.state.logs, `选择月份 ${val}`]
@@ -94,7 +110,11 @@ export default class Simple extends Component {
           onChange={this.onChangeTime}
         />
         <br /><br />
-        <DateRangePicker disabledDate={this.state.range} onChange={this.onChangeRange} />
+        <DateRangePicker
+          showTime
+          disabledDate={this.state.range}
+          disabledTime={this.isDisabledRangeTime}
+          onChange={this.onChangeRange} />
         <ul>
           {logList}
         </ul>
