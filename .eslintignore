@@ -3,5 +3,6 @@
 **/vendor
 **/node_modules
 packages/*/__tests__/*
-zent-utils/**/*
-!zent-utils/src/**/*
+
+packages/zent-utils/**/*
+!packages/zent-utils/src/**/*
