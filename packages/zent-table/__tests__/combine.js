@@ -23,12 +23,15 @@ describe('Combine', () => {
   });
 
   it('header sort change', () => {
-    expect(wrapper.find('.table__head a .desc').length).toBe(1);
+    expect(wrapper.find('Head a .desc').length).toBe(1);
 
-    wrapper.find('.table__head .desc').simulate('click');
+    wrapper.find('Head .desc').simulate('click');
 
-    expect(wrapper.find('.table__head a .desc').length).toBe(0);
-    expect(wrapper.find('.table__head a .asc').length).toBe(1);
+    expect(wrapper.find('Head a .desc').length).toBe(0);
+    expect(wrapper.find('Head a .asc').length).toBe(1);
+    wrapper.find('Head a .asc').simulate('click');
+    expect(wrapper.find('Head a .desc').length).toBe(1);
+    expect(wrapper.find('Head a .asc').length).toBe(0);
   });
 
   it('pagination click change', () => {
@@ -52,5 +55,27 @@ describe('Combine', () => {
   it('pagination total info', () => {
     wrapper.setState({ total: 1000 });
     expect(wrapper.find('.total').text()).toBe('共1000条');
+  });
+
+  it('selectRows', () => {
+    expect(wrapper.find('Checkbox').length).toBe(4);
+    wrapper.find('Head Checkbox input').simulate('change', { target: { checked: true } });
+    wrapper.find('Checkbox').forEach(node => {
+      expect(node.prop('checked')).toBe(true);
+    });
+    wrapper.find('Head Checkbox input').simulate('change', { target: { checked: false } });
+    wrapper.find('Checkbox').forEach(node => {
+      expect(node.prop('checked')).toBe(false);
+    });
+    wrapper.find('Body Checkbox input').at(0).simulate('change', { target: { checked: true } });
+    expect(wrapper.find('Body Checkbox').at(0).prop('checked')).toBe(true);
+
+    // HACK: branch Table.js onSelectOneRow
+    wrapper.find('Body Checkbox input').at(0).simulate('change', { target: { checked: true } });
+    expect(wrapper.find('Body Checkbox').at(0).prop('checked')).toBe(true);
+    wrapper.find('Body Checkbox input').at(0).simulate('change', { target: { checked: false } });
+    expect(wrapper.find('Body Checkbox').at(0).prop('checked')).toBe(false);
+    wrapper.find('Body Checkbox input').at(0).simulate('change', { target: { checked: false } });
+    expect(wrapper.find('Body Checkbox').at(0).prop('checked')).toBe(false);
   });
 });

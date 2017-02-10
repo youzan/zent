@@ -37,21 +37,17 @@ class DateRangePicker extends Component {
 
   componentWillReceiveProps(next) {
     if (next.value) {
-      let showPlaceholder = false;
-      let selectedStart = new Date(next.value[0]);
-      let selectedEnd = new Date(next.value[1]);
+      const showPlaceholder = false;
+      const selected = [new Date(next.value[0]), new Date(next.value[1])];
 
       this.setState({
         value: [
-          format(selectedStart, next.format || this.props.format),
-          format(selectedEnd, next.format || this.props.format)
+          format(selected[0], next.format || this.props.format),
+          format(selected[1], next.format || this.props.format)
         ],
-        selectedStart,
-        activedStart: selectedStart,
-        startTime: selectedStart,
-        selectedEnd,
-        activedEnd: selectedEnd,
-        endTime: selectedEnd,
+        selected,
+        actived: selected.slice(),
+        activedTime: selected.slice(),
         openPanel: false,
         showPlaceholder
       });
@@ -124,7 +120,8 @@ class DateRangePicker extends Component {
   }
 
   onChangeDate = (val, i) => {
-    const acp = this.state.actived.slice();
+    const { actived } = this.state;
+    const acp = actived.slice();
     acp.splice(i, 1, val);
     this.setState({
       actived: acp
@@ -163,13 +160,33 @@ class DateRangePicker extends Component {
   }
 
   onConfirm = () => {
-    const { value, selected } = this.state;
+    const { value, selected, activedTime } = this.state;
     const props = this.props;
     if (selected.length !== 2) {
       return false;
     }
+    const getDateTime = (date, time) => {
+      return new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        time.getHours(),
+        time.getMinutes(),
+        time.getSeconds()
+      );
+    };
     let vcp = value.slice();
-    vcp = [format(selected[0], props.format), format(selected[1], props.format)];
+    if (props.showTime) {
+      const tmp = [
+        getDateTime(selected[0], activedTime[0]),
+        getDateTime(selected[1], activedTime[1])
+      ];
+      const tmpFormat = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
+      vcp = [format(tmp[0], tmpFormat), format(tmp[1], tmpFormat)];
+    } else {
+      vcp = [format(selected[0], props.format), format(selected[1], props.format)];
+    }
+
     this.setState({
       value: vcp,
       showPlaceholder: false,
@@ -183,32 +200,41 @@ class DateRangePicker extends Component {
     const props = this.props;
     const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
-      'picker-input--showTime': props.showTime,
       'picker-input--range picker-input': true,
-      'picker-input--empty': state.showPlaceholder
+      'picker-input--empty': state.showPlaceholder,
+      'picker-input--showTime': props.showTime
     });
-    let showTime;
     let rangePicker;
-    if (props.showTime) {
-      showTime = Object.assign({},
+
+    const getTimeConfig = (type) => {
+      const timeFnMap = {
+        start: this.onChangeStartTime,
+        end: this.onChangeEndTime
+      };
+      const indexMap = {
+        start: 0,
+        end: 1
+      };
+      return Object.assign({},
         {
-          actived: state.activedTime,
+          actived: state.activedTime[indexMap[type]],
           format: TIME_PROPS.format,
           disabledTime: TIME_PROPS.disabledTime
         },
         props.showTime || {},
         {
-          onChange: this.onChangeTime
+          disabledTime: props.disabledTime && props.disabledTime(type),
+          onChange: timeFnMap[type]
         }
       );
-    }
+    };
     if (state.openPanel) {
       rangePicker = (
         <div className="range-picker">
           <div className="date-picker">
             <DatePanel
               range={state.range}
-              showTime={showTime}
+              showTime={getTimeConfig('start')}
               actived={state.actived[0]}
               selected={state.selected}
               disabledDate={this.isDisabled}
@@ -220,7 +246,7 @@ class DateRangePicker extends Component {
           <div className="date-picker">
             <DatePanel
               range={state.range}
-              showTime={showTime}
+              showTime={getTimeConfig('end')}
               actived={state.actived[1]}
               selected={state.selected}
               disabledDate={this.isDisabled}

@@ -31,11 +31,11 @@ $double_default_width: 480px;
         font-size: 12px;
         border: 1px solid $border_color;
         border-radius: 2px;
-        &--showTime {
-            width: 320px;
-        }
         &--range {
             width: 240px;
+        }
+        &--showTime {
+            width: 320px;
         }
         &--empty {
             color: #999;
@@ -245,7 +245,7 @@ $double_default_width: 480px;
                 }
                 &:before,
                 &:after {
-                  display: none;
+                    display: none;
                 }
             }
             &--selected {
@@ -260,7 +260,7 @@ $double_default_width: 480px;
                 background: none;
                 &:before,
                 &:after {
-                  display: none;
+                    display: none;
                 }
             }
             &.date-panel__cell {
@@ -305,8 +305,8 @@ $double_default_width: 480px;
             line-height: 31px;
             border: 1px solid $border_color;
             text-align: center;
-            .time__number{
-              padding: 0 5px;
+            .time__number {
+                padding: 0 5px;
             }
         }
     }
