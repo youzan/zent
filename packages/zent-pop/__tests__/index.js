@@ -119,7 +119,6 @@ describe('Pop', () => {
     let visible = false;
     /* eslint-disable */
     const close = () => {
-      console.log('hahahaha');
       wrapper.setProps({ visible: false });
     };
     const open = () => {
