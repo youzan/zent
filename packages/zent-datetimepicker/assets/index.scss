@@ -205,7 +205,6 @@ $double_default_width: 480px;
             border-radius: 2px;
             cursor: pointer;
             position: relative;
-            // border: 1px solid transparent;
             &:hover {
                 background: $light_blue;
             }
@@ -234,7 +233,6 @@ $double_default_width: 480px;
                 }
             }
             &--current {
-                // border-color: $active_color;
                 color: $active_color;
             }
             &--disabled {
