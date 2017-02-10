@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-/* eslint-disable import/no-unresolved */
 import Tree from '../src';
-/* eslint-enable import/no-unresolved */
 
 beforeAll(() => {
   let timestamp = 0;
@@ -12,7 +10,12 @@ beforeAll(() => {
   };
 
   // FIXME: if test fails, you may need to adjust this value
-  HTMLElement.prototype.scrollHeight = 75;
+  /* eslint-disable */
+  try {
+    HTMlElement.scrollHeight = 75
+    HTMLElement.prototype.scrollHeight = 75;
+  } catch(e) {}
+  /* eslint-enable */
 });
 // jest.useFakeTimers();
 

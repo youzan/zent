@@ -51,14 +51,14 @@ const Simple = React.createClass({
 
   onChange(conf) {
     this.setState(conf);
-    console.log(conf); // eslint-disable-line
+    // console.log(conf); // eslint-disable-line
   },
 
   onSelect(selectedRowKeys) {
     this.setState({
       selectedRowKeys
     });
-    console.log(`你选中了：${selectedRowKeys}`); // eslint-disable-line
+    // console.log(`你选中了：${selectedRowKeys}`); // eslint-disable-line
   },
 
   render() {
