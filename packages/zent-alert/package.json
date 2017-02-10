@@ -26,7 +26,6 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "lodash": "4.17.x",
     "zent-utils": "*"
   },
   "devDependencies": {

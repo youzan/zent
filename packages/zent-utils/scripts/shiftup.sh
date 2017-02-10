@@ -1,5 +1,10 @@
 #!/bin/sh
 
-cp -Rf lib/component component
-cp -Rf lib/dom dom
-cp lib/classnames.js classnames.js
+# 将lib下除了index.js之外的所有东西拷贝到根目录
+for entry in lib/*
+do
+    name=$(basename $entry)
+    if [ "$name" != "index.js" ] ; then
+        cp -Rf $entry $name
+    fi
+done

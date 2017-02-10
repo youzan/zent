@@ -9,8 +9,8 @@
 import React, { Component, PropTypes, Children } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'zent-utils/classnames';
-import noop from 'lodash/noop';
-import uniqueId from 'lodash/uniqueId';
+import noop from 'zent-utils/lodash/noop';
+import uniqueId from 'zent-utils/lodash/uniqueId';
 
 import PopoverContent from './Content';
 import PopoverTrigger from './trigger/Trigger';

@@ -23,7 +23,6 @@
   "dependencies": {
     "zent-popover": "0.0.9",
     "zent-button": "0.1.19",
-    "lodash": "4.17.x",
     "zent-utils": "*"
   },
   "devDependencies": {

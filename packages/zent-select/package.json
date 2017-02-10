@@ -24,7 +24,6 @@
     "dist/"
   ],
   "dependencies": {
-    "lodash": "4.17.x",
-    "object-assign": "4.1.x"
+    "zent-utils": "*"
   }
 }

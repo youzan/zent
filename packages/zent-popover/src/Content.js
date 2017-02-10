@@ -3,7 +3,7 @@ import cx from 'zent-utils/classnames';
 import Portal from 'zent-portal';
 import WindowResizeHandler from 'zent-utils/lib/component/WindowResizeHandler';
 import findPositionedParent from 'zent-utils/lib/dom/findPositionedParent';
-import throttle from 'lodash/throttle';
+import throttle from 'zent-utils/lodash/throttle';
 
 import invisiblePlacement from './placement/invisible';
 

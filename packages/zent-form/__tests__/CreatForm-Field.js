@@ -1,6 +1,6 @@
 import React from 'react';
-import noop from 'lodash/noop';
-import { shallow, mount } from 'enzyme';
+import noop from 'zent-utils/lodash/noop';
+import { mount } from 'enzyme';
 
 import ZentForm from '../src';
 
@@ -82,7 +82,7 @@ describe('CreateForm and Field', () => {
     wrapper.setProps({ value: undefined });
   });
 
-  //HACK: console.error
+  // HACK: console.error
   // it('Field have componentWillUnmount method', () => {
   //   const contextCopy = Object.assign({}, context, {});
   //   const detachFromFormMock = jest.fn();

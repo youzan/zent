@@ -3,7 +3,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import assign from 'object-assign';
+import assign from 'zent-utils/lodash/assign';
 
 class InputTrigger extends Component {
 

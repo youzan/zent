@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import setClass from 'zent-utils/classnames';
-import omit from 'lodash/omit';
+import omit from 'zent-utils/lodash/omit';
 
 export default class Button extends Component {
 

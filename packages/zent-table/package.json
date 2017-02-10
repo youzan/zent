@@ -24,6 +24,6 @@
     "zent-checkbox": "0.1.16",
     "zent-loading": "0.1.12",
     "zent-pagination": "0.2.20",
-    "lodash": "4.17.x"
+    "zent-utils": "*"
   }
 }

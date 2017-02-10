@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "npm run lint && zent-kit prepublish && ./scripts/shiftup.sh"
+    "prepublish": "npm run lint && zent-kit prepublish && ./scripts/shiftup.sh && ./scripts/wrap-lodash.sh"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,8 @@
   "author": "lichen",
   "license": "MIT",
   "dependencies": {
-    "classnames": "2.2.x"
+    "classnames": "2.2.x",
+    "lodash": "4.17.x"
   },
   "files": [
     "src/",
@@ -22,9 +23,10 @@
     "examples/",
     "lib/",
     "dist/",
-    "component",
-    "dom",
-    "classnames"
+    "component/",
+    "dom/",
+    "classnames",
+    "lodash/"
   ],
   "jest": {
     "verbose": true,

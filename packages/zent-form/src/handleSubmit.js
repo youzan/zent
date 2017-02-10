@@ -1,4 +1,4 @@
-import isPromise from 'is-promise';
+import isPromise from 'zent-utils/isPromise';
 
 const handleSubmit = (submit, zentForm) => {
   const props = zentForm.props;

@@ -3,7 +3,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import assign from 'object-assign';
+import assign from 'zent-utils/lodash/assign';
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';

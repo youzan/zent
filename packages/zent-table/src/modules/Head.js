@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import throttle from 'lodash/throttle';
+import throttle from 'zent-utils/lodash/throttle';
 import helper from '../helper';
 import Checkbox from 'zent-checkbox';
 

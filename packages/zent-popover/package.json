@@ -22,8 +22,7 @@
   ],
   "dependencies": {
     "zent-portal": "0.1.13",
-    "zent-utils": "0.0.5",
-    "lodash": "4.17.x"
+    "zent-utils": "0.0.5"
   },
   "devDependencies": {
     "zent-button": "0.1.19",

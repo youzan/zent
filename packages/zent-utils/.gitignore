@@ -35,4 +35,5 @@ npm-debug.log
 
 component/
 dom/
+lodash/
 classnames.js

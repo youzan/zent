@@ -1,6 +1,6 @@
 import React from 'react';
 import Table from '../src/index.js';
-import assign from 'lodash/assign';
+import assign from 'zent-utils/lodash/assign';
 
 import '../assets/index.scss';
 import 'zent-pagination/assets/index.scss';

@@ -18,9 +18,7 @@
     "zent-input": "0.1.9",
     "zent-radio": "0.1.11",
     "zent-select": "0.1.61",
-    "zent-utils": "*",
-    "is-promise": "2.1.x",
-    "lodash": "4.17.x"
+    "zent-utils": "*"
   },
   "files": [
     "src/",

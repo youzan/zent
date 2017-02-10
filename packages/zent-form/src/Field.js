@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import { Component, PropTypes, createElement } from 'react';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'zent-utils/lodash/isEqual';
 import { getValue } from './utils';
 
 class Field extends Component {

@@ -3,10 +3,10 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import assign from 'object-assign';
-import omit from 'lodash/omit';
-import cloneDeep from 'lodash/cloneDeep';
-import isEqual from 'lodash/isEqual';
+import assign from 'zent-utils/lodash/assign';
+import omit from 'zent-utils/lodash/omit';
+import cloneDeep from 'zent-utils/lodash/cloneDeep';
+import isEqual from 'zent-utils/lodash/isEqual';
 import Trigger from './triggers/Index';
 import Popup from './Popup';
 import SimpleTrigger from './triggers/SimpleTrigger';

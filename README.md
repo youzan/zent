@@ -1,10 +1,8 @@
 # zent
 
-React Component Ecosystem，一套前端设计语言和基于React的实现
+React Component Ecosystem，一套前端设计语言和基于React的实现。
 
-## 特性
-
-* 立志于让前端开发更快速、简单，所有开发者都能快速上手
+立志于让前端开发更快速、简单，所有开发者都能快速上手。
 
 ## 安装
 
@@ -76,9 +74,10 @@ lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes
 * `zent-kit dev`: 启动一个本地开发模式的server
 * `zent-kit test`: 运行组件的测试用例
 
-## 贡献代码
+## 常见问题
 
-* `zent-utils`包提供了常见工具函数，包括`classnames`以及`lodash`里的所有函数，请不要在组件内部单独安装这两个包
+* `zent-utils`包提供了常见工具函数，包括`classnames`以及`lodash`里的所有函数，请不要在组件内部单独安装这两个包。
+  原则上所有工具函数都应该放在`zent-utils`里面管理。
 * 提交的代码确保已经通过eslint检查。
 
 ## 发布

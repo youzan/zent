@@ -1,6 +1,6 @@
 import { PropTypes } from 'react';
-import capitalize from 'lodash/capitalize';
-import uniq from 'lodash/uniq';
+import capitalize from 'zent-utils/lodash/capitalize';
+import uniq from 'zent-utils/lodash/uniq';
 
 import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 

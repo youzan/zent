@@ -1,7 +1,7 @@
 import React from 'react';
 import CorePagination from './modules/CorePagination';
 import Prefix from './modules/Prefix';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'zent-utils/lodash/isEqual';
 
 const { number, func, string, oneOfType } = React.PropTypes;
 

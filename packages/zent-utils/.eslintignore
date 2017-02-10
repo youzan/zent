@@ -1,10 +1,2 @@
-**/build
-**/bower_components
-**/vendor
-**/node_modules
-**/dist
-**/lib
-
-component/
-dom/
-classnames.js
+./**/*
+!src/**/*

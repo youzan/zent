@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "zent-select": "0.1.61",
-    "lodash": "4.17.x"
+    "zent-utils": "*"
   },
   "files": [
     "src/",

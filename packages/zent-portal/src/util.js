@@ -1,7 +1,7 @@
 import cx from 'zent-utils/classnames';
 import { Children } from 'react';
 import ReactDOM from 'react-dom';
-import isFunction from 'lodash/isFunction';
+import isFunction from 'zent-utils/lodash/isFunction';
 
 function createContainerNode(parent) {
   const div = document.createElement('div');

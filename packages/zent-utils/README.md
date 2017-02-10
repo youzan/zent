@@ -2,11 +2,22 @@
 
 一些通用的工具函数／工具组件
 
+## 添加新组件／函数
+
+为了方便引用，所有打包之后生成的文件／目录应该处于根目录下。`package.json`的`files`字段下需要加上新文件，
+同时在`.gitignore`中忽略新文件。
+
 ## API
 
 ### classnames
 
 导出了用来拼接React `className`的`classnames`函数，使用方法和[classnames](https://github.com/JedWatson/classnames)一致。
+
+### lodash
+
+导出了[lodash]()中的所有函数，只支持按需`import`的方式引用。
+
+`import isFunction from 'zent-utils/lodash/isFunction';`
 
 ### `WindowEventHandler`用来往`window`上绑全局事件。
 
