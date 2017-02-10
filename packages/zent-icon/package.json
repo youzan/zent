@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-icon",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "zent的图标库",
   "repository": "http://gitlab.qima-inc.com/zent/zent-icon",
   "main": "./lib/index.js",

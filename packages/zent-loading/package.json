@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-loading",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "这是一个React Loading组件",
   "main": "./lib/index.js",
   "scripts": {
