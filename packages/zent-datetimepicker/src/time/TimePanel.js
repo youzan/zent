@@ -75,7 +75,7 @@ export default class TimePanel extends Component {
     });
   }
   hidePanel = (type) => {
-    let key = stateMap[type];
+    const key = stateMap[type];
     this.setState({
       [key]: false
     });

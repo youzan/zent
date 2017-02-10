@@ -1,7 +1,7 @@
 {
-  "name": "@youzan/zent-popover",
-  "version": "0.0.5",
-  "description": "可扩展的弹层组件",
+  "name": "@youzan/zent-utils",
+  "version": "0.0.2",
+  "description": "zent工具库",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
@@ -16,16 +16,6 @@
     "lib/",
     "dist/"
   ],
-  "dependencies": {
-    "@youzan/zent-portal": "0.1.10",
-    "@youzan/zent-utils": "0.0.2",
-    "lodash": "4.17.x",
-    "classnames": "2.2.x"
-  },
-  "devDependencies": {
-    "@youzan/zent-button": "*",
-    "@youzan/zent-dialog": "0.1.25"
-  },
   "jest": {
     "verbose": true,
     "automock": false,

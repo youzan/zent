@@ -2,7 +2,7 @@ import Alert from '@youzan/zent-alert';
 import Breadcrumb from '@youzan/zent-breadcrumb';
 import Button from '@youzan/zent-button';
 import Checkbox from '@youzan/zent-checkbox';
-import { MonthPicker, DatePicker, TimePicker, DateRangePicker } from '@youzan/zent-datetimepicker';
+import { MonthPicker, DatePicker, DateRangePicker } from '@youzan/zent-datetimepicker';
 import Dialog from '@youzan/zent-dialog';
 import Form from '@youzan/zent-form';
 import Layout from '@youzan/zent-layout';
@@ -12,6 +12,7 @@ import Input from '@youzan/zent-input';
 import Notify from '@youzan/zent-notify';
 import Pagination from '@youzan/zent-pagination';
 import Pop from '@youzan/zent-pop';
+import Popover from '@youzan/zent-popover';
 import Portal from '@youzan/zent-portal';
 import Radio from '@youzan/zent-radio';
 import Select from '@youzan/zent-select';
@@ -39,6 +40,7 @@ const Zent = {
   Notify,
   Pagination,
   Pop,
+  Popover,
   Portal,
   Radio,
   Select,
@@ -46,7 +48,6 @@ const Zent = {
   Sweetalert,
   Table,
   Tabs,
-  TimePicker,
   Tree,
   Switch
 };

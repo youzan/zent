@@ -77,7 +77,7 @@ if ! command_exists superman ; then
 fi
 
 if ! command_exists lerna ; then
-    npm_install lerna
+    npm_install lerna@2.0.0-beta.37
 fi
 
 if ! command_exists brew ; then

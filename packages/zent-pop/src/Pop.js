@@ -14,16 +14,20 @@ function capitalize(str) {
 }
 
 class PopAction extends Component {
-  handleConfirm = () => {
-    const { popover, onConfirm } = this.props;
+  handleClick(callbackName) {
+    const { popover, trigger } = this.props;
     popover.close();
-    onConfirm && onConfirm();
+
+    const callback = this.props[callbackName];
+    trigger !== 'none' && callback && callback();
+  }
+
+  handleConfirm = () => {
+    this.handleClick('onConfirm');
   };
 
   handleCancel = () => {
-    const { popover, onCancel } = this.props;
-    popover.close();
-    onCancel && onCancel();
+    this.handleClick('onCancel');
   };
 
   render() {

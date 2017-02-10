@@ -7,7 +7,7 @@ import '@youzan/zent-button/assets/index.scss';
 export default class Demo extends Component {
 
   closeCallback = () => {
-    alert('Notify has over');
+    alert('Notify has over'); // eslint-disable-line
   }
 
   testSuccess = () => {

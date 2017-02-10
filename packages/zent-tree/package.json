@@ -1,8 +1,8 @@
 {
   "name": "@youzan/zent-tree",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Tree ui react component for zent",
-  "main": "./lib/Index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
