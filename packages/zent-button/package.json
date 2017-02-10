@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-button",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "基本组件按钮，提供default primary...等基础需求以及disable、loading等状态",
   "main": "./lib/index.js",
   "scripts": {

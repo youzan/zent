@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-datetimepicker",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Zent DateTimePicker 组件",
   "repository": "gitlab/url/to/your/component",
   "main": "./lib/index.js",
@@ -23,7 +23,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@youzan/zent-icon": "0.1.12",
+    "@youzan/zent-icon": "0.1.13",
     "classnames": "2.2.x"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@youzan/zent-pagination",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "zent分页组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "zhangmengxuan",
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-select": "0.1.59",
+    "@youzan/zent-select": "0.1.60",
     "lodash": "4.17.x"
   },
   "files": [
