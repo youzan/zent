@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Button from '@youzan/zent-button';
+import Button from 'zent-button';
 
 import Popover from '../src';
 
 import '../assets/index.scss';
-import '@youzan/zent-button/lib/index.css';
+import 'zent-button/lib/index.css';
 import '../assets/01-simple.scss';
 
 const PopoverContent = Popover.Content;

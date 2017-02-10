@@ -3,9 +3,9 @@
 import React from 'react';
 import Pop from '../src/index.js';
 
-import '@youzan/zent-popover/assets/index.scss';
-import '@youzan/zent-button/assets/index.scss';
-import '@youzan/zent-layout/assets/index.scss';
+import 'zent-popover/assets/index.scss';
+import 'zent-button/assets/index.scss';
+import 'zent-layout/assets/index.scss';
 import '../assets/index.scss';
 import '../assets/example.scss';
 

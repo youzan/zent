@@ -1,11 +1,15 @@
 {
-  "name": "@youzan/zent-utils",
+  "name": "zent-utils",
   "version": "0.0.5",
   "description": "zent工具库",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
   },
   "author": "lichen",
   "license": "MIT",

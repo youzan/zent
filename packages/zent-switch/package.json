@@ -1,12 +1,15 @@
 {
-  "name": "@youzan/zent-switch",
+  "name": "zent-switch",
   "version": "0.1.13",
   "description": "这是一个开关组件",
-  "repository": "http://gitlab.qima-inc.com/zent/zent-switch.git",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
   },
   "author": "ronghang",
   "license": "MIT",

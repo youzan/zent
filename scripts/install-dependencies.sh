@@ -23,7 +23,7 @@ npm_major_version () {
 
 npm_install () {
     echo "Install $@"
-    npm --registry=http://registry.npm.qima-inc.com --disturl=http://npm.taobao.org/mirrors/node install -g "$@"
+    npm install -g "$@"
     check_error "Install $@ failed"
 }
 
@@ -61,19 +61,15 @@ if [ `npm_major_version` -lt "3" ] ; then
 fi
 
 if ! command_exists zent-kit ; then
-    npm_install @youzan/zent-kit
+    npm_install zent-kit
 fi
 
 if ! command_exists felint ; then
-    npm_install @youzan/felint
+    npm_install felint
 fi
 
-if ! command_exists fount ; then
-    npm_install @youzan/fount
-fi
-
-if ! command_exists superman ; then
-    npm_install @youzan/superman
+if ! command_exists iconfount ; then
+    npm_install iconfount
 fi
 
 if ! command_exists lerna ; then
@@ -119,7 +115,7 @@ if ! fontforge_python_extension_loaded ; then
 fi;
 
 if ! fontforge_python_extension_loaded ; then
-    fail 'fontforge python extension install failed.\nPlease check this faq: http://gitlab.qima-inc.com/fe/fount/blob/master/doc/fontforge.md.';
+    fail 'fontforge python extension install failed.\nPlease check this faq: http://github.com/youzan/iconfount/blob/master/doc/fontforge.md.';
 fi
 
 if ! command_exists sketchtool ; then

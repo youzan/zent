@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Popover from '@youzan/zent-popover';
-import Button from '@youzan/zent-button';
+import Popover from 'zent-popover';
+import Button from 'zent-button';
 import cx from 'classnames';
 
 import NoneTrigger from './NoneTrigger';

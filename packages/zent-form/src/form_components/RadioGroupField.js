@@ -1,5 +1,5 @@
 import React from 'react';
-import Radio from '@youzan/zent-radio';
+import Radio from 'zent-radio';
 import getControlGroup from '../getControlGroup';
 
 const RadioGroup = Radio.Group;

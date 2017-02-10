@@ -1,3 +1,0 @@
-当前目录里的 commit-msg 和 pre-commit 实际上被软链到了 /Users/delai/koudaitong/zent/.felint 下真正的脚本文件，相应的钩子触发的时候会被执行。
-
-  只是勾子通过multihook来出发而已，后续的 felint 钩子、配置的更新都没有差别

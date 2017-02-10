@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import helper from '../helper';
-import Checkbox from '@youzan/zent-checkbox';
+import Checkbox from 'zent-checkbox';
 
 let rect;
 let relativeTop;

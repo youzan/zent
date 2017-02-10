@@ -1,10 +1,10 @@
 {
-  "name": "@youzan/zent",
+  "name": "zent",
   "version": "0.4.7",
   "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.qima-inc.com:zent/zent.git"
+    "url": "git@github.com:youzan/zent.git"
   },
   "main": "./lib/index.js",
   "scripts": {
@@ -51,30 +51,30 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@youzan/zent-alert": "0.1.16",
-    "@youzan/zent-breadcrumb": "0.1.13",
-    "@youzan/zent-button": "0.1.19",
-    "@youzan/zent-checkbox": "0.1.16",
-    "@youzan/zent-datetimepicker": "0.0.39",
-    "@youzan/zent-dialog": "0.1.28",
-    "@youzan/zent-form": "0.1.16",
-    "@youzan/zent-icon": "0.1.14",
-    "@youzan/zent-input": "0.1.9",
-    "@youzan/zent-layout": "0.1.9",
-    "@youzan/zent-loading": "0.1.12",
-    "@youzan/zent-notify": "0.1.15",
-    "@youzan/zent-pagination": "0.2.20",
-    "@youzan/zent-pop": "0.4.7",
-    "@youzan/zent-popover": "0.0.9",
-    "@youzan/zent-portal": "0.1.13",
-    "@youzan/zent-radio": "0.1.11",
-    "@youzan/zent-select": "0.1.61",
-    "@youzan/zent-steps": "0.1.13",
-    "@youzan/zent-sweetalert": "0.2.14",
-    "@youzan/zent-switch": "0.1.13",
-    "@youzan/zent-table": "0.3.4",
-    "@youzan/zent-tabs": "0.2.6",
-    "@youzan/zent-tree": "0.1.14",
-    "@youzan/zent-utils": "0.0.5"
+    "zent-alert": "0.1.16",
+    "zent-breadcrumb": "0.1.13",
+    "zent-button": "0.1.19",
+    "zent-checkbox": "0.1.16",
+    "zent-datetimepicker": "0.0.39",
+    "zent-dialog": "0.1.28",
+    "zent-form": "0.1.16",
+    "zent-icon": "0.1.14",
+    "zent-input": "0.1.9",
+    "zent-layout": "0.1.9",
+    "zent-loading": "0.1.12",
+    "zent-notify": "0.1.15",
+    "zent-pagination": "0.2.20",
+    "zent-pop": "0.4.7",
+    "zent-popover": "0.0.9",
+    "zent-portal": "0.1.13",
+    "zent-radio": "0.1.11",
+    "zent-select": "0.1.61",
+    "zent-steps": "0.1.13",
+    "zent-sweetalert": "0.2.14",
+    "zent-switch": "0.1.13",
+    "zent-table": "0.3.4",
+    "zent-tabs": "0.2.6",
+    "zent-tree": "0.1.14",
+    "zent-utils": "0.0.5"
   }
 }

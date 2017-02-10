@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DatePicker, MonthPicker, DateRangePicker } from '../src';
 import '../assets/reset.scss';
 import '../assets/index.scss';
-import '@youzan/zent-icon/lib/index.css';
+import 'zent-icon/lib/index.css';
 
 export default class Simple extends Component {
   constructor(props) {

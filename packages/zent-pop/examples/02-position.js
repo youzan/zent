@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Button from '@youzan/zent-button';
+import Button from 'zent-button';
 
 import Pop from '../src';
 
-import '@youzan/zent-popover/assets/index.scss';
-import '@youzan/zent-button/assets/index.scss';
-import '@youzan/zent-layout/assets/index.scss';
+import 'zent-popover/assets/index.scss';
+import 'zent-button/assets/index.scss';
+import 'zent-layout/assets/index.scss';
 import '../assets/index.scss';
 import '../assets/example.scss';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Pagination from '../src/index.js';
-import '@youzan/zent-select/lib/index.css';
+import 'zent-select/lib/index.css';
 import '../assets/index.scss';
 
 const Dynamic = React.createClass({

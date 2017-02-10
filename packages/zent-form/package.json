@@ -1,8 +1,12 @@
 {
-  "name": "@youzan/zent-form",
+  "name": "zent-form",
   "version": "0.1.16",
   "description": "react form组件",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
@@ -10,10 +14,10 @@
   "author": "who r u",
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-checkbox": "0.1.16",
-    "@youzan/zent-input": "0.1.9",
-    "@youzan/zent-radio": "0.1.11",
-    "@youzan/zent-select": "0.1.61",
+    "zent-checkbox": "0.1.16",
+    "zent-input": "0.1.9",
+    "zent-radio": "0.1.11",
+    "zent-select": "0.1.61",
     "classnames": "2.2.x",
     "is-promise": "2.1.x",
     "lodash": "4.17.x"

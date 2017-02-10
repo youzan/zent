@@ -1,5 +1,5 @@
 {
-  "name": "@youzan/zent-repository",
+  "name": "zent-repository",
   "version": "1.0.0",
   "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
   "scripts": {
@@ -10,7 +10,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@gitlab.qima-inc.com:zent/zent.git"
+    "url": "git@github.com:youzan/zent.git"
   },
   "keywords": [
     "react",

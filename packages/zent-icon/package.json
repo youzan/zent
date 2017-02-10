@@ -1,8 +1,11 @@
 {
-  "name": "@youzan/zent-icon",
+  "name": "zent-icon",
   "version": "0.1.14",
   "description": "zent的图标库",
-  "repository": "http://gitlab.qima-inc.com/zent/zent-icon",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import Pop from '../src';
-import Button from '@youzan/zent-button';
+import Button from 'zent-button';
 
 const content = () => {
   return (

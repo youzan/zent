@@ -1,8 +1,12 @@
 {
-  "name": "@youzan/zent-dialog",
+  "name": "zent-dialog",
   "version": "0.1.28",
   "description": "基本弹窗组件",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
@@ -13,7 +17,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-portal": "0.1.13",
+    "zent-portal": "0.1.13",
     "classnames": "2.2.x"
   },
   "files": [

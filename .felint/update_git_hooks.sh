@@ -54,17 +54,6 @@ checkAndInstallPackage 'eslint-plugin-jsx-a11y' '1.2.3'
 checkAndInstallPackage 'eslint-config-airbnb' '9.0.1'
 checkAndInstallPackage 'eslint-plugin-lean-imports' '0.3.3'
 
-# Check MultiHook
-ALL_HOOKS_FOLDER=$projectPath/.multi_hooks/all_hooks
-
-APPLICATION=felint
-
-if [ ! -d $ALL_HOOKS_FOLDER ];then
-  printf '\n========== 开始安装multi_hooks ==========\n'
-  curl http://gitlab.qima-inc.com/delai/youzan_git_kit/raw/master/init_multi_hooks.sh | sh
-  printf '\n========== 安装multi_hooks完成 ==========\n'
-fi
-
 # cd to hooks folder
 cd ./.felint
 
@@ -72,25 +61,19 @@ printf '\n========== init .eslintignore start ==========\n'
 cp ./.eslintignore "$projectPath"
 printf '\n========== init .eslintignore done ==========\n'
 
-if [ -d $ALL_HOOKS_FOLDER ];then
-  rm -rf $ALL_HOOKS_FOLDER/$APPLICATION
-  mkdir -p $ALL_HOOKS_FOLDER/$APPLICATION
-  cd $ALL_HOOKS_FOLDER/$APPLICATION
-  # 2、下面这里填脚本地址
-  printf '\n========== init hook ==========\n'
-  ln -s ../../../.felint/pre-commit "./pre-commit"
-  ln -s ../../../.felint/commit-msg "./commit-msg"
-  echo '当前目录里的 commit-msg 和 pre-commit 实际上被软链到了 '$projectPath'/.felint 下真正的脚本文件，相应的钩子触发的时候会被执行。\n
-  只是勾子通过multihook来出发而已，后续的 felint 钩子、配置的更新都没有差别' > ./README
+printf '\n========== init hook ==========\n'
+mkdir "${projectPath}/.git/hooks/"
+hooks="${projectPath}/.git/hooks/"
+rm -f "${hooks}/pre-commit" "${hooks}/pre-push" "${hooks}/post-merge" "${hooks}/commit-msg"
+ln -s ../../.felint/pre-commit "$hooks"
+ln -s ../../.felint/pre-push "$hooks"
+ln -s ../../.felint/commit-msg "$hooks"
+printf '\n========== chmod hook ==========\n'
+chmod a+x "./pre-commit"
+chmod a+x "./pre-push"
+chmod a+x "./commit-msg"
+printf '\n========== chmod hook done ==========\n'
 
-  printf '\n========== chmod hook ==========\n'
-  chmod -R a+x $projectPath/.multi_hooks
-  printf '\n========== chmod hook done ==========\n'
-  printf '\n========== init hook done ==========\n'
-else
-  echo '请先在当前项目里初始化 multi_hooks'
-  echo '方法：在项目根目录执行： curl http://gitlab.qima-inc.com/delai/youzan_git_kit/raw/master/init_multi_hooks.sh | sh'
-  exit 1;
-fi
+printf '\n========== init hook done ==========\n'
 
 printf '\n========== ALL DONE, THANKS\n'

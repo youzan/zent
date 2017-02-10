@@ -1,5 +1,5 @@
 {
-  "name": "@youzan/zent-sweetalert",
+  "name": "zent-sweetalert",
   "version": "0.2.14",
   "description": "封装好的dialog组件，可快捷调用弹窗",
   "main": "./lib/index.js",
@@ -7,12 +7,16 @@
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "author": "zhengxin",
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-button": "0.1.19",
-    "@youzan/zent-dialog": "0.1.28",
-    "@youzan/zent-icon": "0.1.14",
+    "zent-button": "0.1.19",
+    "zent-dialog": "0.1.28",
+    "zent-icon": "0.1.14",
     "classnames": "2.2.x"
   },
   "files": [

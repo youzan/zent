@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Icon from '@youzan/zent-icon';
+import Icon from 'zent-icon';
 
 export default class PanelHeader extends Component {
   static defaultProps = {

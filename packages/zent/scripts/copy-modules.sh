@@ -1,10 +1,10 @@
 #!/bin/sh
 
-zent_packages=$(grep -E "@youzan/zent-.+" package.json | tr -d '",' | cut -d ':' -f 1)
+zent_packages=$(grep -E "zent-.+" package.json | tr -d '",' | cut -d ':' -f 1)
 
 copy_from_node_modules() {
   echo "copy $1"
-  
+
   local_name=$(echo $1 | cut -d '-' -f 2)
 
   rm -rf $local_name

@@ -1,6 +1,6 @@
 import React from 'react';
 import helper from '../helper';
-import Checkbox from '@youzan/zent-checkbox';
+import Checkbox from 'zent-checkbox';
 
 const Td = React.createClass({
 

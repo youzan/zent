@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Button from '@youzan/zent-button';
+import Button from 'zent-button';
 import Popover from '../src';
 
 /* eslint-disable */

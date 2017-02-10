@@ -1,7 +1,11 @@
 {
-  "name": "@youzan/zent-breadcrumb",
+  "name": "zent-breadcrumb",
   "version": "0.1.13",
   "description": "基础面包屑组件，在一个带有层次的导航结构中标明当前页面的位置。",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",

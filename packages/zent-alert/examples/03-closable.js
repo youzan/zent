@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Alert from '../src';
-import Button from '@youzan/zent-button';
+import Button from 'zent-button';
 
 import '../assets/index.scss';
 import '../assets/examples/base.scss';
 import '../assets/examples/large.scss';
-import '@youzan/zent-button/lib/index.css';
+import 'zent-button/lib/index.css';
 
 export default class Closable extends Component {
   onClose = () => {

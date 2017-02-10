@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Alert from '../src';
-import Icon from '@youzan/zent-icon';
+import Icon from 'zent-icon';
 
 import '../assets/index.scss';
 import '../assets/examples/base.scss';
-import '@youzan/zent-icon/lib/index.css';
+import 'zent-icon/lib/index.css';
 import '../assets/examples/simple.scss';
 
 export default class Simple extends Component {

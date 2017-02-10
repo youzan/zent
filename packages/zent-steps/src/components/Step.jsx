@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Icon from '@youzan/zent-icon';
+import Icon from 'zent-icon';
 import classNames from 'classnames';
 
 export default class Step extends Component {

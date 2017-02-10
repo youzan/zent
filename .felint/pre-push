@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PUSH_DEFAULT=$(git config push.default)
+
+if [[ !($PUSH_DEFAULT == 'simple' || $PUSH_DEFAULT == 'current') ]]; then
+	git config --replace-all push.default simple
+	printf '\n\033[32m Massage:自动设置git config push.default => simple \033[0m\n'
+fi

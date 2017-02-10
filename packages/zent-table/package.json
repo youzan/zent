@@ -1,11 +1,15 @@
 {
-  "name": "@youzan/zent-table",
+  "name": "zent-table",
   "version": "0.3.4",
   "description": "表格组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
   },
   "author": "zhangmengxuan",
   "license": "MIT",
@@ -17,9 +21,9 @@
     "src/"
   ],
   "dependencies": {
-    "@youzan/zent-checkbox": "0.1.16",
-    "@youzan/zent-loading": "0.1.12",
-    "@youzan/zent-pagination": "0.2.20",
+    "zent-checkbox": "0.1.16",
+    "zent-loading": "0.1.12",
+    "zent-pagination": "0.2.20",
     "lodash": "4.17.x"
   }
 }

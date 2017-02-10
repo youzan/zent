@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '@youzan/zent-input';
+import Input from 'zent-input';
 import getControlGroup from '../getControlGroup';
 
 const InputField = getControlGroup(({ type = 'text', ...passableProps }) => {

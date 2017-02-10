@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Button from '@youzan/zent-button';
-import { openDialog } from '@youzan/zent-dialog';
-import Icon from '@youzan/zent-icon';
+import Button from 'zent-button';
+import { openDialog } from 'zent-dialog';
+import Icon from 'zent-icon';
 import cx from 'classnames';
 
 const titleIconMap = {

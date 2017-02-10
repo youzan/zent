@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Head from './modules/Head';
 import Body from './modules/Body';
-import Pagination from '@youzan/zent-pagination';
-import Loading from '@youzan/zent-loading';
+import Pagination from 'zent-pagination';
+import Loading from 'zent-loading';
 
 const { func, bool, string, array, oneOf, object } = React.PropTypes;
 

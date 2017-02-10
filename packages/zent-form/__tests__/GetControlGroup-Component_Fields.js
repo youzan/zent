@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import ZentForm from '../src';
-import Option from '@youzan/zent-select';
+import Option from 'zent-select';
 
 describe('GetControlGroup and Component_Fields', () => {
   const { Form, createForm, Field, getControlGroup } = ZentForm;

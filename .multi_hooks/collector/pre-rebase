@@ -1,5 +1,0 @@
-#!/bin/sh
-#
-HOOK_TYPE="pre-rebase"
-PROJECT=`pwd`
-. $PROJECT/.multi_hooks/collector/runner.sh $*

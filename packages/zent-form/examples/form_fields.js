@@ -2,14 +2,14 @@
 
 import React, { Component } from 'react';
 import { Form, Field, createForm, InputField, CheckboxField, CheckboxGroupField, RadioGroupField, SelectField } from '../src';
-import Checkbox from '@youzan/zent-checkbox';
-import Radio from '@youzan/zent-radio';
-import Option from '@youzan/zent-select';
+import Checkbox from 'zent-checkbox';
+import Radio from 'zent-radio';
+import Option from 'zent-select';
 import '../assets/index.scss';
-import '@youzan/zent-checkbox/assets/index.scss';
-import '@youzan/zent-select/assets/index.scss';
-import '@youzan/zent-radio/assets/index.scss';
-import '@youzan/zent-input/assets/index.scss';
+import 'zent-checkbox/assets/index.scss';
+import 'zent-select/assets/index.scss';
+import 'zent-radio/assets/index.scss';
+import 'zent-input/assets/index.scss';
 
 class FieldsForm extends Component {
 

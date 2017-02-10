@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Steps from '../src/index.js';
 import '../assets/index.scss';
-import '@youzan/zent-icon/assets/index.scss';
+import 'zent-icon/assets/index.scss';
 
 let Step = Steps.Step;
 
