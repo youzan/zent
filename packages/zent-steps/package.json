@@ -2,7 +2,6 @@
   "name": "zent-steps",
   "version": "0.1.13",
   "description": "React实现的Steps组件",
-  "repository": "git@gitlab.qima-inc.com:zent/zent-steps.git",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
@@ -28,6 +27,6 @@
   },
   "dependencies": {
     "zent-icon": "0.1.14",
-    "classnames": "2.2.x"
+    "zent-utils": "*"
   }
 }

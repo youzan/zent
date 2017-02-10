@@ -14,7 +14,7 @@
   "author": "nino (nino@youzan.com)",
   "license": "MIT",
   "dependencies": {
-    "classnames": "2.2.x"
+    "zent-utils": "*"
   },
   "files": [
     "src/",

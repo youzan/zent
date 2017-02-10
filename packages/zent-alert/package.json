@@ -26,8 +26,8 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "classnames": "2.2.x",
-    "lodash": "4.17.x"
+    "lodash": "4.17.x",
+    "zent-utils": "*"
   },
   "devDependencies": {
     "zent-button": "0.1.19",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
 import { format } from './utils/format';

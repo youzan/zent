@@ -4,6 +4,10 @@
 
 ## API
 
+### classnames
+
+导出了用来拼接React `className`的`classnames`函数，使用方法和[classnames](https://github.com/JedWatson/classnames)一致。
+
 ### `WindowEventHandler`用来往`window`上绑全局事件。
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |

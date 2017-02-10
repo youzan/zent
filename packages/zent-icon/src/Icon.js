@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
+import cx from 'zent-utils/classnames';
 
 export default class Icon extends Component {
   static propTypes = {

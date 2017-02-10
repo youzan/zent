@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { goDays, isSameDate, isBeforeMonth, isAfterMonth, CURRENT } from '../utils/';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 6;

@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "classnames": "2.2.x"
+    "zent-utils": "*"
   },
   "jest": {
     "verbose": true,

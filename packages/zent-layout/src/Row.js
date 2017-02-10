@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
+import cx from 'zent-utils/classnames';
 
 export default class Row extends Component {
 
@@ -15,7 +15,7 @@ export default class Row extends Component {
   render() {
     const { className, prefix, ...others } = this.props;
 
-    const classes = classnames({
+    const classes = cx({
       [`${prefix}-row`]: true,
       [className]: className
     });

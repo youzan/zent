@@ -76,6 +76,11 @@ lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes
 * `zent-kit dev`: 启动一个本地开发模式的server
 * `zent-kit test`: 运行组件的测试用例
 
+## 贡献代码
+
+* `zent-utils`包提供了常见工具函数，包括`classnames`以及`lodash`里的所有函数，请不要在组件内部单独安装这两个包
+* 提交的代码确保已经通过eslint检查。
+
 ## 发布
 
 **注意：不是所有人都有发包权限的**
@@ -87,7 +92,3 @@ lerna bootstrap # 如果这个命令执行失败，运行一下lerna clean --yes
 
 * `lerna updated`可以查看哪些包有改动。
 * 如果A依赖B，B改动的话A也会发新包。
-
-## 贡献代码
-
-提交的代码确保已经通过eslint检查。

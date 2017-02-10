@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "zent-icon": "0.1.14",
-    "classnames": "2.2.x"
+    "zent-utils": "*"
   }
 }

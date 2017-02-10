@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import omit from 'lodash/omit';
 
 function Input(props) {

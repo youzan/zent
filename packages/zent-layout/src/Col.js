@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
+import cx from 'zent-utils/classnames';
 
 export default class Col extends Component {
 
@@ -17,7 +17,7 @@ export default class Col extends Component {
   render() {
     const { span, offset, className, prefix, ...others } = this.props;
 
-    const classes = classnames({
+    const classes = cx({
       [`${prefix}-col`]: true,
       [`${prefix}-col-${span}`]: span,
       [`${prefix}-col-offset-${offset}`]: offset,

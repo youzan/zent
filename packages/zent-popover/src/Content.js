@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
+import cx from 'zent-utils/classnames';
 import Portal from 'zent-portal';
 import WindowResizeHandler from 'zent-utils/lib/component/WindowResizeHandler';
 import findPositionedParent from 'zent-utils/lib/dom/findPositionedParent';

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import assign from 'object-assign';
-import classnames from 'classnames';
+import classnames from 'zent-utils/classnames';
 import Checkbox from './components/Checkbox';
 
 // 记录是否已经触发收起展开逻辑

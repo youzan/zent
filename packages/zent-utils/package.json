@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "npm run lint && zent-kit prepublish"
+    "prepublish": "npm run lint && zent-kit prepublish && ./scripts/shiftup.sh"
   },
   "repository": {
     "type": "git",
@@ -13,12 +13,18 @@
   },
   "author": "lichen",
   "license": "MIT",
+  "dependencies": {
+    "classnames": "2.2.x"
+  },
   "files": [
     "src/",
     "assets/",
     "examples/",
     "lib/",
-    "dist/"
+    "dist/",
+    "component",
+    "dom",
+    "classnames"
   ],
   "jest": {
     "verbose": true,

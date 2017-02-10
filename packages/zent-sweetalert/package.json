@@ -17,7 +17,7 @@
     "zent-button": "0.1.19",
     "zent-dialog": "0.1.28",
     "zent-icon": "0.1.14",
-    "classnames": "2.2.x"
+    "zent-utils": "*"
   },
   "files": [
     "src/",

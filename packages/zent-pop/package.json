@@ -24,7 +24,7 @@
     "zent-popover": "0.0.9",
     "zent-button": "0.1.19",
     "lodash": "4.17.x",
-    "classnames": "2.2.x"
+    "zent-utils": "*"
   },
   "devDependencies": {
     "zent-layout": "0.1.9"

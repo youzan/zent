@@ -8,7 +8,7 @@
 
 import React, { Component, PropTypes, Children } from 'react';
 import ReactDOM from 'react-dom';
-import cx from 'classnames';
+import cx from 'zent-utils/classnames';
 import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
 

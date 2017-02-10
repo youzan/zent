@@ -22,7 +22,7 @@
     "src/"
   ],
   "dependencies": {
-    "classnames": "2.2.x",
+    "zent-utils": "*",
     "object-assign": "4.1.x"
   },
   "devDependencies": {

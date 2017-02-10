@@ -1,4 +1,1 @@
-import * as dom from './dom';
-import * as component from './component';
-
-export { dom, component };
+throw new Error('zent-utils: importing the whole packages is not supported');

@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+import cx from 'zent-utils/classnames';
 
 export default Control => ({ required = false, helpDesc = '', ...props }) => {
   const showError = props.isTouched && props.error;

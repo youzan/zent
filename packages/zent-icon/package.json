@@ -26,6 +26,6 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "classnames": "2.2.x"
+    "zent-utils": "*"
   }
 }
