@@ -30,6 +30,11 @@ const simulateWithTimers = (node, event, ...arg) => {
   jest.runAllTimers();
 };
 
+const dispatchWithTimers = (node, event, ...arg) => {
+  node.dispatchEvent(event, ...arg);
+  jest.runAllTimers();
+};
+
 beforeAll(() => {
   jest.useFakeTimers();
 });
@@ -50,6 +55,8 @@ describe('Popover', () => {
     expect(wrapper.find('Portal').length).toBe(0);
     simulateWithTimers(wrapper.find('button'), 'click');
     expect(wrapper.find('Portal').length).toBe(1);
+    expect(document.querySelectorAll('.zent-popover-content div').length).toBe(2);
+    expect(document.querySelectorAll('.zent-popover-content div')[1].textContent).toBe('line two');
     simulateWithTimers(wrapper.find('button'), 'click');
     expect(wrapper.find('Portal').length).toBe(1);
     // NOTE: 只能直接调用close method，无法mock。
@@ -76,7 +83,7 @@ describe('Popover', () => {
 
     wrapper = mount(
       <Popover position={Popover.Position.RightTop} display="inline">
-        <PopoverHoverTrigger showDelay={100} hideDelay={100}>
+        <PopoverHoverTrigger showDelay={100} hideDelay={100} isOutSide={() => true}>
           <Button>hover on me</Button>
         </PopoverHoverTrigger>
         <PopoverContent>
@@ -86,15 +93,18 @@ describe('Popover', () => {
     );
 
     expect(wrapper.find('Portal').length).toBe(0);
-    simulateWithTimers(wrapper.find('button'), 'mouseenter');
-    expect(wrapper.find('Portal').length).toBe(1);
-    wrapper.find('PopoverHoverTrigger').getNode().close();
+
+    // 快速进入又快速离开
+    wrapper.find('button').simulate('mouseenter');
     expect(wrapper.find('Portal').length).toBe(0);
+    wrapper.find('button').simulate('mouseleave');
+    expect(wrapper.find('Portal').length).toBe(0);
+
+    // hover 直到popup，然后window监听mousemove，判断是否离开。
     simulateWithTimers(wrapper.find('button'), 'mouseenter');
     expect(wrapper.find('Portal').length).toBe(1);
-    wrapper.find('PopoverHoverTrigger').getNode().isOutSide(mount(<div className="outside" />));
-    simulateWithTimers(wrapper.find('button'), 'mouseenter');
-    // TODO: fail to simulate mouseleave event
+    const fakeEvent = new MouseEvent('mousemove');
+    dispatchWithTimers(window, fakeEvent);
 
     wrapper = mount(
       <Popover position={Popover.Position.TopRight} display="inline" cushion={10}>
