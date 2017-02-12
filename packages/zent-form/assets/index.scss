@@ -8,6 +8,21 @@
     }
 }
 
+.zent-form__fieldset {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.zent-form__legend {
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .zent-form__control-group {
     margin-bottom: 20px;
 
@@ -69,6 +84,7 @@
 }
 
 .zent-form__required {
+    margin-right: 6px;
     font-size: 16px;
     color: #f00;
     vertical-align: middle;
@@ -96,7 +112,7 @@
         float: left;
         padding-top: 5px;
         width: 120px;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 18px;
         text-align: right;
     }

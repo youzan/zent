@@ -1,6 +1,7 @@
 import Form from './Form';
 import createForm from './createForm';
 import Field from './Field';
+import Fieldset from './Fieldset';
 import getControlGroup from './getControlGroup';
 import InputField from './form_components/InputField';
 import CheckboxField from './form_components/CheckboxField';
@@ -12,6 +13,7 @@ export default {
   Form,
   createForm,
   Field,
+  Fieldset,
   getControlGroup,
   InputField,
   CheckboxField,
