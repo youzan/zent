@@ -17,6 +17,7 @@ class DatePicker extends Component {
     let actived;
     if (props.value) {
       let tmpDate = parse(props.value, props.format);
+      console.log(1, tmpDate)
       if (!tmpDate) {
         showPlaceholder = true;
         actived = new Date();
@@ -28,6 +29,7 @@ class DatePicker extends Component {
       showPlaceholder = true;
       actived = new Date();
     }
+    console.log(format(selected, props.format))
     this.state = {
       value: selected && format(selected, props.format),
       actived,
