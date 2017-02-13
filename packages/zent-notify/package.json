@@ -1,6 +1,6 @@
 {
   "name": "zent-notify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Notify用于展示各种操作成功或者失败时展示给用户的一些提示信息",
   "repository": {
     "type": "git",
@@ -21,9 +21,9 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-portal": "1.0.0"
+    "zent-portal": "1.0.1"
   },
   "devDependencies": {
-    "zent-button": "1.0.0"
+    "zent-button": "1.0.1"
   }
 }

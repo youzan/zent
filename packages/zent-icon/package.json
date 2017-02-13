@@ -1,6 +1,6 @@
 {
   "name": "zent-icon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "zent的图标库",
   "repository": {
     "type": "git",
@@ -26,6 +26,6 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "zent-utils": "1.0.0"
+    "zent-utils": "1.0.1"
   }
 }
