@@ -158,7 +158,8 @@ export default {
       return;
     }
     dateArr = dateArr.splice(1);
-
-    return new Date(...dateArr);
+    const tmp = new Date(...dateArr);
+    tmp.setMonth(tmp.getMonth() - 1)
+    return tmp;
   }
 };
