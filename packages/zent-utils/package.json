@@ -25,9 +25,9 @@
     "dist/",
     "component/",
     "dom/",
-    "classnames",
-    "isPromise",
-    "lodash/"
+    "lodash/",
+    "classnames.js",
+    "isPromise.js"
   ],
   "jest": {
     "verbose": true,
