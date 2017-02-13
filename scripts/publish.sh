@@ -21,3 +21,6 @@ $basepath/../lerna bootstrap
 
 # 循序执行，因为zent依赖其他包prepublish后的结果，会比较慢
 $basepath/../lerna publish --exact --concurrency 1
+
+# 确保字体文件已经上传CDN
+$basepath/../packages/zent-icon/scripts/check_cdn.sh
