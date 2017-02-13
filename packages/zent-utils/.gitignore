@@ -37,4 +37,6 @@ component/
 dom/
 lodash/
 classnames.js
+!src/classnames.js
 isPromise.js
+!src/isPromise.js
