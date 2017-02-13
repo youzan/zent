@@ -1,6 +1,6 @@
 {
   "name": "zent-form",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "react form组件",
   "main": "./lib/index.js",
   "repository": {
@@ -14,11 +14,11 @@
   "author": "who r u",
   "license": "MIT",
   "dependencies": {
-    "zent-checkbox": "1.0.1",
-    "zent-input": "1.0.1",
-    "zent-radio": "1.0.1",
-    "zent-select": "1.0.1",
-    "zent-utils": "1.0.1"
+    "zent-checkbox": "1.0.2",
+    "zent-input": "1.0.2",
+    "zent-radio": "1.0.2",
+    "zent-select": "1.0.2",
+    "zent-utils": "1.0.2"
   },
   "files": [
     "src/",
