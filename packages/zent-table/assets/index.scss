@@ -44,12 +44,13 @@ $orange: #f60;
     .cell {
         position: relative;
         display: inline-block;
-        text-align: left;
-        flex-grow: 0;
-        flex-shrink: 0;
+        flex: auto;
+        flex-basis: 0;
+        box-sizing: border-box;
         padding:10px;
         padding-left:0;
         line-height: 30px;
+        text-align: left;
         font-size:12px;
 
         &:first-child {
@@ -57,8 +58,6 @@ $orange: #f60;
         }
         &:last-child {
             text-align: right;
-            flex-grow: 1;
-            flex-shrink: 1;
         }
 
         .asc,

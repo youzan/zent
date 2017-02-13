@@ -6,7 +6,7 @@ const helper = {
         width += '%';
       }
     } else {
-      width = '';
+      width = null;
     }
 
     return width;

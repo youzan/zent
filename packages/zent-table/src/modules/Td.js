@@ -55,8 +55,16 @@ const Td = React.createClass({
       className += ' cell--money';
     }
 
+    let styleObj = {};
+    if (width) {
+      styleObj = {
+        width,
+        flex: '0 1 auto'
+      };
+    }
+
     return (
-      <div className={className} style={{ flexBasis: width }}>
+      <div className={className} style={styleObj}>
         {
           needSelect && (
             <Checkbox

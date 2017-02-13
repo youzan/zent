@@ -118,13 +118,19 @@ const Head = React.createClass({
 
           width = helper.getCalculatedWidth(item.width);
 
+          let styleObj = {};
+          if (width) {
+            styleObj = {
+              width,
+              flex: '0 1 auto'
+            };
+          }
+
           return (
             <div
               key={index}
               className={cellClass}
-              style={{
-                flexBasis: width
-              }}
+              style={styleObj}
             >
                 {
                   index === 0 && needSelect && (
