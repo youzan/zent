@@ -72,10 +72,6 @@ if ! command_exists iconfount ; then
     npm_install iconfount
 fi
 
-if ! command_exists lerna ; then
-    npm_install lerna@2.0.0-beta.37
-fi
-
 if ! command_exists brew ; then
     echo 'install homebrew...'
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
