@@ -26,6 +26,7 @@
     "component/",
     "dom/",
     "classnames",
+    "isPromise",
     "lodash/"
   ],
   "jest": {
