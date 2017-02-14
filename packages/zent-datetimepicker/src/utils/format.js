@@ -99,7 +99,7 @@ export default {
    * 支持的格式化选项包括:
    * 年：yy(97), yyyy(1997)
    * 月：m(1), mm(01), mmm(1月), mmmm(一月)
-   * 日：d(5), dd(05), ddd(周五)，dddd(星期五)，小写是日期，大写是星期几
+   * 日：d(5), dd(05), ddd(周五)，dddd(星期五)
    * 小时：h(2), hh(02), H(14), HH(14)，小写是12小时制，大写是24小时制
    * 分：M(3), MM(03),
    * 秒：s(8), ss(08)
@@ -127,7 +127,9 @@ export default {
 
     // Passing date through Date applies Date.parse, if necessary
     date = date ? new Date(date) : new Date();
-    if (isNaN(date)) throw new SyntaxError('invalid date');
+    // Boolean(NaN) return false, so the check of isNaN(date) is useless.
+    // new Date(NaN) will throw a SyntaxError in Browser
+    // if (isNaN(date)) throw new SyntaxError('invalid date');
 
     // Allow setting the utc argument via the mask
     if (mask.slice(0, 4) === 'UTC:') {
@@ -136,6 +138,7 @@ export default {
     }
     const flags = getFlags(date, utc, locale);
     return mask.replace(token, ($0) => {
+      console.log($0);
       return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
     });
   },
