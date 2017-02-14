@@ -138,7 +138,6 @@ export default {
     }
     const flags = getFlags(date, utc, locale);
     return mask.replace(token, ($0) => {
-      console.log($0);
       return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
     });
   },
