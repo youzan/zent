@@ -7,7 +7,7 @@ import { formatDate, parseDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { DATE_PROPS, TIME_PROPS } from './constants/';
 
-let returnType = 'string'
+let returnType = 'string';
 class DatePicker extends Component {
   static defaultProps = DATE_PROPS
 
@@ -17,8 +17,8 @@ class DatePicker extends Component {
     let selected;
     let actived;
     if (props.value) {
-      if (typeof props.value === 'number') returnType = 'numer'
-      if (props.value instanceof Date) returnType = 'date'
+      if (typeof props.value === 'number') returnType = 'numer';
+      if (props.value instanceof Date) returnType = 'date';
       let tmpDate = parseDate(props.value, props.format);
       if (!tmpDate) {
         showPlaceholder = true;
