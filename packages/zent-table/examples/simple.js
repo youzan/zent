@@ -20,12 +20,12 @@ const columns = [{
 }, {
   title: '访问量',
   name: 'bro_uvpv',
-  width: '400px',
+  width: '200px',
   bodyRender: TextComponent
 }, {
   title: '库存',
   name: 'stock_num',
-  width: '300px',
+  width: '100px',
   isMoney: true
 }, {
   title: '总销量',
