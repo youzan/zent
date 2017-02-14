@@ -12,7 +12,6 @@ import datasets from './data/conf';
 */
 const columns = [{
   title: '商品',
-  width: '50px',
   bodyRender: (data) => {
     return (
       <div>{data.item_id}</div>
@@ -21,7 +20,7 @@ const columns = [{
 }, {
   title: '访问量',
   name: 'bro_uvpv',
-  width: '100px',
+  width: '200px',
   bodyRender: TextComponent
 }, {
   title: '库存',
