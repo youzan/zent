@@ -9,7 +9,7 @@ export default class Simple extends Component {
     super(props);
     this.state = {
       logs: [],
-      value: '2017.01.01',
+      value: new Date(),
       range: ['2017.01.01', '2017.06.01']
     };
   }

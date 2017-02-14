@@ -3,7 +3,7 @@ import classNames from 'zent-utils/classnames';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isFunction, isArray } from './utils';
-import { format, parse } from './utils/format';
+import { formatDate, parseDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { RANGE_PROPS, TIME_PROPS } from './constants';
 
@@ -16,7 +16,7 @@ class DateRangePicker extends Component {
     let actived = [];
     if (props.value) {
       showPlaceholder = false;
-      const tmp = [parse(props.value[0], props.format), parse(props.value[1], props.format)];
+      const tmp = [parseDate(props.value[0], props.format), parseDate(props.value[1], props.format)];
       selected = tmp.slice();
       actived = tmp.slice();
     } else {
@@ -42,8 +42,8 @@ class DateRangePicker extends Component {
 
       this.setState({
         value: [
-          format(selected[0], next.format || this.props.format),
-          format(selected[1], next.format || this.props.format)
+          formatDate(selected[0], next.format || this.props.format),
+          formatDate(selected[1], next.format || this.props.format)
         ],
         selected,
         actived: selected.slice(),
@@ -182,9 +182,9 @@ class DateRangePicker extends Component {
         getDateTime(selected[1], activedTime[1])
       ];
       const tmpFormat = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
-      vcp = [format(tmp[0], tmpFormat), format(tmp[1], tmpFormat)];
+      vcp = [formatDate(tmp[0], tmpFormat), formatDate(tmp[1], tmpFormat)];
     } else {
-      vcp = [format(selected[0], props.format), format(selected[1], props.format)];
+      vcp = [formatDate(selected[0], props.format), formatDate(selected[1], props.format)];
     }
 
     this.setState({

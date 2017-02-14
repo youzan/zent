@@ -2,7 +2,3 @@
 **/bower_components
 **/vendor
 **/node_modules
-packages/*/__tests__/*
-
-packages/zent-utils/**/*
-!packages/zent-utils/src/**/*
