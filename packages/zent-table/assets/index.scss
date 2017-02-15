@@ -46,10 +46,9 @@ $orange: #f60;
         display: inline-block;
         flex: auto;
         flex-basis: 0;
-        box-sizing: border-box;
+        align-self: center;
         padding:10px;
         padding-left:0;
-        line-height: 30px;
         text-align: left;
         font-size:12px;
 

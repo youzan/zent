@@ -1,6 +1,6 @@
 {
   "name": "zent-checkbox",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Checkbox 多选框",
   "main": "./lib/index.js",
   "repository": {
@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.2"
+    "zent-utils": "1.0.5"
   },
   "jest": {
     "verbose": true,
