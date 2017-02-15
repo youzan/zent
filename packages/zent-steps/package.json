@@ -1,6 +1,6 @@
 {
   "name": "zent-steps",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React实现的Steps组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "zent-icon": "1.0.4",
-    "zent-utils": "1.0.3"
+    "zent-icon": "1.0.5",
+    "zent-utils": "1.0.4"
   }
 }
