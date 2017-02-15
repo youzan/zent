@@ -33,6 +33,9 @@ export default class Popover extends Component {
     prefix: PropTypes.string,
     className: PropTypes.string,
 
+    // custom classname for trigger wrapper
+    wrapperClassName: PropTypes.string,
+
     // container的display属性
     display: PropTypes.string,
 
@@ -56,6 +59,7 @@ export default class Popover extends Component {
   static defaultProps = {
     prefix: 'zent',
     className: '',
+    wrapperClassName: '',
     display: 'block',
     onBeforeClose: noop,
     onBeforeShow: noop,
@@ -148,11 +152,11 @@ export default class Popover extends Component {
 
   render() {
     const { trigger, content } = this.validateChildren();
-    const { display, prefix, className, containerSelector, position, cushion } = this.props;
+    const { display, prefix, className, wrapperClassName, containerSelector, position, cushion } = this.props;
     const { visible } = this.state;
 
     return (
-      <div style={{ display }} className={cx(`${prefix}-popover-wrapper`, className && `${className}-wrapper`)}>
+      <div style={{ display }} className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}>
         {React.cloneElement(trigger, {
           prefix,
           contentVisible: visible,

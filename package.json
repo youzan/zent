@@ -19,10 +19,6 @@
   ],
   "author": "Youzan FE",
   "license": "MIT",
-  "bugs": {
-    "url": "http://gitlab.qima-inc.com/zent/zent/issues"
-  },
-  "homepage": "http://gitlab.qima-inc.com/zent/zent",
   "dependencies": {},
   "files": [],
   "devDependencies": {

@@ -111,7 +111,7 @@ export default {
    * o: 时区offset: +0800
    * S: 英语中的序数：st, nd, rd或th，一般和d一起使用
    */
-  format(date, mask, options) {
+  formatDate(date, mask, options) {
     options = options || {};
     let utc = options.utc || false;
     let locale = options.locale || 'zh';
@@ -142,7 +142,7 @@ export default {
     });
   },
 
-  parse(date, mask) {
+  parseDate(date, mask) {
     mask = dateMasks[mask] || mask || dateMasks.default;
 
     if (typeof date === 'number') return new Date(date);

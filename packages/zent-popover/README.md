@@ -43,6 +43,7 @@ API 主要分为几块：`Popover`, `Trigger`, `Content`, `Position`以及一些
 | onBeforeClose | 弹层关闭后的回掉函数 | func | noop | |
 | containerSelector | 弹层的父节点CSS selector | string | 'body' | 所有合法的CSS selector |
 | className | 自定义额外类名 | string | '' | '' |
+| wrapperClassName | trigger外层包裹div的类名 | string | '' | '' |
 | prefix | 自定义前缀 | string | 'zent' | null |
 
 ### `Trigger` API

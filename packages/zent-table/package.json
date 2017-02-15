@@ -1,6 +1,6 @@
 {
   "name": "zent-table",
-  "version": "1.0.2",
+  "version": "1.0.4-beta2",
   "description": "表格组件",
   "main": "./lib/index.js",
   "scripts": {
