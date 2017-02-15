@@ -1,5 +1,7 @@
 #!/bin/sh
 
+basepath=$(dirname $0)
+
 fail () {
     printf "${RED}$@\nAborting\n"
     exit -1
@@ -14,8 +16,11 @@ if ! command_exists superman ; then
 fi
 
 # 重新bootstrap，以防有人改了组件的依赖
-lerna clean --yes
-lerna bootstrap
+$basepath/../lerna clean --yes
+$basepath/../lerna bootstrap
 
 # 循序执行，因为zent依赖其他包prepublish后的结果，会比较慢
-lerna publish --exact --concurrency 1
+$basepath/../lerna publish --exact --concurrency 1
+
+# 确保字体文件已经上传CDN
+$basepath/../packages/zent-icon/scripts/check_cdn.sh

@@ -1,6 +1,6 @@
 {
   "name": "zent-select",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "这是一个select组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -24,6 +24,6 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.0"
+    "zent-utils": "1.0.2"
   }
 }

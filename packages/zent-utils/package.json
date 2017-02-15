@@ -1,6 +1,6 @@
 {
   "name": "zent-utils",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "zent工具库",
   "main": "./lib/index.js",
   "scripts": {
@@ -25,9 +25,9 @@
     "dist/",
     "component/",
     "dom/",
-    "classnames",
-    "isPromise",
-    "lodash/"
+    "lodash/",
+    "classnames.js",
+    "isPromise.js"
   ],
   "jest": {
     "verbose": true,
