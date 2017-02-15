@@ -5,7 +5,7 @@ import '../assets/index.scss';
 
 import TextComponent from './components/Text';
 
-// import datasets from './data/conf';
+import datasets from './data/conf';
 
 /*
 基础使用，使用函数，建议es6项目中用箭头函数
