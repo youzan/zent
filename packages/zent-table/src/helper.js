@@ -1,15 +1,13 @@
 const helper = {
   getCalculatedWidth(width) {
-    if (width) {
-      width = `${width}`;
-      if (!(/px$|%$/.test(width))) {
-        width += '%';
-      }
-    } else {
-      width = null;
+    let res;
+    if (typeof width === 'number') {
+      res = `${width}%`;
+    } else if (typeof width === 'string') {
+      res = width;
     }
 
-    return width;
+    return res;
   }
 };
 
