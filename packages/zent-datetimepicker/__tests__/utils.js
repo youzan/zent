@@ -1,5 +1,5 @@
 import * as Ut from '../src/utils';
-import { format, parse } from '../src/utils/format';
+import { formatDate, parseDate } from '../src/utils/format';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
@@ -66,116 +66,118 @@ describe('Utils', () => {
   });
 });
 
-describe('format', () => {
+describe('formatDate', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
   const UTC_DAY = new Date(Date.UTC(2017, 1, 14, 21, 27, 22));
-  it('format works fine with flag supported', () => {
-    // NOTE: format will parse arg[0] using default mask if only one string arg is provided
-    expect(format('2016-2-14')).toBe('周日 2月 14 2016 00:00:00');
+  it('formatDate works fine with flag supported', () => {
+    // NOTE: formatDate will parseDate arg[0] using default mask if only one string arg is provided
+    expect(formatDate('2016-2-14')).toBe('周日 2月 14 2016 00:00:00');
 
-    // can only pass mask string which has no number in it, Date.now() will be formated
-    expect(format('yyyy mm dd')).toBe(format(new Date(), 'yyyy mm dd'));
+    // can only pass mask string which has no number in it, Date.now() will be formatDateed
+    expect(formatDate('yyyy mm dd')).toBe(formatDate(new Date(), 'yyyy mm dd'));
 
     // default behavior
-    expect(format(DAY)).toBe('周二 2月 14 2017 21:27:22');
-    expect(format(DAY, 'ddd mmm dd yyyy HH:MM:ss')).toBe('周二 2月 14 2017 21:27:22');
+    expect(formatDate(DAY)).toBe('周二 2月 14 2017 21:27:22');
+    expect(formatDate(DAY, 'ddd mmm dd yyyy HH:MM:ss')).toBe('周二 2月 14 2017 21:27:22');
 
     // local time has jet lag with UTC time
-    expect(format(UTC_DAY, 'mm dd')).toBe('02 15');
-    expect(format(UTC_DAY, 'UTC:mm dd')).toBe('02 14');
+    expect(formatDate(UTC_DAY, 'mm dd')).toBe('02 15');
+    expect(formatDate(UTC_DAY, 'UTC:mm dd')).toBe('02 14');
 
-    // with unsupported flag, format return it
-    expect(format(DAY, 'yyyyOOOO')).toBe('2017OOOO');
+    // with unsupported flag, formatDate return it
+    expect(formatDate(DAY, 'yyyyOOOO')).toBe('2017OOOO');
 
     // support insert flag string through toggle " or '
-    expect(format(DAY, 'yyyy"dd"')).toBe('2017dd');
+    expect(formatDate(DAY, 'yyyy"dd"')).toBe('2017dd');
 
     // yyyy|yy
-    expect(format(DAY, 'yy')).toBe('17');
-    expect(format(DAY, 'yyyy')).toBe('2017');
+    expect(formatDate(DAY, 'yy')).toBe('17');
+    expect(formatDate(DAY, 'yyyy')).toBe('2017');
 
     // m|mm|mmm|mmmm
-    expect(format(DAY, 'm')).toBe('2');
-    expect(format(DAY, 'mm')).toBe('02');
-    expect(format(DAY, 'mmm')).toBe('2月');
-    expect(format(DAY, 'mmmm')).toBe('二月');
+    expect(formatDate(DAY, 'm')).toBe('2');
+    expect(formatDate(DAY, 'mm')).toBe('02');
+    expect(formatDate(DAY, 'mmm')).toBe('2月');
+    expect(formatDate(DAY, 'mmmm')).toBe('二月');
 
     // d|dd|ddd|dddd
-    expect(format(DAY, 'd')).toBe('14');
-    expect(format(DAY, 'dd')).toBe('14');
-    expect(format(DAY, 'ddd')).toBe('周二');
-    expect(format(DAY, 'dddd')).toBe('星期二');
+    expect(formatDate(DAY, 'd')).toBe('14');
+    expect(formatDate(DAY, 'dd')).toBe('14');
+    expect(formatDate(DAY, 'ddd')).toBe('周二');
+    expect(formatDate(DAY, 'dddd')).toBe('星期二');
 
     // h|hh|H|HH
-    expect(format(DAY, 'h')).toBe('9');
-    expect(format(DAY, 'hh')).toBe('09');
-    expect(format(DAY, 'H')).toBe('21');
-    expect(format(DAY, 'HH')).toBe('21');
+    expect(formatDate(DAY, 'h')).toBe('9');
+    expect(formatDate(DAY, 'hh')).toBe('09');
+    expect(formatDate(DAY, 'H')).toBe('21');
+    expect(formatDate(DAY, 'HH')).toBe('21');
 
     // M|MM
-    expect(format(DAY, 'M')).toBe('27');
-    expect(format(DAY, 'MM')).toBe('27');
+    expect(formatDate(DAY, 'M')).toBe('27');
+    expect(formatDate(DAY, 'MM')).toBe('27');
 
     // l|L
-    expect(format(DAY, 'l')).toBe('000');
-    expect(format(DAY, 'L')).toBe('00');
+    expect(formatDate(DAY, 'l')).toBe('000');
+    expect(formatDate(DAY, 'L')).toBe('00');
 
     // t|tt|T|TT
-    expect(format(DAY, 't')).toBe('p');
-    expect(format(DAY, 'tt')).toBe('pm');
-    expect(format(DAY, 'T')).toBe('P');
-    expect(format(DAY, 'TT')).toBe('PM');
+    expect(formatDate(DAY, 't')).toBe('p');
+    expect(formatDate(DAY, 'tt')).toBe('pm');
+    expect(formatDate(DAY, 'T')).toBe('P');
+    expect(formatDate(DAY, 'TT')).toBe('PM');
 
     // o
-    expect(format(DAY, 'o')).toBe('+0800');
-    expect(format(DAY, 'UTC:o')).toBe('+0000');
+    expect(formatDate(DAY, 'o')).toBe('+0800');
+    expect(formatDate(DAY, 'UTC:o')).toBe('+0000');
 
     // S
-    expect(format(DAY, 'dS')).toBe('14th');
-    expect(format(new Date(1999, 0, 1), 'dS')).toBe('1st');
-    expect(format(new Date(1999, 0, 2), 'dS')).toBe('2nd');
-    expect(format(new Date(1999, 0, 3), 'dS')).toBe('3rd');
+    expect(formatDate(DAY, 'dS')).toBe('14th');
+    expect(formatDate(new Date(1999, 0, 1), 'dS')).toBe('1st');
+    expect(formatDate(new Date(1999, 0, 2), 'dS')).toBe('2nd');
+    expect(formatDate(new Date(1999, 0, 3), 'dS')).toBe('3rd');
 
     // Z
     // NOTE: 时区取决于Date对象的生成过程, 一般为local
-    expect(format(DAY, 'Z')).toBe('CST');
-    expect(format(UTC_DAY, 'Z')).toBe('CST');
-    expect(format(new Date('2017/02/14 12:00:00+0000'), 'Z')).toBe('CST');
+    expect(formatDate(DAY, 'Z')).toBe('CST');
+    expect(formatDate(UTC_DAY, 'Z')).toBe('CST');
+    expect(formatDate(new Date('2017/02/14 12:00:00+0000'), 'Z')).toBe('CST');
   });
 
-  it('format and parse has some default mask', () => {
-    expect(format(DAY, 'shortDate')).toBe('2/14/17');
-    expect(format(DAY, 'mediumDate')).toBe('2月 14, 2017');
-    expect(format(DAY, 'longDate')).toBe('二月 14, 2017');
-    expect(format(DAY, 'fullDate')).toBe('星期二, 二月 14, 2017');
-    expect(format(DAY, 'shortTime')).toBe('9:27 PM');
-    expect(format(DAY, 'mediumTime')).toBe('9:27:22 PM');
-    expect(format(DAY, 'longTime')).toBe('9:27:22 PM CST');
-    expect(format(DAY, 'isoDate')).toBe('2017-02-14');
-    expect(format(DAY, 'isoTime')).toBe('21:27:22');
-    expect(format(DAY, 'isoDateTime')).toBe('2017-02-14T21:27:22');
-    expect(format(UTC_DAY, 'isoUtcDateTime')).toBe('2017-02-14T21:27:22Z');
+  it('formatDate and parseDate has some default mask', () => {
+    expect(formatDate(DAY, 'shortDate')).toBe('2/14/17');
+    expect(formatDate(DAY, 'mediumDate')).toBe('2月 14, 2017');
+    expect(formatDate(DAY, 'longDate')).toBe('二月 14, 2017');
+    expect(formatDate(DAY, 'fullDate')).toBe('星期二, 二月 14, 2017');
+    expect(formatDate(DAY, 'shortTime')).toBe('9:27 PM');
+    expect(formatDate(DAY, 'mediumTime')).toBe('9:27:22 PM');
+    expect(formatDate(DAY, 'longTime')).toBe('9:27:22 PM CST');
+    expect(formatDate(DAY, 'isoDate')).toBe('2017-02-14');
+    expect(formatDate(DAY, 'isoTime')).toBe('21:27:22');
+    expect(formatDate(DAY, 'isoDateTime')).toBe('2017-02-14T21:27:22');
+    expect(formatDate(UTC_DAY, 'isoUtcDateTime')).toBe('2017-02-14T21:27:22Z');
   });
 
-  it('format support I18n(only zh and en)', () => {
-    expect(format(DAY, 'fullDate', { locale: 'en' })).toBe('Tuesday, February 14, 2017');
-    expect(format(DAY, 'mediumDate', { locale: 'en' })).toBe('Feb 14, 2017');
+  it('formatDate support I18n(only zh and en)', () => {
+    expect(formatDate(DAY, 'fullDate', { locale: 'en' })).toBe('Tuesday, February 14, 2017');
+    expect(formatDate(DAY, 'mediumDate', { locale: 'en' })).toBe('Feb 14, 2017');
   });
 });
 
-describe('parse', () => {
+describe('parseDate', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
 
-  // format 的逆过程, 支持两种直接返回 Date 对象的用法.
+  // formatDate 的逆过程, 支持两种直接返回 Date 对象的用法.
   it('return Date when recieve number or dateObj as arg[0]', () => {
-    expect(parse(Date.parse(DAY))).toEqual(DAY);
-    expect(parse(DAY)).toBe(DAY);
+    expect(parseDate(Date.parse(DAY))).toEqual(DAY);
+    expect(parseDate(DAY)).toBe(DAY);
 
-    // NOTE: parse 函数对月份的处理乃 date对象的原生行为
-    expect(parse('2017 01 14 21:27:22', 'yyyy mm dd HH:MM:ss')).toEqual(DAY);
+    expect(parseDate('2017 02 14 21:27:22', 'yyyy mm dd HH:MM:ss')).toEqual(DAY);
 
     // When flags cant find corresponding in date string, will return undefined
     // BUG: maybe throw an error?
-    expect(parse('17 01 14 21:27:22', 'yyyy')).toBe(undefined);
+    expect(parseDate('17 01 14 21:27:22', 'yyyy')).toBe(undefined);
+
+    // NOTE: parseDate only support numbers
+    expect(parseDate('3月', 'mmm')).toBe(undefined);
   });
 });
