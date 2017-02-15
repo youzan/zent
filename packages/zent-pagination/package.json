@@ -1,6 +1,6 @@
 {
   "name": "zent-pagination",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "zent分页组件",
   "main": "./lib/index.js",
   "repository": {
@@ -14,8 +14,8 @@
   "author": "zhangmengxuan",
   "license": "MIT",
   "dependencies": {
-    "zent-select": "1.0.2",
-    "zent-utils": "1.0.2"
+    "zent-select": "1.0.3",
+    "zent-utils": "1.0.3"
   },
   "files": [
     "src/",

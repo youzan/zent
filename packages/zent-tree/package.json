@@ -1,6 +1,6 @@
 {
   "name": "zent-tree",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tree ui react component for zent",
   "main": "./lib/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "src/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.2",
+    "zent-utils": "1.0.3",
     "object-assign": "4.1.x"
   },
   "devDependencies": {
