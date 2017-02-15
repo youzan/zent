@@ -28,6 +28,7 @@ const columns = [{
   width: '100px',
   isMoney: true
 }, {
+  width: '3em',
   title: '总销量',
   name: 'sold_num'
 }];
@@ -49,7 +50,7 @@ const Simple = React.createClass({
     return (
       <Table
         columns={columns}
-        datasets={[]}
+        datasets={datasets}
         onChange={this.onChange}
         rowKey="item_id"
       />
