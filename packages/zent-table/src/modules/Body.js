@@ -45,8 +45,8 @@ const Body = React.createClass({
               </div>
             );
           }) : (
-          <div className="tbody">
-            <div className="empty-data" colSpan={columns.length}>{emptyLabel}</div>
+          <div className="tr">
+            <div className="cell empty-data">{emptyLabel}</div>
           </div>
         )}
       </div>

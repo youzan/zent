@@ -49,7 +49,7 @@ const Simple = React.createClass({
     return (
       <Table
         columns={columns}
-        datasets={datasets}
+        datasets={[]}
         onChange={this.onChange}
         rowKey="item_id"
       />
