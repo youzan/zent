@@ -1,6 +1,7 @@
 #!/bin/sh
 
 basepath=$(dirname $0)
+npmtag=${1:-latest}
 
 fail () {
     printf "${RED}$@\nAborting\n"
@@ -20,7 +21,7 @@ $basepath/../lerna clean --yes
 $basepath/../lerna bootstrap
 
 # 循序执行，因为zent依赖其他包prepublish后的结果，会比较慢
-$basepath/../lerna publish --exact --concurrency 1
+$basepath/../lerna publish --exact --concurrency 1 --npm-tag=$npmtag
 
 # 确保字体文件已经上传CDN
 $basepath/../packages/zent-icon/scripts/check_cdn.sh
