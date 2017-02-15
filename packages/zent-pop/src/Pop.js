@@ -158,7 +158,7 @@ export default class Pop extends Component {
     const { className, prefix, block } = this.props;
 
     return (
-      <Popover className={cx(`${prefix}-pop`, className)} cushion={10} position={this.getPosition()} display={block ? 'block' : 'inline-block'}>
+      <Popover className={cx(`${prefix}-pop-wrapper`, className)} cushion={10} position={this.getPosition()} display={block ? 'block' : 'inline-block'}>
         {this.renderTrigger()}
         {this.renderContent()}
       </Popover>
