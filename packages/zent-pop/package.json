@@ -1,6 +1,6 @@
 {
   "name": "zent-pop",
-  "version": "1.0.3-beta1",
+  "version": "1.0.3-beta2",
   "description": "点击元素，弹出气泡框。",
   "main": "./lib/index.js",
   "repository": {
@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-popover": "1.0.2",
+    "zent-popover": "1.0.3-beta1",
     "zent-button": "1.0.2",
     "zent-utils": "1.0.2"
   },
