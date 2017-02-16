@@ -75,6 +75,7 @@ $double_default_width: 480px;
         .date-picker {
             position: static;
             display: inline-block;
+            vertical-align: top;
             box-shadow: none;
             &+.date-picker {
                 left: $default_width;
