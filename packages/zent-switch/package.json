@@ -1,7 +1,7 @@
 {
   "name": "zent-switch",
   "version": "1.0.5",
-  "description": "这是一个开关组件",
+  "description": "Zent开关组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
