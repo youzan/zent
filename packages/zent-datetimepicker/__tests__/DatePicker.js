@@ -1,10 +1,8 @@
-/* eslint-disable */
-
 import React from 'react';
 import { mount } from 'enzyme';
-import { formatDate, parseDate } from '../src/utils/format';
+import { formatDate } from '../src/utils/format';
 
-import DatePicker, { MonthPicker, DateRangePicker } from '../src';
+import DatePicker from '../src';
 
 describe('DateTimePicker', () => {
   it('DatePicker has its default structure', () => {
