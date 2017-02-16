@@ -162,7 +162,7 @@ describe('Popover', () => {
 
   it('Popover can have custom prefix and custom className and custom placement position', () => {
     const wrapper = mount(
-      <Popover position={Popover.Position.BottomLeft} display="inline" prefix="foo" className="bar">
+      <Popover position={Popover.Position.BottomLeft} display="inline" prefix="foo" wrapperClassName="foo" className="bar">
         <PopoverClickTrigger>
           <Button>click me</Button>
         </PopoverClickTrigger>
@@ -172,7 +172,7 @@ describe('Popover', () => {
       </Popover>
     );
     expect(wrapper.find('.foo-popover-wrapper').length).toBe(1);
-    expect(wrapper.find('.foo-popover-wrapper').hasClass('bar-wrapper')).toBe(true);
+    expect(wrapper.find('.foo-popover-wrapper').hasClass('foo')).toBe(true);
     simulateWithTimers(wrapper.find('button'), 'click');
 
     // popover portal still in root tail of body..
