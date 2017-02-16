@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
   "repository": {
     "type": "git",
@@ -64,7 +64,7 @@
     "zent-loading": "1.0.3",
     "zent-notify": "1.0.5",
     "zent-pagination": "1.0.5",
-    "zent-pop": "1.0.5",
+    "zent-pop": "1.0.6",
     "zent-popover": "1.0.5",
     "zent-portal": "1.0.5",
     "zent-radio": "1.0.5",
