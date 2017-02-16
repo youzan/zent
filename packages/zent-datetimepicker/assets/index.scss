@@ -63,7 +63,6 @@ $double_default_width: 480px;
         font-size: 12px;
         border-radius: 2px;
         box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
-        overflow: hidden;
         z-index: 10;
     }
     .grid-cell {
@@ -79,6 +78,21 @@ $double_default_width: 480px;
             box-shadow: none;
             &+.date-picker {
                 left: $default_width;
+            }
+            .month-panel {
+                .grid-cell {
+                    height: 56.5px;
+                }
+            }
+            .year-panel {
+                .grid-cell {
+                    height: 56.5px;
+                }
+            }
+        }
+        &--showTime {
+            .date-picker {
+                height: 265px;
             }
             .month-panel {
                 .grid-cell {
