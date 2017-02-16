@@ -12,6 +12,14 @@ import 'zent-layout/assets/index.scss';
 import '../assets/index.scss';
 import '../assets/example.scss';
 
+const onShow = () => {
+  console.log('show');
+};
+
+const onClose = () => {
+  console.log('close');
+};
+
 /* pop 有三种触发方式 */
 const content = function () {
   return (
@@ -36,6 +44,8 @@ const Single = function (props) {
         content={content()}
         trigger={props.trigger}
         position="bottom-center"
+        onShow={onShow}
+        onClose={onClose}
       >
         {props.trigger !== 'focus' ?
           <Button onClick={addClick}>
@@ -80,6 +90,8 @@ class NoneTriggerDemo extends React.Component {
           position="top-right"
           header="trigger is none"
           visible={this.state.visible}
+          onShow={onShow}
+          onClose={onClose}
         >
           <Button onClick={this.open}>打开(none)</Button>
         </Pop>
