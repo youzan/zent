@@ -229,8 +229,12 @@ class DateRangePicker extends Component {
       );
     };
     if (state.openPanel) {
+      const pickerCls = classNames({
+        'range-picker': true,
+        'range-picker--showTime': props.showTime
+      });
       rangePicker = (
-        <div className="range-picker">
+        <div className={pickerCls}>
           <div className="date-picker">
             <DatePanel
               range={state.range}
@@ -258,7 +262,7 @@ class DateRangePicker extends Component {
           <PanelFooter
             onClickButton={this.onConfirm}
           />
-        </div>
+        </div >
       );
     }
 
