@@ -4,7 +4,9 @@
 
 # Zent
 
-一套前端设计语言和基于React的实现。
+A collection of essential UI components written with React.
+
+一套React UI组件库。
 
 [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
