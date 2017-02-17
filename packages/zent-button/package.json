@@ -1,7 +1,7 @@
 {
   "name": "zent-button",
-  "version": "1.0.5",
-  "description": "基本组件按钮，提供default primary...等基础需求以及disable、loading等状态",
+  "version": "1.0.6",
+  "description": "Zent按钮组件",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
@@ -24,6 +24,6 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.5"
+    "zent-utils": "1.0.6"
   }
 }

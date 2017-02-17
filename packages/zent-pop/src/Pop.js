@@ -75,6 +75,12 @@ export default class Pop extends Component {
       'primary', 'default', 'danger', 'success'
     ]),
 
+    // 打开之后的回掉函数
+    onShow: PropTypes.func,
+
+    // 关闭之后的回掉函数
+    onClose: PropTypes.func,
+
     // 这两个只有当trigger为none时才生效
     visible: PropTypes.bool,
 
@@ -86,7 +92,8 @@ export default class Pop extends Component {
     closeOnClickOutside: PropTypes.bool,
 
     prefix: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    wrapperClassName: PropTypes.string
   };
 
   static defaultProps = {
@@ -101,6 +108,7 @@ export default class Pop extends Component {
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
     className: '',
+    wrapperClassName: '',
     prefix: 'zent',
   };
 
@@ -155,10 +163,18 @@ export default class Pop extends Component {
   }
 
   render() {
-    const { className, prefix, block } = this.props;
+    const { className, wrapperClassName, prefix, block, onShow, onClose } = this.props;
 
     return (
-      <Popover wrapperClassName={cx(`${prefix}-pop-wrapper`, `${className}-wrapper`)} className={cx(`${prefix}-pop`, className)} cushion={10} position={this.getPosition()} display={block ? 'block' : 'inline-block'}>
+      <Popover
+        wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
+        className={cx(`${prefix}-pop`, className)}
+        cushion={10}
+        position={this.getPosition()}
+        display={block ? 'block' : 'inline-block'}
+        onShow={onShow}
+        onClose={onClose}
+      >
         {this.renderTrigger()}
         {this.renderContent()}
       </Popover>

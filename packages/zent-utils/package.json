@@ -1,7 +1,7 @@
 {
   "name": "zent-utils",
-  "version": "1.0.5",
-  "description": "zent工具库",
+  "version": "1.0.6",
+  "description": "Zent工具库",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",

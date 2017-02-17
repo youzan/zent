@@ -111,10 +111,17 @@ export default class Simple extends Component {
         />
         <br /><br />
         <DateRangePicker
+          disabledDate={this.state.range}
+          onChange={this.onChangeRange}
+        />
+        <br />
+        <br />
+        <DateRangePicker
           showTime
           disabledDate={this.state.range}
           disabledTime={this.isDisabledRangeTime}
-          onChange={this.onChangeRange} />
+          onChange={this.onChangeRange}
+        />
         <ul>
           {logList}
         </ul>

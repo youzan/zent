@@ -1,14 +1,14 @@
 {
   "name": "zent-repository",
   "version": "1.0.0",
-  "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
+  "private": true,
+  "description": "一套前端设计语言和基于React的实现",
   "scripts": {
     "test": "./scripts/run-tests.sh",
     "lint": "eslint utils/* packages/*/src packages/*/examples",
     "eslint-fix": "eslint utils/* packages/*/src packages/*/examples --fix",
     "bootstrap": "lerna clean --yes && lerna bootstrap"
   },
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"
