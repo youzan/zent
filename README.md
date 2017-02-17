@@ -22,17 +22,31 @@ npm install zent --save
 
 ```js
 import { Button } from 'zent';
-ReactDOM.render(<Button />, somenode);
+ReactDOM.render(<Button>Zent</Button>, somenode);
 ```
 
-## 引入Zent全套样式
+## 引入样式
 
 ```js
-// 引入 sass 文件
+// 引入scss文件
 import 'zent/assets/index.scss';
 
-// 直接使用 css
+// 直接使用css
 import 'zent/lib/index.css';
+```
+
+## 单独使用某个组件
+
+如果你只需要某一个组件，`Zent`支持单独引入某一个组件。如果你只用到了很少几个`Zent`组件，这种方式可以帮助减小最终打包出来的文件大小。
+
+我们以`Button`组件为例。
+
+```js
+// 只引入Button的代码
+import Button from 'zent/button';
+
+// Button的样式文件
+import 'zent/button/lib/index.css';
 ```
 
 ## 贡献代码
