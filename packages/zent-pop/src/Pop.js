@@ -92,7 +92,8 @@ export default class Pop extends Component {
     closeOnClickOutside: PropTypes.bool,
 
     prefix: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    wrapperClassName: PropTypes.string
   };
 
   static defaultProps = {
@@ -107,6 +108,7 @@ export default class Pop extends Component {
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
     className: '',
+    wrapperClassName: '',
     prefix: 'zent',
   };
 
@@ -161,11 +163,11 @@ export default class Pop extends Component {
   }
 
   render() {
-    const { className, prefix, block, onShow, onClose } = this.props;
+    const { className, wrapperClassName, prefix, block, onShow, onClose } = this.props;
 
     return (
       <Popover
-        wrapperClassName={cx(`${prefix}-pop-wrapper`, `${className}-wrapper`)}
+        wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cx(`${prefix}-pop`, className)}
         cushion={10}
         position={this.getPosition()}

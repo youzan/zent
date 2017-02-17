@@ -63,30 +63,45 @@ $double_default_width: 480px;
         font-size: 12px;
         border-radius: 2px;
         box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
-        overflow: hidden;
         z-index: 10;
+    }
+    .grid-cell {
+        vertical-align: middle;
+        padding: 0;
     }
     .range-picker {
         width: $double_default_width;
         .date-picker {
             position: static;
             display: inline-block;
+            vertical-align: top;
             box-shadow: none;
             &+.date-picker {
                 left: $default_width;
             }
             .month-panel {
                 .grid-cell {
+                    height: 56.5px;
+                }
+            }
+            .year-panel {
+                .grid-cell {
+                    height: 56.5px;
+                }
+            }
+        }
+        &--showTime {
+            .date-picker {
+                height: 265px;
+            }
+            .month-panel {
+                .grid-cell {
                     height: 44px;
-                    vertical-align: middle;
-                    padding: 0;
                 }
             }
             .year-panel {
                 .grid-cell {
                     height: 44px;
-                    vertical-align: middle;
-                    padding: 0;
                 }
             }
         }
@@ -128,12 +143,10 @@ $double_default_width: 480px;
             .month-table {
                 margin: 10px 0;
             }
-            .grid-cell {
-                padding: 3px 23px;
-            }
             .year-panel {
                 .grid-cell {
-                    padding: 9px 14px;
+                    height: 58px;
+                    padding: 0;
                 }
             }
         }

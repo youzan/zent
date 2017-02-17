@@ -1,7 +1,7 @@
 {
   "name": "zent-input",
   "version": "1.0.5",
-  "description": "Input输入组件",
+  "description": "Zent Input组件",
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"

@@ -1,7 +1,7 @@
 {
   "name": "zent-icon",
   "version": "1.0.6",
-  "description": "zent的图标库",
+  "description": "Zent icon font",
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"
