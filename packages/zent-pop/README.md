@@ -19,7 +19,8 @@
 | confirmText | 用户自定义按钮名 | string | 确定 |  |
 | cancelText | 用户自定义取消按钮 | string | 取消 |  |
 | type | 影响确定按钮的样式 | string | primary | primary, default, danger, success |
-| className | 自定义类名 | string |  |  |
+| className | 自定义类名 | string | '' |  |
+| wrapperClassName | 自定义trigger包裹节点的类名 | string | '' |  |
 | prefix | 自定义前缀 | string | zent |  |
 
 根据trigger值的不同，`Pop`提供了一些额外的控制参数。
