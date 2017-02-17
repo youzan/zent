@@ -1,7 +1,7 @@
 {
   "name": "zent-table",
   "version": "1.0.6",
-  "description": "表格组件",
+  "description": "Zent表格组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",

@@ -1,7 +1,7 @@
 {
   "name": "zent-layout",
   "version": "1.0.5",
-  "description": "24栅格布局系统",
+  "description": "Zent 24栅格布局组件",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",

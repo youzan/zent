@@ -1,7 +1,7 @@
 {
   "name": "zent-tree",
   "version": "1.0.5",
-  "description": "Tree ui react component for zent",
+  "description": "Zent树组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
