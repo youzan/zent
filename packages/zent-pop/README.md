@@ -14,12 +14,15 @@
 | content | 弹层的内容 | node | | |
 | header | 用户可以自定义头部 | node | | |
 | block | 弹层在文档流里是否以块级元素出现 | bool | false | true, false |
+| onShow | 弹层打开后的回掉函数 | func: () => () | noop | |
+| onClose | 弹层关闭后的回掉函数 | func: () => () | noop | |
 | onConfirm | 用户自定义回掉，设置以后pop 表现为confirm | func | null |  |
 | onCancel | 用户使用 confirm 的时候可自定义取消的回掉 | func | null |  |
 | confirmText | 用户自定义按钮名 | string | 确定 |  |
 | cancelText | 用户自定义取消按钮 | string | 取消 |  |
 | type | 影响确定按钮的样式 | string | primary | primary, default, danger, success |
-| className | 自定义类名 | string |  |  |
+| className | 自定义类名 | string | '' |  |
+| wrapperClassName | 自定义trigger包裹节点的类名 | string | '' |  |
 | prefix | 自定义前缀 | string | zent |  |
 
 根据trigger值的不同，`Pop`提供了一些额外的控制参数。

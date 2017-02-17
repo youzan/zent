@@ -1,7 +1,7 @@
 {
   "name": "zent-sweetalert",
-  "version": "1.0.6",
-  "description": "封装好的dialog组件，可快捷调用弹窗",
+  "version": "1.0.7",
+  "description": "Zent快捷弹窗",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
@@ -14,10 +14,10 @@
   "author": "zhengxin",
   "license": "MIT",
   "dependencies": {
-    "zent-button": "1.0.5",
-    "zent-dialog": "1.0.5",
-    "zent-icon": "1.0.6",
-    "zent-utils": "1.0.5"
+    "zent-button": "1.0.6",
+    "zent-dialog": "1.0.6",
+    "zent-icon": "1.0.7",
+    "zent-utils": "1.0.6"
   },
   "files": [
     "src/",
