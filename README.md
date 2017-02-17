@@ -37,9 +37,9 @@ import 'zent/lib/index.css';
 
 ## 单独使用某个组件
 
-如果你只需要某一个组件，`Zent`支持单独引入某一个组件。如果你只用到了很少几个`Zent`组件，这种方式可以帮助减小最终打包出来的文件大小。
+如果你只需要某一个组件，`Zent` 支持单独引入某一个组件。如果你只用到了很少几个 `Zent` 组件，这种方式可以帮助减小最终打包出来的文件大小。
 
-我们以`Button`组件为例。
+我们以 `Button` 组件为例。
 
 ```js
 // 只引入Button的代码
@@ -51,7 +51,7 @@ import 'zent/button/lib/index.css';
 
 ## 贡献代码
 
-使用过程中发现任何问题都可以提[Issue](https://github.com/youzan/zent/issues)给我们，当然，我们也非常欢迎你给我们发[PR](https://github.com/youzan/zent/pulls)。
+使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/zent/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/zent/pulls)。
 
 修改代码请阅读我们的[开发指南](CONTRIBUTING.md)。
 
