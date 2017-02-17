@@ -1,7 +1,7 @@
 {
   "name": "zent-tabs",
   "version": "1.0.3",
-  "description": "tabs组件",
+  "description": "Zent Tab组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",

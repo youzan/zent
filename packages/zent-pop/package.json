@@ -1,7 +1,7 @@
 {
   "name": "zent-pop",
   "version": "1.0.6",
-  "description": "点击元素，弹出气泡框。",
+  "description": "Zent气泡组件",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
