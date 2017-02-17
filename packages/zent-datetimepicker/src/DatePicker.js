@@ -41,31 +41,29 @@ class DatePicker extends Component {
     };
   }
   componentWillReceiveProps(next) {
-    if (next.hasOwnProperty('value')) {
-      if (next.value) {
-        let showPlaceholder = false;
-        let selected = parseDate(next.value, next.format || this.props.format);
-        this.setState({
-          value: formatDate(selected, next.format || this.props.format),
-          actived: selected,
-          selected,
-          activedTime: selected,
-          openPanel: false,
-          showPlaceholder
-        });
-      } else {
-        let showPlaceholder = true;
-        let actived = new Date();
+    if (next.value) {
+      let showPlaceholder = false;
+      let selected = parseDate(next.value, next.format || this.props.format);
+      this.setState({
+        value: formatDate(selected, next.format || this.props.format),
+        actived: selected,
+        selected,
+        activedTime: selected,
+        openPanel: false,
+        showPlaceholder
+      });
+    } else {
+      let showPlaceholder = true;
+      let actived = new Date();
 
-        this.setState({
-          value: '',
-          actived,
-          selected: '',
-          activedTime: actived,
-          openPanel: false,
-          showPlaceholder
-        });
-      }
+      this.setState({
+        value: '',
+        actived,
+        selected: '',
+        activedTime: actived,
+        openPanel: false,
+        showPlaceholder
+      });
     }
   }
 

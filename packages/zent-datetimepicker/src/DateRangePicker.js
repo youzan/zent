@@ -207,7 +207,7 @@ class DateRangePicker extends Component {
     let rangePicker;
 
     const getTimeConfig = (type) => {
-      if (!props.hasOwnProperty('showTime')) return false;
+      if (!props.showTime) return false;
       const timeFnMap = {
         start: this.onChangeStartTime,
         end: this.onChangeEndTime

@@ -42,6 +42,7 @@ export const RANGE_PROPS = {
   value: '',
   format: 'yyyy-mm-dd',
   placeholder: ['开始日期', '结束日期'],
+  showTime: false,
   disabledDate: noop,
   onChange: noop
 };
