@@ -1,7 +1,7 @@
 {
   "name": "zent-pagination",
   "version": "1.0.5",
-  "description": "zent分页组件",
+  "description": "Zent分页组件",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",

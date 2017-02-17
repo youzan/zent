@@ -1,7 +1,7 @@
 {
   "name": "zent-radio",
   "version": "1.0.5",
-  "description": "Radio 单选框",
+  "description": "Zent Radio 单选框组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
