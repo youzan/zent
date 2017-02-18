@@ -1,28 +1,29 @@
+<p>
+	<a href="https://github.com/youzan/">
+		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
+	</a>
+</p>
+
 # zent-alert
 
-警告提示／公告组件，注意: **该组件渲染在文档流中，并不是`position: fixed`**。
+警告提示／公告组件, 为页面提供一个醒目的提示信息.
 
-宽度会填满containing block的宽度，实际内容的布局需使用者自己控制，`zent-alert`仅仅提供了很
-基本的布局和样式。
-
-如果有一些页面的公告结构复杂（比如有多行不同样式的文案，以及一些按钮），可以在`zent-alert`的
-基础上抽象一个业务组件将需求封装起来，然后在不同的页面重用。
+[![npm version](https://img.shields.io/npm/v/zent-alert.svg?style=flat)](https://www.npmjs.com/package/zent-alert) [![downloads](https://img.shields.io/npm/dt/zent-alert.svg)](https://www.npmjs.com/package/zent-alert)
 
 ## 使用场景
-
-页面上需要一个醒目的提示信息时使用:
 
 1. 概况页通栏公告
 2. 业务公告提示
 3. 操作反馈提示
 
-注意：
+## 使用指南
 
-1. 概况页通栏公告文字最多为45个字（包含标点符号），字数尽可能的精简，减少用户阅读障碍。
-2. 业务公告提示文字最多45个字（包含标点符号），字数尽可能的精简，减少用户阅读障碍。
-3. 操作反馈提示文字建议最多在20个字之内。
+**该组件渲染在常规文档流中, `style.position !== 'fixed'`.**
 
-公告类按钮建议最多两个，尽量只有一个行动点。
+1. 概况页通栏公告文字最多为45个字(含标点), 尽可能精简, 减少阅读障碍.
+2. 业务公告提示文字最多45个字(含标点), 尽可能精简, 减少阅读障碍.
+3. 操作反馈提示文字建议保持在20个字以内.
+4. 公告类按钮不要多于两个, 保持逻辑简单。
 
 ## API
 
@@ -32,6 +33,6 @@
 | size | 可选参数，alert的大小 | string | `'normal'` | `'normal'`, `'large'` |
 | rounded | 可选参数，是否圆角 | bool | `false` | `true`, `false` |
 | closable | 可选参数，默认不可关闭 | bool | `false` | `true`, `false` |
-| onClose | 可选参数，关闭时的回调 | func |  noop  |    |
+| onClose | 可选参数，关闭时的回调 | func |  `noop`  |    |
 | className | 可选参数，自定义额外类名 | string | `''` | `''` |
 | prefix | 可选参数，自定义前缀 | string | `'zent'` | `null` |
