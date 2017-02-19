@@ -1,40 +1,32 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-breadcrumb
 
-[![npm version](https://img.shields.io/npm/v/zent-breadcrumb.svg?style=flat)](https://www.npmjs.com/package/zent-breadcrumb) [![downloads](https://img.shields.io/npm/dt/zent-breadcrumb.svg)](https://www.npmjs.com/package/zent-breadcrumb)
+基础面包屑组件，在一个带有层次的导航结构中标明当前页面的位置。
 
-面包屑组件, 提供一个有层次的导航结构, 并标明当前位置.
+## 何时使用
 
-## 使用场景
+* 当系统拥有超过两级以上的层级结构时；
+* 当需要告知用户『你在哪里』时；
+* 当需要向上导航的功能时。
 
--   系统拥有超过两级以上的层级结构.
--   需要告知用户『你在哪里』.
--   需要向上导航的功能.
+## 自由选择
 
-## 使用指南
-
--   支持向 Breadcrumb 传递 `breads` 对象数组以生成面包屑, 数组中的对象应遵循 Item 组件规范.
--   支持自定义 Item 组件.
+* 你可以通过向 Breadcrumb 传递 breads 数组的方式生成面包屑，breads数组的单个对象遵循 Item 组件的API规范;
+* 你可以手动维护Item组件
 
 ## API
 
-#### Breadcrumb
+#### Breadcrumb API
 
-| 参数        | 说明      | 类型     | 默认值      |
-| --------- | ------- | ------ | -------- |
-| breads    | 数据      | array  | `[]`     |
-| className | 自定义额外类名 | string | `''`     |
-| prefix    | 自定义前缀   | string | `'zent'` |
+| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+|------|------|------|--------|--------|
+| breads | 数据 | array | [] |  |
+| className | 自定义额外类名 | string | '' | null |
+| prefix | 自定义前缀 | string | 'zent' | null |
 
-#### Item
+#### Item API
 
-| 参数        | 说明      | 类型                      | 默认值  |
-| --------- | ------- | ----------------------- | ---- |
-| name      | 内容      | string or react element |      |
-| href      | 链接      | string                  |      |
-| className | 自定义额外类名 | string                  | `''` |
+| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+|------|------|------|--------|--------|
+| name | 内容 | string or react element |  |  |
+| href | 链接 | string |  |  |
+| className | 自定义额外类名 | string | '' | null |

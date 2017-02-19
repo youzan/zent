@@ -1,22 +1,34 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-steps
 
-[![npm version](https://img.shields.io/npm/v/zent-steps.svg?style=flat)](https://www.npmjs.com/package/zent-steps) [![downloads](https://img.shields.io/npm/dt/zent-steps.svg)](https://www.npmjs.com/package/zent-steps)
+Steps组件
 
-步骤展示组件
+## 使用场景或者特殊 API 设计讲解
 
-## 使用场景
+步骤条类型分为订购类步骤条、注册步骤条、创建类步骤条
 
--   订购类步骤
--   注册步骤
--   创建类步骤
 
-## 使用指南
+## API
+
+### Steps
+
+| 参数 | 说明 | 类型 | 默认值 | 备选值 | 是否必须 |
+|------|------|------|--------|--------|--------|
+| className | 自定义额外类名 | string | '' | '' | 否 |
+| prefix | 自定义前缀 | string | 'zent' | null | 否 |
+| type | steps组件类型 | oneOf(['number', 'card', 'breadcrumb']) | 'number' | ['card', 'breadcrumb'] | 否 |
+| current | 指定当前步骤，从 1 开始记数 (当不传值时，默认为 0， 状态都为 wait) | number | 0 | null | 否 |
+| direction | 显示方向 (暂不支持) | oneOf(['vertical', 'horizontal']) | 'horizontal' | ['vertical'] | 否 |
+| size | 指定大小 (暂不支持) | oneOf(['normal', 'small']) | 'normal' | ['small'] | 否 |
+| status | 步骤条的状态 | oneOf(['wait', 'finish', 'error']) | 'finish' | ['wait', 'error'] | 否 |
+
+### Steps.Step
+
+| 参数 | 说明 | 类型 | 默认值 | 备选值 | 是否必须 |
+|------|------|------|--------|--------|--------|
+| title | 标题 | node | null | null | 是 |
+| description | 步骤的详情描述 (card, breadcrumb 类型不支持该属性) | node | null | null | 否 |
+
+## 示例
 
 ```javascript
 import Steps from 'zent-steps';
@@ -27,23 +39,8 @@ import Steps from 'zent-steps';
 </Steps>
 ```
 
-## API
+## 如何安装
 
-### Steps
-
-| 参数        | 说明                                         | 类型     | 默认值            | 备选值                       | 是否必须 |
-| --------- | ------------------------------------------ | ------ | -------------- | ------------------------- | ---- |
-| className | 自定义额外类名                                    | string | `''`           |                           | 否    |
-| prefix    | 自定义前缀                                      | string | `'zent'`       |                           | 否    |
-| type      | steps组件类型                                  | string | `'number'`     | `'card'`,  `'breadcrumb'` | 否    |
-| current   | 指定当前步骤, 从 1 开始记数 (当不传值时, 默认为 0, 状态都为 wait) | number | `0`            |                           | 否    |
-| direction | 显示方向 (暂不支持)                                | string | `'horizontal'` | `'vertical'`              | 否    |
-| size      | 指定大小 (暂不支持)                                | string | `'normal'`     | `'small'`                 | 否    |
-| status    | 步骤条的状态                                     | string | `'finish'`     | `'wait'`, `'error'`       | 否    |
-
-### Step
-
-| 参数          | 说明                                  | 类型   | 是否必须 |
-| ----------- | ----------------------------------- | ---- | ---- |
-| title       | 标题                                  | node | 是    |
-| description | 步骤的详情描述 (card, breadcrumb 类型不支持该属性) | node | 否    |
+```bash
+npm install zent-steps --save
+```

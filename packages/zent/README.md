@@ -1,59 +1,73 @@
-<p>
-	<a href="https://github.com/youzan/"><img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" /></a>
-</p>
+# zent
 
-# Zent
+React Component Ecosystem，一套前端设计语言和基于React的实现
 
-A collection of essential UI components written with React.
+## 特性
 
-一套React UI组件库。
-
-[![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-[![NPM](https://nodei.co/npm/zent.png?downloads=true&downloadRank=true)](https://nodei.co/npm/zent/)
+* 基于npm + webpack + babel + nodejs的工作流
+* 立志于让前端开发更快速、简单，所有开发者都能快速上手
+* 高度可扩展性及搭建策略
 
 ## 安装
 
 ```shell
-npm install zent --save
+npm install zent
 ```
 
-## 使用组件
+## 使用组件示例
 
 ```js
-import { Button } from 'zent';
-ReactDOM.render(<Button>Zent</Button>, somenode);
+import { Grid } from 'zent';
+ReactDOM.render(<Grid />, somenode);
 ```
 
-## 引入样式
+### 引入zent全套样式
 
 ```js
-// 引入scss文件
-import 'zent/assets/index.scss';
+// 引入 sass 文件
+import 'zent/assets/index.scss';   // 可选项目，预置封装了一些基础界面级的样式
 
-// 直接使用css
-import 'zent/lib/index.css';
+// 直接使用 css
+node_modules/zent/lib/index.css
 ```
 
-## 单独使用某个组件
+## 开发 zent
 
-如果你只需要某一个组件，`Zent` 支持单独引入某一个组件。如果你只用到了很少几个 `Zent` 组件，这种方式可以帮助减小最终打包出来的文件大小。
+#### 目录结构
 
-我们以 `Button` 组件为例。
+```shell
+.
+├── app           # 网站上运行前端代码
+├── assets        # zent这个包的样式文件
+├── config        # 主要是打包以及服务器的一些配置文件
+├── dist          # 发布的时候生成的umd格式文件，主要时在老项目中使用，如iron-front
+├── gulp          # gulp tasks
+├── lib           # 发布时生成的babel转译后的文件
+├── scripts       # 一些项目内用的脚本
+├── server        # node服务器端的代码
+├── src           # zent这个包的js文件
+├── static_file   # build时生成的静态文件，供网站引用。
+└── zent-doc      # 网站的几个静态页面，都是markdown格式
 
-```js
-// 只引入Button的代码
-import Button from 'zent/button';
-
-// Button的样式文件
-import 'zent/button/lib/index.css';
 ```
 
-## 贡献代码
+除了这些目录外，每一个zent组件都会有一个对应的目录，如`zent-button`在根目录下会有一个`button`
+的目录，这些目录是直接从node_modules复制出来的，`npm run update`会更新这些目录，请不要手动修改
+这些目录。
 
-使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/zent/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/zent/pulls)。
+#### 添加新组件
 
-修改代码请阅读我们的[开发指南](CONTRIBUTING.md)。
+需要修改几个地方：
 
-## 开源协议
-本项目基于 [MIT](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89) 协议，请自由地享受和参与开源。
+* `src/index.js` 导出组件
+* `assets/index.scss` 引入组件的样式文件
+* `app/base-info.js` 添加组件在网站导航栏中的链接
+* `.gitignore` 把组件目录加入忽略列表中，发包的时候每一个单独的组件代码会复制一份到根目录，这些目录是不应该提交到git中的
+* `package.json` 更新`files`将新组件对应的目录加入进去
+
+#### 本地服务
+
+```shell
+npm run dev;      # 开启本地js 打包等，用于本地开发使用
+npm run serve;    # 启动 node 服务，此时打开 http://localhost:7778 即可看到网站
+```
