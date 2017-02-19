@@ -1,5 +1,6 @@
 #!/bin/sh
 
+RED='\033[0;31m'
 basepath=$(dirname $0)
 npmtag=${1:-latest}
 
