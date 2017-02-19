@@ -63,10 +63,6 @@ describe('Popover', () => {
     wrapper.getNode().close();
     expect(wrapper.find('Portal').length).toBe(0);
 
-    // HACK: branch Content.js ling 71
-    // BUG: Content.js line 101 unused "...?...:..."
-    simulateWithTimers(wrapper.find('button'), 'click');
-
     // HACK: branch window.resize (throttle)
     wrapper.find('PopoverContent').getNode().onWindowResize({}, {
       deltaX: 0,
@@ -80,6 +76,7 @@ describe('Popover', () => {
       });
     }, 160);
     jest.runAllTimers();
+    wrapper.unmount();
 
     wrapper = mount(
       <Popover position={Popover.Position.RightTop} display="inline">
@@ -105,6 +102,7 @@ describe('Popover', () => {
     expect(wrapper.find('Portal').length).toBe(1);
     const fakeEvent = new MouseEvent('mousemove');
     dispatchWithTimers(window, fakeEvent);
+    wrapper.unmount();
 
     wrapper = mount(
       <Popover position={Popover.Position.TopRight} display="inline" cushion={10}>
@@ -237,7 +235,7 @@ describe('Popover', () => {
     });
   });
 
-  it('Children of Trigger could not have ref prop', () => {
+  it('Children of Trigger could not have string ref prop', () => {
     expect(() => {
       mount(
         <Popover position={Popover.Position.BottomLeft} display="inline">

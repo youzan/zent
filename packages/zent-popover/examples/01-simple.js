@@ -46,7 +46,7 @@ export default class Simple extends Component {
   render() {
     return (
       <div>
-        <Popover position={Popover.Position.BottomLeft} display="inline">
+        <Popover position={Popover.Position.BottomLeft} display="inline" cushion={5}>
           <PopoverClickTrigger>
             <Button onClick={this.onCustomEvent}>click me</Button>
           </PopoverClickTrigger>
@@ -58,7 +58,7 @@ export default class Simple extends Component {
 
         {separator}
 
-        <Popover position={Popover.Position.RightTop} display="inline">
+        <Popover position={Popover.Position.RightTop} display="inline" cushion={5}>
           <PopoverHoverTrigger showDelay={500} hideDelay={200}>
             <Button onMouseEnter={this.onCustomEvent} onMouseLeave={this.onCustomEvent}>hover on me</Button>
           </PopoverHoverTrigger>
@@ -69,7 +69,7 @@ export default class Simple extends Component {
 
         {separator}
 
-        <Popover position={Popover.Position.TopRight} display="inline" cushion={10}>
+        <Popover position={Popover.Position.TopRight} display="inline" cushion={5}>
           <PopoverFocusTrigger>
             <input placeholder="focus on me" onFocus={this.onCustomEvent} onBlur={this.onCustomEvent} />
           </PopoverFocusTrigger>

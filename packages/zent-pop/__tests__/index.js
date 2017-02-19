@@ -144,4 +144,28 @@ describe('Pop', () => {
       </Pop>
     );
   });
+
+  it('always center arrow at center', () => {
+    const test = (position) => {
+      const wrapper = mount(
+        <Pop content={content()} position={position} trigger={'click'} centerArrow>
+          <Button>
+            click
+          </Button>
+        </Pop>
+      );
+      wrapper.find('button').simulate('click');
+      jest.runAllTimers();
+      expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
+      expect(document.querySelector(`.zent-popover-position-${position}`)).toBeTruthy();
+      wrapper.unmount();
+    };
+
+    [
+      'top-left', 'top-center', 'top-right',
+      'right-top', 'right-center', 'right-bottom',
+      'bottom-left', 'bottom-center', 'bottom-right',
+      'left-top', 'left-center', 'left-bottom'
+    ].forEach(test);
+  });
 });

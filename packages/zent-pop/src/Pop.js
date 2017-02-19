@@ -4,14 +4,9 @@ import Button from 'zent-button';
 import cx from 'zent-utils/classnames';
 
 import NoneTrigger from './NoneTrigger';
+import getPosition from './position';
 
-const { Trigger, Position, withPopover } = Popover;
-
-function capitalize(str) {
-  if (!str) return str;
-
-  return `${str.slice(0, 1).toUpperCase()}${str.slice(1)}`;
-}
+const { Trigger, withPopover } = Popover;
 
 class PopAction extends Component {
   handleClick(callbackName) {
@@ -60,6 +55,9 @@ export default class Pop extends Component {
       'bottom-left', 'bottom-center', 'bottom-right'
     ]),
 
+    // 是否按小箭头居中对齐trigger来定位
+    centerArrow: PropTypes.bool,
+
     // trigger是否块级显示
     block: PropTypes.bool,
 
@@ -99,6 +97,7 @@ export default class Pop extends Component {
   static defaultProps = {
     trigger: 'none',
     position: 'top-center',
+    centerArrow: false,
     block: false,
     confirmText: '确定',
     cancelText: '取消',
@@ -111,12 +110,6 @@ export default class Pop extends Component {
     wrapperClassName: '',
     prefix: 'zent',
   };
-
-  getPosition() {
-    const { position } = this.props;
-    const positionName = position.split('-').map(s => capitalize(s)).join('');
-    return Position[positionName] || Position.TopCenter;
-  }
 
   renderContent() {
     const { prefix, content, header, onConfirm, onCancel, confirmText, cancelText, type } = this.props;
@@ -163,14 +156,14 @@ export default class Pop extends Component {
   }
 
   render() {
-    const { className, wrapperClassName, prefix, block, onShow, onClose } = this.props;
+    const { className, wrapperClassName, prefix, block, onShow, onClose, position, centerArrow } = this.props;
 
     return (
       <Popover
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cx(`${prefix}-pop`, className)}
         cushion={10}
-        position={this.getPosition()}
+        position={getPosition(position, centerArrow)}
         display={block ? 'block' : 'inline-block'}
         onShow={onShow}
         onClose={onClose}
