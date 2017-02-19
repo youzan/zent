@@ -1,6 +1,6 @@
 <p>
 	<a href="https://github.com/youzan/">
-		 <img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
+		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
 	</a>
 </p>
 
@@ -12,29 +12,29 @@
 
 ## 使用场景
 
-* 系统拥有超过两级以上的层级结构.
-* 需要告知用户『你在哪里』.
-* 需要向上导航的功能.
+-   系统拥有超过两级以上的层级结构.
+-   需要告知用户『你在哪里』.
+-   需要向上导航的功能.
 
 ## 使用指南
 
-* 支持向 Breadcrumb 传递 `breads` 对象数组以生成面包屑, 数组中的对象应遵循 Item 组件规范.
-* 支持自定义 Item 组件.
+-   支持向 Breadcrumb 传递 `breads` 对象数组以生成面包屑, 数组中的对象应遵循 Item 组件规范.
+-   支持自定义 Item 组件.
 
 ## API
 
 #### Breadcrumb
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
-|------|------|------|--------|--------|
-| breads | 数据 | array | `[]` |  |
-| className | 自定义额外类名 | string | `''` | `null` |
-| prefix | 自定义前缀 | string | `'zent'` | `null` |
+| 参数        | 说明      | 类型     | 默认值      |
+| --------- | ------- | ------ | -------- |
+| breads    | 数据      | array  | `[]`     |
+| className | 自定义额外类名 | string | `''`     |
+| prefix    | 自定义前缀   | string | `'zent'` |
 
 #### Item
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
-|------|------|------|--------|--------|
-| name | 内容 | string or react element |  |  |
-| href | 链接 | string |  |  |
-| className | 自定义额外类名 | string | `''` | `null` |
+| 参数        | 说明      | 类型                      | 默认值  |
+| --------- | ------- | ----------------------- | ---- |
+| name      | 内容      | string or react element |      |
+| href      | 链接      | string                  |      |
+| className | 自定义额外类名 | string                  | `''` |

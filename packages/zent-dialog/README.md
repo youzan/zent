@@ -1,6 +1,6 @@
 <p>
 	<a href="https://github.com/youzan/">
-		 <img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
+		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
 	</a>
 </p>
 
@@ -16,42 +16,44 @@
 
 ## 使用指南
 
-* 对 Dialog 进行控制有两种方式
-	1. 命令式, 直接调用 `openDialog` 函数, **不支持 `context`.**
+-   对 Dialog 进行控制有两种方式
 
-	2. 组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`.**
+    1.  命令式, 直接调用 `openDialog` 函数, **不支持 `context`.**
 
-	**推荐使用命令式, 不需要在外部维护一个 `visible` 属性, 更加方便.**
+    2.  组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`.**
 
-	* #### openDialog
+    **推荐使用命令式, 不需要在外部维护一个 `visible` 属性, 更加方便.**
 
-		`openDialog(options: object): function`
+    -   #### openDialog
 
-		**`options` 参数支持组件除 `visible` 以外的所有属性.**
+        `openDialog(options: object): function`
 
-		如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
+        **`options` 参数支持组件除 `visible` 以外的所有属性.**
 
-		返回值是一个手动关闭 Dialog 的函数 `closeDialog()`, `closeDialog(false)` 将不会触发Dialog的 `onClose` 方法
+        如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
 
-		重复调用 `closeDialog` 等效于执行 `noop` 函数.
-* 指定Dialog宽度
+        返回值是一个手动关闭 Dialog 的函数 `closeDialog()`, `closeDialog(false)` 将不会触发Dialog的 `onClose` 方法
 
-	在 `style` 中可以指定弹出窗口的宽度, e.g. `style={{ width: '600px' }}`.
+        重复调用 `closeDialog` 等效于执行 `noop` 函数.
 
-	默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
+-   指定Dialog宽度
+
+    在 `style` 中可以指定弹出窗口的宽度, e.g. `style={{ width: '600px' }}`.
+
+    默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
 
 ## Component API
 
-| 参数 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|--------|
-| title | 自定义弹框标题 | node | `''`
-| children | 弹框内容: `<Dialog>xxxx</Dialog>`| node | `null`
-| footer | 底部内容 | node | `null`
-| visible | 是否打开对话框 | bool | `false`
-| closeBtn | 是否显示右上角关闭按钮 | bool | `true`
-| onClose | 关闭操作回调函数 | func | `noop`
-| mask | 是否显示遮罩 | bool | `true`
-| maskClosable | 点击遮罩是否可以关闭 | bool | `true`
-| className | 自定义额外类名 | string | `''`
-| prefix | 自定义前缀 | string | `'zent'`
-| style | 自定义样式 | object | `{}`
+| 参数           | 说明                            | 类型     | 默认值      |
+| ------------ | ----------------------------- | ------ | -------- |
+| title        | 自定义弹框标题                       | node   | `''`     |
+| children     | 弹框内容: `<Dialog>xxxx</Dialog>` | node   | `null`   |
+| footer       | 底部内容                          | node   | `null`   |
+| visible      | 是否打开对话框                       | bool   | `false`  |
+| closeBtn     | 是否显示右上角关闭按钮                   | bool   | `true`   |
+| onClose      | 关闭操作回调函数                      | func   | `noop`   |
+| mask         | 是否显示遮罩                        | bool   | `true`   |
+| maskClosable | 点击遮罩是否可以关闭                    | bool   | `true`   |
+| className    | 自定义额外类名                       | string | `''`     |
+| prefix       | 自定义前缀                         | string | `'zent'` |
+| style        | 自定义样式                         | object | `{}`     |
