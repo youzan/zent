@@ -1,14 +1,12 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-input
 
 [![npm version](https://img.shields.io/npm/v/zent-input.svg?style=flat)](https://www.npmjs.com/package/zent-input) [![downloads](https://img.shields.io/npm/dt/zent-input.svg)](https://www.npmjs.com/package/zent-input)
 
 输入组件
+
+## 使用指南
+
+**`Input` 组件的错误处理遵从 `Form` 表单的规范**
 
 ## API
 
@@ -28,5 +26,3 @@
 | onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
 
 _除了以上属性外，所有react支持的input属性，Input组件都支持_
-
-**`Input` 组件的错误处理遵从 `Form` 表单的规范**

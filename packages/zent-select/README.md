@@ -1,9 +1,3 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-select
 
 [![npm version](https://img.shields.io/npm/v/zent-select.svg?style=flat)](https://www.npmjs.com/package/zent-select) [![downloads](https://img.shields.io/npm/dt/zent-select.svg)](https://www.npmjs.com/package/zent-select)
@@ -29,38 +23,39 @@
     -   TagsTrigger 是基于 InputTrigger 的扩展, 拥有多选功能.
     -   可以自行扩展或开发 trigger.
 
--   ##### 使用方式
+##### 使用方式
 
-    ```js
-    <Select>
-      <Option value="1">选项一</Option>
-      <Option value="2">选项二</Option>
-      <Option value="3">选项三</Option>
-    </Select>
-    ```
+```js
+<Select>
+  <Option value="1">选项一</Option>
+  <Option value="2">选项二</Option>
+  <Option value="3">选项三</Option>
+</Select>
+```
 
-    ```js
-    const data = ['选项一', '选项二', '选项三']
+```js
+const data = ['选项一', '选项二', '选项三']
 
-    <Select data={data} />
-    ```
+<Select data={data} />
+```
 
-    ```js
-    const data = [
-         {value: 1, text: '选项一'},
-         {value: 2, text: '选项二'},
-         {value: 3, text: '选项三'}
-    ];
+```js
+const data = [
+     {value: 1, text: '选项一'},
+     {value: 2, text: '选项二'},
+     {value: 3, text: '选项三'}
+];
 
-    <Select data={data} />
-    ```
+<Select data={data} />
+```
 
-    **注意：如果 data 和 children 两种方式同时使用, data 会将 children 覆盖.**
+**注意：如果 data 和 children 两种方式同时使用, data 会将 children 覆盖.**
 
--   ##### 输出
-    ```js
-    { value: 1, text: '选项一' }
-    ```
+##### 输出
+
+```js
+{ value: 1, text: '选项一' }
+```
 
 ## API
 

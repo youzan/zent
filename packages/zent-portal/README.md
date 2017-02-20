@@ -1,9 +1,3 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-portal
 
 [![npm version](https://img.shields.io/npm/v/zent-portal.svg?style=flat)](https://www.npmjs.com/package/zent-portal) [![downloads](https://img.shields.io/npm/dt/zent-portal.svg)](https://www.npmjs.com/package/zent-portal)
@@ -26,14 +20,14 @@
 
 ## API
 
-| 参数        | 说明                                              | 类型                    | 默认值      | 备选值                      |     |
-| --------- | ----------------------------------------------- | --------------------- | -------- | ------------------------ | --- |
-| children  | 必填参数, 只支持一个child                                | string                |          |                          |     |
-| selector  | 可选参数, 渲染child的DOM节点                             | string or DOM Element | `'body'` | 合法的CSS selector或者某个DOM节点 |     |
-| visible   | 可选参数, 是否渲染child                                 | bool                  | `true`   |                          |     |
-| className | 可选参数, 自定义额外类名                                   | string                | `''`     |                          |     |
-| css       | 可选参数, 额外的css样式. 例如, `{ 'margin-left': '10px' }` | object                | `{}`     |                          |     |
-| prefix    | 可选参数, 自定义前缀                                     | string                | `'zent'` |                          |     |
+| 参数        | 说明                                              | 类型                    | 默认值      | 备选值                      |
+| --------- | ----------------------------------------------- | --------------------- | -------- | ------------------------ |
+| children  | 必填参数, 只支持一个child                                | string                |          |                          |
+| selector  | 可选参数, 渲染child的DOM节点                             | string or DOM Element | `'body'` | 合法的CSS selector或者某个DOM节点 |
+| visible   | 可选参数, 是否渲染child                                 | bool                  | `true`   |                          |
+| className | 可选参数, 自定义额外类名                                   | string                | `''`     |                          |
+| css       | 可选参数, 额外的css样式. 例如, `{ 'margin-left': '10px' }` | object                | `{}`     |                          |
+| prefix    | 可选参数, 自定义前缀                                     | string                | `'zent'` |                          |
 
 ## withESCToClose
 
@@ -50,7 +44,7 @@ HOC除了支持上面Portal所有的属性外, 还支持另外的参数.
 | 参数      | 说明                        | 类型   | 默认值    |
 | ------- | ------------------------- | ---- | ------ |
 | visible | 必填参数, 注意这个属性原始的Portal是可选的 | bool | `true` |
-| onClose | 必填参数, ESC按下是的回调函数         | func |        |
+| onClose | 必填参数, ESC按下是的回调函数         | func |    |   |
 
 ## withNonScrollable
 

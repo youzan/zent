@@ -1,9 +1,3 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-popover
 
 [![npm version](https://img.shields.io/npm/v/zent-popover.svg?style=flat)](https://www.npmjs.com/package/zent-popover) [![downloads](https://img.shields.io/npm/dt/zent-popover.svg)](https://www.npmjs.com/package/zent-popover)
@@ -16,27 +10,29 @@
 
 ## 组件原理
 
--   基于 zent-portal
+#### 基于 zent-portal
 
--   组件由三个部分组成：
+组件由三个部分组成：
 
-    1.  Trigger: 用来控制弹层的触发逻辑, 内置三个实现: click, hover, focus, 除此以外可以实现任意自定义的 trigger.
-    2.  Position: 用来控制弹层的定位逻辑, 内置12种定位 (4 x 3, 每个方位三种), 同时支持自定义定位.
-    3.  Content: 用来控制弹层的内容, 基于 zent-portal 实现.
+1.  Trigger: 用来控制弹层的触发逻辑, 内置三个实现: click, hover, focus, 除此以外可以实现任意自定义的 trigger.
 
--   使用示例:
+2.  Position: 用来控制弹层的定位逻辑, 内置12种定位 (4 x 3, 每个方位三种), 同时支持自定义定位.
 
-    ```js
-    <Popover position={Popover.Position.BottomLeft} display="inline">
-      <Popover.Trigger.Click>
-        <button>click me</button>
-      </Popover.Trigger.Click>
-      <Popover.Content>
-        <div>popover content</div>
-        <div>line two</div>
-      </Popover.Content>
-    </Popover>
-    ```
+3.  Content: 用来控制弹层的内容, 基于 zent-portal 实现.
+
+#### 使用示例:
+
+```js
+<Popover position={Popover.Position.BottomLeft} display="inline">
+  <Popover.Trigger.Click>
+    <button>click me</button>
+  </Popover.Trigger.Click>
+  <Popover.Content>
+    <div>popover content</div>
+    <div>line two</div>
+  </Popover.Content>
+</Popover>
+```
 
 ## API
 

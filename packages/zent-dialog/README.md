@@ -1,9 +1,3 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-dialog
 
 [![npm version](https://img.shields.io/npm/v/zent-dialog.svg?style=flat)](https://www.npmjs.com/package/zent-dialog) [![downloads](https://img.shields.io/npm/dt/zent-dialog.svg)](https://www.npmjs.com/package/zent-dialog)
@@ -16,31 +10,31 @@
 
 ## 使用指南
 
--   对 Dialog 进行控制有两种方式
+#### 两种控制方式
 
-    1.  命令式, 直接调用 `openDialog` 函数, **不支持 `context`.**
+1.  命令式, 直接调用 `openDialog` 函数, **不支持 `context`.**
 
-    2.  组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`.**
+2.  组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`.**
 
     **推荐使用命令式, 不需要在外部维护一个 `visible` 属性, 更加方便.**
 
-    -   #### openDialog
+#### openDialog
 
-        `openDialog(options: object): function`
+`openDialog(options: object): function`
 
-        **`options` 参数支持组件除 `visible` 以外的所有属性.**
+**`options` 参数支持组件除 `visible` 以外的所有属性.**
 
-        如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
+如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
 
-        返回值是一个手动关闭 Dialog 的函数 `closeDialog()`, `closeDialog(false)` 将不会触发Dialog的 `onClose` 方法
+返回值是一个手动关闭 Dialog 的函数 `closeDialog()`, `closeDialog(false)` 将不会触发Dialog的 `onClose` 方法
 
-        重复调用 `closeDialog` 等效于执行 `noop` 函数.
+重复调用 `closeDialog` 等效于执行 `noop` 函数.
 
--   指定Dialog宽度
+#### 指定Dialog宽度
 
-    在 `style` 中可以指定弹出窗口的宽度, e.g. `style={{ width: '600px' }}`.
+在 `style` 中可以指定弹出窗口的宽度, e.g. `style={{ width: '600px' }}`.
 
-    默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
+默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
 
 ## Component API
 

@@ -1,9 +1,3 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-loading
 
 [![npm version](https://img.shields.io/npm/v/zent-loading.svg?style=flat)](https://www.npmjs.com/package/zent-loading) [![downloads](https://img.shields.io/npm/dt/zent-loading.svg)](https://www.npmjs.com/package/zent-loading)
@@ -12,13 +6,17 @@
 
 ## 使用指南
 
-**按需使用**
+#### 两种使用方式(**按需使用**)
 
-1.  通过 API 的调用方式, 调用 `on()` 方法和 `off()` 方法.
+1.  API 调用
 
-    使用API调用时, 也可以传入 props 用于初始化. e.g. `.on({prefix: 'cat'})`
+    调用 `on()` 方法和 `off()` 方法.
 
-2.  通过使用普通组件的方式调用, 提供 `show` 作为 props, 如果 `static` 为  `false`, 需要包一个目标组件, 以遮罩层形式存在; 如果 `static` 设置为 `true`, 将会出现在文档流中.
+    使用 API 调用时, 也可以传入 props 用于初始化. e.g. `.on({prefix: 'cat'})`
+
+2.  普通组件调用
+
+    提供 `show` 作为 props, 如果 `static` 为  `false`, 需要包一个目标组件, 以遮罩层形式存在; 如果 `static` 设置为 `true`, 将会出现在文档流中.
 
 ## API
 

@@ -1,9 +1,3 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-form
 
 [![npm version](https://img.shields.io/npm/v/zent-form.svg?style=flat)](https://www.npmjs.com/package/zent-form) [![downloads](https://img.shields.io/npm/dt/zent-form.svg)](https://www.npmjs.com/package/zent-form)
@@ -12,119 +6,119 @@
 
 ## 使用指南
 
--   创建表单
+#### 创建表单
 
-    ```js
-    class FormComponent extends React.Component {
-      render() {
-        return (
-          <Form>
-            // 各种表单元素
-            <Field
-              name="interest"
-              value={['eat', 'sleep']}
-              component={(props) => (
-                <CheckboxGroup {...props}>
-                  <Checkbox value="eat">吃饭</Checkbox>
-                  <Checkbox value="sleep">睡觉</Checkbox>
-                  <Checkbox value="wash">洗澡</Checkbox>
-                  </CheckboxGroup>
-              )}
-              validations={{
-                // 直接在validations中定义校验方法就只能接收到所有表单元素值values和当前元素值value两个参数
-                validInterest(values, value) {
-                  if (value.length > 0) return true
-                }
-              }}
-              validationErrors={{
-                validInterest: '至少选择一项'
-              }}
-            />
-            <Field
-              name="a"
-              type="number"
-              component={InputField}
-              label="a"
-              value="2"
-              validations={{
-                required: true,
-                // 使用自定义校验方法时可以额外传入参数
-                isMoreThan: 'b'
-              }}
-              validationErrors={{
-                required: '不能为空',
-                isMoreThan: 'a必须大于b'
-              }}
-            />
-            <Field
-              name="b"
-              type="number"
-              component={InputField}
-              label="b"
-              value="3"
-            />
-          </Form>
-        );
-      }
-    }
+```js
+class FormComponent extends React.Component {
+  render() {
+    return (
+      <Form>
+        // 各种表单元素
+        <Field
+          name="interest"
+          value={['eat', 'sleep']}
+          component={(props) => (
+            <CheckboxGroup {...props}>
+              <Checkbox value="eat">吃饭</Checkbox>
+              <Checkbox value="sleep">睡觉</Checkbox>
+              <Checkbox value="wash">洗澡</Checkbox>
+              </CheckboxGroup>
+          )}
+          validations={{
+            // 直接在validations中定义校验方法就只能接收到所有表单元素值values和当前元素值value两个参数
+            validInterest(values, value) {
+              if (value.length > 0) return true
+            }
+          }}
+          validationErrors={{
+            validInterest: '至少选择一项'
+          }}
+        />
+        <Field
+          name="a"
+          type="number"
+          component={InputField}
+          label="a"
+          value="2"
+          validations={{
+            required: true,
+            // 使用自定义校验方法时可以额外传入参数
+            isMoreThan: 'b'
+          }}
+          validationErrors={{
+            required: '不能为空',
+            isMoreThan: 'a必须大于b'
+          }}
+        />
+        <Field
+          name="b"
+          type="number"
+          component={InputField}
+          label="b"
+          value="3"
+        />
+      </Form>
+    );
+  }
+}
 
-    FormComponent = Form.createForm({
-      // 在这里定义的校验方法可以在定义validations时额外接收一个参数
-      formValidations: {
-        isMoreThan(values, value, otherField) {
-          return Number(value) > Number(values[otherField]);
-        },
-        // ...
-      }
-    })(FormComponent);
-    ```
+FormComponent = Form.createForm({
+  // 在这里定义的校验方法可以在定义validations时额外接收一个参数
+  formValidations: {
+    isMoreThan(values, value, otherField) {
+      return Number(value) > Number(values[otherField]);
+    },
+    // ...
+  }
+})(FormComponent);
+```
 
--   表单提交
+#### 表单提交
 
-    form 组件内部对表单提交的过程进行封装，可以把异步提交的过程封装在一个func里并返回一个**promise对象**，组件内部会根据promise对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新 `isSubmitting` 属性。
+form 组件内部对表单提交的过程进行封装，可以把异步提交的过程封装在一个func里并返回一个**promise对象**，组件内部会根据promise对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新 `isSubmitting` 属性。
 
-    ```javascript
-    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-    const submit = (values) => {
-      return sleep(1000)
-        .then(() => {
-          console.log(values)
-        });
-     }
+```javascript
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const submit = (values) => {
+  return sleep(1000)
+    .then(() => {
+      console.log(values)
+    });
+ }
 
-    class SubmitForm extends React.Component {
-      render() {
-        const { zentForm, handleSubmit } = this.props
-        const isSubmitting = zentForm.isSubmitting()
+class SubmitForm extends React.Component {
+  render() {
+    const { zentForm, handleSubmit } = this.props
+    const isSubmitting = zentForm.isSubmitting()
 
-        return (
-          <Form onSubmit={handleSubmit(submit)}>
-            ...
-            <button type="submit">{isSubmitting ? '提交中' : '提交'}</button>
-          </Form>
-        )
-      }
-    }
-
-    class FormContainer extends React.Component {
-      onSubmitSuccess(result) {
+    return (
+      <Form onSubmit={handleSubmit(submit)}>
         ...
-      }
+        <button type="submit">{isSubmitting ? '提交中' : '提交'}</button>
+      </Form>
+    )
+  }
+}
 
-      onSubmitFail(error) {
-        ...
-      }
+class FormContainer extends React.Component {
+  onSubmitSuccess(result) {
+    ...
+  }
 
-      render() {
-        return (
-          <SubmitForm
-            onSubmitSuccess={this.onSubmitSuccess}
-            onSubmitFail={this.onSubmitFail}
-          />
-        )
-      }
-    }
-    ```
+  onSubmitFail(error) {
+    ...
+  }
+
+  render() {
+    return (
+      <SubmitForm
+        onSubmitSuccess={this.onSubmitSuccess}
+        onSubmitFail={this.onSubmitFail}
+      />
+    )
+  }
+}
+```
 
 ## API
 

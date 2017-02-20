@@ -1,9 +1,3 @@
-<p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" />
-	</a>
-</p>
-
 # zent-icon
 
 [![npm version](https://img.shields.io/npm/v/zent-icon.svg?style=flat)](https://www.npmjs.com/package/zent-icon) [![downloads](https://img.shields.io/npm/dt/zent-icon.svg)](https://www.npmjs.com/package/zent-icon)
@@ -16,13 +10,13 @@
 
 -   命名规则: `icon名字-[variant(变体)]-[描线与否(o)]`.
 
--   有两种使用方式:
+#### 两种使用方式
 
-    1.  React组件形式：`<Icon type="shop" />`
+1.  React组件形式：`<Icon type="shop" />`
 
-    2.  CSS形式：`<i class="zenticon zenticon-shop"></i>`
+2.  CSS形式：`<i class="zenticon zenticon-shop"></i>`
 
-    **如果仅使用CSS形式, 只需要项目中引入`zent-icon`相关样式即可, 不需要引入React.**
+**如果仅使用CSS形式, 只需要项目中引入`zent-icon`相关样式即可, 不需要引入React.**
 
 ## API
 
