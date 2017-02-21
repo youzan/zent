@@ -4,7 +4,7 @@
 	</a>
 </p>
 <p align="center">
-    <img alt="Zent logo" style="width: 300px;" src="https://img.yzcdn.cn/public_files/2017/02/21/a18a46c191101609fb29fbdf72dd76e8.png">
+    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png">
 </p>
 <p align="center">
 	A collection of essential UI components written with React.
