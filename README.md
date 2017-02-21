@@ -1,12 +1,14 @@
 <p>
-	<a href="https://github.com/youzan/"><img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan" /></a>
+	<a href="https://github.com/youzan/">
+		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan">
+	</a>
 </p>
-
-# Zent
-
-A collection of essential UI components written with React.
-
-一套React UI组件库。
+<p align="center">
+    <img alt="Zent logo" style="width: 300px;" src="https://img.yzcdn.cn/public_files/2017/02/21/a18a46c191101609fb29fbdf72dd76e8.png">
+</p>
+<p align="center">
+	A collection of essential UI components written with React.
+</p>
 
 [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
