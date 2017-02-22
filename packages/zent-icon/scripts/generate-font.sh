@@ -2,4 +2,4 @@
 
 basepath=$(dirname $0)
 
-fount --config $basepath/fount-config.js
+iconfount --config $basepath/fount-config.js

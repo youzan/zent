@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
-import { format } from './utils/format';
+import { formatDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { MONTH_PROPS } from './constants/';
 
@@ -22,7 +22,7 @@ class MonthPicker extends Component {
       selected = new Date();
     }
     this.state = {
-      value: format(selected, props.format),
+      value: formatDate(selected, props.format),
       actived: selected,
       selected,
       openPanel: false,
@@ -36,7 +36,7 @@ class MonthPicker extends Component {
       let selected = new Date(next.value);
 
       this.setState({
-        value: format(selected, next.format || this.props.format),
+        value: formatDate(selected, next.format || this.props.format),
         actived: selected,
         selected,
         openPanel: false,
@@ -73,7 +73,7 @@ class MonthPicker extends Component {
   }
 
   onConfirm = () => {
-    const value = format(this.state.selected, this.props.format);
+    const value = formatDate(this.state.selected, this.props.format);
     this.setState({
       value,
       openPanel: false,

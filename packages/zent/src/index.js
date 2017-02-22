@@ -1,26 +1,27 @@
-import Alert from '@youzan/zent-alert';
-import Breadcrumb from '@youzan/zent-breadcrumb';
-import Button from '@youzan/zent-button';
-import Checkbox from '@youzan/zent-checkbox';
-import { MonthPicker, DatePicker, TimePicker, DateRangePicker } from '@youzan/zent-datetimepicker';
-import Dialog from '@youzan/zent-dialog';
-import Form from '@youzan/zent-form';
-import Layout from '@youzan/zent-layout';
-import Loading from '@youzan/zent-loading';
-import Icon from '@youzan/zent-icon';
-import Input from '@youzan/zent-input';
-import Notify from '@youzan/zent-notify';
-import Pagination from '@youzan/zent-pagination';
-import Pop from '@youzan/zent-pop';
-import Portal from '@youzan/zent-portal';
-import Radio from '@youzan/zent-radio';
-import Select from '@youzan/zent-select';
-import Steps from '@youzan/zent-steps';
-import Sweetalert from '@youzan/zent-sweetalert';
-import Switch from '@youzan/zent-switch';
-import Table from '@youzan/zent-table';
-import Tabs from '@youzan/zent-tabs';
-import Tree from '@youzan/zent-tree';
+import Alert from 'zent-alert';
+import Breadcrumb from 'zent-breadcrumb';
+import Button from 'zent-button';
+import Checkbox from 'zent-checkbox';
+import { MonthPicker, DatePicker, DateRangePicker } from 'zent-datetimepicker';
+import Dialog from 'zent-dialog';
+import Form from 'zent-form';
+import Layout from 'zent-layout';
+import Loading from 'zent-loading';
+import Icon from 'zent-icon';
+import Input from 'zent-input';
+import Notify from 'zent-notify';
+import Pagination from 'zent-pagination';
+import Pop from 'zent-pop';
+import Popover from 'zent-popover';
+import Portal from 'zent-portal';
+import Radio from 'zent-radio';
+import Select from 'zent-select';
+import Steps from 'zent-steps';
+import Sweetalert from 'zent-sweetalert';
+import Switch from 'zent-switch';
+import Table from 'zent-table';
+import Tabs from 'zent-tabs';
+import Tree from 'zent-tree';
 
 const Zent = {
   Alert,
@@ -39,6 +40,7 @@ const Zent = {
   Notify,
   Pagination,
   Pop,
+  Popover,
   Portal,
   Radio,
   Select,
@@ -46,7 +48,6 @@ const Zent = {
   Sweetalert,
   Table,
   Tabs,
-  TimePicker,
   Tree,
   Switch
 };

@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import { Form, Field, createForm, getControlGroup } from '../src';
-import Radio from '@youzan/zent-radio';
-import Checkbox from '@youzan/zent-checkbox';
-import Select, { SelectTrigger } from '@youzan/zent-select';
-import '@youzan/zent-select/assets/index.scss';
-import '@youzan/zent-checkbox/assets/index.scss';
-import '@youzan/zent-radio/assets/index.scss';
+import Radio from 'zent-radio';
+import Checkbox from 'zent-checkbox';
+import Select, { SelectTrigger } from 'zent-select';
+import 'zent-select/assets/index.scss';
+import 'zent-checkbox/assets/index.scss';
+import 'zent-radio/assets/index.scss';
 import '../assets/index.scss';
 
 

@@ -1,8 +1,11 @@
 {
-  "name": "@youzan/zent-input",
-  "version": "0.1.6",
-  "description": "Input输入组件",
-  "repository": "http://gitlab.qima-inc.com/zent/zent-input",
+  "name": "zent-input",
+  "version": "1.0.6",
+  "description": "Zent Input组件",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
@@ -15,11 +18,9 @@
     "assets/",
     "examples/",
     "lib/",
-    "dist/",
-    "readme.md"
+    "dist/"
   ],
   "dependencies": {
-    "classnames": "2.2.x",
-    "lodash": "4.17.x"
+    "zent-utils": "1.0.6"
   }
 }

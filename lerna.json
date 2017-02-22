@@ -1,14 +1,17 @@
 {
-  "lerna": "2.0.0-beta.32",
-  "publishConfig": {
-    "ignore": [
-      ".npmrc",
-      ".eslintrc",
-      ".eslintignore",
-      ".gitignore",
-      "__tests__/**",
-      "scripts/**"
-    ]
+  "lerna": "2.0.0-beta.37",
+  "commands": {
+    "publish": {
+      "ignore": [
+        "*.md",
+        ".npmrc",
+        ".eslintrc",
+        ".eslintignore",
+        ".gitignore",
+        "__tests__/**",
+        "scripts/**"
+      ]
+    }
   },
   "packages": [
     "packages/*"

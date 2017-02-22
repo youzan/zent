@@ -1,9 +1,9 @@
 import React from 'react';
 import Table from '../src/index.js';
-import assign from 'lodash/assign';
+import assign from 'zent-utils/lodash/assign';
 
 import '../assets/index.scss';
-import '@youzan/zent-pagination/assets/index.scss';
+import 'zent-pagination/assets/index.scss';
 
 import datasets from './data/wym'; // 一个mock的数据
 

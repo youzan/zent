@@ -1,11 +1,15 @@
 {
-  "name": "@youzan/zent-radio",
-  "version": "0.1.7",
-  "description": "Radio 单选框",
+  "name": "zent-radio",
+  "version": "1.0.6",
+  "description": "Zent Radio 单选框组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
   },
   "author": "nino (nino@youzan.com)",
   "license": "MIT",
@@ -17,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "classnames": "2.2.x"
+    "zent-utils": "1.0.6"
   },
   "jest": {
     "verbose": true,

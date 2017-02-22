@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import omit from 'lodash/omit';
+import omit from 'zent-utils/lodash/omit';
 
 /**
   Not exported in index.js.

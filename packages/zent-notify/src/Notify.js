@@ -10,16 +10,38 @@ function createContainerId() {
   return ++id;
 }
 
-const closeNotify = (containerId) => {
+/**
+ * 执行notify结束callback
+ * @param  {Function} callback 关闭notify回调
+ */
+const closeNotifyCallback = (callback) => {
+  if (typeof callback === 'function') {
+    callback();
+  }
+};
+
+/**
+ * 关闭notify
+ * @param  {[type]}   containerId notify容器Id
+ * @param  {Function} callback    notify消失时回调
+ */
+const closeNotify = (containerId, callback) => {
   let container = containerList[containerId];
   if (!container) {
     return;
   }
   ReactDOM.unmountComponentAtNode(container);
   delete containerList[containerId];
+  closeNotifyCallback(callback);
 };
 
-const showNotify = (container, props) => {
+/**
+ * 显示notify
+ * @param  {[type]}   container notify容器
+ * @param  {[type]}   props     notify属性
+ * @param  {Function} callback  notify消失时回调
+ */
+const showNotify = (container, props, callback) => {
   ReactDOM.render(
     React.createElement(NotifyContent, props),
     container
@@ -29,17 +51,27 @@ const showNotify = (container, props) => {
   containerList[containerId] = container;
 
   setTimeout(() => {
-    closeNotify(containerId);
+    closeNotify(containerId, callback);
   }, props.duration || 3000);
 };
 
+/**
+ * 关闭所有notify
+ */
 const closeAllNotify = () => {
   Object.keys(containerList).forEach((containerId) => {
     closeNotify(containerId);
   });
 };
 
-const readyToShow = (text, duration, status) => {
+/**
+ * notify显示前初始化
+ * @param  {[type]}   text     显示文案
+ * @param  {[type]}   duration 显示时长
+ * @param  {[type]}   status   notify状态
+ * @param  {Function} callback notify消失时回调
+ */
+const readyToShow = (text, duration, status, callback) => {
   let container = document.createElement('div');
   const props = {
     visible: true,
@@ -47,15 +79,15 @@ const readyToShow = (text, duration, status) => {
     duration,
     status
   };
-  showNotify(container, props);
+  showNotify(container, props, callback);
 };
 
-export function success(text, duration) {
-  readyToShow(text, duration, 'success');
+export function success(text, duration, callback) {
+  readyToShow(text, duration, 'success', callback);
 }
 
-export function error(text, duration) {
-  readyToShow(text, duration, 'error');
+export function error(text, duration, callback) {
+  readyToShow(text, duration, 'error', callback);
 }
 
 export function clear(containerId) {

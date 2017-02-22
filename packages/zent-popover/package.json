@@ -1,0 +1,36 @@
+{
+  "name": "zent-popover",
+  "version": "1.0.6",
+  "description": "Zent弹层组件",
+  "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "lichen",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "dependencies": {
+    "zent-portal": "1.0.6",
+    "zent-utils": "1.0.6"
+  },
+  "devDependencies": {
+    "zent-button": "1.0.6",
+    "zent-dialog": "1.0.6"
+  },
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  }
+}

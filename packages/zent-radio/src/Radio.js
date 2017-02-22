@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 
 export default class Radio extends Component {
 

@@ -1,8 +1,12 @@
 {
-  "name": "@youzan/zent-checkbox",
-  "version": "0.1.13",
-  "description": "Checkbox 多选框",
+  "name": "zent-checkbox",
+  "version": "1.0.6",
+  "description": "Zent Checkbox 多选框组件",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
@@ -17,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "classnames": "2.2.x"
+    "zent-utils": "1.0.6"
   },
   "jest": {
     "verbose": true,

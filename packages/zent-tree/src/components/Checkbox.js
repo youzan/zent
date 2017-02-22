@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
+import classnames from 'zent-utils/classnames';
 
 export default class Checkbox extends Component {
   constructor(props) {

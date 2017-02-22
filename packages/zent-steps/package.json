@@ -1,12 +1,15 @@
 {
-  "name": "@youzan/zent-steps",
-  "version": "0.1.9",
-  "description": "React实现的Steps组件",
-  "repository": "git@gitlab.qima-inc.com:zent/zent-steps.git",
+  "name": "zent-steps",
+  "version": "1.0.7",
+  "description": "Zent步骤条组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
   },
   "author": "liaoxiaoyou",
   "license": "MIT",
@@ -23,7 +26,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@youzan/zent-icon": "^0.1.10",
-    "classnames": "2.2.x"
+    "zent-icon": "1.0.7",
+    "zent-utils": "1.0.6"
   }
 }

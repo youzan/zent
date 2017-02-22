@@ -1,5 +1,9 @@
 ## Change logs
 
+* 2017-02-10, 0.4.3, pop/popover bug fix
+* 2017-02-10, 0.4.2, 大包导出Popover组件
+* 2017-02-09, 0.4.1, 修复文件找不到的bug
+* 2017-02-09, 0.4.0,  不兼容改动：`zent-table`布局用`flex`实现，`zent-pop`重写；其它改动：`zent-notify`增加关闭回掉函数，`zent-datetimepicker`新的时间选择UI以及bug修复。
 * 2017-02-07, 0.3.22, 添加RangePicker, `Dialog`宽度自适应
 * 2017-01-23, 0.3.21, `zent-checkbox`和`zent-radio`样式修改
 * 2017-01-17, 0.3.20, `zent-datetimepicker` 日期解析bug修复
@@ -28,7 +32,7 @@
 * 2016-11-29, 0.2.25/0.2.26/0.2.27, 修复datetime picker的bug
 * 2016-11-28, 0.2.24, 发布datetime picker，暂时只开放DatePicker
 * 2016-11-23, 0.2.23, 修复select的一些问题
-* 2016-11-16, 0.2.21/0.2.22, 支持@youzan/zent/button这种引用方式，有问题请找对应组件的作者
+* 2016-11-16, 0.2.21/0.2.22, 支持zent/button这种引用方式，有问题请找对应组件的作者
 * 2016-11-16, 0.2.20, 发布zent-tabs
 * 2016-11-15, 0.2.19, zent-button去掉无用props，某些版本的react会有警告
 * 2016-11-15, 0.2.18, sweetalert增加type选项，设置后在title左侧会显示一个图标

@@ -1,8 +1,12 @@
 {
-  "name": "@youzan/zent-loading",
-  "version": "0.1.8",
-  "description": "这是一个React Loading组件",
+  "name": "zent-loading",
+  "version": "1.0.4",
+  "description": "Zent Loading组件",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"

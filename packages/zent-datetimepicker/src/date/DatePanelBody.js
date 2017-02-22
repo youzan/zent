@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import { goDays, isCurrentDate, isBeforeMonth, isAfterMonth } from '../utils/';
-import classNames from 'classnames';
+import { goDays, isSameDate, isBeforeMonth, isAfterMonth, CURRENT } from '../utils/';
+import classNames from 'zent-utils/classnames';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 6;
 const COL = 7;
-
-const isSameDay = (val, selectedDate) => {
-  return val.getFullYear() === selectedDate.getFullYear()
-    && val.getMonth() === selectedDate.getMonth()
-    && val.getDate() === selectedDate.getDate();
-};
 
 export default class DatePanelBody extends Component {
   isSelected(val) {
@@ -21,11 +15,11 @@ export default class DatePanelBody extends Component {
     if (Array.isArray(selectedDate)) {
       let i = 0;
       selectedDate.forEach((item) => {
-        isSameDay(val, item) ? i++ : '';
+        isSameDate(val, item) ? i++ : '';
       });
       return i > 0;
     }
-    return isSameDay(val, selectedDate);
+    return isSameDate(val, selectedDate);
   }
   isInRange(val) {
     const { range } = this.props;
@@ -49,7 +43,7 @@ export default class DatePanelBody extends Component {
         const val = goDays(firstDay, index - diff);
         const isBefore = isBeforeMonth(val, props.actived);
         const isAfter = isAfterMonth(val, props.actived);
-        const isCurrent = isCurrentDate(val);
+        const isCurrent = isSameDate(val, CURRENT);
         const isDisabled = props.disabledDate(val);
         const isSelected = this.isSelected(val);
         const isInRange = this.isInRange(val);

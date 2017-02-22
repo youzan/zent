@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Portal from '../src';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'zent-utils/lodash/cloneDeep';
 
 import '../assets/simple.scss';
 

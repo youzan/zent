@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Tree from '../src/Index';
+import Tree from '../src/index';
 import '../assets/index.scss';
 
 const treeData = [{

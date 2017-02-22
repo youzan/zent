@@ -1,6 +1,6 @@
 import React from 'react';
 const { number, array, oneOfType, func } = React.PropTypes;
-import Select from '@youzan/zent-select';
+import Select from 'zent-select';
 const { Option } = Select;
 
 const Prefix = React.createClass({
@@ -12,9 +12,7 @@ const Prefix = React.createClass({
 
   changePageSize(e, data) {
     let { setPageSize } = this.props;
-    if (typeof setPageSize === 'function') {
-      setPageSize(data.text);
-    }
+    setPageSize(data.text);
   },
 
   renderSelect() {

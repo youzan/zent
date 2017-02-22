@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
-import omit from 'lodash/omit';
+import classNames from 'zent-utils/classnames';
+import omit from 'zent-utils/lodash/omit';
 
 function Input(props) {
   const handleKeyDown = evt => {

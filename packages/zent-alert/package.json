@@ -1,8 +1,11 @@
 {
-  "name": "@youzan/zent-alert",
-  "version": "0.1.12",
+  "name": "zent-alert",
+  "version": "1.0.7",
   "description": "警告／提示组件",
-  "repository": "http://gitlab.qima-inc.com/zent/zent-alert",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
@@ -23,11 +26,10 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "classnames": "2.2.x",
-    "lodash": "4.17.x"
+    "zent-utils": "1.0.6"
   },
   "devDependencies": {
-    "@youzan/zent-button": "^0.1.16",
-    "@youzan/zent-icon": "^0.1.10"
+    "zent-button": "1.0.6",
+    "zent-icon": "1.0.7"
   }
 }

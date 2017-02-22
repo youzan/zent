@@ -1,5 +1,6 @@
 import React from 'react';
-import Checkbox from '@youzan/zent-checkbox';
+import helper from '../helper';
+import Checkbox from 'zent-checkbox';
 
 const Td = React.createClass({
 
@@ -44,6 +45,7 @@ const Td = React.createClass({
 
     let { needSelect, canSelect } = selection;
     let self = this;
+    let width = helper.getCalculatedWidth(column.width);
 
     if (needSelect) {
       className += ' cell--selection';
@@ -53,8 +55,16 @@ const Td = React.createClass({
       className += ' cell--money';
     }
 
+    let styleObj = {};
+    if (width) {
+      styleObj = {
+        width,
+        flex: '0 1 auto'
+      };
+    }
+
     return (
-      <td className={className}>
+      <div className={className} style={styleObj}>
         {
           needSelect && (
             <Checkbox
@@ -66,7 +76,7 @@ const Td = React.createClass({
           )
         }
         {this.renderContent()}
-      </td>
+      </div>
     );
   }
 });

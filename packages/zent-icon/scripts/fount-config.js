@@ -5,7 +5,7 @@ module.exports = {
     author: 'houzi, lichen',
     license: 'MIT',
     license_url: 'https://opensource.org/licenses/MIT',
-    homepage: 'http://react.fe.qima-inc.com/components/icon',
+    homepage: 'http://github.com/youzan/zent/packages/zent-icon',
     css_prefix_text: 'zenticon-',
     filename_hash: true
   },

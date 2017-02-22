@@ -1,12 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 
 import { Component, PropTypes, createElement } from 'react';
-import omit from 'lodash/omit';
-import find from 'lodash/find';
-import noop from 'lodash/noop';
-import assign from 'lodash/assign';
-import isEqual from 'lodash/isEqual';
-import isPromise from 'is-promise';
+import omit from 'zent-utils/lodash/omit';
+import find from 'zent-utils/lodash/find';
+import noop from 'zent-utils/lodash/noop';
+import assign from 'zent-utils/lodash/assign';
+import isEqual from 'zent-utils/lodash/isEqual';
+import isPromise from 'zent-utils/isPromise';
 import { getDisplayName, silenceEvent, silenceEvents } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';

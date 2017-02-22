@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import Button from '@youzan/zent-button';
-import { openDialog } from '@youzan/zent-dialog';
-import Icon from '@youzan/zent-icon';
-import cx from 'classnames';
+import Button from 'zent-button';
+import { openDialog } from 'zent-dialog';
+import Icon from 'zent-icon';
+import cx from 'zent-utils/classnames';
 
 const titleIconMap = {
   info: 'info-circle-o',

@@ -1,8 +1,12 @@
 {
-  "name": "@youzan/zent-pagination",
-  "version": "0.2.15",
-  "description": "zent分页组件",
+  "name": "zent-pagination",
+  "version": "1.0.6",
+  "description": "Zent分页组件",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
@@ -10,7 +14,8 @@
   "author": "zhangmengxuan",
   "license": "MIT",
   "dependencies": {
-    "@youzan/zent-select": "^0.1.58"
+    "zent-select": "1.0.6",
+    "zent-utils": "1.0.6"
   },
   "files": [
     "src/",

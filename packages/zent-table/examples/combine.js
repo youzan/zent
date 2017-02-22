@@ -2,7 +2,7 @@ import React from 'react';
 import Table from '../src/index.js';
 
 import '../assets/index.scss';
-import '@youzan/zent-pagination/assets/index.scss';
+import 'zent-pagination/assets/index.scss';
 
 import TextComponent from './components/Text';
 import CardComponent from './components/Card';
@@ -51,14 +51,14 @@ const Simple = React.createClass({
 
   onChange(conf) {
     this.setState(conf);
-    console.log(conf); // eslint-disable-line
+    // console.log(conf); // eslint-disable-line
   },
 
   onSelect(selectedRowKeys) {
     this.setState({
       selectedRowKeys
     });
-    console.log(`你选中了：${selectedRowKeys}`); // eslint-disable-line
+    // console.log(`你选中了：${selectedRowKeys}`); // eslint-disable-line
   },
 
   render() {

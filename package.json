@@ -1,16 +1,17 @@
 {
-  "name": "@youzan/zent-repository",
+  "name": "zent-repository",
   "version": "1.0.0",
-  "description": "React Component Ecosystem，一套前端设计语言和基于React的实现",
-  "scripts": {
-    "lint": "eslint packages/*/src packages/*/examples",
-    "test": "./scripts/run-tests.sh",
-    "eslint-fix": "eslint packages/*/src packages/*/examples --fix"
-  },
   "private": true,
+  "description": "一套前端设计语言和基于React的实现",
+  "scripts": {
+    "test": "./scripts/run-tests.sh",
+    "lint": "eslint utils/* packages/*/src packages/*/examples",
+    "eslint-fix": "eslint utils/* packages/*/src packages/*/examples --fix",
+    "bootstrap": "lerna clean --yes && lerna bootstrap"
+  },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.qima-inc.com:zent/zent.git"
+    "url": "git@github.com:youzan/zent.git"
   },
   "keywords": [
     "react",
@@ -18,15 +19,11 @@
   ],
   "author": "Youzan FE",
   "license": "MIT",
-  "bugs": {
-    "url": "http://gitlab.qima-inc.com/zent/zent/issues"
-  },
-  "homepage": "http://gitlab.qima-inc.com/zent/zent",
   "dependencies": {},
   "files": [],
   "devDependencies": {
     "enzyme": "2.6.x",
-    "lerna": "2.0.0-beta.32",
+    "lerna": "^2.0.0-beta.37",
     "react": "15.0.2",
     "react-addons-test-utils": "15.0.2",
     "react-dom": "15.0.2"

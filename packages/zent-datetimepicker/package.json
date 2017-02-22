@@ -1,9 +1,12 @@
 {
-  "name": "@youzan/zent-datetimepicker",
-  "version": "0.0.33",
+  "name": "zent-datetimepicker",
+  "version": "1.0.7",
   "description": "Zent DateTimePicker 组件",
-  "repository": "gitlab/url/to/your/component",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
@@ -23,7 +26,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "@youzan/zent-icon": "^0.1.10",
-    "classnames": "2.2.x"
+    "zent-icon": "1.0.7",
+    "zent-utils": "1.0.6"
   }
 }

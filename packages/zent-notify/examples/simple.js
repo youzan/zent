@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import Notify from '../src';
-import Button from '@youzan/zent-button';
+import Button from 'zent-button';
 import '../assets/index.scss';
-import '@youzan/zent-button/assets/index.scss';
+import 'zent-button/assets/index.scss';
 
 export default class Demo extends Component {
 
+  closeCallback = () => {
+    alert('Notify has over'); // eslint-disable-line
+  }
+
   testSuccess = () => {
-    Notify.success('Hello', 1000);
+    Notify.success('Hello', 1000, this.closeCallback);
   }
 
   testError = () => {

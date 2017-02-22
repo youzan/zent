@@ -1,11 +1,15 @@
 {
-  "name": "@youzan/zent-tree",
-  "version": "0.1.9",
-  "description": "Tree ui react component for zent",
-  "main": "./lib/Index.js",
+  "name": "zent-tree",
+  "version": "1.0.6",
+  "description": "Zent树组件",
+  "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
   },
   "author": "wangchao@youzan",
   "email": "wangchao@youzan",
@@ -18,7 +22,7 @@
     "src/"
   ],
   "dependencies": {
-    "classnames": "2.2.x",
+    "zent-utils": "1.0.6",
     "object-assign": "4.1.x"
   },
   "devDependencies": {

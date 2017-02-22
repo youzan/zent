@@ -1,4 +1,5 @@
 import { Component, PropTypes } from 'react';
+import isEqual from 'zent-utils/lodash/isEqual';
 
 import * as util from './util';
 
@@ -15,12 +16,14 @@ export default class Portal extends Component {
       PropTypes.instanceOf(DOMElement)
     ]).isRequired,
     className: PropTypes.string,
+    css: PropTypes.object,
     prefix: PropTypes.string
   };
 
   static defaultProps = {
     selector: 'body',
     className: '',
+    css: {},
     prefix: 'zent'
   };
 
@@ -58,9 +61,9 @@ export default class Portal extends Component {
     // 这个也是在componentDidUpdate里做的。
 
     // 其它情况仅更新样式
-    const { className, prefix } = this.props;
-    if (className !== nextProps.className || prefix !== nextProps.prefix) {
-      this.node.className = util.getCssClass(nextProps.prefix, nextProps.className);
+    const { className, prefix, css } = this.props;
+    if (className !== nextProps.className || prefix !== nextProps.prefix || !isEqual(css, nextProps.css)) {
+      util.prepareNode(this.node, nextProps.prefix, nextProps.className, nextProps.css);
     }
   }
 

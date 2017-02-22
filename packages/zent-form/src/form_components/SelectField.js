@@ -1,5 +1,5 @@
 import React from 'react';
-import Select, { SelectTrigger } from '@youzan/zent-select';
+import Select, { SelectTrigger } from 'zent-select';
 import getControlGroup from '../getControlGroup';
 
 const SelectField = getControlGroup(({ trigger = SelectTrigger, ...props }) => {

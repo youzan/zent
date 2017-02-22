@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { CURRENT_YEAR } from '../utils/';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 4;

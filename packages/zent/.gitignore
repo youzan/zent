@@ -46,6 +46,7 @@ loading/
 notify/
 pagination/
 pop/
+popover/
 portal/
 radio/
 select/
@@ -55,3 +56,4 @@ switch/
 table/
 tabs/
 tree/
+utils/

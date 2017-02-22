@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import PanelCell from '../common/PanelCell';
 import { CURRENT_MONTH } from '../utils/';
 

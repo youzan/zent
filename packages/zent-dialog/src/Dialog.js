@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import Portal, { withNonScrollable, withESCToClose } from '@youzan/zent-portal';
+import Portal, { withNonScrollable, withESCToClose } from 'zent-portal';
 
 import DialogEl from './DialogEl';
 

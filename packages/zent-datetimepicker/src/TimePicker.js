@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
-import { format } from './utils/format';
+import { formatDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { TIME_PROPS } from './constants/';
 
@@ -21,7 +21,7 @@ class TimePicker extends Component {
       selected = new Date();
     }
     this.state = {
-      value: format(selected, props.format),
+      value: formatDate(selected, props.format),
       actived: selected,
       selected,
       openPanel: false,
@@ -56,7 +56,7 @@ class TimePicker extends Component {
   }
 
   onConfirm = () => {
-    const value = format(this.state.actived, this.props.format);
+    const value = formatDate(this.state.actived, this.props.format);
     this.setState({
       value,
       openPanel: false,

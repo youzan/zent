@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Head from './modules/Head';
 import Body from './modules/Body';
-import Pagination from '@youzan/zent-pagination';
-import Loading from '@youzan/zent-loading';
+import Pagination from 'zent-pagination';
+import Loading from 'zent-loading';
 
 const { func, bool, string, array, oneOf, object } = React.PropTypes;
 
@@ -200,14 +200,14 @@ const Table = React.createClass({
       <div className={`${prefix}-table-container`}>
         <Loading show={this.props.loading} static>
           {columns && (
-            <table className={`${prefix}-table ${className}`}>
+            <div className={`${prefix}-table ${className}`}>
               {
                 this.state.placeHolderHeight &&
-                  <thead className="place-holder">
-                    <tr>
+                  <div className="thead place-holder">
+                    <div className="tr">
                       {this.cloneHeaderContent()}
-                    </tr>
-                  </thead>
+                    </div>
+                  </div>
               }
               <Head
                 ref={(c) => this.head = c}
@@ -236,7 +236,7 @@ const Table = React.createClass({
                   onSelect: this.onSelectOneRow
                 }}
               />
-            </table>
+            </div>
           )}
         </Loading>
         {pageInfo && (

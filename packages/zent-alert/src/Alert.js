@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import cx from 'classnames';
-import isFunction from 'lodash/isFunction';
+import cx from 'zent-utils/classnames';
+import isFunction from 'zent-utils/lodash/isFunction';
 
 // 忽略不支持的style
 const styleClassMap = {

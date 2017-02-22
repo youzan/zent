@@ -99,7 +99,7 @@ export default {
    * 支持的格式化选项包括:
    * 年：yy(97), yyyy(1997)
    * 月：m(1), mm(01), mmm(1月), mmmm(一月)
-   * 日：d(5), dd(05), ddd(周五)，dddd(星期五)，小写是日期，大写是星期几
+   * 日：d(5), dd(05), ddd(周五)，dddd(星期五)
    * 小时：h(2), hh(02), H(14), HH(14)，小写是12小时制，大写是24小时制
    * 分：M(3), MM(03),
    * 秒：s(8), ss(08)
@@ -111,7 +111,7 @@ export default {
    * o: 时区offset: +0800
    * S: 英语中的序数：st, nd, rd或th，一般和d一起使用
    */
-  format(date, mask, options) {
+  formatDate(date, mask, options) {
     options = options || {};
     let utc = options.utc || false;
     let locale = options.locale || 'zh';
@@ -127,7 +127,9 @@ export default {
 
     // Passing date through Date applies Date.parse, if necessary
     date = date ? new Date(date) : new Date();
-    if (isNaN(date)) throw new SyntaxError('invalid date');
+    // Boolean(NaN) return false, so the check of isNaN(date) is useless.
+    // new Date(NaN) will throw a SyntaxError in Browser
+    // if (isNaN(date)) throw new SyntaxError('invalid date');
 
     // Allow setting the utc argument via the mask
     if (mask.slice(0, 4) === 'UTC:') {
@@ -140,16 +142,7 @@ export default {
     });
   },
 
-  parse(...args) {
-    let date = args.date;
-    let mask = args.mask;
-
-    // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-    if (args.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
-      mask = date;
-      date = undefined;
-    }
-
+  parseDate(date, mask) {
     mask = dateMasks[mask] || mask || dateMasks.default;
 
     if (typeof date === 'number') return new Date(date);
@@ -167,7 +160,8 @@ export default {
       return;
     }
     dateArr = dateArr.splice(1);
-
-    return new Date(...dateArr);
+    const tmp = new Date(...dateArr);
+    tmp.setMonth(tmp.getMonth() - 1);
+    return tmp;
   }
 };

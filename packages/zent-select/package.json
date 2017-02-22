@@ -1,11 +1,15 @@
 {
-  "name": "@youzan/zent-select",
-  "version": "0.1.58",
-  "description": "这是一个select组件",
+  "name": "zent-select",
+  "version": "1.0.6",
+  "description": "Zent Select组件",
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
   },
   "zent": {
     "port": 7788
@@ -20,7 +24,6 @@
     "dist/"
   ],
   "dependencies": {
-    "lodash": "4.17.x",
-    "object-assign": "4.1.x"
+    "zent-utils": "1.0.6"
   }
 }

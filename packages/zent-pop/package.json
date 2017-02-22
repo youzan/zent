@@ -1,8 +1,12 @@
 {
-  "name": "@youzan/zent-pop",
-  "version": "0.3.9",
-  "description": "点击元素，弹出气泡框。",
+  "name": "zent-pop",
+  "version": "1.0.7",
+  "description": "Zent气泡组件",
   "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
@@ -16,6 +20,14 @@
     "src/",
     "dist/"
   ],
+  "dependencies": {
+    "zent-popover": "1.0.6",
+    "zent-button": "1.0.6",
+    "zent-utils": "1.0.6"
+  },
+  "devDependencies": {
+    "zent-layout": "1.0.6"
+  },
   "zent": {
     "port": 7789
   }

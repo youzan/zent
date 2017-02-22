@@ -6,4 +6,6 @@ node_modules.tar
 *.log
 coverage
 packages/*/coverage
-.vscode
+.vscode/
+.felintrc
+yarn.lock

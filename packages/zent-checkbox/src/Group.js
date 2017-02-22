@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 
 function findIndex(array, predicate) {
   for (let i = 0; i < array.length; i++) {

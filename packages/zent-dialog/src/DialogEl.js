@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import cx from 'classnames';
+import cx from 'zent-utils/classnames';
 
 export default class DialogEl extends Component {
   onMaskClick = (e) => {

@@ -4,7 +4,7 @@ import React from 'react';
 import Table from '../src/index.js';
 
 import '../assets/index.scss';
-import '@youzan/zent-pagination/assets/index.scss';
+import 'zent-pagination/assets/index.scss';
 
 import TextComponent from './components/Text';
 

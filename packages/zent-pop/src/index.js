@@ -1,2 +1,3 @@
-import Pop from './PopInstance.js';
+import Pop from './Pop';
+
 export default Pop;

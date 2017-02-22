@@ -1,172 +1,183 @@
-import React, { Component } from 'react';
-import { getElementLeft, getElementTop, getElementPositionType, calculateStyle } from './getPosition';
+import React, { Component, PropTypes } from 'react';
+import Popover from 'zent-popover';
+import Button from 'zent-button';
+import cx from 'zent-utils/classnames';
 
-class Pop extends Component {
+import NoneTrigger from './NoneTrigger';
 
-  static wrapper
-  static style
-  static container
+const { Trigger, Position, withPopover } = Popover;
 
-  constructor(props) {
-    super(props);
-    ['show', 'shadowHide', 'setPosition', 'setWrapperRef', 'handleBlur'].forEach(item => this[item] = this[item].bind(this));
+function capitalize(str) {
+  if (!str) return str;
+
+  return `${str.slice(0, 1).toUpperCase()}${str.slice(1)}`;
+}
+
+class PopAction extends Component {
+  handleClick(callbackName) {
+    const { popover, trigger } = this.props;
+    popover.close();
+
+    const callback = this.props[callbackName];
+    trigger !== 'none' && callback && callback();
   }
 
-  state = {
-    ...this.props,
-    show: false,
-    shadowVisible: true
-  }
+  handleConfirm = () => {
+    this.handleClick('onConfirm');
+  };
 
-  // 对外暴露的更新函数
-  show(info) {
-    if (info && info.show) {
-      let target = info.target;
-      if (!target) {
-        return;
-      }
-      this.style = {
-        left: getElementLeft(target),
-        top: getElementTop(target),
-        width: target.offsetWidth,
-        height: target.offsetHeight
-      };
-      if (getElementPositionType(target)) {
-        this.style.position = 'fixed';
-      }
-    }
-
-    // 这段代码有点丑，Instance 的代码其实写得很不干脆
-    this.setState({
-      show: info.show,
-      shadowVisible: true,
-      content: info.content,
-      position: info.position,
-      header: info.header,
-      type: info.type,
-      confirmText: info.confirmText,
-      cancelText: info.cancelText
-    });
-  }
-
-  shadowHide() {
-    this.setState({
-      shadowVisible: false
-    });
-  }
-
-  setPosition() {
-    if (!this.wrapper) {
-      return;
-    }
-
-    this.style = calculateStyle({
-      style: this.style,
-      position: this.state.position,
-      height: this.wrapper.clientHeight,
-      width: this.wrapper.clientWidth
-    });
-
-    // 弹出框的位置
-    this.wrapper.style.top = `${this.style.top}px`;
-    this.wrapper.style.left = `${this.style.left}px`;
-    if (this.style.position) {
-      this.wrapper.style.position = this.style.position;
-    }
-
-    // 小箭头的位置
-    if (this.style.arrow_top) {
-      this.arrow.style.top = `${this.style.arrow_top}px`;
-    }
-    if (this.style.arrow_right) {
-      this.arrow.style.right = `${this.style.arrow_right}px`;
-    }
-    if (this.style.arrow_bottom) {
-      this.arrow.style.bottom = `${this.style.arrow_bottom}px`;
-    }
-    if (this.style.arrow_left) {
-      this.arrow.style.left = `${this.style.arrow_left}px`;
-    }
-
-    this.focus();
-  }
-
-  focus() {
-    let activeDom = document.activeElement;
-    if (activeDom !== this.wrapper && !this.wrapper.contains(activeDom)) {
-      this.wrapper.focus();
-    }
-  }
-
-  handleBlur(e) {
-    this.props.handleBlur(e, this.wrapper);
-  }
-
-  setWrapperRef(name, el) {
-    this[name] = el;
-  }
-
-  componentDidMount() {
-    this.setPosition();
-  }
-
-  componentDidUpdate() {
-    if (this.state.shadowVisible) {
-      this.setPosition();
-    }
-  }
-
-  componentWillUnmount() {
-    // console.log('内部被卸载');
-  }
+  handleCancel = () => {
+    this.handleClick('onCancel');
+  };
 
   render() {
-    let { onConfirm, handleConfirm, handleMouseLeave, className, prefix } = this.props;
-    let { content, position, header, type, confirmText, cancelText } = this.state;
-    let shadowClass = '';
-    if (this.state.show && !this.state.shadowVisible) {
-      shadowClass = `${prefix}-popover-hidden`;
-    }
-    if (this.state.show && this.state.shadowVisible) {
-      shadowClass = `${prefix}-popover-show`;
+    const { prefix, type, onConfirm, onCancel, confirmText, cancelText } = this.props;
+
+    if (!onConfirm && !onCancel) {
+      return null;
     }
 
     return (
-      this.state.show && content && content !== '' ?
-        <div
-          className={`${prefix}-popover ${position} ${className} ${shadowClass}`}
-          ref={this.setWrapperRef.bind(this, 'wrapper')}
-          onBlur={this.handleBlur}
-          onMouseLeave={handleMouseLeave}
-          tabIndex="1"
-        >
-          {header && <div className={`${prefix}-popover-header`}>{header}</div>}
-          <div className={`${prefix}-popover-inner`}>
-            {content}
-            {onConfirm && (
-              <div className={`${prefix}-popover-buttons`}>
-                <button
-                  name="popbtn"
-                  className={`${prefix}-btn ${prefix}-btn-small ${prefix}-btn-${type}`}
-                  onClick={handleConfirm.bind(null, true)}
-                >
-                  {confirmText}
-                </button>
-                <button
-                  name="popbtn"
-                  className={`${prefix}-btn ${prefix}-btn-small`}
-                  onClick={handleConfirm.bind(null, false)}
-                >
-                  {cancelText}
-                </button>
-              </div>
-              )}
-          </div>
-          <i className={`${prefix}-popover-arrow`} ref={this.setWrapperRef.bind(this, 'arrow')} />
-        </div> :
-        null
+      <div className={`${prefix}-pop-buttons`}>
+        <Button size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
+        <Button size="small" onClick={this.handleCancel}>{cancelText}</Button>
+      </div>
     );
   }
 }
 
-export default Pop;
+const BoundPopAction = withPopover(PopAction);
+
+export default class Pop extends Component {
+  static propTypes = {
+    trigger: PropTypes.oneOf([
+      'click', 'hover', 'focus', 'none'
+    ]),
+    position: PropTypes.oneOf([
+      'left-top', 'left-center', 'left-bottom',
+      'right-top', 'right-center', 'right-bottom',
+      'top-left', 'top-center', 'top-right',
+      'bottom-left', 'bottom-center', 'bottom-right'
+    ]),
+
+    // trigger是否块级显示
+    block: PropTypes.bool,
+
+    content: PropTypes.node,
+    header: PropTypes.node,
+
+    // confirm形式相关
+    onConfirm: PropTypes.func,
+    onCancel: PropTypes.func,
+    confirmText: PropTypes.string,
+    cancelText: PropTypes.string,
+    type: PropTypes.oneOf([
+      'primary', 'default', 'danger', 'success'
+    ]),
+
+    // 打开之后的回掉函数
+    onShow: PropTypes.func,
+
+    // 关闭之后的回掉函数
+    onClose: PropTypes.func,
+
+    // 这两个只有当trigger为none时才生效
+    visible: PropTypes.bool,
+
+    // 只有trigger为hover时才有效
+    mouseLeaveDelay: PropTypes.number,
+    mouseEnterDelay: PropTypes.number,
+
+    // 只有trigger为click时才有效
+    closeOnClickOutside: PropTypes.bool,
+
+    prefix: PropTypes.string,
+    className: PropTypes.string,
+    wrapperClassName: PropTypes.string
+  };
+
+  static defaultProps = {
+    trigger: 'none',
+    position: 'top-center',
+    block: false,
+    confirmText: '确定',
+    cancelText: '取消',
+    type: 'primary',
+    visible: false,
+    closeOnClickOutside: true,
+    mouseLeaveDelay: 200,
+    mouseEnterDelay: 200,
+    className: '',
+    wrapperClassName: '',
+    prefix: 'zent',
+  };
+
+  getPosition() {
+    const { position } = this.props;
+    const positionName = position.split('-').map(s => capitalize(s)).join('');
+    return Position[positionName] || Position.TopCenter;
+  }
+
+  renderContent() {
+    const { prefix, content, header, onConfirm, onCancel, confirmText, cancelText, type } = this.props;
+
+    return (
+      <Popover.Content>
+        {header && <div className={`${prefix}-pop-header`}>{header}</div>}
+        <div className={`${prefix}-pop-inner`}>
+          {content}
+          <BoundPopAction
+            prefix={prefix}
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            confirmText={confirmText}
+            cancelText={cancelText}
+            type={type}
+          />
+        </div>
+        <i className={`${prefix}-pop-arrow`} />
+      </Popover.Content>
+    );
+  }
+
+  renderTrigger() {
+    const { trigger, visible, onVisibleChange, closeOnClickOutside, mouseLeaveDelay, mouseEnterDelay, children } = this.props;
+
+    if (trigger === 'click') {
+      return <Trigger.Click autoClose={closeOnClickOutside}>{children}</Trigger.Click>;
+    }
+
+    if (trigger === 'hover') {
+      return <Trigger.Hover showDelay={mouseEnterDelay} hideDelay={mouseLeaveDelay}>{children}</Trigger.Hover>;
+    }
+
+    if (trigger === 'focus') {
+      return <Trigger.Focus>{children}</Trigger.Focus>;
+    }
+
+    if (trigger === 'none') {
+      return <NoneTrigger visible={visible} onVisibleChange={onVisibleChange}>{children}</NoneTrigger>;
+    }
+
+    return null;
+  }
+
+  render() {
+    const { className, wrapperClassName, prefix, block, onShow, onClose } = this.props;
+
+    return (
+      <Popover
+        wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
+        className={cx(`${prefix}-pop`, className)}
+        cushion={10}
+        position={this.getPosition()}
+        display={block ? 'block' : 'inline-block'}
+        onShow={onShow}
+        onClose={onClose}
+      >
+        {this.renderTrigger()}
+        {this.renderContent()}
+      </Popover>
+    );
+  }
+}

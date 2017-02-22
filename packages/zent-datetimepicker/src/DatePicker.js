@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY } from './utils';
-import { format, parse } from './utils/format';
+import { formatDate, parseDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { DATE_PROPS, TIME_PROPS } from './constants/';
 
+let returnType = 'string';
 class DatePicker extends Component {
   static defaultProps = DATE_PROPS
 
@@ -16,7 +17,9 @@ class DatePicker extends Component {
     let selected;
     let actived;
     if (props.value) {
-      let tmpDate = parse(props.value, props.format);
+      if (typeof props.value === 'number') returnType = 'numer';
+      if (props.value instanceof Date) returnType = 'date';
+      let tmpDate = parseDate(props.value, props.format);
       if (!tmpDate) {
         showPlaceholder = true;
         actived = new Date();
@@ -29,7 +32,7 @@ class DatePicker extends Component {
       actived = new Date();
     }
     this.state = {
-      value: selected && format(selected, props.format),
+      value: selected && formatDate(selected, props.format),
       actived,
       selected,
       activedTime: actived,
@@ -38,32 +41,29 @@ class DatePicker extends Component {
     };
   }
   componentWillReceiveProps(next) {
-    if (next.hasOwnProperty('value')) {
-      if (next.value) {
-        let showPlaceholder = false;
-        let selected = new Date(next.value);
+    if (next.value) {
+      let showPlaceholder = false;
+      let selected = parseDate(next.value, next.format || this.props.format);
+      this.setState({
+        value: formatDate(selected, next.format || this.props.format),
+        actived: selected,
+        selected,
+        activedTime: selected,
+        openPanel: false,
+        showPlaceholder
+      });
+    } else {
+      let showPlaceholder = true;
+      let actived = new Date();
 
-        this.setState({
-          value: format(selected, next.format || this.props.format),
-          actived: selected,
-          selected,
-          activedTime: selected,
-          openPanel: false,
-          showPlaceholder
-        });
-      } else {
-        let showPlaceholder = true;
-        let actived = new Date();
-
-        this.setState({
-          value: '',
-          actived,
-          selected: '',
-          activedTime: actived,
-          openPanel: false,
-          showPlaceholder
-        });
-      }
+      this.setState({
+        value: '',
+        actived,
+        selected: '',
+        activedTime: actived,
+        openPanel: false,
+        showPlaceholder
+      });
     }
   }
 
@@ -112,11 +112,23 @@ class DatePicker extends Component {
     });
   }
 
+  getReturnValue(date, format) {
+    if (returnType === 'numer') {
+      return date.getTime();
+    } else if (returnType === 'date') {
+      return date;
+    } else if (returnType === 'string') {
+      return formatDate(date, format);
+    }
+  }
+
   onConfirm = () => {
-    let value;
     const { selected, activedTime } = this.state;
+    const { format, showTime } = this.props;
+    let value;
+    let ret;
     if (!selected) return;
-    if (this.props.showTime) {
+    if (showTime) {
       const tmp = new Date(
         selected.getFullYear(),
         selected.getMonth(),
@@ -125,16 +137,19 @@ class DatePicker extends Component {
         activedTime.getMinutes(),
         activedTime.getSeconds()
       );
-      value = format(tmp, this.props.format);
+      value = formatDate(tmp, format);
+      ret = this.getReturnValue(tmp, format);
     } else {
-      value = format(selected, this.props.format);
+      value = formatDate(selected, format);
+      ret = this.getReturnValue(selected, format);
     }
     this.setState({
       value,
       openPanel: false,
       showPlaceholder: false
     });
-    this.props.onChange(value);
+
+    this.props.onChange(ret);
   }
 
   render() {
@@ -157,6 +172,7 @@ class DatePicker extends Component {
         },
         props.showTime || {},
         {
+          disabledTime: props.disabledTime && props.disabledTime(),
           onChange: this.onChangeTime
         }
       );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames';
+import classNames from 'zent-utils/classnames';
 
 export default class NumberSteps extends Component {
   constructor(props) {

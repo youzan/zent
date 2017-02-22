@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Sweetalert from '../src';
 
 import '../assets/index.scss';
-import '@youzan/zent-dialog/lib/index.css';
-import '@youzan/zent-button/lib/index.css';
-import '@youzan/zent-icon/lib/index.css';
+import 'zent-dialog/lib/index.css';
+import 'zent-button/lib/index.css';
+import 'zent-icon/lib/index.css';
 
 /* title可以有类型图标 */
 export default class TitleIcon extends Component {
