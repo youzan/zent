@@ -8,7 +8,7 @@
     "url": "git@github.com:youzan/zent.git"
   },
   "scripts": {
-    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "lint": "./scripts/validate-pop-size.sh && eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "yanweiqing",

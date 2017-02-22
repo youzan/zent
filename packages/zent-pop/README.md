@@ -11,6 +11,7 @@
 |------|------|------|--------|--------|
 | trigger | 触发方式 | string | none | click, hover, focus, none |
 | position | 弹出框的位置，目前的设定是前一位表示相对触发元素的位置，后一位表示箭头相对于Pop的位置 | string | 'top-center' | 'position-position' |
+| centerArrow | 是否按小箭头居中对齐trigger来定位 | bool | false | true |
 | content | 弹层的内容 | node | | |
 | header | 用户可以自定义头部 | node | | |
 | block | 弹层在文档流里是否以块级元素出现 | bool | false | true, false |
@@ -24,6 +25,13 @@
 | className | 自定义类名 | string | '' |  |
 | wrapperClassName | 自定义trigger包裹节点的类名 | string | '' |  |
 | prefix | 自定义前缀 | string | zent |  |
+
+### centerArrow
+
+默认情况下，`Pop`根据`position`对齐的是弹层和trigger的边缘，除了`postion`为`*-center`的情况下，
+弹层上的小箭头和弹层边缘的间距是固定的，因而在trigger特别小的情况下箭头会对齐到trigger外部。
+这种情况下可以设置`centerArrow`为`true`，不管trigger大小如何，箭头永远对齐在trigger中间，
+弹层再相对箭头做定位。
 
 根据trigger值的不同，`Pop`提供了一些额外的控制参数。
 

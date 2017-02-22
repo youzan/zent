@@ -7,15 +7,6 @@ import throttle from 'zent-utils/lodash/throttle';
 
 import invisiblePlacement from './placement/invisible';
 
-const EMPTY_BB = {
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  width: 0,
-  height: 0
-};
-
 function translateToContainerCoordinates(containerBB, bb) {
   const { left, top } = containerBB;
   return {
@@ -98,7 +89,7 @@ export default class PopoverContent extends Component {
     const parent = this.getPositionedParent();
     const parentBoundingBox = parent.getBoundingClientRect();
 
-    const contentBoundingBox = content ? content.getBoundingClientRect() : EMPTY_BB;
+    const contentBoundingBox = content.getBoundingClientRect();
 
     const relativeBB = translateToContainerCoordinates(parentBoundingBox, boundingBox);
     const relativeContainerBB = translateToContainerCoordinates(parentBoundingBox, parentBoundingBox);

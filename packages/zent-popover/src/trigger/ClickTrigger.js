@@ -44,6 +44,10 @@ export default class PopoverClickTrigger extends Trigger {
     };
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('click', this.onClickOutside, true);
+  }
+
   componentWillReceiveProps(nextProps) {
     // bind global events only when popover is visible
     const { contentVisible, autoClose } = nextProps;

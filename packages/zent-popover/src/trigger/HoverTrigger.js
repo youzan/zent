@@ -249,14 +249,22 @@ export default class PopoverHoverTrigger extends Trigger {
     }, {});
   }
 
+  cleanup() {
+    // ensure global events are removed
+    destroyRecognizer(this.state.enterRecognizer);
+    destroyRecognizer(this.state.leaveRecognizer);
+  }
+
+  componentWillUnmount() {
+    this.cleanup();
+  }
+
   componentWillReceiveProps(nextProps) {
     const { contentVisible } = nextProps;
 
     // visibility changed, create new recognizers
     if (contentVisible !== this.props.contentVisible) {
-      // ensure global events are removed
-      destroyRecognizer(this.state.enterRecognizer);
-      destroyRecognizer(this.state.leaveRecognizer);
+      this.cleanup();
 
       this.setState({
         enterRecognizer: contentVisible ? null : this.makeEnterRecognizer(),
