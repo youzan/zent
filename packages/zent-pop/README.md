@@ -40,6 +40,7 @@
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
 | closeOnClickOutside | 点击弹层和trigger节点外部时自动关闭 | bool | true | false, true |
+| isClickOutside | 用来判断点击目标是否在外面的可选函数 | func | | |
 
 
 ### trigger为hover

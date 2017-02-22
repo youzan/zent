@@ -88,6 +88,7 @@ export default class Pop extends Component {
 
     // 只有trigger为click时才有效
     closeOnClickOutside: PropTypes.bool,
+    isClickOutside: PropTypes.func,
 
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -134,10 +135,10 @@ export default class Pop extends Component {
   }
 
   renderTrigger() {
-    const { trigger, visible, onVisibleChange, closeOnClickOutside, mouseLeaveDelay, mouseEnterDelay, children } = this.props;
+    const { trigger, visible, onVisibleChange, closeOnClickOutside, isClickOutside, mouseLeaveDelay, mouseEnterDelay, children } = this.props;
 
     if (trigger === 'click') {
-      return <Trigger.Click autoClose={closeOnClickOutside}>{children}</Trigger.Click>;
+      return <Trigger.Click autoClose={closeOnClickOutside} isOutside={isClickOutside}>{children}</Trigger.Click>;
     }
 
     if (trigger === 'hover') {
