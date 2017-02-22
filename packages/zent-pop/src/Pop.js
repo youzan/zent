@@ -161,6 +161,7 @@ export default class Pop extends Component {
 
     return (
       <Popover
+        prefix={prefix}
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cx(`${prefix}-pop`, className)}
         cushion={10}
