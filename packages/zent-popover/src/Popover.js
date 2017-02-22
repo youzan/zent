@@ -106,16 +106,22 @@ export default class Popover extends Component {
   };
 
   open = () => {
-    this.props.onBeforeShow();
+    if (this.state.visible) {
+      return;
+    }
 
+    this.props.onBeforeShow();
     this.setState({
       visible: true
     }, this.props.onShow);
   };
 
   close = () => {
-    this.props.onBeforeClose();
+    if (!this.state.visible) {
+      return;
+    }
 
+    this.props.onBeforeClose();
     this.setState({
       visible: false
     }, this.props.onClose);

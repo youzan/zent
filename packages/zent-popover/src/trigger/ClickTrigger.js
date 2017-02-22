@@ -26,11 +26,16 @@ export default class PopoverClickTrigger extends Trigger {
       return;
     }
 
-    const { isOutside, getContentNode, getTriggerNode } = this.props;
     const { target } = evt;
+    const { isOutside } = this.props;
+    if (isOutside && isOutside(target)) {
+      return true;
+    }
+
+    const { getContentNode, getTriggerNode } = this.props;
     const box = getContentNode();
     const anchor = getTriggerNode();
-    if (!box.contains(target) && !anchor.contains(target) && (!isOutside || isOutside(target))) {
+    if (!box.contains(target) && !anchor.contains(target)) {
       this.props.close();
     }
   };

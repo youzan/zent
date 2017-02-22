@@ -112,6 +112,18 @@ export default class Pop extends Component {
     prefix: 'zent',
   };
 
+  savePopover = (instance) => {
+    this.popover = instance;
+  };
+
+  open = () => {
+    this.popover && this.popover.open();
+  };
+
+  close = () => {
+    this.popover && this.popover.close();
+  };
+
   renderContent() {
     const { prefix, content, header, onConfirm, onCancel, confirmText, cancelText, type } = this.props;
 
@@ -135,14 +147,14 @@ export default class Pop extends Component {
   }
 
   renderTrigger() {
-    const { trigger, visible, onVisibleChange, closeOnClickOutside, isClickOutside, mouseLeaveDelay, mouseEnterDelay, children } = this.props;
+    const { trigger, visible, onVisibleChange, closeOnClickOutside, isOutside, mouseLeaveDelay, mouseEnterDelay, children } = this.props;
 
     if (trigger === 'click') {
-      return <Trigger.Click autoClose={closeOnClickOutside} isOutside={isClickOutside}>{children}</Trigger.Click>;
+      return <Trigger.Click autoClose={closeOnClickOutside} isOutside={isOutside}>{children}</Trigger.Click>;
     }
 
     if (trigger === 'hover') {
-      return <Trigger.Hover showDelay={mouseEnterDelay} hideDelay={mouseLeaveDelay}>{children}</Trigger.Hover>;
+      return <Trigger.Hover showDelay={mouseEnterDelay} hideDelay={mouseLeaveDelay} isOutside={isOutside}>{children}</Trigger.Hover>;
     }
 
     if (trigger === 'focus') {
@@ -161,6 +173,7 @@ export default class Pop extends Component {
 
     return (
       <Popover
+        ref={this.savePopover}
         prefix={prefix}
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cx(`${prefix}-pop`, className)}

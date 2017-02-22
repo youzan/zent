@@ -40,7 +40,7 @@
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
 | closeOnClickOutside | 点击弹层和trigger节点外部时自动关闭 | bool | true | false, true |
-| isClickOutside | 用来判断点击目标是否在外面的可选函数 | func | | |
+| isOutside | 用来判断点击目标是否在外面的可选函数 | func | | |
 
 
 ### trigger为hover
@@ -49,6 +49,7 @@
 |------|------|------|--------|--------|
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | 200 |  |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | 200 |  |
+| isOutside | 用来判断点击目标是否在外面的可选函数 | func | | |
 
 
 ### trigger为none
@@ -58,6 +59,11 @@
 | visible | 外部维护`Pop`的显示状态，此时外部拥有`Pop`的全部控制权 | bool | false |  |
 
 `onConfirm`和`onCancel`不会自动关闭Pop，需要使用者自己在回掉中控制`visible`来关闭Pop。
+
+
+### 实例方法
+
+`Pop` 的实例上提供了 `open` 和 `close` 方法来手动打开/关闭 `Pop`。
 
 
 ## 升级须知
