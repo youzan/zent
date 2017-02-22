@@ -132,7 +132,7 @@ export default class PopoverContent extends Component {
     );
 
     return (
-      <Portal visible={visible} selector={containerSelector} className={cls} css={position.getCSSStyle()}>
+      <Portal prefix={prefix} visible={visible} selector={containerSelector} className={cls} css={position.getCSSStyle()}>
         <div className={`${prefix}-popover-content`}>
           {children}
           <WindowResizeHandler onResize={this.onWindowResize} />

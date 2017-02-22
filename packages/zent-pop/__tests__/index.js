@@ -67,28 +67,32 @@ describe('Pop', () => {
 
   it('Pop can have custom prefix, className, and block switch, meanwhile content and header pass through prop', () => {
     const wrapper = mount(
-      <Pop content={content()} trigger={'click'} prefix="foo" className="bar" block header={header()}>
+      <Pop content={content()} trigger={'click'} prefix="foo" className="quux" wrapperClassName="bar" block header={header()}>
         <Button onClick={addClick}>
           click
         </Button>
       </Pop>
     );
-    expect(wrapper.find('Popover div').hasClass('foo-pop')).toBe(true);
-    expect(wrapper.find('Popover div').hasClass('bar-wrapper')).toBe(true);
+    expect(wrapper.find('Popover div').hasClass('foo-pop-wrapper')).toBe(true);
+    expect(wrapper.find('Popover div').hasClass('bar')).toBe(true);
     expect(wrapper.find('Popover').prop('display')).toBe('block');
+
+    wrapper.find('button').simulate('click');
+    expect(document.querySelector('.foo-pop.quux')).toBeTruthy();
+    // wrapper.unmount();
   });
 
   it('Pop has its core function, powered by zent-popover, the content of popover has onConfirm and onCancel switches', () => {
     // with both onConfirm and onCancel undefined, content will be rendered as null
     let wrapper = mount(
-      <Pop content={content()} trigger={'click'} prefix="foo" className="bar" block header={header()}>
+      <Pop content={content()} trigger={'click'} className="bar11" block header={header()}>
         <Button>
           click
         </Button>
       </Pop>
     );
     wrapper.find('button').simulate('click');
-    expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
+    expect(document.querySelectorAll('.bar11').length).toBe(1);
     const confirmMock = jest.fn();
     const cancelMock = jest.fn();
     wrapper = mount(
@@ -99,7 +103,6 @@ describe('Pop', () => {
       </Pop>
     );
     wrapper.find('button').simulate('click');
-    expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
     let btn = document.querySelectorAll('button');
     expect(btn.length).toBe(2);
     expect(btn[0].textContent).toBe('确定');

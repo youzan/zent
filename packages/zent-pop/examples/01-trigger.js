@@ -85,6 +85,7 @@ class NoneTriggerDemo extends React.Component {
         <span>&nbsp;</span>
 
         <Pop
+          prefix="bar"
           content={<Button onClick={this.close}>内部关闭</Button>}
           trigger="none"
           position="top-right"
