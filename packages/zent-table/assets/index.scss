@@ -4,9 +4,10 @@ $orange: #f60;
 
 
 .zent-table {
+    box-sizing: border-box;
     margin-bottom:20px;
     width:100%;
-    border-spacing: 0;
+    // border-spacing: 0;
     a {
         color: #38f;
         cursor: pointer;

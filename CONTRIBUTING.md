@@ -51,6 +51,7 @@ npm run bootstrap
 
 ## Tips
 
+* 导出的组件不要写成 [Functional Component](https://facebook.github.io/react/docs/refs-and-the-dom.html#refs-and-functional-components)，这样子使用的时候没法加 `ref` (虽然不推荐用 `ref`，但是我们不应该不让使用)。
 * `zent-utils`包提供了常见工具函数，包括`classnames`以及`lodash`里的所有函数，请不要在组件内部单独安装这两个包。
   原则上所有工具函数都应该放在`zent-utils`里面管理。
 * 提交的代码确保已经通过eslint检查。
