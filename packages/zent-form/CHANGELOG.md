@@ -1,5 +1,6 @@
 ## 1.1.0 (2017-02-22)
 
+* zentForm中添加isFieldTouched方法
 * Field中获取component属性中传入的组件方法更名: getWrappedField -> getWrappedComponent
 * 原生标签不再传非标准属性，否则会有warning，具体可以参考这篇文章[Unknown Prop Warning](https://facebook.github.io/react/warnings/unknown-prop.html)
 * 重新规划了Field value的生命周期：  

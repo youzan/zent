@@ -1,25 +1,14 @@
 /* eslint-disable no-console */
+/*
+    format和normalize使用说明
+ */
 
 import React, { Component } from 'react';
 import _ from 'lodash'; // eslint-disable-line
-import { Form, Field, createForm } from '../src';
+import { Form, Field, InputField, CheckboxField, createForm } from '../src';
 import '../assets/index.scss';
-
-class renderField extends Component {
-  render() {
-    const props = this.props;
-
-    return (
-      <div className="zent-form__control-group">
-        <label className="zent-form__control-label">{props.label}</label>
-        <div className="zent-form__controls">
-          <input {...props} />
-          {props.isTouched && props.error && <span>{props.error}</span>}
-        </div>
-      </div>
-    );
-  }
-}
+import 'zent-input/assets/index.scss';
+import 'zent-checkbox/assets/index.scss';
 
 const renderTimeRange = props => (
   <select name={props.name} value={props.value} onChange={props.onChange}>
@@ -28,7 +17,6 @@ const renderTimeRange = props => (
     })}
   </select>
 );
-
 
 class NormalizeForm extends Component {
   static defaultProps = {
@@ -67,21 +55,23 @@ class NormalizeForm extends Component {
         <Field
           name="field1"
           type="text"
-          component={renderField}
+          component={InputField}
           label="转化为小写："
           value="AAA"
           validations={{ required: true }}
           validationErrors={{ required: '不能为空' }}
           normalize={this.lower}
+          format={this.lower}
           ref={(ref) => this.field1 = ref}
         />
         <Field
           name="field2"
           type="text"
-          component={renderField}
+          component={InputField}
           label="转为大写："
           value="bbb"
           normalize={this.upper}
+          format={this.upper}
         />
         <div className={rangeError ? 'zent-form__control-group has-error' : 'zent-form__control-group'}>
           <label className="zent-form__control-label">发送时间段：</label>
@@ -108,6 +98,16 @@ class NormalizeForm extends Component {
             {rangeError ? <p className="zent-form__help-block">{rangeError}</p> : null}
           </div>
         </div>
+        <Field
+          name="is_agree"
+          label="是否同意本协议："
+          value={'1'}
+          format={(value) => (value === '1')}
+          normalize={(value) => (value ? '1' : '0')}
+          component={CheckboxField}
+        >
+          同意
+        </Field>
         <div className="zent-form__form-actions">
           <button type="button" onClick={this.submit}>提交</button>
         </div>
@@ -141,7 +141,7 @@ export default class Simple extends Component {
   render() {
     return (
       <div>
-        <h2>表单值格式化</h2>
+        <h2>format & normalize</h2>
         <hr />
         <NormalizeFormContainer onChange={this.onChange} bg_t={this.state.bg_t} />
       </div>
