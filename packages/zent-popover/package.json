@@ -1,6 +1,6 @@
 {
   "name": "zent-popover",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Zent弹层组件",
   "main": "./lib/index.js",
   "repository": {
