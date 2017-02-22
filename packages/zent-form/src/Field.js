@@ -2,6 +2,7 @@
 
 import { Component, PropTypes, createElement } from 'react';
 import isEqual from 'zent-utils/lodash/isEqual';
+import omit from 'zent-utils/lodash/omit';
 import { getValue } from './utils';
 
 class Field extends Component {
@@ -106,8 +107,8 @@ class Field extends Component {
     });
   }
 
-  getWrappedField = () => {
-    return this.wrappedField;
+  getWrappedComponent = () => {
+    return this.wrappedComponent;
   }
 
   getErrorMessage = () => {
@@ -132,6 +133,14 @@ class Field extends Component {
       [this.props.name]: value
     };
     return normalize(value, previousValue, nextValues, previousValues);
+  }
+
+  format = (value) => {
+    const { format } = this.props;
+    if (!format) {
+      return value;
+    }
+    return format(value);
   }
 
   onChange = (event) => {
@@ -160,20 +169,32 @@ class Field extends Component {
 
   render() {
     const { component, ...rest } = this.props;
-
-    return createElement(component, this.processProps({
+    const passableProps = this.processProps({
       ...rest,
       ref: (ref) => {
-        this.wrappedField = ref;
+        this.wrappedComponent = ref;
       },
       isTouched: !this.isPristine(),
       isPristine: this.isPristine(),
       isValid: this.isValid(),
-      value: this.normalize(this.getValue()),
+      value: this.format(this.getValue()),
       error: this.getErrorMessage(),
       errors: this.getErrorMessages(),
       onChange: this.onChange
-    }));
+    });
+
+    // 原生的标签不能传非标准属性进去
+    if (typeof component === 'string') {
+      return createElement(component, {
+        ...omit(passableProps, [
+          'isTouched', 'isPristine', 'isValid',
+          'error', 'errors', 'validationErrors',
+          'validations', 'normalize', 'format'
+        ])
+      });
+    }
+
+    return createElement(component, passableProps);
   }
 }
 

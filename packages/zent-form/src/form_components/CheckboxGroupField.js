@@ -4,7 +4,7 @@ import getControlGroup from '../getControlGroup';
 
 const CheckboxGroup = Checkbox.Group;
 const CheckboxGroupField = getControlGroup(props => {
-  return <CheckboxGroup {...props} />;
+  return <CheckboxGroup className="zent-form__checkbox-group" {...props} />;
 });
 
 export default CheckboxGroupField;

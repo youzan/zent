@@ -195,6 +195,13 @@ const createForm = (config = {}) => {
         this.resetFieldsValue(data);
       }
 
+      isFieldTouched = (name) => {
+        const field = this.fields.find(component => component.props.name === name);
+
+        if (!field) return false;
+        return !field.isPristine();
+      }
+
       getFieldError = (name) => {
         const field = this.fields.find(component => component.props.name === name);
 
@@ -381,6 +388,7 @@ const createForm = (config = {}) => {
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
             setFormPristine: this.setFormPristine,
+            isFieldTouched: this.isFieldTouched,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }

@@ -35,14 +35,6 @@ const renderEmail = (props) => {
 
 const addtionInput = getControlGroup(props => (<input type="text" {...props} />));
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const submit = (values) => {
-  return sleep(1000) // simulate server latency
-    .then(() => {
-      console.log(values);
-    });
-};
-
 class OverviewForm extends Component {
   render() {
     const { handleSubmit, showDynamicField, zentForm } = this.props;
@@ -50,7 +42,7 @@ class OverviewForm extends Component {
     const isSubmitting = zentForm.isSubmitting();
 
     return (
-      <Form className="form1" onSubmit={handleSubmit(submit)} horizontal>
+      <Form className="form1" onSubmit={handleSubmit} horizontal>
         <div className="zent-form__control-group">
           <label className="zent-form__control-label">姓名</label>
           <div className="zent-form__controls">
@@ -148,8 +140,17 @@ export default class Simple extends Component {
       showDynamicField: true
     };
   }
+
+  // handleSubmit直接接收events对象而不传入一个包含异步操作的function的话，则会执行传入到form中的onSubmit方法
   onSubmit = (values) => {
     console.log(values);
+    return values;
+  }
+
+  // onSubmitSuccess的参数会是onSubmit执行的返回值
+  onSubmitSuccess = (values) => {
+    console.log(values);
+    console.log('提交成功');
   }
 
   onChange = (values) => {
@@ -163,7 +164,11 @@ export default class Simple extends Component {
       <div>
         <h2>简单表单</h2>
         <hr />
-        <OverviewFormContainer onSubmit={this.onSubmit} onChange={this.onChange} showDynamicField={this.state.showDynamicField} />
+        <OverviewFormContainer
+          onSubmit={this.onSubmit}
+          onSubmitSuccess={this.onSubmitSuccess}
+          onChange={this.onChange}
+          showDynamicField={this.state.showDynamicField} />
       </div>
     );
   }

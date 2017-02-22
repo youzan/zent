@@ -12,7 +12,8 @@ const handleSubmit = (submit, zentForm) => {
       let result;
 
       try {
-        result = submit(values);
+        // 传入zentForm是为了使用服务端校验时可以调用setFieldExternalErrors方法
+        result = submit(values, zentForm);
       } catch (submitError) {
         if (onSubmitFail) {
           onSubmitFail(submitError);
