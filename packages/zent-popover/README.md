@@ -37,13 +37,13 @@ API 主要分为几块：`Popover`, `Trigger`, `Content`, `Position`以及一些
 | position | 定位的方式，参见`Popover.Positon` | `Positon` | | |
 | cushion | 可选，定位的偏移量，通常用来预留空间给小箭头等东西 | number | `0` | |
 | display | 可选，在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的`display`值 |
-| onShow | 可选，弹层显示后的回掉函数 | func | noop | |
-| onClose | 可选，弹层关闭后的回掉函数 | func | noop | |
-| onBeforeShow | 可选，弹层打开前的回掉函数，只有用户触发的打开操作才会调用，外部设置`visible`不会调用 | func | noop | |
-| onBeforeClose | 可选，弹层关闭后的回掉函数, 只有用户触发的关闭操作才会调用，外部设置`visible`不会调用 | func | noop | |
+| onShow | 可选，弹层显示后的回调函数 | func | noop | |
+| onClose | 可选，弹层关闭后的回调函数 | func | noop | |
+| onBeforeShow | 可选，弹层打开前的回调函数，只有用户触发的打开操作才会调用，外部设置`visible`不会调用 | func | noop | |
+| onBeforeClose | 可选，弹层关闭后的回调函数, 只有用户触发的关闭操作才会调用，外部设置`visible`不会调用 | func | noop | |
 | containerSelector | 可选，弹层的父节点CSS selector | string | 'body' | 所有合法的CSS selector |
 | visible | 可选，手动控制弹层的显示隐藏, 必须和`onVisibleChange`一起使用 | bool | | |
-| onVisibleChange | 可选，手动控制时的回掉函数, 必须和`visible`一起使用，只有用户手动触发的打开／关闭操作才会调用 | func | | |
+| onVisibleChange | 可选，手动控制时的回调函数, 必须和`visible`一起使用，只有用户手动触发的打开／关闭操作才会调用 | func | | |
 | className | 可选，自定义额外类名 | string | '' | '' |
 | wrapperClassName | 可选，trigger外层包裹div的类名 | string | '' | '' |
 | prefix | 可选，自定义前缀 | string | 'zent' | null |
@@ -88,7 +88,7 @@ Trigger的`props`上有以下API可以在基类中使用。
 | open | 打开弹层 | func: () => () | | |
 | close | 关闭弹层 | func: () => () | | |
 | contentVisible | 弹层当前是否打开 | bool | | |
-| onTriggerRefChange | trigger的ref改变的时候需要调用的回掉函数，只有在重写render函数的时候需要这个函数 | func: instance => () | | |
+| onTriggerRefChange | trigger的ref改变的时候需要调用的回调函数，只有在重写render函数的时候需要这个函数 | func: instance => () | | |
 
 
 ### Content API

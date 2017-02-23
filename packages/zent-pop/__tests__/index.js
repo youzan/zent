@@ -171,4 +171,47 @@ describe('Pop', () => {
       'left-top', 'left-center', 'left-bottom'
     ].forEach(test);
   });
+
+  it('onConfirm/onCancel can be async', () => {
+    const onConfirm = jest.fn();
+    let a = 1;
+    onConfirm.mockReturnValueOnce(new Promise(resolve => {
+      setTimeout(() => {
+        expect(a).toBe(1);
+        a++;
+        resolve();
+      }, 100);
+    }));
+
+    let b = 1;
+    const onCancel = function(close) {
+      setTimeout(() => {
+        expect(b).toBe(1);
+        b++;
+        close();
+      }, 100);
+    };
+
+    let visible = false;
+    const wrapper = mount(
+      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onConfirm={onConfirm} onCancel={onCancel}>
+        <a>
+          click
+        </a>
+      </Pop>
+    );
+
+    wrapper.setProps({
+      visible: true
+    });
+    jest.runAllTimers();
+
+    document.querySelector('.zent-btn-primary').click();
+    jest.runAllTimers();
+    expect(a).toBe(2);
+
+    document.querySelector('.zent-btn-primary').nextSibling.click();
+    jest.runAllTimers();
+    expect(b).toBe(2);
+  });
 });

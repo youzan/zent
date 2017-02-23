@@ -3,19 +3,57 @@ import Popover from 'zent-popover';
 import Button from 'zent-button';
 import cx from 'zent-utils/classnames';
 import noop from 'zent-utils/lodash/noop';
+import isFunction from 'zent-utils/lodash/isFunction';
+import isPromise from 'zent-utils/isPromise';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
 
 const { Trigger, withPopover } = Popover;
+const stateMap = {
+  onConfirm: 'confirmPending',
+  onCancel: 'cancelPending'
+};
 
 class PopAction extends Component {
-  handleClick(callbackName) {
-    const { popover, trigger } = this.props;
-    popover.close();
+  state = {
+    confirmPending: false,
+    cancelPending: false
+  };
 
+  // 支持异步的回调函数
+  handleClick(callbackName) {
     const callback = this.props[callbackName];
-    trigger !== 'none' && callback && callback();
+    const { popover } = this.props;
+    if (!isFunction(callback)) {
+      return popover.close();
+    }
+
+    const stateKey = stateMap[callbackName];
+    const startClose = () => {
+      this.setState({
+        [stateKey]: true
+      });
+    };
+    const finishClose = () => {
+      this.setState({
+        [stateKey]: false
+      });
+      popover.close();
+    };
+
+    if (callback.length >= 1) {
+      startClose();
+      return callback(finishClose);
+    }
+
+    const maybePromise = callback();
+    if (isPromise(maybePromise)) {
+      startClose();
+      maybePromise.then(finishClose);
+    } else {
+      popover.close();
+    }
   }
 
   handleConfirm = () => {
@@ -28,6 +66,7 @@ class PopAction extends Component {
 
   render() {
     const { prefix, type, onConfirm, onCancel, confirmText, cancelText } = this.props;
+    const { confirmPending, cancelPending } = this.state;
 
     if (!onConfirm && !onCancel) {
       return null;
@@ -35,8 +74,8 @@ class PopAction extends Component {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Button size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
-        <Button size="small" onClick={this.handleCancel}>{cancelText}</Button>
+        <Button loading={confirmPending} size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
+        <Button loading={cancelPending} size="small" onClick={this.handleCancel}>{cancelText}</Button>
       </div>
     );
   }
@@ -74,13 +113,13 @@ export default class Pop extends Component {
       'primary', 'default', 'danger', 'success'
     ]),
 
-    // 打开之后的回掉函数
+    // 打开之后的回调函数
     onShow: PropTypes.func,
 
-    // 关闭之后的回掉函数
+    // 关闭之后的回调函数
     onClose: PropTypes.func,
 
-    // 打开／关闭前的回掉函数，只有用户触发的操作才会调用；通过外部改变`visible`不会触发
+    // 打开／关闭前的回调函数，只有用户触发的操作才会调用；通过外部改变`visible`不会触发
     onBeforeShow: PropTypes.func,
     onBeforeClose: PropTypes.func,
 
