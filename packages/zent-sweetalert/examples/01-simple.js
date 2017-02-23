@@ -17,6 +17,7 @@ export default class Example extends Component {
 
   showAlertInfo = () => {
     Sweetalert.alert({
+      style: { width: '300px' },
       content: '这个是具体内容',
       title: '这是一个消息标题',
       onConfirm: this.onConfirm
