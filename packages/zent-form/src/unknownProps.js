@@ -6,6 +6,7 @@ export default [
   'isValid',
   'error',
   'errors',
+  'validationError',
   'validationErrors',
   'validations',
   'normalize',
