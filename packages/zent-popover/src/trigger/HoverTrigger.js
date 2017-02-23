@@ -192,7 +192,7 @@ export default class PopoverHoverTrigger extends Trigger {
   };
 
   state = {
-    enterRecognizer: this.makeEnterRecognizer(),
+    enterRecognizer: null,
     leaveRecognizer: null
   };
 
@@ -255,8 +255,23 @@ export default class PopoverHoverTrigger extends Trigger {
     destroyRecognizer(this.state.leaveRecognizer);
   }
 
+  initRecognizers(props) {
+    props = props || this.props;
+    const { contentVisible } = props;
+
+    this.cleanup();
+    this.setState({
+      enterRecognizer: contentVisible ? null : this.makeEnterRecognizer(),
+      leaveRecognizer: contentVisible ? this.makeLeaveRecognizer() : null
+    });
+  }
+
   componentWillUnmount() {
     this.cleanup();
+  }
+
+  componentDidMount() {
+    this.initRecognizers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -264,12 +279,7 @@ export default class PopoverHoverTrigger extends Trigger {
 
     // visibility changed, create new recognizers
     if (contentVisible !== this.props.contentVisible) {
-      this.cleanup();
-
-      this.setState({
-        enterRecognizer: contentVisible ? null : this.makeEnterRecognizer(),
-        leaveRecognizer: contentVisible ? this.makeLeaveRecognizer() : null
-      });
+      this.initRecognizers(nextProps);
     }
   }
 }

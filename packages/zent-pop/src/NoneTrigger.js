@@ -1,22 +1,27 @@
 import Popover from 'zent-popover';
+// import noop from 'zent-utils/lodash/noop';
 
 export default class NoneTrigger extends Popover.Trigger.Base {
-  componentWillMount() {
-    const { visible, open } = this.props;
+  // static defaultProps = {
+  //   onVisibleChange: noop
+  // };
 
-    if (visible) {
-      open();
-    }
-  }
+  // componentWillMount() {
+  //   const { visible, open } = this.props;
 
-  componentWillReceiveProps(nextProps) {
-    const { visible, open, close } = nextProps;
-    if (visible !== this.props.visible) {
-      if (visible) {
-        open();
-      } else {
-        close();
-      }
-    }
-  }
+  //   if (visible) {
+  //     open();
+  //   }
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+    // const { visible, open, close } = nextProps;
+    // if (visible !== this.props.visible) {
+    //   if (visible) {
+    //     open();
+    //   } else {
+    //     close();
+    //   }
+    // }
+  // }
 }

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Popover from 'zent-popover';
 import Button from 'zent-button';
 import cx from 'zent-utils/classnames';
+import noop from 'zent-utils/lodash/noop';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
@@ -79,8 +80,12 @@ export default class Pop extends Component {
     // 关闭之后的回掉函数
     onClose: PropTypes.func,
 
-    // 这两个只有当trigger为none时才生效
+    // 打开／关闭前的回掉函数，只有用户触发的操作才会调用；通过外部改变`visible`不会触发
+    onBeforeShow: PropTypes.func,
+    onBeforeClose: PropTypes.func,
+
     visible: PropTypes.bool,
+    onVisibleChange: PropTypes.func,
 
     // 只有trigger为hover时才有效
     mouseLeaveDelay: PropTypes.number,
@@ -103,25 +108,12 @@ export default class Pop extends Component {
     confirmText: '确定',
     cancelText: '取消',
     type: 'primary',
-    visible: false,
     closeOnClickOutside: true,
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
     className: '',
     wrapperClassName: '',
     prefix: 'zent',
-  };
-
-  savePopover = (instance) => {
-    this.popover = instance;
-  };
-
-  open = () => {
-    this.popover && this.popover.open();
-  };
-
-  close = () => {
-    this.popover && this.popover.close();
   };
 
   renderContent() {
@@ -169,11 +161,20 @@ export default class Pop extends Component {
   }
 
   render() {
-    const { className, wrapperClassName, prefix, block, onShow, onClose, position, centerArrow } = this.props;
+    const {
+      className, wrapperClassName, trigger, visible,
+      prefix, block, onShow, onClose, position, centerArrow,
+      onBeforeClose, onBeforeShow
+    } = this.props;
+    let { onVisibleChange } = this.props;
+    if (trigger === 'none') {
+      onVisibleChange = onVisibleChange || noop;
+    }
 
     return (
       <Popover
-        ref={this.savePopover}
+        visible={visible}
+        onVisibleChange={onVisibleChange}
         prefix={prefix}
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cx(`${prefix}-pop`, className)}
@@ -182,6 +183,8 @@ export default class Pop extends Component {
         display={block ? 'block' : 'inline-block'}
         onShow={onShow}
         onClose={onClose}
+        onBeforeClose={onBeforeClose}
+        onBeforeShow={onBeforeShow}
       >
         {this.renderTrigger()}
         {this.renderContent()}

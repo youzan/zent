@@ -35,16 +35,19 @@ API 主要分为几块：`Popover`, `Trigger`, `Content`, `Position`以及一些
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
 | position | 定位的方式，参见`Popover.Positon` | `Positon` | | |
-| cushion | 定位的偏移量，通常用来预留空间给小箭头等东西 | number | `0` | |
-| display | 在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的`display`值 |
-| onShow | 弹层显示后的回掉函数 | func | noop | |
-| onClose | 弹层关闭后的回掉函数 | func | noop | |
-| onBeforeShow | 弹层打开前的回掉函数 | func | noop | |
-| onBeforeClose | 弹层关闭后的回掉函数 | func | noop | |
-| containerSelector | 弹层的父节点CSS selector | string | 'body' | 所有合法的CSS selector |
-| className | 自定义额外类名 | string | '' | '' |
-| wrapperClassName | trigger外层包裹div的类名 | string | '' | '' |
-| prefix | 自定义前缀 | string | 'zent' | null |
+| cushion | 可选，定位的偏移量，通常用来预留空间给小箭头等东西 | number | `0` | |
+| display | 可选，在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的`display`值 |
+| onShow | 可选，弹层显示后的回掉函数 | func | noop | |
+| onClose | 可选，弹层关闭后的回掉函数 | func | noop | |
+| onBeforeShow | 可选，弹层打开前的回掉函数，只有用户触发的打开操作才会调用，外部设置`visible`不会调用 | func | noop | |
+| onBeforeClose | 可选，弹层关闭后的回掉函数, 只有用户触发的关闭操作才会调用，外部设置`visible`不会调用 | func | noop | |
+| containerSelector | 可选，弹层的父节点CSS selector | string | 'body' | 所有合法的CSS selector |
+| visible | 可选，手动控制弹层的显示隐藏, 必须和`onVisibleChange`一起使用 | bool | | |
+| onVisibleChange | 可选，手动控制时的回掉函数, 必须和`visible`一起使用，只有用户手动触发的打开／关闭操作才会调用 | func | | |
+| className | 可选，自定义额外类名 | string | '' | '' |
+| wrapperClassName | 可选，trigger外层包裹div的类名 | string | '' | '' |
+| prefix | 可选，自定义前缀 | string | 'zent' | null |
+
 
 ### `Trigger` API
 
@@ -54,17 +57,17 @@ API 主要分为几块：`Popover`, `Trigger`, `Content`, `Position`以及一些
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
-| autoClose | 是否点击‘外面’自动关闭弹层 | bool | `true` | `false`, `true` | 
-| isOutside | 判断一个节点是否在‘外面’，点击在外面会关闭弹层。默认trigger和弹层以外的节点都是‘外面’ | func: Node => bool | () => false | |
+| autoClose | 可选，是否点击‘外面’自动关闭弹层 | bool | `true` | `false`, `true` | 
+| isOutside | 可选，判断一个节点是否在‘外面’，点击在外面会关闭弹层。默认trigger和弹层以外的节点都是‘外面’ | func: Node => bool | () => false | |
 
 
 #### `Trigger.Hover` API
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
-| showDelay | 打开弹层前的延迟（单位毫秒），如果在这段时间内鼠标移出弹层范围，弹层不会打开 | number | `150` | | 
-| hideDelay | 关闭弹层前的延迟（单位毫秒），如果在这段时间内鼠标重新移入弹层范围，弹层不会关闭 | number | `150` | | 
-| isOutside | 判断一个节点是否在‘外面’。默认trigger和弹层以外的节点都是‘外面’ | func: Node => bool | () => false | |
+| showDelay | 可选，打开弹层前的延迟（单位毫秒），如果在这段时间内鼠标移出弹层范围，弹层不会打开 | number | `150` | | 
+| hideDelay | 可选，关闭弹层前的延迟（单位毫秒），如果在这段时间内鼠标重新移入弹层范围，弹层不会关闭 | number | `150` | | 
+| isOutside | 可选，判断一个节点是否在‘外面’。默认trigger和弹层以外的节点都是‘外面’ | func: Node => bool | () => false | |
 
 
 #### `Trigger.Focus` API

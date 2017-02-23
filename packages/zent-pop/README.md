@@ -22,6 +22,8 @@
 | confirmText | 用户自定义按钮名 | string | 确定 |  |
 | cancelText | 用户自定义取消按钮 | string | 取消 |  |
 | type | 影响确定按钮的样式 | string | primary | primary, default, danger, success |
+| visible | 外部维护`Pop`的显示状态，此时外部拥有`Pop`的全部控制权，必须和`onVisibleChange`一起使用 | bool | | |
+| onVisibleChange | 和`visible`一起使用 | func | | |
 | className | 自定义类名 | string | '' |  |
 | wrapperClassName | 自定义trigger包裹节点的类名 | string | '' |  |
 | prefix | 自定义前缀 | string | zent |  |
@@ -53,10 +55,6 @@
 
 
 ### trigger为none
-
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
-|------|------|------|--------|--------|
-| visible | 外部维护`Pop`的显示状态，此时外部拥有`Pop`的全部控制权 | bool | false |  |
 
 `onConfirm`和`onCancel`不会自动关闭Pop，需要使用者自己在回掉中控制`visible`来关闭Pop。
 
