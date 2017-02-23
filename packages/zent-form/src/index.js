@@ -3,6 +3,7 @@ import createForm from './createForm';
 import Field from './Field';
 import Fieldset from './Fieldset';
 import getControlGroup from './getControlGroup';
+import unkownProps from './unkownProps';
 import InputField from './form_components/InputField';
 import CheckboxField from './form_components/CheckboxField';
 import CheckboxGroupField from './form_components/CheckboxGroupField';
@@ -15,6 +16,7 @@ export default {
   Field,
   Fieldset,
   getControlGroup,
+  unkownProps,
   InputField,
   CheckboxField,
   CheckboxGroupField,

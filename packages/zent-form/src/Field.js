@@ -4,6 +4,7 @@ import { Component, PropTypes, createElement } from 'react';
 import isEqual from 'zent-utils/lodash/isEqual';
 import omit from 'zent-utils/lodash/omit';
 import { getValue } from './utils';
+import unkownProps from './unkownProps';
 
 class Field extends Component {
   static propTypes = {
@@ -186,11 +187,7 @@ class Field extends Component {
     // 原生的标签不能传非标准属性进去
     if (typeof component === 'string') {
       return createElement(component, {
-        ...omit(passableProps, [
-          'isTouched', 'isPristine', 'isValid',
-          'error', 'errors', 'validationErrors',
-          'validations', 'normalize', 'format'
-        ])
+        ...omit(passableProps, unkownProps)
       });
     }
 
