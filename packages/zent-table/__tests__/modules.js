@@ -43,11 +43,12 @@ describe('Head in Table', () => {
     const sortMock = jest.fn();
     const changeMock = jest.fn();
     let wrapper = mount(<Table columns={columns} datasets={datasets} rowKey='item_id' autoStick />);
-    expect(wrapper.find('Head').getNode().state.fixStyle).toEqual({});
+    expect(wrapper.find('Head').getNode().state.fixStyle).toBeUndefined();
+    wrapper.unmount();
 
-    // HACK: window.scrollY
-    window.scrollY = 10;
     wrapper = mount(<Table columns={columns} datasets={datasets} rowKey='item_id' autoStick onSort={sortMock} onChange={changeMock} sortBy="stock_num" />);
+    window.scrollY = 100;
+    wrapper.find('Head').getNode().setHeadStyle();
     expect(wrapper.find('Head').getNode().state.fixStyle.position).toEqual('fixed');
     wrapper = mount(<Table columns={columns} datasets={datasets} rowKey='item_id' onSort={sortMock} onChange={changeMock} sortBy="stock_num" />);
 
