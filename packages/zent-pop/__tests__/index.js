@@ -172,17 +172,7 @@ describe('Pop', () => {
     ].forEach(test);
   });
 
-  it('onConfirm/onCancel can be async', () => {
-    const onConfirm = jest.fn();
-    let a = 1;
-    onConfirm.mockReturnValueOnce(new Promise(resolve => {
-      setTimeout(() => {
-        expect(a).toBe(1);
-        a++;
-        resolve();
-      }, 100);
-    }));
-
+  it('onConfirm/onCancel can be async(callback)', () => {
     let b = 1;
     const onCancel = function(close) {
       setTimeout(() => {
@@ -194,7 +184,37 @@ describe('Pop', () => {
 
     let visible = false;
     const wrapper = mount(
-      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onConfirm={onConfirm} onCancel={onCancel}>
+      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onCancel={onCancel}>
+        <a>
+          click
+        </a>
+      </Pop>
+    );
+
+    wrapper.setProps({
+      visible: true
+    });
+    jest.runAllTimers();
+
+    document.querySelector('.zent-btn-primary').nextSibling.click();
+    jest.runAllTimers();
+    expect(b).toBe(2);
+  });
+
+  it('onConfirm/onCancel can be async(Promise)', () => {
+    const onConfirm = jest.fn();
+    let a = 1;
+    onConfirm.mockReturnValueOnce(new Promise(resolve => {
+      setTimeout(() => {
+        expect(a).toBe(1);
+        a++;
+        resolve();
+      }, 100);
+    }));
+
+    let visible = false;
+    const wrapper = mount(
+      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onConfirm={onConfirm}>
         <a>
           click
         </a>
@@ -209,9 +229,5 @@ describe('Pop', () => {
     document.querySelector('.zent-btn-primary').click();
     jest.runAllTimers();
     expect(a).toBe(2);
-
-    document.querySelector('.zent-btn-primary').nextSibling.click();
-    jest.runAllTimers();
-    expect(b).toBe(2);
   });
 });

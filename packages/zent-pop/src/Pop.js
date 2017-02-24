@@ -16,12 +16,8 @@ const stateMap = {
 };
 
 class PopAction extends Component {
-  state = {
-    confirmPending: false,
-    cancelPending: false
-  };
-
   // 支持异步的回调函数
+  // onConfirm/onCancel异步等待的时候要禁用用户关闭
   handleClick(callbackName) {
     const callback = this.props[callbackName];
     const { popover } = this.props;
@@ -29,17 +25,13 @@ class PopAction extends Component {
       return popover.close();
     }
 
+    const { changePending } = this.props;
     const stateKey = stateMap[callbackName];
     const startClose = () => {
-      this.setState({
-        [stateKey]: true
-      });
+      changePending(stateKey, true);
     };
     const finishClose = () => {
-      this.setState({
-        [stateKey]: false
-      });
-      popover.close();
+      changePending(stateKey, false, popover.close);
     };
 
     if (callback.length >= 1) {
@@ -50,7 +42,9 @@ class PopAction extends Component {
     const maybePromise = callback();
     if (isPromise(maybePromise)) {
       startClose();
-      maybePromise.then(finishClose);
+      maybePromise
+        .then(finishClose)
+        .catch(() => changePending(stateKey, false, popover.close));
     } else {
       popover.close();
     }
@@ -65,8 +59,7 @@ class PopAction extends Component {
   };
 
   render() {
-    const { prefix, type, onConfirm, onCancel, confirmText, cancelText } = this.props;
-    const { confirmPending, cancelPending } = this.state;
+    const { prefix, type, onConfirm, onCancel, confirmText, cancelText, confirmPending, cancelPending } = this.props;
 
     if (!onConfirm && !onCancel) {
       return null;
@@ -74,8 +67,8 @@ class PopAction extends Component {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Button loading={confirmPending} size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
-        <Button loading={cancelPending} size="small" onClick={this.handleCancel}>{cancelText}</Button>
+        <Button loading={confirmPending} disabled={cancelPending} size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
+        <Button loading={cancelPending} disabled={confirmPending} size="small" onClick={this.handleCancel}>{cancelText}</Button>
       </div>
     );
   }
@@ -155,8 +148,20 @@ export default class Pop extends Component {
     prefix: 'zent',
   };
 
+  state = {
+    confirmPending: false,
+    cancelPending: false
+  };
+
+  changePending = (key, pending, callback) => {
+    this.setState({
+      [key]: pending
+    }, callback);
+  }
+
   renderContent() {
     const { prefix, content, header, onConfirm, onCancel, confirmText, cancelText, type } = this.props;
+    const { confirmPending, cancelPending } = this.state;
 
     return (
       <Popover.Content>
@@ -169,6 +174,9 @@ export default class Pop extends Component {
             onCancel={onCancel}
             confirmText={confirmText}
             cancelText={cancelText}
+            confirmPending={confirmPending}
+            cancelPending={cancelPending}
+            changePending={this.changePending}
             type={type}
           />
         </div>
@@ -210,10 +218,13 @@ export default class Pop extends Component {
       onVisibleChange = onVisibleChange || noop;
     }
 
+    const { confirmPending, cancelPending } = this.state;
+    const closePending = confirmPending || cancelPending;
+
     return (
       <Popover
-        visible={visible}
-        onVisibleChange={onVisibleChange}
+        visible={closePending ? true : visible}
+        onVisibleChange={closePending ? noop : onVisibleChange}
         prefix={prefix}
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cx(`${prefix}-pop`, className)}
