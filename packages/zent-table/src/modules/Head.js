@@ -18,13 +18,17 @@ const Head = React.createClass({
 
   componentDidMount() {
     if (this.props.autoStick) {
-      let self = this;
+      this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, { leading: true });
 
-      window.addEventListener('scroll', throttle(self.setHeadStyle, 50));
-      window.addEventListener('resize', throttle(self.setHeadStyle, 50));
+      window.addEventListener('scroll', this.throttleSetHeadStyle, true);
+      window.addEventListener('resize', this.throttleSetHeadStyle, true);
+    }
+  },
 
-      this.getRect();
-      self.setHeadStyle();
+  componentWillUnmount() {
+    if (this.props.autoStick) {
+      window.removeEventListener('scroll', this.throttleSetHeadStyle, true);
+      window.removeEventListener('resize', this.throttleSetHeadStyle, true);
     }
   },
 
