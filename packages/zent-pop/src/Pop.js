@@ -2,19 +2,52 @@ import React, { Component, PropTypes } from 'react';
 import Popover from 'zent-popover';
 import Button from 'zent-button';
 import cx from 'zent-utils/classnames';
+import noop from 'zent-utils/lodash/noop';
+import isFunction from 'zent-utils/lodash/isFunction';
+import isPromise from 'zent-utils/isPromise';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
 
 const { Trigger, withPopover } = Popover;
+const stateMap = {
+  onConfirm: 'confirmPending',
+  onCancel: 'cancelPending'
+};
 
 class PopAction extends Component {
+  // 支持异步的回调函数
+  // onConfirm/onCancel异步等待的时候要禁用用户关闭
   handleClick(callbackName) {
-    const { popover, trigger } = this.props;
-    popover.close();
-
     const callback = this.props[callbackName];
-    trigger !== 'none' && callback && callback();
+    const { popover } = this.props;
+    if (!isFunction(callback)) {
+      return popover.close();
+    }
+
+    const { changePending } = this.props;
+    const stateKey = stateMap[callbackName];
+    const startClose = () => {
+      changePending(stateKey, true);
+    };
+    const finishClose = () => {
+      changePending(stateKey, false, popover.close);
+    };
+
+    if (callback.length >= 1) {
+      startClose();
+      return callback(finishClose);
+    }
+
+    const maybePromise = callback();
+    if (isPromise(maybePromise)) {
+      startClose();
+      maybePromise
+        .then(finishClose)
+        .catch(() => changePending(stateKey, false, popover.close));
+    } else {
+      popover.close();
+    }
   }
 
   handleConfirm = () => {
@@ -26,7 +59,7 @@ class PopAction extends Component {
   };
 
   render() {
-    const { prefix, type, onConfirm, onCancel, confirmText, cancelText } = this.props;
+    const { prefix, type, onConfirm, onCancel, confirmText, cancelText, confirmPending, cancelPending } = this.props;
 
     if (!onConfirm && !onCancel) {
       return null;
@@ -34,8 +67,8 @@ class PopAction extends Component {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Button size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
-        <Button size="small" onClick={this.handleCancel}>{cancelText}</Button>
+        <Button loading={confirmPending} disabled={cancelPending} size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
+        <Button loading={cancelPending} disabled={confirmPending} size="small" onClick={this.handleCancel}>{cancelText}</Button>
       </div>
     );
   }
@@ -73,14 +106,18 @@ export default class Pop extends Component {
       'primary', 'default', 'danger', 'success'
     ]),
 
-    // 打开之后的回掉函数
+    // 打开之后的回调函数
     onShow: PropTypes.func,
 
-    // 关闭之后的回掉函数
+    // 关闭之后的回调函数
     onClose: PropTypes.func,
 
-    // 这两个只有当trigger为none时才生效
+    // 打开／关闭前的回调函数，只有用户触发的操作才会调用；通过外部改变`visible`不会触发
+    onBeforeShow: PropTypes.func,
+    onBeforeClose: PropTypes.func,
+
     visible: PropTypes.bool,
+    onVisibleChange: PropTypes.func,
 
     // 只有trigger为hover时才有效
     mouseLeaveDelay: PropTypes.number,
@@ -103,7 +140,6 @@ export default class Pop extends Component {
     confirmText: '确定',
     cancelText: '取消',
     type: 'primary',
-    visible: false,
     closeOnClickOutside: true,
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
@@ -112,20 +148,20 @@ export default class Pop extends Component {
     prefix: 'zent',
   };
 
-  savePopover = (instance) => {
-    this.popover = instance;
+  state = {
+    confirmPending: false,
+    cancelPending: false
   };
 
-  open = () => {
-    this.popover && this.popover.open();
-  };
-
-  close = () => {
-    this.popover && this.popover.close();
-  };
+  changePending = (key, pending, callback) => {
+    this.setState({
+      [key]: pending
+    }, callback);
+  }
 
   renderContent() {
     const { prefix, content, header, onConfirm, onCancel, confirmText, cancelText, type } = this.props;
+    const { confirmPending, cancelPending } = this.state;
 
     return (
       <Popover.Content>
@@ -138,6 +174,9 @@ export default class Pop extends Component {
             onCancel={onCancel}
             confirmText={confirmText}
             cancelText={cancelText}
+            confirmPending={confirmPending}
+            cancelPending={cancelPending}
+            changePending={this.changePending}
             type={type}
           />
         </div>
@@ -169,11 +208,23 @@ export default class Pop extends Component {
   }
 
   render() {
-    const { className, wrapperClassName, prefix, block, onShow, onClose, position, centerArrow } = this.props;
+    const {
+      className, wrapperClassName, trigger, visible,
+      prefix, block, onShow, onClose, position, centerArrow,
+      onBeforeClose, onBeforeShow
+    } = this.props;
+    let { onVisibleChange } = this.props;
+    if (trigger === 'none') {
+      onVisibleChange = onVisibleChange || noop;
+    }
+
+    const { confirmPending, cancelPending } = this.state;
+    const closePending = confirmPending || cancelPending;
 
     return (
       <Popover
-        ref={this.savePopover}
+        visible={closePending ? true : visible}
+        onVisibleChange={closePending ? noop : onVisibleChange}
         prefix={prefix}
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cx(`${prefix}-pop`, className)}
@@ -182,6 +233,8 @@ export default class Pop extends Component {
         display={block ? 'block' : 'inline-block'}
         onShow={onShow}
         onClose={onClose}
+        onBeforeClose={onBeforeClose}
+        onBeforeShow={onBeforeShow}
       >
         {this.renderTrigger()}
         {this.renderContent()}
