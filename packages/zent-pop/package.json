@@ -1,6 +1,6 @@
 {
   "name": "zent-pop",
-  "version": "1.0.9",
+  "version": "1.0.10-beta1",
   "description": "Zent气泡组件",
   "main": "./lib/index.js",
   "repository": {
