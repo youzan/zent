@@ -35,6 +35,14 @@ class NormalizeForm extends Component {
     return parseInt(value, 10);
   }
 
+  formatCheckboxValue(value) {
+    return value === '1';
+  }
+
+  normalizeCheckboxValue(value) {
+    return value ? '1' : '0';
+  }
+
   // 完全自主控制submit流程的例子
   submit = () => {
     const zentForm = this.props.zentForm;
@@ -102,8 +110,8 @@ class NormalizeForm extends Component {
           name="is_agree"
           label="是否同意本协议："
           value={'1'}
-          format={(value) => (value === '1')}
-          normalize={(value) => (value ? '1' : '0')}
+          format={this.formatCheckboxValue}
+          normalize={this.normalizeCheckboxValue}
           component={CheckboxField}
         >
           同意

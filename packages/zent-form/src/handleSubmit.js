@@ -4,10 +4,24 @@ const handleSubmit = (submit, zentForm) => {
   const props = zentForm.props;
   const values = zentForm.getFormValues();
   const { onSubmitSuccess, onSubmitFail } = props;
+  let validationErrors;
 
   zentForm.setFormPristine(false);
 
-  if (zentForm.isValid()) {
+  // 如果有异步校验未完成，阻止表单提交
+  if (zentForm.isValidating()) {
+    if (onSubmitFail) {
+      onSubmitFail();
+    }
+    return;
+  }
+
+  if (!zentForm.isValid()) {
+    validationErrors = zentForm.getValidationErrors();
+    if (onSubmitFail) {
+      onSubmitFail(validationErrors);
+    }
+  } else {
     const doSubmit = () => {
       let result;
 

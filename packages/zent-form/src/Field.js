@@ -82,6 +82,10 @@ class Field extends Component {
     return this.state._isValid;
   }
 
+  isValidating = () => {
+    return this.state._isValidating;
+  }
+
   getPristineValue = () => {
     return this.state._pristineValue;
   }
@@ -144,9 +148,38 @@ class Field extends Component {
     return format(value);
   }
 
-  onChange = (event) => {
-    const value = this.normalize(getValue(event));
-    this.setValue(value);
+  handleChange = (event) => {
+    const { onChange } = this.props;
+    const previousValue = this.getValue();
+    const newValue = this.normalize(getValue(event));
+    let preventSetValue = false;
+
+    // 在传入的onChange中可以按需阻止更新value值
+    if (onChange) {
+      onChange(event, newValue, previousValue, () => (preventSetValue = true));
+    }
+
+    if (!preventSetValue) {
+      this.setValue(newValue);
+    }
+  }
+
+  handleBlur = (event) => {
+    const { onBlur, asyncValidation } = this.props;
+    const previousValue = this.getValue();
+    const newValue = this.normalize(getValue(event));
+    let preventSetValue = false;
+
+    if (onBlur) {
+      onBlur(event, newValue, previousValue, () => (preventSetValue = true));
+    }
+
+    if (!preventSetValue) {
+      this.setValue(newValue);
+      if (asyncValidation) {
+        this.context.zentForm.asyncValidate(this, newValue);
+      }
+    }
   }
 
   processProps = (props) => {
@@ -181,7 +214,8 @@ class Field extends Component {
       value: this.format(this.getValue()),
       error: this.getErrorMessage(),
       errors: this.getErrorMessages(),
-      onChange: this.onChange
+      onChange: this.handleChange,
+      onBlur: this.handleBlur
     });
 
     // 原生的标签不能传非标准属性进去
