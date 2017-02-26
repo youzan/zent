@@ -4,6 +4,7 @@ import Field from './Field';
 import Fieldset from './Fieldset';
 import getControlGroup from './getControlGroup';
 import unknownProps from './unknownProps';
+import SubmissionError from './SubmissionError';
 import InputField from './form_components/InputField';
 import CheckboxField from './form_components/CheckboxField';
 import CheckboxGroupField from './form_components/CheckboxGroupField';
@@ -21,5 +22,6 @@ export default {
   CheckboxField,
   CheckboxGroupField,
   RadioGroupField,
-  SelectField
+  SelectField,
+  SubmissionError
 };

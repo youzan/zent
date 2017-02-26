@@ -1,25 +1,13 @@
 /* eslint-disable no-console */
 
 import React, { Component } from 'react';
-import { Form, Field, createForm, getControlGroup } from '../src';
-import Radio from 'zent-radio';
+import { Form, Field, InputField, createForm } from '../src';
 import Checkbox from 'zent-checkbox';
 import Select, { SelectTrigger } from 'zent-select';
+import 'zent-input/assets/index.scss';
 import 'zent-select/assets/index.scss';
 import 'zent-checkbox/assets/index.scss';
-import 'zent-radio/assets/index.scss';
 import '../assets/index.scss';
-
-
-const RadioGroup = Radio.Group;
-const CheckboxGroup = Checkbox.Group;
-const optionData = [
-  { id: '', name: '全部' },
-  { id: 1, name: '养生食品分类' },
-  { id: 2, name: '休闲食品分类' },
-  { id: 3, name: '药效性食物分类' },
-  { id: 4, name: '列表中隐藏' }
-];
 
 const renderEmail = (props) => {
   return (
@@ -33,12 +21,18 @@ const renderEmail = (props) => {
   );
 };
 
-const addtionInput = getControlGroup(props => (<input type="text" {...props} />));
+const optionData = [
+  { id: '', name: '全部' },
+  { id: 1, name: '养生食品分类' },
+  { id: 2, name: '休闲食品分类' },
+  { id: 3, name: '药效性食物分类' },
+  { id: 4, name: '列表中隐藏' }
+];
 
 class OverviewForm extends Component {
   render() {
     const { handleSubmit, showDynamicField, zentForm } = this.props;
-    const isAgree = true;
+    const isShow = true;
     const isSubmitting = zentForm.isSubmitting();
 
     return (
@@ -50,37 +44,6 @@ class OverviewForm extends Component {
           </div>
         </div>
         <Field name="email" component={renderEmail} value="11" validations={{ isEmail: true }} validationErrors={{ isEmail: '请输入正确的格式' }} />
-        <div className="zent-form__control-group">
-          <label className="zent-form__control-label">性别</label>
-          <div className="zent-form__controls">
-            <Field
-              name="sex"
-              value="female"
-              component={(props) => (
-                <RadioGroup {...props}>
-                  <Radio value="male">男</Radio>
-                  <Radio value="female">女</Radio>
-                </RadioGroup>
-              )}
-            />
-          </div>
-        </div>
-        <div className="zent-form__control-group">
-          <label className="zent-form__control-label">爱好</label>
-          <div className="zent-form__controls">
-            <Field
-              name="interest"
-              value={['eat', 'sleep']}
-              component={(props) => (
-                <CheckboxGroup {...props}>
-                  <Checkbox value="eat">吃饭</Checkbox>
-                  <Checkbox value="sleep">睡觉</Checkbox>
-                  <Checkbox value="wash">洗澡</Checkbox>
-                </CheckboxGroup>
-              )}
-            />
-          </div>
-        </div>
         <div className="zent-form__control-group">
           <label className="zent-form__control-label">选择商品分组</label>
           <div className="zent-form__controls">
@@ -102,27 +65,23 @@ class OverviewForm extends Component {
           </div>
         </div>
         <div className="zent-form__control-group">
-          <label htmlFor="agreeProtocal" className="zent-form__control-label">是否同意注册协议</label>
-          <div className="zent-form__controls">
-            <Field
-              id="agreeProtocal"
-              name="agreeProtocal"
-              component={props => (
-                <Checkbox checked={props.value === true} {...props} />
-              )} value={isAgree} />
-          </div>
-        </div>
-        <div className="zent-form__control-group">
           <label htmlFor="show" className="zent-form__control-label">显示额外信息</label>
           <div className="zent-form__controls">
-            <Field id="show" name="isShow" component={Checkbox} value={isAgree} type="checkbox" />
+            <Field
+              id="show"
+              name="isShow"
+              component={props => (
+                <Checkbox checked={props.value === true} {...props} />
+              )}
+              value={isShow} />
           </div>
         </div>
         {showDynamicField ?
           <Field
             name="addition"
             label="额外信息："
-            component={addtionInput}
+            component={InputField}
+            value=""
           /> :
           null}
         <div className="zent-form__form-actions"><button type="submit">{isSubmitting ? '提交ing' : '提交'}</button></div>

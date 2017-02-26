@@ -1,4 +1,5 @@
 import isPromise from 'zent-utils/isPromise';
+import SubmissionError from './SubmissionError';
 
 const handleSubmit = (submit, zentForm) => {
   const props = zentForm.props;
@@ -11,7 +12,9 @@ const handleSubmit = (submit, zentForm) => {
   // 如果有异步校验未完成，阻止表单提交
   if (zentForm.isValidating()) {
     if (onSubmitFail) {
-      onSubmitFail();
+      onSubmitFail(new SubmissionError({
+        isValidating: true
+      }));
     }
     return;
   }
@@ -19,9 +22,18 @@ const handleSubmit = (submit, zentForm) => {
   if (!zentForm.isValid()) {
     validationErrors = zentForm.getValidationErrors();
     if (onSubmitFail) {
-      onSubmitFail(validationErrors);
+      onSubmitFail(new SubmissionError(validationErrors));
     }
   } else {
+    const handleSubmitError = (submitError) => {
+      const error = submitError instanceof SubmissionError ? submitError.errors : undefined;
+      if (onSubmitFail) {
+        onSubmitFail(error);
+      }
+      if (error || onSubmitFail) {
+        return error;
+      }
+    };
     const doSubmit = () => {
       let result;
 
@@ -29,10 +41,12 @@ const handleSubmit = (submit, zentForm) => {
         // 传入zentForm是为了使用服务端校验时可以调用setFieldExternalErrors方法
         result = submit(values, zentForm);
       } catch (submitError) {
-        if (onSubmitFail) {
-          onSubmitFail(submitError);
+        const error = handleSubmitError(submitError);
+        if (error) {
+          return error;
         }
-        return submitError;
+
+        throw submitError;
       }
 
       if (isPromise(result)) {
@@ -53,10 +67,12 @@ const handleSubmit = (submit, zentForm) => {
             zentForm.setState({
               isSubmitting: false
             });
-            if (onSubmitFail) {
-              onSubmitFail(submitError);
+            const error = handleSubmitError(submitError);
+            if (error) {
+              return error;
             }
-            return submitError;
+
+            throw submitError;
           });
       }
 

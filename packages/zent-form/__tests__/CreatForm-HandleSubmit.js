@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import ZentForm from '../src';
 
 describe('CreatedForm and HandleSubmit', () => {
-  const { Form, createForm, Field } = ZentForm;
+  const { Form, createForm, Field, SubmissionError } = ZentForm;
 
   it('onSubmit of CreatedForm can be a function as a prop', () => {
     class SubmitProp extends React.Component {
@@ -149,13 +149,13 @@ describe('CreatedForm and HandleSubmit', () => {
     const subFailMock = jest.fn();
     let CreatedForm = createForm()(SubmitForm);
     let wrapper = mount(<CreatedForm onSubmitFail={subFailMock} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => { wrapper.simulate('submit') }).toThrow();
     expect(subFailMock.mock.calls.length).toBe(1);
     wrapper = mount(<CreatedForm onSubmitFail={null} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => { wrapper.simulate('submit') }).toThrow();
   });
 
-  it('Invalid will cause handleSubmit do nothing while excuted', () => {
+  it('Invalid will cause handleSubmit to execute onSubmitFail', () => {
     const submitMock = jest.fn();
     class SubmitForm extends React.Component {
       render() {
@@ -175,11 +175,11 @@ describe('CreatedForm and HandleSubmit', () => {
     let wrapper = mount(<CreatedForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />);
     expect(wrapper.state('isFormValid')).toBe(false);
     expect(() => { wrapper.simulate('submit') }).not.toThrow();
-    expect(subFailMock.mock.calls.length).toBe(0);
+    expect(subFailMock.mock.calls.length).toBe(1);
     expect(subSuccessMock.mock.calls.length).toBe(0);
     expect(submitMock.mock.calls.length).toBe(0);
     wrapper.simulate('submit');
-    expect(subFailMock.mock.calls.length).toBe(0);
+    expect(subFailMock.mock.calls.length).toBe(2);
     expect(subSuccessMock.mock.calls.length).toBe(0);
     expect(submitMock.mock.calls.length).toBe(0);
   });

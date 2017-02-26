@@ -125,7 +125,8 @@ const createForm = (config = {}) => {
         const { onSubmit } = this.props;
 
         // 在表单中手动调用handleSubmit或者把handleSubmit赋值给表单的onSubmit回调
-        // 赋值给表单的onSubmit时，submitOrEvent是一个event对象
+        // handleSubmit赋值给表单的onSubmit时，submitOrEvent是一个event对象
+        // handleSubmit的参数必须是function
         if (!submitOrEvent || silenceEvent(submitOrEvent)) {
           if (!this.submitPromise) {
             // 调用props传入的onSubmit方法

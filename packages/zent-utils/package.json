@@ -15,7 +15,8 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "2.2.x",
-    "lodash": "4.17.x"
+    "lodash": "4.17.x",
+    "es6-error": "4.0.x"
   },
   "files": [
     "src/",
@@ -27,7 +28,8 @@
     "dom/",
     "lodash/",
     "classnames.js",
-    "isPromise.js"
+    "isPromise.js",
+    "es6-error.js"
   ],
   "jest": {
     "verbose": true,

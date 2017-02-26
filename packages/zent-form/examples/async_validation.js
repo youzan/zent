@@ -28,7 +28,7 @@ class FieldsForm extends Component {
           validationErrors={{ required: '不能为空' }}
           component={InputField}
           asyncValidation={(values, value) => {
-            const promise = new Promise((resolve) => setTimeout(resolve, 1000));
+            const promise = new Promise((resolve) => setTimeout(resolve, 2000));
             return promise.then(() => {
               if (value === 'pangxie') {
                 throw '用户名已被占用'; // eslint-disable-line
@@ -60,12 +60,19 @@ class FieldsForm extends Component {
 const FieldsFormContainer = createForm()(FieldsForm);
 
 export default class Simple extends Component {
+  onSubmitFail = (error = {}) => {
+    const errors = error.errors || {};
+    if (errors.isValidating) {
+      console.log('isValidating');
+    }
+  }
+
   render() {
     return (
       <div>
         <h2>异步校验</h2>
         <hr />
-        <FieldsFormContainer />
+        <FieldsFormContainer onSubmitFail={this.onSubmitFail} />
       </div>
     );
   }

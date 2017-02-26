@@ -40,3 +40,5 @@ classnames.js
 !src/classnames.js
 isPromise.js
 !src/isPromise.js
+es6-error.js
+!src/es6-error.js
