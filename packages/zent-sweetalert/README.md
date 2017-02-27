@@ -24,6 +24,7 @@ Sweetalert.info(config) // alias to alert, deprecated!
 | confirmText | 可选，确认按钮文案    | string | '取消' |  |
 | className   | 可选，额外的className | string | '' | |
 | prefix      | 可选, 默认className的前缀 | string | 'zent' | |
+| style 	| 可选，额外的样式 | object | | |
 
 
 ### 确认对话框
@@ -43,6 +44,7 @@ Sweetalert.confirm(config: object): function
 | confirmText | 可选，确认按钮文案 | string | '确认' |  |
 | className   | 可选，额外的className | string | '' | |
 | prefix      | 可选，默认className的前缀 | string | 'zent' | |
+| style 	| 可选，额外的样式 | object | | |
 
 
 ### 返回值

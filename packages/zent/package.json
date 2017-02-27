@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "一套前端设计语言和基于React的实现",
   "repository": {
     "type": "git",
@@ -64,17 +64,17 @@
     "zent-loading": "1.0.4",
     "zent-notify": "1.0.6",
     "zent-pagination": "1.0.6",
-    "zent-pop": "1.0.8",
-    "zent-popover": "1.0.7",
+    "zent-pop": "1.0.10",
+    "zent-popover": "^1.0.8",
     "zent-portal": "1.0.6",
     "zent-radio": "1.0.6",
     "zent-select": "1.0.6",
     "zent-steps": "1.0.7",
-    "zent-sweetalert": "1.0.7",
+    "zent-sweetalert": "^1.0.8",
     "zent-switch": "1.0.6",
-    "zent-table": "1.0.8",
-    "zent-tabs": "1.0.5",
-    "zent-tree": "1.0.6",
+    "zent-table": "1.0.9",
+    "zent-tabs": "1.0.6",
+    "zent-tree": "1.0.7",
     "zent-utils": "1.0.6"
   }
 }

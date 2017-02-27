@@ -109,6 +109,14 @@ export default class PopoverContent extends Component {
     }
   }, 16);
 
+  componentDidMount() {
+    const { visible } = this.props;
+
+    if (visible) {
+      this.adjustPosition();
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.visible && nextProps.visible !== this.props.visible) {
       this.adjustPosition();

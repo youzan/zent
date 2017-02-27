@@ -25,7 +25,7 @@ tabs组件
 ### TabPanel参数介绍
 | 参数 | 说明 | 类型 | 默认值 | 备选值 | 是否必须 |
 |------|------|------|--------|--------|--------|
-| tab | 该TabPanel所对应的tab标签的名字 | string | null | null | 是 |
+| tab | 该TabPanel所对应的tab标签的名字 | any | null | null | 是 |
 | id | 该TabPanel的id | string | null | null | 是 |
 
 ## 例子

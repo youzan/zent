@@ -1,6 +1,6 @@
 {
   "name": "zent-pop",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "Zent气泡组件",
   "main": "./lib/index.js",
   "repository": {
@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-popover": "1.0.7",
+    "zent-popover": "^1.0.8",
     "zent-button": "1.0.6",
     "zent-utils": "1.0.6"
   },

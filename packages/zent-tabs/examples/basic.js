@@ -22,12 +22,12 @@ const Simple = React.createClass({
       canadd: false,
       activeId: '2',
       panels: [{
-        tab: '选项一',
+        tab: <span>哈哈哈</span>,
         id: '1',
         disabled: true,
         content: '选项二'
       }, {
-        tab: '选项二',
+        tab: <span>空间选项二</span>,
         id: '2',
         content: <div>选项一的内容</div>
       }, {

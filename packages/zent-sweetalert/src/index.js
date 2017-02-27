@@ -81,7 +81,7 @@ function getTitle(title, type, prefix) {
 }
 
 export function alert(config = {}) {
-  let { className, prefix, title, type, content, confirmText, onConfirm } = config;
+  let { className, prefix, title, type, content, confirmText, onConfirm, ...otherProps } = config;
   prefix = prefix || 'zent';
   title = getTitle(title, type, prefix) || '提示';
   className = className || '';
@@ -89,6 +89,7 @@ export function alert(config = {}) {
 
   const close = openDialog({
     ...commonProps,
+    prefix,
     className: cx(`${prefix}-sweetalert-alert`, {
       [className]: !!className
     }),
@@ -98,7 +99,8 @@ export function alert(config = {}) {
       <ActionButton type="primary" className={`${prefix}-sweetalert-alert-btn-confirm`} getClose={() => close} onClick={onConfirm}>
         {confirmText}
       </ActionButton>
-    )
+    ),
+    ...otherProps
   });
 
   return close;
@@ -106,7 +108,7 @@ export function alert(config = {}) {
 export const info = alert;
 
 export function confirm(config = {}) {
-  let { className, prefix, title, type, content, confirmText, onConfirm, cancelText, onCancel } = config;
+  let { className, prefix, title, type, content, confirmText, onConfirm, cancelText, onCancel, ...otherProps } = config;
   className = className || '';
   prefix = prefix || 'zent';
   title = getTitle(title, type, prefix) || '确认';
@@ -115,6 +117,7 @@ export function confirm(config = {}) {
 
   const close = openDialog({
     ...commonProps,
+    prefix,
     className: cx(`${prefix}-sweetalert-confirm`, {
       [className]: !!className
     }),
@@ -123,7 +126,8 @@ export function confirm(config = {}) {
     footer: [
       <ActionButton key="ok" type="primary" className={`${prefix}-sweetalert-confirm-btn-confirm`} getClose={() => close} onClick={onConfirm}>{confirmText}</ActionButton>,
       <ActionButton key="cancel" type="default" className={`${prefix}-sweetalert-confirm-btn-cancel`} getClose={() => close} onClick={onCancel}>{cancelText}</ActionButton>
-    ]
+    ],
+    ...otherProps
   });
 
   return close;
