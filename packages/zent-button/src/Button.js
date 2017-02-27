@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import setClass from 'zent-utils/classnames';
 import omit from 'zent-utils/lodash/omit';
-import assign from 'zent-utils/lodash/assign';
 
 export default class Button extends Component {
 
@@ -59,25 +58,10 @@ export default class Button extends Component {
     let Node = this.props.component || 'a';
     let disabled = this.props.disabled || this.props.loading;
     let { href = '', target } = this.props;
-    const linkProps = assign(omit(this.props, [
-      'type',
-      'size',
-      'className',
-      'block',
-      'component',
-      'disabled',
-      'loading',
-      'outline',
-      'bordered',
-      'prefix',
-      'href',
-      'target'
-    ]), disabled ? {} : { href, target });
 
     return (
       <Node
-        {...linkProps}
-        disabled={disabled}
+        {...disabled ? {} : { href, target }}
         className={classNames}
         onClick={this.handleClick}
       >
