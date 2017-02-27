@@ -12,6 +12,10 @@
 						|													|
      使用格式化后的value写入form中维护，用于数据提交 <- 使用normalize()格式化value <- 
 
+### 新功能
+* Field增加asyncValidation参数支持，用于异步校验
+* 增加一个SubmissionError类，统一sumit阶段的错误处理
+
 ## 0.1.10 (2017-01-10)
 
 * 为内置封装的SelectField做onChange回调参数的兼容
