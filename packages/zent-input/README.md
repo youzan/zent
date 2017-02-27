@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/zent-input.svg?style=flat)](https://www.npmjs.com/package/zent-input) [![downloads](https://img.shields.io/npm/dt/zent-input.svg)](https://www.npmjs.com/package/zent-input)
 
-输入组件
+输入框组件
 
 ## 使用指南
 
