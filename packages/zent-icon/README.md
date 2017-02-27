@@ -12,9 +12,9 @@
 
 #### 两种使用方式
 
-1.  React组件形式：`<Icon type="shop" />`
+-  React组件形式：`<Icon type="shop" />`
 
-2.  CSS形式：`<i class="zenticon zenticon-shop"></i>`
+-  CSS形式：`<i class="zenticon zenticon-shop"></i>`
 
 **如果仅使用CSS形式, 只需要项目中引入`zent-icon`相关样式即可, 不需要引入React.**
 
@@ -46,14 +46,14 @@ zent-icon的大部分文件都是工具生成的，主要依赖以下命令：
 
 如果生成的icon font字符和sketch文件有差异
 
-1.  给对应字符加上 `correct_contour_direction: true`, 这个方法只能解决部分图标填充不正确的问题.
-2.  找sketch文件的作者修改图标, 可以用不同的画图方式解决.
+-  给对应字符加上 `correct_contour_direction: true`, 这个方法只能解决部分图标填充不正确的问题.
+-  找sketch文件的作者修改图标, 可以用不同的画图方式解决.
 
 ## 生成过程
 
 所有脚本都在 `scripts` 目录下，都是 `shell` 脚本，主要步骤如下:
 
-1.  从sketch文件中提取所有图标的svg
-2.  用 `iconfount` 从svg文件生成字体文件
-3.  上传字体文件到CDN，并生成对应url的样式文件
-4.  根据 `iconfount` 的输出生成示例文件 `01-grid.js`
+-  从sketch文件中提取所有图标的svg
+-  用 `iconfount` 从svg文件生成字体文件
+-  上传字体文件到CDN，并生成对应url的样式文件
+-  根据 `iconfount` 的输出生成示例文件 `01-grid.js`
