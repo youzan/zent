@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
 import omit from 'zent-utils/lodash/omit';
 
-function Input(props) {
-  const handleKeyDown = evt => {
-    const { onKeyDown, onPressEnter } = props;
+export default class Input extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    prefix: PropTypes.string,
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    value: PropTypes.any,
+    defaultValue: PropTypes.any,
+    addonBefore: PropTypes.node,
+    addonAfter: PropTypes.node,
+    onPressEnter: PropTypes.func,
+    onChange: PropTypes.func
+  };
+
+  static defaultProps = {
+    disabled: false,
+    readOnly: false,
+    prefix: 'zent'
+  };
+
+  handleKeyDown = evt => {
+    const { onKeyDown, onPressEnter } = this.props;
     if (onPressEnter && evt.keyCode === 13) {
       onPressEnter(evt);
     }
@@ -12,44 +33,23 @@ function Input(props) {
     if (onKeyDown) onKeyDown(evt);
   };
 
-  const { addonBefore, addonAfter, prefix, className } = props;
+  render() {
+    const { addonBefore, addonAfter, prefix, className } = this.props;
 
-  const wrapClass = classNames({
-    [`${prefix}-input-wrapper`]: true,
-    [`${prefix}-input-addons`]: props.addonAfter || props.addonBefore
-  }, className);
+    const wrapClass = classNames({
+      [`${prefix}-input-wrapper`]: true,
+      [`${prefix}-input-addons`]: addonAfter || addonBefore
+    }, className);
 
-  // 黑名单，下面这些props不应该带入到Input上
-  let inputProps = omit(props, ['className', 'prefix']);
+    // 黑名单，下面这些props不应该带入到Input上
+    let inputProps = omit(this.props, ['className', 'prefix', 'addonBefore', 'addonAfter', 'onPressEnter']);
 
-  return (
-    <div className={wrapClass} >
-      {addonBefore && <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>}
-      <input className={`${prefix}-input`} {...inputProps} onKeyDown={handleKeyDown} />
-      {addonAfter && <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>}
-    </div>
-  );
+    return (
+      <div className={wrapClass} >
+        {addonBefore && <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>}
+        <input className={`${prefix}-input`} {...inputProps} onKeyDown={this.handleKeyDown} />
+        {addonAfter && <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>}
+      </div>
+    );
+  }
 }
-
-Input.defaultProps = {
-  disabled: false,
-  readOnly: false,
-  prefix: 'zent'
-};
-
-Input.propTypes = {
-  className: React.PropTypes.string,
-  prefix: React.PropTypes.string,
-  type: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  disabled: React.PropTypes.bool,
-  readOnly: React.PropTypes.bool,
-  value: React.PropTypes.any,
-  defaultValue: React.PropTypes.any,
-  addonBefore: React.PropTypes.node,
-  addonAfter: React.PropTypes.node,
-  onPressEnter: React.PropTypes.func,
-  onChange: React.PropTypes.func
-};
-
-export default Input;

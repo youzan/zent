@@ -63,10 +63,6 @@ describe('Popover', () => {
     wrapper.getNode().close();
     expect(wrapper.find('Portal').length).toBe(0);
 
-    // HACK: branch Content.js ling 71
-    // BUG: Content.js line 101 unused "...?...:..."
-    simulateWithTimers(wrapper.find('button'), 'click');
-
     // HACK: branch window.resize (throttle)
     wrapper.find('PopoverContent').getNode().onWindowResize({}, {
       deltaX: 0,
@@ -80,6 +76,7 @@ describe('Popover', () => {
       });
     }, 160);
     jest.runAllTimers();
+    wrapper.unmount();
 
     wrapper = mount(
       <Popover position={Popover.Position.RightTop} display="inline">
@@ -105,6 +102,7 @@ describe('Popover', () => {
     expect(wrapper.find('Portal').length).toBe(1);
     const fakeEvent = new MouseEvent('mousemove');
     dispatchWithTimers(window, fakeEvent);
+    wrapper.unmount();
 
     wrapper = mount(
       <Popover position={Popover.Position.TopRight} display="inline" cushion={10}>
@@ -237,7 +235,7 @@ describe('Popover', () => {
     });
   });
 
-  it('Children of Trigger could not have ref prop', () => {
+  it('Children of Trigger could not have string ref prop', () => {
     expect(() => {
       mount(
         <Popover position={Popover.Position.BottomLeft} display="inline">
@@ -266,5 +264,108 @@ describe('Popover', () => {
       </Popover>
     );
     simulateWithTimers(wrapper.find('button'), 'click');
+  });
+
+  it('throws if only has visible', () => {
+    expect(() => mount(
+      <Popover visible position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger>
+          <Button>click me</Button>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+          <div>line two</div>
+        </PopoverContent>
+      </Popover>
+    )).toThrow();
+
+    expect(() => mount(
+      <Popover onVisibleChange={() => {}} position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger>
+          <Button>click me</Button>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+          <div>line two</div>
+        </PopoverContent>
+      </Popover>
+    )).toThrow();
+  });
+
+  it('can be controlled by visible & onVisibleChange', () => {
+    let visible = true;
+    let changeVisible = (v) => visible = v;
+    let wrapper = mount(
+      <Popover visible={visible} onVisibleChange={changeVisible} position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger>
+          <Button>click me</Button>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+          <div>line two</div>
+        </PopoverContent>
+      </Popover>
+    );
+    expect(document.querySelector('.zent-popover')).toBeTruthy();
+
+    wrapper.setProps({
+      visible: false
+    });
+    jest.runAllTimers();
+    expect(document.querySelector('.zent-popover')).toBeFalsy();
+
+    // console.log(wrapper.instance());
+    wrapper.instance().open();
+    jest.runAllTimers();
+    wrapper.setProps({
+      visible: true
+    });
+    expect(document.querySelector('.zent-popover')).toBeTruthy();
+  });
+
+  it('onBeforeXXX can return a Promise', () => {
+    let visible = false;
+    let changeVisible = (v) => visible = v;
+    let onBeforeShow = () => {
+      return new Promise((resolve) => {
+        resolve();
+      });
+    }
+    let wrapper = mount(
+      <Popover onBeforeShow={onBeforeShow} visible={visible} onVisibleChange={changeVisible} position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger>
+          <Button>click me</Button>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+          <div>line two</div>
+        </PopoverContent>
+      </Popover>
+    );
+    wrapper.find('button').simulate('click');
+    jest.runAllTimers();
+    expect(document.querySelector('.zent-popover')).toBeTruthy();
+  });
+
+  it('onBeforeXXX can have a callback', () => {
+    let visible = false;
+    let changeVisible = (v) => visible = v;
+    let onBeforeShow = (callback) => {
+      setTimeout(callback, 1000);
+    }
+    let wrapper = mount(
+      <Popover onBeforeShow={onBeforeShow} visible={visible} onVisibleChange={changeVisible} position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger>
+          <Button>click me</Button>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+          <div>line two</div>
+        </PopoverContent>
+      </Popover>
+    );
+    wrapper.find('button').simulate('click');
+    jest.runAllTimers();
+    expect(document.querySelector('.zent-popover')).toBeTruthy();
   });
 });

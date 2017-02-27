@@ -44,7 +44,7 @@ export default class DialogDemo extends Component {
           <div>
             <p>dialog content</p>
 
-            <Popover position={Popover.Position.TopCenter}>
+            <Popover position={Popover.Position.TopCenter} cushion={5}>
               <Popover.Trigger.Click>
                 <Button>click me</Button>
               </Popover.Trigger.Click>

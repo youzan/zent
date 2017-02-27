@@ -1,6 +1,6 @@
 {
   "name": "zent-pop",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Zent气泡组件",
   "main": "./lib/index.js",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git@github.com:youzan/zent.git"
   },
   "scripts": {
-    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "lint": "./scripts/validate-pop-size.sh && eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "yanweiqing",
@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-popover": "1.0.6",
+    "zent-popover": "^1.0.8",
     "zent-button": "1.0.6",
     "zent-utils": "1.0.6"
   },

@@ -32,7 +32,7 @@ $slidercolor: #0099fc;
                 position: relative;
                 top: 50%;
                 margin-top: -10px;
-                line-height: 22px;
+                line-height: 18px;
                 height: 20px;
             }
         }
@@ -128,7 +128,7 @@ $slidercolor: #0099fc;
         color: $disablecolor;
 
         &.zent-tabs-tab {
-            cursor: default;
+            cursor: not-allowed;
         }
 
         &.zent-tabs-tab:hover {
