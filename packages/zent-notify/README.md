@@ -6,17 +6,40 @@
 
 ## 使用指南
 
-### 组件显示
+组件由 3 个函数构成, 使用临时创建的 DOM 节点来渲染组件, 并且外部保存 `containerList: object`.
 
-提供两种预定样式
+### 显示
 
--  `Notify.error(text: node, duration: number)`
+提供两种预定样式, 调用显示函数返回唯一的 containerId.
 
--  `Notify.success(text: node, duration: number)`
+**text 参数必须是能转换为 HTMLElement 的类型, 比如 string/node.**
 
-### 统一关闭接口
+#### `Notify.error`
 
--  `Notify.clear()`
+```ts
+interface Notify.error {
+  (text: any, duration: number): number;
+}
+```
+
+#### `Notify.success`
+
+```ts
+interface Notify.sucess {
+  (text: any, duration: number): number;
+}
+```
+### 关闭
+
+#### `Notify.clear`
+
+```ts
+interface Notify.clear {
+  (?containerId: number): void;
+}
+```
+
+输入具体的 containerId 时关闭对应的 Notify, 如果不输入任何参数, 则关闭所有 Notify.
 
 ## API
 
