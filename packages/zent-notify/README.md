@@ -22,7 +22,7 @@
 
 -  `Notify.clear(?containerId: number): void`
 
-有containerId传入时只关闭对应的提示弹层；如果没有参数则关闭所有提示弹层。
+有 `containerId` 传入时只关闭对应的提示弹层；如果没有参数则关闭所有提示弹层。
 
 ## API
 
