@@ -24,6 +24,10 @@ const Example = function () {
       <Button type="success" href="https://youzan.com" target="_blank">新窗口打开</Button>
       <Button type="success" outline href="https://youzan.com" target="_blank">新窗口打开</Button>
       <Button href="https://youzan.com" target="_blank">新窗口打开</Button>
+
+      <hr />
+      <p>disabled 状态下, href与target不会传递到a元素.</p>
+      <Button type="primary" disabled href="https://youzan.com" target="_blank">新窗口打开</Button>
     </div>
   );
 };
