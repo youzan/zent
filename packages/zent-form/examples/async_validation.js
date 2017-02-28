@@ -14,6 +14,14 @@ class FieldsForm extends Component {
     console.log(zentForm);
   }
 
+  asyncValidation = (values, value) => {
+    return new Promise((resolve, reject) => setTimeout(() => {
+      if (value === 'pangxie') {
+        reject('用户名已被占用');
+      }
+    }, 2000));
+  }
+
   render() {
     const { handleSubmit } = this.props;
 
@@ -27,14 +35,7 @@ class FieldsForm extends Component {
           validations={{ required: true }}
           validationErrors={{ required: '不能为空' }}
           component={InputField}
-          asyncValidation={(values, value) => {
-            const promise = new Promise((resolve) => setTimeout(resolve, 2000));
-            return promise.then(() => {
-              if (value === 'pangxie') {
-                throw '用户名已被占用'; // eslint-disable-line
-              }
-            });
-          }}
+          asyncValidation={this.asyncValidation}
         />
         <Field
           name="password"
