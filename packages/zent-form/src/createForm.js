@@ -5,7 +5,6 @@ import omit from 'zent-utils/lodash/omit';
 import find from 'zent-utils/lodash/find';
 import noop from 'zent-utils/lodash/noop';
 import assign from 'zent-utils/lodash/assign';
-import isArray from 'zent-utils/lodash/isArray';
 import isEqual from 'zent-utils/lodash/isEqual';
 import some from 'zent-utils/lodash/some';
 import isPromise from 'zent-utils/isPromise';
