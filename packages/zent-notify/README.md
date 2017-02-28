@@ -10,41 +10,24 @@
 
 ### 显示
 
-提供两种预定样式, 调用显示函数返回唯一的 containerId.
+提供两种预定样式, 调用显示函数返回唯一的 `containerId`.
 
 **text 参数必须是能转换为 HTMLElement 的类型, 比如 string/node.**
 
-#### `Notify.error`
+- `Notify.error(text: any, duration: number): number`
 
-```ts
-interface Notify.error {
-  (text: any, duration: number): number;
-}
-```
+- `Notify.success(text: any, duration: number): number`
 
-#### `Notify.success`
-
-```ts
-interface Notify.sucess {
-  (text: any, duration: number): number;
-}
-```
 ### 关闭
 
-#### `Notify.clear`
+-  `Notify.clear(?containerId: number): void`
 
-```ts
-interface Notify.clear {
-  (?containerId: number): void;
-}
-```
-
-输入具体的 containerId 时关闭对应的 Notify, 如果不输入任何参数, 则关闭所有 Notify.
+有containerId传入时只关闭对应的提示弹层；如果没有参数则关闭所有提示弹层。
 
 ## API
 
 | 参数       | 说明            | 类型     | 默认值    |
 | -------- | ------------- | ------ | ------ |
-| text     | notify通知文案    | node   | `''`   |
+| text     | notify通知文案    | any   | `''`   |
 | duration | 持续时间          | number | `3000` |
 | callback | 自定义notify结束回调 | func   |        |
