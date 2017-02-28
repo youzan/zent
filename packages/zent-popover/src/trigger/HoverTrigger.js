@@ -18,7 +18,7 @@ const HoverState = {
  * 创建一个新state，每个state是一次性的，识别完成后需要创建一个新的state
  *
  * @param {string} name state的名称
- * @param {function} onFinish 识别成功时的回掉函数
+ * @param {function} onFinish 识别成功时的回调函数
  */
 const makeState = (name, onFinish, initState = HoverState.Init) => {
   let state = initState;
@@ -77,7 +77,7 @@ function makeRecognizer(state, options) {
 
 /**
  * 进入和离开的识别是独立的recognizer，每个recognizer可以绑定任意`onmouse***`事件。
- * 组件内部只需要提供识别完成后的回掉函数，不需要知道recognizer的细节。
+ * 组件内部只需要提供识别完成后的回调函数，不需要知道recognizer的细节。
  *
  * local下的事件是直接绑定在trigger上的
  * global下的事件是绑定在window上的capture事件
@@ -192,7 +192,7 @@ export default class PopoverHoverTrigger extends Trigger {
   };
 
   state = {
-    enterRecognizer: this.makeEnterRecognizer(),
+    enterRecognizer: null,
     leaveRecognizer: null
   };
 
@@ -249,19 +249,37 @@ export default class PopoverHoverTrigger extends Trigger {
     }, {});
   }
 
+  cleanup() {
+    // ensure global events are removed
+    destroyRecognizer(this.state.enterRecognizer);
+    destroyRecognizer(this.state.leaveRecognizer);
+  }
+
+  initRecognizers(props) {
+    props = props || this.props;
+    const { contentVisible } = props;
+
+    this.cleanup();
+    this.setState({
+      enterRecognizer: contentVisible ? null : this.makeEnterRecognizer(),
+      leaveRecognizer: contentVisible ? this.makeLeaveRecognizer() : null
+    });
+  }
+
+  componentWillUnmount() {
+    this.cleanup();
+  }
+
+  componentDidMount() {
+    this.initRecognizers();
+  }
+
   componentWillReceiveProps(nextProps) {
     const { contentVisible } = nextProps;
 
     // visibility changed, create new recognizers
     if (contentVisible !== this.props.contentVisible) {
-      // ensure global events are removed
-      destroyRecognizer(this.state.enterRecognizer);
-      destroyRecognizer(this.state.leaveRecognizer);
-
-      this.setState({
-        enterRecognizer: contentVisible ? null : this.makeEnterRecognizer(),
-        leaveRecognizer: contentVisible ? this.makeLeaveRecognizer() : null
-      });
+      this.initRecognizers(nextProps);
     }
   }
 }

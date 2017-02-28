@@ -67,28 +67,32 @@ describe('Pop', () => {
 
   it('Pop can have custom prefix, className, and block switch, meanwhile content and header pass through prop', () => {
     const wrapper = mount(
-      <Pop content={content()} trigger={'click'} prefix="foo" className="bar" block header={header()}>
+      <Pop content={content()} trigger={'click'} prefix="foo" className="quux" wrapperClassName="bar" block header={header()}>
         <Button onClick={addClick}>
           click
         </Button>
       </Pop>
     );
-    expect(wrapper.find('Popover div').hasClass('foo-pop')).toBe(true);
-    expect(wrapper.find('Popover div').hasClass('bar-wrapper')).toBe(true);
+    expect(wrapper.find('Popover div').hasClass('foo-pop-wrapper')).toBe(true);
+    expect(wrapper.find('Popover div').hasClass('bar')).toBe(true);
     expect(wrapper.find('Popover').prop('display')).toBe('block');
+
+    wrapper.find('button').simulate('click');
+    expect(document.querySelector('.foo-pop.quux')).toBeTruthy();
+    // wrapper.unmount();
   });
 
   it('Pop has its core function, powered by zent-popover, the content of popover has onConfirm and onCancel switches', () => {
     // with both onConfirm and onCancel undefined, content will be rendered as null
     let wrapper = mount(
-      <Pop content={content()} trigger={'click'} prefix="foo" className="bar" block header={header()}>
+      <Pop content={content()} trigger={'click'} className="bar11" block header={header()}>
         <Button>
           click
         </Button>
       </Pop>
     );
     wrapper.find('button').simulate('click');
-    expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
+    expect(document.querySelectorAll('.bar11').length).toBe(1);
     const confirmMock = jest.fn();
     const cancelMock = jest.fn();
     wrapper = mount(
@@ -99,7 +103,6 @@ describe('Pop', () => {
       </Pop>
     );
     wrapper.find('button').simulate('click');
-    expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
     let btn = document.querySelectorAll('button');
     expect(btn.length).toBe(2);
     expect(btn[0].textContent).toBe('确定');
@@ -143,5 +146,88 @@ describe('Pop', () => {
         <Button onClick={open}>打开(none)</Button>
       </Pop>
     );
+  });
+
+  it('always center arrow at center', () => {
+    const test = (position) => {
+      const wrapper = mount(
+        <Pop content={content()} position={position} trigger={'click'} centerArrow>
+          <Button>
+            click
+          </Button>
+        </Pop>
+      );
+      wrapper.find('button').simulate('click');
+      jest.runAllTimers();
+      expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
+      expect(document.querySelector(`.zent-popover-position-${position}`)).toBeTruthy();
+      wrapper.unmount();
+    };
+
+    [
+      'top-left', 'top-center', 'top-right',
+      'right-top', 'right-center', 'right-bottom',
+      'bottom-left', 'bottom-center', 'bottom-right',
+      'left-top', 'left-center', 'left-bottom'
+    ].forEach(test);
+  });
+
+  it('onConfirm/onCancel can be async(callback)', () => {
+    let b = 1;
+    const onCancel = function(close) {
+      setTimeout(() => {
+        expect(b).toBe(1);
+        b++;
+        close();
+      }, 100);
+    };
+
+    let visible = false;
+    const wrapper = mount(
+      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onCancel={onCancel}>
+        <a>
+          click
+        </a>
+      </Pop>
+    );
+
+    wrapper.setProps({
+      visible: true
+    });
+    jest.runAllTimers();
+
+    document.querySelector('.zent-btn-primary').nextSibling.click();
+    jest.runAllTimers();
+    expect(b).toBe(2);
+  });
+
+  it('onConfirm/onCancel can be async(Promise)', () => {
+    const onConfirm = jest.fn();
+    let a = 1;
+    onConfirm.mockReturnValueOnce(new Promise(resolve => {
+      setTimeout(() => {
+        expect(a).toBe(1);
+        a++;
+        resolve();
+      }, 100);
+    }));
+
+    let visible = false;
+    const wrapper = mount(
+      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onConfirm={onConfirm}>
+        <a>
+          click
+        </a>
+      </Pop>
+    );
+
+    wrapper.setProps({
+      visible: true
+    });
+    jest.runAllTimers();
+
+    document.querySelector('.zent-btn-primary').click();
+    jest.runAllTimers();
+    expect(a).toBe(2);
   });
 });

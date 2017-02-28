@@ -11,12 +11,32 @@ import ReactDOM from 'react-dom';
 import cx from 'zent-utils/classnames';
 import noop from 'zent-utils/lodash/noop';
 import uniqueId from 'zent-utils/lodash/uniqueId';
+import isFunction from 'zent-utils/lodash/isFunction';
+import isBoolean from 'zent-utils/lodash/isBoolean';
+import isPromise from 'zent-utils/isPromise';
 
 import PopoverContent from './Content';
 import PopoverTrigger from './trigger/Trigger';
 
+const SKIPPED = () => {};
+
 function instanceOf(MaybeDerive, Base) {
   return MaybeDerive === Base || MaybeDerive.prototype instanceof Base;
+}
+
+function handleBeforeHook(beforeFn, arity, continuation) {
+  // 有参数，传入continuation，由外部去控制何时调用
+  if (arity >= 1) {
+    return beforeFn(continuation);
+  }
+
+  // 无参数，如果返回Promise那么resolve后调用continuation；如果返回不是Promise，直接调用Promise
+  const mayBePromise = beforeFn();
+  if (!isPromise(mayBePromise) && mayBePromise !== SKIPPED) {
+    return continuation();
+  }
+
+  mayBePromise.then(continuation);
 }
 
 export const PopoverContextType = {
@@ -45,15 +65,22 @@ export default class Popover extends Component {
     // 定位时的偏移量
     cushion: PropTypes.number,
 
+    // 只有用户触发的打开／关闭才会触发这两个毁掉
     onBeforeClose: PropTypes.func,
     onBeforeShow: PropTypes.func,
+
+    // 不管打开／关闭时如何触发的都会被调用
     onClose: PropTypes.func,
     onShow: PropTypes.func,
 
     // defaults to body
     containerSelector: PropTypes.string,
 
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+
+    // 两个必须一起出现
+    visible: PropTypes.bool,
+    onVisibleChange: PropTypes.func
   };
 
   static defaultProps = {
@@ -82,15 +109,74 @@ export default class Popover extends Component {
     };
   }
 
-  state = {
-    visible: false,
-  };
-
   constructor(props) {
     super(props);
 
     // id用来唯一标识popover实例
     this.id = uniqueId(`${props.prefix}-popover-internal-id-`);
+
+    if (!this.isVisibilityControlled(props)) {
+      this.state = {
+        visible: false
+      };
+    }
+  }
+
+  isVisibilityControlled(props) {
+    const { visible, onVisibleChange } = props || this.props;
+    const hasOnChange = isFunction(onVisibleChange);
+    const hasVisible = isBoolean(visible);
+
+    if (hasVisible && !hasOnChange || hasOnChange && !hasVisible) {
+      throw new Error('visible and onVisibleChange must be used together');
+    }
+
+    return hasVisible && hasOnChange;
+  }
+
+  getVisible = (props, state) => {
+    if (this.isVisibilityControlled(props)) {
+      props = props || this.props;
+      return props.visible;
+    }
+
+    state = state || this.state;
+    return state.visible;
+  };
+
+  setVisible = (visible, props, state) => {
+    props = props || this.props;
+    state = state || this.state;
+    const beforeHook = visible ? props.onBeforeShow : props.onBeforeClose;
+    const onBefore = (...args) => {
+      // 确保pending的时候不会触发多次beforeHook
+      if (this.pendingOnBeforeHook) {
+        return SKIPPED;
+      }
+
+      this.pendingOnBeforeHook = true;
+      return beforeHook(...args);
+    };
+
+    if (this.isVisibilityControlled(props)) {
+      if (this.pendingOnBeforeHook || props.visible === visible) {
+        return;
+      }
+
+      handleBeforeHook(onBefore, beforeHook.length, () => {
+        props.onVisibleChange(visible);
+        this.pendingOnBeforeHook = false;
+      });
+    } else {
+      if (this.pendingOnBeforeHook || state.visible === visible) {
+        return;
+      }
+
+      handleBeforeHook(onBefore, beforeHook.length, () => {
+        this.setState({ visible });
+        this.pendingOnBeforeHook = false;
+      });
+    }
   }
 
   getPopoverNode = () => {
@@ -106,20 +192,12 @@ export default class Popover extends Component {
   };
 
   open = () => {
-    this.props.onBeforeShow();
-
-    this.setState({
-      visible: true
-    }, this.props.onShow);
+    this.setVisible(true);
   };
 
   close = () => {
-    this.props.onBeforeClose();
-
-    this.setState({
-      visible: false
-    }, this.props.onClose);
-  }
+    this.setVisible(false);
+  };
 
   validateChildren() {
     const { children } = this.props;
@@ -150,10 +228,24 @@ export default class Popover extends Component {
     return { trigger, content };
   }
 
+  componentDidMount() {
+    if (this.isVisibilityControlled() && this.props.visible) {
+      this.props.onShow();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const visible = this.getVisible();
+    if (visible !== this.getVisible(prevProps, prevState)) {
+      const afterHook = visible ? this.props.onShow : this.props.onClose;
+      afterHook();
+    }
+  }
+
   render() {
     const { trigger, content } = this.validateChildren();
     const { display, prefix, className, wrapperClassName, containerSelector, position, cushion } = this.props;
-    const { visible } = this.state;
+    const visible = this.getVisible();
 
     return (
       <div style={{ display }} className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}>

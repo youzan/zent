@@ -7,7 +7,7 @@ class TabPanel extends React.Component {
     className: React.PropTypes.string,
     prefix: React.PropTypes.string,
     actived: React.PropTypes.bool,
-    tab: React.PropTypes.string.isRequired,
+    tab: React.PropTypes.any.isRequired,
     id: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     onPanelReady: React.PropTypes.func,
     uniqueId: React.PropTypes.number
