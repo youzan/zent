@@ -5,9 +5,9 @@ import Tree from '../src';
 
 beforeAll(() => {
   let timestamp = 0;
-  window.requestAnimationFrame = function (fn) {
+  window.requestAnimationFrame = fn => setTimeout(() => {
     fn(timestamp += 10);
-  };
+  }, 0);
 
   // FIXME: if test fails, you may need to adjust this value
   /* eslint-disable */
@@ -17,7 +17,6 @@ beforeAll(() => {
   } catch(e) {}
   /* eslint-enable */
 });
-// jest.useFakeTimers();
 
 
 describe('Tree', () => {
@@ -336,33 +335,34 @@ describe('Tree', () => {
     expect(daughterSpan.text()).toBe('daughter');
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(true);
     rootSpan.simulate('click');
+    jest.runAllTimers();
 
     // NOTE: jest and enzyme couldn't simulate switcher.click()
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(true);
     const iconRoot = wrapper.find('icon').at(0);
     iconRoot.simulate('click');
+    jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
-    // jest.runOnlyPendingTimers();
     iconRoot.simulate('click');
+    jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(true);
-    // jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display).toBe('none');
     iconRoot.simulate('click');
+    jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
-    // jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display).toBe('block');
 
     const onExpandMock = jest.fn();
     const expandWrapper = mount(<Tree dataType="plain" data={data} onExpand={onExpandMock} />);
     const expandIcon = expandWrapper.find('icon').at(0);
     expandIcon.simulate('click');
+    jest.runAllTimers();
     expect(onExpandMock.mock.calls.length).toBe(1);
     expect(onExpandMock.mock.calls[0][1].isExpanded).toBe(true);
-    // jest.runAllTimers();
     expandIcon.simulate('click');
+    jest.runAllTimers();
     expect(onExpandMock.mock.calls.length).toBe(2);
     expect(onExpandMock.mock.calls[1][1].isExpanded).toBe(false);
-    // jest.runAllTimers();
 
     // HACK: triggerSwitherClick branch
     const hackData = [
@@ -415,16 +415,16 @@ describe('Tree', () => {
     const iconSon = wrapper.find('icon').at(1);
 
     iconRoot.simulate('click');
+    jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
-    // jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display).not.toBe('none');
     iconSon.simulate('click');
+    jest.runAllTimers();
     expect(sonSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
-    // jest.runAllTimers();
     expect(sonSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display).not.toBe('none');
     iconRoot.simulate('click');
-    // jest.runAllTimers();
-    iconRoot.simulate('click');
+    jest.runAllTimers();
+    // iconRoot.simulate('click');
     // jest.runAllTimers();
     expect(sonSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
     expect(sonSpan.closest('.zent-tree-bar').getNode().nextSibling.style.display).not.toBe('none');
@@ -460,7 +460,7 @@ describe('Tree', () => {
 
     expect(() => {
       rejectIcon.simulate('click');
-      // jest.runAllTimers();
+      jest.runAllTimers();
     }).not.toThrow();
     expect(loadMoreMockRejected.mock.calls.length).toBe(1);
 
@@ -480,7 +480,7 @@ describe('Tree', () => {
     const hackWrapper = mount(<Tree data={hackData} loadMore={loadMoreMock} />);
     const hackIcon = hackWrapper.find('icon').at(0);
     hackIcon.simulate('click');
-    // jest.runAllTimers();
+    jest.runAllTimers();
     expect(loadMoreMock.mock.calls.length).toBe(1);
   });
 
@@ -500,7 +500,7 @@ describe('Tree', () => {
     const wrapper = mount(<Tree data={data} loadMore={() => new Promise(resolve => resolve())} />);
     const sonIcon = wrapper.find('icon').at(1);
     sonIcon.simulate('click');
-    // jest.runAllTimers();
+    jest.runAllTimers();
 
     // NOTE: switcher.remove excuted but could not test with jest.
   });
