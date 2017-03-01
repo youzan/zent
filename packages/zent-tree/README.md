@@ -19,7 +19,7 @@
     |__daughter
 ```
 
--  plain
+#### plain
 
 ```js
 const data = [{
@@ -40,7 +40,7 @@ const data = [{
   parentId: 2
 }];
 ```
--  tree
+#### tree
 
 ```js
 const data = [{
