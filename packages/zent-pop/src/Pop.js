@@ -154,6 +154,10 @@ export default class Pop extends Component {
   };
 
   changePending = (key, pending, callback) => {
+    if (this.isUnmounted) {
+      return;
+    }
+
     this.setState({
       [key]: pending
     }, callback);
@@ -205,6 +209,10 @@ export default class Pop extends Component {
     }
 
     return null;
+  }
+
+  componentWillUnmount() {
+    this.isUnmounted = true;
   }
 
   render() {
