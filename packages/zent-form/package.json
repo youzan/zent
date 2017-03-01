@@ -1,6 +1,6 @@
 {
   "name": "zent-form",
-  "version": "1.0.8-beta1",
+  "version": "1.0.8-beta3",
   "description": "Zent 表单组件",
   "main": "./lib/index.js",
   "repository": {
