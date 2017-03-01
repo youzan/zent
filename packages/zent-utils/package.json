@@ -27,7 +27,8 @@
     "dom/",
     "lodash/",
     "classnames.js",
-    "isPromise.js"
+    "isPromise.js",
+    "isBrowser.js"
   ],
   "jest": {
     "verbose": true,
