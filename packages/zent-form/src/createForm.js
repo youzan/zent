@@ -368,6 +368,12 @@ const createForm = (config = {}) => {
             _isValid: !rejected,
             _externalError: error ? [error] : null
           });
+
+          if (rejected) {
+            this.setState({
+              isFormValid: false
+            });
+          }
         };
 
         return promise.then(handleResult(false), handleResult(true));
