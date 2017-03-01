@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "1.0.12-beta3",
+  "version": "1.0.12-beta4",
   "description": "一套前端设计语言和基于React的实现",
   "repository": {
     "type": "git",
@@ -57,7 +57,7 @@
     "zent-checkbox": "1.0.7-beta1",
     "zent-datetimepicker": "1.0.8-beta1",
     "zent-dialog": "1.0.7-beta1",
-    "zent-form": "1.0.8-beta3",
+    "zent-form": "1.0.8-beta4",
     "zent-icon": "1.0.8-beta1",
     "zent-input": "1.0.8-beta1",
     "zent-layout": "1.0.7-beta1",
