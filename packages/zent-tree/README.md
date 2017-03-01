@@ -8,6 +8,58 @@
 
 需要展示文件夹、组织架构、生物分类、国家地区等等数据.
 
+## 使用指南
+
+### 支持两种源数据结构
+
+```sh
+|__root
+    |__son
+    |   |__grandSon
+    |__daughter
+```
+
+-  plain
+
+```js
+const data = [{
+  id: 1,
+  title: 'root',
+  parentId: 0
+}, {
+  id: 2,
+  title: 'son',
+  parentId: 1
+}, {
+  id: 3,
+  title: 'daughter',
+  parentId: 1
+}, {
+  id: 4,
+  title: 'grandSon',
+  parentId: 2
+}];
+```
+-  tree
+
+```js
+const data = [{
+  id: 1,
+  title: 'root',
+  children: [{
+    id: 2,
+    title: 'son',
+    children: [{
+      id: 4,
+      title: 'grandSon'
+    }, {
+      id: 3,
+      title: 'daughter'
+    }]
+  }]
+}];
+```
+
 ## API
 
 ### Tree
