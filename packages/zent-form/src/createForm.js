@@ -366,7 +366,7 @@ const createForm = (config = {}) => {
           field.setState({
             _isValidating: false,
             _isValid: !rejected,
-            _asyncValidationError: error ? [error] : null
+            _externalError: error ? [error] : null
           });
         };
 
@@ -391,9 +391,9 @@ const createForm = (config = {}) => {
         };
 
         this.fields.forEach((field, index) => {
-          const { _externalError, _asyncValidationError } = field.state;
+          const { _externalError } = field.state;
           const validation = this.runValidation(field);
-          if (validation.isValid && (_externalError || _asyncValidationError)) {
+          if (validation.isValid && (_externalError)) {
             validation.isValid = false;
           }
 

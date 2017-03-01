@@ -36,7 +36,6 @@ class Field extends Component {
       _isValidating: false,
       _pristineValue: props.value,
       _validationError: [],
-      _asyncValidationError: null,
       _externalError: null
     };
     this._validations = props.validations || {};
@@ -123,8 +122,8 @@ class Field extends Component {
   }
 
   getErrorMessages = () => {
-    const { _externalError, _asyncValidationError, _validationError } = this.state;
-    return !this.isValid() ? (_externalError || _asyncValidationError || _validationError || []) : [];
+    const { _externalError, _validationError } = this.state;
+    return !this.isValid() ? (_externalError || _validationError || []) : [];
   }
 
   normalize = (value) => {
