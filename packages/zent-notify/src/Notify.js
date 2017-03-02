@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import isBrowser from 'zent-utils/isBrowser';
+
 import NotifyContent from './NotifyContent';
 
 const containerList = {};
@@ -53,6 +55,8 @@ const showNotify = (container, props, callback) => {
   setTimeout(() => {
     closeNotify(containerId, callback);
   }, props.duration || 3000);
+
+  return containerId;
 };
 
 /**
@@ -72,6 +76,8 @@ const closeAllNotify = () => {
  * @param  {Function} callback notify消失时回调
  */
 const readyToShow = (text, duration, status, callback) => {
+  if (!isBrowser) return;
+
   let container = document.createElement('div');
   const props = {
     visible: true,
@@ -79,15 +85,15 @@ const readyToShow = (text, duration, status, callback) => {
     duration,
     status
   };
-  showNotify(container, props, callback);
+  return showNotify(container, props, callback);
 };
 
 export function success(text, duration, callback) {
-  readyToShow(text, duration, 'success', callback);
+  return readyToShow(text, duration, 'success', callback);
 }
 
 export function error(text, duration, callback) {
-  readyToShow(text, duration, 'error', callback);
+  return readyToShow(text, duration, 'error', callback);
 }
 
 export function clear(containerId) {

@@ -40,3 +40,5 @@ classnames.js
 !src/classnames.js
 isPromise.js
 !src/isPromise.js
+isBrowser.js
+!src/isBrowser.js

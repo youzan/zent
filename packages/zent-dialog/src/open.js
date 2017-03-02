@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import noop from 'zent-utils/lodash/noop';
+import isBrowser from 'zent-utils/isBrowser';
 
 import Dialog from './Dialog';
 
@@ -7,6 +9,8 @@ import Dialog from './Dialog';
   打开一个dialog，返回值是一个用来关闭dialog的函数。
 **/
 export default function openDialog(options = {}) {
+  if (!isBrowser) return noop;
+
   const { onClose: oldOnClose, ref } = options;
   let container = document.createElement('div');
 

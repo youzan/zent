@@ -48,7 +48,7 @@ export default class Simple extends Component {
       <div>
         <Popover position={Popover.Position.BottomLeft} display="inline" cushion={5}>
           <PopoverClickTrigger>
-            <Button onClick={this.onCustomEvent}>click me</Button>
+            click me
           </PopoverClickTrigger>
           <PopoverContent>
             <div>popover content</div>
