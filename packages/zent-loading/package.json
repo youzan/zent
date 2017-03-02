@@ -21,6 +21,6 @@
     "examples"
   ],
   "dependencies": {
-    "zent-utils": "*"
+    "zent-utils": "1.0.7-beta1"
   }
 }

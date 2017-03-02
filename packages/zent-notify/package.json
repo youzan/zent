@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "zent-portal": "1.0.7-beta1",
-    "zent-utils": "*"
+    "zent-utils": "1.0.7-beta1"
   },
   "devDependencies": {
     "zent-button": "1.0.7-beta1"
