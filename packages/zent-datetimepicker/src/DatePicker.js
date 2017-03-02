@@ -122,6 +122,10 @@ class DatePicker extends Component {
     }
   }
 
+  onClearInput = () => {
+    this.props.onChange('');
+  }
+
   onConfirm = () => {
     const { selected, activedTime } = this.state;
     const { format, showTime } = this.props;
@@ -158,7 +162,7 @@ class DatePicker extends Component {
     const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input': true,
-      'picker-input--empty': state.showPlaceholder,
+      'picker-input--filled': !state.showPlaceholder,
       'picker-input--disabled': props.disabled
     });
     let showTime;
@@ -207,6 +211,7 @@ class DatePicker extends Component {
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? props.placeholder : state.value}
             <span className="zenticon zenticon-calendar-o"></span>
+            <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
           </div>
           {state.openPanel ? datePicker : ''}
         </div>
