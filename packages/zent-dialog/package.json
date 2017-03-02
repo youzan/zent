@@ -1,6 +1,6 @@
 {
   "name": "zent-dialog",
-  "version": "1.0.7-beta1",
+  "version": "1.0.7-beta2",
   "description": "Zent对话框组件",
   "main": "./lib/index.js",
   "repository": {
@@ -17,8 +17,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "zent-portal": "1.0.7-beta1",
-    "zent-utils": "1.0.7-beta1"
+    "zent-portal": "1.0.7-beta2",
+    "zent-utils": "1.0.7-beta2"
   },
   "files": [
     "src/",
