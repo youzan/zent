@@ -1,6 +1,7 @@
 import { PropTypes } from 'react';
 import capitalize from 'zent-utils/lodash/capitalize';
 import uniq from 'zent-utils/lodash/uniq';
+import isBrowser from 'zent-utils/isBrowser';
 
 import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 
@@ -46,6 +47,8 @@ function forEachHook(hooks, action) {
   if (!hooks) {
     return;
   }
+
+  if (!isBrowser) return;
 
   const hookNames = Object.keys(hooks);
   hookNames.forEach(hookName => {

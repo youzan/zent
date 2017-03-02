@@ -4,6 +4,7 @@ import Head from './modules/Head';
 import Body from './modules/Body';
 import Pagination from 'zent-pagination';
 import Loading from 'zent-loading';
+import isBrowser from 'zent-utils/isBrowser';
 
 const { func, bool, string, array, oneOf, object } = React.PropTypes;
 
@@ -156,6 +157,8 @@ const Table = React.createClass({
   },
 
   scrollToTop(scrollDuration) {
+    if (!isBrowser) return;
+
     const scrollHeight = window.scrollY;
     const scrollStep = Math.PI / (scrollDuration / 15);
     const cosParameter = scrollHeight / 2;

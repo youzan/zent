@@ -7,51 +7,69 @@ import { formatDate, parseDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { RANGE_PROPS, TIME_PROPS } from './constants';
 
+const getDateTime = (date, time) => {
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    time.getHours(),
+    time.getMinutes(),
+    time.getSeconds()
+  );
+};
+
+const getState = (props) => {
+  let showPlaceholder;
+  let selected = [];
+  let actived = [];
+  let range = [];
+  let value = [];
+  let format = props.format;
+  if (isArray(props.value) && props.value.length > 0) {
+    showPlaceholder = false;
+    if (props.showTime) {
+      format = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
+    }
+    const tmp = [parseDate(props.value[0], format), parseDate(props.value[1], format)];
+    selected = tmp.slice();
+    actived = tmp.slice();
+    range = tmp.slice();
+    if (props.showTime) {
+      const tmpFull = [
+        getDateTime(selected[0], actived[0]),
+        getDateTime(selected[1], actived[1])
+      ];
+      value = [formatDate(tmpFull[0], format), formatDate(tmpFull[1], format)];
+    } else {
+      value = [formatDate(selected[0], format), formatDate(selected[1], format)];
+    }
+  } else {
+    showPlaceholder = true;
+    let now = new Date();
+    actived = [now, goMonths(now, 1)];
+  }
+
+  return {
+    value,
+    range,
+    selected,
+    actived,
+    activedTime: actived.slice(),
+    openPanel: false,
+    showPlaceholder
+  };
+};
+
 class DateRangePicker extends Component {
   static defaultProps = RANGE_PROPS
   constructor(props) {
     super(props);
-    let showPlaceholder;
-    let selected = [];
-    let actived = [];
-    if (props.value) {
-      showPlaceholder = false;
-      const tmp = [parseDate(props.value[0], props.format), parseDate(props.value[1], props.format)];
-      selected = tmp.slice();
-      actived = tmp.slice();
-    } else {
-      showPlaceholder = true;
-      let now = new Date();
-      actived = [now, goMonths(now, 1)];
-    }
-    this.state = {
-      value: [],
-      range: [],
-      selected,
-      actived,
-      activedTime: actived.slice(),
-      openPanel: false,
-      showPlaceholder
-    };
+    this.state = getState(props);
   }
 
   componentWillReceiveProps(next) {
-    if (next.value) {
-      const showPlaceholder = false;
-      const selected = [new Date(next.value[0]), new Date(next.value[1])];
-
-      this.setState({
-        value: [
-          formatDate(selected[0], next.format || this.props.format),
-          formatDate(selected[1], next.format || this.props.format)
-        ],
-        selected,
-        actived: selected.slice(),
-        activedTime: selected.slice(),
-        openPanel: false,
-        showPlaceholder
-      });
-    }
+    let state = getState(next);
+    this.setState(state);
   }
 
   clickOutside = e => {
@@ -154,9 +172,15 @@ class DateRangePicker extends Component {
   }
 
   onClickInput = () => {
+    if (this.props.disabled) return;
     this.setState({
       openPanel: !this.state.openPanel
     });
+  }
+
+  onClearInput = (evt) => {
+    evt.stopPropagation();
+    this.props.onChange([]);
   }
 
   onConfirm = () => {
@@ -165,16 +189,7 @@ class DateRangePicker extends Component {
     if (selected.length !== 2) {
       return false;
     }
-    const getDateTime = (date, time) => {
-      return new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        time.getHours(),
-        time.getMinutes(),
-        time.getSeconds()
-      );
-    };
+
     let vcp = value.slice();
     if (props.showTime) {
       const tmp = [
@@ -201,8 +216,9 @@ class DateRangePicker extends Component {
     const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input--range picker-input': true,
-      'picker-input--empty': state.showPlaceholder,
-      'picker-input--showTime': props.showTime
+      'picker-input--filled': !state.showPlaceholder,
+      'picker-input--showTime': props.showTime,
+      'picker-input--disabled': props.disabled
     });
     let rangePicker;
 
@@ -273,6 +289,7 @@ class DateRangePicker extends Component {
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? props.placeholder.join(' ~ ') : state.value.join(' ~ ')}
             <span className="zenticon zenticon-calendar-o"></span>
+            <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
           </div>
           {state.openPanel ? rangePicker : ''}
         </div>

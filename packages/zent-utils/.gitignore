@@ -40,5 +40,7 @@ classnames.js
 !src/classnames.js
 isPromise.js
 !src/isPromise.js
+isBrowser.js
+!src/isBrowser.js
 es6-error.js
 !src/es6-error.js

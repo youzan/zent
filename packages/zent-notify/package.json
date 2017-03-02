@@ -21,7 +21,8 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-portal": "1.0.7-beta1"
+    "zent-portal": "1.0.7-beta1",
+    "zent-utils": "*"
   },
   "devDependencies": {
     "zent-button": "1.0.7-beta1"

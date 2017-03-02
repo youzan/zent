@@ -7,42 +7,37 @@ import { formatDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { MONTH_PROPS } from './constants/';
 
+function getState(props) {
+  let showPlaceholder;
+  let selected;
+  if (props.value) {
+    showPlaceholder = false;
+    selected = new Date(props.value);
+  } else {
+    showPlaceholder = true;
+    selected = new Date();
+  }
+  return {
+    value: formatDate(selected, props.format),
+    actived: selected,
+    selected,
+    openPanel: false,
+    showPlaceholder
+  };
+}
+
 class MonthPicker extends Component {
   static defaultProps = MONTH_PROPS
 
   constructor(props) {
     super(props);
-    let showPlaceholder;
-    let selected;
-    if (props.value) {
-      showPlaceholder = false;
-      selected = new Date(props.value);
-    } else {
-      showPlaceholder = true;
-      selected = new Date();
-    }
-    this.state = {
-      value: formatDate(selected, props.format),
-      actived: selected,
-      selected,
-      openPanel: false,
-      showPlaceholder
-    };
+    let state = getState(props);
+    this.state = state;
   }
 
   componentWillReceiveProps(next) {
-    if (next.value) {
-      let showPlaceholder = false;
-      let selected = new Date(next.value);
-
-      this.setState({
-        value: formatDate(selected, next.format || this.props.format),
-        actived: selected,
-        selected,
-        openPanel: false,
-        showPlaceholder
-      });
-    }
+    let state = getState(next);
+    this.setState(state);
   }
 
   clickOutside = e => {
@@ -67,9 +62,15 @@ class MonthPicker extends Component {
   }
 
   onClickInput = () => {
+    if (this.props.disabled) return;
     this.setState({
       openPanel: !this.state.openPanel
     });
+  }
+
+  onClearInput = (evt) => {
+    evt.stopPropagation();
+    this.props.onChange('');
   }
 
   onConfirm = () => {
@@ -84,11 +85,12 @@ class MonthPicker extends Component {
 
   render() {
     const state = this.state;
-    const { disabledDate, placeholder, className, prefix } = this.props;
-    const prefixCls = `${prefix}-datetime-picker ${className}`;
+    const props = this.props;
+    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input': true,
-      'picker-input--empty': state.showPlaceholder
+      'picker-input--filled': !state.showPlaceholder,
+      'picker-input--disabled': props.disabled
     });
     let monthPicker;
     if (state.openPanel) {
@@ -97,16 +99,16 @@ class MonthPicker extends Component {
           <MonthPanel
             actived={state.actived}
             selected={state.selected}
-            disabledDate={disabledDate}
+            disabledDate={props.disabledDate}
             onChange={this.onChangeMonth}
             onSelect={this.onSelectMonth}
-            />
+          />
           <PanelFooter
             linkText="当前月"
             linkCls="link--current"
             onClickLink={() => this.onSelectMonth(CURRENT)}
             onClickButton={this.onConfirm}
-            />
+          />
         </div>
       );
     }
@@ -114,8 +116,9 @@ class MonthPicker extends Component {
       <div className={prefixCls} ref={ref => this.picker = ref}>
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
-            {state.showPlaceholder ? placeholder : state.value}
+            {state.showPlaceholder ? props.placeholder : state.value}
             <span className="zenticon zenticon-calendar-o"></span>
+            <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
           </div>
           {state.openPanel ? monthPicker : ''}
         </div>

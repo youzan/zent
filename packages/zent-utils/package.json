@@ -29,7 +29,8 @@
     "lodash/",
     "classnames.js",
     "isPromise.js",
-    "es6-error.js"
+    "es6-error.js",
+    "isBrowser.js"
   ],
   "jest": {
     "verbose": true,

@@ -57,22 +57,11 @@ export default class Button extends Component {
   renderLink(classNames) {
     let Node = this.props.component || 'a';
     let disabled = this.props.disabled || this.props.loading;
-    let { href = '', target, ...others } = this.props;
-    delete others.type;
-    delete others.prefix;
-    let attributes = {
-      ...others,
-      href,
-      target
-    };
-    if (disabled) {
-      delete attributes.href;
-      delete attributes.target;
-    }
+    let { href = '', target } = this.props;
 
     return (
       <Node
-        {...attributes}
+        {...disabled ? {} : { href, target }}
         className={classNames}
         onClick={this.handleClick}
       >

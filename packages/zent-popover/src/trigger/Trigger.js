@@ -30,10 +30,25 @@ export default class PopoverTrigger extends Component {
   }
 
   validateChildren() {
-    const child = Children.only(this.props.children);
+    const { children } = this.props;
+    const count = Children.count(children);
 
+    if (count === 0) {
+      throw new Error('Popover trigger requires a child');
+    }
+
+    const childrenType = typeof children;
+    if (count === 1 && childrenType === 'string' || childrenType === 'number') {
+      return <span>{children}</span>;
+    }
+
+    if (count > 1) {
+      throw new Error(`Popover trigger requires only one child, but found ${count}`);
+    }
+
+    const child = Children.only(this.props.children);
     if (child.ref) {
-      throw new Error('ref is not allowed on PopoverTrigger');
+      throw new Error('ref is not allowed on Popover trigger');
     }
 
     return child;

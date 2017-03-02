@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import isBrowser from 'zent-utils/isBrowser';
+
 import Loading from './Loading';
 
 export default class Instance extends Component {
@@ -28,6 +30,8 @@ export default class Instance extends Component {
 
   // 对外暴露的静态初始方法
   static newInstance = function (props) {
+    if (!isBrowser) return;
+
     let div = document.createElement('div');
     div.className = `${props.prefix}-loading-container ${props.containerClass}`;
     document.body.appendChild(div);
@@ -39,6 +43,8 @@ export default class Instance extends Component {
   }
 
   static on = function ({ prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}) {
+    if (!isBrowser) return;
+
     if (!this.instance) {
       this.instance = this.newInstance({
         show: true,
@@ -55,6 +61,10 @@ export default class Instance extends Component {
   }
 
   static off = function () {
+    if (!isBrowser) return;
+
+    if (!this.instance) return;
+
     this.instance.show({
       show: false
     });
