@@ -18,6 +18,8 @@ class FieldsForm extends Component {
     return new Promise((resolve, reject) => setTimeout(() => {
       if (value === 'pangxie') {
         reject('用户名已被占用');
+      } else {
+        resolve();
       }
     }, 2000));
   }
