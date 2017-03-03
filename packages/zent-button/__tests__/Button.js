@@ -24,7 +24,7 @@ describe('<Button />', () => {
     expect(buttonNode.className).toContain('zent-btn');
     expect(buttonNode.textContent).toBe('OK');
     expect(buttonNode.tagName.toLowerCase()).toBe('button');
-    expect(buttonNode.attributes.type).toBeUndefined();
+    expect(buttonNode.type).toBe('submit');
   });
 
   test('Primary Button', () => {
@@ -154,12 +154,12 @@ describe('<Button />', () => {
 
   test('HtmlType Button', () => {
     mount(<Button htmlType="submit" />);
-    expect(buttonNode.attributes.type).toBe('submit');
+    expect(buttonNode.type).toBe('submit');
 
     mount(<Button htmlType="reset" />);
-    expect(buttonNode.attributes.type).toBe('reset');
+    expect(buttonNode.type).toBe('reset');
 
     mount(<Button htmlType="button" />);
-    expect(buttonNode.attributes.type).toBe('button');
+    expect(buttonNode.type).toBe('button');
   });
 });

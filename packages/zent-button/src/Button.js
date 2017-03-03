@@ -35,7 +35,6 @@ export default class Button extends Component {
   static defaultProps = {
     type: 'default',
     size: 'medium',
-    htmlType: 'submit',
     className: '',
     block: false,
     disabled: false,
