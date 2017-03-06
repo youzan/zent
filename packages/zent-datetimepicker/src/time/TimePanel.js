@@ -91,9 +91,7 @@ export default class TimePanel extends Component {
 
         <div className="time-panel__preview">
           <span className="time__number" onClick={this.openHour}>{padLeft(time.getHours())}</span>
-          <span className="time__diliver">:</span>
           <span className="time__number" onClick={this.openMinute}>{padLeft(time.getMinutes())}</span>
-          <span className="time__diliver">:</span>
           <span className="time__number" onClick={this.openSecond}>{padLeft(time.getSeconds())}</span>
         </div>
       </div>
