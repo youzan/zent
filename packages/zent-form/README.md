@@ -25,7 +25,7 @@ class FormComponent extends React.Component {
             </CheckboxGroup>
           )}
           validations={{
-            // 直接在 validations 中定义校验方法就只能接收到所有表单元素值values和当前元素值value两个参数
+            // 直接在 validations 中定义校验方法就只能接收到所有表单元素值 values 和当前元素值 value 两个参数
             validInterest(values, value) {
               if (value.length > 0) return true
             }
@@ -122,10 +122,10 @@ form 组件内部对表单提交的过程进行封装，可以把异步提交的
 ### Field value 的生命周期
 
 ```text
-Field 中传入 value -> 使用 format() 格式化value -> value 传入 component中渲染组件
+Field 中传入 value -> 使用 format() 格式化 value -> value 传入 component 中渲染组件
                            ↑                                 |
                            |                                 ↓
-                           |                          用户操作改变value
+                           |                          用户操作改变 value
                            |                                 |
                            |                                 ↓
     使用格式化后的 value 写入 form 中维护, 用于数据提交 <- 使用 normalize() 格式化 value
@@ -143,7 +143,7 @@ Field 中传入 value -> 使用 format() 格式化value -> value 传入 componen
 | prefix | 自定义前缀 | string | `'zent'` | 否 |
 | horizontal | 水平排列布局 | boolean  | `false` | 否 |
 | inline | 行内排列布局 | boolean | `false` | 否 |
-| onSubmit | 表单提交回调 | func(e:Event) | `func {}` | 否 |
+| onSubmit | 表单提交回调 | func(e:Event) | `noop` | 否 |
 | style | 内联样式 | object | null | 否 |
 
 ### ZentForm.createForm(options)(FormComponent)
@@ -175,7 +175,7 @@ Field 中传入 value -> 使用 format() 格式化value -> value 传入 componen
 | 参数 | 说明 | 类型 | 是否必填 |
 |------|------|------|------|
 | name | 表单元素名 | string | 是 |
-| component | 表单元素组件, 可以是字符串(标准 html 元素名), 或者 React 组件 | string | React.Component | 是 |
+| component | 表单元素组件, 可以是字符串(标准 html 元素名), 或者 React 组件 | string / React.Component | 是 |
 | normalize | onChange 或者 onBlur 后格式化表单元素值 | func(value, previousValue, nextValues, previousValues) | 否 |
 | format | 渲染前格式化表单元素值, 不影响真正存储的表单元素值 | func(value, previousValue, nextValues, previousValues) | 否 |
 | onChange | value 值修改后的回调(自定义组件需要调用 `props.onChange()` 才会触发) | func(event, newValue, previousValue, preventSetValue) | 否 |
