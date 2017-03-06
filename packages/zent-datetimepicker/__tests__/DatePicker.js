@@ -18,7 +18,7 @@ describe('DateTimePicker', () => {
     expect(wrapper.find('.zent-datetime-picker').childAt(0).type()).toBe('div');
     expect(wrapper.find('.zent-datetime-picker').childAt(0).hasClass('picker-wrapper')).toBe(true);
     expect(wrapper.find('.picker-input').length).toBe(1);
-    expect(wrapper.find('.zenticon').length).toBe(1);
+    expect(wrapper.find('.zenticon').length).toBe(2);
     wrapper.find('.picker-input').simulate('click');
   });
 

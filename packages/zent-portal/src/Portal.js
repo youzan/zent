@@ -3,8 +3,6 @@ import isEqual from 'zent-utils/lodash/isEqual';
 
 import * as util from './util';
 
-const DOMElement = window.Element;
-
 /**
   Portal的核心，只负责管理child。index.js实际export的不是这个component.
 **/
@@ -13,7 +11,7 @@ export default class Portal extends Component {
     children: PropTypes.node.isRequired,
     selector: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.instanceOf(DOMElement)
+      PropTypes.object
     ]).isRequired,
     className: PropTypes.string,
     css: PropTypes.object,

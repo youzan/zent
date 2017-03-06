@@ -1,5 +1,5 @@
 $active_color: #3388FF;
-$light_blue: #eaf3ff;
+$light_blue: #DDEEFF;
 $light_grey: #f2f2f2;
 $disable_color: #999;
 $disable_cell_color: #e5e5e5;
@@ -22,6 +22,7 @@ $double_default_width: 480px;
         display: inline-block;
     }
     .picker-input {
+        color: #999;
         position: relative;
         box-sizing: border-box;
         width: 100%;
@@ -31,25 +32,48 @@ $double_default_width: 480px;
         font-size: 12px;
         border: 1px solid $border_color;
         border-radius: 2px;
+        .zenticon {
+            line-height: 30px;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            color: #bbb;
+        }
+        .zenticon-calendar-o {
+            display: block;
+        }
+        .zenticon-close-circle {
+            display: none;
+        }
         &--range {
             width: 240px;
         }
         &--showTime {
             width: 320px;
         }
-        &--empty {
-            color: #999;
+        &--filled {
+            color: #333;
+            &:hover {
+                .zenticon-close-circle {
+                    display: block;
+                }
+                .zenticon-calendar-o {
+                    display: none;
+                }
+            }
         }
         &--disabled {
             background: $disable_bg;
             color: $disable_input_text_color;
             cursor: not-allowed;
-        }
-        .zenticon {
-            line-height: 30px;
-            position: absolute;
-            right: 10px;
-            top: 0;
+            &:hover {
+                .zenticon-close-circle {
+                    display: none;
+                }
+                .zenticon-calendar-o {
+                    display: block;
+                }
+            }
         }
     }
     .date-picker,
@@ -81,27 +105,34 @@ $double_default_width: 480px;
             }
             .month-panel {
                 .grid-cell {
-                    height: 56.5px;
+                    height: 41.5px;
                 }
             }
             .year-panel {
                 .grid-cell {
-                    height: 56.5px;
+                    height: 41.5px;
                 }
             }
         }
         &--showTime {
             .date-picker {
                 height: 265px;
-            }
-            .month-panel {
-                .grid-cell {
-                    height: 44px;
+                .month-panel {
+                    .grid-cell {
+                        height: 56.5px;
+                    }
                 }
-            }
-            .year-panel {
-                .grid-cell {
-                    height: 44px;
+                .year-panel {
+                    .grid-cell {
+                        height: 56.5px;
+                    }
+                }
+                .time-panel {
+                    .hour-panel,
+                    .minute-panel,
+                    .second-panel {
+                        height: 265px;
+                    }
                 }
             }
         }
@@ -311,13 +342,20 @@ $double_default_width: 480px;
             background: #fff;
         }
         &__preview {
-            margin: 12px 15px;
+            margin: 12px 10px;
             height: 31px;
             line-height: 31px;
-            border: 1px solid $border_color;
+            border: 1px solid #bbb;
+            border-radius: 2px;
             text-align: center;
+            display: flex;
             .time__number {
-                padding: 0 5px;
+                flex: 1;
+                cursor: pointer;
+                border-right: 1px solid #bbb;
+                &:last-child {
+                    border-right: none;
+                }
             }
         }
     }
