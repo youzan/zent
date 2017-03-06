@@ -25,7 +25,7 @@ class FormComponent extends React.Component {
             </CheckboxGroup>
           )}
           validations={{
-            // 直接在 validations 中定义校验方法就只能接收到所有表单元素值values和当前元素值value两个参数
+            // 直接在 validations 中定义校验方法就只能接收到所有表单元素值 values 和当前元素值 value 两个参数
             validInterest(values, value) {
               if (value.length > 0) return true
             }
@@ -122,7 +122,7 @@ form 组件内部对表单提交的过程进行封装，可以把异步提交的
 ### Field value 的生命周期
 
 ```text
-Field 中传入 value -> 使用 format() 格式化value -> value 传入 component中渲染组件
+Field 中传入 value -> 使用 format() 格式化 value -> value 传入 component 中渲染组件
                            ↑                                 |
                            |                                 ↓
                            |                          用户操作改变value
@@ -143,7 +143,7 @@ Field 中传入 value -> 使用 format() 格式化value -> value 传入 componen
 | prefix | 自定义前缀 | string | `'zent'` | 否 |
 | horizontal | 水平排列布局 | boolean  | `false` | 否 |
 | inline | 行内排列布局 | boolean | `false` | 否 |
-| onSubmit | 表单提交回调 | func(e:Event) | `func {}` | 否 |
+| onSubmit | 表单提交回调 | func(e:Event) | `noop` | 否 |
 | style | 内联样式 | object | null | 否 |
 
 ### ZentForm.createForm(options)(FormComponent)
