@@ -104,6 +104,8 @@ FormComponent = Form.createForm({
 | resetFieldsValue | 把所有field的值恢复到指定值或初始状态 | Function(data: object) |
 | isValid | 表单的所有Field是否都通过了校验 | Function() |
 | isSubmitting | 表单是否正在提交 | Function() |
+| isValidating | 表单是否有Field在异步校验 | Function() |
+| isFieldTouched | Field是否变更过值 | Function(name: string) |
 
 ### ZentForm.Field
 
@@ -111,10 +113,21 @@ FormComponent = Form.createForm({
 |------|------|------|------|
 | name | 表单元素名 | string | 是 |
 | component | 表单元素组件，可以是字符串（标准html元素名），也可以是React组件 | string / React.Component | 是 |
-| normalize | 格式化表单元素值 | Function(value, previousValue, nextValues, previousValues) | 否 |
+| normalize | onChange或者onBlur后格式化表单元素值 | Function(value, previousValue, nextValues, previousValues) | 否 |
+| format | 渲染前格式化表单元素值，不影响真正存储的表单元素值 | Function(value, previousValue, nextValues, previousValues) | 否 |
+| onChange | value值修改后的回调（自定义组件需要调用props.onChange()才会触发) | Function(event, newValue, previousValue, preventSetValue) | 否 |
+| onBlur | blur后的回调 | Function(event, newValue, previousValue, preventSetValue) | 否 |
 | validations | 定义表单元素校验方法 | object | 否 |
 | validationErrors | 定义表单元素检验方法对应的出错信息 | object | 否 |
+| asyncValidation | 异步校验function，需要返回promise | Function(values, value) | 否 |
 | value | 表单元素初始值 | any | 是 |
+
+Field value的生命周期：  
+
+	Field中传入value -> 使用format()格式化value -> value传入component中渲染组件 -> 用户操作改变value
+														^													                          |
+														|													                          |
+        使用格式化后的value写入form中维护，用于数据提交 <- 使用normalize()格式化value <-
 
 ### 表单提交
 
