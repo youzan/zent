@@ -1,6 +1,6 @@
 {
   "name": "zent-sweetalert",
-  "version": "1.0.8",
+  "version": "1.0.9-beta2",
   "description": "Zent快捷弹窗",
   "main": "./lib/index.js",
   "scripts": {
@@ -14,10 +14,10 @@
   "author": "zhengxin",
   "license": "MIT",
   "dependencies": {
-    "zent-button": "1.0.6",
-    "zent-dialog": "1.0.6",
-    "zent-icon": "1.0.7",
-    "zent-utils": "1.0.6"
+    "zent-button": "1.0.7-beta2",
+    "zent-dialog": "1.0.7-beta2",
+    "zent-icon": "1.0.8-beta2",
+    "zent-utils": "1.0.7-beta2"
   },
   "files": [
     "src/",
