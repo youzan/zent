@@ -175,7 +175,7 @@ Field 中传入 value -> 使用 format() 格式化 value -> value 传入 compone
 | 参数 | 说明 | 类型 | 是否必填 |
 |------|------|------|------|
 | name | 表单元素名 | string | 是 |
-| component | 表单元素组件, 可以是字符串(标准 html 元素名), 或者 React 组件 | string | React.Component | 是 |
+| component | 表单元素组件, 可以是字符串(标准 html 元素名), 或者 React 组件 | string / React.Component | 是 |
 | normalize | onChange 或者 onBlur 后格式化表单元素值 | func(value, previousValue, nextValues, previousValues) | 否 |
 | format | 渲染前格式化表单元素值, 不影响真正存储的表单元素值 | func(value, previousValue, nextValues, previousValues) | 否 |
 | onChange | value 值修改后的回调(自定义组件需要调用 `props.onChange()` 才会触发) | func(event, newValue, previousValue, preventSetValue) | 否 |
