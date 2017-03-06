@@ -209,7 +209,7 @@ const createForm = (config = {}) => {
         const field = this.fields.find(component => component.props.name === name);
 
         if (!field) return false;
-        return !field.isValidating();
+        return field.isValidating();
       }
 
       getFieldError = (name) => {
