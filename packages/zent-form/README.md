@@ -125,7 +125,7 @@ form 组件内部对表单提交的过程进行封装，可以把异步提交的
 Field 中传入 value -> 使用 format() 格式化 value -> value 传入 component 中渲染组件
                            ↑                                 |
                            |                                 ↓
-                           |                          用户操作改变value
+                           |                          用户操作改变 value
                            |                                 |
                            |                                 ↓
     使用格式化后的 value 写入 form 中维护, 用于数据提交 <- 使用 normalize() 格式化 value
