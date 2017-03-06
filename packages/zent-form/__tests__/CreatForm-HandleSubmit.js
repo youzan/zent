@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import ZentForm from '../src';
 
 describe('CreatedForm and HandleSubmit', () => {
-  const { Form, createForm, Field, SubmissionError } = ZentForm;
+  const { Form, createForm, Field, InputField, SubmissionError } = ZentForm;
 
   it('onSubmit of CreatedForm can be a function as a prop', () => {
     class SubmitProp extends React.Component {
@@ -87,7 +87,7 @@ describe('CreatedForm and HandleSubmit', () => {
     jest.clearAllTimers();
     jest.useFakeTimers();
     const submitFunc = () => {
-      return new Promise((resolve, reject) => setTimeout(reject, 1000));
+      return new Promise((resolve, reject) => setTimeout(() => reject('error'), 1000));
     };
     const promiseSuccessMock = jest.fn();
     const promiseFailMock = jest.fn();
@@ -130,7 +130,32 @@ describe('CreatedForm and HandleSubmit', () => {
     }).toThrow();
   });
 
-  it('While submit, HandleSubmit method of CreatedForm can handle occurred errors', () => {
+  it('While submit, HandleSubmit method of CreatedForm can handle error instance of SubmissionError', () => {
+    const submit = () => {
+      throw new SubmissionError('Error in Unit Test');
+    };
+    class SubmitForm extends React.Component {
+      render() {
+        const { handleSubmit } = this.props;
+        return (
+          <Form onSubmit={handleSubmit(submit)}>
+            <Field name="foo" component={() => (<div />)} validations={{ required: true }} value={'占位'}>
+              <span />
+            </Field>
+          </Form>
+        );
+      }
+    }
+    const subFailMock = jest.fn();
+    let CreatedForm = createForm()(SubmitForm);
+    let wrapper = mount(<CreatedForm onSubmitFail={subFailMock} />);
+    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(subFailMock.mock.calls.length).toBe(1);
+    wrapper = mount(<CreatedForm onSubmitFail={null} />);
+    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+  });
+
+  it('While submit, HandleSubmit method of CreatedForm will throw when error is not instance of SubmissionError', () => {
     const submit = () => {
       throw new Error('Error in Unit Test');
     };
@@ -182,5 +207,44 @@ describe('CreatedForm and HandleSubmit', () => {
     expect(subFailMock.mock.calls.length).toBe(2);
     expect(subSuccessMock.mock.calls.length).toBe(0);
     expect(submitMock.mock.calls.length).toBe(0);
+  });
+
+  it('Field can handle async validation on blur by adding a asyncValidation prop', () => {
+    jest.clearAllTimers();
+    jest.useFakeTimers();
+
+    const submitMock = jest.fn();
+    const subSuccessMock = jest.fn();
+    const subFailMock = jest.fn();
+    const asyncValidation = (values, value) => {
+      return new Promise((resolve, reject) => setTimeout(() => {
+        if (value === 'pangxie') {
+          reject('用户名已被占用');
+        } else {
+          resolve();
+        }
+      }, 1000));
+    };
+    class FormForAsyncValidation extends React.Component {
+      render() {
+        const { handleSubmit } = this.props;
+
+        return (
+          <Form onSubmit={handleSubmit(submitMock)}>
+            <Field name="foo" component={InputField} asyncValidation={asyncValidation} validations={{ required: true }} validationErrors={{ required: '不能为空' }} value="111" />
+          </Form>
+        );
+      }
+    }
+    let TempForm = createForm()(FormForAsyncValidation);
+    let wrapper = mount(<TempForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />);
+    let field = wrapper.find(Field);
+    let input = wrapper.find('input');
+    expect(wrapper.getNode().isValidating()).toBe(false);
+    expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
+    input.simulate('focus');
+    input.simulate('blur');
+    wrapper.simulate('submit');
+    expect(subFailMock.mock.calls.length).toBe(1);
   });
 });
