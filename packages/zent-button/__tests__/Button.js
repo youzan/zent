@@ -150,4 +150,15 @@ describe('<Button />', () => {
     TestUtils.Simulate.click(buttonNode);
     expect(isClicked).toBe(false);
   });
+
+  test('HtmlType Button', () => {
+    mount(<Button htmlType="submit" />);
+    expect(buttonNode.type).toBe('submit');
+
+    mount(<Button htmlType="reset" />);
+    expect(buttonNode.type).toBe('reset');
+
+    mount(<Button htmlType="button" />);
+    expect(buttonNode.type).toBe('button');
+  });
 });
