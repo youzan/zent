@@ -24,7 +24,6 @@ describe('<Button />', () => {
     expect(buttonNode.className).toContain('zent-btn');
     expect(buttonNode.textContent).toBe('OK');
     expect(buttonNode.tagName.toLowerCase()).toBe('button');
-    expect(buttonNode.type).toBe('submit');
   });
 
   test('Primary Button', () => {
