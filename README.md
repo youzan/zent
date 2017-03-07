@@ -7,7 +7,7 @@
     <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png">
 </p>
 <p align="center">
-	Zent <small>&#92;ˈzənt&#92;</small>, a collection of essential UI components written with React.
+	Zent <small>&#92;ˈzent&#92;</small>, a collection of essential UI components written with React.
 </p>
 
 [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
