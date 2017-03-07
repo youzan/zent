@@ -16,9 +16,10 @@ class Option extends Component {
   }
 
   render() {
+    const { value, className } = this.props;
     return (
       <span
-        {...this.props}
+        {...{ value, className }}
         onClick={this.optionClickHandler}
       >{this.props.text}</span>
     );

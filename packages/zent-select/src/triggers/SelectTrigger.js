@@ -7,9 +7,9 @@ import React, { Component, PropTypes } from 'react';
 class SelectTrigger extends Component {
 
   render() {
-    let { prefixCls } = this.props;
+    let { prefixCls, value, open, onClick, onChange } = this.props;
 
-    return <div {...this.props} className={`${prefixCls}-text`}>{this.props.text || this.props.placeholder}</div>;
+    return <div {...{ value, open, onClick, onChange }} className={`${prefixCls}-text`}>{this.props.text || this.props.placeholder}</div>;
   }
 }
 
