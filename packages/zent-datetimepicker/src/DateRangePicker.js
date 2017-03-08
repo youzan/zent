@@ -7,6 +7,12 @@ import { formatDate, parseDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
 import { RANGE_PROPS, TIME_PROPS } from './constants';
 
+const isValidValue = (val) => {
+  if (!isArray(val)) return false;
+  const ret = val.filter(item => !!item);
+  return ret.length === 2;
+};
+
 const getDateTime = (date, time) => {
   return new Date(
     date.getFullYear(),
@@ -25,7 +31,7 @@ const getState = (props) => {
   let range = [];
   let value = [];
   let format = props.format;
-  if (isArray(props.value) && props.value.length > 0) {
+  if (isValidValue(props.value)) {
     showPlaceholder = false;
     if (props.showTime) {
       format = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
@@ -115,7 +121,7 @@ class DateRangePicker extends Component {
     } else {
       scp.splice(0, 1, val);
       rcp.splice(0, 1, val);
-      acp.splice(0, 1, val, goMonths(val, 1));
+      acp.splice(0, 1, val);
     }
     this.setState({
       selected: scp,
@@ -130,8 +136,14 @@ class DateRangePicker extends Component {
       if (isFunction(props.disabledDate)) {
         return props.disabledDate(val);
       }
-      if (isArray(props.disabledDate)) {
-        return !(val > new Date(props.disabledDate[0]) && val < new Date(props.disabledDate[1]));
+      if (isValidValue(props.disabledDate)) {
+        let format = props.format;
+        if (props.showTime) {
+          format = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
+        }
+        console.log(format)
+        const tmp = [parseDate(props.disabledDate[0], format), parseDate(props.disabledDate[1], format)];
+        return !(val > tmp[0] && val < new Date(tmp[1]));
       }
     }
     return false;
