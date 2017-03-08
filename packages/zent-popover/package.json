@@ -1,6 +1,6 @@
 {
   "name": "zent-popover",
-  "version": "1.0.9-beta2",
+  "version": "1.0.9",
   "description": "Zent弹层组件",
   "main": "./lib/index.js",
   "repository": {
@@ -25,7 +25,7 @@
     "zent-utils": "1.0.7-beta2"
   },
   "devDependencies": {
-    "zent-button": "1.0.7-beta2",
+    "zent-button": "1.0.7",
     "zent-dialog": "1.0.7-beta2"
   },
   "jest": {
