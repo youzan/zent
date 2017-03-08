@@ -1,4 +1,4 @@
-## 1.1.0 (2017-03-07)
+## 2.0.0 (2017-03-07)
 
 * zentForm中添加isFieldTouched和isFieldValidating方法
 * 原生标签不再传非标准属性，否则会有warning，具体可以参考这篇文章 [Unknown Prop Warning](https://facebook.github.io/react/warnings/unknown-prop.html)
