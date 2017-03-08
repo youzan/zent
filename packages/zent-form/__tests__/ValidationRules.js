@@ -191,7 +191,7 @@ describe('Validation-Rules', () => {
     expect(isFloat(values, '0.1')).toBe(true);
   });
 
-  it('isWords', () => {
+  xit('isWords', () => {
     const { isWords } = validationRules;
 
     // NOTE: 空值返回true
@@ -208,7 +208,7 @@ describe('Validation-Rules', () => {
     expect(isWords(values, 'À')).toBe(false);
   });
 
-  it('isSpecialWords', () => {
+  xit('isSpecialWords', () => {
     const { isSpecialWords } = validationRules;
 
     // NOTE: 空值返回true

@@ -5,7 +5,7 @@ import { mount } from 'enzyme';
 import ZentForm from '../src';
 
 describe('CreateForm and Field', () => {
-  const { Form, createForm, Field } = ZentForm;
+  const { Form, createForm, Field, InputField } = ZentForm;
   const returnedFunction = createForm();
   const DivCreated = returnedFunction('div');
   const FormCreated = returnedFunction(Form);
@@ -62,6 +62,16 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('_externalError')).toBe(null);
   });
 
+  it('The component prop of Field can be a html tag string', () => {
+    const nestedWrapper = mount(
+      <FormCreated>
+        <Field name="bar" component="input" value="111" />
+      </FormCreated>
+    );
+    const inputField = nestedWrapper.find(Field);
+    expect(inputField.length).toBe(1);
+  });
+
   it('Field have componentWillRecieveProps method', () => {
     const wrapper = mount(<Field name="foo" component={props => (<div {...props} />)} />, { context });
     expect(Object.keys(wrapper.getNode()._validations).length).toBe(0);
@@ -108,12 +118,19 @@ describe('CreateForm and Field', () => {
     expect('value' in wrapper.find('component').props()).toBe(true);
     expect(wrapper.find('component').prop('error')).toBe(null);
     expect(wrapper.find('component').prop('errors').length).toBe(0);
-    expect(wrapper.find('component').prop('onChange')).toBe(wrapper.getNode().onChange);
     wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} type="checkbox" />, { context });
     expect(wrapper.find('component').prop('checked')).toBe(false);
     expect('value' in wrapper.find('component').props()).toBe(false);
     wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} type="file" />, { context });
     expect('value' in wrapper.find('component').props()).toBe(false);
+  });
+
+  it('Field can have format prop(function), and it will be excuted before Field rendered', () => {
+    const formatMock = jest.fn().mockImplementation(val => val.toUpperCase());
+    const wrapper = mount(<Field name="foofoo" component={props => (<div {...props} />)} format={formatMock} value="aaa" />, { context });
+    // format影响value的渲染，但不影响实际保存的value值
+    expect(wrapper.state('_value')).toBe('aaa');
+    expect(wrapper.find('component').prop('value')).toBe('AAA');
   });
 
   it('Field can have normalize prop(function), and it will be excuted with change event', () => {
@@ -123,39 +140,30 @@ describe('CreateForm and Field', () => {
     const contextCopy = Object.assign({}, context, {});
     contextCopy.zentForm.getFormValues = getFormValuesMock;
     const wrapper = mount(<Field name="foofoo" component={props => (<div {...props} />)} normalize={normalizeMock} value="init" />, { context: contextCopy });
-    expect(wrapper.find('component').prop('value')).toBe('fbinit');
+    // Field初始化时不会调用normalize
+    expect(wrapper.find('component').prop('value')).toBe('init');
     expect(wrapper.state('_value')).toBe('init');
+    expect(normalizeMock.mock.calls.length).toBe(0);
+    expect(getFormValuesMock.mock.calls.length).toBe(0);
+    // 触发change后调用normalize
+    wrapper.simulate('change', { target: { value: 'eve' } });
+    expect(wrapper.find('component').prop('value')).toBe('fbeve');
     expect(normalizeMock.mock.calls.length).toBe(1);
     expect(getFormValuesMock.mock.calls.length).toBe(1);
-    expect(normalizeMock.mock.calls[0][0]).toBe('init');
+    expect(normalizeMock.mock.calls[0][0]).toBe('eve');
     expect(normalizeMock.mock.calls[0][1]).toBe('init');
     expect(normalizeMock.mock.calls[0][2].bar).toBe('foo');
-    expect(normalizeMock.mock.calls[0][2].foofoo).toBe('init');
+    expect(normalizeMock.mock.calls[0][2].foofoo).toBe('eve');
     expect(normalizeMock.mock.calls[0][3].bar).toBe('foo');
-    wrapper.simulate('change', { target: { value: 'eve' } });
-
-    // NOTE: 因为onChange会触发一次状态更新rerender，所以会执行两次this.normalize。初始值会变为从事件对象中提取的value值。
-    expect(wrapper.find('component').prop('value')).toBe('fbfbeve');
-    expect(normalizeMock.mock.calls.length).toBe(3);
-    expect(getFormValuesMock.mock.calls.length).toBe(3);
-    expect(normalizeMock.mock.calls[1][0]).toBe('eve');
-    expect(normalizeMock.mock.calls[2][0]).toBe('fbeve');
-    expect(normalizeMock.mock.calls[1][1]).toBe('init');
-    expect(normalizeMock.mock.calls[2][1]).toBe('fbeve');
-    expect(normalizeMock.mock.calls[1][2].bar).toBe('foo');
-    expect(normalizeMock.mock.calls[2][2].bar).toBe('foo');
-    expect(normalizeMock.mock.calls[1][2].foofoo).toBe('eve');
-    expect(normalizeMock.mock.calls[2][2].foofoo).toBe('fbeve');
-    expect(normalizeMock.mock.calls[1][3].bar).toBe('foo');
-    expect(normalizeMock.mock.calls[2][3].bar).toBe('foo');
   });
 
-  it('Field have an unused getWrappedField method(not metioned in docs)', () => {
+  it('Field have an unused getWrappedComponent method(not metioned in docs)', () => {
     let wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} />, { context });
-    expect(typeof wrapper.getNode().getWrappedField).toBe('function');
+    expect(typeof wrapper.getNode().getWrappedComponent).toBe('function');
 
-    // NOTE: 'this.wrappedField = ref' turns out null, need catch up.
-    expect(wrapper.getNode().getWrappedField()).toBe(null);
+    // NOTE: 'this.getWrappedComponent = ref' turns out null, need catch up.
+    // component是functional component的时候ref是null
+    expect(wrapper.getNode().getWrappedComponent()).toBe(null);
   });
 
   // HACK: branch
@@ -411,5 +419,46 @@ describe('CreateForm and Field', () => {
     // HACK: branch
     wrapper.unmount();
     wrapper.mount();
+  });
+
+  it('Field can handle async validation on blur by adding a asyncValidation prop', () => {
+    jest.clearAllTimers();
+    jest.useFakeTimers();
+
+    const asyncValidation = (values, value) => {
+      return new Promise((resolve, reject) => setTimeout(() => {
+        if (value === 'pangxie') {
+          reject('用户名已被占用');
+        } else {
+          resolve();
+        }
+      }, 1000));
+    };
+    class FormForAsyncValidation extends React.Component {
+      render() {
+        return (
+          <Form>
+            <Field name="foo" component={InputField} asyncValidation={asyncValidation} validations={{ required: true }} validationErrors={{ required: '不能为空' }} value="pangxie" />
+          </Form>
+        );
+      }
+    }
+    let TempForm = createForm()(FormForAsyncValidation);
+    let wrapper = mount(<TempForm />);
+    let field = wrapper.find(Field);
+    let input = wrapper.find('input');
+    expect(wrapper.getNode().isValidating()).toBe(false);
+    expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
+    input.simulate('focus');
+    input.simulate('blur');
+    expect(wrapper.find('InputWrap').prop('validationError')).toBe('');
+    expect(wrapper.getNode().isValidating()).toBe(true);
+    expect(wrapper.getNode().isFieldValidating('foo')).toBe(true);
+    jest.runAllTimers();
+    Promise.resolve().then(() => {
+      expect(wrapper.getNode().isValidating()).toBe(false);
+      expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
+      expect(wrapper.find('InputWrap').prop('validationError')).toBe('用户名已被占用');
+    });
   });
 });

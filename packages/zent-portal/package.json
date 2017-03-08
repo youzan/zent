@@ -1,6 +1,6 @@
 {
   "name": "zent-portal",
-  "version": "1.0.6",
+  "version": "1.0.7-beta2",
   "description": "把任意React组件渲染到你指定的地方",
   "repository": {
     "type": "git",
@@ -21,6 +21,6 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.6"
+    "zent-utils": "1.0.7-beta2"
   }
 }
