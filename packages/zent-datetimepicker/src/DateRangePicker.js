@@ -141,7 +141,6 @@ class DateRangePicker extends Component {
         if (props.showTime) {
           format = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
         }
-        console.log(format)
         const tmp = [parseDate(props.disabledDate[0], format), parseDate(props.disabledDate[1], format)];
         return !(val > tmp[0] && val < new Date(tmp[1]));
       }
