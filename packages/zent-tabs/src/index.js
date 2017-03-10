@@ -8,7 +8,7 @@ import tabUtil from './tabUtil';
 
 function noop() {}
 
-class Tabs extends React.Component {
+export default class Tabs extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,
     prefix: React.PropTypes.string,
@@ -136,5 +136,3 @@ class Tabs extends React.Component {
     );
   }
 }
-
-export default Tabs;

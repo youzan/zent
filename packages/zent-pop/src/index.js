@@ -1,3 +1,1 @@
-import Pop from './Pop';
-
-export default Pop;
+export default from './Pop';
