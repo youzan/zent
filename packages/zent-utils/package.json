@@ -1,6 +1,6 @@
 {
   "name": "zent-utils",
-  "version": "1.0.6",
+  "version": "1.0.7-beta2",
   "description": "Zent工具库",
   "main": "./lib/index.js",
   "scripts": {
@@ -15,7 +15,8 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "2.2.x",
-    "lodash": "4.17.x"
+    "lodash": "4.17.x",
+    "es6-error": "4.0.x"
   },
   "files": [
     "src/",
@@ -28,6 +29,7 @@
     "lodash/",
     "classnames.js",
     "isPromise.js",
+    "es6-error.js",
     "isBrowser.js"
   ],
   "jest": {

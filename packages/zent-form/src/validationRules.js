@@ -46,12 +46,6 @@ const validations = {
   isFloat(values, value) {
     return validations.matchRegex(values, value, /^(?:[-+]?(?:\d+))?(?:\.\d*)?(?:[eE][\+\-]?(?:\d+))?$/);
   },
-  isWords(values, value) {
-    return validations.matchRegex(values, value, /^[A-Z\s]+$/i);
-  },
-  isSpecialWords(values, value) {
-    return validations.matchRegex(values, value, /^[A-Z\s\u00C0-\u017F]+$/i);
-  },
   isLength(values, value, length) {
     return !isExisty(value) || isEmpty(value) || value.length === length;
   },
