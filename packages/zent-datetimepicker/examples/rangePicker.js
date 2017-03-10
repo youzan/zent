@@ -9,9 +9,10 @@ export default class Range extends Component {
     super(props);
     this.state = {
       value: [],
-      value2: [],
+      value2: ['2017-01-01 11:11:12', '2017-06-01 12:12:12'],
       logs: [],
-      range: ['2017.01.01', '2017.06.01']
+      range: ['2017-01-01', '2017-06-01'],
+      range2: ['2017-01-01 00:00:00', '2017-06-01 00:00:00']
     };
   }
   isDisabledRangeTime(type) {
@@ -55,7 +56,7 @@ export default class Range extends Component {
         <DateRangePicker
           disabledDate={this.state.range}
           disabled
-          value={this.state.value}
+          value={state.value}
           onChange={this.onChangeRange}
         />
         <br />
@@ -69,7 +70,7 @@ export default class Range extends Component {
         <br />
         <DateRangePicker
           showTime
-          disabledDate={state.range}
+          disabledDate={state.range2}
           disabledTime={this.isDisabledRangeTime}
           onChange={this.onChangeRangeTime}
           value={state.value2}

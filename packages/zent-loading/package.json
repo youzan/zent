@@ -1,6 +1,6 @@
 {
   "name": "zent-loading",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Zent Loading组件",
   "main": "./lib/index.js",
   "repository": {
@@ -21,6 +21,6 @@
     "examples"
   ],
   "dependencies": {
-    "zent-utils": "*"
+    "zent-utils": "1.0.7"
   }
 }

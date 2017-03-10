@@ -33,7 +33,7 @@ class FieldsForm extends Component {
           validations={{ required: true }}
           validationErrors={{ required: '不能为空' }}
           component={InputField}
-          helpDesc="我是说明2222"
+          helpDesc={<span>我是说明<a href="https://youzan.com">我是链接</a></span>}
           required
         />
         <Field
@@ -106,7 +106,9 @@ class FieldsForm extends Component {
           label="是否同意本协议："
           value={1}
           component={CheckboxField}
-        />
+        >
+          同意
+        </Field>
         <div className="zent-form__form-actions">
           <button type="submit">提交</button>
         </div>
