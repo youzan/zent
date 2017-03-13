@@ -9,10 +9,13 @@ import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 const HoverState = {
   Init: 1,
 
-  // 延迟等待中
-  Pending: 2,
+  // Leave识别开始必须先有内出去
+  Started: 2,
 
-  Finish: 3
+  // 延迟等待中
+  Pending: 3,
+
+  Finish: 255
 };
 
 /**
@@ -131,7 +134,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
         const { target } = evt;
 
         if (isOutSide(target)) {
-          if (!state.is(HoverState.Init)) {
+          if (!state.is(HoverState.Started)) {
             return;
           }
 
@@ -142,6 +145,11 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
             forEachHook(recognizer.global, 'uninstall');
           }, leaveDelay);
         } else {
+          if (state.is(HoverState.Init)) {
+            state.transit(HoverState.Started);
+            return;
+          }
+
           if (!state.is(HoverState.Pending)) {
             return;
           }
@@ -150,7 +158,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
             clearTimeout(timerId);
             timerId = undefined;
 
-            state.transit(HoverState.Init);
+            state.transit(HoverState.Started);
           }
         }
       }
