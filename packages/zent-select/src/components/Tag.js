@@ -11,7 +11,9 @@ class Tag extends Component {
     this.deleteTagHandler = this.deleteTagHandler.bind(this);
   }
 
-  deleteTagHandler() {
+  deleteTagHandler(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
     this.props.onDelete(this.props.cid);
   }
 
