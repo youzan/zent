@@ -5,10 +5,12 @@
 
 import React, { Component } from 'react';
 import _ from 'lodash'; // eslint-disable-line
-import { Form, Field, InputField, CheckboxField, createForm } from '../src';
+import Form from '../src';
 import '../assets/index.scss';
 import 'zent-input/assets/index.scss';
 import 'zent-checkbox/assets/index.scss';
+
+const { Field, InputField, CheckboxField, createForm } = Form;
 
 const renderTimeRange = props => (
   <select name={props.name} value={props.value} onChange={props.onChange}>
