@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 
 import React, { Component } from 'react';
-import { Form, Field, createForm } from '../src';
+import Form from '../src';
 import cx from 'zent-utils/classnames';
 import '../assets/index.scss';
 
+const { Field, createForm } = Form;
 const renderField = props => {
   const showError = props.isTouched && props.error;
   const controlGroupClass = cx({

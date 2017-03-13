@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React, { Component } from 'react';
-import { Form, Field, createForm, InputField, CheckboxField, CheckboxGroupField, RadioGroupField, SelectField } from '../src';
+import Form from '../src';
 import Checkbox from 'zent-checkbox';
 import Radio from 'zent-radio';
 import Option from 'zent-select';
@@ -10,6 +10,8 @@ import 'zent-checkbox/assets/index.scss';
 import 'zent-select/assets/index.scss';
 import 'zent-radio/assets/index.scss';
 import 'zent-input/assets/index.scss';
+
+const { Field, createForm, InputField, CheckboxField, CheckboxGroupField, RadioGroupField, SelectField } = Form;
 
 class FieldsForm extends Component {
 

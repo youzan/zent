@@ -10,8 +10,9 @@ import CheckboxField from './form_components/CheckboxField';
 import CheckboxGroupField from './form_components/CheckboxGroupField';
 import RadioGroupField from './form_components/RadioGroupField';
 import SelectField from './form_components/SelectField';
+import assign from 'zent-utils/lodash/assign';
 
-export default {
+export default assign(Form, {
   Form,
   createForm,
   Field,
@@ -24,4 +25,4 @@ export default {
   RadioGroupField,
   SelectField,
   SubmissionError
-};
+});
