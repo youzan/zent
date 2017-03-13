@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React, { Component } from 'react';
-import { Form, Field, Fieldset, createForm, InputField, RadioGroupField, SelectField } from '../src';
+import Form from '../src';
 import Radio from 'zent-radio';
 import Option from 'zent-select';
 import '../assets/index.scss';
@@ -9,6 +9,8 @@ import 'zent-checkbox/assets/index.scss';
 import 'zent-select/assets/index.scss';
 import 'zent-radio/assets/index.scss';
 import 'zent-input/assets/index.scss';
+
+const { Field, Fieldset, createForm, InputField, RadioGroupField, SelectField } = Form;
 
 class FieldsetForm extends Component {
 

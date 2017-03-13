@@ -91,6 +91,7 @@ isDisabledTime = () => {
 
 **注意：**
 
+- `showTime` 的时候，传入的 `disabledDate` 如果为数组，必须有 time 部分，即 `2017-01-01 11:11:11` 这样。
 - `disabledTime` 和 DatePicker 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 disabledTime 函数， RangePicker 的版本如下：
 ```
 isDisabledRangeTime(type) {
