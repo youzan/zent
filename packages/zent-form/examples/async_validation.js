@@ -1,5 +1,6 @@
 /* eslint-disable */
 /*
+
   用户名中输入pangxie，blur后过1.5s会提示用户名已被占用，提示未出现时点击提交会alert“正在校验中”
  */
 
