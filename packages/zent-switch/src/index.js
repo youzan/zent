@@ -1,2 +1,1 @@
-import Switch from './Switch.js';
-export default Switch;
+export default from './Switch.js';
