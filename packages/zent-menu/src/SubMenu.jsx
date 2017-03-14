@@ -63,14 +63,48 @@ class MenuItem extends Component {
     onTitleClick(e);
   }
 
-  render() {
+
+  renderPopover = () => {
     const {
       title,
       prefix,
-      className,
       wrapperClassName,
       children,
       onClick
+    } = this.props;
+
+    return (<Popover
+      position={Popover.Position.RightTop}
+      display="inline"
+      cushion={5}
+    >
+      <PopoverHoverTrigger
+        showDelay={200}
+        hideDelay={200}
+      >
+        <div>
+          {title}
+          <Icon type="right" />
+        </div>
+      </PopoverHoverTrigger>
+      <PopoverContent>
+        <HoverContent
+          prefix={prefix}
+          wrapperClassName={wrapperClassName}
+          onClick={onClick}
+        >
+          {children}
+        </HoverContent>
+      </PopoverContent>
+    </Popover>);
+  }
+
+  render() {
+    const {
+      prefix,
+      className,
+      disabled,
+      title
     } = this.props;
 
     const mouseEvents = {
@@ -80,32 +114,9 @@ class MenuItem extends Component {
     return (
       <li
         {...mouseEvents}
-        className={cx(`${prefix}-menu-item`, className)}
+        className={cx(`${prefix}-menu-item`, className, { [`${prefix}-menu-item-disabled`]: disabled })}
       >
-        <Popover
-          position={Popover.Position.RightTop}
-          display="inline"
-          cushion={5}
-        >
-          <PopoverHoverTrigger
-            showDelay={200}
-            hideDelay={200}
-          >
-            <div>
-              {title}
-            </div>
-          </PopoverHoverTrigger>
-          <PopoverContent>
-            <HoverContent
-              prefix={prefix}
-              wrapperClassName={wrapperClassName}
-              onClick={onClick}
-            >
-              {children}
-            </HoverContent>
-          </PopoverContent>
-        </Popover>
-        <Icon type="right" />
+        {disabled ? title : this.renderPopover()}
       </li>
     );
   }
