@@ -1,0 +1,33 @@
+{
+  "name": "zent-menu",
+  "version": "0.0.1",
+  "description": "这是一个React组件",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "zhengxin",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "dependencies": {
+    "classnames": "2.2.x",
+    "lodash": "4.17.x",
+    "zent-icon": "^1.0.8"
+  },
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  }
+}
