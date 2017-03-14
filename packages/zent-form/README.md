@@ -4,7 +4,25 @@
 
 表单组件
 
-[toc]
+- [zent-form](#zent-form)
+  * [组件原理](#组件原理)
+  * [使用指南](#使用指南)
+    + [创建表单](#创建表单)
+    + [表单提交](#表单提交表单提交)
+    + [封装自定义的表单元素组件](#封装自定义的表单元素组件)
+    + [Field中 value 的生命周期](#field中-value-的生命周期)
+  * [API](#api)
+    + [Form](#form)
+    + [Form.createForm(options)(FormComponent)](#formcreateformoptionsformcomponent)
+      - [options](#options)
+      - [createForm返回的组件可接收的props](#createform返回的组件可接收的props)
+      - [zentForm prop](#zentform-prop)
+      - [handleSubmit prop](#handlesubmit-prop)
+    + [Form.Field](#formfield)
+    + [Form.getControlGroup](#formgetcontrolgroup)
+    + [内置对其他zent组件的封装](#内置对其他zent组件的封装)
+    + [内置validation rules](#内置validation-rules)
+
 
 ## 组件原理
 组件核心由以下几部分组成：
