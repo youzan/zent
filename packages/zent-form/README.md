@@ -14,6 +14,7 @@
 - Field组件：用来封装各种表单元素组件（如Input、Checkbox、Select以及各种自定义组件）的一个高阶组件。其中维护了表单元素value值和校验错误等信息。Field组件会向表单元素组件传入封装过的onChange、onBlur回调和value、error等表单元素需要的props。
 
 注意：
+
 1. 使用Form组件构造的组件必须调用createForm函数进行封装，否则children中的Field无法生效，控制台中会抛错。
 2. Field组件本质上是一个辅助性的组件，本身不提供任何样式。它的作用是管理表单元素value值的生命周期和表单元素的error等信息。真正控制表单元素如何展现的是Field component属性中传入的组件。
 
