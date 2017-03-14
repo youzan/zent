@@ -15,7 +15,7 @@ export default class NumberSteps extends Component {
   }
 
   componentDidUpdate() {
-    // this.culcLastStepOffsetWidth();
+    this.culcLastStepOffsetWidth();
   }
 
   culcLastStepOffsetWidth = () => {
