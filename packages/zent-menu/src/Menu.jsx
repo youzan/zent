@@ -7,6 +7,7 @@ const noop = () => {};
 class Menu extends CommonMenu {
   static propTypes = {
     prefix: PropTypes.string,
+    className: PropTypes.string,
     wrapperClassName: PropTypes.string,
     onClick: PropTypes.func,
   };
@@ -26,6 +27,7 @@ class Menu extends CommonMenu {
     if (!c) {
       return null;
     }
+
     return this.renderCommonMenuItem(c, i, index);
   };
 

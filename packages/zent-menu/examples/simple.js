@@ -16,10 +16,14 @@ export default class Simple extends Component {
 
   render() {
     return (
-      <Menu onClick={this.onClick}>
+      <Menu
+        onClick={this.onClick}
+        className="hello"
+        wrapperClassName="world"
+      >
         <MenuItem key="1-1">食品分类</MenuItem>
         <MenuItem key="1-2" disabled>服装分类</MenuItem>
-        <SubMenu title="电器分类">
+        <SubMenu title="电器分类" subClassName="sub">
           <MenuItem key="2-1">电视机</MenuItem>
           <MenuItem key="2-2" disabled>笔记本</MenuItem>
           <MenuItem key="2-3">洗衣机</MenuItem>

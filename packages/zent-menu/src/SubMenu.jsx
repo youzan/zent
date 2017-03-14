@@ -22,6 +22,7 @@ class HoverContent extends CommonMenu {
     if (!c) {
       return null;
     }
+
     return this.renderCommonMenuItem(c, i, index);
   };
 
@@ -47,7 +48,8 @@ class MenuItem extends Component {
     prefix: PropTypes.string,
     className: PropTypes.string,
     wrapperClassName: PropTypes.string,
-    onTitleClick: PropTypes.func
+    onTitleClick: PropTypes.func,
+    subClassName: PropTypes.string
   };
 
   static defaultProps = {
@@ -70,7 +72,8 @@ class MenuItem extends Component {
       prefix,
       wrapperClassName,
       children,
-      onClick
+      onClick,
+      className
     } = this.props;
 
     return (<Popover
@@ -91,6 +94,7 @@ class MenuItem extends Component {
         <HoverContent
           prefix={prefix}
           wrapperClassName={wrapperClassName}
+          className={className}
           onClick={onClick}
         >
           {children}
@@ -103,6 +107,7 @@ class MenuItem extends Component {
     const {
       prefix,
       className,
+      subClassName,
       disabled,
       title
     } = this.props;
@@ -114,7 +119,12 @@ class MenuItem extends Component {
     return (
       <li
         {...mouseEvents}
-        className={cx(`${prefix}-menu-item`, className, { [`${prefix}-menu-item-disabled`]: disabled })}
+        className={
+          cx(`${prefix}-menu-item`,
+              className,
+              subClassName,
+            { [`${prefix}-menu-item-disabled`]: disabled })
+        }
       >
         {disabled ? title : this.renderPopover()}
       </li>
