@@ -14,6 +14,7 @@ class HoverContent extends CommonMenu {
   onClick = (e, index) => {
     const { onClick, popover } = this.props;
     popover.close();
+
     onClick(e, index);
   };
 

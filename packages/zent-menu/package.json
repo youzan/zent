@@ -1,7 +1,7 @@
 {
   "name": "zent-menu",
   "version": "0.0.1",
-  "description": "这是一个React组件",
+  "description": "菜单组件",
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"

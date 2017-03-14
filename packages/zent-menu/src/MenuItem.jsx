@@ -12,9 +12,9 @@ class MenuItem extends Component {
   };
 
   onClick = (ev) => {
-    const { index } = this.props;
+    const { index, onClick } = this.props;
 
-    this.props.onClick(ev, index);
+    onClick(ev, index);
   }
 
   render() {

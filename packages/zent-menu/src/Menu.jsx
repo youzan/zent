@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import cx from 'zent-utils/classnames';
-import { getKeyFromChildrenIndex } from './utils';
 import CommonMenu from './CommonMenu';
 
 const noop = () => {};

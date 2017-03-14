@@ -10,21 +10,23 @@ You can write guides for users here
 */
 
 export default class Simple extends Component {
+  onClick = (key, e) => {
+    console.log(key, e);
+  }
+
   render() {
     return (
-      <Menu onClick={(index, e) => { console.log(index, e) }}>
+      <Menu onClick={this.onClick}>
         <MenuItem key="1-1">食品分类</MenuItem>
         <MenuItem key="1-2">服装分类</MenuItem>
-        <MenuItem key="1-3">还有什么</MenuItem>
-        <SubMenu title="子菜单">
-          <MenuItem key="4-1">41</MenuItem>
-          <MenuItem key="4-2">42</MenuItem>
-          <MenuItem key="4-3">43</MenuItem>
+        <SubMenu title="电器分类">
+          <MenuItem key="2-1">电视机</MenuItem>
+          <MenuItem key="2-2">笔记本</MenuItem>
+          <MenuItem key="2-3">洗衣机</MenuItem>
         </SubMenu>
-        <SubMenu title="子菜单">
-          <MenuItem key="2-1">21</MenuItem>
-          <MenuItem key="2-2">22</MenuItem>
-          <MenuItem key="2-3">23</MenuItem>
+        <SubMenu title="美妆分类">
+          <MenuItem key="3-1">眼影</MenuItem>
+          <MenuItem key="3-2">洗面奶</MenuItem>
         </SubMenu>
       </Menu>
     );
