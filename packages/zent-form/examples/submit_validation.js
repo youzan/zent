@@ -89,7 +89,7 @@ export default class Simple extends Component {
   render() {
     return (
       <div>
-        <h2>服务端校验（展示服务端错误信息）</h2>
+        <h2>服务端校验 & 展示服务端错误信息</h2>
         <hr />
         <RegisterFormContainer
         />

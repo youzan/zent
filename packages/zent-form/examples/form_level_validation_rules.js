@@ -1,4 +1,6 @@
-/* eslint-disable no-console */
+/*
+  通过formValidations属性添加自定义校验规则
+ */
 
 import React, { Component } from 'react';
 import Form from '../src';
@@ -18,9 +20,8 @@ const renderField = props => (
 
 class CustomRuleForm extends Component {
   render() {
-    const { handleSubmit } = this.props;
     return (
-      <Form prefix="zent" onSubmit={handleSubmit} horizontal>
+      <Form prefix="zent" horizontal>
         <Field
           name="a"
           type="number"
@@ -59,16 +60,12 @@ const CustomRuleFormContainer = createForm({
 })(CustomRuleForm);
 
 export default class Simple extends Component {
-  onSubmit = (values) => {
-    console.log(values);
-  }
-
   render() {
     return (
       <div>
         <h2>添加自定义校验规则</h2>
         <hr />
-        <CustomRuleFormContainer onSubmit={this.onSubmit} />
+        <CustomRuleFormContainer />
       </div>
     );
   }
