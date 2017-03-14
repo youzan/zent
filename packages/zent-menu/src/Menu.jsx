@@ -8,7 +8,6 @@ class Menu extends CommonMenu {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    wrapperClassName: PropTypes.string,
     onClick: PropTypes.func,
   };
 
@@ -35,11 +34,11 @@ class Menu extends CommonMenu {
     const {
       children,
       prefix,
-      wrapperClassName
+      className
     } = this.props;
 
     return (
-      <ul className={cx(`${prefix}-menu-wrapper`, wrapperClassName)}>
+      <ul className={cx(`${prefix}-menu-wrapper`, className)}>
         {React.Children.map(children, this.renderMenuItem)}
       </ul>
     );

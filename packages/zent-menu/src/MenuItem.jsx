@@ -5,7 +5,7 @@ import { noop } from './utils';
 class MenuItem extends Component {
   static propTypes = {
     prefix: PropTypes.string,
-    wrapperClassName: PropTypes.string,
+    className: PropTypes.string
   };
 
   static defaultProps = {

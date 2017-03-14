@@ -70,10 +70,10 @@ class MenuItem extends Component {
     const {
       title,
       prefix,
-      wrapperClassName,
       children,
       onClick,
-      className
+      className,
+      wrapperClassName
     } = this.props;
 
     return (<Popover
@@ -93,9 +93,9 @@ class MenuItem extends Component {
       <PopoverContent>
         <HoverContent
           prefix={prefix}
-          wrapperClassName={wrapperClassName}
-          className={className}
           onClick={onClick}
+          className={className}
+          wrapperClassName={wrapperClassName}
         >
           {children}
         </HoverContent>
@@ -107,7 +107,6 @@ class MenuItem extends Component {
     const {
       prefix,
       className,
-      subClassName,
       disabled,
       title
     } = this.props;
@@ -122,7 +121,6 @@ class MenuItem extends Component {
         className={
           cx(`${prefix}-menu-item`,
               className,
-              subClassName,
             { [`${prefix}-menu-item-disabled`]: disabled })
         }
       >
