@@ -21,7 +21,7 @@ export default class Simple extends Component {
         <MenuItem key="1-2" disabled>服装分类</MenuItem>
         <SubMenu title="电器分类">
           <MenuItem key="2-1">电视机</MenuItem>
-          <MenuItem key="2-2">笔记本</MenuItem>
+          <MenuItem key="2-2" disabled>笔记本</MenuItem>
           <MenuItem key="2-3">洗衣机</MenuItem>
         </SubMenu>
         <SubMenu title="美妆分类" disabled>
