@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
 
 import React, { Component } from 'react';
-import { Form, Field, createForm, InputField } from '../src';
+import Form from '../src';
 import '../assets/index.scss';
 import 'zent-input/assets/index.scss';
+
+const { Field, createForm, InputField } = Form;
 
 class FieldsForm extends Component {
 

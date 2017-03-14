@@ -15,7 +15,7 @@ export default class PanelFooter extends Component {
     return (
       <div className="panel__footer">
         <a className={linkCls} onClick={onClickLink}>{linkText}</a>
-        <button className="btn--confirm" onClick={onClickButton}>{buttonText}</button>
+        <button className="btn--confirm" type="button" onClick={onClickButton}>{buttonText}</button>
       </div>
     );
   }

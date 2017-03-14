@@ -1,13 +1,15 @@
 /* eslint-disable no-console */
 
 import React, { Component } from 'react';
-import { Form, Field, InputField, createForm } from '../src';
+import Form from '../src';
 import Checkbox from 'zent-checkbox';
 import Select, { SelectTrigger } from 'zent-select';
 import 'zent-input/assets/index.scss';
 import 'zent-select/assets/index.scss';
 import 'zent-checkbox/assets/index.scss';
 import '../assets/index.scss';
+
+const { Field, InputField, createForm } = Form;
 
 const renderEmail = (props) => {
   return (

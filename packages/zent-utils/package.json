@@ -1,6 +1,6 @@
 {
   "name": "zent-utils",
-  "version": "1.0.7-beta2",
+  "version": "1.0.7",
   "description": "Zent工具库",
   "main": "./lib/index.js",
   "scripts": {

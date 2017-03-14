@@ -40,7 +40,6 @@ $c-half-black: rgba(0, 0, 0, .2);
 
   &.disabled {
     color: #cacaca;
-    cursor: auto;
 
     .zent-select-input,
     .zent-select-text,
@@ -147,7 +146,7 @@ $c-half-black: rgba(0, 0, 0, .2);
   transition: opacity .3s;
   width: 100%;
   z-index: 1;
-  margin-top: 4px;
+  margin-top: 2px;
   background-color: $c-white;
   max-height: 224px;
 

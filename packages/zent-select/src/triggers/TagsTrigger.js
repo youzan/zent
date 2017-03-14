@@ -85,11 +85,11 @@ class TagsTrigger extends Component {
     return (
       <div className={`${prefixCls}-tags`} onClick={onClick}>
         {
-          selectedItems.length > 0 ? selectedItems.map(item => {
+          selectedItems.length > 0 ? selectedItems.map((item, index) => {
             return (
               <Tag
                 {...this.props}
-                key={item.cid}
+                key={index}
                 cid={item.cid}
                 {...item}
                 onDelete={this.deleteTagHandler}

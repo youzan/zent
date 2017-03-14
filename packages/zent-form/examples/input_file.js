@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Field, createForm } from '../src';
+import Form from '../src';
 import '../assets/index.scss';
+
+const { Field, createForm } = Form;
 
 const renderField = props => (
   <div className="control-group">
