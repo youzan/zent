@@ -8,8 +8,7 @@ const PopoverContent = Popover.Content;
 const PopoverHoverTrigger = Popover.Trigger.Hover;
 const withPopover = Popover.withPopover;
 
-@withPopover
-class HoverContent extends CommonMenu {
+const HoverContent = withPopover(class _HoverContent extends CommonMenu {
   onClick = (e, index) => {
     const { onClick, popover } = this.props;
     popover.close();
@@ -28,29 +27,32 @@ class HoverContent extends CommonMenu {
   render() {
     const {
       prefix,
-      overlayClassName,
       children
     } = this.props;
 
     return (
       <ul
-        className={cx(`${prefix}-menu`, overlayClassName)}
+        className={cx(`${prefix}-menu`, `${prefix}-sub-menu`)}
       >
         {React.Children.map(children, this.renderMenuItem)}
       </ul>
     );
   }
-}
+});
 
 export default class MenuItem extends Component {
   static propTypes = {
+    title: PropTypes.string,
     prefix: PropTypes.string,
     className: PropTypes.string,
-    overlayClassName: PropTypes.string
+    overlayClassName: PropTypes.string,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
-    prefix: 'zent'
+    prefix: 'zent',
+    disabled: false
   };
 
   renderContent = () => {
@@ -69,15 +71,17 @@ export default class MenuItem extends Component {
     }
 
     return (<Popover
+      wrapperClassName={`${prefix}-sub-menu-popover-wrapper`}
+      className={cx(`${prefix}-sub-menu-overlay`, overlayClassName)}
       position={Popover.Position.RightTop}
-      display="inline"
+      display="inline-block"
       cushion={5}
     >
       <PopoverHoverTrigger
         showDelay={200}
         hideDelay={200}
       >
-        <div>
+        <div className={`${prefix}-sub-menu-trigger`}>
           {title}
           <Icon type="right" />
         </div>
@@ -87,7 +91,6 @@ export default class MenuItem extends Component {
           prefix={prefix}
           onClick={onClick}
           className={className}
-          overlayClassName={overlayClassName}
         >
           {children}
         </HoverContent>

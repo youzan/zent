@@ -8,10 +8,9 @@ import 'zent-icon/lib/index.css';
 
 You can write guides for users here
 */
-
 export default class Simple extends Component {
   onClick = (e, key) => {
-    console.log(e, key);
+    console.log(e, key); // eslint-disable-line
   }
 
   render() {
