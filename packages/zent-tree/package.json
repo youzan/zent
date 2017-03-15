@@ -22,10 +22,11 @@
     "src/"
   ],
   "dependencies": {
+    "zent-radio": "1.0.7",
     "zent-utils": "1.0.7"
   },
   "devDependencies": {
     "superagent": "2.3.0",
-    "superagent-jsonp": "0.1.1"
+    "superagent-jsonp": "0.0.7"
   }
 }
