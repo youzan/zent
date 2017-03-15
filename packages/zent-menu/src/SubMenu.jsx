@@ -28,13 +28,13 @@ class HoverContent extends CommonMenu {
   render() {
     const {
       prefix,
-      wrapperClassName,
+      overlayClassName,
       children
     } = this.props;
 
     return (
       <ul
-        className={cx(`${prefix}-menu`, wrapperClassName)}
+        className={cx(`${prefix}-menu`, overlayClassName)}
       >
         {React.Children.map(children, this.renderMenuItem)}
       </ul>
@@ -46,7 +46,7 @@ export default class MenuItem extends Component {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    wrapperClassName: PropTypes.string
+    overlayClassName: PropTypes.string
   };
 
   static defaultProps = {
@@ -60,7 +60,7 @@ export default class MenuItem extends Component {
       children,
       onClick,
       className,
-      wrapperClassName,
+      overlayClassName,
       disabled
     } = this.props;
 
@@ -87,7 +87,7 @@ export default class MenuItem extends Component {
           prefix={prefix}
           onClick={onClick}
           className={className}
-          wrapperClassName={wrapperClassName}
+          overlayClassName={overlayClassName}
         >
           {children}
         </HoverContent>
