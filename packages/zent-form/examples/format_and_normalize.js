@@ -1,6 +1,18 @@
 /* eslint-disable no-console */
 /*
-    format和normalize使用说明
+
+  value的生命周期：
+
+```text
+    Field 中传入 value -> 使用 format() 格式化 value -> format 过的 value 传入 component 中渲染组件
+                                ↑                                                |
+                                |                                                ↓
+                                |                                          用户操作改变 value
+                                |                                                |
+                                |                                                ↓
+        normalize 过的 value 写入 form 中维护, 用于数据提交 <- 使用 normalize() 格式化 value
+```
+
  */
 
 import React, { Component } from 'react';
