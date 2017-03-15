@@ -92,6 +92,9 @@
         border-color: #e5e5e5;
         background: #f8f8f8;
     }
+    input[type="radio"] {
+        cursor: not-allowed;
+    }
 }
 
 .zent-radio-disabled.zent-radio-checked {
