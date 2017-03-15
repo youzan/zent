@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Popover from 'zent-popover';
 import Icon from 'zent-icon';
 import cx from 'zent-utils/classnames';
-import noop from 'zent-utils/lodash/noop';
 import CommonMenu from './CommonMenu';
 
 const PopoverContent = Popover.Content;
@@ -47,24 +46,12 @@ export default class MenuItem extends Component {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    wrapperClassName: PropTypes.string,
-    onTitleClick: PropTypes.func,
-    subClassName: PropTypes.string
+    wrapperClassName: PropTypes.string
   };
 
   static defaultProps = {
-    prefix: 'zent',
-    onTitleClick: noop
+    prefix: 'zent'
   };
-
-  onTitleClick = (e) => {
-    const {
-      onTitleClick
-    } = this.props;
-
-    onTitleClick(e);
-  }
-
 
   renderContent = () => {
     const {
@@ -115,13 +102,8 @@ export default class MenuItem extends Component {
       disabled
     } = this.props;
 
-    const mouseEvents = {
-      onClick: this.onTitleClick
-    };
-
     return (
       <li
-        {...mouseEvents}
         className={
           cx(`${prefix}-menu-item`,
               className,

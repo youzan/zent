@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'zent-utils/classnames';
-import noop from 'zent-utils/lodash/noop';
 
 export default class MenuItem extends Component {
   static propTypes = {
