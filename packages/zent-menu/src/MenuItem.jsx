@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'zent-utils/classnames';
-import { noop } from './utils';
+import noop from 'zent-utils/lodash/noop';
 
-class MenuItem extends Component {
+export default class MenuItem extends Component {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string
@@ -13,9 +13,11 @@ class MenuItem extends Component {
   };
 
   onClick = (ev) => {
-    const { index, onClick } = this.props;
+    const { index, onClick, disabled } = this.props;
 
-    onClick(ev, index);
+    if (disabled) return;
+
+    onClick(index, ev);
   }
 
   render() {
@@ -29,12 +31,10 @@ class MenuItem extends Component {
     return (
       <li
         className={cx(`${prefix}-menu-item`, className, { [`${prefix}-menu-item-disabled`]: disabled })}
-        onClick={disabled ? noop : this.onClick}
+        onClick={this.onClick}
       >
         {children}
       </li>
     );
   }
 }
-
-export default MenuItem;

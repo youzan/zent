@@ -21,9 +21,8 @@
     "dist/"
   ],
   "dependencies": {
-    "classnames": "2.2.x",
-    "lodash": "4.17.x",
-    "zent-icon": "^1.0.8"
+    "zent-icon": "*",
+    "zent-utils": "*"
   },
   "jest": {
     "verbose": true,

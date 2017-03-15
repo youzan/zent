@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
 import cx from 'zent-utils/classnames';
+import noop from 'zent-utils/lodash/noop';
 import CommonMenu from './CommonMenu';
 
-const noop = () => {};
-
-class Menu extends CommonMenu {
+export default class Menu extends CommonMenu {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -38,11 +37,9 @@ class Menu extends CommonMenu {
     } = this.props;
 
     return (
-      <ul className={cx(`${prefix}-menu-wrapper`, className)}>
+      <ul className={cx(`${prefix}-menu`, className)}>
         {React.Children.map(children, this.renderMenuItem)}
       </ul>
     );
   }
 }
-
-export default Menu;

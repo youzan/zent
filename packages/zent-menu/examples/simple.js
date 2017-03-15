@@ -10,8 +10,8 @@ You can write guides for users here
 */
 
 export default class Simple extends Component {
-  onClick = (key, e) => {
-    console.log(key, e);
+  onClick = (e, key) => {
+    console.log(e, key);
   }
 
   render() {
@@ -19,7 +19,6 @@ export default class Simple extends Component {
       <Menu
         onClick={this.onClick}
         className="hello"
-        wrapperClassName="world"
       >
         <MenuItem key="1-1" className="food">食品分类</MenuItem>
         <MenuItem key="1-2" disabled>服装分类</MenuItem>

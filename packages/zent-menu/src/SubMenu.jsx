@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Popover from 'zent-popover';
 import Icon from 'zent-icon';
 import cx from 'zent-utils/classnames';
-import { noop } from './utils';
+import noop from 'zent-utils/lodash/noop';
 import CommonMenu from './CommonMenu';
 
 const PopoverContent = Popover.Content;
@@ -35,7 +35,7 @@ class HoverContent extends CommonMenu {
 
     return (
       <ul
-        className={cx(`${prefix}-menu-wrapper`, wrapperClassName)}
+        className={cx(`${prefix}-menu`, wrapperClassName)}
       >
         {React.Children.map(children, this.renderMenuItem)}
       </ul>
@@ -43,7 +43,7 @@ class HoverContent extends CommonMenu {
   }
 }
 
-class MenuItem extends Component {
+export default class MenuItem extends Component {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -66,15 +66,20 @@ class MenuItem extends Component {
   }
 
 
-  renderPopover = () => {
+  renderContent = () => {
     const {
       title,
       prefix,
       children,
       onClick,
       className,
-      wrapperClassName
+      wrapperClassName,
+      disabled
     } = this.props;
+
+    if (disabled) {
+      return title;
+    }
 
     return (<Popover
       position={Popover.Position.RightTop}
@@ -107,8 +112,7 @@ class MenuItem extends Component {
     const {
       prefix,
       className,
-      disabled,
-      title
+      disabled
     } = this.props;
 
     const mouseEvents = {
@@ -124,10 +128,8 @@ class MenuItem extends Component {
             { [`${prefix}-menu-item-disabled`]: disabled })
         }
       >
-        {disabled ? title : this.renderPopover()}
+        {this.renderContent()}
       </li>
     );
   }
 }
-
-export default MenuItem;

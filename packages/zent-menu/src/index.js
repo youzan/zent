@@ -2,9 +2,7 @@ import Menu from './Menu';
 import MenuItem from './MenuItem';
 import SubMenu from './SubMenu';
 
-export default Menu;
+Menu.MenuItem = MenuItem;
+Menu.SubMenu = SubMenu;
 
-export {
-  MenuItem,
-  SubMenu
-};
+export default Menu;

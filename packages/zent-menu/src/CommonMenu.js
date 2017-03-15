@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getKeyFromChildrenIndex } from './utils';
 
-class CommonMenu extends Component {
+export default class CommonMenu extends Component {
   renderCommonMenuItem(c, i, subIndex, extraProps) {
     const newChildProps = {
       index: getKeyFromChildrenIndex(c, i),
@@ -12,6 +12,3 @@ class CommonMenu extends Component {
     return React.cloneElement(c, newChildProps);
   }
 }
-
-export default CommonMenu;
-
