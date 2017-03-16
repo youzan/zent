@@ -80,8 +80,9 @@ class Select extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let { open } = this.state;
     // 重置组件data
-    let nextState = assign({}, nextProps);
+    let nextState = { ...nextProps, open };
     let selectedItems = [];
     if (nextProps.data === this.state.data
       && nextProps.value === this.state.value
