@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import Radio from 'zent-radio';
 import Tree from '../src/index';
+
+import 'zent-radio/assets/index.scss';
 import '../assets/index.scss';
 import '../assets/example.scss';
 
-/*
-自定义操作operations属性, 结合选择框
-*/
+const RadioGroup = Radio.Group;
 
-let treeData = [{
+const treeData = [{
   id: '1',
   title: '杭州有赞',
   content: '移动零售服务商',
@@ -70,49 +71,57 @@ let treeData = [{
   parentId: '13'
 }];
 
-const deepClone = arr => {
-  let i;
-  let copy;
-
-  if (Array.isArray(arr)) {
-    copy = arr.slice(0);
-    for (i = 0; i < copy.length; i++) {
-      copy[i] = deepClone(copy[i]);
-    }
-    return copy;
-  } else if (typeof arr === 'object') {
-    return Object.assign({}, arr);
-  }
-  return arr;
-};
-
 export default class Example extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { treeData };
+    this.state = {
+      treeData,
+      copyType: 'shallow'
+    };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleClone = this.handleClone.bind(this);
+    this.handleCopyTypeChange = this.handleCopyTypeChange.bind(this);
+  }
+
+  deepClone(node, parentId = 0, nodeArray = []) {
+    const copyNode = {
+      id: String(Math.random()).replace('0.', ''),
+      parentId,
+      title: node.title
+    };
+    nodeArray.push(copyNode);
+
+    for (let i = 0, l = node.children && node.children.length || 0; i < l; i++) {
+      this.deepClone(node.children[i], copyNode.id, nodeArray);
+    }
+    return nodeArray;
   }
 
   handleDelete(data) {
-    const i = treeData.findIndex(item => item.id === data.id);
-    treeData.splice(i, 1);
-    const newTreeData = deepClone(treeData);
     this.setState({
-      treeData: newTreeData
+      treeData: this.state.treeData.filter(item => item.id !== data.id)
     });
   }
 
   handleClone(data) {
-    const node = Object.assign({}, data);
-    node.id = new Date().valueOf();
-    // here should user immutablejs
-    treeData.push(node);
-    const newTreeData = deepClone(treeData);
-    this.setState({
-      treeData: newTreeData
-    });
+    const { copyType } = this.state;
+
+    if (copyType === 'shallow') {
+      const node = Object.assign({}, data, { id: Date.now() });
+      this.setState({
+        treeData: [...this.state.treeData, node]
+      });
+    } else if (copyType === 'deep') {
+      const nodeArray = this.deepClone(data, data.parentId);
+      this.setState({
+        treeData: [...this.state.treeData, ...nodeArray]
+      });
+    }
+  }
+
+  handleCopyTypeChange(e) {
+    this.setState({ copyType: e.target.value });
   }
 
   shouldRenderDeleteIcon(data) {
@@ -120,6 +129,7 @@ export default class Example extends Component {
   }
 
   render() {
+    const { copyType } = this.state;
     const operations = [{
       name: 'Delete',
       icon: 'icon-font icon-font-heartbreak',
@@ -131,6 +141,14 @@ export default class Example extends Component {
       action: this.handleClone
     }];
 
-    return <Tree data={this.state.treeData} dataType="plain" render={this.customRender} operations={operations} checkable />;
+    return (
+      <div>
+        <RadioGroup onChange={this.handleCopyTypeChange} value={copyType}>
+          <Radio value="shallow">浅拷贝</Radio>
+          <Radio value="deep">深拷贝</Radio>
+        </RadioGroup>
+        <Tree data={this.state.treeData} dataType="plain" render={this.customRender} operations={operations} checkable />
+      </div>
+    );
   }
 }
