@@ -25,7 +25,7 @@
 |------|------|------|--------|
 | title | 子菜单项值 | string |  |
 | disabled | 是否禁用当前菜单项 | bool |  |
-| overlayClassName | 包裹的节点类名 | bool |  |
+| overlayClassName | 包裹的节点类名 | string |  |
 | className | 节点类名 | string |  |  |
 
 
