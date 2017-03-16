@@ -40,6 +40,8 @@ const createForm = (config = {}) => {
 
       static propTypes = {
         onSubmit: PropTypes.func,
+        onSubmitSuccess: PropTypes.func,
+        onSubmitFail: PropTypes.func,
         onValid: PropTypes.func,
         onInvalid: PropTypes.func,
         onChange: PropTypes.func,
@@ -351,7 +353,7 @@ const createForm = (config = {}) => {
         const { asyncValidation } = field.props;
         const values = this.getFormValues();
 
-        if (!field.isValid()) return;
+        if (field.state._validationError.length) return;
 
         field.setState({
           _isValidating: true
@@ -448,6 +450,7 @@ const createForm = (config = {}) => {
             isFieldTouched: this.isFieldTouched,
             isFieldValidating: this.isFieldValidating,
             isValid: this.isValid,
+            isValidating: this.isValidating,
             isSubmitting: this.isSubmitting
           }
         });

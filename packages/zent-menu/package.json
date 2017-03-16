@@ -1,17 +1,17 @@
 {
-  "name": "zent-radio",
-  "version": "1.0.8",
-  "description": "Zent Radio 单选框组件",
+  "name": "zent-menu",
+  "version": "0.0.1",
+  "description": "菜单组件",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:youzan/zent.git"
-  },
-  "author": "nino (nino@youzan.com)",
+  "author": "zhengxin",
   "license": "MIT",
   "files": [
     "src/",
@@ -21,7 +21,9 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.7"
+    "zent-icon": "*",
+    "zent-utils": "*",
+    "zent-popover": "*"
   },
   "jest": {
     "verbose": true,

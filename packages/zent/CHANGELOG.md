@@ -1,4 +1,6 @@
 ## Change logs
+
+* 2017-03-15, 2.0.5, 新增menu组件
 * 2017-03-14, 2.0.3, select／steps／form bug修复
 * 2017-03-09, 2.0.0, form支持async validation
 * 2017-02-10, 0.4.3, pop/popover bug fix

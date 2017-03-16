@@ -23,7 +23,7 @@
   "files": [],
   "devDependencies": {
     "enzyme": "2.6.x",
-    "lerna": "^2.0.0-beta.37",
+    "lerna": "2.0.0-beta.37",
     "react": "15.0.2",
     "react-addons-test-utils": "15.0.2",
     "react-dom": "15.0.2"
