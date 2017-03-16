@@ -111,8 +111,6 @@ export default class Pagination extends Component {
     }
   }
 
-
-
   render() {
     // 如果传入的current小于1则进行修改
     let { totalItem, current, pageSize, maxPageToShow } = this.props;
