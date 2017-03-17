@@ -17,6 +17,11 @@ export default class Button extends Component {
       'medium',
       'small'
     ]),
+    htmlType: React.PropTypes.oneOf([
+      'button',
+      'submit',
+      'reset'
+    ]),
     className: React.PropTypes.string,
     block: React.PropTypes.bool,
     component: React.PropTypes.string,
@@ -74,6 +79,7 @@ export default class Button extends Component {
   renderButton(classNames) {
     const Node = this.props.component || 'button';
     const disabled = this.props.disabled || this.props.loading;
+    const htmlType = this.props.htmlType;
     const nodeProps = omit(this.props, [
       'type',
       'size',
@@ -84,12 +90,14 @@ export default class Button extends Component {
       'loading',
       'outline',
       'bordered',
-      'prefix'
+      'prefix',
+      'htmlType'
     ]);
 
     return (
       <Node
         {...nodeProps}
+        {...htmlType ? { type: htmlType } : {}}
         className={classNames}
         disabled={disabled}
         onClick={this.handleClick}

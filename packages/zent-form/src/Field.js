@@ -2,7 +2,9 @@
 
 import { Component, PropTypes, createElement } from 'react';
 import isEqual from 'zent-utils/lodash/isEqual';
+import omit from 'zent-utils/lodash/omit';
 import { getValue } from './utils';
+import unknownProps from './unknownProps';
 
 class Field extends Component {
   static propTypes = {
@@ -80,6 +82,10 @@ class Field extends Component {
     return this.state._isValid;
   }
 
+  isValidating = () => {
+    return this.state._isValidating;
+  }
+
   getPristineValue = () => {
     return this.state._pristineValue;
   }
@@ -106,8 +112,8 @@ class Field extends Component {
     });
   }
 
-  getWrappedField = () => {
-    return this.wrappedField;
+  getWrappedComponent = () => {
+    return this.wrappedComponent;
   }
 
   getErrorMessage = () => {
@@ -134,9 +140,46 @@ class Field extends Component {
     return normalize(value, previousValue, nextValues, previousValues);
   }
 
-  onChange = (event) => {
-    const value = this.normalize(getValue(event));
-    this.setValue(value);
+  format = (value) => {
+    const { format } = this.props;
+    if (!format) {
+      return value;
+    }
+    return format(value);
+  }
+
+  handleChange = (event) => {
+    const { onChange } = this.props;
+    const previousValue = this.getValue();
+    const newValue = this.normalize(getValue(event));
+    let preventSetValue = false;
+
+    // 在传入的onChange中可以按需阻止更新value值
+    if (onChange) {
+      onChange(event, newValue, previousValue, () => (preventSetValue = true));
+    }
+
+    if (!preventSetValue) {
+      this.setValue(newValue);
+    }
+  }
+
+  handleBlur = (event) => {
+    const { onBlur, asyncValidation } = this.props;
+    const previousValue = this.getValue();
+    const newValue = this.normalize(getValue(event));
+    let preventSetValue = false;
+
+    if (onBlur) {
+      onBlur(event, newValue, previousValue, () => (preventSetValue = true));
+    }
+
+    if (!preventSetValue) {
+      this.setValue(newValue);
+      if (asyncValidation) {
+        this.context.zentForm.asyncValidate(this, newValue);
+      }
+    }
   }
 
   processProps = (props) => {
@@ -160,20 +203,29 @@ class Field extends Component {
 
   render() {
     const { component, ...rest } = this.props;
-
-    return createElement(component, this.processProps({
+    const passableProps = this.processProps({
       ...rest,
       ref: (ref) => {
-        this.wrappedField = ref;
+        this.wrappedComponent = ref;
       },
       isTouched: !this.isPristine(),
       isPristine: this.isPristine(),
       isValid: this.isValid(),
-      value: this.normalize(this.getValue()),
+      value: this.format(this.getValue()),
       error: this.getErrorMessage(),
       errors: this.getErrorMessages(),
-      onChange: this.onChange
-    }));
+      onChange: this.handleChange,
+      onBlur: this.handleBlur
+    });
+
+    // 原生的标签不能传非标准属性进去
+    if (typeof component === 'string') {
+      return createElement(component, {
+        ...omit(passableProps, unknownProps)
+      });
+    }
+
+    return createElement(component, passableProps);
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "zent-steps",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Zent步骤条组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "zent-icon": "1.0.7",
-    "zent-utils": "1.0.6"
+    "zent-icon": "1.0.8",
+    "zent-utils": "1.0.7"
   }
 }

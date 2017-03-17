@@ -1,25 +1,44 @@
 /* eslint-disable no-console */
 
 import React, { Component } from 'react';
-import { Form, Field, createForm } from '../src';
+import Form from '../src';
+import cx from 'zent-utils/classnames';
 import '../assets/index.scss';
 
-const renderField = props => (
-  <div className="zent-form__control-group">
-    <label className="zent-form__control-label">{props.label}</label>
-    <div className="zent-form__controls">
-      <input {...props} />
-      {props.isTouched && props.error && <span className="zent-form__help-block">{props.error}</span>}
+const { Field, createForm } = Form;
+const renderField = props => {
+  const showError = props.isTouched && props.error;
+  const controlGroupClass = cx({
+    'zent-form__control-group': true,
+    'has-error': showError
+  });
+  return (
+    <div className={controlGroupClass}>
+      <label className="zent-form__control-label">{props.label}</label>
+      <div className="zent-form__controls">
+        <input {...props} />
+        {showError && <span className="zent-form__help-block">{props.error}</span>}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 
 class RegisterForm extends Component {
+  submit = (values, zentForm) => {
+    let promise = new Promise((resolve) => setTimeout(resolve, 1000));
+    return promise.then(() => {
+      zentForm.setFieldExternalErrors({
+        user: '用户名已被占用'
+      });
+    });
+  }
+
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, zentForm } = this.props;
+    const isSubmitting = zentForm.isSubmitting();
     return (
-      <Form onSubmit={handleSubmit} horizontal>
+      <Form onSubmit={handleSubmit(this.submit)} horizontal>
         <Field
           name="user"
           type="text"
@@ -58,7 +77,7 @@ class RegisterForm extends Component {
           }}
         />
         <div className="zent-form__form-actions">
-          <button type="submit">登录</button>
+          <button type="submit">{isSubmitting ? '登录中...' : '登录'}</button>
         </div>
       </Form>
     );
@@ -68,25 +87,12 @@ class RegisterForm extends Component {
 const RegisterFormContainer = createForm()(RegisterForm);
 
 export default class Simple extends Component {
-  // handleSubmit直接接收events对象而不传入一个包含异步操作的function的话，则会执行传入到form中的onSubmit方法
-  onSubmit = (values) => {
-    console.log(values);
-    return values;
-  }
-
-  // onSubmitSuccess的参数会是onSubmit执行的返回值
-  onSubmitSuccess = (values) => {
-    console.log(values);
-  }
-
   render() {
     return (
       <div>
-        <h2>注册账号</h2>
+        <h2>服务端校验 & 展示服务端错误信息</h2>
         <hr />
         <RegisterFormContainer
-          onSubmit={this.onSubmit}
-          onSubmitSuccess={this.onSubmitSuccess}
         />
       </div>
     );

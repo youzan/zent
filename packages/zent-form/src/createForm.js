@@ -6,6 +6,7 @@ import find from 'zent-utils/lodash/find';
 import noop from 'zent-utils/lodash/noop';
 import assign from 'zent-utils/lodash/assign';
 import isEqual from 'zent-utils/lodash/isEqual';
+import some from 'zent-utils/lodash/some';
 import isPromise from 'zent-utils/isPromise';
 import { getDisplayName, silenceEvent, silenceEvents } from './utils';
 import rules from './validationRules';
@@ -39,8 +40,8 @@ const createForm = (config = {}) => {
 
       static propTypes = {
         onSubmit: PropTypes.func,
-        onValidSubmit: PropTypes.func,
-        onInvalidSubmit: PropTypes.func,
+        onSubmitSuccess: PropTypes.func,
+        onSubmitFail: PropTypes.func,
         onValid: PropTypes.func,
         onInvalid: PropTypes.func,
         onChange: PropTypes.func,
@@ -67,6 +68,7 @@ const createForm = (config = {}) => {
             attachToForm: this.attachToForm,
             detachFromForm: this.detachFromForm,
             validate: this.validate,
+            asyncValidate: this.asyncValidate,
             getFormValues: this.getFormValues,
             getFieldError: this.getFieldError,
             isValidValue: this.isValidValue,
@@ -124,9 +126,12 @@ const createForm = (config = {}) => {
       submit = (submitOrEvent) => {
         const { onSubmit } = this.props;
 
+        // 在表单中手动调用handleSubmit或者把handleSubmit赋值给表单的onSubmit回调
+        // handleSubmit赋值给表单的onSubmit时，submitOrEvent是一个event对象
+        // handleSubmit的参数必须是function
         if (!submitOrEvent || silenceEvent(submitOrEvent)) {
-          // submitOrEvent是一个event对象，直接调用props传入的onSubmit方法
           if (!this.submitPromise) {
+            // 调用props传入的onSubmit方法
             return this.listenToSubmit(handleSubmit(checkSubmit(onSubmit), this));
           }
         } else {
@@ -195,6 +200,20 @@ const createForm = (config = {}) => {
         this.resetFieldsValue(data);
       }
 
+      isFieldTouched = (name) => {
+        const field = this.fields.find(component => component.props.name === name);
+
+        if (!field) return false;
+        return !field.isPristine();
+      }
+
+      isFieldValidating = (name) => {
+        const field = this.fields.find(component => component.props.name === name);
+
+        if (!field) return false;
+        return field.isValidating();
+      }
+
       getFieldError = (name) => {
         const field = this.fields.find(component => component.props.name === name);
 
@@ -210,6 +229,14 @@ const createForm = (config = {}) => {
         }, {});
       }
 
+      getValidationErrors = () => {
+        return this.fields.reduce((errors, field) => {
+          const name = field.props.name;
+          errors[name] = field.getErrorMessage();
+          return errors;
+        }, {});
+      }
+
       getPristineValues = () => {
         return this.fields.reduce((values, field) => {
           const name = field.props.name;
@@ -220,6 +247,12 @@ const createForm = (config = {}) => {
 
       isChanged = () => {
         return !isEqual(this.getPristineValues(), this.getFormValues());
+      }
+
+      isValidating = () => {
+        return some(this.fields, (field) => {
+          return field.isValidating();
+        });
       }
 
       isValidValue = (field, value) => {
@@ -316,6 +349,38 @@ const createForm = (config = {}) => {
         }, this.validateForm);
       }
 
+      asyncValidate = (field, value) => {
+        const { asyncValidation } = field.props;
+        const values = this.getFormValues();
+
+        if (field.state._validationError.length) return;
+
+        field.setState({
+          _isValidating: true
+        });
+
+        const promise = asyncValidation(values, value);
+        if (!isPromise(promise)) {
+          throw new Error('asyncValidation function must return a promise');
+        }
+
+        const handleResult = rejected => error => {
+          field.setState({
+            _isValidating: false,
+            _isValid: !rejected,
+            _externalError: error ? [error] : null
+          });
+
+          if (rejected) {
+            this.setState({
+              isFormValid: false
+            });
+          }
+        };
+
+        return promise.then(handleResult(false), handleResult(true));
+      }
+
       validateForm = () => {
         const onValidationComplete = () => {
           const allIsValid = this.fields.every(field => {
@@ -334,16 +399,17 @@ const createForm = (config = {}) => {
         };
 
         this.fields.forEach((field, index) => {
+          const { _externalError } = field.state;
           const validation = this.runValidation(field);
-          if (validation.isValid && field.state._externalError) {
+          if (validation.isValid && (_externalError)) {
             validation.isValid = false;
           }
 
           field.setState({
             _isValid: validation.isValid,
             _validationError: validation.error,
-            _externalError: !validation.isValid && field.state._externalError ?
-              field.state._externalError :
+            _externalError: !validation.isValid && _externalError ?
+              _externalError :
               null
           }, index === this.fields.length - 1 ? onValidationComplete : null);
         });
@@ -381,7 +447,10 @@ const createForm = (config = {}) => {
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
             setFormPristine: this.setFormPristine,
+            isFieldTouched: this.isFieldTouched,
+            isFieldValidating: this.isFieldValidating,
             isValid: this.isValid,
+            isValidating: this.isValidating,
             isSubmitting: this.isSubmitting
           }
         });
