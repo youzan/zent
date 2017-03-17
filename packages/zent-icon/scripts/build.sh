@@ -11,7 +11,7 @@ server_prefix=/zent/zenticon
 
 function relpath() {
   str=$1;
-  echo ${str#*"ts"};
+  echo ${str#*/};
 }
 
 command_exists () {
@@ -22,7 +22,7 @@ fontname() {
   if command_exists superman ; then
     echo "//b.yzcdn.cn$server_prefix/$(basename $basepath/../build/font/zenticon-*.$1)"
   else
-    echo "$(relpath $basepath../build/font/zenticon-*.$1)"
+    echo "$(relpath $basepath/../build/font/zenticon-*.$1)"
   fi
 }
 
