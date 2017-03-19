@@ -13,14 +13,17 @@ export default class DatePanel extends Component {
       showMonth: false
     };
   }
+
   prevMonth = () => {
     let prev = goMonths(this.props.actived, -1);
     this.props.onChange(prev);
   }
+
   nextMonth = () => {
     let next = goMonths(this.props.actived, 1);
     this.props.onChange(next);
   }
+
   showMonth = () => {
     this.setState({
       showMonth: true,
@@ -38,6 +41,7 @@ export default class DatePanel extends Component {
       showTime: this.props.showTime !== undefined && !hide
     });
   }
+
   render() {
     const state = this.state;
     const props = this.props;
@@ -49,16 +53,15 @@ export default class DatePanel extends Component {
         actived={props.actived}
         selected={props.selected}
         onSelect={this.onSelectMonth}
-        />);
+      />);
     }
     if (props.showTime) {
       timePanel = (
         <TimePanel
           actived={props.showTime.actived}
-          format={props.showTime.format}
           disabledTime={props.showTime.disabledTime}
           onChange={props.showTime.onChange}
-          />
+        />
       );
     }
 
@@ -66,10 +69,10 @@ export default class DatePanel extends Component {
       <div className="date-panel">
         <PanelHeader
           title={title}
-          onClick={this.showMonth}
+          onClickTitle={this.showMonth}
           prev={this.prevMonth}
           next={this.nextMonth}
-          />
+        />
         <DatePanelBody
           actived={props.actived}
           range={props.range}
@@ -77,7 +80,7 @@ export default class DatePanel extends Component {
           disabledDate={props.disabledDate}
           onSelect={props.onSelect}
           onHover={props.onHover}
-          />
+        />
         {state.showMonth ? monthPanel : ''}
         {state.showTime ? timePanel : ''}
       </div>

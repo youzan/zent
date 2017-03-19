@@ -54,7 +54,8 @@ export default class Range extends Component {
     return (
       <div>
         <DateRangePicker
-          disabledDate={this.state.range}
+          min={state.range[0]}
+          max={state.range[1]}
           disabled
           value={state.value}
           onChange={this.onChangeRange}
@@ -62,7 +63,8 @@ export default class Range extends Component {
         <br />
         <br />
         <DateRangePicker
-          disabledDate={state.range}
+          min={state.range[0]}
+          max={state.range[1]}
           onChange={this.onChangeRange}
           value={state.value}
         />
@@ -70,7 +72,8 @@ export default class Range extends Component {
         <br />
         <DateRangePicker
           showTime
-          disabledDate={state.range2}
+          min={state.range2[0]}
+          max={state.range2[1]}
           disabledTime={this.isDisabledRangeTime}
           onChange={this.onChangeRangeTime}
           value={state.value2}

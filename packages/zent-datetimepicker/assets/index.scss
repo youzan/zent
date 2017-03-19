@@ -32,6 +32,17 @@ $double_default_width: 480px;
         font-size: 12px;
         border: 1px solid $border_color;
         border-radius: 2px;
+        .zent-input-wrapper {
+            display: inline-block;
+        }
+        .zent-input {
+            border: none;
+            background: inherit;
+            color: inherit;
+            &:focus {
+                outline: none;
+            }
+        }
         .zenticon {
             line-height: 30px;
             position: absolute;

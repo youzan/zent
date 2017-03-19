@@ -1,19 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Icon from 'zent-icon';
 
 export default class PanelHeader extends Component {
+  static PropTypes = {
+    prev: PropTypes.func,
+    next: PropTypes.func,
+    showPrev: PropTypes.bool,
+    showNext: PropTypes.bool,
+    title: PropTypes.string,
+    onClickTitle: PropTypes.func
+  }
+
   static defaultProps = {
     showPrev: true,
     showNext: true
   }
+
   render() {
+    const { prev, next, showPrev, showNext, title, onClickTitle } = this.props;
+
     return (
       <div className="panel__header">
-        {this.props.showPrev ? <span className="link--prev" onClick={this.props.prev}>
+        {showPrev ? <span className="link--prev" onClick={prev}>
           <Icon type="right" />
         </span> : null}
-        <span className="panel__title" onClick={this.props.onClick}>{this.props.title}</span>
-        {this.props.showNext ? <span className="link--next" onClick={this.props.next}>
+        <span className="panel__title" onClick={onClickTitle}>{title}</span>
+        {showNext ? <span className="link--next" onClick={next}>
           <Icon type="right" />
         </span> : null}
       </div>

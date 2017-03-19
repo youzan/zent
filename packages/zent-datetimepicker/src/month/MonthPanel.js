@@ -5,65 +5,77 @@ import YearPanel from '../year/YearPanel';
 import { goYears } from '../utils/';
 
 export default class MonthPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showYear: false
-    };
+  state = {
+    showYear: false
   }
+
   prevYear = () => {
-    let prev = goYears(this.props.actived, -1);
-    this.props.onSelect(prev, true);
+    const { actived, onSelect } = this.props;
+    const prev = goYears(actived, -1);
+    onSelect(prev, true);
   }
+
   nextYear = () => {
-    let next = goYears(this.props.actived, 1);
-    this.props.onSelect(next, true);
+    const { actived, onSelect } = this.props;
+    const next = goYears(actived, 1);
+    onSelect(next, true);
   }
+
   showYearPanel = () => {
     this.setState({
       showYear: true
     });
   }
-  onSelectYear = (val) => {
+
+  onSelectYear = (val, close = false) => {
+    const { actived, onSelect } = this.props;
+    const copy = new Date(actived);
+
+    copy.setFullYear(val);
+    onSelect(copy, true);
+
     this.setState({
-      showYear: false
+      showYear: close
     });
-    let d = new Date(this.props.actived);
-    d.setFullYear(val);
-    this.props.onSelect(d, true);
   }
+
   onSelectMonth = (val) => {
-    let d = new Date(this.props.actived);
-    d.setMonth(val);
-    this.props.onSelect(d);
+    const { actived, onSelect } = this.props;
+    const copy = new Date(actived);
+
+    copy.setMonth(val);
+    onSelect(copy);
   }
+
   render() {
-    const props = this.props;
-    const state = this.state;
-    const title = `${props.actived.getFullYear()}年`;
+    const { actived, selected } = this.props;
+    const { showYear } = this.state;
+    const title = `${actived.getFullYear()}年`;
+
     let yearPanel;
-    if (state.showYear) {
+    if (showYear) {
       yearPanel = (
         <YearPanel
-          actived={props.actived}
+          actived={actived}
           onSelect={this.onSelectYear}
-          />
+        />
       );
     }
+
     return (
       <div className="month-panel">
         <PanelHeader
           title={title}
-          onClick={this.showYearPanel}
+          onClickTitle={this.showYearPanel}
           prev={this.prevYear}
           next={this.nextYear}
-          />
+        />
         <MonthPanelBody
-          actived={props.actived}
-          selected={props.selected}
+          actived={actived}
+          selected={selected}
           onSelect={this.onSelectMonth}
-          />
-        {state.showYear ? yearPanel : ''}
+        />
+        {showYear ? yearPanel : ''}
       </div>
     );
   }

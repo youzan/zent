@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
+import Input from 'zent-input';
+
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { goMonths, isFunction, isArray } from './utils';
+import { goMonths, isArray, isSameMonth } from './utils';
 import { formatDate, parseDate } from './utils/format';
 import clickOutside from './utils/clickOutside';
-import { RANGE_PROPS, TIME_PROPS } from './constants';
+import { timeFnMap, TIME_FORMAT, noop } from './constants/';
 
 const isValidValue = (val) => {
   if (!isArray(val)) return false;
@@ -24,34 +26,30 @@ const getDateTime = (date, time) => {
   );
 };
 
-const getState = (props) => {
+const extractStateFromProps = (props) => {
   let showPlaceholder;
   let selected = [];
   let actived = [];
   let range = [];
   let value = [];
-  let format = props.format;
+  let format;
+
   if (isValidValue(props.value)) {
     showPlaceholder = false;
-    if (props.showTime) {
-      format = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
-    }
+    format = props.showTime ? `${props.format} ${TIME_FORMAT}` : props.format;
     const tmp = [parseDate(props.value[0], format), parseDate(props.value[1], format)];
     selected = tmp.slice();
-    actived = tmp.slice();
     range = tmp.slice();
-    if (props.showTime) {
-      const tmpFull = [
-        getDateTime(selected[0], actived[0]),
-        getDateTime(selected[1], actived[1])
-      ];
-      value = [formatDate(tmpFull[0], format), formatDate(tmpFull[1], format)];
-    } else {
-      value = [formatDate(selected[0], format), formatDate(selected[1], format)];
+    actived = tmp.slice();
+    value = [formatDate(selected[0], format), formatDate(selected[1], format)];
+
+    // 特殊处理：如果两个时间在同一个月，右边的面板月份加一
+    if (isSameMonth(actived[0], actived[1])) {
+      actived[1] = goMonths(actived[0], 1);
     }
   } else {
     showPlaceholder = true;
-    let now = new Date();
+    const now = new Date();
     actived = [now, goMonths(now, 1)];
   }
 
@@ -67,14 +65,35 @@ const getState = (props) => {
 };
 
 class DateRangePicker extends Component {
-  static defaultProps = RANGE_PROPS
+  static PropTypes = {
+    prefix: PropTypes.string,
+    className: PropTypes.string,
+    placeholder: PropTypes.arrayOf(PropTypes.string),
+    confirmText: PropTypes.string,
+    format: PropTypes.string,
+    showTime: PropTypes.bool,
+    disabledDate: PropTypes.func,
+    onChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    className: '',
+    prefix: 'zent',
+    placeholder: ['开始日期', '结束日期'],
+    format: 'YYYY-MM-DD',
+    confirmText: '确认',
+    showTime: false,
+    disabledDate: noop,
+    onChange: noop
+  }
+
   constructor(props) {
     super(props);
-    this.state = getState(props);
+    this.state = extractStateFromProps(props);
   }
 
   componentWillReceiveProps(next) {
-    let state = getState(next);
+    const state = extractStateFromProps(next);
     this.setState(state);
   }
 
@@ -90,9 +109,10 @@ class DateRangePicker extends Component {
     const { selected, range } = this.state;
     const scp = selected.slice();
     const rcp = range.slice();
+
     if (scp.length !== 1) {
       rcp.splice(0, 2);
-      return false;
+      return;
     }
 
     if (rcp[0] && rcp[0] < val) {
@@ -109,6 +129,13 @@ class DateRangePicker extends Component {
     const acp = actived.slice();
     const rcp = range.slice();
 
+    /**
+     * 选择日期时，可能如下出现四种情况
+     * 1. 还没有选择过，这次选择的日期作为开始日期
+     * 2. 选择过一次，并且第二次选择日期大于第一次，这次选择的日期作为结束日期
+     * 3. 有效选择过两次，清空之前的选择，重新设置这次选择的日期作为开始日期
+     * 4. 选择过一次，并且这次选择的日期小于第一次，替换这次选择的日期为开始日期
+     */
     if (scp.length === 2) {
       scp.splice(0, 2, val);
       rcp.splice(0, 2, val);
@@ -123,6 +150,7 @@ class DateRangePicker extends Component {
       rcp.splice(0, 1, val);
       acp.splice(0, 1, val);
     }
+
     this.setState({
       selected: scp,
       actived: acp,
@@ -131,20 +159,13 @@ class DateRangePicker extends Component {
   }
 
   isDisabled = (val) => {
-    const props = this.props;
-    if (props.disabledDate) {
-      if (isFunction(props.disabledDate)) {
-        return props.disabledDate(val);
-      }
-      if (isValidValue(props.disabledDate)) {
-        let format = props.format;
-        if (props.showTime) {
-          format = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
-        }
-        const tmp = [parseDate(props.disabledDate[0], format), parseDate(props.disabledDate[1], format)];
-        return !(val > tmp[0] && val < new Date(tmp[1]));
-      }
-    }
+    const { disabledDate, showTime, format, min, max } = this.props;
+    const fullFormat = showTime ? `${format} ${TIME_FORMAT}` : format;
+
+    if (disabledDate && disabledDate(val)) return true;
+    if (min && val < parseDate(min, fullFormat)) return true;
+    if (max && val > parseDate(max, fullFormat)) return true;
+
     return false;
   }
 
@@ -152,6 +173,7 @@ class DateRangePicker extends Component {
     const { actived } = this.state;
     const acp = actived.slice();
     acp.splice(i, 1, val);
+
     this.setState({
       actived: acp
     });
@@ -165,25 +187,28 @@ class DateRangePicker extends Component {
     this.onChangeDate(val, 1);
   }
 
-  onChangeTime = (val, i) => {
+  onChangeTime = (val, i, type) => {
     const { activedTime } = this.state;
     const tcp = activedTime.slice();
-    tcp.splice(i, 1, val);
+    const fn = timeFnMap[type];
+
+    tcp[i][fn](val);
     this.setState({
       activedTime: tcp
     });
   }
 
-  onChangeStartTime = (val) => {
-    this.onChangeTime(val, 0);
+  onChangeStartTime = (val, type) => {
+    this.onChangeTime(val, 0, type);
   }
 
-  onChangeEndTime = (val) => {
-    this.onChangeTime(val, 1);
+  onChangeEndTime = (val, type) => {
+    this.onChangeTime(val, 1, type);
   }
 
   onClickInput = () => {
     if (this.props.disabled) return;
+
     this.setState({
       openPanel: !this.state.openPanel
     });
@@ -195,24 +220,21 @@ class DateRangePicker extends Component {
   }
 
   onConfirm = () => {
-    const { value, selected, activedTime } = this.state;
-    const props = this.props;
-    if (selected.length !== 2) {
-      return false;
-    }
+    const { selected, activedTime } = this.state;
+    if (selected.length !== 2) return false;
 
-    let vcp = value.slice();
-    if (props.showTime) {
-      const tmp = [
-        getDateTime(selected[0], activedTime[0]),
-        getDateTime(selected[1], activedTime[1])
+    const { format, showTime } = this.props;
+    const fullFormat = showTime ? `${format} ${TIME_FORMAT}` : format;
+
+    let tmp = selected.slice();
+    if (showTime) {
+      tmp = [
+        getDateTime(tmp[0], activedTime[0]),
+        getDateTime(tmp[1], activedTime[1])
       ];
-      const tmpFormat = `${props.format} ${props.showTime.format || TIME_PROPS.format}`;
-      vcp = [formatDate(tmp[0], tmpFormat), formatDate(tmp[1], tmpFormat)];
-    } else {
-      vcp = [formatDate(selected[0], props.format), formatDate(selected[1], props.format)];
     }
 
+    const vcp = [formatDate(tmp[0], fullFormat), formatDate(tmp[1], fullFormat)];
     this.setState({
       value: vcp,
       showPlaceholder: false,
@@ -235,7 +257,7 @@ class DateRangePicker extends Component {
 
     const getTimeConfig = (type) => {
       if (!props.showTime) return false;
-      const timeFnMap = {
+      const handleMap = {
         start: this.onChangeStartTime,
         end: this.onChangeEndTime
       };
@@ -243,19 +265,14 @@ class DateRangePicker extends Component {
         start: 0,
         end: 1
       };
-      return Object.assign({},
-        {
-          actived: state.activedTime[indexMap[type]],
-          format: TIME_PROPS.format,
-          disabledTime: TIME_PROPS.disabledTime
-        },
-        props.showTime || {},
-        {
-          disabledTime: props.disabledTime && props.disabledTime(type),
-          onChange: timeFnMap[type]
-        }
-      );
+
+      return {
+        actived: state.activedTime[indexMap[type]],
+        disabledTime: props.disabledTime && props.disabledTime(type),
+        onChange: handleMap[type]
+      };
     };
+
     if (state.openPanel) {
       const pickerCls = classNames({
         'range-picker': true,
@@ -288,6 +305,7 @@ class DateRangePicker extends Component {
             />
           </div>
           <PanelFooter
+            buttonText={props.confirmText}
             onClickButton={this.onConfirm}
           />
         </div >
@@ -298,7 +316,7 @@ class DateRangePicker extends Component {
       <div className={prefixCls} ref={ref => this.picker = ref}>
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
-            {state.showPlaceholder ? props.placeholder.join(' ~ ') : state.value.join(' ~ ')}
+            {state.showPlaceholder ? props.placeholder.join('~') : state.value.join('~')}
             <span className="zenticon zenticon-calendar-o"></span>
             <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
           </div>
@@ -310,3 +328,17 @@ class DateRangePicker extends Component {
 }
 
 export default clickOutside(DateRangePicker);
+
+/**
+ * <Input
+  value={state.showPlaceholder ? props.placeholder[0] : state.value[0]}
+  onChange={noop}
+  disabled={props.disabled}
+/>
+<span> ~ </span>
+<Input
+  value={state.showPlaceholder ? props.placeholder[1] : state.value[1]}
+  onChange={noop}
+  disabled={props.disabled}
+/>
+ */

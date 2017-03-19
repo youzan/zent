@@ -1,14 +1,22 @@
-import React, { Component } from 'react';
-import { CELL_PROPS } from '../constants';
+import React, { Component, PropTypes } from 'react';
+import { noop } from '../constants';
 
 export default class TimeCell extends Component {
-  static defaultProps = CELL_PROPS
+  static PropTypes = {
+    onSelect: PropTypes.func
+  }
+
+  static defaultProps = {
+    onSelect: noop
+  }
+
   onClickCell = (cell) => {
     !cell.isDisabled && this.props.onSelect(cell.value);
   }
-  render() {
+
+  getTbody() {
     const { cells } = this.props;
-    let trs = cells.map((row, i) => {
+    return cells.map((row, i) => {
       let tds = row.map((col, j) => {
         return (
           <td className="grid-cell" role="gridcell" key={j}>
@@ -21,13 +29,17 @@ export default class TimeCell extends Component {
           </td>
         );
       });
+
       return (
         <tr role="row" key={i} >{tds}</tr>
       );
     });
+  }
+
+  render() {
     return (
       <tbody>
-        {trs}
+        {this.getTbody()}
       </tbody>
     );
   }

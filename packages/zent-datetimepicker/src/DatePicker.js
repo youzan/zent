@@ -1,70 +1,91 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
+import Input from 'zent-input';
+
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
+import clickOutside from './utils/clickOutside';
 import { CURRENT_DAY } from './utils';
 import { formatDate, parseDate } from './utils/format';
-import clickOutside from './utils/clickOutside';
-import { DATE_PROPS, TIME_PROPS } from './constants/';
+import { timeFnMap, noop } from './constants/';
 
 let returnType = 'string';
+
+
+function extractStateFromProps(props) {
+  let selected;
+  let actived;
+  let showPlaceholder;
+
+  if (props.value) {
+    showPlaceholder = false;
+    actived = selected = parseDate(props.value, props.format);
+  } else {
+    showPlaceholder = true;
+    actived = new Date();
+  }
+
+  /**
+   * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
+   * selected 用来存放用户选择的日期，点击日期时会设置 selected 的值
+   * activedTime 用来存放用户选择的时间
+   */
+
+  return {
+    value: selected && formatDate(selected, props.format),
+    actived,
+    selected,
+    activedTime: actived,
+    openPanel: false,
+    showPlaceholder
+  };
+}
+
 class DatePicker extends Component {
-  static defaultProps = DATE_PROPS
+  static propTypes = {
+    prefix: PropTypes.string,
+    className: PropTypes.string,
+    placeholder: PropTypes.string,
+    confirmText: PropTypes.string,
+    format: PropTypes.string,
+
+    // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
+    min: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
+    max: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date)
+    ]),
+    disabledDate: PropTypes.func,
+    onChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    prefix: 'zent',
+    className: '',
+    placeholder: '请选择日期',
+    confirmText: '确认',
+    format: 'YYYY-MM-DD',
+    min: '',
+    max: '',
+    disabledDate: noop,
+    onChange: noop
+  }
 
   constructor(props) {
     super(props);
-    let showPlaceholder;
-    let selected;
-    let actived;
     if (props.value) {
       if (typeof props.value === 'number') returnType = 'numer';
       if (props.value instanceof Date) returnType = 'date';
-      let tmpDate = parseDate(props.value, props.format);
-      if (!tmpDate) {
-        showPlaceholder = true;
-        actived = new Date();
-      } else {
-        showPlaceholder = false;
-        actived = selected = tmpDate;
-      }
-    } else {
-      showPlaceholder = true;
-      actived = new Date();
     }
-    this.state = {
-      value: selected && formatDate(selected, props.format),
-      actived,
-      selected,
-      activedTime: actived,
-      openPanel: false,
-      showPlaceholder
-    };
+    this.state = extractStateFromProps(props);
   }
-  componentWillReceiveProps(next) {
-    if (next.value) {
-      let showPlaceholder = false;
-      let selected = parseDate(next.value, next.format || this.props.format);
-      this.setState({
-        value: formatDate(selected, next.format || this.props.format),
-        actived: selected,
-        selected,
-        activedTime: selected,
-        openPanel: false,
-        showPlaceholder
-      });
-    } else {
-      let showPlaceholder = true;
-      let actived = new Date();
 
-      this.setState({
-        value: '',
-        actived,
-        selected: '',
-        activedTime: actived,
-        openPanel: false,
-        showPlaceholder
-      });
-    }
+  componentWillReceiveProps(next) {
+    const state = extractStateFromProps(next);
+    this.setState(state);
   }
 
   clickOutside = e => {
@@ -82,9 +103,8 @@ class DatePicker extends Component {
   }
 
   onSelectDate = (val) => {
-    if (this.isDisabled(val)) {
-      return;
-    }
+    if (this.isDisabled(val)) return;
+
     this.setState({
       actived: val,
       selected: val
@@ -92,48 +112,65 @@ class DatePicker extends Component {
   }
 
   isDisabled = (val) => {
-    const props = this.props;
-    if (props.disabledDate && props.disabledDate(val)) return true;
-    if (props.min && val < new Date(props.min)) return true;
-    if (props.max && val > new Date(props.max)) return true;
+    const { disabledDate, min, max, format } = this.props;
+
+    if (disabledDate && disabledDate(val)) return true;
+    if (min && val < parseDate(min, format)) return true;
+    if (max && val > parseDate(max, format)) return true;
+
     return false;
   }
 
-  onChangeTime = (val) => {
+  onChangeTime = (val, type) => {
+    const fn = timeFnMap[type];
+    const tmp = new Date(this.state.activedTime);
+    tmp[fn](val);
+
     this.setState({
-      activedTime: val
+      activedTime: tmp
     });
   }
 
   onClickInput = () => {
     if (this.props.disabled) return;
+
     this.setState({
       openPanel: !this.state.openPanel
     });
-  }
-
-  getReturnValue(date, format) {
-    if (returnType === 'numer') {
-      return date.getTime();
-    } else if (returnType === 'date') {
-      return date;
-    } else if (returnType === 'string') {
-      return formatDate(date, format);
-    }
   }
 
   onClearInput = () => {
     this.props.onChange('');
   }
 
+  /**
+   * 如果传入为数字，返回值也为数字
+   * 如果传入为 Date 的实例，返回值也为 Date 的实例
+   * 默认返回 format 格式的字符串
+   */
+
+  getReturnValue(date, format) {
+    if (returnType === 'numer') {
+      return date.getTime();
+    }
+
+    if (returnType === 'date') {
+      return date;
+    }
+
+    return formatDate(date, format);
+  }
+
   onConfirm = () => {
     const { selected, activedTime } = this.state;
     const { format, showTime } = this.props;
-    let value;
-    let ret;
+
+    // 如果没有选择日期则不进行任何操作
     if (!selected) return;
+
+    let tmp = selected;
     if (showTime) {
-      const tmp = new Date(
+      tmp = new Date(
         selected.getFullYear(),
         selected.getMonth(),
         selected.getDate(),
@@ -141,25 +178,26 @@ class DatePicker extends Component {
         activedTime.getMinutes(),
         activedTime.getSeconds()
       );
-      value = formatDate(tmp, format);
-      ret = this.getReturnValue(tmp, format);
-    } else {
-      value = formatDate(selected, format);
-      ret = this.getReturnValue(selected, format);
     }
+
     this.setState({
-      value,
+      value: formatDate(tmp, format),
       openPanel: false,
       showPlaceholder: false
     });
 
+    const ret = this.getReturnValue(tmp, format);
     this.props.onChange(ret);
+  }
+
+  renderPicker() {
+
   }
 
   render() {
     const state = this.state;
     const props = this.props;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input': true,
       'picker-input--filled': !state.showPlaceholder,
@@ -171,21 +209,22 @@ class DatePicker extends Component {
       showTime = Object.assign({},
         {
           actived: state.activedTime,
-          format: TIME_PROPS.format,
-          disabledTime: TIME_PROPS.disabledTime
+          disabledTime: noop
         },
-        props.showTime || {},
         {
           disabledTime: props.disabledTime && props.disabledTime(),
           onChange: this.onChangeTime
         }
       );
     }
+
+    // 打开面板的时候才渲染
     if (state.openPanel) {
       const linkCls = classNames({
         'link--current': true,
         'link--disabled': this.isDisabled(CURRENT_DAY)
       });
+
       datePicker = (
         <div className="date-picker">
           <DatePanel
@@ -197,19 +236,26 @@ class DatePicker extends Component {
             onChange={this.onChangeDate}
           />
           <PanelFooter
+            buttonText={props.confirmText}
+            onClickButton={this.onConfirm}
             linkText="今天"
             linkCls={linkCls}
             onClickLink={() => this.onSelectDate(CURRENT_DAY)}
-            onClickButton={this.onConfirm}
           />
         </div>
       );
     }
+
     return (
-      <div className={prefixCls} ref={ref => this.picker = ref}>
+      <div className={wrapperCls} ref={ref => this.picker = ref}>
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
-            {state.showPlaceholder ? props.placeholder : state.value}
+            <Input
+              value={state.showPlaceholder ? props.placeholder : state.value}
+              onChange={noop}
+              disabled={props.disabled}
+            />
+
             <span className="zenticon zenticon-calendar-o"></span>
             <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
           </div>

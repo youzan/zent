@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { CURRENT_YEAR } from '../utils/';
 import classNames from 'zent-utils/classnames';
 import PanelCell from '../common/PanelCell';
@@ -7,14 +7,21 @@ const ROW = 4;
 const COL = 3;
 
 export default class YearPanelBody extends Component {
+  static PropTypes = {
+    actived: PropTypes.instanceOf(Date),
+    onSelect: PropTypes.func
+  }
+
   isSelected(val) {
     return this.props.actived.getFullYear() === val;
   }
+
   getYears() {
-    let years = [];
+    const years = [];
     let index = 0;
     const actived = this.props.actived;
     const beginYear = actived.getFullYear() - 4;
+
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
       years[rowIndex] = [];
       for (let colIndex = 0; colIndex < COL; colIndex++) {
@@ -34,14 +41,17 @@ export default class YearPanelBody extends Component {
         index++;
       }
     }
+
     return years;
   }
 
   render() {
-    let years = this.getYears();
+    const years = this.getYears();
+    const { onSelect } = this.props;
+
     return (
       <table className="year-table panel__table">
-        <PanelCell onSelect={this.props.onSelect} cells={years} />
+        <PanelCell onSelect={onSelect} cells={years} />
       </table>
     );
   }

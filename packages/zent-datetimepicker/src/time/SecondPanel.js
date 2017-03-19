@@ -14,15 +14,18 @@ export default class SecondPanel extends Component {
       return disabledSecond(val);
     }
   }
+
   isSelected(val) {
     const { selected } = this.props;
     return selected.getSeconds() === val;
   }
+
   isCurrent(val) {
     return CURRENT.getSeconds() === val;
   }
+
   getSeconds() {
-    let cells = [];
+    const cells = [];
     let i = 0;
     for (let j = 0; j < ROW; j++) {
       cells[j] = [];
@@ -45,19 +48,22 @@ export default class SecondPanel extends Component {
         i++;
       }
     }
+
     return cells;
   }
+
   render() {
+    const { hidePanel, onSelect } = this.props;
     const seconds = this.getSeconds();
     const title = '选择分钟';
+
     return (
       <div className="second-panel">
-        <PanelHeader title={title} showNext={false} prev={() => { this.props.hidePanel('second') }} />
+        <PanelHeader title={title} showNext={false} prev={hidePanel} />
         <table className="second-table panel__table">
-          <TimeCell cells={seconds} onSelect={this.props.onSelect} />
+          <TimeCell cells={seconds} onSelect={onSelect} />
         </table>
       </div>
-
     );
   }
 }

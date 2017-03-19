@@ -7,20 +7,22 @@ const ROW = 6;
 const COL = 7;
 
 export default class DatePanelBody extends Component {
+
   isSelected(val) {
-    if (!this.props.selected) {
-      return false;
-    }
-    const selectedDate = this.props.selected;
-    if (Array.isArray(selectedDate)) {
+    const { selected } = this.props;
+    if (!selected) return false;
+
+    if (Array.isArray(selected)) {
       let i = 0;
-      selectedDate.forEach((item) => {
+      selected.forEach((item) => {
         isSameDate(val, item) ? i++ : '';
       });
       return i > 0;
     }
-    return isSameDate(val, selectedDate);
+
+    return isSameDate(val, selected);
   }
+
   isInRange(val) {
     const { range } = this.props;
     if (Array.isArray(range) && range[0] && range[1]) {
@@ -28,23 +30,26 @@ export default class DatePanelBody extends Component {
         return true;
       }
     }
+
     return false;
   }
-  days() {
-    const props = this.props;
+
+  getDays() {
+    const { actived, disabledDate } = this.props;
     let days = [];
     let index = 0;
-    let copy = new Date(props.actived.getFullYear(), props.actived.getMonth(), props.actived.getDate());
+    let copy = new Date(actived.getFullYear(), actived.getMonth(), actived.getDate());
     let firstDay = new Date(copy.setDate(1));
     let diff = parseInt(firstDay.getDay(), 10);
+
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
       days[rowIndex] = [];
       for (let colIndex = 0; colIndex < COL; colIndex++) {
         const val = goDays(firstDay, index - diff);
-        const isBefore = isBeforeMonth(val, props.actived);
-        const isAfter = isAfterMonth(val, props.actived);
+        const isBefore = isBeforeMonth(val, actived);
+        const isAfter = isAfterMonth(val, actived);
         const isCurrent = isSameDate(val, CURRENT);
-        const isDisabled = props.disabledDate(val);
+        const isDisabled = disabledDate(val);
         const isSelected = this.isSelected(val);
         const isInRange = this.isInRange(val);
         const className = classNames({
@@ -55,6 +60,7 @@ export default class DatePanelBody extends Component {
           'panel__cell--selected': isSelected,
           'panel__cell--in-range': isInRange
         });
+
         days[rowIndex][colIndex] = {
           text: val.getDate(),
           value: val,
@@ -64,26 +70,30 @@ export default class DatePanelBody extends Component {
         index++;
       }
     }
+
     return days;
   }
 
+  getThead() {
+    const arr = ['日', '一', '二', '三', '四', '五', '六'];
+
+    return arr.map((item, i) => {
+      return <th key={i}>{item}</th>;
+    });
+  }
+
   render() {
-    const props = this.props;
-    const days = this.days();
+    const { onSelect, onHover } = this.props;
+    const days = this.getDays();
+
     return (
       <table className="date-table panel__table">
         <thead>
           <tr>
-            <th>日</th>
-            <th>一</th>
-            <th>二</th>
-            <th>三</th>
-            <th>四</th>
-            <th>五</th>
-            <th>六</th>
+            {this.getThead()}
           </tr>
         </thead>
-        <PanelCell onSelect={props.onSelect} onHover={props.onHover} cells={days} />
+        <PanelCell onSelect={onSelect} onHover={onHover} cells={days} />
       </table>
     );
   }
