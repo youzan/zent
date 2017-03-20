@@ -1,7 +1,6 @@
 // 是否显示省略号的界线
 const OMINIBOUNDARY = 5;
 // 是否显示多个邻居的界线
-const MULTYNEIGHBOURBOUNDARY = 10;
 const parser = {
   getPrev(conf) {
     return {
@@ -22,7 +21,7 @@ const parser = {
    */
   getOmni(conf, type) {
     let hasResult = false;
-    let count = conf.total > MULTYNEIGHBOURBOUNDARY ? 5 : 3;
+    let count = 3;
     let boundary = Math.floor(count / 2);
 
     // 只有当总数大于
@@ -77,7 +76,7 @@ const parser = {
   getPages(conf) {
     let pages = [];
     // 如果是10页以上，展示4个邻居，否则2个邻居
-    let count = conf.total > MULTYNEIGHBOURBOUNDARY ? 5 : 3;
+    let count = 3;
     let boundary = Math.floor(count / 2);
     let min;
     let max;
