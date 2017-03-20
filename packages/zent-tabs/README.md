@@ -16,7 +16,7 @@ const { TabPanel } = Tabs;
   size="normal"
   type="normal"
   candel={false}
-  canadd={true}
+  canadd
   activeId="2"
 >
   <TabPanel id="2" tab="选项一">content</TabPanel>
