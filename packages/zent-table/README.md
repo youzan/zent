@@ -58,10 +58,11 @@ getRowConf(data, index) { // 每一行的数据和这一行在列表中的index
 | isMoney    | 表示是否是金额                             | bool                 | `false` | 否    |
 | needSort   | 这一列是否支持排序, 这一列必须设置了key, 才能正常使用排序功能  | bool                 | `false` | 否    |
 | bodyRender | 这一列对应用来渲染的组件                        | `React Element`/func |         | 否    |
+| textAlign  | 文本对齐方式                        | string |    ''     | 否    |
 
 ### Selection
 
-| 参数              | 说明              | 类型    | 是否必须 |
-| --------------- | --------------- | ----- | ---- |
-| selectedRowKeys | 默认选中            | array | 否    |
-| onSelect        | 每次check的时候出发的函数 | func  | 否    |
+| 参数              | 说明              | 类型    |  默认值 | 是否必须 |
+| --------------- | --------------- | ----- | ---- | ----- |
+| selectedRowKeys | 默认选中            | array |  | 否    |
+| onSelect        | 每次check的时候出发的函数 | func  |  | 否    |
