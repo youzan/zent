@@ -1,6 +1,7 @@
 var path = require('path');
 var zanDocLoader = require.resolve('../zandoc-loader');
 var zanDocReactLoader = require.resolve('../zandoc-react-loader');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var babelLoader = {
   loader: 'babel-loader',
@@ -14,6 +15,7 @@ var babelLoader = {
       }]
     ],
     plugins: [
+      require.resolve('babel-plugin-transform-class-properties'),
       [require.resolve('babel-plugin-transform-runtime'), {
         helpers: true, // defaults to true
         polyfill: true, // defaults to true
@@ -44,9 +46,21 @@ module.exports = {
         test: /\.md$/,
         use: [
           babelLoader,
-          zanDocReactLoader,
-          zanDocLoader
+          {
+            loader: require.resolve('zandoc-react-loader'),
+            options: {
+              jsTemplate: path.resolve('./theme/template.js')
+            }
+          },
+          require.resolve('zandoc-loader')
         ]
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: require.resolve("style-loader"),
+          use: require.resolve("css-loader")
+        })
       }
     ]
   },
@@ -54,5 +68,11 @@ module.exports = {
     alias: {
       zent: path.resolve(__dirname, '../../packages/zent')
     }
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin({
+      filename: 'bundle.css',
+      allChunks: true,
+    })
+  ]
 };

@@ -1,44 +1,38 @@
 ## Button组件
 
-### 禁用状态
+### 示例
 
 :::demo 禁用状态
 ```js
 import { Button } from 'zent';
 
 ReactDOM.render(
-	<div class="button-group">
-		<zan-button type="primary" size="small">确认付款</zan-button>
-		<zan-button size="small">确认收货</zan-button>
-		<zan-button size="small">取消订单</zan-button>
+	<Button type="primary" disabled>确认付款</Button>
+	, mountNode);
+```
+:::
+
+:::demo 按钮分组
+```js
+import { Button } from 'zent';
+
+ReactDOM.render(
+	<div className="button-group">
+		<Button type="primary" size="small">确认付款</Button>
+		<Button size="small">确认收货</Button>
+		<Button size="small">取消订单</Button>
 	</div>
 	, mountNode);
 ```
 :::
 
 <style>
-body {
-	color: red;
+.button-group {
+	.zent-btn {
+		margin-right: 10px;
+	}
 }
 </style>
-
-### button group
-
-一组按钮。
-
-:::demo
-```js
-import { Button } from 'zent';
-
-ReactDOM.render(
-	<div class="button-group">
-		<zan-button type="primary" size="small">确认付款</zan-button>
-		<zan-button size="small">确认收货</zan-button>
-		<zan-button size="small">取消订单</zan-button>
-	</div>
-	, mountNode);
-```
-:::
 
 ### API
 
@@ -49,21 +43,3 @@ ReactDOM.render(
 | tag | 按钮标签 | string  | 'button'          | 'a', 'span', ...  |
 | diabled | 按钮是否禁用 | Boolean  |           |      |
 | block | 按钮是否显示为块级元素 | Boolean  |           |      |
-
-<style>
-.demo {
-	content: '';
-  &-button {
-    .zan-row {
-      padding: 0 20px;
-    }
-    .zan-col {
-      margin-bottom: 10px;
-    }
-    .button-group {
-      font-size: 0;
-      padding: 0 20px;
-    }
-  }
-}
-</style>
