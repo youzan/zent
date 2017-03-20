@@ -10,8 +10,7 @@ server_prefix=/zent/zenticon
 # }
 
 function relpath() {
-  str=$1;
-  echo ${str#*/};
+  echo ${1#$basepath/};
 }
 
 command_exists () {
