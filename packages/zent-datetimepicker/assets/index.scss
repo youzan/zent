@@ -263,9 +263,13 @@ $double_default_width: 480px;
             &:hover {
                 background: $light_blue;
             }
+            &--current {
+                color: $active_color;
+                border: 1px solid $active_color;
+            }
             &--in-range {
                 background: $light_blue;
-                border-color: $light_blue;
+                border: none;
                 &:before {
                     content: '';
                     display: block;
@@ -286,9 +290,6 @@ $double_default_width: 480px;
                     left: -8px;
                     top: 0;
                 }
-            }
-            &--current {
-                color: $active_color;
             }
             &--disabled {
                 cursor: not-allowed;

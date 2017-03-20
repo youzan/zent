@@ -77,9 +77,10 @@ describe('DateRangePicker', () => {
     wrapper = mount(<DateRangePicker disabledDate={false} />);
     wrapper.find('.picker-input').simulate('click');
 
-    // disabledDate can be a 2 items array
+    // del ---disabledDate can be a 2 items array ---del
     // BUG: logic error with array disabledDate
-    wrapper = mount(<DateRangePicker disabledDate={['2000-01-01', '2001-01-01']} />);
+    // support min and max
+    wrapper = mount(<DateRangePicker min="2000-01-01" max="2001-01-01" />);
     wrapper.find('.picker-input').simulate('click');
     expect(wrapper.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
   });

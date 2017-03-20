@@ -12,16 +12,23 @@ import { noop } from './constants/';
 function extractStateFromProps(props) {
   let showPlaceholder;
   let selected;
+  const format = props.format || 'YYYY-MM';
   if (props.value) {
-    showPlaceholder = false;
-    selected = parseDate(props.value, props.format);
+    const tmp = parseDate(props.value, format);
+    if (tmp) {
+      showPlaceholder = false;
+      selected = tmp;
+    } else {
+      showPlaceholder = true;
+      selected = new Date();
+    }
   } else {
     showPlaceholder = true;
     selected = new Date();
   }
 
   return {
-    value: formatDate(selected, props.format),
+    value: formatDate(selected, format),
     actived: selected,
     selected,
     openPanel: false,
@@ -92,7 +99,9 @@ class MonthPicker extends Component {
   }
 
   onConfirm = () => {
-    const value = formatDate(this.state.selected, this.props.format);
+    const { format } = this.props;
+    const { selected } = this.state;
+    const value = formatDate(selected, format || 'YYYY-MM');
     this.setState({
       value,
       openPanel: false,

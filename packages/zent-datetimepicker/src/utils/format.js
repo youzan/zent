@@ -4,13 +4,29 @@ export function isValidDate(date) {
   return isNaN(new Date(date));
 }
 
+const i18n = {
+  zh: {
+    dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+    dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+    monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    amPm: ['am', 'pm'],
+    DoFn: function DoFn(D) {
+      return D + ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : (D - D % 10 !== 10) * D % 10];
+    }
+  }
+};
+
 export const parseDate = (date, mask) => {
+  mask = mask || 'default';
   if (date instanceof Date) { return date }
   if (typeof date === 'number') return new Date(date);
   return parse(date, mask);
 };
 
-export const formatDate = format;
+export const formatDate = (date, mask = 'default', locale = 'zh') => {
+  return format(date, mask, i18n[locale]);
+};
 
 // const token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g;
 // const timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g;

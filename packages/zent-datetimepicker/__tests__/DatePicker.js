@@ -156,7 +156,7 @@ describe('DateTimePicker', () => {
     wrapper.find('PanelFooter .link--current').simulate('click');
     wrapper.find('PanelFooter .btn--confirm').simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(wrapper.prop('value')).toBe(formatDate(new Date(), 'yyyy-mm-dd'));
+    expect(wrapper.prop('value')).toBe(formatDate(new Date(), 'YYYY-MM-DD'));
 
     // click other date
     wrapper.find('.picker-input').simulate('click');
@@ -164,7 +164,7 @@ describe('DateTimePicker', () => {
     wrapper.find('DatePanel .panel__cell').at(1).simulate('click');
     wrapper.find('PanelFooter .btn--confirm').simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(2);
-    expect(wrapper.prop('value')).not.toBe(formatDate(new Date(), 'yyyy-mm-dd'));
+    expect(wrapper.prop('value')).not.toBe(formatDate(new Date(), 'YYYY-MM-DD'));
 
     // hover event
     // BUG: onHover is not revealed
@@ -182,7 +182,7 @@ describe('DateTimePicker', () => {
     wrapper.setProps({ prefix: 'zent-custom' });
     expect(wrapper.find('.zent-custom-datetime-picker').length).toBe(1);
     wrapper.setProps({ value: false });
-    expect(wrapper.find('DatePicker').getNode().state.value).toBe('');
+    expect(wrapper.find('DatePicker').getNode().state.value).toBe(undefined);
     wrapper.setProps({ value: '2011-01-01' });
     wrapper.setProps({ format: null });
 

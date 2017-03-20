@@ -38,7 +38,7 @@ describe('MonthPicker', () => {
     wrapper.find('.link--current').simulate('click');
     wrapper.find('.btn--confirm').simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0][0]).toBe(formatDate(new Date(), 'yyyy-mm'));
+    expect(onChangeMock.mock.calls[0][0]).toBe(formatDate(new Date(), 'YYYY-MM'));
 
     // HACK: branch
     wrapper.setProps({ value: null });

@@ -11,15 +11,21 @@ import { timeFnMap, noop } from './constants/';
 
 let returnType = 'string';
 
-
 function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
 
   if (props.value) {
-    showPlaceholder = false;
-    actived = selected = parseDate(props.value, props.format);
+    const tmp = parseDate(props.value, props.format);
+    if (tmp) {
+      showPlaceholder = false;
+      actived = selected = tmp;
+    } else {
+      console.warn('date and format don\'t match.'); // eslint-disable-line
+      showPlaceholder = true;
+      actived = new Date();
+    }
   } else {
     showPlaceholder = true;
     actived = new Date();

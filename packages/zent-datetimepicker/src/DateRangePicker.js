@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
-import Input from 'zent-input';
+// import Input from 'zent-input';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
