@@ -1,0 +1,529 @@
+[
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "style",
+    "value": "body {\n\tcolor: red;\n}\n\n@component-namespace demo {\n  @b button {\n    .zan-row {\n      padding: 0 20px;\n    }\n    .zan-col {\n      margin-bottom: 10px;\n    }\n    .button-group {\n      font-size: 0;\n      padding: 0 20px;\n    }\n  }\n}"
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "heading",
+    "depth": 2,
+    "children": [
+     {
+      "type": "text",
+      "value": "Button组件"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "depth": 3,
+    "children": [
+     {
+      "type": "text",
+      "value": "按钮功能"
+     }
+    ]
+   },
+   {
+    "type": "paragraph",
+    "children": [
+     {
+      "type": "text",
+      "value": "只接受primary, default, danger三种类型，默认default。"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "code",
+    "lang": "html",
+    "value": "<zan-row>\n  <zan-col span=\"24\">\n    <zan-button block>default</zan-button>\n  </zan-col>\n  <zan-col span=\"24\">\n    <zan-button type=\"primary\" block>primary</zan-button>\n  </zan-col>\n  <zan-col span=\"24\">\n    <zan-button type=\"danger\" block>danger</zan-button>\n  </zan-col>\n</zan-row>",
+    "title": "按钮功能"
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "heading",
+    "depth": 3,
+    "children": [
+     {
+      "type": "text",
+      "value": "禁用状态"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "code",
+    "lang": "html",
+    "value": "<zan-row>\n  <zan-col span=\"24\">\n    <zan-button disabled block>diabled</zan-button>\n  </zan-col>\n</zan-row>",
+    "title": "禁用状态"
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "heading",
+    "depth": 3,
+    "children": [
+     {
+      "type": "text",
+      "value": "按钮尺寸"
+     }
+    ]
+   },
+   {
+    "type": "paragraph",
+    "children": [
+     {
+      "type": "text",
+      "value": "只接受large, normal, small, mini四种尺寸，默认normal。"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "code",
+    "lang": "html",
+    "value": "<zan-row>\n  <zan-col span=\"24\">\n    <zan-button size=\"large\">large</zan-button>\n  </zan-col>\n</zan-row>\n<zan-row gutter=\"10\">\n  <zan-col span=\"8\">\n    <zan-button type=\"primary\" block>normal</zan-button>\n  </zan-col>\n  <zan-col span=\"8\">\n    <zan-button size=\"small\" block>small</zan-button>\n  </zan-col>\n  <zan-col span=\"8\">\n    <zan-button size=\"mini\" block>mini</zan-button>\n  </zan-col>\n</zan-row>",
+    "title": "按钮尺寸"
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "heading",
+    "depth": 3,
+    "children": [
+     {
+      "type": "text",
+      "value": "自定义按钮标签"
+     }
+    ]
+   },
+   {
+    "type": "paragraph",
+    "children": [
+     {
+      "type": "text",
+      "value": "按钮默认是button标签，可以使用tag属性修改为一个a标签。"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "code",
+    "lang": "html",
+    "value": "<zan-row>\n  <zan-col span=\"24\">\n    <zan-button tag=\"a\" type=\"primary\" href=\"https://www.youzan.com\" target=\"_blank\">a标签按钮</zan-button>\n  </zan-col>\n</zan-row>",
+    "title": "自定义按钮标签"
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "heading",
+    "depth": 3,
+    "children": [
+     {
+      "type": "text",
+      "value": "loading按钮"
+     }
+    ]
+   },
+   {
+    "type": "paragraph",
+    "children": [
+     {
+      "type": "text",
+      "value": "表示loading状态"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "code",
+    "lang": "html",
+    "value": "<zan-row>\n  <zan-col span=\"24\">\n    <zan-button type=\"primary\" loading block>loading</zan-button>\n  </zan-col>\n  <zan-col span=\"24\">\n    <zan-button loading block></zan-button>\n  </zan-col>\n</zan-row>",
+    "title": "loading按钮"
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "heading",
+    "depth": 3,
+    "children": [
+     {
+      "type": "text",
+      "value": "button group"
+     }
+    ]
+   },
+   {
+    "type": "paragraph",
+    "children": [
+     {
+      "type": "text",
+      "value": "一组按钮。"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "code",
+    "lang": "html",
+    "value": "<div class=\"button-group\">\n  <zan-button type=\"primary\" size=\"small\">确认付款</zan-button>\n  <zan-button size=\"small\">确认收货</zan-button>\n  <zan-button size=\"small\">取消订单</zan-button>\n</div>",
+    "title": "button group"
+   }
+  ]
+ },
+ {
+  "type": "root",
+  "children": [
+   {
+    "type": "heading",
+    "depth": 3,
+    "children": [
+     {
+      "type": "text",
+      "value": "API"
+     }
+    ]
+   },
+   {
+    "type": "table",
+    "align": [
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    "children": [
+     {
+      "type": "tableRow",
+      "children": [
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "参数"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "说明"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "类型"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "默认值"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "可选值"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "tableRow",
+      "children": [
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "type"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "按钮类型"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "string"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "'default'"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "'primary', 'danger'"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "tableRow",
+      "children": [
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "size"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "按钮尺寸"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "string"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "'normal'"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "'large', 'small', 'mini'"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "tableRow",
+      "children": [
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "tag"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "按钮标签"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "string"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "'button'"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "'a', 'span', ..."
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "tableRow",
+      "children": [
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "diabled"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "按钮是否禁用"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "Boolean"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": []
+       },
+       {
+        "type": "tableCell",
+        "children": []
+       }
+      ]
+     },
+     {
+      "type": "tableRow",
+      "children": [
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "block"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "按钮是否显示为块级元素"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": [
+         {
+          "type": "text",
+          "value": "Boolean"
+         }
+        ]
+       },
+       {
+        "type": "tableCell",
+        "children": []
+       },
+       {
+        "type": "tableCell",
+        "children": []
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]
