@@ -263,22 +263,23 @@ onSubmissionFail(submissionError) {
 getControlGroup是一个用来快速封装自定义组件的函数，它返回一个满足通用布局与样式要求（左侧label、右侧表单元素）的stateless functional component。同时支持将Field中的error信息展示出来。getControlGroup实现的比较简单，可以直接看源码。
 
 ```js
-export default Control => ({ required = false, helpDesc = '', label = '', ...props }) => {
+export default Control => ({ required = false, helpDesc = '', label = '', className = '', ...props }) => {
   const showError = props.isTouched && props.error;
-  const className = cx({
+  const groupClassName = cx({
     'zent-form__control-group': true,
-    'has-error': showError
+    'has-error': showError,
+    [className]: true
   });
 
   return (
-    <div className={className}>
+    <div className={groupClassName}>
       <label className="zent-form__control-label">
         {required ? <em className="zent-form__required">*</em> : null}
         {label}
       </label>
       <div className="zent-form__controls">
         <Control {...props} />
-        {showError && <p className="zent-form__help-block">{props.error}</p>}
+        {showError && <p className="zent-form__error-desc">{props.error}</p>}
         {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
       </div>
     </div>
@@ -291,6 +292,7 @@ export default Control => ({ required = false, helpDesc = '', label = '', ...pro
 | 参数 | 说明 | 类型 | 是否必填 |
 |------|------|------|------|
 | label | 表单元素的label | String | 否 |
+| className | 添加到control-group上的额外类名，可以用来覆盖子元素的样式 | String | 否 |
 | helpDesc | 表单元素的说明性文字 | String | 否 |
 | required | 为true时会在label前添加红色的"*" | Boolean | 否 |
 
