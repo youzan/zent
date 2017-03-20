@@ -26,6 +26,7 @@ const columns = [{
   title: '库存',
   name: 'stock_num',
   width: '100px',
+  textAlign: 'center',
   isMoney: true
 }, {
   width: '3em',
