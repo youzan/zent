@@ -1,0 +1,63 @@
+#!/bin/sh
+# curl -s -o /dev/null "www.interface.com/commit/create?user=$(git config user.name)&comments=pre-commit"
+
+JS_STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$")
+SCSS_STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".scss$")
+
+if [[ "$JS_STAGED_FILES" = "" && "$SCSS_STAGED_FILES" = "" ]]; then
+  exit 0
+fi
+
+PASS=true
+
+# Check for eslint
+which eslint &> /dev/null
+if [[ "$?" == 1 ]]; then
+  if [ -f ~/.zshrc ]; then
+    source ~/.zshrc
+  elif [ -f ~/.bash_profile ]; then
+    source ~/.bash_profile
+  fi
+fi
+
+if [[ "$JS_STAGED_FILES" != "" ]]; then
+  echo "\nValidating Javascript:\n"
+
+  eslint $JS_STAGED_FILES
+
+  if [[ "$?" == 0 ]]; then
+    echo "\033[32mESLint Passed\033[0m"
+  else
+    echo "\033[41mESLint Failed\033[0m"
+    PASS=false
+  fi
+
+  echo "\nJavascript validation completed!\n"
+fi
+
+
+if [[ "$SCSS_STAGED_FILES" != "" ]]; then
+  echo "\nValidating Scss:\n"
+
+  # 只输出Error
+  scss-lint $SCSS_STAGED_FILES | grep '\[E\]'
+
+  if [[ "$?" == 0 || "$?" == 1 ]]; then
+    echo "\033[32mSCSS-Lint Passed\033[0m"
+  else
+    echo "\033[41mSCSS-Lint Failed\033[0m"
+    PASS=false
+  fi
+
+  echo "\nScss validation completed!\n"
+fi
+
+if ! $PASS; then
+  echo "\033[41mCOMMIT FAILED:\033[0m Your commit contains files that should pass ESLint and Scss-lint but do not. Please fix the ESLint and Scss-lint errors and try again.\n"
+  exit 1
+else
+  echo "\033[42mCOMMIT SUCCEEDED\033[0m\n"
+  # curl -s -o /dev/null "www.interface.com/commit/create?user=$(git config user.name)&comments=eslint"
+fi
+
+exit $?
