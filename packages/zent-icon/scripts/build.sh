@@ -3,9 +3,14 @@
 basepath=$(dirname $0)
 server_prefix=/zent/zenticon
 
+# temporaryly discard
 # convert relative path to absolute path
-function abspath() {
-  pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null;
+# function abspath() {
+#   pushd . > /dev/null; if [ -d "$1" ]; then cd "$1"; dirs -l +0; else cd "`dirname \"$1\"`"; cur_dir=`dirs -l +0`; if [ "$cur_dir" == "/" ]; then echo "$cur_dir`basename \"$1\"`"; else echo "$cur_dir/`basename \"$1\"`"; fi; fi; popd > /dev/null;
+# }
+
+function relpath() {
+  echo ${1#$basepath/};
 }
 
 command_exists () {
@@ -16,7 +21,7 @@ fontname() {
   if command_exists superman ; then
     echo "//b.yzcdn.cn$server_prefix/$(basename $basepath/../build/font/zenticon-*.$1)"
   else
-    echo "$(abspath $basepath/../build/font/zenticon-*.$1)"
+    echo "$(relpath $basepath/../build/font/zenticon-*.$1)"
   fi
 }
 
