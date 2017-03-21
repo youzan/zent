@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import 'zent/lib/index.css';
-<%= imports %>
+IMPORTS
+
+DEMO_DECLARATIONS
 
 function RawHtmlRenderer(props) {
   return <props.tag dangerouslySetInnerHTML={{ __html: props.html }}></props.tag>;
 }
-
-<% sections.forEach(function(sec) { %>
-  <% if (sec.type === 'demo') { %>
-const <%= sec.id %> = <%= sec.body %>;
-  <% } %>
-<% }) %>
 
 class DemoRenderer extends Component {
   state = {
@@ -42,22 +38,12 @@ class DemoRenderer extends Component {
 
 module.exports = class ZentDocContainer extends Component {
   render() {
-    return (
-      <div className="zent-doc-container">
-        <% sections.forEach(function (sec) { %>
-          <% if (sec && sec.type === 'style') { %>
-            <RawHtmlRenderer tag="style" html="<%- sec.value %>" />
-          <% } %>
-
-          <% if (sec && sec.type === 'markdown') { %>
-            <RawHtmlRenderer tag="div" html="<%= sec.value %>" />
-          <% } %>
-
-          <% if (sec && sec.type === 'demo') { %>
-            <DemoRenderer title="<%= sec.title %>" src="<%- sec.src %>" demo={<%= sec.id %>}/>
-          <% } %>
-        <% }) %>
-      </div>
-    )
+    return React.createElement(
+      'div',
+      {
+        className: 'zandoc-react-container'
+      },
+      SECTIONS
+    );
   }
 }

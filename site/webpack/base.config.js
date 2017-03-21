@@ -1,6 +1,4 @@
 var path = require('path');
-var zanDocLoader = require.resolve('../zandoc-loader');
-var zanDocReactLoader = require.resolve('../zandoc-react-loader');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var babelLoader = {
