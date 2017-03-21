@@ -1,5 +1,9 @@
 ## Button组件
 
+按钮是用来按的
+
+难道不是吗?
+
 ### 示例
 
 :::demo 禁用状态
@@ -7,8 +11,9 @@
 import { Button } from 'zent';
 
 ReactDOM.render(
-	<Button type="primary" disabled>确认付款</Button>
-	, mountNode);
+  <Button type="primary" disabled>确认付款</Button>
+  , mountNode
+);
 ```
 :::
 
@@ -18,11 +23,12 @@ import { Button } from 'zent';
 
 ReactDOM.render(
 	<div className="button-group">
-		<Button type="primary" size="small">确认付款</Button>
-		<Button size="small">确认收货</Button>
-		<Button size="small">取消订单</Button>
+		<Button type="primary">确认付款</Button>
+		<Button type="danger">确认收货</Button>
+		<Button type="success">取消订单</Button>
 	</div>
-	, mountNode);
+	, mountNode
+);
 ```
 :::
 
