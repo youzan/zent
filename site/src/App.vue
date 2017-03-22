@@ -23,5 +23,6 @@ export default {
 
 <style lang="css">
   @import '../assets/docs.css';
+  @import '../assets/icon.css';
   @import '../assets/react-docs.css';
 </style>

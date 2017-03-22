@@ -5,7 +5,7 @@
       v-if="leftNav"
       class="footer-nav__link footer-nav__left"
       @click="handleNavClick('prev')">
-      <zan-icon name="arrow"></zan-icon>
+      <i class="zan-icon zan-icon-arrow"></i>
       {{ leftNav.title }}
     </a>
     <a
@@ -13,7 +13,7 @@
       v-if="rightNav"
       class="footer-nav__link footer-nav__right"
       @click="handleNavClick('next')">
-      <zan-icon name="arrow"></zan-icon>
+      <i class="zan-icon zan-icon-arrow"></i>
       {{ rightNav.title }}
     </a>
   </div>
