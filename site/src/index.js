@@ -5,10 +5,12 @@ import navConfig from '../nav.config.js';
 import routes from './router.config';
 import SideNav from './components/side-nav';
 import DemoBlock from './components/demo-block';
+import FooterNav from './components/footer-nav';
 
 Vue.use(VueRouter);
 Vue.component('side-nav', SideNav);
 Vue.component('demo-block', DemoBlock);
+Vue.component('footer-nav', FooterNav);
 
 let routesConfig = routes(navConfig, true);
 
@@ -18,22 +20,20 @@ const router = new VueRouter({
   routes: routesConfig
 });
 
-let indexScrollTop = 0;
 router.beforeEach((route, redirect, next) => {
   if (route.path !== '/') {
-    indexScrollTop = document.body.scrollTop;
+    window.scrollTo(0, 0);
   }
   document.title = route.meta.title || document.title;
   next();
 });
 
-router.afterEach(route => {
-  if (route.path !== '/') {
-    document.body.scrollTop = 0;
-  } else {
-    Vue.nextTick(() => {
-      document.body.scrollTop = indexScrollTop;
-    });
+router.afterEach((route) => {
+  if (route.page !== '/') {
+    const sideNavHeight = document.querySelector('.side-nav').clientHeight;
+    const pageContentBox = document.querySelector('.page-content');
+    const pageContentHeight = pageContentBox.clientHeight;
+    pageContentBox.style.height = Math.max(sideNavHeight, pageContentHeight) + 'px';
   }
 });
 
