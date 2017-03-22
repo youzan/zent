@@ -5,7 +5,7 @@
       v-if="leftNav"
       class="footer-nav__link footer-nav__left"
       @click="handleNavClick('prev')">
-      <i class="zan-icon zan-icon-arrow"></i>
+      <i class="zenticon zenticon-right"></i>
       {{ leftNav.title }}
     </a>
     <a
@@ -13,7 +13,7 @@
       v-if="rightNav"
       class="footer-nav__link footer-nav__right"
       @click="handleNavClick('next')">
-      <i class="zan-icon zan-icon-arrow"></i>
+      <i class="zenticon zenticon-right"></i>
       {{ rightNav.title }}
     </a>
   </div>
@@ -95,7 +95,7 @@ export default {
       padding-top: 35px;
       position: relative;
 
-      .zan-icon {
+      .zenticon {
         width: 20px;
         display: block;
         font-size: 12px;
@@ -112,7 +112,7 @@ export default {
     @e left {
       float: left;
 
-      .zan-icon {
+      .zenticon {
         transform: rotate(180deg);
         left: 0;
       }
@@ -121,7 +121,7 @@ export default {
     @e right {
       float: right;
 
-      .zan-icon {
+      .zenticon {
         right: 0;
       }
     }
