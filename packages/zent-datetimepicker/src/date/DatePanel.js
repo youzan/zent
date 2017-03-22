@@ -3,25 +3,19 @@ import PanelHeader from '../common/PanelHeader';
 import DatePanelBody from './DatePanelBody';
 import MonthPanel from '../month/MonthPanel';
 import TimePanel from '../time/TimePanel';
-import { goMonths } from '../utils/';
 
 export default class DatePanel extends Component {
+  static defaultProps = {
+    showPrev: true,
+    showNext: true
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       showTime: props.showTime !== undefined,
       showMonth: false
     };
-  }
-
-  prevMonth = () => {
-    let prev = goMonths(this.props.actived, -1);
-    this.props.onChange(prev);
-  }
-
-  nextMonth = () => {
-    let next = goMonths(this.props.actived, 1);
-    this.props.onChange(next);
   }
 
   showMonth = () => {
@@ -70,8 +64,10 @@ export default class DatePanel extends Component {
         <PanelHeader
           title={title}
           onClickTitle={this.showMonth}
-          prev={this.prevMonth}
-          next={this.nextMonth}
+          prev={props.onPrev}
+          next={props.onNext}
+          showPrev={props.showPrev}
+          showNext={props.showNext}
         />
         <DatePanelBody
           actived={props.actived}

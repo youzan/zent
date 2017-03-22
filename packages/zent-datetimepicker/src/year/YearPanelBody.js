@@ -50,9 +50,9 @@ export default class YearPanelBody extends Component {
     const { onSelect } = this.props;
 
     return (
-      <table className="year-table panel__table">
+      <div className="year-table panel-table">
         <PanelCell onSelect={onSelect} cells={years} />
-      </table>
+      </div>
     );
   }
 }

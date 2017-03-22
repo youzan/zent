@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { goDays, isSameDate, isBeforeMonth, isAfterMonth, CURRENT } from '../utils/';
 import classNames from 'zent-utils/classnames';
+
 import PanelCell from '../common/PanelCell';
 
 const ROW = 6;
@@ -38,7 +39,7 @@ export default class DatePanelBody extends Component {
     const { actived, disabledDate } = this.props;
     let days = [];
     let index = 0;
-    let copy = new Date(actived.getFullYear(), actived.getMonth(), actived.getDate());
+    let copy = new Date(actived.getFullYear(), actived.getMonth(), actived.getDate(), actived.getHours(), actived.getMinutes(), actived.getSeconds());
     let firstDay = new Date(copy.setDate(1));
     let diff = parseInt(firstDay.getDay(), 10);
 
@@ -78,7 +79,7 @@ export default class DatePanelBody extends Component {
     const arr = ['日', '一', '二', '三', '四', '五', '六'];
 
     return arr.map((item, i) => {
-      return <th key={i}>{item}</th>;
+      return <li key={i}>{item}</li>;
     });
   }
 
@@ -87,14 +88,12 @@ export default class DatePanelBody extends Component {
     const days = this.getDays();
 
     return (
-      <table className="date-table panel__table">
-        <thead>
-          <tr>
-            {this.getThead()}
-          </tr>
-        </thead>
+      <div className="date-table panel-table">
+        <ul className="panel-table__row panel-table__head">
+          {this.getThead()}
+        </ul>
         <PanelCell onSelect={onSelect} onHover={onHover} cells={days} />
-      </table>
+      </div>
     );
   }
 }

@@ -20,7 +20,7 @@ export default class PanelCell extends Component {
     return cells.map((row, i) => {
       let tds = row.map((col, j) => {
         return (
-          <td className="grid-cell" role="gridcell" key={j}>
+          <li className="grid-cell" role="gridcell" key={j}>
             <div
               onClick={() => this.onClickCell(col)}
               onMouseOver={() => onHover(col.value)}
@@ -28,21 +28,21 @@ export default class PanelCell extends Component {
               title={col.value}>
               {col.text}
             </div>
-          </td>
+          </li>
         );
       });
 
       return (
-        <tr role="row" key={i} >{tds}</tr>
+        <ul className="panel-table__row" role="row" key={i} >{tds}</ul>
       );
     });
   }
 
   render() {
     return (
-      <tbody>
+      <div>
         {this.getTbody()}
-      </tbody>
+      </div>
     );
   }
 

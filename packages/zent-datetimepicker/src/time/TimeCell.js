@@ -19,28 +19,28 @@ export default class TimeCell extends Component {
     return cells.map((row, i) => {
       let tds = row.map((col, j) => {
         return (
-          <td className="grid-cell" role="gridcell" key={j}>
+          <li className="grid-cell" role="gridcell" key={j}>
             <span
               onClick={() => this.onClickCell(col)}
               className={col.className}
               title={col.value}>
               {col.text}
             </span>
-          </td>
+          </li>
         );
       });
 
       return (
-        <tr role="row" key={i} >{tds}</tr>
+        <ul className="panel-table__row" role="row" key={i} >{tds}</ul>
       );
     });
   }
 
   render() {
     return (
-      <tbody>
+      <div>
         {this.getTbody()}
-      </tbody>
+      </div>
     );
   }
 

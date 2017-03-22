@@ -61,9 +61,9 @@ export default class MinutePanel extends Component {
     return (
       <div className="minute-panel">
         <PanelHeader title={title} showNext={false} prev={hidePanel} />
-        <table className="minute-table panel__table">
+        <div className="minute-table panel-table">
           <TimeCell cells={minutes} onSelect={onSelect} />
-        </table>
+        </div>
       </div>
 
     );

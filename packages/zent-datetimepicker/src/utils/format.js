@@ -1,5 +1,13 @@
+/**
+ * @author xuhong <chenxuhong@youzan.com>
+ */
+
 import { parse, format } from 'fecha';
 
+/**
+ * 判断一个字符串是否是 iso 标准日期
+ * @param {string} date 日期字符串
+ */
 export function isValidDate(date) {
   return isNaN(new Date(date));
 }
@@ -17,12 +25,26 @@ const i18n = {
   }
 };
 
+/**
+ * 解析日期
+ * @param {String} date 需要解析的 date，默认应该传入字符串，但对下面两个情况也做了兼容:
+ * - 如果传入Date的实例则直接返回这个实例;
+ * - 如果传入时间戳数字，则返回 Date.parse 函数调用后的值;
+ * @param {String} mask 解析的格式
+ */
 export const parseDate = (date, mask) => {
   mask = mask || 'default';
   if (date instanceof Date) { return date }
-  if (typeof date === 'number') return new Date(date);
+  if (typeof date === 'number') return Date.parse(date);
   return parse(date, mask);
 };
+
+/**
+ * 格式化一个 date 对象
+ * @param {*} date Date 的实例
+ * @param {*} mask 解析的格式，默认为 'default'
+ * @param {*} locale i18n 的设置，默认为 'zh'
+ */
 
 export const formatDate = (date, mask = 'default', locale = 'zh') => {
   return format(date, mask, i18n[locale]);

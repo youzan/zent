@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
 import Input from 'zent-input';
+import Popover from 'zent-popover';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import clickOutside from './utils/clickOutside';
-import { CURRENT_DAY } from './utils';
+import { CURRENT_DAY, goMonths } from './utils';
 import { formatDate, parseDate } from './utils/format';
 import { timeFnMap, noop } from './constants/';
 
@@ -94,14 +94,6 @@ class DatePicker extends Component {
     this.setState(state);
   }
 
-  clickOutside = e => {
-    if (!this.picker.contains(e.target)) {
-      this.setState({
-        openPanel: false
-      });
-    }
-  }
-
   onChangeDate = (val) => {
     this.setState({
       actived: val
@@ -117,16 +109,6 @@ class DatePicker extends Component {
     });
   }
 
-  isDisabled = (val) => {
-    const { disabledDate, min, max, format } = this.props;
-
-    if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
-
-    return false;
-  }
-
   onChangeTime = (val, type) => {
     const fn = timeFnMap[type];
     const tmp = new Date(this.state.activedTime);
@@ -135,6 +117,22 @@ class DatePicker extends Component {
     this.setState({
       activedTime: tmp
     });
+  }
+
+  onChangeMonth = (type) => {
+    const typeMap = {
+      prev: -1,
+      next: 1
+    };
+
+    return () => {
+      const { actived } = this.state;
+      const acp = goMonths(actived, typeMap[type]);
+
+      this.setState({
+        actived: acp
+      });
+    };
   }
 
   onClickInput = () => {
@@ -196,21 +194,22 @@ class DatePicker extends Component {
     this.props.onChange(ret);
   }
 
-  renderPicker() {
+  isDisabled = (val) => {
+    const { disabledDate, min, max, format } = this.props;
 
+    if (disabledDate && disabledDate(val)) return true;
+    if (min && val < parseDate(min, format)) return true;
+    if (max && val > parseDate(max, format)) return true;
+
+    return false;
   }
 
-  render() {
+  renderPicker() {
     const state = this.state;
     const props = this.props;
-    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
-    const inputCls = classNames({
-      'picker-input': true,
-      'picker-input--filled': !state.showPlaceholder,
-      'picker-input--disabled': props.disabled
-    });
     let showTime;
     let datePicker;
+
     if (props.showTime) {
       showTime = Object.assign({},
         {
@@ -240,6 +239,8 @@ class DatePicker extends Component {
             disabledDate={this.isDisabled}
             onSelect={this.onSelectDate}
             onChange={this.onChangeDate}
+            onPrev={this.onChangeMonth('prev')}
+            onNext={this.onChangeMonth('next')}
           />
           <PanelFooter
             buttonText={props.confirmText}
@@ -252,24 +253,52 @@ class DatePicker extends Component {
       );
     }
 
+    return datePicker;
+  }
+
+  togglePicker = () => {
+    this.setState({
+      openPanel: !this.state.openPanel
+    });
+  }
+
+  render() {
+    const state = this.state;
+    const props = this.props;
+    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const inputCls = classNames({
+      'picker-input': true,
+      'picker-input--filled': !state.showPlaceholder,
+      'picker-input--disabled': props.disabled
+    });
+
     return (
       <div className={wrapperCls} ref={ref => this.picker = ref}>
-        <div className="picker-wrapper">
-          <div className={inputCls} onClick={this.onClickInput}>
-            <Input
-              value={state.showPlaceholder ? props.placeholder : state.value}
-              onChange={noop}
-              disabled={props.disabled}
-            />
+        <Popover
+          visible={state.openPanel}
+          onVisibleChange={this.togglePicker}
+          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          position={Popover.Position.BottomLeft}
+        >
+          <Popover.Trigger.Click>
+            <div className={inputCls} onClick={this.onClickInput}>
+              <Input
+                value={state.showPlaceholder ? props.placeholder : state.value}
+                onChange={noop}
+                disabled={props.disabled}
+              />
 
-            <span className="zenticon zenticon-calendar-o"></span>
-            <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
-          </div>
-          {state.openPanel ? datePicker : ''}
-        </div>
+              <span className="zenticon zenticon-calendar-o"></span>
+              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
+            </div>
+          </Popover.Trigger.Click>
+          <Popover.Content>
+            {this.renderPicker()}
+          </Popover.Content>
+        </Popover>
       </div>
     );
   }
 }
 
-export default clickOutside(DatePicker);
+export default DatePicker;

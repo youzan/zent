@@ -16,11 +16,6 @@ $double_default_width: 480px;
     width: $default_input_width;
     background: #fff;
     line-height: normal;
-    .picker-wrapper {
-        position: relative;
-        width: 100%;
-        display: inline-block;
-    }
     .picker-input {
         color: #999;
         position: relative;
@@ -87,286 +82,299 @@ $double_default_width: 480px;
             }
         }
     }
-    .date-picker,
-    .month-picker,
-    .time-picker,
-    .range-picker {
-        background: #fff;
-        position: absolute;
-        top: 32px;
-        width: $default_width;
-        font-size: 12px;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
-        z-index: 10;
-    }
-    .grid-cell {
-        vertical-align: middle;
-        padding: 0;
-    }
-    .range-picker {
-        width: $double_default_width;
-        .date-picker {
-            position: static;
-            display: inline-block;
-            vertical-align: top;
-            box-shadow: none;
-            &+.date-picker {
-                left: $default_width;
-            }
-            .month-panel {
-                .grid-cell {
-                    height: 41.5px;
-                }
-            }
-            .year-panel {
-                .grid-cell {
-                    height: 41.5px;
-                }
-            }
+    &-popover {
+        line-height: 1;
+        .date-picker,
+        .month-picker,
+        .time-picker,
+        .range-picker {
+            background: #fff;
+            width: $default_width;
+            font-size: 12px;
+            border-radius: 2px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+            z-index: 10;
         }
-        &--showTime {
+        .grid-cell {
+            vertical-align: middle;
+            padding: 0;
+        }
+        .range-picker {
+            width: $double_default_width;
             .date-picker {
-                height: 265px;
+                display: inline-block;
+                vertical-align: top;
+                box-shadow: none;
+                &+.date-picker {
+                    position: relative;
+                    box-sizing: border-box;
+                    border-left: 1px solid $border_color;
+                    left: -1px;
+                }
                 .month-panel {
                     .grid-cell {
-                        height: 56.5px;
+                        height: 41.5px;
                     }
                 }
                 .year-panel {
                     .grid-cell {
-                        height: 56.5px;
-                    }
-                }
-                .time-panel {
-                    .hour-panel,
-                    .minute-panel,
-                    .second-panel {
-                        height: 265px;
+                        height: 41.5px;
                     }
                 }
             }
-        }
-    }
-    .date-panel,
-    .month-panel,
-    .year-panel {
-        position: relative;
-        width: $default_width;
-        background: #fff;
-        color: #333;
-    }
-    .date-picker {
-        .date-panel {
-            .grid-cell {
-                padding: 2px 0;
+            &--showTime {
+                .date-picker {
+                    .month-panel {
+                        .grid-cell {
+                            height: 56.5px;
+                        }
+                    }
+                    .year-panel {
+                        .grid-cell {
+                            height: 56.5px;
+                        }
+                    }
+                    .time-panel {
+                        .hour-panel,
+                        .minute-panel,
+                        .second-panel {
+                            height: 265px;
+                        }
+                    }
+                }
             }
         }
-        .month-panel {
-            position: absolute;
-            top: 0;
-            left: 0;
-            .grid-cell {
-                height: 55.5px;
-                vertical-align: middle;
-                padding: 0;
-            }
-        }
+        .date-panel,
+        .month-panel,
         .year-panel {
-            .grid-cell {
-                height: 55.5px;
-                vertical-align: middle;
-                padding: 0;
-            }
+            position: relative;
+            width: $default_width;
+            background: #fff;
+            color: #333;
         }
-    }
-    .month-picker {
-        .month-panel {
-            .month-table {
-                margin: 10px 0;
+        .date-picker {
+            .date-panel {
+                .grid-cell {
+                    padding: 2px 0;
+                }
+            }
+            .month-panel {
+                position: absolute;
+                top: 0;
+                left: 0;
+                .grid-cell {
+                    height: 55.5px;
+                    vertical-align: middle;
+                    padding: 0;
+                }
             }
             .year-panel {
                 .grid-cell {
-                    height: 58px;
+                    height: 55.5px;
+                    vertical-align: middle;
                     padding: 0;
                 }
             }
         }
-    }
-    .panel__header {
-        box-sizing: border-box;
-        text-align: center;
-        height: 36px;
-        line-height: 36px;
-        border-bottom: 1px solid $border_color;
-        .link--prev {
-            cursor: pointer;
-            float: left;
-            margin-left: 25px;
-            font-size: 8px;
-            .zenticon {
-                transform: rotate(180deg)
+        .month-picker {
+            .month-panel {
+                .grid-cell {
+                    height: 36px;
+                }
+                .year-panel {
+                    .grid-cell {
+                        height: 47.5px;
+                        padding: 0;
+                    }
+                }
             }
         }
-        .link--next {
-            cursor: pointer;
-            float: right;
-            margin-right: 25px;
-            font-size: 8px;
-        }
-        .panel__title {
-            cursor: pointer;
-        }
-    }
-    .panel__footer {
-        box-sizing: border-box;
-        height: 54px;
-        line-height: 54px;
-        padding-right: 10px;
-        text-align: right;
-        border-top: 1px solid $border_color;
-        .btn--confirm {
-            line-height: normal;
-            background: $active_color;
-            color: #fff;
-            border: none;
-            border-radius: 2px;
-            padding: 10px 10px;
-            margin-left: 15px;
-        }
-        .link--current {
-            color: $active_color;
-            cursor: pointer;
-        }
-        .link--disabled {
-            color: $disable_color;
-        }
-    }
-    .panel__table {
-        width: 100%;
-        text-align: center;
-        td,
-        th {
-            padding: 5px 0;
-            width: 14.28%;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        .panel__cell {
-            display: inline-block;
-            box-sizing: border-box;
-            text-align: center;
-            vertical-align: middle;
-            border-radius: 2px;
-            cursor: pointer;
+        .panel__header {
             position: relative;
-            &:hover {
-                background: $light_blue;
-            }
-            &--current {
-                color: $active_color;
-                border: 1px solid $active_color;
-            }
-            &--in-range {
-                background: $light_blue;
-                border: none;
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 8px;
-                    height: 20px;
-                    background: $light_blue;
-                    position: absolute;
-                    right: -8px;
-                    top: 0;
-                }
-                &:after {
-                    content: '';
-                    display: block;
-                    width: 8px;
-                    height: 20px;
-                    background: $light_blue;
-                    position: absolute;
-                    left: -8px;
-                    top: 0;
+            text-align: center;
+            height: 36px;
+            line-height: 36px;
+            border-bottom: 1px solid $border_color;
+            .link--prev {
+                cursor: pointer;
+                position: absolute;
+                left: 25px;
+                padding: 0 10px;
+                font-size: 8px;
+                .zenticon {
+                    transform: rotate(180deg)
                 }
             }
-            &--disabled {
-                cursor: not-allowed;
-                color: $disable_cell_color;
-                &:hover {
-                    background: #fff;
-                }
-                &:before,
-                &:after {
-                    display: none;
-                }
+            .link--next {
+                cursor: pointer;
+                position: absolute;
+                right: 25px;
+                padding: 0 10px;
+                font-size: 8px;
             }
-            &--selected {
+            .panel__title {
+                cursor: pointer;
+            }
+        }
+        .panel__footer {
+            box-sizing: border-box;
+            height: 54px;
+            line-height: 54px;
+            padding-right: 10px;
+            text-align: right;
+            border-top: 1px solid $border_color;
+            .btn--confirm {
+                line-height: normal;
                 background: $active_color;
                 color: #fff;
-                &:hover {
-                    background: $active_color;
-                }
+                border: none;
+                border-radius: 2px;
+                padding: 10px 10px;
+                margin-left: 15px;
             }
-            &--different {
+            .link--current {
+                color: $active_color;
+                cursor: pointer;
+            }
+            .link--disabled {
                 color: $disable_color;
-                background: none;
-                &:before,
-                &:after {
-                    display: none;
+            }
+        }
+        .panel-table {
+            padding: 6px 0;
+            justify-content: center;
+            align-items: center;
+            &__row {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                li {
+                    display: inline-flex;
+                    flex: 1;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
-            &.date-panel__cell {
-                width: 20px;
-                height: 20px;
-                line-height: 20px;
+            &__head {
+                padding: 6px 0;
             }
-            &.month-panel__cell {
-                width: 30px;
-                height: 30px;
-                line-height: 30px;
-            }
-            &.year-panel__cell {
-                width: 50px;
-                height: 30px;
-                line-height: 30px;
+            .panel__cell {
+                display: inline-block;
+                box-sizing: border-box;
+                text-align: center;
+                vertical-align: middle;
+                border-radius: 2px;
+                cursor: pointer;
+                position: relative;
+                &:hover {
+                    background: $light_blue;
+                }
+                &--current {
+                    color: $active_color;
+                    border: 1px solid $active_color;
+                }
+                &--in-range {
+                    background: $light_blue;
+                    border: none;
+                    &:before {
+                        content: '';
+                        display: block;
+                        width: 8px;
+                        height: 20px;
+                        background: $light_blue;
+                        position: absolute;
+                        right: -8px;
+                        top: 0;
+                    }
+                    &:after {
+                        content: '';
+                        display: block;
+                        width: 8px;
+                        height: 20px;
+                        background: $light_blue;
+                        position: absolute;
+                        left: -8px;
+                        top: 0;
+                    }
+                }
+                &--disabled {
+                    cursor: not-allowed;
+                    color: $disable_cell_color;
+                    &:hover {
+                        background: #fff;
+                    }
+                    &:before,
+                    &:after {
+                        display: none;
+                    }
+                }
+                &--selected {
+                    background: $active_color;
+                    color: #fff;
+                    &:hover {
+                        background: $active_color;
+                    }
+                }
+                &--different {
+                    color: $disable_color;
+                    background: none;
+                    &:before,
+                    &:after {
+                        display: none;
+                    }
+                }
+                &.date-panel__cell {
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                }
+                &.month-panel__cell {
+                    width: 32px;
+                    height: 32px;
+                    line-height: 32px;
+                }
+                &.year-panel__cell {
+                    width: 50px;
+                    height: 30px;
+                    line-height: 30px;
+                }
             }
         }
-    }
-    .year-panel {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    .time-panel {
-        &__cell {
-            padding: 3px;
-        }
-        .hour-panel,
-        .minute-panel,
-        .second-panel {
+        .year-panel {
             position: absolute;
             top: 0;
             left: 0;
-            height: 319px;
-            width: $default_width;
-            background: #fff;
         }
-        &__preview {
-            margin: 12px 10px;
-            height: 31px;
-            line-height: 31px;
-            border: 1px solid #bbb;
-            border-radius: 2px;
-            text-align: center;
-            display: flex;
-            .time__number {
-                flex: 1;
-                cursor: pointer;
-                border-right: 1px solid #bbb;
-                &:last-child {
-                    border-right: none;
+        .time-panel {
+            &__cell {
+                padding: 3px;
+            }
+            .hour-panel,
+            .minute-panel,
+            .second-panel {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 327px;
+                width: $default_width;
+                background: #fff;
+            }
+            &__preview {
+                margin: 12px 10px;
+                height: 31px;
+                line-height: 31px;
+                border: 1px solid #bbb;
+                border-radius: 2px;
+                text-align: center;
+                display: flex;
+                .time__number {
+                    flex: 1;
+                    cursor: pointer;
+                    border-right: 1px solid #bbb;
+                    &:last-child {
+                        border-right: none;
+                    }
                 }
             }
         }

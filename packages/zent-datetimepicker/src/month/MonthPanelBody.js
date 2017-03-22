@@ -41,9 +41,9 @@ export default class MonthPanelBody extends Component {
     const months = this.getMonths();
 
     return (
-      <table className="month-table panel__table">
+      <div className="month-table panel-table">
         <PanelCell onSelect={onSelect} cells={months} />
-      </table>
+      </div>
     );
   }
 }

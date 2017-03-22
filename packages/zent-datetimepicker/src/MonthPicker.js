@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
 import Input from 'zent-input';
+import Popover from 'zent-popover';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import clickOutside from './utils/clickOutside';
 import { CURRENT } from './utils/';
 import { formatDate, parseDate } from './utils/format';
 import { noop } from './constants/';
@@ -110,15 +110,9 @@ class MonthPicker extends Component {
     this.props.onChange(value);
   }
 
-  render() {
+  renderPicker() {
     const state = this.state;
     const props = this.props;
-    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
-    const inputCls = classNames({
-      'picker-input': true,
-      'picker-input--filled': !state.showPlaceholder,
-      'picker-input--disabled': props.disabled
-    });
 
     let monthPicker;
     if (state.openPanel) {
@@ -141,24 +135,52 @@ class MonthPicker extends Component {
       );
     }
 
+    return monthPicker;
+  }
+
+  togglePicker = () => {
+    this.setState({
+      openPanel: !this.state.openPanel
+    });
+  }
+
+  render() {
+    const state = this.state;
+    const props = this.props;
+    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const inputCls = classNames({
+      'picker-input': true,
+      'picker-input--filled': !state.showPlaceholder,
+      'picker-input--disabled': props.disabled
+    });
+
     return (
       <div className={wrapperCls} ref={ref => this.picker = ref}>
-        <div className="picker-wrapper">
-          <div className={inputCls} onClick={this.onClickInput}>
-            <Input
-              value={state.showPlaceholder ? props.placeholder : state.value}
-              onChange={noop}
-              disabled={props.disabled}
-            />
+        <Popover
+          visible={state.openPanel}
+          onVisibleChange={this.togglePicker}
+          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          position={Popover.Position.BottomLeft}
+        >
+          <Popover.Trigger.Click>
+            <div className={inputCls} onClick={this.onClickInput}>
+              <Input
+                value={state.showPlaceholder ? props.placeholder : state.value}
+                onChange={noop}
+                disabled={props.disabled}
+              />
 
-            <span className="zenticon zenticon-calendar-o"></span>
-            <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
-          </div>
-          {state.openPanel ? monthPicker : ''}
-        </div>
+              <span className="zenticon zenticon-calendar-o"></span>
+              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
+            </div>
+          </Popover.Trigger.Click>
+          <Popover.Content>
+            {this.renderPicker()}
+          </Popover.Content>
+        </Popover>
       </div>
     );
   }
 }
 
-export default clickOutside(MonthPicker);
+export default MonthPicker;

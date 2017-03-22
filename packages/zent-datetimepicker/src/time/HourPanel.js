@@ -60,9 +60,9 @@ export default class HourPanel extends Component {
     return (
       <div className="hour-panel">
         <PanelHeader title={title} showNext={false} prev={hidePanel} />
-        <table className="hour-table panel__table">
+        <div className="hour-table panel-table">
           <TimeCell cells={hours} onSelect={onSelect} />
-        </table>
+        </div>
       </div>
 
     );

@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
 // import Input from 'zent-input';
+import Popover from 'zent-popover';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
 import { formatDate, parseDate } from './utils/format';
-import clickOutside from './utils/clickOutside';
 import { timeFnMap, TIME_FORMAT, noop } from './constants/';
 
 const isValidValue = (val) => {
@@ -97,14 +97,6 @@ class DateRangePicker extends Component {
     this.setState(state);
   }
 
-  clickOutside = e => {
-    if (!this.picker.contains(e.target)) {
-      this.setState({
-        openPanel: false
-      });
-    }
-  }
-
   onHover = (val) => {
     const { selected, range } = this.state;
     const scp = selected.slice();
@@ -123,7 +115,7 @@ class DateRangePicker extends Component {
     }
   }
 
-  onSelect = (val) => {
+  onSelectDate = (val) => {
     const { selected, actived, range } = this.state;
     const scp = selected.slice();
     const acp = actived.slice();
@@ -140,15 +132,16 @@ class DateRangePicker extends Component {
       scp.splice(0, 2, val);
       rcp.splice(0, 2, val);
       acp.splice(0, 2, val, goMonths(val, 1));
-    } else if (scp[0] && scp[0] < val) {
+      // 支持选择同一天
+    } else if (scp[0] && (scp[0] < val || formatDate(scp[0]) === formatDate(val))) {
       scp.splice(1, 1, val);
       if (scp[0].getMonth() < val.getMonth()) {
         acp.splice(1, 1, val);
       }
     } else {
+      acp.splice(0, 2, val, goMonths(val, 1));
       scp.splice(0, 1, val);
       rcp.splice(0, 1, val);
-      acp.splice(0, 1, val);
     }
 
     this.setState({
@@ -206,6 +199,32 @@ class DateRangePicker extends Component {
     this.onChangeTime(val, 1, type);
   }
 
+  // next&prev month 翻页效果联动
+  onChangeMonth = (type) => {
+    const baseMap = {
+      prev: 0,
+      next: 1
+    };
+    const typeMap = {
+      prev: -1,
+      next: 1
+    };
+
+    return () => {
+      const { actived } = this.state;
+      const base = actived[baseMap[type]];
+      let acp = [base, base];
+      acp.splice(baseMap[type], 1, goMonths(base, typeMap[type]));
+      // acp = acp.map((item, i) => {
+      //   return i === baseMap[type] ? goMonths(item, typeMap[type]) : item;
+      // });
+
+      this.setState({
+        actived: acp
+      });
+    };
+  }
+
   onClickInput = () => {
     if (this.props.disabled) return;
 
@@ -243,16 +262,9 @@ class DateRangePicker extends Component {
     this.props.onChange(vcp);
   }
 
-  render() {
+  renderPicker() {
     const state = this.state;
     const props = this.props;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
-    const inputCls = classNames({
-      'picker-input--range picker-input': true,
-      'picker-input--filled': !state.showPlaceholder,
-      'picker-input--showTime': props.showTime,
-      'picker-input--disabled': props.disabled
-    });
     let rangePicker;
 
     const getTimeConfig = (type) => {
@@ -287,9 +299,13 @@ class DateRangePicker extends Component {
               actived={state.actived[0]}
               selected={state.selected}
               disabledDate={this.isDisabled}
-              onSelect={this.onSelect}
+              onSelect={this.onSelectDate}
               onChange={this.onChangeStart}
               onHover={this.onHover}
+              onPrev={this.onChangeMonth('prev')}
+              onNext={noop}
+              showPrev
+              showNext={false}
             />
           </div>
           <div className="date-picker">
@@ -299,9 +315,13 @@ class DateRangePicker extends Component {
               actived={state.actived[1]}
               selected={state.selected}
               disabledDate={this.isDisabled}
-              onSelect={this.onSelect}
+              onSelect={this.onSelectDate}
               onChange={this.onChangeEnd}
               onHover={this.onHover}
+              onPrev={noop}
+              onNext={this.onChangeMonth('next')}
+              showPrev={false}
+              showNext
             />
           </div>
           <PanelFooter
@@ -312,22 +332,51 @@ class DateRangePicker extends Component {
       );
     }
 
+    return rangePicker;
+  }
+
+  togglePicker = () => {
+    this.setState({
+      openPanel: !this.state.openPanel
+    });
+  }
+
+  render() {
+    const state = this.state;
+    const props = this.props;
+    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const inputCls = classNames({
+      'picker-input--range picker-input': true,
+      'picker-input--filled': !state.showPlaceholder,
+      'picker-input--showTime': props.showTime,
+      'picker-input--disabled': props.disabled
+    });
+
     return (
       <div className={prefixCls} ref={ref => this.picker = ref}>
-        <div className="picker-wrapper">
-          <div className={inputCls} onClick={this.onClickInput}>
-            {state.showPlaceholder ? props.placeholder.join('~') : state.value.join('~')}
-            <span className="zenticon zenticon-calendar-o"></span>
-            <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
-          </div>
-          {state.openPanel ? rangePicker : ''}
-        </div>
+        <Popover
+          visible={state.openPanel}
+          onVisibleChange={this.togglePicker}
+          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          position={Popover.Position.BottomLeft}
+        >
+          <Popover.Trigger.Click>
+            <div className={inputCls} onClick={this.onClickInput}>
+              {state.showPlaceholder ? props.placeholder.join('~') : state.value.join('~')}
+              <span className="zenticon zenticon-calendar-o"></span>
+              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
+            </div>
+          </Popover.Trigger.Click>
+          <Popover.Content>
+            {this.renderPicker()}
+          </Popover.Content>
+        </Popover>
       </div>
     );
   }
 }
 
-export default clickOutside(DateRangePicker);
+export default DateRangePicker;
 
 /**
  * <Input
