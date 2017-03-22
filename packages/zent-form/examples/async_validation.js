@@ -1,9 +1,15 @@
-/* eslint-disable no-console */
+/* eslint-disable */
+/*
+
+  用户名中输入pangxie，blur后过1.5s会提示用户名已被占用，提示未出现时点击提交会alert“正在校验中”
+ */
 
 import React, { Component } from 'react';
-import { Form, Field, createForm, InputField } from '../src';
+import Form from '../src';
 import '../assets/index.scss';
 import 'zent-input/assets/index.scss';
+
+const { Field, createForm, InputField } = Form;
 
 class FieldsForm extends Component {
 
@@ -21,7 +27,7 @@ class FieldsForm extends Component {
       } else {
         resolve();
       }
-    }, 2000));
+    }, 1500));
   }
 
   render() {
@@ -66,7 +72,7 @@ export default class Simple extends Component {
   onSubmitFail = (error = {}) => {
     const errors = error.errors || {};
     if (errors.isValidating) {
-      console.log('isValidating');
+      alert('正在校验中');
     }
   }
 

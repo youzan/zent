@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import CorePagination from './modules/CorePagination';
 import Prefix from './modules/Prefix';
 import isEqual from 'zent-utils/lodash/isEqual';
 
-const { number, func, string, oneOfType } = React.PropTypes;
+const { number, func, string, oneOfType } = PropTypes;
 
-const ZentPagination = React.createClass({
-  propTypes: {
+export default class Pagination extends Component {
+  static propTypes = {
     className: string,
     prefix: string,
     current: number,
@@ -37,16 +37,24 @@ const ZentPagination = React.createClass({
       }
     },
     onChange: func
-  },
+  };
+
+  static defaultProps = {
+    prefix: 'zent',
+    pageSize: 10,
+    className: ''
+  };
 
   // 为了能本地动态修改每页个数，得自己缓存pageSize了
-  getInitialState() {
-    let pageSize = this.parsePageSize(this.props.pageSize);
-    let currentPageSize = this.getCurrentPageSize(pageSize);
-    return {
-      currentPageSize
-    };
-  },
+  state = {
+    currentPageSize: this.getCurrentPageSize(this.parsePageSize(this.props.pageSize))
+  };
+
+  setPageSize = (num) => {
+    this.setState({
+      currentPageSize: parseInt(num, 10)
+    });
+  };
 
   /**
    * [getCurrentPageSize description]
@@ -61,7 +69,7 @@ const ZentPagination = React.createClass({
       }
     }
     throw new Error(`pageSize 数据有错误 ${ps}`);
-  },
+  }
 
   parsePageSize(pageSize) {
     let ps;
@@ -72,7 +80,6 @@ const ZentPagination = React.createClass({
       }];
     } else {
       let hasCurrent;
-
       ps = pageSize.map((item) => {
         let tmp;
         if (typeof item === 'number') {
@@ -87,16 +94,13 @@ const ZentPagination = React.createClass({
         }
         return tmp;
       });
-
       if (!hasCurrent) {
         ps[0].isCurrent = true;
       }
     }
-
     return ps;
-  },
+  }
 
-  // BUG: 使用pager翻页之后会丢失原来的pageSize状态
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.pageSize, nextProps.pageSize)) {
       let pageSize = this.parsePageSize(nextProps.pageSize);
@@ -105,21 +109,7 @@ const ZentPagination = React.createClass({
         currentPageSize
       });
     }
-  },
-
-  getDefaultProps() {
-    return {
-      prefix: 'zent',
-      pageSize: 10,
-      className: ''
-    };
-  },
-
-  setPageSize(num) {
-    this.setState({
-      currentPageSize: parseInt(num, 10)
-    });
-  },
+  }
 
   render() {
     // 如果传入的current小于1则进行修改
@@ -142,6 +132,4 @@ const ZentPagination = React.createClass({
       </div>
     );
   }
-});
-
-export default ZentPagination;
+}
