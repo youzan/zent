@@ -23,7 +23,11 @@ npm_major_version () {
 
 npm_install () {
     echo "Install $@"
-    npm install -g "$@"
+    if command_exists yarn ; then
+        yarn global add "$@"
+    else
+        npm install -g "$@"
+    fi
     check_error "Install $@ failed"
 }
 
@@ -56,8 +60,10 @@ if ! command_exists npm ; then
     fail 'npm not found.\nTry reinstalling your node.js.'
 fi
 
-if [ `npm_major_version` -lt "3" ] ; then
-    fail 'Requires npm >= 3. Please upgrade your npm.'
+if ! command_exists yarn ; then
+    if [ `npm_major_version` -lt "3" ] ; then
+        fail 'Requires npm >= 3. Please upgrade your npm.'
+    fi
 fi
 
 if ! command_exists zent-kit ; then
