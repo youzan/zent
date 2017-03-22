@@ -40,6 +40,7 @@ $c-half-black: rgba(0, 0, 0, .2);
 
   &.disabled {
     color: #cacaca;
+    cursor: not-allowed;
 
     .zent-select-input,
     .zent-select-text,
