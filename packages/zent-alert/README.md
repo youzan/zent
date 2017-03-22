@@ -15,7 +15,7 @@ import { Alert } from 'zent';
 
 ReactDOM.render(
 	<Alert>公告内容。</Alert>
-	,mountNode
+	, mountNode
 );
 ```
 :::
@@ -139,5 +139,4 @@ ReactDOM.render(
     color: #FF4343;
 	margin-right: 5px;
 }
-
 </style>
