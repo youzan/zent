@@ -33,6 +33,7 @@
         .zent-form__checkbox,
         .zent-form__radio,
         .zent-form__control-label,
+        .zent-form__error-desc,
         .zent-form__help-block {
             color: #f44;
         }
@@ -67,6 +68,7 @@
 }
 
 .zent-form__help-block,
+.zent-form__error-desc,
 .zent-form__help-desc {
     line-height: 14px;
     font-size: 12px;
