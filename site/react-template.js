@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'zent/lib/index.css';
+import 'zentcss';
 IMPORTS
 
 DEMO_DECLARATIONS
