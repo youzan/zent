@@ -30,10 +30,10 @@ router.beforeEach((route, redirect, next) => {
 
 router.afterEach((route) => {
   if (route.page !== '/') {
-    const sideNavHeight = document.querySelector('.side-nav').clientHeight;
-    const pageContentBox = document.querySelector('.page-content');
-    const pageContentHeight = pageContentBox.clientHeight;
-    pageContentBox.style.height = Math.max(sideNavHeight, pageContentHeight) + 'px';
+    // const sideNavHeight = document.querySelector('.side-nav').clientHeight;
+    // const pageContentBox = document.querySelector('.page-content');
+    // const pageContentHeight = pageContentBox.clientHeight;
+    // pageContentBox.style.height = Math.max(sideNavHeight, pageContentHeight) + 'px';
   }
 });
 

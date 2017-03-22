@@ -41,7 +41,13 @@ class DemoRenderer extends Component {
             onClick={this.toggle}
             className={`zenticon zenticon-right zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
           />
-          <div className="zandoc-react-demo__title">{title}</div>
+          <RawHtmlRenderer
+            tag="div"
+            attributes={{
+              className: 'zandoc-react-demo__title'
+            }}
+            html={title}
+          />
         </div>
         {showCode && <RawHtmlRenderer
           tag="pre"

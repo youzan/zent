@@ -1,4 +1,4 @@
-## zent-alert
+## Alert 公告
 
 公告，提供一个醒目的提示信息。
 
@@ -7,14 +7,14 @@
 -  内容文字尽可能精简, 减少阅读障碍。
 -  公告类按钮不要多于两个, 保持逻辑简单。
 
-### 示例
+### 代码演示
 
 :::demo 基础用法
 ```js
 import { Alert } from 'zent';
 
 ReactDOM.render(
-	<Alert>交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</Alert>
+	<Alert>公告内容。</Alert>
 	,mountNode
 );
 ```
@@ -27,7 +27,7 @@ import { Alert, Icon } from 'zent';
 ReactDOM.render(
 	<Alert>
 		<Icon type="error-circle" />
-		<span>警告：6月15日起，交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</span>
+		<span>警告：交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</span>
 		<a href="//youzan.com" target="_blank">立即订购</a>
 	</Alert>
 	, mountNode
@@ -36,15 +36,15 @@ ReactDOM.render(
 :::
 
 
-:::demo 三种样式：`info`, `warning`和`danger`
+:::demo 三种样式：`info`, `warning` 和 `danger`
 ```js
 import { Alert } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-alert-example">
-		<Alert type="info">交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</Alert>
-		<Alert type="warning">交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</Alert>
-		<Alert type="danger">交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</Alert>
+		<Alert type="info">这个是默认的 info 样式。</Alert>
+		<Alert type="warning">这个是 warning 样式。</Alert>
+		<Alert type="danger">这个是 danger 样式。</Alert>
 	</div>
 	, mountNode
 );
@@ -57,8 +57,8 @@ import { Alert } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-alert-example">
-		<Alert>交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</Alert>
-		<Alert size="large">交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</Alert>
+		<Alert>这个时正常尺寸的公告。</Alert>
+		<Alert size="large">这个是大号的公告。</Alert>
 	</div>
 	, mountNode
 )
@@ -70,7 +70,7 @@ ReactDOM.render(
 import { Alert } from 'zent';
 
 ReactDOM.render(
-	<Alert type="warning" rounded>交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</Alert>
+	<Alert type="warning" rounded>这个公告是有圆角的。</Alert>
 	, mountNode
 )
 ```
@@ -81,12 +81,23 @@ ReactDOM.render(
 import { Alert, Sweetalert } from 'zent';
 
 ReactDOM.render(
+	<Alert type="info" closable >这个公告可以关闭。</Alert>
+	, mountNode
+)
+```
+:::
+
+:::demo 关闭时的回掉
+```js
+import { Alert, Sweetalert } from 'zent';
+
+ReactDOM.render(
 	<Alert 
 		type="info" 
-		closable 
+		closable
 		onClose={() => Sweetalert.alert({ content: '公告关闭了' })}
 	>
-		交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。
+		这个公告关闭时有回掉函数。
 	</Alert>
 	, mountNode
 )
