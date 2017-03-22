@@ -71,6 +71,8 @@ const data = [
 | onAsyncFilter | 过滤条件 | function | null | 否 |
 | onEmptySelected | 选中过滤条件为空时的回调 | function | noop | 否 |
 | onOpen | 展开时的回调 | function | noop | 否 |
+| optionText | 自定义选项显示文案对应的key, 如{ id: 1, name: '文案' }, 设置optionText="name" | string | "text" | 否 |
+| optionValue | 自定义选项的值对应的key, 如{ id: 1, name: '文案' }, 设置optionValue="id" | string | "value" | 否 |
 
 ## Trigger开发API
 

@@ -48,9 +48,19 @@ class Nav extends React.Component {
     if (type === 'slider') {
       let activeTabDom = ReactDOM.findDOMNode(this.activeTab);
       if (activeTabDom) {
-        let tWidth = navUtil.getOffsetWH(activeTabDom);
-        let tLeft = navUtil.getOffsetLT(activeTabDom);
+        let activeTabInner = activeTabDom.children[0];
+        let activeTabInnerContentDom = activeTabInner.children[0];
+        let targetDom = activeTabInnerContentDom || activeTabInner;
+        let tWidth = navUtil.getOffsetWH(targetDom);
+        let tLeft = navUtil.getOffsetLT(targetDom);
         let wrapLeft = navUtil.getOffsetLT(this.tabwrapDom);
+        if (!activeTabInnerContentDom) {
+          let cssStyle = window.getComputedStyle(activeTabInner);
+          let paddingLeft = window.parseInt(cssStyle.paddingLeft);
+          let paddingRight = window.parseInt(cssStyle.paddingRight);
+          tWidth = tWidth - paddingLeft - paddingRight;
+          wrapLeft = wrapLeft - paddingLeft;
+        }
         this.inkBarDom.style.width = `${tWidth}px`;
         this.inkBarDom.style.left = `${tLeft - wrapLeft}px`;
       }
