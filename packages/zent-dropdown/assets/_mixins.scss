@@ -1,0 +1,12 @@
+@define-mixin vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+@define-mixin icon $image-url {
+    background-image: url($image-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
