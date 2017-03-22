@@ -13,10 +13,10 @@ module.exports = {
               }
             },
             {
-              path: '/button',
-              title: 'button',
+              path: '/alert',
+              title: 'Alert 公告',
               filePath() {
-                return System.import('./docs/test.md');
+                return System.import('../packages/zent-alert/README.md')
               }
             }
           ]
