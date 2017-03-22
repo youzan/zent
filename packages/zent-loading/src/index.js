@@ -1,2 +1,1 @@
-import Loading from './LoadingInstance.js';
-export default Loading;
+export default from './LoadingInstance.js';

@@ -1,6 +1,7 @@
 import React from 'react';
 import helper from '../helper';
 import Checkbox from 'zent-checkbox';
+import assign from 'zent-utils/lodash/assign';
 
 const Td = React.createClass({
 
@@ -41,7 +42,7 @@ const Td = React.createClass({
 
   render() {
     let { column, selection, data, rowKey } = this.props;
-    let { className = 'cell' } = column;
+    let { textAlign, className = 'cell' } = column;
 
     let { needSelect, canSelect } = selection;
     let self = this;
@@ -56,11 +57,20 @@ const Td = React.createClass({
     }
 
     let styleObj = {};
+
     if (width) {
       styleObj = {
         width,
         flex: '0 1 auto'
       };
+    }
+
+    if (textAlign) {
+      if (['left', 'center', 'right'].indexOf(textAlign)) {
+        styleObj = assign(styleObj, {
+          textAlign
+        });
+      }
     }
 
     return (
