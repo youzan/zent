@@ -32,20 +32,20 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.join(__dirname, '../dist'),
     publicPath: 'dist/',
     filename: '[name].js'
   },
   resolve: {
     modules: [
-      path.resolve(__dirname, '../node_modules'),
+      path.join(__dirname, '../node_modules'),
       'node_modules'
     ],
     extensions: ['.js', '.vue', '.pcss', '.md'],
     alias: {
       vue$: 'vue/dist/vue.runtime.common.js',
-      components: path.resolve(__dirname, '../src/components'),
-      zent: path.resolve(__dirname, '../../packages/zent')
+      components: path.join(__dirname, '../src/components'),
+      zent: path.join(__dirname, '../../packages/zent')
     }
   },
   module: {
