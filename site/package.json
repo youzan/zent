@@ -64,7 +64,7 @@
     "style-loader": "^0.14.1",
     "transliteration": "^1.5.3",
     "url-loader": "^0.5.8",
-    "vue-loader": "^11.1.4",
+    "vue-loader": "11.1.4",
     "vue-markdown-loader": "^0.6.2",
     "vue-template-compiler": "2.1.8",
     "webpack": "^2.2.1",
