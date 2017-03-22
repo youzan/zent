@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'zent-utils/lodash/throttle';
 import helper from '../helper';
+import assign from 'zent-utils/lodash/assign';
 import Checkbox from 'zent-checkbox';
 
 let rect;
@@ -105,29 +106,39 @@ const Head = React.createClass({
   renderTr(isFixTr, style = {}) {
     let { selection } = this.props;
     let needSelect = selection.needSelect;
-    let width;
     let className = isFixTr ? fixRowClass : stickRowClass;
 
     return (
       <div className={`${className} tr`} style={style} ref={(c) => { this[className] = c }}>
         {this.props.columns.map((item, index) => {
           let cellClass = 'cell';
+          let { isMoney, textAlign, width } = item;
+
           if (index === 0 && needSelect) {
             cellClass += ' cell--selection';
           }
 
-          if (item.isMoney) {
+          if (isMoney) {
             cellClass += ' cell--money';
           }
 
-          width = helper.getCalculatedWidth(item.width);
+          width = helper.getCalculatedWidth(width);
 
           let styleObj = {};
+
           if (width) {
             styleObj = {
               width,
               flex: '0 1 auto'
             };
+          }
+
+          if (textAlign) {
+            if (['left', 'center', 'right'].indexOf(textAlign)) {
+              styleObj = assign(styleObj, {
+                textAlign
+              });
+            }
           }
 
           return (

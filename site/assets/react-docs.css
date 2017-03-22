@@ -1,0 +1,54 @@
+$border-color: #e5e5e5;
+$toggle-color: #BBBBBB;
+
+.zandoc-react-container {
+  .zandoc-react-demo {
+    border-radius: 4px;
+    border: 1px solid $border-color;
+
+    & + .zandoc-react-demo {
+      margin-top: 40px;
+    }
+
+    &__preview {
+      padding: 40px;
+    }
+
+    &__bottom {
+      padding: 20px;
+      border-top: 1px solid $border-color;
+    }
+
+    &__toggle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid $toggle-color;
+      color: $toggle-color;
+      float: right;
+      border-radius: 50%;
+      font-size: 12px;
+      line-height: 20px;
+      cursor: pointer;
+
+      &-off {
+        transform: rotate(90deg);
+      }
+
+      &-on {
+        transform: rotate(-90deg);
+      }
+    }
+
+    &__title {
+      overflow: hidden;
+      color: #666;
+      font-size: 14px;
+    }
+
+    &__code {
+      border-top: 1px solid $border-color;
+      padding: 20px;
+    }
+  }
+}
