@@ -15,7 +15,7 @@ Vue.component('footer-nav', FooterNav);
 let routesConfig = routes(navConfig, true);
 
 const router = new VueRouter({
-  mode: 'hash',
+  mode: 'history',
   base: __dirname,
   routes: routesConfig
 });

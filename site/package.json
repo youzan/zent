@@ -10,7 +10,7 @@
   "author": "zhangmin <zhangmin@youzan.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --config webpack/webpack.dev.config.js --progress",
+    "dev": "webpack-dev-server --inline --history-api-fallback --hot --config webpack/webpack.dev.config.js --progress",
     "build:docs": "cross-env NODE_ENV=production webpack --progress --hide-modules --config  webpack/webpack.prd.config.js",
     "lint": "eslint src/**/*.{js,vue} --quiet"
   },
