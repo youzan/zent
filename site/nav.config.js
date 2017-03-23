@@ -11,6 +11,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-alert/README.md')
               }
+            },
+            {
+              path: '/icon',
+              title: 'Icon 图标',
+              filePath() {
+                return System.import('../packages/zent-icon/README.md')
+              }
             }
           ]
         }
