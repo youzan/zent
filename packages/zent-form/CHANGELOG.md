@@ -1,3 +1,16 @@
+## 2.0.4 (2017-03-17)
+
+* getControlGroup支持在Field中传className，作为添加到control-group上的额外类名，可以用来覆盖子元素的样式
+* getControlGroup中错误样式类zent-form__help-block -> zent-form__error-desc
+
+## 2.0.3 (2017-03-14)
+
+* 文档 & 示例修改
+
+## 2.0.2 (2017-03-13)
+
+* 修改导出方式
+
 ## 2.0.0 (2017-03-07)
 
 * zentForm中添加isFieldTouched和isFieldValidating方法

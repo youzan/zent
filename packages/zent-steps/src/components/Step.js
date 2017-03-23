@@ -3,6 +3,27 @@ import Icon from 'zent-icon';
 import classNames from 'zent-utils/classnames';
 
 export default class Step extends Component {
+  static propTypes = {
+    prefix: PropTypes.string,
+    style: PropTypes.object,
+    wrapperStyle: PropTypes.object,
+    tailWidth: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    adjustMarginRight: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    stepLast: PropTypes.bool,
+    isCurrentStep: PropTypes.bool,
+    isLastFinishStep: PropTypes.bool,
+    stepNumber: PropTypes.string,
+    status: PropTypes.string,
+    title: PropTypes.node.isRequired,
+    description: PropTypes.node
+  };
+
   render() {
     const props = this.props;
 
@@ -51,24 +72,3 @@ export default class Step extends Component {
     );
   }
 }
-
-Step.propTypes = {
-  prefix: PropTypes.string,
-  style: PropTypes.object,
-  wrapperStyle: PropTypes.object,
-  tailWidth: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  adjustMarginRight: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  stepLast: PropTypes.bool,
-  isCurrentStep: PropTypes.bool,
-  isLastFinishStep: PropTypes.bool,
-  stepNumber: PropTypes.string,
-  status: PropTypes.string,
-  title: PropTypes.node.isRequired,
-  description: PropTypes.node
-};

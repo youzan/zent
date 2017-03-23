@@ -1,6 +1,6 @@
 {
   "name": "zent-alert",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "警告／提示组件",
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "zent-utils": "1.0.7"
   },
   "devDependencies": {
-    "zent-button": "1.0.8",
-    "zent-icon": "1.0.8"
+    "zent-button": "1.0.9",
+    "zent-icon": "1.0.9"
   }
 }

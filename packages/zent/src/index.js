@@ -9,6 +9,7 @@ import Layout from 'zent-layout';
 import Loading from 'zent-loading';
 import Icon from 'zent-icon';
 import Input from 'zent-input';
+import Menu from 'zent-menu';
 import Notify from 'zent-notify';
 import Pagination from 'zent-pagination';
 import Pop from 'zent-pop';
@@ -36,6 +37,7 @@ const Zent = {
   Loading,
   Icon,
   Input,
+  Menu,
   MonthPicker,
   Notify,
   Pagination,

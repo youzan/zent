@@ -35,7 +35,8 @@ class RegisterForm extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, zentForm } = this.props;
+    const isSubmitting = zentForm.isSubmitting();
     return (
       <Form onSubmit={handleSubmit(this.submit)} horizontal>
         <Field
@@ -76,7 +77,7 @@ class RegisterForm extends Component {
           }}
         />
         <div className="zent-form__form-actions">
-          <button type="submit">登录</button>
+          <button type="submit">{isSubmitting ? '登录中...' : '登录'}</button>
         </div>
       </Form>
     );
@@ -89,7 +90,7 @@ export default class Simple extends Component {
   render() {
     return (
       <div>
-        <h2>服务端校验（展示服务端错误信息）</h2>
+        <h2>服务端校验 & 展示服务端错误信息</h2>
         <hr />
         <RegisterFormContainer
         />
