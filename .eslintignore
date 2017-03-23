@@ -3,3 +3,4 @@
 **/vendor
 **/node_modules
 packages/*/__tests__/*
+site
