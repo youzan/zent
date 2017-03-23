@@ -11,6 +11,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-alert/README.md')
               }
+            },
+            {
+              path: '/button',
+              title: 'Button 按钮',
+              filePath() {
+                return System.import('../packages/zent-button/README.md')
+              }
             }
           ]
         }
