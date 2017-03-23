@@ -184,14 +184,14 @@ ReactDOM.render(
 :::
 
 #### 格式化value值
-format和nomalize的执行时机参考上面`value的生命周期`
+Form组件提供了format和nomalize来对value进行格式化，它们的执行时机可以参考上面`value的生命周期`。
 
 :::DEMO
 ```js
 import { Form } from 'zent';
 const { Field, InputField, createForm } = Form;
 
-const FieldForm = () => {
+const FormattedForm = () => {
 	const lower = (value) => {
 	  return value && value.toLowerCase();
 	}
@@ -221,7 +221,7 @@ const FieldForm = () => {
 		</Form>
 	);
 };
-const WrappedForm = createForm()(FieldForm);
+const WrappedForm = createForm()(FormattedForm);
 
 ReactDOM.render(
 	<WrappedForm />
@@ -231,20 +231,30 @@ ReactDOM.render(
 :::
 
 #### 表单提交
+form 组件内部对表单提交的过程进行封装，可以把异步提交的过程封装在一个func里并返回一个**promise对象**，组件内部会根据promise对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过zentForm.isSubmitting()得到）。
+
 :::DEMO
 ```js
 import { Form } from 'zent';
-const { Field, InputField, createForm } = Form;
+const { Field, InputField, createForm, SubmissionError } = Form;
 
-const FieldForm = (props) => {
+const SubmitForm = (props) => {
 	const { handleSubmit, zentForm } = props;
 	const isSubmitting = zentForm.isSubmitting();
 	const submit = (values, zentForm) => {
     let promise = new Promise((resolve) => setTimeout(resolve, 1000));
     return promise.then(() => {
-      zentForm.setFieldExternalErrors({
-        user: '用户名已被占用'
-      });
+    	const random = Math.random() * 10;
+    	if (random > 4) {
+    		zentForm.setFieldExternalErrors({
+    		  user: '用户名已被占用'
+    		});
+    		// 可以throw SubmissionError在onSubmitFail中处理，也可以在这里直接alert错误信息
+    		throw new SubmissionError('用户名已被占用');
+  		} else {
+				// 返回值可以传入到onSubmitSuccess，或者直接在这里处理掉
+				return '注册成功';
+  		}
     });
   };
 	return (
@@ -287,12 +297,59 @@ const FieldForm = (props) => {
 	      }}
 	    />
 	    <div className="zent-form__form-actions">
-	      <button class="zent-btn zent-btn-primary" type="submit">{isSubmitting ? '登录中...' : '登录'}</button>
+	      <button class="zent-btn zent-btn-primary" type="submit">{isSubmitting ? '注册中...' : '注册'}</button>
 	    </div>
 	  </Form>
 	);
 };
-const WrappedForm = createForm()(FieldForm);
+const WrappedForm = createForm()(SubmitForm);
+const onSubmitFail = (error) => {
+	alert(error);
+}
+const onSubmitSuccess = (result) => {
+	alert(result);
+}
+
+ReactDOM.render(
+	<WrappedForm onSubmitFail={onSubmitFail} onSubmitSuccess={onSubmitSuccess} />
+	, mountNode
+)
+```
+:::
+#### 异步校验
+异步校验在blur时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用props.onBlur(event)。value值可以直接传给event，或者作为event的属性传入。
+
+:::DEMO
+```js
+import { Form } from 'zent';
+const { Field, InputField, createForm } = Form;
+
+const AsyncForm = (props) => {
+	const asyncValidation = (values, value) => {
+	  return new Promise((resolve, reject) => setTimeout(() => {
+	    if (value === 'pangxie') {
+	      reject('用户名已被占用');
+	    } else {
+	      resolve();
+	    }
+	  }, 1000));
+	}
+	return (
+		<Form horizontal>
+      <Field
+        name="name"
+        type="text"
+        label="用户名："
+        value=""
+        validations={{ required: true }}
+        validationErrors={{ required: '不能为空' }}
+        component={InputField}
+        asyncValidation={asyncValidation}
+      />
+    </Form>
+	);
+};
+const WrappedForm = createForm()(AsyncForm);
 
 ReactDOM.render(
 	<WrappedForm />
@@ -300,10 +357,46 @@ ReactDOM.render(
 )
 ```
 :::
-#### 异步校验
 
 #### Fieldset组件
 
+:::DEMO
+```js
+import { Form } from 'zent';
+const { Field, Fieldset, InputField, createForm } = Form;
+
+const FieldsetForm = (props) => {
+	return (
+		<Form horizontal>
+		  <Fieldset legend="Fieldset1">
+		    <Field
+		      name="name"
+		      type="text"
+		      label="用户名："
+		      value=""
+		      component={InputField}
+		    />
+		  </Fieldset>
+		  <Fieldset legend="Fieldset2">
+		    <Field
+		      name="name2"
+		      type="text"
+		      label="用户名2："
+		      value=""
+		      component={InputField}
+		    />
+		  </Fieldset>
+		</Form>
+	);
+};
+const WrappedForm = createForm()(FieldsetForm);
+
+ReactDOM.render(
+	<WrappedForm />
+	, mountNode
+)
+```
+:::
 
 ### API
 
