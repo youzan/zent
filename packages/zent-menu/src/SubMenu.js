@@ -6,7 +6,6 @@ import CommonMenu from './CommonMenu';
 import { MultiHover as PopoverHoverTrigger } from './utils'
 
 const PopoverContent = Popover.Content;
-// const PopoverHoverTrigger = Popover.Trigger.Hover;
 const withPopover = Popover.withPopover;
 
 const HoverContent = withPopover(class _HoverContent extends CommonMenu {
