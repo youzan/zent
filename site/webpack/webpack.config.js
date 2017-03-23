@@ -28,7 +28,8 @@ module.exports = {
     vendor: [
       'react',
       'react-dom',
-      'zent'
+      'zent',
+      'classnames'
     ]
   },
   output: {
