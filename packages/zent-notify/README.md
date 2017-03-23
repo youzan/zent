@@ -1,30 +1,125 @@
-# zent-notify
-
-[![npm version](https://img.shields.io/npm/v/zent-notify.svg?style=flat)](https://www.npmjs.com/package/zent-notify) [![downloads](https://img.shields.io/npm/dt/zent-notify.svg)](https://www.npmjs.com/package/zent-notify)
+## Notify 消息通知
 
 提示信息组件
 
-## 使用指南
+### 使用指南
 
-组件由 3 个函数构成, 使用临时创建的 DOM 节点来渲染组件, 并且外部保存 `containerList: object`.
+-  组件由 3 个函数构成, 使用临时创建的 DOM 节点来渲染组件。
+-  主要用于提示简要的文字信息。
 
-### 显示
+### 代码演示
 
-提供两种预定样式, 调用显示函数返回唯一的 `containerId`.
+:::demo 基础用法
+```js
+import { Notify } from 'zent';
+import { Button } from 'zent';
 
-**text 参数必须是能转换为 HTMLElement 的类型, 比如 string/node.**
+function testSuccess() {
+	Notify.success('成功通知', 1000);
+}
 
-- `Notify.error(text: any, duration: number): number`
+function testError() {
+	Notify.error('错误通知');
+}
 
-- `Notify.success(text: any, duration: number): number`
+ReactDOM.render(
+	<div>
+		<Button onClick={testSuccess.bind(this)}>成功通知</Button>
+		<Button onClick={testError.bind(this)}>错误通知</Button>
+	</div>
+	, mountNode
+);
 
-### 关闭
+```
+:::
 
--  `Notify.clear(?containerId: number): void`
+:::demo 自定义通知内容
+```js
+import { Notify } from 'zent';
+import { Button } from 'zent';
 
-有 `containerId` 传入时只关闭对应的提示弹层; 如果没有参数则关闭所有提示弹层.
+function customContent() {
+	Notify.success(
+		<div>
+			<span style={{ color: '#f67' }}>颜色</span>
+			<i>斜体</i>
+			<b>粗体</b>
+		</div>
+    );
+}
 
-## API
+ReactDOM.render(
+	<Button onClick={customContent.bind(this)}>自定义内容通知</Button>
+	, mountNode
+);
+
+```
+:::
+
+:::demo 自定义通知显示时间
+```js
+import { Notify } from 'zent';
+import { Button } from 'zent';
+
+function testSuccess1() {
+	Notify.success('成功通知1s', 1000);
+}
+
+function testSuccess3() {
+	Notify.success('成功通知3s');
+}
+
+ReactDOM.render(
+	<div>
+		<Button onClick={testSuccess1.bind(this)}>通知1s</Button>
+		<Button onClick={testSuccess3.bind(this)}>通知3s</Button>
+	</div>
+	, mountNode
+);
+
+```
+:::
+
+:::demo 自定义通知结束回调
+```js
+import { Notify } from 'zent';
+import { Button } from 'zent';
+
+function closeCallback() {
+	alert('Notify has over');
+}
+
+function testSuccess() {
+	Notify.success('通知结束回调函数', 1000, closeCallback);
+}
+
+ReactDOM.render(
+	<Button onClick={testSuccess.bind(this)}>自定义通知结束回调</Button>
+	, mountNode
+);
+
+```
+:::
+
+:::demo 清楚屏幕所有通知
+```js
+import { Notify } from 'zent';
+import { Button } from 'zent';
+
+function clearNotify() {
+	Notify.clear();
+}
+
+ReactDOM.render(
+	<Button onClick={clearNotify.bind(this)}>清除通知</Button>
+	, mountNode
+);
+
+```
+:::
+
+
+### API
 
 | 参数       | 说明            | 类型     | 默认值    |
 | -------- | ------------- | ------ | ------ |
