@@ -1,32 +1,151 @@
-# zent-tabs
-
-[![npm version](https://img.shields.io/npm/v/zent-tabs.svg?style=flat)](https://www.npmjs.com/package/zent-tabs) [![downloads](https://img.shields.io/npm/dt/zent-tabs.svg)](https://www.npmjs.com/package/zent-tabs)
+## zent-tabs 选项卡组件
 
 选项卡组件
 
-## 使用指南
+### 代码演示
 
-### 示例
-
+:::demo 基础用法
 ```js
-import Tabs from 'zent-tabs';
-const { TabPanel } = Tabs;
-<Tabs
-  align="left"
-  size="normal"
-  type="normal"
-  candel={false}
-  canadd
-  activeId="2"
->
-  <TabPanel id="2" tab="选项一">content</TabPanel>
-  <TabPanel id="3" tab="选项二">content</TabPanel>
-</Tabs>
+import { Tabs } from 'zent';
+const TabPanel = Tabs.TabPanel;
+
+class Simple extends React.Component {
+	state = {
+		align: 'left',
+		size: 'normal',
+		type: 'normal',
+		candel: false,
+		canadd: false,
+		activeId: '2',
+		panels: [
+			{
+				tab: <span>哈哈哈</span>,
+				id: '1',
+				disabled: true,
+				content: '选项二'
+			}, {
+				tab: <span>空间选项二</span>,
+				id: '2',
+				content: <div>选项一的内容</div>
+			}, {
+				tab: '选项三',
+				id: '3',
+				content: '选项三的内容'
+			}
+		],
+		onTabChange: (id) => {
+			this.setState({
+				activeId: id
+			});
+		}
+	}
+
+	renderPanels() {
+		let { panels } = this.state;
+		return panels.map((p) => {
+			return (<TabPanel {...p} key={p.id}>{p.content}</TabPanel>);
+		});
+	}
+
+	render() {
+		return (
+			<Tabs {...this.state} >
+				{this.renderPanels()}
+			</Tabs>
+		);
+	}
+};
+
+ReactDOM.render(<Simple />, mountNode);
 ```
+:::
 
-## API
+:::demo 加减用法
+```js
+import { Tabs } from 'zent';
+const TabPanel = Tabs.TabPanel;
+let uniqId = 4;
 
-### Tabs
+class Simple extends React.Component {
+	state = {
+		align: 'left',
+		size: 'normal',
+		type: 'normal',
+		candel: true,
+		canadd: true,
+		activeId: '2',
+		panels: [
+			{
+				tab: <span>哈哈哈</span>,
+				id: '1',
+				disabled: true,
+				content: '选项二'
+			}, {
+				tab: <span>空间选项二</span>,
+				id: '2',
+				content: <div>选项一的内容</div>
+			}
+		],
+		onTabChange: (id) => {
+			this.setState({
+				activeId: id
+			});
+		},
+		onTabAdd: (() => {
+      let { panels } = this.state;
+      panels.push({
+        tab: `选项${uniqId}`,
+        id: `${uniqId++}`,
+        disabled: false,
+        content: Date.now()
+      });
+      this.setState({
+        panels
+      });
+    }),
+    onTabDel: ((id) => {
+      let { panels } = this.state;
+      let index = -1;
+      panels.some((p, i) => {
+        if (p.id === id) {
+          index = i;
+          return true;
+        }
+        return false;
+      });
+      if (index > -1) {
+        panels.splice(index, 1);
+        this.setState({
+          panels
+        });
+      }
+    })
+	}
+
+	renderPanels() {
+		let { panels } = this.state;
+		return panels.map((p) => {
+			return (<TabPanel {...p} key={p.id}>{p.content}</TabPanel>);
+		});
+	}
+
+	render() {
+		return (
+			<Tabs {...this.state} >
+				{this.renderPanels()}
+			</Tabs>
+		);
+	}
+};
+
+ReactDOM.render(<Simple />, mountNode);
+```
+:::
+
+
+### API
+
+#### Tabs
 
 | 参数          | 说明        | 类型       | 默认值        | 备选值                   | 是否必须 |
 | ----------- | --------- | -------- | ---------- | --------------------- | ---- |
@@ -42,7 +161,7 @@ const { TabPanel } = Tabs;
 | candel      | 是否可删除     | bool     | `false`    |                       | 否    |
 | canadd      | 是否可增加tab  | bool     | `false`    |                       | 否    |
 
-### TabPanel
+#### TabPanel
 
 | 参数  | 说明                    | 类型     | 是否必须 |
 | --- | --------------------- | ------ | ---- |

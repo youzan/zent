@@ -25,6 +25,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-pop/README.md')
               }
+            },
+            {
+              path: '/zent-tabs',
+              title: 'Zent-tabs 选项卡',
+              filePath() {
+                return System.import('../packages/zent-tabs/README.md')
+              }
             }
           ]
         }
