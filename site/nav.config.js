@@ -11,6 +11,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-alert/README.md')
               }
+            },
+            {
+                path: '/datepicker',
+                title: 'Datepicker 日期选择',
+                filePath() {
+                    return System.import('../packages/zent-datetimepicker/README.md')
+                }
             }
           ]
         }
