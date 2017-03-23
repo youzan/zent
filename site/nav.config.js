@@ -25,6 +25,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-checkbox/README.md')
               }
+            },
+            {
+              path: '/radio',
+              title: 'Radio 单选',
+              filePath() {
+                return System.import('../packages/zent-radio/README.md')
+              }
             }
           ]
         }
