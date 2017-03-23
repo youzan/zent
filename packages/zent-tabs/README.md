@@ -12,15 +12,15 @@
 import Tabs from 'zent-tabs';
 const { TabPanel } = Tabs;
 <Tabs
-  align='left'
-  size='normal'
-  type='normal'
-  candel=false
-  canadd=true
-  activeId='2'
+  align="left"
+  size="normal"
+  type="normal"
+  candel={false}
+  canadd
+  activeId="2"
 >
-  <TabPanel id='2' tab='选项一'>content</TabPanel>
-  <TabPanel id='3' tab='选项二'>content</TabPanel>
+  <TabPanel id="2" tab="选项一">content</TabPanel>
+  <TabPanel id="3" tab="选项二">content</TabPanel>
 </Tabs>
 ```
 

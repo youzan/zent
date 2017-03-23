@@ -33,7 +33,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '../dist'),
-    publicPath: 'dist/',
+    publicPath: '/dist/',
     filename: '[name].js'
   },
   resolve: {
@@ -45,7 +45,8 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.runtime.common.js',
       components: path.join(__dirname, '../src/components'),
-      zent: path.join(__dirname, '../../packages/zent')
+      zent$: path.join(__dirname, '../../packages/zent'),
+      zentcss$: path.join(__dirname, '../../packages/zent/lib/index.css')
     }
   },
   module: {
@@ -76,7 +77,7 @@ module.exports = {
           {
             loader: require.resolve('zandoc-react-loader'),
             options: {
-              jsTemplate: path.resolve(__dirname, '../react-template.js')
+              jsTemplate: path.join(__dirname, '../react-template.js')
             }
           },
           require.resolve('zandoc-loader')
