@@ -25,6 +25,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-pop/README.md')
               }
+            },
+            {
+              path: '/tree',
+              title: 'Tree 树',
+              filePath() {
+                return System.import('../packages/zent-tree/README.md')
+              }
             }
           ]
         }

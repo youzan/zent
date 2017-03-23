@@ -346,11 +346,10 @@ export default class Tree extends Component {
 
   renderSwitcher(root) {
     const { foldable, loadMore } = this.props;
-    const className = classnames('switcher');
     if (!root.isLeaf && (loadMore || root.children && root.children.length > 0)) {
       return (
         <icon
-          className={className}
+          className="switcher"
           onClick={foldable && this.handleExpandClick.bind(this, root)}
         />
       );
@@ -382,7 +381,7 @@ export default class Tree extends Component {
             key={`${opt.name}-${root.id}`}
             onClick={opt.action.bind(null, root)}
             className="opt">
-            <icon className={opt.icon} />{opt.name}
+            {typeof opt.icon === 'string' ? <icon className={opt.icon} /> : opt.icon} {opt.name}
           </span>
         );
       });
@@ -394,12 +393,6 @@ export default class Tree extends Component {
     }
   }
 
-  // TODO:
-  // Support selectable
-  // Support disable select
-  // Custom switcher
-  // Add Cursor Style
-  // make style beautiful
   renderTreeNodes(roots) {
     const { loadMore, prefix, expandAll } = this.props;
     if (roots && roots.length > 0) {
