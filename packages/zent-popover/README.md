@@ -1,46 +1,88 @@
-# zent-popover
+## Popover
 
-[![npm version](https://img.shields.io/npm/v/zent-popover.svg?style=flat)](https://www.npmjs.com/package/zent-popover) [![downloads](https://img.shields.io/npm/dt/zent-popover.svg)](https://www.npmjs.com/package/zent-popover)
+通用的触发式弹层组件, 可以自定义定位算法、触发方式以及弹层显示方式。
 
-弹层组件, 支持定位, 支持自定义触发方式、显示方式及定位算法.
+**这个组件不提供样式**。气泡提示组件请使用 `Pop`。
 
-## 使用场景
+### 使用场景
 
-实现有交互或者定位需求的弹层
+如果 `Pop` 提供的功能无法满足你的需求，需要实现自定义的触发式弹层时可以使用 `Popover` 来简化开发。
 
-## 组件原理
+`Popover` 封装了常用的逻辑：
 
+* 三种触发方式：鼠标点击，鼠标移入以及获取输入焦点
+* 12种定位 (4 x 3, 每个方位三种)
+* 以及一个基于 `Portal` 的弹层实现
 
+如果这些内置的逻辑无法满足你的需求，你还可以用自己的实现来替换它们，所有这些都很容易实现。
 
-#### 基于 zent-portal
+### 代码演示
 
-组件由三个部分组成：
-
--  Trigger: 用来控制弹层的触发逻辑, 内置三个实现: click, hover, focus, 除此以外可以实现任意自定义的 trigger.
-
--  Position: 用来控制弹层的定位逻辑, 内置12种定位 (4 x 3, 每个方位三种), 同时支持自定义定位.
-
--  Content: 用来控制弹层的内容, 基于 zent-portal 实现.
-
-#### 使用示例:
-
+:::demo 基本使用方式
 ```js
-<Popover position={Popover.Position.BottomLeft} display="inline">
-  <Popover.Trigger.Click>
-    <button>click me</button>
-  </Popover.Trigger.Click>
-  <Popover.Content>
-    <div>popover content</div>
-    <div>line two</div>
-  </Popover.Content>
-</Popover>
+import { Popover, Button } from 'zent';
+
+ReactDOM.render(
+	<Popover 
+		className="zent-doc-popover" 
+		position={Popover.Position.BottomLeft} 
+		display="inline"
+		cushion={5}>
+		<Popover.Trigger.Click>
+			<Button type="primary">点击打开</Button>
+		</Popover.Trigger.Click>
+		<Popover.Content>
+			<div>Popover 弹层内容</div>
+			<div>可以添加任意内容</div>
+		</Popover.Content>
+	</Popover>
+	, mountNode
+);
 ```
+:::
 
-## API
+:::demo 外部控制打开／关闭
+```js
+import { Popover, Button } from 'zent';
 
-API 主要以下几个部分:
+class PopoverDemo extends Component {
+	state = {
+		visible: false
+	};
 
-### Popover
+	render() {
+		return (
+			<div className="zent-doc-popover-container">
+				<Popover
+					className="zent-doc-popover"
+					visible={this.state.visible} 
+					onVisibleChange={v => this.setState({ visible: v })}
+					position={Popover.Position.BottomLeft} 
+					display="inline"
+					cushion={5}>
+					<Popover.Trigger.Base>
+						<Button type="primary" onClick={() => this.setState({ visible: true })}>点击打开</Button>
+					</Popover.Trigger.Base>
+					<Popover.Content>
+						<div>Popover 弹层内容</div>
+						<div>可以添加任意内容</div>
+					</Popover.Content>
+				</Popover>
+
+				<Button onClick={() => this.setState({ visible: false })}>关闭</Button>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(
+	<PopoverDemo />
+	, mountNode
+);
+```
+:::
+
+### API
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
@@ -58,7 +100,9 @@ API 主要以下几个部分:
 | wrapperClassName | 可选, trigger外层包裹div的类名 | string | `''` |  |
 | prefix | 可选, 自定义前缀 | string | `'zent'` |  |
 
-### Trigger
+`onBeforeShow` 和 `onBeforeClose` 可以返回一个 `Promise`，`Popover` 会在 `Promise` resolve 后关闭／打开。
+
+如果你不使用 `Promise`，`onBeforeShow` 和 `onBeforeClose` 也提供一个可选的参数 `callback`，如果有这个参数的话，你必须在 `onBeforeShow` 和 `onBeforeClose` 里面手动调用 `callback` 才会关闭／打开。
 
 每种 trigger 都有特有的 API 来控制组件行为, 自定义 trigger 可以按需指定 trigger 的参数.
 
@@ -71,11 +115,11 @@ API 主要以下几个部分:
 
 #### Trigger.Hover
 
-| 参数        | 说明                                       | 类型                   | 默认值           |
+| 参数        | 说明        | 类型                   | 默认值           |
 | --------- | ---------------------------------------- | -------------------- | ------------- |
-| showDelay | 可选, 打开弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标移出弹层范围, 弹层不会打开   | number               | `150`         |
-| hideDelay | 可选, 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number               | `150`         |
-| isOutside | 可选, 判断一个节点是否在‘外面’。默认trigger和弹层以外的节点都是‘外面’    | func: (node) => bool | `() => false` |
+| showDelay | 可选, 打开弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标移出弹层范围, 弹层不会打开   | number   | `150`  |
+| hideDelay | 可选, 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number    | `150` |
+| isOutside | 可选, 判断一个节点是否在‘外面’。默认trigger和弹层以外的节点都是‘外面’  | func: (node) => bool |  |
 
 #### Trigger.Base
 
@@ -111,18 +155,7 @@ LeftBottom                                                          RightBottom
 
 #### Position.create
 
-通过这个工厂函数创建自定义的 position, 这个函数接受一个函数作为参数, 函数的伪代码:
-
-```
-type Position = {
-	getCSSStyle: () => object,
-	name: string
-}
-
-(anchorBoundingBox, containerBoundingBox, contentDimension, options) => Position
-```
-
-示例：
+通过这个工厂函数创建自定义的 position, 这个函数接受一个函数作为参数，示例：
 
 ```js
 const position = Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
@@ -141,9 +174,9 @@ const position = Popover.Position.create((anchorBoundingBox, containerBoundingBo
 });
 ```
 
-### withPopover 高阶组件
+#### withPopover 高阶组件
 
-这个高阶组件暴露了Popover内部的几个重要方法, 可能的使用场景: 在Content内部手动关闭弹层.
+这个高阶组件暴露了 `Popover` 内部的几个重要方法, 可能的使用场景: 在 `Content` 内部手动关闭弹层.
 
 | 参数             | 说明                    | 类型               |
 | -------------- | --------------------- | ---------------- |
@@ -174,3 +207,19 @@ const HoverContent = withPopover(function HoverContent({ popover }) {
   </PopoverContent>
 </Popover>
 ```
+
+<style>
+.zent-doc-popover {
+	border: 1px solid #e5e5e5;
+	padding: 10px;
+	border-radius: 4px;
+	background: #fff;
+	font-size: 14px;
+}
+
+.zent-doc-popover-container {
+	.zent-popover-wrapper {
+		margin-right: 10px;
+	}
+}
+</style>
