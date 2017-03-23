@@ -8,9 +8,9 @@ var babelLoader = {
     presets: [
       require.resolve('babel-preset-react'),
       require.resolve('babel-preset-es2015'),
+      require.resolve('babel-preset-stage-1')
     ],
     plugins: [
-      require.resolve('babel-plugin-transform-class-properties'),
       require.resolve('babel-plugin-transform-runtime'),
     ]
   }

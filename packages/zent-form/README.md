@@ -287,7 +287,7 @@ const FieldForm = (props) => {
 	      }}
 	    />
 	    <div className="zent-form__form-actions">
-	      <button type="submit">{isSubmitting ? '登录中...' : '登录'}</button>
+	      <button class="zent-btn zent-btn-primary" type="submit">{isSubmitting ? '登录中...' : '登录'}</button>
 	    </div>
 	  </Form>
 	);

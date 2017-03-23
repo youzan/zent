@@ -11,11 +11,26 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-alert/README.md')
               }
-            }, {
+            },
+            {
               path: '/form',
               title: 'Form 表单组件',
               filePath() {
                 return System.import('../packages/zent-form/README.md')
+              }
+            },
+            {
+              path: '/icon',
+              title: 'Icon 图标',
+              filePath() {
+                return System.import('../packages/zent-icon/README.md')
+              }
+            },
+            {
+              path: '/pop',
+              title: 'Pop 气泡提示',
+              filePath() {
+                return System.import('../packages/zent-pop/README.md')
               }
             }
           ]
