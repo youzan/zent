@@ -19,7 +19,7 @@ ReactDOM.render(
       <Steps.Step title="绑定门店" />
       <Steps.Step title="完成" />
     </Steps>
-	, mountNode
+  , mountNode
 );
 ```
 :::
@@ -29,13 +29,13 @@ ReactDOM.render(
 import { Steps } from 'zent';
 
 ReactDOM.render(
-    <Steps current={2} type="breadcrumb" >
-      <Steps.Step title="登录有赞账号" />
-      <Steps.Step title="选择门店" />
-      <Steps.Step title="绑定门店" />
-      <Steps.Step title="完成" />
-    </Steps>
-	, mountNode
+  <Steps current={2} type="breadcrumb" >
+    <Steps.Step title="登录有赞账号" />
+    <Steps.Step title="选择门店" />
+    <Steps.Step title="绑定门店" />
+    <Steps.Step title="完成" />
+  </Steps>
+  , mountNode
 );
 ```
 :::
@@ -50,7 +50,7 @@ ReactDOM.render(
       <Steps.Step title="第二步" description="这里是多信息的描述啊描述啊描" />
       <Steps.Step title="第三步" description="这里是多信息的描述啊描述啊描述啊描述啊" />
     </Steps>
-	, mountNode
+  , mountNode
 );
 ```
 :::
