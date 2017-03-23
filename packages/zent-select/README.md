@@ -1,8 +1,8 @@
-# zent-select
+## Select 选项
 
-这是一个 select 组件
+选项，提供多种选项功能。
 
-### 设计
+### 使用指南
 
 组件分层：主要分成 Select, Popup, Trigger 三个模块
 
@@ -21,21 +21,54 @@
   - TagsTrigger 是基于 InputTrigger 扩展出来的拥有多选功能的 trigger
   - 使用者可以自行扩展或开发 trigger
 
-##### 使用方式
-```html
-<Select>
-     <Option value="1">选项一</Option>
-     <Option value="2">选项二</Option>
-     <Option value="3">选项三</Option>
-</Select>
+### 代码演示
+
+:::demo 基础用法
+```js
+import { Select } from 'zent';
+
+const Option = Select.Option;
+
+ReactDOM.render(
+  <Select>
+    <Option value="1">选项一</Option>
+    <Option value="2">选项二</Option>
+    <Option value="3">选项三</Option>
+  </Select>
+  , mountNode
+);
 ```
+:::
 
-```html
+:::demo 支持数组类型选项
+```js
+import { Select } from 'zent';
 
-const data = ['选项一', '选项二', '选项三']
+const data = ['选项一', '选项二', '选项三'];
 
-<Select data={data}></Select>
+ReactDOM.render(
+  <Select data={data}></Select>
+  , mountNode
+);
 ```
+:::
+
+:::demo 支持自定义选项文案与选项值
+```js
+import { Select } from 'zent';
+
+const data = [
+     {value: 1, text: '选项一'},
+     {value: 2, text: '选项二'},
+     {value: 3, text: '选项三'}
+];
+
+ReactDOM.render(
+  <Select data={data}></Select>
+  , mountNode
+);
+```
+:::
 
 ```html
 
