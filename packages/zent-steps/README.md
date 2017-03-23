@@ -1,23 +1,59 @@
-# zent-steps
+## zent-steps
 
 [![npm version](https://img.shields.io/npm/v/zent-steps.svg?style=flat)](https://www.npmjs.com/package/zent-steps) [![downloads](https://img.shields.io/npm/dt/zent-steps.svg)](https://www.npmjs.com/package/zent-steps)
 
-步骤展示组件
-
-## 使用场景
-
-当任务复杂或者存在先后关系时, 使用 Steps 组件将其分解成一系列步骤, 从而简化任务.
-
 ## 使用指南
 
-```javascript
-import Steps from 'zent-steps';
-<Steps>
-  <Steps.Step title="第一步" />
-  <Steps.Step title="第二步" />
-  <Steps.Step title="第三步" />
-</Steps>
+步骤项多于1项时才使用该组件，尚未处理只存在一项的边界情况。
+
+### 代码演示
+
+:::demo 类型为 card 的步骤条
+```js
+import { Steps } from 'zent';
+
+ReactDOM.render(
+    <Steps current={2} type="card" >
+      <Steps.Step title="登录有赞账号" />
+      <Steps.Step title="选择门店" />
+      <Steps.Step title="绑定门店" />
+      <Steps.Step title="完成" />
+    </Steps>
+	, mountNode
+);
 ```
+:::
+
+:::demo 类型为 breadcrumb 的步骤条
+```js
+import { Steps } from 'zent';
+
+ReactDOM.render(
+    <Steps current={2} type="breadcrumb" >
+      <Steps.Step title="登录有赞账号" />
+      <Steps.Step title="选择门店" />
+      <Steps.Step title="绑定门店" />
+      <Steps.Step title="完成" />
+    </Steps>
+	, mountNode
+);
+```
+:::
+
+:::demo 类型为 number 的步骤条 (默认为该类型)
+```js
+import { Steps } from 'zent';
+
+ReactDOM.render(
+    <Steps current={2} status="error">
+      <Steps.Step title="第一步" description="这里是多信息的描述啊描述啊描述啊" />
+      <Steps.Step title="第二步" description="这里是多信息的描述啊描述啊描" />
+      <Steps.Step title="第三步" description="这里是多信息的描述啊描述啊描述啊描述啊" />
+    </Steps>
+	, mountNode
+);
+```
+:::
 
 ## API
 
@@ -29,11 +65,9 @@ import Steps from 'zent-steps';
 | prefix    | 自定义前缀                                      | string | `'zent'`       |                           | 否    |
 | type      | steps组件类型                                  | string | `'number'`     | `'card'`,  `'breadcrumb'` | 否    |
 | current   | 指定当前步骤, 从 1 开始记数 (当不传值时, 默认为 0, 状态都为 wait) | number | `0`            |                           | 否    |
-| direction | 显示方向 (暂不支持)                                | string | `'horizontal'` | `'vertical'`              | 否    |
-| size      | 指定大小 (暂不支持)                                | string | `'normal'`     | `'small'`                 | 否    |
 | status    | 步骤条的状态                                     | string | `'finish'`     | `'wait'`, `'error'`       | 否    |
 
-### Step
+### Steps.Step
 
 | 参数          | 说明                                  | 类型   | 是否必须 |
 | ----------- | ----------------------------------- | ---- | ---- |
