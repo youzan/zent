@@ -3,9 +3,10 @@ import Popover from 'zent-popover';
 import Icon from 'zent-icon';
 import cx from 'zent-utils/classnames';
 import CommonMenu from './CommonMenu';
+import { MultiHover as PopoverHoverTrigger } from './utils'
 
 const PopoverContent = Popover.Content;
-const PopoverHoverTrigger = Popover.Trigger.Hover;
+// const PopoverHoverTrigger = Popover.Trigger.Hover;
 const withPopover = Popover.withPopover;
 
 const HoverContent = withPopover(class _HoverContent extends CommonMenu {
@@ -72,7 +73,7 @@ export default class MenuItem extends Component {
 
     return (<Popover
       wrapperClassName={`${prefix}-sub-menu-popover-wrapper`}
-      className={cx(`${prefix}-sub-menu-overlay`, overlayClassName)}
+      className={cx(`${prefix}-sub-menu-overlay`, 'zent-multihover-popover', overlayClassName)}
       position={Popover.Position.RightTop}
       display="inline-block"
       cushion={5}
