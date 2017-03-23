@@ -1,24 +1,92 @@
-# zent-switch
+## Switch 开关
 
-[![npm version](https://img.shields.io/npm/v/zent-switch.svg?style=flat)](https://www.npmjs.com/package/zent-switch) [![downloads](https://img.shields.io/npm/dt/zent-switch.svg)](https://www.npmjs.com/package/zent-switch)
+开关选择器。
 
-开关组件
+### 使用指南
 
-## 使用场景
+-  需要表示开关状态/两种状态之间的切换时。
+-  切换`switch`会直接触发状态改变。
 
-需要表示开关状态/两种状态之间的切换时
+### 代码演示
 
-## 使用指南
+:::demo 基础用法
+```js
+import { Switch } from 'zent';
 
-支持 `size`, `disabled`, `checked` 等状态自定义, 及 `onChange` 回调方法自定义.
+class Simple extends React.Component {
+	state = {
+		checked: true
+	}
 
--   `size` 控制开关的大小
+	handleChange = (checked) => {
+		this.setState({ checked });
+		console.log(`switch to ${checked}`);
+	}
 
--   支持 `disabled`, `checked` 等状态属性.
+	render() {
+		return (
+			<Switch checked={this.state.checked} onChange={this.handleChange} />
+		)
+	}
+}
 
--   当状态改变后, 会调用可选的自定义 `onChange` 回调.
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
 
-## API
+```
+:::
+
+:::demo 失效状态
+```js
+import { Switch } from 'zent';
+
+ReactDOM.render(
+	<div>
+		<Switch checked disabled />
+		<hr />
+		<Switch checked={false} disabled />
+	</div>
+	, mountNode
+);
+
+```
+:::
+
+:::demo 开关大小
+```js
+import { Switch } from 'zent';
+
+ReactDOM.render(
+	<div>
+		<Switch checked />
+		<hr />
+		<Switch size="small" />
+	</div>
+	, mountNode
+);
+
+```
+:::
+
+:::demo 开关loading
+```js
+import { Switch } from 'zent';
+
+ReactDOM.render(
+	<div>
+		<Switch checked loading />
+		<hr />
+		<Switch loading />
+	</div>
+	, mountNode
+);
+
+```
+:::
+
+### API
 
 | 参数            | 说明                           | 类型                  | 默认值         | 备选值       |
 | ------------- | ---------------------------- | ------------------- | ----------- | --------- |

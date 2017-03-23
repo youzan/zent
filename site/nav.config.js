@@ -18,6 +18,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-notify/README.md');
               }
+            },
+            {
+              path: '/switch',
+              title: 'Switch 开关',
+              filePath() {
+                return System.import('../packages/zent-switch/README.md');
+              }
             }
           ]
         }

@@ -1,6 +1,6 @@
 ## Notify 消息通知
 
-提示信息组件
+全局展示通知提醒信息。
 
 ### 使用指南
 
@@ -11,8 +11,7 @@
 
 :::demo 基础用法
 ```js
-import { Notify } from 'zent';
-import { Button } from 'zent';
+import { Notify, Button } from 'zent';
 
 function testSuccess() {
 	Notify.success('成功通知', 1000);
@@ -35,8 +34,7 @@ ReactDOM.render(
 
 :::demo 自定义通知内容
 ```js
-import { Notify } from 'zent';
-import { Button } from 'zent';
+import { Notify, Button } from 'zent';
 
 function customContent() {
 	Notify.success(
@@ -58,8 +56,7 @@ ReactDOM.render(
 
 :::demo 自定义通知显示时间
 ```js
-import { Notify } from 'zent';
-import { Button } from 'zent';
+import { Notify, Button } from 'zent';
 
 function testSuccess1() {
 	Notify.success('成功通知1s', 1000);
@@ -82,8 +79,7 @@ ReactDOM.render(
 
 :::demo 自定义通知结束回调
 ```js
-import { Notify } from 'zent';
-import { Button } from 'zent';
+import { Notify, Button } from 'zent';
 
 function closeCallback() {
 	alert('Notify has over');
@@ -103,8 +99,7 @@ ReactDOM.render(
 
 :::demo 清楚屏幕所有通知
 ```js
-import { Notify } from 'zent';
-import { Button } from 'zent';
+import { Notify, Button } from 'zent';
 
 function clearNotify() {
 	Notify.clear();
