@@ -1,5 +1,6 @@
 import { PropTypes } from 'react';
 import capitalize from 'zent-utils/lodash/capitalize';
+import throttle from 'zent-utils/lodash/throttle';
 import uniq from 'zent-utils/lodash/uniq';
 import isBrowser from 'zent-utils/isBrowser';
 
@@ -130,7 +131,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
 
   const recognizer = makeRecognizer(state, {
     global: {
-      move(evt) {
+      move: throttle((evt) => {
         const { target } = evt;
 
         if (isOutSide(target)) {
@@ -161,7 +162,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
             state.transit(HoverState.Started);
           }
         }
-      }
+      }, 149)
     }
   });
 
