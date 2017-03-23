@@ -6,6 +6,13 @@ module.exports = {
         {
           list: [
             {
+              path: '/layout',
+              title: 'Layout 布局',
+              filePath() {
+                return System.import('../packages/zent-layout/README.md')
+              }
+            },
+            {
               path: '/alert',
               title: 'Alert 公告',
               filePath() {
