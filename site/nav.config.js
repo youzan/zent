@@ -25,6 +25,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-pop/README.md')
               }
+            },
+            {
+              path: '/steps',
+              title: 'Steps 步骤条',
+              filePath() {
+                return System.import('../packages/zent-steps/README.md')
+              }
             }
           ]
         }
