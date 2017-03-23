@@ -1,87 +1,184 @@
-# zent-sweetalert
+## Sweetalert
 
-[![npm version](https://img.shields.io/npm/v/zent-sweetalert.svg?style=flat)](https://www.npmjs.com/package/zent-sweetalert) [![downloads](https://img.shields.io/npm/dt/zent-sweetalert.svg)](https://www.npmjs.com/package/zent-sweetalert)
+快速唤起 Dialog 组件
 
-提示与确认组件
+### 使用指南
 
-## 使用指南
+-  组件不提供个性化选项，如有需要请使用 zent-dialog。
+-  `Sweetalert.alert` 和 `Sweetalert.confirm` 的返回值是可以用来手动关闭对话框的函数。
+-  如果 `onConfirm` 的返回值是 `Promise`, 对应的按钮会在 `Promise` pending 时保持在 loading 状态。
 
-**组件不提供个性化选项**, 如有需要请使用 zent-dialog.
 
-#### 返回值
+### 代码演示
 
-`alert` 和 `confirm` 的返回值都是用来手动关闭对话框的函数.
+:::demo 基础用法
+```js
+import { Sweetalert, Button } from 'zent';
 
-#### 事件回调
+const onConfirm = () => {
+	console.log('我真的知道了');
+}
 
-`onConfirm` & `onCancel` 都表现为 `function(close?: func): Promise?` 形式.
+const showAlertInfo = () => {
+  Sweetalert.alert({
+    style: { width: '300px' },
+    content: '这个是具体内容',
+    title: '这是一个消息标题',
+    onConfirm
+  });
+}
 
-接受一个可选的参数 `close`, 用来关闭对话框. 可以返回一个 `Promise`.
-
-如果返回值是 `Promise`, 对应的按钮会在 `Promise` pending 时保持在 loading 状态.
-
-根据函数参数及返回值的不同, 分为几种情况:
-
--   没有 `callback` 属性
-
-    点击后直接关闭.
-
--   有 `callback` 属性, 但是 `callback` 函数无参数
-
-    点击后调用 `callback`.
-
-    -   返回值是 `Promise`, `resolve` 后关闭.
-    -   返回值不是 `false`, 直接关闭.
-    -   返回值是`false`, 对话框不关闭.
-
--   有 `callback` 属性, 并且函数有 `close` 参数
-
-    调用 `callback` 并将 `close` 作为参数传递.
-
-    -   返回值是 `Promise`, `resolve` 后关闭.
-    -   返回值为其他类型, 不会自动关闭, 需要外部调用 `close`.
-
-#### 新版UI规范建议
-
--   弹窗包含取消按钮时，右上角的叉号不显示.
--   重要操作的按钮应该在左侧.
-
-#### 示例
-
+ReactDOM.render(
+	<Button onClick={showAlertInfo}>消息对话框</Button>,
+	mountNode
+);
 ```
-Sweetalert.alert(config: object): function
-// 这个别名只为兼容老版本，不要使用！
-Sweetalert.info(config) // alias to alert, deprecated!
-```
+:::
 
-```
-Sweetalert.confirm(config: object): function
-```
 
-## API
+:::demo 含有确认按钮与取消按钮的 SweetAlert
+```js
+import { Sweetalert, Button } from 'zent';
 
-### Alert
+const onConfirm = () => {
+	console.log('我真的知道了');
+}
+
+const onCancel = () => {
+  console.log('我真的取消了');
+}
+
+const showAlertConfirm = () => {
+  Sweetalert.confirm({
+    content: <p>这个是内容</p>,
+    title: '这是一个确认标题',
+    onConfirm: onConfirm,
+    onCancel: onCancel,
+  });
+}
+
+ReactDOM.render(
+	<Button onClick={showAlertConfirm}>确认对话框</Button>,
+	mountNode
+);
+```
+:::
+
+
+:::demo 可以自动关闭的对话框
+```js
+import { Sweetalert, Button } from 'zent';
+
+const onConfirm = () => {
+	console.log('我真的知道了');
+}
+
+const onCancel = () => {
+  console.log('我真的取消了');
+}
+
+const autoCloseConfirm = () => {
+  const close = Sweetalert.confirm({
+    content: <p>二秒后自动关闭</p>,
+    title: '二秒后自动关闭',
+    onConfirm: onConfirm,
+    onCancel: onCancel,
+  });
+
+  setTimeout(close, 1000);
+}
+
+ReactDOM.render(
+	<Button onClick={autoCloseConfirm}>自动关闭对话框</Button>,
+	mountNode
+);
+```
+:::
+
+
+:::demo 可以自动关闭的对话框（Promise）点击确认按钮，按钮会变成loading状态，三秒后关闭
+```js
+import { Sweetalert, Button } from 'zent';
+
+const onConfirm = () => {
+	console.log('我真的知道了');
+}
+
+const onCancel = () => {
+  console.log('我真的取消了');
+}
+
+const promiseConfirm = () => {
+  Sweetalert.confirm({
+    content: '点击确认按钮，按钮会变成loading状态，三秒后关闭',
+    title: 'onConfirm返回Promise',
+    onConfirm: () => new Promise((resolve) => {
+      setTimeout(() => {
+        onConfirm();
+        resolve();
+      }, 3000);
+    })
+  });
+}
+
+ReactDOM.render(
+	<Button onClick={promiseConfirm}>自动关闭对话框(Promise)</Button>,
+	mountNode
+);
+```
+:::
+
+
+:::demo 含有图标的 SweetAlert
+```js
+import { Sweetalert, Button } from 'zent';
+
+const onConfirm = () => {
+	console.log('我真的知道了');
+}
+
+const showAlertInfo = () => {
+  Sweetalert.alert({
+    type: 'info',
+    content: '这个是具体内容',
+    title: '这是一个消息标题',
+    onConfirm
+  });
+}
+
+ReactDOM.render(
+	<Button onClick={showAlertInfo}>含有图标消息对话框</Button>,
+	mountNode
+);
+```
+:::
+
+
+
+### API
+
+#### Alert
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 | --- | ---- | --- | --- | --- |
-| content     | 可选, 弹窗中的内容                              | node   |          |                                               |
-| type        | 可选, 弹窗的类型, 设置会在title左边显示一个小图标, 不传不会显示图标 | string |          | `'info'`, `'success'`, `'error'`, `'warning'` |
-| title       | 可选, 弹窗的标题                               | node   | `''`     |                                               |
-| onConfirm   | 可选, 确认操作回调函数                            | func   | `noop`   |                                               |
-| confirmText | 可选, 确认按钮文案                              | string | `'取消'`   |                                               |
-| className   | 可选, 额外的className                        | string | `''`     |                                               |
-| prefix      | 可选, 默认className的前缀                      | string | `'zent'`|     |
+| content     | 弹窗中的内容                              | node   |    -      |                                               |
+| type        | 弹窗的类型, 设置会在title左边显示一个小图标, 不传不会显示图标 | string |    -    | `'info'`, `'success'`, `'error'`, `'warning'` |
+| title       | 弹窗的标题                               | node   | `''`     |                                               |
+| onConfirm   | 确认操作回调函数                            | func   | `noop`   |                                               |
+| confirmText | 确认按钮文案                              | string | `'取消'`   |                                               |
+| className   | 额外的className                        | string | `''`     |                                               |
+| prefix      | 默认className的前缀                      | string | `'zent'`|     |
 
-### Confirm
+#### Confirm
 
 | 参数          | 说明                                      | 类型     | 默认值      | 备选值                                           |
 | ----------- | --------------------------------------- | ------ | -------- | --------------------------------------------- |
-| content     | 可选, 弹窗中的内容                              | node   |          |                                               |
-| type        | 可选, 弹窗的类型, 设置会在title左边显示一个小图标, 不传不会显示图标 | string |          | `'info'`, `'success'`, `'error'`, `'warning'` |
-| title       | 可选, 弹窗的标题                               | node   | `''`     |                                               |
-| onCancel    | 可选, 取消操作回调函数                            | func   | `noop`   |                                               |
-| onConfirm   | 可选, 确认操作回调函数                            | func   | `noop`   |                                               |
-| cancelText  | 可选, 取消按钮文案                              | string | `'取消'`   |                                               |
-| confirmText | 可选, 确认按钮文案                              | string | `'确认'`   |                                               |
-| className   | 可选, 额外的className                        | string | `''`     |                                               |
-| prefix      | 可选, 默认className的前缀                      | string | `'zent'` |                                               |
+| content     | 弹窗中的内容                              | node   |    -    |                                               |
+| type        | 弹窗的类型, 设置会在title左边显示一个小图标, 不传不会显示图标 | string |   -   | `'info'`, `'success'`, `'error'`, `'warning'` |
+| title       | 弹窗的标题                               | node   | `''`     |                                               |
+| onCancel    | 取消操作回调函数                            | func   | `noop`   |                                               |
+| onConfirm   | 确认操作回调函数                            | func   | `noop`   |                                               |
+| cancelText  | 取消按钮文案                              | string | `'取消'`   |                                               |
+| confirmText | 确认按钮文案                              | string | `'确认'`   |                                               |
+| className   | 额外的className                        | string | `''`     |                                               |
+| prefix      | 默认className的前缀                      | string | `'zent'` |                                               |
