@@ -18,6 +18,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-button/README.md')
               }
+            },
+            {
+              path: '/checkbox',
+              title: 'Checkbox 多选',
+              filePath() {
+                return System.import('../packages/zent-checkbox/README.md')
+              }
             }
           ]
         }
