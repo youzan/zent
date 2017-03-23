@@ -70,6 +70,6 @@
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.2",
     "zandoc-loader": "^1.0.2",
-    "zandoc-react-loader": "1.0.8"
+    "zandoc-react-loader": "^1.0.8"
   }
 }
