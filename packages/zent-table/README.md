@@ -1,16 +1,414 @@
-# zent-table
-
-[![npm version](https://img.shields.io/npm/v/zent-table.svg?style=flat)](https://www.npmjs.com/package/zent-table) [![downloads](https://img.shields.io/npm/dt/zent-table.svg)](https://www.npmjs.com/package/zent-table)
+# Table 表格（列表）
 
 表格组件
 
-## 使用指南
+### 使用指南
 
 **表格中的页面筛选、排序均会触发 `onChange` 函数**
 
-## API
+### 代码演示
 
-### Table
+:::demo 基础用法
+```js
+import { Table } from 'zent';
+
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '5024277',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13213123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+
+const columns = [{
+  title: '商品',
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: '200px',
+  bodyRender: TextComponent
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: '100px',
+  textAlign: 'center',
+  isMoney: true
+}, {
+  width: '3em',
+  title: '总销量',
+  name: 'sold_num'
+}];
+
+ReactDOM.render(
+		<Table
+			columns={columns}
+			datasets={datasets}
+			onChange={this.onChange}
+			rowKey="item_id"
+		/>
+	, mountNode
+);
+
+```
+:::
+
+:::demo loading
+```js
+import { Table } from 'zent';
+
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '5024277',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13213123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+
+const columns = [{
+  title: '商品',
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: '200px',
+  bodyRender: TextComponent
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: '100px',
+  textAlign: 'center',
+  isMoney: true
+}, {
+  width: '3em',
+  title: '总销量',
+  name: 'sold_num'
+}];
+
+const Loading = React.createClass({
+  getInitialState() {
+    return {
+      loading: true
+    };
+  },
+
+  // 用定时器模拟loading
+  componentWillMount() {
+    let self = this;
+    setTimeout(() => {
+      self.setState({
+        loading: false
+      });
+    }, 3000);
+  },
+
+  onChange(conf) {
+    this.setState(conf);
+  },
+
+  render() {
+    return (
+      <Table
+        columns={columns}
+        datasets={datasets}
+        onChange={this.onChange}
+        loading={this.state.loading}
+        rowKey="item_id"
+      />
+    );
+  }
+});
+
+ReactDOM.render(
+		<Loading />
+	, mountNode
+);
+
+```
+:::
+
+::: demo 分页
+```js
+import { Table } from 'zent';
+
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '5024277',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13213123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+
+const columns = [{
+  title: '商品',
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: '200px',
+  bodyRender: TextComponent
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: '100px',
+  textAlign: 'center',
+  isMoney: true
+}, {
+  width: '3em',
+  title: '总销量',
+  name: 'sold_num'
+}];
+
+const Pagination = React.createClass({
+  getInitialState() {
+    return {
+      limit: 10,
+      current: 0,
+      total: 101,
+      maxPageToShow: 8,
+    };
+  },
+
+  render() {
+    return (
+      <Table
+        columns={columns}
+        datasets={datasets}
+        rowKey="item_id"
+        pageInfo={{
+          limit: this.state.limit,
+          current: this.state.current,
+          maxPageToShow: this.state.maxPageToShow,
+          total: this.state.total
+        }}
+      />
+    );
+  }
+});
+
+ReactDOM.render(
+		<Pagination />
+	, mountNode
+);
+```
+:::
+
+::: demo 排序
+```js
+import { Table } from 'zent';
+
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '5024277',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13213123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+
+const columns = [{
+  title: '商品',
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: '200px',
+  bodyRender: TextComponent
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: '100px',
+  textAlign: 'center',
+  isMoney: true
+}, {
+  width: '3em',
+  title: '总销量',
+  name: 'sold_num'
+}];
+
+const Sort = React.createClass({
+  getInitialState() {
+    return {
+      sortBy: 'stock_num',
+      sortType: 'desc'
+    };
+  },
+
+  onChange(conf) {
+    this.setState(assign({}, this.state, conf));
+  },
+
+  render() {
+    return (
+      <Table
+        columns={columns}
+        datasets={datasets}
+        rowKey="item_id"
+        onChange={this.onChange}
+        sortBy={this.state.sortBy}
+        sortType={this.state.sortType}
+      />
+    );
+  }
+});
+
+ReactDOM.render(
+		<Sort />
+	, mountNode
+);
+```
+:::
+
+::: demo 选择
+```js
+import { Table } from 'zent';
+
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '5024277',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13213123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+const columns = [{
+  title: '商品',
+  width: 50,
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: 10,
+  bodyRender: TextComponent
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: 20
+}, {
+  title: '总销量',
+  name: 'sold_num',
+  width: 20
+}];
+
+const Selection = React.createClass({
+  getInitialState() {
+    return {
+      limit: 10,
+      current: 0,
+      total: 101,
+      selectedRowKeys: [],
+    };
+  },
+
+  onSelect(selectedRowKeys, selectedRows) {
+    this.setState({
+      selectedRowKeys
+    });
+    alert(`你选中了：${selectedRowKeys}`);
+  },
+
+  getRowConf(rowData, index) {
+    return {
+      canSelect: index % 2 === 0
+    };
+  },
+
+  render() {
+    let self = this;
+
+    return (
+      <Table
+        columns={columns}
+        datasets={datasets}
+        rowKey="item_id"
+        getRowConf={this.getRowConf}
+        selection={{
+          selectedRowKeys: this.state.selectedRowKeys,
+          onSelect(selectedRowkeys, selectedRows) {
+            self.onSelect(selectedRowkeys, selectedRows);
+          }
+        }}
+      />
+    );
+  }
+});
+
+ReactDOM.render(
+		<Selection />
+	, mountNode
+)
+
+```
+:::
+
+::: demo 每行特殊设置
+
+
+
+### API
 
 | 参数         | 说明                                         | 类型            | 默认值         | 备选值     | 是否必须 |
 | ---------- | ------------------------------------------ | ------------- | ----------- | ------- | ---- |
