@@ -166,23 +166,26 @@ const RadioGroup = Radio.Group;
 const originData = [{
 	id: 1,
 	title: '杭州有赞科技有限公司',
-	children: [{
-		id: 2,
-		title: '技术',
-		children: [{
-			id: 3,
-			title: '后端'
-		}, {
-			id: 4,
-			title: '运维'
-		}, {
-			id: 5,
-			title: '前端'
-		}]
-	}, {
-		id: 6,
-		title: '产品'
-	}]
+}, {
+	id: 2,
+	title: '技术',
+	parentId: 1
+}, {
+	id: 3,
+	title: '后端',
+	parentId: 2
+}, {
+	id: 4,
+	title: '运维',
+	parentId: 2
+}, {
+	id: 5,
+	title: '前端',
+	parentId: 2
+}, {
+	id: 6,
+	title: '产品',
+	parentId: 1
 }];
 
 const deepClone = (node, parentId = 0, nodeArray = []) => {
@@ -256,7 +259,7 @@ class TreeExample extends React.Component {
 					<Radio value="deep">深拷贝</Radio>
 				</RadioGroup>
 				<hr/>
-				<Tree data={treeData} operations={operations} />
+				<Tree data={treeData} dataType="plain" operations={operations} />
 			</div>
 		);
 	}
