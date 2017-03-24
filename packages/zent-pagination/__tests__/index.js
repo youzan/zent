@@ -25,7 +25,7 @@ describe('Pagination', () => {
     expect(wrapper.find('.zent-pagination__info').childAt(0).type()).toBe('span');
     expect(wrapper.find('.zent-pagination__info').childAt(1).type()).toBe('span');
     expect(wrapper.find('.pagination-list').length).toBe(1);
-    expect(wrapper.find('.pagination-list').find('li').length).toBe(10);
+    expect(wrapper.find('.pagination-list').find('li').length).toBe(8);
     expect(wrapper.find('.pagination-list').find('li').every('.pager')).toBe(true);
   });
 
@@ -86,12 +86,12 @@ describe('Pagination', () => {
   it('Pagination has setPageSize method, and can have custom setPageSize prop', () => {
     let wrapper = mount(<Pagination totalItem={1000} pageSize={[20, { value: 30, isCurrent: true }]} current={1} maxPageToshow={100} />);
     expect(wrapper.find('.zent-select').length).toBe(1);
-    expect(wrapper.find('li').length).toBe(10);
-    expect(wrapper.find('li').at(7).text()).toBe('34 ');
+    expect(wrapper.find('li').length).toBe(8);
+    expect(wrapper.find('li').at(5).text()).toBe('34 ');
     wrapper.find('.zent-select').simulate('click');
     wrapper.find('span[value="20"]').simulate('click');
-    expect(wrapper.find('li').length).toBe(10);
-    expect(wrapper.find('li').at(7).text()).toBe('50 ');
+    expect(wrapper.find('li').length).toBe(8);
+    expect(wrapper.find('li').at(5).text()).toBe('50 ');
 
     const onChangeMock = jest.fn().mockImplementation((arg) => {
       // simulate outside setState()
