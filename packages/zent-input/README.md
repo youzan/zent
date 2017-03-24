@@ -7,8 +7,6 @@
 - 在表单输入时使用，可带前缀或后缀。
 - 可与其它组件组合使用，如组合成一个搜索输入框
 
-**`Input` 组件的错误处理遵从 [Form](https://github.com/youzan/zent/tree/master/packages/zent-form) 表单的规范**
-
 ### 代码演示
 
 :::demo 基础用法
