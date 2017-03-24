@@ -48,8 +48,13 @@ module.exports = {
                 return System.import('../packages/zent-pop/README.md')
               }
             }, {
-              path: '/zent-tabs',
-              title: 'Zent-tabs 选项卡',
+              path: '/pagination',
+              title: 'Pagination 分页',
+              filePath() {
+                return System.import('../packages/zent-pagination/README.md')
+            }, {
+              path: '/tabs',
+              title: 'Tabs 选项卡',
               filePath() {
                 return System.import('../packages/zent-tabs/README.md')
             }, {
