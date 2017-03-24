@@ -53,6 +53,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-pop/README.md')
               }
+            },
+            {
+              path: '/select',
+              title: 'Select 选项',
+              filePath() {
+                return System.import('../packages/zent-select/README.md')
+              }
             }
           ]
         }
