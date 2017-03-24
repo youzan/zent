@@ -38,6 +38,7 @@ module.exports = {
               title: 'Radio 单选',
               filePath() {
                 return System.import('../packages/zent-radio/README.md')
+              }
             },
             {
               path: '/icon',
