@@ -173,8 +173,9 @@ describe('CreatedForm and HandleSubmit', () => {
     }
     const subFailMock = jest.fn();
     let CreatedForm = createForm()(SubmitForm);
+    // 有onSumbitFail就不throw error
     let wrapper = mount(<CreatedForm onSubmitFail={subFailMock} />);
-    expect(() => { wrapper.simulate('submit') }).toThrow();
+    expect(() => { wrapper.simulate('submit') }).not.toThrow();
     expect(subFailMock.mock.calls.length).toBe(1);
     wrapper = mount(<CreatedForm onSubmitFail={null} />);
     expect(() => { wrapper.simulate('submit') }).toThrow();
