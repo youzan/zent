@@ -1,20 +1,20 @@
-## Select 选项
+## Select 选择器
 
-选项，提供多种选项功能。
+选择器，提供多种选择器功能。
 
 ### 使用指南
 
 组件分层：主要分成 Select, Popup, Trigger 三个模块
 
-##### 1. Select
+#### 1. Select
 
 核心控制器，主要职责是格式化数据，负责 Popup 和 Trigger 间的数据传输
 
-##### 2. Popup
+#### 2. Popup
 
 选项列表弹出层，主要负责展示选项，数据过滤控制
 
-##### 3. Trigger
+#### 3. Trigger
 
   - 触发器，暴露给使用者，可以通过 trigger 属性进行配置
   - 核心的 trigger 有 SelectTrigger 和 InputTrigger
@@ -280,11 +280,9 @@ ReactDOM.render(
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 |------|------|------|--------|--------|
-| data | 选项数据 | array | `[]` | 否 |
+| data | 选项数据 | array | `[]` | 是 |
 | value | 选中的值，当为tags类型时，可以传入数组 | any | `''` | 否 |
 | index | 选中索引 | any | `''` | 否 |
-| prefix | 自定义前缀 | string | `'zent'` | 否 |
-| className | 自定义额外类名 | string | `''` | 否 |
 | disabled | 禁用组件 | bool | `false` | 否 |
 | placeholder | 默认提示文案 | string | `'请选择'` | 否 |
 | searchPlaceholder | 搜索框默认文案 | string | `''` | 否 |
@@ -298,6 +296,8 @@ ReactDOM.render(
 | onAsyncFilter | 异步设置过滤后的数据 | function | `null` | 否 |
 | onEmptySelected | 选中过滤条件为空时的回调 | function | `noop` | 否 |
 | onOpen | 展开时的回调 | function | `noop` | 否 |
+| className | 自定义额外类名 | string | `''` | 否 |
+| prefix | 自定义前缀 | string | `'zent'` | 否 |
 
 `如果 data 和 children 两种方式同时使用，data 会将 children 覆盖，主要是为了可以接收异步数据直接改变 data 属性来改变选项。`
 
@@ -311,8 +311,3 @@ ReactDOM.render(
 
 `Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。`
 
-### ChangeLog
-
-#### v0.1.53
-
-onFilter开始弃用，改成filter
