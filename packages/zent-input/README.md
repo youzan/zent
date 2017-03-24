@@ -1,14 +1,92 @@
-# zent-input
+## Input 输入框
 
-[![npm version](https://img.shields.io/npm/v/zent-input.svg?style=flat)](https://www.npmjs.com/package/zent-input) [![downloads](https://img.shields.io/npm/dt/zent-input.svg)](https://www.npmjs.com/package/zent-input)
+表单的输入组件，对原生input的包装，通过鼠标或键盘输入内容。
 
-输入框组件
+### 使用指南
 
-## 使用指南
+- 在表单输入时使用，可带前缀或后缀。
+- 可与其它组件组合使用，如组合成一个搜索输入框
 
-**`Input` 组件的错误处理遵从 `Form` 表单的规范**
+### 代码演示
 
-## API
+:::demo 基础用法
+
+```js
+import { Input } from 'zent';
+
+ReactDOM.render(
+    <div>
+        <Input placeholder="Please input your name" />
+        <Input type="password" placeholder="Please input your password" />
+    </div>
+    , mountNode
+);
+
+```
+:::
+
+:::demo 带前后缀的输入框
+
+```js
+import { Input } from 'zent';
+
+ReactDOM.render(
+    <div>
+        <Input addonBefore="$" />
+        <Input addonAfter="%" />
+        <Input addonBefore="Buy" addonAfter="Apple" />
+    </div>
+    , mountNode
+);
+```
+:::
+
+:::demo 事件处理
+
+```js
+import { Input } from 'zent';
+
+class EventTest extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            logs: []
+        }
+    }
+    onPressEnter = (e) => {
+        this.addLog('enter pressed');
+    }
+
+    onKeyDown = (e) => {
+        this.addLog('key down');
+    }
+
+    addLog(msg) {
+        const { logs } = this.state;
+        logs.push(msg)
+        this.setState({logs})
+    }
+
+    render() {
+        return (
+            <div>
+                <Input onPressEnter={this.onPressEnter} placeholder="press enter"/>
+                <Input onKeyDown={this.onKeyDown} placeholder="key down"/>
+                <div>{this.state.logs.map((log, index) => <p key={index}>{log}</p>)}</div>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <EventTest />
+    , mountNode
+);
+```
+:::
+
+
+### API
 
 | 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
@@ -26,3 +104,10 @@
 | onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
 
 _除了以上属性外，所有react支持的input属性，Input组件都支持_
+
+<style>
+.zent-input-wrapper {
+    width: 200px;
+    margin-bottom: 20px;
+}
+</style>
