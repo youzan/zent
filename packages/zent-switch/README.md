@@ -5,7 +5,7 @@
 ### 使用指南
 
 -  需要表示开关状态/两种状态之间的切换时。
--  切换`switch`会直接触发状态改变。
+-  切换 `Switch` 会直接触发状态改变。
 
 ### 代码演示
 
@@ -20,7 +20,6 @@ class Simple extends React.Component {
 
 	handleChange = (checked) => {
 		this.setState({ checked });
-		console.log(`switch to ${checked}`);
 	}
 
 	render() {
@@ -45,7 +44,7 @@ import { Switch } from 'zent';
 ReactDOM.render(
 	<div>
 		<Switch checked disabled />
-		<hr />
+		&nbsp;&nbsp;
 		<Switch checked={false} disabled />
 	</div>
 	, mountNode
@@ -61,7 +60,7 @@ import { Switch } from 'zent';
 ReactDOM.render(
 	<div>
 		<Switch checked />
-		<hr />
+		&nbsp;&nbsp;
 		<Switch size="small" />
 	</div>
 	, mountNode
@@ -77,9 +76,37 @@ import { Switch } from 'zent';
 ReactDOM.render(
 	<div>
 		<Switch checked loading />
-		<hr />
+		&nbsp;&nbsp;
 		<Switch loading />
 	</div>
+	, mountNode
+);
+
+```
+:::
+
+:::demo 自定义开关文案
+```js
+import { Switch } from 'zent';
+
+class Simple extends React.Component {
+	state = {
+		checked: true
+	}
+
+	handleChange = (checked) => {
+		this.setState({ checked });
+	}
+
+	render() {
+		return (
+			<Switch checked={this.state.checked} onChange={this.handleChange} checkedText={'open'} uncheckedText={'close'} />
+		)
+	}
+}
+
+ReactDOM.render(
+	<Simple />
 	, mountNode
 );
 
@@ -90,7 +117,7 @@ ReactDOM.render(
 
 | 参数            | 说明                           | 类型                  | 默认值         | 备选值       |
 | ------------- | ---------------------------- | ------------------- | ----------- | --------- |
-| checked       | 指定当前状态                       | bool                | `false`     |           |
+| checked       | 指定当前状态                       | bool                |         |           |
 | onChange      | 变化时回调函数, 参数是改变后的 `checked` 值 | func(checked: bool) | `noop`      |           |
 | disabled      | 状态控制                         | bool                | `false`     |           |
 | checkedText   | 选中时的文案                       | string              | `'开启'`      |           |

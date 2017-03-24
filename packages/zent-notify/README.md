@@ -13,18 +13,10 @@
 ```js
 import { Notify, Button } from 'zent';
 
-function testSuccess() {
-	Notify.success('成功通知', 1000);
-}
-
-function testError() {
-	Notify.error('错误通知');
-}
-
 ReactDOM.render(
 	<div>
-		<Button onClick={testSuccess.bind(this)}>成功通知</Button>
-		<Button onClick={testError.bind(this)}>错误通知</Button>
+		<Button onClick={() => Notify.success('成功通知')}>成功通知</Button>
+		<Button onClick={() => Notify.error('错误通知')}>错误通知</Button>
 	</div>
 	, mountNode
 );
@@ -43,11 +35,11 @@ function customContent() {
 			<i>斜体</i>
 			<b>粗体</b>
 		</div>
-    );
+	);
 }
 
 ReactDOM.render(
-	<Button onClick={customContent.bind(this)}>自定义内容通知</Button>
+	<Button onClick={customContent}>自定义内容通知</Button>
 	, mountNode
 );
 
@@ -58,18 +50,9 @@ ReactDOM.render(
 ```js
 import { Notify, Button } from 'zent';
 
-function testSuccess1() {
-	Notify.success('成功通知1s', 1000);
-}
-
-function testSuccess3() {
-	Notify.success('成功通知3s');
-}
-
 ReactDOM.render(
 	<div>
-		<Button onClick={testSuccess1.bind(this)}>通知1s</Button>
-		<Button onClick={testSuccess3.bind(this)}>通知3s</Button>
+		<Button onClick={() => Notify.success('成功通知1s', 1000)}>通知1s</Button>
 	</div>
 	, mountNode
 );
@@ -85,34 +68,28 @@ function closeCallback() {
 	alert('Notify has over');
 }
 
-function testSuccess() {
-	Notify.success('通知结束回调函数', 1000, closeCallback);
-}
-
 ReactDOM.render(
-	<Button onClick={testSuccess.bind(this)}>自定义通知结束回调</Button>
+	<Button onClick={() => Notify.success('通知结束回调函数', 1000, closeCallback)}>自定义通知结束回调</Button>
 	, mountNode
 );
 
 ```
 :::
 
-:::demo 清楚屏幕所有通知
+:::demo 清除屏幕所有通知
 ```js
 import { Notify, Button } from 'zent';
 
-function clearNotify() {
-	Notify.clear();
-}
-
 ReactDOM.render(
-	<Button onClick={clearNotify.bind(this)}>清除通知</Button>
+	<div>
+		<Button onClick={() => Notify.success('通知')}>打开通知</Button>
+		<Button onClick={() => Notify.clear()}>清除通知</Button>
+	</div>
 	, mountNode
 );
 
 ```
 :::
-
 
 ### API
 
