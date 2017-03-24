@@ -1,55 +1,18 @@
 ## Form 表单组件
 
-### 组件原理
-组件核心由以下几部分组成：
-
-- createForm函数：用来构建一个高阶组件，其中维护了表单中的所有表单元素（Field组件）实例。通过向子组件的props中注入zentForm属性来提供表单和表单元素的各种操作方法。
-- Form组件：作为整个表单的最顶层骨架，是对<form>标签的简单封装，定义了默认的class来提供基础样式。
-- Field组件：用来封装各种表单元素组件（如Input、Checkbox、Select以及各种自定义组件）的一个高阶组件。其中维护了表单元素value值和校验错误等信息。Field组件会向表单元素组件传入封装过的onChange、onBlur回调和value、error等表单元素需要的props。
-
-**注意：**
-
-1. 使用Form组件构造的组件必须调用createForm函数进行封装，否则children中的Field组件无法生效，控制台中会抛错。
-2. Field组件本质上是一个辅助性的组件，本身不提供任何样式。它的作用是管理表单元素value值的生命周期和表单元素的error等信息。表单元素具体如何展现，是由Field组件component属性中传入的值所对应的组件决定的。
-
-
-### 使用指南
-
-#### 封装自定义的表单元素组件
-前面已经说过，Field的展示完全由传入到component属性中的组件所控制。这个组件能够接收到所有从Field传入的props（包括Field中构造的一些隐含的props，具体看下方Field API）。
-
-对于一些常用的zent表单组件，Form已经使用了一个`getControlGroup`函数对它们进行了封装（具体参考下方API）。如果产品设计上有一些特殊的需求，或者需要封装自定义的组件，也可以直接使用或者参考`getControlGroup`的方式来对组件进行封装。
-
-**如果需要在一个Field中展示多个表单元素，可以将所有的表单元素封装在一个对象中传入Field的value中。具体可以参考“封装自定义组件”那个示例。**
-
-#### Field中 value 的生命周期
-表单元素的初始值需要通过在Field中指定value值传入，如果value值的生命周期如下图所示：
-
-```text
-Field 中传入 value -> 使用 format() 格式化 value -> format 过的 value 传入 component 中渲染组件
-                           ↑                                 |
-                           |                                 ↓
-                           |                          用户操作改变 value
-                           |                                 |
-                           |                                 ↓
-    normalize 过的 value 写入 form 中维护, 用于数据提交 <- 使用 normalize() 格式化 value
-```
-
-如果传入Field的value值是一个动态值，在外部改变value后会重新开始value的生命周期。
-
-
 ### 代码演示
 #### 基础用法
 使用方法具体参考下方示例代码，不过有一些注意点：
 
-1. 必须要调用createForm来包装一下Form组件。
-2. Field必须要有name属性。
-3. 推荐在另外的组件中封装表单结构，然后将组件传入Field的component属性。
-4. validations对象中传入的不是一个function的话，将会调用内部的校验规则（具体参考API中的`内置validation rules`）。想要自己扩展内部校验规则的话，可以参考`Form.createForm`的API。
-5. validations对象中传入的是一个function的话，function返回true才表示验证通过。
-6. 可以使用props.zentForm.getFormValues()来获取所有表单元素值。（zentForm如何注入到props中请参考`Form.createForm`的API。）
+1. 必须要调用 createForm 来包装一下 Form 组件。
+2. Field 必须要有 name 属性。
+3. 推荐在另外的组件中封装表单结构，然后将组件传入 Field 的 component 属性。
+4. Field 组件本质上是一个辅助性的组件，本身不提供任何样式。它的作用是管理表单元素 value 值的生命周期和表单元素的 error 等信息。表单元素具体如何展现，是由 Field 组件 component 属性中传入的值所对应的组件决定的。
+5. validations 对象中传入的不是一个 function 的话，将会调用内部的校验规则（具体参考 API 中的`内置 validation rules`）。想要自己扩展内部校验规则的话，可以参考 `Form.createForm` 的 API 。
+6. validations 对象中传入的是一个 function 的话， function 返回 true 才表示验证通过。
+7. 可以使用 props.zentForm.getFormValues() 来获取所有表单元素值。（ zentForm 如何注入到 props 中请参考 `Form.createForm` 的 API 。）
 
-**PS：Form组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中renderEmail组件的表单结构。具体请参考`getControlGroup`的API。**
+> PS：Form 组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中 renderEmail 组件的表单结构。具体请参考`getControlGroup`的 API 。
  
 :::DEMO  
 ```js
@@ -110,10 +73,10 @@ ReactDOM.render(
 ```
 :::
 
-#### 使用已封装的其他zent表单元素组件
-为了减少代码量，Form组件内置了对常用的表单元素组件（Input、Checkbox、CheckboxGroup、RadioGroup、Select）的封装。这些组件的封装使用了getControlGroup函数（具体查看下方API）。
+#### 使用已封装的其他 zent 表单元素组件
+为了减少代码量， Form 组件内置了对常用的表单元素组件（Input 、Checkbox 、 CheckboxGroup 、RadioGroup 、 Select）的封装。这些组件的封装使用了 getControlGroup 函数（具体查看下方 API ）。
 
-:::DEMO  封装过的组件额外支持的props，请查看getControlGroup的API。表单元素组件需要的props具体请查看对应组件的文档。
+:::DEMO  封装过的组件额外支持的 props，请查看 getControlGroup 的API 。表单元素组件需要的 props 具体请查看对应组件的文档。
 ```js
 import { Form } from 'zent';
 const { Field, InputField, createForm } = Form;
@@ -142,8 +105,8 @@ ReactDOM.render(
 ```
 :::
 
-#### 格式化value值
-Form组件提供了format和nomalize来对value进行格式化，它们的执行时机可以参考上面`value的生命周期`。
+#### 格式化 value 值
+Form 组件提供了 format 和nomalize 来对 value 进行格式化，它们的执行时机可以参考下方使用指南中`value 的生命周期`。
 
 :::DEMO
 ```js
@@ -190,7 +153,7 @@ ReactDOM.render(
 :::
 
 #### 封装多个表单组件
-有时候需要在一个Field里封装了两个表单元素，做法就是将两个表单元素的value值封装在一个对象里传入到Field中。
+有时候需要在一个 Field 里封装了两个表单元素，做法就是将两个表单元素的 value 值封装在一个对象里传入到 Field 中。
 
 :::DEMO  
 ```js
@@ -280,7 +243,7 @@ ReactDOM.render(
 :::
 
 #### 表单提交
-form 组件内部对表单提交的过程进行封装，可以把异步提交的过程封装在一个func里并返回一个**promise对象**，组件内部会根据promise对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过zentForm.isSubmitting()得到）。
+form 组件内部对表单提交的过程进行封装，可以把异步提交的过程封装在一个 func 里并返回一个**promise 对象**，组件内部会根据 promise 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过zentForm.isSubmitting()得到）。
 
 :::DEMO
 ```js
@@ -298,10 +261,10 @@ const SubmitForm = (props) => {
     		zentForm.setFieldExternalErrors({
     		  user: '用户名已被占用'
     		});
-    		// 可以throw SubmissionError在onSubmitFail中处理，也可以在这里直接alert错误信息
+    		// 可以throw SubmissionError 在 onSubmitFail 中处理，也可以在这里直接 alert 错误信息
     		throw new SubmissionError('用户名已被占用');
   		} else {
-				// 返回值可以传入到onSubmitSuccess，或者直接在这里处理掉
+				// 返回值可以传入到 onSubmitSuccess ，或者直接在这里处理掉
 				return '注册成功';
   		}
     });
@@ -366,7 +329,7 @@ ReactDOM.render(
 ```
 :::
 #### 异步校验
-异步校验在blur时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用props.onBlur(event)。value值可以直接传给event，或者作为event的属性传入。
+异步校验在 blur 时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用props.onBlur(event)。 value 值可以直接传给 event ，或者作为 event 的属性传入。
 
 :::DEMO
 ```js
@@ -407,7 +370,7 @@ ReactDOM.render(
 ```
 :::
 
-#### Fieldset组件
+#### Fieldset 组件
 
 :::DEMO
 ```js
@@ -447,6 +410,38 @@ ReactDOM.render(
 ```
 :::
 
+### 组件原理
+本组件核心由以下几部分组成：
+
+- createForm 函数：用来构建一个高阶组件，其中维护了表单中的所有表单元素（Field 组件）实例。通过向子组件的 props 中注入 zentForm 属性来提供表单和表单元素的各种操作方法。
+- Form 组件：作为整个表单的最顶层骨架，是对 <form> 标签的简单封装，定义了默认的 class 来提供基础样式。
+- Field 组件：用来封装各种表单元素组件（如 Input 、 Checkbox 、Select 以及各种自定义组件）的一个高阶组件。其中维护了表单元素 value 值和校验错误等信息。Field 组件会向表单元素组件传入封装过的 onChange 、onBlur 回调和 value 、error 等表单元素需要的 props 。
+
+具体的使用，请继续看下面的API 说明。
+
+### 使用指南
+#### 封装自定义的表单元素组件
+前面已经说过，Field 的展示完全由传入到 component 属性中的组件所控制。这个组件能够接收到所有从 Field 传入的 props （包括 Field 中构造的一些隐含的 props ，具体看下方Field API ）。
+
+对于一些常用的 zent 表单组件， Form 已经使用了一个`getControlGroup`函数对它们进行了封装（具体参考下方 API ）。如果产品设计上有一些特殊的需求，或者需要封装自定义的组件，也可以直接使用或者参考`getControlGroup`的方式来对组件进行封装。
+
+**如果需要在一个 Field 中展示多个表单元素，可以将所有的表单元素封装在一个对象中传入 Field 的value 中。具体可以参考“封装自定义组件”那个示例。**
+
+#### Field 中 value 的生命周期
+表单元素的初始值需要通过在 Field 中指定 value 值传入，如果 value 值的生命周期如下图所示：
+
+```text
+Field 中传入 value -> 使用 format() 格式化 value -> format 过的 value 传入 component 中渲染组件
+                           ↑                                 |
+                           |                                 ↓
+                           |                          用户操作改变 value
+                           |                                 |
+                           |                                 ↓
+    normalize 过的 value 写入 form 中维护, 用于数据提交 <- 使用 normalize() 格式化 value
+```
+
+如果传入 Field 的 value 值是一个动态值，在外部改变 value 后会重新开始 value 的生命周期。
+
 ### API
 
 #### **Form**
@@ -473,16 +468,16 @@ ReactDOM.render(
 |------|------|------|------|
 | formValidations | 用于添加自定义校验方法, 通过这种方式添加的方法在 validations 中使用时可以传额外的参数 | object | 否 |
 
-*PS：项目中的通用校验方法，可以通过在一个文件中定义公共的`formValidations`对象来引入。*
+> PS：项目中的通用校验方法，可以通过在一个文件中定义公共的`formValidations`对象来引入。
 
-##### createForm返回的组件可接收的props
-createForm方法构建了一个高阶组件，该组件可以定义了一些额外的props。
+##### createForm 返回的组件可接收的 props
+createForm 方法构建了一个高阶组件，该组件可以定义了一些额外的 props 。
 
 | 参数 | 说明 | 类型 | 是否必填 |
 |------|------|------|------|
 | onChange | 任意表单元素修改后触发的回调，参数为所有表单元素值的对象 | func(values: Object) | 否 |
-| onSubmitSuccess | 提交成功后的回调，参数是submit函数中promise的返回值 | func(submitResult: any) | 否 |
-| onSubmitFail | 提交失败后的回调，参数要么是SubmissionError的一个实例，要么是undefined | func(submitError: SubmissionError) | 否 |
+| onSubmitSuccess | 提交成功后的回调，参数是 submit 函数中 promise 的返回值 | func(submitResult: any) | 否 |
+| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是undefined | func(submitError: SubmissionError) | 否 |
 
 ##### zentForm prop
 经过 `ZentForm.createForm` 包装的组件通过 props 被添加了 zenForm 属性, 所以在被包装的组件中可以访问到 `this.props.zentForm` 属性, `this.props.zentForm` 提供的 API 如下：
@@ -492,7 +487,7 @@ createForm方法构建了一个高阶组件，该组件可以定义了一些额�
 | getFormValues | 获取与 form 绑定的所有表单元素值 | func |
 | getFieldError | 获取某个 Field 的错误信息, 没有报错信息返回空 | func(name: String) |
 | setFormPristine | 设置所有 Field 的状态为非原始状态, 用于在提交表单时让 Field 把没有显示出来的错误显示出来 | func(isPristine: Boolean) |
-| setFieldExternalErrors | 设置外部传入的错误信息（比如服务端校验错误），errors的key为Field的name，value为错误文案 | func(errors: Object) |
+| setFieldExternalErrors | 设置外部传入的错误信息（比如服务端校验错误）， errors 的 key 为 Field 的 name ， value 为错误文案 | func(errors: Object) |
 | resetFieldsValue | 把所有 Field 的值恢复到指定值或初始状态 | func(data: Object) |
 | isValid | 表单的所有 Field 是否都通过了校验 | func |
 | isSubmitting | 表单是否正在提交 | func |
@@ -501,10 +496,10 @@ createForm方法构建了一个高阶组件，该组件可以定义了一些额�
 | isFieldValidating | Field 是否 | func(name: String) |
 
 ##### handleSubmit prop
-createForm还会为被包装的组件提供一个封装过的`handleSubmit`方法，具体使用可以参考上方**表单提交**中的内容
+createForm 还会为被包装的组件提供一个封装过的`handleSubmit`方法，具体使用可以参考上方**表单提交**中的内容
 
 注意：
-如果希望在`onSubmitFail`回调中正确的接收到error对象，需要在submit函数中throw `SubmissionError`类型的对象
+如果希望在`onSubmitFail`回调中正确的接收到 error 对象，需要在 submit 函数中throw `SubmissionError`类型的对象
 
 ```js
 const { SubmissionError } = Form;
@@ -523,8 +518,8 @@ onSubmissionFail(submissionError) {
 ```
 
 #### **Form.Field**
-所有需要维护value的表单元素组件都需要通过Field组件包装一下。
-在Field组件上可以传入以下props，component以外的其他props（包括自定义的props），都会传入到component中所定义的表单元素组件中：
+所有需要维护 value 的表单元素组件都需要通过 Field 组件包装一下。
+在 Field 组件上可以传入以下 props ，component 以外的其他 props （包括自定义的 props ），都会传入到 component 中所定义的表单元素组件中：
 
 | 参数 | 说明 | 类型 | 是否必填 |
 |------|------|------|------|
@@ -532,25 +527,25 @@ onSubmissionFail(submissionError) {
 | component | 真正的表单元素组件，负责表单元素如何展示。可以是字符串(标准 html 元素名), 或者 React 组件 | string / React.Component | 是 |
 | normalize | onChange 或者 onBlur 后格式化表单元素值 | func(value, previousValue, nextValues, previousValues) | 否 |
 | format | 渲染前格式化表单元素值, 不影响真正存储的表单元素值 | func(value, previousValue, nextValues, previousValues) | 否 |
-| onChange | value 值修改后的回调，会在Field中封装一层。(自定义组件需要自己调用由Field组件封装后传入的 `props.onChange()` 后才会执行) | func(event, newValue, previousValue, preventSetValue) | 否 |
-| onBlur | blur 后的回调（会在Field中封装一层） | func(event, newValue, previousValue, preventSetValue) | 否 |
+| onChange | value 值修改后的回调，会在 Field 中封装一层。(自定义组件需要自己调用由 Field 组件封装后传入的 `props.onChange()` 后才会执行) | func(event, newValue, previousValue, preventSetValue) | 否 |
+| onBlur | blur 后的回调（会在 Field 中封装一层） | func(event, newValue, previousValue, preventSetValue) | 否 |
 | validations | 定义表单元素校验方法 | object | 否 |
 | validationErrors | 定义表单元素检验方法对应的出错信息 | object | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
 | value | 表单元素初始值 | any | 是 |
 
-除了上述参数之外，Field组件会隐含地向被包裹的表单元素组件中传入以下props：
+除了上述参数之外， Field 组件会隐含地向被包裹的表单元素组件中传入以下 props ：
 
 | 参数 | 说明 | 类型 | 
 |------|------|------|
 | isTouched | 表单元素值被改变过 | boolean |
 | isPristine | 表单元素值没有被改变过 | boolean | 
-| error | 第一个校验错误文本信息（没有报错时为null） | string / Null | 
+| error | 第一个校验错误文本信息（没有报错时为 null ） | string / Null | 
 | errors | 校验错误文本信息数组（没有错误时为空数组） | array |
 
 
 #### **Form.getControlGroup**
-getControlGroup是一个用来快速封装自定义组件的函数，它返回一个满足通用布局与样式要求（左侧label、右侧表单元素）的stateless functional component。同时支持将Field中的error信息展示出来。getControlGroup实现的比较简单，可以直接看源码。
+getControlGroup 是一个用来快速封装自定义组件的函数，它返回一个满足通用布局与样式要求（左侧 label 、右侧表单元素）的stateless functional component 。同时支持将 Field 中的 error 信息展示出来。 getControlGroup 实现的比较简单，可以直接看源码。
 
 ```js
 export default Control => ({ required = false, helpDesc = '', label = '', className = '', ...props }) => {
@@ -577,17 +572,17 @@ export default Control => ({ required = false, helpDesc = '', label = '', classN
 };
 ```
 
-封装过的组件支持在Field上额外传入以下参数：
+封装过的组件支持在 Field 上额外传入以下参数：
 
 | 参数 | 说明 | 类型 | 是否必填 |
 |------|------|------|------|
 | label | 表单元素的label | string | 否 |
-| className | 添加到control-group上的额外类名，可以用来覆盖子元素的样式 | string | 否 |
+| className | 添加到control-group 上的额外类名，可以用来覆盖子元素的样式 | string | 否 |
 | helpDesc | 表单元素的说明性文字 | string | 否 |
-| required | 为true时会在label前添加红色的"*" | boolean | 否 |
+| required | 为 true 时会在 label 前添加红色的"*" | boolean | 否 |
 
-#### **内置validation rules**
-可以直接在Field的validations属性中使用
+#### **内置 validation rules**
+可以直接在 Field 的 validations 属性中使用
 
 ```js
 <Field
@@ -604,11 +599,11 @@ export default Control => ({ required = false, helpDesc = '', label = '', classN
 
 | 规则名 | 说明 | 可传参数 |
 |------|------|------|
-| required | 是否必填 | 任意，传true是为了表意，传其他值也是当作必填，下同 |
-| isExisty | 是否非null，非undefined | 任意 |
+| required | 是否必填 | 任意，传 true 是为了表意，传其他值也是当作必填，下同 |
+| isExisty | 是否非 null ，非 undefined | 任意 |
 | matchRegex | 是否匹配指定正则表达式 | Regex |
 | isEmail | 是否邮件类型字符串 | 任意 |
-| isUrl | 是否url类型 | 任意 |
+| isUrl | 是否 url 类型 | 任意 |
 | isTrue | 是否true | 任意 |
 | isFalse | 是否false | 任意 |
 | isNumeric | 是否数字类型 | 任意 |
@@ -616,6 +611,6 @@ export default Control => ({ required = false, helpDesc = '', label = '', classN
 | isFloat | 是否小数 | 任意 |
 | isLenght | 字符串或数组是否为指定长度 | 长度值(Number) |
 | equals | 是否与指定值相等 | 指定值 |
-| equalsField | 是否与表单中的其他元素值相等 | 其他Field的name(String) |
+| equalsField | 是否与表单中的其他元素值相等 | 其他 Field 的name(String) |
 | maxLength | 字符串或数组不能超过指定长度 | 长度值(Number) |
 | minLength | 字符串或数组不能小于指定长度 | 长度值(Number) |
