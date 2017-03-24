@@ -18,7 +18,7 @@
 #### 封装自定义的表单元素组件
 前面已经说过，Field的展示完全由传入到component属性中的组件所控制。这个组件能够接收到所有从Field传入的props（包括Field中构造的一些隐含的props，具体看下方Field API）。
 
-对于一些常用的zent表单组件，Form已经使用getControlGroup对其进行了封装（具体参考下方API）。如果产品设计上有一些特殊的需求，或者需要封装自定义的组件，也可以直接使用或者参考getControlGroup的方式来对组件进行封装。
+对于一些常用的zent表单组件，Form已经使用了一个`getControlGroup`函数对它们进行了封装（具体参考下方API）。如果产品设计上有一些特殊的需求，或者需要封装自定义的组件，也可以直接使用或者参考`getControlGroup`的方式来对组件进行封装。
 
 **如果需要在一个Field中展示多个表单元素，可以将所有的表单元素封装在一个对象中传入Field的value中。具体可以参考“封装自定义组件”那个示例。**
 
@@ -39,24 +39,23 @@ Field 中传入 value -> 使用 format() 格式化 value -> format 过的 value 
 
 
 ### 代码演示
-#### 封装自定义组件
-一般推荐为Field的component属性传入封装过的组件
+#### 基础用法
+使用方法具体参考下方示例代码，不过有一些注意点：
 
-这里有两个例子：
+1. 必须要调用createForm来包装一下Form组件。
+2. Field必须要有name属性。
+3. 推荐在另外的组件中封装表单结构，然后将组件传入Field的component属性。
+4. validations对象中传入的不是一个function的话，将会调用内部的校验规则（具体参考API中的`内置validation rules`）。想要自己扩展内部校验规则的话，可以参考`Form.createForm`的API。
+5. validations对象中传入的是一个function的话，function返回true才表示验证通过。
+6. 可以使用props.zentForm.getFormValues()来获取所有表单元素值。（zentForm如何注入到props中请参考`Form.createForm`的API。）
 
-- 1.简单封装了一个input输入框
-- 2.在一个Field里封装了两个表单元素，这也是一个常见的需求，做法就是将两个表单元素的value值封装在一个对象里传入到Field中。
+**PS：Form组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中renderEmail组件的表单结构。具体请参考`getControlGroup`的API。**
  
-:::DEMO  具体参考例子中的renderEmail和ContactPhone两个组件
+:::DEMO  
 ```js
 import cx from 'classnames';
-import { Form, Select, Input } from 'zent';
+import { Form, Input } from 'zent';
 const { Field, createForm } = Form;
-const { SelectTrigger } = Select;
-const countyCodeList = [
-  { code: '+86', zh: 'zhongguo', eng: 'china', value: '中国 +86', index: 0 },
-  { code: '+853', zh: 'aomen', eng: 'Macau', value: '中国澳门 +853', index: 1 }
-];
 
 const renderEmail = (props) => {
   const showError = props.isTouched && props.error;
@@ -69,81 +68,41 @@ const renderEmail = (props) => {
       <label className="zent-form__control-label">邮箱：</label>
       <div className="zent-form__controls">
         <Input type="text" name={props.name} value={props.value} onChange={props.onChange} />
-        {showError && <span className="zent-form__help-block">{props.error}</span>}
-      </div>
-    </div>
-  );
-};
-const ContactPhone = (props) => {
-  const value = props.value;
-  const showError = props.isTouched && props.error;
-  const mobileClassName = cx({
-    'zent-form__control-group': true,
-    'has-error': showError
-  });
-  const onSelectChange = (e, selectedItem) => {
-    const newValue = Object.assign({}, value, {
-      areacode: selectedItem.index
-    });
-    props.onChange(newValue);
-  };
-  const onPhoneChange = (e) => {
-    const newValue = Object.assign({}, value, {
-      mobile: e.target.value
-    });
-    props.onChange(newValue);
-  };
-  const filterHandler = (item, keyword) => {
-    return keyword && item.text.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1;
-  };
-
-  return (
-    <div className={mobileClassName}>
-      <label className="zent-form__control-label">联系方式：</label>
-      <div className="zent-form__controls">
-        <Select className="areacode"
-          value={value.areacode}
-          data={props.areadata}
-          filter={filterHandler}
-          optionValue="index"
-          optionText="value"
-          trigger={SelectTrigger}
-          onChange={onSelectChange}
-        />
-        <div className="zent-input-wrapper phone-num" style={{ display: 'inline-block' }}>
-          <input className="zent-input" type="text" placeholder="请填写手机号" value={value.mobile} onChange={onPhoneChange} />
-        </div>
-        {showError && <p className="zent-form__help-block">{props.error}</p>}
+        {showError && <span className="zent-form__error-desc">{props.error}</span>}
       </div>
     </div>
   );
 };
 
-const CustomFieldForm = () => {
+const BaseForm = (props) => {
+	const { zentForm } = props;
+	const alertValues = () => {
+		alert(JSON.stringify(zentForm.getFormValues()));
+	};
 	return (
       <Form horizontal>
-        <Field name="email" component={renderEmail} value="11@youzan.com" validations={{ isEmail: true }} validationErrors={{ isEmail: '请输入正确的格式' }} />
-        <Field
-          name="contactPhone"
-          value={{
-            areacode: 1,
-            mobile: 15899776666
-          }}
-          areadata={countyCodeList}
-          component={ContactPhone}
-          validations={{
-            validMobile(values, value) {
-              let mobile = +value.mobile;
-              let mobileReg = /^\d{1,10}$/;
-              return mobileReg.test(mobile);
-            }
-          }}
-          validationErrors={{ validMobile: '请输入正确的手机号' }}
+        <Field 
+        	name="email" 
+        	component={renderEmail} 
+        	value="123@youzan.com" 
+        	validations={{ 
+        		isEmail: true,
+        		limitDomain(values, value) {
+        			return /@youzan\.com$/.test(value);
+        		}
+        	}} 
+        	validationErrors={{ 
+        		isEmail: '请输入正确的格式',
+        		limitDomain: '必须使用youzan.com的邮箱'
+        	}} 
         />
+        <div className="zent-form__form-actions">
+          <button className="zent-btn zent-btn-primary" type="button" onClick={alertValues}>获取表单值</button>
+        </div>
       </Form>
     );
 };
-const WrappedForm = createForm()(CustomFieldForm);
+const WrappedForm = createForm()(BaseForm);
 
 ReactDOM.render(
 	<WrappedForm />, mountNode
@@ -230,6 +189,96 @@ ReactDOM.render(
 ```
 :::
 
+#### 封装多个表单组件
+有时候需要在一个Field里封装了两个表单元素，做法就是将两个表单元素的value值封装在一个对象里传入到Field中。
+
+:::DEMO  
+```js
+import cx from 'classnames';
+import { Form, Select, Input } from 'zent';
+const { Field, createForm } = Form;
+const { SelectTrigger } = Select;
+const countyCodeList = [
+  { code: '+86', zh: 'zhongguo', eng: 'china', value: '中国 +86', index: 0 },
+  { code: '+853', zh: 'aomen', eng: 'Macau', value: '中国澳门 +853', index: 1 }
+];
+
+const ContactPhone = (props) => {
+  const value = props.value;
+  const showError = props.isTouched && props.error;
+  const mobileClassName = cx({
+    'zent-form__control-group': true,
+    'has-error': showError
+  });
+  const onSelectChange = (e, selectedItem) => {
+    const newValue = Object.assign({}, value, {
+      areacode: selectedItem.index
+    });
+    props.onChange(newValue);
+  };
+  const onPhoneChange = (e) => {
+    const newValue = Object.assign({}, value, {
+      mobile: e.target.value
+    });
+    props.onChange(newValue);
+  };
+  const filterHandler = (item, keyword) => {
+    return keyword && item.text.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1;
+  };
+
+  return (
+    <div className={mobileClassName}>
+      <label className="zent-form__control-label">联系方式：</label>
+      <div className="zent-form__controls">
+        <Select className="areacode"
+          value={value.areacode}
+          data={props.areadata}
+          filter={filterHandler}
+          optionValue="index"
+          optionText="value"
+          trigger={SelectTrigger}
+          onChange={onSelectChange}
+        />
+        <div className="zent-input-wrapper phone-num" style={{ display: 'inline-block' }}>
+          <input className="zent-input" type="text" placeholder="请填写手机号" value={value.mobile} onChange={onPhoneChange} />
+        </div>
+        {showError && <p className="zent-form__error-desc">{props.error}</p>}
+      </div>
+    </div>
+  );
+};
+
+const CustomFieldForm = () => {
+	return (
+      <Form horizontal>
+        <Field
+          name="contactPhone"
+          value={{
+            areacode: 1,
+            mobile: 15899776666
+          }}
+          areadata={countyCodeList}
+          component={ContactPhone}
+          validations={{
+            validMobile(values, value) {
+              let mobile = +value.mobile;
+              let mobileReg = /^\d{1,10}$/;
+              return mobileReg.test(mobile);
+            }
+          }}
+          validationErrors={{ validMobile: '请输入正确的手机号' }}
+        />
+      </Form>
+    );
+};
+const WrappedForm = createForm()(CustomFieldForm);
+
+ReactDOM.render(
+	<WrappedForm />, mountNode
+);
+```
+:::
+
 #### 表单提交
 form 组件内部对表单提交的过程进行封装，可以把异步提交的过程封装在一个func里并返回一个**promise对象**，组件内部会根据promise对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过zentForm.isSubmitting()得到）。
 
@@ -297,7 +346,7 @@ const SubmitForm = (props) => {
 	      }}
 	    />
 	    <div className="zent-form__form-actions">
-	      <button class="zent-btn zent-btn-primary" type="submit">{isSubmitting ? '注册中...' : '注册'}</button>
+	      <button className="zent-btn zent-btn-primary" type="submit">{isSubmitting ? '注册中...' : '注册'}</button>
 	    </div>
 	  </Form>
 	);
