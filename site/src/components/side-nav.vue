@@ -59,8 +59,9 @@ export default {
     width: 220px;
     box-sizing: border-box;
     padding: 40px 0;
-    float: left;
     background-color: #fff;
+    display: table-cell;
+    border-right: 1px solid #e5e5e5;
 
     li {
       list-style: none;
