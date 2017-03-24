@@ -40,7 +40,6 @@ const columns = [{
   title: '访问量',
   name: 'bro_uvpv',
   width: '200px',
-  bodyRender: TextComponent
 }, {
   title: '库存',
   name: 'stock_num',
@@ -57,7 +56,6 @@ ReactDOM.render(
 		<Table
 			columns={columns}
 			datasets={datasets}
-			onChange={this.onChange}
 			rowKey="item_id"
 		/>
 	, mountNode
@@ -97,8 +95,7 @@ const columns = [{
 }, {
   title: '访问量',
   name: 'bro_uvpv',
-  width: '200px',
-  bodyRender: TextComponent
+  width: '200px'
 }, {
   title: '库存',
   name: 'stock_num',
@@ -184,8 +181,7 @@ const columns = [{
 }, {
   title: '访问量',
   name: 'bro_uvpv',
-  width: '200px',
-  bodyRender: TextComponent
+  width: '200px'
 }, {
   title: '库存',
   name: 'stock_num',
@@ -208,12 +204,19 @@ const Pagination = React.createClass({
     };
   },
 
+	onChange(data) {
+		this.setState({
+			current: data.current
+		});
+	},
+
   render() {
     return (
       <Table
         columns={columns}
         datasets={datasets}
         rowKey="item_id"
+				onChange={this.onChange}
         pageInfo={{
           limit: this.state.limit,
           current: this.state.current,
@@ -263,8 +266,7 @@ const columns = [{
 }, {
   title: '访问量',
   name: 'bro_uvpv',
-  width: '200px',
-  bodyRender: TextComponent
+  width: '200px'
 }, {
   title: '库存',
   name: 'stock_num',
@@ -341,8 +343,7 @@ const columns = [{
 }, {
   title: '访问量',
   name: 'bro_uvpv',
-  width: 10,
-  bodyRender: TextComponent
+  width: 10
 }, {
   title: '库存',
   name: 'stock_num',
@@ -406,7 +407,86 @@ ReactDOM.render(
 
 ::: demo 每行特殊设置
 
+```js
+import { Table } from 'zent';
 
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '5024277',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13213123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+const columns = [{
+  title: '商品',
+  width: '50px',
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: '100px'
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: '100px'
+}, {
+  title: '总销量',
+  name: 'sold_num'
+}];
+
+const RowClass = React.createClass({
+  getInitialState() {
+    return {
+      limit: 10,
+      current: 0,
+      total: 101
+    };
+  },
+
+  getRowConf(data, index) {
+    return {
+      canSelect: true,
+      rowClass: `row-${index}`
+    };
+  },
+
+  onChange(conf) {
+    this.setState(conf);
+  },
+
+  render() {
+    return (
+      <Table
+        columns={columns}
+        datasets={datasets}
+        onChange={this.onChange}
+        getRowConf={this.getRowConf}
+        rowKey="item_id"
+      />
+    );
+  }
+});
+
+ReactDOM.render(
+		<RowClass />
+	, mountNode
+)
+
+```
+:::
 
 ### API
 
@@ -428,22 +508,23 @@ ReactDOM.render(
 | autoScroll | 是否点击分页自动滚到table顶部                          | boll          | `false`     |         | 否    |
 
 #### getRowConf的特别声明：
-
 ```js
-/*
- * @param data {Object} 每一行的数据
- * @param index {number} 每一行在列表中的index
- * @return {
- *  canSelect {boolean} 是否可选，默认为true
- *  rowClass {string} 这一行的特殊class，默认是空字符串
- * }
- */
-getRowConf(data, index) { // 每一行的数据和这一行在列表中的index
-  return {
-    canSelect: index % 2 === 0,
-    rowClass: `row-${index}`
-  }
-}
+
+	/*
+	* @param data {Object} 每一行的数据
+	* @param index {number} 每一行在列表中的index
+	* @return {
+	*  canSelect {boolean} 是否可选，默认为true
+	*  rowClass {string} 这一行的特殊class，默认是空字符串
+	* }
+	*/
+	getRowConf(data, index) { // 每一行的数据和这一行在列表中的index
+		return {
+			canSelect: index % 2 === 0,
+			rowClass: `row-${index}`
+		}
+	}
+	
 ```
 
 ### Columns
@@ -464,3 +545,17 @@ getRowConf(data, index) { // 每一行的数据和这一行在列表中的index
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
 | onSelect        | 每次check的时候出发的函数 | func  |  | 否    |
+
+<style>
+	.row {
+		&-0 {
+			background: #2ecc71;
+		}
+		&-1 {
+			background: #3498db;
+		}
+		&-2 {
+			background: #e74c3c;
+		}
+	}
+</style>

@@ -25,6 +25,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-pop/README.md')
               }
+            },
+            {
+              path: '/table',
+              title: 'Table 表格（列表）',
+              filePath() {
+                return System.import('../packages/zent-table/README.md')
+              }
             }
           ]
         }
