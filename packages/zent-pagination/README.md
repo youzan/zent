@@ -1,36 +1,280 @@
-# zent-pagination
-
-[![npm version](https://img.shields.io/npm/v/zent-pagination.svg?style=flat)](https://www.npmjs.com/package/zent-pagination) [![downloads](https://img.shields.io/npm/dt/zent-pagination.svg)](https://www.npmjs.com/package/zent-pagination)
+## Pagination 分页
 
 分页组件
 
-## 使用指南
+### 使用指南
 
 **展示条目的总数量必须已知**
 
-#### `pageSize` 属性
+### 代码演示
 
-支持3种格式
+:::demo 基础用法
+```js
+import { Pagination } from 'zent';
 
--  `{30}`
+const Simple = React.createClass({
+  getInitialState() {
+    return {
+      current: 1,
+      totalItem: 1000
+    };
+  },
 
--  `{[10,20,30]}`
+  onChange(page) {
+    this.setState({
+      current: page
+    });
+  },
 
-    初始值为10
+  render() {
+    return (
+      <Pagination
+        current={this.state.current}
+        totalItem={this.state.totalItem}
+        onChange={this.onChange}
+        maxPageToShow={12}
+      />
+    );
+  }
+});
 
--  `{[10, 20, {value: 30, isCurrent: true}]}`
+ReactDOM.render(
+  <Simple />
+  , mountNode
+);
+```
+:::
 
-    初始值为30
+:::demo 动态 PageSize
+```js
+import { Pagination } from 'zent';
 
-## 组件原理
+const Dynamic = React.createClass({
+  getInitialState() {
+    return {
+      current: 1,
+      totalItem: 1000,
+    };
+  },
 
--   组件结构上分为 core-pagination 和 zent-pagination
+  onChange(page) {
+    this.setState({
+      current: page
+    });
+  },
 
-    前者是核心的分页组件, 只提供分页功能, 后者是基于前组件的扩展, 模拟www的交互
+  render() {
+    return (
+      <Pagination
+        current={this.state.current}
+        totalItem={this.state.totalItem}
+        onChange={this.onChange}
+        pageSize={[20, { value: 30, isCurrent: true }]}
+      />
+    );
+  }
+});
 
--   组件内置独立的parser模块作为数据的中台, 将输入的条目信息统一为 `renderData`.
+ReactDOM.render(
+  <Dynamic />
+  , mountNode
+);
+```
+:::
 
-### parser的输入与输出
+:::demo 海量页数
+```js
+import { Pagination } from 'zent';
+
+const HugeTotal = React.createClass({
+  getInitialState() {
+    return {
+      current: 1321,
+      totalItem: 10000000000000,
+      pageSize: 10
+    };
+  },
+
+  onChange(page) {
+    this.setState({
+      current: page
+    });
+  },
+
+  render() {
+    return (
+      <Pagination
+        current={this.state.current}
+        totalItem={this.state.totalItem}
+        pageSize={this.state.pageSize}
+        onChange={this.onChange}
+      />
+    );
+  }
+});
+
+ReactDOM.render(
+  <HugeTotal />
+  , mountNode
+);
+```
+:::
+
+
+:::demo 自定义
+```js
+const Custom = React.createClass({
+  getInitialState() {
+    return {
+      current: 1,
+      pageSize: 10,
+      totalItem: 1000,
+      max: 100
+    };
+  },
+
+  onChange(page) {
+    this.setState({
+      current: page
+    });
+  },
+
+  onTotalChange(e) {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      totalItem: value
+    });
+  },
+
+  onPageSizeChange(e) {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      pageSize: value
+    });
+  },
+
+  onCurrentChange(e) {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      current: value
+    });
+  },
+
+  onMaxChange(e) {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      max: value
+    });
+  },
+
+  render() {
+    return (
+      <div>
+        <form>
+          <div className="form-group">
+            <label>totalItem:</label>
+            <input type="text" className="form-control" placeholder="数字" value={this.state.totalItem} onChange={this.onTotalChange} />
+          </div>
+          <div className="form-group">
+            <label>pageSize:</label>
+            <input type="text" className="form-control" placeholder="数字" value={this.state.pageSize} onChange={this.onPageSizeChange} />
+          </div>
+          <div className="form-group">
+            <label>current:</label>
+            <input type="text" className="form-control" placeholder="数字" value={this.state.current} onChange={this.onCurrentChange} />
+          </div>
+          <div className="form-group">
+            <label>maxPageToShow:</label>
+            <input type="text" className="form-control" placeholder="数字" value={this.state.max} onChange={this.onMaxChange} />
+          </div>
+        </form>
+        <Pagination
+          current={this.state.current}
+          totalItem={this.state.totalItem}
+          pageSize={this.state.pageSize}
+          maxPageToShow={this.state.max}
+          onChange={this.onChange}
+        />
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <Custom />
+  , mountNode
+);
+```
+:::
+
+
+### API
+
+| 参数            | 说明      | 类型            | 默认值      | 是否必填 |
+| ---------------| --------- | -------------- | ---------- | ------- |
+| className     | 自定义额外类名 | string        | `''`     | 否    |
+| prefix        | 自定义前缀   | string        | `'zent'` | 否    |
+| current       | 当前页数    | number        | `1`      | 是    |
+| totalItem     | 总个数     | number        |          | 是    |
+| pageSize      | 每页个数    | number, array | `10`     | 否    |
+| maxPageToShow | 最大可显示页数 | number        |          | 否    |
+| onChange      | 翻页回调    | function      |          | 否    |
+
+#### 关于 `pageSize` 属性
+
+pageSize 属性支持3种格式：
+
+- number: `{30}`
+
+- arrayOf(number): `{[10,20,30]}`
+
+初始值为10
+
+- `{[10, 20, {value: 30, isCurrent: true}]}`
+
+初始值为30
+
+### 组件原理
+
+- 组件结构上分为 core-pagination 和 zent-pagination
+
+前者是核心的分页组件, 只提供分页功能, 后者是基于前组件的扩展, 模拟www的交互
+
+- 组件内置独立的parser模块作为数据的中台, 将输入的条目信息统一为 `renderData`.
+
+### parser 的输入与输出
 
 #### 输入
 
@@ -68,15 +312,3 @@
   'target': 5
 }];
 ```
-
-## API
-
-| 参数            | 说明      | 类型            | 默认值      | 是否必填 |
-| ------------- | ------- | ------------- | -------- | ---- |
-| className     | 自定义额外类名 | string        | `''`     | 否    |
-| prefix        | 自定义前缀   | string        | `'zent'` | 否    |
-| current       | 当前页数    | number        | `1`      | 是    |
-| totalItem     | 总个数     | number        |          | 是    |
-| pageSize      | 每页个数    | number, array | `10`     | 否    |
-| maxPageToShow | 最大可显示页数 | number        |          | 否    |
-| onChange      | 翻页回调    | function      |          | 否    |
