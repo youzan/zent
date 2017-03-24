@@ -203,24 +203,18 @@ const deepClone = (node, parentId = 0, nodeArray = []) => {
 }
 
 class TreeExample extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			treeData: originData,
-			copyType: 'shallow' 
-		};
-		this.onDelete = this.onDelete.bind(this);
-		this.onClone = this.onClone.bind(this);
-		this.onCopyTypeChange = this.onCopyTypeChange.bind(this);
+	state = {
+		treeData: originData,
+		copyType: 'shallow' 
 	}
 
-	onDelete(data) {
+	onDelete = (data) => {
 		this.setState({
 			treeData: this.state.treeData.filter(item => item.id !== data.id)
 		});
-	}
+	};
 
-	onClone(data) {
+	onClone = (data) => {
 		const { copyType } = this.state;
 	
 		if (copyType === 'shallow') {
@@ -234,11 +228,9 @@ class TreeExample extends React.Component {
 				treeData: [...this.state.treeData, ...nodeArray]
 			});
 		}
-	}
+	};
 
-	onCopyTypeChange(e) {
-		this.setState({ copyType: e.target.value });
-	}
+	onCopyTypeChange = (e) => this.setState({ copyType: e.target.value });
 
 	render() {
 		const { copyType, treeData } = this.state;
@@ -318,45 +310,47 @@ ReactDOM.render(
 :::demo 异步加载
 ```js
 import { Tree } from 'zent';
-import superagent from 'superagent';
-import jsonp from 'superagent-jsonp';
 
-const RegionFetchUrl = 'https://koudaitong.com/v2/common/region/list.jsonp';
-
-const ajaxJsonpGet = (url, callback) => {
-	superagent
-		.get(url)
-		.use(jsonp)
-		.end((err, res) => {
-			if (err || res.body.code !== 0 || !res.body) {
-				// deal with error
-			} else {
-				callback(res.body);
+const fetchData = (data, callback) => {
+	if (data.level < 4) {
+		setTimeout(() => {
+			const resData = [];
+			const base = Number(data.title.split('-')[0]);
+			const step = Math.pow(10, 3 - data.level);
+			const level = data.level + 1;
+			for (let i = 0, id = '', isLeaf = false; i <= 9; i++) {
+				if (level === 4) {
+					id = String(base + i);
+					isLeaf = true;
+				} else {
+					id = `${base + step * i}-${base + step * (i + 1)}`;
+					isLeaf = false;
+				}
+				resData.push({ id, level, title: id, isLeaf });
 			}
-		});
-};
-const fetchRegions = (regionId, callback) => ajaxJsonpGet(`${RegionFetchUrl}?region_id=${regionId}`, callback);
+			callback(resData);
+		}, 200);
+	} else {
+		setTimeout(() => callback([]), 200);
+	}
+}
 
 class TreeExample extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			treeData: []
-		}
-		this.loadMore = this.loadMore.bind(this);
+	state = {
+		treeData: []
 	}
 
 	componentDidMount() {
-		fetchRegions('', resBody => {
-			const rootData = {
-				id: 'China',
-				title: '中国🇨🇳',
-				expand: true
-			};
-			const newData = Object.keys(resBody.data).map(key => ({
-				id: key,
-				title: resBody.data[key],
-				parentId: 'China'
+		const rootData = {
+			id: '1-0-10000',
+			title: '0-10000',
+			level: 0,
+			expand: true
+		};
+		fetchData(rootData, (resData) => {
+			const newData = resData.map(item => ({
+				...item,
+				parentId: rootData.id
 			}));
 			this.setState({
 				treeData: [rootData, ...newData]
@@ -364,19 +358,16 @@ class TreeExample extends React.Component {
 		});
 	}
 
-	loadMore(data) {
-		return new Promise((resolve, reject) => {
-			fetchRegions(data.id, (resBody) => {
-				const newData = Object.keys(resBody.data).map(key => ({
-					id: key,
-					title: resBody.data[key],
-					parentId: data.id
-				}));
-				this.setState({ treeData: [...this.state.treeData, ...newData] });
-				resolve();
-			});
+	loadMore = (data) => new Promise((resolve, reject) => {
+		fetchData(data, (resData) => {
+			const newData = resData.map(item => ({
+				...item,
+				parentId: data.id
+			}));
+			this.setState({ treeData: [...this.state.treeData, ...newData] });
+			resolve();
 		});
-	}
+	});
 
 	render() {
 		const { treeData } = this.state;
@@ -416,7 +407,7 @@ ReactDOM.render(
 
 #### data
 
-支持自由扩展
+可在每个节点任意添加初下列属性之外的key-value，回调函数中会拿到用户传入的完整数据。
 
 | 参数      | 说明                                                | 类型           | 默认值   | 备选值 |
 | -------- | --------------------------------------------------- | ------------- | ------- |--------|
