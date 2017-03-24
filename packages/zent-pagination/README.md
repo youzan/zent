@@ -12,19 +12,15 @@
 ```js
 import { Pagination } from 'zent';
 
-const Simple = React.createClass({
-  getInitialState() {
-    return {
+class Basic extends Component {
+  constructor() {
+    super();
+
+    this.state = {
       current: 1,
       totalItem: 1000
     };
-  },
-
-  onChange(page) {
-    this.setState({
-      current: page
-    });
-  },
+  }
 
   render() {
     return (
@@ -36,10 +32,16 @@ const Simple = React.createClass({
       />
     );
   }
-});
+
+  onChange = (page) => {
+    this.setState({
+      current: page
+    });
+  };
+}
 
 ReactDOM.render(
-  <Simple />
+  <Basic />
   , mountNode
 );
 ```
@@ -49,19 +51,15 @@ ReactDOM.render(
 ```js
 import { Pagination } from 'zent';
 
-const Dynamic = React.createClass({
-  getInitialState() {
-    return {
-      current: 1,
-      totalItem: 1000,
-    };
-  },
+class Dynamic extends Component {
+  constructor() {
+    super();
 
-  onChange(page) {
-    this.setState({
-      current: page
-    });
-  },
+    this.state = {
+      current: 1,
+      totalItem: 1000
+    };
+  }
 
   render() {
     return (
@@ -73,7 +71,13 @@ const Dynamic = React.createClass({
       />
     );
   }
-});
+
+  onChange = (page) => {
+    this.setState({
+      current: page
+    });
+  }
+}
 
 ReactDOM.render(
   <Dynamic />
@@ -86,20 +90,16 @@ ReactDOM.render(
 ```js
 import { Pagination } from 'zent';
 
-const HugeTotal = React.createClass({
-  getInitialState() {
-    return {
+class HugeTotal extends Component {
+  constructor() {
+    super();
+
+    this.state = {
       current: 1321,
       totalItem: 10000000000000,
       pageSize: 10
-    };
-  },
-
-  onChange(page) {
-    this.setState({
-      current: page
-    });
-  },
+    }
+  }
 
   render() {
     return (
@@ -111,7 +111,13 @@ const HugeTotal = React.createClass({
       />
     );
   }
-});
+
+  onChange = (page) => {
+    this.setState({
+      current: page
+    });
+  }
+}
 
 ReactDOM.render(
   <HugeTotal />
@@ -120,84 +126,19 @@ ReactDOM.render(
 ```
 :::
 
-
 :::demo 自定义
 ```js
-const Custom = React.createClass({
-  getInitialState() {
-    return {
+class Custom extends Component {
+  constructor(props) {
+    super();
+
+    this.state = {
       current: 1,
       pageSize: 10,
       totalItem: 1000,
       max: 100
-    };
-  },
-
-  onChange(page) {
-    this.setState({
-      current: page
-    });
-  },
-
-  onTotalChange(e) {
-    let str = e.target.value.trim();
-    let value;
-
-    if (/^\d+$/.test(str)) {
-      value = +str;
-    } else {
-      value = 0;
     }
-
-    this.setState({
-      totalItem: value
-    });
-  },
-
-  onPageSizeChange(e) {
-    let str = e.target.value.trim();
-    let value;
-
-    if (/^\d+$/.test(str)) {
-      value = +str;
-    } else {
-      value = 0;
-    }
-
-    this.setState({
-      pageSize: value
-    });
-  },
-
-  onCurrentChange(e) {
-    let str = e.target.value.trim();
-    let value;
-
-    if (/^\d+$/.test(str)) {
-      value = +str;
-    } else {
-      value = 0;
-    }
-
-    this.setState({
-      current: value
-    });
-  },
-
-  onMaxChange(e) {
-    let str = e.target.value.trim();
-    let value;
-
-    if (/^\d+$/.test(str)) {
-      value = +str;
-    } else {
-      value = 0;
-    }
-
-    this.setState({
-      max: value
-    });
-  },
+  }
 
   render() {
     return (
@@ -230,7 +171,73 @@ const Custom = React.createClass({
       </div>
     );
   }
-});
+
+  onChange = (page) => {
+    this.setState({
+      current: page
+    });
+  };
+
+  onTotalChange = (e) => {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      totalItem: value
+    });
+  };
+
+  onPageSizeChange = (e) => {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      pageSize: value
+    });
+  };
+
+  onCurrentChange = (e) => {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      current: value
+    });
+  }
+
+  onMaxChange = (e) => {
+    let str = e.target.value.trim();
+    let value;
+
+    if (/^\d+$/.test(str)) {
+      value = +str;
+    } else {
+      value = 0;
+    }
+
+    this.setState({
+      max: value
+    });
+  }
+}
 
 ReactDOM.render(
   <Custom />
@@ -238,7 +245,6 @@ ReactDOM.render(
 );
 ```
 :::
-
 
 ### API
 
@@ -270,15 +276,17 @@ pageSize 属性支持3种格式：
 
 - 组件结构上分为 core-pagination 和 zent-pagination
 
-前者是核心的分页组件, 只提供分页功能, 后者是基于前组件的扩展, 模拟www的交互
+前者是核心的分页组件, 只提供分页功能, 后者是基于前组件的扩展, 模拟 www 的交互
 
-- 组件内置独立的parser模块作为数据的中台, 将输入的条目信息统一为 `renderData`.
+- 组件内置独立的 parser 模块作为数据的中台, 将输入的条目信息统一为 `renderData`.
 
 ### parser 的输入与输出
 
 #### 输入
 
-`{total: 20, current: 4}`
+```
+{ total: 20, current: 4 }
+```
 
 #### 输出
 
