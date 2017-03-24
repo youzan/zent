@@ -13,13 +13,9 @@
 import { Pagination } from 'zent';
 
 class Basic extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      current: 1,
-      totalItem: 1000
-    };
+  state = {
+    current: 1,
+    totalItem: 1000
   }
 
   render() {
@@ -52,14 +48,10 @@ ReactDOM.render(
 import { Pagination } from 'zent';
 
 class Dynamic extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      current: 1,
-      totalItem: 1000
-    };
-  }
+  state = {
+    current: 1,
+    totalItem: 1000
+  };
 
   render() {
     return (
@@ -91,14 +83,10 @@ ReactDOM.render(
 import { Pagination } from 'zent';
 
 class HugeTotal extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      current: 1321,
-      totalItem: 10000000000000,
-      pageSize: 10
-    }
+  state = {
+    current: 1321,
+    totalItem: 10000000000000,
+    pageSize: 10
   }
 
   render() {
@@ -129,15 +117,11 @@ ReactDOM.render(
 :::demo 自定义
 ```js
 class Custom extends Component {
-  constructor(props) {
-    super();
-
-    this.state = {
-      current: 1,
-      pageSize: 10,
-      totalItem: 1000,
-      max: 100
-    }
+  state = {
+    current: 1,
+    pageSize: 10,
+    totalItem: 1000,
+    max: 100
   }
 
   render() {
