@@ -38,6 +38,19 @@ module.exports = {
               title: 'Radio 单选',
               filePath() {
                 return System.import('../packages/zent-radio/README.md')
+            },
+            {
+              path: '/icon',
+              title: 'Icon 图标',
+              filePath() {
+                return System.import('../packages/zent-icon/README.md')
+              }
+            },
+            {
+              path: '/pop',
+              title: 'Pop 气泡提示',
+              filePath() {
+                return System.import('../packages/zent-pop/README.md')
               }
             }
           ]
