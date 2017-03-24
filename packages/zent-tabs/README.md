@@ -249,10 +249,8 @@ ReactDOM.render(<Simple />, mountNode);
 
 | 参数          | 说明        | 类型       | 默认值        | 备选值                   | 是否必须 |
 | ----------- | --------- | -------- | ---------- | --------------------- | ---- |
-| className   | 自定义额外类名   | string   | `''`       |                       | 否    |
-| prefix      | 自定义前缀     | string   | `'zent'`   |                       | 否    |
-| type        | tabs组件类型  | string   | `'normal'` | `'card'`, `'slider'`  | 否    |
 | activeId    | 激活的tab-id | string   |            |                       | 是    |
+| type        | tabs组件类型  | string   | `'normal'` | `'card'`, `'slider'`  | 否    |
 | size        | tabs的尺寸类型 | string   | `'normal'` | `'huge'`              | 否    |
 | align       | tabs的布局类型 | string   | `'left'`   | `'right'`, `'center'` | 否    |
 | onTabChange | 选中的tab改变时 | func(id) |            |                       | 否    |
@@ -260,6 +258,8 @@ ReactDOM.render(<Simple />, mountNode);
 | onTabAdd    | 点击增加tab时  | func     |            |                       | 否    |
 | candel      | 是否可删除     | bool     | `false`    |                       | 否    |
 | canadd      | 是否可增加tab  | bool     | `false`    |                       | 否    |
+| className   | 自定义额外类名   | string   | `''`       |                       | 否    |
+| prefix      | 自定义前缀     | string   | `'zent'`   |                       | 否    |
 
 #### TabPanel
 
