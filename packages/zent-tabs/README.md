@@ -11,46 +11,124 @@ const TabPanel = Tabs.TabPanel;
 
 class Simple extends React.Component {
 	state = {
-		align: 'left',
-		size: 'normal',
-		type: 'normal',
-		candel: false,
-		canadd: false,
-		activeId: '2',
-		panels: [
-			{
-				tab: <span>哈哈哈</span>,
-				id: '1',
-				disabled: true,
-				content: '选项二'
-			}, {
-				tab: <span>空间选项二</span>,
-				id: '2',
-				content: <div>选项一的内容</div>
-			}, {
-				tab: '选项三',
-				id: '3',
-				content: '选项三的内容'
-			}
-		],
-		onTabChange: (id) => {
-			this.setState({
-				activeId: id
-			});
-		}
+		activeId: '2'
 	}
 
-	renderPanels() {
-		let { panels } = this.state;
-		return panels.map((p) => {
-			return (<TabPanel {...p} key={p.id}>{p.content}</TabPanel>);
+	onTabChange = (id) => {
+		this.setState({
+			activeId: id
 		});
 	}
 
 	render() {
 		return (
-			<Tabs {...this.state} >
-				{this.renderPanels()}
+			<Tabs
+				activeId={this.state.activeId}
+				onTabChange={this.onTabChange}
+			>
+				<TabPanel
+					tab=<span>哈哈哈</span>,
+					id="1",
+					disabled=true
+				>
+					<div>选项一的内容</div>
+				</TabPanel>
+				<TabPanel
+					tab="选项二",
+					id="2"
+				>
+					<div>选项二的内容</div>
+				</TabPanel>
+			</Tabs>
+		);
+	}
+};
+
+ReactDOM.render(<Simple />, mountNode);
+```
+:::
+
+:::demo 基础用法 slider
+```js
+import { Tabs } from 'zent';
+const TabPanel = Tabs.TabPanel;
+
+class Simple extends React.Component {
+	state = {
+		activeId: '2'
+	}
+
+	onTabChange = (id) => {
+		this.setState({
+			activeId: id
+		});
+	}
+
+	render() {
+		return (
+			<Tabs
+				type="slider"
+				activeId={this.state.activeId}
+				onTabChange={this.onTabChange}
+			>
+				<TabPanel
+					tab=<span>哈哈哈</span>,
+					id="1",
+					disabled=true
+				>
+					<div>选项一的内容</div>
+				</TabPanel>
+				<TabPanel
+					tab="选项二",
+					id="2"
+				>
+					<div>选项二的内容</div>
+				</TabPanel>
+			</Tabs>
+		);
+	}
+};
+
+ReactDOM.render(<Simple />, mountNode);
+```
+:::
+
+:::demo 基础用法 card
+```js
+import { Tabs } from 'zent';
+const TabPanel = Tabs.TabPanel;
+
+class Simple extends React.Component {
+	state = {
+		activeId: '2'
+	}
+
+	onTabChange = (id) => {
+		this.setState({
+			activeId: id
+		});
+	}
+
+	render() {
+		return (
+			<Tabs
+				activeId={this.state.activeId}
+				onTabChange={this.onTabChange}
+				type="card"
+			>
+				<TabPanel
+					tab=<span>哈哈哈</span>,
+					id="1",
+					disabled=true
+				>
+					<div>选项一的内容</div>
+				</TabPanel>
+				<TabPanel
+					tab="选项二",
+					id="2"
+				>
+					<div>选项二的内容</div>
+				</TabPanel>
 			</Tabs>
 		);
 	}
@@ -68,12 +146,6 @@ let uniqId = 4;
 
 class Simple extends React.Component {
 	state = {
-		align: 'left',
-		size: 'normal',
-		type: 'normal',
-		candel: true,
-		canadd: true,
-		activeId: '2',
 		panels: [
 			{
 				tab: <span>哈哈哈</span>,
@@ -86,40 +158,42 @@ class Simple extends React.Component {
 				content: <div>选项一的内容</div>
 			}
 		],
-		onTabChange: (id) => {
-			this.setState({
-				activeId: id
-			});
-		},
-		onTabAdd: (() => {
-      let { panels } = this.state;
-      panels.push({
-        tab: `选项${uniqId}`,
-        id: `${uniqId++}`,
-        disabled: false,
-        content: Date.now()
-      });
-      this.setState({
-        panels
-      });
-    }),
-    onTabDel: ((id) => {
-      let { panels } = this.state;
-      let index = -1;
-      panels.some((p, i) => {
-        if (p.id === id) {
-          index = i;
-          return true;
-        }
-        return false;
-      });
-      if (index > -1) {
-        panels.splice(index, 1);
-        this.setState({
-          panels
-        });
-      }
+	}
+
+	onTabAdd = () => {
+      	let { panels } = this.state;
+	    panels.push({
+	        tab: `选项${uniqId}`,
+	        id: `${uniqId++}`,
+	        content: Date.now()
+	    });
+	    this.setState({
+	        panels
+	    });
+    }
+
+	onTabDel = ((id) => {
+	    let { panels } = this.state;
+	    let index = -1;
+	    panels.some((p, i) => {
+	        if (p.id === id) {
+	          	index = i;
+	          	return true;
+	        }
+	        return false;
+	    });
+	    if (index > -1) {
+	        panels.splice(index, 1);
+	        this.setState({
+	          	panels
+	        });
+	    }
     })
+
+	onTabChange = (id) => {
+		this.setState({
+			activeId: id
+		});
 	}
 
 	renderPanels() {
@@ -131,7 +205,14 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Tabs {...this.state} >
+			<Tabs
+				canDel
+				canAdd
+				activeId={this.state.activeId}
+				onTabChange={this.onTabChange.bind(this)}
+				onTabDel={this.onTabDel.bind(this)}
+				onTabAdd={this.onTabAdd.bind(this)}
+			>
 				{this.renderPanels()}
 			</Tabs>
 		);
