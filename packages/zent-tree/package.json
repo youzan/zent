@@ -22,12 +22,12 @@
     "src/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.7"
+    "zent-icon": "*",
+    "zent-utils": "*"
   },
   "devDependencies": {
     "superagent": "2.3.0",
     "superagent-jsonp": "0.0.7",
-    "zent-icon": "*",
     "zent-radio": "*"
   }
 }
