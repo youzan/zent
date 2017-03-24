@@ -55,6 +55,11 @@ module.exports = {
               }
             },
             {
+              path: '/table',
+              title: 'Table 表格',
+              filePath() {
+                return System.import('../packages/zent-table/README.md')
+            }, {
               path: '/select',
               title: 'Select 选项',
               filePath() {
