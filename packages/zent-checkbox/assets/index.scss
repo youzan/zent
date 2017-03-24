@@ -107,17 +107,9 @@
 
 .zent-checkbox-disabled {
     .zent-checkbox-inner {
-        border-color: #e5e5e5;
-        background: #f8f8f8;
+        opacity: .4;
     }
     input[type="checkbox"] {
         cursor: not-allowed;
-    }
-}
-
-.zent-checkbox-disabled.zent-checkbox-checked {
-    .zent-checkbox-inner {
-        border-color: #e5e5e5;
-        background: #E5E5E5;
     }
 }

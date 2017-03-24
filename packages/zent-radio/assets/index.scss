@@ -89,18 +89,9 @@
 
 .zent-radio-disabled {
     .zent-radio-inner {
-        border-color: #e5e5e5;
-        background: #f8f8f8;
+        opacity: .4;
     }
     input[type="radio"] {
         cursor: not-allowed;
     }
 }
-
-.zent-radio-disabled.zent-radio-checked {
-    .zent-radio-inner {
-        border-color: #e5e5e5;
-        background: #E5E5E5;
-    }
-}
-

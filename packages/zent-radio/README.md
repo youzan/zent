@@ -1,20 +1,156 @@
-# zent-radio
-
-[![npm version](https://img.shields.io/npm/v/zent-radio.svg?style=flat)](https://www.npmjs.com/package/zent-radio) [![downloads](https://img.shields.io/npm/dt/zent-radio.svg)](https://www.npmjs.com/package/zent-radio)
+## Checkbox 单选
 
 单选框组件
 
-## 使用指南
+### 使用指南
 
-RadioGroup 是一个 **[受控组件][controlled-components]**, 必须要设置 `onChange` 回调方法在组件外部处理 `value` 变化.
+- `RadioGroup` 是一个 **[受控组件][controlled-components]**, 必须要设置 `onChange` 回调方法在组件外部处理 `value` 变化.
 
-## 使用场景
+### 代码演示
+:::demo 基本用法
+```js
+import { Radio } from 'zent';
 
-需要在多个备选项中选中**单个状态**
+const RadioGroup = Radio.Group;
 
-## API
+class App extends Component {
 
-### RadioGroup
+	state = {
+		value: 'male'
+	}
+
+	onChange = (e) => {
+		this.setState({ value: e.target.value });
+	}
+
+	render() {
+		return (
+			<RadioGroup onChange={this.onChange} value={this.state.value}>
+				<Radio value="male">男</Radio>
+				<Radio value="female">女</Radio>
+			</RadioGroup>
+		);
+	}
+}
+
+ReactDOM.render(
+	<App />
+	, mountNode
+);
+```
+:::
+
+:::demo 不可用，整个`RadioGroup`都不可用
+```js
+import { Radio } from 'zent'
+
+const RadioGroup = Radio.Group;
+
+class App extends React.Component {
+
+	state = {
+		value: 'male'
+	}
+
+	onChange = (e) => {
+		this.setState({ value: e.target.value });
+	}
+
+	render() {
+		return (
+			<RadioGroup onChange={this.onChange} value={this.state.value} disabled>
+				<Radio value="male">男</Radio>
+				<Radio value="female">女</Radio>
+			</RadioGroup>
+		);
+	}
+}
+
+ReactDOM.render(
+	<App />
+	, mountNode
+);
+```
+:::
+
+:::demo 不可用，部分选项不可用
+```js
+import { Radio } from 'zent'
+
+const RadioGroup = Radio.Group;
+
+class App extends React.Component {
+
+	state = {
+		value: 'apple'
+	}
+
+	onChange = (e) => {
+		this.setState({ value: e.target.value });
+	}
+
+	render() {
+		return (
+			<RadioGroup onChange={this.onChange} value={this.state.value}>
+				<Radio value="apple">苹果</Radio>
+				<Radio value="pears">梨子</Radio>
+				<Radio value="cucumber" disabled>黄瓜</Radio>
+			</RadioGroup>
+		);
+	}
+}
+
+ReactDOM.render(
+	<App />
+	, mountNode
+);
+```
+:::
+
+:::demo `value`可以是任意类型，可以使用`isValueEqual`来自定义比较函数
+```js
+import { Radio } from 'zent'
+
+const RadioGroup = Radio.Group;
+
+class App extends React.Component {
+
+	state = {
+		value: {
+			foo: 1	
+		}
+	}
+
+	onChange = (e) => {
+		this.setState({ value: e.target.value });
+	}
+
+	isValueEqual(a, b) {
+		return a && b && a.foo === b.foo;	
+	}
+
+	render() {
+		return (
+			<RadioGroup 
+				value={this.state.value}
+				isValueEqual={this.isValueEqual}
+				onChange={this.onChange} 
+			>
+				<Radio value={{ foo: 1 }}>foo 1</Radio>
+				<Radio value={{ foo: 2 }}>foo 2</Radio>
+			</RadioGroup>
+		);
+	}
+}
+
+ReactDOM.render(
+	<App />
+	, mountNode
+);
+```
+:::
+
+### RadioGroup API
 
 | 参数           | 说明                | 类型             | 默认值                 |
 | ------------ | ----------------- | -------------- | ------------------- |
@@ -24,7 +160,7 @@ RadioGroup 是一个 **[受控组件][controlled-components]**, 必须要设置 
 | className    | 自定义额外类名           | string         |                     |
 | prefix       | 自定义前缀             | string         | `'zent'`            |
 
-### Radio
+### Radio API
 
 | 参数        | 说明                   | 类型     | 默认值      |
 | --------- | -------------------- | ------ | -------- |

@@ -22,6 +22,7 @@ body {
   font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',SimSun,sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  background-color: #f8f8f8;
 }
 
 a {
@@ -65,25 +66,79 @@ ul, ol {
   }
 }
 
+.page-header {
+  height: 60px;
+  background-color: #fff;
+}
+
+.main-content {
+  margin: 40px 15px;
+}
+
+.page-container {
+  background-color: #fff;
+  position: relative;
+  display: table;
+  width: 100%;
+}
+
 .page-content {
   box-sizing: border-box;
-  overflow: auto;
   margin-left: 220px;
-  padding: 0 20px;
-  border-left: 1px solid #E5E5E5;
+  padding: 0 40px;
+  display: table-cell;
 
   section {
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6 {
+      color: #333;
+      line-height: 1.5;
+      margin: 20px 0;
+      font-weight: normal;
+
+      &:hover a {
+        opacity: .4;
+      }
+
+      a {
+        float: left;
+        margin-left: -20px;
+        opacity: 0;
+        cursor: pointer;
+
+        &:hover {
+          opacity: .4;
+        }
+      }
+    }
+
+    > h1 {
+      font-size: 40px;
+    }
+
     > h2 {
       font-size: 36px;
-      color: #333;
-      margin: 20px 0;
-      line-height: 1.5;
     }
 
     > h3 {
       font-size: 30px;
-      color: #333;
-      margin: 23px 0;
+    }
+
+    > h4 {
+      font-size: 24px;
+    }
+
+    > h5 {
+      font-size: 14px
+    }
+
+    > h6 {
+      font-size: 14px;
+      color: #666;
     }
 
     > p {
@@ -95,8 +150,8 @@ ul, ol {
 
     > ul li,
     > ol li {
-      font-size: 14px;
       color: #666;
+      font-size: 14px;
       line-height: 20px;
       margin: 10px 0 10px 20px;
       padding-left: 20px;
@@ -116,26 +171,6 @@ ul, ol {
 
       li {
         margin-left: 0;
-      }
-    }
-  }
-
-  h2, h3, h4, h5 {
-    font-weight: normal;
-    color: #1f2f3d;
-
-    &:hover a {
-      opacity: .4;
-    }
-
-    a {
-      float: left;
-      margin-left: -20px;
-      opacity: 0;
-      cursor: pointer;
-
-      &:hover {
-        opacity: .4;
       }
     }
   }
@@ -177,3 +212,8 @@ ul, ol {
   }
 }
 
+.page-footer {
+  height: 150px;
+  margin-top: 40px;
+  background-color: #fff;
+}
