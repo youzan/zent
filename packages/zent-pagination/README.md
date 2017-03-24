@@ -114,8 +114,10 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 自定义
+:::demo 动态自定义组件 props
 ```js
+import { Pagination, Input } from 'zent';
+
 class Custom extends Component {
   state = {
     current: 1,
@@ -127,22 +129,22 @@ class Custom extends Component {
   render() {
     return (
       <div>
-        <form>
-          <div className="form-group">
-            <label>totalItem:</label>
-            <input type="text" className="form-control" placeholder="数字" value={this.state.totalItem} onChange={this.onTotalChange} />
+        <form className="zent-form zent-form--horizontal">
+          <div className="zent-form__control-group">
+            <label className="zent-form__control-label">totalItem: </label>
+            <input type="text" placeholder="数字" value={this.state.totalItem} onChange={this.onTotalChange} />
           </div>
-          <div className="form-group">
-            <label>pageSize:</label>
-            <input type="text" className="form-control" placeholder="数字" value={this.state.pageSize} onChange={this.onPageSizeChange} />
+          <div className="zent-form__control-group">
+            <label className="zent-form__control-label">pageSize:</label>
+            <input type="text" placeholder="数字" value={this.state.pageSize} onChange={this.onPageSizeChange} />
           </div>
-          <div className="form-group">
-            <label>current:</label>
-            <input type="text" className="form-control" placeholder="数字" value={this.state.current} onChange={this.onCurrentChange} />
+          <div className="zent-form__control-group">
+            <label className="zent-form__control-label">current:</label>
+            <input type="text" placeholder="数字" value={this.state.current} onChange={this.onCurrentChange} />
           </div>
-          <div className="form-group">
-            <label>maxPageToShow:</label>
-            <input type="text" className="form-control" placeholder="数字" value={this.state.max} onChange={this.onMaxChange} />
+          <div className="zent-form__control-group">
+            <label className="zent-form__control-label">maxPageToShow:</label>
+            <input type="text" placeholder="数字" value={this.state.max} onChange={this.onMaxChange} />
           </div>
         </form>
         <Pagination
