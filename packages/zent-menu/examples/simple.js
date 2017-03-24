@@ -9,26 +9,40 @@ import 'zent-icon/lib/index.css';
 You can write guides for users here
 */
 export default class Simple extends Component {
-  onClick = (e, key) => {
-    console.log(e, key); // eslint-disable-line
+  onClick = (key, e) => {
+    console.log(key, e); // eslint-disable-line
   }
 
   render() {
     return (
       <Menu
         onClick={this.onClick}
-        className="hello"
+        className="whole-menu"
       >
-        <MenuItem key="1-1" className="food">食品分类</MenuItem>
-        <MenuItem key="1-2" disabled>服装分类</MenuItem>
-        <SubMenu title="电器分类" overlayClassName="sub">
-          <MenuItem key="2-1" className="tv">电视机</MenuItem>
-          <MenuItem key="2-2" disabled>笔记本</MenuItem>
-          <MenuItem key="2-3">洗衣机</MenuItem>
+        <MenuItem className="food">食品</MenuItem>
+        <MenuItem disabled>服装</MenuItem>
+        <SubMenu title="电器" overlayClassName="sub-electronic">
+          <SubMenu title="电视机" overlayClassName="sub-tv">
+            <MenuItem key="unique-key" className="sony">索尼</MenuItem>
+            <MenuItem disabled>熊猫</MenuItem>
+            <MenuItem>长虹</MenuItem>
+          </SubMenu>
+          <MenuItem disabled>传呼机</MenuItem>
+          <MenuItem>洗衣机</MenuItem>
         </SubMenu>
-        <SubMenu title="美妆分类" disabled>
-          <MenuItem key="3-1">眼影</MenuItem>
-          <MenuItem key="3-2">洗面奶</MenuItem>
+        <SubMenu title="日化" overlayClassName="sub-chemical">
+          <MenuItem className="cleanser">洗面奶</MenuItem>
+          <MenuItem disabled>沐浴露</MenuItem>
+          <MenuItem>防晒霜</MenuItem>
+        </SubMenu>
+        <SubMenu title="零食" overlayClassName="sub-snacks" fade={false}>
+          <MenuItem className="beef-cubes">猪肉粒</MenuItem>
+          <MenuItem disabled>辣条</MenuItem>
+          <MenuItem>开心果</MenuItem>
+        </SubMenu>
+        <SubMenu title="美妆" disabled>
+          <MenuItem>眼影</MenuItem>
+          <MenuItem>洗面奶</MenuItem>
         </SubMenu>
       </Menu>
     );
