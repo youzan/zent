@@ -27,17 +27,23 @@ class Simple extends React.Component {
 				onTabChange={this.onTabChange}
 			>
 				<TabPanel
-					tab=<span>哈哈哈</span>,
-					id="1",
-					disabled=true
+					tab={<span>选项一</span>}
+					id="1"
+					disabled
 				>
 					<div>选项一的内容</div>
 				</TabPanel>
 				<TabPanel
-					tab="选项二",
+					tab="选项二"
 					id="2"
 				>
 					<div>选项二的内容</div>
+				</TabPanel>
+				<TabPanel
+					tab="选项三"
+					id="3"
+				>
+					<div>选项三的内容</div>
 				</TabPanel>
 			</Tabs>
 		);
@@ -72,17 +78,23 @@ class Simple extends React.Component {
 				onTabChange={this.onTabChange}
 			>
 				<TabPanel
-					tab=<span>哈哈哈</span>,
-					id="1",
-					disabled=true
+					tab={<span>选项一</span>}
+					id="1"
+					disabled
 				>
 					<div>选项一的内容</div>
 				</TabPanel>
 				<TabPanel
-					tab="选项二",
+					tab="选项二"
 					id="2"
 				>
 					<div>选项二的内容</div>
+				</TabPanel>
+				<TabPanel
+					tab="选项三"
+					id="3"
+				>
+					<div>选项三的内容</div>
 				</TabPanel>
 			</Tabs>
 		);
@@ -117,17 +129,23 @@ class Simple extends React.Component {
 				type="card"
 			>
 				<TabPanel
-					tab=<span>哈哈哈</span>,
-					id="1",
-					disabled=true
+					tab={<span>选项一</span>}
+					id="1"
+					disabled
 				>
 					<div>选项一的内容</div>
 				</TabPanel>
 				<TabPanel
-					tab="选项二",
+					tab="选项二"
 					id="2"
 				>
 					<div>选项二的内容</div>
+				</TabPanel>
+				<TabPanel
+					tab="选项三"
+					id="3"
+				>
+					<div>选项三的内容</div>
 				</TabPanel>
 			</Tabs>
 		);
@@ -146,9 +164,10 @@ let uniqId = 4;
 
 class Simple extends React.Component {
 	state = {
+		activeId: '2',
 		panels: [
 			{
-				tab: <span>哈哈哈</span>,
+				tab: <span>选项一</span>,
 				id: '1',
 				disabled: true,
 				content: '选项二'
@@ -206,8 +225,8 @@ class Simple extends React.Component {
 	render() {
 		return (
 			<Tabs
-				canDel
-				canAdd
+				candel
+				canadd
 				activeId={this.state.activeId}
 				onTabChange={this.onTabChange.bind(this)}
 				onTabDel={this.onTabDel.bind(this)}
