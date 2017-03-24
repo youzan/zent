@@ -15,20 +15,17 @@ const RadioGroup = Radio.Group;
 
 class App extends Component {
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			value: 'male'
-		}
+	state = {
+		value: 'male'
 	}
 
-	onChange(e) {
+	onChange = (e) => {
 		this.setState({ value: e.target.value });
 	}
 
 	render() {
 		return (
-			<RadioGroup onChange={this.onChange.bind(this)} value={this.state.value}>
+			<RadioGroup onChange={this.onChange} value={this.state.value}>
 				<Radio value="male">男</Radio>
 				<Radio value="female">女</Radio>
 			</RadioGroup>
@@ -50,20 +47,18 @@ import { Radio } from 'zent'
 const RadioGroup = Radio.Group;
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: 'male'
-		}
+
+	state = {
+		value: 'male'
 	}
 
-	onChange(e) {
+	onChange = (e) => {
 		this.setState({ value: e.target.value });
 	}
 
 	render() {
 		return (
-			<RadioGroup onChange={this.onChange.bind(this)} value={this.state.value} disabled>
+			<RadioGroup onChange={this.onChange} value={this.state.value} disabled>
 				<Radio value="male">男</Radio>
 				<Radio value="female">女</Radio>
 			</RadioGroup>
@@ -85,20 +80,18 @@ import { Radio } from 'zent'
 const RadioGroup = Radio.Group;
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: 'apple'
-		}
+
+	state = {
+		value: 'apple'
 	}
 
-	onChange(e) {
+	onChange = (e) => {
 		this.setState({ value: e.target.value });
 	}
 
 	render() {
 		return (
-			<RadioGroup onChange={this.onChange.bind(this)} value={this.state.value}>
+			<RadioGroup onChange={this.onChange} value={this.state.value}>
 				<Radio value="apple">苹果</Radio>
 				<Radio value="pears">梨子</Radio>
 				<Radio value="cucumber" disabled>黄瓜</Radio>
@@ -121,16 +114,14 @@ import { Radio } from 'zent'
 const RadioGroup = Radio.Group;
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: {
-				foo: 1	
-			}
+
+	state = {
+		value: {
+			foo: 1	
 		}
 	}
 
-	onChange(e) {
+	onChange = (e) => {
 		this.setState({ value: e.target.value });
 	}
 
@@ -143,7 +134,7 @@ class App extends React.Component {
 			<RadioGroup 
 				value={this.state.value}
 				isValueEqual={this.isValueEqual}
-				onChange={this.onChange.bind(this)} 
+				onChange={this.onChange} 
 			>
 				<Radio value={{ foo: 1 }}>foo 1</Radio>
 				<Radio value={{ foo: 2 }}>foo 2</Radio>

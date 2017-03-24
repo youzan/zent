@@ -1,7 +1,5 @@
 ## Checkbox 多选
 
-多选框组件，在一组可选项中进行**多项选择**时
-
 ### 使用指南
 
 - Checkbox 表现为一个[受控组件][controlled-components], 需要设置 `onChange` 回调在组件外部处理其 `value` 属性的变化.
@@ -15,14 +13,11 @@ import { Checkbox } from 'zent';
 
 class App extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			checked: true
-		}
+	state = {
+		checked: true
 	}
 
-	handleChange(e) {
+	handleChange = (e) => {
 		this.setState({
 			checked: e.target.checked
 		})
@@ -31,7 +26,7 @@ class App extends React.Component {
 	render() {
 		const { checked } = this.state
 		return (
-			<Checkbox checked={checked} onChange={this.handleChange.bind(this)}>Checkbox</Checkbox>
+			<Checkbox checked={checked} onChange={this.handleChange}>Checkbox</Checkbox>
 		)
 	}
 }
@@ -51,7 +46,6 @@ import { Checkbox } from 'zent';
 ReactDOM.render(
 	<div>
 		<Checkbox checked disabled />
-		<br />
 		<Checkbox disabled />
 	</div>
 	, mountNode
@@ -65,57 +59,26 @@ import { Checkbox } from 'zent';
 const CheckboxGroup = Checkbox.Group;
 
 class App extends React.Component {
-	
-	constructor(props) {
-		super(props)
 
-		this.state = {
-			checkedValue1: ['Apple'],
-			checkedValue2: ['Apple'],
-			checkedValue3: ['Apple'],
-		}
+	state = {
+		checkedList: []
 	}
 
-	onChange1(checkedValue) {
-		this.setState({ checkedValue1: checkedValue });
-	}
-
-	onChange2(checkedValue) {
-		this.setState({ checkedValue2: checkedValue });
-	}
-
-	onChange3(checkedValue) {
-		this.setState({ checkedValue3: checkedValue });
+	onChange = (checkedList) => {
+		this.setState({ checkedList });
 	}
 
 	render() {
-		const { checkedValue1, checkedValue2, checkedValue3 } = this.state;
+		const { checkedList } = this.state;
 
 		return (
 			<div>
-				<p className="zent-checkbox-doc-p">正常状态</p>
-				<CheckboxGroup value={checkedValue1} onChange={this.onChange1.bind(this)}>
+				<CheckboxGroup value={checkedList} onChange={this.onChange}>
 					<Checkbox value="Apple">苹果</Checkbox>
-					<Checkbox value="Pear">梨</Checkbox>
-					<Checkbox value="Orange">橘</Checkbox>
+					<Checkbox value="Pear">梨子</Checkbox>
+					<Checkbox value="Orange">橘子</Checkbox>
+					<Checkbox value="OrangeDisabled" disabled>烂橘子</Checkbox>
 				</CheckboxGroup>
-				<br />
-
-				<p className="zent-checkbox-doc-p">部分Checkbox不可用</p>
-				<CheckboxGroup value={checkedValue2} onChange={this.onChange2.bind(this)}>
-					<Checkbox value="Apple" disabled>苹果</Checkbox>
-					<Checkbox value="Pear">梨</Checkbox>
-					<Checkbox value="Orange">橘</Checkbox>
-				</CheckboxGroup>
-				<br />
-
-				<p className="zent-checkbox-doc-p">CheckboxGroup不可用</p>
-				<CheckboxGroup disabled value={checkedValue3} onChange={this.onChange3.bind(this)}>
-					<Checkbox value="Apple">苹果</Checkbox>
-					<Checkbox value="Pear">梨</Checkbox>
-					<Checkbox value="Orange">橘</Checkbox>
-				</CheckboxGroup>
-				<br />
 			</div>
 		);
 	}
@@ -137,15 +100,11 @@ const ITEMS = ['Item 1', 'Item 2', 'Item 3']
 
 class App extends Component {
 
-	constructor(props) {
-		super(props)
-
-		this.state = {
-			checkedList: []
-		}
+	state = {
+		checkedList: []
 	}
 
-	handleCheckedAll(e) {
+	handleCheckedAll = (e) => {
 		this.setState({
 			checkedList: e.target.checked ? ITEMS.slice() : []
 		})
@@ -165,7 +124,7 @@ class App extends Component {
 				<Checkbox 
 					checked={checkedAll}
 					indeterminate={indeterminate}
-					onChange={this.handleCheckedAll.bind(this)}
+					onChange={this.handleCheckedAll}
 				>全选</Checkbox>
 
 				<hr />
