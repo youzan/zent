@@ -25,6 +25,13 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-pop/README.md')
               }
+            },
+            {
+              path: '/pagination',
+              title: 'Pagination 分页',
+              filePath() {
+                return System.import('../packages/zent-pagination/README.md')
+              }
             }
           ]
         }
