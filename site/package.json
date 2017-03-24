@@ -14,8 +14,8 @@
     "build:docs": "cross-env NODE_ENV=production webpack --progress --hide-modules --config  webpack/webpack.prd.config.js"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "babel-preset-stage-1": "^6.22.0",
+    "classnames": "^2.2.5",
     "highlight.js": "^9.10.0",
     "react": "15.0.2",
     "react-dom": "15.0.2",

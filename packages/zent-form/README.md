@@ -12,9 +12,7 @@
 6. validations 对象中传入的是一个 function 的话， function 返回 true 才表示验证通过。
 7. 可以使用 props.zentForm.getFormValues() 来获取所有表单元素值。（ zentForm 如何注入到 props 中请参考 `Form.createForm` 的 API 。）
 
-> PS：Form 组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中 renderEmail 组件的表单结构。具体请参考`getControlGroup`的 API 。
- 
-:::DEMO  
+:::DEMO Form 组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中 renderEmail 组件的表单结构。具体请参考`getControlGroup`的 API 。 
 ```js
 import cx from 'classnames';
 import { Form, Input } from 'zent';
@@ -477,7 +475,7 @@ createForm 方法构建了一个高阶组件，该组件可以定义了一些额
 |------|------|------|------|
 | onChange | 任意表单元素修改后触发的回调，参数为所有表单元素值的对象 | func(values: Object) | 否 |
 | onSubmitSuccess | 提交成功后的回调，参数是 submit 函数中 promise 的返回值 | func(submitResult: any) | 否 |
-| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是undefined | func(submitError: SubmissionError) | 否 |
+| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是 undefined | func(submitError: SubmissionError) | 否 |
 
 ##### zentForm prop
 经过 `ZentForm.createForm` 包装的组件通过 props 被添加了 zenForm 属性, 所以在被包装的组件中可以访问到 `this.props.zentForm` 属性, `this.props.zentForm` 提供的 API 如下：
