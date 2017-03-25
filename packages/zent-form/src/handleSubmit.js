@@ -26,13 +26,13 @@ const handleSubmit = (submit, zentForm) => {
     }
   } else {
     const handleSubmitError = (submitError) => {
+      // 只处理SubmissionError类型的错误
       const error = submitError instanceof SubmissionError ? submitError.errors : undefined;
       if (onSubmitFail) {
         onSubmitFail(error);
       }
-      if (error || onSubmitFail) {
-        return error;
-      }
+
+      return error;
     };
     const doSubmit = () => {
       let result;
@@ -42,10 +42,10 @@ const handleSubmit = (submit, zentForm) => {
         result = submit(values, zentForm);
       } catch (submitError) {
         const error = handleSubmitError(submitError);
-        if (error) {
+        if (error || onSubmitFail) {
           return error;
         }
-
+        // 没有处理过的error才throw
         throw submitError;
       }
 
@@ -68,7 +68,7 @@ const handleSubmit = (submit, zentForm) => {
               isSubmitting: false
             });
             const error = handleSubmitError(submitError);
-            if (error) {
+            if (error || onSubmitFail) {
               return error;
             }
 

@@ -3,7 +3,6 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import assign from 'zent-utils/lodash/assign';
 import Tag from '../components/Tag';
 
 const noop = function () {};
@@ -12,12 +11,11 @@ class TagsTrigger extends Component {
 
   constructor(props) {
     super(props);
-    this.state = assign({}, props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    let { selectedItems } = this.state;
+    let { selectedItems } = this.props;
     let {
       cid,
       text,
@@ -31,10 +29,6 @@ class TagsTrigger extends Component {
     }
 
     let isExist = selectedItems.filter(item => item.cid === cid).length > 0;
-
-    if (nextProps.selectedItems) {
-      this.state.selectedItems = nextProps.selectedItems;
-    }
 
     if (typeof cid !== 'undefined' && !isExist) {
       selectedItems.push({
@@ -60,27 +54,19 @@ class TagsTrigger extends Component {
   }
 
   deleteTagHandler(cid) {
-    let { selectedItems } = this.state;
+    let { selectedItems } = this.props;
     let deleteItem = selectedItems.filter(item => item.cid === cid)[0];
-    selectedItems = selectedItems.filter(item => item.cid !== cid);
     this.isDelete = true;
-    this.setState({
-      selectedItems
-    });
     this.props.onDelete(deleteItem);
     this.props.onChange({
-      selectedItems,
+      selectedItems: selectedItems.filter(item => item.cid !== cid),
       selectedItem: {},
       open: false
     });
   }
 
   render() {
-    let { prefixCls, placeholder, onClick } = this.props;
-
-    let {
-      selectedItems,
-    } = this.state;
+    let { prefixCls, placeholder, onClick, selectedItems } = this.props;
 
     return (
       <div className={`${prefixCls}-tags`} onClick={onClick}>
