@@ -77,6 +77,11 @@ module.exports = {
                 return System.import('../packages/zent-table/README.md')
               }
             }, {
+              path: '/tree',
+              title: 'Tree 树',
+              filePath() {
+                return System.import('../packages/zent-tree/README.md')
+            }, {
               path: '/select',
               title: 'Select 选项',
               filePath() {
