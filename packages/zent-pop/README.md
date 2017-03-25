@@ -87,6 +87,26 @@ ReactDOM.render(
 ```
 :::
 
+某些情况下`Pop` 的 trigger 特别小，但是 `Pop` 气泡的小三角距离弹层边缘的距离又是固定的，此时小三角可能会出现在 trigger 外面。`Pop` 提供了一个参数 `centerArrow` 来处理这种情况，`centerArrow` 为 `true` 的时候，气泡的小三角永远居中对齐于 trigger，不就不会出现小三角跑到外面的情况了。
+
+:::demo 使用 `centerArrow` 来控制气泡小三角的位置
+```js
+import { Pop, Button, Input } from 'zent';
+
+ReactDOM.render(
+	<div className="zent-doc-pop-container">
+		<Pop centerArrow trigger="hover" position="top-left" content="centerArrow 为 true">
+			<span className="zent-doc-pop-tag">Y</span>
+		</Pop>
+		<Pop trigger="hover" position="top-left" content="centerArrow 为 false">
+			<span className="zent-doc-pop-tag">N</span>
+		</Pop>
+	</div>
+	, mountNode
+);
+```
+:::
+
 :::demo Confirm 形式的气泡提示
 ```js
 import { Pop, Sweetalert } from 'zent';
@@ -283,6 +303,14 @@ ReactDOM.render(
 .zent-doc-pop-container {
 	.zent-pop-wrapper {
 		margin-right: 10px;
+	}
+
+	.zent-doc-pop-tag {
+		border: 1px solid #e5e5e5;
+		border-radius: 20%;
+		padding: 3px;
+		font-size: 12px;
+		cursor: default;
 	}
 }
 
