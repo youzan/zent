@@ -63,11 +63,19 @@ module.exports = {
               title: 'Tabs 选项卡',
               filePath() {
                 return System.import('../packages/zent-tabs/README.md')
+              }
+            }, {
+              path: '/steps',
+              title: 'Steps 步骤条',
+              filePath() {
+                return System.import('../packages/zent-steps/README.md')
+              }
             }, {
               path: '/table',
               title: 'Table 表格',
               filePath() {
                 return System.import('../packages/zent-table/README.md')
+              }
             }, {
               path: '/select',
               title: 'Select 选项',
