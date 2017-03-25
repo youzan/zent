@@ -162,7 +162,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
             state.transit(HoverState.Started);
           }
         }
-      }, 149)
+      }, 16)
     }
   });
 
