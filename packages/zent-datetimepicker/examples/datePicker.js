@@ -63,7 +63,7 @@ export default class Simple extends Component {
         />
         <br /><br />
         <DatePicker
-          format="YYYY/MM/DD"
+          format="YYYY年MM月DD日"
           min="2017/01/01"
           max="2017/11/11"
           disabledTime={this.isDisabledTime}

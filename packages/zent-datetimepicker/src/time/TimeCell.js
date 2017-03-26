@@ -38,7 +38,7 @@ export default class TimeCell extends Component {
 
   render() {
     return (
-      <div>
+      <div className="panel-table__list">
         {this.getTbody()}
       </div>
     );

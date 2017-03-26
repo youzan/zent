@@ -124,14 +124,10 @@ $double_default_width: 480px;
             }
             &--showTime {
                 .date-picker {
-                    .month-panel {
-                        .grid-cell {
-                            height: 56.5px;
-                        }
-                    }
+                    .month-panel,
                     .year-panel {
                         .grid-cell {
-                            height: 56.5px;
+                            height: 56px;
                         }
                     }
                     .time-panel {
@@ -349,6 +345,12 @@ $double_default_width: 480px;
         .time-panel {
             &__cell {
                 padding: 3px;
+            }
+            .panel-table__row:last-child {
+                display: block;
+                .grid-cell {
+                    width: 14.28%;
+                }
             }
             .hour-panel,
             .minute-panel,

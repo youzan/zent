@@ -10,18 +10,13 @@ export default class DatePanel extends Component {
     showNext: true
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      showTime: props.showTime !== undefined,
-      showMonth: false
-    };
+  state = {
+    showMonth: false
   }
 
   showMonth = () => {
     this.setState({
-      showMonth: true,
-      showTime: false
+      showMonth: true
     });
   }
 
@@ -31,8 +26,7 @@ export default class DatePanel extends Component {
   onSelectMonth = (val, hide) => {
     this.props.onChange(val);
     this.setState({
-      showMonth: hide || false,
-      showTime: this.props.showTime !== undefined && !hide
+      showMonth: hide || false
     });
   }
 
@@ -78,7 +72,7 @@ export default class DatePanel extends Component {
           onHover={props.onHover}
         />
         {state.showMonth ? monthPanel : ''}
-        {state.showTime ? timePanel : ''}
+        {props.showTime ? timePanel : ''}
       </div>
     );
   }
