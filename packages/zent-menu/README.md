@@ -82,7 +82,7 @@ ReactDOM.render(
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | prefix | 自定义前缀 | string | 'zent' |
-| onClick | 点击事件统一代理回调 | func(index, e) |  |
+| onClick | 点击事件统一代理回调 | func(key: string, event) |  |
 | className | 菜单整体自定义类名 | string |  |
 
 #### MenuItem
