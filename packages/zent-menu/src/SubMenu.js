@@ -10,13 +10,11 @@ export default class SubMenu extends Component {
     className: PropTypes.string,
     overlayClassName: PropTypes.string,
     disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    fade: PropTypes.bool
+    onClick: PropTypes.func
   };
 
   static defaultProps = {
-    prefix: 'zent',
-    fade: true
+    prefix: 'zent'
   };
 
   constructor() {
@@ -28,7 +26,7 @@ export default class SubMenu extends Component {
 
   handleClick = (index, e) => {
     const { onClick, fade } = this.props;
-    fade && this.setState({ subMenuVisible: false });
+    this.setState({ subMenuVisible: false });
     onClick(index, e);
   }
 
