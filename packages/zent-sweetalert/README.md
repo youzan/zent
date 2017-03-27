@@ -14,10 +14,10 @@
 import { Sweetalert, Button } from 'zent';
 
 const showAlertInfo = () => {
-  Sweetalert.alert({
-    content: '这个是具体内容',
-    title: '这是一个消息标题'
-  });
+	Sweetalert.alert({
+		content: '这个是具体内容',
+		title: '这是一个消息标题'
+	});
 }
 
 ReactDOM.render(
@@ -37,15 +37,15 @@ const onConfirm = () => {
 }
 
 const onCancel = () => {
-  console.log('我真的取消了');
+	console.log('我真的取消了');
 }
 
 const showAlertConfirm = () => {
-  Sweetalert.confirm({
-    content: <p>这个是内容</p>,
-    onConfirm: onConfirm,
-    onCancel: onCancel,
-  });
+	Sweetalert.confirm({
+		content: <p>这个是内容</p>,
+		onConfirm: onConfirm,
+		onCancel: onCancel,
+	});
 }
 
 ReactDOM.render(
@@ -61,11 +61,11 @@ ReactDOM.render(
 import { Sweetalert, Button } from 'zent';
 
 const autoCloseConfirm = () => {
-  const close = Sweetalert.confirm({
-    content: <p>一秒后自动关闭</p>
-  });
+	const close = Sweetalert.confirm({
+		content: <p>一秒后自动关闭</p>
+	});
 
-  setTimeout(close, 1000);
+	setTimeout(close, 1000);
 }
 
 ReactDOM.render(
@@ -81,15 +81,15 @@ ReactDOM.render(
 import { Sweetalert, Button } from 'zent';
 
 const promiseConfirm = () => {
-  Sweetalert.confirm({
-    content: '点击确认按钮，按钮会变成loading状态，三秒后关闭',
-    title: 'onConfirm返回Promise',
-    onConfirm: () => new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 3000);
-    })
-  });
+	Sweetalert.confirm({
+		content: '点击确认按钮，按钮会变成loading状态，三秒后关闭',
+		title: 'onConfirm返回Promise',
+		onConfirm: () => new Promise((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, 3000);
+		})
+	});
 }
 
 ReactDOM.render(
@@ -105,11 +105,11 @@ ReactDOM.render(
 import { Sweetalert, Button } from 'zent';
 
 const showAlertInfo = () => {
-  Sweetalert.alert({
-    type: 'info',
-    content: '这个是具体内容',
-    title: '这是一个消息标题'
-  });
+	Sweetalert.alert({
+		type: 'info',
+		content: '这个是具体内容',
+		title: '这是一个消息标题'
+	});
 }
 
 ReactDOM.render(

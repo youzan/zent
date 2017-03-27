@@ -17,36 +17,36 @@
 import { Dialog } from 'zent';
 
 class Example extends React.Component {
-  state = { visible: false }
+	state = { visible: false }
 
-  triggerDialog = visible => {
-    this.setState({ visible });
-  };
+	triggerDialog = visible => {
+		this.setState({ visible });
+	};
 
-  render() {
-    let dialog;
-    if (this.state.visible) {
-      dialog = (
-        <Dialog
-          visible={this.state.visible}
-          onClose={() => this.triggerDialog(false)}
-        >
-          <p>Text in a modal</p>
-        </Dialog>);
-    }
+	render() {
+		let dialog;
+		if (this.state.visible) {
+			dialog = (
+				<Dialog
+					visible={this.state.visible}
+					onClose={() => this.triggerDialog(false)}
+				>
+					<p>Text in a modal</p>
+				</Dialog>);
+		}
 
-    return (
-      <div>
-        <button
-          className="zent-btn zent-btn-primary"
-          onClick={() => this.triggerDialog(true)}
-        >
-          显示
-        </button>
-        {dialog}
-      </div>
-    );
-  }
+		return (
+			<div>
+				<button
+					className="zent-btn zent-btn-primary"
+					onClick={() => this.triggerDialog(true)}
+				>
+					显示
+				</button>
+				{dialog}
+			</div>
+		);
+	}
 }
 
 ReactDOM.render(<Example />, mountNode);
@@ -61,14 +61,14 @@ import { Dialog, Button } from 'zent';
 const { openDialog } = Dialog;
 
 const open = () => {
-  const close = openDialog({
-    title: '使用openDialog直接打开对话框',
-    children: <div>Hello World</div>,
-    footer: <Button onClick={() => close()}>关闭</Button>,
-    onClose() {
-      console.log('outer dialog closed');
-    }
-  });
+	const close = openDialog({
+		title: '使用openDialog直接打开对话框',
+		children: <div>Hello World</div>,
+		footer: <Button onClick={() => close()}>关闭</Button>,
+		onClose() {
+			console.log('outer dialog closed');
+		}
+	});
 };
 
 ReactDOM.render(<Button onClick={open}>关闭</Button>, mountNode);

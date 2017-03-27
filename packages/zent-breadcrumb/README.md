@@ -15,9 +15,9 @@
 import { Breadcrumb } from 'zent';
 
 const dataList = [
-  { name: '首页', href: '//www.youzan.com' },
-  { name: '应用中心', href: '//www.youzan.com' },
-  { name: '营销中心' }
+	{ name: '首页', href: '//www.youzan.com' },
+	{ name: '应用中心', href: '//www.youzan.com' },
+	{ name: '营销中心' }
 ];
 
 ReactDOM.render(
@@ -32,11 +32,11 @@ ReactDOM.render(
 import { Alert, Icon } from 'zent';
 
 ReactDOM.render(
-  <Breadcrumb>
-    <Breadcrumb.Item name={"首页"} href="//www.youzan.com" />
-    <Breadcrumb.Item name={"应用中心"} href="//www.youzan.com" className="zent-demo-bread" />
-    <Breadcrumb.Item name={"营销中心"} />
-  </Breadcrumb>
+	<Breadcrumb>
+		<Breadcrumb.Item name={"首页"} href="//www.youzan.com" />
+		<Breadcrumb.Item name={"应用中心"} href="//www.youzan.com" className="zent-demo-bread" />
+		<Breadcrumb.Item name={"营销中心"} />
+	</Breadcrumb>
 	, mountNode
 )
 ```
@@ -47,15 +47,15 @@ ReactDOM.render(
 import { Alert, Icon } from 'zent';
 
 ReactDOM.render(
-  <Breadcrumb>
-    <Breadcrumb.Item>
-      <a href="//www.youzan.com">首页</a>
-    </Breadcrumb.Item>
-    <Breadcrumb.Item>
-      <span>应用中心</span>
-    </Breadcrumb.Item>
-    <span>营销中心</span>
-  </Breadcrumb>
+	<Breadcrumb>
+		<Breadcrumb.Item>
+			<a href="//www.youzan.com">首页</a>
+		</Breadcrumb.Item>
+		<Breadcrumb.Item>
+			<span>应用中心</span>
+		</Breadcrumb.Item>
+		<span>营销中心</span>
+	</Breadcrumb>
 	, mountNode
 )
 ```
