@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
+
 import PanelHeader from '../common/PanelHeader';
 import TimeCell from './TimeCell';
 import { CURRENT, padLeft } from '../utils';
@@ -14,15 +15,18 @@ export default class HourPanel extends Component {
       return disabledHour(val);
     }
   }
+
   isSelected(val) {
     const { selected } = this.props;
     return selected.getHours() === val;
   }
+
   isCurrent(val) {
     return CURRENT.getHours() === val;
   }
+
   getHours() {
-    let cells = [];
+    const cells = [];
     let i = 0;
     for (let j = 0; j < ROW; j++) {
       cells[j] = [];
@@ -45,17 +49,20 @@ export default class HourPanel extends Component {
         i++;
       }
     }
+
     return cells;
   }
   render() {
+    const { hidePanel, onSelect } = this.props;
     const hours = this.getHours();
     const title = '选择小时';
+
     return (
       <div className="hour-panel">
-        <PanelHeader title={title} showNext={false} prev={() => { this.props.hidePanel('hour') }} />
-        <table className="hour-table panel__table">
-          <TimeCell cells={hours} onSelect={this.props.onSelect} />
-        </table>
+        <PanelHeader title={title} showNext={false} prev={hidePanel} />
+        <div className="hour-table panel-table">
+          <TimeCell cells={hours} onSelect={onSelect} />
+        </div>
       </div>
 
     );

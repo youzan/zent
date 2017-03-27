@@ -55,7 +55,7 @@ export default class Simple extends Component {
       <div>
         <p>disabled</p>
         <DatePicker
-          format="yyyy-mm-dd"
+          format="YYYY-MM-DD"
           disabledTime={this.isDisabledTime}
           disabled
           value={state.value}
@@ -63,9 +63,9 @@ export default class Simple extends Component {
         />
         <br /><br />
         <DatePicker
-          format="yyyy-mm-dd"
-          min="2017.01.01"
-          max="2017.11.11"
+          format="YYYY年MM月DD日"
+          min="2017/01/01"
+          max="2017/11/11"
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
           value={state.value}
@@ -74,7 +74,7 @@ export default class Simple extends Component {
         <br /><br />
         <DatePicker
           showTime
-          format="yyyy-mm-dd HH:MM:ss"
+          format="YYYY-MM-DD HH:mm:ss"
           placeholder="请选择日期和时间"
           disabledDate={this.isDisabledDate}
           disabledTime={this.isDisabledTime}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
+
 import PanelHeader from '../common/PanelHeader';
 import TimeCell from './TimeCell';
 import { CURRENT, padLeft } from '../utils';
@@ -14,15 +15,18 @@ export default class MinutePanel extends Component {
       return disabledMinute(val);
     }
   }
+
   isSelected(val) {
     const { selected } = this.props;
     return selected.getMinutes() === val;
   }
+
   isCurrent(val) {
     return CURRENT.getMinutes() === val;
   }
+
   getMinutes() {
-    let cells = [];
+    const cells = [];
     let i = 0;
     for (let j = 0; j < ROW; j++) {
       cells[j] = [];
@@ -45,17 +49,21 @@ export default class MinutePanel extends Component {
         i++;
       }
     }
+
     return cells;
   }
+
   render() {
+    const { hidePanel, onSelect } = this.props;
     const minutes = this.getMinutes();
     const title = '选择分钟';
+
     return (
       <div className="minute-panel">
-        <PanelHeader title={title} showNext={false} prev={() => { this.props.hidePanel('minute') }} />
-        <table className="minute-table panel__table">
-          <TimeCell cells={minutes} onSelect={this.props.onSelect} />
-        </table>
+        <PanelHeader title={title} showNext={false} prev={hidePanel} />
+        <div className="minute-table panel-table">
+          <TimeCell cells={minutes} onSelect={onSelect} />
+        </div>
       </div>
 
     );
