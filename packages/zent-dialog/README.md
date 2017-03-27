@@ -1,42 +1,82 @@
-# zent-dialog
+## Dialog 对话框
 
-[![npm version](https://img.shields.io/npm/v/zent-dialog.svg?style=flat)](https://www.npmjs.com/package/zent-dialog) [![downloads](https://img.shields.io/npm/dt/zent-dialog.svg)](https://www.npmjs.com/package/zent-dialog)
+对话框，通过打开一个浮层的方式，避免打扰用户的操作流程。
 
-弹窗组件
+### 使用指南
 
-## 使用场景
+-  命令式, 直接调用 `openDialog` 函数, **不支持 `context`。**
 
-需要提供一个带有遮罩的弹出窗口
+-  组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`。**
 
-## 使用指南
+-  推荐使用命令式, 不需要在外部维护一个 `visible` 属性, 更加方便。
 
-#### 两种控制方式
+### 代码演示
 
--  命令式, 直接调用 `openDialog` 函数, **不支持 `context`.**
+:::demo 基础用法
+```js
+import { Dialog } from 'zent';
 
--  组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`.**
+class Example extends React.Component {
+	state = { visible: false }
 
-    **推荐使用命令式, 不需要在外部维护一个 `visible` 属性, 更加方便.**
+	triggerDialog = visible => {
+		this.setState({ visible });
+	};
 
-#### openDialog
+	render() {
+		let dialog;
+		if (this.state.visible) {
+			dialog = (
+				<Dialog
+					visible={this.state.visible}
+					onClose={() => this.triggerDialog(false)}
+				>
+					<p>Text in a modal</p>
+				</Dialog>);
+		}
 
-`openDialog(options: object): function`
+		return (
+			<div>
+				<button
+					className="zent-btn zent-btn-primary"
+					onClick={() => this.triggerDialog(true)}
+				>
+					显示
+				</button>
+				{dialog}
+			</div>
+		);
+	}
+}
 
-**`options` 参数支持组件除 `visible` 以外的所有属性.**
+ReactDOM.render(<Example />, mountNode);
+```
+:::
 
-如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
 
-返回值是一个手动关闭 Dialog 的函数 `closeDialog()`, `closeDialog(false)` 将不会触发Dialog的 `onClose` 方法
+:::demo 使用 openDialog 开启对话框
+```js
+import { Dialog, Button } from 'zent';
 
-重复调用 `closeDialog` 等效于执行 `noop` 函数.
+const { openDialog } = Dialog;
 
-#### 指定Dialog宽度
+const open = () => {
+	const close = openDialog({
+		title: '使用openDialog直接打开对话框',
+		children: <div>Hello World</div>,
+		footer: <Button onClick={() => close()}>关闭</Button>,
+		onClose() {
+			console.log('outer dialog closed');
+		}
+	});
+};
 
-在 `style` 中可以指定弹出窗口的宽度, e.g. `style={{ width: '600px' }}`.
+ReactDOM.render(<Button onClick={open}>关闭</Button>, mountNode);
+```
+:::
 
-默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
 
-## Component API
+### API
 
 | 参数           | 说明                            | 类型     | 默认值      |
 | ------------ | ----------------------------- | ------ | -------- |
@@ -51,3 +91,25 @@
 | className    | 自定义额外类名                       | string | `''`     |
 | prefix       | 自定义前缀                         | string | `'zent'` |
 | style        | 自定义样式                         | object | `{}`     |
+
+
+#### openDialog
+
+`openDialog(options: object): function`
+
+**`options` 参数支持组件除 `visible` 以外的所有属性.**
+
+如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
+
+返回值是一个手动关闭 Dialog 的函数 `closeDialog()`, `closeDialog(false)` 将不会触发Dialog的 `onClose` 方法
+
+重复调用 `closeDialog` 等效于执行 `noop` 函数.
+
+
+
+#### 指定Dialog宽度
+
+在 `style` 中可以指定弹出窗口的宽度, e.g. `style={{ width: '600px' }}`.
+
+默认情况下弹出窗口会自适应内容的宽度, 同时有最小宽度和最大宽度.
+
