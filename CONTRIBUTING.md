@@ -1,26 +1,11 @@
 ## 开发 zent
 
-#### 开发依赖：
-
-* jq: `brew install jq`, [其他安装方式](https://stedolan.github.io/jq/download/)
-* ttfautohint: `brew install ttfautohint`, [其他安装方式](https://www.freetype.org/ttfautohint/#download)
-* fontforge: `brew install fontforge`, 需要python扩展。[其他安装方式](http://fontforge.github.io/en-US/downloads/)
-* sketchtool: https://www.sketchapp.com/tool/
-* zent-kit: `npm install -g zent-kit`
-* felint: `npm install -g felint`
-* iconfount: `npm install -g iconfount`
-
-#### 注意！注意！注意！重要的事说三遍！
-
-**OSX可以直接运行`./scripts/install-dependencies.sh`安装上面的所有依赖。**
-
-**OSX可以直接运行`./scripts/install-dependencies.sh`安装上面的所有依赖。**
-
-**OSX可以直接运行`./scripts/install-dependencies.sh`安装上面的所有依赖。**
-
 #### 初始化项目:
 
 ```bash
+npm install -g zent-kit
+npm install -g felint
+
 npm install
 felint update
 npm run bootstrap
