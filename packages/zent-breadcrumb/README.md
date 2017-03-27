@@ -79,5 +79,5 @@ ReactDOM.render(
 | 参数        | 说明      | 类型                      | 默认值  |
 | --------- | ------- | ----------------------- | ---- |
 | className | 自定义额外类名 | string                  | `''` |
-| name      | 内容      | string or react element |  -    |
+| name      | 内容      | string or React node |  -    |
 | href      | 链接      | string                  |   -   |

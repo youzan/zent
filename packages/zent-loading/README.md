@@ -12,15 +12,12 @@
 ```js
 import { Loading } from 'zent';
 
-ReactDOM.render(
-	<Loading show />
-	, mountNode
-);
+ReactDOM.render(<Loading show />, mountNode);
 ```
 :::
 
 
-:::demo 使用 Loading 包裹组件，使某个组件进入加载状态。
+:::demo 使用 Loading 包裹组件，使其进入 Loading 状态。
 ```js
 import { Loading, Switch, Alert } from 'zent';
 
@@ -82,13 +79,13 @@ ReactDOM.render(<Example />, mountNode);
 
 | 参数             | 说明                                                     | 类型     | 默认值 |
 | -------------- | ------------------------------------------------------ | ------ | -------- |
-| className      | 自定义额外类名                                                | string | `''`     |
-| containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |
-| prefix         | 自定义前缀                                                  | string | `'zent'` |
 | show           | 显示控制                                                   | bool   | `false`  |
 | static         | 是否以标签形式存在于文档流中                                         | bool   | `true`   |
 | height         | 设置 static 为 true 情况下，设置高度，如果包裹了组件，将会表现为组件高度，否则将会使用默认高度 | number | `160`    |
 | zIndex         | 设置 z-index                                             | number | `9998`   |
+| className      | 自定义额外类名                                                | string | `''`     |
+| containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |
+| prefix         | 自定义前缀                                                  | string | `'zent'` |
 
 
 <style>

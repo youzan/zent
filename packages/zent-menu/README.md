@@ -72,8 +72,8 @@ ReactDOM.render(<Example />, mountNode);
 
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| prefix | 自定义前缀 | string | 'zent' |
 | onClick | 点击菜单节点回调 | func |  |
+| prefix | 自定义前缀 | string | 'zent' |
 | className | 节点类名 | string |  |
 
 #### MenuItem props
