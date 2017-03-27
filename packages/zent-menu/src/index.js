@@ -20,7 +20,7 @@ export default class Menu extends CommonMenu {
     onClick: noop
   };
 
-  handleClick = (index, e) => {
+  handleClick = (e, key) => {
     const { onClick } = this.props;
     onClick(e, index);
   }
