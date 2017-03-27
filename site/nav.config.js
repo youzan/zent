@@ -11,6 +11,7 @@ module.exports = {
               filePath() {
                 return System.import('../packages/zent-layout/README.md')
               }
+
             }, {
               path: '/alert',
               title: 'Alert 公告',
@@ -72,6 +73,7 @@ module.exports = {
               title: 'Pagination 分页',
               filePath() {
                 return System.import('../packages/zent-pagination/README.md')
+              }
             }, {
               path: '/tabs',
               title: 'Tabs 选项卡',
@@ -95,11 +97,19 @@ module.exports = {
               title: 'Tree 树',
               filePath() {
                 return System.import('../packages/zent-tree/README.md')
+              }
             }, {
               path: '/select',
               title: 'Select 选项',
               filePath() {
                 return System.import('../packages/zent-select/README.md')
+              }
+            },
+            {
+              path: '/datepicker',
+              title: 'Datepicker 日期选择',
+              filePath() {
+                return System.import('../packages/zent-datetimepicker/README.md')
               }
             }
           ]
