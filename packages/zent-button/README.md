@@ -115,11 +115,12 @@ ReactDOM.render(
 | block     | 是否以块级元素的形式展开                | bool   | `false`     |                                    |
 | disabled  | 状态控制                        | bool   | `false`     |                                    |
 | loading   | 状态控制                        | bool   | `false`     |                                    |
-| outline   | 边框有颜色，内部没有颜色                | bool   | `false`     |                                    |
+| outline   | 边框有颜色，内部没有颜色                | bool   | `false`     |                              |
 | bordered  | 边框透明控制                      | bool   | `true`      |                                    |
 | 其他参数      |                             |        |             |                                    |
 | component | 自定义组件标签类型                   | string |             |                                    |
-| href      | 可选，如果设置的话会用a标签而不是button     | string |             |                                    |
-| target    | 可选，和href一起使用，就是a标签的target属性 | string | `''`        | `'_blank'`                         |
+| href      | 可选，如果设置的话会用a标签而不是button     | string |             |                           |
+| target    | 可选，和href一起使用，就是a标签的target属性 | string | `''`        | `'_blank'`                  |
 | className | 自定义类名                       | string |             |                                    |
+| style     | 自定style                      | object |             |                                    |
 | prefix    | 自定义前缀                       | string | `'zent'`    |                                    |
