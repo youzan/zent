@@ -1,22 +1,252 @@
-# zent-pop
+## 气泡提示 Pop
 
-[![npm version](https://img.shields.io/npm/v/zent-pop.svg?style=flat)](https://www.npmjs.com/package/zent-pop) [![downloads](https://img.shields.io/npm/dt/zent-pop.svg)](https://www.npmjs.com/package/zent-pop)
+气泡提示组件
 
-气泡组件
+### 使用指南
 
-## 使用指南
+- 多种触发方式：点击，鼠标移入，获得输入焦点
+- 支持 Tooltip 的使用方式
+- 支持对浮层上的元素进行操作, 可以承载相对复杂的内容, 比如链接、按钮等
 
--   支持多种触发, 如 click, hover, focus 等.
+### 代码示例
 
--   集成了 ToolTip 和 PopConfirm 功能, 支持对浮层上的元素进行操作, 可以承载相对复杂的内容, 比如链接或按钮等. 提供 `onConfirm` 方法, 以实现 PopConfirm 功能.
+:::demo 三种触发方式: 点击，鼠标移入，获得输入焦点
+```js
+import { Pop, Button, Input } from 'zent';
 
-## API
+ReactDOM.render(
+	<div className="zent-doc-pop-container">
+		<Pop trigger="hover" content="鼠标移入触发方式">
+			<Button type="primary">移入鼠标</Button>
+		</Pop>
+		<Pop trigger="click" content="鼠标点击触发方式">
+			<Button type="primary">点击鼠标</Button>
+		</Pop>
+		<Pop trigger="focus" content="获得输入焦点触发方式">
+			<Input defaultValue="点击获取焦点" />
+		</Pop>
+	</div>
+)
+```
+:::
+
+:::demo 12种定位
+```js
+import { Pop, Button } from 'zent';
+
+const trigger = 'hover';
+
+ReactDOM.render(
+	<div className="zent-doc-pop-positions">
+		<div className="zent-doc-pop-positions-top-row">
+			<Pop trigger={trigger} position="top-left" content="Top Left" >
+				<Button>TopLeft</Button>
+			</Pop>
+			<Pop trigger={trigger} position="top-center" content="Top Center">
+				<Button>TopCenter</Button>
+			</Pop>
+			<Pop trigger={trigger} position="top-right" content="Top Right">
+				<Button>TopRight</Button>
+			</Pop>
+		</div>
+		<div className="zent-doc-pop-positions-bottom-row">
+			<Pop trigger={trigger} position="bottom-left" content="Bottom Left" >
+				<Button>BottomLeft</Button>
+			</Pop>
+			<Pop trigger={trigger} position="bottom-center" content="Bottom Center">
+				<Button>BottomCenter</Button>
+			</Pop>
+			<Pop trigger={trigger} position="bottom-right" content="Bottom Right">
+				<Button>BottomRight</Button>
+			</Pop>
+		</div>
+		<div className="zent-doc-pop-positions-left-col">
+			<Pop trigger={trigger} position="left-top" content="Left Top" >
+				<Button>LeftTop</Button>
+			</Pop>
+			<Pop trigger={trigger} position="left-center" content="Left Center">
+				<Button>LeftCenter</Button>
+			</Pop>
+			<Pop trigger={trigger} position="left-bottom" content="Left Bottom">
+				<Button>LeftBottom</Button>
+			</Pop>
+		</div>
+		<div className="zent-doc-pop-positions-right-col">
+			<Pop trigger={trigger} position="right-top" content="Right Top" >
+				<Button>RightTop</Button>
+			</Pop>
+			<Pop trigger={trigger} position="right-center" content="Right Center">
+				<Button>RightCenter</Button>
+			</Pop>
+			<Pop trigger={trigger} position="right-bottom" content="Right Bottom">
+				<Button>RightBottom</Button>
+			</Pop>
+		</div>
+	</div>
+)
+```
+:::
+
+某些情况下`Pop` 的 trigger 特别小，但是 `Pop` 气泡的小三角距离弹层边缘的距离又是固定的，此时小三角可能会出现在 trigger 外面。`Pop` 提供了一个参数 `centerArrow` 来处理这种情况，`centerArrow` 为 `true` 的时候，气泡的小三角永远居中对齐于 trigger，不就不会出现小三角跑到外面的情况了。
+
+:::demo 使用 `centerArrow` 来控制气泡小三角的位置
+```js
+import { Pop, Button, Input } from 'zent';
+
+ReactDOM.render(
+	<div className="zent-doc-pop-container">
+		<Pop centerArrow trigger="hover" position="top-left" content="centerArrow 为 true">
+			<span className="zent-doc-pop-tag">Y</span>
+		</Pop>
+		<Pop trigger="hover" position="top-left" content="centerArrow 为 false">
+			<span className="zent-doc-pop-tag">N</span>
+		</Pop>
+	</div>
+	, mountNode
+);
+```
+:::
+
+:::demo Confirm 形式的气泡提示
+```js
+import { Pop, Sweetalert } from 'zent';
+
+ReactDOM.render(
+	<Pop 
+		trigger="click"
+		content="提示内容"
+		onConfirm={() => Sweetalert.alert('Pop关闭了')}
+	>
+		<Button type="primary">打开气泡</Button>
+	</Pop>
+	, mountNode
+);
+```
+:::
+
+:::demo 自定义 Confirm 形式的气泡提示按钮
+```js
+import { Pop, Sweetalert } from 'zent';
+
+ReactDOM.render(
+	<Pop 
+		trigger="click"
+		content="提示内容"
+		type="danger"
+		confirmText="Error"
+		cancelText="Close"
+		onConfirm={() => Sweetalert.alert('Pop关闭了')}
+	>
+		<Button type="primary">打开气泡</Button>
+	</Pop>
+	, mountNode
+);
+```
+:::
+
+:::demo 延迟打开／关闭
+```js
+import { Pop } from 'zent';
+
+class Controlled extends Component {
+	state = {
+		visible: false
+	};
+
+	onBeforeShow = (cont) => {
+		setTimeout(cont, 500);
+	};
+
+	onBeforeClose = () => {
+		return new Promise((resolve) => {
+			setTimeout(resolve, 500);
+		});
+	};
+
+	render() {
+		return (
+			<Pop
+				content="延迟500ms关闭"
+				trigger="click"
+				onBeforeShow={this.onBeforeShow}
+				onBeforeClose={this.onBeforeClose}
+			>
+				<Button type="primary">延迟500ms打开</Button>
+			</Pop>
+    	);
+  }
+}
+
+ReactDOM.render(
+	<Controlled />
+	, mountNode
+);
+```
+:::
+
+有时候需要对 `Pop` 的打开关闭拥有完全控制权，可以通过设置 `visible` 和 `onVisibleChange` 来实现。
+
+**注意：**
+除了 `trigger="none"`以外，`visible` 必须和 `onVisibleChange` 一起传。原因是其它 trigger 的情况下
+除了外部代码控制 `Pop` 的显示外，trigger 在条件满足的情况下也会触发打开／关闭，这时候必须通知外部修改 `visible`。
+
+:::demo 高级用法：外部控制显示隐藏
+```js
+import { Pop } from 'zent';
+
+class NoneTriggerDemo extends Component {
+  state = {
+    visible: false
+  };
+
+  close = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
+  open = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  render() {
+	const content = (
+	  <div>
+	    <p style={{ marginBottom: 10 }}>可以在 Pop 内部关闭</p>
+		<Button type="primary" onClick={this.close}>关闭</Button>
+	  </div>
+	);
+    return (
+      <div className="zent-doc-pop-none-trigger-container">
+        <Pop
+          content={content}
+          trigger="none"
+          visible={this.state.visible}
+        >
+          <Button type="primary" onClick={this.open}>打开</Button>
+        </Pop>
+		<Button disabled={!this.state.visible} onClick={this.close}>外部关闭</Button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+	<NoneTriggerDemo />
+	, mountNode
+)
+```
+:::
+
+### API
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
 | content | 弹层的内容 | node | | |
 | trigger | 可选，触发方式 | string | `'none'` | `'click'`, `'hover'`, `'focus'` |
-| position | 可选，弹出框的位置，目前的设定是前一位表示相对触发元素的位置，后一位表示箭头相对于Pop的位置 | string | `'top-center'` | `'position-position'` |
+| position | 可选，弹出框的位置，命名规则：相对触发元素的位置+箭头相对于Pop的位置 | string | `'top-center'` |  |
 | centerArrow | 可选，是否按小箭头居中对齐trigger来定位 | bool | `false` |  |
 | header | 可选，用户可以自定义头部 | node | | |
 | block | 可选，弹层在文档流里是否以块级元素出现 | bool | `false` |  |
@@ -35,16 +265,16 @@
 | wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''` |  |
 | prefix | 可选，自定义前缀 | string | `'zent'` |  |
 
-### 根据trigger值的不同, Pop 提供了一些额外的控制参数.
+根据trigger值的不同, Pop 提供了一些额外的控制参数.
 
-#### click-trigger
+#### Click
 
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | closeOnClickOutside | 点击弹层和trigger节点外部时自动关闭 | bool | `true` |
 | isOutside | 用来判断点击目标是否在外面的可选函数 | func | |
 
-#### hover-trigger
+#### Hover
 
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
@@ -52,11 +282,11 @@
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | `200` |
 | isOutside | 用来判断点击目标是否在外面的可选函数 | func | |
 
-#### none-trigger
+#### None
 
-这种模式下 `onConfirm` 和 `onCancel` 不会自动关闭Pop, 需要使用者自己在回掉中控制 `visible` 来关闭Pop.
+这种模式下 `onConfirm` 和 `onCancel` 不会自动关闭Pop, 需要使用者自己在回调中控制 `visible` 来关闭Pop.
 
-### 部分 API 详解
+### FAQ
 
 #### centerArrow
 
@@ -69,14 +299,67 @@
 - 如果返回 `Promise`, `Pop` 会在 `Promise` `resolve` 后关闭.
 - 也支持参数形式的异步响应, 此时接受一个参数 `close`, 需要在函数内手动调用 `close` 函数.
 
-## 升级须知
+<style>
+.zent-doc-pop-container {
+	.zent-pop-wrapper {
+		margin-right: 10px;
+	}
 
-`0.4.0` 版本有以下不兼容改动:
+	.zent-doc-pop-tag {
+		border: 1px solid #e5e5e5;
+		border-radius: 20%;
+		padding: 3px;
+		font-size: 12px;
+		cursor: default;
+	}
+}
 
-* `trigger` 默认值为 `none`, 所以之前没有传 `trigger` 参数的地方要加上 `trigger="click"`.
-* `visible` 参数只有在 `trigger` 为 `none` 时才有效.
-* 移除了 `onVisibleChange` 这个参数.
-* 暂时移除了打开／关闭动画
-* css类名中的 `popover` 统一改为 `pop`, 以保持一致, 避免和新的 `Popover` 组件冲突.
-* `Pop` 在文档流里会在 `children` 外面包裹一层 `div.zent-pop-wrapper`, 这个 div 的显示方式可以通过 `block` 参数控制, 默认行内显示.
-* html 结构没有大的变化, 只是在 `.zent-pop` 和 `.zent-pop-inner`, `.zent-pop-header` 以及 `.zent-pop-arrow` 中间多了一层 `div.zent-popover-content`, 多出的这一层是 `Popover` 组件产生的.
+.zent-doc-pop-positions {
+	position: relative;
+	
+	&-top-row, &-bottom-row {
+		text-align: center;
+
+		.zent-pop-wrapper:not(:last-child) {
+			margin-right: 10px
+		}
+	}
+
+	&-bottom-row {
+		margin-top: 200px;
+	}
+
+	&-left-col, &-right-col {
+		position: absolute;
+		top: 0;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		height: 100%;
+
+		.zent-pop-wrapper:not(:last-child) {
+			margin-bottom: 10px
+		}
+	}
+
+	&-left-col {
+		left: 0;
+	}
+
+	&-right-col {
+		right: 0;
+	}
+
+	.zent-pop-wrapper {
+		.zent-btn {
+			width: 100px;
+		}
+	}
+}
+
+.zent-doc-pop-none-trigger-container {
+	.zent-pop-wrapper {
+		margin-right: 10px;
+	}
+}
+</style>

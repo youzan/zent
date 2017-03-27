@@ -1,8 +1,6 @@
-## Zent Docs
+## 开发
 
-Please use node >= 6.0.0, `vue-loader` won't work on old versions.
-
-### Develop
+确保按照Zent的要求跑完npm run bootstrap，然后在这个目录下执行
 
 ```bash
 yarn
@@ -10,4 +8,4 @@ yarn
 npm run dev
 ```
 
-Open [http://127.0.0.1:8080](http://127.0.0.1:8080) in your browser.
+浏览器打开[http://127.0.0.1:8080](http://127.0.0.1:8080)

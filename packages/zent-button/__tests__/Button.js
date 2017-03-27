@@ -161,4 +161,9 @@ describe('<Button />', () => {
     mount(<Button htmlType="button" />);
     expect(buttonNode.type).toBe('button');
   });
+
+  test('Custom inline style', () => {
+    mount(<Button style={{ fontSize: '20px' }} />);
+    expect(buttonNode.style.fontSize).toBe('20px');
+  });
 });

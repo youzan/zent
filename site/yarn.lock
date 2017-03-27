@@ -179,8 +179,8 @@ async@^1.5.2:
   resolved "http://registry.npm.qima-inc.com/async/download/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
 async@^2.1.2:
-  version "2.1.5"
-  resolved "http://registry.npm.qima-inc.com/async/download/async-2.1.5.tgz#e587c68580994ac67fc56ff86d3ac56bdbe810bc"
+  version "2.2.0"
+  resolved "http://registry.npm.qima-inc.com/async/download/async-2.2.0.tgz#c324eba010a237e4fbd55a12dee86367d5c0ef32"
   dependencies:
     lodash "^4.14.0"
 
@@ -273,6 +273,22 @@ babel-generator@^6.24.0:
     source-map "^0.5.0"
     trim-right "^1.0.1"
 
+babel-helper-bindify-decorators@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-helper-bindify-decorators/download/babel-helper-bindify-decorators-6.22.0.tgz#d7f5bc261275941ac62acfc4e20dacfb8a3fe952"
+  dependencies:
+    babel-runtime "^6.22.0"
+    babel-traverse "^6.22.0"
+    babel-types "^6.22.0"
+
+babel-helper-builder-binary-assignment-operator-visitor@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-helper-builder-binary-assignment-operator-visitor/download/babel-helper-builder-binary-assignment-operator-visitor-6.22.0.tgz#29df56be144d81bdeac08262bfa41d2c5e91cdcd"
+  dependencies:
+    babel-helper-explode-assignable-expression "^6.22.0"
+    babel-runtime "^6.22.0"
+    babel-types "^6.22.0"
+
 babel-helper-builder-react-jsx@^6.23.0:
   version "6.23.0"
   resolved "http://registry.npm.qima-inc.com/babel-helper-builder-react-jsx/download/babel-helper-builder-react-jsx-6.23.0.tgz#d53fc8c996e0bc56d0de0fc4cc55a7138395ea4b"
@@ -299,6 +315,23 @@ babel-helper-define-map@^6.23.0:
     babel-runtime "^6.22.0"
     babel-types "^6.23.0"
     lodash "^4.2.0"
+
+babel-helper-explode-assignable-expression@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-helper-explode-assignable-expression/download/babel-helper-explode-assignable-expression-6.22.0.tgz#c97bf76eed3e0bae4048121f2b9dae1a4e7d0478"
+  dependencies:
+    babel-runtime "^6.22.0"
+    babel-traverse "^6.22.0"
+    babel-types "^6.22.0"
+
+babel-helper-explode-class@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-helper-explode-class/download/babel-helper-explode-class-6.22.0.tgz#646304924aa6388a516843ba7f1855ef8dfeb69b"
+  dependencies:
+    babel-helper-bindify-decorators "^6.22.0"
+    babel-runtime "^6.22.0"
+    babel-traverse "^6.22.0"
+    babel-types "^6.22.0"
 
 babel-helper-function-name@^6.22.0, babel-helper-function-name@^6.23.0:
   version "6.23.0"
@@ -338,6 +371,16 @@ babel-helper-regex@^6.22.0:
     babel-runtime "^6.22.0"
     babel-types "^6.22.0"
     lodash "^4.2.0"
+
+babel-helper-remap-async-to-generator@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-helper-remap-async-to-generator/download/babel-helper-remap-async-to-generator-6.22.0.tgz#2186ae73278ed03b8b15ced089609da981053383"
+  dependencies:
+    babel-helper-function-name "^6.22.0"
+    babel-runtime "^6.22.0"
+    babel-template "^6.22.0"
+    babel-traverse "^6.22.0"
+    babel-types "^6.22.0"
 
 babel-helper-replace-supers@^6.22.0, babel-helper-replace-supers@^6.23.0:
   version "6.23.0"
@@ -390,9 +433,37 @@ babel-plugin-module-resolver@^2.2.0:
     glob "^7.1.1"
     resolve "^1.2.0"
 
+babel-plugin-syntax-async-functions@^6.8.0:
+  version "6.13.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-async-functions/download/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
+
+babel-plugin-syntax-async-generators@^6.5.0:
+  version "6.13.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-async-generators/download/babel-plugin-syntax-async-generators-6.13.0.tgz#6bc963ebb16eccbae6b92b596eb7f35c342a8b9a"
+
+babel-plugin-syntax-class-constructor-call@^6.18.0:
+  version "6.18.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-class-constructor-call/download/babel-plugin-syntax-class-constructor-call-6.18.0.tgz#9cb9d39fe43c8600bec8146456ddcbd4e1a76416"
+
 babel-plugin-syntax-class-properties@^6.8.0:
   version "6.13.0"
   resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-class-properties/download/babel-plugin-syntax-class-properties-6.13.0.tgz#d7eb23b79a317f8543962c505b827c7d6cac27de"
+
+babel-plugin-syntax-decorators@^6.13.0:
+  version "6.13.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-decorators/download/babel-plugin-syntax-decorators-6.13.0.tgz#312563b4dbde3cc806cee3e416cceeaddd11ac0b"
+
+babel-plugin-syntax-dynamic-import@^6.18.0:
+  version "6.18.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-dynamic-import/download/babel-plugin-syntax-dynamic-import-6.18.0.tgz#8d6a26229c83745a9982a441051572caa179b1da"
+
+babel-plugin-syntax-exponentiation-operator@^6.8.0:
+  version "6.13.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-exponentiation-operator/download/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz#9ee7e8337290da95288201a6a57f4170317830de"
+
+babel-plugin-syntax-export-extensions@^6.8.0:
+  version "6.13.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-export-extensions/download/babel-plugin-syntax-export-extensions-6.13.0.tgz#70a1484f0f9089a4e84ad44bac353c95b9b12721"
 
 babel-plugin-syntax-flow@^6.18.0:
   version "6.18.0"
@@ -402,7 +473,39 @@ babel-plugin-syntax-jsx@^6.18.0, babel-plugin-syntax-jsx@^6.3.13, babel-plugin-s
   version "6.18.0"
   resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-jsx/download/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
 
-babel-plugin-transform-class-properties@^6.23.0:
+babel-plugin-syntax-object-rest-spread@^6.8.0:
+  version "6.13.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-object-rest-spread/download/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
+
+babel-plugin-syntax-trailing-function-commas@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-syntax-trailing-function-commas/download/babel-plugin-syntax-trailing-function-commas-6.22.0.tgz#ba0360937f8d06e40180a43fe0d5616fff532cf3"
+
+babel-plugin-transform-async-generator-functions@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-async-generator-functions/download/babel-plugin-transform-async-generator-functions-6.22.0.tgz#a720a98153a7596f204099cd5409f4b3c05bab46"
+  dependencies:
+    babel-helper-remap-async-to-generator "^6.22.0"
+    babel-plugin-syntax-async-generators "^6.5.0"
+    babel-runtime "^6.22.0"
+
+babel-plugin-transform-async-to-generator@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-async-to-generator/download/babel-plugin-transform-async-to-generator-6.22.0.tgz#194b6938ec195ad36efc4c33a971acf00d8cd35e"
+  dependencies:
+    babel-helper-remap-async-to-generator "^6.22.0"
+    babel-plugin-syntax-async-functions "^6.8.0"
+    babel-runtime "^6.22.0"
+
+babel-plugin-transform-class-constructor-call@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-class-constructor-call/download/babel-plugin-transform-class-constructor-call-6.22.0.tgz#11a4d2216abb5b0eef298b493748f4f2f4869120"
+  dependencies:
+    babel-plugin-syntax-class-constructor-call "^6.18.0"
+    babel-runtime "^6.22.0"
+    babel-template "^6.22.0"
+
+babel-plugin-transform-class-properties@^6.22.0:
   version "6.23.0"
   resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-class-properties/download/babel-plugin-transform-class-properties-6.23.0.tgz#187b747ee404399013563c993db038f34754ac3b"
   dependencies:
@@ -410,6 +513,16 @@ babel-plugin-transform-class-properties@^6.23.0:
     babel-plugin-syntax-class-properties "^6.8.0"
     babel-runtime "^6.22.0"
     babel-template "^6.23.0"
+
+babel-plugin-transform-decorators@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-decorators/download/babel-plugin-transform-decorators-6.22.0.tgz#c03635b27a23b23b7224f49232c237a73988d27c"
+  dependencies:
+    babel-helper-explode-class "^6.22.0"
+    babel-plugin-syntax-decorators "^6.13.0"
+    babel-runtime "^6.22.0"
+    babel-template "^6.22.0"
+    babel-types "^6.22.0"
 
 babel-plugin-transform-es2015-arrow-functions@^6.22.0:
   version "6.22.0"
@@ -579,11 +692,33 @@ babel-plugin-transform-es2015-unicode-regex@^6.22.0:
     babel-runtime "^6.22.0"
     regexpu-core "^2.0.0"
 
+babel-plugin-transform-exponentiation-operator@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-exponentiation-operator/download/babel-plugin-transform-exponentiation-operator-6.22.0.tgz#d57c8335281918e54ef053118ce6eb108468084d"
+  dependencies:
+    babel-helper-builder-binary-assignment-operator-visitor "^6.22.0"
+    babel-plugin-syntax-exponentiation-operator "^6.8.0"
+    babel-runtime "^6.22.0"
+
+babel-plugin-transform-export-extensions@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-export-extensions/download/babel-plugin-transform-export-extensions-6.22.0.tgz#53738b47e75e8218589eea946cbbd39109bbe653"
+  dependencies:
+    babel-plugin-syntax-export-extensions "^6.8.0"
+    babel-runtime "^6.22.0"
+
 babel-plugin-transform-flow-strip-types@^6.22.0:
   version "6.22.0"
   resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-flow-strip-types/download/babel-plugin-transform-flow-strip-types-6.22.0.tgz#84cb672935d43714fdc32bce84568d87441cf7cf"
   dependencies:
     babel-plugin-syntax-flow "^6.18.0"
+    babel-runtime "^6.22.0"
+
+babel-plugin-transform-object-rest-spread@^6.22.0:
+  version "6.23.0"
+  resolved "http://registry.npm.qima-inc.com/babel-plugin-transform-object-rest-spread/download/babel-plugin-transform-object-rest-spread-6.23.0.tgz#875d6bc9be761c58a2ae3feee5dc4895d8c7f921"
+  dependencies:
+    babel-plugin-syntax-object-rest-spread "^6.8.0"
     babel-runtime "^6.22.0"
 
 babel-plugin-transform-react-display-name@^6.23.0:
@@ -639,7 +774,7 @@ babel-plugin-transform-vue-jsx@^3.3.0:
   dependencies:
     esutils "^2.0.2"
 
-babel-polyfill@^6.23.0, babel-polyfill@^6.7.4:
+babel-polyfill@^6.23.0:
   version "6.23.0"
   resolved "http://registry.npm.qima-inc.com/babel-polyfill/download/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
   dependencies:
@@ -692,6 +827,33 @@ babel-preset-react@^6.23.0:
     babel-plugin-transform-react-jsx-self "^6.22.0"
     babel-plugin-transform-react-jsx-source "^6.22.0"
     babel-preset-flow "^6.23.0"
+
+babel-preset-stage-1@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-preset-stage-1/download/babel-preset-stage-1-6.22.0.tgz#7da05bffea6ad5a10aef93e320cfc6dd465dbc1a"
+  dependencies:
+    babel-plugin-transform-class-constructor-call "^6.22.0"
+    babel-plugin-transform-export-extensions "^6.22.0"
+    babel-preset-stage-2 "^6.22.0"
+
+babel-preset-stage-2@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-preset-stage-2/download/babel-preset-stage-2-6.22.0.tgz#ccd565f19c245cade394b21216df704a73b27c07"
+  dependencies:
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+    babel-plugin-transform-class-properties "^6.22.0"
+    babel-plugin-transform-decorators "^6.22.0"
+    babel-preset-stage-3 "^6.22.0"
+
+babel-preset-stage-3@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.qima-inc.com/babel-preset-stage-3/download/babel-preset-stage-3-6.22.0.tgz#a4e92bbace7456fafdf651d7a7657ee0bbca9c2e"
+  dependencies:
+    babel-plugin-syntax-trailing-function-commas "^6.22.0"
+    babel-plugin-transform-async-generator-functions "^6.22.0"
+    babel-plugin-transform-async-to-generator "^6.22.0"
+    babel-plugin-transform-exponentiation-operator "^6.22.0"
+    babel-plugin-transform-object-rest-spread "^6.22.0"
 
 babel-register@^6.24.0:
   version "6.24.0"
@@ -753,10 +915,6 @@ bail@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.qima-inc.com/bail/download/bail-1.0.1.tgz#912579de8b391aadf3c5fdf4cd2a0fc225df3bc2"
 
-balanced-match@0.1.0, balanced-match@^0.1.0:
-  version "0.1.0"
-  resolved "http://registry.npm.qima-inc.com/balanced-match/download/balanced-match-0.1.0.tgz#b504bd05869b39259dd0c5efc35d843176dccc4a"
-
 balanced-match@^0.2.0:
   version "0.2.1"
   resolved "http://registry.npm.qima-inc.com/balanced-match/download/balanced-match-0.2.1.tgz#7bc658b4bed61eee424ad74f75f5c3e2c4df3cc7"
@@ -764,6 +922,10 @@ balanced-match@^0.2.0:
 balanced-match@^0.4.1, balanced-match@^0.4.2:
   version "0.4.2"
   resolved "http://registry.npm.qima-inc.com/balanced-match/download/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
+
+balanced-match@0.1.0:
+  version "0.1.0"
+  resolved "http://registry.npm.qima-inc.com/balanced-match/download/balanced-match-0.1.0.tgz#b504bd05869b39259dd0c5efc35d843176dccc4a"
 
 base64-js@^1.0.2:
   version "1.2.0"
@@ -881,7 +1043,7 @@ browserify-zlib@^0.1.4:
   dependencies:
     pako "~0.2.0"
 
-browserslist@^1.0.0, browserslist@^1.0.1, browserslist@^1.5.2, browserslist@^1.7.6:
+browserslist@^1.0.1, browserslist@^1.5.2, browserslist@^1.7.6:
   version "1.7.7"
   resolved "http://registry.npm.qima-inc.com/browserslist/download/browserslist-1.7.7.tgz#0bd76704258be829b2398bb50e4b62d1a166b0b9"
   dependencies:
@@ -1045,9 +1207,13 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
+classnames@^2.2.5:
+  version "2.2.5"
+  resolved "http://registry.npm.qima-inc.com/classnames/download/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 clean-css@4.0.x:
-  version "4.0.9"
-  resolved "http://registry.npm.qima-inc.com/clean-css/download/clean-css-4.0.9.tgz#63ff450b3f939508cc0cd2989bb9daaedc98333e"
+  version "4.0.10"
+  resolved "http://registry.npm.qima-inc.com/clean-css/download/clean-css-4.0.10.tgz#6be448d6ba8c767654ebe11f158b97a887cb713f"
   dependencies:
     source-map "0.5.x"
 
@@ -1105,7 +1271,7 @@ color-string@^0.3.0:
   dependencies:
     color-name "^1.0.0"
 
-color@^0.11.0, color@^0.11.1:
+color@^0.11.0:
   version "0.11.4"
   resolved "http://registry.npm.qima-inc.com/color/download/color-0.11.4.tgz#6d7b5c74fb65e841cd48792ad1ed5e07b904d764"
   dependencies:
@@ -1154,10 +1320,10 @@ commondir@^1.0.1:
   resolved "http://registry.npm.qima-inc.com/commondir/download/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
 
 compressible@~2.0.8:
-  version "2.0.9"
-  resolved "http://registry.npm.qima-inc.com/compressible/download/compressible-2.0.9.tgz#6daab4e2b599c2770dd9e21e7a891b1c5a755425"
+  version "2.0.10"
+  resolved "http://registry.npm.qima-inc.com/compressible/download/compressible-2.0.10.tgz#feda1c7f7617912732b29bf8cf26252a20b9eecd"
   dependencies:
-    mime-db ">= 1.24.0 < 2"
+    mime-db ">= 1.27.0 < 2"
 
 compression@^1.5.2:
   version "1.6.2"
@@ -1320,10 +1486,6 @@ css-color-names@0.0.4:
   version "0.0.4"
   resolved "http://registry.npm.qima-inc.com/css-color-names/download/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
 
-css-font-weight-names@^0.2.1:
-  version "0.2.1"
-  resolved "http://registry.npm.qima-inc.com/css-font-weight-names/download/css-font-weight-names-0.2.1.tgz#5710d485ad295f6b3f1ceec41f882e324a46b516"
-
 css-loader@^0.27.3:
   version "0.27.3"
   resolved "http://registry.npm.qima-inc.com/css-loader/download/css-loader-0.27.3.tgz#69ab6f47b69bfb1b5acee61bac2aab14302ff0dc"
@@ -1341,7 +1503,7 @@ css-loader@^0.27.3:
     postcss-modules-values "^1.1.0"
     source-list-map "^0.1.7"
 
-css-select@^1.2.0, css-select@~1.2.0:
+css-select@~1.2.0:
   version "1.2.0"
   resolved "http://registry.npm.qima-inc.com/css-select/download/css-select-1.2.0.tgz#2b3a110539c5355f1cd8d314623e870b121ec858"
   dependencies:
@@ -1523,7 +1685,7 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
-dom-serializer@0, dom-serializer@^0.1.0, dom-serializer@~0.1.0:
+dom-serializer@~0.1.0, dom-serializer@0:
   version "0.1.0"
   resolved "http://registry.npm.qima-inc.com/dom-serializer/download/dom-serializer-0.1.0.tgz#073c697546ce0780ce23be4a28e293e40bc30c82"
   dependencies:
@@ -1575,8 +1737,8 @@ ee-first@1.1.1:
   resolved "http://registry.npm.qima-inc.com/ee-first/download/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
 electron-to-chromium@^1.2.7:
-  version "1.2.7"
-  resolved "http://registry.npm.qima-inc.com/electron-to-chromium/download/electron-to-chromium-1.2.7.tgz#4f748061407e478c76256d04496972b71f647407"
+  version "1.2.8"
+  resolved "http://registry.npm.qima-inc.com/electron-to-chromium/download/electron-to-chromium-1.2.8.tgz#22c2e6200d350da27d6050db7e3f6f85d18cf4ed"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -1987,8 +2149,8 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1:
     path-is-absolute "^1.0.0"
 
 globals@^9.0.0:
-  version "9.16.0"
-  resolved "http://registry.npm.qima-inc.com/globals/download/globals-9.16.0.tgz#63e903658171ec2d9f51b1d31de5e2b8dc01fb80"
+  version "9.17.0"
+  resolved "http://registry.npm.qima-inc.com/globals/download/globals-9.17.0.tgz#0c0ca696d9b9bb694d2e5470bd37777caad50286"
 
 globby@^3.0.1:
   version "3.0.1"
@@ -2087,13 +2249,6 @@ hast-util-is-element@^1.0.0:
 hast-util-parse-selector@^2.0.0:
   version "2.1.0"
   resolved "http://registry.npm.qima-inc.com/hast-util-parse-selector/download/hast-util-parse-selector-2.1.0.tgz#b55c0f4bb7bb2040c889c325ef87ab29c38102b4"
-
-hast-util-sanitize@^1.0.0:
-  version "1.1.0"
-  resolved "http://registry.npm.qima-inc.com/hast-util-sanitize/download/hast-util-sanitize-1.1.0.tgz#9b4bc3731043fe92e1253a9a4ca7bcc4148d06f2"
-  dependencies:
-    has "^1.0.1"
-    xtend "^4.0.1"
 
 hast-util-to-html@^3.0.0:
   version "3.0.0"
@@ -2214,7 +2369,7 @@ html-void-elements@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.qima-inc.com/html-void-elements/download/html-void-elements-1.0.1.tgz#f929bea267a19e3535950502ca12c159f1b559af"
 
-htmlparser2@^3.9.0, htmlparser2@^3.9.1:
+htmlparser2@^3.9.1:
   version "3.9.2"
   resolved "http://registry.npm.qima-inc.com/htmlparser2/download/htmlparser2-3.9.2.tgz#1bdf87acca0f3f9e53fa4fcceb0f4b4cbb00b338"
   dependencies:
@@ -2284,10 +2439,6 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "http://registry.npm.qima-inc.com/https-browserify/download/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-humps@^1.1.0:
-  version "1.1.0"
-  resolved "http://registry.npm.qima-inc.com/humps/download/humps-1.1.0.tgz#99a05cc80b13ae754a3d1e1a92182f271ef1d98f"
-
 iconv-lite@~0.4.13:
   version "0.4.15"
   resolved "http://registry.npm.qima-inc.com/iconv-lite/download/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
@@ -2341,9 +2492,9 @@ invert-kv@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.qima-inc.com/invert-kv/download/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
 
-ipaddr.js@1.2.0:
-  version "1.2.0"
-  resolved "http://registry.npm.qima-inc.com/ipaddr.js/download/ipaddr.js-1.2.0.tgz#8aba49c9192799585bdd643e0ccb50e8ae777ba4"
+ipaddr.js@1.3.0:
+  version "1.3.0"
+  resolved "http://registry.npm.qima-inc.com/ipaddr.js/download/ipaddr.js-1.3.0.tgz#1e03a52fdad83a8bbb2b25cbf4998b4cffcd3dec"
 
 is-absolute-url@^2.0.0:
   version "2.1.0"
@@ -2494,9 +2645,13 @@ isarray@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.qima-inc.com/isarray/download/isarray-2.0.1.tgz#a37d94ed9cda2d59865c9f76fe596ee1f338741e"
 
-isexe@^1.1.1:
-  version "1.1.2"
-  resolved "http://registry.npm.qima-inc.com/isexe/download/isexe-1.1.2.tgz#36f3e22e60750920f5e7241a476a8c6a42275ad0"
+isarray@0.0.1:
+  version "0.0.1"
+  resolved "http://registry.npm.qima-inc.com/isarray/download/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
+
+isexe@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.qima-inc.com/isexe/download/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
 
 isobject@^2.0.0:
   version "2.1.0"
@@ -2703,10 +2858,6 @@ loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
-lodash._reinterpolate@~3.0.0:
-  version "3.0.0"
-  resolved "http://registry.npm.qima-inc.com/lodash._reinterpolate/download/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
-
 lodash.assignin@^4.0.9:
   version "4.2.0"
   resolved "http://registry.npm.qima-inc.com/lodash.assignin/download/lodash.assignin-4.2.0.tgz#ba8df5fb841eb0a3e8044232b0e263a8dc6a28a2"
@@ -2762,19 +2913,6 @@ lodash.reject@^4.4.0:
 lodash.some@^4.4.0:
   version "4.6.0"
   resolved "http://registry.npm.qima-inc.com/lodash.some/download/lodash.some-4.6.0.tgz#1bb9f314ef6b8baded13b549169b2a945eb68e4d"
-
-lodash.template@^4.2.4:
-  version "4.4.0"
-  resolved "http://registry.npm.qima-inc.com/lodash.template/download/lodash.template-4.4.0.tgz#e73a0385c8355591746e020b99679c690e68fba0"
-  dependencies:
-    lodash._reinterpolate "~3.0.0"
-    lodash.templatesettings "^4.0.0"
-
-lodash.templatesettings@^4.0.0:
-  version "4.1.0"
-  resolved "http://registry.npm.qima-inc.com/lodash.templatesettings/download/lodash.templatesettings-4.1.0.tgz#2b4d4e95ba440d915ff08bc899e4553666713316"
-  dependencies:
-    lodash._reinterpolate "~3.0.0"
 
 lodash.uniq@^4.3.0:
   version "4.5.0"
@@ -2860,7 +2998,7 @@ mdast-util-definitions@^1.2.0:
     has "^1.0.1"
     unist-util-visit "^1.0.0"
 
-mdast-util-to-hast@^2.1.1:
+mdast-util-to-hast@^2.4.0:
   version "2.4.0"
   resolved "http://registry.npm.qima-inc.com/mdast-util-to-hast/download/mdast-util-to-hast-2.4.0.tgz#63ce8e43c61d8e5728954a3515e0c936a3b26cea"
   dependencies:
@@ -2929,19 +3067,15 @@ miller-rabin@^4.0.0:
     bn.js "^4.0.0"
     brorand "^1.0.1"
 
-"mime-db@>= 1.24.0 < 2":
+"mime-db@>= 1.27.0 < 2", mime-db@~1.27.0:
   version "1.27.0"
   resolved "http://registry.npm.qima-inc.com/mime-db/download/mime-db-1.27.0.tgz#820f572296bbd20ec25ed55e5b5de869e5436eb1"
 
-mime-db@~1.26.0:
-  version "1.26.0"
-  resolved "http://registry.npm.qima-inc.com/mime-db/download/mime-db-1.26.0.tgz#eaffcd0e4fc6935cf8134da246e2e6c35305adff"
-
 mime-types@^2.1.12, mime-types@~2.1.11, mime-types@~2.1.13, mime-types@~2.1.7:
-  version "2.1.14"
-  resolved "http://registry.npm.qima-inc.com/mime-types/download/mime-types-2.1.14.tgz#f7ef7d97583fcaf3b7d282b6f8b5679dab1e94ee"
+  version "2.1.15"
+  resolved "http://registry.npm.qima-inc.com/mime-types/download/mime-types-2.1.15.tgz#a4ebf5064094569237b8cf70046776d09fc92aed"
   dependencies:
-    mime-db "~1.26.0"
+    mime-db "~1.27.0"
 
 mime@1.3.4, mime@1.3.x, mime@^1.3.4:
   version "1.3.4"
@@ -3360,14 +3494,6 @@ pinyin@^2.8.2:
   optionalDependencies:
     nodejieba "^2.2.1"
 
-pixrem@^3.0.2:
-  version "3.0.2"
-  resolved "http://registry.npm.qima-inc.com/pixrem/download/pixrem-3.0.2.tgz#30d1bafb4c3bdce8e9bb4bd56a13985619320c34"
-  dependencies:
-    browserslist "^1.0.0"
-    postcss "^5.0.0"
-    reduce-css-calc "^1.2.7"
-
 pkg-dir@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.qima-inc.com/pkg-dir/download/pkg-dir-1.0.0.tgz#7a4b508a8d5bb2d629d447056ff4e9c9314cf3d4"
@@ -3394,7 +3520,7 @@ postcss-atroot@^0.1.2:
   dependencies:
     postcss "^5.0.5"
 
-postcss-calc@^5.0.0, postcss-calc@^5.2.0:
+postcss-calc@^5.2.0:
   version "5.3.1"
   resolved "http://registry.npm.qima-inc.com/postcss-calc/download/postcss-calc-5.3.1.tgz#77bae7ca928ad85716e2fda42f261bf7c1d65b5e"
   dependencies:
@@ -3425,12 +3551,6 @@ postcss-convert-values@^2.3.4:
   dependencies:
     postcss "^5.0.11"
     postcss-value-parser "^3.1.2"
-
-postcss-css-reset@^1.0.2:
-  version "1.0.2"
-  resolved "http://registry.npm.qima-inc.com/postcss-css-reset/download/postcss-css-reset-1.0.2.tgz#769f2d62d3f1f76e2600fb4f79066399bebe2bd8"
-  dependencies:
-    postcss "^5.0.19"
 
 postcss-custom-media@^5.0.0:
   version "5.0.1"
@@ -3510,13 +3630,6 @@ postcss-filter-plugins@^2.0.0:
     postcss "^5.0.4"
     uniqid "^4.0.0"
 
-postcss-font-weights@^2.0.1:
-  version "2.0.1"
-  resolved "http://registry.npm.qima-inc.com/postcss-font-weights/download/postcss-font-weights-2.0.1.tgz#a85dd7b51aa7691b95c9bc0269f412756c91931d"
-  dependencies:
-    css-font-weight-names "^0.2.1"
-    postcss "^5.0.12"
-
 postcss-import@^9.1.0:
   version "9.1.0"
   resolved "http://registry.npm.qima-inc.com/postcss-import/download/postcss-import-9.1.0.tgz#95fe9876a1e79af49fbdc3589f01fe5aa7cc1e80"
@@ -3527,25 +3640,6 @@ postcss-import@^9.1.0:
     promise-each "^2.2.0"
     read-cache "^1.0.0"
     resolve "^1.1.7"
-
-postcss-initial@^1.3.1:
-  version "1.5.3"
-  resolved "http://registry.npm.qima-inc.com/postcss-initial/download/postcss-initial-1.5.3.tgz#20c3e91c96822ddb1bed49508db96d56bac377d0"
-  dependencies:
-    lodash.template "^4.2.4"
-    postcss "^5.0.19"
-
-postcss-inline-svg@^1.4.0:
-  version "1.4.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-inline-svg/download/postcss-inline-svg-1.4.0.tgz#514651f84ea9aba8526d5d1cf3d89aa43696c274"
-  dependencies:
-    css-select "^1.2.0"
-    dom-serializer "^0.1.0"
-    htmlparser2 "^3.9.0"
-    object-assign "^4.0.1"
-    postcss "^5.0.14"
-    postcss-value-parser "^3.2.3"
-    read-cache "^1.0.0"
 
 postcss-load-config@^1.1.0, postcss-load-config@^1.2.0:
   version "1.2.0"
@@ -3681,13 +3775,6 @@ postcss-modules-values@^1.1.0:
     icss-replace-symbols "^1.0.2"
     postcss "^5.0.14"
 
-postcss-neat@^2.5.2:
-  version "2.5.2"
-  resolved "http://registry.npm.qima-inc.com/postcss-neat/download/postcss-neat-2.5.2.tgz#3943f2dcf5f4182d2fcb33fd6be2fcbee8e6e158"
-  dependencies:
-    babel-polyfill "^6.7.4"
-    postcss "^5.0.19"
-
 postcss-nested@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.qima-inc.com/postcss-nested/download/postcss-nested-1.0.0.tgz#d136bd4b576bd5632df142c12b2198a9ccf794df"
@@ -3740,13 +3827,6 @@ postcss-property-lookup@^1.1.3:
     postcss "^5.0.4"
     tcomb "^2.5.1"
 
-postcss-pseudo-class-any-link@^1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-pseudo-class-any-link/download/postcss-pseudo-class-any-link-1.0.0.tgz#903239196401d335fe73ac756186fa62e693af26"
-  dependencies:
-    postcss "^5.0.3"
-    postcss-selector-parser "^1.1.4"
-
 postcss-reduce-idents@^2.2.2:
   version "2.4.0"
   resolved "http://registry.npm.qima-inc.com/postcss-reduce-idents/download/postcss-reduce-idents-2.4.0.tgz#c2c6d20cc958284f6abfbe63f7609bf409059ad3"
@@ -3768,21 +3848,6 @@ postcss-reduce-transforms@^1.0.3:
     postcss "^5.0.8"
     postcss-value-parser "^3.0.1"
 
-postcss-sass-color-functions@^1.1.0:
-  version "1.1.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-sass-color-functions/download/postcss-sass-color-functions-1.1.0.tgz#6ed267fd9ffe8008332d3ad6ccb7f0a9e9e8f1e9"
-  dependencies:
-    balanced-match "^0.1.0"
-    color "^0.11.1"
-    postcss "^5.0.4"
-    postcss-message-helpers "^2.0.0"
-
-postcss-scss@^0.1.7:
-  version "0.1.9"
-  resolved "http://registry.npm.qima-inc.com/postcss-scss/download/postcss-scss-0.1.9.tgz#7606caff64bb4b34b7605ab749574cf78d886b08"
-  dependencies:
-    postcss "^5.1.0"
-
 postcss-selector-matches@^2.0.0:
   version "2.0.5"
   resolved "http://registry.npm.qima-inc.com/postcss-selector-matches/download/postcss-selector-matches-2.0.5.tgz#fa0f43be57b68e77aa4cd11807023492a131027f"
@@ -3797,14 +3862,6 @@ postcss-selector-not@^2.0.0:
     balanced-match "^0.2.0"
     postcss "^5.0.0"
 
-postcss-selector-parser@^1.1.4:
-  version "1.3.3"
-  resolved "http://registry.npm.qima-inc.com/postcss-selector-parser/download/postcss-selector-parser-1.3.3.tgz#d2ee19df7a64f8ef21c1a71c86f7d4835c88c281"
-  dependencies:
-    flatten "^1.0.2"
-    indexes-of "^1.0.1"
-    uniq "^1.0.1"
-
 postcss-selector-parser@^2.0.0, postcss-selector-parser@^2.2.2:
   version "2.2.3"
   resolved "http://registry.npm.qima-inc.com/postcss-selector-parser/download/postcss-selector-parser-2.2.3.tgz#f9437788606c3c9acee16ffe8d8b16297f27bb90"
@@ -3812,77 +3869,6 @@ postcss-selector-parser@^2.0.0, postcss-selector-parser@^2.2.2:
     flatten "^1.0.2"
     indexes-of "^1.0.1"
     uniq "^1.0.1"
-
-postcss-shape@^0.0.1:
-  version "0.0.1"
-  resolved "http://registry.npm.qima-inc.com/postcss-shape/download/postcss-shape-0.0.1.tgz#a3747b1c1e006a1b18c071ff0e980632e8a0be85"
-  dependencies:
-    postcss "^5.0.19"
-
-postcss-short-border@^1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-border/download/postcss-short-border-1.0.0.tgz#7519868e9863ccd69ad5af4b986e1d99f1f5bee4"
-  dependencies:
-    postcss "^5.0.8"
-
-postcss-short-color@^1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-color/download/postcss-short-color-1.0.0.tgz#c7b79c9b4b66120dde5f648091ae7d4ba86e3a76"
-  dependencies:
-    postcss "^5.0.4"
-
-postcss-short-data@^1.1.0:
-  version "1.1.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-data/download/postcss-short-data-1.1.0.tgz#4e7ac80a173b6ec4dde0acd8205cd282cb4f8330"
-  dependencies:
-    postcss "^5.0.12"
-
-postcss-short-font-size@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-font-size/download/postcss-short-font-size-1.0.1.tgz#7adc71eccfd1d2a8171113a108b95214256c3dd6"
-  dependencies:
-    postcss "^5.0.4"
-
-postcss-short-position@^1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-position/download/postcss-short-position-1.0.0.tgz#32bf54df3597ed56fe4e1bab216d4759cb2f75de"
-  dependencies:
-    postcss "^5.0.5"
-
-postcss-short-size@^1.0.0:
-  version "1.1.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-size/download/postcss-short-size-1.1.0.tgz#4a7c9c5bd9b21f5f68457521b0cfaddb9e1727b1"
-  dependencies:
-    postcss "^5.0.19"
-
-postcss-short-spacing@^1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-spacing/download/postcss-short-spacing-1.0.0.tgz#cb19037e61213d0c872b486fdb5c601a4ea9571d"
-  dependencies:
-    postcss "^5.0.4"
-
-postcss-short-text@^1.1.0:
-  version "1.1.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short-text/download/postcss-short-text-1.1.0.tgz#93c4ee645a09262df45c1a7f53421184f0ecb14b"
-  dependencies:
-    object-assign "^4.0.1"
-    postcss "^5.0.4"
-
-postcss-short@^1.4.0:
-  version "1.4.0"
-  resolved "http://registry.npm.qima-inc.com/postcss-short/download/postcss-short-1.4.0.tgz#20d16ed87d1d6a2ca04ec5eb949ed100dc3c1a2a"
-  dependencies:
-    object-assign "^4.0.1"
-    postcss "^5.0.12"
-    postcss-font-weights "^2.0.1"
-    postcss-short-border "^1.0.0"
-    postcss-short-color "^1.0.0"
-    postcss-short-data "^1.1.0"
-    postcss-short-font-size "^1.0.1"
-    postcss-short-position "^1.0.0"
-    postcss-short-size "^1.0.0"
-    postcss-short-spacing "^1.0.0"
-    postcss-short-text "^1.1.0"
 
 postcss-simple-vars@^1.0.1:
   version "1.2.0"
@@ -3907,13 +3893,6 @@ postcss-unique-selectors@^2.0.2:
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
-postcss-utils@^1.0.1:
-  version "1.0.2"
-  resolved "http://registry.npm.qima-inc.com/postcss-utils/download/postcss-utils-1.0.2.tgz#36ca83b78279b5a7aa01d87f7e81f71f4b22ca2a"
-  dependencies:
-    humps "^1.1.0"
-    postcss "^5.0.19"
-
 postcss-value-parser@^3.0.1, postcss-value-parser@^3.0.2, postcss-value-parser@^3.1.1, postcss-value-parser@^3.1.2, postcss-value-parser@^3.2.3, postcss-value-parser@^3.3.0:
   version "3.3.0"
   resolved "http://registry.npm.qima-inc.com/postcss-value-parser/download/postcss-value-parser-3.3.0.tgz#87f38f9f18f774a4ab4c8a232f5c5ce8872a9d15"
@@ -3926,7 +3905,7 @@ postcss-zindex@^2.0.1:
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
-postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.15, postcss@^5.0.16, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.3, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.1.0, postcss@^5.1.2, postcss@^5.2.15, postcss@^5.2.16:
+postcss@^5.0.0, postcss@^5.0.10, postcss@^5.0.11, postcss@^5.0.12, postcss@^5.0.13, postcss@^5.0.14, postcss@^5.0.15, postcss@^5.0.16, postcss@^5.0.19, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.6, postcss@^5.0.8, postcss@^5.1.2, postcss@^5.2.15, postcss@^5.2.16:
   version "5.2.16"
   resolved "http://registry.npm.qima-inc.com/postcss/download/postcss-5.2.16.tgz#732b3100000f9ff8379a48a53839ed097376ad57"
   dependencies:
@@ -4001,11 +3980,11 @@ proto-list@~1.2.1:
   resolved "http://registry.npm.qima-inc.com/proto-list/download/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
 
 proxy-addr@~1.1.3:
-  version "1.1.3"
-  resolved "http://registry.npm.qima-inc.com/proxy-addr/download/proxy-addr-1.1.3.tgz#dc97502f5722e888467b3fa2297a7b1ff47df074"
+  version "1.1.4"
+  resolved "http://registry.npm.qima-inc.com/proxy-addr/download/proxy-addr-1.1.4.tgz#27e545f6960a44a627d9b44467e35c1b6b4ce2f3"
   dependencies:
     forwarded "~0.1.0"
-    ipaddr.js "1.2.0"
+    ipaddr.js "1.3.0"
 
 prr@~0.0.0:
   version "0.0.0"
@@ -4156,7 +4135,7 @@ recast@~0.11.12:
     private "~0.1.5"
     source-map "~0.5.0"
 
-reduce-css-calc@^1.2.6, reduce-css-calc@^1.2.7:
+reduce-css-calc@^1.2.6:
   version "1.3.0"
   resolved "http://registry.npm.qima-inc.com/reduce-css-calc/download/reduce-css-calc-1.3.0.tgz#747c914e049614a4c9cfbba629871ad1d2927716"
   dependencies:
@@ -4237,15 +4216,6 @@ rehype-stringify@^3.0.0:
 relateurl@0.2.x:
   version "0.2.7"
   resolved "http://registry.npm.qima-inc.com/relateurl/download/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
-
-remark-html@^6.0.0:
-  version "6.0.0"
-  resolved "http://registry.npm.qima-inc.com/remark-html/download/remark-html-6.0.0.tgz#ade7d94b60e452158f28615218450682601dbfc1"
-  dependencies:
-    hast-util-sanitize "^1.0.0"
-    hast-util-to-html "^3.0.0"
-    mdast-util-to-hast "^2.1.1"
-    xtend "^4.0.1"
 
 remark-parse@^3.0.0:
   version "3.0.0"
@@ -4498,9 +4468,9 @@ source-list-map@^0.1.7:
   version "0.1.8"
   resolved "http://registry.npm.qima-inc.com/source-list-map/download/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
-source-list-map@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.qima-inc.com/source-list-map/download/source-list-map-1.0.1.tgz#cc1fc17122ae0a51978024c2cc0f8c35659026b8"
+source-list-map@^1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.qima-inc.com/source-list-map/download/source-list-map-1.1.1.tgz#1a33ac210ca144d1e561f906ebccab5669ff4cb4"
 
 source-map-support@^0.4.2:
   version "0.4.14"
@@ -4806,13 +4776,14 @@ uc.micro@^1.0.1, uc.micro@^1.0.3:
   version "1.0.3"
   resolved "http://registry.npm.qima-inc.com/uc.micro/download/uc.micro-1.0.3.tgz#7ed50d5e0f9a9fb0a573379259f2a77458d50192"
 
-uglify-js@2.8.x, uglify-js@^2.8.5:
-  version "2.8.14"
-  resolved "http://registry.npm.qima-inc.com/uglify-js/download/uglify-js-2.8.14.tgz#25b15d1af39b21752ee33703adbf432e8bc8f77d"
+uglify-js@^2.8.5, uglify-js@2.8.x:
+  version "2.8.16"
+  resolved "http://registry.npm.qima-inc.com/uglify-js/download/uglify-js-2.8.16.tgz#d286190b6eefc6fd65eb0ecac6551e0b0e8839a4"
   dependencies:
     source-map "~0.5.1"
-    uglify-to-browserify "~1.0.0"
     yargs "~3.10.0"
+  optionalDependencies:
+    uglify-to-browserify "~1.0.0"
 
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
@@ -5106,16 +5077,16 @@ webpack-dev-server@^2.4.2:
     webpack-dev-middleware "^1.9.0"
     yargs "^6.0.0"
 
-webpack-sources@^0.2.0:
-  version "0.2.0"
-  resolved "http://registry.npm.qima-inc.com/webpack-sources/download/webpack-sources-0.2.0.tgz#fea93ba840f16cdd3f246f0ee95f88a9492c69fb"
+webpack-sources@^0.2.3:
+  version "0.2.3"
+  resolved "http://registry.npm.qima-inc.com/webpack-sources/download/webpack-sources-0.2.3.tgz#17c62bfaf13c707f9d02c479e0dcdde8380697fb"
   dependencies:
-    source-list-map "^1.0.1"
+    source-list-map "^1.1.1"
     source-map "~0.5.3"
 
 webpack@^2.2.1:
-  version "2.3.0"
-  resolved "http://registry.npm.qima-inc.com/webpack/download/webpack-2.3.0.tgz#0ae2d90350a7d48a44fddd7dd85c855642bc042e"
+  version "2.3.2"
+  resolved "http://registry.npm.qima-inc.com/webpack/download/webpack-2.3.2.tgz#7d521e6f0777a3a58985c69425263fdfe977b458"
   dependencies:
     acorn "^4.0.4"
     acorn-dynamic-import "^2.0.0"
@@ -5135,7 +5106,7 @@ webpack@^2.2.1:
     tapable "~0.2.5"
     uglify-js "^2.8.5"
     watchpack "^1.3.1"
-    webpack-sources "^0.2.0"
+    webpack-sources "^0.2.3"
     yargs "^6.0.0"
 
 websocket-driver@>=0.5.1:
@@ -5167,10 +5138,10 @@ which-module@^1.0.0:
   resolved "http://registry.npm.qima-inc.com/which-module/download/which-module-1.0.0.tgz#bba63ca861948994ff307736089e3b96026c2a4f"
 
 which@^1.2.9:
-  version "1.2.12"
-  resolved "http://registry.npm.qima-inc.com/which/download/which-1.2.12.tgz#de67b5e450269f194909ef23ece4ebe416fa1192"
+  version "1.2.14"
+  resolved "http://registry.npm.qima-inc.com/which/download/which-1.2.14.tgz#9a87c4378f03e827cecaf1acdf56c736c01c14e5"
   dependencies:
-    isexe "^1.1.1"
+    isexe "^2.0.0"
 
 wide-align@^1.1.0:
   version "1.1.0"
@@ -5267,8 +5238,8 @@ zandoc-loader-utils@^1.0.0:
   resolved "http://registry.npm.qima-inc.com/zandoc-loader-utils/download/zandoc-loader-utils-1.0.0.tgz#680d99416a9eb840e888f6a1eba616c12f670a1d"
 
 zandoc-loader@^1.0.2:
-  version "1.0.3"
-  resolved "http://registry.npm.qima-inc.com/zandoc-loader/download/zandoc-loader-1.0.3.tgz#c0c310e14e660f9494b4aa75415565a9f3cf0ccf"
+  version "1.0.4"
+  resolved "http://registry.npm.qima-inc.com/zandoc-loader/download/zandoc-loader-1.0.4.tgz#4b7726ca2dd08542c55af2226483726029bf42df"
   dependencies:
     hast-util-is-css-style "^1.0.0"
     hast-util-to-string "^1.0.0"
@@ -5281,9 +5252,9 @@ zandoc-loader@^1.0.2:
     unist-util-remove-position "^1.1.0"
     unist-util-visit "^1.1.1"
 
-zandoc-react-loader@1.0.8:
-  version "1.0.8"
-  resolved "https://registry.npmjs.org/zandoc-react-loader/-/zandoc-react-loader-1.0.8.tgz#f7d2e4057cdd29e462b4b3ee18567dc48f685472"
+zandoc-react-loader@^1.0.2:
+  version "1.0.10"
+  resolved "http://registry.npm.qima-inc.com/zandoc-react-loader/download/zandoc-react-loader-1.0.10.tgz#f939cbe958ad64419fb5579f02bc5718fb027063"
   dependencies:
     autoprefixer "^6.7.7"
     babel-generator "^6.24.0"
@@ -5291,14 +5262,18 @@ zandoc-react-loader@1.0.8:
     babel-traverse "^6.23.1"
     babel-types "^6.23.0"
     babylon "^6.16.1"
+    hast-util-to-html "^3.0.0"
     highlight.js "^9.10.0"
     loader-utils "^1.1.0"
     lodash "^4.17.4"
+    mdast-util-to-hast "^2.4.0"
     mdast-util-to-string "^1.0.2"
     pinyin "^2.8.2"
     postcss "^5.2.16"
     precss "^1.4.0"
-    remark-html "^6.0.0"
+    rehype-parse "^3.1.0"
     unified "^6.1.1"
     unist-builder "^1.0.2"
+    unist-util-is "^2.0.0"
+    unist-util-visit "^1.1.1"
     zandoc-loader-utils "^1.0.0"
