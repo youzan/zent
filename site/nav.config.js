@@ -72,6 +72,7 @@ module.exports = {
               title: 'Pagination 分页',
               filePath() {
                 return System.import('../packages/zent-pagination/README.md')
+              }
             }, {
               path: '/tabs',
               title: 'Tabs 选项卡',
@@ -95,6 +96,7 @@ module.exports = {
               title: 'Tree 树',
               filePath() {
                 return System.import('../packages/zent-tree/README.md')
+              }
             }, {
               path: '/select',
               title: 'Select 选项',
