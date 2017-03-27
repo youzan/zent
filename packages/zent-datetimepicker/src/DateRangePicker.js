@@ -291,7 +291,7 @@ class DateRangePicker extends Component {
         'range-picker--showTime': props.showTime
       });
       rangePicker = (
-        <div className={pickerCls}>
+        <div className={pickerCls} ref={ref => this.picker = ref}>
           <div className="date-picker">
             <DatePanel
               range={state.range}
@@ -355,7 +355,6 @@ class DateRangePicker extends Component {
     return (
       <div className={prefixCls}>
         <Popover
-          ref={ref => this.picker = ref}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}

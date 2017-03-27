@@ -117,7 +117,7 @@ class MonthPicker extends Component {
     let monthPicker;
     if (state.openPanel) {
       monthPicker = (
-        <div className="month-picker">
+        <div className="month-picker" ref={ref => this.picker = ref}>
           <MonthPanel
             actived={state.actived}
             selected={state.selected}
@@ -157,7 +157,6 @@ class MonthPicker extends Component {
     return (
       <div className={wrapperCls}>
         <Popover
-          ref={ref => this.picker = ref}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
