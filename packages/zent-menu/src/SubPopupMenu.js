@@ -14,9 +14,9 @@ export default class PopupMenu extends CommonMenu {
     overlayCx: PropTypes.string
   };
 
-  handleClick = (index, e) => {
+  handleClick = (e, index) => {
     const { onClick } = this.props;
-    onClick(index, e);
+    onClick(e, index);
   }
 
   renderSubMenuItems = (c, i) => {

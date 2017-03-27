@@ -15,8 +15,8 @@
 ```js
 import { Menu } from 'zent';
 const { MenuItem, SubMenu } = Menu;
-const clickHandler = function(key, event) {
-	console.log(key, event);
+const clickHandler = function(event, key) {
+	console.log(event, key);
 };
 ReactDOM.render(
 	<div className="zent-menu-simple-wrapper">
@@ -42,8 +42,8 @@ ReactDOM.render(
 ```js
 import { Menu } from 'zent';
 const { MenuItem, SubMenu } = Menu;
-const clickHandler = function(key, event) {
-	console.log(key, event);
+const clickHandler = function(event, key) {
+	console.log(event, key);
 }
 ReactDOM.render(
 	<div className="zent-menu-simple-wrapper">
@@ -82,7 +82,7 @@ ReactDOM.render(
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | prefix | 自定义前缀 | string | 'zent' |
-| onClick | 点击事件统一代理回调 | func(key: string, event) |  |
+| onClick | 点击事件统一代理回调 | func(e:event, key: string) |  |
 | className | 菜单整体自定义类名 | string |  |
 
 #### MenuItem

@@ -24,10 +24,10 @@ export default class SubMenu extends Component {
     };
   }
 
-  handleClick = (index, e) => {
+  handleClick = (e, index) => {
     const { onClick, fade } = this.props;
     this.setState({ subMenuVisible: false });
-    onClick(index, e);
+    onClick(e, index);
   }
 
   renderContent = () => {

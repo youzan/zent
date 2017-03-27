@@ -22,7 +22,7 @@ export default class Menu extends CommonMenu {
 
   handleClick = (index, e) => {
     const { onClick } = this.props;
-    onClick(index, e);
+    onClick(e, index);
   }
 
   renderMenuItem = (c, i, index) => {
