@@ -353,8 +353,9 @@ class DateRangePicker extends Component {
     });
 
     return (
-      <div className={prefixCls} ref={ref => this.picker = ref}>
+      <div className={prefixCls}>
         <Popover
+          ref={ref => this.picker = ref}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}

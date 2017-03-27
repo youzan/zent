@@ -231,7 +231,7 @@ class DatePicker extends Component {
       });
 
       datePicker = (
-        <div className="date-picker">
+        <div className="date-picker" ref={ref => this.picker = ref}>
           <DatePanel
             showTime={showTime}
             actived={state.actived}
@@ -273,7 +273,7 @@ class DatePicker extends Component {
     });
 
     return (
-      <div className={wrapperCls} ref={ref => this.picker = ref}>
+      <div className={wrapperCls} >
         <Popover
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
