@@ -27,7 +27,3 @@ export default class Checkbox extends Component {
     );
   }
 }
-
-// Checkbox.propTypes = {
-//   isChecked: PropTypes.bool
-// }

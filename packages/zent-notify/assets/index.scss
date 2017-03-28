@@ -10,6 +10,7 @@
     border-radius:2px;
     box-shadow:0 1px 4px rgba(0,0,0,0.4);
     z-index: 10000;
+    min-height: 40px;
     &.zent-notify-success{
         border:1px solid #3aa074;
         background: #45b182;

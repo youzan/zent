@@ -11,12 +11,12 @@ export default class MenuItem extends Component {
     prefix: 'zent'
   };
 
-  onClick = (ev) => {
+  onClick = (e) => {
     const { index, onClick, disabled } = this.props;
 
     if (disabled) return;
 
-    onClick(index, ev);
+    onClick(e, index);
   }
 
   render() {

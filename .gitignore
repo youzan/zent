@@ -8,4 +8,4 @@ coverage
 packages/*/coverage
 .vscode/
 .felintrc
-yarn.lock
+.idea/

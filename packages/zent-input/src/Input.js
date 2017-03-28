@@ -16,13 +16,14 @@ export default class Input extends Component {
     addonAfter: PropTypes.node,
     onPressEnter: PropTypes.func,
     onChange: PropTypes.func
-  };
+  }
 
   static defaultProps = {
     disabled: false,
     readOnly: false,
-    prefix: 'zent'
-  };
+    prefix: 'zent',
+    type: 'text'
+  }
 
   handleKeyDown = evt => {
     const { onKeyDown, onPressEnter } = this.props;
@@ -31,18 +32,29 @@ export default class Input extends Component {
     }
 
     if (onKeyDown) onKeyDown(evt);
-  };
+  }
 
   render() {
-    const { addonBefore, addonAfter, prefix, className } = this.props;
+    const { addonBefore, addonAfter, prefix, className, type } = this.props;
+    const isTextarea = type.toLowerCase() === 'textarea';
 
     const wrapClass = classNames({
       [`${prefix}-input-wrapper`]: true,
-      [`${prefix}-input-addons`]: addonAfter || addonBefore
+      [`${prefix}-textarea-wrapper`]: isTextarea,
+      [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore)
     }, className);
 
     // 黑名单，下面这些props不应该带入到Input上
     let inputProps = omit(this.props, ['className', 'prefix', 'addonBefore', 'addonAfter', 'onPressEnter']);
+
+    if (isTextarea) {
+      inputProps = omit(inputProps, ['type']);
+      return (
+        <div className={wrapClass} >
+          <textarea className={`${prefix}-textarea`} {...inputProps} onKeyDown={this.handleKeyDown}></textarea>
+        </div>
+      );
+    }
 
     return (
       <div className={wrapClass} >

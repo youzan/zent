@@ -15,6 +15,11 @@ export default class Range extends Component {
       range2: ['2017-01-01 00:00:00', '2017-06-01 00:00:00']
     };
   }
+  isDisabledDate(val) {
+    if (val.getMonth() % 2 === 0) {
+      return true;
+    }
+  }
   isDisabledRangeTime(type) {
     const disabledHour = (val) => {
       return type === 'start' ? val < 12 : val > 12;
@@ -54,7 +59,6 @@ export default class Range extends Component {
     return (
       <div>
         <DateRangePicker
-          disabledDate={this.state.range}
           disabled
           value={state.value}
           onChange={this.onChangeRange}
@@ -62,7 +66,7 @@ export default class Range extends Component {
         <br />
         <br />
         <DateRangePicker
-          disabledDate={state.range}
+          disabledDate={this.isDisabledDate}
           onChange={this.onChangeRange}
           value={state.value}
         />
@@ -70,7 +74,8 @@ export default class Range extends Component {
         <br />
         <DateRangePicker
           showTime
-          disabledDate={state.range2}
+          min={state.range2[0]}
+          max={state.range2[1]}
           disabledTime={this.isDisabledRangeTime}
           onChange={this.onChangeRangeTime}
           value={state.value2}

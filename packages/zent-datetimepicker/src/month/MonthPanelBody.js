@@ -10,8 +10,9 @@ export default class MonthPanelBody extends Component {
   isSelected(val) {
     return val === this.props.actived.getMonth();
   }
+
   getMonths() {
-    let months = [];
+    const months = [];
     let index = 0;
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
       months[rowIndex] = [];
@@ -31,15 +32,18 @@ export default class MonthPanelBody extends Component {
         index++;
       }
     }
+
     return months;
   }
 
   render() {
-    let months = this.getMonths();
+    const { onSelect } = this.props;
+    const months = this.getMonths();
+
     return (
-      <table className="month-table panel__table">
-        <PanelCell onSelect={this.props.onSelect} cells={months} />
-      </table>
+      <div className="month-table panel-table">
+        <PanelCell onSelect={onSelect} cells={months} />
+      </div>
     );
   }
 }
