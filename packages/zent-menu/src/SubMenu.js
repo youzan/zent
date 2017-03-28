@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, Children } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Icon from 'zent-icon';
 import cx from 'zent-utils/classnames';
 import SubPopupMenu from './SubPopupMenu';
@@ -14,27 +14,42 @@ export default class SubMenu extends Component {
   };
 
   static defaultProps = {
+    className: '',
     prefix: 'zent'
   };
 
-  constructor() {
-    super();
-    this.state = {
-      subMenuVisible: false
-    };
+  state = {
+    subMenuVisible: false
   }
 
   handleClick = (e, index) => {
-    const { onClick, fade } = this.props;
+    const { onClick } = this.props;
     this.setState({ subMenuVisible: false });
     onClick(e, index);
-  }
+  };
+
+  onMouseEnter = () => {
+    if (this.leaveTimer) {
+      clearTimeout(this.leaveTimer);
+    }
+    this.enterTimer = setTimeout(() => {
+      this.setState({ subMenuVisible: true });
+    }, 200);
+  };
+
+  onMouseLeave = () => {
+    if (this.enterTimer) {
+      clearTimeout(this.enterTimer);
+    }
+    this.leaveTimer = setTimeout(() => {
+      this.setState({ subMenuVisible: false });
+    }, 200);
+  };
 
   renderContent = () => {
     const {
       prefix,
       children,
-      onClick,
       index,
       overlayClassName
     } = this.props;
@@ -46,43 +61,32 @@ export default class SubMenu extends Component {
     );
   };
 
-  onMouseEnter = () => {
-    if (this.leaveTimer) {
-      clearTimeout(this.leaveTimer)
-    }
-    this.enterTimer = setTimeout(() => {
-      this.setState({ subMenuVisible: true });
-    }, 200);
-  }
-
-  onMouseLeave = () => {
-    if (this.enterTimer) {
-      clearTimeout(this.enterTimer)
-    }
-    this.leaveTimer = setTimeout(() => {
-      this.setState({ subMenuVisible: false });
-    }, 200);
-  }
-
   render() {
     const {
       prefix,
       className,
       disabled,
-      children,
       title
     } = this.props;
 
     const mouseEvents = disabled ? {} : {
       onMouseEnter: this.onMouseEnter,
       onMouseLeave: this.onMouseLeave
-    }
+    };
+    const cls = cx(
+      `${prefix}-menu-item`,
+      `${prefix}-submenu`,
+      className,
+      {
+        [`${prefix}-menu-item-disabled`]: disabled
+      }
+    );
 
     return (
       <li
-        className={cx(`${prefix}-menu-item`, `${prefix}-submenu`, className, {[`${prefix}-menu-item-disabled`]: disabled})} {...mouseEvents}
+        className={cls} {...mouseEvents}
       >
-        <div className={cx(`${prefix}-submenu-title`, {[`${prefix}-submenu-disabled`]: disabled})}>
+        <div className={cx(`${prefix}-submenu-title`, { [`${prefix}-submenu-disabled`]: disabled })}>
           {title}
           {!disabled && <Icon type="right" />}
         </div>
