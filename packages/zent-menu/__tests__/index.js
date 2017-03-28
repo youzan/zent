@@ -4,15 +4,6 @@ import TestUtils from 'react-addons-test-utils';
 import { mount } from 'enzyme';
 import Menu, { MenuItem, SubMenu } from '../src';
 
-function simulateClickOnSubMenu() {
-  const fakeEvent = new MouseEvent('click', {
-    bubbles: true,
-    cancelable: true,
-    view: window
-  });
-  document.querySelector('.zent-sub-menu-overlay .zent-menu-item').dispatchEvent(fakeEvent);
-}
-
 describe('Menu component', () => {
   it('can have className', () => {
     let wrapper = mount(
