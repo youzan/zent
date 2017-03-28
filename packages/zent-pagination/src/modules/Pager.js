@@ -1,57 +1,50 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+import cx from 'zent-utils/classnames';
 
-const { string, number, func, bool } = React.PropTypes;
+const { string, number, func, bool } = PropTypes;
 
-const Pager = React.createClass({
-  propTypes: {
+export default class Pager extends Component {
+  static propTypes = {
     content: string,
     current: bool,
     onClick: func,
     target: number
-  },
+  };
 
-  getInitialState() {
-    return {
-      pageLabel: this.props.content
-    };
-  },
+  state = {
+    pageLabel: this.props.content
+  };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       pageLabel: nextProps.content
     });
-  },
+  }
 
-  onClick() {
+  onClick = () => {
+    const { target, current, onChange } = this.props;
+
     // 有目标，且不是当前页的时候
-    if (this.props.target && !this.props.current) {
-      this.props.onChange(this.props.target);
+    if (target && !current) {
+      onChange(target);
     }
-  },
+  }
 
   render() {
-    let className = 'pager';
-
-    if (this.props.current) {
-      className += ' pager--current';
-    }
-
-    if (this.props.type === 'omni') {
-      className += ' pager--omni';
-    } else {
-      if (!this.props.target) {
-        className += ' pager--disabled';
-      }
-    }
+    const { current, type, target } = this.props;
+    const className = cx({
+      pager: true,
+      'pager--current': current,
+      'pager--omni': type === 'omni',
+      'pager--disabled': type !== 'omni' && !target,
+    });
 
     return (
-      <li
+      <div
         className={className}
         onClick={this.onClick}>
         {this.props.content}
-      </li>
+      </div>
     );
   }
-});
-
-export default Pager;
+}
