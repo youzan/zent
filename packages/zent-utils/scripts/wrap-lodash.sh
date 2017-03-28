@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 basepath=$(dirname $0)
 
