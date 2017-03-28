@@ -3,12 +3,12 @@
 #### 初始化项目:
 
 ```bash
-npm install -g zent-kit
-npm install -g felint
+yarn global add zent-kit
+yarn global add felint
 
-npm install
+yarn
 felint update
-npm run bootstrap
+yarn run bootstrap
 ```
 
 **如果`./lerna bootstrap`在lint某个包的时候失败，请确认你的`eslint`符合`felint`的版本要求。**

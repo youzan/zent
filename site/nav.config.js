@@ -100,8 +100,8 @@ module.exports = {
               }
             },
             {
-              path: '/datetimepicker',
-              title: 'DateTimePicker 时间选择器',
+              path: '/datepicker',
+              title: 'DatePicker 时间选择',
               filePath() {
                 return System.import('../packages/zent-datetimepicker/README.md')
               }
