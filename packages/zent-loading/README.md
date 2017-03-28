@@ -1,31 +1,95 @@
-# zent-loading
+## Loading 等待
 
-[![npm version](https://img.shields.io/npm/v/zent-loading.svg?style=flat)](https://www.npmjs.com/package/zent-loading) [![downloads](https://img.shields.io/npm/dt/zent-loading.svg)](https://www.npmjs.com/package/zent-loading)
+等待，用于页面或者区块的等待状态。
 
-加载状态组件
+### 使用指南
+-  当页面处于渲染中或者加载异步数据时，可以使用此组件减少用户等待时的焦虑感。
 
-## 使用指南
 
-#### 两种使用方式(**按需使用**)
+### 代码演示
 
--  API 调用
+:::demo 基础用法
+```js
+import { Loading } from 'zent';
 
-    调用 `on()` 方法和 `off()` 方法.
+ReactDOM.render(<Loading show />, mountNode);
+```
+:::
 
-    使用 API 调用时, 也可以传入 props 用于初始化. e.g. `.on({prefix: 'cat'})`
 
--  普通组件调用
+:::demo 使用 Loading 包裹组件，使其进入 Loading 状态。
+```js
+import { Loading, Switch, Alert } from 'zent';
 
-    提供 `show` 作为 props, 如果 `static` 为  `false`, 需要包一个目标组件, 以遮罩层形式存在; 如果 `static` 设置为 `true`, 将会出现在文档流中.
+class Example extends React.Component {
+	state = { loading: false }
 
-## API
+	onChange = (value) => {
+		this.setState({ loading: value });
+	}
 
-| 参数             | 说明                                                     | 类型     | 默认值      |
+	render() {
+		const container = <Alert>Hello World</Alert>
+		const { loading } = this.state;
+
+		return (
+			<div>
+				<Loading show={loading} >{container}</Loading>
+				<Switch
+					className="zent-loading-example-switch"
+					checked={loading}
+					onChange={this.onChange}
+					size="small"
+				/>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(<Example />, mountNode);
+```
+:::
+
+
+:::demo 全局开启或关闭。
+```js
+import { Loading, Button } from 'zent';
+
+const Example = () => {
+	return (
+		<div>
+			<Button onClick={() => { Loading.on() }}>
+				全局开启
+			</Button>
+			<Button
+				onClick={() => { Loading.off() }}
+				style={{ zIndex: 9999, position: 'relative' }}
+			>
+				全局关闭
+			</Button>
+		</div>
+	);
+}
+
+ReactDOM.render(<Example />, mountNode);
+```
+:::
+
+### API
+
+| 参数             | 说明                                                     | 类型     | 默认值 |
 | -------------- | ------------------------------------------------------ | ------ | -------- |
-| className      | 自定义额外类名                                                | string | `''`     |
-| containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |
-| prefix         | 自定义前缀                                                  | string | `'zent'` |
 | show           | 显示控制                                                   | bool   | `false`  |
 | static         | 是否以标签形式存在于文档流中                                         | bool   | `true`   |
 | height         | 设置 static 为 true 情况下，设置高度，如果包裹了组件，将会表现为组件高度，否则将会使用默认高度 | number | `160`    |
 | zIndex         | 设置 z-index                                             | number | `9998`   |
+| className      | 自定义额外类名                                                | string | `''`     |
+| containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |
+| prefix         | 自定义前缀                                                  | string | `'zent'` |
+
+
+<style>
+		.zent-loading-example-switch {
+				margin-top: 10px;
+		}
+</style>

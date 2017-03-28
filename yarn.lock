@@ -99,12 +99,23 @@ cli-width@^2.0.0:
   version "2.1.0"
   resolved "http://registry.npm.qima-inc.com/cli-width/download/cli-width-2.1.0.tgz#b234ca209b29ef66fc518d9b98d5847b00edf00a"
 
+clone@^1.0.2:
+  version "1.0.2"
+  resolved "http://registry.npm.qima-inc.com/clone/download/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
+
 cmd-shim@^2.0.2:
   version "2.0.2"
   resolved "http://registry.npm.qima-inc.com/cmd-shim/download/cmd-shim-2.0.2.tgz#6fcbda99483a8fd15d7d30a196ca69d688a2efdb"
   dependencies:
     graceful-fs "^4.1.2"
     mkdirp "~0.5.0"
+
+columnify@^1.5.4:
+  version "1.5.4"
+  resolved "http://registry.npm.qima-inc.com/columnify/download/columnify-1.5.4.tgz#4737ddf1c7b69a8a7c340570782e947eec8e78bb"
+  dependencies:
+    strip-ansi "^3.0.0"
+    wcwidth "^1.0.0"
 
 command-join@^2.0.0:
   version "2.0.0"
@@ -151,6 +162,12 @@ currently-unhandled@^0.4.1:
 decamelize@^1.1.2:
   version "1.2.0"
   resolved "http://registry.npm.qima-inc.com/decamelize/download/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
+
+defaults@^1.0.3:
+  version "1.0.3"
+  resolved "http://registry.npm.qima-inc.com/defaults/download/defaults-1.0.3.tgz#c656051e9817d9ff08ed881477f3fe4019f3ef7d"
+  dependencies:
+    clone "^1.0.2"
 
 define-properties@^1.1.2:
   version "1.1.2"
@@ -437,9 +454,9 @@ isarray@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.qima-inc.com/isarray/download/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
-isexe@^1.1.1:
-  version "1.1.2"
-  resolved "http://registry.npm.qima-inc.com/isexe/download/isexe-1.1.2.tgz#36f3e22e60750920f5e7241a476a8c6a42275ad0"
+isexe@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.qima-inc.com/isexe/download/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
 
 isomorphic-fetch@^2.1.1:
   version "2.2.1"
@@ -452,13 +469,14 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.qima-inc.com/js-tokens/download/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-lerna@2.0.0-beta.37:
-  version "2.0.0-beta.37"
-  resolved "http://registry.npm.qima-inc.com/lerna/download/lerna-2.0.0-beta.37.tgz#d8e1d25a75102658b12565e4aa12e0423e969aad"
+lerna@2.0.0-beta.38:
+  version "2.0.0-beta.38"
+  resolved "http://registry.npm.qima-inc.com/lerna/download/lerna-2.0.0-beta.38.tgz#99236416a6699707336dcbdeef83c315d1f71833"
   dependencies:
     async "^1.5.0"
     chalk "^1.1.1"
     cmd-shim "^2.0.2"
+    columnify "^1.5.4"
     command-join "^2.0.0"
     cross-spawn "^4.0.0"
     glob "^7.0.6"
@@ -475,7 +493,6 @@ lerna@2.0.0-beta.37:
     rimraf "^2.4.4"
     semver "^5.1.0"
     signal-exit "^3.0.2"
-    sync-exec "^0.6.2"
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -900,10 +917,6 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.qima-inc.com/supports-color/download/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-sync-exec@^0.6.2:
-  version "0.6.2"
-  resolved "http://registry.npm.qima-inc.com/sync-exec/download/sync-exec-0.6.2.tgz#717d22cc53f0ce1def5594362f3a89a2ebb91105"
-
 through@^2.3.6:
   version "2.3.8"
   resolved "http://registry.npm.qima-inc.com/through/download/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
@@ -937,15 +950,21 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
 
+wcwidth@^1.0.0:
+  version "1.0.1"
+  resolved "http://registry.npm.qima-inc.com/wcwidth/download/wcwidth-1.0.1.tgz#f0b0dcf915bc5ff1528afadb2c0e17b532da2fe8"
+  dependencies:
+    defaults "^1.0.3"
+
 whatwg-fetch@>=0.10.0:
   version "2.0.3"
   resolved "http://registry.npm.qima-inc.com/whatwg-fetch/download/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
 
 which@^1.2.9:
-  version "1.2.12"
-  resolved "http://registry.npm.qima-inc.com/which/download/which-1.2.12.tgz#de67b5e450269f194909ef23ece4ebe416fa1192"
+  version "1.2.14"
+  resolved "http://registry.npm.qima-inc.com/which/download/which-1.2.14.tgz#9a87c4378f03e827cecaf1acdf56c736c01c14e5"
   dependencies:
-    isexe "^1.1.1"
+    isexe "^2.0.0"
 
 wrappy@1:
   version "1.0.2"

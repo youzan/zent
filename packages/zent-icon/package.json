@@ -9,7 +9,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "./scripts/build.sh && npm run lint && zent-kit prepublish"
+    "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "lichen, houzi",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "zent-utils": "1.0.7"
+    "zent-utils": "1.0.7",
+    "zenticons": "^1.0.0"
   }
 }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Radio from 'zent-radio';
+import Icon from 'zent-icon';
 import Tree from '../src/index';
 
 import 'zent-radio/assets/index.scss';
+import 'zent-icon/lib/index.css';
 import '../assets/index.scss';
-import '../assets/example.scss';
 
 const RadioGroup = Radio.Group;
 
@@ -132,12 +133,12 @@ export default class Example extends Component {
     const { copyType } = this.state;
     const operations = [{
       name: 'Delete',
-      icon: 'icon-font icon-font-heartbreak',
+      icon: <Icon type="close" />,
       action: this.handleDelete,
       shouldRender: this.shouldRenderDeleteIcon
     }, {
       name: 'Clone',
-      icon: 'icon-font icon-font-heart',
+      icon: <Icon type="plus" />,
       action: this.handleClone
     }];
 

@@ -17,6 +17,10 @@
 ## 安装
 
 ```shell
+yarn add zent
+
+# or
+
 npm install zent --save
 ```
 

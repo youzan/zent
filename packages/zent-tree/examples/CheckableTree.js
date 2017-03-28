@@ -43,13 +43,6 @@ const treeData = [{
 }];
 
 export default class Example extends Component {
-  constructor() {
-    super();
-    this.state = {
-      text: ''
-    };
-  }
-
   onCheck(data) {
     console.log(data); // eslint-disable-line
   }
