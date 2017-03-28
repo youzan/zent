@@ -1,0 +1,18 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+- 6
+cache:
+  yarn: true
+before_install:
+- |
+    yarn global add zent-kit
+    yarn global add eslint@2.11.1 eslint-plugin-react@5.1.1 babel-eslint@6.0.4 eslint-plugin-import@1.8.1 eslint-plugin-jsx-a11y@1.2.3 eslint-config-airbnb@9.0.1 eslint-plugin-lean-imports@0.3.3
+install:
+- |
+    yarn install
+script:
+    yarn run bootstrap
+    ./lerna run lint
+    ./scripts/run-tests.sh
