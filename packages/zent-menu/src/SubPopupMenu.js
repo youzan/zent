@@ -1,9 +1,6 @@
-import React, { Component, PropTypes, Children } from 'react';
+import React, { PropTypes } from 'react';
 import CommonMenu from './CommonMenu';
 import cx from 'zent-utils/classnames';
-import noop from 'zent-utils/lodash/noop';
-
-
 
 export default class PopupMenu extends CommonMenu {
   static propTypes = {
@@ -29,8 +26,12 @@ export default class PopupMenu extends CommonMenu {
 
   render() {
     const { children, prefix, visible, overlayCx } = this.props;
+    if (!visible) {
+      return null;
+    }
+
     return (
-      <ul className={cx( `${prefix}-menu` ,`${prefix}-submenu-content`, overlayCx, {[`${prefix}-submenu-hidden`]: !visible})}>
+      <ul className={cx(`${prefix}-menu`, `${prefix}-submenu-content`, overlayCx)}>
         {React.Children.map(children, this.renderSubMenuItems)}
       </ul>
     );

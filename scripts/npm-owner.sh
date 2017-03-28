@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function add_user {
     npm owner add $2
@@ -22,10 +22,10 @@ do
 
     ls) (cd "$package" && ls_user "$package")
         ;;
-    
+
     add) (cd "$package" && add_user "$package" $2)
         ;;
-    
+
     remove) (cd "$package" && remove_user "$package" $2)
         ;;
 
