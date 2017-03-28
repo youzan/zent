@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import assign from 'zent-utils/lodash/assign';
 import classnames from 'zent-utils/classnames';
 import Checkbox from './components/Checkbox';
+import Loading from './components/Loading';
 
 // 记录是否已经触发收起展开逻辑
 // 防止出现闪烁的bug
@@ -53,15 +54,12 @@ const toggleSlide = (el, isClose) => {
 };
 
 export default class Tree extends Component {
-  constructor(props) {
-    super(props);
+  isInitial = true
+  isDataUpdate = false
 
-    this.isInitial = true;
-    this.isDataUpdate = false;
-
-    this.state = {
-      checkedTree: {}
-    };
+  state = {
+    checkedTree: {},
+    loadingNode: []
   }
 
   static propTypes = {
@@ -174,11 +172,14 @@ export default class Tree extends Component {
 
   handleExpandClick(root, e) {
     const { loadMore } = this.props;
+    const { loadingNode } = this.state;
     if (loadMore) {
       if (!root.children || root.children.length === 0) {
         e.persist();
+        this.setState({ loadingNode: [root.id, ...loadingNode] });
         loadMore(root)
           .then(() => {
+            this.setState({ loadingNode: loadingNode.filter(x => x !== root.id) });
             this.handleFoldClick(root, e);
           })
           .catch(() => {});
@@ -346,11 +347,10 @@ export default class Tree extends Component {
 
   renderSwitcher(root) {
     const { foldable, loadMore } = this.props;
-    const className = classnames('switcher');
     if (!root.isLeaf && (loadMore || root.children && root.children.length > 0)) {
       return (
         <icon
-          className={className}
+          className="switcher"
           onClick={foldable && this.handleExpandClick.bind(this, root)}
         />
       );
@@ -382,7 +382,7 @@ export default class Tree extends Component {
             key={`${opt.name}-${root.id}`}
             onClick={opt.action.bind(null, root)}
             className="opt">
-            <icon className={opt.icon} />{opt.name}
+            {typeof opt.icon === 'string' ? <icon className={opt.icon} /> : opt.icon} {opt.name}
           </span>
         );
       });
@@ -394,14 +394,9 @@ export default class Tree extends Component {
     }
   }
 
-  // TODO:
-  // Support selectable
-  // Support disable select
-  // Custom switcher
-  // Add Cursor Style
-  // make style beautiful
   renderTreeNodes(roots) {
-    const { loadMore, prefix, expandAll } = this.props;
+    const { loadingNode } = this.state;
+    const { loadMore, prefix, expandAll, render } = this.props;
     if (roots && roots.length > 0) {
       return roots.map((root) => {
         // 单独节点的expand属性具有最高优先级，如果expand没有设置会根据是否设置loadMore
@@ -418,10 +413,9 @@ export default class Tree extends Component {
               {this.renderSwitcher(root)}
               <div className="zent-tree-node">
                 {this.renderCheckbox(root)}
+                {loadingNode.indexOf(root.id) > -1 ? <Loading /> : null}
                 <span className="content" onClick={this.triggerSwitcherClick.bind(this, root)}>
-                  {
-                    this.props.render ? this.props.render(root) : root.title
-                  }
+                  {render ? render(root) : root.title}
                 </span>
                 {this.renderOperations(root)}
               </div>
