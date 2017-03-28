@@ -95,4 +95,9 @@ describe('Input', () => {
     wrapper.find('input').simulate('keyUp', { keyCode: 12 });
     expect(onPressEnterMock.mock.calls.length).toBe(2);
   });
+
+  it('supports textarea', () => {
+    const wrapper = shallow(<Input type="textarea" />);
+    expect(wrapper.find('textarea').length).toBe(1);
+  });
 });
