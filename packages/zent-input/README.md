@@ -41,6 +41,20 @@ ReactDOM.render(
 ```
 :::
 
+:::demo textarea输入框
+
+```js
+import { Input } from 'zent';
+
+ReactDOM.render(
+    <div>
+        <Input type="textarea" />
+    </div>
+    , mountNode
+);
+```
+:::
+
 :::demo 事件处理
 
 ```js

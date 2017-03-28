@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { getKeyFromChildrenIndex } from './utils';
 
 export default class CommonMenu extends Component {
-  renderCommonMenuItem(c, i, subIndex, extraProps) {
+  renderCommonMenuItem(c, i, subPrefix, extraProps) {
     const newChildProps = {
-      index: getKeyFromChildrenIndex(c, i),
-      onClick: this.onClick,
+      index: getKeyFromChildrenIndex(c, i, subPrefix),
+      onClick: this.handleClick,
       ...extraProps
     };
 
