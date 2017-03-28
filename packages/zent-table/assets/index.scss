@@ -26,6 +26,20 @@ $orange: #f60;
         }
     }
 
+    .expanded-item {
+        width: 70px;
+        text-align: center;
+        position: relative;
+        i {
+            height: 100%;
+            &::before {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
     .thead {
         .tr {
             border-top: none;
@@ -38,6 +52,34 @@ $orange: #f60;
         .tr {
             &:hover {
                 background: #f8f8f8;
+            }
+            &.expanded {
+                background-color: #F8F8F8;
+            }
+            .td {
+                padding: 16px 0 8px 0;
+                .expandable-btn {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    display: inline-block;
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    width: 17px;
+                    height: 17px;
+                    text-align: center;
+                    background: #fff;
+                    line-height: 10px;
+                    border: 1px solid #e9e9e9;
+                    &.expand-btn::after {
+                        content: "+";
+                        box-sizing: border-box;
+                    }
+                    &.collapse-btn::after {
+                        content: "-";
+                        box-sizing: border-box;
+                    }
+                }
             }
         }
     }
