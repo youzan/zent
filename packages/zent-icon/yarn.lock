@@ -2,5 +2,5 @@
 # yarn lockfile v1
 zenticons@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npmjs.org/zenticons/-/zenticons-1.0.0.tgz#9705dd52069bc3f64be67a85cfbd052079273e34"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-1.0.0.tgz#9705dd52069bc3f64be67a85cfbd052079273e34"
 
