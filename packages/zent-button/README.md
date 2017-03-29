@@ -118,7 +118,7 @@ ReactDOM.render(
 | outline   | 边框有颜色，内部没有颜色                | bool   | `false`     |                              |
 | bordered  | 边框透明控制                      | bool   | `true`      |                                    |
 | 其他参数      |                             |        |             |                                    |
-| component | 自定义组件标签类型                   | oneOf([string, func]) |             |                                    |
+| component | 自定义组件标签类型                   | string\|func |             |                                    |
 | href      | 可选，如果设置的话会用a标签而不是button     | string |             |                           |
 | target    | 可选，和href一起使用，就是a标签的target属性 | string | `''`        | `'_blank'`                  |
 | className | 自定义类名                       | string |             |                                    |
