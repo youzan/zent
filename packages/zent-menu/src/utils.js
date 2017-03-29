@@ -1,3 +1,3 @@
-export function getKeyFromChildrenIndex(child, index) {
-  return child.key || `item_${index}`;
+export function getKeyFromChildrenIndex(child, index, subPrefix = 'item') {
+  return child.key || `${subPrefix}_${index}`;
 }

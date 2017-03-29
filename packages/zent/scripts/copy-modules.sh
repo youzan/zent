@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 zent_packages=$(grep -E "zent-.+" package.json | tr -d '",' | cut -d ':' -f 1)
 

@@ -26,7 +26,10 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "zent-icon": "1.0.9",
+    "fecha": "2.3.0",
+    "zent-icon": "1.0.8",
+    "zent-input": "1.0.9",
+    "zent-popover": "1.0.12",
     "zent-utils": "1.0.7"
   }
 }

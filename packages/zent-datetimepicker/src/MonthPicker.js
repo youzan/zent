@@ -1,24 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'zent-utils/classnames';
+import Input from 'zent-input';
+import Popover from 'zent-popover';
+
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
-import { formatDate } from './utils/format';
-import clickOutside from './utils/clickOutside';
-import { MONTH_PROPS } from './constants/';
+import { formatDate, parseDate } from './utils/format';
+import { noop } from './constants/';
 
-function getState(props) {
+function extractStateFromProps(props) {
   let showPlaceholder;
   let selected;
+  const format = props.format || 'YYYY-MM';
   if (props.value) {
-    showPlaceholder = false;
-    selected = new Date(props.value);
+    const tmp = parseDate(props.value, format);
+    if (tmp) {
+      showPlaceholder = false;
+      selected = tmp;
+    } else {
+      showPlaceholder = true;
+      selected = new Date();
+    }
   } else {
     showPlaceholder = true;
     selected = new Date();
   }
+
   return {
-    value: formatDate(selected, props.format),
+    value: formatDate(selected, format),
     actived: selected,
     selected,
     openPanel: false,
@@ -27,16 +37,31 @@ function getState(props) {
 }
 
 class MonthPicker extends Component {
-  static defaultProps = MONTH_PROPS
+  static PropTypes = {
+    prefix: PropTypes.string,
+    className: PropTypes.string,
+    placeholder: PropTypes.string,
+    confirmText: PropTypes.string,
+    format: PropTypes.string,
+    onChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    prefix: 'zent',
+    className: '',
+    placeholder: '请选择月份',
+    confirmText: '确认',
+    format: 'YYYY-MM',
+    onChange: noop
+  }
 
   constructor(props) {
     super(props);
-    let state = getState(props);
-    this.state = state;
+    this.state = extractStateFromProps(props);
   }
 
   componentWillReceiveProps(next) {
-    let state = getState(next);
+    const state = extractStateFromProps(next);
     this.setState(state);
   }
 
@@ -74,7 +99,9 @@ class MonthPicker extends Component {
   }
 
   onConfirm = () => {
-    const value = formatDate(this.state.selected, this.props.format);
+    const { format } = this.props;
+    const { selected } = this.state;
+    const value = formatDate(selected, format || 'YYYY-MM');
     this.setState({
       value,
       openPanel: false,
@@ -83,27 +110,22 @@ class MonthPicker extends Component {
     this.props.onChange(value);
   }
 
-  render() {
+  renderPicker() {
     const state = this.state;
     const props = this.props;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
-    const inputCls = classNames({
-      'picker-input': true,
-      'picker-input--filled': !state.showPlaceholder,
-      'picker-input--disabled': props.disabled
-    });
+
     let monthPicker;
     if (state.openPanel) {
       monthPicker = (
-        <div className="month-picker">
+        <div className="month-picker" ref={ref => this.picker = ref}>
           <MonthPanel
             actived={state.actived}
             selected={state.selected}
-            disabledDate={props.disabledDate}
             onChange={this.onChangeMonth}
             onSelect={this.onSelectMonth}
           />
           <PanelFooter
+            buttonText={props.confirmText}
             linkText="当前月"
             linkCls="link--current"
             onClickLink={() => this.onSelectMonth(CURRENT)}
@@ -112,19 +134,53 @@ class MonthPicker extends Component {
         </div>
       );
     }
+
+    return monthPicker;
+  }
+
+  togglePicker = () => {
+    this.setState({
+      openPanel: !this.state.openPanel
+    });
+  }
+
+  render() {
+    const state = this.state;
+    const props = this.props;
+    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const inputCls = classNames({
+      'picker-input': true,
+      'picker-input--filled': !state.showPlaceholder,
+      'picker-input--disabled': props.disabled
+    });
+
     return (
-      <div className={prefixCls} ref={ref => this.picker = ref}>
-        <div className="picker-wrapper">
-          <div className={inputCls} onClick={this.onClickInput}>
-            {state.showPlaceholder ? props.placeholder : state.value}
-            <span className="zenticon zenticon-calendar-o"></span>
-            <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
-          </div>
-          {state.openPanel ? monthPicker : ''}
-        </div>
+      <div className={wrapperCls}>
+        <Popover
+          visible={state.openPanel}
+          onVisibleChange={this.togglePicker}
+          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          position={Popover.Position.BottomLeft}
+        >
+          <Popover.Trigger.Click>
+            <div className={inputCls} onClick={this.onClickInput}>
+              <Input
+                value={state.showPlaceholder ? props.placeholder : state.value}
+                onChange={noop}
+                disabled={props.disabled}
+              />
+
+              <span className="zenticon zenticon-calendar-o"></span>
+              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
+            </div>
+          </Popover.Trigger.Click>
+          <Popover.Content>
+            {this.renderPicker()}
+          </Popover.Content>
+        </Popover>
       </div>
     );
   }
 }
 
-export default clickOutside(MonthPicker);
+export default MonthPicker;

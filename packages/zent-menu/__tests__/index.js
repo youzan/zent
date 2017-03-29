@@ -4,15 +4,6 @@ import TestUtils from 'react-addons-test-utils';
 import { mount } from 'enzyme';
 import Menu, { MenuItem, SubMenu } from '../src';
 
-function simulateClickOnSubMenu() {
-  const fakeEvent = new MouseEvent('click', {
-    bubbles: true,
-    cancelable: true,
-    view: window
-  });
-  document.querySelector('.zent-sub-menu-overlay .zent-menu-item').dispatchEvent(fakeEvent);
-}
-
 describe('Menu component', () => {
   it('can have className', () => {
     let wrapper = mount(
@@ -60,13 +51,22 @@ describe('Menu component', () => {
       </Menu>
     );
 
-    expect(wrapper.find('Popover').length).toBe(1);
-    wrapper.find('.zent-sub-menu-trigger').simulate('mouseenter');
+    wrapper.find('SubMenu').simulate('mouseenter');
     jest.runAllTimers();
-    expect(document.querySelectorAll('.zent-sub-menu-overlay').length).toBe(1);
+    expect(wrapper.find('.zent-submenu-content').length).toBe(1);
 
-    simulateClickOnSubMenu();
+    wrapper.find('SubMenu MenuItem').simulate('click');
     expect(onClick.mock.calls.length).toBe(1);
+
+    wrapper.find('SubMenu').simulate('mouseleave');
+    jest.runAllTimers();
+    expect(wrapper.find('.zent-submenu-content').length).toBe(0);
+
+    // simulate fast mouse in/out
+    wrapper.find('SubMenu').simulate('mouseenter');
+    wrapper.find('SubMenu').simulate('mouseleave');
+    jest.runAllTimers();
+    expect(wrapper.find('.zent-submenu-content').length).toBe(0);
   });
 
   it('can have disabled menu items', () => {
@@ -83,9 +83,6 @@ describe('Menu component', () => {
     expect(wrapper.find('.zent-menu-item-disabled').length).toBe(2);
 
     wrapper.find('MenuItem').at(0).simulate('click');
-    expect(onClick.mock.calls.length).toBe(0);
-
-    simulateClickOnSubMenu();
     expect(onClick.mock.calls.length).toBe(0);
   });
 });

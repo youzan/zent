@@ -60,13 +60,14 @@ export default class Button extends Component {
 
   // render a 标签
   renderLink(classNames) {
-    let Node = this.props.component || 'a';
-    let disabled = this.props.disabled || this.props.loading;
-    let { href = '', target } = this.props;
+    const Node = this.props.component || 'a';
+    const disabled = this.props.disabled || this.props.loading;
+    const { href = '', target, style } = this.props;
 
     return (
       <Node
         {...disabled ? {} : { href, target }}
+        style={style}
         className={classNames}
         onClick={this.handleClick}
       >

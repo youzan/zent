@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # 将lib下除了index.js之外的所有东西拷贝到根目录
 for entry in lib/*
