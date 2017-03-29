@@ -597,11 +597,11 @@ ReactDOM.render(
 | selection  | 表格的选择功能配置                                  | object        |             |         | 否    |
 | loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
 | getRowConf | 每一行的配置函数，返回一个配置对象`{ canSelect, rowClass }` | func          |             |         | 否    |
+| expandedRowRender     | 额外展开行                                      | func        |     |         | 否    |
 | autoStick  | 是否自动将head stick到窗口                         | bool          | `false`     |         | 否    |
 | autoScroll | 是否点击分页自动滚到table顶部                          | boll          | `false`     |         | 否    |
 | className  | 自定义额外类名                                    | string        | `''`        |         | 否    |
 | prefix     | 自定义前缀                                      | string        | `'zent'`    |         | 否    |
-| expandedRowRender     | 额外展开行                                      | func        |     |         | 否    |
 
 #### getRowConf的特别声明：
 ```js
