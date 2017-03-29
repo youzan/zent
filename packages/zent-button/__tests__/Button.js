@@ -166,4 +166,15 @@ describe('<Button />', () => {
     mount(<Button style={{ fontSize: '20px' }} />);
     expect(buttonNode.style.fontSize).toBe('20px');
   });
+
+  test('Component', () => {
+    function Link({ to, children, ...rest }) {
+      return <a href={`/#${to}`} {...rest}>{children}</a>;
+    }
+    mount(<Button to="/path" component={Link} />);
+
+    expect(buttonNode.href).toBe('/#/path');
+    expect(buttonNode.classList.contains('zent-btn')).toBe(true);
+    expect(buttonNode.tagName.toLowerCase()).toBe('a');
+  });
 });
