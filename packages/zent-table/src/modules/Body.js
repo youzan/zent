@@ -3,40 +3,60 @@ import Td from './Td';
 
 // 需要传入一个组件模板
 const Body = React.createClass({
+
   getInitialState() {
+    let { datasets, isExpanded } = this.props;
+    let expandItems = {};
+
+    datasets.forEach((rowData, rowIndex) => {
+      if (typeof isExpanded === 'function') {
+        expandItems[rowIndex] = isExpanded(rowData, rowIndex);
+      } else {
+        expandItems[rowIndex] = false;
+      }
+    });
+
     return {
-      expandItems: {}
+      expandItems
     };
   },
+
   handleExpand(rowIndex) {
     return () => {
       let expandItems = Object.assign({}, this.state.expandItems);
 
       expandItems[rowIndex] = !(expandItems[rowIndex] || 0);
+
       this.setState({
         expandItems
       });
     };
   },
 
-  isExpanded(rowIndex) {
+  isExpanded(rowData, rowIndex) {
     return this.state.expandItems[rowIndex] || 0;
   },
 
   render() {
-    let { datasets, columns, emptyLabel, rowKey, selection, getRowConf, expandedRowRender, expanded } = this.props;
+    let { datasets, columns, emptyLabel, rowKey, selection, getRowConf, expandRender, needExpand } = this.props;
 
     let trs = [];
     let dataIterator = (rowData, rowIndex) => {
       let { canSelect = true, rowClass = '' } = getRowConf(rowData, rowIndex);
+
       let tds = [];
-      if (expanded) {
+      if (needExpand) {
         tds.push(
-          <div className="td expanded-item">
-            <span className={this.isExpanded(rowIndex) ? 'expandable-btn collapse-btn' : 'expandable-btn expand-btn'} onClick={this.handleExpand(rowIndex)}></span>
+          <div key="-1" className="td expanded-item">
+            <span
+              className={this.isExpanded(rowData, rowIndex) ? 'expandable-btn collapse-btn' : 'expandable-btn expand-btn'}
+              onClick={this.handleExpand(rowIndex)}
+            >
+            </span>
           </div>
         );
       }
+
       columns.forEach((item, columnIndex) => {
         // 位置信息
         let pos = {
@@ -67,23 +87,24 @@ const Body = React.createClass({
       });
 
       trs.push(
-        <div className={`${rowClass} tr`} key={rowData[rowKey] ? rowData[rowKey] : rowIndex}>
+        <div className={`${rowClass} tr`} key={rowData[rowKey] || rowIndex}>
           {tds}
         </div>
       );
     };
+
     let expandedInterator = (rowData, rowIndex) => {
       trs.push(
-        <div className="tr expanded" style={{ display: this.isExpanded(rowIndex) ? 'flex' : 'none' }}>
+        <div className="tr tr--expanded" key={`${(rowData[rowKey] || rowIndex)}-expand`} style={{ display: this.isExpanded(rowData, rowIndex) ? 'flex' : 'none' }}>
           <div className="td expanded-item"></div>
           <div className="td">
-            {expandedRowRender(rowData)}
+            {expandRender(rowData)}
           </div>
         </div>
       );
     };
 
-    if (expanded) {
+    if (needExpand) {
       datasets.forEach((rowData, rowIndex) => {
         dataIterator(rowData, rowIndex);
         expandedInterator(rowData, rowIndex);

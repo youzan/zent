@@ -83,12 +83,17 @@ const Simple = React.createClass({
           current: this.state.current,
           total: this.state.total
         }}
-        expandedRowRender={(record) => {
-          return (
-            <div>
-              {record.title}
-            </div>
-          );
+        expandation={{
+          isExpanded(record, index) {
+            return (index % 2 === 0);
+          },
+          expandRender(record) {
+            return (
+              <div>
+                {record.title}
+              </div>
+            );
+          }
         }}
       />
     );

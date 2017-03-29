@@ -104,16 +104,18 @@ const Head = React.createClass({
   },
 
   renderTr(isFixTr, style = {}) {
-    let { selection } = this.props;
+    let { selection, needExpand } = this.props;
     let needSelect = selection.needSelect;
     let className = isFixTr ? fixRowClass : stickRowClass;
     let tds = [];
-    if (this.props.expanded) {
+
+    if (needExpand) {
       tds.push(
-        <div className="td expanded-item">
+        <div key="-1" className="td expanded-item">
         </div>
       );
     }
+
     this.props.columns.forEach((item, index) => {
       let cellClass = 'cell';
       let { isMoney, textAlign, width } = item;
