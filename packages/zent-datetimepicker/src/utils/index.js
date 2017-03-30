@@ -21,6 +21,10 @@ export const isSameDate = (val, cmp) => {
   return val.getFullYear() === cmp.getFullYear() && val.getMonth() === cmp.getMonth() && val.getDate() === cmp.getDate();
 };
 
+export const isSameMonth = (val, cmp) => {
+  return val.getFullYear() === cmp.getFullYear() && val.getMonth() === cmp.getMonth();
+};
+
 export const isCurrentMonth = (val) => {
   return val.getMonth() === CURRENT_MONTH;
 };

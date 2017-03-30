@@ -1,9 +1,11 @@
-#!/bin/sh
+#!/bin/bash
+
+# FIXME: replace with a node.js script
 
 basepath=$(dirname $0)
 
 make_icons() {
-  jq -c '.[]' $basepath/../build/codes.json | while read i; do
+  jq -c '.[]' $basepath/../node_modules/zenticons/lib/codes.json | while read i; do
     iname=$(echo $i | jq '.name' | tr -d '"')
     icodepoint=$(echo $i | jq '.hexCodepoint' | tr -d '"')
     ikeywords=$(echo $i | jq '.keywords | join("")' | tr -d '"')

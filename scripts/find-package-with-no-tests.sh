@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 check () {
     count=`ls -1 {__tests__/*.js,__tests__/*.jsx} 2>/dev/null | wc -l`

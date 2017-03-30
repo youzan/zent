@@ -24,15 +24,22 @@ $background-color: #38f;
         box-sizing: border-box;
         position: relative;
         cursor: default;
+
         &:hover {
             background-color: $background-color;
             color: $white;
+        }
+
+        &.zent-submenu:hover {
+            background-color: $white;
+            color: $item-color;
         }
     }
 
     .zent-menu-item-disabled {
         color: $disabled-color;
         cursor: not-allowed;
+
         &:hover {
             background-color: $white;
             color: $disabled-color;
@@ -46,7 +53,20 @@ $background-color: #38f;
         transform: translateY(-50%);
     }
 
-    .zent-sub-menu-popover-wrapper {
-        width: 100%;
+    .zent-submenu > .zent-menu {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        margin-left: 4px;
+    }
+
+    .zent-submenu-title {
+        margin-left: -10px;
+        padding-left: 10px;
+
+        &:hover {
+            background-color: $background-color;
+            color: $white;
+        }
     }
 }

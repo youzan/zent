@@ -1,52 +1,42 @@
 import React, { Component } from 'react';
 import PanelHeader from '../common/PanelHeader';
 import YearPanelBody from './YearPanelBody';
-import { goYears } from '../utils';
-
-function noop() { }
+import { noop } from '../constants';
 
 export default class YearPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activedYear: props.actived
-    };
-  }
   prevYears = () => {
-    let prev = goYears(this.state.activedYear, -12);
-    this.setState({
-      activedYear: prev
-    });
+    const { actived, onSelect } = this.props;
+    const prev = actived.getFullYear() - 12;
+    onSelect(prev, true);
   }
+
   nextYears = () => {
-    let next = goYears(this.state.activedYear, 12);
-    this.setState({
-      activedYear: next
-    });
+    const { actived, onSelect } = this.props;
+    const next = actived.getFullYear() + 12;
+    onSelect(next, true);
   }
-  onSelectYear = (val) => {
-    this.props.onSelect(val);
-  }
+
   render() {
-    const state = this.state;
     const props = this.props;
-    const currentYear = parseInt(state.activedYear.getFullYear(), 10);
+    const { actived, onSelect, selected } = this.props;
+    const currentYear = parseInt(actived.getFullYear(), 10);
     const title = `${currentYear - 4}~${currentYear + 7}`;
+
     return (
       <div className="year-panel">
         <PanelHeader
           title={title}
-          onClick={noop}
+          onClickTitle={noop}
           prev={this.prevYears}
           next={this.nextYears}
-          />
+        />
         <YearPanelBody
-          actived={state.activedYear}
-          selected={props.selected}
+          actived={actived}
+          selected={selected}
           max={props.max}
           min={props.min}
-          onSelect={this.onSelectYear}
-          />
+          onSelect={onSelect}
+        />
       </div>
     );
   }

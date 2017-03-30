@@ -4,3 +4,4 @@
 **/node_modules
 packages/*/__tests__/*
 site
+_site

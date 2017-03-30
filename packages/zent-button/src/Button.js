@@ -24,7 +24,10 @@ export default class Button extends Component {
     ]),
     className: React.PropTypes.string,
     block: React.PropTypes.bool,
-    component: React.PropTypes.string,
+    component: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.func,
+    ]),
     disabled: React.PropTypes.bool,
     loading: React.PropTypes.bool,
     outline: React.PropTypes.bool,
@@ -60,13 +63,14 @@ export default class Button extends Component {
 
   // render a 标签
   renderLink(classNames) {
-    let Node = this.props.component || 'a';
-    let disabled = this.props.disabled || this.props.loading;
-    let { href = '', target } = this.props;
+    const Node = this.props.component || 'a';
+    const disabled = this.props.disabled || this.props.loading;
+    const { href = '', target, style } = this.props;
 
     return (
       <Node
         {...disabled ? {} : { href, target }}
+        style={style}
         className={classNames}
         onClick={this.handleClick}
       >
