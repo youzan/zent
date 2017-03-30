@@ -29,11 +29,12 @@ export default class Tabs extends React.Component {
       key: React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.number
-      ]),
+      ]).isRequired,
       title: React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.number
-      ])
+      ]).isRequired,
+      disabled: React.PropTypes.bool
     }))
   };
 
