@@ -254,8 +254,8 @@ describe('DateTimePicker', () => {
     pop = new ReactWrapper(wrapper.instance().picker, true);
     expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
-    // when disabled, the date could not be selected and confirmed
-    pop.find('.link--current').simulate('click');
+    // when disabled, the current link is hidden
+    expect(pop.find('.link--current').length).toBe(0);
     // expect(pop.find('DatePicker').getNode().state.selected).toBe(undefined);
     pop.find('.btn--confirm').simulate('click');
     expect(pop.find('DatePanel').length).toBe(1);
