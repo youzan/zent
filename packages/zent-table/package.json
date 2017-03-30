@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "zent-kit prepublish"
+    "prepublish": "npm run lint && zent-kit prepublish"
   },
   "repository": {
     "type": "git",
