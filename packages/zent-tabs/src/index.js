@@ -6,7 +6,7 @@ import Nav from './components/Nav/Nav';
 import tabUtil from './tabUtil';
 
 
-function noop() {}
+function noop() { }
 
 export default class Tabs extends React.Component {
   static propTypes = {
@@ -23,7 +23,17 @@ export default class Tabs extends React.Component {
     onTabDel: React.PropTypes.func,
     onTabAdd: React.PropTypes.func,
     candel: React.PropTypes.bool,
-    canadd: React.PropTypes.bool
+    canadd: React.PropTypes.bool,
+    tabs: React.PropTypes.arrayOf(React.PropTypes.shape({
+      key: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+      ]),
+      title: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+      ])
+    }))
   };
 
   static defaultProps = {
@@ -47,7 +57,7 @@ export default class Tabs extends React.Component {
 
   constructor(props) {
     super(props);
-    Tabs.uniqueId ++;
+    Tabs.uniqueId++;
   }
 
   // 选中tab
@@ -111,7 +121,7 @@ export default class Tabs extends React.Component {
               id={tabItem.key}
               uniqueId={Tabs.uniqueId}
             >
-            {tabItem.content}
+              {tabItem.content}
             </TabPanel>
           </LazyMount>
         );
@@ -121,7 +131,7 @@ export default class Tabs extends React.Component {
     return null;
   }
 
-  render() {
+  renderWithPanel() {
     let { prefix, className, children, activeKey, activeId } = this.props;
     // 向上兼容
     activeId = activeId || activeKey;
@@ -134,5 +144,23 @@ export default class Tabs extends React.Component {
         </div>
       </div>
     );
+  }
+
+  renderWithoutPanel() {
+    let { tabs, prefix, className, activeId } = this.props;
+
+    return (
+      <div className={`${prefix}-tabs ${className}`}>
+        {this.renderNav(tabs.map(tab => Object.assign({}, tab, { actived: tab.key === activeId })))}
+      </div>
+    );
+  }
+
+  render() {
+    let { tabs } = this.props;
+    if (tabs) {
+      return this.renderWithoutPanel();
+    }
+    return this.renderWithPanel();
   }
 }
