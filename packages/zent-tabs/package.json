@@ -21,6 +21,6 @@
     "src/"
   ],
   "dependencies": {
-    "zent-utils": "^1.0.7"
+    "zent-utils": "*"
   }
 }
