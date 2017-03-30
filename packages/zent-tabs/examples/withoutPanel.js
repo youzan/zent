@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Tabs from '../src';
 import '../assets/index.scss';
 
-let uniqId = 4;
-
 class Simple extends Component {
   constructor(props) {
     super(props);

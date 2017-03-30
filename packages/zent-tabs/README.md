@@ -243,14 +243,10 @@ ReactDOM.render(<Simple />, mountNode);
 
 :::
 
-:::不使用TabPanel，只使用Tab展示导航
+:::demo 不使用TabPanel，只使用Tab展示导航
 
-```jsx
-import React, { Component } from 'react';
-import Tabs from '../src';
-import '../assets/index.scss';
-
-let uniqId = 4;
+```js
+import { Tabs } from 'zent';
 
 class Simple extends Component {
   constructor(props) {
@@ -292,6 +288,7 @@ class Simple extends Component {
     );
   }
 }
+
 ReactDOM.render(<Simple />, mountNode);
 ```
 
