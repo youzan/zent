@@ -1,10 +1,11 @@
 import React from 'react';
+import assign from 'zent-utils/lodash/assign';
+
 import TabPanel from './components/TabPanel/TabPanel';
 import LazyMount from './components/LazyMount';
 import Nav from './components/Nav/Nav';
 
 import tabUtil from './tabUtil';
-
 
 function noop() { }
 
@@ -151,7 +152,7 @@ export default class Tabs extends React.Component {
 
     return (
       <div className={`${prefix}-tabs ${className}`}>
-        {this.renderNav(tabs.map(tab => Object.assign({}, tab, { actived: tab.key === activeId })))}
+        {this.renderNav(tabs.map(tab => assign({}, tab, { actived: tab.key === activeId })))}
       </div>
     );
   }
