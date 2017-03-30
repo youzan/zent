@@ -9,36 +9,6 @@ class Simple extends Component {
     super(props);
 
     this.state = {
-      align: 'left',
-      size: 'normal',
-      type: 'normal',
-      candel: true,
-      canadd: true,
-      onTabChange: ((id) => {
-        this.setState({
-          activeId: id
-        });
-      }),
-      onTabAdd: (() => {
-        this.setState(state => {
-          state.tabs.push({
-            title: `选项${uniqId}`,
-            key: `${uniqId++}`,
-            disabled: false
-          });
-          return state;
-        });
-      }),
-      onTabDel: ((id) => {
-        this.setState(state => {
-          let index = state.tabs.findIndex(tab => tab.key === id);
-          if (index !== -1) {
-            state.tabs.splice(index, 1);
-            return state;
-          }
-          return state;
-        });
-      }),
       activeId: '2',
       tabs: [{
         title: '选项一',
@@ -54,11 +24,45 @@ class Simple extends Component {
     };
   }
 
+  onTabChange(id) {
+    this.setState({
+      activeId: id
+    });
+  }
+  onTabAdd() {
+    this.setState(state => {
+      state.tabs.push({
+        title: `选项${uniqId}`,
+        key: `${uniqId++}`,
+        disabled: false
+      });
+      return state;
+    });
+  }
+  onTabDel(id) {
+    this.setState(state => {
+      let index = state.tabs.findIndex(tab => tab.key === id);
+      if (index !== -1) {
+        state.tabs.splice(index, 1);
+        return state;
+      }
+      return state;
+    });
+  }
+
   render() {
     return (
       <div>
         <div style={{ marginTop: '10px' }}>
-          <Tabs {...this.state} />
+          <Tabs
+            candel
+            canadd
+            activeId={this.state.activeId}
+            onTabChange={this.onTabChange.bind(this)}
+            onTabDel={this.onTabDel.bind(this)}
+            onTabAdd={this.onTabAdd.bind(this)}
+            tabs={this.state.tabs} />
+          <h1>{this.state.activeId}</h1>
         </div>
       </div>
     );

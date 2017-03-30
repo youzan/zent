@@ -241,9 +241,9 @@ class Simple extends React.Component {
 ReactDOM.render(<Simple />, mountNode);
 ```
 
-::
+:::
 
-:::可以不使用Panel
+:::不使用TabPanel，只使用Tab展示导航
 
 ```jsx
 import React, { Component } from 'react';
@@ -257,36 +257,6 @@ class Simple extends Component {
     super(props);
 
     this.state = {
-      align: 'left',
-      size: 'normal',
-      type: 'normal',
-      candel: true,
-      canadd: true,
-      onTabChange: ((id) => {
-        this.setState({
-          activeId: id
-        });
-      }),
-      onTabAdd: (() => {
-        this.setState(state => {
-          state.tabs.push({
-            title: `选项${uniqId}`,
-            key: `${uniqId++}`,
-            disabled: false
-          });
-          return state;
-        });
-      }),
-      onTabDel: ((id) => {
-        this.setState(state => {
-          let index = state.tabs.findIndex(tab => tab.key === id);
-          if (index !== -1) {
-            state.tabs.splice(index, 1);
-            return state;
-          }
-          return state;
-        });
-      }),
       activeId: '2',
       tabs: [{
         title: '选项一',
@@ -302,17 +272,50 @@ class Simple extends Component {
     };
   }
 
+  onTabChange(id) {
+    this.setState({
+      activeId: id
+    });
+  }
+  onTabAdd() {
+    this.setState(state => {
+      state.tabs.push({
+        title: `选项${uniqId}`,
+        key: `${uniqId++}`,
+        disabled: false
+      });
+      return state;
+    });
+  }
+  onTabDel(id) {
+    this.setState(state => {
+      let index = state.tabs.findIndex(tab => tab.key === id);
+      if (index !== -1) {
+        state.tabs.splice(index, 1);
+        return state;
+      }
+      return state;
+    });
+  }
+
   render() {
     return (
       <div>
         <div style={{ marginTop: '10px' }}>
-          <Tabs {...this.state} />
+          <Tabs
+            candel
+            canadd
+            activeId={this.state.activeId}
+            onTabChange={this.onTabChange.bind(this)}
+            onTabDel={this.onTabDel.bind(this)}
+            onTabAdd={this.onTabAdd.bind(this)}
+            tabs={this.state.tabs} />
+          <h1>{this.state.activeId}</h1>
         </div>
       </div>
     );
   }
 }
-
 ReactDOM.render(<Simple />, mountNode);
 ```
 
@@ -334,16 +337,16 @@ ReactDOM.render(<Simple />, mountNode);
 | onTabAdd    | 点击增加tab时  | func     |            |                       | 否    |
 | candel      | 是否可删除     | bool     | `false`    |                       | 否    |
 | canadd      | 是否可增加tab  | bool     | `false`    |                       | 否    |
+| tabs | 不使用Panel时的标签列表 | Array | `null` | | 否 |
 | className   | 自定义额外类名   | string   | `''`       |                       | 否    |
 | prefix      | 自定义前缀     | string   | `'zent'`   |                       | 否    |
-| tabs | 无Panel时的标签列表 |  | | | 否 |
 
 tabs参数类型：
-```typescript
+```ts
 Array<{
-  key: string | number,
-  title: string | number,
-  disabled?: boolean
+  key: string | number, // 同TabPanel id
+  title: string | number, // 同TabPanel tab
+  disabled?: boolean // 同TabPanel disabled
 }>
 
 ```
@@ -354,3 +357,4 @@ Array<{
 | --- | --------------------- | ------ | ---- |
 | tab | 该TabPanel所对应的tab标签的名字 | string | 是    |
 | id  | 该TabPanel的id          | string | 是    |
+| disabled | 该TabPanel是否被禁用 | bool | 否
