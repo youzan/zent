@@ -9,3 +9,4 @@ packages/*/coverage
 .vscode/
 .felintrc
 .idea/
+!_site/dist

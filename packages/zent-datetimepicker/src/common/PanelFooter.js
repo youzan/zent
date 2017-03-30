@@ -25,6 +25,7 @@ const PanelFooter = (props) => {
 PanelFooter.defaultProps = {
   onClickLink: noop,
   onClickButton: noop,
+  showLink: true,
   showError: false,
   errorText: ''
 };
