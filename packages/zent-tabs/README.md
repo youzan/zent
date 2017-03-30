@@ -243,18 +243,20 @@ ReactDOM.render(<Simple />, mountNode);
 
 ::
 
-:::无Panel
+:::可以不使用Panel
 
-```javascript
-import React from 'react';
+```jsx
+import React, { Component } from 'react';
 import Tabs from '../src';
 import '../assets/index.scss';
 
 let uniqId = 4;
 
-const Simple = React.createClass({
-  getInitialState() {
-    return {
+class Simple extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       align: 'left',
       size: 'normal',
       type: 'normal',
@@ -298,7 +300,7 @@ const Simple = React.createClass({
         key: '3'
       }]
     };
-  },
+  }
 
   render() {
     return (
@@ -309,10 +311,9 @@ const Simple = React.createClass({
       </div>
     );
   }
-});
+}
 
-export default Simple;
-
+ReactDOM.render(<Simple />, mountNode);
 ```
 
 :::
