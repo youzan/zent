@@ -9,6 +9,7 @@ export default [
   'validationError',
   'validationErrors',
   'validations',
+  'asyncValidation',
   'normalize',
   'format'
 ];
