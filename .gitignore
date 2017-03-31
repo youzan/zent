@@ -10,3 +10,4 @@ packages/*/coverage
 .felintrc
 .idea/
 !_site/dist
+logs/
