@@ -1,19 +1,12 @@
-# os: osx
-# osx_image: xcode8.3
-# sudo: true
-# dist: trusty
-
 language: node_js
 node_js:
 - 6
-
-matrix:
-    include:
-        - os: linux
-          dist: trusty
-          sudo: required
-        - os: osx
-          osx_image: xcode8.3
+os:
+  - linux
+  - osx
+dist: trusty
+sudo: required
+osx_image: xcode8.3
 cache:
   yarn: true
 branches:
