@@ -19,5 +19,8 @@
     "examples/",
     "dist/",
     "src/"
-  ]
+  ],
+  "dependencies": {
+    "zent-utils": "*"
+  }
 }
