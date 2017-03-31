@@ -18,8 +18,8 @@ describe('Combine', () => {
   it('pagination render', () => {
     expect(wrapper.find('.zent-pagination').length).toBe(1);
     expect(wrapper.find('.zent-pagination .pagination-list').length).toBe(1);
-    expect(wrapper.find('.zent-pagination .pagination-list li').first().hasClass('pager--disabled')).toBeTruthy();
-    expect(wrapper.find('.zent-pagination .pagination-list li').at(1).hasClass('pager--current')).toBeTruthy();
+    expect(wrapper.find('.zent-pagination .pagination-list .pager').first().hasClass('pager--disabled')).toBeTruthy();
+    expect(wrapper.find('.zent-pagination .pagination-list .pager').at(1).hasClass('pager--current')).toBeTruthy();
   });
 
   it('header sort change', () => {
@@ -37,9 +37,9 @@ describe('Combine', () => {
   it('pagination click change', () => {
     expect(wrapper.find('.pager__input').prop('value')).toBe('1');
 
-    wrapper.find('.zent-pagination .pagination-list li').at(2).simulate('click');
+    wrapper.find('.zent-pagination .pagination-list .pager').at(2).simulate('click');
 
-    expect(wrapper.find('.zent-pagination .pagination-list li').at(2).hasClass('pager--current')).toBeTruthy();
+    expect(wrapper.find('.zent-pagination .pagination-list .pager').at(2).hasClass('pager--current')).toBeTruthy();
     expect(wrapper.find('.pager__input').prop('value')).toBe('2');
   });
 
@@ -49,7 +49,7 @@ describe('Combine', () => {
     wrapper.setState({ current: 3 });
 
     expect(wrapper.find('.pager__input').prop('value')).toBe('3');
-    expect(wrapper.find('.zent-pagination .pagination-list li').at(3).hasClass('pager--current')).toBeTruthy();
+    expect(wrapper.find('.zent-pagination .pagination-list .pager').at(3).hasClass('pager--current')).toBeTruthy();
   });
 
   it('pagination total info', () => {

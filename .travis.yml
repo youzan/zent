@@ -1,5 +1,7 @@
-sudo: true
-dist: trusty
+os: osx
+osx_image: xcode8.3
+# sudo: true
+# dist: trusty
 language: node_js
 node_js:
 - 6

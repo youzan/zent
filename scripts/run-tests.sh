@@ -12,7 +12,7 @@ do
     if [ -d "$package" ] ; then
         (cd "$package" && run_test)
 
-        if [ "$?" != 0 ] ; then
+        if [ $? -ne 0 ] ; then
             exit -1
         fi
     fi
