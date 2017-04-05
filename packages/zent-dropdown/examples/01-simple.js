@@ -11,7 +11,7 @@ const { MenuItem, SubMenu } = Menu;
 export default class Simple extends Component {
   render() {
     return (
-      <Dropdown mode="click">
+      <Dropdown>
         <Dropdown.Trigger>
           <a>Hover Me</a>
         </Dropdown.Trigger>
