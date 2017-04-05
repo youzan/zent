@@ -9,7 +9,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "echo lol"
+    "prepublish": "npm run lint && zent-kit prepublish"
   },
   "author": "fancy",
   "license": "MIT",
@@ -28,7 +28,7 @@
   "dependencies": {
     "zent-utils": "1.0.7",
     "zent-popover": "1.0.12",
-    "zent-menu": "0.0.2"
+    "zent-menu": "0.0.3"
   },
   "devDependencies": {
     "zent-button": "1.0.9",

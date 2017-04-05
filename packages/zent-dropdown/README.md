@@ -9,6 +9,6 @@
 | className | 自定义额外类名  | string | `''`       |                                   |
 | prefix    | 自定义类名前缀    | string | `'zent'`   |                                   |
 | mode    | 触发模式    | string | `'hover'`   |          `'click'`                      |
-| position    | 弹出位置    | string | `'RightTop'`   |  `'LeftTop'`...详见Popover           |
+| position    | 弹出位置    | string | `'right-top'`   |  `'right-center'`, `'right-bottom'`, `'bottom-right'`, `'bottom-center'`, `'bottom-left'`            |
 | visible    | 菜单显示开关    | boolean | `false`   |                                   |
 | onVisibleChange | 显示状态变化回调 | func(visible: bool)|`noop`    |                      |

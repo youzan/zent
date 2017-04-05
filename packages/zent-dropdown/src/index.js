@@ -1,21 +1,30 @@
 import React, { PropTypes, Children, Component } from 'react';
 import Popover, { withPopover } from 'zent-popover';
 import cx from 'zent-utils/classnames';
-import noop from 'zent-utils/lodash/noop';
 
 const TriggerModes = {
   click: Popover.Trigger.Click,
   hover: Popover.Trigger.Hover
 };
 
+const Positions = {
+  'right-top': Popover.Position.RightTop,
+  'right-center': Popover.Position.RightCenter,
+  'right-bottom': Popover.Position.RightBottom,
+  'bottom-left': Popover.Position.BottomLeft,
+  'bottom-right': Popover.Position.BottomRight,
+  'bottom-center': Popover.Position.BottomCenter
+};
+
 const DropdownTrigger = (props) => props.children;
-const DropdownContent = withPopover(function DropdownContentBase({ popover, children }) {
+const DropdownContentBase = function ({ popover, children, prefix = 'zent' }) {
   return (
-    <div onClick={popover.close}>
+    <div onClick={popover.close} className={cx(`${prefix}-dropdown-content-wrapper`)}>
       {children}
     </div>
   );
-})
+};
+const DropdownContent = withPopover(DropdownContentBase);
 
 export default class Dropdown extends Component {
   static Content = DropdownContent;
@@ -33,8 +42,7 @@ export default class Dropdown extends Component {
   static defaultProps = {
     prefix: 'zent',
     mode: 'hover',
-    onVisibleChange: noop,
-    position: 'RightTop',
+    position: 'right-top',
     className: ''
   };
 
@@ -71,72 +79,29 @@ export default class Dropdown extends Component {
     return { dropdownTrigger, dropdownContent };
   }
 
-  renderTrigger() {
+  renderTrigger(triggerContent) {
     const { mode, prefix } = this.props;
-    const { dropdownTrigger } = this.validateChildren();
     const Trigger = TriggerModes[mode];
     return (
-      <Trigger showDelay={mode==='hover'&&200} hideDelay={mode==='hover'&&200}>
-        <div className={cx(`${prefix}-dropdown-trigger-wrapper`)} style={{"display": "inline-block"}}>
-          {dropdownTrigger}
+      <Trigger showDelay={mode === 'hover' && 200} hideDelay={mode === 'hover' && 200}>
+        <div className={cx(`${prefix}-dropdown-trigger-wrapper`)}>
+          {triggerContent}
         </div>
       </Trigger>
     );
   }
 
   render() {
-    const { dropdownContent } = this.validateChildren();
-    const { prefix, className, mode, position, onVisibleChange } = this.props;
+    const { dropdownContent, dropdownTrigger } = this.validateChildren();
+    const { prefix, className, position, visible, onVisibleChange } = this.props;
     const { Content } = Popover;
     return (
-      <Popover position={Popover.Position[position]} className={cx(className, `${prefix}-dropdown`)}>
-        {this.renderTrigger()}
+      <Popover position={Positions[position]} className={cx(className, `${prefix}-dropdown`)} visible={visible} onVisibleChange={onVisibleChange}>
+        {this.renderTrigger(dropdownTrigger)}
         <Content>
           {dropdownContent}
         </Content>
       </Popover>
-    )
+    );
   }
 }
-
-
-// import Popover from 'zent-popover';
-// import Menu from 'zent-menu';
-// import 'zent-menu/lib/index.css';
-// import React, { PropTypes, Component } from 'react';
-//
-// const { Trigger, Content } = Popover;
-// const { MenuItem, SubMenu } = Menu;
-//
-// export default class Dropdown extends Component {
-//   render() {
-//     return (
-//       <Popover position={Popover.Position.BottomLeft} display="block">
-//         <Trigger.Click>
-//           <a>Hover me</a>
-//         </Trigger.Click>
-//         <Content>
-//           <Menu
-//             onClick={(e, key) => { console.log(key) }}
-//             className="hello"
-//           >
-//             <MenuItem key="1-1" className="food">食品分类</MenuItem>
-//             <MenuItem key="1-2" disabled>服装分类</MenuItem>
-//             <SubMenu title="电器分类" overlayClassName="sub">
-//               <SubMenu key="2-1-0" className="tv" title="电视机">
-//                 <MenuItem key="2-1-1" disabled>三星</MenuItem>
-//                 <MenuItem key="2-1-2">夏普</MenuItem>
-//               </SubMenu>
-//               <MenuItem key="2-2" disabled>笔记本</MenuItem>
-//               <MenuItem key="2-3">洗衣机</MenuItem>
-//             </SubMenu>
-//             <SubMenu title="美妆分类" disabled>
-//               <MenuItem key="3-1">眼影</MenuItem>
-//               <MenuItem key="3-2">洗面奶</MenuItem>
-//             </SubMenu>
-//           </Menu>
-//         </Content>
-//       </Popover>
-//     );
-//   }
-// };
