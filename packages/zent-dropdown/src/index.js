@@ -1,14 +1,21 @@
 import React, { PropTypes, Children, Component } from 'react';
-import Popover from 'zent-popover';
+import Popover, { withPopover } from 'zent-popover';
 import cx from 'zent-utils/classnames';
 import noop from 'zent-utils/lodash/noop';
-import DropdownContent from './DropdownContent';
-import DropdownTrigger from './DropdownTrigger';
 
 const TriggerModes = {
   click: Popover.Trigger.Click,
   hover: Popover.Trigger.Hover
 };
+
+const DropdownTrigger = (props) => props.children;
+const DropdownContent = withPopover(function DropdownContentBase({ popover, children }) {
+  return (
+    <div onClick={popover.close}>
+      {children}
+    </div>
+  );
+})
 
 export default class Dropdown extends Component {
   static Content = DropdownContent;
@@ -26,9 +33,15 @@ export default class Dropdown extends Component {
   static defaultProps = {
     prefix: 'zent',
     mode: 'hover',
-    onChange: noop,
-    position: 'RightTop'
+    onVisibleChange: noop,
+    position: 'RightTop',
+    className: ''
   };
+
+  constructor() {
+    super();
+    this.visible = true;
+  }
 
   validateChildren() {
     const { children } = this.props;
@@ -59,29 +72,28 @@ export default class Dropdown extends Component {
   }
 
   renderTrigger() {
-    const { mode } = this.props;
+    const { mode, prefix } = this.props;
     const { dropdownTrigger } = this.validateChildren();
     const Trigger = TriggerModes[mode];
     return (
-      <Trigger>
-        {dropdownTrigger}
+      <Trigger showDelay={mode==='hover'&&200} hideDelay={mode==='hover'&&200}>
+        <div className={cx(`${prefix}-dropdown-trigger-wrapper`)} style={{"display": "inline-block"}}>
+          {dropdownTrigger}
+        </div>
       </Trigger>
     );
   }
 
   render() {
-    const { dropdownTrigger, dropdownContent } = this.validateChildren();
-    const { prefix, className, mode, position, visible, onVisibleChange } = this.props;
-    const Trigger = Popover.Trigger.Hover;
+    const { dropdownContent } = this.validateChildren();
+    const { prefix, className, mode, position, onVisibleChange } = this.props;
+    const { Content } = Popover;
     return (
-      <Popover position={Popover.Position.RightTop} className={cx(className, `${prefix}-dropdown-popover`, `${prefix}-dropdown`)}>
+      <Popover position={Popover.Position[position]} className={cx(className, `${prefix}-dropdown`)}>
         {this.renderTrigger()}
-        <Popover.Content>
-          {/* {React.cloneElement(dropdownContent, {
-            prefix
-          })} */}
-          <div>popover</div>
-        </Popover.Content>
+        <Content>
+          {dropdownContent}
+        </Content>
       </Popover>
     )
   }

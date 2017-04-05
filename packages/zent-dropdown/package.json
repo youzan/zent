@@ -28,10 +28,10 @@
   "dependencies": {
     "zent-utils": "1.0.7",
     "zent-popover": "1.0.12",
-    "zent-menu": "0.0.1"
+    "zent-menu": "0.0.2"
   },
   "devDependencies": {
     "zent-button": "1.0.9",
-    "zent-icon": "1.0.8"
+    "zent-icon": "1.0.9"
   }
 }
