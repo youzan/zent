@@ -25,4 +25,4 @@ $basepath/../lerna bootstrap
 $basepath/../lerna publish --exact --concurrency 1 --npm-tag=$npmtag
 
 # 确保字体文件已经上传CDN
-$basepath/../packages/zent-icon/scripts/check_cdn.sh
+# $basepath/../packages/zent-icon/scripts/check_cdn.sh

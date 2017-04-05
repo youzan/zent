@@ -4,7 +4,7 @@ module.exports = {
       title: '快速上手',
       path: '/',
       filePath() {
-        return System.import('../docs/intro.md')
+        return System.import('../packages/zent/README.md')
       }
     },
     {

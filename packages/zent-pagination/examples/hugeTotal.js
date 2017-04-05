@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Pagination from '../src/index.js';
 import '../assets/index.scss';
 
-const Simple = React.createClass({
-  getInitialState() {
-    return {
-      current: 1321,
-      totalItem: 10000000000000,
-      pageSize: 10
-    };
-  },
+export default class HugeTotal extends Component {
+  state = {
+    current: 1321,
+    totalItem: 10000000000000,
+    pageSize: 10
+  };
 
-  onChange(page) {
+  onChange = (page) => {
     this.setState({
       current: page
     });
-  },
+  }
 
   render() {
     return (
@@ -27,6 +25,4 @@ const Simple = React.createClass({
       />
     );
   }
-});
-
-export default Simple;
+}

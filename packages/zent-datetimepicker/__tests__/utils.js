@@ -68,7 +68,7 @@ describe('Utils', () => {
 
 describe('formatDate', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
-  const UTC_DAY = new Date(Date.UTC(2017, 1, 14, 21, 27, 22));
+  // const UTC_DAY = new Date(Date.UTC(2017, 1, 14, 21, 27, 22));
   it('formatDate works fine with flag supported', () => {
     // NOTE: formatDate will parseDate arg[0] using default mask if only one string arg is provided
     // expect(formatDate('2016-2-14')).toBe('周日 2月 14 2016 00:00:00');
@@ -81,8 +81,8 @@ describe('formatDate', () => {
     expect(formatDate(DAY, 'ddd MMM DD YYYY HH:mm:ss')).toBe('周二 2月 14 2017 21:27:22');
 
     // local time has jet lag with UTC time
-    expect(formatDate(UTC_DAY, 'MM DD')).toBe('02 15');
-    expect(formatDate(UTC_DAY, 'UTC:MM DD')).toBe('UTC:02 15');
+    // expect(formatDate(UTC_DAY, 'MM DD')).toBe('02 15');
+    // expect(formatDate(UTC_DAY, 'UTC:MM DD')).toBe('UTC:02 15');
 
     // with unsupported flag, formatDate return it
     expect(formatDate(DAY, 'YYYYOOOO')).toBe('2017OOOO');

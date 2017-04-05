@@ -104,63 +104,72 @@ const Head = React.createClass({
   },
 
   renderTr(isFixTr, style = {}) {
-    let { selection } = this.props;
+    let { selection, needExpand } = this.props;
     let needSelect = selection.needSelect;
     let className = isFixTr ? fixRowClass : stickRowClass;
+    let tds = [];
 
+    if (needExpand) {
+      tds.push(
+        <div key="-1" className="td expanded-item">
+        </div>
+      );
+    }
+
+    this.props.columns.forEach((item, index) => {
+      let cellClass = 'cell';
+      let { isMoney, textAlign, width } = item;
+
+      if (index === 0 && needSelect) {
+        cellClass += ' cell--selection';
+      }
+
+      if (isMoney) {
+        cellClass += ' cell--money';
+      }
+
+      width = helper.getCalculatedWidth(width);
+
+      let styleObj = {};
+
+      if (width) {
+        styleObj = {
+          width,
+          flex: '0 1 auto'
+        };
+      }
+
+      if (textAlign) {
+        if (['left', 'center', 'right'].indexOf(textAlign)) {
+          styleObj = assign(styleObj, {
+            textAlign
+          });
+        }
+      }
+
+      tds.push(
+        <div
+          key={index}
+          className={cellClass}
+          style={styleObj}
+        >
+            {
+              index === 0 && needSelect && (
+                <Checkbox
+                  className="select-check"
+                  onChange={this.onSelect}
+                  checked={selection.isSelectAll}
+                  indeterminate={selection.isSelectPart}
+                />
+              )
+            }
+            {this.getChild(item)}
+        </div>
+      );
+    });
     return (
       <div className={`${className} tr`} style={style} ref={(c) => { this[className] = c }}>
-        {this.props.columns.map((item, index) => {
-          let cellClass = 'cell';
-          let { isMoney, textAlign, width } = item;
-
-          if (index === 0 && needSelect) {
-            cellClass += ' cell--selection';
-          }
-
-          if (isMoney) {
-            cellClass += ' cell--money';
-          }
-
-          width = helper.getCalculatedWidth(width);
-
-          let styleObj = {};
-
-          if (width) {
-            styleObj = {
-              width,
-              flex: '0 1 auto'
-            };
-          }
-
-          if (textAlign) {
-            if (['left', 'center', 'right'].indexOf(textAlign)) {
-              styleObj = assign(styleObj, {
-                textAlign
-              });
-            }
-          }
-
-          return (
-            <div
-              key={index}
-              className={cellClass}
-              style={styleObj}
-            >
-                {
-                  index === 0 && needSelect && (
-                    <Checkbox
-                      className="select-check"
-                      onChange={this.onSelect}
-                      checked={selection.isSelectAll}
-                      indeterminate={selection.isSelectPart}
-                    />
-                  )
-                }
-                {this.getChild(item)}
-            </div>
-          );
-        })}
+       {tds}
       </div>
     );
   },

@@ -24,7 +24,10 @@ export default class Button extends Component {
     ]),
     className: React.PropTypes.string,
     block: React.PropTypes.bool,
-    component: React.PropTypes.string,
+    component: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.func,
+    ]),
     disabled: React.PropTypes.bool,
     loading: React.PropTypes.bool,
     outline: React.PropTypes.bool,

@@ -169,10 +169,11 @@ class DatePicker extends Component {
     const { selected, activedTime } = this.state;
     const { format, showTime } = this.props;
 
-    // 如果没有选择日期则不进行任何操作
-    if (!selected) return;
+    // 如果没有选择日期则默认选中当前日期
 
-    let tmp = selected;
+    let tmp = selected || new Date();
+    if (this.isDisabled(tmp)) return;
+
     if (showTime) {
       tmp = new Date(
         selected.getFullYear(),
@@ -225,9 +226,10 @@ class DatePicker extends Component {
 
     // 打开面板的时候才渲染
     if (state.openPanel) {
+      const isDisabled = this.isDisabled(CURRENT_DAY);
       const linkCls = classNames({
         'link--current': true,
-        'link--disabled': this.isDisabled(CURRENT_DAY)
+        'link--disabled': isDisabled
       });
 
       datePicker = (
@@ -247,6 +249,7 @@ class DatePicker extends Component {
             onClickButton={this.onConfirm}
             linkText="今天"
             linkCls={linkCls}
+            showLink={!isDisabled}
             onClickLink={() => this.onSelectDate(CURRENT_DAY)}
           />
         </div>
@@ -275,6 +278,7 @@ class DatePicker extends Component {
     return (
       <div className={wrapperCls} >
         <Popover
+          cushion={5}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}

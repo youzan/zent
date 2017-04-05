@@ -60,6 +60,9 @@ const extractStateFromProps = (props) => {
     actived,
     activedTime: actived.slice(),
     openPanel: false,
+    showError: false,
+    openStartTimePanel: false,
+    openEndTimePanel: false,
     showPlaceholder
   };
 };
@@ -82,6 +85,7 @@ class DateRangePicker extends Component {
     placeholder: ['开始日期', '结束日期'],
     format: 'YYYY-MM-DD',
     confirmText: '确认',
+    errorText: '请选择起止时间',
     showTime: false,
     disabledDate: noop,
     onChange: noop
@@ -225,6 +229,20 @@ class DateRangePicker extends Component {
     };
   }
 
+  onOpenStartTime = () => {
+    this.setState({
+      openStartTimePanel: true,
+      openEndTimePanel: false
+    });
+  }
+
+  onOpenEndTime = () => {
+    this.setState({
+      openStartTimePanel: false,
+      openEndTimePanel: true
+    });
+  }
+
   onClickInput = () => {
     if (this.props.disabled) return;
 
@@ -240,7 +258,21 @@ class DateRangePicker extends Component {
 
   onConfirm = () => {
     const { selected, activedTime } = this.state;
-    if (selected.length !== 2) return false;
+
+    if (selected.length !== 2) {
+      this.setState({
+        showError: true
+      });
+      // eslint-disable-next-line
+      let timer = setTimeout(() => {
+        this.setState({
+          showError: false
+        });
+        timer = null;
+      }, 2000);
+
+      return;
+    }
 
     const { format, showTime } = this.props;
     const fullFormat = showTime ? `${format} ${TIME_FORMAT}` : format;
@@ -277,11 +309,21 @@ class DateRangePicker extends Component {
         start: 0,
         end: 1
       };
+      const timeStatusMap = {
+        start: 'openEndTimePanel',
+        end: 'openStartTimePanel'
+      };
+      const timeHandleMap = {
+        start: this.onOpenStartTime,
+        end: this.onOpenEndTime
+      };
 
       return {
+        hidePanel: state[timeStatusMap[type]],
         actived: state.activedTime[indexMap[type]],
         disabledTime: props.disabledTime && props.disabledTime(type),
-        onChange: handleMap[type]
+        onChange: handleMap[type],
+        onOpen: timeHandleMap[type]
       };
     };
 
@@ -327,6 +369,8 @@ class DateRangePicker extends Component {
           <PanelFooter
             buttonText={props.confirmText}
             onClickButton={this.onConfirm}
+            showError={state.showError}
+            errorText={props.errorText}
           />
         </div >
       );
@@ -355,6 +399,7 @@ class DateRangePicker extends Component {
     return (
       <div className={prefixCls}>
         <Popover
+          cushion={5}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
@@ -362,7 +407,7 @@ class DateRangePicker extends Component {
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>
-              {state.showPlaceholder ? props.placeholder.join('~') : state.value.join('~')}
+              {state.showPlaceholder ? props.placeholder.join(' 至 ') : state.value.join(' 至 ')}
               <span className="zenticon zenticon-calendar-o"></span>
               <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
             </div>

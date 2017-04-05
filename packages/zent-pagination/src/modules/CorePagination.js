@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import parser from '../data/parser';
 import Pager from './Pager';
 import Jump from './Jump';
 
-const { number, func } = React.PropTypes;
+const { number, func } = PropTypes;
 
-const CorePagination = React.createClass({
-  propTypes: {
+export default class CorePagination extends Component {
+  static propTypes = {
     current: number,
     total: number,
     onChange: func
-  },
+  };
 
-  renderPager(item, index) {
+  renderPager = (item, index) => {
     if (!item) {
       return null;
     }
@@ -39,14 +39,15 @@ const CorePagination = React.createClass({
         onChange={this.props.onChange}
       />
     );
-  },
+  };
 
   render() {
-    let self = this;
     let { current, total, maxPageToShow } = this.props;
+
     if (maxPageToShow && maxPageToShow > 0) {
       total = Math.min(total, maxPageToShow);
     }
+
     let pages = parser.getPages({
       current,
       total
@@ -54,14 +55,10 @@ const CorePagination = React.createClass({
 
     return (
       <div className="pagination-list">
-      {
-        pages.map((item, index) => {
-          return self.renderPager(item, index);
-        })
-      }
+        {
+          pages.map((item, index) => this.renderPager(item, index))
+        }
       </div>
     );
   }
-});
-
-export default CorePagination;
+}
