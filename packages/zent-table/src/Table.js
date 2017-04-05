@@ -24,7 +24,8 @@ const Table = React.createClass({
     loading: bool,
     autoScroll: bool,
     autoStick: bool,
-    selection: object
+    selection: object,
+    expandation: object,
   },
 
   getDefaultProps() {
@@ -177,13 +178,37 @@ const Table = React.createClass({
   },
 
   render() {
-    let { selection, prefix, columns, className, sortBy, autoStick, sortType, datasets, rowKey, pageInfo, emptyLabel, getRowConf = () => { return { canSelect: true, rowClass: '' } } } = this.props;
+    let {
+      selection,
+      prefix,
+      columns,
+      className,
+      sortBy,
+      autoStick,
+      sortType,
+      datasets,
+      rowKey,
+      pageInfo,
+      emptyLabel,
+      getRowConf = () => {
+        return { canSelect: true, rowClass: '' };
+      },
+      expandation = null
+    } = this.props;
     let needSelect = selection !== null;
     let selectedRowKeys = [];
 
     let isSelectAll = false;
     let isSelectPart = false;
 
+    let needExpand = false;
+    let isExpanded;
+    let expandRender;
+    if (expandation) {
+      needExpand = true;
+      isExpanded = expandation.isExpanded;
+      expandRender = expandation.expandRender;
+    }
     if (needSelect) {
       let canSelectRowsCount = 0;
 
@@ -224,6 +249,7 @@ const Table = React.createClass({
                   isSelectAll,
                   isSelectPart
                 }}
+                needExpand={needExpand}
                 autoStick={autoStick}
                 style={this.state.fixStyle}
               />
@@ -238,6 +264,9 @@ const Table = React.createClass({
                   selectedRowKeys,
                   onSelect: this.onSelectOneRow
                 }}
+                needExpand={needExpand}
+                isExpanded={isExpanded}
+                expandRender={expandRender}
               />
             </div>
           )}

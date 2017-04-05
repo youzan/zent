@@ -145,4 +145,39 @@ describe('Tabs', () => {
     expect(wrapper.find('Tab').length).toBe(2);
     expect(wrapper.state('tabs')).toEqual(['quux', 'bar']);
   });
+
+  it('use without panel', () => {
+    class App extends Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          activeId: '2',
+          tabs: [{
+            title: '选项一',
+            key: '1',
+            disabled: true
+          }, {
+            title: '选项二',
+            key: '2'
+          }, {
+            title: '选项三',
+            key: '3'
+          }]
+        };
+      }
+
+      render() {
+        return (
+          <div>
+            <div style={{ marginTop: '10px' }}>
+              <Tabs {...this.state} />
+            </div>
+          </div>
+        );
+      }
+    }
+
+    const wrapper = mount(<App />);
+    expect(wrapper.find('Tab').length).toBe(3);
+  })
 });

@@ -1,6 +1,6 @@
 {
   "name": "zent-datetimepicker",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Zent DateTimePicker 组件",
   "main": "./lib/index.js",
   "repository": {
@@ -28,8 +28,8 @@
   "dependencies": {
     "fecha": "2.3.0",
     "zent-icon": "1.0.8",
-    "zent-input": "1.0.9",
-    "zent-popover": "1.0.12",
+    "zent-input": "1.0.10",
+    "zent-popover": "1.0.13",
     "zent-utils": "1.0.7"
   }
 }

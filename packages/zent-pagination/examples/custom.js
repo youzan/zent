@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 import Pagination from '../src/index.js';
 import '../assets/index.scss';
 
-const Custom = React.createClass({
-  getInitialState() {
-    return {
-      current: 1,
-      pageSize: 10,
-      totalItem: 1000,
-      max: 100
-    };
-  },
+export default class Custom extends Component {
 
-  onChange(page) {
+  state = {
+    current: 1,
+    pageSize: 10,
+    totalItem: 1000,
+    max: 100
+  }
+
+  onChange = (page) => {
     this.setState({
       current: page
     });
-  },
+  }
 
-  onTotalChange(e) {
+  onTotalChange = (e) => {
     let str = e.target.value.trim();
     let value;
 
@@ -31,9 +31,9 @@ const Custom = React.createClass({
     this.setState({
       totalItem: value
     });
-  },
+  }
 
-  onPageSizeChange(e) {
+  onPageSizeChange = (e) => {
     let str = e.target.value.trim();
     let value;
 
@@ -46,9 +46,9 @@ const Custom = React.createClass({
     this.setState({
       pageSize: value
     });
-  },
+  }
 
-  onCurrentChange(e) {
+  onCurrentChange = (e) => {
     let str = e.target.value.trim();
     let value;
 
@@ -61,9 +61,9 @@ const Custom = React.createClass({
     this.setState({
       current: value
     });
-  },
+  }
 
-  onMaxChange(e) {
+  onMaxChange = (e) => {
     let str = e.target.value.trim();
     let value;
 
@@ -76,7 +76,7 @@ const Custom = React.createClass({
     this.setState({
       max: value
     });
-  },
+  }
 
   render() {
     return (
@@ -109,6 +109,4 @@ const Custom = React.createClass({
       </div>
     );
   }
-});
-
-export default Custom;
+}

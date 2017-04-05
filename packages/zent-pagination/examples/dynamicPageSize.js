@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Pagination from '../src/index.js';
 import 'zent-select/lib/index.css';
 import '../assets/index.scss';
 
-const Dynamic = React.createClass({
-  getInitialState() {
-    return {
-      current: 1,
-      totalItem: 1000,
-    };
-  },
+export default class DynamicPageSize extends Component {
+  state = {
+    current: 1,
+    totalItem: 1000
+  };
 
-  onChange(page) {
+  onChange = (page) => {
     this.setState({
       current: page
     });
-  },
+  };
 
   render() {
     return (
@@ -27,6 +25,4 @@ const Dynamic = React.createClass({
       />
     );
   }
-});
-
-export default Dynamic;
+}

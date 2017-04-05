@@ -1,6 +1,6 @@
 {
   "name": "zent-tabs",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Zent Tab组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -19,5 +19,8 @@
     "examples/",
     "dist/",
     "src/"
-  ]
+  ],
+  "dependencies": {
+    "zent-utils": "*"
+  }
 }

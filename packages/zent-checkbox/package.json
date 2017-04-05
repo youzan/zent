@@ -1,6 +1,6 @@
 {
   "name": "zent-checkbox",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Zent Checkbox 多选框组件",
   "main": "./lib/index.js",
   "repository": {
