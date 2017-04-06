@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Td from './Td';
 
 // 需要传入一个组件模板
-const Body = React.createClass({
+export default class Body extends Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState() {
-    let { datasets, isExpanded } = this.props;
-    let expandItems = {};
-
-    datasets.forEach((rowData, rowIndex) => {
+    const { datasets, isExpanded } = props;
+    const expandItems = datasets.reduce((items, rowData, rowIndex) => {
       if (typeof isExpanded === 'function') {
-        expandItems[rowIndex] = isExpanded(rowData, rowIndex);
+        items[rowIndex] = isExpanded(rowData, rowIndex);
       } else {
-        expandItems[rowIndex] = false;
+        items[rowIndex] = false;
       }
-    });
 
-    return {
+      return items;
+    }, {});
+
+    this.state = {
       expandItems
     };
-  },
+  }
 
   handleExpand(rowIndex) {
     return () => {
@@ -31,11 +32,11 @@ const Body = React.createClass({
         expandItems
       });
     };
-  },
+  }
 
   isExpanded(rowData, rowIndex) {
     return this.state.expandItems[rowIndex] || 0;
-  },
+  }
 
   render() {
     let { datasets, columns, emptyLabel, rowKey, selection, getRowConf, expandRender, needExpand } = this.props;
@@ -126,6 +127,4 @@ const Body = React.createClass({
       </div>
     );
   }
-});
-
-export default Body;
+}

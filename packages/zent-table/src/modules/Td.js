@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import helper from '../helper';
 import Checkbox from 'zent-checkbox';
 import assign from 'zent-utils/lodash/assign';
+import cx from 'zent-utils/classnames';
 
-const Td = React.createClass({
-
+export default class Td extends Component {
   renderText(name, data) {
     return data[name];
-  },
+  }
 
   renderContent() {
-    let { column, data, pos } = this.props;
-    let { name, bodyRender } = column;
+    const { column, data, pos } = this.props;
+    const { name, bodyRender } = column;
 
     if (typeof bodyRender !== 'undefined') {
       if (typeof bodyRender === 'function') {
@@ -32,29 +32,24 @@ const Td = React.createClass({
     }
 
     return this.renderText(name, data);
-  },
+  }
 
-  onSelect(e) {
-    let isChecked = e.target.checked;
-    let { selection, data, rowKey } = this.props;
+  onSelect = (e) => {
+    const isChecked = e.target.checked;
+    const { selection, data, rowKey } = this.props;
+
     selection.onSelect(data[rowKey], isChecked);
-  },
+  };
 
   render() {
-    let { column, selection, data, rowKey } = this.props;
-    let { textAlign, className = 'cell' } = column;
-
-    let { needSelect, canSelect } = selection;
-    let self = this;
-    let width = helper.getCalculatedWidth(column.width);
-
-    if (needSelect) {
-      className += ' cell--selection';
-    }
-
-    if (column.isMoney) {
-      className += ' cell--money';
-    }
+    const { column, selection, data, rowKey } = this.props;
+    const { textAlign, isMoney } = column;
+    const { needSelect, canSelect } = selection;
+    const width = helper.getCalculatedWidth(column.width);
+    const className = cx('cell', column.className, {
+      'cell--selection': needSelect,
+      'cell--money': isMoney
+    });
 
     let styleObj = {};
 
@@ -81,7 +76,7 @@ const Td = React.createClass({
               className="select-check"
               checked={canSelect && selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
               disabled={!canSelect}
-              onChange={self.onSelect}
+              onChange={this.onSelect}
             />
           )
         }
@@ -89,6 +84,4 @@ const Td = React.createClass({
       </div>
     );
   }
-});
-
-export default Td;
+}
