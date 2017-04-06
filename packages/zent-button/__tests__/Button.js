@@ -151,7 +151,7 @@ describe('<Button />', () => {
     expect(isClicked).toBe(false);
   });
 
-  test('HtmlType Button', () => {
+  test('Button htmlType', () => {
     mount(<Button htmlType="submit" />);
     expect(buttonNode.type).toBe('submit');
 
@@ -177,4 +177,10 @@ describe('<Button />', () => {
     expect(buttonNode.classList.contains('zent-btn')).toBe(true);
     expect(buttonNode.tagName.toLowerCase()).toBe('a');
   });
+
+  test('Link with additional props', () => {
+    mount(<Button href="http://www.youzan.com" download="foobar" />);
+
+    expect(buttonNode.download).toBe('foobar');
+  })
 });
