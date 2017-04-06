@@ -36,6 +36,7 @@ export default class YearPanelBody extends Component {
         years[rowIndex][colIndex] = {
           text: val,
           value: val,
+          title: `${val}年`,
           className
         };
         index++;

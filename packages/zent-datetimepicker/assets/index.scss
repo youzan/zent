@@ -6,14 +6,13 @@ $light_grey: #CACACA;
 $lighter_grey: #e5e5e5;
 $lightest_grey: #f8f8f8;
 $error_color: #f44;
-$default_input_width: 183px;
 $default_width: 240px;
 $double_default_width: 480px;
+
 .zent-datetime-picker {
     box-sizing: border-box;
     display: inline-block;
-    width: $default_input_width;
-    background: #fff;
+    background:  #fff;
     line-height: normal;
     .picker-input {
         color: #999;
@@ -22,7 +21,7 @@ $double_default_width: 480px;
         width: 100%;
         height: 30px;
         line-height: 30px;
-        padding: 0 10px;
+        padding-right: 10px;
         font-size: 12px;
         border: 1px solid $light_grey;
         border-radius: 2px;
@@ -36,6 +35,8 @@ $double_default_width: 480px;
             &:focus,
             &:active {
                 outline: none;
+                border: none;
+                box-shadow: none;
             }
         }
         .zenticon {

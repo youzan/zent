@@ -6,7 +6,7 @@ import Popover from 'zent-popover';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
-import { formatDate, parseDate } from './utils/format';
+import { formatDate, parseDate } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
 let returnType = 'string';
@@ -54,7 +54,7 @@ class DatePicker extends Component {
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
     format: PropTypes.string,
-
+    position: PropTypes.string,
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
     min: PropTypes.oneOfType([
       PropTypes.string,
@@ -74,6 +74,7 @@ class DatePicker extends Component {
     placeholder: '请选择日期',
     confirmText: '确认',
     format: 'YYYY-MM-DD',
+    position: 'bottom-left',
     min: '',
     max: '',
     disabledDate: noop,
@@ -282,7 +283,7 @@ class DatePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.BottomLeft}
+          position={props.position}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

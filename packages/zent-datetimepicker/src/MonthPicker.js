@@ -6,7 +6,7 @@ import Popover from 'zent-popover';
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
-import { formatDate, parseDate } from './utils/format';
+import { formatDate, parseDate } from './utils/date';
 import { noop } from './constants/';
 
 function extractStateFromProps(props) {
@@ -43,6 +43,7 @@ class MonthPicker extends Component {
     className: PropTypes.string,
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
+    position: PropTypes.string,
     format: PropTypes.string,
     onChange: PropTypes.func
   }
@@ -52,6 +53,7 @@ class MonthPicker extends Component {
     className: '',
     placeholder: '请选择月份',
     confirmText: '确认',
+    position: 'bottom-left',
     format: 'YYYY-MM',
     onChange: noop
   }
@@ -163,7 +165,7 @@ class MonthPicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.BottomLeft}
+          position={props.position}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

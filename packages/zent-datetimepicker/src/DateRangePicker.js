@@ -6,7 +6,7 @@ import Popover from 'zent-popover';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
-import { formatDate, parseDate } from './utils/format';
+import { formatDate, parseDate } from './utils/date';
 import { timeFnMap, TIME_FORMAT, noop } from './constants/';
 
 const isValidValue = (val) => {
@@ -73,6 +73,7 @@ class DateRangePicker extends Component {
     className: PropTypes.string,
     placeholder: PropTypes.arrayOf(PropTypes.string),
     confirmText: PropTypes.string,
+    position: PropTypes.string,
     format: PropTypes.string,
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
@@ -83,9 +84,10 @@ class DateRangePicker extends Component {
     className: '',
     prefix: 'zent',
     placeholder: ['开始日期', '结束日期'],
-    format: 'YYYY-MM-DD',
     confirmText: '确认',
     errorText: '请选择起止时间',
+    position: 'bottom-left',
+    format: 'YYYY-MM-DD',
     showTime: false,
     disabledDate: noop,
     onChange: noop
@@ -403,7 +405,7 @@ class DateRangePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.BottomLeft}
+          position={props.position}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

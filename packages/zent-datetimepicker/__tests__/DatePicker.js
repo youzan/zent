@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { formatDate } from '../src/utils/format';
+import { formatDate } from '../src/./utils/date';
 
 import DatePicker from '../src';
 
