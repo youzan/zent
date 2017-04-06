@@ -9,7 +9,7 @@ export default class Simple extends Component {
       <div>
         <div><Input className="hello" defaultValue={'hello world'} /></div>
         <br />
-        <div><Input placeholder="Email" /></div>
+        <div><Input autoFocus placeholder="Email" /></div>
         <br />
         <div className="has-error"><Input /></div>
         <br />
