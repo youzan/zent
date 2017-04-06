@@ -6,11 +6,15 @@ import routes from './router.config';
 import SideNav from './components/side-nav';
 import DemoBlock from './components/demo-block';
 import FooterNav from './components/footer-nav';
+import PageHeader from './components/page-header';
+import PageFooter from './components/page-footer';
 
 Vue.use(VueRouter);
 Vue.component('side-nav', SideNav);
 Vue.component('demo-block', DemoBlock);
 Vue.component('footer-nav', FooterNav);
+Vue.component('page-header', PageHeader);
+Vue.component('page-footer', PageFooter);
 
 let routesConfig = routes(navConfig, true);
 
