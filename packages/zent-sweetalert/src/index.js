@@ -81,11 +81,12 @@ function getTitle(title, type, prefix) {
 }
 
 export function alert(config = {}) {
-  let { className, prefix, title, type, content, confirmText, onConfirm, ...otherProps } = config;
+  let { className, prefix, title, type, content, confirmText, onConfirm, confirmType, ...otherProps } = config;
   prefix = prefix || 'zent';
   title = getTitle(title, type, prefix) || '提示';
   className = className || '';
   confirmText = confirmText || '我知道了';
+  confirmType = confirmType || 'primary';
 
   const close = openDialog({
     ...commonProps,
@@ -96,7 +97,7 @@ export function alert(config = {}) {
     title,
     children: content,
     footer: (
-      <ActionButton type="primary" className={`${prefix}-sweetalert-alert-btn-confirm`} getClose={() => close} onClick={onConfirm}>
+      <ActionButton type={confirmType} className={`${prefix}-sweetalert-alert-btn-confirm`} getClose={() => close} onClick={onConfirm}>
         {confirmText}
       </ActionButton>
     ),
@@ -108,12 +109,13 @@ export function alert(config = {}) {
 export const info = alert;
 
 export function confirm(config = {}) {
-  let { className, prefix, title, type, content, confirmText, onConfirm, cancelText, onCancel, ...otherProps } = config;
+  let { className, prefix, title, type, content, confirmText, onConfirm, confirmType, cancelText, onCancel, ...otherProps } = config;
   className = className || '';
   prefix = prefix || 'zent';
   title = getTitle(title, type, prefix) || '确认';
   confirmText = confirmText || '确定';
   cancelText = cancelText || '取消';
+  confirmType = confirmType || 'primary';
 
   const close = openDialog({
     ...commonProps,
@@ -124,7 +126,7 @@ export function confirm(config = {}) {
     title,
     children: content,
     footer: [
-      <ActionButton key="ok" type="primary" className={`${prefix}-sweetalert-confirm-btn-confirm`} getClose={() => close} onClick={onConfirm}>{confirmText}</ActionButton>,
+      <ActionButton key="ok" type={confirmType} className={`${prefix}-sweetalert-confirm-btn-confirm`} getClose={() => close} onClick={onConfirm}>{confirmText}</ActionButton>,
       <ActionButton key="cancel" type="default" className={`${prefix}-sweetalert-confirm-btn-cancel`} getClose={() => close} onClick={onCancel}>{cancelText}</ActionButton>
     ],
     ...otherProps
