@@ -527,6 +527,7 @@ onSubmissionFail(submissionError) {
 | format | 渲染前格式化表单元素值, 不影响真正存储的表单元素值 | func(value, previousValue, nextValues, previousValues) | 否 |
 | onChange | value 值修改后的回调，会在 Field 中封装一层。(自定义组件需要自己调用由 Field 组件封装后传入的 `props.onChange()` 后才会执行) | func(event, newValue, previousValue, preventSetValue) | 否 |
 | onBlur | blur 后的回调（会在 Field 中封装一层） | func(event, newValue, previousValue, preventSetValue) | 否 |
+| onFocus| focus 后的回调（会在 Field 中封装一层） | func(event) | 否 |
 | validations | 定义表单元素校验方法 | object | 否 |
 | validationErrors | 定义表单元素检验方法对应的出错信息 | object | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
@@ -538,35 +539,62 @@ onSubmissionFail(submissionError) {
 |------|------|------|
 | isTouched | 表单元素值被改变过 | boolean |
 | isPristine | 表单元素值没有被改变过 | boolean | 
+| isActive | 表单元素为input且获得了焦点 | boolean | 
 | error | 第一个校验错误文本信息（没有报错时为 null ） | string / Null | 
 | errors | 校验错误文本信息数组（没有错误时为空数组） | array |
 
+#####
+获取 Field 对应 component 的实例
+可以通过在Field上加上ref，然后调用 `getWrappedComponent` 方法来获取。
+```
+<Field
+  ref={ref => { this.field = ref }}
+  component={XxxComponent}
+  ...
+/>
+
+const component = field.getWrappedComponent();
+```
 
 #### **Form.getControlGroup**
 getControlGroup 是一个用来快速封装自定义组件的函数，它返回一个满足通用布局与样式要求（左侧 label 、右侧表单元素）的stateless functional component 。同时支持将 Field 中的 error 信息展示出来。 getControlGroup 实现的比较简单，可以直接看源码。
 
 ```js
-export default Control => ({ required = false, helpDesc = '', label = '', className = '', ...props }) => {
-  const showError = props.isTouched && props.error;
-  const groupClassName = cx({
-    'zent-form__control-group': true,
-    'has-error': showError,
-    [className]: true
-  });
+export default Control => {
+  return class ControlGroup extends React.Component {
+    getControlInstance = () => {
+      return this.control;
+    }
 
-  return (
-    <div className={groupClassName}>
-      <label className="zent-form__control-label">
-        {required ? <em className="zent-form__required">*</em> : null}
-        {label}
-      </label>
-      <div className="zent-form__controls">
-        <Control {...props} />
-        {showError && <p className="zent-form__error-desc">{props.error}</p>}
-        {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
-      </div>
-    </div>
-  );
+    render() {
+      const { required = false, helpDesc = '', label = '', className = '', ...props } = this.props;
+
+      const showError = props.isTouched && props.error;
+      const groupClassName = cx({
+        'zent-form__control-group': true,
+        'zent-form__control-group--active': props.isActive,
+        'has-error': showError,
+        [className]: true
+      });
+
+      return (
+        <div className={groupClassName}>
+          <label className="zent-form__control-label">
+            {required ? <em className="zent-form__required">*</em> : null}
+            {label}
+          </label>
+          <div className="zent-form__controls">
+            <Control
+              {...props}
+              ref={ref => this.control = ref}
+            />
+            {showError && <p className="zent-form__error-desc">{props.error}</p>}
+            {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
+          </div>
+        </div>
+      );
+    }
+  };
 };
 ```
 
@@ -578,6 +606,12 @@ export default Control => ({ required = false, helpDesc = '', label = '', classN
 | className | 添加到control-group 上的额外类名，可以用来覆盖子元素的样式 | string | 否 |
 | helpDesc | 表单元素的说明性文字 | string | 否 |
 | required | 为 true 时会在 label 前添加红色的"*" | boolean | 否 |
+
+##### 获取Control组件实例
+参照上方获取 Field 对应 component 的实例，然后调用 `getControlInstance` 方法。
+```
+const component = field.getWrappedComponent().getControlInstance();
+```
 
 #### **内置 validation rules**
 可以直接在 Field 的 validations 属性中使用
