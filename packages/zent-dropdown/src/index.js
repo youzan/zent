@@ -13,7 +13,13 @@ const Positions = {
   'right-bottom': Popover.Position.RightBottom,
   'bottom-left': Popover.Position.BottomLeft,
   'bottom-right': Popover.Position.BottomRight,
-  'bottom-center': Popover.Position.BottomCenter
+  'bottom-center': Popover.Position.BottomCenter,
+  'left-top': Popover.Position.LeftTop,
+  'left-center': Popover.Position.LeftCenter,
+  'left-bottom': Popover.Position.LeftBottom,
+  'top-left': Popover.Position.TopLeft,
+  'top-center': Popover.Position.TopCenter,
+  'top-right': Popover.Position.TopRight
 };
 
 const DropdownTrigger = (props) => props.children;
@@ -33,7 +39,7 @@ export default class Dropdown extends Component {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    mode: PropTypes.oneOf(['click', 'hover']),
+    trigger: PropTypes.oneOf(['click', 'hover']),
     visible: PropTypes.bool,
     onVisibleChange: PropTypes.func,
     position: PropTypes.string
@@ -41,15 +47,10 @@ export default class Dropdown extends Component {
 
   static defaultProps = {
     prefix: 'zent',
-    mode: 'hover',
+    trigger: 'hover',
     position: 'right-top',
     className: ''
   };
-
-  constructor() {
-    super();
-    this.visible = true;
-  }
 
   validateChildren() {
     const { children } = this.props;
