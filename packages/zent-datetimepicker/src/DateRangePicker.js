@@ -5,9 +5,10 @@ import Popover from 'zent-popover';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { goMonths, isArray, isSameMonth, position } from './utils';
-import { formatDate, parseDate } from './utils/date';
+import { goMonths, isArray, isSameMonth } from './utils';
+import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import { timeFnMap, TIME_FORMAT, noop } from './constants/';
+import { position } from './utils/position';
 
 let retType;
 
@@ -39,7 +40,7 @@ const extractStateFromProps = (props) => {
   if (isValidValue(props.value)) {
     showPlaceholder = false;
     format = props.showTime ? `${props.format} ${TIME_FORMAT}` : props.format;
-    const tmp = [parseDate(props.value[0], format), parseDate(props.value[1], format)];
+    const tmp = [maybeFormatDate(props.value[0], format), maybeFormatDate(props.value[1], format)];
     selected = tmp.slice();
     range = tmp.slice();
     actived = tmp.slice();
@@ -75,7 +76,7 @@ class DateRangePicker extends Component {
     className: PropTypes.string,
     placeholder: PropTypes.arrayOf(PropTypes.string),
     confirmText: PropTypes.string,
-    returnType: PropTypes.oneOf(['date', 'number', 'string']),
+    valueType: PropTypes.oneOf(['date', 'number', 'string']),
     position: PropTypes.string,
     format: PropTypes.string,
     showTime: PropTypes.bool,
@@ -99,11 +100,12 @@ class DateRangePicker extends Component {
   constructor(props) {
     super(props);
 
-    const { value, returnType } = props;
-    if (returnType) {
-      retType = returnType;
+    const { value, valueType } = props;
+
+    if (valueType) {
+      retType = valueType;
     } else if (isValidValue(value)) {
-      if (typeof value[0] === 'number') retType = 'numer';
+      if (typeof value[0] === 'number') retType = 'number';
       if (value[0] instanceof Date) retType = 'date';
     }
 
@@ -277,7 +279,7 @@ class DateRangePicker extends Component {
    */
 
   getReturnValue(date, format) {
-    if (retType === 'numer') {
+    if (retType === 'number') {
       return date.getTime();
     }
 

@@ -50,6 +50,14 @@ export const formatDate = (date, mask = 'default', locale = 'zh') => {
   return format(date, mask, i18n[locale]);
 };
 
+
+export function maybeFormatDate(value, mask) {
+  if (typeof value === 'number') return new Date(value);
+  if (value instanceof Date) return value;
+
+  return parseDate(value, mask);
+}
+
 // const token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g;
 // const timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g;
 // const timezoneClip = /[^-+\dA-Z]/g;

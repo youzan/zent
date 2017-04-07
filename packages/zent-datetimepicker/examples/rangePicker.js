@@ -66,6 +66,7 @@ export default class Range extends Component {
         <br />
         <br />
         <DateRangePicker
+          valueType="number"
           disabledDate={this.isDisabledDate}
           onChange={this.onChangeRange}
           value={state.value}

@@ -5,19 +5,20 @@ import Popover from 'zent-popover';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT_DAY, goMonths, position } from './utils';
-import { formatDate, parseDate } from './utils/date';
+import { CURRENT_DAY, goMonths } from './utils';
+import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import { timeFnMap, noop } from './constants/';
+import { position } from './utils/position';
 
-let retType = 'string';
+let retType;
 
 function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-
-  if (props.value) {
-    const tmp = parseDate(props.value, props.format);
+  const { value, format } = props;
+  if (value) {
+    const tmp = maybeFormatDate(value, format);
 
     if (tmp) {
       showPlaceholder = false;
@@ -57,7 +58,7 @@ class DatePicker extends Component {
     format: PropTypes.string,
 
     // onChange 返回值类型, date | number | string， 默认 string
-    returnType: PropTypes.oneOf(['date', 'number', 'string']),
+    valueType: PropTypes.oneOf(['date', 'number', 'string']),
     position: PropTypes.string,
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
     min: PropTypes.oneOfType([
@@ -87,10 +88,10 @@ class DatePicker extends Component {
 
   constructor(props) {
     super(props);
-    const { value, returnType } = props;
+    const { value, valueType } = props;
 
-    if (returnType) {
-      retType = returnType;
+    if (valueType) {
+      retType = valueType;
     } else if (value) {
       if (typeof value === 'number') retType = 'numer';
       if (value instanceof Date) retType = 'date';
@@ -164,7 +165,7 @@ class DatePicker extends Component {
    */
 
   getReturnValue(date, format) {
-    if (retType === 'numer') {
+    if (retType === 'number') {
       return date.getTime();
     }
 
@@ -202,6 +203,7 @@ class DatePicker extends Component {
     });
 
     const ret = this.getReturnValue(tmp, format);
+    console.log(ret);
     this.props.onChange(ret);
   }
 

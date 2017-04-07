@@ -5,9 +5,10 @@ import Popover from 'zent-popover';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT, position } from './utils/';
+import { CURRENT } from './utils/';
 import { formatDate, parseDate } from './utils/date';
 import { noop } from './constants/';
+import { position } from './utils/position';
 
 function extractStateFromProps(props) {
   let showPlaceholder;
