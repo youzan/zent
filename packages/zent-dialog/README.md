@@ -71,7 +71,7 @@ const open = () => {
 	});
 };
 
-ReactDOM.render(<Button onClick={open}>关闭</Button>, mountNode);
+ReactDOM.render(<Button onClick={open}>打开</Button>, mountNode);
 ```
 :::
 

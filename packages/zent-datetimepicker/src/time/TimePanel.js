@@ -13,13 +13,21 @@ const stateMap = {
 export default class TimePanel extends Component {
   static propTypes = {
     onChange: PropTypes.func,
-    actived: PropTypes.instanceOf(Date)
+    actived: PropTypes.instanceOf(Date),
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   state = {
     openHour: false,
     openMinute: false,
     openSecond: false
+  }
+
+  componentWillReceiveProps(next) {
+    if (next.hidePanel) {
+      this.hideAllPanel();
+    }
   }
 
   onSelectTime(type) {
@@ -35,6 +43,8 @@ export default class TimePanel extends Component {
       this.setState({
         [key]: true
       });
+
+      this.props.onOpen && this.props.onOpen();
     };
   }
 
@@ -44,7 +54,17 @@ export default class TimePanel extends Component {
       this.setState({
         [key]: false
       });
+
+      this.props.onClose && this.props.onClose();
     };
+  }
+
+  hideAllPanel() {
+    this.setState({
+      openHour: false,
+      openMinute: false,
+      openSecond: false
+    });
   }
 
   render() {

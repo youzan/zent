@@ -1,8 +1,6 @@
 <template>
   <div class="app">
-    <div class="page-header">
-      header
-    </div>
+    <page-header></page-header>
     <div class="main-content">
       <div class="page-container clearfix">
         <side-nav :data="navConfig['zh-CN']" base="/component"></side-nav>
@@ -12,9 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="page-footer">
-      footer
-    </div>
+    <page-footer></page-footer>
   </div>
 </template>
 

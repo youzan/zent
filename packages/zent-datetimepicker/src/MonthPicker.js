@@ -12,7 +12,8 @@ import { noop } from './constants/';
 function extractStateFromProps(props) {
   let showPlaceholder;
   let selected;
-  const format = props.format || 'YYYY-MM';
+  const format = props.format;
+
   if (props.value) {
     const tmp = parseDate(props.value, format);
     if (tmp) {
@@ -101,7 +102,8 @@ class MonthPicker extends Component {
   onConfirm = () => {
     const { format } = this.props;
     const { selected } = this.state;
-    const value = formatDate(selected, format || 'YYYY-MM');
+    const value = formatDate(selected, format);
+
     this.setState({
       value,
       openPanel: false,
@@ -157,6 +159,7 @@ class MonthPicker extends Component {
     return (
       <div className={wrapperCls}>
         <Popover
+          cushion={5}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}

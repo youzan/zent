@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Head from './modules/Head';
 import Body from './modules/Body';
@@ -10,8 +10,8 @@ const { func, bool, string, array, oneOf, object } = React.PropTypes;
 
 let relativeTop;
 
-const Table = React.createClass({
-  propTypes: {
+export default class Table extends Component {
+  static propTypes = {
     className: string,
     prefix: string,
     columns: array,
@@ -24,44 +24,45 @@ const Table = React.createClass({
     loading: bool,
     autoScroll: bool,
     autoStick: bool,
-    selection: object
-  },
+    selection: object,
+    expandation: object,
+  };
 
-  getDefaultProps() {
-    return {
-      prefix: 'zent',
-      pageSize: 10,
-      className: '',
-      datasets: [],
-      columns: [],
-      emptyLabel: '没有更多数据了',
-      rowKey: 'id',
-      sortType: 'desc',
-      loading: false,
-      autoScroll: false,
-      autoStick: false,
-      selection: null
-    };
-  },
+  static defaultProps = {
+    prefix: 'zent',
+    pageSize: 10,
+    className: '',
+    datasets: [],
+    columns: [],
+    emptyLabel: '没有更多数据了',
+    rowKey: 'id',
+    sortType: 'desc',
+    loading: false,
+    autoScroll: false,
+    autoStick: false,
+    selection: null
+  };
 
-  getInitialState() {
-    return {
-      current: this.props.pageInfo ? this.props.pageInfo.current : 1,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      current: props.pageInfo ? props.pageInfo.current : 1,
       placeHolderHeight: false,
       fixStyle: {}
     };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       current: nextProps.pageInfo ? nextProps.pageInfo.current : 1
     });
-  },
+  }
 
   componentDidMount() {
-    let tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
+    const tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
     relativeTop = tableRectTop - document.body.getBoundingClientRect().top;
-  },
+  }
 
   // 对外部传进来的onChange进行封装
   wrapPropsOnChange(conf) {
@@ -69,33 +70,33 @@ const Table = React.createClass({
       throw new Error('请传入一个onChange方法');
     }
     this.props.onChange(conf);
-  },
+  }
 
-  onChange(conf) {
+  onChange = (conf) => {
     this.setState(conf);
 
     this.wrapPropsOnChange(conf);
-  },
+  };
 
-  onSort(conf) {
+  onSort = (conf) => {
     // 排序的时候也要触发
     this.wrapPropsOnChange(conf);
-  },
+  };
 
-  onPageChange(current) {
+  onPageChange = (current) => {
     this.wrapPropsOnChange({
       current
     });
     if (this.props.autoScroll) {
       this.scrollToTop(400);
     }
-  },
+  };
 
   /*
    * Head上的选中会全选所有的行
    * @param isSelect {Boolean} 表示是否全选
    */
-  onSelectAllRows(isSelect) {
+  onSelectAllRows = (isSelect) => {
     let allRowKeys = [];
     let allRows = [];
     let { rowKey, datasets, selection, getRowConf = () => { return { canSelect: true } } } = this.props;
@@ -112,14 +113,14 @@ const Table = React.createClass({
     }
 
     selection.onSelect(allRowKeys, allRows);
-  },
+  };
 
   /**
    * 选了一行
    * @param rowKey {String} 某一行的key
    * @param isSelect {Boolean} 是否被选中
    */
-  onSelectOneRow(rowKey, isSelect) {
+  onSelectOneRow = (rowKey, isSelect) => {
     let selectedRowKeys = this.props.selection.selectedRowKeys.slice(0); // copy 一份数组
     let index = selectedRowKeys.indexOf(rowKey);
 
@@ -136,7 +137,7 @@ const Table = React.createClass({
     let selectedRows = this.getSelectedRowsByKeys(selectedRowKeys);
 
     this.props.selection.onSelect(selectedRowKeys, selectedRows);
-  },
+  };
 
   /**
    * 根据选择的keys拼装一个选好的列
@@ -154,7 +155,7 @@ const Table = React.createClass({
     });
 
     return rows;
-  },
+  }
 
   scrollToTop(scrollDuration) {
     if (!isBrowser) return;
@@ -173,17 +174,41 @@ const Table = React.createClass({
       } else {
         clearInterval(scrollInterval);
       }
-    }, 15);
-  },
+    }, 16);
+  }
 
   render() {
-    let { selection, prefix, columns, className, sortBy, autoStick, sortType, datasets, rowKey, pageInfo, emptyLabel, getRowConf = () => { return { canSelect: true, rowClass: '' } } } = this.props;
+    let {
+      selection,
+      prefix,
+      columns,
+      className,
+      sortBy,
+      autoStick,
+      sortType,
+      datasets,
+      rowKey,
+      pageInfo,
+      emptyLabel,
+      getRowConf = () => {
+        return { canSelect: true, rowClass: '' };
+      },
+      expandation = null
+    } = this.props;
     let needSelect = selection !== null;
     let selectedRowKeys = [];
 
     let isSelectAll = false;
     let isSelectPart = false;
 
+    let needExpand = false;
+    let isExpanded;
+    let expandRender;
+    if (expandation) {
+      needExpand = true;
+      isExpanded = expandation.isExpanded;
+      expandRender = expandation.expandRender;
+    }
     if (needSelect) {
       let canSelectRowsCount = 0;
 
@@ -224,6 +249,7 @@ const Table = React.createClass({
                   isSelectAll,
                   isSelectPart
                 }}
+                needExpand={needExpand}
                 autoStick={autoStick}
                 style={this.state.fixStyle}
               />
@@ -238,6 +264,9 @@ const Table = React.createClass({
                   selectedRowKeys,
                   onSelect: this.onSelectOneRow
                 }}
+                needExpand={needExpand}
+                isExpanded={isExpanded}
+                expandRender={expandRender}
               />
             </div>
           )}
@@ -254,6 +283,4 @@ const Table = React.createClass({
       </div>
     );
   }
-});
-
-export default Table;
+}

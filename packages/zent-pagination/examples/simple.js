@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 import Pagination from '../src/index.js';
 import '../assets/index.scss';
 
-const Simple = React.createClass({
-  getInitialState() {
-    return {
-      current: 1,
-      totalItem: 1000
-    };
-  },
+export default class Simple extends Component {
+  state = {
+    current: 1,
+    totalItem: 1000,
+  };
 
-  onChange(page) {
+  onChange = (page) => {
     this.setState({
-      current: page
+      current: page,
     });
-  },
+  };
 
   render() {
     return (
@@ -26,6 +25,4 @@ const Simple = React.createClass({
       />
     );
   }
-});
-
-export default Simple;
+}
