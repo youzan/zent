@@ -81,10 +81,10 @@ export default class Dropdown extends Component {
   }
 
   renderTrigger(triggerContent) {
-    const { mode, prefix } = this.props;
-    const Trigger = TriggerModes[mode];
+    const { trigger, prefix } = this.props;
+    const Trigger = TriggerModes[trigger];
     return (
-      <Trigger showDelay={mode === 'hover' && 200} hideDelay={mode === 'hover' && 200}>
+      <Trigger showDelay={trigger === 'hover' && 200} hideDelay={trigger === 'hover' && 200}>
         <div className={`${prefix}-dropdown-trigger-wrapper`}>
           {triggerContent}
         </div>

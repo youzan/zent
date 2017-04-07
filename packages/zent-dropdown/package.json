@@ -11,7 +11,7 @@
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
-  "author": "fancy",
+  "author": "Fancy",
   "license": "MIT",
   "files": [
     "src/",

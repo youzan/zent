@@ -21,7 +21,7 @@ const Simple = () => {
 		<div className="demo-simple">
 			<Dropdown>
 				<Trigger>
-					<a>Hover Me</a>
+					<Button>Hover Me</Button>
 				</Trigger>
 				<Content>
 					<Menu>
@@ -31,6 +31,7 @@ const Simple = () => {
 					</Menu>
 				</Content>
 			</Dropdown>
+			<br />
 			<Dropdown trigger="click">
 				<Trigger>
 					<Button>Click Here</Button>
@@ -62,24 +63,28 @@ const clickHandler = (e, key) => {
 	console.log(e, key);
 };
 
-ReactDOM.render(
-	<Dropdown>
-		<Trigger>
-			<a>Hover</a>
-		</Trigger>
-		<Content>
-			<Menu>
-				<MenuItem>0</MenuItem>
-				<SubMenu title="1">
-					<MenuItem>1-0</MemuItem>
-					<MenuItem>1-1</MemuItem>
-					<MenuItem>1-2</MemuItem>
-				</SubMenu>
-				<MenuItem>2</MenuItem>
-			</Menu>
-		</Content>
-	</Dropdown>
-	, mountNode);
+const Multiple = () => {
+	return (
+		<Dropdown>
+			<Trigger>
+				<a>Hover</a>
+			</Trigger>
+			<Content>
+				<Menu onClick={clickHandler}>
+					<MenuItem>0</MenuItem>
+					<SubMenu title="1">
+						<MenuItem>1-0</MenuItem>
+						<MenuItem>1-1</MenuItem>
+						<MenuItem>1-2</MenuItem>
+					</SubMenu>
+					<MenuItem>2</MenuItem>
+				</Menu>
+			</Content>
+		</Dropdown>
+	);
+};
+
+ReactDOM.render(<Multiple />, mountNode);
 
 ```
 :::
@@ -100,4 +105,5 @@ ReactDOM.render(
 #### Dropdown.Content
 
 | 参数        | 说明            | 类型     | 默认值        |
+| --------- | ------------- | ------ | ---------- |
 | prefix    | 自定义类名前缀    | string | `'zent'`   |

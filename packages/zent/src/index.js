@@ -4,6 +4,7 @@ import Button from 'zent-button';
 import Checkbox from 'zent-checkbox';
 import { MonthPicker, DatePicker, DateRangePicker } from 'zent-datetimepicker';
 import Dialog from 'zent-dialog';
+import Dropdown from 'zent-dropdown';
 import Form from 'zent-form';
 import Layout from 'zent-layout';
 import Loading from 'zent-loading';
@@ -32,6 +33,7 @@ const Zent = {
   DatePicker,
   DateRangePicker,
   Dialog,
+  Dropdown,
   Form,
   Layout,
   Loading,

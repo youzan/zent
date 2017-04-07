@@ -55,4 +55,34 @@ describe('Dropdown', () => {
       );
     }).toThrow();
   });
+
+  it('dropdown have 2 trigger modes', () => {
+    let wrapper = mount(
+      <Dropdown trigger="click">
+        <Trigger>
+          <a className="test-trigger">Hover Example</a>
+        </Trigger>
+        <Content>
+          <div className="test-content">
+            Dropdown any content
+          </div>
+        </Content>
+      </Dropdown>
+    );
+    wrapper.find('.test-trigger').simulate('click');
+    expect(wrapper.find('PopoverContent').length).toBe(1);
+    wrapper = mount(
+      <Dropdown trigger="click">
+        <Trigger>
+          <a className="test-trigger">Hover Example</a>
+        </Trigger>
+        <Content>
+          <div className="test-content">
+            Dropdown any content
+          </div>
+        </Content>
+      </Dropdown>
+    );
+
+  });
 });
