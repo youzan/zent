@@ -96,7 +96,13 @@ export default class PopoverContent extends Component {
     const position = this.props.placement(this.props.prefix, relativeBB, relativeContainerBB, {
       width: contentBoundingBox.width,
       height: contentBoundingBox.height
-    }, { cushion: this.props.cushion });
+    }, {
+      cushion: this.props.cushion,
+      anchor,
+      container: parent,
+      anchorBoundingBoxViewport: boundingBox,
+      containerBoundingBoxViewport: parentBoundingBox
+    });
 
     this.setState({
       position
