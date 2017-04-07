@@ -1,7 +1,7 @@
 .zent-btn-primary {
     color: $btn-white;
-    background: $btn-blue;
-    border-color: $btn-blue;
+    background: $btn-primary;
+    border-color: $btn-primary;
 
     &:link,
     &:visited,
@@ -10,20 +10,20 @@
     }
     &:hover {
         color: $btn-white;
-        background: $btn-light-blue;
-        border-color: $btn-deep-blue;
+        background: $btn-primary-hover;
+        border-color: $btn-primary-hover;
     }
     &:active {
         color: $btn-white;
-        background: $btn-deep-deep-blue;
-        border-color: $btn-deep-blue;
+        background: $btn-primary-active;
+        border-color: $btn-primary-active;
     }
 
     &.zent-btn-loading {
         &:hover,
         &:active {
-            background: $btn-blue;
-            border-color: $btn-blue;
+            background: $btn-primary;
+            border-color: $btn-primary;
         }
         &::after {
             border-color: $btn-white transparent transparent transparent;
@@ -31,41 +31,41 @@
     }
 }
 .zent-btn-primary-outline {
-    color: $btn-blue;
-    border-color: $btn-blue;
+    color: $btn-primary;
+    border-color: $btn-primary;
     background: $btn-white;
 
     &:link,
     &:visited,
     &:focus {
-        color: $btn-blue;
+        color: $btn-primary;
     }
     &:hover {
-        color: $btn-deep-deep-blue;
-        border-color: $btn-deep-deep-blue;
+        color: $btn-primary-hover;
+        border-color: $btn-primary-hover;
     }
     &:active {
-        color: $btn-deep-deep-blue;
+        color: $btn-primary-active;
         background: $btn-light-gray;
-        border-color: $btn-blue;
+        border-color: $btn-primary-active;
     }
 
     &.zent-btn-loading {
         &:hover,
         &:active {
-            border-color: $btn-blue;
+            border-color: $btn-primary;
             background: $btn-white;
         }
         &::after {
-            border-color: $btn-blue transparent transparent transparent;
+            border-color: $btn-primary transparent transparent transparent;
         }
     }
 }
 
 .zent-btn-danger {
     color: $btn-white;
-    background: $btn-red;
-    border-color: $btn-deep-red;
+    background: $btn-danger;
+    border-color: $btn-danger;
 
     &:link,
     &:visited,
@@ -74,20 +74,20 @@
     }
     &:hover {
         color: $btn-white;
-        background: $btn-light-red;
-        border-color: $btn-deep-red;
+        background: $btn-danger-hover;
+        border-color: $btn-danger-hover;
     }
     &:active {
         color: $btn-white;
-        background: $btn-deep-deep-red;
-        border-color: $btn-deep-red;
+        background: $btn-danger-active;
+        border-color: $btn-danger-active;
     }
 
     &.zent-btn-loading {
         &:hover,
         &:active {
-            background: $btn-red;
-            border-color: $btn-deep-red;
+            background: $btn-danger;
+            border-color: $btn-danger-active;
         }
         &::after {
             border-color: $btn-white transparent transparent transparent;
@@ -95,41 +95,41 @@
     }
 }
 .zent-btn-danger-outline {
-    color: $btn-red;
-    border-color: $btn-red;
+    color: $btn-danger;
+    border-color: $btn-danger;
     background: $btn-white;
 
     &:link,
     &:visited,
     &:focus {
-        color: $btn-red;
+        color: $btn-danger;
     }
     &:hover {
-        color: $btn-deep-deep-red;
-        border-color: $btn-deep-deep-red;
+        color: $btn-danger-hover;
+        border-color: $btn-danger-hover;
     }
     &:active {
-        color: $btn-deep-deep-red;
+        color: $btn-danger-active;
         background: $btn-light-gray;
-        border-color: $btn-red;
+        border-color: $btn-danger-active;
     }
 
     &.zent-btn-loading {
         &:hover,
         &:active {
-            border-color: $btn-red;
+            border-color: $btn-danger;
             background: $btn-white;
         }
         &::after {
-            border-color: $btn-red transparent transparent transparent;
+            border-color: $btn-danger transparent transparent transparent;
         }
     }
 }
 
 .zent-btn-success {
     color: $btn-white;
-    background: $btn-green;
-    border-color: $btn-deep-green;
+    background: $btn-success;
+    border-color: $btn-success;
 
     &:link,
     &:visited,
@@ -138,20 +138,20 @@
     }
     &:hover {
         color: $btn-white;
-        background: $btn-light-green;
-        border-color: $btn-deep-green;
+        background: $btn-success-hover;
+        border-color: $btn-success-hover;
     }
     &:active {
         color: $btn-white;
-        background: $btn-deep-deep-green;
-        border-color: $btn-deep-green;
+        background: $btn-success-active;
+        border-color: $btn-success-active;
     }
 
     &.zent-btn-loading {
         &:hover,
         &:active {
-            background: $btn-green;
-            border-color: $btn-deep-green;
+            background: $btn-success;
+            border-color: $btn-success-active;
         }
         &::after {
             border-color: $btn-white transparent transparent transparent;
@@ -159,33 +159,33 @@
     }
 }
 .zent-btn-success-outline {
-    color: $btn-green;
-    border-color: $btn-green;
+    color: $btn-success;
+    border-color: $btn-success;
     background: $btn-white;
 
     &:link,
     &:visited,
     &:focus {
-        color: $btn-green;
+        color: $btn-success;
     }
     &:hover {
-        color: $btn-deep-deep-green;
-        border-color: $btn-deep-deep-green;
+        color: $btn-success-hover;
+        border-color: $btn-success-hover;
     }
     &:active {
-        color: $btn-deep-deep-green;
+        color: $btn-success-active;
         background: $btn-light-gray;
-        border-color: $btn-green;
+        border-color: $btn-success-active;
     }
 
     &.zent-btn-loading {
         &:hover,
         &:active {
-            border-color: $btn-green;
+            border-color: $btn-success;
             background: $btn-white;
         }
         &::after {
-            border-color: $btn-green transparent transparent transparent;
+            border-color: $btn-success transparent transparent transparent;
         }
     }
 }
