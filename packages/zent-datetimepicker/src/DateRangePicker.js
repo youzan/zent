@@ -10,7 +10,7 @@ import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import { timeFnMap, TIME_FORMAT, noop } from './constants/';
 import { position } from './utils/position';
 
-let retType;
+let retType = 'string';
 
 const isValidValue = (val) => {
   if (!isArray(val)) return false;

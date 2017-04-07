@@ -10,7 +10,7 @@ import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 import { position } from './utils/position';
 
-let retType;
+let retType = 'string';
 
 function extractStateFromProps(props) {
   let selected;
@@ -93,7 +93,7 @@ class DatePicker extends Component {
     if (valueType) {
       retType = valueType;
     } else if (value) {
-      if (typeof value === 'number') retType = 'numer';
+      if (typeof value === 'number') retType = 'number';
       if (value instanceof Date) retType = 'date';
     }
 
@@ -101,8 +101,10 @@ class DatePicker extends Component {
   }
 
   componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
+    if (next.value !== this.props.value) {
+      const state = extractStateFromProps(next);
+      this.setState(state);
+    }
   }
 
   onChangeDate = (val) => {
