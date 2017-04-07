@@ -39,7 +39,7 @@ $borderRadius: 2px;
     padding: 0 10px;
     margin: 0;
     border: 1px solid $defaultBorderColor;
-    color: #333333;
+    color: #333;
     font-size: 12px;
     border-radius: $borderRadius;
     box-shadow: none;
@@ -105,8 +105,35 @@ $borderRadius: 2px;
 }
 
 .zent-textarea {
-    height: 150px;
+    height: 54px;
     padding: 5px 10px;
+}
+
+/** placeholder **/
+$placeholderColor: #999;
+.zent-input::-webkit-input-placeholder { /* WebKit browsers */
+    color: $placeholderColor;
+}
+.zent-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: $placeholderColor;
+}
+.zent-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $placeholderColor;
+}
+.zent-input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: $placeholderColor;
+}
+.zent-textarea::-webkit-input-placeholder { /* WebKit browsers */
+    color: $placeholderColor;
+}
+.zent-textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: $placeholderColor;
+}
+.zent-textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $placeholderColor;
+}
+.zent-textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: $placeholderColor;
 }
 
 .has-error {

@@ -28,6 +28,10 @@ export default class SubMenu extends Component {
     onClick(e, index);
   };
 
+  titleClickHandler = (e) => {
+    e.stopPropagation();
+  };
+
   onMouseEnter = () => {
     if (this.leaveTimer) {
       clearTimeout(this.leaveTimer);
@@ -86,7 +90,7 @@ export default class SubMenu extends Component {
       <li
         className={cls} {...mouseEvents}
       >
-        <div className={cx(`${prefix}-submenu-title`, { [`${prefix}-submenu-disabled`]: disabled })}>
+        <div className={cx(`${prefix}-submenu-title`, { [`${prefix}-submenu-disabled`]: disabled })} onClick={this.titleClickHandler}>
           {title}
           {!disabled && <Icon type="right" />}
         </div>

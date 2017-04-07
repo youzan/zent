@@ -4,12 +4,16 @@ import '../assets/index.scss';
 
 
 export default class Simple extends Component {
+  focus = () => {
+    this.input.focus();
+  }
+
   render() {
     return (
       <div>
-        <div><Input className="hello" defaultValue={'hello world'} /></div>
+        <div><Input ref={input => this.input = input} className="hello" defaultValue={'hello world'} /><button onClick={() => this.focus()}>focus</button></div>
         <br />
-        <div><Input placeholder="Email" /></div>
+        <div><Input autoFocus placeholder="Email" /></div>
         <br />
         <div className="has-error"><Input /></div>
         <br />

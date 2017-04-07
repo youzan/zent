@@ -2,8 +2,31 @@ import React, { Component } from 'react';
 import setClass from 'zent-utils/classnames';
 import omit from 'zent-utils/lodash/omit';
 
-export default class Button extends Component {
+const BLACK_LIST = [
+  'type',
+  'size',
+  'htmlType',
+  'block',
+  'component',
+  'disabled',
+  'loading',
+  'outline',
+  'bordered',
+  'className',
+  'prefix',
+];
 
+const BTN_BLACK_LIST = [
+  'href',
+  'target'
+].concat(BLACK_LIST);
+
+const A_BLACK_LIST = [
+  'href',
+  'target'
+].concat(BLACK_LIST);
+
+export default class Button extends Component {
   static propTypes ={
     type: React.PropTypes.oneOf([
       'default',
@@ -24,7 +47,10 @@ export default class Button extends Component {
     ]),
     className: React.PropTypes.string,
     block: React.PropTypes.bool,
-    component: React.PropTypes.string,
+    component: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.func,
+    ]),
     disabled: React.PropTypes.bool,
     loading: React.PropTypes.bool,
     outline: React.PropTypes.bool,
@@ -62,12 +88,13 @@ export default class Button extends Component {
   renderLink(classNames) {
     const Node = this.props.component || 'a';
     const disabled = this.props.disabled || this.props.loading;
-    const { href = '', target, style } = this.props;
+    const { href = '', target } = this.props;
+    const nodeProps = omit(this.props, A_BLACK_LIST);
 
     return (
       <Node
         {...disabled ? {} : { href, target }}
-        style={style}
+        {...nodeProps}
         className={classNames}
         onClick={this.handleClick}
       >
@@ -81,19 +108,7 @@ export default class Button extends Component {
     const Node = this.props.component || 'button';
     const disabled = this.props.disabled || this.props.loading;
     const htmlType = this.props.htmlType;
-    const nodeProps = omit(this.props, [
-      'type',
-      'size',
-      'className',
-      'block',
-      'component',
-      'disabled',
-      'loading',
-      'outline',
-      'bordered',
-      'prefix',
-      'htmlType'
-    ]);
+    const nodeProps = omit(this.props, BTN_BLACK_LIST);
 
     return (
       <Node

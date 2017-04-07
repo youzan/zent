@@ -1,4 +1,17 @@
-## Change logs
+## 更新日志
+
+### 2.0.7
+
+2017-03-31 
+
+1. bug修复
+2. Input 支持 textarea
+3. Button 支持自定义 component
+4. Tabs 支持没有Panel的形式
+5. Table支持行内展开
+6. Menu 的子菜单不再是个独立的弹层
+
+### 其他
 
 * 2017-03-15, 2.0.6, bug修复
 * 2017-03-15, 2.0.5, 新增menu组件

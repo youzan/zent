@@ -120,6 +120,26 @@ ReactDOM.render(
 :::
 
 
+:::demo 确认按钮类型
+```js
+import { Sweetalert, Button } from 'zent';
+
+const showAlertInfo = () => {
+	Sweetalert.confirm({
+		confirmType: 'danger',
+		confirmText: '删除',
+		content: '确认删除吗？',
+		title: '确认'
+	});
+}
+
+ReactDOM.render(
+	<Button onClick={showAlertInfo} type="danger">删除</Button>,
+	mountNode
+);
+```
+:::
+
 
 ### API
 
@@ -132,6 +152,7 @@ ReactDOM.render(
 | title       | 弹窗的标题                               | node   | `''`     |                                               |
 | onConfirm   | 确认操作回调函数                            | func   | `noop`   |                                               |
 | confirmText | 确认按钮文案                              | string | `'取消'`   |                                               |
+| confirmType | 确认按钮的类型  | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
 | className   | 额外的className                        | string | `''`     |                                               |
 | prefix      | 默认className的前缀                      | string | `'zent'`|     |
 
@@ -146,10 +167,10 @@ ReactDOM.render(
 | onConfirm   | 确认操作回调函数                            | func   | `noop`   |                                               |
 | cancelText  | 取消按钮文案                              | string | `'取消'`   |                                               |
 | confirmText | 确认按钮文案                              | string | `'确认'`   |                                               |
+| confirmType | 确认按钮的类型  | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
 | className   | 额外的className                        | string | `''`     |                                               |
 | prefix      | 默认className的前缀                      | string | `'zent'` |                                               |
 
 
 -  `Sweetalert.alert` 和 `Sweetalert.confirm` 的返回值是可以用来手动关闭对话框的函数。
 -  如果 `onConfirm` 的返回值是 `Promise`, 对应的按钮会在 `Promise` pending 时保持在 loading 状态。
-

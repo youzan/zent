@@ -1,8 +1,9 @@
-sudo: true
-dist: trusty
 language: node_js
 node_js:
 - 6
+os: linux
+dist: trusty
+sudo: required
 cache:
   yarn: true
 branches:
@@ -16,6 +17,7 @@ install:
 - |
     yarn install
 script:
+- |
     yarn run bootstrap
     ./lerna run lint
     ./scripts/run-tests.sh

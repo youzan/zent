@@ -9,15 +9,26 @@ function unmount(fn = close) {
 }
 
 function testCallback(modal, btnSelector, key) {
+  // no callback
+  close = modal({
+    title: 'foobar'
+  });
+  expect(document.querySelectorAll(btnSelector).length).toBe(1);
+  Simulate.click(document.querySelector(btnSelector));
+  jest.runOnlyPendingTimers();
+  expect(document.querySelectorAll(btnSelector).length).toBe(0);
+  unmount();
+
+  // no args in callback
   const cb = jest.fn();
   close = modal({
     [key]: cb
   });
-
   Simulate.click(document.querySelector(btnSelector));
   expect(cb.mock.calls.length).toBe(1);
   unmount();
 
+  // callback with args
   let called = false;
   const cbWithArg = (closeFn) => {
     setTimeout(() => {
@@ -33,6 +44,7 @@ function testCallback(modal, btnSelector, key) {
   expect(called).toBe(true);
   unmount();
 
+  // callback returns Promise
   called = false;
   const cbPromise = () => {
     return new Promise((resolve) => {
@@ -49,6 +61,7 @@ function testCallback(modal, btnSelector, key) {
   expect(called).toBe(true);
   unmount();
 
+  // callback with args that returns Promise
   called = false;
   const cbPromiseWithArg = (closeFn) => {
     expect(document.querySelector(btnSelector).classList.contains('zent-btn-loading')).toBe(false);
@@ -110,6 +123,16 @@ describe('alert', () => {
       type: 'success'
     });
     expect(document.querySelector('.zent-sweetalert-alert .zenticon')).toBeTruthy();
+    unmount();
+  });
+
+  it('can set confirm button type', () => {
+    close = alert({
+      confirmType: 'danger',
+      onConfirm: jest.fn
+    });
+    expect(document.querySelector('.zent-sweetalert-alert-btn-confirm.zent-btn-danger')).toBeTruthy();
+    unmount();
   });
 });
 
@@ -157,5 +180,15 @@ describe('confirm', () => {
       type: 'error'
     });
     expect(document.querySelector('.zent-sweetalert-confirm .zenticon')).toBeTruthy();
+    unmount();
+  });
+
+  it('can set confirm button type', () => {
+    close = confirm({
+      confirmType: 'success',
+      onConfirm: jest.fn
+    });
+    expect(document.querySelector('.zent-sweetalert-confirm-btn-confirm.zent-btn-success')).toBeTruthy();
+    unmount();
   });
 });

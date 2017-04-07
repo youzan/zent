@@ -1,3 +1,8 @@
+## 2.0.6 (2017-04-07)
+
+* Field 中增加 onFocus 回调，并添加 focus 时的 active state
+* getControlGroup 改为返回一个 class 类型的 React Component, 增加 field active 时对应的类 `zent-form__control-group--active`，增加 `getControlInstance` 方法。
+
 ## 2.0.4 (2017-03-17)
 
 * getControlGroup支持在Field中传className，作为添加到control-group上的额外类名，可以用来覆盖子元素的样式

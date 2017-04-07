@@ -48,7 +48,7 @@ describe('Table', () => {
     jest.useFakeTimers();
     let i = 10;
     window.scrollY = () => i-- > 1 ? 1 : undefined;
-    wrapper.find('.zent-pagination .pagination-list li').at(2).simulate('click');
+    wrapper.find('.zent-pagination .pagination-list .pager').at(2).simulate('click');
     jest.runAllTimers();
     // HACK: the line inside setInterval could not reach for anynumber > NaN return false
   });

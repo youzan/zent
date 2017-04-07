@@ -15,14 +15,27 @@ export default class Input extends Component {
     addonBefore: PropTypes.node,
     addonAfter: PropTypes.node,
     onPressEnter: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    autoFocus: PropTypes.bool
   }
 
   static defaultProps = {
     disabled: false,
     readOnly: false,
     prefix: 'zent',
-    type: 'text'
+    type: 'text',
+    autoFocus: false
+  }
+
+  componentDidMount() {
+    const { autoFocus } = this.props;
+    if (autoFocus) {
+      this.input.focus();
+    }
+  }
+
+  focus() {
+    this.input.focus();
   }
 
   handleKeyDown = evt => {
@@ -51,7 +64,7 @@ export default class Input extends Component {
       inputProps = omit(inputProps, ['type']);
       return (
         <div className={wrapClass} >
-          <textarea className={`${prefix}-textarea`} {...inputProps} onKeyDown={this.handleKeyDown}></textarea>
+          <textarea ref={(input) => { this.input = input }} className={`${prefix}-textarea`} {...inputProps} onKeyDown={this.handleKeyDown}></textarea>
         </div>
       );
     }
@@ -59,7 +72,7 @@ export default class Input extends Component {
     return (
       <div className={wrapClass} >
         {addonBefore && <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>}
-        <input className={`${prefix}-input`} {...inputProps} onKeyDown={this.handleKeyDown} />
+        <input ref={(input) => { this.input = input }} className={`${prefix}-input`} {...inputProps} onKeyDown={this.handleKeyDown} />
         {addonAfter && <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>}
       </div>
     );

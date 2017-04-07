@@ -86,6 +86,10 @@ class Field extends Component {
     return this.state._isValidating;
   }
 
+  isActive = () => {
+    return this.state._active;
+  }
+
   getPristineValue = () => {
     return this.state._pristineValue;
   }
@@ -164,6 +168,18 @@ class Field extends Component {
     }
   }
 
+  handleFocus = (event) => {
+    const { onFocus } = this.props;
+
+    if (onFocus) {
+      onFocus(event);
+    }
+
+    this.setState({
+      _active: true
+    });
+  }
+
   handleBlur = (event) => {
     const { onBlur, asyncValidation } = this.props;
     const previousValue = this.getValue();
@@ -173,6 +189,10 @@ class Field extends Component {
     if (onBlur) {
       onBlur(event, newValue, previousValue, () => (preventSetValue = true));
     }
+
+    this.setState({
+      _active: false
+    });
 
     if (!preventSetValue) {
       this.setValue(newValue);
@@ -211,11 +231,13 @@ class Field extends Component {
       isTouched: !this.isPristine(),
       isPristine: this.isPristine(),
       isValid: this.isValid(),
+      isActive: this.isActive(),
       value: this.format(this.getValue()),
       error: this.getErrorMessage(),
       errors: this.getErrorMessages(),
       onChange: this.handleChange,
-      onBlur: this.handleBlur
+      onBlur: this.handleBlur,
+      onFocus: this.handleFocus
     });
 
     // 原生的标签不能传非标准属性进去

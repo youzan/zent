@@ -5,6 +5,7 @@
       "ignore": [
         "*.md",
         ".npmrc",
+        "yarn.lock",
         ".eslintrc",
         ".eslintignore",
         ".gitignore",

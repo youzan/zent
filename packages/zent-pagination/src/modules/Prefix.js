@@ -1,48 +1,39 @@
-import React from 'react';
-const { number, array, oneOfType, func } = React.PropTypes;
+import React, { Component, PropTypes } from 'react';
 import Select from 'zent-select';
+
+const { number, array, oneOfType, func } = PropTypes;
 const { Option } = Select;
 
-const Prefix = React.createClass({
-  propTypes: {
+export default class Prefix extends Component {
+  static propTypes = {
     totalItem: number,
     pageSize: oneOfType([number, array]),
     setPageSize: func
-  },
+  };
 
-  changePageSize(e, data) {
-    let { setPageSize } = this.props;
-    setPageSize(data.text);
-  },
+  changePageSize = (e, data) => {
+    this.props.setPageSize(data.text);
+  }
 
   renderSelect() {
     let { pageSize, currentPageSize } = this.props;
 
-    pageSize = pageSize.map((item) => {
-      return `${item.value}`;
-    });
+    pageSize = pageSize.map((item) => `${item.value}`);
 
     return (
       <span className="each">
         ，每页
         <Select value={currentPageSize} onChange={this.changePageSize}>
-          {
-            pageSize.map((item, i) => {
-              return <Option key={i} value={item}>{item}</Option>;
-            })
-          }
+          {pageSize.map((item, i) => <Option key={i} value={item}>{item}</Option>)}
         </Select>
         条
       </span>
     );
-  },
+  }
 
   render() {
     let { pageSize, totalItem, currentPageSize } = this.props;
-    let isNeedSelect = false;
-    if (Array.isArray(pageSize) && pageSize.length > 1) {
-      isNeedSelect = true;
-    }
+    let isNeedSelect = Array.isArray(pageSize) && pageSize.length > 1;
 
     return (
       <span className="zent-pagination__info">
@@ -58,6 +49,4 @@ const Prefix = React.createClass({
       </span>
     );
   }
-});
-
-export default Prefix;
+}

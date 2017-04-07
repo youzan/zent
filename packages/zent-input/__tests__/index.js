@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import Input from '../src';
 
@@ -96,8 +96,26 @@ describe('Input', () => {
     expect(onPressEnterMock.mock.calls.length).toBe(2);
   });
 
-  it('supports textarea', () => {
+  it('can supports textarea', () => {
     const wrapper = shallow(<Input type="textarea" />);
     expect(wrapper.find('textarea').length).toBe(1);
   });
+
+  it('can have input auto focus', () => {
+    const wrapper = mount(<Input autoFocus />);
+    expect(wrapper.find('input').node === document.activeElement).toBe(true);
+  });
+
+  it('can call input focus method', () => {
+    const wrapper = mount(<Input />);
+    wrapper.instance().focus();
+    expect(wrapper.find('input').node === document.activeElement).toBe(true);
+  });
+
+  it('can call textarea focus method', () => {
+    const wrapper = mount(<Input type="textarea"/>);
+    wrapper.instance().focus();
+    expect(wrapper.find('textarea').node === document.activeElement).toBe(true);
+  });
+
 });

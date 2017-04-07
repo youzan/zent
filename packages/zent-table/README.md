@@ -493,6 +493,101 @@ ReactDOM.render(
 ```
 :::
 
+::: demo 可展开
+
+```js
+import { Table } from 'zent';
+
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '5024277',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13213123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+const columns = [{
+  title: '商品',
+  width: '50px',
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: '100px'
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: '100px'
+}, {
+  title: '总销量',
+  name: 'sold_num'
+}];
+
+class RowClass extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      limit: 10,
+      current: 0,
+      total: 101
+    };
+  }
+
+  getRowConf(data, index) {
+    return {
+      canSelect: true,
+    };
+  }
+
+  onChange(conf) {
+    this.setState(conf);
+  } 
+  
+  render() {
+    return (
+      <Table
+        columns={columns}
+        datasets={datasets}
+        onChange={this.onChange.bind(this)}
+        getRowConf={this.getRowConf}
+        rowKey="item_id" 
+        expandation={{
+          isExpanded(record, index) {
+            return (index % 2 === 0);
+          },
+          expandRender(record) {
+            return (
+              <div>
+                {record.title}
+              </div>
+            );
+          }
+        }}
+      />
+    );
+  }
+};
+
+ReactDOM.render(
+    <RowClass />
+  , mountNode
+)
+
+```
+:::
+
 ### API
 
 | 参数         | 说明                                         | 类型            | 默认值         | 备选值     | 是否必须 |
@@ -507,6 +602,7 @@ ReactDOM.render(
 | selection  | 表格的选择功能配置                                  | object        |             |         | 否    |
 | loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
 | getRowConf | 每一行的配置函数，返回一个配置对象`{ canSelect, rowClass }` | func          |             |         | 否    |
+| expandation     |  展开配置                                      | object        |     |         | 否    |
 | autoStick  | 是否自动将head stick到窗口                         | bool          | `false`     |         | 否    |
 | autoScroll | 是否点击分页自动滚到table顶部                          | boll          | `false`     |         | 否    |
 | className  | 自定义额外类名                                    | string        | `''`        |         | 否    |
@@ -532,7 +628,7 @@ ReactDOM.render(
   
 ```
 
-### Columns
+### columns
 
 | 参数         | 说明                                  | 类型                   | 默认值     | 是否必须 |
 | ---------- | ----------------------------------- | -------------------- | ------- | ---- |
@@ -544,12 +640,19 @@ ReactDOM.render(
 | bodyRender | 这一列对应用来渲染的组件                        | `React Element`/func |         | 否    |
 | textAlign  | 文本对齐方式                        | string |    ''     | 否    |
 
-### Selection
+### selection
 
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
 | onSelect        | 每次check的时候出发的函数 | func  |  | 否    |
+
+### expandation
+
+| 参数              | 说明              | 类型    |  默认值 | 是否必须 |
+| --------------- | --------------- | ----- | ---- | ----- |
+| isExpanded | 是否展开当前行            | boolean | false | 否    |
+| expandRender        | 展开行的补充内容render | func  |  | 否    
 
 <style>
   .row {

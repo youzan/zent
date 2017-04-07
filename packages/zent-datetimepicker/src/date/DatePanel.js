@@ -46,9 +46,12 @@ export default class DatePanel extends Component {
     if (props.showTime) {
       timePanel = (
         <TimePanel
+          hidePanel={props.showTime.hidePanel}
           actived={props.showTime.actived}
           disabledTime={props.showTime.disabledTime}
           onChange={props.showTime.onChange}
+          onClose={props.showTime.onClose}
+          onOpen={props.showTime.onOpen}
         />
       );
     }
