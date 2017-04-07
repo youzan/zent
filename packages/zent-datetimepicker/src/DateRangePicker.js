@@ -7,7 +7,7 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
 import { formatDate, parseDate } from './utils/date';
-import { timeFnMap, TIME_FORMAT, noop } from './constants/';
+import { timeFnMap, TIME_FORMAT, noop, positionMap } from './constants/';
 
 const isValidValue = (val) => {
   if (!isArray(val)) return false;
@@ -405,7 +405,7 @@ class DateRangePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={props.position}
+          position={positionMap[props.position]}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

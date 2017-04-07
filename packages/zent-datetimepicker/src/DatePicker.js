@@ -7,9 +7,40 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
 import { formatDate, parseDate } from './utils/date';
-import { timeFnMap, noop } from './constants/';
+import { timeFnMap, noop, positionMap } from './constants/';
 
 let returnType = 'string';
+
+// const position = Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options = {}) => {
+//   console.log(anchorBoundingBox, containerBoundingBox, contentDimension, options);
+//   const containerWidth = containerBoundingBox.width;
+//   const containerHeight = containerBoundingBox.height;
+//   const containerRight = containerBoundingBox.right;
+
+//   const anchorRight = anchorBoundingBox.right;
+
+//   const contentWidth = contentDimension.width;
+//   const contentHeight = contentDimension.height;
+
+//   if (containerRight - anchorRight + containerWidth < contentWidth) {
+//     console.log('left');
+//   } else {
+//     console.log('right');
+//   }
+
+//   return {
+//     getCSSStyle() {
+//       return {
+//         position: 'fixed',
+//         left: 0,
+//         top: 0,
+//         opacity: 1
+//       };
+//     },
+
+//     name: 'position-example'
+//   };
+// });
 
 function extractStateFromProps(props) {
   let selected;
@@ -283,7 +314,7 @@ class DatePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={props.position}
+          position={positionMap[props.position]}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>
