@@ -158,6 +158,7 @@ LeftBottom                                                          RightBottom
 通过这个工厂函数创建自定义的 position, 这个函数接受一个函数作为参数，示例：
 
 ```js
+// a bounding box is an object with these fields: {top, left, right, bottom, width, height}
 const position = Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
   return {
     getCSSStyle() {
@@ -173,6 +174,19 @@ const position = Popover.Position.create((anchorBoundingBox, containerBoundingBo
   };
 });
 ```
+
+anchor 是指 trigger，container 是指离弹层最近的有定位的父节点。
+
+`anchorBoundingBox` 和 `containerBoundingBox` 是相对于 container 左上角的坐标。
+
+`contentDimension` 是弹层的宽高.
+
+`options` 包含了其它可能有用的参数:
+* `options.cushion` Props 上传进来的定位偏移量
+* `options.anchor` anchor 的 DOM 节点
+* `options.container` container 的 DOM 节点
+* `options.anchorBoundingBoxViewport` anchor 相对于 viewport 的坐标
+* `options.containerBoundingBoxViewport` container 相对于 viewport 的坐标
 
 #### withPopover 高阶组件
 
