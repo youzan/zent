@@ -27,20 +27,10 @@
     margin-bottom: 20px;
 
     &.has-error {
-        input,
-        select,
-        textarea,
-        .zent-form__checkbox,
-        .zent-form__radio,
         .zent-form__control-label,
         .zent-form__error-desc,
         .zent-form__help-block {
             color: #f44;
-        }
-        input,
-        select,
-        textarea {
-            border-color: #f44;
         }
     }
 }
