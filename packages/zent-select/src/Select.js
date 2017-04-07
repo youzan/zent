@@ -115,11 +115,12 @@ class Select extends Component {
       if (typeof item === 'object') {
         result.value = item[props.optionValue];
         result.text = item[props.optionText];
+        result = { ...item, ...result };
       } else {
         result.value = item;
         result.text = item;
       }
-      return assign(item, result);
+      return result;
     }).map((item, index) => {
       // 显示当前选项，支持value和index
       item.cid = `${index}`;
@@ -140,6 +141,7 @@ class Select extends Component {
   // 接收trigger改变后的数据，将数据传给popup
   triggerChangeHandler(data) {
     if (data.open) {
+      this.focus = true;
       this.props.onOpen();
     }
     this.setState(data);
@@ -181,6 +183,7 @@ class Select extends Component {
     }
     onChange(ev, data);
     this.setState({
+      keyword: selectedItem.text,
       selectedItems,
       selectedItem,
       open: this.focus
@@ -246,8 +249,7 @@ class Select extends Component {
     } = this.state;
 
     let {
-      cid = '',
-      value
+      cid = ''
     } = selectedItem;
 
     let openCls = open && !disabled ? 'open' : '';
@@ -262,6 +264,7 @@ class Select extends Component {
           placeholder={placeholder}
           selectedItems={selectedItems}
           open={open}
+          keyword={keyword}
           {...selectedItem}
           onChange={this.triggerChangeHandler}
           onDelete={this.triggerDeleteHandler}
@@ -273,7 +276,6 @@ class Select extends Component {
           selectedItems={selectedItems}
           extraFilter={extraFilter}
           searchPlaceholder={searchPlaceholder}
-          value={value}
           emptyText={emptyText}
           keyCode={keyCode}
           keyword={keyword}

@@ -11,6 +11,10 @@ class Search extends Component {
     this.changeHandler = this.changeHandler.bind(this);
   }
 
+  componentDidMount() {
+    this.input.focus();
+  }
+
   changeHandler(ev) {
     this.props.onChange(ev.target.value);
   }
@@ -26,6 +30,7 @@ class Search extends Component {
       <div className={`${prefixCls}-search`}>
         <input
           type="text"
+          ref={input => this.input = input}
           placeholder={placeholder}
           className={`${prefixCls}-filter`}
           onChange={this.changeHandler}
