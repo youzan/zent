@@ -85,7 +85,7 @@ export default class Dropdown extends Component {
     const Trigger = TriggerModes[mode];
     return (
       <Trigger showDelay={mode === 'hover' && 200} hideDelay={mode === 'hover' && 200}>
-        <div className={cx(`${prefix}-dropdown-trigger-wrapper`)}>
+        <div className={`${prefix}-dropdown-trigger-wrapper`}>
           {triggerContent}
         </div>
       </Trigger>
