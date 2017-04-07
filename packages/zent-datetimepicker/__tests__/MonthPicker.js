@@ -1,7 +1,7 @@
 import React from 'react';
 import { MonthPicker } from '../src';
 import { mount, ReactWrapper } from 'enzyme';
-import { formatDate } from '../src/./utils/date';
+import { formatDate } from '../src/utils/date';
 
 describe('MonthPicker', () => {
   it('MonthPicker has 2 level panel', () => {

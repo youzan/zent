@@ -1,5 +1,5 @@
 import * as Ut from '../src/utils';
-import { formatDate, parseDate } from '../src/./utils/date';
+import { formatDate, parseDate } from '../src/utils/date';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
