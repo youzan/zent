@@ -203,7 +203,6 @@ class DatePicker extends Component {
     });
 
     const ret = this.getReturnValue(tmp, format);
-    console.log(ret);
     this.props.onChange(ret);
   }
 
