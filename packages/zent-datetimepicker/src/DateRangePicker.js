@@ -5,9 +5,11 @@ import Popover from 'zent-popover';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { goMonths, isArray, isSameMonth } from './utils';
+import { goMonths, isArray, isSameMonth, position } from './utils';
 import { formatDate, parseDate } from './utils/date';
-import { timeFnMap, TIME_FORMAT, noop, positionMap } from './constants/';
+import { timeFnMap, TIME_FORMAT, noop } from './constants/';
+
+let retType;
 
 const isValidValue = (val) => {
   if (!isArray(val)) return false;
@@ -73,6 +75,7 @@ class DateRangePicker extends Component {
     className: PropTypes.string,
     placeholder: PropTypes.arrayOf(PropTypes.string),
     confirmText: PropTypes.string,
+    returnType: PropTypes.oneOf(['date', 'number', 'string']),
     position: PropTypes.string,
     format: PropTypes.string,
     showTime: PropTypes.bool,
@@ -95,6 +98,15 @@ class DateRangePicker extends Component {
 
   constructor(props) {
     super(props);
+
+    const { value, returnType } = props;
+    if (returnType) {
+      retType = returnType;
+    } else if (isValidValue(value)) {
+      if (typeof value[0] === 'number') retType = 'numer';
+      if (value[0] instanceof Date) retType = 'date';
+    }
+
     this.state = extractStateFromProps(props);
   }
 
@@ -258,6 +270,24 @@ class DateRangePicker extends Component {
     this.props.onChange([]);
   }
 
+  /**
+   * 如果传入为数字，返回值也为数字
+   * 如果传入为 Date 的实例，返回值也为 Date 的实例
+   * 默认返回 format 格式的字符串
+   */
+
+  getReturnValue(date, format) {
+    if (retType === 'numer') {
+      return date.getTime();
+    }
+
+    if (retType === 'date') {
+      return date;
+    }
+
+    return formatDate(date, format);
+  }
+
   onConfirm = () => {
     const { selected, activedTime } = this.state;
 
@@ -293,7 +323,9 @@ class DateRangePicker extends Component {
       showPlaceholder: false,
       openPanel: false
     });
-    this.props.onChange(vcp);
+
+    const ret = [this.getReturnValue(tmp[0], fullFormat), this.getReturnValue(tmp[1], fullFormat)];
+    this.props.onChange(ret);
   }
 
   renderPicker() {
@@ -405,7 +437,7 @@ class DateRangePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={positionMap[props.position]}
+          position={position}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

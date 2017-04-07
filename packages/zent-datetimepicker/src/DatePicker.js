@@ -5,42 +5,11 @@ import Popover from 'zent-popover';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT_DAY, goMonths } from './utils';
+import { CURRENT_DAY, goMonths, position } from './utils';
 import { formatDate, parseDate } from './utils/date';
-import { timeFnMap, noop, positionMap } from './constants/';
+import { timeFnMap, noop } from './constants/';
 
-let returnType = 'string';
-
-// const position = Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options = {}) => {
-//   console.log(anchorBoundingBox, containerBoundingBox, contentDimension, options);
-//   const containerWidth = containerBoundingBox.width;
-//   const containerHeight = containerBoundingBox.height;
-//   const containerRight = containerBoundingBox.right;
-
-//   const anchorRight = anchorBoundingBox.right;
-
-//   const contentWidth = contentDimension.width;
-//   const contentHeight = contentDimension.height;
-
-//   if (containerRight - anchorRight + containerWidth < contentWidth) {
-//     console.log('left');
-//   } else {
-//     console.log('right');
-//   }
-
-//   return {
-//     getCSSStyle() {
-//       return {
-//         position: 'fixed',
-//         left: 0,
-//         top: 0,
-//         opacity: 1
-//       };
-//     },
-
-//     name: 'position-example'
-//   };
-// });
+let retType = 'string';
 
 function extractStateFromProps(props) {
   let selected;
@@ -49,6 +18,7 @@ function extractStateFromProps(props) {
 
   if (props.value) {
     const tmp = parseDate(props.value, props.format);
+
     if (tmp) {
       showPlaceholder = false;
       actived = selected = tmp;
@@ -85,6 +55,9 @@ class DatePicker extends Component {
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
     format: PropTypes.string,
+
+    // onChange 返回值类型, date | number | string， 默认 string
+    returnType: PropTypes.oneOf(['date', 'number', 'string']),
     position: PropTypes.string,
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
     min: PropTypes.oneOfType([
@@ -114,10 +87,15 @@ class DatePicker extends Component {
 
   constructor(props) {
     super(props);
-    if (props.value) {
-      if (typeof props.value === 'number') returnType = 'numer';
-      if (props.value instanceof Date) returnType = 'date';
+    const { value, returnType } = props;
+
+    if (returnType) {
+      retType = returnType;
+    } else if (value) {
+      if (typeof value === 'number') retType = 'numer';
+      if (value instanceof Date) retType = 'date';
     }
+
     this.state = extractStateFromProps(props);
   }
 
@@ -186,11 +164,11 @@ class DatePicker extends Component {
    */
 
   getReturnValue(date, format) {
-    if (returnType === 'numer') {
+    if (retType === 'numer') {
       return date.getTime();
     }
 
-    if (returnType === 'date') {
+    if (retType === 'date') {
       return date;
     }
 
@@ -314,7 +292,7 @@ class DatePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={positionMap[props.position]}
+          position={position}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>
