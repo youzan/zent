@@ -6,6 +6,7 @@ describe('<Select />', () => {
   test('data的传参方式有效', () => {
     const wrapper = mount(<Select data={[1, 2, 3]} />);
     expect(wrapper.find('Select').length).toBe(1);
+    wrapper.find('SelectTrigger').simulate('click');
     expect(wrapper.find('Option').length).toBe(3);
   });
 
@@ -17,6 +18,7 @@ describe('<Select />', () => {
       </Select>
     );
     expect(wrapper.find('Select').length).toBe(1);
+    wrapper.find('SelectTrigger').simulate('click');
     expect(wrapper.find('Option').length).toBe(2);
 
     // HACK: branch
@@ -67,6 +69,7 @@ describe('<Select />', () => {
 
   it('Popup中的Search(onFilter and onAsyncFilter)', () => {
     let wrapper = mount(<Select data={['选项1', '选项2', '选项3']} onFilter={(item, keyword) => keyword && item.value.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1} searchPlaceholder="search" />);
+    wrapper.find('SelectTrigger').simulate('click');
     expect(wrapper.find('Option').length).toBe(3);
     wrapper.find('Search').find('input').simulate('change', {
       target: {
@@ -84,6 +87,7 @@ describe('<Select />', () => {
     // BUG: Provide asyncFilter only could not render Search
     wrapper = mount(<Select data={['选项1', '选项2', '选项3']} onAsyncFilter={asyncMock} searchPlaceholder="search" onFilter={() => true} />);
     jest.useFakeTimers();
+    wrapper.find('SelectTrigger').simulate('click');
     expect(wrapper.find('Option').length).toBe(3);
     wrapper.find('Search').find('input').simulate('change', {
       target: {

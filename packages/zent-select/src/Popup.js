@@ -3,7 +3,6 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import assign from 'zent-utils/lodash/assign';
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
@@ -13,23 +12,40 @@ class Popup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = assign({}, props);
+    this.state = {
+      data: [],
+      keyCode: '',
+      keyword: ''
+    };
     this.sourceData = props.data;
     this.searchFilterHandler = this.searchFilterHandler.bind(this);
     this.optionChangedHandler = this.optionChangedHandler.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    let nextState = assign({}, nextProps);
     this.sourceData = nextProps.data;
     if (nextProps.keyCode === KEY_EN && this.state.keyCode === nextProps.keyCode) {
       return;
     }
     this.updateCurrentId(nextProps.keyCode, nextProps.keyword);
-    this.setState(nextState);
+    if (nextProps.keyword === null) {
+      this.setState({
+        keyCode: nextProps.keyCode,
+        data: nextProps.data
+      });
+    } else {
+      this.setState({
+        keyCode: nextProps.keyCode,
+        data: nextProps.data,
+        keyword: nextProps.keyword
+      });
+    }
   }
 
   optionChangedHandler(ev, cid) {
+    this.setState({
+      keyword: ''
+    });
     this.props.onBlur();
     this.props.onChange(ev, this.sourceData.filter(item => item.cid === cid)[0]);
   }
@@ -103,14 +119,25 @@ class Popup extends Component {
       data
     } = this.state;
 
-    let filterData = data.filter(item => !keyword || !filter || filter(item, `${keyword}`));
+    let filterData = data.filter(item => {
+      return !keyword || !filter || filter(item, `${keyword}`);
+    });
     let showEmpty = data.length === 0 || filterData.length === 0;
 
     this.itemIds = filterData.map(item => item.cid);
 
     return (
       <div tabIndex="0" className={`${prefixCls}-popup`} onFocus={onFocus} onBlur={onBlur}>
-        {!extraFilter && filter && <Search prefixCls={prefixCls} placeholder={searchPlaceholder} onChange={this.searchFilterHandler} />}
+        {
+          !extraFilter && filter ? (
+            <Search
+              keyword={keyword}
+              prefixCls={prefixCls}
+              placeholder={searchPlaceholder}
+              onChange={this.searchFilterHandler}
+            />
+          ) : ''
+        }
         {filterData.map((item, index) => {
           let currentCls = typeof this.currentId !== 'undefined' && item.cid === this.currentId ? 'current' : '';
           let activeCls = selectedItems.filter(o => o.cid === item.cid).length > 0 || item.cid === cid ? 'active' : '';

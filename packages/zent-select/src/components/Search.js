@@ -23,7 +23,8 @@ class Search extends Component {
     let {
       prefixCls,
       placeholder,
-      onFocus
+      onFocus,
+      keyword
     } = this.props;
 
     return (
@@ -33,6 +34,7 @@ class Search extends Component {
           ref={input => this.input = input}
           placeholder={placeholder}
           className={`${prefixCls}-filter`}
+          value={keyword}
           onChange={this.changeHandler}
           onFocus={onFocus}
         />

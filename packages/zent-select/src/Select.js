@@ -183,7 +183,7 @@ class Select extends Component {
     }
     onChange(ev, data);
     this.setState({
-      keyword: selectedItem.text,
+      keyword: null,
       selectedItems,
       selectedItem,
       open: this.focus
@@ -210,7 +210,6 @@ class Select extends Component {
 
   keyupHandler(ev) {
     let code = ev.keyCode;
-    let keyword = ev.target.value;
     if (code === KEY_ESC) {
       this.setState({
         open: false
@@ -218,8 +217,7 @@ class Select extends Component {
     } else if ([KEY_EN, KEY_UP, KEY_DOWN].indexOf(code) > -1) {
       ev.preventDefault();
       this.setState({
-        keyCode: code,
-        keyword
+        keyCode: code
       });
     } else {
       this.setState({
@@ -245,7 +243,7 @@ class Select extends Component {
       extraFilter,
       open,
       keyCode,
-      keyword
+      keyword = null
     } = this.state;
 
     let {

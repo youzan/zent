@@ -27,7 +27,7 @@ class InputTrigger extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      value: typeof nextProps.keyword === 'undefined' ? nextProps.value : nextProps.keyword
+      value: nextProps.keyword === null ? nextProps.value : nextProps.keyword
     });
   }
 
