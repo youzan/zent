@@ -6,6 +6,7 @@ import React, { Component, PropTypes } from 'react';
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import isArray from 'zent-utils/lodash/isArray';
 
 class Popup extends Component {
 
@@ -60,7 +61,7 @@ class Popup extends Component {
       onAsyncFilter(`${keyword}`, (data) => {
         this.setState({
           keyword,
-          data: this.sourceData.filter(item => data.indexOf(item.value) > -1)
+          data: this.sourceData.filter(item => isArray(data) && data.indexOf(item.value) > -1)
         });
       });
     } else {
