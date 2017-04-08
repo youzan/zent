@@ -174,7 +174,7 @@ class Select extends Component {
     let args = omit(selectedItem, ['cid']);
     result[optionValue] = selectedItem.value;
     result[optionText] = selectedItem.text;
-    let data = { ...args, result };
+    let data = { ...args, ...result };
     if (tags) {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
