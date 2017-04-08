@@ -7,7 +7,7 @@ class Example extends Component {
   render() {
     return (
       <form>
-        <Select data={[1, 2, 3]} />
+        <Select data={[1, 2, 3]} tags />
       </form>
     );
   }
