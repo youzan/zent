@@ -141,7 +141,6 @@ class Select extends Component {
   // 接收trigger改变后的数据，将数据传给popup
   triggerChangeHandler(data) {
     if (data.open) {
-      this.focus = true;
       this.props.onOpen();
     }
     this.setState(data);
