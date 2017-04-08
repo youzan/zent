@@ -195,7 +195,7 @@ describe('<Select />', () => {
     const wrapper = mount(<Select data={['1', '2', '3', '']} />);
     expect(wrapper.state('open')).toBe(false);
     wrapper.find('SelectTrigger').simulate('click');
-    expect(wrapper.getNode().focus).toBe(true);
+    expect(wrapper.getNode().focus).toBe(undefined);
     expect(wrapper.state('open')).toBe(true);
     wrapper.find('Popup').simulate('focus');
     expect(wrapper.getNode().focus).toBe(true);
