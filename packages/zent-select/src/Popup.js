@@ -48,7 +48,7 @@ class Popup extends Component {
       keyword: ''
     });
     this.props.onBlur();
-    this.props.onChange(ev, this.sourceData.filter(item => item.cid === cid)[0]);
+    this.props.onChange(ev, this.props.data.filter(item => item.cid === cid)[0]);
   }
 
   searchFilterHandler(keyword) {
