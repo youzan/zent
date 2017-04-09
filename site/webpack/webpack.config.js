@@ -11,6 +11,7 @@ var babelLoader = {
       require.resolve('babel-preset-stage-1')
     ],
     plugins: [
+      require.resolve('babel-plugin-add-module-exports'),
       require.resolve('babel-plugin-transform-runtime'),
     ]
   }
@@ -21,6 +22,20 @@ var postcssLoader = {
     plugins: postcssPlugins
   }
 };
+
+var scssLoader = {
+  loader: require.resolve('postcss-loader'),
+  options: {
+    plugins: [
+      require('postcss-easy-import')({
+        extensions: ['.scss', '.css']
+      }),
+      require('precss'),
+      require('autoprefixer')
+    ],
+    parser: require('postcss-scss')
+  }
+}
 
 module.exports = {
   entry: {
@@ -46,8 +61,7 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.runtime.common.js',
       components: path.join(__dirname, '../src/components'),
-      zent$: path.join(__dirname, '../../packages/zent'),
-      zentcss$: path.join(__dirname, '../../packages/zent/lib/index.css')
+      zent$: path.join(__dirname, '../zent'),
     }
   },
   module: {
@@ -87,6 +101,14 @@ module.exports = {
             }
           },
           require.resolve('markdown-doc-loader')
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader'),
+          scssLoader
         ]
       },
       {
