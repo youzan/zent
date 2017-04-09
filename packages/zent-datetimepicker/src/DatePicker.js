@@ -58,7 +58,6 @@ class DatePicker extends Component {
 
     // onChange 返回值类型, date | number | string， 默认 string
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
-    position: PropTypes.string,
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
     min: PropTypes.oneOfType([
       PropTypes.string,

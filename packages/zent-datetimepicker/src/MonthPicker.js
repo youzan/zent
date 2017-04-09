@@ -43,7 +43,6 @@ class MonthPicker extends Component {
     className: PropTypes.string,
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
-    position: PropTypes.string,
     format: PropTypes.string,
     onChange: PropTypes.func
   }
@@ -53,7 +52,6 @@ class MonthPicker extends Component {
     className: '',
     placeholder: '请选择月份',
     confirmText: '确认',
-    position: 'bottom-left',
     format: 'YYYY-MM',
     onChange: noop
   }

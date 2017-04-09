@@ -22,17 +22,15 @@ $double_default_width: 480px;
         width: 100%;
         height: 30px;
         line-height: 30px;
-        padding-right: 10px;
+        padding: 0 10px;
         font-size: 12px;
         border: 1px solid $light_grey;
         border-radius: 2px;
-        &--range{
-            padding-left: 10px;
-        }
         .zent-input-wrapper {
             display: inline-block;
         }
         .zent-input {
+            padding: 0;
             border: none;
             background: inherit;
             color: inherit;
