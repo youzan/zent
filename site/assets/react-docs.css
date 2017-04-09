@@ -1,6 +1,10 @@
 $border-color: #e5e5e5;
 $toggle-color: #BBBBBB;
 
+.react-doc-page-content {
+  min-height: 600px;
+}
+
 .zandoc-react-container {
   .zandoc-react-demo {
     border-radius: 4px;
@@ -49,6 +53,7 @@ $toggle-color: #BBBBBB;
     &__code {
       border-top: 1px solid $border-color;
       padding: 20px;
+      background-color: #f8f8f8;
     }
   }
 }

@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "zent-icon": "1.0.10",
-    "zent-utils": "*"
+    "zent-utils": "1.0.7"
   },
   "jest": {
     "verbose": true,
