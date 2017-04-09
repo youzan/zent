@@ -8,7 +8,7 @@ import createPlacement from './create';
  * |popover|
  * ---------
  */
-export default createPlacement((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
+function locate(anchorBoundingBox, containerBoundingBox, contentDimension, options) {
   const { left, bottom } = anchorBoundingBox;
   const x = left;
   const y = bottom + options.cushion;
@@ -24,4 +24,9 @@ export default createPlacement((anchorBoundingBox, containerBoundingBox, content
 
     name: 'position-bottom-left'
   };
-});
+}
+
+const BottomLeft = createPlacement(locate);
+BottomLeft.locate = locate;
+
+export default BottomLeft;

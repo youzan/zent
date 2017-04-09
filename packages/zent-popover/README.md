@@ -137,7 +137,7 @@ ReactDOM.render(
 
 ### Position API
 
-Positon用于给弹层提供定位的, 内置12种定位, 可以添加自定义定位算法. Popover 上的 `cushion` 参数会影响定位, 通常用来提供一定量的偏移量。
+Positon用于给弹层提供定位的, 内置12种基础定位, 可以添加自定义定位算法. Popover 上的 `cushion` 参数会影响定位, 通常用来提供一定量的偏移量。
 
 ```text
                     TopLeft     TopCenter     TopRight
@@ -151,6 +151,20 @@ LeftCenter                                                          RightCenter
 LeftBottom                                                          RightBottom
 
                 BottomLeft     BottomCenter     BottomRight
+```
+
+除了这12种基础定位算法外，还提供了一个会自动根据屏幕剩余空间自动判断合适位置的定位算法: `AutoBottomLeft`，这个算法适用于下拉式组件。
+
+每个定位算法的对象上都有一个 `locate` 函数，通过这个函数可以实现定位算法的组合。
+
+```js
+Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
+  if (someCondition) {
+	  return Popover.Position.BottomLeft.locate(anchorBoundingBox, containerBoundingBox, contentDimension, options);
+  }
+
+  return Popover.Position.TopRight.locate(anchorBoundingBox, containerBoundingBox, contentDimension, options);
+});
 ```
 
 #### Position.create

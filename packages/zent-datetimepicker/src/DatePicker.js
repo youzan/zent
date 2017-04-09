@@ -8,7 +8,6 @@ import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
 import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import { timeFnMap, noop } from './constants/';
-import { position } from './utils/position';
 
 let retType = 'string';
 
@@ -295,7 +294,7 @@ class DatePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={position}
+          position={Popover.Position.AutoBottomLeft}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

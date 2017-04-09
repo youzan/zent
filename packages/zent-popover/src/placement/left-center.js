@@ -7,7 +7,7 @@ import createPlacement from './create';
  * |---------|                    |
  *           |--------------------|
  */
-export default createPlacement((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
+function locate(anchorBoundingBox, containerBoundingBox, contentDimension, options) {
   const x = anchorBoundingBox.left - contentDimension.width - options.cushion;
   const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
   const y = middle - contentDimension.height / 2;
@@ -23,4 +23,9 @@ export default createPlacement((anchorBoundingBox, containerBoundingBox, content
 
     name: 'position-left-center'
   };
-});
+}
+
+const LeftCenter = createPlacement(locate);
+LeftCenter.locate = locate;
+
+export default LeftCenter;

@@ -3,7 +3,7 @@ import createPlacement from './create';
 /**
  * 不可见定位
  */
-export default createPlacement(() => {
+function locate() {
   const x = -100000;
   const y = -100000;
 
@@ -20,4 +20,9 @@ export default createPlacement(() => {
 
     name: 'position-invisible'
   };
-});
+}
+
+const Invisible = createPlacement(locate);
+Invisible.locate = locate;
+
+export default Invisible;

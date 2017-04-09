@@ -197,7 +197,8 @@ describe('Popover', () => {
       RightBottom,
       TopLeft,
       TopCenter,
-      TopRight
+      TopRight,
+      AutoBottomLeft
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -211,7 +212,8 @@ describe('Popover', () => {
       RightBottom,
       TopLeft,
       TopCenter,
-      TopRight
+      TopRight,
+      AutoBottomLeft
     ];
     positionArr.forEach(pos => {
       const wrapper = mount(
