@@ -1,5 +1,9 @@
 /* eslint-disable */
 
+/**
+ * Usage: node ./scripts/check-package-version.js [--fix]
+ */
+
 var fs = require('fs');
 var path = require('path');
 
