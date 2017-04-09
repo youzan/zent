@@ -8,7 +8,6 @@ import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
 import { formatDate, parseDate } from './utils/date';
 import { noop } from './constants/';
-import { position } from './utils/position';
 
 function extractStateFromProps(props) {
   let showPlaceholder;
@@ -166,7 +165,7 @@ class MonthPicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={position}
+          position={Popover.Position.AutoBottomLeft}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

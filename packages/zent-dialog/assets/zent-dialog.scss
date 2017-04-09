@@ -6,20 +6,51 @@ $bordercolor: #e8e8e8;
 $maskbgcolor: #373737;
 $rgbamaskbgcolor: rgba(0, 0, 0, .6);
 
+/*
+  WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog, it makes content blurry.
+
+  With GPU rendering elements we are translating must be even numbers.
+  The bad news is that we cannot control the size of dialogs.
+
+  http://stackoverflow.com/questions/6411361/webkit-based-blurry-distorted-text-post-animation-via-translate3d
+
+  Here we're using inline-blocks to center the dialog.
+
+  https://css-tricks.com/centering-in-the-unknown/
+*/
+
+.zent-dialog-r-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  text-align: center;
+  font-size: 0;
+
+  &::before {
+      content: '';
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle; // required
+  }
+}
 
 .zent-dialog-r {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: top 0.5s;
-  background-color: $whitecolor;
-  border-radius: 4px;
-  padding: 20px;
-  box-sizing: border-box;
-  font-size: 14px;
-  z-index: 1041;
-  box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle; // required
+    text-align: initial;
+    background-color: $whitecolor;
+    border-radius: 4px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    z-index: 1041;
 }
 
 .zent-dialog-r-title {
@@ -39,7 +70,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
 
 .zent-dialog-r-close {
   position: absolute;
-  display: block;
+  display: inline-block;
   top: 4px;
   right: 10px;
   color: $graycolor;
@@ -54,6 +85,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
   user-select: none;
   padding: 0;
   margin: 0;
+
   &:link,
   &:active,
   &:focus {
@@ -88,16 +120,4 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
   background-color: $rgbamaskbgcolor;
   height: 100%;
   z-index: 1050;
-}
-
-.zent-dialog-r-wrap {
-  position: fixed;
-  overflow: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1050;
-  -webkit-overflow-scrolling: touch;
-  outline: 0;
 }

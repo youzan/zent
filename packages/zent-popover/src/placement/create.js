@@ -1,12 +1,12 @@
 /**
  * Create a new placement.
  *
- * @param {function} template (anchorBoundingBox, containerBoundingBox, contentDimension, options) => { name, getCSSStyle }
+ * @param {function} locate (anchorBoundingBox, containerBoundingBox, contentDimension, options) => { name, getCSSStyle }
  * @return {function}
  */
-export default function createPlacement(template) {
+export default function createPlacement(locate) {
   return (prefix, ...args) => {
-    const placement = template(...args);
+    const placement = locate(...args);
 
     if (!placement || !placement.name || !placement.getCSSStyle) {
       throw new Error('name and getCSSStyle is required for a placement');

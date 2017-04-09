@@ -11,7 +11,7 @@ felint update
 yarn run bootstrap
 ```
 
-**如果`./lerna bootstrap`在lint某个包的时候失败，请确认你的`eslint`符合`felint`的版本要求。**
+**如果 `yarn run bootstrap` 在 lint 某个包的时候失败，请确认你的 `eslint` 符合 `felint` 的版本要求。**
 
 执行完这些之后不需要再在`packages/zent-xxx`目录下去单独执行`npm install`了。
 
@@ -32,15 +32,15 @@ yarn run bootstrap
 **注意：不是所有人都有发包权限的**
 
 1. 更新代码到最新: `git pull`
-2. `./scripts/publish.sh`选择需要的版本即可(**不要直接运行`./lerna publish`**)
+2. `./scripts/publish.sh` 选择需要的版本即可
 
 ## Tips
 
 * 导出的组件不要写成 [Functional Component](https://facebook.github.io/react/docs/refs-and-the-dom.html#refs-and-functional-components)，这样子使用的时候没法加 `ref` (虽然不推荐用 `ref`，但是我们不应该不让使用)。
-* `zent-utils`包提供了常见工具函数，包括`classnames`以及`lodash`里的所有函数，请不要在组件内部单独安装这两个包。
-  原则上所有工具函数都应该放在`zent-utils`里面管理。
-* 提交的代码确保已经通过eslint检查。
-* 不要用全局的`lerna`，因为`lerna`的配置文件和版本绑定的，所以请用本地`node_modules`目录下的`lerna`。
-* `scripts`目录下有一些工具脚本。
-* `./lerna updated`可以查看哪些包有改动。
+* `zent-utils` 包提供了常见工具函数，包括 `classnames` 以及 `lodash` 里的所有函数，请不要在组件内部单独安装这两个包。
+  原则上所有工具函数都应该放在 `zent-utils` 里面管理。
+* 提交的代码确保已经通过 eslint 检查。
+* 不要用全局的 `lerna`，因为 `lerna` 的配置文件和版本绑定的，所以请用本地 `node_modules` 目录下的 `lerna`。
+* `scripts` 目录下有一些工具脚本。
+* `./lerna updated` 可以查看哪些包有改动。
 * 如果A依赖B，B改动的话A也会发新包。

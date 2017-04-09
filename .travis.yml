@@ -19,5 +19,6 @@ install:
 script:
 - |
     yarn run bootstrap
+    node ./scripts/check-package-version.js
     ./lerna run lint
     ./scripts/run-tests.sh

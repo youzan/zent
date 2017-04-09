@@ -74,10 +74,14 @@ describe('CreatedForm and HandleSubmit', () => {
   });
 
   it('onSubmitFail will be excuted when then promise rejected', () => {
+    process.on('unhandledRejection', (reason) => {
+      expect(reason).toBe('submit error');
+    });
+
     jest.clearAllTimers();
     jest.useFakeTimers();
     const submitFunc = () => {
-      return new Promise((resolve, reject) => setTimeout(() => reject('error'), 1000));
+      return new Promise((resolve, reject) => reject('submit error'));
     };
     const promiseSuccessMock = jest.fn();
     const promiseFailMock = jest.fn();
