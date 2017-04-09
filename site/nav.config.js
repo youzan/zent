@@ -99,13 +99,13 @@ module.exports = {
                 return System.import('../packages/zent-checkbox/README.md')
               }
             },
-            // {
-            //   path: '/datepicker',
-            //   title: 'DatePicker 时间选择',
-            //   filePath() {
-            //     return System.import('../packages/zent-datetimepicker/README.md')
-            //   }
-            // },
+            {
+              path: '/datepicker',
+              title: 'DatePicker 时间选择',
+              filePath() {
+                return System.import('../packages/zent-datetimepicker/README.md')
+              }
+            },
             {
               path: '/form',
               title: 'Form 表单',
