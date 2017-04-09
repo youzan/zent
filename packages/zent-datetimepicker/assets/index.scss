@@ -26,6 +26,9 @@ $double_default_width: 480px;
         font-size: 12px;
         border: 1px solid $light_grey;
         border-radius: 2px;
+        &--range{
+            padding-left: 10px;
+        }
         .zent-input-wrapper {
             display: inline-block;
         }
