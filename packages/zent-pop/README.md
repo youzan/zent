@@ -26,6 +26,7 @@ ReactDOM.render(
 			<Input defaultValue="点击获取焦点" />
 		</Pop>
 	</div>
+	, mountNode
 )
 ```
 :::
@@ -83,6 +84,7 @@ ReactDOM.render(
 			</Pop>
 		</div>
 	</div>
+	, mountNode
 )
 ```
 :::

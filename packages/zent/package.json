@@ -2,6 +2,7 @@
   "name": "zent",
   "version": "2.0.7",
   "description": "一套前端设计语言和基于React的实现",
+  "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"

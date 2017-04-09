@@ -30,8 +30,10 @@ class Example extends React.Component {
 				<Dialog
 					visible={this.state.visible}
 					onClose={() => this.triggerDialog(false)}
+					title="对话框"
 				>
-					<p>Text in a modal</p>
+					<p>对话框内容</p>
+					<p>对话框其他内容</p>
 				</Dialog>);
 		}
 

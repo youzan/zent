@@ -130,21 +130,45 @@ class Custom extends Component {
     return (
       <div>
         <form className="zent-form zent-form--horizontal">
-          <div className="zent-form__control-group">
+          <div className="zent-form__control-group zent-pager-control-group">
             <label className="zent-form__control-label">totalItem: </label>
-            <input type="text" placeholder="数字" value={this.state.totalItem} onChange={this.onTotalChange} />
+            <Input
+							className="zent-pager-input"
+							type="text"
+							placeholder="数字"
+							value={this.state.totalItem}
+							onChange={this.onTotalChange} 
+						/>
           </div>
-          <div className="zent-form__control-group">
+          <div className="zent-form__control-group zent-pager-control-group">
             <label className="zent-form__control-label">pageSize:</label>
-            <input type="text" placeholder="数字" value={this.state.pageSize} onChange={this.onPageSizeChange} />
+            <Input
+							className="zent-pager-input"
+							type="text"
+							placeholder="数字"
+							value={this.state.pageSize}
+							onChange={this.onPageSizeChange}
+						/>
           </div>
-          <div className="zent-form__control-group">
+          <div className="zent-form__control-group zent-pager-control-group">
             <label className="zent-form__control-label">current:</label>
-            <input type="text" placeholder="数字" value={this.state.current} onChange={this.onCurrentChange} />
+            <Input
+							className="zent-pager-input"
+							type="text"
+							placeholder="数字"
+							value={this.state.current}
+							onChange={this.onCurrentChange}
+						/>
           </div>
-          <div className="zent-form__control-group">
+          <div className="zent-form__control-group zent-pager-control-group">
             <label className="zent-form__control-label">maxPageToShow:</label>
-            <input type="text" placeholder="数字" value={this.state.max} onChange={this.onMaxChange} />
+            <Input
+							className="zent-pager-input"
+							type="text"
+							placeholder="数字"
+							value={this.state.max}
+							onChange={this.onMaxChange}
+						/>
           </div>
         </form>
         <Pagination
@@ -306,3 +330,15 @@ pageSize 属性支持3种格式：
   'target': 5
 }];
 ```
+
+<style>
+.zent-pager-control-group {
+	display: flex;
+	
+	.zent-pager-input {
+		margin-left: 10px;
+		width: 200px;
+	}
+}
+
+</style>

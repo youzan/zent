@@ -36,7 +36,11 @@ const registerRoute = (navConfig, isReact) => {
         path: '/component' + page.path,
         component: Vue.component(componentName, {
           render(createElement) {
-            return createElement('div');
+            return createElement('div', {
+              'class': {
+                'react-doc-page-content': true
+              }
+            });
           },
           mounted() {
             page.filePath().then((res) => {

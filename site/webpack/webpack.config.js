@@ -76,12 +76,17 @@ module.exports = {
         use: [
           babelLoader,
           {
-            loader: require.resolve('zandoc-react-loader'),
+            loader: require.resolve('react-markdown-doc-loader'),
             options: {
-              jsTemplate: path.join(__dirname, '../react-template.js')
+              jsTemplate: path.join(__dirname, '../react-template.js'),
+              renderers: {
+                markdown: 'Markdown',
+                style: 'Style',
+                demo: 'Demo'
+              }
             }
           },
-          require.resolve('zandoc-loader')
+          require.resolve('markdown-doc-loader')
         ]
       },
       {
@@ -95,6 +100,10 @@ module.exports = {
       {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         use: require.resolve('url-loader')
+      },
+      {
+        test: /\.json$/,
+        use: 'json-loader'
       }
     ],
   },
