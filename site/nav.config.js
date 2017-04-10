@@ -141,6 +141,13 @@ module.exports = {
                 return System.import('../packages/zent-switch/README.md');
               }
             },
+            {
+              path: '/dropdown',
+              title: 'Dropdown 下拉菜单',
+              filePath() {
+                return System.import('../packages/zent-dropdown/README.md');
+              }
+            },
           ]
         },
         {

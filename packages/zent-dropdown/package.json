@@ -1,0 +1,37 @@
+{
+  "name": "zent-dropdown",
+  "version": "0.0.1",
+  "description": "下拉菜单组件",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "Fancy",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "jest": {
+    "verbose": true,
+    "automock": false,
+    "collectCoverage": true
+  },
+  "dependencies": {
+    "zent-utils": "1.0.7",
+    "zent-popover": "1.0.12"
+  },
+  "devDependencies": {
+    "zent-button": "1.0.9",
+    "zent-icon": "1.0.9",
+    "zent-menu": "0.0.3"
+  }
+}
