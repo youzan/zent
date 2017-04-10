@@ -6,8 +6,7 @@
 3. If you've changed APIs, update the documentation.
 4. Ensure the test suite passes (`npm test`).
 5. Make sure your code lints (`npm run lint`).
-
-### Describe your pull request
+6. Describe your pull request.
 
 Fixes #xx(issue number here)
 
