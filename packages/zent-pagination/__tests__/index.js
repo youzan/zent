@@ -88,8 +88,9 @@ describe('Pagination', () => {
     expect(wrapper.find('.zent-select').length).toBe(1);
     expect(wrapper.find('.pager').length).toBe(8);
     expect(wrapper.find('.pager').at(5).text()).toBe('34 ');
-    wrapper.find('.zent-select').simulate('click');
-    wrapper.find('span[value="20"]').simulate('click');
+    wrapper.setProps({
+      pageSize: [{ value: 20, isCurrent: true }, 30]
+    });
     expect(wrapper.find('.pager').length).toBe(8);
     expect(wrapper.find('.pager').at(5).text()).toBe('50 ');
 
@@ -100,8 +101,9 @@ describe('Pagination', () => {
 
     wrapper = mount(<Pagination totalItem={1000} pageSize={[20, { value: 30, isCurrent: true }]} current={1} maxPageToshow={100} onChange={onChangeMock} />);
     expect(wrapper.state('currentPageSize')).toBe(30);
-    wrapper.find('.zent-select').simulate('click');
-    wrapper.find('span[value="20"]').simulate('click');
+    wrapper.setProps({
+      pageSize: [{ value: 20, isCurrent: true }, 30]
+    });
     expect(wrapper.prop('current')).toBe(1);
     expect(wrapper.state('currentPageSize')).toBe(20);
     wrapper.find('.pager').at(2).simulate('click');

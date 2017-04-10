@@ -3,16 +3,16 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import assign from 'zent-utils/lodash/assign';
 
 class InputTrigger extends Component {
 
   constructor(props) {
     super(props);
-    this.state = assign({
+    this.state = {
       value: ''
-    }, props);
+    };
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
+    this.inputFocusHandler = this.inputFocusHandler.bind(this);
   }
 
   componentDidMount() {
@@ -21,24 +21,48 @@ class InputTrigger extends Component {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.value !== this.state.value;
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
+    this.setState({
+      value: nextProps.keyword === null ? nextProps.value : nextProps.keyword
+    });
   }
 
   inputChangeHandler(ev) {
     this.props.onChange({
-      selectedItem: {
-        value: ev.target.value
-      }
+      open: true,
+      keyword: ev.target.value
+    });
+  }
+
+  inputFocusHandler() {
+    this.props.onChange({
+      open: true
     });
   }
 
   render() {
-    let { prefixCls } = this.props;
+    let {
+      prefixCls,
+      placeholder
+    } = this.props;
 
     let { value } = this.state;
 
-    return <input className={`${prefixCls}-input`} {...this.props} type="text" value={value} onChange={this.inputChangeHandler} />;
+    return (
+      <input
+        ref={input => this.input = input}
+        className={`${prefixCls}-input`}
+        placeholder={placeholder}
+        type="text"
+        value={value}
+        onFocus={this.inputFocusHandler}
+        onChange={this.inputChangeHandler}
+      />
+    );
   }
 }
 
