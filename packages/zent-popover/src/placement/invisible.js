@@ -23,6 +23,5 @@ function locate() {
 }
 
 const Invisible = createPlacement(locate);
-Invisible.locate = locate;
 
 export default Invisible;

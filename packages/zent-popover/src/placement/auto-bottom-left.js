@@ -37,6 +37,5 @@ function locate(anchorBoundingBox, containerBoundingBox, contentDimension, optio
 }
 
 const AutoBottomLeft = createPlacement(locate);
-AutoBottomLeft.locate = locate;
 
 export default AutoBottomLeft;

@@ -25,7 +25,6 @@ function locate(anchorBoundingBox, containerBoundingBox, contentDimension, optio
 }
 
 const RightTop = createPlacement(locate);
-RightTop.locate = locate;
 
 export default RightTop;
 

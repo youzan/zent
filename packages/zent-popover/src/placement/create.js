@@ -5,7 +5,7 @@
  * @return {function}
  */
 export default function createPlacement(locate) {
-  return (prefix, ...args) => {
+  const pos = (prefix, ...args) => {
     const placement = locate(...args);
 
     if (!placement || !placement.name || !placement.getCSSStyle) {
@@ -21,4 +21,6 @@ export default function createPlacement(locate) {
       }
     };
   };
+  pos.locate = locate;
+  return pos;
 }

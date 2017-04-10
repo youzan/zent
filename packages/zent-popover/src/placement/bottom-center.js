@@ -28,6 +28,5 @@ function locate(anchorBoundingBox, containerBoundingBox, contentDimension, optio
 }
 
 const BottomCenter = createPlacement(locate);
-BottomCenter.locate = locate;
 
 export default BottomCenter;
