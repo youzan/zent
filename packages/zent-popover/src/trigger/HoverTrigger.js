@@ -6,6 +6,20 @@ import isBrowser from 'zent-utils/isBrowser';
 
 import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 
+const MOUSE_EVENT_WHITE_LIST = [
+  'down',
+  'up',
+  'move',
+  'over',
+  'out',
+  'enter',
+  'leave',
+];
+
+function isMouseEventSuffix(suffix) {
+  return MOUSE_EVENT_WHITE_LIST.indexOf(suffix) !== -1;
+}
+
 // Hover识别的状态
 const HoverState = {
   Init: 1,
@@ -56,7 +70,7 @@ function forEachHook(hooks, action) {
 
   const hookNames = Object.keys(hooks);
   hookNames.forEach(hookName => {
-    const eventName = `mouse${hookName}`;
+    const eventName = isMouseEventSuffix(hookName) ? `mouse${hookName}` : hookName;
     if (action === 'install') {
       window.addEventListener(eventName, hooks[hookName], true);
     } else if (action === 'uninstall') {
@@ -127,9 +141,15 @@ function makeHoverEnterRecognizer({ enterDelay, onEnter }) {
  */
 function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
   const state = makeState('leave', onLeave);
+  let recognizer;
   let timerId;
 
-  const recognizer = makeRecognizer(state, {
+  const gotoFinishState = () => {
+    state.transit(HoverState.Finish);
+    forEachHook(recognizer.global, 'uninstall');
+  };
+
+  recognizer = makeRecognizer(state, {
     global: {
       move: throttle((evt) => {
         const { target } = evt;
@@ -141,10 +161,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
 
           state.transit(HoverState.Pending);
 
-          timerId = setTimeout(() => {
-            state.transit(HoverState.Finish);
-            forEachHook(recognizer.global, 'uninstall');
-          }, leaveDelay);
+          timerId = setTimeout(gotoFinishState, leaveDelay);
         } else {
           if (state.is(HoverState.Init)) {
             state.transit(HoverState.Started);
@@ -162,7 +179,17 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
             state.transit(HoverState.Started);
           }
         }
-      }, 16)
+      }, 16),
+
+      // 页面失去焦点的时候强制关闭，否则会出现必须先移动进来再出去才能关闭的问题
+      blur: () => {
+        if (timerId) {
+          clearTimeout(timerId);
+          timerId = undefined;
+        }
+
+        gotoFinishState();
+      }
     }
   });
 
