@@ -1,6 +1,6 @@
 {
   "name": "zent-button",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Zent按钮组件",
   "main": "./lib/index.js",
   "repository": {
