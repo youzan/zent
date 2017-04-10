@@ -1,6 +1,6 @@
 {
   "name": "zent-tree",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Zent树组件",
   "main": "./lib/index.js",
   "scripts": {
