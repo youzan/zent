@@ -19,7 +19,7 @@ ReactDOM.render(<Loading show />, mountNode);
 
 :::demo 使用 Loading 包裹组件，使其进入 Loading 状态。
 ```js
-import { Loading, Switch, Alert } from 'zent';
+import { Loading, Switch } from 'zent';
 
 class Example extends React.Component {
 	state = { loading: false }
@@ -29,12 +29,13 @@ class Example extends React.Component {
 	}
 
 	render() {
-		const container = <Alert>Hello World</Alert>
 		const { loading } = this.state;
 
 		return (
 			<div>
-				<Loading show={loading} >{container}</Loading>
+				<Loading show={loading}>
+					<div className="zent-loading-example-hello-world">Hello World</div>
+				</Loading>
 				<Switch
 					className="zent-loading-example-switch"
 					checked={loading}
@@ -89,7 +90,14 @@ ReactDOM.render(<Example />, mountNode);
 
 
 <style>
-		.zent-loading-example-switch {
-				margin-top: 10px;
-		}
+.zent-loading-example-switch {
+	margin-top: 10px;
+}
+
+.zent-loading-example-hello-world {
+	background-color: #e5e5e5;
+	text-align: center;
+	height: 160px;
+	line-height: 160px;
+}
 </style>

@@ -6,8 +6,10 @@ import Popover from 'zent-popover';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
-import { formatDate, parseDate } from './utils/format';
+import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import { timeFnMap, TIME_FORMAT, noop } from './constants/';
+
+let retType = 'string';
 
 const isValidValue = (val) => {
   if (!isArray(val)) return false;
@@ -37,7 +39,7 @@ const extractStateFromProps = (props) => {
   if (isValidValue(props.value)) {
     showPlaceholder = false;
     format = props.showTime ? `${props.format} ${TIME_FORMAT}` : props.format;
-    const tmp = [parseDate(props.value[0], format), parseDate(props.value[1], format)];
+    const tmp = [maybeFormatDate(props.value[0], format), maybeFormatDate(props.value[1], format)];
     selected = tmp.slice();
     range = tmp.slice();
     actived = tmp.slice();
@@ -73,6 +75,7 @@ class DateRangePicker extends Component {
     className: PropTypes.string,
     placeholder: PropTypes.arrayOf(PropTypes.string),
     confirmText: PropTypes.string,
+    valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
@@ -83,9 +86,9 @@ class DateRangePicker extends Component {
     className: '',
     prefix: 'zent',
     placeholder: ['开始日期', '结束日期'],
-    format: 'YYYY-MM-DD',
     confirmText: '确认',
     errorText: '请选择起止时间',
+    format: 'YYYY-MM-DD',
     showTime: false,
     disabledDate: noop,
     onChange: noop
@@ -93,6 +96,16 @@ class DateRangePicker extends Component {
 
   constructor(props) {
     super(props);
+
+    const { value, valueType } = props;
+
+    if (valueType) {
+      retType = valueType;
+    } else if (isValidValue(value)) {
+      if (typeof value[0] === 'number') retType = 'number';
+      if (value[0] instanceof Date) retType = 'date';
+    }
+
     this.state = extractStateFromProps(props);
   }
 
@@ -256,6 +269,24 @@ class DateRangePicker extends Component {
     this.props.onChange([]);
   }
 
+  /**
+   * 如果传入为数字，返回值也为数字
+   * 如果传入为 Date 的实例，返回值也为 Date 的实例
+   * 默认返回 format 格式的字符串
+   */
+
+  getReturnValue(date, format) {
+    if (retType === 'number') {
+      return date.getTime();
+    }
+
+    if (retType === 'date') {
+      return date;
+    }
+
+    return formatDate(date, format);
+  }
+
   onConfirm = () => {
     const { selected, activedTime } = this.state;
 
@@ -291,7 +322,9 @@ class DateRangePicker extends Component {
       showPlaceholder: false,
       openPanel: false
     });
-    this.props.onChange(vcp);
+
+    const ret = [this.getReturnValue(tmp[0], fullFormat), this.getReturnValue(tmp[1], fullFormat)];
+    this.props.onChange(ret);
   }
 
   renderPicker() {
@@ -403,7 +436,7 @@ class DateRangePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.BottomLeft}
+          position={Popover.Position.AutoBottomLeft}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

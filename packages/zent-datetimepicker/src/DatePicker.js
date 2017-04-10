@@ -6,18 +6,19 @@ import Popover from 'zent-popover';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
-import { formatDate, parseDate } from './utils/format';
+import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
-let returnType = 'string';
+let retType = 'string';
 
 function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
+  const { value, format } = props;
+  if (value) {
+    const tmp = maybeFormatDate(value, format);
 
-  if (props.value) {
-    const tmp = parseDate(props.value, props.format);
     if (tmp) {
       showPlaceholder = false;
       actived = selected = tmp;
@@ -55,6 +56,8 @@ class DatePicker extends Component {
     confirmText: PropTypes.string,
     format: PropTypes.string,
 
+    // onChange 返回值类型, date | number | string， 默认 string
+    valueType: PropTypes.oneOf(['date', 'number', 'string']),
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
     min: PropTypes.oneOfType([
       PropTypes.string,
@@ -74,6 +77,7 @@ class DatePicker extends Component {
     placeholder: '请选择日期',
     confirmText: '确认',
     format: 'YYYY-MM-DD',
+    position: 'bottom-left',
     min: '',
     max: '',
     disabledDate: noop,
@@ -82,16 +86,23 @@ class DatePicker extends Component {
 
   constructor(props) {
     super(props);
-    if (props.value) {
-      if (typeof props.value === 'number') returnType = 'numer';
-      if (props.value instanceof Date) returnType = 'date';
+    const { value, valueType } = props;
+
+    if (valueType) {
+      retType = valueType;
+    } else if (value) {
+      if (typeof value === 'number') retType = 'number';
+      if (value instanceof Date) retType = 'date';
     }
+
     this.state = extractStateFromProps(props);
   }
 
   componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
+    if (next.value !== this.props.value) {
+      const state = extractStateFromProps(next);
+      this.setState(state);
+    }
   }
 
   onChangeDate = (val) => {
@@ -143,7 +154,8 @@ class DatePicker extends Component {
     });
   }
 
-  onClearInput = () => {
+  onClearInput = (evt) => {
+    evt.stopPropagation();
     this.props.onChange('');
   }
 
@@ -154,11 +166,11 @@ class DatePicker extends Component {
    */
 
   getReturnValue(date, format) {
-    if (returnType === 'numer') {
+    if (retType === 'number') {
       return date.getTime();
     }
 
-    if (returnType === 'date') {
+    if (retType === 'date') {
       return date;
     }
 
@@ -282,7 +294,7 @@ class DatePicker extends Component {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.BottomLeft}
+          position={Popover.Position.AutoBottomLeft}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>

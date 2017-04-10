@@ -1,5 +1,19 @@
 ## 更新日志
 
+### 2.0.8-beta1
+
+2017-04-10
+
+1. `Button` 组件使用 `a` 标签时不再丢掉额外的属性了; 按钮颜色做了修改
+2. `Sweetalert` 支持 `confirmType` 来设置确认按钮的类型
+3. `Form` 增加 `Field` 的 `onFocus` 回调，添加了 `active` 状态
+4. `Dialog` 居中对齐不再使用 `transform`，GPU 绘制会引起半像素变模糊
+5. `Popover` 在窗口失去焦点时会关闭; `Placement` API 支持组合，方便
+6. `Input` 添加 `autoFocus` 属性及 `focus()` 方法
+7. `Select` 支持 `autoFocus`，`onAsyncFilter` 可以增加选项
+8. `DatePicker` 定位支持根据所在位置自适应
+9. bug 修复
+
 ### 2.0.7
 
 2017-03-31 

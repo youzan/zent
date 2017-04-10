@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'zentcss';
 IMPORTS
 
 DEMO_DECLARATIONS
@@ -16,9 +15,9 @@ function Style(props) {
   return <RawHtmlRenderer tag="style" html={props.style} />;
 }
 
-class DemoRenderer extends Component {
+class Demo extends Component {
   state = {
-    showCode: false
+    showCode: true
   };
 
   toggle = () => {
@@ -36,9 +35,8 @@ class DemoRenderer extends Component {
         <div className="zandoc-react-demo__preview">
           {demo}
         </div>
-        <div className="zandoc-react-demo__bottom">
+        <div className="zandoc-react-demo__bottom" onClick={this.toggle}>
           <i
-            onClick={this.toggle}
             className={`zenticon zenticon-right zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
           />
           <RawHtmlRenderer

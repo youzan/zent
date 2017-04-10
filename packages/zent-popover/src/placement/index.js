@@ -11,6 +11,7 @@ import RightBottomPlacement from './right-bottom';
 import TopLeftPlacement from './top-left';
 import TopCenterPlacement from './top-center';
 import TopRightPlacement from './top-right';
+import AutoBottomLeftPlacement from './auto-bottom-left';
 
 export default {
   create: createPlacement,
@@ -25,5 +26,6 @@ export default {
   RightBottom: RightBottomPlacement,
   TopLeft: TopLeftPlacement,
   TopCenter: TopCenterPlacement,
-  TopRight: TopRightPlacement
+  TopRight: TopRightPlacement,
+  AutoBottomLeft: AutoBottomLeftPlacement
 };

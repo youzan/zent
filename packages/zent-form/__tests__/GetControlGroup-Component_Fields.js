@@ -14,8 +14,13 @@ describe('GetControlGroup and Component_Fields', () => {
   ).find(Field).getNode().context;
 
   it('will render default structure with example usage(as component prop of Field)', () => {
-    const addtionInput = getControlGroup(props => (<input type="text" {...props} />));
-    const wrapper = mount(<Field name="foo" component={addtionInput} />, { context });
+    class Input extends React.Component {
+      render() {
+        return <input type="text" {...this.props} />;
+      }
+    }
+    const addtionInput = getControlGroup(Input);
+    const wrapper = mount(<Field name="foo" ref="field" component={addtionInput} />, { context });
     /**
      * .zent-form__control-group
      *   label.zent-form__control-label
@@ -26,6 +31,7 @@ describe('GetControlGroup and Component_Fields', () => {
     expect(wrapper.find('.zent-form__control-label').length).toBe(1);
     expect(wrapper.find('.zent-form__controls').length).toBe(1);
     expect(wrapper.find('input').length).toBe(1);
+    expect(wrapper.get(0).getWrappedComponent().getControlInstance() instanceof Input).toBe(true);
   });
 
   it('ControlGroup have three render switch: required, helpDesc and showError', () => {

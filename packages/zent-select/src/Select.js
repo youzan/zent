@@ -115,11 +115,12 @@ class Select extends Component {
       if (typeof item === 'object') {
         result.value = item[props.optionValue];
         result.text = item[props.optionText];
+        result = { ...item, ...result };
       } else {
         result.value = item;
         result.text = item;
       }
-      return assign(item, result);
+      return result;
     }).map((item, index) => {
       // 显示当前选项，支持value和index
       item.cid = `${index}`;
@@ -173,7 +174,7 @@ class Select extends Component {
     let args = omit(selectedItem, ['cid']);
     result[optionValue] = selectedItem.value;
     result[optionText] = selectedItem.text;
-    let data = { ...args, result };
+    let data = { ...args, ...result };
     if (tags) {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
@@ -181,6 +182,7 @@ class Select extends Component {
     }
     onChange(ev, data);
     this.setState({
+      keyword: null,
       selectedItems,
       selectedItem,
       open: this.focus
@@ -207,7 +209,6 @@ class Select extends Component {
 
   keyupHandler(ev) {
     let code = ev.keyCode;
-    let keyword = ev.target.value;
     if (code === KEY_ESC) {
       this.setState({
         open: false
@@ -215,8 +216,7 @@ class Select extends Component {
     } else if ([KEY_EN, KEY_UP, KEY_DOWN].indexOf(code) > -1) {
       ev.preventDefault();
       this.setState({
-        keyCode: code,
-        keyword
+        keyCode: code
       });
     } else {
       this.setState({
@@ -242,12 +242,11 @@ class Select extends Component {
       extraFilter,
       open,
       keyCode,
-      keyword
+      keyword = null
     } = this.state;
 
     let {
-      cid = '',
-      value
+      cid = ''
     } = selectedItem;
 
     let openCls = open && !disabled ? 'open' : '';
@@ -262,6 +261,7 @@ class Select extends Component {
           placeholder={placeholder}
           selectedItems={selectedItems}
           open={open}
+          keyword={keyword}
           {...selectedItem}
           onChange={this.triggerChangeHandler}
           onDelete={this.triggerDeleteHandler}
@@ -273,7 +273,6 @@ class Select extends Component {
           selectedItems={selectedItems}
           extraFilter={extraFilter}
           searchPlaceholder={searchPlaceholder}
-          value={value}
           emptyText={emptyText}
           keyCode={keyCode}
           keyword={keyword}

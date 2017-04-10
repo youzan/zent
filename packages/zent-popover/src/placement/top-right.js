@@ -8,7 +8,7 @@ import createPlacement from './create';
  * |              |
  * ----------------
  */
-export default createPlacement((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
+function locate(anchorBoundingBox, containerBoundingBox, contentDimension, options) {
   const { right, top } = anchorBoundingBox;
   const x = right - contentDimension.width;
   const y = top - contentDimension.height - options.cushion;
@@ -24,4 +24,8 @@ export default createPlacement((anchorBoundingBox, containerBoundingBox, content
 
     name: 'position-top-right'
   };
-});
+}
+
+const TopRight = createPlacement(locate);
+
+export default TopRight;

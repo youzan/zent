@@ -64,3 +64,4 @@ export const isArray = (val) => {
 export const isFunction = (val) => {
   return Object.prototype.toString.call(val) === '[object Function]';
 };
+

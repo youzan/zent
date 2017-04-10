@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { goDays, isSameDate, isBeforeMonth, isAfterMonth, CURRENT } from '../utils/';
 import classNames from 'zent-utils/classnames';
 
+import { goDays, isSameDate, isBeforeMonth, isAfterMonth, CURRENT } from '../utils/';
+import { formatDate } from '../utils/date';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 6;
@@ -65,6 +66,7 @@ export default class DatePanelBody extends Component {
         days[rowIndex][colIndex] = {
           text: val.getDate(),
           value: val,
+          title: formatDate(val, 'YYYY-MM-DD'),
           isDisabled,
           className
         };

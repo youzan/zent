@@ -27,6 +27,7 @@ export default class Example extends Component {
         <Select
           value="选项一"
           data={data}
+          search
           searchPlaceholder="请选择其中一项"
           filter={this.filterHandler}
           onEmptySelected={this.emptySelectedHandler}

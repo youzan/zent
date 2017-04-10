@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MonthPicker } from '../src';
-import '../assets/reset.scss';
+// import '../assets/reset.scss';
 import '../assets/index.scss';
 import 'zent-icon/lib/index.css';
 

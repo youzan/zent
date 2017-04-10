@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
-import { formatDate } from './utils/format';
+import { formatDate } from './utils/date';
 import clickOutside from './utils/clickOutside';
 import { TIME_PROPS } from './constants/';
 

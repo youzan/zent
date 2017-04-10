@@ -13,6 +13,10 @@ The two bounding boxes all have the same fields as the return value of
 
 `options` is a set of available options for placement:
 * `options.cushion` placement padding
+* `options.anchor` anchor DOM node
+* `options.container` container DOM node
+* `options.anchorBoundingBoxViewport` anchor bounding box relative to viewport
+* `options.containerBoundingBoxViewport` container bounding box relative to viewport
 
 ```
     // a bounding box is an object with these fields

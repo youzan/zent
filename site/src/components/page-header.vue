@@ -21,18 +21,32 @@
       <li class="page-header__item">
         <a href="#" class="page-header__link page-header__link--active">基础组件</a>
       </li>
+      <!--
       <li class="page-header__item">
         <a href="#" class="page-header__link">业务组件</a>
       </li>
+      -->
       <li class="page-header__item">
-        <span class="page-header__link">V1.0</span>
+        <span class="page-header__link">V{{version}}</span>
       </li>
       <li class="page-header__item">
-        <a href="#" class="page-header__github" target="_blank"></a>
+        <a href="https://github.com/youzan/zent" class="page-header__github" target="_blank"></a>
       </li>
     </ul>
   </div>
 </template>
+
+<script>
+import zentPackage from '../../../packages/zent/package.json';
+
+export default {
+  data() {
+    return {
+      version: zentPackage.version
+    };
+  }
+};
+</script>
 
 <style>
 @component-namespace page {

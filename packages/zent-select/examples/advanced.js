@@ -19,13 +19,13 @@ class Example extends Component {
   }
 
   getSelectData() {
-    let { value } = this.state;
-    alert(value ? `你选择了 ${value}` : '请选择一种分类'); // eslint-disable-line
+    let { index } = this.state;
+    alert(index !== '' ? `你选择了第 ${index + 1} 项` : '请选择一种分类'); // eslint-disable-line
   }
 
   resetSelectData() {
     this.setState({
-      value: ''
+      index: ''
     });
   }
 
@@ -50,17 +50,17 @@ class Example extends Component {
         </Select>
         <button type="button" onClick={this.getSelectData}>提交</button>
         <button type="button" onClick={this.resetSelectData}>清空</button>
-        <button type="button" onClick={this.selectIndex(1)}>第一项</button>
-        <button type="button" onClick={this.selectIndex(2)}>第二项</button>
-        <button type="button" onClick={this.selectIndex(3)}>第三项</button>
-        <button type="button" onClick={this.selectIndex(4)}>第四项</button>
+        <button type="button" onClick={this.selectIndex(0)}>第一项</button>
+        <button type="button" onClick={this.selectIndex(1)}>第二项</button>
+        <button type="button" onClick={this.selectIndex(2)}>第三项</button>
+        <button type="button" onClick={this.selectIndex(3)}>第四项</button>
       </form>
     );
   }
 }
 
 Example.defaultProps = {
-  value: 2
+  index: 1
 };
 
 export default Example;

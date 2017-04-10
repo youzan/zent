@@ -1,6 +1,6 @@
 {
   "name": "zent-tree",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Zent树组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   ],
   "dependencies": {
     "zent-icon": "1.0.10",
-    "zent-utils": "*"
+    "zent-utils": "1.0.7"
   },
   "devDependencies": {
     "superagent": "2.3.0",
