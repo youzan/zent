@@ -15,16 +15,29 @@ import { Switch } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		checked: true
+		checked1: true,
+		checked2: false
 	}
 
-	handleChange = (checked) => {
-		this.setState({ checked });
+	handleChange1 = (checked) => {
+		this.setState({
+			checked1: checked
+		});
+	}
+
+	handleChange2 = (checked) => {
+		this.setState({
+			checked2: checked
+		});
 	}
 
 	render() {
 		return (
-			<Switch checked={this.state.checked} onChange={this.handleChange} />
+			<div>
+				<Switch checked={this.state.checked1} onChange={this.handleChange1} />
+				&nbsp;&nbsp;
+				<Switch checked={this.state.checked2} onChange={this.handleChange2} checkedText='' uncheckedText='' />
+			</div>
 		)
 	}
 }
