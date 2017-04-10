@@ -368,4 +368,24 @@ describe('Popover', () => {
     jest.runAllTimers();
     expect(document.querySelector('.zent-popover')).toBeTruthy();
   });
+
+  it('hover trigger closes on window blur', () => {
+    const wrapper = mount(
+      <Popover position={Popover.Position.BottomLeft}>
+        <PopoverHoverTrigger>
+          <Button>Hover on me</Button>
+        </PopoverHoverTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+        </PopoverContent>
+      </Popover>
+    );
+
+    simulateWithTimers(wrapper.find('button'), 'mouseenter');
+    expect(wrapper.find('Portal').length).toBe(1);
+    const fakeEvent = new FocusEvent('blur');
+    dispatchWithTimers(window, fakeEvent);
+    expect(wrapper.find('Portal').length).toBe(0);
+    wrapper.unmount();
+  })
 });
