@@ -154,7 +154,8 @@ class DatePicker extends Component {
     });
   }
 
-  onClearInput = () => {
+  onClearInput = (evt) => {
+    evt.stopPropagation();
     this.props.onChange('');
   }
 

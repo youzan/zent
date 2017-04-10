@@ -8,6 +8,7 @@ $lightest_grey: #f8f8f8;
 $error_color: #f44;
 $default_width: 240px;
 $double_default_width: 480px;
+$input_width: 183px;
 
 .zent-datetime-picker {
     box-sizing: border-box;
@@ -15,6 +16,7 @@ $double_default_width: 480px;
     background:  #fff;
     line-height: normal;
     position: relative;
+    width: $input_width;
     .picker-input {
         color: #999;
         position: relative;
@@ -25,15 +27,14 @@ $double_default_width: 480px;
         padding: 0 10px;
         font-size: 12px;
         border: 1px solid $light_grey;
+        background: #fff;
         border-radius: 2px;
-        .zent-input-wrapper {
-            display: inline-block;
-        }
         .zent-input {
             padding: 0;
             border: none;
             background: inherit;
             color: inherit;
+            height: 28px;
             &:focus,
             &:active {
                 outline: none;
