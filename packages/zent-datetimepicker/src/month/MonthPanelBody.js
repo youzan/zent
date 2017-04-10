@@ -27,6 +27,7 @@ export default class MonthPanelBody extends Component {
         months[rowIndex][colIndex] = {
           text: `${index + 1}月`,
           value: index,
+          title: `${index + 1}月`,
           className
         };
         index++;

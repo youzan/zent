@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DateRangePicker } from '../src';
-import '../assets/reset.scss';
+// import '../assets/reset.scss';
 import '../assets/index.scss';
 import 'zent-icon/lib/index.css';
 
@@ -66,6 +66,7 @@ export default class Range extends Component {
         <br />
         <br />
         <DateRangePicker
+          valueType="number"
           disabledDate={this.isDisabledDate}
           onChange={this.onChangeRange}
           value={state.value}

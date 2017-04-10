@@ -25,7 +25,7 @@ export default class PanelCell extends Component {
               onClick={() => this.onClickCell(col)}
               onMouseOver={() => onHover(col.value)}
               className={col.className}
-              title={col.value}>
+              title={col.title}>
               {col.text}
             </div>
           </li>
@@ -33,7 +33,7 @@ export default class PanelCell extends Component {
       });
 
       return (
-        <ul className="panel-table__row" role="row" key={i} >{tds}</ul>
+        <ul className="panel-table__row" role="row" key={i}>{tds}</ul>
       );
     });
   }

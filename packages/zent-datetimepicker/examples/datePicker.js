@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { DatePicker } from '../src';
-import '../assets/reset.scss';
+// import '../assets/reset.scss';
 import '../assets/index.scss';
+import './example.scss';
 import 'zent-icon/lib/index.css';
 
 export default class Simple extends Component {
@@ -63,19 +64,33 @@ export default class Simple extends Component {
         />
         <br /><br />
         <DatePicker
+          className="top-left"
           format="YYYY年MM月DD日"
           min="2017/01/01"
           max="2017/11/11"
+          valueType="number"
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
           value={state.value}
         />
-        <button type="button" onClick={this.reset}>reset</button>
         <br /><br />
         <DatePicker
           showTime
+          className="top-right"
           format="YYYY-MM-DD HH:mm:ss"
           placeholder="请选择日期和时间"
+          valueType="number"
+          disabledDate={this.isDisabledDate}
+          disabledTime={this.isDisabledTime}
+          onChange={this.onChangeDate}
+          value={state.value}
+        />
+        <DatePicker
+          showTime
+          className="bottom-right"
+          format="YYYY-MM-DD HH:mm:ss"
+          placeholder="请选择日期和时间"
+          valueType="number"
           disabledDate={this.isDisabledDate}
           disabledTime={this.isDisabledTime}
           onChange={this.onChangeDate}
