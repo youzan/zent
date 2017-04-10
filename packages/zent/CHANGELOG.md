@@ -10,7 +10,9 @@
 4. `Dialog` 居中对齐不再使用 `transform`，GPU 绘制会引起半像素变模糊
 5. `Popover` 在窗口失去焦点时会关闭; `Placement` API 支持组合，方便
 6. `Input` 添加 `autoFocus` 属性及 `focus()` 方法
-6. `Select` 以及 `DatePicker` 的一些 bug 修复
+7. `Select` 支持 `autoFocus`，`onAsyncFilter` 可以增加选项
+8. `DatePicker` 定位支持根据所在位置自适应
+9. bug 修复
 
 ### 2.0.7
 
