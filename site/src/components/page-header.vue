@@ -37,12 +37,10 @@
 </template>
 
 <script>
-import zentPackage from '../../../packages/zent/package.json';
-
 export default {
   data() {
     return {
-      version: zentPackage.version
+      version: window._global.version
     };
   }
 };
