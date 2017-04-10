@@ -5,7 +5,7 @@
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
     "test": "./scripts/run-tests.sh",
-    "lint": "eslint utils/* packages/*/src packages/*/examples",
+    "lint": "node ./scripts/check-package-version.js && ./lerna run lint",
     "eslint-fix": "eslint utils/* packages/*/src packages/*/examples --fix",
     "bootstrap": "lerna clean --yes && lerna bootstrap"
   },
