@@ -9,5 +9,5 @@ packages/*/coverage
 .vscode/
 .felintrc
 .idea/
-!_site/dist
+_site/
 logs/

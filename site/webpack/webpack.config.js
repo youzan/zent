@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var postcssPlugins = require('./postcss.config');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var babelLoader = {
   loader: 'babel-loader',
@@ -49,7 +50,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '../dist'),
-    publicPath: '/dist/',
+    publicPath: '/',
     filename: '[name].js'
   },
   resolve: {
@@ -126,6 +127,10 @@ module.exports = {
       {
         test: /\.json$/,
         use: 'json-loader'
+      },
+      {
+        test: /\.html$/,
+        use: 'html-loader'
       }
     ],
   },
@@ -134,6 +139,13 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
+    }),
+
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      chunks: ['vendor', 'docs'],
+      inject: 'body',
+      hash: true
     })
   ]
 };
