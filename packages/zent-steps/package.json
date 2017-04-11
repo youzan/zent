@@ -1,6 +1,6 @@
 {
   "name": "zent-steps",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Zent步骤条组件",
   "main": "./lib/index.js",
   "scripts": {
