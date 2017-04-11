@@ -53,6 +53,10 @@ class ActionButton extends Component {
       value.then(() => {
         // 马上就关闭了，没必要setState({loading: true})
         close();
+      }, () => {
+        this.setState({
+          loading: false
+        });
       });
       return;
     }

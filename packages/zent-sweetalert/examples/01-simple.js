@@ -8,11 +8,11 @@ import 'zent-button/lib/index.css';
 /* 快捷使用弹窗组件 */
 export default class Example extends Component {
   onConfirm() {
-    console.log('我真的知道了'); // eslint-disable-line
+    console.log('confirm'); // eslint-disable-line
   }
 
   onCancel() {
-    console.log('我真的取消了'); // eslint-disable-line
+    console.log('cancel'); // eslint-disable-line
   }
 
   showAlertInfo = () => {
@@ -57,6 +57,19 @@ export default class Example extends Component {
     });
   }
 
+  promiseConfirmReject = () => {
+    Sweetalert.confirm({
+      content: '点击确认按钮，按钮会变成loading状态，三秒后停止loading',
+      title: 'onConfirm返回Promise',
+      onConfirm: () => new Promise((resolve, reject) => {
+        setTimeout(() => {
+          this.onConfirm();
+          reject();
+        }, 3000);
+      })
+    });
+  }
+
   render() {
     return (
       <div>
@@ -64,6 +77,7 @@ export default class Example extends Component {
         <button className="zent-btn zent-btn-primary" onClick={this.showAlertConfirm}>确认对话框</button>
         <button className="zent-btn zent-btn-primary" onClick={this.autoCloseConfirm}>自动关闭对话框</button>
         <button className="zent-btn zent-btn-primary" onClick={this.promiseConfirm}>自动关闭对话框(Promise)</button>
+        <button className="zent-btn zent-btn-primary" onClick={this.promiseConfirmReject}>Promise.reject</button>
       </div>
     );
   }

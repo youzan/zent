@@ -44,9 +44,9 @@ function testCallback(modal, btnSelector, key) {
   expect(called).toBe(true);
   unmount();
 
-  // callback returns Promise
+  // callback returns Promise(resolve)
   called = false;
-  const cbPromise = () => {
+  let cbPromise = () => {
     return new Promise((resolve) => {
       called = true;
       setTimeout(resolve, 2000);
