@@ -32,6 +32,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('isSubmitting')).toBe(false);
     expect(wrapper.getNode().fields.length).toBe(0);
     expect(wrapper.getNode()._isMounted).toBe(true);
+    expect(wrapper.getNode().getWrappedForm() instanceof Form).toBe(true);
   });
 
   // HACK: console.error
@@ -445,7 +446,6 @@ describe('CreateForm and Field', () => {
     }
     let TempForm = createForm()(FormForAsyncValidation);
     let wrapper = mount(<TempForm />);
-    let field = wrapper.find(Field);
     let input = wrapper.find('input');
     expect(wrapper.getNode().isValidating()).toBe(false);
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
