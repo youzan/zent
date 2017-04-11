@@ -31,6 +31,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
   outline: 0;
   text-align: center;
   font-size: 0;
+  white-space: nowrap;
 
   &::before {
       content: '';
@@ -51,6 +52,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
     box-sizing: border-box;
     font-size: 14px;
     z-index: 1041;
+    white-space: normal;
 }
 
 .zent-dialog-r-title {
