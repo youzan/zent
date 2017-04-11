@@ -17,7 +17,7 @@ if ! command_exists superman ; then
     fail 'superman is required to publish packages'
 fi
 
-if !command_exists github_changelog_generator ; then
+if ! command_exists github_changelog_generator ; then
     fail 'github_changelog_generator is required to publish packages'
 fi
 
