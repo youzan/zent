@@ -1,3 +1,5 @@
+### 请认真写 PR 的标题，会用于生成 change log。
+
 **Do you want to request a *feature* or report a *bug*?**
 
 **What is the current behavior?**

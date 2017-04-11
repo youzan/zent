@@ -10,6 +10,8 @@
 5. Make sure your code lints (`npm run lint`).
 6. Describe your pull request.
 
+### 请认真写 PR 的标题，会用于生成 change log。
+
 ### Please remove the above lines when you submit this pull request, also please fill in the changes you've made in this pull request.
 
 ### 提交 PR 前 请把以上内容删除，并填写以下内容。
