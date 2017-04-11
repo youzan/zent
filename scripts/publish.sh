@@ -33,7 +33,7 @@ $basepath/../lerna bootstrap
 $basepath/../lerna publish --exact --concurrency 1 --npm-tag=$npmtag
 
 # 生成 change log
-github_changelog_generator --since-tag @youzan/zent@0.4.7 --exclude-tags-regex "zent-.+" -o $basepath/../packages/zent/CHANGELOG.md
+github_changelog_generator --exclude-tags-regex "zent-.+" -o $basepath/../packages/zent/CHANGELOG.md
 git add $basepath/../packages/zent/CHANGELOG.md
 git commit -m "doc: update change log(publish)"
 git push
