@@ -10,7 +10,7 @@ export default class OpenDemo extends Component {
       title: '使用openDialog直接打开对话框',
       children: (
         <div>
-          <div>foobar111</div>
+          <div>foobar11122</div>
           <button className="zent-btn zent-btn-primary" onClick={this.openInnerDialog}>打开第二个对话框</button>
         </div>
       ),
