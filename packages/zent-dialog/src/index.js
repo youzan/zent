@@ -1,7 +1,8 @@
 import Dialog from './Dialog';
-import openDialog from './open';
+import openDialog, { closeDialog } from './open';
 
-Dialog.openDialog = openDialog; // 给Zent大包用的
+Dialog.openDialog = openDialog;
+Dialog.closeDialog = closeDialog;
 
 export default Dialog;
-export { Dialog, openDialog };
+export { Dialog, openDialog, closeDialog };
