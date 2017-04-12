@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: node:6.10.0
-    working_directory: /tmp
+    working_directory: ~/youzan/zent
     steps:
       - checkout
       - run:
