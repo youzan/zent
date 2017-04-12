@@ -60,13 +60,15 @@ ReactDOM.render(<Example />, mountNode);
 ```js
 import { Dialog, Button } from 'zent';
 
-const { openDialog } = Dialog;
+const { openDialog, closeDialog } = Dialog;
+const id = 'my_dialog';
 
 const open = () => {
-	const close = openDialog({
+	openDialog({
+		dialogId: id, // 可以通过这个id关闭对话框
 		title: '使用openDialog直接打开对话框',
 		children: <div>Hello World</div>,
-		footer: <Button onClick={() => close()}>关闭</Button>,
+		footer: <Button onClick={() => closeDialog(id)}>关闭</Button>,
 		onClose() {
 			console.log('outer dialog closed');
 		}
@@ -101,12 +103,20 @@ ReactDOM.render(<Button onClick={open}>打开</Button>, mountNode);
 
 **`options` 参数支持组件除 `visible` 以外的所有属性.**
 
+可以传一个 `options.dialogId` 参数，之后就可以通过 `closeDialog(dialogId)` 来关闭对话框。
+
 如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
 
-返回值是一个手动关闭 Dialog 的函数 `closeDialog()`, `closeDialog(false)` 将不会触发Dialog的 `onClose` 方法
+> `openDialog` 的返回值是一个手动关闭 Dialog 的函数, `close(false)` 将不会触发Dialog的 `onClose` 方法。**推荐使用 `closeDialog` 来关闭对话框。**
 
-重复调用 `closeDialog` 等效于执行 `noop` 函数.
 
+#### closeDialog
+
+`closeDialog(dialogId: string, options: object): void`
+
+`dialogId` 对应调用 `openDialog` 时传的参数。
+
+`options.triggerOnClose` 如果是 `true`，关闭时会触发 `onClose` 回调，`false` 时不会触发。
 
 
 #### 指定Dialog宽度
