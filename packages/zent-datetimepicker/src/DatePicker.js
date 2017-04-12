@@ -77,7 +77,6 @@ class DatePicker extends Component {
     placeholder: '请选择日期',
     confirmText: '确认',
     format: 'YYYY-MM-DD',
-    position: 'bottom-left',
     min: '',
     max: '',
     disabledDate: noop,
@@ -188,9 +187,9 @@ class DatePicker extends Component {
 
     if (showTime) {
       tmp = new Date(
-        selected.getFullYear(),
-        selected.getMonth(),
-        selected.getDate(),
+        tmp.getFullYear(),
+        tmp.getMonth(),
+        tmp.getDate(),
         activedTime.getHours(),
         activedTime.getMinutes(),
         activedTime.getSeconds()

@@ -85,12 +85,42 @@ ReactDOM.render(
     <DatePicker
       className="zent-picker-demo"
       showTime
+      format="YYYY-MM-DD HH:mm:ss"
       onChange={onChange}
     />
     <br />
     <DateRangePicker
       className="zent-picker-demo"
       showTime
+      format="YYYY-MM-DD HH:mm:ss"
+      onChange={onChange}
+      />
+   </div>
+   , mountNode
+)
+```
+:::
+
+:::demo 通过设置 `valueType` 来指定返回值的类型，支持 `string`/`date`/`number`，默认和传入的 `value` 类型一致。
+```
+import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
+function onChange(val){
+  console.log(val)
+}
+
+ReactDOM.render(
+  <div>
+    <p className="demo-subtitle">返回时间戳</p>
+    <DatePicker
+      className="zent-picker-demo"
+      valueType="number"
+      onChange={onChange}
+    />
+    <br />
+    <p className="demo-subtitle">返回 date 对象 </p>
+    <DateRangePicker
+      className="zent-picker-demo"
+      valueType="date"
       onChange={onChange}
       />
    </div>
@@ -276,5 +306,10 @@ ReactDOM.render(
     .zent-picker-demo{
       margin-bottom: 10px;
       margin-right: 10px;
+    }
+    .demo-subtitle{
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: #666;
     }
   </style>

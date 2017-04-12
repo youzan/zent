@@ -7,7 +7,7 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
 import { formatDate, parseDate, maybeFormatDate } from './utils/date';
-import { timeFnMap, TIME_FORMAT, noop } from './constants/';
+import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
 
@@ -34,16 +34,14 @@ const extractStateFromProps = (props) => {
   let actived = [];
   let range = [];
   let value = [];
-  let format;
 
   if (isValidValue(props.value)) {
     showPlaceholder = false;
-    format = props.showTime ? `${props.format} ${TIME_FORMAT}` : props.format;
-    const tmp = [maybeFormatDate(props.value[0], format), maybeFormatDate(props.value[1], format)];
+    const tmp = [maybeFormatDate(props.value[0], props.format), maybeFormatDate(props.value[1], props.format)];
     selected = tmp.slice();
     range = tmp.slice();
     actived = tmp.slice();
-    value = [formatDate(selected[0], format), formatDate(selected[1], format)];
+    value = [formatDate(selected[0], props.format), formatDate(selected[1], props.format)];
 
     // 特殊处理：如果两个时间在同一个月，右边的面板月份加一
     if (isSameMonth(actived[0], actived[1])) {
@@ -169,12 +167,11 @@ class DateRangePicker extends Component {
   }
 
   isDisabled = (val) => {
-    const { disabledDate, showTime, format, min, max } = this.props;
-    const fullFormat = showTime ? `${format} ${TIME_FORMAT}` : format;
+    const { disabledDate, format, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, fullFormat)) return true;
-    if (max && val > parseDate(max, fullFormat)) return true;
+    if (min && val < parseDate(min, format)) return true;
+    if (max && val > parseDate(max, format)) return true;
 
     return false;
   }
@@ -306,7 +303,6 @@ class DateRangePicker extends Component {
     }
 
     const { format, showTime } = this.props;
-    const fullFormat = showTime ? `${format} ${TIME_FORMAT}` : format;
 
     let tmp = selected.slice();
     if (showTime) {
@@ -316,14 +312,14 @@ class DateRangePicker extends Component {
       ];
     }
 
-    const vcp = [formatDate(tmp[0], fullFormat), formatDate(tmp[1], fullFormat)];
+    const vcp = [formatDate(tmp[0], format), formatDate(tmp[1], format)];
     this.setState({
       value: vcp,
       showPlaceholder: false,
       openPanel: false
     });
 
-    const ret = [this.getReturnValue(tmp[0], fullFormat), this.getReturnValue(tmp[1], fullFormat)];
+    const ret = [this.getReturnValue(tmp[0], format), this.getReturnValue(tmp[1], format)];
     this.props.onChange(ret);
   }
 
