@@ -1,5 +1,12 @@
 # Change Log
 
+## [zent@2.0.13](https://github.com/youzan/zent/tree/zent@2.0.13) (2017-04-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.12...zent@2.0.13)
+
+**Fixed bugs:**
+
+- popover: isOutside on click trigger now works as expected [\#181](https://github.com/youzan/zent/pull/181) ([cpylua](https://github.com/cpylua))
+
 ## [zent@2.0.12](https://github.com/youzan/zent/tree/zent@2.0.12) (2017-04-13)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.11...zent@2.0.12)
 
