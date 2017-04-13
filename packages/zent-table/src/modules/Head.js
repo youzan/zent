@@ -137,13 +137,7 @@ export default class Head extends Component {
         };
       }
 
-      if (textAlign) {
-        if (['left', 'center', 'right'].indexOf(textAlign)) {
-          styleObj = assign(styleObj, {
-            textAlign
-          });
-        }
-      }
+      styleObj = assign(styleObj, helper.getAlignStyle(textAlign));
 
       tds.push(
         <div
