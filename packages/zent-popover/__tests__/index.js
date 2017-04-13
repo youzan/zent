@@ -408,5 +408,26 @@ describe('Popover', () => {
     dispatchWithTimers(window, fakeEvent);
     expect(wrapper.find('Portal').length).toBe(0);
     wrapper.unmount();
-  })
+  });
+
+  it('Click trigger supports custom isOutside', () => {
+    const wrapper = mount(
+      <Popover position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger isOutside={() => false}>
+          <Button>click me</Button>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+          <div>line two</div>
+        </PopoverContent>
+      </Popover>
+    );
+    simulateWithTimers(wrapper.find('button'), 'click');
+    expect(wrapper.find('Portal').length).toBe(1);
+
+    dispatchWithTimers(window, new MouseEvent('click'));
+    expect(wrapper.find('Portal').length).toBe(1);
+
+    wrapper.unmount();
+  });
 });
