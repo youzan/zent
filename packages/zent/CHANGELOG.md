@@ -1,5 +1,16 @@
 # Change Log
 
+## [zent@2.0.12](https://github.com/youzan/zent/tree/zent@2.0.12) (2017-04-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.11...zent@2.0.12)
+
+**Fixed bugs:**
+
+- popover: trigger isOutside not working [\#180](https://github.com/youzan/zent/issues/180)
+
+**Merged pull requests:**
+
+- fix table text align [\#179](https://github.com/youzan/zent/pull/179) ([linxixuan](https://github.com/linxixuan))
+
 ## [zent@2.0.11](https://github.com/youzan/zent/tree/zent@2.0.11) (2017-04-13)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.10...zent@2.0.11)
 
