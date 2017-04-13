@@ -6,7 +6,6 @@ $orange: #f60;
 .zent-table {
     box-sizing: border-box;
     margin-bottom:20px;
-    border: 1px solid #e5e5e5;
     width:100%;
     // border-spacing: 0;
     a {
@@ -83,16 +82,21 @@ $orange: #f60;
                 }
             }
         }
+        .cell {
+            height: 30px;
+        }
     }
 
     .cell {
         position: relative;
-        display: inline-block;
+        display: flex;
         flex: auto;
         flex-basis: 0;
         align-self: center;
-        padding:18px;
+        padding:10px;
         padding-left:0;
+        height: 20px;
+        align-items: center;
         text-align: left;
         font-size:12px;
 
