@@ -1,6 +1,6 @@
 {
   "name": "zent-menu",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "菜单组件",
   "repository": {
     "type": "git",
@@ -21,8 +21,8 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-icon": "1.0.10",
-    "zent-utils": "1.0.7"
+    "zent-icon": "1.0.11",
+    "zent-utils": "1.0.8"
   },
   "jest": {
     "verbose": true,

@@ -1,6 +1,6 @@
 {
   "name": "zent-radio",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Zent Radio 单选框组件",
   "main": "./lib/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "1.0.7"
+    "zent-utils": "1.0.8"
   },
   "jest": {
     "verbose": true,
