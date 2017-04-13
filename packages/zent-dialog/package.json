@@ -1,6 +1,6 @@
 {
   "name": "zent-dialog",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Zent对话框组件",
   "main": "./lib/index.js",
   "repository": {
