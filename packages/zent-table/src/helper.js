@@ -8,6 +8,32 @@ const helper = {
     }
 
     return res;
+  },
+
+  getAlignStyle(textAlign) {
+    let alignObj = {};
+
+    if (textAlign) {
+      let alignValue;
+      switch (textAlign) {
+        case 'left':
+          alignValue = 'flex-start';
+          break;
+        case 'right':
+          alignValue = 'flex-end';
+          break;
+        case 'center':
+          alignValue = 'center';
+          break;
+        default:
+          alignValue = 'flex-start';
+      }
+      alignObj = {
+        justifyContent: alignValue
+      };
+    }
+
+    return alignObj;
   }
 };
 
