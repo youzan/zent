@@ -17,8 +17,8 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "highlight.js": "^9.10.0",
-    "react": "15.0.2",
-    "react-dom": "15.0.2",
+    "react": "15.5.x",
+    "react-dom": "15.5.x",
     "vue": "2.1.8",
     "vue-router": "^2.3.0"
   },
