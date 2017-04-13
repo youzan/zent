@@ -261,12 +261,15 @@ export default class PopoverHoverTrigger extends Trigger {
   isOutSide = (node) => {
     const { getTriggerNode, getContentNode, isOutside } = this.props;
 
-    if (isOutside && isOutside(node)) {
-      return true;
-    }
-
     const contentNode = getContentNode();
     const triggerNode = getTriggerNode();
+
+    if (isOutside) {
+      return isOutside(node, {
+        contentNode,
+        triggerNode
+      });
+    }
 
     if (contentNode && contentNode.contains(node) || triggerNode && triggerNode.contains(node)) {
       return false;
