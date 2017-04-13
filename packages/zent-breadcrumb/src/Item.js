@@ -1,15 +1,15 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-const Item = function (props) {
-  const { href, name, ...others } = props;
-  if (props.children) {
-    return props.children;
+export default class Item extends Component {
+  static propTypes = {
+    href: PropTypes.string
+  };
+
+  render() {
+    const { href, name, ...others } = this.props;
+    if (this.props.children) {
+      return this.props.children;
+    }
+    return href ? <a {...others} href={href}>{name}</a> : <span {...others}>{name}</span>;
   }
-  return href ? <a {...others} href={href}>{name}</a> : <span {...others}>{name}</span>;
-};
-
-Item.propTypes = {
-  href: PropTypes.string
-};
-
-export default Item;
+}
