@@ -28,11 +28,9 @@ const helper = {
         default:
           alignValue = 'flex-start';
       }
-      if (['left', 'center', 'right'].indexOf(textAlign)) {
-        alignObj = {
-          'justify-content': alignValue
-        };
-      }
+      alignObj = {
+        justifyContent: alignValue
+      };
     }
 
     return alignObj;

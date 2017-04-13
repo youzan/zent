@@ -83,7 +83,7 @@ $orange: #f60;
             }
         }
         .cell {
-            height: 30px;
+            min-height: 30px;
         }
     }
 
@@ -95,7 +95,7 @@ $orange: #f60;
         align-self: center;
         padding:10px;
         padding-left:0;
-        height: 20px;
+        min-height: 20px;
         align-items: center;
         text-align: left;
         font-size:12px;
@@ -104,18 +104,18 @@ $orange: #f60;
             padding-left:10px;
         }
         &:last-child {
-            text-align: right;
+            justify-content: flex-end;
         }
         &.empty-data {
             line-height: 20px;
             height:40px;
-            text-align: center;
+            justify-content: center;
         }
         &.cell--selection {
             padding-left: 34px;
         }
         &.cell--money {
-            text-align: right
+            justify-content: flex-end;
         }
         .asc,
         .desc {
