@@ -1,5 +1,12 @@
 # Change Log
 
+## [zent@2.0.14](https://github.com/youzan/zent/tree/zent@2.0.14) (2017-04-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.13...zent@2.0.14)
+
+**Fixed bugs:**
+
+- Republish all packages because of network timeout during npm publish [\#182](https://github.com/youzan/zent/issues/182)
+
 ## [zent@2.0.13](https://github.com/youzan/zent/tree/zent@2.0.13) (2017-04-13)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.12...zent@2.0.13)
 
