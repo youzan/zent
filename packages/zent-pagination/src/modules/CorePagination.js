@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 import parser from '../data/parser';
 import Pager from './Pager';
+import PropTypes from 'zent-utils/prop-types';
 import Jump from './Jump';
 
 const { number, func } = PropTypes;

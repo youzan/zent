@@ -6,7 +6,7 @@
  * 弹层实际的打开／关闭都是Content完成的，而什么情况打开弹层是Trigger控制的。
  */
 
-import React, { Component, PropTypes, Children } from 'react';
+import React, { Component, Children } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'zent-utils/classnames';
 import noop from 'zent-utils/lodash/noop';
@@ -16,6 +16,7 @@ import isBoolean from 'zent-utils/lodash/isBoolean';
 import isPromise from 'zent-utils/isPromise';
 
 import PopoverContent from './Content';
+import PropTypes from 'zent-utils/prop-types';
 import PopoverTrigger from './trigger/Trigger';
 
 const SKIPPED = () => {};

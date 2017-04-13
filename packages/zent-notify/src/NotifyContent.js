@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import Portal from 'zent-portal';
 
 export default class NotifyContent extends Component {

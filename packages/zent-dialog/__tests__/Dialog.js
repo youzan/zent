@@ -1,5 +1,5 @@
-import React from 'react';
-import { Simulate } from 'react-addons-test-utils';
+import React, { Component } from 'react';
+import { Simulate } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 
 import Dialog from '../src/Dialog';
@@ -7,12 +7,11 @@ import Dialog from '../src/Dialog';
 describe('Dialog component', () => {
   let dialog;
 
-  const DialogTest = React.createClass({
-    getInitialState() {
-      return {
-        visible: false
-      };
-    },
+  class DialogTest extends Component {
+    state = {
+      visible: false
+    };
+
     render() {
       return (
         <Dialog
@@ -20,8 +19,8 @@ describe('Dialog component', () => {
           visible={this.state.visible}
         />
       );
-    },
-  });
+    }
+  }
 
   const open = () => {
     dialog.setState({

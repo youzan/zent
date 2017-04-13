@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import cx from 'zent-utils/classnames';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import Item from './Item';
 

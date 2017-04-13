@@ -9,7 +9,7 @@ describe('Input', () => {
     expect(wrapper.type()).toBe('div');
     expect(wrapper.hasClass('zent-input-wrapper')).toBe(true);
     expect(wrapper.find('div > input').length).toBe(1);
-    expect(wrapper.find('span').isEmpty()).toBe(true);
+    expect(wrapper.find('span').exists()).toBe(false);
   });
 
   it('can have custom wrapper classNames', () => {

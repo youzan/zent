@@ -2,10 +2,11 @@
  * Popup
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import PropTypes from 'zent-utils/prop-types';
 import isArray from 'zent-utils/lodash/isArray';
 
 class Popup extends Component {

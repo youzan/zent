@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Icon from 'zent-icon';
+import PropTypes from 'zent-utils/prop-types';
 import classNames from 'zent-utils/classnames';
 
 export default class Step extends Component {

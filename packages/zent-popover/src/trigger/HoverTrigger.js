@@ -1,8 +1,10 @@
-import { PropTypes } from 'react';
+import 'react';
 import capitalize from 'zent-utils/lodash/capitalize';
 import throttle from 'zent-utils/lodash/throttle';
 import uniq from 'zent-utils/lodash/uniq';
 import isBrowser from 'zent-utils/isBrowser';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 

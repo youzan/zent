@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'zent-utils/prop-types';
+import React, { Component } from 'react';
 
 export default class Item extends Component {
   static propTypes = {

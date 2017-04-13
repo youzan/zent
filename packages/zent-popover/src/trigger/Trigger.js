@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, Children } from 'react';
+import PropTypes from 'zent-utils/prop-types';
+import React, { Component, Children } from 'react';
 
 export const PopoverTriggerPropTypes = {
   children: PropTypes.node,

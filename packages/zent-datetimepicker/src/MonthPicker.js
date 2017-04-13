@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
 import Input from 'zent-input';
 import Popover from 'zent-popover';
@@ -7,6 +7,7 @@ import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
 import { formatDate, parseDate } from './utils/date';
+import PropTypes from 'zent-utils/prop-types';
 import { noop } from './constants/';
 
 function extractStateFromProps(props) {

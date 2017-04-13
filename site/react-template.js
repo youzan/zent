@@ -36,15 +36,15 @@ class Demo extends Component {
           {demo}
         </div>
         <div className="zandoc-react-demo__bottom" onClick={this.toggle}>
-          <i
-            className={`zenticon zenticon-right zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
-          />
           <RawHtmlRenderer
             tag="div"
             attributes={{
               className: 'zandoc-react-demo__title'
             }}
             html={title}
+          />
+          <i
+            className={`zenticon zenticon-right zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
           />
         </div>
         {showCode && <RawHtmlRenderer

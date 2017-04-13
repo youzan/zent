@@ -5,36 +5,38 @@ import TabPanel from './components/TabPanel/TabPanel';
 import LazyMount from './components/LazyMount';
 import Nav from './components/Nav/Nav';
 
+import PropTypes from 'zent-utils/prop-types';
+
 import tabUtil from './tabUtil';
 
 function noop() { }
 
 export default class Tabs extends React.Component {
   static propTypes = {
-    className: React.PropTypes.string,
-    prefix: React.PropTypes.string,
-    type: React.PropTypes.oneOf(['normal', 'card', 'slider']),
-    activeKey: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+    className: PropTypes.string,
+    prefix: PropTypes.string,
+    type: PropTypes.oneOf(['normal', 'card', 'slider']),
+    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     // 推荐使用activeId代替原来的activeKey
     // 更直观
-    activeId: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    size: React.PropTypes.oneOf(['huge', 'normal']),
-    align: React.PropTypes.oneOf(['left', 'right', 'center']),
-    onTabChange: React.PropTypes.func,
-    onTabDel: React.PropTypes.func,
-    onTabAdd: React.PropTypes.func,
-    candel: React.PropTypes.bool,
-    canadd: React.PropTypes.bool,
-    tabs: React.PropTypes.arrayOf(React.PropTypes.shape({
-      key: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
+    activeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    size: PropTypes.oneOf(['huge', 'normal']),
+    align: PropTypes.oneOf(['left', 'right', 'center']),
+    onTabChange: PropTypes.func,
+    onTabDel: PropTypes.func,
+    onTabAdd: PropTypes.func,
+    candel: PropTypes.bool,
+    canadd: PropTypes.bool,
+    tabs: PropTypes.arrayOf(PropTypes.shape({
+      key: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
       ]).isRequired,
-      title: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
+      title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
       ]).isRequired,
-      disabled: React.PropTypes.bool
+      disabled: PropTypes.bool
     }))
   };
 
