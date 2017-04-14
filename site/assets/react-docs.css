@@ -1,6 +1,10 @@
 $border-color: #e5e5e5;
 $toggle-color: #BBBBBB;
 
+.app {
+  min-width: 1000px;
+}
+
 .react-doc-page-content {
   min-height: 600px;
 }

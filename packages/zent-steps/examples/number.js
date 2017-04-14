@@ -10,7 +10,7 @@ class Example extends Component {
     super(props);
 
     this.state = {
-      current: 2
+      current: 3
     };
 
     this.nextStep = this.nextStep.bind(this);

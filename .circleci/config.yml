@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:6.10.0
+    working_directory: ~/youzan/zent
+    steps:
+      - checkout
+      - run:
+          name: Pre-Dependencies
+          command: |
+            curl -o- -L https://yarnpkg.com/install.sh | bash
+            yarn global add zent-kit
+            yarn global add eslint@2.11.1 eslint-plugin-react@5.1.1 babel-eslint@6.0.4 eslint-plugin-import@1.8.1 eslint-plugin-jsx-a11y@1.2.3 eslint-config-airbnb@9.0.1 eslint-plugin-lean-imports@0.3.3
+      - run:
+          name: Install Dependencies
+          command: |
+            yarn install
+            npm run bootstrap
+      - run:
+          name: NPM Test
+          command: |
+            npm run lint
+            npm test

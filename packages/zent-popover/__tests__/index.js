@@ -385,9 +385,49 @@ describe('Popover', () => {
 
     simulateWithTimers(wrapper.find('button'), 'mouseenter');
     expect(wrapper.find('Portal').length).toBe(1);
-    const fakeEvent = new FocusEvent('blur');
+
+    // wont' close if target is not window
+    let fakeEvent = new FocusEvent('blur');
+    dispatchWithTimers(window, fakeEvent);
+    expect(wrapper.find('Portal').length).toBe(1);
+
+    // it's tricky to set target manually
+    fakeEvent = new FocusEvent('blur');
+    const evt = fakeEvent.__proto__.__proto__.__proto__;
+    const descriptor = Object.assign(
+      {},
+      Object.getOwnPropertyDescriptor(evt, 'target'),
+      {
+        get() {
+          return window;
+        }
+      }
+    );
+    Object.defineProperty(evt, 'target', descriptor);
+
     dispatchWithTimers(window, fakeEvent);
     expect(wrapper.find('Portal').length).toBe(0);
     wrapper.unmount();
-  })
+  });
+
+  it('Click trigger supports custom isOutside', () => {
+    const wrapper = mount(
+      <Popover position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger isOutside={() => false}>
+          <Button>click me</Button>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+          <div>line two</div>
+        </PopoverContent>
+      </Popover>
+    );
+    simulateWithTimers(wrapper.find('button'), 'click');
+    expect(wrapper.find('Portal').length).toBe(1);
+
+    dispatchWithTimers(window, new MouseEvent('click'));
+    expect(wrapper.find('Portal').length).toBe(1);
+
+    wrapper.unmount();
+  });
 });

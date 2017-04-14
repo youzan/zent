@@ -19,6 +19,24 @@ export default class PopoverClickTrigger extends Trigger {
     autoClose: true
   }
 
+  isClickOutside(target) {
+    const { isOutside, getContentNode, getTriggerNode } = this.props;
+    const box = getContentNode();
+    const anchor = getTriggerNode();
+    if (isOutside) {
+      return isOutside(target, {
+        contentNode: box,
+        triggerNode: anchor
+      });
+    }
+
+    if (!anchor || !box) {
+      return false;
+    }
+
+    return !box.contains(target) && !anchor.contains(target);
+  }
+
   onClickOutside = (evt) => {
     // Optimization: skip checking if popover is hidden
     const { contentVisible } = this.props;
@@ -27,15 +45,7 @@ export default class PopoverClickTrigger extends Trigger {
     }
 
     const { target } = evt;
-    const { isOutside } = this.props;
-    if (isOutside && isOutside(target)) {
-      return true;
-    }
-
-    const { getContentNode, getTriggerNode } = this.props;
-    const box = getContentNode();
-    const anchor = getTriggerNode();
-    if (!box.contains(target) && !anchor.contains(target)) {
+    if (this.isClickOutside(target)) {
       this.props.close();
     }
   };

@@ -95,6 +95,11 @@ describe('Dialog component', () => {
   it('has mask', () => {
     open();
     expect(document.querySelectorAll('.zent-dialog-r-wrap').length).toBe(1);
+
+    const mask = document.querySelector('.zent-dialog-r-wrap');
+    Simulate.click(mask);
+    jest.runOnlyPendingTimers();
+    expect(document.querySelectorAll('.zent-dialog-r-wrap').length).toBe(0);
   });
 
   it('should unmount when click on the close button', () => {

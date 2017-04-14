@@ -49,6 +49,9 @@ const registerRoute = (navConfig, isReact) => {
                 this.$el
               );
             });
+          },
+          beforeDestroy() {
+            ReactDom.unmountComponentAtNode(this.$el);
           }
         })
       });

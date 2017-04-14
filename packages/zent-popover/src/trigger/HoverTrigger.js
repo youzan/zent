@@ -24,7 +24,7 @@ function isMouseEventSuffix(suffix) {
 const HoverState = {
   Init: 1,
 
-  // Leave识别开始必须先有内出去
+  // Leave识别开始必须先由内出去
   Started: 2,
 
   // 延迟等待中
@@ -182,7 +182,15 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
       }, 16),
 
       // 页面失去焦点的时候强制关闭，否则会出现必须先移动进来再出去才能关闭的问题
-      blur: () => {
+      blur: (evt) => {
+        // 确保事件来自 window
+        // React 的事件系统会 bubble blur事件，但是原生的是不会 bubble 的。
+        // https://github.com/facebook/react/issues/6410#issuecomment-292895495
+        const target = evt.target || evt.srcElement;
+        if (target !== window) {
+          return;
+        }
+
         if (timerId) {
           clearTimeout(timerId);
           timerId = undefined;
@@ -253,12 +261,15 @@ export default class PopoverHoverTrigger extends Trigger {
   isOutSide = (node) => {
     const { getTriggerNode, getContentNode, isOutside } = this.props;
 
-    if (isOutside && isOutside(node)) {
-      return true;
-    }
-
     const contentNode = getContentNode();
     const triggerNode = getTriggerNode();
+
+    if (isOutside) {
+      return isOutside(node, {
+        contentNode,
+        triggerNode
+      });
+    }
 
     if (contentNode && contentNode.contains(node) || triggerNode && triggerNode.contains(node)) {
       return false;

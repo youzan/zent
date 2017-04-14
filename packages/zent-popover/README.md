@@ -111,7 +111,9 @@ ReactDOM.render(
 | 参数        | 说明                                               | 类型                   | 默认值           |
 | --------- | ------------------------------------------------ | -------------------- | ------------- |
 | autoClose | 可选, 是否点击‘外面’自动关闭弹层                                   | bool                 | `true`        |
-| isOutside | 可选, 判断一个节点是否在‘外面’, 点击在外面会关闭弹层。默认trigger和弹层以外的节点都是‘外面’ | func: (node) => bool | `() => false` |
+| isOutside | 可选, 判断一个节点是否在‘外面’, 点击在外面会关闭弹层。默认trigger和弹层以外的节点都是‘外面’ | func: (node, data) => bool | `() => false` |
+
+isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 #### Trigger.Hover
 
@@ -119,7 +121,9 @@ ReactDOM.render(
 | --------- | ---------------------------------------- | -------------------- | ------------- |
 | showDelay | 可选, 打开弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标移出弹层范围, 弹层不会打开   | number   | `150`  |
 | hideDelay | 可选, 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number    | `150` |
-| isOutside | 可选, 判断一个节点是否在‘外面’。默认trigger和弹层以外的节点都是‘外面’  | func: (node) => bool |  |
+| isOutside | 可选, 判断一个节点是否在‘外面’。默认trigger和弹层以外的节点都是‘外面’  | func: (node, data) => bool |  |
+
+isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 #### Trigger.Base
 

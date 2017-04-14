@@ -35,7 +35,7 @@ export default class Step extends Component {
 
     let iconNode;
 
-    if ((status === 'finish' || status === 'error') && (!isCurrentStep || !isLastFinishStep)) {
+    if ((status === 'finish' || status === 'error') && (isCurrentStep || isLastFinishStep)) {
       if (status === 'finish') {
         iconNode = <Icon type="check-circle" />;
       } else {
