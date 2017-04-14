@@ -1,16 +1,17 @@
+import PropTypes from 'zent-utils/prop-types';
 import React from 'react';
 
 function noop() {}
 
 class TabPanel extends React.Component {
   static propTypes = {
-    className: React.PropTypes.string,
-    prefix: React.PropTypes.string,
-    actived: React.PropTypes.bool,
-    tab: React.PropTypes.any.isRequired,
-    id: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    onPanelReady: React.PropTypes.func,
-    uniqueId: React.PropTypes.number
+    className: PropTypes.string,
+    prefix: PropTypes.string,
+    actived: PropTypes.bool,
+    tab: PropTypes.any.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onPanelReady: PropTypes.func,
+    uniqueId: PropTypes.number
   };
 
   static defaultProps = {

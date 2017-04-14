@@ -1,8 +1,9 @@
+import PropTypes from 'zent-utils/prop-types';
 /**
  * Tag
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 class Tag extends Component {
 

@@ -30,7 +30,8 @@
     "classnames.js",
     "isPromise.js",
     "es6-error.js",
-    "isBrowser.js"
+    "isBrowser.js",
+    "prop-types.js"
   ],
   "jest": {
     "verbose": true,

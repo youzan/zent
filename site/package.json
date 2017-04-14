@@ -10,15 +10,15 @@
   "author": "zhangmin <zhangmin@youzan.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --history-api-fallback --config webpack/webpack.dev.config.js --progress",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --history-api-fallback --config webpack/webpack.dev.config.js --progress",
     "build": "rm -rf dist && cross-env NODE_ENV=production webpack --progress --hide-modules --config  webpack/webpack.prd.config.js",
     "deploy": "yarn run build && gh-pages -d dist"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "highlight.js": "^9.10.0",
-    "react": "15.0.2",
-    "react-dom": "15.0.2",
+    "react": "15.5.x",
+    "react-dom": "15.5.x",
     "vue": "2.1.8",
     "vue-router": "^2.3.0"
   },

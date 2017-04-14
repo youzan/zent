@@ -1,29 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
+import cx from 'zent-utils/classnames';
+
+import PropTypes from 'zent-utils/prop-types';
+
 import Item from './Item';
 
-const Breadcrumb = function (props) {
-  return (
-    <div className={`${props.prefix}-breadcrumb ${props.className}`}>
-      {props.children && React.Children.map(props.children, child => child)}
-      {props.breads.length > 0 && props.breads.map((item, index) => {
-        return <Item {...item} key={index} />;
-      })}
-    </div>
-  );
-};
+export default class Breadcrumb extends Component {
+  static propTypes = {
+    prefix: PropTypes.string,
+    className: PropTypes.string,
+    breads: PropTypes.array
+  };
+
+  static defaultProps = {
+    prefix: 'zent',
+    className: '',
+    breads: []
+  };
+
+  render() {
+    const { prefix, className, children = null, breads } = this.props;
+
+    return (
+      <div className={cx(`${prefix}-breadcrumb`, className)}>
+        {children}
+        {breads && breads.length > 0 && breads.map((item, index) => {
+          return <Item {...item} key={index} />;
+        })}
+      </div>
+    );
+  }
+}
 
 Breadcrumb.Item = Item;
-
-Breadcrumb.propTypes = {
-  prefix: React.PropTypes.string,
-  className: React.PropTypes.string,
-  breads: React.PropTypes.array
-};
-
-Breadcrumb.defaultProps = {
-  prefix: 'zent',
-  className: '',
-  breads: []
-};
-
-export default Breadcrumb;

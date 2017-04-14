@@ -1,6 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import CorePagination from './modules/CorePagination';
 import Prefix from './modules/Prefix';
+import PropTypes from 'zent-utils/prop-types';
 import isEqual from 'zent-utils/lodash/isEqual';
 
 const { number, func, string, oneOfType } = PropTypes;

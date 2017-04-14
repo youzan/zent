@@ -1,4 +1,6 @@
-import { PropTypes } from 'react';
+import 'react';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 

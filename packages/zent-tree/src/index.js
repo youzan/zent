@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import assign from 'zent-utils/lodash/assign';
 import classnames from 'zent-utils/classnames';
 import Checkbox from './components/Checkbox';
+import PropTypes from 'zent-utils/prop-types';
 import Loading from './components/Loading';
 
 // 记录是否已经触发收起展开逻辑

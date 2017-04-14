@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
+import PropTypes from 'zent-utils/prop-types';
 import omit from 'zent-utils/lodash/omit';
 
 export default class Input extends Component {

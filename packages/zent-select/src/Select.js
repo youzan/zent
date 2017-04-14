@@ -2,7 +2,7 @@
  * Select
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import assign from 'zent-utils/lodash/assign';
 import omit from 'zent-utils/lodash/omit';
 import cloneDeep from 'zent-utils/lodash/cloneDeep';
@@ -14,6 +14,7 @@ import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
+import PropTypes from 'zent-utils/prop-types';
 import { KEY_ESC, KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 
 const noop = () => void 0;

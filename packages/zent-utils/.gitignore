@@ -44,3 +44,5 @@ isBrowser.js
 !src/isBrowser.js
 es6-error.js
 !src/es6-error.js
+prop-types.js
+!src/prop-types.js

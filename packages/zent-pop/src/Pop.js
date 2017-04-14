@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Popover from 'zent-popover';
 import Button from 'zent-button';
 import cx from 'zent-utils/classnames';
@@ -7,6 +7,7 @@ import isFunction from 'zent-utils/lodash/isFunction';
 import isPromise from 'zent-utils/isPromise';
 
 import NoneTrigger from './NoneTrigger';
+import PropTypes from 'zent-utils/prop-types';
 import getPosition from './position';
 
 const { Trigger, withPopover } = Popover;

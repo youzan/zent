@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const CardComponent = React.createClass({
-
+class CardComponent extends Component {
   getTitle() {
     return (
       <a
@@ -11,7 +10,7 @@ const CardComponent = React.createClass({
         {this.props.data.title}
       </a>
     );
-  },
+  }
 
   render() {
     return (
@@ -26,6 +25,6 @@ const CardComponent = React.createClass({
       </div>
    );
   }
-});
+}
 
 export default CardComponent;

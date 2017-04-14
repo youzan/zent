@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
+import PropTypes from 'zent-utils/prop-types';
 import noop from 'zent-utils/lodash/noop';
 
 class Form extends Component {
