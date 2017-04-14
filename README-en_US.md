@@ -43,7 +43,7 @@ import 'zent/lib/index.css';
 
 ## Use components independently
 
-`Zent` also support using components independently if you only need to use one component. If you are using only a few `Zent` components in your project, it could reduce your the size of your bundled file.
+`Zent` also supports using components independently if you only need to use a few of them. It may reduce your bundle size.
 
 Taking `Button` component as an example:
 
@@ -57,9 +57,9 @@ import 'zent/button/lib/index.css';
 
 ## Contribution
 
-You can submit any [Issue](https://github.com/youzan/zent/issues) to us if you meet problems while using Zent, and it is also welcomed to see your [PR](https://github.com/youzan/zent/pulls).
+Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https://github.com/youzan/zent/pulls) with your ideas.
 
-Read our [development guide](CONTRIBUTING.md) before making any contribution.
+Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Zent.
 
 ## License
 
