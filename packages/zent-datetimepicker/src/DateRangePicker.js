@@ -78,7 +78,8 @@ class DateRangePicker extends Component {
     format: PropTypes.string,
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -109,8 +110,11 @@ class DateRangePicker extends Component {
   }
 
   componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
+    const { value } = this.props;
+    if (next.value && JSON.stringify(next.value) !== JSON.stringify(value)) {
+      const state = extractStateFromProps(next);
+      this.setState(state);
+    }
   }
 
   onHover = (val) => {
@@ -133,9 +137,11 @@ class DateRangePicker extends Component {
 
   onSelectDate = (val) => {
     const { selected, actived, range } = this.state;
+    const { onClick } = this.props;
     const scp = selected.slice();
     const acp = actived.slice();
     const rcp = range.slice();
+    let type;
 
     /**
      * 选择日期时，可能如下出现四种情况
@@ -148,16 +154,19 @@ class DateRangePicker extends Component {
       scp.splice(0, 2, val);
       rcp.splice(0, 2, val);
       acp.splice(0, 2, val, goMonths(val, 1));
+      type = 'strt';
       // 支持选择同一天
     } else if (scp[0] && (scp[0] < val || formatDate(scp[0]) === formatDate(val))) {
       scp.splice(1, 1, val);
       if (scp[0].getMonth() < val.getMonth()) {
         acp.splice(1, 1, val);
       }
+      type = 'end';
     } else {
       acp.splice(0, 2, val, goMonths(val, 1));
       scp.splice(0, 1, val);
       rcp.splice(0, 1, val);
+      type = 'start';
     }
 
     this.setState({
@@ -165,6 +174,8 @@ class DateRangePicker extends Component {
       actived: acp,
       range: rcp
     });
+
+    onClick && onClick(val, type);
   }
 
   isDisabled = (val) => {

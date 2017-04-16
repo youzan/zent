@@ -11,37 +11,69 @@
 ## 代码演示
 
 :::demo 基础的日期、月份、时间段选择
-```
+
+```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
-function onChange(val){
-  console.log(val)
+
+class Demo extends Component{
+  state = {
+
+  }
+
+  onChangeDate = (val) => {
+    this.setState({
+      dateValue: val
+    })
+  }
+
+  onChangeMonth = (val) => {
+    this.setState({
+      monthValue: val
+    })
+  }
+
+  onChangeRange = (val) => {
+    this.setState({
+      rangeValue: val
+    })
+  }
+
+  render(){
+    const { dateValue, monthValue, rangeValue, max } = this.state;
+    return (
+      <div>
+        <DatePicker
+          className="zent-picker-demo"
+          value={dateValue}
+          onChange={this.onChangeDate}
+        />
+        <br />
+        <MonthPicker
+          className="zent-picker-demo"
+          value={monthValue}
+          onChange={this.onChangeMonth}
+        />
+        <br />
+        <DateRangePicker
+          className="zent-picker-demo"
+          value={rangeValue}
+          onChange={this.onChangeRange}
+          />
+      </div>
+    )
+  }
 }
 
 ReactDOM.render(
-  <div>
-    <DatePicker
-      className="zent-picker-demo"
-      onChange={onChange}
-    />
-    <br />
-    <MonthPicker
-      className="zent-picker-demo"
-      onChange={onChange}
-    />
-    <br />
-    <DateRangePicker
-      className="zent-picker-demo"
-      onChange={onChange}
-      />
-   </div>
-   , mountNode
+  <Demo />,
+  mountNode
 )
 ```
 :::
 
 :::demo 使用 `format` 属性来设置日期的显示格式
 
-```
+```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 function onChange(val){
@@ -74,7 +106,8 @@ ReactDOM.render(
 :::
 
 :::demo 传入 `showTime` 同时选择时间和日期
-```
+
+```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 function onChange(val){
   console.log(val)
@@ -102,7 +135,8 @@ ReactDOM.render(
 :::
 
 :::demo 通过设置 `valueType` 来指定返回值的类型，支持 `string`/`date`/`number`，默认和传入的 `value` 类型一致。
-```
+
+```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 function onChange(val){
   console.log(val)
@@ -130,7 +164,8 @@ ReactDOM.render(
 :::
 
 :::demo 传入 `disabled` 使输入框处于 disabled 状态
-```
+
+```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 function onChange(val){
   console.log(val)
@@ -161,7 +196,8 @@ ReactDOM.render(
 :::
 
 :::demo 禁用部分日期，可以通过传入 `disabledDate` 函数来实现，返回 `ture` 表示禁用。另外，DatePicker 支持传入 `min/max` 属性来实现简单禁用逻辑。
-```
+
+```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 function onChange(val){
   console.log(val)
@@ -272,11 +308,12 @@ ReactDOM.render(
 | ------------ | ---------- | ------ | -------------- | ---- |
 | showTime     | 是否显示时间筛选 | bool   | `false` | 否    |
 | value        | 默认选择日期     | array  | `[]`           | 否    |
+| format       | 返回日期字符串格式  | string | `'YYYY-MM-DD'` | 否    |
 | disabledDate | 判断日期是否可选函数 | func   | `noop`   | 否    |
 | disabledTime | 时间禁用函数 | func | `noop` | 否    |
-| format       | 返回日期字符串格式  | string | `'YYYY-MM-DD'` | 否    |
 | min          | 可选日期的最小值   | string/instanceOf(Date)  | ``   | 否    |
 | max          | 可选日期的最大值  | string/instanceOf(Date)  | ``    | 否    |
+| onClick      | 用户点击选择日期的回调 | func |   |   否 |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | placeholder  | 提示文案          | string    | `['开始日期','结束日期']`   | 否    |
 
@@ -284,7 +321,8 @@ ReactDOM.render(
 **注意：**
 
 - `showTime` 的时候，传入的 `min` 或 `max` 如果为字符串，必须有 time 部分，即 `2017-01-01 11:11:11` 种格式。
-- `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。：
+- `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
+- `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
 
 ### 格式化字符表
 
