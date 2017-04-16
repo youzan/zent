@@ -107,6 +107,7 @@ class Select extends Component {
 
   // 对data进行处理，增加cid
   formateData(data, props) {
+    let selectedItems = [];
     data = data || this.sourceData;
     props = props || this.props;
     let that = this;
@@ -125,7 +126,7 @@ class Select extends Component {
       // 显示当前选项，支持value和index
       item.cid = `${index}`;
       if (isArray(props.value) && props.value.indexOf(item.value) > -1) {
-        that.state.selectedItems.push(item);
+        selectedItems.push(item);
       } else if (typeof props.value === 'object' && isEqual(props.value, item.value)) {
         that.state.selectedItem = item;
       } else if (typeof props.value !== 'undefined' && typeof props.value !== 'object' && `${item.value}` === `${props.value}` ||
@@ -135,6 +136,7 @@ class Select extends Component {
 
       return item;
     });
+    this.state.selectedItems = selectedItems;
     return this.sourceData;
   }
 
