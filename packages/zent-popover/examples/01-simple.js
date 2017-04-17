@@ -44,6 +44,8 @@ export default class Simple extends Component {
   }
 
   render() {
+    const pos = Popover.Position.AutoBottomCenter;
+
     return (
       <div>
         <Popover position={Popover.Position.BottomLeft} display="inline" cushion={5}>
@@ -119,7 +121,47 @@ export default class Simple extends Component {
 
         {separator}
 
-        <Popover position={Popover.Position.AutoBottomLeft} display="inline" cushion={5}>
+        <Popover position={pos} display="inline" cushion={5}>
+          <PopoverClickTrigger>
+            click me
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+            <div>line two</div>
+          </PopoverContent>
+        </Popover>
+
+        <Popover position={pos} display="inline" cushion={5} wrapperClassName="popover-wrapper-example-top-left">
+          <PopoverClickTrigger>
+            click me
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+            <div>line two</div>
+          </PopoverContent>
+        </Popover>
+
+        <Popover position={pos} display="inline" cushion={5} wrapperClassName="popover-wrapper-example-top-right">
+          <PopoverClickTrigger>
+            click me
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+            <div>line two</div>
+          </PopoverContent>
+        </Popover>
+
+        <Popover position={pos} display="inline" cushion={5} wrapperClassName="popover-wrapper-example-bottom-right">
+          <PopoverClickTrigger>
+            click me
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+            <div>line two</div>
+          </PopoverContent>
+        </Popover>
+
+        <Popover position={pos} display="inline" cushion={5} wrapperClassName="popover-wrapper-example-bottom-left">
           <PopoverClickTrigger>
             click me
           </PopoverClickTrigger>

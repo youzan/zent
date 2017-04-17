@@ -20,12 +20,12 @@ function locate(anchorBoundingBox, containerBoundingBox, contentDimension, optio
   let horizontal;
   let vertical;
 
-  // 只有当左边放不下，并且右边能够放下的时候才移动到右边
-  if (anchorBoundingBoxViewport.left + contentDimension.width > viewport.width &&
-      anchorBoundingBoxViewport.right - contentDimension.width > 0) {
-    horizontal = 'Right';
-  } else {
+  // 只有当右边放不下，并且左边能够放下的时候才移动到左边
+  if (anchorBoundingBoxViewport.right - contentDimension.width < 0 &&
+      anchorBoundingBoxViewport.left + contentDimension.width < viewport.width) {
     horizontal = 'Left';
+  } else {
+    horizontal = 'Right';
   }
 
   // 只有当下面放不下，并且上面能够放下时才移动到上面
@@ -41,6 +41,6 @@ function locate(anchorBoundingBox, containerBoundingBox, contentDimension, optio
   return positionMap[key].locate(anchorBoundingBox, containerBoundingBox, contentDimension, options);
 }
 
-const AutoBottomLeft = createPlacement(locate);
+const AutoBottomRight = createPlacement(locate);
 
-export default AutoBottomLeft;
+export default AutoBottomRight;
