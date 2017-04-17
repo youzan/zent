@@ -51,7 +51,7 @@ function handleBeforeHook(beforeFn, arity, continuation) {
 }
 
 export const PopoverContextType = {
-  popover: PropTypes.shape({
+  _zentPopover: PropTypes.shape({
     close: PropTypes.func.isRequired,
     open: PropTypes.func.isRequired,
     getContentNode: PropTypes.func.isRequired,
@@ -117,7 +117,7 @@ export default class Popover extends Component {
 
   getChildContext() {
     return {
-      popover: {
+      _zentPopover: {
         close: this.close,
         open: this.open,
         getContentNode: this.getPopoverNode,
@@ -282,7 +282,7 @@ export default class Popover extends Component {
   }
 
   componentDidMount() {
-    const { popover } = this.context || {};
+    const { _zentPopover: popover } = this.context || {};
     if (popover && popover.registerDescendant) {
       popover.registerDescendant(this);
     }
@@ -301,7 +301,7 @@ export default class Popover extends Component {
   }
 
   componentWillUnmount() {
-    const { popover } = this.context || {};
+    const { _zentPopover: popover } = this.context || {};
     if (popover && popover.unregisterDescendant) {
       popover.unregisterDescendant(this);
     }

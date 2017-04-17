@@ -13,8 +13,9 @@ export default function withPopover(Base) {
     static contextTypes = PopoverContextType;
 
     render() {
+      const { _zentPopover: popover } = this.context || {};
       const context = {
-        popover: omit(this.context.popover, ['registerDescendant', 'unregisterDescendant'])
+        popover: omit(popover, ['registerDescendant', 'unregisterDescendant'])
       };
 
       return <Base {...this.props} {...context} />;
