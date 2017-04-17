@@ -20,6 +20,10 @@
 
 `import isFunction from 'zent-utils/lodash/isFunction';`
 
+### prop-types
+
+导出了[prop-types](https://github.com/reactjs/prop-types).
+
 ### WindowEventHandler
 
 在`window`上绑定全局事件.
