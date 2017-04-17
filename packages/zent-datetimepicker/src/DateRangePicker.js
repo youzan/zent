@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
 // import Input from 'zent-input';
 import Popover from 'zent-popover';
+import PropTypes from 'zent-utils/prop-types';
+import isEqual from 'zent-utils/lodash/isEqual';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
 import { formatDate, parseDate, maybeFormatDate } from './utils/date';
-import PropTypes from 'zent-utils/prop-types';
 import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
@@ -111,7 +112,7 @@ class DateRangePicker extends Component {
 
   componentWillReceiveProps(next) {
     const { value } = this.props;
-    if (next.value && JSON.stringify(next.value) !== JSON.stringify(value)) {
+    if (isEqual(value, next.value)) {
       const state = extractStateFromProps(next);
       this.setState(state);
     }
@@ -154,7 +155,7 @@ class DateRangePicker extends Component {
       scp.splice(0, 2, val);
       rcp.splice(0, 2, val);
       acp.splice(0, 2, val, goMonths(val, 1));
-      type = 'strt';
+      type = 'start';
       // 支持选择同一天
     } else if (scp[0] && (scp[0] < val || formatDate(scp[0]) === formatDate(val))) {
       scp.splice(1, 1, val);

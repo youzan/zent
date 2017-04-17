@@ -69,7 +69,8 @@ class DatePicker extends Component {
       PropTypes.instanceOf(Date)
     ]),
     disabledDate: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -112,12 +113,14 @@ class DatePicker extends Component {
   }
 
   onSelectDate = (val) => {
+    const { onClick } = this.props;
     if (this.isDisabled(val)) return;
 
     this.setState({
       actived: val,
       selected: val
     });
+    onClick && onClick(val);
   }
 
   onChangeTime = (val, type) => {
