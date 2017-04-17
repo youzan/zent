@@ -4,6 +4,16 @@
  * Popover组件只是一个壳子，负责组装Trigger和Content。
  *
  * 弹层实际的打开／关闭都是Content完成的，而什么情况打开弹层是Trigger控制的。
+ *
+ * Popover 组件是一个递归的组件，支持嵌套。
+ *
+ *
+ *            context                       context
+ *            ------>                       ------>
+ * Popover               Popover child                    Popover grand-child     ......
+ *            <------                       <------
+ *        isOutsideStacked              isOutsideStacked
+ *
  */
 
 import React, { Component, Children } from 'react';
@@ -41,11 +51,15 @@ function handleBeforeHook(beforeFn, arity, continuation) {
 }
 
 export const PopoverContextType = {
-  popover: PropTypes.shape({
+  _zentPopover: PropTypes.shape({
     close: PropTypes.func.isRequired,
     open: PropTypes.func.isRequired,
     getContentNode: PropTypes.func.isRequired,
-    getTriggerNode: PropTypes.func.isRequired
+    getTriggerNode: PropTypes.func.isRequired,
+
+    // 用于维护 Popover 栈，处理嵌套的问题
+    registerDescendant: PropTypes.func,
+    unregisterDescendant: PropTypes.func
   })
 };
 
@@ -97,17 +111,31 @@ export default class Popover extends Component {
     containerSelector: 'body'
   };
 
+  static contextTypes = PopoverContextType;
+
   static childContextTypes = PopoverContextType;
 
   getChildContext() {
     return {
-      popover: {
+      _zentPopover: {
         close: this.close,
         open: this.open,
         getContentNode: this.getPopoverNode,
-        getTriggerNode: this.getTriggerNode
+        getTriggerNode: this.getTriggerNode,
+
+        registerDescendant: this.registerDescendant,
+        unregisterDescendant: this.unregisterDescendant
       }
     };
+  }
+
+  registerDescendant = (popover) => {
+    this.descendants.push(popover);
+  };
+
+  unregisterDescendant = (popover) => {
+    const idx = this.descendants.indexOf(popover);
+    this.descendants.splice(idx, 1);
   }
 
   constructor(props) {
@@ -115,6 +143,9 @@ export default class Popover extends Component {
 
     // id用来唯一标识popover实例
     this.id = uniqueId(`${props.prefix}-popover-internal-id-`);
+
+    // 记录 Popover 子孙
+    this.descendants = [];
 
     if (!this.isVisibilityControlled(props)) {
       this.state = {
@@ -200,6 +231,27 @@ export default class Popover extends Component {
     this.setVisible(false);
   };
 
+  injectIsOutsideSelf = (impl) => {
+    this.isOutsideSelf = impl;
+  };
+
+  // Popover up in the tree will call this method to see if the node lies outside
+  isOutsideStacked = (node) => {
+    if (this.isOutsideSelf) {
+      // 在自身内部，肯定不在外面
+      if (!this.isOutsideSelf(node)) {
+        return false;
+      }
+    }
+
+    // 问下面的 Popover 是否在外面
+    if (this.descendants.some(popover => !popover.isOutsideStacked(node))) {
+      return false;
+    }
+
+    return true;
+  };
+
   validateChildren() {
     const { children } = this.props;
     const childArray = Children.toArray(children);
@@ -230,6 +282,11 @@ export default class Popover extends Component {
   }
 
   componentDidMount() {
+    const { _zentPopover: popover } = this.context || {};
+    if (popover && popover.registerDescendant) {
+      popover.registerDescendant(this);
+    }
+
     if (this.isVisibilityControlled() && this.props.visible) {
       this.props.onShow();
     }
@@ -240,6 +297,13 @@ export default class Popover extends Component {
     if (visible !== this.getVisible(prevProps, prevState)) {
       const afterHook = visible ? this.props.onShow : this.props.onClose;
       afterHook();
+    }
+  }
+
+  componentWillUnmount() {
+    const { _zentPopover: popover } = this.context || {};
+    if (popover && popover.unregisterDescendant) {
+      popover.unregisterDescendant(this);
     }
   }
 
@@ -257,7 +321,9 @@ export default class Popover extends Component {
           getTriggerNode: this.getTriggerNode,
           getContentNode: this.getPopoverNode,
           open: this.open,
-          close: this.close
+          close: this.close,
+          isOutsideStacked: this.isOutsideStacked,
+          injectIsOutsideSelf: this.injectIsOutsideSelf
         })}
         {React.cloneElement(content, {
           prefix,
