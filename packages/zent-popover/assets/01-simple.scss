@@ -7,3 +7,27 @@
     border: 1px solid #e5e5e5;
     padding: 10px;
 }
+
+.popover-wrapper-example-top-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.popover-wrapper-example-top-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.popover-wrapper-example-bottom-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.popover-wrapper-example-bottom-left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
