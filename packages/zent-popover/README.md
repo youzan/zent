@@ -2,6 +2,8 @@
 
 通用的触发式弹层组件, 可以自定义定位算法、触发方式以及弹层显示方式。
 
+组件自身支持嵌套。
+
 **这个组件不提供样式**。气泡提示组件请使用 `Pop`。
 
 ### 使用场景
@@ -124,6 +126,10 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 | isOutside | 可选, 判断一个节点是否在‘外面’。默认trigger和弹层以外的节点都是‘外面’  | func: (node, data) => bool |  |
 
 isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
+
+#### Trigger.Hover
+
+当获取焦点时显示，失去焦点时关闭，没有参数。
 
 #### Trigger.Base
 

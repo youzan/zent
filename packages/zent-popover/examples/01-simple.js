@@ -53,6 +53,26 @@ export default class Simple extends Component {
           <PopoverContent>
             <div>popover content</div>
             <div>line two</div>
+
+            <Popover position={Popover.Position.BottomLeft} display="inline" cushion={5}>
+              <PopoverClickTrigger>
+                click me
+              </PopoverClickTrigger>
+              <PopoverContent>
+                <div>popover content</div>
+                <div>line two</div>
+
+                <Popover position={Popover.Position.BottomLeft} display="inline" cushion={5}>
+                  <PopoverClickTrigger>
+                    click me
+                  </PopoverClickTrigger>
+                  <PopoverContent>
+                    <div>popover content</div>
+                    <div>line two</div>
+                  </PopoverContent>
+                </Popover>
+              </PopoverContent>
+            </Popover>
           </PopoverContent>
         </Popover>
 
@@ -64,6 +84,24 @@ export default class Simple extends Component {
           </PopoverHoverTrigger>
           <PopoverContent>
             <HoverContent />
+
+            <Popover position={Popover.Position.RightTop} display="inline" cushion={5}>
+              <PopoverHoverTrigger showDelay={500} hideDelay={200}>
+                <Button onMouseEnter={this.onCustomEvent} onMouseLeave={this.onCustomEvent}>hover on me</Button>
+              </PopoverHoverTrigger>
+              <PopoverContent>
+                <HoverContent />
+
+                <Popover position={Popover.Position.RightTop} display="inline" cushion={5}>
+                  <PopoverHoverTrigger showDelay={500} hideDelay={200}>
+                    <Button onMouseEnter={this.onCustomEvent} onMouseLeave={this.onCustomEvent}>hover on me</Button>
+                  </PopoverHoverTrigger>
+                  <PopoverContent>
+                    <HoverContent />
+                  </PopoverContent>
+                </Popover>
+              </PopoverContent>
+            </Popover>
           </PopoverContent>
         </Popover>
 
