@@ -62,6 +62,7 @@ export default class Button extends Component {
   static defaultProps = {
     type: 'default',
     size: 'medium',
+    htmlType: 'button',
     className: '',
     block: false,
     disabled: false,

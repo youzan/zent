@@ -1,8 +1,8 @@
 import React from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-
 import Button from 'zent-button';
+
 import Popover from '../src';
 
 /* eslint-disable */
@@ -207,7 +207,12 @@ describe('Popover', () => {
       TopLeft,
       TopCenter,
       TopRight,
-      AutoBottomLeft
+      AutoBottomLeft,
+      AutoBottomCenter,
+      AutoBottomRight,
+      AutoTopLeft,
+      AutoTopCenter,
+      AutoTopRight
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -222,8 +227,14 @@ describe('Popover', () => {
       TopLeft,
       TopCenter,
       TopRight,
-      AutoBottomLeft
+      AutoBottomLeft,
+      AutoBottomCenter,
+      AutoBottomRight,
+      AutoTopLeft,
+      AutoTopCenter,
+      AutoTopRight
     ];
+
     positionArr.forEach(pos => {
       const wrapper = mount(
         <Popover position={pos} display="inline">
@@ -238,9 +249,10 @@ describe('Popover', () => {
       );
       wrapper.find('PopoverClickTrigger').getNode().onClickOutside({ target: (<div className="outside" />) });
       expect(wrapper.find('Portal').length).toBe(0);
+
       simulateWithTimers(wrapper.find('button'), 'click');
       expect(wrapper.find('Portal').length).toBe(1);
-      // NOTE: 只能直接调用close method，无法mock。
+
       wrapper.find('PopoverClickTrigger').getNode().onClickOutside({ target: (<div className="outside" />) });
       expect(wrapper.find('Portal').length).toBe(0);
       wrapper.unmount();
