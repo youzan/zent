@@ -262,6 +262,7 @@ ReactDOM.render(
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
 | value        | 默认选择日期                   | string/Date    |     | 否    |
 | onChange     | 确认日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
+| onClick      | 用户点击选择日期的回调 | func |   |   否 |
 | disabled     | 是否处于 disabled 状态          | bool         | `false`         | 否    |
 | format       | 返回日期字符串格式                | string         |  不同的picker默认值不同，下详  | 否    |
 | placeholder  | 提示文案                   | string    | 不同的picker默认值不同，下详   | 否    |
@@ -297,7 +298,6 @@ ReactDOM.render(
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
 | value        | 选中的月份     | string/Date    | `new Date()`    | 否    |
-| onChange     | 确认日期回调函数   | func   | `noop`       | 是    |
 | format       | 返回月份字符串格式  | string | `'YYYY-MM'` | 否    |
 | disabled     | 是否处于disabled 状态          | bool      | `false`   | 否    |
 | placeholder  | 提示文案          | string  | `请选择月份`   | 否    |
@@ -313,7 +313,6 @@ ReactDOM.render(
 | disabledTime | 时间禁用函数 | func | `noop` | 否    |
 | min          | 可选日期的最小值   | string/instanceOf(Date)  | ``   | 否    |
 | max          | 可选日期的最大值  | string/instanceOf(Date)  | ``    | 否    |
-| onClick      | 用户点击选择日期的回调 | func |   |   否 |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | placeholder  | 提示文案          | string    | `['开始日期','结束日期']`   | 否    |
 
