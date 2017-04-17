@@ -152,6 +152,9 @@ describe('<Button />', () => {
   });
 
   test('Button htmlType', () => {
+    mount(<Button />);
+    expect(buttonNode.type).toBe('button');
+
     mount(<Button htmlType="submit" />);
     expect(buttonNode.type).toBe('submit');
 
