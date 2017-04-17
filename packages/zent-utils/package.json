@@ -15,8 +15,9 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "2.2.x",
+    "es6-error": "4.0.x",
     "lodash": "4.17.x",
-    "es6-error": "4.0.x"
+    "prop-types": "15.5.x"
   },
   "files": [
     "src/",
