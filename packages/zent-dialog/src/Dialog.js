@@ -1,5 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import Portal, { withNonScrollable, withESCToClose } from 'zent-portal';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import DialogEl from './DialogEl';
 
@@ -42,7 +44,7 @@ export default class Dialog extends Component {
 
     // load default max/min-width value when width is not specified in style prop
     const elStyle = {
-      ...style.width ? {} : { minWidth: '450px', maxWidth: '75%' },
+      ...((style.width ? {} : { minWidth: '450px', maxWidth: '75%' })),
       ...style
     };
 

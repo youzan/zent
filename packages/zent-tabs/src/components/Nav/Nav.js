@@ -1,23 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Tab from '../Tab/Tab';
+import PropTypes from 'zent-utils/prop-types';
 import navUtil from './navUtil';
 
 function noop() {}
 
 class Nav extends React.Component {
   static propTypes = {
-    prefix: React.PropTypes.string,
-    tabListData: React.PropTypes.array,
-    onChange: React.PropTypes.func,
-    type: React.PropTypes.string,
-    align: React.PropTypes.string,
-    size: React.PropTypes.string,
-    onDelete: React.PropTypes.func,
-    onTabAdd: React.PropTypes.func,
-    candel: React.PropTypes.bool,
-    canadd: React.PropTypes.bool,
-    uniqueId: React.PropTypes.number
+    prefix: PropTypes.string,
+    tabListData: PropTypes.array,
+    onChange: PropTypes.func,
+    type: PropTypes.string,
+    align: PropTypes.string,
+    size: PropTypes.string,
+    onDelete: PropTypes.func,
+    onTabAdd: PropTypes.func,
+    candel: PropTypes.bool,
+    canadd: PropTypes.bool,
+    uniqueId: PropTypes.number
   };
 
   static defaultProps = {

@@ -99,19 +99,15 @@ code.hljs {
       margin: 20px 0;
       font-weight: normal;
 
-      &:hover a {
+      &:hover a:first-child {
         opacity: .4;
       }
 
-      a {
+      a:first-child {
         float: left;
         margin-left: -20px;
         opacity: 0;
         cursor: pointer;
-
-        &:hover {
-          opacity: .4;
-        }
       }
     }
 

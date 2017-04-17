@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { CURRENT_YEAR } from '../utils/';
 import classNames from 'zent-utils/classnames';
+import PropTypes from 'zent-utils/prop-types';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 4;

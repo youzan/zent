@@ -1,3 +1,8 @@
+## 2.0.7 (2017-04-11)
+
+* isActive 属性不传到 input 元素上
+* 新增获取 createForm 所包裹的组件对象的方法
+
 ## 2.0.6 (2017-04-07)
 
 * Field 中增加 onFocus 回调，并添加 focus 时的 active state

@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Icon from 'zent-icon';
+import PropTypes from 'zent-utils/prop-types';
 import classNames from 'zent-utils/classnames';
 
 export default class Step extends Component {
@@ -35,7 +36,7 @@ export default class Step extends Component {
 
     let iconNode;
 
-    if ((status === 'finish' || status === 'error') && (!isCurrentStep || !isLastFinishStep)) {
+    if ((status === 'finish' || status === 'error') && (isCurrentStep || isLastFinishStep)) {
       if (status === 'finish') {
         iconNode = <Icon type="check-circle" />;
       } else {

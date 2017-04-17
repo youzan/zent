@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import cx from 'zent-utils/classnames';
 
 export default class Col extends Component {
 
   static propTypes = {
-    span: React.PropTypes.number,
-    offset: React.PropTypes.number,
-    className: React.PropTypes.string,
-    prefix: React.PropTypes.string
+    span: PropTypes.number,
+    offset: PropTypes.number,
+    className: PropTypes.string,
+    prefix: PropTypes.string
   }
 
   static defaultProps = {

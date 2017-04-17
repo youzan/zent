@@ -1,86 +1,399 @@
-## 更新日志
+# Change Log
 
-### 2.0.8-beta1
+## [zent@2.0.14](https://github.com/youzan/zent/tree/zent@2.0.14) (2017-04-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.13...zent@2.0.14)
 
-2017-04-10
+**Fixed bugs:**
 
-1. `Button` 组件使用 `a` 标签时不再丢掉额外的属性了; 按钮颜色做了修改
-2. `Sweetalert` 支持 `confirmType` 来设置确认按钮的类型
-3. `Form` 增加 `Field` 的 `onFocus` 回调，添加了 `active` 状态
-4. `Dialog` 居中对齐不再使用 `transform`，GPU 绘制会引起半像素变模糊
-5. `Popover` 在窗口失去焦点时会关闭; `Placement` API 支持组合，方便
-6. `Input` 添加 `autoFocus` 属性及 `focus()` 方法
-7. `Select` 支持 `autoFocus`，`onAsyncFilter` 可以增加选项
-8. `DatePicker` 定位支持根据所在位置自适应
-9. bug 修复
+- Republish all packages because of network timeout during npm publish [\#182](https://github.com/youzan/zent/issues/182)
 
-### 2.0.7
+## [zent@2.0.13](https://github.com/youzan/zent/tree/zent@2.0.13) (2017-04-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.12...zent@2.0.13)
 
-2017-03-31 
+**Fixed bugs:**
 
-1. bug修复
-2. Input 支持 textarea
-3. Button 支持自定义 component
-4. Tabs 支持没有Panel的形式
-5. Table支持行内展开
-6. Menu 的子菜单不再是个独立的弹层
+- popover: isOutside on click trigger now works as expected [\#181](https://github.com/youzan/zent/pull/181) ([cpylua](https://github.com/cpylua))
 
-### 其他
+## [zent@2.0.12](https://github.com/youzan/zent/tree/zent@2.0.12) (2017-04-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.11...zent@2.0.12)
 
-* 2017-03-15, 2.0.6, bug修复
-* 2017-03-15, 2.0.5, 新增menu组件
-* 2017-03-14, 2.0.3, select／steps／form bug修复
-* 2017-03-09, 2.0.0, form支持async validation
-* 2017-02-10, 0.4.3, pop/popover bug fix
-* 2017-02-10, 0.4.2, 大包导出Popover组件
-* 2017-02-09, 0.4.1, 修复文件找不到的bug
-* 2017-02-09, 0.4.0,  不兼容改动：`zent-table`布局用`flex`实现，`zent-pop`重写；其它改动：`zent-notify`增加关闭回掉函数，`zent-datetimepicker`新的时间选择UI以及bug修复。
-* 2017-02-07, 0.3.22, 添加RangePicker, `Dialog`宽度自适应
-* 2017-01-23, 0.3.21, `zent-checkbox`和`zent-radio`样式修改
-* 2017-01-17, 0.3.20, `zent-datetimepicker` 日期解析bug修复
-* 2017-01-11, 0.3.11, `zent-form`为内置封装的`SelectField`做`onChange`回调参数的兼容
-* 2017-01-10, 0.3.10, `zent-form`增加`required`支持
-* 2017-01-06, 0.3.9, `zent-select`更新样式，`zent-datetimepicker`bug修复
-* 2017-01-03, 0.3.8, 更新`zent-datetimepicker`，增加disabled状态，日期选择添加min 和max 的支持, 一些bug修复; 用`portal`重写`zent-notify`
-* 2016-12-30, 0.3.7, `zent-tabs`支持number作为id使用
-* 2016-12-28, 0.3.6, `zent-form`修复使用jquery中非标准promise方法always导致的报错，改用then
-* 2016-12-27, 0.3.5, `zent-tree`增加`isRoot`用来处理根结点的`parentId`非零的情况；checkbox样式bug修复
-* 2016-12-23, 0.3.4, 更新table组件样式
-* 2016-12-22, 0.3.3, 更新loading组件，修复examples在包里丢失的问题
-* 2016-12-20, 0.3.2, 更新table组件，修复了bodyRender返回0时不显示的bug
-* 2016-12-19, 0.3.1, 更新icon组件，现在会透传额外的props了
-* 2016-12-14, 0.3.0, 升级zent-tabs，tabs初始化的时候只会mount当前active的panel；其他bug修复
-* 2016-12-09, 0.2.37, datetimepicker bug修复
-* 2016-12-08, 0.2.36, input组件css样式去掉
-* 2016-12-08, 0.2.35, 修复select的bug
-* 2016-12-07, 0.2.34, 修复pagination对select版本号的依赖，和zent保持一致
-* 2016-12-07, 0.2.33, 去除所有组件对react的依赖，都改成了devDependencies
-* 2016-12-06, 0.2.32, 修复form组件bug
-* 2016-12-06, 0.2.31, 修复form组件的export
-* 2016-11-30, 0.2.30, 发布steps组件
-* 2016-11-30, 0.2.29, 发布form组件，终于！！！
-* 2016-11-30, 0.2.28, 修复datetime picker bug
-* 2016-11-29, 0.2.25/0.2.26/0.2.27, 修复datetime picker的bug
-* 2016-11-28, 0.2.24, 发布datetime picker，暂时只开放DatePicker
-* 2016-11-23, 0.2.23, 修复select的一些问题
-* 2016-11-16, 0.2.21/0.2.22, 支持zent/button这种引用方式，有问题请找对应组件的作者
-* 2016-11-16, 0.2.20, 发布zent-tabs
-* 2016-11-15, 0.2.19, zent-button去掉无用props，某些版本的react会有警告
-* 2016-11-15, 0.2.18, sweetalert增加type选项，设置后在title左侧会显示一个图标
-* 2016-11-14, 0.2.17, 重新打包，修复zent-kit更新引起的css问题（iron-front下node-sass编译出问题）
-* 2016-11-14, 0.2.15/0.2.16, zent-alert的style从error改成danger，error仍旧支持
-* 2016-11-11, 0.2.12/0.2.13/0.2.14, 添加zent-alert组件
-* 2016-11-11, 0.2.10/0.2.11, 添加zent-icon组件
-* 2016-11-09, 0.2.8/0.2.9, zent-switch移除size="large"支持
-* 2016-11-09, 0.2.7, zent-switch添加user-select: none
-* 2016-11-08, 0.2.6, 修复zent-input组件defaultValue的问题
-* 2016-10-25, 0.2.5, 修复`input`组件和`bootstrap`的样式冲突
-* 2016-10-25, 0.2.4, 更新`dialog`和`input`组件的样式
-* 2016-10-24, 0.2.3, 修复`switch`和`input`组件样式丢失的bug
-* 2016-10-19, 0.2.2, 发布`zent-input`组件, `zent-dialog`调整没有header和footer时的样式
-* 2016-10-18, 0.2.1, `zent-tree`删除对`zent-util`的引用（setClass）
-* 2016-10-14, 0.2.0, `sweetalert`组件升级，该组件有API改动。
-* 2016-10-13, 0.1.34, `radio`/`checkbox`组件的`value`支持任意类型；新增`switch`组件。
-* 2016-09-26, 0.1.33, `Dialog`组件添加`openDialog`方法。
-* 2016-09-22, 0.1.32, 升级`zent-dialog`, 现在`dialog`会居中显示了。
-* 2016-09-21, 0.1.31, 升级`zent-button`，主要是`loading`样式的修改。
+**Fixed bugs:**
+
+- popover: trigger isOutside not working [\#180](https://github.com/youzan/zent/issues/180)
+
+**Merged pull requests:**
+
+- fix table text align [\#179](https://github.com/youzan/zent/pull/179) ([linxixuan](https://github.com/linxixuan))
+
+## [zent@2.0.11](https://github.com/youzan/zent/tree/zent@2.0.11) (2017-04-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.10...zent@2.0.11)
+
+**Implemented enhancements:**
+
+- zent-dialog: openDialog支持外部自定义id [\#116](https://github.com/youzan/zent/issues/116)
+- Dialog: Add closeDialog static method in Dialog. [\#176](https://github.com/youzan/zent/pull/176) ([cpylua](https://github.com/cpylua))
+- notify: change notify default duration to 2s [\#173](https://github.com/youzan/zent/pull/173) ([ronghang](https://github.com/ronghang))
+
+**Fixed bugs:**
+
+- Popover: ensure window.onblur's target is window in Popover hover trigger [\#171](https://github.com/youzan/zent/pull/171) ([cpylua](https://github.com/cpylua))
+- Datepicker: 移除自动添加时间 format 逻辑，使用者自己传入完整的 format。  [\#170](https://github.com/youzan/zent/pull/170) ([xuhong](https://github.com/xuhong))
+
+**Merged pull requests:**
+
+- 修改table样式 [\#178](https://github.com/youzan/zent/pull/178) ([linxixuan](https://github.com/linxixuan))
+
+## [zent@2.0.10](https://github.com/youzan/zent/tree/zent@2.0.10) (2017-04-11)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.9...zent@2.0.10)
+
+**Implemented enhancements:**
+
+- Add form ref [\#167](https://github.com/youzan/zent/pull/167) ([w91](https://github.com/w91))
+
+**Fixed bugs:**
+
+- 修复 steps 组件状态为成功时，前面的子项以数字显示 [\#169](https://github.com/youzan/zent/pull/169) ([liaoyu](https://github.com/liaoyu))
+- 修复 Dialog 宽度大于屏幕宽度时移位的问题。 [\#168](https://github.com/youzan/zent/pull/168) ([cpylua](https://github.com/cpylua))
+- Sweetalert stop button loading on promise rejection [\#165](https://github.com/youzan/zent/pull/165) ([cpylua](https://github.com/cpylua))
+- 修复select弹出问题 [\#164](https://github.com/youzan/zent/pull/164) ([huangsy](https://github.com/huangsy))
+
+**Merged pull requests:**
+
+- fix table 样式 [\#166](https://github.com/youzan/zent/pull/166) ([linxixuan](https://github.com/linxixuan))
+- docs site [\#163](https://github.com/youzan/zent/pull/163) ([cookfront](https://github.com/cookfront))
+- HTML元素组件上不传isActive属性 [\#162](https://github.com/youzan/zent/pull/162) ([w91](https://github.com/w91))
+
+## [zent@2.0.9](https://github.com/youzan/zent/tree/zent@2.0.9) (2017-04-10)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.8...zent@2.0.9)
+
+**Merged pull requests:**
+
+- 修复变量使用错误 [\#161](https://github.com/youzan/zent/pull/161) ([NinoFocus](https://github.com/NinoFocus))
+
+## [zent@2.0.8](https://github.com/youzan/zent/tree/zent@2.0.8) (2017-04-10)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.7...zent@2.0.8)
+
+**Closed issues:**
+
+- sweetalert: support confirm button type configuration [\#146](https://github.com/youzan/zent/issues/146)
+- Dialog: 定位可能出现0.5 pixel的情况 [\#145](https://github.com/youzan/zent/issues/145)
+- zent-kit: command not found是什么问题 [\#139](https://github.com/youzan/zent/issues/139)
+- doc: use zent source code, not the transpiled code [\#135](https://github.com/youzan/zent/issues/135)
+- table: replace createClass with ES6 class [\#132](https://github.com/youzan/zent/issues/132)
+- react 版本是15.4时，console 警告 [\#130](https://github.com/youzan/zent/issues/130)
+- button组件component是a的时候props处理有问题 [\#129](https://github.com/youzan/zent/issues/129)
+- Popover: 页面失去焦点后hover trigger不关闭 [\#122](https://github.com/youzan/zent/issues/122)
+- zent-menu: multistage hover [\#97](https://github.com/youzan/zent/issues/97)
+- form的一些问题 [\#83](https://github.com/youzan/zent/issues/83)
+
+**Merged pull requests:**
+
+- feat: close popover on window blur [\#159](https://github.com/youzan/zent/pull/159) ([cpylua](https://github.com/cpylua))
+- Hotfix/rh doc 170323 [\#158](https://github.com/youzan/zent/pull/158) ([ronghang](https://github.com/ronghang))
+- Hotfix/select warning 0329 [\#157](https://github.com/youzan/zent/pull/157) ([huangsy](https://github.com/huangsy))
+- fix: center dialog with a ghost inline-block element [\#155](https://github.com/youzan/zent/pull/155) ([cpylua](https://github.com/cpylua))
+- Bugfix datetimepicker [\#154](https://github.com/youzan/zent/pull/154) ([xuhong](https://github.com/xuhong))
+- feat: expose more options in popover placement API [\#153](https://github.com/youzan/zent/pull/153) ([cpylua](https://github.com/cpylua))
+- add onFocus callback & add field active state & update control group [\#152](https://github.com/youzan/zent/pull/152) ([w91](https://github.com/w91))
+- 按照设计师的要求调整按钮颜色 [\#151](https://github.com/youzan/zent/pull/151) ([NinoFocus](https://github.com/NinoFocus))
+- input优化 [\#150](https://github.com/youzan/zent/pull/150) ([jinphen](https://github.com/jinphen))
+- Fixes \#132, replace createClass with es6 class [\#148](https://github.com/youzan/zent/pull/148) ([cpylua](https://github.com/cpylua))
+- fixes \#146. Support confirmType in sweetalert [\#147](https://github.com/youzan/zent/pull/147) ([cpylua](https://github.com/cpylua))
+- fix: allow addional attributes in link Button [\#144](https://github.com/youzan/zent/pull/144) ([cpylua](https://github.com/cpylua))
+- doc site [\#143](https://github.com/youzan/zent/pull/143) ([cookfront](https://github.com/cookfront))
+- fix for dropdown [\#140](https://github.com/youzan/zent/pull/140) ([LucasIcarus](https://github.com/LucasIcarus))
+- asyncValidation属性不要传给原生Html元素 [\#138](https://github.com/youzan/zent/pull/138) ([w91](https://github.com/w91))
+- remove utc test [\#137](https://github.com/youzan/zent/pull/137) ([xuhong](https://github.com/xuhong))
+
+## [zent@2.0.7](https://github.com/youzan/zent/tree/zent@2.0.7) (2017-03-31)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.6...zent@2.0.7)
+
+**Closed issues:**
+
+- zent-input: 支持type="textarea" [\#124](https://github.com/youzan/zent/issues/124)
+- zent-button支持传入style [\#91](https://github.com/youzan/zent/issues/91)
+- zent-select: disabled的指针样式不对 [\#90](https://github.com/youzan/zent/issues/90)
+
+**Merged pull requests:**
+
+- Update picker style [\#136](https://github.com/youzan/zent/pull/136) ([xuhong](https://github.com/xuhong))
+- Tabs without panel [\#134](https://github.com/youzan/zent/pull/134) ([ohmygod12121212](https://github.com/ohmygod12121212))
+- Doc site [\#133](https://github.com/youzan/zent/pull/133) ([cookfront](https://github.com/cookfront))
+- Hotfix/select warning 0329 [\#131](https://github.com/youzan/zent/pull/131) ([huangsy](https://github.com/huangsy))
+- 使component属性支持更多类型 [\#128](https://github.com/youzan/zent/pull/128) ([NinoFocus](https://github.com/NinoFocus))
+- refactor Pagination component to ES6 class  [\#127](https://github.com/youzan/zent/pull/127) ([SFantasy](https://github.com/SFantasy))
+- feat: 为table添加expandedRowRender API [\#126](https://github.com/youzan/zent/pull/126) ([lenghan1991](https://github.com/lenghan1991))
+- feat: support textarea [\#125](https://github.com/youzan/zent/pull/125) ([jinphen](https://github.com/jinphen))
+- Hotfix/rh doc 170323 [\#123](https://github.com/youzan/zent/pull/123) ([ronghang](https://github.com/ronghang))
+- menu: remove the dependency of popover.. [\#121](https://github.com/youzan/zent/pull/121) ([LucasIcarus](https://github.com/LucasIcarus))
+- 添加Layout、Button、Checkbox和Radio组件的文档；优化Checkbox和Radio组件在不可用状态下的样式 [\#119](https://github.com/youzan/zent/pull/119) ([NinoFocus](https://github.com/NinoFocus))
+- doc: update pagination README [\#118](https://github.com/youzan/zent/pull/118) ([SFantasy](https://github.com/SFantasy))
+- Hotfix/table pagination md [\#117](https://github.com/youzan/zent/pull/117) ([linxixuan](https://github.com/linxixuan))
+- Modify form doc & change submit throw strategy [\#115](https://github.com/youzan/zent/pull/115) ([w91](https://github.com/w91))
+- doc: update zent-tree README.md [\#114](https://github.com/youzan/zent/pull/114) ([wangchao0502](https://github.com/wangchao0502))
+- Hotfix/select doc 0323 [\#113](https://github.com/youzan/zent/pull/113) ([huangsy](https://github.com/huangsy))
+- Hotfix/steps doc update [\#112](https://github.com/youzan/zent/pull/112) ([liaoyu](https://github.com/liaoyu))
+- remove docs postcss unused config [\#111](https://github.com/youzan/zent/pull/111) ([cookfront](https://github.com/cookfront))
+- Lc doc portal [\#109](https://github.com/youzan/zent/pull/109) ([cpylua](https://github.com/cpylua))
+- doc: update pop doc [\#108](https://github.com/youzan/zent/pull/108) ([cpylua](https://github.com/cpylua))
+- style: readme修改 [\#107](https://github.com/youzan/zent/pull/107) ([ctyu](https://github.com/ctyu))
+- feat: 更新input的文档 [\#106](https://github.com/youzan/zent/pull/106) ([jinphen](https://github.com/jinphen))
+- docs site style [\#105](https://github.com/youzan/zent/pull/105) ([cookfront](https://github.com/cookfront))
+- Popover mousemove event throttled [\#103](https://github.com/youzan/zent/pull/103) ([LucasIcarus](https://github.com/LucasIcarus))
+- doc: rewrite icon doc [\#101](https://github.com/youzan/zent/pull/101) ([cpylua](https://github.com/cpylua))
+- Add doc zhengxin [\#100](https://github.com/youzan/zent/pull/100) ([lama-pacos](https://github.com/lama-pacos))
+- Hotfix/rh doc 170323 [\#99](https://github.com/youzan/zent/pull/99) ([ronghang](https://github.com/ronghang))
+- Hotfix/fix zent select bug 20170322 [\#98](https://github.com/youzan/zent/pull/98) ([lama-pacos](https://github.com/lama-pacos))
+- Update datepicker [\#93](https://github.com/youzan/zent/pull/93) ([xuhong](https://github.com/xuhong))
+
+## [zent@2.0.6](https://github.com/youzan/zent/tree/zent@2.0.6) (2017-03-22)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.5...zent@2.0.6)
+
+**Closed issues:**
+
+- zent-table: column align [\#82](https://github.com/youzan/zent/issues/82)
+- zent-tree: logic issues, some style fix [\#24](https://github.com/youzan/zent/issues/24)
+- zent-select: 'warning: unknown props' with react v15.4.2 and others.. [\#21](https://github.com/youzan/zent/issues/21)
+
+**Merged pull requests:**
+
+- Hotfix/select bugfix 0313 [\#96](https://github.com/youzan/zent/pull/96) ([huangsy](https://github.com/huangsy))
+- 增加文本对齐功能 [\#95](https://github.com/youzan/zent/pull/95) ([linxixuan](https://github.com/linxixuan))
+- fix pagination分页 [\#94](https://github.com/youzan/zent/pull/94) ([linxixuan](https://github.com/linxixuan))
+- style: 支持新ui [\#89](https://github.com/youzan/zent/pull/89) ([ctyu](https://github.com/ctyu))
+- 修改zent-tabs文档示例代码的错误 [\#88](https://github.com/youzan/zent/pull/88) ([hunnble](https://github.com/hunnble))
+- 更新getControlGroup，支持在control-group上添加自定义样式类 [\#87](https://github.com/youzan/zent/pull/87) ([w91](https://github.com/w91))
+- fix the way of Icon font-face generating without superman [\#86](https://github.com/youzan/zent/pull/86) ([LucasIcarus](https://github.com/LucasIcarus))
+- Hotfix/select bugfix 0313 [\#84](https://github.com/youzan/zent/pull/84) ([huangsy](https://github.com/huangsy))
+- Code style consistency of zent-pagination [\#76](https://github.com/youzan/zent/pull/76) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@2.0.5](https://github.com/youzan/zent/tree/zent@2.0.5) (2017-03-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.4...zent@2.0.5)
+
+**Merged pull requests:**
+
+- feat: 优化tree组建案例，优化样式 [\#81](https://github.com/youzan/zent/pull/81) ([wangchao0502](https://github.com/wangchao0502))
+- 添加 zent menu 组件 [\#75](https://github.com/youzan/zent/pull/75) ([lama-pacos](https://github.com/lama-pacos))
+
+## [zent@2.0.4](https://github.com/youzan/zent/tree/zent@2.0.4) (2017-03-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.3...zent@2.0.4)
+
+**Closed issues:**
+
+- zent-radio: disabled cursor and text color [\#20](https://github.com/youzan/zent/issues/20)
+- zent-checkbox: disabled style not consistent; group disabled logic. [\#16](https://github.com/youzan/zent/issues/16)
+
+**Merged pull requests:**
+
+- bugfix & update readme [\#80](https://github.com/youzan/zent/pull/80) ([w91](https://github.com/w91))
+- Code style consistency of zent-steps [\#79](https://github.com/youzan/zent/pull/79) ([LucasIcarus](https://github.com/LucasIcarus))
+- Update form doc & example [\#78](https://github.com/youzan/zent/pull/78) ([w91](https://github.com/w91))
+- Code style consistency of zent-popover [\#77](https://github.com/youzan/zent/pull/77) ([LucasIcarus](https://github.com/LucasIcarus))
+- 在不可用状态下，讲整个区域的数标都置成not-allowed [\#73](https://github.com/youzan/zent/pull/73) ([NinoFocus](https://github.com/NinoFocus))
+
+## [zent@2.0.3](https://github.com/youzan/zent/tree/zent@2.0.3) (2017-03-14)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.2...zent@2.0.3)
+
+**Merged pull requests:**
+
+- 修改form导出方式 [\#72](https://github.com/youzan/zent/pull/72) ([w91](https://github.com/w91))
+- 修复select部分bug [\#71](https://github.com/youzan/zent/pull/71) ([huangsy](https://github.com/huangsy))
+- 修复steps组件间隔样式及有时margin计算不准确 [\#70](https://github.com/youzan/zent/pull/70) ([liaoyu](https://github.com/liaoyu))
+- Code\_style consistency [\#69](https://github.com/youzan/zent/pull/69) ([LucasIcarus](https://github.com/LucasIcarus))
+- Fix/readme phonetic [\#65](https://github.com/youzan/zent/pull/65) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@2.0.2](https://github.com/youzan/zent/tree/zent@2.0.2) (2017-03-09)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.1...zent@2.0.2)
+
+**Merged pull requests:**
+
+- Fix range parse [\#68](https://github.com/youzan/zent/pull/68) ([xuhong](https://github.com/xuhong))
+
+## [zent@2.0.1](https://github.com/youzan/zent/tree/zent@2.0.1) (2017-03-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.0...zent@2.0.1)
+
+## [zent@2.0.0](https://github.com/youzan/zent/tree/zent@2.0.0) (2017-03-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.12-beta6...zent@2.0.0)
+
+**Closed issues:**
+
+- zent-form: 'warning: unknown props' with react v15.4.2; warning with extral input; [\#17](https://github.com/youzan/zent/issues/17)
+
+**Merged pull requests:**
+
+- Button组件添加htmlType [\#64](https://github.com/youzan/zent/pull/64) ([hunnble](https://github.com/hunnble))
+- Form upgrade [\#41](https://github.com/youzan/zent/pull/41) ([w91](https://github.com/w91))
+
+## [zent@1.0.12-beta6](https://github.com/youzan/zent/tree/zent@1.0.12-beta6) (2017-03-07)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.12-beta5...zent@1.0.12-beta6)
+
+**Merged pull requests:**
+
+- form 文档的一点微调 [\#67](https://github.com/youzan/zent/pull/67) ([LucasIcarus](https://github.com/LucasIcarus))
+- form 文档调整 [\#66](https://github.com/youzan/zent/pull/66) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@1.0.12-beta5](https://github.com/youzan/zent/tree/zent@1.0.12-beta5) (2017-03-02)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.12-beta4...zent@1.0.12-beta5)
+
+**Closed issues:**
+
+- Popover does not allow string/number as its children [\#40](https://github.com/youzan/zent/issues/40)
+- Support SSR [\#39](https://github.com/youzan/zent/issues/39)
+
+**Merged pull requests:**
+
+- Update readme and bugfix [\#63](https://github.com/youzan/zent/pull/63) ([xuhong](https://github.com/xuhong))
+- Add breadcrumb nav [\#62](https://github.com/youzan/zent/pull/62) ([lama-pacos](https://github.com/lama-pacos))
+- 文档更新: zent-utils [\#61](https://github.com/youzan/zent/pull/61) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-tree [\#60](https://github.com/youzan/zent/pull/60) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-tabs [\#59](https://github.com/youzan/zent/pull/59) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-table [\#58](https://github.com/youzan/zent/pull/58) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-pop [\#51](https://github.com/youzan/zent/pull/51) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@1.0.12-beta4](https://github.com/youzan/zent/tree/zent@1.0.12-beta4) (2017-03-01)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.12-beta3...zent@1.0.12-beta4)
+
+**Merged pull requests:**
+
+- 文档更新: zent-sweet [\#56](https://github.com/youzan/zent/pull/56) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-steps [\#55](https://github.com/youzan/zent/pull/55) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-popover [\#52](https://github.com/youzan/zent/pull/52) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@1.0.12-beta3](https://github.com/youzan/zent/tree/zent@1.0.12-beta3) (2017-02-28)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.12-beta1...zent@1.0.12-beta3)
+
+**Closed issues:**
+
+- zent-button: link mode 'warning: unknown props' with react v15.4.2  [\#15](https://github.com/youzan/zent/issues/15)
+
+**Merged pull requests:**
+
+- 文档更新: zent-switch [\#57](https://github.com/youzan/zent/pull/57) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-radio [\#54](https://github.com/youzan/zent/pull/54) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-portal [\#53](https://github.com/youzan/zent/pull/53) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-pagination [\#50](https://github.com/youzan/zent/pull/50) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-notify [\#49](https://github.com/youzan/zent/pull/49) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-loading [\#48](https://github.com/youzan/zent/pull/48) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-layout [\#47](https://github.com/youzan/zent/pull/47) ([LucasIcarus](https://github.com/LucasIcarus))
+- Fix issues\#15 [\#42](https://github.com/youzan/zent/pull/42) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@1.0.12-beta1](https://github.com/youzan/zent/tree/zent@1.0.12-beta1) (2017-02-27)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.11...zent@1.0.12-beta1)
+
+**Closed issues:**
+
+- zent-pagination: example dynamicPageSize 'warning: unknown props' with react v15.4.2 [\#19](https://github.com/youzan/zent/issues/19)
+
+**Merged pull requests:**
+
+- 文档更新: zent-input [\#46](https://github.com/youzan/zent/pull/46) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-icon [\#45](https://github.com/youzan/zent/pull/45) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新: zent-dialog [\#44](https://github.com/youzan/zent/pull/44) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新-zent-datetimepicker [\#35](https://github.com/youzan/zent/pull/35) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新-zent-checkbox [\#34](https://github.com/youzan/zent/pull/34) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新-zent-button [\#33](https://github.com/youzan/zent/pull/33) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新-zent-breadcrumb [\#32](https://github.com/youzan/zent/pull/32) ([LucasIcarus](https://github.com/LucasIcarus))
+- 文档更新-zent-alert [\#31](https://github.com/youzan/zent/pull/31) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@1.0.11](https://github.com/youzan/zent/tree/zent@1.0.11) (2017-02-24)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.11-beta1...zent@1.0.11)
+
+## [zent@1.0.11-beta1](https://github.com/youzan/zent/tree/zent@1.0.11-beta1) (2017-02-24)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.10...zent@1.0.11-beta1)
+
+**Closed issues:**
+
+- zent-tree remove object.assign package [\#30](https://github.com/youzan/zent/issues/30)
+
+**Merged pull requests:**
+
+- fix: 添加 table header 的 unmount 逻辑, 删除事件监听 [\#38](https://github.com/youzan/zent/pull/38) ([lama-pacos](https://github.com/lama-pacos))
+
+## [zent@1.0.10](https://github.com/youzan/zent/tree/zent@1.0.10) (2017-02-24)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.10-beta2...zent@1.0.10)
+
+## [zent@1.0.10-beta2](https://github.com/youzan/zent/tree/zent@1.0.10-beta2) (2017-02-24)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.10-beta1...zent@1.0.10-beta2)
+
+**Merged pull requests:**
+
+- Refactor pop [\#37](https://github.com/youzan/zent/pull/37) ([cpylua](https://github.com/cpylua))
+
+## [zent@1.0.10-beta1](https://github.com/youzan/zent/tree/zent@1.0.10-beta1) (2017-02-22)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.9...zent@1.0.10-beta1)
+
+**Merged pull requests:**
+
+- feat: zent-tabs空间支持tab传react组件 [\#36](https://github.com/youzan/zent/pull/36) ([ctyu](https://github.com/ctyu))
+- npm\_sync shell [\#27](https://github.com/youzan/zent/pull/27) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@1.0.9](https://github.com/youzan/zent/tree/zent@1.0.9) (2017-02-22)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.8...zent@1.0.9)
+
+**Closed issues:**
+
+- zent-table [\#25](https://github.com/youzan/zent/issues/25)
+- zent-tabs: style bugs [\#23](https://github.com/youzan/zent/issues/23)
+- zent-input: example 02/03/04  'warning: unknown props' with react v15.4.2 [\#18](https://github.com/youzan/zent/issues/18)
+
+**Merged pull requests:**
+
+- Hotfix/20170222 fix zent tabs style lcj [\#26](https://github.com/youzan/zent/pull/26) ([ctyu](https://github.com/ctyu))
+- Pop arrow at center [\#13](https://github.com/youzan/zent/pull/13) ([cpylua](https://github.com/cpylua))
+
+## [zent@1.0.8](https://github.com/youzan/zent/tree/zent@1.0.8) (2017-02-17)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.7...zent@1.0.8)
+
+**Merged pull requests:**
+
+- fix range time display logic [\#10](https://github.com/youzan/zent/pull/10) ([xuhong](https://github.com/xuhong))
+- fix: update package.json description [\#9](https://github.com/youzan/zent/pull/9) ([cpylua](https://github.com/cpylua))
+- feat: add onShow and onClose callback for Pop [\#8](https://github.com/youzan/zent/pull/8) ([cpylua](https://github.com/cpylua))
+- Fix year panel display [\#7](https://github.com/youzan/zent/pull/7) ([xuhong](https://github.com/xuhong))
+- DateTimePicker组件的单元测试 [\#6](https://github.com/youzan/zent/pull/6) ([LucasIcarus](https://github.com/LucasIcarus))
+
+## [zent@1.0.7](https://github.com/youzan/zent/tree/zent@1.0.7) (2017-02-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.6...zent@1.0.7)
+
+## [zent@1.0.6](https://github.com/youzan/zent/tree/zent@1.0.6) (2017-02-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.4...zent@1.0.6)
+
+**Merged pull requests:**
+
+- 修改table的垂直居中，支持em等其他单位的宽度 [\#5](https://github.com/youzan/zent/pull/5) ([linxixuan](https://github.com/linxixuan))
+
+## [zent@1.0.4](https://github.com/youzan/zent/tree/zent@1.0.4) (2017-02-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.4-beta3...zent@1.0.4)
+
+## [zent@1.0.4-beta3](https://github.com/youzan/zent/tree/zent@1.0.4-beta3) (2017-02-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.4-beta1...zent@1.0.4-beta3)
+
+**Merged pull requests:**
+
+- table的空样式 [\#4](https://github.com/youzan/zent/pull/4) ([linxixuan](https://github.com/linxixuan))
+
+## [zent@1.0.4-beta1](https://github.com/youzan/zent/tree/zent@1.0.4-beta1) (2017-02-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.3...zent@1.0.4-beta1)
+
+## [zent@1.0.3](https://github.com/youzan/zent/tree/zent@1.0.3) (2017-02-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.2...zent@1.0.3)
+
+**Merged pull requests:**
+
+- Fix value return [\#3](https://github.com/youzan/zent/pull/3) ([xuhong](https://github.com/xuhong))
+- flex-style-table [\#1](https://github.com/youzan/zent/pull/1) ([linxixuan](https://github.com/linxixuan))
+
+## [zent@1.0.2](https://github.com/youzan/zent/tree/zent@1.0.2) (2017-02-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.1...zent@1.0.2)
+
+## [zent@1.0.1](https://github.com/youzan/zent/tree/zent@1.0.1) (2017-02-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.0...zent@1.0.1)
+
+**Merged pull requests:**
+
+- Fix format bug [\#2](https://github.com/youzan/zent/pull/2) ([xuhong](https://github.com/xuhong))
+
+## [zent@1.0.0](https://github.com/youzan/zent/tree/zent@1.0.0) (2017-02-10)
+
+
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*

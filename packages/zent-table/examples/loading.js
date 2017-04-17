@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Table from '../src/index.js';
 
 import '../assets/index.scss';
@@ -33,15 +33,13 @@ const columns = [{
   width: 20
 }];
 
-const Simple = React.createClass({
-  getInitialState() {
-    return {
-      limit: 10,
-      current: 0,
-      total: 101,
-      loading: true
-    };
-  },
+class Simple extends Component {
+  state = {
+    limit: 10,
+    current: 0,
+    total: 101,
+    loading: true
+  };
 
   // 用定时器模拟loading
   componentWillMount() {
@@ -51,11 +49,11 @@ const Simple = React.createClass({
         loading: false
       });
     }, 3000);
-  },
+  }
 
-  onChange(conf) {
+  onChange = (conf) => {
     this.setState(conf);
-  },
+  };
 
   render() {
     return (
@@ -68,6 +66,6 @@ const Simple = React.createClass({
       />
     );
   }
-});
+}
 
 export default Simple;

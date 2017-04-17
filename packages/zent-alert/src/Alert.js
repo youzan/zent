@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import cx from 'zent-utils/classnames';
+import PropTypes from 'zent-utils/prop-types';
 import isFunction from 'zent-utils/lodash/isFunction';
 
 // 忽略不支持的style

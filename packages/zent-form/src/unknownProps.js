@@ -4,6 +4,7 @@ export default [
   'isTouched',
   'isPristine',
   'isValid',
+  'isActive',
   'error',
   'errors',
   'validationError',

@@ -1,9 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import cx from 'zent-utils/classnames';
 import Portal from 'zent-portal';
 import WindowResizeHandler from 'zent-utils/lib/component/WindowResizeHandler';
 import findPositionedParent from 'zent-utils/lib/dom/findPositionedParent';
 import throttle from 'zent-utils/lodash/throttle';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import invisiblePlacement from './placement/invisible';
 

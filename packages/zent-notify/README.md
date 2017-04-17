@@ -97,5 +97,5 @@ ReactDOM.render(
 | 参数       | 说明            | 类型     | 默认值    |
 | -------- | ------------- | ------ | ------ |
 | text     | notify通知文案    | any   | `''`   |
-| duration | 持续时间          | number | `3000` |
+| duration | 持续时间          | number | `2000` |
 | callback | 自定义notify结束回调 | func   |        |

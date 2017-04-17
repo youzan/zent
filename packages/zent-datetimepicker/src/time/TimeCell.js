@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import { noop } from '../constants';
 
 export default class TimeCell extends Component {

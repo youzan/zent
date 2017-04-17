@@ -1,22 +1,28 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import omit from 'zent-utils/lodash/omit';
 
 import ZentForm from '../src';
 import Option from 'zent-select';
 
 describe('GetControlGroup and Component_Fields', () => {
-  const { Form, createForm, Field, getControlGroup } = ZentForm;
+  const { Form, createForm, Field, getControlGroup, unknownProps } = ZentForm;
   const FormCreated = createForm()(Form);
+  const DivComponent = props => {
+    const passableProps = omit(props, unknownProps);
+    return <div {...passableProps} />;
+  };
   const context = mount(
     <FormCreated>
-      <Field name="bar" component={props => (<div {...props} />)} />
+      <Field name="bar" component={DivComponent} />
     </FormCreated>
   ).find(Field).getNode().context;
 
   it('will render default structure with example usage(as component prop of Field)', () => {
     class Input extends React.Component {
       render() {
-        return <input type="text" {...this.props} />;
+        const passableProps = omit(this.props, unknownProps);
+        return <input type="text" {...passableProps} />;
       }
     }
     const addtionInput = getControlGroup(Input);
@@ -35,7 +41,11 @@ describe('GetControlGroup and Component_Fields', () => {
   });
 
   it('ControlGroup have three render switch: required, helpDesc and showError', () => {
-    const addtionInput = getControlGroup(props => (<input type="text" {...props} />));
+    const Input = (props) => {
+      const passableProps = omit(props, unknownProps);
+      return <input type="text" {...passableProps} />
+    };
+    const addtionInput = getControlGroup(Input);
     const wrapper = mount(<Field name="foo" component={addtionInput} required helpDesc={'foo'} validations={{ isEmail: true }} validationErrors={{ isEmail: '必须输入有效的Email地址' }} />, { context });
     expect(wrapper.find('.zent-form__required').length).toBe(1);
     expect(wrapper.find('.zent-form__required').text()).toBe('*');

@@ -1,22 +1,25 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App';
-import navConfig from '../nav.config.js';
+import navConfig from './nav.config.js';
 import routes from './router.config';
-import SideNav from './components/side-nav';
-import DemoBlock from './components/demo-block';
-import FooterNav from './components/footer-nav';
-import PageHeader from './components/page-header';
-import PageFooter from './components/page-footer';
+import packageJson from '../../packages/zent/package.json';
+
+import '../assets/docs.css';
+import '../assets/react-docs.css';
+
+const global = {
+  version: packageJson.version
+};
+window._global = global;
 
 Vue.use(VueRouter);
-Vue.component('side-nav', SideNav);
-Vue.component('demo-block', DemoBlock);
-Vue.component('footer-nav', FooterNav);
-Vue.component('page-header', PageHeader);
-Vue.component('page-footer', PageFooter);
 
 let routesConfig = routes(navConfig, true);
+routesConfig.push({
+  path: '*',
+  redirect: '/component'
+});
 
 const router = new VueRouter({
   mode: 'history',
@@ -30,14 +33,6 @@ router.beforeEach((route, redirect, next) => {
   }
   document.title = route.meta.title || document.title;
   next();
-});
-
-router.afterEach((route) => {
-  if (route.path !== '/') {
-    // const sideNavBox = document.querySelector('.side-nav');
-    // const pageContentBox = document.querySelector('.page-content');
-    // pageContentBox.style.height = Math.max(sideNavBox && sideNavBox.clientHeight, pageContentBox && pageContentBox.clientHeight) + 'px';
-  }
 });
 
 new Vue({ // eslint-disable-line

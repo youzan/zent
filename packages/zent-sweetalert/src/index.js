@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Button from 'zent-button';
 import { openDialog } from 'zent-dialog';
 import Icon from 'zent-icon';
+import PropTypes from 'zent-utils/prop-types';
 import cx from 'zent-utils/classnames';
 
 const titleIconMap = {
@@ -53,6 +54,10 @@ class ActionButton extends Component {
       value.then(() => {
         // 马上就关闭了，没必要setState({loading: true})
         close();
+      }, () => {
+        this.setState({
+          loading: false
+        });
       });
       return;
     }

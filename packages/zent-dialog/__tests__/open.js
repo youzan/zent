@@ -1,4 +1,4 @@
-import { openDialog } from '../src';
+import { openDialog, closeDialog } from '../src';
 
 describe('Dialog component', () => {
   let close;
@@ -52,6 +52,8 @@ describe('Dialog component', () => {
 
     expect(dialog.refs).toBeDefined();
     expect(dialog.refs.stringRefNotWorking).toBeUndefined();
+
+    unmount();
   });
 
   it('skips onClose callback if `false` is passed as argument to close', () => {
@@ -77,5 +79,39 @@ describe('Dialog component', () => {
     // should be a noop when called multiple times
     close();
     expect(onClose.mock.calls.length).toBe(1);
+  });
+
+  it('closeDialog close a given dialog', () => {
+    openDialog({
+      dialogId: 'foobar',
+      title: 'hello',
+      children: 'content'
+    });
+    expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
+    closeDialog('foobar');
+    jest.runOnlyPendingTimers();
+    expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(0);
+  });
+
+  it('closeDialog is a noop if dialogId not found', () => {
+    expect(() => closeDialog('quux')).not.toThrow();
+  });
+
+  it('openDialog throws if dialogId has duplicates', () => {
+    openDialog({
+      dialogId: 'foobar',
+      title: 'hello',
+      children: 'content'
+    });
+
+    expect(() => {
+      openDialog({
+        dialogId: 'foobar',
+        title: 'hello',
+        children: 'content'
+      });
+    }).toThrow();
+
+    unmount();
   });
 });

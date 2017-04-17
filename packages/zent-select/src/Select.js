@@ -2,7 +2,7 @@
  * Select
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import assign from 'zent-utils/lodash/assign';
 import omit from 'zent-utils/lodash/omit';
 import cloneDeep from 'zent-utils/lodash/cloneDeep';
@@ -14,6 +14,7 @@ import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
+import PropTypes from 'zent-utils/prop-types';
 import { KEY_ESC, KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 
 const noop = () => void 0;
@@ -82,7 +83,7 @@ class Select extends Component {
   componentWillReceiveProps(nextProps) {
     let { open } = this.state;
     // 重置组件data
-    open = typeof this.focus === 'undefined' ? open : this.focus;
+    open = nextProps.open || this.focus;
     let nextState = { ...nextProps, open };
     let selectedItems = [];
     if (nextProps.data === this.state.data
@@ -190,7 +191,7 @@ class Select extends Component {
   }
 
   popupFocusHandler() {
-    this.focus = true;
+    this.focus = this.state.open;
   }
 
   popupBlurHandler() {

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, PropTypes, createElement } from 'react';
+import { Component, createElement } from 'react';
 import omit from 'zent-utils/lodash/omit';
 import find from 'zent-utils/lodash/find';
 import noop from 'zent-utils/lodash/noop';
@@ -10,6 +10,7 @@ import some from 'zent-utils/lodash/some';
 import isPromise from 'zent-utils/isPromise';
 import { getDisplayName, silenceEvent, silenceEvents } from './utils';
 import rules from './validationRules';
+import PropTypes from 'zent-utils/prop-types';
 import handleSubmit from './handleSubmit';
 
 const emptyArray = [];
@@ -23,7 +24,7 @@ const createForm = (config = {}) => {
   const { formValidations } = config;
   const validationRules = assign({}, rules, formValidations);
 
-  return WrappedComponent => {
+  return WrappedForm => {
     return class Form extends Component {
       constructor(props) {
         super(props);
@@ -35,8 +36,8 @@ const createForm = (config = {}) => {
         this._isMounted = false;
       }
 
-      static displayName = `Form(${getDisplayName(WrappedComponent)})`
-      static WrappedComponent = WrappedComponent
+      static displayName = `Form(${getDisplayName(WrappedForm)})`
+      static WrappedForm = WrappedForm
 
       static propTypes = {
         onSubmit: PropTypes.func,
@@ -431,6 +432,10 @@ const createForm = (config = {}) => {
         this.validateForm();
       }
 
+      getWrappedForm = () => {
+        return this.wrappedForm;
+      }
+
       render() {
         const passableProps = omit(this.props, [
           'validationErrors',
@@ -438,8 +443,11 @@ const createForm = (config = {}) => {
           'onChange'
         ]);
 
-        return createElement(WrappedComponent, {
+        return createElement(WrappedForm, {
           ...passableProps,
+          ref: (ref) => {
+            this.wrappedForm = ref;
+          },
           handleSubmit: this.submit,
           zentForm: {
             getFormValues: this.getFormValues,

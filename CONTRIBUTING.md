@@ -32,7 +32,8 @@ yarn run bootstrap
 **注意：不是所有人都有发包权限的**
 
 1. 更新代码到最新: `git pull`
-2. `./scripts/publish.sh` 选择需要的版本即可
+2. 安装 `superman` 以及 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator)
+3. `./scripts/publish.sh` 选择需要的版本即可
 
 ## Tips
 

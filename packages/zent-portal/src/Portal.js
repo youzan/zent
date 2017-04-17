@@ -1,5 +1,7 @@
-import { Component, PropTypes } from 'react';
+import { Component } from 'react';
 import isEqual from 'zent-utils/lodash/isEqual';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import * as util from './util';
 

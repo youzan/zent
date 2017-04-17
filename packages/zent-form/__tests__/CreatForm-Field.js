@@ -1,25 +1,31 @@
 import React from 'react';
 import noop from 'zent-utils/lodash/noop';
+import omit from 'zent-utils/lodash/omit';
+import PropTypes from 'zent-utils/prop-types';
 import { mount } from 'enzyme';
 
 import ZentForm from '../src';
 
 describe('CreateForm and Field', () => {
-  const { Form, createForm, Field, InputField } = ZentForm;
+  const { Form, createForm, Field, InputField, unknownProps } = ZentForm;
   const returnedFunction = createForm();
-  const DivCreated = returnedFunction('div');
+  // const DivCreated = returnedFunction('div');
   const FormCreated = returnedFunction(Form);
+  const DivComponent = props => {
+    const passableProps = omit(props, unknownProps);
+    return <div {...passableProps} />;
+  };
   const context = mount(
     <FormCreated>
-      <Field name="bar" component={props => (<div {...props} />)} />
+      <Field name="bar" component={DivComponent} />
     </FormCreated>
   ).find(Field).getNode().context;
 
   it('createForm return a function that have arg[0] using react.createElement.\nThat returnedFunction return a react class with default state, props, methods', () => {
     expect(typeof returnedFunction).toBe('function');
-    let wrapper = mount(<DivCreated />);
-    expect(wrapper.find('div').length).toBe(1);
-    wrapper = mount(<FormCreated />);
+    // let wrapper = mount(<DivCreated />);
+    // expect(wrapper.find('div').length).toBe(1);
+    const wrapper = mount(<FormCreated />);
     expect(wrapper.find('form').length).toBe(1);
     expect(wrapper.props().onValid).toBe(noop);
     expect(wrapper.props().onInvalid).toBe(noop);
@@ -32,6 +38,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('isSubmitting')).toBe(false);
     expect(wrapper.getNode().fields.length).toBe(0);
     expect(wrapper.getNode()._isMounted).toBe(true);
+    expect(wrapper.getNode().getWrappedForm() instanceof Form).toBe(true);
   });
 
   // HACK: console.error
@@ -46,12 +53,12 @@ describe('CreateForm and Field', () => {
   it('While render, Field will load default state and contextObj from created zent-form', () => {
     const nestedWrapper = mount(
       <FormCreated>
-        <Field name="bar" component={props => (<div {...props} />)} />
+        <Field name="bar" component={DivComponent} />
       </FormCreated>
     );
     expect(nestedWrapper.find(Field).length).toBe(1);
     expect(typeof nestedWrapper.find(Field).getNode().context.zentForm).toBe('object');
-    const wrapper = mount(<Field name="foo" component={props => (<div {...props} />)} />, { context });
+    const wrapper = mount(<Field name="foo" component={DivComponent} />, { context });
     expect(typeof wrapper.context('zentForm')).toBe('object');
     expect(wrapper.state('_value')).toBe(undefined);
     expect(wrapper.state('_isValid')).toBe(true);
@@ -73,7 +80,7 @@ describe('CreateForm and Field', () => {
   });
 
   it('Field have componentWillRecieveProps method', () => {
-    const wrapper = mount(<Field name="foo" component={props => (<div {...props} />)} />, { context });
+    const wrapper = mount(<Field name="foo" component={DivComponent} />, { context });
     expect(Object.keys(wrapper.getNode()._validations).length).toBe(0);
     const validationsObj = { foo: noop };
     wrapper.setProps({ validations: validationsObj });
@@ -84,7 +91,7 @@ describe('CreateForm and Field', () => {
     const contextCopy = Object.assign({}, context, {});
     const validateMock = jest.fn();
     contextCopy.zentForm.validate = validateMock;
-    const wrapper = mount(<Field name="foo" component={props => (<div {...props} />)} />, { context: contextCopy });
+    const wrapper = mount(<Field name="foo" component={DivComponent} />, { context: contextCopy });
     expect(wrapper.state('_value')).toBe(undefined);
     wrapper.setProps({ value: 'foo' });
     expect(validateMock.mock.calls.length).toBe(1);
@@ -127,10 +134,10 @@ describe('CreateForm and Field', () => {
 
   it('Field can have format prop(function), and it will be excuted before Field rendered', () => {
     const formatMock = jest.fn().mockImplementation(val => val.toUpperCase());
-    const wrapper = mount(<Field name="foofoo" component={props => (<div {...props} />)} format={formatMock} value="aaa" />, { context });
+    const wrapper = mount(<Field name="foofoo" component={DivComponent} format={formatMock} value="aaa" />, { context });
     // format影响value的渲染，但不影响实际保存的value值
     expect(wrapper.state('_value')).toBe('aaa');
-    expect(wrapper.find('component').prop('value')).toBe('AAA');
+    expect(wrapper.find(DivComponent).prop('value')).toBe('AAA');
   });
 
   it('Field can have normalize prop(function), and it will be excuted with change event', () => {
@@ -139,15 +146,15 @@ describe('CreateForm and Field', () => {
     const getFormValuesMock = jest.fn().mockImplementation(() => fakeReturnedPre);
     const contextCopy = Object.assign({}, context, {});
     contextCopy.zentForm.getFormValues = getFormValuesMock;
-    const wrapper = mount(<Field name="foofoo" component={props => (<div {...props} />)} normalize={normalizeMock} value="init" />, { context: contextCopy });
+    const wrapper = mount(<Field name="foofoo" component={DivComponent} normalize={normalizeMock} value="init" />, { context: contextCopy });
     // Field初始化时不会调用normalize
-    expect(wrapper.find('component').prop('value')).toBe('init');
+    expect(wrapper.find(DivComponent).prop('value')).toBe('init');
     expect(wrapper.state('_value')).toBe('init');
     expect(normalizeMock.mock.calls.length).toBe(0);
     expect(getFormValuesMock.mock.calls.length).toBe(0);
     // 触发change后调用normalize
     wrapper.simulate('change', { target: { value: 'eve' } });
-    expect(wrapper.find('component').prop('value')).toBe('fbeve');
+    expect(wrapper.find(DivComponent).prop('value')).toBe('fbeve');
     expect(normalizeMock.mock.calls.length).toBe(1);
     expect(getFormValuesMock.mock.calls.length).toBe(1);
     expect(normalizeMock.mock.calls[0][0]).toBe('eve');
@@ -208,7 +215,7 @@ describe('CreateForm and Field', () => {
   it('CreatedForm will revalidate when names of fields change, and it has reset method which will be excuted with another revalidate', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: React.PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired
       }
 
       static defaultProps = {
@@ -246,7 +253,7 @@ describe('CreateForm and Field', () => {
   it('CreatedForm have isValid and getFieldError methods', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: React.PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired
       }
 
       static defaultProps = {
@@ -275,7 +282,7 @@ describe('CreateForm and Field', () => {
   it('CreatedForm have an unused function "isValidValue"', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: React.PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired
       }
 
       static defaultProps = {
@@ -302,8 +309,8 @@ describe('CreateForm and Field', () => {
     // NOTE: each of them has an unreachable else branch
     class FormForTest extends React.Component {
       static propTypes = {
-        foo: React.PropTypes.bool.isRequired,
-        bar: React.PropTypes.bool.isRequired
+        foo: PropTypes.bool.isRequired,
+        bar: PropTypes.bool.isRequired
       }
 
       static defaultProps = {
@@ -346,7 +353,7 @@ describe('CreateForm and Field', () => {
 
     class FormWithUndef extends React.Component {
       static propTypes = {
-        vals: React.PropTypes.any
+        vals: PropTypes.any
       }
 
       render() {
@@ -368,11 +375,11 @@ describe('CreateForm and Field', () => {
 
     class FormForTest extends React.Component {
       static propTypes = {
-        hackSwitch: React.PropTypes.bool,
-        showSwitch: React.PropTypes.shape({
-          foo: React.PropTypes.bool,
-          bar: React.PropTypes.bool,
-          fooBar: React.PropTypes.bool,
+        hackSwitch: PropTypes.bool,
+        showSwitch: PropTypes.shape({
+          foo: PropTypes.bool,
+          bar: PropTypes.bool,
+          fooBar: PropTypes.bool,
         })
       }
 
@@ -445,7 +452,6 @@ describe('CreateForm and Field', () => {
     }
     let TempForm = createForm()(FormForAsyncValidation);
     let wrapper = mount(<TempForm />);
-    let field = wrapper.find(Field);
     let input = wrapper.find('input');
     expect(wrapper.getNode().isValidating()).toBe(false);
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
