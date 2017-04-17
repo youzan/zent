@@ -19,13 +19,18 @@ function locate(anchorBoundingBox, containerBoundingBox, contentDimension, optio
 
   let horizontal;
   let vertical;
-  if (anchorBoundingBoxViewport.left + contentDimension.width > viewport.width) {
+
+  // 只有当左边放不下，并且右边能够放下的时候才移动到右边
+  if (anchorBoundingBoxViewport.left + contentDimension.width > viewport.width &&
+      anchorBoundingBoxViewport.right - contentDimension.width > 0) {
     horizontal = 'Right';
   } else {
     horizontal = 'Left';
   }
 
-  if (anchorBoundingBoxViewport.top + anchorBoundingBoxViewport.height + cushion + contentDimension.height > viewport.height) {
+  // 只有当下面放不下，并且上面能够放下时才移动到上面
+  if (anchorBoundingBoxViewport.top + anchorBoundingBoxViewport.height + cushion + contentDimension.height > viewport.height &&
+      anchorBoundingBoxViewport.top - cushion - contentDimension.height > 0) {
     vertical = 'Top';
   } else {
     vertical = 'Bottom';

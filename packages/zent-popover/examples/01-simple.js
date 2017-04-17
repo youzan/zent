@@ -116,6 +116,18 @@ export default class Simple extends Component {
             <div>line two focus</div>
           </PopoverContent>
         </Popover>
+
+        {separator}
+
+        <Popover position={Popover.Position.AutoBottomLeft} display="inline" cushion={5}>
+          <PopoverClickTrigger>
+            click me
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+            <div>line two</div>
+          </PopoverContent>
+        </Popover>
       </div>
     );
   }
