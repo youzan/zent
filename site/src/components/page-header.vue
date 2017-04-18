@@ -1,33 +1,33 @@
 <template>
   <div class="page-header">
-    <h1 class="page-header__logo">
-      <a href="#"></a>
-    </h1>
-    <ul class="page-header__navs">
+    <div class="page-header__top">
+      <h1 class="page-header__logo">
+        <a href="#"></a>
+      </h1>
+      <ul class="page-header__navs">
+        <li class="page-header__item">
+          <a href="#" class="page-header__link">首页</a>
+        </li>
+        <li class="page-header__item">
+          <a href="#" class="page-header__link page-header__link--active">PC端</a>
+        </li>
+        <li class="page-header__item">
+          <a href="#" class="page-header__link">移动端</a>
+        </li>
+        <li class="page-header__item">
+          <a href="#" class="page-header__link">微信小程序</a>
+        </li>
+      </ul>
+    </div>
+    <ul class="page-header__subnavs" :class="{ 'page-header__subnavs--shadow': scrollTop > 0 }">
       <li class="page-header__item">
-        <a href="#" class="page-header__link">首页</a>
+        <a href="http://react.fe.qima-inc.com" class="page-header__link page-header__link--active">基础组件</a>
       </li>
       <li class="page-header__item">
-        <a href="#" class="page-header__link page-header__link--active">PC端</a>
+        <a href="http://react.fe.qima-inc.com/react-components" class="page-header__link">业务组件</a>
       </li>
       <li class="page-header__item">
-        <a href="#" class="page-header__link">移动端</a>
-      </li>
-      <li class="page-header__item">
-        <a href="#" class="page-header__link">微信小程序</a>
-      </li>
-    </ul>
-    <ul class="page-header__subnavs">
-      <li class="page-header__item">
-        <a href="#" class="page-header__link page-header__link--active">基础组件</a>
-      </li>
-      <!--
-      <li class="page-header__item">
-        <a href="#" class="page-header__link">业务组件</a>
-      </li>
-      -->
-      <li class="page-header__item">
-        <span class="page-header__link">V{{version}}</span>
+        <a class="page-header__link" href="https://github.com/youzan/zent">V{{version}}</a>
       </li>
       <li class="page-header__item">
         <a href="https://github.com/youzan/zent" class="page-header__github" target="_blank"></a>
@@ -40,8 +40,21 @@
 export default {
   data() {
     return {
-      version: window._global.version
+      version: window._global.version,
+      scrollTop: 0
     };
+  },
+
+  mounted() {
+    const _this = this;
+    let timer;
+    window.addEventListener('scroll', () => {
+      clearTimeout(timer);
+      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      let timer = setTimeout(() => {
+        _this.scrollTop = scrollTop;
+      }, 500);
+    });
   }
 };
 </script>
@@ -49,9 +62,17 @@ export default {
 <style>
 @component-namespace page {
   @b header {
-    height: 60px;
-    background-color: #fbfbfb;
-    position: relative;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+
+    @e top {
+      overflow: hidden;
+      height: 60px;
+      background-color: #fbfbfb;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+    }
 
     @e logo {
       float: left;
@@ -73,15 +94,20 @@ export default {
 
     @e item {
       float: left;
+      height: 50px;
     }
 
     @e subnavs {
-      position: absolute;
       line-height: 50px;
-      top: 60px;
       display: flex;
       justify-content: center;
-      width: 100%;
+      background-color: #f2f2f2;
+      position: relative;
+      z-index: -1;
+
+      @m shadow {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+      }
 
       a,
       span {
