@@ -28,7 +28,7 @@ ReactDOM.render(
 	<Alert>
 		<Icon type="error-circle" />
 		<span>警告：交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</span>
-		<a href="//youzan.com" target="_blank">立即订购</a>
+		<a href="" onClick={e => e.preventDefault()}>立即订购</a>
 	</Alert>
 	, mountNode
 )
