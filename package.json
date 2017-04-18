@@ -22,10 +22,10 @@
   "dependencies": {},
   "files": [],
   "devDependencies": {
-    "enzyme": "2.6.x",
+    "enzyme": "2.8.x",
     "lerna": "2.0.0-beta.38",
-    "react": "15.0.2",
-    "react-addons-test-utils": "15.0.2",
-    "react-dom": "15.0.2"
+    "react": "15.5.x",
+    "react-dom": "15.5.x",
+    "react-test-renderer": "15.5.x"
   }
 }

@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CommonMenu from './CommonMenu';
+import PropTypes from 'zent-utils/prop-types';
 import cx from 'zent-utils/classnames';
 
 export default class PopupMenu extends CommonMenu {

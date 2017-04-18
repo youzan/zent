@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 
 import Button from '../src/Button';
 
@@ -152,6 +152,9 @@ describe('<Button />', () => {
   });
 
   test('Button htmlType', () => {
+    mount(<Button />);
+    expect(buttonNode.type).toBe('button');
+
     mount(<Button htmlType="submit" />);
     expect(buttonNode.type).toBe('submit');
 

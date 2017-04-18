@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Table from '../src/index.js';
 
 import '../assets/index.scss';
@@ -34,18 +34,16 @@ const columns = [{
   name: 'sold_num'
 }];
 
-const Simple = React.createClass({
-  getInitialState() {
-    return {
-      limit: 10,
-      current: 0,
-      total: 101
-    };
-  },
+class Simple extends Component {
+  state = {
+    limit: 10,
+    current: 0,
+    total: 101
+  };
 
-  onChange(conf) {
+  onChange = (conf) => {
     this.setState(conf);
-  },
+  };
 
   render() {
     return (
@@ -57,6 +55,6 @@ const Simple = React.createClass({
       />
     );
   }
-});
+}
 
 export default Simple;

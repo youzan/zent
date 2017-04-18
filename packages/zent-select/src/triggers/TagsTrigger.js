@@ -2,7 +2,8 @@
  * TagsTrigger
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import Tag from '../components/Tag';
 
 const noop = function () {};

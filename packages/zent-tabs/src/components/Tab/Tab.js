@@ -1,18 +1,19 @@
+import PropTypes from 'zent-utils/prop-types';
 import React from 'react';
 
 function noop() {}
 
 class Tab extends React.Component {
   static propTypes = {
-    prefix: React.PropTypes.string,
-    actived: React.PropTypes.bool,
-    disabled: React.PropTypes.bool,
-    id: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    minWidth: React.PropTypes.string,
-    onSelected: React.PropTypes.func,
-    onDelete: React.PropTypes.func,
-    candel: React.PropTypes.bool,
-    uniqueId: React.PropTypes.number
+    prefix: PropTypes.string,
+    actived: PropTypes.bool,
+    disabled: PropTypes.bool,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    minWidth: PropTypes.string,
+    onSelected: PropTypes.func,
+    onDelete: PropTypes.func,
+    candel: PropTypes.bool,
+    uniqueId: PropTypes.number
   };
 
   static defaultProps = {

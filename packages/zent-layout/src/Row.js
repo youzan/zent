@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import cx from 'zent-utils/classnames';
 
 export default class Row extends Component {
 
   static propTypes = {
-    className: React.PropTypes.string,
-    prefix: React.PropTypes.string
+    className: PropTypes.string,
+    prefix: PropTypes.string
   }
 
   static defaultProps = {

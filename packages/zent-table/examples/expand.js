@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Table from '../src/index.js';
 
 import '../assets/index.scss';
@@ -36,30 +36,28 @@ const columns = [{
   width: 20
 }];
 
-const Simple = React.createClass({
-  getInitialState() {
-    return {
-      limit: 10,
-      current: 0,
-      total: 101,
-      sortBy: 'bro_uvpv',
-      sortType: 'desc',
-      rowKey: 'item_id',
-      selectedRowKeys: [],
-    };
-  },
+class Simple extends Component {
+  state = {
+    limit: 10,
+    current: 0,
+    total: 101,
+    sortBy: 'bro_uvpv',
+    sortType: 'desc',
+    rowKey: 'item_id',
+    selectedRowKeys: [],
+  };
 
-  onChange(conf) {
+  onChange = (conf) => {
     this.setState(conf);
     // console.log(conf); // eslint-disable-line
-  },
+  };
 
-  onSelect(selectedRowKeys) {
+  onSelect = (selectedRowKeys) => {
     this.setState({
       selectedRowKeys
     });
     // console.log(`你选中了：${selectedRowKeys}`); // eslint-disable-line
-  },
+  };
 
   render() {
     let self = this;
@@ -98,6 +96,6 @@ const Simple = React.createClass({
       />
     );
   }
-});
+}
 
 export default Simple;

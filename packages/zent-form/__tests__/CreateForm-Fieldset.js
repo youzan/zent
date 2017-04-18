@@ -1,18 +1,23 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import omit from 'zent-utils/lodash/omit';
 
 import ZentForm from '../src';
 
 describe('CreateForm and Fieldset', () => {
-  const { Form, createForm, Field, Fieldset } = ZentForm;
+  const { Form, createForm, Field, Fieldset, unknownProps } = ZentForm;
   const returnedFunction = createForm();
   const FormCreated = returnedFunction(Form);
+  const DivComponent = props => {
+    const passableProps = omit(props, unknownProps);
+    return <div {...passableProps} />;
+  };
 
   it('Fieldset can have legend prop', () => {
     const nestedWrapper = mount(
       <FormCreated>
         <Fieldset legend="legend1">
-          <Field name="bar" component={props => (<div {...props} />)} />
+          <Field name="bar" component={DivComponent} />
         </Fieldset>
       </FormCreated>
     );

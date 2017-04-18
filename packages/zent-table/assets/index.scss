@@ -6,7 +6,6 @@ $orange: #f60;
 .zent-table {
     box-sizing: border-box;
     margin-bottom:20px;
-    border: 1px solid #e5e5e5;
     width:100%;
     // border-spacing: 0;
     a {
@@ -21,10 +20,7 @@ $orange: #f60;
 
     .tr {
         display: flex;
-        border-bottom:1px solid #DCDCDC;
-        &:last-child {
-            border-bottom:none;
-        }
+        border-bottom:1px solid #E5E5E5;
     }
 
     .expanded-item {
@@ -52,7 +48,14 @@ $orange: #f60;
     .tbody {
         .tr {
             &:hover {
-                background: #f8f8f8;
+                .td,
+                .cell {
+                    background: #f8f8f8;
+                }
+
+                .empty-data {
+                    background: transparent;
+                }
             }
             &--expanded {
                 background-color: #F8F8F8;
@@ -83,16 +86,21 @@ $orange: #f60;
                 }
             }
         }
+        .cell {
+            min-height: 30px;
+        }
     }
 
     .cell {
         position: relative;
-        display: inline-block;
+        display: flex;
         flex: auto;
         flex-basis: 0;
         align-self: center;
-        padding:18px;
+        padding:10px;
         padding-left:0;
+        min-height: 20px;
+        align-items: center;
         text-align: left;
         font-size:12px;
 
@@ -100,18 +108,18 @@ $orange: #f60;
             padding-left:10px;
         }
         &:last-child {
-            text-align: right;
+            justify-content: flex-end;
         }
         &.empty-data {
             line-height: 20px;
             height:40px;
-            text-align: center;
+            justify-content: center;
         }
         &.cell--selection {
             padding-left: 34px;
         }
         &.cell--money {
-            text-align: right
+            justify-content: flex-end;
         }
         .asc,
         .desc {

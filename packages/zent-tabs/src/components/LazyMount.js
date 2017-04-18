@@ -1,12 +1,12 @@
+import PropTypes from 'zent-utils/prop-types';
+import { Component } from 'react';
+
 /**
  * 保存domMount状态
  */
-
-import React, { Component } from 'react';
-
 export default class LazyMount extends Component {
   static propTypes = {
-    mountTrigger: React.PropTypes.bool
+    mountTrigger: PropTypes.bool
   };
 
   static defaultProps = {

@@ -18,6 +18,4 @@ install:
     yarn install
 script:
 - |
-    yarn run bootstrap
-    npm run lint
-    npm run test
+    yarn run bootstrap && npm run lint && npm run test

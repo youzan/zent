@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classNames from 'zent-utils/classnames';
 import Input from 'zent-input';
 import Popover from 'zent-popover';
@@ -7,6 +7,7 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
 import { formatDate, parseDate, maybeFormatDate } from './utils/date';
+import PropTypes from 'zent-utils/prop-types';
 import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
@@ -68,7 +69,8 @@ class DatePicker extends Component {
       PropTypes.instanceOf(Date)
     ]),
     disabledDate: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -77,7 +79,6 @@ class DatePicker extends Component {
     placeholder: '请选择日期',
     confirmText: '确认',
     format: 'YYYY-MM-DD',
-    position: 'bottom-left',
     min: '',
     max: '',
     disabledDate: noop,
@@ -112,12 +113,14 @@ class DatePicker extends Component {
   }
 
   onSelectDate = (val) => {
+    const { onClick } = this.props;
     if (this.isDisabled(val)) return;
 
     this.setState({
       actived: val,
       selected: val
     });
+    onClick && onClick(val);
   }
 
   onChangeTime = (val, type) => {
@@ -188,9 +191,9 @@ class DatePicker extends Component {
 
     if (showTime) {
       tmp = new Date(
-        selected.getFullYear(),
-        selected.getMonth(),
-        selected.getDate(),
+        tmp.getFullYear(),
+        tmp.getMonth(),
+        tmp.getDate(),
         activedTime.getHours(),
         activedTime.getMinutes(),
         activedTime.getSeconds()

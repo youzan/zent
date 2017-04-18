@@ -54,7 +54,7 @@ const showNotify = (container, props, callback) => {
 
   setTimeout(() => {
     closeNotify(containerId, callback);
-  }, props.duration || 3000);
+  }, props.duration || 2000);
 
   return containerId;
 };

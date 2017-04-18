@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import cx from 'zent-utils/classnames';
 import noop from 'zent-utils/lodash/noop';
 import CommonMenu from './CommonMenu';
 import MenuItem from './MenuItem';
+import PropTypes from 'zent-utils/prop-types';
 import SubMenu from './SubMenu';
 
 export default class Menu extends CommonMenu {

@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { padLeft } from '../utils';
 import HourPanel from './HourPanel';
 import MinutePanel from './MinutePanel';
+import PropTypes from 'zent-utils/prop-types';
 import SecondPanel from './SecondPanel';
 
 const stateMap = {

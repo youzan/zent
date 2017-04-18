@@ -1,19 +1,29 @@
 module.exports = {
   'zh-CN': [
     {
-      title: '快速上手',
-      path: '/',
-      filePath() {
-        return System.import('../../packages/zent/README.md')
-      }
+      name: '开发指南',
+      groups: [
+        {
+          list: [
+            {
+              title: '快速上手',
+              path: '/install',
+              filePath() {
+                return System.import('../../packages/zent/README.md')
+              }
+            },
+            {
+              title: '更新日志',
+              path: '/changelog',
+              filePath() {
+                return System.import('../../packages/zent/CHANGELOG.md')
+              }
+            },
+          ]
+        }
+      ]
     },
-    {
-      title: '更新日志',
-      path: '/changelog',
-      filePath() {
-        return System.import('../../packages/zent/CHANGELOG.md')
-      }
-    },
+
     {
       name: 'Components 组件',
       groups: [

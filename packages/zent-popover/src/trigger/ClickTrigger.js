@@ -1,4 +1,6 @@
-import { PropTypes } from 'react';
+import 'react';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 
@@ -27,15 +29,7 @@ export default class PopoverClickTrigger extends Trigger {
     }
 
     const { target } = evt;
-    const { isOutside } = this.props;
-    if (isOutside && isOutside(target)) {
-      return true;
-    }
-
-    const { getContentNode, getTriggerNode } = this.props;
-    const box = getContentNode();
-    const anchor = getTriggerNode();
-    if (!box.contains(target) && !anchor.contains(target)) {
+    if (this.props.isOutsideStacked(target)) {
       this.props.close();
     }
   };
