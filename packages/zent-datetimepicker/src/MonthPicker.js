@@ -45,7 +45,8 @@ class MonthPicker extends Component {
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
     format: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -82,10 +83,13 @@ class MonthPicker extends Component {
   }
 
   onSelectMonth = (val) => {
+    const { onClick } = this.props;
     this.setState({
       selected: val,
       actived: val
     });
+
+    onClick && onClick(val);
   }
 
   onClickInput = () => {
