@@ -9,3 +9,9 @@ npm run dev
 ```
 
 浏览器打开[http://127.0.0.1:8080](http://127.0.0.1:8080)
+
+## 部署
+
+`yarn run deploy`
+
+默认情况下生成的静态文件会部署到当前仓库的 `gh-pages` 分支上， 可以设置 `ZENT_DEPLOY_DOC_GIT_REPO` 环境变量来修改仓库。
