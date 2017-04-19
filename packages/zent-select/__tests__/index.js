@@ -161,7 +161,10 @@ describe('<Select />', () => {
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(onChangeMock.mock.calls[0][1].value).toBe('3');
     wrapper.find('TagsTrigger').simulate('click');
-    expect(wrapper.find('.current').prop('value')).toBe('3');
+    expect(wrapper.find('.current').length).toBe(0);
+    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
+    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
+    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 13 });
