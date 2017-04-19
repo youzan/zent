@@ -3,7 +3,7 @@ var base = require('./webpack.config');
 
 module.exports = Object.assign({}, base, {
   output: Object.assign(base.output, {
-    publicPath: './'
+    publicPath: '/zanui/react/'
   }),
 
   plugins: base.plugins.concat([

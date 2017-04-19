@@ -1,6 +1,6 @@
 {
   "name": "zent-notify",
-  "version": "1.1.0-beta1",
+  "version": "1.1.0-beta4",
   "description": "Zent 全局通知组件",
   "repository": {
     "type": "git",
@@ -21,10 +21,10 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-portal": "1.1.0-beta1",
-    "zent-utils": "1.1.0-beta1"
+    "zent-portal": "1.1.0-beta4",
+    "zent-utils": "1.1.0-beta4"
   },
   "devDependencies": {
-    "zent-button": "1.1.0-beta1"
+    "zent-button": "1.1.0-beta4"
   }
 }

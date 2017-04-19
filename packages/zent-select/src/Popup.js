@@ -19,6 +19,7 @@ class Popup extends Component {
       keyCode: '',
       keyword: ''
     };
+    this.currentId = null;
     this.sourceData = props.data;
     this.searchFilterHandler = this.searchFilterHandler.bind(this);
     this.optionChangedHandler = this.optionChangedHandler.bind(this);
@@ -97,6 +98,7 @@ class Popup extends Component {
         break;
       case KEY_EN:
         this.optionChangedHandler(keyword, this.currentId);
+        this.currentId = null;
         break;
       default:
         break;
@@ -113,7 +115,8 @@ class Popup extends Component {
       searchPlaceholder,
       filter,
       onFocus,
-      onBlur
+      onBlur,
+      open
     } = this.props;
 
     let {
@@ -131,7 +134,7 @@ class Popup extends Component {
     return (
       <div tabIndex="0" className={`${prefixCls}-popup`} onFocus={onFocus} onBlur={onBlur}>
         {
-          !extraFilter && filter ? (
+          !extraFilter && filter && open ? (
             <Search
               keyword={keyword}
               prefixCls={prefixCls}
@@ -141,7 +144,12 @@ class Popup extends Component {
           ) : ''
         }
         {filterData.map((item, index) => {
-          let currentCls = typeof this.currentId !== 'undefined' && item.cid === this.currentId ? 'current' : '';
+          if (keyword && item.text === keyword) {
+            this.currentId = item.cid;
+          } else if (keyword) {
+            this.currentId = null;
+          }
+          let currentCls = this.currentId !== null && item.cid === this.currentId ? 'current' : '';
           let activeCls = selectedItems.filter(o => o.cid === item.cid).length > 0 || item.cid === cid ? 'active' : '';
           return (
             <Option
