@@ -212,6 +212,7 @@ class Select extends Component {
 
   keyupHandler(ev) {
     let code = ev.keyCode;
+    if (!this.state.open) return false;
     if (code === KEY_ESC) {
       this.setState({
         open: false
