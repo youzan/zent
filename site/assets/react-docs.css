@@ -13,6 +13,7 @@ $toggle-color: #BBBBBB;
   .zandoc-react-demo {
     border-radius: 4px;
     border: 1px solid $border-color;
+    margin: 0 40px;
 
     & + .zandoc-react-demo {
       margin-top: 40px;
@@ -25,6 +26,9 @@ $toggle-color: #BBBBBB;
     &__bottom {
       padding: 20px;
       border-top: 1px solid $border-color;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     &__toggle {
@@ -33,11 +37,11 @@ $toggle-color: #BBBBBB;
       height: 20px;
       border: 2px solid $toggle-color;
       color: $toggle-color;
-      float: right;
       border-radius: 50%;
       font-size: 12px;
       line-height: 20px;
       cursor: pointer;
+      flex: 0 0 auto;
 
       &-off {
         transform: rotate(90deg);
@@ -49,9 +53,11 @@ $toggle-color: #BBBBBB;
     }
 
     &__title {
-      overflow: hidden;
+      flex: 1;
       color: #666;
       font-size: 14px;
+      min-height: 20px;
+      margin-right: 20px;
     }
 
     &__code {

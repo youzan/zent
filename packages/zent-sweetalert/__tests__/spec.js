@@ -1,4 +1,4 @@
-import { Simulate } from 'react-addons-test-utils';
+import { Simulate } from 'react-dom/test-utils';
 
 import { alert, confirm } from '../src';
 

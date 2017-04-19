@@ -31,7 +31,7 @@ function checkVersion(json, dependencyName, latestVersions, fix) {
       var ver = dependencies[d];
       var latestVer = latestVersions[d];
 
-      if (!/^[\d\.]+$/.test(ver)) {
+      if (!/^[^xX*>=<~\^]+$/.test(ver)) {
         logError(name + ' ' + dependencyName + ' should be locked: ' + d + ': ' + ver + '. The latest version is ' + latestVer);
 
         if (fix) {

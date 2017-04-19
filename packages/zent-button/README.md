@@ -111,7 +111,7 @@ ReactDOM.render(
 | --------- | --------------------------- | ------ | ----------- | ---------------------------------- |
 | type      | 风格                          | string | `'default'` | `'primary'`、`'danger'`、`'success'` |
 | size      | 尺寸                          | string | `'medium'`  | `'large'`、`'small'`                |
-| htmlType  | button标签原生type属性          | string |            |  `submit`、`reset`、`button`           |
+| htmlType  | button标签原生type属性          | string | `'button'`  |  `submit`、`reset`、`button`           |
 | block     | 是否以块级元素的形式展开                | bool   | `false`     |                                    |
 | disabled  | 状态控制                        | bool   | `false`     |                                    |
 | loading   | 状态控制                        | bool   | `false`     |                                    |

@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import NumberSteps from './components/NumberSteps';
 import CardSteps from './components/CardSteps';
+import PropTypes from 'zent-utils/prop-types';
 import BreadcrumbSteps from './components/BreadcrumbSteps';
 
 export default class Steps extends Component {

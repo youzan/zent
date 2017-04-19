@@ -76,12 +76,12 @@ describe('Breadcrumb', () => {
   it('will render a empty div without props or children', () => {
     const wrapper = mount(<Breadcrumb />);
     expect(wrapper.contains(
-      <div className="zent-breadcrumb " />
+      <div className="zent-breadcrumb"></div>
     )).toBe(true);
     expect(wrapper.find('div').text()).toBe('');
   });
 
-  it('can have costom bread item', () => {
+  it('can have custom bread item', () => {
     const wrapper = mount(
       <Breadcrumb>
         <span className="foo">bar</span>
@@ -103,9 +103,9 @@ describe('Breadcrumb', () => {
       .toBe(1);
     expect(wrapper.find(Breadcrumb.Item).at(1).find('a').length).toBe(1);
     expect(wrapper.find(Breadcrumb.Item).at(1).find('[href="barfoo"]')
-      .isEmpty()).toBe(true);
+      .exists()).toBe(false);
     expect(wrapper.find(Breadcrumb.Item).at(2).find('[href="regularbar"]')
-      .isEmpty()).toBe(false);
+      .exists()).toBe(true);
   });
 
   it('can pass custom props to Breadcrumb.Item', () => {
@@ -114,18 +114,18 @@ describe('Breadcrumb', () => {
         name: 'foo',
         href: 'bar',
         className: 'foobar',
-        fooProp: 'barProp'
+        target: '_blank'
       }
     ];
     const wrapper = mount(
       <Breadcrumb breads={breads}>
-        <Breadcrumb.Item name="bar" href="foo" className="barfoo" barProp="fooProp" />
+        <Breadcrumb.Item name="bar" href="foo" className="barfoo" download="fooProp" />
       </Breadcrumb>
     );
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
-    expect(wrapper.find(Breadcrumb.Item).at(0).props().barProp).toBe('fooProp');
-    expect(wrapper.find(Breadcrumb.Item).at(1).props().fooProp).toBe('barProp');
+    expect(wrapper.find(Breadcrumb.Item).at(0).props().download).toBe('fooProp');
+    expect(wrapper.find(Breadcrumb.Item).at(1).props().target).toBe('_blank');
   });
 
   it('className default to zent-breadcrumb ', () => {

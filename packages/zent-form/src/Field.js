@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, PropTypes, createElement } from 'react';
+import { Component, createElement } from 'react';
 import isEqual from 'zent-utils/lodash/isEqual';
 import omit from 'zent-utils/lodash/omit';
 import { getValue } from './utils';
+import PropTypes from 'zent-utils/prop-types';
 import unknownProps from './unknownProps';
 
 class Field extends Component {

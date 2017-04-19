@@ -13,9 +13,9 @@ describe('Portal', () => {
     });
     expect(document.body.querySelector('.context-portal .child').textContent).toBe('store: 0');
     wrapper.find('.btn-inc').simulate('click');
-    // FIXME: context update not working in react < 15.2.1
-    // Should be 'store: 1'
-    expect(document.body.querySelector('.context-portal .child').textContent).toBe('store: 0');
+
+    // WARNING: context update not working in react < 15.2.1
+    expect(document.body.querySelector('.context-portal .child').textContent).toBe('store: 1');
 
     wrapper.unmount(wrapper);
     jest.runOnlyPendingTimers();

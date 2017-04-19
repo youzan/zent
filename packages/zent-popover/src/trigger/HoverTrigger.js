@@ -1,8 +1,10 @@
-import { PropTypes } from 'react';
+import 'react';
 import capitalize from 'zent-utils/lodash/capitalize';
 import throttle from 'zent-utils/lodash/throttle';
 import uniq from 'zent-utils/lodash/uniq';
 import isBrowser from 'zent-utils/isBrowser';
+
+import PropTypes from 'zent-utils/prop-types';
 
 import Trigger, { PopoverTriggerPropTypes } from './Trigger';
 
@@ -254,28 +256,8 @@ export default class PopoverHoverTrigger extends Trigger {
     return makeHoverLeaveRecognizer({
       leaveDelay: this.props.hideDelay,
       onLeave: this.close,
-      isOutSide: this.isOutSide
+      isOutSide: this.props.isOutsideStacked
     });
-  }
-
-  isOutSide = (node) => {
-    const { getTriggerNode, getContentNode, isOutside } = this.props;
-
-    const contentNode = getContentNode();
-    const triggerNode = getTriggerNode();
-
-    if (isOutside) {
-      return isOutside(node, {
-        contentNode,
-        triggerNode
-      });
-    }
-
-    if (contentNode && contentNode.contains(node) || triggerNode && triggerNode.contains(node)) {
-      return false;
-    }
-
-    return true;
   }
 
   getTriggerProps(child) {

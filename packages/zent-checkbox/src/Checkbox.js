@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import classNames from 'zent-utils/classnames';
 
 export default class Checkbox extends Component {
 
   static propTypes = {
-    checked: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.bool
+    checked: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.bool
     ]),
-    disabled: React.PropTypes.bool,
-    readOnly: React.PropTypes.bool,
-    indeterminate: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    className: React.PropTypes.string,
-    style: React.PropTypes.object,
-    prefix: React.PropTypes.string,
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    indeterminate: PropTypes.bool,
+    onChange: PropTypes.func,
+    className: PropTypes.string,
+    style: PropTypes.object,
+    prefix: PropTypes.string,
   }
 
   static defaultProps = {

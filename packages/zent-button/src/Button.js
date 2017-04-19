@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import setClass from 'zent-utils/classnames';
+import PropTypes from 'zent-utils/prop-types';
 import omit from 'zent-utils/lodash/omit';
 
 const BLACK_LIST = [
@@ -28,39 +29,40 @@ const A_BLACK_LIST = [
 
 export default class Button extends Component {
   static propTypes ={
-    type: React.PropTypes.oneOf([
+    type: PropTypes.oneOf([
       'default',
       'primary',
       'success',
       'danger',
       'link'
     ]),
-    size: React.PropTypes.oneOf([
+    size: PropTypes.oneOf([
       'large',
       'medium',
       'small'
     ]),
-    htmlType: React.PropTypes.oneOf([
+    htmlType: PropTypes.oneOf([
       'button',
       'submit',
       'reset'
     ]),
-    className: React.PropTypes.string,
-    block: React.PropTypes.bool,
-    component: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.func,
+    className: PropTypes.string,
+    block: PropTypes.bool,
+    component: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
     ]),
-    disabled: React.PropTypes.bool,
-    loading: React.PropTypes.bool,
-    outline: React.PropTypes.bool,
-    bordered: React.PropTypes.bool,
-    prefix: React.PropTypes.string
+    disabled: PropTypes.bool,
+    loading: PropTypes.bool,
+    outline: PropTypes.bool,
+    bordered: PropTypes.bool,
+    prefix: PropTypes.string
   }
 
   static defaultProps = {
     type: 'default',
     size: 'medium',
+    htmlType: 'button',
     className: '',
     block: false,
     disabled: false,

@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import classNames from 'zent-utils/classnames';
 
 export default class Radio extends Component {
 
   static propTypes = {
     checked: PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.bool
+      PropTypes.number,
+      PropTypes.bool
     ]),
     value: PropTypes.any,
     disabled: PropTypes.bool,

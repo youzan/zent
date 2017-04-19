@@ -20,10 +20,7 @@ $orange: #f60;
 
     .tr {
         display: flex;
-        border-bottom:1px solid #DCDCDC;
-        &:last-child {
-            border-bottom:none;
-        }
+        border-bottom:1px solid #E5E5E5;
     }
 
     .expanded-item {
@@ -51,7 +48,14 @@ $orange: #f60;
     .tbody {
         .tr {
             &:hover {
-                background: #f8f8f8;
+                .td,
+                .cell {
+                    background: #f8f8f8;
+                }
+
+                .empty-data {
+                    background: transparent;
+                }
             }
             &--expanded {
                 background-color: #F8F8F8;

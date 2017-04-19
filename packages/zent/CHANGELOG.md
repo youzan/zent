@@ -1,5 +1,23 @@
 # Change Log
 
+## [zent@2.1.0-beta1](https://github.com/youzan/zent/tree/zent@2.1.0-beta1) (2017-04-18)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.14...zent@2.1.0-beta1)
+
+**Implemented enhancements:**
+
+- popover: support auto position for dropdowns [\#156](https://github.com/youzan/zent/issues/156)
+- popover: support stacked popovers [\#149](https://github.com/youzan/zent/issues/149)
+- zent-button: 将button设为htmlType的默认值 [\#191](https://github.com/youzan/zent/pull/191) ([NinoFocus](https://github.com/NinoFocus))
+- popover: support more auto postions [\#189](https://github.com/youzan/zent/pull/189) ([cpylua](https://github.com/cpylua))
+- popover: add onClick callback [\#187](https://github.com/youzan/zent/pull/187) ([xuhong](https://github.com/xuhong))
+- popover: support stacked popovers [\#186](https://github.com/youzan/zent/pull/186) ([cpylua](https://github.com/cpylua))
+- Upgrade React to 15.5.0 [\#183](https://github.com/youzan/zent/pull/183) ([cpylua](https://github.com/cpylua))
+- doc: add English README [\#175](https://github.com/youzan/zent/pull/175) ([SFantasy](https://github.com/SFantasy))
+
+**Fixed bugs:**
+
+- table border && background [\#184](https://github.com/youzan/zent/pull/184) ([linxixuan](https://github.com/linxixuan))
+
 ## [zent@2.0.14](https://github.com/youzan/zent/tree/zent@2.0.14) (2017-04-13)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.13...zent@2.0.14)
 

@@ -2,19 +2,14 @@
 
 通用的触发式弹层组件, 可以自定义定位算法、触发方式以及弹层显示方式。
 
-**这个组件不提供样式**。气泡提示组件请使用 `Pop`。
+组件支持自身多层嵌套。
+
+**这个组件不提供样式, 气泡提示组件请使用 `Pop`。**
 
 ### 使用场景
 
-如果 `Pop` 提供的功能无法满足你的需求，需要实现自定义的触发式弹层时可以使用 `Popover` 来简化开发。
-
-`Popover` 封装了常用的逻辑：
-
-* 三种触发方式：鼠标点击，鼠标移入以及获取输入焦点
-* 12种定位 (4 x 3, 每个方位三种)
-* 以及一个基于 `Portal` 的弹层实现
-
-如果这些内置的逻辑无法满足你的需求，你还可以用自己的实现来替换它们，所有这些都很容易实现。
+* 如果 `Pop` 组件提供的功能无法满足你的需求，需要实现自定义的触发式弹层时可以使用 `Popover` 来简化开发。
+* 可以当做 `Dropdown` 使用。
 
 ### 代码演示
 
@@ -125,6 +120,10 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
+#### Trigger.Hover
+
+当获取焦点时显示，失去焦点时关闭，没有参数。
+
 #### Trigger.Base
 
 所有trigger的基类, 实现自定义 trigger 需继承这个类, 继承时一般需要重写 `getTriggerProps` 方法给 trigger 添加事件, 然后在事件
@@ -157,7 +156,7 @@ LeftBottom                                                          RightBottom
                 BottomLeft     BottomCenter     BottomRight
 ```
 
-除了这12种基础定位算法外，还提供了一个会自动根据屏幕剩余空间自动判断合适位置的定位算法: `AutoBottomLeft`，这个算法适用于下拉式组件。
+除了这12种基础定位算法外，还提供了6个会自动根据屏幕剩余空间自动判断合适位置的定位算法: `AutoBottomLeft`，`AutoBottomCenter`, `AutoBottomRight`, `AutoTopLeft`, `AutoTopCenter` 以及 `AutoTopRight`，这些算法适用于下拉式组件。
 
 每个定位算法的对象上都有一个 `locate` 函数，通过这个函数可以实现定位算法的组合。
 

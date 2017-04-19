@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'zent-utils/prop-types';
 import setClass from 'zent-utils/classnames';
 
 export default class Switch extends Component {

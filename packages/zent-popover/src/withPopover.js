@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import omit from 'zent-utils/lodash/omit';
 
 import { PopoverContextType } from './Popover';
 
@@ -12,7 +13,12 @@ export default function withPopover(Base) {
     static contextTypes = PopoverContextType;
 
     render() {
-      return <Base {...this.props} {...this.context} />;
+      const { _zentPopover: popover } = this.context || {};
+      const context = {
+        popover: omit(popover, ['registerDescendant', 'unregisterDescendant'])
+      };
+
+      return <Base {...this.props} {...context} />;
     }
   };
 }

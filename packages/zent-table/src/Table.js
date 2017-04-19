@@ -4,9 +4,10 @@ import Head from './modules/Head';
 import Body from './modules/Body';
 import Pagination from 'zent-pagination';
 import Loading from 'zent-loading';
+import PropTypes from 'zent-utils/prop-types';
 import isBrowser from 'zent-utils/isBrowser';
 
-const { func, bool, string, array, oneOf, object } = React.PropTypes;
+const { func, bool, string, array, oneOf, object } = PropTypes;
 
 let relativeTop;
 

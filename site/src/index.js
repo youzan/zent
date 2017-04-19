@@ -18,7 +18,7 @@ Vue.use(VueRouter);
 let routesConfig = routes(navConfig, true);
 routesConfig.push({
   path: '*',
-  redirect: '/component'
+  redirect: '/component/install'
 });
 
 const router = new VueRouter({

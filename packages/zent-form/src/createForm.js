@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, PropTypes, createElement } from 'react';
+import { Component, createElement } from 'react';
 import omit from 'zent-utils/lodash/omit';
 import find from 'zent-utils/lodash/find';
 import noop from 'zent-utils/lodash/noop';
@@ -10,6 +10,7 @@ import some from 'zent-utils/lodash/some';
 import isPromise from 'zent-utils/isPromise';
 import { getDisplayName, silenceEvent, silenceEvents } from './utils';
 import rules from './validationRules';
+import PropTypes from 'zent-utils/prop-types';
 import handleSubmit from './handleSubmit';
 
 const emptyArray = [];
