@@ -1,6 +1,6 @@
 {
   "name": "zent-form",
-  "version": "2.1.0-beta2",
+  "version": "2.1.0-beta3",
   "description": "Zent 表单组件",
   "main": "./lib/index.js",
   "repository": {
@@ -17,7 +17,7 @@
     "zent-checkbox": "1.1.0-beta1",
     "zent-input": "1.1.0-beta1",
     "zent-radio": "1.1.0-beta1",
-    "zent-select": "1.1.0-beta2",
+    "zent-select": "1.1.0-beta3",
     "zent-utils": "1.1.0-beta1"
   },
   "files": [
