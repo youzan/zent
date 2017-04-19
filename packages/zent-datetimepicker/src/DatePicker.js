@@ -16,7 +16,7 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { value, format } = props;
+  const { value, format, min, max } = props;
   if (value) {
     const tmp = maybeFormatDate(value, format);
 
@@ -31,6 +31,16 @@ function extractStateFromProps(props) {
   } else {
     showPlaceholder = true;
     actived = new Date();
+    // 特殊处理：如果有最小值的话，当前面板应该是最小值所在的月份。
+    // 如果有最大值并且最大值小于当前月份，当前面板应该是最大值所在的月份。
+    let maxDate = maybeFormatDate(max, format);
+    let timestamp = maxDate && maxDate.getTime();
+    if (max && timestamp < Date.now()) {
+      actived = maxDate;
+    }
+    if (min) {
+      actived = maybeFormatDate(min, format);
+    }
   }
 
   /**
@@ -70,7 +80,9 @@ class DatePicker extends Component {
     ]),
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   static defaultProps = {
@@ -275,8 +287,12 @@ class DatePicker extends Component {
   }
 
   togglePicker = () => {
+    const { onOpen, onClose } = this.props;
+    const openPanel = !this.state.openPanel;
+
+    openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel: !this.state.openPanel
+      openPanel
     });
   }
 

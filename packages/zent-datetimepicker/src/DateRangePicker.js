@@ -31,6 +31,7 @@ const getDateTime = (date, time) => {
 };
 
 const extractStateFromProps = (props) => {
+  const { format, min, max } = props;
   let showPlaceholder;
   let selected = [];
   let actived = [];
@@ -39,11 +40,11 @@ const extractStateFromProps = (props) => {
 
   if (isValidValue(props.value)) {
     showPlaceholder = false;
-    const tmp = [maybeFormatDate(props.value[0], props.format), maybeFormatDate(props.value[1], props.format)];
+    const tmp = [maybeFormatDate(props.value[0], format), maybeFormatDate(props.value[1], format)];
     selected = tmp.slice();
     range = tmp.slice();
     actived = tmp.slice();
-    value = [formatDate(selected[0], props.format), formatDate(selected[1], props.format)];
+    value = [formatDate(selected[0], format), formatDate(selected[1], format)];
 
     // 特殊处理：如果两个时间在同一个月，右边的面板月份加一
     if (isSameMonth(actived[0], actived[1])) {
@@ -51,8 +52,19 @@ const extractStateFromProps = (props) => {
     }
   } else {
     showPlaceholder = true;
-    const now = new Date();
-    actived = [now, goMonths(now, 1)];
+    let start = new Date();
+
+    if (max) {
+      let maxDate = maybeFormatDate(max, format);
+      let timestamp = maxDate && maxDate.getTime();
+      if (timestamp < Date.now()) {
+        actived = [goMonths(maxDate, -1), maxDate];
+      }
+    }
+    if (min) {
+      start = maybeFormatDate(min, format);
+    }
+    actived = [start, goMonths(start, 1)];
   }
 
   return {
@@ -80,7 +92,9 @@ class DateRangePicker extends Component {
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   static defaultProps = {
@@ -422,6 +436,10 @@ class DateRangePicker extends Component {
   }
 
   togglePicker = () => {
+    const { onOpen, onClose } = this.props;
+    const openPanel = !this.state.openPanel;
+
+    openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
       openPanel: !this.state.openPanel
     });

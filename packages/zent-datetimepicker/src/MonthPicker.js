@@ -46,7 +46,9 @@ class MonthPicker extends Component {
     confirmText: PropTypes.string,
     format: PropTypes.string,
     onChange: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   static defaultProps = {
@@ -146,6 +148,10 @@ class MonthPicker extends Component {
   }
 
   togglePicker = () => {
+    const { onOpen, onClose } = this.props;
+    const openPanel = !this.state.openPanel;
+
+    openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
       openPanel: !this.state.openPanel
     });

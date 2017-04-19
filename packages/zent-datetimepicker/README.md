@@ -45,6 +45,7 @@ class Demo extends Component{
         <DatePicker
           className="zent-picker-demo"
           value={dateValue}
+          min="1990-01-01"
           onChange={this.onChangeDate}
         />
         <br />
@@ -76,31 +77,61 @@ ReactDOM.render(
 ```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
-function onChange(val){
-  console.log(val)
+class Demo extends Component{
+  state = {
+
+  }
+  
+  onChangeDate = (val) => {
+    this.setState({
+      dateValue: val
+    })
+  }
+
+  onChangeMonth = (val) => {
+    this.setState({
+      monthValue: val
+    })
+  }
+
+  onChangeRange = (val) => {
+    this.setState({
+      rangeValue: val
+    })
+  }
+
+  render() {
+    const { dateValue, monthValue, rangeValue } = this.state;
+    return (
+      <div>
+        <DatePicker
+          className="zent-picker-demo"
+          format="YYYY/MM/DD"
+          value={dateValue}
+          onChange={this.onChangeDate}
+        />
+        <br />
+        <MonthPicker
+          className="zent-picker-demo"
+          format="YYYY年MM月"
+          value={monthValue}
+          onChange={this.onChange}
+        />
+        <br />
+        <DateRangePicker
+          className="zent-picker-demo"
+          format="YYYY-MM-DD"
+          value={rangeValue}
+          onChange={this.onChange}
+          />
+        </div>
+    )
+  }
 }
 
 ReactDOM.render(
-  <div>
-    <DatePicker
-      className="zent-picker-demo"
-      format="YYYY/MM/DD"
-      onChange={onChange}
-    />
-    <br />
-    <MonthPicker
-      className="zent-picker-demo"
-      format="YYYY年MM月"
-      onChange={onChange}
-    />
-    <br />
-    <DateRangePicker
-      className="zent-picker-demo"
-      format="YYYY-MM-DD"
-      onChange={onChange}
-      />
-   </div>
-   , mountNode
+  <Demo />,
+  mountNode
 )
 ```
 :::
@@ -109,56 +140,105 @@ ReactDOM.render(
 
 ```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
-function onChange(val){
-  console.log(val)
-}
 
+class Demo extends Component{
+  state = {
+
+  }
+
+  onChangeDate = (val) => {
+    this.setState({
+      dateValue: val
+    })
+  }
+
+  onChangeRange = (val) => {
+    this.setState({
+      rangeValue: val
+    })
+  }
+
+  render(){
+    const { dateValue, rangeValue } = this.state;
+    return (
+      <div>
+        <DatePicker
+          className="zent-picker-demo"
+          showTime
+          format="YYYY-MM-DD HH:mm:ss"
+          value={dateValue}
+          onChange={this.onChangeDate}
+        />
+        <br />
+        <DateRangePicker
+          className="zent-picker-demo"
+          showTime
+          format="YYYY-MM-DD HH:mm:ss"
+          value={rangeValue}
+          onChange={this.onChangeRange}
+          />
+      </div>
+    )
+  }
+}
 ReactDOM.render(
-  <div>
-    <DatePicker
-      className="zent-picker-demo"
-      showTime
-      format="YYYY-MM-DD HH:mm:ss"
-      onChange={onChange}
-    />
-    <br />
-    <DateRangePicker
-      className="zent-picker-demo"
-      showTime
-      format="YYYY-MM-DD HH:mm:ss"
-      onChange={onChange}
-      />
-   </div>
-   , mountNode
+  <Demo />,
+  mountNode
 )
 ```
 :::
 
-:::demo 通过设置 `valueType` 来指定返回值的类型，支持 `string`/`date`/`number`，默认和传入的 `value` 类型一致。
+:::demo 通过设置 `valueType` 来指定返回值的类型，默认为 `string`，支持 `string`/`date`/`number`，默认和传入的 `value` 类型一致。
 
 ```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
-function onChange(val){
-  console.log(val)
+
+class Demo extends Component{
+  state = {
+
+  }
+  
+  onChangeDate = (val) => {
+    console.log(val)
+    this.setState({
+      dateValue: val
+    })
+  }
+
+  onChangeRange = (val) => {
+    console.log(val)
+    this.setState({
+      rangeValue: val
+    })
+  }
+
+  render() {
+    const { dateValue, rangeValue } = this.state;
+    return (
+       <div>
+        <p className="demo-subtitle">返回时间戳</p>
+        <DatePicker
+          className="zent-picker-demo"
+          valueType="number"
+          value={dateValue}
+          onChange={this.onChangeDate}
+        />
+        <br />
+        <p className="demo-subtitle">返回 date 对象 </p>
+        <DateRangePicker
+          className="zent-picker-demo"
+          valueType="date"
+          value={rangeValue}
+          onChange={this.onChangeRange}
+          />
+      </div>
+    )
+  }
 }
 
 ReactDOM.render(
-  <div>
-    <p className="demo-subtitle">返回时间戳</p>
-    <DatePicker
-      className="zent-picker-demo"
-      valueType="number"
-      onChange={onChange}
-    />
-    <br />
-    <p className="demo-subtitle">返回 date 对象 </p>
-    <DateRangePicker
-      className="zent-picker-demo"
-      valueType="date"
-      onChange={onChange}
-      />
-   </div>
-   , mountNode
+  <Demo />,
+  mountNode
 )
 ```
 :::
@@ -167,9 +247,6 @@ ReactDOM.render(
 
 ```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
-function onChange(val){
-  console.log(val)
-}
 
 ReactDOM.render(
   <div>
@@ -187,7 +264,6 @@ ReactDOM.render(
     <DateRangePicker
       className="zent-picker-demo"
       disabled
-      onChange={onChange}
       />
    </div>
    , mountNode
@@ -199,19 +275,33 @@ ReactDOM.render(
 
 ```js
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
-function onChange(val){
-  console.log(val)
-}
 
-function disabledDate(val) {
-  return val.getDate()%2 === 0
-}
+class Demo extends Component{
+  state = {
 
-function disabledRangeDate(val, type){
-  return (val.getMonth()%2 ===0)
-}
+  }
 
-function disabledRangeTime(type) {
+  onChangeDate = (val) => {
+    this.setState({
+      dateValue: val
+    })
+  }
+
+  onChangeRange = (val) => {
+    this.setState({
+      rangeValue: val
+    })
+  }
+
+  disabledDate(val) {
+    return val.getDate()%2 === 0
+  }
+
+  disabledRangeDate(val, type){
+    return (val.getMonth()%2 ===0)
+  }
+
+  disabledRangeTime(type) {
     const disabledHour = (val) => {
       return type === 'start' ? val < 12 : val > 12;
     };
@@ -228,28 +318,39 @@ function disabledRangeTime(type) {
     };
   }
 
+  render(){
+    const { dateValue, rangeValue } = this.state;
+    return (
+      <div>
+        <DatePicker
+          className="zent-picker-demo"
+          disabledDate={this.disabledDate}
+          value={dateValue}
+          onChange={this.onChangeDate}
+        />
+        <br />
+        <DateRangePicker
+          className="zent-picker-demo"
+          disabledDate={this.disabledRangeDate}
+          value={rangeValue}
+          onChange={this.onChangeRange}
+          />
+        <br />
+        <DateRangePicker
+          className="zent-picker-demo"
+          showTime
+          disabledDate={this.disabledRangeDate}
+          disabledTime={this.disabledRangeTime}
+          value={rangeValue}
+          onChange={this.onChangeRange}
+          />
+      </div>
+    )
+  }
+}
+
 ReactDOM.render(
-  <div>
-    <DatePicker
-      className="zent-picker-demo"
-      disabledDate={disabledDate}
-      onChange={onChange}
-    />
-    <br />
-    <DateRangePicker
-      className="zent-picker-demo"
-      disabledDate={disabledRangeDate}
-      onChange={onChange}
-      />
-    <br />
-    <DateRangePicker
-      className="zent-picker-demo"
-      showTime
-      disabledDate={disabledRangeDate}
-      disabledTime={disabledRangeTime}
-      onChange={onChange}
-      />
-   </div>
+    <Demo />
    , mountNode
 )
 ```
@@ -263,6 +364,8 @@ ReactDOM.render(
 | value        | 默认选择日期                   | string/Date    |     | 否    |
 | onChange     | 确认日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
 | onClick      | 用户点击选择日期的回调 | func |   |   否 |
+| onOpen       | 面板弹出的回调 | func |   |   否 |
+| onClose      | 面板关闭的回调 | func |   |   否 |
 | disabled     | 是否处于 disabled 状态          | bool         | `false`         | 否    |
 | format       | 返回日期字符串格式                | string         |  不同的picker默认值不同，下详  | 否    |
 | placeholder  | 提示文案                   | string    | 不同的picker默认值不同，下详   | 否    |
