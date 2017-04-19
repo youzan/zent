@@ -1,5 +1,19 @@
 # Change Log
 
+## [zent@2.1.0-beta4](https://github.com/youzan/zent/tree/zent@2.1.0-beta4) (2017-04-19)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0-beta3...zent@2.1.0-beta4)
+
+## [zent@2.1.0-beta3](https://github.com/youzan/zent/tree/zent@2.1.0-beta3) (2017-04-19)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0-beta1...zent@2.1.0-beta3)
+
+**Implemented enhancements:**
+
+- doc: Update documentation [\#192](https://github.com/youzan/zent/pull/192) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- select: bug fixes [\#195](https://github.com/youzan/zent/pull/195) ([huangsy](https://github.com/huangsy))
+
 ## [zent@2.1.0-beta1](https://github.com/youzan/zent/tree/zent@2.1.0-beta1) (2017-04-18)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.14...zent@2.1.0-beta1)
 
@@ -9,7 +23,7 @@
 - popover: support stacked popovers [\#149](https://github.com/youzan/zent/issues/149)
 - zent-button: 将button设为htmlType的默认值 [\#191](https://github.com/youzan/zent/pull/191) ([NinoFocus](https://github.com/NinoFocus))
 - popover: support more auto postions [\#189](https://github.com/youzan/zent/pull/189) ([cpylua](https://github.com/cpylua))
-- popover: add onClick callback [\#187](https://github.com/youzan/zent/pull/187) ([xuhong](https://github.com/xuhong))
+- datepicker: add onClick callback [\#187](https://github.com/youzan/zent/pull/187) ([xuhong](https://github.com/xuhong))
 - popover: support stacked popovers [\#186](https://github.com/youzan/zent/pull/186) ([cpylua](https://github.com/cpylua))
 - Upgrade React to 15.5.0 [\#183](https://github.com/youzan/zent/pull/183) ([cpylua](https://github.com/cpylua))
 - doc: add English README [\#175](https://github.com/youzan/zent/pull/175) ([SFantasy](https://github.com/SFantasy))
