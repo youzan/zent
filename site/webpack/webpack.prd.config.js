@@ -2,13 +2,11 @@ var webpack = require('webpack');
 var base = require('./webpack.config');
 
 module.exports = Object.assign({}, base, {
-  plugins: base.plugins.concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
+  output: Object.assign(base.output, {
+    publicPath: './'
+  }),
 
+  plugins: base.plugins.concat([
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false

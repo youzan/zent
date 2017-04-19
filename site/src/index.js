@@ -4,6 +4,7 @@ import App from './App';
 import navConfig from './nav.config.js';
 import routes from './router.config';
 import packageJson from '../../packages/zent/package.json';
+import { prefix } from './constants';
 
 import '../assets/docs.css';
 import '../assets/react-docs.css';
@@ -18,12 +19,12 @@ Vue.use(VueRouter);
 let routesConfig = routes(navConfig, true);
 routesConfig.push({
   path: '*',
-  redirect: '/component/install'
+  redirect: `guides/install`
 });
 
 const router = new VueRouter({
   mode: 'history',
-  base: __dirname,
+  base: prefix,
   routes: routesConfig
 });
 
@@ -35,7 +36,8 @@ router.beforeEach((route, redirect, next) => {
   next();
 });
 
-new Vue({ // eslint-disable-line
+new Vue({
+  // eslint-disable-line
   render: h => h(App),
   router
 }).$mount('#app-container');

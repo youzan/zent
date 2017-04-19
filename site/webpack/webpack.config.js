@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var postcssPlugins = require('./postcss.config');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var babelLoader = {
   loader: 'babel-loader',
@@ -13,19 +14,19 @@ var babelLoader = {
     ],
     plugins: [
       require.resolve('babel-plugin-add-module-exports'),
-      require.resolve('babel-plugin-transform-runtime'),
+      require.resolve('babel-plugin-transform-runtime')
     ]
   }
 };
 var postcssLoader = {
-  loader: require.resolve('postcss-loader'),
+  loader: 'postcss-loader',
   options: {
     plugins: postcssPlugins
   }
 };
 
 var scssLoader = {
-  loader: require.resolve('postcss-loader'),
+  loader: 'postcss-loader',
   options: {
     plugins: [
       require('postcss-easy-import')({
@@ -36,33 +37,24 @@ var scssLoader = {
     ],
     parser: require('postcss-scss')
   }
-}
+};
 
 module.exports = {
   entry: {
     docs: './src/index.js',
-    vendor: [
-      'react',
-      'react-dom',
-      'zent',
-      'classnames'
-    ]
+    vendor: ['react', 'react-dom', 'zent', 'classnames']
   },
   output: {
     path: path.join(__dirname, '../dist'),
-    publicPath: '/',
     filename: '[name]-[hash].js'
   },
   resolve: {
-    modules: [
-      path.join(__dirname, '../node_modules'),
-      'node_modules'
-    ],
+    modules: [path.join(__dirname, '../node_modules'), 'node_modules'],
     extensions: ['.js', '.vue', '.pcss', '.md'],
     alias: {
       vue$: 'vue/dist/vue.runtime.common.js',
       components: path.join(__dirname, '../src/components'),
-      zent$: path.join(__dirname, '../zent'),
+      zent$: path.join(__dirname, '../zent')
     }
   },
   module: {
@@ -106,19 +98,17 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          require.resolve('style-loader'),
-          require.resolve('css-loader'),
-          scssLoader
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', scssLoader]
+        })
       },
       {
         test: /\.css$/,
-        use: [
-          require.resolve('style-loader'),
-          require.resolve('css-loader'),
-          postcssLoader
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', postcssLoader]
+        })
       },
       {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
@@ -132,20 +122,30 @@ module.exports = {
         test: /\.html$/,
         use: 'html-loader'
       }
-    ],
+    ]
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity,
+      minChunks: Infinity
     }),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       chunks: ['vendor', 'docs'],
-      inject: 'body',
-      hash: true
+      inject: 'body'
+    }),
+
+    new ExtractTextPlugin({
+      filename: '[name]-[contenthash].css',
+      allChunks: true
     })
   ]
 };
