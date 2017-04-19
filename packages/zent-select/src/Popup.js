@@ -115,7 +115,8 @@ class Popup extends Component {
       searchPlaceholder,
       filter,
       onFocus,
-      onBlur
+      onBlur,
+      open
     } = this.props;
 
     let {
@@ -133,7 +134,7 @@ class Popup extends Component {
     return (
       <div tabIndex="0" className={`${prefixCls}-popup`} onFocus={onFocus} onBlur={onBlur}>
         {
-          !extraFilter && filter ? (
+          !extraFilter && filter && open ? (
             <Search
               keyword={keyword}
               prefixCls={prefixCls}

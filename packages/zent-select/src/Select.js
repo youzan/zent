@@ -280,6 +280,7 @@ class Select extends Component {
           emptyText={emptyText}
           keyCode={keyCode}
           keyword={keyword}
+          open={open}
           filter={filter}
           onAsyncFilter={onAsyncFilter}
           onChange={this.optionChangedHandler}
