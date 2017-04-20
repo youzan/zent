@@ -112,7 +112,7 @@ module.exports = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
-        use: require.resolve('url-loader')
+        use: 'url-loader'
       },
       {
         test: /\.json$/,
