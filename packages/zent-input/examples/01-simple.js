@@ -17,7 +17,7 @@ export default class Simple extends Component {
         <br />
         <div className="has-error"><Input /></div>
         <br />
-        <div><Input disabled /></div>
+        <div><Input disabled value="aaaaa" /></div>
         <br />
         <div><Input readOnly /></div>
       </div>

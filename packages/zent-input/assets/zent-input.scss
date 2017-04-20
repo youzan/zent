@@ -44,6 +44,8 @@ $borderRadius: 2px;
     border-radius: $borderRadius;
     box-shadow: none;
     transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
+    -webkit-appearance: none;
+
     &:focus {
         outline: none;
         border: 1px solid #3388FF;
@@ -51,11 +53,13 @@ $borderRadius: 2px;
     }
 }
 
+.zent-textarea[disabled],
 .zent-input[disabled],
 .zent-input[readonly] {
     border-color: #E5E5E5;
     background-color: #F8F8F8;
     cursor: not-allowed;
+    color: #CACACA;
 
     &:focus {
         border-color: #E5E5E5;
@@ -107,6 +111,7 @@ $borderRadius: 2px;
 .zent-textarea {
     height: 54px;
     padding: 5px 10px;
+    -webkit-appearance: none;
 }
 
 /** placeholder **/

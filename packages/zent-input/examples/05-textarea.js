@@ -18,6 +18,8 @@ export default class Simple extends Component {
   render() {
     return (
       <div>
+        <div><Input onChange={this.onChange} type="textarea" defaultValue={'hello world'} disabled /></div>
+        <br />
         <div><Input className="hello" autoFocus onChange={this.onChange} type="textarea" defaultValue={'hello world'} /></div>
         <div>{this.state.value}</div>
       </div>
