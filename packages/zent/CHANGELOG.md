@@ -1,5 +1,17 @@
 # Change Log
 
+## [zent@2.1.0-beta5](https://github.com/youzan/zent/tree/zent@2.1.0-beta5) (2017-04-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0-beta4...zent@2.1.0-beta5)
+
+**Implemented enhancements:**
+
+- doc: Add Dropdown [\#194](https://github.com/youzan/zent/issues/194)
+- doc: Add Dropdown doc [\#198](https://github.com/youzan/zent/pull/198) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- icon: fix relative style import from node\_modules [\#197](https://github.com/youzan/zent/pull/197) ([cpylua](https://github.com/cpylua))
+
 ## [zent@2.1.0-beta4](https://github.com/youzan/zent/tree/zent@2.1.0-beta4) (2017-04-19)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0-beta3...zent@2.1.0-beta4)
 
