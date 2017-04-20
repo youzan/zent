@@ -1,8 +1,10 @@
 .zent-slider {
     display: flex;
+    margin-bottom: 20px;
     &-main {
         flex: 1;
         margin: 15px 20px;
+        cursor: pointer;
         position: relative;
     }
     &-contain {
@@ -10,9 +12,17 @@
         height: 4px;
         background: #E5E5E5;
         border-radius: 8px;
-        cursor: pointer;
         position: absolute;
         width: 100%;
+    }
+    &-track {
+        height: 4px;
+        background: #85B8FF;
+        position: absolute;
+        border-radius: 8px;
+        &:hover {
+            background: #3388FF;
+        }
     }
     &-point {
         position: absolute;
@@ -107,10 +117,10 @@
             transform: translateX(-50%);
         }
     }
-    &-tags {
+    &-dots {
         position: absolute;
         width: 100%;
-        .zent-slider-tag{
+        .zent-slider-dot{
             position: absolute;
             display: inline-block;
             width: 6px;
@@ -120,6 +130,9 @@
             height: 6px;
             border: 1px solid #E5E5E5;
             border-radius: 50%;
+            &-active {
+                border: 1px solid #85B8FF;
+            }
         }
     }
 }

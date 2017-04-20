@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import ToolTips from './toolTips';
 import { WindowEventHandler } from 'zent-utils/component';
+import keys from 'zent-utils/lodash/keys';
+import map from 'zent-utils/lodash/map';
 
 export default class Points extends Component {
   constructor(props) {
     super(props);
+    const { range, value } = props;
+    this.conf = range ? { start: value[0], end: value[1] } : { simple: value };
     this.state = {
       visibility: false
     };
@@ -19,6 +23,7 @@ export default class Points extends Component {
     this.left = evt.clientX;
     this.setState({ type, visibility: true });
     let { value } = this.props;
+
     if (type === 'start') {
       value = value[0];
     } else if (type === 'end') {
@@ -28,31 +33,47 @@ export default class Points extends Component {
     return false;
   }
 
+  getAbsMinInArray = (array, point) => {
+    const abs = array.map(item => Math.abs(point - item));
+    let lowest = 0;
+    for (let i = 1; i < abs.length; i++) {
+      if (abs[i] < abs[lowest]) {
+        lowest = i;
+      }
+    }
+    return array[lowest];
+  }
+
   left = null
+
+  toFixed = value => {
+    const { step } = this.props;
+    const fixed = String(step).split('.')[1] || 0;
+    return Number(value).toFixed(fixed);
+  }
 
   handleMouseMove = (evt) => {
     evt.preventDefault();
     const left = this.left;
     if (left !== null) {
       const { type } = this.state;
-      const { max, min, onChange, clientWidth, step, value } = this.props;
-      let newValue = (evt.clientX - left) * 100 / clientWidth;
-      newValue = Math.ceil(newValue);
-      if ((newValue % step) > step / 2) {
-        newValue += step;
+      const { max, min, onChange, clientWidth, step, dots, marks, range } = this.props;
+      let newValue = (evt.clientX - left) / clientWidth;
+      newValue = (max - min) * newValue;
+      newValue = Number(this.value) + Number(newValue);
+      if (dots) {
+        newValue = this.getAbsMinInArray(keys(marks), newValue);
+      } else {
+        newValue = Math.round(newValue / step) * step;
       }
-      newValue = newValue - newValue % step + this.value;
+      newValue = this.toFixed(newValue);
       if (newValue > max) {
         newValue = max;
       } else if (newValue < min) {
         newValue = min;
       }
-      if (type === 'start') {
-        newValue = [newValue, value[1]];
-      } else if (type === 'end') {
-        newValue = [value[0], newValue];
-      }
-      onChange && onChange(newValue);
+      this.conf[type] = newValue;
+      onChange && onChange(range ? [this.conf.start, this.conf.end] : newValue);
     }
   }
 
@@ -61,15 +82,19 @@ export default class Points extends Component {
     this.setState({ visibility: false });
   }
 
+  componentWillReceiveProps(props) {
+    const { range, value } = props;
+    if (this.left === null) {
+      this.conf = range ? { start: value[0], end: value[1] } : { simple: value };
+    }
+  }
+
   render() {
-    const { value, range } = this.props;
-    let points = [];
-    range ? points = [{ value: value[0], type: 'start' }, { value: value[1], type: 'end' }] : points.push({ value, type: 'single' });
     const { visibility, type } = this.state;
     return (<div className="zent-slider-points">
-      {points.map((point, index) => <ToolTips key={index} content={point.value} visibility={type === point.type && visibility} left={this.getLeft(point.value)}>
+      {map(this.conf, (value, index) => <ToolTips key={index} content={value} visibility={index === type && visibility} left={this.getLeft(value)}>
         <span
-          onMouseDown={this.handleMouseDown.bind(this, point.type)}
+          onMouseDown={this.handleMouseDown.bind(this, index)}
           className="zent-slider-point"></span>
       </ToolTips>)}
       <WindowEventHandler eventName="mousemove" callback={this.handleMouseMove} />

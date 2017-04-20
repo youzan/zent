@@ -16,8 +16,9 @@ export default class Simple extends Component {
       100: '100°C'
     };
     return (<div>
-      <Slide value={[10, 20]} marks={marks} range />
-      <Slide value={20} />
+      <Slide value={[30, 100]} marks={marks} range dots />
+      <Slide value={[-15, -5]} range max={-1} min={-20} />
+      <Slide value={1} max={2} min={1} step={0.1} />
     </div>);
   }
 }

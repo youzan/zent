@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Input from 'zent-input';
+import NumberInput from './numberInput';
 
 export default class InputField extends Component {
-  onchange = (type, e) => {
+  onchange = (type, newValue) => {
     const { onChange, value } = this.props;
-    let newValue = +e.target.value;
     if (type === 'start') {
       newValue = [newValue, value[1]];
     } else if (type === 'end') {
@@ -14,12 +13,12 @@ export default class InputField extends Component {
   }
 
   render() {
-    const { range, value } = this.props;
+    const { range, value, ...restProps } = this.props;
     return (<div className="zent-slider-input">
       {range ? (<div className="zent-slider-input">
-        <Input onChange={this.onchange.bind(null, 'start')} value={value[0]} />
+        <NumberInput {...restProps} onChange={this.onchange.bind(null, 'start')} value={value[0]} />
         <span className="slider-input-line">-</span>
-        <Input onChange={this.onchange.bind(null, 'end')} value={value[1]} /></div>) : <Input onChange={this.onchange.bind(null, 'single')} value={value} />}
+        <NumberInput {...restProps} onChange={this.onchange.bind(null, 'end')} value={value[1]} /></div>) : <NumberInput {...restProps} onChange={this.onchange.bind(null, 'single')} value={value} />}
     </div>);
   }
 }

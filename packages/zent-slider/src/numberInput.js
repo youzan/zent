@@ -1,20 +1,49 @@
 import React, { Component } from 'react';
 import Input from 'zent-input';
+import isNaN from 'zent-utils/lodash/isNaN';
 
 export default class NumberInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value
+    };
+  }
+  static defaultProps = {
+    min: -Infinity,
+    max: Infinity,
+    step: 1
+  };
+
+  componentWillReceiveProps(newProps) {
+    this.setState({ value: newProps.value });
+  }
+
   onchange = (e) => {
-    const { onChange } = this.props;
-    let newValue = +e.target.value;
-    onChange && onChange(newValue);
+    const { onChange, max, min, step } = this.props;
+    let newValue = e.target.value;
+    this.setState({ value: newValue });
+    newValue = Number(newValue);
+    if (!isNaN(newValue)) {
+      newValue = Math.round(newValue / step) * step;
+      onChange && newValue >= min && newValue <= max && onChange(newValue);
+    }
+  }
+
+  handleBlur = (e) => {
+    let newValue = e.target.value;
+    const { onChange, max, min } = this.props;
+    if (newValue > max) {
+      newValue = max;
+    } else if (newValue < min) {
+      newValue = min;
+    }
+    this.setState({ value: newValue });
+    onChange(newValue);
   }
 
   render() {
-    const { range, value } = this.props;
-    return (<div className="zent-slider-input">
-      {range ? (<div className="zent-slider-input">
-        <Input onChange={this.onchange.bind(null, 'start')} value={value[0]} />
-        <span className="slider-input-line">-</span>
-        <Input onChange={this.onchange.bind(null, 'end')} value={value[1]} /></div>) : <Input onChange={this.onchange.bind(null, 'single')} value={value} />}
-    </div>);
+    const { value } = this.state;
+    return (<Input onBlur={this.handleBlur} onChange={this.onchange} value={value} />);
   }
 }

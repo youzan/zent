@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Point from './points';
-import Dots from './dots';
-import Marks from './marks';
-import InputField from './input';
-import Contain from './contain';
+import Range from './range';
+import InputField from './inputField';
 
 export default class Slider extends Component {
   static defaultProps = {
@@ -26,26 +22,17 @@ export default class Slider extends Component {
 
   onChange = (value) => {
     const { range, onChange } = this.props;
+    value = range ? value.sort((a, b) => a - b).map(v => Number(v)) : value;
     this.setState({ value });
-    onChange && onChange(range ? value.sort((a, b) => a - b) : value);
-  }
-
-  componentDidMount = () => {
-    const $root = ReactDOM.findDOMNode(this);
-    this.setState({ clientWidth: $root.clientWidth });
+    onChange && onChange(value);
   }
 
   render() {
-    const { withInput, dots, marks, ...restProps } = this.props;
-    const { value, clientWidth } = this.state;
+    const { withInput, ...restProps } = this.props;
+    const { value } = this.state;
     return (<div className="zent-slider">
-      <div id="zent-slider-contain" className="zent-slider-main">
-        {dots && <Dots marks={marks} {...restProps} />}
-        <Point clientWidth={clientWidth} onChange={this.onChange} {...restProps} value={value} />
-        <Contain ref="con" clientWidth={clientWidth} dots={dots} {...restProps} onChange={this.onChange} value={value} />
-        {marks && <Marks marks={marks} {...restProps} />}
-      </div>
-      {withInput && <InputField onChange={this.onChange} {...restProps} value={value} />}
+      <Range {...restProps} value={value} onChange={this.onChange} />
+      {withInput && !restProps.dots && <InputField onChange={this.onChange} {...restProps} value={value} />}
     </div>);
   }
 }
