@@ -44,7 +44,7 @@ $borderRadius: 2px;
     border-radius: $borderRadius;
     box-shadow: none;
     transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
-    -webkit-appearance: none;
+    appearance: none;
 
     &:focus {
         outline: none;
@@ -111,7 +111,7 @@ $borderRadius: 2px;
 .zent-textarea {
     height: 54px;
     padding: 5px 10px;
-    -webkit-appearance: none;
+    appearance: none;
 }
 
 /** placeholder **/
