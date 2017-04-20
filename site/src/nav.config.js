@@ -132,6 +132,11 @@ module.exports = {
               component: require('../../packages/zent-menu/README.md')
             },
             {
+              path: 'component/dropdown',
+              title: 'Dropdown 下拉菜单',
+              component: require('../../packages/zent-popover/Dropdown.md')
+            },
+            {
               path: 'component/pagination',
               title: 'Pagination 分页',
               component: require('../../packages/zent-pagination/README.md')
