@@ -26,11 +26,11 @@
     }
     &-point {
         position: absolute;
-        margin-left: -7px;
         box-sizing: border-box;
         width: 14px;
         height: 14px;
         cursor: pointer;
+        margin-left: -7px;
         border-radius: 50%;
         border: 2px solid #88c7f4;
         background-color: #fff;
@@ -126,6 +126,7 @@
             width: 6px;
             margin-top: -2px;
             z-index: 1;
+            transform: translateX(-50%);
             background-color: #fff;
             height: 6px;
             border: 1px solid #E5E5E5;

@@ -1,31 +1,18 @@
 import React, { Component } from 'react';
+import { getValue, toFixed, getLately } from './common';
 
 export default class Dots extends Component {
-  getValue = point => {
-    const { max, min } = this.props;
-    return min + (max - min) * point;
-  }
-
-  toFixed = value => {
-    const { step } = this.props;
-    const fixed = String(step).split('.')[1] || 0;
-    return Number(value).toFixed(fixed);
-  }
 
   handleClick = (e) => {
-    const { clientWidth, dots, range, value, onChange } = this.props;
+    const { clientWidth, dots, range, value, onChange, max, min, step } = this.props;
     let newValue;
     if (!dots) {
       let pointValue = (e.clientX - e.currentTarget.getBoundingClientRect().left) / clientWidth;
-      pointValue = this.getValue(pointValue);
-      pointValue = this.toFixed(pointValue);
+      pointValue = getValue(pointValue, max, min);
+      pointValue = toFixed(pointValue, step);
       newValue = pointValue;
       if (range) {
-        if (Math.abs(value[0] - pointValue) <= Math.abs(value[1] - pointValue)) {
-          newValue = [pointValue, value[1]];
-        } else {
-          newValue = [value[0], pointValue];
-        }
+        newValue = getLately(value, pointValue);
       }
       onChange && onChange(newValue);
     }

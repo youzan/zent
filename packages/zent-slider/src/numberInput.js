@@ -23,8 +23,7 @@ export default class NumberInput extends Component {
     const { onChange, max, min, step } = this.props;
     let newValue = e.target.value;
     this.setState({ value: newValue });
-    newValue = Number(newValue);
-    if (!isNaN(newValue)) {
+    if (newValue !== '' && !isNaN(Number(newValue))) {
       newValue = Math.round(newValue / step) * step;
       onChange && newValue >= min && newValue <= max && onChange(newValue);
     }
@@ -39,7 +38,7 @@ export default class NumberInput extends Component {
       newValue = min;
     }
     this.setState({ value: newValue });
-    onChange(newValue);
+    onChange && onChange(newValue);
   }
 
   render() {

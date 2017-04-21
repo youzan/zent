@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
+import { getLeft } from './common';
 
 export default class Track extends Component {
   getLeft = () => {
-    const { range, value } = this.props;
-    return range ? this.getRatio(value[0]) : 0;
-  }
-
-  getRatio = (point) => {
-    const { max, min } = this.props;
-    return (point - min) * 100 / (max - min);
+    const { range, value, max, min } = this.props;
+    return range ? getLeft(value[0], max, min) : 0;
   }
 
   getWidth = () => {
     const { max, min, range, value } = this.props;
-    return range ? (value[1] - value[0]) * 100 / (max - min) : this.getRatio(value);
+    return range ? (value[1] - value[0]) * 100 / (max - min) : getLeft(value, max, min);
   }
 
   render() {

@@ -3,20 +3,21 @@ import ToolTips from './toolTips';
 import { WindowEventHandler } from 'zent-utils/component';
 import keys from 'zent-utils/lodash/keys';
 import map from 'zent-utils/lodash/map';
+import { getLeft, toFixed, checkValueInRange } from './common';
 
 export default class Points extends Component {
   constructor(props) {
     super(props);
     const { range, value } = props;
-    this.conf = range ? { start: value[0], end: value[1] } : { simple: value };
     this.state = {
-      visibility: false
+      visibility: false,
+      conf: range ? { start: value[0], end: value[1] } : { simple: value }
     };
   }
 
   getLeft = point => {
     const { max, min } = this.props;
-    return (point - min) * 100 / (max - min);
+    return getLeft(point, max, min);
   }
 
   handleMouseDown = (type, evt) => {
@@ -46,12 +47,6 @@ export default class Points extends Component {
 
   left = null
 
-  toFixed = value => {
-    const { step } = this.props;
-    const fixed = String(step).split('.')[1] || 0;
-    return Number(value).toFixed(fixed);
-  }
-
   handleMouseMove = (evt) => {
     evt.preventDefault();
     const left = this.left;
@@ -66,14 +61,12 @@ export default class Points extends Component {
       } else {
         newValue = Math.round(newValue / step) * step;
       }
-      newValue = this.toFixed(newValue);
-      if (newValue > max) {
-        newValue = max;
-      } else if (newValue < min) {
-        newValue = min;
-      }
-      this.conf[type] = newValue;
-      onChange && onChange(range ? [this.conf.start, this.conf.end] : newValue);
+      newValue = toFixed(newValue, step);
+      newValue = checkValueInRange(newValue, max, min);
+      let { conf } = this.state;
+      conf[type] = newValue;
+      this.setState({ conf });
+      onChange && onChange(range ? [conf.start, conf.end] : newValue);
     }
   }
 
@@ -85,14 +78,14 @@ export default class Points extends Component {
   componentWillReceiveProps(props) {
     const { range, value } = props;
     if (this.left === null) {
-      this.conf = range ? { start: value[0], end: value[1] } : { simple: value };
+      this.setState({ conf: range ? { start: value[0], end: value[1] } : { simple: value } });
     }
   }
 
   render() {
-    const { visibility, type } = this.state;
+    const { visibility, type, conf } = this.state;
     return (<div className="zent-slider-points">
-      {map(this.conf, (value, index) => <ToolTips key={index} content={value} visibility={index === type && visibility} left={this.getLeft(value)}>
+      {map(conf, (value, index) => <ToolTips key={index} content={value} visibility={index === type && visibility} left={this.getLeft(value)}>
         <span
           onMouseDown={this.handleMouseDown.bind(this, index)}
           className="zent-slider-point"></span>
