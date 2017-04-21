@@ -3,7 +3,7 @@
     <page-header></page-header>
     <div class="main-content">
       <div class="page-container clearfix">
-        <side-nav :data="navConfig['zh-CN']" base="/component"></side-nav>
+        <side-nav :data="navConfig['zh-CN']" base="/"></side-nav>
         <div class="page-content">
           <router-view></router-view>
           <footer-nav></footer-nav>

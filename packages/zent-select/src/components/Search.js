@@ -24,7 +24,6 @@ class Search extends Component {
     let {
       prefixCls,
       placeholder,
-      onFocus,
       keyword
     } = this.props;
 
@@ -37,7 +36,6 @@ class Search extends Component {
           className={`${prefixCls}-filter`}
           value={keyword}
           onChange={this.changeHandler}
-          onFocus={onFocus}
         />
       </div>
     );
@@ -47,8 +45,7 @@ class Search extends Component {
 Search.propTypes = {
   prefixCls: PropTypes.string,
   value: PropTypes.any,
-  placeholder: PropTypes.string,
-  onFocus: PropTypes.func
+  placeholder: PropTypes.string
 };
 
 export default Search;

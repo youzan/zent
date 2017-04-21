@@ -1,6 +1,6 @@
 {
   "name": "zent-icon",
-  "version": "1.1.0-beta1",
+  "version": "1.1.0-beta5",
   "description": "Zent icon font",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "collectCoverage": true
   },
   "dependencies": {
-    "zent-utils": "1.1.0-beta1",
+    "zent-utils": "1.1.0-beta4",
     "zenticons": "^1.0.0"
   }
 }

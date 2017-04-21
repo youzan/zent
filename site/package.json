@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --history-api-fallback --config webpack/webpack.dev.config.js --progress",
     "build": "rm -rf dist && cross-env NODE_ENV=production webpack --progress --hide-modules --config  webpack/webpack.prd.config.js",
-    "deploy": "yarn run build && gh-pages -d dist"
+    "deploy": "yarn run build && ./scripts/deploy.sh"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -41,6 +41,8 @@
     "cheerio": "^0.22.0",
     "cross-env": "^3.2.4",
     "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^0.10.1",
     "gh-pages": "^0.12.0",
     "html-loader": "^0.4.5",

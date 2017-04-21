@@ -2,6 +2,8 @@ import Vue from 'vue';
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import { prefix } from './constants';
+
 const registerRoute = (navConfig, isReact) => {
   let route = [];
   let navs = navConfig['zh-CN'];
@@ -22,7 +24,7 @@ const registerRoute = (navConfig, isReact) => {
   });
 
   function addRoute(page) {
-    const componentName = 'demo-page-' + page.path.slice(1);
+    const componentName = 'demo-page-' + page.path.replace('/', '-');
     let filePath;
     if (page.filePath) {
       filePath = page.filePath;
@@ -33,39 +35,25 @@ const registerRoute = (navConfig, isReact) => {
 
     if (isReact) {
       route.push({
-        path: '/component' + page.path,
+        path: `/${page.path}`,
         component: Vue.component(componentName, {
           render(createElement) {
             return createElement('div', {
-              'class': {
+              class: {
                 'react-doc-page-content': true
               }
             });
           },
           mounted() {
-            page.filePath().then((res) => {
-              ReactDom.render(
-                React.createElement(res),
-                this.$el
-              );
-            });
+            ReactDom.render(React.createElement(page.component), this.$el);
           },
           beforeDestroy() {
             ReactDom.unmountComponentAtNode(this.$el);
           }
         })
       });
-    } else {
-      route.push({
-        path: '/component' + page.path,
-        component: function(resolve) {
-          require([`${filePath}`], resolve);
-        }
-      });
     }
   }
-
-  // console.log(route);
 
   return route;
 };

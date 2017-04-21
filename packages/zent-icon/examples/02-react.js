@@ -14,7 +14,7 @@ export default class ReactExample extends Component {
       <div className="demo-grid">
         <div className="demo-grid-row"><Icon type="shop" onClick={this.onClick} />快来有赞转转</div>
         <div className="demo-grid-row"><Icon type="casher" />快点交学费</div>
-        <div className="demo-grid-row"><Icon type="" spin />加载中...</div>
+        <div className="demo-grid-row"><Icon type="marketing" spin />加载中...</div>
       </div>
     );
   }
