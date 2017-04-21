@@ -1,16 +1,35 @@
 import React, { Component } from 'react';
 import Range from './range';
 import InputField from './inputField';
+import PropTypes from 'zent-utils/prop-types';
 
 export default class Slider extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    prefix: PropTypes.string,
+    max: PropTypes.number,
+    min: PropTypes.number,
+    dots: PropTypes.bool,
+    marks: PropTypes.object,
+    value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.number)
+    ]),
+    disabled: PropTypes.bool,
+    range: PropTypes.bool,
+    step: PropTypes.number,
+    withInput: PropTypes.bool,
+    onChange: PropTypes.func
+  }
+
   static defaultProps = {
     min: 0,
     max: 100,
     step: 1,
+    disabled: false,
     withInput: true,
     range: false,
-    value: 0,
-    defaultValue: 0
+    value: 0
   };
 
   constructor(props) {

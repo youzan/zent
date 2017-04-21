@@ -12,7 +12,8 @@ export default class NumberInput extends Component {
   static defaultProps = {
     min: -Infinity,
     max: Infinity,
-    step: 1
+    step: 1,
+    disabled: false
   };
 
   componentWillReceiveProps(newProps) {
@@ -43,6 +44,6 @@ export default class NumberInput extends Component {
 
   render() {
     const { value } = this.state;
-    return (<Input onBlur={this.handleBlur} onChange={this.onchange} value={value} />);
+    return (<Input onBlur={this.handleBlur} disabled={this.props.disabled} onChange={this.onchange} value={value} />);
   }
 }

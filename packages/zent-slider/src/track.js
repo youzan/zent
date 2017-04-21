@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getLeft } from './common';
+import calssNames from 'zent-utils/classnames';
 
 export default class Track extends Component {
   getLeft = () => {
@@ -13,6 +14,7 @@ export default class Track extends Component {
   }
 
   render() {
-    return (<div style={{ width: `${this.getWidth()}%`, left: `${this.getLeft()}%` }} className="zent-slider-track"></div>);
+    const { disabled } = this.props;
+    return (<div style={{ width: `${this.getWidth()}%`, left: `${this.getLeft()}%` }} className={calssNames({ 'zent-slider-track': true, 'zent-slider-track-disabled': disabled })}></div>);
   }
 }

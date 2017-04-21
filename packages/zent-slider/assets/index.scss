@@ -23,6 +23,12 @@
         &:hover {
             background: #3388FF;
         }
+        &-disabled {
+            background: #BBBBBB;
+            &:hover {
+                background: #BBBBBB;
+            }
+        }
     }
     &-point {
         position: absolute;
@@ -43,6 +49,18 @@
         }
         &:active{
             box-shadow: 0 0 0 2px rgba(16,142,233,.2);
+        }
+        &-disabled {
+            border: 2px solid #CACACA;
+            cursor: not-allowed;
+            &:hover{
+                border-color: #CACACA;
+                transform: scale(1.2);
+                transform-origin: center center;
+            }
+            &:active{
+                box-shadow: 0 0 0 2px rgba(0,0,0,.2);
+            }
         }
     }
     &-points{

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getValue, toFixed, getLately } from './common';
+import noop from 'zent-utils/lodash/noop';
 
 export default class Dots extends Component {
 
@@ -19,6 +20,7 @@ export default class Dots extends Component {
   }
 
   render() {
-    return (<div className="zent-slider-contain" onClick={this.handleClick}>{this.props.children}</div>);
+    const { disabled } = this.props;
+    return (<div className="zent-slider-contain" onClick={!disabled ? this.handleClick : noop}>{this.props.children}</div>);
   }
 }
