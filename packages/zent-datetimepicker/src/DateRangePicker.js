@@ -31,7 +31,7 @@ const getDateTime = (date, time) => {
 };
 
 const extractStateFromProps = (props) => {
-  const { format, min, max } = props;
+  const { format, min, max, defaultValue } = props;
   let showPlaceholder;
   let selected = [];
   let actived = [];
@@ -52,17 +52,19 @@ const extractStateFromProps = (props) => {
     }
   } else {
     showPlaceholder = true;
-    let start = new Date();
-
-    if (max) {
+    let start;
+    if (defaultValue && isValidValue(defaultValue)) {
+      start = maybeFormatDate(defaultValue[0], format);
+    } else if (min) {
+      start = maybeFormatDate(min, format);
+    } else if (max) {
       let maxDate = maybeFormatDate(max, format);
       let timestamp = maxDate && maxDate.getTime();
       if (timestamp < Date.now()) {
-        actived = [goMonths(maxDate, -1), maxDate];
+        start = goMonths(maxDate, -1);
       }
-    }
-    if (min) {
-      start = maybeFormatDate(min, format);
+    } else {
+      start = new Date();
     }
     actived = [start, goMonths(start, 1)];
   }
@@ -83,8 +85,8 @@ const extractStateFromProps = (props) => {
 
 class DateRangePicker extends Component {
   static PropTypes = {
-    prefix: PropTypes.string,
     className: PropTypes.string,
+    prefix: PropTypes.string,
     placeholder: PropTypes.arrayOf(PropTypes.string),
     confirmText: PropTypes.string,
     valueType: PropTypes.oneOf(['date', 'number', 'string']),

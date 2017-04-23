@@ -16,7 +16,8 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { value, format, min, max } = props;
+  const { value, format, min, max, defaultValue } = props;
+
   if (value) {
     const tmp = maybeFormatDate(value, format);
 
@@ -30,17 +31,23 @@ function extractStateFromProps(props) {
     }
   } else {
     showPlaceholder = true;
-    actived = new Date();
-    // 特殊处理：如果有最小值的话，当前面板应该是最小值所在的月份。
-    // 如果有最大值并且最大值小于当前月份，当前面板应该是最大值所在的月份。
-    let maxDate = maybeFormatDate(max, format);
-    let timestamp = maxDate && maxDate.getTime();
-    if (max && timestamp < Date.now()) {
-      actived = maxDate;
+
+    /**
+     * 当前面板显示优先级：
+     * defalutValue > min > max
+     */
+
+    if (defaultValue) {
+      actived = defaultValue;
+    } else if (min) {
+      actived = min;
+    } else if (max) {
+      actived = max;
+    } else {
+      actived = new Date();
     }
-    if (min) {
-      actived = maybeFormatDate(min, format);
-    }
+
+    actived = maybeFormatDate(actived, format);
   }
 
   /**

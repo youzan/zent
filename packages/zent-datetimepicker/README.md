@@ -356,12 +356,76 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 通过 `defaultValue` 来控制面板弹出是默认显示的日期。
+
+```js
+import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
+
+class Demo extends Component{
+  state = {
+
+  }
+
+  onChangeDate = (val) => {
+    this.setState({
+      dateValue: val
+    })
+  }
+
+  onChangeMonth = (val) => {
+    this.setState({
+      monthValue: val
+    })
+  }
+
+  onChangeRange = (val) => {
+    this.setState({
+      rangeValue: val
+    })
+  }
+
+  render(){
+    const { dateValue, monthValue, rangeValue, max } = this.state;
+    return (
+      <div>
+        <DatePicker
+          className="zent-picker-demo"
+          value={dateValue}
+          defaultValue="1990-01-01"
+          onChange={this.onChangeDate}
+        />
+        <br />
+        <MonthPicker
+          className="zent-picker-demo"
+          value={monthValue}
+          defaultValue="2010-07"
+          onChange={this.onChangeMonth}
+        />
+        <br />
+        <DateRangePicker
+          className="zent-picker-demo"
+          value={rangeValue}
+          defaultValue={["2016-01-01", "2017-01-01"]}
+          onChange={this.onChangeRange}
+          />
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(
+  <Demo />,
+  mountNode
+)
+```
+:::
 ## API
 
 ### 共同的 API
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
 | value        | 默认选择日期                   | string/Date    |     | 否    |
+| defaultValue        | 默认面板显示日期                   | string/Date    |     | 否    |
 | onChange     | 确认日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
 | onClick      | 用户点击选择日期的回调 | func |   |   否 |
 | onOpen       | 面板弹出的回调 | func |   |   否 |
