@@ -1,14 +1,17 @@
 {
   "name": "zent-slider",
   "version": "0.0.1",
-  "description": "这是一个React组件",
-  "repository": "url/to/your/component",
+  "description": "zent Slider组件",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src ./examples",
     "prepublish": "npm run lint && zent-kit prepublish"
   },
-  "author": "who r u",
+  "author": "wulv@youzan.com",
   "license": "MIT",
   "files": [
     "src/",
@@ -20,10 +23,5 @@
   "dependencies": {
     "zent-utils": "1.1.0-beta4",
     "zent-input": "1.1.0-beta4"
-  },
-  "jest": {
-    "verbose": true,
-    "automock": false,
-    "collectCoverage": true
   }
 }

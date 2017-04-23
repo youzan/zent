@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Range from './range';
 import InputField from './inputField';
 import PropTypes from 'zent-utils/prop-types';
+import classNames from 'zent-utils/classnames';
 
 export default class Slider extends Component {
   static propTypes = {
@@ -26,6 +27,7 @@ export default class Slider extends Component {
     min: 0,
     max: 100,
     step: 1,
+    prefix: 'zent',
     disabled: false,
     withInput: true,
     range: false,
@@ -47,9 +49,10 @@ export default class Slider extends Component {
   }
 
   render() {
-    const { withInput, ...restProps } = this.props;
+    const { withInput, className, ...restProps } = this.props;
+    const wrapClass = classNames(`${restProps.prefix}-slider`, className);
     const { value } = this.state;
-    return (<div className="zent-slider">
+    return (<div className={wrapClass}>
       <Range {...restProps} value={value} onChange={this.onChange} />
       {withInput && !restProps.dots && <InputField onChange={this.onChange} {...restProps} value={value} />}
     </div>);

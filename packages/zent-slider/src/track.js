@@ -14,7 +14,7 @@ export default class Track extends Component {
   }
 
   render() {
-    const { disabled } = this.props;
-    return (<div style={{ width: `${this.getWidth()}%`, left: `${this.getLeft()}%` }} className={calssNames({ 'zent-slider-track': true, 'zent-slider-track-disabled': disabled })}></div>);
+    const { disabled, prefix } = this.props;
+    return (<div style={{ width: `${this.getWidth()}%`, left: `${this.getLeft()}%` }} className={calssNames({ [`${prefix}-slider-track-disabled`]: disabled }, `${prefix}-slider-track`)}></div>);
   }
 }

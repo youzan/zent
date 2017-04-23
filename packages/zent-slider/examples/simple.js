@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Slide from '../src';
+import Slider from '../src';
 import '../assets/index.scss';
 import 'zent-input/assets/index.scss';
 /*
@@ -13,13 +13,15 @@ export default class Simple extends Component {
     const marks = {
       0: '0°C',
       30: '30°C',
+      60: '60°C',
       100: '100°C'
     };
     return (<div>
-      <Slide value={[30, 100]} range />
-      <Slide value={[30, 100]} marks={marks} range dots />
-      <Slide value={[-15, -5]} range max={-1} min={-20} />
-      <Slide value={1.3} max={2} min={1} step={0.1} disabled />
+      <Slider />
+      <Slider value={[30, 100]} range />
+      <Slider value={[30, 100]} marks={marks} range dots />
+      <Slider value={[-15, -5]} range max={-1} min={-20} />
+      <Slider value={1.3} max={2} min={1} step={0.1} disabled />
     </div>);
   }
 }

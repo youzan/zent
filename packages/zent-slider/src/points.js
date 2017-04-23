@@ -5,7 +5,7 @@ import keys from 'zent-utils/lodash/keys';
 import map from 'zent-utils/lodash/map';
 import { getLeft, toFixed, checkValueInRange } from './common';
 import noop from 'zent-utils/lodash/noop';
-import calssNames from 'zent-utils/classnames';
+import classNames from 'zent-utils/classnames';
 
 export default class Points extends Component {
   constructor(props) {
@@ -23,6 +23,7 @@ export default class Points extends Component {
   }
 
   handleMouseDown = (type, evt) => {
+    evt.preventDefault();
     this.left = evt.clientX;
     this.setState({ type, visibility: true });
     let { value } = this.props;
@@ -86,12 +87,12 @@ export default class Points extends Component {
 
   render() {
     const { visibility, type, conf } = this.state;
-    const { disabled } = this.props;
-    return (<div className="zent-slider-points">
-      {map(conf, (value, index) => <ToolTips key={index} content={value} visibility={index === type && visibility} left={this.getLeft(value)}>
+    const { disabled, prefix } = this.props;
+    return (<div className={`${prefix}-slider-points`}>
+      {map(conf, (value, index) => <ToolTips prefix={prefix} key={index} content={value} visibility={index === type && visibility} left={this.getLeft(value)}>
         <span
           onMouseDown={!disabled ? this.handleMouseDown.bind(this, index) : noop}
-          className={calssNames({ 'zent-slider-point': true, 'zent-slider-point-disabled': disabled })}></span>
+          className={classNames({ [`${prefix}-slider-point-disabled`]: disabled }, `${prefix}-slider-point`)}></span>
       </ToolTips>)}
       {!disabled && <WindowEventHandler eventName="mousemove" callback={this.handleMouseMove} />}
       {!disabled && <WindowEventHandler eventName="mouseup" callback={this.handleMouseUp} />}
