@@ -11,7 +11,7 @@ export const getLeft = (value, max, min) => {
   return (value - min) * 100 / (max - min);
 };
 
-export const getLately = (value, pointValue) => {
+export const getClosest = (value, pointValue) => {
   let newValue;
   if (Math.abs(value[0] - pointValue) <= Math.abs(value[1] - pointValue)) {
     newValue = [pointValue, value[1]];

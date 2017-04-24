@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Point from './points';
 import Dots from './dots';
 import Marks from './marks';
-import Contain from './contain';
+import Container from './container';
 import ReactDOM from 'react-dom';
 import Track from './track';
 
@@ -22,9 +22,9 @@ export default class Range extends Component {
     return (<div className={`${restProps.prefix}-slider-main`}>
       {dots && <Dots marks={marks} {...restProps} value={value} />}
       <Point dots={dots} marks={marks} clientWidth={clientWidth} {...restProps} value={value} />
-      <Contain clientWidth={clientWidth} dots={dots} {...restProps} value={value}>
+      <Container clientWidth={clientWidth} dots={dots} {...restProps} value={value}>
         <Track clientWidth={clientWidth} {...restProps} value={value} />
-      </Contain>
+      </Container>
       {marks && <Marks marks={marks} {...restProps} />}
     </div>);
   }

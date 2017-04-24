@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getValue, toFixed, getLately } from './common';
 import noop from 'zent-utils/lodash/noop';
 
-export default class Contain extends Component {
+export default class Container extends Component {
 
   handleClick = (e) => {
     const { clientWidth, dots, range, value, onChange, max, min, step } = this.props;
@@ -21,6 +21,6 @@ export default class Contain extends Component {
 
   render() {
     const { disabled, prefix } = this.props;
-    return (<div className={`${prefix}-slider-contain`} onClick={!disabled ? this.handleClick : noop}>{this.props.children}</div>);
+    return (<div className={`${prefix}-slider-container`} onClick={!disabled ? this.handleClick : noop}>{this.props.children}</div>);
   }
 }

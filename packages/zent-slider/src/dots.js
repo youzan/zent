@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import map from 'zent-utils/lodash/map';
 import classNames from 'zent-utils/classnames';
-import { getLeft, getLately } from './common';
+import { getLeft, getClosest } from './common';
 import noop from 'zent-utils/lodash/noop';
 
 export default class Dots extends Component {
@@ -11,14 +11,15 @@ export default class Dots extends Component {
     if (disabled) {
       return false;
     }
+    point = Number(point);
     return range ? (point <= value[1] && point >= value[0]) : point <= value;
   }
 
   handleClick = (pointValue) => {
     const { range, value, onChange } = this.props;
-    let newValue = value;
+    let newValue = Number(pointValue);
     if (range) {
-      newValue = getLately(value, pointValue);
+      newValue = getClosest(value, newValue);
     }
     onChange && onChange(newValue);
   }
