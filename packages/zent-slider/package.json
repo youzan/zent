@@ -1,6 +1,6 @@
 {
   "name": "zent-slider",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Slider组件",
   "repository": {
     "type": "git",
@@ -21,8 +21,8 @@
     "dist/"
   ],
   "dependencies": {
-    "zent-utils": "1.1.0-beta4",
-    "zent-input": "1.1.0-beta4"
+    "zent-utils": "1.1.0",
+    "zent-input": "1.1.0"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
