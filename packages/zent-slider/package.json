@@ -1,7 +1,7 @@
 {
   "name": "zent-slider",
   "version": "0.0.1",
-  "description": "zent Slider组件",
+  "description": "Slider组件",
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"

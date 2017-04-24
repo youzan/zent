@@ -14,11 +14,25 @@
 ```js
 import { Slider } from 'zent';
 
+class Test extends React.Component {
+	state = {
+		value: 0
+	}
+
+	onChange = value => {
+		this.setState({ value });
+	}
+
+	render() {
+		const { value } = this.state;
+		return (<Slider value={value} onChange={this.onChange} />);
+	}
+}
+
 ReactDOM.render(
-    <Slider />
+    <Test />
     , mountNode
 );
-
 ```
 :::
 
@@ -27,8 +41,23 @@ ReactDOM.render(
 ```js
 import { Slider } from 'zent';
 
+class Test extends React.Component {
+	state = {
+		value: [30, 100]
+	}
+
+	onChange = value => {
+		this.setState({ value });
+	}
+
+	render() {
+		const { value } = this.state;
+		return (<Slider range value={value} onChange={this.onChange} />);
+	}
+}
+
 ReactDOM.render(
-    <Slider value={[30, 100]} range />
+    <Test />
     , mountNode
 );
 ```
@@ -39,8 +68,23 @@ ReactDOM.render(
 ```js
 import { Slider } from 'zent';
 
+class Test extends React.Component {
+	state = {
+		value: 1.3
+	}
+
+	onChange = value => {
+		this.setState({ value });
+	}
+
+	render() {
+		const { value } = this.state;
+		return (<Slider max={2} min={1} step={0.1} value={value} onChange={this.onChange} />);
+	}
+}
+
 ReactDOM.render(
-    <Slider value={1.3} max={2} min={1} step={0.1} />
+    <Test />
     , mountNode
 );
 ```
@@ -55,8 +99,24 @@ const marks = {
 	0: '0°C',
 	100: '100°C'
 };
+
+class Test extends React.Component {
+	state = {
+		value: [30, 100]
+	}
+
+	onChange = value => {
+		this.setState({ value });
+	}
+
+	render() {
+		const { value } = this.state;
+		return (<Slider range marks={marks} value={value} onChange={this.onChange} />);
+	}
+}
+
 ReactDOM.render(
-    <Slider value={[30, 100]} marks={marks} range />
+    <Test />
     , mountNode
 );
 ```
@@ -74,30 +134,24 @@ const marks = {
 	75: '75°C',
 	100: '100°C'
 };
-ReactDOM.render(
-    <Slider value={[0, 50]} marks={marks} range dots />
-    , mountNode
-);
-```
-:::
 
-:::demo 回调函数
+class Test extends React.Component {
+	state = {
+		value: [0, 50]
+	}
 
-```js
-import { Slider } from 'zent';
-
-class EventTest extends React.Component {
 	onChange = value => {
-		console.log(value);
+		this.setState({ value });
 	}
 
 	render() {
-		return (<Slider value={40} onChange={this.onChange} />);
+		const { value } = this.state;
+		return (<Slider range dots marks={marks} value={value} onChange={this.onChange} />);
 	}
 }
 
 ReactDOM.render(
-    <EventTest />
+    <Test />
     , mountNode
 );
 ```

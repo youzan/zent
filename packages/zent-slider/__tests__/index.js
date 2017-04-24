@@ -4,15 +4,26 @@ import Slider from '../src';
 
 describe('Slider', () => {
   it('will render div wrapper contains an Slider without any props', () => {
-    const wrapper = shallow(<Slider />);
-    expect(wrapper.hasClass('zent-slider')).toBe(true);
-    expect(wrapper.type()).toBe('div');
-    const mountWrapper = mount(<Slider />);
-    expect(mountWrapper.find('.zent-slider-main').length).toBe(1);
-    expect(mountWrapper.find('.zent-slider-input').length).toBe(1);
-    expect(mountWrapper.find('input').length).toBe(1);
-    expect(mountWrapper.find('input').at(0).node.value).toBe('0');
-    expect(mountWrapper.find('.zent-slider-toolTips').at(0).props().style.left).toBe('0%');
+    class Test extends React.Component {
+      state = {
+        value: 0
+      }
+      onChange = value => {
+        this.setState({ value });
+      }
+
+      render() {
+        const { value } = this.state;
+        return (<Slider value={value} onChange={this.onChange} />);
+      }
+    }
+    const wrapper = mount(<Test />);
+    expect(wrapper.find('Slider').at(0).hasClass('zent-slider')).toBe(true);
+    expect(wrapper.find('.zent-slider-main').length).toBe(1);
+    expect(wrapper.find('.zent-slider-input').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
+    expect(wrapper.find('input').at(0).node.value).toBe('0');
+    expect(wrapper.find('.zent-slider-toolTips').at(0).props().style.left).toBe('0%');
   });
 
   it('can have custom wrapper classNames and prefix', () => {
@@ -38,7 +49,20 @@ describe('Slider', () => {
       50: '50%',
       100: '100%'
     };
-    const wrapper = mount(<Slider range value={[0, 20]} marks={marks} dots />);
+    class EventTest extends React.Component {
+      state = {
+        value: [0, 20]
+      }
+      onChange = value => {
+        this.setState({ value });
+      }
+
+      render() {
+        const { value } = this.state;
+        return (<Slider range value={value} onChange={this.onChange} marks={marks} dots />);
+      }
+    }
+    const wrapper = mount(<EventTest />);
     expect(wrapper.find('.zent-slider-mark').length).toBe(4);
     expect(wrapper.find('.zent-slider-dot').length).toBe(4);
     expect(wrapper.find('.zent-slider-dot-active').length).toBe(2);
@@ -59,22 +83,12 @@ describe('Slider', () => {
     expect(wrapper.find('.zent-slider-toolTips').at(1).props().style.left).toBe('30%');
     expect(wrapper.find('input').at(0).node.value).toBe('20');
     expect(wrapper.find('input').at(1).node.value).toBe('30');
-  });
-
-  it('can range props', () => {
-    const wrapper = mount(<Slider range value={[20, 30]} />);
-    expect(wrapper.find('ToolTips').length).toBe(2);
-    expect(wrapper.find('NumberInput').length).toBe(2);
-    expect(wrapper.find('.zent-slider-toolTips').at(0).props().style.left).toBe('20%');
-    expect(wrapper.find('.zent-slider-toolTips').at(1).props().style.left).toBe('30%');
-    expect(wrapper.find('input').at(0).node.value).toBe('20');
-    expect(wrapper.find('input').at(1).node.value).toBe('30');
     const style = wrapper.find('.zent-slider-track').at(0).props().style;
     expect(style.width).toBe('10%');
     expect(style.left).toBe('20%');
   });
 
-  it('can onchange props', () => {
+  it('can input onchange props', () => {
     const wrapper = mount(<Slider range value={[20, 30]} />);
     expect(wrapper.find('input').at(0).simulate('change', { target: { value: 25 } }));
     expect(wrapper.find('input').at(0).node.value).toBe('25');
