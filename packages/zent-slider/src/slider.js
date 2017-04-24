@@ -26,6 +26,9 @@ function checkProps(props) {
     if (!isNumber(value)) {
       throw 'not has range props value must an number';
     }
+    if (value < min || value > max) {
+      throw 'value must between min to max';
+    }
   }
   if (dots) {
     if (!marks) {
