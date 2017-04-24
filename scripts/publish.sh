@@ -35,10 +35,10 @@ $basepath/../lerna publish --exact --concurrency 1 "$@"
 github_changelog_generator \
     --exclude-tags-regex "(zent-.+|beta|alpha)" \
     --header-label "## 更新日志" \
-    --bugs-label "Bug 修复" \
-    --enhancement-label "不兼容改动和新功能" \
-    --issues-label "处理的 Issue" \
-    --pr-label "合并的 Pull Request (可能有不兼容改动)" \
+    --bugs-label "**Bug 修复:**" \
+    --enhancement-label "**不兼容改动和新功能:**" \
+    --issues-label "**处理的 Issue:**" \
+    --pr-label "**合并的 Pull Request (可能有不兼容改动):**" \
     --no-unreleased \
     -o $basepath/../packages/zent/CHANGELOG.md
 
