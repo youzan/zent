@@ -4,8 +4,9 @@
   "description": "Zent工具库",
   "main": "./lib/index.js",
   "scripts": {
+    "clean": "rm -rf component dom lodash",
     "lint": "eslint --max-warnings=0 ./src ./examples",
-    "prepublish": "npm run lint && zent-kit prepublish && ./scripts/shiftup.sh && ./scripts/wrap-lodash.sh"
+    "prepublish": "npm run lint && zent-kit prepublish && npm run clean && ./scripts/shiftup.sh && ./scripts/wrap-lodash.sh"
   },
   "repository": {
     "type": "git",

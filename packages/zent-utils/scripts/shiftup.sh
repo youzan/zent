@@ -5,6 +5,6 @@ for entry in lib/*
 do
     name=$(basename $entry)
     if [ "$name" != "index.js" ] && [ "$name" != "index.css" ] ; then
-        cp -Rf $entry $name
+        cp -Rf $entry .
     fi
 done
