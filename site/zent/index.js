@@ -17,6 +17,7 @@ import Popover from '../../packages/zent-popover/src';
 import Portal from '../../packages/zent-portal/src';
 import Radio from '../../packages/zent-radio/src';
 import Select from '../../packages/zent-select/src';
+import Slider from '../../packages/zent-slider/src';
 import Steps from '../../packages/zent-steps/src';
 import Sweetalert from '../../packages/zent-sweetalert/src';
 import Switch from '../../packages/zent-switch/src';
@@ -48,6 +49,7 @@ const Zent = {
   Portal,
   Radio,
   Select,
+  Slider,
   Steps,
   Sweetalert,
   Table,

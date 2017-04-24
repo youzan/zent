@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Slider from '../src';
 import '../assets/index.scss';
+import '../assets/example.scss';
 import 'zent-input/assets/index.scss';
 /*
 ## Write Something here

@@ -1,4 +1,4 @@
-## Slider 滑块
+## Slider 滑动输入条
 
 通过拖动、点击Slider组件选择数值
 
@@ -15,9 +15,7 @@
 import { Slider } from 'zent';
 
 ReactDOM.render(
-    <div>
-        <Slider />
-    </div>
+    <Slider />
     , mountNode
 );
 
@@ -66,22 +64,30 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 回调函数与disabled
+:::demo disabled
+
+```js
+import { Slider } from 'zent';
+
+ReactDOM.render(
+    <Slider value={[30, 100]} range disabled />
+    , mountNode
+);
+```
+:::
+
+:::demo 回调函数
 
 ```js
 import { Slider } from 'zent';
 
 class EventTest extends React.Component {
-	state = { disabled: false }
-
 	onChange = value => {
-		if (value > 50) {
-			this.setState({ disabled: true });
-		}
+		console.log(value);
 	}
 
 	render() {
-		return (<Slider value={40} onChange={this.onChange} disabled={this.stete.disabled} />);
+		return (<Slider value={40} onChange={this.onChange} />);
 	}
 }
 

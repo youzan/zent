@@ -112,6 +112,11 @@ module.exports = {
               component: require('../../packages/zent-select/README.md')
             },
             {
+              path: 'component/slider',
+              title: 'Slider 滑动输入条',
+              component: require('../../packages/zent-slider/README.md')
+            },
+            {
               path: 'component/switch',
               title: 'Switch 开关',
               component: require('../../packages/zent-switch/README.md')
