@@ -228,6 +228,8 @@ describe('DateTimePicker', () => {
 
   it('DatePicker has disable prop', () => {
     // total disable switch
+    const getMonthNumber = string => +string.match(/(\d{4}).*(\d{1})/)[2];
+    const getYearNumber = string => +string.match(/(\d{4})/)[1];
     let wrapper = mount(<DatePicker disabled />);
     expect(wrapper.find('DatePanel').length).toBe(0);
     wrapper.find('.picker-input').simulate('click');
@@ -246,13 +248,18 @@ describe('DateTimePicker', () => {
     wrapper = mount(<DatePicker max="2010.01.01" />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
-    expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
+    expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(1);
+    expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(2010);
+    // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // min
     wrapper = mount(<DatePicker min="3000.01.01" />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
-    expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
+    expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(1);
+    expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(3000);
+
+    // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // when disabled, the current link is hidden
     expect(pop.find('.link--current').length).toBe(0);

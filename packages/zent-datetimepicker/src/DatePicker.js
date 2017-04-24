@@ -16,7 +16,8 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { value, format } = props;
+  const { value, format, min, max, defaultValue } = props;
+
   if (value) {
     const tmp = maybeFormatDate(value, format);
 
@@ -30,7 +31,23 @@ function extractStateFromProps(props) {
     }
   } else {
     showPlaceholder = true;
-    actived = new Date();
+
+    /**
+     * 当前面板显示优先级：
+     * defalutValue > min > max
+     */
+
+    if (defaultValue) {
+      actived = defaultValue;
+    } else if (min) {
+      actived = min;
+    } else if (max) {
+      actived = max;
+    } else {
+      actived = new Date();
+    }
+
+    actived = maybeFormatDate(actived, format);
   }
 
   /**
@@ -70,7 +87,9 @@ class DatePicker extends Component {
     ]),
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   static defaultProps = {
@@ -275,8 +294,12 @@ class DatePicker extends Component {
   }
 
   togglePicker = () => {
+    const { onOpen, onClose } = this.props;
+    const openPanel = !this.state.openPanel;
+
+    openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel: !this.state.openPanel
+      openPanel
     });
   }
 

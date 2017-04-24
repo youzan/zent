@@ -6,32 +6,39 @@ import Popover from 'zent-popover';
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
-import { formatDate, parseDate } from './utils/date';
+import { formatDate, parseDate, maybeFormatDate } from './utils/date';
 import PropTypes from 'zent-utils/prop-types';
 import { noop } from './constants/';
 
 function extractStateFromProps(props) {
   let showPlaceholder;
   let selected;
-  const format = props.format;
+  let actived;
+  const { format, value, defaultValue } = props;
 
-  if (props.value) {
-    const tmp = parseDate(props.value, format);
+  if (value) {
+    const tmp = parseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
-      selected = tmp;
+      selected = actived = tmp;
     } else {
+      console.warn('date and format don\'t match.'); // eslint-disable-line
       showPlaceholder = true;
-      selected = new Date();
+      selected = actived = new Date();
     }
   } else {
     showPlaceholder = true;
-    selected = new Date();
+    if (defaultValue) {
+      actived = defaultValue;
+    } else {
+      actived = new Date();
+    }
+    selected = actived = maybeFormatDate(actived, format);
   }
 
   return {
     value: formatDate(selected, format),
-    actived: selected,
+    actived,
     selected,
     openPanel: false,
     showPlaceholder
@@ -46,7 +53,9 @@ class MonthPicker extends Component {
     confirmText: PropTypes.string,
     format: PropTypes.string,
     onChange: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   static defaultProps = {
@@ -146,6 +155,10 @@ class MonthPicker extends Component {
   }
 
   togglePicker = () => {
+    const { onOpen, onClose } = this.props;
+    const openPanel = !this.state.openPanel;
+
+    openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
       openPanel: !this.state.openPanel
     });
