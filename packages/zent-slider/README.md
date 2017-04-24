@@ -53,24 +53,29 @@ import { Slider } from 'zent';
 
 const marks = {
 	0: '0°C',
-	30: '30°C',
-	60: '60°C',
 	100: '100°C'
 };
 ReactDOM.render(
-    <Slider value={[30, 100]} marks={marks} range dots />
+    <Slider value={[30, 100]} marks={marks} range />
     , mountNode
 );
 ```
 :::
 
-:::demo disabled
+:::demo 只能选择标签值，此时无输入框
 
 ```js
 import { Slider } from 'zent';
 
+const marks = {
+	0: '0°C',
+	25: '25°C',
+	50: '50°C',
+	75: '75°C',
+	100: '100°C'
+};
 ReactDOM.render(
-    <Slider value={[30, 100]} range disabled />
+    <Slider value={[0, 50]} marks={marks} range dots />
     , mountNode
 );
 ```
@@ -93,6 +98,18 @@ class EventTest extends React.Component {
 
 ReactDOM.render(
     <EventTest />
+    , mountNode
+);
+```
+:::
+
+:::demo disabled
+
+```js
+import { Slider } from 'zent';
+
+ReactDOM.render(
+    <Slider value={[30, 100]} range disabled />
     , mountNode
 );
 ```
