@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getValue, toFixed, getLately } from './common';
+import { getValue, toFixed, getClosest } from './common';
 import noop from 'zent-utils/lodash/noop';
 
 export default class Container extends Component {
@@ -13,7 +13,7 @@ export default class Container extends Component {
       pointValue = toFixed(pointValue, step);
       newValue = pointValue;
       if (range) {
-        newValue = getLately(value, pointValue);
+        newValue = getClosest(value, pointValue);
       }
       onChange && onChange(newValue);
     }
