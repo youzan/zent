@@ -1,0 +1,35 @@
+{
+  "name": "zent-slider",
+  "version": "0.0.1",
+  "description": "Slider组件",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:youzan/zent.git"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint --max-warnings=0 ./src ./examples",
+    "prepublish": "npm run lint && zent-kit prepublish"
+  },
+  "author": "wulv@youzan.com",
+  "license": "MIT",
+  "files": [
+    "src/",
+    "assets/",
+    "examples/",
+    "lib/",
+    "dist/"
+  ],
+  "dependencies": {
+    "zent-utils": "1.1.0-beta4",
+    "zent-input": "1.1.0-beta4"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/common.js",
+      "<rootDir>/src/container.js",
+      "<rootDir>/src/points.js"
+    ]
+  }
+}
