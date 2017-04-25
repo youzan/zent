@@ -2,11 +2,11 @@
   <div class="page-header">
     <div class="page-header__top">
       <h1 class="page-header__logo">
-        <a href="//www.youzanyun.com/intro/zanui"></a>
+        <a href="//www.youzanyun.com/zanui"></a>
       </h1>
       <ul class="page-header__navs">
         <li class="page-header__item">
-          <a href="//www.youzanyun.com/intro/zanui" class="page-header__link">首页</a>
+          <a href="//www.youzanyun.com/zanui" class="page-header__link">首页</a>
         </li>
         <li class="page-header__item">
           <a href="//www.youzanyun.com/zanui/react" class="page-header__link page-header__link--active">PC端</a>
