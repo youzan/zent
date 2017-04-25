@@ -83,7 +83,7 @@ export default {
         display: block;
         width: 78px;
         height: 20px;
-        background-image: url(https://img.yzcdn.cn/upload_files/2017/03/30/Fjm3aSwID8ROIV_5TO6dZdJ_IEgz.png);
+        background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
         background-size: contain;
         background-repeat: no-repeat;
         margin: 20px 0 0 20px;
