@@ -1,0 +1,25 @@
+## Customize the test machine
+machine:
+  timezone:
+    Asia/Shanghai # Set the timezone
+
+  node:
+      version: 6.10.0
+
+## Customize dependencies
+dependencies:
+  pre:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - yarn global add zent-kit
+    - yarn global add eslint@2.11.1 eslint-plugin-react@5.1.1 babel-eslint@6.0.4 eslint-plugin-import@1.8.1 eslint-plugin-jsx-a11y@1.2.3 eslint-config-airbnb@9.0.1 eslint-plugin-lean-imports@0.3.3
+
+  override:
+    - yarn
+
+## Customize test commands
+test:
+  pre:
+    - yarn run bootstrap
+  override:
+    - yarn run lint
+    - yarn run test
