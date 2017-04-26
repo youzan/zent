@@ -13,9 +13,9 @@ npm install zent
 ### 使用组件
 
 ```js
-import { Grid } from 'zent';
+import { Button } from 'zent';
 
-ReactDOM.render(<Grid />, someNode);
+ReactDOM.render(<Button />, someNode);
 ```
 
 ### 引入样式

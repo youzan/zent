@@ -1,8 +1,22 @@
 var webpack = require('webpack');
 var path = require('path');
+var fs = require('fs');
 var postcssPlugins = require('./postcss.config');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+// 为src目录下的所有子目录创建alias
+function createAlias() {
+  var packagesDir = path.resolve(__dirname, '../../packages/zent/src');
+  var packages = fs.readdirSync(packagesDir);
+
+  return packages
+    .filter(p => fs.statSync(path.join(packagesDir, p)).isDirectory())
+    .reduce((alias, p) => {
+      alias[p] = path.join(packagesDir, p);
+      return alias;
+    }, {});
+}
 
 var babelLoader = {
   loader: 'babel-loader',
@@ -51,11 +65,11 @@ module.exports = {
   resolve: {
     modules: [path.join(__dirname, '../node_modules'), 'node_modules'],
     extensions: ['.js', '.vue', '.pcss', '.md'],
-    alias: {
+    alias: Object.assign({
       vue$: 'vue/dist/vue.runtime.common.js',
       components: path.join(__dirname, '../src/components'),
       zent$: path.join(__dirname, '../zent')
-    }
+    }, createAlias())
   },
   module: {
     rules: [

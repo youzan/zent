@@ -5,7 +5,6 @@ var fs = require('fs');
 var webpack = require('webpack');
 
 // 为src目录下的所有子目录创建alias
-// e.g. zent-button => './src/button'
 function createAlias() {
   var packagesDir = path.resolve(__dirname, './src');
   var packages = fs.readdirSync(packagesDir);
