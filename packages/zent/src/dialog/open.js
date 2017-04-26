@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import noop from 'lodash/noop';
-import isBrowser from 'zent-utils/isBrowser';
+import isBrowser from 'utils/isBrowser';
 import uniqueId from 'lodash/uniqueId';
 
 import Dialog from './Dialog';

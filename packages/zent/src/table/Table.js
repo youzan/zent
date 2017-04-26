@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Head from './modules/Head';
 import Body from './modules/Body';
-import Pagination from 'zent-pagination';
-import Loading from 'zent-loading';
+import Pagination from 'pagination';
+import Loading from 'loading';
 import PropTypes from 'prop-types';
-import isBrowser from 'zent-utils/isBrowser';
+import isBrowser from 'utils/isBrowser';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 

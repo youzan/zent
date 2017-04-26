@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import Menu, { MenuItem, SubMenu } from '../src';
+import Menu from 'menu';
+
+const { MenuItem, SubMenu } = Menu;
 
 describe('Menu component', () => {
   it('can have className', () => {
@@ -86,4 +86,3 @@ describe('Menu component', () => {
     expect(onClick.mock.calls.length).toBe(0);
   });
 });
-

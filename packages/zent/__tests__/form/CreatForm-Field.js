@@ -1,10 +1,9 @@
 import React from 'react';
-import noop from 'zent-utils/lodash/noop';
-import omit from 'zent-utils/lodash/omit';
-import PropTypes from 'zent-utils/prop-types';
+import noop from 'lodash/noop';
+import omit from 'lodash/omit';
+import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
-
-import ZentForm from '../src';
+import ZentForm from 'form';
 
 describe('CreateForm and Field', () => {
   const { Form, createForm, Field, InputField, unknownProps } = ZentForm;
@@ -19,7 +18,9 @@ describe('CreateForm and Field', () => {
     <FormCreated>
       <Field name="bar" component={DivComponent} />
     </FormCreated>
-  ).find(Field).getNode().context;
+  )
+    .find(Field)
+    .getNode().context;
 
   it('createForm return a function that have arg[0] using react.createElement.\nThat returnedFunction return a react class with default state, props, methods', () => {
     expect(typeof returnedFunction).toBe('function');
@@ -43,11 +44,11 @@ describe('CreateForm and Field', () => {
 
   // HACK: console.error
   // it('Field must in a created zent-form. Must have name and component props', () => {
-    // expect(() => { shallow(<Field />) }).toThrow();
-    // expect(() => { mount(<Field />) }).toThrow();
-    // expect(() => { mount(<FormCreated><Field component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).toThrow();
-    // expect(() => { mount(<FormCreated><Field name="foo" /></FormCreated>) }).toThrow();
-    // expect(() => { mount(<FormCreated><Field name="foo" component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).not.toThrow();
+  // expect(() => { shallow(<Field />) }).toThrow();
+  // expect(() => { mount(<Field />) }).toThrow();
+  // expect(() => { mount(<FormCreated><Field component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).toThrow();
+  // expect(() => { mount(<FormCreated><Field name="foo" /></FormCreated>) }).toThrow();
+  // expect(() => { mount(<FormCreated><Field name="foo" component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).not.toThrow();
   // });
 
   it('While render, Field will load default state and contextObj from created zent-form', () => {
@@ -57,8 +58,12 @@ describe('CreateForm and Field', () => {
       </FormCreated>
     );
     expect(nestedWrapper.find(Field).length).toBe(1);
-    expect(typeof nestedWrapper.find(Field).getNode().context.zentForm).toBe('object');
-    const wrapper = mount(<Field name="foo" component={DivComponent} />, { context });
+    expect(typeof nestedWrapper.find(Field).getNode().context.zentForm).toBe(
+      'object'
+    );
+    const wrapper = mount(<Field name="foo" component={DivComponent} />, {
+      context
+    });
     expect(typeof wrapper.context('zentForm')).toBe('object');
     expect(wrapper.state('_value')).toBe(undefined);
     expect(wrapper.state('_isValid')).toBe(true);
@@ -80,7 +85,9 @@ describe('CreateForm and Field', () => {
   });
 
   it('Field have componentWillRecieveProps method', () => {
-    const wrapper = mount(<Field name="foo" component={DivComponent} />, { context });
+    const wrapper = mount(<Field name="foo" component={DivComponent} />, {
+      context
+    });
     expect(Object.keys(wrapper.getNode()._validations).length).toBe(0);
     const validationsObj = { foo: noop };
     wrapper.setProps({ validations: validationsObj });
@@ -91,7 +98,9 @@ describe('CreateForm and Field', () => {
     const contextCopy = Object.assign({}, context, {});
     const validateMock = jest.fn();
     contextCopy.zentForm.validate = validateMock;
-    const wrapper = mount(<Field name="foo" component={DivComponent} />, { context: contextCopy });
+    const wrapper = mount(<Field name="foo" component={DivComponent} />, {
+      context: contextCopy
+    });
     expect(wrapper.state('_value')).toBe(undefined);
     wrapper.setProps({ value: 'foo' });
     expect(validateMock.mock.calls.length).toBe(1);
@@ -112,12 +121,17 @@ describe('CreateForm and Field', () => {
   // });
 
   it('In Field render function, an element based on component prop will be created and will load its different processed props(add "checked" on checkbox and delete "value" on both checkbox and file)', () => {
-    let wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} />, { context });
+    let wrapper = mount(
+      <Field name="foo" component={() => <div className="foo" />} />,
+      { context }
+    );
     expect(wrapper.find('.foo').type()).toBe('div');
     expect(wrapper.find('.foo').length).toBe(1);
     expect(wrapper.find('component').prop('name')).toBe('foo');
     expect(wrapper.find('component').prop('validationError')).toBe('');
-    expect(Object.keys(wrapper.find('component').prop('validationErrors')).length).toBe(0);
+    expect(
+      Object.keys(wrapper.find('component').prop('validationErrors')).length
+    ).toBe(0);
     expect(wrapper.find('component').prop('isTouched')).toBe(false);
     expect(wrapper.find('component').prop('isPristine')).toBe(true);
     expect(wrapper.find('component').prop('isValid')).toBe(true);
@@ -125,16 +139,38 @@ describe('CreateForm and Field', () => {
     expect('value' in wrapper.find('component').props()).toBe(true);
     expect(wrapper.find('component').prop('error')).toBe(null);
     expect(wrapper.find('component').prop('errors').length).toBe(0);
-    wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} type="checkbox" />, { context });
+    wrapper = mount(
+      <Field
+        name="foo"
+        component={() => <div className="foo" />}
+        type="checkbox"
+      />,
+      { context }
+    );
     expect(wrapper.find('component').prop('checked')).toBe(false);
     expect('value' in wrapper.find('component').props()).toBe(false);
-    wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} type="file" />, { context });
+    wrapper = mount(
+      <Field
+        name="foo"
+        component={() => <div className="foo" />}
+        type="file"
+      />,
+      { context }
+    );
     expect('value' in wrapper.find('component').props()).toBe(false);
   });
 
   it('Field can have format prop(function), and it will be excuted before Field rendered', () => {
     const formatMock = jest.fn().mockImplementation(val => val.toUpperCase());
-    const wrapper = mount(<Field name="foofoo" component={DivComponent} format={formatMock} value="aaa" />, { context });
+    const wrapper = mount(
+      <Field
+        name="foofoo"
+        component={DivComponent}
+        format={formatMock}
+        value="aaa"
+      />,
+      { context }
+    );
     // format影响value的渲染，但不影响实际保存的value值
     expect(wrapper.state('_value')).toBe('aaa');
     expect(wrapper.find(DivComponent).prop('value')).toBe('AAA');
@@ -143,10 +179,20 @@ describe('CreateForm and Field', () => {
   it('Field can have normalize prop(function), and it will be excuted with change event', () => {
     const fakeReturnedPre = { bar: 'foo' };
     const normalizeMock = jest.fn().mockImplementation(val => `fb${val}`);
-    const getFormValuesMock = jest.fn().mockImplementation(() => fakeReturnedPre);
+    const getFormValuesMock = jest
+      .fn()
+      .mockImplementation(() => fakeReturnedPre);
     const contextCopy = Object.assign({}, context, {});
     contextCopy.zentForm.getFormValues = getFormValuesMock;
-    const wrapper = mount(<Field name="foofoo" component={DivComponent} normalize={normalizeMock} value="init" />, { context: contextCopy });
+    const wrapper = mount(
+      <Field
+        name="foofoo"
+        component={DivComponent}
+        normalize={normalizeMock}
+        value="init"
+      />,
+      { context: contextCopy }
+    );
     // Field初始化时不会调用normalize
     expect(wrapper.find(DivComponent).prop('value')).toBe('init');
     expect(wrapper.state('_value')).toBe('init');
@@ -165,7 +211,10 @@ describe('CreateForm and Field', () => {
   });
 
   it('Field have an unused getWrappedComponent method(not metioned in docs)', () => {
-    let wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} />, { context });
+    let wrapper = mount(
+      <Field name="foo" component={() => <div className="foo" />} />,
+      { context }
+    );
     expect(typeof wrapper.getNode().getWrappedComponent).toBe('function');
 
     // NOTE: 'this.getWrappedComponent = ref' turns out null, need catch up.
@@ -175,7 +224,10 @@ describe('CreateForm and Field', () => {
 
   // HACK: branch
   it('Field will return an empty array if isValid return false and _validationError is false value', () => {
-    let wrapper = mount(<Field name="foo" component={() => (<div className="foo" />)} />, { context });
+    let wrapper = mount(
+      <Field name="foo" component={() => <div className="foo" />} />,
+      { context }
+    );
     expect(wrapper.state('_validationError').length).toBe(0);
     wrapper.setState({ _validationError: null, _isValid: false });
     expect(wrapper.state('_isValid')).toBe(false);
@@ -188,8 +240,8 @@ describe('CreateForm and Field', () => {
       render() {
         return (
           <Form>
-            <Field name="foo" component={() => (<div className="foo-div" />)} />
-            <Field name="bar" component={() => (<div className="bar-div" />)} />
+            <Field name="foo" component={() => <div className="foo-div" />} />
+            <Field name="bar" component={() => <div className="bar-div" />} />
           </Form>
         );
       }
@@ -216,17 +268,22 @@ describe('CreateForm and Field', () => {
     class FormForTest extends React.Component {
       static propTypes = {
         fieldName: PropTypes.string.isRequired
-      }
+      };
 
       static defaultProps = {
         fieldName: 'foo'
-      }
+      };
 
       render() {
         const { fieldName } = this.props;
         return (
           <Form>
-            <Field name={fieldName} component={() => (<div className="foo-div" />)} validations={{ required: true }} value={fieldName === 'foo' ? 1 : undefined} />
+            <Field
+              name={fieldName}
+              component={() => <div className="foo-div" />}
+              validations={{ required: true }}
+              value={fieldName === 'foo' ? 1 : undefined}
+            />
           </Form>
         );
       }
@@ -254,17 +311,23 @@ describe('CreateForm and Field', () => {
     class FormForTest extends React.Component {
       static propTypes = {
         fieldName: PropTypes.string.isRequired
-      }
+      };
 
       static defaultProps = {
         fieldName: 'foo'
-      }
+      };
 
       render() {
         const { fieldName } = this.props;
         return (
           <Form>
-            <Field name={fieldName} component={() => (<div className="foo-div" />)} validations={{ required: true }} validationErrors={{ required: '不能为空' }} value={fieldName === 'foo' ? 1 : undefined} />
+            <Field
+              name={fieldName}
+              component={() => <div className="foo-div" />}
+              validations={{ required: true }}
+              validationErrors={{ required: '不能为空' }}
+              value={fieldName === 'foo' ? 1 : undefined}
+            />
           </Form>
         );
       }
@@ -283,17 +346,23 @@ describe('CreateForm and Field', () => {
     class FormForTest extends React.Component {
       static propTypes = {
         fieldName: PropTypes.string.isRequired
-      }
+      };
 
       static defaultProps = {
         fieldName: 'foo'
-      }
+      };
 
       render() {
         const { fieldName } = this.props;
         return (
           <Form>
-            <Field name={fieldName} component={() => (<div className="foo-div" />)} validations={{ required: true }} validationErrors={{ required: '不能为空' }} value={fieldName === 'foo' ? 1 : undefined} />
+            <Field
+              name={fieldName}
+              component={() => <div className="foo-div" />}
+              validations={{ required: true }}
+              validationErrors={{ required: '不能为空' }}
+              value={fieldName === 'foo' ? 1 : undefined}
+            />
           </Form>
         );
       }
@@ -302,7 +371,9 @@ describe('CreateForm and Field', () => {
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm fieldName="bar" />);
     expect(typeof wrapper.getNode().isValidValue).toBe('function');
-    expect(wrapper.getNode().isValidValue(wrapper.find(Field).getNode(), '非空')).toBe(true);
+    expect(
+      wrapper.getNode().isValidValue(wrapper.find(Field).getNode(), '非空')
+    ).toBe(true);
   });
 
   it('CreatedForm have attach and detach methods', () => {
@@ -311,19 +382,31 @@ describe('CreateForm and Field', () => {
       static propTypes = {
         foo: PropTypes.bool.isRequired,
         bar: PropTypes.bool.isRequired
-      }
+      };
 
       static defaultProps = {
         foo: true,
         bar: false
-      }
+      };
 
       render() {
         const { foo, bar } = this.props;
         return (
           <Form>
-            {foo && <Field name="foo" component={() => (<div className="foo-div" />)} validations={{ required: true }} validationErrors={{ required: '不能为空' }} />}
-            {bar && <Field name="bar" component={() => (<div className="bar-div" />)} validations={{ required: true }} validationErrors={{ required: '不能为空' }} />}
+            {foo &&
+              <Field
+                name="foo"
+                component={() => <div className="foo-div" />}
+                validations={{ required: true }}
+                validationErrors={{ required: '不能为空' }}
+              />}
+            {bar &&
+              <Field
+                name="bar"
+                component={() => <div className="bar-div" />}
+                validations={{ required: true }}
+                validationErrors={{ required: '不能为空' }}
+              />}
           </Form>
         );
       }
@@ -343,24 +426,35 @@ describe('CreateForm and Field', () => {
       render() {
         return (
           <Form>
-            <Field name="foo" component={() => (<div className="bar-div" />)} validations={{ foo: true }} validationErrors={{ foo: 'bar' }} />
+            <Field
+              name="foo"
+              component={() => <div className="bar-div" />}
+              validations={{ foo: true }}
+              validationErrors={{ foo: 'bar' }}
+            />
           </Form>
         );
       }
     }
     let TempForm = createForm()(FormForThrow);
-    expect(() => { mount(<TempForm />) }).toThrow();
+    expect(() => {
+      mount(<TempForm />);
+    }).toThrow();
 
     class FormWithUndef extends React.Component {
       static propTypes = {
         vals: PropTypes.any
-      }
+      };
 
       render() {
         const { vals } = this.props;
         return (
           <Form>
-            <Field name="bar" component={() => (<div className="bar-div" />)} validations={vals} />
+            <Field
+              name="bar"
+              component={() => <div className="bar-div" />}
+              validations={vals}
+            />
           </Form>
         );
       }
@@ -379,9 +473,9 @@ describe('CreateForm and Field', () => {
         showSwitch: PropTypes.shape({
           foo: PropTypes.bool,
           bar: PropTypes.bool,
-          fooBar: PropTypes.bool,
+          fooBar: PropTypes.bool
         })
-      }
+      };
 
       static defaultProps = {
         hackSwitch: false,
@@ -390,15 +484,37 @@ describe('CreateForm and Field', () => {
           bar: true,
           fooBar: true
         }
-      }
+      };
 
       render() {
         const { hackSwitch, showSwitch } = this.props;
         return (
           <Form>
-            {showSwitch.foo && <Field name="foo" component={() => (<div className="bar-div" />)} validations={{ required: true }} validationErrors={{ required: '不能为空' }} value={hackSwitch ? '占位' : ''} />}
-            {showSwitch.bar && <Field name="bar" component={() => (<div className="bar-div" />)} validations={{ isNumeric: true }} validationErrors={{ isNumeric: '必须是数字' }} value={hackSwitch ? 12 : ''} />}
-            {showSwitch.fooBar && <Field name="foo-bar" component={() => (<div className="bar-div" />)} validations={{ hackRule: () => (hackSwitch ? true : 'string supported') }} validationErrors={{ hackRule: 'just test' }} />}
+            {showSwitch.foo &&
+              <Field
+                name="foo"
+                component={() => <div className="bar-div" />}
+                validations={{ required: true }}
+                validationErrors={{ required: '不能为空' }}
+                value={hackSwitch ? '占位' : ''}
+              />}
+            {showSwitch.bar &&
+              <Field
+                name="bar"
+                component={() => <div className="bar-div" />}
+                validations={{ isNumeric: true }}
+                validationErrors={{ isNumeric: '必须是数字' }}
+                value={hackSwitch ? 12 : ''}
+              />}
+            {showSwitch.fooBar &&
+              <Field
+                name="foo-bar"
+                component={() => <div className="bar-div" />}
+                validations={{
+                  hackRule: () => (hackSwitch ? true : 'string supported')
+                }}
+                validationErrors={{ hackRule: 'just test' }}
+              />}
           </Form>
         );
       }
@@ -418,7 +534,9 @@ describe('CreateForm and Field', () => {
     wrapper.mount();
     expect(wrapper.state('isFormValid')).toBe(false);
     const external = wrapper.getNode().setFieldExternalErrors;
-    expect(() => { external({ foo: 'bar', bar: 321 }) }).toThrow();
+    expect(() => {
+      external({ foo: 'bar', bar: 321 });
+    }).toThrow();
     wrapper = mount(<CreatedForm />);
     wrapper.setProps({ hackSwitch: true });
     wrapper.getNode().setFieldExternalErrors({ foo: 'bar', bar: 321 });
@@ -433,19 +551,28 @@ describe('CreateForm and Field', () => {
     jest.useFakeTimers();
 
     const asyncValidation = (values, value) => {
-      return new Promise((resolve, reject) => setTimeout(() => {
-        if (value === 'pangxie') {
-          reject('用户名已被占用');
-        } else {
-          resolve();
-        }
-      }, 1000));
+      return new Promise((resolve, reject) =>
+        setTimeout(() => {
+          if (value === 'pangxie') {
+            reject('用户名已被占用');
+          } else {
+            resolve();
+          }
+        }, 1000)
+      );
     };
     class FormForAsyncValidation extends React.Component {
       render() {
         return (
           <Form>
-            <Field name="foo" component={InputField} asyncValidation={asyncValidation} validations={{ required: true }} validationErrors={{ required: '不能为空' }} value="pangxie" />
+            <Field
+              name="foo"
+              component={InputField}
+              asyncValidation={asyncValidation}
+              validations={{ required: true }}
+              validationErrors={{ required: '不能为空' }}
+              value="pangxie"
+            />
           </Form>
         );
       }
@@ -462,9 +589,9 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(true);
     jest.runAllTimers();
     // Promise.resolve().then(() => {
-      // expect(wrapper.getNode().isValidating()).toBe(false);
-      // expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
-      // expect(wrapper.find('InputWrap').prop('validationError')).toBe('用户名已被占用');
+    // expect(wrapper.getNode().isValidating()).toBe(false);
+    // expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
+    // expect(wrapper.find('InputWrap').prop('validationError')).toBe('用户名已被占用');
     // });
   });
 });

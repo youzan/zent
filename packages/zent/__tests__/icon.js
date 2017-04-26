@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
-import Icon from '../src';
+import Icon from 'icon';
 
 describe('Icon', () => {
   it('Icon will render an <i> element has default className', () => {

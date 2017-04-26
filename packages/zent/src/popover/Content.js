@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
-import Portal from 'zent-portal';
-import WindowResizeHandler from 'zent-utils/component/WindowResizeHandler';
-import findPositionedParent from 'zent-utils/dom/findPositionedParent';
+import Portal from 'portal';
+import WindowResizeHandler from 'utils/component/WindowResizeHandler';
+import findPositionedParent from 'utils/dom/findPositionedParent';
 import throttle from 'lodash/throttle';
 
 import PropTypes from 'prop-types';

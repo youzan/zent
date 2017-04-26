@@ -1,4 +1,6 @@
-import { openDialog, closeDialog } from '../src';
+import Dialog from 'dialog';
+
+const { openDialog, closeDialog } = Dialog;
 
 describe('Dialog component', () => {
   let close;
@@ -46,7 +48,9 @@ describe('Dialog component', () => {
     });
 
     // 根据DOM node找到react的component instance
-    const rootNode = document.querySelector('.zent-dialog-r-anchor div[data-reactroot]');
+    const rootNode = document.querySelector(
+      '.zent-dialog-r-anchor div[data-reactroot]'
+    );
     const instance = rootNode[Object.keys(rootNode)[0]];
     const dialog = instance._currentElement._owner._instance; // eslint-disable-line
 

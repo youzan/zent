@@ -5,4 +5,3 @@ Dialog.openDialog = openDialog;
 Dialog.closeDialog = closeDialog;
 
 export default Dialog;
-export { Dialog, openDialog, closeDialog };

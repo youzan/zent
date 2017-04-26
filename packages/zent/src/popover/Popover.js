@@ -23,7 +23,7 @@ import noop from 'lodash/noop';
 import uniqueId from 'lodash/uniqueId';
 import isFunction from 'lodash/isFunction';
 import isBoolean from 'lodash/isBoolean';
-import isPromise from 'zent-utils/isPromise';
+import isPromise from 'utils/isPromise';
 
 import PopoverContent from './Content';
 import PropTypes from 'prop-types';

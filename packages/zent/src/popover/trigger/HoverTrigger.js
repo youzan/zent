@@ -2,7 +2,7 @@ import 'react';
 import capitalize from 'lodash/capitalize';
 import throttle from 'lodash/throttle';
 import uniq from 'lodash/uniq';
-import isBrowser from 'zent-utils/isBrowser';
+import isBrowser from 'utils/isBrowser';
 
 import PropTypes from 'prop-types';
 

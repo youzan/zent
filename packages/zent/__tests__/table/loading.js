@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Loading from '../examples/loading';
+
+import Loading from './comp/loading';
 
 describe('Loading', () => {
   jest.useFakeTimers();

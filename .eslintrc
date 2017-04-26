@@ -92,6 +92,7 @@
                 "lodash"
             ]
         ],
-        "eqeqeq": 1
+        "eqeqeq": 1,
+        "import/no-unresolved": 0
     }
 }

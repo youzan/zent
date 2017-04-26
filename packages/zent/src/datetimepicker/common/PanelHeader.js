@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'zent-icon';
+import Icon from 'icon';
 
 const PanelHeader = (props) => {
   const { prev, next, showPrev, showNext, title, onClickTitle } = props;

@@ -7,7 +7,7 @@ import noop from 'lodash/noop';
 import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
-import isPromise from 'zent-utils/isPromise';
+import isPromise from 'utils/isPromise';
 import { getDisplayName, silenceEvent, silenceEvents } from './utils';
 import rules from './validationRules';
 import PropTypes from 'prop-types';

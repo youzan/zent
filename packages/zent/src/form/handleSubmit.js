@@ -1,4 +1,4 @@
-import isPromise from 'zent-utils/isPromise';
+import isPromise from 'utils/isPromise';
 import SubmissionError from './SubmissionError';
 
 const handleSubmit = (submit, zentForm) => {

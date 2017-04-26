@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Icon from 'zent-icon';
+import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import SubPopupMenu from './SubPopupMenu';

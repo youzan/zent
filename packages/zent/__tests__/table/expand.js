@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Expand from '../examples/expand';
+
+import Expand from './comp/expand';
 
 describe('Expand', () => {
-
   it('table expand two row', () => {
     const wrapper = mount(<Expand />);
 
@@ -19,4 +19,3 @@ describe('Expand', () => {
     expect(wrapper.find('.tr--expanded').length).toBe(3);
   });
 });
-

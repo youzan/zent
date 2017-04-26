@@ -1,7 +1,9 @@
 import Row from './Row';
 import Col from './Col';
 
-export default {
+const Layout = {
   Row,
   Col
 };
+
+export default Layout;

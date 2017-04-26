@@ -1,4 +1,4 @@
-import Notify from '../src';
+import Notify from 'notify';
 
 describe('Notify component', () => {
   it('should render a notfy in body', () => {

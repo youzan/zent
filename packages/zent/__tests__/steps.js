@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { mount } from 'enzyme';
-
-import Steps from '../src';
+import Steps from 'steps';
 
 const Step = Steps.Step;
 
@@ -31,7 +30,7 @@ describe('Steps', () => {
   });
 
   it('current step', () => {
-    const ensure = (current) => {
+    const ensure = current => {
       current = current || 1;
       const wrapper = mount(
         <Steps current={current}>
@@ -49,7 +48,7 @@ describe('Steps', () => {
   });
 
   it('step status', () => {
-    const ensure = (status) => {
+    const ensure = status => {
       const wrapper = mount(
         <Steps status={status} current={1}>
           <Step title="第一步" />
@@ -58,7 +57,12 @@ describe('Steps', () => {
         </Steps>
       );
       status = status || 'finish';
-      expect(wrapper.find('.zent-steps-item').first().hasClass(`zent-steps-status-${status}`)).toBe(true);
+      expect(
+        wrapper
+          .find('.zent-steps-item')
+          .first()
+          .hasClass(`zent-steps-status-${status}`)
+      ).toBe(true);
     };
     ensure();
     ensure('finish');

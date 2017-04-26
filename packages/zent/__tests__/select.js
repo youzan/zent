@@ -1,5 +1,5 @@
 import React from 'react';
-import Select, { Option } from '../src/index';
+import Select, { Option } from 'select';
 import { mount } from 'enzyme';
 
 describe('<Select />', () => {
@@ -54,10 +54,15 @@ describe('<Select />', () => {
   });
 
   test('搜索某个关键字', () => {
-    const wrapper = mount(<Select
-      data={[1, 2, 3]} search onFilter={(item, keyword) => {
-        return `${item.value}` === `${keyword}`;
-      }} />);
+    const wrapper = mount(
+      <Select
+        data={[1, 2, 3]}
+        search
+        onFilter={(item, keyword) => {
+          return `${item.value}` === `${keyword}`;
+        }}
+      />
+    );
     expect(wrapper.find('InputTrigger').length).toBe(1);
     wrapper.find('input').simulate('change', {
       target: {
@@ -68,7 +73,18 @@ describe('<Select />', () => {
   });
 
   it('Popup中的Search(onFilter and onAsyncFilter)', () => {
-    let wrapper = mount(<Select data={['选项1', '选项2', '选项3']} onFilter={(item, keyword) => keyword && item.value.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1} searchPlaceholder="search" />);
+    let wrapper = mount(
+      <Select
+        data={['选项1', '选项2', '选项3']}
+        onFilter={(item, keyword) =>
+          keyword &&
+          item.value
+            .trim()
+            .toLowerCase()
+            .indexOf(keyword.trim().toLowerCase()) > -1}
+        searchPlaceholder="search"
+      />
+    );
     wrapper.find('SelectTrigger').simulate('click');
     expect(wrapper.find('Option').length).toBe(3);
     wrapper.find('Search').find('input').simulate('change', {
@@ -85,7 +101,14 @@ describe('<Select />', () => {
     });
 
     // BUG: Provide asyncFilter only could not render Search
-    wrapper = mount(<Select data={['选项1', '选项2', '选项3']} onAsyncFilter={asyncMock} searchPlaceholder="search" onFilter={() => true} />);
+    wrapper = mount(
+      <Select
+        data={['选项1', '选项2', '选项3']}
+        onAsyncFilter={asyncMock}
+        searchPlaceholder="search"
+        onFilter={() => true}
+      />
+    );
     jest.useFakeTimers();
     wrapper.find('SelectTrigger').simulate('click');
     expect(wrapper.find('Option').length).toBe(3);
@@ -108,8 +131,7 @@ describe('<Select />', () => {
     wrapper.find('TagsTrigger').simulate('click');
     wrapper.find('Option').at(2).simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(2);
-    wrapper.find('Tag').at(0).find('i')
-      .simulate('click');
+    wrapper.find('Tag').at(0).find('i').simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(1);
     wrapper.find('TagsTrigger').simulate('click');
     wrapper.find('Option').at(2).simulate('click');
@@ -123,7 +145,14 @@ describe('<Select />', () => {
   it('Popup 按键事件测试', () => {
     const onChangeMock = jest.fn();
     const onEmptyMock = jest.fn();
-    const wrapper = mount(<Select data={['1', '2', '3', '']} tags onChange={onChangeMock} onEmptySelected={onEmptyMock} />);
+    const wrapper = mount(
+      <Select
+        data={['1', '2', '3', '']}
+        tags
+        onChange={onChangeMock}
+        onEmptySelected={onEmptyMock}
+      />
+    );
     expect(wrapper.find('TagsTrigger').length).toBe(1);
     expect(wrapper.state('open')).toBe(false);
     wrapper.find('TagsTrigger').simulate('click');

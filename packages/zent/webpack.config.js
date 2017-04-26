@@ -13,7 +13,7 @@ function createAlias() {
   return packages
     .filter(p => fs.statSync(path.join(packagesDir, p)).isDirectory())
     .reduce((alias, p) => {
-      alias['zent-' + p] = path.join(packagesDir, p);
+      alias[p] = path.join(packagesDir, p);
       return alias;
     }, {});
 }

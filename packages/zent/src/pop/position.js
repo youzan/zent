@@ -1,4 +1,4 @@
-import Popover from 'zent-popover';
+import Popover from 'popover';
 import capitalize from 'lodash/capitalize';
 
 const { Position } = Popover;

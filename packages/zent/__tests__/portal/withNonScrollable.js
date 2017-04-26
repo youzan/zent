@@ -1,7 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { mount } from 'enzyme';
+import Portal from 'portal';
 
-import NonScrollable from '../examples/04-non-scrollable';
+const { withNonScrollable } = Portal;
+
+const MyPortal = withNonScrollable(Portal);
+
+export default class NonScrollable extends Component {
+  state = {
+    visible: false
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
+  onOpen = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  render() {
+    const { visible } = this.state;
+    return (
+      <div className="non-scrollable-example">
+        {visible
+          ? <button onClick={this.onClose} className="btn-close">close</button>
+          : <button onClick={this.onOpen} className="btn-open">open</button>}
+        <MyPortal
+          className="non-scrollable-body-portal"
+          visible={this.state.visible}
+          onClose={this.onClose}
+        >
+          <div className="inspect-hint">
+            Toggle the portal and inspect body.style.overflow in devtool
+          </div>
+        </MyPortal>
+      </div>
+    );
+  }
+}
 
 describe('withNonScrollable', () => {
   it('should prevent container from scrolling using `withNonScrollable`', () => {

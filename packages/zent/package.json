@@ -10,7 +10,9 @@
   "main": "./lib/index.js",
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src",
-    "build": "./scripts/build.sh"
+    "test": "jest -c jest.config.json",
+    "build": "./scripts/build.sh",
+    "build-one": "babel src/popover --out-dir lib"
   },
   "author": "Youzan FE",
   "license": "MIT",
@@ -18,13 +20,8 @@
     "src/",
     "assets/",
     "lib/",
-    "dist/"
+    "css/"
   ],
-  "jest": {
-    "verbose": true,
-    "automock": false,
-    "collectCoverage": true
-  },
   "dependencies": {
     "babel-runtime": "^6.23.0",
     "classnames": "2.2.x",
@@ -38,6 +35,7 @@
     "autoprefixer": "^6.7.7",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
+    "babel-jest": "^19.0.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -51,11 +49,18 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "colors": "^1.1.2",
+    "cross-env": "^4.0.0",
     "cssnano": "^3.10.0",
+    "enzyme": "2.8.x",
+    "jest": "^19.0.2",
     "postcss-cli": "^3.2.0",
     "postcss-easy-import": "^2.0.0",
     "postcss-scss": "^0.4.1",
     "precss": "^1.4.0",
+    "react": "15.5.x",
+    "react-dom": "15.5.x",
+    "react-test-renderer": "15.5.x",
     "uglify-js": "^2.8.22",
     "webpack": "^2.4.1"
   }

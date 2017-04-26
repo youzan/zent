@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Layout from 'layout';
 
-import { Row, Col } from '../src';
+const { Row, Col } = Layout;
 
 /**
  * 只开了一个 Section 因为这个组件结构简单，主要功能做在css上

@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
-import ZentForm from '../src';
+import ZentForm from 'form';
 
 describe('CreatedForm and HandleSubmit', () => {
   const { Form, createForm, Field, InputField, SubmissionError } = ZentForm;
@@ -12,7 +11,12 @@ describe('CreatedForm and HandleSubmit', () => {
         const { handleSubmit } = this.props;
         return (
           <Form onSubmit={handleSubmit}>
-            <Field name="foo" component={() => (<div />)} validations={{ required: true }} value={'占位'}>
+            <Field
+              name="foo"
+              component={() => <div />}
+              validations={{ required: true }}
+              value={'占位'}
+            >
               <span />
             </Field>
           </Form>
@@ -27,26 +31,46 @@ describe('CreatedForm and HandleSubmit', () => {
     // expect(() => { wrapper.simulate('submit') }).toThrow();
     const onSubmitMock = jest.fn().mockImplementation(() => 'foobar');
     const onSubmitSuccessMock = jest.fn();
-    wrapper = mount(<CreatedForm onSubmit={onSubmitMock} onSubmitSuccess={onSubmitSuccessMock} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    wrapper = mount(
+      <CreatedForm
+        onSubmit={onSubmitMock}
+        onSubmitSuccess={onSubmitSuccessMock}
+      />
+    );
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(onSubmitMock.mock.calls.length).toBe(1);
     expect(onSubmitSuccessMock.mock.calls.length).toBe(1);
     expect(onSubmitSuccessMock.mock.calls[0][0]).toBe('foobar');
     const pro = new Promise(resolve => setTimeout(resolve, 2000));
     const submitPropPromiseMock = jest.fn().mockImplementation(() => pro);
-    wrapper = mount(<CreatedForm onSubmit={submitPropPromiseMock} onSubmitSuccess={onSubmitSuccessMock} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    wrapper = mount(
+      <CreatedForm
+        onSubmit={submitPropPromiseMock}
+        onSubmitSuccess={onSubmitSuccessMock}
+      />
+    );
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
 
     // HACK: branch
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
-    wrapper = mount(<CreatedForm onSubmit={onSubmitMock} onSubmitSuccess={null} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
+    wrapper = mount(
+      <CreatedForm onSubmit={onSubmitMock} onSubmitSuccess={null} />
+    );
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(onSubmitMock.mock.calls.length).toBe(2);
   });
 
   it('onSubmit of CreatedForm can be a function passed to handleSubmit', () => {
     jest.useFakeTimers();
-    const submitFunc = (values) => {
+    const submitFunc = values => {
       return 1;
     };
     const promiseSuccessMock = jest.fn();
@@ -55,7 +79,12 @@ describe('CreatedForm and HandleSubmit', () => {
         const { handleSubmit } = this.props;
         return (
           <Form onSubmit={handleSubmit(submitFunc)}>
-            <Field name="foo" component={() => (<div />)} validations={{ required: true }} value={'非空'}>
+            <Field
+              name="foo"
+              component={() => <div />}
+              validations={{ required: true }}
+              value={'非空'}
+            >
               <span />
             </Field>
           </Form>
@@ -64,17 +93,21 @@ describe('CreatedForm and HandleSubmit', () => {
     }
     const CreatedForm = createForm()(SubmitFunc);
     let wrapper = mount(<CreatedForm onSubmitSuccess={promiseSuccessMock} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(wrapper.getNode().isSubmitting()).toBe(false);
     expect(promiseSuccessMock.mock.calls.length).toBe(1);
     wrapper = mount(<CreatedForm onSubmitSuccess={null} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(wrapper.getNode().isSubmitting()).toBe(false);
     expect(wrapper.getNode().isSubmitting()).toBe(false);
   });
 
   it('onSubmitFail will be excuted when then promise rejected', () => {
-    process.on('unhandledRejection', (reason) => {
+    process.on('unhandledRejection', reason => {
       expect(reason).toBe('submit error');
     });
 
@@ -90,7 +123,12 @@ describe('CreatedForm and HandleSubmit', () => {
         const { handleSubmit } = this.props;
         return (
           <Form onSubmit={handleSubmit(submitFunc)}>
-            <Field name="foo" component={() => (<div />)} validations={{ required: true }} value={'非空'}>
+            <Field
+              name="foo"
+              component={() => <div />}
+              validations={{ required: true }}
+              value={'非空'}
+            >
               <span />
             </Field>
           </Form>
@@ -98,8 +136,15 @@ describe('CreatedForm and HandleSubmit', () => {
       }
     }
     const CreatedForm = createForm()(SubmitFunc);
-    let wrapper = mount(<CreatedForm onSubmitSuccess={promiseSuccessMock} onSubmitFail={promiseFailMock} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    let wrapper = mount(
+      <CreatedForm
+        onSubmitSuccess={promiseSuccessMock}
+        onSubmitFail={promiseFailMock}
+      />
+    );
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(wrapper.getNode().isSubmitting()).toBe(true);
     expect(promiseSuccessMock.mock.calls.length).toBe(0);
     expect(promiseFailMock.mock.calls.length).toBe(0);
@@ -110,7 +155,9 @@ describe('CreatedForm and HandleSubmit', () => {
     //   expect(wrapper.getNode().isSubmitting()).toBe(false);
     // });
     wrapper = mount(<CreatedForm onSubmitSuccess={null} onSubmitFail={null} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(wrapper.getNode().isSubmitting()).toBe(true);
     jest.runAllTimers();
     // Promise.resolve().then(() => {
@@ -133,7 +180,12 @@ describe('CreatedForm and HandleSubmit', () => {
         const { handleSubmit } = this.props;
         return (
           <Form onSubmit={handleSubmit(submit)}>
-            <Field name="foo" component={() => (<div />)} validations={{ required: true }} value={'占位'}>
+            <Field
+              name="foo"
+              component={() => <div />}
+              validations={{ required: true }}
+              value={'占位'}
+            >
               <span />
             </Field>
           </Form>
@@ -143,10 +195,14 @@ describe('CreatedForm and HandleSubmit', () => {
     const subFailMock = jest.fn();
     let CreatedForm = createForm()(SubmitForm);
     let wrapper = mount(<CreatedForm onSubmitFail={subFailMock} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(subFailMock.mock.calls.length).toBe(1);
     wrapper = mount(<CreatedForm onSubmitFail={null} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
   });
 
   it('While submit, HandleSubmit method of CreatedForm will throw when error is not instance of SubmissionError', () => {
@@ -158,7 +214,12 @@ describe('CreatedForm and HandleSubmit', () => {
         const { handleSubmit } = this.props;
         return (
           <Form onSubmit={handleSubmit(submit)}>
-            <Field name="foo" component={() => (<div />)} validations={{ required: true }} value={'占位'}>
+            <Field
+              name="foo"
+              component={() => <div />}
+              validations={{ required: true }}
+              value={'占位'}
+            >
               <span />
             </Field>
           </Form>
@@ -169,10 +230,14 @@ describe('CreatedForm and HandleSubmit', () => {
     let CreatedForm = createForm()(SubmitForm);
     // 有onSumbitFail就不throw error
     let wrapper = mount(<CreatedForm onSubmitFail={subFailMock} />);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(subFailMock.mock.calls.length).toBe(1);
     wrapper = mount(<CreatedForm onSubmitFail={null} />);
-    expect(() => { wrapper.simulate('submit') }).toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).toThrow();
   });
 
   it('Invalid will cause handleSubmit to execute onSubmitFail', () => {
@@ -182,7 +247,12 @@ describe('CreatedForm and HandleSubmit', () => {
         const { handleSubmit } = this.props;
         return (
           <Form onSubmit={handleSubmit(submitMock)}>
-            <Field name="foo" component={() => (<div />)} validations={{ required: true }} value={''}>
+            <Field
+              name="foo"
+              component={() => <div />}
+              validations={{ required: true }}
+              value={''}
+            >
               <span />
             </Field>
           </Form>
@@ -192,9 +262,16 @@ describe('CreatedForm and HandleSubmit', () => {
     const subSuccessMock = jest.fn();
     const subFailMock = jest.fn();
     let CreatedForm = createForm()(SubmitForm);
-    let wrapper = mount(<CreatedForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />);
+    let wrapper = mount(
+      <CreatedForm
+        onSubmitFail={subFailMock}
+        onSubmitSuccess={subSuccessMock}
+      />
+    );
     expect(wrapper.state('isFormValid')).toBe(false);
-    expect(() => { wrapper.simulate('submit') }).not.toThrow();
+    expect(() => {
+      wrapper.simulate('submit');
+    }).not.toThrow();
     expect(subFailMock.mock.calls.length).toBe(1);
     expect(subSuccessMock.mock.calls.length).toBe(0);
     expect(submitMock.mock.calls.length).toBe(0);
@@ -212,13 +289,15 @@ describe('CreatedForm and HandleSubmit', () => {
     const subSuccessMock = jest.fn();
     const subFailMock = jest.fn();
     const asyncValidation = (values, value) => {
-      return new Promise((resolve, reject) => setTimeout(() => {
-        if (value === 'pangxie') {
-          reject('用户名已被占用');
-        } else {
-          resolve();
-        }
-      }, 1000));
+      return new Promise((resolve, reject) =>
+        setTimeout(() => {
+          if (value === 'pangxie') {
+            reject('用户名已被占用');
+          } else {
+            resolve();
+          }
+        }, 1000)
+      );
     };
     class FormForAsyncValidation extends React.Component {
       render() {
@@ -226,13 +305,22 @@ describe('CreatedForm and HandleSubmit', () => {
 
         return (
           <Form onSubmit={handleSubmit(submitMock)}>
-            <Field name="foo" component={InputField} asyncValidation={asyncValidation} validations={{ required: true }} validationErrors={{ required: '不能为空' }} value="111" />
+            <Field
+              name="foo"
+              component={InputField}
+              asyncValidation={asyncValidation}
+              validations={{ required: true }}
+              validationErrors={{ required: '不能为空' }}
+              value="111"
+            />
           </Form>
         );
       }
     }
     let TempForm = createForm()(FormForAsyncValidation);
-    let wrapper = mount(<TempForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />);
+    let wrapper = mount(
+      <TempForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />
+    );
     let field = wrapper.find(Field);
     let input = wrapper.find('input');
     expect(wrapper.getNode().isValidating()).toBe(false);

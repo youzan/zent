@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import Portal from '../src/Portal';
+import Portal from 'portal/Portal';
 
 describe('Portal', () => {
   function createContainer(className = 'custom-container') {
@@ -39,11 +39,13 @@ describe('Portal', () => {
   }
 
   it('should render null no matter what is passed as child', () => {
-    expect(shallow(
-      <Portal>
-        <div>won't render</div>
-      </Portal>
-    ).contains(<div>won't render</div>)).toBe(false);
+    expect(
+      shallow(
+        <Portal>
+          <div>won't render</div>
+        </Portal>
+      ).contains(<div>won't render</div>)
+    ).toBe(false);
   });
 
   it('should render children to `selector` prop', () => {
@@ -64,10 +66,12 @@ describe('Portal', () => {
   it('should support custom className', () => {
     const wrapper = mount(
       <Portal className="custom-className">
-        <div className="portal-child"></div>
+        <div className="portal-child" />
       </Portal>
     );
-    const container = document.body.querySelector('.custom-className.zent-portal');
+    const container = document.body.querySelector(
+      '.custom-className.zent-portal'
+    );
     expect(container).toBeTruthy();
     expect(container.querySelector('.portal-child')).toBeTruthy();
     unmountPortal(wrapper);
@@ -76,7 +80,7 @@ describe('Portal', () => {
   it('should support custom css style', () => {
     const wrapper = mount(
       <Portal css={{ top: '100px', position: 'absolute' }}>
-        <div className="portal-child"></div>
+        <div className="portal-child" />
       </Portal>
     );
     const container = document.body.querySelector('.zent-portal');
@@ -90,7 +94,7 @@ describe('Portal', () => {
   it('should support custom prefix', () => {
     const wrapper = mount(
       <Portal prefix="custom-prefix">
-        <div className="portal-child"></div>
+        <div className="portal-child" />
       </Portal>
     );
     const container = document.body.querySelector('.custom-prefix-portal');
@@ -109,7 +113,9 @@ describe('Portal', () => {
 
     expect(anotherContainer.querySelector('.portal-child')).toBeFalsy();
     jest.runOnlyPendingTimers();
-    expect(anotherContainer.querySelector('.portal-child').textContent).toBe('child');
+    expect(anotherContainer.querySelector('.portal-child').textContent).toBe(
+      'child'
+    );
     expect(container.querySelector('.portal-child')).toBeFalsy();
 
     removeContainer(container);

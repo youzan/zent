@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-
-import Button from '../src/Button';
+import Button from 'button';
 
 describe('<Button />', () => {
   let button;
@@ -32,7 +31,9 @@ describe('<Button />', () => {
 
     mount(<Button type="primary" outline />);
     expect(buttonNode.classList.contains('zent-btn-primary')).toBe(false);
-    expect(buttonNode.classList.contains('zent-btn-primary-outline')).toBe(true);
+    expect(buttonNode.classList.contains('zent-btn-primary-outline')).toBe(
+      true
+    );
   });
 
   test('Success Button', () => {
@@ -41,7 +42,9 @@ describe('<Button />', () => {
 
     mount(<Button type="success" outline />);
     expect(buttonNode.classList.contains('zent-btn-success')).toBe(false);
-    expect(buttonNode.classList.contains('zent-btn-success-outline')).toBe(true);
+    expect(buttonNode.classList.contains('zent-btn-success-outline')).toBe(
+      true
+    );
   });
 
   test('Danger Button', () => {
@@ -57,7 +60,7 @@ describe('<Button />', () => {
     mount(<Button bordered={false} />);
 
     expect(buttonNode.className).toContain('zent-btn-border-transparent');
-  })
+  });
 
   test('Large Button', () => {
     mount(<Button size="large" />);
@@ -89,7 +92,6 @@ describe('<Button />', () => {
 
     expect(buttonNode.classList.contains('zent-btn')).toBe(false);
     expect(buttonNode.classList.contains('custom-btn')).toBe(true);
-
   });
 
   test('Link Button', () => {
@@ -102,7 +104,13 @@ describe('<Button />', () => {
 
   test('onClick', () => {
     let isClicked = false;
-    mount(<Button onClick={() => { isClicked = true }} />);
+    mount(
+      <Button
+        onClick={() => {
+          isClicked = true;
+        }}
+      />
+    );
 
     TestUtils.Simulate.click(buttonNode);
     expect(isClicked).toBe(true);
@@ -110,7 +118,14 @@ describe('<Button />', () => {
 
   test('Disabled Button', () => {
     let isClicked = false;
-    mount(<Button disabled onClick={() => { isClicked = true  }} />);
+    mount(
+      <Button
+        disabled
+        onClick={() => {
+          isClicked = true;
+        }}
+      />
+    );
 
     expect(buttonNode.disabled).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(true);
@@ -120,7 +135,15 @@ describe('<Button />', () => {
 
   test('Disabled Link Button', () => {
     let isClicked = false;
-    mount(<Button disabled href="http://youzan.com/" onClick={() => { isClicked = true  }} />);
+    mount(
+      <Button
+        disabled
+        href="http://youzan.com/"
+        onClick={() => {
+          isClicked = true;
+        }}
+      />
+    );
 
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(true);
     expect(buttonNode.href).toBe('');
@@ -130,7 +153,14 @@ describe('<Button />', () => {
 
   test('Loading Button', () => {
     let isClicked = false;
-    mount(<Button loading onClick={() => { isClicked = true  }} />);
+    mount(
+      <Button
+        loading
+        onClick={() => {
+          isClicked = true;
+        }}
+      />
+    );
 
     expect(buttonNode.disabled).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-loading')).toBe(true);
@@ -142,7 +172,15 @@ describe('<Button />', () => {
 
   test('Loading Link Button', () => {
     let isClicked = false;
-    mount(<Button href="http://youzan.com/" loading onClick={() => { isClicked = true  }} />);
+    mount(
+      <Button
+        href="http://youzan.com/"
+        loading
+        onClick={() => {
+          isClicked = true;
+        }}
+      />
+    );
 
     expect(buttonNode.classList.contains('zent-btn-loading')).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(false);
@@ -185,5 +223,5 @@ describe('<Button />', () => {
     mount(<Button href="http://www.youzan.com" download="foobar" />);
 
     expect(buttonNode.download).toBe('foobar');
-  })
+  });
 });

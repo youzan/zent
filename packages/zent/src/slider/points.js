@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ToolTips from './toolTips';
-import WindowEventHandler from 'zent-utils/component/WindowEventHandler';
+import WindowEventHandler from 'utils/component/WindowEventHandler';
 import keys from 'lodash/keys';
 import map from 'lodash/map';
 import { getLeft, toFixed, checkValueInRange } from './common';

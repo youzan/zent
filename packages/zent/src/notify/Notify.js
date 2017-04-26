@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import isBrowser from 'zent-utils/isBrowser';
+import isBrowser from 'utils/isBrowser';
 
 import NotifyContent from './NotifyContent';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-
-import Breadcrumb from '../src';
+import Breadcrumb from 'breadcrumb';
 
 /**
  * 只开了一个 Section 因为这个组件结构比较简单
@@ -30,18 +29,18 @@ describe('Breadcrumb', () => {
       {
         name: 'foo',
         href: 'bar'
-      }, {
+      },
+      {
         name: 'bar',
         href: 'foo',
         className: 'bread-link'
-      }, {
+      },
+      {
         name: 'foobar',
         className: 'bread-span'
       }
     ];
-    const wrapper = mount(
-      <Breadcrumb breads={breads} />
-    );
+    const wrapper = mount(<Breadcrumb breads={breads} />);
     expect(wrapper.find('a').length).toBe(2);
     expect(wrapper.find('a.bread-link').length).toBe(1);
     expect(wrapper.find('a.bread-link').text()).toBe('bar');
@@ -75,9 +74,7 @@ describe('Breadcrumb', () => {
 
   it('will render a empty div without props or children', () => {
     const wrapper = mount(<Breadcrumb />);
-    expect(wrapper.contains(
-      <div className="zent-breadcrumb"></div>
-    )).toBe(true);
+    expect(wrapper.contains(<div className="zent-breadcrumb" />)).toBe(true);
     expect(wrapper.find('div').text()).toBe('');
   });
 
@@ -95,17 +92,19 @@ describe('Breadcrumb', () => {
       </Breadcrumb>
     );
     expect(wrapper.find('span').length).toBe(1);
-    expect(wrapper.find(Breadcrumb).children().at(0)
-      .type()).toBe('span');
+    expect(wrapper.find(Breadcrumb).children().at(0).type()).toBe('span');
     expect(wrapper.find('span.foo').text()).toBe('bar');
     expect(wrapper.find('a').length).toBe(3);
-    expect(wrapper.find(Breadcrumb.Item).at(0).find('[href="bar"]').length)
-      .toBe(1);
+    expect(
+      wrapper.find(Breadcrumb.Item).at(0).find('[href="bar"]').length
+    ).toBe(1);
     expect(wrapper.find(Breadcrumb.Item).at(1).find('a').length).toBe(1);
-    expect(wrapper.find(Breadcrumb.Item).at(1).find('[href="barfoo"]')
-      .exists()).toBe(false);
-    expect(wrapper.find(Breadcrumb.Item).at(2).find('[href="regularbar"]')
-      .exists()).toBe(true);
+    expect(
+      wrapper.find(Breadcrumb.Item).at(1).find('[href="barfoo"]').exists()
+    ).toBe(false);
+    expect(
+      wrapper.find(Breadcrumb.Item).at(2).find('[href="regularbar"]').exists()
+    ).toBe(true);
   });
 
   it('can pass custom props to Breadcrumb.Item', () => {
@@ -119,12 +118,19 @@ describe('Breadcrumb', () => {
     ];
     const wrapper = mount(
       <Breadcrumb breads={breads}>
-        <Breadcrumb.Item name="bar" href="foo" className="barfoo" download="fooProp" />
+        <Breadcrumb.Item
+          name="bar"
+          href="foo"
+          className="barfoo"
+          download="fooProp"
+        />
       </Breadcrumb>
     );
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
-    expect(wrapper.find(Breadcrumb.Item).at(0).props().download).toBe('fooProp');
+    expect(wrapper.find(Breadcrumb.Item).at(0).props().download).toBe(
+      'fooProp'
+    );
     expect(wrapper.find(Breadcrumb.Item).at(1).props().target).toBe('_blank');
   });
 
@@ -140,8 +146,6 @@ describe('Breadcrumb', () => {
 
   it('can have custom className', () => {
     const wrapper = shallow(<Breadcrumb prefix="foo" className="bar" />);
-    expect(wrapper.contains(
-      <div className="foo-breadcrumb bar" />
-    )).toBe(true);
+    expect(wrapper.contains(<div className="foo-breadcrumb bar" />)).toBe(true);
   });
 });

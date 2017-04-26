@@ -1,8 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { formatDate } from '../src/utils/date';
-
-import DatePicker from '../src';
+import { formatDate } from 'datetimepicker/utils/date';
+import { DatePicker } from 'datetimepicker';
 
 describe('DateTimePicker', () => {
   it('DatePicker has its default structure', () => {
@@ -154,11 +153,17 @@ describe('DateTimePicker', () => {
 
   it('DatePicker is a controlled component', () => {
     let wrapper;
-    const onChangeMock = jest.fn().mockImplementation((value) => {
+    const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({ value });
     });
     const hoverMock = jest.fn();
-    wrapper = mount(<DatePicker value="2017-01-01" onChange={onChangeMock} onHover={hoverMock} />);
+    wrapper = mount(
+      <DatePicker
+        value="2017-01-01"
+        onChange={onChangeMock}
+        onHover={hoverMock}
+      />
+    );
     wrapper.find('.picker-input').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().picker, true);
 
@@ -186,7 +191,9 @@ describe('DateTimePicker', () => {
   // HACK: branch description is not clear
   it('DatePicker will set actived to Date.now() when value prop is unable to parse', () => {
     let wrapper = mount(<DatePicker value={'2001年9月11日'} />);
-    expect(wrapper.find('DatePicker').getNode().state.actived instanceof Date).toBe(true);
+    expect(
+      wrapper.find('DatePicker').getNode().state.actived instanceof Date
+    ).toBe(true);
 
     wrapper = mount(<DatePicker />);
     wrapper.setProps({ prefix: 'zent-custom' });
@@ -208,17 +215,22 @@ describe('DateTimePicker', () => {
   it('DatePicker support value whose type is number or DateObj', () => {
     let pop;
     let wrapper;
-    const changeValue = (w) => {
+    const changeValue = w => {
       w.find('.picker-input').simulate('click');
       pop = new ReactWrapper(w.instance().picker, true);
       pop.find('PanelFooter .link--current').simulate('click');
       pop.find('PanelFooter .btn--confirm').simulate('click');
     };
 
-    const onChangeMock = jest.fn().mockImplementation((value) => {
+    const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({ value });
     });
-    wrapper = mount(<DatePicker onChange={onChangeMock} value={new Date(2017, 1, 1).getTime()} />);
+    wrapper = mount(
+      <DatePicker
+        onChange={onChangeMock}
+        value={new Date(2017, 1, 1).getTime()}
+      />
+    );
     changeValue(wrapper);
     expect(typeof onChangeMock.mock.calls[0][0]).toBe('number');
     wrapper = mount(<DatePicker onChange={onChangeMock} value={new Date()} />);
@@ -249,7 +261,9 @@ describe('DateTimePicker', () => {
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
     expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(1);
-    expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(2010);
+    expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(
+      2010
+    );
     // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // min
@@ -257,7 +271,9 @@ describe('DateTimePicker', () => {
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
     expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(1);
-    expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(3000);
+    expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(
+      3000
+    );
 
     // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
-import Pop from '../src';
-import Button from 'zent-button';
+import Pop from 'pop';
+import Button from 'button';
 
 const content = () => {
   return (
@@ -28,12 +27,11 @@ describe('Pop', () => {
     ['click', 'hover', 'focus'].map(trigger => {
       const wrapper = mount(
         <Pop content={content()} trigger={trigger} position="bottom-center">
-          {trigger !== 'focus' ?
-            <Button onClick={addClick}>
-              {trigger}
-            </Button> :
-            <input placeholder="focus" onChange={() => true} />
-          }
+          {trigger !== 'focus'
+            ? <Button onClick={addClick}>
+                {trigger}
+              </Button>
+            : <input placeholder="focus" onChange={() => true} />}
         </Pop>
       );
       expect(wrapper.find('Portal').length).toBe(0);
@@ -67,7 +65,15 @@ describe('Pop', () => {
 
   it('Pop can have custom prefix, className, and block switch, meanwhile content and header pass through prop', () => {
     const wrapper = mount(
-      <Pop content={content()} trigger={'click'} prefix="foo" className="quux" wrapperClassName="bar" block header={header()}>
+      <Pop
+        content={content()}
+        trigger={'click'}
+        prefix="foo"
+        className="quux"
+        wrapperClassName="bar"
+        block
+        header={header()}
+      >
         <Button onClick={addClick}>
           click
         </Button>
@@ -85,7 +91,13 @@ describe('Pop', () => {
   it('Pop has its core function, powered by zent-popover, the content of popover has onConfirm and onCancel switches', () => {
     // with both onConfirm and onCancel undefined, content will be rendered as null
     let wrapper = mount(
-      <Pop content={content()} trigger={'click'} className="bar11" block header={header()}>
+      <Pop
+        content={content()}
+        trigger={'click'}
+        className="bar11"
+        block
+        header={header()}
+      >
         <Button>
           click
         </Button>
@@ -96,7 +108,13 @@ describe('Pop', () => {
     const confirmMock = jest.fn();
     const cancelMock = jest.fn();
     wrapper = mount(
-      <Pop trigger={'click'} block header={header()} onConfirm={confirmMock} onCancel={cancelMock}>
+      <Pop
+        trigger={'click'}
+        block
+        header={header()}
+        onConfirm={confirmMock}
+        onCancel={cancelMock}
+      >
         <Button>
           click
         </Button>
@@ -129,7 +147,16 @@ describe('Pop', () => {
     };
     /* eslint-enable */
     let wrapper = mount(
-      <Pop content={<Button className="zent-pop-inner-button" onClick={close}>内部关闭</Button>} trigger="none" header="trigger is none" visible={visible}>
+      <Pop
+        content={
+          <Button className="zent-pop-inner-button" onClick={close}>
+            内部关闭
+          </Button>
+        }
+        trigger="none"
+        header="trigger is none"
+        visible={visible}
+      >
         <Button onClick={open}>打开(none)</Button>
       </Pop>
     );
@@ -142,16 +169,30 @@ describe('Pop', () => {
     // HACK: initial with truthy visible;
     visible = true;
     wrapper = mount(
-      <Pop content={<Button className="zent-pop-inner-button" onClick={close}>内部关闭</Button>} trigger="none" header="trigger is none" visible={visible}>
+      <Pop
+        content={
+          <Button className="zent-pop-inner-button" onClick={close}>
+            内部关闭
+          </Button>
+        }
+        trigger="none"
+        header="trigger is none"
+        visible={visible}
+      >
         <Button onClick={open}>打开(none)</Button>
       </Pop>
     );
   });
 
   it('always center arrow at center', () => {
-    const test = (position) => {
+    const test = position => {
       const wrapper = mount(
-        <Pop content={content()} position={position} trigger={'click'} centerArrow>
+        <Pop
+          content={content()}
+          position={position}
+          trigger={'click'}
+          centerArrow
+        >
           <Button>
             click
           </Button>
@@ -160,15 +201,25 @@ describe('Pop', () => {
       wrapper.find('button').simulate('click');
       jest.runAllTimers();
       expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
-      expect(document.querySelector(`.zent-popover-position-${position}`)).toBeTruthy();
+      expect(
+        document.querySelector(`.zent-popover-position-${position}`)
+      ).toBeTruthy();
       wrapper.unmount();
     };
 
     [
-      'top-left', 'top-center', 'top-right',
-      'right-top', 'right-center', 'right-bottom',
-      'bottom-left', 'bottom-center', 'bottom-right',
-      'left-top', 'left-center', 'left-bottom'
+      'top-left',
+      'top-center',
+      'top-right',
+      'right-top',
+      'right-center',
+      'right-bottom',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right',
+      'left-top',
+      'left-center',
+      'left-bottom'
     ].forEach(test);
   });
 
@@ -184,7 +235,14 @@ describe('Pop', () => {
 
     let visible = false;
     const wrapper = mount(
-      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onCancel={onCancel}>
+      <Pop
+        visible={visible}
+        onVisibleChange={v => {
+          visible = v;
+        }}
+        content={content()}
+        onCancel={onCancel}
+      >
         <a>
           click
         </a>
@@ -204,17 +262,26 @@ describe('Pop', () => {
   it('onConfirm/onCancel can be async(Promise)', () => {
     const onConfirm = jest.fn();
     let a = 1;
-    onConfirm.mockReturnValueOnce(new Promise(resolve => {
-      setTimeout(() => {
-        expect(a).toBe(1);
-        a++;
-        resolve();
-      }, 100);
-    }));
+    onConfirm.mockReturnValueOnce(
+      new Promise(resolve => {
+        setTimeout(() => {
+          expect(a).toBe(1);
+          a++;
+          resolve();
+        }, 100);
+      })
+    );
 
     let visible = false;
     const wrapper = mount(
-      <Pop visible={visible} onVisibleChange={(v) => {visible = v}} content={content()} onConfirm={onConfirm}>
+      <Pop
+        visible={visible}
+        onVisibleChange={v => {
+          visible = v;
+        }}
+        content={content()}
+        onConfirm={onConfirm}
+      >
         <a>
           click
         </a>

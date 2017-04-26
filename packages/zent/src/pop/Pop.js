@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Popover from 'zent-popover';
-import Button from 'zent-button';
+import Popover from 'popover';
+import Button from 'button';
 import cx from 'classnames';
 import noop from 'lodash/noop';
 import isFunction from 'lodash/isFunction';
-import isPromise from 'zent-utils/isPromise';
+import isPromise from 'utils/isPromise';
 
 import NoneTrigger from './NoneTrigger';
 import PropTypes from 'prop-types';

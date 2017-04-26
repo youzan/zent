@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import helper from '../helper';
 import assign from 'lodash/assign';
-import Checkbox from 'zent-checkbox';
+import Checkbox from 'checkbox';
 
 let rect;
 let relativeTop;

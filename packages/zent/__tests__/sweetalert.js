@@ -1,6 +1,5 @@
 import { Simulate } from 'react-dom/test-utils';
-
-import { alert, confirm } from '../src';
+import { alert, confirm } from 'sweetalert';
 
 let close;
 function unmount(fn = close) {
@@ -30,7 +29,7 @@ function testCallback(modal, btnSelector, key) {
 
   // callback with args
   let called = false;
-  const cbWithArg = (closeFn) => {
+  const cbWithArg = closeFn => {
     setTimeout(() => {
       closeFn();
       called = true;
@@ -47,7 +46,7 @@ function testCallback(modal, btnSelector, key) {
   // callback returns Promise(resolve)
   called = false;
   let cbPromise = () => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       called = true;
       setTimeout(resolve, 2000);
     });
@@ -63,14 +62,20 @@ function testCallback(modal, btnSelector, key) {
 
   // callback with args that returns Promise
   called = false;
-  const cbPromiseWithArg = (closeFn) => {
-    expect(document.querySelector(btnSelector).classList.contains('zent-btn-loading')).toBe(false);
+  const cbPromiseWithArg = closeFn => {
+    expect(
+      document.querySelector(btnSelector).classList.contains('zent-btn-loading')
+    ).toBe(false);
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       setTimeout(() => {
         called = true;
         closeFn(); // close manually
-        expect(document.querySelector(btnSelector).classList.contains('zent-btn-loading')).toBe(true);
+        expect(
+          document
+            .querySelector(btnSelector)
+            .classList.contains('zent-btn-loading')
+        ).toBe(true);
         resolve();
       }, 2000);
     });
@@ -98,7 +103,9 @@ describe('alert', () => {
       prefix: 'foobar',
       className: 'quux'
     });
-    expect(document.querySelectorAll('.foobar-sweetalert-alert').length).toBe(1);
+    expect(document.querySelectorAll('.foobar-sweetalert-alert').length).toBe(
+      1
+    );
     expect(document.querySelectorAll('.quux').length).toBe(1);
     unmount();
   });
@@ -109,8 +116,13 @@ describe('alert', () => {
       content: 'world',
       confirmText: 'OK'
     });
-    expect(document.querySelector('.zent-sweetalert-alert .zent-dialog-r-body').textContent).toBe('world');
-    expect(document.querySelector('.zent-sweetalert-alert-btn-confirm').textContent).toBe('OK');
+    expect(
+      document.querySelector('.zent-sweetalert-alert .zent-dialog-r-body')
+        .textContent
+    ).toBe('world');
+    expect(
+      document.querySelector('.zent-sweetalert-alert-btn-confirm').textContent
+    ).toBe('OK');
     unmount();
   });
 
@@ -122,7 +134,9 @@ describe('alert', () => {
     close = alert({
       type: 'success'
     });
-    expect(document.querySelector('.zent-sweetalert-alert .zenticon')).toBeTruthy();
+    expect(
+      document.querySelector('.zent-sweetalert-alert .zenticon')
+    ).toBeTruthy();
     unmount();
   });
 
@@ -131,7 +145,11 @@ describe('alert', () => {
       confirmType: 'danger',
       onConfirm: jest.fn
     });
-    expect(document.querySelector('.zent-sweetalert-alert-btn-confirm.zent-btn-danger')).toBeTruthy();
+    expect(
+      document.querySelector(
+        '.zent-sweetalert-alert-btn-confirm.zent-btn-danger'
+      )
+    ).toBeTruthy();
     unmount();
   });
 });
@@ -139,9 +157,13 @@ describe('alert', () => {
 describe('confirm', () => {
   it('all configs are optional', () => {
     close = confirm();
-    expect(document.querySelectorAll('.zent-sweetalert-confirm').length).toBe(1);
+    expect(document.querySelectorAll('.zent-sweetalert-confirm').length).toBe(
+      1
+    );
     unmount();
-    expect(document.querySelectorAll('.zent-sweetalert-confirm').length).toBe(0);
+    expect(document.querySelectorAll('.zent-sweetalert-confirm').length).toBe(
+      0
+    );
   });
 
   it('customize prefix and className', () => {
@@ -149,7 +171,9 @@ describe('confirm', () => {
       prefix: 'foobar',
       className: 'quux'
     });
-    expect(document.querySelectorAll('.foobar-sweetalert-confirm').length).toBe(1);
+    expect(document.querySelectorAll('.foobar-sweetalert-confirm').length).toBe(
+      1
+    );
     expect(document.querySelectorAll('.quux').length).toBe(1);
     unmount();
   });
@@ -161,9 +185,16 @@ describe('confirm', () => {
       confirmText: 'OK',
       cancelText: 'CANCEL'
     });
-    expect(document.querySelector('.zent-sweetalert-confirm .zent-dialog-r-body').textContent).toBe('world');
-    expect(document.querySelector('.zent-sweetalert-confirm-btn-confirm').textContent).toBe('OK');
-    expect(document.querySelector('.zent-sweetalert-confirm-btn-cancel').textContent).toBe('CANCEL');
+    expect(
+      document.querySelector('.zent-sweetalert-confirm .zent-dialog-r-body')
+        .textContent
+    ).toBe('world');
+    expect(
+      document.querySelector('.zent-sweetalert-confirm-btn-confirm').textContent
+    ).toBe('OK');
+    expect(
+      document.querySelector('.zent-sweetalert-confirm-btn-cancel').textContent
+    ).toBe('CANCEL');
     unmount();
   });
 
@@ -179,7 +210,9 @@ describe('confirm', () => {
     close = confirm({
       type: 'error'
     });
-    expect(document.querySelector('.zent-sweetalert-confirm .zenticon')).toBeTruthy();
+    expect(
+      document.querySelector('.zent-sweetalert-confirm .zenticon')
+    ).toBeTruthy();
     unmount();
   });
 
@@ -188,7 +221,11 @@ describe('confirm', () => {
       confirmType: 'success',
       onConfirm: jest.fn
     });
-    expect(document.querySelector('.zent-sweetalert-confirm-btn-confirm.zent-btn-success')).toBeTruthy();
+    expect(
+      document.querySelector(
+        '.zent-sweetalert-confirm-btn-confirm.zent-btn-success'
+      )
+    ).toBeTruthy();
     unmount();
   });
 });

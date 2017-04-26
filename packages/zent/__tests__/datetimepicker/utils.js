@@ -1,5 +1,5 @@
-import * as Ut from '../src/utils';
-import { formatDate, parseDate } from '../src/utils/date';
+import * as Ut from 'datetimepicker/utils';
+import { formatDate, parseDate } from 'datetimepicker/utils/date';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
@@ -16,7 +16,18 @@ describe('Utils', () => {
   });
 
   it('Ut has some utils methods as package of Date Object', () => {
-    const { padLeft, getMonthStr, getDateStr, isSameDate, isCurrentMonth, isBeforeMonth, isAfterMonth, goDays, goMonths, goYears } = Ut;
+    const {
+      padLeft,
+      getMonthStr,
+      getDateStr,
+      isSameDate,
+      isCurrentMonth,
+      isBeforeMonth,
+      isAfterMonth,
+      goDays,
+      goMonths,
+      goYears
+    } = Ut;
 
     // all arg with toString/Number() return NaN will return itself
     // NOTE: no typecheck in it and with no error throw when has array as arg
@@ -27,13 +38,19 @@ describe('Utils', () => {
 
     // expect a Date Obj as arg
     expect(getMonthStr(new Date(2000, 0, 1))).toBe('2000-01');
-    expect(() => { getMonthStr({}) }).toThrow();
+    expect(() => {
+      getMonthStr({});
+    }).toThrow();
 
     // NOTE: date number without padLeft
     expect(getDateStr(new Date(2000, 0, 1))).toBe('2000-01-1');
 
-    expect(isSameDate(new Date(2010, 0, 10, 23, 59), new Date(2010, 0, 10, 0, 1))).toBe(true);
-    expect(isSameDate(new Date(2010, 0, 10, 23, 59), new Date(2010, 0, 11, 0, 1))).toBe(false);
+    expect(
+      isSameDate(new Date(2010, 0, 10, 23, 59), new Date(2010, 0, 10, 0, 1))
+    ).toBe(true);
+    expect(
+      isSameDate(new Date(2010, 0, 10, 23, 59), new Date(2010, 0, 11, 0, 1))
+    ).toBe(false);
 
     // only compare month number
     expect(isCurrentMonth(Ut.CURRENT)).toBe(true);
@@ -78,7 +95,9 @@ describe('formatDate', () => {
 
     // default behavior
     expect(formatDate(DAY)).toBe('周二 2月 14 2017 21:27:22');
-    expect(formatDate(DAY, 'ddd MMM DD YYYY HH:mm:ss')).toBe('周二 2月 14 2017 21:27:22');
+    expect(formatDate(DAY, 'ddd MMM DD YYYY HH:mm:ss')).toBe(
+      '周二 2月 14 2017 21:27:22'
+    );
 
     // local time has jet lag with UTC time
     // expect(formatDate(UTC_DAY, 'MM DD')).toBe('02 15');
@@ -158,8 +177,12 @@ describe('formatDate', () => {
   });
 
   it('formatDate support I18n(only zh and en)', () => {
-    expect(formatDate(DAY, 'fullDate', { locale: 'en' })).toBe('Tuesday, February 14, 2017');
-    expect(formatDate(DAY, 'mediumDate', { locale: 'en' })).toBe('Feb 14, 2017');
+    expect(formatDate(DAY, 'fullDate', { locale: 'en' })).toBe(
+      'Tuesday, February 14, 2017'
+    );
+    expect(formatDate(DAY, 'mediumDate', { locale: 'en' })).toBe(
+      'Feb 14, 2017'
+    );
   });
 });
 
@@ -171,7 +194,9 @@ describe('parseDate', () => {
     // expect(parseDate(Date.parse(DAY))).toEqual(DAY);
     expect(parseDate(DAY)).toBe(DAY);
 
-    expect(parseDate('2017 02 14 21:27:22', 'YYYY MM DD HH:mm:ss')).toEqual(DAY);
+    expect(parseDate('2017 02 14 21:27:22', 'YYYY MM DD HH:mm:ss')).toEqual(
+      DAY
+    );
 
     // When flags cant find corresponding in date string, will return undefined
     // BUG: maybe throw an error?

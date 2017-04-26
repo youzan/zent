@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import helper from '../helper';
-import Checkbox from 'zent-checkbox';
+import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
 import cx from 'classnames';
 

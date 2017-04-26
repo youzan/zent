@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
-import Input from '../src';
+import Input from 'input';
 
 describe('Input', () => {
   it('will render div wrapper contains an input without any props', () => {
@@ -20,16 +19,31 @@ describe('Input', () => {
   });
 
   it('can have custom prefix of classNames', () => {
-    const wrapper = shallow(<Input prefix="foo" addonAfter="bar" addonBefore="rab" />);
+    const wrapper = shallow(
+      <Input prefix="foo" addonAfter="bar" addonBefore="rab" />
+    );
     expect(wrapper.hasClass('foo-input-wrapper')).toBe(true);
     expect(wrapper.hasClass('foo-input-addons')).toBe(true);
-    expect(wrapper.find('span').at(0).hasClass('foo-input-addon-before')).toBe(true);
+    expect(wrapper.find('span').at(0).hasClass('foo-input-addon-before')).toBe(
+      true
+    );
     expect(wrapper.find('input').hasClass('foo-input')).toBe(true);
-    expect(wrapper.find('span').at(1).hasClass('foo-input-addon-after')).toBe(true);
+    expect(wrapper.find('span').at(1).hasClass('foo-input-addon-after')).toBe(
+      true
+    );
   });
 
   it('pass any props to real input element except "className" & "prefix"', () => {
-    let wrapper = shallow(<Input defaultValue="not placeholder" min={8} max={11} readOnly type="number" className="foo" />);
+    let wrapper = shallow(
+      <Input
+        defaultValue="not placeholder"
+        min={8}
+        max={11}
+        readOnly
+        type="number"
+        className="foo"
+      />
+    );
     expect(wrapper.find('input').props().className).toBe('zent-input');
     expect(wrapper.find('input').props().prefix).toBe(undefined);
     expect(wrapper.find('input').props().type).toBe('number');
@@ -66,7 +80,13 @@ describe('Input', () => {
     const onPressEnterMock = jest.fn();
     const onKeyUpMock = jest.fn();
     const onKeyDownMock = jest.fn();
-    const wrapper = shallow(<Input onKeyUp={onKeyUpMock} onKeyDown={onKeyDownMock} onPressEnter={onPressEnterMock} />);
+    const wrapper = shallow(
+      <Input
+        onKeyUp={onKeyUpMock}
+        onKeyDown={onKeyDownMock}
+        onPressEnter={onPressEnterMock}
+      />
+    );
     wrapper.find('input').simulate('keyDown', { keyCode: 13 });
     expect(onPressEnterMock.mock.calls.length).toBe(1);
     expect(onKeyDownMock.mock.calls.length).toBe(1);
@@ -113,9 +133,8 @@ describe('Input', () => {
   });
 
   it('can call textarea focus method', () => {
-    const wrapper = mount(<Input type="textarea"/>);
+    const wrapper = mount(<Input type="textarea" />);
     wrapper.instance().focus();
     expect(wrapper.find('textarea').node === document.activeElement).toBe(true);
   });
-
 });

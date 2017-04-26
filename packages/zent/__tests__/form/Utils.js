@@ -1,4 +1,4 @@
-import * as Utils from '../src/utils';
+import * as Utils from 'form/utils';
 
 describe('Form-Utilities', () => {
   const { getValue, getDisplayName, silenceEvent, silenceEvents } = Utils;

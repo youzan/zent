@@ -1,4 +1,4 @@
-import validationRules from '../src/validationRules';
+import validationRules from 'form/validationRules';
 
 describe('Validation-Rules', () => {
   // values no use most of the time as arg[0] of validation functions
@@ -256,7 +256,18 @@ describe('Validation-Rules', () => {
     expect(equals(values, 12, '12')).toBe(true);
     expect(equals(values, 0x12, '18')).toBe(true);
     expect(equals(values, [1, 2], '1,2')).toBe(true);
-    expect(equals(values, { foo: 'bar', valueOf() { return 12 } }, 12)).toBe(true);
+    expect(
+      equals(
+        values,
+        {
+          foo: 'bar',
+          valueOf() {
+            return 12;
+          }
+        },
+        12
+      )
+    ).toBe(true);
   });
 
   it('equalsField', () => {
@@ -266,11 +277,24 @@ describe('Validation-Rules', () => {
     const specialValues = {};
     specialValues.foo = 12;
     specialValues.bar = '1,2';
-    expect(() => { equalsField() }).toThrow();
+    expect(() => {
+      equalsField();
+    }).toThrow();
     expect(equalsField(specialValues, 12, 'foo')).toBe(true);
     expect(equalsField(specialValues, 12, 'bar')).toBe(false);
     expect(equalsField(specialValues, '12', 'foo')).toBe(true);
-    expect(equalsField(specialValues, { foo: 'bar', valueOf() { return 12 } }, 'foo')).toBe(true);
+    expect(
+      equalsField(
+        specialValues,
+        {
+          foo: 'bar',
+          valueOf() {
+            return 12;
+          }
+        },
+        'foo'
+      )
+    ).toBe(true);
     expect(equalsField(specialValues, [1, 2], 'bar')).toBe(true);
   });
 

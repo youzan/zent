@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Button from 'zent-button';
-import { openDialog } from 'zent-dialog';
-import Icon from 'zent-icon';
+import Button from 'button';
+import Dialog from 'dialog';
+import Icon from 'icon';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
+const { openDialog } = Dialog;
 
 const titleIconMap = {
   info: 'info-circle-o',

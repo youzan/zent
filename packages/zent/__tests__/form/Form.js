@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { shallow } from 'enzyme';
-
-import ZentForm from '../src';
+import ZentForm from 'form';
 
 describe('Form', () => {
   const { Form } = ZentForm;
@@ -17,7 +15,9 @@ describe('Form', () => {
 
   it('Form can have custom prefix, className, horizontal, inline and style props', () => {
     const style = { color: 'red' };
-    const wrapper = shallow(<Form className="foo" prefix="bar" horizontal inline style={style} />);
+    const wrapper = shallow(
+      <Form className="foo" prefix="bar" horizontal inline style={style} />
+    );
     expect(wrapper.hasClass('foo')).toBe(true);
     expect(wrapper.hasClass('bar-form')).toBe(true);
     expect(wrapper.hasClass('bar-form--horizontal')).toBe(true);
@@ -27,10 +27,12 @@ describe('Form', () => {
 
   it('Form can have custom children and onSubmit function', () => {
     const submitMock = jest.fn();
-    const wrapper = shallow(<Form onSubmit={submitMock}>
-      <span className="zent-form-child">childSpan_1</span>
-      <span className="zent-form-child">childSpan_2</span>
-    </Form>);
+    const wrapper = shallow(
+      <Form onSubmit={submitMock}>
+        <span className="zent-form-child">childSpan_1</span>
+        <span className="zent-form-child">childSpan_2</span>
+      </Form>
+    );
     expect(submitMock.mock.calls.length).toBe(0);
     wrapper.find('form').simulate('submit');
     expect(submitMock.mock.calls.length).toBe(1);

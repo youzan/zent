@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-// import Input from 'zent-input';
-import Popover from 'zent-popover';
+// import Input from 'input';
+import Popover from 'popover';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 

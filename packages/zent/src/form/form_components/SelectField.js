@@ -1,5 +1,5 @@
 import React from 'react';
-import Select, { SelectTrigger } from 'zent-select';
+import Select, { SelectTrigger } from 'select';
 import getControlGroup from '../getControlGroup';
 import unknownProps from '../unknownProps';
 import omit from 'lodash/omit';

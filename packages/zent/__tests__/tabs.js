@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { mount } from 'enzyme';
-
-import Tabs from '../src';
+import Tabs from 'tabs';
 
 const TabPanel = Tabs.TabPanel;
 
@@ -27,7 +26,7 @@ describe('Tabs', () => {
   });
 
   it('different alignments', () => {
-    const ensure = (align) => {
+    const ensure = align => {
       const wrapper = mount(
         <Tabs activeId="foobar" align={align}>
           <TabPanel id="foobar" tab="foobar-tab">foobar</TabPanel>
@@ -35,7 +34,9 @@ describe('Tabs', () => {
         </Tabs>
       );
       align = align || 'left';
-      expect(wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-align-${align}`)).toBe(true);
+      expect(
+        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-align-${align}`)
+      ).toBe(true);
     };
     ensure();
     ensure('left');
@@ -44,14 +45,16 @@ describe('Tabs', () => {
   });
 
   it('different sizes', () => {
-    const ensure = (size) => {
+    const ensure = size => {
       const wrapper = mount(
         <Tabs activeId="foobar" size={size}>
           <TabPanel id="foobar" tab="foobar-tab">foobar</TabPanel>
         </Tabs>
       );
       size = size || 'normal';
-      expect(wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-size-${size}`)).toBe(true);
+      expect(
+        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-size-${size}`)
+      ).toBe(true);
     };
     ensure();
     ensure('normal');
@@ -59,14 +62,16 @@ describe('Tabs', () => {
   });
 
   it('different types', () => {
-    const ensure = (type) => {
+    const ensure = type => {
       const wrapper = mount(
         <Tabs activeId="foobar" type={type}>
           <TabPanel id="foobar" tab="foobar-tab">foobar</TabPanel>
         </Tabs>
       );
       type = type || 'normal';
-      expect(wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-type-${type}`)).toBe(true);
+      expect(
+        wrapper.find('.zent-tabs-nav').hasClass(`zent-tabs-type-${type}`)
+      ).toBe(true);
     };
     ensure();
     ensure('normal');
@@ -95,13 +100,13 @@ describe('Tabs', () => {
         tabs: ['foobar', 'quux']
       };
 
-      onChange = jest.fn().mockImplementationOnce((id) =>
+      onChange = jest.fn().mockImplementationOnce(id =>
         this.setState({
           active: id
         })
       );
 
-      onDelete = jest.fn().mockImplementationOnce((id) => {
+      onDelete = jest.fn().mockImplementationOnce(id => {
         this.setState({
           tabs: this.state.tabs.reduce((tabs, t) => {
             if (t !== id) {
@@ -121,8 +126,17 @@ describe('Tabs', () => {
       render() {
         const { tabs, active } = this.state;
         return (
-          <Tabs activeId={active} onTabChange={this.onChange} onTabDel={this.onDelete} onTabAdd={this.onAdd} candel canadd>
-            {tabs.map(t => <TabPanel key={t} id={t} tab={`${t}-tab`}>{t}</TabPanel>)}
+          <Tabs
+            activeId={active}
+            onTabChange={this.onChange}
+            onTabDel={this.onDelete}
+            onTabAdd={this.onAdd}
+            candel
+            canadd
+          >
+            {tabs.map(t => (
+              <TabPanel key={t} id={t} tab={`${t}-tab`}>{t}</TabPanel>
+            ))}
           </Tabs>
         );
       }
@@ -152,17 +166,21 @@ describe('Tabs', () => {
         super(props);
         this.state = {
           activeId: '2',
-          tabs: [{
-            title: '选项一',
-            key: '1',
-            disabled: true
-          }, {
-            title: '选项二',
-            key: '2'
-          }, {
-            title: '选项三',
-            key: '3'
-          }]
+          tabs: [
+            {
+              title: '选项一',
+              key: '1',
+              disabled: true
+            },
+            {
+              title: '选项二',
+              key: '2'
+            },
+            {
+              title: '选项三',
+              key: '3'
+            }
+          ]
         };
       }
 
@@ -179,5 +197,5 @@ describe('Tabs', () => {
 
     const wrapper = mount(<App />);
     expect(wrapper.find('Tab').length).toBe(3);
-  })
+  });
 });

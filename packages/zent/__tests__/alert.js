@@ -1,20 +1,25 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
-import Alert from '../src';
+import Alert from 'alert';
 
 describe('Alert', () => {
   it('style defaults to info', () => {
     const wrapper = mount(<Alert><span>foobar</span></Alert>);
-    expect(wrapper.contains(
-      <div className="zent-alert-content-wrapper">
-        <div className="zent-alert-content">
-          <span>foobar</span>
+    expect(
+      wrapper.contains(
+        <div className="zent-alert-content-wrapper">
+          <div className="zent-alert-content">
+            <span>foobar</span>
+          </div>
         </div>
-      </div>
-    )).toBe(true);
-    expect(wrapper.contains(<span className="zent-alert-close-btn">&times;</span>)).toBe(false);
-    expect(wrapper.find('.zent-alert-style-info.zent-alert-size-normal').length).toBe(1);
+      )
+    ).toBe(true);
+    expect(
+      wrapper.contains(<span className="zent-alert-close-btn">×</span>)
+    ).toBe(false);
+    expect(
+      wrapper.find('.zent-alert-style-info.zent-alert-size-normal').length
+    ).toBe(1);
   });
 
   it('can have custom className', () => {
@@ -39,7 +44,9 @@ describe('Alert', () => {
     expect(onClose.mock.calls.length).toBe(1);
 
     wrapper = mount(<Alert closable onClose={null} />);
-    expect(() => wrapper.find('.zent-alert-close-btn').simulate('click')).not.toThrow();
+    expect(() =>
+      wrapper.find('.zent-alert-close-btn').simulate('click')
+    ).not.toThrow();
   });
 
   it('has warning style', () => {

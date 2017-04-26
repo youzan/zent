@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Portal from 'zent-portal';
+import Portal from 'portal';
 
 export default class NotifyContent extends Component {
   static propTypes = {

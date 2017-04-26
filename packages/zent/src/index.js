@@ -1,29 +1,31 @@
-import Alert from 'zent-alert';
-import Breadcrumb from 'zent-breadcrumb';
-import Button from 'zent-button';
-import Checkbox from 'zent-checkbox';
-import { MonthPicker, DatePicker, DateRangePicker } from 'zent-datetimepicker';
-import Dialog from 'zent-dialog';
-import Form from 'zent-form';
-import Layout from 'zent-layout';
-import Loading from 'zent-loading';
-import Icon from 'zent-icon';
-import Input from 'zent-input';
-import Menu from 'zent-menu';
-import Notify from 'zent-notify';
-import Pagination from 'zent-pagination';
-import Pop from 'zent-pop';
-import Popover from 'zent-popover';
-import Portal from 'zent-portal';
-import Radio from 'zent-radio';
-import Select from 'zent-select';
-import Slider from 'zent-slider';
-import Steps from 'zent-steps';
-import Sweetalert from 'zent-sweetalert';
-import Switch from 'zent-switch';
-import Table from 'zent-table';
-import Tabs from 'zent-tabs';
-import Tree from 'zent-tree';
+import Alert from 'alert';
+import Breadcrumb from 'breadcrumb';
+import Button from 'button';
+import Checkbox from 'checkbox';
+import DTPicker from 'datetimepicker';
+import Dialog from 'dialog';
+import Form from 'form';
+import Layout from 'layout';
+import Loading from 'loading';
+import Icon from 'icon';
+import Input from 'input';
+import Menu from 'menu';
+import Notify from 'notify';
+import Pagination from 'pagination';
+import Pop from 'pop';
+import Popover from 'popover';
+import Portal from 'portal';
+import Radio from 'radio';
+import Select from 'select';
+import Slider from 'slider';
+import Steps from 'steps';
+import Sweetalert from 'sweetalert';
+import Switch from 'switch';
+import Table from 'table';
+import Tabs from 'tabs';
+import Tree from 'tree';
+
+const { MonthPicker, DatePicker, DateRangePicker } = DTPicker;
 
 const Zent = {
   Alert,

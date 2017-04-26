@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import Switch from '../src';
+import Switch from 'switch';
 
 describe('<Switch />', () => {
   let testSwitch;
@@ -30,7 +30,13 @@ describe('<Switch />', () => {
 
   it('switch onChange', () => {
     let isChecked = false;
-    mount(<Switch onChange={() => { isChecked = true }} />);
+    mount(
+      <Switch
+        onChange={() => {
+          isChecked = true;
+        }}
+      />
+    );
     TestUtils.Simulate.click(switchNode);
     expect(isChecked).toBe(true);
   });

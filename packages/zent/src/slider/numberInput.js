@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from 'zent-input';
+import Input from 'input';
 import isNaN from 'lodash/isNaN';
 
 export default class NumberInput extends Component {

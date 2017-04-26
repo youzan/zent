@@ -1,4 +1,4 @@
-import getViewportSize from 'zent-utils/dom/getViewportSize';
+import getViewportSize from 'utils/dom/getViewportSize';
 
 import createPlacement from './create';
 import BottomLeft from './bottom-left';

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-
-import Dialog from '../src/Dialog';
+import Dialog from 'dialog';
 
 describe('Dialog component', () => {
   let dialog;
@@ -13,12 +12,7 @@ describe('Dialog component', () => {
     };
 
     render() {
-      return (
-        <Dialog
-          {...this.props}
-          visible={this.state.visible}
-        />
-      );
+      return <Dialog {...this.props} visible={this.state.visible} />;
     }
   }
 
@@ -36,11 +30,13 @@ describe('Dialog component', () => {
   beforeEach(() => {
     function onClose() {
       dialog.setState({
-        visible: false,
+        visible: false
       });
     }
 
-    dialog = mount((<DialogTest onClose={onClose} title="hello"><p>第一个dialog</p></DialogTest>));
+    dialog = mount(
+      <DialogTest onClose={onClose} title="hello"><p>第一个dialog</p></DialogTest>
+    );
   });
 
   afterEach(unmount);
@@ -48,7 +44,9 @@ describe('Dialog component', () => {
   it('should render a dialog in body when `visible` is true', () => {
     open();
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
-    expect(document.querySelector('.zent-dialog-r-anchor').parentNode).toBe(document.body);
+    expect(document.querySelector('.zent-dialog-r-anchor').parentNode).toBe(
+      document.body
+    );
   });
 
   it('should unmount dialog when `visible` changes to false', () => {

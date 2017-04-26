@@ -1,7 +1,7 @@
 import React from 'react';
-import { MonthPicker } from '../src';
 import { mount, ReactWrapper } from 'enzyme';
-import { formatDate } from '../src/utils/date';
+import { MonthPicker } from 'datetimepicker';
+import { formatDate } from 'datetimepicker/utils/date';
 
 describe('MonthPicker', () => {
   it('MonthPicker has 2 level panel', () => {
@@ -31,11 +31,11 @@ describe('MonthPicker', () => {
   it('MonthPicker is a controlled component', () => {
     let wrapper;
     let pop;
-    const onChangeMock = jest.fn().mockImplementation((value) => {
+    const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({ value });
     });
     wrapper = mount(<MonthPicker value="2010-01" onChange={onChangeMock} />);
-    
+
     // expect(pop.find('MonthPicker').getNode().state.actived.getFullYear()).toBe(2010);
     // expect(pop.find('MonthPicker').getNode().state.actived.getMonth()).toBe(0);
     wrapper.find('.picker-input').simulate('click');
@@ -43,7 +43,9 @@ describe('MonthPicker', () => {
     pop.find('.link--current').simulate('click');
     pop.find('.btn--confirm').simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0][0]).toBe(formatDate(new Date(), 'YYYY-MM'));
+    expect(onChangeMock.mock.calls[0][0]).toBe(
+      formatDate(new Date(), 'YYYY-MM')
+    );
 
     // HACK: branch
     wrapper.setProps({ value: null });

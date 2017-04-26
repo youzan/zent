@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
-import Loading from '../src';
+import Loading from 'loading';
 
 /* eslint-disable */
 beforeAll(() => {

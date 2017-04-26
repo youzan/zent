@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Portal, { withNonScrollable, withESCToClose } from 'zent-portal';
-
+import Portal from 'portal';
 import PropTypes from 'prop-types';
 
 import DialogEl from './DialogEl';
 
+const { withNonScrollable, withESCToClose } = Portal;
 const DialogPortal = withNonScrollable(Portal);
 const DialogPortalESCToClose = withESCToClose(DialogPortal);
 

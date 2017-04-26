@@ -1,8 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import omit from 'zent-utils/lodash/omit';
-
-import ZentForm from '../src';
+import omit from 'lodash/omit';
+import ZentForm from 'form';
 
 describe('CreateForm and Fieldset', () => {
   const { Form, createForm, Field, Fieldset, unknownProps } = ZentForm;

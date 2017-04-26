@@ -1,9 +1,8 @@
 import React from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import Button from 'zent-button';
-
-import Popover from '../src';
+import Button from 'button';
+import Popover from 'popover';
 
 /* eslint-disable */
 const PopoverContent = Popover.Content;
@@ -15,7 +14,8 @@ const withPopover = Popover.withPopover;
 const createPlacement = Popover.Position.create;
 /* eslint-enable */
 
-const HoverContent = withPopover(function HoverContent({popover}) { // eslint-disable-line
+const HoverContent = withPopover(function HoverContent({ popover }) { // eslint-disable-line
+  // eslint-disable-line
   return (
     <div>
       <div>popover content</div>
@@ -61,8 +61,12 @@ describe('Popover', () => {
     expect(wrapper.find('Portal').length).toBe(0);
     simulateWithTimers(wrapper.find('button'), 'click');
     expect(wrapper.find('Portal').length).toBe(1);
-    expect(document.querySelectorAll('.zent-popover-content div').length).toBe(2);
-    expect(document.querySelectorAll('.zent-popover-content div')[1].textContent).toBe('line two');
+    expect(document.querySelectorAll('.zent-popover-content div').length).toBe(
+      2
+    );
+    expect(
+      document.querySelectorAll('.zent-popover-content div')[1].textContent
+    ).toBe('line two');
     simulateWithTimers(wrapper.find('button'), 'click');
     expect(wrapper.find('Portal').length).toBe(1);
     // NOTE: 只能直接调用close method，无法mock。
@@ -70,23 +74,33 @@ describe('Popover', () => {
     expect(wrapper.find('Portal').length).toBe(0);
 
     // HACK: branch window.resize (throttle)
-    wrapper.find('PopoverContent').getNode().onWindowResize({}, {
-      deltaX: 0,
-      deltaY: 0
-    });
+    wrapper.find('PopoverContent').getNode().onWindowResize(
+      {},
+      {
+        deltaX: 0,
+        deltaY: 0
+      }
+    );
     // HACK: throttle
     setTimeout(() => {
-      wrapper.find('PopoverContent').getNode().onWindowResize({}, {
-        deltaX: 10,
-        deltaY: 10
-      });
+      wrapper.find('PopoverContent').getNode().onWindowResize(
+        {},
+        {
+          deltaX: 10,
+          deltaY: 10
+        }
+      );
     }, 160);
     jest.runAllTimers();
     wrapper.unmount();
 
     wrapper = mount(
       <Popover position={Popover.Position.RightTop} display="inline">
-        <PopoverHoverTrigger showDelay={100} hideDelay={100} isOutSide={() => true}>
+        <PopoverHoverTrigger
+          showDelay={100}
+          hideDelay={100}
+          isOutSide={() => true}
+        >
           <Button>hover on me</Button>
         </PopoverHoverTrigger>
         <PopoverContent>
@@ -111,7 +125,11 @@ describe('Popover', () => {
     wrapper.unmount();
 
     wrapper = mount(
-      <Popover position={Popover.Position.TopRight} display="inline" cushion={10}>
+      <Popover
+        position={Popover.Position.TopRight}
+        display="inline"
+        cushion={10}
+      >
         <PopoverFocusTrigger>
           <input placeholder="focus on me" />
         </PopoverFocusTrigger>
@@ -167,7 +185,13 @@ describe('Popover', () => {
 
   it('Popover can have custom prefix and custom className and custom placement position', () => {
     const wrapper = mount(
-      <Popover position={Popover.Position.BottomLeft} display="inline" prefix="foo" wrapperClassName="foo" className="bar">
+      <Popover
+        position={Popover.Position.BottomLeft}
+        display="inline"
+        prefix="foo"
+        wrapperClassName="foo"
+        className="bar"
+      >
         <PopoverClickTrigger>
           <Button>click me</Button>
         </PopoverClickTrigger>
@@ -247,13 +271,19 @@ describe('Popover', () => {
           </PopoverContent>
         </Popover>
       );
-      wrapper.find('PopoverClickTrigger').getNode().onClickOutside({ target: (<div className="outside" />) });
+      wrapper
+        .find('PopoverClickTrigger')
+        .getNode()
+        .onClickOutside({ target: <div className="outside" /> });
       expect(wrapper.find('Portal').length).toBe(0);
 
       simulateWithTimers(wrapper.find('button'), 'click');
       expect(wrapper.find('Portal').length).toBe(1);
 
-      wrapper.find('PopoverClickTrigger').getNode().onClickOutside({ target: (<div className="outside" />) });
+      wrapper
+        .find('PopoverClickTrigger')
+        .getNode()
+        .onClickOutside({ target: <div className="outside" /> });
       expect(wrapper.find('Portal').length).toBe(0);
       wrapper.unmount();
     });
@@ -292,36 +322,53 @@ describe('Popover', () => {
   });
 
   it('throws if only has visible', () => {
-    expect(() => mount(
-      <Popover visible position={Popover.Position.BottomLeft} display="inline">
-        <PopoverClickTrigger>
-          <Button>click me</Button>
-        </PopoverClickTrigger>
-        <PopoverContent>
-          <div>popover content</div>
-          <div>line two</div>
-        </PopoverContent>
-      </Popover>
-    )).toThrow();
+    expect(() =>
+      mount(
+        <Popover
+          visible
+          position={Popover.Position.BottomLeft}
+          display="inline"
+        >
+          <PopoverClickTrigger>
+            <Button>click me</Button>
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+            <div>line two</div>
+          </PopoverContent>
+        </Popover>
+      )
+    ).toThrow();
 
-    expect(() => mount(
-      <Popover onVisibleChange={() => {}} position={Popover.Position.BottomLeft} display="inline">
-        <PopoverClickTrigger>
-          <Button>click me</Button>
-        </PopoverClickTrigger>
-        <PopoverContent>
-          <div>popover content</div>
-          <div>line two</div>
-        </PopoverContent>
-      </Popover>
-    )).toThrow();
+    expect(() =>
+      mount(
+        <Popover
+          onVisibleChange={() => {}}
+          position={Popover.Position.BottomLeft}
+          display="inline"
+        >
+          <PopoverClickTrigger>
+            <Button>click me</Button>
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+            <div>line two</div>
+          </PopoverContent>
+        </Popover>
+      )
+    ).toThrow();
   });
 
   it('can be controlled by visible & onVisibleChange', () => {
     let visible = true;
-    let changeVisible = (v) => visible = v;
+    let changeVisible = v => (visible = v);
     let wrapper = mount(
-      <Popover visible={visible} onVisibleChange={changeVisible} position={Popover.Position.BottomLeft} display="inline">
+      <Popover
+        visible={visible}
+        onVisibleChange={changeVisible}
+        position={Popover.Position.BottomLeft}
+        display="inline"
+      >
         <PopoverClickTrigger>
           <Button>click me</Button>
         </PopoverClickTrigger>
@@ -357,13 +404,17 @@ describe('Popover', () => {
   it('onBeforeXXX can return a Promise', () => {
     let p;
     let onBeforeShow = () => {
-      p = new Promise((resolve) => {
+      p = new Promise(resolve => {
         resolve(2);
       });
       return p;
-    }
+    };
     let wrapper = mount(
-      <Popover onBeforeShow={onBeforeShow} position={Popover.Position.BottomLeft} display="inline">
+      <Popover
+        onBeforeShow={onBeforeShow}
+        position={Popover.Position.BottomLeft}
+        display="inline"
+      >
         <PopoverClickTrigger>
           <Button>click me</Button>
         </PopoverClickTrigger>
@@ -388,11 +439,15 @@ describe('Popover', () => {
   });
 
   it('onBeforeXXX can have a callback', () => {
-    const onBeforeShow = (callback) => {
+    const onBeforeShow = callback => {
       setTimeout(callback, 1000);
-    }
+    };
     const wrapper = mount(
-      <Popover onBeforeShow={onBeforeShow} position={Popover.Position.BottomLeft} display="inline">
+      <Popover
+        onBeforeShow={onBeforeShow}
+        position={Popover.Position.BottomLeft}
+        display="inline"
+      >
         <PopoverClickTrigger>
           <Button>click me</Button>
         </PopoverClickTrigger>
@@ -433,7 +488,7 @@ describe('Popover', () => {
 
     // it's tricky to set target manually
     fakeEvent = new FocusEvent('blur');
-    const evt = fakeEvent.__proto__.__proto__.__proto__;
+    const evt = fakeEvent.__proto__.__proto__.__proto__; // eslint-disable-line
     const descriptor = Object.assign(
       {},
       Object.getOwnPropertyDescriptor(evt, 'target'),

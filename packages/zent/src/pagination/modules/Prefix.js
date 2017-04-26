@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Select from 'zent-select';
+import Select from 'select';
 
 const { number, array, oneOfType, func } = PropTypes;
 const { Option } = Select;
