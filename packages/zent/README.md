@@ -7,7 +7,7 @@ A collection of essential UI components written with React.
 ### 安装
 
 ```shell
-npm install zent
+yarn add zent
 ```
 
 ### 使用组件
@@ -15,11 +15,11 @@ npm install zent
 ```js
 import { Button } from 'zent';
 
-ReactDOM.render(<Button />, someNode);
+ReactDOM.render(<Button />, mountNode);
 ```
 
 ### 引入样式
 
 ```js
-import 'zent/lib/index.css';
+import 'zent/css/index.css';
 ```
