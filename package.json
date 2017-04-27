@@ -13,7 +13,7 @@
     "prettify": "prettier --single-quote --write"
   },
   "lint-staged": {
-    "packages/*/(src|__tests__)/**/*.js": [
+    "packages/**/*.js": [
       "prettify",
       "eslint",
       "git add"
