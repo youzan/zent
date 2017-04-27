@@ -5,15 +5,15 @@ import { noop } from '../constants';
 export default class TimeCell extends Component {
   static PropTypes = {
     onSelect: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     onSelect: noop
-  }
+  };
 
-  onClickCell = (cell) => {
+  onClickCell = cell => {
     !cell.isDisabled && this.props.onSelect(cell.value);
-  }
+  };
 
   getTbody() {
     const { cells } = this.props;
@@ -24,16 +24,15 @@ export default class TimeCell extends Component {
             <span
               onClick={() => this.onClickCell(col)}
               className={col.className}
-              title={col.value}>
+              title={col.value}
+            >
               {col.text}
             </span>
           </li>
         );
       });
 
-      return (
-        <ul className="panel-table__row" role="row" key={i} >{tds}</ul>
-      );
+      return <ul className="panel-table__row" role="row" key={i}>{tds}</ul>;
     });
   }
 
@@ -44,5 +43,4 @@ export default class TimeCell extends Component {
       </div>
     );
   }
-
 }

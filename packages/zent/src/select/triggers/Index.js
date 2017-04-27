@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class Trigger extends Component {
-
   constructor(props) {
     super(props);
     this.state = {

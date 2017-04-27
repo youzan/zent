@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class Search extends Component {
-
   constructor(props) {
     super(props);
     this.changeHandler = this.changeHandler.bind(this);
@@ -21,17 +20,13 @@ class Search extends Component {
   }
 
   render() {
-    let {
-      prefixCls,
-      placeholder,
-      keyword
-    } = this.props;
+    let { prefixCls, placeholder, keyword } = this.props;
 
     return (
       <div className={`${prefixCls}-search`}>
         <input
           type="text"
-          ref={input => this.input = input}
+          ref={input => (this.input = input)}
           placeholder={placeholder}
           className={`${prefixCls}-filter`}
           value={keyword}

@@ -6,7 +6,12 @@ import createPlacement from './create';
  * | popover |   anchor           |
  * |---------|--------------------|
  */
-function locate(anchorBoundingBox, containerBoundingBox, contentDimension, options) {
+function locate(
+  anchorBoundingBox,
+  containerBoundingBox,
+  contentDimension,
+  options
+) {
   const x = anchorBoundingBox.left - contentDimension.width - options.cushion;
   const y = anchorBoundingBox.bottom - contentDimension.height;
 

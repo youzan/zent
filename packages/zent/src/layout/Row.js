@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 export default class Row extends Component {
-
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     prefix: 'zent'
-  }
+  };
 
   render() {
     const { className, prefix, ...others } = this.props;

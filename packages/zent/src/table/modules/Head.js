@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
-import helper from '../helper';
 import assign from 'lodash/assign';
 import Checkbox from 'checkbox';
+
+import helper from '../helper';
 
 let rect;
 let relativeTop;
@@ -17,7 +18,9 @@ export default class Head extends Component {
 
   componentDidMount() {
     if (this.props.autoStick) {
-      this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, { leading: true });
+      this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, {
+        leading: true
+      });
 
       window.addEventListener('scroll', this.throttleSetHeadStyle, true);
       window.addEventListener('resize', this.throttleSetHeadStyle, true);
@@ -53,7 +56,7 @@ export default class Head extends Component {
           left: `${rect.left}px`,
           height: `${rect.height}px`,
           width: `${rect.width}px`,
-          zIndex: 1000,
+          zIndex: 1000
         }
       });
     } else {
@@ -62,14 +65,15 @@ export default class Head extends Component {
         fixStyle: {}
       });
     }
-  }
+  };
 
   getChild(item) {
     if (item.needSort) {
       return (
         <a onClick={this.sort.bind(this, item)}>
           {item.title}
-          {item.name === this.props.sortBy && <span className={this.props.sortType} />}
+          {item.name === this.props.sortBy &&
+            <span className={this.props.sortType} />}
         </a>
       );
     }
@@ -81,7 +85,7 @@ export default class Head extends Component {
     let name = item.name;
 
     if (name === this.props.sortBy) {
-      sortType = (this.props.sortType === 'desc' ? 'asc' : 'desc');  // toggble current sortType
+      sortType = this.props.sortType === 'desc' ? 'asc' : 'desc'; // toggble current sortType
     } else {
       sortType = 'desc'; // desc sort by default
     }
@@ -92,7 +96,7 @@ export default class Head extends Component {
     });
   }
 
-  onSelect = (e) => {
+  onSelect = e => {
     let isChecked = false;
     if (e.target.checked) {
       isChecked = true;
@@ -108,10 +112,7 @@ export default class Head extends Component {
     let tds = [];
 
     if (needExpand) {
-      tds.push(
-        <div key="-1" className="td expanded-item">
-        </div>
-      );
+      tds.push(<div key="-1" className="td expanded-item" />);
     }
 
     this.props.columns.forEach((item, index) => {
@@ -140,28 +141,28 @@ export default class Head extends Component {
       styleObj = assign(styleObj, helper.getAlignStyle(textAlign));
 
       tds.push(
-        <div
-          key={index}
-          className={cellClass}
-          style={styleObj}
-        >
-            {
-              index === 0 && needSelect && (
-                <Checkbox
-                  className="select-check"
-                  onChange={this.onSelect}
-                  checked={selection.isSelectAll}
-                  indeterminate={selection.isSelectPart}
-                />
-              )
-            }
-            {this.getChild(item)}
+        <div key={index} className={cellClass} style={styleObj}>
+          {index === 0 &&
+            needSelect &&
+            <Checkbox
+              className="select-check"
+              onChange={this.onSelect}
+              checked={selection.isSelectAll}
+              indeterminate={selection.isSelectPart}
+            />}
+          {this.getChild(item)}
         </div>
       );
     });
     return (
-      <div className={`${className} tr`} style={style} ref={(c) => { this[className] = c }}>
-       {tds}
+      <div
+        className={`${className} tr`}
+        style={style}
+        ref={c => {
+          this[className] = c;
+        }}
+      >
+        {tds}
       </div>
     );
   }

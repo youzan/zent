@@ -8,17 +8,17 @@ export default class DatePanel extends Component {
   static defaultProps = {
     showPrev: true,
     showNext: true
-  }
+  };
 
   state = {
     showMonth: false
-  }
+  };
 
   showMonth = () => {
     this.setState({
       showMonth: true
     });
-  }
+  };
 
   /*
    * 在 monthPicker 的时候选择年不隐藏 monthPanel.
@@ -28,7 +28,7 @@ export default class DatePanel extends Component {
     this.setState({
       showMonth: hide || false
     });
-  }
+  };
 
   render() {
     const state = this.state;
@@ -37,11 +37,13 @@ export default class DatePanel extends Component {
     let monthPanel;
     let timePanel;
     if (state.showMonth) {
-      monthPanel = (<MonthPanel
-        actived={props.actived}
-        selected={props.selected}
-        onSelect={this.onSelectMonth}
-      />);
+      monthPanel = (
+        <MonthPanel
+          actived={props.actived}
+          selected={props.selected}
+          onSelect={this.onSelectMonth}
+        />
+      );
     }
     if (props.showTime) {
       timePanel = (
@@ -80,4 +82,3 @@ export default class DatePanel extends Component {
     );
   }
 }
-

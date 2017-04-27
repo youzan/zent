@@ -20,7 +20,7 @@ export default class NumberInput extends Component {
     this.setState({ value: newProps.value });
   }
 
-  onchange = (e) => {
+  onchange = e => {
     const { onChange, max, min, step } = this.props;
     let newValue = e.target.value;
     this.setState({ value: newValue });
@@ -28,9 +28,9 @@ export default class NumberInput extends Component {
       newValue = Math.round(newValue / step) * step;
       onChange && newValue >= min && newValue <= max && onChange(newValue);
     }
-  }
+  };
 
-  handleBlur = (e) => {
+  handleBlur = e => {
     let newValue = e.target.value;
     const { onChange, max, min } = this.props;
     if (newValue > max) {
@@ -40,10 +40,17 @@ export default class NumberInput extends Component {
     }
     this.setState({ value: newValue });
     onChange && onChange(newValue);
-  }
+  };
 
   render() {
     const { value } = this.state;
-    return (<Input onBlur={this.handleBlur} disabled={this.props.disabled} onChange={this.onchange} value={value} />);
+    return (
+      <Input
+        onBlur={this.handleBlur}
+        disabled={this.props.disabled}
+        onChange={this.onchange}
+        value={value}
+      />
+    );
   }
 }

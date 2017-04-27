@@ -23,18 +23,20 @@ export default class NumberSteps extends Component {
     if (domNode.children.length > 0) {
       // +1 for fit edge bug of digit width, like 35.4px
       const lastStepOffsetWidth = domNode.lastChild.offsetWidth + 1;
-      if (isNaN(lastStepOffsetWidth) || this.state.lastStepOffsetWidth === lastStepOffsetWidth) {
+      if (
+        isNaN(lastStepOffsetWidth) ||
+        this.state.lastStepOffsetWidth === lastStepOffsetWidth
+      ) {
         return;
       }
 
       this.setState({ lastStepOffsetWidth });
     }
-  }
+  };
 
   render() {
     const props = this.props;
-    const { className, prefix, children,
-            current, status } = props;
+    const { className, prefix, children, current, status } = props;
     const lastIndex = children.length - 1;
     const reLayouted = this.state.lastStepOffsetWidth > 0;
     const classString = classNames({
@@ -43,14 +45,17 @@ export default class NumberSteps extends Component {
     });
 
     return (
-      <div className={classString} >
-        {
-          React.Children.map(children, (item, index) => {
+      <div className={classString}>
+        {React.Children.map(
+          children,
+          (item, index) => {
             const tailWidth = index === lastIndex || !reLayouted
-              ? null : `${100 / lastIndex}%`;
+              ? null
+              : `${100 / lastIndex}%`;
 
             const adjustMarginRight = index === lastIndex
-              ? null : -(this.state.lastStepOffsetWidth / lastIndex + 1);
+              ? null
+              : -(this.state.lastStepOffsetWidth / lastIndex + 1);
 
             const np = {
               stepNumber: (index + 1).toString(),
@@ -74,8 +79,9 @@ export default class NumberSteps extends Component {
             }
 
             return React.cloneElement(item, np);
-          }, this)
-        }
+          },
+          this
+        )}
       </div>
     );
   }

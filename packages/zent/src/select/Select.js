@@ -8,19 +8,18 @@ import omit from 'lodash/omit';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
+import noop from 'lodash/noop';
+import PropTypes from 'prop-types';
+
 import Trigger from './triggers/Index';
 import Popup from './Popup';
 import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
-import PropTypes from 'prop-types';
 import { KEY_ESC, KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 
-const noop = () => void 0;
-
 class Select extends Component {
-
   constructor(props) {
     super(props);
 
@@ -40,7 +39,7 @@ class Select extends Component {
       if (!isArray(children)) {
         children = [children];
       }
-      data = children.map((item) => {
+      data = children.map(item => {
         let value = item.props.value;
         value = typeof value === 'undefined' ? item : value;
         return assign({}, item.props, {
@@ -65,9 +64,12 @@ class Select extends Component {
       this.trigger = props.trigger;
     }
 
-    this.state = assign({
-      selectedItems: []
-    }, props);
+    this.state = assign(
+      {
+        selectedItems: []
+      },
+      props
+    );
 
     this.formateData(data);
 
@@ -86,10 +88,12 @@ class Select extends Component {
     open = nextProps.open || this.focus;
     let nextState = { ...nextProps, open };
     let selectedItems = [];
-    if (nextProps.data === this.state.data
-      && nextProps.value === this.state.value
-      && nextProps.index === this.state.index
-    ) return;
+    if (
+      nextProps.data === this.state.data &&
+      nextProps.value === this.state.value &&
+      nextProps.index === this.state.index
+    )
+      return;
     if (`${nextProps.value}` || `${nextProps.index}`) {
       this.state.selectedItem = this.props.selectedItem;
     }
@@ -112,31 +116,40 @@ class Select extends Component {
     data = data || this.sourceData;
     props = props || this.props;
     let that = this;
-    this.sourceData = cloneDeep(data).map((item) => {
-      let result = {};
-      if (typeof item === 'object') {
-        result.value = item[props.optionValue];
-        result.text = item[props.optionText];
-        result = { ...item, ...result };
-      } else {
-        result.value = item;
-        result.text = item;
-      }
-      return result;
-    }).map((item, index) => {
-      // 显示当前选项，支持value和index
-      item.cid = `${index}`;
-      if (isArray(props.value) && props.value.indexOf(item.value) > -1) {
-        selectedItems.push(item);
-      } else if (typeof props.value === 'object' && isEqual(props.value, item.value)) {
-        that.state.selectedItem = item;
-      } else if (typeof props.value !== 'undefined' && typeof props.value !== 'object' && `${item.value}` === `${props.value}` ||
-          props.index !== 'undefined' && `${index}` === `${props.index}`) {
-        that.state.selectedItem = item;
-      }
+    this.sourceData = cloneDeep(data)
+      .map(item => {
+        let result = {};
+        if (typeof item === 'object') {
+          result.value = item[props.optionValue];
+          result.text = item[props.optionText];
+          result = { ...item, ...result };
+        } else {
+          result.value = item;
+          result.text = item;
+        }
+        return result;
+      })
+      .map((item, index) => {
+        // 显示当前选项，支持value和index
+        item.cid = `${index}`;
+        if (isArray(props.value) && props.value.indexOf(item.value) > -1) {
+          selectedItems.push(item);
+        } else if (
+          typeof props.value === 'object' &&
+          isEqual(props.value, item.value)
+        ) {
+          that.state.selectedItem = item;
+        } else if (
+          (typeof props.value !== 'undefined' &&
+            typeof props.value !== 'object' &&
+            `${item.value}` === `${props.value}`) ||
+          (props.index !== 'undefined' && `${index}` === `${props.index}`)
+        ) {
+          that.state.selectedItem = item;
+        }
 
-      return item;
-    });
+        return item;
+      });
     this.state.selectedItems = selectedItems;
     return this.sourceData;
   }
@@ -152,11 +165,14 @@ class Select extends Component {
   triggerDeleteHandler(data) {
     let { selectedItems } = this.state;
     selectedItems = selectedItems.filter(item => item.cid !== data.cid);
-    this.setState({
-      selectedItems
-    }, () => {
-      this.props.onDelete(data);
-    });
+    this.setState(
+      {
+        selectedItems
+      },
+      () => {
+        this.props.onDelete(data);
+      }
+    );
   }
 
   // 将被选中的option的数据传给trigger
@@ -249,16 +265,19 @@ class Select extends Component {
       keyword = null
     } = this.state;
 
-    let {
-      cid = ''
-    } = selectedItem;
+    let { cid = '' } = selectedItem;
 
     let openCls = open && !disabled ? 'open' : '';
     let disabledCls = disabled ? 'disabled' : '';
     let prefixCls = `${this.props.prefix}-select`;
 
     return (
-      <div tabIndex="0" className={`${prefixCls} ${className} ${openCls} ${disabledCls}`} onBlur={this.blurHandler} onKeyDown={this.keyupHandler}>
+      <div
+        tabIndex="0"
+        className={`${prefixCls} ${className} ${openCls} ${disabledCls}`}
+        onBlur={this.blurHandler}
+        onKeyDown={this.keyupHandler}
+      >
         <Trigger
           prefixCls={prefixCls}
           trigger={this.trigger}

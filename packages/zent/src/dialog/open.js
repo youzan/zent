@@ -44,11 +44,15 @@ export function closeDialog(dialogId, options = {}) {
 export default function openDialog(options = {}) {
   if (!isBrowser) return noop;
 
-  const { onClose: oldOnClose, ref, dialogId = uniqueId('__zent-dialog__') } = options;
+  const {
+    onClose: oldOnClose,
+    ref,
+    dialogId = uniqueId('__zent-dialog__')
+  } = options;
   let container = document.createElement('div');
 
   // 确保多次调用close不会报错
-  const close = (evt) => {
+  const close = evt => {
     closeDialog(dialogId, {
       triggerOnClose: evt !== false
     });
@@ -66,10 +70,7 @@ export default function openDialog(options = {}) {
   }
 
   // 不要依赖render的返回值，以后可能行为会改变
-  ReactDOM.render(
-    React.createElement(Dialog, props),
-    container
-  );
+  ReactDOM.render(React.createElement(Dialog, props), container);
 
   addDialogInstance(dialogId, {
     onClose: oldOnClose,

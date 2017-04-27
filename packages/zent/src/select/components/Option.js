@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class Option extends Component {
-
   constructor(props) {
     super(props);
     this.optionClickHandler = this.optionClickHandler.bind(this);
@@ -17,17 +16,15 @@ class Option extends Component {
   }
 
   render() {
-    const {
-      className,
-      text,
-      value
-    } = this.props;
+    const { className, text, value } = this.props;
     return (
       <span
         value={value}
         className={className}
         onClick={this.optionClickHandler}
-      >{text}</span>
+      >
+        {text}
+      </span>
     );
   }
 }

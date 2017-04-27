@@ -16,7 +16,7 @@ function createContainerId() {
  * 执行notify结束callback
  * @param  {Function} callback 关闭notify回调
  */
-const closeNotifyCallback = (callback) => {
+const closeNotifyCallback = callback => {
   if (typeof callback === 'function') {
     callback();
   }
@@ -44,10 +44,7 @@ const closeNotify = (containerId, callback) => {
  * @param  {Function} callback  notify消失时回调
  */
 const showNotify = (container, props, callback) => {
-  ReactDOM.render(
-    React.createElement(NotifyContent, props),
-    container
-  );
+  ReactDOM.render(React.createElement(NotifyContent, props), container);
 
   const containerId = createContainerId();
   containerList[containerId] = container;
@@ -63,7 +60,7 @@ const showNotify = (container, props, callback) => {
  * 关闭所有notify
  */
 const closeAllNotify = () => {
-  Object.keys(containerList).forEach((containerId) => {
+  Object.keys(containerList).forEach(containerId => {
     closeNotify(containerId);
   });
 };

@@ -1,5 +1,3 @@
 import { Component } from 'react';
 
-export default class WeekPicker extends Component {
-
-}
+export default class WeekPicker extends Component {}

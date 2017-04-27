@@ -15,7 +15,7 @@ const MOUSE_EVENT_WHITE_LIST = [
   'over',
   'out',
   'enter',
-  'leave',
+  'leave'
 ];
 
 function isMouseEventSuffix(suffix) {
@@ -72,7 +72,9 @@ function forEachHook(hooks, action) {
 
   const hookNames = Object.keys(hooks);
   hookNames.forEach(hookName => {
-    const eventName = isMouseEventSuffix(hookName) ? `mouse${hookName}` : hookName;
+    const eventName = isMouseEventSuffix(hookName)
+      ? `mouse${hookName}`
+      : hookName;
     if (action === 'install') {
       window.addEventListener(eventName, hooks[hookName], true);
     } else if (action === 'uninstall') {
@@ -153,7 +155,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
 
   recognizer = makeRecognizer(state, {
     global: {
-      move: throttle((evt) => {
+      move: throttle(evt => {
         const { target } = evt;
 
         if (isOutSide(target)) {
@@ -184,7 +186,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
       }, 16),
 
       // 页面失去焦点的时候强制关闭，否则会出现必须先移动进来再出去才能关闭的问题
-      blur: (evt) => {
+      blur: evt => {
         // 确保事件来自 window
         // React 的事件系统会 bubble blur事件，但是原生的是不会 bubble 的。
         // https://github.com/facebook/react/issues/6410#issuecomment-292895495
@@ -230,7 +232,7 @@ export default class PopoverHoverTrigger extends Trigger {
   static defaultProps = {
     showDelay: 150,
     hideDelay: 150
-  }
+  };
 
   open = () => {
     this.props.open();
@@ -264,9 +266,11 @@ export default class PopoverHoverTrigger extends Trigger {
     const { enterRecognizer, leaveRecognizer } = this.state;
     const enterHooks = (enterRecognizer && enterRecognizer.local) || {};
     const leaveHooks = (leaveRecognizer && leaveRecognizer.local) || {};
-    const eventNames = uniq([].concat(Object.keys(enterHooks), Object.keys(leaveHooks)))
-      .map(name => `onMouse${capitalize(name)}`);
-    const eventNameToHookName = eventName => eventName.slice('onMouse'.length).toLowerCase();
+    const eventNames = uniq(
+      [].concat(Object.keys(enterHooks), Object.keys(leaveHooks))
+    ).map(name => `onMouse${capitalize(name)}`);
+    const eventNameToHookName = eventName =>
+      eventName.slice('onMouse'.length).toLowerCase();
 
     return eventNames.reduce((events, evtName) => {
       const hookName = eventNameToHookName(evtName);

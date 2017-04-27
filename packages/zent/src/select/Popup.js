@@ -3,14 +3,14 @@
  */
 
 import React, { Component } from 'react';
-import Search from './components/Search';
-import Option from './components/Option';
-import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 
-class Popup extends Component {
+import Search from './components/Search';
+import Option from './components/Option';
+import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 
+class Popup extends Component {
   constructor(props) {
     super(props);
 
@@ -27,7 +27,10 @@ class Popup extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.sourceData = nextProps.data;
-    if (nextProps.keyCode === KEY_EN && this.state.keyCode === nextProps.keyCode) {
+    if (
+      nextProps.keyCode === KEY_EN &&
+      this.state.keyCode === nextProps.keyCode
+    ) {
       return;
     }
     this.updateCurrentId(nextProps.keyCode, nextProps.keyword);
@@ -50,27 +53,31 @@ class Popup extends Component {
       keyword: ''
     });
     this.props.onBlur();
-    this.props.onChange(ev, this.props.data.filter(item => item.cid === cid)[0]);
+    this.props.onChange(
+      ev,
+      this.props.data.filter(item => item.cid === cid)[0]
+    );
   }
 
   searchFilterHandler(keyword) {
-    let {
-      filter,
-      onAsyncFilter
-    } = this.props;
+    let { filter, onAsyncFilter } = this.props;
 
     if (typeof onAsyncFilter === 'function') {
-      onAsyncFilter(`${keyword}`, (data) => {
+      onAsyncFilter(`${keyword}`, data => {
         this.setState({
           keyword,
-          data: this.sourceData.filter(item => isArray(data) && data.indexOf(item.value) > -1)
+          data: this.sourceData.filter(
+            item => isArray(data) && data.indexOf(item.value) > -1
+          )
         });
       });
     } else {
       // keyword 为空或者没有 filter 则不过滤
       this.setState({
         keyword,
-        data: this.sourceData.filter(item => !keyword || !filter || filter(item, `${keyword}`))
+        data: this.sourceData.filter(
+          item => !keyword || !filter || filter(item, `${keyword}`)
+        )
       });
     }
   }
@@ -119,10 +126,7 @@ class Popup extends Component {
       open
     } = this.props;
 
-    let {
-      keyword,
-      data
-    } = this.state;
+    let { keyword, data } = this.state;
 
     let filterData = data.filter(item => {
       return !keyword || !filter || filter(item, `${keyword}`);
@@ -132,25 +136,34 @@ class Popup extends Component {
     this.itemIds = filterData.map(item => item.cid);
 
     return (
-      <div tabIndex="0" className={`${prefixCls}-popup`} onFocus={onFocus} onBlur={onBlur}>
-        {
-          !extraFilter && filter && open ? (
-            <Search
+      <div
+        tabIndex="0"
+        className={`${prefixCls}-popup`}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      >
+        {!extraFilter && filter && open
+          ? <Search
               keyword={keyword}
               prefixCls={prefixCls}
               placeholder={searchPlaceholder}
               onChange={this.searchFilterHandler}
             />
-          ) : ''
-        }
+          : ''}
         {filterData.map((item, index) => {
           if (keyword && item.text === keyword) {
             this.currentId = item.cid;
           } else if (keyword) {
             this.currentId = null;
           }
-          let currentCls = this.currentId !== null && item.cid === this.currentId ? 'current' : '';
-          let activeCls = selectedItems.filter(o => o.cid === item.cid).length > 0 || item.cid === cid ? 'active' : '';
+          let currentCls = this.currentId !== null &&
+            item.cid === this.currentId
+            ? 'current'
+            : '';
+          let activeCls = selectedItems.filter(o => o.cid === item.cid).length >
+            0 || item.cid === cid
+            ? 'active'
+            : '';
           return (
             <Option
               key={index}
@@ -160,11 +173,12 @@ class Popup extends Component {
             />
           );
         })}
-        {showEmpty && <Option
-          className={`${prefixCls}-empty`}
-          text={emptyText}
-          onClick={this.optionChangedHandler}
-        />}
+        {showEmpty &&
+          <Option
+            className={`${prefixCls}-empty`}
+            text={emptyText}
+            onClick={this.optionChangedHandler}
+          />}
       </div>
     );
   }

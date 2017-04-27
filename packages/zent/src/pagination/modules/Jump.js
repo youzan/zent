@@ -11,7 +11,7 @@ export default class Jump extends Component {
     });
   }
 
-  onKeyUp = (e) => {
+  onKeyUp = e => {
     if (e.key !== 'Enter') return;
     let value = e.target.value.trim();
     const pattern = /^\d+$/g;
@@ -27,18 +27,23 @@ export default class Jump extends Component {
 
       this.props.onChange(parseInt(value, 10));
     }
-  }
+  };
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       pageLabel: e.target.value.trim()
     });
-  }
+  };
 
   render() {
     return (
       <div className="pager pager--jump">
-        <input className="pager__input" value={this.state.pageLabel} onKeyUp={this.onKeyUp} onChange={this.onChange} />
+        <input
+          className="pager__input"
+          value={this.state.pageLabel}
+          onKeyUp={this.onKeyUp}
+          onChange={this.onChange}
+        />
         <span className="pager__suffix">/共{this.props.total}页</span>
       </div>
     );

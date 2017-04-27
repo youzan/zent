@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import assign from 'lodash/assign';
 import classnames from 'classnames';
-import Checkbox from './components/Checkbox';
 import PropTypes from 'prop-types';
+
+import Checkbox from './components/Checkbox';
 import Loading from './components/Loading';
 
 // 记录是否已经触发收起展开逻辑
 // 防止出现闪烁的bug
 let isTriggerSlide = false;
 
-const deepClone = (arr) => {
+const deepClone = arr => {
   let i;
   let copy;
 
@@ -36,11 +37,11 @@ const toggleSlide = (el, isClose) => {
   let sum = 0;
 
   let start = null;
-  const animate = (timestamp) => {
+  const animate = timestamp => {
     if (!start) start = timestamp;
     const progress = timestamp - start;
     sum = progress * speed;
-    el.style.height = `${isClose ? (height - sum) : sum}px`;
+    el.style.height = `${isClose ? height - sum : sum}px`;
     if (height < sum) {
       if (isClose) {
         el.style.display = 'none';
@@ -55,19 +56,16 @@ const toggleSlide = (el, isClose) => {
 };
 
 export default class Tree extends Component {
-  isInitial = true
-  isDataUpdate = false
+  isInitial = true;
+  isDataUpdate = false;
 
   state = {
     checkedTree: {},
     loadingNode: []
-  }
+  };
 
   static propTypes = {
-    dataType: PropTypes.oneOf([
-      'plain',
-      'tree'
-    ]),
+    dataType: PropTypes.oneOf(['plain', 'tree']),
     data: PropTypes.arrayOf(PropTypes.object),
     isRoot: PropTypes.func,
     loadMore: PropTypes.func,
@@ -79,15 +77,11 @@ export default class Tree extends Component {
     onCheck: PropTypes.func,
     onExpand: PropTypes.func,
     onSelect: PropTypes.func,
-    size: PropTypes.oneOf([
-      'large',
-      'medium',
-      'small'
-    ]),
+    size: PropTypes.oneOf(['large', 'medium', 'small']),
     operations: PropTypes.arrayOf(PropTypes.object),
     render: PropTypes.func,
     prefix: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     autoExpandOnSelect: true,
@@ -96,7 +90,7 @@ export default class Tree extends Component {
     checkable: false,
     size: 'medium',
     prefix: 'zent'
-  }
+  };
 
   componentWillMount() {
     // init checkedTree
@@ -125,13 +119,13 @@ export default class Tree extends Component {
     if (dataType === 'plain') {
       const { isRoot } = this.props;
       let map = {};
-      data.forEach((node) => {
+      data.forEach(node => {
         if (!node.isLeaf) {
           node.children = [];
         }
         map[node.id] = node;
       });
-      Object.keys(map).forEach((key) => {
+      Object.keys(map).forEach(key => {
         let node = map[key];
         const isRootNode =
           (isRoot && isRoot(node)) ||
@@ -180,7 +174,9 @@ export default class Tree extends Component {
         this.setState({ loadingNode: [root.id, ...loadingNode] });
         loadMore(root)
           .then(() => {
-            this.setState({ loadingNode: loadingNode.filter(x => x !== root.id) });
+            this.setState({
+              loadingNode: loadingNode.filter(x => x !== root.id)
+            });
             this.handleFoldClick(root, e);
           })
           .catch(() => {});
@@ -235,33 +231,32 @@ export default class Tree extends Component {
     this.updateCheckedTree(root.id, checkedTree[root.id].t !== 2 ? 2 : 0);
     if (onCheck) {
       onCheck(
-        Object
-          .keys(checkedTree)
-          .filter(k => checkedTree[k].t === 2)
-          .map((x) => {
-            if (typeof root.id === 'number') {
-              x = +x;
-            }
-            return x;
+        Object.keys(checkedTree).filter(k => checkedTree[k].t === 2).map(x => {
+          if (typeof root.id === 'number') {
+            x = +x;
           }
-      ));
+          return x;
+        })
+      );
     }
   }
 
   updateUpstream(id, type, checkedTree) {
     if (!id) return;
     if (type === 2) {
-      checkedTree[id].t = Object
-        .keys(checkedTree)
+      checkedTree[id].t = Object.keys(checkedTree)
         .filter(x => checkedTree[x].p === id)
-        .every(x => checkedTree[x].t === 2) ? 2 : 1;
+        .every(x => checkedTree[x].t === 2)
+        ? 2
+        : 1;
     } else if (type === 1) {
       checkedTree[id].t = 1;
     } else if (type === 0) {
-      checkedTree[id].t = Object
-        .keys(checkedTree)
+      checkedTree[id].t = Object.keys(checkedTree)
         .filter(x => checkedTree[x].p === id)
-        .every(x => checkedTree[x].t === 0) ? 0 : 1;
+        .every(x => checkedTree[x].t === 0)
+        ? 0
+        : 1;
     }
     if (checkedTree[id].p) {
       this.updateUpstream(checkedTree[id].p, checkedTree[id].t, checkedTree);
@@ -271,11 +266,11 @@ export default class Tree extends Component {
   updateDownstream(id, type, checkedTree) {
     if (!id) return;
     checkedTree[id].t = type;
-    const childrenId = Object
-      .keys(checkedTree)
-      .filter(x => checkedTree[x].p === id);
+    const childrenId = Object.keys(checkedTree).filter(
+      x => checkedTree[x].p === id
+    );
     if (childrenId.length > 0) {
-      childrenId.forEach((childId) => {
+      childrenId.forEach(childId => {
         this.updateDownstream(childId, type, checkedTree);
       });
     }
@@ -284,13 +279,13 @@ export default class Tree extends Component {
   updateCheckedTree(id, type) {
     const { checkedTree } = this.state;
     const parentId = checkedTree[id].p;
-    const childrenId = Object
-      .keys(checkedTree)
-      .filter(x => checkedTree[x].p === id.toString());
+    const childrenId = Object.keys(checkedTree).filter(
+      x => checkedTree[x].p === id.toString()
+    );
     checkedTree[id].t = type;
 
     this.updateUpstream(parentId, type, checkedTree);
-    childrenId.forEach((childId) => {
+    childrenId.forEach(childId => {
       this.updateDownstream(childId, type, checkedTree);
     });
 
@@ -300,14 +295,14 @@ export default class Tree extends Component {
   updateCheckedTreeRecursive(root, parentId, func) {
     func(root, parentId);
     if (root.children && root.children.length > 0) {
-      root.children.forEach((child) => {
+      root.children.forEach(child => {
         this.updateCheckedTreeRecursive(child, root.id, func);
       });
     }
   }
 
   updateWholeCheckedTree(checkedTree) {
-    Object.keys(checkedTree).forEach((id) => {
+    Object.keys(checkedTree).forEach(id => {
       if (checkedTree[id].t === 2) {
         this.updateUpstream(id, 2, checkedTree);
         this.updateDownstream(id, 2, checkedTree);
@@ -319,9 +314,11 @@ export default class Tree extends Component {
     let newCheckedTree = {};
     const { defaultCheckedKeys } = this.props;
 
-    data.forEach((tree) => {
+    data.forEach(tree => {
       this.updateCheckedTreeRecursive(tree, '', (root, parentId) => {
-        const isSetDefault = defaultCheckedKeys && defaultCheckedKeys.find(x => x === root.id) >= 0;
+        const isSetDefault =
+          defaultCheckedKeys &&
+          defaultCheckedKeys.find(x => x === root.id) >= 0;
         newCheckedTree[root.id] = {
           p: parentId.toString(),
           t: isSetDefault ? 2 : 0
@@ -335,7 +332,7 @@ export default class Tree extends Component {
     let newCheckedTree = {};
     const { checkedTree } = this.state;
 
-    data.forEach((tree) => {
+    data.forEach(tree => {
       this.updateCheckedTreeRecursive(tree, '', (root, parentId) => {
         newCheckedTree[root.id] = {
           p: parentId.toString(),
@@ -348,7 +345,10 @@ export default class Tree extends Component {
 
   renderSwitcher(root) {
     const { foldable, loadMore } = this.props;
-    if (!root.isLeaf && (loadMore || root.children && root.children.length > 0)) {
+    if (
+      !root.isLeaf &&
+      (loadMore || (root.children && root.children.length > 0))
+    ) {
       return (
         <icon
           className="switcher"
@@ -360,7 +360,8 @@ export default class Tree extends Component {
 
   renderCheckbox(root) {
     const { checkable, disabledCheckedKeys } = this.props;
-    const isDisabled = (disabledCheckedKeys || []).find(key => key === root.id) >= 0;
+    const isDisabled =
+      (disabledCheckedKeys || []).find(key => key === root.id) >= 0;
 
     if (checkable) {
       return (
@@ -376,14 +377,20 @@ export default class Tree extends Component {
   renderOperations(root) {
     const opts = this.props.operations;
     if (opts) {
-      const optNodes = opts.map((opt) => {
+      const optNodes = opts.map(opt => {
         const shouldRender = opt.shouldRender || (() => true);
-        return shouldRender(root) && (
+        return (
+          shouldRender(root) &&
           <span
             key={`${opt.name}-${root.id}`}
             onClick={opt.action.bind(null, root)}
-            className="opt">
-            {typeof opt.icon === 'string' ? <icon className={opt.icon} /> : opt.icon} {opt.name}
+            className="opt"
+          >
+            {typeof opt.icon === 'string'
+              ? <icon className={opt.icon} />
+              : opt.icon}
+            {' '}
+            {opt.name}
           </span>
         );
       });
@@ -399,7 +406,7 @@ export default class Tree extends Component {
     const { loadingNode } = this.state;
     const { loadMore, prefix, expandAll, render } = this.props;
     if (roots && roots.length > 0) {
-      return roots.map((root) => {
+      return roots.map(root => {
         // 单独节点的expand属性具有最高优先级，如果expand没有设置会根据是否设置loadMore
         // 来判断是否收起，因为需要loadMore的节点是没有内容的，需要收起。在以上情况都不发生
         // 的情况下以expandAll为准
@@ -407,7 +414,9 @@ export default class Tree extends Component {
         if (loadMore) {
           isShowChildren = root.expand;
         }
-        const barClassName = classnames(`${prefix}-tree-bar`, { off: !isShowChildren });
+        const barClassName = classnames(`${prefix}-tree-bar`, {
+          off: !isShowChildren
+        });
         return (
           <li key={`${root.id}`}>
             <div className={barClassName}>
@@ -415,22 +424,24 @@ export default class Tree extends Component {
               <div className="zent-tree-node">
                 {this.renderCheckbox(root)}
                 {loadingNode.indexOf(root.id) > -1 ? <Loading /> : null}
-                <span className="content" onClick={this.triggerSwitcherClick.bind(this, root)}>
+                <span
+                  className="content"
+                  onClick={this.triggerSwitcherClick.bind(this, root)}
+                >
                   {render ? render(root) : root.title}
                 </span>
                 {this.renderOperations(root)}
               </div>
             </div>
-            {
-              root.children && root.children.length > 0 && (
-                <ul
-                  key={`ul-${root.id}`}
-                  className={`${prefix}-tree-child`}
-                  style={isShowChildren ? {} : { display: 'none' }}>
-                  {this.renderTreeNodes(root.children)}
-                </ul>
-              )
-            }
+            {root.children &&
+              root.children.length > 0 &&
+              <ul
+                key={`ul-${root.id}`}
+                className={`${prefix}-tree-child`}
+                style={isShowChildren ? {} : { display: 'none' }}
+              >
+                {this.renderTreeNodes(root.children)}
+              </ul>}
           </li>
         );
       });

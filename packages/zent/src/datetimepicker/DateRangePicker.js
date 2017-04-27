@@ -13,7 +13,7 @@ import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
 
-const isValidValue = (val) => {
+const isValidValue = val => {
   if (!isArray(val)) return false;
   const ret = val.filter(item => !!item);
   return ret.length === 2;
@@ -30,7 +30,7 @@ const getDateTime = (date, time) => {
   );
 };
 
-const extractStateFromProps = (props) => {
+const extractStateFromProps = props => {
   const { format, min, max, defaultValue } = props;
   let showPlaceholder;
   let selected = [];
@@ -40,7 +40,10 @@ const extractStateFromProps = (props) => {
 
   if (isValidValue(props.value)) {
     showPlaceholder = false;
-    const tmp = [maybeFormatDate(props.value[0], format), maybeFormatDate(props.value[1], format)];
+    const tmp = [
+      maybeFormatDate(props.value[0], format),
+      maybeFormatDate(props.value[1], format)
+    ];
     selected = tmp.slice();
     range = tmp.slice();
     actived = tmp.slice();
@@ -97,7 +100,7 @@ class DateRangePicker extends Component {
     onClick: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     className: '',
@@ -109,7 +112,7 @@ class DateRangePicker extends Component {
     showTime: false,
     disabledDate: noop,
     onChange: noop
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -134,7 +137,7 @@ class DateRangePicker extends Component {
     }
   }
 
-  onHover = (val) => {
+  onHover = val => {
     const { selected, range } = this.state;
     const scp = selected.slice();
     const rcp = range.slice();
@@ -150,9 +153,9 @@ class DateRangePicker extends Component {
         range: rcp
       });
     }
-  }
+  };
 
-  onSelectDate = (val) => {
+  onSelectDate = val => {
     const { selected, actived, range } = this.state;
     const { onClick } = this.props;
     const scp = selected.slice();
@@ -173,7 +176,10 @@ class DateRangePicker extends Component {
       acp.splice(0, 2, val, goMonths(val, 1));
       type = 'start';
       // 支持选择同一天
-    } else if (scp[0] && (scp[0] < val || formatDate(scp[0]) === formatDate(val))) {
+    } else if (
+      scp[0] &&
+      (scp[0] < val || formatDate(scp[0]) === formatDate(val))
+    ) {
       scp.splice(1, 1, val);
       if (scp[0].getMonth() < val.getMonth()) {
         acp.splice(1, 1, val);
@@ -193,9 +199,9 @@ class DateRangePicker extends Component {
     });
 
     onClick && onClick(val, type);
-  }
+  };
 
-  isDisabled = (val) => {
+  isDisabled = val => {
     const { disabledDate, format, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
@@ -203,7 +209,7 @@ class DateRangePicker extends Component {
     if (max && val > parseDate(max, format)) return true;
 
     return false;
-  }
+  };
 
   onChangeDate = (val, i) => {
     const { actived } = this.state;
@@ -213,15 +219,15 @@ class DateRangePicker extends Component {
     this.setState({
       actived: acp
     });
-  }
+  };
 
-  onChangeStart = (val) => {
+  onChangeStart = val => {
     this.onChangeDate(val, 0);
-  }
+  };
 
-  onChangeEnd = (val) => {
+  onChangeEnd = val => {
     this.onChangeDate(val, 1);
-  }
+  };
 
   onChangeTime = (val, i, type) => {
     const { activedTime } = this.state;
@@ -232,18 +238,18 @@ class DateRangePicker extends Component {
     this.setState({
       activedTime: tcp
     });
-  }
+  };
 
   onChangeStartTime = (val, type) => {
     this.onChangeTime(val, 0, type);
-  }
+  };
 
   onChangeEndTime = (val, type) => {
     this.onChangeTime(val, 1, type);
-  }
+  };
 
   // next&prev month 翻页效果联动
-  onChangeMonth = (type) => {
+  onChangeMonth = type => {
     const baseMap = {
       prev: 0,
       next: 1
@@ -266,21 +272,21 @@ class DateRangePicker extends Component {
         actived: acp
       });
     };
-  }
+  };
 
   onOpenStartTime = () => {
     this.setState({
       openStartTimePanel: true,
       openEndTimePanel: false
     });
-  }
+  };
 
   onOpenEndTime = () => {
     this.setState({
       openStartTimePanel: false,
       openEndTimePanel: true
     });
-  }
+  };
 
   onClickInput = () => {
     if (this.props.disabled) return;
@@ -288,12 +294,12 @@ class DateRangePicker extends Component {
     this.setState({
       openPanel: !this.state.openPanel
     });
-  }
+  };
 
-  onClearInput = (evt) => {
+  onClearInput = evt => {
     evt.stopPropagation();
     this.props.onChange([]);
-  }
+  };
 
   /**
    * 如果传入为数字，返回值也为数字
@@ -348,16 +354,19 @@ class DateRangePicker extends Component {
       openPanel: false
     });
 
-    const ret = [this.getReturnValue(tmp[0], format), this.getReturnValue(tmp[1], format)];
+    const ret = [
+      this.getReturnValue(tmp[0], format),
+      this.getReturnValue(tmp[1], format)
+    ];
     this.props.onChange(ret);
-  }
+  };
 
   renderPicker() {
     const state = this.state;
     const props = this.props;
     let rangePicker;
 
-    const getTimeConfig = (type) => {
+    const getTimeConfig = type => {
       if (!props.showTime) return false;
       const handleMap = {
         start: this.onChangeStartTime,
@@ -391,7 +400,7 @@ class DateRangePicker extends Component {
         'range-picker--showTime': props.showTime
       });
       rangePicker = (
-        <div className={pickerCls} ref={ref => this.picker = ref}>
+        <div className={pickerCls} ref={ref => (this.picker = ref)}>
           <div className="date-picker">
             <DatePanel
               range={state.range}
@@ -430,7 +439,7 @@ class DateRangePicker extends Component {
             showError={state.showError}
             errorText={props.errorText}
           />
-        </div >
+        </div>
       );
     }
 
@@ -445,7 +454,7 @@ class DateRangePicker extends Component {
     this.setState({
       openPanel: !this.state.openPanel
     });
-  }
+  };
 
   render() {
     const state = this.state;
@@ -469,9 +478,14 @@ class DateRangePicker extends Component {
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={this.onClickInput}>
-              {state.showPlaceholder ? props.placeholder.join(' 至 ') : state.value.join(' 至 ')}
-              <span className="zenticon zenticon-calendar-o"></span>
-              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
+              {state.showPlaceholder
+                ? props.placeholder.join(' 至 ')
+                : state.value.join(' 至 ')}
+              <span className="zenticon zenticon-calendar-o" />
+              <span
+                onClick={this.onClearInput}
+                className="zenticon zenticon-close-circle"
+              />
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>

@@ -11,7 +11,8 @@ const getSelectedValues = options => {
   return result;
 };
 
-const isEvent = candidate => !!(candidate && candidate.stopPropagation && candidate.preventDefault);
+const isEvent = candidate =>
+  !!(candidate && candidate.stopPropagation && candidate.preventDefault);
 
 export function getValue(event) {
   // 简单判断是否是一个原生事件对象
@@ -33,9 +34,7 @@ export function getValue(event) {
   }
 
   // 自定义组件需要直接抛出value或者把value放在一个对象中
-  return event && event.value !== undefined ?
-    event.value :
-    event;
+  return event && event.value !== undefined ? event.value : event;
 }
 
 export function getDisplayName(Component) {

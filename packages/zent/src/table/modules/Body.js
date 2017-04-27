@@ -39,7 +39,16 @@ export default class Body extends Component {
   }
 
   render() {
-    let { datasets, columns, emptyLabel, rowKey, selection, getRowConf, expandRender, needExpand } = this.props;
+    let {
+      datasets,
+      columns,
+      emptyLabel,
+      rowKey,
+      selection,
+      getRowConf,
+      expandRender,
+      needExpand
+    } = this.props;
 
     let trs = [];
     let dataIterator = (rowData, rowIndex) => {
@@ -50,10 +59,13 @@ export default class Body extends Component {
         tds.push(
           <div key="-1" className="td expanded-item">
             <span
-              className={this.isExpanded(rowData, rowIndex) ? 'expandable-btn collapse-btn' : 'expandable-btn expand-btn'}
+              className={
+                this.isExpanded(rowData, rowIndex)
+                  ? 'expandable-btn collapse-btn'
+                  : 'expandable-btn expand-btn'
+              }
               onClick={this.handleExpand(rowIndex)}
-            >
-            </span>
+            />
           </div>
         );
       }
@@ -96,8 +108,14 @@ export default class Body extends Component {
 
     let expandedInterator = (rowData, rowIndex) => {
       trs.push(
-        <div className="tr tr--expanded" key={`${(rowData[rowKey] || rowIndex)}-expand`} style={{ display: this.isExpanded(rowData, rowIndex) ? 'flex' : 'none' }}>
-          <div className="td expanded-item"></div>
+        <div
+          className="tr tr--expanded"
+          key={`${rowData[rowKey] || rowIndex}-expand`}
+          style={{
+            display: this.isExpanded(rowData, rowIndex) ? 'flex' : 'none'
+          }}
+        >
+          <div className="td expanded-item" />
           <div className="td">
             {expandRender(rowData)}
           </div>
@@ -118,12 +136,11 @@ export default class Body extends Component {
 
     return (
       <div className="tbody">
-        {datasets.length !== 0 ?
-          trs : (
-          <div className="tr">
-            <div className="cell empty-data">{emptyLabel}</div>
-          </div>
-        )}
+        {datasets.length !== 0
+          ? trs
+          : <div className="tr">
+              <div className="cell empty-data">{emptyLabel}</div>
+            </div>}
       </div>
     );
   }

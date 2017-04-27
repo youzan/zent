@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class Tag extends Component {
-
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);
@@ -19,22 +18,20 @@ class Tag extends Component {
   }
 
   render() {
-    let {
-      prefixCls,
-      text
-    } = this.props;
+    let { prefixCls, text } = this.props;
 
     return (
-      <span>{
-        text ?
-          <span className={`${prefixCls}-tag`}>
-          {text}
-            <i
-              className={`${prefixCls}-delete`}
-              onClick={this.deleteTagHandler}
-          ></i></span>
-        : ''
-      }</span>
+      <span>
+        {text
+          ? <span className={`${prefixCls}-tag`}>
+              {text}
+              <i
+                className={`${prefixCls}-delete`}
+                onClick={this.deleteTagHandler}
+              />
+            </span>
+          : ''}
+      </span>
     );
   }
 }

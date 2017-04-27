@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
+import PropTypes from 'prop-types';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
 import { formatDate, parseDate, maybeFormatDate } from './utils/date';
-import PropTypes from 'prop-types';
 import { noop } from './constants/';
 
 function extractStateFromProps(props) {
@@ -191,8 +191,8 @@ class MonthPicker extends Component {
                 disabled={props.disabled}
               />
 
-              <span className="zenticon zenticon-calendar-o"></span>
-              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle"></span>
+              <span className="zenticon zenticon-calendar-o" />
+              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle" />
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>

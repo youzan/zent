@@ -16,11 +16,40 @@ const i18n = {
   zh: {
     dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
     dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-    monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthNamesShort: [
+      '1月',
+      '2月',
+      '3月',
+      '4月',
+      '5月',
+      '6月',
+      '7月',
+      '8月',
+      '9月',
+      '10月',
+      '11月',
+      '12月'
+    ],
+    monthNames: [
+      '一月',
+      '二月',
+      '三月',
+      '四月',
+      '五月',
+      '六月',
+      '七月',
+      '八月',
+      '九月',
+      '十月',
+      '十一月',
+      '十二月'
+    ],
     amPm: ['am', 'pm'],
     DoFn: function DoFn(D) {
-      return D + ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : (D - D % 10 !== 10) * D % 10];
+      return (
+        D +
+        ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : (D - D % 10 !== 10) * D % 10]
+      );
     }
   }
 };
@@ -34,7 +63,9 @@ const i18n = {
  */
 export const parseDate = (date, mask) => {
   mask = mask || 'default';
-  if (date instanceof Date) { return date }
+  if (date instanceof Date) {
+    return date;
+  }
   if (typeof date === 'number') return Date.parse(date);
   return parse(date, mask);
 };
@@ -49,7 +80,6 @@ export const parseDate = (date, mask) => {
 export const formatDate = (date, mask = 'default', locale = 'zh') => {
   return format(date, mask, i18n[locale]);
 };
-
 
 export function maybeFormatDate(value, mask) {
   if (typeof value === 'number') return new Date(value);

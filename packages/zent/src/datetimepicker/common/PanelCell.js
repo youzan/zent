@@ -6,15 +6,15 @@ export default class PanelCell extends Component {
   static PropTypes = {
     onHover: PropTypes.func,
     onSelect: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     onHover: noop
-  }
+  };
 
-  onClickCell = (cell) => {
+  onClickCell = cell => {
     !cell.isDisabled && this.props.onSelect(cell.value);
-  }
+  };
 
   getTbody() {
     const { cells, onHover } = this.props;
@@ -26,16 +26,15 @@ export default class PanelCell extends Component {
               onClick={() => this.onClickCell(col)}
               onMouseOver={() => onHover(col.value)}
               className={col.className}
-              title={col.title}>
+              title={col.title}
+            >
               {col.text}
             </div>
           </li>
         );
       });
 
-      return (
-        <ul className="panel-table__row" role="row" key={i}>{tds}</ul>
-      );
+      return <ul className="panel-table__row" role="row" key={i}>{tds}</ul>;
     });
   }
 
@@ -46,5 +45,4 @@ export default class PanelCell extends Component {
       </div>
     );
   }
-
 }

@@ -29,7 +29,7 @@ export default class Pager extends Component {
     if (target && !current) {
       onChange(target);
     }
-  }
+  };
 
   render() {
     const { current, type, target } = this.props;
@@ -37,13 +37,11 @@ export default class Pager extends Component {
       pager: true,
       'pager--current': current,
       'pager--omni': type === 'omni',
-      'pager--disabled': type !== 'omni' && !target,
+      'pager--disabled': type !== 'omni' && !target
     });
 
     return (
-      <div
-        className={className}
-        onClick={this.onClick}>
+      <div className={className} onClick={this.onClick}>
         {this.props.content}
       </div>
     );

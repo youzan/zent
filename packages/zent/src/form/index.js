@@ -1,3 +1,5 @@
+import assign from 'lodash/assign';
+
 import Form from './Form';
 import createForm from './createForm';
 import Field from './Field';
@@ -10,7 +12,6 @@ import CheckboxField from './form_components/CheckboxField';
 import CheckboxGroupField from './form_components/CheckboxGroupField';
 import RadioGroupField from './form_components/RadioGroupField';
 import SelectField from './form_components/SelectField';
-import assign from 'lodash/assign';
 
 export default assign(Form, {
   Form,

@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 export default class Col extends Component {
-
   static propTypes = {
     span: PropTypes.number,
     offset: PropTypes.number,
     className: PropTypes.string,
     prefix: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     prefix: 'zent'
-  }
+  };
 
   render() {
     const { span, offset, className, prefix, ...others } = this.props;

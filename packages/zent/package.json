@@ -11,8 +11,7 @@
   "scripts": {
     "lint": "eslint --max-warnings=0 ./src",
     "test": "jest -c jest.config.json",
-    "build": "./scripts/build.sh",
-    "build-one": "babel src/popover --out-dir lib"
+    "build": "./scripts/build.sh"
   },
   "author": "Youzan FE",
   "license": "MIT",

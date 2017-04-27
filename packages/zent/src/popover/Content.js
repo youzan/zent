@@ -48,7 +48,7 @@ export default class PopoverContent extends Component {
     getAnchor: PropTypes.func,
 
     // defaults to body
-    containerSelector: PropTypes.string,
+    containerSelector: PropTypes.string
   };
 
   state = {
@@ -93,18 +93,30 @@ export default class PopoverContent extends Component {
 
     const contentBoundingBox = content.getBoundingClientRect();
 
-    const relativeBB = translateToContainerCoordinates(parentBoundingBox, boundingBox);
-    const relativeContainerBB = translateToContainerCoordinates(parentBoundingBox, parentBoundingBox);
-    const position = this.props.placement(this.props.prefix, relativeBB, relativeContainerBB, {
-      width: contentBoundingBox.width,
-      height: contentBoundingBox.height
-    }, {
-      cushion: this.props.cushion,
-      anchor,
-      container: parent,
-      anchorBoundingBoxViewport: boundingBox,
-      containerBoundingBoxViewport: parentBoundingBox
-    });
+    const relativeBB = translateToContainerCoordinates(
+      parentBoundingBox,
+      boundingBox
+    );
+    const relativeContainerBB = translateToContainerCoordinates(
+      parentBoundingBox,
+      parentBoundingBox
+    );
+    const position = this.props.placement(
+      this.props.prefix,
+      relativeBB,
+      relativeContainerBB,
+      {
+        width: contentBoundingBox.width,
+        height: contentBoundingBox.height
+      },
+      {
+        cushion: this.props.cushion,
+        anchor,
+        container: parent,
+        anchorBoundingBoxViewport: boundingBox,
+        containerBoundingBoxViewport: parentBoundingBox
+      }
+    );
 
     this.setState({
       position
@@ -132,23 +144,30 @@ export default class PopoverContent extends Component {
   }
 
   render() {
-    const { prefix, className, id, visible, children, containerSelector } = this.props;
+    const {
+      prefix,
+      className,
+      id,
+      visible,
+      children,
+      containerSelector
+    } = this.props;
     const { position } = this.state;
 
     if (!position) {
       return null;
     }
 
-    const cls = cx(
-      className,
-      `${prefix}-popover`,
-      id,
-
-      position.toString()
-    );
+    const cls = cx(className, `${prefix}-popover`, id, position.toString());
 
     return (
-      <Portal prefix={prefix} visible={visible} selector={containerSelector} className={cls} css={position.getCSSStyle()}>
+      <Portal
+        prefix={prefix}
+        visible={visible}
+        selector={containerSelector}
+        className={cls}
+        css={position.getCSSStyle()}
+      >
         <div className={`${prefix}-popover-content`}>
           {children}
           <WindowResizeHandler onResize={this.onWindowResize} />

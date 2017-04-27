@@ -95,7 +95,7 @@ const parser = {
     if (conf.total <= OMINIBOUNDARY) {
       min = 1;
       max = conf.total;
-    // 否则显示省略号和部分页数
+      // 否则显示省略号和部分页数
     } else {
       min = Math.max(1, conf.current - boundary);
       max = Math.min(conf.current + boundary, conf.total);

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-#curl -G -s -o /dev/null "www.interface.com/commit/msg?user=$(git config user.name)" --data-urlencode "comments=$(cat $1)"

@@ -64,7 +64,6 @@ export default class HourPanel extends Component {
           <TimeCell cells={hours} onSelect={onSelect} />
         </div>
       </div>
-
     );
   }
 }

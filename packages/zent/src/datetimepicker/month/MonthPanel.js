@@ -7,25 +7,25 @@ import { goYears } from '../utils/';
 export default class MonthPanel extends Component {
   state = {
     showYear: false
-  }
+  };
 
   prevYear = () => {
     const { actived, onSelect } = this.props;
     const prev = goYears(actived, -1);
     onSelect(prev, true);
-  }
+  };
 
   nextYear = () => {
     const { actived, onSelect } = this.props;
     const next = goYears(actived, 1);
     onSelect(next, true);
-  }
+  };
 
   showYearPanel = () => {
     this.setState({
       showYear: true
     });
-  }
+  };
 
   onSelectYear = (val, close = false) => {
     const { actived, onSelect } = this.props;
@@ -37,15 +37,15 @@ export default class MonthPanel extends Component {
     this.setState({
       showYear: close
     });
-  }
+  };
 
-  onSelectMonth = (val) => {
+  onSelectMonth = val => {
     const { actived, onSelect } = this.props;
     const copy = new Date(actived);
 
     copy.setMonth(val);
     onSelect(copy);
-  }
+  };
 
   render() {
     const { actived, selected } = this.props;
@@ -54,12 +54,7 @@ export default class MonthPanel extends Component {
 
     let yearPanel;
     if (showYear) {
-      yearPanel = (
-        <YearPanel
-          actived={actived}
-          onSelect={this.onSelectYear}
-        />
-      );
+      yearPanel = <YearPanel actived={actived} onSelect={this.onSelectYear} />;
     }
 
     return (

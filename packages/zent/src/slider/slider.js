@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Range from './range';
-import InputField from './inputField';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
+
+import Range from './range';
+import InputField from './inputField';
 
 /* eslint no-throw-literal: 0 */
 function checkProps(props) {
@@ -14,10 +15,10 @@ function checkProps(props) {
       throw 'has range props value must an array';
     }
     if (!(value.length === 2)) {
-      throw 'value\' length must as 2';
+      throw "value' length must as 2";
     }
     if (!value.every(v => isNumber(v) && v >= min && v <= max)) {
-      throw 'value\' each item must a number and between min to max';
+      throw "value' each item must a number and between min to max";
     }
     if (!(value[0] <= value[1])) {
       throw 'value[0] must less than value[1]';
@@ -54,7 +55,7 @@ export default class Slider extends Component {
     step: PropTypes.number,
     withInput: PropTypes.bool,
     onChange: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     min: 0,
@@ -74,20 +75,26 @@ export default class Slider extends Component {
 
   componentWillReceiveProps = newProps => {
     checkProps(newProps);
-  }
+  };
 
-  onChange = (value) => {
+  onChange = value => {
     const { range, onChange } = this.props;
-    value = range ? value.sort((a, b) => a - b).map(v => Number(v)) : Number(value);
+    value = range
+      ? value.sort((a, b) => a - b).map(v => Number(v))
+      : Number(value);
     onChange && onChange(value);
-  }
+  };
 
   render() {
     const { withInput, className, ...restProps } = this.props;
     const wrapClass = classNames(`${restProps.prefix}-slider`, className);
-    return (<div className={wrapClass}>
-      <Range {...restProps} onChange={this.onChange} />
-      {withInput && !restProps.dots && <InputField onChange={this.onChange} {...restProps} />}
-    </div>);
+    return (
+      <div className={wrapClass}>
+        <Range {...restProps} onChange={this.onChange} />
+        {withInput &&
+          !restProps.dots &&
+          <InputField onChange={this.onChange} {...restProps} />}
+      </div>
+    );
   }
 }

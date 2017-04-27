@@ -40,12 +40,16 @@ class TabPanel extends React.Component {
       hiddenStyle.display = 'none';
     }
     return (
-      <div style={hiddenStyle} role="tabpanel" id={`${props.prefix}-tabpanel-${props.uniqueId}-${props.id}`} className={`${props.prefix}-tab-tabpanel ${props.className}`}>
-      {props.children}
+      <div
+        style={hiddenStyle}
+        role="tabpanel"
+        id={`${props.prefix}-tabpanel-${props.uniqueId}-${props.id}`}
+        className={`${props.prefix}-tab-tabpanel ${props.className}`}
+      >
+        {props.children}
       </div>
     );
   }
-
 }
 
 export default TabPanel;

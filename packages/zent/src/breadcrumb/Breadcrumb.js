@@ -24,9 +24,11 @@ export default class Breadcrumb extends Component {
     return (
       <div className={cx(`${prefix}-breadcrumb`, className)}>
         {children}
-        {breads && breads.length > 0 && breads.map((item, index) => {
-          return <Item {...item} key={index} />;
-        })}
+        {breads &&
+          breads.length > 0 &&
+          breads.map((item, index) => {
+            return <Item {...item} key={index} />;
+          })}
       </div>
     );
   }

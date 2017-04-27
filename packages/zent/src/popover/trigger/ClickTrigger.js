@@ -19,9 +19,9 @@ export default class PopoverClickTrigger extends Trigger {
 
   static defaultProps = {
     autoClose: true
-  }
+  };
 
-  onClickOutside = (evt) => {
+  onClickOutside = evt => {
     // Optimization: skip checking if popover is hidden
     const { contentVisible } = this.props;
     if (!contentVisible) {

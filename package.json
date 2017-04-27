@@ -5,9 +5,17 @@
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
     "test": "./scripts/run-tests.sh",
-    "lint": "node ./scripts/check-package-version.js && ./lerna run lint",
-    "eslint-fix": "eslint utils/* packages/*/src packages/*/examples --fix",
-    "bootstrap": "lerna clean --yes && lerna bootstrap"
+    "lint": "eslint packages/zent/src",
+    "eslint-fix": "yarn lint -- --fix",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "bootstrap": "lerna clean --yes && lerna bootstrap",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,6 +30,18 @@
   "dependencies": {},
   "files": [],
   "devDependencies": {
-    "lerna": "2.0.0-beta.38"
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^1.7.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-lean-imports": "^0.3.3",
+    "eslint-plugin-prettier": "^2.0.1",
+    "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.13.3",
+    "lerna": "2.0.0-beta.38",
+    "lint-staged": "^3.4.0",
+    "prettier": "^1.2.2"
   }
 }

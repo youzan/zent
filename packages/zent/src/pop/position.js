@@ -22,65 +22,114 @@ const createPosition = (x, y, side) => {
 
 const CenterArrowPosition = {
   ...(() => {
-    const make = (getX, side) => Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-      const { right, left, top } = anchorBoundingBox;
-      const middle = (left + right) / 2;
-      const x = getX(middle, contentDimension);
-      const y = top - contentDimension.height - options.cushion;
+    const make = (getX, side) =>
+      Position.create(
+        (
+          anchorBoundingBox,
+          containerBoundingBox,
+          contentDimension,
+          options
+        ) => {
+          const { right, left, top } = anchorBoundingBox;
+          const middle = (left + right) / 2;
+          const x = getX(middle, contentDimension);
+          const y = top - contentDimension.height - options.cushion;
 
-      return createPosition(x, y, `top-${side}`);
-    });
+          return createPosition(x, y, `top-${side}`);
+        }
+      );
 
     return {
       TopLeft: make(middle => middle - ARROW_OFFSET, 'left'),
-      TopRight: make((middle, contentDimension) => middle - (contentDimension.width - ARROW_OFFSET), 'right')
+      TopRight: make(
+        (middle, contentDimension) =>
+          middle - (contentDimension.width - ARROW_OFFSET),
+        'right'
+      )
     };
   })(),
 
   ...(() => {
-    const make = (getX, side) => Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-      const { left, right, bottom } = anchorBoundingBox;
-      const middle = (left + right) / 2;
-      const x = getX(middle, contentDimension);
-      const y = bottom + options.cushion;
+    const make = (getX, side) =>
+      Position.create(
+        (
+          anchorBoundingBox,
+          containerBoundingBox,
+          contentDimension,
+          options
+        ) => {
+          const { left, right, bottom } = anchorBoundingBox;
+          const middle = (left + right) / 2;
+          const x = getX(middle, contentDimension);
+          const y = bottom + options.cushion;
 
-      return createPosition(x, y, `bottom-${side}`);
-    });
+          return createPosition(x, y, `bottom-${side}`);
+        }
+      );
 
     return {
       BottomLeft: make(middle => middle - ARROW_OFFSET, 'left'),
-      BottomRight: make((middle, contentDimension) => middle - (contentDimension.width - ARROW_OFFSET), 'right')
+      BottomRight: make(
+        (middle, contentDimension) =>
+          middle - (contentDimension.width - ARROW_OFFSET),
+        'right'
+      )
     };
   })(),
 
   ...(() => {
-    const make = (getY, side) => Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-      const x = anchorBoundingBox.left - contentDimension.width - options.cushion;
-      const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
-      const y = getY(middle, contentDimension);
+    const make = (getY, side) =>
+      Position.create(
+        (
+          anchorBoundingBox,
+          containerBoundingBox,
+          contentDimension,
+          options
+        ) => {
+          const x =
+            anchorBoundingBox.left - contentDimension.width - options.cushion;
+          const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
+          const y = getY(middle, contentDimension);
 
-      return createPosition(x, y, `left-${side}`);
-    });
+          return createPosition(x, y, `left-${side}`);
+        }
+      );
 
     return {
       LeftTop: make(middle => middle - ARROW_OFFSET, 'top'),
-      LeftBottom: make((middle, contentDimension) => middle - (contentDimension.height - ARROW_OFFSET), 'bottom')
+      LeftBottom: make(
+        (middle, contentDimension) =>
+          middle - (contentDimension.height - ARROW_OFFSET),
+        'bottom'
+      )
     };
   })(),
 
   ...(() => {
-    const make = (getY, side) => Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-      const { right, top, bottom } = anchorBoundingBox;
-      const x = right + options.cushion;
-      const middle = (top + bottom) / 2;
-      const y = getY(middle, contentDimension);
+    const make = (getY, side) =>
+      Position.create(
+        (
+          anchorBoundingBox,
+          containerBoundingBox,
+          contentDimension,
+          options
+        ) => {
+          const { right, top, bottom } = anchorBoundingBox;
+          const x = right + options.cushion;
+          const middle = (top + bottom) / 2;
+          const y = getY(middle, contentDimension);
 
-      return createPosition(x, y, `right-${side}`);
-    });
+          return createPosition(x, y, `right-${side}`);
+        }
+      );
 
     return {
       RightTop: make(middle => middle - ARROW_OFFSET, 'top'),
-      RightBottom: make((middle, contentDimension) => middle - (contentDimension.height - ARROW_OFFSET), 'bottom')
+      RightBottom: make(
+        (middle, contentDimension) =>
+          middle - (contentDimension.height - ARROW_OFFSET),
+        'bottom'
+      )
     };
   })()
 };

@@ -8,10 +8,7 @@ export default class Step extends Component {
     prefix: PropTypes.string,
     style: PropTypes.object,
     wrapperStyle: PropTypes.object,
-    tailWidth: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]),
+    tailWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     adjustMarginRight: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string
@@ -29,14 +26,24 @@ export default class Step extends Component {
     const props = this.props;
 
     const {
-      prefix, tailWidth, isCurrentStep,
-      status = 'wait', isLastFinishStep,
-      adjustMarginRight, stepLast, stepNumber,
-      title, description } = props;
+      prefix,
+      tailWidth,
+      isCurrentStep,
+      status = 'wait',
+      isLastFinishStep,
+      adjustMarginRight,
+      stepLast,
+      stepNumber,
+      title,
+      description
+    } = props;
 
     let iconNode;
 
-    if ((status === 'finish' || status === 'error') && (isCurrentStep || isLastFinishStep)) {
+    if (
+      (status === 'finish' || status === 'error') &&
+      (isCurrentStep || isLastFinishStep)
+    ) {
       if (status === 'finish') {
         iconNode = <Icon type="check-circle" />;
       } else {
@@ -61,12 +68,16 @@ export default class Step extends Component {
       >
         {stepLast ? '' : <div className={`${prefix}-steps-tail`}><i /></div>}
         <div className={`${prefix}-steps-step`}>
-          <div className={`${prefix}-step-head`} >
+          <div className={`${prefix}-step-head`}>
             <div className={`${prefix}-step-head-inner`}>{iconNode}</div>
           </div>
           <div className={`${prefix}-step-main`}>
             <div className={`${prefix}-step-title`}>{title}</div>
-            {description ? <div className={`${prefix}-step-description`}>{description}</div> : ''}
+            {description
+              ? <div className={`${prefix}-step-description`}>
+                  {description}
+                </div>
+              : ''}
           </div>
         </div>
       </div>

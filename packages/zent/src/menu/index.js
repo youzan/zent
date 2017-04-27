@@ -1,9 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
 import noop from 'lodash/noop';
+import PropTypes from 'prop-types';
+
 import CommonMenu from './CommonMenu';
 import MenuItem from './MenuItem';
-import PropTypes from 'prop-types';
 import SubMenu from './SubMenu';
 
 export default class Menu extends CommonMenu {
@@ -24,7 +25,7 @@ export default class Menu extends CommonMenu {
   handleClick = (e, key) => {
     const { onClick } = this.props;
     onClick && onClick(e, key);
-  }
+  };
 
   renderMenuItem = (c, i, index) => {
     if (!c) {
@@ -35,11 +36,7 @@ export default class Menu extends CommonMenu {
   };
 
   render() {
-    const {
-      children,
-      prefix,
-      className
-    } = this.props;
+    const { children, prefix, className } = this.props;
 
     return (
       <ul className={cx(`${prefix}-menu`, className)}>

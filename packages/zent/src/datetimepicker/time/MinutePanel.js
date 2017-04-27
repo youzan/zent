@@ -65,7 +65,6 @@ export default class MinutePanel extends Component {
           <TimeCell cells={minutes} onSelect={onSelect} />
         </div>
       </div>
-
     );
   }
 }

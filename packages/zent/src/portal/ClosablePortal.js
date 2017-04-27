@@ -7,7 +7,7 @@ import Portal from './Portal';
 // visible的逻辑放在Portal里实现会比较烦，因为没法利用React的update机制。
 export default class ClosablePortal extends Component {
   static propTypes = {
-    visible: PropTypes.bool,
+    visible: PropTypes.bool
   };
 
   static defaultProps = {

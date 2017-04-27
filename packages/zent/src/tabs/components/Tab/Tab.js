@@ -44,7 +44,12 @@ class Tab extends React.Component {
     let { candel, prefix } = this.props;
     if (candel) {
       return (
-        <span className={`${prefix}-tabs-tab-inner-del`} onClick={this.onDel.bind(this)}>&#10005;</span>
+        <span
+          className={`${prefix}-tabs-tab-inner-del`}
+          onClick={this.onDel.bind(this)}
+        >
+          ✕
+        </span>
       );
     }
     return '';
@@ -72,7 +77,8 @@ class Tab extends React.Component {
         aria-disabled={props.disabled}
         aria-selected={props.actived}
         onClick={this.onClick.bind(this)}
-        style={style}>
+        style={style}
+      >
         <div className={`${prefix}-tabs-tab-inner`}>
           {this.renderDelOperater()}
           {props.children}
@@ -80,7 +86,6 @@ class Tab extends React.Component {
       </div>
     );
   }
-
 }
 
 export default Tab;

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Tab from '../Tab/Tab';
 import PropTypes from 'prop-types';
+
+import Tab from '../Tab/Tab';
 import navUtil from './navUtil';
 
 function noop() {}
@@ -60,7 +61,7 @@ class Nav extends React.Component {
           let paddingLeft = window.parseInt(cssStyle.paddingLeft);
           let paddingRight = window.parseInt(cssStyle.paddingRight);
           tWidth = tWidth - paddingLeft - paddingRight;
-          wrapLeft = wrapLeft - paddingLeft;
+          wrapLeft -= paddingLeft;
         }
         this.inkBarDom.style.width = `${tWidth}px`;
         this.inkBarDom.style.left = `${tLeft - wrapLeft}px`;
@@ -71,10 +72,10 @@ class Nav extends React.Component {
   renderTabs() {
     let renderData = navUtil.modifyTabListData(this.props);
     let TabList = [];
-    renderData.forEach((renderDataItem) => {
+    renderData.forEach(renderDataItem => {
       let refParam = {};
       if (renderDataItem.actived) {
-        refParam.ref = (c) => {
+        refParam.ref = c => {
           this.activeTab = c;
         };
       }
@@ -116,16 +117,39 @@ class Nav extends React.Component {
     let classes = `${prefix}-tabs-size-${size} ${prefix}-tabs-type-${type} ${prefix}-tabs-align-${align}`;
     let addOperation = '';
     if (canadd && align !== 'center') {
-      addOperation = <div className={`${prefix}-tabs-nav-add`} onClick={this.onTabAdd.bind(this)}><span>+</span></div>;
+      addOperation = (
+        <div
+          className={`${prefix}-tabs-nav-add`}
+          onClick={this.onTabAdd.bind(this)}
+        >
+          <span>+</span>
+        </div>
+      );
     }
 
     return (
       <div className={`${prefix}-tabs-nav ${classes}`}>
-        <div className={`${prefix}-tabs-nav-content`} ref={(r) => { this.navContentDom = ReactDOM.findDOMNode(r) }}>
+        <div
+          className={`${prefix}-tabs-nav-content`}
+          ref={r => {
+            this.navContentDom = ReactDOM.findDOMNode(r);
+          }}
+        >
           {addOperation}
           <div className={`${prefix}-tabs-scroll`}>
-            <div className={`${prefix}-tabs-tabwrap`} role="tablist" ref={(c) => { this.tabwrapDom = c }}>
-              <span className={`${prefix}-tabs-nav-ink-bar`} ref={(c) => { this.inkBarDom = c }}></span>
+            <div
+              className={`${prefix}-tabs-tabwrap`}
+              role="tablist"
+              ref={c => {
+                this.tabwrapDom = c;
+              }}
+            >
+              <span
+                className={`${prefix}-tabs-nav-ink-bar`}
+                ref={c => {
+                  this.inkBarDom = c;
+                }}
+              />
               <div>{this.renderTabs()}</div>
             </div>
           </div>

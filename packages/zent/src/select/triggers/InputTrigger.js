@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class InputTrigger extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -46,16 +45,13 @@ class InputTrigger extends Component {
   }
 
   render() {
-    let {
-      prefixCls,
-      placeholder
-    } = this.props;
+    let { prefixCls, placeholder } = this.props;
 
     let { value } = this.state;
 
     return (
       <input
-        ref={input => this.input = input}
+        ref={input => (this.input = input)}
         className={`${prefixCls}-input`}
         placeholder={placeholder}
         type="text"

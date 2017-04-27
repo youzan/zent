@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export default class Radio extends Component {
-
   static propTypes = {
-    checked: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.bool
-    ]),
+    checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     value: PropTypes.any,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
@@ -17,19 +13,19 @@ export default class Radio extends Component {
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string,
-  }
+    prefix: PropTypes.string
+  };
 
   static defaultProps = {
     prefix: 'zent',
     className: '',
     style: {},
-    onChange() {},
-  }
+    onChange() {}
+  };
 
   // event liftup
   // link: https://facebook.github.io/react/docs/lifting-state-up.html
-  handleChange = (evt) => {
+  handleChange = evt => {
     const props = this.props;
 
     props.onChange({
@@ -47,7 +43,7 @@ export default class Radio extends Component {
         evt.stopPropagation();
       }
     });
-  }
+  };
 
   render() {
     const {
@@ -70,13 +66,13 @@ export default class Radio extends Component {
       [className]: !!className,
       [`${prefix}-radio-wrap`]: true,
       [`${prefix}-radio-checked`]: !!checked,
-      [`${prefix}-radio-disabled`]: (disabled || readOnly),
+      [`${prefix}-radio-disabled`]: disabled || readOnly
     });
 
     return (
       <label className={classString} style={style}>
         <span className={`${prefix}-radio`}>
-          <span className={`${prefix}-radio-inner`}></span>
+          <span className={`${prefix}-radio-inner`} />
           <input
             {...others}
             type="radio"

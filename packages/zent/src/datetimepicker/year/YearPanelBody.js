@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { CURRENT_YEAR } from '../utils/';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
+import { CURRENT_YEAR } from '../utils/';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 4;
@@ -11,7 +12,7 @@ export default class YearPanelBody extends Component {
   static PropTypes = {
     actived: PropTypes.instanceOf(Date),
     onSelect: PropTypes.func
-  }
+  };
 
   isSelected(val) {
     return this.props.actived.getFullYear() === val;

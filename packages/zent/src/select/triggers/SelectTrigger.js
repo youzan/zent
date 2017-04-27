@@ -6,11 +6,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class SelectTrigger extends Component {
-
   render() {
     let { prefixCls, onClick } = this.props;
 
-    return <div className={`${prefixCls}-text`} onClick={onClick}>{this.props.text || this.props.placeholder}</div>;
+    return (
+      <div className={`${prefixCls}-text`} onClick={onClick}>
+        {this.props.text || this.props.placeholder}
+      </div>
+    );
   }
 }
 

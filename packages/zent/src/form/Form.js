@@ -12,20 +12,27 @@ class Form extends Component {
     onSubmit: PropTypes.func,
     children: PropTypes.any,
     style: PropTypes.object
-  }
+  };
 
   static defaultProps = {
     prefix: 'zent',
-    onSubmit: noop,
-  }
+    onSubmit: noop
+  };
 
   render() {
-    const { prefix, className, style, horizontal, inline, onSubmit } = this.props;
+    const {
+      prefix,
+      className,
+      style,
+      horizontal,
+      inline,
+      onSubmit
+    } = this.props;
     const formClassName = classNames({
       [`${prefix}-form`]: true,
       [`${prefix}-form--horizontal`]: horizontal,
       [`${prefix}-form--inline`]: inline,
-      [className]: !!className,
+      [className]: !!className
     });
     return (
       <form className={formClassName} style={style} onSubmit={onSubmit}>
@@ -36,4 +43,3 @@ class Form extends Component {
 }
 
 export default Form;
-

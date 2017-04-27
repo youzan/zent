@@ -12,9 +12,11 @@ const handleSubmit = (submit, zentForm) => {
   // 如果有异步校验未完成，阻止表单提交
   if (zentForm.isValidating()) {
     if (onSubmitFail) {
-      onSubmitFail(new SubmissionError({
-        isValidating: true
-      }));
+      onSubmitFail(
+        new SubmissionError({
+          isValidating: true
+        })
+      );
     }
     return;
   }
@@ -25,9 +27,11 @@ const handleSubmit = (submit, zentForm) => {
       onSubmitFail(new SubmissionError(validationErrors));
     }
   } else {
-    const handleSubmitError = (submitError) => {
+    const handleSubmitError = submitError => {
       // 只处理SubmissionError类型的错误
-      const error = submitError instanceof SubmissionError ? submitError.errors : undefined;
+      const error = submitError instanceof SubmissionError
+        ? submitError.errors
+        : undefined;
       if (onSubmitFail) {
         onSubmitFail(error);
       }
@@ -54,8 +58,8 @@ const handleSubmit = (submit, zentForm) => {
           isSubmitting: true
         });
 
-        return result
-          .then(submitResult => {
+        return result.then(
+          submitResult => {
             zentForm.setState({
               isSubmitting: false
             });
@@ -63,7 +67,8 @@ const handleSubmit = (submit, zentForm) => {
               onSubmitSuccess(submitResult);
             }
             return submitResult;
-          }, submitError => {
+          },
+          submitError => {
             zentForm.setState({
               isSubmitting: false
             });
@@ -73,7 +78,8 @@ const handleSubmit = (submit, zentForm) => {
             }
 
             throw submitError;
-          });
+          }
+        );
       }
 
       // submit是一个同步过程，直接当成功处理

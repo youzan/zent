@@ -1,4 +1,4 @@
-export function noop() { }
+export function noop() {}
 
 export const TIME_FORMAT = 'HH:mm:ss';
 

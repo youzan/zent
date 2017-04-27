@@ -11,10 +11,8 @@ import * as util from './util';
 export default class Portal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    selector: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]).isRequired,
+    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+      .isRequired,
     className: PropTypes.string,
     css: PropTypes.object,
     prefix: PropTypes.string
@@ -62,8 +60,17 @@ export default class Portal extends Component {
 
     // 其它情况仅更新样式
     const { className, prefix, css } = this.props;
-    if (className !== nextProps.className || prefix !== nextProps.prefix || !isEqual(css, nextProps.css)) {
-      util.prepareNode(this.node, nextProps.prefix, nextProps.className, nextProps.css);
+    if (
+      className !== nextProps.className ||
+      prefix !== nextProps.prefix ||
+      !isEqual(css, nextProps.css)
+    ) {
+      util.prepareNode(
+        this.node,
+        nextProps.prefix,
+        nextProps.className,
+        nextProps.css
+      );
     }
   }
 

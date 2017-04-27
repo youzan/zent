@@ -5,9 +5,9 @@ import cx from 'classnames';
 import noop from 'lodash/noop';
 import isFunction from 'lodash/isFunction';
 import isPromise from 'utils/isPromise';
+import PropTypes from 'prop-types';
 
 import NoneTrigger from './NoneTrigger';
-import PropTypes from 'prop-types';
 import getPosition from './position';
 
 const { Trigger, withPopover } = Popover;
@@ -60,7 +60,16 @@ class PopAction extends Component {
   };
 
   render() {
-    const { prefix, type, onConfirm, onCancel, confirmText, cancelText, confirmPending, cancelPending } = this.props;
+    const {
+      prefix,
+      type,
+      onConfirm,
+      onCancel,
+      confirmText,
+      cancelText,
+      confirmPending,
+      cancelPending
+    } = this.props;
 
     if (!onConfirm && !onCancel) {
       return null;
@@ -68,8 +77,23 @@ class PopAction extends Component {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Button loading={confirmPending} disabled={cancelPending} size="small" type={type} onClick={this.handleConfirm}>{confirmText}</Button>
-        <Button loading={cancelPending} disabled={confirmPending} size="small" onClick={this.handleCancel}>{cancelText}</Button>
+        <Button
+          loading={confirmPending}
+          disabled={cancelPending}
+          size="small"
+          type={type}
+          onClick={this.handleConfirm}
+        >
+          {confirmText}
+        </Button>
+        <Button
+          loading={cancelPending}
+          disabled={confirmPending}
+          size="small"
+          onClick={this.handleCancel}
+        >
+          {cancelText}
+        </Button>
       </div>
     );
   }
@@ -79,14 +103,20 @@ const BoundPopAction = withPopover(PopAction);
 
 export default class Pop extends Component {
   static propTypes = {
-    trigger: PropTypes.oneOf([
-      'click', 'hover', 'focus', 'none'
-    ]),
+    trigger: PropTypes.oneOf(['click', 'hover', 'focus', 'none']),
     position: PropTypes.oneOf([
-      'left-top', 'left-center', 'left-bottom',
-      'right-top', 'right-center', 'right-bottom',
-      'top-left', 'top-center', 'top-right',
-      'bottom-left', 'bottom-center', 'bottom-right'
+      'left-top',
+      'left-center',
+      'left-bottom',
+      'right-top',
+      'right-center',
+      'right-bottom',
+      'top-left',
+      'top-center',
+      'top-right',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right'
     ]),
 
     // 是否按小箭头居中对齐trigger来定位
@@ -103,9 +133,7 @@ export default class Pop extends Component {
     onCancel: PropTypes.func,
     confirmText: PropTypes.string,
     cancelText: PropTypes.string,
-    type: PropTypes.oneOf([
-      'primary', 'default', 'danger', 'success'
-    ]),
+    type: PropTypes.oneOf(['primary', 'default', 'danger', 'success']),
 
     // 打开之后的回调函数
     onShow: PropTypes.func,
@@ -146,7 +174,7 @@ export default class Pop extends Component {
     mouseEnterDelay: 200,
     className: '',
     wrapperClassName: '',
-    prefix: 'zent',
+    prefix: 'zent'
   };
 
   state = {
@@ -159,13 +187,25 @@ export default class Pop extends Component {
       return;
     }
 
-    this.setState({
-      [key]: pending
-    }, callback);
-  }
+    this.setState(
+      {
+        [key]: pending
+      },
+      callback
+    );
+  };
 
   renderContent() {
-    const { prefix, content, header, onConfirm, onCancel, confirmText, cancelText, type } = this.props;
+    const {
+      prefix,
+      content,
+      header,
+      onConfirm,
+      onCancel,
+      confirmText,
+      cancelText,
+      type
+    } = this.props;
     const { confirmPending, cancelPending } = this.state;
 
     return (
@@ -191,14 +231,35 @@ export default class Pop extends Component {
   }
 
   renderTrigger() {
-    const { trigger, visible, onVisibleChange, closeOnClickOutside, isOutside, mouseLeaveDelay, mouseEnterDelay, children } = this.props;
+    const {
+      trigger,
+      visible,
+      onVisibleChange,
+      closeOnClickOutside,
+      isOutside,
+      mouseLeaveDelay,
+      mouseEnterDelay,
+      children
+    } = this.props;
 
     if (trigger === 'click') {
-      return <Trigger.Click autoClose={closeOnClickOutside} isOutside={isOutside}>{children}</Trigger.Click>;
+      return (
+        <Trigger.Click autoClose={closeOnClickOutside} isOutside={isOutside}>
+          {children}
+        </Trigger.Click>
+      );
     }
 
     if (trigger === 'hover') {
-      return <Trigger.Hover showDelay={mouseEnterDelay} hideDelay={mouseLeaveDelay} isOutside={isOutside}>{children}</Trigger.Hover>;
+      return (
+        <Trigger.Hover
+          showDelay={mouseEnterDelay}
+          hideDelay={mouseLeaveDelay}
+          isOutside={isOutside}
+        >
+          {children}
+        </Trigger.Hover>
+      );
     }
 
     if (trigger === 'focus') {
@@ -206,7 +267,11 @@ export default class Pop extends Component {
     }
 
     if (trigger === 'none') {
-      return <NoneTrigger visible={visible} onVisibleChange={onVisibleChange}>{children}</NoneTrigger>;
+      return (
+        <NoneTrigger visible={visible} onVisibleChange={onVisibleChange}>
+          {children}
+        </NoneTrigger>
+      );
     }
 
     return null;
@@ -218,9 +283,18 @@ export default class Pop extends Component {
 
   render() {
     const {
-      className, wrapperClassName, trigger, visible,
-      prefix, block, onShow, onClose, position, centerArrow,
-      onBeforeClose, onBeforeShow
+      className,
+      wrapperClassName,
+      trigger,
+      visible,
+      prefix,
+      block,
+      onShow,
+      onClose,
+      position,
+      centerArrow,
+      onBeforeClose,
+      onBeforeShow
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {

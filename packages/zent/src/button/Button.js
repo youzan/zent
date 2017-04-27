@@ -14,50 +14,27 @@ const BLACK_LIST = [
   'outline',
   'bordered',
   'className',
-  'prefix',
+  'prefix'
 ];
 
-const BTN_BLACK_LIST = [
-  'href',
-  'target'
-].concat(BLACK_LIST);
+const BTN_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
-const A_BLACK_LIST = [
-  'href',
-  'target'
-].concat(BLACK_LIST);
+const A_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
 export default class Button extends Component {
-  static propTypes ={
-    type: PropTypes.oneOf([
-      'default',
-      'primary',
-      'success',
-      'danger',
-      'link'
-    ]),
-    size: PropTypes.oneOf([
-      'large',
-      'medium',
-      'small'
-    ]),
-    htmlType: PropTypes.oneOf([
-      'button',
-      'submit',
-      'reset'
-    ]),
+  static propTypes = {
+    type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
+    size: PropTypes.oneOf(['large', 'medium', 'small']),
+    htmlType: PropTypes.oneOf(['button', 'submit', 'reset']),
     className: PropTypes.string,
     block: PropTypes.bool,
-    component: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func,
-    ]),
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     disabled: PropTypes.bool,
     loading: PropTypes.bool,
     outline: PropTypes.bool,
     bordered: PropTypes.bool,
     prefix: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     type: 'default',
@@ -70,7 +47,7 @@ export default class Button extends Component {
     outline: false,
     bordered: true,
     prefix: 'zent'
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -95,7 +72,7 @@ export default class Button extends Component {
 
     return (
       <Node
-        {...disabled ? {} : { href, target }}
+        {...(disabled ? {} : { href, target })}
         {...nodeProps}
         className={classNames}
         onClick={this.handleClick}
@@ -115,7 +92,7 @@ export default class Button extends Component {
     return (
       <Node
         {...nodeProps}
-        {...htmlType ? { type: htmlType } : {}}
+        {...(htmlType ? { type: htmlType } : {})}
         className={classNames}
         disabled={disabled}
         onClick={this.handleClick}
@@ -126,16 +103,33 @@ export default class Button extends Component {
   }
 
   render() {
-    let renderer = this.props.href || this.props.target ? 'renderLink' : 'renderButton';
-    let { className, type, size, block, disabled, loading, outline, bordered, prefix } = this.props;
-    let classNames = setClass({
-      [`${prefix}-btn-${type}${outline ? '-outline' : ''}`]: type !== 'default',
-      [`${prefix}-btn-${size}`]: size !== 'medium',
-      [`${prefix}-btn-block`]: block,
-      [`${prefix}-btn-loading`]: loading,
-      [`${prefix}-btn-disabled`]: disabled,
-      [`${prefix}-btn-border-transparent`]: !bordered
-    }, `${prefix}-btn`, className);
+    let renderer = this.props.href || this.props.target
+      ? 'renderLink'
+      : 'renderButton';
+    let {
+      className,
+      type,
+      size,
+      block,
+      disabled,
+      loading,
+      outline,
+      bordered,
+      prefix
+    } = this.props;
+    let classNames = setClass(
+      {
+        [`${prefix}-btn-${type}${outline ? '-outline' : ''}`]: type !==
+          'default',
+        [`${prefix}-btn-${size}`]: size !== 'medium',
+        [`${prefix}-btn-block`]: block,
+        [`${prefix}-btn-loading`]: loading,
+        [`${prefix}-btn-disabled`]: disabled,
+        [`${prefix}-btn-border-transparent`]: !bordered
+      },
+      `${prefix}-btn`,
+      className
+    );
 
     return this[renderer](classNames);
   }

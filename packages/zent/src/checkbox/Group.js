@@ -13,15 +13,14 @@ function findIndex(array, predicate) {
 }
 
 export default class Group extends Component {
-
   static propTypes = {
     value: PropTypes.array,
     isValueEqual: PropTypes.func,
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string,
-  }
+    prefix: PropTypes.string
+  };
 
   static defaultProps = {
     value: [],
@@ -32,9 +31,9 @@ export default class Group extends Component {
     isValueEqual(a, b) {
       return a === b;
     }
-  }
+  };
 
-  onCheckboxChange = (e) => {
+  onCheckboxChange = e => {
     const changedValue = e.target.value;
     const groupValue = this.props.value.slice();
     const { isValueEqual } = this.props;
@@ -47,18 +46,24 @@ export default class Group extends Component {
     }
 
     this.props.onChange(groupValue);
-  }
+  };
 
   render() {
     const { className, prefix, style, isValueEqual, value } = this.props;
-    const children = React.Children.map(this.props.children, (checkbox) => {
+    const children = React.Children.map(this.props.children, checkbox => {
       if (checkbox && checkbox.props) {
         return React.cloneElement(checkbox, {
           ...checkbox.props,
           onChange: this.onCheckboxChange,
-          checked: findIndex(value, val => isValueEqual(val, checkbox.props.value)) !== -1,
-          disabled: checkbox.props.disabled !== void 0 ? checkbox.props.disabled : this.props.disabled,
-          readOnly: checkbox.props.readOnly !== void 0 ? checkbox.props.readOnly : this.props.readOnly
+          checked: findIndex(value, val =>
+            isValueEqual(val, checkbox.props.value)
+          ) !== -1,
+          disabled: checkbox.props.disabled !== undefined
+            ? checkbox.props.disabled
+            : this.props.disabled,
+          readOnly: checkbox.props.readOnly !== undefined
+            ? checkbox.props.readOnly
+            : this.props.readOnly
         });
       }
     });

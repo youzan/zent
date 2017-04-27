@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import Loading from './Loading';
 
 export default class Instance extends Component {
-
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -15,7 +14,7 @@ export default class Instance extends Component {
     show: PropTypes.bool,
     zIndex: PropTypes.number,
     containerClass: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     prefix: 'zent',
@@ -25,13 +24,13 @@ export default class Instance extends Component {
     height: 160,
     zIndex: 9998,
     containerClass: ''
-  }
+  };
 
-  static target
-  static instance
+  static target;
+  static instance;
 
   // 对外暴露的静态初始方法
-  static newInstance = function (props) {
+  static newInstance = function(props) {
     if (!isBrowser) return;
 
     let div = document.createElement('div');
@@ -42,9 +41,11 @@ export default class Instance extends Component {
       show: loading.show,
       container: div
     };
-  }
+  };
 
-  static on = function ({ prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}) {
+  static on = function(
+    { prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}
+  ) {
     if (!isBrowser) return;
 
     if (!this.instance) {
@@ -60,9 +61,9 @@ export default class Instance extends Component {
     this.instance.show({
       show: true
     });
-  }
+  };
 
-  static off = function () {
+  static off = function() {
     if (!isBrowser) return;
 
     if (!this.instance) return;
@@ -70,7 +71,7 @@ export default class Instance extends Component {
     this.instance.show({
       show: false
     });
-  }
+  };
 
   componentDidMount() {
     this.renderLoading();

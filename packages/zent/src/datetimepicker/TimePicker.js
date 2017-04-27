@@ -7,7 +7,7 @@ import clickOutside from './utils/clickOutside';
 import { TIME_PROPS } from './constants/';
 
 class TimePicker extends Component {
-  static defaultProps = TIME_PROPS
+  static defaultProps = TIME_PROPS;
 
   constructor(props) {
     super(props);
@@ -35,25 +35,25 @@ class TimePicker extends Component {
         openPanel: false
       });
     }
-  }
+  };
 
-  onChangeTime = (val) => {
+  onChangeTime = val => {
     this.setState({
       actived: val
     });
-  }
+  };
 
   onSelectCurrent = () => {
     this.setState({
       actived: new Date()
     });
-  }
+  };
 
   onClickInput = () => {
     this.setState({
       openPanel: !this.state.openPanel
     });
-  }
+  };
 
   onConfirm = () => {
     const value = formatDate(this.state.actived, this.props.format);
@@ -63,7 +63,7 @@ class TimePicker extends Component {
       showPlaceholder: false
     });
     this.props.onChange(value);
-  }
+  };
 
   render() {
     const state = this.state;
@@ -82,18 +82,18 @@ class TimePicker extends Component {
             format={props.format}
             disabledTime={props.disabledTime()}
             onChange={this.onChangeTime}
-            />
+          />
           <PanelFooter
             linkText="此刻"
             linkCls="link--current"
             onClickLink={this.onSelectCurrent}
             onClickButton={this.onConfirm}
-            />
+          />
         </div>
       );
     }
     return (
-      <div className={prefixCls} ref={ref => this.picker = ref}>
+      <div className={prefixCls} ref={ref => (this.picker = ref)}>
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
             {state.showPlaceholder ? props.placeholder : state.value}

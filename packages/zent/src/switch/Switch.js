@@ -3,13 +3,8 @@ import PropTypes from 'prop-types';
 import setClass from 'classnames';
 
 export default class Switch extends Component {
-
   static propTypes = {
-    size: PropTypes.oneOf([
-      'large',
-      'default',
-      'small'
-    ]),
+    size: PropTypes.oneOf(['large', 'default', 'small']),
     prefix: PropTypes.string,
     className: PropTypes.string,
     disabled: PropTypes.bool,
@@ -18,7 +13,7 @@ export default class Switch extends Component {
     onChange: PropTypes.func,
     checkedText: PropTypes.any,
     uncheckedText: PropTypes.any
-  }
+  };
 
   static defaultProps = {
     size: 'default',
@@ -30,16 +25,18 @@ export default class Switch extends Component {
     onChange() {},
     checkedText: '开启',
     uncheckedText: '关闭'
-  }
+  };
 
   // 处理点击时间，直接执行外部onChange方法
   toggle = () => {
     const { onChange, checked } = this.props;
     onChange(!checked);
-  }
+  };
 
   getInnerText() {
-    return this.props.checked ? this.props.checkedText : this.props.uncheckedText;
+    return this.props.checked
+      ? this.props.checkedText
+      : this.props.uncheckedText;
   }
 
   // render span 标签
@@ -48,10 +45,7 @@ export default class Switch extends Component {
     const textClassName = `${this.props.prefix}-switch-inner`;
 
     return (
-      <span
-        className={classNames}
-        onClick={disabled ? null : this.toggle}
-      >
+      <span className={classNames} onClick={disabled ? null : this.toggle}>
         <span className={textClassName}>{this.getInnerText()}</span>
       </span>
     );
@@ -59,12 +53,16 @@ export default class Switch extends Component {
 
   render() {
     const { className, size, disabled, loading, prefix, checked } = this.props;
-    const classNames = setClass({
-      [`${prefix}-switch-${size}`]: size !== 'default',
-      [`${prefix}-switch-disabled`]: disabled,
-      [`${prefix}-switch-loading`]: loading,
-      [`${prefix}-switch-checked`]: checked,
-    }, `${prefix}-switch`, className);
+    const classNames = setClass(
+      {
+        [`${prefix}-switch-${size}`]: size !== 'default',
+        [`${prefix}-switch-disabled`]: disabled,
+        [`${prefix}-switch-loading`]: loading,
+        [`${prefix}-switch-checked`]: checked
+      },
+      `${prefix}-switch`,
+      className
+    );
 
     return this.renderSwitch(classNames);
   }

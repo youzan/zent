@@ -21,7 +21,11 @@ export default function findPositionedParent(elem, inclusive = false) {
     return elem;
   }
 
-  for (let parent = elem.parentElement; parent !== null; parent = parent.parentElement) {
+  for (
+    let parent = elem.parentElement;
+    parent !== null;
+    parent = parent.parentElement
+  ) {
     if (isPositioned(parent)) {
       return parent;
     }

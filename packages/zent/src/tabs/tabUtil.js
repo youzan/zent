@@ -19,9 +19,17 @@ const tabUtil = {
   getTabListData(children, activeId) {
     let childrenList = React.Children.toArray(children);
     let listData = [];
-    React.Children.forEach(childrenList, (child) => {
+    React.Children.forEach(childrenList, child => {
       if (this.checkIfTabPanel(child)) {
-        let { id, disabled, tab, children: panelChildren, onTabReady, panelClassName, tabClassName } = child.props;
+        let {
+          id,
+          disabled,
+          tab,
+          children: panelChildren,
+          onTabReady,
+          panelClassName,
+          tabClassName
+        } = child.props;
         listData.push({
           title: tab || '',
           disabled: !!disabled,

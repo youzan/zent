@@ -16,13 +16,17 @@ function removeNodeFromDOMTree(node) {
 }
 
 export function getNodeFromSelector(selector) {
-  const node = (typeof selector === 'string') ? document.querySelector(selector) : selector;
+  const node = typeof selector === 'string'
+    ? document.querySelector(selector)
+    : selector;
   return node || document.body;
 }
 
 export function prepareNode(node, prefix, className, css) {
   node.className = cx(`${prefix}-portal`, className);
-  node.style.cssText = Object.keys(css || {}).map(k => `${k}: ${css[k]}`).join('; ');
+  node.style.cssText = Object.keys(css || {})
+    .map(k => `${k}: ${css[k]}`)
+    .join('; ');
 }
 
 export function openPortal(props) {

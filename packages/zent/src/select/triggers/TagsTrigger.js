@@ -6,10 +6,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tag from '../components/Tag';
 
-const noop = function () {};
+const noop = function() {};
 
 class TagsTrigger extends Component {
-
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);
@@ -17,11 +16,7 @@ class TagsTrigger extends Component {
 
   componentWillReceiveProps(nextProps) {
     let { selectedItems } = this.props;
-    let {
-      cid,
-      text,
-      value
-    } = nextProps;
+    let { cid, text, value } = nextProps;
 
     if (this.isDelete || this.isAdded) {
       this.isDelete = false;
@@ -71,19 +66,19 @@ class TagsTrigger extends Component {
 
     return (
       <div className={`${prefixCls}-tags`} onClick={onClick}>
-        {
-          selectedItems.length > 0 ? selectedItems.map((item, index) => {
-            return (
-              <Tag
-                {...this.props}
-                key={index}
-                cid={item.cid}
-                {...item}
-                onDelete={this.deleteTagHandler}
-              />
-            );
-          }) : placeholder
-        }
+        {selectedItems.length > 0
+          ? selectedItems.map((item, index) => {
+              return (
+                <Tag
+                  {...this.props}
+                  key={index}
+                  cid={item.cid}
+                  {...item}
+                  onDelete={this.deleteTagHandler}
+                />
+              );
+            })
+          : placeholder}
       </div>
     );
   }

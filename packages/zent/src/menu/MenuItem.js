@@ -12,25 +12,22 @@ export default class MenuItem extends Component {
     prefix: 'zent'
   };
 
-  onClick = (e) => {
+  onClick = e => {
     const { index, onClick, disabled } = this.props;
 
     if (disabled) return;
 
     onClick(e, index);
-  }
+  };
 
   render() {
-    const {
-      prefix,
-      className,
-      children,
-      disabled
-    } = this.props;
+    const { prefix, className, children, disabled } = this.props;
 
     return (
       <li
-        className={cx(`${prefix}-menu-item`, className, { [`${prefix}-menu-item-disabled`]: disabled })}
+        className={cx(`${prefix}-menu-item`, className, {
+          [`${prefix}-menu-item-disabled`]: disabled
+        })}
         onClick={this.onClick}
       >
         {children}

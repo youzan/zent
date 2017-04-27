@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => {
+export default props => {
   return (
     <fieldset className="zent-form__fieldset">
       <legend className="zent-form__legend">{props.legend}</legend>

@@ -3,29 +3,25 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export default class Checkbox extends Component {
-
   static propTypes = {
-    checked: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.bool
-    ]),
+    checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     indeterminate: PropTypes.bool,
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string,
-  }
+    prefix: PropTypes.string
+  };
 
   static defaultProps = {
     prefix: 'zent',
     className: '',
     style: {},
-    onChange() {},
-  }
+    onChange() {}
+  };
 
-  onChange = (evt) => {
+  onChange = evt => {
     const props = this.props;
 
     props.onChange({
@@ -43,7 +39,7 @@ export default class Checkbox extends Component {
         evt.stopPropagation();
       }
     });
-  }
+  };
 
   render() {
     const {
@@ -66,14 +62,14 @@ export default class Checkbox extends Component {
       [className]: !!className,
       [`${prefix}-checkbox-wrap`]: true,
       [`${prefix}-checkbox-checked`]: !!checked,
-      [`${prefix}-checkbox-disabled`]: (disabled || readOnly),
-      [`${prefix}-checkbox-indeterminate`]: indeterminate,
+      [`${prefix}-checkbox-disabled`]: disabled || readOnly,
+      [`${prefix}-checkbox-indeterminate`]: indeterminate
     });
 
     return (
       <label className={classString} style={style}>
         <span className={`${prefix}-checkbox`}>
-          <span className={`${prefix}-checkbox-inner`}></span>
+          <span className={`${prefix}-checkbox-inner`} />
           <input
             {...others}
             type="checkbox"

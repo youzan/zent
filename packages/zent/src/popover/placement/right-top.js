@@ -6,7 +6,12 @@ import createPlacement from './create';
 * |                    |---------
 * ----------------------
 */
-function locate(anchorBoundingBox, containerBoundingBox, contentDimension, options) {
+function locate(
+  anchorBoundingBox,
+  containerBoundingBox,
+  contentDimension,
+  options
+) {
   const { right, top } = anchorBoundingBox;
   const x = right + options.cushion;
   const y = top;
@@ -30,7 +35,7 @@ export default RightTop;
 
 /**
 * ----------------------------------
-* |		                |   popover   |
+* |                  |   popover   |
 * |   anchor          --------------|
 * ----------------------------------|
 */

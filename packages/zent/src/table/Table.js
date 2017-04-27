@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Head from './modules/Head';
-import Body from './modules/Body';
 import Pagination from 'pagination';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
+
+import Head from './modules/Head';
+import Body from './modules/Body';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 
@@ -26,7 +27,7 @@ export default class Table extends Component {
     autoScroll: bool,
     autoStick: bool,
     selection: object,
-    expandation: object,
+    expandation: object
   };
 
   static defaultProps = {
@@ -73,18 +74,18 @@ export default class Table extends Component {
     this.props.onChange(conf);
   }
 
-  onChange = (conf) => {
+  onChange = conf => {
     this.setState(conf);
 
     this.wrapPropsOnChange(conf);
   };
 
-  onSort = (conf) => {
+  onSort = conf => {
     // 排序的时候也要触发
     this.wrapPropsOnChange(conf);
   };
 
-  onPageChange = (current) => {
+  onPageChange = current => {
     this.wrapPropsOnChange({
       current
     });
@@ -97,10 +98,17 @@ export default class Table extends Component {
    * Head上的选中会全选所有的行
    * @param isSelect {Boolean} 表示是否全选
    */
-  onSelectAllRows = (isSelect) => {
+  onSelectAllRows = isSelect => {
     let allRowKeys = [];
     let allRows = [];
-    let { rowKey, datasets, selection, getRowConf = () => { return { canSelect: true } } } = this.props;
+    let {
+      rowKey,
+      datasets,
+      selection,
+      getRowConf = () => {
+        return { canSelect: true };
+      }
+    } = this.props;
 
     if (isSelect) {
       // 找出所有canSelect为true的row，才能选中
@@ -129,10 +137,8 @@ export default class Table extends Component {
       if (index === -1) {
         selectedRowKeys.push(rowKey);
       }
-    } else {
-      if (index !== -1) {
-        selectedRowKeys.splice(index, 1);
-      }
+    } else if (index !== -1) {
+      selectedRowKeys.splice(index, 1);
     }
 
     let selectedRows = this.getSelectedRowsByKeys(selectedRowKeys);
@@ -149,7 +155,7 @@ export default class Table extends Component {
     let rows = [];
     let self = this;
 
-    this.props.datasets.forEach((item) => {
+    this.props.datasets.forEach(item => {
       if (rowKeys.indexOf(item[self.props.rowKey]) >= 0) {
         rows.push(item);
       }
@@ -169,9 +175,10 @@ export default class Table extends Component {
     let scrollMargin;
     let scrollInterval = setInterval(() => {
       if (window.scrollY > relativeTop) {
-        scrollCount = scrollCount + 1;
-        scrollMargin = cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
-        window.scrollTo(0, (scrollHeight - scrollMargin));
+        scrollCount += 1;
+        scrollMargin =
+          cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
+        window.scrollTo(0, scrollHeight - scrollMargin);
       } else {
         clearInterval(scrollInterval);
       }
@@ -220,26 +227,29 @@ export default class Table extends Component {
         }
       });
 
-      isSelectAll = canSelectRowsCount > 0 && selection.selectedRowKeys.length === canSelectRowsCount;
-      isSelectPart = canSelectRowsCount > 0 && selection.selectedRowKeys.length > 0 && !isSelectAll;
+      isSelectAll =
+        canSelectRowsCount > 0 &&
+        selection.selectedRowKeys.length === canSelectRowsCount;
+      isSelectPart =
+        canSelectRowsCount > 0 &&
+        selection.selectedRowKeys.length > 0 &&
+        !isSelectAll;
       selectedRowKeys = selection.selectedRowKeys;
     }
 
     return (
       <div className={`${prefix}-table-container`}>
         <Loading show={this.props.loading} static>
-          {columns && (
+          {columns &&
             <div className={`${prefix}-table ${className}`}>
-              {
-                this.state.placeHolderHeight &&
-                  <div className="thead place-holder">
-                    <div className="tr">
-                      {this.cloneHeaderContent()}
-                    </div>
+              {this.state.placeHolderHeight &&
+                <div className="thead place-holder">
+                  <div className="tr">
+                    {this.cloneHeaderContent()}
                   </div>
-              }
+                </div>}
               <Head
-                ref={(c) => this.head = c}
+                ref={c => (this.head = c)}
                 columns={columns}
                 sortBy={sortBy}
                 sortType={sortType}
@@ -269,18 +279,16 @@ export default class Table extends Component {
                 isExpanded={isExpanded}
                 expandRender={expandRender}
               />
-            </div>
-          )}
+            </div>}
         </Loading>
-        {pageInfo && (
+        {pageInfo &&
           <Pagination
             current={this.state.current}
             totalItem={pageInfo.total}
             pageSize={pageInfo.limit}
             maxPageToShow={pageInfo.maxPageToShow}
             onChange={this.onPageChange}
-            />
-        )}
+          />}
       </div>
     );
   }

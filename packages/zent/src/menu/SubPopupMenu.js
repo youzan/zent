@@ -1,7 +1,8 @@
 import React from 'react';
-import CommonMenu from './CommonMenu';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
+import CommonMenu from './CommonMenu';
 
 export default class PopupMenu extends CommonMenu {
   static propTypes = {
@@ -15,7 +16,7 @@ export default class PopupMenu extends CommonMenu {
   handleClick = (e, index) => {
     const { onClick } = this.props;
     onClick(e, index);
-  }
+  };
 
   renderSubMenuItems = (c, i) => {
     if (!c) {
@@ -23,7 +24,7 @@ export default class PopupMenu extends CommonMenu {
     }
     const { index } = this.props;
     return this.renderCommonMenuItem(c, i, index);
-  }
+  };
 
   render() {
     const { children, prefix, visible, overlayCx } = this.props;
@@ -32,7 +33,9 @@ export default class PopupMenu extends CommonMenu {
     }
 
     return (
-      <ul className={cx(`${prefix}-menu`, `${prefix}-submenu-content`, overlayCx)}>
+      <ul
+        className={cx(`${prefix}-menu`, `${prefix}-submenu-content`, overlayCx)}
+      >
         {React.Children.map(children, this.renderSubMenuItems)}
       </ul>
     );

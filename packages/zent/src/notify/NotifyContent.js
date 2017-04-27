@@ -7,13 +7,13 @@ export default class NotifyContent extends Component {
     text: PropTypes.any,
     status: PropTypes.string,
     visible: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     text: '',
     visible: false,
     status: ''
-  }
+  };
 
   render() {
     const { visible, text, status } = this.props;

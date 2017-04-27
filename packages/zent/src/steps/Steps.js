@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import NumberSteps from './components/NumberSteps';
 import CardSteps from './components/CardSteps';
-import PropTypes from 'prop-types';
 import BreadcrumbSteps from './components/BreadcrumbSteps';
 
 export default class Steps extends Component {

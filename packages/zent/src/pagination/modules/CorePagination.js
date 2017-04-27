@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import parser from '../data/parser';
 import Pager from './Pager';
-import PropTypes from 'prop-types';
 import Jump from './Jump';
 
 const { number, func } = PropTypes;
@@ -56,9 +56,7 @@ export default class CorePagination extends Component {
 
     return (
       <div className="pagination-list">
-        {
-          pages.map((item, index) => this.renderPager(item, index))
-        }
+        {pages.map((item, index) => this.renderPager(item, index))}
       </div>
     );
   }

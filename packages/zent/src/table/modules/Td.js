@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import helper from '../helper';
 import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
 import cx from 'classnames';
+
+import helper from '../helper';
 
 export default class Td extends Component {
   renderText(name, data) {
@@ -18,15 +19,11 @@ export default class Td extends Component {
         if (bodyRender.prototype && bodyRender.prototype.isReactComponent) {
           let BodyRender = bodyRender;
 
-          return (
-            <BodyRender
-              data={data}
-              name={name}
-              pos={pos}
-            />
-          );
+          return <BodyRender data={data} name={name} pos={pos} />;
         }
-        return typeof bodyRender(data, pos) !== 'undefined' ? bodyRender(data, pos) : '';
+        return typeof bodyRender(data, pos) !== 'undefined'
+          ? bodyRender(data, pos)
+          : '';
       }
       return bodyRender;
     }
@@ -34,7 +31,7 @@ export default class Td extends Component {
     return this.renderText(name, data);
   }
 
-  onSelect = (e) => {
+  onSelect = e => {
     const isChecked = e.target.checked;
     const { selection, data, rowKey } = this.props;
 
@@ -64,16 +61,16 @@ export default class Td extends Component {
 
     return (
       <div className={className} style={styleObj}>
-        {
-          needSelect && (
-            <Checkbox
-              className="select-check"
-              checked={canSelect && selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
-              disabled={!canSelect}
-              onChange={this.onSelect}
-            />
-          )
-        }
+        {needSelect &&
+          <Checkbox
+            className="select-check"
+            checked={
+              canSelect &&
+                selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
+            }
+            disabled={!canSelect}
+            onChange={this.onSelect}
+          />}
         {this.renderContent()}
       </div>
     );

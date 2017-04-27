@@ -22,8 +22,6 @@ export default class Checkbox extends Component {
       checked: type === 2
     });
 
-    return (
-      <span className={classNames} onClick={this.handleClick} />
-    );
+    return <span className={classNames} onClick={this.handleClick} />;
   }
 }

@@ -8,7 +8,12 @@ import createPlacement from './create';
  * |              |
  * ----------------
  */
-function locate(anchorBoundingBox, containerBoundingBox, contentDimension, options) {
+function locate(
+  anchorBoundingBox,
+  containerBoundingBox,
+  contentDimension,
+  options
+) {
   const { right, left, top } = anchorBoundingBox;
   const middle = (left + right) / 2;
   const x = middle - contentDimension.width / 2;

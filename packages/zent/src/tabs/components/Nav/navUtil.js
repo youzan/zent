@@ -24,7 +24,9 @@ const navUtil = {
         title: tabItem.title,
         prefix: tabItem.prefix,
         className: tabItem.tabClassName,
-        minWidth: i === (tabListData.length - 1) ? (widthInfo.lastWidth || '') : (widthInfo.width || ''),
+        minWidth: i === tabListData.length - 1
+          ? widthInfo.lastWidth || ''
+          : widthInfo.width || '',
         candel: candel && !tabItem.disabled
       };
       modifiedTabListData.push(modifiedTabInfo);
@@ -41,7 +43,7 @@ const navUtil = {
       let lastWidth = '';
       let childCount = tabListData.length;
       width = `${1 / childCount * 100}%`;
-      lastWidth = `${(1 - (1 / childCount * (childCount - 1))) * 100}%`;
+      lastWidth = `${(1 - 1 / childCount * (childCount - 1)) * 100}%`;
       return {
         width,
         lastWidth

@@ -30,11 +30,11 @@ class ActionButton extends Component {
     className: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     children: PropTypes.node
-  }
+  };
 
   state = {
     loading: false
-  }
+  };
 
   onClick = () => {
     const { onClick: callback, getClose } = this.props;
@@ -53,14 +53,17 @@ class ActionButton extends Component {
       this.setState({
         loading: true
       });
-      value.then(() => {
-        // 马上就关闭了，没必要setState({loading: true})
-        close();
-      }, () => {
-        this.setState({
-          loading: false
-        });
-      });
+      value.then(
+        () => {
+          // 马上就关闭了，没必要setState({loading: true})
+          close();
+        },
+        () => {
+          this.setState({
+            loading: false
+          });
+        }
+      );
       return;
     }
 
@@ -68,13 +71,22 @@ class ActionButton extends Component {
     if (!callbackHasArgs && value !== false) {
       close();
     }
-  }
+  };
 
   render() {
     const { className, type, children } = this.props;
     const { loading } = this.state;
 
-    return <Button type={type} className={className} loading={loading} onClick={this.onClick}>{children}</Button>;
+    return (
+      <Button
+        type={type}
+        className={className}
+        loading={loading}
+        onClick={this.onClick}
+      >
+        {children}
+      </Button>
+    );
   }
 }
 
@@ -84,11 +96,25 @@ function getTitle(title, type, prefix) {
   }
 
   const icon = titleIconMap[type];
-  return <div className={`${prefix}-sweetalert-icon-title`}><Icon className={`${prefix}-sweetalert-type-icon`} type={icon} />{title}</div>;
+  return (
+    <div className={`${prefix}-sweetalert-icon-title`}>
+      <Icon className={`${prefix}-sweetalert-type-icon`} type={icon} />{title}
+    </div>
+  );
 }
 
 export function alert(config = {}) {
-  let { className, prefix, title, type, content, confirmText, onConfirm, confirmType, ...otherProps } = config;
+  let {
+    className,
+    prefix,
+    title,
+    type,
+    content,
+    confirmText,
+    onConfirm,
+    confirmType,
+    ...otherProps
+  } = config;
   prefix = prefix || 'zent';
   title = getTitle(title, type, prefix) || '提示';
   className = className || '';
@@ -104,7 +130,12 @@ export function alert(config = {}) {
     title,
     children: content,
     footer: (
-      <ActionButton type={confirmType} className={`${prefix}-sweetalert-alert-btn-confirm`} getClose={() => close} onClick={onConfirm}>
+      <ActionButton
+        type={confirmType}
+        className={`${prefix}-sweetalert-alert-btn-confirm`}
+        getClose={() => close}
+        onClick={onConfirm}
+      >
         {confirmText}
       </ActionButton>
     ),
@@ -116,7 +147,19 @@ export function alert(config = {}) {
 export const info = alert;
 
 export function confirm(config = {}) {
-  let { className, prefix, title, type, content, confirmText, onConfirm, confirmType, cancelText, onCancel, ...otherProps } = config;
+  let {
+    className,
+    prefix,
+    title,
+    type,
+    content,
+    confirmText,
+    onConfirm,
+    confirmType,
+    cancelText,
+    onCancel,
+    ...otherProps
+  } = config;
   className = className || '';
   prefix = prefix || 'zent';
   title = getTitle(title, type, prefix) || '确认';
@@ -133,8 +176,24 @@ export function confirm(config = {}) {
     title,
     children: content,
     footer: [
-      <ActionButton key="ok" type={confirmType} className={`${prefix}-sweetalert-confirm-btn-confirm`} getClose={() => close} onClick={onConfirm}>{confirmText}</ActionButton>,
-      <ActionButton key="cancel" type="default" className={`${prefix}-sweetalert-confirm-btn-cancel`} getClose={() => close} onClick={onCancel}>{cancelText}</ActionButton>
+      <ActionButton
+        key="ok"
+        type={confirmType}
+        className={`${prefix}-sweetalert-confirm-btn-confirm`}
+        getClose={() => close}
+        onClick={onConfirm}
+      >
+        {confirmText}
+      </ActionButton>,
+      <ActionButton
+        key="cancel"
+        type="default"
+        className={`${prefix}-sweetalert-confirm-btn-cancel`}
+        getClose={() => close}
+        onClick={onCancel}
+      >
+        {cancelText}
+      </ActionButton>
     ],
     ...otherProps
   });

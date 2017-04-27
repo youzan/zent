@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-import { goDays, isSameDate, isBeforeMonth, isAfterMonth, CURRENT } from '../utils/';
+import {
+  goDays,
+  isSameDate,
+  isBeforeMonth,
+  isAfterMonth,
+  CURRENT
+} from '../utils/';
 import { formatDate } from '../utils/date';
 import PanelCell from '../common/PanelCell';
 
@@ -9,14 +15,13 @@ const ROW = 6;
 const COL = 7;
 
 export default class DatePanelBody extends Component {
-
   isSelected(val) {
     const { selected } = this.props;
     if (!selected) return false;
 
     if (Array.isArray(selected)) {
       let i = 0;
-      selected.forEach((item) => {
+      selected.forEach(item => {
         isSameDate(val, item) ? i++ : '';
       });
       return i > 0;
@@ -40,7 +45,14 @@ export default class DatePanelBody extends Component {
     const { actived, disabledDate } = this.props;
     let days = [];
     let index = 0;
-    let copy = new Date(actived.getFullYear(), actived.getMonth(), actived.getDate(), actived.getHours(), actived.getMinutes(), actived.getSeconds());
+    let copy = new Date(
+      actived.getFullYear(),
+      actived.getMonth(),
+      actived.getDate(),
+      actived.getHours(),
+      actived.getMinutes(),
+      actived.getSeconds()
+    );
     let firstDay = new Date(copy.setDate(1));
     let diff = parseInt(firstDay.getDay(), 10);
 

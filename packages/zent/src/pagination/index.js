@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import CorePagination from './modules/CorePagination';
-import Prefix from './modules/Prefix';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
+
+import CorePagination from './modules/CorePagination';
+import Prefix from './modules/Prefix';
 
 const { number, func, string, oneOfType } = PropTypes;
 
@@ -26,8 +27,8 @@ export default class Pagination extends Component {
           return new Error('pageSize的长度必须大于0');
         }
 
-        isAllNumber = pageSize.every((item) => {
-          return (typeof item === 'number' || typeof item === 'object');
+        isAllNumber = pageSize.every(item => {
+          return typeof item === 'number' || typeof item === 'object';
         });
 
         if (!isAllNumber) {
@@ -48,10 +49,12 @@ export default class Pagination extends Component {
 
   // 为了能本地动态修改每页个数，得自己缓存pageSize了
   state = {
-    currentPageSize: this.getCurrentPageSize(this.parsePageSize(this.props.pageSize))
+    currentPageSize: this.getCurrentPageSize(
+      this.parsePageSize(this.props.pageSize)
+    )
   };
 
-  setPageSize = (num) => {
+  setPageSize = num => {
     this.setState({
       currentPageSize: parseInt(num, 10)
     });
@@ -75,13 +78,15 @@ export default class Pagination extends Component {
   parsePageSize(pageSize) {
     let ps;
     if (typeof pageSize === 'number') {
-      ps = [{
-        value: pageSize,
-        isCurrent: true
-      }];
+      ps = [
+        {
+          value: pageSize,
+          isCurrent: true
+        }
+      ];
     } else {
       let hasCurrent;
-      ps = pageSize.map((item) => {
+      ps = pageSize.map(item => {
         let tmp;
         if (typeof item === 'number') {
           tmp = {
@@ -124,12 +129,22 @@ export default class Pagination extends Component {
     current = current > totalPage ? totalPage : current; // 最大值限定
 
     return (
-      <div className={`${this.props.prefix}-pagination ${this.props.className}`}>
-        <Prefix pageSize={pageSize} currentPageSize={currentPageSize} totalItem={totalItem} setPageSize={this.setPageSize} />
-        {
-          totalPage > 1 &&
-            <CorePagination maxPageToShow={maxPageToShow} current={current} total={totalPage} onChange={this.props.onChange || function () {}} />
-        }
+      <div
+        className={`${this.props.prefix}-pagination ${this.props.className}`}
+      >
+        <Prefix
+          pageSize={pageSize}
+          currentPageSize={currentPageSize}
+          totalItem={totalItem}
+          setPageSize={this.setPageSize}
+        />
+        {totalPage > 1 &&
+          <CorePagination
+            maxPageToShow={maxPageToShow}
+            current={current}
+            total={totalPage}
+            onChange={this.props.onChange || function() {}}
+          />}
       </div>
     );
   }

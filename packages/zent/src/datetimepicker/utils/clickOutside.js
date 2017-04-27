@@ -11,7 +11,7 @@ const clickOutside = ComposedComponent => class extends Component {
 
   render() {
     return (
-      <ComposedComponent ref={(ref) => this.picker = ref} {...this.props} />
+      <ComposedComponent ref={ref => (this.picker = ref)} {...this.props} />
     );
   }
 };

@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export default class Group extends Component {
-
   static propTypes = {
     value: PropTypes.any,
     isValueEqual: PropTypes.func,
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string,
-  }
+    prefix: PropTypes.string
+  };
 
   static defaultProps = {
     prefix: 'zent',
@@ -21,7 +20,7 @@ export default class Group extends Component {
       return a === b;
     },
     onChange() {}
-  }
+  };
 
   onRadioChange(e) {
     this.props.onChange(e);
@@ -29,14 +28,18 @@ export default class Group extends Component {
 
   render() {
     const { className, prefix, style, isValueEqual } = this.props;
-    const children = React.Children.map(this.props.children, (radio) => {
+    const children = React.Children.map(this.props.children, radio => {
       if (radio && radio.props) {
         return React.cloneElement(radio, {
           ...radio.props,
           onChange: this.onRadioChange.bind(this),
           checked: isValueEqual(this.props.value, radio.props.value),
-          disabled: radio.props.disabled !== void 0 ? radio.props.disabled : this.props.disabled,
-          readOnly: radio.props.readOnly !== void 0 ? radio.props.readOnly : this.props.readOnly
+          disabled: radio.props.disabled !== undefined
+            ? radio.props.disabled
+            : this.props.disabled,
+          readOnly: radio.props.readOnly !== undefined
+            ? radio.props.readOnly
+            : this.props.readOnly
         });
       }
     });

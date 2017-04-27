@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { getElementLeft, getElementTop } from './getPosition';
 
 export default class Loading extends Component {
-
-  static style
-  static wrapper
+  static style;
+  static wrapper;
 
   constructor(props) {
     super(props);
-    ['show', 'setPosition', 'setWrapperRef'].forEach(item => this[item] = this[item].bind(this));
+    ['show', 'setPosition', 'setWrapperRef'].forEach(
+      item => (this[item] = this[item].bind(this))
+    );
   }
 
   state = {
     show: this.props.show
-  }
+  };
 
   show(info) {
     if (info.show === this.state.show) {
@@ -80,27 +81,28 @@ export default class Loading extends Component {
         <div
           className={`${prefix}-loading-container ${prefix}-loading-container-static ${containerClass}`}
           style={{
-            height: this.props.children || !this.state.show ? 'initial' : this.props.height
+            height: this.props.children || !this.state.show
+              ? 'initial'
+              : this.props.height
           }}
         >
           {this.props.children}
           {this.state.show &&
             <div className={`${prefix}-page-loading ${className}`}>
               <div className={`${prefix}-page-mask`} />
-            </div>
-          }
+            </div>}
         </div>
       );
     }
 
     return (
       this.state.show &&
-        <div
-          className={`${prefix}-page-loading ${className}`}
-          ref={this.setWrapperRef.bind(null, 'wrapper')}
-        >
-          <div className={`${prefix}-page-mask`} />
-        </div>
+      <div
+        className={`${prefix}-page-loading ${className}`}
+        ref={this.setWrapperRef.bind(null, 'wrapper')}
+      >
+        <div className={`${prefix}-page-mask`} />
+      </div>
     );
   }
 }

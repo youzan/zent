@@ -3,27 +3,29 @@
 import { Component, createElement } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
-import { getValue } from './utils';
 import PropTypes from 'prop-types';
+
+import { getValue } from './utils';
 import unknownProps from './unknownProps';
 
 class Field extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+      .isRequired,
     normalize: PropTypes.func
-  }
+  };
 
   // validationError为默认错误提示
   // validationErrors为指定校验规则所对应的错误提示
   static defaultProps = {
     validationError: '',
     validationErrors: {}
-  }
+  };
 
   static contextTypes = {
     zentForm: PropTypes.object
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -77,61 +79,67 @@ class Field extends Component {
 
   isPristine = () => {
     return this.state._isPristine;
-  }
+  };
 
   isValid = () => {
     return this.state._isValid;
-  }
+  };
 
   isValidating = () => {
     return this.state._isValidating;
-  }
+  };
 
   isActive = () => {
     return this.state._active;
-  }
+  };
 
   getPristineValue = () => {
     return this.state._pristineValue;
-  }
+  };
 
   getValue = () => {
     return this.state._value;
-  }
+  };
 
-  setValue = (value) => {
-    this.setState({
-      _value: value,
-      _isPristine: false
-    }, () => {
-      this.context.zentForm.validate(this);
-    });
-  }
+  setValue = value => {
+    this.setState(
+      {
+        _value: value,
+        _isPristine: false
+      },
+      () => {
+        this.context.zentForm.validate(this);
+      }
+    );
+  };
 
   resetValue = () => {
-    this.setState({
-      _value: this.state._pristineValue,
-      _isPristine: true
-    }, () => {
-      this.context.zentForm.validate(this);
-    });
-  }
+    this.setState(
+      {
+        _value: this.state._pristineValue,
+        _isPristine: true
+      },
+      () => {
+        this.context.zentForm.validate(this);
+      }
+    );
+  };
 
   getWrappedComponent = () => {
     return this.wrappedComponent;
-  }
+  };
 
   getErrorMessage = () => {
     const errors = this.getErrorMessages();
     return errors.length ? errors[0] : null;
-  }
+  };
 
   getErrorMessages = () => {
     const { _externalError, _validationError } = this.state;
-    return !this.isValid() ? (_externalError || _validationError || []) : [];
-  }
+    return !this.isValid() ? _externalError || _validationError || [] : [];
+  };
 
-  normalize = (value) => {
+  normalize = value => {
     const { normalize } = this.props;
     if (!normalize) {
       return value;
@@ -143,17 +151,17 @@ class Field extends Component {
       [this.props.name]: value
     };
     return normalize(value, previousValue, nextValues, previousValues);
-  }
+  };
 
-  format = (value) => {
+  format = value => {
     const { format } = this.props;
     if (!format) {
       return value;
     }
     return format(value);
-  }
+  };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { onChange } = this.props;
     const previousValue = this.getValue();
     const newValue = this.normalize(getValue(event));
@@ -167,9 +175,9 @@ class Field extends Component {
     if (!preventSetValue) {
       this.setValue(newValue);
     }
-  }
+  };
 
-  handleFocus = (event) => {
+  handleFocus = event => {
     const { onFocus } = this.props;
 
     if (onFocus) {
@@ -179,9 +187,9 @@ class Field extends Component {
     this.setState({
       _active: true
     });
-  }
+  };
 
-  handleBlur = (event) => {
+  handleBlur = event => {
     const { onBlur, asyncValidation } = this.props;
     const previousValue = this.getValue();
     const newValue = this.normalize(getValue(event));
@@ -201,9 +209,9 @@ class Field extends Component {
         this.context.zentForm.asyncValidate(this, newValue);
       }
     }
-  }
+  };
 
-  processProps = (props) => {
+  processProps = props => {
     const { type, value, ...rest } = props;
     if (type === 'checkbox') {
       return {
@@ -220,13 +228,13 @@ class Field extends Component {
     }
 
     return props;
-  }
+  };
 
   render() {
     const { component, ...rest } = this.props;
     const passableProps = this.processProps({
       ...rest,
-      ref: (ref) => {
+      ref: ref => {
         this.wrappedComponent = ref;
       },
       isTouched: !this.isPristine(),

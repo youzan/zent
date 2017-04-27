@@ -8,13 +8,13 @@ export default class YearPanel extends Component {
     const { actived, onSelect } = this.props;
     const prev = actived.getFullYear() - 12;
     onSelect(prev, true);
-  }
+  };
 
   nextYears = () => {
     const { actived, onSelect } = this.props;
     const next = actived.getFullYear() + 12;
     onSelect(next, true);
-  }
+  };
 
   render() {
     const props = this.props;

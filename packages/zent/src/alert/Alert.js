@@ -45,15 +45,18 @@ export default class Alert extends Component {
   };
 
   onClose = () => {
-    this.setState({
-      closed: true
-    }, () => {
-      // onClose是在*关闭以后*被调用的
-      const { onClose } = this.props;
-      if (isFunction(onClose)) {
-        onClose();
+    this.setState(
+      {
+        closed: true
+      },
+      () => {
+        // onClose是在*关闭以后*被调用的
+        const { onClose } = this.props;
+        if (isFunction(onClose)) {
+          onClose();
+        }
       }
-    });
+    );
   };
 
   render() {
@@ -62,7 +65,15 @@ export default class Alert extends Component {
       return null;
     }
 
-    const { type, prefix, rounded, className, closable, size, children } = this.props;
+    const {
+      type,
+      prefix,
+      rounded,
+      className,
+      closable,
+      size,
+      children
+    } = this.props;
     const containerCls = cx(
       `${prefix}-alert`,
       `${prefix}-${styleClassMap[type]}`,
@@ -76,9 +87,15 @@ export default class Alert extends Component {
 
     return (
       <div className={containerCls}>
-        {closable && <div className={`${prefix}-alert-close-wrapper`}>
-          <span className={`${prefix}-alert-close-btn`} onClick={this.onClose}>&times;</span>
-        </div>}
+        {closable &&
+          <div className={`${prefix}-alert-close-wrapper`}>
+            <span
+              className={`${prefix}-alert-close-btn`}
+              onClick={this.onClose}
+            >
+              ×
+            </span>
+          </div>}
         <div className={`${prefix}-alert-content-wrapper`}>
           <div className={`${prefix}-alert-content`}>{children}</div>
         </div>

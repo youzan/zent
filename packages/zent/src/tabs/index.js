@@ -1,15 +1,13 @@
 import React from 'react';
 import assign from 'lodash/assign';
+import PropTypes from 'prop-types';
 
 import TabPanel from './components/TabPanel/TabPanel';
 import LazyMount from './components/LazyMount';
 import Nav from './components/Nav/Nav';
-
-import PropTypes from 'prop-types';
-
 import tabUtil from './tabUtil';
 
-function noop() { }
+function noop() {}
 
 export default class Tabs extends React.Component {
   static propTypes = {
@@ -27,17 +25,15 @@ export default class Tabs extends React.Component {
     onTabAdd: PropTypes.func,
     candel: PropTypes.bool,
     canadd: PropTypes.bool,
-    tabs: PropTypes.arrayOf(PropTypes.shape({
-      key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ]).isRequired,
-      title: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ]).isRequired,
-      disabled: PropTypes.bool
-    }))
+    tabs: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          .isRequired,
+        title: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          .isRequired,
+        disabled: PropTypes.bool
+      })
+    )
   };
 
   static defaultProps = {
@@ -113,7 +109,7 @@ export default class Tabs extends React.Component {
     let { prefix } = this.props;
     let newChildren = [];
     if (tabListData && tabListData.length) {
-      tabListData.forEach((tabItem) => {
+      tabListData.forEach(tabItem => {
         newChildren.push(
           <LazyMount mountTrigger={tabItem.actived} key={tabItem.key}>
             <TabPanel
@@ -155,7 +151,9 @@ export default class Tabs extends React.Component {
 
     return (
       <div className={`${prefix}-tabs ${className}`}>
-        {this.renderNav(tabs.map(tab => assign({}, tab, { actived: tab.key === activeId })))}
+        {this.renderNav(
+          tabs.map(tab => assign({}, tab, { actived: tab.key === activeId }))
+        )}
       </div>
     );
   }

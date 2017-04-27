@@ -20,6 +20,6 @@ export default class Icon extends Component {
       'zenticon-spin': spin
     });
 
-    return <i className={cls} {...otherProps}></i>;
+    return <i className={cls} {...otherProps} />;
   }
 }

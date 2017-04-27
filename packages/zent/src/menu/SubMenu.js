@@ -21,7 +21,7 @@ export default class SubMenu extends Component {
 
   state = {
     subMenuVisible: false
-  }
+  };
 
   handleClick = (e, index) => {
     const { onClick } = this.props;
@@ -29,7 +29,7 @@ export default class SubMenu extends Component {
     onClick(e, index);
   };
 
-  titleClickHandler = (e) => {
+  titleClickHandler = e => {
     e.stopPropagation();
   };
 
@@ -52,46 +52,42 @@ export default class SubMenu extends Component {
   };
 
   renderContent = () => {
-    const {
-      prefix,
-      children,
-      index,
-      overlayClassName
-    } = this.props;
+    const { prefix, children, index, overlayClassName } = this.props;
 
     return (
-      <SubPopupMenu prefix={prefix} visible={this.state.subMenuVisible} onClick={this.handleClick} index={index} overlayCx={overlayClassName}>
+      <SubPopupMenu
+        prefix={prefix}
+        visible={this.state.subMenuVisible}
+        onClick={this.handleClick}
+        index={index}
+        overlayCx={overlayClassName}
+      >
         {children}
       </SubPopupMenu>
     );
   };
 
   render() {
-    const {
-      prefix,
-      className,
-      disabled,
-      title
-    } = this.props;
+    const { prefix, className, disabled, title } = this.props;
 
-    const mouseEvents = disabled ? {} : {
-      onMouseEnter: this.onMouseEnter,
-      onMouseLeave: this.onMouseLeave
-    };
-    const cls = cx(
-      `${prefix}-menu-item`,
-      `${prefix}-submenu`,
-      className,
-      {
-        [`${prefix}-menu-item-disabled`]: disabled
-      }
-    );
+    const mouseEvents = disabled
+      ? {}
+      : {
+          onMouseEnter: this.onMouseEnter,
+          onMouseLeave: this.onMouseLeave
+        };
+    const cls = cx(`${prefix}-menu-item`, `${prefix}-submenu`, className, {
+      [`${prefix}-menu-item-disabled`]: disabled
+    });
 
     return (
-      <li
-        className={cls} {...mouseEvents}
-      >
-        <div className={cx(`${prefix}-submenu-title`, { [`${prefix}-submenu-disabled`]: disabled })} onClick={this.titleClickHandler}>
+      <li className={cls} {...mouseEvents}>
+        <div
+          className={cx(`${prefix}-submenu-title`, {
+            [`${prefix}-submenu-disabled`]: disabled
+          })}
+          onClick={this.titleClickHandler}
+        >
           {title}
           {!disabled && <Icon type="right" />}
         </div>

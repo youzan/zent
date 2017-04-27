@@ -32,7 +32,7 @@ export default class PopoverTrigger extends Component {
   // 在Trigger里判断一个节点在外面请用this.props.isOutsideStacked
   //
   // 这个函数之所以放在这里是为了兼容老的API，因为 isOutside 原来是放在Trigger上的，其实放在 Popover 上更好。
-  isOutsideSelf = (target) => {
+  isOutsideSelf = target => {
     const { isOutside, getContentNode, getTriggerNode } = this.props;
     const box = getContentNode();
     const anchor = getTriggerNode();
@@ -52,7 +52,7 @@ export default class PopoverTrigger extends Component {
     }
 
     return true;
-  }
+  };
 
   // Override this function to add custom event handlers
   getTriggerProps() {
@@ -74,12 +74,17 @@ export default class PopoverTrigger extends Component {
     }
 
     const childrenType = typeof children;
-    if (count === 1 && childrenType === 'string' || childrenType === 'number') {
+    if (
+      (count === 1 && childrenType === 'string') ||
+      childrenType === 'number'
+    ) {
       return <span>{children}</span>;
     }
 
     if (count > 1) {
-      throw new Error(`Popover trigger requires only one child, but found ${count}`);
+      throw new Error(
+        `Popover trigger requires only one child, but found ${count}`
+      );
     }
 
     const child = Children.only(this.props.children);

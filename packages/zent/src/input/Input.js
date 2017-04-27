@@ -18,7 +18,7 @@ export default class Input extends Component {
     onPressEnter: PropTypes.func,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     disabled: false,
@@ -26,7 +26,7 @@ export default class Input extends Component {
     prefix: 'zent',
     type: 'text',
     autoFocus: false
-  }
+  };
 
   componentDidMount() {
     const { autoFocus } = this.props;
@@ -46,35 +46,60 @@ export default class Input extends Component {
     }
 
     if (onKeyDown) onKeyDown(evt);
-  }
+  };
 
   render() {
     const { addonBefore, addonAfter, prefix, className, type } = this.props;
     const isTextarea = type.toLowerCase() === 'textarea';
 
-    const wrapClass = classNames({
-      [`${prefix}-input-wrapper`]: true,
-      [`${prefix}-textarea-wrapper`]: isTextarea,
-      [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore)
-    }, className);
+    const wrapClass = classNames(
+      {
+        [`${prefix}-input-wrapper`]: true,
+        [`${prefix}-textarea-wrapper`]: isTextarea,
+        [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore)
+      },
+      className
+    );
 
     // 黑名单，下面这些props不应该带入到Input上
-    let inputProps = omit(this.props, ['className', 'prefix', 'addonBefore', 'addonAfter', 'onPressEnter']);
+    let inputProps = omit(this.props, [
+      'className',
+      'prefix',
+      'addonBefore',
+      'addonAfter',
+      'onPressEnter'
+    ]);
 
     if (isTextarea) {
       inputProps = omit(inputProps, ['type']);
       return (
-        <div className={wrapClass} >
-          <textarea ref={(input) => { this.input = input }} className={`${prefix}-textarea`} {...inputProps} onKeyDown={this.handleKeyDown}></textarea>
+        <div className={wrapClass}>
+          <textarea
+            ref={input => {
+              this.input = input;
+            }}
+            className={`${prefix}-textarea`}
+            {...inputProps}
+            onKeyDown={this.handleKeyDown}
+          />
         </div>
       );
     }
 
     return (
-      <div className={wrapClass} >
-        {addonBefore && <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>}
-        <input ref={(input) => { this.input = input }} className={`${prefix}-input`} {...inputProps} onKeyDown={this.handleKeyDown} />
-        {addonAfter && <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>}
+      <div className={wrapClass}>
+        {addonBefore &&
+          <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>}
+        <input
+          ref={input => {
+            this.input = input;
+          }}
+          className={`${prefix}-input`}
+          {...inputProps}
+          onKeyDown={this.handleKeyDown}
+        />
+        {addonAfter &&
+          <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>}
       </div>
     );
   }

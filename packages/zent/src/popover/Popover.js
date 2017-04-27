@@ -24,9 +24,9 @@ import uniqueId from 'lodash/uniqueId';
 import isFunction from 'lodash/isFunction';
 import isBoolean from 'lodash/isBoolean';
 import isPromise from 'utils/isPromise';
+import PropTypes from 'prop-types';
 
 import PopoverContent from './Content';
-import PropTypes from 'prop-types';
 import PopoverTrigger from './trigger/Trigger';
 
 const SKIPPED = () => {};
@@ -129,14 +129,14 @@ export default class Popover extends Component {
     };
   }
 
-  registerDescendant = (popover) => {
+  registerDescendant = popover => {
     this.descendants.push(popover);
   };
 
-  unregisterDescendant = (popover) => {
+  unregisterDescendant = popover => {
     const idx = this.descendants.indexOf(popover);
     this.descendants.splice(idx, 1);
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -159,7 +159,7 @@ export default class Popover extends Component {
     const hasOnChange = isFunction(onVisibleChange);
     const hasVisible = isBoolean(visible);
 
-    if (hasVisible && !hasOnChange || hasOnChange && !hasVisible) {
+    if ((hasVisible && !hasOnChange) || (hasOnChange && !hasVisible)) {
       throw new Error('visible and onVisibleChange must be used together');
     }
 
@@ -209,13 +209,13 @@ export default class Popover extends Component {
         this.pendingOnBeforeHook = false;
       });
     }
-  }
+  };
 
   getPopoverNode = () => {
     return document.querySelector(`.${this.id}`);
-  }
+  };
 
-  onTriggerRefChange = (triggerInstance) => {
+  onTriggerRefChange = triggerInstance => {
     this.triggerNode = ReactDOM.findDOMNode(triggerInstance);
   };
 
@@ -231,12 +231,12 @@ export default class Popover extends Component {
     this.setVisible(false);
   };
 
-  injectIsOutsideSelf = (impl) => {
+  injectIsOutsideSelf = impl => {
     this.isOutsideSelf = impl;
   };
 
   // Popover up in the tree will call this method to see if the node lies outside
-  isOutsideStacked = (node) => {
+  isOutsideStacked = node => {
     if (this.isOutsideSelf) {
       // 在自身内部，肯定不在外面
       if (!this.isOutsideSelf(node)) {
@@ -257,19 +257,24 @@ export default class Popover extends Component {
     const childArray = Children.toArray(children);
 
     if (childArray.length !== 2) {
-      throw new Error('There must be one and only one trigger and content in Popover');
+      throw new Error(
+        'There must be one and only one trigger and content in Popover'
+      );
     }
 
-    const { trigger, content } = childArray.reduce((state, c) => {
-      const type = c.type;
-      if (instanceOf(type, PopoverTrigger)) {
-        state.trigger = c;
-      } else if (instanceOf(type, PopoverContent)) {
-        state.content = c;
-      }
+    const { trigger, content } = childArray.reduce(
+      (state, c) => {
+        const type = c.type;
+        if (instanceOf(type, PopoverTrigger)) {
+          state.trigger = c;
+        } else if (instanceOf(type, PopoverContent)) {
+          state.content = c;
+        }
 
-      return state;
-    }, { trigger: null, content: null });
+        return state;
+      },
+      { trigger: null, content: null }
+    );
 
     if (!trigger) {
       throw new Error('Missing trigger in Popover');
@@ -309,11 +314,22 @@ export default class Popover extends Component {
 
   render() {
     const { trigger, content } = this.validateChildren();
-    const { display, prefix, className, wrapperClassName, containerSelector, position, cushion } = this.props;
+    const {
+      display,
+      prefix,
+      className,
+      wrapperClassName,
+      containerSelector,
+      position,
+      cushion
+    } = this.props;
     const visible = this.getVisible();
 
     return (
-      <div style={{ display }} className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}>
+      <div
+        style={{ display }}
+        className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}
+      >
         {React.cloneElement(trigger, {
           prefix,
           contentVisible: visible,
