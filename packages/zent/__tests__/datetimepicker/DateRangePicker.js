@@ -1,7 +1,9 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { DateRangePicker } from 'datetimepicker';
+import DTPicker from 'datetimepicker';
 import { isArray } from 'datetimepicker/utils';
+
+const { DateRangePicker } = DTPicker;
 
 describe('DateRangePicker', () => {
   it('DateRangePicker has its core function', () => {

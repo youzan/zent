@@ -1,7 +1,9 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { MonthPicker } from 'datetimepicker';
+import DTPicker from 'datetimepicker';
 import { formatDate } from 'datetimepicker/utils/date';
+
+const { MonthPicker } = DTPicker;
 
 describe('MonthPicker', () => {
   it('MonthPicker has 2 level panel', () => {

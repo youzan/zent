@@ -1,7 +1,9 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { formatDate } from 'datetimepicker/utils/date';
-import { DatePicker } from 'datetimepicker';
+import DTPicker from 'datetimepicker';
+
+const { DatePicker } = DTPicker;
 
 describe('DateTimePicker', () => {
   it('DatePicker has its default structure', () => {
