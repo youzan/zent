@@ -9,12 +9,17 @@
     "eslint-fix": "yarn lint -- --fix",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "bootstrap": "lerna clean --yes && lerna bootstrap",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prettify": "prettier --single-quote --write"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --single-quote --write",
+    "packages/zent/(src|__tests__)/**/*.js": [
+      "prettify",
       "eslint",
+      "git add"
+    ],
+    "packages/babel-plugin-zent/(src|__tests__)/**/*.js": [
+      "prettify",
       "git add"
     ]
   },

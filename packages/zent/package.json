@@ -10,7 +10,8 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "jest -c jest.config.json",
-    "build": "./scripts/build.sh"
+    "build": "./scripts/build.sh",
+    "prepublish": "yarn build"
   },
   "author": "Youzan FE",
   "license": "MIT",
