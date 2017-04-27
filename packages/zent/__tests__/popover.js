@@ -14,8 +14,7 @@ const withPopover = Popover.withPopover;
 const createPlacement = Popover.Position.create;
 /* eslint-enable */
 
-const HoverContent = withPopover(function HoverContent({ popover }) { // eslint-disable-line
-  // eslint-disable-line
+const HoverContent = withPopover(({ popover }) => {
   return (
     <div>
       <div>popover content</div>
