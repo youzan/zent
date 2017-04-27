@@ -476,7 +476,7 @@ class DateRangePicker extends Component {
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
           position={Popover.Position.AutoBottomLeft}
         >
-          <Popover.Trigger.Click>
+          <Popover.Trigger.Base>
             <div className={inputCls} onClick={this.onClickInput}>
               {state.showPlaceholder
                 ? props.placeholder.join(' 至 ')
@@ -487,7 +487,7 @@ class DateRangePicker extends Component {
                 className="zenticon zenticon-close-circle"
               />
             </div>
-          </Popover.Trigger.Click>
+          </Popover.Trigger.Base>
           <Popover.Content>
             {this.renderPicker()}
           </Popover.Content>
