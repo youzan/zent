@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 var base = require('./webpack.config');
 
-var prefix = '/zanui/react/';
+var prefix = 'https://b.yzcdn.cn/zanui/react/';
 
 module.exports = Object.assign({}, base, {
   output: Object.assign(base.output, {
