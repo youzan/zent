@@ -9,13 +9,11 @@ cache:
 branches:
   only:
   - master
-before_install:
-- |
-    yarn global add zent-kit
-    yarn global add eslint@2.11.1 eslint-plugin-react@5.1.1 babel-eslint@6.0.4 eslint-plugin-import@1.8.1 eslint-plugin-jsx-a11y@1.2.3 eslint-config-airbnb@9.0.1 eslint-plugin-lean-imports@0.3.3
 install:
 - |
     yarn install
+    yarn run bootstrap
 script:
 - |
-    yarn run bootstrap && npm run lint && npm run test
+    yarn lint
+    yarn test

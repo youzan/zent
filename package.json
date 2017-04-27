@@ -5,9 +5,19 @@
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
     "test": "./scripts/run-tests.sh",
-    "lint": "node ./scripts/check-package-version.js && ./lerna run lint",
-    "eslint-fix": "eslint utils/* packages/*/src packages/*/examples --fix",
-    "bootstrap": "lerna clean --yes && lerna bootstrap"
+    "lint": "eslint packages/*/src packages/*/__tests__",
+    "eslint-fix": "yarn lint -- --fix",
+    "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
+    "bootstrap": "lerna clean --yes && lerna bootstrap",
+    "precommit": "lint-staged",
+    "prettify": "prettier --single-quote --write"
+  },
+  "lint-staged": {
+    "packages/**/*.js": [
+      "prettify",
+      "eslint",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,10 +32,18 @@
   "dependencies": {},
   "files": [],
   "devDependencies": {
-    "enzyme": "2.8.x",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^1.7.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-lean-imports": "^0.3.3",
+    "eslint-plugin-prettier": "^2.0.1",
+    "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.13.3",
     "lerna": "2.0.0-beta.38",
-    "react": "15.5.x",
-    "react-dom": "15.5.x",
-    "react-test-renderer": "15.5.x"
+    "lint-staged": "^3.4.0",
+    "prettier": "^1.2.2"
   }
 }

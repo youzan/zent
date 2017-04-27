@@ -2,6 +2,4 @@
 **/bower_components
 **/vendor
 **/node_modules
-packages/*/__tests__/*
-site
-_site
+./site

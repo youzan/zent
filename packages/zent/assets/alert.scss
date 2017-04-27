@@ -1,0 +1,103 @@
+@define-mixin vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+@define-mixin icon $image-url {
+    background-image: url($image-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+$color-bg-warning: #FFF7CC;
+$color-border-warning: #FDEEB2;
+$color-text-warning: #333333;
+
+$color-bg-error: #FF4343;
+$color-border-error: #E8393A;
+$color-text-error: #fff;
+
+$color-bg-info: #F8F8F8;
+$color-text-info: #333;
+
+$alert-normal-min-height: 44px;
+$alert-large-min-height: 60px;
+$alert-border-radius: 4px;
+
+$close-icon-size: 14px;
+
+.zent-alert {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 12px;
+    height: 1px; /* make child height: 100% work */
+
+    .zent-alert-content-wrapper {
+        height: 100%;
+        position: relative;
+        overflow: hidden; /* trigger a BFC */
+    }
+
+    .zent-alert-content {
+        @mixin vertical-center;
+    }
+
+    &.zent-alert-closable {
+        .zent-alert-close-wrapper {
+            float: right;
+            margin-left: 15px;
+            height: 100%;
+            width: $close-icon-size;
+            position: relative;
+        }
+
+        .zent-alert-close-btn {
+            width: $close-icon-size;
+            @mixin vertical-center;
+            font-family: sans-serif;
+            font-size: 18px;
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+            cursor: pointer;
+            color: #999;
+        }
+    }
+
+    &.zent-alert-size-normal {
+        min-height: $alert-normal-min-height;
+        padding: 0 15px;
+    }
+
+    &.zent-alert-size-large {
+        min-height: $alert-large-min-height;
+        padding: 0 15px 0 30px;
+    }
+
+    &.zent-alert-border-rounded {
+        border-radius: $alert-border-radius;
+    }
+
+    &.zent-alert-style-info {
+        background: $color-bg-info;
+        color: $color-text-info;
+    }
+
+    &.zent-alert-style-warning {
+        background: $color-bg-warning;
+        border: 1px solid $color-border-warning;
+        color: $color-text-warning;
+    }
+
+    &.zent-alert-style-danger {
+        background: $color-bg-error;
+        border: 1px solid $color-border-error;
+        color: $color-text-error;
+
+        .zent-alert-close-btn {
+            color: #fff;
+        }
+    }
+}
