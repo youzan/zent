@@ -9,7 +9,7 @@
   },
   "main": "./lib/index.js",
   "scripts": {
-    "test": "jest -c jest.config.json",
+    "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
     "prepublish": "yarn build"
   },
