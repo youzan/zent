@@ -5,21 +5,17 @@
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
     "test": "./scripts/run-tests.sh",
-    "lint": "eslint packages/zent/src packages/zent/__tests__",
+    "lint": "eslint packages/*/src packages/*/__tests__",
     "eslint-fix": "yarn lint -- --fix",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
     "bootstrap": "lerna clean --yes && lerna bootstrap",
     "precommit": "lint-staged",
     "prettify": "prettier --single-quote --write"
   },
   "lint-staged": {
-    "packages/zent/(src|__tests__)/**/*.js": [
+    "packages/*/(src|__tests__)/**/*.js": [
       "prettify",
       "eslint",
-      "git add"
-    ],
-    "packages/babel-plugin-zent/(src|__tests__)/**/*.js": [
-      "prettify",
       "git add"
     ]
   },
