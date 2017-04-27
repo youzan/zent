@@ -9,7 +9,6 @@
   },
   "main": "./lib/index.js",
   "scripts": {
-    "lint": "eslint --max-warnings=0 ./src",
     "test": "jest -c jest.config.json",
     "build": "./scripts/build.sh"
   },

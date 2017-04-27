@@ -70,7 +70,7 @@ describe('CreatedForm and HandleSubmit', () => {
 
   it('onSubmit of CreatedForm can be a function passed to handleSubmit', () => {
     jest.useFakeTimers();
-    const submitFunc = values => {
+    const submitFunc = () => {
       return 1;
     };
     const promiseSuccessMock = jest.fn();
@@ -321,7 +321,6 @@ describe('CreatedForm and HandleSubmit', () => {
     let wrapper = mount(
       <TempForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />
     );
-    let field = wrapper.find(Field);
     let input = wrapper.find('input');
     expect(wrapper.getNode().isValidating()).toBe(false);
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);

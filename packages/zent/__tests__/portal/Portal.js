@@ -42,9 +42,9 @@ describe('Portal', () => {
     expect(
       shallow(
         <Portal>
-          <div>won't render</div>
+          <div>will not render</div>
         </Portal>
-      ).contains(<div>won't render</div>)
+      ).contains(<div>will not render</div>)
     ).toBe(false);
   });
 

@@ -5,7 +5,7 @@
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
     "test": "./scripts/run-tests.sh",
-    "lint": "eslint packages/zent/src",
+    "lint": "eslint packages/zent/src packages/zent/__tests__",
     "eslint-fix": "yarn lint -- --fix",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "bootstrap": "lerna clean --yes && lerna bootstrap",
@@ -14,6 +14,7 @@
   "lint-staged": {
     "*.js": [
       "prettier --single-quote --write",
+      "eslint",
       "git add"
     ]
   },

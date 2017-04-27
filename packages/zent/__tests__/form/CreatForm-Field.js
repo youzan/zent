@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import React from 'react';
 import noop from 'lodash/noop';
 import omit from 'lodash/omit';

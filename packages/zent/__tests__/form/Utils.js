@@ -9,7 +9,7 @@ describe('Form-Utilities', () => {
     const target = {};
     const canPassEventTest = {
       preventDefault: () => {},
-      stopPropagation: () => {},
+      stopPropagation: () => {}
     };
 
     // return arg[0]
@@ -19,9 +19,10 @@ describe('Form-Utilities', () => {
     // arg[0] && arg[0].value return arg[0].value
     expect(getValue(objWithValue)).toBe('bar');
 
-
     // after pass event test, arg[0] must have key 'target'
-    expect(() => { getValue(canPassEventTest) }).toThrow();
+    expect(() => {
+      getValue(canPassEventTest);
+    }).toThrow();
 
     // if(isEvent(arg[0])) return arg[0].target.value
     canPassEventTest.target = target;
@@ -73,7 +74,9 @@ describe('Form-Utilities', () => {
     const compForTest = {};
 
     // must have arg
-    expect(() => { getDisplayName() }).toThrow();
+    expect(() => {
+      getDisplayName();
+    }).toThrow();
 
     // return arg[0].displayName || arg[0].name || 'Component'
     expect(getDisplayName(compForTest)).toBe('Component');
@@ -111,7 +114,9 @@ describe('Form-Utilities', () => {
     const notEventObj = { bar: 'foo' };
 
     // must have function as arg[0]
-    expect(() => { silenceEvents()({}) }).toThrow();
+    expect(() => {
+      silenceEvents()({});
+    }).toThrow();
     silenceEvents(curryMock)(notEventObj, 1);
     expect(curryMock.mock.calls.length).toBe(1);
     expect(preMock.mock.calls.length).toBe(0);

@@ -50,7 +50,7 @@ class State extends Component {
     });
   };
 
-  saveRef = (inst) => {
+  saveRef = inst => {
     this.stateContainer = inst;
   };
 
@@ -58,13 +58,21 @@ class State extends Component {
     const { visible } = this.state;
     return (
       <div className="state-example">
-        {visible ?
-          <button onClick={this.onClose} className="btn-close">close</button> :
-          <button onClick={this.onOpen} className="btn-open">open</button>
-        }
-        <Portal className="state-body-portal" visible={this.state.visible} onClose={this.onClose}>
+        {visible
+          ? <button onClick={this.onClose} className="btn-close">close</button>
+          : <button onClick={this.onOpen} className="btn-open">open</button>}
+        <Portal
+          className="state-body-portal"
+          visible={this.state.visible}
+          onClose={this.onClose}
+        >
           {/* ref在测试代码里用了，不要删掉 */}
-          <SimpleState inc={this.inc} count={this.state.count} close={this.onClose} ref={this.saveRef} />
+          <SimpleState
+            inc={this.inc}
+            count={this.state.count}
+            close={this.onClose}
+            ref={this.saveRef}
+          />
         </Portal>
       </div>
     );
@@ -75,12 +83,16 @@ describe('Portal', () => {
   it('should not unmount when `children` changes', () => {
     const wrapper = mount(<State />);
     wrapper.find('.btn-open').simulate('click');
-    expect(document.querySelector('.state-body-portal .state-count').textContent).toBe('0');
+    expect(
+      document.querySelector('.state-body-portal .state-count').textContent
+    ).toBe('0');
 
     const stateContainer = wrapper.wrap(wrapper.instance().stateContainer);
 
     stateContainer.find('.btn-inc').simulate('click');
-    expect(document.querySelector('.state-body-portal .state-count').textContent).toBe('1');
+    expect(
+      document.querySelector('.state-body-portal .state-count').textContent
+    ).toBe('1');
 
     stateContainer.find('.btn-close').simulate('click');
     jest.runOnlyPendingTimers();

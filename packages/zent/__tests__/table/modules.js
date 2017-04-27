@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import Table from 'table';
 
 import datasets from './comp/data/conf';
-import Table from 'table';
 import TextComponent from './comp/components/Text';
 
 const columns = [

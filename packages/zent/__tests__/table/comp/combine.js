@@ -9,29 +9,34 @@ import datasets from './data/conf';
 /*
 所有功能集合在一起使用
 */
-const columns = [{
-  title: '商品',
-  width: 50,
-  bodyRender: CardComponent
-}, {
-  title: '访问量',
-  name: 'bro_uvpv',
-  width: 10,
-  needSort: true,
-  bodyRender: TextComponent
-}, {
-  title: '库存',
-  needSort: true,
-  name: 'stock_num',
-  width: 20,
-  bodyRender: (data, pos) => {
-    return <p>{data.stock_num}{pos.row}</p>;
+const columns = [
+  {
+    title: '商品',
+    width: 50,
+    bodyRender: CardComponent
+  },
+  {
+    title: '访问量',
+    name: 'bro_uvpv',
+    width: 10,
+    needSort: true,
+    bodyRender: TextComponent
+  },
+  {
+    title: '库存',
+    needSort: true,
+    name: 'stock_num',
+    width: 20,
+    bodyRender: (data, pos) => {
+      return <p>{data.stock_num}{pos.row}</p>;
+    }
+  },
+  {
+    title: '总销量',
+    name: 'sold_num',
+    width: 20
   }
-}, {
-  title: '总销量',
-  name: 'sold_num',
-  width: 20
-}];
+];
 
 class Simple extends Component {
   state = {
@@ -41,15 +46,15 @@ class Simple extends Component {
     sortBy: 'bro_uvpv',
     sortType: 'desc',
     rowKey: 'item_id',
-    selectedRowKeys: [],
+    selectedRowKeys: []
   };
 
-  onChange = (conf) => {
+  onChange = conf => {
     this.setState(conf);
     // console.log(conf); // eslint-disable-line
   };
 
-  onSelect = (selectedRowKeys) => {
+  onSelect = selectedRowKeys => {
     this.setState({
       selectedRowKeys
     });

@@ -34,6 +34,7 @@
     "react/no-array-index-key": 0,
     "react/forbid-prop-types": 0,
     "react/no-render-return-value": 0,
+    "react/no-string-refs": 0,
     "no-param-reassign": 0,
     "no-return-assign": 0,
     "no-underscore-dangle": [

@@ -24,15 +24,19 @@ describe('Radio Section', () => {
     expect(wrapper.childAt(0).hasClass('zent-radio')).toBe(true);
     expect(wrapper.childAt(1).type()).toBe(null);
     expect(wrapper.find('.zent-radio').childAt(0).type()).toBe('span');
-    expect(wrapper.find('.zent-radio').childAt(0).hasClass('zent-radio-inner')).toBe(true);
+    expect(
+      wrapper.find('.zent-radio').childAt(0).hasClass('zent-radio-inner')
+    ).toBe(true);
     expect(wrapper.find('.zent-radio').childAt(1).type()).toBe('input');
     expect(wrapper.find('.zent-radio').childAt(1).props().type).toBe('radio');
   });
 
   it('Radio can have custom className, prefix and children', () => {
-    const wrapper = shallow(<Radio className="foo" prefix="bar">
-      <span className="zent-radio-children" />
-    </Radio>);
+    const wrapper = shallow(
+      <Radio className="foo" prefix="bar">
+        <span className="zent-radio-children" />
+      </Radio>
+    );
     expect(wrapper.hasClass('bar-radio-wrap')).toBe(true);
     expect(wrapper.hasClass('foo')).toBe(true);
     expect(wrapper.childAt(0).hasClass('bar-radio')).toBe(true);
@@ -91,7 +95,9 @@ describe('Radio Section', () => {
     expect(wrapper.find('input').props().onChange).not.toBe(propOnChangeMock);
     expect(wrapper.find('input').props().onChange).toBe(handleChange);
     expect(propOnChangeMock.mock.calls.length).toBe(0);
-    wrapper.find('input').simulate('change', { target: wrapper.find('input').node });
+    wrapper
+      .find('input')
+      .simulate('change', { target: wrapper.find('input').node });
     expect(propOnChangeMock.mock.calls.length).toBe(1);
   });
 });
@@ -105,14 +111,18 @@ describe('Radio Section', () => {
 describe('RadioGroup Section', () => {
   it('RadioGroup will render an empty div without any children', () => {
     const wrapper = shallow(<Group />);
-    expect(wrapper.contains(<div className="zent-radio-group" style={{}} />)).toBe(true);
+    expect(
+      wrapper.contains(<div className="zent-radio-group" style={{}} />)
+    ).toBe(true);
   });
 
   it('RadioGroup can have custom prefix, className, style object', () => {
     const styleObj = {
       color: 'red'
     };
-    const wrapper = shallow(<Group className="foo" prefix="bar" style={styleObj} />);
+    const wrapper = shallow(
+      <Group className="foo" prefix="bar" style={styleObj} />
+    );
     expect(wrapper.hasClass('bar-radio-group')).toBe(true);
     expect(wrapper.hasClass('foo')).toBe(true);
     expect(wrapper.props().style).toBe(styleObj);
@@ -135,7 +145,12 @@ describe('RadioGroup Section', () => {
     const onChangeMock = jest.fn();
     const wrapper = mount(
       <Group disabled={false} readOnly={false}>
-        <Radio onChange={onChangeMock} checked={1} className="foo" prefix="bar" />
+        <Radio
+          onChange={onChangeMock}
+          checked={1}
+          className="foo"
+          prefix="bar"
+        />
       </Group>
     );
     expect(wrapper.find(Radio).props().onChange).not.toBe(onChangeMock);
