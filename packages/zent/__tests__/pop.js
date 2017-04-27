@@ -11,9 +11,9 @@ function findContent() {
   return document.querySelectorAll(`.zent-pop-content-${contentId}`);
 }
 
-function findHeader() {
-  return document.querySelectorAll(`.zent-pop-header-${headerId}`);
-}
+// function findHeader() {
+//   return document.querySelectorAll(`.zent-pop-header-${headerId}`);
+// }
 
 const content = () => {
   contentId++;
