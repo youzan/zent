@@ -6,15 +6,16 @@
   "scripts": {
     "test": "./scripts/run-tests.sh",
     "lint": "eslint packages/*/src packages/*/__tests__",
-    "eslint-fix": "yarn lint -- --fix",
     "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
     "bootstrap": "lerna clean --yes && lerna bootstrap",
+    "pp": "prettier --single-quote --write",
+    "prettify": "yarn pp -- \"packages/*/{src,__tests__}/**/*.js\"",
     "precommit": "lint-staged",
-    "prettify": "prettier --single-quote --write"
+    "prepush": "yarn test -- --bail"
   },
   "lint-staged": {
     "packages/**/*.js": [
-      "prettify",
+      "pp",
       "eslint",
       "git add"
     ]
@@ -39,7 +40,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-lean-imports": "^0.3.3",
-    "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.10.3",
     "husky": "^0.13.3",
     "lerna": "2.0.0-beta.38",

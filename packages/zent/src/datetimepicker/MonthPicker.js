@@ -22,7 +22,7 @@ function extractStateFromProps(props) {
       showPlaceholder = false;
       selected = actived = tmp;
     } else {
-      console.warn('date and format don\'t match.'); // eslint-disable-line
+      console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
       selected = actived = new Date();
     }
@@ -56,7 +56,7 @@ class MonthPicker extends Component {
     onClick: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     prefix: 'zent',
@@ -65,7 +65,7 @@ class MonthPicker extends Component {
     confirmText: '确认',
     format: 'YYYY-MM',
     onChange: noop
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -83,15 +83,15 @@ class MonthPicker extends Component {
         openPanel: false
       });
     }
-  }
+  };
 
-  onChangeMonth = (val) => {
+  onChangeMonth = val => {
     this.setState({
       actived: val
     });
-  }
+  };
 
-  onSelectMonth = (val) => {
+  onSelectMonth = val => {
     const { onClick } = this.props;
     this.setState({
       selected: val,
@@ -99,19 +99,19 @@ class MonthPicker extends Component {
     });
 
     onClick && onClick(val);
-  }
+  };
 
   onClickInput = () => {
     if (this.props.disabled) return;
     this.setState({
       openPanel: !this.state.openPanel
     });
-  }
+  };
 
-  onClearInput = (evt) => {
+  onClearInput = evt => {
     evt.stopPropagation();
     this.props.onChange('');
-  }
+  };
 
   onConfirm = () => {
     const { format } = this.props;
@@ -124,7 +124,7 @@ class MonthPicker extends Component {
       showPlaceholder: false
     });
     this.props.onChange(value);
-  }
+  };
 
   renderPicker() {
     const state = this.state;
@@ -133,7 +133,7 @@ class MonthPicker extends Component {
     let monthPicker;
     if (state.openPanel) {
       monthPicker = (
-        <div className="month-picker" ref={ref => this.picker = ref}>
+        <div className="month-picker" ref={ref => (this.picker = ref)}>
           <MonthPanel
             actived={state.actived}
             selected={state.selected}
@@ -162,7 +162,7 @@ class MonthPicker extends Component {
     this.setState({
       openPanel: !this.state.openPanel
     });
-  }
+  };
 
   render() {
     const state = this.state;
@@ -192,7 +192,10 @@ class MonthPicker extends Component {
               />
 
               <span className="zenticon zenticon-calendar-o" />
-              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle" />
+              <span
+                onClick={this.onClearInput}
+                className="zenticon zenticon-close-circle"
+              />
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>

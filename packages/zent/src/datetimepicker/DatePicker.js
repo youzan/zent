@@ -25,7 +25,7 @@ function extractStateFromProps(props) {
       showPlaceholder = false;
       actived = selected = tmp;
     } else {
-      console.warn('date and format don\'t match.'); // eslint-disable-line
+      console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
       actived = new Date();
     }
@@ -77,20 +77,14 @@ class DatePicker extends Component {
     // onChange 返回值类型, date | number | string， 默认 string
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
-    min: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date)
-    ]),
-    max: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date)
-    ]),
+    min: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    max: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
     onClick: PropTypes.func,
     onOpen: PropTypes.func,
     onClose: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     prefix: 'zent',
@@ -102,7 +96,7 @@ class DatePicker extends Component {
     max: '',
     disabledDate: noop,
     onChange: noop
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -125,13 +119,13 @@ class DatePicker extends Component {
     }
   }
 
-  onChangeDate = (val) => {
+  onChangeDate = val => {
     this.setState({
       actived: val
     });
-  }
+  };
 
-  onSelectDate = (val) => {
+  onSelectDate = val => {
     const { onClick } = this.props;
     if (this.isDisabled(val)) return;
 
@@ -140,7 +134,7 @@ class DatePicker extends Component {
       selected: val
     });
     onClick && onClick(val);
-  }
+  };
 
   onChangeTime = (val, type) => {
     const fn = timeFnMap[type];
@@ -150,9 +144,9 @@ class DatePicker extends Component {
     this.setState({
       activedTime: tmp
     });
-  }
+  };
 
-  onChangeMonth = (type) => {
+  onChangeMonth = type => {
     const typeMap = {
       prev: -1,
       next: 1
@@ -166,7 +160,7 @@ class DatePicker extends Component {
         actived: acp
       });
     };
-  }
+  };
 
   onClickInput = () => {
     if (this.props.disabled) return;
@@ -174,12 +168,12 @@ class DatePicker extends Component {
     this.setState({
       openPanel: !this.state.openPanel
     });
-  }
+  };
 
-  onClearInput = (evt) => {
+  onClearInput = evt => {
     evt.stopPropagation();
     this.props.onChange('');
-  }
+  };
 
   /**
    * 如果传入为数字，返回值也为数字
@@ -227,9 +221,9 @@ class DatePicker extends Component {
 
     const ret = this.getReturnValue(tmp, format);
     this.props.onChange(ret);
-  }
+  };
 
-  isDisabled = (val) => {
+  isDisabled = val => {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
@@ -237,7 +231,7 @@ class DatePicker extends Component {
     if (max && val > parseDate(max, format)) return true;
 
     return false;
-  }
+  };
 
   renderPicker() {
     const state = this.state;
@@ -246,7 +240,8 @@ class DatePicker extends Component {
     let datePicker;
 
     if (props.showTime) {
-      showTime = Object.assign({},
+      showTime = Object.assign(
+        {},
         {
           actived: state.activedTime,
           disabledTime: noop
@@ -267,7 +262,7 @@ class DatePicker extends Component {
       });
 
       datePicker = (
-        <div className="date-picker" ref={ref => this.picker = ref}>
+        <div className="date-picker" ref={ref => (this.picker = ref)}>
           <DatePanel
             showTime={showTime}
             actived={state.actived}
@@ -301,7 +296,7 @@ class DatePicker extends Component {
     this.setState({
       openPanel
     });
-  }
+  };
 
   render() {
     const state = this.state;
@@ -314,7 +309,7 @@ class DatePicker extends Component {
     });
 
     return (
-      <div className={wrapperCls} >
+      <div className={wrapperCls}>
         <Popover
           cushion={5}
           visible={state.openPanel}
@@ -331,7 +326,10 @@ class DatePicker extends Component {
               />
 
               <span className="zenticon zenticon-calendar-o" />
-              <span onClick={this.onClearInput} className="zenticon zenticon-close-circle" />
+              <span
+                onClick={this.onClearInput}
+                className="zenticon zenticon-close-circle"
+              />
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>
