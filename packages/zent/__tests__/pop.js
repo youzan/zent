@@ -1,11 +1,24 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { Simulate } from 'react-dom/test-utils';
 import Pop from 'pop';
 import Button from 'button';
 
+let contentId = 1;
+let headerId = 2;
+
+function findContent() {
+  return document.querySelectorAll(`.zent-pop-content-${contentId}`);
+}
+
+function findHeader() {
+  return document.querySelectorAll(`.zent-pop-header-${headerId}`);
+}
+
 const content = () => {
+  contentId++;
   return (
-    <div className="zent-pop-content">
+    <div className={`zent-pop-content-${contentId}`}>
       <a>我在测试</a>
       <div>
         <input />
@@ -14,17 +27,20 @@ const content = () => {
   );
 };
 
-const header = () => (
-  <div className="zent-pop-header">
-    <span />
-  </div>
-);
+const header = () => {
+  headerId++;
+  return (
+    <div className={`zent-pop-header-${headerId}`}>
+      <span />
+    </div>
+  );
+};
 
 const addClick = jest.fn();
 
 describe('Pop', () => {
   it('Regular Pop has 3 kind of trigger', () => {
-    ['click', 'hover', 'focus'].map(trigger => {
+    ['click', 'hover', 'focus'].forEach(trigger => {
       const wrapper = mount(
         <Pop content={content()} trigger={trigger} position="bottom-center">
           {trigger !== 'focus'
@@ -36,7 +52,6 @@ describe('Pop', () => {
       );
       expect(wrapper.find('Portal').length).toBe(0);
       expect(wrapper.find('Popover').prop('display')).toBe('inline-block');
-      return null;
     });
   });
 
@@ -50,17 +65,6 @@ describe('Pop', () => {
         </Pop>
       );
     }).not.toThrow();
-
-    // HACK: React.Prototypes.oneOf() console.error
-    // expect(() => {
-    //   mount(
-    //     <Pop content={content()} trigger={'click'} position="1-2">
-    //       <Button onClick={addClick}>
-    //         click
-    //       </Button>
-    //     </Pop>
-    //   );
-    // }).not.toThrow();
   });
 
   it('Pop can have custom prefix, className, and block switch, meanwhile content and header pass through prop', () => {
@@ -85,7 +89,6 @@ describe('Pop', () => {
 
     wrapper.find('button').simulate('click');
     expect(document.querySelector('.foo-pop.quux')).toBeTruthy();
-    // wrapper.unmount();
   });
 
   it('Pop has its core function, powered by zent-popover, the content of popover has onConfirm and onCancel switches', () => {
@@ -105,15 +108,16 @@ describe('Pop', () => {
     );
     wrapper.find('button').simulate('click');
     expect(document.querySelectorAll('.bar11').length).toBe(1);
+
     const confirmMock = jest.fn();
     const cancelMock = jest.fn();
     wrapper = mount(
       <Pop
         trigger={'click'}
         block
-        header={header()}
         onConfirm={confirmMock}
         onCancel={cancelMock}
+        content={content()}
       >
         <Button>
           click
@@ -121,19 +125,37 @@ describe('Pop', () => {
       </Pop>
     );
     wrapper.find('button').simulate('click');
-    let btn = document.querySelectorAll('button');
+    expect(findContent().length).toBe(1);
+    let btn = document.querySelectorAll('.zent-pop-buttons button');
     expect(btn.length).toBe(2);
     expect(btn[0].textContent).toBe('确定');
     expect(btn[1].textContent).toBe('取消');
-    btn[0].click();
-    expect(wrapper.find('Portal').length).toBe(0);
+    Simulate.click(btn[0]);
+    jest.runAllTimers();
     expect(confirmMock.mock.calls.length).toBe(1);
+    expect(findContent().length).toBe(0);
 
+    wrapper = mount(
+      <Pop
+        trigger={'click'}
+        block
+        onConfirm={confirmMock}
+        onCancel={cancelMock}
+        content={content()}
+      >
+        <Button>
+          click
+        </Button>
+      </Pop>
+    );
     wrapper.find('button').simulate('click');
-    expect(wrapper.find('Portal').length).toBe(1);
-    btn[1].click();
-    expect(wrapper.find('Portal').length).toBe(0);
+    expect(findContent().length).toBe(1);
+    btn = document.querySelectorAll('.zent-pop-buttons button');
+    expect(btn.length).toBe(2);
+    Simulate.click(btn[1]);
+    jest.runAllTimers();
     expect(cancelMock.mock.calls.length).toBe(1);
+    expect(findContent().length).toBe(0);
   });
 
   it('Pop with NoneTrigger', () => {
@@ -163,7 +185,8 @@ describe('Pop', () => {
     wrapper.find('button').simulate('click');
     expect(wrapper.find('Portal').length).toBe(1);
     expect(document.querySelectorAll('.zent-pop-inner-button').length).toBe(1);
-    document.querySelectorAll('.zent-pop-inner-button')[0].click();
+    Simulate.click(document.querySelector('.zent-pop-inner-button'));
+    jest.runAllTimers();
     expect(wrapper.find('Portal').length).toBe(0);
 
     // HACK: initial with truthy visible;
@@ -182,6 +205,9 @@ describe('Pop', () => {
         <Button onClick={open}>打开(none)</Button>
       </Pop>
     );
+    wrapper.setProps({
+      visible: false
+    });
   });
 
   it('always center arrow at center', () => {
@@ -200,11 +226,10 @@ describe('Pop', () => {
       );
       wrapper.find('button').simulate('click');
       jest.runAllTimers();
-      expect(document.querySelectorAll('.zent-pop-content').length).toBe(1);
+      expect(findContent().length).toBe(1);
       expect(
         document.querySelector(`.zent-popover-position-${position}`)
       ).toBeTruthy();
-      wrapper.unmount();
     };
 
     [
@@ -254,7 +279,7 @@ describe('Pop', () => {
     });
     jest.runAllTimers();
 
-    document.querySelector('.zent-btn-primary').nextSibling.click();
+    Simulate.click(document.querySelector('.zent-btn-primary').nextSibling);
     jest.runAllTimers();
     expect(b).toBe(2);
   });
