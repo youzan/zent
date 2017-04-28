@@ -22,14 +22,6 @@ export default class Range extends Component {
     const { clientWidth } = this.state;
     return (
       <div className={`${restProps.prefix}-slider-main`}>
-        {dots && <Dots marks={marks} {...restProps} value={value} />}
-        <Point
-          dots={dots}
-          marks={marks}
-          clientWidth={clientWidth}
-          {...restProps}
-          value={value}
-        />
         <Container
           clientWidth={clientWidth}
           dots={dots}
@@ -38,6 +30,14 @@ export default class Range extends Component {
         >
           <Track clientWidth={clientWidth} {...restProps} value={value} />
         </Container>
+        {dots && <Dots marks={marks} {...restProps} value={value} />}
+        <Point
+          dots={dots}
+          marks={marks}
+          clientWidth={clientWidth}
+          {...restProps}
+          value={value}
+        />
         {marks && <Marks marks={marks} {...restProps} />}
       </div>
     );

@@ -4,7 +4,7 @@ export const getValue = (value, max, min) => {
 
 export const toFixed = (value, step) => {
   const fixed = String(step).split('.')[1] || 0;
-  return Number(value).toFixed(fixed);
+  return Number(Number(value).toFixed(fixed));
 };
 
 export const getLeft = (value, max, min) => {

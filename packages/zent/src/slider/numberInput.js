@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Input from 'input';
-import isNaN from 'lodash/isNaN';
+import { toFixed } from './common';
 
 export default class NumberInput extends Component {
   constructor(props) {
@@ -24,15 +24,20 @@ export default class NumberInput extends Component {
     const { onChange, max, min, step } = this.props;
     let newValue = e.target.value;
     this.setState({ value: newValue });
-    if (newValue !== '' && !isNaN(Number(newValue))) {
-      newValue = Math.round(newValue / step) * step;
+    if (/^(\-)?\d+(\.\d+)?$/.test(newValue)) {
+      newValue = (newValue / step) * step;
+      newValue = toFixed(newValue, step);
       onChange && newValue >= min && newValue <= max && onChange(newValue);
     }
   };
 
   handleBlur = e => {
     let newValue = e.target.value;
-    const { onChange, max, min } = this.props;
+    const { onChange, max, min, value } = this.props;
+    if (!/^(\-)?\d+(\.\d+)?$/.test(newValue)) {
+      newValue = value;
+    }
+    newValue = Number(newValue);
     if (newValue > max) {
       newValue = max;
     } else if (newValue < min) {
