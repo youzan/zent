@@ -14,9 +14,7 @@ jobs:
           name: Install Dependencies
           command: |
             yarn install
-            yarn run bootstrap
       - run:
           name: NPM Test
           command: |
-            yarn lint
-            yarn test
+            yarn bootstrap && yarn lint && yarn test
