@@ -7,7 +7,7 @@
     "test": "./scripts/run-tests.sh",
     "lint": "eslint packages/*/src packages/*/__tests__",
     "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
-    "bootstrap": "lerna clean --yes && lerna bootstrap",
+    "bootstrap": "./scripts/bootstrap.sh",
     "pp": "prettier --single-quote --write",
     "prettify": "yarn pp -- \"packages/*/{src,__tests__}/**/*.js\"",
     "precommit": "lint-staged",

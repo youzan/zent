@@ -2,7 +2,9 @@ import Alert from 'alert';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Checkbox from 'checkbox';
-import DTPicker from 'datetimepicker';
+import DatePicker from 'datetimepicker/DatePicker';
+import MonthPicker from 'datetimepicker/MonthPicker';
+import DateRangePicker from 'datetimepicker/DateRangePicker';
 import Dialog from 'dialog';
 import Form from 'form';
 import Layout from 'layout';
@@ -24,8 +26,6 @@ import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
 import Tree from 'tree';
-
-const { MonthPicker, DatePicker, DateRangePicker } = DTPicker;
 
 const Zent = {
   Alert,
