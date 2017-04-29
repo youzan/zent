@@ -17,4 +17,6 @@ jobs:
       - run:
           name: NPM Test
           command: |
-            yarn bootstrap && yarn lint && yarn test
+            yarn bootstrap
+            yarn lint
+            yarn test
