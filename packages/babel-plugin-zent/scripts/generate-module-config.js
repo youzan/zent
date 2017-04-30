@@ -20,17 +20,33 @@ function main() {
     cssConfig
   );
   const jsMapping = generateModuleJSMapping();
+  const mapping = mergeJSAndCSS(jsMapping, cssMapping);
 
-  writeJSONToFile(
-    {
-      js: jsMapping,
-      css: cssMapping
-    },
-    '../lib/module-mapping.json'
-  );
+  writeJSONToFile(mapping, '../lib/module-mapping.json');
 }
 
 main();
+
+function mergeJSAndCSS(js, css) {
+  const jsKeys = Object.keys(js);
+  const cssKeys = Object.keys(css);
+  const jsToCSSKeyMapping = jsKeys.reduce((mapping, jsKey) => {
+    const jsModule = js[jsKey];
+    const jsModuleParts = jsModule.split('/');
+    const cssKey = cssKeys.find(k => jsModuleParts.indexOf(k) !== -1);
+
+    mapping[jsKey] = cssKey;
+    return mapping;
+  }, {});
+
+  return jsKeys.reduce((config, component) => {
+    config[component] = {
+      js: js[component],
+      css: css[jsToCSSKeyMapping[component]]
+    };
+    return config;
+  }, {});
+}
 
 function generateModuleJSMapping() {
   const zentIndex = readFileFromZent('src/index.js');
