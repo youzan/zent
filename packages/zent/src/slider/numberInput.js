@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Input from 'input';
 import { toFixed } from './common';
 
+const regex = /^(\-)?\d+(\.\d+)?$/;
+
 export default class NumberInput extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +11,7 @@ export default class NumberInput extends Component {
       value: props.value
     };
   }
+
   static defaultProps = {
     min: -Infinity,
     max: Infinity,
@@ -24,7 +27,7 @@ export default class NumberInput extends Component {
     const { onChange, max, min, step } = this.props;
     let newValue = e.target.value;
     this.setState({ value: newValue });
-    if (/^(\-)?\d+(\.\d+)?$/.test(newValue)) {
+    if (regex.test(newValue)) {
       newValue = (newValue / step) * step;
       newValue = toFixed(newValue, step);
       onChange && newValue >= min && newValue <= max && onChange(newValue);
@@ -34,7 +37,7 @@ export default class NumberInput extends Component {
   handleBlur = e => {
     let newValue = e.target.value;
     const { onChange, max, min, value } = this.props;
-    if (!/^(\-)?\d+(\.\d+)?$/.test(newValue)) {
+    if (!regex.test(newValue)) {
       newValue = value;
     }
     newValue = Number(newValue);
