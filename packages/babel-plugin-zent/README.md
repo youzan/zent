@@ -30,6 +30,7 @@ module.exports = {
 	},
 	plugins: [
 		new ZentPlugin({
+			moduleMappingFile: require.resolve('zent/lib/module-mapping.json'),
 			automaticStyleImport: true
 		})
 	]
@@ -43,9 +44,12 @@ In your component Javascript files, use zent like this: `import { Button, Dialog
 ```js
 // defaults
 {
+	moduleMappingFile: '',
 	automaticStyleImport: false
 }
 ```
+
+`moduleMapppingFile`: absolute path of module mapping config for zent. Use `require.resolve('zent/lib/module-mapping.json')` to get the path in your webpack config.
 
 If `automaticStyleImport` is `true`, import styles for component.
 

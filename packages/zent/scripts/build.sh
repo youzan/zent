@@ -29,3 +29,6 @@ check_result
 echo 'Minify umd bundle...'
 uglifyjs lib/zent-umd.js --compress warnings=false --mangle --output lib/zent-umd.min.js
 check_result
+
+echo 'Generate component mapping...'
+node ./scripts/generate-module-config.js

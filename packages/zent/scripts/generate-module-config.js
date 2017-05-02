@@ -79,7 +79,7 @@ function generateModuleCSSMapping(graph, cssConfig) {
 }
 
 function generateCSSConfig() {
-  const styleDir = path.join(__dirname, '../../zent/assets');
+  const styleDir = path.join(__dirname, '../assets');
 
   return fs
     .readdirSync(styleDir)
@@ -97,7 +97,7 @@ function generateCSSConfig() {
 }
 
 function findComponentDependencies(component, components) {
-  const cwd = path.join(__dirname, '../../zent/src', component);
+  const cwd = path.join(__dirname, '../src', component);
   const globPattern = `**/*.js`;
 
   return uniq(
@@ -136,7 +136,7 @@ function findComponentDependencies(component, components) {
 }
 
 function generateComponentDependencyGraph() {
-  const componentDir = path.join(__dirname, '../../zent/src');
+  const componentDir = path.join(__dirname, '../src');
   const components = fs
     .readdirSync(componentDir)
     .filter(p => fs.statSync(path.join(componentDir, p)).isDirectory());
@@ -164,7 +164,7 @@ function expandDenpendencies(mod, graph) {
 
 // Utilities
 function readFileFromZent(file) {
-  const fullpath = path.join(__dirname, '../../zent/', file);
+  const fullpath = path.join(__dirname, '../', file);
   return fs.readFileSync(fullpath, { encoding: 'utf-8' });
 }
 
