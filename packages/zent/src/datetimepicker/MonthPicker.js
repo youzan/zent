@@ -101,13 +101,6 @@ class MonthPicker extends Component {
     onClick && onClick(val);
   };
 
-  onClickInput = () => {
-    if (this.props.disabled) return;
-    this.setState({
-      openPanel: !this.state.openPanel
-    });
-  };
-
   onClearInput = evt => {
     evt.stopPropagation();
     this.props.onChange('');
@@ -155,8 +148,10 @@ class MonthPicker extends Component {
   }
 
   togglePicker = () => {
-    const { onOpen, onClose } = this.props;
+    const { onOpen, onClose, disabled } = this.props;
     const openPanel = !this.state.openPanel;
+
+    if (disabled) return;
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
@@ -183,8 +178,8 @@ class MonthPicker extends Component {
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
           position={Popover.Position.AutoBottomLeft}
         >
-          <Popover.Trigger.Base>
-            <div className={inputCls} onClick={this.onClickInput}>
+          <Popover.Trigger.Click>
+            <div className={inputCls}>
               <Input
                 value={state.showPlaceholder ? props.placeholder : state.value}
                 onChange={noop}
@@ -197,7 +192,7 @@ class MonthPicker extends Component {
                 className="zenticon zenticon-close-circle"
               />
             </div>
-          </Popover.Trigger.Base>
+          </Popover.Trigger.Click>
           <Popover.Content>
             {this.renderPicker()}
           </Popover.Content>
