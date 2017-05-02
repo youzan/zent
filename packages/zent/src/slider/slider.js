@@ -80,7 +80,7 @@ export default class Slider extends Component {
   onChange = value => {
     const { range, onChange } = this.props;
     value = range
-      ? value.sort((a, b) => a - b).map(v => Number(v))
+      ? value.map(v => Number(v)).sort((a, b) => a - b)
       : Number(value);
     onChange && onChange(value);
   };
