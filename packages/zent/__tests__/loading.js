@@ -11,16 +11,26 @@ beforeAll(() => {
     HTMLElement.prototype.offsetLeft = 100;
     HTMLElement.prototype.offsetTop = 100;
     HTMLElement.prototype.offsetParent = null;
-  } catch(e) {}
+  } catch (e) {}
 });
 /* eslint-enable */
 
 describe('Loading', () => {
   it('Hack of global model', () => {
-    const wrapper = mount(<div>
-      <button onClick={() => { Loading.on() }} />
-      <button onClick={() => { Loading.off() }} />
-    </div>);
+    const wrapper = mount(
+      <div>
+        <button
+          onClick={() => {
+            Loading.on();
+          }}
+        />
+        <button
+          onClick={() => {
+            Loading.off();
+          }}
+        />
+      </div>
+    );
     wrapper.find('button').at(0).simulate('click');
     wrapper.find('button').at(1).simulate('click');
   });
@@ -36,9 +46,11 @@ describe('Loading', () => {
   });
 
   it('Loading has dynamic model(static = false).', () => {
-    const wrapper = mount(<Loading show={false} static={false}>
-      <span className="foo" />
-    </Loading>);
+    const wrapper = mount(
+      <Loading show={false} static={false}>
+        <span className="foo" />
+      </Loading>
+    );
 
     // NOTE: loading loaded at root tail of body, so it's hard to test.
     // BUG: LoadingInstance.js line 87 confusing nested if

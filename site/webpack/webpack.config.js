@@ -18,6 +18,7 @@ function createAlias() {
     }, {});
 }
 
+// NOTE: .babelrc inside packages/zent will affect the behavior of babel loader
 var babelLoader = {
   loader: 'babel-loader',
   options: {

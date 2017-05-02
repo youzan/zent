@@ -3,16 +3,23 @@
   "plugins": [
     "transform-es3-member-expression-literals",
     "transform-es3-property-literals",
-    "transform-remove-console",
-    "transform-remove-debugger",
     ["transform-runtime", {
       "polyfill": false
     }]
   ],
 
   "env": {
+    "production": {
+      "plugins": [
+        "transform-remove-console",
+        "transform-remove-debugger"
+      ]
+    },
+
     "transpile": {
       "plugins": [
+        "transform-remove-console",
+        "transform-remove-debugger",
         "./scripts/babel/babel-plugin-resolve-zent-module"
       ]
     }

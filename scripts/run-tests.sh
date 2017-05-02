@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd packages/zent && yarn test
+cd packages/zent && yarn test -- "$@"

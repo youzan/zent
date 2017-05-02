@@ -7,8 +7,7 @@
   ],
   "parser": "babel-eslint",
   "plugins": [
-    "lean-imports",
-    "prettier"
+    "lean-imports"
   ],
   "rules": {
     "one-var": 0,
@@ -49,6 +48,7 @@
     "no-plusplus": 0,
     "no-multi-assign": 0,
     "no-useless-escape": 0,
+    "no-use-before-define": [2, { "functions": false, "classes": false, "variables": true }],
     "no-prototype-builtins": 0,
     "camelcase": [
       1,
@@ -68,9 +68,6 @@
     "import/no-extraneous-dependencies": 0,
     "import/extensions": 0,
     "import/prefer-default-export": 0,
-    "prettier/prettier": ["error", {
-      "singleQuote": true
-    }],
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/label-has-for": 0
   }
