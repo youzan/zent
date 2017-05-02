@@ -3,8 +3,9 @@ export const getValue = (value, max, min) => {
 };
 
 export const toFixed = (value, step) => {
-  const fixed = String(step).split('.')[1].length || 0;
-  return Number(Number(value).toFixed(fixed));
+  const fixed = String(step).split('.')[1];
+  const length = fixed ? fixed.length : 0;
+  return Number(Number(value).toFixed(length));
 };
 
 export const getLeft = (value, max, min) => {
