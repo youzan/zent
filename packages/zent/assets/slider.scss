@@ -40,7 +40,6 @@
         border-radius: 50%;
         border: 2px solid #88c7f4;
         background-color: #fff;
-        z-index: 2;
         transition: border-color .3s ease,transform .3s cubic-bezier(.18,.89,.32,1.28);
         &:hover{
             border-color: #49a9ee;
@@ -66,13 +65,13 @@
     &-points{
         position: absolute;
         width: 100%;
-        top: -22px;
+        height: 14px;
+        margin-top: -5px;
         user-select: none;
     }
     &-toolTips {
-        top: 2px;
         display: inline-block;
-        position: relative;
+        position: absolute;
         .toolTips-content-hide{
             visibility: hidden;
         }
@@ -144,7 +143,6 @@
             display: inline-block;
             width: 6px;
             margin-top: -2px;
-            z-index: 1;
             transform: translateX(-50%);
             background-color: #fff;
             height: 6px;
