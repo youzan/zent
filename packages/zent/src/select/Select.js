@@ -178,6 +178,7 @@ class Select extends Component {
   // 将被选中的option的数据传给trigger
   optionChangedHandler(ev, selectedItem) {
     let result = {};
+    let target = ev.target;
     const {
       onEmptySelected,
       optionValue,
@@ -193,13 +194,17 @@ class Select extends Component {
     let args = omit(selectedItem, ['cid']);
     result[optionValue] = selectedItem.value;
     result[optionText] = selectedItem.text;
+    target.type = tags ? 'select-multiple' : 'select-one';
+    target.value = selectedItem.value;
     let data = { ...args, ...result };
     if (tags) {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
       }
     }
-    onChange(ev, data);
+    onChange({
+      target
+    }, data);
     this.setState({
       keyword: null,
       selectedItems,
