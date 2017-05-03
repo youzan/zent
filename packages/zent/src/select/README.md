@@ -123,7 +123,6 @@ const data = [
 ];
 
 function showOption(ev, data) {
-  console.log(ev);
   Dialog.openDialog({
     children: `你选择了${data.name}, 值是${data.id}`
   });

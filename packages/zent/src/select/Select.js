@@ -178,7 +178,10 @@ class Select extends Component {
   // 将被选中的option的数据传给trigger
   optionChangedHandler(ev, selectedItem) {
     let result = {};
-    let target = ev.target;
+    ev = ev || {
+      preventDefault: noop,
+      stopPropagation: noop
+    }
     const {
       onEmptySelected,
       optionValue,
@@ -194,8 +197,6 @@ class Select extends Component {
     let args = omit(selectedItem, ['cid']);
     result[optionValue] = selectedItem.value;
     result[optionText] = selectedItem.text;
-    target.type = tags ? 'select-multiple' : 'select-one';
-    target.value = selectedItem.value;
     let data = { ...args, ...result };
     if (tags) {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
@@ -203,7 +204,13 @@ class Select extends Component {
       }
     }
     onChange({
-      target
+      target: {
+        ...this.props,
+        type: tags ? 'select-multiple' : 'select-one',
+        value: selectedItem.value
+      },
+      preventDefault: ev.preventDefault,
+      stopPropagation: ev.stopPropagation
     }, data);
     this.setState({
       keyword: null,
