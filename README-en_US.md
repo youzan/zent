@@ -41,25 +41,11 @@ import 'zent/assets/index.scss';
 import 'zent/lib/index.css';
 ```
 
-## Use components independently
-
-`Zent` also supports using components independently if you only need to use a few of them. It may reduce your bundle size.
-
-Taking `Button` component as an example:
-
-```js
-// import Button alone
-import Button from 'zent/button';
-
-// import style of Button
-import 'zent/button/lib/index.css';
-```
-
 ## Contribution
 
-Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https://github.com/youzan/zent/pulls) with your ideas.
-
 Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Zent.
+
+Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https://github.com/youzan/zent/pulls) with your ideas.
 
 ## License
 
