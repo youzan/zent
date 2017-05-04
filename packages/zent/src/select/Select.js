@@ -181,7 +181,7 @@ class Select extends Component {
     ev = ev || {
       preventDefault: noop,
       stopPropagation: noop
-    }
+    };
     const {
       onEmptySelected,
       optionValue,
@@ -203,21 +203,24 @@ class Select extends Component {
         selectedItems.push(selectedItem);
       }
     }
-    onChange({
-      target: {
-        ...this.props,
-        type: tags ? 'select-multiple' : 'select-one',
-        value: selectedItem.value
-      },
+    onChange(
+      {
+        target: {
+          ...this.props,
+          type: tags ? 'select-multiple' : 'select-one',
+          value: selectedItem.value
+        },
 
-      preventDefault() {
-        ev.preventDefault();
-      },
+        preventDefault() {
+          ev.preventDefault();
+        },
 
-      stopPropagation() {
-        ev.stopPropagation();
-      }
-    }, data);
+        stopPropagation() {
+          ev.stopPropagation();
+        }
+      },
+      data
+    );
     this.setState({
       keyword: null,
       selectedItems,
