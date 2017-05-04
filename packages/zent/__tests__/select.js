@@ -143,7 +143,7 @@ describe('<Select />', () => {
   });
 
   it('Popup 按键事件测试', () => {
-    const onChangeMock = jest.fn().mockImplementation((evt) => {
+    const onChangeMock = jest.fn().mockImplementation(evt => {
       evt.preventDefault();
       evt.stopPropagation();
     });
