@@ -156,7 +156,7 @@ export default class Table extends Component {
         if (item[self.props.rowKey] === key) {
           currentRow = item;
         }
-      })
+      });
     }
 
     return currentRow;
