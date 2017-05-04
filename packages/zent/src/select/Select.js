@@ -209,8 +209,14 @@ class Select extends Component {
         type: tags ? 'select-multiple' : 'select-one',
         value: selectedItem.value
       },
-      preventDefault: ev.preventDefault,
-      stopPropagation: ev.stopPropagation
+
+      preventDefault() {
+        evt.preventDefault();
+      },
+
+      stopPropagation() {
+        evt.stopPropagation();
+      }
     }, data);
     this.setState({
       keyword: null,
