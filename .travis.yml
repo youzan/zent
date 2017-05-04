@@ -11,10 +11,7 @@ branches:
   - master
 install:
 - |
-    yarn install
-    yarn run bootstrap
+  yarn install && yarn run bootstrap
 script:
 - |
-    ./scripts/check-git-hooks.sh
-    yarn lint
-    yarn test
+  ./scripts/check-git-hooks.sh && yarn lint && yarn test
