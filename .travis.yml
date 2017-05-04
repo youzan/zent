@@ -15,5 +15,6 @@ install:
     yarn run bootstrap
 script:
 - |
+    ./scripts/check-git-hooks.sh
     yarn lint
     yarn test
