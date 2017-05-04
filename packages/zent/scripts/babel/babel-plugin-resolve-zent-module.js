@@ -14,7 +14,9 @@ module.exports = function ResolveZentModulePlugin() {
 
   function resolveToRelativePath(source, filename) {
     var filedir = path.dirname(filename);
-    var pkgIndex = packages.findIndex(p => p === source || source.startsWith(p + '/'));
+    var pkgIndex = packages.findIndex(
+      p => p === source || source.startsWith(p + '/')
+    );
 
     if (pkgIndex !== -1) {
       var pkg = packages[pkgIndex];
@@ -23,6 +25,11 @@ module.exports = function ResolveZentModulePlugin() {
 
       if (pkg !== source) {
         relativeLocation = path.join(relativeLocation, trimStart(source, pkg));
+      }
+
+      // ensure the output is a relative path
+      if (relativeLocation === source) {
+        relativeLocation = `./${relativeLocation}`;
       }
 
       console.log(colors.gray(`Resolved: ${source} => ${relativeLocation}`));
