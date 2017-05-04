@@ -1,9 +1,4 @@
-const t = require('babel-types');
-
-const chalk = require('chalk');
-
 const moduleName = 'zent';
-
 let moduleMapping = {};
 
 function replaceRules(name) {
@@ -29,7 +24,7 @@ function capitalizeFirstLetter(string) {
 // "Error: namespace import is not allowed for zent, specify the components you need." + "\n" +
 // "Error: zent-button is no longer maintained, use `import { Button } from 'zent'` instead." + "\n" +
 // "Error: zent/button is no longer supported, use `import { Button } from 'zent'` instead." + "\n" +
-function log(value) {
+function log(value, path) {
   const reg1 = /^zent$/gi;
   const reg2 = /zent-/gi;
   const reg3 = /^zent\/(?!lib\/)/gi;
@@ -38,62 +33,38 @@ function log(value) {
 
   // Error
   if (reg1.test(value)) {
-    throw new Error(
-      chalk.yellow(
-        `\n
-        ===================================================
-        Error: namespace import is not allowed for zent, specify the components you need.
-        ===================================================`
-      )
+    throw path.buildCodeFrameError(
+      `\nError: namespace import is not allowed for zent, specify the components you need.\n`
     );
   } else if (reg2.test(value)) {
     let idx = value.indexOf('-');
     let name = value.substr(idx + 1);
     let newName = capitalizeFirstLetter(name);
-    throw new Error(
-      chalk.yellow(
-        `\n
-        =========================================
-        Error: ${value} is no longer maintained, use " import { ${newName} } from 'zent' " instead.
-        =========================================`
-      )
+    throw path.buildCodeFrameError(
+      `\nError: ${value} is no longer maintained, use " import { ${newName} } from 'zent' " instead.\n`
     );
   } else if (reg3.test(value)) {
     let idx = value.indexOf('/');
     let name = value.substr(idx + 1);
     let newName = capitalizeFirstLetter(name);
-    throw new Error(
-      chalk.yellow(
-        `\n
-      "=========================================
-      "Error: ${value} is no longer supported, use " import { ${newName} } from 'zent' " instead.
-      "=========================================`
-      )
+    throw path.buildCodeFrameError(
+      `\nError: ${value} is no longer supported, use " import { ${newName} } from 'zent' " instead.\n`
     );
   } else if (reg4.test(value)) {
-    throw new Error(
-      chalk.yellow(
-        `\n
-      "=========================================
-      "Error: require('zent') is not allowed, use ES6 import instead.
-      "=========================================`
-      )
+    throw path.buildCodeFrameError(
+      `\nError: require('zent') is not allowed, use ES6 import instead.\n`
     );
   } else if (reg5.test(value)) {
     let idx = value.indexOf('require');
     let name = value.substr(idx + 7);
-    throw new Error(
-      chalk.yellow(
-        `\n
-        "=========================================
-        "Error: require('${name}') is not allowed, use ES6 import instead.
-        "=========================================`
-      )
+    throw path.buildCodeFrameError(
+      `\nError: require('${name}') is not allowed, use ES6 import instead.\n`
     );
   }
 }
 
-module.exports = function() {
+module.exports = function(babel) {
+  const { types } = babel;
   return {
     visitor: {
       CallExpression(path) {
@@ -108,13 +79,13 @@ module.exports = function() {
         if (
           callee.name === 'require' &&
           args.length === 1 &&
-          t.isStringLiteral(args[0])
+          types.isStringLiteral(args[0])
         ) {
           const reg = /(^zent\/)/gi;
           if (args[0].value === moduleName) {
-            log(`require${args[0].value}`);
+            log(`require${args[0].value}`, path);
           } else if (reg.test(args[0].value)) {
-            log(`require${args[0].value}`);
+            log(`require${args[0].value}`, path);
           }
         }
       },
@@ -136,7 +107,7 @@ module.exports = function() {
           if (importSpecifiers.length === 0) {
             const reg = /(^zent$|^zent-|^zent\/)/gi;
             if (reg.test(source.value)) {
-              log(source.value);
+              log(source.value, path);
             }
           }
         }
@@ -148,9 +119,9 @@ module.exports = function() {
 
             if (moduleMapping.hasOwnProperty(importedName)) {
               const newImportedName = replaceRules(importedName);
-              const newImportDeclaration = t.importDeclaration(
-                [t.importDefaultSpecifier(t.identifier(importedName))],
-                t.stringLiteral(newImportedName)
+              const newImportDeclaration = types.importDeclaration(
+                [types.importDefaultSpecifier(types.identifier(importedName))],
+                types.stringLiteral(newImportedName)
               );
               newImportDeclarations.push(newImportDeclaration);
             }
