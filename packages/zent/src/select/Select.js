@@ -211,11 +211,11 @@ class Select extends Component {
       },
 
       preventDefault() {
-        evt.preventDefault();
+        ev.preventDefault();
       },
 
       stopPropagation() {
-        evt.stopPropagation();
+        ev.stopPropagation();
       }
     }, data);
     this.setState({
