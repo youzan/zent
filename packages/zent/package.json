@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "2.1.0",
+  "version": "3.0.0-beta1",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
