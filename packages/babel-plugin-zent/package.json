@@ -4,8 +4,12 @@
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --out-dir lib"
+    "build": "rm -rf lib && babel src --out-dir lib",
+    "prepublish": "yarn build"
   },
+  "files": [
+    "lib"
+  ],
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
