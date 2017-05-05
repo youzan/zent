@@ -26,20 +26,7 @@ npm install zent --save
 
 ## 使用组件
 
-```js
-import { Button } from 'zent';
-ReactDOM.render(<Button>Zent</Button>, mountNode);
-```
-
-## 引入样式
-
-```js
-// 引入scss文件
-import 'zent/assets/index.scss';
-
-// 直接使用css
-import 'zent/css/index.css';
-```
+组件库文档：[https://www.youzanyun.com/zanui/react](https://www.youzanyun.com/zanui/react)
 
 ## 贡献代码
 

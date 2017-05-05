@@ -26,20 +26,7 @@ npm install zent --save
 
 ## Usage
 
-```js
-import { Button } from 'zent';
-ReactDOM.render(<Button>Zent</Button>, somenode);
-```
-
-## Import style
-
-```js
-// import scss file
-import 'zent/assets/index.scss';
-
-// import css file directly
-import 'zent/lib/index.css';
-```
+Documentation: [https://www.youzanyun.com/zanui/react](https://www.youzanyun.com/zanui/react)
 
 ## Contribution
 
