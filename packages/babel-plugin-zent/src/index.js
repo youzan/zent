@@ -1,5 +1,12 @@
+import isEmpty from 'lodash/isEmpty';
+import flatten from 'lodash/flatten';
+import uniq from 'lodash/uniq';
+import sortBy from 'lodash/sortBy';
+import sortedIndexOf from 'lodash/sortedIndexOf';
+
 const moduleName = 'zent';
 let moduleMapping = {};
+let requireWhitelist = [];
 
 function replaceRules(name) {
   if (moduleMapping.hasOwnProperty(name)) {
@@ -8,58 +15,72 @@ function replaceRules(name) {
   return name;
 }
 
-function isEmpty(obj) {
-  if (Object.keys(obj).length === 0) {
-    return true;
-  }
-  return false;
+function initModuleMapping(options) {
+  const moduleMappingFile =
+    options.moduleMappingFile || 'zent/lib/module-mapping.json';
+
+  // eslint-disable-next-line
+  moduleMapping = require(moduleMappingFile);
+  requireWhitelist = sortBy(
+    uniq(
+      flatten(
+        Object.keys(moduleMapping).map(k => {
+          const v = moduleMapping[k];
+          return [].concat(v.js, v.css);
+        })
+      )
+    )
+  );
+}
+
+function isRequireInWhitelist(path) {
+  return sortedIndexOf(requireWhitelist, path) !== -1;
 }
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// import below is not allowed
 // "Error: require('zent') is not allowed, use ES6 import instead." + "\n" +
 // "Error: namespace import is not allowed for zent, specify the components you need." + "\n" +
 // "Error: zent-button is no longer maintained, use `import { Button } from 'zent'` instead." + "\n" +
 // "Error: zent/button is no longer supported, use `import { Button } from 'zent'` instead." + "\n" +
-function log(value, path) {
-  const reg1 = /^zent$/gi;
-  const reg2 = /zent-/gi;
-  const reg3 = /^zent\/(?!lib\/)/gi;
-  const reg4 = /^requirezent$/gi;
-  const reg5 = /^requirezent\/(?!lib\/)/gi;
+function log(value, path, isRequire) {
+  const regexpZent = /^zent$/gi;
+  const regexpSubPackage = /zent-/gi;
+  const regexpSubDir = /^zent\/(?!lib\/)/gi;
 
-  // Error
-  if (reg1.test(value)) {
-    throw path.buildCodeFrameError(
-      `\nError: namespace import is not allowed for zent, specify the components you need.\n`
-    );
-  } else if (reg2.test(value)) {
-    let idx = value.indexOf('-');
-    let name = value.substr(idx + 1);
-    let newName = capitalizeFirstLetter(name);
-    throw path.buildCodeFrameError(
-      `\nError: ${value} is no longer maintained, use " import { ${newName} } from 'zent' " instead.\n`
-    );
-  } else if (reg3.test(value)) {
-    let idx = value.indexOf('/');
-    let name = value.substr(idx + 1);
-    let newName = capitalizeFirstLetter(name);
-    throw path.buildCodeFrameError(
-      `\nError: ${value} is no longer supported, use " import { ${newName} } from 'zent' " instead.\n`
-    );
-  } else if (reg4.test(value)) {
-    throw path.buildCodeFrameError(
-      `\nError: require('zent') is not allowed, use ES6 import instead.\n`
-    );
-  } else if (reg5.test(value)) {
-    let idx = value.indexOf('require');
-    let name = value.substr(idx + 7);
-    throw path.buildCodeFrameError(
-      `\nError: require('${name}') is not allowed, use ES6 import instead.\n`
-    );
+  if (isRequire) {
+    if (regexpZent.test(value)) {
+      throw path.buildCodeFrameError(
+        `\nError: require('zent') is not allowed, use ES6 import instead.\n`
+      );
+    } else if (!isRequireInWhitelist(value)) {
+      throw path.buildCodeFrameError(
+        `\nError: require('${value}') incorrect require from zent.\n`
+      );
+    }
+  } else {
+    // eslint-disable-next-line
+    if (regexpZent.test(value)) {
+      throw path.buildCodeFrameError(
+        `\nError: namespace import is not allowed for Zent, pick the components you need.\n`
+      );
+    } else if (regexpSubPackage.test(value)) {
+      let idx = value.indexOf('-');
+      let name = value.substr(idx + 1);
+      let newName = capitalizeFirstLetter(name);
+      throw path.buildCodeFrameError(
+        `\nError: ${value} is no longer maintained, use " import { ${newName} } from 'zent' " instead.\n`
+      );
+    } else if (regexpSubDir.test(value)) {
+      let idx = value.indexOf('/');
+      let name = value.substr(idx + 1);
+      let newName = capitalizeFirstLetter(name);
+      throw path.buildCodeFrameError(
+        `\nError: ${value} is no longer supported, use " import { ${newName} } from 'zent' " instead.\n`
+      );
+    }
   }
 }
 
@@ -83,18 +104,16 @@ module.exports = function(babel) {
         ) {
           const reg = /(^zent\/)/gi;
           if (args[0].value === moduleName) {
-            log(`require${args[0].value}`, path);
+            log(`${args[0].value}`, path, true);
           } else if (reg.test(args[0].value)) {
-            log(`require${args[0].value}`, path);
+            log(`${args[0].value}`, path, true);
           }
         }
       },
+
       ImportDeclaration(path, state) {
         if (isEmpty(moduleMapping)) {
-          const moduleMappingFile =
-            state.opts.moduleMappingFile || 'zent/lib/module-mapping.json';
-          // eslint-disable-next-line
-          moduleMapping = require(moduleMappingFile);
+          initModuleMapping(state.opts);
         }
 
         const source = path.node.source;

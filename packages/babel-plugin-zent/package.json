@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
+    "watch": "rm -rf lib && babel src --out-dir lib --watch",
+    "test": "babel spec/index.js --out-file spec/index-compiled.js",
     "prepublish": "yarn build"
   },
   "files": [
@@ -16,6 +18,7 @@
     "babel-preset-env": "^1.4.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.23.0"
+    "babel-runtime": "^6.23.0",
+    "lodash": "^4.17.4"
   }
 }
