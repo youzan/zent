@@ -18,23 +18,17 @@ This plugin requires Zent version >= 3.0.0.
 
 `yarn add babel-plugin-zent -D`
 
-webpack2 configuration example:
+Configuration example:
 
-```js
-var ZentPlugin = require('babel-plugin-zent');
-
-module.exports = {
-	entry: 'index.js',
-	output: {
-		filename: 'bundle.js'
-	},
-	plugins: [
-		new ZentPlugin({
-			moduleMappingFile: require.resolve('zent/lib/module-mapping.json'),
-			automaticStyleImport: true
-		})
+```json
+// In your .babelrc
+{
+	"plugins": [
+		["zent", {
+			"moduleMappingFile: "zent/lib/module-mapping.json"
+		}]
 	]
-};
+}
 ```
 
 In your component Javascript files, use zent like this: `import { Button, Dialog } from 'zent'`, the plugin will take care of the rest.
