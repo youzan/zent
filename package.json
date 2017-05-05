@@ -8,14 +8,15 @@
     "lint": "eslint packages/*/src packages/*/__tests__",
     "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
     "bootstrap": "./scripts/bootstrap.sh",
-    "pp": "prettier --single-quote --write",
-    "prettify": "yarn pp -- \"packages/*/{src,__tests__}/**/*.js\"",
+    "format-js": "prettier --single-quote --write",
+    "prettify": "prettier --single-quote --write -- \"packages/*/{src,__tests__}/**/*.js\"",
+    "postinstall": "./scripts/ensure-husky-hooks.sh",
     "precommit": "lint-staged",
     "prepush": "yarn test -- --bail"
   },
   "lint-staged": {
     "packages/**/*.js": [
-      "pp",
+      "format-js",
       "eslint",
       "git add"
     ]

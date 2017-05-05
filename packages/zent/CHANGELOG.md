@@ -11,7 +11,7 @@
 - popover: support stacked popovers [\#149](https://github.com/youzan/zent/issues/149)
 - 新增slider组件 [\#203](https://github.com/youzan/zent/pull/203) ([wulv](https://github.com/wulv))
 - doc: Add Dropdown doc [\#198](https://github.com/youzan/zent/pull/198) ([cpylua](https://github.com/cpylua))
-- Add open close callback [\#196](https://github.com/youzan/zent/pull/196) ([xuhong](https://github.com/xuhong))
+- datetimepicker: Add open close callback [\#196](https://github.com/youzan/zent/pull/196) ([xuhong](https://github.com/xuhong))
 - doc: Update documentation [\#192](https://github.com/youzan/zent/pull/192) ([cpylua](https://github.com/cpylua))
 - zent-button: 将button设为htmlType的默认值 [\#191](https://github.com/youzan/zent/pull/191) ([NinoFocus](https://github.com/NinoFocus))
 - popover: support more auto postions [\#189](https://github.com/youzan/zent/pull/189) ([cpylua](https://github.com/cpylua))

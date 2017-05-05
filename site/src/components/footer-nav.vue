@@ -55,7 +55,7 @@ export default {
     },
 
     updateNav() {
-      let baseUrl = '/component';
+      let baseUrl = '/';
       let currentIndex;
 
       this.currentPath = this.$route.path.slice(baseUrl.length);
@@ -71,7 +71,7 @@ export default {
     },
 
     handleNavClick(direction) {
-      this.$router.push(`/component${ direction === 'prev' ? this.leftNav.path : this.rightNav.path }`);
+      this.$router.push(`/${ direction === 'prev' ? this.leftNav.path : this.rightNav.path }`);
     }
   },
 
