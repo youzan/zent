@@ -90,10 +90,11 @@ module.exports = function(babel) {
         }
       },
       ImportDeclaration(path, state) {
-        const opts = state.opts;
-        if (isEmpty(moduleMapping) && opts.moduleMappingFile.length > 0) {
-          // eslint-disable-next-line import/no-dynamic-require
-          moduleMapping = require(state.opts.moduleMappingFile); // eslint-disable-line global-require
+        if (isEmpty(moduleMapping)) {
+          const moduleMappingFile =
+            state.opts.moduleMappingFile || 'zent/lib/module-mapping.json';
+          // eslint-disable-next-line
+          moduleMapping = require(moduleMappingFile);
         }
 
         const source = path.node.source;
