@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
     "watch": "rm -rf lib && babel src --out-dir lib --watch",
-    "test": "babel spec/index.js --out-file spec/index-compiled.js",
+    "test": "babel spec/index.js --out-file spec/index-compiled.js && node spec/index-compiled.js",
     "prepublish": "yarn build"
   },
   "files": [
@@ -14,8 +14,10 @@
   ],
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.4.0"
+    "babel-preset-env": "^1.4.0",
+    "jest": "^19.0.2"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",

@@ -1,7 +1,0 @@
-{
-  "plugins": [
-    ["../lib/index.js", {
-      "moduleMappingFile": "../../zent/lib/module-mapping.json"
-    }]
-  ]
-}
