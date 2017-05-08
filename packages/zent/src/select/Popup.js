@@ -15,7 +15,7 @@ class Popup extends Component {
     super(props);
 
     this.state = {
-      data: [],
+      data: props.data,
       keyCode: '',
       keyword: ''
     };
@@ -92,15 +92,11 @@ class Popup extends Component {
           this.currentId = this.itemIds[0];
         } else if (this.itemIds[index + 1]) {
           this.currentId = this.itemIds[index + 1];
-        } else {
-          this.currentId = null;
         }
         break;
       case KEY_UP:
-        if (index >= 0) {
+        if (index > 0) {
           this.currentId = this.itemIds[index - 1];
-        } else {
-          this.currentId = this.itemIds[this.itemIds.length - 1];
         }
         break;
       case KEY_EN:
