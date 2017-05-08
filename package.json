@@ -12,7 +12,7 @@
     "prettify": "prettier --single-quote --write -- \"packages/*/{src,__tests__}/**/*.js\"",
     "postinstall": "./scripts/ensure-husky-hooks.sh",
     "precommit": "lint-staged",
-    "prepush": "yarn test"
+    "prepush": "yarn lint && yarn test"
   },
   "lint-staged": {
     "packages/**/*.js": [
