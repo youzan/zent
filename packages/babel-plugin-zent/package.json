@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-zent",
-  "version": "1.0.0-beta7",
+  "version": "1.0.0-beta10",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
