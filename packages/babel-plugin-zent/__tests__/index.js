@@ -1,60 +1,32 @@
 import { transform } from 'babel-core';
 
-import pluginZent from '../lib';
+import pluginZent from '../src';
 
 function compile(code, options) {
-  try {
-    const c = transform(code, {
-      babelrc: false,
-      presets: [
-        [
-          'env',
-          {
-            targets: {
-              node: 4
-            }
+  return transform(code, {
+    babelrc: false,
+    presets: [
+      [
+        'env',
+        {
+          targets: {
+            node: 4
           }
-        ]
-      ],
-
-      plugins: [
-        [
-          pluginZent,
-          Object.assign(
-            { moduleMappingFile: '../../zent/lib/module-mapping.json' },
-            options
-          )
-        ]
+        }
       ]
-    }).code;
+    ],
 
-    console.log(c); // eslint-disable-line
-  } catch (ex) {
-    console.error(ex); // eslint-disable-line
-  }
+    plugins: [
+      [
+        pluginZent,
+        Object.assign(
+          { moduleMappingFile: '../../zent/lib/module-mapping.json' },
+          options
+        )
+      ]
+    ]
+  }).code;
 }
-
-const codeBlocks = [
-  "import 'zent'",
-  "import * as Zent from 'zent'",
-  "import Zent from 'zent'",
-  "import Zent, { Button } from 'zent'",
-  "require('zent')",
-
-  "import { Button, Dialog } from 'zent'",
-  "import 'zent/css/index.css'"
-];
-
-codeBlocks.forEach(compile);
-
-compile("import { Pop, Button, Portal } from 'zent'", {
-  automaticStyleImport: true
-});
-
-const noop = () => {};
-const describe = noop;
-const it = noop;
-const expect = noop;
 
 describe('babel-plugin-zent', () => {
   it('throws on side-effect only import', () => {
@@ -81,7 +53,7 @@ describe('babel-plugin-zent', () => {
 
   it('throws on require', () => {
     expect(() => compile("require('zent')")).toThrowError(
-      /require('zent') is not allowed/
+      /require\('zent'\) is not allowed/
     );
   });
 
@@ -91,25 +63,27 @@ describe('babel-plugin-zent', () => {
 
     Object.keys(rules).forEach(component => {
       const src = `import { ${component} } from 'zent'`;
-      expect(compile(src)).stringContaining(
-        `require('${rules[component].js}')`
-      );
+      expect(
+        compile(src).indexOf(`require('${rules[component].js}')`)
+      ).not.toBe(-1);
     });
   });
 
   it('can add css imports', () => {
     expect(
       compile("import { Button } from 'zent'", { automaticStyleImport: true })
-    ).stringContaining("require('zent/css/button.css')");
+    ).toMatch(/require\('zent\/css\/button.css'\)/);
 
     expect(
       compile("import { Portal } from 'zent'", { automaticStyleImport: true })
-    ).not.stringContaining('zent/css/');
+    ).not.toMatch(/zent\/css\//);
 
-    expect(compile("import { Pop, Button } from 'zent'"), {
-      automaticStyleImport: true
-    }).stringMatching(
-      /require\('zent\/css\/pop.css'\).+require\('zent\/css\/button.css'\)/gi
+    expect(
+      compile("import { Pop, Button } from 'zent'", {
+        automaticStyleImport: true
+      })
+    ).toMatch(
+      /require\('zent\/css\/pop.css'\)[\s\S]*require\('zent\/css\/button.css'\)/im
     );
   });
 });
