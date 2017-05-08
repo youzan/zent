@@ -27,7 +27,7 @@ import Table from 'table';
 import Tabs from 'tabs';
 import Tree from 'tree';
 
-const Zent = {
+export {
   Alert,
   Breadcrumb,
   Button,
@@ -57,5 +57,3 @@ const Zent = {
   Tree,
   Switch
 };
-
-export default Zent;

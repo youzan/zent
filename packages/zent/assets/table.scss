@@ -2,7 +2,6 @@ $blue: #38f;
 $darkblue: #27f;
 $orange: #f60;
 
-
 .zent-table {
     box-sizing: border-box;
     margin-bottom:20px;
@@ -48,11 +47,7 @@ $orange: #f60;
     .tbody {
         .tr {
             &:hover {
-                .td,
-                .cell {
-                    background: #f8f8f8;
-                }
-
+                background: #f8f8f8;
                 .empty-data {
                     background: transparent;
                 }

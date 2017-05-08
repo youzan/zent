@@ -1,5 +1,39 @@
 ## 更新日志
 
+## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
+
+## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
+
+**不兼容改动和新功能:**
+
+- babel-plugin-zent: support style import [\#221](https://github.com/youzan/zent/issues/221)
+- utils: add unit tests [\#214](https://github.com/youzan/zent/issues/214)
+- Add prettier into workflow [\#202](https://github.com/youzan/zent/issues/202)
+- Consolidate all sub packages into a mono package [\#201](https://github.com/youzan/zent/issues/201)
+- Implement babel-plugin-zent [\#200](https://github.com/youzan/zent/issues/200)
+- zent-table: example: selection.. disabled 样式问题 [\#22](https://github.com/youzan/zent/issues/22)
+- Add script to check git hooks [\#222](https://github.com/youzan/zent/pull/222) ([cpylua](https://github.com/cpylua))
+- babel-plugin-zent: 	Add a script to generate js/css dependency mapping from source code [\#212](https://github.com/youzan/zent/pull/212) ([cpylua](https://github.com/cpylua))
+- Consolidate packages [\#208](https://github.com/youzan/zent/pull/208) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- select: normalize event in onChange callback [\#216](https://github.com/youzan/zent/issues/216)
+- zent-datepicker 的确定按钮需要指定字体大小 [\#207](https://github.com/youzan/zent/issues/207)
+- switch: 修改 switch 样式 [\#223](https://github.com/youzan/zent/pull/223) ([ronghang](https://github.com/ronghang))
+- table: 修改hover样式，onSelection增加一个新的参数，让用户可以做到单选功能 [\#219](https://github.com/youzan/zent/pull/219) ([linxixuan](https://github.com/linxixuan))
+- select: fix event parameter [\#218](https://github.com/youzan/zent/pull/218) ([huangsy](https://github.com/huangsy))
+- slider: 修复样式和输入框bug [\#211](https://github.com/youzan/zent/pull/211) ([wulv](https://github.com/wulv))
+- style: run prettier on all files [\#210](https://github.com/youzan/zent/pull/210) ([cpylua](https://github.com/cpylua))
+- datepicker: increase z-index; fixed a bug when datepicker is disabled [\#209](https://github.com/youzan/zent/pull/209) ([xuhong](https://github.com/xuhong))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- test: add tests for utils [\#220](https://github.com/youzan/zent/pull/220) ([cpylua](https://github.com/cpylua))
+- add babel plugin to transform zent import [\#217](https://github.com/youzan/zent/pull/217) ([iscarecrow](https://github.com/iscarecrow))
+
 ## [zent@2.1.0](https://github.com/youzan/zent/tree/zent@2.1.0) (2017-04-24)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@2.0.14...zent@2.1.0)
 
@@ -11,7 +45,7 @@
 - popover: support stacked popovers [\#149](https://github.com/youzan/zent/issues/149)
 - 新增slider组件 [\#203](https://github.com/youzan/zent/pull/203) ([wulv](https://github.com/wulv))
 - doc: Add Dropdown doc [\#198](https://github.com/youzan/zent/pull/198) ([cpylua](https://github.com/cpylua))
-- Add open close callback [\#196](https://github.com/youzan/zent/pull/196) ([xuhong](https://github.com/xuhong))
+- datetimepicker: Add open close callback [\#196](https://github.com/youzan/zent/pull/196) ([xuhong](https://github.com/xuhong))
 - doc: Update documentation [\#192](https://github.com/youzan/zent/pull/192) ([cpylua](https://github.com/cpylua))
 - zent-button: 将button设为htmlType的默认值 [\#191](https://github.com/youzan/zent/pull/191) ([NinoFocus](https://github.com/NinoFocus))
 - popover: support more auto postions [\#189](https://github.com/youzan/zent/pull/189) ([cpylua](https://github.com/cpylua))

@@ -121,7 +121,7 @@ export default class Table extends Component {
       }
     }
 
-    selection.onSelect(allRowKeys, allRows);
+    selection.onSelect(allRowKeys, allRows, null);
   };
 
   /**
@@ -142,9 +142,25 @@ export default class Table extends Component {
     }
 
     let selectedRows = this.getSelectedRowsByKeys(selectedRowKeys);
+    let currentRow = isSelect ? this.getCurrentRow(rowKey) : null;
 
-    this.props.selection.onSelect(selectedRowKeys, selectedRows);
+    this.props.selection.onSelect(selectedRowKeys, selectedRows, currentRow);
   };
+
+  getCurrentRow(key) {
+    let currentRow;
+    let self = this;
+
+    if (key) {
+      this.props.datasets.forEach(item => {
+        if (item[self.props.rowKey] === key) {
+          currentRow = item;
+        }
+      });
+    }
+
+    return currentRow;
+  }
 
   /**
    * 根据选择的keys拼装一个选好的列

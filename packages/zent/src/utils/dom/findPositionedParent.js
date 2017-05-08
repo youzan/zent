@@ -10,7 +10,7 @@ export default function findPositionedParent(elem, inclusive = false) {
   function isPositioned(node) {
     const cs = getComputedStyle(node);
     const pos = cs.getPropertyValue('position');
-    return pos !== 'static';
+    return pos && pos !== 'static';
   }
 
   if (!elem) {
