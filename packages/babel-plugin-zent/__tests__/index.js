@@ -67,6 +67,11 @@ describe('babel-plugin-zent', () => {
         compile(src).indexOf(`require('${rules[component].js}')`)
       ).not.toBe(-1);
     });
+
+    // rename imports
+    expect(
+      compile("import { Button as Foobar } from 'zent'; console.log(Foobar)")
+    ).toMatch(/console.log(.+\.default)/);
   });
 
   it('can add css imports', () => {

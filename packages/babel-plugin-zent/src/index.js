@@ -64,9 +64,7 @@ module.exports = function(babel) {
             }
 
             if (t.isImportSpecifier(sp)) {
-              return r.concat(
-                buildImportReplacement(sp.imported.name, t, state)
-              );
+              return r.concat(buildImportReplacement(sp, t, state));
             }
 
             throw path.buildCodeFrameError('Unexpected import type');
@@ -79,19 +77,23 @@ module.exports = function(babel) {
   };
 };
 
-function buildImportReplacement(name, types, state) {
+function buildImportReplacement(specifier, types, state) {
   initModuleMapppingAsNecessary(state);
 
+  // import {Button as _Button} from 'zent'
+  // imported name is Button, but local name is _Button
+  const importedName = specifier.imported.name;
+  const localName = specifier.local.name;
   const replacement = [];
   const { opts: options, data } = state;
 
-  if (data.MODULE_MAPPING.hasOwnProperty(name)) {
-    const rule = data.MODULE_MAPPING[name];
+  if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
+    const rule = data.MODULE_MAPPING[importedName];
 
     // js
     replacement.push(
       types.importDeclaration(
-        [types.importDefaultSpecifier(types.identifier(name))],
+        [types.importDefaultSpecifier(types.identifier(localName))],
         types.stringLiteral(rule.js)
       )
     );
