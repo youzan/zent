@@ -1,19 +1,19 @@
-var webpack = require('webpack');
-var path = require('path');
-var fs = require('fs');
-var postcssPlugins = require('./postcss.config');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const { join, resolve } = require('path');
+const fs = require('fs');
+const postcssPlugins = require('./postcss.config');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // 为src目录下的所有子目录创建alias
 function createAlias() {
-  var packagesDir = path.resolve(__dirname, '../../packages/zent/src');
+  var packagesDir = resolve(__dirname, '../../packages/zent/src');
   var packages = fs.readdirSync(packagesDir);
 
   return packages
-    .filter(p => fs.statSync(path.join(packagesDir, p)).isDirectory())
+    .filter(p => fs.statSync(join(packagesDir, p)).isDirectory())
     .reduce((alias, p) => {
-      alias[p] = path.join(packagesDir, p);
+      alias[p] = join(packagesDir, p);
       return alias;
     }, {});
 }
@@ -24,9 +24,14 @@ var babelLoader = {
   options: {
     presets: [
       require.resolve('babel-preset-react'),
-      require.resolve('babel-preset-es2015'),
-      require.resolve('babel-preset-stage-1')
-    ]
+      [
+        require.resolve('babel-preset-es2015'),
+        {modules: false}],
+      require.resolve('babel-preset-stage-1'),
+    ],
+    plugins: [
+      require.resolve('react-hot-loader/babel'),
+    ],
   }
 };
 var postcssLoader = {
@@ -52,38 +57,23 @@ var scssLoader = {
 
 module.exports = {
   entry: {
-    docs: './src/index.js',
-    vendor: ['react', 'react-dom', 'zent', 'classnames']
+    docs: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server', './src/index.js'],
+    vendor: ['react', 'react-dom', 'classnames']
   },
   output: {
-    path: path.join(__dirname, '../dist'),
-    filename: '[name]-[hash].js'
+    path: join(__dirname, '../dist'),
+    filename: '[name]-[hash].js',
   },
   resolve: {
-    modules: [path.join(__dirname, '../node_modules'), 'node_modules'],
-    extensions: ['.js', '.vue', '.pcss', '.md'],
+    modules: [join(__dirname, '../node_modules'), 'node_modules'],
+    extensions: ['.js', '.pcss', '.md'],
     alias: Object.assign({
-      vue$: 'vue/dist/vue.runtime.common.js',
-      components: path.join(__dirname, '../src/components'),
-      zent$: path.join(__dirname, '../zent')
+      components: join(__dirname, '../src/components'),
+      zent$: join(__dirname, '../zent')
     }, createAlias())
   },
   module: {
     rules: [
-      {
-        test: /\.vue$/,
-        use: [
-          {
-            loader: require.resolve('vue-loader'),
-            options: {
-              postcss: postcssPlugins,
-              loaders: {
-                js: babelLoader
-              }
-            }
-          }
-        ]
-      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -96,7 +86,7 @@ module.exports = {
           {
             loader: require.resolve('react-markdown-doc-loader'),
             options: {
-              jsTemplate: path.join(__dirname, '../react-template.js'),
+              jsTemplate: join(__dirname, '../react-template.js'),
               renderers: {
                 markdown: 'Markdown',
                 style: 'Style',
@@ -106,6 +96,13 @@ module.exports = {
           },
           require.resolve('markdown-doc-loader')
         ]
+      },
+      {
+        test: /\.pcss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', postcssLoader]
+        })
       },
       {
         test: /\.scss$/,
@@ -157,6 +154,17 @@ module.exports = {
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
       allChunks: true
-    })
-  ]
+    }),
+
+    new webpack.HotModuleReplacementPlugin(),
+
+    new webpack.NamedModulesPlugin(),
+  ],
+
+  devServer: {
+    hot: true,
+    contentBase: resolve(__dirname, 'dist'),
+    publicPath: '/',
+    // historyApiFallback: true,
+  },
 };
