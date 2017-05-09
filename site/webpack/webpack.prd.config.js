@@ -1,10 +1,17 @@
-var webpack = require('webpack');
-var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-var base = require('./webpack.config');
+const webpack = require('webpack');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const { resolve } = require('path');
+const base = require('./webpack.config');
 
-var prefix = 'https://b.yzcdn.cn/zanui/react/';
+const prefix = 'https://b.yzcdn.cn/zanui/react/';
+base.plugins.splice(-2, 2);
 
 module.exports = Object.assign({}, base, {
+  entry: {
+    docs: './src/index.js',
+    vendor: ['react', 'react-dom', 'zent', 'classnames']
+  },
+
   output: Object.assign(base.output, {
     publicPath: prefix
   }),
@@ -57,5 +64,10 @@ module.exports = Object.assign({}, base, {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
-  ])
+  ]),
+  devServer: {
+    contentBase: resolve(__dirname, 'dist'),
+    publicPath: prefix
+  },
+  devtool: 'source-map'
 });
