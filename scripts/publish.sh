@@ -21,8 +21,7 @@ if [ -z "$CHANGELOG_GITHUB_TOKEN" ] ; then
 fi
 
 # 重新bootstrap，以防有人改了依赖
-$basepath/../lerna clean --yes
-$basepath/../lerna bootstrap
+yarn bootstrap
 
 $basepath/../lerna publish --exact "$@"
 

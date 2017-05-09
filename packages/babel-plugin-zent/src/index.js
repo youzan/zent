@@ -1,138 +1,143 @@
-const moduleName = 'zent';
-let moduleMapping = {};
+const MODULE_NAME = 'zent';
 
-function replaceRules(name) {
-  if (moduleMapping.hasOwnProperty(name)) {
-    return moduleMapping[name].js;
-  }
-  return name;
-}
-
-function isEmpty(obj) {
-  if (Object.keys(obj).length === 0) {
-    return true;
-  }
-  return false;
-}
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// import below is not allowed
-// "Error: require('zent') is not allowed, use ES6 import instead." + "\n" +
-// "Error: namespace import is not allowed for zent, specify the components you need." + "\n" +
-// "Error: zent-button is no longer maintained, use `import { Button } from 'zent'` instead." + "\n" +
-// "Error: zent/button is no longer supported, use `import { Button } from 'zent'` instead." + "\n" +
-function log(value, path) {
-  const reg1 = /^zent$/gi;
-  const reg2 = /zent-/gi;
-  const reg3 = /^zent\/(?!lib\/)/gi;
-  const reg4 = /^requirezent$/gi;
-  const reg5 = /^requirezent\/(?!lib\/)/gi;
-
-  // Error
-  if (reg1.test(value)) {
-    throw path.buildCodeFrameError(
-      `\nError: namespace import is not allowed for zent, specify the components you need.\n`
-    );
-  } else if (reg2.test(value)) {
-    let idx = value.indexOf('-');
-    let name = value.substr(idx + 1);
-    let newName = capitalizeFirstLetter(name);
-    throw path.buildCodeFrameError(
-      `\nError: ${value} is no longer maintained, use " import { ${newName} } from 'zent' " instead.\n`
-    );
-  } else if (reg3.test(value)) {
-    let idx = value.indexOf('/');
-    let name = value.substr(idx + 1);
-    let newName = capitalizeFirstLetter(name);
-    throw path.buildCodeFrameError(
-      `\nError: ${value} is no longer supported, use " import { ${newName} } from 'zent' " instead.\n`
-    );
-  } else if (reg4.test(value)) {
-    throw path.buildCodeFrameError(
-      `\nError: require('zent') is not allowed, use ES6 import instead.\n`
-    );
-  } else if (reg5.test(value)) {
-    let idx = value.indexOf('require');
-    let name = value.substr(idx + 7);
-    throw path.buildCodeFrameError(
-      `\nError: require('${name}') is not allowed, use ES6 import instead.\n`
-    );
-  }
-}
-
+// Errors:
+// import 'zent';
+// import * as Zent from 'zent';
+// import Zent from 'zent';
+// require('zent');
+//
+//
+// Ingore:
+// import Button from 'zent/button';
+// import Button from 'zent-button';
+// require('zent-button')
 module.exports = function(babel) {
-  const { types } = babel;
+  const { types: t } = babel;
+
   return {
     visitor: {
       CallExpression(path) {
-        const node = path.node;
-        const callee = node.callee;
-        const arg = node.arguments[0];
-        if (callee.type !== 'Identifier' || callee.name !== 'require' || !arg) {
-          return;
-        }
+        const { node } = path;
 
-        const args = node.arguments || [];
+        // no require('zent') calls
         if (
-          callee.name === 'require' &&
-          args.length === 1 &&
-          types.isStringLiteral(args[0])
+          t.isIdentifier(node.callee, { name: 'require' }) &&
+          node.arguments &&
+          node.arguments.length === 1
         ) {
-          const reg = /(^zent\/)/gi;
-          if (args[0].value === moduleName) {
-            log(`require${args[0].value}`, path);
-          } else if (reg.test(args[0].value)) {
-            log(`require${args[0].value}`, path);
+          const source = node.arguments[0];
+          if (t.isStringLiteral(source, { value: MODULE_NAME })) {
+            throw path.buildCodeFrameError(
+              `require('${MODULE_NAME}') is not allowed, use import { ... } from '${MODULE_NAME}'`
+            );
           }
         }
       },
+
       ImportDeclaration(path, state) {
-        if (isEmpty(moduleMapping)) {
-          const moduleMappingFile =
-            state.opts.moduleMappingFile || 'zent/lib/module-mapping.json';
-          // eslint-disable-next-line
-          moduleMapping = require(moduleMappingFile);
-        }
+        const { node } = path;
 
-        const source = path.node.source;
-        const fullImports = path.node.specifiers.filter(specifier => {
-          return specifier.type !== 'ImportSpecifier';
-        });
-        const importSpecifiers = path.node.specifiers.filter(specifier => {
-          return specifier.type === 'ImportSpecifier';
-        });
-        if (fullImports.length > 0) {
-          if (importSpecifiers.length === 0) {
-            const reg = /(^zent$|^zent-|^zent\/)/gi;
-            if (reg.test(source.value)) {
-              log(source.value, path);
-            }
+        if (t.isStringLiteral(node.source, { value: MODULE_NAME })) {
+          const { specifiers } = node;
+          const specifierCount = specifiers.length;
+
+          // no import 'zent';
+          if (specifierCount === 0) {
+            throw path.buildCodeFrameError(
+              `Side-effect only import is allowed in ${MODULE_NAME}.'`
+            );
           }
-        }
 
-        const newImportDeclarations = [];
-        if (importSpecifiers.length > 0 && source.value === moduleName) {
-          importSpecifiers.forEach(importSpecifier => {
-            const importedName = importSpecifier.imported.name;
-
-            if (moduleMapping.hasOwnProperty(importedName)) {
-              const newImportedName = replaceRules(importedName);
-              const newImportDeclaration = types.importDeclaration(
-                [types.importDefaultSpecifier(types.identifier(importedName))],
-                types.stringLiteral(newImportedName)
+          const replacement = specifiers.reduce((r, sp) => {
+            // no import * as Zent from 'zent'
+            if (t.isImportNamespaceSpecifier(sp)) {
+              throw path.buildCodeFrameError(
+                `Namespace import is not allowd in ${MODULE_NAME}, pick the components you need.`
               );
-              newImportDeclarations.push(newImportDeclaration);
             }
-          });
-        }
 
-        if (newImportDeclarations.length > 0) {
-          path.replaceWithMultiple(newImportDeclarations);
+            // no import Zent from 'zent'
+            if (t.isImportDefaultSpecifier(sp)) {
+              throw path.buildCodeFrameError(
+                `There is no default export in ${MODULE_NAME}.`
+              );
+            }
+
+            if (t.isImportSpecifier(sp)) {
+              return r.concat(buildImportReplacement(sp, t, state));
+            }
+
+            throw path.buildCodeFrameError('Unexpected import type');
+          }, []);
+
+          path.replaceWithMultiple(replacement);
         }
       }
     }
   };
 };
+
+function buildImportReplacement(specifier, types, state) {
+  initModuleMapppingAsNecessary(state);
+
+  // import {Button as _Button} from 'zent'
+  // imported name is Button, but local name is _Button
+  const importedName = specifier.imported.name;
+  const localName = specifier.local.name;
+  const replacement = [];
+  const { opts: options, data } = state;
+
+  if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
+    const rule = data.MODULE_MAPPING[importedName];
+
+    // js
+    replacement.push(
+      types.importDeclaration(
+        [types.importDefaultSpecifier(types.identifier(localName))],
+        types.stringLiteral(rule.js)
+      )
+    );
+
+    // css
+    if (options.automaticStyleImport) {
+      rule.css.forEach(path => {
+        if (data.CSS_IMPORT_MAPPING[path] === 0) {
+          replacement.push(
+            types.importDeclaration([], types.stringLiteral(path))
+          );
+          data.CSS_IMPORT_MAPPING[path] += 1;
+        }
+      });
+    }
+  }
+
+  return replacement;
+}
+
+function initModuleMapppingAsNecessary(state) {
+  const { opts: options } = state;
+
+  if (!state.data) {
+    state.data = {};
+  }
+
+  const data = state.data;
+  if (!data.MODULE_MAPPING) {
+    const moduleMappingFile =
+      options.moduleMappingFile || 'zent/lib/module-mapping.json';
+
+    // eslint-disable-next-line
+    data.MODULE_MAPPING = require(moduleMappingFile);
+
+    if (options.automaticStyleImport) {
+      data.CSS_IMPORT_MAPPING = Object.keys(
+        data.MODULE_MAPPING
+      ).reduce((mapping, key) => {
+        data.MODULE_MAPPING[key].css.forEach(path => {
+          mapping[path] = 0;
+        });
+        return mapping;
+      }, {});
+    }
+  }
+}
