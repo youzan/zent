@@ -8,13 +8,8 @@ class FooterNav extends Component {
   constructor() {
     super();
     this.state = {
-      nav: null
+      nav: { prev: null, next: null }
     };
-  }
-
-  componentWillMount() {
-    const { data, location } = this.props;
-    this.setState({ nav: data[location.pathname] });
   }
 
   componentDidUpdate(prevProps) {

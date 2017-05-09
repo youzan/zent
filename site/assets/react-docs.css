@@ -5,6 +5,10 @@ $toggle-color: #BBBBBB;
   min-width: 1000px;
 }
 
+.page-content {
+  overflow-x: auto;
+}
+
 .react-doc-page-content {
   min-height: 600px;
 }
@@ -64,6 +68,7 @@ $toggle-color: #BBBBBB;
       border-top: 1px solid $border-color;
       padding: 20px;
       background-color: #f8f8f8;
+      overflow-x: auto;
     }
   }
 }

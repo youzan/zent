@@ -19,7 +19,7 @@ function createAlias() {
 }
 
 // NOTE: .babelrc inside packages/zent will affect the behavior of babel loader
-var babelLoader = {
+const babelLoader = {
   loader: 'babel-loader',
   options: {
     presets: [
@@ -34,14 +34,15 @@ var babelLoader = {
     ],
   }
 };
-var postcssLoader = {
+const postcssLoader = {
   loader: 'postcss-loader',
   options: {
-    plugins: postcssPlugins
+    plugins: postcssPlugins,
+    sourceMap: true
   }
 };
 
-var scssLoader = {
+const scssLoader = {
   loader: 'postcss-loader',
   options: {
     plugins: [
@@ -51,7 +52,8 @@ var scssLoader = {
       require('precss'),
       require('autoprefixer')
     ],
-    parser: require('postcss-scss')
+    parser: require('postcss-scss'),
+    sourceMap: true
   }
 };
 
@@ -98,27 +100,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.pcss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', postcssLoader]
-        })
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', scssLoader]
-        })
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', postcssLoader]
-        })
-      },
-      {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         use: 'url-loader'
       },
@@ -129,7 +110,15 @@ module.exports = {
       {
         test: /\.html$/,
         use: 'html-loader'
-      }
+      },
+      {
+        test: /\.p?css$/,
+        use: ['style-loader?sourceMap', 'css-loader?sourceMap', postcssLoader]
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader?sourceMap', 'css-loader?sourceMap', scssLoader]
+      },
     ]
   },
 
@@ -151,11 +140,6 @@ module.exports = {
       inject: 'body'
     }),
 
-    new ExtractTextPlugin({
-      filename: '[name]-[contenthash].css',
-      allChunks: true
-    }),
-
     new webpack.HotModuleReplacementPlugin(),
 
     new webpack.NamedModulesPlugin(),
@@ -165,6 +149,7 @@ module.exports = {
     hot: true,
     contentBase: resolve(__dirname, 'dist'),
     publicPath: '/',
-    // historyApiFallback: true,
-  },
+    inline: true,
+    historyApiFallback: true
+  }
 };

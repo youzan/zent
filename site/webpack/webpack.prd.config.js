@@ -1,10 +1,37 @@
 const webpack = require('webpack');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const { resolve } = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const postcssPlugins = require('./postcss.config');
 const base = require('./webpack.config');
 
 const prefix = 'https://b.yzcdn.cn/zanui/react/';
+
+const postcssLoader = {
+  loader: 'postcss-loader',
+  options: {
+    plugins: postcssPlugins,
+    sourceMap: true
+  }
+};
+
+const scssLoader = {
+  loader: 'postcss-loader',
+  options: {
+    plugins: [
+      require('postcss-easy-import')({
+        extensions: ['.scss', '.css']
+      }),
+      require('precss'),
+      require('autoprefixer')
+    ],
+    parser: require('postcss-scss'),
+    sourceMap: true
+  }
+};
+
 base.plugins.splice(-2, 2);
+base.module.rules.splice(-2, 2);
 
 module.exports = Object.assign({}, base, {
   entry: {
@@ -14,6 +41,25 @@ module.exports = Object.assign({}, base, {
 
   output: Object.assign(base.output, {
     publicPath: prefix
+  }),
+
+  module: Object.assign({}, base.module, {
+    rules: base.module.rules.concat([
+      {
+        test: /\.p?css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', postcssLoader]
+        })
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', scssLoader]
+        })
+      },
+    ])
   }),
 
   plugins: base.plugins.concat([
@@ -63,11 +109,15 @@ module.exports = Object.assign({}, base, {
 
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
+
+    new ExtractTextPlugin({
+      filename: '[name]-[contenthash].css',
+      allChunks: true
+    }),
   ]),
   devServer: {
     contentBase: resolve(__dirname, 'dist'),
     publicPath: prefix
-  },
-  devtool: 'source-map'
+  }
 });
