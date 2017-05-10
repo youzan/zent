@@ -1,9 +1,7 @@
 const webpack = require('webpack');
 const { join, resolve } = require('path');
 const fs = require('fs');
-const postcssPlugins = require('./postcss.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // 为src目录下的所有子目录创建alias
 function createAlias() {
@@ -34,34 +32,8 @@ const babelLoader = {
     ],
   }
 };
-const postcssLoader = {
-  loader: 'postcss-loader',
-  options: {
-    plugins: postcssPlugins,
-    sourceMap: true
-  }
-};
-
-const scssLoader = {
-  loader: 'postcss-loader',
-  options: {
-    plugins: [
-      require('postcss-easy-import')({
-        extensions: ['.scss', '.css']
-      }),
-      require('precss'),
-      require('autoprefixer')
-    ],
-    parser: require('postcss-scss'),
-    sourceMap: true
-  }
-};
 
 module.exports = {
-  entry: {
-    docs: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server', './src/index.js'],
-    vendor: ['react', 'react-dom', 'classnames']
-  },
   output: {
     path: join(__dirname, '../dist'),
     filename: '[name]-[hash].js',
@@ -110,15 +82,7 @@ module.exports = {
       {
         test: /\.html$/,
         use: 'html-loader'
-      },
-      {
-        test: /\.p?css$/,
-        use: ['style-loader?sourceMap', 'css-loader?sourceMap', postcssLoader]
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader?sourceMap', 'css-loader?sourceMap', scssLoader]
-      },
+      }
     ]
   },
 
@@ -138,18 +102,6 @@ module.exports = {
       template: 'src/index.html',
       chunks: ['vendor', 'docs'],
       inject: 'body'
-    }),
-
-    new webpack.HotModuleReplacementPlugin(),
-
-    new webpack.NamedModulesPlugin(),
-  ],
-
-  devServer: {
-    hot: true,
-    contentBase: resolve(__dirname, 'dist'),
-    publicPath: '/',
-    inline: true,
-    historyApiFallback: true
-  }
+    })
+  ]
 };

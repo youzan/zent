@@ -12,6 +12,14 @@ class FooterNav extends Component {
     };
   }
 
+  componentDidMount() {
+    const { data, location } = this.props;
+    if (!location || !location.pathname || !data[location.pathname]) {
+      return;
+    }
+    this.setState({ nav: data[location.pathname] })
+  }
+
   componentDidUpdate(prevProps) {
     const { data, location } = this.props;
 
@@ -29,11 +37,11 @@ class FooterNav extends Component {
     const { nav } = this.state;
     return (
       <div className="footer-nav">
-        {nav.prev && <a href="javascript:void(0)" className="footer-nav__link footer-nav__left" onClick={(e) => {this.handleNavClick(nav.prev.pathname)}}>
+        {nav && nav.prev && <a href="javascript:void(0)" className="footer-nav__link footer-nav__left" onClick={(e) => {this.handleNavClick(nav.prev.pathname)}}>
           <i className="zenticon zenticon-right"></i>
           {nav.prev.title}
         </a>}
-        {nav.next && <a href="javascript:void(0)" className="footer-nav__link footer-nav__right" onClick={(e) => {this.handleNavClick(nav.next.pathname)}}>
+        {nav && nav.next && <a href="javascript:void(0)" className="footer-nav__link footer-nav__right" onClick={(e) => {this.handleNavClick(nav.next.pathname)}}>
           <i className="zenticon zenticon-right"></i>
           {nav.next.title}
         </a>}

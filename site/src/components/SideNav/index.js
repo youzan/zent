@@ -12,9 +12,10 @@ export default class SideNav extends Component {
   }
 
   handleTitleClick = (item) => {
-    if (item.groups[0].list[0].path) {
-      this.context.router.history.push(this.props.base + item.groups[0].list[0].path)
-    }
+    this.setState({ num: ++this.state.num })
+    // if (item.groups[0].list[0].path) {
+    //   this.context.router.history.push(this.props.base + item.groups[0].list[0].path)
+    // }
   }
 
   parseData = (item, index) => (
