@@ -27,6 +27,9 @@ class Popup extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.sourceData = nextProps.data;
+    if (!nextProps.open) {
+      this.currentId = null;
+    }
     if (
       nextProps.keyCode === KEY_EN &&
       this.state.keyCode === nextProps.keyCode
@@ -147,13 +150,13 @@ class Popup extends Component {
             />
           : ''}
         {filterData.map((item, index) => {
+          if (index === 0 && !this.currentId) {
+            this.currentId = item.cid;
+          }
           if (keyword && item.text === keyword) {
             this.currentId = item.cid;
-          } else if (keyword) {
-            this.currentId = null;
           }
-          let currentCls = this.currentId !== null &&
-            item.cid === this.currentId
+          let currentCls = item.cid === this.currentId
             ? 'current'
             : '';
           let activeCls = selectedItems.filter(o => o.cid === item.cid).length >
