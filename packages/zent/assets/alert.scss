@@ -4,13 +4,6 @@
     transform: translate(0, -50%);
 }
 
-@define-mixin icon $image-url {
-    background-image: url($image-url);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
 $color-bg-warning: #FFF7CC;
 $color-border-warning: #FDEEB2;
 $color-text-warning: #333333;
@@ -22,8 +15,6 @@ $color-text-error: #fff;
 $color-bg-info: #F8F8F8;
 $color-text-info: #333;
 
-$alert-normal-min-height: 44px;
-$alert-large-min-height: 60px;
 $alert-border-radius: 4px;
 
 $close-icon-size: 14px;
@@ -32,25 +23,21 @@ $close-icon-size: 14px;
     box-sizing: border-box;
     width: 100%;
     font-size: 12px;
-    height: 1px; /* make child height: 100% work */
-
-    .zent-alert-content-wrapper {
-        height: 100%;
-        position: relative;
-        overflow: hidden; /* trigger a BFC */
-    }
-
-    .zent-alert-content {
-        @mixin vertical-center;
-    }
+    line-height: 12px;
+    position: relative;
 
     &.zent-alert-closable {
+        .zent-alert-content {
+            margin-right: 15px;
+        }
+
         .zent-alert-close-wrapper {
-            float: right;
             margin-left: 15px;
             height: 100%;
             width: $close-icon-size;
-            position: relative;
+            position: absolute;
+            top: 0;
+            right: 15px;
         }
 
         .zent-alert-close-btn {
@@ -59,7 +46,6 @@ $close-icon-size: 14px;
             font-family: sans-serif;
             font-size: 18px;
             text-align: center;
-            vertical-align: middle;
             display: inline-block;
             cursor: pointer;
             color: #999;
@@ -67,13 +53,11 @@ $close-icon-size: 14px;
     }
 
     &.zent-alert-size-normal {
-        min-height: $alert-normal-min-height;
-        padding: 0 15px;
+        padding: 15px 15px;
     }
 
     &.zent-alert-size-large {
-        min-height: $alert-large-min-height;
-        padding: 0 15px 0 30px;
+        padding: 14px 15px 14px 30px;
     }
 
     &.zent-alert-border-rounded {
