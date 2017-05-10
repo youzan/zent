@@ -91,7 +91,6 @@ $orange: #f60;
         display: flex;
         flex: auto;
         flex-basis: 0;
-        align-self: center;
         padding:10px;
         padding-left:0;
         min-height: 20px;
@@ -99,6 +98,10 @@ $orange: #f60;
         text-align: left;
         font-size:12px;
 
+        &__child-container {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         &:first-child {
             padding-left:10px;
         }
