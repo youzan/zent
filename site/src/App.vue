@@ -16,7 +16,6 @@
 
 <script>
 import Vue from 'vue';
-import 'highlight.js/styles/color-brewer.css';
 import navConfig from './nav.config.js';
 import SideNav from './components/side-nav';
 import DemoBlock from './components/demo-block';

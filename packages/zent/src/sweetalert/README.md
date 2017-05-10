@@ -10,7 +10,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Sweetalert, Button } from 'zent';
 
 const showAlertInfo = () => {
@@ -29,7 +29,7 @@ ReactDOM.render(
 
 
 :::demo 含有确认按钮与取消按钮的 SweetAlert
-```js
+```jsx
 import { Sweetalert, Button } from 'zent';
 
 const onConfirm = () => {
@@ -57,7 +57,7 @@ ReactDOM.render(
 
 
 :::demo 通过代码自动关闭对话框
-```js
+```jsx
 import { Sweetalert, Button } from 'zent';
 
 const autoCloseConfirm = () => {
@@ -77,7 +77,7 @@ ReactDOM.render(
 
 
 :::demo 可以自动关闭的对话框（Promise）点击确认按钮，按钮会变成loading状态，三秒后关闭
-```js
+```jsx
 import { Sweetalert, Button } from 'zent';
 
 const promiseConfirm = () => {
@@ -101,7 +101,7 @@ ReactDOM.render(
 
 
 :::demo 含有图标的 SweetAlert
-```js
+```jsx
 import { Sweetalert, Button } from 'zent';
 
 const showAlertInfo = () => {
@@ -121,7 +121,7 @@ ReactDOM.render(
 
 
 :::demo 确认按钮类型
-```js
+```jsx
 import { Sweetalert, Button } from 'zent';
 
 const showAlertInfo = () => {

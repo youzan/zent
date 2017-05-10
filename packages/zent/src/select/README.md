@@ -24,7 +24,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Select } from 'zent';
 
 const Option = Select.Option;
@@ -41,7 +41,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持数组类型选项
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = ['选项一', '选项二', '选项三'];
@@ -54,7 +54,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持对象形式的选项文案与选项值
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -71,7 +71,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持自定义文案与值对应的key
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -92,7 +92,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持键盘上下方向键选择选项
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -113,7 +113,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持选项改变后的回调
-```js
+```jsx
 import { Select, Dialog } from 'zent';
 
 const data = [
@@ -141,7 +141,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持禁用选项组件
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -163,7 +163,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持过滤功能
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -185,7 +185,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持自定义搜索框文案
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -208,7 +208,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持自定义无选项文案
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -231,7 +231,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持输入搜索
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [
@@ -254,7 +254,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持多选标签
-```js
+```jsx
 import { Select } from 'zent';
 
 const data = [

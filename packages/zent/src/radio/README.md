@@ -8,7 +8,7 @@
 
 ### 代码演示
 :::demo 基本用法
-```js
+```jsx
 import { Radio } from 'zent';
 
 const RadioGroup = Radio.Group;
@@ -41,7 +41,7 @@ ReactDOM.render(
 :::
 
 :::demo 不可用，整个`RadioGroup`都不可用
-```js
+```jsx
 import { Radio } from 'zent'
 
 const RadioGroup = Radio.Group;
@@ -74,7 +74,7 @@ ReactDOM.render(
 :::
 
 :::demo 不可用，部分选项不可用
-```js
+```jsx
 import { Radio } from 'zent'
 
 const RadioGroup = Radio.Group;
@@ -108,7 +108,7 @@ ReactDOM.render(
 :::
 
 :::demo `value`可以是任意类型，可以使用`isValueEqual`来自定义比较函数
-```js
+```jsx
 import { Radio } from 'zent'
 
 const RadioGroup = Radio.Group;

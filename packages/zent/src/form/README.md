@@ -13,7 +13,7 @@
 7. 可以使用 props.zentForm.getFormValues() 来获取所有表单元素值。（ zentForm 如何注入到 props 中请参考 `Form.createForm` 的 API 。）
 
 :::DEMO Form 组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中 renderEmail 组件的表单结构。具体请参考`getControlGroup`的 API 。 
-```js
+```jsx
 import cx from 'classnames';
 import { Form, Input } from 'zent';
 const { Field, createForm } = Form;
@@ -75,7 +75,7 @@ ReactDOM.render(
 为了减少代码量， Form 组件内置了对常用的表单元素组件（Input 、Checkbox 、 CheckboxGroup 、RadioGroup 、 Select）的封装。这些组件的封装使用了 getControlGroup 函数（具体查看下方 API ）。
 
 :::DEMO  封装过的组件额外支持的 props，请查看 getControlGroup 的API 。表单元素组件需要的 props 具体请查看对应组件的文档。
-```js
+```jsx
 import { Form } from 'zent';
 const { Field, InputField, createForm } = Form;
 
@@ -107,7 +107,7 @@ ReactDOM.render(
 Form 组件提供了 format 和nomalize 来对 value 进行格式化，它们的执行时机可以参考下方使用指南中`value 的生命周期`。
 
 :::DEMO
-```js
+```jsx
 import { Form } from 'zent';
 const { Field, InputField, createForm } = Form;
 
@@ -154,7 +154,7 @@ ReactDOM.render(
 有时候需要在一个 Field 里封装了两个表单元素，做法就是将两个表单元素的 value 值封装在一个对象里传入到 Field 中。
 
 :::DEMO  
-```js
+```jsx
 import cx from 'classnames';
 import { Form, Select, Input } from 'zent';
 const { Field, createForm } = Form;
@@ -244,7 +244,7 @@ ReactDOM.render(
 form 组件内部对表单提交的过程进行封装，可以把异步提交的过程封装在一个 func 里并返回一个**promise 对象**，组件内部会根据 promise 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过zentForm.isSubmitting()得到）。
 
 :::DEMO
-```js
+```jsx
 import { Form } from 'zent';
 const { Field, InputField, createForm, SubmissionError } = Form;
 
@@ -330,7 +330,7 @@ ReactDOM.render(
 异步校验在 blur 时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用props.onBlur(event)。 value 值可以直接传给 event ，或者作为 event 的属性传入。
 
 :::DEMO
-```js
+```jsx
 import { Form } from 'zent';
 const { Field, InputField, createForm } = Form;
 
@@ -371,7 +371,7 @@ ReactDOM.render(
 #### Fieldset 组件
 
 :::DEMO
-```js
+```jsx
 import { Form } from 'zent';
 const { Field, Fieldset, InputField, createForm } = Form;
 
@@ -501,7 +501,7 @@ createForm 还会为被包装的组件提供一个封装过的`handleSubmit`方�
 注意：
 如果希望在`onSubmitFail`回调中正确的接收到 error 对象，需要在 submit 函数中throw `SubmissionError`类型的对象
 
-```js
+```jsx
 const { SubmissionError } = Form;
 
 submit() {
@@ -561,7 +561,7 @@ const component = field.getWrappedComponent();
 #### **Form.getControlGroup**
 getControlGroup 是一个用来快速封装自定义组件的函数，它返回一个满足通用布局与样式要求（左侧 label 、右侧表单元素）的stateless functional component 。同时支持将 Field 中的 error 信息展示出来。 getControlGroup 实现的比较简单，可以直接看源码。
 
-```js
+```jsx
 export default Control => {
   return class ControlGroup extends React.Component {
     getControlInstance = () => {
@@ -618,7 +618,7 @@ const component = field.getWrappedComponent().getControlInstance();
 #### **内置 validation rules**
 可以直接在 Field 的 validations 属性中使用
 
-```js
+```jsx
 <Field
 	...
 	validations={{

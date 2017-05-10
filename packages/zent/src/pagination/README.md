@@ -9,7 +9,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Pagination } from 'zent';
 
 class Basic extends Component {
@@ -44,7 +44,7 @@ ReactDOM.render(
 :::
 
 :::demo 动态 PageSize
-```js
+```jsx
 import { Pagination } from 'zent';
 
 class Dynamic extends Component {
@@ -79,7 +79,7 @@ ReactDOM.render(
 :::
 
 :::demo 海量页数
-```js
+```jsx
 import { Pagination } from 'zent';
 
 class HugeTotal extends Component {
@@ -115,7 +115,7 @@ ReactDOM.render(
 :::
 
 :::demo 动态自定义组件 props
-```js
+```jsx
 import { Pagination, Input } from 'zent';
 
 class Custom extends Component {

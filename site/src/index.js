@@ -6,6 +6,7 @@ import routes from './router.config';
 import packageJson from '../../packages/zent/package.json';
 import { prefix } from './constants';
 
+import 'prismjs/themes/prism.css';
 import '../assets/docs.css';
 import '../assets/react-docs.css';
 

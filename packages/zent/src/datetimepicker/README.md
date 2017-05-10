@@ -12,7 +12,7 @@
 
 :::demo 基础的日期、月份、时间段选择
 
-```js
+```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 class Demo extends Component{
@@ -74,7 +74,7 @@ ReactDOM.render(
 
 :::demo 使用 `format` 属性来设置日期的显示格式
 
-```js
+```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 class Demo extends Component{
@@ -138,7 +138,7 @@ ReactDOM.render(
 
 :::demo 传入 `showTime` 同时选择时间和日期
 
-```js
+```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 class Demo extends Component{
@@ -190,7 +190,7 @@ ReactDOM.render(
 
 :::demo 通过设置 `valueType` 来指定返回值的类型，默认为 `string`，支持 `string`/`date`/`number`，默认和传入的 `value` 类型一致。
 
-```js
+```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 class Demo extends Component{
@@ -245,7 +245,7 @@ ReactDOM.render(
 
 :::demo 传入 `disabled` 使输入框处于 disabled 状态
 
-```js
+```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 ReactDOM.render(
@@ -273,7 +273,7 @@ ReactDOM.render(
 
 :::demo 禁用部分日期，可以通过传入 `disabledDate` 函数来实现，返回 `ture` 表示禁用。另外，DatePicker 支持传入 `min/max` 属性来实现简单禁用逻辑。
 
-```js
+```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 class Demo extends Component{
@@ -358,7 +358,7 @@ ReactDOM.render(
 
 :::demo 通过 `defaultValue` 来控制面板弹出是默认显示的日期。
 
-```js
+```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 
 class Demo extends Component{

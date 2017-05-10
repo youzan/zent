@@ -5,7 +5,7 @@
 ### 代码演示
 
 :::demo 基本用法
-```js
+```jsx
 import { Layout } from 'zent';
 
 const { Row, Col } = Layout
