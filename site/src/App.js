@@ -2,52 +2,30 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import packageJson from '../../packages/zent/package.json';
 import navData from './nav.config';
-import registerRoute from './router.config';
+import { registerRoute,  registerFooter } from './router.config';
 
 import PageHeader from 'components/PageHeader';
 import PageFooter from 'components/PageFooter';
 import SideNav from 'components/SideNav';
 import FooterNav from 'components/FooterNav';
+import ScrollToTop from 'components/ScrollToTop';
 
 const global = {
   version: packageJson.version
 };
 window._global = global;
 
-class ScrollToTop extends Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0);
-    }
-  }
-
-  render() {
-    return (
-      <div className="app">{this.props.children}</div>
-    );
-  }
-}
-
-const ScrollWrapper = withRouter(ScrollToTop);
-
+// one-dimentional array
 const routeData = registerRoute(navData['zh-CN']);
 
-const footerData = {};
-
-routeData.forEach(route => {
-  footerData[route.path] = { pathname: route.path, title: route.title };
-});
-
-routeData.forEach((route, index) => {
-  footerData[route.path].prev = index === 0 ? null : footerData[routeData[index - 1].path];
-  footerData[route.path].next = index === routeData.length - 1 ? null : footerData[routeData[index + 1].path];
-});
+// double-linked list
+const footerData = registerFooter(routeData);
 
 export default class App extends Component {
   render() {
     return (
       <Router>
-        <ScrollWrapper>
+        <ScrollToTop>
           <PageHeader version={packageJson.version}></PageHeader>
           <div className="main-content">
             <div className="page-container clearfix">
@@ -68,7 +46,7 @@ export default class App extends Component {
             </div>
           </div>
           <PageFooter />
-        </ScrollWrapper>
+        </ScrollToTop>
       </Router>
     );
   }

@@ -29,4 +29,20 @@ const registerRoute = (navData) => {
   return route;
 };
 
-export default registerRoute;
+const registerFooter = (routeData) => {
+  const footerData = {};
+
+  routeData.forEach(route => {
+    footerData[route.path] = { pathname: route.path, title: route.title };
+  });
+
+  routeData.forEach((route, index) => {
+    footerData[route.path].prev = index === 0 ? null : footerData[routeData[index - 1].path];
+    footerData[route.path].next = index === routeData.length - 1 ? null : footerData[routeData[index + 1].path];
+  });
+
+  return footerData;
+}
+
+
+export {registerRoute , registerFooter};

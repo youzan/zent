@@ -26,10 +26,7 @@ const babelLoader = {
         require.resolve('babel-preset-es2015'),
         {modules: false}],
       require.resolve('babel-preset-stage-1'),
-    ],
-    plugins: [
-      require.resolve('react-hot-loader/babel'),
-    ],
+    ]
   }
 };
 
@@ -51,11 +48,12 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: babelLoader
+        use: ['react-hot-loader/webpack', babelLoader]
       },
       {
         test: /\.md$/,
         use: [
+          'react-hot-loader/webpack',
           babelLoader,
           {
             loader: require.resolve('react-markdown-doc-loader'),
