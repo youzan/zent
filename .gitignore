@@ -10,4 +10,3 @@ packages/*/coverage
 .felintrc
 .idea/
 logs/
-yarn.lock
