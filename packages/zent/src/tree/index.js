@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import { Checkbox } from 'zent';
 import assign from 'lodash/assign';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-
-import Checkbox from './components/Checkbox';
 import Loading from './components/Loading';
 
 // 记录是否已经触发收起展开逻辑
@@ -366,8 +365,9 @@ export default class Tree extends Component {
     if (checkable) {
       return (
         <Checkbox
-          onCheck={this.handleCheckboxClick.bind(this, root)}
-          type={this.state.checkedTree[root.id].t}
+          onChange={this.handleCheckboxClick.bind(this, root)}
+          checked={this.state.checkedTree[root.id].t === 2}
+          indeterminate={this.state.checkedTree[root.id].t === 1}
           disabled={isDisabled}
         />
       );
