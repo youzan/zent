@@ -49,7 +49,14 @@ export default class Input extends Component {
   };
 
   render() {
-    const { addonBefore, addonAfter, prefix, className, type } = this.props;
+    const {
+      addonBefore,
+      addonAfter,
+      prefix,
+      className,
+      type,
+      extra
+    } = this.props;
     const isTextarea = type.toLowerCase() === 'textarea';
 
     const wrapClass = classNames(
@@ -67,7 +74,8 @@ export default class Input extends Component {
       'prefix',
       'addonBefore',
       'addonAfter',
-      'onPressEnter'
+      'onPressEnter',
+      'extra'
     ]);
 
     if (isTextarea) {
@@ -100,6 +108,7 @@ export default class Input extends Component {
         />
         {addonAfter &&
           <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>}
+        {extra && <div className={`${prefix}-input-extra`}>{extra}</div>}
       </div>
     );
   }
