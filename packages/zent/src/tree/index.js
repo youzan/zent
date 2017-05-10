@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Checkbox } from 'zent';
+import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
