@@ -1,0 +1,20 @@
+{
+  "verbose": true,
+  "automock": false,
+  "collectCoverage": true,
+  "coverageReporters": [
+    "text",
+    "text-summary",
+    "lcov",
+    "html"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "statements": 90,
+      "branches": 85,
+      "functions": 95,
+      "lines": 95
+    }
+  },
+  "timers": "fake"
+}

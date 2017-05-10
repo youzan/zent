@@ -14,9 +14,10 @@ jobs:
           name: Install Dependencies
           command: |
             yarn install
+            yarn bootstrap
       - run:
           name: NPM Test
           command: |
-            yarn bootstrap
+            ./scripts/check-git-hooks.sh
             yarn lint
             yarn test

@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -28,7 +28,7 @@
     "fecha": "2.3.x",
     "lodash": "4.17.x",
     "prop-types": "15.5.x",
-    "zenticons": "^1.0.0"
+    "zenticons": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
@@ -51,6 +51,7 @@
     "babel-types": "^6.24.1",
     "babylon": "^6.17.0",
     "colors": "^1.1.2",
+    "coveralls": "^2.13.1",
     "cross-env": "^4.0.0",
     "cssnano": "^3.10.0",
     "enzyme": "2.8.x",

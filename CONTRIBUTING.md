@@ -13,10 +13,17 @@ cd site && yarn
 
 比如说 `Dialog` 里面引用了 `Button` 组件，代码里支持 `import Button from 'button';` 这样去引用，不需要写相对路径。
 
-
 #### 组件导出
 
 为了统一管理，每个组件只能 `export default` 一个东西，如果需要导出多个变量，请把其余变量挂载在 `export default` 的变量上。
+
+#### 本地测试
+
+我们的原则是：文档即代码。本地测试请在本地运行文档网站，确保每次修改代码文档都回有相应的更新。
+
+```bash
+cd site && yarn dev
+```
 
 ## 发布
 

@@ -47,8 +47,8 @@ ReactDOM.render(
 | onClose | 必填参数, ESC按下是的回调函数         | func |    |   |
 
 ```js
-import _Portal from 'zent-portal';
-import { withESCToClose } from 'zent-portal';
+import { Portal as _Portal } from 'zent';
+const { withESCToClose } = _Portal;
 const Portal = withESCToClose(_Portal);
 ```
 
@@ -61,8 +61,8 @@ const Portal = withESCToClose(_Portal);
 | visible | 必填参数, 注意这个属性原始的Portal是可选的 | bool | `true` |
 
 ```js
-import _Portal from 'zent-portal';
-import { withNonScrollable } from 'zent-portal';
+import { Portal as _Portal } from 'zent';
+const { withNonScrollable } = _Portal;
 const Portal = withNonScrollable(_Portal);
 ```
 

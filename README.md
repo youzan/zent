@@ -10,7 +10,7 @@
 	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
 </p>
 
-[![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 [![NPM](https://nodei.co/npm/zent.png?downloads=true&downloadRank=true)](https://nodei.co/npm/zent/)
 
@@ -26,40 +26,13 @@ npm install zent --save
 
 ## 使用组件
 
-```js
-import { Button } from 'zent';
-ReactDOM.render(<Button>Zent</Button>, somenode);
-```
-
-## 引入样式
-
-```js
-// 引入scss文件
-import 'zent/assets/index.scss';
-
-// 直接使用css
-import 'zent/lib/index.css';
-```
-
-## 单独使用某个组件
-
-如果你只需要某一个组件，`Zent` 支持单独引入某一个组件。如果你只用到了很少几个 `Zent` 组件，这种方式可以帮助减小最终打包出来的文件大小。
-
-我们以 `Button` 组件为例。
-
-```js
-// 只引入Button的代码
-import Button from 'zent/button';
-
-// Button的样式文件
-import 'zent/button/lib/index.css';
-```
+组件库文档：[https://www.youzanyun.com/zanui/react](https://www.youzanyun.com/zanui/react)
 
 ## 贡献代码
 
-使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/zent/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/zent/pulls)。
-
 修改代码请阅读我们的[开发指南](CONTRIBUTING.md)。
+
+使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/zent/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/zent/pulls)。
 
 ## 开源协议
 

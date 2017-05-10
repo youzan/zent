@@ -1,7 +1,7 @@
 module.exports = {
   'zh-CN': [
     {
-      name: '开发指南',
+      name: '使用指南',
       groups: [
         {
           list: [
@@ -9,6 +9,11 @@ module.exports = {
               title: '快速上手',
               path: 'guides/install',
               component: require('../../packages/zent/README.md')
+            },
+            {
+              title: 'babel-plugin-zent',
+              path: 'guides/babel-plugin-zent',
+              component: require('../../packages/babel-plugin-zent/README.md')
             },
             {
               title: '更新日志',
