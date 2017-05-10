@@ -26,6 +26,26 @@ module.exports = {
     },
 
     {
+      name: '升级指南',
+      groups: [
+        {
+          list: [
+            {
+              title: '2.1.x 升级指南',
+              path: 'migrating/21x',
+              component: require('../../packages/zent/docs/migrating-2.1.md')
+            },
+            {
+              title: '3.x 升级指南',
+              path: 'migrating/3x',
+              component: require('../../packages/zent/docs/migrating-2-3.md')
+            }
+          ]
+        }
+      ]
+    },
+
+    {
       name: 'Components 组件',
       groups: [
         {
