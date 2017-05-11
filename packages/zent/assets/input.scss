@@ -88,6 +88,11 @@ $borderRadius: 2px;
     border-bottom-right-radius: $borderRadius;
     border-left: none;
 }
+.zent-input-extra {
+    display: inline-block;
+    height: 100%;
+    margin-left: 5px;
+}
 .zent-input-addons {
     & > .zent-input {
         border-radius: 0;

@@ -114,6 +114,7 @@ ReactDOM.render(
 | placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
 | addonBefore  | 前置标签            | node          |          |                         | 否    |
 | addonAfter   | 后置标签            | node          |          |                         | 否    |
+| extra        | 额外输入框内        | node          |          |                         | 否    |
 | autoFocus    | 自动focus          | bool          |          |                         | 否    |
 | onChange     | change事件        | func(e:Event) |          |                         | 否    |
 | onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
