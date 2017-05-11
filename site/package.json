@@ -1,13 +1,13 @@
 {
-  "name": "docs-it-zent",
+  "name": "zent-docs",
   "version": "0.0.1",
-  "description": "migration from vant, generate docs for zent",
+  "description": "doc site generator for zent",
   "keywords": [
     "docs",
     "react",
     "zent"
   ],
-  "author": ["zhangmin <zhangmin@youzan.com>", "fancy <buqingdian@youzan.com>"],
+  "author": "zhangmin <zhangmin@youzan.com>, fancy <buqingdian@youzan.com>",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node scripts/dev.js",
