@@ -28,12 +28,12 @@ const closeNotifyCallback = callback => {
  */
 const closeNotify = containerId => {
   const containerObj = containerList[containerId];
-  const { container, callback, timeOutId } = containerObj;
 
-  if (!container) {
+  if (!containerObj) {
     return;
   }
 
+  const { container, callback, timeOutId } = containerObj;
   clearTimeout(timeOutId);
   ReactDOM.unmountComponentAtNode(container);
   delete containerList[containerId];

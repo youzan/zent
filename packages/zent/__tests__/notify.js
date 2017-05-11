@@ -39,6 +39,7 @@ describe('Notify component', () => {
   it('can clear all pendings', () => {
     const cb = jest.fn();
     const id = Notify.error('test', 1000, cb);
+    Notify.clear(123);
     Notify.clear(id);
     expect(cb.mock.calls.length).toBe(1);
   });
