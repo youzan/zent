@@ -115,6 +115,9 @@ class Nav extends React.Component {
   render() {
     let { prefix, align, canadd, size, type } = this.props;
     let classes = `${prefix}-tabs-size-${size} ${prefix}-tabs-type-${type} ${prefix}-tabs-align-${align}`;
+    if (type === 'slider' && size === 'normal') {
+      classes += ` ${prefix}-tabs-third-level`;
+    }
     let addOperation = '';
     if (canadd && align !== 'center') {
       addOperation = (

@@ -71,7 +71,9 @@ export default class Td extends Component {
             disabled={!canSelect}
             onChange={this.onSelect}
           />}
-        {this.renderContent()}
+        <div className="cell__child-container">
+          {this.renderContent()}
+        </div>
       </div>
     );
   }

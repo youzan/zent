@@ -14,7 +14,7 @@ import { Table } from 'zent';
 
 const datasets = [{
   item_id: '5024217',
-  bro_uvpv: '0/0',
+  bro_uvpv: '1/10',
   stock_num: '60',
   sold_num: 0,
 }, {
