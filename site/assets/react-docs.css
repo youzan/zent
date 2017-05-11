@@ -5,6 +5,10 @@ $toggle-color: #BBBBBB;
   min-width: 1000px;
 }
 
+.page-content {
+  overflow-x: auto;
+}
+
 .react-doc-page-content {
   min-height: 600px;
 }

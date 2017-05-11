@@ -82,7 +82,7 @@ ReactDOM.render(
 
 :::demo 关闭按钮
 ```jsx
-import { Alert, Sweetalert } from 'zent';
+import { Alert, Button } from 'zent';
 
 ReactDOM.render(
 	<Alert size="large" closable>

@@ -8,11 +8,13 @@ import Dialog from './Dialog';
 
 const dialogInstanceMap = {};
 
-function addDialogInstance(dialogId, dialog) {
+function ensureUniqDialogInstance(dialogId) {
   if (dialogInstanceMap[dialogId]) {
     throw new Error(`Duplicate dialog id found: ${dialogId}`);
   }
+}
 
+function addDialogInstance(dialogId, dialog) {
   dialogInstanceMap[dialogId] = dialog;
 }
 
@@ -49,6 +51,9 @@ export default function openDialog(options = {}) {
     ref,
     dialogId = uniqueId('__zent-dialog__')
   } = options;
+
+  ensureUniqDialogInstance(dialogId);
+
   let container = document.createElement('div');
 
   // 确保多次调用close不会报错
