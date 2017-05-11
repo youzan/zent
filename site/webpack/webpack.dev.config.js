@@ -5,5 +5,5 @@ module.exports = Object.assign({}, base, {
     publicPath: '/'
   }),
 
-  devtool: 'source-map'
+  devtool: 'cheap-module-eval-source-map'
 });
