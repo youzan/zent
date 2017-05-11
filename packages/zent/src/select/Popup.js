@@ -161,6 +161,7 @@ class Popup extends Component {
         {filterData.map((item, index) => {
           if (index === 0 && !currentId) {
             currentId = item.cid;
+            this.state.currentId = currentId;
           }
           if (keyword && item.text === keyword) {
             currentId = item.cid;
