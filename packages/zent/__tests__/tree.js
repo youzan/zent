@@ -326,16 +326,11 @@ describe('Tree', () => {
       />
     );
 
-    expect(checkableWrapper.find('span.checkbox').length).toBe(9);
-    expect(
-      checkableWrapper.find('span.checkbox').at(0).hasClass('half-checked')
-    ).toBe(true);
-    expect(
-      checkableWrapper.find('span.checkbox').at(2).hasClass('checked')
-    ).toBe(true);
-    expect(
-      checkableWrapper.find('span.checkbox').at(7).hasClass('disabled')
-    ).toBe(true);
+    const checkboxList = checkableWrapper.find('Checkbox');
+    expect(checkboxList.length).toBe(9);
+    expect(checkboxList.at(0).prop('indeterminate')).toBe(true);
+    expect(checkboxList.at(2).prop('checked')).toBe(true);
+    expect(checkboxList.at(7).prop('disabled')).toBe(true);
   });
 
   it('The click event from Span or Icon will trigger expand', () => {
@@ -628,25 +623,46 @@ describe('Tree', () => {
       />
     );
     expect(wrapper.state('checkedTree')['1'].t).toBe(1);
-    expect(wrapper.find('span.checkbox').at(7).hasClass('checked')).toBe(true);
-    wrapper.find('span.checkbox').at(0).simulate('click');
-    expect(wrapper.find('span.checkbox').every('.checked')).toBe(true);
-    wrapper.find('span.checkbox').at(0).simulate('click');
-    wrapper.find('span.checkbox').forEach(node => {
-      expect(node.hasClass('checked')).toBe(false);
-      expect(node.hasClass('half-checked')).toBe(false);
-    });
-    wrapper.find('span.checkbox').at(0).simulate('click');
-    expect(wrapper.find('span.checkbox').every('.checked')).toBe(true);
-    const onCheckMock = jest.fn();
-    wrapper.setProps({ onCheck: onCheckMock });
-    wrapper.find('span.checkbox').at(1).simulate('click');
-    expect(wrapper.find('span.checkbox').at(1).hasClass('checked')).toBe(false);
-    expect(wrapper.find('span.checkbox').at(3).hasClass('checked')).toBe(false);
-    expect(wrapper.find('span.checkbox').at(2).hasClass('checked')).toBe(false);
-    expect(wrapper.find('span.checkbox').at(7).hasClass('checked')).toBe(true);
-    wrapper.find('.checkbox').at(7).simulate('click');
-    expect(wrapper.find('span.checkbox').at(7).hasClass('checked')).toBe(true);
+    expect(wrapper.find('Checkbox').at(7).prop('checked')).toBe(true);
+
+    wrapper
+      .find('Checkbox input')
+      .at(0)
+      .simulate('change', { target: { checked: true } });
+    expect(wrapper.find('Checkbox').everyWhere(n => n.prop('checked'))).toBe(
+      true
+    );
+    wrapper
+      .find('Checkbox input')
+      .at(0)
+      .simulate('change', { target: { checked: false } });
+    expect(
+      wrapper
+        .find('Checkbox')
+        .everyWhere(n => n.prop('checked') && n.prop('indeterminate'))
+    ).toBe(false);
+
+    wrapper
+      .find('Checkbox input')
+      .at(0)
+      .simulate('change', { target: { checked: true } });
+    expect(wrapper.find('Checkbox').everyWhere(n => n.prop('checked'))).toBe(
+      true
+    );
+
+    wrapper
+      .find('Checkbox input')
+      .at(1)
+      .simulate('change', { target: { checked: false } });
+    expect(wrapper.find('Checkbox').at(1).prop('checked')).toBe(false);
+    expect(wrapper.find('Checkbox').at(3).prop('checked')).toBe(false);
+    expect(wrapper.find('Checkbox').at(2).prop('checked')).toBe(false);
+    expect(wrapper.find('Checkbox').at(7).prop('checked')).toBe(true);
+    wrapper
+      .find('Checkbox input')
+      .at(7)
+      .simulate('change', { target: { checked: false } });
+    expect(wrapper.find('Checkbox').at(7).prop('checked')).toBe(false);
   });
 
   it('Tree supports custom operations', () => {
