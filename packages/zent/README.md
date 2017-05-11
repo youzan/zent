@@ -6,13 +6,13 @@ A collection of essential UI components written with React.
 
 ### 安装
 
-```shell
+```bash
 yarn add zent
 ```
 
 ### 使用组件
 
-```js
+```jsx
 import { Button } from 'zent';
 
 ReactDOM.render(<Button />, mountNode);
@@ -20,7 +20,7 @@ ReactDOM.render(<Button />, mountNode);
 
 ### 引入样式
 
-```js
+```jsx
 import 'zent/css/index.css';
 ```
 

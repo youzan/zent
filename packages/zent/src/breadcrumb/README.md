@@ -11,7 +11,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Breadcrumb } from 'zent';
 
 const dataList = [
@@ -28,7 +28,7 @@ ReactDOM.render(
 :::
 
 :::demo 可以直接调用 Breadcrumb.Item 组件
-```js
+```jsx
 import { Alert, Icon } from 'zent';
 
 ReactDOM.render(
@@ -43,7 +43,7 @@ ReactDOM.render(
 :::
 
 :::demo 用户自定义 Breadcrumb.Item 的内容，或者自定义面包屑的所有内容
-```js
+```jsx
 import { Alert, Icon } from 'zent';
 
 ReactDOM.render(

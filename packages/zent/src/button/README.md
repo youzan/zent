@@ -12,7 +12,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Button } from 'zent';
 
 ReactDOM.render(
@@ -23,7 +23,7 @@ ReactDOM.render(
 :::
 
 :::demo 风格
-```js
+```jsx
 import { Button } from 'zent';
 
 ReactDOM.render(
@@ -42,7 +42,7 @@ ReactDOM.render(
 :::
 
 :::demo 正在加载的状态
-```js
+```jsx
 import { Button } from 'zent';
 
 ReactDOM.render(
@@ -53,7 +53,7 @@ ReactDOM.render(
 :::
 
 :::demo 不可用的状态
-```js
+```jsx
 import { Button } from 'zent';
 
 ReactDOM.render(
@@ -64,7 +64,7 @@ ReactDOM.render(
 :::
 
 :::demo 按钮大小
-```js
+```jsx
 import { Button } from 'zent';
 
 ReactDOM.render(
@@ -79,7 +79,7 @@ ReactDOM.render(
 :::
 
 :::demo 无边框按钮，一般在背景色比较深的地方使用
-```js
+```jsx
 import { Button, Alert } from 'zent';
 
 ReactDOM.render(
@@ -92,7 +92,7 @@ ReactDOM.render(
 :::
 
 :::demo 将按钮变成链接, 只需要提供`href`属性，并可以通过`target`属性控制打开方式
-```js
+```jsx
 import { Button, Alert } from 'zent';
 
 ReactDOM.render(

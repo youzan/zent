@@ -20,7 +20,7 @@ This plugin requires Zent version >= 3.0.0.
 
 Configuration example:
 
-```json
+```js
 // In your .babelrc
 {
 	"plugins": [

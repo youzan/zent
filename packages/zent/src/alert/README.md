@@ -10,7 +10,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Alert } from 'zent';
 
 ReactDOM.render(
@@ -21,7 +21,7 @@ ReactDOM.render(
 :::
 
 :::demo 公告内容可以是非字符串
-```js
+```jsx
 import { Alert, Icon } from 'zent';
 
 ReactDOM.render(
@@ -37,7 +37,7 @@ ReactDOM.render(
 
 
 :::demo 三种样式：`info`, `warning` 和 `danger`
-```js
+```jsx
 import { Alert } from 'zent';
 
 ReactDOM.render(
@@ -52,8 +52,8 @@ ReactDOM.render(
 :::
 
 :::demo 公告有两种大小
-```js
-import { Alert, Button } from 'zent';
+```jsx
+import { Alert } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-alert-example">
@@ -70,7 +70,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持圆角样式
-```js
+```jsx
 import { Alert } from 'zent';
 
 ReactDOM.render(
@@ -81,8 +81,8 @@ ReactDOM.render(
 :::
 
 :::demo 关闭按钮
-```js
-import { Alert, Sweetalert } from 'zent';
+```jsx
+import { Alert, Button } from 'zent';
 
 ReactDOM.render(
 	<Alert size="large" closable>
@@ -99,7 +99,7 @@ ReactDOM.render(
 :::
 
 :::demo 关闭时的回掉
-```js
+```jsx
 import { Alert, Sweetalert } from 'zent';
 
 ReactDOM.render(

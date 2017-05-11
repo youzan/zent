@@ -13,7 +13,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Dialog } from 'zent';
 
 class Example extends React.Component {
@@ -57,7 +57,7 @@ ReactDOM.render(<Example />, mountNode);
 
 
 :::demo 使用 openDialog 开启对话框
-```js
+```jsx
 import { Dialog, Button } from 'zent';
 
 const { openDialog, closeDialog } = Dialog;

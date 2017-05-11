@@ -5,7 +5,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Tabs } from 'zent';
 const TabPanel = Tabs.TabPanel;
 
@@ -55,7 +55,7 @@ ReactDOM.render(<Simple />, mountNode);
 :::
 
 :::demo 基础用法 slider
-```js
+```jsx
 import { Tabs } from 'zent';
 const TabPanel = Tabs.TabPanel;
 
@@ -106,7 +106,7 @@ ReactDOM.render(<Simple />, mountNode);
 :::
 
 :::demo 基础用法 card
-```js
+```jsx
 import { Tabs } from 'zent';
 const TabPanel = Tabs.TabPanel;
 
@@ -157,7 +157,7 @@ ReactDOM.render(<Simple />, mountNode);
 :::
 
 :::demo 加减用法
-```js
+```jsx
 import { Tabs } from 'zent';
 const TabPanel = Tabs.TabPanel;
 let uniqId = 4;
@@ -245,7 +245,7 @@ ReactDOM.render(<Simple />, mountNode);
 
 :::demo 不使用TabPanel，只使用Tab展示导航
 
-```js
+```jsx
 import { Tabs } from 'zent';
 
 class Simple extends Component {

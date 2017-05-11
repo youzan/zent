@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "highlight.js": "^9.10.0",
+    "prismjs": "^1.6.0",
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-router-dom": "^4.1.1"
@@ -45,7 +45,7 @@
     "postcss-scss": "^0.4.1",
     "precss": "^1.4.0",
     "react-hot-loader": "next",
-    "react-markdown-doc-loader": "^1.0.0",
+    "react-markdown-doc-loader": "^1.0.1",
     "saladcss-bem": "0.0.1",
     "style-loader": "^0.14.1",
     "url-loader": "^0.5.8",

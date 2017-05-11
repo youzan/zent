@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './App';
 
+import 'prismjs/themes/prism.css';
 import '../assets/docs.css';
 import '../assets/react-docs.css';
-import 'highlight.js/styles/color-brewer.css';
 
 const render = (Component) => {
   ReactDOM.render(
