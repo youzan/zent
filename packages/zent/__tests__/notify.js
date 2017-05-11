@@ -40,8 +40,6 @@ describe('Notify component', () => {
     const cb = jest.fn();
     const id = Notify.error('test', 1000, cb);
     Notify.clear(id);
-
-    // FIXME: this is a bug, should be 1
-    expect(cb.mock.calls.length).toBe(0);
+    expect(cb.mock.calls.length).toBe(1);
   });
 });
