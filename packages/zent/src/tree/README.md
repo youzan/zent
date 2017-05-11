@@ -297,6 +297,7 @@ const onCheck = data => console.log(data);
 ReactDOM.render(
 	<Tree
 		checkable
+		size="small"
 		data={treeData}
 		onCheck={onCheck}
 		defaultCheckedKeys={defaultCheckedKeys}
