@@ -3,30 +3,9 @@ const webpack = require('webpack');
 const base = require('./webpack.config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const postcssPlugins = require('./postcss.config');
+const { babelLoader, postcssLoader, scssLoader, getRules } = require('./loader.config');
 
 const prefix = 'https://b.yzcdn.cn/zanui/react/';
-
-const postcssLoader = {
-  loader: 'postcss-loader',
-  options: {
-    plugins: postcssPlugins
-  }
-};
-
-const scssLoader = {
-  loader: 'postcss-loader',
-  options: {
-    plugins: [
-      require('postcss-easy-import')({
-        extensions: ['.scss', '.css']
-      }),
-      require('precss'),
-      require('autoprefixer')
-    ],
-    parser: require('postcss-scss')
-  }
-};
 
 module.exports = Object.assign({}, base, {
   entry: {
@@ -39,7 +18,7 @@ module.exports = Object.assign({}, base, {
   }),
 
   module: Object.assign({}, base.module, {
-    rules: base.module.rules.concat([
+    rules: base.module.rules.concat(getRules(babelLoader), [
       {
         test: /\.p?css$/,
         use: ExtractTextPlugin.extract({

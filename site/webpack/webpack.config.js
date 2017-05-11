@@ -16,20 +16,6 @@ function createAlias() {
     }, {});
 }
 
-// NOTE: .babelrc inside packages/zent will affect the behavior of babel loader
-const babelLoader = {
-  loader: 'babel-loader',
-  options: {
-    presets: [
-      require.resolve('babel-preset-react'),
-      [
-        require.resolve('babel-preset-es2015'),
-        {modules: false}],
-      require.resolve('babel-preset-stage-1'),
-    ]
-  }
-};
-
 module.exports = {
   output: {
     path: join(__dirname, '../dist'),
@@ -45,30 +31,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['react-hot-loader/webpack', babelLoader]
-      },
-      {
-        test: /\.md$/,
-        use: [
-          'react-hot-loader/webpack',
-          babelLoader,
-          {
-            loader: require.resolve('react-markdown-doc-loader'),
-            options: {
-              jsTemplate: join(__dirname, '../react-template.js'),
-              renderers: {
-                markdown: 'Markdown',
-                style: 'Style',
-                demo: 'Demo'
-              }
-            }
-          },
-          require.resolve('markdown-doc-loader')
-        ]
-      },
       {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         use: 'url-loader'

@@ -1,30 +1,8 @@
-const { resolve } = require('path');
 const webpack = require('webpack');
 const base = require('./webpack.config');
-const postcssPlugins = require('./postcss.config');
+const { babelLoader, postcssLoader, scssLoader, getRules } = require('./loader.config');
 
-const postcssLoader = {
-  loader: 'postcss-loader',
-  options: {
-    plugins: postcssPlugins,
-    sourceMap: true
-  }
-};
-
-const scssLoader = {
-  loader: 'postcss-loader',
-  options: {
-    plugins: [
-      require('postcss-easy-import')({
-        extensions: ['.scss', '.css']
-      }),
-      require('precss'),
-      require('autoprefixer')
-    ],
-    parser: require('postcss-scss'),
-    sourceMap: true
-  }
-};
+babelLoader.options.plugins = [require.resolve('react-hot-loader/babel')]
 
 module.exports = Object.assign({}, base, {
   entry: {
@@ -37,7 +15,7 @@ module.exports = Object.assign({}, base, {
   }),
 
   module: Object.assign({}, base.module, {
-    rules: base.module.rules.concat([
+    rules: base.module.rules.concat(getRules(babelLoader), [
       {
         test: /\.p?css$/,
         use: ['style-loader?sourceMap', 'css-loader?sourceMap', postcssLoader]
