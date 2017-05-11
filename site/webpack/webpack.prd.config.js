@@ -10,7 +10,7 @@ const prefix = 'https://b.yzcdn.cn/zanui/react/';
 module.exports = Object.assign({}, base, {
   entry: {
     docs: './src/index.js',
-    vendor: ['react', 'react-dom', 'zent', 'classnames']
+    vendor: ['react', 'react-dom', 'prop-types', 'zent', 'classnames', 'react-router-dom']
   },
 
   output: Object.assign({}, base.output, {

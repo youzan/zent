@@ -1,7 +1,7 @@
 import React from 'react';
-import {prefix} from './constants';
+import { prefix } from './constants';
 
-const registerRoute = (navData) => {
+const registerRoute = navData => {
   let route = [];
   navData.forEach(nav => {
     if (nav.groups) {
@@ -21,7 +21,7 @@ const registerRoute = (navData) => {
 
   function addRoute(page) {
     route.push({
-      path: `/${page.path}`,
+      path: `${prefix}${page.path}`,
       component: page.component,
       title: page.title
     });
@@ -29,7 +29,7 @@ const registerRoute = (navData) => {
   return route;
 };
 
-const registerFooter = (routeData) => {
+const registerFooter = routeData => {
   const footerData = {};
 
   routeData.forEach(route => {
@@ -37,12 +37,15 @@ const registerFooter = (routeData) => {
   });
 
   routeData.forEach((route, index) => {
-    footerData[route.path].prev = index === 0 ? null : footerData[routeData[index - 1].path];
-    footerData[route.path].next = index === routeData.length - 1 ? null : footerData[routeData[index + 1].path];
+    footerData[route.path].prev = index === 0
+      ? null
+      : footerData[routeData[index - 1].path];
+    footerData[route.path].next = index === routeData.length - 1
+      ? null
+      : footerData[routeData[index + 1].path];
   });
 
   return footerData;
-}
+};
 
-
-export {registerRoute , registerFooter};
+export { registerRoute, registerFooter };

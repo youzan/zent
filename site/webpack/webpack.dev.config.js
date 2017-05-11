@@ -7,7 +7,7 @@ babelLoader.options.plugins = [require.resolve('react-hot-loader/babel')]
 module.exports = Object.assign({}, base, {
   entry: {
     docs: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:4396', 'webpack/hot/only-dev-server', './src/index.js'],
-    vendor: ['react', 'react-dom', 'classnames']
+    vendor: ['react', 'react-dom', 'prop-types', 'classnames', 'react-router-dom']
   },
 
   output: Object.assign({}, base.output, {
