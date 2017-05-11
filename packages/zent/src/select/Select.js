@@ -17,7 +17,7 @@ import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
-import { KEY_ESC, KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import { KEY_ESC } from './constants';
 
 class Select extends Component {
   constructor(props) {
@@ -254,15 +254,6 @@ class Select extends Component {
       this.setState({
         open: false
       });
-    } else if ([KEY_EN, KEY_UP, KEY_DOWN].indexOf(code) > -1) {
-      ev.preventDefault();
-      this.setState({
-        keyCode: code
-      });
-    } else {
-      this.setState({
-        keyCode: code
-      });
     }
   }
 
@@ -282,7 +273,6 @@ class Select extends Component {
       selectedItem = {},
       extraFilter,
       open,
-      keyCode,
       keyword = null
     } = this.state;
 
@@ -318,7 +308,6 @@ class Select extends Component {
           extraFilter={extraFilter}
           searchPlaceholder={searchPlaceholder}
           emptyText={emptyText}
-          keyCode={keyCode}
           keyword={keyword}
           open={open}
           filter={filter}

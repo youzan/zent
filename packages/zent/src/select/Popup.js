@@ -8,7 +8,7 @@ import isArray from 'lodash/isArray';
 
 import Search from './components/Search';
 import Option from './components/Option';
-import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import { KEY_ESC, KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 
 class Popup extends Component {
   constructor(props) {
@@ -16,35 +16,29 @@ class Popup extends Component {
 
     this.state = {
       data: props.data,
-      keyCode: '',
+      currentId: 0,
       keyword: ''
     };
-    this.currentId = null;
+    this.currentId = 0;
     this.sourceData = props.data;
     this.searchFilterHandler = this.searchFilterHandler.bind(this);
     this.optionChangedHandler = this.optionChangedHandler.bind(this);
+    this.keyupHandler = this.keyupHandler.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    let { currentId } = this.state;
     this.sourceData = nextProps.data;
     if (!nextProps.open) {
-      this.currentId = null;
+      this.currentIdUpdated = false;
     }
-    if (
-      nextProps.keyCode === KEY_EN &&
-      this.state.keyCode === nextProps.keyCode
-    ) {
-      return;
-    }
-    this.updateCurrentId(nextProps.keyCode, nextProps.keyword);
     if (nextProps.keyword === null) {
       this.setState({
-        keyCode: nextProps.keyCode,
         data: nextProps.data
       });
     } else {
       this.setState({
-        keyCode: nextProps.keyCode,
+        currentId: nextProps.open ? currentId : 0,
         data: nextProps.data,
         keyword: nextProps.keyword
       });
@@ -85,30 +79,44 @@ class Popup extends Component {
     }
   }
 
-  updateCurrentId(code, keyword) {
+  keyupHandler(ev) {
+    let code = ev.keyCode;
     let itemIds = this.itemIds;
-    let index = itemIds.indexOf(this.currentId);
-
+    let { currentId, keyword } = this.state;
+    let index = itemIds.indexOf(currentId);
+    if (!this.props.open) return false;
     switch (code) {
       case KEY_DOWN:
         if (index < 0) {
-          this.currentId = this.itemIds[0];
+          currentId = this.itemIds[0];
+          this.currentIdUpdated = true;
         } else if (this.itemIds[index + 1]) {
-          this.currentId = this.itemIds[index + 1];
+          currentId = this.itemIds[index + 1];
+          this.currentIdUpdated = true;
         }
         break;
       case KEY_UP:
         if (index > 0) {
-          this.currentId = this.itemIds[index - 1];
+          currentId = this.itemIds[index - 1];
+          this.currentIdUpdated = true;
         }
         break;
       case KEY_EN:
-        this.optionChangedHandler(keyword, this.currentId);
-        this.currentId = null;
+        this.optionChangedHandler(keyword, currentId);
+        this.currentIdUpdated = false;
         break;
       default:
         break;
     }
+    this.setState({
+      currentId
+    });
+  }
+
+  updateCurrentId(cid) {
+    this.setState({
+      currentId: cid
+    });
   }
 
   render() {
@@ -125,7 +133,7 @@ class Popup extends Component {
       open
     } = this.props;
 
-    let { keyword, data } = this.state;
+    let { keyword, data, currentId } = this.state;
 
     let filterData = data.filter(item => {
       return !keyword || !filter || filter(item, `${keyword}`);
@@ -140,6 +148,7 @@ class Popup extends Component {
         className={`${prefixCls}-popup`}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyDown={this.keyupHandler}
       >
         {!extraFilter && filter && open
           ? <Search
@@ -150,13 +159,13 @@ class Popup extends Component {
             />
           : ''}
         {filterData.map((item, index) => {
-          if (index === 0 && !this.currentId) {
-            this.currentId = item.cid;
+          if (index === 0 && !currentId) {
+            currentId = item.cid;
           }
           if (keyword && item.text === keyword) {
-            this.currentId = item.cid;
+            currentId = item.cid;
           }
-          let currentCls = item.cid === this.currentId
+          let currentCls = item.cid === currentId
             ? 'current'
             : '';
           let activeCls = selectedItems.filter(o => o.cid === item.cid).length >
@@ -169,6 +178,7 @@ class Popup extends Component {
               className={`${prefixCls}-option ${activeCls} ${currentCls}`}
               {...item}
               onClick={this.optionChangedHandler}
+              onMouseEnter={this.updateCurrentId.bind(this, item.cid)}
             />
           );
         })}

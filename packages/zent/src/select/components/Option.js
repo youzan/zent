@@ -22,6 +22,7 @@ class Option extends Component {
         value={value}
         className={className}
         onClick={this.optionClickHandler}
+        onMouseEnter={this.props.onMouseEnter}
       >
         {text}
       </span>
@@ -34,7 +35,8 @@ Option.propTypes = {
   cid: PropTypes.string,
   value: PropTypes.any,
   text: PropTypes.any,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  onMouseEnter: PropTypes.func
 };
 
 export default Option;
