@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
+import focusWithoutScroll from 'utils/dom/focusWithoutScroll';
 
 export default class DialogEl extends Component {
   onMaskClick = e => {
@@ -29,6 +31,19 @@ export default class DialogEl extends Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    // Set focus to dialog iff focus is outside of dialog itself
+    const activeElement = document.activeElement;
+    const dialogNode = findDOMNode(this);
+    if (
+      dialogNode !== activeElement &&
+      dialogNode &&
+      !dialogNode.contains(activeElement)
+    ) {
+      focusWithoutScroll(dialogNode);
+    }
   }
 
   render() {
@@ -61,7 +76,7 @@ export default class DialogEl extends Component {
       </div>;
 
     return (
-      <div>
+      <div tabIndex={-1} className={`${prefix}-dialog-r-root`}>
         {mask && <div className={`${prefix}-dialog-r-backdrop`} />}
         <div className={`${prefix}-dialog-r-wrap`} onClick={this.onMaskClick}>
           <div className={`${prefix}-dialog-r ${className}`} style={style}>

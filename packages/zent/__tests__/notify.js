@@ -28,4 +28,19 @@ describe('Notify component', () => {
     }, 2500);
     jest.runAllTimers();
   });
+
+  it('supports close callback', () => {
+    const cb = jest.fn();
+    Notify.error('test', 2000, cb);
+    jest.runAllTimers();
+    expect(cb.mock.calls.length).toBe(1);
+  });
+
+  it('can clear all pendings', () => {
+    const cb = jest.fn();
+    const id = Notify.error('test', 1000, cb);
+    Notify.clear(123);
+    Notify.clear(id);
+    expect(cb.mock.calls.length).toBe(1);
+  });
 });

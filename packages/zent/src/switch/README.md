@@ -10,7 +10,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Switch } from 'zent';
 
 class Simple extends React.Component {
@@ -38,7 +38,7 @@ ReactDOM.render(
 :::
 
 :::demo 失效状态
-```js
+```jsx
 import { Switch } from 'zent';
 
 ReactDOM.render(
@@ -54,7 +54,7 @@ ReactDOM.render(
 :::
 
 :::demo 开关大小
-```js
+```jsx
 import { Switch } from 'zent';
 
 ReactDOM.render(
@@ -70,7 +70,7 @@ ReactDOM.render(
 :::
 
 :::demo 开关loading
-```js
+```jsx
 import { Switch } from 'zent';
 
 ReactDOM.render(
@@ -86,7 +86,7 @@ ReactDOM.render(
 :::
 
 :::demo 自定义开关文案
-```js
+```jsx
 import { Switch } from 'zent';
 
 class Simple extends React.Component {

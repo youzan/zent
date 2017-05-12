@@ -9,7 +9,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Loading } from 'zent';
 
 ReactDOM.render(<Loading show />, mountNode);
@@ -18,7 +18,7 @@ ReactDOM.render(<Loading show />, mountNode);
 
 
 :::demo 使用 Loading 包裹组件，使其进入 Loading 状态。
-```js
+```jsx
 import { Loading, Switch } from 'zent';
 
 class Example extends React.Component {
@@ -53,7 +53,7 @@ ReactDOM.render(<Example />, mountNode);
 
 
 :::demo 全局开启或关闭。
-```js
+```jsx
 import { Loading, Button } from 'zent';
 
 const Example = () => {

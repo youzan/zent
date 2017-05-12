@@ -11,7 +11,7 @@
 
 :::demo 基础用法
 
-```js
+```jsx
 import { Input } from 'zent';
 
 ReactDOM.render(
@@ -27,7 +27,7 @@ ReactDOM.render(
 
 :::demo 带前后缀的输入框
 
-```js
+```jsx
 import { Input } from 'zent';
 
 ReactDOM.render(
@@ -43,7 +43,7 @@ ReactDOM.render(
 
 :::demo textarea输入框
 
-```js
+```jsx
 import { Input } from 'zent';
 
 ReactDOM.render(
@@ -57,7 +57,7 @@ ReactDOM.render(
 
 :::demo 事件处理
 
-```js
+```jsx
 import { Input } from 'zent';
 
 class EventTest extends React.Component {

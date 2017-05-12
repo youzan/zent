@@ -1,0 +1,83 @@
+@component-namespace page {
+  @b header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+
+    @e top {
+      overflow: hidden;
+      height: 80px;
+      background-color: #fbfbfb;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+    }
+
+    @e logo {
+      float: left;
+
+      > a {
+        display: block;
+        width: 78px;
+        height: 20px;
+        background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: 30px 0 0 20px;
+      }
+    }
+
+    @e navs {
+      float: right;
+    }
+
+    @e item {
+      float: left;
+      height: 50px;
+    }
+
+    @e subnavs {
+      line-height: 50px;
+      display: flex;
+      justify-content: center;
+      background-color: #f2f2f2;
+      position: relative;
+      z-index: -1;
+
+      @m shadow {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+      }
+
+      a,
+      span {
+        line-height: 50px;
+      }
+    }
+
+    @e link {
+      display: block;
+      line-height: 80px;
+      color: #333;
+      font-size: 16px;
+      margin: 0 20px;
+
+      &:hover {
+        color: #3388FF;
+      }
+
+      @m active {
+        color: #3388FF;
+      }
+    }
+
+    @e github {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      overflow: hidden;
+      background-image: url(https://img.yzcdn.cn/upload_files/2017/03/30/Fil9peDfgzvk3kj-oFCsElS4FS1x.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin: 14px 20px 0;
+    }
+  }
+}

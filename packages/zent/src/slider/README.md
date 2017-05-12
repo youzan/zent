@@ -11,7 +11,7 @@
 
 :::demo 基础用法
 
-```js
+```jsx
 import { Slider } from 'zent';
 
 class Test extends React.Component {
@@ -38,7 +38,7 @@ ReactDOM.render(
 
 :::demo 双滑块选择范围
 
-```js
+```jsx
 import { Slider } from 'zent';
 
 class Test extends React.Component {
@@ -65,7 +65,7 @@ ReactDOM.render(
 
 :::demo 设置最大值，最小值，间隔
 
-```js
+```jsx
 import { Slider } from 'zent';
 
 class Test extends React.Component {
@@ -92,7 +92,7 @@ ReactDOM.render(
 
 :::demo 标签值
 
-```js
+```jsx
 import { Slider } from 'zent';
 
 const marks = {
@@ -124,7 +124,7 @@ ReactDOM.render(
 
 :::demo 只能选择标签值，此时无输入框
 
-```js
+```jsx
 import { Slider } from 'zent';
 
 const marks = {
@@ -159,7 +159,7 @@ ReactDOM.render(
 
 :::demo disabled
 
-```js
+```jsx
 import { Slider } from 'zent';
 
 ReactDOM.render(
