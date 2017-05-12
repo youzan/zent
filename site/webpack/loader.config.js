@@ -1,18 +1,23 @@
+/* eslint-disable global-require */
+
 const { join } = require('path');
 const postcssPlugins = require('./postcss.config');
 
-const babelLoader = {
-  loader: 'babel-loader',
-  options: {
-    presets: [
-      require.resolve('babel-preset-react'),
-      [
-        require.resolve('babel-preset-es2015'),
-        {modules: false}],
-      require.resolve('babel-preset-stage-1'),
-    ]
-  }
-};
+function getBabelLoader(options = {}) {
+  const dev = options.dev || false;
+
+  return {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        require.resolve('babel-preset-react'),
+        [require.resolve('babel-preset-es2015'), { modules: false }],
+        require.resolve('babel-preset-stage-1')
+      ],
+      plugins: dev ? [require.resolve('react-hot-loader/babel')] : []
+    }
+  };
+}
 
 const postcssLoader = {
   loader: 'postcss-loader',
@@ -35,7 +40,7 @@ const scssLoader = {
   }
 };
 
-const getRules = (babelLoader) => [
+const getRules = babelLoader => [
   {
     test: /\.js$/,
     exclude: /node_modules/,
@@ -58,12 +63,12 @@ const getRules = (babelLoader) => [
       },
       require.resolve('markdown-doc-loader')
     ]
-  },
+  }
 ];
 
 module.exports = {
-  babelLoader,
+  getBabelLoader,
   postcssLoader,
   scssLoader,
   getRules
-}
+};

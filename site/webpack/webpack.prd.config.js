@@ -3,14 +3,27 @@ const webpack = require('webpack');
 const base = require('./webpack.config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const { babelLoader, postcssLoader, scssLoader, getRules } = require('./loader.config');
+const {
+  getBabelLoader,
+  postcssLoader,
+  scssLoader,
+  getRules
+} = require('./loader.config');
 
+const babelLoader = getBabelLoader({ dev: false });
 const prefix = 'https://b.yzcdn.cn/zanui/react/';
 
 module.exports = Object.assign({}, base, {
   entry: {
     docs: './src/index.js',
-    vendor: ['react', 'react-dom', 'prop-types', 'zent', 'classnames', 'react-router-dom']
+    vendor: [
+      'react',
+      'react-dom',
+      'prop-types',
+      'zent',
+      'classnames',
+      'react-router-dom'
+    ]
   },
 
   output: Object.assign({}, base.output, {
@@ -32,7 +45,7 @@ module.exports = Object.assign({}, base, {
           fallback: 'style-loader',
           use: ['css-loader', scssLoader]
         })
-      },
+      }
     ])
   }),
 
@@ -88,7 +101,7 @@ module.exports = Object.assign({}, base, {
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
       allChunks: true
-    }),
+    })
   ]),
   devServer: {
     contentBase: resolve(__dirname, 'dist'),
