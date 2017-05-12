@@ -49,6 +49,7 @@ code[class*="language-"] {
   background-color: #f8f8f8;
   padding: 20px;
   -webkit-font-smoothing: auto;
+  overflow-x: scroll;
 }
 
 .clearfix {
