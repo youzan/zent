@@ -88,12 +88,6 @@ class Select extends Component {
     open = nextProps.open || this.focus;
     let nextState = { ...nextProps, open };
     let selectedItems = [];
-    if (
-      nextProps.data === this.state.data &&
-      nextProps.value === this.state.value &&
-      nextProps.index === this.state.index
-    )
-      return;
     if (`${nextProps.value}` || `${nextProps.index}`) {
       this.state.selectedItem = this.props.selectedItem;
     }
