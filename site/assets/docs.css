@@ -49,7 +49,7 @@ code[class*="language-"] {
   background-color: #f8f8f8;
   padding: 20px;
   -webkit-font-smoothing: auto;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .clearfix {
@@ -164,6 +164,15 @@ code[class*="language-"] {
       li {
         margin-left: 0;
       }
+    }
+
+    // anchor offset
+    .anchor-point::before {
+      content: '';
+      display: block;
+      position: relative;
+      height: 135px;
+      margin-top: -135px;
     }
   }
 
