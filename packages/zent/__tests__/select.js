@@ -164,8 +164,10 @@ describe('<Select />', () => {
     expect(wrapper.state('open')).toBe(false);
     wrapper.find('TagsTrigger').simulate('click');
     expect(wrapper.find('.current').length).toBe(1);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 41 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
     expect(wrapper.find('.current').length).toBe(1);
     expect(wrapper.find('.current').prop('value')).toBe('1');
     wrapper
@@ -177,23 +179,59 @@ describe('<Select />', () => {
       .find('Popup')
       .simulate('keydown', { keyCode: 40 });
     expect(wrapper.find('.current').prop('value')).toBe('');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    expect(wrapper.find('.current').prop('value')).toBe('1');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
     expect(wrapper.find('.current').prop('value')).toBe('');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    expect(wrapper.find('.current').prop('value')).toBe('3');
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    expect(wrapper.find('.current').prop('value')).toBe('2');
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    expect(wrapper.find('.current').prop('value')).toBe('1');
     expect(wrapper.state('open')).toBe(true);
     expect(onChangeMock.mock.calls.length).toBe(0);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 13 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 13 });
     expect(wrapper.state('open')).toBe(false);
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(onChangeMock.mock.calls[0][0].target.value).toBe('3');
@@ -201,12 +239,30 @@ describe('<Select />', () => {
     expect(onChangeMock.mock.calls[0][1].value).toBe('3');
     wrapper.find('TagsTrigger').simulate('click');
     expect(wrapper.find('.current').length).toBe(0);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 13 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 13 });
     expect(onEmptyMock.mock.calls.length).toBe(1);
   });
 
