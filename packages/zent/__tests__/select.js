@@ -163,7 +163,7 @@ describe('<Select />', () => {
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 27 });
     expect(wrapper.state('open')).toBe(false);
     wrapper.find('TagsTrigger').simulate('click');
-    expect(wrapper.find('.current').length).toBe(0);
+    expect(wrapper.find('.current').length).toBe(1);
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 41 });
     expect(wrapper.state('keyCode')).toBe(41);
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
