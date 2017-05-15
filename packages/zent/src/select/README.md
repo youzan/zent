@@ -234,15 +234,22 @@ ReactDOM.render(
 ```jsx
 import { Select } from 'zent';
 
-const data = [1, 2, 3];
+const data = [{
+  value: 1,
+  text: '选项一'
+}, {
+  value: 2,
+  text: '选项二'
+}, {
+  value: 3,
+  text: '选项三'
+}];
 
 ReactDOM.render(
   <Select
     data={data}
-    optionValue="id"
-    optionText="name"
     search
-    filter={(item, keyword) => item.name.indexOf(keyword) > -1}
+    filter={(item, keyword) => item.text.indexOf(keyword) > -1}
   />
   , mountNode
 );
