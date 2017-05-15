@@ -234,7 +234,7 @@ describe('<Select />', () => {
       .simulate('keydown', { keyCode: 13 });
     expect(wrapper.state('open')).toBe(false);
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0][0].target.value).toBe('3');
+    expect(onChangeMock.mock.calls[0][0].target.value).toBe('1');
     expect(onChangeMock.mock.calls[0][0].target.type).toBe('select-multiple');
     expect(onChangeMock.mock.calls[0][1].value).toBe('3');
     wrapper.find('TagsTrigger').simulate('click');
