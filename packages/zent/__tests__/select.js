@@ -168,9 +168,15 @@ describe('<Select />', () => {
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
     expect(wrapper.find('.current').length).toBe(1);
     expect(wrapper.find('.current').prop('value')).toBe('1');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    expect(wrapper.find('.current').prop('value')).toBe('3');
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    expect(wrapper.find('.current').prop('value')).toBe('');
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
