@@ -263,7 +263,7 @@ describe('<Select />', () => {
       .find('.zent-select')
       .find('Popup')
       .simulate('keydown', { keyCode: 13 });
-    expect(onEmptyMock.mock.calls.length).toBe(1);
+    expect(onEmptyMock.mock.calls.length).toBe(0);
   });
 
   it('Dynamic Select', () => {
