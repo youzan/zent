@@ -67,8 +67,7 @@ code[class*="language-"] {
 
 .main-content {
   margin: 130px 20px 40px;
-  margin-top: 0;
-  padding-top: 150px;
+  padding-top: 20px;
 }
 
 .page-container {
