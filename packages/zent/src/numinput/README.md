@@ -1,0 +1,110 @@
+## Input 数值输入框
+
+表单的输入组件，对组件input的包装，通过鼠标或键盘输入内容。
+
+### 使用指南
+
+- 输入内容仅为数字时，使用数字输入框比普通文本输入框更方便。
+
+### 代码演示
+
+:::demo 基础用法
+
+```jsx
+import { Numinput } from 'zent';
+
+ReactDOM.render(
+    <div>
+    		<Numinput placeholder="Please input your number"/>
+        <Numinput type="count" placeholder="Please input your number"/>
+    </div>
+    , mountNode
+);
+
+```
+:::
+
+:::demo 带小数点精度
+
+```jsx
+import { Numinput } from 'zent';
+
+ReactDOM.render(
+    <div>
+        <Numinput decimal="2" placeholder="Please input your number"/>
+        <Numinput type="count" decimal="2" placeholder="Please input your number"/>
+    </div>
+    , mountNode
+);
+```
+:::
+
+:::demo 带数字最大最小范围
+
+```jsx
+import { Numinput } from 'zent';
+
+ReactDOM.render(
+    <div>
+        <Numinput min="2" max="6" decimal="2" placeholder="Please input your number"/>
+        <Numinput type="count" min="2" max="6" decimal="2" placeholder="Please input your number"/>
+    </div>
+    , mountNode
+);
+```
+:::
+
+:::demo 事件处理
+
+```jsx
+import { Numinput } from 'zent';
+
+class EventTest extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            log: ''
+        }
+    }
+    onChange(value) {
+    	this.setState({ log: value });
+    }
+    render() {
+        return (
+            <div>
+                <Numinput onChange={this.onChange} decimal="2" placeholder="Please input your number"/>
+                <div><p>{this.state.log}</p></div>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <EventTest />
+    , mountNode
+);
+```
+:::
+
+
+### API
+
+| 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
+| ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
+| className    | 自定义额外类名        | string        | `''`     |                         | 否    |
+| prefix       | 自定义类前缀         | string        | `'zent'` |                         | 否    |
+| type         | 自定义类前缀         | string        | `'number'` | `'number'`、`'count'`| 否    |
+| value        | 输入值             | string        |          |                         | 否    |
+| disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
+| placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
+| decimal      | 数值精度            | number        |          |                         | 否    |
+| min      | 数值范围最小值            | number        |          |                         | 否    |
+| max      | 数值范围最大值            | number        |          |                         | 否    |
+| onChange     | change事件        | func(e:Event) |          |                         | 否    |
+
+<style>
+.zent-numinput-wrapper {
+    width: 200px;
+    margin-bottom: 20px;
+}
+</style>

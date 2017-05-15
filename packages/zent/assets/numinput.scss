@@ -1,0 +1,48 @@
+.zent-numinput-wrapper {
+  position: relative;
+}
+.zent-numinput-count-wrapper {
+  .zent-input {
+    padding: 0 20px 0 10px;
+  }
+}
+.zent-numinput-arrow {
+  position: absolute;
+  right: 1px;
+  height: calc(50% - 1px);
+  line-height: 50%;
+  width: 20px;
+  text-align: center;
+  z-index: 10;
+  cursor: pointer;
+  svg {
+    fill: #666666;
+  }
+  &:hover {
+    svg {
+      fill: #3388FF;
+    }
+  }
+}
+.zent-numinput-arrow-disable {
+  svg {
+    fill: #CACACA;
+  }
+  &:hover {
+    cursor: not-allowed;
+    svg {
+      cursor: not-allowed;
+      fill: #CACACA;
+    }
+  }
+}
+.zent-numinput-arrowup {
+  top: 1px;
+  border-left: 1px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
+}
+.zent-numinput-arrowdown {
+  height: calc(50% - 2px);
+  bottom: 1px;
+  border-left: 1px solid #E5E5E5;
+}
