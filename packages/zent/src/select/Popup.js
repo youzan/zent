@@ -17,18 +17,32 @@ class Popup extends Component {
     this.state = {
       data: props.data,
       currentId: 0,
-      keyword: ''
+      keyword: props.keyword || ''
     };
     this.currentId = 0;
     this.sourceData = props.data;
     this.searchFilterHandler = this.searchFilterHandler.bind(this);
     this.optionChangedHandler = this.optionChangedHandler.bind(this);
-    this.keyupHandler = this.keyupHandler.bind(this);
+    this.keydownHandler = this.keydownHandler.bind(this);
   }
 
   componentDidMount() {
     if (!this.props.filter) {
       this.popup.focus();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.sourceData = nextProps.data;
+    if (nextProps.keyword === null) {
+      this.setState({
+        data: nextProps.data
+      });
+    } else {
+      this.setState({
+        data: nextProps.data,
+        keyword: nextProps.keyword
+      });
     }
   }
 
@@ -66,7 +80,7 @@ class Popup extends Component {
     }
   }
 
-  keyupHandler(ev) {
+  keydownHandler(ev) {
     let code = ev.keyCode;
     let itemIds = this.itemIds;
     let { currentId, keyword } = this.state;
@@ -137,7 +151,7 @@ class Popup extends Component {
         className={`${prefixCls}-popup`}
         onFocus={onFocus}
         onBlur={onBlur}
-        onKeyDown={this.keyupHandler}
+        onKeyDown={this.keydownHandler}
       >
         {!extraFilter && filter
           ? <Search

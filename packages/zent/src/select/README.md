@@ -234,11 +234,7 @@ ReactDOM.render(
 ```jsx
 import { Select } from 'zent';
 
-const data = [
-     {id: 1, name: '选项一'},
-     {id: 2, name: '选项二'},
-     {id: 3, name: '选项三'}
-];
+const data = [1, 2, 3];
 
 ReactDOM.render(
   <Select
