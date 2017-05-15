@@ -9,12 +9,12 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Table } from 'zent';
 
 const datasets = [{
   item_id: '5024217',
-  bro_uvpv: '0/0',
+  bro_uvpv: '1/10',
   stock_num: '60',
   sold_num: 0,
 }, {
@@ -65,7 +65,7 @@ ReactDOM.render(
 :::
 
 :::demo 加载
-```js
+```jsx
 import { Table } from 'zent';
 
 const datasets = [{
@@ -152,7 +152,7 @@ ReactDOM.render(
 :::
 
 ::: demo 分页
-```js
+```jsx
 import { Table } from 'zent';
 
 const datasets = [{
@@ -238,7 +238,7 @@ ReactDOM.render(
 :::
 
 ::: demo 排序
-```js
+```jsx
 import { Table } from 'zent';
 
 const datasets = [{
@@ -316,7 +316,7 @@ ReactDOM.render(
 :::
 
 ::: demo 选择
-```js
+```jsx
 import { Table } from 'zent';
 
 const datasets = [{
@@ -412,7 +412,7 @@ ReactDOM.render(
 
 ::: demo 每行特殊设置
 
-```js
+```jsx
 import { Table } from 'zent';
 
 const datasets = [{
@@ -496,7 +496,7 @@ ReactDOM.render(
 
 ::: demo 可展开
 
-```js
+```jsx
 import { Table } from 'zent';
 
 const datasets = [{
@@ -610,7 +610,7 @@ ReactDOM.render(
 | prefix     | 自定义前缀                                      | string        | `'zent'`    |         | 否    |
 
 #### getRowConf的特别声明：
-```js
+```jsx
 
   /*
   * @param data {Object} 每一行的数据

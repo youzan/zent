@@ -5,7 +5,7 @@
 ### 代码演示
 
 :::demo 类型为 number 的步骤条 (默认为该类型)
-```js
+```jsx
 import { Steps } from 'zent';
 
 ReactDOM.render(
@@ -20,7 +20,7 @@ ReactDOM.render(
 :::
 
 :::demo 类型为 breadcrumb 的步骤条
-```js
+```jsx
 import { Steps } from 'zent';
 
 ReactDOM.render(
@@ -36,7 +36,7 @@ ReactDOM.render(
 :::
 
 :::demo 类型为 card 的步骤条
-```js
+```jsx
 import { Steps } from 'zent';
 
 ReactDOM.render(

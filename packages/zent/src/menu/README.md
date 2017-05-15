@@ -5,7 +5,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Menu } from 'zent';
 const { MenuItem } = Menu;
 
@@ -31,7 +31,7 @@ ReactDOM.render(<Example />, mountNode);
 
 
 :::demo 二级菜单
-```js
+```jsx
 import { Menu } from 'zent';
 const { MenuItem, SubMenu } = Menu;
 
@@ -65,7 +65,7 @@ ReactDOM.render(<Example />, mountNode);
 :::
 
 :::demo 多级嵌套
-```js
+```jsx
 import { Menu } from 'zent';
 
 const { MenuItem, SubMenu } = Menu;

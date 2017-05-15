@@ -11,7 +11,7 @@
 ### 代码示例
 
 :::demo 三种触发方式: 点击，鼠标移入，获得输入焦点
-```js
+```jsx
 import { Pop, Button, Input } from 'zent';
 
 ReactDOM.render(
@@ -32,7 +32,7 @@ ReactDOM.render(
 :::
 
 :::demo 12种定位
-```js
+```jsx
 import { Pop, Button } from 'zent';
 
 const trigger = 'hover';
@@ -92,7 +92,7 @@ ReactDOM.render(
 某些情况下`Pop` 的 trigger 特别小，但是 `Pop` 气泡的小三角距离弹层边缘的距离又是固定的，此时小三角可能会出现在 trigger 外面。`Pop` 提供了一个参数 `centerArrow` 来处理这种情况，`centerArrow` 为 `true` 的时候，气泡的小三角永远居中对齐于 trigger，不就不会出现小三角跑到外面的情况了。
 
 :::demo 使用 `centerArrow` 来控制气泡小三角的位置
-```js
+```jsx
 import { Pop, Button, Input } from 'zent';
 
 ReactDOM.render(
@@ -110,7 +110,7 @@ ReactDOM.render(
 :::
 
 :::demo Confirm 形式的气泡提示
-```js
+```jsx
 import { Pop, Sweetalert } from 'zent';
 
 ReactDOM.render(
@@ -127,7 +127,7 @@ ReactDOM.render(
 :::
 
 :::demo 自定义 Confirm 形式的气泡提示按钮
-```js
+```jsx
 import { Pop, Sweetalert } from 'zent';
 
 ReactDOM.render(
@@ -147,7 +147,7 @@ ReactDOM.render(
 :::
 
 :::demo 延迟打开／关闭
-```js
+```jsx
 import { Pop } from 'zent';
 
 class Controlled extends Component {
@@ -193,7 +193,7 @@ ReactDOM.render(
 除了外部代码控制 `Pop` 的显示外，trigger 在条件满足的情况下也会触发打开／关闭，这时候必须通知外部修改 `visible`。
 
 :::demo 高级用法：外部控制显示隐藏
-```js
+```jsx
 import { Pop } from 'zent';
 
 class NoneTriggerDemo extends Component {

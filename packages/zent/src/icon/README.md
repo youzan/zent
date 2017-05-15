@@ -10,7 +10,7 @@
 ### 代码演示
 
 :::demo React组件方式使用
-```js
+```jsx
 import { Icon } from 'zent';
 
 ReactDOM.render(
@@ -21,7 +21,7 @@ ReactDOM.render(
 :::
 
 :::demo 只使用CSS
-```js
+```jsx
 ReactDOM.render(
 	<i className="zenticon zenticon-youzan"></i>
 	, mountNode
@@ -30,7 +30,7 @@ ReactDOM.render(
 :::
 
 :::demo 所有图标
-```js
+```jsx
 import { Icon } from 'zent';
 
 class IconGrid extends Component {

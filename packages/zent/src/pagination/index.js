@@ -5,7 +5,7 @@ import isEqual from 'lodash/isEqual';
 import CorePagination from './modules/CorePagination';
 import Prefix from './modules/Prefix';
 
-const { number, func, string, oneOfType } = PropTypes;
+const { number, func, string } = PropTypes;
 
 export default class Pagination extends Component {
   static propTypes = {
@@ -13,7 +13,7 @@ export default class Pagination extends Component {
     prefix: string,
     current: number,
     totalItem: number,
-    maxPageToShow: oneOfType([number, null]),
+    maxPageToShow: number,
     pageSize(conf) {
       let { pageSize } = conf;
 

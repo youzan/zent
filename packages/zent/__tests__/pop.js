@@ -322,4 +322,23 @@ describe('Pop', () => {
     jest.runAllTimers();
     expect(a).toBe(2);
   });
+
+  it('records unmount', () => {
+    let wrapper = mount(
+      <Pop
+        content={content()}
+        trigger={'click'}
+        className="bar11"
+        block
+        header={header()}
+      >
+        <Button>
+          click
+        </Button>
+      </Pop>
+    );
+    const instance = wrapper.instance();
+    wrapper.unmount();
+    expect(instance.isUnmounted).toBe(true);
+  });
 });

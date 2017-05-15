@@ -8,7 +8,7 @@ function RawHtmlRenderer(props) {
 }
 
 function Markdown(props) {
-  return <RawHtmlRenderer tag="section" html={props.html} />;
+  return <RawHtmlRenderer tag="section" html={props.html} attributes={{ className: 'zandoc-react-markdown' }}/>;
 }
 
 function Style(props) {
@@ -47,13 +47,17 @@ class Demo extends Component {
             className={`zenticon zenticon-right zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
           />
         </div>
-        {showCode && <RawHtmlRenderer
-          tag="pre"
-          html={src}
-          attributes={{
-            className: 'zandoc-react-demo__code'
-          }}
-        />}
+        {showCode &&
+          <pre className="zandoc-react-demo__code">
+            <RawHtmlRenderer
+              tag="code"
+              html={src}
+              attributes={{
+                className: 'language-jsx'
+              }}
+            />
+          </pre>
+        }
       </div>
     )
   }

@@ -10,7 +10,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Tree } from 'zent';
 
 const treeData = [{
@@ -43,7 +43,7 @@ ReactDOM.render(
 :::
 
 :::demo 列表格式数据源
-```js
+```jsx
 import { Tree } from 'zent';
 
 const treeData = [{
@@ -79,7 +79,7 @@ ReactDOM.render(
 :::
 
 :::demo 三种大小
-```js
+```jsx
 import { Tree } from 'zent';
 
 const treeData = [{
@@ -116,7 +116,7 @@ ReactDOM.render(
 :::
 
 :::demo 自定义节点展示
-```js
+```jsx
 import { Tree } from 'zent';
 
 const treeData = [{
@@ -159,7 +159,7 @@ ReactDOM.render(
 :::
 
 :::demo 自定义操作
-```js
+```jsx
 import { Tree, Icon, Radio } from 'zent';
 
 const RadioGroup = Radio.Group;
@@ -265,7 +265,7 @@ ReactDOM.render(
 :::
 
 :::demo 可选树
-```js
+```jsx
 import { Tree } from 'zent';
 
 const treeData = [{
@@ -297,6 +297,7 @@ const onCheck = data => console.log(data);
 ReactDOM.render(
 	<Tree
 		checkable
+		size="small"
 		data={treeData}
 		onCheck={onCheck}
 		defaultCheckedKeys={defaultCheckedKeys}
@@ -308,7 +309,7 @@ ReactDOM.render(
 :::
 
 :::demo 异步加载
-```js
+```jsx
 import { Tree } from 'zent';
 
 const fetchData = (data, callback) => {

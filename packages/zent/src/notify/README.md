@@ -11,7 +11,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Notify, Button } from 'zent';
 
 ReactDOM.render(
@@ -26,7 +26,7 @@ ReactDOM.render(
 :::
 
 :::demo 自定义通知内容
-```js
+```jsx
 import { Notify, Button } from 'zent';
 
 function customContent() {
@@ -48,7 +48,7 @@ ReactDOM.render(
 :::
 
 :::demo 自定义通知显示时间
-```js
+```jsx
 import { Notify, Button } from 'zent';
 
 ReactDOM.render(
@@ -62,7 +62,7 @@ ReactDOM.render(
 :::
 
 :::demo 自定义通知结束回调
-```js
+```jsx
 import { Notify, Button } from 'zent';
 
 function closeCallback() {
@@ -78,12 +78,16 @@ ReactDOM.render(
 :::
 
 :::demo 清除屏幕所有通知
-```js
+```jsx
 import { Notify, Button } from 'zent';
+
+function closeCallback() {
+	alert('Callback has call');
+}
 
 ReactDOM.render(
 	<div>
-		<Button onClick={() => Notify.success('通知')}>打开通知</Button>
+		<Button onClick={() => Notify.success('成功通知', 2000, closeCallback)}>成功通知</Button>
 		<Button onClick={() => Notify.clear()}>清除通知</Button>
 	</div>
 	, mountNode

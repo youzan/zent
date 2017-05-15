@@ -10,7 +10,7 @@
 ### 代码演示
 
 :::demo 基础用法
-```js
+```jsx
 import { Alert } from 'zent';
 
 ReactDOM.render(
@@ -21,7 +21,7 @@ ReactDOM.render(
 :::
 
 :::demo 公告内容可以是非字符串
-```js
+```jsx
 import { Alert, Icon } from 'zent';
 
 ReactDOM.render(
@@ -37,7 +37,7 @@ ReactDOM.render(
 
 
 :::demo 三种样式：`info`, `warning` 和 `danger`
-```js
+```jsx
 import { Alert } from 'zent';
 
 ReactDOM.render(
@@ -52,13 +52,17 @@ ReactDOM.render(
 :::
 
 :::demo 公告有两种大小
-```js
+```jsx
 import { Alert } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-alert-example">
-		<Alert>这个时正常尺寸的公告。</Alert>
-		<Alert size="large">这个是大号的公告。</Alert>
+		<Alert>这个是正常尺寸的公告。</Alert>
+		<Alert size="large">
+			<p>这个是大尺寸</p>
+			<p>交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</p><br />
+			<p>官方咨询电话：0571-88888888</p>
+		</Alert>
 	</div>
 	, mountNode
 )
@@ -66,7 +70,7 @@ ReactDOM.render(
 :::
 
 :::demo 支持圆角样式
-```js
+```jsx
 import { Alert } from 'zent';
 
 ReactDOM.render(
@@ -77,18 +81,25 @@ ReactDOM.render(
 :::
 
 :::demo 关闭按钮
-```js
-import { Alert, Sweetalert } from 'zent';
+```jsx
+import { Alert, Button } from 'zent';
 
 ReactDOM.render(
-	<Alert type="info" closable >这个公告可以关闭。</Alert>
+	<Alert size="large" closable>
+		<div className="content">
+			<p className="text">交易过程中的短信通知，将通过营销中心的“消息推送”功能来发送。</p>
+			<p>官方咨询电话：0571-88888888</p>
+		</div>
+		<br />
+		<Button>了解详情</Button>
+	</Alert>
 	, mountNode
 )
 ```
 :::
 
 :::demo 关闭时的回掉
-```js
+```jsx
 import { Alert, Sweetalert } from 'zent';
 
 ReactDOM.render(
@@ -109,9 +120,9 @@ ReactDOM.render(
 | 参数    |   说明          | 类型     | 默认值        | 备选值            |
 | --------- | ------------- | ------ | ---------- | --------------------------------- |
 | type      | 警告提示的样式  | string | `'info'`   | `'info'`, `'warning'`, `'danger'` |
-| size      | alert的大小 | string | `'normal'` | `'normal'`, `'large'`             |
+| size      | alert 的大小 | string | `'normal'` | `'normal'`, `'large'`             |
 | rounded   | 是否圆角     | bool   | `false`    |   `true`, `false`                   |
-| closable  | 默认不可关闭   | bool   | `false`    |    `true`, `false`                |
+| closable  | 是否可以关闭   | bool   | `false`    |    `true`, `false`                |
 | onClose   | 关闭时的回调   | func   | `noop`     |                                   |
 | className | 自定义额外类名  | string | `''`       |                                   |
 | prefix    | 自定义前缀    | string | `'zent'`   |                                   |
@@ -136,7 +147,13 @@ ReactDOM.render(
 }
 
 .zenticon-error-circle {
-    color: #FF4343;
+	color: #FF4343;
 	margin-right: 5px;
+}
+
+.zent-alert {
+	.text {
+		margin-bottom: 5px;
+	}
 }
 </style>
