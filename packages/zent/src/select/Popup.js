@@ -8,7 +8,7 @@ import isArray from 'lodash/isArray';
 
 import Search from './components/Search';
 import Option from './components/Option';
-import { KEY_ESC, KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 
 class Popup extends Component {
   constructor(props) {
@@ -166,9 +166,7 @@ class Popup extends Component {
           if (keyword && item.text === keyword) {
             currentId = item.cid;
           }
-          let currentCls = item.cid === currentId
-            ? 'current'
-            : '';
+          let currentCls = item.cid === currentId ? 'current' : '';
           let activeCls = selectedItems.filter(o => o.cid === item.cid).length >
             0 || item.cid === cid
             ? 'active'
