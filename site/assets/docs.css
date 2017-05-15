@@ -67,7 +67,8 @@ code[class*="language-"] {
 
 .main-content {
   margin: 130px 20px 40px;
-  padding-top: 20px;
+  margin-top: 0;
+  padding-top: 150px;
 }
 
 .page-container {
@@ -95,6 +96,7 @@ code[class*="language-"] {
       line-height: 1.5;
       margin: 20px 0;
       font-weight: normal;
+      position: relative;
 
       &:hover a:first-child {
         opacity: .4;
@@ -166,13 +168,11 @@ code[class*="language-"] {
       }
     }
 
-    // anchor offset
-    .anchor-point::before {
-      content: '';
-      display: block;
-      position: relative;
-      height: 135px;
-      margin-top: -135px;
+    /*anchor offset*/
+    .anchor-point {
+      visibility: hidden;
+      position: absolute;
+      top: -135px;
     }
   }
 
