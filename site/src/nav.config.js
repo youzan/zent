@@ -127,6 +127,11 @@ module.exports = {
               component: require('../../packages/zent/src/input/README.md')
             },
             {
+              path: 'component/numinput',
+              title: 'Input 数值输入框',
+              component: require('../../packages/zent/src/numinput/README.md')
+            },
+            {
               path: 'component/radio',
               title: 'Radio 单选',
               component: require('../../packages/zent/src/radio/README.md')
