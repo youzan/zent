@@ -26,22 +26,9 @@ class Popup extends Component {
     this.keyupHandler = this.keyupHandler.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    let { currentId } = this.state;
-    this.sourceData = nextProps.data;
-    if (!nextProps.open) {
-      this.currentIdUpdated = false;
-    }
-    if (nextProps.keyword === null) {
-      this.setState({
-        data: nextProps.data
-      });
-    } else {
-      this.setState({
-        currentId: nextProps.open ? currentId : 0,
-        data: nextProps.data,
-        keyword: nextProps.keyword
-      });
+  componentDidMount() {
+    if (!this.props.filter) {
+      this.popup.focus();
     }
   }
 
@@ -84,9 +71,9 @@ class Popup extends Component {
     let itemIds = this.itemIds;
     let { currentId, keyword } = this.state;
     let index = itemIds.indexOf(currentId);
-    if (!this.props.open) return false;
     switch (code) {
       case KEY_DOWN:
+        ev.preventDefault();
         if (index < 0) {
           currentId = this.itemIds[0];
           this.currentIdUpdated = true;
@@ -96,12 +83,14 @@ class Popup extends Component {
         }
         break;
       case KEY_UP:
+        ev.preventDefault();
         if (index > 0) {
           currentId = this.itemIds[index - 1];
           this.currentIdUpdated = true;
         }
         break;
       case KEY_EN:
+        ev.preventDefault();
         this.optionChangedHandler(keyword, currentId);
         this.currentIdUpdated = false;
         break;
@@ -129,8 +118,7 @@ class Popup extends Component {
       searchPlaceholder,
       filter,
       onFocus,
-      onBlur,
-      open
+      onBlur
     } = this.props;
 
     let { keyword, data, currentId } = this.state;
@@ -144,13 +132,14 @@ class Popup extends Component {
 
     return (
       <div
+        ref={popup => (this.popup = popup)}
         tabIndex="0"
         className={`${prefixCls}-popup`}
         onFocus={onFocus}
         onBlur={onBlur}
         onKeyDown={this.keyupHandler}
       >
-        {!extraFilter && filter && open
+        {!extraFilter && filter
           ? <Search
               keyword={keyword}
               prefixCls={prefixCls}

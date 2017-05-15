@@ -294,22 +294,23 @@ class Select extends Component {
           onChange={this.triggerChangeHandler}
           onDelete={this.triggerDeleteHandler}
         />
-        <Popup
-          cid={cid}
-          prefixCls={prefixCls}
-          data={this.sourceData}
-          selectedItems={selectedItems}
-          extraFilter={extraFilter}
-          searchPlaceholder={searchPlaceholder}
-          emptyText={emptyText}
-          keyword={keyword}
-          open={open}
-          filter={filter}
-          onAsyncFilter={onAsyncFilter}
-          onChange={this.optionChangedHandler}
-          onFocus={this.popupFocusHandler}
-          onBlur={this.popupBlurHandler}
-        />
+        {open
+          ? <Popup
+              cid={cid}
+              prefixCls={prefixCls}
+              data={this.sourceData}
+              selectedItems={selectedItems}
+              extraFilter={extraFilter}
+              searchPlaceholder={searchPlaceholder}
+              emptyText={emptyText}
+              keyword={keyword}
+              filter={filter}
+              onAsyncFilter={onAsyncFilter}
+              onChange={this.optionChangedHandler}
+              onFocus={this.popupFocusHandler}
+              onBlur={this.popupBlurHandler}
+            />
+          : ''}
       </div>
     );
   }
