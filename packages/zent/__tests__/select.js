@@ -58,7 +58,7 @@ describe('<Select />', () => {
       <Select
         data={[1, 2, 3]}
         search
-        onFilter={(item, keyword) => {
+        filter={(item, keyword) => {
           return `${item.value}` === `${keyword}`;
         }}
       />
@@ -70,13 +70,19 @@ describe('<Select />', () => {
       }
     });
     expect(wrapper.find('Option').length).toBe(1);
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 27 });
+    expect(wrapper.state('keyword')).toBe(null);
+    expect(wrapper.find('Option').length).toBe(0);
   });
 
-  it('Popup中的Search(onFilter and onAsyncFilter)', () => {
+  it('Popup中的Search(filter and onAsyncFilter)', () => {
     let wrapper = mount(
       <Select
         data={['选项1', '选项2', '选项3']}
-        onFilter={(item, keyword) =>
+        filter={(item, keyword) =>
           keyword &&
           item.value
             .trim()
@@ -106,7 +112,7 @@ describe('<Select />', () => {
         data={['选项1', '选项2', '选项3']}
         onAsyncFilter={asyncMock}
         searchPlaceholder="search"
-        onFilter={() => true}
+        filter={() => true}
       />
     );
     jest.useFakeTimers();

@@ -240,7 +240,7 @@ ReactDOM.render(
   <Select
     data={[1, 2, 3]}
     search
-    onFilter={(item, keyword) => {
+    filter={(item, keyword) => {
       return `${item.value}` === `${keyword}`;
     }}
   />
