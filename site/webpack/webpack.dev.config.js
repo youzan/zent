@@ -1,11 +1,6 @@
 const webpack = require('webpack');
 const base = require('./webpack.config');
-const {
-  getBabelLoader,
-  postcssLoader,
-  scssLoader,
-  getRules
-} = require('./loader.config');
+const { getBabelLoader, postcssLoader, getRules } = require('./loader.config');
 
 const babelLoader = getBabelLoader({ dev: true });
 
@@ -35,10 +30,6 @@ module.exports = Object.assign({}, base, {
       {
         test: /\.p?css$/,
         use: ['style-loader?sourceMap', 'css-loader?sourceMap', postcssLoader]
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader?sourceMap', 'css-loader?sourceMap', scssLoader]
       }
     ])
   }),

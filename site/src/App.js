@@ -3,19 +3,18 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
-  withRouter
+  Redirect
 } from 'react-router-dom';
-import packageJson from '../../packages/zent/package.json';
-import navData from './nav.config';
-import { registerRoute, registerFooter } from './router.config';
-import { prefix } from './constants';
-
 import PageHeader from 'components/PageHeader';
 import PageFooter from 'components/PageFooter';
 import SideNav from 'components/SideNav';
 import FooterNav from 'components/FooterNav';
 import ScrollToTop from 'components/ScrollToTop';
+
+import packageJson from '../../packages/zent/package.json';
+import navData from './nav.config';
+import { registerRoute, registerFooter } from './router.config';
+import { prefix } from './constants';
 
 // one-dimentional array
 const routeData = registerRoute(navData['zh-CN']);

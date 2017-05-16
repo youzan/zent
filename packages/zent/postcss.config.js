@@ -7,7 +7,7 @@ module.exports = {
   plugins: [
     require('postcss-easy-import')({
       prefix: '_',
-      extensions: ['scss', 'css']
+      extensions: ['pcss', 'css']
     }),
     require('autoprefixer'),
     require('precss'),
