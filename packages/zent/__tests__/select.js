@@ -54,10 +54,12 @@ describe('<Select />', () => {
   });
 
   test('搜索某个关键字', () => {
+    const onEmptyMock = jest.fn();
     const wrapper = mount(
       <Select
         data={[1, 2, 3]}
         search
+        onEmptySelected={onEmptyMock}
         filter={(item, keyword) => {
           return `${item.value}` === `${keyword}`;
         }}
@@ -69,6 +71,8 @@ describe('<Select />', () => {
         value: 2
       }
     });
+    wrapper.find('Option').simulate('click');
+    expect(onEmptyMock.mock.calls.length).toBe(1);
     wrapper.find('input').simulate('change', {
       target: {
         value: 3
