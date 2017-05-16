@@ -90,7 +90,7 @@ function generateCSSConfig() {
         !f.startsWith('.')
     )
     .reduce((mapping, f) => {
-      const comp = path.basename(f, '.scss');
+      const comp = path.basename(f, '.pcss');
       mapping[comp] = `zent/css/${comp}.css`;
       return mapping;
     }, {});
