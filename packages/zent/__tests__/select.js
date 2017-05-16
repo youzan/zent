@@ -69,12 +69,16 @@ describe('<Select />', () => {
         value: 2
       }
     });
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 3
+      }
+    });
     expect(wrapper.find('Option').length).toBe(1);
     wrapper
       .find('.zent-select')
       .find('Popup')
       .simulate('keydown', { keyCode: 27 });
-    expect(wrapper.state('keyword')).toBe(null);
     expect(wrapper.find('Option').length).toBe(0);
   });
 
