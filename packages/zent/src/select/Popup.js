@@ -88,10 +88,7 @@ class Popup extends Component {
     switch (code) {
       case KEY_DOWN:
         ev.preventDefault();
-        if (index < 0) {
-          currentId = this.itemIds[0];
-          this.currentIdUpdated = true;
-        } else if (this.itemIds[index + 1]) {
+        if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
           this.currentIdUpdated = true;
         }
