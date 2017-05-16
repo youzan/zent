@@ -34,11 +34,7 @@ class Popup extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.sourceData = nextProps.data;
-    if (nextProps.keyword === null) {
-      this.setState({
-        data: nextProps.data
-      });
-    } else {
+    if (nextProps.keyword !== null) {
       this.setState({
         data: nextProps.data,
         keyword: nextProps.keyword
