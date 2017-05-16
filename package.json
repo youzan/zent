@@ -5,17 +5,17 @@
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
     "test": "lerna run test",
-    "lint": "eslint packages/*/src packages/*/__tests__",
+    "lint": "eslint packages/*/src packages/*/__tests__ site/src/ site/webpack site/zent site/scripts",
     "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
     "bootstrap": "./scripts/bootstrap.sh",
     "format-js": "prettier --single-quote --write",
-    "prettify": "prettier --single-quote --write -- \"packages/*/{src,__tests__}/**/*.js\"",
+    "prettify": "prettier --single-quote --write -- \"packages/*/{src,__tests__}/**/*.js\" \"site/{src,scripts,webpack,zent}/**/*.js\"",
     "postinstall": "./scripts/ensure-husky-hooks.sh",
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test"
   },
   "lint-staged": {
-    "packages/**/*.js": [
+    "*.js": [
       "format-js",
       "eslint",
       "git add"

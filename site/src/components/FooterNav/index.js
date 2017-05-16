@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import './style.pcss';
@@ -9,7 +8,7 @@ class FooterNav extends Component {
     nav: { prev: null, next: null }
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { data, location } = this.props;
     if (!location || !location.pathname || !data[location.pathname]) {
       return;
@@ -17,10 +16,10 @@ class FooterNav extends Component {
     this.setState({ nav: data[location.pathname] });
   }
 
-  componentDidUpdate(prevProps) {
-    const { data, location } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { data, location } = nextProps;
 
-    if (location !== prevProps.location) {
+    if (location !== this.props.location) {
       this.setState({ nav: data[location.pathname] });
     }
   }
@@ -37,9 +36,8 @@ class FooterNav extends Component {
         {nav &&
           nav.prev &&
           <a
-            href="javascript:void(0)"
             className="footer-nav__link footer-nav__left"
-            onClick={e => {
+            onClick={() => {
               this.handleNavClick(nav.prev.pathname);
             }}
           >
@@ -49,9 +47,8 @@ class FooterNav extends Component {
         {nav &&
           nav.next &&
           <a
-            href="javascript:void(0)"
             className="footer-nav__link footer-nav__right"
-            onClick={e => {
+            onClick={() => {
               this.handleNavClick(nav.next.pathname);
             }}
           >

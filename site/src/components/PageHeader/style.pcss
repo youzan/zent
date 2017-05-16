@@ -1,18 +1,18 @@
-@component-namespace page {
-  @b header {
+.page {
+  &-header {
     position: fixed;
     top: 0;
     z-index: 1;
     width: 100%;
 
-    @e top {
+    &__top {
       overflow: hidden;
       height: 80px;
       background-color: #fbfbfb;
       box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
     }
 
-    @e logo {
+    &__logo {
       float: left;
 
       > a {
@@ -26,16 +26,16 @@
       }
     }
 
-    @e navs {
+    &__navs {
       float: right;
     }
 
-    @e item {
+    &__item {
       float: left;
       height: 50px;
     }
 
-    @e subnavs {
+    &__subnavs {
       line-height: 50px;
       display: flex;
       justify-content: center;
@@ -43,7 +43,7 @@
       position: relative;
       z-index: -1;
 
-      @m shadow {
+      &--shadow {
         box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
       }
 
@@ -53,7 +53,7 @@
       }
     }
 
-    @e link {
+    &__link {
       display: block;
       line-height: 80px;
       color: #333;
@@ -64,12 +64,12 @@
         color: #3388FF;
       }
 
-      @m active {
+      &--active {
         color: #3388FF;
       }
     }
 
-    @e github {
+    &__github {
       display: inline-block;
       width: 22px;
       height: 22px;
