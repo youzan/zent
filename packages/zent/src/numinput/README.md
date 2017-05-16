@@ -14,11 +14,11 @@
 import { Numinput } from 'zent';
 
 ReactDOM.render(
-    <div>
-    		<Numinput placeholder="Please input your number"/>
-        <Numinput type="count" placeholder="Please input your number"/>
-    </div>
-    , mountNode
+  <div>
+  	<Numinput placeholder="Please input your number"/>
+    <Numinput type="count" placeholder="Please input your number"/>
+  </div>
+  , mountNode
 );
 
 ```
@@ -30,11 +30,11 @@ ReactDOM.render(
 import { Numinput } from 'zent';
 
 ReactDOM.render(
-    <div>
-        <Numinput decimal="2" placeholder="Please input your number"/>
-        <Numinput type="count" decimal="2" placeholder="Please input your number"/>
-    </div>
-    , mountNode
+  <div>
+    <Numinput decimal="2" placeholder="Please input your number"/>
+    <Numinput type="count" decimal="2" placeholder="Please input your number"/>
+  </div>
+  , mountNode
 );
 ```
 :::
@@ -45,11 +45,11 @@ ReactDOM.render(
 import { Numinput } from 'zent';
 
 ReactDOM.render(
-    <div>
-        <Numinput min="2" max="6" decimal="2" placeholder="Please input your number"/>
-        <Numinput type="count" min="2" max="6" decimal="2" placeholder="Please input your number"/>
-    </div>
-    , mountNode
+  <div>
+    <Numinput min="2" max="6" decimal="2" placeholder="Please input your number"/>
+    <Numinput type="count" min="2" max="6" decimal="2" placeholder="Please input your number"/>
+  </div>
+  , mountNode
 );
 ```
 :::
@@ -60,28 +60,29 @@ ReactDOM.render(
 import { Numinput } from 'zent';
 
 class EventTest extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            log: ''
-        }
+  constructor() {
+    super();
+    this.state = {
+        log: ''
     }
-    onChange(value) {
-    	this.setState({ log: value });
-    }
-    render() {
-        return (
-            <div>
-                <Numinput onChange={this.onChange} decimal="2" placeholder="Please input your number"/>
-                <div><p>{this.state.log}</p></div>
-            </div>
-        );
-    }
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange(value) {
+  	this.setState({ log: value });
+  }
+  render() {
+    return (
+      <div>
+        <Numinput onChange={this.onChange} decimal="2" placeholder="Please input your number"/>
+        <div><p>{this.state.log}</p></div>
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
-    <EventTest />
-    , mountNode
+  <EventTest />
+  , mountNode
 );
 ```
 :::
@@ -91,8 +92,6 @@ ReactDOM.render(
 
 | 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
-| className    | 自定义额外类名        | string        | `''`     |                         | 否    |
-| prefix       | 自定义类前缀         | string        | `'zent'` |                         | 否    |
 | type         | 自定义类前缀         | string        | `'number'` | `'number'`、`'count'`| 否    |
 | value        | 输入值             | string        |          |                         | 否    |
 | disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
@@ -101,10 +100,12 @@ ReactDOM.render(
 | min      | 数值范围最小值            | number        |          |                         | 否    |
 | max      | 数值范围最大值            | number        |          |                         | 否    |
 | onChange     | change事件        | func(e:Event) |          |                         | 否    |
+| className    | 自定义额外类名        | string        | `''`     |                         | 否    |
+| prefix       | 自定义类前缀         | string        | `'zent'` |                         | 否    |
 
 <style>
 .zent-numinput-wrapper {
-    width: 200px;
-    margin-bottom: 20px;
+  width: 200px;
+  margin-bottom: 20px;
 }
 </style>

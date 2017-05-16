@@ -15,24 +15,27 @@
   text-align: center;
   z-index: 10;
   cursor: pointer;
-  svg {
-    fill: #666666;
+  i {
+    color: #666666;
+    &:hover {
+      color: #3388FF;
+    }
   }
   &:hover {
-    svg {
-      fill: #3388FF;
+    i {
+      color: #3388FF;
     }
   }
 }
 .zent-numinput-arrow-disable {
-  svg {
-    fill: #CACACA;
+  i {
+    color: #CACACA;
   }
   &:hover {
     cursor: not-allowed;
-    svg {
+    i {
       cursor: not-allowed;
-      fill: #CACACA;
+      color: #CACACA;
     }
   }
 }
@@ -40,9 +43,14 @@
   top: 1px;
   border-left: 1px solid #E5E5E5;
   border-bottom: 1px solid #E5E5E5;
+  i {
+    transform: rotate(-90deg) scale(0.4);
+  }
 }
 .zent-numinput-arrowdown {
-  height: calc(50% - 2px);
   bottom: 1px;
   border-left: 1px solid #E5E5E5;
+  i {
+    transform: rotate(90deg) scale(0.4);
+  }
 }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
-import { Input } from 'zent';
+import Input from 'input';
+import Icon from 'icon';
 
 export default class Numinput extends Component {
   static propTypes = {
@@ -109,54 +110,6 @@ export default class Numinput extends Component {
     this.props.onChange(result);
   }
 
-  renderUpArrow() {
-    return (
-      <svg width="7px" height="4px" viewBox="0 0 7 4">
-        <g stroke="none">
-          <g
-            id="数字输入框-InputNumber"
-            transform="translate(-1253.000000, -1257.000000)"
-          >
-            <g
-              id="Group-7-Copy-15"
-              transform="translate(1188.000000, 1252.000000)"
-            >
-              <polygon
-                id="Path"
-                transform="translate(68.360000, 7.000000) rotate(90.000000) translate(-68.360000, -7.000000) "
-                points="66.36 7 69.72 3.64 70.36 4.28 67.64 7 70.36 9.72 69.72 10.36"
-              />
-            </g>
-          </g>
-        </g>
-      </svg>
-    );
-  }
-
-  renderDownArrow() {
-    return (
-      <svg width="7px" height="4px" viewBox="0 0 7 4">
-        <g stroke="none">
-          <g
-            id="数字输入框-InputNumber"
-            transform="translate(-929.000000, -1272.000000)"
-          >
-            <g
-              id="Group-7-Copy-13"
-              transform="translate(864.000000, 1252.000000)"
-            >
-              <polygon
-                id="Path"
-                transform="translate(68.360000, 22.000000) rotate(-90.000000) translate(-68.360000, -22.000000) "
-                points="66.36 22 69.72 18.64 70.36 19.28 67.64 22 70.36 24.72 69.72 25.36"
-              />
-            </g>
-          </g>
-        </g>
-      </svg>
-    );
-  }
-
   render() {
     const { prefix, className, type, disabled } = this.props;
     const { value, minArrow, maxArrow } = this.state;
@@ -199,7 +152,7 @@ export default class Numinput extends Component {
               this.onArrow(minArrowState, 1);
             }}
           >
-            {this.renderUpArrow()}
+            <Icon type="right" />
           </span>}
         <Input
           {...inputProps}
@@ -218,7 +171,7 @@ export default class Numinput extends Component {
               this.onArrow(maxArrowState, -1);
             }}
           >
-            {this.renderDownArrow()}
+            <Icon type="right" />
           </span>}
       </div>
     );
