@@ -68,7 +68,7 @@ describe('<Select />', () => {
     expect(wrapper.find('InputTrigger').length).toBe(1);
     wrapper.find('input').simulate('change', {
       target: {
-        value: 2
+        value: 4
       }
     });
     wrapper.find('Option').simulate('click');
