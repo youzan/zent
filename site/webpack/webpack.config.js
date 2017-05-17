@@ -1,20 +1,7 @@
 const webpack = require('webpack');
 const { join, resolve } = require('path');
-const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-// 为src目录下的所有子目录创建alias
-function createAlias() {
-  const packagesDir = resolve(__dirname, '../../packages/zent/src');
-  const packages = fs.readdirSync(packagesDir);
-
-  return packages
-    .filter(p => fs.statSync(join(packagesDir, p)).isDirectory())
-    .reduce((alias, p) => {
-      alias[p] = join(packagesDir, p);
-      return alias;
-    }, {});
-}
+const createAlias = require('../../packages/zent/createAlias');
 
 module.exports = {
   output: {
@@ -29,7 +16,7 @@ module.exports = {
         components: join(__dirname, '../src/components'),
         zent$: join(__dirname, '../zent')
       },
-      createAlias()
+      createAlias(resolve(__dirname, '../../packages/zent/src'))
     )
   },
   module: {
