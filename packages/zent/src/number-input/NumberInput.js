@@ -121,24 +121,24 @@ export default class Numinput extends Component {
     // 最外层样式
     const wrapClass = classNames(
       {
-        [`${prefix}-numinput-wrapper`]: true,
-        [`${prefix}-numinput-${type}-wrapper`]: type === 'count'
+        [`${prefix}-number-input-wrapper`]: true,
+        [`${prefix}-number-input-${type}-wrapper`]: type === 'count'
       },
       className
     );
 
     // 上arrow样式
     const upArrowClass = classNames({
-      [`${prefix}-numinput-arrow`]: true,
-      [`${prefix}-numinput-arrowup`]: true,
-      [`${prefix}-numinput-arrow-disable`]: minArrowState
+      [`${prefix}-number-input-arrow`]: true,
+      [`${prefix}-number-input-arrowup`]: true,
+      [`${prefix}-number-input-arrow-disable`]: minArrowState
     });
 
     // 下arrow样式
     const downArrowClass = classNames({
-      [`${prefix}-numinput-arrow`]: true,
-      [`${prefix}-numinput-arrowdown`]: true,
-      [`${prefix}-numinput-arrow-disable`]: maxArrowState
+      [`${prefix}-number-input-arrow`]: true,
+      [`${prefix}-number-input-arrowdown`]: true,
+      [`${prefix}-number-input-arrow-disable`]: maxArrowState
     });
 
     // 可传入Input组件的属性

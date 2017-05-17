@@ -576,4 +576,171 @@ describe('Popover', () => {
 
     wrapper.unmount();
   });
+
+  it('supports auto position', () => {
+    const {
+      AutoBottomLeft,
+      AutoBottomRight,
+      AutoBottomCenter,
+      AutoTopLeft,
+      AutoTopRight,
+      AutoTopCenter
+    } = Popover.Position;
+    let viewport = {
+      left: 0,
+      top: 0,
+      right: 1024,
+      bottom: 768,
+      width: 1024,
+      height: 768
+    };
+    let content = {
+      width: 10,
+      height: 10
+    };
+    let anchor = {
+      left: 1020,
+      top: 760,
+      right: 1021,
+      bottom: 761,
+      width: 1,
+      height: 1
+    };
+    let options = {
+      anchorBoundingBoxViewport: anchor,
+      cushion: 0
+    };
+    let container = viewport;
+
+    expect(
+      AutoBottomLeft.locate(anchor, container, content, options).name
+    ).toBe('position-top-right');
+
+    anchor.left = 5;
+    anchor.right = 6;
+    expect(
+      AutoBottomRight.locate(anchor, container, content, options).name
+    ).toBe('position-top-left');
+
+    anchor.left = 1020;
+    anchor.right = 1021;
+    expect(
+      AutoBottomCenter.locate(anchor, container, content, options).name
+    ).toBe('position-top-right');
+
+    anchor.left = 1;
+    anchor.right = 2;
+    expect(
+      AutoBottomCenter.locate(anchor, container, content, options).name
+    ).toBe('position-top-left');
+
+    anchor.left = 1020;
+    anchor.right = 1021;
+    anchor.top = 1;
+    anchor.bottom = 2;
+    expect(AutoTopLeft.locate(anchor, container, content, options).name).toBe(
+      'position-bottom-right'
+    );
+
+    anchor.left = 5;
+    anchor.right = 6;
+    expect(AutoTopRight.locate(anchor, container, content, options).name).toBe(
+      'position-bottom-left'
+    );
+
+    anchor.left = 1020;
+    anchor.right = 1021;
+    expect(AutoTopCenter.locate(anchor, container, content, options).name).toBe(
+      'position-bottom-right'
+    );
+
+    anchor.left = 1;
+    anchor.right = 2;
+    expect(AutoTopCenter.locate(anchor, container, content, options).name).toBe(
+      'position-bottom-left'
+    );
+  });
+
+  it('throws if trigger has no children', () => {
+    expect(() =>
+      mount(
+        <Popover position={Popover.Position.BottomLeft} display="inline">
+          <PopoverClickTrigger />
+          <PopoverContent>
+            <div>popover content</div>
+          </PopoverContent>
+        </Popover>
+      )
+    ).toThrow(/Popover trigger requires a child/);
+  });
+
+  it('throws if trigger has more than one chilren', () => {
+    expect(() =>
+      mount(
+        <Popover position={Popover.Position.BottomLeft} display="inline">
+          <PopoverClickTrigger>
+            <span>1</span><span>2</span>
+          </PopoverClickTrigger>
+          <PopoverContent>
+            <div>popover content</div>
+          </PopoverContent>
+        </Popover>
+      )
+    ).toThrow(/Popover trigger requires only one child/);
+  });
+
+  it('trigger wraps number/string in a span', () => {
+    const wrapper = mount(
+      <Popover position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger>abc</PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+        </PopoverContent>
+      </Popover>
+    );
+
+    expect(wrapper.find('.zent-popover-wrapper span').node.textContent).toBe(
+      'abc'
+    );
+  });
+
+  it("won't close if click within trigger/content", () => {
+    let trigger = new PopoverBaseTrigger({
+      injectIsOutsideSelf() {},
+      getTriggerNode() {
+        return {
+          contains() {
+            return true;
+          }
+        };
+      },
+      getContentNode() {
+        return {
+          contains() {
+            return true;
+          }
+        };
+      }
+    });
+    expect(trigger.isOutsideSelf()).toBe(false);
+
+    trigger = new PopoverBaseTrigger({
+      injectIsOutsideSelf() {},
+      getTriggerNode() {
+        return {
+          contains() {
+            return false;
+          }
+        };
+      },
+      getContentNode() {
+        return {
+          contains() {
+            return true;
+          }
+        };
+      }
+    });
+    expect(trigger.isOutsideSelf()).toBe(false);
+  });
 });

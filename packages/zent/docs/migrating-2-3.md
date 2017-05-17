@@ -41,8 +41,6 @@ import 'zent/lib/index.css';
 import 'zent/css/index.css';
 ```
 
-scss 文件的目录保持不变，依然是 `zent/assets/index.scss`。
-
 ### babel-plugin-zent
 
 我们不再维护每个组件单独的包，但是我们提供了一个更加方便的替代方案来达到相同的目的。

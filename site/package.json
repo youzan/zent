@@ -7,7 +7,6 @@
     "react",
     "zent"
   ],
-  "author": "zhangmin <zhangmin@youzan.com>, fancy <buqingdian@youzan.com>",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node scripts/dev.js",
@@ -46,7 +45,6 @@
     "precss": "^1.4.0",
     "react-hot-loader": "next",
     "react-markdown-doc-loader": "^1.0.1",
-    "saladcss-bem": "0.0.1",
     "style-loader": "^0.14.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
