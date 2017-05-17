@@ -31,8 +31,8 @@ import { Numinput } from 'zent';
 
 ReactDOM.render(
   <div>
-    <Numinput decimal="2" placeholder="Please input your number"/>
-    <Numinput type="count" decimal="2" placeholder="Please input your number"/>
+    <Numinput decimal={2} placeholder="Please input your number"/>
+    <Numinput type="count" decimal={2} placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -46,8 +46,8 @@ import { Numinput } from 'zent';
 
 ReactDOM.render(
   <div>
-    <Numinput min="2" max="6" decimal="2" placeholder="Please input your number"/>
-    <Numinput type="count" min="2" max="6" decimal="2" placeholder="Please input your number"/>
+    <Numinput min={2} max={6} decimal={2} placeholder="Please input your number"/>
+    <Numinput type="count" min={2} max={6} decimal={2} placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -73,7 +73,7 @@ class EventTest extends React.Component {
   render() {
     return (
       <div>
-        <Numinput onChange={this.onChange} decimal="2" placeholder="Please input your number"/>
+        <Numinput onChange={this.onChange} decimal={2} placeholder="Please input your number"/>
         <div><p>{this.state.log}</p></div>
       </div>
     );
