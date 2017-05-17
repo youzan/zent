@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+
 import './style.pcss';
 
 export default class SideNav extends Component {
@@ -32,10 +33,7 @@ export default class SideNav extends Component {
           >
             {item.name}
           </NavLink>
-        : <a
-            href="javascript:void(0)"
-            onClick={e => this.handleTitleClick(item)}
-          >
+        : <a onClick={() => this.handleTitleClick(item)}>
             {item.name}
           </a>}
       {item.children &&

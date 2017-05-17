@@ -17,7 +17,7 @@ import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
-import { KEY_ESC, KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import { KEY_ESC } from './constants';
 
 class Select extends Component {
   constructor(props) {
@@ -88,12 +88,6 @@ class Select extends Component {
     open = nextProps.open || this.focus;
     let nextState = { ...nextProps, open };
     let selectedItems = [];
-    if (
-      nextProps.data === this.state.data &&
-      nextProps.value === this.state.value &&
-      nextProps.index === this.state.index
-    )
-      return;
     if (`${nextProps.value}` || `${nextProps.index}`) {
       this.state.selectedItem = this.props.selectedItem;
     }
@@ -254,15 +248,6 @@ class Select extends Component {
       this.setState({
         open: false
       });
-    } else if ([KEY_EN, KEY_UP, KEY_DOWN].indexOf(code) > -1) {
-      ev.preventDefault();
-      this.setState({
-        keyCode: code
-      });
-    } else {
-      this.setState({
-        keyCode: code
-      });
     }
   }
 
@@ -282,7 +267,6 @@ class Select extends Component {
       selectedItem = {},
       extraFilter,
       open,
-      keyCode,
       keyword = null
     } = this.state;
 
@@ -310,23 +294,23 @@ class Select extends Component {
           onChange={this.triggerChangeHandler}
           onDelete={this.triggerDeleteHandler}
         />
-        <Popup
-          cid={cid}
-          prefixCls={prefixCls}
-          data={this.sourceData}
-          selectedItems={selectedItems}
-          extraFilter={extraFilter}
-          searchPlaceholder={searchPlaceholder}
-          emptyText={emptyText}
-          keyCode={keyCode}
-          keyword={keyword}
-          open={open}
-          filter={filter}
-          onAsyncFilter={onAsyncFilter}
-          onChange={this.optionChangedHandler}
-          onFocus={this.popupFocusHandler}
-          onBlur={this.popupBlurHandler}
-        />
+        {open
+          ? <Popup
+              cid={cid}
+              prefixCls={prefixCls}
+              data={this.sourceData}
+              selectedItems={selectedItems}
+              extraFilter={extraFilter}
+              searchPlaceholder={searchPlaceholder}
+              emptyText={emptyText}
+              keyword={keyword}
+              filter={filter}
+              onAsyncFilter={onAsyncFilter}
+              onChange={this.optionChangedHandler}
+              onFocus={this.popupFocusHandler}
+              onBlur={this.popupBlurHandler}
+            />
+          : ''}
       </div>
     );
   }

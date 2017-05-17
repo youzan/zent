@@ -2,7 +2,7 @@
 
 /* eslint-disable */
 
-var codes = require('zenticons/lib/codes.json')
+var codes = require('zenticons/lib/codes.json');
 
 var icons = codes.map(c => {
   var iname = c.name;
@@ -14,13 +14,10 @@ var icons = codes.map(c => {
         <div className="zi-grid-item" data-index="${fulltext_index}">
           <Icon type="${iname}" />
           <span className="zi-grid-item-name">$${iname}(${icodepoint})</span>
-        </div>`
+        </div>`;
 });
 
 var component = `import Icon from 'icon';
-
-import '../assets/index.scss';
-import '../assets/grid.scss';
 
 export default class IconGrid extends Component {
   state = {
