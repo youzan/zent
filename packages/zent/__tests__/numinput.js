@@ -24,19 +24,19 @@ describe('Numinput', () => {
 
   it('can have custom prefix of classNames', () => {
     const wrapper = shallow(<Numinput prefix="foo" />);
-    expect(wrapper.hasClass('foo-input-wrapper')).toBe(true);
+    expect(wrapper.hasClass('foo-numinput-wrapper')).toBe(true);
   });
 
   it('pass any props to real input element except "className" & "prefix"', () => {
     let wrapper = shallow(
-      <Numinput min={8} max={11} decimal={2} type="number" className="foo" />
+      <Numinput min={8} max={11} decimal={2} className="foo" />
     );
     expect(wrapper.find('input').props().className).toBe('zent-input');
     expect(wrapper.find('input').props().prefix).toBe(undefined);
-    expect(wrapper.find('input').props().type).toBe('number');
-    expect(wrapper.find('input').props().max).toBe(11);
-    expect(wrapper.find('input').props().min).toBe(8);
-    expect(wrapper.find('input').props().decimal).toBe(2);
+
+    expect(wrapper.props().max).toBe(11);
+    expect(wrapper.props().min).toBe(8);
+    expect(wrapper.props().decimal).toBe(2);
     wrapper = shallow(<Numinput placeholder="default" disabled />);
     expect(wrapper.find('input').props().placeholder).toBe('default');
     expect(wrapper.find('input').props().disabled).toBe(true);
