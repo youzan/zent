@@ -1,3 +1,5 @@
+@import "../../_constants.pcss";
+
 .page {
   &-header {
     position: fixed;
@@ -7,7 +9,7 @@
 
     &__top {
       overflow: hidden;
-      height: 80px;
+      height: $top-nav-height;
       background-color: #fbfbfb;
       box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
     }
@@ -32,11 +34,11 @@
 
     &__item {
       float: left;
-      height: 50px;
+      height: 100%;
     }
 
     &__subnavs {
-      line-height: 50px;
+      line-height: $top-subnav-height;
       display: flex;
       justify-content: center;
       background-color: #f2f2f2;
@@ -49,13 +51,13 @@
 
       a,
       span {
-        line-height: 50px;
+        line-height: $top-subnav-height;
       }
     }
 
     &__link {
       display: block;
-      line-height: 80px;
+      line-height: $top-nav-height;
       color: #333;
       font-size: 16px;
       margin: 0 20px;

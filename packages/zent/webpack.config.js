@@ -1,21 +1,6 @@
-/* eslint-disable no-var, prefer-template */
-
-var path = require('path');
-var fs = require('fs');
-var webpack = require('webpack');
-
-// 为src目录下的所有子目录创建alias
-function createAlias() {
-  var packagesDir = path.resolve(__dirname, './src');
-  var packages = fs.readdirSync(packagesDir);
-
-  return packages
-    .filter(p => fs.statSync(path.join(packagesDir, p)).isDirectory())
-    .reduce((alias, p) => {
-      alias[p] = path.join(packagesDir, p);
-      return alias;
-    }, {});
-}
+const path = require('path');
+const webpack = require('webpack');
+const createAlias = require('./createAlias');
 
 module.exports = {
   entry: './src/index.js',
@@ -56,7 +41,7 @@ module.exports = {
   ],
 
   resolve: {
-    alias: createAlias()
+    alias: createAlias(path.resolve(__dirname, './src'))
   },
 
   plugins: [
