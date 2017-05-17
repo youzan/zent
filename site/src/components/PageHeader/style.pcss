@@ -1,0 +1,85 @@
+@import "../../_constants.pcss";
+
+.page {
+  &-header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+
+    &__top {
+      overflow: hidden;
+      height: $top-nav-height;
+      background-color: #fbfbfb;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+    }
+
+    &__logo {
+      float: left;
+
+      > a {
+        display: block;
+        width: 78px;
+        height: 20px;
+        background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: 30px 0 0 20px;
+      }
+    }
+
+    &__navs {
+      float: right;
+    }
+
+    &__item {
+      float: left;
+      height: 100%;
+    }
+
+    &__subnavs {
+      line-height: $top-subnav-height;
+      display: flex;
+      justify-content: center;
+      background-color: #f2f2f2;
+      position: relative;
+      z-index: -1;
+
+      &--shadow {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+      }
+
+      a,
+      span {
+        line-height: $top-subnav-height;
+      }
+    }
+
+    &__link {
+      display: block;
+      line-height: $top-nav-height;
+      color: #333;
+      font-size: 16px;
+      margin: 0 20px;
+
+      &:hover {
+        color: #3388FF;
+      }
+
+      &--active {
+        color: #3388FF;
+      }
+    }
+
+    &__github {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      overflow: hidden;
+      background-image: url(https://img.yzcdn.cn/upload_files/2017/03/30/Fil9peDfgzvk3kj-oFCsElS4FS1x.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin: 14px 20px 0;
+    }
+  }
+}

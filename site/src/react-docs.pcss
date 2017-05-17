@@ -1,8 +1,11 @@
-$border-color: #e5e5e5;
-$toggle-color: #BBBBBB;
+@import "./_constants.pcss";
 
 .app {
   min-width: 1000px;
+}
+
+.page-content {
+  overflow-x: auto;
 }
 
 .react-doc-page-content {
@@ -10,6 +13,12 @@ $toggle-color: #BBBBBB;
 }
 
 .zandoc-react-container {
+  .zandoc-react-markdown code[class*="language-"] {
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
   .zandoc-react-demo {
     border-radius: 4px;
     border: 1px solid $border-color;
@@ -62,8 +71,6 @@ $toggle-color: #BBBBBB;
 
     &__code {
       border-top: 1px solid $border-color;
-      padding: 20px;
-      background-color: #f8f8f8;
     }
   }
 }

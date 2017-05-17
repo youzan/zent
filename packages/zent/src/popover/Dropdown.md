@@ -11,7 +11,7 @@
 ### 代码演示
 
 :::demo 点击打开下拉菜单
-```js
+```jsx
 import { Popover, Menu, Button } from 'zent';
 
 const { MenuItem } = Menu;
@@ -37,7 +37,7 @@ ReactDOM.render(
 :::
 
 :::demo 鼠标移入打开下拉菜单
-```js
+```jsx
 import { Popover, Menu, Button } from 'zent';
 
 const { MenuItem } = Menu;
@@ -63,7 +63,7 @@ ReactDOM.render(
 :::
 
 :::demo 点击菜单关闭
-```js
+```jsx
 import { Popover, Button, Menu } from 'zent';
 
 const { MenuItem } = Menu;

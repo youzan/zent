@@ -1,0 +1,46 @@
+.footer {
+  &-nav {
+    padding: 24px 40px;
+    overflow: hidden;
+    border-top: 1px solid #e5e5e5;
+
+    &__link {
+      color: #3388FF;
+      overflow: hidden;
+      position: relative;
+      font-size: 20px;
+      line-height: 1.5;
+      cursor: pointer;
+
+      .zenticon {
+        box-sizing: border-box;
+        width: 20px;
+        font-size: 12px;
+        line-height: 16px;
+        border: 2px solid #3388FF;
+        border-radius: 50%;
+        text-align: center;
+        margin-top: 5px;
+      }
+    }
+
+    &__left {
+      float: left;
+
+      .zenticon {
+        float: left;
+        transform: rotate(180deg);
+        margin-right: 10px;
+      }
+    }
+
+    &__right {
+      float: right;
+
+      .zenticon {
+        float: right;
+        margin-left: 10px;
+      }
+    }
+  }
+}

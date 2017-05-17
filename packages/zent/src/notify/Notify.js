@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import isBrowser from 'utils/isBrowser';
-
 import NotifyContent from './NotifyContent';
 
 const containerList = {};
@@ -27,14 +26,27 @@ const closeNotifyCallback = callback => {
  * @param  {[type]}   containerId notify容器Id
  * @param  {Function} callback    notify消失时回调
  */
-const closeNotify = (containerId, callback) => {
-  let container = containerList[containerId];
-  if (!container) {
+const closeNotify = containerId => {
+  const containerObj = containerList[containerId];
+
+  if (!containerObj) {
     return;
   }
+
+  const { container, callback, timeOutId } = containerObj;
+  clearTimeout(timeOutId);
   ReactDOM.unmountComponentAtNode(container);
   delete containerList[containerId];
   closeNotifyCallback(callback);
+};
+
+/**
+ * 关闭所有notify
+ */
+const closeAllNotify = () => {
+  Object.keys(containerList).forEach(containerId => {
+    closeNotify(containerId);
+  });
 };
 
 /**
@@ -47,22 +59,12 @@ const showNotify = (container, props, callback) => {
   ReactDOM.render(React.createElement(NotifyContent, props), container);
 
   const containerId = createContainerId();
-  containerList[containerId] = container;
-
-  setTimeout(() => {
-    closeNotify(containerId, callback);
+  const timeOutId = setTimeout(() => {
+    closeNotify(containerId);
   }, props.duration || 2000);
 
+  containerList[containerId] = { container, callback, timeOutId };
   return containerId;
-};
-
-/**
- * 关闭所有notify
- */
-const closeAllNotify = () => {
-  Object.keys(containerList).forEach(containerId => {
-    closeNotify(containerId);
-  });
 };
 
 /**

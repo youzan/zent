@@ -1,5 +1,3 @@
-import '../../packages/zent/assets/index.scss';
+import '../../packages/zent/assets/index.pcss';
 
 export * from '../../packages/zent/src';
-
-export default 1;

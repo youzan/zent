@@ -1,12 +1,40 @@
-var webpack = require('webpack');
-var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-var base = require('./webpack.config');
+const { resolve } = require('path');
+const webpack = require('webpack');
+const base = require('./webpack.config');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const { getBabelLoader, postcssLoader, getRules } = require('./loader.config');
 
-var prefix = 'https://b.yzcdn.cn/zanui/react/';
+const babelLoader = getBabelLoader({ dev: false });
+const prefix = 'https://b.yzcdn.cn/zanui/react/';
 
 module.exports = Object.assign({}, base, {
-  output: Object.assign(base.output, {
+  entry: {
+    docs: './src/index.js',
+    vendor: [
+      'react',
+      'react-dom',
+      'prop-types',
+      'zent',
+      'classnames',
+      'react-router-dom'
+    ]
+  },
+
+  output: Object.assign({}, base.output, {
     publicPath: prefix
+  }),
+
+  module: Object.assign({}, base.module, {
+    rules: base.module.rules.concat(getRules(babelLoader), [
+      {
+        test: /\.p?css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', postcssLoader]
+        })
+      }
+    ])
   }),
 
   plugins: base.plugins.concat([
@@ -56,6 +84,15 @@ module.exports = Object.assign({}, base, {
 
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+
+    new ExtractTextPlugin({
+      filename: '[name]-[contenthash].css',
+      allChunks: true
     })
-  ])
+  ]),
+  devServer: {
+    contentBase: resolve(__dirname, 'dist'),
+    publicPath: prefix
+  }
 });

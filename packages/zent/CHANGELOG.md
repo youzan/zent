@@ -1,5 +1,37 @@
 ## 更新日志
 
+## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
+
+**不兼容改动和新功能:**
+
+- tree: 用 Checkbox 组件替换内部的实现 [\#237](https://github.com/youzan/zent/issues/237)
+- Replace jieba with transliterate in markdown-doc-loader [\#226](https://github.com/youzan/zent/issues/226)
+- Opensource markdown-doc-loader [\#225](https://github.com/youzan/zent/issues/225)
+- doc: Replace highlight.js with prismjs [\#215](https://github.com/youzan/zent/issues/215)
+- React hot reload in docs [\#205](https://github.com/youzan/zent/issues/205)
+- Replace highlight.js with prism.js [\#236](https://github.com/youzan/zent/pull/236) ([cpylua](https://github.com/cpylua))
+- Enable react hmr in docs. [\#229](https://github.com/youzan/zent/pull/229) ([LucasIcarus](https://github.com/LucasIcarus))
+
+**Bug 修复:**
+
+- notify: callback not called in Notify.clear [\#244](https://github.com/youzan/zent/issues/244)
+- A wired bug in Sweetalert [\#243](https://github.com/youzan/zent/issues/243)
+- table: link 去掉 hover 变色效果 [\#234](https://github.com/youzan/zent/issues/234)
+- alert: 高度自适应 [\#230](https://github.com/youzan/zent/issues/230)
+- DatePicker: 鼠标hover的时候，确认按钮的光标形状应该是手型 [\#228](https://github.com/youzan/zent/issues/228)
+- doc: broken layout when there are long lines in code blocks/demos. [\#227](https://github.com/youzan/zent/issues/227)
+- table: remove link hover highlight; make text-overflow work in td [\#235](https://github.com/youzan/zent/pull/235) ([linxixuan](https://github.com/linxixuan))
+- alert: allow auto height in Alert component [\#233](https://github.com/youzan/zent/pull/233) ([cpylua](https://github.com/cpylua))
+- 修改zent-tabs背景色 [\#231](https://github.com/youzan/zent/pull/231) ([ctyu](https://github.com/ctyu))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- Notify: callback is not called when clear notify. [\#246](https://github.com/youzan/zent/pull/246) ([ronghang](https://github.com/ronghang))
+- dialog: Focus to dialog when open [\#245](https://github.com/youzan/zent/pull/245) ([cpylua](https://github.com/cpylua))
+- Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
+- tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
+
 ## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
 [Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
 

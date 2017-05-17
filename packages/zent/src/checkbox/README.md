@@ -2,13 +2,13 @@
 
 ### 使用指南
 
-- Checkbox 表现为一个[受控组件][controlled-components], 需要设置 `onChange` 回调在组件外部处理其 `value` 属性的变化.
+- Checkbox 表现为一个[受控组件][https://facebook.github.io/react/docs/forms.html#controlled-components], 需要设置 `onChange` 回调在组件外部处理其 `value` 属性的变化.
 
 - `value` 支持任意类型的值, 包括引用类型.
 
 ### 代码演示
 :::demo 基本用法
-```js
+```jsx
 import { Checkbox } from 'zent';
 
 class App extends React.Component {
@@ -40,7 +40,7 @@ ReactDOM.render(
 
 
 :::demo 不可用
-```js
+```jsx
 import { Checkbox } from 'zent';
 
 ReactDOM.render(
@@ -54,7 +54,7 @@ ReactDOM.render(
 :::
 
 :::demo Checkbox组
-```js
+```jsx
 import { Checkbox } from 'zent';
 const CheckboxGroup = Checkbox.Group;
 
@@ -92,7 +92,7 @@ ReactDOM.render(
 :::
 
 :::demo 全选，在实现全选效果时，你可能会用到 indeterminate 属性。
-```js
+```jsx
 import { Checkbox } from 'zent'
 
 const CheckboxGroup = Checkbox.Group

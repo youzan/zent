@@ -38,4 +38,4 @@ github_changelog_generator \
 
 git add $basepath/../packages/zent/CHANGELOG.md
 git commit -m "doc: update change log (publish)"
-git push
+git push --no-verify
