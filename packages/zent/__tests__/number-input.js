@@ -21,9 +21,31 @@ describe('NumberInput', () => {
 
   it('NumberInput has its core function, change value with click on arrow', () => {
     let wrapper = mount(<NumberInput type="count" value={2} />);
+    const onChangeMock = jest.fn();
+    const onBlurMock = jest.fn().mockImplementation(arg => {
+      // simulate outside setState()
+      wrapper.setProps({ value: arg });
+    });
+    wrapper = mount(
+      <NumberInput
+        max={1}
+        min={0}
+        onChange={onChangeMock}
+        onBlur={onBlurMock}
+        type="count"
+        value={2}
+      />
+    );
     wrapper.find('.zent-number-input-arrowup').simulate('click');
-    expect(wrapper.state('value')).toBe('3');
+    expect(wrapper.state('value')).toBe('1');
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
-    expect(wrapper.state('value')).toBe('2');
+    expect(wrapper.state('value')).toBe('0');
+    wrapper.find('input').simulate('change');
+    expect(onChangeMock.mock.calls.length).toBe(2);
+    wrapper.find('input').simulate('blur');
+    expect(onBlurMock.mock.calls.length).toBe(0);
+    wrapper = mount(<NumberInput min={0} type="count" value={-1} />);
+    wrapper.find('.zent-number-input-arrowdown').simulate('click');
+    expect(wrapper.state('value')).toBe('0');
   });
 });
