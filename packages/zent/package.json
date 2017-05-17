@@ -59,7 +59,6 @@
     "jest": "^19.0.2",
     "postcss-cli": "^3.2.0",
     "postcss-easy-import": "^2.0.0",
-    "postcss-scss": "^0.4.1",
     "precss": "^1.4.0",
     "react": "15.5.x",
     "react-dom": "15.5.x",
