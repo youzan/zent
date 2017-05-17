@@ -297,7 +297,7 @@ class Demo extends Component{
     return val.getDate()%2 === 0
   }
 
-  disabledRangeDate(val, type){
+  disabledRangeDate(val){
     return (val.getMonth()%2 ===0)
   }
 

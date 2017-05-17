@@ -37,7 +37,7 @@ const extractStateFromProps = props => {
   let actived = [];
   let range = [];
   let value = [];
-
+  console.log(props.value);
   if (isValidValue(props.value)) {
     showPlaceholder = false;
     const tmp = [
@@ -55,6 +55,7 @@ const extractStateFromProps = props => {
     }
   } else {
     showPlaceholder = true;
+    value = [];
     let start;
     if (defaultValue && isValidValue(defaultValue)) {
       start = maybeFormatDate(defaultValue[0], format);
@@ -131,7 +132,7 @@ class DateRangePicker extends Component {
 
   componentWillReceiveProps(next) {
     const { value } = this.props;
-    if (isEqual(value, next.value)) {
+    if (!isEqual(value, next.value)) {
       const state = extractStateFromProps(next);
       this.setState(state);
     }
@@ -492,17 +493,3 @@ class DateRangePicker extends Component {
 }
 
 export default DateRangePicker;
-
-/**
- * <Input
-  value={state.showPlaceholder ? props.placeholder[0] : state.value[0]}
-  onChange={noop}
-  disabled={props.disabled}
-/>
-<span> ~ </span>
-<Input
-  value={state.showPlaceholder ? props.placeholder[1] : state.value[1]}
-  onChange={noop}
-  disabled={props.disabled}
-/>
- */
