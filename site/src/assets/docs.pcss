@@ -1,3 +1,5 @@
+@import "./constants.pcss";
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -22,7 +24,7 @@ body {
   font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',SimSun,sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
-  background-color: #f8f8f8;
+  background-color: $bg-color;
 }
 
 a {
@@ -46,7 +48,7 @@ code[class*="language-"] {
   font-family: Menlo, Monaco, Consolas, Courier, monospace;
   font-size: 12px;
   display: block;
-  background-color: #f8f8f8;
+  background-color: $code-bg-color;
   padding: 20px;
   -webkit-font-smoothing: auto;
   overflow-x: auto;
@@ -66,7 +68,7 @@ code[class*="language-"] {
 }
 
 .main-content {
-  margin: 130px 20px 40px;
+  margin: $top-nav-height 20px 40px;
   padding-top: 20px;
 }
 
@@ -171,16 +173,16 @@ code[class*="language-"] {
     .anchor-point {
       visibility: hidden;
       position: absolute;
-      top: -135px;
+      top: calc(-1 * $top-nav-height - 5px);
     }
   }
 
   p > code,
   .table code,
   li > code {
-    background-color: #F2F2F2;
+    background-color: $code-bg-color;
     display: inline-block;
-    border: 1px solid #E5E5E5;
+    border: 1px solid $border-color;
     border-radius: 2px;
     line-height: 1;
     padding: 4px 5px;
@@ -199,8 +201,8 @@ code[class*="language-"] {
 
   th {
     text-align: left;
-    border: 1px solid #E5E5E5;
-    background-color: #F2F2F2;
+    border: 1px solid $border-color;
+    background-color: $code-bg-color;
     padding: 10px;
 
     &:first-child {
@@ -209,7 +211,7 @@ code[class*="language-"] {
   }
 
   td {
-    border: 1px solid #E5E5E5;
+    border: 1px solid $border-color;
     padding: 10px;
   }
 }
