@@ -16,7 +16,7 @@ rm -rf lib css
 check_result
 
 # build styles
-postcss assets/*.scss -d css --ext css
+postcss assets/*.pcss -d css --ext css
 check_result
 
 # transpile using babel

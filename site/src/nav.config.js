@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+
 module.exports = {
   'zh-CN': [
     {
@@ -127,9 +129,9 @@ module.exports = {
               component: require('../../packages/zent/src/input/README.md')
             },
             {
-              path: 'component/numinput',
-              title: 'Input 数值输入框',
-              component: require('../../packages/zent/src/numinput/README.md')
+              path: 'component/number-input',
+              title: 'NumberInput 数值输入框',
+              component: require('../../packages/zent/src/number-input/README.md')
             },
             {
               path: 'component/radio',

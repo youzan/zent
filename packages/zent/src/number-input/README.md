@@ -1,6 +1,6 @@
-## Input 数值输入框
+## NumberInput 数值输入框
 
-表单的输入组件，对组件input的包装，通过鼠标或键盘输入内容。
+数字输入组件，通过鼠标或键盘输入内容。
 
 ### 使用指南
 
@@ -11,12 +11,12 @@
 :::demo 基础用法
 
 ```jsx
-import { Numinput } from 'zent';
+import { NumberInput } from 'zent';
 
 ReactDOM.render(
   <div>
-  	<Numinput placeholder="Please input your number"/>
-    <Numinput type="count" placeholder="Please input your number"/>
+  	<NumberInput placeholder="Please input your number"/>
+    <NumberInput type="count" placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -27,12 +27,12 @@ ReactDOM.render(
 :::demo 带小数点精度
 
 ```jsx
-import { Numinput } from 'zent';
+import { NumberInput } from 'zent';
 
 ReactDOM.render(
   <div>
-    <Numinput decimal={2} placeholder="Please input your number"/>
-    <Numinput type="count" decimal={2} placeholder="Please input your number"/>
+    <NumberInput decimal="2" placeholder="Please input your number"/>
+    <NumberInput type="count" decimal="2" placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -42,12 +42,12 @@ ReactDOM.render(
 :::demo 带数字最大最小范围
 
 ```jsx
-import { Numinput } from 'zent';
+import { NumberInput } from 'zent';
 
 ReactDOM.render(
   <div>
-    <Numinput min={2} max={6} decimal={2} placeholder="Please input your number"/>
-    <Numinput type="count" min={2} max={6} decimal={2} placeholder="Please input your number"/>
+    <NumberInput min="2" max="6" decimal="2" placeholder="Please input your number"/>
+    <NumberInput type="count" min="2" max="6" decimal="2" placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -57,7 +57,7 @@ ReactDOM.render(
 :::demo 事件处理
 
 ```jsx
-import { Numinput } from 'zent';
+import { NumberInput } from 'zent';
 
 class EventTest extends React.Component {
   constructor() {
@@ -73,7 +73,7 @@ class EventTest extends React.Component {
   render() {
     return (
       <div>
-        <Numinput onChange={this.onChange} decimal={2} placeholder="Please input your number"/>
+        <NumberInput onChange={this.onChange} decimal="2" placeholder="Please input your number"/>
         <div><p>{this.state.log}</p></div>
       </div>
     );
@@ -104,7 +104,7 @@ ReactDOM.render(
 | prefix       | 自定义类前缀         | string        | `'zent'` |                         | 否    |
 
 <style>
-.zent-numinput-wrapper {
+.zent-number-input-wrapper {
   width: 200px;
   margin-bottom: 20px;
 }

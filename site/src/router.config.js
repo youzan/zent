@@ -1,4 +1,3 @@
-import React from 'react';
 import { prefix } from './constants';
 
 const registerRoute = navData => {
@@ -6,13 +5,13 @@ const registerRoute = navData => {
   navData.forEach(nav => {
     if (nav.groups) {
       nav.groups.forEach(group => {
-        group.list.forEach(nav => {
-          addRoute(nav);
+        group.list.forEach(subNav => {
+          addRoute(subNav);
         });
       });
     } else if (nav.children) {
-      nav.children.forEach(nav => {
-        addRoute(nav);
+      nav.children.forEach(subNav => {
+        addRoute(subNav);
       });
     } else {
       addRoute(nav);

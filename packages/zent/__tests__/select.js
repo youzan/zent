@@ -54,11 +54,13 @@ describe('<Select />', () => {
   });
 
   test('搜索某个关键字', () => {
+    const onEmptyMock = jest.fn();
     const wrapper = mount(
       <Select
         data={[1, 2, 3]}
         search
-        onFilter={(item, keyword) => {
+        onEmptySelected={onEmptyMock}
+        filter={(item, keyword) => {
           return `${item.value}` === `${keyword}`;
         }}
       />
@@ -66,17 +68,29 @@ describe('<Select />', () => {
     expect(wrapper.find('InputTrigger').length).toBe(1);
     wrapper.find('input').simulate('change', {
       target: {
-        value: 2
+        value: 4
+      }
+    });
+    wrapper.find('Option').simulate('click');
+    expect(onEmptyMock.mock.calls.length).toBe(1);
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 3
       }
     });
     expect(wrapper.find('Option').length).toBe(1);
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 27 });
+    expect(wrapper.find('Option').length).toBe(0);
   });
 
-  it('Popup中的Search(onFilter and onAsyncFilter)', () => {
+  it('Popup中的Search(filter and onAsyncFilter)', () => {
     let wrapper = mount(
       <Select
         data={['选项1', '选项2', '选项3']}
-        onFilter={(item, keyword) =>
+        filter={(item, keyword) =>
           keyword &&
           item.value
             .trim()
@@ -106,7 +120,7 @@ describe('<Select />', () => {
         data={['选项1', '选项2', '选项3']}
         onAsyncFilter={asyncMock}
         searchPlaceholder="search"
-        onFilter={() => true}
+        filter={() => true}
       />
     );
     jest.useFakeTimers();
@@ -163,46 +177,111 @@ describe('<Select />', () => {
     wrapper.find('.zent-select').simulate('keydown', { keyCode: 27 });
     expect(wrapper.state('open')).toBe(false);
     wrapper.find('TagsTrigger').simulate('click');
-    expect(wrapper.find('.current').length).toBe(0);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 41 });
-    expect(wrapper.state('keyCode')).toBe(41);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
     expect(wrapper.find('.current').length).toBe(1);
-    expect(wrapper.find('.current').prop('value')).toBe('1');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    expect(wrapper.find('.current').prop('value')).toBe('3');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    expect(wrapper.find('.current').prop('value')).toBe('1');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 41 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    expect(wrapper.find('.current').length).toBe(1);
+    expect(wrapper.find('.current').prop('value')).toBe('2');
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
     expect(wrapper.find('.current').prop('value')).toBe('');
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 38 });
-    expect(wrapper.find('.current').prop('value')).toBe('3');
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    expect(wrapper.find('.current').prop('value')).toBe('');
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    expect(wrapper.find('.current').prop('value')).toBe('2');
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 38 });
+    expect(wrapper.find('.current').prop('value')).toBe('1');
     expect(wrapper.state('open')).toBe(true);
     expect(onChangeMock.mock.calls.length).toBe(0);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 13 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 13 });
     expect(wrapper.state('open')).toBe(false);
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0][0].target.value).toBe('3');
+    expect(onChangeMock.mock.calls[0][0].target.value).toBe('1');
     expect(onChangeMock.mock.calls[0][0].target.type).toBe('select-multiple');
-    expect(onChangeMock.mock.calls[0][1].value).toBe('3');
+    expect(onChangeMock.mock.calls[0][1].value).toBe('1');
     wrapper.find('TagsTrigger').simulate('click');
-    expect(wrapper.find('.current').length).toBe(0);
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 40 });
-    wrapper.find('.zent-select').simulate('keydown', { keyCode: 13 });
-    expect(onEmptyMock.mock.calls.length).toBe(1);
+    expect(wrapper.find('.current').length).toBe(1);
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 40 });
+    wrapper
+      .find('.zent-select')
+      .find('Popup')
+      .simulate('keydown', { keyCode: 13 });
+    expect(onEmptyMock.mock.calls.length).toBe(0);
   });
 
   it('Dynamic Select', () => {

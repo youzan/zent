@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import './style.pcss';
 
 export default class PageHeader extends Component {
@@ -79,6 +80,7 @@ export default class PageHeader extends Component {
               href="https://github.com/youzan/zent"
               className="page-header__github"
               target="_blank"
+              rel="noopener noreferrer"
             />
           </li>
         </ul>
