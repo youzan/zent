@@ -40,7 +40,7 @@ module.exports = Object.assign({}, base, {
   plugins: base.plugins.concat([
     new FaviconsWebpackPlugin({
       // Your source logo
-      logo: './src/assets/ZanUIlogo256x256.png',
+      logo: './assets/ZanUIlogo256x256.png',
       // The prefix for all image files (might be a folder or a name)
       prefix: 'favico-[hash]-',
       // Emit all stats of the generated icons
