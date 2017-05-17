@@ -15,8 +15,8 @@ import { NumberInput } from 'zent';
 
 ReactDOM.render(
   <div>
-  	<NumberInput placeholder="Please input your number"/>
-    <NumberInput type="count" placeholder="Please input your number"/>
+  	<NumberInput value={2} placeholder="Please input your number"/>
+    <NumberInput value={2} showStepper placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -31,8 +31,8 @@ import { NumberInput } from 'zent';
 
 ReactDOM.render(
   <div>
-    <NumberInput decimal="2" placeholder="Please input your number"/>
-    <NumberInput type="count" decimal="2" placeholder="Please input your number"/>
+    <NumberInput value={2} decimal={2} placeholder="Please input your number"/>
+    <NumberInput value={2} showStepper decimal={2} placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -46,8 +46,23 @@ import { NumberInput } from 'zent';
 
 ReactDOM.render(
   <div>
-    <NumberInput min="2" max="6" decimal="2" placeholder="Please input your number"/>
-    <NumberInput type="count" min="2" max="6" decimal="2" placeholder="Please input your number"/>
+    <NumberInput value={3} min={2} max={6} decimal={2} placeholder="Please input your number"/>
+    <NumberInput value={3} showStepper min={2} max={6} decimal={2} placeholder="Please input your number"/>
+  </div>
+  , mountNode
+);
+```
+:::
+
+:::demo disable状态
+
+```jsx
+import { NumberInput } from 'zent';
+
+ReactDOM.render(
+  <div>
+    <NumberInput value={3} disabled placeholder="Please input your number"/>
+    <NumberInput value={3} disabled showStepper placeholder="Please input your number"/>
   </div>
   , mountNode
 );
@@ -65,15 +80,14 @@ class EventTest extends React.Component {
     this.state = {
         log: ''
     }
-    this.onChange = this.onChange.bind(this);
   }
-  onChange(value) {
+  onChange = (value) => {
   	this.setState({ log: value });
   }
   render() {
     return (
       <div>
-        <NumberInput onChange={this.onChange} decimal="2" placeholder="Please input your number"/>
+        <NumberInput onChange={this.onChange} decimal={2} placeholder="Please input your number"/>
         <div><p>{this.state.log}</p></div>
       </div>
     );
@@ -92,7 +106,7 @@ ReactDOM.render(
 
 | 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
-| type         | 自定义类前缀         | string        | `'number'` | `'number'`、`'count'`| 否    |
+| showStepper  | 是否开启记步器         | string        | `false` |                        | 否    |
 | value        | 输入值             | string        |          |                         | 否    |
 | disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
 | placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |

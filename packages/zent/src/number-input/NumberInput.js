@@ -9,18 +9,18 @@ export default class Numinput extends Component {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
-    type: PropTypes.string,
-    decimal: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    showStepper: PropTypes.bool,
+    decimal: PropTypes.number,
     disabled: PropTypes.bool,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    max: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    min: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    value: PropTypes.number,
+    max: PropTypes.number,
+    min: PropTypes.number,
     onChange: PropTypes.func
   };
 
   static defaultProps = {
     prefix: 'zent',
-    type: 'number',
+    showStepper: false,
     value: '',
     decimal: 0,
     disabled: false,
@@ -111,7 +111,7 @@ export default class Numinput extends Component {
   }
 
   render() {
-    const { prefix, className, type, disabled } = this.props;
+    const { prefix, className, showStepper, disabled } = this.props;
     const { value, minArrow, maxArrow } = this.state;
 
     // 箭头状态
@@ -122,7 +122,7 @@ export default class Numinput extends Component {
     const wrapClass = classNames(
       {
         [`${prefix}-number-input-wrapper`]: true,
-        [`${prefix}-number-input-${type}-wrapper`]: type === 'count'
+        [`${prefix}-number-input-count-wrapper`]: showStepper
       },
       className
     );
@@ -145,7 +145,7 @@ export default class Numinput extends Component {
     let inputProps = pick(this.props, ['placeholder', 'disabled', 'readOnly']);
     return (
       <div className={wrapClass}>
-        {type === 'count' &&
+        {showStepper &&
           <span
             className={upArrowClass}
             onClick={() => {
@@ -164,7 +164,7 @@ export default class Numinput extends Component {
             this.onBlur(e);
           }}
         />
-        {type === 'count' &&
+        {showStepper &&
           <span
             className={downArrowClass}
             onClick={() => {
