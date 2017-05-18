@@ -64,6 +64,8 @@ describe('NumberInput', () => {
     expect(onChangeMock.mock.calls.length).toBe(2);
     wrapper.find('input').simulate('blur');
     expect(onBlurMock.mock.calls.length).toBe(0);
+    wrapper.setProps({ value: 4 });
+    expect(wrapper.state('value')).toBe('4');
     wrapper = mount(<NumberInput min={0} showStepper value={-1} />);
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
     expect(wrapper.state('value')).toBe('0');
