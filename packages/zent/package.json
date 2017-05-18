@@ -60,9 +60,9 @@
     "postcss-cli": "^3.2.0",
     "postcss-easy-import": "^2.0.0",
     "precss": "^1.4.0",
-    "react": "15.5.x",
-    "react-dom": "15.5.x",
-    "react-test-renderer": "15.5.x",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-test-renderer": "^15.5.4",
     "uglify-js": "^2.8.22",
     "webpack": "^2.4.1"
   }
