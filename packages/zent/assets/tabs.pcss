@@ -1,0 +1,239 @@
+$activecolor: black;
+$color: #666;
+$tabbg: #f8f8f8;
+$activetabbg: white;
+$disablecolor: #c9c9c9;
+$slidercolor: #0099fc;
+
+.zent-tabs {
+  font-size: 14px;
+  line-height: 1.42857143;
+
+  &-nav {
+    position: relative;
+    border-bottom: 1px solid #e4e4e4;
+    outline: none;
+    margin-bottom: 10px;
+    user-select: none;
+
+    &-add {
+      float: right;
+      display: inline-block;
+      width: 20px;
+      height: 100%;
+      vertical-align: middle;
+      text-align: center;
+      cursor: pointer;
+
+      span {
+        display: block;
+        border: 1px solid #e4d4e4;
+        border-radius: 2px;
+        position: relative;
+        top: 50%;
+        margin-top: -10px;
+        line-height: 18px;
+        height: 20px;
+      }
+    }
+
+    &-content {
+      margin-bottom: -1px;
+      height: 35px;
+      overflow: hidden;
+
+      &-prev::before {
+        content: '\E600';
+      }
+
+      &-next::before {
+        content: '\E600';
+      }
+    }
+
+    &-ink-bar {
+      display: none;
+    }
+  }
+
+  &-scroll {
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+
+  &-tabwrap {
+    float: left;
+    position: relative;
+  }
+
+  &-tab {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: $color;
+    border-top: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+    background-color: $tabbg;
+    box-sizing: border-box;
+
+    &-inner {
+      padding: 8px 15px;
+      text-align: center;
+      min-width: 90px;
+      position: relative;
+      box-sizing: border-box;
+      font-size: 12px;
+
+      &-del {
+        line-height: 1;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        font-size: 12px;
+        display: none;
+      }
+    }
+  }
+
+  &-tab:first-child {
+    border: 1px solid #e4e4e4;
+    border-bottom: 0;
+    border-top-left-radius: 4px;
+  }
+
+  &-tab:last-child {
+    border-top-right-radius: 4px;
+  }
+
+  &-tab:hover {
+    color: $activecolor;
+
+    .zent-tabs-tab-inner-del {
+      display: inline;
+    }
+  }
+
+  .zent-tabs-actived {
+    position: relative;
+    color: $activecolor;
+    background-color: $activetabbg;
+
+    .zent-tabs-tab-inner {
+      padding-bottom: 9px;
+    }
+  }
+
+  .zent-tabs-disabled {
+    color: $disablecolor;
+
+    &.zent-tabs-tab {
+      cursor: not-allowed;
+    }
+
+    &.zent-tabs-tab:hover {
+      color: $disablecolor;
+    }
+  }
+}
+
+.zent-tabs-size-huge {
+  .zent-tabs-nav {
+    margin-bottom: 15px;
+  }
+
+  .zent-tabs-nav-content {
+    height: 50px;
+  }
+
+  .zent-tabs-tab-inner {
+    padding: 14px 40px;
+    font-size: 14px;
+  }
+
+  .zent-tabs-actived {
+    .zent-tabs-tab-inner {
+      background-color: $activetabbg;
+      padding-bottom: 15px;
+    }
+  }
+}
+
+.zent-tabs-align-center {
+  .zent-tabs-tabwrap {
+    float: none;
+  }
+}
+
+.zent-tabs-align-right {
+  .zent-tabs-tabwrap {
+    float: right;
+  }
+
+  .zent-tabs-nav-add {
+    float: left;
+  }
+}
+
+.zent-tabs-type-card {
+  .zent-tabs-tab {
+    border-color: $tabbg;
+    border-radius: 0;
+  }
+
+  .zent-tabs-tab:first-child {
+    border-color: $tabbg;
+    border-radius: 0;
+  }
+
+  .zent-tabs-tab:last-child {
+    border-color: $tabbg;
+    border-radius: 0;
+  }
+
+  .zent-tabs-actived {
+    background-color: $tabbg !important;
+    border-radius: 0;
+    border: 0;
+
+    .zent-tabs-tab-inner {
+      border: 1px solid #e4e4d4 !important;
+      border-bottom: 0 !important;
+      border-top-left-radius: 6px !important;
+      border-top-right-radius: 6px !important;
+      background-color: white;
+    }
+  }
+}
+
+.zent-tabs-type-slider {
+  &.zent-tabs-nav {
+    border: 0;
+  }
+
+  .zent-tabs-tab {
+    border: 0;
+    background-color: transparent;
+  }
+
+  .zent-tabs-actived {
+    background-color: transparent;
+
+    .zent-tabs-tab-inner {
+      background-color: transparent;
+    }
+  }
+
+  .zent-tabs-nav-ink-bar {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    height: 2px;
+    background-color: $slidercolor;
+    width: 0;
+    z-index: 10;
+  }
+}
+
+.zent-tabs-third-level {
+  background-color: #f8f8f8;
+}

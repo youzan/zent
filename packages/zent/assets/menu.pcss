@@ -1,0 +1,74 @@
+$white: #fff;
+$item-color: #666;
+$shadow-color: #eee;
+$disabled-color: #cacaca;
+$background-color: #38f;
+
+.zent-menu {
+  width: 100px;
+  background-color: $white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgba(200, 200, 200, 0.3);
+  box-shadow: 0 1px 2px $shadow-color;
+
+  .zent-menu-item {
+    font-size: 12px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    color: $item-color;
+    padding-left: 10px;
+    box-sizing: border-box;
+    position: relative;
+    cursor: default;
+
+    &:hover {
+      background-color: $background-color;
+      color: $white;
+    }
+
+    &.zent-submenu:hover {
+      background-color: $white;
+      color: $item-color;
+    }
+  }
+
+  .zent-menu-item-disabled {
+    color: $disabled-color;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $white;
+      color: $disabled-color;
+    }
+  }
+
+  .zenticon-right {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bbb;
+    font-size: 8px;
+  }
+
+  .zent-submenu > .zent-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: 4px;
+  }
+
+  .zent-submenu-title {
+    margin-left: -10px;
+    padding-left: 10px;
+
+    &:hover {
+      background-color: $background-color;
+      color: $white;
+    }
+  }
+}

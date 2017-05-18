@@ -1,18 +1,20 @@
-@component-namespace page {
-  @b header {
+@import "../../_constants.pcss";
+
+.page {
+  &-header {
     position: fixed;
     top: 0;
     z-index: 1;
     width: 100%;
 
-    @e top {
+    &__top {
       overflow: hidden;
-      height: 80px;
+      height: $top-nav-height;
       background-color: #fbfbfb;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     }
 
-    @e logo {
+    &__logo {
       float: left;
 
       > a {
@@ -26,50 +28,50 @@
       }
     }
 
-    @e navs {
+    &__navs {
       float: right;
     }
 
-    @e item {
+    &__item {
       float: left;
-      height: 50px;
+      height: 100%;
     }
 
-    @e subnavs {
-      line-height: 50px;
+    &__subnavs {
+      line-height: $top-subnav-height;
       display: flex;
       justify-content: center;
       background-color: #f2f2f2;
       position: relative;
       z-index: -1;
 
-      @m shadow {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+      &--shadow {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
       }
 
       a,
       span {
-        line-height: 50px;
+        line-height: $top-subnav-height;
       }
     }
 
-    @e link {
+    &__link {
       display: block;
-      line-height: 80px;
+      line-height: $top-nav-height;
       color: #333;
       font-size: 16px;
       margin: 0 20px;
 
       &:hover {
-        color: #3388FF;
+        color: #38f;
       }
 
-      @m active {
-        color: #3388FF;
+      &--active {
+        color: #38f;
       }
     }
 
-    @e github {
+    &__github {
       display: inline-block;
       width: 22px;
       height: 22px;

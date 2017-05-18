@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const { join } = require('path');
-const postcssPlugins = require('./postcss.config');
+const postcssConfig = require('../../packages/zent/postcss.config');
 
 function getBabelLoader(options = {}) {
   const dev = options.dev || false;
@@ -21,23 +21,7 @@ function getBabelLoader(options = {}) {
 
 const postcssLoader = {
   loader: 'postcss-loader',
-  options: {
-    plugins: postcssPlugins
-  }
-};
-
-const scssLoader = {
-  loader: 'postcss-loader',
-  options: {
-    plugins: [
-      require('postcss-easy-import')({
-        extensions: ['.scss', '.css']
-      }),
-      require('precss'),
-      require('autoprefixer')
-    ],
-    parser: require('postcss-scss')
-  }
+  options: postcssConfig
 };
 
 const getRules = babelLoader => [
@@ -53,7 +37,7 @@ const getRules = babelLoader => [
       {
         loader: require.resolve('react-markdown-doc-loader'),
         options: {
-          jsTemplate: join(__dirname, '../react-template.js'),
+          jsTemplate: join(__dirname, '../react-template.jstpl'),
           renderers: {
             markdown: 'Markdown',
             style: 'Style',
@@ -69,6 +53,5 @@ const getRules = babelLoader => [
 module.exports = {
   getBabelLoader,
   postcssLoader,
-  scssLoader,
   getRules
 };

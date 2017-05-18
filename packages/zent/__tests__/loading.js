@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Loading from 'loading';
+import { getElementLeft, getElementTop } from 'loading/getPosition';
 
 /* eslint-disable */
 beforeAll(() => {
@@ -58,5 +59,23 @@ describe('Loading', () => {
     wrapper.setProps({ show: false });
     wrapper.setProps({ show: true });
     wrapper.unmount();
+  });
+
+  it('find element offset', () => {
+    const tree = {
+      offsetLeft: 1,
+      offsetTop: 10,
+      offsetParent: {
+        offsetLeft: 2,
+        offsetTop: 20,
+        offsetParent: {
+          offsetLeft: 3,
+          offsetTop: 30,
+          offsetParent: null
+        }
+      }
+    };
+    expect(getElementLeft(tree)).toBe(6);
+    expect(getElementTop(tree)).toBe(60);
   });
 });

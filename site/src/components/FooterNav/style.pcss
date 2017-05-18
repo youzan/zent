@@ -1,29 +1,30 @@
-@component-namespace footer {
-  @b nav {
+.footer {
+  &-nav {
     padding: 24px 40px;
     overflow: hidden;
     border-top: 1px solid #e5e5e5;
 
-    @e link {
-      color: #3388FF;
+    &__link {
+      color: #38f;
       overflow: hidden;
       position: relative;
       font-size: 20px;
       line-height: 1.5;
+      cursor: pointer;
 
       .zenticon {
         box-sizing: border-box;
         width: 20px;
         font-size: 12px;
         line-height: 16px;
-        border: 2px solid #3388FF;
+        border: 2px solid #38f;
         border-radius: 50%;
         text-align: center;
         margin-top: 5px;
       }
     }
 
-    @e left {
+    &__left {
       float: left;
 
       .zenticon {
@@ -33,7 +34,7 @@
       }
     }
 
-    @e right {
+    &__right {
       float: right;
 
       .zenticon {

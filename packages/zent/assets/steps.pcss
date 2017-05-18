@@ -1,0 +1,297 @@
+$normal-color: #333;
+$cart-color: #666;
+$wait-color: #999;
+$error-color: #f44;
+$bg-color: #f8f8f8;
+$current-bg-color: #38f;
+
+.zent-steps {
+  width: 100%;
+  line-height: 1.5;
+  font-size: 0;
+}
+
+.zent-steps-tail {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 10px;
+  padding: 0 10px;
+  box-sizing: border-box;
+
+  i {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    border-radius: 1px;
+    height: 1px;
+    vertical-align: top;
+    background: $wait-color;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 0;
+      background: $wait-color;
+      height: 100%;
+      opacity: 0;
+    }
+  }
+}
+
+.zent-steps-step {
+  position: relative;
+
+  .zent-step-head {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    background: #fff;
+  }
+
+  .zent-step-main {
+    position: relative;
+    vertical-align: top;
+    max-width: 120px;
+    color: $wait-color;
+
+    .zent-step-title {
+      font-size: 14px;
+      max-width: 120px;
+      line-height: 14px;
+      margin-top: 10px;
+    }
+
+    .zent-step-description {
+      max-width: 120px;
+      font-size: 12px;
+      line-height: 16px;
+      margin-top: 5px;
+    }
+  }
+}
+
+.zent-step-head-inner {
+  margin-right: 10px;
+  font-size: 20px;
+  color: $wait-color;
+  line-height: 20px;
+
+  .zent-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    background: $wait-color;
+    color: #fff;
+    font-size: 12px;
+  }
+
+  .zenticon {
+    vertical-align: middle;
+  }
+}
+
+.zent-steps-item {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+
+  &:not(:first-child) .zent-step-head {
+    margin-left: -10px;
+    padding-left: 10px;
+  }
+
+  &.zent-steps-status-finish {
+    &.is-current {
+      .zent-steps-tail {
+        i {
+          &::after {
+            width: 50%;
+          }
+        }
+      }
+    }
+
+    &.is-last-finish {
+      .zent-steps-tail {
+        i {
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .zent-step-head-inner {
+      color: $current-bg-color;
+
+      .zent-icon {
+        background: $current-bg-color;
+      }
+    }
+
+    .zent-step-main {
+      .zent-step-title {
+        color: $normal-color;
+      }
+    }
+
+    .zent-steps-tail {
+      i {
+        &::after {
+          width: 100%;
+          background: $current-bg-color;
+          transition: all 0.4s ease;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &.zent-steps-status-error {
+    .zent-step-head-inner {
+      color: $error-color;
+    }
+
+    .zent-step-main {
+      .zent-step-title {
+        color: $error-color;
+      }
+    }
+  }
+
+  &:last-child {
+    .zent-step-head-inner {
+      margin-right: 0;
+    }
+
+    .zent-step-main {
+      position: absolute;
+      width: 120px;
+      right: 0;
+      text-align: right;
+    }
+  }
+}
+
+.zent-steps-card {
+  .zent-steps-item {
+    box-sizing: border-box;
+    padding: 0 1px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    .zent-steps-step {
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+      background: $bg-color;
+      color: $cart-color;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0 10px;
+    }
+
+    &.is-current {
+      .zent-steps-step {
+        background: $current-bg-color;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.zent-steps-breadcrumb {
+  overflow: hidden;
+
+  .zent-steps-item {
+    padding: 0 8px;
+    box-sizing: border-box;
+
+    &:first-child {
+      padding-left: 0;
+
+      .zent-steps-step {
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    &:last-child {
+      padding-right: 0;
+
+      .zent-steps-step {
+        &::after {
+          display: none;
+        }
+      }
+    }
+
+    .zent-steps-step {
+      height: 44px;
+      line-height: 44px;
+      font-size: 14px;
+      background: $bg-color;
+      color: $cart-color;
+      text-align: center;
+
+      &::after {
+        content: ' ';
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 22px solid transparent;
+        border-bottom: 22px solid transparent;
+        border-left: 12px solid $bg-color;
+        position: absolute;
+        top: 50%;
+        margin-top: -22px;
+        right: -12px;
+      }
+
+      &::before {
+        content: ' ';
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 22px solid $bg-color;
+        border-bottom: 22px solid $bg-color;
+        border-left: 12px solid transparent;
+        position: absolute;
+        top: 50%;
+        margin-top: -22px;
+        left: -12px;
+      }
+    }
+
+    &.is-finish {
+      .zent-steps-step {
+        background: $current-bg-color;
+        color: #fff;
+
+        &::after {
+          border-left-color: $current-bg-color;
+        }
+
+        &::before {
+          border-top-color: $current-bg-color;
+          border-bottom-color: $current-bg-color;
+        }
+      }
+    }
+  }
+}
