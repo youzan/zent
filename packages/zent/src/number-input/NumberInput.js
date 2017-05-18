@@ -92,22 +92,41 @@ export default class Numinput extends Component {
     }
   }
 
-  onBlur() {
+  onBlur(ev) {
     const { decimal } = this.props;
     const { value } = this.state;
     let result = value.replace(/\.$/g, '');
     result = this.adjustFixed(value, decimal);
     this.setState({ value: result });
-    this.props.onChange(result);
+    this.onPropChange(ev, result);
   }
 
-  onArrow(disabled, count) {
+  onArrow(ev, disabled, count) {
     if (disabled) return;
     const { value } = this.state;
     const { decimal } = this.props;
     let result = this.countFied(value, decimal, count);
     this.setState({ value: result });
-    this.props.onChange(result);
+    this.onPropChange(ev, result);
+  }
+
+  onPropChange(evt, result) {
+    const props = this.props;
+    this.props.onChange({
+      target: {
+        ...props,
+        type: 'number',
+        value: result
+      },
+
+      preventDefault() {
+        evt.preventDefault();
+      },
+
+      stopPropagation() {
+        evt.stopPropagation();
+      }
+    });
   }
 
   render() {
@@ -148,8 +167,8 @@ export default class Numinput extends Component {
         {showStepper &&
           <span
             className={upArrowClass}
-            onClick={() => {
-              this.onArrow(minArrowState, 1);
+            onClick={e => {
+              this.onArrow(e, minArrowState, 1);
             }}
           >
             <Icon type="right" />
@@ -167,8 +186,8 @@ export default class Numinput extends Component {
         {showStepper &&
           <span
             className={downArrowClass}
-            onClick={() => {
-              this.onArrow(maxArrowState, -1);
+            onClick={e => {
+              this.onArrow(e, maxArrowState, -1);
             }}
           >
             <Icon type="right" />

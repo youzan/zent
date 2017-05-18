@@ -81,7 +81,8 @@ class EventTest extends React.Component {
         log: ''
     }
   }
-  onChange = (value) => {
+  onChange = (obj) => {
+  	console.log(obj)
   	this.setState({ log: value });
   }
   render() {
