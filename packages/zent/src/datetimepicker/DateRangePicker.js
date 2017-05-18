@@ -37,7 +37,7 @@ const extractStateFromProps = props => {
   let actived = [];
   let range = [];
   let value = [];
-  console.log(props.value);
+
   if (isValidValue(props.value)) {
     showPlaceholder = false;
     const tmp = [
