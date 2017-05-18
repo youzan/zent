@@ -12,7 +12,7 @@ export default class Numinput extends Component {
     showStepper: PropTypes.bool,
     decimal: PropTypes.number,
     disabled: PropTypes.bool,
-    value: PropTypes.number,
+    value: PropTypes.any,
     max: PropTypes.number,
     min: PropTypes.number,
     onChange: PropTypes.func
@@ -21,7 +21,7 @@ export default class Numinput extends Component {
   static defaultProps = {
     prefix: 'zent',
     showStepper: false,
-    value: '',
+    value: 0,
     decimal: 0,
     disabled: false,
     onChange: () => {}
@@ -30,45 +30,45 @@ export default class Numinput extends Component {
   constructor(props) {
     super(props);
     const { value, decimal } = props;
-    let result = value ? this.adjustFixed(value, decimal) : value;
+    let { num, minArrow, maxArrow } = this.adjustFixed(value, decimal);
     this.state = {
-      value: result,
-      minArrow: false,
-      maxArrow: false
+      value: num,
+      minArrow,
+      maxArrow
     };
   }
 
   componentWillReceiveProps(nextProps) {
     const { value } = nextProps;
     const { decimal } = this.props;
-    let result = value ? this.adjustFixed(value, decimal) : value;
-    this.setState({ value: result });
-  }
-
-  checkRange(num, len) {
-    const { min, max } = this.props;
-    if (min) {
-      if (Math.round(num * 10 ** len) < Math.round(min * 10 ** len)) {
-        this.setState({ maxArrow: true });
-        return min;
-      }
-      this.setState({ maxArrow: false });
-    }
-    if (max) {
-      if (Math.round(num * 10 ** len) > Math.round(max * 10 ** len)) {
-        this.setState({ minArrow: true });
-        return max;
-      }
-      this.setState({ minArrow: false });
-    }
-    return num;
+    let { num, minArrow, maxArrow } = this.adjustFixed(value, decimal);
+    this.setState({
+      value: num,
+      minArrow,
+      maxArrow
+    });
   }
 
   adjustFixed(num, len) {
     // 检查min与max范围
-    num = this.checkRange(num, len);
+    const { min, max } = this.props;
+    let maxArrow = false;
+    let minArrow = false;
+    if (min) {
+      maxArrow = Math.round(num * 10 ** len) < Math.round(min * 10 ** len);
+      num = maxArrow ? min : num;
+    }
+    if (max) {
+      minArrow = Math.round(num * 10 ** len) > Math.round(max * 10 ** len);
+      num = minArrow ? max : num;
+    }
     // 四舍五入, 切保留几位小数， 此四舍五入修正了js原生toFixed保留小数点的BUG问题
-    return (Math.round(num * 10 ** len) / 10 ** len).toFixed(len);
+    num = (Math.round(num * 10 ** len) / 10 ** len).toFixed(len);
+    return {
+      num,
+      minArrow,
+      maxArrow
+    };
   }
 
   countFied(num, len, count) {
@@ -95,19 +95,29 @@ export default class Numinput extends Component {
   onBlur(ev) {
     const { decimal } = this.props;
     const { value } = this.state;
-    let result = value.replace(/\.$/g, '');
-    result = this.adjustFixed(value, decimal);
-    this.setState({ value: result });
-    this.onPropChange(ev, result);
+    let { num, minArrow, maxArrow } = this.adjustFixed(
+      value.replace(/\.$/g, ''),
+      decimal
+    );
+    this.setState({
+      value: num,
+      minArrow,
+      maxArrow
+    });
+    this.onPropChange(ev, num);
   }
 
   onArrow(ev, disabled, count) {
     if (disabled) return;
     const { value } = this.state;
     const { decimal } = this.props;
-    let result = this.countFied(value, decimal, count);
-    this.setState({ value: result });
-    this.onPropChange(ev, result);
+    let { num, minArrow, maxArrow } = this.countFied(value, decimal, count);
+    this.setState({
+      value: num,
+      minArrow,
+      maxArrow
+    });
+    this.onPropChange(ev, num);
   }
 
   onPropChange(evt, result) {

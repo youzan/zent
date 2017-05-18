@@ -78,17 +78,16 @@ class EventTest extends React.Component {
   constructor() {
     super();
     this.state = {
-        log: ''
+        log: 0
     }
   }
-  onChange = (obj) => {
-  	console.log(obj)
-  	this.setState({ log: value });
+  onChange = (ev) => {
+  	this.setState({ log: ev.target.value });
   }
   render() {
     return (
       <div>
-        <NumberInput onChange={this.onChange} decimal={2} placeholder="Please input your number"/>
+        <NumberInput value={this.state.log} onChange={this.onChange} decimal={2} placeholder="Please input your number"/>
         <div><p>{this.state.log}</p></div>
       </div>
     );
