@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import noop from 'lodash/noop';
+import partial from 'lodash/partial';
 import isBrowser from 'utils/isBrowser';
 import uniqueId from 'lodash/uniqueId';
 
@@ -49,7 +50,8 @@ export default function openDialog(options = {}) {
   const {
     onClose: oldOnClose,
     ref,
-    dialogId = uniqueId('__zent-dialog__')
+    dialogId = uniqueId('__zent-dialog__'),
+    parentComponent
   } = options;
 
   ensureUniqDialogInstance(dialogId);
@@ -74,8 +76,12 @@ export default function openDialog(options = {}) {
     delete props.ref;
   }
 
+  const render = parentComponent
+    ? partial(ReactDOM.unstable_renderSubtreeIntoContainer, parentComponent)
+    : ReactDOM.render;
+
   // 不要依赖render的返回值，以后可能行为会改变
-  ReactDOM.render(React.createElement(Dialog, props), container);
+  render(React.createElement(Dialog, props), container);
 
   addDialogInstance(dialogId, {
     onClose: oldOnClose,

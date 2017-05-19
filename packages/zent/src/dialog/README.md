@@ -4,7 +4,7 @@
 
 ### 使用指南
 
--  命令式, 直接调用 `openDialog` 函数, **不支持 `context`。**
+-  命令式, 直接调用 `openDialog` 函数。
 
 -  组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`。**
 
@@ -79,6 +79,30 @@ ReactDOM.render(<Button onClick={open}>打开</Button>, mountNode);
 ```
 :::
 
+:::demo openDialog 支持 context
+```jsx
+import { Dialog, Button } from 'zent';
+
+const { openDialog } = Dialog;
+
+class Example extends React.Component {
+	open = () => {
+		openDialog({
+			parentComponent: this,
+			title: 'openDialog 支持 context',
+			children: <div>Hello World</div>
+		})
+	}
+	render() {
+		return <Button onClick={this.open}>显示</Button>
+	}
+}
+
+ReactDOM.render(<Example />, mountNode);
+
+```
+:::
+
 
 ### API
 
@@ -92,6 +116,7 @@ ReactDOM.render(<Button onClick={open}>打开</Button>, mountNode);
 | onClose      | 关闭操作回调函数                      | func   | `noop`   |
 | mask         | 是否显示遮罩                        | bool   | `true`   |
 | maskClosable | 点击遮罩是否可以关闭                    | bool   | `true`   |
+| parentComponent |  父组件的引用, 添加后支持 context   | object  | `null`     |
 | className    | 自定义额外类名                       | string | `''`     |
 | prefix       | 自定义前缀                         | string | `'zent'` |
 | style        | 自定义样式                         | object | `{}`     |
