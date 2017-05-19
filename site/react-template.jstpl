@@ -33,7 +33,7 @@ class Demo extends Component {
     return (
       <div className="zandoc-react-demo">
         <div className="zandoc-react-demo__preview">
-          {demo}
+          {demo()}
         </div>
         <div className="zandoc-react-demo__bottom" onClick={this.toggle}>
           <RawHtmlRenderer

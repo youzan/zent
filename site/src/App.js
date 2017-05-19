@@ -16,6 +16,8 @@ import navData from './nav.config';
 import { registerRoute, registerFooter } from './router.config';
 import { prefix } from './constants';
 
+import Demo from '../../packages/zent/src/popover/README.md';
+
 // one-dimentional array
 const routeData = registerRoute(navData['zh-CN']);
 
@@ -33,7 +35,8 @@ export default class App extends Component {
               <SideNav data={navData['zh-CN']} base={prefix} />
               <div className="page-content">
                 <div className="react-doc-page-content">
-                  <Switch>
+                  <Demo />
+                  {/* <Switch>
                     {routeData.map((data, index) => {
                       return (
                         <Route
@@ -45,7 +48,7 @@ export default class App extends Component {
                     })}
 
                     <Redirect from="*" to={routeData[0].path} />
-                  </Switch>
+                  </Switch> */}
                 </div>
                 <FooterNav data={footerData} />
               </div>
