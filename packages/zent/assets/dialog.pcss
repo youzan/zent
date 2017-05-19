@@ -4,7 +4,7 @@ $whitecolor: #fff;
 $darkgraycolor: #666;
 $bordercolor: #e8e8e8;
 $maskbgcolor: #373737;
-$rgbamaskbgcolor: rgba(0, 0, 0, .6);
+$rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
 
 /*
   WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog, it makes content blurry.
@@ -34,25 +34,25 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
   white-space: nowrap;
 
   &::before {
-      content: '';
-      height: 100%;
-      display: inline-block;
-      vertical-align: middle; // required
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle; /* required */
   }
 }
 
 .zent-dialog-r {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle; // required
-    text-align: initial;
-    background-color: $whitecolor;
-    border-radius: 4px;
-    padding: 20px;
-    box-sizing: border-box;
-    font-size: 14px;
-    z-index: 1041;
-    white-space: normal;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle; /* required */
+  text-align: initial;
+  background-color: $whitecolor;
+  border-radius: 4px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 14px;
+  z-index: 1041;
+  white-space: normal;
 }
 
 .zent-dialog-r-title {
@@ -64,10 +64,10 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
 }
 
 .zent-dialog-r-title-text {
-    font-size: 14px;
-    line-height: 1;
-    font-weight: bold;
-    color: $normalcolor;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: bold;
+  color: $normalcolor;
 }
 
 .zent-dialog-r-close {
@@ -102,6 +102,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, .6);
 
 .zent-dialog-r-body {
   color: $darkgraycolor;
+
   &.with-success-icon,
   &.with-warning-icon {
     padding-left: 30px;
