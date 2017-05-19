@@ -19,7 +19,7 @@ cd site && yarn
 
 #### 样式
 
-样式使用 `postcss`。
+组件样式使用 `precss`，语法请参考 [precss 文档](https://github.com/jonathantneal/precss).
 
 #### 添加新组件
 
