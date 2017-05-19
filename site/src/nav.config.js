@@ -1,6 +1,38 @@
-/* eslint-disable global-require */
+import ZentDoc from '../../packages/zent/README.md';
+import BabelPluginZentDoc from '../../packages/babel-plugin-zent/README.md';
+import ChangelogDoc from '../../packages/zent/CHANGELOG.md';
+import MigrationDoc2 from '../../packages/zent/docs/migrating-2.1.md';
+import MigrationDoc3 from '../../packages/zent/docs/migrating-2-3.md';
+import LayoutDoc from '../../packages/zent/src/layout/README.md';
+import IconDoc from '../../packages/zent/src/icon/README.md';
+import AlertDoc from '../../packages/zent/src/alert/README.md';
+import DialogDoc from '../../packages/zent/src/dialog/README.md';
+import LoadingDoc from '../../packages/zent/src/loading/README.md';
+import NotifyDoc from '../../packages/zent/src/notify/README.md';
+import PopDoc from '../../packages/zent/src/pop/README.md';
+import SweetalertDoc from '../../packages/zent/src/sweetalert/README.md';
+import ButtonDoc from '../../packages/zent/src/button/README.md';
+import CheckboxDoc from '../../packages/zent/src/checkbox/README.md';
+import DateTimePickerDoc
+  from '../../packages/zent/src/datetimepicker/README.md';
+import FormDoc from '../../packages/zent/src/form/README.md';
+import InputDoc from '../../packages/zent/src/input/README.md';
+import RadioDoc from '../../packages/zent/src/radio/README.md';
+import SelectDoc from '../../packages/zent/src/select/README.md';
+import SliderDoc from '../../packages/zent/src/slider/README.md';
+import SwitchDoc from '../../packages/zent/src/switch/README.md';
+import BreadcrumbDoc from '../../packages/zent/src/breadcrumb/README.md';
+import MenuDoc from '../../packages/zent/src/menu/README.md';
+import DropdownDoc from '../../packages/zent/src/popover/Dropdown.md';
+import PaginationDoc from '../../packages/zent/src/pagination/README.md';
+import StepsDoc from '../../packages/zent/src/steps/README.md';
+import TableDoc from '../../packages/zent/src/table/README.md';
+import TabsDoc from '../../packages/zent/src/tabs/README.md';
+import TreeDoc from '../../packages/zent/src/tree/README.md';
+import PopoverDoc from '../../packages/zent/src/popover/README.md';
+import PortalDoc from '../../packages/zent/src/portal/README.md';
 
-module.exports = {
+const originDataSet = {
   'zh-CN': [
     {
       name: '使用指南',
@@ -10,17 +42,17 @@ module.exports = {
             {
               title: '快速上手',
               path: 'guides/install',
-              component: require('../../packages/zent/README.md')
+              component: ZentDoc
             },
             {
               title: 'babel-plugin-zent',
               path: 'guides/babel-plugin-zent',
-              component: require('../../packages/babel-plugin-zent/README.md')
+              component: BabelPluginZentDoc
             },
             {
               title: '更新日志',
               path: 'guides/changelog',
-              component: require('../../packages/zent/CHANGELOG.md')
+              component: ChangelogDoc
             }
           ]
         }
@@ -35,12 +67,12 @@ module.exports = {
             {
               title: '2.1.x 升级指南',
               path: 'migrating/21x',
-              component: require('../../packages/zent/docs/migrating-2.1.md')
+              component: MigrationDoc2
             },
             {
               title: '3.x 升级指南',
               path: 'migrating/3x',
-              component: require('../../packages/zent/docs/migrating-2-3.md')
+              component: MigrationDoc3
             }
           ]
         }
@@ -56,12 +88,12 @@ module.exports = {
             {
               path: 'component/layout',
               title: 'Layout 布局',
-              component: require('../../packages/zent/src/layout/README.md')
+              component: LayoutDoc
             },
             {
               path: 'component/icon',
               title: 'Icon 图标',
-              component: require('../../packages/zent/src/icon/README.md')
+              component: IconDoc
             }
           ]
         },
@@ -71,32 +103,32 @@ module.exports = {
             {
               path: 'component/alert',
               title: 'Alert 公告',
-              component: require('../../packages/zent/src/alert/README.md')
+              component: AlertDoc
             },
             {
               path: 'component/dialog',
               title: 'Dialog 对话框',
-              component: require('../../packages/zent/src/dialog/README.md')
+              component: DialogDoc
             },
             {
               path: 'component/loading',
               title: 'Loading 等待',
-              component: require('../../packages/zent/src/loading/README.md')
+              component: LoadingDoc
             },
             {
               path: 'component/notify',
               title: 'Notify 通知',
-              component: require('../../packages/zent/src/notify/README.md')
+              component: NotifyDoc
             },
             {
               path: 'component/pop',
               title: 'Pop 气泡提示',
-              component: require('../../packages/zent/src/pop/README.md')
+              component: PopDoc
             },
             {
               path: 'component/sweet-alert',
               title: 'SweetAlert',
-              component: require('../../packages/zent/src/sweetalert/README.md')
+              component: SweetalertDoc
             }
           ]
         },
@@ -106,47 +138,47 @@ module.exports = {
             {
               path: 'component/button',
               title: 'Button 按钮',
-              component: require('../../packages/zent/src/button/README.md')
+              component: ButtonDoc
             },
             {
               path: 'component/checkbox',
               title: 'Checkbox 多选',
-              component: require('../../packages/zent/src/checkbox/README.md')
+              component: CheckboxDoc
             },
             {
               path: 'component/datepicker',
               title: 'DatePicker 时间选择',
-              component: require('../../packages/zent/src/datetimepicker/README.md')
+              component: DateTimePickerDoc
             },
             {
               path: 'component/form',
               title: 'Form 表单',
-              component: require('../../packages/zent/src/form/README.md')
+              component: FormDoc
             },
             {
               path: 'component/input',
               title: 'Input 输入框',
-              component: require('../../packages/zent/src/input/README.md')
+              component: InputDoc
             },
             {
               path: 'component/radio',
               title: 'Radio 单选',
-              component: require('../../packages/zent/src/radio/README.md')
+              component: RadioDoc
             },
             {
               path: 'component/select',
               title: 'Select 选项',
-              component: require('../../packages/zent/src/select/README.md')
+              component: SelectDoc
             },
             {
               path: 'component/slider',
               title: 'Slider 滑动输入条',
-              component: require('../../packages/zent/src/slider/README.md')
+              component: SliderDoc
             },
             {
               path: 'component/switch',
               title: 'Switch 开关',
-              component: require('../../packages/zent/src/switch/README.md')
+              component: SwitchDoc
             }
           ]
         },
@@ -156,42 +188,42 @@ module.exports = {
             {
               path: 'component/breadcrumb',
               title: 'Breadcrumb 面包屑',
-              component: require('../../packages/zent/src/breadcrumb/README.md')
+              component: BreadcrumbDoc
             },
             {
               path: 'component/menu',
               title: 'Menu 菜单',
-              component: require('../../packages/zent/src/menu/README.md')
+              component: MenuDoc
             },
             {
               path: 'component/dropdown',
               title: 'Dropdown 下拉菜单',
-              component: require('../../packages/zent/src/popover/Dropdown.md')
+              component: DropdownDoc
             },
             {
               path: 'component/pagination',
               title: 'Pagination 分页',
-              component: require('../../packages/zent/src/pagination/README.md')
+              component: PaginationDoc
             },
             {
               path: 'component/steps',
               title: 'Steps 步骤条',
-              component: require('../../packages/zent/src/steps/README.md')
+              component: StepsDoc
             },
             {
               path: 'component/table',
               title: 'Table 表格',
-              component: require('../../packages/zent/src/table/README.md')
+              component: TableDoc
             },
             {
               path: 'component/tabs',
               title: 'Tabs 选项卡',
-              component: require('../../packages/zent/src/tabs/README.md')
+              component: TabsDoc
             },
             {
               path: 'component/tree',
               title: 'Tree 树',
-              component: require('../../packages/zent/src/tree/README.md')
+              component: TreeDoc
             }
           ]
         },
@@ -201,12 +233,12 @@ module.exports = {
             {
               path: 'component/popover',
               title: 'Popover 弹层',
-              component: require('../../packages/zent/src/popover/README.md')
+              component: PopoverDoc
             },
             {
               path: 'component/portal',
               title: 'Portal 传送门',
-              component: require('../../packages/zent/src/portal/README.md')
+              component: PortalDoc
             }
           ]
         }
@@ -214,3 +246,5 @@ module.exports = {
     }
   ]
 };
+
+export default originDataSet;

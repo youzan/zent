@@ -100,7 +100,7 @@ export default class Popover extends Component {
 
   static defaultProps = {
     prefix: 'zent',
-    className: 'hmr',
+    className: '',
     wrapperClassName: '',
     display: 'block',
     onBeforeClose: noop,
