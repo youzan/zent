@@ -17,6 +17,14 @@ cd site && yarn
 
 为了统一管理，每个组件只能 `export default` 一个东西，如果需要导出多个变量，请把其余变量挂载在 `export default` 的变量上。
 
+#### 样式
+
+组件样式使用 `precss`，语法请参考 [precss 文档](https://github.com/jonathantneal/precss).
+
+#### 添加新组件
+
+添加新组件后需要跑一下 `scripts/update-jest-module-mapper.js` 这个脚本来更新 `Jest` 的配置文件。
+
 #### 本地测试
 
 我们的原则是：文档即代码。本地测试请在本地运行文档网站，确保每次修改代码文档都回有相应的更新。

@@ -1,16 +1,86 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+@import "./_constants.pcss";
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -19,10 +89,10 @@ time, mark, audio, video {
 }
 
 body {
-  font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',SimSun,sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
-  background-color: #f8f8f8;
+  background-color: $bg-color;
 }
 
 a {
@@ -30,14 +100,18 @@ a {
   text-decoration: none;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
   color: inherit;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -46,10 +120,10 @@ code[class*="language-"] {
   font-family: Menlo, Monaco, Consolas, Courier, monospace;
   font-size: 12px;
   display: block;
-  background-color: #f8f8f8;
+  background-color: $code-bg-color;
   padding: 20px;
   -webkit-font-smoothing: auto;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .clearfix {
@@ -66,7 +140,7 @@ code[class*="language-"] {
 }
 
 .main-content {
-  margin: 130px 20px 40px;
+  margin: $top-height 20px 40px;
   padding-top: 20px;
 }
 
@@ -95,9 +169,10 @@ code[class*="language-"] {
       line-height: 1.5;
       margin: 20px 0;
       font-weight: normal;
+      position: relative;
 
       &:hover a:first-child {
-        opacity: .4;
+        opacity: 0.4;
       }
 
       a:first-child {
@@ -125,7 +200,7 @@ code[class*="language-"] {
     }
 
     > h5 {
-      font-size: 14px
+      font-size: 14px;
     }
 
     > h6 {
@@ -165,14 +240,20 @@ code[class*="language-"] {
         margin-left: 0;
       }
     }
+
+    .anchor-point {
+      visibility: hidden;
+      position: absolute;
+      top: calc(-1 * $top-height - 5px);
+    }
   }
 
   p > code,
   .table code,
   li > code {
-    background-color: #F2F2F2;
+    background-color: $code-bg-color;
     display: inline-block;
-    border: 1px solid #E5E5E5;
+    border: 1px solid $border-color;
     border-radius: 2px;
     line-height: 1;
     padding: 4px 5px;
@@ -191,8 +272,8 @@ code[class*="language-"] {
 
   th {
     text-align: left;
-    border: 1px solid #E5E5E5;
-    background-color: #F2F2F2;
+    border: 1px solid $border-color;
+    background-color: $code-bg-color;
     padding: 10px;
 
     &:first-child {
@@ -201,7 +282,7 @@ code[class*="language-"] {
   }
 
   td {
-    border: 1px solid #E5E5E5;
+    border: 1px solid $border-color;
     padding: 10px;
   }
 }

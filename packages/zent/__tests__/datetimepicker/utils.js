@@ -124,6 +124,7 @@ describe('formatDate', () => {
     expect(formatDate(DAY, 'DD')).toBe('14');
     expect(formatDate(DAY, 'ddd')).toBe('周二');
     expect(formatDate(DAY, 'dddd')).toBe('星期二');
+    expect(formatDate(DAY, 'Do')).toBe('14th');
 
     // h|hh|H|HH
     expect(formatDate(DAY, 'h')).toBe('9');

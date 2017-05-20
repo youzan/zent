@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const { join } = require('path');
-const postcssPlugins = require('./postcss.config');
+const postcssConfig = require('../../packages/zent/postcss.config');
 
 function getBabelLoader(options = {}) {
   const dev = options.dev || false;
@@ -21,10 +21,7 @@ function getBabelLoader(options = {}) {
 
 const postcssLoader = {
   loader: 'postcss-loader',
-  options: {
-    parser: require('postcss-scss'),
-    plugins: postcssPlugins
-  }
+  options: postcssConfig
 };
 
 const getRules = babelLoader => [
