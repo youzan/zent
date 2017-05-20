@@ -5,7 +5,7 @@ import pick from 'lodash/pick';
 import Input from 'input';
 import Icon from 'icon';
 
-export default class Numinput extends Component {
+export default class NumberInput extends Component {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -122,7 +122,7 @@ export default class Numinput extends Component {
 
   onPropChange(evt, result) {
     const props = this.props;
-    this.props.onChange({
+    props.onChange({
       target: {
         ...props,
         type: 'number',

@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import TestUtils from 'react-dom/test-utils';
 import NumberInput from 'number-input';
 
 describe('NumberInput', () => {
@@ -77,7 +76,7 @@ describe('NumberInput', () => {
     let stopPropagationCalled = false;
 
     const handleChange = e => {
-      expect(e.target.value).toBe('');
+      expect(e.target.value).toBe('1');
 
       expect(preventDefaultCalled).toBe(false);
       expect(stopPropagationCalled).toBe(false);
@@ -89,17 +88,8 @@ describe('NumberInput', () => {
       expect(stopPropagationCalled).toBe(true);
     };
 
-    const wrapper = TestUtils.renderIntoDocument(
-      <NumberInput onChange={handleChange} value={1} />
-    );
-
-    const inputNode = TestUtils.findRenderedDOMComponentWithTag(
-      wrapper,
-      'input'
-    );
-
-    TestUtils.Simulate.change(inputNode, {
-      target: { value: '' },
+    const wrapper = mount(<NumberInput onChange={handleChange} value={1} />);
+    wrapper.find('input').simulate('blur', {
       preventDefault() {
         preventDefaultCalled = true;
       },
@@ -107,5 +97,27 @@ describe('NumberInput', () => {
         stopPropagationCalled = true;
       }
     });
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: ''
+      }
+    });
+    expect(wrapper.state('value')).toBe('');
+
+    // const inputNode = TestUtils.findRenderedDOMComponentWithTag(
+    //   wrapper,
+    //   'input'
+    // );
+
+    // TestUtils.Simulate.change(inputNode, {
+    //   target: { value: '' },
+    //   preventDefault() {
+    //     preventDefaultCalled = true;
+    //   },
+    //   stopPropagation() {
+    //     stopPropagationCalled = true;
+    //   }
+    // });
   });
 });
