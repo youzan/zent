@@ -6,7 +6,7 @@
 
 -  命令式, 直接调用 `openDialog` 函数。
 
--  组件式, 通过控制 `visible` 来显示／隐藏对话框, **支持 `context`。**
+-  组件式, 通过控制 `visible` 来显示／隐藏对话框。
 
 -  推荐使用命令式, 不需要在外部维护一个 `visible` 属性, 更加方便。
 
@@ -14,7 +14,7 @@
 
 :::demo 基础用法
 ```jsx
-import { Dialog } from 'zent';
+import { Dialog, Button } from 'zent';
 
 class Example extends React.Component {
 	state = { visible: false }
@@ -39,12 +39,12 @@ class Example extends React.Component {
 
 		return (
 			<div>
-				<button
-					className="zent-btn zent-btn-primary"
+				<Button
+					type="primary"
 					onClick={() => this.triggerDialog(true)}
 				>
 					显示
-				</button>
+				</Button>
 				{dialog}
 			</div>
 		);
@@ -75,31 +75,62 @@ const open = () => {
 	});
 };
 
-ReactDOM.render(<Button onClick={open}>打开</Button>, mountNode);
+ReactDOM.render(<Button type="primary" onClick={open}>打开</Button>, mountNode);
 ```
 :::
 
 :::demo openDialog 支持 context
 ```jsx
 import { Dialog, Button } from 'zent';
+import PropTypes from 'prop-types';
 
 const { openDialog } = Dialog;
+
+class ContextProvider extends React.Component {
+	static childContextTypes = {
+		shared: PropTypes.string
+	};
+
+	getChildContext() {
+		return {
+			shared: 'This is from context'
+		};
+	}
+
+	render() {
+		return <div>{this.props.children}</div>;
+	}
+}
+
+class ContextConsumer extends React.Component {
+	static contextTypes = {
+		shared: PropTypes.string
+	};
+
+	render() {
+		return <span>{this.context.shared}</span>;
+	}
+}
 
 class Example extends React.Component {
 	open = () => {
 		openDialog({
 			parentComponent: this,
 			title: 'openDialog 支持 context',
-			children: <div>Hello World</div>
+			children: <ContextConsumer />
 		})
 	}
+
 	render() {
-		return <Button onClick={this.open}>显示</Button>
+		return <Button type="primary" onClick={this.open}>显示</Button>
 	}
 }
 
-ReactDOM.render(<Example />, mountNode);
-
+ReactDOM.render(
+	<ContextProvider>
+		<Example />
+	</ContextProvider>
+	, mountNode);
 ```
 :::
 
@@ -116,7 +147,6 @@ ReactDOM.render(<Example />, mountNode);
 | onClose      | 关闭操作回调函数                      | func   | `noop`   |
 | mask         | 是否显示遮罩                        | bool   | `true`   |
 | maskClosable | 点击遮罩是否可以关闭                    | bool   | `true`   |
-| parentComponent |  父组件的引用, 添加后支持 context   | object  | `null`     |
 | className    | 自定义额外类名                       | string | `''`     |
 | prefix       | 自定义前缀                         | string | `'zent'` |
 | style        | 自定义样式                         | object | `{}`     |
@@ -126,9 +156,12 @@ ReactDOM.render(<Example />, mountNode);
 
 `openDialog(options: object): function`
 
-**`options` 参数支持组件除 `visible` 以外的所有属性.**
+**`options` 参数支持组件除 `visible` 以外的所有属性，外加以下参数：**
 
-可以传一个 `options.dialogId` 参数，之后就可以通过 `closeDialog(dialogId)` 来关闭对话框。
+| 参数           | 说明                            | 类型     | 默认值      |
+| ------------ | ----------------------------- | ------ | -------- |
+| dialogId   | 可选，对话框的 ID，可以通过 `closeDialog(dialogId)` 来关闭对话框  | string | 随机生成的唯一ID  |
+| parentComponent |  可选，父组件的引用, 用于关联 context   | object  | `null`     |
 
 如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
 

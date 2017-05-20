@@ -198,4 +198,10 @@ describe('Tabs', () => {
     const wrapper = mount(<App />);
     expect(wrapper.find('Tab').length).toBe(3);
   });
+
+  it('can render withour any panel', () => {
+    expect(() =>
+      mount(<Tabs activeId="1" className="foobar-cls" prefix="quux" />)
+    ).not.toThrow();
+  });
 });

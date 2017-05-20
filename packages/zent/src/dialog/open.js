@@ -29,10 +29,6 @@ export function closeDialog(dialogId, options = {}) {
   delete dialogInstanceMap[dialogId];
 
   const { onClose, container } = dialog;
-  if (!container) {
-    return;
-  }
-
   const { triggerOnClose = true } = options;
   if (triggerOnClose && onClose) {
     onClose();
