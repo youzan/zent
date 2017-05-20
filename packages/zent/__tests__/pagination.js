@@ -201,6 +201,9 @@ describe('Pagination', () => {
     wrapper.setProps({ pageSize: 10 });
     expect(wrapper.prop('current')).toBe(2);
     expect(wrapper.state('currentPageSize')).toBe(10);
+
+    wrapper.find('Prefix').node.changePageSize(null, { text: '20' });
+    expect(wrapper.state('currentPageSize')).toBe(20);
   });
 
   it('Pagination has its core function, change current page with click on Pager or change on Jumper', () => {
