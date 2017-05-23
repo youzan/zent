@@ -52,9 +52,9 @@ export default class Points extends Component {
   left = null;
 
   handleMouseMove = evt => {
-    evt.preventDefault();
     const left = this.left;
     if (left !== null) {
+      evt.preventDefault();
       const { type } = this.state;
       const {
         max,

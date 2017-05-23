@@ -13,8 +13,10 @@ export default class Range extends Component {
   };
 
   componentDidMount = () => {
-    const $root = ReactDOM.findDOMNode(this);
-    this.setState({ clientWidth: $root.clientWidth });
+    setTimeout(() => {
+      const $root = ReactDOM.findDOMNode(this);
+      this.setState({ clientWidth: $root.clientWidth });
+    }, 0);
   };
 
   render() {
