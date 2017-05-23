@@ -8,8 +8,14 @@ import Container from './container';
 import Track from './track';
 
 export default class Range extends Component {
-  state = {
-    clientWidth: 1
+  clientWidth = null;
+
+  getClientWidth = () => {
+    if (this.clientWidth === null) {
+      const $root = ReactDOM.findDOMNode(this);
+      this.clientWidth = $root.clientWidth;
+    }
+    return this.clientWidth;
   };
 
   componentDidMount = () => {
@@ -21,22 +27,21 @@ export default class Range extends Component {
 
   render() {
     const { dots, marks, value, ...restProps } = this.props;
-    const { clientWidth } = this.state;
     return (
       <div className={`${restProps.prefix}-slider-main`}>
         <Container
-          clientWidth={clientWidth}
+          getClientWidth={this.getClientWidth}
           dots={dots}
           {...restProps}
           value={value}
         >
-          <Track clientWidth={clientWidth} {...restProps} value={value} />
+          <Track {...restProps} value={value} />
         </Container>
         {dots && <Dots marks={marks} {...restProps} value={value} />}
         <Point
           dots={dots}
           marks={marks}
-          clientWidth={clientWidth}
+          getClientWidth={this.getClientWidth}
           {...restProps}
           value={value}
         />

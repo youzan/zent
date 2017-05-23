@@ -60,13 +60,13 @@ export default class Points extends Component {
         max,
         min,
         onChange,
-        clientWidth,
+        getClientWidth,
         step,
         dots,
         marks,
         range
       } = this.props;
-      let newValue = (evt.clientX - left) / clientWidth;
+      let newValue = (evt.clientX - left) / getClientWidth();
       newValue = (max - min) * newValue;
       newValue = Number(this.value) + Number(newValue);
       if (dots) {
