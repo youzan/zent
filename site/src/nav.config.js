@@ -97,6 +97,11 @@ module.exports = {
               path: 'component/sweet-alert',
               title: 'SweetAlert',
               component: require('../../packages/zent/src/sweetalert/README.md')
+            },
+            {
+              path: 'component/swiper',
+              title: 'Swiper 幻灯片',
+              component: require('../../packages/zent/src/swiper/README.md')
             }
           ]
         },

@@ -1,0 +1,71 @@
+## Swiper 幻灯片
+
+幻灯片切换组件
+
+### 使用指南
+
+-  常用于一组平级内容的轮播展示
+
+### 代码演示
+
+:::demo 基础用法
+```jsx
+import { Swiper } from 'zent';
+
+const pages = [1, 2, 3, 4, 5];
+
+class Simple extends React.Component {
+	state = {
+		checked: true
+	}
+
+	handleChange = (checked) => {
+		this.setState({ checked });
+	}
+
+	render() {
+		return (
+			<Swiper
+	    	className="swiper-demo-smiple"
+	      dotsColor="danger"
+	      dotsSize="small"
+	      autoplay
+	      onChange={this.onChange}
+	    >
+				{
+					pages.map((item, index) => {
+						<h2 key={index}>{item}</h2>
+					})
+				}
+			</Swiper>
+		)
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
+### API
+
+| 参数             | 说明                          | 类型                | 默认值       		 | 备选值           							  			|
+| --------------- | ---------------------------- | ------------------- | --------------- | ------------------------------------ |
+| autoplay      	| 是否自动切换                   | bool                | `false`         | `false`, `true` 							  			|
+| autoplayIterval | 自动切换间隔时间(ms) 						| number 							| `3000` 				  | 														   			 |
+| transition      | 切换时的动画函数								| string              | `'ease-in-out'` | `transition-timing-function`      	 |
+| dots 						| 是否显示下方翻页按钮 						 | bool 							 | `true` 				 | `true`, `false`                      |
+| dotsColor       | 下方翻页按钮颜色                | string              | `'default'`     | `'primary'`, `'danger'`, `'success'` |
+| dotsSize        | 下方翻页按钮大小                | string              | `'normal'`      | `'small'`, `'large'`                 |
+| onChange        | 切换时回调函数									 | func(current, prev) | `noop`          |                                      |
+
+<style>
+.swiper-demo-smiple {
+	height: 200px;
+	width: 400px;
+	margin: 0 auto;
+}
+</style>

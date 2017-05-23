@@ -1,0 +1,76 @@
+.zent-swiper {
+  $primary: #38f;
+
+  $danger: #f44;
+
+  $success: #4b0;
+
+  position: relative;
+  overflow: hidden;
+
+  &__container {
+    position: relative;
+  }
+
+  &__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    overflow: hidden;
+    z-index: 0;
+    transition-duration: 5s;
+
+    &-active {
+      z-index: 1;
+    }
+  }
+
+  &__dots {
+    list-style: none;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    &-item {
+      display: inline-block;
+      margin: 12px 5px;
+      border: 0;
+      cursor: pointer;
+      background: #000;
+      opacity: 0.3;
+      height: 12px;
+      border-radius: 100%;
+      outline: none;
+
+      &-active {
+        background: #000;
+        opacity: 1;
+      }
+    }
+
+    &-large .zent-swiper__dots-item {
+      height: 15px;
+    }
+
+    &-small .zent-swiper__dots-item {
+      height: 10px;
+    }
+
+    &-primary .zent-swiper__dots-item-acitve {
+      background: $primary;
+    }
+
+    &-danger .zent-swiper__dots-item-acitve {
+      background: $danger;
+    }
+
+    &-success .zent-swiper__dots-item-acitve {
+      background: $success;
+    }
+  }
+}
