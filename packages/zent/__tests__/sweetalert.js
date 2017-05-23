@@ -48,11 +48,28 @@ function testCallback(modal, btnSelector, key) {
   let cbPromise = () => {
     return new Promise(resolve => {
       called = true;
-      setTimeout(resolve, 2000);
+      resolve();
     });
   };
   close = modal({
     [key]: cbPromise
+  });
+  expect(called).toBe(false);
+  Simulate.click(document.querySelector(btnSelector));
+  jest.runOnlyPendingTimers();
+  expect(called).toBe(true);
+  unmount();
+
+  // callback returns Promise(resolve)
+  called = false;
+  let cbFailedPromise = () => {
+    return new Promise((resolve, reject) => {
+      called = true;
+      reject();
+    });
+  };
+  close = modal({
+    [key]: cbFailedPromise
   });
   expect(called).toBe(false);
   Simulate.click(document.querySelector(btnSelector));

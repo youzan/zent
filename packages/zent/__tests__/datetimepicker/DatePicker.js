@@ -283,4 +283,35 @@ describe('DateTimePicker', () => {
     pop.find('.btn--confirm').simulate('click');
     expect(pop.find('DatePanel').length).toBe(1);
   });
+
+  it('supports disabledTime callback', () => {
+    const getDisabledTime = () => {
+      return {
+        disabledHour: () => false,
+        disabledMinute: () => false,
+        disabledSecond: () => false
+      };
+    };
+    const wrapper = mount(
+      <DatePicker showTime disabledTime={getDisabledTime} />
+    );
+    wrapper.find('.picker-input').simulate('click');
+    const pop = new ReactWrapper(wrapper.instance().picker, true);
+    expect(pop.find('TimePanel').length).toBe(1);
+
+    pop.find('TimePanel .time__number').first().simulate('click');
+    expect(pop.find('HourPanel').length).toBe(1);
+    pop.find('HourPanel .link--prev').simulate('click');
+    expect(pop.find('HourPanel').length).toBe(0);
+
+    pop.find('TimePanel .time__number').at(1).simulate('click');
+    expect(pop.find('MinutePanel').length).toBe(1);
+    pop.find('MinutePanel .link--prev').simulate('click');
+    expect(pop.find('MinutePanel').length).toBe(0);
+
+    pop.find('TimePanel .time__number').at(2).simulate('click');
+    expect(pop.find('SecondPanel').length).toBe(1);
+    pop.find('SecondPanel .link--prev').simulate('click');
+    expect(pop.find('SecondPanel').length).toBe(0);
+  });
 });
