@@ -1,3 +1,4 @@
+import Affix from 'affix';
 import Alert from 'alert';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
@@ -28,6 +29,7 @@ import Tabs from 'tabs';
 import Tree from 'tree';
 
 export {
+  Affix,
   Alert,
   Breadcrumb,
   Button,
