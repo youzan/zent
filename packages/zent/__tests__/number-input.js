@@ -20,13 +20,12 @@ describe('NumberInput', () => {
   });
 
   it('change value is - or + ', () => {
-    let wrapper = shallow(<NumberInput value={0} />);
-    wrapper.find('.zent-input-wrapper').at(0).simulate('blur', { value: '+' });
+    let wrapper = mount(<NumberInput value={0} />);
+    wrapper.setState({ value: '+' });
+    wrapper.find('input').simulate('blur');
     expect(wrapper.state('value')).toBe('0');
-    wrapper
-      .find('.zent-input-wrapper')
-      .at(0)
-      .simulate('blur', { target: { value: '-' } });
+    wrapper.setState({ value: '-' });
+    wrapper.find('input').simulate('blur');
     expect(wrapper.state('value')).toBe('0');
   });
 

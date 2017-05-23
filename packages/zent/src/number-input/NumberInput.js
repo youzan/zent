@@ -82,9 +82,10 @@ export default class NumberInput extends Component {
     if (!value) {
       this.setState({ value });
     } else if (
+      /^(\-|\+)?\d+(\.)?$/g.test(value) ||
       /^(\-|\+)?\d+(\.\d+)?$/g.test(value) ||
       /^\d+\.$/g.test(value) ||
-      /^(\-|\+)?/g.test(value)
+      /^(\-|\+)?$/g.test(value)
     ) {
       this.setState({ value });
     }
