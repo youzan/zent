@@ -99,10 +99,10 @@ export default class NumberInput extends Component {
   onBlur(ev) {
     const { decimal } = this.props;
     let { value } = this.state;
-    if (/^(\-|\+)?$/g) {
-      value.replace(/^(\-|\+)?$/g, '');
+    if (/^(\-|\+)?$/g.test(value)) {
+      value = value.replace(/^(\-|\+)?$/g, '');
     }
-    value.replace(/\.$/g, '');
+    value = value.replace(/\.$/g, '');
     let { num, minArrow, maxArrow } = this.adjustFixed(value, decimal);
     this.setState({
       value: num,
