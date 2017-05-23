@@ -76,9 +76,9 @@ export default class NumberInput extends Component {
     let result = ((Math.round(num * 10 ** len) + count) / 10 ** len).toFixed(
       len
     );
-    if (+result < 0) {
-      return this.adjustFixed(0, len);
-    }
+    // if (+result < 0) {
+    //   return this.adjustFixed(0, len);
+    // }
     // 检查范围
     return this.adjustFixed(result, len);
   }
@@ -87,18 +87,23 @@ export default class NumberInput extends Component {
     let value = ev.target.value;
     if (!value) {
       this.setState({ value });
-    } else if (/^\d+(\.\d+)?$/g.test(value) || /^\d+\.$/g.test(value)) {
+    } else if (
+      /^(\-|\+)?\d+(\.\d+)?$/g.test(value) ||
+      /^\d+\.$/g.test(value) ||
+      /^(\-|\+)?/g.test(value)
+    ) {
       this.setState({ value });
     }
   }
 
   onBlur(ev) {
     const { decimal } = this.props;
-    const { value } = this.state;
-    let { num, minArrow, maxArrow } = this.adjustFixed(
-      value.replace(/\.$/g, ''),
-      decimal
-    );
+    let { value } = this.state;
+    if (/^(\-|\+)?$/g) {
+      value.replace(/^(\-|\+)?$/g, '');
+    }
+    value.replace(/\.$/g, '');
+    let { num, minArrow, maxArrow } = this.adjustFixed(value, decimal);
     this.setState({
       value: num,
       minArrow,
