@@ -19,6 +19,17 @@ describe('NumberInput', () => {
     expect(wrapper.hasClass('foo-number-input-wrapper')).toBe(true);
   });
 
+  it('change value is - or + ', () => {
+    let wrapper = shallow(<NumberInput value={0} />);
+    wrapper.find('.zent-input-wrapper').at(0).simulate('blur', { value: '+' });
+    expect(wrapper.state('value')).toBe('0');
+    wrapper
+      .find('.zent-input-wrapper')
+      .at(0)
+      .simulate('blur', { target: { value: '-' } });
+    expect(wrapper.state('value')).toBe('0');
+  });
+
   it('change value within min and max ', () => {
     let wrapper = shallow(
       <NumberInput showStepper value={2} min={0} max={3} />
@@ -104,20 +115,5 @@ describe('NumberInput', () => {
       }
     });
     expect(wrapper.state('value')).toBe('');
-
-    // const inputNode = TestUtils.findRenderedDOMComponentWithTag(
-    //   wrapper,
-    //   'input'
-    // );
-
-    // TestUtils.Simulate.change(inputNode, {
-    //   target: { value: '' },
-    //   preventDefault() {
-    //     preventDefaultCalled = true;
-    //   },
-    //   stopPropagation() {
-    //     stopPropagationCalled = true;
-    //   }
-    // });
   });
 });

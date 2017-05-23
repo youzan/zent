@@ -54,14 +54,11 @@ export default class NumberInput extends Component {
     const { min, max } = this.props;
     let maxArrow = false;
     let minArrow = false;
-    if (min) {
-      maxArrow = Math.round(num * 10 ** len) < Math.round(min * 10 ** len);
-      num = maxArrow ? min : num;
-    }
-    if (max) {
-      minArrow = Math.round(num * 10 ** len) > Math.round(max * 10 ** len);
-      num = minArrow ? max : num;
-    }
+    maxArrow = Math.round(num * 10 ** len) <= Math.round(min * 10 ** len);
+    minArrow = Math.round(num * 10 ** len) >= Math.round(max * 10 ** len);
+    num = maxArrow ? min : num;
+    num = minArrow ? max : num;
+
     // 四舍五入, 切保留几位小数， 此四舍五入修正了js原生toFixed保留小数点的BUG问题
     num = (Math.round(num * 10 ** len) / 10 ** len).toFixed(len);
     return {
@@ -76,9 +73,6 @@ export default class NumberInput extends Component {
     let result = ((Math.round(num * 10 ** len) + count) / 10 ** len).toFixed(
       len
     );
-    // if (+result < 0) {
-    //   return this.adjustFixed(0, len);
-    // }
     // 检查范围
     return this.adjustFixed(result, len);
   }
