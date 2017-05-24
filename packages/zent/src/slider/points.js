@@ -23,19 +23,27 @@ export default class Points extends Component {
     return getLeft(point, max, min);
   };
 
+  isLeftButton = e => {
+    e = e || window.event;
+    const btnCode = e.button;
+    return btnCode === 0;
+  };
+
   handleMouseDown = (type, evt) => {
     evt.preventDefault();
-    this.left = evt.clientX;
-    this.setState({ type, visibility: true });
-    let { value } = this.props;
+    if (this.isLeftButton(evt)) {
+      this.left = evt.clientX;
+      this.setState({ type, visibility: true });
+      let { value } = this.props;
 
-    if (type === 'start') {
-      value = value[0];
-    } else if (type === 'end') {
-      value = value[1];
+      if (type === 'start') {
+        value = value[0];
+      } else if (type === 'end') {
+        value = value[1];
+      }
+      this.value = value;
+      return false;
     }
-    this.value = value;
-    return false;
   };
 
   getAbsMinInArray = (array, point) => {
