@@ -76,7 +76,7 @@ export default class Loading extends Component {
   render() {
     let { prefix, className, containerClass } = this.props;
 
-    if (this.props.static) {
+    if (!this.props.float) {
       return (
         <div
           className={`${prefix}-loading-container ${prefix}-loading-container-static ${containerClass}`}
