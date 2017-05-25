@@ -26,6 +26,7 @@
     "<rootDir>/src/slider/points.js"
   ],
   "moduleNameMapper": {
+    "^affix(.*)$": "<rootDir>/src/affix$1",
     "^alert(.*)$": "<rootDir>/src/alert$1",
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
     "^button(.*)$": "<rootDir>/src/button$1",
