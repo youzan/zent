@@ -45,7 +45,7 @@ class PopAction extends Component {
       startClose();
       maybePromise
         .then(finishClose)
-        .catch(() => changePending(stateKey, false, popover.close));
+        .catch(() => changePending(stateKey, false));
     } else {
       popover.close();
     }

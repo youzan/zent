@@ -57,9 +57,6 @@ describe('Table', () => {
     );
 
     // NOTE: scroll method have an setInterval function
-    jest.useFakeTimers();
-    let i = 10;
-    window.scrollY = () => (i-- > 1 ? 1 : undefined);
     wrapper
       .find('.zent-pagination .pagination-list .pager')
       .at(2)
