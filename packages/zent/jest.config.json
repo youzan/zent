@@ -10,10 +10,10 @@
   ],
   "coverageThreshold": {
     "global": {
-      "statements": 95,
-      "branches": 85,
-      "functions": 95,
-      "lines": 95
+      "statements": 96,
+      "branches": 90,
+      "functions": 96,
+      "lines": 96
     }
   },
   "timers": "fake",
@@ -39,6 +39,7 @@
     "^loading(.*)$": "<rootDir>/src/loading$1",
     "^menu(.*)$": "<rootDir>/src/menu$1",
     "^notify(.*)$": "<rootDir>/src/notify$1",
+    "^number-input(.*)$": "<rootDir>/src/number-input$1",
     "^pagination(.*)$": "<rootDir>/src/pagination$1",
     "^pop(.*)$": "<rootDir>/src/pop$1",
     "^popover(.*)$": "<rootDir>/src/popover$1",

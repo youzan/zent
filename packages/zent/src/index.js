@@ -11,6 +11,7 @@ import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
+import NumberInput from 'number-input';
 import Menu from 'menu';
 import Notify from 'notify';
 import Pagination from 'pagination';
@@ -40,6 +41,7 @@ export {
   Loading,
   Icon,
   Input,
+  NumberInput,
   Menu,
   MonthPicker,
   Notify,
