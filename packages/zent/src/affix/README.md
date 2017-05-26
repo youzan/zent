@@ -4,19 +4,6 @@
 
 ### 代码演示
 
-:::demo 基础用法
-```jsx
-import { Affix, Button } from 'zent';
-
-ReactDOM.render(
-  <Affix>
-    <Button type="primary" size="large">固钉</Button>
-  </Affix>
-  , mountNode
-);
-```
-:::
-
 :::demo 设置距离顶部值: `offsetTop`
 ```jsx
 import { Affix, Layout, Button } from 'zent';
@@ -28,7 +15,7 @@ ReactDOM.render(
       <Button type="primary" size="large">首页</Button>
     </Col>
     <Col span={8} offset={8}>
-      <Affix offsetTop={50}>
+      <Affix offsetTop={135}>
         <Button type="primary" size="large">固钉</Button>
       </Affix>
     </Col>
@@ -39,63 +26,29 @@ ReactDOM.render(
 :::
 
 
-:::demo 设置距离底部值: `offsetBottom`
-```jsx
-import { Affix, Layout } from 'zent';
-
-const { Row, Col } = Layout;
-ReactDOM.render(
-  <div className="demo-bottom">
-      <Affix offsetBottom={60}>
-        <div className="demo-nav">
-          <Row>
-            <Col span={4}>首页</Col>
-            <Col span={3} offset={8}>应用1</Col>
-            <Col span={3}>应用2</Col>
-            <Col span={3}>应用3</Col>
-            <Col span={3}>应用4</Col>
-          </Row>
-        </div>
-      </Affix>
-    </div>
-  , mountNode
-);
-```
-:::
-
 :::demo 设置回调函数
 ```jsx
-import { Affix, Layout } from 'zent';
-
-const { Row, Col } = Layout;
+import { Affix, Alert } from 'zent';
 
 class App extends React.Component {
 
   state = {
-    text: '首页'
+    text: '固钉'
   }
 
-  onFixed = () => {
-    this.setState({ text: '首页固钉' });
+  onPin = () => {
+    this.setState({ text: '已经固定啦' });
     console.log('in');
   }
-  outFixed = () => {
+  onUnpin = () => {
     console.log('out');
-    this.setState({ text: '首页' });
+    this.setState({ text: '取消固定啦' });
   }
 
   render() {
     return (
-      <Affix offsetTop={50} onFixed={this.onFixed} outFixed={this.outFixed}>
-        <div className="demo-nav">
-          <Row>
-            <Col span={4}>{this.state.text}</Col>
-            <Col span={3} offset={8}>应用1</Col>
-            <Col span={3}>应用2</Col>
-            <Col span={3}>应用3</Col>
-            <Col span={3}>应用4</Col>
-          </Row>
-        </div>
+      <Affix offsetTop={150} onPin={this.onPin} onUnpin={this.onUnpin}>
+          <Alert type="warning">{this.state.text}</Alert>
       </Affix>
     )
   }
@@ -109,6 +62,21 @@ ReactDOM.render(
 :::
 
 
+:::demo 设置距离底部值: `offsetBottom`
+```jsx
+import { Affix, Alert } from 'zent';
+
+ReactDOM.render(
+  <div className="demo-bottom">
+      <Affix offsetBottom={60}>
+        <Alert type="warning"><p>设置距离底部值</p></Alert>
+      </Affix>
+    </div>
+  , mountNode
+);
+```
+:::
+
 ### API
 
 
@@ -117,8 +85,8 @@ ReactDOM.render(
 |------|------|------|--------|--------|
 | offsetTop | 距离窗口顶部指定偏移量后触发 | number | 0 | '' |
 | offsetBottom | 距离窗口底部指定偏移量后触发 | number | null | null |
-| onFixed | 触发固定后执行的回调函数 | function | null | null |
-| outFixed | 固定消失后执行的回调函数 | function | null | null |
+| onPin | 触发固定后执行的回调函数 | function | null | null |
+| onUnpin | 固定消失后执行的回调函数 | function | null | null |
 | zIndex | 固钉的z-index | number | 10 | null |
 | className | 自定义额外类名  | string | `''`       |                                   |
 | prefix    | 自定义前缀    | string | `'zent'`   |                                   |
@@ -132,5 +100,6 @@ ReactDOM.render(
     background-color: #ededed;
     line-height: 60px;
     text-align: center;
+    border: 1px solid #2B90ED;
 }
 </style>

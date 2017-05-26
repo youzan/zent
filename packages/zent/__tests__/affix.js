@@ -41,22 +41,18 @@ describe('Affix component', () => {
       state = {
         value: 0
       };
-      outFixed = () => {
+      onUnpin = () => {
         this.setState({ value: 10 });
       };
 
-      onFixed = () => {
+      onPin = () => {
         this.setState({ value: 20 });
       };
 
       render() {
         const { value } = this.state;
         return (
-          <Affix
-            outFixed={this.outFixed}
-            onFixed={this.onFixed}
-            offsetBottom={50}
-          >
+          <Affix onUnpin={this.onUnpin} onPin={this.onPin} offsetBottom={50}>
             <p id="value">{value}</p>
           </Affix>
         );
@@ -68,6 +64,7 @@ describe('Affix component', () => {
     const state1 = affix.node.state;
     expect(state1.width).toBe(0);
     affix.node.setFixed();
-    affix.node.setOutFixed();
+    affix.node.setonUnpin();
+    wrapper1.unmount();
   });
 });

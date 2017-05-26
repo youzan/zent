@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import getElementViewTop from 'utils/dom/getElementViewTop';
-import getElementViewBottom from 'utils/dom/getElementViewBottom';
+import getViewportSize from 'utils/dom/getViewportSize';
 
 class Affix extends Component {
   static propTypes = {
@@ -12,8 +11,8 @@ class Affix extends Component {
     zIndex: PropTypes.number,
     offsetTop: PropTypes.number,
     offsetBottom: PropTypes.number,
-    onFixed: PropTypes.func,
-    outFixed: PropTypes.func
+    onPin: PropTypes.func,
+    onUnpin: PropTypes.func
   };
 
   static defaultProps = {
@@ -34,17 +33,17 @@ class Affix extends Component {
   affix = false;
 
   setFixed = () => {
-    const { onFixed } = this.props;
+    const { onPin } = this.props;
     this.affix = true;
     this.setState({ position: 'fixed' });
-    onFixed && onFixed();
+    onPin && onPin();
   };
 
-  setOutFixed = () => {
-    const { outFixed } = this.props;
+  setonUnpin = () => {
+    const { onUnpin } = this.props;
     this.affix = false;
     this.setState({ position: 'static' });
-    outFixed && outFixed();
+    onUnpin && onUnpin();
   };
 
   handleScroll = () => {
@@ -62,15 +61,16 @@ class Affix extends Component {
     }
     let reallyNum, propsNum;
     if (props.offsetBottom !== undefined) {
-      reallyNum = getElementViewBottom(element);
+      reallyNum =
+        getViewportSize().height - element.getBoundingClientRect().bottom;
       propsNum = props.offsetBottom;
     } else {
-      reallyNum = getElementViewTop(element);
+      reallyNum = element.getBoundingClientRect().top;
       propsNum = props.offsetTop;
     }
 
     if (affix && reallyNum > propsNum) {
-      this.setOutFixed();
+      this.setonUnpin();
     }
     if (!affix && reallyNum < propsNum) {
       this.setFixed();
