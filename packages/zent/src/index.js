@@ -1,4 +1,5 @@
 import Alert from 'alert';
+import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Checkbox from 'checkbox';
@@ -26,10 +27,12 @@ import Sweetalert from 'sweetalert';
 import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
+import Tag from 'tag';
 import Tree from 'tree';
 
 export {
   Alert,
+  Badge,
   Breadcrumb,
   Button,
   Checkbox,
@@ -56,6 +59,7 @@ export {
   Sweetalert,
   Table,
   Tabs,
+  Tag,
   Tree,
   Switch
 };

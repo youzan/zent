@@ -74,6 +74,11 @@ module.exports = {
               component: require('../../packages/zent/src/alert/README.md')
             },
             {
+              path: 'component/badge',
+              title: 'Badge 徽标数',
+              component: require('../../packages/zent/src/badge/README.md')
+            },
+            {
               path: 'component/dialog',
               title: 'Dialog 对话框',
               component: require('../../packages/zent/src/dialog/README.md')
@@ -97,6 +102,11 @@ module.exports = {
               path: 'component/sweet-alert',
               title: 'SweetAlert',
               component: require('../../packages/zent/src/sweetalert/README.md')
+            },
+            {
+              path: 'component/tag',
+              title: 'Tag 标签',
+              component: require('../../packages/zent/src/tag/README.md')
             }
           ]
         },

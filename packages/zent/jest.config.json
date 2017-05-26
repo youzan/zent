@@ -27,6 +27,7 @@
   ],
   "moduleNameMapper": {
     "^alert(.*)$": "<rootDir>/src/alert$1",
+    "^badge(.*)$": "<rootDir>/src/badge$1",
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
     "^button(.*)$": "<rootDir>/src/button$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
@@ -52,6 +53,7 @@
     "^switch(.*)$": "<rootDir>/src/switch$1",
     "^table(.*)$": "<rootDir>/src/table$1",
     "^tabs(.*)$": "<rootDir>/src/tabs$1",
+    "^tag(.*)$": "<rootDir>/src/tag$1",
     "^tree(.*)$": "<rootDir>/src/tree$1",
     "^utils(.*)$": "<rootDir>/src/utils$1"
   }
