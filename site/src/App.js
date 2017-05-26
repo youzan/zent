@@ -43,7 +43,6 @@ export default class App extends Component {
                         />
                       );
                     })}
-
                     <Redirect from="*" to={routeData[0].path} />
                   </Switch>
                 </div>
