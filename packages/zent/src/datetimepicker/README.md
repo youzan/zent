@@ -39,7 +39,7 @@ class Demo extends Component{
   }
 
   render(){
-    const { dateValue, monthValue, rangeValue, max } = this.state;
+    const { dateValue, monthValue, rangeValue } = this.state;
     return (
       <div>
         <DatePicker
@@ -275,6 +275,9 @@ ReactDOM.render(
 
 ```jsx
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
+const now = new Date();
+const oneDay = 24 * 60 * 60 * 1000;
+console.log(now - 7 * oneDay)
 
 class Demo extends Component{
   state = {
@@ -294,7 +297,7 @@ class Demo extends Component{
   }
 
   disabledDate(val) {
-    return val.getDate()%2 === 0
+    return val.getDate() < 15
   }
 
   disabledRangeDate(val){
@@ -322,6 +325,12 @@ class Demo extends Component{
     const { dateValue, rangeValue } = this.state;
     return (
       <div>
+				<DatePicker
+					className="zent-picker-demo"
+					max={now + 7 * oneDay}
+					min={now - 7 * oneDay}
+					/>
+				<br />
         <DatePicker
           className="zent-picker-demo"
           disabledDate={this.disabledDate}
@@ -454,7 +463,7 @@ ReactDOM.render(
 
 **注意：**
 - `disabledDate` 函数调用时会传入一个 date 对象作为参数，用户可以自定义这个 date 是否处于禁用区间，返回 true/false，需要特殊的禁用规则时可以通过这个函数来实现，一般情况下使用 `max` 和 `min` 就可以满足需求。
-- `max/min` 和 `disabledDate` 会存在冲突，同时存在的时候以 `disabledDate` 的返回值为准。
+- `max/min` 和 `disabledDate` 会存在冲突，同时存在的时候以 `disabledDate` 的返回值为准，大于**等于** min 小于 max 可选。
 - `disabledTime` 函数应该返回一个对象，对象中包含 `disabledHour`,`disabledMinute`,`disabledSecond` 三个函数。
 - `format` 只需要传日期部分，时间部分当 `showTime` 为 `true` 时会自动拼接， 同 `RangePicker`。
 

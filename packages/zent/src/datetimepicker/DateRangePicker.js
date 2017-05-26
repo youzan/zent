@@ -8,7 +8,7 @@ import isEqual from 'lodash/isEqual';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
-import { formatDate, parseDate, maybeFormatDate } from './utils/date';
+import { formatDate, maybeParseDate, dayStart } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
@@ -41,8 +41,8 @@ const extractStateFromProps = props => {
   if (isValidValue(props.value)) {
     showPlaceholder = false;
     const tmp = [
-      maybeFormatDate(props.value[0], format),
-      maybeFormatDate(props.value[1], format)
+      maybeParseDate(props.value[0], format),
+      maybeParseDate(props.value[1], format)
     ];
     selected = tmp.slice();
     range = tmp.slice();
@@ -58,17 +58,17 @@ const extractStateFromProps = props => {
     value = [];
     let start;
     if (defaultValue && isValidValue(defaultValue)) {
-      start = maybeFormatDate(defaultValue[0], format);
+      start = maybeParseDate(defaultValue[0], format);
     } else if (min) {
-      start = maybeFormatDate(min, format);
+      start = maybeParseDate(min, format);
     } else if (max) {
-      let maxDate = maybeFormatDate(max, format);
+      let maxDate = maybeParseDate(max, format);
       let timestamp = maxDate && maxDate.getTime();
       if (timestamp < Date.now()) {
         start = goMonths(maxDate, -1);
       }
     } else {
-      start = new Date();
+      start = dayStart();
     }
     actived = [start, goMonths(start, 1)];
   }
@@ -206,8 +206,8 @@ class DateRangePicker extends Component {
     const { disabledDate, format, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
+    if (min && val < maybeParseDate(min, format)) return true;
+    if (max && val >= maybeParseDate(max, format)) return true;
 
     return false;
   };
