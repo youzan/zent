@@ -51,7 +51,7 @@ ReactDOM.render(
 import { Badge,Icon,Switch } from 'zent';
 
 class Demo extends React.Component {
-	state = {showZero: false}
+	state = {showZero: true}
 
 	handleChange = (showZero) => {
 		this.setState({ showZero });
@@ -79,15 +79,31 @@ ReactDOM.render(
 
 :::demo 小红点，不需要指定具体的count
 ```jsx
-import { Badge,Icon } from 'zent';
+import { Badge,Icon,Switch } from 'zent';
 
+class Demo extends React.Component {
+	state = {showDot: true}
+
+	handleChange = (showDot) => {
+		this.setState({ showDot });
+	}
+
+	render() {
+		const { showDot } = this.state;
+		return (
+			<div>
+				<Badge dot={showDot}>
+					<Icon type="bell-o" className="demo-cont"/>
+				</Badge>
+				<Switch size="small" checked={showDot} onChange={this.handleChange} />
+			</div>
+		)
+	}
+
+	
+}
 ReactDOM.render(
-	<div>
-		<Badge count={99} dot>
-			<Icon type="bell-o" className="demo-cont"/>
-		</Badge>
-	</div>
-	, mountNode
+	<Demo />, mountNode
 );
 ```
 :::
@@ -98,11 +114,11 @@ import { Badge } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<div>
+		<div className="zent-badge-demo-wrapper">
 			<span>店铺消息</span>
 			<Badge count={100}/ >
 		</div>
-		<div>
+		<div className="zent-badge-demo-wrapper">
 			<span>店铺消息</span>
 			<Badge count={100} dot/ >
 		</div>
@@ -138,5 +154,9 @@ ReactDOM.render(
 }
 .zent-badge {
 	margin-right: 30px;
+}
+.zent-badge-demo-wrapper {
+	display: flex;
+	align-items: center;
 }
 </style>
