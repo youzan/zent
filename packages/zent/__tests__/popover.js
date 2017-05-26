@@ -66,11 +66,6 @@ describe('Popover', () => {
     expect(
       document.querySelectorAll('.zent-popover-content div')[1].textContent
     ).toBe('line two');
-    simulateWithTimers(wrapper.find('button'), 'click');
-    expect(wrapper.find('Portal').length).toBe(1);
-    // NOTE: 只能直接调用close method，无法mock。
-    wrapper.getNode().close();
-    expect(wrapper.find('Portal').length).toBe(0);
 
     // HACK: branch window.resize (throttle)
     wrapper.find('PopoverContent').getNode().onWindowResize(
@@ -80,17 +75,19 @@ describe('Popover', () => {
         deltaY: 0
       }
     );
-    // HACK: throttle
-    setTimeout(() => {
-      wrapper.find('PopoverContent').getNode().onWindowResize(
-        {},
-        {
-          deltaX: 10,
-          deltaY: 10
-        }
-      );
-    }, 160);
-    jest.runAllTimers();
+    wrapper.find('PopoverContent').getNode().onWindowResize(
+      {},
+      {
+        deltaX: 10,
+        deltaY: 10
+      }
+    );
+
+    simulateWithTimers(wrapper.find('button'), 'click');
+    expect(wrapper.find('Portal').length).toBe(1);
+
+    wrapper.getNode().close();
+    expect(wrapper.find('Portal').length).toBe(0);
     wrapper.unmount();
 
     wrapper = mount(
