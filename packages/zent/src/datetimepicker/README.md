@@ -459,6 +459,7 @@ ReactDOM.render(
 | max        | 可选日期的最大值                   | string/Date    |     | 否    |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
+| presetTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
 
 
 **注意：**
@@ -491,6 +492,7 @@ ReactDOM.render(
 | max          | 可选日期的最大值  | string/instanceOf(Date)  | ``    | 否    |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | placeholder  | 提示文案          | string    | `['开始日期','结束日期']`   | 否    |
+| presetTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
 
 
 **注意：**

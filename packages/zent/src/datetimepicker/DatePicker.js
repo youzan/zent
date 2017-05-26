@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
-import { formatDate, maybeParseDate, dayStart } from './utils/date';
+import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
@@ -16,14 +16,15 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { value, format, min, max, defaultValue } = props;
+  const { value, format, min, max, defaultValue, presetTime } = props;
 
   if (value) {
     const tmp = maybeParseDate(value, format);
 
     if (tmp) {
       showPlaceholder = false;
-      actived = selected = tmp;
+      selected = tmp;
+      actived = setTime(tmp);
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
@@ -50,6 +51,9 @@ function extractStateFromProps(props) {
     actived = maybeParseDate(actived, format);
   }
 
+  if (presetTime) {
+    actived = setTime(actived, presetTime);
+  }
   /**
    * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
    * selected 用来存放用户选择的日期，点击日期时会设置 selected 的值
@@ -60,7 +64,7 @@ function extractStateFromProps(props) {
     value: selected && formatDate(selected, props.format),
     actived,
     selected,
-    activedTime: actived,
+    activedTime: selected || actived,
     openPanel: false,
     showPlaceholder
   };
@@ -73,6 +77,7 @@ class DatePicker extends Component {
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
     format: PropTypes.string,
+    presetTime: PropTypes.string,
 
     // onChange 返回值类型, date | number | string， 默认 string
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
