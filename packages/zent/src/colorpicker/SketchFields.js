@@ -4,7 +4,7 @@ import color from './helpers/color';
 
 import { EditableInput } from './common';
 
-export const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha }) => {
+const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha }) => {
   const styles = reactCSS(
     {
       default: {

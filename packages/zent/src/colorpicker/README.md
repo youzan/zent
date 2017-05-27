@@ -10,16 +10,26 @@ import { ColorPicker } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		checked: true
-	}
+    color: '#55bd47',
+    colorObj: {
+      r: 85,
+      g: 189,
+      b: 71,
+      a: 1
+    }
+  }
 
-	handleChange = (checked) => {
-		this.setState({ checked });
-	}
+	handleChange = (color) => {
+    this.setState({
+      color: color.hex,
+      colorObj: color.rgb
+    });
+  }
 
 	render() {
+		const { color, colorObj } = this.state;
 		return (
-			<Switch checked={this.state.checked} onChange={this.handleChange} />
+			<PopColorPicker color={color} onChange={this.handleChange} />
 		)
 	}
 }
