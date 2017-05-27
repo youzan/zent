@@ -10,26 +10,29 @@ import { ColorPicker } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-    color: '#55bd47',
-    colorObj: {
-      r: 85,
-      g: 189,
-      b: 71,
-      a: 1
-    }
-  }
+		color: '#55bd47',
+		colorObj: {
+			r: 85,
+			g: 189,
+			b: 71,
+			a: 1
+		}
+	}
 
 	handleChange = (color) => {
-    this.setState({
-      color: color.hex,
-      colorObj: color.rgb
-    });
-  }
+		this.setState({
+			color: color.hex,
+			colorObj: color.rgb
+		});
+	}
 
 	render() {
 		const { color, colorObj } = this.state;
 		return (
-			<PopColorPicker color={color} onChange={this.handleChange} />
+			<div>
+				<ColorPicker color={color} onChange={this.handleChange} />
+				<div style={{ color }}>当前颜色：{color}</div>
+			</div>
 		)
 	}
 }
