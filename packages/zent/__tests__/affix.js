@@ -38,7 +38,7 @@ describe('Affix component', () => {
     expect(state.placeHoldStyle.height).toBe(0);
     expect(wrapper.node.affix).toBe(true);
     wrapper.setProps({ offsetTop: -100 });
-    wrapper.node.checkFixed();
+    wrapper.node.updatePin();
     class Test extends React.Component {
       state = {
         value: 0
