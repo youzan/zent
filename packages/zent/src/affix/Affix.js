@@ -50,7 +50,7 @@ class Affix extends Component {
     onUnpin && onUnpin();
   };
 
-  setWidth = throttle(() => {
+  setWidth = () => {
     const element = ReactDOM.findDOMNode(this);
     this.setState({
       width: element.offsetWidth,
@@ -59,9 +59,14 @@ class Affix extends Component {
         height: element.offsetHeight
       }
     });
+  };
+
+  handleResize = throttle(() => {
+    this.checkFixed();
+    this.setWidth();
   }, 20);
 
-  checkFixed = throttle(() => {
+  checkFixed = () => {
     const affix = this.affix;
     const props = this.props;
     const element = ReactDOM.findDOMNode(this);
@@ -74,13 +79,16 @@ class Affix extends Component {
       reallyNum = element.getBoundingClientRect().top;
       propsNum = props.offsetTop;
     }
-
     if (affix && reallyNum > propsNum) {
       this.setonUnpin();
     }
     if (!affix && reallyNum <= propsNum) {
       this.setFixed();
     }
+  };
+
+  handleScroll = throttle(() => {
+    this.checkFixed();
   }, 20);
 
   getStyleObj = () => {
@@ -99,8 +107,7 @@ class Affix extends Component {
   };
 
   componentDidMount() {
-    this.checkFixed();
-    this.setWidth();
+    this.handleResize();
   }
 
   render() {
@@ -111,8 +118,8 @@ class Affix extends Component {
         <div className={wrapClass} style={{ ...this.getStyleObj() }}>
           {this.props.children}
         </div>
-        <WindowEventHandler eventName="scroll" callback={this.checkFixed} />
-        <WindowEventHandler eventName="resize" callback={this.setWidth} />
+        <WindowEventHandler eventName="scroll" callback={this.handleScroll} />
+        <WindowEventHandler eventName="resize" callback={this.handleResize} />
 
       </div>
     );

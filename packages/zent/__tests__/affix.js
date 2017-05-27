@@ -22,21 +22,23 @@ describe('Affix component', () => {
     expect(props.prefix).toBe('wulv');
     expect(props.zIndex).toBe(100);
     expect(props.className).toBe('affix');
-    expect(wrapper.node.affix).toBe(false);
-    expect(state.position).toBe('static');
-    expect(state.width).toBe(null);
+    expect(wrapper.node.affix).toBe(true);
+    expect(state.position).toBe('fixed');
+    expect(state.width).toBe(0);
   });
 
   it('Affix scroll events', () => {
     const wrapper = mount(<Affix offsetTop={50} />);
-    wrapper.node.handleScroll();
     const state = wrapper.state();
 
     expect(wrapper.node.affix).toBe(true);
     expect(state.width).toBe(0);
     expect(state.position).toBe('fixed');
-    expect(state.placeHoldStyle.width).toBe(0);
+    expect(state.placeHoldStyle.width).toBe('100%');
     expect(state.placeHoldStyle.height).toBe(0);
+    expect(wrapper.node.affix).toBe(true);
+    wrapper.setProps({ offsetTop: -100 });
+    wrapper.node.checkFixed();
     class Test extends React.Component {
       state = {
         value: 0
@@ -60,9 +62,10 @@ describe('Affix component', () => {
     }
     const wrapper1 = mount(<Test />);
     const affix = wrapper1.find('Affix');
-    affix.node.handleScroll();
     const state1 = affix.node.state;
     expect(state1.width).toBe(0);
+    affix.node.handleScroll();
+
     affix.node.setFixed();
     affix.node.setonUnpin();
     wrapper1.unmount();
@@ -73,10 +76,8 @@ describe('Affix component', () => {
       <Affix prefix="wulv" className="affix" zIndex={100} offsetTop={50} />
     );
     const { node } = wrapper;
-    wrapper.node.handleScroll();
     expect(node.affix).toBe(true);
     wrapper.setProps({ offsetTop: -100 });
-    wrapper.node.handleScroll();
-    expect(node.affix).toBe(false);
+    expect(node.affix).toBe(true);
   });
 });
