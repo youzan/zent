@@ -4,7 +4,7 @@ import { ColorWrap, Saturation, Hue, Alpha, Checkboard } from './common';
 import SketchFields from './SketchFields';
 import SketchPresetColors from './SketchPresetColors';
 
-export const Sketch = ({
+const Sketch = ({
   width,
   rgb,
   hex,
@@ -156,4 +156,6 @@ Sketch.defaultProps = {
   width: 200
 };
 
-export default ColorWrap(Sketch);
+const ColorBorad = ColorWrap(Sketch);
+
+export default ColorBorad;

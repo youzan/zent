@@ -2,22 +2,24 @@ import React, { Component } from 'react';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
 import isObject from 'lodash/isObject';
-import ColorPicker from './Sketch';
 import colorTransfer from './helpers/color';
+import ColorBorad from './Sketch';
 
-class PopColorPicker extends Component {
+class ColorPicker extends Component {
   state = {
     popVisible: false
   };
 
   static propTypes = {
-    color: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+    color: PropTypes.string.isRequired,
     className: PropTypes.string,
+    showAlpha: PropTypes.bool,
     onChange: PropTypes.func
   };
 
   static defaultProps = {
     className: '',
+    showAlpha: false,
     onChange() {}
   };
 
@@ -59,13 +61,11 @@ class PopColorPicker extends Component {
           </div>
         </Popover.Trigger.Click>
         <Popover.Content>
-          <ColorPicker color={color} onChange={this.handleChange} />
+          <ColorBorad color={color} onChange={this.handleChange} />
         </Popover.Content>
       </Popover>
     );
   }
 }
 
-export { ColorPicker, PopColorPicker };
-
-export default PopColorPicker;
+export default ColorPicker;

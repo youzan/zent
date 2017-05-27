@@ -10,7 +10,7 @@ import { ColorPicker } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		color: '#55bd47',
+		color: 'rgba(81, 151, 255, 0.8)',
 		colorObj: {
 			r: 85,
 			g: 189,
@@ -21,7 +21,7 @@ class Simple extends React.Component {
 
 	handleChange = (color) => {
 		this.setState({
-			color: color.hex,
+			color: color.rgb,
 			colorObj: color.rgb
 		});
 	}
@@ -44,6 +44,26 @@ ReactDOM.render(
 
 ```
 :::
+
+
+:::demo 失效状态
+```jsx
+import { Switch } from 'zent';
+
+ReactDOM.render(
+	<div>
+		<Switch checked disabled />
+		&nbsp;&nbsp;
+		<Switch checked={false} disabled />
+	</div>
+	, mountNode
+);
+
+```
+:::
+
+
+
 
 ### API
 

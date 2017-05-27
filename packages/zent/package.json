@@ -28,7 +28,8 @@
     "fecha": "2.3.x",
     "lodash": "4.17.x",
     "prop-types": "15.5.x",
-    "zenticons": "^1.0.1"
+    "zenticons": "^1.0.1",
+    "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
