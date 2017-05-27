@@ -73,9 +73,25 @@ export const formatDate = (date, mask = 'default', locale = 'zh') => {
   return format(date, mask, i18n[locale]);
 };
 
-export function maybeFormatDate(value, mask) {
+export function maybeParseDate(value, mask) {
   if (typeof value === 'number') return new Date(value);
   if (value instanceof Date) return value;
 
   return parseDate(value, mask);
+}
+
+export function dayStart(date) {
+  const now = date || new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+export function setTime(date, time = '00:00:00') {
+  const timeArr = time.split(':');
+  const dateTimeArr = [
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    ...timeArr
+  ];
+  return new Date(...dateTimeArr);
 }

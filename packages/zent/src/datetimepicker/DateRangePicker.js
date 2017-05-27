@@ -8,7 +8,7 @@ import isEqual from 'lodash/isEqual';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
-import { formatDate, parseDate, maybeFormatDate } from './utils/date';
+import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
@@ -31,7 +31,7 @@ const getDateTime = (date, time) => {
 };
 
 const extractStateFromProps = props => {
-  const { format, min, max, defaultValue } = props;
+  const { format, min, max, defaultValue, defaultTime } = props;
   let showPlaceholder;
   let selected = [];
   let actived = [];
@@ -41,12 +41,11 @@ const extractStateFromProps = props => {
   if (isValidValue(props.value)) {
     showPlaceholder = false;
     const tmp = [
-      maybeFormatDate(props.value[0], format),
-      maybeFormatDate(props.value[1], format)
+      maybeParseDate(props.value[0], format),
+      maybeParseDate(props.value[1], format)
     ];
     selected = tmp.slice();
-    range = tmp.slice();
-    actived = tmp.slice();
+    range = actived = [setTime(tmp[0]), setTime(tmp[1])];
     value = [formatDate(selected[0], format), formatDate(selected[1], format)];
 
     // 特殊处理：如果两个时间在同一个月，右边的面板月份加一
@@ -58,19 +57,32 @@ const extractStateFromProps = props => {
     value = [];
     let start;
     if (defaultValue && isValidValue(defaultValue)) {
-      start = maybeFormatDate(defaultValue[0], format);
+      start = maybeParseDate(defaultValue[0], format);
     } else if (min) {
-      start = maybeFormatDate(min, format);
+      start = maybeParseDate(min, format);
     } else if (max) {
-      let maxDate = maybeFormatDate(max, format);
+      let maxDate = maybeParseDate(max, format);
       let timestamp = maxDate && maxDate.getTime();
       if (timestamp < Date.now()) {
         start = goMonths(maxDate, -1);
       }
     } else {
-      start = new Date();
+      start = dayStart();
     }
     actived = [start, goMonths(start, 1)];
+  }
+  if (defaultTime) {
+    actived = actived.map(item => setTime(item, defaultTime));
+    range = range.map(item => {
+      return setTime(item, defaultTime);
+    });
+  }
+
+  let activedTime;
+  if (selected.length === 2) {
+    activedTime = selected.slice();
+  } else {
+    activedTime = actived.slice();
   }
 
   return {
@@ -78,7 +90,7 @@ const extractStateFromProps = props => {
     range,
     selected,
     actived,
-    activedTime: actived.slice(),
+    activedTime,
     openPanel: false,
     showError: false,
     openStartTimePanel: false,
@@ -95,6 +107,7 @@ class DateRangePicker extends Component {
     confirmText: PropTypes.string,
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
+    defaultTime: PropTypes.string,
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
@@ -206,8 +219,8 @@ class DateRangePicker extends Component {
     const { disabledDate, format, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
+    if (min && val < maybeParseDate(min, format)) return true;
+    if (max && val >= maybeParseDate(max, format)) return true;
 
     return false;
   };
