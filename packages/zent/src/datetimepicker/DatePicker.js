@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
-import { formatDate, parseDate, maybeFormatDate } from './utils/date';
+import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
@@ -16,18 +16,19 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { value, format, min, max, defaultValue } = props;
+  const { value, format, min, max, defaultValue, defaultTime } = props;
 
   if (value) {
-    const tmp = maybeFormatDate(value, format);
+    const tmp = maybeParseDate(value, format);
 
     if (tmp) {
       showPlaceholder = false;
-      actived = selected = tmp;
+      selected = tmp;
+      actived = setTime(tmp);
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      actived = new Date();
+      actived = dayStart();
     }
   } else {
     showPlaceholder = true;
@@ -38,18 +39,21 @@ function extractStateFromProps(props) {
      */
 
     if (defaultValue) {
-      actived = defaultValue;
+      actived = maybeParseDate(defaultValue, format);
     } else if (min) {
-      actived = min;
+      actived = maybeParseDate(min, format);
     } else if (max) {
-      actived = max;
+      actived = maybeParseDate(max, format);
     } else {
-      actived = new Date();
+      actived = dayStart();
     }
 
-    actived = maybeFormatDate(actived, format);
+    actived = maybeParseDate(actived, format);
   }
 
+  if (defaultTime) {
+    actived = setTime(actived, defaultTime);
+  }
   /**
    * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
    * selected 用来存放用户选择的日期，点击日期时会设置 selected 的值
@@ -60,7 +64,7 @@ function extractStateFromProps(props) {
     value: selected && formatDate(selected, props.format),
     actived,
     selected,
-    activedTime: actived,
+    activedTime: selected || actived,
     openPanel: false,
     showPlaceholder
   };
@@ -73,12 +77,21 @@ class DatePicker extends Component {
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
     format: PropTypes.string,
+    defaultTime: PropTypes.string,
 
     // onChange 返回值类型, date | number | string， 默认 string
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
-    min: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-    max: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    min: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.instanceOf(Date)
+    ]),
+    max: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.instanceOf(Date)
+    ]),
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
     onClick: PropTypes.func,
@@ -219,8 +232,8 @@ class DatePicker extends Component {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
+    if (min && val < maybeParseDate(min, format)) return true;
+    if (max && val >= maybeParseDate(max, format)) return true;
 
     return false;
   };
