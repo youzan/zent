@@ -169,6 +169,11 @@ module.exports = {
           groupName: '导航',
           list: [
             {
+              path: 'component/affix',
+              title: 'Affix 固钉',
+              component: require('../../packages/zent/src/affix/README.md')
+            },
+            {
               path: 'component/breadcrumb',
               title: 'Breadcrumb 面包屑',
               component: require('../../packages/zent/src/breadcrumb/README.md')

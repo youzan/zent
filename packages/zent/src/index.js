@@ -1,3 +1,4 @@
+import Affix from 'affix';
 import Alert from 'alert';
 import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
@@ -31,6 +32,7 @@ import Tag from 'tag';
 import Tree from 'tree';
 
 export {
+  Affix,
   Alert,
   Badge,
   Breadcrumb,
