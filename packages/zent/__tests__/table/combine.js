@@ -80,7 +80,7 @@ describe('Combine', () => {
   });
 
   it('selectRows', () => {
-    expect(wrapper.find('Checkbox').length).toBe(4);
+    expect(wrapper.find('Checkbox').length).toBe(5);
     wrapper
       .find('Head Checkbox input')
       .simulate('change', { target: { checked: true } });
