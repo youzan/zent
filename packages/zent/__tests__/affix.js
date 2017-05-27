@@ -67,4 +67,16 @@ describe('Affix component', () => {
     affix.node.setonUnpin();
     wrapper1.unmount();
   });
+
+  it('unpin if offset is not reached', () => {
+    const wrapper = mount(
+      <Affix prefix="wulv" className="affix" zIndex={100} offsetTop={50} />
+    );
+    const { node } = wrapper;
+    wrapper.node.handleScroll();
+    expect(node.affix).toBe(true);
+    wrapper.setProps({ offsetTop: -100 });
+    wrapper.node.handleScroll();
+    expect(node.affix).toBe(false);
+  });
 });
