@@ -10,13 +10,11 @@ class ColorPicker extends Component {
 
   static propTypes = {
     color: PropTypes.string.isRequired,
-    className: PropTypes.string,
     showAlpha: PropTypes.bool,
     onChange: PropTypes.func
   };
 
   static defaultProps = {
-    className: '',
     showAlpha: false,
     onChange() {}
   };
