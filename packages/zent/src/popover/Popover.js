@@ -152,6 +152,8 @@ export default class Popover extends Component {
         visible: false
       };
     }
+
+    this.isUnmounted = false;
   }
 
   isVisibilityControlled(props) {
@@ -205,7 +207,7 @@ export default class Popover extends Component {
       }
 
       handleBeforeHook(onBefore, beforeHook.length, () => {
-        this.setState({ visible });
+        this.safeSetState({ visible });
         this.pendingOnBeforeHook = false;
       });
     }
@@ -286,6 +288,12 @@ export default class Popover extends Component {
     return { trigger, content };
   }
 
+  safeSetState(updater, callback) {
+    if (!this.isUnmounted) {
+      return this.setState(updater, callback);
+    }
+  }
+
   componentDidMount() {
     const { _zentPopover: popover } = this.context || {};
     if (popover && popover.registerDescendant) {
@@ -310,6 +318,8 @@ export default class Popover extends Component {
     if (popover && popover.unregisterDescendant) {
       popover.unregisterDescendant(this);
     }
+
+    this.isUnmounted = true;
   }
 
   render() {
