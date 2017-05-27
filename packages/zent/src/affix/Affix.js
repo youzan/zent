@@ -24,19 +24,15 @@ class Affix extends Component {
     zIndex: 10
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      position: 'static',
-      width: null,
-      placeHoldStyle: {}
-    };
-  }
+  state = {
+    position: 'static',
+    width: null,
+    placeHoldStyle: {}
+  };
 
   affix = false;
 
-  setFixed() {
+  pin() {
     const { onPin } = this.props;
 
     this.affix = true;
@@ -45,7 +41,7 @@ class Affix extends Component {
     onPin && onPin();
   }
 
-  setonUnpin() {
+  unpin() {
     const { onUnpin } = this.props;
 
     this.affix = false;
@@ -65,7 +61,7 @@ class Affix extends Component {
     });
   }
 
-  checkFixed() {
+  updatePin() {
     const affix = this.affix;
     const props = this.props;
     const element = ReactDOM.findDOMNode(this);
@@ -81,20 +77,20 @@ class Affix extends Component {
     }
 
     if (affix && reallyNum > propsNum) {
-      this.setonUnpin();
+      this.unpin();
     }
     if (!affix && reallyNum <= propsNum) {
-      this.setFixed();
+      this.pin();
     }
   }
 
   handleResize = throttle(() => {
-    this.checkFixed();
+    this.updatePin();
     this.setWidth();
   }, 20);
 
   handleScroll = throttle(() => {
-    this.checkFixed();
+    this.updatePin();
   }, 20);
 
   getStyleObj() {
