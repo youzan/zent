@@ -31,7 +31,7 @@ const getDateTime = (date, time) => {
 };
 
 const extractStateFromProps = props => {
-  const { format, min, max, defaultValue, presetTime } = props;
+  const { format, min, max, defaultValue, defaultTime } = props;
   let showPlaceholder;
   let selected = [];
   let actived = [];
@@ -71,10 +71,10 @@ const extractStateFromProps = props => {
     }
     actived = [start, goMonths(start, 1)];
   }
-  if (presetTime) {
-    actived = actived.map(item => setTime(item, presetTime));
+  if (defaultTime) {
+    actived = actived.map(item => setTime(item, defaultTime));
     range = range.map(item => {
-      return setTime(item, presetTime);
+      return setTime(item, defaultTime);
     });
   }
 
@@ -107,7 +107,7 @@ class DateRangePicker extends Component {
     confirmText: PropTypes.string,
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
-    presetTime: PropTypes.string,
+    defaultTime: PropTypes.string,
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,

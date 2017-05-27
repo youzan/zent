@@ -16,7 +16,7 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { value, format, min, max, defaultValue, presetTime } = props;
+  const { value, format, min, max, defaultValue, defaultTime } = props;
 
   if (value) {
     const tmp = maybeParseDate(value, format);
@@ -51,8 +51,8 @@ function extractStateFromProps(props) {
     actived = maybeParseDate(actived, format);
   }
 
-  if (presetTime) {
-    actived = setTime(actived, presetTime);
+  if (defaultTime) {
+    actived = setTime(actived, defaultTime);
   }
   /**
    * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
@@ -77,7 +77,7 @@ class DatePicker extends Component {
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
     format: PropTypes.string,
-    presetTime: PropTypes.string,
+    defaultTime: PropTypes.string,
 
     // onChange 返回值类型, date | number | string， 默认 string
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
