@@ -66,8 +66,8 @@ describe('Affix component', () => {
     expect(state1.width).toBe(0);
     affix.node.handleScroll();
 
-    affix.node.setFixed();
-    affix.node.setonUnpin();
+    affix.node.pin();
+    affix.node.unpin();
     wrapper1.unmount();
   });
 
