@@ -30,6 +30,7 @@ export default {
       hsl,
       hex: `#${color.toHex()}`,
       rgb: color.toRgb(),
+      rgba: color.toRgbString(),
       hsv,
       oldHue: data.h || oldHue || hsl.h,
       source: data.source

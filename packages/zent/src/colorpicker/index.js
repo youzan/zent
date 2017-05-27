@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
-import isObject from 'lodash/isObject';
-import colorTransfer from './helpers/color';
-import ColorBorad from './Sketch';
+import ColorBorad from './ColorBorad';
 
 class ColorPicker extends Component {
   state = {
@@ -24,8 +22,9 @@ class ColorPicker extends Component {
   };
 
   handleChange = color => {
-    const { onChange } = this.props;
-    onChange(color);
+    const { onChange, showAlpha } = this.props;
+    const colorOut = showAlpha ? color.rgba : color.hex;
+    onChange(colorOut);
   };
 
   handleVisibleChange = visible => {
@@ -35,11 +34,9 @@ class ColorPicker extends Component {
   };
 
   render() {
-    const { color } = this.props;
+    const { color, showAlpha } = this.props;
     const { popVisible } = this.state;
-    const backgroundColor = isObject(color)
-      ? colorTransfer.toState(color).hex
-      : color;
+    const backgroundColor = color;
 
     return (
       <Popover
@@ -61,7 +58,11 @@ class ColorPicker extends Component {
           </div>
         </Popover.Trigger.Click>
         <Popover.Content>
-          <ColorBorad color={color} onChange={this.handleChange} />
+          <ColorBorad
+            color={color}
+            disableAlpha={!showAlpha}
+            onChange={this.handleChange}
+          />
         </Popover.Content>
       </Popover>
     );
