@@ -38,16 +38,14 @@ class App extends React.Component {
 
   onPin = () => {
     this.setState({ text: '已经固定啦' });
-    console.log('in');
   }
   onUnpin = () => {
-    console.log('out');
     this.setState({ text: '取消固定啦' });
   }
 
   render() {
     return (
-      <Affix offsetTop={150} onPin={this.onPin} onUnpin={this.onUnpin}>
+      <Affix offsetTop={200} onPin={this.onPin} onUnpin={this.onUnpin}>
           <Alert type="warning">{this.state.text}</Alert>
       </Affix>
     )
@@ -102,5 +100,9 @@ ReactDOM.render(
     line-height: 60px;
     text-align: center;
     border: 1px solid #2B90ED;
+}
+
+.demo-bottom {
+	opacity: 0.8;
 }
 </style>

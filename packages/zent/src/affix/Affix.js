@@ -26,6 +26,7 @@ class Affix extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       position: 'static',
       width: null,
@@ -35,23 +36,26 @@ class Affix extends Component {
 
   affix = false;
 
-  setFixed = () => {
+  setFixed() {
     const { onPin } = this.props;
+
     this.affix = true;
     this.setWidth();
     this.setState({ position: 'fixed' });
     onPin && onPin();
-  };
+  }
 
-  setonUnpin = () => {
+  setonUnpin() {
     const { onUnpin } = this.props;
+
     this.affix = false;
     this.setState({ position: 'static', width: null, placeHoldStyle: null });
     onUnpin && onUnpin();
-  };
+  }
 
-  setWidth = () => {
+  setWidth() {
     const element = ReactDOM.findDOMNode(this);
+
     this.setState({
       width: element.offsetWidth,
       placeHoldStyle: {
@@ -59,18 +63,14 @@ class Affix extends Component {
         height: element.offsetHeight
       }
     });
-  };
+  }
 
-  handleResize = throttle(() => {
-    this.checkFixed();
-    this.setWidth();
-  }, 20);
-
-  checkFixed = () => {
+  checkFixed() {
     const affix = this.affix;
     const props = this.props;
     const element = ReactDOM.findDOMNode(this);
     let reallyNum, propsNum;
+
     if (props.offsetBottom !== undefined) {
       reallyNum =
         getViewportSize().height - element.getBoundingClientRect().bottom;
@@ -79,22 +79,29 @@ class Affix extends Component {
       reallyNum = element.getBoundingClientRect().top;
       propsNum = props.offsetTop;
     }
+
     if (affix && reallyNum > propsNum) {
       this.setonUnpin();
     }
     if (!affix && reallyNum <= propsNum) {
       this.setFixed();
     }
-  };
+  }
+
+  handleResize = throttle(() => {
+    this.checkFixed();
+    this.setWidth();
+  }, 20);
 
   handleScroll = throttle(() => {
     this.checkFixed();
   }, 20);
 
-  getStyleObj = () => {
+  getStyleObj() {
     const { zIndex, offsetBottom, offsetTop } = this.props;
     const { position, width } = this.state;
     let styleObj = {};
+
     if (position === 'fixed') {
       styleObj = { position, zIndex, width };
       offsetBottom !== undefined
@@ -103,8 +110,9 @@ class Affix extends Component {
     } else {
       styleObj = { position };
     }
+
     return styleObj;
-  };
+  }
 
   componentDidMount() {
     this.handleResize();
@@ -113,6 +121,7 @@ class Affix extends Component {
   render() {
     const { prefix, className, placeHoldClassName } = this.props;
     const wrapClass = cx(`${prefix}-affix`, className);
+
     return (
       <div className={placeHoldClassName} style={this.state.placeHoldStyle}>
         <div className={wrapClass} style={{ ...this.getStyleObj() }}>
