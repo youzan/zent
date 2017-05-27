@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import WindowEventHandler from 'utils/component/WindowEventHandler';
 import getViewportSize from 'utils/dom/getViewportSize';
+import throttle from 'lodash/throttle';
 
 class Affix extends Component {
   static propTypes = {
+    placeHoldClassName: PropTypes.string,
     className: PropTypes.string,
     prefix: PropTypes.string,
     zIndex: PropTypes.number,
@@ -46,19 +49,21 @@ class Affix extends Component {
     onUnpin && onUnpin();
   };
 
-  handleScroll = () => {
+  setWidth = () => {
+    const element = ReactDOM.findDOMNode(this);
+    this.setState({
+      width: element.offsetWidth,
+      placeHoldStyle: {
+        width: element.offsetWidth,
+        height: element.offsetHeight
+      }
+    });
+  };
+
+  checkFixed = () => {
     const affix = this.affix;
     const props = this.props;
     const element = ReactDOM.findDOMNode(this);
-    if (this.state.width === null) {
-      this.setState({
-        width: element.offsetWidth,
-        placeHoldStyle: {
-          width: element.offsetWidth,
-          height: element.offsetHeight
-        }
-      });
-    }
     let reallyNum, propsNum;
     if (props.offsetBottom !== undefined) {
       reallyNum =
@@ -72,18 +77,10 @@ class Affix extends Component {
     if (affix && reallyNum > propsNum) {
       this.setonUnpin();
     }
-    if (!affix && reallyNum < propsNum) {
+    if (!affix && reallyNum <= propsNum) {
       this.setFixed();
     }
   };
-
-  componentDidMount = () => {
-    window.addEventListener('scroll', this.handleScroll);
-  };
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
 
   getStyleObj = () => {
     const { zIndex, offsetBottom, offsetTop } = this.props;
@@ -100,14 +97,27 @@ class Affix extends Component {
     return styleObj;
   };
 
+  componentDidMount() {
+    this.checkFixed();
+    this.setWidth();
+  }
+
   render() {
-    const { prefix, className } = this.props;
+    const { prefix, className, placeHoldClassName } = this.props;
     const wrapClass = cx(`${prefix}-affix`, className);
     return (
-      <div style={this.state.placeHoldStyle}>
+      <div className={placeHoldClassName} style={this.state.placeHoldStyle}>
         <div className={wrapClass} style={{ ...this.getStyleObj() }}>
           {this.props.children}
         </div>
+        <WindowEventHandler
+          eventName="scroll"
+          callback={throttle(this.checkFixed, 20)}
+        />
+        <WindowEventHandler
+          eventName="resize"
+          callback={throttle(this.setWidth, 20)}
+        />
       </div>
     );
   }
