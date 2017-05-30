@@ -476,6 +476,10 @@ declare namespace Zent {
     isRoot?: (data: ITreeData) => boolean
   }
 
+  class Tree extends React.Component<ITreeProps, any> {}
+
+  
+
 }
 
 
