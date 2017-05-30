@@ -191,6 +191,40 @@ declare namespace Zent {
     class Group extends React.Component<ICheckBoxGroupProps, any> {}
   }
 
+  interface IDatePickerCommonProps {
+    value?: string|Date
+    defaultValue?: string|Date
+    onChange?: (value: string|number|Date) => void
+    onClick?: (value: string|number|Date) => void
+    onOpen?: () => void
+    disabled?: boolean
+    format?: string
+    placeholder?: string
+    className?: string
+    prefix?: string
+    confirmText?: string
+  }
+
+  interface IDatePickProps extends IDatePickerCommonProps {
+    showTime?: boolean
+    disabledTime?: () => { disabledHour: (value: number) => boolean, disabledMinute: (value: number) => boolean, disabledSecond: (value: number) => boolean }
+    disabledDate?: (date: Date) => boolean
+    min?: string|number
+    max?: string|number
+    valueType?: 'number'|'string'|'date'
+    placeholder?: string
+  }
+
+  class DatePicker extends React.Component<IDatePickerProps, any> {}
+
+  type IMonthPickerProps = IDatePickerCommonProps
+
+  class MonthPicker extends React.Component<IMonthPickerProps, any> {}
+
+  type IRangePickerProps = IDatePickProps
+
+  class RangePicker extends React.Component<IRangePickerProps, any> {}
+
   
 }
 
