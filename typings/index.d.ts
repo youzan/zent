@@ -358,7 +358,19 @@ declare namespace Zent {
     class SubMenu extends React.Component<ISubMenuProps, any> {}
   }
 
+  interface IPaginationProps {
+    current: number
+    totalItem: number
+    pageSize?: number
+    maxPageToShow?: number
+    onChange?: (value: number) => void
+    className?: string
+    prefix?: string
+  }
 
+  class Pagination extends React.Component<IPaginationProps, any> {}
+
+  
 }
 
 
