@@ -71,9 +71,20 @@ declare namespace Zent {
     static closeDialog(dialogId: string, option: ICloseDialogOption): void
   }
 
-  
+  interface ILoadingProps {
+    show?: boolean
+    static?: boolean
+    height?: number
+    zIndex?: number
+    className?: string
+    containerClass?: string
+    prefix?: string
+  }
 
-
+  class Loading extends React.Component<ILoadingProps, any> {
+    static on(): void
+    static off(): void
+  }
 }
 
 
