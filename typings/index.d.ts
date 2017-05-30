@@ -58,6 +58,21 @@ declare namespace Zent {
     style?: React.CSSProperties
   }
 
+  interface IOpenDialogOption extends IDialogProps {
+    dialogId: string
+  }
+
+  interface ICloseDialogOption {
+    triggerOnClose: boolean
+  }
+
+  class Dialog extends React.Component<IDialogProps, any> {
+    static openDialog(option: IOpenDialogOption): (close: boolean) => void
+    static closeDialog(dialogId: string, option: ICloseDialogOption): void
+  }
+
+  
+
 
 }
 
