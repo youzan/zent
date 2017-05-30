@@ -147,6 +147,26 @@ declare namespace Zent {
     function alert(option: IAlertOption): () => void
     function confirm(option: IConfirmOption): () => void
   }
+
+  interface IButtonProps {
+    type?: 'default'|'primary'|'danger'|'success'
+    size?: 'medium'|'large'|'small'
+    htmlType?: 'button'|'submit'|'reset'
+    block?: boolean
+    disabled?: boolean
+    loading?: boolean
+    outline?: boolean
+    bordered?: boolean
+    component?: (() => string)|string
+    href?: string
+    target?: string
+    className?: string
+    prefix?: string
+  }
+
+  class Button extends React.Component<IButtonProps, any> {}
+
+  
 }
 
 
