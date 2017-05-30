@@ -335,7 +335,7 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Menu extends Component<IMenuProps, any> {}
+  class Menu extends React.Component<IMenuProps, any> {}
 
   namespace Menu {
     interface IMenuItemProps {
@@ -356,9 +356,9 @@ declare namespace Zent {
     }
 
     class SubMenu extends React.Component<ISubMenuProps, any> {}
-
-    
   }
+
+
 }
 
 
