@@ -85,6 +85,20 @@ declare namespace Zent {
     static on(): void
     static off(): void
   }
+
+  interface INotifyProps {
+    text?: any
+    duration?: number
+    callback?: () => void
+  }
+
+  class Notify extends React.Component<INotifyProps, any> {
+    static success(): number
+    static error(): number
+    static clear(id: number): void
+  }
+
+  
 }
 
 
