@@ -311,6 +311,24 @@ declare namespace Zent {
 
   class Slider extends React.Component<ISliderProps, any> {}
 
+  interface IBreadcrumbProps {
+    breads?: Array<React.ReactNode>
+    className?: string
+    prefix?: string
+  }
+
+  class Breadcrumb extends React.Component<IBreadcrumbProps, any> {}
+
+  namespace Breadcrumb {
+    interface IItemProps {
+      className?: string
+      name: React.ReactNode
+      href: string
+    }
+
+    class Item extends React.Component<IItemProps, any> {}
+  }
+
   
 }
 
