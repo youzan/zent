@@ -418,6 +418,31 @@ declare namespace Zent {
 
   class Table extends React.Component<ITableProps, any> {}
 
+  interface ITab {
+    tab: string|number
+    id: string|number
+    disabled?: boolean
+  }
+
+  interface ITabsProps {
+    activeId: string
+    type?: 'normal'|'card'|'slider'
+    size?: 'normal'|'huge'
+    align?: 'left'|'right'|'center'
+    onTabChange?: (id: string) => void
+    onTabDel?: (id: string) => void
+    onTabAdd?: () => void
+    candel?: boolean
+    canadd?: boolean
+    tabs?: Array<ITab>
+    className?: string
+    prefix?: string
+  }
+
+  class Tabs extends React.Component<ITabsProps, any> {}
+
+  
+
 }
 
 
