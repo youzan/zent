@@ -293,6 +293,25 @@ declare namespace Zent {
   }
 
   class Select extends React.Component<ISelectProps, any> {}
+
+  interface ISliderProps {
+    value: [number, number]
+    onChange?: (value: number) => void
+    range?: boolean
+    min?: number
+    max?: number
+    step?: number
+    withInput?: boolean
+    dots?: boolean
+    marks?: Object<any>
+    disabled?: boolean
+    className?: string
+    prefix?: string
+  }
+
+  class Slider extends React.Component<ISliderProps, any> {}
+
+  
 }
 
 
