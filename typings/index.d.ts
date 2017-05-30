@@ -329,7 +329,36 @@ declare namespace Zent {
     class Item extends React.Component<IItemProps, any> {}
   }
 
-  
+  interface IMenuProps {
+    onClick?: (event: React.UIEvent<HTMLLIElement>|React.UIEvent<HTMLDivElement>, index: number) => void
+    className?: string
+    prefix?: string
+  }
+
+  class Menu extends Component<IMenuProps, any> {}
+
+  namespace Menu {
+    interface IMenuItemProps {
+      key?: string
+      disabled?: boolean
+      className?: string
+      prefix?: string
+    }
+
+    class MenuItem extends React.Component<MenuItem, any> {}
+
+    interface ISubMenuProps {
+      title: string
+      disabled?: boolean
+      overlayClassName?: string
+      className?: string
+      prefix?: string
+    }
+
+    class SubMenu extends React.Component<ISubMenuProps, any> {}
+
+    
+  }
 }
 
 
