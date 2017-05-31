@@ -81,8 +81,8 @@ ReactDOM.render(<Example />, mountNode);
 | 参数             | 说明                                                     | 类型     | 默认值 |
 | -------------- | ------------------------------------------------------ | ------ | -------- |
 | show           | 显示控制                                                   | bool   | `false`  |
-| static         | 是否以标签形式存在于文档流中                                         | bool   | `true`   |
-| height         | 设置 static 为 true 情况下，设置高度，如果包裹了组件，将会表现为组件高度，否则将会使用默认高度 | number | `160`    |
+| float         | 是否脱离文档流，一般全局加载的时候设置为 `true`        | bool   | `false`   |
+| height       | float 为 false 时设置高度，如果包裹了组件，将会表现为组件高度，否则将会使用默认高度 | number | `160`    |
 | zIndex         | 设置 z-index                                             | number | `9998`   |
 | className      | 自定义额外类名                                                | string | `''`     |
 | containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |

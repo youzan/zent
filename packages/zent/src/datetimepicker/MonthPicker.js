@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
-import { formatDate, parseDate, maybeFormatDate } from './utils/date';
+import { formatDate, maybeParseDate, dayStart } from './utils/date';
 import { noop } from './constants/';
 
 function extractStateFromProps(props) {
@@ -17,23 +17,23 @@ function extractStateFromProps(props) {
   const { format, value, defaultValue } = props;
 
   if (value) {
-    const tmp = parseDate(value, format);
+    const tmp = maybeParseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
       selected = actived = tmp;
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      selected = actived = new Date();
+      selected = actived = dayStart();
     }
   } else {
     showPlaceholder = true;
     if (defaultValue) {
-      actived = defaultValue;
+      actived = maybeParseDate(defaultValue, format);
     } else {
-      actived = new Date();
+      actived = dayStart();
     }
-    selected = actived = maybeFormatDate(actived, format);
+    selected = actived = maybeParseDate(actived, format);
   }
 
   return {

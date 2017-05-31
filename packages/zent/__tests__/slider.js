@@ -95,7 +95,9 @@ describe('Slider', () => {
         );
       }
     }
+
     const wrapper = mount(<EventTest />);
+
     expect(wrapper.find('.zent-slider-mark').length).toBe(4);
     expect(wrapper.find('.zent-slider-dot').length).toBe(4);
     expect(wrapper.find('.zent-slider-dot-active').length).toBe(2);
@@ -107,9 +109,8 @@ describe('Slider', () => {
     expect(wrapper.find('.zent-slider-toolTips').at(0).props().style.left).toBe(
       '0%'
     );
-    expect(wrapper.find('.zent-slider-toolTips').at(1).props().style.left).toBe(
-      '50%'
-    );
+    expect(wrapper.find('Range').node.getClientWidth()).toBe(0);
+
     const disabledWrapper = mount(
       <Slider range value={[0, 20]} marks={marks} dots disabled />
     );

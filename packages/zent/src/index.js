@@ -1,4 +1,6 @@
+import Affix from 'affix';
 import Alert from 'alert';
+import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Checkbox from 'checkbox';
@@ -11,6 +13,7 @@ import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
+import NumberInput from 'number-input';
 import Menu from 'menu';
 import Notify from 'notify';
 import Pagination from 'pagination';
@@ -26,10 +29,13 @@ import Swiper from 'swiper';
 import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
+import Tag from 'tag';
 import Tree from 'tree';
 
 export {
+  Affix,
   Alert,
+  Badge,
   Breadcrumb,
   Button,
   Checkbox,
@@ -41,6 +47,7 @@ export {
   Loading,
   Icon,
   Input,
+  NumberInput,
   Menu,
   MonthPicker,
   Notify,
@@ -56,6 +63,7 @@ export {
   Swiper,
   Table,
   Tabs,
+  Tag,
   Tree,
   Switch
 };

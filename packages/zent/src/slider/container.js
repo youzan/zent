@@ -6,7 +6,7 @@ import { getValue, toFixed, getClosest } from './common';
 export default class Container extends Component {
   handleClick = e => {
     const {
-      clientWidth,
+      getClientWidth,
       dots,
       range,
       value,
@@ -19,7 +19,7 @@ export default class Container extends Component {
     if (!dots) {
       let pointValue =
         (e.clientX - e.currentTarget.getBoundingClientRect().left) /
-        clientWidth;
+        getClientWidth();
       pointValue = getValue(pointValue, max, min);
       pointValue = toFixed(pointValue, step);
       newValue = pointValue;
