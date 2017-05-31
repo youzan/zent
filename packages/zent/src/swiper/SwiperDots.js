@@ -26,7 +26,10 @@ export default class SwiperDots extends Component {
               className={cx(`${prefix}-swiper__dots-item`, {
                 [`${prefix}-swiper__dots-item-active`]: index === currentIndex
               })}
-              onClick={() => onDotsClick(index)}
+              onClick={e => {
+                e.stopPropagation();
+                onDotsClick(index);
+              }}
             />
           );
         })}

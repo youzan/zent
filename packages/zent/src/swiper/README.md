@@ -15,30 +15,20 @@ import { Swiper } from 'zent';
 const pages = [1, 2, 3, 4, 5];
 
 class Simple extends React.Component {
-	state = {
-		checked: true
-	}
-
-	handleChange = (checked) => {
-		this.setState({ checked });
-	}
-
 	render() {
 		return (
 			<Swiper
 	    	className="swiper-demo-smiple"
 	      dotsColor="danger"
 	      dotsSize="small"
-	      autoplay
-	      onChange={this.onChange}
 	    >
 				{
 					pages.map((item, index) => {
-						<h2 key={index}>{item}</h2>
+						return <div className="swiper-demo-smiple-h" key={index}>{item}</div>;
 					})
 				}
 			</Swiper>
-		)
+		);
 	}
 }
 
@@ -66,6 +56,11 @@ ReactDOM.render(
 .swiper-demo-smiple {
 	height: 200px;
 	width: 400px;
-	margin: 0 auto;
+	background: #f2f2f2;
+}
+.swiper-demo-smiple-h {
+	text-align: center;
+	font-size: 18px;
+	line-height: 180px;
 }
 </style>

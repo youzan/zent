@@ -1,7 +1,6 @@
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import SwiperItem from './SwiperItem';
 import SwiperDots from './SwiperDots';
 
@@ -18,7 +17,7 @@ export default class Swiper extends Component {
       'step-start',
       'step-end'
     ]),
-    autoPlay: PropTypes.bool,
+    autoplay: PropTypes.bool,
     autoplayIterval: PropTypes.number,
     dots: PropTypes.bool,
     dotsColor: PropTypes.oneOf(['default', 'primary', 'success', 'danger']),
@@ -34,7 +33,7 @@ export default class Swiper extends Component {
     className: '',
     prefix: 'zent',
     transition: 'ease-in-out',
-    autoPlay: false,
+    autoplay: false,
     autoplayIterval: 3000,
     dots: true,
     dotsColor: 'default',
@@ -43,13 +42,13 @@ export default class Swiper extends Component {
 
   state = {
     childs: [],
-    currentIndex: ''
+    currentIndex: null
   };
 
-  swipeChildren = () => {
+  swipeChildren = prevIndex => {
     const { childs, currentIndex } = this.state;
     childs.forEach((item, index) => {
-      item.translate(index, currentIndex);
+      item.translate(index, currentIndex, prevIndex);
     });
   };
 
@@ -86,18 +85,21 @@ export default class Swiper extends Component {
 
   swipeTo = index => {
     const { childs } = this.state;
-    const currentIndex = Math.min(Math.max(index, 0), childs.length - 1);
+    let currentIndex = index;
+    if (index > childs.length - 1) {
+      currentIndex = 0;
+    }
     this.setState({ currentIndex });
   };
 
   handleMouseEnter = () => {
-    const { autoPlay } = this.props;
-    autoPlay && this.clearAutoplay();
+    const { autoplay } = this.props;
+    autoplay && this.clearAutoplay();
   };
 
   handleMouseLeave = () => {
-    const { autoPlay } = this.props;
-    autoPlay && this.startAutoplay();
+    const { autoplay } = this.props;
+    autoplay && this.startAutoplay();
   };
 
   handleDotsClick = index => {
@@ -111,8 +113,8 @@ export default class Swiper extends Component {
   }
 
   componentDidMount() {
-    const { autoPlay } = this.props;
-    autoPlay && this.startAutoplay();
+    const { autoplay } = this.props;
+    autoplay && this.startAutoplay();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -120,8 +122,12 @@ export default class Swiper extends Component {
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
 
-    prevIndex !== currentIndex && this.swipeChildren();
+    prevIndex !== currentIndex && this.swipeChildren(prevIndex);
     onChange && onChange(currentIndex, prevIndex);
+  }
+
+  componentWillUnmount() {
+    this.clearAutoplay();
   }
 
   render() {
@@ -146,9 +152,11 @@ export default class Swiper extends Component {
       >
         <div className={`${prefix}-swiper__container`}>
           {Children.map(children, (child, index) => {
-            <SwiperItem key={index} prefix={prefix} transition={transition}>
-              {child}
-            </SwiperItem>;
+            return (
+              <SwiperItem key={index} prefix={prefix} transition={transition}>
+                {child}
+              </SwiperItem>
+            );
           })}
         </div>
         {dots &&
@@ -161,7 +169,6 @@ export default class Swiper extends Component {
             currentIndex={currentIndex}
             onDotsClick={this.handleDotsClick}
           />}
-        <WindowResizeHandler onResie={this.swipeChildren} />
       </div>
     );
   }
