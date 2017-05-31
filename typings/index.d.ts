@@ -29,7 +29,7 @@ declare module 'zent' {
   export import Table = Zent.Table
   export import Tabs = Zent.Tabs
   export import Tree = Zent.Tree
-  // TODO: Popover
+  export import Popover = Zent.Popover
   export import Portal = Zent.Portal
 }
 
@@ -258,6 +258,48 @@ declare namespace Zent {
 
   class RangePicker extends React.Component<IRangePickerProps, any> { }
 
+  interface IFormProps {
+    className?: string
+    prefix?: string
+    horizontal?: boolean
+    inline?: boolean
+    onSubmit?: React.FormEventHandler<HTMLFormElement>
+    style?: React.CSSProperties
+  }
+
+  class Form extends React.Component<IFormProps, any> {}
+
+  namespace Form {
+    interface IConnectedFormProps {
+      onChange?: (value: any) => void
+      onSubmitSuccess?: (result: any) => void
+      // onSubmitFail?: (error?: SubmissionError) => void
+      onSubmitFail?: (error?: any) => void
+    }
+
+    interface IZentForm {
+      getFormValues: () => any
+      getFieldError: (name: string) => any
+      setFormPristine: (value: boolean) => void
+      setFieldExternalErrors: (error: { key: string, value: string }) => void
+      resetFieldsValue: (data: any) => void
+      isValid: () => boolean
+      isSubmitting: () => boolean
+      isValidating: () => boolean
+      isFieldTouched: (name: string) => boolean
+      isFieldValidating: (name: string) => boolean
+    }
+
+    interface IWrappedComponentProps {
+      zentForm: IZentForm,
+      handleSubmit: (submit: (values: any, zentForm: IZentForm) => any) => any
+    }
+
+    function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps|any ,any>) => React.Component<IConnectedFormProps, any>
+
+    
+  }
+
   interface IInputProps {
     className?: string
     prefix?: string
@@ -319,7 +361,7 @@ declare namespace Zent {
     onDelete?: (date: any) => void
     filter?: (item: any) => boolean
     onAsyncFilter?: (keyword: string, callback: (data: any) => void) => void
-    onEmptySelected?: (event: React.UIEvent<HTMLSpanElement>, value: any) => void
+    onEmptySelected?: (event: React.SyntheticEvent<HTMLSpanElement>, value: any) => void
     onOpen?: () => void
     className?: string
     prefix?: string
@@ -377,7 +419,7 @@ declare namespace Zent {
   }
 
   interface IMenuProps {
-    onClick?: (event: React.UIEvent<HTMLLIElement> | React.UIEvent<HTMLDivElement>, index: number) => void
+    onClick?: (event: React.SyntheticEvent<HTMLLIElement> | React.SyntheticEvent<HTMLDivElement>, index: number) => void
     className?: string
     prefix?: string
   }
