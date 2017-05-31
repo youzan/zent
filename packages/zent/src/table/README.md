@@ -240,6 +240,7 @@ ReactDOM.render(
 ::: demo 排序
 ```jsx
 import { Table } from 'zent';
+import { assign } from 'lodash';
 
 const datasets = [{
   item_id: '5024217',
@@ -268,16 +269,19 @@ const columns = [{
 }, {
   title: '访问量',
   name: 'bro_uvpv',
+  needSort: true,
   width: '200px'
 }, {
   title: '库存',
   name: 'stock_num',
   width: '100px',
+  needSort: true,
   textAlign: 'center',
   isMoney: true
 }, {
   width: '3em',
   title: '总销量',
+  needSort: true,
   name: 'sold_num'
 }];
 
@@ -637,7 +641,7 @@ class Customer extends React.Component {
   }
 
   render() {
-    return <button className="child-comps zent-btn"  onClick={this.onClick}>这是一个自定义组件,点击试试</button>;
+    return <button key="comp" className="child-comps zent-btn"  onClick={this.onClick}>这是一个自定义组件,点击试试</button>;
   }
 }
 
@@ -675,9 +679,9 @@ class BatchCompsClass extends React.Component {
         getRowConf={this.getRowConf}
         rowKey="item_id"
           batchComponents={[
-          <span className="child-comps">这是一个DOM</span>,
+          <span key="pure" className="child-comps">这是一个DOM</span>,
           (data) => {
-            return <span className="child-comps" style={{color: "blueviolet"}}> 这是一个函数，选中了{data.length}个元素    </span>
+            return <span key="func" className="child-comps" style={{color: "blueviolet"}}> 这是一个函数，选中了{data.length}个元素    </span>
           },
           Customer
         ]}

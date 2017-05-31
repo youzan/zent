@@ -42,6 +42,8 @@ export default class Foot extends Component {
       <div className="tfoot clearfix">
         <div className="tfoot__batchcomponents">
           {needSelect &&
+            batchComponents &&
+            batchComponents.length > 0 &&
             <Checkbox
               className="select-check"
               onChange={this.onSelect}
