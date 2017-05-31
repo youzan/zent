@@ -1,201 +1,85 @@
-$blue: #38f;
-$darkblue: #27f;
-$orange: #f60;
+.zent-pagination {
+  font-size: 12px;
+  line-height: 16px;
+  text-align: right;
 
-.zent-table {
-  box-sizing: border-box;
-  margin-bottom: 20px;
-  width: 100%;
+  .pagination-list {
+    display: inline-block;
 
-  a {
-    color: #38f;
-    cursor: pointer;
-
-    &:hover {
+    .pager {
+      position: relative;
+      display: inline-block;
+      box-sizing: border-box;
+      margin: 0 0 0 5px;
+      border: 1px solid #bbb;
+      border-radius: 2px;
+      padding: 6px 8px;
+      min-width: 30px;
+      text-align: center;
+      background: #fff;
       cursor: pointer;
-      text-decoration: none;
+      user-select: none;
     }
-  }
 
-  .tr {
-    display: flex;
-    border-bottom: 1px solid #e5e5e5;
-  }
-
-  .expanded-item {
-    width: 70px;
-    text-align: center;
-    position: relative;
-
-    i {
-      height: 100%;
-
-      &::before {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
+    .pager--current {
+      color: #fff;
+      background: #38f;
+      border-color: #38f;
+      cursor: default;
     }
-  }
 
-  .thead {
-    .tr {
-      border-top: none;
-      border-bottom: 1px solid #e5e5e5;
-      background: #f2f2f2;
+    .pager--disabled {
+      border-color: #e5e5e5;
+      cursor: not-allowed;
+      color: #e5e5e5;
     }
-  }
 
-  .tbody {
-    .tr {
-      &:hover {
-        background: #f8f8f8;
+    .pager--jump {
+      margin-left: 15px;
+      padding: 0;
+      cursor: default;
+    }
 
-        .empty-data {
-          background: transparent;
-        }
-      }
+    .pager--omni {
+      margin-left: 0;
+      margin-right: -5px;
+      border: none;
+      cursor: default;
+    }
 
-      &--expanded {
-        background-color: #f8f8f8;
-      }
+    .pager__input {
+      box-sizing: border-box;
+      margin: -1px;
+      margin-right: 0;
+      border: 1px solid #bbb;
+      border-right-color: #bbb;
+      padding: 6px 2px;
+      min-width: 21px;
+      max-width: 40px;
+      height: 30px;
+      text-align: center;
+      font-weight: normal;
+      outline: none;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
 
-      .td {
-        padding: 16px 0 8px;
-
-        .expandable-btn {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          display: inline-block;
-          box-sizing: border-box;
-          cursor: pointer;
-          width: 17px;
-          height: 17px;
-          text-align: center;
-          background: #fff;
-          line-height: 10px;
-          border: 1px solid #e9e9e9;
-
-          &.expand-btn::after {
-            content: "+";
-            box-sizing: border-box;
-          }
-
-          &.collapse-btn::after {
-            content: "-";
-            box-sizing: border-box;
-          }
-        }
+      &:focus {
+        border-color: #38f;
+        box-shadow: 0 0 1px #bdf;
       }
     }
 
-    .cell {
-      min-height: 30px;
+    .pager__suffix {
+      padding: 8px 5px;
+      background: #e5e5e5;
     }
   }
+}
 
-  .tfoot {
-    padding: 10px 0 0 10px;
+.zent-pagination__info {
+  display: inline-block;
 
-    &__batchcomponents {
-      float: left;
-    }
-
-    &__page {
-      float: right;
-    }
-  }
-
-  .cell {
-    position: relative;
-    display: flex;
-    flex: auto;
-    flex-basis: 0;
-    padding: 10px;
-    padding-left: 0;
-    min-height: 20px;
-    align-items: center;
-    text-align: left;
-    font-size: 12px;
-
-    &__child-container {
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    &:first-child {
-      padding-left: 10px;
-    }
-
-    &:last-child {
-      justify-content: flex-end;
-    }
-
-    &.empty-data {
-      line-height: 20px;
-      height: 40px;
-      justify-content: center;
-    }
-
-    &.cell--selection {
-      padding-left: 34px;
-    }
-
-    &.cell--money {
-      justify-content: flex-end;
-    }
-
-    .asc,
-    .desc {
-      margin-left: 3px;
-    }
-
-    .desc {
-      &:after {
-        position: absolute;
-        content: '\2193';
-      }
-    }
-
-    .asc {
-      &:after {
-        position: absolute;
-        content: '\2191';
-      }
-    }
-
-    .select-check {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      margin-top: 0;
-    }
-  }
-
-  .card__thumb {
-    float: left;
-    margin-right: 5px;
-    height: 50px;
-  }
-
-  .card__title {
-    display: block;
-    height: 32px;
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 12px;
-    color: $blue;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  .card__info {
-    font-size: 12px;
-    color: $orange;
+  .zent-select {
+    width: 60px;
   }
 }
