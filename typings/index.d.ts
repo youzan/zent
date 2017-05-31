@@ -478,7 +478,12 @@ declare namespace Zent {
 
   class Tree extends React.Component<ITreeProps, any> {}
 
-  
+  interface IPopover {
+
+  }
+
+
+
 
 }
 
