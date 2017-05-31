@@ -533,6 +533,55 @@ declare namespace Zent {
     prefix?: string
   }
 
+  interface IBoundingBox {
+    top: number
+    left: number
+    right: number
+    bottom: number
+    width: number
+    height: number
+  }
+
+  interface IPopoverProps {
+    position: (anchorBoundingBox: IBoundingBox, containerBoundingBox: IBoundingBox, contentDimension: { width: number, height: number }, options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }) => { getCSSStyle: () => React.CSSProperties, name: string }
+    cushion?: number
+    display?: string
+    onShow?: () => void
+    onClose?: () => void
+    onBeforeShow?: () => void
+    onBeforeClose?: () => void
+    containerSelector?: string
+    visible?: boolean
+    onVisibleChange?: () => void
+    className?: string
+    wrapperClassName?: string
+    predix?: string
+  }
+
+  class Popover extends React.Component<IPopoverProps, any> {}
+
+  namespace Popover {
+    namespace Trigger {
+      interface IBaseProps {
+        getTriggerNode?: () => HTMLElement
+        getContentNode?: () => HTMLElement
+        open?: () => void
+        close?: () => void
+        contentVisible?: boolean
+        onTriggerRefChange?: () => React.ReactInstance
+      }
+
+      interface IClickProps extends IBaseProps {
+        autoClose?: boolean
+        isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
+      }
+
+      class Click extends React.Component<IClickProps, any> {}
+
+      
+    }
+  }
+
   class Portal extends React.Component<IPortalProps, any> { }
 
   namespace Portal {
