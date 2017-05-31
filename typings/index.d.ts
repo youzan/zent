@@ -578,7 +578,17 @@ declare namespace Zent {
 
       class Click extends React.Component<IClickProps, any> {}
 
-      
+      interface IHoverProps extends IBaseProps {
+        showDelay?: number
+        hideDelay?: number
+        isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
+      }
+
+      class Hover extends React.Component<IHoverProps, any> {}
+
+      type IFocusProps = IBaseProps
+
+      class Focus extends React.Component<IFocusProps, any> {}
     }
   }
 
