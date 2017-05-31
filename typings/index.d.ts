@@ -35,6 +35,8 @@ declare module 'zent' {
 
 declare namespace Zent {
 
+  type PositionFunction = (anchorBoundingBox: IBoundingBox, containerBoundingBox: IBoundingBox, contentDimension: { width: number, height: number }, options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }) => { getCSSStyle: () => React.CSSProperties, name: string }
+
   namespace Layout {
     interface IRowProps {
       className?: string
@@ -543,7 +545,7 @@ declare namespace Zent {
   }
 
   interface IPopoverProps {
-    position: (anchorBoundingBox: IBoundingBox, containerBoundingBox: IBoundingBox, contentDimension: { width: number, height: number }, options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }) => { getCSSStyle: () => React.CSSProperties, name: string }
+    position: PositionFunction
     cushion?: number
     display?: string
     onShow?: () => void
@@ -590,6 +592,37 @@ declare namespace Zent {
 
       class Focus extends React.Component<IFocusProps, any> {}
     }
+
+    namespace Position {
+      function create(func: (anchorBoundingBox: IBoundingBox, containerBoundingBox: IBoundingBox, contentDimension: { width: number, height: number }, options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }) => { getCSSStyle: () => React.CSSProperties }): PositionFunction
+      const BottomLeft: PositionFunction
+      const BottomCenter: PositionFunction
+      const BottomRight: PositionFunction
+      const LeftTop: PositionFunction
+      const LeftCenter: PositionFunction
+      const LeftBottom: PositionFunction
+      const RightTop: PositionFunction
+      const RightCenter: PositionFunction
+      const RightBottom: PositionFunction
+      const TopLeft: PositionFunction
+      const TopCenter: PositionFunction
+      const TopRight: PositionFunction
+      const AutoBottomLeft: PositionFunction
+      const AutoBottomRight: PositionFunction
+      const AutoBottomCenter: PositionFunction
+      const AutoTopLeft: PositionFunction
+      const AutoTopRight: PositionFunction
+      const AutoTopCenter: PositionFunction
+    }
+
+    interface IWithPopverProps {
+      getTriggerNode?: () => HTMLElement
+      getContentNode?: () => HTMLElement
+      open?: () => void
+      close?: () => void
+    }
+
+    function withPopover(component: React.Component<any, any>): React.Component<IWithPopverProps, any>
   }
 
   class Portal extends React.Component<IPortalProps, any> { }
