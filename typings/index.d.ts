@@ -34,14 +34,14 @@ declare module 'zent' {
 }
 
 declare namespace Zent {
-  
+
   namespace Layout {
     interface IRowProps {
       className?: string
       prefix?: string
     }
 
-    export class Row extends React.Component<IRowProps, any> {}
+    export class Row extends React.Component<IRowProps, any> { }
 
     interface IColProps {
       span: number
@@ -50,18 +50,18 @@ declare namespace Zent {
       prefix?: string
     }
   }
-  
-  type TIconType = 'summary-o'|'summary'|'shop-o'|'shop'|'goods-o'|'goods'|'order-o'|'order'|'customer-o'|'customer'|'chart-o'|'chart'|'capital-o'|'capital'|'casher'|'marketing'|'settings-o'|'settings'|'youzan-o'|'youzan'|'close'|'close-circle-o'|'close-circle'|'message'|'message-o'|'bell'|'bell-o'|'calendar'|'calendar-o'|'search'|'customer-service'|'feedback'|'error-circle-o'|'error-circle'|'check-circle-o'|'check-circle'|'help-circle-o'|'help-circle'|'clock-o'|'clock'|'countdown'|'download'|'share'|'shop-decorate'|'shop-template'|'gift'|'caret-up'|'caret-down'|'arrow-up'|'arrow-down'|'right'|'plus'|'star-o'|'star'|'check'|'info-circle-o'|'info-circle'|'warning-o'|'warning'|'lock'|'unlock'
+
+  type TIconType = 'summary-o' | 'summary' | 'shop-o' | 'shop' | 'goods-o' | 'goods' | 'order-o' | 'order' | 'customer-o' | 'customer' | 'chart-o' | 'chart' | 'capital-o' | 'capital' | 'casher' | 'marketing' | 'settings-o' | 'settings' | 'youzan-o' | 'youzan' | 'close' | 'close-circle-o' | 'close-circle' | 'message' | 'message-o' | 'bell' | 'bell-o' | 'calendar' | 'calendar-o' | 'search' | 'customer-service' | 'feedback' | 'error-circle-o' | 'error-circle' | 'check-circle-o' | 'check-circle' | 'help-circle-o' | 'help-circle' | 'clock-o' | 'clock' | 'countdown' | 'download' | 'share' | 'shop-decorate' | 'shop-template' | 'gift' | 'caret-up' | 'caret-down' | 'arrow-up' | 'arrow-down' | 'right' | 'plus' | 'star-o' | 'star' | 'check' | 'info-circle-o' | 'info-circle' | 'warning-o' | 'warning' | 'lock' | 'unlock'
 
   interface IIconProps {
     type: TIconType
     className?: string
   }
 
-  export class Icon extends React.Component<IIconProps, any> {}
+  export class Icon extends React.Component<IIconProps, any> { }
 
-  type TAlertType = 'info'|'warning'|'danger'
-  type TAlertSize = 'normal'|'large'
+  type TAlertType = 'info' | 'warning' | 'danger'
+  type TAlertSize = 'normal' | 'large'
 
   interface IAlertProps {
     type: TAlertType
@@ -73,7 +73,7 @@ declare namespace Zent {
     prefix?: string
   }
 
-  export class Alert extends React.Component<IAlertProps, any> {}
+  export class Alert extends React.Component<IAlertProps, any> { }
 
   interface IDialogProps {
     title?: React.ReactNode
@@ -131,7 +131,7 @@ declare namespace Zent {
 
   interface IPopProps {
     content: React.ReactNode
-    trigger?: 'none'|'click'|'hover'|'focus'
+    trigger?: 'none' | 'click' | 'hover' | 'focus'
     position?: string
     centerArrow?: boolean
     header: React.ReactNode
@@ -144,7 +144,7 @@ declare namespace Zent {
     onCancel?: () => void
     confirmText?: string
     cancelText?: string
-    type?: 'primary'|'default'|'danger'|'success'
+    type?: 'primary' | 'default' | 'danger' | 'success'
     visible?: boolean
     onVisibleChange?: () => void
     className?: string
@@ -156,16 +156,16 @@ declare namespace Zent {
     mouseLeaveDelay?: number
   }
 
-  class Pop extends React.Component<IPopProps, any> {}
+  class Pop extends React.Component<IPopProps, any> { }
 
   namespace SweetAlert {
     interface IAlertOption {
       content: React.ReactNode
-      type: 'info'|'success'|'error'|'warning'
+      type: 'info' | 'success' | 'error' | 'warning'
       title?: React.ReactNode
-      onConfirm?: () => void|Promise<any>
+      onConfirm?: () => void | Promise<any>
       confirmText?: string
-      confirmType?: 'default'|'primary'|'danger'|'success'
+      confirmType?: 'default' | 'primary' | 'danger' | 'success'
       className?: string
       prefix?: string
     }
@@ -180,22 +180,22 @@ declare namespace Zent {
   }
 
   interface IButtonProps {
-    type?: 'default'|'primary'|'danger'|'success'
-    size?: 'medium'|'large'|'small'
-    htmlType?: 'button'|'submit'|'reset'
+    type?: 'default' | 'primary' | 'danger' | 'success'
+    size?: 'medium' | 'large' | 'small'
+    htmlType?: 'button' | 'submit' | 'reset'
     block?: boolean
     disabled?: boolean
     loading?: boolean
     outline?: boolean
     bordered?: boolean
-    component?: (() => string)|string
+    component?: (() => string) | string
     href?: string
     target?: string
     className?: string
     prefix?: string
   }
 
-  class Button extends React.Component<IButtonProps, any> {}
+  class Button extends React.Component<IButtonProps, any> { }
 
   interface ICheckBoxProps {
     checked?: boolean
@@ -216,17 +216,17 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class CheckBox extends React.Component<ICheckBoxProps, any> {}
+  class CheckBox extends React.Component<ICheckBoxProps, any> { }
 
   namespace CheckBox {
-    class Group extends React.Component<ICheckBoxGroupProps, any> {}
+    class Group extends React.Component<ICheckBoxGroupProps, any> { }
   }
 
   interface IDatePickerCommonProps {
-    value?: string|Date
-    defaultValue?: string|Date
-    onChange?: (value: string|number|Date) => void
-    onClick?: (value: string|number|Date) => void
+    value?: string | Date
+    defaultValue?: string | Date
+    onChange?: (value: string | number | Date) => void
+    onClick?: (value: string | number | Date) => void
     onOpen?: () => void
     disabled?: boolean
     format?: string
@@ -240,26 +240,26 @@ declare namespace Zent {
     showTime?: boolean
     disabledTime?: () => { disabledHour: (value: number) => boolean, disabledMinute: (value: number) => boolean, disabledSecond: (value: number) => boolean }
     disabledDate?: (date: Date) => boolean
-    min?: string|number
-    max?: string|number
-    valueType?: 'number'|'string'|'date'
+    min?: string | number
+    max?: string | number
+    valueType?: 'number' | 'string' | 'date'
     placeholder?: string
   }
 
-  class DatePicker extends React.Component<IDatePickerProps, any> {}
+  class DatePicker extends React.Component<IDatePickerProps, any> { }
 
   type IMonthPickerProps = IDatePickerCommonProps
 
-  class MonthPicker extends React.Component<IMonthPickerProps, any> {}
+  class MonthPicker extends React.Component<IMonthPickerProps, any> { }
 
   type IRangePickerProps = IDatePickerProps
 
-  class RangePicker extends React.Component<IRangePickerProps, any> {}
+  class RangePicker extends React.Component<IRangePickerProps, any> { }
 
   interface IInputProps {
     className?: string
     prefix?: string
-    type?: 'text'|'number'|'password'|'textarea'
+    type?: 'text' | 'number' | 'password' | 'textarea'
     defaultValue?: string
     value?: string
     readOnly?: boolean
@@ -282,7 +282,7 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Radio extends React.Component<IRadioProps, any> {}
+  class Radio extends React.Component<IRadioProps, any> { }
 
   namespace Radio {
     interface IGroupProps {
@@ -293,7 +293,7 @@ declare namespace Zent {
       prefix?: string
     }
 
-    class Group extends React.Component<IGroupProps, any> {}
+    class Group extends React.Component<IGroupProps, any> { }
   }
 
   interface ISelectTrigger {
@@ -313,7 +313,7 @@ declare namespace Zent {
     trigger?: React.Component<ISelectTrigger, any>
     optionText?: string
     optionValue?: string
-    onChange?: (event: { target: { type: any, value: any }, preventDefault: () => void, stopPropagation: () => void  }, value: any) => void
+    onChange?: (event: { target: { type: any, value: any }, preventDefault: () => void, stopPropagation: () => void }, value: any) => void
     onDelete?: (date: any) => void
     filter?: (item: any) => boolean
     onAsyncFilter?: (keyword: string, callback: (data: any) => void) => void
@@ -323,7 +323,7 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Select extends React.Component<ISelectProps, any> {}
+  class Select extends React.Component<ISelectProps, any> { }
 
   interface ISliderProps {
     value: [number, number]
@@ -340,7 +340,7 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Slider extends React.Component<ISliderProps, any> {}
+  class Slider extends React.Component<ISliderProps, any> { }
 
   interface IBreadcrumbProps {
     breads?: Array<React.ReactNode>
@@ -348,7 +348,7 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Breadcrumb extends React.Component<IBreadcrumbProps, any> {}
+  class Breadcrumb extends React.Component<IBreadcrumbProps, any> { }
 
   interface ISwitchProps {
     checked?: boolean
@@ -357,12 +357,12 @@ declare namespace Zent {
     checkedText?: string
     uncheckedText?: string
     loading?: boolean
-    size?: 'default'|'small'
+    size?: 'default' | 'small'
     className?: string
     prefix?: string
   }
 
-  class Switch extends React.Component<ISwitchProps, any> {}
+  class Switch extends React.Component<ISwitchProps, any> { }
 
   namespace Breadcrumb {
     interface IItemProps {
@@ -371,16 +371,16 @@ declare namespace Zent {
       href: string
     }
 
-    class Item extends React.Component<IItemProps, any> {}
+    class Item extends React.Component<IItemProps, any> { }
   }
 
   interface IMenuProps {
-    onClick?: (event: React.UIEvent<HTMLLIElement>|React.UIEvent<HTMLDivElement>, index: number) => void
+    onClick?: (event: React.UIEvent<HTMLLIElement> | React.UIEvent<HTMLDivElement>, index: number) => void
     className?: string
     prefix?: string
   }
 
-  class Menu extends React.Component<IMenuProps, any> {}
+  class Menu extends React.Component<IMenuProps, any> { }
 
   namespace Menu {
     interface IMenuItemProps {
@@ -390,7 +390,7 @@ declare namespace Zent {
       prefix?: string
     }
 
-    class MenuItem extends React.Component<MenuItem, any> {}
+    class MenuItem extends React.Component<MenuItem, any> { }
 
     interface ISubMenuProps {
       title: string
@@ -400,7 +400,7 @@ declare namespace Zent {
       prefix?: string
     }
 
-    class SubMenu extends React.Component<ISubMenuProps, any> {}
+    class SubMenu extends React.Component<ISubMenuProps, any> { }
   }
 
   interface IPaginationProps {
@@ -413,17 +413,17 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Pagination extends React.Component<IPaginationProps, any> {}
+  class Pagination extends React.Component<IPaginationProps, any> { }
 
   interface IStepsProps {
-    type?: 'number'|'card'|'breadcrumb'
+    type?: 'number' | 'card' | 'breadcrumb'
     current?: number
-    status?: 'finish'|'error'|'wait'
+    status?: 'finish' | 'error' | 'wait'
     className?: string
     prefix?: string
   }
 
-  class Steps extends React.Component<IStepsProps, any> {}
+  class Steps extends React.Component<IStepsProps, any> { }
 
   namespace Steps {
     interface IStepProps {
@@ -431,14 +431,14 @@ declare namespace Zent {
       description?: React.ReactNode
     }
 
-    class Step extends React.Component<IStepProps, any> {}
+    class Step extends React.Component<IStepProps, any> { }
   }
 
   interface ITableColumn {
     title: string
     name: string
     width?: number
-    textAign?: 'left'|'right'|'center'
+    textAign?: 'left' | 'right' | 'center'
     isMoney?: boolean
     bodyRender?: (data: any) => React.ReactNode
   }
@@ -448,7 +448,7 @@ declare namespace Zent {
     datasets: Array<Object>
     rowKey?: string
     sortBy?: string
-    sortType?: 'desc'|'asc'
+    sortType?: 'desc' | 'asc'
     onChange?: (conf: any) => void
     emptyLabel?: string
     selection?: { selectedRowKeys?: Array<string>, onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void }
@@ -461,19 +461,19 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Table extends React.Component<ITableProps, any> {}
+  class Table extends React.Component<ITableProps, any> { }
 
   interface ITab {
-    tab: string|number
-    id: string|number
+    tab: string | number
+    id: string | number
     disabled?: boolean
   }
 
   interface ITabsProps {
     activeId: string
-    type?: 'normal'|'card'|'slider'
-    size?: 'normal'|'huge'
-    align?: 'left'|'right'|'center'
+    type?: 'normal' | 'card' | 'slider'
+    size?: 'normal' | 'huge'
+    align?: 'left' | 'right' | 'center'
     onTabChange?: (id: string) => void
     onTabDel?: (id: string) => void
     onTabAdd?: () => void
@@ -484,35 +484,35 @@ declare namespace Zent {
     prefix?: string
   }
 
-  class Tabs extends React.Component<ITabsProps, any> {}
+  class Tabs extends React.Component<ITabsProps, any> { }
 
   interface ITreeData {
-    id: number|string
-    title: number|string
+    id: number | string
+    title: number | string
     children?: Array<ITreeData>
-    parendId?: string|number
+    parendId?: string | number
     expand?: boolean
     isLeaf?: boolean
   }
 
   interface ITreeOperation {
     name: string
-    icon?: string|React.ReactElement<any>
+    icon?: string | React.ReactElement<any>
     action: (data: ITreeData) => void
     shouldRender?: (data: ITreeData) => boolean
   }
 
   interface ITreeProps {
-    dataType?: 'tree'|'plain'
+    dataType?: 'tree' | 'plain'
     data: Array<ITreeData>
     render?: (data: ITreeData) => React.ReactNode
     operations?: Array<ITreeOperation>
     foldable?: boolean
     checkable?: boolean
-    onCheck?: (data: Array<number|string>) => void
-    defaultCheckedKeys?: Array<number|string>
-    disabledCheckedKeys?: Array<number|string>
-    size?: 'medium'|'small'|'large'
+    onCheck?: (data: Array<number | string>) => void
+    defaultCheckedKeys?: Array<number | string>
+    disabledCheckedKeys?: Array<number | string>
+    size?: 'medium' | 'small' | 'large'
     commonStyle?: React.CSSProperties
     expandAll?: boolean
     onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void
@@ -521,7 +521,34 @@ declare namespace Zent {
     isRoot?: (data: ITreeData) => boolean
   }
 
-  class Tree extends React.Component<ITreeProps, any> {}
+  class Tree extends React.Component<ITreeProps, any> { }
+
+
+  interface IPortalProps {
+    children: React.ReactChild
+    selector?: string | HTMLElement
+    visible?: boolean
+    className?: string
+    css?: React.CSSProperties
+    prefix?: string
+  }
+
+  class Portal extends React.Component<IPortalProps, any> { }
+
+  namespace Portal {
+    interface IEscPortalProps extends IPortalProps {
+      onClose: () => void
+    }
+
+    function withESCToClose(component: Portal): React.Component<IEscPortalProps, any>
+
+    type INonScrollablePortalProps = IPortalProps
+
+    function withNonScrollable(component: Portal): React.Component<INonScrollablePortalProps, any>
+  }
+
+
+
 
 }
 
