@@ -2,6 +2,37 @@
 
 /// <reference types="react" />
 
+declare module 'zent' {
+  export import Layout = Zent.Layout
+  export import Icon = Zent.Icon
+  export import Alert = Zent.Alert
+  export import Dialog = Zent.Dialog
+  export import Loading = Zent.Loading
+  export import Notify = Zent.Notify
+  export import Pop = Zent.Pop
+  export import SweetAlert = Zent.SweetAlert
+  export import Button = Zent.Button
+  export import CheckBox = Zent.CheckBox
+  export import DatePicker = Zent.DatePicker
+  export import MonthPicker = Zent.MonthPicker
+  export import RangePicker = Zent.RangePicker
+  // TODO: Form
+  export import Input = Zent.Input
+  export import Radio = Zent.Radio
+  export import Select = Zent.Select
+  export import Slider = Zent.Slider
+  export import Switch = Zent.Switch
+  export import Breadcrumb = Zent.Breadcrumb
+  export import Menu = Zent.Menu
+  export import Pagination = Zent.Pagination
+  export import Steps = Zent.Steps
+  export import Table = Zent.Table
+  export import Tabs = Zent.Tabs
+  export import Tree = Zent.Tree
+  // TODO: Popover
+  // TODO: Portal
+}
+
 declare namespace Zent {
   
   namespace Layout {
@@ -205,7 +236,7 @@ declare namespace Zent {
     confirmText?: string
   }
 
-  interface IDatePickProps extends IDatePickerCommonProps {
+  interface IDatePickerProps extends IDatePickerCommonProps {
     showTime?: boolean
     disabledTime?: () => { disabledHour: (value: number) => boolean, disabledMinute: (value: number) => boolean, disabledSecond: (value: number) => boolean }
     disabledDate?: (date: Date) => boolean
@@ -221,7 +252,7 @@ declare namespace Zent {
 
   class MonthPicker extends React.Component<IMonthPickerProps, any> {}
 
-  type IRangePickerProps = IDatePickProps
+  type IRangePickerProps = IDatePickerProps
 
   class RangePicker extends React.Component<IRangePickerProps, any> {}
 
@@ -303,7 +334,7 @@ declare namespace Zent {
     step?: number
     withInput?: boolean
     dots?: boolean
-    marks?: Object<any>
+    marks?: Object
     disabled?: boolean
     className?: string
     prefix?: string
@@ -318,6 +349,20 @@ declare namespace Zent {
   }
 
   class Breadcrumb extends React.Component<IBreadcrumbProps, any> {}
+
+  interface ISwitchProps {
+    checked?: boolean
+    onChange?: (checked: boolean) => void
+    disabled?: boolean
+    checkedText?: string
+    uncheckedText?: string
+    loading?: boolean
+    size?: 'default'|'small'
+    className?: string
+    prefix?: string
+  }
+
+  class Switch extends React.Component<ISwitchProps, any> {}
 
   namespace Breadcrumb {
     interface IItemProps {
@@ -477,13 +522,6 @@ declare namespace Zent {
   }
 
   class Tree extends React.Component<ITreeProps, any> {}
-
-  interface IPopover {
-
-  }
-
-
-
 
 }
 
