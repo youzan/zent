@@ -16,7 +16,7 @@ declare module 'zent' {
   export import DatePicker = Zent.DatePicker
   export import MonthPicker = Zent.MonthPicker
   export import RangePicker = Zent.RangePicker
-  // TODO: Form
+  export import Form = Zent.Form
   export import Input = Zent.Input
   export import Radio = Zent.Radio
   export import Select = Zent.Select
@@ -297,7 +297,51 @@ declare namespace Zent {
 
     function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps|any ,any>) => React.Component<IConnectedFormProps, any>
 
-    
+    interface IValidation {
+      required?: boolean
+      isExisty?: boolean
+      matchRegex?: RegExp
+      isUndefined?: boolean
+      isEmptyString?: boolean
+      isEmail?: boolean
+      isUrl?: boolean
+      isTrue?: boolean
+      isFalse?: boolean
+      isNumeric?: boolean
+      isInt?: boolean
+      isFloat?: boolean
+      isLength?: boolean
+      equals?: any
+      equalsField?: string
+      maxLength?: number
+      minLength?: number
+    }
+
+    interface IFieldProps {
+      ref?: (ref: any) => void
+      name: string
+      component: string|React.Component<any, any>
+      normalize?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
+      format?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
+      onChange?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
+      onBlur?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
+      onFocus?: React.FocusEventHandler<any>
+      validations?: IValidation
+      validationErrors?: any
+      asyncValidation?: (values: Object, values: any) => Promise<any>
+      value: any
+    }
+
+    class Field extends React.Component<IFieldProps, any> {}
+
+    interface IContolGroupProps {
+      label?: string
+      className?: string
+      helpDesc?: string
+      required?: boolean
+    }
+
+    function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
   }
 
   interface IInputProps {
