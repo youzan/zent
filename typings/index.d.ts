@@ -30,7 +30,7 @@ declare module 'zent' {
   export import Tabs = Zent.Tabs
   export import Tree = Zent.Tree
   // TODO: Popover
-  // TODO: Portal
+  export import Portal = Zent.Portal
 }
 
 declare namespace Zent {
