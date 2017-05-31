@@ -372,7 +372,7 @@ class Selection extends React.Component {
     this.setState({
       selectedRowKeys
     });
-		console.log(currentRow)
+    console.log(currentRow)
     alert(`你选中了：${selectedRowKeys}`);
   }
 
@@ -632,13 +632,13 @@ const columns = [{
 }];
 
 class Customer extends React.Component {
-	onClick = () => {
-		alert(`你选中了${this.props.data.length}个东东`);
-	}
+  onClick = () => {
+    alert(`选中了${this.props.data.length}个元素`);
+  }
 
-	render() {
-		return <a onClick={this.onClick}>这是一个自定义组件,点击试试</a>;
-	}
+  render() {
+    return <button className="child-comps zent-btn"  onClick={this.onClick}>这是一个自定义组件,点击试试</button>;
+  }
 }
 
 class BatchCompsClass extends React.Component {
@@ -648,7 +648,7 @@ class BatchCompsClass extends React.Component {
       limit: 10,
       current: 0,
       total: 101,
-			selectedRowKeys: []
+      selectedRowKeys: []
     };
   }
 
@@ -658,9 +658,9 @@ class BatchCompsClass extends React.Component {
     };
   }
 
-	onSelect = (selectedRowkeys) => {
-		this.setState({selectedRowKeys: selectedRowkeys});
-	}
+  onSelect = (selectedRowkeys) => {
+    this.setState({selectedRowKeys: selectedRowkeys});
+  }
 
   onChange(conf) {
     this.setState(conf);
@@ -674,17 +674,17 @@ class BatchCompsClass extends React.Component {
         onChange={this.onChange.bind(this)}
         getRowConf={this.getRowConf}
         rowKey="item_id"
-				batchComps={[
-					<span>晚上一个纯组件</span>,
-					(data) => {
-						return <span style={{color: "pink"}}> 我是一个函数，选中了{data.length}个元素    </span>
-					},
-					Customer
-				]}
-				selection={{
+          batchComponents={[
+          <span className="child-comps">这是一个DOM</span>,
+          (data) => {
+            return <span className="child-comps" style={{color: "blueviolet"}}> 这是一个函数，选中了{data.length}个元素    </span>
+          },
+          Customer
+        ]}
+        selection={{
           selectedRowKeys: this.state.selectedRowKeys,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
-						this.onSelect(selectedRowkeys);
+            this.onSelect(selectedRowkeys);
           }
         }}
       />
@@ -715,7 +715,7 @@ ReactDOM.render(
 | loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
 | getRowConf | 每一行的配置函数，返回一个配置对象`{ canSelect, rowClass }` | func          |             |         | 否    |
 | expandation     |  展开配置                                      | object        |     |         | 否    |
-| batchComps     |  批量操作的组件列表，如何使用，看批量操作的示例       | array[html/function/React Component]        |   null  |   null      | 否    |
+| batchComponents     |  批量操作的组件列表，如何使用，看批量操作的示例       | array[html/function/React Component]        |   null  |   null      | 否    |
 | autoStick  | 是否自动将head stick到窗口                         | bool          | `false`     |         | 否    |
 | autoScroll | 是否点击分页自动滚到table顶部                          | boll          | `false`     |         | 否    |
 | className  | 自定义额外类名                                    | string        | `''`        |         | 否    |

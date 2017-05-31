@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'zent';
+import Table from 'table';
 
 const datasets = [
   {
@@ -46,12 +46,27 @@ const columns = [
 ];
 
 class Customer extends React.Component {
+  componentWillMount() {
+    this.setState({
+      length: 0
+    });
+  }
+
   onClick = () => {
-    alert(`你选中了${this.props.data.length}个东东`);
+    this.setState({
+      length: this.props.data.length
+    });
   };
 
   render() {
-    return <a onClick={this.onClick}>这是一个自定义组件,点击试试</a>;
+    return (
+      <div className="child-comps child-comps--comp">
+        <button className="zent-btn" onClick={this.onClick}>
+          这是一个自定义组件,点击试试
+        </button>
+        <span className="label-container">选中了{this.state.length}个元素</span>
+      </div>
+    );
   }
 }
 
@@ -59,9 +74,6 @@ class BatchCompsClass extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      limit: 10,
-      current: 0,
-      total: 101,
       selectedRowKeys: []
     };
   }
@@ -85,15 +97,19 @@ class BatchCompsClass extends React.Component {
       <Table
         columns={columns}
         datasets={datasets}
-        onChange={this.onChange.bind(this)}
-        getRowConf={this.getRowConf}
         rowKey="item_id"
-        batchComps={[
-          <span>晚上一个纯组件</span>,
+        batchComponents={[
+          <span key="pure" className="child-comps child-comps--pure">
+            这是一个DOM
+          </span>,
           data => {
             return (
-              <span style={{ color: 'pink' }}>
-                {' '}我是一个函数，选中了{data.length}个元素{' '}
+              <span
+                key="func"
+                className="child-comps child-comps--func"
+                style={{ color: 'blueviolet' }}
+              >
+                {' '}这是一个函数，选中了{data.length}个元素{' '}
               </span>
             );
           },

@@ -26,7 +26,7 @@ export default class Table extends Component {
     autoStick: bool,
     selection: object,
     expandation: object,
-    batchComps: array
+    batchComponents: array
   };
 
   static defaultProps = {
@@ -42,7 +42,7 @@ export default class Table extends Component {
     autoScroll: false,
     autoStick: false,
     selection: null,
-    batchComps: null
+    batchComponents: null
   };
 
   constructor(props) {
@@ -220,7 +220,7 @@ export default class Table extends Component {
         return { canSelect: true, rowClass: '' };
       },
       expandation = null,
-      batchComps = null
+      batchComponents = null
     } = this.props;
 
     let needSelect = selection !== null;
@@ -299,20 +299,20 @@ export default class Table extends Component {
                 isExpanded={isExpanded}
                 expandRender={expandRender}
               />
+              <Foot
+                batchComponents={batchComponents}
+                pageInfo={pageInfo}
+                selection={{
+                  needSelect,
+                  onSelectAll: this.onSelectAllRows,
+                  selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
+                  isSelectAll,
+                  isSelectPart
+                }}
+                current={this.state.current}
+                onPageChange={this.onPageChange}
+              />
             </div>}
-          <Foot
-            batchComps={batchComps}
-            pageInfo={pageInfo}
-            selection={{
-              needSelect,
-              onSelectAll: this.onSelectAllRows,
-              selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
-              isSelectAll,
-              isSelectPart
-            }}
-            current={this.state.current}
-            onPageChange={this.onPageChange}
-          />
         </Loading>
       </div>
     );

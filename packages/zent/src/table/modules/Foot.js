@@ -6,8 +6,8 @@ import helper from '../helper.js';
 
 export default class Foot extends Component {
   // 拿到所有的选中的item
-  renderBatchComps(selectedRows, batchComps) {
-    return batchComps.map((comp, index) => {
+  renderBatchComps(selectedRows, batchComponents) {
+    return batchComponents.map((comp, index) => {
       if (helper.isReactComponent(comp)) {
         const Comp = comp;
         return <Comp key={index} data={selectedRows} />;
@@ -32,16 +32,15 @@ export default class Foot extends Component {
     const {
       pageInfo,
       onPageChange,
-      batchComps,
+      batchComponents,
       selection,
       current
     } = this.props;
 
     const { needSelect, selectedRows } = selection;
-
     return (
       <div className="tfoot clearfix">
-        <div className="tfoot__batchcomps">
+        <div className="tfoot__batchcomponents">
           {needSelect &&
             <Checkbox
               className="select-check"
@@ -49,9 +48,9 @@ export default class Foot extends Component {
               checked={selection.isSelectAll}
               indeterminate={selection.isSelectPart}
             />}
-          {batchComps &&
-            batchComps.length > 0 &&
-            this.renderBatchComps(selectedRows, batchComps)}
+          {batchComponents &&
+            batchComponents.length > 0 &&
+            this.renderBatchComps(selectedRows, batchComponents)}
         </div>
         <div className="tfoot__page">
           {pageInfo &&
