@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 
 function noop() {}
 
-class Tab extends React.Component {
+class Tab extends Component {
   static propTypes = {
     prefix: PropTypes.string,
     actived: PropTypes.bool,

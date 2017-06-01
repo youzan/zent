@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,7 @@ import navUtil from './navUtil';
 
 function noop() {}
 
-class Nav extends React.Component {
+class Nav extends Component {
   static propTypes = {
     prefix: PropTypes.string,
     tabListData: PropTypes.array,

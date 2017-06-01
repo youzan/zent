@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,7 @@ import tabUtil from './tabUtil';
 
 function noop() {}
 
-export default class Tabs extends React.Component {
+export default class Tabs extends Component {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
