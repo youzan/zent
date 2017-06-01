@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 export default Control => {
-  return class ControlGroup extends React.Component {
+  return class ControlGroup extends Component {
     getControlInstance = () => {
       return this.control;
     };

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import focusWithoutScroll from 'utils/dom/focusWithoutScroll';
 
-export default class DialogEl extends Component {
+export default class DialogEl extends (PureComponent || Component) {
   onMaskClick = e => {
     if (
       e.target === e.currentTarget &&
