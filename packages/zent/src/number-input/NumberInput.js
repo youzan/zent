@@ -29,8 +29,13 @@ export default class NumberInput extends Component {
 
   constructor(props) {
     super(props);
-    const { value, decimal } = props;
-    let { num, minArrow, maxArrow } = this.adjustFixed(value, decimal);
+    const { value, min, max, decimal } = props;
+    let { num, minArrow, maxArrow } = this.adjustFixed(
+      value,
+      min,
+      max,
+      decimal
+    );
     this.state = {
       value: num,
       minArrow,
@@ -39,25 +44,39 @@ export default class NumberInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { value } = nextProps;
+    const { value, min, max } = nextProps;
     const { decimal } = this.props;
-    let { num, minArrow, maxArrow } = this.adjustFixed(value, decimal);
-    this.setState({
-      value: num,
-      minArrow,
-      maxArrow
-    });
+    let { num, minArrow, maxArrow } = this.adjustFixed(
+      value,
+      min,
+      max,
+      decimal
+    );
+    if (+num !== +this.state.value) {
+      this.setState({
+        value: num,
+        minArrow,
+        maxArrow
+      });
+      this.onPropChange(num);
+    }
   }
 
-  adjustFixed(num, len) {
+  shouldComponentUpdate(nextProps, nextState) {
+    // 渲染次数优化
+    return nextState.value !== this.state.value;
+  }
+
+  adjustFixed(num, min, max, len) {
     // 检查min与max范围
-    const { min, max } = this.props;
     let maxArrow = false;
     let minArrow = false;
-    maxArrow = Math.round(num * 10 ** len) <= Math.round(min * 10 ** len);
-    minArrow = Math.round(num * 10 ** len) >= Math.round(max * 10 ** len);
-    num = maxArrow ? min : num;
-    num = minArrow ? max : num;
+    if (min || max) {
+      maxArrow = Math.round(num * 10 ** len) <= Math.round(min * 10 ** len);
+      minArrow = Math.round(num * 10 ** len) >= Math.round(max * 10 ** len);
+      num = maxArrow ? min : num;
+      num = minArrow ? max : num;
+    }
 
     // 四舍五入, 切保留几位小数， 此四舍五入修正了js原生toFixed保留小数点的BUG问题
     num = (Math.round(num * 10 ** len) / 10 ** len).toFixed(len);
@@ -73,8 +92,9 @@ export default class NumberInput extends Component {
     let result = ((Math.round(num * 10 ** len) + count) / 10 ** len).toFixed(
       len
     );
+    let { min, max } = this.props;
     // 检查范围
-    return this.adjustFixed(result, len);
+    return this.adjustFixed(result, min, max, len);
   }
 
   onChange(ev) {
@@ -91,23 +111,28 @@ export default class NumberInput extends Component {
     }
   }
 
-  onBlur(ev) {
-    const { decimal } = this.props;
+  onBlur() {
+    const { decimal, min, max } = this.props;
     let { value } = this.state;
     if (/^(\-|\+)?$/g.test(value)) {
       value = value.replace(/^(\-|\+)?$/g, '');
     }
     value = value.replace(/\.$/g, '');
-    let { num, minArrow, maxArrow } = this.adjustFixed(value, decimal);
+    let { num, minArrow, maxArrow } = this.adjustFixed(
+      value,
+      min,
+      max,
+      decimal
+    );
     this.setState({
       value: num,
       minArrow,
       maxArrow
     });
-    this.onPropChange(ev, num);
+    this.onPropChange(num);
   }
 
-  onArrow(ev, disabled, count) {
+  onArrow(disabled, count) {
     if (disabled) return;
     const { value } = this.state;
     const { decimal } = this.props;
@@ -117,24 +142,16 @@ export default class NumberInput extends Component {
       minArrow,
       maxArrow
     });
-    this.onPropChange(ev, num);
+    this.onPropChange(num);
   }
 
-  onPropChange(evt, result) {
+  onPropChange(result) {
     const props = this.props;
     props.onChange({
       target: {
         ...props,
         type: 'number',
         value: result
-      },
-
-      preventDefault() {
-        evt.preventDefault();
-      },
-
-      stopPropagation() {
-        evt.stopPropagation();
       }
     });
   }
@@ -185,6 +202,9 @@ export default class NumberInput extends Component {
           </span>}
         <Input
           {...inputProps}
+          ref={input => {
+            this.numberinput = input;
+          }}
           value={value}
           onChange={e => {
             this.onChange(e);
