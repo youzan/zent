@@ -71,7 +71,7 @@ export default class NumberInput extends Component {
     // 检查min与max范围
     let maxArrow = false;
     let minArrow = false;
-    if (min || max) {
+    if (min !== undefined || max !== undefined) {
       maxArrow = Math.round(num * 10 ** len) <= Math.round(min * 10 ** len);
       minArrow = Math.round(num * 10 ** len) >= Math.round(max * 10 ** len);
       num = maxArrow ? min : num;
@@ -115,7 +115,7 @@ export default class NumberInput extends Component {
     const { decimal, min, max } = this.props;
     let { value } = this.state;
     if (/^(\-|\+)?$/g.test(value)) {
-      value = value.replace(/^(\-|\+)?$/g, '');
+      value = '';
     }
     value = value.replace(/\.$/g, '');
     let { num, minArrow, maxArrow } = this.adjustFixed(
@@ -194,30 +194,27 @@ export default class NumberInput extends Component {
         {showStepper &&
           <span
             className={upArrowClass}
-            onClick={e => {
-              this.onArrow(e, minArrowState, 1);
+            onClick={() => {
+              this.onArrow(minArrowState, 1);
             }}
           >
             <Icon type="right" />
           </span>}
         <Input
           {...inputProps}
-          ref={input => {
-            this.numberinput = input;
-          }}
           value={value}
           onChange={e => {
             this.onChange(e);
           }}
-          onBlur={e => {
-            this.onBlur(e);
+          onBlur={() => {
+            this.onBlur();
           }}
         />
         {showStepper &&
           <span
             className={downArrowClass}
-            onClick={e => {
-              this.onArrow(e, maxArrowState, -1);
+            onClick={() => {
+              this.onArrow(maxArrowState, -1);
             }}
           >
             <Icon type="right" />
