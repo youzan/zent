@@ -17,14 +17,22 @@ export default class SwiperDots extends Component {
       `${prefix}-swiper__dots-${dotsSize}`
     );
 
+    const clonedItems = [].slice.call(items);
+    clonedItems.pop();
+    clonedItems.shift();
+    const { length } = clonedItems;
+
     return (
       <ul className={classString}>
-        {items.map((item, index) => {
+        {clonedItems.map((item, index) => {
           return (
             <li
               key={index}
               className={cx(`${prefix}-swiper__dots-item`, {
-                [`${prefix}-swiper__dots-item-active`]: index === currentIndex
+                [`${prefix}-swiper__dots-item-active`]: index ===
+                  currentIndex ||
+                  (index === 0 && currentIndex > length - 1) ||
+                  (index === length - 1 && currentIndex < 0)
               })}
               onClick={e => {
                 e.stopPropagation();

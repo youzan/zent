@@ -21,6 +21,8 @@ class Simple extends React.Component {
 	    	className="swiper-demo-smiple"
 	      dotsColor="danger"
 	      dotsSize="small"
+				arrows
+				autoplay
 	    >
 				{
 					pages.map((item, index) => {
@@ -46,7 +48,6 @@ ReactDOM.render(
 | --------------- | ---------------------------- | ------------------- | --------------- | ------------------------------------ |
 | autoplay      	| 是否自动切换                   | bool                | `false`         | `false`, `true` 							  			|
 | autoplayIterval | 自动切换间隔时间(ms) 						| number 							| `3000` 				  | 														   			 |
-| transition      | 切换时的动画函数								| string              | `'ease-in-out'` | `transition-timing-function`      	 |
 | dots 						| 是否显示下方翻页按钮 						 | bool 							 | `true` 				 | `true`, `false`                      |
 | dotsColor       | 下方翻页按钮颜色                | string              | `'default'`     | `'primary'`, `'danger'`, `'success'` |
 | dotsSize        | 下方翻页按钮大小                | string              | `'normal'`      | `'small'`, `'large'`                 |

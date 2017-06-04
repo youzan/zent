@@ -1,27 +1,18 @@
-import React, { Component, Children } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import SwiperItem from './SwiperItem';
 import SwiperDots from './SwiperDots';
 
 export default class Swiper extends Component {
   static PropTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
-    transition: PropTypes.oneOf([
-      'ease',
-      'ease-in',
-      'ease-out',
-      'ease-in-out',
-      'linear',
-      'step-start',
-      'step-end'
-    ]),
     autoplay: PropTypes.bool,
     autoplayIterval: PropTypes.number,
     dots: PropTypes.bool,
     dotsColor: PropTypes.oneOf(['default', 'primary', 'success', 'danger']),
     dotsSize: PropTypes.oneOf(['normal', 'small', 'large']),
+    arrows: PropTypes.bool,
     onChange: PropTypes.func
   };
 
@@ -32,37 +23,48 @@ export default class Swiper extends Component {
   static defaultProps = {
     className: '',
     prefix: 'zent',
-    transition: 'ease-in-out',
     autoplay: false,
     autoplayIterval: 3000,
     dots: true,
     dotsColor: 'default',
-    dotsSize: 'normal'
+    dotsSize: 'normal',
+    arrows: false
   };
+
+  static setStyle(target, styles) {
+    Object.keys(styles).forEach(attribute => {
+      target.style[attribute] = styles[attribute];
+    });
+  }
 
   state = {
-    childs: [],
-    currentIndex: null
+    currentIndex: 0
   };
 
-  swipeChildren = prevIndex => {
-    const { childs, currentIndex } = this.state;
-    childs.forEach((item, index) => {
-      item.translate(index, currentIndex, prevIndex);
+  init = () => {
+    this.setSwiperWidth();
+    this.setInnerElements();
+
+    this.constructor.setStyle(this.swiperContainer, {
+      width: `${this.swiperWidth * this.innerElements.length}px`
     });
+
+    for (let i = 0; i < this.innerElements.length; i++) {
+      this.constructor.setStyle(this.innerElements[i], {
+        width: `${100 / this.innerElements.length}%`
+      });
+    }
+
+    this.translate();
   };
 
-  addChild = child => {
-    this.state.childs.push(child);
-    this.swipeTo(0);
-  };
+  setSwiperWidth() {
+    this.swiperWidth = this.swiper.getBoundingClientRect().width;
+  }
 
-  removeChild = child => {
-    const { childs } = this.state;
-    const index = childs.indexOf(child);
-    childs.splice(index, 1);
-    this.swipeTo(0);
-  };
+  setInnerElements() {
+    this.innerElements = [].slice.call(this.swiperContainer.children);
+  }
 
   startAutoplay = () => {
     const { autoplayIterval } = this.props;
@@ -84,12 +86,53 @@ export default class Swiper extends Component {
   };
 
   swipeTo = index => {
-    const { childs } = this.state;
     let currentIndex = index;
-    if (index > childs.length - 1) {
-      currentIndex = 0;
-    }
     this.setState({ currentIndex });
+  };
+
+  translate = (currentIndex = 0, isSilent = false) => {
+    const initIndex = -1;
+    const itemWidth = this.swiperWidth;
+    const translateDistance = itemWidth * (initIndex - currentIndex);
+
+    this.constructor.setStyle(this.swiperContainer, {
+      transform: `translateX(${translateDistance}px)`,
+      'transition-duration': isSilent ? '0ms' : '300ms'
+    });
+  };
+
+  resetPosition = currentIndex => {
+    const length = this.innerElements.length - 2;
+    if (currentIndex < 0) {
+      setTimeout(
+        () =>
+          this.setState({
+            currentIndex: length - 1
+          }),
+        300
+      );
+    } else {
+      setTimeout(
+        () =>
+          this.setState({
+            currentIndex: 0
+          }),
+        300
+      );
+    }
+  };
+
+  getRealPrevIndex = index => {
+    const length = this.innerElements.length - 2;
+    let realIndex = index;
+
+    if (realIndex > length - 1) {
+      realIndex = length - 2;
+    } else if (realIndex < 0) {
+      realIndex = 0;
+    }
+
+    return realIndex;
   };
 
   handleMouseEnter = () => {
@@ -106,15 +149,11 @@ export default class Swiper extends Component {
     this.setState({ currentIndex: index });
   };
 
-  getChildContext() {
-    return {
-      component: this
-    };
-  }
-
   componentDidMount() {
     const { autoplay } = this.props;
     autoplay && this.startAutoplay();
+    this.init();
+    this.isFirstedMounted = true;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -122,8 +161,18 @@ export default class Swiper extends Component {
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
 
-    prevIndex !== currentIndex && this.swipeChildren(prevIndex);
-    onChange && onChange(currentIndex, prevIndex);
+    const length = this.innerElements.length - 2;
+
+    if (prevIndex !== currentIndex) {
+      const isSilent = prevIndex > length - 1 || prevIndex < 0;
+      this.translate(currentIndex, isSilent);
+    }
+
+    if (currentIndex > length - 1 || currentIndex < 0) {
+      return this.resetPosition(currentIndex);
+    }
+
+    onChange && onChange(currentIndex, this.getRealPrevIndex(prevIndex));
   }
 
   componentWillUnmount() {
@@ -134,38 +183,62 @@ export default class Swiper extends Component {
     const {
       className,
       prefix,
-      transition,
       dots,
       dotsColor,
       dotsSize,
+      arrows,
       children
     } = this.props;
-    const { childs, currentIndex } = this.state;
+    const { currentIndex } = this.state;
+
+    if (!this.isFirstedMounted) {
+      children.push(children[0]);
+      children.unshift(children[children.length - 2]);
+    }
 
     const classString = cx(`${prefix}-swiper`, className);
 
     return (
       <div
+        ref={swiper => (this.swiper = swiper)}
         className={classString}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        <div className={`${prefix}-swiper__container`}>
+        {arrows &&
+          <div
+            className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
+            onClick={this.prev}
+          >
+            左
+            <i className={`${prefix}-swiper__arrow-icon-left`} />
+          </div>}
+        {arrows &&
+          <div
+            className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
+            onClick={this.next}
+          >
+            右
+            <i className={`${prefix}-swiper__arrow-icon-right`} />
+          </div>}
+        <div
+          ref={swiperContainer => (this.swiperContainer = swiperContainer)}
+          className={`${prefix}-swiper__container`}
+        >
           {Children.map(children, (child, index) => {
-            return (
-              <SwiperItem key={index} prefix={prefix} transition={transition}>
-                {child}
-              </SwiperItem>
-            );
+            return cloneElement(child, {
+              key: index,
+              style: { float: 'left', width: '100%', height: '100%' }
+            });
           })}
         </div>
         {dots &&
-          childs.length > 1 &&
+          children.length > 1 &&
           <SwiperDots
             prefix={prefix}
             dotsColor={dotsColor}
             dotsSize={dotsSize}
-            items={childs}
+            items={children}
             currentIndex={currentIndex}
             onDotsClick={this.handleDotsClick}
           />}
