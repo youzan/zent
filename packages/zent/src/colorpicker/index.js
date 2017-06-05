@@ -21,8 +21,8 @@ class ColorPicker extends Component {
 
   handleChange = color => {
     const { onChange, showAlpha } = this.props;
-    const colorOut = showAlpha ? color.rgba : color.hex;
-    onChange(colorOut);
+    const colorOutPut = showAlpha ? color.rgba : color.hex;
+    onChange(colorOutPut);
   };
 
   handleVisibleChange = visible => {
