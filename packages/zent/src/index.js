@@ -1,3 +1,4 @@
+import Affix from 'affix';
 import Alert from 'alert';
 import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
@@ -32,6 +33,7 @@ import Tree from 'tree';
 import ColorPicker from 'colorpicker';
 
 export {
+  Affix,
   Alert,
   Badge,
   Breadcrumb,

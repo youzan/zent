@@ -74,7 +74,6 @@ export default class DatePanelBody extends Component {
           'panel__cell--selected': isSelected,
           'panel__cell--in-range': isInRange
         });
-
         days[rowIndex][colIndex] = {
           text: val.getDate(),
           value: val,

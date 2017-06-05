@@ -10,6 +10,18 @@ const helper = {
     return res;
   },
 
+  isReactComponent(render) {
+    let isReact = false;
+
+    if (typeof render === 'function') {
+      if (render.prototype && render.prototype.isReactComponent) {
+        isReact = true;
+      }
+    }
+
+    return isReact;
+  },
+
   getAlignStyle(textAlign) {
     let alignObj = {};
 

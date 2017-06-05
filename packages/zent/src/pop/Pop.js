@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Popover from 'popover';
+import { exposePopover } from 'popover/withPopover';
 import Button from 'button';
 import cx from 'classnames';
 import noop from 'lodash/noop';
@@ -101,7 +102,7 @@ class PopAction extends Component {
 
 const BoundPopAction = withPopover(PopAction);
 
-export default class Pop extends Component {
+class Pop extends Component {
   static propTypes = {
     trigger: PropTypes.oneOf(['click', 'hover', 'focus', 'none']),
     position: PropTypes.oneOf([
@@ -325,3 +326,7 @@ export default class Pop extends Component {
     );
   }
 }
+
+Pop.withPop = exposePopover('pop');
+
+export default Pop;
