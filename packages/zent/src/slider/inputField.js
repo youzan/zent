@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-// import NumberInput from './numberInput';
 import NumberInput from 'number-input';
 
 import { getDecimal } from './common';
 
 export default class InputField extends Component {
-  onchange = (type, e) => {
+  onChange = (type, e) => {
     const { onChange, value } = this.props;
     let newValue = Number(e.target.value);
     if (type === 'start') {
@@ -26,7 +25,7 @@ export default class InputField extends Component {
                 {...restProps}
                 max={value[1]}
                 decimal={getDecimal(restProps.step)}
-                onChange={this.onchange.bind(null, 'start')}
+                onChange={this.onChange.bind(null, 'start')}
                 value={value[0]}
               />
               <span className="slider-input-line">-</span>
@@ -34,14 +33,14 @@ export default class InputField extends Component {
                 {...restProps}
                 min={value[0]}
                 decimal={getDecimal(restProps.step)}
-                onChange={this.onchange.bind(null, 'end')}
+                onChange={this.onChange.bind(null, 'end')}
                 value={value[1]}
               />
             </div>
           : <NumberInput
               {...restProps}
               decimal={getDecimal(restProps.step)}
-              onChange={this.onchange.bind(null, 'single')}
+              onChange={this.onChange.bind(null, 'single')}
               value={value}
             />}
       </div>
