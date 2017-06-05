@@ -55,7 +55,7 @@ export default class Swiper extends Component {
       });
     }
 
-    this.translate();
+    this.translate(0, true);
   };
 
   setSwiperWidth() {
