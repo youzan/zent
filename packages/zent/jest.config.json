@@ -55,6 +55,7 @@
     "^tabs(.*)$": "<rootDir>/src/tabs$1",
     "^tag(.*)$": "<rootDir>/src/tag$1",
     "^tree(.*)$": "<rootDir>/src/tree$1",
-    "^utils(.*)$": "<rootDir>/src/utils$1"
+    "^utils(.*)$": "<rootDir>/src/utils$1",
+    "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1"
   }
 }
