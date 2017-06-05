@@ -51,6 +51,7 @@ ReactDOM.render(
 | dots 						| 是否显示下方翻页按钮 						 | bool 							 | `true` 				 | `true`, `false`                      |
 | dotsColor       | 下方翻页按钮颜色                | string              | `'default'`     | `'primary'`, `'danger'`, `'success'` |
 | dotsSize        | 下方翻页按钮大小                | string              | `'normal'`      | `'small'`, `'large'`                 |
+| arrows          | 是否显示两侧翻页按钮             | bool                | `false`				 | `true`, `false`                      |
 | onChange        | 切换时回调函数									 | func(current, prev) | `noop`          |                                      |
 
 <style>
