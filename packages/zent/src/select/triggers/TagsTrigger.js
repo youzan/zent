@@ -1,8 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Tag from '../components/Tag';
+import noop from 'lodash/noop';
 
-const noop = function() {};
+import Tag from '../components/Tag';
 
 class TagsTrigger extends (PureComponent || Component) {
   constructor(props) {

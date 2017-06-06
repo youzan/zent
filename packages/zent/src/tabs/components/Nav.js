@@ -1,11 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
-import Tab from '../Tab/Tab';
+import Tab from './Tab';
 import navUtil from './navUtil';
-
-function noop() {}
 
 class Nav extends (PureComponent || Component) {
   static propTypes = {

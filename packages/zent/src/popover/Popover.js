@@ -25,15 +25,12 @@ import isFunction from 'lodash/isFunction';
 import isBoolean from 'lodash/isBoolean';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
+import kindOf from 'utils/kindOf';
 
 import PopoverContent from './Content';
 import PopoverTrigger from './trigger/Trigger';
 
 const SKIPPED = () => {};
-
-function instanceOf(MaybeDerive, Base) {
-  return MaybeDerive === Base || MaybeDerive.prototype instanceof Base;
-}
 
 function handleBeforeHook(beforeFn, arity, continuation) {
   // 有参数，传入continuation，由外部去控制何时调用
@@ -267,9 +264,9 @@ export default class Popover extends (PureComponent || Component) {
     const { trigger, content } = childArray.reduce(
       (state, c) => {
         const type = c.type;
-        if (instanceOf(type, PopoverTrigger)) {
+        if (kindOf(type, PopoverTrigger)) {
           state.trigger = c;
-        } else if (instanceOf(type, PopoverContent)) {
+        } else if (kindOf(type, PopoverContent)) {
           state.content = c;
         }
 

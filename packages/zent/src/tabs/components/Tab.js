@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component, PureComponent } from 'react';
-
-function noop() {}
+import noop from 'lodash/noop';
 
 class Tab extends (PureComponent || Component) {
   static propTypes = {
