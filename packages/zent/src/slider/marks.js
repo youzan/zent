@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import map from 'lodash/map';
 import { getLeft } from './common';
 
-export default class Marks extends Component {
+export default class Marks extends (PureComponent || Component) {
   render() {
     const { marks, max, min, prefix } = this.props;
     return (

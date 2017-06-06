@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 
-export default class Item extends Component {
+export default class Item extends (PureComponent || Component) {
   static propTypes = {
     href: PropTypes.string
   };

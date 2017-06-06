@@ -277,7 +277,6 @@ ReactDOM.render(
 import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
 const now = new Date();
 const oneDay = 24 * 60 * 60 * 1000;
-console.log(now - 7 * oneDay)
 
 class Demo extends Component{
   state = {

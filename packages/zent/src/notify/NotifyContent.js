@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Portal from 'portal';
 
-export default class NotifyContent extends Component {
+export default class NotifyContent extends (PureComponent || Component) {
   static propTypes = {
     text: PropTypes.any,
     status: PropTypes.string,

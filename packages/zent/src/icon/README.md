@@ -52,6 +52,7 @@ class IconGrid extends Component {
         <div className="zi-search-input">
           <input placeholder="Search..." value={search} onChange={this.onChange} />
         </div>
+
         <div className="zi-grid-item" data-index="summary-o0xe800summaryoutline">
           <Icon type="summary-o" />
           <span className="zi-grid-item-name">summary-o(0xe800)</span>
@@ -256,45 +257,49 @@ class IconGrid extends Component {
           <Icon type="right" />
           <span className="zi-grid-item-name">right(0xe832)</span>
         </div>
-        <div className="zi-grid-item" data-index="plus0xe833addplus">
+        <div className="zi-grid-item" data-index="right-circle0xe833rightfilled">
+          <Icon type="right-circle" />
+          <span className="zi-grid-item-name">right-circle(0xe833)</span>
+        </div>
+        <div className="zi-grid-item" data-index="plus0xe834addplus">
           <Icon type="plus" />
-          <span className="zi-grid-item-name">plus(0xe833)</span>
+          <span className="zi-grid-item-name">plus(0xe834)</span>
         </div>
-        <div className="zi-grid-item" data-index="star-o0xe834staroutline">
+        <div className="zi-grid-item" data-index="star-o0xe835staroutline">
           <Icon type="star-o" />
-          <span className="zi-grid-item-name">star-o(0xe834)</span>
+          <span className="zi-grid-item-name">star-o(0xe835)</span>
         </div>
-        <div className="zi-grid-item" data-index="star0xe835starfilled">
+        <div className="zi-grid-item" data-index="star0xe836starfilled">
           <Icon type="star" />
-          <span className="zi-grid-item-name">star(0xe835)</span>
+          <span className="zi-grid-item-name">star(0xe836)</span>
         </div>
-        <div className="zi-grid-item" data-index="check0xe836check">
+        <div className="zi-grid-item" data-index="check0xe837check">
           <Icon type="check" />
-          <span className="zi-grid-item-name">check(0xe836)</span>
+          <span className="zi-grid-item-name">check(0xe837)</span>
         </div>
-        <div className="zi-grid-item" data-index="info-circle-o0xe837infocircleoutline">
+        <div className="zi-grid-item" data-index="info-circle-o0xe838infocircleoutline">
           <Icon type="info-circle-o" />
-          <span className="zi-grid-item-name">info-circle-o(0xe837)</span>
+          <span className="zi-grid-item-name">info-circle-o(0xe838)</span>
         </div>
-        <div className="zi-grid-item" data-index="info-circle0xe838infocirclefilled">
+        <div className="zi-grid-item" data-index="info-circle0xe839infocirclefilled">
           <Icon type="info-circle" />
-          <span className="zi-grid-item-name">info-circle(0xe838)</span>
+          <span className="zi-grid-item-name">info-circle(0xe839)</span>
         </div>
-        <div className="zi-grid-item" data-index="warning-o0xe839warningtriangleoutline">
+        <div className="zi-grid-item" data-index="warning-o0xe83awarningtriangleoutline">
           <Icon type="warning-o" />
-          <span className="zi-grid-item-name">warning-o(0xe839)</span>
+          <span className="zi-grid-item-name">warning-o(0xe83a)</span>
         </div>
-        <div className="zi-grid-item" data-index="warning0xe83awarningtrianglefilled">
+        <div className="zi-grid-item" data-index="warning0xe83bwarningtrianglefilled">
           <Icon type="warning" />
-          <span className="zi-grid-item-name">warning(0xe83a)</span>
+          <span className="zi-grid-item-name">warning(0xe83b)</span>
         </div>
-        <div className="zi-grid-item" data-index="lock0xe83blocklocked">
+        <div className="zi-grid-item" data-index="lock0xe83clocklocked">
           <Icon type="lock" />
-          <span className="zi-grid-item-name">lock(0xe83b)</span>
+          <span className="zi-grid-item-name">lock(0xe83c)</span>
         </div>
-        <div className="zi-grid-item" data-index="unlock0xe83cunlockunlocked">
+        <div className="zi-grid-item" data-index="unlock0xe83dunlockunlocked">
           <Icon type="unlock" />
-          <span className="zi-grid-item-name">unlock(0xe83c)</span>
+          <span className="zi-grid-item-name">unlock(0xe83d)</span>
         </div>
       </div>
     );

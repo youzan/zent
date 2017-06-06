@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import omit from 'lodash/omit';
 
 import { PopoverContextType } from './Popover';
@@ -9,7 +9,7 @@ import { PopoverContextType } from './Popover';
  * Adds a popover prop to component.
  */
 export const exposePopover = propName => Base => {
-  return class ExposePopover extends Component {
+  return class ExposePopover extends (PureComponent || Component) {
     static contextTypes = PopoverContextType;
 
     render() {

@@ -81,33 +81,11 @@ describe('NumberInput', () => {
   });
 
   it('NumberInput onchange value', () => {
-    // let wrapper = mount(<NumberInput showStepper value={2} />);
-    let preventDefaultCalled = false;
-    let stopPropagationCalled = false;
-
     const handleChange = e => {
       expect(e.target.value).toBe('1');
-
-      expect(preventDefaultCalled).toBe(false);
-      expect(stopPropagationCalled).toBe(false);
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      expect(preventDefaultCalled).toBe(true);
-      expect(stopPropagationCalled).toBe(true);
     };
 
     const wrapper = mount(<NumberInput onChange={handleChange} value={1} />);
-    wrapper.find('input').simulate('blur', {
-      preventDefault() {
-        preventDefaultCalled = true;
-      },
-      stopPropagation() {
-        stopPropagationCalled = true;
-      }
-    });
-
     wrapper.find('input').simulate('change', {
       target: {
         value: ''

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import getViewportSize from '../dom/getViewportSize';
@@ -12,7 +12,7 @@ import WindowEventHandler from './WindowEventHandler';
  * The event handler got a second parameter: {deltaX, deltaY}.
  * The resize event handler should be throttled since resize events can fire at a high rate.
  */
-export default class WindowResizeHandler extends Component {
+export default class WindowResizeHandler extends (PureComponent || Component) {
   static propTypes = {
     onResize: PropTypes.func.isRequired
   };

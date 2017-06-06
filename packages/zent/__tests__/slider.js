@@ -136,15 +136,13 @@ describe('Slider', () => {
 
   it('can input onchange props', () => {
     const wrapper = mount(<Slider range value={[20, 30]} />);
-    wrapper.find('input').at(0).simulate('change', { target: { value: 25 } });
-    expect(wrapper.find('input').at(0).node.value).toBe('25');
-    wrapper.find('input').at(1).simulate('change', { target: { value: 50 } });
-    expect(wrapper.find('input').at(1).node.value).toBe('50');
-    wrapper.find('input').at(1).simulate('blur', { target: { value: 150 } });
-    expect(wrapper.find('input').at(1).node.value).toBe('100');
-    wrapper.find('input').at(0).simulate('blur', { target: { value: -150 } });
-    expect(wrapper.find('input').at(0).node.value).toBe('0');
-    wrapper.find('input').at(0).simulate('blur', { target: { value: 'abcd' } });
-    expect(wrapper.find('input').at(0).node.value).toBe('20');
+    wrapper
+      .find('InputField')
+      .at(0)
+      .node.onChange('start', { target: { value: 25 } });
+    wrapper
+      .find('InputField')
+      .at(0)
+      .node.onChange('end', { target: { value: 50 } });
   });
 });

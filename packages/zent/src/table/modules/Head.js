@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import assign from 'lodash/assign';
@@ -7,14 +7,18 @@ import Checkbox from 'checkbox';
 import helper from '../helper';
 
 let rect;
-let relativeTop;
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';
 
-export default class Head extends Component {
-  state = {
-    isShowFixRow: false
-  };
+export default class Head extends (PureComponent || Component) {
+  constructor() {
+    super();
+
+    this.state = {
+      isShowFixRow: false
+    };
+    this.relativeTop = 0;
+  }
 
   componentDidMount() {
     if (this.props.autoStick) {
@@ -42,12 +46,12 @@ export default class Head extends Component {
       height: tmpRect.height - 1,
       width: tmpRect.width
     };
-    relativeTop = rect.top - document.body.getBoundingClientRect().top;
+    this.relativeTop = rect.top - document.body.getBoundingClientRect().top;
   }
 
   setHeadStyle = () => {
     this.getRect();
-    if (window.scrollY > relativeTop) {
+    if (window.scrollY > this.relativeTop) {
       this.setState({
         isShowFixRow: true,
         fixStyle: {

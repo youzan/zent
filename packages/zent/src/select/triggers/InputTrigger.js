@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-/**
- * InputTrigger
- */
+import React, { PureComponent, Component } from 'react';
 
-import React, { Component } from 'react';
-
-class InputTrigger extends Component {
+class InputTrigger extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.state = {

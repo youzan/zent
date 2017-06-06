@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "3.2.0-beta2",
+  "version": "3.2.0",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -28,7 +28,7 @@
     "fecha": "2.3.x",
     "lodash": "4.17.x",
     "prop-types": "15.5.x",
-    "zenticons": "^1.0.1"
+    "zenticons": "^1.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
@@ -40,6 +40,7 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
     "babel-plugin-transform-remove-console": "^6.8.1",
     "babel-plugin-transform-remove-debugger": "^6.8.1",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -56,7 +57,7 @@
     "cssnano": "^3.10.0",
     "enzyme": "2.8.x",
     "glob": "^7.1.1",
-    "jest": "^19.0.2",
+    "jest": "^20.0.4",
     "postcss-cli": "^3.2.0",
     "postcss-easy-import": "^2.0.0",
     "precss": "^1.4.0",
