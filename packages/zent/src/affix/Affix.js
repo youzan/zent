@@ -45,7 +45,11 @@ class Affix extends Component {
     const { onUnpin } = this.props;
 
     this.affix = false;
-    this.setState({ position: 'static', width: null, placeHoldStyle: null });
+    this.setState({
+      position: 'static',
+      width: null,
+      placeHoldStyle: { overflow: 'hidden' }
+    });
     onUnpin && onUnpin();
   }
 
