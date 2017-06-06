@@ -17,10 +17,6 @@
   }
 
   &__arrow {
-    height: 26px;
-    width: 26px;
-    background: #e5e5e5;
-    border-radius: 50%;
     cursor: pointer;
     position: absolute;
     top: 50%;
@@ -28,13 +24,12 @@
     z-index: 2;
 
     &-icon {
-      font-size: 12px;
-      margin: 7px 0 0 10px;
-      opacity: 0.2;
+      color: #e5e5e5;
+      font-size: 20px;
     }
 
     &-left {
-      left: 20px;
+      left: 10px;
 
       .zent-swiper__arrow-icon {
         transform: rotate(180deg);
@@ -43,6 +38,12 @@
 
     &-right {
       right: 20px;
+    }
+  }
+
+  &-light {
+    .zent-swiper__arrow-icon {
+      color: #fff;
     }
   }
 

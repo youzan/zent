@@ -114,6 +114,7 @@ ReactDOM.render(
 | dotsColor       | 下方翻页按钮颜色                | string              | `'default'`     | `'primary'`, `'danger'`, `'success'` |
 | dotsSize        | 下方翻页按钮大小                | string              | `'normal'`      | `'small'`, `'large'`                 |
 | arrows          | 是否显示两侧翻页按钮             | bool                | `false`				 | `true`, `false`                      |
+| arrowsType      | 两侧箭头颜色                   | string               | `'dark'`       | `'dark'`, `'light'`     							 |
 | onChange        | 切换时回调函数									 | func(current, prev) | `noop`          |                                      |
 
 <style>
@@ -123,7 +124,7 @@ ReactDOM.render(
 .swiper-demo-simple {
 	height: 150px;
 	width: 300px;
-	background: #f2f2f2;
+	background: #FAFAFA;
 	margin-right: 10px;
 }
 .swiper-demo-simple-h {

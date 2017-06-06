@@ -16,6 +16,7 @@ export default class Swiper extends Component {
     dotsColor: PropTypes.oneOf(['default', 'primary', 'success', 'danger']),
     dotsSize: PropTypes.oneOf(['normal', 'small', 'large']),
     arrows: PropTypes.bool,
+    arrowsType: PropTypes.oneOf(['dark', 'light']),
     onChange: PropTypes.func
   };
 
@@ -27,7 +28,8 @@ export default class Swiper extends Component {
     dots: true,
     dotsColor: 'default',
     dotsSize: 'normal',
-    arrows: false
+    arrows: false,
+    arrowsType: 'dark'
   };
 
   static setStyle(target, styles) {
@@ -194,6 +196,7 @@ export default class Swiper extends Component {
       dotsColor,
       dotsSize,
       arrows,
+      arrowsType,
       children
     } = this.props;
     const { currentIndex } = this.state;
@@ -205,7 +208,9 @@ export default class Swiper extends Component {
         children.unshift(children[children.length - 2]);
     }
 
-    const classString = cx(`${prefix}-swiper`, className);
+    const classString = cx(`${prefix}-swiper`, className, {
+      [`${prefix}-swiper-light`]: arrows && arrowsType === 'light'
+    });
 
     return (
       <div
@@ -221,7 +226,10 @@ export default class Swiper extends Component {
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
             onClick={this.prev}
           >
-            <Icon type="right" className={`${prefix}-swiper__arrow-icon`} />
+            <Icon
+              type="right-circle"
+              className={`${prefix}-swiper__arrow-icon`}
+            />
           </div>}
         {arrows &&
           children &&
@@ -230,7 +238,10 @@ export default class Swiper extends Component {
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
             onClick={this.next}
           >
-            <Icon type="right" className={`${prefix}-swiper__arrow-icon`} />
+            <Icon
+              type="right-circle"
+              className={`${prefix}-swiper__arrow-icon`}
+            />
           </div>}
         <div
           ref={swiperContainer => (this.swiperContainer = swiperContainer)}

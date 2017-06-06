@@ -32,9 +32,18 @@ describe('Swiper', () => {
   it('can change page', () => {
     const childs = [1, 2, 3];
     class Test extends React.Component {
+      state = {
+        currentIndex: null,
+        prevIndex: null
+      };
+
+      handleChange = (currentIndex, prevIndex) => {
+        this.setState({ currentIndex, prevIndex });
+      };
+
       render() {
         return (
-          <Swiper arrows>
+          <Swiper arrows onChange={this.handleChange}>
             {childs.map((item, index) => (
               <div key={index} className="swiper-text-child">{item}</div>
             ))}
@@ -58,11 +67,18 @@ describe('Swiper', () => {
         .at(2)
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
-    wrapper.find('.zent-swiper__dots-item').at(1).simulate('click');
+    wrapper.find('.zent-swiper__dots-item').at(2).simulate('click');
     expect(
       wrapper
         .find('.zent-swiper__dots-item')
-        .at(1)
+        .at(2)
+        .hasClass('zent-swiper__dots-item-active')
+    ).toBe(true);
+    wrapper.find('.zent-swiper__arrow').at(1).simulate('click');
+    expect(
+      wrapper
+        .find('.zent-swiper__dots-item')
+        .at(0)
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
   });
@@ -70,15 +86,6 @@ describe('Swiper', () => {
   it('can set props', () => {
     const childs = [1, 2, 3];
     class Test extends React.Component {
-      state = {
-        currentIndex: null,
-        prevIndex: null
-      };
-
-      handleChange = (currentIndex, prevIndex) => {
-        this.setState({ currentIndex, prevIndex });
-      };
-
       render() {
         return (
           <Swiper
@@ -87,7 +94,7 @@ describe('Swiper', () => {
             autoplay
             autoplayIterval={5000}
             arrows
-            onChange={this.handleChange}
+            arrowsType="light"
           >
             {childs.map((item, index) => (
               <div key={index} className="swiper-text-child">{item}</div>
@@ -98,12 +105,15 @@ describe('Swiper', () => {
     }
     const wrapper = mount(<Test />);
     expect(wrapper.find('.zent-swiper__arrow').length).toBe(2);
+    expect(wrapper.hasClass('zent-swiper-light')).toBe(true);
     expect(
       wrapper.find('.zent-swiper__dots').hasClass('zent-swiper__dots-danger')
     ).toBe(true);
     expect(
       wrapper.find('.zent-swiper__dots').hasClass('zent-swiper__dots-large')
     ).toBe(true);
+    wrapper.simulate('mouseEnter');
+    wrapper.simulate('mouseLeave');
     wrapper.find('.zent-swiper__dots-item').at(1).simulate('click');
     expect(
       wrapper
