@@ -2,9 +2,13 @@ export const getValue = (value, max, min) => {
   return min + (max - min) * value;
 };
 
-export const toFixed = (value, step) => {
+export const getDecimal = step => {
   const fixed = String(step).split('.')[1];
-  const length = fixed ? fixed.length : 0;
+  return fixed ? fixed.length : 0;
+};
+
+export const toFixed = (value, step) => {
+  const length = getDecimal(step);
   return Number(Number(value).toFixed(length));
 };
 
