@@ -32,6 +32,7 @@
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
     "^button(.*)$": "<rootDir>/src/button$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
+    "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1",
     "^datetimepicker(.*)$": "<rootDir>/src/datetimepicker$1",
     "^dialog(.*)$": "<rootDir>/src/dialog$1",
     "^form(.*)$": "<rootDir>/src/form$1",
@@ -56,7 +57,6 @@
     "^tabs(.*)$": "<rootDir>/src/tabs$1",
     "^tag(.*)$": "<rootDir>/src/tag$1",
     "^tree(.*)$": "<rootDir>/src/tree$1",
-    "^utils(.*)$": "<rootDir>/src/utils$1",
-    "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1"
+    "^utils(.*)$": "<rootDir>/src/utils$1"
   }
 }
