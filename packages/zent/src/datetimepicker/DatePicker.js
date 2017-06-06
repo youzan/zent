@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
@@ -70,7 +70,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class DatePicker extends Component {
+class DatePicker extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

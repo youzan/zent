@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Portal from 'portal';
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,7 @@ const { withNonScrollable, withESCToClose } = Portal;
 const DialogPortal = withNonScrollable(Portal);
 const DialogPortalESCToClose = withESCToClose(DialogPortal);
 
-export default class Dialog extends Component {
+export default class Dialog extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     onClose: PropTypes.func,

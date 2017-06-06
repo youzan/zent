@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-class Form extends Component {
+class Form extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

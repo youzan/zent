@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -12,7 +12,7 @@ function findIndex(array, predicate) {
   return -1;
 }
 
-export default class Group extends Component {
+export default class Group extends (PureComponent || Component) {
   static propTypes = {
     value: PropTypes.array,
     isValueEqual: PropTypes.func,

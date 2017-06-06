@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import NumberInput from 'number-input';
 
 import { getDecimal } from './common';
 
-export default class InputField extends Component {
+export default class InputField extends (PureComponent || Component) {
   onChange = (type, e) => {
     const { onChange, value } = this.props;
     let newValue = Number(e.target.value);

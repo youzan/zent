@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
@@ -6,7 +6,7 @@ import { formatDate } from './utils/date';
 import clickOutside from './utils/clickOutside';
 import { TIME_PROPS } from './constants/';
 
-class TimePicker extends Component {
+class TimePicker extends (PureComponent || Component) {
   static defaultProps = TIME_PROPS;
 
   constructor(props) {

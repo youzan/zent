@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PureComponent } from 'react';
 import isEqual from 'lodash/isEqual';
 
 import PropTypes from 'prop-types';
@@ -8,7 +8,7 @@ import * as util from './util';
 /**
   Portal的核心，只负责管理child。index.js实际export的不是这个component.
 **/
-export default class Portal extends Component {
+export default class Portal extends (PureComponent || Component) {
   static propTypes = {
     children: PropTypes.node.isRequired,
     selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])

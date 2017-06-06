@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import setClass from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
@@ -21,7 +21,7 @@ const BTN_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
 const A_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
-export default class Button extends Component {
+export default class Button extends (PureComponent || Component) {
   static propTypes = {
     type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
     size: PropTypes.oneOf(['large', 'medium', 'small']),

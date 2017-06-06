@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
@@ -45,7 +45,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class MonthPicker extends Component {
+class MonthPicker extends (PureComponent || Component) {
   static PropTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

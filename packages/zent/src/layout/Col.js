@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-export default class Col extends Component {
+export default class Col extends (PureComponent || Component) {
   static propTypes = {
     span: PropTypes.number,
     offset: PropTypes.number,

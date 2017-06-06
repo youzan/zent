@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component, Children } from 'react';
+import React, { Component, PureComponent, Children } from 'react';
 
 export const PopoverTriggerPropTypes = {
   children: PropTypes.node,
@@ -17,7 +17,7 @@ export const PopoverTriggerPropTypes = {
   injectIsOutsideSelf: PropTypes.func
 };
 
-export default class PopoverTrigger extends Component {
+export default class PopoverTrigger extends (PureComponent || Component) {
   static propTypes = {
     ...PopoverTriggerPropTypes
   };

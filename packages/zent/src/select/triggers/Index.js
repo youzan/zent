@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-/**
- * Trigger
- */
+import React, { Component, PureComponent } from 'react';
 
-import React, { Component } from 'react';
-
-class Trigger extends Component {
+class Trigger extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.state = {
