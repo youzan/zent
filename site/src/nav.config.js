@@ -227,6 +227,11 @@ module.exports = {
               path: 'component/portal',
               title: 'Portal 传送门',
               component: require('../../packages/zent/src/portal/README.md')
+            },
+            {
+              path: 'component/copy-btn',
+              title: 'CopyBtn 复制按钮',
+              component: require('../../packages/zent/src/copy-btn/README.md')
             }
           ]
         }
