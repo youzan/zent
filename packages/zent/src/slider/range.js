@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
 
@@ -8,7 +8,7 @@ import Marks from './marks';
 import Container from './container';
 import Track from './track';
 
-export default class Range extends Component {
+export default class Range extends (PureComponent || Component) {
   clientWidth = null;
 
   getClientWidth = () => {

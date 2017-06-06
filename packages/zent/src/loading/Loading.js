@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { getElementLeft, getElementTop } from './getPosition';
 
-export default class Loading extends Component {
+export default class Loading extends (PureComponent || Component) {
   static style;
   static wrapper;
 

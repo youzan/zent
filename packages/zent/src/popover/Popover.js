@@ -16,7 +16,7 @@
  *
  */
 
-import React, { Component, Children } from 'react';
+import React, { Component, PureComponent, Children } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
 import noop from 'lodash/noop';
@@ -63,7 +63,7 @@ export const PopoverContextType = {
   })
 };
 
-export default class Popover extends Component {
+export default class Popover extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

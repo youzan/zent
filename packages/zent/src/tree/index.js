@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+
 import Loading from './components/Loading';
 
 // 记录是否已经触发收起展开逻辑
@@ -54,7 +55,7 @@ const toggleSlide = (el, isClose) => {
   window.requestAnimationFrame(animate);
 };
 
-export default class Tree extends Component {
+export default class Tree extends (PureComponent || Component) {
   isInitial = true;
   isDataUpdate = false;
 

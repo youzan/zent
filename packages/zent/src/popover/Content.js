@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import cx from 'classnames';
 import Portal from 'portal';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
@@ -26,7 +26,7 @@ function translateToContainerCoordinates(containerBB, bb) {
  *
  * The props on this class are all private.
  */
-export default class PopoverContent extends Component {
+export default class PopoverContent extends (PureComponent || Component) {
   static propTypes = {
     children: PropTypes.node,
 

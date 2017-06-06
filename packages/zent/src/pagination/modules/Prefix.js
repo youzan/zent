@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'select';
 
 const { number, array, oneOfType, func } = PropTypes;
 const { Option } = Select;
 
-export default class Prefix extends Component {
+export default class Prefix extends (PureComponent || Component) {
   static propTypes = {
     totalItem: number,
     pageSize: oneOfType([number, array]),

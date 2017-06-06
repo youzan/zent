@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
-export default class NumberSteps extends Component {
+export default class NumberSteps extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.state = {

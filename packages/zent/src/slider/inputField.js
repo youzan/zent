@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import NumberInput from './numberInput';
 
-export default class InputField extends Component {
+export default class InputField extends (PureComponent || Component) {
   onchange = (type, newValue) => {
     const { onChange, value } = this.props;
     if (type === 'start') {

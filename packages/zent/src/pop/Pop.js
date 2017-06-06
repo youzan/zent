@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Popover from 'popover';
 import { exposePopover } from 'popover/withPopover';
 import Button from 'button';
@@ -17,7 +17,7 @@ const stateMap = {
   onCancel: 'cancelPending'
 };
 
-class PopAction extends Component {
+class PopAction extends (PureComponent || Component) {
   // 支持异步的回调函数
   // onConfirm/onCancel异步等待的时候要禁用用户关闭
   handleClick(callbackName) {
@@ -102,7 +102,7 @@ class PopAction extends Component {
 
 const BoundPopAction = withPopover(PopAction);
 
-class Pop extends Component {
+class Pop extends (PureComponent || Component) {
   static propTypes = {
     trigger: PropTypes.oneOf(['click', 'hover', 'focus', 'none']),
     position: PropTypes.oneOf([
