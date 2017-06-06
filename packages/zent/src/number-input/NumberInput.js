@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 import Input from 'input';
 import Icon from 'icon';
 
-export default class NumberInput extends Component {
+export default class NumberInput extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -64,7 +65,7 @@ export default class NumberInput extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     // 渲染次数优化
-    return nextState.value !== this.state.value;
+    return !isEqual(nextState, this.state) || !isEqual(nextProps, this.props);
   }
 
   adjustFixed(num, min, max, len) {

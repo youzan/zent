@@ -75,6 +75,7 @@ ReactDOM.render(
 import { NumberInput } from 'zent';
 let min
 let max
+let placeholder = "请输入数字"
 class EventTest extends React.Component {
 	state = {
 		log: 0
@@ -87,7 +88,7 @@ class EventTest extends React.Component {
   render() {
     return (
       <div>
-        <NumberInput value={this.state.log} min={min} showStepper max={max} onChange={this.onChange} placeholder="请输入数字"/>
+        <NumberInput value={this.state.log} min={min} showStepper max={max} onChange={this.onChange} placeholder={placeholder}/>
         <div><p>{this.state.log}</p></div>
       </div>
     );
@@ -105,6 +106,7 @@ class EventTest extends React.Component {
   	},7000)
   	setTimeout(() => {
   		console.log('第三次范围改变')
+  		placeholder = "请输入数字~~~"
   		this.setState({ log: 0 });
   		min = 3
   		max = 5
