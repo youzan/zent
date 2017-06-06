@@ -10,10 +10,10 @@
   ],
   "coverageThreshold": {
     "global": {
-      "statements": 95,
-      "branches": 85,
-      "functions": 95,
-      "lines": 95
+      "statements": 96,
+      "branches": 90,
+      "functions": 96,
+      "lines": 96
     }
   },
   "timers": "fake",
@@ -26,7 +26,9 @@
     "<rootDir>/src/slider/points.js"
   ],
   "moduleNameMapper": {
+    "^affix(.*)$": "<rootDir>/src/affix$1",
     "^alert(.*)$": "<rootDir>/src/alert$1",
+    "^badge(.*)$": "<rootDir>/src/badge$1",
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
     "^button(.*)$": "<rootDir>/src/button$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
@@ -39,6 +41,7 @@
     "^loading(.*)$": "<rootDir>/src/loading$1",
     "^menu(.*)$": "<rootDir>/src/menu$1",
     "^notify(.*)$": "<rootDir>/src/notify$1",
+    "^number-input(.*)$": "<rootDir>/src/number-input$1",
     "^pagination(.*)$": "<rootDir>/src/pagination$1",
     "^pop(.*)$": "<rootDir>/src/pop$1",
     "^popover(.*)$": "<rootDir>/src/popover$1",
@@ -51,6 +54,7 @@
     "^switch(.*)$": "<rootDir>/src/switch$1",
     "^table(.*)$": "<rootDir>/src/table$1",
     "^tabs(.*)$": "<rootDir>/src/tabs$1",
+    "^tag(.*)$": "<rootDir>/src/tag$1",
     "^tree(.*)$": "<rootDir>/src/tree$1",
     "^utils(.*)$": "<rootDir>/src/utils$1"
   }

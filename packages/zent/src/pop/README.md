@@ -111,7 +111,7 @@ ReactDOM.render(
 
 :::demo Confirm 形式的气泡提示
 ```jsx
-import { Pop, Sweetalert } from 'zent';
+import { Pop, Sweetalert, Button } from 'zent';
 
 ReactDOM.render(
 	<Pop 
@@ -128,7 +128,7 @@ ReactDOM.render(
 
 :::demo 自定义 Confirm 形式的气泡提示按钮
 ```jsx
-import { Pop, Sweetalert } from 'zent';
+import { Pop, Sweetalert, Button } from 'zent';
 
 ReactDOM.render(
 	<Pop 
@@ -148,7 +148,7 @@ ReactDOM.render(
 
 :::demo 延迟打开／关闭
 ```jsx
-import { Pop } from 'zent';
+import { Pop, Button } from 'zent';
 
 class Controlled extends Component {
 	state = {
@@ -194,7 +194,7 @@ ReactDOM.render(
 
 :::demo 高级用法：外部控制显示隐藏
 ```jsx
-import { Pop } from 'zent';
+import { Pop, Button } from 'zent';
 
 class NoneTriggerDemo extends Component {
   state = {
@@ -239,6 +239,29 @@ ReactDOM.render(
 	<NoneTriggerDemo />
 	, mountNode
 )
+```
+:::
+
+:::demo withPop 高阶组件
+```jsx
+import { Pop, Button } from 'zent';
+
+// 点击close按钮可以关闭弹层
+const Content = Pop.withPop(function Content({ pop }) {
+  return (
+    <div>
+      <div>Pop 内容</div>
+      <Button onClick={pop.close}>关闭</Button>
+    </div>
+  );
+});
+
+ReactDOM.render(
+	<Pop trigger="click" content={<Content />}>
+		<Button type="primary">打开</Button>
+	</Pop>
+	, mountNode
+);
 ```
 :::
 
@@ -287,6 +310,15 @@ ReactDOM.render(
 #### None
 
 这种模式下 `onConfirm` 和 `onCancel` 不会自动关闭Pop, 需要使用者自己在回调中控制 `visible` 来关闭Pop.
+
+#### withPop 高阶组件
+
+这个高阶组件暴露了 `Pop` 内部的几个重要方法, 可能的使用场景: 在 `content` 内部手动关闭弹层.
+
+| 参数             | 说明                    | 类型               |
+| -------------- | --------------------- | ---------------- |
+| open           | 打开 Pop                  | func             |
+| close          | 关闭 Pop                  | func             |
 
 ### FAQ
 

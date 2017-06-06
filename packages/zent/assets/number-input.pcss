@@ -1,0 +1,70 @@
+.zent-number-input-wrapper {
+  position: relative;
+}
+
+.zent-number-input-count-wrapper {
+  .zent-input {
+    padding: 0 20px 0 10px;
+  }
+}
+
+.zent-number-input-arrow {
+  position: absolute;
+  right: 1px;
+  height: 50%;
+  line-height: 50%;
+  width: 20px;
+  text-align: center;
+  z-index: 10;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  i {
+    cursor: pointer;
+    color: #666;
+
+    &:hover {
+      color: #38f;
+    }
+  }
+
+  &:hover {
+    i {
+      color: #38f;
+    }
+  }
+}
+
+.zent-number-input-arrow-disable {
+  cursor: not-allowed;
+
+  i {
+    cursor: not-allowed;
+    color: #cacaca;
+  }
+
+  &:hover {
+    i {
+      color: #cacaca;
+    }
+  }
+}
+
+.zent-number-input-arrowup {
+  top: 1px;
+  border-left: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+
+  i {
+    transform: rotate(-90deg) scale(0.4);
+  }
+}
+
+.zent-number-input-arrowdown {
+  bottom: 1px;
+  border-left: 1px solid #e5e5e5;
+
+  i {
+    transform: rotate(90deg) scale(0.4);
+  }
+}

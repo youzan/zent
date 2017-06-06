@@ -1,5 +1,55 @@
 ## 更新日志
 
+## [zent@3.2.0](https://github.com/youzan/zent/tree/zent@3.2.0) (2017-05-31)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.1.0...zent@3.2.0)
+
+**不兼容改动和新功能:**
+
+- table: 多选后底部按钮悬浮 [\#265](https://github.com/youzan/zent/issues/265)
+- lint and format pcss files [\#264](https://github.com/youzan/zent/issues/264)
+- New component: Badge [\#254](https://github.com/youzan/zent/issues/254)
+- New component: Tag [\#252](https://github.com/youzan/zent/issues/252)
+- New component: Affix [\#251](https://github.com/youzan/zent/issues/251)
+- Consider rename \*.scss to \*.pcss [\#250](https://github.com/youzan/zent/issues/250)
+- test: investigate testing DOM layouts in Jest [\#247](https://github.com/youzan/zent/issues/247)
+- New component: NumberInput [\#213](https://github.com/youzan/zent/issues/213)
+- datetimepicker: add defaultTime api [\#291](https://github.com/youzan/zent/pull/291) ([xuhong](https://github.com/xuhong))
+
+**Bug 修复:**
+
+- doc: header covered by popups [\#282](https://github.com/youzan/zent/issues/282)
+- loading: rename static prop [\#280](https://github.com/youzan/zent/issues/280)
+- table: relativeTop 不应该是全局变量 [\#277](https://github.com/youzan/zent/issues/277)
+- slider: tooltip 太透明了 [\#275](https://github.com/youzan/zent/issues/275)
+- zent-datepicker range 模式内部的 input 宽度大于外部的 input 宽度 [\#270](https://github.com/youzan/zent/issues/270)
+- zent-datepicker range 模式 点击叉号时无法正确删除内容 [\#267](https://github.com/youzan/zent/issues/267)
+- DatePicker: DateRangePicker disabledDate callback argument type is undefined [\#257](https://github.com/youzan/zent/issues/257)
+- doc: anchor position is not correct [\#249](https://github.com/youzan/zent/issues/249)
+- popover: Prevent setState call if Popover is unmounted [\#290](https://github.com/youzan/zent/pull/290) ([cpylua](https://github.com/cpylua))
+- slider: remove extra space around slider [\#281](https://github.com/youzan/zent/pull/281) ([wulv](https://github.com/wulv))
+- slider: fix mouseMove event [\#279](https://github.com/youzan/zent/pull/279) ([wulv](https://github.com/wulv))
+
+**处理的 Issue:**
+
+- datepicker: disabledDate字段有禁用时间效果不一致的bug [\#284](https://github.com/youzan/zent/issues/284)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- table: 支持批量操作功能 [\#292](https://github.com/youzan/zent/pull/292) ([linxixuan](https://github.com/linxixuan))
+- Add affix [\#289](https://github.com/youzan/zent/pull/289) ([wulv](https://github.com/wulv))
+- badge: fix style and doc of badge [\#288](https://github.com/youzan/zent/pull/288) ([fairyaierl](https://github.com/fairyaierl))
+- loading: change static to float [\#287](https://github.com/youzan/zent/pull/287) ([cpylua](https://github.com/cpylua))
+- Add badge and tag [\#283](https://github.com/youzan/zent/pull/283) ([fairyaierl](https://github.com/fairyaierl))
+- slider: 修复slider透明度问题 [\#276](https://github.com/youzan/zent/pull/276) ([wulv](https://github.com/wulv))
+- 修复 pop 返回 promise.reject 依然关闭的 bug opdialog 添加 context 的支持 [\#274](https://github.com/youzan/zent/pull/274) ([lama-pacos](https://github.com/lama-pacos))
+- datepicker: fix\_rangepicer\_clear\_bug [\#269](https://github.com/youzan/zent/pull/269) ([xuhong](https://github.com/xuhong))
+- Add style lint support [\#268](https://github.com/youzan/zent/pull/268) ([cpylua](https://github.com/cpylua))
+- select: 修复Popup搜索框被盖住的bug [\#266](https://github.com/youzan/zent/pull/266) ([huangsy](https://github.com/huangsy))
+- Rename \*.scss to \*.pcss [\#263](https://github.com/youzan/zent/pull/263) ([cpylua](https://github.com/cpylua))
+- test: Add tests for layout related code path [\#262](https://github.com/youzan/zent/pull/262) ([cpylua](https://github.com/cpylua))
+- Add NumberInput component [\#261](https://github.com/youzan/zent/pull/261) ([oConnerCooper](https://github.com/oConnerCooper))
+- Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
+
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
 

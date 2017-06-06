@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import cx from 'classnames';
 
 import Point from './points';
 import Dots from './dots';
@@ -20,8 +21,11 @@ export default class Range extends Component {
 
   render() {
     const { dots, marks, value, ...restProps } = this.props;
+    const warpClass = cx(`${restProps.prefix}-slider-main`, {
+      [`${restProps.prefix}-slider-main-with-marks`]: marks
+    });
     return (
-      <div className={`${restProps.prefix}-slider-main`}>
+      <div className={warpClass}>
         <Container
           getClientWidth={this.getClientWidth}
           dots={dots}

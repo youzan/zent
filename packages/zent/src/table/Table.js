@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Pagination from 'pagination';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
 
 import Head from './modules/Head';
 import Body from './modules/Body';
+import Foot from './modules/Foot';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
-
-let relativeTop;
 
 export default class Table extends Component {
   static propTypes = {
@@ -27,7 +25,8 @@ export default class Table extends Component {
     autoScroll: bool,
     autoStick: bool,
     selection: object,
-    expandation: object
+    expandation: object,
+    batchComponents: array
   };
 
   static defaultProps = {
@@ -42,7 +41,8 @@ export default class Table extends Component {
     loading: false,
     autoScroll: false,
     autoStick: false,
-    selection: null
+    selection: null,
+    batchComponents: null
   };
 
   constructor(props) {
@@ -53,6 +53,8 @@ export default class Table extends Component {
       placeHolderHeight: false,
       fixStyle: {}
     };
+
+    this.relativeTop = 0;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,7 +65,7 @@ export default class Table extends Component {
 
   componentDidMount() {
     const tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
-    relativeTop = tableRectTop - document.body.getBoundingClientRect().top;
+    this.relativeTop = tableRectTop - document.body.getBoundingClientRect().top;
   }
 
   // 对外部传进来的onChange进行封装
@@ -190,7 +192,7 @@ export default class Table extends Component {
     let scrollCount = 0;
     let scrollMargin;
     let scrollInterval = setInterval(() => {
-      if (window.scrollY > relativeTop) {
+      if (window.scrollY > this.relativeTop) {
         scrollCount += 1;
         scrollMargin =
           cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
@@ -217,8 +219,10 @@ export default class Table extends Component {
       getRowConf = () => {
         return { canSelect: true, rowClass: '' };
       },
-      expandation = null
+      expandation = null,
+      batchComponents = null
     } = this.props;
+
     let needSelect = selection !== null;
     let selectedRowKeys = [];
 
@@ -295,16 +299,21 @@ export default class Table extends Component {
                 isExpanded={isExpanded}
                 expandRender={expandRender}
               />
+              <Foot
+                batchComponents={batchComponents}
+                pageInfo={pageInfo}
+                selection={{
+                  needSelect,
+                  onSelectAll: this.onSelectAllRows,
+                  selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
+                  isSelectAll,
+                  isSelectPart
+                }}
+                current={this.state.current}
+                onPageChange={this.onPageChange}
+              />
             </div>}
         </Loading>
-        {pageInfo &&
-          <Pagination
-            current={this.state.current}
-            totalItem={pageInfo.total}
-            pageSize={pageInfo.limit}
-            maxPageToShow={pageInfo.maxPageToShow}
-            onChange={this.onPageChange}
-          />}
       </div>
     );
   }

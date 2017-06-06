@@ -74,6 +74,11 @@ module.exports = {
               component: require('../../packages/zent/src/alert/README.md')
             },
             {
+              path: 'component/badge',
+              title: 'Badge 徽标数',
+              component: require('../../packages/zent/src/badge/README.md')
+            },
+            {
               path: 'component/dialog',
               title: 'Dialog 对话框',
               component: require('../../packages/zent/src/dialog/README.md')
@@ -97,6 +102,11 @@ module.exports = {
               path: 'component/sweet-alert',
               title: 'SweetAlert',
               component: require('../../packages/zent/src/sweetalert/README.md')
+            },
+            {
+              path: 'component/tag',
+              title: 'Tag 标签',
+              component: require('../../packages/zent/src/tag/README.md')
             }
           ]
         },
@@ -129,6 +139,11 @@ module.exports = {
               component: require('../../packages/zent/src/input/README.md')
             },
             {
+              path: 'component/number-input',
+              title: 'NumberInput 数值输入框',
+              component: require('../../packages/zent/src/number-input/README.md')
+            },
+            {
               path: 'component/radio',
               title: 'Radio 单选',
               component: require('../../packages/zent/src/radio/README.md')
@@ -153,6 +168,11 @@ module.exports = {
         {
           groupName: '导航',
           list: [
+            {
+              path: 'component/affix',
+              title: 'Affix 固钉',
+              component: require('../../packages/zent/src/affix/README.md')
+            },
             {
               path: 'component/breadcrumb',
               title: 'Breadcrumb 面包屑',

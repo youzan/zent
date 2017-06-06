@@ -13,10 +13,11 @@ export default class Td extends Component {
   renderContent() {
     const { column, data, pos } = this.props;
     const { name, bodyRender } = column;
+    const isReactComponent = helper.isReactComponent(bodyRender);
 
     if (typeof bodyRender !== 'undefined') {
       if (typeof bodyRender === 'function') {
-        if (bodyRender.prototype && bodyRender.prototype.isReactComponent) {
+        if (isReactComponent) {
           let BodyRender = bodyRender;
 
           return <BodyRender data={data} name={name} pos={pos} />;
