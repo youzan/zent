@@ -23,7 +23,9 @@
   "coveragePathIgnorePatterns": [
     "<rootDir>/src/slider/common.js",
     "<rootDir>/src/slider/container.js",
-    "<rootDir>/src/slider/points.js"
+    "<rootDir>/src/slider/points.js",
+    "<rootDir>/src/copy-btn/index.js",
+    "<rootDir>/src/copy-btn/ReactCopyToClipboard.js"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
