@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
+import clone from 'lodash/clone';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -277,7 +278,9 @@ export default class Tree extends (PureComponent || Component) {
   }
 
   updateCheckedTree(id, type) {
-    const { checkedTree } = this.state;
+    // shallow clone
+    // We can reuse most of the nodes
+    const checkedTree = clone(this.state.checkedTree);
     const parentId = checkedTree[id].p;
     const childrenId = Object.keys(checkedTree).filter(
       x => checkedTree[x].p === id.toString()
