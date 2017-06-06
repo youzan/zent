@@ -17,19 +17,80 @@ const pages = [1, 2, 3, 4, 5];
 class Simple extends React.Component {
 	render() {
 		return (
-			<Swiper
-	    	className="swiper-demo-smiple"
-	      dotsColor="danger"
-	      dotsSize="small"
-				arrows
-				autoplay
-	    >
+			<div className="swiper-demo-container">
+				<Swiper
+					className="swiper-demo-simple"
+				>
+					{
+						pages.map((item, index) => {
+							return <div className="swiper-demo-simple-h" key={index}>{item}</div>;
+						})
+					}
+				</Swiper>
+				<Swiper
+					className="swiper-demo-simple"
+					dotsColor="primary"
+					dotsSize="small"
+				>
+					{
+						pages.map((item, index) => {
+							return <div className="swiper-demo-simple-h" key={index}>{item}</div>;
+						})
+					}
+				</Swiper>
+			</div>
+
+		);
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
+:::demo 带有左右箭头，自动切换
+```jsx
+import { Swiper } from 'zent';
+
+const pages = [1, 2, 3, 4, 5];
+
+class Simple extends React.Component {
+
+	state = {
+		current: null,
+		prev: null
+	}
+
+	handleChange = (current, prev) => {
+		this.setState({ current, prev });
+	}
+
+	render() {
+		const { current, prev } = this.state;
+		return (
+			<div>
+				<Swiper
+					className="swiper-demo-simple"
+					dotsColor="danger"
+					dotsSize="small"
+					arrows
+					onChange={this.handleChange}
+				>
+					{
+						pages.map((item, index) => {
+							return <div className="swiper-demo-simple-h" key={index}>{item}</div>;
+						})
+					}
+				</Swiper>
 				{
-					pages.map((item, index) => {
-						return <div className="swiper-demo-smiple-h" key={index}>{item}</div>;
-					})
+					typeof current === 'number' && typeof prev === 'number' &&
+						<div className="swiper-demo-simple-text">从{prev}到{current}</div>
 				}
-			</Swiper>
+			</div>
 		);
 	}
 }
@@ -55,14 +116,21 @@ ReactDOM.render(
 | onChange        | 切换时回调函数									 | func(current, prev) | `noop`          |                                      |
 
 <style>
-.swiper-demo-smiple {
-	height: 200px;
-	width: 400px;
-	background: #f2f2f2;
+.swiper-demo-container {
+	display: flex;
 }
-.swiper-demo-smiple-h {
+.swiper-demo-simple {
+	height: 150px;
+	width: 300px;
+	background: #f2f2f2;
+	margin-right: 10px;
+}
+.swiper-demo-simple-h {
 	text-align: center;
 	font-size: 18px;
-	line-height: 180px;
+	line-height: 150px;
+}
+.swiper-demo-simple-text {
+	margin-top: 10px;
 }
 </style>

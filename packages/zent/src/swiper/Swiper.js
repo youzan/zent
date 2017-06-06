@@ -1,6 +1,9 @@
 import React, { Component, Children, cloneElement } from 'react';
+import WindowResizeHandler from 'utils/component/WindowResizeHandler';
+import Icon from 'icon';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import SwiperDots from './SwiperDots';
 
 export default class Swiper extends Component {
@@ -41,7 +44,7 @@ export default class Swiper extends Component {
     currentIndex: 0
   };
 
-  init = () => {
+  init = (isFirstTime = true) => {
     this.setSwiperWidth();
     this.setInnerElements();
 
@@ -55,7 +58,7 @@ export default class Swiper extends Component {
       });
     }
 
-    this.translate(0, true);
+    isFirstTime && this.translate(0, true);
   };
 
   setSwiperWidth() {
@@ -127,7 +130,7 @@ export default class Swiper extends Component {
     let realIndex = index;
 
     if (realIndex > length - 1) {
-      realIndex = length - 2;
+      realIndex = length - 1;
     } else if (realIndex < 0) {
       realIndex = 0;
     }
@@ -149,11 +152,15 @@ export default class Swiper extends Component {
     this.setState({ currentIndex: index });
   };
 
+  componentWillReceiveProps() {
+    this.isFirstMounted = false;
+  }
+
   componentDidMount() {
     const { autoplay } = this.props;
     autoplay && this.startAutoplay();
     this.init();
-    this.isFirstedMounted = true;
+    this.isFirstMounted = true;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -161,12 +168,16 @@ export default class Swiper extends Component {
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
 
-    const length = this.innerElements.length - 2;
+    this.isFirstMounted = true;
+    this.init(false);
 
-    if (prevIndex !== currentIndex) {
-      const isSilent = prevIndex > length - 1 || prevIndex < 0;
-      this.translate(currentIndex, isSilent);
+    if (prevIndex === currentIndex) {
+      return;
     }
+
+    const length = this.innerElements.length - 2;
+    const isSilent = prevIndex > length - 1 || prevIndex < 0;
+    this.translate(currentIndex, isSilent);
 
     if (currentIndex > length - 1 || currentIndex < 0) {
       return this.resetPosition(currentIndex);
@@ -191,7 +202,7 @@ export default class Swiper extends Component {
     } = this.props;
     const { currentIndex } = this.state;
 
-    if (!this.isFirstedMounted) {
+    if (!this.isFirstMounted) {
       children.push(children[0]);
       children.unshift(children[children.length - 2]);
     }
@@ -210,16 +221,14 @@ export default class Swiper extends Component {
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
             onClick={this.prev}
           >
-            左
-            <i className={`${prefix}-swiper__arrow-icon-left`} />
+            <Icon type="right" className={`${prefix}-swiper__arrow-icon`} />
           </div>}
         {arrows &&
           <div
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
             onClick={this.next}
           >
-            右
-            <i className={`${prefix}-swiper__arrow-icon-right`} />
+            <Icon type="right" className={`${prefix}-swiper__arrow-icon`} />
           </div>}
         <div
           ref={swiperContainer => (this.swiperContainer = swiperContainer)}
@@ -242,6 +251,7 @@ export default class Swiper extends Component {
             currentIndex={currentIndex}
             onDotsClick={this.handleDotsClick}
           />}
+        <WindowResizeHandler onResize={this.init} />
       </div>
     );
   }
