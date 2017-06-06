@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, createElement } from 'react';
+import { Component, PureComponent, createElement } from 'react';
 import omit from 'lodash/omit';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
@@ -28,7 +28,7 @@ const createForm = (config = {}) => {
   const validationRules = assign({}, rules, formValidations);
 
   return WrappedForm => {
-    return class Form extends Component {
+    return class Form extends (PureComponent || Component) {
       constructor(props) {
         super(props);
         this.state = {

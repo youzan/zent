@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-/**
- * SelectTrigger
- */
+import React, { Component, PureComponent } from 'react';
 
-import React, { Component } from 'react';
-
-class SelectTrigger extends Component {
+class SelectTrigger extends (PureComponent || Component) {
   render() {
     let { prefixCls, onClick } = this.props;
 
