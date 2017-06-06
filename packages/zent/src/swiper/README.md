@@ -86,6 +86,7 @@ class Simple extends React.Component {
 						})
 					}
 				</Swiper>
+				<Swiper />
 				{
 					typeof current === 'number' && typeof prev === 'number' &&
 						<div className="swiper-demo-simple-text">从{prev}到{current}</div>

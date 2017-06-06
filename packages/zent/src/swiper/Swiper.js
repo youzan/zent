@@ -19,10 +19,6 @@ export default class Swiper extends Component {
     onChange: PropTypes.func
   };
 
-  static childContextTypes = {
-    component: PropTypes.any
-  };
-
   static defaultProps = {
     className: '',
     prefix: 'zent',
@@ -203,8 +199,10 @@ export default class Swiper extends Component {
     const { currentIndex } = this.state;
 
     if (!this.isFirstMounted) {
-      children.push(children[0]);
-      children.unshift(children[children.length - 2]);
+      children && children.length > 1 && children.push(children[0]);
+      children &&
+        children.length > 1 &&
+        children.unshift(children[children.length - 2]);
     }
 
     const classString = cx(`${prefix}-swiper`, className);
@@ -217,6 +215,8 @@ export default class Swiper extends Component {
         onMouseLeave={this.handleMouseLeave}
       >
         {arrows &&
+          children &&
+          children.length > 1 &&
           <div
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
             onClick={this.prev}
@@ -224,6 +224,8 @@ export default class Swiper extends Component {
             <Icon type="right" className={`${prefix}-swiper__arrow-icon`} />
           </div>}
         {arrows &&
+          children &&
+          children.length > 1 &&
           <div
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
             onClick={this.next}
@@ -242,6 +244,7 @@ export default class Swiper extends Component {
           })}
         </div>
         {dots &&
+          children &&
           children.length > 1 &&
           <SwiperDots
             prefix={prefix}

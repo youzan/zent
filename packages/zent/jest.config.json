@@ -52,6 +52,7 @@
     "^steps(.*)$": "<rootDir>/src/steps$1",
     "^sweetalert(.*)$": "<rootDir>/src/sweetalert$1",
     "^switch(.*)$": "<rootDir>/src/switch$1",
+    "^swiper(.*)$": "<rootDir>/src/swiper$1",
     "^table(.*)$": "<rootDir>/src/table$1",
     "^tabs(.*)$": "<rootDir>/src/tabs$1",
     "^tag(.*)$": "<rootDir>/src/tag$1",
