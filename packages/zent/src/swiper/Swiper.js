@@ -1,4 +1,4 @@
-import React, { PureComponent, Children, cloneElement } from 'react';
+import React, { PureComponent, Compoenet, Children, cloneElement } from 'react';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import throttle from 'lodash/throttle';
 
 import SwiperDots from './SwiperDots';
 
-export default class Swiper extends PureComponent {
+export default class Swiper extends (PureComponent || Compoenet) {
   static PropTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

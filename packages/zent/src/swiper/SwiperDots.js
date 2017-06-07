@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Compoenet } from 'react';
 import cx from 'classnames';
 
-export default class SwiperDots extends PureComponent {
+export default class SwiperDots extends (PureComponent || Compoenet) {
   render() {
     const {
       prefix,
