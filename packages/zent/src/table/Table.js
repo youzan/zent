@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ import Foot from './modules/Foot';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 
-export default class Table extends Component {
+export default class Table extends (PureComponent || Component) {
   static propTypes = {
     className: string,
     prefix: string,

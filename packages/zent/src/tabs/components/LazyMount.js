@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { Component, PureComponent } from 'react';
 
 /**
  * 保存domMount状态
  */
-export default class LazyMount extends Component {
+export default class LazyMount extends (PureComponent || Component) {
   static propTypes = {
     mountTrigger: PropTypes.bool
   };

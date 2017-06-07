@@ -1,14 +1,10 @@
-/**
- * TagsTrigger
- */
-
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
+
 import Tag from '../components/Tag';
 
-const noop = function() {};
-
-class TagsTrigger extends Component {
+class TagsTrigger extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);

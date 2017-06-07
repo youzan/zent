@@ -2,7 +2,7 @@
  * Select
  */
 
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import assign from 'lodash/assign';
 import omit from 'lodash/omit';
 import cloneDeep from 'lodash/cloneDeep';
@@ -19,7 +19,7 @@ import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
 import { KEY_ESC } from './constants';
 
-class Select extends Component {
+class Select extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 

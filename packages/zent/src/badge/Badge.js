@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Component } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
-export default class Badge extends Component {
+export default class Badge extends (PureComponent || Component) {
   static propTypes = {
     count: PropTypes.number,
     maxCount: PropTypes.number,

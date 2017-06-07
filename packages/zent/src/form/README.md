@@ -15,7 +15,7 @@
 :::DEMO Form 组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中 renderEmail 组件的表单结构。具体请参考`getControlGroup`的 API 。 
 ```jsx
 import cx from 'classnames';
-import { Form, Input } from 'zent';
+import { Form, Input, Button } from 'zent';
 const { Field, createForm } = Form;
 
 const renderEmail = (props) => {
@@ -58,7 +58,7 @@ const BaseForm = (props) => {
         	}} 
         />
         <div className="zent-form__form-actions">
-          <button className="zent-btn zent-btn-primary" type="button" onClick={alertValues}>获取表单值</button>
+          <Button type="primary" onClick={alertValues}>获取表单值</Button>
         </div>
       </Form>
     );
@@ -86,7 +86,6 @@ const FieldForm = () => {
 				name="name"
 				type="text"
 				label={"用户名："}
-				value="123"
 				component={InputField}
 				helpDesc={<span>我是说明<a href="https://youzan.com">我是链接</a></span>}
 				required
@@ -245,7 +244,7 @@ form 组件内部对表单提交的过程进行封装，可以把异步提交的
 
 :::DEMO
 ```jsx
-import { Form } from 'zent';
+import { Form, Button } from 'zent';
 const { Field, InputField, createForm, SubmissionError } = Form;
 
 const SubmitForm = (props) => {
@@ -307,7 +306,7 @@ const SubmitForm = (props) => {
 	      }}
 	    />
 	    <div className="zent-form__form-actions">
-	      <button className="zent-btn zent-btn-primary" type="submit">{isSubmitting ? '注册中...' : '注册'}</button>
+	      <Button type="primary" htmlType="submit" loading={isSubmitting}>注册</Button>
 	    </div>
 	  </Form>
 	);

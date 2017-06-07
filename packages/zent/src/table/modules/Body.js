@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Td from './Td';
 
 // 需要传入一个组件模板
-export default class Body extends Component {
+export default class Body extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 

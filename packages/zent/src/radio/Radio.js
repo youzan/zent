@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class Radio extends Component {
+export default class Radio extends (PureComponent || Component) {
   static propTypes = {
     checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     value: PropTypes.any,

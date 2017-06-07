@@ -1,14 +1,13 @@
 const navUtil = {
   // 获取宽高
   getOffsetWH(node) {
-    let prop = 'offsetWidth';
-    return node[prop];
+    return node.offsetWidth;
   },
 
   // 获取偏移量
   getOffsetLT(node) {
-    let prop = 'left';
-    return node.getBoundingClientRect()[prop];
+    const bb = node.getBoundingClientRect();
+    return bb.left;
   },
 
   modifyTabListData(props) {
@@ -38,6 +37,7 @@ const navUtil = {
   getWidth(props) {
     // 当align为center时做处理
     let { align, tabListData } = props;
+
     if (align === 'center') {
       let width = '';
       let lastWidth = '';

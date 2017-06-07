@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import assign from 'lodash/assign';
@@ -10,7 +10,7 @@ let rect;
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';
 
-export default class Head extends Component {
+export default class Head extends (PureComponent || Component) {
   constructor() {
     super();
 

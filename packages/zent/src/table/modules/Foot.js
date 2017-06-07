@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Pagination from 'pagination';
 import Checkbox from 'checkbox';
 
 import helper from '../helper.js';
 
-export default class Foot extends Component {
+export default class Foot extends (PureComponent || Component) {
   // 拿到所有的选中的item
   renderBatchComps(selectedRows, batchComponents) {
     return batchComponents.map((comp, index) => {

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 
 const clickOutside = ComposedComponent =>
-  class extends Component {
+  class extends (PureComponent || Component) {
     componentDidMount() {
       document.addEventListener('click', this.picker.clickOutside, true);
     }

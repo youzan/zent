@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PanelHeader from '../common/PanelHeader';
 import TimeCell from './TimeCell';
@@ -7,7 +7,7 @@ import { CURRENT, padLeft } from '../utils';
 const ROW = 9;
 const COL = 7;
 
-export default class SecondPanel extends Component {
+export default class SecondPanel extends (PureComponent || Component) {
   isDisabled(val) {
     const { disabledSecond } = this.props;
     if (typeof disabledSecond === 'function') {
