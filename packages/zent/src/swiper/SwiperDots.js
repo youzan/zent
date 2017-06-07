@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
-export default class SwiperDots extends Component {
+export default class SwiperDots extends PureComponent {
   render() {
     const {
       prefix,
@@ -17,22 +17,17 @@ export default class SwiperDots extends Component {
       `${prefix}-swiper__dots-${dotsSize}`
     );
 
-    const clonedItems = [].slice.call(items);
-    clonedItems.pop();
-    clonedItems.shift();
-    const { length } = clonedItems;
-
     return (
       <ul className={classString}>
-        {clonedItems.map((item, index) => {
+        {items.map((item, index) => {
           return (
             <li
               key={index}
               className={cx(`${prefix}-swiper__dots-item`, {
                 [`${prefix}-swiper__dots-item-active`]: index ===
                   currentIndex ||
-                  (index === 0 && currentIndex > length - 1) ||
-                  (index === length - 1 && currentIndex < 0)
+                  (index === 0 && currentIndex > items.length - 1) ||
+                  (index === items.length - 1 && currentIndex < 0)
               })}
               onClick={e => {
                 e.stopPropagation();

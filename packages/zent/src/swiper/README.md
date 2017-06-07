@@ -1,6 +1,6 @@
-## Swiper 幻灯片
+## Swiper 轮播
 
-幻灯片切换组件
+轮播组件
 
 ### 使用指南
 
@@ -86,7 +86,6 @@ class Simple extends React.Component {
 						})
 					}
 				</Swiper>
-				<Swiper />
 				{
 					typeof current === 'number' && typeof prev === 'number' &&
 						<div className="swiper-demo-simple-text">从{prev}到{current}</div>
@@ -106,16 +105,19 @@ ReactDOM.render(
 
 ### API
 
-| 参数             | 说明                          | 类型                | 默认值       		 | 备选值           							  			|
-| --------------- | ---------------------------- | ------------------- | --------------- | ------------------------------------ |
-| autoplay      	| 是否自动切换                   | bool                | `false`         | `false`, `true` 							  			|
-| autoplayIterval | 自动切换间隔时间(ms) 						| number 							| `3000` 				  | 														   			 |
-| dots 						| 是否显示下方翻页按钮 						 | bool 							 | `true` 				 | `true`, `false`                      |
-| dotsColor       | 下方翻页按钮颜色                | string              | `'default'`     | `'primary'`, `'danger'`, `'success'` |
-| dotsSize        | 下方翻页按钮大小                | string              | `'normal'`      | `'small'`, `'large'`                 |
-| arrows          | 是否显示两侧翻页按钮             | bool                | `false`				 | `true`, `false`                      |
-| arrowsType      | 两侧箭头颜色                   | string               | `'dark'`       | `'dark'`, `'light'`     							 |
-| onChange        | 切换时回调函数									 | func(current, prev) | `noop`          |                                      |
+| 参数             	 	| 说明                          | 类型                | 默认值       		 | 备选值           							  			|
+| ------------------ | ---------------------------- | ------------------- | ---------------- | ------------------------------------ |
+| transitionDuration | 切换动画持续时间(ms)            | number              | `300`            |                                      |
+| autoplay      		 | 是否自动切换                   | bool                | `false`          | `false`, `true` 							  			|
+| autoplayInterval   | 自动切换间隔时间(ms) 					 | number 						 | `3000` 				  | 														   			 |
+| dots 						   | 是否显示下方翻页按钮 						| bool 							  | `true` 				   | `true`, `false`                      |
+| dotsColor          | 下方翻页按钮颜色                | string              | `'default'`      | `'primary'`, `'danger'`, `'success'` |
+| dotsSize           | 下方翻页按钮大小                | string              | `'normal'`       | `'small'`, `'large'`                 |
+| arrows             | 是否显示两侧翻页按钮             | bool                | `false`				   | `true`, `false`                      |
+| arrowsType         | 两侧箭头颜色                    | string              | `'dark'`         | `'dark'`, `'light'`     						 |
+| onChange           | 切换时回调函数									| func(current, prev) | `noop`           |                                      |
+| className          | 自定义额外类名                  | string              | `''`						 |                                      |
+| prefix             | 自定义前缀                     | string              | `'zent'`				  |																			 |
 
 <style>
 .swiper-demo-container {

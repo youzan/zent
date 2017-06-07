@@ -110,7 +110,7 @@ module.exports = {
             },
             {
               path: 'component/swiper',
-              title: 'Swiper 幻灯片',
+              title: 'Swiper 轮播',
               component: require('../../packages/zent/src/swiper/README.md')
             }
           ]

@@ -1,17 +1,19 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { PureComponent, Children, cloneElement } from 'react';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import throttle from 'lodash/throttle';
 
 import SwiperDots from './SwiperDots';
 
-export default class Swiper extends Component {
+export default class Swiper extends PureComponent {
   static PropTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
+    transitionDuration: PropTypes.number,
     autoplay: PropTypes.bool,
-    autoplayIterval: PropTypes.number,
+    autoplayInterval: PropTypes.number,
     dots: PropTypes.bool,
     dotsColor: PropTypes.oneOf(['default', 'primary', 'success', 'danger']),
     dotsSize: PropTypes.oneOf(['normal', 'small', 'large']),
@@ -23,8 +25,9 @@ export default class Swiper extends Component {
   static defaultProps = {
     className: '',
     prefix: 'zent',
+    transitionDuration: 300,
     autoplay: false,
-    autoplayIterval: 3000,
+    autoplayInterval: 3000,
     dots: true,
     dotsColor: 'default',
     dotsSize: 'normal',
@@ -32,44 +35,49 @@ export default class Swiper extends Component {
     arrowsType: 'dark'
   };
 
-  static setStyle(target, styles) {
-    Object.keys(styles).forEach(attribute => {
-      target.style[attribute] = styles[attribute];
-    });
-  }
-
   state = {
     currentIndex: 0
   };
 
-  init = (isFirstTime = true) => {
-    this.setSwiperWidth();
-    this.setInnerElements();
+  init = () => {
+    const { currentIndex } = this.state;
+    const innerElements = [].slice.call(this.swiperContainer.children);
 
-    this.constructor.setStyle(this.swiperContainer, {
-      width: `${this.swiperWidth * this.innerElements.length}px`
+    this.setSwiperWidth();
+    this.setStyle(this.swiperContainer, {
+      width: `${this.swiperWidth * innerElements.length}px`
     });
 
-    for (let i = 0; i < this.innerElements.length; i++) {
-      this.constructor.setStyle(this.innerElements[i], {
-        width: `${100 / this.innerElements.length}%`
+    for (let i = 0; i < innerElements.length; i++) {
+      this.setStyle(innerElements[i], {
+        width: `${100 / innerElements.length}%`
       });
     }
 
-    isFirstTime && this.translate(0, true);
+    this.translate(currentIndex, true);
   };
 
-  setSwiperWidth() {
-    this.swiperWidth = this.swiper.getBoundingClientRect().width;
-  }
+  getSwiper = swiper => {
+    this.swiper = swiper;
+  };
 
-  setInnerElements() {
-    this.innerElements = [].slice.call(this.swiperContainer.children);
-  }
+  getSwiperContainer = swiperContainer => {
+    this.swiperContainer = swiperContainer;
+  };
+
+  setStyle = (target, styles) => {
+    Object.keys(styles).forEach(attribute => {
+      target.style[attribute] = styles[attribute];
+    });
+  };
+
+  setSwiperWidth = () => {
+    this.swiperWidth = this.swiper.getBoundingClientRect().width;
+  };
 
   startAutoplay = () => {
-    const { autoplayIterval } = this.props;
-    this.autoplayTimer = setInterval(this.next, Number(autoplayIterval));
+    const { autoplayInterval } = this.props;
+    this.autoplayTimer = setInterval(this.next, Number(autoplayInterval));
   };
 
   clearAutoplay = () => {
@@ -92,25 +100,26 @@ export default class Swiper extends Component {
   };
 
   translate = (currentIndex = 0, isSilent = false) => {
+    const { transitionDuration } = this.props;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;
     const translateDistance = itemWidth * (initIndex - currentIndex);
 
-    this.constructor.setStyle(this.swiperContainer, {
+    this.setStyle(this.swiperContainer, {
       transform: `translateX(${translateDistance}px)`,
-      'transition-duration': isSilent ? '0ms' : '300ms'
+      'transition-duration': isSilent ? '0ms' : `${transitionDuration}ms`
     });
   };
 
   resetPosition = currentIndex => {
-    const length = this.innerElements.length - 2;
+    const { transitionDuration, children: { length } } = this.props;
     if (currentIndex < 0) {
       setTimeout(
         () =>
           this.setState({
             currentIndex: length - 1
           }),
-        300
+        transitionDuration
       );
     } else {
       setTimeout(
@@ -118,13 +127,13 @@ export default class Swiper extends Component {
           this.setState({
             currentIndex: 0
           }),
-        300
+        transitionDuration
       );
     }
   };
 
   getRealPrevIndex = index => {
-    const length = this.innerElements.length - 2;
+    const { children: { length } } = this.props;
     let realIndex = index;
 
     if (realIndex > length - 1) {
@@ -150,30 +159,21 @@ export default class Swiper extends Component {
     this.setState({ currentIndex: index });
   };
 
-  componentWillReceiveProps() {
-    this.isFirstMounted = false;
-  }
-
   componentDidMount() {
     const { autoplay } = this.props;
     autoplay && this.startAutoplay();
     this.init();
-    this.isFirstMounted = true;
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onChange } = this.props;
+    const { onChange, children: { length } } = this.props;
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
-
-    this.isFirstMounted = true;
-    this.init(false);
 
     if (prevIndex === currentIndex) {
       return;
     }
 
-    const length = this.innerElements.length - 2;
     const isSilent = prevIndex > length - 1 || prevIndex < 0;
     this.translate(currentIndex, isSilent);
 
@@ -201,27 +201,19 @@ export default class Swiper extends Component {
     } = this.props;
     const { currentIndex } = this.state;
 
-    if (!this.isFirstMounted) {
-      children && children.length > 1 && children.push(children[0]);
-      children &&
-        children.length > 1 &&
-        children.unshift(children[children.length - 2]);
-    }
-
     const classString = cx(`${prefix}-swiper`, className, {
       [`${prefix}-swiper-light`]: arrows && arrowsType === 'light'
     });
 
     return (
       <div
-        ref={swiper => (this.swiper = swiper)}
+        ref={this.getSwiper}
         className={classString}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
         {arrows &&
-          children &&
-          children.length > 1 &&
+          Children.count(children) > 1 &&
           <div
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
             onClick={this.prev}
@@ -232,8 +224,7 @@ export default class Swiper extends Component {
             />
           </div>}
         {arrows &&
-          children &&
-          children.length > 1 &&
+          Children.count(children) > 1 &&
           <div
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
             onClick={this.next}
@@ -244,15 +235,25 @@ export default class Swiper extends Component {
             />
           </div>}
         <div
-          ref={swiperContainer => (this.swiperContainer = swiperContainer)}
+          ref={this.getSwiperContainer}
           className={`${prefix}-swiper__container`}
         >
+          {Children.count(children) > 1 &&
+            cloneElement(children[children.length - 1], {
+              key: -1,
+              style: { float: 'left', height: '100%' }
+            })}
           {Children.map(children, (child, index) => {
             return cloneElement(child, {
               key: index,
-              style: { float: 'left', width: '100%', height: '100%' }
+              style: { float: 'left', height: '100%' }
             });
           })}
+          {Children.count(children) > 1 &&
+            cloneElement(children[0], {
+              key: children.lenght,
+              style: { float: 'left', height: '100%' }
+            })}
         </div>
         {dots &&
           children &&
@@ -265,7 +266,7 @@ export default class Swiper extends Component {
             currentIndex={currentIndex}
             onDotsClick={this.handleDotsClick}
           />}
-        <WindowResizeHandler onResize={this.init} />
+        <WindowResizeHandler onResize={throttle(this.init, 300)} />
       </div>
     );
   }
