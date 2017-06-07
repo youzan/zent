@@ -3,7 +3,9 @@
  */
 
 import React, { Component } from 'react';
-import { Button, Input, Notify } from 'zent';
+import Button from 'button';
+import Input from 'input';
+import Notify from 'notify';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import { formatMaxSize, isPromiseLike } from '../utils';

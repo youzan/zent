@@ -1,4 +1,4 @@
-import { Notify } from 'zent';
+import Notify from 'notify';
 import { formatMaxSize, isPromiseLike } from '../utils';
 
 let localFiles = [];
