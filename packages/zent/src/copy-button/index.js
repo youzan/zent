@@ -6,14 +6,16 @@ import CopyToClipboard from './ReactCopyToClipboard';
 
 export default class Copy extends (PureComponent || Component) {
   onCopyError = () => {
-    const { errorNotify, onCopyError } = this.props;
-
-    errorNotify && Notify.error(errorNotify);
-    onCopyError && onCopyError();
+    const { onCopyError } = this.props;
+    if (typeof onCopySuccess === 'string') {
+      Notify.error(onCopyError);
+    } else {
+      onCopyError();
+    }
   };
 
   render() {
-    const { text, onCopySuccess, successNotify, children } = this.props;
+    const { text, onCopySuccess, children } = this.props;
 
     if (
       document.queryCommandSupported &&
@@ -24,8 +26,11 @@ export default class Copy extends (PureComponent || Component) {
           text={text}
           onCopy={(t, result) => {
             if (result) {
-              successNotify && Notify.success(successNotify);
-              onCopySuccess && onCopySuccess();
+              if (typeof onCopySuccess === 'string') {
+                Notify.success(onCopySuccess);
+              } else {
+                onCopySuccess();
+              }
             } else {
               this.onCopyError();
             }
@@ -45,13 +50,14 @@ export default class Copy extends (PureComponent || Component) {
 }
 
 Copy.propTypes = {
-  text: PropTypes.string,
-  onCopySuccess: PropTypes.func,
-  onCopyError: PropTypes.func
+  text: PropTypes.string.isRequired,
+  onCopySuccess: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  onCopyError: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  children: PropTypes.element
 };
 
 Copy.defaultProps = {
-  successNotify: '复制成功',
-  errorNotify: '复制失败，请手动复制链接',
+  onCopySuccess: '复制成功',
+  onCopyError: '复制失败，请手动复制链接',
   children: <Button>复制</Button>
 };

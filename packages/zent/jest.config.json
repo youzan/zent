@@ -18,14 +18,14 @@
   },
   "timers": "fake",
   "testPathIgnorePatterns": [
-    "<rootDir>/__tests__/table/comp"
+    "<rootDir>/__tests__/table/comp",
+    "<rootDir>/src/copy-btn/index.js",
+    "<rootDir>/src/copy-btn/ReactCopyToClipboard.js"
   ],
   "coveragePathIgnorePatterns": [
     "<rootDir>/src/slider/common.js",
     "<rootDir>/src/slider/container.js",
-    "<rootDir>/src/slider/points.js",
-    "<rootDir>/src/copy-btn/index.js",
-    "<rootDir>/src/copy-btn/ReactCopyToClipboard.js"
+    "<rootDir>/src/slider/points.js"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
@@ -34,7 +34,7 @@
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
     "^button(.*)$": "<rootDir>/src/button$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
-    "^copy-btn(.*)$": "<rootDir>/src/copy-btn$1",
+    "^copy-button(.*)$": "<rootDir>/src/copy-button$1",
     "^datetimepicker(.*)$": "<rootDir>/src/datetimepicker$1",
     "^dialog(.*)$": "<rootDir>/src/dialog$1",
     "^form(.*)$": "<rootDir>/src/form$1",

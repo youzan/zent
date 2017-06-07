@@ -230,8 +230,8 @@ module.exports = {
             },
             {
               path: 'component/copy-btn',
-              title: 'CopyBtn 复制按钮',
-              component: require('../../packages/zent/src/copy-btn/README.md')
+              title: 'CopyButton 复制按钮',
+              component: require('../../packages/zent/src/copy-button/README.md')
             }
           ]
         }

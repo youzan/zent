@@ -1,4 +1,4 @@
-## CopyBtn 复制按钮
+## CopyButton 复制按钮
 
 复制按钮，点击后复制指定的文本
 
@@ -10,14 +10,14 @@
 
 :::demo 基础用法
 ```jsx
-import { CopyBtn, Button } from 'zent';
+import { CopyButton, Button } from 'zent';
 
 const Simple = props => {
 	return (<div>
-		<CopyBtn text="复制组件" />
-		<CopyBtn text="复制组件2" successNotify="复制成功！">
+		<CopyButton text="复制组件" />
+		<CopyButton text="复制组件2" onCopySuccess="复制成功！">
 			<Button type="primary">复制</Button>
-		</CopyBtn>
+		</CopyButton>
 	</div>);
 }
 
@@ -31,8 +31,6 @@ ReactDOM.render(<Simple />, mountNode);
 | 参数           | 说明                            | 类型     | 默认值      |
 | ------------ | ----------------------------- | ------ | -------- |
 | text        | 需要复制的文本                    | text   |     |
-| successNotify| 复制成功显示的文案               |   text  | `复制成功`   |
-| errorNotify  | 复制失败显示的文案               |  text   | `复制失败，请手动复制链接`   |
-| onSuccessCopy | 复制成功后的回调函数             | func   |     |
-| onErrorCopy   | 复制失败后的回调函数             | func   |     |
+| onCopySuccess | 复制成功后的回调函数             | func, string  | `复制成功` |
+| onCopyError   | 复制失败后的回调函数             | func, string  | `复制失败，请手动复制链接` |
 
