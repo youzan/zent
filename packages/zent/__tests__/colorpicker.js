@@ -54,6 +54,15 @@ describe('ColorPicker', () => {
     expect(state.popVisible).toBe(false);
     expect(props.color).toBe('#5197FF');
     expect(props.showAlpha).toBe(false);
+
+    const color = {
+      hsl: { a: 1, h: 0, l: 0.5, s: 1 },
+      hex: '#ff0000',
+      rgba: { r: 255, g: 0, b: 0, a: 1 },
+      hsv: { h: 0, s: 1, v: 1, a: 1 }
+    };
+    const ColorPickerDom = wrapper.find('ColorPicker');
+    expect(ColorPickerDom.node.handleChange(color));
   });
 
   it('colorPicker showAlpha true', () => {
@@ -69,8 +78,24 @@ describe('ColorPicker', () => {
   });
 
   it('SketchFields renders correctly', () => {
-    const tree = renderer.create(<SketchFields {...red} />).toJSON();
-    expect(tree).toBeTruthy();
+    const handleChange = jest.fn();
+    const data = {
+      hsl: { a: 1, h: 0, l: 0.5, s: 1 },
+      hex: '#ff0000',
+      r: 255,
+      g: 0,
+      b: 0,
+      a: 1
+    };
+    const e = {
+      target: {
+        value: 0
+      }
+    };
+    const wrapper = mount(<SketchFields {...red} onChange={handleChange} />);
+    const editableInputs = wrapper.find('EditableInput');
+    expect(editableInputs.length).toBe(5);
+    expect(editableInputs.node.props.onChange(data, e)).toBe(undefined);
   });
 
   it('SketchPresetColors renders correctly', () => {
@@ -86,6 +111,52 @@ describe('ColorPicker', () => {
     expect(wrapper.find('Checkboard').length).toBe(1);
     const div = wrapper.find('.alpha-bar');
     expect(div.length).toBe(1);
+
+    const e = {
+      preventDefault: () => {},
+      pageX: 1,
+      pageY: 2
+    };
+    const AlphaDom = wrapper.find('Alpha');
+    expect(AlphaDom.node.componentWillUnmount()).toBe(undefined);
+    expect(AlphaDom.node.handleMouseDown(e)).toBe(undefined);
+    expect(AlphaDom.node.handleMouseUp()).toBe(undefined);
+    expect(AlphaDom.node.unbindEventListeners()).toBe(undefined);
+  });
+
+  it('Hue renders correctly', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(<Hue {...red} onChange={handleChange} />);
+    expect(wrapper.find('.hue-area').length).toBe(1);
+    const div = wrapper.find('.hue-bar');
+    expect(div.length).toBe(1);
+
+    const e = {
+      preventDefault: () => {},
+      pageX: 1,
+      pageY: 2
+    };
+    const HueDom = wrapper.find('Hue');
+    expect(HueDom.node.componentWillUnmount()).toBe(undefined);
+    expect(HueDom.node.handleMouseDown(e)).toBe(undefined);
+    expect(HueDom.node.handleMouseUp()).toBe(undefined);
+    expect(HueDom.node.unbindEventListeners()).toBe(undefined);
+  });
+
+  it('Saturation renders correctly', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(<Saturation {...red} onChange={handleChange} />);
+
+    const e = {
+      preventDefault: () => {},
+      pageX: 1,
+      pageY: 2
+    };
+    const SaturationDom = wrapper.find('Saturation');
+    expect(SaturationDom.node.componentWillUnmount()).toBe(undefined);
+    expect(SaturationDom.node.handleMouseDown(e)).toBe(undefined);
+    expect(SaturationDom.node.handleMouseUp()).toBe(undefined);
+    expect(SaturationDom.node.unbindEventListeners()).toBe(undefined);
   });
 
   it('Checkboard renders correctly', () => {
@@ -96,7 +167,14 @@ describe('ColorPicker', () => {
   it('EditableInput mount', () => {
     const handleChange = jest.fn();
     const wrapper = mount(
-      <EditableInput label="Hex" placeholder="#fff" onChange={handleChange} />
+      <EditableInput
+        label="Hex"
+        placeholder="#fff"
+        value={10}
+        dragMax={10}
+        dragLabel
+        onChange={handleChange}
+      />
     );
     const input = wrapper.find('input');
     const span = wrapper.find('span');
@@ -110,26 +188,99 @@ describe('ColorPicker', () => {
 
     input.simulate('keyDown', { keyCode: 38 });
     input.simulate('keyDown', { keyCode: 40 });
+
+    const e = {
+      preventDefault: () => {},
+      target: {
+        value: 1
+      },
+      pageX: 1,
+      pageY: 2,
+      keyCode: 40,
+      movementX: 0
+    };
+    const EditableInputDom = wrapper.find('EditableInput');
+    expect(EditableInputDom.node.componentWillUnmount()).toBe(undefined);
+    expect(EditableInputDom.node.handleMouseDown(e)).toBe(undefined);
+    expect(EditableInputDom.node.handleMouseUp()).toBe(undefined);
+    expect(EditableInputDom.node.handleDrag(e)).toBe(undefined);
+    expect(EditableInputDom.node.handleKeyDown(e)).toBe(undefined);
+    expect(EditableInputDom.node.unbindEventListeners()).toBe(undefined);
+    expect(EditableInputDom.node.handleChange(e)).toBe(undefined);
   });
 
-  it('Hue renders correctly', () => {
+  it('EditableInput mount', () => {
     const handleChange = jest.fn();
-    const wrapper = mount(<Hue {...red} onChange={handleChange} />);
-    expect(wrapper.find('.hue-area').length).toBe(1);
-    const div = wrapper.find('.hue-bar');
-    expect(div.length).toBe(1);
-  });
+    const wrapper = mount(
+      <EditableInput
+        placeholder="#fff"
+        value={10}
+        dragMax={10}
+        dragLabel
+        onChange={handleChange}
+      />
+    );
+    const e = {
+      preventDefault: () => {},
+      target: {
+        value: 1
+      },
+      pageX: 1,
+      pageY: 2,
+      keyCode: 40,
+      movementX: 0
+    };
+    const EditableInputDom = wrapper.find('EditableInput');
+    expect(EditableInputDom.node.handleChange(e)).toBe(undefined);
 
-  it('Saturation renders correctly', () => {
-    const tree = renderer.create(<Saturation {...red} />).toJSON();
-    expect(tree).toBeTruthy();
+    const nextProps = {
+      value: 10
+    };
+    const wrapper1 = mount(
+      <EditableInput
+        label={null}
+        placeholder="#fff"
+        value={10}
+        dragMax={10}
+        dragLabel
+        onChange={handleChange}
+      />
+    );
+    const EditableInputDom1 = wrapper1.find('EditableInput');
+    expect(EditableInputDom1.node.handleKeyDown(e)).toBe(undefined);
+    expect(EditableInputDom1.node.componentWillReceiveProps(nextProps)).toBe(
+      undefined
+    );
   });
 
   it('check helpers func', () => {
-    const data = undefined;
-    expect(() => alpha.calculateChange(data)).toThrow(TypeError);
-    expect(() => hue.calculateChange(data)).toThrow(TypeError);
-    expect(() => saturation.calculateChange(data)).toThrow(TypeError);
+    const e = {
+      preventDefault: () => {},
+      pageX: 1,
+      pageY: 2
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 10,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(() => alpha.calculateChange(e, true, props, container));
+    expect(() => hue.calculateChange(e, true, props, container));
+    expect(() => saturation.calculateChange(e, true, props, container));
   });
 
   it('check helpColor func', () => {
