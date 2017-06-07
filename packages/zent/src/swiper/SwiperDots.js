@@ -2,6 +2,14 @@ import React, { PureComponent, Compoenet } from 'react';
 import cx from 'classnames';
 
 export default class SwiperDots extends (PureComponent || Compoenet) {
+  isDotActive = (index, currentIndex, length) => {
+    return (
+      index === currentIndex ||
+      (index === 0 && currentIndex > length - 1) ||
+      (index === length - 1 && currentIndex < 0)
+    );
+  };
+
   render() {
     const {
       prefix,
@@ -24,15 +32,13 @@ export default class SwiperDots extends (PureComponent || Compoenet) {
             <li
               key={index}
               className={cx(`${prefix}-swiper__dots-item`, {
-                [`${prefix}-swiper__dots-item-active`]: index ===
-                  currentIndex ||
-                  (index === 0 && currentIndex > items.length - 1) ||
-                  (index === items.length - 1 && currentIndex < 0)
+                [`${prefix}-swiper__dots-item-active`]: this.isDotActive(
+                  index,
+                  currentIndex,
+                  items.length
+                )
               })}
-              onClick={e => {
-                e.stopPropagation();
-                onDotsClick(index);
-              }}
+              onClick={() => onDotsClick(index)}
             />
           );
         })}

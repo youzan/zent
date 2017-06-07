@@ -3,9 +3,17 @@ import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
+import forEach from 'lodash/forEach';
 import throttle from 'lodash/throttle';
 
 import SwiperDots from './SwiperDots';
+
+function setStyle(target, styles) {
+  Object.keys(styles).forEach(attribute => {
+    target.style[attribute] = styles[attribute];
+  });
+}
 
 export default class Swiper extends (PureComponent || Compoenet) {
   static PropTypes = {
@@ -41,18 +49,18 @@ export default class Swiper extends (PureComponent || Compoenet) {
 
   init = () => {
     const { currentIndex } = this.state;
-    const innerElements = [].slice.call(this.swiperContainer.children);
+    const innerElements = this.swiperContainer.children;
 
     this.setSwiperWidth();
-    this.setStyle(this.swiperContainer, {
+    setStyle(this.swiperContainer, {
       width: `${this.swiperWidth * innerElements.length}px`
     });
 
-    for (let i = 0; i < innerElements.length; i++) {
-      this.setStyle(innerElements[i], {
+    forEach(innerElements, item => {
+      setStyle(item, {
         width: `${100 / innerElements.length}%`
       });
-    }
+    });
 
     this.translate(currentIndex, true);
   };
@@ -63,12 +71,6 @@ export default class Swiper extends (PureComponent || Compoenet) {
 
   getSwiperContainer = swiperContainer => {
     this.swiperContainer = swiperContainer;
-  };
-
-  setStyle = (target, styles) => {
-    Object.keys(styles).forEach(attribute => {
-      target.style[attribute] = styles[attribute];
-    });
   };
 
   setSwiperWidth = () => {
@@ -99,13 +101,13 @@ export default class Swiper extends (PureComponent || Compoenet) {
     this.setState({ currentIndex });
   };
 
-  translate = (currentIndex = 0, isSilent = false) => {
+  translate = (currentIndex, isSilent) => {
     const { transitionDuration } = this.props;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;
     const translateDistance = itemWidth * (initIndex - currentIndex);
 
-    this.setStyle(this.swiperContainer, {
+    setStyle(this.swiperContainer, {
       transform: `translateX(${translateDistance}px)`,
       'transition-duration': isSilent ? '0ms' : `${transitionDuration}ms`
     });
@@ -134,15 +136,34 @@ export default class Swiper extends (PureComponent || Compoenet) {
 
   getRealPrevIndex = index => {
     const { children: { length } } = this.props;
-    let realIndex = index;
 
-    if (realIndex > length - 1) {
-      realIndex = length - 1;
-    } else if (realIndex < 0) {
-      realIndex = 0;
+    if (index > length - 1) {
+      return length - 1;
+    } else if (index < 0) {
+      return 0;
     }
 
-    return realIndex;
+    return index;
+  };
+
+  cloneChildren = children => {
+    const length = Children.count(children);
+
+    if (length <= 1) {
+      return children;
+    }
+
+    const clonedChildren = new Array(length + 2);
+    Children.forEach(children, (child, index) => {
+      clonedChildren[index + 1] = child;
+      if (index === 0) {
+        clonedChildren[length + 1] = child;
+      } else if (index === length - 1) {
+        clonedChildren[0] = child;
+      }
+    });
+
+    return clonedChildren;
   };
 
   handleMouseEnter = () => {
@@ -204,6 +225,8 @@ export default class Swiper extends (PureComponent || Compoenet) {
     const classString = cx(`${prefix}-swiper`, className, {
       [`${prefix}-swiper-light`]: arrows && arrowsType === 'light'
     });
+    const childrenCount = Children.count(children);
+    const clonedChildren = this.cloneChildren(children);
 
     return (
       <div
@@ -213,7 +236,7 @@ export default class Swiper extends (PureComponent || Compoenet) {
         onMouseLeave={this.handleMouseLeave}
       >
         {arrows &&
-          Children.count(children) > 1 &&
+          childrenCount &&
           <div
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
             onClick={this.prev}
@@ -224,7 +247,7 @@ export default class Swiper extends (PureComponent || Compoenet) {
             />
           </div>}
         {arrows &&
-          Children.count(children) > 1 &&
+          childrenCount > 1 &&
           <div
             className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
             onClick={this.next}
@@ -238,26 +261,15 @@ export default class Swiper extends (PureComponent || Compoenet) {
           ref={this.getSwiperContainer}
           className={`${prefix}-swiper__container`}
         >
-          {Children.count(children) > 1 &&
-            cloneElement(children[children.length - 1], {
-              key: -1,
-              style: { float: 'left', height: '100%' }
-            })}
-          {Children.map(children, (child, index) => {
+          {Children.map(clonedChildren, (child, index) => {
             return cloneElement(child, {
-              key: index,
+              key: index - 1,
               style: { float: 'left', height: '100%' }
             });
           })}
-          {Children.count(children) > 1 &&
-            cloneElement(children[0], {
-              key: children.lenght,
-              style: { float: 'left', height: '100%' }
-            })}
         </div>
         {dots &&
-          children &&
-          children.length > 1 &&
+          childrenCount > 1 &&
           <SwiperDots
             prefix={prefix}
             dotsColor={dotsColor}
@@ -266,7 +278,7 @@ export default class Swiper extends (PureComponent || Compoenet) {
             currentIndex={currentIndex}
             onDotsClick={this.handleDotsClick}
           />}
-        <WindowResizeHandler onResize={throttle(this.init, 300)} />
+        <WindowResizeHandler onResize={throttle(this.init, 1000 / 60)} />
       </div>
     );
   }

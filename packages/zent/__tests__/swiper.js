@@ -27,6 +27,7 @@ describe('Swiper', () => {
     expect(wrapper.find('.zent-swiper__arrow').length).toBe(0);
     expect(wrapper.find('.zent-swiper__dots').length).toBe(0);
     expect(wrapper.find('.swiper-test-child').length).toBe(1);
+    wrapper.unmount();
   });
 
   it('can change page', () => {
@@ -61,6 +62,7 @@ describe('Swiper', () => {
     ).toBe(true);
     expect(wrapper.find('.swiper-text-child').length).toBe(5);
     wrapper.find('.zent-swiper__arrow').at(0).simulate('click');
+    jest.runAllTimers();
     expect(
       wrapper
         .find('.zent-swiper__dots-item')
@@ -75,10 +77,18 @@ describe('Swiper', () => {
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
     wrapper.find('.zent-swiper__arrow').at(1).simulate('click');
+    jest.runAllTimers();
     expect(
       wrapper
         .find('.zent-swiper__dots-item')
         .at(0)
+        .hasClass('zent-swiper__dots-item-active')
+    ).toBe(true);
+    wrapper.find('.zent-swiper__dots-item').at(2).simulate('click');
+    expect(
+      wrapper
+        .find('.zent-swiper__dots-item')
+        .at(2)
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
   });
