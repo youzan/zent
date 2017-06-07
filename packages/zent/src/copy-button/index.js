@@ -6,49 +6,34 @@ import Notify from 'notify';
 import CopyToClipboard from './ReactCopyToClipboard';
 
 export default class Copy extends (PureComponent || Component) {
-  onCopyError = () => {
-    const { onCopyError } = this.props;
-    if (typeof onCopySuccess === 'string') {
-      Notify.error(onCopyError);
+  onCopyCallback = (type, callback) => {
+    if (typeof callback === 'string') {
+      Notify[type](callback);
     } else {
-      onCopyError();
+      callback();
+    }
+  };
+
+  onCopy = (text, result) => {
+    const { onCopySuccess, onCopyError } = this.props;
+
+    if (result) {
+      this.onCopyCallback('success', onCopySuccess);
+    } else {
+      this.onCopyCallback('error', onCopyError);
     }
   };
 
   render() {
-    const { text, onCopySuccess, children } = this.props;
+    const { text, children } = this.props;
 
     const elem = React.Children.only(children);
 
-    if (
-      document.queryCommandSupported &&
-      document.queryCommandSupported('copy')
-    ) {
-      return (
-        <CopyToClipboard
-          text={text}
-          onCopy={(t, result) => {
-            if (result) {
-              if (typeof onCopySuccess === 'string') {
-                Notify.success(onCopySuccess);
-              } else {
-                onCopySuccess();
-              }
-            } else {
-              this.onCopyError();
-            }
-          }}
-        >
-          {elem}
-        </CopyToClipboard>
-      );
-    }
-
-    return React.cloneElement(elem, {
-      onClick: () => {
-        this.onCopyError();
-      }
-    });
+    return (
+      <CopyToClipboard text={text} onCopy={this.onCopy}>
+        {elem}
+      </CopyToClipboard>
+    );
   }
 }
 
