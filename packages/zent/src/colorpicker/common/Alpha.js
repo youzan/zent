@@ -97,6 +97,7 @@ export class Alpha extends Component {
         </div>
         <div style={styles.gradient} />
         <div
+          className="alpha-bar"
           style={styles.container}
           ref={ref => (this.refs = ref)}
           onMouseDown={this.handleMouseDown}

@@ -77,6 +77,7 @@ export default class Hue extends Component {
     return (
       <div style={styles.hue} className="hue-area">
         <div
+          className="hue-bar"
           style={styles.container}
           ref={ref => (this.refs = ref)}
           onMouseDown={this.handleMouseDown}

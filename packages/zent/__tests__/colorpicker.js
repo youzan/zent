@@ -83,7 +83,9 @@ describe('ColorPicker', () => {
   it('Alpha renders correctly', () => {
     const handleChange = jest.fn();
     const wrapper = mount(<Alpha {...red} onChange={handleChange} />);
-    wrapper.find('Alpha').simulate('mousemove');
+    expect(wrapper.find('Checkboard').length).toBe(1);
+    const div = wrapper.find('.alpha-bar');
+    expect(div.length).toBe(1);
   });
 
   it('Checkboard renders correctly', () => {
@@ -91,16 +93,31 @@ describe('ColorPicker', () => {
     expect(tree).toBeTruthy();
   });
 
-  it('EditableInput renders correctly', () => {
-    const tree = renderer
-      .create(<EditableInput label="Hex" placeholder="#fff" />)
-      .toJSON();
-    expect(tree).toBeTruthy();
+  it('EditableInput mount', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(
+      <EditableInput label="Hex" placeholder="#fff" onChange={handleChange} />
+    );
+    const input = wrapper.find('input');
+    const span = wrapper.find('span');
+    expect(input.length).toBe(1);
+    expect(span.length).toBe(1);
+    expect(span.at(0).text()).toBe('Hex');
+    input.simulate('focus');
+    input.simulate('change');
+    input.simulate('blur');
+    expect(handleChange.mock.calls.length).toBe(1);
+
+    input.simulate('keyDown', { keyCode: 38 });
+    input.simulate('keyDown', { keyCode: 40 });
   });
 
   it('Hue renders correctly', () => {
-    const tree = renderer.create(<Hue {...red} />).toJSON();
-    expect(tree).toBeTruthy();
+    const handleChange = jest.fn();
+    const wrapper = mount(<Hue {...red} onChange={handleChange} />);
+    expect(wrapper.find('.hue-area').length).toBe(1);
+    const div = wrapper.find('.hue-bar');
+    expect(div.length).toBe(1);
   });
 
   it('Saturation renders correctly', () => {
@@ -115,28 +132,43 @@ describe('ColorPicker', () => {
     expect(() => saturation.calculateChange(data)).toThrow(TypeError);
   });
 
-  it('check color func', () => {
+  it('check helpColor func', () => {
     const data = null;
     expect(() => helpColor.simpleCheckForValidColor(data)).toThrow(TypeError);
   });
 
-  it('check color func', () => {
+  it('check helpColor func', () => {
     const data = undefined;
     expect(() => helpColor.simpleCheckForValidColor(data)).toThrow(TypeError);
   });
 
-  it('check color func', () => {
+  it('check helpColor func', () => {
+    const data = 255;
+    expect(helpColor.simpleCheckForValidColor(data)).toEqual(data);
+  });
+
+  it('check helpColor func', () => {
     const data = 'ffffff';
     expect(helpColor.simpleCheckForValidColor(data)).toEqual(data);
   });
 
-  it('check color func', () => {
+  it('check helpColor func', () => {
+    const data = { r: 255, g: 255, b: 255 };
+    expect(helpColor.simpleCheckForValidColor(data)).toEqual(data);
+  });
+
+  it('check helpColor func', () => {
+    const data = { r: 0, g: 0, b: 0 };
+    expect(helpColor.toState(data)).toBeTruthy();
+  });
+
+  it('check helpColor func', () => {
     expect(helpColor.toState('blue')).toMatchObject({
       hex: '#0000ff'
     });
   });
 
-  it('check color func', () => {
+  it('check helpColor func', () => {
     expect(helpColor.isValidHex('ffffff')).toBe(true);
   });
 });
