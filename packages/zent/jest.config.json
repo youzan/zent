@@ -18,9 +18,7 @@
   },
   "timers": "fake",
   "testPathIgnorePatterns": [
-    "<rootDir>/__tests__/table/comp",
-    "<rootDir>/src/copy-btn/index.js",
-    "<rootDir>/src/copy-btn/ReactCopyToClipboard.js"
+    "<rootDir>/__tests__/table/comp"
   ],
   "coveragePathIgnorePatterns": [
     "<rootDir>/src/slider/common.js",
