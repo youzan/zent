@@ -1,24 +1,20 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
-import copy from 'copy-to-clipboard';
+import copy from './CopyToClipboard';
 
 export default class CopyToClipboard extends (PureComponent || Component) {
   static propTypes = {
     text: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,
-    onCopy: PropTypes.func,
-    options: PropTypes.shape({
-      debug: PropTypes.bool,
-      message: PropTypes.string
-    })
+    onCopy: PropTypes.func
   };
 
   onClick = event => {
-    const { text, onCopy, children, options } = this.props;
+    const { text, onCopy, children } = this.props;
 
     const elem = React.Children.only(children);
 
-    const result = copy(text, options);
+    const result = copy(text);
 
     if (onCopy) {
       onCopy(text, result);
