@@ -725,9 +725,20 @@ declare namespace Zent {
     function withNonScrollable(component: Portal): React.Component<INonScrollablePortalProps, any>
   }
 
+  interface IAffixProps {
+    offsetTop?: number
+    offsetBottom?: number
+    onPin?: () => void
+    onUnpin?: () => void
+    zindex?: number
+    className?: string
+    placeHoldClassName?: string
+    prefix?: string
+  }
 
+  class Affix extends React.Component<IAffixProps, any> {}
 
-
+  
 }
 
 
