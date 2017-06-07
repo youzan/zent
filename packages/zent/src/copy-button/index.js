@@ -17,6 +17,8 @@ export default class Copy extends (PureComponent || Component) {
   render() {
     const { text, onCopySuccess, children } = this.props;
 
+    const elem = React.Children.only(children);
+
     if (
       document.queryCommandSupported &&
       document.queryCommandSupported('copy')
@@ -36,12 +38,12 @@ export default class Copy extends (PureComponent || Component) {
             }
           }}
         >
-          {children}
+          {elem}
         </CopyToClipboard>
       );
     }
 
-    return React.cloneElement(children, {
+    return React.cloneElement(elem, {
       onClick: () => {
         this.onCopyError();
       }
@@ -52,8 +54,7 @@ export default class Copy extends (PureComponent || Component) {
 Copy.propTypes = {
   text: PropTypes.string.isRequired,
   onCopySuccess: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  onCopyError: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  children: PropTypes.element
+  onCopyError: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
 };
 
 Copy.defaultProps = {
