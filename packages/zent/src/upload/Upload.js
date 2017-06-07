@@ -52,7 +52,7 @@ class Upload extends Component {
       triggerClassName,
       tips,
       children,
-      inline,
+      triggerInline,
       materials,
       ...uploadOptions
     } = this.props;
@@ -68,7 +68,7 @@ class Upload extends Component {
     className = classnames([
       `${prefix}-upload`,
       {
-        inline
+        inline: triggerInline
       },
       className
     ]);
@@ -145,7 +145,7 @@ Upload.defaultProps = {
   filterFiles: noop,
   onFetch: promiseNoop,
   onUpload: promiseNoop,
-  inline: false,
+  triggerInline: false,
   silent: false
 };
 
