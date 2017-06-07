@@ -28,7 +28,7 @@
     "fecha": "2.3.x",
     "lodash": "4.17.x",
     "prop-types": "15.5.x",
-    "zenticons": "^1.0.1"
+    "zenticons": "^1.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
@@ -57,7 +57,7 @@
     "cssnano": "^3.10.0",
     "enzyme": "2.8.x",
     "glob": "^7.1.1",
-    "jest": "^19.0.2",
+    "jest": "^20.0.4",
     "postcss-cli": "^3.2.0",
     "postcss-easy-import": "^2.0.0",
     "precss": "^1.4.0",
