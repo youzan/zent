@@ -738,7 +738,16 @@ declare namespace Zent {
 
   class Affix extends React.Component<IAffixProps, any> {}
 
-  
+  interface IBadgeProps {
+    count?: number
+    maxCount?: number
+    dot?: boolean
+    showZero?: boolean
+    className?: string
+    prefix?: string
+  }
+
+  class Badge extends React.Component<IBadgeProps, any> {}
 }
 
 
