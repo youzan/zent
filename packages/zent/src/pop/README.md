@@ -117,7 +117,7 @@ ReactDOM.render(
 	<Pop 
 		trigger="click"
 		content="提示内容"
-		onConfirm={() => Sweetalert.alert('Pop关闭了')}
+		onConfirm={() => Sweetalert.alert({ content: 'Pop关闭了' })}
 	>
 		<Button type="primary">打开气泡</Button>
 	</Pop>
@@ -137,7 +137,7 @@ ReactDOM.render(
 		type="danger"
 		confirmText="Error"
 		cancelText="Close"
-		onConfirm={() => Sweetalert.alert('Pop关闭了')}
+		onConfirm={() => Sweetalert.alert({ content: 'Pop关闭了' })}
 	>
 		<Button type="primary">打开气泡</Button>
 	</Pop>

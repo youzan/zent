@@ -1,5 +1,7 @@
 import React from 'react';
-import TabPanel from './components/TabPanel/TabPanel';
+import kindOf from 'utils/kindOf';
+
+import TabPanel from './components/TabPanel';
 
 /**
  * 从tabpanel中提取数据，数据格式为
@@ -47,7 +49,8 @@ const tabUtil = {
   },
 
   checkIfTabPanel(rEl) {
-    return rEl.type && rEl.type === TabPanel;
+    const type = rEl && rEl.type;
+    return kindOf(type, TabPanel);
   }
 };
 

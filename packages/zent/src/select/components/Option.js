@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-/**
- * Option
- */
+import React, { Component, PureComponent } from 'react';
 
-import React, { Component } from 'react';
-
-class Option extends Component {
+class Option extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.optionClickHandler = this.optionClickHandler.bind(this);

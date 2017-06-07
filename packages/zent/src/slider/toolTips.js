@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 
-export default class ToolTips extends Component {
+export default class ToolTips extends (PureComponent || Component) {
   render() {
     const { left, content, visibility, prefix } = this.props;
     const cl = classNames({

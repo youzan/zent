@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import setClass from 'classnames';
 
-export default class Switch extends Component {
+export default class Switch extends (PureComponent || Component) {
   static propTypes = {
     size: PropTypes.oneOf(['large', 'default', 'small']),
     prefix: PropTypes.string,

@@ -1,3 +1,3 @@
-import { Component } from 'react';
+import { Component, PureComponent } from 'react';
 
-export default class WeekPicker extends Component {}
+export default class WeekPicker extends (PureComponent || Component) {}

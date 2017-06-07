@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import NumberSteps from './components/NumberSteps';
 import CardSteps from './components/CardSteps';
 import BreadcrumbSteps from './components/BreadcrumbSteps';
 
-export default class Steps extends Component {
+export default class Steps extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

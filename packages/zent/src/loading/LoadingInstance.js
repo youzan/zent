@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import isBrowser from 'utils/isBrowser';
 
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 
-export default class Instance extends Component {
+export default class Instance extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

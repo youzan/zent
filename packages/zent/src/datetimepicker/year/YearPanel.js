@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PanelHeader from '../common/PanelHeader';
 import YearPanelBody from './YearPanelBody';
 import { noop } from '../constants';
 
-export default class YearPanel extends Component {
+export default class YearPanel extends (PureComponent || Component) {
   prevYears = () => {
     const { actived, onSelect } = this.props;
     const prev = actived.getFullYear() - 12;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { padLeft } from '../utils';
@@ -12,7 +12,7 @@ const stateMap = {
   second: 'openSecond'
 };
 
-export default class TimePanel extends Component {
+export default class TimePanel extends (PureComponent || Component) {
   static propTypes = {
     onChange: PropTypes.func,
     actived: PropTypes.instanceOf(Date),
