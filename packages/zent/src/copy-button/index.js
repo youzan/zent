@@ -2,6 +2,7 @@ import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'button';
 import Notify from 'notify';
+
 import CopyToClipboard from './ReactCopyToClipboard';
 
 export default class Copy extends (PureComponent || Component) {
