@@ -45,6 +45,47 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 直接渲染
+```js
+import { Upload } from 'zent';
+
+class Simple extends React.Component {
+
+    renderTrigger() {
+        return <span></span>;
+    }
+
+    fetchNetworkImage(data) {
+        return new Promise(resolve => {
+            console.log(data);
+            resolve(data);
+        });
+    }
+
+    updateLocalImage(data) {
+        return new Promise(resolve => {
+            console.log(data);
+            resolve(data);
+        })
+    }
+
+    render() {
+        return <Upload
+            withoutPopup
+            tips="建议尺寸：640 x 640 像素；您可以拖拽图片调整图片顺序。"
+            onFetch={this.fetchNetworkImage}
+            onUpload={this.updateLocalImage} />;
+    }
+}
+
+ReactDOM.render(
+    <Simple />
+    , mountNode
+);
+
+```
+:::
+
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
@@ -64,4 +105,4 @@ ReactDOM.render(
 | auto | 是否自动弹出 | boolean | `false` | 否 |
 | triggerClassName | 重写trigger样式 | string | `'zent-upload-trigger'` | 否 |
 | prefix | 前缀命名空间 | string | `'zent'` | 否 |
-| popup | 渲染方式，popup为渲染在弹层中，none为直接渲染在页面上 | boolean | `true` | 否 |
+| withoutPopup | 是否不渲染在弹层上 | boolean | `false` | 否 |

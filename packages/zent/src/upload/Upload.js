@@ -54,6 +54,7 @@ class Upload extends Component {
       children,
       triggerInline,
       materials,
+      withoutPopup,
       ...uploadOptions
     } = this.props;
 
@@ -73,28 +74,28 @@ class Upload extends Component {
       className
     ]);
 
-    return (
-      <div className={className}>
-        <div
-          className={triggerClassName}
-          onClick={this.showUpload.bind(this, true)}
-        >
-          {children || (Node && <Node />) || <span>+</span>}
-          {uploadOptions.localOnly && uploadOptions.maxAmount === 1
-            ? <FileInput {...uploadOptions} />
-            : ''}
-        </div>
-        <p className={`${prefix}-upload-tips`}>{tips}</p>
-        <Dialog
-          title="图片选择"
-          visible={visible}
-          className={className}
-          onClose={this.closePopup}
-        >
-          {this.renderUploadPopup(uploadOptions)}
-        </Dialog>
-      </div>
-    );
+    return withoutPopup
+      ? this.renderUploadPopup(uploadOptions)
+      : <div className={className}>
+          <div
+            className={triggerClassName}
+            onClick={this.showUpload.bind(this, true)}
+          >
+            {children || (Node && <Node />) || <span>+</span>}
+            {uploadOptions.localOnly && uploadOptions.maxAmount === 1
+              ? <FileInput {...uploadOptions} />
+              : ''}
+          </div>
+          <p className={`${prefix}-upload-tips`}>{tips}</p>
+          <Dialog
+            title="图片选择"
+            visible={visible}
+            className={className}
+            onClose={this.closePopup}
+          >
+            {this.renderUploadPopup(uploadOptions)}
+          </Dialog>
+        </div>;
   }
 
   /**
@@ -146,7 +147,8 @@ Upload.defaultProps = {
   onFetch: promiseNoop,
   onUpload: promiseNoop,
   triggerInline: false,
-  silent: false
+  silent: false,
+  withoutPopup: false
 };
 
 export default Upload;
