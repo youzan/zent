@@ -12,6 +12,11 @@ import FileInput from './components/FileInput';
 
 const noop = res => res;
 
+const promiseNoop = () =>
+  new Promise(resolve => {
+    resolve([]);
+  });
+
 class Upload extends Component {
   constructor(props) {
     super(props);
@@ -138,9 +143,8 @@ Upload.defaultProps = {
   tokenUrl: '',
   uploadUrl: '//upload.qbox.me',
   filterFiles: noop,
-  onFetch: noop,
-  onUpload: noop,
-  onProgress: noop,
+  onFetch: promiseNoop,
+  onUpload: promiseNoop,
   inline: false,
   silent: false
 };

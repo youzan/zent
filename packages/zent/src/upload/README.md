@@ -8,27 +8,32 @@
 ```js
 import { Upload } from 'zent';
 
-console.log(Upload);
-
 class Simple extends React.Component {
-    uploadSuccess(data) {
-        console.log(data); // eslint-disable-line
-    }
-
-    uploadError(data) {
-        console.log(data);
-    }
 
     renderTrigger() {
         return <span></span>;
+    }
+
+    fetchNetworkImage(data) {
+        return new Promise(resolve => {
+            console.log(data);
+            resolve(data);
+        });
+    }
+
+    updateLocalImage(data) {
+        return new Promise(resolve => {
+            console.log(data);
+            resolve(data);
+        })
     }
 
     render() {
         return <Upload
             maxSize={8 * 1000 * 1000}
             tips="建议尺寸：640 x 640 像素；您可以拖拽图片调整图片顺序。"
-            onFetch
-            onUpload />;
+            onFetch={this.fetchNetworkImage}
+            onUpload={this.updateLocalImage} />;
     }
 }
 
@@ -44,9 +49,6 @@ ReactDOM.render(
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 |------|------|------|--------|--------|
-| tokenUrl | 自定义上传图片token的url [POST] | string | `''` | 是 |
-| uploadUrl | 自定义上传图片url [POST] | string | `'//upload.qbox.me'` | 否 |
-| fetchUrl | 自定义提取网络图片url [POST] | string | `''` | 否 |
 | localOnly | 是否只支持本地图片 | boolean | `false` | 否 |
 | tips | 提示文案 | string | `''` | 否 |
 | maxSize | 图片大小限制，单位为b | number | `1024 * 1024` | 否 |

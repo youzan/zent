@@ -147,12 +147,11 @@ class UploadPopup extends Component {
   uploadLocalImages() {
     let { options, showUploadPopup } = this.props;
     let { localFiles } = this.state;
-    let files = localFiles.map(item => item.file);
     this.setState({
       localUploading: true
     });
     uploadLocalImage(options, {
-      target: { files },
+      localFiles,
       onProgress: this.fileProgressHandler
     })
       .then(() => {
@@ -251,14 +250,13 @@ class UploadPopup extends Component {
       networkUploading: true,
       buttonText: BUTTON_LOADING_TEXT
     });
-    options.onFetch().then(
-      data => {
+    options.onFetch(this.networkUrl).then(
+      () => {
         this.setState({
           networkImage: {},
           networkUploading: false,
           buttonText: BUTTON_TEXT
         });
-        options.onSuccess([data]);
         showUploadPopup(false);
       },
       () => {
@@ -267,7 +265,6 @@ class UploadPopup extends Component {
           networkUploading: false,
           buttonText: BUTTON_TEXT
         });
-        options.onError();
       }
     );
   }
