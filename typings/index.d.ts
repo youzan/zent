@@ -31,6 +31,9 @@ declare module 'zent' {
   export import Tree = Zent.Tree
   export import Popover = Zent.Popover
   export import Portal = Zent.Portal
+  export import Affix = Zent.Affix
+  export import Badge = Zent.Badge
+  export import Tag = Zent.Tag
 }
 
 declare namespace Zent {
@@ -748,6 +751,17 @@ declare namespace Zent {
   }
 
   class Badge extends React.Component<IBadgeProps, any> {}
+
+  interface ITagProps {
+    color?: 'red'|'green'|'yellow'|'blue'|'darkgreen'
+    ontline?: boolean
+    closable?: boolean
+    onClose?: () => void
+    className?: string
+    prefix?: string
+  }
+
+  class Tag extends React.Component<ITagProps, any> {}
 }
 
 
