@@ -78,6 +78,7 @@ class Simple extends React.Component {
 					dotsColor="danger"
 					dotsSize="small"
 					arrows
+					autoplay
 					onChange={this.handleChange}
 				>
 					{
