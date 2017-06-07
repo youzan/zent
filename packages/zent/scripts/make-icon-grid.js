@@ -4,22 +4,24 @@
 
 var codes = require('zenticons/lib/codes.json');
 
-var icons = codes.map(c => {
-  var iname = c.name;
-  var icodepoint = c.hexCodepoint;
-  var ikeywords = c.keywords.join('');
-  var fulltext_index = `${iname}${icodepoint}${ikeywords}`;
+var icons = codes
+  .map(c => {
+    var iname = c.name;
+    var icodepoint = c.hexCodepoint;
+    var ikeywords = c.keywords.join('');
+    var fulltext_index = `${iname}${icodepoint}${ikeywords}`;
 
-  return `
+    return `
         <div className="zi-grid-item" data-index="${fulltext_index}">
           <Icon type="${iname}" />
-          <span className="zi-grid-item-name">$${iname}(${icodepoint})</span>
+          <span className="zi-grid-item-name">${iname}(${icodepoint})</span>
         </div>`;
-});
+  })
+  .join('');
 
-var component = `import Icon from 'icon';
+var component = `import { Icon } from 'zent';
 
-export default class IconGrid extends Component {
+class IconGrid extends Component {
   state = {
     search: ''
   };
@@ -36,7 +38,7 @@ export default class IconGrid extends Component {
       <div className="zi-grid">
         {search && <style>{\`.zi-grid-item:not([data-index*="\${search}"]) { display: none; }\`}</style>}
         <div className="zi-search-input">
-          <input placeholder="type to search..." value={search} onChange={this.onChange} />
+          <input placeholder="Search..." value={search} onChange={this.onChange} />
         </div>
 ${icons}
       </div>

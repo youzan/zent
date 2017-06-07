@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { getNodeFromSelector } from './util';
 
@@ -7,7 +7,7 @@ import { getNodeFromSelector } from './util';
   lifecycle.
 **/
 export default function withNonScrollable(Portal) {
-  return class NonScrollableWrapper extends Component {
+  return class NonScrollableWrapper extends (PureComponent || Component) {
     static propTypes = {
       selector: PropTypes.string
     };

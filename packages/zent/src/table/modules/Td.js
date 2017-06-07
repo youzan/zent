@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
 import cx from 'classnames';
 
 import helper from '../helper';
 
-export default class Td extends Component {
+export default class Td extends (PureComponent || Component) {
   renderText(name, data) {
     return data[name];
   }

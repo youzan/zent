@@ -2,7 +2,7 @@
  * Popup
  */
 
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 
@@ -10,7 +10,7 @@ import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
 
-class Popup extends Component {
+class Popup extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import cx from 'classnames';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import WindowEventHandler from 'utils/component/WindowEventHandler';
 import getViewportSize from 'utils/dom/getViewportSize';
 import throttle from 'lodash/throttle';
 
-class Affix extends Component {
+class Affix extends (PureComponent || Component) {
   static propTypes = {
     placeHoldClassName: PropTypes.string,
     className: PropTypes.string,
@@ -45,7 +45,11 @@ class Affix extends Component {
     const { onUnpin } = this.props;
 
     this.affix = false;
-    this.setState({ position: 'static', width: null, placeHoldStyle: null });
+    this.setState({
+      position: 'static',
+      width: null,
+      placeHoldStyle: { overflow: 'hidden' }
+    });
     onUnpin && onUnpin();
   }
 

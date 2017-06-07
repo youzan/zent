@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { Component, PureComponent } from 'react';
 
-export default class WindowEventHandler extends Component {
+export default class WindowEventHandler extends (PureComponent || Component) {
   static propTypes = {
     eventName: PropTypes.string.isRequired,
     callback: PropTypes.func.isRequired,

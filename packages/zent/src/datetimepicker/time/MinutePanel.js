@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 
 import PanelHeader from '../common/PanelHeader';
@@ -8,7 +8,7 @@ import { CURRENT, padLeft } from '../utils';
 const ROW = 9;
 const COL = 7;
 
-export default class MinutePanel extends Component {
+export default class MinutePanel extends (PureComponent || Component) {
   isDisabled(val) {
     const { disabledMinute } = this.props;
     if (typeof disabledMinute === 'function') {

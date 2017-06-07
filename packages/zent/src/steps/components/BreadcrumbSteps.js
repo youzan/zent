@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 
-export default class BreadcrumbSteps extends Component {
+export default class BreadcrumbSteps extends (PureComponent || Component) {
   render() {
     const props = this.props;
     const { className, prefix, children, current } = props;
