@@ -40,17 +40,18 @@ const extractStateFromProps = props => {
 
   if (isValidValue(props.value)) {
     showPlaceholder = false;
-    const tmp = [
+    selected = [
       maybeParseDate(props.value[0], format),
       maybeParseDate(props.value[1], format)
     ];
-    selected = tmp.slice();
-    range = actived = [setTime(tmp[0]), setTime(tmp[1])];
+    const tmp = [setTime(selected[0]), setTime(selected[1])];
+    range = tmp.slice();
+    actived = tmp.slice();
     value = [formatDate(selected[0], format), formatDate(selected[1], format)];
 
     // 特殊处理：如果两个时间在同一个月，右边的面板月份加一
     if (isSameMonth(actived[0], actived[1])) {
-      actived[1] = goMonths(actived[0], 1);
+      actived[1] = goMonths(actived[1], 1);
     }
   } else {
     showPlaceholder = true;

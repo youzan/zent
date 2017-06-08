@@ -19,6 +19,7 @@ class Field extends (PureComponent || Component) {
   // validationError为默认错误提示
   // validationErrors为指定校验规则所对应的错误提示
   static defaultProps = {
+    value: '',
     validationError: '',
     validationErrors: {}
   };
