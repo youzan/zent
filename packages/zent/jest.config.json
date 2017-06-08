@@ -38,6 +38,7 @@
     "^button(.*)$": "<rootDir>/src/button$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
     "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1",
+    "^copy-button(.*)$": "<rootDir>/src/copy-button$1",
     "^datetimepicker(.*)$": "<rootDir>/src/datetimepicker$1",
     "^dialog(.*)$": "<rootDir>/src/dialog$1",
     "^form(.*)$": "<rootDir>/src/form$1",
