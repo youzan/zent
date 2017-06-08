@@ -489,6 +489,41 @@ describe('ColorPicker', () => {
     expect(alpha.calculateChange(e, false, props, container));
   });
 
+  it('check helpers func alpha other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: '2',
+      pageY: '23',
+      touches: [
+        {
+          pageX: 2,
+          pageY: 23
+        }
+      ]
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      },
+      a: 1
+    };
+    const container = {
+      clientWidth: 19,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(alpha.calculateChange(e, false, props, container));
+  });
+
   it('check helpers func hue other branch', () => {
     const e = {
       preventDefault: () => {},
@@ -879,8 +914,18 @@ describe('ColorPicker', () => {
     expect(helpColor.simpleCheckForValidColor(data)).toEqual(data);
   });
 
+  it('check helpColor func isNaN', () => {
+    const data = { r: 'aa', g: 0, b: 0 };
+    expect(helpColor.simpleCheckForValidColor(data)).toEqual(false);
+  });
+
   it('check helpColor func toState1', () => {
     const data = { r: 0, g: 0, b: 0 };
+    expect(helpColor.toState(data)).toBeTruthy();
+  });
+
+  it('check helpColor func toState1', () => {
+    const data = { hex: '#ff0000' };
     expect(helpColor.toState(data)).toBeTruthy();
   });
 
