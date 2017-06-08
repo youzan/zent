@@ -23,7 +23,7 @@ export default class Swiper extends (PureComponent || Compoenet) {
     autoplay: PropTypes.bool,
     autoplayInterval: PropTypes.number,
     dots: PropTypes.bool,
-    dotsColor: PropTypes.oneOf(['default', 'primary', 'success', 'danger']),
+    dotsColor: PropTypes.string,
     dotsSize: PropTypes.oneOf(['normal', 'small', 'large']),
     arrows: PropTypes.bool,
     arrowsType: PropTypes.oneOf(['dark', 'light']),
@@ -37,7 +37,7 @@ export default class Swiper extends (PureComponent || Compoenet) {
     autoplay: false,
     autoplayInterval: 3000,
     dots: true,
-    dotsColor: 'default',
+    dotsColor: 'black',
     dotsSize: 'normal',
     arrows: false,
     arrowsType: 'dark'

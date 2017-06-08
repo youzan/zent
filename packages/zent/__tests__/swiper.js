@@ -99,7 +99,7 @@ describe('Swiper', () => {
       render() {
         return (
           <Swiper
-            dotsColor="danger"
+            dotsColor="red"
             dotsSize="large"
             autoplay
             autoplayIterval={5000}
@@ -117,7 +117,7 @@ describe('Swiper', () => {
     expect(wrapper.find('.zent-swiper__arrow').length).toBe(2);
     expect(wrapper.hasClass('zent-swiper-light')).toBe(true);
     expect(
-      wrapper.find('.zent-swiper__dots').hasClass('zent-swiper__dots-danger')
+      wrapper.find('.zent-swiper__dots').hasClass('zent-swiper__dots-red')
     ).toBe(true);
     expect(
       wrapper.find('.zent-swiper__dots').hasClass('zent-swiper__dots-large')
@@ -131,5 +131,22 @@ describe('Swiper', () => {
         .at(1)
         .hasClass('zent-swiper__dots-item-active')
     ).toBe(true);
+  });
+
+  it('can have customize dotsColor', () => {
+    const childs = [1, 2, 3];
+    class Test extends React.Component {
+      render() {
+        return (
+          <Swiper dotsColor="#fff">
+            {childs.map((item, index) => (
+              <div key={index} className="swiper-text-child">{item}</div>
+            ))}
+          </Swiper>
+        );
+      }
+    }
+    const wrapper = mount(<Test />);
+    expect(wrapper.hasClass('zent-swiper')).toBe(true);
   });
 });
