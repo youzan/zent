@@ -11,7 +11,7 @@
   "coverageThreshold": {
     "global": {
       "statements": 96,
-      "branches": 86,
+      "branches": 87,
       "functions": 96,
       "lines": 96
     }
@@ -24,12 +24,11 @@
     "<rootDir>/src/slider/common.js",
     "<rootDir>/src/slider/container.js",
     "<rootDir>/src/slider/points.js",
+    "<rootDir>/src/colorpicker/index.js",
     "<rootDir>/src/colorpicker/SketchFields.js",
     "<rootDir>/src/colorpicker/SketchPresetColors.js",
     "<rootDir>/src/colorpicker/common/ColorWrap.js",
-    "<rootDir>/src/colorpicker/helpers/alpha.js",
-    "<rootDir>/src/colorpicker/helpers/checkboard.js",
-    "<rootDir>/src/colorpicker/helpers/hue.js"
+    "<rootDir>/src/colorpicker/helpers/checkboard.js"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",

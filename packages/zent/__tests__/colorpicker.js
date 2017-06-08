@@ -5,6 +5,8 @@ import ColorPicker from 'colorpicker';
 import * as alpha from 'colorpicker/helpers/alpha';
 import * as hue from 'colorpicker/helpers/hue';
 import * as saturation from 'colorpicker/helpers/saturation';
+import flattenNames from 'colorpicker/helpers/reactcss/flattenNames.js';
+import mergeClasses from 'colorpicker/helpers/reactcss/mergeClasses.js';
 import helpColor from 'colorpicker/helpers/color';
 import SketchFields from 'colorpicker/SketchFields';
 import SketchPresetColors from 'colorpicker/SketchPresetColors';
@@ -124,6 +126,20 @@ describe('ColorPicker', () => {
     expect(AlphaDom.node.unbindEventListeners()).toBe(undefined);
   });
 
+  it('Alpha renders correctly branch check', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(
+      <Alpha
+        {...red}
+        pointer={() => {
+          return <div>Alpha</div>;
+        }}
+        onChange={handleChange}
+      />
+    );
+    expect(wrapper.find('Checkboard').length).toBe(1);
+  });
+
   it('Hue renders correctly', () => {
     const handleChange = jest.fn();
     const wrapper = mount(<Hue {...red} onChange={handleChange} />);
@@ -143,6 +159,20 @@ describe('ColorPicker', () => {
     expect(HueDom.node.unbindEventListeners()).toBe(undefined);
   });
 
+  it('Hue renders correctly branch check', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(
+      <Hue
+        {...red}
+        pointer={() => {
+          return <div>Alpha</div>;
+        }}
+        onChange={handleChange}
+      />
+    );
+    expect(wrapper.find('.hue-area').length).toBe(1);
+  });
+
   it('Saturation renders correctly', () => {
     const handleChange = jest.fn();
     const wrapper = mount(<Saturation {...red} onChange={handleChange} />);
@@ -159,6 +189,20 @@ describe('ColorPicker', () => {
     expect(SaturationDom.node.unbindEventListeners()).toBe(undefined);
   });
 
+  it('Saturation renders correctly branch check', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(
+      <Saturation
+        {...red}
+        pointer={() => {
+          return <div>Alpha</div>;
+        }}
+        onChange={handleChange}
+      />
+    );
+    expect(wrapper.find('Saturation').length).toBe(1);
+  });
+
   it('Checkboard renders correctly', () => {
     const tree = renderer.create(<Checkboard />).toJSON();
     expect(tree).toBeTruthy();
@@ -166,8 +210,12 @@ describe('ColorPicker', () => {
 
   it('EditableInput mount', () => {
     const handleChange = jest.fn();
+    const style = {
+      wrap: 1
+    };
     const wrapper = mount(
       <EditableInput
+        style={style}
         label="Hex"
         placeholder="#fff"
         value={10}
@@ -211,8 +259,12 @@ describe('ColorPicker', () => {
 
   it('EditableInput mount', () => {
     const handleChange = jest.fn();
+    const style = {
+      input: 1
+    };
     const wrapper = mount(
       <EditableInput
+        style={style}
         placeholder="#fff"
         value={10}
         dragMax={10}
@@ -236,12 +288,16 @@ describe('ColorPicker', () => {
     const nextProps = {
       value: 10
     };
+    const style1 = {
+      labal: 1
+    };
     const wrapper1 = mount(
       <EditableInput
+        style={style1}
         label={null}
         placeholder="#fff"
         value={10}
-        dragMax={10}
+        dragMax={20}
         dragLabel
         onChange={handleChange}
       />
@@ -251,9 +307,21 @@ describe('ColorPicker', () => {
     expect(EditableInputDom1.node.componentWillReceiveProps(nextProps)).toBe(
       undefined
     );
+
+    const e1 = {
+      preventDefault: () => {},
+      target: {
+        value: 1
+      },
+      pageX: 1,
+      pageY: 2,
+      keyCode: 38,
+      movementX: 0
+    };
+    expect(EditableInputDom1.node.handleKeyDown(e1)).toBe(undefined);
   });
 
-  it('check helpers func', () => {
+  it('check helpers alpha func', () => {
     const e = {
       preventDefault: () => {},
       pageX: 1,
@@ -262,7 +330,7 @@ describe('ColorPicker', () => {
     const props = {
       direction: 'vertical',
       hsl: {
-        h: 10,
+        h: 1,
         s: 20,
         l: 30,
         a: 1
@@ -278,48 +346,551 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(() => alpha.calculateChange(e, true, props, container));
-    expect(() => hue.calculateChange(e, true, props, container));
-    expect(() => saturation.calculateChange(e, true, props, container));
+    expect(alpha.calculateChange(e, true, props, container));
   });
 
-  it('check helpColor func', () => {
+  it('check helpers func alpha other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 1,
+      pageY: 0
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(alpha.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func alpha other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 1,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(alpha.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func alpha other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(alpha.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func alpha other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 2,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(alpha.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func alpha other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 2,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(alpha.calculateChange(e, false, props, container));
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 1
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 20,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 19,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 20,
+      pageY: 30
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 19,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, false, props, container));
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: '2',
+      pageY: '23',
+      touches: [
+        {
+          pageX: 2,
+          pageY: 23
+        }
+      ]
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 19,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, false, props, container));
+  });
+
+  it('check helpers func saturation other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 20
+    };
+    const props = {
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(saturation.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func saturation other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 2,
+      pageY: 1
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(saturation.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func saturation other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 2,
+      pageY: 23
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(saturation.calculateChange(e, true, props, container));
+  });
+
+  it('check helpers func saturation other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 2,
+      pageY: 23
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(saturation.calculateChange(e, false, props, container));
+  });
+
+  it('check helpers func saturation other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: '2',
+      pageY: '23',
+      touches: [
+        {
+          pageX: 2,
+          pageY: 23
+        }
+      ]
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(saturation.calculateChange(e, false, props, container));
+  });
+
+  it('check helpers func flattenNames other branch', () => {
+    const things = [1, 2, [1]];
+    expect(flattenNames(things));
+  });
+
+  it('check helpers func mergeClasses other branch', () => {
+    const classes = {
+      default: {
+        name: 'name'
+      },
+      test1: {
+        name: 'name'
+      }
+    };
+    const activeNames = ['test1'];
+    expect(mergeClasses(classes, activeNames));
+  });
+
+  it('check helpColor func null', () => {
     const data = null;
     expect(() => helpColor.simpleCheckForValidColor(data)).toThrow(TypeError);
   });
 
-  it('check helpColor func', () => {
+  it('check helpColor func undefined', () => {
     const data = undefined;
     expect(() => helpColor.simpleCheckForValidColor(data)).toThrow(TypeError);
   });
 
-  it('check helpColor func', () => {
+  it('check helpColor func 255', () => {
     const data = 255;
     expect(helpColor.simpleCheckForValidColor(data)).toEqual(data);
   });
 
-  it('check helpColor func', () => {
+  it('check helpColor func fff', () => {
     const data = 'ffffff';
     expect(helpColor.simpleCheckForValidColor(data)).toEqual(data);
   });
 
-  it('check helpColor func', () => {
+  it('check helpColor func rgb', () => {
     const data = { r: 255, g: 255, b: 255 };
     expect(helpColor.simpleCheckForValidColor(data)).toEqual(data);
   });
 
-  it('check helpColor func', () => {
+  it('check helpColor func toState1', () => {
     const data = { r: 0, g: 0, b: 0 };
     expect(helpColor.toState(data)).toBeTruthy();
   });
 
-  it('check helpColor func', () => {
+  it('check helpColor func toState2', () => {
     expect(helpColor.toState('blue')).toMatchObject({
       hex: '#0000ff'
     });
   });
 
-  it('check helpColor func', () => {
+  it('check helpColor func toState3', () => {
     expect(helpColor.isValidHex('ffffff')).toBe(true);
   });
 });
