@@ -171,10 +171,10 @@ class UploadPopup extends Component {
   }
 
   render() {
-    let { prefix, options } = this.props;
+    let { prefix, options, className } = this.props;
 
     return (
-      <div>
+      <div className={className}>
         <div className={`${prefix}-container`}>
           {!options.localOnly && this.renderNetworkRegion(this.props)}
           {this.renderLocalImageRegion(this.props)}
