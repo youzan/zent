@@ -26,6 +26,7 @@ import Select from 'select';
 import Slider from 'slider';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
+import Swiper from 'swiper';
 import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
@@ -61,6 +62,7 @@ export {
   Slider,
   Steps,
   Sweetalert,
+  Swiper,
   Table,
   Tabs,
   Tag,
