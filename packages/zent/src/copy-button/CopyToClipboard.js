@@ -40,7 +40,7 @@ function copy(text) {
       window.clipboardData.setData('text', text);
       success = true;
     } catch (e) {
-      console.log(e);
+      console.log(e); // eslint-disable-line
     }
   } finally {
     if (selection) {
