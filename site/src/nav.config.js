@@ -104,14 +104,14 @@ module.exports = {
               component: require('../../packages/zent/src/sweetalert/README.md')
             },
             {
-              path: 'component/tag',
-              title: 'Tag 标签',
-              component: require('../../packages/zent/src/tag/README.md')
-            },
-            {
               path: 'component/swiper',
               title: 'Swiper 轮播',
               component: require('../../packages/zent/src/swiper/README.md')
+            },
+            {
+              path: 'component/tag',
+              title: 'Tag 标签',
+              component: require('../../packages/zent/src/tag/README.md')
             }
           ]
         },
