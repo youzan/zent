@@ -1,85 +1,126 @@
-@import "../../_constants.pcss";
+$normalcolor: #333;
+$graycolor: #999;
+$whitecolor: #fff;
+$darkgraycolor: #666;
+$bordercolor: #e8e8e8;
+$maskbgcolor: #373737;
+$rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
 
-.page {
-  &-header {
-    position: fixed;
-    top: 0;
-    z-index: 10;
-    width: 100%;
+/*
+  WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog, it makes content blurry.
 
-    &__top {
-      overflow: hidden;
-      height: $top-nav-height;
-      background-color: #fbfbfb;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    }
+  With GPU rendering elements we are translating must be even numbers.
+  The bad news is that we cannot control the size of dialogs.
 
-    &__logo {
-      float: left;
+  http://stackoverflow.com/questions/6411361/webkit-based-blurry-distorted-text-post-animation-via-translate3d
 
-      > a {
-        display: block;
-        width: 78px;
-        height: 20px;
-        background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        margin: 30px 0 0 20px;
-      }
-    }
+  Here we're using inline-blocks to center the dialog.
 
-    &__navs {
-      float: right;
-    }
+  https://css-tricks.com/centering-in-the-unknown/
+*/
 
-    &__item {
-      float: left;
-      height: 100%;
-    }
+.zent-dialog-r-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  text-align: center;
+  font-size: 0;
+  white-space: nowrap;
 
-    &__subnavs {
-      line-height: $top-subnav-height;
-      display: flex;
-      justify-content: center;
-      background-color: #f2f2f2;
-      position: relative;
-      z-index: -1;
-
-      &--shadow {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      a,
-      span {
-        line-height: $top-subnav-height;
-      }
-    }
-
-    &__link {
-      display: block;
-      line-height: $top-nav-height;
-      color: #333;
-      font-size: 16px;
-      margin: 0 20px;
-
-      &:hover {
-        color: #38f;
-      }
-
-      &--active {
-        color: #38f;
-      }
-    }
-
-    &__github {
-      display: inline-block;
-      width: 22px;
-      height: 22px;
-      overflow: hidden;
-      background-image: url(https://img.yzcdn.cn/upload_files/2017/03/30/Fil9peDfgzvk3kj-oFCsElS4FS1x.png);
-      background-size: contain;
-      background-repeat: no-repeat;
-      margin: 14px 20px 0;
-    }
+  &::before {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle; /* required */
   }
+}
+
+.zent-dialog-r {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle; /* required */
+  text-align: initial;
+  background-color: $whitecolor;
+  border-radius: 4px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 14px;
+  z-index: 1041;
+  white-space: normal;
+}
+
+.zent-dialog-r-title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid $bordercolor;
+  margin: 0;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.zent-dialog-r-title-text {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: bold;
+  color: $normalcolor;
+}
+
+.zent-dialog-r-close {
+  position: absolute;
+  display: inline-block;
+  top: 4px;
+  right: 10px;
+  color: $graycolor;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: right;
+  vertical-align: middle;
+  cursor: pointer;
+  border: none;
+  background-color: $whitecolor;
+  outline: none;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+
+  &:link,
+  &:active,
+  &:focus {
+    color: $graycolor;
+  }
+
+  &.zent-dialog-r-has-title {
+    top: 14px;
+    right: 18px;
+  }
+}
+
+.zent-dialog-r-body {
+  color: $darkgraycolor;
+
+  &.with-success-icon,
+  &.with-warning-icon {
+    padding-left: 30px;
+  }
+}
+
+.zent-dialog-r-footer {
+  text-align: right;
+  margin-top: 30px;
+}
+
+.zent-dialog-r-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $rgbamaskbgcolor;
+  height: 100%;
+  z-index: 1050;
 }
