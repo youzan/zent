@@ -66,12 +66,14 @@ class Upload extends Component {
     if (className === `${prefix}-upload`) {
       className = '';
     }
+
+    let dialogClassName = classnames([`${prefix}-upload`, className]);
+
     className = classnames([
-      `${prefix}-upload`,
+      dialogClassName,
       {
         inline: triggerInline
-      },
-      className
+      }
     ]);
 
     return withoutPopup
@@ -90,7 +92,7 @@ class Upload extends Component {
           <Dialog
             title="图片选择"
             visible={visible}
-            className={className}
+            className={dialogClassName}
             onClose={this.closePopup}
           >
             {this.renderUploadPopup(uploadOptions)}
