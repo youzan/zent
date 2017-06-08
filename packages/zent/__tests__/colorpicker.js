@@ -15,7 +15,8 @@ import {
   Checkboard,
   EditableInput,
   Hue,
-  Saturation
+  Saturation,
+  Swatch
 } from 'colorpicker/common';
 
 const red = {
@@ -735,6 +736,40 @@ describe('ColorPicker', () => {
     expect(hue.calculateChange(e, false, props, container));
   });
 
+  it('check helpers func hue null branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: '2',
+      pageY: '23',
+      touches: [
+        {
+          pageX: 2,
+          pageY: 23
+        }
+      ]
+    };
+    const props = {
+      direction: 'quux',
+      hsl: {
+        h: 18,
+        s: 20,
+        l: 30,
+        a: 1
+      }
+    };
+    const container = {
+      clientWidth: 20,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2
+        };
+      }
+    };
+    expect(hue.calculateChange(e, false, props, container)).toBe(null);
+  });
+
   it('check helpers func saturation other branch', () => {
     const e = {
       preventDefault: () => {},
@@ -881,8 +916,9 @@ describe('ColorPicker', () => {
   });
 
   it('check helpers func flattenNames other branch', () => {
-    const things = [1, 2, [1]];
-    expect(flattenNames(things));
+    const things = ['1', '2', [1]];
+    expect(flattenNames(things)).toEqual(['1', '2']);
+    expect(flattenNames()).toEqual([]);
   });
 
   it('check helpers func mergeClasses other branch', () => {
@@ -946,5 +982,12 @@ describe('ColorPicker', () => {
 
   it('check helpColor func toState3', () => {
     expect(helpColor.isValidHex('ffffff')).toBe(true);
+  });
+
+  it('Swatch handles click', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(<Swatch color="#fffffff" onClick={handleChange} />);
+    wrapper.simulate('click');
+    expect(handleChange.mock.calls.length).toBe(1);
   });
 });

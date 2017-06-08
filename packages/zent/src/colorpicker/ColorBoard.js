@@ -156,6 +156,6 @@ Sketch.defaultProps = {
   width: 200
 };
 
-const ColorBorad = ColorWrap(Sketch);
+const ColorBoard = ColorWrap(Sketch);
 
-export default ColorBorad;
+export default ColorBoard;

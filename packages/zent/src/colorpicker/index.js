@@ -1,7 +1,13 @@
+/**
+ * This component is adapted from https://github.com/casesandberg/react-color.
+ * See LICENSE for permissions.
+ *
+ * It's a modified Sketch color picker.
+ */
 import React, { Component } from 'react';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
-import ColorBorad from './ColorBorad';
+import ColorBoard from './ColorBoard';
 
 class ColorPicker extends Component {
   state = {
@@ -46,7 +52,10 @@ class ColorPicker extends Component {
         onVisibleChange={this.handleVisibleChange}
       >
         <Popover.Trigger.Click>
-          <div className={`zent-color-picker ${popVisible ? 'open' : ''}`}>
+          <div
+            className={`zent-color-picker ${popVisible ? 'open' : ''}`}
+            tabIndex={0}
+          >
             <div className="zent-color-picker__text">
               <div
                 className="zent-color-picker__preview"
@@ -56,7 +65,7 @@ class ColorPicker extends Component {
           </div>
         </Popover.Trigger.Click>
         <Popover.Content>
-          <ColorBorad
+          <ColorBoard
             color={color}
             disableAlpha={!showAlpha}
             onChange={this.handleChange}

@@ -1,14 +1,15 @@
-import map from 'lodash/map';
+import forEach from 'lodash/forEach';
 import isPlainObject from 'lodash/isPlainObject';
 import forOwn from 'lodash/forOwn';
 import isString from 'lodash/isString';
+import isArray from 'lodash/isArray';
 
 const flattenNames = (things = []) => {
-  const names = [];
+  let names = [];
 
-  map(things, thing => {
-    if (Array.isArray(thing)) {
-      flattenNames(thing).map(name => names.push(name));
+  forEach(things, thing => {
+    if (isArray(thing)) {
+      names = names.concat(flattenNames(thing));
     } else if (isPlainObject(thing)) {
       forOwn(thing, (value, key) => {
         value === true && names.push(key);

@@ -80,16 +80,16 @@ const transforms = {
       bottom: direction && direction[2],
       left: direction && direction[3]
     };
-  },
-  extend: (name, otherElementStyles) => {
-    const otherStyle = otherElementStyles[name];
-    if (otherStyle) {
-      return otherStyle;
-    }
-    return {
-      extend: name
-    };
   }
+  // extend: (name, otherElementStyles) => {
+  //   const otherStyle = otherElementStyles[name];
+  //   if (otherStyle) {
+  //     return otherStyle;
+  //   }
+  //   return {
+  //     extend: name
+  //   };
+  // }
 };
 
 const autoprefix = elements => {
