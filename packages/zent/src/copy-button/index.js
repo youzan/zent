@@ -45,6 +45,6 @@ Copy.propTypes = {
 
 Copy.defaultProps = {
   onCopySuccess: '复制成功',
-  onCopyError: '复制失败，请手动复制链接',
+  onCopyError: '复制失败',
   children: <Button>复制</Button>
 };

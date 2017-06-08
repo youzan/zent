@@ -124,6 +124,11 @@ module.exports = {
               component: require('../../packages/zent/src/checkbox/README.md')
             },
             {
+              path: 'component/copy-btn',
+              title: 'CopyButton 复制按钮',
+              component: require('../../packages/zent/src/copy-button/README.md')
+            },
+            {
               path: 'component/datepicker',
               title: 'DatePicker 时间选择',
               component: require('../../packages/zent/src/datetimepicker/README.md')
@@ -227,11 +232,6 @@ module.exports = {
               path: 'component/portal',
               title: 'Portal 传送门',
               component: require('../../packages/zent/src/portal/README.md')
-            },
-            {
-              path: 'component/copy-btn',
-              title: 'CopyButton 复制按钮',
-              component: require('../../packages/zent/src/copy-button/README.md')
             }
           ]
         }
