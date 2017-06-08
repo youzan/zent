@@ -89,7 +89,7 @@ class Simple extends React.Component {
 				</Swiper>
 				{
 					typeof current === 'number' && typeof prev === 'number' &&
-						<div className="swiper-demo-simple-text">从{prev}到{current}</div>
+						<div className="swiper-demo-simple-text">从{prev + 1}到{current + 1}</div>
 				}
 			</div>
 		);
@@ -106,6 +106,7 @@ ReactDOM.render(
 
 ### API
 
+<<<<<<< HEAD
 | 参数             	 	| 说明                          | 类型                | 默认值       		 | 备选值           							  			         |
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
 | transitionDuration | 切换动画持续时间(ms)            | number              | `300`            |                                               |
@@ -116,7 +117,7 @@ ReactDOM.render(
 | dotsSize           | 下方翻页按钮大小                | string              | `'normal'`       | `'small'`, `'large'`                          |
 | arrows             | 是否显示两侧翻页按钮             | bool                | `false`				   | `true`, `false`                               |
 | arrowsType         | 两侧箭头颜色                    | string              | `'dark'`         | `'dark'`, `'light'`     						          |
-| onChange           | 切换时回调函数									| func(current, prev) | `noop`           |                                               |
+| onChange           | 切换时回调函数									| (current: number, prev: number): void | `noop`           |                                               |
 | className          | 自定义额外类名                  | string              | `''`						 |                                               |
 | prefix             | 自定义前缀                     | string              | `'zent'`				  |																			           |
 

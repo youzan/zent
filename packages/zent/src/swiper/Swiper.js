@@ -10,8 +10,10 @@ import throttle from 'lodash/throttle';
 import SwiperDots from './SwiperDots';
 
 function setStyle(target, styles) {
+  const { style } = target;
+
   Object.keys(styles).forEach(attribute => {
-    target.style[attribute] = styles[attribute];
+    style[attribute] = styles[attribute];
   });
 }
 
