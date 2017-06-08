@@ -4,6 +4,7 @@ import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Checkbox from 'checkbox';
+import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
@@ -38,6 +39,7 @@ export {
   Breadcrumb,
   Button,
   Checkbox,
+  CopyButton,
   DatePicker,
   DateRangePicker,
   Dialog,
