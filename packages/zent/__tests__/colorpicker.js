@@ -65,7 +65,7 @@ describe('ColorPicker', () => {
       hsv: { h: 0, s: 1, v: 1, a: 1 }
     };
     const ColorPickerDom = wrapper.find('ColorPicker');
-    expect(ColorPickerDom.node.handleChange(color));
+    expect(ColorPickerDom.node.handleChange(color)).toBe(undefined);
   });
 
   it('colorPicker showAlpha true', () => {
@@ -86,7 +86,7 @@ describe('ColorPicker', () => {
       hsv: { h: 0, s: 1, v: 1, a: 1 }
     };
     const ColorPickerDom = wrapper.find('ColorPicker');
-    expect(ColorPickerDom.node.handleChange(color));
+    expect(ColorPickerDom.node.handleChange(color)).toBe(undefined);
   });
 
   it('SketchFields renders correctly', () => {
@@ -356,7 +356,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(alpha.calculateChange(e, true, props, container));
+    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
+      a: 0
+    });
   });
 
   it('check helpers func alpha other branch', () => {
@@ -384,7 +386,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(alpha.calculateChange(e, true, props, container));
+    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
+      source: 'rgb'
+    });
   });
 
   it('check helpers func alpha other branch', () => {
@@ -412,7 +416,7 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(alpha.calculateChange(e, true, props, container));
+    expect(alpha.calculateChange(e, true, props, container)).toBe(null);
   });
 
   it('check helpers func alpha other branch', () => {
@@ -440,7 +444,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(alpha.calculateChange(e, true, props, container));
+    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
+      s: 20
+    });
   });
 
   it('check helpers func alpha other branch', () => {
@@ -468,7 +474,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(alpha.calculateChange(e, true, props, container));
+    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
+      l: 30
+    });
   });
 
   it('check helpers func alpha other branch', () => {
@@ -496,7 +504,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(alpha.calculateChange(e, false, props, container));
+    expect(alpha.calculateChange(e, false, props, container)).toMatchObject({
+      a: 0.1
+    });
   });
 
   it('check helpers func alpha other branch', () => {
@@ -531,7 +541,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(alpha.calculateChange(e, false, props, container));
+    expect(alpha.calculateChange(e, false, props, container)).toMatchObject({
+      a: 0.05
+    });
   });
 
   it('check helpers func hue other branch', () => {
@@ -559,7 +571,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(hue.calculateChange(e, true, props, container));
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1
+    });
   });
 
   it('check helpers func hue other branch', () => {
@@ -587,7 +601,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(hue.calculateChange(e, true, props, container));
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1
+    });
   });
 
   it('check helpers func hue other branch', () => {
@@ -615,7 +631,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(hue.calculateChange(e, true, props, container));
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1
+    });
   });
 
   it('check helpers func hue other branch', () => {
@@ -643,7 +661,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(hue.calculateChange(e, true, props, container));
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1
+    });
   });
 
   it('check helpers func hue other branch', () => {
@@ -671,7 +691,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(hue.calculateChange(e, true, props, container));
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1
+    });
   });
 
   it('check helpers func hue other branch', () => {
@@ -699,7 +721,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(hue.calculateChange(e, false, props, container));
+    expect(hue.calculateChange(e, false, props, container)).toMatchObject({
+      a: 1
+    });
   });
 
   it('check helpers func hue other branch', () => {
@@ -733,7 +757,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(hue.calculateChange(e, false, props, container));
+    expect(hue.calculateChange(e, false, props, container)).toMatchObject({
+      a: 1
+    });
   });
 
   it('check helpers func hue null branch', () => {
@@ -794,7 +820,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(saturation.calculateChange(e, true, props, container));
+    expect(
+      saturation.calculateChange(e, true, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func saturation other branch', () => {
@@ -822,7 +850,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(saturation.calculateChange(e, true, props, container));
+    expect(
+      saturation.calculateChange(e, true, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func saturation other branch', () => {
@@ -850,7 +880,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(saturation.calculateChange(e, true, props, container));
+    expect(
+      saturation.calculateChange(e, true, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func saturation other branch', () => {
@@ -878,7 +910,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(saturation.calculateChange(e, false, props, container));
+    expect(
+      saturation.calculateChange(e, false, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func saturation other branch', () => {
@@ -912,7 +946,9 @@ describe('ColorPicker', () => {
         };
       }
     };
-    expect(saturation.calculateChange(e, false, props, container));
+    expect(
+      saturation.calculateChange(e, false, props, container)
+    ).toMatchObject({ a: 1 });
   });
 
   it('check helpers func flattenNames other branch', () => {
@@ -931,7 +967,9 @@ describe('ColorPicker', () => {
       }
     };
     const activeNames = ['test1'];
-    expect(mergeClasses(classes, activeNames));
+    expect(mergeClasses(classes, activeNames)).toMatchObject({
+      name: { '0': 'n', '1': 'a', '2': 'm', '3': 'e' }
+    });
   });
 
   it('check helpColor func null', () => {
