@@ -4,12 +4,13 @@
  *
  * It's a modified Sketch color picker.
  */
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 
-class ColorPicker extends Component {
+class ColorPicker extends (PureComponent || Component) {
   state = {
     popVisible: false
   };
@@ -17,12 +18,18 @@ class ColorPicker extends Component {
   static propTypes = {
     color: PropTypes.string.isRequired,
     showAlpha: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    className: PropTypes.string,
+    wrapperClassName: PropTypes.string,
+    prefix: PropTypes.string
   };
 
   static defaultProps = {
     showAlpha: false,
-    onChange() {}
+    onChange() {},
+    className: '',
+    wrapperClassName: '',
+    prefix: 'zent'
   };
 
   handleChange = color => {
@@ -38,14 +45,21 @@ class ColorPicker extends Component {
   };
 
   render() {
-    const { color, showAlpha } = this.props;
+    const {
+      color,
+      showAlpha,
+      prefix,
+      className,
+      wrapperClassName
+    } = this.props;
     const { popVisible } = this.state;
+    const openClassName = popVisible ? 'open' : '';
     const backgroundColor = color;
 
     return (
       <Popover
-        className="zent-color-picker-popover"
-        position={Popover.Position.BottomLeft}
+        className={cx(`${prefix}-color-picker-popover`, className)}
+        position={Popover.Position.AutoBottomLeft}
         display="inline"
         cushion={5}
         visible={popVisible}
@@ -53,12 +67,16 @@ class ColorPicker extends Component {
       >
         <Popover.Trigger.Click>
           <div
-            className={`zent-color-picker ${popVisible ? 'open' : ''}`}
+            className={cx(
+              `${prefix}-color-picker`,
+              wrapperClassName,
+              openClassName
+            )}
             tabIndex={0}
           >
-            <div className="zent-color-picker__text">
+            <div className={`${prefix}-color-picker__text`}>
               <div
-                className="zent-color-picker__preview"
+                className={`${prefix}-color-picker__preview`}
                 style={{ backgroundColor }}
               />
             </div>
@@ -69,6 +87,7 @@ class ColorPicker extends Component {
             color={color}
             disableAlpha={!showAlpha}
             onChange={this.handleChange}
+            prefix={prefix}
           />
         </Popover.Content>
       </Popover>

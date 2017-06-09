@@ -13,7 +13,8 @@ const Sketch = ({
   onChange,
   disableAlpha,
   presetColors,
-  renderers
+  renderers,
+  prefix
 }) => {
   const styles = reactCSS(
     {
@@ -93,7 +94,7 @@ const Sketch = ({
   );
 
   return (
-    <div style={styles.picker} className="zent-colorpicker">
+    <div style={styles.picker} className={`${prefix}-colorpicker-board`}>
       <div style={styles.saturation}>
         <Saturation
           style={styles.Saturation}
@@ -129,8 +130,13 @@ const Sketch = ({
         hex={hex}
         onChange={onChange}
         disableAlpha={disableAlpha}
+        prefix={prefix}
       />
-      <SketchPresetColors colors={presetColors} onClick={onChange} />
+      <SketchPresetColors
+        colors={presetColors}
+        onClick={onChange}
+        prefix={prefix}
+      />
     </div>
   );
 };

@@ -40,7 +40,7 @@ describe('ColorPicker', () => {
     expect(document.querySelectorAll('.zent-color-picker-popover').length).toBe(
       1
     );
-    expect(document.querySelectorAll('.zent-colorpicker').length).toBe(1);
+    expect(document.querySelectorAll('.zent-colorpicker-board').length).toBe(1);
     expect(document.querySelectorAll('.zent-colorpicker-input').length).toBe(1);
     expect(document.querySelectorAll('.zent-colorpicker-colors').length).toBe(
       1

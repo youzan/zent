@@ -81,3 +81,6 @@ ReactDOM.render(
 | color         | 颜色选择器的颜色      | string              |          |   `#5197FF` 或  `rgba(81, 151, 255, 0.6)`  |
 | showAlpha     | 是否显示透明度选择    | bool                | `false`  |   `true/false`     |
 | onChange      | 颜色变化时回调函数    | func(color)         | `noop`   |         |
+| className     | 可选，自定义类名      | string              | `''`     |         |
+| wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''`    |         |
+| prefix        | 可选，自定义前缀      | string              | `'zent'` |         |

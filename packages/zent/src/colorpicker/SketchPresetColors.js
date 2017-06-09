@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import reactCSS from './helpers/reactcss';
 import { Swatch } from './common';
 
-const SketchPresetColors = ({ colors, onClick }) => {
+const SketchPresetColors = ({ colors, onClick, prefix }) => {
   const styles = reactCSS(
     {
       default: {
@@ -47,7 +47,7 @@ const SketchPresetColors = ({ colors, onClick }) => {
   };
 
   return (
-    <div style={styles.colors} className="zent-colorpicker-colors">
+    <div style={styles.colors} className={`${prefix}-colorpicker-colors`}>
       {colors.map(colorObjOrString => {
         const c = typeof colorObjOrString === 'string'
           ? { color: colorObjOrString }

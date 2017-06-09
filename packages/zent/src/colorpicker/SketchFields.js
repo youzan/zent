@@ -4,7 +4,7 @@ import color from './helpers/color';
 
 import { EditableInput } from './common';
 
-const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha }) => {
+const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha, prefix }) => {
   const styles = reactCSS(
     {
       default: {
@@ -92,7 +92,7 @@ const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha }) => {
   };
 
   return (
-    <div style={styles.fields} className="zent-colorpicker-input">
+    <div style={styles.fields} className={`${prefix}-colorpicker-input`}>
       <div style={styles.double}>
         <EditableInput
           style={{ input: styles.input, label: styles.label }}
