@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input } from 'zent';
+import Input from 'input';
 import reactCSS from '../helpers/reactcss';
 
 export default class EditableInput extends Component {

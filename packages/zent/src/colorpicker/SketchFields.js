@@ -4,7 +4,7 @@ import color from './helpers/color';
 
 import { EditableInput } from './common';
 
-const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha, prefix }) => {
+const ShetchFields = ({ onChange, rgb, hsl, hex, showAlpha, prefix }) => {
   const styles = reactCSS(
     {
       default: {
@@ -40,13 +40,13 @@ const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha, prefix }) => {
           textTransform: 'capitalize'
         }
       },
-      disableAlpha: {
+      showAlpha: {
         alpha: {
           display: 'none'
         }
       }
     },
-    { disableAlpha }
+    { showAlpha: !showAlpha }
   );
 
   const handleChange = (data, e) => {

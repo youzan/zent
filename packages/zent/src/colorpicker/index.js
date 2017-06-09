@@ -32,6 +32,8 @@ class ColorPicker extends (PureComponent || Component) {
     prefix: 'zent'
   };
 
+  static ColorBoard = ColorBoard;
+
   handleChange = color => {
     const { onChange, showAlpha } = this.props;
     const colorOutPut = showAlpha ? color.rgba : color.hex;
@@ -85,7 +87,7 @@ class ColorPicker extends (PureComponent || Component) {
         <Popover.Content>
           <ColorBoard
             color={color}
-            disableAlpha={!showAlpha}
+            showAlpha={showAlpha}
             onChange={this.handleChange}
             prefix={prefix}
           />

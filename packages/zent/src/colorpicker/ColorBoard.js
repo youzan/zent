@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 import reactCSS from './helpers/reactcss';
 import { ColorWrap, Saturation, Hue, Alpha, Checkboard } from './common';
 import SketchFields from './SketchFields';
@@ -11,10 +12,11 @@ const Sketch = ({
   hsv,
   hsl,
   onChange,
-  disableAlpha,
+  showAlpha,
   presetColors,
   renderers,
-  prefix
+  prefix,
+  className
 }) => {
   const styles = reactCSS(
     {
@@ -78,7 +80,7 @@ const Sketch = ({
           shadow: 'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
         }
       },
-      disableAlpha: {
+      showAlpha: {
         color: {
           height: '10px'
         },
@@ -90,11 +92,14 @@ const Sketch = ({
         }
       }
     },
-    { disableAlpha }
+    { showAlpha: !showAlpha }
   );
 
   return (
-    <div style={styles.picker} className={`${prefix}-colorpicker-board`}>
+    <div
+      style={styles.picker}
+      className={cx(`${prefix}-colorpicker-board`, className)}
+    >
       <div style={styles.saturation}>
         <Saturation
           style={styles.Saturation}
@@ -129,7 +134,7 @@ const Sketch = ({
         hsl={hsl}
         hex={hex}
         onChange={onChange}
-        disableAlpha={disableAlpha}
+        showAlpha={showAlpha}
         prefix={prefix}
       />
       <SketchPresetColors
@@ -159,7 +164,10 @@ Sketch.defaultProps = {
     '#BADCFF',
     '#FFEFB8'
   ],
-  width: 200
+  width: 200,
+  showAlpha: false,
+  prefix: 'zent',
+  className: ''
 };
 
 const ColorBoard = ColorWrap(Sketch);
