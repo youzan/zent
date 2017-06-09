@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Input } from 'zent';
 import reactCSS from '../helpers/reactcss';
 
 export default class EditableInput extends Component {
@@ -12,9 +13,9 @@ export default class EditableInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const input = this.refs;
+    const InputRefs = this.refs;
     if (nextProps.value !== this.state.value) {
-      if (input === document.activeElement) {
+      if (InputRefs.input === document.activeElement) {
         this.setState({ blurValue: String(nextProps.value).toUpperCase() });
       } else {
         this.setState({ value: String(nextProps.value).toUpperCase() });
@@ -132,7 +133,8 @@ export default class EditableInput extends Component {
 
     return (
       <div style={styles.wrap}>
-        <input
+        <Input
+          prefix="colorpicker-rgb"
           style={styles.input}
           ref={ref => (this.refs = ref)}
           value={this.state.value}

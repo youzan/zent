@@ -107,7 +107,6 @@ const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha, prefix }) => {
           label="r"
           value={rgb.r}
           onChange={handleChange}
-          dragLabel="true"
           dragMax="255"
         />
       </div>
@@ -117,7 +116,6 @@ const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha, prefix }) => {
           label="g"
           value={rgb.g}
           onChange={handleChange}
-          dragLabel="true"
           dragMax="255"
         />
       </div>
@@ -127,7 +125,6 @@ const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha, prefix }) => {
           label="b"
           value={rgb.b}
           onChange={handleChange}
-          dragLabel="true"
           dragMax="255"
         />
       </div>
@@ -137,7 +134,6 @@ const ShetchFields = ({ onChange, rgb, hsl, hex, disableAlpha, prefix }) => {
           label="a"
           value={Math.round(rgb.a * 100)}
           onChange={handleChange}
-          dragLabel="true"
           dragMax="100"
         />
       </div>
