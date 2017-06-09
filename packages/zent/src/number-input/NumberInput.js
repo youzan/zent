@@ -1,6 +1,7 @@
 import React, { PureComponent, Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 import Input from 'input';
 import Icon from 'icon';
@@ -52,7 +53,7 @@ export default class NumberInput extends (PureComponent || Component) {
       max,
       decimal
     );
-    if (+num !== +this.state.value) {
+    if (!isEqual(nextProps, this.props)) {
       this.setState({
         value: num,
         minArrow,
