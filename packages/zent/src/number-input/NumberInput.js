@@ -45,15 +45,15 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { value, min, max } = nextProps;
-    const { decimal } = this.props;
-    let { num, minArrow, maxArrow } = this.adjustFixed(
-      value,
-      min,
-      max,
-      decimal
-    );
     if (!isEqual(nextProps, this.props)) {
+      const { value, min, max } = nextProps;
+      const { decimal } = this.props;
+      let { num, minArrow, maxArrow } = this.adjustFixed(
+        value,
+        min,
+        max,
+        decimal
+      );
       this.setState({
         value: num,
         minArrow,
