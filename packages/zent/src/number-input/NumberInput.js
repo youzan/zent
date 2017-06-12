@@ -46,8 +46,7 @@ export default class NumberInput extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps, this.props)) {
-      const { value, min, max } = nextProps;
-      const { decimal } = this.props;
+      const { value, min, max, decimal } = nextProps;
       let { num, minArrow, maxArrow } = this.adjustFixed(
         value,
         min,
