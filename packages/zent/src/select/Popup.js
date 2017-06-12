@@ -9,7 +9,7 @@ import isArray from 'lodash/isArray';
 import Popover from 'popover';
 import Search from './components/Search';
 import Option from './components/Option';
-import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
 
 class Popup extends (PureComponent || Component) {
   constructor(props) {
@@ -94,6 +94,9 @@ class Popup extends (PureComponent || Component) {
     let { currentId, keyword } = this.state;
     let index = itemIds.indexOf(currentId);
     switch (code) {
+      case KEY_ESC:
+        this.props.popover.close();
+        break;
       case KEY_DOWN:
         ev.preventDefault();
         if (this.itemIds[index + 1]) {
@@ -152,6 +155,7 @@ class Popup extends (PureComponent || Component) {
         ref={popup => (this.popup = popup)}
         className={`${prefixCls}-popup`}
         onKeyDown={this.keydownHandler}
+        tabIndex="0"
       >
         {!extraFilter && filter
           ? <Search

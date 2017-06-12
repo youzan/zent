@@ -54,6 +54,7 @@ class InputTrigger extends (PureComponent || Component) {
         value={value}
         onFocus={this.inputFocusHandler}
         onChange={this.inputChangeHandler}
+        onClick={this.props.onClick}
       />
     );
   }

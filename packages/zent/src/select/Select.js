@@ -19,11 +19,20 @@ import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
 
+import { KEY_ESC } from './constants';
+
 class PopoverClickTrigger extends Popover.Trigger.Click {
   getTriggerProps(child) {
     return {
+      onKeyDown: evt => {
+        if (evt.keyCode === KEY_ESC) {
+          this.props.close();
+        }
+      },
       onClick: evt => {
-        if (!child.props.disabled) {
+        if (this.props.contentVisible) {
+          this.props.close();
+        } else if (!child.props.disabled) {
           this.props.open();
           this.triggerEvent(child, 'onClick', evt);
         }
@@ -89,6 +98,7 @@ class Select extends (PureComponent || Component) {
     this.triggerChangeHandler = this.triggerChangeHandler.bind(this);
     this.triggerDeleteHandler = this.triggerDeleteHandler.bind(this);
     this.optionChangedHandler = this.optionChangedHandler.bind(this);
+    this.keydownHandler = this.keydownHandler.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -171,6 +181,10 @@ class Select extends (PureComponent || Component) {
         this.props.onDelete(data);
       }
     );
+  }
+
+  keydownHandler() {
+    console.log(this.popup);
   }
 
   // 将被选中的option的数据传给trigger
@@ -271,6 +285,7 @@ class Select extends (PureComponent || Component) {
         </PopoverClickTrigger>
         <Popover.Content>
           <Popup
+            ref={ref => (this.popup = ref)}
             cid={cid}
             prefixCls={prefixCls}
             data={this.sourceData}

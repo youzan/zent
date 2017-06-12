@@ -9,7 +9,7 @@ class Trigger extends (PureComponent || Component) {
   render() {
     let Node = this.props.trigger;
 
-    return <Node {...this.props} />;
+    return <Node {...this.props} onKeyDown={this.props.onKeyDown} />;
   }
 }
 
