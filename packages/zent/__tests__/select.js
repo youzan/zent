@@ -5,6 +5,7 @@ import { mount } from 'enzyme';
 describe('<Select />', () => {
   test('data的传参方式有效', () => {
     const wrapper = mount(<Select data={[1, 2, 3]} />);
+    console.log(wrapper.instance());
     expect(wrapper.find('Select').length).toBe(1);
     wrapper.find('SelectTrigger').simulate('click');
     expect(wrapper.find('Option').length).toBe(3);
