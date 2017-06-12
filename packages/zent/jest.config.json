@@ -23,7 +23,11 @@
   "coveragePathIgnorePatterns": [
     "<rootDir>/src/slider/common.js",
     "<rootDir>/src/slider/container.js",
-    "<rootDir>/src/slider/points.js"
+    "<rootDir>/src/slider/points.js",
+    "<rootDir>/src/colorpicker/SketchFields.js",
+    "<rootDir>/src/colorpicker/SketchPresetColors.js",
+    "<rootDir>/src/colorpicker/common/ColorWrap.js",
+    "<rootDir>/src/colorpicker/helpers/checkboard.js"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
@@ -32,6 +36,7 @@
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
     "^button(.*)$": "<rootDir>/src/button$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
+    "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1",
     "^copy-button(.*)$": "<rootDir>/src/copy-button$1",
     "^datetimepicker(.*)$": "<rootDir>/src/datetimepicker$1",
     "^dialog(.*)$": "<rootDir>/src/dialog$1",
