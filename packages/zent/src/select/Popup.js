@@ -6,6 +6,7 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 
+import Popover from 'popover';
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
@@ -33,12 +34,23 @@ class Popup extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
+    let { onAsyncFilter } = this.props;
+    let keyword = nextProps.keyword;
     this.sourceData = nextProps.data;
-    if (nextProps.keyword !== null) {
+    if (keyword !== null) {
       this.setState({
         data: nextProps.data,
-        keyword: nextProps.keyword
+        keyword
       });
+      if (typeof onAsyncFilter === 'function') {
+        onAsyncFilter(`${keyword}`, data => {
+          this.setState({
+            data: this.sourceData.filter(
+              item => isArray(data) && data.indexOf(item.value) > -1
+            )
+          });
+        });
+      }
     }
   }
 
@@ -46,7 +58,7 @@ class Popup extends (PureComponent || Component) {
     this.setState({
       keyword: ''
     });
-    this.props.onBlur();
+    this.props.popover.close();
     this.props.onChange(
       ev,
       this.props.data.filter(item => item.cid === cid)[0]
@@ -123,9 +135,7 @@ class Popup extends (PureComponent || Component) {
       prefixCls,
       extraFilter,
       searchPlaceholder,
-      filter,
-      onFocus,
-      onBlur
+      filter
     } = this.props;
 
     let { keyword, data, currentId } = this.state;
@@ -140,10 +150,7 @@ class Popup extends (PureComponent || Component) {
     return (
       <div
         ref={popup => (this.popup = popup)}
-        tabIndex="0"
         className={`${prefixCls}-popup`}
-        onFocus={onFocus}
-        onBlur={onBlur}
         onKeyDown={this.keydownHandler}
       >
         {!extraFilter && filter
@@ -197,9 +204,7 @@ Popup.propTypes = {
   prefixCls: PropTypes.string,
   extraFilter: PropTypes.bool,
   filter: PropTypes.func,
-  onAsyncFilter: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func
+  onAsyncFilter: PropTypes.func
 };
 
 Popup.defaultProps = {
@@ -212,4 +217,4 @@ Popup.defaultProps = {
   searchPlaceholder: ''
 };
 
-export default Popup;
+export default Popover.withPopover(Popup);
