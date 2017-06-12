@@ -4,6 +4,8 @@ import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Checkbox from 'checkbox';
+import ColorPicker from 'colorpicker';
+import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
@@ -25,6 +27,7 @@ import Select from 'select';
 import Slider from 'slider';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
+import Swiper from 'swiper';
 import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
@@ -39,6 +42,8 @@ export {
   Breadcrumb,
   Button,
   Checkbox,
+  ColorPicker,
+  CopyButton,
   DatePicker,
   DateRangePicker,
   Dialog,
@@ -60,6 +65,7 @@ export {
   Slider,
   Steps,
   Sweetalert,
+  Swiper,
   Table,
   Tabs,
   Tag,
