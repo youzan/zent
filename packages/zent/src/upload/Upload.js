@@ -1,16 +1,15 @@
 /**
  * 上传图片组件
  * @author huangshiyu <huangshiyu@youzan.com>
- * @version v0.0.8
  */
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import Dialog from 'dialog';
+import identity from 'lodash/identity';
+
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
-
-const noop = res => res;
 
 const promiseNoop = () =>
   new Promise(resolve => {
@@ -145,7 +144,7 @@ Upload.defaultProps = {
   fetchUrl: '',
   tokenUrl: '',
   uploadUrl: '//upload.qbox.me',
-  filterFiles: noop,
+  filterFiles: identity,
   onFetch: promiseNoop,
   onUpload: promiseNoop,
   triggerInline: false,

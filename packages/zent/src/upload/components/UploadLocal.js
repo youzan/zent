@@ -1,5 +1,7 @@
 import Notify from 'notify';
-import { formatMaxSize, isPromiseLike } from '../utils';
+import isPromise from 'utils/isPromise';
+
+import { formatMaxSize } from '../utils';
 
 let localFiles = [];
 
@@ -40,7 +42,7 @@ export default function uploadLocalImage(options, e) {
       // 清除input的值，否则无法重复选择同一个文件
       e.target.value = null;
 
-      if (isPromiseLike(filterResult)) {
+      if (isPromise(filterResult)) {
         filterResult.then(iteratorFiles.bind(null, options), options.onError);
       } else {
         files = filterResult;

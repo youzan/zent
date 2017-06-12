@@ -6,9 +6,11 @@ import React, { Component } from 'react';
 import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
+import isPromise from 'utils/isPromise';
+
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
-import { formatMaxSize, isPromiseLike } from '../utils';
+import { formatMaxSize } from '../utils';
 
 const BUTTON_LOADING_TEXT = '提取中...';
 const BUTTON_TEXT = '提取';
@@ -211,7 +213,7 @@ class UploadPopup extends Component {
     this.uploadFiles = files;
 
     let filterResult = options.filterFiles(files);
-    if (isPromiseLike(filterResult)) {
+    if (isPromise(filterResult)) {
       filterResult.then(this.iteratorFiles, options.onError);
     } else {
       files = filterResult;
