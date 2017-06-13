@@ -1,6 +1,7 @@
 import React, { PureComponent, Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 import Input from 'input';
 import Icon from 'icon';
@@ -44,15 +45,14 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { value, min, max } = nextProps;
-    const { decimal } = this.props;
-    let { num, minArrow, maxArrow } = this.adjustFixed(
-      value,
-      min,
-      max,
-      decimal
-    );
-    if (+num !== +this.state.value) {
+    if (!isEqual(nextProps, this.props)) {
+      const { value, min, max, decimal } = nextProps;
+      let { num, minArrow, maxArrow } = this.adjustFixed(
+        value,
+        min,
+        max,
+        decimal
+      );
       this.setState({
         value: num,
         minArrow,
