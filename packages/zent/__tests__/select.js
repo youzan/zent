@@ -84,7 +84,7 @@ describe('<Select />', () => {
     });
     expect(pop.find('Option').length).toBe(3);
     pop.find('Popup').simulate('keydown', { keyCode: 27 });
-    expect(pop.find('Option').length).toBe(0);
+    expect(pop.find('Option').length).toBe(3);
   });
 
   it('Popup中的Search(filter and onAsyncFilter)', () => {
@@ -103,7 +103,7 @@ describe('<Select />', () => {
     wrapper.find('SelectTrigger').simulate('click');
     let pop = new ReactWrapper(wrapper.instance().popup, true);
     expect(pop.find('Option').length).toBe(3);
-    wrapper.find('Search').find('input').simulate('change', {
+    pop.find('Search').find('input').simulate('change', {
       target: {
         value: '1'
       }
@@ -129,7 +129,7 @@ describe('<Select />', () => {
     wrapper.find('SelectTrigger').simulate('click');
     pop = new ReactWrapper(wrapper.instance().popup, true);
     expect(pop.find('Option').length).toBe(3);
-    wrapper.find('Search').find('input').simulate('change', {
+    pop.find('Search').find('input').simulate('change', {
       target: {
         value: 'anything'
       }
