@@ -47,6 +47,14 @@ class Cascader extends Component {
     this.resetCascaderValue(this.state.value, false);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if ('value' in nextProps) {
+      let nextValue = nextProps.value || [];
+      this.setState({ value: nextValue });
+      this.resetCascaderValue(nextValue, false);
+    }
+  }
+
   resetCascaderValue(value, isTriggerChange = true) {
     let onChangeValue = [];
     let activeId = 1;
@@ -87,11 +95,11 @@ class Cascader extends Component {
     });
   }
 
-  onTabChange(id) {
+  onTabChange = id => {
     this.setState({
       activeId: id
     });
-  }
+  };
 
   renderCascaderItems(items, stage, popover) {
     let { prefix } = this.props;
@@ -117,7 +125,7 @@ class Cascader extends Component {
     });
 
     return (
-      <div className="zent-cascader-list">
+      <div className={`${prefix}-cascader-list`}>
         {cascaderItems}
       </div>
     );
@@ -144,7 +152,7 @@ class Cascader extends Component {
     }
 
     if (changeOnSelect && !hasClose) {
-      this.resetCascaderValue(value);
+      this.resetCascaderValue(value, false);
     }
 
     this.setState(obj);
@@ -162,12 +170,12 @@ class Cascader extends Component {
   renderPanels(popover) {
     let PanelEls = [];
     let tabIndex = 1;
-    let { options } = this.props;
+    let { options, title } = this.props;
 
     let { value } = this.state;
 
     PanelEls.push(
-      <TabPanel tab="省份" id={tabIndex} key={tabIndex}>
+      <TabPanel tab={title[0]} id={tabIndex} key={tabIndex}>
         {this.renderCascaderItems(options, tabIndex, popover)}
       </TabPanel>
     );
@@ -178,7 +186,7 @@ class Cascader extends Component {
         options = this.recursiveNextOptions(options, value[i]);
         if (options) {
           PanelEls.push(
-            <TabPanel tab="省份" id={tabIndex} key={tabIndex}>
+            <TabPanel tab={title[tabIndex - 1]} id={tabIndex} key={tabIndex}>
               {this.renderCascaderItems(options, tabIndex, popover)}
             </TabPanel>
           );
@@ -206,7 +214,7 @@ class Cascader extends Component {
         <div className={`${prefix}-cascader-select__popup`}>
           <Tabs
             activeId={activeId}
-            onTabChange={self.onTabChange.bind(self)}
+            onTabChange={self.onTabChange}
             className={`${prefix}-cascader-tabs`}
           >
             {self.renderPanels(popover)}
@@ -260,7 +268,8 @@ Cascader.propTypes = {
   value: PropTypes.array,
   options: PropTypes.array,
   placeholder: PropTypes.string,
-  changeOnSelect: PropTypes.bool
+  changeOnSelect: PropTypes.bool,
+  title: PropTypes.array
 };
 
 Cascader.defaultProps = {
@@ -271,7 +280,8 @@ Cascader.defaultProps = {
   value: [],
   options: [],
   placeholder: '请选择',
-  changeOnSelect: false
+  changeOnSelect: false,
+  title: ['省份', '城市', '县区']
 };
 
 export default Cascader;

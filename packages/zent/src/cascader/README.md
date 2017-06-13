@@ -26,6 +26,16 @@ class Simple extends React.Component {
 								name: '西湖区'
 							}
 						]
+					},
+					{
+						id: '330200',
+						name: '温州市',
+						children: [
+							{
+								id: '330206',
+								name: '龙湾区'
+							}
+						]
 					}
 				]
 			},
@@ -50,7 +60,7 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Cascader options={this.state.options} />
+			<Cascader value={this.state.value} options={this.state.options} />
 		);
 	}
 }
@@ -142,4 +152,5 @@ ReactDOM.render(
 | onChange | 数据变化时的回调 | func | noop | '' |
 | placeholder | 输入框占位文本 | string | '请选择' | '' |
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
+| title | tab的标题 | array | ['省份', '城市', '县区'] | '' |
 
