@@ -9,6 +9,13 @@
 import { Upload } from 'zent';
 
 class Simple extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            imageList: []
+        };
+        this.updateLocalImage = this.updateLocalImage.bind(this);
+    }
 
     renderTrigger() {
         return <span></span>;
@@ -23,17 +30,30 @@ class Simple extends React.Component {
 
     updateLocalImage(data) {
         return new Promise(resolve => {
-            console.log(data);
+            this.setState({
+                imageList: data
+            });
             resolve(data);
         })
     }
 
     render() {
-        return <Upload
-            maxSize={8 * 1000 * 1000}
-            tips="建议尺寸：640 x 640 像素；您可以拖拽图片调整图片顺序。"
-            onFetch={this.fetchNetworkImage}
-            onUpload={this.updateLocalImage} />;
+        return (
+            <div>
+                <Upload
+                    maxSize={8 * 1000 * 1000}
+                    triggerInline
+                    tips="建议尺寸：640 x 640 像素；您可以拖拽图片调整图片顺序。"
+                    onFetch={this.fetchNetworkImage}
+                    onUpload={this.updateLocalImage}
+                />
+                {
+                    this.state.imageList.map((item, index) => {
+                        return <img width="80" height="80" key={index} src={item.src} style={{marginLeft: '10px'}} />
+                    })
+                }
+            </div>
+        );
     }
 }
 
