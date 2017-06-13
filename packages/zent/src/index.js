@@ -3,6 +3,7 @@ import Alert from 'alert';
 import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
+import Cascader from 'cascader';
 import Checkbox from 'checkbox';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
@@ -37,6 +38,7 @@ export {
   Badge,
   Breadcrumb,
   Button,
+  Cascader,
   Checkbox,
   DatePicker,
   DateRangePicker,

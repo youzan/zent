@@ -1,0 +1,86 @@
+## Cascader 级联选择
+
+适用于各类级联操作（例如城市级联）
+
+### 代码演示
+
+:::demo 基础用法
+```jsx
+import { Cascader } from 'zent';
+
+class Simple extends React.Component {
+
+	state = {
+		value: ['330000', '330100', '330106'],
+		options: [
+			{
+				id: '330000',
+				name: '浙江省',
+				children: [
+					{
+						id: '330100',
+						name: '杭州市',
+						children: [
+							{
+								id: '330106',
+								name: '西湖区'
+							}
+						]
+					}
+				]
+			},
+			{
+				id: '120000',
+				name: '天津市',
+				children: [
+					{
+						id: '120100',
+						name: '市',
+						children: [
+							{
+								id: '120111',
+								name: '西青区'
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+
+	onChange = (data) => {
+		this.setState({
+			value: data
+		});
+	}
+
+	render() {
+		return (
+			<Cascader value={this.state.value} options={this.state.options} onChange={this.onChange} />
+		);
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
+### API
+
+#### Cascader
+
+| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+|------|------|------|--------|--------|
+| className | 自定义额外类名 | string | '' | '' |
+| popClass | popover自定义类名 | string | '' | '' |
+| prefix | 自定义前缀 | string | 'zent' | '' |
+| options | 可选项数据源 | array | [] | '' |
+| value | 级联的选中值 | array | [] | '' |
+| onChange | 数据变化时的回调 | func | noop | '' |
+| placeholder | 输入框占位文本 | string | '请选择' | '' |
+| changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
+
