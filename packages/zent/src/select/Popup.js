@@ -34,7 +34,6 @@ class Popup extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { onAsyncFilter } = this.props;
     let keyword = nextProps.keyword;
     this.sourceData = nextProps.data;
     if (keyword !== null) {
@@ -42,15 +41,6 @@ class Popup extends (PureComponent || Component) {
         data: nextProps.data,
         keyword
       });
-      if (typeof onAsyncFilter === 'function') {
-        onAsyncFilter(`${keyword}`, data => {
-          this.setState({
-            data: this.sourceData.filter(
-              item => isArray(data) && data.indexOf(item.value) > -1
-            )
-          });
-        });
-      }
     }
   }
 

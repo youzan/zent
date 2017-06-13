@@ -57,10 +57,16 @@ describe('<Select />', () => {
 
   test('搜索某个关键字', () => {
     const onEmptyMock = jest.fn();
+    const asyncMock = jest.fn().mockImplementation((keyword, callback) => {
+      setTimeout(() => {
+        callback([2]);
+      }, 1000);
+    });
     const wrapper = mount(
       <Select
         data={[1, 2, 3]}
         search
+        onAsyncFilter={asyncMock}
         onEmptySelected={onEmptyMock}
         filter={(item, keyword) => {
           return `${item.value}` === `${keyword}`;
