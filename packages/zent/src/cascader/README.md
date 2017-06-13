@@ -11,6 +11,65 @@ import { Cascader } from 'zent';
 class Simple extends React.Component {
 
 	state = {
+		value: [],
+		options: [
+			{
+				id: '330000',
+				name: '浙江省',
+				children: [
+					{
+						id: '330100',
+						name: '杭州市',
+						children: [
+							{
+								id: '330106',
+								name: '西湖区'
+							}
+						]
+					}
+				]
+			},
+			{
+				id: '120000',
+				name: '天津市',
+				children: [
+					{
+						id: '120100',
+						name: '市',
+						children: [
+							{
+								id: '120111',
+								name: '西青区'
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+
+	render() {
+		return (
+			<Cascader options={this.state.options} />
+		);
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
+:::demo 选中即时改变
+```jsx
+import { Cascader } from 'zent';
+
+class Simple extends React.Component {
+
+	state = {
 		value: ['330000', '330100', '330106'],
 		options: [
 			{
@@ -56,7 +115,7 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Cascader value={this.state.value} options={this.state.options} onChange={this.onChange} />
+			<Cascader value={this.state.value} changeOnSelect={true} options={this.state.options} onChange={this.onChange} />
 		);
 	}
 }

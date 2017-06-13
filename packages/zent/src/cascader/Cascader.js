@@ -44,18 +44,19 @@ class Cascader extends Component {
   }
 
   componentWillMount() {
-    this.resetCascaderValue();
+    this.resetCascaderValue(this.state.value, false);
   }
 
-  resetCascaderValue() {
+  resetCascaderValue(value, isTriggerChange = true) {
     let onChangeValue = [];
-    let { value } = this.state;
-
-    let { options } = this.props;
+    let activeId = 1;
+    let { options, onChange } = this.props;
 
     if (options && options.length > 0 && value && value.length > 0) {
+      activeId = 0;
       forEach(value, id => {
         let nextOption = find(options, { id });
+        activeId++;
         options = nextOption.children;
         onChangeValue.push({
           id: nextOption.id,
@@ -64,8 +65,13 @@ class Cascader extends Component {
       });
     }
 
+    if (isTriggerChange) {
+      onChange(value);
+    }
+
     this.setState({
-      onChangeValue
+      onChangeValue,
+      activeId
     });
   }
 
@@ -118,18 +124,11 @@ class Cascader extends Component {
   }
 
   clickHandler = (item, stage, popover) => {
-    let { value, onChangeValue } = this.state;
-
-    let { changeOnSelect, onChange } = this.props;
+    let { value } = this.state;
+    let { changeOnSelect } = this.props;
 
     value = value.slice(0, stage - 1);
     value.push(item.id);
-
-    onChangeValue = onChangeValue.slice(0, stage - 1);
-    onChangeValue.push({
-      id: item.id,
-      name: item.name
-    });
 
     let obj = {
       value
@@ -140,17 +139,12 @@ class Cascader extends Component {
       obj.activeId = ++stage;
     } else {
       hasClose = true;
-      obj.onChangeValue = onChangeValue;
-      onChange(onChangeValue);
       popover.close();
+      this.resetCascaderValue(value);
     }
 
-    if (changeOnSelect) {
-      if (!hasClose) {
-        onChange(onChangeValue);
-      } else {
-        obj.onChangeValue = onChangeValue;
-      }
+    if (changeOnSelect && !hasClose) {
+      this.resetCascaderValue(value);
     }
 
     this.setState(obj);
