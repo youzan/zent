@@ -152,5 +152,5 @@ ReactDOM.render(
 | onChange | 数据变化时的回调 | func | noop | '' |
 | placeholder | 输入框占位文本 | string | '请选择' | '' |
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
-| title | tab的标题 | array | ['省份', '城市', '县区'] | '' |
+| title | tab子项的标题 | array | ['省份', '城市', '县区'] | '' |
 

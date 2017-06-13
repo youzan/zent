@@ -173,9 +173,15 @@ class Cascader extends Component {
     let { options, title } = this.props;
 
     let { value } = this.state;
+    let tabTitle = '标题';
+
+    title = title || [];
+    if (title.length > 0) {
+      tabTitle = title[0];
+    }
 
     PanelEls.push(
-      <TabPanel tab={title[0]} id={tabIndex} key={tabIndex}>
+      <TabPanel tab={tabTitle} id={tabIndex} key={tabIndex}>
         {this.renderCascaderItems(options, tabIndex, popover)}
       </TabPanel>
     );
@@ -184,9 +190,14 @@ class Cascader extends Component {
       for (let i = 0; i < value.length; i++) {
         tabIndex++;
         options = this.recursiveNextOptions(options, value[i]);
+        if (title.length >= tabIndex) {
+          tabTitle = title[tabIndex - 1];
+        } else {
+          tabTitle = '标题';
+        }
         if (options) {
           PanelEls.push(
-            <TabPanel tab={title[tabIndex - 1]} id={tabIndex} key={tabIndex}>
+            <TabPanel tab={tabTitle} id={tabIndex} key={tabIndex}>
               {this.renderCascaderItems(options, tabIndex, popover)}
             </TabPanel>
           );
