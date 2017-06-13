@@ -65,47 +65,6 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 直接渲染
-```js
-import { Upload } from 'zent';
-
-class Simple extends React.Component {
-
-    renderTrigger() {
-        return <span></span>;
-    }
-
-    fetchNetworkImage(data) {
-        return new Promise(resolve => {
-            console.log(data);
-            resolve(data);
-        });
-    }
-
-    updateLocalImage(data) {
-        return new Promise(resolve => {
-            console.log(data);
-            resolve(data);
-        })
-    }
-
-    render() {
-        return <Upload
-            withoutPopup
-            tips="建议尺寸：640 x 640 像素；您可以拖拽图片调整图片顺序。"
-            onFetch={this.fetchNetworkImage}
-            onUpload={this.updateLocalImage} />;
-    }
-}
-
-ReactDOM.render(
-    <Simple />
-    , mountNode
-);
-
-```
-:::
-
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
