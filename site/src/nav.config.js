@@ -104,6 +104,11 @@ module.exports = {
               component: require('../../packages/zent/src/sweetalert/README.md')
             },
             {
+              path: 'component/swiper',
+              title: 'Swiper 轮播',
+              component: require('../../packages/zent/src/swiper/README.md')
+            },
+            {
               path: 'component/tag',
               title: 'Tag 标签',
               component: require('../../packages/zent/src/tag/README.md')
@@ -127,6 +132,16 @@ module.exports = {
               path: 'component/checkbox',
               title: 'Checkbox 多选',
               component: require('../../packages/zent/src/checkbox/README.md')
+            },
+            {
+              path: 'component/colorpicker',
+              title: 'ColorPicker 颜色选择器',
+              component: require('../../packages/zent/src/colorpicker/README.md')
+            },
+            {
+              path: 'component/copy-btn',
+              title: 'CopyButton 复制按钮',
+              component: require('../../packages/zent/src/copy-button/README.md')
             },
             {
               path: 'component/datepicker',

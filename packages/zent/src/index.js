@@ -5,6 +5,7 @@ import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Cascader from 'cascader';
 import Checkbox from 'checkbox';
+import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
@@ -26,11 +27,13 @@ import Select from 'select';
 import Slider from 'slider';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
+import Swiper from 'swiper';
 import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
+import ColorPicker from 'colorpicker';
 
 export {
   Affix,
@@ -40,6 +43,7 @@ export {
   Button,
   Cascader,
   Checkbox,
+  CopyButton,
   DatePicker,
   DateRangePicker,
   Dialog,
@@ -61,9 +65,11 @@ export {
   Slider,
   Steps,
   Sweetalert,
+  Swiper,
   Table,
   Tabs,
   Tag,
   Tree,
-  Switch
+  Switch,
+  ColorPicker
 };
