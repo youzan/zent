@@ -56,10 +56,12 @@ class Popup extends (PureComponent || Component) {
   searchFilterHandler(keyword) {
     let { filter, onAsyncFilter } = this.props;
 
+    this.setState({
+      keyword
+    });
     if (typeof onAsyncFilter === 'function') {
       onAsyncFilter(`${keyword}`, data => {
         this.setState({
-          keyword,
           data: this.sourceData.filter(
             item => isArray(data) && data.indexOf(item.value) > -1
           )
@@ -68,7 +70,6 @@ class Popup extends (PureComponent || Component) {
     } else {
       // keyword 为空或者没有 filter 则不过滤
       this.setState({
-        keyword,
         data: this.sourceData.filter(
           item => !keyword || !filter || filter(item, `${keyword}`)
         )
