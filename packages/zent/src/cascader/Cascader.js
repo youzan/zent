@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import assign from 'object-assign';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import forEach from 'lodash/forEach';
 import find from 'lodash/find';
-import Popover from '../popover';
-import Tabs from '../tabs';
+import noop from 'lodash/noop';
+import Popover from 'popover';
+import Tabs from 'tabs';
+import Icon from 'icon';
 
 const PopoverContent = Popover.Content;
 const withPopover = Popover.withPopover;
-
 const TabPanel = Tabs.TabPanel;
-const noop = () => {};
 
 class PopoverClickTrigger extends Popover.Trigger.Click {
   getTriggerProps(child) {
@@ -32,15 +31,12 @@ class Cascader extends Component {
   constructor(props) {
     super(props);
 
-    this.state = assign(
-      {
-        value: [],
-        onChangeValue: [],
-        activeId: 1,
-        open: false
-      },
-      props
-    );
+    this.state = {
+      value: props.value,
+      onChangeValue: [],
+      activeId: 1,
+      open: false
+    };
   }
 
   componentWillMount() {
@@ -48,7 +44,7 @@ class Cascader extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps) {
+    if (nextProps.hasOwnProperty('value')) {
       let nextValue = nextProps.value || [];
       this.setState({ value: nextValue });
       this.resetCascaderValue(nextValue, false);
@@ -211,7 +207,7 @@ class Cascader extends Component {
   render() {
     let self = this;
 
-    let { prefix, className, popClass, placeholder } = this.props;
+    let { prefix, className, popClassName, placeholder } = this.props;
 
     let { onChangeValue, open, activeId } = this.state;
 
@@ -250,7 +246,7 @@ class Cascader extends Component {
     return (
       <div className={cascaderWrapCls}>
         <Popover
-          className={popClass}
+          className={popClassName}
           position={Popover.Position.BottomLeft}
           onShow={this.onShow.bind(this)}
           onClose={this.onClose.bind(this)}
@@ -259,6 +255,7 @@ class Cascader extends Component {
             <div className={cascaderCls}>
               <div className={`${prefix}-cascader-select__text`}>
                 {cascaderValue}
+                <Icon type="caret-down" />
               </div>
             </div>
           </PopoverClickTrigger>
@@ -274,7 +271,7 @@ class Cascader extends Component {
 Cascader.propTypes = {
   prefix: PropTypes.string,
   className: PropTypes.string,
-  popClass: PropTypes.string,
+  popClassName: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.array,
   options: PropTypes.array,
@@ -286,7 +283,7 @@ Cascader.propTypes = {
 Cascader.defaultProps = {
   prefix: 'zent',
   className: '',
-  popClass: 'zent-popover__cascader',
+  popClassName: 'zent-cascader-popup',
   onChange: noop,
   value: [],
   options: [],

@@ -41,21 +41,29 @@ class Simple extends React.Component {
 			},
 			{
 				id: '120000',
-				name: '天津市',
+				name: '新疆维吾尔自治区',
 				children: [
 					{
 						id: '120100',
-						name: '市',
+						name: '博尔塔拉蒙古自治州',
 						children: [
 							{
 								id: '120111',
-								name: '西青区'
+								name: '阿拉山口市'
 							}
 						]
 					}
 				]
 			}
 		]
+	}
+
+	componentWillMount() {
+		setTimeout(() => {
+			this.setState({
+				value: ['330000', '330100', '330106']
+			});	
+		}, 5000);
 	}
 
 	render() {
@@ -100,15 +108,15 @@ class Simple extends React.Component {
 			},
 			{
 				id: '120000',
-				name: '天津市',
+				name: '新疆维吾尔自治区',
 				children: [
 					{
 						id: '120100',
-						name: '市',
+						name: '博尔塔拉蒙古自治州',
 						children: [
 							{
 								id: '120111',
-								name: '西青区'
+								name: '阿拉山口市'
 							}
 						]
 					}
@@ -144,13 +152,13 @@ ReactDOM.render(
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
-| className | 自定义额外类名 | string | '' | '' |
-| popClass | popover自定义类名 | string | '' | '' |
-| prefix | 自定义前缀 | string | 'zent' | '' |
 | options | 可选项数据源 | array | [] | '' |
 | value | 级联的选中值 | array | [] | '' |
 | onChange | 数据变化时的回调 | func | noop | '' |
+| title | tab子项的标题 | array | ['省份', '城市', '县区'] | '' |
 | placeholder | 输入框占位文本 | string | '请选择' | '' |
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
-| title | tab子项的标题 | array | ['省份', '城市', '县区'] | '' |
+| className | 自定义额外类名 | string | '' | '' |
+| popClassName | popover自定义类名 | string | '' | '' |
+| prefix | 自定义前缀 | string | 'zent' | '' |
 
