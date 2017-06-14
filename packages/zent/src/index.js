@@ -4,6 +4,7 @@ import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Checkbox from 'checkbox';
+import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
@@ -32,7 +33,7 @@ import Table from 'table';
 import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
-import ColorPicker from 'colorpicker';
+import Upload from 'upload';
 
 export {
   Affix,
@@ -41,6 +42,7 @@ export {
   Breadcrumb,
   Button,
   Checkbox,
+  ColorPicker,
   CopyButton,
   DatePicker,
   DateRangePicker,
@@ -69,5 +71,5 @@ export {
   Tag,
   Tree,
   Switch,
-  ColorPicker
+  Upload
 };

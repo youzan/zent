@@ -1,0 +1,396 @@
+.zent-upload {
+  min-width: 770px !important;
+
+  .center,
+  .text-center {
+    text-align: center;
+  }
+
+  &.inline {
+    display: inline;
+  }
+
+  .zent-dialog-r {
+    &-footer {
+      margin-top: 0;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    &-title {
+      margin-bottom: 10px;
+    }
+  }
+
+  &-dialog {
+    &.zent-dialog-r {
+      padding: 15px;
+    }
+  }
+}
+
+.zent-upload-materials,
+.zent-upload-container {
+  position: relative;
+  padding: 0;
+  overflow-y: auto;
+
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.zent-upload-materials,
+.zent-upload-container {
+  width: 770px;
+  height: 480px;
+}
+
+.zent-upload-network-image-region,
+.zent-upload-local-image-region {
+  padding: 30px 10px;
+  overflow: hidden;
+
+  .zent-upload-title {
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  .zent-upload-content {
+    background-color: #fff;
+    float: left;
+    position: relative;
+    zoom: 1;
+    width: 660px;
+    margin-left: 10px;
+  }
+}
+
+.zent-upload-network-image-region {
+  overflow: hidden;
+
+  .zent-upload-content {
+    display: flex;
+  }
+
+  .zent-btn {
+    float: right;
+  }
+
+  .zent-upload-title {
+    line-height: 30px;
+  }
+
+  .zent-upload-input-append {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    flex: 1;
+  }
+
+  .zent-upload-image-preview {
+    max-width: 200px;
+    max-height: 200px;
+
+    img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  }
+}
+
+.zent-upload-local-image-region {
+  .zent-upload-local-tips {
+    clear: both;
+    padding-top: 20px;
+    font-size: 12px;
+  }
+
+  .upload-local-image-list {
+    height: auto;
+  }
+
+  .image-list {
+    .upload-local-image-item {
+      position: relative;
+      float: left;
+      margin: 0 20px 20px 0;
+      width: 80px;
+      height: 80px;
+
+      &:hover {
+        .close-modal {
+          display: block;
+        }
+      }
+    }
+
+    .image-box {
+      width: 80px;
+      height: 80px;
+      background-size: cover;
+      background-position: 50% 50%;
+    }
+
+    .image-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      text-align: center;
+      line-height: 80px;
+      font-size: 14px;
+    }
+
+    .close-modal {
+      display: none;
+      position: absolute;
+      z-index: 2;
+      top: -9px;
+      right: -9px;
+      width: 20px;
+      height: 20px;
+      font-size: 16px;
+      line-height: 18px;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(153, 153, 153, 0.6);
+      border-radius: 10px;
+
+      &.small {
+        top: -8px;
+        right: -8px;
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 9px;
+
+        &:hover {
+          color: #fff;
+          background: #000;
+        }
+      }
+    }
+  }
+}
+
+.zent-upload-add-local-attachment {
+  position: relative;
+  width: 44px;
+  height: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  overflow: hidden;
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    direction: rtl;
+    font-size: 23px;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.zent-upload-wrapper,
+.zent-upload-add-local-image-button,
+.zent-upload-trigger {
+  position: relative;
+
+  input[type=file] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    direction: rtl;
+    font-size: 23px;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.zent-upload-add-local-image-button,
+.zent-upload-trigger {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border: 2px dashed #ddd;
+  line-height: 71px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 36px;
+  color: #ddd;
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.zent-upload-add-local-image-button {
+  margin: 0 20px 20px 0;
+}
+
+.zent-upload-materials {
+  &.attachment-seazenth-result {
+    .attachment-list-region {
+      width: auto;
+      padding-left: 20px;
+    }
+
+    .attachment-pagination {
+      width: 820px;
+    }
+
+    .voice-list {
+      margin-left: -10px;
+
+      .voice-item {
+        width: 266px;
+        margin-left: 10px;
+      }
+
+      .voice-name {
+        width: 160px;
+      }
+    }
+  }
+}
+
+.zent-upload-tips {
+  line-height: 14px;
+  font-size: 12px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  color: #666;
+  position: absolute;
+}
+
+.zent-upload-materials {
+  .category-list-region {
+    text-align: right;
+  }
+
+  .attachment-list-region {
+    padding: 10px 0;
+
+    .zent-btn {
+      position: absolute;
+      left: 180px;
+      bottom: 16px;
+    }
+  }
+
+  .attachment-pagination {
+    .zent-pagination__info {
+      line-height: 30px;
+    }
+  }
+
+  .attachment-selected {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #07d;
+    box-sizing: border-box;
+
+    &::after {
+      position: absolute;
+      display: block;
+      content: ' ';
+      right: 0;
+      bottom: 0;
+      border: 14px solid #07d;
+      border-left-color: transparent;
+      border-top-color: transparent;
+      z-index: 1;
+    }
+
+    i {
+      position: absolute;
+      right: 1px;
+      bottom: 1px;
+      z-index: 2;
+    }
+  }
+
+  .image-list {
+    height: 400px;
+
+    .image-item {
+      position: relative;
+      float: left;
+      width: 100px;
+      height: 100px;
+      margin-right: 10px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+
+    .image-box {
+      background: #ccc;
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+      background-position: 50% 50%;
+    }
+
+    .image-meta {
+      position: absolute;
+      width: 100px;
+      height: 25px;
+      line-height: 25px;
+      color: #fff;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.2);
+      bottom: 0;
+    }
+
+    .image-title-wrap {
+      display: flex;
+    }
+
+    .image-title,
+    .image-title-ext {
+      margin-top: 5px;
+      font-size: 12px;
+      padding-bottom: 1px;
+    }
+
+    .image-title {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .zenticon-check {
+      font-size: 12px;
+      color: #fff;
+    }
+  }
+}
+
+.zent-upload-link {
+  color: #3283fa;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.zent-upload-split {
+  margin: 0 10px;
+}

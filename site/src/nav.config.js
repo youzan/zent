@@ -177,6 +177,11 @@ module.exports = {
               path: 'component/switch',
               title: 'Switch 开关',
               component: require('../../packages/zent/src/switch/README.md')
+            },
+            {
+              path: 'component/upload',
+              title: 'Upload 图片上传',
+              component: require('../../packages/zent/src/upload/README.md')
             }
           ]
         },
