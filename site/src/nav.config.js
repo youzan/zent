@@ -124,6 +124,11 @@ module.exports = {
               component: require('../../packages/zent/src/button/README.md')
             },
             {
+              path: 'component/cascader',
+              title: 'Cascader 级联选择',
+              component: require('../../packages/zent/src/cascader/README.md')
+            },
+            {
               path: 'component/checkbox',
               title: 'Checkbox 多选',
               component: require('../../packages/zent/src/checkbox/README.md')

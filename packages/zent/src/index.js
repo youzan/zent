@@ -3,6 +3,7 @@ import Alert from 'alert';
 import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
+import Cascader from 'cascader';
 import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
@@ -41,6 +42,7 @@ export {
   Badge,
   Breadcrumb,
   Button,
+  Cascader,
   Checkbox,
   ColorPicker,
   CopyButton,
