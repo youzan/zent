@@ -124,6 +124,11 @@ module.exports = {
               component: require('../../packages/zent/src/button/README.md')
             },
             {
+              path: 'component/cascader',
+              title: 'Cascader 级联选择',
+              component: require('../../packages/zent/src/cascader/README.md')
+            },
+            {
               path: 'component/checkbox',
               title: 'Checkbox 多选',
               component: require('../../packages/zent/src/checkbox/README.md')
@@ -177,6 +182,11 @@ module.exports = {
               path: 'component/switch',
               title: 'Switch 开关',
               component: require('../../packages/zent/src/switch/README.md')
+            },
+            {
+              path: 'component/upload',
+              title: 'Upload 图片上传',
+              component: require('../../packages/zent/src/upload/README.md')
             }
           ]
         },
