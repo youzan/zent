@@ -66,9 +66,13 @@ class Simple extends React.Component {
 		}, 5000);
 	}
 
+	onChange = (data) => {
+		console.log(data)
+	}
+
 	render() {
 		return (
-			<Cascader value={this.state.value} options={this.state.options} />
+			<Cascader value={this.state.value} onChange={this.onChange} options={this.state.options} />
 		);
 	}
 }
@@ -126,9 +130,7 @@ class Simple extends React.Component {
 	}
 
 	onChange = (data) => {
-		this.setState({
-			value: data
-		});
+		console.log(data);
 	}
 
 	render() {

@@ -70,7 +70,7 @@ class Cascader extends Component {
     }
 
     if (isTriggerChange) {
-      onChange(value);
+      onChange(onChangeValue);
     }
 
     this.setState({
@@ -148,7 +148,7 @@ class Cascader extends Component {
     }
 
     if (changeOnSelect && !hasClose) {
-      this.resetCascaderValue(value, false);
+      this.resetCascaderValue(value, true);
     }
 
     this.setState(obj);
