@@ -34,9 +34,11 @@ class Popup extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     this.sourceData = nextProps.data;
+    this.setState({
+      data: nextProps.data
+    });
     if (nextProps.keyword !== null) {
       this.setState({
-        data: nextProps.data,
         keyword: nextProps.keyword
       });
     }
@@ -125,6 +127,7 @@ class Popup extends (PureComponent || Component) {
       extraFilter,
       searchPlaceholder,
       filter,
+      onAsyncFilter,
       onFocus,
       onBlur
     } = this.props;
@@ -134,6 +137,7 @@ class Popup extends (PureComponent || Component) {
     let filterData = data.filter(item => {
       return !keyword || !filter || filter(item, `${keyword}`);
     });
+
     let showEmpty = data.length === 0 || filterData.length === 0;
 
     this.itemIds = filterData.map(item => item.cid);
@@ -147,7 +151,7 @@ class Popup extends (PureComponent || Component) {
         onBlur={onBlur}
         onKeyDown={this.keydownHandler}
       >
-        {!extraFilter && filter
+        {!extraFilter && (filter || onAsyncFilter)
           ? <Search
               keyword={keyword}
               prefixCls={prefixCls}
