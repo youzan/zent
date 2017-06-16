@@ -1,5 +1,48 @@
 ## 更新日志
 
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
+
+## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+
+**不兼容改动和新功能:**
+
+- table: 支持行单选 [\#319](https://github.com/youzan/zent/issues/319)
+- Optimization: enable jsx optimizations in production build [\#298](https://github.com/youzan/zent/issues/298)
+- Support PureComponent [\#297](https://github.com/youzan/zent/issues/297)
+- slider: use NumberInput from zent [\#285](https://github.com/youzan/zent/issues/285)
+- Upgrade Jest [\#272](https://github.com/youzan/zent/issues/272)
+- New component: ColorPicker [\#259](https://github.com/youzan/zent/issues/259)
+- New component: Swiper [\#232](https://github.com/youzan/zent/issues/232)
+- 上传图片组件初始版本 [\#309](https://github.com/youzan/zent/pull/309) ([huangsy](https://github.com/huangsy))
+- Add right-circle icon [\#304](https://github.com/youzan/zent/pull/304) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- select: Option变化的时候，Select的下拉菜单数据没有更新 [\#313](https://github.com/youzan/zent/issues/313)
+- dialog: 加大右上角关闭按钮的可操作区域 [\#310](https://github.com/youzan/zent/issues/310)
+- Affix的this.props.children有margin会抖动 [\#296](https://github.com/youzan/zent/issues/296)
+- Select: search result not appears in the popup list. [\#320](https://github.com/youzan/zent/pull/320) ([lenghan1991](https://github.com/lenghan1991))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- table: support radio box in single selection mode [\#322](https://github.com/youzan/zent/pull/322) ([linxixuan](https://github.com/linxixuan))
+- 新增级联组件cascader [\#316](https://github.com/youzan/zent/pull/316) ([liaoyu](https://github.com/liaoyu))
+- 修复Option变化的时候，Select的下拉菜单数据没有更新的bug [\#315](https://github.com/youzan/zent/pull/315) ([huangsy](https://github.com/huangsy))
+- numberinput: differ improve [\#314](https://github.com/youzan/zent/pull/314) ([oConnerCooper](https://github.com/oConnerCooper))
+- Enlarge dialog close button area [\#312](https://github.com/youzan/zent/pull/312) ([cpylua](https://github.com/cpylua))
+- Add colorpicker [\#311](https://github.com/youzan/zent/pull/311) ([ronghang](https://github.com/ronghang))
+- Field默认value设置为空字符串 & 更新文档中的按钮为zent-button [\#308](https://github.com/youzan/zent/pull/308) ([w91](https://github.com/w91))
+- 修复range 的值显示不正确 [\#307](https://github.com/youzan/zent/pull/307) ([xuhong](https://github.com/xuhong))
+- Add new Component Swiper [\#306](https://github.com/youzan/zent/pull/306) ([ArvinTung](https://github.com/ArvinTung))
+- 添加复制按钮组件 [\#305](https://github.com/youzan/zent/pull/305) ([lama-pacos](https://github.com/lama-pacos))
+- Upgrade packages [\#303](https://github.com/youzan/zent/pull/303) ([cpylua](https://github.com/cpylua))
+- Add transform-react-constant-elements [\#302](https://github.com/youzan/zent/pull/302) ([cpylua](https://github.com/cpylua))
+- Pure component [\#301](https://github.com/youzan/zent/pull/301) ([cpylua](https://github.com/cpylua))
+- NumberInput: 修复props更新组件不刷新的问题 [\#300](https://github.com/youzan/zent/pull/300) ([oConnerCooper](https://github.com/oConnerCooper))
+- slider: replace number input [\#299](https://github.com/youzan/zent/pull/299) ([wulv](https://github.com/wulv))
+
 ## [zent@3.2.0](https://github.com/youzan/zent/tree/zent@3.2.0) (2017-05-31)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.1.0...zent@3.2.0)
 
