@@ -45,7 +45,28 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps, this.props)) {
+    let nextPropsMap = pick(nextProps, [
+      'className',
+      'prefix',
+      'showStepper',
+      'decimal',
+      'disabled',
+      'value',
+      'max',
+      'min'
+    ]);
+    let propsMap = pick(this.props, [
+      'className',
+      'prefix',
+      'showStepper',
+      'decimal',
+      'disabled',
+      'value',
+      'max',
+      'min'
+    ]);
+
+    if (!isEqual(nextPropsMap, propsMap)) {
       const { value, min, max, decimal } = nextProps;
       let { num, minArrow, maxArrow } = this.adjustFixed(
         value,
@@ -183,7 +204,7 @@ export default class NumberInput extends (PureComponent || Component) {
     });
 
     // 可传入Input组件的属性
-    let inputProps = pick(this.props, ['placeholder', 'disabled', 'readOnly']);
+    let inputProps = pick(this.props, ['placeholder', 'disabled']);
     return (
       <div className={wrapClass}>
         {showStepper &&

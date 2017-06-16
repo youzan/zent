@@ -14,11 +14,11 @@
 import { NumberInput } from 'zent';
 
 ReactDOM.render(
-  <div>
-    <NumberInput value={2} placeholder="请输入数字"/>
-    <NumberInput value={2} showStepper placeholder="请输入数字"/>
-  </div>
-  , mountNode
+	<div>
+		<NumberInput value={2} placeholder="请输入数字"/>
+		<NumberInput value={2} showStepper placeholder="请输入数字"/>
+	</div>
+	, mountNode
 );
 
 ```
@@ -30,11 +30,11 @@ ReactDOM.render(
 import { NumberInput } from 'zent';
 
 ReactDOM.render(
-  <div>
-    <NumberInput value={2} decimal={2} placeholder="请输入数字"/>
-    <NumberInput value={2} showStepper decimal={2} placeholder="请输入数字"/>
-  </div>
-  , mountNode
+	<div>
+		<NumberInput value={2} decimal={2} placeholder="请输入数字"/>
+		<NumberInput value={2} showStepper decimal={2} placeholder="请输入数字"/>
+	</div>
+	, mountNode
 );
 ```
 :::
@@ -45,11 +45,11 @@ ReactDOM.render(
 import { NumberInput } from 'zent';
 
 ReactDOM.render(
-  <div>
-    <NumberInput value={3} min={-2} max={6} decimal={2} placeholder="请输入数字"/>
-    <NumberInput value={3} showStepper min={2} max={6} decimal={2} placeholder="请输入数字"/>
-  </div>
-  , mountNode
+	<div>
+		<NumberInput value={3} min={-2} max={6} decimal={2} placeholder="请输入数字"/>
+		<NumberInput value={3} showStepper min={2} max={6} decimal={2} placeholder="请输入数字"/>
+	</div>
+	, mountNode
 );
 ```
 :::
@@ -60,11 +60,11 @@ ReactDOM.render(
 import { NumberInput } from 'zent';
 
 ReactDOM.render(
-  <div>
-    <NumberInput value={3} disabled placeholder="请输入数字"/>
-    <NumberInput value={3} disabled showStepper placeholder="请输入数字"/>
-  </div>
-  , mountNode
+	<div>
+		<NumberInput value={3} disabled placeholder="请输入数字"/>
+		<NumberInput value={3} disabled showStepper placeholder="请输入数字"/>
+	</div>
+	, mountNode
 );
 ```
 :::
@@ -81,42 +81,42 @@ class EventTest extends React.Component {
 		log: 0
 	};
 
-  onChange = (ev) => {
-  	this.setState({ log: ev.target.value });
-  }
+	onChange = (ev) => {
+		this.setState({ log: ev.target.value });
+	}
 
-  render() {
-    return (
-      <div>
-        <NumberInput value={this.state.log} min={min} showStepper max={max} onChange={this.onChange} placeholder={placeholder}/>
-        <div><p>{this.state.log}</p></div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<NumberInput value={this.state.log} min={min} showStepper max={max} onChange={this.onChange.bind(this)} placeholder={placeholder}/>
+			</div>
+		);
+	}
 
-  componentDidMount() {
-  	setTimeout(() => {
-  		console.log('第一次value改变')
-  		this.setState({ log: 3 });
-  	},5000)
-  	setTimeout(() => {
-  		console.log('第二次范围改变')
-  		min = 4
-  		max = 5
-  	},7000)
-  	setTimeout(() => {
-  		console.log('第三次范围改变')
-  		placeholder = "请输入数字~~~"
-  		this.setState({ log: 0 });
-  		min = 3
-  		max = 5
-  	},9000)
-  }
+	componentDidMount() {
+    setTimeout(() => {
+      console.log('第一次value改变')
+      this.setState({ log: 3 });
+    },5000)
+    setTimeout(() => {
+      console.log('第二次范围改变')
+      min = 4
+      max = 5
+    },7000)
+    setTimeout(() => {
+      console.log('第三次范围改变')
+      placeholder = "请输入数字~~~"
+      this.setState({ log: 0 });
+      min = 3
+      max = 5
+    },9000)
+	}	
+	
 }
 
 ReactDOM.render(
-  <EventTest />
-  , mountNode
+	<EventTest />
+	, mountNode
 );
 ```
 :::
@@ -139,7 +139,7 @@ ReactDOM.render(
 
 <style>
 .zent-number-input-wrapper {
-  width: 200px;
-  margin-bottom: 20px;
+	width: 200px;
+	margin-bottom: 20px;
 }
 </style>
