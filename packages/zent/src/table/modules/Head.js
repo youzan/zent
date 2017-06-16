@@ -109,9 +109,25 @@ export default class Head extends (PureComponent || Component) {
     this.props.selection.onSelectAll(isChecked);
   };
 
+  renderCheckBox(index, selection) {
+    let { needSelect, isSingleSelection } = selection;
+    if (needSelect && index === 0 && !isSingleSelection) {
+      return (
+        <Checkbox
+          className="select-check"
+          onChange={this.onSelect}
+          checked={selection.isSelectAll}
+          indeterminate={selection.isSelectPart}
+        />
+      );
+    }
+
+    return null;
+  }
+
   renderTr(isFixTr, style = {}) {
     let { selection, needExpand } = this.props;
-    let needSelect = selection.needSelect;
+    let { needSelect } = selection;
     let className = isFixTr ? fixRowClass : stickRowClass;
     let tds = [];
 
@@ -146,14 +162,7 @@ export default class Head extends (PureComponent || Component) {
 
       tds.push(
         <div key={index} className={cellClass} style={styleObj}>
-          {index === 0 &&
-            needSelect &&
-            <Checkbox
-              className="select-check"
-              onChange={this.onSelect}
-              checked={selection.isSelectAll}
-              indeterminate={selection.isSelectPart}
-            />}
+          {this.renderCheckBox(index, selection)}
           {this.getChild(item)}
         </div>
       );

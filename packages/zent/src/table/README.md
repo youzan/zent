@@ -397,6 +397,7 @@ class Selection extends React.Component {
         getRowConf={this.getRowConf}
         selection={{
           selectedRowKeys: this.state.selectedRowKeys,
+					isSingleSelection: true,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
             self.onSelect(selectedRowkeys, selectedRows, currentRow);
           }
@@ -762,6 +763,7 @@ ReactDOM.render(
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
+| isSingleSelection | 是否是单选            | Boolean | false | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候出发的函数 | func  |  | 否    |
 
 ### expandation

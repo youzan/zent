@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
+import Radio from 'radio';
 import assign from 'lodash/assign';
 import cx from 'classnames';
 
@@ -39,10 +40,42 @@ export default class Td extends (PureComponent || Component) {
     selection.onSelect(data[rowKey], isChecked);
   };
 
+  renderCheckBox(data, rowKey, selection) {
+    const { needSelect, canSelect, isSingleSelection } = selection;
+    if (needSelect) {
+      if (isSingleSelection) {
+        return (
+          <Radio
+            className="select-check"
+            checked={
+              canSelect &&
+                selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
+            }
+            disabled={!canSelect}
+            onChange={this.onSelect}
+          />
+        );
+      }
+
+      return (
+        <Checkbox
+          className="select-check"
+          checked={
+            canSelect && selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
+          }
+          disabled={!canSelect}
+          onChange={this.onSelect}
+        />
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { column, selection, data, rowKey } = this.props;
     const { textAlign, isMoney } = column;
-    const { needSelect, canSelect } = selection;
+    const { needSelect } = selection;
     const width = helper.getCalculatedWidth(column.width);
     const className = cx('cell', column.className, {
       'cell--selection': needSelect,
@@ -62,16 +95,7 @@ export default class Td extends (PureComponent || Component) {
 
     return (
       <div className={className} style={styleObj}>
-        {needSelect &&
-          <Checkbox
-            className="select-check"
-            checked={
-              canSelect &&
-                selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
-            }
-            disabled={!canSelect}
-            onChange={this.onSelect}
-          />}
+        {this.renderCheckBox(data, rowKey, selection)}
         <div className="cell__child-container">
           {this.renderContent()}
         </div>
