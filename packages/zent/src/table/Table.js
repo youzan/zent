@@ -134,11 +134,17 @@ export default class Table extends (PureComponent || Component) {
   onSelectOneRow = (rowKey, isSelect) => {
     let selectedRowKeys = this.props.selection.selectedRowKeys.slice(0); // copy 一份数组
     let index = selectedRowKeys.indexOf(rowKey);
+    let isSingleSelection = this.props.selection.isSingleSelection || false;
 
-    if (isSelect) {
-      if (index === -1) {
-        selectedRowKeys.push(rowKey);
+    if (isSingleSelection) {
+      // radio的isSelect永远是true，所以一旦选择了，则不能取消
+      if (isSelect) {
+        selectedRowKeys = [rowKey];
+      } else {
+        selectedRowKeys = [];
       }
+    } else if (isSelect && index === -1) {
+      selectedRowKeys.push(rowKey);
     } else if (index !== -1) {
       selectedRowKeys.splice(index, 1);
     }
@@ -224,6 +230,10 @@ export default class Table extends (PureComponent || Component) {
     } = this.props;
 
     let needSelect = selection !== null;
+    let isSingleSelection;
+    if (selection) {
+      isSingleSelection = selection.isSingleSelection || false;
+    }
     let selectedRowKeys = [];
 
     let isSelectAll = false;
@@ -237,6 +247,7 @@ export default class Table extends (PureComponent || Component) {
       isExpanded = expandation.isExpanded;
       expandRender = expandation.expandRender;
     }
+
     if (needSelect) {
       let canSelectRowsCount = 0;
 
@@ -277,6 +288,7 @@ export default class Table extends (PureComponent || Component) {
                 selection={{
                   needSelect,
                   onSelectAll: this.onSelectAllRows,
+                  isSingleSelection,
                   isSelectAll,
                   isSelectPart
                 }}
@@ -293,6 +305,7 @@ export default class Table extends (PureComponent || Component) {
                 selection={{
                   needSelect,
                   selectedRowKeys,
+                  isSingleSelection,
                   onSelect: this.onSelectOneRow
                 }}
                 needExpand={needExpand}
@@ -304,6 +317,7 @@ export default class Table extends (PureComponent || Component) {
                 pageInfo={pageInfo}
                 selection={{
                   needSelect,
+                  isSingleSelection,
                   onSelectAll: this.onSelectAllRows,
                   selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
                   isSelectAll,

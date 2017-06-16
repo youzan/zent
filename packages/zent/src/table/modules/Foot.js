@@ -38,7 +38,10 @@ export default class Foot extends (PureComponent || Component) {
     } = this.props;
 
     const { needSelect, selectedRows } = selection;
+    const shouldRenderFoot =
+      (batchComponents && batchComponents.length > 0) || !!pageInfo;
     return (
+      shouldRenderFoot &&
       <div className="tfoot clearfix">
         <div className="tfoot__batchcomponents">
           {needSelect &&
