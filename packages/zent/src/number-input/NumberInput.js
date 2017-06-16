@@ -46,9 +46,6 @@ export default class NumberInput extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     let nextPropsMap = pick(nextProps, [
-      'className',
-      'prefix',
-      'showStepper',
       'decimal',
       'disabled',
       'value',
@@ -56,9 +53,6 @@ export default class NumberInput extends (PureComponent || Component) {
       'min'
     ]);
     let propsMap = pick(this.props, [
-      'className',
-      'prefix',
-      'showStepper',
       'decimal',
       'disabled',
       'value',
