@@ -25,7 +25,6 @@
       "eslint",
       "git add"
     ],
-
     "*.pcss": [
       "format-style",
       "stylelint",
@@ -42,7 +41,9 @@
   ],
   "author": "Youzan FE",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "tinycolor2": "^1.4.1"
+  },
   "files": [],
   "devDependencies": {
     "babel-eslint": "^7.2.3",
