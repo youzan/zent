@@ -1,23 +1,15 @@
 import helper from 'table/helper';
 
 describe('table helpers', () => {
-  it('getAlignStyle', () => {
-    expect(helper.getAlignStyle('left')).toEqual({
-      justifyContent: 'flex-start'
-    });
+  it('getAlignClass', () => {
+    expect(helper.getAlignStyle('left')).toEqual('start');
 
-    expect(helper.getAlignStyle('right')).toEqual({
-      justifyContent: 'flex-end'
-    });
+    expect(helper.getAlignStyle('right')).toEqual('end');
 
-    expect(helper.getAlignStyle('center')).toEqual({
-      justifyContent: 'center'
-    });
+    expect(helper.getAlignStyle('center')).toEqual('center');
 
-    expect(helper.getAlignStyle('xxx')).toEqual({
-      justifyContent: 'flex-start'
-    });
+    expect(helper.getAlignStyle('xxx')).toEqual('start');
 
-    expect(helper.getAlignStyle('')).toEqual({});
+    expect(helper.getAlignStyle('')).toEqual('');
   });
 });

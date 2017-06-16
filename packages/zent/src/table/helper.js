@@ -22,30 +22,26 @@ const helper = {
     return isReact;
   },
 
-  getAlignStyle(textAlign) {
-    let alignObj = {};
+  getAlignClass(textAlign) {
+    let alignValue = '';
 
     if (textAlign) {
-      let alignValue;
       switch (textAlign) {
         case 'left':
-          alignValue = 'flex-start';
+          alignValue = 'start';
           break;
         case 'right':
-          alignValue = 'flex-end';
+          alignValue = 'end';
           break;
         case 'center':
           alignValue = 'center';
           break;
         default:
-          alignValue = 'flex-start';
+          alignValue = 'start';
       }
-      alignObj = {
-        justifyContent: alignValue
-      };
     }
 
-    return alignObj;
+    return alignValue;
   }
 };
 

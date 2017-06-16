@@ -1,7 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
-import assign from 'lodash/assign';
 import Checkbox from 'checkbox';
 
 import helper from '../helper';
@@ -158,7 +157,7 @@ export default class Head extends (PureComponent || Component) {
         };
       }
 
-      styleObj = assign(styleObj, helper.getAlignStyle(textAlign));
+      cellClass += ` cell--${helper.getAlignClass(textAlign)}`;
 
       tds.push(
         <div key={index} className={cellClass} style={styleObj}>

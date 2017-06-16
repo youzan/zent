@@ -1,7 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import Radio from 'radio';
-import assign from 'lodash/assign';
 import cx from 'classnames';
 
 import helper from '../helper';
@@ -77,7 +76,7 @@ export default class Td extends (PureComponent || Component) {
     const { textAlign, isMoney } = column;
     const { needSelect } = selection;
     const width = helper.getCalculatedWidth(column.width);
-    const className = cx('cell', column.className, {
+    let className = cx('cell', column.className, {
       'cell--selection': needSelect,
       'cell--money': isMoney
     });
@@ -91,7 +90,7 @@ export default class Td extends (PureComponent || Component) {
       };
     }
 
-    styleObj = assign(styleObj, helper.getAlignStyle(textAlign));
+    className += ` cell--${helper.getAlignClass(textAlign)}`;
 
     return (
       <div className={className} style={styleObj}>
