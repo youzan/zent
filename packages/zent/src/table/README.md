@@ -397,7 +397,6 @@ class Selection extends React.Component {
         getRowConf={this.getRowConf}
         selection={{
           selectedRowKeys: this.state.selectedRowKeys,
-					isSingleSelection: true,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
             self.onSelect(selectedRowkeys, selectedRows, currentRow);
           }
