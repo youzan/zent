@@ -1,7 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 import Input from 'input';
 import Icon from 'icon';
@@ -45,22 +44,14 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let nextPropsMap = pick(nextProps, [
-      'decimal',
-      'disabled',
-      'value',
-      'max',
-      'min'
-    ]);
-    let propsMap = pick(this.props, [
-      'decimal',
-      'disabled',
-      'value',
-      'max',
-      'min'
-    ]);
-
-    if (!isEqual(nextPropsMap, propsMap)) {
+    let props = this.props;
+    if (
+      nextProps.decimal !== props.decimal ||
+      nextProps.disabled !== props.disabled ||
+      nextProps.value !== props.value ||
+      nextProps.max !== props.max ||
+      nextProps.min !== props.min
+    ) {
       const { value, min, max, decimal } = nextProps;
       let { num, minArrow, maxArrow } = this.adjustFixed(
         value,
@@ -198,7 +189,7 @@ export default class NumberInput extends (PureComponent || Component) {
     });
 
     // 可传入Input组件的属性
-    let inputProps = pick(this.props, ['placeholder', 'disabled']);
+    let inputProps = pick(this.props, ['placeholder', 'disabled', 'readOnly']);
     return (
       <div className={wrapClass}>
         {showStepper &&

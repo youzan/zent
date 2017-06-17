@@ -41,9 +41,7 @@
   ],
   "author": "Youzan FE",
   "license": "MIT",
-  "dependencies": {
-    "tinycolor2": "^1.4.1"
-  },
+  "dependencies": {},
   "files": [],
   "devDependencies": {
     "babel-eslint": "^7.2.3",

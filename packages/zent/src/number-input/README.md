@@ -73,45 +73,31 @@ ReactDOM.render(
 
 ```jsx
 import { NumberInput } from 'zent';
-let min
-let max
-let placeholder = "请输入数字"
+
 class EventTest extends React.Component {
 	state = {
-		log: 0
+		log: 0,
+		placeholder: ''
 	};
 
 	onChange = (ev) => {
 		this.setState({ log: ev.target.value });
 	}
 
+	addLog = (ev) => {
+
+		this.setState({ log: 3 });
+	}
+
 	render() {
 		return (
 			<div>
-				<NumberInput value={this.state.log} min={min} showStepper max={max} onChange={this.onChange.bind(this)} placeholder={placeholder}/>
+				<NumberInput value={this.state.log} min={this.state.min} showStepper max={this.state.max} onChange={this.onChange.bind(this)} placeholder={this.state.placeholder}/>
+				<div>{this.state.log}</div>
+				<button onClick={this.addLog.bind(this)}>变成3=》</button>
 			</div>
 		);
 	}
-
-	componentDidMount() {
-    setTimeout(() => {
-      console.log('第一次value改变')
-      this.setState({ log: 3 });
-    },5000)
-    setTimeout(() => {
-      console.log('第二次范围改变')
-      min = 4
-      max = 5
-    },7000)
-    setTimeout(() => {
-      console.log('第三次范围改变')
-      placeholder = "请输入数字~~~"
-      this.setState({ log: 0 });
-      min = 3
-      max = 5
-    },9000)
-	}	
-	
 }
 
 ReactDOM.render(
