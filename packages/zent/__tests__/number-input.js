@@ -72,7 +72,7 @@ describe('NumberInput', () => {
     wrapper.find('input').simulate('change');
     expect(onChangeMock.mock.calls.length).toBe(2);
     wrapper.find('input').simulate('blur');
-    expect(onBlurMock.mock.calls.length).toBe(0);
+    expect(onBlurMock.mock.calls.length).toBe(1);
     wrapper.setProps({ value: 4 });
     expect(wrapper.state('value')).toBe('4');
     wrapper = mount(<NumberInput min={0} showStepper value={-1} />);
