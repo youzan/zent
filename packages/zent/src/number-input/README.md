@@ -91,7 +91,7 @@ class EventTest extends React.Component {
 		return (
 			<div>
 				<NumberInput
-					showStepper 
+					showStepper
 					value={this.state.log} 
 					onChange={this.onChange.bind(this)} 
 					onPressEnter={() => console.log('pressed enter')}/>
