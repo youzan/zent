@@ -72,29 +72,30 @@ ReactDOM.render(
 :::demo 事件处理
 
 ```jsx
-import { NumberInput } from 'zent';
+import { NumberInput, Button } from 'zent';
 
 class EventTest extends React.Component {
 	state = {
-		log: 0,
-		placeholder: ''
+		log: 0
 	};
 
-	onChange = (ev) => {
+	onChange(ev) {
 		this.setState({ log: ev.target.value });
 	}
 
-	addLog = (ev) => {
-
+	setToThree= (ev) => {
 		this.setState({ log: 3 });
 	}
 
 	render() {
 		return (
 			<div>
-				<NumberInput value={this.state.log} min={this.state.min} showStepper max={this.state.max} onChange={this.onChange.bind(this)} placeholder={this.state.placeholder}/>
-				<div>{this.state.log}</div>
-				<button onClick={this.addLog.bind(this)}>变成3=》</button>
+				<NumberInput
+					showStepper 
+					value={this.state.log} 
+					onChange={this.onChange.bind(this)} 
+					onPressEnter={() => console.log('pressed enter')}/>
+				<Button onClick={this.setToThree}>变成3</Button>
 			</div>
 		);
 	}
