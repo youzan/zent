@@ -293,7 +293,7 @@ class Cascader extends (PureComponent || Component) {
     }
 
     let cascaderCls = classnames({
-      [`${prefix}-cascader__select`]: true,
+      [`${prefix}-cascader`]: true,
       [className]: true,
       open
     });
@@ -312,7 +312,7 @@ class Cascader extends (PureComponent || Component) {
           onClose={this.onClose}
         >
           <PopoverClickTrigger>
-            <div className={`${prefix}-cascader__select-inner`}>
+            <div className={`${prefix}-cascader__select`}>
               <div className={selectTextCls}>
                 {cascaderValue}
                 <Icon type="caret-down" />

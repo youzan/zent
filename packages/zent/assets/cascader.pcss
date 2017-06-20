@@ -4,31 +4,29 @@ $c-light-blue: #bdf;
 $c-blue-hover: #eaf3ff;
 
 .zent-cascader {
-  &__select {
-    display: inline-block;
+  display: inline-block;
 
-    &.open {
-      .zent-cascader__select-text {
-        border-color: $c-blue;
-        box-shadow: 0 1px 1px $c-light-blue;
+  &.open {
+    .zent-cascader__select-text {
+      border-color: $c-blue;
+      box-shadow: 0 1px 1px $c-light-blue;
 
-        .zenticon {
-          transform: rotate(180deg) scale(0.5);
-        }
+      .zenticon {
+        transform: rotate(180deg) scale(0.5);
       }
     }
+  }
 
-    &-inner {
-      cursor: pointer;
-      display: inline-block;
-      font-size: 0;
-      outline: none;
-      position: relative;
-      text-align: left;
-      user-select: none;
-      width: 260px;
-      vertical-align: middle;
-    }
+  &__select {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0;
+    outline: none;
+    position: relative;
+    text-align: left;
+    user-select: none;
+    width: 260px;
+    vertical-align: middle;
 
     &-text {
       box-sizing: border-box;
@@ -38,7 +36,7 @@ $c-blue-hover: #eaf3ff;
       min-height: 30px;
       max-height: 76px;
       outline: none;
-      padding: 5px 20px 5px 10px;
+      padding: 5px 30px 5px 10px;
       transition: border-color 0.25s;
       width: 100%;
       background-color: #fff;

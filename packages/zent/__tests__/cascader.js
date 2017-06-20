@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import Cascader from 'cascader';
 
 describe('Cascader', () => {
-  it('className default to zent-swiper ', () => {
+  it('className default to zent-cascader ', () => {
     const wrapper = shallow(<Cascader />);
-    expect(wrapper.hasClass('zent-swiper')).toBe(true);
+    expect(wrapper.hasClass('zent-cascader')).toBe(true);
   });
 });
