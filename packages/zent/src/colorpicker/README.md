@@ -15,7 +15,7 @@ class Simple extends React.Component {
 
 	handleChange = (color) => {
 		this.setState({
-			color,
+			color
 		});
 	}
 
@@ -73,6 +73,55 @@ ReactDOM.render(
 
 ```
 :::
+
+:::demo 简化版用法
+```jsx
+import { ColorPicker } from 'zent';
+
+class Simple extends React.Component {
+	state = {
+		color: '#FF4444',
+		presetColors: [
+	    '#FF4444',
+	    '#FF6500',
+	    '#FF884D',
+	    '#FFCD00',
+	    '#3FBD00',
+	    '#3FBC87',
+	    '#00CD98',
+	    '#5197FF',
+	    '#BADCFF',
+	    '#FFEFB8',
+	    '#999999',
+	    '#444444'
+	  ]
+	}
+
+	handleChange = (color) => {
+		this.setState({
+			color
+		});
+	}
+
+	render() {
+		const { color, presetColors } = this.state;
+		return (
+			<div>
+				<ColorPicker color={color} type="simple" presetColors={presetColors} onChange={this.handleChange} />
+				<div style={{ color }}>当前颜色：{color}</div>
+			</div>
+		)
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
 
 :::demo 颜色面板
 ```jsx
@@ -157,7 +206,8 @@ ReactDOM.render(
 | className     | 可选，自定义类名      | string              | `''`     |         |
 | wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''`    |         |
 | prefix        | 可选，自定义前缀      | string              | `'zent'` |         |
-
+| type          | 颜色选择器类型       | string              | `'default'`   |   `'default'`、`'simple'`      |
+| presetColors  | 简化版自定义颜色数组  | array               |          |         |
 
 #### ColorBoard
 

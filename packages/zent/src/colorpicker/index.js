@@ -6,9 +6,11 @@
  */
 import React, { Component, PureComponent } from 'react';
 import Popover from 'popover';
+import isArray from 'lodash/isArray';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
+import SketchPresetColors from './SketchPresetColors';
 
 class ColorPicker extends (PureComponent || Component) {
   state = {
@@ -21,7 +23,16 @@ class ColorPicker extends (PureComponent || Component) {
     onChange: PropTypes.func,
     className: PropTypes.string,
     wrapperClassName: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
+    type: PropTypes.oneOf(['default', 'simple']),
+    presetColors: props => {
+      if (
+        props.type === 'simple' &&
+        (!isArray(props.presetColors) || props.presetColors.length === 0)
+      ) {
+        return new Error('presetColors is required.');
+      }
+    }
   };
 
   static defaultProps = {
@@ -29,15 +40,19 @@ class ColorPicker extends (PureComponent || Component) {
     onChange() {},
     className: '',
     wrapperClassName: '',
-    prefix: 'zent'
+    prefix: 'zent',
+    type: 'default'
   };
 
   static ColorBoard = ColorBoard;
 
   handleChange = color => {
     const { onChange, showAlpha } = this.props;
-    const colorOutPut = showAlpha ? color.rgba : color.hex;
-    onChange(colorOutPut);
+    let transColor = color;
+    if (typeof color === 'object') {
+      transColor = showAlpha ? color.rgba : color.hex;
+    }
+    onChange(transColor);
   };
 
   handleVisibleChange = visible => {
@@ -52,7 +67,9 @@ class ColorPicker extends (PureComponent || Component) {
       showAlpha,
       prefix,
       className,
-      wrapperClassName
+      wrapperClassName,
+      type,
+      presetColors
     } = this.props;
     const { popVisible } = this.state;
     const openClassName = popVisible ? 'open' : '';
@@ -85,12 +102,20 @@ class ColorPicker extends (PureComponent || Component) {
           </div>
         </Popover.Trigger.Click>
         <Popover.Content>
-          <ColorBoard
-            color={color}
-            showAlpha={showAlpha}
-            onChange={this.handleChange}
-            prefix={prefix}
-          />
+          {type === 'simple'
+            ? <SketchPresetColors
+                colors={presetColors}
+                onClick={this.handleChange}
+                prefix={prefix}
+                type={type}
+              />
+            : <ColorBoard
+                color={color}
+                showAlpha={showAlpha}
+                onChange={this.handleChange}
+                prefix={prefix}
+                type={type}
+              />}
         </Popover.Content>
       </Popover>
     );
