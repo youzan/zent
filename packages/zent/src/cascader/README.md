@@ -237,14 +237,14 @@ ReactDOM.render(
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
-| options | 可选项数据源 | array | [] | '' |
 | value | 级联的选中值 | array | [] | '' |
-| onChange | 数据变化时的回调 | func | noop | '' |
-| loadMore | 动态加载级联的数据，返回 Promise | func | - | '' |
+| options | 可选项数据源 | array | [] | '' |
 | title | tab子项的标题 | array | ['省份', '城市', '县区'] | '' |
-| placeholder | 输入框占位文本 | string | '请选择' | '' |
+| onChange | 数据变化时的回调 | func | noop | '' |
+| loadMore | 动态加载级联的数据，返回值需为 Promise | func | - | '' |
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
-| className | 自定义额外类名 | string | '' | '' |
-| popClassName | popover自定义类名 | string | '' | '' |
+| placeholder | 输入框占位文本 | string | '请选择' | '' |
 | prefix | 自定义前缀 | string | 'zent' | '' |
+| className | 自定义额外类名 | string | '' | '' |
+| popClassName | popover自定义类名 | string | ''zent-cascader__popup'' | '' |
 

@@ -224,12 +224,12 @@ class Cascader extends (PureComponent || Component) {
 
     let cascaderItems = items.map(item => {
       let cascaderItemCls = classnames({
-        [`${prefix}-cascader-list__item-link`]: true,
+        [`${prefix}-cascader__list-link`]: true,
         active: item.id === value[stage - 1]
       });
 
       return (
-        <div className={`${prefix}-cascader-list__item`} key={item.id}>
+        <div className={`${prefix}-cascader__list-item`} key={item.id}>
           <span
             className={cascaderItemCls}
             title={item.title}
@@ -242,7 +242,7 @@ class Cascader extends (PureComponent || Component) {
     });
 
     return (
-      <div className={`${prefix}-cascader-list`}>
+      <div className={`${prefix}-cascader__list`}>
         {cascaderItems}
       </div>
     );
@@ -254,9 +254,9 @@ class Cascader extends (PureComponent || Component) {
 
     if (isLoading && stage === loadingStage) {
       return (
-        <div className={`${prefix}-cascader-loading-wrap`}>
-          <div className={`${prefix}-cascader-loading-label`}>{title}</div>
-          <div className={`${prefix}-cascader-loading`} />
+        <div className={`${prefix}-cascader__loading`}>
+          <div className={`${prefix}-cascader__loading-label`}>{title}</div>
+          <div className={`${prefix}-cascader__loading-icon`} />
         </div>
       );
     }
@@ -268,28 +268,18 @@ class Cascader extends (PureComponent || Component) {
     let { prefix, className, popClassName, placeholder } = this.props;
     let { onChangeValue, open, activeId } = this.state;
 
-    let cascaderCls = classnames({
-      [`${prefix}-cascader-select`]: true,
-      open
-    });
-
     const CascaderPopoverContent = withPopover(({ popover }) => {
       return (
-        <div className={`${prefix}-cascader-select__popup`}>
+        <div className={`${prefix}-cascader__popup-inner`}>
           <Tabs
             activeId={activeId}
             onTabChange={this.onTabChange}
-            className={`${prefix}-cascader-tabs`}
+            className={`${prefix}-cascader__tabs`}
           >
             {this.renderPanels(popover)}
           </Tabs>
         </div>
       );
-    });
-
-    let cascaderWrapCls = classnames({
-      [`${prefix}-cascader-select-wrap`]: true,
-      [className]: true
     });
 
     let cascaderValue = placeholder;
@@ -302,13 +292,19 @@ class Cascader extends (PureComponent || Component) {
       cascaderValue = cascaderValue.join(' / ');
     }
 
+    let cascaderCls = classnames({
+      [`${prefix}-cascader__select`]: true,
+      [className]: true,
+      open
+    });
+
     let selectTextCls = classnames({
-      [`${prefix}-cascader-select__text`]: true,
+      [`${prefix}-cascader__select-text`]: true,
       'is-placeholder': !hasValue
     });
 
     return (
-      <div className={cascaderWrapCls}>
+      <div className={cascaderCls}>
         <Popover
           className={popClassName}
           position={Popover.Position.BottomLeft}
@@ -316,7 +312,7 @@ class Cascader extends (PureComponent || Component) {
           onClose={this.onClose}
         >
           <PopoverClickTrigger>
-            <div className={cascaderCls}>
+            <div className={`${prefix}-cascader__select-inner`}>
               <div className={selectTextCls}>
                 {cascaderValue}
                 <Icon type="caret-down" />
@@ -348,7 +344,7 @@ Cascader.propTypes = {
 Cascader.defaultProps = {
   prefix: 'zent',
   className: '',
-  popClassName: 'zent-cascader-popup',
+  popClassName: 'zent-cascader__popup',
   onChange: noop,
   value: [],
   options: [],
