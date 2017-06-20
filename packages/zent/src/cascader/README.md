@@ -68,7 +68,11 @@ class Simple extends React.Component {
 	}
 
 	onChange = (data) => {
-		console.log(data)
+		console.log(data);
+
+		this.setState({
+			value: data.map(item => item.id)
+		});
 	}
 
 	render() {
@@ -204,7 +208,7 @@ class Simple extends React.Component {
 	})
 
 	onChange = (data) => {
-		console.log(data)
+		console.log(data);
 	}
 
 	render() {
