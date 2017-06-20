@@ -65,7 +65,6 @@ $c-blue-hover: #eaf3ff;
       width: 440px;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
-      margin-top: 5px;
     }
   }
 
@@ -133,5 +132,43 @@ $c-blue-hover: #eaf3ff;
 
   &-popup {
     z-index: 1080;
+  }
+
+  &-loading-wrap {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    background-color: white;
+
+    .cascader-loading {
+      display: inline-block;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      border: 1px solid #21b2ff;
+
+      &:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        height: 10px;
+        width: 4px;
+        background: white;
+        animation: 2s linear rotate infinite;
+        transform-origin: 10px 4px;
+        left: -1px;
+        top: 6px;
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }

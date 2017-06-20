@@ -15,56 +15,29 @@ class Simple extends React.Component {
 		options: [
 			{
 				id: '330000',
-				name: '浙江省',
-				children: [
-					{
-						id: '330100',
-						name: '杭州市',
-						children: [
-							{
-								id: '330106',
-								name: '西湖区'
-							}
-						]
-					},
-					{
-						id: '330200',
-						name: '温州市',
-						children: [
-							{
-								id: '330206',
-								name: '龙湾区'
-							}
-						]
-					}
-				]
+				title: '浙江省'
 			},
 			{
 				id: '120000',
-				name: '新疆维吾尔自治区',
-				children: [
-					{
-						id: '120100',
-						name: '博尔塔拉蒙古自治州',
-						children: [
-							{
-								id: '120111',
-								name: '阿拉山口市'
-							}
-						]
-					}
-				]
+				title: '新疆维吾尔自治区'
 			}
 		]
 	}
 
-	componentWillMount() {
+	loadMore = (root, stage) => new Promise((resolve, reject) => {
 		setTimeout(() => {
+			let isLeaf = stage >= 2;
+			root.children = [{
+				id: `66666${stage}`,
+				title: `Title${stage}`,
+				isLeaf
+			}];
 			this.setState({
-				value: ['330000', '330100', '330106']
-			});	
-		}, 5000);
-	}
+				options: [...this.state.options]	
+			});
+			resolve();
+		}, 500);
+	})
 
 	onChange = (data) => {
 		console.log(data)
@@ -72,7 +45,12 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Cascader value={this.state.value} onChange={this.onChange} options={this.state.options} />
+			<Cascader
+				value={this.state.value}
+				options={this.state.options}
+				onChange={this.onChange}
+				loadMore={this.loadMore}
+			/>
 		);
 	}
 }
@@ -85,68 +63,6 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 选中即时改变
-```jsx
-import { Cascader } from 'zent';
-
-class Simple extends React.Component {
-
-	state = {
-		value: ['330000', '330100', '330106'],
-		options: [
-			{
-				id: '330000',
-				name: '浙江省',
-				children: [
-					{
-						id: '330100',
-						name: '杭州市',
-						children: [
-							{
-								id: '330106',
-								name: '西湖区'
-							}
-						]
-					}
-				]
-			},
-			{
-				id: '120000',
-				name: '新疆维吾尔自治区',
-				children: [
-					{
-						id: '120100',
-						name: '博尔塔拉蒙古自治州',
-						children: [
-							{
-								id: '120111',
-								name: '阿拉山口市'
-							}
-						]
-					}
-				]
-			}
-		]
-	}
-
-	onChange = (data) => {
-		console.log(data);
-	}
-
-	render() {
-		return (
-			<Cascader value={this.state.value} changeOnSelect={true} options={this.state.options} onChange={this.onChange} />
-		);
-	}
-}
-
-ReactDOM.render(
-	<Simple />
-	, mountNode
-);
-
-```
-:::
 
 ### API
 
@@ -157,6 +73,7 @@ ReactDOM.render(
 | options | 可选项数据源 | array | [] | '' |
 | value | 级联的选中值 | array | [] | '' |
 | onChange | 数据变化时的回调 | func | noop | '' |
+| loadMore | 动态加载级联的数据，返回 Promise | func | - | '' |
 | title | tab子项的标题 | array | ['省份', '城市', '县区'] | '' |
 | placeholder | 输入框占位文本 | string | '请选择' | '' |
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
