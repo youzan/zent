@@ -49,6 +49,10 @@ $c-blue-hover: #eaf3ff;
       overflow: hidden;
       text-overflow: ellipsis;
 
+      &.is-placeholder {
+        color: #999;
+      }
+
       .zenticon {
         margin-top: -6px;
         position: absolute;
@@ -139,26 +143,35 @@ $c-blue-hover: #eaf3ff;
     position: relative;
     vertical-align: middle;
     background-color: white;
+  }
 
-    .cascader-loading {
+  &-loading {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    border: 1px solid $c-blue;
+    margin-left: 5px;
+
+    &-label {
+      line-height: 16px;
       display: inline-block;
-      height: 16px;
-      width: 16px;
-      border-radius: 50%;
-      border: 1px solid #21b2ff;
+      vertical-align: middle;
+    }
 
-      &:after {
-        content: '';
-        display: inline-block;
-        position: absolute;
-        height: 10px;
-        width: 4px;
-        background: white;
-        animation: 2s linear rotate infinite;
-        transform-origin: 10px 4px;
-        left: -1px;
-        top: 6px;
-      }
+    &:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      height: 10px;
+      width: 4px;
+      background: white;
+      animation: 1s linear rotate infinite;
+      transform-origin: 8px 3px;
+      left: -1px;
+      top: 4px;
     }
   }
 }
