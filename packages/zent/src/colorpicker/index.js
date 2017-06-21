@@ -6,7 +6,6 @@
  */
 import React, { Component, PureComponent } from 'react';
 import Popover from 'popover';
-import isArray from 'lodash/isArray';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
@@ -25,14 +24,7 @@ class ColorPicker extends (PureComponent || Component) {
     wrapperClassName: PropTypes.string,
     prefix: PropTypes.string,
     type: PropTypes.oneOf(['default', 'simple']),
-    presetColors: props => {
-      if (
-        props.type === 'simple' &&
-        (!isArray(props.presetColors) || props.presetColors.length === 0)
-      ) {
-        return new Error('presetColors is required.');
-      }
-    }
+    presetColors: PropTypes.array
   };
 
   static defaultProps = {
@@ -41,7 +33,24 @@ class ColorPicker extends (PureComponent || Component) {
     className: '',
     wrapperClassName: '',
     prefix: 'zent',
-    type: 'default'
+    type: 'default',
+    presetColors: [
+      '#FFFFFF',
+      '#F8F8F8',
+      '#F2F2F2',
+      '#999999',
+      '#444444',
+      '#FF4444',
+      '#FF6500',
+      '#FF884D',
+      '#FFCD00',
+      '#3FBD00',
+      '#3FBC87',
+      '#00CD98',
+      '#5197FF',
+      '#BADCFF',
+      '#FFEFB8'
+    ]
   };
 
   static ColorBoard = ColorBoard;

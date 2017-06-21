@@ -55,6 +55,7 @@ const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
             className={`${prefix}-colorpicker-colors-select__preview`}
             style={{ backgroundColor: color }}
             onClick={() => onClick(color)}
+            title={color}
           />
         ))}
       </div>
