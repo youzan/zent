@@ -66,14 +66,6 @@ class Select extends (PureComponent || Component) {
     let data = this.uniformData(nextProps);
     // 重置组件data
     let selectedItems = [];
-    if (
-      (typeof nextProps.value !== 'undefined' && `${nextProps.value}`) ||
-      (typeof nextProps.index !== 'undefined' && `${nextProps.index}`)
-    ) {
-      this.setState({
-        selectedItem: this.props.selectedItem
-      });
-    }
 
     this.formateData(data, nextProps);
     if (isArray(nextProps.value)) {
