@@ -23,6 +23,7 @@ import Pagination from 'pagination';
 import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
+import Progress from 'progress';
 import Radio from 'radio';
 import Select from 'select';
 import Slider from 'slider';
@@ -62,6 +63,7 @@ export {
   Pop,
   Popover,
   Portal,
+  Progress,
   Radio,
   Select,
   Slider,
