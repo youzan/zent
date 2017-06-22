@@ -62,7 +62,7 @@ class MonthPicker extends (PureComponent || Component) {
     prefix: 'zent',
     className: '',
     placeholder: '请选择月份',
-    confirmText: '确认',
+    confirmText: '确定',
     format: 'YYYY-MM',
     onChange: noop
   };

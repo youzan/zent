@@ -121,7 +121,7 @@ class DateRangePicker extends (PureComponent || Component) {
     className: '',
     prefix: 'zent',
     placeholder: ['开始日期', '结束日期'],
-    confirmText: '确认',
+    confirmText: '确定',
     errorText: '请选择起止时间',
     format: 'YYYY-MM-DD',
     showTime: false,
