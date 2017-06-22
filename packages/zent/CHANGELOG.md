@@ -1,5 +1,20 @@
 ## 更新日志
 
+## [zent@3.3.2](https://github.com/youzan/zent/tree/zent@3.3.2) (2017-06-22)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.1...zent@3.3.2)
+
+**Bug 修复:**
+
+- Select: UI won't change after setState in onChange [\#333](https://github.com/youzan/zent/issues/333)
+- tree: dataType="plain"时data强制根据id排序 [\#323](https://github.com/youzan/zent/issues/323)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- 规范用词 [\#339](https://github.com/youzan/zent/pull/339) ([cpylua](https://github.com/cpylua))
+- fix: Swiper typo [\#335](https://github.com/youzan/zent/pull/335) ([ArvinTung](https://github.com/ArvinTung))
+- 修复onChange里面调了setState组件重新render以后不能正确显示选中项的问题 [\#334](https://github.com/youzan/zent/pull/334) ([huangsy](https://github.com/huangsy))
+- tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
+
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
 [Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
 
@@ -319,7 +334,7 @@
 **合并的 Pull Request (可能有不兼容改动):**
 
 - Update picker style [\#136](https://github.com/youzan/zent/pull/136) ([xuhong](https://github.com/xuhong))
-- Tabs without panel [\#134](https://github.com/youzan/zent/pull/134) ([ohmygod12121212](https://github.com/ohmygod12121212))
+- Tabs without panel [\#134](https://github.com/youzan/zent/pull/134) ([hzjzx](https://github.com/hzjzx))
 - Doc site [\#133](https://github.com/youzan/zent/pull/133) ([cookfront](https://github.com/cookfront))
 - Hotfix/select warning 0329 [\#131](https://github.com/youzan/zent/pull/131) ([huangsy](https://github.com/huangsy))
 - 使component属性支持更多类型 [\#128](https://github.com/youzan/zent/pull/128) ([NinoFocus](https://github.com/NinoFocus))
