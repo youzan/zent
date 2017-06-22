@@ -35,6 +35,7 @@
     "^badge(.*)$": "<rootDir>/src/badge$1",
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
     "^button(.*)$": "<rootDir>/src/button$1",
+    "^cascader(.*)$": "<rootDir>/src/cascader$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
     "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1",
     "^copy-button(.*)$": "<rootDir>/src/copy-button$1",
@@ -53,16 +54,18 @@
     "^popover(.*)$": "<rootDir>/src/popover$1",
     "^portal(.*)$": "<rootDir>/src/portal$1",
     "^radio(.*)$": "<rootDir>/src/radio$1",
+    "^search-input(.*)$": "<rootDir>/src/search-input$1",
     "^select(.*)$": "<rootDir>/src/select$1",
     "^slider(.*)$": "<rootDir>/src/slider$1",
     "^steps(.*)$": "<rootDir>/src/steps$1",
     "^sweetalert(.*)$": "<rootDir>/src/sweetalert$1",
-    "^switch(.*)$": "<rootDir>/src/switch$1",
     "^swiper(.*)$": "<rootDir>/src/swiper$1",
+    "^switch(.*)$": "<rootDir>/src/switch$1",
     "^table(.*)$": "<rootDir>/src/table$1",
     "^tabs(.*)$": "<rootDir>/src/tabs$1",
     "^tag(.*)$": "<rootDir>/src/tag$1",
     "^tree(.*)$": "<rootDir>/src/tree$1",
+    "^upload(.*)$": "<rootDir>/src/upload$1",
     "^utils(.*)$": "<rootDir>/src/utils$1"
   }
 }

@@ -1,0 +1,31 @@
+.zent-search-input {
+  position: relative;
+
+  .zenticon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    &-search {
+      font-size: 12px;
+      left: 10px;
+    }
+
+    &-close-circle {
+      font-size: 12px;
+      right: 10px;
+      cursor: pointer;
+      padding: 4px 0;
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .zent-input-wrapper input {
+    padding: 0 27px;
+  }
+}
