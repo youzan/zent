@@ -434,7 +434,7 @@ ReactDOM.render(
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
 | value        | 默认选择日期                   | string/Date    |     | 否    |
 | defaultValue        | 默认面板显示日期                   | string/Date    |     | 否    |
-| onChange     | 确认日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
+| onChange     | 选择日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
 | onClick      | 用户点击选择日期的回调 | func |   |   否 |
 | onOpen       | 面板弹出的回调 | func |   |   否 |
 | onClose      | 面板关闭的回调 | func |   |   否 |
@@ -443,7 +443,7 @@ ReactDOM.render(
 | placeholder  | 提示文案                   | string    | 不同的picker默认值不同，下详   | 否    |
 | className    | 额外的 css 类                | string         |             | 否    |
 | prefix       | 自定义前缀                    | string         | `'zent'`        | 否    |
-| confirmText  | 确认按钮文字                    | string         | '确认'        | 否    |
+| confirmText  | 确定按钮文字                    | string         | '确定'        | 否    |
 
 
 ### DateTimePicker

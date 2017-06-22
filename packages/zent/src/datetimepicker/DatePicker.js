@@ -103,7 +103,7 @@ class DatePicker extends (PureComponent || Component) {
     prefix: 'zent',
     className: '',
     placeholder: '请选择日期',
-    confirmText: '确认',
+    confirmText: '确定',
     format: 'YYYY-MM-DD',
     min: '',
     max: '',
