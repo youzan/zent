@@ -6,13 +6,13 @@ $c-light-blue: #bdf;
   cursor: pointer;
   display: inline-block;
   font-size: 12px;
-  line-height: 1.5;
   margin-right: 10px;
   outline: none;
   position: relative;
   text-align: left;
   user-select: none;
   width: 100px;
+  height: 32px;
   vertical-align: middle;
 
   &.open {
@@ -58,4 +58,23 @@ $c-light-blue: #bdf;
     width: 60px;
     height: 20px;
   }
+}
+
+.zent-colorpicker-colors-select {
+  background: #fff;
+  width: 190px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  box-sizing: content-box;
+  line-height: 10px;
+  padding-top: 10px;
+}
+
+.zent-colorpicker-colors-select__preview {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
