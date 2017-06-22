@@ -1,65 +1,32 @@
-$line-height: 10px;
-$line-width: 580px;
-$color-info: #999;
-$color-bg: #f8f8f8;
-$color-success: #44ba00;
-$color-exception: #f44;
-
-.zent-progress {
-  &.zent-progress-line {
-    .zent-progress-wrapper {
-      display: inline-block;
-      width: $line-width;
-      height: $line-height;
-      background: $color-bg;
-      border-radius: $line-height;
-    }
-
-    .zent-progress-inner {
-      height: $line-height;
-      border-radius: $line-height;
-      transition: all 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
-    }
-
-    .zent-progress-info {
-      display: inline-block;
-      margin-left: 10px;
-      font-size: 12px;
-      color: $color-info;
-
-      .zenticon {
-        font-size: 14px;
-      }
-    }
-
-    .zent-progress-inprogress {
-      .zent-progress-inner {
-        background: $color-exception;
-      }
-
-      .zent-progress-info {
-        color: $color-info;
-      }
-    }
-
-    .zent-progress-success {
-      .zent-progress-inner {
-        background: $color-success;
-      }
-
-      .zent-progress-info {
-        color: $color-success;
-      }
-    }
-
-    .zent-progress-exception {
-      .zent-progress-inner {
-        background: $color-exception;
-      }
-
-      .zent-progress-info {
-        color: $color-exception;
-      }
-    }
-  }
-}
+@import './alert.pcss';
+@import './badge.pcss';
+@import './breadcrumb.pcss';
+@import './button.pcss';
+@import './cascader.pcss';
+@import './checkbox.pcss';
+@import './colorpicker.pcss';
+@import './datetimepicker.pcss';
+@import './dialog.pcss';
+@import './form.pcss';
+@import './icon.pcss';
+@import './input.pcss';
+@import './layout.pcss';
+@import './loading.pcss';
+@import './menu.pcss';
+@import './notify.pcss';
+@import './number-input.pcss';
+@import './pagination.pcss';
+@import './pop.pcss';
+@import './progress.pcss';
+@import './radio.pcss';
+@import './select.pcss';
+@import './slider.pcss';
+@import './steps.pcss';
+@import './sweetalert.pcss';
+@import './switch.pcss';
+@import './swiper.pcss';
+@import './table.pcss';
+@import './tabs.pcss';
+@import './tag.pcss';
+@import './tree.pcss';
+@import './upload.pcss';
