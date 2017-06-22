@@ -314,13 +314,13 @@ class Cascader extends (PureComponent || Component) {
           <PopoverClickTrigger>
             <div className={`${prefix}-cascader__select`}>
               <div className={selectTextCls}>
-                {cascaderValue}
+                <span>{cascaderValue}</span>
                 <Icon type="caret-down" />
               </div>
             </div>
           </PopoverClickTrigger>
           <PopoverContent>
-            <CascaderPopoverContent />
+            <CascaderPopoverContent ref={ref => (this.cascader = ref)} />
           </PopoverContent>
         </Popover>
       </div>
