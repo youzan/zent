@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { Icon } from 'zent';
+import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
