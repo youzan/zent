@@ -37,7 +37,7 @@ export default class PageHeader extends Component {
                 href="//www.youzanyun.com/zanui/react"
                 className="page-header__link page-header__link--active"
               >
-                PC端
+                Zent - PC端
               </a>
             </li>
             <li className="page-header__item">
@@ -45,7 +45,7 @@ export default class PageHeader extends Component {
                 href="//www.youzanyun.com/zanui/vue"
                 className="page-header__link"
               >
-                移动端
+                Vant - 移动端
               </a>
             </li>
             <li className="page-header__item">
@@ -53,7 +53,7 @@ export default class PageHeader extends Component {
                 href="https://github.com/youzan/zanui-weapp"
                 className="page-header__link"
               >
-                微信小程序
+                ZanUi-WeApp - 微信小程序
               </a>
             </li>
           </ul>

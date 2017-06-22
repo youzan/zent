@@ -63,15 +63,9 @@ class Select extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { open } = this.state;
     let data = this.uniformData(nextProps);
     // 重置组件data
-    open = nextProps.open || this.focus;
-    let nextState = { ...nextProps, open };
     let selectedItems = [];
-    if (`${nextProps.value}` || `${nextProps.index}`) {
-      this.state.selectedItem = this.props.selectedItem;
-    }
 
     this.formateData(data, nextProps);
     if (isArray(nextProps.value)) {
@@ -81,9 +75,9 @@ class Select extends (PureComponent || Component) {
         }
       });
     }
-    nextState.selectedItem = this.state.selectedItem;
-    nextState.selectedItems = selectedItems;
-    this.setState(nextState);
+    this.setState({
+      selectedItems
+    });
   }
 
   // 统一children和data中的数据
