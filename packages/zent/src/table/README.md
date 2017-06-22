@@ -763,7 +763,7 @@ ReactDOM.render(
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
 | isSingleSelection | 是否是单选            | Boolean | false | 否    |
-| onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候出发的函数 | func  |  | 否    |
+| onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |
 
 ### expandation
 
