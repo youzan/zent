@@ -24,6 +24,7 @@ import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
 import Radio from 'radio';
+import SearchInput from 'search-input';
 import Select from 'select';
 import Slider from 'slider';
 import Steps from 'steps';
@@ -63,6 +64,7 @@ export {
   Popover,
   Portal,
   Radio,
+  SearchInput,
   Select,
   Slider,
   Steps,
