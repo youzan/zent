@@ -257,6 +257,7 @@ class Pop extends (PureComponent || Component) {
           showDelay={mouseEnterDelay}
           hideDelay={mouseLeaveDelay}
           isOutside={isOutside}
+          quirk
         >
           {children}
         </Trigger.Hover>

@@ -143,7 +143,7 @@ function makeHoverEnterRecognizer({ enterDelay, onEnter }) {
 /**
  * 离开状态的识别
  */
-function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
+function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide, quirk }) {
   const state = makeState('leave', onLeave);
   let recognizer;
   let timerId;
@@ -159,7 +159,7 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide }) {
         const { target } = evt;
 
         if (isOutSide(target)) {
-          if (!state.is(HoverState.Started)) {
+          if (!quirk && !state.is(HoverState.Started)) {
             return;
           }
 
@@ -226,12 +226,15 @@ export default class PopoverHoverTrigger extends Trigger {
     showDelay: PropTypes.number,
     hideDelay: PropTypes.number,
 
-    isOutside: PropTypes.func
+    isOutside: PropTypes.func,
+
+    quirk: PropTypes.bool
   };
 
   static defaultProps = {
     showDelay: 150,
-    hideDelay: 150
+    hideDelay: 150,
+    quirk: false
   };
 
   open = () => {
@@ -248,17 +251,23 @@ export default class PopoverHoverTrigger extends Trigger {
   };
 
   makeEnterRecognizer() {
+    const { showDelay, quirk } = this.props;
+
     return makeHoverEnterRecognizer({
-      enterDelay: this.props.showDelay,
-      onEnter: this.open
+      enterDelay: showDelay,
+      onEnter: this.open,
+      quirk
     });
   }
 
   makeLeaveRecognizer() {
+    const { quirk, hideDelay, isOutsideStacked } = this.props;
+
     return makeHoverLeaveRecognizer({
-      leaveDelay: this.props.hideDelay,
+      leaveDelay: hideDelay,
       onLeave: this.close,
-      isOutSide: this.props.isOutsideStacked
+      isOutSide: isOutsideStacked,
+      quirk
     });
   }
 
