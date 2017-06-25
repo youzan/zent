@@ -437,6 +437,7 @@ ReactDOM.render(
 | defaultValue | 默认面板显示日期               | string/Date    |     | 否    |
 | onChange     | 选择日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
 | onClick      | 用户点击选择日期的回调 | func |   |   否 |
+| openPanel    | 面板是否打开 | boolean | false  |   否 |
 | onOpen       | 面板弹出的回调 | func |   |   否 |
 | onClose      | 面板关闭的回调 | func |   |   否 |
 | disabled     | 是否处于 disabled 状态 | bool         | `false`         | 否    |
