@@ -46,20 +46,17 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 支持自定义色彩
+:::demo 支持自定义色彩，非圆角，标签大小
 ```jsx
 import { Tag } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Tag color="#ff1493">#ff1493</Tag>
-		<Tag color="#ff1493" outline>#ff1493</Tag>
-		<Tag color="#778899">#778899</Tag>
-		<Tag color="#778899" outline>#778899</Tag>
-		<Tag color="#48d1cc">#48d1cc</Tag>
-		<Tag color="#48d1cc" outline>#48d1cc</Tag>
 		<Tag color="#9370db">#9370db</Tag>
 		<Tag color="#9370db" outline>#9370db</Tag>
+		<Tag borderColor="#87d068" bgColor="#cfefdf" fontColor="#00a854">自定义色彩</Tag>
+		<Tag color="#778899" rounded={false}>非圆角</Tag>
+		<Tag color="#48d1cc" style={{ fontSize: 20 }}>自定义大小</Tag>
 	</div>
 	, mountNode
 );
@@ -71,11 +68,11 @@ ReactDOM.render(
 import { Tag } from 'zent';
 
 const closeCallback = (e) => {
-	console.log(e);
+	alert("cloase tag")
 }
 
 const closeCallback2 = (e) => {
-	console.log(e.target);
+	alert("cloase tag2")
 }
 
 ReactDOM.render(

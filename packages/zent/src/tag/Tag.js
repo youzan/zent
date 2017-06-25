@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
@@ -10,16 +11,24 @@ export default class Tag extends (PureComponent || Component) {
   static propTypes = {
     color: PropTypes.string,
     outline: PropTypes.bool,
+    size: PropTypes.string,
+    rounded: PropTypes.bool,
+    borderColor: PropTypes.string,
+    bgColor: PropTypes.string,
+    fontColor: PropTypes.string,
     closable: PropTypes.bool,
     onClose: PropTypes.func,
     children: PropTypes.node,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
+    style: PropTypes.object
   };
 
   static defaultProps = {
     color: 'red',
     outline: false,
+    rounded: true,
+    size: 'normal',
     closable: false,
     className: '',
     prefix: 'zent'
@@ -54,34 +63,45 @@ export default class Tag extends (PureComponent || Component) {
     const {
       color,
       outline,
+      size,
+      rounded,
+      borderColor,
+      bgColor,
+      fontColor,
       closable,
       children,
       className,
-      prefix
+      prefix,
+      style
     } = this.props;
     const containerCls = cx(
       `${prefix}-tag`,
       `${prefix}-tag-style${colorTypes.indexOf(color) >= 0 ? `-${color}` : ''}${outline ? '-outline' : ''}`,
       {
         [className]: !!className,
+        [`${prefix}-tag-rounded`]: rounded,
         [`${prefix}-tag-closable`]: closable
       }
     );
 
-    let styles = {};
+    let styles = style || {};
     if (colorTypes.indexOf(color) < 0) {
-      styles = outline
-        ? { color, borderColor: color }
-        : { background: color, borderColor: color };
+      styles.borderColor = color;
+      outline ? (styles.color = color) : (styles.background = color);
     }
+    borderColor && (styles.borderColor = borderColor);
+    bgColor && (styles.background = bgColor);
+    fontColor && (styles.color = fontColor);
 
     return (
       <div className={containerCls} style={styles}>
         <div className={`${prefix}-tag-content`}>{children}</div>
         {closable &&
-          <span className={`${prefix}-tag-close-btn`} onClick={this.onClose}>
-            ×
-          </span>}
+          <Icon
+            type="close"
+            className={`${prefix}-tag-close-btn`}
+            onClick={this.onClose}
+          />}
       </div>
     );
   }
