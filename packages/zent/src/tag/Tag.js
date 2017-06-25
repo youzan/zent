@@ -11,7 +11,6 @@ export default class Tag extends (PureComponent || Component) {
   static propTypes = {
     color: PropTypes.string,
     outline: PropTypes.bool,
-    size: PropTypes.string,
     rounded: PropTypes.bool,
     borderColor: PropTypes.string,
     bgColor: PropTypes.string,
@@ -28,7 +27,6 @@ export default class Tag extends (PureComponent || Component) {
     color: 'red',
     outline: false,
     rounded: true,
-    size: 'normal',
     closable: false,
     className: '',
     prefix: 'zent'
@@ -63,7 +61,6 @@ export default class Tag extends (PureComponent || Component) {
     const {
       color,
       outline,
-      size,
       rounded,
       borderColor,
       bgColor,
