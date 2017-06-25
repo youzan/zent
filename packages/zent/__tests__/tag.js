@@ -74,7 +74,7 @@ describe('Tag', () => {
     expect(wrapper.find('.zent-tag-style-red-outline').length).toBe(1);
   });
 
-  it('can have a custom color style', () => {
+  it('can have custom color style', () => {
     const wrapper = mount(<Tag color="#ff1493">#ff1493</Tag>);
     expect(
       wrapper.contains(
@@ -89,7 +89,7 @@ describe('Tag', () => {
     expect(wrapper.find('.zent-tag-close-btn').length).toBe(0);
   });
 
-  it('can have a custom color outline style', () => {
+  it('can have custom color outline style', () => {
     const wrapper = mount(<Tag color="#ff1493" outline>#ff1493</Tag>);
     expect(
       wrapper.contains(
