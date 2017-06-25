@@ -1,9 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-// import Input from 'input';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
@@ -145,11 +143,8 @@ class DateRangePicker extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(next) {
-    const { value } = this.props;
-    if (!isEqual(value, next.value)) {
-      const state = extractStateFromProps(next);
-      this.setState(state);
-    }
+    const state = extractStateFromProps(next);
+    this.setState(state);
   }
 
   onHover = val => {
