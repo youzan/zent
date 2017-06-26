@@ -119,15 +119,19 @@ export default class Tree extends (PureComponent || Component) {
     let roots = [];
     if (dataType === 'plain') {
       const { isRoot } = this.props;
-      let map = {};
-      data.forEach(node => {
+      const map = {};
+      const orderRecord = [];
+
+      data.forEach((node, index) => {
         if (!node.isLeaf) {
           node.children = [];
         }
         map[node.id] = node;
+        orderRecord[index] = node.id;
       });
-      Object.keys(map).forEach(key => {
-        let node = map[key];
+
+      orderRecord.forEach(key => {
+        const node = map[key];
         const isRootNode =
           (isRoot && isRoot(node)) ||
           node.parentId === 0 ||

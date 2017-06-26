@@ -91,6 +91,7 @@ export default class Body extends (PureComponent || Component) {
             rowKey={rowKey}
             selection={{
               needSelect,
+              isSingleSelection: selection.isSingleSelection,
               canSelect,
               selectedRowKeys: selection.selectedRowKeys,
               onSelect: selection.onSelect

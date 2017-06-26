@@ -1,0 +1,137 @@
+$c-border: #bbb;
+$c-blue: #38f;
+$c-light-blue: #bdf;
+$c-blue-hover: #eaf3ff;
+
+.zent-cascader {
+  &-select {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-right: 10px;
+    outline: none;
+    position: relative;
+    text-align: left;
+    user-select: none;
+    width: 260px;
+    vertical-align: middle;
+
+    &-wrap {
+      display: inline-block;
+    }
+
+    &.open {
+      .zent-cascader-select__text {
+        border-color: $c-blue;
+        box-shadow: 0 1px 1px $c-light-blue;
+
+        .zenticon {
+          transform: rotate(180deg) scale(0.5);
+        }
+      }
+    }
+
+    &__text {
+      box-sizing: border-box;
+      border: 1px solid $c-border;
+      border-radius: 2px;
+      display: inline-block;
+      min-height: 30px;
+      max-height: 76px;
+      outline: none;
+      padding: 5px 20px 5px 10px;
+      transition: border-color 0.25s;
+      width: 100%;
+      background-color: #fff;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .zenticon {
+        margin-top: -6px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transition: transform 0.25s;
+        font-size: 12px;
+        transform: scale(0.5);
+      }
+    }
+
+    &__popup {
+      background: #fff;
+      width: 440px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+  }
+
+  &-list {
+    font-size: 0;
+    padding: 10px 4px;
+    min-height: 80px;
+
+    &__item {
+      display: inline-block;
+      line-height: 30px;
+      height: 30px;
+      width: 108px;
+      box-sizing: border-box;
+
+      &-link {
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        padding: 0 5px;
+        line-height: 18px;
+        vertical-align: middle;
+        max-width: 98px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:hover {
+          background: $c-blue-hover;
+        }
+
+        &.active {
+          background: $c-blue;
+          border-radius: 2px;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  &-tabs {
+    .zent-tabs-nav-content {
+      height: auto;
+    }
+
+    .zent-tabs-nav {
+      margin-bottom: 0;
+    }
+
+    .zent-tabs-tab {
+      border-radius: 0;
+      border-top: none;
+      width: 80px;
+
+      &:first-child {
+        border-left: none;
+        border-top: none;
+      }
+    }
+
+    .zent-tabs-tab-inner {
+      min-width: 80px;
+    }
+  }
+
+  &-popup {
+    z-index: 1080;
+  }
+}

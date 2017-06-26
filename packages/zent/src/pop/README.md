@@ -306,6 +306,7 @@ ReactDOM.render(
 | mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | `200` |
 | mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | `200` |
 | isOutside | 用来判断点击目标是否在外面的可选函数 | func | |
+| quirk | 开启 Popover 的 quirk 模式，该模式下判断关闭条件时不需要先从内部移动出去 | bool | `true` |
 
 #### None
 
