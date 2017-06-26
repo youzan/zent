@@ -92,8 +92,18 @@ ReactDOM.render(
 | ------- | -------------  | ------  | -------------|----------------- |
 | color   | 标签颜色        | string  | `'red'`      | `'red'`, `'green'`, `'yellow'`, `'blue'`, `'darkgreen'` |
 | outline | 边框有颜色，无底色| bool    | `'false'`    |`true`,`false`    |
+| rounded | 是否展示为圆角 | bool | `'true'` | `true`,`false` |
+| borderColor | 边框颜色 | string | | |
+| bgColor | 背景颜色 | string | | |
+| fontColor | 文字颜色 | string | | |
 | closable| 是否可以关闭     | bool    | `false`      | `true`,`false`   |
 | onClose | 关闭时的回调     | func    | `noop`       |                  |
 | className| 自定义额外类名  | string   | `''`         |                  |
 | prefix  | 自定义前缀      | string   | `'zent'`     |                  |
 
+
+<style>
+.zent-tag{
+	margin: 0 10px 5px 0; 
+}
+</style>
