@@ -18,9 +18,9 @@ export default class Tag extends (PureComponent || Component) {
     closable: PropTypes.bool,
     onClose: PropTypes.func,
     children: PropTypes.node,
+    style: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string,
-    style: PropTypes.object
+    prefix: PropTypes.string
   };
 
   static defaultProps = {
