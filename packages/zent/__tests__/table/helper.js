@@ -12,4 +12,10 @@ describe('table helpers', () => {
 
     expect(helper.getAlignClass('')).toEqual('');
   });
+
+  it('getCalculatedWidths', () => {
+    expect(helper.getCalculatedWidth(10)).toEqual('10%');
+    expect(helper.getCalculatedWidth('10px')).toEqual('10px');
+    expect(helper.getCalculatedWidth('10rem')).toEqual('10rem');
+  });
 });
