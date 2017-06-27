@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import Pagination from 'pagination';
 import Checkbox from 'checkbox';
 
@@ -19,6 +20,16 @@ export default class Foot extends (PureComponent || Component) {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.batchComponentsAutoFixed) {
+      this.footStyleFixed = {
+        height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height
+      };
+    } else {
+      this.footStyleFixed = {};
+    }
+  }
+
   onSelect = e => {
     let isChecked = false;
     if (e.target.checked) {
@@ -30,20 +41,28 @@ export default class Foot extends (PureComponent || Component) {
 
   render() {
     const {
-      pageInfo,
+      pageInfo = {},
       onPageChange,
       batchComponents,
       selection,
       current
     } = this.props;
 
+    let { totalItem, pageSize, total, limit, maxPageToShow } = pageInfo;
     const { needSelect, selectedRows } = selection;
+    let batchClassName = 'tfoot__batchcomponents';
     const shouldRenderFoot =
-      (batchComponents && batchComponents.length > 0) || !!pageInfo;
+      (batchComponents && batchComponents.length > 0) ||
+      Object.keys(pageInfo).length !== 0;
+
+    if (this.props.batchComponentsAutoFixed) {
+      batchClassName += ' tfoot__batchcomponents--fixed';
+    }
+
     return (
       shouldRenderFoot &&
-      <div className="tfoot clearfix">
-        <div className="tfoot__batchcomponents">
+      <div className="tfoot clearfix" style={this.footStyleFixed}>
+        <div className={batchClassName} ref={c => (this.batch = c)}>
           {needSelect &&
             batchComponents &&
             batchComponents.length > 0 &&
@@ -61,9 +80,9 @@ export default class Foot extends (PureComponent || Component) {
           {pageInfo &&
             <Pagination
               current={current}
-              totalItem={pageInfo.total}
-              pageSize={pageInfo.limit}
-              maxPageToShow={pageInfo.maxPageToShow}
+              totalItem={totalItem || total}
+              pageSize={pageSize || limit}
+              maxPageToShow={maxPageToShow}
               onChange={onPageChange}
             />}
         </div>

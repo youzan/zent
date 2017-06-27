@@ -101,10 +101,18 @@ $orange: #f60;
   .tfoot {
     margin-top: 10px;
     box-sizing: border-box;
-    padding-left: 10px;
 
     &__batchcomponents {
       float: left;
+      border: 1px solid #eee;
+      padding: 5px;
+      padding-left: 10px;
+      background: #fff;
+
+      &--fixed {
+        position: fixed;
+        bottom: 0;
+      }
     }
 
     &__page {
