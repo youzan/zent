@@ -9,6 +9,7 @@ import throttle from 'lodash/throttle';
 import Head from './modules/Head';
 import Body from './modules/Body';
 import Foot from './modules/Foot';
+import helper from './helper';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 
@@ -62,11 +63,16 @@ export default class Table extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.batchComponentsAutoFixed) {
-      this.addEventListener(nextProps);
-    } else {
-      this.removeEventListener(nextProps);
+    if (
+      nextProps.batchComponentsAutoFixed !== this.props.batchComponentsAutoFixed
+    ) {
+      if (nextProps.batchComponentsAutoFixed) {
+        this.addEventListener(nextProps);
+      } else {
+        this.removeEventListener(nextProps);
+      }
     }
+
     this.setState({
       current: nextProps.pageInfo ? nextProps.pageInfo.current : 1
     });
@@ -136,18 +142,15 @@ export default class Table extends (PureComponent || Component) {
   }
 
   toggleBatchComponents() {
-    if (this.isTableInView() && !this.isFootInView()) {
-      if (!this.state.batchComponentsFixed) {
-        this.setState({
-          batchComponentsFixed: true
-        });
-      }
-    } else {
-      if (this.state.batchComponentsFixed) {
-        this.setState({
-          batchComponentsFixed: false
-        });
-      }
+    const needFixedBatchComps = helper.needFixBatchComps(
+      this.isTableInView(),
+      this.isFootInView(),
+      this.state.batchComponentsFixed
+    );
+    if (typeof needFixedBatchComps === 'boolean') {
+      this.setState({
+        batchComponentsFixed: needFixedBatchComps
+      });
     }
   }
 

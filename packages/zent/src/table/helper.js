@@ -42,6 +42,20 @@ const helper = {
     }
 
     return alignValue;
+  },
+
+  // return true/false/null
+  needFixBatchComps(isTableInView, isFootInView, isFixed) {
+    let res = null;
+    if (isTableInView && !isFootInView) {
+      if (!isFixed) {
+        res = true;
+      }
+    } else if (isFixed) {
+      res = false;
+    }
+
+    return res;
   }
 };
 

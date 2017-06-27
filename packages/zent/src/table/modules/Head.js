@@ -88,10 +88,9 @@ export default class Head extends (PureComponent || Component) {
     let sortType;
     let name = item.name;
 
+    sortType = 'desc'; // desc sort by default
     if (name === this.props.sortBy) {
       sortType = this.props.sortType === 'desc' ? 'asc' : 'desc'; // toggble current sortType
-    } else {
-      sortType = 'desc'; // desc sort by default
     }
 
     this.props.onSort({

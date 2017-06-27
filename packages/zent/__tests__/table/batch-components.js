@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import BatchComponents from './comp/batch-components';
 
 describe('BatchComponents', () => {
-  let wrapper = 123;
+  let wrapper;
 
   beforeEach(() => {
     wrapper = mount(<BatchComponents />);
