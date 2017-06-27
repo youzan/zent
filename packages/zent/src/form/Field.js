@@ -3,6 +3,7 @@
 import { Component, PureComponent, createElement } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
+import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
 
 import { getValue } from './utils';
@@ -18,7 +19,8 @@ class Field extends (PureComponent || Component) {
     validationError: PropTypes.string,
     validationErrors: PropTypes.object,
     validateOnBlur: PropTypes.bool,
-    validateOnChange: PropTypes.bool
+    validateOnChange: PropTypes.bool,
+    clearErrorOnFocus: PropTypes.bool
   };
 
   // validationError为默认错误提示
@@ -28,7 +30,8 @@ class Field extends (PureComponent || Component) {
     validationError: '',
     validationErrors: {},
     validateOnBlur: true,
-    validateOnChange: true
+    validateOnChange: true,
+    clearErrorOnFocus: true
   };
 
   static contextTypes = {
@@ -186,15 +189,24 @@ class Field extends (PureComponent || Component) {
   };
 
   handleFocus = event => {
-    const { onFocus } = this.props;
+    const { onFocus, clearErrorOnFocus } = this.props;
+    let data = {
+      _active: true
+    };
 
     if (onFocus) {
       onFocus(event);
     }
 
-    this.setState({
-      _active: true
-    });
+    if (clearErrorOnFocus) {
+      assign(data, {
+        _isValid: true,
+        _validationError: [],
+        _externalError: null
+      });
+    }
+
+    this.setState(data);
   };
 
   handleBlur = event => {

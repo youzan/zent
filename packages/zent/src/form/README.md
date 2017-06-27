@@ -274,6 +274,7 @@ const SubmitForm = (props) => {
 	      component={InputField}
 	      label="用户名："
 	      value="111"
+	      validateOnChange={false}
 	      validations={{ required: true }}
 	      validationErrors={{ required: '用户名不能为空' }}
 	    />
