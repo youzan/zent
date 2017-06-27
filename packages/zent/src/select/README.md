@@ -317,7 +317,7 @@ ReactDOM.render(
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 |------|------|------|--------|--------|
 | data | 选项数据 | array | `[]` | 是 |
-| value | 选中的值，当为tags类型时，可以传入数组 | any | `''` | 否 |
+| value | 默认选中的值，当为tags类型时，可以传入数组 | any | `''` | 否 |
 | index | 选中索引 | any | `''` | 否 |
 | disabled | 禁用组件 | bool | `false` | 否 |
 | placeholder | 默认提示文案 | string | `'请选择'` | 否 |
