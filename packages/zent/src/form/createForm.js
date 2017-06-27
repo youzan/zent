@@ -162,20 +162,24 @@ const createForm = (config = {}) => {
         return this.state.isFormValid;
       };
 
-      setFieldValidationErrors = errors => {
+      setFieldValidationErrors = (errors, updatePristine = true) => {
         this.fields.forEach(field => {
           const name = field.props.name;
-          field.setState({
+          const data = {
             _isValid: !(name in errors),
             _validationError: typeof errors[name] === 'string'
               ? [errors[name]]
               : errors[name]
-          });
+          };
+          if (updatePristine) {
+            data._isPristine = false;
+          }
+          field.setState(data);
         });
       };
 
       // 设置服务端返回的错误信息
-      setFieldExternalErrors = errors => {
+      setFieldExternalErrors = (errors, updatePristine = true) => {
         Object.keys(errors).forEach(name => {
           const field = find(
             this.fields,
@@ -184,12 +188,17 @@ const createForm = (config = {}) => {
           if (!field) {
             throw new Error(`field ${name} does not exits`);
           }
-          field.setState({
+
+          const data = {
             _isValid: false,
             _externalError: typeof errors[name] === 'string'
               ? [errors[name]]
               : errors[name]
-          });
+          };
+          if (updatePristine) {
+            data._isPristine = false;
+          }
+          field.setState(data);
         });
       };
 
