@@ -13,7 +13,12 @@ class Field extends (PureComponent || Component) {
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
       .isRequired,
-    normalize: PropTypes.func
+    normalize: PropTypes.func,
+    format: PropTypes.func,
+    validationError: PropTypes.string,
+    validationErrors: PropTypes.object,
+    validateOnBlur: PropTypes.bool,
+    validateOnChange: PropTypes.bool
   };
 
   // validationError为默认错误提示
@@ -21,7 +26,9 @@ class Field extends (PureComponent || Component) {
   static defaultProps = {
     value: '',
     validationError: '',
-    validationErrors: {}
+    validationErrors: {},
+    validateOnBlur: true,
+    validateOnChange: true
   };
 
   static contextTypes = {
@@ -102,14 +109,14 @@ class Field extends (PureComponent || Component) {
     return this.state._value;
   };
 
-  setValue = value => {
+  setValue = (value, needValidate = true) => {
     this.setState(
       {
         _value: value,
         _isPristine: false
       },
       () => {
-        this.context.zentForm.validate(this);
+        needValidate && this.context.zentForm.validate(this);
       }
     );
   };
@@ -163,7 +170,7 @@ class Field extends (PureComponent || Component) {
   };
 
   handleChange = event => {
-    const { onChange } = this.props;
+    const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
     const newValue = this.normalize(getValue(event));
     let preventSetValue = false;
@@ -174,7 +181,7 @@ class Field extends (PureComponent || Component) {
     }
 
     if (!preventSetValue) {
-      this.setValue(newValue);
+      this.setValue(newValue, validateOnChange);
     }
   };
 
@@ -191,7 +198,7 @@ class Field extends (PureComponent || Component) {
   };
 
   handleBlur = event => {
-    const { onBlur, asyncValidation } = this.props;
+    const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();
     const newValue = this.normalize(getValue(event));
     let preventSetValue = false;
@@ -205,7 +212,7 @@ class Field extends (PureComponent || Component) {
     });
 
     if (!preventSetValue) {
-      this.setValue(newValue);
+      this.setValue(newValue, validateOnBlur);
       if (asyncValidation) {
         this.context.zentForm.asyncValidate(this, newValue);
       }
