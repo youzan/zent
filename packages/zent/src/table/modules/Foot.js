@@ -21,7 +21,7 @@ export default class Foot extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.batchComponentsAutoFixed) {
+    if (nextProps.batchComponentsFixed) {
       this.footStyleFixed = {
         height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height
       };
@@ -55,7 +55,7 @@ export default class Foot extends (PureComponent || Component) {
       (batchComponents && batchComponents.length > 0) ||
       Object.keys(pageInfo).length !== 0;
 
-    if (this.props.batchComponentsAutoFixed) {
+    if (this.props.batchComponentsFixed) {
       batchClassName += ' tfoot__batchcomponents--fixed';
     }
 

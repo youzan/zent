@@ -68,32 +68,52 @@ export default class Table extends (PureComponent || Component) {
   }
 
   componentDidMount() {
-    const { batchComponents } = this.props;
+    if (this.props.batchComponentsAutoFixed) {
+      const { batchComponents } = this.props;
 
-    this.calculateRectParam();
-    if (batchComponents && batchComponents.length > 0) {
-      this.throttleSetBatchComponents = throttle(
-        () => {
-          this.calculateRectParam();
-          this.toggleBatchComponents();
-        },
-        100,
-        {
-          leading: true
-        }
-      );
+      this.setRectParam();
+      if (batchComponents && batchComponents.length > 0) {
+        this.throttleSetBatchComponents = throttle(
+          () => {
+            this.setRectParam();
+            this.toggleBatchComponents();
+          },
+          100,
+          {
+            leading: true
+          }
+        );
 
-      window.addEventListener('scroll', this.throttleSetBatchComponents, true);
-      window.addEventListener('resize', this.throttleSetBatchComponents, true);
+        window.addEventListener(
+          'scroll',
+          this.throttleSetBatchComponents,
+          true
+        );
+        window.addEventListener(
+          'resize',
+          this.throttleSetBatchComponents,
+          true
+        );
+      }
     }
   }
 
-  componentWillUnMount() {
-    window.removeEventListener('scroll', this.throttleSetBatchComponents, true);
-    window.removeEventListener('resize', this.throttleSetBatchComponents, true);
+  componentWillUnmount() {
+    if (this.props.batchComponentsAutoFixed) {
+      window.removeEventListener(
+        'scroll',
+        this.throttleSetBatchComponents,
+        true
+      );
+      window.removeEventListener(
+        'resize',
+        this.throttleSetBatchComponents,
+        true
+      );
+    }
   }
 
-  calculateRectParam() {
+  setRectParam() {
     this.tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
     this.tableRectHeight = ReactDOM.findDOMNode(
       this
@@ -104,15 +124,15 @@ export default class Table extends (PureComponent || Component) {
 
   toggleBatchComponents() {
     if (this.isTableInView() && !this.isFootInView()) {
-      if (!this.state.batchComponentsAutoFixed) {
+      if (!this.state.batchComponentsFixed) {
         this.setState({
-          batchComponentsAutoFixed: true
+          batchComponentsFixed: true
         });
       }
     } else {
-      if (this.state.batchComponentsAutoFixed) {
+      if (this.state.batchComponentsFixed) {
         this.setState({
-          batchComponentsAutoFixed: false
+          batchComponentsFixed: false
         });
       }
     }
@@ -385,7 +405,7 @@ export default class Table extends (PureComponent || Component) {
                 ref={c => (this.foot = c)}
                 batchComponents={batchComponents}
                 pageInfo={pageInfo}
-                batchComponentsAutoFixed={this.state.batchComponentsAutoFixed}
+                batchComponentsFixed={this.state.batchComponentsFixed}
                 selection={{
                   needSelect,
                   isSingleSelection,
