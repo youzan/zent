@@ -89,6 +89,22 @@ describe('ColorPicker', () => {
     expect(ColorPickerDom.node.handleChange(color)).toBe(undefined);
   });
 
+  it('colorPicker type simple', () => {
+    const handleChange = jest.fn();
+    const wrapper = mount(
+      <ColorPicker
+        color="#5197FF"
+        type="simple"
+        presetColors={['#FFFFFF']}
+        onChange={handleChange}
+      />
+    );
+    const props = wrapper.props();
+    const state = wrapper.state();
+    expect(state.popVisible).toBe(false);
+    expect(props.color).toBe('#5197FF');
+  });
+
   it('SketchFields renders correctly', () => {
     const handleChange = jest.fn();
     const data = {

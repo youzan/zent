@@ -45,7 +45,8 @@ export default class Head extends (PureComponent || Component) {
       height: tmpRect.height - 1,
       width: tmpRect.width
     };
-    this.relativeTop = rect.top - document.body.getBoundingClientRect().top;
+    this.relativeTop =
+      rect.top - document.documentElement.getBoundingClientRect().top;
   }
 
   setHeadStyle = () => {

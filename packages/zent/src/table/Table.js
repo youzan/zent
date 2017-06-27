@@ -1,8 +1,10 @@
+/* eslint-disable no-lonely-if */
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
+import throttle from 'lodash/throttle';
 
 import Head from './modules/Head';
 import Body from './modules/Body';
@@ -26,6 +28,7 @@ export default class Table extends (PureComponent || Component) {
     autoStick: bool,
     selection: object,
     expandation: object,
+    batchComponentsAutoFixed: bool,
     batchComponents: array
   };
 
@@ -42,6 +45,7 @@ export default class Table extends (PureComponent || Component) {
     autoScroll: false,
     autoStick: false,
     selection: null,
+    batchComponentsAutoFixed: true,
     batchComponents: null
   };
 
@@ -53,7 +57,7 @@ export default class Table extends (PureComponent || Component) {
       placeHolderHeight: false,
       fixStyle: {}
     };
-
+    this.tableRect = null;
     this.relativeTop = 0;
   }
 
@@ -64,8 +68,54 @@ export default class Table extends (PureComponent || Component) {
   }
 
   componentDidMount() {
-    const tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
-    this.relativeTop = tableRectTop - document.body.getBoundingClientRect().top;
+    const { batchComponents } = this.props;
+
+    this.calculateRectParam();
+    if (batchComponents && batchComponents.length > 0) {
+      this.throttleSetBatchComponents = throttle(
+        () => {
+          this.calculateRectParam();
+          this.toggleBatchComponents();
+        },
+        100,
+        {
+          leading: true
+        }
+      );
+
+      window.addEventListener('scroll', this.throttleSetBatchComponents, true);
+      window.addEventListener('resize', this.throttleSetBatchComponents, true);
+    }
+  }
+
+  componentWillUnMount() {
+    window.removeEventListener('scroll', this.throttleSetBatchComponents, true);
+    window.removeEventListener('resize', this.throttleSetBatchComponents, true);
+  }
+
+  calculateRectParam() {
+    this.tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
+    this.tableRectHeight = ReactDOM.findDOMNode(
+      this
+    ).getBoundingClientRect().height;
+    this.relativeTop =
+      this.tableRectTop - document.documentElement.getBoundingClientRect().top;
+  }
+
+  toggleBatchComponents() {
+    if (this.isTableInView() && !this.isFootInView()) {
+      if (!this.state.batchComponentsAutoFixed) {
+        this.setState({
+          batchComponentsAutoFixed: true
+        });
+      }
+    } else {
+      if (this.state.batchComponentsAutoFixed) {
+        this.setState({
+          batchComponentsAutoFixed: false
+        });
+      }
+    }
   }
 
   // 对外部传进来的onChange进行封装
@@ -168,6 +218,25 @@ export default class Table extends (PureComponent || Component) {
     }
 
     return currentRow;
+  }
+
+  isTableInView() {
+    const tableY =
+      this.tableRectTop - document.documentElement.getBoundingClientRect().top;
+    return (
+      tableY + this.tableRectHeight > window.pageYOffset &&
+      tableY <= window.pageYOffset + window.innerHeight
+    );
+  }
+
+  isFootInView() {
+    const footRect = ReactDOM.findDOMNode(this.foot).getBoundingClientRect();
+    const footY =
+      footRect.top - document.documentElement.getBoundingClientRect().top;
+    return (
+      footY + footRect.height > window.pageYOffset &&
+      footY <= window.pageYOffset + window.innerHeight
+    );
   }
 
   /**
@@ -313,8 +382,10 @@ export default class Table extends (PureComponent || Component) {
                 expandRender={expandRender}
               />
               <Foot
+                ref={c => (this.foot = c)}
                 batchComponents={batchComponents}
                 pageInfo={pageInfo}
+                batchComponentsAutoFixed={this.state.batchComponentsAutoFixed}
                 selection={{
                   needSelect,
                   isSingleSelection,

@@ -169,6 +169,11 @@ module.exports = {
               component: require('../../packages/zent/src/radio/README.md')
             },
             {
+              path: 'component/search-input',
+              title: 'SearchInput 搜索框',
+              component: require('../../packages/zent/src/search-input/README.md')
+            },
+            {
               path: 'component/select',
               title: 'Select 选项',
               component: require('../../packages/zent/src/select/README.md')
