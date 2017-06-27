@@ -77,7 +77,7 @@ export default class Foot extends (PureComponent || Component) {
             this.renderBatchComps(selectedRows, batchComponents)}
         </div>
         <div className="tfoot__page">
-          {pageInfo &&
+          {Object.keys(pageInfo).length > 0 &&
             <Pagination
               current={current}
               totalItem={totalItem || total}

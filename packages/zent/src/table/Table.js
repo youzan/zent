@@ -62,14 +62,27 @@ export default class Table extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.batchComponentsAutoFixed) {
+      this.addEventListener(nextProps);
+    } else {
+      this.removeEventListener(nextProps);
+    }
     this.setState({
       current: nextProps.pageInfo ? nextProps.pageInfo.current : 1
     });
   }
 
   componentDidMount() {
-    if (this.props.batchComponentsAutoFixed) {
-      const { batchComponents } = this.props;
+    this.addEventListener(this.props);
+  }
+
+  componentWillUnmount() {
+    this.removeEventListener(this.props);
+  }
+
+  addEventListener(props) {
+    if (props.batchComponentsAutoFixed) {
+      const { batchComponents } = props;
 
       this.setRectParam();
       if (batchComponents && batchComponents.length > 0) {
@@ -98,8 +111,8 @@ export default class Table extends (PureComponent || Component) {
     }
   }
 
-  componentWillUnmount() {
-    if (this.props.batchComponentsAutoFixed) {
+  removeEventListener(props) {
+    if (props.batchComponentsAutoFixed) {
       window.removeEventListener(
         'scroll',
         this.throttleSetBatchComponents,
