@@ -41,9 +41,7 @@
   ],
   "author": "Youzan FE",
   "license": "MIT",
-  "dependencies": {
-    "document-offset": "^1.0.4"
-  },
+  "dependencies": {},
   "files": [],
   "devDependencies": {
     "babel-eslint": "^7.2.3",
