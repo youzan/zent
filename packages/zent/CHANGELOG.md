@@ -1,5 +1,26 @@
 ## 更新日志
 
+## [zent@3.3.3](https://github.com/youzan/zent/tree/zent@3.3.3) (2017-06-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.2...zent@3.3.3)
+
+**不兼容改动和新功能:**
+
+- tag: support custom colors [\#343](https://github.com/youzan/zent/pull/343) ([fairyaierl](https://github.com/fairyaierl))
+- Add search-input [\#341](https://github.com/youzan/zent/pull/341) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- pop: hover pop 打开的时候滚动以后会出现 pop 不关闭的情况 [\#340](https://github.com/youzan/zent/issues/340)
+- DatePicker: defaultValue won't change after some related props changed [\#326](https://github.com/youzan/zent/issues/326)
+- portal: Add a count to support non sequential dialog closes [\#346](https://github.com/youzan/zent/pull/346) ([cpylua](https://github.com/cpylua))
+- popover: Add quirk mode for popover [\#342](https://github.com/youzan/zent/pull/342) ([cpylua](https://github.com/cpylua))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- fix: colorpicker css [\#345](https://github.com/youzan/zent/pull/345) ([ronghang](https://github.com/ronghang))
+- Datepicker: fix \#326 [\#344](https://github.com/youzan/zent/pull/344) ([xuhong](https://github.com/xuhong))
+- fix: colorpicker css fix & add props type [\#329](https://github.com/youzan/zent/pull/329) ([ronghang](https://github.com/ronghang))
+
 ## [zent@3.3.2](https://github.com/youzan/zent/tree/zent@3.3.2) (2017-06-22)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.1...zent@3.3.2)
 
@@ -16,7 +37,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
 
 **Bug 修复:**
 
@@ -26,11 +47,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
-
 ## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
+
+## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
 
 **不兼容改动和新功能:**
 

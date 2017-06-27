@@ -152,6 +152,7 @@ class Pop extends (PureComponent || Component) {
     // 只有trigger为hover时才有效
     mouseLeaveDelay: PropTypes.number,
     mouseEnterDelay: PropTypes.number,
+    quirk: PropTypes.bool,
 
     // 只有trigger为click时才有效
     closeOnClickOutside: PropTypes.bool,
@@ -175,7 +176,8 @@ class Pop extends (PureComponent || Component) {
     mouseEnterDelay: 200,
     className: '',
     wrapperClassName: '',
-    prefix: 'zent'
+    prefix: 'zent',
+    quirk: true
   };
 
   state = {
@@ -240,7 +242,8 @@ class Pop extends (PureComponent || Component) {
       isOutside,
       mouseLeaveDelay,
       mouseEnterDelay,
-      children
+      children,
+      quirk
     } = this.props;
 
     if (trigger === 'click') {
@@ -257,6 +260,7 @@ class Pop extends (PureComponent || Component) {
           showDelay={mouseEnterDelay}
           hideDelay={mouseLeaveDelay}
           isOutside={isOutside}
+          quirk={quirk}
         >
           {children}
         </Trigger.Hover>

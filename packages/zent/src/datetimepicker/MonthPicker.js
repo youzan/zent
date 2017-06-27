@@ -48,6 +48,7 @@ function extractStateFromProps(props) {
 class MonthPicker extends (PureComponent || Component) {
   static PropTypes = {
     prefix: PropTypes.string,
+    name: PropTypes.string,
     className: PropTypes.string,
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
@@ -181,6 +182,7 @@ class MonthPicker extends (PureComponent || Component) {
           <Popover.Trigger.Click>
             <div className={inputCls}>
               <Input
+                name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}
                 onChange={noop}
                 disabled={props.disabled}
