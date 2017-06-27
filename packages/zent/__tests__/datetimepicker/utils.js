@@ -1,5 +1,11 @@
 import * as Ut from 'datetimepicker/utils';
-import { formatDate, parseDate } from 'datetimepicker/utils/date';
+import {
+  formatDate,
+  parseDate,
+  maybeParseDate,
+  dayStart,
+  setTime
+} from 'datetimepicker/utils/date';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
@@ -124,6 +130,7 @@ describe('formatDate', () => {
     expect(formatDate(DAY, 'DD')).toBe('14');
     expect(formatDate(DAY, 'ddd')).toBe('周二');
     expect(formatDate(DAY, 'dddd')).toBe('星期二');
+    expect(formatDate(DAY, 'Do')).toBe('14th');
 
     // h|hh|H|HH
     expect(formatDate(DAY, 'h')).toBe('9');
@@ -186,23 +193,55 @@ describe('formatDate', () => {
   });
 });
 
-describe('parseDate', () => {
+describe('parseDate && maybeParseDate', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
 
   // formatDate 的逆过程, 支持两种直接返回 Date 对象的用法.
   it('return Date when recieve number or dateObj as arg[0]', () => {
     // expect(parseDate(Date.parse(DAY))).toEqual(DAY);
     expect(parseDate(DAY)).toBe(DAY);
+    expect(maybeParseDate(DAY)).toBe(DAY);
 
     expect(parseDate('2017 02 14 21:27:22', 'YYYY MM DD HH:mm:ss')).toEqual(
       DAY
     );
+    expect(
+      maybeParseDate('2017 02 14 21:27:22', 'YYYY MM DD HH:mm:ss')
+    ).toEqual(DAY);
 
-    // When flags cant find corresponding in date string, will return undefined
+    // When flags cant find corresponding in date string, will return false
     // BUG: maybe throw an error?
     expect(parseDate('17 01 14 21:27:22', 'YYYY')).toBe(false);
 
     // NOTE: parseDate only support numbers
     // expect(parseDate('3月', 'MMM')).toBe(false);
+  });
+});
+
+describe('dayStart', () => {
+  const DAY = new Date(2017, 1, 14, 21, 27, 22);
+
+  it('return day with hours/minutes/seconds equal 0', () => {
+    expect(dayStart(DAY).getHours()).toBe(0);
+    expect(dayStart(DAY).getMinutes()).toBe(0);
+    expect(dayStart(DAY).getSeconds()).toBe(0);
+  });
+});
+
+describe('setTime', () => {
+  const DAY = new Date(2017, 1, 14, 21, 27, 22);
+  const TIME = '09:11:48';
+  it('default set time to 00:00:00 if user does not pass time', () => {
+    const ret = setTime(DAY);
+    expect(ret.getHours()).toBe(0);
+    expect(ret.getMinutes()).toBe(0);
+    expect(ret.getSeconds()).toBe(0);
+  });
+
+  it('set time to user specified time', () => {
+    const ret = setTime(DAY, TIME);
+    expect(ret.getHours()).toBe(9);
+    expect(ret.getMinutes()).toBe(11);
+    expect(ret.getSeconds()).toBe(48);
   });
 });

@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+/* eslint-disable no-lonely-if */
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
-import Pagination from 'pagination';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
+import throttle from 'lodash/throttle';
 
 import Head from './modules/Head';
 import Body from './modules/Body';
+import Foot from './modules/Foot';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 
-let relativeTop;
-
-export default class Table extends Component {
+export default class Table extends (PureComponent || Component) {
   static propTypes = {
     className: string,
     prefix: string,
@@ -27,7 +27,9 @@ export default class Table extends Component {
     autoScroll: bool,
     autoStick: bool,
     selection: object,
-    expandation: object
+    expandation: object,
+    batchComponentsAutoFixed: bool,
+    batchComponents: array
   };
 
   static defaultProps = {
@@ -42,7 +44,9 @@ export default class Table extends Component {
     loading: false,
     autoScroll: false,
     autoStick: false,
-    selection: null
+    selection: null,
+    batchComponentsAutoFixed: true,
+    batchComponents: null
   };
 
   constructor(props) {
@@ -53,6 +57,8 @@ export default class Table extends Component {
       placeHolderHeight: false,
       fixStyle: {}
     };
+    this.tableRect = null;
+    this.relativeTop = 0;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -62,8 +68,54 @@ export default class Table extends Component {
   }
 
   componentDidMount() {
-    const tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
-    relativeTop = tableRectTop - document.body.getBoundingClientRect().top;
+    const { batchComponents } = this.props;
+
+    this.calculateRectParam();
+    if (batchComponents && batchComponents.length > 0) {
+      this.throttleSetBatchComponents = throttle(
+        () => {
+          this.calculateRectParam();
+          this.toggleBatchComponents();
+        },
+        100,
+        {
+          leading: true
+        }
+      );
+
+      window.addEventListener('scroll', this.throttleSetBatchComponents, true);
+      window.addEventListener('resize', this.throttleSetBatchComponents, true);
+    }
+  }
+
+  componentWillUnMount() {
+    window.removeEventListener('scroll', this.throttleSetBatchComponents, true);
+    window.removeEventListener('resize', this.throttleSetBatchComponents, true);
+  }
+
+  calculateRectParam() {
+    this.tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
+    this.tableRectHeight = ReactDOM.findDOMNode(
+      this
+    ).getBoundingClientRect().height;
+    this.relativeTop =
+      this.tableRectTop - document.documentElement.getBoundingClientRect().top;
+  }
+
+  toggleBatchComponents() {
+    if (this.isTableInView() && !this.isFootInView()) {
+      if (!this.state.batchComponentsAutoFixed) {
+        this.setState({
+          batchComponentsAutoFixed: true
+        });
+      }
+    } else {
+      if (this.state.batchComponentsAutoFixed) {
+        this.setState({
+          batchComponentsAutoFixed: false
+        });
+      }
+    }
   }
 
   // 对外部传进来的onChange进行封装
@@ -132,11 +184,17 @@ export default class Table extends Component {
   onSelectOneRow = (rowKey, isSelect) => {
     let selectedRowKeys = this.props.selection.selectedRowKeys.slice(0); // copy 一份数组
     let index = selectedRowKeys.indexOf(rowKey);
+    let isSingleSelection = this.props.selection.isSingleSelection || false;
 
-    if (isSelect) {
-      if (index === -1) {
-        selectedRowKeys.push(rowKey);
+    if (isSingleSelection) {
+      // radio的isSelect永远是true，所以一旦选择了，则不能取消
+      if (isSelect) {
+        selectedRowKeys = [rowKey];
+      } else {
+        selectedRowKeys = [];
       }
+    } else if (isSelect && index === -1) {
+      selectedRowKeys.push(rowKey);
     } else if (index !== -1) {
       selectedRowKeys.splice(index, 1);
     }
@@ -160,6 +218,25 @@ export default class Table extends Component {
     }
 
     return currentRow;
+  }
+
+  isTableInView() {
+    const tableY =
+      this.tableRectTop - document.documentElement.getBoundingClientRect().top;
+    return (
+      tableY + this.tableRectHeight > window.pageYOffset &&
+      tableY <= window.pageYOffset + window.innerHeight
+    );
+  }
+
+  isFootInView() {
+    const footRect = ReactDOM.findDOMNode(this.foot).getBoundingClientRect();
+    const footY =
+      footRect.top - document.documentElement.getBoundingClientRect().top;
+    return (
+      footY + footRect.height > window.pageYOffset &&
+      footY <= window.pageYOffset + window.innerHeight
+    );
   }
 
   /**
@@ -190,7 +267,7 @@ export default class Table extends Component {
     let scrollCount = 0;
     let scrollMargin;
     let scrollInterval = setInterval(() => {
-      if (window.scrollY > relativeTop) {
+      if (window.scrollY > this.relativeTop) {
         scrollCount += 1;
         scrollMargin =
           cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
@@ -217,9 +294,15 @@ export default class Table extends Component {
       getRowConf = () => {
         return { canSelect: true, rowClass: '' };
       },
-      expandation = null
+      expandation = null,
+      batchComponents = null
     } = this.props;
+
     let needSelect = selection !== null;
+    let isSingleSelection;
+    if (selection) {
+      isSingleSelection = selection.isSingleSelection || false;
+    }
     let selectedRowKeys = [];
 
     let isSelectAll = false;
@@ -233,6 +316,7 @@ export default class Table extends Component {
       isExpanded = expandation.isExpanded;
       expandRender = expandation.expandRender;
     }
+
     if (needSelect) {
       let canSelectRowsCount = 0;
 
@@ -273,6 +357,7 @@ export default class Table extends Component {
                 selection={{
                   needSelect,
                   onSelectAll: this.onSelectAllRows,
+                  isSingleSelection,
                   isSelectAll,
                   isSelectPart
                 }}
@@ -289,22 +374,31 @@ export default class Table extends Component {
                 selection={{
                   needSelect,
                   selectedRowKeys,
+                  isSingleSelection,
                   onSelect: this.onSelectOneRow
                 }}
                 needExpand={needExpand}
                 isExpanded={isExpanded}
                 expandRender={expandRender}
               />
+              <Foot
+                ref={c => (this.foot = c)}
+                batchComponents={batchComponents}
+                pageInfo={pageInfo}
+                batchComponentsAutoFixed={this.state.batchComponentsAutoFixed}
+                selection={{
+                  needSelect,
+                  isSingleSelection,
+                  onSelectAll: this.onSelectAllRows,
+                  selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
+                  isSelectAll,
+                  isSelectPart
+                }}
+                current={this.state.current}
+                onPageChange={this.onPageChange}
+              />
             </div>}
         </Loading>
-        {pageInfo &&
-          <Pagination
-            current={this.state.current}
-            totalItem={pageInfo.total}
-            pageSize={pageInfo.limit}
-            maxPageToShow={pageInfo.maxPageToShow}
-            onChange={this.onPageChange}
-          />}
       </div>
     );
   }

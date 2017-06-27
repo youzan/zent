@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 
 import {
@@ -14,7 +14,7 @@ import PanelCell from '../common/PanelCell';
 const ROW = 6;
 const COL = 7;
 
-export default class DatePanelBody extends Component {
+export default class DatePanelBody extends (PureComponent || Component) {
   isSelected(val) {
     const { selected } = this.props;
     if (!selected) return false;
@@ -74,7 +74,6 @@ export default class DatePanelBody extends Component {
           'panel__cell--selected': isSelected,
           'panel__cell--in-range': isInRange
         });
-
         days[rowIndex][colIndex] = {
           text: val.getDate(),
           value: val,

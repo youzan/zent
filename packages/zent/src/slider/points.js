@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import WindowEventHandler from 'utils/component/WindowEventHandler';
 import keys from 'lodash/keys';
 import map from 'lodash/map';
@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { getLeft, toFixed, checkValueInRange } from './common';
 import ToolTips from './toolTips';
 
-export default class Points extends Component {
+export default class Points extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     const { range, value } = props;
@@ -23,19 +23,27 @@ export default class Points extends Component {
     return getLeft(point, max, min);
   };
 
+  isLeftButton = e => {
+    e = e || window.event;
+    const btnCode = e.button;
+    return btnCode === 0;
+  };
+
   handleMouseDown = (type, evt) => {
     evt.preventDefault();
-    this.left = evt.clientX;
-    this.setState({ type, visibility: true });
-    let { value } = this.props;
+    if (this.isLeftButton(evt)) {
+      this.left = evt.clientX;
+      this.setState({ type, visibility: true });
+      let { value } = this.props;
 
-    if (type === 'start') {
-      value = value[0];
-    } else if (type === 'end') {
-      value = value[1];
+      if (type === 'start') {
+        value = value[0];
+      } else if (type === 'end') {
+        value = value[1];
+      }
+      this.value = value;
+      return false;
     }
-    this.value = value;
-    return false;
   };
 
   getAbsMinInArray = (array, point) => {
@@ -52,21 +60,21 @@ export default class Points extends Component {
   left = null;
 
   handleMouseMove = evt => {
-    evt.preventDefault();
     const left = this.left;
     if (left !== null) {
+      evt.preventDefault();
       const { type } = this.state;
       const {
         max,
         min,
         onChange,
-        clientWidth,
+        getClientWidth,
         step,
         dots,
         marks,
         range
       } = this.props;
-      let newValue = (evt.clientX - left) / clientWidth;
+      let newValue = (evt.clientX - left) / getClientWidth();
       newValue = (max - min) * newValue;
       newValue = Number(this.value) + Number(newValue);
       if (dots) {

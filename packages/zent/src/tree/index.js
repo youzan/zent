@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
+import clone from 'lodash/clone';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+
 import Loading from './components/Loading';
 
 // 记录是否已经触发收起展开逻辑
@@ -54,7 +56,7 @@ const toggleSlide = (el, isClose) => {
   window.requestAnimationFrame(animate);
 };
 
-export default class Tree extends Component {
+export default class Tree extends (PureComponent || Component) {
   isInitial = true;
   isDataUpdate = false;
 
@@ -117,15 +119,19 @@ export default class Tree extends Component {
     let roots = [];
     if (dataType === 'plain') {
       const { isRoot } = this.props;
-      let map = {};
-      data.forEach(node => {
+      const map = {};
+      const orderRecord = [];
+
+      data.forEach((node, index) => {
         if (!node.isLeaf) {
           node.children = [];
         }
         map[node.id] = node;
+        orderRecord[index] = node.id;
       });
-      Object.keys(map).forEach(key => {
-        let node = map[key];
+
+      orderRecord.forEach(key => {
+        const node = map[key];
         const isRootNode =
           (isRoot && isRoot(node)) ||
           node.parentId === 0 ||
@@ -276,7 +282,9 @@ export default class Tree extends Component {
   }
 
   updateCheckedTree(id, type) {
-    const { checkedTree } = this.state;
+    // shallow clone
+    // We can reuse most of the nodes
+    const checkedTree = clone(this.state.checkedTree);
     const parentId = checkedTree[id].p;
     const childrenId = Object.keys(checkedTree).filter(
       x => checkedTree[x].p === id.toString()

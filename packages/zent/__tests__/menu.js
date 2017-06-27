@@ -58,6 +58,9 @@ describe('Menu component', () => {
     wrapper.find('SubMenu MenuItem').simulate('click');
     expect(onClick.mock.calls.length).toBe(1);
 
+    wrapper.find('SubMenu .zent-submenu-title').simulate('click');
+    expect(wrapper.find('.zent-submenu-content').length).toBe(0);
+
     wrapper.find('SubMenu').simulate('mouseleave');
     jest.runAllTimers();
     expect(wrapper.find('.zent-submenu-content').length).toBe(0);

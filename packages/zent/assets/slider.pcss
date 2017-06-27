@@ -1,12 +1,20 @@
 .zent-slider {
   display: flex;
-  margin-bottom: 20px;
+  min-height: 30px;
 
   &-main {
     flex: 1;
-    margin: 15px 20px;
+    margin: 8px 7px;
+    height: 14px;
     cursor: pointer;
     position: relative;
+    border-top: 5px solid #fff;
+    border-bottom: 5px solid #fff;
+    box-sizing: border-box;
+
+    &-with-marks {
+      margin-bottom: 20px;
+    }
   }
 
   &-container {
@@ -41,6 +49,7 @@
     box-sizing: border-box;
     width: 14px;
     height: 14px;
+    margin-top: -5px;
     cursor: pointer;
     margin-left: -7px;
     border-radius: 50%;
@@ -77,8 +86,6 @@
   &-points {
     position: absolute;
     width: 100%;
-    height: 14px;
-    margin-top: -5px;
     user-select: none;
   }
 
@@ -91,14 +98,13 @@
     }
 
     .toolTips-content {
-      opacity: 0.6;
       position: absolute;
-      top: -28px;
+      top: -33px;
       transform: translateX(-50%);
 
       .toolTips-inner {
         padding: 4px 5px;
-        background-color: #000;
+        background-color: #666;
         border-radius: 2px;
         font-size: 12px;
         color: #fff;
@@ -108,7 +114,7 @@
       }
 
       .toolTips-arrow {
-        background: #000;
+        background: #666;
         transform: translate(-50%, 50%) rotate(45deg);
         left: 50%;
         position: absolute;
@@ -130,6 +136,7 @@
 
   &-input {
     display: flex;
+    margin-left: 15px;
     line-height: 30px;
 
     .slider-input-line {

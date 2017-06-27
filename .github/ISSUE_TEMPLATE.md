@@ -1,4 +1,4 @@
-### 请认真写 PR 的标题，会用于生成 change log。
+### 请认真写 Issue 的标题，会用于生成 change log。
 
 **Do you want to request a *feature* or report a *bug*?**
 

@@ -95,7 +95,9 @@ describe('Slider', () => {
         );
       }
     }
+
     const wrapper = mount(<EventTest />);
+
     expect(wrapper.find('.zent-slider-mark').length).toBe(4);
     expect(wrapper.find('.zent-slider-dot').length).toBe(4);
     expect(wrapper.find('.zent-slider-dot-active').length).toBe(2);
@@ -107,9 +109,8 @@ describe('Slider', () => {
     expect(wrapper.find('.zent-slider-toolTips').at(0).props().style.left).toBe(
       '0%'
     );
-    expect(wrapper.find('.zent-slider-toolTips').at(1).props().style.left).toBe(
-      '50%'
-    );
+    expect(wrapper.find('Range').node.getClientWidth()).toBe(0);
+
     const disabledWrapper = mount(
       <Slider range value={[0, 20]} marks={marks} dots disabled />
     );
@@ -135,21 +136,13 @@ describe('Slider', () => {
 
   it('can input onchange props', () => {
     const wrapper = mount(<Slider range value={[20, 30]} />);
-    expect(
-      wrapper.find('input').at(0).simulate('change', { target: { value: 25 } })
-    );
-    expect(wrapper.find('input').at(0).node.value).toBe('25');
-    expect(
-      wrapper.find('input').at(1).simulate('change', { target: { value: 50 } })
-    );
-    expect(wrapper.find('input').at(1).node.value).toBe('50');
-    expect(
-      wrapper.find('input').at(1).simulate('blur', { target: { value: 150 } })
-    );
-    expect(wrapper.find('input').at(1).node.value).toBe('100');
-    expect(
-      wrapper.find('input').at(0).simulate('blur', { target: { value: -150 } })
-    );
-    expect(wrapper.find('input').at(0).node.value).toBe('0');
+    wrapper
+      .find('InputField')
+      .at(0)
+      .node.onChange('start', { target: { value: 25 } });
+    wrapper
+      .find('InputField')
+      .at(0)
+      .node.onChange('end', { target: { value: 50 } });
   });
 });

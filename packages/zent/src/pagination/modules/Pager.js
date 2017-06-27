@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 const { string, number, func, bool } = PropTypes;
 
-export default class Pager extends Component {
+export default class Pager extends (PureComponent || Component) {
   static propTypes = {
     content: string,
     current: bool,

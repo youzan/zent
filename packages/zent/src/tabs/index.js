@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { Component, PureComponent } from 'react';
 import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
-import TabPanel from './components/TabPanel/TabPanel';
+import TabPanel from './components/TabPanel';
 import LazyMount from './components/LazyMount';
-import Nav from './components/Nav/Nav';
+import Nav from './components/Nav';
 import tabUtil from './tabUtil';
 
-function noop() {}
-
-export default class Tabs extends React.Component {
+export default class Tabs extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

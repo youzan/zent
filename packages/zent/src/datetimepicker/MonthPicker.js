@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
-import { formatDate, parseDate, maybeFormatDate } from './utils/date';
+import { formatDate, maybeParseDate, dayStart } from './utils/date';
 import { noop } from './constants/';
 
 function extractStateFromProps(props) {
@@ -17,23 +17,23 @@ function extractStateFromProps(props) {
   const { format, value, defaultValue } = props;
 
   if (value) {
-    const tmp = parseDate(value, format);
+    const tmp = maybeParseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
       selected = actived = tmp;
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      selected = actived = new Date();
+      selected = actived = dayStart();
     }
   } else {
     showPlaceholder = true;
     if (defaultValue) {
-      actived = defaultValue;
+      actived = maybeParseDate(defaultValue, format);
     } else {
-      actived = new Date();
+      actived = dayStart();
     }
-    selected = actived = maybeFormatDate(actived, format);
+    selected = actived = maybeParseDate(actived, format);
   }
 
   return {
@@ -45,9 +45,10 @@ function extractStateFromProps(props) {
   };
 }
 
-class MonthPicker extends Component {
+class MonthPicker extends (PureComponent || Component) {
   static PropTypes = {
     prefix: PropTypes.string,
+    name: PropTypes.string,
     className: PropTypes.string,
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
@@ -62,7 +63,7 @@ class MonthPicker extends Component {
     prefix: 'zent',
     className: '',
     placeholder: '请选择月份',
-    confirmText: '确认',
+    confirmText: '确定',
     format: 'YYYY-MM',
     onChange: noop
   };
@@ -181,6 +182,7 @@ class MonthPicker extends Component {
           <Popover.Trigger.Click>
             <div className={inputCls}>
               <Input
+                name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}
                 onChange={noop}
                 disabled={props.disabled}

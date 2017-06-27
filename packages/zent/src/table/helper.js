@@ -10,30 +10,38 @@ const helper = {
     return res;
   },
 
-  getAlignStyle(textAlign) {
-    let alignObj = {};
+  isReactComponent(render) {
+    let isReact = false;
+
+    if (typeof render === 'function') {
+      if (render.prototype && render.prototype.isReactComponent) {
+        isReact = true;
+      }
+    }
+
+    return isReact;
+  },
+
+  getAlignClass(textAlign) {
+    let alignValue = '';
 
     if (textAlign) {
-      let alignValue;
       switch (textAlign) {
         case 'left':
-          alignValue = 'flex-start';
+          alignValue = 'start';
           break;
         case 'right':
-          alignValue = 'flex-end';
+          alignValue = 'end';
           break;
         case 'center':
           alignValue = 'center';
           break;
         default:
-          alignValue = 'flex-start';
+          alignValue = 'start';
       }
-      alignObj = {
-        justifyContent: alignValue
-      };
     }
 
-    return alignObj;
+    return alignValue;
   }
 };
 

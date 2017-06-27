@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
+import cx from 'classnames';
 
 import Point from './points';
 import Dots from './dots';
@@ -7,34 +8,37 @@ import Marks from './marks';
 import Container from './container';
 import Track from './track';
 
-export default class Range extends Component {
-  state = {
-    clientWidth: 1
-  };
+export default class Range extends (PureComponent || Component) {
+  clientWidth = null;
 
-  componentDidMount = () => {
-    const $root = ReactDOM.findDOMNode(this);
-    this.setState({ clientWidth: $root.clientWidth });
+  getClientWidth = () => {
+    if (this.clientWidth === null) {
+      const $root = ReactDOM.findDOMNode(this);
+      this.clientWidth = $root.clientWidth;
+    }
+    return this.clientWidth;
   };
 
   render() {
     const { dots, marks, value, ...restProps } = this.props;
-    const { clientWidth } = this.state;
+    const warpClass = cx(`${restProps.prefix}-slider-main`, {
+      [`${restProps.prefix}-slider-main-with-marks`]: marks
+    });
     return (
-      <div className={`${restProps.prefix}-slider-main`}>
+      <div className={warpClass}>
         <Container
-          clientWidth={clientWidth}
+          getClientWidth={this.getClientWidth}
           dots={dots}
           {...restProps}
           value={value}
         >
-          <Track clientWidth={clientWidth} {...restProps} value={value} />
+          <Track {...restProps} value={value} />
         </Container>
         {dots && <Dots marks={marks} {...restProps} value={value} />}
         <Point
           dots={dots}
           marks={marks}
-          clientWidth={clientWidth}
+          getClientWidth={this.getClientWidth}
           {...restProps}
           value={value}
         />

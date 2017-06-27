@@ -46,9 +46,9 @@ describe('Loading', () => {
     wrapper.unmount();
   });
 
-  it('Loading has dynamic model(static = false).', () => {
+  it('Loading has floating model.', () => {
     const wrapper = mount(
-      <Loading show={false} static={false}>
+      <Loading show={false} float>
         <span className="foo" />
       </Loading>
     );

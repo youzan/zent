@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import isBrowser from 'utils/isBrowser';
 
@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 
-export default class Instance extends Component {
+export default class Instance extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    static: PropTypes.bool,
+    float: PropTypes.bool,
     show: PropTypes.bool,
     zIndex: PropTypes.number,
     containerClass: PropTypes.string
@@ -19,7 +19,8 @@ export default class Instance extends Component {
   static defaultProps = {
     prefix: 'zent',
     className: '',
-    static: true,
+    // FIXME: use defaultProps when we drop support for static
+    // float: false,
     show: false,
     height: 160,
     zIndex: 9998,
@@ -54,7 +55,8 @@ export default class Instance extends Component {
         prefix,
         className,
         containerClass,
-        zIndex
+        zIndex,
+        float: true
       });
     }
 
@@ -93,7 +95,7 @@ export default class Instance extends Component {
   // 通过以下函数与组件通信
   renderLoading(target) {
     // static 方式，loading 将存在于文档流中
-    if (this.props.static) {
+    if (!isFloat(this.props)) {
       return;
     }
 
@@ -115,9 +117,11 @@ export default class Instance extends Component {
   }
 
   render() {
-    if (this.props.static) {
+    const float = isFloat(this.props);
+
+    if (!isFloat(this.props)) {
       return (
-        <Loading {...this.props}>
+        <Loading {...this.props} float={float}>
           {this.props.children}
         </Loading>
       );
@@ -125,4 +129,16 @@ export default class Instance extends Component {
 
     return this.props.children;
   }
+}
+
+// FIXME: remove support for props.static
+function isFloat(props) {
+  const hasStatic = props.hasOwnProperty('static');
+  const hasFloat = props.hasOwnProperty('float');
+
+  if (hasFloat) {
+    return props.float;
+  }
+
+  return hasStatic ? !props.static : false;
 }

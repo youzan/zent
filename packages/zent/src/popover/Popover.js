@@ -16,7 +16,7 @@
  *
  */
 
-import React, { Component, Children } from 'react';
+import React, { Component, PureComponent, Children } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
 import noop from 'lodash/noop';
@@ -25,15 +25,12 @@ import isFunction from 'lodash/isFunction';
 import isBoolean from 'lodash/isBoolean';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
+import kindOf from 'utils/kindOf';
 
 import PopoverContent from './Content';
 import PopoverTrigger from './trigger/Trigger';
 
 const SKIPPED = () => {};
-
-function instanceOf(MaybeDerive, Base) {
-  return MaybeDerive === Base || MaybeDerive.prototype instanceof Base;
-}
 
 function handleBeforeHook(beforeFn, arity, continuation) {
   // 有参数，传入continuation，由外部去控制何时调用
@@ -63,7 +60,7 @@ export const PopoverContextType = {
   })
 };
 
-export default class Popover extends Component {
+export default class Popover extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -152,6 +149,8 @@ export default class Popover extends Component {
         visible: false
       };
     }
+
+    this.isUnmounted = false;
   }
 
   isVisibilityControlled(props) {
@@ -205,7 +204,7 @@ export default class Popover extends Component {
       }
 
       handleBeforeHook(onBefore, beforeHook.length, () => {
-        this.setState({ visible });
+        this.safeSetState({ visible });
         this.pendingOnBeforeHook = false;
       });
     }
@@ -265,9 +264,9 @@ export default class Popover extends Component {
     const { trigger, content } = childArray.reduce(
       (state, c) => {
         const type = c.type;
-        if (instanceOf(type, PopoverTrigger)) {
+        if (kindOf(type, PopoverTrigger)) {
           state.trigger = c;
-        } else if (instanceOf(type, PopoverContent)) {
+        } else if (kindOf(type, PopoverContent)) {
           state.content = c;
         }
 
@@ -284,6 +283,12 @@ export default class Popover extends Component {
     }
 
     return { trigger, content };
+  }
+
+  safeSetState(updater, callback) {
+    if (!this.isUnmounted) {
+      return this.setState(updater, callback);
+    }
   }
 
   componentDidMount() {
@@ -310,6 +315,8 @@ export default class Popover extends Component {
     if (popover && popover.unregisterDescendant) {
       popover.unregisterDescendant(this);
     }
+
+    this.isUnmounted = true;
   }
 
   render() {

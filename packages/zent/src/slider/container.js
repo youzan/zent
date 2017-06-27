@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import noop from 'lodash/noop';
 
 import { getValue, toFixed, getClosest } from './common';
 
-export default class Container extends Component {
+export default class Container extends (PureComponent || Component) {
   handleClick = e => {
     const {
-      clientWidth,
+      getClientWidth,
       dots,
       range,
       value,
@@ -19,7 +19,7 @@ export default class Container extends Component {
     if (!dots) {
       let pointValue =
         (e.clientX - e.currentTarget.getBoundingClientRect().left) /
-        clientWidth;
+        getClientWidth();
       pointValue = getValue(pointValue, max, min);
       pointValue = toFixed(pointValue, step);
       newValue = pointValue;

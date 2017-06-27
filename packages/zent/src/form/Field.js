@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, createElement } from 'react';
+import { Component, PureComponent, createElement } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import PropTypes from 'prop-types';
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { getValue } from './utils';
 import unknownProps from './unknownProps';
 
-class Field extends Component {
+class Field extends (PureComponent || Component) {
   static propTypes = {
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
@@ -19,6 +19,7 @@ class Field extends Component {
   // validationError为默认错误提示
   // validationErrors为指定校验规则所对应的错误提示
   static defaultProps = {
+    value: '',
     validationError: '',
     validationErrors: {}
   };

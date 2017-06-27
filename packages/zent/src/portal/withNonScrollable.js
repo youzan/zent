@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { getNodeFromSelector } from './util';
 
@@ -7,7 +7,10 @@ import { getNodeFromSelector } from './util';
   lifecycle.
 **/
 export default function withNonScrollable(Portal) {
-  return class NonScrollableWrapper extends Component {
+  let portalVisibleCount = 0;
+  let originalOverflow;
+
+  return class NonScrollableWrapper extends (PureComponent || Component) {
     static propTypes = {
       selector: PropTypes.string
     };
@@ -17,15 +20,23 @@ export default function withNonScrollable(Portal) {
     };
 
     restoreStyle() {
-      const node = getNodeFromSelector(this.props.selector);
-      node.style.overflow = this.originalOverflow;
+      portalVisibleCount--;
+
+      if (portalVisibleCount <= 0) {
+        const node = getNodeFromSelector(this.props.selector);
+        node.style.overflow = originalOverflow;
+      }
     }
 
     saveStyle() {
-      const node = getNodeFromSelector(this.props.selector);
-      const { style } = node;
-      this.originalOverflow = style.overflow;
-      style.overflow = 'hidden';
+      portalVisibleCount++;
+
+      if (portalVisibleCount === 1) {
+        const node = getNodeFromSelector(this.props.selector);
+        const { style } = node;
+        originalOverflow = style.overflow;
+        style.overflow = 'hidden';
+      }
     }
 
     componentDidMount() {

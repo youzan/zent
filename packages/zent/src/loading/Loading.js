@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { getElementLeft, getElementTop } from './getPosition';
 
-export default class Loading extends Component {
+export default class Loading extends (PureComponent || Component) {
   static style;
   static wrapper;
 
@@ -76,7 +76,7 @@ export default class Loading extends Component {
   render() {
     let { prefix, className, containerClass } = this.props;
 
-    if (this.props.static) {
+    if (!this.props.float) {
       return (
         <div
           className={`${prefix}-loading-container ${prefix}-loading-container-static ${containerClass}`}

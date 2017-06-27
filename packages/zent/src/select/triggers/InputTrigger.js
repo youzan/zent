@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
-/**
- * InputTrigger
- */
+import React, { PureComponent, Component } from 'react';
 
-import React, { Component } from 'react';
-
-class InputTrigger extends Component {
+class InputTrigger extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,9 +41,7 @@ class InputTrigger extends Component {
   }
 
   render() {
-    let { prefixCls, placeholder } = this.props;
-
-    let { value } = this.state;
+    let { prefixCls, placeholder, keyword, text } = this.props;
 
     return (
       <input
@@ -55,7 +49,7 @@ class InputTrigger extends Component {
         className={`${prefixCls}-input`}
         placeholder={placeholder}
         type="text"
-        value={value}
+        value={keyword === null ? text : keyword}
         onFocus={this.inputFocusHandler}
         onChange={this.inputChangeHandler}
       />

@@ -1,0 +1,46 @@
+$count-height: 14px;
+$count-color: #fff;
+$count-bgcolor: #f44;
+$dot-diameter: 8px;
+
+.zent-badge {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  .zent-badge-count {
+    display: inline-block;
+    height: $count-height;
+    line-height: $count-height;
+    background: $count-bgcolor;
+    color: $count-color;
+    font-size: 10px;
+    border: 1px solid #fff;
+    border-radius: $count-height;
+    text-align: center;
+    padding: 0 4px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -3px);
+  }
+
+  .zent-badge-dot {
+    height: $dot-diameter;
+    width: $dot-diameter;
+    padding: 0;
+    font-size: 0;
+    border: none;
+    transform: translate(-3px, 0);
+  }
+
+  &.zent-badge-none-cont {
+    font-size: 0;
+
+    .zent-badge-count {
+      position: relative;
+      transform: none;
+      margin: 0 5px;
+    }
+  }
+}

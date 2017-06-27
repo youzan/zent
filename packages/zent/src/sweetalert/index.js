@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Component } from 'react';
 import Button from 'button';
 import Dialog from 'dialog';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import isPromise from 'utils/isPromise';
 
 const { openDialog } = Dialog;
 
@@ -19,11 +20,7 @@ const commonProps = {
   maskClosable: false
 };
 
-function isPromise(a) {
-  return a && typeof a.then === 'function';
-}
-
-class ActionButton extends Component {
+class ActionButton extends (PureComponent || Component) {
   static propTypes = {
     getClose: PropTypes.func.isRequired,
     onClick: PropTypes.func,
@@ -162,7 +159,7 @@ export function confirm(config = {}) {
   } = config;
   className = className || '';
   prefix = prefix || 'zent';
-  title = getTitle(title, type, prefix) || '确认';
+  title = getTitle(title, type, prefix) || '请确认';
   confirmText = confirmText || '确定';
   cancelText = cancelText || '取消';
   confirmType = confirmType || 'primary';

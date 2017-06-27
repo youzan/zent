@@ -2,7 +2,7 @@
  * Select
  */
 
-import React, { Component } from 'react';
+import React, { Component, PureComponent, Children } from 'react';
 import assign from 'lodash/assign';
 import omit from 'lodash/omit';
 import cloneDeep from 'lodash/cloneDeep';
@@ -19,11 +19,11 @@ import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
 import { KEY_ESC } from './constants';
 
-class Select extends Component {
+class Select extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 
-    let data = [];
+    let data = this.uniformData(props);
 
     /**
      * data支持字符串数组和对象数组两种模式
@@ -33,26 +33,6 @@ class Select extends Component {
      *
      * @return {object}
      */
-
-    if (props.children) {
-      let children = props.children;
-      if (!isArray(children)) {
-        children = [children];
-      }
-      data = children.map(item => {
-        let value = item.props.value;
-        value = typeof value === 'undefined' ? item : value;
-        return assign({}, item.props, {
-          value,
-          text: item.props.children
-        });
-      });
-    }
-
-    // props.data会将子元素覆盖
-    if (props.data) {
-      data = props.data;
-    }
 
     if (props.simple) {
       this.trigger = SimpleTrigger;
@@ -83,15 +63,11 @@ class Select extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { open } = this.state;
+    let data = this.uniformData(nextProps);
     // 重置组件data
-    open = nextProps.open || this.focus;
-    let nextState = { ...nextProps, open };
     let selectedItems = [];
-    if (`${nextProps.value}` || `${nextProps.index}`) {
-      this.state.selectedItem = this.props.selectedItem;
-    }
-    this.formateData(nextProps.data, nextProps);
+
+    this.formateData(data, nextProps);
     if (isArray(nextProps.value)) {
       this.sourceData.forEach(item => {
         if (nextProps.value.indexOf(item.value) > -1) {
@@ -99,9 +75,30 @@ class Select extends Component {
         }
       });
     }
-    nextState.selectedItem = this.state.selectedItem;
-    nextState.selectedItems = selectedItems;
-    this.setState(nextState);
+    this.setState({
+      selectedItems
+    });
+  }
+
+  // 统一children和data中的数据
+  uniformData(props) {
+    let data = [];
+    if (props.children) {
+      data = Children.map(props.children, item => {
+        let value = item.props.value;
+        value = typeof value === 'undefined' ? item : value;
+        return assign({}, item.props, {
+          value,
+          text: item.props.children
+        });
+      });
+    }
+
+    // props.data会将子元素覆盖
+    if (props.data) {
+      data = props.data;
+    }
+    return data;
   }
 
   // 对data进行处理，增加cid

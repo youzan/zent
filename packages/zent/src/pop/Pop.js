@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Popover from 'popover';
+import { exposePopover } from 'popover/withPopover';
 import Button from 'button';
 import cx from 'classnames';
 import noop from 'lodash/noop';
@@ -16,7 +17,7 @@ const stateMap = {
   onCancel: 'cancelPending'
 };
 
-class PopAction extends Component {
+class PopAction extends (PureComponent || Component) {
   // 支持异步的回调函数
   // onConfirm/onCancel异步等待的时候要禁用用户关闭
   handleClick(callbackName) {
@@ -45,7 +46,7 @@ class PopAction extends Component {
       startClose();
       maybePromise
         .then(finishClose)
-        .catch(() => changePending(stateKey, false, popover.close));
+        .catch(() => changePending(stateKey, false));
     } else {
       popover.close();
     }
@@ -101,7 +102,7 @@ class PopAction extends Component {
 
 const BoundPopAction = withPopover(PopAction);
 
-export default class Pop extends Component {
+class Pop extends (PureComponent || Component) {
   static propTypes = {
     trigger: PropTypes.oneOf(['click', 'hover', 'focus', 'none']),
     position: PropTypes.oneOf([
@@ -151,6 +152,7 @@ export default class Pop extends Component {
     // 只有trigger为hover时才有效
     mouseLeaveDelay: PropTypes.number,
     mouseEnterDelay: PropTypes.number,
+    quirk: PropTypes.bool,
 
     // 只有trigger为click时才有效
     closeOnClickOutside: PropTypes.bool,
@@ -174,7 +176,8 @@ export default class Pop extends Component {
     mouseEnterDelay: 200,
     className: '',
     wrapperClassName: '',
-    prefix: 'zent'
+    prefix: 'zent',
+    quirk: true
   };
 
   state = {
@@ -239,7 +242,8 @@ export default class Pop extends Component {
       isOutside,
       mouseLeaveDelay,
       mouseEnterDelay,
-      children
+      children,
+      quirk
     } = this.props;
 
     if (trigger === 'click') {
@@ -256,6 +260,7 @@ export default class Pop extends Component {
           showDelay={mouseEnterDelay}
           hideDelay={mouseLeaveDelay}
           isOutside={isOutside}
+          quirk={quirk}
         >
           {children}
         </Trigger.Hover>
@@ -325,3 +330,7 @@ export default class Pop extends Component {
     );
   }
 }
+
+Pop.withPop = exposePopover('pop');
+
+export default Pop;

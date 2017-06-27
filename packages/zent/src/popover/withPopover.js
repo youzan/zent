@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import omit from 'lodash/omit';
 
 import { PopoverContextType } from './Popover';
@@ -8,17 +8,22 @@ import { PopoverContextType } from './Popover';
  *
  * Adds a popover prop to component.
  */
-export default function withPopover(Base) {
-  return class ExposePopover extends Component {
+export const exposePopover = propName => Base => {
+  return class ExposePopover extends (PureComponent || Component) {
     static contextTypes = PopoverContextType;
 
     render() {
       const { _zentPopover: popover } = this.context || {};
       const context = {
-        popover: omit(popover, ['registerDescendant', 'unregisterDescendant'])
+        [propName]: omit(popover, [
+          'registerDescendant',
+          'unregisterDescendant'
+        ])
       };
 
       return <Base {...this.props} {...context} />;
     }
   };
-}
+};
+
+export default exposePopover('popover');

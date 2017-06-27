@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { noop } from '../constants';
 
-export default class PanelCell extends Component {
+export default class PanelCell extends (PureComponent || Component) {
   static PropTypes = {
     onHover: PropTypes.func,
     onSelect: PropTypes.func

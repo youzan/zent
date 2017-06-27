@@ -1,5 +1,145 @@
 ## 更新日志
 
+## [zent@3.3.3](https://github.com/youzan/zent/tree/zent@3.3.3) (2017-06-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.2...zent@3.3.3)
+
+**不兼容改动和新功能:**
+
+- tag: support custom colors [\#343](https://github.com/youzan/zent/pull/343) ([fairyaierl](https://github.com/fairyaierl))
+- Add search-input [\#341](https://github.com/youzan/zent/pull/341) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- pop: hover pop 打开的时候滚动以后会出现 pop 不关闭的情况 [\#340](https://github.com/youzan/zent/issues/340)
+- DatePicker: defaultValue won't change after some related props changed [\#326](https://github.com/youzan/zent/issues/326)
+- portal: Add a count to support non sequential dialog closes [\#346](https://github.com/youzan/zent/pull/346) ([cpylua](https://github.com/cpylua))
+- popover: Add quirk mode for popover [\#342](https://github.com/youzan/zent/pull/342) ([cpylua](https://github.com/cpylua))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- fix: colorpicker css [\#345](https://github.com/youzan/zent/pull/345) ([ronghang](https://github.com/ronghang))
+- Datepicker: fix \#326 [\#344](https://github.com/youzan/zent/pull/344) ([xuhong](https://github.com/xuhong))
+- fix: colorpicker css fix & add props type [\#329](https://github.com/youzan/zent/pull/329) ([ronghang](https://github.com/ronghang))
+
+## [zent@3.3.2](https://github.com/youzan/zent/tree/zent@3.3.2) (2017-06-22)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.1...zent@3.3.2)
+
+**Bug 修复:**
+
+- Select: UI won't change after setState in onChange [\#333](https://github.com/youzan/zent/issues/333)
+- tree: dataType="plain"时data强制根据id排序 [\#323](https://github.com/youzan/zent/issues/323)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- 规范用词 [\#339](https://github.com/youzan/zent/pull/339) ([cpylua](https://github.com/cpylua))
+- fix: Swiper typo [\#335](https://github.com/youzan/zent/pull/335) ([ArvinTung](https://github.com/ArvinTung))
+- 修复onChange里面调了setState组件重新render以后不能正确显示选中项的问题 [\#334](https://github.com/youzan/zent/pull/334) ([huangsy](https://github.com/huangsy))
+- tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
+
+## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
+
+**Bug 修复:**
+
+- NumberInput: Uncaught RangeError: Maximum call stack size exceeded [\#324](https://github.com/youzan/zent/issues/324)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
+
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
+
+## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+
+**不兼容改动和新功能:**
+
+- table: 支持行单选 [\#319](https://github.com/youzan/zent/issues/319)
+- Optimization: enable jsx optimizations in production build [\#298](https://github.com/youzan/zent/issues/298)
+- Support PureComponent [\#297](https://github.com/youzan/zent/issues/297)
+- slider: use NumberInput from zent [\#285](https://github.com/youzan/zent/issues/285)
+- Upgrade Jest [\#272](https://github.com/youzan/zent/issues/272)
+- New component: ColorPicker [\#259](https://github.com/youzan/zent/issues/259)
+- New component: Swiper [\#232](https://github.com/youzan/zent/issues/232)
+- 上传图片组件初始版本 [\#309](https://github.com/youzan/zent/pull/309) ([huangsy](https://github.com/huangsy))
+- Add right-circle icon [\#304](https://github.com/youzan/zent/pull/304) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- select: Option变化的时候，Select的下拉菜单数据没有更新 [\#313](https://github.com/youzan/zent/issues/313)
+- dialog: 加大右上角关闭按钮的可操作区域 [\#310](https://github.com/youzan/zent/issues/310)
+- Affix的this.props.children有margin会抖动 [\#296](https://github.com/youzan/zent/issues/296)
+- Select: search result not appears in the popup list. [\#320](https://github.com/youzan/zent/pull/320) ([lenghan1991](https://github.com/lenghan1991))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- table: support radio box in single selection mode [\#322](https://github.com/youzan/zent/pull/322) ([linxixuan](https://github.com/linxixuan))
+- 新增级联组件cascader [\#316](https://github.com/youzan/zent/pull/316) ([liaoyu](https://github.com/liaoyu))
+- 修复Option变化的时候，Select的下拉菜单数据没有更新的bug [\#315](https://github.com/youzan/zent/pull/315) ([huangsy](https://github.com/huangsy))
+- numberinput: differ improve [\#314](https://github.com/youzan/zent/pull/314) ([oConnerCooper](https://github.com/oConnerCooper))
+- Enlarge dialog close button area [\#312](https://github.com/youzan/zent/pull/312) ([cpylua](https://github.com/cpylua))
+- Add colorpicker [\#311](https://github.com/youzan/zent/pull/311) ([ronghang](https://github.com/ronghang))
+- Field默认value设置为空字符串 & 更新文档中的按钮为zent-button [\#308](https://github.com/youzan/zent/pull/308) ([w91](https://github.com/w91))
+- 修复range 的值显示不正确 [\#307](https://github.com/youzan/zent/pull/307) ([xuhong](https://github.com/xuhong))
+- Add new Component Swiper [\#306](https://github.com/youzan/zent/pull/306) ([ArvinTung](https://github.com/ArvinTung))
+- 添加复制按钮组件 [\#305](https://github.com/youzan/zent/pull/305) ([lama-pacos](https://github.com/lama-pacos))
+- Upgrade packages [\#303](https://github.com/youzan/zent/pull/303) ([cpylua](https://github.com/cpylua))
+- Add transform-react-constant-elements [\#302](https://github.com/youzan/zent/pull/302) ([cpylua](https://github.com/cpylua))
+- Pure component [\#301](https://github.com/youzan/zent/pull/301) ([cpylua](https://github.com/cpylua))
+- NumberInput: 修复props更新组件不刷新的问题 [\#300](https://github.com/youzan/zent/pull/300) ([oConnerCooper](https://github.com/oConnerCooper))
+- slider: replace number input [\#299](https://github.com/youzan/zent/pull/299) ([wulv](https://github.com/wulv))
+
+## [zent@3.2.0](https://github.com/youzan/zent/tree/zent@3.2.0) (2017-05-31)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.1.0...zent@3.2.0)
+
+**不兼容改动和新功能:**
+
+- table: 多选后底部按钮悬浮 [\#265](https://github.com/youzan/zent/issues/265)
+- lint and format pcss files [\#264](https://github.com/youzan/zent/issues/264)
+- New component: Badge [\#254](https://github.com/youzan/zent/issues/254)
+- New component: Tag [\#252](https://github.com/youzan/zent/issues/252)
+- New component: Affix [\#251](https://github.com/youzan/zent/issues/251)
+- Consider rename \*.scss to \*.pcss [\#250](https://github.com/youzan/zent/issues/250)
+- test: investigate testing DOM layouts in Jest [\#247](https://github.com/youzan/zent/issues/247)
+- New component: NumberInput [\#213](https://github.com/youzan/zent/issues/213)
+- datetimepicker: add defaultTime api [\#291](https://github.com/youzan/zent/pull/291) ([xuhong](https://github.com/xuhong))
+
+**Bug 修复:**
+
+- doc: header covered by popups [\#282](https://github.com/youzan/zent/issues/282)
+- loading: rename static prop [\#280](https://github.com/youzan/zent/issues/280)
+- table: relativeTop 不应该是全局变量 [\#277](https://github.com/youzan/zent/issues/277)
+- slider: tooltip 太透明了 [\#275](https://github.com/youzan/zent/issues/275)
+- zent-datepicker range 模式内部的 input 宽度大于外部的 input 宽度 [\#270](https://github.com/youzan/zent/issues/270)
+- zent-datepicker range 模式 点击叉号时无法正确删除内容 [\#267](https://github.com/youzan/zent/issues/267)
+- DatePicker: DateRangePicker disabledDate callback argument type is undefined [\#257](https://github.com/youzan/zent/issues/257)
+- doc: anchor position is not correct [\#249](https://github.com/youzan/zent/issues/249)
+- popover: Prevent setState call if Popover is unmounted [\#290](https://github.com/youzan/zent/pull/290) ([cpylua](https://github.com/cpylua))
+- slider: remove extra space around slider [\#281](https://github.com/youzan/zent/pull/281) ([wulv](https://github.com/wulv))
+- slider: fix mouseMove event [\#279](https://github.com/youzan/zent/pull/279) ([wulv](https://github.com/wulv))
+
+**处理的 Issue:**
+
+- datepicker: disabledDate字段有禁用时间效果不一致的bug [\#284](https://github.com/youzan/zent/issues/284)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- table: 支持批量操作功能 [\#292](https://github.com/youzan/zent/pull/292) ([linxixuan](https://github.com/linxixuan))
+- Add affix [\#289](https://github.com/youzan/zent/pull/289) ([wulv](https://github.com/wulv))
+- badge: fix style and doc of badge [\#288](https://github.com/youzan/zent/pull/288) ([fairyaierl](https://github.com/fairyaierl))
+- loading: change static to float [\#287](https://github.com/youzan/zent/pull/287) ([cpylua](https://github.com/cpylua))
+- Add badge and tag [\#283](https://github.com/youzan/zent/pull/283) ([fairyaierl](https://github.com/fairyaierl))
+- slider: 修复slider透明度问题 [\#276](https://github.com/youzan/zent/pull/276) ([wulv](https://github.com/wulv))
+- 修复 pop 返回 promise.reject 依然关闭的 bug opdialog 添加 context 的支持 [\#274](https://github.com/youzan/zent/pull/274) ([lama-pacos](https://github.com/lama-pacos))
+- datepicker: fix\_rangepicer\_clear\_bug [\#269](https://github.com/youzan/zent/pull/269) ([xuhong](https://github.com/xuhong))
+- Add style lint support [\#268](https://github.com/youzan/zent/pull/268) ([cpylua](https://github.com/cpylua))
+- select: 修复Popup搜索框被盖住的bug [\#266](https://github.com/youzan/zent/pull/266) ([huangsy](https://github.com/huangsy))
+- Rename \*.scss to \*.pcss [\#263](https://github.com/youzan/zent/pull/263) ([cpylua](https://github.com/cpylua))
+- test: Add tests for layout related code path [\#262](https://github.com/youzan/zent/pull/262) ([cpylua](https://github.com/cpylua))
+- Add NumberInput component [\#261](https://github.com/youzan/zent/pull/261) ([oConnerCooper](https://github.com/oConnerCooper))
+- Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
+
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
 
@@ -215,7 +355,7 @@
 **合并的 Pull Request (可能有不兼容改动):**
 
 - Update picker style [\#136](https://github.com/youzan/zent/pull/136) ([xuhong](https://github.com/xuhong))
-- Tabs without panel [\#134](https://github.com/youzan/zent/pull/134) ([ohmygod12121212](https://github.com/ohmygod12121212))
+- Tabs without panel [\#134](https://github.com/youzan/zent/pull/134) ([hzjzx](https://github.com/hzjzx))
 - Doc site [\#133](https://github.com/youzan/zent/pull/133) ([cookfront](https://github.com/cookfront))
 - Hotfix/select warning 0329 [\#131](https://github.com/youzan/zent/pull/131) ([huangsy](https://github.com/huangsy))
 - 使component属性支持更多类型 [\#128](https://github.com/youzan/zent/pull/128) ([NinoFocus](https://github.com/NinoFocus))

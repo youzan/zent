@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import SubPopupMenu from './SubPopupMenu';
 
-export default class SubMenu extends Component {
+export default class SubMenu extends (PureComponent || Component) {
   static propTypes = {
     title: PropTypes.string,
     prefix: PropTypes.string,
