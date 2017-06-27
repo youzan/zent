@@ -40,6 +40,23 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 支持默认选项
+```jsx
+import { Select } from 'zent';
+
+const Option = Select.Option;
+
+ReactDOM.render(
+  <Select value="1">
+    <Option value="1">选项一</Option>
+    <Option value="2">选项二</Option>
+    <Option value="3">选项三</Option>
+  </Select>
+  , mountNode
+);
+```
+:::
+
 :::demo 支持数组类型选项
 ```jsx
 import { Select } from 'zent';
@@ -272,6 +289,29 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 支持多选默认选项
+```jsx
+import { Select } from 'zent';
+
+const data = [
+     {id: 1, name: '选项一'},
+     {id: 2, name: '选项二'},
+     {id: 3, name: '选项三'}
+];
+
+ReactDOM.render(
+  <Select value={[1, 2]}
+    data={data}
+    optionValue="id"
+    optionText="name"
+    tags
+    filter={(item, keyword) => item.name.indexOf(keyword) > -1}
+  />
+  , mountNode
+);
+```
+:::
+
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
@@ -306,4 +346,3 @@ ReactDOM.render(
 | open | 是否打开Popup | boolean | `false` | 否 |
 
 `Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。`
-
