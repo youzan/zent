@@ -114,6 +114,7 @@ class Cascader extends (PureComponent || Component) {
 
   clickHandler = (item, stage, popover) => {
     let { loadMore } = this.props;
+    let { options } = this.state;
     if (
       !item.isLeaf &&
       loadMore &&
@@ -123,9 +124,11 @@ class Cascader extends (PureComponent || Component) {
         isLoading: true,
         loadingStage: stage
       });
-      loadMore(item, stage).then(() => {
+      loadMore(item, stage).then(children => {
+        item.children = children;
         this.expandHandler(item, stage, popover);
         this.setState({
+          options,
           isLoading: false
         });
       });

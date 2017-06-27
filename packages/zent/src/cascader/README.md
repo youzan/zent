@@ -195,15 +195,12 @@ class Simple extends React.Component {
 	loadMore = (root, stage) => new Promise((resolve, reject) => {
 		setTimeout(() => {
 			let isLeaf = stage >= 2;
-			root.children = [{
+			let children = [{
 				id: `66666${stage}`,
 				title: `Label${stage}`,
 				isLeaf
 			}];
-			this.setState({
-				options: [...this.state.options]  
-			});
-			resolve();
+			resolve(children);
 		}, 500);
 	})
 
