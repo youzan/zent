@@ -145,6 +145,7 @@ export default class Table extends (PureComponent || Component) {
     const needFixedBatchComps = helper.needFixBatchComps(
       this.isTableInView(),
       this.isFootInView(),
+      this.props.selection.selectedRowKeys.length > 0,
       this.state.batchComponentsFixed
     );
     if (typeof needFixedBatchComps === 'boolean') {
