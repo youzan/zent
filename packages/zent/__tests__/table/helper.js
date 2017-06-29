@@ -26,4 +26,12 @@ describe('table helpers', () => {
     expect(helper.isReactComponent(pureFn)).toEqual(false);
     expect(helper.isReactComponent(reactFn)).toEqual(true);
   });
+
+  it('needFixBatchComps', () => {
+    expect(helper.needFixBatchComps(true, false, true, false)).toEqual(true);
+    expect(helper.needFixBatchComps(true, false, true, true)).toEqual(null);
+    expect(helper.needFixBatchComps(true, true, false, true)).toEqual(false);
+    expect(helper.needFixBatchComps(true, true, false, false)).toEqual(null);
+    expect(helper.needFixBatchComps(false, false, false, false)).toEqual(null);
+  });
 });

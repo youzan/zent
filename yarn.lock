@@ -564,14 +564,6 @@ doctrine@^2.0.0:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
-document-offset@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/document-offset/-/document-offset-1.0.4.tgz#7345b819cdfef2bb45c63ce13056416063b70085"
-  dependencies:
-    dom-support "*"
-    get-document "1.0.0"
-    within-element "0.1.0"
-
 doiuse@^2.4.1:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/doiuse/-/doiuse-2.6.0.tgz#1892d10b61a9a356addbf2b614933e81f8bb3834"
@@ -588,16 +580,6 @@ doiuse@^2.4.1:
     source-map "^0.4.2"
     through2 "^0.6.3"
     yargs "^3.5.4"
-
-dom-support@*:
-  version "0.0.2"
-  resolved "http://registry.npm.qima-inc.com/dom-support/download/dom-support-0.0.2.tgz#0e129764ffa5e203d8ab5839e2e92dc2ae14ef7c"
-  dependencies:
-    domready "*"
-
-domready@*:
-  version "1.0.8"
-  resolved "http://registry.npm.qima-inc.com/domready/download/domready-1.0.8.tgz#91f252e597b65af77e745ae24dd0185d5e26d58c"
 
 duplexer2@0.0.2:
   version "0.0.2"
@@ -1019,10 +1001,6 @@ generate-object-property@^1.1.0:
   resolved "https://registry.yarnpkg.com/generate-object-property/-/generate-object-property-1.2.0.tgz#9c0e1c40308ce804f4783618b937fa88f99d50d0"
   dependencies:
     is-property "^1.0.0"
-
-get-document@1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/get-document/download/get-document-1.0.0.tgz#4821bce66f1c24cb0331602be6cb6b12c4f01c4b"
 
 get-stdin@5.0.1, get-stdin@^5.0.0, get-stdin@^5.0.1:
   version "5.0.1"
@@ -2612,10 +2590,6 @@ which@^1.2.10, which@^1.2.9:
 window-size@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
-
-within-element@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/within-element/-/within-element-0.1.0.tgz#b610be314fb588bf21d7bd733906e437f30e2b95"
 
 wordwrap@~1.0.0:
   version "1.0.0"

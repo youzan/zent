@@ -98,6 +98,7 @@ class BatchCompsClass extends React.Component {
         columns={columns}
         datasets={datasets}
         rowKey="item_id"
+        batchComponentsAutoFixed
         batchComponents={[
           <span key="pure" className="child-comps child-comps--pure">
             这是一个DOM

@@ -9,6 +9,7 @@ import throttle from 'lodash/throttle';
 import Head from './modules/Head';
 import Body from './modules/Body';
 import Foot from './modules/Foot';
+import helper from './helper';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 
@@ -62,38 +63,76 @@ export default class Table extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.batchComponentsAutoFixed !== this.props.batchComponentsAutoFixed
+    ) {
+      if (nextProps.batchComponentsAutoFixed) {
+        this.addEventListener(nextProps);
+      } else {
+        this.removeEventListener(nextProps);
+      }
+    }
+
     this.setState({
       current: nextProps.pageInfo ? nextProps.pageInfo.current : 1
     });
   }
 
   componentDidMount() {
-    const { batchComponents } = this.props;
+    this.addEventListener(this.props);
+  }
 
-    this.calculateRectParam();
-    if (batchComponents && batchComponents.length > 0) {
-      this.throttleSetBatchComponents = throttle(
-        () => {
-          this.calculateRectParam();
-          this.toggleBatchComponents();
-        },
-        100,
-        {
-          leading: true
-        }
-      );
+  componentWillUnmount() {
+    this.removeEventListener(this.props);
+  }
 
-      window.addEventListener('scroll', this.throttleSetBatchComponents, true);
-      window.addEventListener('resize', this.throttleSetBatchComponents, true);
+  addEventListener(props) {
+    if (props.batchComponentsAutoFixed) {
+      const { batchComponents } = props;
+
+      this.setRectParam();
+      if (batchComponents && batchComponents.length > 0) {
+        this.throttleSetBatchComponents = throttle(
+          () => {
+            this.setRectParam();
+            this.toggleBatchComponents();
+          },
+          100,
+          {
+            leading: true
+          }
+        );
+
+        window.addEventListener(
+          'scroll',
+          this.throttleSetBatchComponents,
+          true
+        );
+        window.addEventListener(
+          'resize',
+          this.throttleSetBatchComponents,
+          true
+        );
+      }
     }
   }
 
-  componentWillUnMount() {
-    window.removeEventListener('scroll', this.throttleSetBatchComponents, true);
-    window.removeEventListener('resize', this.throttleSetBatchComponents, true);
+  removeEventListener(props) {
+    if (props.batchComponentsAutoFixed) {
+      window.removeEventListener(
+        'scroll',
+        this.throttleSetBatchComponents,
+        true
+      );
+      window.removeEventListener(
+        'resize',
+        this.throttleSetBatchComponents,
+        true
+      );
+    }
   }
 
-  calculateRectParam() {
+  setRectParam() {
     this.tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
     this.tableRectHeight = ReactDOM.findDOMNode(
       this
@@ -103,18 +142,16 @@ export default class Table extends (PureComponent || Component) {
   }
 
   toggleBatchComponents() {
-    if (this.isTableInView() && !this.isFootInView()) {
-      if (!this.state.batchComponentsAutoFixed) {
-        this.setState({
-          batchComponentsAutoFixed: true
-        });
-      }
-    } else {
-      if (this.state.batchComponentsAutoFixed) {
-        this.setState({
-          batchComponentsAutoFixed: false
-        });
-      }
+    const needFixedBatchComps = helper.needFixBatchComps(
+      this.isTableInView(),
+      this.isFootInView(),
+      this.props.selection.selectedRowKeys.length > 0,
+      this.state.batchComponentsFixed
+    );
+    if (typeof needFixedBatchComps === 'boolean') {
+      this.setState({
+        batchComponentsFixed: needFixedBatchComps
+      });
     }
   }
 
@@ -385,7 +422,7 @@ export default class Table extends (PureComponent || Component) {
                 ref={c => (this.foot = c)}
                 batchComponents={batchComponents}
                 pageInfo={pageInfo}
-                batchComponentsAutoFixed={this.state.batchComponentsAutoFixed}
+                batchComponentsFixed={this.state.batchComponentsFixed}
                 selection={{
                   needSelect,
                   isSingleSelection,
