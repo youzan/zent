@@ -235,7 +235,7 @@ class Select extends (PureComponent || Component) {
       that.setState({
         open: this.focus
       });
-    }, 0);
+    }, 15);
   }
 
   keyupHandler(ev) {
