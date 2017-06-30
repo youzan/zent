@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
+import PopoverClickTrigger from './PopoverClickTrigger';
 
 class ColorPicker extends (PureComponent || Component) {
   state = {
@@ -93,7 +94,7 @@ class ColorPicker extends (PureComponent || Component) {
         visible={popVisible}
         onVisibleChange={this.handleVisibleChange}
       >
-        <Popover.Trigger.Click>
+        <PopoverClickTrigger>
           <div
             className={cx(
               `${prefix}-color-picker`,
@@ -109,7 +110,7 @@ class ColorPicker extends (PureComponent || Component) {
               />
             </div>
           </div>
-        </Popover.Trigger.Click>
+        </PopoverClickTrigger>
         <Popover.Content>
           {type === 'simple'
             ? <SketchPresetColors
