@@ -45,11 +45,11 @@ describe('ImagePreview', () => {
       currentTarget: 1
     };
 
-    ImageDom.node.onMaskClick(event);
-    ImageDom.node.onClose();
-    ImageDom.node.handleNextAction();
-    ImageDom.node.handlePreviousAction();
-    ImageDom.node.handleRotate();
+    expect(ImageDom.node.onMaskClick(event)).toBe(undefined);
+    expect(ImageDom.node.onClose()).toBe(undefined);
+    expect(ImageDom.node.handleNextAction()).toBe(undefined);
+    expect(ImageDom.node.handlePreviousAction()).toBe(undefined);
+    expect(ImageDom.node.handleRotate()).toBe(undefined);
   });
 
   it('check Image branch', () => {
