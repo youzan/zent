@@ -102,6 +102,38 @@ ReactDOM.render(
 ```
 :::
 
+#### validateOnChange的使用
+value值改变的时候可以不触发校验，blur时再校验（一般用于Input输入框）
+
+:::DEMO
+```jsx
+import { Form } from 'zent';
+const { Field, InputField, createForm } = Form;
+
+const FormattedForm = () => {
+	return (
+		<Form horizontal>
+			<Field
+			  name="field"
+			  type="text"
+			  component={InputField}
+			  label="Blur时才校验:"
+			  validateOnChange={false}
+			  validations={{ required: true }}
+			  validationErrors={{ required: '值不能为空' }}
+			/>
+		</Form>
+	);
+};
+const WrappedForm = createForm()(FormattedForm);
+
+ReactDOM.render(
+	<WrappedForm />
+	, mountNode
+)
+```
+:::
+
 #### 格式化 value 值
 Form 组件提供了 format 和nomalize 来对 value 进行格式化，它们的执行时机可以参考下方使用指南中`value 的生命周期`。
 
@@ -274,7 +306,6 @@ const SubmitForm = (props) => {
 	      component={InputField}
 	      label="用户名："
 	      value="111"
-	      validateOnChange={false}
 	      validations={{ required: true }}
 	      validationErrors={{ required: '用户名不能为空' }}
 	    />
@@ -532,6 +563,9 @@ onSubmissionFail(submissionError) {
 | onFocus| focus 后的回调（会在 Field 中封装一层） | func(event) | 否 |
 | validations | 定义表单元素校验方法 | object | 否 |
 | validationErrors | 定义表单元素检验方法对应的出错信息 | object | 否 |
+| validateOnChange | 是否在触发change事件时执行表单校验 | boolean | 否 |
+| validateOnBlur | 是否在触发blur事件时执行表单校验 | boolean | 否 |
+| clearErrorOnFocus | 是否在触发focus事件时清空错误信息 | boolean | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
 | value | 表单元素初始值 | any | 是 |
 
