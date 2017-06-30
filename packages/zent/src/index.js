@@ -36,6 +36,7 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
+import ImagePreview from 'image-preview';
 
 export {
   Affix,
@@ -75,5 +76,6 @@ export {
   Tag,
   Tree,
   Switch,
-  Upload
+  Upload,
+  ImagePreview
 };

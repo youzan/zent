@@ -112,6 +112,11 @@ module.exports = {
               path: 'component/tag',
               title: 'Tag 标签',
               component: require('../../packages/zent/src/tag/README.md')
+            },
+            {
+              path: 'component/image-preview',
+              title: 'ImagePreview 图片预览',
+              component: require('../../packages/zent/src/image-preview/README.md')
             }
           ]
         },

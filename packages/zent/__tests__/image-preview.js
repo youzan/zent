@@ -1,0 +1,115 @@
+import React from 'react';
+import { mount } from 'enzyme';
+import ImagePreview from 'image-preview';
+import Image from 'image-preview/Image';
+import ImagePreviewFunc from 'image-preview/ImagePreview';
+
+describe('ImagePreview', () => {
+  it('should open a portal when called', () => {
+    const imgArr = [
+      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
+      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+    ];
+
+    ImagePreview({
+      images: imgArr,
+      showRotateBtn: true,
+      index: 0
+    });
+    expect(document.querySelectorAll('.zent-portal').length).toBe(1);
+    expect(document.querySelectorAll('.zent-image-p-anchor').length).toBe(1);
+  });
+
+  it('test Image component event', () => {
+    const imgArr = [
+      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
+      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+    ];
+
+    const wrapper = mount(
+      <Image images={imgArr} showRotateBtn index={0} onClose={() => {}} />
+    );
+
+    const props = wrapper.props();
+    expect(props.images.length).toBe(3);
+    expect(props.showRotateBtn).toBe(true);
+    expect(props.index).toBe(0);
+    expect(props.visible).toBe(true);
+
+    const ImageDom = wrapper.find('Image');
+
+    const event = {
+      target: 1,
+      currentTarget: 1
+    };
+
+    ImageDom.node.onMaskClick(event);
+    ImageDom.node.onClose();
+    ImageDom.node.handleNextAction();
+    ImageDom.node.handlePreviousAction();
+    ImageDom.node.handleRotate();
+  });
+
+  it('check Image branch', () => {
+    const imgArr = [
+      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
+      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+    ];
+
+    const wrapper = mount(
+      <Image
+        images={imgArr}
+        showRotateBtn={false}
+        index={0}
+        onClose={() => {}}
+      />
+    );
+
+    const ImageDom = wrapper.find('Image');
+
+    const event = {
+      target: 0,
+      currentTarget: 1
+    };
+
+    ImageDom.node.onMaskClick(event);
+
+    const imgArr1 = [
+      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg'
+    ];
+
+    const wrapper1 = mount(
+      <Image images={imgArr1} showRotateBtn index={0} onClose={() => {}} />
+    );
+    const ImageDom1 = wrapper1.find('Image');
+    expect(ImageDom1.node.props.showRotateBtn).toBe(true);
+
+    const wrapper2 = mount(
+      <Image
+        images={imgArr1}
+        showRotateBtn={false}
+        index={0}
+        onClose={() => {}}
+      />
+    );
+    const ImageDom2 = wrapper2.find('Image');
+    expect(ImageDom2.node.props.showRotateBtn).toBe(false);
+  });
+
+  it('check class ImagePreview', () => {
+    const imgArr = [
+      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
+      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+    ];
+
+    ImagePreviewFunc({
+      images: imgArr,
+      showRotateBtn: true,
+      index: 0
+    });
+  });
+});

@@ -66,6 +66,7 @@
     "^tag(.*)$": "<rootDir>/src/tag$1",
     "^tree(.*)$": "<rootDir>/src/tree$1",
     "^upload(.*)$": "<rootDir>/src/upload$1",
-    "^utils(.*)$": "<rootDir>/src/utils$1"
+    "^utils(.*)$": "<rootDir>/src/utils$1",
+    "^image-preview(.*)$": "<rootDir>/src/image-preview$1"
   }
 }
