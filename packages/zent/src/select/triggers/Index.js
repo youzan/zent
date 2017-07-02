@@ -1,40 +1,35 @@
-import PropTypes from 'prop-types';
-import React, { Component, PureComponent } from 'react';
+import React from 'react';
+import Popover from 'popover';
 
-class Trigger extends (PureComponent || Component) {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: props.open
-    };
-    this.triggerClickHandler = this.triggerClickHandler.bind(this);
-  }
+import Simple from './Simple';
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-  }
+const Base = Popover.Trigger.Click;
 
-  triggerClickHandler() {
-    let { open } = this.state;
-    this.props.onChange({
-      open: !open
-    });
+class Trigger extends Base {
+  getTriggerProps(child) {
+    const { contentVisible, disabled } = this.props;
+    return disabled
+      ? {}
+      : {
+          onClick: evt => {
+            contentVisible ? this.props.close() : this.props.open();
+            this.triggerEvent(child, 'onClick', evt);
+          },
+          onBlur: evt => {
+            this.props.close();
+            this.triggerEvent(child, 'onBlur', evt);
+          }
+        };
   }
 
   render() {
-    let Node = this.props.trigger;
+    const child = <Simple {...this.props} />;
 
-    return <Node {...this.props} onClick={this.triggerClickHandler} />;
+    return React.cloneElement(child, {
+      ref: this.props.onTriggerRefChange,
+      ...this.getTriggerProps(child)
+    });
   }
 }
-
-Trigger.propTypes = {
-  trigger: PropTypes.any,
-  open: PropTypes.bool
-};
-
-Trigger.defaultProps = {
-  open: false
-};
 
 export default Trigger;

@@ -10,14 +10,28 @@ import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
+import Popover from 'popover';
+import Button from 'button';
 
-import Trigger from './triggers/Index';
+import Trigger from './triggers';
+import PopContent from './PopContent';
 import Popup from './Popup';
 import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
 import { KEY_ESC } from './constants';
+
+const { withPopover } = Popover;
+
+const HoverContent = withPopover(function HoverContent({ popover }) {
+  return (
+    <div>
+      <div>popover content</div>
+      <button onClick={popover.close}>close</button>
+    </div>
+  );
+});
 
 class Select extends (PureComponent || Component) {
   constructor(props) {
@@ -35,13 +49,13 @@ class Select extends (PureComponent || Component) {
      */
 
     if (props.simple) {
-      this.trigger = SimpleTrigger;
+      this.triggerType = 'simple';
     } else if (props.search) {
-      this.trigger = InputTrigger;
+      this.triggerType = 'input';
     } else if (props.tags) {
-      this.trigger = TagsTrigger;
+      this.triggerType = 'tags';
     } else {
-      this.trigger = props.trigger;
+      this.triggerType = 'select';
     }
 
     this.state = assign(
@@ -229,13 +243,12 @@ class Select extends (PureComponent || Component) {
   }
 
   // 焦点丢失处理
-  blurHandler() {
-    let that = this;
+  blurHandler(e, event) {
     setTimeout(() => {
-      that.setState({
+      this.setState({
         open: this.focus
       });
-    }, 15);
+    }, 0);
   }
 
   keyupHandler(ev) {
@@ -280,34 +293,42 @@ class Select extends (PureComponent || Component) {
         onBlur={this.blurHandler}
         onKeyDown={this.keyupHandler}
       >
-        <Trigger
-          prefixCls={prefixCls}
-          trigger={this.trigger}
-          placeholder={placeholder}
-          selectedItems={selectedItems}
-          open={open}
-          keyword={keyword}
-          {...selectedItem}
-          onChange={this.triggerChangeHandler}
-          onDelete={this.triggerDeleteHandler}
-        />
-        {open
-          ? <Popup
-              cid={cid}
-              prefixCls={prefixCls}
-              data={this.sourceData}
-              selectedItems={selectedItems}
-              extraFilter={extraFilter}
-              searchPlaceholder={searchPlaceholder}
-              emptyText={emptyText}
-              keyword={keyword}
-              filter={filter}
-              onAsyncFilter={onAsyncFilter}
-              onChange={this.optionChangedHandler}
-              onFocus={this.popupFocusHandler}
-              onBlur={this.popupBlurHandler}
-            />
-          : ''}
+        <Popover
+          position={Popover.Position.BottomLeft}
+          display="inline"
+          cushion={1}
+        >
+          <Trigger
+            prefixCls={prefixCls}
+            trigger={this.trigger}
+            placeholder={placeholder}
+            selectedItems={selectedItems}
+            keyword={keyword}
+            {...selectedItem}
+            onChange={this.triggerChangeHandler}
+            onDelete={this.triggerDeleteHandler}
+            disabled={disabled}
+          />
+          <Popover.Content>
+            <div className="zent-select zent-select-popup-wrapper">
+              <PopContent
+                cid={cid}
+                prefixCls={prefixCls}
+                data={this.sourceData}
+                selectedItems={selectedItems}
+                extraFilter={extraFilter}
+                searchPlaceholder={searchPlaceholder}
+                emptyText={emptyText}
+                keyword={keyword}
+                filter={filter}
+                onAsyncFilter={onAsyncFilter}
+                onChange={this.optionChangedHandler}
+                onFocus={this.popupFocusHandler}
+                onBlur={this.popupBlurHandler}
+              />
+            </div>
+          </Popover.Content>
+        </Popover>
       </div>
     );
   }
