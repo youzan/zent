@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
 import clone from 'lodash/clone';
+import find from 'lodash/find';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -325,7 +326,7 @@ export default class Tree extends (PureComponent || Component) {
       this.updateCheckedTreeRecursive(tree, '', (root, parentId) => {
         const isSetDefault =
           defaultCheckedKeys &&
-          defaultCheckedKeys.find(x => x === root.id) >= 0;
+          find(defaultCheckedKeys, x => x === root.id) >= 0;
         newCheckedTree[root.id] = {
           p: parentId.toString(),
           t: isSetDefault ? 2 : 0
@@ -368,7 +369,8 @@ export default class Tree extends (PureComponent || Component) {
   renderCheckbox(root) {
     const { checkable, disabledCheckedKeys } = this.props;
     const isDisabled =
-      (disabledCheckedKeys || []).find(key => key === root.id) >= 0;
+      disabledCheckedKeys &&
+      find(disabledCheckedKeys, key => key === root.id) >= 0;
 
     if (checkable) {
       return (

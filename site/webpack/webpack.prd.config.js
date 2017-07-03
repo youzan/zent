@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
@@ -11,14 +12,7 @@ const prefix = 'https://b.yzcdn.cn/zanui/react/';
 module.exports = Object.assign({}, base, {
   entry: {
     docs: './src/index.js',
-    vendor: [
-      'react',
-      'react-dom',
-      'prop-types',
-      'zent',
-      'classnames',
-      'react-router-dom'
-    ]
+    vendor: vendorEntry
   },
 
   output: Object.assign({}, base.output, {
