@@ -3,6 +3,7 @@ import Portal from 'portal';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
 
+// 有关闭按钮的时候同时具有ESC关闭的行为
 const { withNonScrollable, withESCToClose } = Portal;
 const ImagePortal = withNonScrollable(Portal);
 const ImagePortalESCToClose = withESCToClose(ImagePortal);
@@ -81,11 +82,9 @@ export default class Image extends Component {
 
   render() {
     const { images, visible, prefix, showRotateBtn } = this.props;
-    // 有关闭按钮的时候同时具有ESC关闭的行为
-    const PortalComponent = ImagePortalESCToClose;
 
     return (
-      <PortalComponent
+      <ImagePortalESCToClose
         visible={visible}
         onClose={this.onClose}
         className={`${prefix}-image-p-anchor`}
@@ -148,7 +147,7 @@ export default class Image extends Component {
                 </div>}
           </div>
         </div>
-      </PortalComponent>
+      </ImagePortalESCToClose>
     );
   }
 }
