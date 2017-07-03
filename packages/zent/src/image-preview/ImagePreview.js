@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Image from './Image';
 
-export default function imagePreview(options = {}) {
+export default function ImagePreview(options = {}) {
   let container = document.createElement('div');
 
   const closePreviewMask = () => {

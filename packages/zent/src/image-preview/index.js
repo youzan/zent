@@ -1,3 +1,3 @@
-import ImagePreview from './imagePreview';
+import ImagePreview from './ImagePreview';
 
 export default ImagePreview;
