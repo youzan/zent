@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import ImagePreview from 'image-preview';
 import Image from 'image-preview/Image';
 import ImagePreviewFunc from 'image-preview/ImagePreview';
@@ -19,6 +19,14 @@ describe('ImagePreview', () => {
     });
     expect(document.querySelectorAll('.zent-portal').length).toBe(1);
     expect(document.querySelectorAll('.zent-image-p-anchor').length).toBe(1);
+
+    const wrapper = new ReactWrapper(
+      document.querySelector('.zent-image-p-close'),
+      true
+    );
+    wrapper.simulate('click');
+    jest.runAllTimers();
+    expect(document.querySelectorAll('.zent-portal').length).toBe(0);
   });
 
   it('test Image component event', () => {

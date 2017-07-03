@@ -16,6 +16,7 @@ import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
+import ImagePreview from 'image-preview';
 import NumberInput from 'number-input';
 import Menu from 'menu';
 import Notify from 'notify';
@@ -36,7 +37,6 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
-import ImagePreview from 'image-preview';
 
 export {
   Affix,
@@ -56,6 +56,7 @@ export {
   Loading,
   Icon,
   Input,
+  ImagePreview,
   NumberInput,
   Menu,
   MonthPicker,
@@ -76,6 +77,5 @@ export {
   Tag,
   Tree,
   Switch,
-  Upload,
-  ImagePreview
+  Upload
 };
