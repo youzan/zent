@@ -23,6 +23,7 @@ import Pagination from 'pagination';
 import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
+import previewImage from 'preview-image';
 import Radio from 'radio';
 import SearchInput from 'search-input';
 import Select from 'select';
@@ -63,6 +64,7 @@ export {
   Pop,
   Popover,
   Portal,
+  previewImage,
   Radio,
   SearchInput,
   Select,
