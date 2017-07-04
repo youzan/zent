@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "core-js": "^2.4.1",
     "prismjs": "^1.6.0",
     "react": "15.5.x",
     "react-dom": "15.5.x",

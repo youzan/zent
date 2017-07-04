@@ -227,7 +227,8 @@ const createForm = (config = {}) => {
       };
 
       isFieldTouched = name => {
-        const field = this.fields.find(
+        const field = find(
+          this.fields,
           component => component.props.name === name
         );
 
@@ -236,7 +237,8 @@ const createForm = (config = {}) => {
       };
 
       isFieldValidating = name => {
-        const field = this.fields.find(
+        const field = find(
+          this.fields,
           component => component.props.name === name
         );
 
@@ -245,7 +247,8 @@ const createForm = (config = {}) => {
       };
 
       getFieldError = name => {
-        const field = this.fields.find(
+        const field = find(
+          this.fields,
           component => component.props.name === name
         );
 
