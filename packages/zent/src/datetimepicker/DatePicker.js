@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
+import assign from 'lodash/assign';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
@@ -253,7 +254,7 @@ class DatePicker extends (PureComponent || Component) {
     let datePicker;
 
     if (props.showTime) {
-      showTime = Object.assign(
+      showTime = assign(
         {},
         {
           actived: state.activedTime,

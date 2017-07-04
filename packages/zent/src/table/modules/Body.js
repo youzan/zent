@@ -1,4 +1,6 @@
 import React, { Component, PureComponent } from 'react';
+import assign from 'lodash/assign';
+
 import Td from './Td';
 
 // 需要传入一个组件模板
@@ -24,7 +26,7 @@ export default class Body extends (PureComponent || Component) {
 
   handleExpand(rowIndex) {
     return () => {
-      let expandItems = Object.assign({}, this.state.expandItems);
+      let expandItems = assign({}, this.state.expandItems);
 
       expandItems[rowIndex] = !(expandItems[rowIndex] || 0);
 

@@ -1,4 +1,6 @@
 const webpack = require('webpack');
+
+const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');
 const { getBabelLoader, postcssLoader, getRules } = require('./loader.config');
 
@@ -12,13 +14,7 @@ module.exports = Object.assign({}, base, {
       'webpack/hot/only-dev-server',
       './src/index.js'
     ],
-    vendor: [
-      'react',
-      'react-dom',
-      'prop-types',
-      'classnames',
-      'react-router-dom'
-    ]
+    vendor: vendorEntry
   },
 
   output: Object.assign({}, base.output, {

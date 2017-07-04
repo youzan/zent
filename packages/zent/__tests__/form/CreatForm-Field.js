@@ -586,7 +586,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
     input.simulate('focus');
     input.simulate('blur');
-    expect(wrapper.find('InputWrap').prop('validationError')).toBe('');
+    expect(wrapper.find('InputWrap').prop('error')).toBeNull();
     expect(wrapper.getNode().isValidating()).toBe(true);
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(true);
     jest.runAllTimers();
@@ -595,5 +595,32 @@ describe('CreateForm and Field', () => {
     // expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
     // expect(wrapper.find('InputWrap').prop('validationError')).toBe('用户名已被占用');
     // });
+  });
+
+  it('Field can have onChange/onBlur/onFocus callback', () => {
+    const contextCopy = Object.assign({}, context, {});
+    const onChangeMock = jest.fn();
+    const onFocusMock = jest.fn();
+    const onBlurMock = jest.fn();
+    const wrapper = mount(
+      <Field
+        name="foo"
+        value="1"
+        onChange={onChangeMock}
+        onFocus={onFocusMock}
+        onBlur={onBlurMock}
+        component={InputField}
+      />,
+      {
+        context: contextCopy
+      }
+    );
+    let input = wrapper.find('input');
+    input.simulate('focus');
+    input.simulate('change', { target: { value: '' } });
+    input.simulate('blur');
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onFocusMock.mock.calls.length).toBe(1);
+    expect(onBlurMock.mock.calls.length).toBe(1);
   });
 });
