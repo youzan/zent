@@ -1,4 +1,4 @@
-## @youzan/image-preview
+## @youzan/preview-image
 
 这是一个图片预览组件。
 
@@ -11,7 +11,7 @@
 
 :::demo 基础用法
 ```js
-import { ImagePreview } from 'zent';
+import { previewImage } from 'zent';
 
 const imgArr = [
 	'http://img.yzcdn.cn/public_files/2017/6/30/b0717bad7ad3ebd025e175d624ade39f.png',
@@ -22,7 +22,7 @@ const imgArr = [
 
 class Simple extends React.Component {
 	handlePreview = (e) => {
-		ImagePreview({
+		previewImage({
 			images: imgArr,
 			index: imgArr.indexOf(e.target.src)
 		});

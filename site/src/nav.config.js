@@ -114,9 +114,9 @@ module.exports = {
               component: require('../../packages/zent/src/tag/README.md')
             },
             {
-              path: 'component/image-preview',
-              title: 'ImagePreview 图片预览',
-              component: require('../../packages/zent/src/image-preview/README.md')
+              path: 'component/preview-image',
+              title: 'previewImage 图片预览',
+              component: require('../../packages/zent/src/preview-image/README.md')
             }
           ]
         },
