@@ -16,7 +16,6 @@ import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
-import previewImage from 'preview-image';
 import NumberInput from 'number-input';
 import Menu from 'menu';
 import Notify from 'notify';
@@ -24,6 +23,7 @@ import Pagination from 'pagination';
 import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
+import previewImage from 'preview-image';
 import Radio from 'radio';
 import SearchInput from 'search-input';
 import Select from 'select';
@@ -56,7 +56,6 @@ export {
   Loading,
   Icon,
   Input,
-  previewImage,
   NumberInput,
   Menu,
   MonthPicker,
@@ -65,6 +64,7 @@ export {
   Pop,
   Popover,
   Portal,
+  previewImage,
   Radio,
   SearchInput,
   Select,
