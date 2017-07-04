@@ -16,7 +16,7 @@ import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
-import ImagePreview from 'image-preview';
+import previewImage from 'preview-image';
 import NumberInput from 'number-input';
 import Menu from 'menu';
 import Notify from 'notify';
@@ -56,7 +56,7 @@ export {
   Loading,
   Icon,
   Input,
-  ImagePreview,
+  previewImage,
   NumberInput,
   Menu,
   MonthPicker,

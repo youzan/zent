@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Portal from 'portal';
 import Icon from 'icon';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 
 // 有关闭按钮的时候同时具有ESC关闭的行为
@@ -16,16 +17,16 @@ export default class Image extends Component {
   };
 
   static propTypes = {
+    className: PropTypes.string,
     prefix: PropTypes.string,
-    visible: PropTypes.bool,
     showRotateBtn: PropTypes.bool,
     images: PropTypes.array,
     index: PropTypes.number
   };
 
   static defaultProps = {
+    className: '',
     prefix: 'zent',
-    visible: true,
     showRotateBtn: true,
     images: [],
     index: 0
@@ -81,13 +82,13 @@ export default class Image extends Component {
   };
 
   render() {
-    const { images, visible, prefix, showRotateBtn } = this.props;
+    const { images, prefix, showRotateBtn, className } = this.props;
 
     return (
       <ImagePortalESCToClose
-        visible={visible}
+        visible
         onClose={this.onClose}
-        className={`${prefix}-image-p-anchor`}
+        className={cx(`${prefix}-image-p-anchor`, className)}
       >
         <div className={`${prefix}-image-p-backdrop`}>
           <div className={`${prefix}-image-p-wrap`} onClick={this.onMaskClick}>

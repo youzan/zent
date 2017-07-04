@@ -43,7 +43,7 @@
     "^dialog(.*)$": "<rootDir>/src/dialog$1",
     "^form(.*)$": "<rootDir>/src/form$1",
     "^icon(.*)$": "<rootDir>/src/icon$1",
-    "^image-preview(.*)$": "<rootDir>/src/image-preview$1",
+    "^preview-image(.*)$": "<rootDir>/src/preview-image$1",
     "^input(.*)$": "<rootDir>/src/input$1",
     "^layout(.*)$": "<rootDir>/src/layout$1",
     "^loading(.*)$": "<rootDir>/src/loading$1",

@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import ImagePreview from 'image-preview';
-import Image from 'image-preview/Image';
-import ImagePreviewFunc from 'image-preview/ImagePreview';
+import previewImage from 'preview-image';
+import Image from 'preview-image/Image';
+import previewImageFunc from 'preview-image/previewImage';
 
-describe('ImagePreview', () => {
+describe('previewImage render', () => {
   it('should open a portal when called', () => {
     const imgArr = [
       'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
@@ -12,7 +12,7 @@ describe('ImagePreview', () => {
       'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
     ];
 
-    ImagePreview({
+    previewImage({
       images: imgArr,
       showRotateBtn: true,
       index: 0
@@ -114,7 +114,7 @@ describe('ImagePreview', () => {
       'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
     ];
 
-    ImagePreviewFunc({
+    previewImageFunc({
       images: imgArr,
       showRotateBtn: true,
       index: 0

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Image from './Image';
 
-export default function ImagePreview(options = {}) {
+export default function previewImage(options = {}) {
   let container = document.createElement('div');
 
   const closePreviewMask = () => {
@@ -16,7 +16,6 @@ export default function ImagePreview(options = {}) {
 
   const props = {
     ...options,
-    visible: true,
     onClose: closePreviewMask
   };
 
