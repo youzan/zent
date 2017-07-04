@@ -44,7 +44,6 @@ describe('previewImage render', () => {
     expect(props.images.length).toBe(3);
     expect(props.showRotateBtn).toBe(true);
     expect(props.index).toBe(0);
-    expect(props.visible).toBe(true);
 
     const ImageDom = wrapper.find('Image');
 
