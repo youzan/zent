@@ -104,10 +104,13 @@ $orange: #f60;
 
     &__batchcomponents {
       float: left;
-      border: 1px solid #eee;
       padding: 5px;
       padding-left: 10px;
-      background: #fff;
+
+      &--has-children {
+        border: 1px solid #eee;
+        background: #fff;
+      }
 
       &--fixed {
         position: fixed;
