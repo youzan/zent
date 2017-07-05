@@ -1,5 +1,31 @@
 ## 更新日志
 
+## [zent@3.4.0](https://github.com/youzan/zent/tree/zent@3.4.0) (2017-07-05)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.3...zent@3.4.0)
+
+**不兼容改动和新功能:**
+
+- cascader: support async data loading [\#318](https://github.com/youzan/zent/issues/318)
+- table: 支持底部悬浮操作区域 [\#295](https://github.com/youzan/zent/issues/295)
+- New component: image preview [\#357](https://github.com/youzan/zent/pull/357) ([ronghang](https://github.com/ronghang))
+- form: add options to trigger validation on focus/blur/change [\#356](https://github.com/youzan/zent/pull/356) ([w91](https://github.com/w91))
+
+**Bug 修复:**
+
+- table: pageInfo 和 Pagination 的字段名不一致 [\#321](https://github.com/youzan/zent/issues/321)
+- Fix es6 methods [\#360](https://github.com/youzan/zent/pull/360) ([cpylua](https://github.com/cpylua))
+
+**处理的 Issue:**
+
+- doc: table 的 onchange 回调里面有哪些字段 [\#332](https://github.com/youzan/zent/issues/332)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- fix: 点击button 关闭pop [\#354](https://github.com/youzan/zent/pull/354) ([ronghang](https://github.com/ronghang))
+- remove un use pack [\#349](https://github.com/youzan/zent/pull/349) ([linxixuan](https://github.com/linxixuan))
+- 支持批量处理的组件自动悬浮 [\#347](https://github.com/youzan/zent/pull/347) ([linxixuan](https://github.com/linxixuan))
+- cascader support async load data and add test [\#338](https://github.com/youzan/zent/pull/338) ([liaoyu](https://github.com/liaoyu))
+
 ## [zent@3.3.3](https://github.com/youzan/zent/tree/zent@3.3.3) (2017-06-26)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.2...zent@3.3.3)
 
