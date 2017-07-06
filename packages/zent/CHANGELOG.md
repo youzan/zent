@@ -1,5 +1,13 @@
 ## 更新日志
 
+## [zent@3.4.1](https://github.com/youzan/zent/tree/zent@3.4.1) (2017-07-06)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.0...zent@3.4.1)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- Update alert style [\#366](https://github.com/youzan/zent/pull/366) ([w91](https://github.com/w91))
+- table: only show boder when children rendered [\#364](https://github.com/youzan/zent/pull/364) ([linxixuan](https://github.com/linxixuan))
+
 ## [zent@3.4.0](https://github.com/youzan/zent/tree/zent@3.4.0) (2017-07-05)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.3...zent@3.4.0)
 
