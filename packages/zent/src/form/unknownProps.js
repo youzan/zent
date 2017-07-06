@@ -10,6 +10,9 @@ export default [
   'validationError',
   'validationErrors',
   'validations',
+  'validateOnChange',
+  'validateOnBlur',
+  'clearErrorOnFocus',
   'asyncValidation',
   'normalize',
   'format'

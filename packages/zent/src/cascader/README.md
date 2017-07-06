@@ -12,67 +12,76 @@ class Simple extends React.Component {
 
 	state = {
 		value: [],
-		options: [
-			{
-				id: '330000',
-				name: '浙江省',
-				children: [
-					{
-						id: '330100',
-						name: '杭州市',
-						children: [
-							{
-								id: '330106',
-								name: '西湖区'
-							}
-						]
-					},
-					{
-						id: '330200',
-						name: '温州市',
-						children: [
-							{
-								id: '330206',
-								name: '龙湾区'
-							}
-						]
-					}
-				]
-			},
-			{
-				id: '120000',
-				name: '新疆维吾尔自治区',
-				children: [
-					{
-						id: '120100',
-						name: '博尔塔拉蒙古自治州',
-						children: [
-							{
-								id: '120111',
-								name: '阿拉山口市'
-							}
-						]
-					}
-				]
-			}
-		]
+		options: []
 	}
 
 	componentWillMount() {
 		setTimeout(() => {
 			this.setState({
-				value: ['330000', '330100', '330106']
-			});	
-		}, 5000);
+				value: ['330000', '330100', '330106'],
+				options: [
+					{
+						id: '330000',
+						title: '浙江省',
+						children: [
+							{
+								id: '330100',
+								title: '杭州市',
+								children: [
+									{
+										id: '330106',
+										title: '西湖区'
+									}
+								]
+							},
+							{
+								id: '330200',
+								title: '温州市',
+								children: [
+									{
+										id: '330206',
+										title: '龙湾区'
+									}
+								]
+							}
+						]
+					},
+					{
+						id: '120000',
+						title: '新疆维吾尔自治区',
+						children: [
+							{
+								id: '120100',
+								title: '博尔塔拉蒙古自治州',
+								children: [
+									{
+										id: '120111',
+										title: '阿拉山口市'
+									}
+								]
+							}
+						]
+					}
+				]
+			});
+		}, 1000);
 	}
 
 	onChange = (data) => {
-		console.log(data)
+		console.log(data);
+
+		this.setState({
+			value: data.map(item => item.id)
+		});
 	}
 
 	render() {
 		return (
-			<Cascader value={this.state.value} onChange={this.onChange} options={this.state.options} />
+			<Cascader
+				value={this.state.value}
+				options={this.state.options}
+				onChange={this.onChange}
+			/>
 		);
 	}
 }
@@ -85,6 +94,7 @@ ReactDOM.render(
 ```
 :::
 
+
 :::demo 选中即时改变
 ```jsx
 import { Cascader } from 'zent';
@@ -96,15 +106,15 @@ class Simple extends React.Component {
 		options: [
 			{
 				id: '330000',
-				name: '浙江省',
+				title: '浙江省',
 				children: [
 					{
 						id: '330100',
-						name: '杭州市',
+						title: '杭州市',
 						children: [
 							{
 								id: '330106',
-								name: '西湖区'
+								title: '西湖区'
 							}
 						]
 					}
@@ -112,15 +122,15 @@ class Simple extends React.Component {
 			},
 			{
 				id: '120000',
-				name: '新疆维吾尔自治区',
+				title: '新疆维吾尔自治区',
 				children: [
 					{
 						id: '120100',
-						name: '博尔塔拉蒙古自治州',
+						title: '博尔塔拉蒙古自治州',
 						children: [
 							{
 								id: '120111',
-								name: '阿拉山口市'
+								title: '阿拉山口市'
 							}
 						]
 					}
@@ -129,13 +139,83 @@ class Simple extends React.Component {
 		]
 	}
 
+	componentWillMount() {
+		setTimeout(() => {
+			this.setState({
+				value: []
+			});	
+		}, 2000);
+	}
+
 	onChange = (data) => {
 		console.log(data);
 	}
 
 	render() {
 		return (
-			<Cascader value={this.state.value} changeOnSelect={true} options={this.state.options} onChange={this.onChange} />
+			<Cascader
+				value={this.state.value}
+				changeOnSelect={true}
+				options={this.state.options}
+				onChange={this.onChange}
+			/>
+		);
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
+
+:::demo loadMore 动态加载数据
+```jsx
+import { Cascader } from 'zent';
+
+class Simple extends React.Component {
+
+	state = {
+		value: [],
+		options: [
+			{
+				id: '330000',
+				title: '浙江省'
+			},
+			{
+				id: '120000',
+				title: '新疆维吾尔自治区'
+			}
+		]
+	}
+
+	loadMore = (root, stage) => new Promise((resolve, reject) => {
+		setTimeout(() => {
+			let isLeaf = stage >= 2;
+			let children = [{
+				id: `66666${stage}`,
+				title: `Label${stage}`,
+				isLeaf
+			}];
+			resolve(children);
+		}, 500);
+	})
+
+	onChange = (data) => {
+		console.log(data);
+	}
+
+	render() {
+		return (
+			<Cascader
+				value={this.state.value}
+				options={this.state.options}
+				onChange={this.onChange}
+				loadMore={this.loadMore}
+			/>
 		);
 	}
 }
@@ -154,13 +234,18 @@ ReactDOM.render(
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
-| options | 可选项数据源 | array | [] | '' |
 | value | 级联的选中值 | array | [] | '' |
-| onChange | 数据变化时的回调 | func | noop | '' |
+| options | 可选项数据源 | array | [] | '' |
 | title | tab子项的标题 | array | ['省份', '城市', '县区'] | '' |
-| placeholder | 输入框占位文本 | string | '请选择' | '' |
+| onChange | 数据变化时的回调 | func | noop | '' |
+| loadMore | 动态加载级联的数据，返回值需为 Promise | func | - | '' |
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
-| className | 自定义额外类名 | string | '' | '' |
-| popClassName | popover自定义类名 | string | '' | '' |
+| placeholder | 输入框占位文本 | string | '请选择' | '' |
 | prefix | 自定义前缀 | string | 'zent' | '' |
+| className | 自定义额外类名 | string | '' | '' |
+| popClassName | popover自定义类名 | string | ''zent-cascader__popup'' | '' |
+
+-   级联数据可以通过初始时传入全量 `options	` ，也可以通过 `loadMore` 动态加载
+-   通过 `loadMore` 加载数据时，参数 `root` 表示当前点击元素的数据对象，`stage` 表示当前是第几层级
+-   参数 `isLeaf` 是配合 `loadMore` 使用的，表示点击该节点时是否不再继续发请求
 

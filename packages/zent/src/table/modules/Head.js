@@ -45,7 +45,8 @@ export default class Head extends (PureComponent || Component) {
       height: tmpRect.height - 1,
       width: tmpRect.width
     };
-    this.relativeTop = rect.top - document.body.getBoundingClientRect().top;
+    this.relativeTop =
+      rect.top - document.documentElement.getBoundingClientRect().top;
   }
 
   setHeadStyle = () => {
@@ -87,10 +88,9 @@ export default class Head extends (PureComponent || Component) {
     let sortType;
     let name = item.name;
 
+    sortType = 'desc'; // desc sort by default
     if (name === this.props.sortBy) {
       sortType = this.props.sortType === 'desc' ? 'asc' : 'desc'; // toggble current sortType
-    } else {
-      sortType = 'desc'; // desc sort by default
     }
 
     this.props.onSort({

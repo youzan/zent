@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import forEach from 'lodash/forEach';
-import find from 'lodash/find';
-import noop from 'lodash/noop';
 import Popover from 'popover';
 import Tabs from 'tabs';
 import Icon from 'icon';
+import forEach from 'lodash/forEach';
+import find from 'lodash/find';
+import noop from 'lodash/noop';
 
 const PopoverContent = Popover.Content;
 const withPopover = Popover.withPopover;
@@ -27,12 +27,13 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
   }
 }
 
-class Cascader extends Component {
+class Cascader extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 
     this.state = {
       value: props.value,
+      options: props.options,
       onChangeValue: [],
       activeId: 1,
       open: false
@@ -40,21 +41,35 @@ class Cascader extends Component {
   }
 
   componentWillMount() {
-    this.resetCascaderValue(this.state.value, false);
+    this.resetCascaderValue(null, null, false);
   }
 
   componentWillReceiveProps(nextProps) {
+    let { loadMore } = this.props;
+
     if (nextProps.hasOwnProperty('value')) {
       let nextValue = nextProps.value || [];
-      this.setState({ value: nextValue });
-      this.resetCascaderValue(nextValue, false);
+      if (!loadMore) {
+        this.setState({
+          value: nextValue
+        });
+      }
+      this.resetCascaderValue(nextValue, nextProps.options, false);
+    }
+    if (this.props.options !== nextProps.options) {
+      this.setState({
+        options: nextProps.options
+      });
     }
   }
 
-  resetCascaderValue(value, isTriggerChange = true) {
+  resetCascaderValue(value, options, isTriggerChange = true) {
     let onChangeValue = [];
     let activeId = 1;
-    let { options, onChange } = this.props;
+    let { onChange } = this.props;
+    let state = this.state;
+    value = value || state.value;
+    options = options || state.options;
 
     if (options && options.length > 0 && value && value.length > 0) {
       activeId = 0;
@@ -64,7 +79,7 @@ class Cascader extends Component {
         options = nextOption.children;
         onChangeValue.push({
           id: nextOption.id,
-          name: nextOption.name
+          title: nextOption.title
         });
       });
     }
@@ -79,17 +94,17 @@ class Cascader extends Component {
     });
   }
 
-  onShow() {
+  onShow = () => {
     this.setState({
       open: true
     });
-  }
+  };
 
-  onClose() {
+  onClose = () => {
     this.setState({
       open: false
     });
-  }
+  };
 
   onTabChange = id => {
     this.setState({
@@ -97,39 +112,35 @@ class Cascader extends Component {
     });
   };
 
-  renderCascaderItems(items, stage, popover) {
-    let { prefix } = this.props;
-
-    let { value } = this.state;
-
-    let cascaderItems = items.map(item => {
-      let cascaderItemCls = classnames({
-        [`${prefix}-cascader-list__item-link`]: true,
-        active: item.id === value[stage - 1]
-      });
-
-      return (
-        <span className={`${prefix}-cascader-list__item`} key={item.id}>
-          <span
-            className={cascaderItemCls}
-            onClick={() => this.clickHandler(item, stage, popover)}
-          >
-            {item.name}
-          </span>
-        </span>
-      );
-    });
-
-    return (
-      <div className={`${prefix}-cascader-list`}>
-        {cascaderItems}
-      </div>
-    );
-  }
-
   clickHandler = (item, stage, popover) => {
+    let { loadMore } = this.props;
+    let { options } = this.state;
+    if (
+      !item.isLeaf &&
+      loadMore &&
+      (!item.children || item.children.length === 0)
+    ) {
+      this.setState({
+        isLoading: true,
+        loadingStage: stage
+      });
+      loadMore(item, stage).then(children => {
+        item.children = children;
+        this.expandHandler(item, stage, popover);
+        this.setState({
+          options,
+          isLoading: false
+        });
+      });
+    } else {
+      this.expandHandler(item, stage, popover);
+    }
+  };
+
+  expandHandler = (item, stage, popover) => {
     let { value } = this.state;
     let { changeOnSelect } = this.props;
+    let hasClose = false;
 
     value = value.slice(0, stage - 1);
     value.push(item.id);
@@ -137,18 +148,16 @@ class Cascader extends Component {
     let obj = {
       value
     };
-    let hasClose = false;
 
     if (item.children) {
       obj.activeId = ++stage;
     } else {
       hasClose = true;
       popover.close();
-      this.resetCascaderValue(value);
     }
 
-    if (changeOnSelect && !hasClose) {
-      this.resetCascaderValue(value, true);
+    if (hasClose || changeOnSelect) {
+      this.resetCascaderValue(value);
     }
 
     this.setState(obj);
@@ -166,9 +175,9 @@ class Cascader extends Component {
   renderPanels(popover) {
     let PanelEls = [];
     let tabIndex = 1;
-    let { options, title } = this.props;
+    let { title } = this.props;
 
-    let { value } = this.state;
+    let { options, value } = this.state;
     let tabTitle = '标题';
 
     title = title || [];
@@ -177,7 +186,11 @@ class Cascader extends Component {
     }
 
     PanelEls.push(
-      <TabPanel tab={tabTitle} id={tabIndex} key={tabIndex}>
+      <TabPanel
+        tab={this.renderTabTitle(tabTitle, tabIndex)}
+        id={tabIndex}
+        key={tabIndex}
+      >
         {this.renderCascaderItems(options, tabIndex, popover)}
       </TabPanel>
     );
@@ -193,7 +206,11 @@ class Cascader extends Component {
         }
         if (options) {
           PanelEls.push(
-            <TabPanel tab={tabTitle} id={tabIndex} key={tabIndex}>
+            <TabPanel
+              tab={this.renderTabTitle(tabTitle, tabIndex)}
+              id={tabIndex}
+              key={tabIndex}
+            >
               {this.renderCascaderItems(options, tabIndex, popover)}
             </TabPanel>
           );
@@ -204,63 +221,109 @@ class Cascader extends Component {
     return PanelEls;
   }
 
-  render() {
-    let self = this;
+  renderCascaderItems(items, stage, popover) {
+    let { prefix } = this.props;
+    let { value } = this.state;
 
-    let { prefix, className, popClassName, placeholder } = this.props;
+    let cascaderItems = items.map(item => {
+      let cascaderItemCls = classnames({
+        [`${prefix}-cascader__list-link`]: true,
+        active: item.id === value[stage - 1]
+      });
 
-    let { onChangeValue, open, activeId } = this.state;
-
-    let cascaderCls = classnames({
-      [`${prefix}-cascader-select`]: true,
-      open
+      return (
+        <div className={`${prefix}-cascader__list-item`} key={item.id}>
+          <span
+            className={cascaderItemCls}
+            title={item.title}
+            onClick={() => this.clickHandler(item, stage, popover)}
+          >
+            {item.title}
+          </span>
+        </div>
+      );
     });
+
+    return (
+      <div className={`${prefix}-cascader__list`}>
+        {cascaderItems}
+      </div>
+    );
+  }
+
+  renderTabTitle(title, stage) {
+    let { prefix } = this.props;
+    let { isLoading, loadingStage } = this.state;
+
+    if (isLoading && stage === loadingStage) {
+      return (
+        <div className={`${prefix}-cascader__loading`}>
+          <div className={`${prefix}-cascader__loading-label`}>{title}</div>
+          <div className={`${prefix}-cascader__loading-icon`} />
+        </div>
+      );
+    }
+
+    return title;
+  }
+
+  render() {
+    let { prefix, className, popClassName, placeholder } = this.props;
+    let { onChangeValue, open, activeId } = this.state;
 
     const CascaderPopoverContent = withPopover(({ popover }) => {
       return (
-        <div className={`${prefix}-cascader-select__popup`}>
+        <div className={`${prefix}-cascader__popup-inner`}>
           <Tabs
             activeId={activeId}
-            onTabChange={self.onTabChange}
-            className={`${prefix}-cascader-tabs`}
+            onTabChange={this.onTabChange}
+            className={`${prefix}-cascader__tabs`}
           >
-            {self.renderPanels(popover)}
+            {this.renderPanels(popover)}
           </Tabs>
         </div>
       );
     });
 
-    let cascaderWrapCls = classnames({
-      [`${prefix}-cascader-select-wrap`]: true,
-      [className]: true
-    });
-
     let cascaderValue = placeholder;
+    let hasValue = false;
     if (onChangeValue && onChangeValue.length > 0) {
+      hasValue = true;
       cascaderValue = onChangeValue.map(valueItem => {
-        return valueItem.name;
+        return valueItem.title;
       });
       cascaderValue = cascaderValue.join(' / ');
     }
 
+    let cascaderCls = classnames({
+      [`${prefix}-cascader`]: true,
+      [className]: true,
+      open
+    });
+
+    let selectTextCls = classnames({
+      [`${prefix}-cascader__select-text`]: true,
+      'is-placeholder': !hasValue
+    });
+
     return (
-      <div className={cascaderWrapCls}>
+      <div className={cascaderCls}>
         <Popover
           className={popClassName}
           position={Popover.Position.BottomLeft}
-          onShow={this.onShow.bind(this)}
-          onClose={this.onClose.bind(this)}
+          onShow={this.onShow}
+          onClose={this.onClose}
         >
           <PopoverClickTrigger>
-            <div className={cascaderCls}>
-              <div className={`${prefix}-cascader-select__text`}>
-                {cascaderValue}
+            <div className={`${prefix}-cascader__select`}>
+              <div className={selectTextCls}>
+                <span>{cascaderValue}</span>
                 <Icon type="caret-down" />
               </div>
             </div>
           </PopoverClickTrigger>
           <PopoverContent>
-            <CascaderPopoverContent />
+            <CascaderPopoverContent ref={ref => (this.cascader = ref)} />
           </PopoverContent>
         </Popover>
       </div>
@@ -273,6 +336,7 @@ Cascader.propTypes = {
   className: PropTypes.string,
   popClassName: PropTypes.string,
   onChange: PropTypes.func,
+  loadMore: PropTypes.func,
   value: PropTypes.array,
   options: PropTypes.array,
   placeholder: PropTypes.string,
@@ -283,7 +347,7 @@ Cascader.propTypes = {
 Cascader.defaultProps = {
   prefix: 'zent',
   className: '',
-  popClassName: 'zent-cascader-popup',
+  popClassName: 'zent-cascader__popup',
   onChange: noop,
   value: [],
   options: [],
