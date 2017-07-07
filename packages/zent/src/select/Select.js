@@ -315,6 +315,7 @@ class Select extends (PureComponent || Component) {
                 cid={cid}
                 prefixCls={prefixCls}
                 data={this.sourceData}
+                selectedItem={selectedItem}
                 selectedItems={selectedItems}
                 extraFilter={extraFilter}
                 searchPlaceholder={searchPlaceholder}

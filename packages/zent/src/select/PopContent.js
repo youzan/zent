@@ -12,13 +12,11 @@ const { withPopover } = Popover;
 class PopContent extends (PureComponent || Component) {
   constructor(props) {
     super(props);
-
     this.state = {
       data: props.data,
-      currentId: 0,
+      currentId: props.cid || '0',
       keyword: props.keyword || ''
     };
-    this.currentId = 0;
     this.sourceData = props.data;
     this.searchFilterHandler = this.searchFilterHandler.bind(this);
     this.optionChangedHandler = this.optionChangedHandler.bind(this);
@@ -47,11 +45,12 @@ class PopContent extends (PureComponent || Component) {
     this.setState({
       keyword: ''
     });
-    this.props.onBlur();
+    // this.props.onBlur();
     this.props.onChange(
       ev,
       this.props.data.filter(item => item.cid === cid)[0]
     );
+    this.props.popover.close();
   }
 
   searchFilterHandler(keyword) {
@@ -88,20 +87,22 @@ class PopContent extends (PureComponent || Component) {
         ev.preventDefault();
         if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
-          this.currentIdUpdated = true;
+        } else {
+          currentId = this.itemIds[0];
         }
         break;
       case KEY_UP:
         ev.preventDefault();
         if (index > 0) {
           currentId = this.itemIds[index - 1];
-          this.currentIdUpdated = true;
+        } else {
+          currentId = this.itemIds[this.itemIds.length - 1];
         }
         break;
       case KEY_EN:
         ev.preventDefault();
         this.optionChangedHandler(keyword, currentId);
-        this.currentIdUpdated = false;
+
         break;
       default:
         break;
@@ -128,11 +129,8 @@ class PopContent extends (PureComponent || Component) {
       filter,
       onAsyncFilter,
       onFocus,
-      onBlur,
-      popover
+      onBlur
     } = this.props;
-
-    console.log(popover);
 
     let { keyword, data, currentId } = this.state;
 
@@ -195,4 +193,4 @@ class PopContent extends (PureComponent || Component) {
   }
 }
 
-export default withPopover(PopContent)
+export default withPopover(PopContent);
