@@ -55,6 +55,10 @@ export default class Foot extends (PureComponent || Component) {
       (batchComponents && batchComponents.length > 0) ||
       Object.keys(pageInfo).length !== 0;
 
+    if (batchComponents && batchComponents.length > 0) {
+      batchClassName += ' tfoot__batchcomponents--has-children';
+    }
+
     if (this.props.batchComponentsFixed) {
       batchClassName += ' tfoot__batchcomponents--fixed';
     }

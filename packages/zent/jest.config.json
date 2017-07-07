@@ -53,6 +53,7 @@
     "^pop(.*)$": "<rootDir>/src/pop$1",
     "^popover(.*)$": "<rootDir>/src/popover$1",
     "^portal(.*)$": "<rootDir>/src/portal$1",
+    "^preview-image(.*)$": "<rootDir>/src/preview-image$1",
     "^radio(.*)$": "<rootDir>/src/radio$1",
     "^search-input(.*)$": "<rootDir>/src/search-input$1",
     "^select(.*)$": "<rootDir>/src/select$1",
