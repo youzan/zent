@@ -1,11 +1,11 @@
 import React, { Component, PureComponent } from 'react';
 import Popover from 'popover';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 
 import Search from './components/Search';
 import Option from './components/Option';
-import { KEY_EN, KEY_UP, KEY_DOWN } from './constants';
+import { KEY_EN, KEY_ESC, KEY_UP, KEY_DOWN } from './constants';
 
 const { withPopover } = Popover;
 
@@ -102,7 +102,10 @@ class PopContent extends (PureComponent || Component) {
       case KEY_EN:
         ev.preventDefault();
         this.optionChangedHandler(keyword, currentId);
-
+        break;
+      case KEY_ESC:
+        ev.preventDefault();
+        this.props.popover.close();
         break;
       default:
         break;
@@ -144,7 +147,9 @@ class PopContent extends (PureComponent || Component) {
 
     return (
       <div
-        ref={popup => (this.popup = popup)}
+        ref={popup => {
+          this.popup = popup;
+        }}
         tabIndex="0"
         className={`${prefixCls}-popup`}
         onFocus={onFocus}
@@ -192,5 +197,29 @@ class PopContent extends (PureComponent || Component) {
     );
   }
 }
+
+PopContent.propTypes = {
+  cid: PropTypes.string,
+  keyword: PropTypes.any,
+  selectedItems: PropTypes.array,
+  searchPlaceholder: PropTypes.string,
+  emptyText: PropTypes.any,
+  prefixCls: PropTypes.string,
+  extraFilter: PropTypes.bool,
+  filter: PropTypes.func,
+  onAsyncFilter: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func
+};
+
+PopContent.defaultProps = {
+  cid: -1,
+  keyword: '',
+  selectedItems: [],
+  emptyText: '',
+  prefixCls: '',
+  extraFilter: false,
+  searchPlaceholder: ''
+};
 
 export default withPopover(PopContent);

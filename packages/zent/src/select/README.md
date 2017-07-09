@@ -40,6 +40,54 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 默认选项
+```jsx
+import { Select } from 'zent';
+
+const Option = Select.Option;
+
+class Demo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      toggle: true
+    };
+  }
+
+  toggleStateToRerender = () => {
+    const bool = this.state.toggle;
+    this.setState({
+      toggle: !bool
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Select initialIndex={0} onChange={this.toggleStateToRerender}>
+          <Option value="1">选项一</Option>
+          <Option value="2">选项二</Option>
+          <Option value="3">选项三</Option>
+        </Select>
+        <br />
+        <br />
+        <Select initialIndex={0} onChange={this.toggleStateToRerender}>
+          <Option value="1">选项1</Option>
+          <Option value="2">选项2</Option>
+          <Option value="3">选项3</Option>
+        </Select>
+      </div> 
+    );
+  }
+}
+
+ReactDOM.render(
+  <Demo />
+  , mountNode
+);
+```
+:::
+
 :::demo 支持数组类型选项
 ```jsx
 import { Select } from 'zent';
@@ -306,4 +354,3 @@ ReactDOM.render(
 | open | 是否打开Popup | boolean | `false` | 否 |
 
 `Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。`
-

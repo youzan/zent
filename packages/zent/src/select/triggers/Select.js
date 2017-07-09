@@ -12,7 +12,7 @@ class SimpleTrigger extends (PureComponent || Component) {
     } = this.props;
     const activeCls = contentVisible ? 'active' : '';
     return (
-      <div className={`${prefixCls}-simple ${activeCls}`} onClick={onClick}>
+      <div className={`${prefixCls}-text ${activeCls}`} onClick={onClick}>
         {text || placeholder}
       </div>
     );

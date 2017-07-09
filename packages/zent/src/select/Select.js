@@ -11,27 +11,16 @@ import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import Popover from 'popover';
-import Button from 'button';
+// import Button from 'button';
 
 import Trigger from './triggers';
 import PopContent from './PopContent';
-import Popup from './Popup';
-import SimpleTrigger from './triggers/SimpleTrigger';
-import SelectTrigger from './triggers/SelectTrigger';
-import InputTrigger from './triggers/InputTrigger';
-import TagsTrigger from './triggers/TagsTrigger';
+// import Popup from './Popup';
+// import SimpleTrigger from './triggers/SimpleTrigger';
+// import SelectTrigger from './triggers/SelectTrigger';
+// import InputTrigger from './triggers/InputTrigger';
+// import TagsTrigger from './triggers/TagsTrigger';
 import { KEY_ESC } from './constants';
-
-const { withPopover } = Popover;
-
-const HoverContent = withPopover(function HoverContent({ popover }) {
-  return (
-    <div>
-      <div>popover content</div>
-      <button onClick={popover.close}>close</button>
-    </div>
-  );
-});
 
 class Select extends (PureComponent || Component) {
   constructor(props) {
@@ -49,18 +38,22 @@ class Select extends (PureComponent || Component) {
      */
 
     if (props.simple) {
-      this.triggerType = 'simple';
+      this.TRIGGER_TYPE = 'Simple';
     } else if (props.search) {
-      this.triggerType = 'input';
+      this.TRIGGER_TYPE = 'Input';
     } else if (props.tags) {
-      this.triggerType = 'tags';
+      this.TRIGGER_TYPE = 'Tags';
     } else {
-      this.triggerType = 'select';
+      this.TRIGGER_TYPE = 'Select';
     }
 
     this.state = assign(
       {
-        selectedItems: []
+        selectedItems: [],
+        selectedItem: {
+          value: '',
+          text: ''
+        }
       },
       props
     );
@@ -79,19 +72,19 @@ class Select extends (PureComponent || Component) {
   componentWillReceiveProps(nextProps) {
     let data = this.uniformData(nextProps);
     // 重置组件data
-    let selectedItems = [];
 
     this.formateData(data, nextProps);
-    if (isArray(nextProps.value)) {
-      this.sourceData.forEach(item => {
-        if (nextProps.value.indexOf(item.value) > -1) {
-          selectedItems.push(item);
-        }
-      });
-    }
-    this.setState({
-      selectedItems
-    });
+
+    // if (isArray(nextProps.value)) {
+    //   this.sourceData.forEach(item => {
+    //     if (nextProps.value.indexOf(item.value) > -1) {
+    //       selectedItems.push(item);
+    //     }
+    //   });
+    // }
+    // this.setState({
+    //   selectedItems
+    // });
   }
 
   // 统一children和data中的数据
@@ -115,18 +108,47 @@ class Select extends (PureComponent || Component) {
     return data;
   }
 
+  // 显示当前选项，支持通过value和index进行外部控制
+  getOptions(state, props, item, i) {
+    let { value, index } = props;
+    if (isArray(value) && value.indexOf(item.value) > -1) {
+      state.sItems.push(item);
+    } else if (typeof value === 'object' && isEqual(value, item.value)) {
+      state.sItem = item;
+    } else if (
+      (typeof value !== 'undefined' &&
+        typeof value !== 'object' &&
+        `${item.value}` === `${value}`) ||
+      (index !== 'undefined' && `${i}` === `${index}`)
+    ) {
+      state.sItem = item;
+    }
+    return state;
+  }
+
   // 对data进行处理，增加cid
+  // 此方法仅在 constructor 与 componentWillReceiveProps 中调用，因此可以直接对state进行赋值。
   formateData(data, props) {
-    let selectedItems = [];
     data = data || this.sourceData;
     props = props || this.props;
     let that = this;
+    const { selectedItem, selectedItems } = this.state;
+    const {
+      value,
+      index,
+      initialIndex,
+      initialValue,
+      optionValue,
+      optionText
+    } = props;
+    const s = { sItem: selectedItem, sItems: selectedItems };
+
     this.sourceData = cloneDeep(data)
       .map(item => {
         let result = {};
         if (typeof item === 'object') {
-          result.value = item[props.optionValue];
-          result.text = item[props.optionText];
+          result.value = item[optionValue];
+          result.text = item[optionText];
           result = { ...item, ...result };
         } else {
           result.value = item;
@@ -134,28 +156,25 @@ class Select extends (PureComponent || Component) {
         }
         return result;
       })
-      .map((item, index) => {
-        // 显示当前选项，支持value和index
-        item.cid = `${index}`;
-        if (isArray(props.value) && props.value.indexOf(item.value) > -1) {
-          selectedItems.push(item);
-        } else if (
-          typeof props.value === 'object' &&
-          isEqual(props.value, item.value)
-        ) {
-          that.state.selectedItem = item;
-        } else if (
-          (typeof props.value !== 'undefined' &&
-            typeof props.value !== 'object' &&
-            `${item.value}` === `${props.value}`) ||
-          (props.index !== 'undefined' && `${index}` === `${props.index}`)
-        ) {
-          that.state.selectedItem = item;
+      .map((item, i) => {
+        item.cid = `${i}`;
+
+        // 处理默认选项(initialIndex, initialValue)
+        if (selectedItems.length === 0 && !selectedItem.cid) {
+          that.getOptions(
+            s,
+            { value: initialValue, index: initialIndex },
+            item,
+            i
+          );
         }
 
+        // 与受控逻辑(index, value)
+        that.getOptions(s, { value, index }, item, i);
         return item;
       });
-    this.state.selectedItems = selectedItems;
+    this.state.selectedItem = s.sItem;
+    this.state.selectedItems = s.sItems;
     return this.sourceData;
   }
 
@@ -243,22 +262,19 @@ class Select extends (PureComponent || Component) {
   }
 
   // 焦点丢失处理
-  blurHandler(e, event) {
-    setTimeout(() => {
-      this.setState({
-        open: this.focus
-      });
-    }, 0);
+  blurHandler() {
+    // blurHandler(e, event) {
+    // setTimeout(() => {
+    //   this.setState({
+    //     open: this.focus
+    //   });
+    // }, 0);
   }
 
   keyupHandler(ev) {
+    const { visible } = this.popover.state;
     let code = ev.keyCode;
-    if (!this.state.open) return false;
-    if (code === KEY_ESC) {
-      this.setState({
-        open: false
-      });
-    }
+    if (visible && code === KEY_ESC) this.popover.close();
   }
 
   render() {
@@ -297,10 +313,11 @@ class Select extends (PureComponent || Component) {
           position={Popover.Position.BottomLeft}
           display="inline"
           cushion={1}
+          ref={popover => (this.popover = popover)}
         >
           <Trigger
             prefixCls={prefixCls}
-            trigger={this.trigger}
+            triggerType={this.TRIGGER_TYPE}
             placeholder={placeholder}
             selectedItems={selectedItems}
             keyword={keyword}
@@ -343,10 +360,6 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   searchPlaceholder: PropTypes.string,
   emptyText: PropTypes.string,
-  selectedItem: PropTypes.shape({
-    value: PropTypes.any,
-    text: PropTypes.string
-  }),
   trigger: PropTypes.func,
   optionValue: PropTypes.string,
   optionText: PropTypes.string,
@@ -362,16 +375,11 @@ Select.defaultProps = {
   prefix: 'zent',
   disabled: false,
   className: '',
-  trigger: SelectTrigger,
+  // trigger: SelectTrigger,
   open: false,
   placeholder: '请选择',
   searchPlaceholder: '',
   emptyText: '没有找到匹配项',
-  selectedItem: {
-    value: '',
-    text: ''
-  },
-  selectedItems: [],
   optionValue: 'value',
   optionText: 'text',
   onChange: noop,

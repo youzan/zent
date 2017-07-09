@@ -2,10 +2,15 @@ import React from 'react';
 import Popover from 'popover';
 
 import Simple from './Simple';
+import Select from './Select';
+import Input from './Input';
+import Tags from './Tags';
+
+const triggers = { Simple, Select, Input, Tags };
 
 const Base = Popover.Trigger.Click;
 
-class Trigger extends Base {
+class TriggerWrapper extends Base {
   getTriggerProps(child) {
     const { contentVisible, disabled } = this.props;
     return disabled
@@ -23,7 +28,8 @@ class Trigger extends Base {
   }
 
   render() {
-    const child = <Simple {...this.props} />;
+    const Trigger = triggers[this.props.triggerType];
+    const child = <Trigger {...this.props} />;
 
     return React.cloneElement(child, {
       ref: this.props.onTriggerRefChange,
@@ -32,4 +38,4 @@ class Trigger extends Base {
   }
 }
 
-export default Trigger;
+export default TriggerWrapper;
