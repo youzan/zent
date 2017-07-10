@@ -34,6 +34,7 @@ declare module 'zent' {
   export import Affix = Zent.Affix
   export import Badge = Zent.Badge
   export import Tag = Zent.Tag
+  export import Cascader = Zent.Cascader
 }
 
 declare namespace Zent {
@@ -762,6 +763,21 @@ declare namespace Zent {
   }
 
   class Tag extends React.Component<ITagProps, any> {}
+
+  interface ICascaderProps {
+    value: Array<any>
+    options: Array<any>
+    title: Array<any>
+    onChange: (any) => any
+    loadMore: () => Promise<any>
+    changeOnSelect: boolean
+    placeholder: string
+    prefix: string
+    className: string
+    popClassName: string
+  }
+
+  class Cascader extends React.Component<ICascaderProps, any> {}
 }
 
 
