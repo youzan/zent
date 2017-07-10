@@ -157,12 +157,16 @@ export default class Head extends (PureComponent || Component) {
         };
       }
 
-      cellClass += ` cell--${helper.getAlignClass(textAlign)}`;
+      if (helper.getAlignClass(textAlign) !== '') {
+        cellClass += ` cell--${helper.getAlignClass(textAlign)}`;
+      }
 
       tds.push(
         <div key={index} className={cellClass} style={styleObj}>
-          {this.renderCheckBox(index, selection)}
-          {this.getChild(item)}
+          <div className="cell__child-container">
+            {this.renderCheckBox(index, selection)}
+            {this.getChild(item)}
+          </div>
         </div>
       );
     });

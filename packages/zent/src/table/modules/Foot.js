@@ -40,15 +40,11 @@ export default class Foot extends (PureComponent || Component) {
   };
 
   render() {
-    const {
-      pageInfo = {},
-      onPageChange,
-      batchComponents,
-      selection,
-      current
-    } = this.props;
+    const { onPageChange, batchComponents, selection, current } = this.props;
 
+    let pageInfo = this.props.pageInfo || {};
     let { totalItem, pageSize, total, limit, maxPageToShow } = pageInfo;
+
     const { needSelect, selectedRows } = selection;
     let batchClassName = 'tfoot__batchcomponents';
     const shouldRenderFoot =
