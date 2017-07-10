@@ -85,9 +85,12 @@ describe('GetControlGroup and Component_Fields', () => {
 
   it('CheckboxGroupField', () => {
     const { CheckboxGroupField } = ZentForm;
-    const wrapper = mount(<Field name="foo" component={CheckboxGroupField} />, {
-      context
-    });
+    const wrapper = mount(
+      <Field name="foo" component={CheckboxGroupField} value={[]} />,
+      {
+        context
+      }
+    );
     expect(wrapper.find('Group').length).toBe(1);
   });
 

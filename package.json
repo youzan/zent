@@ -26,7 +26,6 @@
       "eslint",
       "git add"
     ],
-
     "*.pcss": [
       "format-style",
       "stylelint",

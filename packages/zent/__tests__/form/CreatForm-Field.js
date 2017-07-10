@@ -67,11 +67,11 @@ describe('CreateForm and Field', () => {
       context
     });
     expect(typeof wrapper.context('zentForm')).toBe('object');
-    expect(wrapper.state('_value')).toBe(undefined);
+    expect(wrapper.state('_value')).toBe('');
     expect(wrapper.state('_isValid')).toBe(true);
     expect(wrapper.state('_isPristine')).toBe(true);
     expect(wrapper.state('_isValidating')).toBe(false);
-    expect(wrapper.state('_pristineValue')).toBe(undefined);
+    expect(wrapper.state('_pristineValue')).toBe('');
     expect(wrapper.state('_validationError').length).toBe(0);
     expect(wrapper.state('_externalError')).toBe(null);
   });
@@ -103,7 +103,7 @@ describe('CreateForm and Field', () => {
     const wrapper = mount(<Field name="foo" component={DivComponent} />, {
       context: contextCopy
     });
-    expect(wrapper.state('_value')).toBe(undefined);
+    expect(wrapper.state('_value')).toBe('');
     wrapper.setProps({ value: 'foo' });
     expect(validateMock.mock.calls.length).toBe(1);
     expect(validateMock.mock.calls[0][0]).toBe(wrapper.getNode());
@@ -137,7 +137,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.find('component').prop('isTouched')).toBe(false);
     expect(wrapper.find('component').prop('isPristine')).toBe(true);
     expect(wrapper.find('component').prop('isValid')).toBe(true);
-    expect(wrapper.find('component').prop('value')).toBe(undefined);
+    expect(wrapper.find('component').prop('value')).toBe('');
     expect('value' in wrapper.find('component').props()).toBe(true);
     expect(wrapper.find('component').prop('error')).toBe(null);
     expect(wrapper.find('component').prop('errors').length).toBe(0);
@@ -284,7 +284,7 @@ describe('CreateForm and Field', () => {
               name={fieldName}
               component={() => <div className="foo-div" />}
               validations={{ required: true }}
-              value={fieldName === 'foo' ? 1 : undefined}
+              value={fieldName === 'foo' ? 1 : ''}
             />
           </Form>
         );
@@ -300,7 +300,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('isFormValid')).toBe(true);
     expect(wrapper.find(Field).getNode().state._value).toBe(1);
     wrapper.getNode().reset();
-    expect(wrapper.find(Field).getNode().state._value).toBe(undefined);
+    expect(wrapper.find(Field).getNode().state._value).toBe('');
     expect(wrapper.state('isFormValid')).toBe(false);
     wrapper.getNode().reset({
       foo: 1
@@ -586,7 +586,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
     input.simulate('focus');
     input.simulate('blur');
-    expect(wrapper.find('InputWrap').prop('validationError')).toBe('');
+    expect(wrapper.find('InputWrap').prop('error')).toBeNull();
     expect(wrapper.getNode().isValidating()).toBe(true);
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(true);
     jest.runAllTimers();
@@ -595,5 +595,32 @@ describe('CreateForm and Field', () => {
     // expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
     // expect(wrapper.find('InputWrap').prop('validationError')).toBe('用户名已被占用');
     // });
+  });
+
+  it('Field can have onChange/onBlur/onFocus callback', () => {
+    const contextCopy = Object.assign({}, context, {});
+    const onChangeMock = jest.fn();
+    const onFocusMock = jest.fn();
+    const onBlurMock = jest.fn();
+    const wrapper = mount(
+      <Field
+        name="foo"
+        value="1"
+        onChange={onChangeMock}
+        onFocus={onFocusMock}
+        onBlur={onBlurMock}
+        component={InputField}
+      />,
+      {
+        context: contextCopy
+      }
+    );
+    let input = wrapper.find('input');
+    input.simulate('focus');
+    input.simulate('change', { target: { value: '' } });
+    input.simulate('blur');
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onFocusMock.mock.calls.length).toBe(1);
+    expect(onBlurMock.mock.calls.length).toBe(1);
   });
 });

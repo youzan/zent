@@ -15,7 +15,7 @@
 :::DEMO Form 组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中 renderEmail 组件的表单结构。具体请参考`getControlGroup`的 API 。 
 ```jsx
 import cx from 'classnames';
-import { Form, Input } from 'zent';
+import { Form, Input, Button } from 'zent';
 const { Field, createForm } = Form;
 
 const renderEmail = (props) => {
@@ -58,7 +58,7 @@ const BaseForm = (props) => {
         	}} 
         />
         <div className="zent-form__form-actions">
-          <button className="zent-btn zent-btn-primary" type="button" onClick={alertValues}>获取表单值</button>
+          <Button type="primary" onClick={alertValues}>获取表单值</Button>
         </div>
       </Form>
     );
@@ -86,7 +86,6 @@ const FieldForm = () => {
 				name="name"
 				type="text"
 				label={"用户名："}
-				value="123"
 				component={InputField}
 				helpDesc={<span>我是说明<a href="https://youzan.com">我是链接</a></span>}
 				required
@@ -95,6 +94,38 @@ const FieldForm = () => {
 	);
 };
 const WrappedForm = createForm()(FieldForm);
+
+ReactDOM.render(
+	<WrappedForm />
+	, mountNode
+)
+```
+:::
+
+#### validateOnChange的使用
+value值改变的时候可以不触发校验，blur时再校验（一般用于Input输入框）
+
+:::DEMO
+```jsx
+import { Form } from 'zent';
+const { Field, InputField, createForm } = Form;
+
+const FormattedForm = () => {
+	return (
+		<Form horizontal>
+			<Field
+			  name="field"
+			  type="text"
+			  component={InputField}
+			  label="Blur时才校验:"
+			  validateOnChange={false}
+			  validations={{ required: true }}
+			  validationErrors={{ required: '值不能为空' }}
+			/>
+		</Form>
+	);
+};
+const WrappedForm = createForm()(FormattedForm);
 
 ReactDOM.render(
 	<WrappedForm />
@@ -245,7 +276,7 @@ form 组件内部对表单提交的过程进行封装，可以把异步提交的
 
 :::DEMO
 ```jsx
-import { Form } from 'zent';
+import { Form, Button } from 'zent';
 const { Field, InputField, createForm, SubmissionError } = Form;
 
 const SubmitForm = (props) => {
@@ -307,7 +338,7 @@ const SubmitForm = (props) => {
 	      }}
 	    />
 	    <div className="zent-form__form-actions">
-	      <button className="zent-btn zent-btn-primary" type="submit">{isSubmitting ? '注册中...' : '注册'}</button>
+	      <Button type="primary" htmlType="submit" loading={isSubmitting}>注册</Button>
 	    </div>
 	  </Form>
 	);
@@ -532,6 +563,9 @@ onSubmissionFail(submissionError) {
 | onFocus| focus 后的回调（会在 Field 中封装一层） | func(event) | 否 |
 | validations | 定义表单元素校验方法 | object | 否 |
 | validationErrors | 定义表单元素检验方法对应的出错信息 | object | 否 |
+| validateOnChange | 是否在触发change事件时执行表单校验 | boolean | 否 |
+| validateOnBlur | 是否在触发blur事件时执行表单校验 | boolean | 否 |
+| clearErrorOnFocus | 是否在触发focus事件时清空错误信息 | boolean | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
 | value | 表单元素初始值 | any | 是 |
 

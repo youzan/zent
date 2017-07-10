@@ -1,7 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
-import assign from 'lodash/assign';
 import Checkbox from 'checkbox';
 
 import helper from '../helper';
@@ -46,7 +45,8 @@ export default class Head extends (PureComponent || Component) {
       height: tmpRect.height - 1,
       width: tmpRect.width
     };
-    this.relativeTop = rect.top - document.body.getBoundingClientRect().top;
+    this.relativeTop =
+      rect.top - document.documentElement.getBoundingClientRect().top;
   }
 
   setHeadStyle = () => {
@@ -88,10 +88,9 @@ export default class Head extends (PureComponent || Component) {
     let sortType;
     let name = item.name;
 
+    sortType = 'desc'; // desc sort by default
     if (name === this.props.sortBy) {
       sortType = this.props.sortType === 'desc' ? 'asc' : 'desc'; // toggble current sortType
-    } else {
-      sortType = 'desc'; // desc sort by default
     }
 
     this.props.onSort({
@@ -109,9 +108,25 @@ export default class Head extends (PureComponent || Component) {
     this.props.selection.onSelectAll(isChecked);
   };
 
+  renderCheckBox(index, selection) {
+    let { needSelect, isSingleSelection } = selection;
+    if (needSelect && index === 0 && !isSingleSelection) {
+      return (
+        <Checkbox
+          className="select-check"
+          onChange={this.onSelect}
+          checked={selection.isSelectAll}
+          indeterminate={selection.isSelectPart}
+        />
+      );
+    }
+
+    return null;
+  }
+
   renderTr(isFixTr, style = {}) {
     let { selection, needExpand } = this.props;
-    let needSelect = selection.needSelect;
+    let { needSelect } = selection;
     let className = isFixTr ? fixRowClass : stickRowClass;
     let tds = [];
 
@@ -142,19 +157,16 @@ export default class Head extends (PureComponent || Component) {
         };
       }
 
-      styleObj = assign(styleObj, helper.getAlignStyle(textAlign));
+      if (helper.getAlignClass(textAlign) !== '') {
+        cellClass += ` cell--${helper.getAlignClass(textAlign)}`;
+      }
 
       tds.push(
         <div key={index} className={cellClass} style={styleObj}>
-          {index === 0 &&
-            needSelect &&
-            <Checkbox
-              className="select-check"
-              onChange={this.onSelect}
-              checked={selection.isSelectAll}
-              indeterminate={selection.isSelectPart}
-            />}
-          {this.getChild(item)}
+          <div className="cell__child-container">
+            {this.renderCheckBox(index, selection)}
+            {this.getChild(item)}
+          </div>
         </div>
       );
     });

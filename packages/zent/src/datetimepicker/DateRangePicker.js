@@ -1,9 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-// import Input from 'input';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
@@ -40,17 +38,18 @@ const extractStateFromProps = props => {
 
   if (isValidValue(props.value)) {
     showPlaceholder = false;
-    const tmp = [
+    selected = [
       maybeParseDate(props.value[0], format),
       maybeParseDate(props.value[1], format)
     ];
-    selected = tmp.slice();
-    range = actived = [setTime(tmp[0]), setTime(tmp[1])];
+    const tmp = [setTime(selected[0]), setTime(selected[1])];
+    range = tmp.slice();
+    actived = tmp.slice();
     value = [formatDate(selected[0], format), formatDate(selected[1], format)];
 
     // 特殊处理：如果两个时间在同一个月，右边的面板月份加一
     if (isSameMonth(actived[0], actived[1])) {
-      actived[1] = goMonths(actived[0], 1);
+      actived[1] = goMonths(actived[1], 1);
     }
   } else {
     showPlaceholder = true;
@@ -120,7 +119,7 @@ class DateRangePicker extends (PureComponent || Component) {
     className: '',
     prefix: 'zent',
     placeholder: ['开始日期', '结束日期'],
-    confirmText: '确认',
+    confirmText: '确定',
     errorText: '请选择起止时间',
     format: 'YYYY-MM-DD',
     showTime: false,
@@ -144,11 +143,8 @@ class DateRangePicker extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(next) {
-    const { value } = this.props;
-    if (!isEqual(value, next.value)) {
-      const state = extractStateFromProps(next);
-      this.setState(state);
-    }
+    const state = extractStateFromProps(next);
+    this.setState(state);
   }
 
   onHover = val => {

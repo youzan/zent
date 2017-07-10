@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
-import assign from 'lodash/assign';
+import Radio from 'radio';
 import cx from 'classnames';
 
 import helper from '../helper';
@@ -39,12 +39,44 @@ export default class Td extends (PureComponent || Component) {
     selection.onSelect(data[rowKey], isChecked);
   };
 
+  renderCheckBox(data, rowKey, selection) {
+    const { needSelect, canSelect, isSingleSelection } = selection;
+    if (needSelect) {
+      if (isSingleSelection) {
+        return (
+          <Radio
+            className="select-check"
+            checked={
+              canSelect &&
+                selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
+            }
+            disabled={!canSelect}
+            onChange={this.onSelect}
+          />
+        );
+      }
+
+      return (
+        <Checkbox
+          className="select-check"
+          checked={
+            canSelect && selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
+          }
+          disabled={!canSelect}
+          onChange={this.onSelect}
+        />
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { column, selection, data, rowKey } = this.props;
     const { textAlign, isMoney } = column;
-    const { needSelect, canSelect } = selection;
+    const { needSelect } = selection;
     const width = helper.getCalculatedWidth(column.width);
-    const className = cx('cell', column.className, {
+    let className = cx('cell', column.className, {
       'cell--selection': needSelect,
       'cell--money': isMoney
     });
@@ -58,20 +90,13 @@ export default class Td extends (PureComponent || Component) {
       };
     }
 
-    styleObj = assign(styleObj, helper.getAlignStyle(textAlign));
+    if (helper.getAlignClass(textAlign) !== '') {
+      className += ` cell--${helper.getAlignClass(textAlign)}`;
+    }
 
     return (
       <div className={className} style={styleObj}>
-        {needSelect &&
-          <Checkbox
-            className="select-check"
-            checked={
-              canSelect &&
-                selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
-            }
-            disabled={!canSelect}
-            onChange={this.onSelect}
-          />}
+        {this.renderCheckBox(data, rowKey, selection)}
         <div className="cell__child-container">
           {this.renderContent()}
         </div>

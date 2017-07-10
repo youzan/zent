@@ -104,9 +104,19 @@ module.exports = {
               component: require('../../packages/zent/src/sweetalert/README.md')
             },
             {
+              path: 'component/swiper',
+              title: 'Swiper 轮播',
+              component: require('../../packages/zent/src/swiper/README.md')
+            },
+            {
               path: 'component/tag',
               title: 'Tag 标签',
               component: require('../../packages/zent/src/tag/README.md')
+            },
+            {
+              path: 'component/preview-image',
+              title: 'previewImage 图片预览',
+              component: require('../../packages/zent/src/preview-image/README.md')
             }
           ]
         },
@@ -119,9 +129,24 @@ module.exports = {
               component: require('../../packages/zent/src/button/README.md')
             },
             {
+              path: 'component/cascader',
+              title: 'Cascader 级联选择',
+              component: require('../../packages/zent/src/cascader/README.md')
+            },
+            {
               path: 'component/checkbox',
               title: 'Checkbox 多选',
               component: require('../../packages/zent/src/checkbox/README.md')
+            },
+            {
+              path: 'component/colorpicker',
+              title: 'ColorPicker 颜色选择器',
+              component: require('../../packages/zent/src/colorpicker/README.md')
+            },
+            {
+              path: 'component/copy-btn',
+              title: 'CopyButton 复制按钮',
+              component: require('../../packages/zent/src/copy-button/README.md')
             },
             {
               path: 'component/datepicker',
@@ -149,6 +174,11 @@ module.exports = {
               component: require('../../packages/zent/src/radio/README.md')
             },
             {
+              path: 'component/search-input',
+              title: 'SearchInput 搜索框',
+              component: require('../../packages/zent/src/search-input/README.md')
+            },
+            {
               path: 'component/select',
               title: 'Select 选项',
               component: require('../../packages/zent/src/select/README.md')
@@ -162,6 +192,11 @@ module.exports = {
               path: 'component/switch',
               title: 'Switch 开关',
               component: require('../../packages/zent/src/switch/README.md')
+            },
+            {
+              path: 'component/upload',
+              title: 'Upload 图片上传',
+              component: require('../../packages/zent/src/upload/README.md')
             }
           ]
         },

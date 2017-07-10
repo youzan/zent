@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import Pagination from 'pagination';
 import Checkbox from 'checkbox';
 
@@ -19,6 +20,16 @@ export default class Foot extends (PureComponent || Component) {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.batchComponentsFixed) {
+      this.footStyleFixed = {
+        height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height
+      };
+    } else {
+      this.footStyleFixed = {};
+    }
+  }
+
   onSelect = e => {
     let isChecked = false;
     if (e.target.checked) {
@@ -29,18 +40,29 @@ export default class Foot extends (PureComponent || Component) {
   };
 
   render() {
-    const {
-      pageInfo,
-      onPageChange,
-      batchComponents,
-      selection,
-      current
-    } = this.props;
+    const { onPageChange, batchComponents, selection, current } = this.props;
+
+    let pageInfo = this.props.pageInfo || {};
+    let { totalItem, pageSize, total, limit, maxPageToShow } = pageInfo;
 
     const { needSelect, selectedRows } = selection;
+    let batchClassName = 'tfoot__batchcomponents';
+    const shouldRenderFoot =
+      (batchComponents && batchComponents.length > 0) ||
+      Object.keys(pageInfo).length !== 0;
+
+    if (batchComponents && batchComponents.length > 0) {
+      batchClassName += ' tfoot__batchcomponents--has-children';
+    }
+
+    if (this.props.batchComponentsFixed) {
+      batchClassName += ' tfoot__batchcomponents--fixed';
+    }
+
     return (
-      <div className="tfoot clearfix">
-        <div className="tfoot__batchcomponents">
+      shouldRenderFoot &&
+      <div className="tfoot clearfix" style={this.footStyleFixed}>
+        <div className={batchClassName} ref={c => (this.batch = c)}>
           {needSelect &&
             batchComponents &&
             batchComponents.length > 0 &&
@@ -55,12 +77,12 @@ export default class Foot extends (PureComponent || Component) {
             this.renderBatchComps(selectedRows, batchComponents)}
         </div>
         <div className="tfoot__page">
-          {pageInfo &&
+          {Object.keys(pageInfo).length > 0 &&
             <Pagination
               current={current}
-              totalItem={pageInfo.total}
-              pageSize={pageInfo.limit}
-              maxPageToShow={pageInfo.maxPageToShow}
+              totalItem={totalItem || total}
+              pageSize={pageSize || limit}
+              maxPageToShow={maxPageToShow}
               onChange={onPageChange}
             />}
         </div>
