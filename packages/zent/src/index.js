@@ -51,6 +51,7 @@ export {
   CopyButton,
   DatePicker,
   DateRangePicker,
+  DateRangePicker2,
   Dialog,
   Form,
   Layout,

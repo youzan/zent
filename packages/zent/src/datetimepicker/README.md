@@ -38,9 +38,15 @@ class Demo extends Component{
     })
   }
 
+	onChangeRange2 = (val) => {
+		this.setState({
+			rangeValue: val
+		})
+	}
+
   render(){
     const { dateValue, monthValue, rangeValue } = this.state;
-		console.log(DateRangePicker2);
+
     return (
       <div>
         <DatePicker
@@ -61,6 +67,11 @@ class Demo extends Component{
           value={rangeValue}
           onChange={this.onChangeRange}
           />
+				<br/>
+				<DateRangePicker2 
+					value={rangeValue}
+					onChange={this.onChangeRange2}
+				/>
       </div>
     )
   }
@@ -504,6 +515,27 @@ ReactDOM.render(
 - `showTime` 的时候，传入的 `min` 或 `max` 如果为字符串，必须有 time 部分，即 `2017-01-01 11:11:11` 种格式。
 - `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
 - `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
+
+### RangePicker2
+
+| 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showTime     | 是否显示时间筛选 | bool   | `false` | 否    |
+| disabledTime | 时间禁用函数 | func | `noop` | 否    |
+| disabledDate | 判断日期是否可选函数  | func     | `noop`  | 否    |
+| format       | 返回日期字符串格式                | string         | `YYYY-MM-DD`  | 否    |
+| min        | 可选日期的最小值                   | string/Date    |     | 否    |
+| max        | 可选日期的最大值                   | string/Date    |     | 否    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
+| name  		| input 的 name 属性            | arrayOf(string)   |   | 否    |
+| placeholder  | 提示文案                   | arrayOf(string)  | `请选择日期`   | 否    |
+| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+
+**注意：**
+
+- `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
+- `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
+
 
 ### 格式化字符表
 

@@ -1,30 +1,13 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-import Popover from 'popover';
 import PropTypes from 'prop-types';
 
+import { noop } from './constants/';
 import DatePicker from './DatePicker';
-import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
-import { timeFnMap, noop } from './constants/';
 
-let retType = 'string';
-
-const isValidValue = val => {
-  if (!isArray(val)) return false;
-  const ret = val.filter(item => !!item);
-  return ret.length === 2;
-};
-
-const getDateTime = (date, time) => {
-  return new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    time.getHours(),
-    time.getMinutes(),
-    time.getSeconds()
-  );
-};
+// type
+const START = 'start';
+const END = 'end';
 
 class DateRangePicker2 extends (PureComponent || Component) {
   static PropTypes = {
@@ -36,11 +19,11 @@ class DateRangePicker2 extends (PureComponent || Component) {
     format: PropTypes.string,
     defaultTime: PropTypes.string,
     showTime: PropTypes.bool,
-    disabledDate: PropTypes.arrayOf(PropTypes.func),
-    onChange: PropTypes.arrayOf(PropTypes.func),
-    onClick: PropTypes.arrayOf(PropTypes.func),
-    onOpen: PropTypes.arrayOf(PropTypes.func),
-    onClose: PropTypes.arrayOf(PropTypes.func)
+    disabledDate: PropTypes.func,
+    onChange: PropTypes.func,
+    onClick: PropTypes.func,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
   };
 
   static defaultProps = {
@@ -48,21 +31,44 @@ class DateRangePicker2 extends (PureComponent || Component) {
     prefix: 'zent',
     placeholder: ['开始日期', '结束日期'],
     confirmText: '确定',
-    errorText: '请选择起止时间',
     format: 'YYYY-MM-DD',
     showTime: false,
     value: [],
-    onClose: [],
-    onOpen: [],
     openPanel: [],
-    onChange: [],
-    disabledDate: []
+    disabledDate: noop,
+    onChange: noop
+  };
 
+  onChange = type => {
+    return val => {
+      const { onChange, value } = this.props;
+      const ret = value.slice();
+
+      if (type === START) {
+        ret.length === 2 ? ret.splice(0, 1, val) : ret.splice(0, 1, val, '');
+      } else {
+        ret.length === 0 ? ret.splice(1, 1, '', val) : ret.splice(1, 1, val);
+      }
+
+      onChange(ret);
+    };
   };
 
   renderPicker() {
     const props = this.props;
-    const { value, placeholder, className, onClose, onOpen, openPanel, onChange, disabledDate, ...pickerProps } = props;
+
+    const {
+      value,
+      placeholder,
+      className,
+      onClose,
+      onOpen,
+      onClick,
+      openPanel,
+      onChange,
+      disabledDate,
+      ...pickerProps
+    } = props;
     let rangePicker;
 
     const pickerCls = classNames('range-picker2');
@@ -70,25 +76,27 @@ class DateRangePicker2 extends (PureComponent || Component) {
     rangePicker = (
       <div className={pickerCls}>
         <DatePicker
+          {...pickerProps}
           placeholder={placeholder[0]}
-          value={value[0]}
-          onChange={onChange[0]}
-          onOpen={onOpen[0]}
-          onClose={onClose[0]}
+          value={props.value[0]}
+          onClick={val => onClick && onClick(val, START)}
+          onChange={this.onChange(START)}
+          onOpen={() => onOpen && onOpen(START)}
+          onClose={onClose && onClose(START)}
           openPanel={openPanel[0]}
-          disabledDate={disabledDate[0]}
-          {...pickerProps}
+          disabledDate={val => disabledDate(val, START)}
         />
-        <span>至</span>
+        <span className="picker-seperator">至</span>
         <DatePicker
-          placeholder={placeholder[1]}
-          value={value[1]}
-          onChange={onChange[1]}
-          onOpen={onOpen[1]}
-          onClose={onClose[1]}
-          openPanel={openPanel[1]}
-          disabledDate={disabledDate[1]}
           {...pickerProps}
+          placeholder={placeholder[1]}
+          value={props.value[1]}
+          onClick={val => onClick && onClick(val, END)}
+          onChange={this.onChange(END)}
+          onOpen={() => onOpen && onOpen(END)}
+          onClose={() => onClose && onClose(END)}
+          openPanel={openPanel[1]}
+          disabledDate={val => disabledDate(val, END)}
         />
       </div>
     );

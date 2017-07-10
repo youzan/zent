@@ -11,8 +11,6 @@ import { CURRENT_DAY, goMonths } from './utils';
 import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
-let retType = 'string';
-
 function extractStateFromProps(props) {
   let selected;
   let actived;
@@ -122,15 +120,17 @@ class DatePicker extends (PureComponent || Component) {
     onChange: noop
   };
 
+  retType = 'string';
+
   constructor(props) {
     super(props);
     const { value, valueType } = props;
 
     if (valueType) {
-      retType = valueType;
+      this.retType = valueType;
     } else if (value) {
-      if (typeof value === 'number') retType = 'number';
-      if (value instanceof Date) retType = 'date';
+      if (typeof value === 'number') this.retType = 'number';
+      if (value instanceof Date) this.retType = 'date';
     }
 
     this.state = extractStateFromProps(props);
@@ -196,11 +196,11 @@ class DatePicker extends (PureComponent || Component) {
    */
 
   getReturnValue(date, format) {
-    if (retType === 'number') {
+    if (this.retType === 'number') {
       return date.getTime();
     }
 
-    if (retType === 'date') {
+    if (this.retType === 'date') {
       return date;
     }
 
