@@ -13,7 +13,7 @@
 :::demo 基础的日期、月份、时间段选择
 
 ```jsx
-import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
+import { DatePicker, MonthPicker, DateRangePicker, DateRangePicker2 } from 'zent'
 
 class Demo extends Component{
   state = {
@@ -40,6 +40,7 @@ class Demo extends Component{
 
   render(){
     const { dateValue, monthValue, rangeValue } = this.state;
+		console.log(DateRangePicker2);
     return (
       <div>
         <DatePicker
