@@ -44,7 +44,7 @@ const columns = [{
   title: '库存',
   name: 'stock_num',
   width: '100px',
-  textAlign: 'center',
+	isMoney: true,
   isMoney: true
 }, {
   width: '3em',
@@ -55,6 +55,7 @@ const columns = [{
 ReactDOM.render(
     <Table
       columns={columns}
+			pageInfo={null}
       datasets={datasets}
       rowKey="item_id"
     />

@@ -90,7 +90,9 @@ export default class Td extends (PureComponent || Component) {
       };
     }
 
-    className += ` cell--${helper.getAlignClass(textAlign)}`;
+    if (helper.getAlignClass(textAlign) !== '') {
+      className += ` cell--${helper.getAlignClass(textAlign)}`;
+    }
 
     return (
       <div className={className} style={styleObj}>
