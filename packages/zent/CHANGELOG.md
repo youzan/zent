@@ -1,5 +1,16 @@
 ## 更新日志
 
+## [zent@3.4.2](https://github.com/youzan/zent/tree/zent@3.4.2) (2017-07-10)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.1...zent@3.4.2)
+
+**Bug 修复:**
+
+- table: 修复pageInfo传null的报错和money class的对齐问题 [\#368](https://github.com/youzan/zent/pull/368) ([linxixuan](https://github.com/linxixuan))
+
+**处理的 Issue:**
+
+- Table下的Foot.js 写法错误 [\#367](https://github.com/youzan/zent/issues/367)
+
 ## [zent@3.4.1](https://github.com/youzan/zent/tree/zent@3.4.1) (2017-07-06)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.0...zent@3.4.1)
 
