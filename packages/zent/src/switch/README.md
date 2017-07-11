@@ -78,6 +78,10 @@ ReactDOM.render(
 		<Switch checked loading />
 		&nbsp;&nbsp;
 		<Switch loading />
+		&nbsp;&nbsp;
+		<Switch checked size="small" loading />
+		&nbsp;&nbsp;
+		<Switch size="small" loading />
 	</div>
 	, mountNode
 );
