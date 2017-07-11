@@ -37,6 +37,7 @@ declare module 'zent' {
   export import Cascader = Zent.Cascader
   export import ColorPicker = Zent.ColorPicker
   export import CopyButton = Zent.CopyButton
+  export import NumberInput = Zent.NumberInput
 }
 
 declare namespace Zent {
@@ -814,6 +815,20 @@ declare namespace Zent {
 
   class CopyButton extends React.Component<ICopyButtonProps, any> {}
 
+  interface INumberInputProps {
+    value?: number
+    onChange?: (number) => any
+    showStepper?: boolean
+    decimal?: number
+    min?: number
+    max?: number
+    placeholder?: string
+    disabled?: boolean
+    className?: string
+    prefix?: string
+  }
+
+  class NumberInput extends React.Component<INumberInputProps, any> {}
 }
 
 
