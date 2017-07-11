@@ -829,6 +829,25 @@ declare namespace Zent {
   }
 
   class NumberInput extends React.Component<INumberInputProps, any> {}
+
+  interface ISearchInputProps {
+    className?: string
+    prefix?: string
+    defaultValue?: string
+    value?: string
+    readOnly?: boolean
+    disabled?: boolean
+    placeholder?: string
+    addonBefore?: React.ReactNode
+    addonAfter?: React.ReactNode
+    autoFocus?: boolean
+    onChange?: React.ChangeEventHandler<HTMLInputElement>
+    onPressEnter?: React.KeyboardEvent<HTMLInputElement>
+  }
+
+  class SearchInput extends React.Component<ISearchInputProps, any> {}
+
+  
 }
 
 
