@@ -20,24 +20,6 @@ $c-half-black: rgba(0, 0, 0, 0.2);
   width: 160px;
   vertical-align: middle;
 
-  &.open {
-    .zent-select-input,
-    .zent-select-text {
-      border-color: $c-blue;
-      box-shadow: 0 1px 1px $c-light-blue;
-    }
-
-    .zent-select-simple::after,
-    .zent-select-text::after {
-      transform: rotate(180deg);
-    }
-
-    .zent-select-popup {
-      height: auto;
-      opacity: 1;
-    }
-  }
-
   &.disabled {
     color: #cacaca;
     cursor: not-allowed;
@@ -138,13 +120,10 @@ $c-half-black: rgba(0, 0, 0, 0.2);
 
 .zent-select-popup {
   box-shadow: 0 1px 4px $c-half-black;
-  height: 0;
   left: 0;
-  opacity: 0;
   outline: none;
   overflow-y: auto;
   position: absolute;
-  transition: opacity 0.3s;
   width: 100%;
   z-index: 1;
   margin-top: 2px;

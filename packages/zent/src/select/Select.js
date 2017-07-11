@@ -11,13 +11,28 @@ import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 
+import Popover from 'popover';
 import Trigger from './triggers/Index';
 import Popup from './Popup';
 import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
 import InputTrigger from './triggers/InputTrigger';
 import TagsTrigger from './triggers/TagsTrigger';
-import { KEY_ESC } from './constants';
+
+class PopoverClickTrigger extends Popover.Trigger.Click {
+  getTriggerProps(child) {
+    return {
+      onClick: evt => {
+        if (this.props.contentVisible) {
+          this.props.close();
+        } else if (!child.props.disabled) {
+          this.props.open();
+          this.triggerEvent(child, 'onClick', evt);
+        }
+      }
+    };
+  }
+}
 
 class Select extends (PureComponent || Component) {
   constructor(props) {
@@ -53,13 +68,9 @@ class Select extends (PureComponent || Component) {
 
     this.formateData(data);
 
-    this.blurHandler = this.blurHandler.bind(this);
-    this.keyupHandler = this.keyupHandler.bind(this);
     this.triggerChangeHandler = this.triggerChangeHandler.bind(this);
     this.triggerDeleteHandler = this.triggerDeleteHandler.bind(this);
     this.optionChangedHandler = this.optionChangedHandler.bind(this);
-    this.popupFocusHandler = this.popupFocusHandler.bind(this);
-    this.popupBlurHandler = this.popupBlurHandler.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -147,9 +158,6 @@ class Select extends (PureComponent || Component) {
 
   // 接收trigger改变后的数据，将数据传给popup
   triggerChangeHandler(data) {
-    if (data.open) {
-      this.props.onOpen();
-    }
     this.setState(data);
   }
 
@@ -215,43 +223,15 @@ class Select extends (PureComponent || Component) {
     this.setState({
       keyword: null,
       selectedItems,
-      selectedItem,
-      open: this.focus
+      selectedItem
     });
-  }
-
-  popupFocusHandler() {
-    this.focus = this.state.open;
-  }
-
-  popupBlurHandler() {
-    this.focus = false;
-  }
-
-  // 焦点丢失处理
-  blurHandler() {
-    let that = this;
-    setTimeout(() => {
-      that.setState({
-        open: this.focus
-      });
-    }, 0);
-  }
-
-  keyupHandler(ev) {
-    let code = ev.keyCode;
-    if (!this.state.open) return false;
-    if (code === KEY_ESC) {
-      this.setState({
-        open: false
-      });
-    }
   }
 
   render() {
     let {
       placeholder,
       className,
+      wrapperClassName,
       disabled,
       emptyText,
       filter = this.props.onFilter,
@@ -263,52 +243,52 @@ class Select extends (PureComponent || Component) {
       selectedItems,
       selectedItem = {},
       extraFilter,
-      open,
       keyword = null
     } = this.state;
 
     let { cid = '' } = selectedItem;
 
-    let openCls = open && !disabled ? 'open' : '';
     let disabledCls = disabled ? 'disabled' : '';
     let prefixCls = `${this.props.prefix}-select`;
 
     return (
-      <div
-        tabIndex="0"
-        className={`${prefixCls} ${className} ${openCls} ${disabledCls}`}
-        onBlur={this.blurHandler}
-        onKeyDown={this.keyupHandler}
+      <Popover
+        position={Popover.Position.AutoBottomLeft}
+        className={`${prefixCls} ${className}`}
+        wrapperClassName={`${prefixCls} ${wrapperClassName} ${disabledCls}`}
       >
-        <Trigger
-          prefixCls={prefixCls}
-          trigger={this.trigger}
-          placeholder={placeholder}
-          selectedItems={selectedItems}
-          open={open}
-          keyword={keyword}
-          {...selectedItem}
-          onChange={this.triggerChangeHandler}
-          onDelete={this.triggerDeleteHandler}
-        />
-        {open
-          ? <Popup
-              cid={cid}
-              prefixCls={prefixCls}
-              data={this.sourceData}
-              selectedItems={selectedItems}
-              extraFilter={extraFilter}
-              searchPlaceholder={searchPlaceholder}
-              emptyText={emptyText}
-              keyword={keyword}
-              filter={filter}
-              onAsyncFilter={onAsyncFilter}
-              onChange={this.optionChangedHandler}
-              onFocus={this.popupFocusHandler}
-              onBlur={this.popupBlurHandler}
-            />
-          : ''}
-      </div>
+        <PopoverClickTrigger>
+          <Trigger
+            disabled={disabled}
+            prefixCls={prefixCls}
+            trigger={this.trigger}
+            placeholder={placeholder}
+            selectedItems={selectedItems}
+            keyword={keyword}
+            {...selectedItem}
+            onChange={this.triggerChangeHandler}
+            onDelete={this.triggerDeleteHandler}
+          />
+        </PopoverClickTrigger>
+        <Popover.Content>
+          <Popup
+            ref={ref => (this.popup = ref)}
+            cid={cid}
+            prefixCls={prefixCls}
+            data={this.sourceData}
+            selectedItems={selectedItems}
+            extraFilter={extraFilter}
+            searchPlaceholder={searchPlaceholder}
+            emptyText={emptyText}
+            keyword={keyword}
+            filter={filter}
+            onAsyncFilter={onAsyncFilter}
+            onChange={this.optionChangedHandler}
+            onFocus={this.popupFocusHandler}
+            onBlur={this.popupBlurHandler}
+          />
+        </Popover.Content>
+      </Popover>
     );
   }
 }
@@ -317,6 +297,7 @@ Select.propTypes = {
   data: PropTypes.array,
   prefix: PropTypes.string,
   className: PropTypes.string,
+  wrapperClassName: PropTypes.string,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   searchPlaceholder: PropTypes.string,
@@ -340,8 +321,8 @@ Select.defaultProps = {
   prefix: 'zent',
   disabled: false,
   className: '',
+  wrapperClassName: '',
   trigger: SelectTrigger,
-  open: false,
   placeholder: '请选择',
   searchPlaceholder: '',
   emptyText: '没有找到匹配项',
