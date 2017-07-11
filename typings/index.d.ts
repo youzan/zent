@@ -35,6 +35,8 @@ declare module 'zent' {
   export import Badge = Zent.Badge
   export import Tag = Zent.Tag
   export import Cascader = Zent.Cascader
+  export import ColorPicker = Zent.ColorPicker
+  export import CopyButton = Zent.CopyButton
 }
 
 declare namespace Zent {
@@ -765,19 +767,53 @@ declare namespace Zent {
   class Tag extends React.Component<ITagProps, any> {}
 
   interface ICascaderProps {
-    value: Array<any>
-    options: Array<any>
-    title: Array<any>
-    onChange: (any) => any
-    loadMore: () => Promise<any>
-    changeOnSelect: boolean
-    placeholder: string
-    prefix: string
-    className: string
-    popClassName: string
+    value?: Array<any>
+    options?: Array<any>
+    title?: Array<any>
+    onChange?: (any) => any
+    loadMore?: () => Promise<any>
+    changeOnSelect?: boolean
+    placeholder?: string
+    prefix?: string
+    className?: string
+    popClassName?: string
   }
 
   class Cascader extends React.Component<ICascaderProps, any> {}
+
+  interface IColorPickerProps {
+    color: string
+    showAlpha?: boolean
+    type?: 'default'|'simple'
+    presetColors?: Array<string>
+    onChange?: (string) => any
+    className?: string
+    wrapperClassName?: string
+    prefix?: string
+  }
+
+  class ColorPicker extends React.Component<IColorPickerProps, any> {}
+
+  namespace ColorPicker {
+    interface IColorBoardProps {
+      color: string
+      showAlpha?: boolean
+      onChange?: (string) => any
+      className?: string
+      prefix?: string
+    }
+
+    class ColorBoard extends React.Component<IColorBoardProps, any> {}
+  }
+
+  interface ICopyButtonProps {
+    text: string
+    onCopySuccess?: Function | string
+    onCopyError?: Function | string
+  }
+
+  class CopyButton extends React.Component<ICopyButtonProps, any> {}
+
 }
 
 
