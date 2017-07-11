@@ -38,6 +38,8 @@ declare module 'zent' {
   export import ColorPicker = Zent.ColorPicker
   export import CopyButton = Zent.CopyButton
   export import NumberInput = Zent.NumberInput
+  export import SearchInput = Zent.SearchInput
+  export import previewImage = Zent.previewImage
 }
 
 declare namespace Zent {
@@ -847,7 +849,15 @@ declare namespace Zent {
 
   class SearchInput extends React.Component<ISearchInputProps, any> {}
 
-  
+  interface IPreviewImageConfig {
+    images: Array<string>
+    index?: number
+    showRotateBtn?: boolean
+    className?: string
+    prefix?: string
+  }
+
+  function previewImage(config: IPreviewImageConfig): any
 }
 
 
