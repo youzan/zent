@@ -45,13 +45,19 @@ class Popup extends (PureComponent || Component) {
   }
 
   optionChangedHandler(ev, cid) {
+    let { filter, data } = this.props;
+    let { keyword } = this.state;
     this.setState({
       keyword: ''
     });
     this.props.onBlur();
     this.props.onChange(
       ev,
-      this.props.data.filter(item => item.cid === cid)[0]
+      data.filter(
+        item =>
+          (!keyword || !filter || filter(item, `${keyword}`)) &&
+          item.cid === cid
+      )[0]
     );
   }
 

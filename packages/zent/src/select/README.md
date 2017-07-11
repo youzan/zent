@@ -177,6 +177,7 @@ ReactDOM.render(
     data={data}
     optionValue="id"
     optionText="name"
+    onEmptySelected={(data) => console.log(data)}
     filter={(item, keyword) => item.name.indexOf(keyword) > -1}
   />
   , mountNode
