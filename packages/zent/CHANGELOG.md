@@ -1,5 +1,24 @@
 ## 更新日志
 
+## [zent@3.4.3](https://github.com/youzan/zent/tree/zent@3.4.3) (2017-07-12)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.2...zent@3.4.3)
+
+**不兼容改动和新功能:**
+
+- DatePicker: 支持两个 DatePicker 组合的时间区间选择 [\#362](https://github.com/youzan/zent/issues/362)
+
+**Bug 修复:**
+
+- switch: 小号的样式支持 loading [\#365](https://github.com/youzan/zent/issues/365)
+- DatePicker: RangePicker 交互修改 [\#363](https://github.com/youzan/zent/issues/363)
+- switch: small size switch add loading animation [\#371](https://github.com/youzan/zent/pull/371) ([ronghang](https://github.com/ronghang))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- select: 修复onEmptySelected的bug [\#372](https://github.com/youzan/zent/pull/372) ([huangsy](https://github.com/huangsy))
+- datepicker: add a new RangePicker [\#370](https://github.com/youzan/zent/pull/370) ([xuhong](https://github.com/xuhong))
+- 修复Checkbox和Radio组件的鼠标手势 [\#369](https://github.com/youzan/zent/pull/369) ([NinoFocus](https://github.com/NinoFocus))
+
 ## [zent@3.4.2](https://github.com/youzan/zent/tree/zent@3.4.2) (2017-07-10)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.1...zent@3.4.2)
 
