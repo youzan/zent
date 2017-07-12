@@ -140,19 +140,19 @@ class Select extends (PureComponent || Component) {
           typeof props.value === 'object' &&
           isEqual(props.value, item.value)
         ) {
-          that.state.selectedItem = item;
+          that.setState({ selectedItem: item });
         } else if (
           (typeof props.value !== 'undefined' &&
             typeof props.value !== 'object' &&
             `${item.value}` === `${props.value}`) ||
           (props.index !== 'undefined' && `${index}` === `${props.index}`)
         ) {
-          that.state.selectedItem = item;
+          that.setState({ selectedItem: item });
         }
 
         return item;
       });
-    this.state.selectedItems = selectedItems;
+    that.setState({ selectedItems });
     return this.sourceData;
   }
 
