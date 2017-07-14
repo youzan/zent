@@ -736,6 +736,7 @@ ReactDOM.render(
 | autoScroll | 是否点击分页自动滚到table顶部                          | boll          | `false`     |         | 否    |
 | className  | 自定义额外类名                                    | string        | `''`        |         | 否    |
 | prefix     | 自定义前缀                                      | string        | `'zent'`    |         | 否    |
+| pageInfo   | table对应的分页信息                              | object        | null    |         | 否    |
 
 #### getRowConf的特别声明：
 ```jsx
@@ -787,6 +788,16 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | selectedRowKeys | 默认选中            | array |  | 否    |
 | isSingleSelection | 是否是单选            | Boolean | false | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |
+
+### pageInfo
+
+| 参数              | 说明              | 类型    |  默认值 | 是否必须 |
+| --------------- | --------------- | ----- | ---- | ----- |
+| totalItem | 总条目个数            | number | 0 | 否    |
+| total | 总条目个数**[deprecated]**   | number | 0 | 否    |
+| pageSize | 每页个数   | number |  | 否    |
+| limit | 每页个数**[deprecated]**   | number |  | 否    |
+| maxPageToShow    | 最多可显示的个数 | number  |  | 否  
 
 ### expandation
 
