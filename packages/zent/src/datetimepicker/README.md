@@ -13,11 +13,11 @@
 :::demo 基础的日期、月份、时间段选择
 
 ```jsx
-import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
+import { DatePicker, MonthPicker, DateRangePicker, DateRangePicker2 } from 'zent'
 
 class Demo extends Component{
   state = {
-
+		dateValue: new Date()
   }
 
   onChangeDate = (val) => {
@@ -38,14 +38,21 @@ class Demo extends Component{
     })
   }
 
+	onChangeRange2 = (val) => {
+		this.setState({
+			rangeValue: val
+		})
+	}
+
   render(){
     const { dateValue, monthValue, rangeValue } = this.state;
+
     return (
       <div>
         <DatePicker
           className="zent-picker-demo"
           value={dateValue}
-          min="1990-01-01"
+          max="2020-01-01"
           onChange={this.onChangeDate}
         />
         <br />
@@ -60,6 +67,11 @@ class Demo extends Component{
           value={rangeValue}
           onChange={this.onChangeRange}
           />
+				<br/>
+				<DateRangePicker2 
+					value={rangeValue}
+					onChange={this.onChangeRange2}
+				/>
       </div>
     )
   }
@@ -115,14 +127,14 @@ class Demo extends Component{
           className="zent-picker-demo"
           format="YYYY年MM月"
           value={monthValue}
-          onChange={this.onChange}
+          onChange={this.onChangeMonth}
         />
         <br />
         <DateRangePicker
           className="zent-picker-demo"
           format="YYYY-MM-DD"
           value={rangeValue}
-          onChange={this.onChange}
+          onChange={this.onChangeRange}
           />
         </div>
     )
@@ -347,6 +359,7 @@ class Demo extends Component{
         <DateRangePicker
           className="zent-picker-demo"
           showTime
+					format="YYYY-MM-DD HH:mm:ss"
           disabledDate={this.disabledRangeDate}
           disabledTime={this.disabledRangeTime}
           value={rangeValue}
@@ -433,17 +446,18 @@ ReactDOM.render(
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
 | value        | 默认选择日期                   | string/Date    |     | 否    |
-| defaultValue        | 默认面板显示日期                   | string/Date    |     | 否    |
-| onChange     | 确认日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
+| defaultValue | 默认面板显示日期               | string/Date    |     | 否    |
+| onChange     | 选择日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
 | onClick      | 用户点击选择日期的回调 | func |   |   否 |
+| openPanel    | 面板是否打开 | boolean | false  |   否 |
 | onOpen       | 面板弹出的回调 | func |   |   否 |
 | onClose      | 面板关闭的回调 | func |   |   否 |
-| disabled     | 是否处于 disabled 状态          | bool         | `false`         | 否    |
-| format       | 返回日期字符串格式                | string         |  不同的picker默认值不同，下详  | 否    |
-| placeholder  | 提示文案                   | string    | 不同的picker默认值不同，下详   | 否    |
-| className    | 额外的 css 类                | string         |             | 否    |
-| prefix       | 自定义前缀                    | string         | `'zent'`        | 否    |
-| confirmText  | 确认按钮文字                    | string         | '确认'        | 否    |
+| disabled     | 是否处于 disabled 状态 | bool         | `false`         | 否    |
+| format       | 返回日期字符串格式      | string         |  不同的picker默认值不同，下详  | 否    |
+| placeholder  | 提示文案               | string    | 不同的picker默认值不同，下详   | 否    |
+| className    | 额外的 css 类          | string         |             | 否    |
+| prefix       | 自定义前缀       			 | string         | `'zent'`        | 否    |
+| confirmText  | 确定按钮文字            | string         | '确定'        | 否    |
 
 
 ### DateTimePicker
@@ -457,6 +471,7 @@ ReactDOM.render(
 | min        | 可选日期的最小值                   | string/Date    |     | 否    |
 | max        | 可选日期的最大值                   | string/Date    |     | 否    |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
+| name  		| input 的 name 属性            | string    |   | 否    |
 | placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
 | defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
 
@@ -476,6 +491,7 @@ ReactDOM.render(
 | value        | 选中的月份     | string/Date    | `new Date()`    | 否    |
 | format       | 返回月份字符串格式  | string | `'YYYY-MM'` | 否    |
 | disabled     | 是否处于disabled 状态          | bool      | `false`   | 否    |
+| name 				 | input 的 name 属性            | string    |   | 否    |
 | placeholder  | 提示文案          | string  | `请选择月份`   | 否    |
 
 ### RangePicker
@@ -490,7 +506,7 @@ ReactDOM.render(
 | min          | 可选日期的最小值   | string/instanceOf(Date)  | ``   | 否    |
 | max          | 可选日期的最大值  | string/instanceOf(Date)  | ``    | 否    |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
-| placeholder  | 提示文案          | string    | `['开始日期','结束日期']`   | 否    |
+| placeholder  | 提示文案          | array    | `['开始日期','结束日期']`   | 否    |
 | defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
 
 
@@ -499,6 +515,27 @@ ReactDOM.render(
 - `showTime` 的时候，传入的 `min` 或 `max` 如果为字符串，必须有 time 部分，即 `2017-01-01 11:11:11` 种格式。
 - `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
 - `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
+
+### RangePicker2
+
+| 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showTime     | 是否显示时间筛选 | bool   | `false` | 否    |
+| disabledTime | 时间禁用函数 | func | `noop` | 否    |
+| disabledDate | 判断日期是否可选函数  | func     | `noop`  | 否    |
+| format       | 返回日期字符串格式                | string         | `YYYY-MM-DD`  | 否    |
+| min        | 可选日期的最小值                   | string/Date    |     | 否    |
+| max        | 可选日期的最大值                   | string/Date    |     | 否    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
+| name  		| input 的 name 属性            | arrayOf(string)   |   | 否    |
+| placeholder  | 提示文案                   | arrayOf(string)  | `请选择日期`   | 否    |
+| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+
+**注意：**
+
+- `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
+- `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
+
 
 ### 格式化字符表
 

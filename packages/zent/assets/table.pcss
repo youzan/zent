@@ -2,9 +2,12 @@ $blue: #38f;
 $darkblue: #27f;
 $orange: #f60;
 
+.zent-table-container {
+  margin-bottom: 20px;
+}
+
 .zent-table {
   box-sizing: border-box;
-  margin-bottom: 20px;
   width: 100%;
 
   a {
@@ -96,10 +99,23 @@ $orange: #f60;
   }
 
   .tfoot {
-    padding: 10px 0 0 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
 
     &__batchcomponents {
       float: left;
+      padding: 5px;
+      padding-left: 10px;
+
+      &--has-children {
+        border: 1px solid #eee;
+        background: #fff;
+      }
+
+      &--fixed {
+        position: fixed;
+        bottom: 0;
+      }
     }
 
     &__page {
@@ -121,6 +137,7 @@ $orange: #f60;
 
     &__child-container {
       overflow: hidden;
+      width: 100%;
       text-overflow: ellipsis;
     }
 
@@ -130,6 +147,10 @@ $orange: #f60;
 
     &:last-child {
       justify-content: flex-end;
+
+      .cell__child-container {
+        text-align: right;
+      }
     }
 
     &.empty-data {
@@ -142,8 +163,29 @@ $orange: #f60;
       padding-left: 34px;
     }
 
-    &.cell--money {
-      justify-content: flex-end;
+    &.cell--money,
+    &.cell--right {
+      justify-content: end;
+
+      .cell__child-container {
+        text-align: right;
+      }
+    }
+
+    &.cell--start {
+      justify-content: start;
+
+      .cell__child-container {
+        text-align: left;
+      }
+    }
+
+    &.cell--center {
+      justify-content: center;
+
+      .cell__child-container {
+        text-align: center;
+      }
     }
 
     .asc,

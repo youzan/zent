@@ -44,7 +44,7 @@ const columns = [{
   title: '库存',
   name: 'stock_num',
   width: '100px',
-  textAlign: 'center',
+	isMoney: true,
   isMoney: true
 }, {
   width: '3em',
@@ -55,6 +55,7 @@ const columns = [{
 ReactDOM.render(
     <Table
       columns={columns}
+			pageInfo={null}
       datasets={datasets}
       rowKey="item_id"
     />
@@ -613,6 +614,16 @@ const datasets = [{
   bro_uvpv: '0/0',
   stock_num: 159,
   sold_num: 0,
+}, {
+  item_id: '13213',
+  bro_uvpv: '1/2',
+  stock_num: 1592,
+  sold_num: 1,
+}, {
+  item_id: '13215',
+  bro_uvpv: '2/3',
+  stock_num: 1591,
+  sold_num: 0,
 }];
 const columns = [{
   title: '商品',
@@ -713,13 +724,14 @@ ReactDOM.render(
 | rowKey     | 每一行的key, 让react提升性能, 并防止出现一系列的问题           | string        | `id`        |         | 否    |
 | sortBy     | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段       | string        |             |         | 否    |
 | sortType   | 排序方式                                       | string        | `'desc'`    | `'asc'` | 否    |
-| onChange   | 列表发生变化时自动触发的函数，页面筛选、排序均会触发                 | func          |             |         | 否    |
+| onChange   | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func          |             |         | 否    |
 | emptyLabel | 列表为空时的提示文案                                 | string        | `'没有更多数据了'` |         | 否    |
 | selection  | 表格的选择功能配置                                  | object        |             |         | 否    |
 | loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
 | getRowConf | 每一行的配置函数，返回一个配置对象`{ canSelect, rowClass }` | func          |             |         | 否    |
 | expandation     |  展开配置                                      | object        |     |         | 否    |
-| batchComponents     |  批量操作的组件列表，如何使用，看批量操作的示例       | array[html/function/React Component]        |   null  |   null      | 否    |
+| batchComponents     |  批量操作的组件列表，如何使用，看批量操作的示例   | array[html/function/React Component] |   null  |   null | 否    |
+| batchComponentsAutoFixed  |   是否要自动fix批量操作      | bool          | `true`     |         | 否    |
 | autoStick  | 是否自动将head stick到窗口                         | bool          | `false`     |         | 否    |
 | autoScroll | 是否点击分页自动滚到table顶部                          | boll          | `false`     |         | 否    |
 | className  | 自定义额外类名                                    | string        | `''`        |         | 否    |
@@ -745,6 +757,17 @@ ReactDOM.render(
   
 ```
 
+#### onChange函数声明
+onChange会抛出一个对象，这个对象包含分页变化和排序的的参数：
+
+```js
+{
+	sortBy, // {String} 表示基于什么key进行排序
+	sortType, // {String} ['asc', 'desc'] 排序的方式
+	current, // {Number} 表示当前第几行
+}
+```
+
 ### columns
 
 | 参数         | 说明                                  | 类型                   | 默认值     | 是否必须 |
@@ -762,7 +785,8 @@ ReactDOM.render(
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
-| onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候出发的函数 | func  |  | 否    |
+| isSingleSelection | 是否是单选            | Boolean | false | 否    |
+| onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |
 
 ### expandation
 

@@ -1,8 +1,8 @@
 import React, { PureComponent, Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
-import pick from 'lodash/pick';
+import omit from 'lodash/omit';
+import isFunction from 'lodash/isFunction';
 import Input from 'input';
 import Icon from 'icon';
 
@@ -31,7 +31,7 @@ export default class NumberInput extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     const { value, min, max, decimal } = props;
-    let { num, minArrow, maxArrow } = this.adjustFixed(
+    let { num, upArrow, downArrow } = this.adjustFixed(
       value,
       min,
       max,
@@ -39,15 +39,22 @@ export default class NumberInput extends (PureComponent || Component) {
     );
     this.state = {
       value: num,
-      minArrow,
-      maxArrow
+      upArrow,
+      downArrow
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps, this.props)) {
+    let props = this.props;
+    if (
+      nextProps.decimal !== props.decimal ||
+      nextProps.disabled !== props.disabled ||
+      nextProps.value !== props.value ||
+      nextProps.max !== props.max ||
+      nextProps.min !== props.min
+    ) {
       const { value, min, max, decimal } = nextProps;
-      let { num, minArrow, maxArrow } = this.adjustFixed(
+      let { num, upArrow, downArrow } = this.adjustFixed(
         value,
         min,
         max,
@@ -55,8 +62,8 @@ export default class NumberInput extends (PureComponent || Component) {
       );
       this.setState({
         value: num,
-        minArrow,
-        maxArrow
+        upArrow,
+        downArrow
       });
       this.onPropChange(num);
     }
@@ -64,21 +71,21 @@ export default class NumberInput extends (PureComponent || Component) {
 
   adjustFixed(num, min, max, len) {
     // 检查min与max范围
-    let maxArrow = false;
-    let minArrow = false;
+    let downArrow = false;
+    let upArrow = false;
     if (min !== undefined || max !== undefined) {
-      maxArrow = Math.round(num * 10 ** len) <= Math.round(min * 10 ** len);
-      minArrow = Math.round(num * 10 ** len) >= Math.round(max * 10 ** len);
-      num = maxArrow ? min : num;
-      num = minArrow ? max : num;
+      downArrow = Math.round(num * 10 ** len) <= Math.round(min * 10 ** len);
+      upArrow = Math.round(num * 10 ** len) >= Math.round(max * 10 ** len);
+      num = downArrow ? min : num;
+      num = upArrow ? max : num;
     }
 
     // 四舍五入, 切保留几位小数， 此四舍五入修正了js原生toFixed保留小数点的BUG问题
     num = (Math.round(num * 10 ** len) / 10 ** len).toFixed(len);
     return {
       num,
-      minArrow,
-      maxArrow
+      upArrow,
+      downArrow
     };
   }
 
@@ -92,7 +99,7 @@ export default class NumberInput extends (PureComponent || Component) {
     return this.adjustFixed(result, min, max, len);
   }
 
-  onChange(ev) {
+  onChange = ev => {
     let value = ev.target.value;
     if (!value) {
       this.setState({ value });
@@ -104,16 +111,16 @@ export default class NumberInput extends (PureComponent || Component) {
     ) {
       this.setState({ value });
     }
-  }
+  };
 
-  onBlur() {
+  onBlur = evt => {
     const { decimal, min, max } = this.props;
     let { value } = this.state;
     if (/^(\-|\+)?$/g.test(value)) {
       value = '';
     }
     value = value.replace(/\.$/g, '');
-    let { num, minArrow, maxArrow } = this.adjustFixed(
+    let { num, upArrow, downArrow } = this.adjustFixed(
       value,
       min,
       max,
@@ -121,24 +128,45 @@ export default class NumberInput extends (PureComponent || Component) {
     );
     this.setState({
       value: num,
-      minArrow,
-      maxArrow
+      upArrow,
+      downArrow
     });
     this.onPropChange(num);
-  }
+
+    const { onBlur } = this.props;
+    if (isFunction(onBlur)) {
+      onBlur(evt);
+    }
+  };
 
   onArrow(disabled, count) {
     if (disabled) return;
     const { value } = this.state;
     const { decimal } = this.props;
-    let { num, minArrow, maxArrow } = this.countFied(value, decimal, count);
+    let { num, upArrow, downArrow } = this.countFied(value, decimal, count);
     this.setState({
       value: num,
-      minArrow,
-      maxArrow
+      upArrow,
+      downArrow
     });
     this.onPropChange(num);
   }
+
+  inc = () => {
+    const { disabled } = this.props;
+    const { upArrow } = this.state;
+    const upArrowState = disabled || upArrow;
+
+    this.onArrow(upArrowState, 1);
+  };
+
+  dec = () => {
+    const { disabled } = this.props;
+    const { downArrow } = this.state;
+    const downArrowState = disabled || downArrow;
+
+    this.onArrow(downArrowState, -1);
+  };
 
   onPropChange(result) {
     const props = this.props;
@@ -152,12 +180,12 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   render() {
-    const { prefix, className, showStepper, disabled } = this.props;
-    const { value, minArrow, maxArrow } = this.state;
+    const { prefix, className, showStepper, disabled, readOnly } = this.props;
+    const { value, upArrow, downArrow } = this.state;
 
     // 箭头状态
-    let minArrowState = disabled || minArrow;
-    let maxArrowState = disabled || maxArrow;
+    let upArrowState = disabled || readOnly || upArrow;
+    let downArrowState = disabled || readOnly || downArrow;
 
     // 最外层样式
     const wrapClass = classNames(
@@ -172,46 +200,44 @@ export default class NumberInput extends (PureComponent || Component) {
     const upArrowClass = classNames({
       [`${prefix}-number-input-arrow`]: true,
       [`${prefix}-number-input-arrowup`]: true,
-      [`${prefix}-number-input-arrow-disable`]: minArrowState
+      [`${prefix}-number-input-arrow-disable`]: upArrowState
     });
 
     // 下arrow样式
     const downArrowClass = classNames({
       [`${prefix}-number-input-arrow`]: true,
       [`${prefix}-number-input-arrowdown`]: true,
-      [`${prefix}-number-input-arrow-disable`]: maxArrowState
+      [`${prefix}-number-input-arrow-disable`]: downArrowState
     });
 
     // 可传入Input组件的属性
-    let inputProps = pick(this.props, ['placeholder', 'disabled', 'readOnly']);
+    let inputProps = omit(this.props, [
+      // 这几个 Input 的 props 不要透传
+      'type',
+      'addonBefore',
+      'addonAfter',
+      'onChange',
+
+      // 这些是 NumberInput 特有的 props
+      'showStepper',
+      'min',
+      'max',
+      'decimal'
+    ]);
     return (
       <div className={wrapClass}>
         {showStepper &&
-          <span
-            className={upArrowClass}
-            onClick={() => {
-              this.onArrow(minArrowState, 1);
-            }}
-          >
+          <span className={upArrowClass} onClick={this.inc}>
             <Icon type="right" />
           </span>}
         <Input
           {...inputProps}
           value={value}
-          onChange={e => {
-            this.onChange(e);
-          }}
-          onBlur={() => {
-            this.onBlur();
-          }}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
         />
         {showStepper &&
-          <span
-            className={downArrowClass}
-            onClick={() => {
-              this.onArrow(maxArrowState, -1);
-            }}
-          >
+          <span className={downArrowClass} onClick={this.dec}>
             <Icon type="right" />
           </span>}
       </div>

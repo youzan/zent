@@ -16,7 +16,8 @@ const Sketch = ({
   presetColors,
   renderers,
   prefix,
-  className
+  className,
+  type
 }) => {
   const styles = reactCSS(
     {
@@ -141,6 +142,7 @@ const Sketch = ({
         colors={presetColors}
         onClick={onChange}
         prefix={prefix}
+        type={type}
       />
     </div>
   );

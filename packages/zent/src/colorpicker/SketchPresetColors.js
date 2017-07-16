@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import reactCSS from './helpers/reactcss';
 import { Swatch } from './common';
 
-const SketchPresetColors = ({ colors, onClick, prefix }) => {
+const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
   const styles = reactCSS(
     {
       default: {
@@ -45,6 +45,22 @@ const SketchPresetColors = ({ colors, onClick, prefix }) => {
       e
     );
   };
+
+  if (type === 'simple') {
+    return (
+      <div className={`${prefix}-colorpicker-colors-select`}>
+        {colors.map(color => (
+          <div
+            key={color}
+            className={`${prefix}-colorpicker-colors-select__preview`}
+            style={{ backgroundColor: color }}
+            onClick={() => onClick(color)}
+            title={color}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div style={styles.colors} className={`${prefix}-colorpicker-colors`}>

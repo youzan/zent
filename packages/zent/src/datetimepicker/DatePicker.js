@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
+import assign from 'lodash/assign';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
@@ -10,13 +11,19 @@ import { CURRENT_DAY, goMonths } from './utils';
 import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
-let retType = 'string';
-
 function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { value, format, min, max, defaultValue, defaultTime } = props;
+  const {
+    openPanel,
+    value,
+    format,
+    min,
+    max,
+    defaultValue,
+    defaultTime
+  } = props;
 
   if (value) {
     const tmp = maybeParseDate(value, format);
@@ -65,7 +72,7 @@ function extractStateFromProps(props) {
     actived,
     selected,
     activedTime: selected || actived,
-    openPanel: false,
+    openPanel,
     showPlaceholder
   };
 }
@@ -73,6 +80,7 @@ function extractStateFromProps(props) {
 class DatePicker extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
+    name: PropTypes.string,
     className: PropTypes.string,
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
@@ -103,33 +111,34 @@ class DatePicker extends (PureComponent || Component) {
     prefix: 'zent',
     className: '',
     placeholder: '请选择日期',
-    confirmText: '确认',
+    confirmText: '确定',
     format: 'YYYY-MM-DD',
     min: '',
     max: '',
+    openPanel: false,
     disabledDate: noop,
     onChange: noop
   };
+
+  retType = 'string';
 
   constructor(props) {
     super(props);
     const { value, valueType } = props;
 
     if (valueType) {
-      retType = valueType;
+      this.retType = valueType;
     } else if (value) {
-      if (typeof value === 'number') retType = 'number';
-      if (value instanceof Date) retType = 'date';
+      if (typeof value === 'number') this.retType = 'number';
+      if (value instanceof Date) this.retType = 'date';
     }
 
     this.state = extractStateFromProps(props);
   }
 
   componentWillReceiveProps(next) {
-    if (next.value !== this.props.value) {
-      const state = extractStateFromProps(next);
-      this.setState(state);
-    }
+    const state = extractStateFromProps(next);
+    this.setState(state);
   }
 
   onChangeDate = val => {
@@ -187,11 +196,11 @@ class DatePicker extends (PureComponent || Component) {
    */
 
   getReturnValue(date, format) {
-    if (retType === 'number') {
+    if (this.retType === 'number') {
       return date.getTime();
     }
 
-    if (retType === 'date') {
+    if (this.retType === 'date') {
       return date;
     }
 
@@ -245,7 +254,7 @@ class DatePicker extends (PureComponent || Component) {
     let datePicker;
 
     if (props.showTime) {
-      showTime = Object.assign(
+      showTime = assign(
         {},
         {
           actived: state.activedTime,
@@ -326,6 +335,7 @@ class DatePicker extends (PureComponent || Component) {
           <Popover.Trigger.Click>
             <div className={inputCls}>
               <Input
+                name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}
                 onChange={noop}
                 disabled={props.disabled}

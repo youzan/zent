@@ -10,6 +10,7 @@ import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
+import DateRangePicker2 from 'datetimepicker/DateRangePicker2';
 import Dialog from 'dialog';
 import Form from 'form';
 import Layout from 'layout';
@@ -23,8 +24,10 @@ import Pagination from 'pagination';
 import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
+import previewImage from 'preview-image';
 import Progress from 'progress';
 import Radio from 'radio';
+import SearchInput from 'search-input';
 import Select from 'select';
 import Slider from 'slider';
 import Steps from 'steps';
@@ -49,6 +52,7 @@ export {
   CopyButton,
   DatePicker,
   DateRangePicker,
+  DateRangePicker2,
   Dialog,
   Form,
   Layout,
@@ -63,8 +67,10 @@ export {
   Pop,
   Popover,
   Portal,
+  previewImage,
   Progress,
   Radio,
+  SearchInput,
   Select,
   Slider,
   Steps,
