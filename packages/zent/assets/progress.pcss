@@ -1,5 +1,7 @@
 $line-height: 10px;
 $line-width: 580px;
+$circle-width: 76px;
+$circle-path-width: 3px;
 $color-info: #999;
 $color-bg: #f8f8f8;
 $color-success: #44ba00;
@@ -55,6 +57,81 @@ $color-exception: #f44;
     .zent-progress-exception {
       .zent-progress-inner {
         background: $color-exception;
+      }
+
+      .zent-progress-info {
+        color: $color-exception;
+      }
+    }
+  }
+
+  &.zent-progress-circle {
+    position: relative;
+    width: $circle-width;
+    height: $circle-width;
+    display: inline-block;
+
+    .zent-progress-wrapper,
+    .zent-progress-inner {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $circle-width;
+      height: $circle-width;
+    }
+
+    .zent-progress-info {
+      display: inline-block;
+      font-size: 12px;
+      color: $color-info;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $circle-width;
+      height: $circle-width;
+      text-align: center;
+      line-height: $circle-width;
+
+      .zenticon {
+        font-size: 14px;
+      }
+    }
+
+    .zent-progress-wrapper-path {
+      stroke: #f8f8f8;
+      stroke-width: $circle-path-width;
+      fill: none;
+    }
+
+    .zent-progress-inner-path {
+      stroke-width: $circle-path-width;
+      fill: none;
+    }
+
+    .zent-progress-inprogress {
+      .zent-progress-inner-path {
+        stroke: $color-exception;
+      }
+
+      .zent-progress-info {
+        color: $color-info;
+      }
+    }
+
+    .zent-progress-success {
+      .zent-progress-inner-path {
+        stroke: $color-success;
+      }
+
+      .zent-progress-info {
+        color: $color-success;
+      }
+    }
+
+    .zent-progress-exception {
+      .zent-progress-inner-path {
+        stroke: $color-exception;
       }
 
       .zent-progress-info {

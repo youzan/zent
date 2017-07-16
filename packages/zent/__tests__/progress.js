@@ -35,6 +35,28 @@ describe('Progress', () => {
     expect(wrapper.find('.test.zent-progress').length).toBe(1);
   });
 
+  it('can show progress in circle type', () => {
+    const wrapper = mount(<Progress type="circle" percent={70} />);
+    expect(wrapper.find('.zent-progress').length).toBe(1);
+    expect(wrapper.find('.zent-progress-circle').length).toBe(1);
+    expect(wrapper.find('.zent-progress-wrapper').length).toBe(1);
+    expect(wrapper.find('.zent-progress-inner').length).toBe(1);
+    expect(wrapper.find('.zent-progress-info').length).toBe(1);
+    expect(wrapper.find('svg').length).toBe(2);
+  });
+
+  it('can show progress in circle type without info', () => {
+    const wrapper = mount(
+      <Progress type="circle" percent={70} showInfo={false} />
+    );
+    expect(wrapper.find('.zent-progress-info').length).toBe(0);
+  });
+
+  it('can show progress in circle type with 100 percent', () => {
+    const wrapper = mount(<Progress type="circle" percent={100} />);
+    expect(wrapper.find('circle').length).toBe(2);
+  });
+
   it('can show percent when in progress', () => {
     const wrapper = mount(<Progress percent={70} />);
     expect(wrapper.find('.zent-progress-info').text()).toBe('70%');

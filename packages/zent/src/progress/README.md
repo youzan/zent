@@ -20,6 +20,9 @@ class App extends Component {
 				<Progress />
 				<Progress percent={70}/>
 				<Progress percent={100}/>
+        <Progress type="circle"/>
+        <Progress type="circle" percent={80}/>
+        <Progress type="circle" percent={100}/>
 			</div>
 		);
 	}
@@ -86,6 +89,8 @@ class App extends Component {
 			<div>
 				<Progress percent={70} status="success"/>
 				<Progress percent={80} status="exception"/>
+        <Progress type="circle" percent={70} status="success"/>
+        <Progress type="circle" percent={80} status="exception"/>
 			</div>
 		);
 	}
@@ -108,6 +113,8 @@ class App extends Component {
 			<div>
 				<Progress percent={70} showInfo={false}/>
 				<Progress percent={100} showInfo={false}/>
+        <Progress type="circle" percent={70} showInfo={false}/>
+        <Progress type="circle" percent={100} showInfo={false}/>
 			</div>
 		);
 	}
@@ -124,7 +131,7 @@ ReactDOM.render(
 
 | 参数           | 说明                | 类型             | 默认值                 |
 | ------------ | ----------------- | -------------- | ------------------- |
-| type | 进度条样式，可选`'line'` | string | `'line'` |
+| type | 进度条样式，可选`'line'` | string | `'line'`, `'circle'` |
 | percent | 百分比 | number     | `0` |
 | status | 状态，可选`'success'`,`'exception'` | string|  |
 | showInfo | 是否显示状态信息 | boolean | `true`  |
@@ -135,5 +142,8 @@ ReactDOM.render(
 <style>
 .zent-progress {
 	margin-bottom: 10px;
+}
+.zent-progress-circle {
+  margin-right: 10px;
 }
 </style>
