@@ -1,5 +1,12 @@
 ## 更新日志
 
+## [zent@3.4.5](https://github.com/youzan/zent/tree/zent@3.4.5) (2017-07-17)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.4...zent@3.4.5)
+
+**不兼容改动和新功能:**
+
+- icons: Add 2 new icons [\#379](https://github.com/youzan/zent/pull/379) ([cpylua](https://github.com/cpylua))
+
 ## [zent@3.4.4](https://github.com/youzan/zent/tree/zent@3.4.4) (2017-07-17)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.3...zent@3.4.4)
 
