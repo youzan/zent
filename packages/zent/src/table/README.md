@@ -397,7 +397,6 @@ class Selection extends React.Component {
     this.setState({
       selectedRowKeys
     });
-    console.log(currentRow)
     alert(`你选中了：${selectedRowKeys}`);
   }
 
@@ -820,6 +819,7 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
 | isSingleSelection | 是否是单选            | Boolean | false | 否    |
+| needCrossPage |   是否需要跨页的时候多选            | Boolean | false | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |
 
 ### pageInfo
@@ -838,7 +838,6 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | --------------- | --------------- | ----- | ---- | ----- |
 | isExpanded | 是否展开当前行            | boolean | false | 否    |
 | expandRender        | 展开行的补充内容render | func  |  | 否  
-
 
 <style>
   .row {

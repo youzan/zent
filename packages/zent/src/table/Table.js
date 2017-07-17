@@ -183,6 +183,11 @@ export default class Table extends (PureComponent || Component) {
   };
 
   onPageChange = current => {
+    debugger;
+    if (this.props.selection && !this.props.selection.needCrossPage) {
+      this.selectedRowKeys = [];
+      this.selectedRows = [];
+    }
     this.wrapPropsOnChange({
       current
     });
