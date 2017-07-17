@@ -301,6 +301,14 @@ class IconGrid extends Component {
           <Icon type="unlock" />
           <span className="zi-grid-item-name">unlock(0xe83d)</span>
         </div>
+        <div className="zi-grid-item" data-index="pending-circle0xe83ependingcircle">
+          <Icon type="pending-circle" />
+          <span className="zi-grid-item-name">pending-circle(0xe83e)</span>
+        </div>
+        <div className="zi-grid-item" data-index="forbidden-circle0xe83fforbiddencircle">
+          <Icon type="forbidden-circle" />
+          <span className="zi-grid-item-name">forbidden-circle(0xe83f)</span>
+        </div>
       </div>
     );
   }

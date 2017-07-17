@@ -4938,6 +4938,6 @@ yargs@~3.10.0:
     decamelize "^1.0.0"
     window-size "0.1.0"
 
-zenticons@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-1.0.2.tgz#6c274583ea1e938fa623c6ced8d53e51e4a0758d"
+zenticons@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-1.0.3.tgz#01ca2650967b1b0dddcb8b12ed5b8d34d2f02254"
