@@ -127,7 +127,8 @@ export default class Instance extends (PureComponent || Component) {
       );
     }
 
-    return this.props.children;
+    // In case Loading has no children
+    return this.props.children || null;
   }
 }
 
