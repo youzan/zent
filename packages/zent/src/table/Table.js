@@ -221,20 +221,24 @@ export default class Table extends (PureComponent || Component) {
       }
     }
 
-    this.selectedRowKeys = rowKeysCurrentPage;
-    this.selectedRows = rowsCurrentPage;
-    if (this.props.selection.needCrossPage) {
-      if (isSelect) {
+    if (isSelect) {
+      allRowKeys = rowKeysCurrentPage;
+      allRows = rowsCurrentPage;
+      if (this.props.selection.needCrossPage) {
         allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
         allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
-      } else {
+      }
+    } else {
+      allRowKeys = [];
+      allRows = [];
+      if (this.props.selection.needCrossPage) {
         allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
         allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
       }
-
-      this.selectedRowKeys = allRowKeys;
-      this.selectedRows = allRows;
     }
+
+    this.selectedRowKeys = allRowKeys;
+    this.selectedRows = allRows;
 
     selection.onSelect(this.selectedRowKeys, this.selectedRows, null);
   };
@@ -319,7 +323,10 @@ export default class Table extends (PureComponent || Component) {
     let rows = [];
     let self = this;
     // 之前缓存的rows和本页的总datasets整个作为搜索的区间
-    let allRows = this.selectedRows.concat(this.props.datasets);
+    let allRows = uniqBy(
+      this.selectedRows.concat(this.props.datasets),
+      this.props.rowKey
+    );
 
     allRows.forEach(item => {
       if (rowKeys.indexOf(item[self.props.rowKey]) >= 0) {
