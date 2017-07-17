@@ -340,6 +340,23 @@ const datasets = [{
   stock_num: 159,
   sold_num: 0,
 }];
+const datasets2 = [{
+  item_id: '4217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '50',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+
 const columns = [{
   title: '商品',
   width: 50,
@@ -366,9 +383,12 @@ class Selection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      limit: 10,
-      current: 0,
-      total: 101,
+			page: {
+				pageSize: 3,
+				current: 0,
+				totalItem: 6,
+			},
+			datasets: datasets,
       selectedRowKeys: [],
     };
   }
@@ -387,15 +407,28 @@ class Selection extends React.Component {
     };
   }
 
+	onChange(conf) {
+		this.setState({
+			page: {
+				pageSize: 3,
+				current: conf.current,
+				totalItem: 6
+			},
+			datasets: conf.current === 1 ? datasets : datasets2
+		})
+	}
+
   render() {
     let self = this;
 
     return (
       <Table
         columns={columns}
-        datasets={datasets}
+        datasets={this.state.datasets}
         rowKey="item_id"
         getRowConf={this.getRowConf}
+				pageInfo={this.state.page}
+				onChange={(conf) => { this.onChange(conf); }}
         selection={{
           selectedRowKeys: this.state.selectedRowKeys,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
