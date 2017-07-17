@@ -47,7 +47,7 @@ describe('Loading', () => {
   });
 
   it('Loading has floating model.', () => {
-    const wrapper = mount(
+    let wrapper = mount(
       <Loading show={false} float>
         <span className="foo" />
       </Loading>
@@ -58,6 +58,15 @@ describe('Loading', () => {
     wrapper.setProps({ show: true });
     wrapper.setProps({ show: false });
     wrapper.setProps({ show: true });
+    wrapper.unmount();
+
+    // Can be used without children
+    wrapper = mount(
+      <Loading show float className="loading-test-no-children" />
+    );
+    expect(document.querySelectorAll('.loading-test-no-children').length).toBe(
+      1
+    );
     wrapper.unmount();
   });
 
