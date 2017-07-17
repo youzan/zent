@@ -60,7 +60,9 @@ describe('Progress', () => {
   });
 
   it('can show progress in circle type when exception', () => {
-    const wrapper = mount(<Progress type="circle" status="exception" percent={80} />);
+    const wrapper = mount(
+      <Progress type="circle" status="exception" percent={80} />
+    );
     expect(wrapper.find('.zenticon-close-circle').length).toBe(0);
     expect(wrapper.find('.zenticon-close').length).toBe(1);
   });
