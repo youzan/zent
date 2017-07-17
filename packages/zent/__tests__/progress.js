@@ -54,7 +54,15 @@ describe('Progress', () => {
 
   it('can show progress in circle type with 100 percent', () => {
     const wrapper = mount(<Progress type="circle" percent={100} />);
+    expect(wrapper.find('.zent-check-circle').length).toBe(0);
+    expect(wrapper.find('.zent-check').length).toBe(1);
     expect(wrapper.find('circle').length).toBe(2);
+  });
+
+  it('can show progress in circle type when exception', () => {
+    const wrapper = mount(<Progress type="circle" status="exception" percent={80} />);
+    expect(wrapper.find('.zent-close-circle').length).toBe(0);
+    expect(wrapper.find('.zent-close').length).toBe(1);
   });
 
   it('can show percent when in progress', () => {

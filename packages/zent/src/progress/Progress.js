@@ -42,9 +42,9 @@ export default class Progress extends (PureComponent || Component) {
     const renderInfoCont = () => {
       let infoCont = `${percent}%`;
       if (percent >= 100) {
-        infoCont = <Icon type="check-circle" />;
+        infoCont = <Icon type={type==='circle' ? 'check' : 'check-circle'} />;
       } else if (status === 'exception') {
-        infoCont = <Icon type="close-circle" />;
+        infoCont = <Icon type={type==='circle' ? 'close' : 'close-circle'} />;
       }
       return infoCont;
     };
