@@ -1,5 +1,20 @@
 ## 更新日志
 
+## [zent@3.4.4](https://github.com/youzan/zent/tree/zent@3.4.4) (2017-07-17)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.3...zent@3.4.4)
+
+**Bug 修复:**
+
+- loading: Fix bug in floating Loading without children [\#377](https://github.com/youzan/zent/pull/377) ([cpylua](https://github.com/cpylua))
+
+**处理的 Issue:**
+
+- table: pageInfo 的文档补全 [\#359](https://github.com/youzan/zent/issues/359)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- table: add pageInfo doc [\#376](https://github.com/youzan/zent/pull/376) ([linxixuan](https://github.com/linxixuan))
+
 ## [zent@3.4.3](https://github.com/youzan/zent/tree/zent@3.4.3) (2017-07-12)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.2...zent@3.4.3)
 
@@ -101,7 +116,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
 
 **Bug 修复:**
 
@@ -111,11 +126,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
-
 ## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
+
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
 
 **不兼容改动和新功能:**
 
