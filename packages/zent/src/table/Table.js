@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
+
 import throttle from 'lodash/throttle';
+import intersection from 'lodash/intersection';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import pullAll from 'lodash/pullAll';
@@ -183,11 +185,6 @@ export default class Table extends (PureComponent || Component) {
   };
 
   onPageChange = current => {
-    debugger;
-    if (this.props.selection && !this.props.selection.needCrossPage) {
-      this.selectedRowKeys = [];
-      this.selectedRows = [];
-    }
     this.wrapPropsOnChange({
       current
     });
@@ -224,18 +221,22 @@ export default class Table extends (PureComponent || Component) {
       }
     }
 
-    if (isSelect) {
-      allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
-      allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
-    } else {
-      allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
-      allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
+    this.selectedRowKeys = rowKeysCurrentPage;
+    this.selectedRows = rowsCurrentPage;
+    if (this.props.selection.needCrossPage) {
+      if (isSelect) {
+        allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
+        allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
+      } else {
+        allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
+        allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
+      }
+
+      this.selectedRowKeys = allRowKeys;
+      this.selectedRows = allRows;
     }
 
-    this.selectedRowKeys = allRowKeys;
-    this.selectedRows = allRows;
-
-    selection.onSelect(allRowKeys, allRows, null);
+    selection.onSelect(this.selectedRowKeys, this.selectedRows, null);
   };
 
   /**
@@ -244,9 +245,11 @@ export default class Table extends (PureComponent || Component) {
    * @param isSelect {Boolean} 是否被选中
    */
   onSelectOneRow = (rowKey, isSelect) => {
-    this.selectedRowKeys = this.props.selection.selectedRowKeys.slice(0); // copy 一份数组
+    let { selection } = this.props;
+
+    this.selectedRowKeys = selection.selectedRowKeys.slice(0); // copy 一份数组
     let index = this.selectedRowKeys.indexOf(rowKey);
-    let isSingleSelection = this.props.selection.isSingleSelection || false;
+    let isSingleSelection = selection.isSingleSelection || false;
 
     if (isSingleSelection) {
       // radio的isSelect永远是true，所以一旦选择了，则不能取消
@@ -261,14 +264,16 @@ export default class Table extends (PureComponent || Component) {
       this.selectedRowKeys.splice(index, 1);
     }
 
+    if (!selection.needCrossPage) {
+      this.selectedRowKeys = intersection(
+        this.selectedRowKeys,
+        this.props.datasets.map(item => item[this.props.rowKey])
+      );
+    }
     let selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
     let currentRow = isSelect ? this.getCurrentRow(rowKey) : null;
 
-    this.props.selection.onSelect(
-      this.selectedRowKeys,
-      selectedRows,
-      currentRow
-    );
+    selection.onSelect(this.selectedRowKeys, selectedRows, currentRow);
   };
 
   getCurrentRow(key) {
