@@ -294,6 +294,7 @@ ReactDOM.render(
 | onEmptySelected | 选中过滤条件为空时的回调 | function | `noop` | 否 |
 | onOpen | 展开时的回调 | function | `noop` | 否 |
 | className | 自定义额外类名 | string | `''` | 否 |
+| wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''`    | 否 |
 | prefix | 自定义前缀 | string | `'zent'` | 否 |
 
 `如果 data 和 children 两种方式同时使用，data 会将 children 覆盖，主要是为了可以接收异步数据直接改变 data 属性来改变选项。`
