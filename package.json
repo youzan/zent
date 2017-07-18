@@ -19,6 +19,7 @@
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test"
   },
+  "typings": "typings/index.d.ts",
   "lint-staged": {
     "*.js": [
       "format-js",
@@ -44,6 +45,7 @@
   "dependencies": {},
   "files": [],
   "devDependencies": {
+    "@types/react": "^15.0.36",
     "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",

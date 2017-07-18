@@ -121,7 +121,7 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
-#### Trigger.Hover
+#### Trigger.Focus
 
 当获取焦点时显示，失去焦点时关闭，没有参数。
 
