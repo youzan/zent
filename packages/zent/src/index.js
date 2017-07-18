@@ -10,6 +10,7 @@ import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
+import DateRangePicker2 from 'datetimepicker/DateRangePicker2';
 import Dialog from 'dialog';
 import Form from 'form';
 import Layout from 'layout';
@@ -50,6 +51,7 @@ export {
   CopyButton,
   DatePicker,
   DateRangePicker,
+  DateRangePicker2,
   Dialog,
   Form,
   Layout,

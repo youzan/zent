@@ -37,31 +37,6 @@
     cursor: not-allowed;
   }
 
-  /* 小switch暂不显示loading */
-  &.zent-switch-small {
-    &::before {
-      display: none !important;
-    }
-  }
-
-  &.zent-switch-large {
-    &::before {
-      margin: -5px 0 0 -17px;
-    }
-
-    &.zent-switch-checked {
-      &::before {
-        margin: -5px 0 0 23px;
-      }
-    }
-  }
-
-  &.zent-switch-checked {
-    &::before {
-      margin: -5px 0 0 15px;
-    }
-  }
-
   &::before {
     content: ' ';
     position: absolute;
@@ -74,12 +49,44 @@
     border: 3px solid rgba(0, 0, 0, 0.1);
     border-radius: 100%;
     box-sizing: border-box;
-  }
-
-  &::before {
     border-color: #666 transparent transparent;
     animation: switch-spin 0.6s linear;
     animation-iteration-count: infinite;
+  }
+
+  &.zent-switch-checked {
+    &::before {
+      margin: -5px 0 0 15px;
+    }
+  }
+
+  /* small switch */
+  &.zent-switch-small {
+    &::before {
+      width: 12px;
+      height: 12px;
+      margin: -5px 0 0 -9px;
+      border-width: 2px;
+    }
+
+    &.zent-switch-checked {
+      &::before {
+        margin: -5px 0 0 6px;
+      }
+    }
+  }
+
+  /* large switch */
+  &.zent-switch-large {
+    &::before {
+      margin: -5px 0 0 -17px;
+    }
+
+    &.zent-switch-checked {
+      &::before {
+        margin: -5px 0 0 23px;
+      }
+    }
   }
 }
 

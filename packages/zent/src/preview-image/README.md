@@ -1,4 +1,4 @@
-## @youzan/preview-image
+## previewImage 图片预览
 
 这是一个图片预览组件。
 
