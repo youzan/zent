@@ -28,8 +28,7 @@ export default class Tabs extends (PureComponent || Component) {
       PropTypes.shape({
         key: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
           .isRequired,
-        title: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-          .isRequired,
+        title: PropTypes.node.isRequired,
         disabled: PropTypes.bool
       })
     )
