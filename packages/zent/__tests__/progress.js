@@ -42,7 +42,7 @@ describe('Progress', () => {
     expect(wrapper.find('.zent-progress-wrapper').length).toBe(1);
     expect(wrapper.find('.zent-progress-inner').length).toBe(1);
     expect(wrapper.find('.zent-progress-info').length).toBe(1);
-    expect(wrapper.find('svg').length).toBe(2);
+    expect(wrapper.find('svg').length).toBe(1);
   });
 
   it('can show progress in circle type without info', () => {
@@ -56,7 +56,7 @@ describe('Progress', () => {
     const wrapper = mount(<Progress type="circle" percent={100} />);
     expect(wrapper.find('.zenticon-check-circle').length).toBe(0);
     expect(wrapper.find('.zenticon-check').length).toBe(1);
-    expect(wrapper.find('circle').length).toBe(2);
+    expect(wrapper.find('circle').length).toBe(1);
   });
 
   it('can show progress in circle type when exception', () => {

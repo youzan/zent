@@ -81,6 +81,12 @@ $color-exception: #f44;
       height: $circle-width;
     }
 
+    .zent-progress-wrapper {
+      border: $circle-path-width solid $color-bg;
+      border-radius: $circle-width;
+      box-sizing: border-box;
+    }
+
     .zent-progress-info {
       display: inline-block;
       font-size: 12px;
@@ -98,15 +104,13 @@ $color-exception: #f44;
       }
     }
 
-    .zent-progress-wrapper-path {
-      stroke: #f8f8f8;
-      stroke-width: $circle-path-width;
-      fill: none;
-    }
-
     .zent-progress-inner-path {
       stroke-width: $circle-path-width;
       fill: none;
+      stroke-dasharray: 226;
+      transition: stroke-dashoffset 1s;
+      transform: rotate(-90deg);
+      transform-origin: center center;
     }
 
     .zent-progress-inprogress {

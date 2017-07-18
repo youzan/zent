@@ -49,50 +49,23 @@ export default class Progress extends (PureComponent || Component) {
       return infoCont;
     };
 
-    const computePath = () => {
-      const radian = parseInt(percent, 10) * Math.PI / 50;
-      let startPoint = 'M38,3'; // 起点
-      let radis = 'A35,35'; // 椭圆在x和y方向上的半径
-      let xRotation = 0; // 圆弧围绕x轴旋转的角度
-      let largeArcFlag = percent > 50 ? 1 : 0; // 大弧线还是小弧线
-      let sweepflag = 1; // 逆时针
-      let endPointX = 38 + 35 * Math.sin(radian);
-      let endPointY = 38 - 35 * Math.cos(radian);
-      return [
-        startPoint,
-        radis,
-        xRotation,
-        `${largeArcFlag},${sweepflag}`,
-        `${endPointX},${endPointY}`
-      ].join(' ');
-    };
-
     const renderProgressCont = () => {
       let progressCont;
       switch (type) {
         case 'circle':
           progressCont = (
             <div className={statusCls}>
-              <svg className={`${prefix}-progress-wrapper`}>
+              <div className={`${prefix}-progress-wrapper`} />
+              <svg className={`${prefix}-progress-inner`}>
                 <circle
-                  className={`${prefix}-progress-wrapper-path`}
+                  className={`${prefix}-progress-inner-path`}
                   cx="38"
                   cy="38"
-                  r="35"
+                  r="36"
+                  style={{
+                    strokeDashoffset: 2 * Math.PI * 36 * (100 - percent) / 100
+                  }}
                 />
-              </svg>
-              <svg className={`${prefix}-progress-inner`}>
-                {percent < 100
-                  ? <path
-                      className={`${prefix}-progress-inner-path`}
-                      d={computePath()}
-                    />
-                  : <circle
-                      className={`${prefix}-progress-inner-path`}
-                      cx="38"
-                      cy="38"
-                      r="35"
-                    />}
               </svg>
               {showInfo
                 ? <div className={`${prefix}-progress-info`}>

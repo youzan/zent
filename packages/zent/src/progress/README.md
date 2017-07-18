@@ -65,8 +65,11 @@ class App extends Component {
 		return (
 			<div>
 				<Progress percent={value}/>
-				<Button onClick={this.decrease}>-</Button>
-				<Button onClick={this.increase}>+</Button>
+				<Progress type="circle" percent={value}/>
+				<div>
+					<Button onClick={this.decrease}>-</Button>
+					<Button onClick={this.increase}>+</Button>
+				</div>
 			</div>
 		);
 	}
