@@ -1,5 +1,12 @@
 ## 更新日志
 
+## [zent@3.4.6](https://github.com/youzan/zent/tree/zent@3.4.6) (2017-07-18)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.5...zent@3.4.6)
+
+**Bug 修复:**
+
+- tabs: Allow react element in tabs.title [\#382](https://github.com/youzan/zent/pull/382) ([cpylua](https://github.com/cpylua))
+
 ## [zent@3.4.5](https://github.com/youzan/zent/tree/zent@3.4.5) (2017-07-17)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.4...zent@3.4.5)
 
@@ -123,7 +130,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
 
 **Bug 修复:**
 
@@ -133,11 +140,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
-
 ## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
+
+## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
 
 **不兼容改动和新功能:**
 
