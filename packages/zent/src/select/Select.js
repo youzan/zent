@@ -23,6 +23,7 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
   getTriggerProps(child) {
     return {
       onClick: evt => {
+        evt.preventDefault();
         if (this.props.contentVisible) {
           this.props.close();
         } else if (!child.props.disabled) {
@@ -152,7 +153,7 @@ class Select extends (PureComponent || Component) {
 
         return item;
       });
-    that.setState({ selectedItems });
+    that.state.selectedItems = selectedItems;
     return this.sourceData;
   }
 
@@ -253,6 +254,7 @@ class Select extends (PureComponent || Component) {
 
     return (
       <Popover
+        display="inline-block"
         position={Popover.Position.AutoBottomLeft}
         className={`${prefixCls} ${className}`}
         wrapperClassName={`${prefixCls} ${wrapperClassName} ${disabledCls}`}
