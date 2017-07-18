@@ -1,40 +1,41 @@
-import PropTypes from 'prop-types';
-import React, { Component, PureComponent } from 'react';
+import React from 'react';
+import Popover from 'popover';
 
-class Trigger extends (PureComponent || Component) {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: props.open
-    };
-    this.triggerClickHandler = this.triggerClickHandler.bind(this);
-  }
+import Simple from './Simple';
+import Select from './Select';
+import Input from './Input';
+import Tags from './Tags';
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
-  }
+const triggers = { Simple, Select, Input, Tags };
 
-  triggerClickHandler() {
-    let { open } = this.state;
-    this.props.onChange({
-      open: !open
-    });
+const Base = Popover.Trigger.Click;
+
+class TriggerWrapper extends Base {
+  getTriggerProps(child) {
+    const { contentVisible, disabled } = this.props;
+    return disabled
+      ? {}
+      : {
+          onClick: evt => {
+            contentVisible ? this.props.close() : this.props.open();
+            this.triggerEvent(child, 'onClick', evt);
+          },
+          onBlur: evt => {
+            this.props.close();
+            this.triggerEvent(child, 'onBlur', evt);
+          }
+        };
   }
 
   render() {
-    let Node = this.props.trigger;
+    const Trigger = triggers[this.props.triggerType];
+    const child = <Trigger {...this.props} />;
 
-    return <Node {...this.props} onClick={this.triggerClickHandler} />;
+    return React.cloneElement(child, {
+      ref: this.props.onTriggerRefChange,
+      ...this.getTriggerProps(child)
+    });
   }
 }
 
-Trigger.propTypes = {
-  trigger: PropTypes.any,
-  open: PropTypes.bool
-};
-
-Trigger.defaultProps = {
-  open: false
-};
-
-export default Trigger;
+export default TriggerWrapper;
