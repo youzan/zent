@@ -6,6 +6,7 @@ $color-info: #999;
 $color-bg: #f8f8f8;
 $color-success: #44ba00;
 $color-exception: #f44;
+$transition-duration: 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 
 .zent-progress {
   &.zent-progress-line {
@@ -20,7 +21,7 @@ $color-exception: #f44;
     .zent-progress-inner {
       height: $line-height;
       border-radius: $line-height;
-      transition: all 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
+      transition: all $transition-duration;
     }
 
     .zent-progress-info {
@@ -108,7 +109,7 @@ $color-exception: #f44;
       stroke-width: $circle-path-width;
       fill: none;
       stroke-dasharray: 226;
-      transition: stroke-dashoffset 1s;
+      transition: stroke-dashoffset $transition-duration;
       transform: rotate(-90deg);
       transform-origin: center center;
     }
