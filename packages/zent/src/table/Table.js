@@ -4,7 +4,13 @@ import ReactDOM from 'react-dom';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
+
 import throttle from 'lodash/throttle';
+import intersection from 'lodash/intersection';
+import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
+import pullAll from 'lodash/pullAll';
+import pullAllBy from 'lodash/pullAllBy';
 
 import Head from './modules/Head';
 import Body from './modules/Body';
@@ -61,6 +67,10 @@ export default class Table extends (PureComponent || Component) {
     this.tableRect = null;
     this.relativeTop = 0;
   }
+
+  // 一个global的selectedRowKeys用于保存所有选中的选项
+  selectedRowKeys = [];
+  selectedRows = [];
 
   componentWillReceiveProps(nextProps) {
     if (
@@ -188,8 +198,8 @@ export default class Table extends (PureComponent || Component) {
    * @param isSelect {Boolean} 表示是否全选
    */
   onSelectAllRows = isSelect => {
-    let allRowKeys = [];
-    let allRows = [];
+    let rowKeysCurrentPage = [];
+    let rowsCurrentPage = [];
     let {
       rowKey,
       datasets,
@@ -199,18 +209,38 @@ export default class Table extends (PureComponent || Component) {
       }
     } = this.props;
 
-    if (isSelect) {
-      // 找出所有canSelect为true的row，才能选中
-      for (let i = 0, len = datasets.length; i < len; i++) {
-        let { canSelect = true } = getRowConf(datasets[i], i);
-        if (canSelect) {
-          allRowKeys.push(datasets[i][rowKey]);
-          allRows.push(datasets[i]);
-        }
+    let allRowKeys = this.selectedRowKeys;
+    let allRows = this.selectedRows;
+
+    // 找出所有canSelect为true的row
+    for (let i = 0, len = datasets.length; i < len; i++) {
+      let { canSelect = true } = getRowConf(datasets[i], i);
+      if (canSelect) {
+        rowKeysCurrentPage.push(datasets[i][rowKey]);
+        rowsCurrentPage.push(datasets[i]);
       }
     }
 
-    selection.onSelect(allRowKeys, allRows, null);
+    if (isSelect) {
+      allRowKeys = rowKeysCurrentPage;
+      allRows = rowsCurrentPage;
+      if (this.props.selection.needCrossPage) {
+        allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
+        allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
+      }
+    } else {
+      allRowKeys = [];
+      allRows = [];
+      if (this.props.selection.needCrossPage) {
+        allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
+        allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
+      }
+    }
+
+    this.selectedRowKeys = allRowKeys;
+    this.selectedRows = allRows;
+
+    selection.onSelect(this.selectedRowKeys, this.selectedRows, null);
   };
 
   /**
@@ -219,27 +249,35 @@ export default class Table extends (PureComponent || Component) {
    * @param isSelect {Boolean} 是否被选中
    */
   onSelectOneRow = (rowKey, isSelect) => {
-    let selectedRowKeys = this.props.selection.selectedRowKeys.slice(0); // copy 一份数组
-    let index = selectedRowKeys.indexOf(rowKey);
-    let isSingleSelection = this.props.selection.isSingleSelection || false;
+    let { selection } = this.props;
+
+    this.selectedRowKeys = selection.selectedRowKeys.slice(0); // copy 一份数组
+    let index = this.selectedRowKeys.indexOf(rowKey);
+    let isSingleSelection = selection.isSingleSelection || false;
 
     if (isSingleSelection) {
       // radio的isSelect永远是true，所以一旦选择了，则不能取消
       if (isSelect) {
-        selectedRowKeys = [rowKey];
+        this.selectedRowKeys = [rowKey];
       } else {
-        selectedRowKeys = [];
+        this.selectedRowKeys = [];
       }
     } else if (isSelect && index === -1) {
-      selectedRowKeys.push(rowKey);
+      this.selectedRowKeys.push(rowKey);
     } else if (index !== -1) {
-      selectedRowKeys.splice(index, 1);
+      this.selectedRowKeys.splice(index, 1);
     }
 
-    let selectedRows = this.getSelectedRowsByKeys(selectedRowKeys);
+    if (!selection.needCrossPage) {
+      this.selectedRowKeys = intersection(
+        this.selectedRowKeys,
+        this.props.datasets.map(item => item[this.props.rowKey])
+      );
+    }
+    let selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
     let currentRow = isSelect ? this.getCurrentRow(rowKey) : null;
 
-    this.props.selection.onSelect(selectedRowKeys, selectedRows, currentRow);
+    selection.onSelect(this.selectedRowKeys, selectedRows, currentRow);
   };
 
   getCurrentRow(key) {
@@ -284,8 +322,13 @@ export default class Table extends (PureComponent || Component) {
   getSelectedRowsByKeys(rowKeys) {
     let rows = [];
     let self = this;
+    // 之前缓存的rows和本页的总datasets整个作为搜索的区间
+    let allRows = uniqBy(
+      this.selectedRows.concat(this.props.datasets),
+      this.props.rowKey
+    );
 
-    this.props.datasets.forEach(item => {
+    allRows.forEach(item => {
       if (rowKeys.indexOf(item[self.props.rowKey]) >= 0) {
         rows.push(item);
       }
@@ -355,23 +398,23 @@ export default class Table extends (PureComponent || Component) {
     }
 
     if (needSelect) {
-      let canSelectRowsCount = 0;
-
+      const canSelectRowKeysArr = [];
       datasets.forEach((item, index) => {
         let { canSelect = true } = getRowConf(item, index);
         if (canSelect) {
-          canSelectRowsCount += 1;
+          canSelectRowKeysArr.push(item[rowKey]);
         }
       });
 
+      selectedRowKeys = selection.selectedRowKeys || [];
       isSelectAll =
-        canSelectRowsCount > 0 &&
-        selection.selectedRowKeys.length === canSelectRowsCount;
+        canSelectRowKeysArr.length > 0 &&
+        helper.isSelectAll(selectedRowKeys, canSelectRowKeysArr);
+
       isSelectPart =
-        canSelectRowsCount > 0 &&
-        selection.selectedRowKeys.length > 0 &&
-        !isSelectAll;
-      selectedRowKeys = selection.selectedRowKeys;
+        canSelectRowKeysArr.length > 0 &&
+        !isSelectAll &&
+        helper.isSelectPart(selectedRowKeys, canSelectRowKeysArr);
     }
 
     return (

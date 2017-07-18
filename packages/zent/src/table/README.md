@@ -340,6 +340,23 @@ const datasets = [{
   stock_num: 159,
   sold_num: 0,
 }];
+const datasets2 = [{
+  item_id: '4217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
+}, {
+  item_id: '50',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
+}, {
+  item_id: '13123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
+  sold_num: 0,
+}];
+
 const columns = [{
   title: '商品',
   width: 50,
@@ -366,9 +383,12 @@ class Selection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      limit: 10,
-      current: 0,
-      total: 101,
+			page: {
+				pageSize: 3,
+				current: 0,
+				totalItem: 6,
+			},
+			datasets: datasets,
       selectedRowKeys: [],
     };
   }
@@ -377,7 +397,6 @@ class Selection extends React.Component {
     this.setState({
       selectedRowKeys
     });
-    console.log(currentRow)
     alert(`你选中了：${selectedRowKeys}`);
   }
 
@@ -387,17 +406,31 @@ class Selection extends React.Component {
     };
   }
 
+	onChange(conf) {
+		this.setState({
+			page: {
+				pageSize: 3,
+				current: conf.current,
+				totalItem: 6
+			},
+			datasets: conf.current === 1 ? datasets : datasets2
+		})
+	}
+
   render() {
     let self = this;
 
     return (
       <Table
         columns={columns}
-        datasets={datasets}
+        datasets={this.state.datasets}
         rowKey="item_id"
         getRowConf={this.getRowConf}
+				pageInfo={this.state.page}
+				onChange={(conf) => { this.onChange(conf); }}
         selection={{
           selectedRowKeys: this.state.selectedRowKeys,
+					needCrossPage: true,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
             self.onSelect(selectedRowkeys, selectedRows, currentRow);
           }
@@ -692,6 +725,7 @@ class BatchCompsClass extends React.Component {
           batchComponents={[
           <span key="pure" className="child-comps">这是一个DOM</span>,
           (data) => {
+						console.log(data);
             return <span key="func" className="child-comps" style={{color: "blueviolet"}}> 这是一个函数，选中了{data.length}个元素    </span>
           },
           Customer
@@ -787,6 +821,7 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
 | isSingleSelection | 是否是单选            | Boolean | false | 否    |
+| needCrossPage |   是否需要跨页的时候多选            | Boolean | false | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |
 
 ### pageInfo
@@ -805,7 +840,6 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | --------------- | --------------- | ----- | ---- | ----- |
 | isExpanded | 是否展开当前行            | boolean | false | 否    |
 | expandRender        | 展开行的补充内容render | func  |  | 否  
-
 
 <style>
   .row {
