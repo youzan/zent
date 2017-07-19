@@ -10,7 +10,11 @@ export default class Progress extends (PureComponent || Component) {
     type: PropTypes.string,
     percent: PropTypes.number,
     showInfo: PropTypes.bool,
-    status: PropTypes.string
+    status: PropTypes.string,
+    format: PropTypes.func,
+    strokeWidth: PropTypes.number,
+    width: PropTypes.number,
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -18,11 +22,24 @@ export default class Progress extends (PureComponent || Component) {
     percent: 0,
     showInfo: true,
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
+    strokeWidth: 10,
+    width: 132
   };
 
   render() {
-    const { type, percent, showInfo, status, className, prefix } = this.props;
+    const {
+      type,
+      percent,
+      showInfo,
+      status,
+      className,
+      prefix,
+      format,
+      strokeWidth,
+      width,
+      style
+    } = this.props;
 
     const containerCls = cx(
       `${prefix}-progress`,
@@ -40,11 +57,20 @@ export default class Progress extends (PureComponent || Component) {
     });
 
     const renderInfoCont = () => {
-      let infoCont = `${percent}%`;
-      if (percent >= 100) {
-        infoCont = <Icon type={type === 'circle' ? 'check' : 'check-circle'} />;
-      } else if (status === 'exception') {
-        infoCont = <Icon type={type === 'circle' ? 'close' : 'close-circle'} />;
+      let infoCont;
+      if (format) {
+        infoCont = format(percent);
+      } else {
+        infoCont = `${percent}%`;
+        if (percent >= 100) {
+          infoCont = (
+            <Icon type={type === 'circle' ? 'check' : 'check-circle'} />
+          );
+        } else if (status === 'exception') {
+          infoCont = (
+            <Icon type={type === 'circle' ? 'close' : 'close-circle'} />
+          );
+        }
       }
       return infoCont;
     };
@@ -54,21 +80,41 @@ export default class Progress extends (PureComponent || Component) {
       switch (type) {
         case 'circle':
           progressCont = (
-            <div className={statusCls}>
-              <div className={`${prefix}-progress-wrapper`} />
+            <div
+              className={statusCls}
+              style={{
+                width,
+                height: width
+              }}
+            >
+              <div
+                className={`${prefix}-progress-wrapper`}
+                style={{
+                  borderRadius: width,
+                  borderWidth: strokeWidth
+                }}
+              />
               <svg className={`${prefix}-progress-inner`}>
                 <circle
                   className={`${prefix}-progress-inner-path`}
-                  cx="38"
-                  cy="38"
-                  r="36"
+                  cx={width / 2}
+                  cy={width / 2}
+                  r={(width - strokeWidth) / 2}
                   style={{
-                    strokeDashoffset: 2 * Math.PI * 36 * (100 - percent) / 100
+                    strokeWidth,
+                    strokeDasharray: Math.PI * (width - strokeWidth),
+                    strokeDashoffset: Math.PI *
+                      (width - strokeWidth) *
+                      (100 - percent) /
+                      100
                   }}
                 />
               </svg>
               {showInfo
-                ? <div className={`${prefix}-progress-info`}>
+                ? <div
+                    className={`${prefix}-progress-info`}
+                    style={{ lineHeight: `${width}px` }}
+                  >
                     {renderInfoCont()}
                   </div>
                 : null}
@@ -79,10 +125,20 @@ export default class Progress extends (PureComponent || Component) {
         default:
           progressCont = (
             <div className={statusCls}>
-              <div className={`${prefix}-progress-wrapper`}>
+              <div
+                className={`${prefix}-progress-wrapper`}
+                style={{
+                  height: strokeWidth,
+                  borderRadius: strokeWidth
+                }}
+              >
                 <div
                   className={`${prefix}-progress-inner`}
-                  style={{ width: `${percent}%` }}
+                  style={{
+                    width: `${percent}%`,
+                    height: strokeWidth,
+                    borderRadius: strokeWidth
+                  }}
                 />
               </div>
               {showInfo
@@ -98,7 +154,7 @@ export default class Progress extends (PureComponent || Component) {
     };
 
     return (
-      <div className={containerCls}>
+      <div className={containerCls} style={style}>
         {renderProgressCont()}
       </div>
     );

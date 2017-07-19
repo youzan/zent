@@ -1,5 +1,4 @@
-$line-height: 10px;
-$line-width: 580px;
+$line-width: 617px;
 $circle-width: 76px;
 $circle-path-width: 3px;
 $color-info: #999;
@@ -10,25 +9,33 @@ $transition-duration: 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 
 .zent-progress {
   &.zent-progress-line {
+    width: $line-width;
+
+    .zent-progress-inprogress,
+    .zent-progress-exception,
+    .zent-progress-success {
+      display: flex;
+      align-items: center;
+    }
+
     .zent-progress-wrapper {
       display: inline-block;
-      width: $line-width;
-      height: $line-height;
+      width: 100%;
       background: $color-bg;
-      border-radius: $line-height;
     }
 
     .zent-progress-inner {
-      height: $line-height;
-      border-radius: $line-height;
+      flex: 1;
       transition: all $transition-duration;
     }
 
     .zent-progress-info {
       display: inline-block;
+      min-width: 27px;
       margin-left: 10px;
       font-size: 12px;
       color: $color-info;
+      white-space: nowrap;
 
       .zenticon {
         font-size: 14px;
@@ -68,8 +75,6 @@ $transition-duration: 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
 
   &.zent-progress-circle {
     position: relative;
-    width: $circle-width;
-    height: $circle-width;
     display: inline-block;
 
     .zent-progress-wrapper,
@@ -78,13 +83,13 @@ $transition-duration: 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
       position: absolute;
       top: 0;
       left: 0;
-      width: $circle-width;
-      height: $circle-width;
+      width: 100%;
+      height: 100%;
     }
 
     .zent-progress-wrapper {
-      border: $circle-path-width solid $color-bg;
-      border-radius: $circle-width;
+      border-style: solid;
+      border-color: $color-bg;
       box-sizing: border-box;
     }
 
@@ -95,10 +100,9 @@ $transition-duration: 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
       position: absolute;
       top: 0;
       left: 0;
-      width: $circle-width;
-      height: $circle-width;
+      width: 100%;
+      height: 100%;
       text-align: center;
-      line-height: $circle-width;
 
       .zenticon {
         font-size: 14px;
@@ -106,9 +110,8 @@ $transition-duration: 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
     }
 
     .zent-progress-inner-path {
-      stroke-width: $circle-path-width;
+      stroke-linecap: round;
       fill: none;
-      stroke-dasharray: 226;
       transition: stroke-dashoffset $transition-duration;
       transform: rotate(-90deg);
       transform-origin: center center;

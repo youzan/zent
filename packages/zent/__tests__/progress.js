@@ -14,7 +14,10 @@ describe('Progress', () => {
     expect(wrapper.find('.zent-progress-info').text()).toBe('0%');
     expect(
       wrapper.contains(
-        <div className="zent-progress-inner" style={{ width: '0%' }} />
+        <div
+          className="zent-progress-inner"
+          style={{ width: '0%', height: 10, borderRadius: 10 }}
+        />
       )
     ).toBe(true);
   });
@@ -72,7 +75,10 @@ describe('Progress', () => {
     expect(wrapper.find('.zent-progress-info').text()).toBe('70%');
     expect(
       wrapper.contains(
-        <div className="zent-progress-inner" style={{ width: '70%' }} />
+        <div
+          className="zent-progress-inner"
+          style={{ width: '70%', height: 10, borderRadius: 10 }}
+        />
       )
     ).toBe(true);
   });
@@ -89,7 +95,10 @@ describe('Progress', () => {
     ).toBe(true);
     expect(
       wrapper.contains(
-        <div className="zent-progress-inner" style={{ width: '100%' }} />
+        <div
+          className="zent-progress-inner"
+          style={{ width: '100%', height: 10, borderRadius: 10 }}
+        />
       )
     ).toBe(true);
   });
@@ -106,7 +115,10 @@ describe('Progress', () => {
     ).toBe(false);
     expect(
       wrapper.contains(
-        <div className="zent-progress-inner" style={{ width: '70%' }} />
+        <div
+          className="zent-progress-inner"
+          style={{ width: '70%', height: 10, borderRadius: 10 }}
+        />
       )
     ).toBe(true);
 
@@ -120,7 +132,10 @@ describe('Progress', () => {
     ).toBe(true);
     expect(
       wrapper.contains(
-        <div className="zent-progress-inner" style={{ width: '70%' }} />
+        <div
+          className="zent-progress-inner"
+          style={{ width: '70%', height: 10, borderRadius: 10 }}
+        />
       )
     ).toBe(true);
 
@@ -135,7 +150,10 @@ describe('Progress', () => {
     ).toBe(true);
     expect(
       wrapper.contains(
-        <div className="zent-progress-inner" style={{ width: '100%' }} />
+        <div
+          className="zent-progress-inner"
+          style={{ width: '100%', height: 10, borderRadius: 10 }}
+        />
       )
     ).toBe(true);
 
@@ -150,7 +168,10 @@ describe('Progress', () => {
     ).toBe(true);
     expect(
       wrapper.contains(
-        <div className="zent-progress-inner" style={{ width: '100%' }} />
+        <div
+          className="zent-progress-inner"
+          style={{ width: '100%', height: 10, borderRadius: 10 }}
+        />
       )
     ).toBe(true);
   });
@@ -179,5 +200,12 @@ describe('Progress', () => {
         .find('.zent-progress-info')
         .contains(<i className="zenticon zenticon-close-circle" />)
     ).toBe(false);
+  });
+
+  it('can show format info', () => {
+    let wrapper = mount(
+      <Progress percent={70} format={percent => `进度${percent}%`} />
+    );
+    expect(wrapper.find('.zent-progress-info').text()).toBe('进度70%');
   });
 });

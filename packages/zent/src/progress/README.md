@@ -82,6 +82,33 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 不同尺寸
+```jsx
+import { Progress } from 'zent';
+
+class App extends Component {
+
+	render() {
+		return (
+			<div>
+				<Progress style={{width: 300}} strokeWidth={5}/>
+				<Progress percent={70} style={{width: 300}} strokeWidth={5}/>
+				<Progress percent={100} style={{width: 300}} strokeWidth={5}/>
+        <Progress type="circle" width={76} strokeWidth={3}/>
+        <Progress type="circle" percent={80} width={76} strokeWidth={3}/>
+        <Progress type="circle" percent={100} width={76} strokeWidth={3}/>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(
+	<App />
+	, mountNode
+);
+```
+:::
+
 :::demo 支持不同状态
 ```jsx
 import { Progress, Slider } from 'zent';
@@ -130,6 +157,28 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 自定义文字格式
+```jsx
+import { Progress, Slider } from 'zent';
+
+class App extends Component {
+	render() {
+		return (
+			<div>
+				<Progress percent={70} format={(percent) => `进度${percent}%`}/>
+				<Progress percent={80} type="circle" format={(percent) => `进度${percent}%`}/>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(
+	<App />
+	, mountNode
+);
+```
+:::
+
 ### Progress API
 
 | 参数           | 说明                | 类型             | 默认值                 |
@@ -138,9 +187,11 @@ ReactDOM.render(
 | percent | 百分比 | number     | `0` |
 | status | 状态，可选`'success'`,`'exception'` | string|  |
 | showInfo | 是否显示状态信息 | boolean | `true`  |
-| className    | 自定义额外类名           | string         |                     |
-| prefix       | 自定义前缀             | string         | `'zent'`            |
-
+| format | 文字模板函数 | func | 内置函数 |
+| strokeWidth | 线条宽度，单位px | number | `10` | |
+| width `(type=circle)` | 圆形进度条宽度，单位px | number | `132` |   
+| className | 自定义额外类名 | string |                     |
+| prefix | 自定义前缀 | string | `'zent'`            |
 
 <style>
 .zent-progress {
