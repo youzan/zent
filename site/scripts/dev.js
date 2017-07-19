@@ -44,5 +44,5 @@ const server = new WebpackDevServer(compiler, {
 
 server.listen(4396, '0.0.0.0', () => {
   // eslint-disable-next-line
-  console.log('\n Starting server on http://0.0.0.0:4396 \n');
+  console.log('\n Starting server on http://localhost:4396 \n');
 });

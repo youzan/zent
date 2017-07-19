@@ -20,9 +20,9 @@ class App extends Component {
 				<Progress />
 				<Progress percent={70}/>
 				<Progress percent={100}/>
-        <Progress type="circle"/>
-        <Progress type="circle" percent={80}/>
-        <Progress type="circle" percent={100}/>
+				<Progress type="circle"/>
+				<Progress type="circle" percent={80}/>
+				<Progress type="circle" percent={100}/>
 			</div>
 		);
 	}
@@ -41,24 +41,24 @@ import { Progress, Button } from 'zent';
 
 class App extends Component {
 	state = {
-    value: 10
-  }
+		value: 10
+	}
 
-  increase = () => {
-  	let value = this.state.value + 10;
-  	if(value >= 100) {
-  		value = 100;
-  	}
-    this.setState({ value });
-  }
+	increase = () => {
+		let value = this.state.value + 10;
+		if(value >= 100) {
+			value = 100;
+		}
+		this.setState({ value });
+	}
 
-  decrease = () => {
-  	let value = this.state.value - 10;
-  	if(value < 0) {
-  		value = 0;
-  	}
-    this.setState({ value });
-  }
+	decrease = () => {
+		let value = this.state.value - 10;
+		if(value < 0) {
+			value = 0;
+		}
+		this.setState({ value });
+	}
 
 	render() {
 		const { value } = this.state;
@@ -94,9 +94,9 @@ class App extends Component {
 				<Progress width={300} strokeWidth={5}/>
 				<Progress percent={70} width={300} strokeWidth={5}/>
 				<Progress percent={100} width={300} strokeWidth={5}/>
-        <Progress type="circle" width={76} strokeWidth={3}/>
-        <Progress type="circle" percent={80} width={76} strokeWidth={3}/>
-        <Progress type="circle" percent={100} width={76} strokeWidth={3}/>
+				<Progress type="circle" width={76} strokeWidth={3}/>
+				<Progress type="circle" percent={80} width={76} strokeWidth={3}/>
+				<Progress type="circle" percent={100} width={76} strokeWidth={3}/>
 			</div>
 		);
 	}
@@ -119,8 +119,8 @@ class App extends Component {
 			<div>
 				<Progress percent={70} status="success"/>
 				<Progress percent={80} status="exception"/>
-        <Progress type="circle" percent={70} status="success"/>
-        <Progress type="circle" percent={80} status="exception"/>
+				<Progress type="circle" percent={70} status="success"/>
+				<Progress type="circle" percent={80} status="exception"/>
 			</div>
 		);
 	}
@@ -143,8 +143,8 @@ class App extends Component {
 			<div>
 				<Progress percent={70} showInfo={false}/>
 				<Progress percent={100} showInfo={false}/>
-        <Progress type="circle" percent={70} showInfo={false}/>
-        <Progress type="circle" percent={100} showInfo={false}/>
+				<Progress type="circle" percent={70} showInfo={false}/>
+				<Progress type="circle" percent={100} showInfo={false}/>
 			</div>
 		);
 	}
@@ -198,6 +198,6 @@ ReactDOM.render(
 	margin-bottom: 10px;
 }
 .zent-progress-circle {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 </style>
