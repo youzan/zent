@@ -23,8 +23,7 @@ export default class Progress extends (PureComponent || Component) {
     showInfo: true,
     className: '',
     prefix: 'zent',
-    strokeWidth: 10,
-    width: 132
+    strokeWidth: 10
   };
 
   render() {
@@ -40,6 +39,8 @@ export default class Progress extends (PureComponent || Component) {
       width,
       style
     } = this.props;
+
+    const progressWidth = width || (type === 'circle' ? 132 : 580);
 
     const containerCls = cx(
       `${prefix}-progress`,
@@ -83,28 +84,28 @@ export default class Progress extends (PureComponent || Component) {
             <div
               className={statusCls}
               style={{
-                width,
-                height: width
+                width: progressWidth,
+                height: progressWidth
               }}
             >
               <div
                 className={`${prefix}-progress-wrapper`}
                 style={{
-                  borderRadius: width,
+                  borderRadius: progressWidth,
                   borderWidth: strokeWidth
                 }}
               />
               <svg className={`${prefix}-progress-inner`}>
                 <circle
                   className={`${prefix}-progress-inner-path`}
-                  cx={width / 2}
-                  cy={width / 2}
-                  r={(width - strokeWidth) / 2}
+                  cx={progressWidth / 2}
+                  cy={progressWidth / 2}
+                  r={(progressWidth - strokeWidth) / 2}
                   style={{
                     strokeWidth,
-                    strokeDasharray: Math.PI * (width - strokeWidth),
+                    strokeDasharray: Math.PI * (progressWidth - strokeWidth),
                     strokeDashoffset: Math.PI *
-                      (width - strokeWidth) *
+                      (progressWidth - strokeWidth) *
                       (100 - percent) /
                       100
                   }}
@@ -113,7 +114,7 @@ export default class Progress extends (PureComponent || Component) {
               {showInfo
                 ? <div
                     className={`${prefix}-progress-info`}
-                    style={{ lineHeight: `${width}px` }}
+                    style={{ lineHeight: `${progressWidth}px` }}
                   >
                     {renderInfoCont()}
                   </div>
@@ -128,6 +129,7 @@ export default class Progress extends (PureComponent || Component) {
               <div
                 className={`${prefix}-progress-wrapper`}
                 style={{
+                  width: progressWidth,
                   height: strokeWidth,
                   borderRadius: strokeWidth
                 }}

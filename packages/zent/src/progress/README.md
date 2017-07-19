@@ -91,9 +91,9 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<Progress style={{width: 300}} strokeWidth={5}/>
-				<Progress percent={70} style={{width: 300}} strokeWidth={5}/>
-				<Progress percent={100} style={{width: 300}} strokeWidth={5}/>
+				<Progress width={300} strokeWidth={5}/>
+				<Progress percent={70} width={300} strokeWidth={5}/>
+				<Progress percent={100} width={300} strokeWidth={5}/>
         <Progress type="circle" width={76} strokeWidth={3}/>
         <Progress type="circle" percent={80} width={76} strokeWidth={3}/>
         <Progress type="circle" percent={100} width={76} strokeWidth={3}/>
@@ -189,7 +189,7 @@ ReactDOM.render(
 | showInfo | 是否显示状态信息 | boolean | `true`  |
 | format | 文字模板函数 | func | 内置函数 |
 | strokeWidth | 线条宽度，单位px | number | `10` | |
-| width `(type=circle)` | 圆形进度条宽度，单位px | number | `132` |   
+| width | 圆形进度条直径/条形进度条总长度 | number | `132(type=circle), 580(type=line)` |   
 | className | 自定义额外类名 | string |                     |
 | prefix | 自定义前缀 | string | `'zent'`            |
 
