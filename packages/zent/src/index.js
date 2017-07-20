@@ -25,6 +25,7 @@ import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
 import previewImage from 'preview-image';
+import Progress from 'progress';
 import Radio from 'radio';
 import SearchInput from 'search-input';
 import Select from 'select';
@@ -67,6 +68,7 @@ export {
   Popover,
   Portal,
   previewImage,
+  Progress,
   Radio,
   SearchInput,
   Select,

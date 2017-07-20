@@ -262,6 +262,11 @@ module.exports = {
               path: 'component/portal',
               title: 'Portal 传送门',
               component: require('../../packages/zent/src/portal/README.md')
+            },
+            {
+              path: 'component/progress',
+              title: 'Progress 进度条',
+              component: require('../../packages/zent/src/progress/README.md')
             }
           ]
         }
