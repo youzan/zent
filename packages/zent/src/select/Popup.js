@@ -101,6 +101,8 @@ class Popup extends (PureComponent || Component) {
         if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
           this.currentIdUpdated = true;
+        } else {
+          currentId = this.itemIds[0];
         }
         break;
       case KEY_UP:
@@ -108,6 +110,8 @@ class Popup extends (PureComponent || Component) {
         if (index > 0) {
           currentId = this.itemIds[index - 1];
           this.currentIdUpdated = true;
+        } else {
+          currentId = this.itemIds[this.itemIds.length - 1];
         }
         break;
       case KEY_EN:

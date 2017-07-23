@@ -40,6 +40,51 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 支持默认选项
+```jsx
+import { Button, Select } from 'zent';
+
+const Option = Select.Option;
+
+class Demo extends Component {
+	state = {
+  	toggle: true
+  };
+
+  reRender = () => {
+  	const newToggle = !this.state.toggle;
+  	this.setState({
+    	toggle: newToggle
+    });
+  };
+
+  render() {
+  	const { toggle } = this.state;
+  	return (
+    	<div>
+        <Select onChange={this.reRender} initialValue="1">
+          <Option value="1">选项一</Option>
+          <Option value="2">选项二</Option>
+          <Option value="3">选项三</Option>
+        </Select>
+        <Select onChange={this.reRender} initialIndex={1}>
+          <Option value="1">选项1</Option>
+          <Option value="2">选项2</Option>
+          <Option value="3">选项3</Option>
+        </Select>
+        <Button onClick={this.reRender}>{String(toggle)}</Button>
+    	</div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Demo />
+  , mountNode
+);
+```
+:::
+
 :::demo 支持数组类型选项
 ```jsx
 import { Select } from 'zent';
