@@ -39,17 +39,6 @@ class Select extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 
-    let data = this.uniformData(props);
-
-    /**
-     * data支持字符串数组和对象数组两种模式
-     *
-     * 字符串数组默认value为下标
-     * 对象数组需提供value和text
-     *
-     * @return {object}
-     */
-
     if (props.simple) {
       this.trigger = SimpleTrigger;
     } else if (props.search) {
@@ -66,12 +55,19 @@ class Select extends (PureComponent || Component) {
       },
       props
     );
+  }
 
+  componentWillMount() {
+    /**
+     * data支持字符串数组和对象数组两种模式
+     *
+     * 字符串数组默认value为下标
+     * 对象数组需提供value和text
+     *
+     * @return {object}
+     */
+    let data = this.uniformData(this.props);
     this.formateData(data);
-
-    this.triggerChangeHandler = this.triggerChangeHandler.bind(this);
-    this.triggerDeleteHandler = this.triggerDeleteHandler.bind(this);
-    this.optionChangedHandler = this.optionChangedHandler.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -158,11 +154,11 @@ class Select extends (PureComponent || Component) {
   }
 
   // 接收trigger改变后的数据，将数据传给popup
-  triggerChangeHandler(data) {
+  triggerChangeHandler = data => {
     this.setState(data);
-  }
+  };
 
-  triggerDeleteHandler(data) {
+  triggerDeleteHandler = data => {
     let { selectedItems } = this.state;
     selectedItems = selectedItems.filter(item => item.cid !== data.cid);
     this.setState(
@@ -173,10 +169,10 @@ class Select extends (PureComponent || Component) {
         this.props.onDelete(data);
       }
     );
-  }
+  };
 
   // 将被选中的option的数据传给trigger
-  optionChangedHandler(ev, selectedItem) {
+  optionChangedHandler = (ev, selectedItem) => {
     let result = {};
     ev = ev || {
       preventDefault: noop,
@@ -226,7 +222,7 @@ class Select extends (PureComponent || Component) {
       selectedItems,
       selectedItem
     });
-  }
+  };
 
   render() {
     let {
