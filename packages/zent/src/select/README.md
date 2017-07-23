@@ -73,6 +73,17 @@ class Demo extends Component {
           <Option value="3">选项3</Option>
         </Select>
         <Button onClick={this.reRender}>{String(toggle)}</Button>
+				<br />
+				<br />
+				<Select
+        	data={['1', '2', '3', '']}
+        	tags
+        	onChange={evt => {
+      			evt.preventDefault();
+      			evt.stopPropagation();
+    			}}
+        	onEmptySelected={() => {}}
+      	/>
     	</div>
     );
   }

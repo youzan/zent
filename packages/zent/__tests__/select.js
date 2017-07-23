@@ -196,23 +196,23 @@ describe('<Select />', () => {
     pop.find('Popup').simulate('keydown', { keyCode: 40 });
     pop.find('Popup').simulate('keydown', { keyCode: 40 });
     pop.find('Popup').simulate('keydown', { keyCode: 40 });
-    expect(pop.find('.current').prop('value')).toBe('');
-    pop.find('Popup').simulate('keydown', { keyCode: 38 });
-    pop.find('Popup').simulate('keydown', { keyCode: 38 });
-    expect(pop.find('.current').prop('value')).toBe('2');
-    pop.find('Popup').simulate('keydown', { keyCode: 38 });
-    pop.find('Popup').simulate('keydown', { keyCode: 38 });
-    pop.find('Popup').simulate('keydown', { keyCode: 38 });
-    pop.find('Popup').simulate('keydown', { keyCode: 38 });
+    expect(pop.find('.current').prop('value')).toBe('3');
     pop.find('Popup').simulate('keydown', { keyCode: 38 });
     pop.find('Popup').simulate('keydown', { keyCode: 38 });
     expect(pop.find('.current').prop('value')).toBe('1');
+    pop.find('Popup').simulate('keydown', { keyCode: 38 });
+    pop.find('Popup').simulate('keydown', { keyCode: 38 });
+    pop.find('Popup').simulate('keydown', { keyCode: 38 });
+    pop.find('Popup').simulate('keydown', { keyCode: 38 });
+    pop.find('Popup').simulate('keydown', { keyCode: 38 });
+    pop.find('Popup').simulate('keydown', { keyCode: 38 });
+    expect(pop.find('.current').prop('value')).toBe('3');
     expect(onChangeMock.mock.calls.length).toBe(0);
     pop.find('Popup').simulate('keydown', { keyCode: 13 });
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0][0].target.value).toBe('1');
+    expect(onChangeMock.mock.calls[0][0].target.value).toBe('3');
     expect(onChangeMock.mock.calls[0][0].target.type).toBe('select-multiple');
-    expect(onChangeMock.mock.calls[0][1].value).toBe('1');
+    expect(onChangeMock.mock.calls[0][1].value).toBe('3');
     wrapper.find('TagsTrigger').simulate('click');
     expect(pop.find('.current').length).toBe(1);
     pop.find('Popup').simulate('keydown', { keyCode: 40 });
@@ -238,8 +238,8 @@ describe('<Select />', () => {
     wrapper.setProps({ data: updatedData, value: [], index: '' });
 
     wrapper.setProps({ data: updatedData });
-    wrapper.setProps({ data, value: [1] });
-    expect(wrapper.state('selectedItems')[0].value).toBe(1);
+    wrapper.setProps({ data, value: '2' });
+    expect(wrapper.state('selectedItems')[0].value).toBe('2');
 
     // BUG: hard to reach Select.js line 129
     // wrapper.setProps({ data: [{ key: 1 }, { key: 2 }], value: { key: 1 } });
