@@ -214,7 +214,7 @@ export default class NumberInput extends (PureComponent || Component) {
     let inputProps = omit(this.props, [
       // 这几个 Input 的 props 不要透传
       'type',
-      'addonBefore',
+      // 'addonBefore',
       'addonAfter',
       'onChange',
 
