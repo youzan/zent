@@ -23,7 +23,7 @@ export default class Td extends (PureComponent || Component) {
           return <BodyRender data={data} name={name} pos={pos} />;
         }
         return typeof bodyRender(data, pos) !== 'undefined'
-          ? bodyRender(data, pos)
+          ? bodyRender(data, pos, name)
           : '';
       }
       return bodyRender;
