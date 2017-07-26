@@ -4,6 +4,8 @@ import { Component, PureComponent, createElement } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
+import isObject from 'lodash/isObject';
+import cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
 
 import { getValue } from './utils';
@@ -175,7 +177,10 @@ class Field extends (PureComponent || Component) {
   handleChange = event => {
     const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
-    const newValue = this.normalize(getValue(event));
+    const changedValue = isObject(previousValue)
+      ? assign(cloneDeep(previousValue), getValue(event))
+      : getValue(event);
+    const newValue = this.normalize(changedValue);
     let preventSetValue = false;
 
     // 在传入的onChange中可以按需阻止更新value值
@@ -212,7 +217,10 @@ class Field extends (PureComponent || Component) {
   handleBlur = event => {
     const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();
-    const newValue = this.normalize(getValue(event));
+    const changedValue = isObject(previousValue)
+      ? assign(cloneDeep(previousValue), getValue(event))
+      : getValue(event);
+    const newValue = this.normalize(changedValue);
     let preventSetValue = false;
 
     if (onBlur) {

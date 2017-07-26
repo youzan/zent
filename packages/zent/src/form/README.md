@@ -203,15 +203,15 @@ const ContactPhone = (props) => {
     'has-error': showError
   });
   const onSelectChange = (e, selectedItem) => {
-    const newValue = Object.assign({}, value, {
+    const newValue = {
       areacode: selectedItem.index
-    });
+    };
     props.onChange(newValue);
   };
   const onPhoneChange = (e) => {
-    const newValue = Object.assign({}, value, {
+    const newValue = {
       mobile: e.target.value
-    });
+    };
     props.onChange(newValue);
   };
   const filterHandler = (item, keyword) => {
