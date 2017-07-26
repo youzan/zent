@@ -10,3 +10,7 @@ export default function DateRangePicker(props) {
 
   return <Picker {...pickerProps} />;
 }
+
+DateRangePicker.defaultProps = {
+  type: 'combine'
+};

@@ -6,7 +6,7 @@ import { isArray } from 'datetimepicker/utils';
 describe('DateRangePicker', () => {
   it('DateRangePicker has its core function', () => {
     let pop;
-    const wrapper = mount(<DateRangePicker showTime />);
+    const wrapper = mount(<DateRangePicker type="combine" showTime />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
     expect(pop.find('DatePanel').length).toBe(2);
@@ -53,6 +53,7 @@ describe('DateRangePicker', () => {
     });
     wrapper = mount(
       <DateRangePicker
+        type="combine"
         value={['2000-01-01', '2000-02-02']}
         onChange={onChangeMock}
       />
@@ -71,7 +72,9 @@ describe('DateRangePicker', () => {
   it('disable and confirm protection', () => {
     const onChangeMock = jest.fn();
     let pop;
-    let wrapper = mount(<DateRangePicker onChange={onChangeMock} />);
+    let wrapper = mount(
+      <DateRangePicker type="combine" onChange={onChangeMock} />
+    );
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
     pop.find('.btn--confirm').simulate('click');
@@ -79,14 +82,16 @@ describe('DateRangePicker', () => {
 
     // default disabledDate is noop
     // HACK: branch
-    wrapper = mount(<DateRangePicker disabledDate={false} />);
+    wrapper = mount(<DateRangePicker type="combine" disabledDate={false} />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
 
     // del ---disabledDate can be a 2 items array ---del
     // BUG: logic error with array disabledDate
     // support min and max
-    pop = mount(<DateRangePicker min="2000-01-01" max="2001-01-01" />);
+    pop = mount(
+      <DateRangePicker type="combine" min="2000-01-01" max="2001-01-01" />
+    );
     pop.find('.picker-input').simulate('click');
     expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
   });
