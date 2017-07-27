@@ -812,7 +812,7 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | width      | 每一列在一行的宽度, 相对值和固定值 (如: 20% 或 100px) | string               |         | 否    |
 | isMoney    | 表示是否是金额                             | bool                 | `false` | 否    |
 | needSort   | 这一列是否支持排序, 这一列必须设置了key, 才能正常使用排序功能  | bool                 | `false` | 否    |
-| bodyRender | 这一列对应用来渲染的组件                        | `React Element`/func |         | 否    |
+| bodyRender | 这一列对应用来渲染的组件                        | node|function |         | 否    |
 | textAlign  | 文本对齐方式                        | string |    ''     | 否    |
 
 ### selection
