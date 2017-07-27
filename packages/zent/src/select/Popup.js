@@ -5,6 +5,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
+import take from 'lodash/take';
 
 import Popover from 'popover';
 import Search from './components/Search';
@@ -142,7 +143,8 @@ class Popup extends (PureComponent || Component) {
       extraFilter,
       searchPlaceholder,
       filter,
-      onAsyncFilter
+      onAsyncFilter,
+      maxToShow
     } = this.props;
 
     let { keyword, data, currentId } = this.state;
@@ -154,6 +156,10 @@ class Popup extends (PureComponent || Component) {
     let showEmpty = data.length === 0 || filterData.length === 0;
 
     this.itemIds = filterData.map(item => item.cid);
+
+    if (maxToShow && !extraFilter && filter) {
+      filterData = take(filterData, maxToShow);
+    }
 
     return (
       <div

@@ -269,6 +269,7 @@ class Select extends (PureComponent || Component) {
   render() {
     let {
       placeholder,
+      maxToShow,
       className,
       wrapperClassName,
       disabled,
@@ -322,6 +323,7 @@ class Select extends (PureComponent || Component) {
             keyword={keyword}
             filter={filter}
             onAsyncFilter={onAsyncFilter}
+            maxToShow={maxToShow}
             onChange={this.optionChangedHandler}
             onFocus={this.popupFocusHandler}
             onBlur={this.popupBlurHandler}
@@ -339,6 +341,7 @@ Select.propTypes = {
   wrapperClassName: PropTypes.string,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
+  maxToShow: PropTypes.number,
   searchPlaceholder: PropTypes.string,
   emptyText: PropTypes.string,
   selectedItem: PropTypes.shape({
