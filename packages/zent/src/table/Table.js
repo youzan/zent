@@ -36,7 +36,9 @@ export default class Table extends (PureComponent || Component) {
     selection: object,
     expandation: object,
     batchComponentsAutoFixed: bool,
-    batchComponents: array
+    batchComponents: array,
+    ellipsis: bool,
+    tooltipWhenEllip: bool
   };
 
   static defaultProps = {
@@ -53,7 +55,9 @@ export default class Table extends (PureComponent || Component) {
     autoStick: false,
     selection: null,
     batchComponentsAutoFixed: true,
-    batchComponents: null
+    batchComponents: null,
+    ellipsis: false,
+    tooltipWhenEllip: false
   };
 
   constructor(props) {
@@ -371,6 +375,8 @@ export default class Table extends (PureComponent || Component) {
       rowKey,
       pageInfo,
       emptyLabel,
+      ellipsis,
+      tooltipWhenEllip,
       getRowConf = () => {
         return { canSelect: true, rowClass: '' };
       },
@@ -460,6 +466,8 @@ export default class Table extends (PureComponent || Component) {
                 needExpand={needExpand}
                 isExpanded={isExpanded}
                 expandRender={expandRender}
+                ellipsis={ellipsis}
+                toolWhenEllip={tooltipWhenEllip}
               />
               <Foot
                 ref={c => (this.foot = c)}
