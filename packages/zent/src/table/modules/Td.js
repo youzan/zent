@@ -12,11 +12,15 @@ export default class Td extends (PureComponent || Component) {
   };
 
   renderText(name, data) {
-    return this.state.turnPop
-      ? <Pop position="bottom-left" trigger="hover" content={data[name]}>
+    return !this.state.turnPop
+      ? data[name]
+      : <Pop
+          position="bottom-left"
+          trigger="hover"
+          content={<span className="table__cell-tooltip">{data[name]}</span>}
+        >
           {data[name]}
-        </Pop>
-      : data[name];
+        </Pop>;
   }
 
   renderContent() {

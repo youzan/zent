@@ -7,7 +7,7 @@
   表格中的页面筛选、排序均会触发 `onChange` 函数
 
 ### 代码演示
-<!--
+
 :::demo 基础用法
 ```jsx
 import { Table } from 'zent';
@@ -747,7 +747,7 @@ ReactDOM.render(
 )
 
 ```
-::: -->
+:::
 
 :::demo 单行 TD，溢出显示省略号
 ```jsx
@@ -791,6 +791,7 @@ const columns = [{
 ReactDOM.render(
     <Table
 			ellipsis
+			tooltipWhenEllip
       columns={columns}
 			pageInfo={null}
       datasets={datasets}
