@@ -49,7 +49,9 @@ export default class Body extends (PureComponent || Component) {
       selection,
       getRowConf,
       expandRender,
-      needExpand
+      needExpand,
+      ellipsis,
+      toolWhenEllip
     } = this.props;
 
     let trs = [];
@@ -91,6 +93,8 @@ export default class Body extends (PureComponent || Component) {
             data={rowData}
             pos={pos}
             rowKey={rowKey}
+            ellipsis={ellipsis}
+            toolWhenEllip={toolWhenEllip}
             selection={{
               needSelect,
               isSingleSelection: selection.isSingleSelection,

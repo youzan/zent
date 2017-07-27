@@ -139,6 +139,10 @@ $orange: #f60;
       overflow: hidden;
       width: 100%;
       text-overflow: ellipsis;
+
+      &.ellipsis {
+        white-space: nowrap;
+      }
     }
 
     &:first-child {
@@ -240,4 +244,9 @@ $orange: #f60;
     font-size: 12px;
     color: $orange;
   }
+}
+
+.table__cell-tooltip {
+  max-width: 200px;
+  display: inline-block;
 }

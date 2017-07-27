@@ -749,6 +749,60 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 单行 TD，溢出显示省略号
+```jsx
+import { Table } from 'zent';
+
+const datasets = [{
+  item_id: '5024217',
+  bro_uvpv: '1/10',
+  stock_num: '60',
+  sold_num: 0,
+	name: '萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌萌'
+}];
+
+const columns = [{
+  title: '商品',
+  bodyRender: (data) => {
+    return (
+      <div>{data.item_id}</div>
+    );
+  }
+}, {
+	title: '名字',
+	name: 'name',
+	width: 15
+}, {
+  title: '访问量',
+  name: 'bro_uvpv',
+  width: '200px',
+}, {
+  title: '库存',
+  name: 'stock_num',
+  width: '100px',
+	isMoney: true,
+  isMoney: true
+}, {
+  width: '3em',
+  title: '总销量',
+  name: 'sold_num'
+}];
+
+ReactDOM.render(
+    <Table
+			ellipsis
+			tooltipWhenEllip
+      columns={columns}
+			pageInfo={null}
+      datasets={datasets}
+      rowKey="item_id"
+    />
+  , mountNode
+);
+
+```
+:::
+
 ### API
 
 | 参数         | 说明                                         | 类型            | 默认值         | 备选值     | 是否必须 |
@@ -759,6 +813,7 @@ ReactDOM.render(
 | sortBy     | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段       | string        |             |         | 否    |
 | sortType   | 排序方式                                       | string        | `'desc'`    | `'asc'` | 否    |
 | onChange   | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func          |             |         | 否    |
+| ellipsis   | 列表强制单行显示，同时溢出部分显示省略号        | bool        | `false` |         | 否  |
 | emptyLabel | 列表为空时的提示文案                                 | string        | `'没有更多数据了'` |         | 否    |
 | selection  | 表格的选择功能配置                                  | object        |             |         | 否    |
 | loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
