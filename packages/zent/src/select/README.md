@@ -40,50 +40,53 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 支持默认选项
+:::demo 受控模式使用 Select
 ```jsx
-import { Button, Select } from 'zent';
+import { Select, Button } from 'zent';
 
 const Option = Select.Option;
 
 class Demo extends Component {
 	state = {
-  	toggle: true
+  	selectedValue: '1'
   };
 
-  reRender = () => {
-  	const newToggle = !this.state.toggle;
-  	this.setState({
-    	toggle: newToggle
-    });
-  };
+	reRender = () => {
+		this.forceUpdate();
+	};
+
+	selectChangeHandler = (event, selected) => {
+		// do whatever u want here
+
+		// important step for controlled component
+		this.setState({
+			selectedValue: selected.value // or selected[your optionValue]
+		});
+	};
 
   render() {
-  	const { toggle } = this.state;
   	return (
     	<div>
-        <Select onChange={this.reRender} initialValue="1">
+				<span>父级State: {this.state.selectedValue}</span>
+				<br />
+				<br />
+				<span>受控状态：</span>
+        <Select onChange={this.selectChangeHandler} value={this.state.selectedValue}>
           <Option value="1">选项一</Option>
           <Option value="2">选项二</Option>
           <Option value="3">选项三</Option>
         </Select>
-        <Select onChange={this.reRender} initialIndex={1}>
-          <Option value="1">选项1</Option>
-          <Option value="2">选项2</Option>
-          <Option value="3">选项3</Option>
+				<br />
+				<br />
+				<span>错误示例：</span>
+        <Select onChange={this.reRender} value="11">
+          <Option value="11">选项一</Option>
+          <Option value="22">选项二</Option>
+          <Option value="33">选项三</Option>
         </Select>
-        <Button onClick={this.reRender}>{String(toggle)}</Button>
 				<br />
 				<br />
-				<Select
-        	data={['1', '2', '3', '']}
-        	tags
-        	onChange={evt => {
-      			evt.preventDefault();
-      			evt.stopPropagation();
-    			}}
-        	onEmptySelected={() => {}}
-      	/>
+				<Button onClick={this.reRender}>重新渲染</Button>
     	</div>
     );
   }
@@ -114,9 +117,9 @@ ReactDOM.render(
 import { Select } from 'zent';
 
 const data = [
-     {value: 1, text: '选项一'},
-     {value: 2, text: '选项二'},
-     {value: 3, text: '选项三'}
+  {value: 1, text: '选项一'},
+  {value: 2, text: '选项二'},
+  {value: 3, text: '选项三'}
 ];
 
 ReactDOM.render(
