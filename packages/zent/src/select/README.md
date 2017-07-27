@@ -23,7 +23,7 @@
 
 ### 代码演示
 
- :::demo 基础用法
+<!-- :::demo 基础用法
 ```jsx
 import { Select } from 'zent';
 
@@ -370,7 +370,74 @@ ReactDOM.render(
   , mountNode
 );
 ```
-:::
+::: -->
+
+:::demo 受控模式使用 Select
+```jsx
+import { Select, Button } from 'zent';
+
+const Option = Select.Option;
+const cycle = (num) => {
+	const result = [];
+	for (let i = 1; i <= num; i ++) {
+		result.push({
+			value: String(i),
+			text: `选项${i}`
+		});
+	}
+	return result;
+}
+const data = cycle(100)
+
+class Demo extends Component {
+	state = {
+  	selectedValue: '1'
+  };
+
+	reRender = () => {
+		this.forceUpdate();
+	};
+
+	selectChangeHandler = (event, selected) => {
+		// do whatever u want here
+
+		// important step for controlled component
+		this.setState({
+			selectedValue: selected.value // or selected[your optionValue]
+		});
+	};
+
+	reset = () => {
+		this.setState({
+			selectedValue: ''
+		});
+	};
+
+  render() {
+  	return (
+    	<div>
+				<span>父级State: {this.state.selectedValue}</span>
+				<br />
+				<br />
+        <Select
+					data={data}
+					filter={(item, keyword) => item.text.indexOf(keyword) > -1}
+					maxToShow={6}
+					onChange={this.selectChangeHandler}
+					value={this.state.selectedValue} />
+				<Button onClick={this.reset}>重置为初始状态</Button>
+				<Button onClick={this.reRender}>重新渲染</Button>
+    	</div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Demo />
+  , mountNode
+);
+```
+::: 
 
 ### API
 
