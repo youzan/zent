@@ -4,11 +4,9 @@ import { Component, PureComponent, createElement } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
-import isObject from 'lodash/isObject';
-import cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
 
-import { getValue } from './utils';
+import { getValue, getCurrentValue } from './utils';
 import unknownProps from './unknownProps';
 
 class Field extends (PureComponent || Component) {
@@ -177,10 +175,8 @@ class Field extends (PureComponent || Component) {
   handleChange = event => {
     const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
-    const changedValue = isObject(previousValue)
-      ? assign(cloneDeep(previousValue), getValue(event))
-      : getValue(event);
-    const newValue = this.normalize(changedValue);
+    const currentValue = getCurrentValue(getValue(event), previousValue);
+    const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 
     // 在传入的onChange中可以按需阻止更新value值
@@ -217,10 +213,8 @@ class Field extends (PureComponent || Component) {
   handleBlur = event => {
     const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();
-    const changedValue = isObject(previousValue)
-      ? assign(cloneDeep(previousValue), getValue(event))
-      : getValue(event);
-    const newValue = this.normalize(changedValue);
+    const currentValue = getCurrentValue(getValue(event), previousValue);
+    const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 
     if (onBlur) {
