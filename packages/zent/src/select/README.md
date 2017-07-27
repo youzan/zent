@@ -23,7 +23,7 @@
 
 ### 代码演示
 
-<!-- :::demo 基础用法
+:::demo 基础用法
 ```jsx
 import { Select } from 'zent';
 
@@ -284,6 +284,33 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 支持在有 filter 时设置最大显示数量
+```jsx
+import { Select } from 'zent';
+
+const Option = Select.Option;
+const cycle = (num) => {
+	const result = [];
+	for (let i = 1; i <= num; i ++) {
+		result.push({
+			value: String(i),
+			text: `选项${i}`
+		});
+	}
+	return result;
+}
+const data = cycle(100);
+
+ReactDOM.render(
+  <Select
+		data={data}
+		filter={(item, keyword) => item.text.indexOf(keyword) > -1}
+		maxToShow={6} />
+  , mountNode
+);
+```
+::: 
+
 :::demo 支持自定义搜索框文案
 ```jsx
 import { Select } from 'zent';
@@ -370,82 +397,15 @@ ReactDOM.render(
   , mountNode
 );
 ```
-::: -->
-
-:::demo 受控模式使用 Select
-```jsx
-import { Select, Button } from 'zent';
-
-const Option = Select.Option;
-const cycle = (num) => {
-	const result = [];
-	for (let i = 1; i <= num; i ++) {
-		result.push({
-			value: String(i),
-			text: `选项${i}`
-		});
-	}
-	return result;
-}
-const data = cycle(100)
-
-class Demo extends Component {
-	state = {
-  	selectedValue: '1'
-  };
-
-	reRender = () => {
-		this.forceUpdate();
-	};
-
-	selectChangeHandler = (event, selected) => {
-		// do whatever u want here
-
-		// important step for controlled component
-		this.setState({
-			selectedValue: selected.value // or selected[your optionValue]
-		});
-	};
-
-	reset = () => {
-		this.setState({
-			selectedValue: ''
-		});
-	};
-
-  render() {
-  	return (
-    	<div>
-				<span>父级State: {this.state.selectedValue}</span>
-				<br />
-				<br />
-        <Select
-					data={data}
-					filter={(item, keyword) => item.text.indexOf(keyword) > -1}
-					maxToShow={6}
-					onChange={this.selectChangeHandler}
-					value={this.state.selectedValue} />
-				<Button onClick={this.reset}>重置为初始状态</Button>
-				<Button onClick={this.reRender}>重新渲染</Button>
-    	</div>
-    );
-  }
-}
-
-ReactDOM.render(
-  <Demo />
-  , mountNode
-);
-```
-::: 
+:::
 
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 |------|------|------|--------|--------|
 | data | 选项数据 | array | `[]` | 是 |
-| value | 选中的值，当为tags类型时，可以传入数组 | any | `''` | 否 |
-| index | 选中索引 | any | `''` | 否 |
+| value | 选中的值，当为tags类型时，可以传入数组 | any | `null` | 否 |
+| index | 选中索引 | any | `null` | 否 |
 | disabled | 禁用组件 | bool | `false` | 否 |
 | placeholder | 默认提示文案 | string | `'请选择'` | 否 |
 | searchPlaceholder | 搜索框默认文案 | string | `''` | 否 |
@@ -456,6 +416,7 @@ ReactDOM.render(
 | onChange | 选择变更后的回调函数 | function | `noop` | 否 |
 | onDelete | 删除标签后的回调函数 | function | `noop` | 否 |
 | filter | 过滤条件，设置以后才会开启过滤功能 | function | `null` | 否 |
+| maxToShow | 在有过滤条件时，设置 Option 的最大显示数量 | number | | 否 |
 | onAsyncFilter | 异步设置过滤后的数据 | function | `null` | 否 |
 | onEmptySelected | 选中过滤条件为空时的回调 | function | `noop` | 否 |
 | onOpen | 展开时的回调 | function | `noop` | 否 |
