@@ -206,12 +206,12 @@ const ContactPhone = (props) => {
     const newValue = {
       areacode: selectedItem.index
     };
-    props.onChange(newValue);
+    props.onChange(newValue, { merge: true });
   };
   const onPhoneChange = (e) => {
-    const newValue = {
+    const newValue = Object.assign({}, value,{
       mobile: e.target.value
-    };
+    });
     props.onChange(newValue);
   };
   const filterHandler = (item, keyword) => {

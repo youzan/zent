@@ -172,10 +172,12 @@ class Field extends (PureComponent || Component) {
     return format(value);
   };
 
-  handleChange = event => {
+  handleChange = (event, options = { merge: false }) => {
     const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
-    const currentValue = getCurrentValue(getValue(event), previousValue);
+    const currentValue = options.merge
+      ? getCurrentValue(getValue(event), previousValue)
+      : getValue(event);
     const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 
@@ -210,10 +212,12 @@ class Field extends (PureComponent || Component) {
     this.setState(data);
   };
 
-  handleBlur = event => {
+  handleBlur = (event, options = { merge: false }) => {
     const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();
-    const currentValue = getCurrentValue(getValue(event), previousValue);
+    const currentValue = options.merge
+      ? getCurrentValue(getValue(event), previousValue)
+      : getValue(event);
     const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 
