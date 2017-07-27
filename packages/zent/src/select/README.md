@@ -23,7 +23,7 @@
 
 ### 代码演示
 
-:::demo 基础用法
+ :::demo 基础用法
 ```jsx
 import { Select } from 'zent';
 
@@ -45,6 +45,11 @@ ReactDOM.render(
 import { Select, Button } from 'zent';
 
 const Option = Select.Option;
+const data = [
+	{ value: '1', text: '选项一' },
+	{ value: '2', text: '选项二' },
+	{ value: '3', text: '选项三' },
+];
 
 class Demo extends Component {
 	state = {
@@ -64,28 +69,23 @@ class Demo extends Component {
 		});
 	};
 
+	reset = () => {
+		this.setState({
+			selectedValue: ''
+		});
+	};
+
   render() {
   	return (
     	<div>
 				<span>父级State: {this.state.selectedValue}</span>
 				<br />
 				<br />
-				<span>受控状态：</span>
-        <Select onChange={this.selectChangeHandler} value={this.state.selectedValue}>
-          <Option value="1">选项一</Option>
-          <Option value="2">选项二</Option>
-          <Option value="3">选项三</Option>
-        </Select>
-				<br />
-				<br />
-				<span>错误示例：</span>
-        <Select onChange={this.reRender} value="11">
-          <Option value="11">选项一</Option>
-          <Option value="22">选项二</Option>
-          <Option value="33">选项三</Option>
-        </Select>
-				<br />
-				<br />
+        <Select
+					data={data}
+					onChange={this.selectChangeHandler}
+					value={this.state.selectedValue} />
+				<Button onClick={this.reset}>重置为初始状态</Button>
 				<Button onClick={this.reRender}>重新渲染</Button>
     	</div>
     );
@@ -97,9 +97,49 @@ ReactDOM.render(
   , mountNode
 );
 ```
+::: 
+
+:::demo 非受控模式下设置初始值(不推荐)
+```jsx
+import { Select, Button, Notify } from 'zent';
+
+const data = [
+	{ value: '1', text: '选项一' },
+	{ value: '2', text: '选项二' },
+	{ value: '3', text: '选项三' },
+];
+
+class Demo extends Component {
+
+	reRender = () => {
+		this.forceUpdate();
+	};
+
+	changeHandler = (event, selected) => {
+		Notify.success(<span>你选择的 Option 的 Value 为 {selected.value}</span>);
+	}
+
+	render() {
+		return (
+			<div>
+				<Select
+					data={data}
+					onChange={this.changeHandler}
+					initialValue="1" />
+				<Button onClick={this.reRender}>重新渲染</Button>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(
+  <Demo />
+  , mountNode
+);
+```
 :::
 
-:::demo 支持数组类型选项
+ :::demo 支持数组类型选项
 ```jsx
 import { Select } from 'zent';
 
@@ -366,5 +406,4 @@ ReactDOM.render(
 | extraFilter | 是否自带过滤功能 | boolean | `false` | 否 |
 | open | 是否打开Popup | boolean | `false` | 否 |
 
-`Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。`
-
+`Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。` 

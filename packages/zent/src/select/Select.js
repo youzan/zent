@@ -131,6 +131,9 @@ class Select extends (PureComponent || Component) {
       (index !== 'undefined' && `${i}` === `${index}`)
     ) {
       state.sItem = item;
+    } else if (!value && !index) {
+      state.sItem = {};
+      state.sItems = [];
     }
     return state;
   }
@@ -149,7 +152,7 @@ class Select extends (PureComponent || Component) {
       optionValue,
       optionText
     } = props;
-    const s = { sItem: selectedItem, sItems: selectedItems };
+    const selected = { sItem: selectedItem, sItems: selectedItems };
 
     this.sourceData = cloneDeep(data)
       .map(item => {
@@ -168,9 +171,13 @@ class Select extends (PureComponent || Component) {
         item.cid = `${i}`;
 
         // 处理默认选项(initialIndex, initialValue)
-        if (selectedItems.length === 0 && !selectedItem.cid) {
+        if (
+          selectedItems.length === 0 &&
+          !selectedItem.cid &&
+          (initialValue !== null || initialIndex !== null)
+        ) {
           that.getOptions(
-            s,
+            selected,
             { value: initialValue, index: initialIndex },
             item,
             i
@@ -178,11 +185,13 @@ class Select extends (PureComponent || Component) {
         }
 
         // 与受控逻辑(index, value)
-        that.getOptions(s, { value, index }, item, i);
+        if (value !== null || index !== null) {
+          that.getOptions(selected, { value, index }, item, i);
+        }
         return item;
       });
-    this.state.selectedItem = s.sItem;
-    this.state.selectedItems = s.sItems;
+    this.state.selectedItem = selected.sItem;
+    this.state.selectedItems = selected.sItems;
     return this.sourceData;
   }
 
@@ -280,7 +289,6 @@ class Select extends (PureComponent || Component) {
 
     let disabledCls = disabled ? 'disabled' : '';
     let prefixCls = `${this.props.prefix}-select`;
-
     return (
       <Popover
         display="inline-block"
@@ -364,6 +372,13 @@ Select.defaultProps = {
   selectedItems: [],
   optionValue: 'value',
   optionText: 'text',
+
+  // HACK
+  value: null,
+  index: null,
+  initialValue: null,
+  initialIndex: null,
+
   onChange: noop,
   onDelete: noop,
   onEmptySelected: noop,
