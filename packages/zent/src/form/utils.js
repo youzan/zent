@@ -1,3 +1,6 @@
+import isPlainObject from 'lodash/isPlainObject';
+import assign from 'lodash/assign';
+
 const getSelectedValues = options => {
   const result = [];
   if (options) {
@@ -35,6 +38,17 @@ export function getValue(event) {
 
   // 自定义组件需要直接抛出value或者把value放在一个对象中
   return event && event.value !== undefined ? event.value : event;
+}
+
+// 根据旧值和变化值，得到当前值
+export function getCurrentValue(changedValue, prevValue) {
+  let currentValue;
+  if (prevValue && isPlainObject(prevValue)) {
+    currentValue = assign({}, prevValue, changedValue);
+  } else {
+    currentValue = changedValue;
+  }
+  return currentValue;
 }
 
 export function getDisplayName(Component) {

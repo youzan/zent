@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
 
-import { getValue } from './utils';
+import { getValue, getCurrentValue } from './utils';
 import unknownProps from './unknownProps';
 
 class Field extends (PureComponent || Component) {
@@ -172,10 +172,13 @@ class Field extends (PureComponent || Component) {
     return format(value);
   };
 
-  handleChange = event => {
+  handleChange = (event, options = { merge: false }) => {
     const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
-    const newValue = this.normalize(getValue(event));
+    const currentValue = options.merge
+      ? getCurrentValue(getValue(event), previousValue)
+      : getValue(event);
+    const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 
     // 在传入的onChange中可以按需阻止更新value值
@@ -209,10 +212,13 @@ class Field extends (PureComponent || Component) {
     this.setState(data);
   };
 
-  handleBlur = event => {
+  handleBlur = (event, options = { merge: false }) => {
     const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();
-    const newValue = this.normalize(getValue(event));
+    const currentValue = options.merge
+      ? getCurrentValue(getValue(event), previousValue)
+      : getValue(event);
+    const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 
     if (onBlur) {
