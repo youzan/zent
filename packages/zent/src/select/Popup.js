@@ -5,6 +5,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
+import take from 'lodash/take';
 
 import Popover from 'popover';
 import Search from './components/Search';
@@ -101,6 +102,8 @@ class Popup extends (PureComponent || Component) {
         if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
           this.currentIdUpdated = true;
+        } else {
+          currentId = this.itemIds[0];
         }
         break;
       case KEY_UP:
@@ -108,6 +111,8 @@ class Popup extends (PureComponent || Component) {
         if (index > 0) {
           currentId = this.itemIds[index - 1];
           this.currentIdUpdated = true;
+        } else {
+          currentId = this.itemIds[this.itemIds.length - 1];
         }
         break;
       case KEY_EN:
@@ -138,7 +143,8 @@ class Popup extends (PureComponent || Component) {
       extraFilter,
       searchPlaceholder,
       filter,
-      onAsyncFilter
+      onAsyncFilter,
+      maxToShow
     } = this.props;
 
     let { keyword, data, currentId } = this.state;
@@ -150,6 +156,10 @@ class Popup extends (PureComponent || Component) {
     let showEmpty = data.length === 0 || filterData.length === 0;
 
     this.itemIds = filterData.map(item => item.cid);
+
+    if (maxToShow && !extraFilter && filter) {
+      filterData = take(filterData, maxToShow);
+    }
 
     return (
       <div
