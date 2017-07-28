@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import isFunction from 'lodash/isFunction';
+import noop from 'lodash/noop';
 import Input from 'input';
 import Icon from 'icon';
 
@@ -175,7 +176,9 @@ export default class NumberInput extends (PureComponent || Component) {
         ...props,
         type: 'number',
         value: result
-      }
+      },
+      preventDefault: noop,
+      stopPropagation: noop
     });
   }
 
