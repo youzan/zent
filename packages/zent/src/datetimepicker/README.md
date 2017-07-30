@@ -38,7 +38,7 @@ class Demo extends Component{
     })
   }
 
-	onChangeRange2 = (val) => {
+	onChangeRangeSplit = (val) => {
 		this.setState({
 			rangeValue: val
 		})
@@ -71,7 +71,7 @@ class Demo extends Component{
 				<DateRangePicker
 					type="split"
 					value={rangeValue}
-					onChange={this.onChangeRange2}
+					onChange={this.onChangeRangeSplit}
 				/>
       </div>
     )
@@ -113,6 +113,12 @@ class Demo extends Component{
     })
   }
 
+	onChangeRangeSplit = (val) => {
+		this.setState({
+			rangeValue: val
+		})
+	}
+
   render() {
     const { dateValue, monthValue, rangeValue } = this.state;
     return (
@@ -137,6 +143,14 @@ class Demo extends Component{
           value={rangeValue}
           onChange={this.onChangeRange}
           />
+				<br />
+				<DateRangePicker
+				 className="zent-picker-demo"
+					type="split"
+					format="YYYY-MM-DD"
+					value={rangeValue}
+					onChange={this.onChangeRangeSplit}
+				/>
         </div>
     )
   }
@@ -171,6 +185,12 @@ class Demo extends Component{
     })
   }
 
+	onChangeRangeSplit = (val) => {
+    this.setState({
+      rangeValue: val
+    })
+  }
+
   render(){
     const { dateValue, rangeValue } = this.state;
     return (
@@ -190,6 +210,15 @@ class Demo extends Component{
           value={rangeValue}
           onChange={this.onChangeRange}
           />
+				<br />
+				<DateRangePicker
+					className="zent-picker-demo"
+					type="split"
+					showTime
+					format="YYYY-MM-DD HH:mm:ss"
+					value={rangeValue}
+					onChange={this.onChangeRangeSplit}
+				/>
       </div>
     )
   }
