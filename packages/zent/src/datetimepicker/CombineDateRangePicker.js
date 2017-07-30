@@ -98,7 +98,7 @@ const extractStateFromProps = props => {
   };
 };
 
-class DateRangePicker extends (PureComponent || Component) {
+class CombineDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -501,4 +501,4 @@ class DateRangePicker extends (PureComponent || Component) {
   }
 }
 
-export default DateRangePicker;
+export default CombineDateRangePicker;

@@ -8,7 +8,10 @@ describe('DateRangePicker', () => {
     let pop;
     const wrapper = mount(<DateRangePicker type="combine" showTime />);
     wrapper.find('.picker-input').simulate('click');
-    pop = new ReactWrapper(wrapper.instance().picker, true);
+    pop = new ReactWrapper(
+      wrapper.find('CombineDateRangePicker').node.picker,
+      true
+    );
     expect(pop.find('DatePanel').length).toBe(2);
     const click = new Event('click');
     document.dispatchEvent(click);
@@ -35,7 +38,10 @@ describe('DateRangePicker', () => {
       .simulate('mouseover');
     pop.find('.btn--confirm').simulate('click');
     wrapper.find('.picker-input').simulate('click');
-    pop = new ReactWrapper(wrapper.instance().picker, true);
+    pop = new ReactWrapper(
+      wrapper.find('CombineDateRangePicker').node.picker,
+      true
+    );
     expect(pop.find('.panel__cell--selected').length).toBe(2);
     pop.find('DatePanel').at(1).find('.panel__cell').at(10).simulate('click');
     pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
@@ -59,7 +65,10 @@ describe('DateRangePicker', () => {
       />
     );
     wrapper.find('.picker-input').simulate('click');
-    pop = new ReactWrapper(wrapper.instance().picker, true);
+    pop = new ReactWrapper(
+      wrapper.find('CombineDateRangePicker').node.picker,
+      true
+    );
     pop.find('DatePanel').at(1).find('.panel__cell').at(10).simulate('click');
     pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
     pop.find('.btn--confirm').simulate('click');
@@ -76,7 +85,10 @@ describe('DateRangePicker', () => {
       <DateRangePicker type="combine" onChange={onChangeMock} />
     );
     wrapper.find('.picker-input').simulate('click');
-    pop = new ReactWrapper(wrapper.instance().picker, true);
+    pop = new ReactWrapper(
+      wrapper.find('CombineDateRangePicker').node.picker,
+      true
+    );
     pop.find('.btn--confirm').simulate('click');
     expect(pop.find('DatePanel').length).toBe(2);
 
@@ -84,7 +96,10 @@ describe('DateRangePicker', () => {
     // HACK: branch
     wrapper = mount(<DateRangePicker type="combine" disabledDate={false} />);
     wrapper.find('.picker-input').simulate('click');
-    pop = new ReactWrapper(wrapper.instance().picker, true);
+    pop = new ReactWrapper(
+      wrapper.find('CombineDateRangePicker').node.picker,
+      true
+    );
 
     // del ---disabledDate can be a 2 items array ---del
     // BUG: logic error with array disabledDate

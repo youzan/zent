@@ -9,7 +9,7 @@ import DatePicker from './DatePicker';
 const START = 'start';
 const END = 'end';
 
-class DateRangePicker2 extends (PureComponent || Component) {
+class SplitDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -116,4 +116,4 @@ class DateRangePicker2 extends (PureComponent || Component) {
   }
 }
 
-export default DateRangePicker2;
+export default SplitDateRangePicker;
