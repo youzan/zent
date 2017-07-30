@@ -6,13 +6,9 @@ import cx from 'classnames';
 import helper from '../helper';
 
 export default class Td extends (PureComponent || Component) {
-  renderText(name, data) {
-    return data[name];
-  }
-
   renderContent() {
     const { column, data, pos } = this.props;
-    const { name, bodyRender = this.renderText(name, data) } = column;
+    const { name, bodyRender = data[name] } = column;
     const isReactComponent = helper.isReactComponent(bodyRender);
 
     if (typeof bodyRender === 'function') {
