@@ -64,16 +64,24 @@
   border: 1px solid #bbb;
   background: #fff;
   box-sizing: border-box;
+  transition: all 0.3s;
 
   &::after {
     box-sizing: content-box;
     position: absolute;
     display: block;
-    top: 2px;
-    left: 2px;
     content: ' ';
     font-size: 0;
+    top: 3px;
+    left: 2px;
+    width: 6px;
+    height: 3px;
+    border: 2px solid #fff;
     background: transparent;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg) scale(0);
+    transition: all 0.12s ease-in-out;
   }
 }
 
@@ -83,15 +91,7 @@
     background: #38f;
 
     &::after {
-      top: 3px;
-      left: 2px;
-      width: 6px;
-      height: 3px;
-      border: 2px solid #fff;
-      background: transparent;
-      border-top: none;
-      border-right: none;
-      transform: rotate(-45deg);
+      transform: rotate(-45deg) scale(1);
     }
   }
 }

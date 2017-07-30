@@ -67,15 +67,20 @@
   background: #fff;
   box-sizing: border-box;
   vertical-align: middle;
+  transition: all 0.3s;
 
   &::after {
     position: absolute;
     display: block;
-    top: 2px;
-    left: 2px;
     content: ' ';
-    font-size: 0;
-    background: transparent;
+    top: 4px;
+    left: 4px;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: #fff;
+    transform: scale(0);
+    transition: all 0.12s ease-in-out;
   }
 }
 
@@ -85,12 +90,7 @@
     background: #38f;
 
     &::after {
-      top: 4px;
-      left: 4px;
-      width: 4px;
-      height: 4px;
-      border-radius: 2px;
-      background: #fff;
+      transform: scale(1);
     }
   }
 }

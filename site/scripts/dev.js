@@ -25,7 +25,7 @@ compiler.apply(
 
 compiler.plugin('done', () => {
   if (onceMark) {
-    cp.exec(`${cmds[process.platform]} http://localhost:4396`);
+    cp.exec(`${cmds[process.platform]} http://0.0.0.0:4396`);
   }
   onceMark = false;
 });
@@ -37,11 +37,12 @@ const server = new WebpackDevServer(compiler, {
   hot: true,
   contentBase: resolve(__dirname, 'dist'),
   publicPath: '/',
+  disableHostCheck: true,
   inline: true,
   historyApiFallback: true
 });
 
-server.listen(4396, '127.0.0.1', () => {
+server.listen(4396, '0.0.0.0', () => {
   // eslint-disable-next-line
   console.log('\n Starting server on http://localhost:4396 \n');
 });

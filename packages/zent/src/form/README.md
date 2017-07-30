@@ -203,13 +203,13 @@ const ContactPhone = (props) => {
     'has-error': showError
   });
   const onSelectChange = (e, selectedItem) => {
-    const newValue = Object.assign({}, value, {
+    const newValue = {
       areacode: selectedItem.index
-    });
-    props.onChange(newValue);
+    };
+    props.onChange(newValue, { merge: true });
   };
   const onPhoneChange = (e) => {
-    const newValue = Object.assign({}, value, {
+    const newValue = Object.assign({}, value,{
       mobile: e.target.value
     });
     props.onChange(newValue);
