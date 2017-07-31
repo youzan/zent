@@ -97,7 +97,7 @@ ReactDOM.render(
   , mountNode
 );
 ```
-::: 
+:::
 
 :::demo 非受控模式下设置初始值(不推荐)
 ```jsx
@@ -139,7 +139,7 @@ ReactDOM.render(
 ```
 :::
 
- :::demo 支持数组类型选项
+:::demo 支持数组类型选项
 ```jsx
 import { Select } from 'zent';
 
@@ -380,7 +380,7 @@ ReactDOM.render(
 ```jsx
 import { Select, Button, Notify } from 'zent';
 
-class Demo extends Component {
+class TagsDemo extends Component {
 
 	state = {
 		selected: ["1"],
@@ -448,7 +448,7 @@ class Demo extends Component {
 }
 
 ReactDOM.render(
-  <Demo />
+  <TagsDemo />
   , mountNode
 );
 ```

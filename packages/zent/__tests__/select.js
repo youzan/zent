@@ -238,12 +238,24 @@ describe('<Select />', () => {
     wrapper.setProps({ data: updatedData, value: [], index: '' });
 
     wrapper.setProps({ data: updatedData });
-    wrapper.setProps({ data, value: '2' });
-    expect(wrapper.state('selectedItems')[0].value).toBe('2');
+    wrapper.setProps({ data, value: [2] });
+    expect(wrapper.state('selectedItems')[0].value).toBe(2);
 
     // BUG: hard to reach Select.js line 129
     // wrapper.setProps({ data: [{ key: 1 }, { key: 2 }], value: { key: 1 } });
     wrapper.setProps({ data: updatedData, value: 2 });
     expect(wrapper.state('selectedItem').value).toBe(2);
   });
+
+  // it('initial value and index', () => {
+  //   const data = [
+  //     { value: '1', text: '选项一' },
+  //     { value: '2', text: '选项二' },
+  //     { value: '3', text: '选项三' },
+  //   ];
+  //   let wrapper = mount(<Select data={data} initialValue="1" />);
+  //   expect(wrapper.state('selectedItem').value).toBe('1');
+  //   wrapper = mount(<Select data={data} initialIndex={2} />);
+  //   expect(wrapper.state('selectedItem').value).toBe('2');
+  // });
 });
