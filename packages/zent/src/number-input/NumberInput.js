@@ -175,7 +175,7 @@ export default class NumberInput extends (PureComponent || Component) {
       target: {
         ...props,
         type: 'number',
-        value: result
+        value: parseFloat(result)
       },
       preventDefault: noop,
       stopPropagation: noop
