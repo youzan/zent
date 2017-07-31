@@ -378,22 +378,77 @@ ReactDOM.render(
 
 :::demo 支持多选标签
 ```jsx
-import { Select } from 'zent';
+import { Select, Button, Notify } from 'zent';
 
-const data = [
-     {id: 1, name: '选项一'},
-     {id: 2, name: '选项二'},
-     {id: 3, name: '选项三'}
-];
+class Demo extends Component {
+
+	state = {
+		selected: ["1"],
+		data: [
+			{ value: '1', text: '选项一' },
+			{ value: '2', text: '选项二' },
+			{ value: '3', text: '选项三' },
+		]
+	};
+
+	reset = () => {
+		this.setState({
+			selected: []
+		});
+	};
+
+	upgradeData = () => {
+		this.setState({
+			data: [
+				{ value: '1', text: '选项一' },
+				{ value: '2', text: '选项二' },
+				{ value: '3', text: '选项三' },
+				{ value: '4', text: '选项四' }
+			]
+		});
+	};
+
+	increaseHandler = (event, item) => {
+		this.setState({
+			value: this.state.selected.push(item.value)
+		});
+		Notify.success(<span>您新添加的 Option 的 Value 为 {item.value}</span>);
+	}
+
+	deleteHandler = (item) => {
+
+		// 可以使用效率更高或者更优雅的数组定点删除方法，比如 lodash.remove
+		const newSelected = this.state.selected.filter(value => {
+			return value !== item.value;
+		});
+		this.setState({
+			selected: newSelected
+		});
+		Notify.success(<span>您新删除的 Option 的 Value 为 {item.value}</span>);
+	}
+
+	render() {
+		return (
+			<div>
+				<span>父级State: {this.state.selected.join(',')}</span>
+					<br />
+					<br />
+				<Select
+					data={this.state.data}
+					onChange={this.increaseHandler}
+					onDelete={this.deleteHandler}
+					tags
+    			filter={(item, keyword) => item.name.indexOf(keyword) > -1}
+					value={this.state.selected} />
+				<Button onClick={this.reset}>重置</Button>
+				<Button onClick={this.upgradeData}>更新Data</Button>
+			</div>
+		);
+	}
+}
 
 ReactDOM.render(
-  <Select
-    data={data}
-    optionValue="id"
-    optionText="name"
-    tags
-    filter={(item, keyword) => item.name.indexOf(keyword) > -1}
-  />
+  <Demo />
   , mountNode
 );
 ```

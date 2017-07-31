@@ -117,7 +117,14 @@ class Select extends (PureComponent || Component) {
   getOptions(state, props, item, i) {
     let { value, index } = props;
     if (isArray(value) && value.indexOf(item.value) > -1) {
-      state.sItems.push(item);
+      // rerender 去重
+      if (!state.sItems.find(selected => selected.value === item.value)) {
+        state.sItems.push(item);
+      }
+    } else if (isArray(value) && value.length === 0) {
+      // 多选重置
+      state.sItem = {};
+      state.sItems = [];
     } else if (typeof value === 'object' && isEqual(value, item.value)) {
       state.sItem = item;
     } else if (
@@ -128,6 +135,7 @@ class Select extends (PureComponent || Component) {
     ) {
       state.sItem = item;
     } else if (!value && !index) {
+      // 单选重置
       state.sItem = {};
       state.sItems = [];
     }
@@ -186,8 +194,10 @@ class Select extends (PureComponent || Component) {
         }
         return item;
       });
-    this.state.selectedItem = selected.sItem;
-    this.state.selectedItems = selected.sItems;
+    this.setState({
+      selectedItem: selected.sItem,
+      selectedItems: selected.sItems
+    });
     return this.sourceData;
   }
 
