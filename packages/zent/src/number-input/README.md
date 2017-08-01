@@ -76,7 +76,7 @@ import { NumberInput, Button } from 'zent';
 
 class EventTest extends React.Component {
 	state = {
-		log: 0
+		log: ''
 	};
 
 	onChange(ev) {
@@ -92,7 +92,7 @@ class EventTest extends React.Component {
 			<div>
 				<NumberInput
 					showStepper
-					value={this.state.log} 
+					value={this.state.log}
 					onChange={this.onChange.bind(this)} 
 					onPressEnter={() => console.log('pressed enter')}/>
 				<Button onClick={this.setToThree}>变成3</Button>

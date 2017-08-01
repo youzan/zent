@@ -23,7 +23,7 @@ export default class NumberInput extends (PureComponent || Component) {
   static defaultProps = {
     prefix: 'zent',
     showStepper: false,
-    value: 0,
+    value: '',
     decimal: 0,
     disabled: false,
     onChange: () => {}
@@ -38,6 +38,7 @@ export default class NumberInput extends (PureComponent || Component) {
       max,
       decimal
     );
+    num = value === '' ? '' : num;
     this.state = {
       value: num,
       upArrow,
@@ -61,6 +62,7 @@ export default class NumberInput extends (PureComponent || Component) {
         max,
         decimal
       );
+      num = value === '' ? '' : num;
       this.setState({
         value: num,
         upArrow,
@@ -127,6 +129,7 @@ export default class NumberInput extends (PureComponent || Component) {
       max,
       decimal
     );
+    num = value === '' ? '' : num;
     this.setState({
       value: num,
       upArrow,
@@ -171,11 +174,12 @@ export default class NumberInput extends (PureComponent || Component) {
 
   onPropChange(result) {
     const props = this.props;
+    result = result === '' ? '' : parseFloat(result);
     props.onChange({
       target: {
         ...props,
         type: 'number',
-        value: parseFloat(result)
+        value: result
       },
       preventDefault: noop,
       stopPropagation: noop
