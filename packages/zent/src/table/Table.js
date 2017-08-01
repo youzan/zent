@@ -61,6 +61,7 @@ export default class Table extends (PureComponent || Component) {
 
     this.state = {
       current: props.pageInfo ? props.pageInfo.current : 1,
+      batchComponentsFixed: false,
       placeHolderHeight: false,
       fixStyle: {}
     };
@@ -73,16 +74,8 @@ export default class Table extends (PureComponent || Component) {
   selectedRows = [];
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.batchComponentsAutoFixed !== this.props.batchComponentsAutoFixed
-    ) {
-      if (nextProps.batchComponentsAutoFixed) {
-        this.addEventListener(nextProps);
-      } else {
-        this.removeEventListener(nextProps);
-      }
-    }
-
+    const toggleListener = helper.toggleEventListener(this.props, nextProps);
+    toggleListener && this[toggleListener](nextProps);
     this.setState({
       current: nextProps.pageInfo ? nextProps.pageInfo.current : 1
     });
