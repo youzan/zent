@@ -156,7 +156,7 @@ class Select extends (PureComponent || Component) {
       optionValue,
       optionText
     } = props;
-    const selected = { sItem: selectedItem, sItems: selectedItems };
+    const selected = { sItem: selectedItem, sItems: [] };
 
     this.sourceData = cloneDeep(data)
       .map(item => {
