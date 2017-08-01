@@ -272,6 +272,10 @@ class Select extends (PureComponent || Component) {
     });
   };
 
+  handlePopoverVisibleChange = data => {
+    this.setState({ open: data });
+  };
+
   render() {
     let {
       placeholder,
@@ -286,6 +290,7 @@ class Select extends (PureComponent || Component) {
     } = this.props;
 
     let {
+      open,
       selectedItems,
       selectedItem = {},
       extraFilter,
@@ -300,8 +305,10 @@ class Select extends (PureComponent || Component) {
       <Popover
         display="inline-block"
         position={Popover.Position.AutoBottomLeft}
+        visible={open}
         className={`${prefixCls} ${className}`}
         wrapperClassName={`${prefixCls} ${wrapperClassName} ${disabledCls}`}
+        onVisibleChange={this.handlePopoverVisibleChange}
       >
         <PopoverClickTrigger>
           <Trigger
@@ -344,6 +351,7 @@ Select.propTypes = {
   data: PropTypes.array,
   prefix: PropTypes.string,
   className: PropTypes.string,
+  open: PropTypes.bool,
   wrapperClassName: PropTypes.string,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -369,6 +377,7 @@ Select.defaultProps = {
   prefix: 'zent',
   disabled: false,
   className: '',
+  open: false,
   wrapperClassName: '',
   trigger: SelectTrigger,
   placeholder: '请选择',
