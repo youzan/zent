@@ -209,7 +209,7 @@ class DatePicker extends (PureComponent || Component) {
 
   onConfirm = () => {
     const { selected, activedTime } = this.state;
-    const { format, showTime } = this.props;
+    const { format, showTime, onClose, onChange } = this.props;
 
     // 如果没有选择日期则默认选中当前日期
 
@@ -234,7 +234,8 @@ class DatePicker extends (PureComponent || Component) {
     });
 
     const ret = this.getReturnValue(tmp, format);
-    this.props.onChange(ret);
+    onChange(ret);
+    onClose && onClose();
   };
 
   isDisabled = val => {

@@ -49,7 +49,6 @@ class SplitDateRangePicker extends (PureComponent || Component) {
       } else {
         ret.length === 0 ? ret.splice(1, 1, '', val) : ret.splice(1, 1, val);
       }
-
       onChange(ret);
     };
   };
@@ -82,7 +81,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
           onClick={val => onClick && onClick(val, START)}
           onChange={this.onChange(START)}
           onOpen={() => onOpen && onOpen(START)}
-          onClose={onClose && onClose(START)}
+          onClose={() => onClose && onClose(START)}
           openPanel={openPanel[0]}
           disabledDate={val => disabledDate(val, START)}
         />

@@ -131,7 +131,6 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     super(props);
 
     const { value, valueType } = props;
-
     if (valueType) {
       retType = valueType;
     } else if (isValidValue(value)) {
