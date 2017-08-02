@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import cx from 'classnames';
+import map from 'lodash/map';
 import * as Helper from './helper';
 
 export default class DateRangeQuickPicker extends Component {
   static propTypes = {
+    prefix: PropTypes.string,
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.array,
     format: PropTypes.string,
     chooseDays: PropTypes.number,
-    prefix: PropTypes.string
+    preset: PropTypes.array
   };
 
   static defaultProps = {
@@ -19,7 +21,17 @@ export default class DateRangeQuickPicker extends Component {
     className: '',
     value: [],
     chooseDays: 0,
-    format: 'YYYY-MM-DD'
+    format: 'YYYY-MM-DD',
+    preset: [
+      {
+        text: '最近7天',
+        value: 7
+      },
+      {
+        text: '最近30天',
+        value: 30
+      }
+    ]
   };
 
   handleTimeChange = value => {
@@ -34,7 +46,7 @@ export default class DateRangeQuickPicker extends Component {
   };
 
   render() {
-    const { className, format, value, chooseDays, prefix } = this.props;
+    const { className, format, value, chooseDays, prefix, preset } = this.props;
     const showTime = format === 'YYYY-MM-DD';
 
     return (
@@ -46,22 +58,19 @@ export default class DateRangeQuickPicker extends Component {
           format={format}
           showTime={!showTime}
         />
-        <span
-          className={cx(`${prefix}-date-range-picker__btn`, {
-            active: chooseDays === 7
-          })}
-          onClick={this.handleChooseDays.bind(this, 7)}
-        >
-          最近7天
-        </span>
-        <span
-          className={cx(`${prefix}-date-range-picker__btn`, {
-            active: chooseDays === 30
-          })}
-          onClick={this.handleChooseDays.bind(this, 30)}
-        >
-          最近30天
-        </span>
+        {map(preset, (item, index) => {
+          return (
+            <span
+              key={index}
+              className={cx(`${prefix}-date-range-picker__btn`, {
+                active: chooseDays === item.value
+              })}
+              onClick={this.handleChooseDays.bind(this, item.value)}
+            >
+              {item.text}
+            </span>
+          );
+        })}
       </div>
     );
   }

@@ -13,30 +13,54 @@ list filter form 区域展示使用
 import { DateRangeQuickPicker } from 'zent';
 
 class Simple extends Component {
-  state = {
-    value: [],
-    chooseDays: 0
-  };
+	state = {
+	};
 
-  handleChange = (value, chooseDays) => {
-    this.setState({
-      value,
-      chooseDays
-    });
-  };
+	handleChange = (value, chooseDays) => {
+		console.log(value, chooseDays);
+		this.setState({
+			value,
+			chooseDays
+		});
+	};
+
+	handleChange1 = (value, chooseDays) => {
+		console.log(value, chooseDays);
+		this.setState({
+			value1: value,
+			chooseDays1: chooseDays
+		});
+	}
 
   render() {
-    const { value, chooseDays } = this.state;
+    const { value, chooseDays, value1, chooseDays1 } = this.state;
 
     return (
-    	<div>
-	      <DateRangeQuickPicker
-	        onChange={this.handleChange}
-	        value={value}
-	        format="YYYY-MM-DD HH:mm:ss"
-	        chooseDays={chooseDays}
-	      />
-      </div>
+			<div>
+				<DateRangeQuickPicker
+					onChange={this.handleChange}
+					value={value}
+					format="YYYY-MM-DD HH:mm:ss"
+					chooseDays={chooseDays}
+				/>
+				<br />
+				<DateRangeQuickPicker
+					onChange={this.handleChange1}
+					value={value1}
+					format="YYYY-MM-DD"
+					chooseDays={chooseDays1}
+					preset={[{
+						text: '最近7天',
+						value: 7
+					}, {
+						text: '最近3个月',
+						value: 90
+					}, {
+						text: '最近6个月',
+						value: 180
+					}]}
+				/>
+			</div>
     );
   }
 }
@@ -56,6 +80,7 @@ ReactDOM.render(
 |------          |------              |------            |--------    |--------   |
 | prefix         | 自定义前缀           | string          | `'zent'`    |           |
 | className      | 自定义类名          | string            |   ''      |              |
+| preset         | 自定义快捷选项      | array          | `[{text: '最近7天', value: 7}, {text: '最近30天', value: 30}]`    |           |
 | onChange       | change time func  | func          |         |              |
 | value          | 起始、结束时间       | array        |           |             |
 | format         | 返回日期字符串格式   |  string      |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
