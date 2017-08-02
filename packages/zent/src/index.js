@@ -39,6 +39,8 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
+import BlockHeader from 'block-header';
+import DateRangeQuickPicker from 'date-range-quick-picker';
 
 export {
   Affix,
@@ -81,5 +83,7 @@ export {
   Tag,
   Tree,
   Switch,
-  Upload
+  Upload,
+  BlockHeader,
+  DateRangeQuickPicker
 };
