@@ -39,6 +39,7 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
+import Card from 'card';
 
 export {
   Affix,
@@ -81,5 +82,6 @@ export {
   Tag,
   Tree,
   Switch,
-  Upload
+  Upload,
+  Card
 };
