@@ -106,8 +106,8 @@ class Popup extends (PureComponent || Component) {
           currentId = this.itemIds[index + 1];
           this.currentIdUpdated = true;
           if (
-            currentNode.offsetTop + 28 >=
-            this.popup.scrollTop + popupHeight
+            currentNode &&
+            currentNode.offsetTop + 28 >= this.popup.scrollTop + popupHeight
           ) {
             this.popup.scrollTop = currentNode.offsetTop + 28 * 2 - popupHeight;
           }
@@ -121,7 +121,7 @@ class Popup extends (PureComponent || Component) {
         if (index > 0) {
           currentId = this.itemIds[index - 1];
           this.currentIdUpdated = true;
-          if (currentNode.offsetTop <= this.popup.scrollTop) {
+          if (currentNode && currentNode.offsetTop <= this.popup.scrollTop) {
             this.popup.scrollTop = currentNode.offsetTop - 28;
           }
         } else {
