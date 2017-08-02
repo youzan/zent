@@ -93,6 +93,9 @@ class Popup extends (PureComponent || Component) {
     let itemIds = this.itemIds;
     let { currentId, keyword } = this.state;
     let index = itemIds.indexOf(currentId);
+    let popupHeight = this.popup.clientHeight;
+    let scrollHeight = this.popup.scrollHeight;
+    let currentNode = this.popup.getElementsByClassName('current')[0];
     switch (code) {
       case KEY_ESC:
         this.props.popover.close();
@@ -102,8 +105,15 @@ class Popup extends (PureComponent || Component) {
         if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
           this.currentIdUpdated = true;
+          if (
+            currentNode.offsetTop + 28 >=
+            this.popup.scrollTop + popupHeight
+          ) {
+            this.popup.scrollTop = currentNode.offsetTop + 28 * 2 - popupHeight;
+          }
         } else {
           currentId = this.itemIds[0];
+          this.popup.scrollTop = 0;
         }
         break;
       case KEY_UP:
@@ -111,8 +121,12 @@ class Popup extends (PureComponent || Component) {
         if (index > 0) {
           currentId = this.itemIds[index - 1];
           this.currentIdUpdated = true;
+          if (currentNode.offsetTop <= this.popup.scrollTop) {
+            this.popup.scrollTop = currentNode.offsetTop - 28;
+          }
         } else {
           currentId = this.itemIds[this.itemIds.length - 1];
+          this.popup.scrollTop = scrollHeight;
         }
         break;
       case KEY_EN:
