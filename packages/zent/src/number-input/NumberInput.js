@@ -222,7 +222,7 @@ export default class NumberInput extends (PureComponent || Component) {
       // 这几个 Input 的 props 不要透传
       'type',
       // 'addonBefore',
-      'addonAfter',
+      // 'addonAfter',
       'onChange',
 
       // 这些是 NumberInput 特有的 props
