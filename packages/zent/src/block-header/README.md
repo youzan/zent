@@ -14,7 +14,7 @@ class Simple extends React.Component {
 			<div>
 				<BlockHeader
 					title="有赞微商城"
-					tooltip={<div>test</div>}
+					tooltip={<span>test</span>}
 					content={<a href="/">content</a>}
 					position="top-center"
 				/>
@@ -22,7 +22,7 @@ class Simple extends React.Component {
 				<BlockHeader
 					className="test-class"
 					title="有赞微商城"
-					tooltip={<div>test</div>}
+					tooltip={<span>test</span>}
 					position="top-center"
 				>
 					<a href="/">children</a>

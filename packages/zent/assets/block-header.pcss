@@ -1,35 +1,44 @@
-@import './alert.pcss';
-@import './badge.pcss';
-@import './breadcrumb.pcss';
-@import './button.pcss';
-@import './cascader.pcss';
-@import './checkbox.pcss';
-@import './colorpicker.pcss';
-@import './datetimepicker.pcss';
-@import './dialog.pcss';
-@import './form.pcss';
-@import './icon.pcss';
-@import './input.pcss';
-@import './layout.pcss';
-@import './loading.pcss';
-@import './menu.pcss';
-@import './notify.pcss';
-@import './number-input.pcss';
-@import './pagination.pcss';
-@import './pop.pcss';
-@import './preview-image.pcss';
-@import './progress.pcss';
-@import './radio.pcss';
-@import './search-input.pcss';
-@import './select.pcss';
-@import './slider.pcss';
-@import './steps.pcss';
-@import './sweetalert.pcss';
-@import './switch.pcss';
-@import './swiper.pcss';
-@import './table.pcss';
-@import './tabs.pcss';
-@import './tag.pcss';
-@import './tree.pcss';
-@import './upload.pcss';
-@import './block-header.pcss';
+.zent-block-header {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f8f8;
+  height: 50px;
+  box-sizing: border-box;
+
+  &__left {
+    display: inline-block;
+
+    h3 {
+      margin: 0;
+      padding-left: 5px;
+      border-left: 4px solid #f70;
+      font-weight: normal;
+      font-size: 14px;
+    }
+  }
+
+  &__content {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  &__pop {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #bbb;
+    font-size: 16px;
+  }
+
+  &__tooltip {
+    max-width: 300px;
+    word-wrap: normal;
+
+    &-trigger {
+      color: #cacaca;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+}
