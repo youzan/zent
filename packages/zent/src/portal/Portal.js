@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 import * as util from './util';
 
-/**
+/*
   Portal的核心，只负责管理child。index.js实际export的不是这个component.
-**/
+*/
 export default class Portal extends (PureComponent || Component) {
   static propTypes = {
     children: PropTypes.node.isRequired,
