@@ -28,7 +28,11 @@
     "fecha": "2.3.x",
     "lodash": "4.17.x",
     "prop-types": "15.5.x",
+    "raf": "^3.3.2",
+    "react-dnd": "^2.4.0",
+    "react-dnd-html5-backend": "^2.4.1",
     "tinycolor2": "^1.4.1",
+    "uuid": "^3.1.0",
     "zan-utils": "^1.0.9",
     "zenticons": "^1.0.3"
   },

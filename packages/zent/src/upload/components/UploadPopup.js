@@ -99,7 +99,9 @@ class UploadPopup extends Component {
                       ×
                     </span>
                     {item.progress
-                      ? <div className="image-progress">{`${item.progress.toFixed(1)}%`}</div>
+                      ? <div className="image-progress">{`${item.progress.toFixed(
+                          1
+                        )}%`}</div>
                       : ''}
                   </li>
                 );

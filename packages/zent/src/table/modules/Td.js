@@ -37,7 +37,7 @@ export default class Td extends (PureComponent || Component) {
             className="select-check"
             checked={
               canSelect &&
-                selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
+              selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
             }
             disabled={!canSelect}
             onChange={this.onSelect}

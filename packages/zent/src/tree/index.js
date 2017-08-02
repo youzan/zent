@@ -398,8 +398,7 @@ export default class Tree extends (PureComponent || Component) {
           >
             {typeof opt.icon === 'string'
               ? <icon className={opt.icon} />
-              : opt.icon}
-            {' '}
+              : opt.icon}{' '}
             {opt.name}
           </span>
         );

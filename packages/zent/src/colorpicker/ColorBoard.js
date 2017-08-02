@@ -38,7 +38,8 @@ const Sketch = ({
         },
         Saturation: {
           radius: '3px',
-          shadow: 'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
+          shadow:
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
         },
         controls: {
           display: 'flex'
@@ -59,7 +60,8 @@ const Sketch = ({
           absolute: '0px 0px 0px 0px',
           borderRadius: '2px',
           background: `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`,
-          boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
+          boxShadow:
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
         },
         hue: {
           position: 'relative',
@@ -68,7 +70,8 @@ const Sketch = ({
         },
         Hue: {
           radius: '2px',
-          shadow: 'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
+          shadow:
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
         },
         alpha: {
           position: 'relative',
@@ -78,7 +81,8 @@ const Sketch = ({
         },
         Alpha: {
           radius: '2px',
-          shadow: 'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
+          shadow:
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
         }
       },
       showAlpha: {

@@ -35,7 +35,9 @@ describe('Dialog component', () => {
     }
 
     dialog = mount(
-      <DialogTest onClose={onClose} title="hello"><p>第一个dialog</p></DialogTest>
+      <DialogTest onClose={onClose} title="hello">
+        <p>第一个dialog</p>
+      </DialogTest>
     );
   });
 

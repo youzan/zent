@@ -2,10 +2,10 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { getNodeFromSelector } from './util';
 
-/**
+/*
   Provides an HOC component for ensuring container is non-scrollable during component
   lifecycle.
-**/
+*/
 export default function withNonScrollable(Portal) {
   let portalVisibleCount = 0;
   let originalOverflow;

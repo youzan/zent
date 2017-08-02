@@ -113,7 +113,9 @@ export default class Image extends Component {
             </div>
             {images.length > 1
               ? <div
-                  className={`${prefix}-image-p-footer image-p-footer-paging ${showRotateBtn ? 'show-rotate-btn' : ''}`}
+                  className={`${prefix}-image-p-footer image-p-footer-paging ${showRotateBtn
+                    ? 'show-rotate-btn'
+                    : ''}`}
                 >
                   <span
                     className={`${prefix}-image-p-action`}
@@ -136,7 +138,9 @@ export default class Image extends Component {
                   </span>
                 </div>
               : <div
-                  className={`${prefix}-image-p-footer ${showRotateBtn ? 'show-rotate-btn' : ''}`}
+                  className={`${prefix}-image-p-footer ${showRotateBtn
+                    ? 'show-rotate-btn'
+                    : ''}`}
                 >
                   {showRotateBtn &&
                     <span

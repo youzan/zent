@@ -676,7 +676,8 @@ describe('Popover', () => {
       mount(
         <Popover position={Popover.Position.BottomLeft} display="inline">
           <PopoverClickTrigger>
-            <span>1</span><span>2</span>
+            <span>1</span>
+            <span>2</span>
           </PopoverClickTrigger>
           <PopoverContent>
             <div>popover content</div>

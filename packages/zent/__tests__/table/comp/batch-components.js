@@ -26,7 +26,11 @@ const columns = [
     title: '商品',
     width: '50px',
     bodyRender: data => {
-      return <div>{data.item_id}</div>;
+      return (
+        <div>
+          {data.item_id}
+        </div>
+      );
     }
   },
   {
@@ -64,7 +68,9 @@ class Customer extends React.Component {
         <button className="zent-btn" onClick={this.onClick}>
           这是一个自定义组件,点击试试
         </button>
-        <span className="label-container">选中了{this.state.length}个元素</span>
+        <span className="label-container">
+          选中了{this.state.length}个元素
+        </span>
       </div>
     );
   }

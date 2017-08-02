@@ -4,9 +4,8 @@ import SplitDateRangePicker from './SplitDateRangePicker';
 
 export default function DateRangePicker(props) {
   const { type, ...pickerProps } = props;
-  const Picker = type === 'combine'
-    ? CombineDateRangePicker
-    : SplitDateRangePicker;
+  const Picker =
+    type === 'combine' ? CombineDateRangePicker : SplitDateRangePicker;
 
   return <Picker {...pickerProps} />;
 }

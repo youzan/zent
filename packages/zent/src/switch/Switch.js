@@ -46,7 +46,9 @@ export default class Switch extends (PureComponent || Component) {
 
     return (
       <span className={classNames} onClick={disabled ? null : this.toggle}>
-        <span className={textClassName}>{this.getInnerText()}</span>
+        <span className={textClassName}>
+          {this.getInnerText()}
+        </span>
       </span>
     );
   }

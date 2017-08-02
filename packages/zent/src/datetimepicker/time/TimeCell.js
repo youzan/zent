@@ -32,7 +32,11 @@ export default class TimeCell extends (PureComponent || Component) {
         );
       });
 
-      return <ul className="panel-table__row" role="row" key={i}>{tds}</ul>;
+      return (
+        <ul className="panel-table__row" role="row" key={i}>
+          {tds}
+        </ul>
+      );
     });
   }
 

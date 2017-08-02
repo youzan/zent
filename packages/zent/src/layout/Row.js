@@ -20,6 +20,10 @@ export default class Row extends (PureComponent || Component) {
       [className]: className
     });
 
-    return <div {...others} className={classes}>{this.props.children}</div>;
+    return (
+      <div {...others} className={classes}>
+        {this.props.children}
+      </div>
+    );
   }
 }

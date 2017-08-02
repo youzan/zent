@@ -55,15 +55,17 @@ export default class Group extends (PureComponent || Component) {
         return React.cloneElement(checkbox, {
           ...checkbox.props,
           onChange: this.onCheckboxChange,
-          checked: findIndex(value, val =>
-            isValueEqual(val, checkbox.props.value)
-          ) !== -1,
-          disabled: checkbox.props.disabled !== undefined
-            ? checkbox.props.disabled
-            : this.props.disabled,
-          readOnly: checkbox.props.readOnly !== undefined
-            ? checkbox.props.readOnly
-            : this.props.readOnly
+          checked:
+            findIndex(value, val => isValueEqual(val, checkbox.props.value)) !==
+            -1,
+          disabled:
+            checkbox.props.disabled !== undefined
+              ? checkbox.props.disabled
+              : this.props.disabled,
+          readOnly:
+            checkbox.props.readOnly !== undefined
+              ? checkbox.props.readOnly
+              : this.props.readOnly
         });
       }
     });
@@ -73,6 +75,10 @@ export default class Group extends (PureComponent || Component) {
       [className]: !!className
     });
 
-    return <div className={classString} style={style}>{children}</div>;
+    return (
+      <div className={classString} style={style}>
+        {children}
+      </div>
+    );
   }
 }

@@ -1,0 +1,38 @@
+@import './_fn.pcss';
+
+.zent-design-editor-add-component {
+  box-sizing: border-box;
+
+  &__title {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+  }
+
+  &__list {
+    @mixin clearfix;
+  }
+
+  &__btn {
+    float: left;
+    margin: 0 0 10px 5px;
+    outline: none;
+    height: 40px;
+    width: 56px;
+    border: 1px solid #d1d1d1;
+    color: #38f;
+    font-size: 12px;
+    background: #fff;
+  }
+}
+
+.zent-design-editor-item .zent-design-editor-add-component {
+  margin: 0 39px;
+}
+
+.zent-design__add .zent-design-editor-add-component {
+  padding: 0 5px;
+}
