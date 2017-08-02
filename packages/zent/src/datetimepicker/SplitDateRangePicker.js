@@ -9,7 +9,7 @@ import DatePicker from './DatePicker';
 const START = 'start';
 const END = 'end';
 
-class DateRangePicker2 extends (PureComponent || Component) {
+class SplitDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -49,7 +49,6 @@ class DateRangePicker2 extends (PureComponent || Component) {
       } else {
         ret.length === 0 ? ret.splice(1, 1, '', val) : ret.splice(1, 1, val);
       }
-
       onChange(ret);
     };
   };
@@ -82,7 +81,7 @@ class DateRangePicker2 extends (PureComponent || Component) {
           onClick={val => onClick && onClick(val, START)}
           onChange={this.onChange(START)}
           onOpen={() => onOpen && onOpen(START)}
-          onClose={onClose && onClose(START)}
+          onClose={() => onClose && onClose(START)}
           openPanel={openPanel[0]}
           disabledDate={val => disabledDate(val, START)}
         />
@@ -116,4 +115,4 @@ class DateRangePicker2 extends (PureComponent || Component) {
   }
 }
 
-export default DateRangePicker2;
+export default SplitDateRangePicker;

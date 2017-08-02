@@ -78,6 +78,25 @@ const helper = {
    */
   isSelectPart(rowKeys, subRowKeys) {
     return intersection(rowKeys, subRowKeys).length > 0;
+  },
+
+  /**
+   * 切换是否监听事件
+   */
+  toggleEventListener(currentProps, nextProps) {
+    let toggleEventListener;
+    if (
+      nextProps.batchComponentsAutoFixed !==
+      currentProps.batchComponentsAutoFixed
+    ) {
+      if (nextProps.batchComponentsAutoFixed) {
+        toggleEventListener = 'addEventListener';
+      } else {
+        toggleEventListener = 'removeEventListener';
+      }
+    }
+
+    return toggleEventListener;
   }
 };
 

@@ -19,6 +19,7 @@ describe('previewImage render', () => {
     });
     expect(document.querySelectorAll('.zent-portal').length).toBe(1);
     expect(document.querySelectorAll('.zent-image-p-anchor').length).toBe(1);
+    expect(document.querySelectorAll('.zent-show-image').length).toBe(1);
 
     const wrapper = new ReactWrapper(
       document.querySelector('.zent-image-p-close'),
