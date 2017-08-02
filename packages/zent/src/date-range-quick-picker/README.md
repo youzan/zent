@@ -4,7 +4,7 @@
 
 ### 使用场景
 
-list filter form 区域展示使用
+列表页 filter 区域快速选择日期使用
 
 ### 代码演示
 
@@ -82,6 +82,6 @@ ReactDOM.render(
 | className      | 自定义类名          | string            |   ''      |              |
 | preset         | 自定义快捷选项      | array          | `[{text: '最近7天', value: 7}, {text: '最近30天', value: 30}]`    |           |
 | onChange       | change time func  | func          |         |              |
-| value          | 起始、结束时间       | array        |           |             |
-| format         | 返回日期字符串格式   |  string      |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
-| chooseDays     | 初始选择7天或者30天  |  number      |           |   `7, 30 `       |
+| value          | 起始、结束时间       | array        |   `[]`        |             |
+| format         | 返回日期字符串格式   |  string       |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
+| chooseDays     | 选择天数           |  number       |    `0`        |         |
