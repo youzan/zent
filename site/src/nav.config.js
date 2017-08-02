@@ -69,6 +69,11 @@ module.exports = {
           groupName: '展示',
           list: [
             {
+              path: 'component/card',
+              title: 'Card 卡片',
+              component: require('../../packages/zent/src/card/README.md')
+            },
+            {
               path: 'component/alert',
               title: 'Alert 公告',
               component: require('../../packages/zent/src/alert/README.md')
