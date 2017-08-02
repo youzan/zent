@@ -725,7 +725,6 @@ class BatchCompsClass extends React.Component {
           batchComponents={[
           <span key="pure" className="child-comps">这是一个DOM</span>,
           (data) => {
-						console.log(data);
             return <span key="func" className="child-comps" style={{color: "blueviolet"}}> 这是一个函数，选中了{data.length}个元素    </span>
           },
           Customer

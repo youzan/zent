@@ -34,4 +34,18 @@ describe('table helpers', () => {
     expect(helper.needFixBatchComps(true, true, false, false)).toEqual(null);
     expect(helper.needFixBatchComps(false, false, false, false)).toEqual(null);
   });
+
+  it('toggleEventListener', () => {
+    const needFixBatchComps = { batchComponentsAutoFixed: true };
+    const noNeedFixBatchComps = { batchComponentsAutoFixed: false };
+    expect(
+      helper.toggleEventListener(needFixBatchComps, needFixBatchComps)
+    ).toEqual(undefined);
+    expect(
+      helper.toggleEventListener(needFixBatchComps, noNeedFixBatchComps)
+    ).toEqual('removeEventListener');
+    expect(
+      helper.toggleEventListener(noNeedFixBatchComps, needFixBatchComps)
+    ).toEqual('addEventListener');
+  });
 });
