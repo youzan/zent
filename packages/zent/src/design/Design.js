@@ -423,7 +423,6 @@ export default class Design extends (PureComponent || Component) {
           const comp = find(components, c => isExpectedDesginType(c, type));
           // 假如组件设置了 editable: false，不处罚校验
           if (!defaultTo(comp.editable, true)) {
-            console.log(`skipped: ${comp.type}`);
             return Promise.resolve({ [id]: {} });
           }
 
