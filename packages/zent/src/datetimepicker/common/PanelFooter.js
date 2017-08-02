@@ -15,8 +15,14 @@ const PanelFooter = props => {
 
   return (
     <div className="panel__footer">
-      {showLink && <a className={linkCls} onClick={onClickLink}>{linkText}</a>}
-      {showError && <span className="error-tips">{errorText}</span>}
+      {showLink &&
+        <a className={linkCls} onClick={onClickLink}>
+          {linkText}
+        </a>}
+      {showError &&
+        <span className="error-tips">
+          {errorText}
+        </span>}
       <button className="btn--confirm" type="button" onClick={onClickButton}>
         {buttonText}
       </button>

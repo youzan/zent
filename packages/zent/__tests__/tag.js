@@ -28,7 +28,11 @@ describe('Tag', () => {
   });
 
   it('can have close button', () => {
-    const wrapper = mount(<Tag closable><span>tag</span></Tag>);
+    const wrapper = mount(
+      <Tag closable>
+        <span>tag</span>
+      </Tag>
+    );
     expect(wrapper.find('.zent-tag-close-btn').length).toBe(1);
   });
 
@@ -90,7 +94,11 @@ describe('Tag', () => {
   });
 
   it('can have custom color outline style', () => {
-    const wrapper = mount(<Tag color="#ff1493" outline>#ff1493</Tag>);
+    const wrapper = mount(
+      <Tag color="#ff1493" outline>
+        #ff1493
+      </Tag>
+    );
     expect(
       wrapper.contains(
         <div
@@ -130,7 +138,9 @@ describe('Tag', () => {
 
   it('can have children element', () => {
     const wrapper = mount(
-      <Tag><a href="https://www.youzan.com">youzan</a></Tag>
+      <Tag>
+        <a href="https://www.youzan.com">youzan</a>
+      </Tag>
     );
     expect(wrapper.find('.zent-tag').length).toBe(1);
     expect(wrapper.contains(<a href="https://www.youzan.com">youzan</a>)).toBe(

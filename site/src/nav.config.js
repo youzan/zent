@@ -99,6 +99,11 @@ module.exports = {
               component: require('../../packages/zent/src/pop/README.md')
             },
             {
+              path: 'component/progress',
+              title: 'Progress 进度条',
+              component: require('../../packages/zent/src/progress/README.md')
+            },
+            {
               path: 'component/sweet-alert',
               title: 'SweetAlert',
               component: require('../../packages/zent/src/sweetalert/README.md')
@@ -152,6 +157,11 @@ module.exports = {
               path: 'component/datepicker',
               title: 'DatePicker 时间选择',
               component: require('../../packages/zent/src/datetimepicker/README.md')
+            },
+            {
+              path: 'component/design',
+              title: 'Design 微页面编辑',
+              component: require('../../packages/zent/src/design/README.md')
             },
             {
               path: 'component/form',
@@ -267,11 +277,6 @@ module.exports = {
               path: 'component/portal',
               title: 'Portal 传送门',
               component: require('../../packages/zent/src/portal/README.md')
-            },
-            {
-              path: 'component/progress',
-              title: 'Progress 进度条',
-              component: require('../../packages/zent/src/progress/README.md')
             }
           ]
         }

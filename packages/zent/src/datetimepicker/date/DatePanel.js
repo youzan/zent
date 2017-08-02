@@ -33,7 +33,8 @@ export default class DatePanel extends (PureComponent || Component) {
   render() {
     const state = this.state;
     const props = this.props;
-    const title = `${props.actived.getFullYear()}年${props.actived.getMonth() + 1}月`;
+    const title = `${props.actived.getFullYear()}年${props.actived.getMonth() +
+      1}月`;
     let monthPanel;
     let timePanel;
     if (state.showMonth) {

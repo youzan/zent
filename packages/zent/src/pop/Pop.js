@@ -213,7 +213,10 @@ class Pop extends (PureComponent || Component) {
 
     return (
       <Popover.Content>
-        {header && <div className={`${prefix}-pop-header`}>{header}</div>}
+        {header &&
+          <div className={`${prefix}-pop-header`}>
+            {header}
+          </div>}
         <div className={`${prefix}-pop-inner`}>
           {content}
           <BoundPopAction
@@ -268,7 +271,11 @@ class Pop extends (PureComponent || Component) {
     }
 
     if (trigger === 'focus') {
-      return <Trigger.Focus>{children}</Trigger.Focus>;
+      return (
+        <Trigger.Focus>
+          {children}
+        </Trigger.Focus>
+      );
     }
 
     if (trigger === 'none') {

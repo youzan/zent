@@ -23,9 +23,10 @@ const navUtil = {
         title: tabItem.title,
         prefix: tabItem.prefix,
         className: tabItem.tabClassName,
-        minWidth: i === tabListData.length - 1
-          ? widthInfo.lastWidth || ''
-          : widthInfo.width || '',
+        minWidth:
+          i === tabListData.length - 1
+            ? widthInfo.lastWidth || ''
+            : widthInfo.width || '',
         candel: candel && !tabItem.disabled
       };
       modifiedTabListData.push(modifiedTabInfo);

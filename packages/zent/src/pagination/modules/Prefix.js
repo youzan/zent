@@ -25,9 +25,11 @@ export default class Prefix extends (PureComponent || Component) {
       <span className="each">
         ，每页
         <Select value={currentPageSize} onChange={this.changePageSize}>
-          {pageSize.map((item, i) => (
-            <Option key={i} value={item}>{item}</Option>
-          ))}
+          {pageSize.map((item, i) =>
+            <Option key={i} value={item}>
+              {item}
+            </Option>
+          )}
         </Select>
         条
       </span>
@@ -40,8 +42,13 @@ export default class Prefix extends (PureComponent || Component) {
 
     return (
       <span className="zent-pagination__info">
-        <span className="total">共{totalItem}条</span>
-        {!isNeedSelect && <span className="each">，每页{currentPageSize}条</span>}
+        <span className="total">
+          共{totalItem}条
+        </span>
+        {!isNeedSelect &&
+          <span className="each">
+            ，每页{currentPageSize}条
+          </span>}
         {isNeedSelect && this.renderSelect()}
       </span>
     );

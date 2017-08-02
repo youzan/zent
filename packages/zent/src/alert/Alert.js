@@ -97,7 +97,9 @@ export default class Alert extends (PureComponent || Component) {
             </span>
           </div>}
         <div className={`${prefix}-alert-content-wrapper`}>
-          <div className={`${prefix}-alert-content`}>{children}</div>
+          <div className={`${prefix}-alert-content`}>
+            {children}
+          </div>
         </div>
       </div>
     );

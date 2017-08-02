@@ -7,7 +7,12 @@ const Checkboard = ({ white, grey, size, renderers }) => {
     default: {
       grid: {
         absolute: '0px 0px 0px 0px',
-        background: `url(${checkboard.get(white, grey, size, renderers.canvas)}) center left`
+        background: `url(${checkboard.get(
+          white,
+          grey,
+          size,
+          renderers.canvas
+        )}) center left`
       }
     }
   });

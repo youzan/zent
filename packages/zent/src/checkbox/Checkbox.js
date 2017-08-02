@@ -79,7 +79,11 @@ export default class Checkbox extends (PureComponent || Component) {
             onChange={this.onChange}
           />
         </span>
-        {children !== undefined ? <span>{children}</span> : null}
+        {children !== undefined
+          ? <span>
+              {children}
+            </span>
+          : null}
       </label>
     );
   }

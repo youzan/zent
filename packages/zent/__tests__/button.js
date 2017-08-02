@@ -210,7 +210,11 @@ describe('<Button />', () => {
 
   test('Component', () => {
     function Link({ to, children, ...rest }) {
-      return <a href={`/#${to}`} {...rest}>{children}</a>;
+      return (
+        <a href={`/#${to}`} {...rest}>
+          {children}
+        </a>
+      );
     }
     mount(<Button to="/path" component={Link} />);
 

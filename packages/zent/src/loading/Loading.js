@@ -81,9 +81,10 @@ export default class Loading extends (PureComponent || Component) {
         <div
           className={`${prefix}-loading-container ${prefix}-loading-container-static ${containerClass}`}
           style={{
-            height: this.props.children || !this.state.show
-              ? 'initial'
-              : this.props.height
+            height:
+              this.props.children || !this.state.show
+                ? 'initial'
+                : this.props.height
           }}
         >
           {this.props.children}
