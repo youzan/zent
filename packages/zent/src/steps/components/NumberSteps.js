@@ -49,13 +49,13 @@ export default class NumberSteps extends (PureComponent || Component) {
         {React.Children.map(
           children,
           (item, index) => {
-            const tailWidth = index === lastIndex || !reLayouted
-              ? null
-              : `${100 / lastIndex}%`;
+            const tailWidth =
+              index === lastIndex || !reLayouted ? null : `${100 / lastIndex}%`;
 
-            const adjustMarginRight = index === lastIndex
-              ? null
-              : -(this.state.lastStepOffsetWidth / lastIndex + 1);
+            const adjustMarginRight =
+              index === lastIndex
+                ? null
+                : -(this.state.lastStepOffsetWidth / lastIndex + 1);
 
             const np = {
               stepNumber: (index + 1).toString(),

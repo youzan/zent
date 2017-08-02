@@ -1,8 +1,8 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class DesignEditorAddComponent
-  extends (PureComponent || Component) {
+export default class DesignEditorAddComponent extends (PureComponent ||
+  Component) {
   static propTypes = {
     components: PropTypes.array,
 
@@ -36,7 +36,7 @@ export default class DesignEditorAddComponent
           添加内容
         </div>
         <div className={`${prefix}-design-editor-add-component__list`}>
-          {components.map((c, idx) => (
+          {components.map((c, idx) =>
             <button
               onClick={this.onAdd(c)}
               key={idx}
@@ -44,7 +44,7 @@ export default class DesignEditorAddComponent
             >
               {c.editor.designDescription}
             </button>
-          ))}
+          )}
         </div>
       </div>
     );

@@ -42,9 +42,8 @@ export default class PageFooter extends Component {
         </ul>
         <p className="page-footer__copyright">
           2012-
-          {curYear}
-          {' '}
-          © youzanyun.com -  浙公网安备 33010602004354号 增值电信业务经营许可证：浙B2-20140331 - 浙ICP备13037466号
+          {curYear} © youzanyun.com - 浙公网安备 33010602004354号
+          增值电信业务经营许可证：浙B2-20140331 - 浙ICP备13037466号
         </p>
       </div>
     );

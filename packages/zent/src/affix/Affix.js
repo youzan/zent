@@ -129,7 +129,6 @@ class Affix extends (PureComponent || Component) {
         </div>
         <WindowEventHandler eventName="scroll" callback={this.handleScroll} />
         <WindowEventHandler eventName="resize" callback={this.handleResize} />
-
       </div>
     );
   }

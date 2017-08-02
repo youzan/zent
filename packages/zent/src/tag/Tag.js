@@ -73,7 +73,9 @@ export default class Tag extends (PureComponent || Component) {
     } = this.props;
     const containerCls = cx(
       `${prefix}-tag`,
-      `${prefix}-tag-style${colorTypes.indexOf(color) >= 0 ? `-${color}` : ''}${outline ? '-outline' : ''}`,
+      `${prefix}-tag-style${colorTypes.indexOf(color) >= 0
+        ? `-${color}`
+        : ''}${outline ? '-outline' : ''}`,
       {
         [className]: !!className,
         [`${prefix}-tag-rounded`]: rounded,
@@ -92,7 +94,9 @@ export default class Tag extends (PureComponent || Component) {
 
     return (
       <div className={containerCls} style={styles}>
-        <div className={`${prefix}-tag-content`}>{children}</div>
+        <div className={`${prefix}-tag-content`}>
+          {children}
+        </div>
         {closable &&
           <Icon
             type="close"

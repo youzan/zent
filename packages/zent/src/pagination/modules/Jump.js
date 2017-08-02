@@ -44,7 +44,9 @@ export default class Jump extends (PureComponent || Component) {
           onKeyUp={this.onKeyUp}
           onChange={this.onChange}
         />
-        <span className="pager__suffix">/共{this.props.total}页</span>
+        <span className="pager__suffix">
+          /共{this.props.total}页
+        </span>
       </div>
     );
   }

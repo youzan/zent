@@ -23,7 +23,7 @@ export default class SideNav extends Component {
     }
   };
 
-  parseData = (item, index) => (
+  parseData = (item, index) =>
     <li className="nav-item" key={`nav-${index}`}>
       {item.path
         ? <NavLink
@@ -41,10 +41,9 @@ export default class SideNav extends Component {
           {item.children.map(this.parseChildren)}
         </ul>}
       {item.groups && item.groups.map(this.parseGroup)}
-    </li>
-  );
+    </li>;
 
-  parseChildren = (navItem, index) => (
+  parseChildren = (navItem, index) =>
     <li className="nav-item" key={`nav-children-${index}`}>
       <NavLink
         activeClassName="active"
@@ -53,17 +52,17 @@ export default class SideNav extends Component {
       >
         {navItem.title || navItem.name}
       </NavLink>
-    </li>
-  );
+    </li>;
 
-  parseGroup = (group, index) => (
+  parseGroup = (group, index) =>
     <div className="nav-group" key={`nav-group-${index}`}>
-      <div className="nav-group__title">{group.groupName}</div>
+      <div className="nav-group__title">
+        {group.groupName}
+      </div>
       <ul className="pure-menu-list">
         {group.list.map(this.parseList)}
       </ul>
-    </div>
-  );
+    </div>;
 
   parseList = (navItem, index) => {
     return navItem.disabled

@@ -34,12 +34,14 @@ export default class Group extends (PureComponent || Component) {
           ...radio.props,
           onChange: this.onRadioChange.bind(this),
           checked: isValueEqual(this.props.value, radio.props.value),
-          disabled: radio.props.disabled !== undefined
-            ? radio.props.disabled
-            : this.props.disabled,
-          readOnly: radio.props.readOnly !== undefined
-            ? radio.props.readOnly
-            : this.props.readOnly
+          disabled:
+            radio.props.disabled !== undefined
+              ? radio.props.disabled
+              : this.props.disabled,
+          readOnly:
+            radio.props.readOnly !== undefined
+              ? radio.props.readOnly
+              : this.props.readOnly
         });
       }
     });
@@ -49,6 +51,10 @@ export default class Group extends (PureComponent || Component) {
       [className]: !!className
     });
 
-    return <div className={classString} style={style}>{children}</div>;
+    return (
+      <div className={classString} style={style}>
+        {children}
+      </div>
+    );
   }
 }

@@ -49,7 +49,7 @@ const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
   if (type === 'simple') {
     return (
       <div className={`${prefix}-colorpicker-colors-select`}>
-        {colors.map(color => (
+        {colors.map(color =>
           <div
             key={color}
             className={`${prefix}-colorpicker-colors-select__preview`}
@@ -57,7 +57,7 @@ const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
             onClick={() => onClick(color)}
             title={color}
           />
-        ))}
+        )}
       </div>
     );
   }
@@ -65,9 +65,10 @@ const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
   return (
     <div style={styles.colors} className={`${prefix}-colorpicker-colors`}>
       {colors.map(colorObjOrString => {
-        const c = typeof colorObjOrString === 'string'
-          ? { color: colorObjOrString }
-          : colorObjOrString;
+        const c =
+          typeof colorObjOrString === 'string'
+            ? { color: colorObjOrString }
+            : colorObjOrString;
         return (
           <div key={c.color} style={styles.swatchWrap}>
             <Swatch {...c} style={styles.swatch} onClick={handleClick} />

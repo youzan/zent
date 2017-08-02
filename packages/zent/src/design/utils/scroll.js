@@ -8,9 +8,10 @@ const SCROLL_TIME = 250;
 const w = window;
 const d = document;
 const originalScroll = w.scroll || w.scrollTo;
-const now = w.performance && w.performance.now
-  ? w.performance.now.bind(w.performance)
-  : Date.now;
+const now =
+  w.performance && w.performance.now
+    ? w.performance.now.bind(w.performance)
+    : Date.now;
 
 /**
  * changes scroll position inside an element

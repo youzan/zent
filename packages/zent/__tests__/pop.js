@@ -59,9 +59,7 @@ describe('Pop', () => {
     expect(() => {
       mount(
         <Pop content={content()} trigger={'click'}>
-          <Button onClick={addClick}>
-            click
-          </Button>
+          <Button onClick={addClick}>click</Button>
         </Pop>
       );
     }).not.toThrow();
@@ -78,9 +76,7 @@ describe('Pop', () => {
         block
         header={header()}
       >
-        <Button onClick={addClick}>
-          click
-        </Button>
+        <Button onClick={addClick}>click</Button>
       </Pop>
     );
     expect(wrapper.find('Popover div').hasClass('foo-pop-wrapper')).toBe(true);
@@ -101,9 +97,7 @@ describe('Pop', () => {
         block
         header={header()}
       >
-        <Button>
-          click
-        </Button>
+        <Button>click</Button>
       </Pop>
     );
     wrapper.find('button').simulate('click');
@@ -119,9 +113,7 @@ describe('Pop', () => {
         onCancel={cancelMock}
         content={content()}
       >
-        <Button>
-          click
-        </Button>
+        <Button>click</Button>
       </Pop>
     );
     wrapper.find('button').simulate('click');
@@ -143,9 +135,7 @@ describe('Pop', () => {
         onCancel={cancelMock}
         content={content()}
       >
-        <Button>
-          click
-        </Button>
+        <Button>click</Button>
       </Pop>
     );
     wrapper.find('button').simulate('click');
@@ -219,9 +209,7 @@ describe('Pop', () => {
           trigger={'click'}
           centerArrow
         >
-          <Button>
-            click
-          </Button>
+          <Button>click</Button>
         </Pop>
       );
       wrapper.find('button').simulate('click');
@@ -268,9 +256,7 @@ describe('Pop', () => {
         content={content()}
         onCancel={onCancel}
       >
-        <a>
-          click
-        </a>
+        <a>click</a>
       </Pop>
     );
 
@@ -307,9 +293,7 @@ describe('Pop', () => {
         content={content()}
         onConfirm={onConfirm}
       >
-        <a>
-          click
-        </a>
+        <a>click</a>
       </Pop>
     );
 
@@ -332,9 +316,7 @@ describe('Pop', () => {
         block
         header={header()}
       >
-        <Button>
-          click
-        </Button>
+        <Button>click</Button>
       </Pop>
     );
     const instance = wrapper.instance();

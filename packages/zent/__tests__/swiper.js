@@ -20,7 +20,9 @@ describe('Swiper', () => {
 
   it('can have one children', () => {
     const wrapper = mount(
-      <Swiper><div className="swiper-test-child">1</div></Swiper>
+      <Swiper>
+        <div className="swiper-test-child">1</div>
+      </Swiper>
     );
     expect(wrapper.hasClass('zent-swiper')).toBe(true);
     expect(wrapper.find('.zent-swiper__container').length).toBe(1);
@@ -45,9 +47,11 @@ describe('Swiper', () => {
       render() {
         return (
           <Swiper arrows onChange={this.handleChange}>
-            {childs.map((item, index) => (
-              <div key={index} className="swiper-text-child">{item}</div>
-            ))}
+            {childs.map((item, index) =>
+              <div key={index} className="swiper-text-child">
+                {item}
+              </div>
+            )}
           </Swiper>
         );
       }
@@ -106,9 +110,11 @@ describe('Swiper', () => {
             arrows
             arrowsType="light"
           >
-            {childs.map((item, index) => (
-              <div key={index} className="swiper-text-child">{item}</div>
-            ))}
+            {childs.map((item, index) =>
+              <div key={index} className="swiper-text-child">
+                {item}
+              </div>
+            )}
           </Swiper>
         );
       }
@@ -139,9 +145,11 @@ describe('Swiper', () => {
       render() {
         return (
           <Swiper dotsColor="#fff">
-            {childs.map((item, index) => (
-              <div key={index} className="swiper-text-child">{item}</div>
-            ))}
+            {childs.map((item, index) =>
+              <div key={index} className="swiper-text-child">
+                {item}
+              </div>
+            )}
           </Swiper>
         );
       }
