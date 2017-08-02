@@ -1447,8 +1447,8 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
-create-react-class@^15.6.0:
 
+create-react-class@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
   dependencies:
@@ -1825,8 +1825,8 @@ escodegen@^1.6.1:
 esprima@^2.6.0, esprima@^2.7.1:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
-esprima@^4.0.0:
 
+esprima@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-4.0.0.tgz#4499eddcd1110e0b218bacf2fa7f7f59f55ca804"
 
@@ -2817,7 +2817,7 @@ jest@^20.0.4:
 
 jquery@1.12.4:
   version "1.12.4"
-  resolved "http://registry.npm.qima-inc.com/jquery/download/jquery-1.12.4.tgz#01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.12.4.tgz#01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c"
 
 js-base64@^2.1.9:
   version "2.1.9"
@@ -3064,7 +3064,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@4.17.x, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0:
+lodash@4.17.x, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -4119,7 +4119,7 @@ querystring@0.2.0:
 
 querystringify@~1.0.0:
   version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/querystringify/download/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
+  resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
 
 raf@^3.3.2:
   version "3.3.2"
@@ -4382,7 +4382,7 @@ require-main-filename@^1.0.1:
 
 requires-port@1.0.x:
   version "1.0.0"
-  resolved "http://registry.npm.qima-inc.com/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+  resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
 
 resolve@1.1.7:
   version "1.1.7"
@@ -4814,7 +4814,7 @@ uniqs@^2.0.0:
 
 url-parse@^1.1.9:
   version "1.1.9"
-  resolved "http://registry.npm.qima-inc.com/url-parse/download/url-parse-1.1.9.tgz#c67f1d775d51f0a18911dd7b3ffad27bb9e5bd19"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.1.9.tgz#c67f1d775d51f0a18911dd7b3ffad27bb9e5bd19"
   dependencies:
     querystringify "~1.0.0"
     requires-port "1.0.x"
@@ -5082,11 +5082,11 @@ yargs@~3.10.0:
 
 zan-jquery@^1.0.2:
   version "1.0.2"
-  resolved "http://registry.npm.qima-inc.com/zan-jquery/download/zan-jquery-1.0.2.tgz#d9a45088d0d152cfe41729aca70b6682e30ce5cf"
+  resolved "https://registry.yarnpkg.com/zan-jquery/-/zan-jquery-1.0.2.tgz#d9a45088d0d152cfe41729aca70b6682e30ce5cf"
 
 zan-utils@^1.0.9:
   version "1.0.9"
-  resolved "http://registry.npm.qima-inc.com/zan-utils/download/zan-utils-1.0.9.tgz#1dd5d9c55f93156da539486c92cea3a22cdd404b"
+  resolved "https://registry.yarnpkg.com/zan-utils/-/zan-utils-1.0.9.tgz#1dd5d9c55f93156da539486c92cea3a22cdd404b"
   dependencies:
     fecha "^2.3.1"
     jquery "1.12.4"
