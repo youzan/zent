@@ -117,7 +117,14 @@ class Select extends (PureComponent || Component) {
   getOptions(state, props, item, i) {
     let { value, index } = props;
     if (isArray(value) && value.indexOf(item.value) > -1) {
-      state.sItems.push(item);
+      // rerender 去重
+      if (!state.sItems.find(selected => selected.value === item.value)) {
+        state.sItems.push(item);
+      }
+    } else if (isArray(value) && value.length === 0) {
+      // 多选重置
+      state.sItem = {};
+      state.sItems = [];
     } else if (typeof value === 'object' && isEqual(value, item.value)) {
       state.sItem = item;
     } else if (
@@ -128,6 +135,7 @@ class Select extends (PureComponent || Component) {
     ) {
       state.sItem = item;
     } else if (!value && !index) {
+      // 单选重置
       state.sItem = {};
       state.sItems = [];
     }
@@ -148,7 +156,7 @@ class Select extends (PureComponent || Component) {
       optionValue,
       optionText
     } = props;
-    const selected = { sItem: selectedItem, sItems: selectedItems };
+    const selected = { sItem: selectedItem, sItems: [] };
 
     this.sourceData = cloneDeep(data)
       .map(item => {
@@ -186,8 +194,10 @@ class Select extends (PureComponent || Component) {
         }
         return item;
       });
-    this.state.selectedItem = selected.sItem;
-    this.state.selectedItems = selected.sItems;
+    this.setState({
+      selectedItem: selected.sItem,
+      selectedItems: selected.sItems
+    });
     return this.sourceData;
   }
 
@@ -262,6 +272,10 @@ class Select extends (PureComponent || Component) {
     });
   };
 
+  handlePopoverVisibleChange = data => {
+    this.setState({ open: data });
+  };
+
   render() {
     let {
       placeholder,
@@ -276,6 +290,7 @@ class Select extends (PureComponent || Component) {
     } = this.props;
 
     let {
+      open,
       selectedItems,
       selectedItem = {},
       extraFilter,
@@ -290,8 +305,10 @@ class Select extends (PureComponent || Component) {
       <Popover
         display="inline-block"
         position={Popover.Position.AutoBottomLeft}
+        visible={open}
         className={`${prefixCls} ${className}`}
         wrapperClassName={`${prefixCls} ${wrapperClassName} ${disabledCls}`}
+        onVisibleChange={this.handlePopoverVisibleChange}
       >
         <PopoverClickTrigger>
           <Trigger
@@ -334,6 +351,7 @@ Select.propTypes = {
   data: PropTypes.array,
   prefix: PropTypes.string,
   className: PropTypes.string,
+  open: PropTypes.bool,
   wrapperClassName: PropTypes.string,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -359,6 +377,7 @@ Select.defaultProps = {
   prefix: 'zent',
   disabled: false,
   className: '',
+  open: false,
   wrapperClassName: '',
   trigger: SelectTrigger,
   placeholder: '请选择',
