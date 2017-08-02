@@ -51,8 +51,8 @@ export default class Progress extends (PureComponent || Component) {
     );
 
     const statusCls = cx({
-      [`${prefix}-progress-inprogress`]: percent < 100 &&
-        status !== 'exception',
+      [`${prefix}-progress-inprogress`]:
+        percent < 100 && status !== 'exception',
       [`${prefix}-progress-exception`]: percent < 100 && status === 'exception',
       [`${prefix}-progress-success`]: percent >= 100
     });
@@ -104,7 +104,8 @@ export default class Progress extends (PureComponent || Component) {
                   style={{
                     strokeWidth,
                     strokeDasharray: Math.PI * (progressWidth - strokeWidth),
-                    strokeDashoffset: Math.PI *
+                    strokeDashoffset:
+                      Math.PI *
                       (progressWidth - strokeWidth) *
                       (100 - percent) /
                       100

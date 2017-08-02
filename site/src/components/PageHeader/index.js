@@ -59,7 +59,9 @@ export default class PageHeader extends Component {
           </ul>
         </div>
         <ul
-          className={`page-header__subnavs ${this.state.scrollTop > 0 ? 'page-header__subnavs--shadow' : ''}`}
+          className={`page-header__subnavs ${this.state.scrollTop > 0
+            ? 'page-header__subnavs--shadow'
+            : ''}`}
         >
           <li className="page-header__item">
             <a

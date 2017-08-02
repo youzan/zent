@@ -4,7 +4,11 @@ import Alert from 'alert';
 
 describe('Alert', () => {
   it('style defaults to info', () => {
-    const wrapper = mount(<Alert><span>foobar</span></Alert>);
+    const wrapper = mount(
+      <Alert>
+        <span>foobar</span>
+      </Alert>
+    );
     expect(
       wrapper.contains(
         <div className="zent-alert-content-wrapper">
@@ -33,7 +37,11 @@ describe('Alert', () => {
   });
 
   it('can have close button', () => {
-    const wrapper = mount(<Alert closable><span>foobar</span></Alert>);
+    const wrapper = mount(
+      <Alert closable>
+        <span>foobar</span>
+      </Alert>
+    );
     expect(wrapper.find('.zent-alert-close-btn').length).toBe(1);
   });
 

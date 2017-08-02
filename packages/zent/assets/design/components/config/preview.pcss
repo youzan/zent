@@ -1,0 +1,31 @@
+@import '../../_fn.pcss';
+
+.zent-design-component-config-preview {
+  height: 64px;
+  width: 320px;
+  background-image: url('https://img.yzcdn.cn/public_files/2017/5/23/602543d82460994af72acd9b4c52a304.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  &__title {
+    display: inline-block;
+    padding: 23px 60px 0;
+    height: 40px;
+    line-height: 40px;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+  }
+}
+
+@mixin retina {
+  .zent-design-component-config-preview {
+    background-image: url('https://img.yzcdn.cn/public_files/2017/5/23/614100124afa6c7a6d799d23e427a994.png');
+  }
+}

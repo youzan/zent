@@ -12,7 +12,11 @@ export default class Item extends (PureComponent || Component) {
       return this.props.children;
     }
     return href
-      ? <a {...others} href={href}>{name}</a>
-      : <span {...others}>{name}</span>;
+      ? <a {...others} href={href}>
+          {name}
+        </a>
+      : <span {...others}>
+          {name}
+        </span>;
   }
 }

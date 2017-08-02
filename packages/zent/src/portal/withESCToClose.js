@@ -2,11 +2,11 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 
-/**
+/*
   Not exported in index.js.
 
   Provides an HOC component for ESC to close functionality, useful in some cases.
-**/
+*/
 export default function withESCToClose(Closable) {
   return class ESCToCloseWrapper extends (PureComponent || Component) {
     static propTypes = {

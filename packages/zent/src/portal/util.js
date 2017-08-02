@@ -16,9 +16,8 @@ function removeNodeFromDOMTree(node) {
 }
 
 export function getNodeFromSelector(selector) {
-  const node = typeof selector === 'string'
-    ? document.querySelector(selector)
-    : selector;
+  const node =
+    typeof selector === 'string' ? document.querySelector(selector) : selector;
   return node || document.body;
 }
 

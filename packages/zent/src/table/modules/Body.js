@@ -142,7 +142,9 @@ export default class Body extends (PureComponent || Component) {
         {datasets.length !== 0
           ? trs
           : <div className="tr">
-              <div className="cell empty-data">{emptyLabel}</div>
+              <div className="cell empty-data">
+                {emptyLabel}
+              </div>
             </div>}
       </div>
     );

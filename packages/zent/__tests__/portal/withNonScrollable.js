@@ -28,8 +28,12 @@ export default class NonScrollable extends Component {
     return (
       <div className="non-scrollable-example">
         {visible
-          ? <button onClick={this.onClose} className="btn-close">close</button>
-          : <button onClick={this.onOpen} className="btn-open">open</button>}
+          ? <button onClick={this.onClose} className="btn-close">
+              close
+            </button>
+          : <button onClick={this.onOpen} className="btn-open">
+              open
+            </button>}
         <MyPortal
           className="non-scrollable-body-portal"
           visible={this.state.visible}

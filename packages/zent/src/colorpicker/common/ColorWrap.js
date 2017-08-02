@@ -45,8 +45,8 @@ export const ColorWrap = Picker => {
   ColorPicker.defaultProps = {
     color: {
       h: 250,
-      s: 0.50,
-      l: 0.20,
+      s: 0.5,
+      l: 0.2,
       a: 1
     }
   };

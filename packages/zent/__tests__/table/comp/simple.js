@@ -11,7 +11,11 @@ const columns = [
   {
     title: '商品',
     bodyRender: data => {
-      return <div>{data.item_id}</div>;
+      return (
+        <div>
+          {data.item_id}
+        </div>
+      );
     }
   },
   {

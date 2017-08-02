@@ -50,7 +50,11 @@ export default class Step extends (PureComponent || Component) {
         iconNode = <Icon type="error-circle" />;
       }
     } else {
-      iconNode = <span className={`${prefix}-icon`}>{stepNumber}</span>;
+      iconNode = (
+        <span className={`${prefix}-icon`}>
+          {stepNumber}
+        </span>
+      );
     }
 
     const classString = classNames({
@@ -66,13 +70,21 @@ export default class Step extends (PureComponent || Component) {
         className={classString}
         style={{ width: tailWidth, marginRight: adjustMarginRight }}
       >
-        {stepLast ? '' : <div className={`${prefix}-steps-tail`}><i /></div>}
+        {stepLast
+          ? ''
+          : <div className={`${prefix}-steps-tail`}>
+              <i />
+            </div>}
         <div className={`${prefix}-steps-step`}>
           <div className={`${prefix}-step-head`}>
-            <div className={`${prefix}-step-head-inner`}>{iconNode}</div>
+            <div className={`${prefix}-step-head-inner`}>
+              {iconNode}
+            </div>
           </div>
           <div className={`${prefix}-step-main`}>
-            <div className={`${prefix}-step-title`}>{title}</div>
+            <div className={`${prefix}-step-title`}>
+              {title}
+            </div>
             {description
               ? <div className={`${prefix}-step-description`}>
                   {description}

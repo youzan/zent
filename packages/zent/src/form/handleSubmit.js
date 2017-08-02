@@ -29,9 +29,8 @@ const handleSubmit = (submit, zentForm) => {
   } else {
     const handleSubmitError = submitError => {
       // 只处理SubmissionError类型的错误
-      const error = submitError instanceof SubmissionError
-        ? submitError.errors
-        : undefined;
+      const error =
+        submitError instanceof SubmissionError ? submitError.errors : undefined;
       if (onSubmitFail) {
         onSubmitFail(error);
       }

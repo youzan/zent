@@ -8,7 +8,9 @@ describe('Tabs', () => {
   it('requires an id and activeId', () => {
     const wrapper = mount(
       <Tabs activeId="1">
-        <TabPanel id="1" tab="tab-title">foobar</TabPanel>
+        <TabPanel id="1" tab="tab-title">
+          foobar
+        </TabPanel>
       </Tabs>
     );
     expect(wrapper.find('Nav').length).toBe(1);
@@ -19,7 +21,9 @@ describe('Tabs', () => {
   it('custom className and prefix', () => {
     const wrapper = mount(
       <Tabs activeId="1" className="foobar-cls" prefix="quux">
-        <TabPanel id="1" tab="tab-title">foobar</TabPanel>
+        <TabPanel id="1" tab="tab-title">
+          foobar
+        </TabPanel>
       </Tabs>
     );
     expect(wrapper.find('.quux-tabs.foobar-cls').length).toBe(1);
@@ -29,8 +33,12 @@ describe('Tabs', () => {
     const ensure = align => {
       const wrapper = mount(
         <Tabs activeId="foobar" align={align}>
-          <TabPanel id="foobar" tab="foobar-tab">foobar</TabPanel>
-          <TabPanel id="quux" tab="quux-tab">quux</TabPanel>
+          <TabPanel id="foobar" tab="foobar-tab">
+            foobar
+          </TabPanel>
+          <TabPanel id="quux" tab="quux-tab">
+            quux
+          </TabPanel>
         </Tabs>
       );
       align = align || 'left';
@@ -48,7 +56,9 @@ describe('Tabs', () => {
     const ensure = size => {
       const wrapper = mount(
         <Tabs activeId="foobar" size={size}>
-          <TabPanel id="foobar" tab="foobar-tab">foobar</TabPanel>
+          <TabPanel id="foobar" tab="foobar-tab">
+            foobar
+          </TabPanel>
         </Tabs>
       );
       size = size || 'normal';
@@ -65,7 +75,9 @@ describe('Tabs', () => {
     const ensure = type => {
       const wrapper = mount(
         <Tabs activeId="foobar" type={type}>
-          <TabPanel id="foobar" tab="foobar-tab">foobar</TabPanel>
+          <TabPanel id="foobar" tab="foobar-tab">
+            foobar
+          </TabPanel>
         </Tabs>
       );
       type = type || 'normal';
@@ -83,8 +95,12 @@ describe('Tabs', () => {
     const onChange = jest.fn();
     const wrapper = mount(
       <Tabs activeId="foobar" onTabChange={onChange}>
-        <TabPanel id="foobar" tab="foobar-tab">foobar</TabPanel>
-        <TabPanel id="quux" tab="quux-tab">foobar</TabPanel>
+        <TabPanel id="foobar" tab="foobar-tab">
+          foobar
+        </TabPanel>
+        <TabPanel id="quux" tab="quux-tab">
+          foobar
+        </TabPanel>
       </Tabs>
     );
 
@@ -134,9 +150,11 @@ describe('Tabs', () => {
             candel
             canadd
           >
-            {tabs.map(t => (
-              <TabPanel key={t} id={t} tab={`${t}-tab`}>{t}</TabPanel>
-            ))}
+            {tabs.map(t =>
+              <TabPanel key={t} id={t} tab={`${t}-tab`}>
+                {t}
+              </TabPanel>
+            )}
           </Tabs>
         );
       }

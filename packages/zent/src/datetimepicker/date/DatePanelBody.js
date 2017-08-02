@@ -92,7 +92,11 @@ export default class DatePanelBody extends (PureComponent || Component) {
     const arr = ['日', '一', '二', '三', '四', '五', '六'];
 
     return arr.map((item, i) => {
-      return <li key={i}>{item}</li>;
+      return (
+        <li key={i}>
+          {item}
+        </li>
+      );
     });
   }
 
