@@ -269,6 +269,16 @@ module.exports = {
               component: require('../../packages/zent/src/progress/README.md')
             }
           ]
+        },
+        {
+          groupName: '业务组件',
+          list: [
+            {
+              path: 'component/block-header',
+              title: 'BlockHeader 标题',
+              component: require('../../packages/zent/src/block-header/README.md')
+            }
+          ]
         }
       ]
     }
