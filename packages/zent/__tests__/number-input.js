@@ -23,10 +23,10 @@ describe('NumberInput', () => {
     let wrapper = mount(<NumberInput value={0} />);
     wrapper.setState({ value: '+' });
     wrapper.find('input').simulate('blur');
-    expect(wrapper.state('value')).toBe('0');
+    expect(wrapper.state('value')).toBe('');
     wrapper.setState({ value: '-' });
     wrapper.find('input').simulate('blur');
-    expect(wrapper.state('value')).toBe('0');
+    expect(wrapper.state('value')).toBe('');
   });
 
   it('change value within min and max ', () => {
