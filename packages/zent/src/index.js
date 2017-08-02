@@ -28,6 +28,7 @@ import Progress from 'progress';
 import Radio from 'radio';
 import SearchInput from 'search-input';
 import Select from 'select';
+import SKU from 'sku';
 import Slider from 'slider';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
@@ -70,6 +71,7 @@ export {
   Radio,
   SearchInput,
   Select,
+  SKU,
   Slider,
   Steps,
   Sweetalert,

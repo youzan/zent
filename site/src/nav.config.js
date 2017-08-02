@@ -180,8 +180,13 @@ module.exports = {
             },
             {
               path: 'component/select',
-              title: 'Select 选项',
+              title: 'Select 选择器',
               component: require('../../packages/zent/src/select/README.md')
+            },
+            {
+              path: 'component/sku',
+              title: 'SKU 规格选择器',
+              component: require('../../packages/zent/src/sku/README.md')
             },
             {
               path: 'component/slider',
