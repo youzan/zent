@@ -100,7 +100,7 @@ export default class Image extends Component {
                 if (index === this.state.imageIndex) {
                   return (
                     <img
-                      className="show-image"
+                      className={`${prefix}-show-image`}
                       style={this.state.imageStyle}
                       src={image}
                       key={index}

@@ -78,14 +78,6 @@ class MonthPicker extends (PureComponent || Component) {
     this.setState(state);
   }
 
-  clickOutside = e => {
-    if (!this.picker.contains(e.target)) {
-      this.setState({
-        openPanel: false
-      });
-    }
-  };
-
   onChangeMonth = val => {
     this.setState({
       actived: val
