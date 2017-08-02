@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DateRangePicker2 from 'datetimepicker/DateRangePicker2';
+import DateRangePicker from 'datetimepicker/DateRangePicker';
 import cx from 'classnames';
 import * as Helper from './helper';
 
@@ -39,7 +39,8 @@ export default class DateRangeQuickPicker extends Component {
 
     return (
       <div className={cx(`${prefix}-date-range-picker`, className)}>
-        <DateRangePicker2
+        <DateRangePicker
+          type="split"
           value={value}
           onChange={this.handleTimeChange}
           format={format}
