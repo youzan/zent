@@ -277,6 +277,11 @@ module.exports = {
               path: 'component/block-header',
               title: 'BlockHeader 标题',
               component: require('../../packages/zent/src/block-header/README.md')
+            },
+            {
+              path: 'component/date-range-quick-picker',
+              title: 'DateRangeQuickPicker 时间区域',
+              component: require('../../packages/zent/src/date-range-quick-picker/README.md')
             }
           ]
         }

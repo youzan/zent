@@ -40,6 +40,7 @@ import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
 import BlockHeader from 'block-header';
+import DateRangeQuickPicker from 'date-range-quick-picker';
 
 export {
   Affix,
@@ -83,5 +84,6 @@ export {
   Tree,
   Switch,
   Upload,
-  BlockHeader
+  BlockHeader,
+  DateRangeQuickPicker
 };
