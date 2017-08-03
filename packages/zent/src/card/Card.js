@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import isnil from 'lodash/isnil';
+import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
 
 export default class Card extends (PureComponent || Component) {
@@ -28,8 +28,8 @@ export default class Card extends (PureComponent || Component) {
       prefix
     } = this.props;
 
-    this.isValidTitle = !isnil(title);
-    this.isValidAction = !isnil(action);
+    this.isValidTitle = !isNil(title);
+    this.isValidAction = !isNil(action);
 
     return (
       <div className={`${prefix}-card ${className}`} style={style}>
