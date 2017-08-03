@@ -11,6 +11,7 @@ import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
 import defaultTo from 'lodash/defaultTo';
 
+import DesignPreview from './preview/DesignPreview';
 import uuid from './utils/uuid';
 import { getDesignType, isExpectedDesginType } from './utils/design-type';
 import * as storage from './utils/storage';
@@ -82,7 +83,7 @@ export default class Design extends (PureComponent || Component) {
     onChange: PropTypes.func.isRequired,
 
     // 用来渲染整个 Design 组件
-    preview: PropTypes.func.isRequired,
+    preview: PropTypes.func,
 
     // 有未保存数据关闭窗口时需要用户确认
     // 离开时的确认文案新版本的浏览器是不能自定义的。
@@ -121,6 +122,7 @@ export default class Design extends (PureComponent || Component) {
   };
 
   static defaultProps = {
+    preview: DesignPreview,
     value: [],
     defaultSelectedIndex: -1,
     globalConfig: {},
