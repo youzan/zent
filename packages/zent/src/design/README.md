@@ -11,7 +11,6 @@ import { Design, Button, Layout, Notify } from 'zent';
 // ⚠️注意：这个示例里面代码的引入和实际使用时有一些区别。
 
 // Please replace 'design/...' with 'zent/lib/design/...' in your own code
-import DesignPreview from 'design/preview/DesignPreview';
 import configConf from 'design/components/config';
 import ConfigEditor from 'design/components/config/ConfigEditor';
 import whitespaceConf from 'design/components/whitespace';
@@ -69,7 +68,6 @@ class Simple extends Component {
           components={components}
           value={this.state.value}
           onChange={this.onChange}
-          preview={DesignPreview}
 					scrollTopOffset={-270}
           globalConfig={window._global}
         />
@@ -138,7 +136,7 @@ ReactDOM.render(
 | value | 组件当前的值 | array | [] | 可选 |
 | onChange | 组件值修改时触发的回调函数 | func(value: array): void | 必须 |
 | defaultSelectedIndex| 默认选中的下标（value）| number | -1 | 可选 |
-| preview | 用于自定义整个 Design 的渲染 | Component | DesingPreview | 必须 |
+| preview | 用于自定义整个 Design 的渲染 | Component | DesingPreview | 可选 |
 | confirmUnsavedLeave| 有未保存数据关闭窗口时需要用户确认 | boolean | true | 可选 |
 | cache | 是否将未保存的数据暂存到 localStorage 中 | boolean | false | 可选 |
 | cacheId | 配合 cache 使用，用于设置 Design 示例的缓存 id | string | | cache 为 true 时必填 |
