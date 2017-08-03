@@ -24,7 +24,9 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
     return {
       onClick: evt => {
         evt.preventDefault();
-        if (!child.props.disabled) {
+        if (this.props.contentVisible) {
+          this.props.close();
+        } else if (!child.props.disabled) {
           this.props.open();
           this.triggerEvent(child, 'onClick', evt);
         }
