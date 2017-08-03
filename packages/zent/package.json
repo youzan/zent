@@ -13,6 +13,7 @@
     "build": "./scripts/build.sh",
     "prepublish": "yarn build"
   },
+  "typings": "typings/index.d.ts",
   "author": "Youzan FE",
   "license": "MIT",
   "files": [
