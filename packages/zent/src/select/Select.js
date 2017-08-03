@@ -272,8 +272,11 @@ class Select extends (PureComponent || Component) {
     });
   };
 
-  handlePopoverVisibleChange = data => {
-    this.setState({ open: data });
+  handlePopoverVisibleChange = visible => {
+    if (visible) {
+      this.props.onOpen();
+    }
+    this.setState({ open: visible });
   };
 
   render() {

@@ -109,10 +109,10 @@ class SKUContainer extends (PureComponent || Component) {
   asyncFilterSKULeaf = keyword => {
     let { optionText, maxLeafTextLength } = this.context;
     let { skuOptions } = this.state;
-    if (skuOptions.some(item => item[optionText].indexOf(keyword) > -1)) return;
     if (maxLeafTextLength && maxLeafTextLength > 0) {
       keyword = keyword.substring(0, maxLeafTextLength);
     }
+    if (skuOptions.some(item => item[optionText] === keyword)) return;
     this.setState({
       newLeafText: keyword
     });
@@ -126,22 +126,25 @@ class SKUContainer extends (PureComponent || Component) {
     return item.text.indexOf(keyword) > -1;
   };
 
+  handleReset = () => {
+    this.setState({
+      newLeafText: ''
+    });
+  };
+
   renderSKUPopContent() {
     let { optionValue, optionText } = this.context;
     let { leafValue, skuOptions, newLeafText } = this.state;
 
     if (newLeafText) {
       skuOptions = [].concat(skuOptions);
-      if (
-        skuOptions.length > 0 &&
-        skuOptions[skuOptions.length - 1][optionValue] === 0
-      ) {
-        skuOptions[skuOptions.length - 1][optionText] = newLeafText;
+      if (skuOptions.length > 0 && skuOptions[0][optionValue] === 0) {
+        skuOptions[0][optionText] = newLeafText;
       } else {
         let newLeaf = {};
         newLeaf[optionValue] = 0;
         newLeaf[optionText] = newLeafText;
-        skuOptions.push(newLeaf);
+        skuOptions.unshift(newLeaf);
       }
     }
 
@@ -157,6 +160,7 @@ class SKUContainer extends (PureComponent || Component) {
         onAsyncFilter={this.asyncFilterSKULeaf}
         onChange={this.createSKULeaf}
         onDelete={this.updateLeafValue}
+        onOpen={this.handleReset}
       />
     );
   }

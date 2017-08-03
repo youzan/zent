@@ -57,10 +57,10 @@ class SKUGroup extends (PureComponent || Component) {
   asyncFilterSKU = keyword => {
     let { skuTree } = this.props;
     let { optionText, maxSKUTextLength } = this.context;
-    if (skuTree.some(item => item[optionText].indexOf(keyword) > -1)) return;
     if (maxSKUTextLength && maxSKUTextLength > 0) {
       keyword = keyword.substring(0, maxSKUTextLength);
     }
+    if (skuTree.some(item => item[optionText] === keyword)) return;
     this.setState({
       newSKUText: keyword
     });
@@ -95,6 +95,12 @@ class SKUGroup extends (PureComponent || Component) {
     onSKUChange(sku, index);
   };
 
+  handleReset = () => {
+    this.setState({
+      newSKUText: ''
+    });
+  };
+
   render() {
     let { sku, index, skuTree } = this.props;
     let { optionValue, optionText } = this.context;
@@ -103,13 +109,14 @@ class SKUGroup extends (PureComponent || Component) {
     const prefix = `${this.context.prefix}-group`;
 
     if (newSKUText) {
-      if (skuTree[skuTree.length - 1][optionValue] === 0) {
-        skuTree[skuTree.length - 1][optionText] = newSKUText;
+      skuTree = [].concat(skuTree);
+      if (skuTree[0][optionValue] === 0) {
+        skuTree[0][optionText] = newSKUText;
       } else {
         let newSKU = {};
         newSKU[optionValue] = 0;
         newSKU[optionText] = newSKUText;
-        skuTree.push(newSKU);
+        skuTree.unshift(newSKU);
       }
     }
 
@@ -123,6 +130,7 @@ class SKUGroup extends (PureComponent || Component) {
             onChange={this.selectSKUHandler}
             filter={this.filterHandler}
             onAsyncFilter={this.asyncFilterSKU}
+            onOpen={this.handleReset}
             value={sku[optionValue]}
           />
           {index === 0

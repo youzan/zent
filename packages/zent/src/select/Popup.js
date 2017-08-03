@@ -5,7 +5,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
-
+import trim from 'lodash/trim';
 import Popover from 'popover';
 import Search from './components/Search';
 import Option from './components/Option';
@@ -65,7 +65,7 @@ class Popup extends (PureComponent || Component) {
 
   searchFilterHandler = keyword => {
     let { onAsyncFilter } = this.props;
-
+    keyword = trim(keyword);
     this.setState({
       keyword,
       currentId: ''
