@@ -47,17 +47,20 @@ class Simple extends Component {
 				<DateRangeQuickPicker
 					onChange={this.handleChange1}
 					value={value1}
-					format="YYYY-MM-DD"
+					format="YYYY-MM-DD HH:mm:ss"
 					chooseDays={chooseDays1}
 					preset={[{
+						text: '今日',
+						value: 0
+					}, {
+						text: '昨日',
+						value: 1
+					}, {
 						text: '最近7天',
 						value: 7
 					}, {
-						text: '最近3个月',
-						value: 90
-					}, {
-						text: '最近6个月',
-						value: 180
+						text: '最近30天',
+						value: 30
 					}]}
 				/>
 			</div>
@@ -80,8 +83,8 @@ ReactDOM.render(
 |------          |------              |------            |--------    |--------   |
 | prefix         | 自定义前缀           | string          | `'zent'`    |           |
 | className      | 自定义类名          | string            |   ''      |              |
-| preset         | 自定义快捷选项      | array          | `[{text: '最近7天', value: 7}, {text: '最近30天', value: 30}]`    |           |
-| onChange       | change time func  | func          |         |              |
-| value          | 起始、结束时间       | array        |   `[]`        |             |
-| format         | 返回日期字符串格式   |  string       |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
-| chooseDays     | 选择天数           |  number       |    `0`        |         |
+| preset         | 自定义快捷选项      | array             | `[{text: '最近7天', value: 7}, {text: '最近30天', value: 30}]`    |           |
+| onChange       | change time func  | func             |         |              |
+| value          | 起始、结束时间       | array           |   `[]`        |             |
+| format         | 返回日期字符串格式   |  string          |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
+| chooseDays     | 选择天数           |  number          |               |         |

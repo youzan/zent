@@ -20,7 +20,6 @@ export default class DateRangeQuickPicker extends Component {
     prefix: 'zent',
     className: '',
     value: [],
-    chooseDays: 0,
     format: 'YYYY-MM-DD',
     preset: [
       {
