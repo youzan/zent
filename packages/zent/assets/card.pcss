@@ -1,0 +1,41 @@
+.zent-card {
+  background-color: #fff;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s;
+  border: 1px solid #d1dbe5;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    border-color: transparent;
+  }
+
+  &-header {
+    height: 48px;
+    padding: 0 20px;
+    border-bottom: 1px solid #d1dbe5;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &__title {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+      color: #444;
+      font-weight: 500;
+    }
+
+    &__action {
+      flex: none;
+    }
+  }
+
+  &-body {
+    padding: 20px;
+    font-size: 12px;
+  }
+}

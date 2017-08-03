@@ -79,6 +79,11 @@ module.exports = {
               component: require('../../packages/zent/src/badge/README.md')
             },
             {
+              path: 'component/card',
+              title: 'Card 卡片',
+              component: require('../../packages/zent/src/card/README.md')
+            },
+            {
               path: 'component/dialog',
               title: 'Dialog 对话框',
               component: require('../../packages/zent/src/dialog/README.md')

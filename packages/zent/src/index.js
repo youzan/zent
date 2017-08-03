@@ -5,6 +5,7 @@ import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Cascader from 'cascader';
+import Card from 'card';
 import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
@@ -51,6 +52,7 @@ export {
   Breadcrumb,
   Button,
   Cascader,
+  Card,
   Checkbox,
   ColorPicker,
   CopyButton,
