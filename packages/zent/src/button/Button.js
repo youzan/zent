@@ -103,9 +103,8 @@ export default class Button extends (PureComponent || Component) {
   }
 
   render() {
-    let renderer = this.props.href || this.props.target
-      ? 'renderLink'
-      : 'renderButton';
+    let renderer =
+      this.props.href || this.props.target ? 'renderLink' : 'renderButton';
     let {
       className,
       type,
@@ -119,8 +118,8 @@ export default class Button extends (PureComponent || Component) {
     } = this.props;
     let classNames = setClass(
       {
-        [`${prefix}-btn-${type}${outline ? '-outline' : ''}`]: type !==
-          'default',
+        [`${prefix}-btn-${type}${outline ? '-outline' : ''}`]:
+          type !== 'default',
         [`${prefix}-btn-${size}`]: size !== 'medium',
         [`${prefix}-btn-block`]: block,
         [`${prefix}-btn-loading`]: loading,

@@ -30,7 +30,11 @@ describe('Badge', () => {
   });
 
   it('can set custom max count', () => {
-    const wrapper = mount(<Badge count={100} maxCount={999}>news</Badge>);
+    const wrapper = mount(
+      <Badge count={100} maxCount={999}>
+        news
+      </Badge>
+    );
     expect(wrapper.find('.zent-badge-count').length).toBe(1);
     expect(wrapper.find('.zent-badge-count').text()).toBe('100');
   });
@@ -46,7 +50,11 @@ describe('Badge', () => {
   });
 
   it('can show count when setting showZero', () => {
-    const wrapper = mount(<Badge count={0} showZero>news</Badge>);
+    const wrapper = mount(
+      <Badge count={0} showZero>
+        news
+      </Badge>
+    );
     expect(wrapper.find('.zent-badge-count').length).toBe(1);
     expect(wrapper.find('.zent-badge-count').text()).toBe('0');
   });

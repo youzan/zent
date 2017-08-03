@@ -8,7 +8,8 @@ const datasets = [
     created_time: '2016-04-25 19:01:17',
     bro_uvpv: '0/0',
     num: '0',
-    image_url: 'http://dn-kdt-img-test.qbox.me/upload_files/2015/07/01/FvjXIrzNwsxviCcTDh7QDRqzfV2_.jpg?imageView2/2/w/100/h/100/q/75/format/webp',
+    image_url:
+      'http://dn-kdt-img-test.qbox.me/upload_files/2015/07/01/FvjXIrzNwsxviCcTDh7QDRqzfV2_.jpg?imageView2/2/w/100/h/100/q/75/format/webp',
     buy_url: '',
     stock_num: '60',
     sold_num: 0,
@@ -38,7 +39,8 @@ const datasets = [
     created_time: '2016-04-25 19:01:16',
     bro_uvpv: '0/0',
     num: '0',
-    image_url: 'http://dn-kdt-img-test.qbox.me/upload_files/2015/07/01/FvjXIrzNwsxviCcTDh7QDRqzfV2_.jpg?imageView2/2/w/100/h/100/q/75/format/webp',
+    image_url:
+      'http://dn-kdt-img-test.qbox.me/upload_files/2015/07/01/FvjXIrzNwsxviCcTDh7QDRqzfV2_.jpg?imageView2/2/w/100/h/100/q/75/format/webp',
     buy_url: '',
     stock_num: 59,
     sold_num: 0,
@@ -67,7 +69,8 @@ const datasets = [
     created_time: '2016-04-25 19:01:16',
     bro_uvpv: '0/0',
     num: '0',
-    image_url: 'http://dn-kdt-img-test.qbox.me/upload_files/2015/07/01/FvjXIrzNwsxviCcTDh7QDRqzfV2_.jpg?imageView2/2/w/100/h/100/q/75/format/webp',
+    image_url:
+      'http://dn-kdt-img-test.qbox.me/upload_files/2015/07/01/FvjXIrzNwsxviCcTDh7QDRqzfV2_.jpg?imageView2/2/w/100/h/100/q/75/format/webp',
     buy_url: '',
     stock_num: 159,
     sold_num: 0,

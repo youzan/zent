@@ -28,7 +28,12 @@ const columns = [
     name: 'stock_num',
     width: 20,
     bodyRender: (data, pos) => {
-      return <p>{data.stock_num}{pos.row}</p>;
+      return (
+        <p>
+          {data.stock_num}
+          {pos.row}
+        </p>
+      );
     }
   },
   {

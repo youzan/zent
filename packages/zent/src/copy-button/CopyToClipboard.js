@@ -1,7 +1,11 @@
 import deselectCurrent from './ToggleSelection';
 
 function copy(text) {
-  let reselectPrevious, range, selection, mark, success = false;
+  let reselectPrevious,
+    range,
+    selection,
+    mark,
+    success = false;
 
   try {
     reselectPrevious = deselectCurrent();

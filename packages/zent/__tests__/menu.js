@@ -9,7 +9,9 @@ describe('Menu component', () => {
     let wrapper = mount(
       <Menu className="hello">
         {null}
-        <MenuItem key="1-1" className="food">食品分类</MenuItem>
+        <MenuItem key="1-1" className="food">
+          食品分类
+        </MenuItem>
       </Menu>
     );
 
@@ -20,7 +22,9 @@ describe('Menu component', () => {
   it('can have prefix', () => {
     let wrapper = mount(
       <Menu prefix="hello">
-        <MenuItem key="1-1" prefix="food">食品分类</MenuItem>
+        <MenuItem key="1-1" prefix="food">
+          食品分类
+        </MenuItem>
       </Menu>
     );
 
@@ -32,7 +36,9 @@ describe('Menu component', () => {
     const onClick = jest.fn();
     let wrapper = mount(
       <Menu prefix="hello" onClick={onClick}>
-        <MenuItem key="1-1" prefix="food">食品分类</MenuItem>
+        <MenuItem key="1-1" prefix="food">
+          食品分类
+        </MenuItem>
       </Menu>
     );
     wrapper.find('MenuItem').simulate('click');
@@ -43,7 +49,9 @@ describe('Menu component', () => {
     const onClick = jest.fn();
     let wrapper = mount(
       <Menu prefix="hello" onClick={onClick}>
-        <MenuItem key="1-1" prefix="food">食品分类</MenuItem>
+        <MenuItem key="1-1" prefix="food">
+          食品分类
+        </MenuItem>
         <SubMenu title="美妆分类" className="submenu">
           {null}
           <MenuItem key="3-1">眼影</MenuItem>
@@ -76,7 +84,9 @@ describe('Menu component', () => {
     const onClick = jest.fn();
     let wrapper = mount(
       <Menu onClick={onClick}>
-        <MenuItem key="1-1" disabled>食品分类</MenuItem>
+        <MenuItem key="1-1" disabled>
+          食品分类
+        </MenuItem>
         <SubMenu title="美妆分类" disabled>
           <MenuItem key="3-1">眼影</MenuItem>
         </SubMenu>

@@ -95,7 +95,8 @@ function getTitle(title, type, prefix) {
   const icon = titleIconMap[type];
   return (
     <div className={`${prefix}-sweetalert-icon-title`}>
-      <Icon className={`${prefix}-sweetalert-type-icon`} type={icon} />{title}
+      <Icon className={`${prefix}-sweetalert-type-icon`} type={icon} />
+      {title}
     </div>
   );
 }

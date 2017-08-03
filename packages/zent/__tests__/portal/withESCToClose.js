@@ -27,8 +27,12 @@ class EscToClose extends Component {
     return (
       <div className="esc-close-example">
         {visible
-          ? <button onClick={this.onClose} className="btn-close">close</button>
-          : <button onClick={this.onOpen} className="btn-open">open</button>}
+          ? <button onClick={this.onClose} className="btn-close">
+              close
+            </button>
+          : <button onClick={this.onOpen} className="btn-open">
+              open
+            </button>}
         <MyPortal
           className="esc-close-portal"
           visible={this.state.visible}

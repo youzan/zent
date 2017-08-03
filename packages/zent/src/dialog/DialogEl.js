@@ -20,9 +20,12 @@ export default class DialogEl extends (PureComponent || Component) {
       return null;
     }
 
-    title = typeof title === 'number' || typeof title === 'string'
-      ? <span className={`${prefix}-dialog-r-title-text`}>{title}</span>
-      : title;
+    title =
+      typeof title === 'number' || typeof title === 'string'
+        ? <span className={`${prefix}-dialog-r-title-text`}>
+            {title}
+          </span>
+        : title;
 
     return (
       <div className={`${prefix}-dialog-r-header`}>

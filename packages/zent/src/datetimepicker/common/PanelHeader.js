@@ -11,7 +11,9 @@ const PanelHeader = props => {
             <Icon type="right" />
           </span>
         : null}
-      <span className="panel__title" onClick={onClickTitle}>{title}</span>
+      <span className="panel__title" onClick={onClickTitle}>
+        {title}
+      </span>
       {showNext
         ? <span className="link--next" onClick={next}>
             <Icon type="right" />

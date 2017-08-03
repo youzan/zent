@@ -37,9 +37,9 @@ export function closeDialog(dialogId, options = {}) {
   ReactDOM.unmountComponentAtNode(container);
 }
 
-/**
+/*
   打开一个dialog，返回值是一个用来关闭dialog的函数。
-**/
+*/
 export default function openDialog(options = {}) {
   if (!isBrowser) return noop;
 

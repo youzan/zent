@@ -167,9 +167,8 @@ const createForm = (config = {}) => {
           const name = field.props.name;
           const data = {
             _isValid: !(name in errors),
-            _validationError: typeof errors[name] === 'string'
-              ? [errors[name]]
-              : errors[name]
+            _validationError:
+              typeof errors[name] === 'string' ? [errors[name]] : errors[name]
           };
           if (updatePristine) {
             data._isPristine = false;
@@ -191,9 +190,8 @@ const createForm = (config = {}) => {
 
           const data = {
             _isValid: false,
-            _externalError: typeof errors[name] === 'string'
-              ? [errors[name]]
-              : errors[name]
+            _externalError:
+              typeof errors[name] === 'string' ? [errors[name]] : errors[name]
           };
           if (updatePristine) {
             data._isPristine = false;
@@ -466,9 +464,8 @@ const createForm = (config = {}) => {
             {
               _isValid: validation.isValid,
               _validationError: validation.error,
-              _externalError: !validation.isValid && _externalError
-                ? _externalError
-                : null
+              _externalError:
+                !validation.isValid && _externalError ? _externalError : null
             },
             index === this.fields.length - 1 ? onValidationComplete : null
           );

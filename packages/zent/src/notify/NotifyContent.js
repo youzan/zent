@@ -20,7 +20,9 @@ export default class NotifyContent extends (PureComponent || Component) {
 
     return (
       <Portal visible={visible} className="zent-image-p-anchor">
-        <div className={`zent-notify zent-notify-${status}`}>{text}</div>
+        <div className={`zent-notify zent-notify-${status}`}>
+          {text}
+        </div>
       </Portal>
     );
   }

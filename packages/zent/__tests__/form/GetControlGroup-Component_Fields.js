@@ -115,9 +115,15 @@ describe('GetControlGroup and Component_Fields', () => {
     const { SelectField } = ZentForm;
     const wrapper = mount(
       <Field name="foo" component={SelectField}>
-        <Option className="zent-select-option" value="1">选项一</Option>
-        <Option className="zent-select-option" value="2">选项二</Option>
-        <Option className="zent-select-option" value="3">选项三</Option>
+        <Option className="zent-select-option" value="1">
+          选项一
+        </Option>
+        <Option className="zent-select-option" value="2">
+          选项二
+        </Option>
+        <Option className="zent-select-option" value="3">
+          选项三
+        </Option>
       </Field>,
       { context }
     );

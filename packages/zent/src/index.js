@@ -4,12 +4,14 @@ import Badge from 'badge';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Cascader from 'cascader';
+import Card from 'card';
 import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
+import Design from 'design';
 import Dialog from 'dialog';
 import Form from 'form';
 import Layout from 'layout';
@@ -28,6 +30,7 @@ import Progress from 'progress';
 import Radio from 'radio';
 import SearchInput from 'search-input';
 import Select from 'select';
+import SKU from 'sku';
 import Slider from 'slider';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
@@ -38,7 +41,8 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
-import Card from 'card';
+import BlockHeader from 'block-header';
+import DateRangeQuickPicker from 'date-range-quick-picker';
 
 export {
   Affix,
@@ -47,11 +51,13 @@ export {
   Breadcrumb,
   Button,
   Cascader,
+  Card,
   Checkbox,
   ColorPicker,
   CopyButton,
   DatePicker,
   DateRangePicker,
+  Design,
   Dialog,
   Form,
   Layout,
@@ -71,6 +77,7 @@ export {
   Radio,
   SearchInput,
   Select,
+  SKU,
   Slider,
   Steps,
   Sweetalert,
@@ -81,5 +88,6 @@ export {
   Tree,
   Switch,
   Upload,
-  Card
+  BlockHeader,
+  DateRangeQuickPicker
 };

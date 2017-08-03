@@ -14,9 +14,15 @@ class SimpleState extends Component {
     const { inc, close, count } = this.props;
     return (
       <div>
-        <span className="state-count">{count}</span>
-        <button onClick={inc} className="btn-inc">+</button>
-        <button onClick={close} className="btn-close">close</button>
+        <span className="state-count">
+          {count}
+        </span>
+        <button onClick={inc} className="btn-inc">
+          +
+        </button>
+        <button onClick={close} className="btn-close">
+          close
+        </button>
       </div>
     );
   }
@@ -59,8 +65,12 @@ class State extends Component {
     return (
       <div className="state-example">
         {visible
-          ? <button onClick={this.onClose} className="btn-close">close</button>
-          : <button onClick={this.onOpen} className="btn-open">open</button>}
+          ? <button onClick={this.onClose} className="btn-close">
+              close
+            </button>
+          : <button onClick={this.onOpen} className="btn-open">
+              open
+            </button>}
         <Portal
           className="state-body-portal"
           visible={this.state.visible}

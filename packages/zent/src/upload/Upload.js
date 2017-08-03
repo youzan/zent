@@ -87,7 +87,9 @@ class Upload extends Component {
               ? <FileInput {...uploadOptions} />
               : ''}
           </div>
-          <p className={`${prefix}-upload-tips`}>{tips}</p>
+          <p className={`${prefix}-upload-tips`}>
+            {tips}
+          </p>
           <Dialog
             title="图片选择"
             visible={visible}

@@ -185,10 +185,11 @@ class Popup extends (PureComponent || Component) {
             currentId = item.cid;
           }
           let currentCls = item.cid === currentId ? 'current' : '';
-          let activeCls = selectedItems.filter(o => o.cid === item.cid).length >
-            0 || item.cid === cid
-            ? 'active'
-            : '';
+          let activeCls =
+            selectedItems.filter(o => o.cid === item.cid).length > 0 ||
+            item.cid === cid
+              ? 'active'
+              : '';
           return (
             <Option
               key={index}
