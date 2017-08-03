@@ -27,12 +27,19 @@ class Popup extends (PureComponent || Component) {
     if (!this.props.filter) {
       this.popup.focus();
     }
-    window.onscroll = function(evt) {
-      if (evt.target.activeElement === this.popup) {
-        evt.preventDefault();
-      }
-    };
+    this.popup.addEventListener('mousewheel', this.handleScroll);
   }
+
+  handleScroll = evt => {
+    if (
+      (this.popup.scrollTop === 0 && evt.deltaY < 0) ||
+      (this.popup.scrollTop + this.popup.clientHeight ===
+        this.popup.scrollHeight &&
+        evt.deltaY > 0)
+    ) {
+      evt.preventDefault();
+    }
+  };
 
   componentWillReceiveProps(nextProps) {
     let keyword = nextProps.keyword;
