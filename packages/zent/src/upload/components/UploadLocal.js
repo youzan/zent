@@ -1,5 +1,5 @@
 export default function uploadLocalImage(options, e) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     let localFiles = [];
     if (e.localFiles) {
       localFiles = e.localFiles;
@@ -7,13 +7,7 @@ export default function uploadLocalImage(options, e) {
 
     if (typeof options.onUpload !== 'function') return false;
 
-    options
-      .onUpload(localFiles)
-      .then(() => {
-        resolve();
-      })
-      .catch(() => {
-        reject();
-      });
+    options.onUpload(localFiles);
+    resolve();
   });
 }

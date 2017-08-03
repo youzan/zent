@@ -32,6 +32,7 @@
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",
     "tinycolor2": "^1.4.1",
+    "zan-utils": "^1.0.9",
     "uuid": "^3.1.0",
     "zan-utils": "^1.0.9",
     "zenticons": "^1.0.3"
