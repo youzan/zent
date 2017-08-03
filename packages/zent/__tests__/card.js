@@ -4,16 +4,28 @@ import Card from 'card';
 
 describe('Card', () => {
   it('should render children in card-body', () => {
-    const card = shallow(<Card><p>card items</p></Card>);
+    const card = shallow(
+      <Card>
+        <p>card items</p>
+      </Card>
+    );
     expect(card.find('.zent-card-body').children().length).toBe(1);
   });
   it('should only render title in header', () => {
-    const card = shallow(<Card title="card title"><p>card items</p></Card>);
+    const card = shallow(
+      <Card title="card title">
+        <p>card items</p>
+      </Card>
+    );
     expect(card.find('.zent-card-header__action').length).toBe(0);
     expect(card.find('.zent-card-header__title').text()).toBe('card title');
   });
   it('should only render action in header', () => {
-    const card = shallow(<Card action="act"><p>card items</p></Card>);
+    const card = shallow(
+      <Card action="act">
+        <p>card items</p>
+      </Card>
+    );
     expect(card.find('.zent-card-header__title').length).toBe(0);
     expect(card.find('.zent-card-header__action').text()).toBe('act');
   });
