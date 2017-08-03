@@ -27,6 +27,11 @@ class Popup extends (PureComponent || Component) {
     if (!this.props.filter) {
       this.popup.focus();
     }
+    window.onscroll = function(evt) {
+      if (evt.target.activeElement === this.popup) {
+        evt.preventDefault();
+      }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
