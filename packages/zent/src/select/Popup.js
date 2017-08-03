@@ -23,6 +23,12 @@ class Popup extends (PureComponent || Component) {
     };
   }
 
+  componentDidMount() {
+    if (!this.props.filter) {
+      this.popup.focus();
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     let keyword = nextProps.keyword;
     this.setState({

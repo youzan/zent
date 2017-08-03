@@ -140,8 +140,6 @@ describe('<Select />', () => {
         value: 'anything'
       }
     });
-    expect(pop.find('Option').length).toBe(3);
-    jest.runAllTimers();
     expect(pop.find('Option').length).toBe(1);
     expect(pop.find('Option').prop('value')).toBe('选项3');
   });
