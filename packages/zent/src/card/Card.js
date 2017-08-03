@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+import isnil from 'lodash/isnil';
 import PropTypes from 'prop-types';
 
 export default class Card extends (PureComponent || Component) {
@@ -26,8 +27,9 @@ export default class Card extends (PureComponent || Component) {
       bodyStyle,
       prefix
     } = this.props;
-    this.isValidTitle = typeof title === 'string' || typeof title === 'number';
-    this.isValidAction = action !== undefined;
+
+    this.isValidTitle = !isnil(title);
+    this.isValidAction = !isnil(action);
 
     return (
       <div className={`${prefix}-card ${className}`} style={style}>
