@@ -131,7 +131,7 @@ class SKUGroup extends (PureComponent || Component) {
             filter={this.filterHandler}
             onAsyncFilter={this.asyncFilterSKU}
             onOpen={this.handleReset}
-            value={sku[optionValue]}
+            value={sku[optionValue] || ''}
           />
           {index === 0
             ? <Checkbox checked={hasSKUImage} onChange={this.checkSKUImage}>
