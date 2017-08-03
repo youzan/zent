@@ -247,29 +247,33 @@ class Select extends (PureComponent || Component) {
         selectedItems.push(selectedItem);
       }
     }
-    onChange(
+    this.setState(
       {
-        target: {
-          ...this.props,
-          type: tags ? 'select-multiple' : 'select-one',
-          value: selectedItem.value
-        },
-
-        preventDefault() {
-          ev.preventDefault();
-        },
-
-        stopPropagation() {
-          ev.stopPropagation();
-        }
+        keyword: null,
+        selectedItems,
+        selectedItem
       },
-      data
+      () => {
+        onChange(
+          {
+            target: {
+              ...this.props,
+              type: tags ? 'select-multiple' : 'select-one',
+              value: selectedItem.value
+            },
+
+            preventDefault() {
+              ev.preventDefault();
+            },
+
+            stopPropagation() {
+              ev.stopPropagation();
+            }
+          },
+          data
+        );
+      }
     );
-    this.setState({
-      keyword: null,
-      selectedItems,
-      selectedItem
-    });
   };
 
   handlePopoverVisibleChange = visible => {
