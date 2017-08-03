@@ -69,11 +69,6 @@ module.exports = {
           groupName: '展示',
           list: [
             {
-              path: 'component/card',
-              title: 'Card 卡片',
-              component: require('../../packages/zent/src/card/README.md')
-            },
-            {
               path: 'component/alert',
               title: 'Alert 公告',
               component: require('../../packages/zent/src/alert/README.md')
@@ -82,6 +77,11 @@ module.exports = {
               path: 'component/badge',
               title: 'Badge 徽标数',
               component: require('../../packages/zent/src/badge/README.md')
+            },
+            {
+              path: 'component/card',
+              title: 'Card 卡片',
+              component: require('../../packages/zent/src/card/README.md')
             },
             {
               path: 'component/dialog',

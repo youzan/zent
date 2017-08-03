@@ -9,7 +9,8 @@ export default class Card extends (PureComponent || Component) {
     prefix: 'zent'
   };
   static propTypes = {
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.node,
+    action: PropTypes.node,
     style: PropTypes.object,
     bodyStyle: PropTypes.object,
     className: PropTypes.string,
