@@ -4,11 +4,13 @@ import Input from 'input';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
 import assign from 'lodash/assign';
+import formatDate from 'zan-utils/date/formatDate';
+import parseDate from 'zan-utils/date/parseDate';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
-import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
+import { dayStart, setTime } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
 function extractStateFromProps(props) {
@@ -26,7 +28,7 @@ function extractStateFromProps(props) {
   } = props;
 
   if (value) {
-    const tmp = maybeParseDate(value, format);
+    const tmp = parseDate(value, format);
 
     if (tmp) {
       showPlaceholder = false;
@@ -46,16 +48,16 @@ function extractStateFromProps(props) {
      */
 
     if (defaultValue) {
-      actived = maybeParseDate(defaultValue, format);
+      actived = parseDate(defaultValue, format);
     } else if (min) {
-      actived = maybeParseDate(min, format);
+      actived = parseDate(min, format);
     } else if (max) {
-      actived = maybeParseDate(max, format);
+      actived = parseDate(max, format);
     } else {
       actived = dayStart();
     }
 
-    actived = maybeParseDate(actived, format);
+    actived = parseDate(actived, format);
   }
 
   if (defaultTime) {
@@ -242,8 +244,8 @@ class DatePicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < maybeParseDate(min, format)) return true;
-    if (max && val >= maybeParseDate(max, format)) return true;
+    if (min && val < parseDate(min, format)) return true;
+    if (max && val >= parseDate(max, format)) return true;
 
     return false;
   };

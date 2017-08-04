@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
+import formatDate from 'zan-utils/date/formatDate';
 
 import {
   goDays,
@@ -8,7 +9,6 @@ import {
   isAfterMonth,
   CURRENT
 } from '../utils/';
-import { formatDate } from '../utils/date';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 6;

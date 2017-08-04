@@ -2,11 +2,13 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
+import formatDate from 'zan-utils/date/formatDate';
+import parseDate from 'zan-utils/date/parseDate';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
-import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
+import { dayStart, setTime } from './utils/date';
 import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
@@ -39,8 +41,8 @@ const extractStateFromProps = props => {
   if (isValidValue(props.value)) {
     showPlaceholder = false;
     selected = [
-      maybeParseDate(props.value[0], format),
-      maybeParseDate(props.value[1], format)
+      parseDate(props.value[0], format),
+      parseDate(props.value[1], format)
     ];
     const tmp = [setTime(selected[0]), setTime(selected[1])];
     range = tmp.slice();
@@ -56,11 +58,11 @@ const extractStateFromProps = props => {
     value = [];
     let start;
     if (defaultValue && isValidValue(defaultValue)) {
-      start = maybeParseDate(defaultValue[0], format);
+      start = parseDate(defaultValue[0], format);
     } else if (min) {
-      start = maybeParseDate(min, format);
+      start = parseDate(min, format);
     } else if (max) {
-      let maxDate = maybeParseDate(max, format);
+      let maxDate = parseDate(max, format);
       let timestamp = maxDate && maxDate.getTime();
       if (timestamp < Date.now()) {
         start = goMonths(maxDate, -1);
@@ -214,8 +216,8 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     const { disabledDate, format, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < maybeParseDate(min, format)) return true;
-    if (max && val >= maybeParseDate(max, format)) return true;
+    if (min && val < parseDate(min, format)) return true;
+    if (max && val >= parseDate(max, format)) return true;
 
     return false;
   };
@@ -447,6 +449,10 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     return rangePicker;
   }
 
+  onVisibleChange = visible => {
+    console.log(visible);
+  };
+
   togglePicker = () => {
     const { onOpen, onClose, disabled } = this.props;
     const openPanel = !this.state.openPanel;
@@ -455,7 +461,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel: !this.state.openPanel
+      openPanel
     });
   };
 
@@ -464,7 +470,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     const props = this.props;
     const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
-      'picker-input--range picker-input': true,
+      'picker-input--range picker-input picker-input--combine': true,
       'picker-input--filled': !state.showPlaceholder,
       'picker-input--showTime': props.showTime,
       'picker-input--disabled': props.disabled
@@ -475,12 +481,12 @@ class CombineDateRangePicker extends (PureComponent || Component) {
         <Popover
           cushion={5}
           visible={state.openPanel}
-          onVisibleChange={this.togglePicker}
+          onVisibleChange={this.onVisibleChange}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
           position={Popover.Position.AutoBottomLeft}
         >
           <Popover.Trigger.Click>
-            <div className={inputCls}>
+            <div onClick={this.togglePicker} className={inputCls}>
               {state.showPlaceholder
                 ? props.placeholder.join(' 至 ')
                 : state.value.join(' 至 ')}
