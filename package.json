@@ -19,7 +19,6 @@
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test"
   },
-  "typings": "typings/index.d.ts",
   "lint-staged": {
     "*.js": [
       "format-js",
