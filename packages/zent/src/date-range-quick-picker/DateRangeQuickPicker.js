@@ -13,7 +13,17 @@ export default class DateRangeQuickPicker extends Component {
     value: PropTypes.array,
     format: PropTypes.string,
     chooseDays: PropTypes.number,
-    preset: PropTypes.array
+    preset: PropTypes.array,
+    min: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.instanceOf(Date)
+    ]),
+    max: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.instanceOf(Date)
+    ])
   };
 
   static defaultProps = {
@@ -30,7 +40,9 @@ export default class DateRangeQuickPicker extends Component {
         text: '最近30天',
         value: 30
       }
-    ]
+    ],
+    min: '',
+    max: ''
   };
 
   handleTimeChange = value => {
@@ -45,7 +57,15 @@ export default class DateRangeQuickPicker extends Component {
   };
 
   render() {
-    const { className, format, value, chooseDays, prefix, preset } = this.props;
+    const {
+      className,
+      format,
+      value,
+      chooseDays,
+      prefix,
+      preset,
+      ...pickerProps
+    } = this.props;
     const showTime = format === 'YYYY-MM-DD';
 
     return (
@@ -56,6 +76,7 @@ export default class DateRangeQuickPicker extends Component {
           onChange={this.handleTimeChange}
           format={format}
           showTime={!showTime}
+          {...pickerProps}
         />
         {map(preset, (item, index) => {
           return (

@@ -88,3 +88,5 @@ ReactDOM.render(
 | value          | 起始、结束时间       | array           |   `[]`        |             |
 | format         | 返回日期字符串格式   |  string          |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
 | chooseDays     | 选择天数           |  number          |               |         |
+| min            | 可选日期的最小值    | string/instanceOf(Date)  | ``   | 否    |
+| max            | 可选日期的最大值    | string/instanceOf(Date)  | ``    | 否    |
