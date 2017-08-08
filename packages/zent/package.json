@@ -21,7 +21,7 @@
     "assets/",
     "lib/",
     "css/",
-    "typings"
+    "typings/"
   ],
   "dependencies": {
     "babel-runtime": "^6.23.0",
