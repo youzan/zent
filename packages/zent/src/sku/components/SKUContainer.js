@@ -1,8 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import Input from 'input';
 import Select from 'select';
 import Pop from 'pop';
+import find from 'lodash/find';
 import fullfillImage from 'zan-utils/fullfillImage';
 import Upload from 'upload';
 
@@ -109,10 +111,10 @@ class SKUContainer extends (PureComponent || Component) {
   asyncFilterSKULeaf = keyword => {
     let { optionText, maxLeafTextLength } = this.context;
     let { skuOptions } = this.state;
-    if (skuOptions.some(item => item[optionText].indexOf(keyword) > -1)) return;
     if (maxLeafTextLength && maxLeafTextLength > 0) {
       keyword = keyword.substring(0, maxLeafTextLength);
     }
+    if (skuOptions.some(item => item[optionText] === keyword)) return;
     this.setState({
       newLeafText: keyword
     });
@@ -126,22 +128,53 @@ class SKUContainer extends (PureComponent || Component) {
     return item.text.indexOf(keyword) > -1;
   };
 
+  handleReset = () => {
+    this.setState({
+      newLeafText: ''
+    });
+  };
+
+  handleRenameSKULeaf(index) {
+    let { sku, onSKULeafChange } = this.props;
+    let { optionValue, optionText, onCreateSKU } = this.context;
+    let { skuOptions } = this.state;
+    let findKey = {};
+    findKey[optionText] = this.renameText;
+    let skuItem = find(skuOptions, findKey);
+    if (skuItem) {
+      sku.leaf[index] = skuItem;
+      onSKULeafChange(sku.leaf);
+      return;
+    }
+    onCreateSKU({
+      text: this.renameText,
+      id: sku[optionValue]
+    }).then(data => {
+      let newSKULeaf = {};
+      newSKULeaf[optionText] = this.renameText;
+      newSKULeaf[optionValue] = data;
+      skuOptions.push(newSKULeaf);
+      this.setState({
+        skuOptions: [].concat(skuOptions)
+      });
+      sku.leaf[index] = newSKULeaf;
+      onSKULeafChange(sku.leaf);
+    });
+  }
+
   renderSKUPopContent() {
     let { optionValue, optionText } = this.context;
     let { leafValue, skuOptions, newLeafText } = this.state;
 
     if (newLeafText) {
       skuOptions = [].concat(skuOptions);
-      if (
-        skuOptions.length > 0 &&
-        skuOptions[skuOptions.length - 1][optionValue] === 0
-      ) {
-        skuOptions[skuOptions.length - 1][optionText] = newLeafText;
+      if (skuOptions.length > 0 && skuOptions[0][optionValue] === 0) {
+        skuOptions[0][optionText] = newLeafText;
       } else {
         let newLeaf = {};
         newLeaf[optionValue] = 0;
         newLeaf[optionText] = newLeafText;
-        skuOptions.push(newLeaf);
+        skuOptions.unshift(newLeaf);
       }
     }
 
@@ -157,6 +190,7 @@ class SKUContainer extends (PureComponent || Component) {
         onAsyncFilter={this.asyncFilterSKULeaf}
         onChange={this.createSKULeaf}
         onDelete={this.updateLeafValue}
+        onOpen={this.handleReset}
       />
     );
   }
@@ -193,44 +227,65 @@ class SKUContainer extends (PureComponent || Component) {
         <div className="sku-list">
           {sku.leaf.map((item, index) => {
             return (
-              <div
+              <Pop
                 key={index}
-                className={cx(`${this.context.prefix}-item`, {
+                trigger="click"
+                position="bottom-center"
+                content={
+                  <Input
+                    defaultValue={item[optionText]}
+                    onChange={evt => (this.renameText = evt.target.value)}
+                  />
+                }
+                wrapperClassName={cx(`${this.context.prefix}-item`, {
                   active: hasSKUImage
                 })}
+                onConfirm={this.handleRenameSKULeaf.bind(this, index)}
               >
-                <span>
-                  {item[optionText]}
-                </span>
-                <span
-                  className="item-remove"
-                  onClick={this.removeSKULeaf.bind(this, index)}
-                >
-                  x
-                </span>
-                {hasSKUImage
-                  ? <div className="upload-img-wrap">
-                      <div className="arrow" />
-                      {item.img_url
-                        ? <div className="upload-img">
-                            <span
-                              className="item-remove small"
-                              title="删除"
-                              onClick={this.removeImg.bind(
-                                this,
-                                item[optionValue]
-                              )}
-                            >
-                              ×
-                            </span>
-                            <img
-                              src={item.img_url}
-                              role="presentation"
-                              alt=""
-                              data-src={item.img_url}
-                            />
-                            <Upload
-                              triggerClassName="img-edit"
+                <div>
+                  <span>
+                    {item[optionText]}
+                  </span>
+                  <span
+                    className="item-remove"
+                    onClick={this.removeSKULeaf.bind(this, index)}
+                  >
+                    x
+                  </span>
+                  {hasSKUImage
+                    ? <div className="upload-img-wrap">
+                        <div className="arrow" />
+                        {item.img_url
+                          ? <div className="upload-img">
+                              <span
+                                className="item-remove small"
+                                title="删除"
+                                onClick={this.removeImg.bind(
+                                  this,
+                                  item[optionValue]
+                                )}
+                              >
+                                ×
+                              </span>
+                              <img
+                                src={item.img_url}
+                                role="presentation"
+                                alt=""
+                                data-src={item.img_url}
+                              />
+                              <Upload
+                                triggerClassName="img-edit"
+                                materials
+                                maxAmount="1"
+                                onUpload={this.uploadSuccess.bind(
+                                  this,
+                                  item[optionValue]
+                                )}
+                              >
+                                <span>替换</span>
+                              </Upload>
+                            </div>
+                          : <Upload
                               materials
                               maxAmount="1"
                               onUpload={this.uploadSuccess.bind(
@@ -238,22 +293,12 @@ class SKUContainer extends (PureComponent || Component) {
                                 item[optionValue]
                               )}
                             >
-                              <span>替换</span>
-                            </Upload>
-                          </div>
-                        : <Upload
-                            materials
-                            maxAmount="1"
-                            onUpload={this.uploadSuccess.bind(
-                              this,
-                              item[optionValue]
-                            )}
-                          >
-                            <i>+</i>
-                          </Upload>}
-                    </div>
-                  : ''}
-              </div>
+                              <i>+</i>
+                            </Upload>}
+                      </div>
+                    : ''}
+                </div>
+              </Pop>
             );
           })}
           {sku[optionValue] > 0

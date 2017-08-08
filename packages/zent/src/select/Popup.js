@@ -4,9 +4,8 @@
 
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import isArray from 'lodash/isArray';
 import take from 'lodash/take';
-
+import trim from 'lodash/trim';
 import Popover from 'popover';
 import Search from './components/Search';
 import Option from './components/Option';
@@ -18,36 +17,48 @@ class Popup extends (PureComponent || Component) {
 
     this.state = {
       data: props.data,
-      currentId: 0,
+      // 默认选中第一项
+      currentId: props.data[0] ? props.data[0].cid : 0,
       keyword: props.keyword || ''
     };
-    this.currentId = 0;
-    this.sourceData = props.data;
-    this.searchFilterHandler = this.searchFilterHandler.bind(this);
-    this.optionChangedHandler = this.optionChangedHandler.bind(this);
-    this.keydownHandler = this.keydownHandler.bind(this);
   }
 
   componentDidMount() {
     if (!this.props.filter) {
       this.popup.focus();
     }
+    this.popup.addEventListener('mousewheel', this.handleScroll);
   }
+
+  handleScroll = evt => {
+    if (
+      (this.popup.scrollTop === 0 && evt.deltaY < 0) ||
+      (this.popup.scrollTop + this.popup.clientHeight ===
+        this.popup.scrollHeight &&
+        evt.deltaY > 0)
+    ) {
+      evt.preventDefault();
+    }
+  };
 
   componentWillReceiveProps(nextProps) {
     let keyword = nextProps.keyword;
-    this.sourceData = nextProps.data;
     this.setState({
-      data: nextProps.data
+      data: nextProps.data,
+      // 默认选中第一项
+      currentId: nextProps.data[0] ? nextProps.data[0].cid : 0
     });
+
+    // trigger中传入的keyword
     if (keyword !== null) {
       this.setState({
-        keyword
+        keyword,
+        currentId: ''
       });
     }
   }
 
-  optionChangedHandler(ev, cid) {
+  optionChangedHandler = (ev, cid) => {
     let { filter, data } = this.props;
     let { keyword } = this.state;
     this.setState({
@@ -62,37 +73,45 @@ class Popup extends (PureComponent || Component) {
           item.cid === cid
       )[0]
     );
-  }
+  };
 
-  searchFilterHandler(keyword) {
-    let { filter, onAsyncFilter } = this.props;
-
+  searchFilterHandler = keyword => {
+    let { onAsyncFilter } = this.props;
+    keyword = trim(keyword);
     this.setState({
-      keyword
+      keyword,
+      currentId: ''
     });
+
     if (typeof onAsyncFilter === 'function') {
-      onAsyncFilter(`${keyword}`, data => {
-        this.setState({
-          data: this.sourceData.filter(
-            item => isArray(data) && data.indexOf(item.value) > -1
-          )
-        });
-      });
-    } else {
-      // keyword 为空或者没有 filter 则不过滤
-      this.setState({
-        data: this.sourceData.filter(
-          item => !keyword || !filter || filter(item, `${keyword}`)
-        )
-      });
+      onAsyncFilter(`${keyword}`);
     }
+  };
+
+  componentWillUpdate(nextProps, nextState) {
+    let { filter } = nextProps;
+    let { data, keyword, currentId } = nextState;
+    data
+      .filter(item => {
+        return !keyword || !filter || filter(item, `${keyword}`);
+      })
+      .forEach((item, index) => {
+        if ((keyword && item.text === keyword) || (!currentId && index === 0)) {
+          this.setState({
+            currentId: item.cid
+          });
+        }
+      });
   }
 
-  keydownHandler(ev) {
+  keydownHandler = ev => {
     let code = ev.keyCode;
     let itemIds = this.itemIds;
     let { currentId, keyword } = this.state;
     let index = itemIds.indexOf(currentId);
+    let popupHeight = this.popup.clientHeight;
+    let scrollHeight = this.popup.scrollHeight;
+    let currentNode = this.popup.getElementsByClassName('current')[0];
     switch (code) {
       case KEY_ESC:
         this.props.popover.close();
@@ -102,8 +121,15 @@ class Popup extends (PureComponent || Component) {
         if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
           this.currentIdUpdated = true;
+          if (
+            currentNode &&
+            currentNode.offsetTop + 28 >= this.popup.scrollTop + popupHeight
+          ) {
+            this.popup.scrollTop = currentNode.offsetTop + 28 * 2 - popupHeight;
+          }
         } else {
           currentId = this.itemIds[0];
+          this.popup.scrollTop = 0;
         }
         break;
       case KEY_UP:
@@ -111,8 +137,12 @@ class Popup extends (PureComponent || Component) {
         if (index > 0) {
           currentId = this.itemIds[index - 1];
           this.currentIdUpdated = true;
+          if (currentNode && currentNode.offsetTop <= this.popup.scrollTop) {
+            this.popup.scrollTop = currentNode.offsetTop - 28;
+          }
         } else {
           currentId = this.itemIds[this.itemIds.length - 1];
+          this.popup.scrollTop = scrollHeight;
         }
         break;
       case KEY_EN:
@@ -126,7 +156,7 @@ class Popup extends (PureComponent || Component) {
     this.setState({
       currentId
     });
-  }
+  };
 
   updateCurrentId(cid) {
     this.setState({
@@ -177,13 +207,6 @@ class Popup extends (PureComponent || Component) {
             />
           : ''}
         {filterData.map((item, index) => {
-          if (index === 0 && !currentId) {
-            currentId = item.cid;
-            this.state.currentId = currentId;
-          }
-          if (keyword && item.text === keyword) {
-            currentId = item.cid;
-          }
           let currentCls = item.cid === currentId ? 'current' : '';
           let activeCls =
             selectedItems.filter(o => o.cid === item.cid).length > 0 ||

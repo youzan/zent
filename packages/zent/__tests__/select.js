@@ -116,10 +116,10 @@ describe('<Select />', () => {
     });
     expect(pop.find('Option').length).toBe(1);
 
-    const asyncMock = jest.fn().mockImplementation((keyword, callback) => {
-      setTimeout(() => {
-        callback(['选项3']);
-      }, 1000);
+    const asyncMock = jest.fn().mockImplementation(() => {
+      wrapper.setProps({
+        data: ['选项3']
+      });
     });
 
     // BUG: Provide asyncFilter only could not render Search
@@ -140,8 +140,6 @@ describe('<Select />', () => {
         value: 'anything'
       }
     });
-    expect(pop.find('Option').length).toBe(3);
-    jest.runAllTimers();
     expect(pop.find('Option').length).toBe(1);
     expect(pop.find('Option').prop('value')).toBe('选项3');
   });
