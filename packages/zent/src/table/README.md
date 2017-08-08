@@ -798,7 +798,7 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 {
 	sortBy, // {String} 表示基于什么key进行排序
 	sortType, // {String} ['asc', 'desc'] 排序的方式
-	current, // {Number} 表示当前第几行
+	current, // {Number} 表示当前第几页
 }
 ```
 
@@ -828,10 +828,11 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
 | totalItem | 总条目个数            | number | 0 | 否    |
-| total | 总条目个数**[deprecated]**   | number | 0 | 否    |
 | pageSize | 每页个数   | number |  | 否    |
-| limit | 每页个数**[deprecated]**   | number |  | 否    |
+| current | 当前页码 | number | | |
 | maxPageToShow    | 最多可显示的个数 | number  |  | 否  
+| total | 总条目个数**[deprecated]**   | number | 0 | 否    |
+| limit | 每页个数**[deprecated]**   | number |  | 否    |
 
 ### expandation
 
