@@ -44,14 +44,6 @@ class Demo extends Component{
 		})
 	}
 
-	onOpen = (type) => {
-		console.log('open',type);
-	}
-
-	onClose = (type) => {
-		console.log('close', type)
-	}
-
   render(){
     const { dateValue, monthValue, rangeValue } = this.state;
 
@@ -80,8 +72,6 @@ class Demo extends Component{
 					type="split"
 					value={rangeValue}
 					onChange={this.onChangeRangeSplit}
-					onOpen={this.onOpen}
-					onClose={this.onClose}
 				/>
       </div>
     )

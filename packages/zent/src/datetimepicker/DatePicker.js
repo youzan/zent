@@ -336,7 +336,7 @@ class DatePicker extends (PureComponent || Component) {
           position={Popover.Position.AutoBottomLeft}
         >
           <Popover.Trigger.Click>
-            <div className={inputCls}>
+            <div className={inputCls} onClick={evt => evt.preventDefault()}>
               <Input
                 name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}

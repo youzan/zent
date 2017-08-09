@@ -275,9 +275,6 @@ class CombineDateRangePicker extends (PureComponent || Component) {
       const base = actived[baseMap[type]];
       let acp = [base, base];
       acp.splice(baseMap[type], 1, goMonths(base, typeMap[type]));
-      // acp = acp.map((item, i) => {
-      //   return i === baseMap[type] ? goMonths(item, typeMap[type]) : item;
-      // });
 
       this.setState({
         actived: acp
@@ -449,19 +446,13 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     return rangePicker;
   }
 
-  onVisibleChange = visible => {
-    console.log(visible);
-  };
-
-  togglePicker = () => {
+  togglePicker = visible => {
     const { onOpen, onClose, disabled } = this.props;
-    const openPanel = !this.state.openPanel;
-
     if (disabled) return;
 
-    openPanel ? onOpen && onOpen() : onClose && onClose();
+    visible ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel
+      openPanel: visible
     });
   };
 
@@ -481,12 +472,12 @@ class CombineDateRangePicker extends (PureComponent || Component) {
         <Popover
           cushion={5}
           visible={state.openPanel}
-          onVisibleChange={this.onVisibleChange}
+          onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
           position={Popover.Position.AutoBottomLeft}
         >
           <Popover.Trigger.Click>
-            <div onClick={this.togglePicker} className={inputCls}>
+            <div className={inputCls} onClick={evt => evt.preventDefault()}>
               {state.showPlaceholder
                 ? props.placeholder.join(' 至 ')
                 : state.value.join(' 至 ')}
