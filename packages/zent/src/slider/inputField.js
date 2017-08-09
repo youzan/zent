@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import NumberInput from 'number-input';
+import pick from 'lodash/pick';
 
 import { getDecimal } from './common';
 
@@ -17,12 +18,19 @@ export default class InputField extends (PureComponent || Component) {
 
   render() {
     const { range, value, prefix, ...restProps } = this.props;
+    const numberInputProps = pick(restProps, [
+      'max',
+      'min',
+      'disabled',
+      'className',
+      'prefix'
+    ]);
     return (
       <div className={`${prefix}-slider-input`}>
         {range
           ? <div className={`${prefix}-slider-input`}>
               <NumberInput
-                {...restProps}
+                {...numberInputProps}
                 max={value[1]}
                 decimal={getDecimal(restProps.step)}
                 onChange={this.onChange.bind(null, 'start')}
@@ -30,7 +38,7 @@ export default class InputField extends (PureComponent || Component) {
               />
               <span className="slider-input-line">-</span>
               <NumberInput
-                {...restProps}
+                {...numberInputProps}
                 min={value[0]}
                 decimal={getDecimal(restProps.step)}
                 onChange={this.onChange.bind(null, 'end')}
@@ -38,7 +46,7 @@ export default class InputField extends (PureComponent || Component) {
               />
             </div>
           : <NumberInput
-              {...restProps}
+              {...numberInputProps}
               decimal={getDecimal(restProps.step)}
               onChange={this.onChange.bind(null, 'single')}
               value={value}
