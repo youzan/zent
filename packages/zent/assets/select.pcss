@@ -202,8 +202,12 @@ $errorBorderColor: #f44;
 }
 
 .has-error {
-  .zent-select {
-    border: 1px solid $errorBorderColor;
-    color: #f44;
+  :not(.no-error) {
+    & > .zent-select-input,
+    & > .zent-select-text,
+    & > .zent-select-tags {
+      border: 1px solid $errorBorderColor;
+      color: #f44;
+    }
   }
 }
