@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "3.5.0-beta5",
+  "version": "3.5.0-beta8",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -20,7 +20,8 @@
     "src/",
     "assets/",
     "lib/",
-    "css/"
+    "css/",
+    "typings/"
   ],
   "dependencies": {
     "babel-runtime": "^6.23.0",

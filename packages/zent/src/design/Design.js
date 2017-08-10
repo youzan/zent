@@ -374,14 +374,34 @@ export default class Design extends (PureComponent || Component) {
 
   // 删除一个组件
   onDelete = component => {
-    const { value } = this.props;
+    const { value, components } = this.props;
+    let nextIndex = -1;
+    const newValue = value.filter((v, idx) => {
+      const skip = v !== component;
+      if (!skip) {
+        nextIndex = idx - 1;
+      }
+      return skip;
+    });
 
-    this.trackValueChange(value.filter(v => v !== component));
+    // 删除后默认选中前一项可选的，如果不存在则往后找一个可选项
+    const nextSelectedValue = findFirstEditableSibling(
+      newValue,
+      components,
+      nextIndex
+    );
+    const nextUUID = this.getUUIDFromValue(nextSelectedValue);
+
+    this.trackValueChange(newValue);
     this.setState({
-      selectedUUID: null,
+      selectedUUID: nextUUID,
       showAddComponentOverlay: false
     });
+
     this.adjustHeight();
+    setTimeout(() => {
+      this.scrollToPreviewItem(nextUUID);
+    }, 0);
   };
 
   // 交换两个组件的位置
@@ -713,4 +733,40 @@ function tagValuesWithUUID(values) {
       v[UUID_KEY] = uuid();
     }
   });
+}
+
+/**
+ * 从 startIndex 开始往前找到第一个可以选中的值
+ * @param {array} value 当前的值
+ * @param {array} components 当前可用的组件列表
+ * @param {number} startIndex 开始搜索的下标
+ */
+function findFirstEditableSibling(value, components, startIndex) {
+  const loop = i => {
+    const val = value[i];
+    const type = val.type;
+    const comp = find(components, c => isExpectedDesginType(c, type));
+    if (comp && defaultTo(comp.editable, true)) {
+      return val;
+    }
+  };
+
+  const valueLength = value.length;
+  // 往前找
+  for (let i = startIndex; i >= 0 && i < valueLength; i--) {
+    const val = loop(i);
+    if (val) {
+      return val;
+    }
+  }
+
+  // 往后找
+  for (let i = startIndex + 1; i < valueLength; i++) {
+    const val = loop(i);
+    if (val) {
+      return val;
+    }
+  }
+
+  return null;
 }

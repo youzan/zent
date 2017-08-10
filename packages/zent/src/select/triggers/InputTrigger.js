@@ -2,14 +2,9 @@ import PropTypes from 'prop-types';
 import React, { PureComponent, Component } from 'react';
 
 class InputTrigger extends (PureComponent || Component) {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ''
-    };
-    this.inputChangeHandler = this.inputChangeHandler.bind(this);
-    this.inputFocusHandler = this.inputFocusHandler.bind(this);
-  }
+  state = {
+    value: ''
+  };
 
   componentDidMount() {
     this.props.onChange({
@@ -27,18 +22,11 @@ class InputTrigger extends (PureComponent || Component) {
     });
   }
 
-  inputChangeHandler(ev) {
+  inputChangeHandler = ev => {
     this.props.onChange({
-      open: true,
       keyword: ev.target.value
     });
-  }
-
-  inputFocusHandler() {
-    this.props.onChange({
-      open: true
-    });
-  }
+  };
 
   render() {
     let { prefixCls, placeholder, keyword, text } = this.props;
@@ -50,7 +38,6 @@ class InputTrigger extends (PureComponent || Component) {
         placeholder={placeholder}
         type="text"
         value={keyword === null ? text : keyword}
-        onFocus={this.inputFocusHandler}
         onChange={this.inputChangeHandler}
         onClick={this.props.onClick}
       />
