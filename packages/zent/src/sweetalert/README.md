@@ -172,5 +172,7 @@ ReactDOM.render(
 | prefix      | 默认className的前缀                      | string | `'zent'` |                                               |
 
 
--  `Sweetalert.alert` 和 `Sweetalert.confirm` 的返回值是可以用来手动关闭对话框的函数。
--  如果 `onConfirm` 的返回值是 `Promise`, 对应的按钮会在 `Promise` pending 时保持在 loading 状态。
+- `Sweetalert.alert` 和 `Sweetalert.confirm` 的返回值是可以用来手动关闭对话框的函数。
+- 如果 `onConfirm` 的返回值是 `Promise`, 对应的按钮会在 `Promise` pending 时保持在 loading 状态；如果 `Promise` reject，对话框不会关闭，如果 `Promise` resolve 对话框关闭。
+- 如果 `onConfirm` 没有参数并且返回值是 `false` 对话框不会关闭。
+- 如果 `onConfirm` 有一个参数的话，需要手动调用 `close` 这个参数来关闭对话框。
