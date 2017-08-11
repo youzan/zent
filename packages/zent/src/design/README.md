@@ -106,14 +106,16 @@ class Simple extends Component {
 
   submit = () => {
     this.triggerDesignValidation()
-	.then(() => {
-    	// submit this.state.value to server
-		this.design.markAsSaved();
-		Notify.success('提交成功');
-	})
-	.catch(validations => {
-      console.log(validations);
-    });
+			.then(() => {
+				const data = Design.stripUUID(this.state.value);
+				console.log(data);
+				// submit this.state.value to server
+				this.design.markAsSaved();
+				Notify.success('提交成功');
+			})
+			.catch(validations => {
+				console.log(validations);
+			});
   };
 }
 
@@ -124,7 +126,7 @@ ReactDOM.render(
 ```
 :::
 
-### 设计
+### API
 
 `design` 目录下面是框架结构，`Design` 组件负责数据分发和更新，整个组件分为 `Preview` 和 `Editor` 两部分。
 
@@ -205,6 +207,12 @@ type Component = {
 
 * `design.validate(): Promise`, 触发校验，如果有错误会 reject，否则 resolve
 * `design.markAsSaved()`，标记为以保存状态，如果使用了缓存或者离开提示需要手动调用这个函数通知 Design 更改已经保存
+
+### stripUUID
+
+`Design` 上面有一个 `stripUUID` 方法，数据发送到服务器之前可以使用这个函数来剔除 `Design` 内部使用的 id，这样可以减小数据大小。
+
+使用这个函数是可选的，不剔除也不会有问题，只是传输和存储的数据会稍稍大一点。
 
 ### 如何实现新的 Design 组件
 

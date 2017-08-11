@@ -1,6 +1,6 @@
 import has from 'lodash/has';
 import isPlainObject from 'lodash/isPlainObject';
-import isArrary from 'lodash/isArrary';
+import isArray from 'lodash/isArray';
 
 const UUID_KEY_PATTERN = /__.+uuid__/i;
 
@@ -20,7 +20,7 @@ export default function stripUUID(value) {
         }
       }
     }
-  } else if (isArrary(value)) {
+  } else if (isArray(value)) {
     value.forEach(v => stripUUID(v));
   }
 
