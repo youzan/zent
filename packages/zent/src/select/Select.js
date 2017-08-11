@@ -288,7 +288,7 @@ class Select extends (PureComponent || Component) {
       placeholder,
       maxToShow,
       className,
-      wrapperClassName,
+      popupClassName,
       disabled,
       emptyText,
       filter = this.props.onFilter,
@@ -313,8 +313,8 @@ class Select extends (PureComponent || Component) {
         display="inline-block"
         position={Popover.Position.AutoBottomLeft}
         visible={open}
-        className={`${prefixCls} ${className}`}
-        wrapperClassName={`${prefixCls} ${wrapperClassName} ${disabledCls}`}
+        className={`${prefixCls} ${popupClassName}`}
+        wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
         onVisibleChange={this.handlePopoverVisibleChange}
       >
         <PopoverClickTrigger>
@@ -359,7 +359,7 @@ Select.propTypes = {
   prefix: PropTypes.string,
   className: PropTypes.string,
   open: PropTypes.bool,
-  wrapperClassName: PropTypes.string,
+  popupClassName: PropTypes.string,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   maxToShow: PropTypes.number,
@@ -385,7 +385,7 @@ Select.defaultProps = {
   disabled: false,
   className: '',
   open: false,
-  wrapperClassName: '',
+  popupClassName: '',
   trigger: SelectTrigger,
   placeholder: '请选择',
   searchPlaceholder: '',
