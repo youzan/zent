@@ -6,6 +6,7 @@ $c-light-gray: #999;
 $c-bg-gray: #f8f8f8;
 $c-light-blue: #bdf;
 $c-half-black: rgba(0, 0, 0, 0.2);
+$errorBorderColor: #f44;
 
 .zent-select {
   cursor: pointer;
@@ -149,6 +150,9 @@ $c-half-black: rgba(0, 0, 0, 0.2);
     display: block;
     outline: none;
     padding: 5px 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .zent-select-search {
@@ -197,5 +201,16 @@ $c-half-black: rgba(0, 0, 0, 0.2);
 
   .zent-select-empty {
     color: $c-light-gray;
+  }
+}
+
+.has-error {
+  :not(.no-error) {
+    & > .zent-select-input,
+    & > .zent-select-text,
+    & > .zent-select-tags {
+      border: 1px solid $errorBorderColor;
+      color: #f44;
+    }
   }
 }
