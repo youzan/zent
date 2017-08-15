@@ -3,11 +3,13 @@ import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
+import formatDate from 'zan-utils/date/formatDate';
+import parseDate from 'zan-utils/date/parseDate';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
-import { formatDate, maybeParseDate, dayStart } from './utils/date';
+import { dayStart } from './utils/date';
 import { noop } from './constants/';
 
 function extractStateFromProps(props) {
@@ -17,7 +19,7 @@ function extractStateFromProps(props) {
   const { format, value, defaultValue } = props;
 
   if (value) {
-    const tmp = maybeParseDate(value, format);
+    const tmp = parseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
       selected = actived = tmp;
@@ -29,11 +31,11 @@ function extractStateFromProps(props) {
   } else {
     showPlaceholder = true;
     if (defaultValue) {
-      actived = maybeParseDate(defaultValue, format);
+      actived = parseDate(defaultValue, format);
     } else {
       actived = dayStart();
     }
-    selected = actived = maybeParseDate(actived, format);
+    selected = actived = parseDate(actived, format);
   }
 
   return {

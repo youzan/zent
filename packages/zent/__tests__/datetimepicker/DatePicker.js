@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { formatDate } from 'datetimepicker/utils/date';
+import { formatDate } from 'zan-utils/date';
 import DatePicker from 'datetimepicker/DatePicker';
 
 describe('DateTimePicker', () => {

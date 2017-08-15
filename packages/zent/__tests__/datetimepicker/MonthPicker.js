@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import MonthPicker from 'datetimepicker/MonthPicker';
-import { formatDate } from 'datetimepicker/utils/date';
+import formatDate from 'zan-utils/date/formatDate';
 
 describe('MonthPicker', () => {
   it('MonthPicker has 2 level panel', () => {
