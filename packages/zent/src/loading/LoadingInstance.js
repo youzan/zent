@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 
+let loadingInstance;
+
 export default class Instance extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
@@ -25,54 +27,6 @@ export default class Instance extends (PureComponent || Component) {
     height: 160,
     zIndex: 9998,
     containerClass: ''
-  };
-
-  static target;
-  static instance;
-
-  // 对外暴露的静态初始方法
-  static newInstance = function(props) {
-    if (!isBrowser) return;
-
-    let div = document.createElement('div');
-    div.className = `${props.prefix}-loading-container ${props.containerClass}`;
-    document.body.appendChild(div);
-    let loading = ReactDOM.render(<Loading {...props} />, div);
-    return {
-      show: loading.show,
-      container: div
-    };
-  };
-
-  static on = function(
-    { prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}
-  ) {
-    if (!isBrowser) return;
-
-    if (!this.instance) {
-      this.instance = this.newInstance({
-        show: true,
-        prefix,
-        className,
-        containerClass,
-        zIndex,
-        float: true
-      });
-    }
-
-    this.instance.show({
-      show: true
-    });
-  };
-
-  static off = function() {
-    if (!isBrowser) return;
-
-    if (!this.instance) return;
-
-    this.instance.show({
-      show: false
-    });
   };
 
   componentDidMount() {
@@ -103,16 +57,14 @@ export default class Instance extends (PureComponent || Component) {
       if (!target) {
         target = ReactDOM.findDOMNode(this);
       }
-      this.instance = Instance.newInstance({
+      this.instance = newInstance({
         ...this.props,
         target
       });
     }
 
     if (this.instance) {
-      this.instance.show({
-        ...this.props
-      });
+      this.instance.show(this.props);
     }
   }
 
@@ -127,9 +79,59 @@ export default class Instance extends (PureComponent || Component) {
       );
     }
 
-    // In case Loading has no children
+    // Return null to make React happy if Loading has no children
     return this.props.children || null;
   }
+}
+
+Instance.on = on;
+Instance.off = off;
+Instance.newInstance = newInstance;
+
+function on(
+  { prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}
+) {
+  if (!isBrowser) return;
+
+  if (!loadingInstance) {
+    loadingInstance = newInstance({
+      show: true,
+      prefix,
+      className,
+      containerClass,
+      zIndex,
+      float: true
+    });
+
+    return;
+  }
+
+  loadingInstance.show({
+    show: true
+  });
+}
+
+function off() {
+  if (!isBrowser) return;
+
+  if (!loadingInstance) return;
+
+  loadingInstance.show({
+    show: false
+  });
+}
+
+function newInstance(props) {
+  if (!isBrowser) return;
+
+  let div = document.createElement('div');
+  div.className = `${props.prefix}-loading-container ${props.containerClass}`;
+  document.body.appendChild(div);
+  let loading = ReactDOM.render(<Loading {...props} />, div);
+  return {
+    show: loading.show,
+    container: div
+  };
 }
 
 // FIXME: remove support for props.static
