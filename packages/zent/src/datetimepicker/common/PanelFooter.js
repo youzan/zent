@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'zent';
+import Button from 'button';
 
 import { noop } from '../constants';
 
