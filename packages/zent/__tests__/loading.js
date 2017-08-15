@@ -34,6 +34,8 @@ describe('Loading', () => {
     );
     wrapper.find('button').at(0).simulate('click');
     wrapper.find('button').at(1).simulate('click');
+    wrapper.find('button').at(0).simulate('click');
+    wrapper.find('button').at(1).simulate('click');
   });
 
   it('Loading has static model, support containerClass and prefix...props', () => {
