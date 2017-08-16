@@ -1,10 +1,10 @@
-## Affix 固钉
+## Affix
 
-将元素固定在特定区域，一般用于导航栏固钉。
+The elements fixed in a specific area, generally used for navigation bar.
 
-### 代码演示
+### Code demo
 
-:::demo 设置距离顶部值: `offsetTop`
+:::demo Set the offset from top: `offsetTop`
 ```jsx
 import { Affix, Layout, Button } from 'zent';
 
@@ -12,11 +12,11 @@ const { Row, Col } = Layout;
 ReactDOM.render(
   <Row style={{ margin: '10px 0' }}>
     <Col span={8}>
-      <Button type="primary" size="large">首页</Button>
+      <Button type="primary" size="large">Home</Button>
     </Col>
     <Col span={8} offset={8}>
       <Affix offsetTop={135}>
-        <Button type="primary" size="large">固钉</Button>
+        <Button type="primary" size="large">Affix</Button>
       </Affix>
     </Col>
   </Row>
@@ -25,22 +25,21 @@ ReactDOM.render(
 ```
 :::
 
-
-:::demo 设置回调函数
+:::demo Set the callback function
 ```jsx
 import { Affix, Alert } from 'zent';
 
 class App extends React.Component {
 
   state = {
-    text: '固钉'
+    text: 'Affix'
   }
 
   onPin = () => {
-    this.setState({ text: '已经固定啦' });
+    this.setState({ text: 'Fixed' });
   }
   onUnpin = () => {
-    this.setState({ text: '取消固定啦' });
+    this.setState({ text: 'Cancel Fixed!' });
   }
 
   render() {
@@ -59,15 +58,14 @@ ReactDOM.render(
 ```
 :::
 
-
-:::demo 设置距离底部值: `offsetBottom`
+:::demo Set the offset from bottom: `offsetBottom`
 ```jsx
 import { Affix, Alert } from 'zent';
 
 ReactDOM.render(
   <div className="demo-bottom">
       <Affix offsetBottom={60}>
-        <Alert type="warning"><p>设置距离底部值</p></Alert>
+        <Alert type="warning"><p>Set the offset from bottom</p></Alert>
       </Affix>
     </div>
   , mountNode
@@ -77,20 +75,18 @@ ReactDOM.render(
 
 ### API
 
-
-
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+| Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
-| offsetTop | 距离窗口顶部指定偏移量后触发 | number | 0 | '' |
-| offsetBottom | 距离窗口底部指定偏移量后触发 | number | null | null |
-| onPin | 触发固定后执行的回调函数 | function | null | null |
-| onUnpin | 固定消失后执行的回调函数 | function | null | null |
-| zIndex | 固钉的z-index | number | 10 | null |
-| className | 自定义额外类名  | string | `''`       |                                   |
-| placeHoldClassName | 占位容器的类名  | string | `''`       |                                   |
-| prefix    | 自定义前缀    | string | `'zent'`   |                                   |
+| offsetTop | Pixels to offset from top when calculating position of scroll | number | 0 | '' |
+| offsetBottom | Pixels to offset from bottom when calculating position of scroll | number | null | null |
+| onPin | Callback when affix state is changed | function | null | null |
+| onUnpin | Callback when affix state is cancelled | function | null | null |
+| zIndex | The z-index of Affix | number | 10 | null |
+| className | The name of the customized additional class | string | `''` |                                   |
+| placeHoldClassName | The class name of container | string | `''` |                                   |
+| prefix | The customized prefix | string | `'zent'` |                              |
 
-如果 `offsetTop` 和 `offsetBottom` 同时设置，优先使用 `offsetBottom`
+Use the `offsetBottom` firstly if `offsetTop` and `offsetBottom` are set at the same time.
 
 <style>
 .demo-nav {
