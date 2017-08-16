@@ -21,6 +21,17 @@ cd site && yarn
 
 组件样式使用 `precss`，语法请参考 [precss 文档](https://github.com/jonathantneal/precss).
 
+#### 关于 z-index
+
+为了防止 `z-index` 滥用，我们规定了组件库内部的 `z-index` 使用规范。
+
+`z-index` 优先级（从高到低）：
+
+* 特殊组件：Notify 永远在最上面，[10000, +∞)
+* 小范围的 ‘用完就关’ 的组件：Pop, Select, Datetimepicker, Cascader 等 [2000, 3000)
+* 全屏幕的组件：Dialog, image-preview 等 [1000, 2000)
+* 其他：组件内部用来控制层次的 z-index 的区间 [-10, 10]，尽可能写小，一般1，2，3这种就够了。
+
 #### 添加新组件
 
 添加新组件后需要跑一下 `scripts/update-jest-module-mapper.js` 这个脚本来更新 `Jest` 的配置文件。
