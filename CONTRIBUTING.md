@@ -34,7 +34,7 @@ cd site && yarn
 
 #### 添加新组件
 
-添加新组件后需要跑一下 `scripts/update-jest-module-mapper.js` 这个脚本来更新 `Jest` 的配置文件。
+添加新组件后需要跑一下 `packages/zent/scripts/update-jest-module-mapper.js` 这个脚本来更新 `Jest` 的配置文件。
 
 #### 本地测试
 
