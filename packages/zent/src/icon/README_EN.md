@@ -1,15 +1,15 @@
-## Icon 图标
+## Icon
 
-语义化的图标库。
+Semantic icon library.
 
-### 使用指南
+### How to use
 
--   部分图标分为实心和描线两个版本, 使用 `-o`（字母）来区分, e.g. `shop` (实心)和 `shop-o` (描线).
--   命名规则: `icon名字-[variant(变体)]-[描线与否(o)]`.
+-   Some icons are divided into two versions:solid and scanning line which distinguished by -o(letter), e.g. `shop` (Solid) amd `shop-o` (Scanning line).
+-   Naming rules: `icon name-[variant(shape)]-[scanning line?(o)]`.
 
-### 代码演示
+### Code demo
 
-:::demo React组件方式使用
+:::demo Used in the React Component 
 ```jsx
 import { Icon } from 'zent';
 
@@ -20,7 +20,7 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 只使用CSS
+:::demo Only use CSS
 ```jsx
 ReactDOM.render(
 	<i className="zenticon zenticon-youzan"></i>
@@ -29,7 +29,7 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 所有图标
+:::demo All icons
 ```jsx
 import { Icon } from 'zent';
 
@@ -301,14 +301,6 @@ class IconGrid extends Component {
           <Icon type="unlock" />
           <span className="zi-grid-item-name">unlock(0xe83d)</span>
         </div>
-        <div className="zi-grid-item" data-index="pending-circle0xe83ependingcircle">
-          <Icon type="pending-circle" />
-          <span className="zi-grid-item-name">pending-circle(0xe83e)</span>
-        </div>
-        <div className="zi-grid-item" data-index="forbidden-circle0xe83fforbiddencircle">
-          <Icon type="forbidden-circle" />
-          <span className="zi-grid-item-name">forbidden-circle(0xe83f)</span>
-        </div>
       </div>
     );
   }
@@ -323,10 +315,10 @@ ReactDOM.render(
 
 ### API
 
-| 参数        | 说明      | 类型     | 默认值  |
+| Property        | Description      | Type     | Default  |
 | --------- | ------- | ------ | ---- |
-| type      | 图标类型    | string | `''` |
-| className | 自定义额外类名 | string | `''` |
+| type      | Type of zent icons    | string | `''` |
+| className | The name of the customized additional class | string | `''` |
 
 <style>
 .zenticon {

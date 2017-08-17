@@ -1,10 +1,10 @@
-## Layout 布局
+## Layout
 
-24栅格布局组件
+24 grids layout component.
 
-### 代码演示
+### Code demo
 
-:::demo 基本用法
+:::demo Basic usage
 ```jsx
 import { Layout } from 'zent';
 
@@ -40,19 +40,19 @@ ReactDOM.render(
 
 ### Row API
 
-| 属性        | 说明     | 类型     | 默认值      |
+| Property | Description | Type | Default |
 | --------- | ------ | ------ | -------- |
-| className | 额外的样式名 | string |          |
-| prefix    | UI 前缀  | string | `'zent'` |
+| className | The name of the customized additional class | string ||
+| prefix    | UI prefix | string | `'zent'` |
 
 ### Col API
 
-| 属性        | 说明         | 类型     | 默认值      |
+| Property | Description | Type | Default |
 | --------- | ---------- | ------ | -------- |
-| span      | col所占的栅格数  | number |          |
-| offset    | col左偏移的栅格数 | number |          |
-| className | 额外的样式名     | string |          |
-| prefix    | UI 前缀      | string | `'zent'` |
+| span      | The number of cells column occupied | number ||
+| offset    | The number of cells to the left of the grid spacing | number |          |
+| className | The name of the customized additional class | string | string |          |
+| prefix    | UI prefix | string | `'zent'` |
 
 
 <style type="text/css">
