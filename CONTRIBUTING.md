@@ -28,7 +28,7 @@ cd site && yarn
 `z-index` 优先级（从高到低）：
 
 * 特殊组件：Notify 永远在最上面，[10000, +∞)
-* 小范围的 ‘用完就关’ 的组件：Pop, Select, Datetimepicker, Cascader 等 [2000, 3000)
+* 小范围的 ‘用完就关’ 的组件：Pop, Select, Datetimepicker, ColorPicker, Cascader 等 [2000, 3000)
 * 全屏幕的组件：Dialog, image-preview 等 [1000, 2000)
 * 其他：组件内部用来控制层次的 z-index 的区间 [-10, 10]，尽可能写小，一般1，2，3这种就够了。
 

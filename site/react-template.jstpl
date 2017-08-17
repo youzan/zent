@@ -17,7 +17,7 @@ function Style(props) {
 
 class Demo extends Component {
   state = {
-    showCode: true
+    showCode: false
   };
 
   toggle = () => {
