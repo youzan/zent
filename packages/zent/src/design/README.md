@@ -97,7 +97,7 @@ class Simple extends Component {
 	}
 
   saveDesign = instance => {
-    this.design = instance.getDecoratedComponentInstance();
+    this.design = instance && instance.getDecoratedComponentInstance();
   };
 
   triggerDesignValidation() {

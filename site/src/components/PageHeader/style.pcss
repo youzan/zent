@@ -4,8 +4,12 @@
   &-header {
     position: fixed;
     top: 0;
-    z-index: 20;
+    z-index: 5000;
     width: 100%;
+
+    &.lower-zindex {
+      z-index: 20;
+    }
 
     &__top {
       overflow: hidden;

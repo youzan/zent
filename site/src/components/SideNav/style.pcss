@@ -1,9 +1,17 @@
 .side-nav {
   width: 250px;
   box-sizing: border-box;
-  padding: 40px 0;
+  padding-top: 20px;
   border-right: 1px solid #e5e5e5;
-  flex-shrink: 0;
+  position: fixed;
+  top: 130px;
+  bottom: 0;
+  overflow: auto;
+  transition: bottom 100ms ease-in-out;
+
+  &.bottom-reached {
+    bottom: 112px;
+  }
 
   li {
     list-style: none;
