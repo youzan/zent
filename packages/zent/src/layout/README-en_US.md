@@ -40,19 +40,19 @@ ReactDOM.render(
 
 ### Row API
 
-| Property | Description | Type | Default |
-| --------- | ------ | ------ | -------- |
-| className | The name of the customized additional class | string ||
-| prefix    | UI prefix | string | `'zent'` |
+| Property  | Description                                 | Type   | Default  |
+| --------- | ------------------------------------------- | ------ | -------- |
+| className | The name of the customized additional class | string |          |
+| prefix    | UI prefix                                   | string | `'zent'` |
 
 ### Col API
 
-| Property | Description | Type | Default |
-| --------- | ---------- | ------ | -------- |
-| span      | The number of cells column occupied | number ||
+| Property  | Description                                         | Type   | Default  |
+| --------- | --------------------------------------------------- | ------ | -------- |
+| span      | The number of cells column occupied                 | number |          |
 | offset    | The number of cells to the left of the grid spacing | number |          |
-| className | The name of the customized additional class | string | string |          |
-| prefix    | UI prefix | string | `'zent'` |
+| className | The name of the customized additional class         | string |          |
+| prefix    | UI prefix                                           | string | `'zent'` |
 
 
 <style type="text/css">

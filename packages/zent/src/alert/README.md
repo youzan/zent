@@ -98,7 +98,7 @@ ReactDOM.render(
 ```
 :::
 
-:::demo 关闭时的回掉
+:::demo 关闭时的回调
 ```jsx
 import { Alert, Sweetalert } from 'zent';
 

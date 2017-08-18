@@ -75,16 +75,16 @@ ReactDOM.render(
 
 ### API
 
-| Property | Description | Type | Default | Alternative |
-|------|------|------|--------|--------|
-| offsetTop | Pixels to offset from top when calculating position of scroll | number | 0 | '' |
-| offsetBottom | Pixels to offset from bottom when calculating position of scroll | number | null | null |
-| onPin | Callback when affix state is changed | function | null | null |
-| onUnpin | Callback when affix state is cancelled | function | null | null |
-| zIndex | The z-index of Affix | number | 10 | null |
-| className | The name of the customized additional class | string | `''` |                                   |
-| placeHoldClassName | The class name of container | string | `''` |                                   |
-| prefix | The customized prefix | string | `'zent'` |                              |
+| Property           | Description                                                      | Type     | Default  | Options |
+| ------------------ | ---------------------------------------------------------------- | -------- | -------- | ------- |
+| offsetTop          | Pixels to offset from top when calculating position of scroll    | number   | 0        | ''      |
+| offsetBottom       | Pixels to offset from bottom when calculating position of scroll | number   | null     | null    |
+| onPin              | Callback when pin Affix                                          | function | null     | null    |
+| onUnpin            | Callback when unpin Affix                                        | function | null     | null    |
+| zIndex             | The z-index of Affix                                             | number   | 10       | null    |
+| className          | The name of the customized additional class                      | string   | `''`     |         |
+| placeHoldClassName | The class name of container                                      | string   | `''`     |         |
+| prefix             | The customized prefix                                            | string   | `'zent'` |         |
 
 Use the `offsetBottom` firstly if `offsetTop` and `offsetBottom` are set at the same time.
 

@@ -315,10 +315,10 @@ ReactDOM.render(
 
 ### API
 
-| Property        | Description      | Type     | Default  |
-| --------- | ------- | ------ | ---- |
-| type      | Type of zent icons    | string | `''` |
-| className | The name of the customized additional class | string | `''` |
+| Property  | Description                                 | Type   | Default |
+| --------- | ------------------------------------------- | ------ | ------- |
+| type      | Type of zent icons                          | string | `''`    |
+| className | The name of the customized additional class | string | `''`    |
 
 <style>
 .zenticon {
