@@ -36,7 +36,7 @@ ReactDOM.render(
 :::
 
 
-:::demo Three styles：`info`, `warning` 和 `danger`
+:::demo Three styles：`info`, `warning` and `danger`
 ```jsx
 import { Alert } from 'zent';
 
