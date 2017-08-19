@@ -42,16 +42,16 @@ ReactDOM.render(
 
 | Property  | Description                                 | Type   | Default  |
 | --------- | ------------------------------------------- | ------ | -------- |
-| className | The name of the customized additional class | string |          |
+| className | The custom class name                       | string |          |
 | prefix    | UI prefix                                   | string | `'zent'` |
 
 ### Col API
 
 | Property  | Description                                         | Type   | Default  |
 | --------- | --------------------------------------------------- | ------ | -------- |
-| span      | The number of cells column occupied                 | number |          |
-| offset    | The number of cells to the left of the grid spacing | number |          |
-| className | The name of the customized additional class         | string |          |
+| span      | The cell number of the column occupied              | number |          |
+| offset    | The cell number of the column offset from left      | number |          |
+| className | The custom class name                               | string |          |
 | prefix    | UI prefix                                           | string | `'zent'` |
 
 

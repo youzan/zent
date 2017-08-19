@@ -1,6 +1,6 @@
 ## Affix
 
-The elements fixed in a specific area, generally used for navigation bar.
+Affix fixes the elements in a specific area, which is generally used as navigation bar.
 
 ### Code demo
 
@@ -82,9 +82,9 @@ ReactDOM.render(
 | onPin              | Callback when pin Affix                                          | function | null     | null    |
 | onUnpin            | Callback when unpin Affix                                        | function | null     | null    |
 | zIndex             | The z-index of Affix                                             | number   | 10       | null    |
-| className          | The name of the customized additional class                      | string   | `''`     |         |
+| className          | The custom class name                                            | string   | `''`     |         |
 | placeHoldClassName | The class name of container                                      | string   | `''`     |         |
-| prefix             | The customized prefix                                            | string   | `'zent'` |         |
+| prefix             | The custom prefix                                                | string   | `'zent'` |         |
 
 Use the `offsetBottom` firstly if `offsetTop` and `offsetBottom` are set at the same time.
 

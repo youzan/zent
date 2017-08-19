@@ -1,11 +1,11 @@
 ## Badge
 
-Badge normally appears in proximity to notification or head picture with eye-catching appeal, typically displaying unread messages count.
+Badge normally appears in the upper right corner of the notification or avatar with eye-catching appeal, typically displaying the count of unread messages.
 
 ### Usage guide
 
--  Used to prompt for new messages，placed in the upper right corner or right side of the text or icon.
--  Can display new messages count.
+-  Badge is used to prompt for new messages，which is placed in the upper right corner or right side of the text or icon.
+-  Badge can display new messages count.
 
 ### Code demo
 
@@ -22,7 +22,7 @@ ReactDOM.render(
 ```
 :::
 
-:::demo Max messages count
+:::demo Set the max count of messages to show
 ```jsx
 import { Badge,Icon } from 'zent';
 
@@ -77,7 +77,7 @@ ReactDOM.render(
 ```
 :::
 
-:::demo Red badge without number
+:::demo Red dot without number
 ```jsx
 import { Badge,Icon,Switch } from 'zent';
 
@@ -138,8 +138,8 @@ ReactDOM.render(
 | maxCount  | Max count to show                           | int      | `99`         |                  |
 | dot       | Whether to show red dot without number      | bool     | `false`      | `true`,`false`   |
 | showZero  | Whether to show badge when count is zero    | bool     | `false`      | `true`,`false`   |
-| className | The name of the customized additional class | string   | `''`         |                  |
-| prefix    | The customized prefix                       | string   | `'zent'`     |                  |
+| className | The custom class name                       | string   | `''`         |                  |
+| prefix    | The custom prefix                           | string   | `'zent'`     |                  |
 
 
 <style>

@@ -1,6 +1,6 @@
 ## Alert 
 
-Alert, providing clear prompt messages.
+Alert provides a striking prompt message.
 
 ### Usage guide
 
@@ -27,7 +27,7 @@ import { Alert, Icon } from 'zent';
 ReactDOM.render(
 	<Alert>
 		<Icon type="error-circle" />
-		<span>Warning：SMS notification during the transaction will be sent via the "Message Push" function of the Marketing Center.</span>
+		<span>Warning：SMS notification of trading will be sent via the "Message Push" function of the Marketing Center.</span>
 		<a href="" onClick={e => e.preventDefault()}>Order now</a>
 	</Alert>
 	, mountNode
@@ -60,7 +60,7 @@ ReactDOM.render(
 		<Alert>This is the normal size.</Alert>
 		<Alert size="large">
 			<p>This is the big size</p>
-			<p>SMS notification during the transaction will be sent via the "Message Push" function of the Marketing Center.</p><br />
+			<p>SMS notification of trading will be sent via the "Message Push" function of the Marketing Center.</p><br />
 			<p>Official phone：0571-88888888</p>
 		</Alert>
 	</div>
@@ -87,7 +87,7 @@ import { Alert, Button } from 'zent';
 ReactDOM.render(
 	<Alert size="large" closable>
 		<div className="content">
-			<p className="text">SMS notification during the transaction will be sent via the "Message Push" function of the Marketing Center.</p>
+			<p className="text">SMS notification of trading will be sent via the "Message Push" function of the Marketing Center.</p>
 			<p>Official phone：0571-88888888</p>
 		</div>
 		<br />
@@ -121,12 +121,12 @@ ReactDOM.render(
 | --------- | ------------------------------------------- | ------ | ---------- | --------------------------------- |
 | type      | Type of Alert styles                        | string | `'info'`   | `'info'`, `'warning'`, `'danger'` |
 | size      | Size of Alert                               | string | `'normal'` | `'normal'`, `'large'`             |
-| rounded   | Whether rounded                             | bool   | `false`    | `true`, `false`                   |
+| rounded   | Whether Alert is rounded                    | bool   | `false`    | `true`, `false`                   |
 | closable  | Whether Alert can be closed                 | bool   | `false`    | `true`, `false`                   |
 | onClose   | Callback when close Alert                   | func   | `noop`     |                                   |
-| className | The name of the customized additional class | string | `''`       |                                   |
-| prefix    | The customized prefix                       | string | `'zent'`   |                                   |
-
+| className | The custom class name                       | string | `''`       |                                   |
+| prefix    | The custom prefix                           | string | `'zent'`   |                                   |
+ 
 
 <style>
 .zent-alert-example {

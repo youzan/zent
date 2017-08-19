@@ -4,8 +4,8 @@ Semantic icon library.
 
 ### How to use
 
--   Some icons are divided into two versions:solid and scanning line which distinguished by -o(letter), e.g. `shop` (Solid) amd `shop-o` (Scanning line).
--   Naming rules: `icon name-[variant(shape)]-[scanning line?(o)]`.
+-   Some icons are divided into two versions:solid and scanning line which is distinguished by -o(letter), e.g. `shop` (Solid) amd `shop-o` (Scanning line).
+-   Naming rules: `icon name-[variant]-[scanning line?(o)]`.
 
 ### Code demo
 
@@ -318,7 +318,7 @@ ReactDOM.render(
 | Property  | Description                                 | Type   | Default |
 | --------- | ------------------------------------------- | ------ | ------- |
 | type      | Type of zent icons                          | string | `''`    |
-| className | The name of the customized additional class | string | `''`    |
+| className | The custom class name                       | string | `''`    |
 
 <style>
 .zenticon {
@@ -336,7 +336,7 @@ ReactDOM.render(
     .zenticon {
         vertical-align: middle;
         font-size: 20px;
-		color: #333;
+		    color: #333;
     }
 
     .zi-search-input {
