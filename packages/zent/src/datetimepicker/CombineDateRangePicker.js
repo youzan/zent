@@ -9,7 +9,7 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
 import { dayStart, setTime } from './utils/date';
-import { timeFnMap, noop } from './constants/';
+import { timeFnMap, noop, popPositionMap } from './constants/';
 
 let retType = 'string';
 
@@ -109,6 +109,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
     defaultTime: PropTypes.string,
+    popPosition: PropTypes.oneOf(['left', 'right']),
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
@@ -124,6 +125,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     confirmText: '确定',
     errorText: '请选择起止时间',
     format: 'YYYY-MM-DD',
+    popPosition: 'left',
     showTime: false,
     disabledDate: noop,
     onChange: noop
@@ -474,7 +476,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.AutoBottomLeft}
+          position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={evt => evt.preventDefault()}>

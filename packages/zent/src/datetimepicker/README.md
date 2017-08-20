@@ -10,7 +10,7 @@
 
 ## 代码演示
 
-:::demo 基础的日期、月份、时间段选择
+:::demo 基础的日期、自然周、月份、时间段选择
 
 ```jsx
 import { DatePicker, MonthPicker, DateRangePicker, WeekPicker } from 'zent'
@@ -62,7 +62,8 @@ class Demo extends Component{
           onChange={this.onChangeDate}
         />
 				<br />
-				<WeekPicker 
+				<WeekPicker
+					popPosition="right"
 					className="zent-picker-demo"
 					value={weekValue}
 					onChange={this.onChangeWeek}
@@ -501,6 +502,7 @@ ReactDOM.render(
 | className    | 额外的 css 类          | string         |             | 否    |
 | prefix       | 自定义前缀       			 | string         | `'zent'`        | 否    |
 | confirmText  | 确定按钮文字            | string         | '确定'        | 否    |
+| popPosition  | pop 弹出层 align 方向   | oneOf(['left', 'right'])  | 'left'    | 否    |
 
 
 ### DateTimePicker
@@ -526,6 +528,20 @@ ReactDOM.render(
 - `format` 只需要传日期部分，时间部分当 `showTime` 为 `true` 时会自动拼接， 同 `RangePicker`。
 
 更详细用法请看示例。
+
+
+### WeekPicker
+
+| 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| disabledDate | 判断日期是否可选函数  | func     | `noop`  | 否    |
+| format       | 返回日期字符串格式                | string         | `YYYY-MM-DD`  | 否    |
+| min        | 可选日期的最小值                   | string/Date    |     | 否    |
+| max        | 可选日期的最大值                   | string/Date    |     | 否    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
+| name  		| input 的 name 属性            | string    |   | 否    |
+| placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
+| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
 
 ### MonthPicker
 
@@ -556,7 +572,7 @@ ReactDOM.render(
 
 
 **注意：**
-- `type` 为了和老代码兼容，默认是 `combine`，但是交互方面现在是推荐使用 `split`的。
+- `type` 为了和老代码兼容，默认是 `combine`，但是交互方面现在是推荐使用 `split`。
 - `showTime` 的时候，传入的 `min` 或 `max` 如果为字符串，必须有 time 部分，即 `2017-01-01 11:11:11` 种格式。
 - `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
 - `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。

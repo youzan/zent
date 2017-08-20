@@ -11,7 +11,7 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths, goDays } from './utils';
 import { dayStart, setTime } from './utils/date';
-import { noop } from './constants/';
+import { noop, popPositionMap } from './constants/';
 
 function getSelectedWeek(val) {
   const offset = val.getDay();
@@ -90,6 +90,7 @@ class WeekPicker extends (PureComponent || Component) {
 
     // onChange 返回值类型, date | number | string， 默认 string
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
+    popPosition: PropTypes.oneOf(['left', 'right']),
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
     min: PropTypes.oneOfType([
       PropTypes.string,
@@ -114,6 +115,7 @@ class WeekPicker extends (PureComponent || Component) {
     placeholder: '请选择自然周',
     confirmText: '确定',
     format: 'YYYY-MM-DD',
+    popPosition: 'left',
     min: '',
     max: '',
     openPanel: false,
@@ -190,6 +192,13 @@ class WeekPicker extends (PureComponent || Component) {
     this.props.onChange([]);
   };
 
+  onMouseOut = evt => {
+    evt.stopPropagation();
+    this.setState({
+      range: []
+    });
+  };
+
   /**
    * 如果传入为数字，返回值也为数字
    * 如果传入为 Date 的实例，返回值也为 Date 的实例
@@ -256,18 +265,20 @@ class WeekPicker extends (PureComponent || Component) {
       });
 
       weekPicker = (
-        <div className="date-picker" ref={ref => (this.picker = ref)}>
-          <DatePanel
-            range={state.range}
-            actived={state.actived}
-            selected={state.selected}
-            disabledDate={this.isDisabled}
-            onHover={this.onHover}
-            onSelect={this.onSelectDate}
-            onChange={this.onChangeDate}
-            onPrev={this.onChangeMonth('prev')}
-            onNext={this.onChangeMonth('next')}
-          />
+        <div className="week-picker" ref={ref => (this.picker = ref)}>
+          <div onMouseOut={this.onMouseOut}>
+            <DatePanel
+              range={state.range}
+              actived={state.actived}
+              selected={state.selected}
+              disabledDate={this.isDisabled}
+              onHover={this.onHover}
+              onSelect={this.onSelectDate}
+              onChange={this.onChangeDate}
+              onPrev={this.onChangeMonth('prev')}
+              onNext={this.onChangeMonth('next')}
+            />
+          </div>
           <PanelFooter
             buttonText={props.confirmText}
             onClickButton={this.onConfirm}
@@ -303,7 +314,6 @@ class WeekPicker extends (PureComponent || Component) {
       'picker-input--filled': !state.showPlaceholder,
       'picker-input--disabled': props.disabled
     });
-    console.log(state.value);
 
     return (
       <div className={wrapperCls}>
@@ -312,7 +322,7 @@ class WeekPicker extends (PureComponent || Component) {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.AutoBottomLeft}
+          position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={evt => evt.preventDefault()}>
