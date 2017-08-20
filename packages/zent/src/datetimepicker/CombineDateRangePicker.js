@@ -13,13 +13,13 @@ import { timeFnMap, noop } from './constants/';
 
 let retType = 'string';
 
-const isValidValue = val => {
+function isValidValue(val) {
   if (!isArray(val)) return false;
   const ret = val.filter(item => !!item);
   return ret.length === 2;
-};
+}
 
-const getDateTime = (date, time) => {
+function getDateTime(date, time) {
   return new Date(
     date.getFullYear(),
     date.getMonth(),
@@ -28,7 +28,7 @@ const getDateTime = (date, time) => {
     time.getMinutes(),
     time.getSeconds()
   );
-};
+}
 
 const extractStateFromProps = props => {
   const { format, min, max, defaultValue, defaultTime } = props;
@@ -134,7 +134,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
 
     const { value, valueType } = props;
     if (valueType) {
-      retType = valueType;
+      retType = valueType.toLowerCase();
     } else if (isValidValue(value)) {
       if (typeof value[0] === 'number') retType = 'number';
       if (value[0] instanceof Date) retType = 'date';

@@ -13,7 +13,7 @@
 :::demo 基础的日期、月份、时间段选择
 
 ```jsx
-import { DatePicker, MonthPicker, DateRangePicker } from 'zent'
+import { DatePicker, MonthPicker, DateRangePicker, WeekPicker } from 'zent'
 
 class Demo extends Component{
   state = {
@@ -25,6 +25,12 @@ class Demo extends Component{
       dateValue: val
     })
   }
+
+	onChangeWeek = (val) => {
+		this.setState({
+			weekValue: val
+		})
+	}
 
   onChangeMonth = (val) => {
     this.setState({
@@ -45,7 +51,7 @@ class Demo extends Component{
 	}
 
   render(){
-    const { dateValue, monthValue, rangeValue } = this.state;
+    const { dateValue, monthValue, rangeValue, weekValue } = this.state;
 
     return (
       <div>
@@ -55,6 +61,12 @@ class Demo extends Component{
           max="2020-01-01"
           onChange={this.onChangeDate}
         />
+				<br />
+				<WeekPicker 
+					className="zent-picker-demo"
+					value={weekValue}
+					onChange={this.onChangeWeek}
+				/>
         <br />
         <MonthPicker
           className="zent-picker-demo"
@@ -69,6 +81,7 @@ class Demo extends Component{
           />
 				<br/>
 				<DateRangePicker
+					className="zent-picker-demo"
 					type="split"
 					value={rangeValue}
 					onChange={this.onChangeRangeSplit}

@@ -129,7 +129,7 @@ class DatePicker extends (PureComponent || Component) {
     const { value, valueType } = props;
 
     if (valueType) {
-      this.retType = valueType;
+      this.retType = valueType.toLowerCase();
     } else if (value) {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
