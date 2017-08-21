@@ -2,9 +2,12 @@
 
 /// <reference types="react" />
 
+/// <reference path="./lib/Layout.d.ts" />
+/// <reference path="./lib/Icon.d.ts" />
+
 declare module 'zent' {
-  export import Layout = Zent.Layout
-  export import Icon = Zent.Icon
+  export * from 'zent/lib/layout'
+  export * from 'zent/lib/icon'
   export import Alert = Zent.Alert
   export import Dialog = Zent.Dialog
   export import Loading = Zent.Loading
@@ -46,192 +49,12 @@ declare namespace Zent {
 
   type PositionFunction = (anchorBoundingBox: IBoundingBox, containerBoundingBox: IBoundingBox, contentDimension: { width: number, height: number }, options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }) => { getCSSStyle: () => React.CSSProperties, name: string }
 
-  namespace Layout {
-    interface IRowProps {
-      className?: string
-      prefix?: string
-    }
 
-    export class Row extends React.Component<IRowProps, any> { }
 
-    interface IColProps {
-      span: number
-      offset?: number
-      className?: string
-      prefix?: string
-    }
-  }
 
-  type TIconType = 'summary-o' | 'summary' | 'shop-o' | 'shop' | 'goods-o' | 'goods' | 'order-o' | 'order' | 'customer-o' | 'customer' | 'chart-o' | 'chart' | 'capital-o' | 'capital' | 'casher' | 'marketing' | 'settings-o' | 'settings' | 'youzan-o' | 'youzan' | 'close' | 'close-circle-o' | 'close-circle' | 'message' | 'message-o' | 'bell' | 'bell-o' | 'calendar' | 'calendar-o' | 'search' | 'customer-service' | 'feedback' | 'error-circle-o' | 'error-circle' | 'check-circle-o' | 'check-circle' | 'help-circle-o' | 'help-circle' | 'clock-o' | 'clock' | 'countdown' | 'download' | 'share' | 'shop-decorate' | 'shop-template' | 'gift' | 'caret-up' | 'caret-down' | 'arrow-up' | 'arrow-down' | 'right' | 'plus' | 'star-o' | 'star' | 'check' | 'info-circle-o' | 'info-circle' | 'warning-o' | 'warning' | 'lock' | 'unlock'
 
-  interface IIconProps {
-    type: TIconType
-    className?: string
-  }
 
-  export class Icon extends React.Component<IIconProps, any> { }
 
-  type TAlertType = 'info' | 'warning' | 'danger'
-  type TAlertSize = 'normal' | 'large'
-
-  interface IAlertProps {
-    type: TAlertType
-    size?: TAlertSize
-    rounded?: boolean
-    closable?: boolean
-    onClose?: () => void
-    className?: string
-    prefix?: string
-  }
-
-  export class Alert extends React.Component<IAlertProps, any> { }
-
-  interface IDialogProps {
-    title?: React.ReactNode
-    children?: React.ReactNode
-    footer?: React.ReactNode
-    visible?: boolean
-    closeBtn?: boolean
-    onClose?: () => void
-    mask?: boolean
-    maskClosable?: boolean
-    className?: string
-    prefix?: string
-    style?: React.CSSProperties
-  }
-
-  interface IOpenDialogOption extends IDialogProps {
-    dialogId: string
-  }
-
-  interface ICloseDialogOption {
-    triggerOnClose: boolean
-  }
-
-  class Dialog extends React.Component<IDialogProps, any> {
-    static openDialog(option: IOpenDialogOption): (close: boolean) => void
-    static closeDialog(dialogId: string, option: ICloseDialogOption): void
-  }
-
-  interface ILoadingProps {
-    show?: boolean
-    static?: boolean
-    height?: number
-    zIndex?: number
-    className?: string
-    containerClass?: string
-    prefix?: string
-  }
-
-  class Loading extends React.Component<ILoadingProps, any> {
-    static on(): void
-    static off(): void
-  }
-
-  interface INotifyProps {
-    text?: any
-    duration?: number
-    callback?: () => void
-  }
-
-  class Notify extends React.Component<INotifyProps, any> {
-    static success(): number
-    static error(): number
-    static clear(id: number): void
-  }
-
-  interface IPopProps {
-    content: React.ReactNode
-    trigger?: 'none' | 'click' | 'hover' | 'focus'
-    position?: string
-    centerArrow?: boolean
-    header: React.ReactNode
-    block?: boolean
-    onShow?: () => void
-    onClose?: () => void
-    onBeforeShow?: () => void
-    onBeforeClose?: () => void
-    onConfirm?: () => void
-    onCancel?: () => void
-    confirmText?: string
-    cancelText?: string
-    type?: 'primary' | 'default' | 'danger' | 'success'
-    visible?: boolean
-    onVisibleChange?: () => void
-    className?: string
-    wrapperClassName?: string
-    prefix?: string
-    closeOnClickOutside?: boolean
-    isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
-    mouseEnterDelay?: number
-    mouseLeaveDelay?: number
-  }
-
-  class Pop extends React.Component<IPopProps, any> { }
-
-  namespace SweetAlert {
-    interface IAlertOption {
-      content: React.ReactNode
-      type: 'info' | 'success' | 'error' | 'warning'
-      title?: React.ReactNode
-      onConfirm?: () => void | Promise<any>
-      confirmText?: string
-      confirmType?: 'default' | 'primary' | 'danger' | 'success'
-      className?: string
-      prefix?: string
-    }
-
-    interface IConfirmOption extends IAlertOption {
-      onCancel?: () => void
-      cancelText?: string
-    }
-
-    function alert(option: IAlertOption): () => void
-    function confirm(option: IConfirmOption): () => void
-  }
-
-  interface IButtonProps {
-    type?: 'default' | 'primary' | 'danger' | 'success'
-    size?: 'medium' | 'large' | 'small'
-    htmlType?: 'button' | 'submit' | 'reset'
-    block?: boolean
-    disabled?: boolean
-    loading?: boolean
-    outline?: boolean
-    bordered?: boolean
-    component?: (() => string) | string
-    href?: string
-    target?: string
-    className?: string
-    prefix?: string
-  }
-
-  class Button extends React.Component<IButtonProps, any> { }
-
-  interface ICheckBoxProps {
-    checked?: boolean
-    value?: any
-    disabled?: boolean
-    indeterminate?: boolean
-    onChange?: React.ChangeEventHandler<HTMLInputElement>
-    className?: string
-    prefix?: string
-  }
-
-  interface ICheckBoxGroupProps {
-    value: Array<any>
-    isValueEqual?: (value1: any, value2: any) => boolean
-    disabled?: boolean
-    onChange?: (values: Array<any>) => void
-    className?: string
-    prefix?: string
-  }
-
-  class CheckBox extends React.Component<ICheckBoxProps, any> { }
-
-  namespace CheckBox {
-    class Group extends React.Component<ICheckBoxGroupProps, any> { }
-  }
 
   interface IDatePickerCommonProps {
     value?: string | Date
@@ -439,13 +262,6 @@ declare namespace Zent {
 
   class Slider extends React.Component<ISliderProps, any> { }
 
-  interface IBreadcrumbProps {
-    breads?: Array<React.ReactNode>
-    className?: string
-    prefix?: string
-  }
-
-  class Breadcrumb extends React.Component<IBreadcrumbProps, any> { }
 
   interface ISwitchProps {
     checked?: boolean
@@ -461,15 +277,6 @@ declare namespace Zent {
 
   class Switch extends React.Component<ISwitchProps, any> { }
 
-  namespace Breadcrumb {
-    interface IItemProps {
-      className?: string
-      name: React.ReactNode
-      href: string
-    }
-
-    class Item extends React.Component<IItemProps, any> { }
-  }
 
   interface IMenuProps {
     onClick?: (event: React.SyntheticEvent<HTMLLIElement> | React.SyntheticEvent<HTMLDivElement>, index: number) => void
@@ -734,29 +541,9 @@ declare namespace Zent {
     function withNonScrollable(component: Portal): React.Component<INonScrollablePortalProps, any>
   }
 
-  interface IAffixProps {
-    offsetTop?: number
-    offsetBottom?: number
-    onPin?: () => void
-    onUnpin?: () => void
-    zindex?: number
-    className?: string
-    placeHoldClassName?: string
-    prefix?: string
-  }
 
-  class Affix extends React.Component<IAffixProps, any> {}
 
-  interface IBadgeProps {
-    count?: number
-    maxCount?: number
-    dot?: boolean
-    showZero?: boolean
-    className?: string
-    prefix?: string
-  }
 
-  class Badge extends React.Component<IBadgeProps, any> {}
 
   interface ITagProps {
     color?: 'red'|'green'|'yellow'|'blue'|'darkgreen'
@@ -769,53 +556,10 @@ declare namespace Zent {
 
   class Tag extends React.Component<ITagProps, any> {}
 
-  interface ICascaderProps {
-    value?: Array<any>
-    options?: Array<any>
-    title?: Array<any>
-    onChange?: (any) => any
-    loadMore?: () => Promise<any>
-    changeOnSelect?: boolean
-    placeholder?: string
-    prefix?: string
-    className?: string
-    popClassName?: string
-  }
 
-  class Cascader extends React.Component<ICascaderProps, any> {}
 
-  interface IColorPickerProps {
-    color: string
-    showAlpha?: boolean
-    type?: 'default'|'simple'
-    presetColors?: Array<string>
-    onChange?: (string) => any
-    className?: string
-    wrapperClassName?: string
-    prefix?: string
-  }
 
-  class ColorPicker extends React.Component<IColorPickerProps, any> {}
 
-  namespace ColorPicker {
-    interface IColorBoardProps {
-      color: string
-      showAlpha?: boolean
-      onChange?: (string) => any
-      className?: string
-      prefix?: string
-    }
-
-    class ColorBoard extends React.Component<IColorBoardProps, any> {}
-  }
-
-  interface ICopyButtonProps {
-    text: string
-    onCopySuccess?: Function | string
-    onCopyError?: Function | string
-  }
-
-  class CopyButton extends React.Component<ICopyButtonProps, any> {}
 
   interface INumberInputProps {
     value?: number
