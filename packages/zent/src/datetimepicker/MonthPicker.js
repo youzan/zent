@@ -10,7 +10,7 @@ import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
 import { dayStart } from './utils/date';
-import { noop } from './constants/';
+import { noop, popPositionMap } from './constants/';
 
 function extractStateFromProps(props) {
   let showPlaceholder;
@@ -55,6 +55,7 @@ class MonthPicker extends (PureComponent || Component) {
     placeholder: PropTypes.string,
     confirmText: PropTypes.string,
     format: PropTypes.string,
+    popPosition: PropTypes.oneOf(['left', 'right']),
     onChange: PropTypes.func,
     onClick: PropTypes.func,
     onOpen: PropTypes.func,
@@ -67,6 +68,7 @@ class MonthPicker extends (PureComponent || Component) {
     placeholder: '请选择月份',
     confirmText: '确定',
     format: 'YYYY-MM',
+    popPosition: 'left',
     onChange: noop
   };
 
@@ -171,7 +173,7 @@ class MonthPicker extends (PureComponent || Component) {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.AutoBottomLeft}
+          position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
             <div className={inputCls}>

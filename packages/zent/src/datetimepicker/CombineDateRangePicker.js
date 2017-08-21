@@ -9,17 +9,17 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
 import { dayStart, setTime } from './utils/date';
-import { timeFnMap, noop } from './constants/';
+import { timeFnMap, noop, popPositionMap } from './constants/';
 
 let retType = 'string';
 
-const isValidValue = val => {
+function isValidValue(val) {
   if (!isArray(val)) return false;
   const ret = val.filter(item => !!item);
   return ret.length === 2;
-};
+}
 
-const getDateTime = (date, time) => {
+function getDateTime(date, time) {
   return new Date(
     date.getFullYear(),
     date.getMonth(),
@@ -28,7 +28,7 @@ const getDateTime = (date, time) => {
     time.getMinutes(),
     time.getSeconds()
   );
-};
+}
 
 const extractStateFromProps = props => {
   const { format, min, max, defaultValue, defaultTime } = props;
@@ -109,6 +109,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
     defaultTime: PropTypes.string,
+    popPosition: PropTypes.oneOf(['left', 'right']),
     showTime: PropTypes.bool,
     disabledDate: PropTypes.func,
     onChange: PropTypes.func,
@@ -124,6 +125,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     confirmText: '确定',
     errorText: '请选择起止时间',
     format: 'YYYY-MM-DD',
+    popPosition: 'left',
     showTime: false,
     disabledDate: noop,
     onChange: noop
@@ -134,7 +136,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
 
     const { value, valueType } = props;
     if (valueType) {
-      retType = valueType;
+      retType = valueType.toLowerCase();
     } else if (isValidValue(value)) {
       if (typeof value[0] === 'number') retType = 'number';
       if (value[0] instanceof Date) retType = 'date';
@@ -474,7 +476,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.AutoBottomLeft}
+          position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
             <div className={inputCls} onClick={evt => evt.preventDefault()}>

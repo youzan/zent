@@ -30,6 +30,17 @@ export default class DatePanelBody extends (PureComponent || Component) {
     return isSameDate(val, selected);
   }
 
+  isInSelect(val) {
+    const { selected } = this.props;
+    if (Array.isArray(selected) && selected[0] && selected[1]) {
+      if (val > selected[0] && val < selected[1]) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   isInRange(val) {
     const { range } = this.props;
     if (Array.isArray(range) && range[0] && range[1]) {
@@ -65,6 +76,7 @@ export default class DatePanelBody extends (PureComponent || Component) {
         const isCurrent = isSameDate(val, CURRENT);
         const isDisabled = disabledDate(val);
         const isSelected = this.isSelected(val);
+        const isInSelect = this.isInSelect(val);
         const isInRange = this.isInRange(val);
         const className = classNames({
           'panel__cell date-panel__cell': true,
@@ -72,7 +84,8 @@ export default class DatePanelBody extends (PureComponent || Component) {
           'panel__cell--current': !isDisabled && isCurrent,
           'panel__cell--disabled': isDisabled,
           'panel__cell--selected': isSelected,
-          'panel__cell--in-range': isInRange
+          'panel__cell--in-range': isInRange,
+          'panel__cell--in-selected': isInSelect
         });
         days[rowIndex][colIndex] = {
           text: val.getDate(),
