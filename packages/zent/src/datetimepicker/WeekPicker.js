@@ -11,18 +11,23 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths, goDays } from './utils';
 import { dayStart, setTime } from './utils/date';
-import { noop, popPositionMap } from './constants/';
+import {
+  noop,
+  popPositionMap,
+  commonProps,
+  commonPropTypes
+} from './constants/';
 
-function getSelectedWeek(val) {
+function getSelectedWeek(val, start = 1) {
   const offset = val.getDay();
-  return [goDays(val, -offset), goDays(val, 6 - offset)];
+  return [goDays(val, start - offset), goDays(val, 6 + start - offset)];
 }
 
 function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { openPanel, value, format, min, max, defaultValue } = props;
+  const { openPanel, value, format, min, max, defaultValue, startDay } = props;
 
   // 如果 value 是数组就取数组第一个值，否则就取 value
   const hasValue = isArray(value) ? value[0] : value;
@@ -32,7 +37,7 @@ function extractStateFromProps(props) {
 
     if (tmp) {
       showPlaceholder = false;
-      selected = getSelectedWeek(tmp);
+      selected = getSelectedWeek(tmp, startDay);
       actived = setTime(tmp);
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
@@ -80,47 +85,14 @@ function extractStateFromProps(props) {
 
 class WeekPicker extends (PureComponent || Component) {
   static propTypes = {
-    prefix: PropTypes.string,
-    name: PropTypes.string,
-    className: PropTypes.string,
-    placeholder: PropTypes.string,
-    confirmText: PropTypes.string,
-    format: PropTypes.string,
-    defaultTime: PropTypes.string,
-
-    // onChange 返回值类型, date | number | string， 默认 string
-    valueType: PropTypes.oneOf(['date', 'number', 'string']),
-    popPosition: PropTypes.oneOf(['left', 'right']),
-    // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
-    min: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date)
-    ]),
-    max: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date)
-    ]),
-    disabledDate: PropTypes.func,
-    onChange: PropTypes.func,
-    onClick: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    ...commonPropTypes,
+    startDay: PropTypes.number
   };
 
   static defaultProps = {
-    prefix: 'zent',
-    className: '',
+    ...commonProps,
     placeholder: '请选择自然周',
-    confirmText: '确定',
-    format: 'YYYY-MM-DD',
-    popPosition: 'left',
-    min: '',
-    max: '',
-    openPanel: false,
-    disabledDate: noop,
-    onChange: noop
+    startDay: 1
   };
 
   retType = 'string';
@@ -151,8 +123,12 @@ class WeekPicker extends (PureComponent || Component) {
   };
 
   onHover = val => {
+    const { startDay } = this.props;
     const offset = val.getDay();
-    const week = [goDays(val, -offset - 1), goDays(val, 7 - offset)];
+    const week = [
+      goDays(val, -offset + startDay - 1),
+      goDays(val, 7 + startDay - offset)
+    ];
 
     this.setState({
       range: week
@@ -160,9 +136,8 @@ class WeekPicker extends (PureComponent || Component) {
   };
 
   onSelectDate = val => {
-    const { onClick } = this.props;
-    const offset = val.getDay();
-    const week = [goDays(val, -offset), goDays(val, 6 - offset)];
+    const { onClick, startDay } = this.props;
+    const week = getSelectedWeek(val, startDay);
 
     this.setState({
       selected: week

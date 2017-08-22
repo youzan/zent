@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { noop } from './constants/';
+import { commonProps, commonPropTypes } from './constants/';
 import DatePicker from './DatePicker';
 
 // type
@@ -11,32 +11,16 @@ const END = 'end';
 
 class SplitDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    placeholder: PropTypes.arrayOf(PropTypes.string),
-    confirmText: PropTypes.string,
-    valueType: PropTypes.oneOf(['date', 'number', 'string']),
-    format: PropTypes.string,
-    defaultTime: PropTypes.string,
-    showTime: PropTypes.bool,
-    disabledDate: PropTypes.func,
-    onChange: PropTypes.func,
-    onClick: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    ...commonPropTypes,
+    showTime: PropTypes.bool
   };
 
   static defaultProps = {
-    className: '',
-    prefix: 'zent',
+    ...commonProps,
     placeholder: ['开始日期', '结束日期'],
-    confirmText: '确定',
     format: 'YYYY-MM-DD',
-    showTime: false,
     value: [],
-    openPanel: [],
-    disabledDate: noop,
-    onChange: noop
+    openPanel: []
   };
 
   onChange = type => {

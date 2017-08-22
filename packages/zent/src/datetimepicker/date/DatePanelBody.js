@@ -54,9 +54,8 @@ export default class DatePanelBody extends (PureComponent || Component) {
 
   getDays() {
     const { actived, disabledDate } = this.props;
-    let days = [];
-    let index = 0;
-    let copy = new Date(
+    const days = [];
+    const copy = new Date(
       actived.getFullYear(),
       actived.getMonth(),
       actived.getDate(),
@@ -64,8 +63,9 @@ export default class DatePanelBody extends (PureComponent || Component) {
       actived.getMinutes(),
       actived.getSeconds()
     );
-    let firstDay = new Date(copy.setDate(1));
-    let diff = parseInt(firstDay.getDay(), 10);
+    const firstDay = new Date(copy.setDate(1));
+    const diff = parseInt(firstDay.getDay(), 10);
+    let index = 0;
 
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
       days[rowIndex] = [];
