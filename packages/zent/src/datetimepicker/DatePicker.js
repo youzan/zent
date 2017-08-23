@@ -2,7 +2,6 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
-import PropTypes from 'prop-types';
 import assign from 'lodash/assign';
 import formatDate from 'zan-utils/date/formatDate';
 import parseDate from 'zan-utils/date/parseDate';
@@ -92,8 +91,7 @@ class DatePicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: '请选择日期',
-    showTime: PropTypes.bool
+    placeholder: '请选择日期'
   };
 
   retType = 'string';
