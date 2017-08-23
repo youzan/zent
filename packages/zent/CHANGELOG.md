@@ -606,7 +606,6 @@
 - Refactor pop [\#37](https://github.com/youzan/zent/pull/37) ([cpylua](https://github.com/cpylua))
 - feat: zent-tabs空间支持tab传react组件 [\#36](https://github.com/youzan/zent/pull/36) ([ctyu](https://github.com/ctyu))
 - npm\_sync shell [\#27](https://github.com/youzan/zent/pull/27) ([LucasIcarus](https://github.com/LucasIcarus))
-- 修改table的垂直居中，支持em等其他单位的宽度 [\#5](https://github.com/youzan/zent/pull/5) ([linxixuan](https://github.com/linxixuan))
 
 ## [zent@1.0.9](https://github.com/youzan/zent/tree/zent@1.0.9) (2017-02-22)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.8...zent@1.0.9)
@@ -638,6 +637,10 @@
 
 ## [zent@1.0.6](https://github.com/youzan/zent/tree/zent@1.0.6) (2017-02-15)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.4...zent@1.0.6)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- 修改table的垂直居中，支持em等其他单位的宽度 [\#5](https://github.com/youzan/zent/pull/5) ([linxixuan](https://github.com/linxixuan))
 
 ## [zent@1.0.4](https://github.com/youzan/zent/tree/zent@1.0.4) (2017-02-15)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@1.0.3...zent@1.0.4)
