@@ -63,6 +63,7 @@ class Demo extends Component{
         />
 				<br />
 				<WeekPicker
+					startDay={1}
 					popPosition="right"
 					className="zent-picker-demo"
 					value={weekValue}
@@ -72,6 +73,7 @@ class Demo extends Component{
         <MonthPicker
           className="zent-picker-demo"
           value={monthValue}
+					max="2017-06"
           onChange={this.onChangeMonth}
         />
         <br />
@@ -534,6 +536,7 @@ ReactDOM.render(
 
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
+| startDay | 一周的开始日期  | number     | 1 | 否    |
 | disabledDate | 判断日期是否可选函数  | func     | `noop`  | 否    |
 | format       | 返回日期字符串格式                | string         | `YYYY-MM-DD`  | 否    |
 | min        | 可选日期的最小值                   | string/Date    |     | 否    |

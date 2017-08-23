@@ -1,7 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import Popover from 'popover';
-import PropTypes from 'prop-types';
 import formatDate from 'zan-utils/date/formatDate';
 import parseDate from 'zan-utils/date/parseDate';
 
@@ -9,7 +8,13 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { goMonths, isArray, isSameMonth } from './utils';
 import { dayStart, setTime } from './utils/date';
-import { timeFnMap, noop, popPositionMap } from './constants/';
+import {
+  timeFnMap,
+  noop,
+  popPositionMap,
+  commonProps,
+  commonPropTypes
+} from './constants/';
 
 let retType = 'string';
 
@@ -102,33 +107,13 @@ const extractStateFromProps = props => {
 
 class CombineDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    placeholder: PropTypes.arrayOf(PropTypes.string),
-    confirmText: PropTypes.string,
-    valueType: PropTypes.oneOf(['date', 'number', 'string']),
-    format: PropTypes.string,
-    defaultTime: PropTypes.string,
-    popPosition: PropTypes.oneOf(['left', 'right']),
-    showTime: PropTypes.bool,
-    disabledDate: PropTypes.func,
-    onChange: PropTypes.func,
-    onClick: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    ...commonPropTypes
   };
 
   static defaultProps = {
-    className: '',
-    prefix: 'zent',
+    ...commonProps,
     placeholder: ['开始日期', '结束日期'],
-    confirmText: '确定',
-    errorText: '请选择起止时间',
-    format: 'YYYY-MM-DD',
-    popPosition: 'left',
-    showTime: false,
-    disabledDate: noop,
-    onChange: noop
+    errorText: '请选择起止时间'
   };
 
   constructor(props) {

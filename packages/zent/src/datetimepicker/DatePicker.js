@@ -11,7 +11,13 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
 import { dayStart, setTime } from './utils/date';
-import { timeFnMap, noop, popPositionMap } from './constants/';
+import {
+  timeFnMap,
+  noop,
+  popPositionMap,
+  commonProps,
+  commonPropTypes
+} from './constants/';
 
 function extractStateFromProps(props) {
   let selected;
@@ -81,48 +87,13 @@ function extractStateFromProps(props) {
 
 class DatePicker extends (PureComponent || Component) {
   static propTypes = {
-    prefix: PropTypes.string,
-    name: PropTypes.string,
-    className: PropTypes.string,
-    placeholder: PropTypes.string,
-    confirmText: PropTypes.string,
-    format: PropTypes.string,
-    defaultTime: PropTypes.string,
-
-    // onChange 返回值类型, date | number | string， 默认 string
-    valueType: PropTypes.oneOf(['date', 'number', 'string']),
-    popPosition: PropTypes.oneOf(['left', 'right']),
-
-    // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
-    min: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date)
-    ]),
-    max: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date)
-    ]),
-    disabledDate: PropTypes.func,
-    onChange: PropTypes.func,
-    onClick: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    ...commonPropTypes
   };
 
   static defaultProps = {
-    prefix: 'zent',
-    className: '',
+    ...commonProps,
     placeholder: '请选择日期',
-    confirmText: '确定',
-    format: 'YYYY-MM-DD',
-    popPosition: 'left',
-    min: '',
-    max: '',
-    openPanel: false,
-    disabledDate: noop,
-    onChange: noop
+    showTime: PropTypes.bool
   };
 
   retType = 'string';

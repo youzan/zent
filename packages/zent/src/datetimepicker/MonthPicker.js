@@ -2,7 +2,6 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
-import PropTypes from 'prop-types';
 import formatDate from 'zan-utils/date/formatDate';
 import parseDate from 'zan-utils/date/parseDate';
 
@@ -10,7 +9,12 @@ import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT } from './utils/';
 import { dayStart } from './utils/date';
-import { noop, popPositionMap } from './constants/';
+import {
+  noop,
+  popPositionMap,
+  commonProps,
+  commonPropTypes
+} from './constants/';
 
 function extractStateFromProps(props) {
   let showPlaceholder;
@@ -49,27 +53,13 @@ function extractStateFromProps(props) {
 
 class MonthPicker extends (PureComponent || Component) {
   static PropTypes = {
-    prefix: PropTypes.string,
-    name: PropTypes.string,
-    className: PropTypes.string,
-    placeholder: PropTypes.string,
-    confirmText: PropTypes.string,
-    format: PropTypes.string,
-    popPosition: PropTypes.oneOf(['left', 'right']),
-    onChange: PropTypes.func,
-    onClick: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    ...commonPropTypes
   };
 
   static defaultProps = {
-    prefix: 'zent',
-    className: '',
+    ...commonProps,
     placeholder: '请选择月份',
-    confirmText: '确定',
-    format: 'YYYY-MM',
-    popPosition: 'left',
-    onChange: noop
+    format: 'YYYY-MM'
   };
 
   constructor(props) {
@@ -116,6 +106,20 @@ class MonthPicker extends (PureComponent || Component) {
     this.props.onChange(value);
   };
 
+  isDisabled = val => {
+    const year = this.state.actived.getFullYear();
+    const dateStr = `${year}-${val + 1}`;
+    const ret = parseDate(dateStr, 'YYYY-MM');
+
+    const { disabledDate, min, max, format } = this.props;
+
+    if (disabledDate && disabledDate(ret)) return true;
+    if (min && ret < parseDate(min, format)) return true;
+    if (max && ret >= parseDate(max, format)) return true;
+
+    return false;
+  };
+
   renderPicker() {
     const state = this.state;
     const props = this.props;
@@ -129,6 +133,7 @@ class MonthPicker extends (PureComponent || Component) {
             selected={state.selected}
             onChange={this.onChangeMonth}
             onSelect={this.onSelectMonth}
+            disabledDate={this.isDisabled}
           />
           <PanelFooter
             buttonText={props.confirmText}
