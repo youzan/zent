@@ -384,8 +384,8 @@ class Demo extends Component{
       <div>
 				<DatePicker
 					className="zent-picker-demo"
-					max={now + 7 * oneDay}
-					min={now - 7 * oneDay}
+					max={now.getTime() + 7 * oneDay}
+					min={now.getTime() - 7 * oneDay}
 					/>
 				<br />
         <DatePicker
