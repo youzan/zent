@@ -282,14 +282,6 @@ declare namespace Zent {
   class Tree extends React.Component<ITreeProps, any> { }
 
 
-  interface IPortalProps {
-    children: React.ReactChild
-    selector?: string | HTMLElement
-    visible?: boolean
-    className?: string
-    css?: React.CSSProperties
-    prefix?: string
-  }
 
   interface IBoundingBox {
     top: number
@@ -318,36 +310,7 @@ declare namespace Zent {
 
   class Popover extends React.Component<IPopoverProps, any> {}
 
-  namespace Popover {
-    namespace Trigger {
-      interface IBaseProps {
-        getTriggerNode?: () => HTMLElement
-        getContentNode?: () => HTMLElement
-        open?: () => void
-        close?: () => void
-        contentVisible?: boolean
-        onTriggerRefChange?: () => React.ReactInstance
-      }
 
-      interface IClickProps extends IBaseProps {
-        autoClose?: boolean
-        isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
-      }
-
-      class Click extends React.Component<IClickProps, any> {}
-
-      interface IHoverProps extends IBaseProps {
-        showDelay?: number
-        hideDelay?: number
-        isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
-      }
-
-      class Hover extends React.Component<IHoverProps, any> {}
-
-      type IFocusProps = IBaseProps
-
-      class Focus extends React.Component<IFocusProps, any> {}
-    }
 
     namespace Position {
       function create(func: (anchorBoundingBox: IBoundingBox, containerBoundingBox: IBoundingBox, contentDimension: { width: number, height: number }, options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }) => { getCSSStyle: () => React.CSSProperties }): PositionFunction
@@ -379,21 +342,7 @@ declare namespace Zent {
     }
 
     function withPopover(component: React.Component<any, any>): React.Component<IWithPopverProps, any>
-  }
-
-  class Portal extends React.Component<IPortalProps, any> { }
-
-  namespace Portal {
-    interface IEscPortalProps extends IPortalProps {
-      onClose: () => void
-    }
-
-    function withESCToClose(component: Portal): React.Component<IEscPortalProps, any>
-
-    type INonScrollablePortalProps = IPortalProps
-
-    function withNonScrollable(component: Portal): React.Component<INonScrollablePortalProps, any>
-  }
+  
 
 
 
@@ -428,16 +377,6 @@ declare namespace Zent {
   }
 
   class SearchInput extends React.Component<ISearchInputProps, any> {}
-
-  interface IPreviewImageConfig {
-    images: Array<string>
-    index?: number
-    showRotateBtn?: boolean
-    className?: string
-    prefix?: string
-  }
-
-  function previewImage(config: IPreviewImageConfig): any
 }
 
 

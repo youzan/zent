@@ -25,4 +25,35 @@ declare module 'zent/lib/popover' {
   }
 
   export class Popover extends React.Component<IPopoverProps, any> {}
+
+  export namespace Popover {
+    namespace Trigger {
+      interface IBaseProps {
+        getTriggerNode?: () => HTMLElement
+        getContentNode?: () => HTMLElement
+        open?: () => void
+        close?: () => void
+        contentVisible?: boolean
+        onTriggerRefChange?: () => React.ReactInstance
+      }
+
+      interface IClickProps extends IBaseProps {
+        autoClose?: boolean
+        isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
+      }
+
+      class Click extends React.Component<IClickProps, any> {}
+
+      interface IHoverProps extends IBaseProps {
+        showDelay?: number
+        hideDelay?: number
+        isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
+      }
+
+      class Hover extends React.Component<IHoverProps, any> {}
+
+      type IFocusProps = IBaseProps
+
+      class Focus extends React.Component<IFocusProps, any> {}
+    }
 }
