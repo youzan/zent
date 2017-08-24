@@ -172,17 +172,6 @@ declare namespace Zent {
 
   class Switch extends React.Component<ISwitchProps, any> { }
 
-  interface IPaginationProps {
-    current: number
-    totalItem: number
-    pageSize?: number
-    maxPageToShow?: number
-    onChange?: (value: number) => void
-    className?: string
-    prefix?: string
-  }
-
-  class Pagination extends React.Component<IPaginationProps, any> { }
 
   interface IStepsProps {
     type?: 'number' | 'card' | 'breadcrumb'
