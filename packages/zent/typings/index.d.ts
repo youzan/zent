@@ -90,111 +90,6 @@ declare namespace Zent {
 
   class RangePicker extends React.Component<IRangePickerProps, any> { }
 
-  interface IFormProps {
-    className?: string
-    prefix?: string
-    horizontal?: boolean
-    inline?: boolean
-    onSubmit?: React.FormEventHandler<HTMLFormElement>
-    style?: React.CSSProperties
-  }
-
-  class Form extends React.Component<IFormProps, any> {}
-
-  namespace Form {
-    interface IConnectedFormProps {
-      onChange?: (value: any) => void
-      onSubmitSuccess?: (result: any) => void
-      // onSubmitFail?: (error?: SubmissionError) => void
-      onSubmitFail?: (error?: any) => void
-    }
-
-    interface IZentForm {
-      getFormValues: () => any
-      getFieldError: (name: string) => any
-      setFormPristine: (value: boolean) => void
-      setFieldExternalErrors: (error: { key: string, value: string }) => void
-      resetFieldsValue: (data: any) => void
-      isValid: () => boolean
-      isSubmitting: () => boolean
-      isValidating: () => boolean
-      isFieldTouched: (name: string) => boolean
-      isFieldValidating: (name: string) => boolean
-    }
-
-    interface IWrappedComponentProps {
-      zentForm: IZentForm,
-      handleSubmit: (submit: (values: any, zentForm: IZentForm) => any) => any
-    }
-
-    function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps|any ,any>) => React.Component<IConnectedFormProps, any>
-
-    interface IValidation {
-      required?: boolean
-      isExisty?: boolean
-      matchRegex?: RegExp
-      isUndefined?: boolean
-      isEmptyString?: boolean
-      isEmail?: boolean
-      isUrl?: boolean
-      isTrue?: boolean
-      isFalse?: boolean
-      isNumeric?: boolean
-      isInt?: boolean
-      isFloat?: boolean
-      isLength?: boolean
-      equals?: any
-      equalsField?: string
-      maxLength?: number
-      minLength?: number
-    }
-
-    interface IFieldProps {
-      ref?: (ref: any) => void
-      name: string
-      component: string|React.Component<any, any>
-      normalize?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-      format?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-      onChange?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-      onBlur?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-      onFocus?: React.FocusEventHandler<any>
-      validations?: IValidation
-      validationErrors?: any
-      asyncValidation?: (values: Object, values: any) => Promise<any>
-      value: any
-    }
-
-    class Field extends React.Component<IFieldProps, any> {}
-
-    interface IContolGroupProps {
-      label?: string
-      className?: string
-      helpDesc?: string
-      required?: boolean
-    }
-
-    function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
-  }
-
-  interface IInputProps {
-    className?: string
-    prefix?: string
-    type?: 'text' | 'number' | 'password' | 'textarea'
-    defaultValue?: string
-    value?: string
-    readOnly?: boolean
-    disabled?: boolean
-    placeholder?: string
-    addonBefore?: React.ReactNode
-    addonAfter?: React.ReactNode
-    autoFocus?: boolean
-    onChange?: React.ChangeEventHandler<HTMLInputElement>
-    onPressEnter?: React.KeyboardEvent<HTMLInputElement>
-  }
-
-  class Input extends React.Component<IInputProps, any> {
-    focus()
-  }
 
   interface IRadioProps {
     value: any
@@ -276,36 +171,6 @@ declare namespace Zent {
   }
 
   class Switch extends React.Component<ISwitchProps, any> { }
-
-
-  interface IMenuProps {
-    onClick?: (event: React.SyntheticEvent<HTMLLIElement> | React.SyntheticEvent<HTMLDivElement>, index: number) => void
-    className?: string
-    prefix?: string
-  }
-
-  class Menu extends React.Component<IMenuProps, any> { }
-
-  namespace Menu {
-    interface IMenuItemProps {
-      key?: string
-      disabled?: boolean
-      className?: string
-      prefix?: string
-    }
-
-    class MenuItem extends React.Component<MenuItem, any> { }
-
-    interface ISubMenuProps {
-      title: string
-      disabled?: boolean
-      overlayClassName?: string
-      className?: string
-      prefix?: string
-    }
-
-    class SubMenu extends React.Component<ISubMenuProps, any> { }
-  }
 
   interface IPaginationProps {
     current: number
@@ -557,24 +422,6 @@ declare namespace Zent {
   class Tag extends React.Component<ITagProps, any> {}
 
 
-
-
-
-
-  interface INumberInputProps {
-    value?: number
-    onChange?: (number) => any
-    showStepper?: boolean
-    decimal?: number
-    min?: number
-    max?: number
-    placeholder?: string
-    disabled?: boolean
-    className?: string
-    prefix?: string
-  }
-
-  class NumberInput extends React.Component<INumberInputProps, any> {}
 
   interface ISearchInputProps {
     className?: string
