@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
@@ -86,7 +87,8 @@ function extractStateFromProps(props) {
 
 class DatePicker extends (PureComponent || Component) {
   static propTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
+    showTime: PropTypes.bool
   };
 
   static defaultProps = {

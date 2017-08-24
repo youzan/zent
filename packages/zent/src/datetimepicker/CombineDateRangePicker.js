@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Popover from 'popover';
 import formatDate from 'zan-utils/date/formatDate';
@@ -107,7 +108,9 @@ const extractStateFromProps = props => {
 
 class CombineDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
+    showTime: PropTypes.bool,
+    placeholder: PropTypes.array
   };
 
   static defaultProps = {
