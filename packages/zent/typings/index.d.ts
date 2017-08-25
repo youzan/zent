@@ -56,10 +56,10 @@ declare module 'zent' {
   import Checkbox from 'zent/lib/checkbox';
   import ColorPicker from 'zent/lib/colorpicker';
   import CopyButton from 'zent/lib/copy-button';
-  // import DatePicker from 'datetimepicker/DatePicker';
+  import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
-  // import MonthPicker from 'datetimepicker/MonthPicker';
-  // import DateRangePicker from 'datetimepicker/DateRangePicker';
+  import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
+  import DateRangePicker from 'zent/lib/datetimepicker/DateRangePicker';
   import Design from 'zent/lib/design';
   import Dialog from 'zent/lib/dialog';
   import Form from 'zent/lib/form';
@@ -103,8 +103,8 @@ declare module 'zent' {
     Checkbox,
     ColorPicker,
     CopyButton,
-    // DatePicker,
-    // DateRangePicker,
+    DatePicker,
+    DateRangePicker,
     DateRangeQuickPicker,
     Design,
     Dialog,
@@ -115,7 +115,7 @@ declare module 'zent' {
     Input,
     NumberInput,
     Menu,
-    // MonthPicker,
+    MonthPicker,
     Notify,
     Pagination,
     Pop,
