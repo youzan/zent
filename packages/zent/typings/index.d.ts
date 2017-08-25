@@ -57,7 +57,7 @@ declare module 'zent' {
   import ColorPicker from 'zent/lib/colorpicker';
   import CopyButton from 'zent/lib/copy-button';
   // import DatePicker from 'datetimepicker/DatePicker';
-  // import DateRangeQuickPicker from 'date-range-quick-picker';
+  import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
   // import MonthPicker from 'datetimepicker/MonthPicker';
   // import DateRangePicker from 'datetimepicker/DateRangePicker';
   import Design from 'zent/lib/design';
@@ -105,7 +105,7 @@ declare module 'zent' {
     CopyButton,
     // DatePicker,
     // DateRangePicker,
-    // DateRangeQuickPicker,
+    DateRangeQuickPicker,
     Design,
     Dialog,
     Form,
