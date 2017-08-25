@@ -1,6 +1,6 @@
 /// <reference types="react" />
 
-declare module 'zent/lib/CheckBox' {
+declare module 'zent/lib/checkbox' {
   interface ICheckBoxProps {
     checked?: boolean
     value?: any
