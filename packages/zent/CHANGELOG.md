@@ -1,5 +1,76 @@
 ## 更新日志
 
+## [zent@3.5.0](https://github.com/youzan/zent/tree/zent@3.5.0) (2017-08-25)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.6...zent@3.5.0)
+
+**不兼容改动和新功能:**
+
+- New Component: Design [\#401](https://github.com/youzan/zent/issues/401)
+- datetimepicker: merge DateRangePicker and DateRangePicker2 [\#381](https://github.com/youzan/zent/issues/381)
+- Datepicker暴露格式化字符串方法 [\#374](https://github.com/youzan/zent/issues/374)
+- select: Rewrite using Popover [\#258](https://github.com/youzan/zent/issues/258)
+- New component: Progress [\#256](https://github.com/youzan/zent/issues/256)
+- New component: Card [\#255](https://github.com/youzan/zent/issues/255)
+- datetimepicker: add weekpicker [\#429](https://github.com/youzan/zent/pull/429) ([xuhong](https://github.com/xuhong))
+- design: Add default selection when removing a value [\#415](https://github.com/youzan/zent/pull/415) ([cpylua](https://github.com/cpylua))
+- DateRangeQuickPicker: support Today and Yestoday, min/max [\#413](https://github.com/youzan/zent/pull/413) ([ronghang](https://github.com/ronghang))
+- 新增Card组件 [\#409](https://github.com/youzan/zent/pull/409) ([radicalviva](https://github.com/radicalviva))
+- 新增sku组件 [\#408](https://github.com/youzan/zent/pull/408) ([huangsy](https://github.com/huangsy))
+- Add Design component [\#407](https://github.com/youzan/zent/pull/407) ([cpylua](https://github.com/cpylua))
+- Add DateRangeQuickPicker and BlockHeader [\#404](https://github.com/youzan/zent/pull/404) ([ronghang](https://github.com/ronghang))
+- dateragepicker: Consolidate DateRangePicker and DateRangePicker2 [\#398](https://github.com/youzan/zent/pull/398) ([xuhong](https://github.com/xuhong))
+- Add a transition effect to the following components [\#394](https://github.com/youzan/zent/pull/394) ([NinoFocus](https://github.com/NinoFocus))
+- table组件bodyRender函数增加参数 [\#388](https://github.com/youzan/zent/pull/388) ([radicalviva](https://github.com/radicalviva))
+- form: 自定义Field里调用this.props.onChange会将整个对象覆盖掉 [\#387](https://github.com/youzan/zent/pull/387) ([fairyaierl](https://github.com/fairyaierl))
+- table: cross page selection [\#380](https://github.com/youzan/zent/pull/380) ([linxixuan](https://github.com/linxixuan))
+- select: 用Popover将Select重构 [\#373](https://github.com/youzan/zent/pull/373) ([huangsy](https://github.com/huangsy))
+- Add typescript definitions [\#293](https://github.com/youzan/zent/pull/293) ([hzjzx](https://github.com/hzjzx))
+
+**Bug 修复:**
+
+- datetimepicker: replace date formating with zan-utils [\#410](https://github.com/youzan/zent/issues/410)
+- NumberInput: 不支持空字符串 [\#395](https://github.com/youzan/zent/issues/395)
+- NumberInput: onChange回调函数参数不是一个标准event [\#392](https://github.com/youzan/zent/issues/392)
+- table: 多选的时候不能跨页选择 [\#328](https://github.com/youzan/zent/issues/328)
+- doc: pin left navbar [\#248](https://github.com/youzan/zent/issues/248)
+- remove default showTime [\#433](https://github.com/youzan/zent/pull/433) ([xuhong](https://github.com/xuhong))
+- weekpicker support startDay props and monthpicker support max and min [\#432](https://github.com/youzan/zent/pull/432) ([xuhong](https://github.com/xuhong))
+- select: 恢复scrollbar [\#428](https://github.com/youzan/zent/pull/428) ([huangsy](https://github.com/huangsy))
+- Field in Form: validationErrors与validationError置空时，校验出错误时的显示策略调整 [\#427](https://github.com/youzan/zent/pull/427) ([LucasIcarus](https://github.com/LucasIcarus))
+- standardize  z-index usage across all components [\#426](https://github.com/youzan/zent/pull/426) ([cpylua](https://github.com/cpylua))
+- Loading: Fix Loading.on/off not working [\#421](https://github.com/youzan/zent/pull/421) ([cpylua](https://github.com/cpylua))
+- datepicker: bug fixes [\#420](https://github.com/youzan/zent/pull/420) ([xuhong](https://github.com/xuhong))
+- select: 修正className，添加popupClassName [\#419](https://github.com/youzan/zent/pull/419) ([huangsy](https://github.com/huangsy))
+- Slider: 修复Unknown prop `marks` on \<input\> tag waring [\#418](https://github.com/youzan/zent/pull/418) ([wulv](https://github.com/wulv))
+- design: Fix design style [\#417](https://github.com/youzan/zent/pull/417) ([cpylua](https://github.com/cpylua))
+- select: 体验优化 [\#412](https://github.com/youzan/zent/pull/412) ([huangsy](https://github.com/huangsy))
+- numberinput: event fix [\#403](https://github.com/youzan/zent/pull/403) ([oConnerCooper](https://github.com/oConnerCooper))
+- fix: preview-image className [\#400](https://github.com/youzan/zent/pull/400) ([ronghang](https://github.com/ronghang))
+- Select: 多选 bug 修复 [\#396](https://github.com/youzan/zent/pull/396) ([LucasIcarus](https://github.com/LucasIcarus))
+- numberinput: Add event methods [\#393](https://github.com/youzan/zent/pull/393) ([cpylua](https://github.com/cpylua))
+
+**处理的 Issue:**
+
+- MonthPicker不支持min/max属性 [\#423](https://github.com/youzan/zent/issues/423)
+- datepicker: 缺少form中校验不通过的样式 [\#405](https://github.com/youzan/zent/issues/405)
+- \[咨询\]想问下基于Zent 的微杂志编辑套件的开源时间点 [\#399](https://github.com/youzan/zent/issues/399)
+- Select类型的Field调用resetFieldsValue无效 [\#378](https://github.com/youzan/zent/issues/378)
+- form: 自定义Field里调用this.props.onChange不要把整个对象覆盖掉 [\#375](https://github.com/youzan/zent/issues/375)
+- Select: Flash bug with blur event and keyup event optimization. [\#352](https://github.com/youzan/zent/issues/352)
+- Select: Add default option sample using value prop. [\#350](https://github.com/youzan/zent/issues/350)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- update proptypes and allow falsy value [\#436](https://github.com/youzan/zent/pull/436) ([xuhong](https://github.com/xuhong))
+- fix readme [\#435](https://github.com/youzan/zent/pull/435) ([xuhong](https://github.com/xuhong))
+- fix typings files [\#416](https://github.com/youzan/zent/pull/416) ([hzjzx](https://github.com/hzjzx))
+- move typings to correct place [\#411](https://github.com/youzan/zent/pull/411) ([hzjzx](https://github.com/hzjzx))
+- 增加table单测 [\#397](https://github.com/youzan/zent/pull/397) ([linxixuan](https://github.com/linxixuan))
+- 修改table组件的reademe中关于bodyRender的描述 [\#389](https://github.com/youzan/zent/pull/389) ([radicalviva](https://github.com/radicalviva))
+- select: 去掉warning [\#385](https://github.com/youzan/zent/pull/385) ([huangsy](https://github.com/huangsy))
+- 为Select组件增加默认选项，调整Popup键盘事件逻辑。 [\#384](https://github.com/youzan/zent/pull/384) ([LucasIcarus](https://github.com/LucasIcarus))
+- Add progress [\#337](https://github.com/youzan/zent/pull/337) ([fairyaierl](https://github.com/fairyaierl))
+
 ## [zent@3.4.6](https://github.com/youzan/zent/tree/zent@3.4.6) (2017-07-18)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.5...zent@3.4.6)
 
