@@ -22,5 +22,5 @@ declare module 'zent/lib/upload' {
     withoutPopup?: boolean
   }
 
-  export class Upload extends React.Component<IUploadProps, any> {}
+  export default class Upload extends React.Component<IUploadProps, any> {}
 }

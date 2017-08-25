@@ -10,5 +10,5 @@ declare module 'zent/lib/card' {
     prefix?: string
   }
 
-  export class Card extends React.Component<ICardProps, any> {}
+  export default class Card extends React.Component<ICardProps, any> {}
 }

@@ -10,5 +10,5 @@ declare module 'zent/lib/block-header' {
     prefix?: string
   }
 
-  export class BlockHeader extends React.Component<IBlockHeaderProps, any> {}
+  export default class BlockHeader extends React.Component<IBlockHeaderProps, any> {}
 }

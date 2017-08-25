@@ -12,9 +12,9 @@ declare module 'zent/lib/ColorPicker' {
     prefix?: string
   }
 
-  export class ColorPicker extends React.Component<IColorPickerProps, any> {}
+  class ColorPicker extends React.Component<IColorPickerProps, any> {}
 
-  export namespace ColorPicker {
+  namespace ColorPicker {
     interface IColorBoardProps {
       color: string
       showAlpha?: boolean
@@ -25,4 +25,6 @@ declare module 'zent/lib/ColorPicker' {
 
     class ColorBoard extends React.Component<IColorBoardProps, any> {}
   }
+
+  export default ColorPicker
 }

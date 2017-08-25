@@ -28,5 +28,5 @@ declare module 'zent/lib/table' {
     prefix?: string
   }
 
-  export class Table extends React.Component<ITableProps, any> { }
+  export default class Table extends React.Component<ITableProps, any> { }
 }

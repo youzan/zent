@@ -8,5 +8,5 @@ declare module 'zent/lib/icon' {
     className?: string
   }
 
-  export class Icon extends React.Component<IIconProps, any> { }
+  export default class Icon extends React.Component<IIconProps, any> { }
 }

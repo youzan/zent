@@ -21,4 +21,6 @@ declare module 'zent/lib/sweetalert' {
     function alert(option: IAlertOption): () => void
     function confirm(option: IConfirmOption): () => void
   }
+
+  export default SweetAlert
 }

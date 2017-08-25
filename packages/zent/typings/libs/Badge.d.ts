@@ -10,5 +10,5 @@ declare module 'zent/lib/badge' {
     prefix?: string
   }
 
-  export class Badge extends React.Component<IBadgeProps, any> {}
+  export default class Badge extends React.Component<IBadgeProps, any> {}
 }

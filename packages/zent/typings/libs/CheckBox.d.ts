@@ -20,9 +20,11 @@ declare module 'zent/lib/CheckBox' {
     prefix?: string
   }
 
-  export class CheckBox extends React.Component<ICheckBoxProps, any> { }
+  class CheckBox extends React.Component<ICheckBoxProps, any> { }
 
-  export namespace CheckBox {
+  module CheckBox {
     class Group extends React.Component<ICheckBoxGroupProps, any> { }
   }
+
+  export default CheckBox
 }

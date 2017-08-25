@@ -28,5 +28,5 @@ declare module 'zent/lib/select' {
     prefix?: string
   }
 
-  export class Select extends React.Component<ISelectProps, any> { }
+  export default class Select extends React.Component<ISelectProps, any> { }
 }

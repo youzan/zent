@@ -9,5 +9,5 @@ declare module 'zent/lib/preview-image' {
     prefix?: string
   }
 
-  export function previewImage(config: IPreviewImageConfig): any
+  export default function previewImage(config: IPreviewImageConfig): any
 }

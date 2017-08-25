@@ -9,9 +9,9 @@ declare module 'zent/lib/steps' {
     prefix?: string
   }
 
-  export class Steps extends React.Component<IStepsProps, any> { }
+  class Steps extends React.Component<IStepsProps, any> { }
 
-  export namespace Steps {
+  namespace Steps {
     interface IStepProps {
       title: React.ReactNode
       description?: React.ReactNode
@@ -19,4 +19,6 @@ declare module 'zent/lib/steps' {
 
     class Step extends React.Component<IStepProps, any> { }
   }
+
+  export default Steps
 }

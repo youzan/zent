@@ -13,5 +13,5 @@ declare module 'zent/lib/switch' {
     prefix?: string
   }
 
-  export class Switch extends React.Component<ISwitchProps, any> { }
+  export default class Switch extends React.Component<ISwitchProps, any> { }
 }

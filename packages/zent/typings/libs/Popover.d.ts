@@ -24,9 +24,9 @@ declare module 'zent/lib/popover' {
     prefix?: string
   }
 
-  export class Popover extends React.Component<IPopoverProps, any> {}
+  class Popover extends React.Component<IPopoverProps, any> {}
 
-  export namespace Popover {
+  namespace Popover {
     namespace Trigger {
       interface IBaseProps {
         getTriggerNode?: () => HTMLElement
@@ -56,4 +56,7 @@ declare module 'zent/lib/popover' {
 
       class Focus extends React.Component<IFocusProps, any> {}
     }
+  }
+
+  export default Popover
 }

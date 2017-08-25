@@ -15,5 +15,5 @@ declare module 'zent/lib/swiper' {
     onChange?: Function
   }
 
-  export class Swiper extends React.Component<ISwiperProps, any> {}
+  export default class Swiper extends React.Component<ISwiperProps, any> {}
 }

@@ -12,5 +12,5 @@ declare module 'zent/lib/affix' {
     prefix?: string
   }
 
-  export class Affix extends React.Component<IAffixProps, any> {}
+  export default class Affix extends React.Component<IAffixProps, any> {}
 }

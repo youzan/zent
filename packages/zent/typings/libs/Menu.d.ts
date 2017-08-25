@@ -7,9 +7,9 @@ declare module 'zent/lib/menu' {
     prefix?: string
   }
 
-  export class Menu extends React.Component<IMenuProps, any> { }
+  class Menu extends React.Component<IMenuProps, any> { }
 
-  export namespace Menu {
+  namespace Menu {
     interface IMenuItemProps {
       key?: string
       disabled?: boolean
@@ -29,4 +29,6 @@ declare module 'zent/lib/menu' {
 
     class SubMenu extends React.Component<ISubMenuProps, any> { }
   }
+
+  export default Menu
 }

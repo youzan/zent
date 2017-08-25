@@ -11,5 +11,5 @@ declare module 'zent/lib/pagination' {
     prefix?: string
   }
 
-  export class Pagination extends React.Component<IPaginationProps, any> { }
+  export default class Pagination extends React.Component<IPaginationProps, any> { }
 }

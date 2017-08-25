@@ -7,7 +7,7 @@ declare module 'zent/lib/layout' {
       prefix?: string
     }
   
-    export class Row extends React.Component<IRowProps, any> { }
+    class Row extends React.Component<IRowProps, any> { }
   
     interface IColProps {
       span: number
@@ -15,9 +15,10 @@ declare module 'zent/lib/layout' {
       className?: string
       prefix?: string
     }
-
-    export class Col extends React.Component<IColProps, any> { }
+    class Col extends React.Component<IColProps, any> { }
   }
+
+  export default Layout
 }
 
 

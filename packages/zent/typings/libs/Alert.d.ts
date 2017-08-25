@@ -11,7 +11,7 @@ declare module 'zent/lib/alert' {
     prefix?: string
   }
   
-  export class Alert extends React.Component<IAlertProps, any> { }
+  export default class Alert extends React.Component<IAlertProps, any> { }
 }
 
 

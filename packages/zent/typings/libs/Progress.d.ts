@@ -14,5 +14,5 @@ declare module 'zent/lib/progress' {
     style?: React.CSSProperties
   }
 
-  export class Progress extends React.Component<IProgressProps, any> {}
+  export default class Progress extends React.Component<IProgressProps, any> {}
 }

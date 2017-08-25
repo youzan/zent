@@ -7,9 +7,9 @@ declare module 'zent/lib/radio' {
     prefix?: string
   }
 
-  export class Radio extends React.Component<IRadioProps, any> { }
+  class Radio extends React.Component<IRadioProps, any> { }
 
-  export namespace Radio {
+  namespace Radio {
     interface IGroupProps {
       value: any
       onChange: React.ChangeEventHandler<HTMLInputElement>
@@ -20,4 +20,6 @@ declare module 'zent/lib/radio' {
 
     class Group extends React.Component<IGroupProps, any> { }
   }
+
+  export default Radio
 }

@@ -24,5 +24,5 @@ declare module 'zent/lib/sku' {
     prefix?: string
   }
 
-  export class SKU extends React.Component<ISKUProps, any> {}
+  export default class SKU extends React.Component<ISKUProps, any> {}
 }

@@ -28,5 +28,5 @@ declare module 'zent/lib/pop' {
     mouseLeaveDelay?: number
   }
 
-  export class Pop extends React.Component<IPopProps, any> { }
+  export default class Pop extends React.Component<IPopProps, any> { }
 }

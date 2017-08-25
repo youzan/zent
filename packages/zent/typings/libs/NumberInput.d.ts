@@ -25,5 +25,5 @@ declare module 'zent/lib/number-input' {
     stopPropagation: Function
   }
 
-  export class NumberInput extends React.Component<INumberInputProps, any> {}
+  export default class NumberInput extends React.Component<INumberInputProps, any> {}
 }

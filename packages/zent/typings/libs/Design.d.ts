@@ -96,5 +96,5 @@ declare module 'zent/lib/design' {
     prefix?: string
   }
 
-  export class Design extends React.Component<IDesignProps, any> {}
+  export default class Design extends React.Component<IDesignProps, any> {}
 }

@@ -16,5 +16,5 @@ declare module 'zent/lib/slider' {
     prefix?: string
   }
 
-  export class Slider extends React.Component<ISliderProps, any> { }
+  export default class Slider extends React.Component<ISliderProps, any> { }
 }

@@ -10,9 +10,9 @@ declare module 'zent/lib/form' {
     style?: React.CSSProperties
   }
 
-  export class Form extends React.Component<IFormProps, any> {}
+  class Form extends React.Component<IFormProps, any> {}
 
-  export namespace Form {
+  namespace Form {
     interface IConnectedFormProps {
       onChange?: (value: any) => void
       onSubmitSuccess?: (result: any) => void
@@ -86,4 +86,5 @@ declare module 'zent/lib/form' {
     function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
   }
 
+  export default Form
 }

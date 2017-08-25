@@ -23,7 +23,7 @@ declare module 'zent/lib/dialog' {
     triggerOnClose: boolean
   }
 
-  export class Dialog extends React.Component<IDialogProps, any> {
+  export default class Dialog extends React.Component<IDialogProps, any> {
     static openDialog(option: IOpenDialogOption): (close: boolean) => void
     static closeDialog(dialogId: string, option: ICloseDialogOption): void
   }

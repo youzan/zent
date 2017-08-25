@@ -16,5 +16,5 @@ declare module 'zent/lib/search-input' {
     onPressEnter?: React.KeyboardEvent<HTMLInputElement>
   }
 
-  export class SearchInput extends React.Component<ISearchInputProps, any> {}
+  export default class SearchInput extends React.Component<ISearchInputProps, any> {}
 }

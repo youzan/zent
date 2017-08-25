@@ -11,7 +11,7 @@ declare module 'zent/lib/loading' {
     prefix?: string
   }
 
-  export class Loading extends React.Component<ILoadingProps, any> {
+  export default class Loading extends React.Component<ILoadingProps, any> {
     static on(): void
     static off(): void
   }

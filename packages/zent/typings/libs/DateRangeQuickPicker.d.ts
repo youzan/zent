@@ -13,5 +13,5 @@ declare module 'zent/lib/date-range-quick-picker' {
     max?: string|number|Date
   }
 
-  export class DateRangeQuickPicker extends React.Component<IDateRangeQuickPickerProps, any> {}
+  export default class DateRangeQuickPicker extends React.Component<IDateRangeQuickPickerProps, any> {}
 }

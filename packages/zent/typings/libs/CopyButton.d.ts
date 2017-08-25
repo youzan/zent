@@ -7,5 +7,5 @@ declare module 'zent/lib/copy-button' {
     onCopyError?: Function | string
   }
 
-  export class CopyButton extends React.Component<ICopyButtonProps, any> {}
+  export default class CopyButton extends React.Component<ICopyButtonProps, any> {}
 }

@@ -22,5 +22,5 @@ declare module 'zent/lib/tabs' {
     prefix?: string
   }
 
-  export class Tabs extends React.Component<ITabsProps, any> { }
+  export default class Tabs extends React.Component<ITabsProps, any> { }
 }

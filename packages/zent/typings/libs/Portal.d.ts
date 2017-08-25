@@ -10,9 +10,9 @@ declare module 'zent/lib/portal' {
     prefix?: string
   }
 
-  export class Portal extends React.Component<IPortalProps, any> { }
+  class Portal extends React.Component<IPortalProps, any> { }
 
-  export namespace Portal {
+  namespace Portal {
     interface IEscPortalProps extends IPortalProps {
       onClose: () => void
     }
@@ -23,4 +23,6 @@ declare module 'zent/lib/portal' {
 
     function withNonScrollable(component: Portal): React.Component<INonScrollablePortalProps, any>
   }
+
+  export default Portal
 }

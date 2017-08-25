@@ -17,7 +17,7 @@ declare module 'zent/lib/input' {
     onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>
   }
 
-  export class Input extends React.Component<IInputProps, any> {
+  export default class Input extends React.Component<IInputProps, any> {
     focus()
   }
 }

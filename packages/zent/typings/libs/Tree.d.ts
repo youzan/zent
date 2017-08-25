@@ -36,5 +36,5 @@ declare module 'zent/lib/tree' {
     isRoot?: (data: ITreeData) => boolean
   }
 
-  export class Tree extends React.Component<ITreeProps, any> { }
+  export default class Tree extends React.Component<ITreeProps, any> { }
 }
