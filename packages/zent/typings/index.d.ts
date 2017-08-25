@@ -14,6 +14,7 @@
 /// <reference path="./libs/ColorPicker.d.ts" />
 /// <reference path="./libs/CopyButton.d.ts" />
 /// <reference path="./libs/DateRangeQuickPicker.d.ts" />
+/// <reference path="./libs/DateTimePicker.d.ts" />
 /// <reference path="./libs/Design.d.ts" />
 /// <reference path="./libs/Dialog.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
@@ -41,6 +42,7 @@
 /// <reference path="./libs/Switch.d.ts" />
 /// <reference path="./libs/Table.d.ts" />
 /// <reference path="./libs/Tabs.d.ts" />
+/// <reference path="./libs/Tag.d.ts" />
 /// <reference path="./libs/Tree.d.ts" />
 /// <reference path="./libs/Upload.d.ts" />
 
