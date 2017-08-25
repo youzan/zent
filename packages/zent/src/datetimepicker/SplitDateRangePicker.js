@@ -12,7 +12,8 @@ const END = 'end';
 class SplitDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
     ...commonPropTypes,
-    showTime: PropTypes.bool
+    showTime: PropTypes.bool,
+    placeholder: PropTypes.array
   };
 
   static defaultProps = {
@@ -26,7 +27,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
   onChange = type => {
     return val => {
       const { onChange, value } = this.props;
-      const ret = value.slice();
+      const ret = value ? value.slice() : [];
 
       if (type === START) {
         ret.length === 2 ? ret.splice(0, 1, val) : ret.splice(0, 1, val, '');
