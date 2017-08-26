@@ -10,9 +10,10 @@ import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
-import DateRangeQuickPicker from 'date-range-quick-picker';
+import WeekPicker from 'datetimepicker/WeekPicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
+import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
 import Form from 'form';
@@ -57,6 +58,7 @@ export {
   ColorPicker,
   CopyButton,
   DatePicker,
+  WeekPicker,
   DateRangePicker,
   DateRangeQuickPicker,
   Design,

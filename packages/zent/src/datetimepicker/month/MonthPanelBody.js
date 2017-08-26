@@ -12,6 +12,7 @@ export default class MonthPanelBody extends (PureComponent || Component) {
   }
 
   getMonths() {
+    const { disabledDate } = this.props;
     const months = [];
     let index = 0;
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
@@ -19,10 +20,12 @@ export default class MonthPanelBody extends (PureComponent || Component) {
       for (let colIndex = 0; colIndex < COL; colIndex++) {
         const isCurrent = index === CURRENT_MONTH;
         const isSelected = this.isSelected(index);
+        const isDisabled = disabledDate && disabledDate(index);
         const className = classNames({
           'panel__cell month-panel__cell': true,
           'panel__cell--current': isCurrent,
-          'panel__cell--selected': isSelected
+          'panel__cell--selected': isSelected,
+          'panel__cell--disabled': isDisabled
         });
         months[rowIndex][colIndex] = {
           text: `${index + 1}月`,

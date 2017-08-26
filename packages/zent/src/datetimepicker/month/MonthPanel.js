@@ -48,13 +48,15 @@ export default class MonthPanel extends (PureComponent || Component) {
   };
 
   render() {
-    const { actived, selected } = this.props;
-    const { showYear } = this.state;
-    const title = `${actived.getFullYear()}年`;
+    const props = this.props;
+    const state = this.state;
+    const title = `${props.actived.getFullYear()}年`;
 
     let yearPanel;
-    if (showYear) {
-      yearPanel = <YearPanel actived={actived} onSelect={this.onSelectYear} />;
+    if (state.showYear) {
+      yearPanel = (
+        <YearPanel actived={props.actived} onSelect={this.onSelectYear} />
+      );
     }
 
     return (
@@ -66,11 +68,12 @@ export default class MonthPanel extends (PureComponent || Component) {
           next={this.nextYear}
         />
         <MonthPanelBody
-          actived={actived}
-          selected={selected}
+          actived={props.actived}
+          selected={props.selected}
+          disabledDate={props.disabledDate}
           onSelect={this.onSelectMonth}
         />
-        {showYear ? yearPanel : ''}
+        {state.showYear ? yearPanel : ''}
       </div>
     );
   }
