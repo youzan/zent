@@ -373,7 +373,7 @@ const createForm = (config = {}) => {
               value
             );
             updateResults(validation, validationMethod);
-          } else if (typeof validations[validationMethod] !== 'function') {
+          } else {
             const validation = validationRules[validationMethod](
               currentValues,
               value,
