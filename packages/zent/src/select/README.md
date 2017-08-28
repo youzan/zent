@@ -365,9 +365,10 @@ const data = [1, 2, 3];
 
 ReactDOM.render(
   <Select
-    data={[1, 2, 3]}
+    data={[]}
     search
-    filter={(item, keyword) => {
+    onAsyncFilter={(item, keyword) => {
+			console.log(item, keyword)
       return `${item.value}` === `${keyword}`;
     }}
   />

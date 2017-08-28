@@ -14,7 +14,7 @@ class Tag extends (PureComponent || Component) {
   }
 
   render() {
-    let { prefixCls, text } = this.props;
+    const { prefixCls, text } = this.props;
 
     return (
       <span>

@@ -3,7 +3,7 @@ import React, { Component, PureComponent } from 'react';
 
 class SimpleTrigger extends (PureComponent || Component) {
   render() {
-    let { prefixCls, onClick } = this.props;
+    const { prefixCls, onClick } = this.props;
 
     return (
       <div className={`${prefixCls}-simple`} onClick={onClick}>

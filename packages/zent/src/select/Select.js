@@ -70,12 +70,12 @@ class Select extends (PureComponent || Component) {
      *
      * @return {object}
      */
-    let data = this.uniformData(this.props);
+    const data = this.uniformData(this.props);
     this.formateData(data);
   }
 
   componentWillReceiveProps(nextProps) {
-    let data = this.uniformData(nextProps);
+    const data = this.uniformData(nextProps);
     // 重置组件data
     // let selectedItems = [];
 
@@ -115,7 +115,7 @@ class Select extends (PureComponent || Component) {
 
   // 显示当前选项，支持通过value和index进行外部控制
   getOptions(state, props, item, i) {
-    let { value, index } = props;
+    const { value, index } = props;
     if (isArray(value) && value.indexOf(item.value) > -1) {
       // rerender 去重
       if (!state.sItems.find(selected => selected.value === item.value)) {
@@ -146,7 +146,6 @@ class Select extends (PureComponent || Component) {
   formateData(data, props) {
     data = data || this.sourceData;
     props = props || this.props;
-    let that = this;
     const { selectedItem, selectedItems } = this.state;
     const {
       value,
@@ -180,7 +179,7 @@ class Select extends (PureComponent || Component) {
           !selectedItem.cid &&
           (initialValue !== null || initialIndex !== null)
         ) {
-          that.getOptions(
+          this.getOptions(
             selected,
             { value: initialValue, index: initialIndex },
             item,
@@ -190,7 +189,7 @@ class Select extends (PureComponent || Component) {
 
         // 与受控逻辑(index, value)
         if (value !== null || index !== null) {
-          that.getOptions(selected, { value, index }, item, i);
+          this.getOptions(selected, { value, index }, item, i);
         }
         return item;
       });
@@ -221,7 +220,7 @@ class Select extends (PureComponent || Component) {
 
   // 将被选中的option的数据传给trigger
   optionChangedHandler = (ev, selectedItem) => {
-    let result = {};
+    const result = {};
     ev = ev || {
       preventDefault: noop,
       stopPropagation: noop
@@ -233,15 +232,15 @@ class Select extends (PureComponent || Component) {
       tags,
       onChange
     } = this.props;
-    let { selectedItems } = this.state;
+    const { selectedItems } = this.state;
     if (!selectedItem) {
       onEmptySelected(ev);
       return;
     }
-    let args = omit(selectedItem, ['cid']);
+    const args = omit(selectedItem, ['cid']);
     result[optionValue] = selectedItem.value;
     result[optionText] = selectedItem.text;
-    let data = { ...args, ...result };
+    const data = { ...args, ...result };
     if (tags) {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
@@ -284,7 +283,7 @@ class Select extends (PureComponent || Component) {
   };
 
   render() {
-    let {
+    const {
       placeholder,
       maxToShow,
       className,
@@ -296,7 +295,7 @@ class Select extends (PureComponent || Component) {
       searchPlaceholder
     } = this.props;
 
-    let {
+    const {
       open,
       selectedItems,
       selectedItem = {},
@@ -304,10 +303,10 @@ class Select extends (PureComponent || Component) {
       keyword = null
     } = this.state;
 
-    let { cid = '' } = selectedItem;
+    const { cid = '' } = selectedItem;
 
-    let disabledCls = disabled ? 'disabled' : '';
-    let prefixCls = `${this.props.prefix}-select`;
+    const disabledCls = disabled ? 'disabled' : '';
+    const prefixCls = `${this.props.prefix}-select`;
     return (
       <Popover
         display="inline-block"
@@ -364,7 +363,7 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   maxToShow: PropTypes.number,
   searchPlaceholder: PropTypes.string,
-  emptyText: PropTypes.string,
+  emptyText: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
   selectedItem: PropTypes.shape({
     value: PropTypes.any,
     text: PropTypes.string
