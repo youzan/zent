@@ -1,7 +1,7 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/sweetalert' {
-  namespace SweetAlert {
+  namespace Sweetalert {
     interface IAlertOption {
       content: React.ReactNode
       type: 'info' | 'success' | 'error' | 'warning'
@@ -22,5 +22,5 @@ declare module 'zent/lib/sweetalert' {
     function confirm(option: IConfirmOption): () => void
   }
 
-  export default SweetAlert
+  export default Sweetalert
 }
