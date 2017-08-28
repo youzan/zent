@@ -83,13 +83,8 @@ class FieldForm extends React.Component {
 		this.setState({ checkedList });
 	}
 
-	getFormValues = () => {
-		const { zentForm } = this.props;
-		if (zentForm.isValid()) {
-			alert(JSON.stringify(zentForm.getFormValues()));
-		} else {
-			zentForm.setFormPristine();
-		}
+	submit = (values, zentForm) => {
+		alert(JSON.stringify(values));
 	};
 
 	resetForm = () => {
@@ -97,8 +92,9 @@ class FieldForm extends React.Component {
 	}
 
 	render() {
+		const { handleSubmit } = this.props;
 		return (
-			<Form horizontal>
+			<Form horizontal onSubmit={handleSubmit(this.submit)} >
 				<Field
 					name="name"
 					type="text"
@@ -129,7 +125,9 @@ class FieldForm extends React.Component {
 					component={RadioGroupField}
 					required
 					validations={{ 
-						required: true
+						required(values, value) {
+							return value !== ''
+						}
 					}} 
 					validationErrors={{ 
 						required: '请选择性别'
@@ -167,7 +165,7 @@ class FieldForm extends React.Component {
 					是
 				</Field>
 				<div className="zent-form__form-actions">
-					<Button type="primary" onClick={this.getFormValues}>获取表单值</Button>
+					<Button type="primary" htmlType="submit">获取表单值</Button>
 					<Button type="primary" outline onClick={this.resetForm}>重置表单值</Button>
 				</div>
 			</Form>
@@ -239,9 +237,8 @@ class FieldForm extends React.Component {
 		})
 	}
 
-	getFormValues = () => {
-		const { zentForm } = this.props;
-		alert(JSON.stringify(zentForm.getFormValues()));
+	submit = (values, zentForm) => {
+		alert(JSON.stringify(values));
 	};
 
 	resetForm = () => {
@@ -249,8 +246,9 @@ class FieldForm extends React.Component {
 	}
 
 	render() {
+		const { handleSubmit } = this.props;
 		return (
-			<Form horizontal>
+			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<Field
 					name="age"
 					label="年龄："
@@ -288,7 +286,7 @@ class FieldForm extends React.Component {
 					onUpload={this.updateLocalImage.bind(this)}
 				/>
 				<div className="zent-form__form-actions">
-					<Button type="primary" onClick={this.getFormValues}>获取表单值</Button>
+					<Button type="primary" htmlType="submit">获取表单值</Button>
 					<Button type="primary" outline onClick={this.resetForm}>重置表单值</Button>
 				</div>
 			</Form>
@@ -439,13 +437,8 @@ class FieldForm extends React.Component {
 		this.setState({ checkedList });
 	}
 
-	getFormValues = () => {
-		const { zentForm } = this.props;
-		if (zentForm.isValid()) {
-			alert(JSON.stringify(zentForm.getFormValues()));
-		} else {
-			zentForm.setFormPristine();
-		}
+	submit = (values, zentForm) => {
+		alert(JSON.stringify(values));
 	};
 
 	resetForm = () => {
@@ -453,8 +446,9 @@ class FieldForm extends React.Component {
 	}
 
 	render() {
+		const { handleSubmit } =this.props;
 		return (
-			<Form horizontal>
+			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<Field
 					name="name"
 					type="text"
@@ -496,7 +490,7 @@ class FieldForm extends React.Component {
 						equalsField: 'password'
 					}} 
 					validationErrors={{
-						isRightPw: '两次填写的密码不一致'
+						equalsField: '两次填写的密码不一致'
 					}} 
 				/>
 				<Field
@@ -565,7 +559,7 @@ class FieldForm extends React.Component {
 					<Checkbox value="travel">旅行</Checkbox>
 				</Field>
 				<div className="zent-form__form-actions">
-					<Button type="primary" onClick={this.getFormValues}>获取表单值</Button>
+					<Button type="primary" htmlType="submit">获取表单值</Button>
 					<Button type="primary" outline onClick={this.resetForm}>重置表单值</Button>
 				</div>
 			</Form>
@@ -832,17 +826,13 @@ import { Form } from 'zent';
 const { Field, Fieldset, InputField, createForm } = Form;
 
 const FieldsetForm = (props) => {
-	const getFormValues = () => {
-		const { zentForm } = props;
-		if (zentForm.isValid()) {
-			alert(JSON.stringify(zentForm.getFormValues()));
-		} else {
-			zentForm.setFormPristine();
-		}
-	};
+	const { handleSubmit } = props;
+	const submit = (values, zentForm) => {
+    alert(JSON.stringify(values));
+  };
 
 	return (
-		<Form horizontal>
+		<Form horizontal onSubmit={handleSubmit(submit)}>
 			<Fieldset legend="Fieldset1">
 				<Field
 					name="name"
@@ -862,7 +852,7 @@ const FieldsetForm = (props) => {
 				/>
 			</Fieldset>
 			<div className="zent-form__form-actions">
-				<Button type="primary" onClick={getFormValues}>获取表单值</Button>
+				<Button type="primary" htmlType="submit">获取表单值</Button>
 			</div>
 		</Form>
 	);
@@ -896,17 +886,13 @@ class FieldForm extends React.Component {
 		})
 	}
 
-	getFormValues = () => {
-		const { zentForm } = this.props;
-		if (zentForm.isValid()) {
-			alert(JSON.stringify(zentForm.getFormValues()));
-		} else {
-			zentForm.setFormPristine();
-		}
+	submit = (values, zentForm) => {
+		alert(JSON.stringify(values));
 	};
 
 	render() {
 		const { formLayout } = this.state;
+		const { handleSubmit } = this.props;
 		return (
 			<div>
 				<RadioGroup value={formLayout} onChange={this.onRadioChange}  className="form-layout">
@@ -914,7 +900,7 @@ class FieldForm extends React.Component {
 					<Radio value="horizontal">horizontal</Radio>
 					<Radio value="inline">inline</Radio>
 				</RadioGroup>
-				<Form inline={formLayout === 'inline'} horizontal={formLayout === 'horizontal'} >
+				<Form inline={formLayout === 'inline'} horizontal={formLayout === 'horizontal'} onSubmit={handleSubmit(this.submit)}>
 					<Field
 						name="name"
 						type="text"
@@ -930,7 +916,7 @@ class FieldForm extends React.Component {
 						component={InputField}
 					/>
 					<div className="zent-form__form-actions">
-						<Button type="primary" onClick={this.getFormValues}>获取表单值</Button>
+						<Button type="primary" htmlType="submit">获取表单值</Button>
 					</div>
 				</Form>
 			</div>
