@@ -2,7 +2,7 @@
 
 1. [基础用法](#ji-chu-yong-fa)
 2. [表单校验](#biao-dan-xiao-yan)
-3. [格式化 value 值](#ge-shi-hua-value-zhi)
+3. [格式化 value](#ge-shi-hua-value-zhi)
 4. [表单操作](#biao-dan-cao-zuo)
 5. [其他](#qi-ta)
 6. [组件原理](#zu-jian-yuan-li)
@@ -670,7 +670,7 @@ ReactDOM.render(
 ```
 :::
 
-### 格式化 `value` 值
+### 格式化 `value`
 
 `Form` 组件提供了 `format` 和 `nomalize` 方法 来对 `value` 进行格式化，它们的执行时机详见 [value 的生命周期](#field-zhong-value-de-sheng-ming-zhou-qi)。
 
