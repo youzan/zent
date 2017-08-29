@@ -7,6 +7,7 @@ import noop from 'lodash/noop';
 import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
+import concat from 'lodash/concat';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
@@ -255,9 +256,34 @@ const createForm = (config = {}) => {
       };
 
       getFormValues = () => {
+        const assignValue = (values, keyPath, newValue) => {
+          if (keyPath.length === 0) {
+            return;
+          }
+          const currentKey = keyPath[0];
+          if (!values[currentKey]) {
+            values[currentKey] = {};
+          }
+          if (keyPath.length > 1) {
+            assignValue(values[currentKey], keyPath.slice(1), newValue);
+          } else {
+            values[currentKey] = newValue;
+          }
+        };
+
         return this.fields.reduce((values, field) => {
+          const formSectionPrefix =
+            field.context &&
+            field.context.zentForm &&
+            field.context.zentForm.formSectionPrefix;
           const name = field.props.name;
-          values[name] = field.getValue();
+          const fieldValue = field.getValue();
+          if (formSectionPrefix) {
+            const fieldNamePath = formSectionPrefix.split('.');
+            assignValue(values, concat(fieldNamePath, name), fieldValue);
+          } else {
+            assignValue(values, [name], fieldValue);
+          }
           return values;
         }, {});
       };

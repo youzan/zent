@@ -4,6 +4,7 @@ import Form from './Form';
 import createForm from './createForm';
 import Field from './Field';
 import Fieldset from './Fieldset';
+import FormSection from './FormSection';
 import getControlGroup from './getControlGroup';
 import unknownProps from './unknownProps';
 import SubmissionError from './SubmissionError';
@@ -18,6 +19,7 @@ export default assign(Form, {
   createForm,
   Field,
   Fieldset,
+  FormSection,
   getControlGroup,
   unknownProps,
   InputField,

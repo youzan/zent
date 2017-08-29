@@ -68,3 +68,8 @@ export function silenceEvents(fn) {
     silenceEvent(event) ? fn(...args) : fn(event, ...args);
   };
 }
+
+export function prefixName(zentForm, name) {
+  const { formSectionPrefix } = zentForm;
+  return formSectionPrefix ? `${formSectionPrefix}.${name}` : name;
+}
