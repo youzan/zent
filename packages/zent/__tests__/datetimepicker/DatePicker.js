@@ -24,9 +24,6 @@ describe('DateTimePicker', () => {
   it('DatePicker has its default behavior(DatePanel, MonthPanel and YearPanel 3 level transition)', () => {
     const wrapper = mount(<DatePicker />);
 
-    // expect(pop.find('DatePanel').length).toBe(0);
-    // expect(pop.find('MonthPanel').length).toBe(0);
-    // expect(pop.find('YearPanel').length).toBe(0);
     wrapper.find('.picker-input').simulate('click');
     // get pop from ref after simulate click.
     const pop = new ReactWrapper(wrapper.instance().picker, true);
@@ -52,10 +49,6 @@ describe('DateTimePicker', () => {
     expect(pop.find('YearPanel').length).toBe(0);
     pop.find('DatePanel .panel__cell--current').simulate('click');
     pop.find('PanelFooter .btn--confirm').simulate('click');
-    // expect(document.querySelector('.zent-datetime-picker-popover')).toBe(null);
-    // expect(pop.find('DatePanel').length).toBe(0);
-    // expect(pop.find('MonthPanel').length).toBe(0);
-    // expect(pop.find('YearPanel').length).toBe(0);
   });
 
   it('DatePicker with showTime switch (some kind of 5-level panel)', () => {
