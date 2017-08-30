@@ -5,22 +5,31 @@ import Row from './Row';
 
 class Body extends (PureComponent || Component) {
   getRows() {
-    const { datasets, columns } = this.props;
-    const rst = [];
+    const { prefix, datasets, columns } = this.props;
+    const row = [];
 
     forEach(datasets, (data, index) => {
-      rst.push(<Row key={index} data={data} columns={columns} />);
+      row.push(
+        <Row
+          data={data}
+          columns={columns}
+          index={index}
+          rowIndex={index}
+          prefix={prefix}
+          key={index}
+        />
+      );
     });
 
-    return rst;
+    return row;
   }
 
   render() {
-    const { prefix, columns } = this.props;
+    const { prefix } = this.props;
 
     return (
-      <tbody className={`${prefix}-grid-thead`}>
-        {this.getRows(columns)}
+      <tbody className={`${prefix}-grid-tbody`}>
+        {this.getRows()}
       </tbody>
     );
   }

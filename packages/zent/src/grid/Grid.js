@@ -18,7 +18,7 @@ class Grid extends (PureComponent || Component) {
     const columns = this.columnsManager.columns;
 
     return (
-      <table>
+      <table className={`${prefix}-grid-table`}>
         <ColGroup columns={columns} />
         <Header prefix={prefix} columns={columns} />
         <Body prefix={prefix} columns={columns} datasets={datasets} />

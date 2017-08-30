@@ -11,7 +11,11 @@ import { Grid } from 'zent';
 const columns = [
 	{
 		title: '商品',
-		name: 'item_id'
+		name: 'item_id',
+		width: '20%',
+		bodyRender: data => {
+			return <span>{data.item_id}</span>
+		}
 	}, {
 		title: '访问量',
 		name: 'bro_uvpv',

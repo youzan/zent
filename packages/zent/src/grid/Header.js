@@ -1,5 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import map from 'lodash/map';
 import forEach from 'lodash/forEach';
 
@@ -31,8 +32,13 @@ class Header extends (PureComponent || Component) {
     return (
       <thead className={`${prefix}-grid-thead`}>
         {map(this.getHeaderRows(), (row, index) =>
-          <tr key={index}>
-            {row.map(props => <th {...props} />)}
+          <tr key={index} className={`${prefix}-grid-tr`}>
+            {row.map(props =>
+              <th
+                {...props}
+                className={cx(`${prefix}-grid-th`, props.className)}
+              />
+            )}
           </tr>
         )}
       </thead>

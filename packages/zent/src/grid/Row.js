@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 import forEach from 'lodash/forEach';
 import Cell from './Cell';
 
 class Row extends React.Component {
   render() {
-    const { columns, data } = this.props;
+    const { prefix, columns, data, rowIndex } = this.props;
 
     const cells = [];
 
-    forEach(columns, (column, index) => {
-      cells.push(<Cell column={column} data={data} key={index} />);
+    forEach(columns, (column, columnIndex) => {
+      let pos = {
+        row: rowIndex,
+        column: columnIndex
+      };
+
+      console.log(Cell, isValidElement(Cell), '55555');
+
+      cells.push(
+        <Cell
+          column={column}
+          data={data}
+          pos={pos}
+          columnIndex={columnIndex}
+          key={columnIndex}
+          prefix={prefix}
+        />
+      );
     });
 
     return (
-      <tr>
+      <tr className={`${prefix}-grid-tr`}>
         {cells}
       </tr>
     );
