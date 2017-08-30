@@ -46,6 +46,7 @@
     "^design(.*)$": "<rootDir>/src/design$1",
     "^dialog(.*)$": "<rootDir>/src/dialog$1",
     "^form(.*)$": "<rootDir>/src/form$1",
+    "^grid(.*)$": "<rootDir>/src/grid$1",
     "^icon(.*)$": "<rootDir>/src/icon$1",
     "^input(.*)$": "<rootDir>/src/input$1",
     "^layout(.*)$": "<rootDir>/src/layout$1",

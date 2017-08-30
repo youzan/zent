@@ -40,6 +40,7 @@
     "json-loader": "^0.5.4",
     "markdown-doc-loader": "^1.0.0",
     "postcss-loader": "^1.3.3",
+    "react-addons-perf": "^15.4.2",
     "react-hot-loader": "next",
     "react-markdown-doc-loader": "^1.0.2",
     "style-loader": "^0.14.1",

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import Perf from 'react-addons-perf';
 
 import 'prismjs/themes/prism.css';
 import './docs.pcss';
@@ -24,3 +25,5 @@ if (module.hot) {
     render(App);
   });
 }
+
+window.Perf = Perf;

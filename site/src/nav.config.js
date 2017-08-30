@@ -259,6 +259,11 @@ module.exports = {
               component: require('../../packages/zent/src/table/README.md')
             },
             {
+              path: 'component/grid',
+              title: 'Grid 网格',
+              component: require('../../packages/zent/src/grid/README.md')
+            },
+            {
               path: 'component/tabs',
               title: 'Tabs 选项卡',
               component: require('../../packages/zent/src/tabs/README.md')
