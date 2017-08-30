@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
@@ -15,6 +16,7 @@ import packageJson from '../../packages/zent/package.json';
 import navData from './nav.config';
 import { registerRoute, registerFooter } from './router.config';
 import { prefix } from './constants';
+import fixSideNav from './components/fix-sidenav';
 
 // one-dimentional array
 const routeData = registerRoute(navData['zh-CN']);
@@ -30,7 +32,11 @@ export default class App extends Component {
           <PageHeader version={packageJson.version} />
           <div className="main-content">
             <div className="page-container clearfix">
-              <SideNav data={navData['zh-CN']} base={prefix} />
+              <SideNav
+                data={navData['zh-CN']}
+                base={prefix}
+                ref={this.saveSideNav}
+              />
               <div className="page-content">
                 <div className="react-doc-page-content">
                   <Switch>
@@ -51,9 +57,27 @@ export default class App extends Component {
               </div>
             </div>
           </div>
-          <PageFooter />
+          <PageFooter ref={this.saveFooter} />
         </ScrollToTop>
       </Router>
     );
+  }
+
+  saveSideNav = instance => {
+    this.sideNav = findDOMNode(instance);
+  };
+
+  saveFooter = instance => {
+    this.footer = findDOMNode(instance);
+  };
+
+  componentDidMount() {
+    this.cancelSideNavFix = fixSideNav(this.footer, this.sideNav);
+  }
+
+  componentWillUnmount() {
+    if (this.cancelSideNavFix) {
+      this.cancelSideNavFix();
+    }
   }
 }
