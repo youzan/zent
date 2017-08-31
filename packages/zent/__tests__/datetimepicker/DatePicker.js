@@ -113,7 +113,7 @@ describe('DateTimePicker', () => {
       expect(next).toBe(2);
     } else {
       expect(header - prev).toBe(1);
-      expect(header - next).toBe(-1);
+      expect(header - next).toBe(8);
     }
 
     // MonthPanel
