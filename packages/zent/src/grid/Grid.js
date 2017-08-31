@@ -1,17 +1,23 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { Loading } from 'zent';
+import classnames from 'classnames';
+import noop from 'lodash/noop';
 import ColumnsManager from './ColumnsManager';
 import ColGroup from './ColGroup';
 import Header from './Header';
 import Body from './Body';
+import Footer from './Footer';
 
 class Grid extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.columnsManager = new ColumnsManager(props.columns);
   }
+
+  onChange = conf => {
+    this.props.onChange(conf);
+  };
 
   getTable() {
     const { prefix, datasets } = this.props;
@@ -27,12 +33,17 @@ class Grid extends (PureComponent || Component) {
   }
 
   render() {
-    const { prefix, loading } = this.props;
+    const { prefix, loading, pageInfo } = this.props;
 
     return (
       <div className={classnames(`${prefix}-grid`)}>
         <Loading show={loading}>
           {this.getTable()}
+          <Footer
+            prefix={prefix}
+            pageInfo={pageInfo}
+            onChange={this.onChange}
+          />
         </Loading>
       </div>
     );
@@ -44,7 +55,9 @@ Grid.propTypes = {
   prefix: PropTypes.string,
   datasets: PropTypes.array,
   columns: PropTypes.array,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  onChange: PropTypes.func
 };
 
 Grid.defaultProps = {
@@ -52,7 +65,9 @@ Grid.defaultProps = {
   prefix: 'zent',
   datasets: [],
   columns: [],
-  loading: false
+  loading: false,
+  pageInfo: false,
+  onChange: noop
 };
 
 export default Grid;

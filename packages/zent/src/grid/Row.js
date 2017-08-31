@@ -1,4 +1,4 @@
-import React, { isValidElement } from 'react';
+import React from 'react';
 import forEach from 'lodash/forEach';
 import Cell from './Cell';
 
@@ -13,8 +13,6 @@ class Row extends React.Component {
         row: rowIndex,
         column: columnIndex
       };
-
-      console.log(Cell, isValidElement(Cell), '55555');
 
       cells.push(
         <Cell
