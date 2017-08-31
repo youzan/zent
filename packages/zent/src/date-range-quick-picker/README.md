@@ -41,6 +41,7 @@ class Simple extends Component {
 					onChange={this.handleChange}
 					value={value}
 					format="YYYY-MM-DD HH:mm:ss"
+					valueType={'number'}
 					chooseDays={chooseDays}
 				/>
 				<br />
@@ -86,6 +87,7 @@ ReactDOM.render(
 | preset         | 自定义快捷选项      | array             | `[{text: '最近7天', value: 7}, {text: '最近30天', value: 30}]`    |           |
 | onChange       | change time func  | func             |         |              |
 | value          | 起始、结束时间       | array           |   `[]`        |             |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | format         | 返回日期字符串格式   |  string          |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
 | chooseDays     | 选择天数           |  number          |               |         |
 | min            | 可选日期的最小值    | string/instanceOf(Date)  | ``   | 否    |
