@@ -308,6 +308,45 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('isFormValid')).toBe(true);
   });
 
+  it('CreatedForm has initialize method which will be excuted with another revalidate', () => {
+    class FormForTest extends React.Component {
+      render() {
+        return (
+          <Form>
+            <Field
+              name="foo"
+              component={() => <div className="foo-div" />}
+              validations={{ required: true }}
+              value={1}
+            />
+          </Form>
+        );
+      }
+    }
+
+    const CreatedForm = createForm()(FormForTest);
+    const wrapper = mount(<CreatedForm />);
+    expect(wrapper.state('isFormValid')).toBe(true);
+    expect(wrapper.find(Field).getNode().state._value).toBe(1);
+    expect(wrapper.find(Field).getNode().state._initialValue).toBe(1);
+    wrapper.getNode().initialize({
+      foo: 12
+    });
+    expect(wrapper.find(Field).getNode().state._value).toBe(12);
+    expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
+    expect(wrapper.state('isFormValid')).toBe(true);
+    wrapper.getNode().reset({
+      foo: ''
+    });
+    expect(wrapper.find(Field).getNode().state._value).toBe('');
+    expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
+    expect(wrapper.state('isFormValid')).toBe(false);
+    wrapper.getNode().initialize();
+    expect(wrapper.find(Field).getNode().state._value).toBe(12);
+    expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
+    expect(wrapper.state('isFormValid')).toBe(true);
+  });
+
   it('CreatedForm have isValid and getFieldError methods', () => {
     class FormForTest extends React.Component {
       static propTypes = {

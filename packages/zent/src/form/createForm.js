@@ -212,7 +212,8 @@ const createForm = (config = {}) => {
       };
 
       initialize = data => {
-        const internalData = flatObj(data, this.prevFieldNames);
+        const fieldNames = this.fields.map(field => field.getName());
+        const internalData = flatObj(data, fieldNames);
         this.fields.forEach(field => {
           const name = field.getName();
           if (internalData && internalData.hasOwnProperty(name)) {
@@ -224,7 +225,8 @@ const createForm = (config = {}) => {
       };
 
       resetFieldsValue = data => {
-        const internalData = flatObj(data, this.prevFieldNames);
+        const fieldNames = this.fields.map(field => field.getName());
+        const internalData = flatObj(data, fieldNames);
         this.fields.forEach(field => {
           const name = field.getName();
           if (internalData && internalData.hasOwnProperty(name)) {

@@ -69,6 +69,7 @@ class Field extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     if ('validations' in nextProps) {
+      this._name = prefixName(this.context.zentForm, nextProps.name);
       this._validations = nextProps.validations;
     }
   }
@@ -144,8 +145,8 @@ class Field extends (PureComponent || Component) {
   setInitialValue = value => {
     this.setState(
       {
-        _value: value,
-        _initialValue: value,
+        _value: value || this.state._initialValue,
+        _initialValue: value || this.state._initialValue,
         _isDirty: false
       },
       () => {
