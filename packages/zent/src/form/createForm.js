@@ -7,11 +7,10 @@ import noop from 'lodash/noop';
 import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
-import concat from 'lodash/concat';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
-import { getDisplayName, silenceEvent, silenceEvents } from './utils';
+import { getDisplayName, silenceEvent, silenceEvents, flatObj } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
 
@@ -79,7 +78,7 @@ const createForm = (config = {}) => {
             isValidValue: this.isValidValue,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
-            setFormPristine: this.setFormPristine,
+            setFormDirty: this.setFormDirty,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }
@@ -92,7 +91,7 @@ const createForm = (config = {}) => {
       }
 
       componentWillUpdate() {
-        this.prevFieldNames = this.fields.map(field => field.props.name);
+        this.prevFieldNames = this.fields.map(field => field.getName());
       }
 
       componentDidUpdate() {
@@ -105,7 +104,7 @@ const createForm = (config = {}) => {
           this.setFieldValidationErrors(validationErrors);
         }
 
-        const newFieldNames = this.fields.map(field => field.props.name);
+        const newFieldNames = this.fields.map(field => field.getName());
         if (!isEqual(this.prevFieldNames, newFieldNames)) {
           this.validateForm();
         }
@@ -163,27 +162,28 @@ const createForm = (config = {}) => {
         return this.state.isFormValid;
       };
 
-      setFieldValidationErrors = (errors, updatePristine = true) => {
+      setFieldValidationErrors = (errors, updateDirty = true) => {
         this.fields.forEach(field => {
-          const name = field.props.name;
+          const name = field.getName();
           const data = {
             _isValid: !(name in errors),
             _validationError:
               typeof errors[name] === 'string' ? [errors[name]] : errors[name]
           };
-          if (updatePristine) {
-            data._isPristine = false;
+          if (updateDirty) {
+            data._isDirty = true;
           }
           field.setState(data);
         });
       };
 
       // 设置服务端返回的错误信息
-      setFieldExternalErrors = (errors, updatePristine = true) => {
-        Object.keys(errors).forEach(name => {
+      setFieldExternalErrors = (errors, updateDirty = true) => {
+        let internalErrors = flatObj(errors, this.prevFieldNames);
+        Object.keys(internalErrors).forEach(name => {
           const field = find(
             this.fields,
-            component => component.props.name === name
+            component => component.getName() === name
           );
           if (!field) {
             throw new Error(`field ${name} does not exits`);
@@ -192,28 +192,43 @@ const createForm = (config = {}) => {
           const data = {
             _isValid: false,
             _externalError:
-              typeof errors[name] === 'string' ? [errors[name]] : errors[name]
+              typeof internalErrors[name] === 'string'
+                ? [internalErrors[name]]
+                : internalErrors[name]
           };
-          if (updatePristine) {
-            data._isPristine = false;
+          if (updateDirty) {
+            data._isDirty = true;
           }
           field.setState(data);
         });
       };
 
-      setFormPristine = isPristine => {
+      setFormDirty = (isDirty = true) => {
         this.fields.forEach(field => {
           field.setState({
-            _isPristine: isPristine
+            _isDirty: isDirty
           });
         });
       };
 
-      resetFieldsValue = data => {
+      initialize = data => {
+        const internalData = flatObj(data, this.prevFieldNames);
         this.fields.forEach(field => {
-          const name = field.props.name;
-          if (data && data.hasOwnProperty(name)) {
-            field.setValue(data[name]);
+          const name = field.getName();
+          if (internalData && internalData.hasOwnProperty(name)) {
+            field.setInitialValue(internalData[name]);
+          } else {
+            field.setInitialValue();
+          }
+        });
+      };
+
+      resetFieldsValue = data => {
+        const internalData = flatObj(data, this.prevFieldNames);
+        this.fields.forEach(field => {
+          const name = field.getName();
+          if (internalData && internalData.hasOwnProperty(name)) {
+            field.setValue(internalData[name]);
           } else {
             field.resetValue();
           }
@@ -221,24 +236,24 @@ const createForm = (config = {}) => {
       };
 
       reset = data => {
-        this.setFormPristine(true);
+        this.setFormDirty(false);
         this.resetFieldsValue(data);
       };
 
       isFieldTouched = name => {
         const field = find(
           this.fields,
-          component => component.props.name === name
+          component => component.getName() === name
         );
 
         if (!field) return false;
-        return !field.isPristine();
+        return field.isDirty();
       };
 
       isFieldValidating = name => {
         const field = find(
           this.fields,
-          component => component.props.name === name
+          component => component.getName() === name
         );
 
         if (!field) return false;
@@ -248,7 +263,7 @@ const createForm = (config = {}) => {
       getFieldError = name => {
         const field = find(
           this.fields,
-          component => component.props.name === name
+          component => component.getName() === name
         );
 
         if (!field) return '';
@@ -272,40 +287,32 @@ const createForm = (config = {}) => {
         };
 
         return this.fields.reduce((values, field) => {
-          const formSectionPrefix =
-            field.context &&
-            field.context.zentForm &&
-            field.context.zentForm.formSectionPrefix;
-          const name = field.props.name;
+          const name = field.getName();
           const fieldValue = field.getValue();
-          if (formSectionPrefix) {
-            const fieldNamePath = formSectionPrefix.split('.');
-            assignValue(values, concat(fieldNamePath, name), fieldValue);
-          } else {
-            assignValue(values, [name], fieldValue);
-          }
+          const fieldNamePath = name.split('.');
+          assignValue(values, fieldNamePath, fieldValue);
           return values;
         }, {});
       };
 
       getValidationErrors = () => {
         return this.fields.reduce((errors, field) => {
-          const name = field.props.name;
+          const name = field.getName();
           errors[name] = field.getErrorMessage();
           return errors;
         }, {});
       };
 
-      getPristineValues = () => {
+      getInitialValues = () => {
         return this.fields.reduce((values, field) => {
-          const name = field.props.name;
-          values[name] = field.getPristineValue();
+          const name = field.getName();
+          values[name] = field.getInitialValue();
           return values;
         }, {});
       };
 
       isChanged = () => {
-        return !isEqual(this.getPristineValues(), this.getFormValues());
+        return !isEqual(this.getInitialValues(), this.getFormValues());
       };
 
       isValidating = () => {
@@ -330,7 +337,7 @@ const createForm = (config = {}) => {
         );
         const isValid =
           !validationResults.failed.length &&
-          !(formValidationErrors && formValidationErrors[field.props.name]);
+          !(formValidationErrors && formValidationErrors[field.getName()]);
 
         return {
           isValid,
@@ -536,7 +543,8 @@ const createForm = (config = {}) => {
             getFieldError: this.getFieldError,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
-            setFormPristine: this.setFormPristine,
+            setFormDirty: this.setFormDirty,
+            initialize: this.initialize,
             isFieldTouched: this.isFieldTouched,
             isFieldValidating: this.isFieldValidating,
             isValid: this.isValid,

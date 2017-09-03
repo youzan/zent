@@ -69,9 +69,9 @@ describe('CreateForm and Field', () => {
     expect(typeof wrapper.context('zentForm')).toBe('object');
     expect(wrapper.state('_value')).toBe('');
     expect(wrapper.state('_isValid')).toBe(true);
-    expect(wrapper.state('_isPristine')).toBe(true);
+    expect(wrapper.state('_isDirty')).toBe(false);
     expect(wrapper.state('_isValidating')).toBe(false);
-    expect(wrapper.state('_pristineValue')).toBe('');
+    expect(wrapper.state('_initialValue')).toBe('');
     expect(wrapper.state('_validationError').length).toBe(0);
     expect(wrapper.state('_externalError')).toBe(null);
   });
@@ -134,8 +134,7 @@ describe('CreateForm and Field', () => {
     expect(
       Object.keys(wrapper.find('component').prop('validationErrors')).length
     ).toBe(0);
-    expect(wrapper.find('component').prop('isTouched')).toBe(false);
-    expect(wrapper.find('component').prop('isPristine')).toBe(true);
+    expect(wrapper.find('component').prop('isDirty')).toBe(false);
     expect(wrapper.find('component').prop('isValid')).toBe(true);
     expect(wrapper.find('component').prop('value')).toBe('');
     expect('value' in wrapper.find('component').props()).toBe(true);

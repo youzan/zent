@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
 
-import { getValue, getCurrentValue } from './utils';
+import { getValue, getCurrentValue, prefixName } from './utils';
 import unknownProps from './unknownProps';
 
 class Field extends (PureComponent || Component) {
@@ -46,12 +46,13 @@ class Field extends (PureComponent || Component) {
     this.state = {
       _value: props.value,
       _isValid: true,
-      _isPristine: true,
+      _isDirty: false,
       _isValidating: false,
-      _pristineValue: props.value,
+      _initialValue: props.value,
       _validationError: [],
       _externalError: null
     };
+    this._name = prefixName(context.zentForm, props.name);
     this._validations = props.validations || {};
   }
 
@@ -88,8 +89,8 @@ class Field extends (PureComponent || Component) {
     this.context.zentForm.detachFromForm(this);
   }
 
-  isPristine = () => {
-    return this.state._isPristine;
+  isDirty = () => {
+    return this.state._isDirty;
   };
 
   isValid = () => {
@@ -104,19 +105,23 @@ class Field extends (PureComponent || Component) {
     return this.state._active;
   };
 
-  getPristineValue = () => {
-    return this.state._pristineValue;
+  getInitialValue = () => {
+    return this.state._initialValue;
   };
 
   getValue = () => {
     return this.state._value;
   };
 
+  getName = () => {
+    return this._name;
+  };
+
   setValue = (value, needValidate = true) => {
     this.setState(
       {
         _value: value,
-        _isPristine: false
+        _isDirty: true
       },
       () => {
         needValidate && this.context.zentForm.validate(this);
@@ -127,8 +132,21 @@ class Field extends (PureComponent || Component) {
   resetValue = () => {
     this.setState(
       {
-        _value: this.state._pristineValue,
-        _isPristine: true
+        _value: this.state._initialValue,
+        _isDirty: false
+      },
+      () => {
+        this.context.zentForm.validate(this);
+      }
+    );
+  };
+
+  setInitialValue = value => {
+    this.setState(
+      {
+        _value: value,
+        _initialValue: value,
+        _isDirty: false
       },
       () => {
         this.context.zentForm.validate(this);
@@ -159,7 +177,7 @@ class Field extends (PureComponent || Component) {
     const previousValue = this.getValue();
     const nextValues = {
       ...previousValues,
-      [this.props.name]: value
+      [this.getName()]: value
     };
     return normalize(value, previousValue, nextValues, previousValues);
   };
@@ -263,8 +281,8 @@ class Field extends (PureComponent || Component) {
       ref: ref => {
         this.wrappedComponent = ref;
       },
-      isTouched: !this.isPristine(),
-      isPristine: this.isPristine(),
+      name: this.getName(),
+      isDirty: this.isDirty(),
       isValid: this.isValid(),
       isActive: this.isActive(),
       value: this.format(this.getValue()),

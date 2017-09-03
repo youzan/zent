@@ -34,7 +34,7 @@ class FormSection extends (PureComponent || Component) {
     return {
       zentForm: {
         ...zentForm,
-        formSectionPrefix: prefixName(zentForm, name)
+        sectionPrefix: prefixName(zentForm, name)
       }
     };
   }
