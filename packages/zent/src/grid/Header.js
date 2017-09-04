@@ -13,14 +13,20 @@ class Header extends (PureComponent || Component) {
     rows = rows || [];
     rows[currentRow] = rows[currentRow] || [];
 
-    forEach(columns, ({ name, key, className, title }, index) => {
+    forEach(columns, ({ name, key, className, title, colSpan }, index) => {
       const cell = {
         key: name || key || index,
         className: className || '',
         children: title
       };
 
-      rows[currentRow].push(cell);
+      if (colSpan) {
+        cell.colSpan = colSpan;
+      }
+
+      if (cell.colSpan !== 0) {
+        rows[currentRow].push(cell);
+      }
     });
 
     return rows.filter(row => row.length > 0);

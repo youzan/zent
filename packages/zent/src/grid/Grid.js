@@ -9,10 +9,15 @@ import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 
+const defaultPageInfo = {
+  current: 1,
+  pageSize: 10
+};
+
 class Grid extends (PureComponent || Component) {
   constructor(props) {
     super(props);
-    this.columnsManager = new ColumnsManager(props.columns);
+    this.columnsManager = new ColumnsManager(props);
   }
 
   onChange = conf => {
@@ -20,14 +25,19 @@ class Grid extends (PureComponent || Component) {
   };
 
   getTable() {
-    const { prefix, datasets } = this.props;
+    const { prefix, datasets, selection } = this.props;
     const columns = this.columnsManager.columns;
 
     return (
       <table className={`${prefix}-grid-table`}>
         <ColGroup columns={columns} />
-        <Header prefix={prefix} columns={columns} />
-        <Body prefix={prefix} columns={columns} datasets={datasets} />
+        <Header prefix={prefix} columns={columns} selection={selection} />
+        <Body
+          prefix={prefix}
+          columns={columns}
+          datasets={datasets}
+          selection={selection}
+        />
       </table>
     );
   }
@@ -42,7 +52,9 @@ class Grid extends (PureComponent || Component) {
           <Footer
             prefix={prefix}
             pageInfo={pageInfo}
+            defaultPageInfo={defaultPageInfo}
             onChange={this.onChange}
+            hasPagination={this.hasPagination}
           />
         </Loading>
       </div>
@@ -57,7 +69,8 @@ Grid.propTypes = {
   columns: PropTypes.array,
   loading: PropTypes.bool,
   pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  selection: PropTypes.object
 };
 
 Grid.defaultProps = {
@@ -67,7 +80,8 @@ Grid.defaultProps = {
   columns: [],
   loading: false,
   pageInfo: false,
-  onChange: noop
+  onChange: noop,
+  selection: null
 };
 
 export default Grid;

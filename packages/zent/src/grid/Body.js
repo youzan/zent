@@ -5,7 +5,7 @@ import Row from './Row';
 
 class Body extends (PureComponent || Component) {
   getRows() {
-    const { prefix, datasets, columns } = this.props;
+    const { prefix, datasets, columns, selection } = this.props;
     const row = [];
 
     forEach(datasets, (data, index) => {
@@ -17,6 +17,7 @@ class Body extends (PureComponent || Component) {
           rowIndex={index}
           prefix={prefix}
           key={index}
+          selection={selection}
         />
       );
     });

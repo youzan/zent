@@ -20,13 +20,13 @@ class Footer extends React.Component {
   }
 
   getDefaultPagination(props) {
-    const { pageInfo } = props;
+    const { pageInfo, defaultPageInfo } = props;
 
     return this.hasPagination(props)
       ? {
           ...pageInfo,
-          current: pageInfo.current || 1,
-          pageSize: pageInfo.pageSize || 10
+          current: pageInfo.current || defaultPageInfo.current,
+          pageSize: pageInfo.pageSize || defaultPageInfo.pageSize
         }
       : null;
   }
@@ -50,14 +50,18 @@ class Footer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (has(nextProps, 'pageInfo') || has(this.props, 'pageInfo')) {
+      const { defaultPageInfo } = this.props;
+
       this.setState(previousState => {
         const newPagination = {
           ...previousState.pageInfo,
           ...nextProps.pageInfo
         };
 
-        newPagination.current = newPagination.current || 1;
-        newPagination.pageSize = newPagination.pageSize || 10;
+        newPagination.current =
+          newPagination.current || defaultPageInfo.current;
+        newPagination.pageSize =
+          newPagination.pageSize || defaultPageInfo.pageSize;
 
         return {
           pageInfo: this.hasPagination(nextProps) ? newPagination : null

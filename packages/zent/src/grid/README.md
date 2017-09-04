@@ -4,41 +4,32 @@
 
 ### 代码演示
 
-:::demo 基础用法
+<!-- :::demo 基础用法
 ```jsx
 import { Grid } from 'zent';
 
 const columns = [
 	{
-		title: '商品',
-		name: 'item_id',
-		width: '20%',
-		bodyRender: data => {
-			return <span>{data.item_id}</span>
-		}
+		title: '商品名',
+		name: 'name'
 	}, {
 		title: '访问量',
-		name: 'bro_uvpv',
-		width: '200px'
+		name: 'uv'
 	}, {
 		title: '库存',
-		name: 'stock_num'
+		name: 'stock'
 	}
 ];
 
-const datasets = [{
-	item_id: '5024217',
-	bro_uvpv: '1/10',
-	stock_num: '60'
-}, {
-	item_id: '5024277',
-	bro_uvpv: '0/0',
-	stock_num: 59
-}, {
-	item_id: '13213123',
-	bro_uvpv: '0/0',
-	stock_num: 159
-}];
+const datasets = [];
+
+for (let i = 0; i < 3; i++) {
+	datasets.push({
+		name: `商品 ${i}`,
+		uv: 20,
+		stock: 5
+	})
+}
 
 ReactDOM.render(
 		<Grid
@@ -59,30 +50,26 @@ import { Grid } from 'zent';
 
 const columns = [
 	{
-		title: '商品',
-		name: 'item_id'
+		title: '商品名',
+		name: 'name'
 	}, {
 		title: '访问量',
-		name: 'bro_uvpv'
+		name: 'uv'
 	}, {
 		title: '库存',
-		name: 'stock_num'
+		name: 'stock'
 	}
 ];
 
-const datasets = [{
-	item_id: '5024217',
-	bro_uvpv: '1/10',
-	stock_num: '60'
-}, {
-	item_id: '5024277',
-	bro_uvpv: '0/0',
-	stock_num: 59
-}, {
-	item_id: '13213123',
-	bro_uvpv: '0/0',
-	stock_num: 159
-}];
+const datasets = [];
+
+for (let i = 0; i < 3; i++) {
+	datasets.push({
+		name: `商品 ${i}`,
+		uv: 20,
+		stock: 5
+	})
+}
 
 class Loading extends React.Component {
 	render() {
@@ -112,32 +99,28 @@ import { Grid } from 'zent';
 
 const columns = [
 	{
-		title: '商品',
-		name: 'item_id'
+		title: '商品名',
+		name: 'name'
 	}, {
 		title: '访问量',
-		name: 'bro_uvpv'
+		name: 'uv'
 	}, {
 		title: '库存',
-		name: 'stock_num'
+		name: 'stock'
 	}
 ];
 
-const datasets = [{
-	item_id: '5024217',
-	bro_uvpv: '1/10',
-	stock_num: '60'
-}, {
-	item_id: '5024277',
-	bro_uvpv: '0/0',
-	stock_num: 59
-}, {
-	item_id: '13213123',
-	bro_uvpv: '0/0',
-	stock_num: 159
-}];
+const datasets = [];
 
-const pageSize = 10;
+for (let i = 0; i < 3; i++) {
+	datasets.push({
+		name: `商品 ${i}`,
+		uv: 20,
+		stock: 5
+	})
+}
+
+const pageSize = 5;
 const totalItem = 50;
 
 class PageInfo extends React.Component {
@@ -170,6 +153,67 @@ class PageInfo extends React.Component {
 
 ReactDOM.render(
 		<PageInfo />
+	, mountNode
+);
+
+```
+:::
+ -->
+
+:::demo colSpan & rowSpan
+```jsx
+
+import { Grid } from 'zent';
+
+const columns = [
+	{
+		title: '商品名',
+		name: 'name',
+		colSpan: 2,
+		bodyRender: (data, pos) => {
+			if (pos.row === 1) {
+				return <span>{data.name}</span>
+			}
+
+			return {
+				props: {
+					colSpan: 2
+				},
+				children: <span>{data.name}</span>
+			}
+		}
+	}, {
+		title: '访问量',
+		name: 'uv'
+	}, {
+		title: '库存',
+		name: 'stock'
+	}
+];
+
+const datasets = [];
+
+for (let i = 0; i < 20; i++) {
+	datasets.push({
+		name: `商品 ${i}`,
+		uv: 20,
+		stock: 5
+	})
+}
+
+class Span extends React.Component {
+	render() {
+		return (
+			<Grid
+				columns={columns}
+				datasets={datasets}
+			/>
+		);
+	}
+};
+
+ReactDOM.render(
+		<Span />
 	, mountNode
 );
 
