@@ -1,5 +1,20 @@
 ## 更新日志
 
+## [zent@3.5.1](https://github.com/youzan/zent/tree/zent@3.5.1) (2017-09-04)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.0...zent@3.5.1)
+
+**Bug 修复:**
+
+- datepicker: fix test [\#441](https://github.com/youzan/zent/pull/441) ([xuhong](https://github.com/xuhong))
+- datetimepicker: fix date range quick picker add valueType [\#440](https://github.com/youzan/zent/pull/440) ([ronghang](https://github.com/ronghang))
+- datetimepicker: fix logic and mv let ot const [\#439](https://github.com/youzan/zent/pull/439) ([xuhong](https://github.com/xuhong))
+- form: modify README, add new form layout [\#437](https://github.com/youzan/zent/pull/437) ([fairyaierl](https://github.com/fairyaierl))
+- improve typescript definitions [\#430](https://github.com/youzan/zent/pull/430) ([hzjzx](https://github.com/hzjzx))
+
+**处理的 Issue:**
+
+- form: 不能对field中特定的input做错误提示 [\#383](https://github.com/youzan/zent/issues/383)
+
 ## [zent@3.5.0](https://github.com/youzan/zent/tree/zent@3.5.0) (2017-08-25)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.4.6...zent@3.5.0)
 
@@ -33,7 +48,8 @@
 - NumberInput: onChange回调函数参数不是一个标准event [\#392](https://github.com/youzan/zent/issues/392)
 - table: 多选的时候不能跨页选择 [\#328](https://github.com/youzan/zent/issues/328)
 - doc: pin left navbar [\#248](https://github.com/youzan/zent/issues/248)
-- remove default showTime [\#433](https://github.com/youzan/zent/pull/433) ([xuhong](https://github.com/xuhong))
+- datetimepicker: update proptypes and allow falsy value [\#436](https://github.com/youzan/zent/pull/436) ([xuhong](https://github.com/xuhong))
+- datetimepicker: remove default showTime [\#433](https://github.com/youzan/zent/pull/433) ([xuhong](https://github.com/xuhong))
 - weekpicker support startDay props and monthpicker support max and min [\#432](https://github.com/youzan/zent/pull/432) ([xuhong](https://github.com/xuhong))
 - select: 恢复scrollbar [\#428](https://github.com/youzan/zent/pull/428) ([huangsy](https://github.com/huangsy))
 - Field in Form: validationErrors与validationError置空时，校验出错误时的显示策略调整 [\#427](https://github.com/youzan/zent/pull/427) ([LucasIcarus](https://github.com/LucasIcarus))
@@ -61,8 +77,7 @@
 
 **合并的 Pull Request (可能有不兼容改动):**
 
-- update proptypes and allow falsy value [\#436](https://github.com/youzan/zent/pull/436) ([xuhong](https://github.com/xuhong))
-- fix readme [\#435](https://github.com/youzan/zent/pull/435) ([xuhong](https://github.com/xuhong))
+- datetimepicker: fix readme [\#435](https://github.com/youzan/zent/pull/435) ([xuhong](https://github.com/xuhong))
 - fix typings files [\#416](https://github.com/youzan/zent/pull/416) ([hzjzx](https://github.com/hzjzx))
 - move typings to correct place [\#411](https://github.com/youzan/zent/pull/411) ([hzjzx](https://github.com/hzjzx))
 - 增加table单测 [\#397](https://github.com/youzan/zent/pull/397) ([linxixuan](https://github.com/linxixuan))
