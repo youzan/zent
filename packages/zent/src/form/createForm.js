@@ -79,6 +79,7 @@ const createForm = (config = {}) => {
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
             setFormPristine: this.setFormDirty,
+            setFormDirty: this.setFormDirty,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }
@@ -545,6 +546,7 @@ const createForm = (config = {}) => {
             getFieldError: this.getFieldError,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
+            setFormPristine: this.setFormDirty,
             setFormDirty: this.setFormDirty,
             initialize: this.initialize,
             isFieldTouched: this.isFieldTouched,
