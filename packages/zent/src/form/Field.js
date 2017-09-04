@@ -52,7 +52,9 @@ class Field extends (PureComponent || Component) {
       _validationError: [],
       _externalError: null
     };
-    this._name = prefixName(context.zentForm, props.name);
+    const fieldIndex =
+      context.zentForm.getFieldIndex && context.zentForm.getFieldIndex(this);
+    this._name = prefixName(context.zentForm, props.name, fieldIndex);
     this._validations = props.validations || {};
   }
 
@@ -64,14 +66,21 @@ class Field extends (PureComponent || Component) {
     if (!this.props.name) {
       throw new Error('Form Field requires a name property when used');
     }
-    this.context.zentForm.attachToForm(this);
+    const zentForm = this.context.zentForm;
+    zentForm.attachToForm(this);
+
+    const fieldIndex = zentForm.getFieldIndex && zentForm.getFieldIndex(this);
+    this._name = prefixName(zentForm, this.props.name, fieldIndex);
   }
 
   componentWillReceiveProps(nextProps) {
     if ('validations' in nextProps) {
-      this._name = prefixName(this.context.zentForm, nextProps.name);
       this._validations = nextProps.validations;
     }
+    const fieldIndex =
+      this.context.zentForm.getFieldIndex &&
+      this.context.zentForm.getFieldIndex(this);
+    this._name = prefixName(this.context.zentForm, nextProps.name, fieldIndex);
   }
 
   componentDidUpdate(prevProps) {

@@ -70,9 +70,17 @@ export function silenceEvents(fn) {
   };
 }
 
-export function prefixName(zentForm, name) {
-  const { sectionPrefix } = zentForm;
-  return sectionPrefix ? `${sectionPrefix}.${name}` : name;
+export function prefixName(zentForm, name, index) {
+  const { prefix } = zentForm;
+  let newName;
+  if (!prefix) {
+    newName = name;
+  } else if (index !== undefined && index >= 0) {
+    newName = `${prefix}[${index}].${name}`;
+  } else {
+    newName = `${prefix}.${name}`;
+  }
+  return newName;
 }
 
 export function flatObj(obj, availableKeys = []) {
@@ -84,10 +92,6 @@ export function flatObj(obj, availableKeys = []) {
       } else if (availableKeys.indexOf(newKey) >= 0) {
         newObj[newKey] = value;
       }
-      // else if (newKey !==  ''){
-      //   console.log(3);
-      //   newObj[prefix] = assign(newObj[prefix] || {}, { [key]: value });
-      // }
     });
     return newObj;
   };

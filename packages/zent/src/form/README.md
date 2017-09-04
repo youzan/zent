@@ -12,6 +12,108 @@
 6. validations 对象中传入的是一个 function 的话， function 返回 true 才表示验证通过。
 7. 可以使用 props.zentForm.getFormValues() 来获取所有表单元素值。（ zentForm 如何注入到 props 中请参考 `Form.createForm` 的 API 。）
 
+:::DEMO FieldArray 
+```jsx
+import cx from 'classnames';
+import { Form, Button } from 'zent';
+const { Field, createForm, InputField, FieldArray, FormSection } = Form;
+
+const renderHobbies = ({ fields, meta: { error } }) => (
+	<ul>
+		<li>
+			<button type="button" onClick={() => fields.push()}>Add Hobby</button>
+		</li>
+		{fields.map((hobby, index) => (
+			<li key={index}>
+				<Button
+					type="button"
+					title="Remove Hobby"
+					onClick={() => fields.remove(index)}
+				/>
+				<Field
+					name={hobby}
+					type="text"
+					component={InputField}
+					label={`Hobby #${index + 1}`}
+				/>
+			</li>
+		))}
+		{error && <li className="error">{error}</li>}
+	</ul>
+);
+
+const renderMembers = (props) => {
+	const { fields, handleFields } = props;
+	console.log(fields, handleFields);
+	return (
+		<ul>
+			<Button type="primary" onClick={() => handleFields.push({})}>Add Member</Button>
+			{	handleFields.map(fields, (member, index) => {
+				console.log(member);
+				return (
+					<li key={index}>
+						<Button
+							type="primary"
+							onClick={() => fields.remove(index)}
+						>Remove Member</Button>
+						<h4>Member #{index + 1}</h4>
+						<Field
+							name={`${member}.firstName`}
+							type="text"
+							component={InputField}
+							label="First Name"
+						/>
+						<Field
+							name={`${member}.lastName`}
+							type="text"
+							component={InputField}
+							label="Last Name"
+						/>
+					</li>
+				);
+			}
+			)}
+		</ul>
+	);
+}
+
+class BaseForm extends React.Component {
+	submit = (values) => {
+		console.log(values);
+	}
+	render() {
+		const { handleSubmit } = this.props;
+		return (
+			<form onSubmit={handleSubmit()}>
+				<Field
+					name="clubName"
+					type="text"
+					component={InputField}
+					label="Club Name"
+				/>
+				<FormSection name="school">
+					<FieldArray name="members" component={renderMembers} />
+				</FormSection>
+				<div className="zent-form__form-actions">
+					<Button type="primary" >Submit</Button>
+					<Button type="primary" onClick={this.reset}>
+						Clear Values
+					</Button>
+				</div>
+			</form>
+		);
+	}
+};
+
+const WrappedForm = createForm()(BaseForm);
+
+ReactDOM.render(
+	<WrappedForm />, mountNode
+);
+```
+:::
+
+
 :::DEMO Form 组件已经提供了一个`getControlGroup`函数来快速得到一个类似例子中 renderEmail 组件的表单结构。具体请参考`getControlGroup`的 API 。 
 ```jsx
 import cx from 'classnames';
@@ -19,20 +121,20 @@ import { Form, Input, Button } from 'zent';
 const { Field, createForm } = Form;
 
 const renderEmail = (props) => {
-  const showError = props.isTouched && props.error;
-  const className = cx({
-    'zent-form__control-group': true,
-    'has-error': showError
-  });
-  return (
-    <div className={className}>
-      <label className="zent-form__control-label">邮箱：</label>
-      <div className="zent-form__controls">
-        <Input type="text" name={props.name} value={props.value} onChange={props.onChange} />
-        {showError && <span className="zent-form__error-desc">{props.error}</span>}
-      </div>
-    </div>
-  );
+	const showError = props.isTouched && props.error;
+	const className = cx({
+		'zent-form__control-group': true,
+		'has-error': showError
+	});
+	return (
+		<div className={className}>
+			<label className="zent-form__control-label">邮箱：</label>
+			<div className="zent-form__controls">
+				<Input type="text" name={props.name} value={props.value} onChange={props.onChange} />
+				{showError && <span className="zent-form__error-desc">{props.error}</span>}
+			</div>
+		</div>
+	);
 };
 
 const BaseForm = (props) => {
@@ -41,27 +143,27 @@ const BaseForm = (props) => {
 		alert(JSON.stringify(zentForm.getFormValues()));
 	};
 	return (
-      <Form horizontal>
-        <Field 
-        	name="email" 
-        	component={renderEmail} 
-        	value="123@youzan.com" 
-        	validations={{ 
-        		isEmail: true,
-        		limitDomain(values, value) {
-        			return /@youzan\.com$/.test(value);
-        		}
-        	}} 
-        	validationErrors={{ 
-        		isEmail: '请输入正确的格式',
-        		limitDomain: '必须使用youzan.com的邮箱'
-        	}} 
-        />
-        <div className="zent-form__form-actions">
-          <Button type="primary" onClick={alertValues}>获取表单值</Button>
-        </div>
-      </Form>
-    );
+			<Form horizontal>
+				<Field 
+					name="email" 
+					component={renderEmail} 
+					value="123@youzan.com" 
+					validations={{ 
+						isEmail: true,
+						limitDomain(values, value) {
+							return /@youzan\.com$/.test(value);
+						}
+					}} 
+					validationErrors={{ 
+						isEmail: '请输入正确的格式',
+						limitDomain: '必须使用youzan.com的邮箱'
+					}} 
+				/>
+				<div className="zent-form__form-actions">
+					<Button type="primary" onClick={alertValues}>获取表单值</Button>
+				</div>
+			</Form>
+		);
 };
 const WrappedForm = createForm()(BaseForm);
 
@@ -114,13 +216,13 @@ const FormattedForm = () => {
 	return (
 		<Form horizontal>
 			<Field
-			  name="field"
-			  type="text"
-			  component={InputField}
-			  label="Blur时才校验:"
-			  validateOnChange={false}
-			  validations={{ required: true }}
-			  validationErrors={{ required: '值不能为空' }}
+				name="field"
+				type="text"
+				component={InputField}
+				label="Blur时才校验:"
+				validateOnChange={false}
+				validations={{ required: true }}
+				validationErrors={{ required: '值不能为空' }}
 			/>
 		</Form>
 	);
@@ -144,30 +246,30 @@ const { Field, InputField, createForm } = Form;
 
 const FormattedForm = () => {
 	const lower = (value) => {
-	  return value && value.toLowerCase();
+		return value && value.toLowerCase();
 	}
 	const upper = (value) => {
-	  return value && value.toUpperCase();
+		return value && value.toUpperCase();
 	}
 	return (
 		<Form horizontal>
 			<Field
-			  name="field1"
-			  type="text"
-			  component={InputField}
-			  label="To Lower:"
-			  value="AAA"
-			  normalize={lower}
-			  format={lower}
+				name="field1"
+				type="text"
+				component={InputField}
+				label="To Lower:"
+				value="AAA"
+				normalize={lower}
+				format={lower}
 			/>
 			<Field
-			  name="field2"
-			  type="text"
-			  component={InputField}
-			  label="To Upper:"
-			  value="bbb"
-			  normalize={upper}
-			  format={upper}
+				name="field2"
+				type="text"
+				component={InputField}
+				label="To Upper:"
+				value="bbb"
+				normalize={upper}
+				format={upper}
 			/>
 		</Form>
 	);
@@ -191,77 +293,77 @@ import { Form, Select, Input } from 'zent';
 const { Field, createForm } = Form;
 const { SelectTrigger } = Select;
 const countyCodeList = [
-  { code: '+86', zh: 'zhongguo', eng: 'china', value: '中国 +86', index: 0 },
-  { code: '+853', zh: 'aomen', eng: 'Macau', value: '中国澳门 +853', index: 1 }
+	{ code: '+86', zh: 'zhongguo', eng: 'china', value: '中国 +86', index: 0 },
+	{ code: '+853', zh: 'aomen', eng: 'Macau', value: '中国澳门 +853', index: 1 }
 ];
 
 const ContactPhone = (props) => {
-  const value = props.value;
-  const showError = props.isTouched && props.error;
-  const mobileClassName = cx({
-    'zent-form__control-group': true,
-    'has-error': showError
-  });
-  const onSelectChange = (e, selectedItem) => {
-    const newValue = {
-      areacode: selectedItem.index
-    };
-    props.onChange(newValue, { merge: true });
-  };
-  const onPhoneChange = (e) => {
-    const newValue = Object.assign({}, value,{
-      mobile: e.target.value
-    });
-    props.onChange(newValue);
-  };
-  const filterHandler = (item, keyword) => {
-    return keyword && item.text.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1;
-  };
+	const value = props.value;
+	const showError = props.isTouched && props.error;
+	const mobileClassName = cx({
+		'zent-form__control-group': true,
+		'has-error': showError
+	});
+	const onSelectChange = (e, selectedItem) => {
+		const newValue = {
+			areacode: selectedItem.index
+		};
+		props.onChange(newValue, { merge: true });
+	};
+	const onPhoneChange = (e) => {
+		const newValue = Object.assign({}, value,{
+			mobile: e.target.value
+		});
+		props.onChange(newValue);
+	};
+	const filterHandler = (item, keyword) => {
+		return keyword && item.text.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1;
+	};
 
-  return (
-    <div className={mobileClassName}>
-      <label className="zent-form__control-label">联系方式：</label>
-      <div className="zent-form__controls">
-        <Select className="areacode"
-          value={value.areacode}
-          data={props.areadata}
-          filter={filterHandler}
-          optionValue="index"
-          optionText="value"
-          trigger={SelectTrigger}
-          onChange={onSelectChange}
-        />
-        <div className="zent-input-wrapper phone-num" style={{ display: 'inline-block' }}>
-          <input className="zent-input" type="text" placeholder="请填写手机号" value={value.mobile} onChange={onPhoneChange} />
-        </div>
-        {showError && <p className="zent-form__error-desc">{props.error}</p>}
-      </div>
-    </div>
-  );
+	return (
+		<div className={mobileClassName}>
+			<label className="zent-form__control-label">联系方式：</label>
+			<div className="zent-form__controls">
+				<Select className="areacode"
+					value={value.areacode}
+					data={props.areadata}
+					filter={filterHandler}
+					optionValue="index"
+					optionText="value"
+					trigger={SelectTrigger}
+					onChange={onSelectChange}
+				/>
+				<div className="zent-input-wrapper phone-num" style={{ display: 'inline-block' }}>
+					<input className="zent-input" type="text" placeholder="请填写手机号" value={value.mobile} onChange={onPhoneChange} />
+				</div>
+				{showError && <p className="zent-form__error-desc">{props.error}</p>}
+			</div>
+		</div>
+	);
 };
 
 const CustomFieldForm = () => {
 	return (
-      <Form horizontal>
-        <Field
-          name="contactPhone"
-          value={{
-            areacode: 1,
-            mobile: 15899776666
-          }}
-          areadata={countyCodeList}
-          component={ContactPhone}
-          validations={{
-            validMobile(values, value) {
-              let mobile = +value.mobile;
-              let mobileReg = /^\d{1,10}$/;
-              return mobileReg.test(mobile);
-            }
-          }}
-          validationErrors={{ validMobile: '请输入正确的手机号' }}
-        />
-      </Form>
-    );
+			<Form horizontal>
+				<Field
+					name="contactPhone"
+					value={{
+						areacode: 1,
+						mobile: 15899776666
+					}}
+					areadata={countyCodeList}
+					component={ContactPhone}
+					validations={{
+						validMobile(values, value) {
+							let mobile = +value.mobile;
+							let mobileReg = /^\d{1,10}$/;
+							return mobileReg.test(mobile);
+						}
+					}}
+					validationErrors={{ validMobile: '请输入正确的手机号' }}
+				/>
+			</Form>
+		);
 };
 const WrappedForm = createForm()(CustomFieldForm);
 
@@ -283,64 +385,64 @@ const SubmitForm = (props) => {
 	const { handleSubmit, zentForm } = props;
 	const isSubmitting = zentForm.isSubmitting();
 	const submit = (values, zentForm) => {
-    let promise = new Promise((resolve) => setTimeout(resolve, 1000));
-    return promise.then(() => {
-    	const random = Math.random() * 10;
-    	if (random > 4) {
-    		zentForm.setFieldExternalErrors({
-    		  user: '用户名已被占用'
-    		});
-    		// 可以throw SubmissionError 在 onSubmitFail 中处理，也可以在这里直接 alert 错误信息
-    		throw new SubmissionError('用户名已被占用');
-  		} else {
+		let promise = new Promise((resolve) => setTimeout(resolve, 1000));
+		return promise.then(() => {
+			const random = Math.random() * 10;
+			if (random > 4) {
+				zentForm.setFieldExternalErrors({
+					user: '用户名已被占用'
+				});
+				// 可以throw SubmissionError 在 onSubmitFail 中处理，也可以在这里直接 alert 错误信息
+				throw new SubmissionError('用户名已被占用');
+			} else {
 				// 返回值可以传入到 onSubmitSuccess ，或者直接在这里处理掉
 				return '注册成功';
-  		}
-    });
-  };
+			}
+		});
+	};
 	return (
-	  <Form onSubmit={handleSubmit(submit)} horizontal>
-	    <Field
-	      name="user"
-	      type="text"
-	      component={InputField}
-	      label="用户名："
-	      value="111"
-	      validations={{ required: true }}
-	      validationErrors={{ required: '用户名不能为空' }}
-	    />
-	    <Field
-	      name="password"
-	      type="password"
-	      component={InputField}
-	      label="密码："
-	      value="222"
-	      validations={{ required: true }}
-	      validationErrors={{ required: '密码不能为空' }}
-	    />
-	    <Field
-	      name="confirmPassword"
-	      type="password"
-	      component={InputField}
-	      label="确认密码："
-	      value="222"
-	      validations={{
-	        required: true,
-	        isPasswordEqual(values, value) {
-	          if (values.password !== value) {
-	            return '两次密码输入不一致';
-	          }
-	          return true;
-	        }
-	      }}
-	      validationErrors={{
-	        required: '确认密码不能为空'
-	      }}
-	    />
-	    <div className="zent-form__form-actions">
-	      <Button type="primary" htmlType="submit" loading={isSubmitting}>注册</Button>
-	    </div>
-	  </Form>
+		<Form onSubmit={handleSubmit(submit)} horizontal>
+			<Field
+				name="user"
+				type="text"
+				component={InputField}
+				label="用户名："
+				value="111"
+				validations={{ required: true }}
+				validationErrors={{ required: '用户名不能为空' }}
+			/>
+			<Field
+				name="password"
+				type="password"
+				component={InputField}
+				label="密码："
+				value="222"
+				validations={{ required: true }}
+				validationErrors={{ required: '密码不能为空' }}
+			/>
+			<Field
+				name="confirmPassword"
+				type="password"
+				component={InputField}
+				label="确认密码："
+				value="222"
+				validations={{
+					required: true,
+					isPasswordEqual(values, value) {
+						if (values.password !== value) {
+							return '两次密码输入不一致';
+						}
+						return true;
+					}
+				}}
+				validationErrors={{
+					required: '确认密码不能为空'
+				}}
+			/>
+			<div className="zent-form__form-actions">
+				<Button type="primary" htmlType="submit" loading={isSubmitting}>注册</Button>
+			</div>
+		</Form>
 	);
 };
 const WrappedForm = createForm()(SubmitForm);
@@ -367,27 +469,27 @@ const { Field, InputField, createForm } = Form;
 
 const AsyncForm = (props) => {
 	const asyncValidation = (values, value) => {
-	  return new Promise((resolve, reject) => setTimeout(() => {
-	    if (value === 'pangxie') {
-	      reject('用户名已被占用');
-	    } else {
-	      resolve();
-	    }
-	  }, 1000));
+		return new Promise((resolve, reject) => setTimeout(() => {
+			if (value === 'pangxie') {
+				reject('用户名已被占用');
+			} else {
+				resolve();
+			}
+		}, 1000));
 	}
 	return (
 		<Form horizontal>
-      <Field
-        name="name"
-        type="text"
-        label="用户名："
-        value=""
-        validations={{ required: true }}
-        validationErrors={{ required: '不能为空' }}
-        component={InputField}
-        asyncValidation={asyncValidation}
-      />
-    </Form>
+			<Field
+				name="name"
+				type="text"
+				label="用户名："
+				value=""
+				validations={{ required: true }}
+				validationErrors={{ required: '不能为空' }}
+				component={InputField}
+				asyncValidation={asyncValidation}
+			/>
+		</Form>
 	);
 };
 const WrappedForm = createForm()(AsyncForm);
@@ -409,24 +511,24 @@ const { Field, Fieldset, InputField, createForm } = Form;
 const FieldsetForm = (props) => {
 	return (
 		<Form horizontal>
-		  <Fieldset legend="Fieldset1">
-		    <Field
-		      name="name"
-		      type="text"
-		      label="用户名："
-		      value=""
-		      component={InputField}
-		    />
-		  </Fieldset>
-		  <Fieldset legend="Fieldset2">
-		    <Field
-		      name="name2"
-		      type="text"
-		      label="用户名2："
-		      value=""
-		      component={InputField}
-		    />
-		  </Fieldset>
+			<Fieldset legend="Fieldset1">
+				<Field
+					name="name"
+					type="text"
+					label="用户名："
+					value=""
+					component={InputField}
+				/>
+			</Fieldset>
+			<Fieldset legend="Fieldset2">
+				<Field
+					name="name2"
+					type="text"
+					label="用户名2："
+					value=""
+					component={InputField}
+				/>
+			</Fieldset>
 		</Form>
 	);
 };
@@ -461,12 +563,12 @@ ReactDOM.render(
 
 ```text
 Field 中传入 value -> 使用 format() 格式化 value -> format 过的 value 传入 component 中渲染组件
-                           ↑                                 |
-                           |                                 ↓
-                           |                          用户操作改变 value
-                           |                                 |
-                           |                                 ↓
-    normalize 过的 value 写入 form 中维护, 用于数据提交 <- 使用 normalize() 格式化 value
+													 ↑                                 |
+													 |                                 ↓
+													 |                          用户操作改变 value
+													 |                                 |
+													 |                                 ↓
+		normalize 过的 value 写入 form 中维护, 用于数据提交 <- 使用 normalize() 格式化 value
 ```
 
 如果传入 Field 的 value 值是一个动态值，在外部改变 value 后会重新开始 value 的生命周期。
@@ -584,9 +686,9 @@ onSubmissionFail(submissionError) {
 可以通过在Field上加上ref，然后调用 `getWrappedComponent` 方法来获取。
 ```
 <Field
-  ref={ref => { this.field = ref }}
-  component={XxxComponent}
-  ...
+	ref={ref => { this.field = ref }}
+	component={XxxComponent}
+	...
 />
 
 const component = field.getWrappedComponent();
@@ -597,40 +699,40 @@ getControlGroup 是一个用来快速封装自定义组件的函数，它返回�
 
 ```jsx
 export default Control => {
-  return class ControlGroup extends React.Component {
-    getControlInstance = () => {
-      return this.control;
-    }
+	return class ControlGroup extends React.Component {
+		getControlInstance = () => {
+			return this.control;
+		}
 
-    render() {
-      const { required = false, helpDesc = '', label = '', className = '', ...props } = this.props;
+		render() {
+			const { required = false, helpDesc = '', label = '', className = '', ...props } = this.props;
 
-      const showError = props.isTouched && props.error;
-      const groupClassName = cx({
-        'zent-form__control-group': true,
-        'zent-form__control-group--active': props.isActive,
-        'has-error': showError,
-        [className]: true
-      });
+			const showError = props.isTouched && props.error;
+			const groupClassName = cx({
+				'zent-form__control-group': true,
+				'zent-form__control-group--active': props.isActive,
+				'has-error': showError,
+				[className]: true
+			});
 
-      return (
-        <div className={groupClassName}>
-          <label className="zent-form__control-label">
-            {required ? <em className="zent-form__required">*</em> : null}
-            {label}
-          </label>
-          <div className="zent-form__controls">
-            <Control
-              {...props}
-              ref={ref => this.control = ref}
-            />
-            {showError && <p className="zent-form__error-desc">{props.error}</p>}
-            {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
-          </div>
-        </div>
-      );
-    }
-  };
+			return (
+				<div className={groupClassName}>
+					<label className="zent-form__control-label">
+						{required ? <em className="zent-form__required">*</em> : null}
+						{label}
+					</label>
+					<div className="zent-form__controls">
+						<Control
+							{...props}
+							ref={ref => this.control = ref}
+						/>
+						{showError && <p className="zent-form__error-desc">{props.error}</p>}
+						{helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
+					</div>
+				</div>
+			);
+		}
+	};
 };
 ```
 
@@ -656,10 +758,10 @@ const component = field.getWrappedComponent().getControlInstance();
 <Field
 	...
 	validations={{
-	  required: true,
-	  matchRegex: /^\d+/,
-	  equals: 'pangzi',
-	  equalsField: 'fieldName'
+		required: true,
+		matchRegex: /^\d+/,
+		equals: 'pangzi',
+		equalsField: 'fieldName'
 	}}
 	...
 />
