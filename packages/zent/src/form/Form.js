@@ -9,6 +9,7 @@ class Form extends (PureComponent || Component) {
     className: PropTypes.string,
     horizontal: PropTypes.bool,
     inline: PropTypes.bool,
+    vertical: PropTypes.bool,
     onSubmit: PropTypes.func,
     children: PropTypes.any,
     style: PropTypes.object
@@ -32,6 +33,7 @@ class Form extends (PureComponent || Component) {
       [`${prefix}-form`]: true,
       [`${prefix}-form--horizontal`]: horizontal,
       [`${prefix}-form--inline`]: inline,
+      [`${prefix}-form--vertical`]: !horizontal && !inline,
       [className]: !!className
     });
     return (
