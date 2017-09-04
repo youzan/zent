@@ -3,6 +3,7 @@ import assign from 'lodash/assign';
 import Form from './Form';
 import createForm from './createForm';
 import Field from './Field';
+import FieldArray from './FieldArray';
 import Fieldset from './Fieldset';
 import FormSection from './FormSection';
 import getControlGroup from './getControlGroup';
@@ -18,6 +19,7 @@ export default assign(Form, {
   Form,
   createForm,
   Field,
+  FieldArray,
   Fieldset,
   FormSection,
   getControlGroup,
