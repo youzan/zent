@@ -29,7 +29,7 @@ class InputTrigger extends (PureComponent || Component) {
   };
 
   render() {
-    let { prefixCls, placeholder, keyword, text } = this.props;
+    const { prefixCls, placeholder, keyword, text } = this.props;
 
     return (
       <input

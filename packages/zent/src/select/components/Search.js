@@ -16,7 +16,7 @@ class Search extends (PureComponent || Component) {
   }
 
   render() {
-    let { prefixCls, placeholder, keyword } = this.props;
+    const { prefixCls, placeholder, keyword } = this.props;
 
     return (
       <div className={`${prefixCls}-search`}>

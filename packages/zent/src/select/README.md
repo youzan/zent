@@ -365,7 +365,7 @@ const data = [1, 2, 3];
 
 ReactDOM.render(
   <Select
-    data={[1, 2, 3]}
+    data={data}
     search
     filter={(item, keyword) => {
       return `${item.value}` === `${keyword}`;

@@ -24,7 +24,7 @@ class Popup extends (PureComponent || Component) {
   }
 
   componentDidMount() {
-    if (!this.props.filter) {
+    if (!this.props.filter && !this.props.onAsyncFilter) {
       this.popup.focus();
     }
     this.popup.addEventListener('mousewheel', this.handleScroll);
@@ -42,7 +42,7 @@ class Popup extends (PureComponent || Component) {
   };
 
   componentWillReceiveProps(nextProps) {
-    let keyword = nextProps.keyword;
+    const keyword = nextProps.keyword;
     this.setState({
       data: nextProps.data,
       // 默认选中第一项
@@ -50,17 +50,14 @@ class Popup extends (PureComponent || Component) {
     });
 
     // trigger中传入的keyword
-    if (keyword !== null) {
-      this.setState({
-        keyword,
-        currentId: ''
-      });
+    if (this.props.extraFilter || keyword !== null) {
+      this.searchFilterHandler(keyword);
     }
   }
 
   optionChangedHandler = (ev, cid) => {
-    let { filter, data } = this.props;
-    let { keyword } = this.state;
+    const { filter, data } = this.props;
+    const { keyword } = this.state;
     this.setState({
       keyword: ''
     });
@@ -76,7 +73,7 @@ class Popup extends (PureComponent || Component) {
   };
 
   searchFilterHandler = keyword => {
-    let { onAsyncFilter } = this.props;
+    const { onAsyncFilter } = this.props;
     keyword = trim(keyword);
     this.setState({
       keyword,
@@ -89,8 +86,8 @@ class Popup extends (PureComponent || Component) {
   };
 
   componentWillUpdate(nextProps, nextState) {
-    let { filter } = nextProps;
-    let { data, keyword, currentId } = nextState;
+    const { filter } = nextProps;
+    const { data, keyword, currentId } = nextState;
     data
       .filter(item => {
         return !keyword || !filter || filter(item, `${keyword}`);
@@ -105,13 +102,13 @@ class Popup extends (PureComponent || Component) {
   }
 
   keydownHandler = ev => {
-    let code = ev.keyCode;
-    let itemIds = this.itemIds;
+    const code = ev.keyCode;
+    const itemIds = this.itemIds;
     let { currentId, keyword } = this.state;
-    let index = itemIds.indexOf(currentId);
-    let popupHeight = this.popup.clientHeight;
-    let scrollHeight = this.popup.scrollHeight;
-    let currentNode = this.popup.getElementsByClassName('current')[0];
+    const index = itemIds.indexOf(currentId);
+    const popupHeight = this.popup.clientHeight;
+    const scrollHeight = this.popup.scrollHeight;
+    const currentNode = this.popup.getElementsByClassName('current')[0];
     switch (code) {
       case KEY_ESC:
         this.props.popover.close();
@@ -165,7 +162,7 @@ class Popup extends (PureComponent || Component) {
   }
 
   render() {
-    let {
+    const {
       cid,
       selectedItems,
       emptyText,
@@ -177,13 +174,13 @@ class Popup extends (PureComponent || Component) {
       maxToShow
     } = this.props;
 
-    let { keyword, data, currentId } = this.state;
+    const { keyword, data, currentId } = this.state;
 
     let filterData = data.filter(item => {
       return !keyword || !filter || filter(item, `${keyword}`);
     });
 
-    let showEmpty = data.length === 0 || filterData.length === 0;
+    const showEmpty = data.length === 0 || filterData.length === 0;
 
     this.itemIds = filterData.map(item => item.cid);
 
@@ -207,8 +204,8 @@ class Popup extends (PureComponent || Component) {
             />
           : ''}
         {filterData.map((item, index) => {
-          let currentCls = item.cid === currentId ? 'current' : '';
-          let activeCls =
+          const currentCls = item.cid === currentId ? 'current' : '';
+          const activeCls =
             selectedItems.filter(o => o.cid === item.cid).length > 0 ||
             item.cid === cid
               ? 'active'
