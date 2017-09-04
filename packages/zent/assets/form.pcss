@@ -121,3 +121,30 @@
     line-height: 28px;
   }
 }
+
+.zent-form--inline {
+  .zent-form__control-group {
+    display: inline-block;
+    line-height: 30px;
+    margin-right: 20px;
+
+    .zent-form__control-label {
+      display: inline-block;
+      font-size: 12px;
+      vertical-align: top;
+
+      & + .zent-form__controls {
+        display: inline-block;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.zent-form--vertical {
+  .zent-form__control-label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+}
