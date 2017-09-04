@@ -292,6 +292,7 @@ class Field extends (PureComponent || Component) {
         this.wrappedComponent = ref;
       },
       name: this.getName(),
+      isTouched: this.isDirty(),
       isDirty: this.isDirty(),
       isValid: this.isValid(),
       isActive: this.isActive(),

@@ -11,8 +11,8 @@ class TagsTrigger extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { selectedItems } = this.props;
-    let { cid, text, value } = nextProps;
+    const { selectedItems } = this.props;
+    const { cid, text, value } = nextProps;
 
     if (this.isDelete || this.isAdded) {
       this.isDelete = false;
@@ -20,7 +20,7 @@ class TagsTrigger extends (PureComponent || Component) {
       return;
     }
 
-    let isExist = selectedItems.filter(item => item.cid === cid).length > 0;
+    const isExist = selectedItems.filter(item => item.cid === cid).length > 0;
 
     if (typeof cid !== 'undefined' && !isExist) {
       selectedItems.push({
@@ -46,8 +46,8 @@ class TagsTrigger extends (PureComponent || Component) {
   }
 
   deleteTagHandler(cid) {
-    let { selectedItems } = this.props;
-    let deleteItem = selectedItems.filter(item => item.cid === cid)[0];
+    const { selectedItems } = this.props;
+    const deleteItem = selectedItems.filter(item => item.cid === cid)[0];
     this.isDelete = true;
     this.props.onDelete(deleteItem);
     this.props.onChange({
@@ -58,7 +58,7 @@ class TagsTrigger extends (PureComponent || Component) {
   }
 
   render() {
-    let { prefixCls, placeholder, onClick, selectedItems } = this.props;
+    const { prefixCls, placeholder, onClick, selectedItems } = this.props;
 
     return (
       <div className={`${prefixCls}-tags`} onClick={onClick}>
