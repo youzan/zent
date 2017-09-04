@@ -321,7 +321,7 @@ const countyCodeList = [
 
 const ContactPhone = (props) => {
 	const value = props.value;
-	const showError = props.isTouched && props.error;
+	const showError = props.isDirty && props.error;
 	const helpDesc = props.helpDesc;
 	const mobileClassName = cx({
 		'zent-form__control-group': true,
