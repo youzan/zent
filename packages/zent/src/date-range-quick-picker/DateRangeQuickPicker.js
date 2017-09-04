@@ -11,6 +11,7 @@ export default class DateRangeQuickPicker extends Component {
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.array,
+    valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
     chooseDays: PropTypes.number,
     preset: PropTypes.array,
@@ -30,6 +31,7 @@ export default class DateRangeQuickPicker extends Component {
     prefix: 'zent',
     className: '',
     value: [],
+    valueType: 'string',
     format: 'YYYY-MM-DD',
     preset: [
       {
@@ -51,8 +53,8 @@ export default class DateRangeQuickPicker extends Component {
   };
 
   handleChooseDays = num => {
-    const { format, onChange } = this.props;
-    const value = Helper.calculateTime(format, num);
+    const { format, onChange, valueType } = this.props;
+    const value = Helper.calculateTime(format, num, valueType);
     onChange(value, num);
   };
 

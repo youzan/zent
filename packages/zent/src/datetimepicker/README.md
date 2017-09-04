@@ -507,7 +507,7 @@ ReactDOM.render(
 | popPosition  | pop 弹出层 align 方向   | oneOf(['left', 'right'])  | 'left'    | 否    |
 
 
-### DateTimePicker
+### DatePicker
 
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
