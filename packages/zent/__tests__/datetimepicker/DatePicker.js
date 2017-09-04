@@ -89,7 +89,7 @@ describe('DateTimePicker', () => {
   });
 
   it('There are prev and next pager in Date/Month/YearPanel', () => {
-    const getMonthNumber = string => +string.match(/(\d{4}).*(\d{1})/)[2];
+    const getMonthNumber = string => +string.match(/(\d{4}).{1}(\d{1,2})/)[2];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
     const getYearRangeTail = string => +string.match(/(\d{4}).*(\d{4})/)[2];
     const wrapper = mount(<DatePicker showTime />);
@@ -113,7 +113,7 @@ describe('DateTimePicker', () => {
       expect(next).toBe(2);
     } else {
       expect(header - prev).toBe(1);
-      expect(header - next).toBe(8);
+      expect(header - next).toBe(-1);
     }
 
     // MonthPanel
@@ -233,7 +233,7 @@ describe('DateTimePicker', () => {
 
   it('DatePicker has disable prop', () => {
     // total disable switch
-    const getMonthNumber = string => +string.match(/(\d{4}).*(\d{1})/)[2];
+    const getMonthNumber = string => +string.match(/(\d{4}).{1}(\d{1,2})/)[2];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
     let wrapper = mount(<DatePicker disabled />);
     expect(wrapper.find('DatePanel').length).toBe(0);
