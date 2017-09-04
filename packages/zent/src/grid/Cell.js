@@ -22,16 +22,16 @@ class Cell extends React.PureComponent {
 
     let tdProps;
     let colSpan;
-    // let rowSpan;
+    let rowSpan;
 
     if (this.isInvalidRenderCellText(text)) {
       tdProps = text.props || {};
       colSpan = tdProps.colSpan;
-      // rowSpan = tdProps.rowSpan;
+      rowSpan = tdProps.rowSpan;
       text = text.children;
     }
 
-    if (colSpan === 0) {
+    if (rowSpan === 0 || colSpan === 0) {
       return null;
     }
 

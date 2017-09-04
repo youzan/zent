@@ -1,6 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loading } from 'zent';
+import Loading from 'loading';
 import classnames from 'classnames';
 import noop from 'lodash/noop';
 import ColumnsManager from './ColumnsManager';

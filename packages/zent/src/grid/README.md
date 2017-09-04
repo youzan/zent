@@ -4,7 +4,7 @@
 
 ### 代码演示
 
-<!-- :::demo 基础用法
+:::demo 基础用法
 ```jsx
 import { Grid } from 'zent';
 
@@ -158,7 +158,7 @@ ReactDOM.render(
 
 ```
 :::
- -->
+
 
 :::demo colSpan & rowSpan
 ```jsx
@@ -170,21 +170,34 @@ const columns = [
 		title: '商品名',
 		name: 'name',
 		colSpan: 2,
-		bodyRender: (data, pos) => {
-			if (pos.row === 1) {
-				return <span>{data.name}</span>
-			}
-
-			return {
-				props: {
-					colSpan: 2
-				},
-				children: <span>{data.name}</span>
-			}
-		}
+		width: '200px'
+	}, {
+		title: '副标题',
+		name: 'sub',
+		colSpan: 0,
+		width: '200px'
 	}, {
 		title: '访问量',
-		name: 'uv'
+		name: 'uv',
+		bodyRender: (data, pos) => {
+			const { row }  = pos;
+			if (row % 2 === 0) {
+				return {
+					props: {
+						rowSpan: 2
+					},
+					children: <span>{data.uv}</span>
+				}
+			}
+			if (row % 2 !== 0) {
+				return {
+					props: {
+						rowSpan: 0
+					}
+				}
+			}
+			return <span>{data.uv}</span>
+		}
 	}, {
 		title: '库存',
 		name: 'stock'
@@ -193,9 +206,10 @@ const columns = [
 
 const datasets = [];
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 6; i++) {
 	datasets.push({
 		name: `商品 ${i}`,
+		sub: `副标题 ${i}`,
 		uv: 20,
 		stock: 5
 	})

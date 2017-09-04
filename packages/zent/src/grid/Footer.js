@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination } from 'zent';
+import Pagination from 'pagination';
 import classnames from 'classnames';
 import size from 'lodash/size';
 import get from 'lodash/get';
