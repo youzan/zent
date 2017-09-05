@@ -363,7 +363,7 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   maxToShow: PropTypes.number,
   searchPlaceholder: PropTypes.string,
-  emptyText: PropTypes.oneOf(PropTypes.string, PropTypes.element),
+  emptyText: PropTypes.node,
   selectedItem: PropTypes.shape({
     value: PropTypes.any,
     text: PropTypes.string
