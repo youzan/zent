@@ -185,7 +185,7 @@ ReactDOM.render(
 
 :::DEMO 使用 `getControlGroup` 封装自定义表单元素组件
 ```jsx
-import { Form, NumberInput, ColorPicker, DateRangePicker, Switch, Upload, Select } from 'zent';
+import { Form, NumberInput, ColorPicker, DateRangePicker, Switch, Upload } from 'zent';
 const { Field, createForm, getControlGroup, unknownProps } = Form;
 import omit from 'lodash/omit';
 
@@ -212,12 +212,6 @@ const SwitchWrap = (props) => {
 	return <Switch {...passableProps} size="small" checked={props.value} />;
 };
 const SwitchField = getControlGroup(SwitchWrap);
-
-const SelectWrap = props => {
-	const passableProps = omit(props, unknownProps);
-	return <Select {...passableProps} />;
-}
-const SelectField = getControlGroup(SelectWrap);
 
 const UploadWrap = (props) => {
 	const passableProps = omit(props, unknownProps);
@@ -267,14 +261,6 @@ class FieldForm extends React.Component {
 					label="颜色："
 					component={ColorPickerField}
 					value="#5197FF"
-				/>
-				<Field
-					name="height"
-					label="身高："
-					component={SelectField}
-					data={['小四', '教主', '姚明']}
-					value="小四"
-					autoWidth
 				/>
 				<Field
 					name="dateRange"

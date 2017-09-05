@@ -25,7 +25,11 @@ class Popup extends (PureComponent || Component) {
   }
 
   componentWillMount() {
-    if (this.props.autoWidth) {
+    if (
+      this.props.autoWidth &&
+      this.props.inputPop &&
+      this.props.inputPop.getTriggerNode()
+    ) {
       const width = `${this.props.inputPop.getTriggerNode().clientWidth + 2}px`;
       this.setState({
         style: { width }
