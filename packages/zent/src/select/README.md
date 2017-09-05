@@ -268,7 +268,7 @@ import { Select } from 'zent';
 const Option = Select.Option;
 
 ReactDOM.render(
-  <Select autoWidth className="zent-select--auto-width">
+  <Select autoWidth open className="zent-select--auto-width">
     <Option value="1">选项一</Option>
     <Option value="2">选项二</Option>
     <Option value="3">选项三</Option>

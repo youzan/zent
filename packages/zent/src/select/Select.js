@@ -304,7 +304,6 @@ class Select extends (PureComponent || Component) {
         className={`${prefixCls} ${popupClassName}`}
         wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
         onVisibleChange={this.handlePopoverVisibleChange}
-        ref={inputPop => (this.inputPop = inputPop)}
       >
         <PopoverClickTrigger>
           <Trigger
@@ -337,7 +336,6 @@ class Select extends (PureComponent || Component) {
             onFocus={this.popupFocusHandler}
             onBlur={this.popupBlurHandler}
             autoWidth={autoWidth}
-            inputPop={this.inputPop}
           />
         </Popover.Content>
       </Popover>
