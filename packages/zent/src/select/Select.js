@@ -12,7 +12,7 @@ import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 
 import Popover from 'popover';
-import Trigger from './triggers';
+import Trigger from './triggers/index';
 import Popup from './Popup';
 import SimpleTrigger from './triggers/SimpleTrigger';
 import SelectTrigger from './triggers/SelectTrigger';
