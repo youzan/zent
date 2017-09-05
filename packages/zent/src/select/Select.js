@@ -12,12 +12,12 @@ import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 
 import Popover from 'popover';
-import Trigger from './triggers/index';
+import Trigger from './trigger/index';
 import Popup from './Popup';
-import SimpleTrigger from './triggers/SimpleTrigger';
-import SelectTrigger from './triggers/SelectTrigger';
-import InputTrigger from './triggers/InputTrigger';
-import TagsTrigger from './triggers/TagsTrigger';
+import SimpleTrigger from './trigger/SimpleTrigger';
+import SelectTrigger from './trigger/SelectTrigger';
+import InputTrigger from './trigger/InputTrigger';
+import TagsTrigger from './trigger/TagsTrigger';
 
 class PopoverClickTrigger extends Popover.Trigger.Click {
   getTriggerProps(child) {
