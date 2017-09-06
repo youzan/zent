@@ -19,8 +19,20 @@ class Popup extends (PureComponent || Component) {
       data: props.data,
       // 默认选中第一项
       currentId: props.data[0] ? props.data[0].cid : 0,
-      keyword: props.keyword || ''
+      keyword: props.keyword || '',
+      style: {}
     };
+  }
+
+  componentWillMount() {
+    const { autoWidth, popover } = this.props;
+    if (autoWidth) {
+      this.setState({
+        style: {
+          width: `${popover.getTriggerNode().clientWidth + 2}px`
+        }
+      });
+    }
   }
 
   componentDidMount() {
@@ -171,7 +183,8 @@ class Popup extends (PureComponent || Component) {
       searchPlaceholder,
       filter,
       onAsyncFilter,
-      maxToShow
+      maxToShow,
+      autoWidth
     } = this.props;
 
     const { keyword, data, currentId } = this.state;
@@ -194,6 +207,7 @@ class Popup extends (PureComponent || Component) {
         className={`${prefixCls}-popup`}
         onKeyDown={this.keydownHandler}
         tabIndex="0"
+        style={autoWidth ? this.state.style : null}
       >
         {!extraFilter && (filter || onAsyncFilter)
           ? <Search
