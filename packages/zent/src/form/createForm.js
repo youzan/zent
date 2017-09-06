@@ -278,14 +278,36 @@ const createForm = (config = {}) => {
           if (keyPath.length === 0) {
             return;
           }
-          const currentKey = keyPath[0];
-          if (!values[currentKey]) {
-            values[currentKey] = {};
-          }
-          if (keyPath.length > 1) {
-            assignValue(values[currentKey], keyPath.slice(1), newValue);
+          let currentKey = keyPath[0];
+          if (/\[\d+\]/.test(currentKey)) {
+            // array
+            let index = currentKey.match(/\d+(?=\])/)[0];
+            currentKey = currentKey.replace(/\[\d+\]/, '');
+            if (!values[currentKey]) {
+              values[currentKey] = [];
+            }
+            if (keyPath.length > 1) {
+              index > values[currentKey].length - 1
+                ? values[currentKey].push({})
+                : null;
+              assignValue(
+                values[currentKey][index],
+                keyPath.slice(1),
+                newValue
+              );
+            } else {
+              values[currentKey][index] = newValue;
+            }
           } else {
-            values[currentKey] = newValue;
+            // object
+            if (!values[currentKey]) {
+              values[currentKey] = {};
+            }
+            if (keyPath.length > 1) {
+              assignValue(values[currentKey], keyPath.slice(1), newValue);
+            } else {
+              values[currentKey] = newValue;
+            }
           }
         };
 

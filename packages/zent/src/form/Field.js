@@ -52,9 +52,7 @@ class Field extends (PureComponent || Component) {
       _validationError: [],
       _externalError: null
     };
-    const fieldIndex =
-      context.zentForm.getFieldIndex && context.zentForm.getFieldIndex(this);
-    this._name = prefixName(context.zentForm, props.name, fieldIndex);
+    this._name = prefixName(context.zentForm, props.name);
     this._validations = props.validations || {};
   }
 
@@ -68,19 +66,14 @@ class Field extends (PureComponent || Component) {
     }
     const zentForm = this.context.zentForm;
     zentForm.attachToForm(this);
-
-    const fieldIndex = zentForm.getFieldIndex && zentForm.getFieldIndex(this);
-    this._name = prefixName(zentForm, this.props.name, fieldIndex);
+    this._name = prefixName(zentForm, this.props.name);
   }
 
   componentWillReceiveProps(nextProps) {
     if ('validations' in nextProps) {
       this._validations = nextProps.validations;
     }
-    const fieldIndex =
-      this.context.zentForm.getFieldIndex &&
-      this.context.zentForm.getFieldIndex(this);
-    this._name = prefixName(this.context.zentForm, nextProps.name, fieldIndex);
+    this._name = prefixName(this.context.zentForm, nextProps.name);
   }
 
   componentDidUpdate(prevProps) {
@@ -216,6 +209,8 @@ class Field extends (PureComponent || Component) {
 
     if (!preventSetValue) {
       this.setValue(newValue, validateOnChange);
+      this.context.zentForm.onChangeFieldArray &&
+        this.context.zentForm.onChangeFieldArray(this._name, newValue);
     }
   };
 

@@ -30,13 +30,12 @@ class FieldArray extends (PureComponent || Component) {
 
   getChildContext() {
     const { zentForm } = this.context;
-    // const { name } = this.props;
     return {
       zentForm: {
         ...zentForm,
         prefix: this._name,
-        attachToForm: this.attachToForm,
-        detachFromForm: this.detachFromForm
+        getSubFieldArray: this.getSubFieldArray,
+        onChangeFieldArray: this.onChangeFieldArray
       }
     };
   }
@@ -47,12 +46,22 @@ class FieldArray extends (PureComponent || Component) {
       throw new Error('FieldArray must be in zent-form');
     }
     this._name = prefixName(context.zentForm, props.name);
+    if (context.zentForm.getSubFieldArray) {
+      console.log('field array constructor');
+      console.log(context.zentForm.getSubFieldArray(props.name));
+    }
     this.state = {
-      fields: []
+      // fieldArray: this.props.value || []
+      fieldArray: []
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.context.zentForm.getSubFieldArray) {
+      console.log('field array update');
+      console.log(this._name);
+      console.log(this.context.zentForm.getSubFieldArray(this._name));
+    }
     return !isEqual(nextState, this.state) || !isEqual(nextProps, this.props);
   }
 
@@ -60,185 +69,182 @@ class FieldArray extends (PureComponent || Component) {
     if (!this.props.name) {
       throw new Error('FieldArray requires a name property when used');
     }
-    // this.context.zentForm.attachToForm(this.fields);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if ('validations' in nextProps) {
-  // this._name = prefixName(this.context.zentForm, nextProps.name);
-  // this._validations = nextProps.validations;
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps) {
-  // 支持props中的value动态更新
-  // if (!isEqual(this.props.value, prevProps.value)) {
-  //   this.setValue(this.props.value);
-  // }
-  // }
-
-  componentWillUnmount() {
-    // this.context.zentForm.detachFromForm(this.fields);
+  componentWillReceiveProps(nextProps) {
+    if ('name' in nextProps) {
+      this._name = prefixName(this.context.zentForm, nextProps.name);
+    }
+    // if ('value' in nextProps) {
+    //   this.setState({ fieldArray: nextProps.value || []});
+    // }
   }
 
-  // attachToForm = field => {
-  //   if (this.fields.indexOf(field) < 0) {
-  //     this.fields.push(field);
-  //     this.context.zentForm.attachToForm(this.fields);
-  //   }
-  // };
+  getSubFieldArray = name => {
+    console.log(this.state.fieldArray, this._name, name);
+    map(this.state.fieldArray, (value, index) => {
+      if (index === name) {
+        return value;
+      }
+    });
+  };
 
-  // detachFromForm = field => {
-  //   const fieldPos = this.fields.indexOf(field);
-  //   if (fieldPos >= 0) {
-  //     this.fields.splice(fieldPos, 1);
-  //     this.context.zentForm.detachFromForm(this.fields);
-  //   }
-  // };
+  onChangeFieldArray = (name, value) => {
+    const fieldArray = assign([], this.state.fieldArray);
+    const fieldPath = name.replace(this._name, '');
+    const index = fieldPath.match(/\d+(?=\])/)[0];
+    const path = fieldPath.split('.');
+    if (path.length < 2) {
+      fieldArray[index] = value;
+    } else {
+      fieldArray[index][path[1]] = value;
+    }
+    this.state = {
+      fieldArray
+    };
+    this.context.zentForm.onChangeFieldArray &&
+      this.context.zentForm.onChangeFieldArray(this._name, fieldArray);
+  };
 
   getWrappedComponent = () => {
     return this.wrappedComponent;
   };
 
   getFieldsIndex = field => {
-    return this.state.fields.indexOf(field);
+    return this.state.fieldArray.indexOf(field);
   };
 
   forEachFields = callback => {
-    const { fields } = this.state;
-    forEach(fields, (value, index) => {
-      const name = this._name[index];
-      callback(name, index, this.state.fields);
+    const { fieldArray } = this.state;
+    forEach(fieldArray, (value, index) => {
+      console.log(fieldArray);
+      callback(`[${index}]`, index, value, fieldArray);
     });
   };
 
   getField = index => {
-    const { fields } = this.state;
-    const fieldLen = fields.length;
+    const { fieldArray } = this.state;
+    const fieldLen = fieldArray.length;
     if (index >= fieldLen) {
       throw Error('The index for getField is invalid');
     }
-    return fields[index];
+    return fieldArray[index];
   };
 
   getAllFields = () => {
-    return this.state.fields;
+    return this.state.fieldArray;
   };
 
   insertField = (index, value) => {
-    const { fields } = this.state;
-    const fieldLen = fields.length;
+    const fieldArray = assign([], this.state.fieldArray);
+    const fieldLen = fieldArray.length;
     if (index >= fieldLen) {
       throw Error('The index for insertField is invalid');
     }
-    fields.splice(index, 0, value);
+    fieldArray.splice(index, 0, value);
     this.setState({
-      fields
+      fieldArray
     });
   };
 
   mapFields = callback => {
-    const { fields } = this.state;
-    console.log(fields);
-    map(fields, (value, index) => {
-      const name = this._name[index];
-      console.log(name, index, fields);
-      callback(name, index, fields);
+    const { fieldArray } = this.state;
+    return map(fieldArray, (value, index) => {
+      // console.log(fieldArray, value, index);
+      return callback(`[${index}]`, index, value, fieldArray);
     });
   };
 
   moveFields = (fromPos, toPos) => {
-    const { fields } = this.state;
-    const fieldLen = fields.length;
+    const fieldArray = assign([], this.state.fieldArray);
+    const fieldLen = fieldArray.length;
     if (fromPos >= fieldLen || toPos >= fieldLen) {
       throw Error('The index for moveFields is invalid');
     }
-    const fieldToMove = fields.splice(fromPos, 1)[0];
+    const fieldToMove = fieldArray.splice(fromPos, 1)[0];
     this.setState({
-      fields: fields.splice(toPos + 1, 0, fieldToMove)
+      fieldArray: fieldArray.splice(toPos + 1, 0, fieldToMove)
     });
   };
 
   popFields = () => {
-    const { fields } = this.state;
-    fields.pop();
+    const fieldArray = assign([], this.state.fieldArray);
+    fieldArray.pop();
     this.setState({
-      fields
+      fieldArray
     });
   };
 
   pushFields = value => {
-    const { fields } = this.state;
-    fields.push(value);
+    const fieldArray = assign([], this.state.fieldArray);
+    fieldArray.push(value);
     this.setState({
-      fields
+      fieldArray
     });
   };
 
   removeFields = index => {
-    const { fields } = this.state;
-    const fieldLen = fields.length;
+    const fieldArray = assign([], this.state.fieldArray);
+    const fieldLen = fieldArray.length;
     if (index >= fieldLen) {
       throw Error('The index for removeFields is invalid');
     }
-    fields.splice(index, 1);
+    fieldArray.splice(index, 1);
     this.setState({
-      fields
+      fieldArray
     });
   };
 
   removeAllFields = () => {
     this.setState({
-      fields: []
+      fieldArray: []
     });
   };
 
   shiftFields = () => {
-    const { fields } = this.state;
-    fields.shift();
+    const fieldArray = assign([], this.state.fieldArray);
+    fieldArray.shift();
     this.setState({
-      fields
+      fieldArray
     });
   };
 
   swapFields = (indexA, indexB) => {
-    const { fields } = this.state;
-    const fieldLen = fields.length;
+    const fieldArray = assign([], this.state.fieldArray);
+    const fieldLen = fieldArray.length;
     if (indexA >= fieldLen || indexB >= fieldLen) {
       throw Error('The index to swap in invalid');
     }
-    const fieldA = assign({}, fields[indexA]);
-    fields[indexA] = fields[indexB];
-    fields[indexB] = fieldA;
+    const fieldA = assign({}, fieldArray[indexA]);
+    fieldArray[indexA] = fieldArray[indexB];
+    fieldArray[indexB] = fieldA;
     this.setState({
-      fields
+      fieldArray
     });
   };
 
   unshiftFields = value => {
-    const { fields } = this.state;
-    fields.unshift(value);
+    const fieldArray = assign([], this.state.fieldArray);
+    fieldArray.unshift(value);
     this.setState({
-      fields
+      fieldArray
     });
   };
 
   render() {
     const { component, ...rest } = this.props;
-    const { fields } = this.state;
     const passableProps = {
       ...rest,
       ref: ref => {
         this.wrappedComponent = ref;
       },
-      fields,
-      handleFields: {
+      fields: {
         name: this._name,
         forEach: this.forEachFields,
         get: this.getField,
         getAll: this.getAllFields,
         insert: this.insertField,
-        length: fields.length,
+        length: this.state.fieldArray.length,
         map: this.mapFields,
         move: this.moveFields,
         pop: this.popFields,
@@ -250,8 +256,6 @@ class FieldArray extends (PureComponent || Component) {
         unshift: this.unshiftFields
       }
     };
-
-    console.log(passableProps.fields);
 
     // 原生的标签不能传非标准属性进去
     if (typeof component === 'string') {

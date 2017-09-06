@@ -70,13 +70,13 @@ export function silenceEvents(fn) {
   };
 }
 
-export function prefixName(zentForm, name, index) {
+export function prefixName(zentForm, name) {
   const { prefix } = zentForm;
   let newName;
   if (!prefix) {
     newName = name;
-  } else if (index !== undefined && index >= 0) {
-    newName = `${prefix}[${index}].${name}`;
+  } else if (/^\[\d+\]/.test(name)) {
+    newName = `${prefix}${name}`;
   } else {
     newName = `${prefix}.${name}`;
   }
@@ -95,6 +95,5 @@ export function flatObj(obj, availableKeys = []) {
     });
     return newObj;
   };
-
   return mapObj({}, obj);
 }
