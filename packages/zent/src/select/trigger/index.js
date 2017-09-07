@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component, PureComponent } from 'react';
 
-/**
- * try to rename this file
- */
-
 class Trigger extends (PureComponent || Component) {
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
