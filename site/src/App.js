@@ -29,13 +29,14 @@ export default class App extends Component {
     return (
       <Router>
         <ScrollToTop>
-          <PageHeader version={packageJson.version} />
+          <PageHeader />
           <div className="main-content">
             <div className="page-container clearfix">
               <SideNav
                 data={navData['zh-CN']}
                 base={prefix}
                 ref={this.saveSideNav}
+                version={packageJson.version}
               />
               <div className="page-content">
                 <div className="react-doc-page-content">

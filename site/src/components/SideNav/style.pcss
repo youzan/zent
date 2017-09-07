@@ -1,16 +1,48 @@
+@import "../../_constants.pcss";
+
 .side-nav {
   width: 250px;
   box-sizing: border-box;
-  padding-top: 20px;
+  padding-top: 35px;
   border-right: 1px solid #e5e5e5;
   position: fixed;
-  top: 130px;
+  top: 80px;
   bottom: 0;
   overflow: auto;
   transition: bottom 100ms ease-in-out;
 
   &.bottom-reached {
     bottom: 112px;
+  }
+
+  &.top-reached {
+    top: 100px;
+    padding-top: 15px;
+  }
+
+  .side-nav__version {
+    line-height: 28px;
+    padding-left: 20px;
+    vertical-align: middle;
+
+    a {
+      color: #666;
+
+      &:hover {
+        color: #333;
+      }
+    }
+
+    .github-logo {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      background-image: url($github-logo);
+      background-size: 28px;
+      vertical-align: top;
+      margin-right: 10px;
+      cursor: pointer;
+    }
   }
 
   li {
