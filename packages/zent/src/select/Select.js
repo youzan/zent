@@ -12,12 +12,12 @@ import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 
 import Popover from 'popover';
-import Trigger from './triggers/Index';
+import Trigger from './trigger';
 import Popup from './Popup';
-import SimpleTrigger from './triggers/SimpleTrigger';
-import SelectTrigger from './triggers/SelectTrigger';
-import InputTrigger from './triggers/InputTrigger';
-import TagsTrigger from './triggers/TagsTrigger';
+import SimpleTrigger from './trigger/SimpleTrigger';
+import SelectTrigger from './trigger/SelectTrigger';
+import InputTrigger from './trigger/InputTrigger';
+import TagsTrigger from './trigger/TagsTrigger';
 
 class PopoverClickTrigger extends Popover.Trigger.Click {
   getTriggerProps(child) {
@@ -76,20 +76,7 @@ class Select extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     const data = this.uniformData(nextProps);
-    // 重置组件data
-    // let selectedItems = [];
-
     this.formateData(data, nextProps);
-    // if (isArray(nextProps.value)) {
-    //   this.sourceData.forEach(item => {
-    //     if (nextProps.value.indexOf(item.value) > -1) {
-    //       selectedItems.push(item);
-    //     }
-    //   });
-    // }
-    // this.setState({
-    //   selectedItems
-    // });
   }
 
   // 统一children和data中的数据
@@ -134,7 +121,8 @@ class Select extends (PureComponent || Component) {
       (index !== 'undefined' && `${i}` === `${index}`)
     ) {
       state.sItem = item;
-    } else if (!value && !index) {
+    } else if (!value && !index && value !== 0) {
+      // github#406 修复option-value为假值数字0时的异常重置。
       // 单选重置
       state.sItem = {};
       state.sItems = [];
@@ -187,7 +175,7 @@ class Select extends (PureComponent || Component) {
           );
         }
 
-        // 与受控逻辑(index, value)
+        // 处理受控逻辑(index, value)
         if (value !== null || index !== null) {
           this.getOptions(selected, { value, index }, item, i);
         }
@@ -292,7 +280,8 @@ class Select extends (PureComponent || Component) {
       emptyText,
       filter = this.props.onFilter,
       onAsyncFilter,
-      searchPlaceholder
+      searchPlaceholder,
+      autoWidth
     } = this.props;
 
     const {
@@ -346,6 +335,7 @@ class Select extends (PureComponent || Component) {
             onChange={this.optionChangedHandler}
             onFocus={this.popupFocusHandler}
             onBlur={this.popupBlurHandler}
+            autoWidth={autoWidth}
           />
         </Popover.Content>
       </Popover>
@@ -363,7 +353,7 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   maxToShow: PropTypes.number,
   searchPlaceholder: PropTypes.string,
-  emptyText: PropTypes.oneOf(PropTypes.string, PropTypes.element),
+  emptyText: PropTypes.node,
   selectedItem: PropTypes.shape({
     value: PropTypes.any,
     text: PropTypes.string
@@ -376,7 +366,10 @@ Select.propTypes = {
   filter: PropTypes.func,
   onAsyncFilter: PropTypes.func,
   onEmptySelected: PropTypes.func,
-  onOpen: PropTypes.func
+  onOpen: PropTypes.func,
+
+  // 自动根据ref计算弹层宽度
+  autoWidth: PropTypes.bool
 };
 
 Select.defaultProps = {
@@ -396,17 +389,17 @@ Select.defaultProps = {
   selectedItems: [],
   optionValue: 'value',
   optionText: 'text',
+  onChange: noop,
+  onDelete: noop,
+  onEmptySelected: noop,
+  onOpen: noop,
+  autoWidth: false,
 
   // HACK
   value: null,
   index: null,
   initialValue: null,
-  initialIndex: null,
-
-  onChange: noop,
-  onDelete: noop,
-  onEmptySelected: noop,
-  onOpen: noop
+  initialIndex: null
 };
 
 export default Select;
