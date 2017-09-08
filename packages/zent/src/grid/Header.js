@@ -16,12 +16,6 @@ class Header extends (PureComponent || Component) {
     forEach(
       columns,
       ({ name, key, className, title, colSpan, rowSpan }, index) => {
-        // if (rowSpan && rows.length < rowSpan) {
-        //   while (rows.length < rowSpan) {
-        //     rows.push([]);
-        //   }
-        // }
-
         const cell = {
           key: name || key || index,
           className: className || '',
@@ -31,10 +25,6 @@ class Header extends (PureComponent || Component) {
         if (typeof colSpan === 'number') {
           cell.colSpan = colSpan;
         }
-
-        // if (typeof rowSpan === 'number') {
-        //   cell.rowSpan = rowSpan;
-        // }
 
         if (cell.colSpan !== 0) {
           rows[currentRow].push(cell);

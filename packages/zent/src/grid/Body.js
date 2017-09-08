@@ -1,11 +1,12 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 import forEach from 'lodash/forEach';
 import Row from './Row';
 
 class Body extends (PureComponent || Component) {
   getRows() {
-    const { prefix, datasets, columns, selection } = this.props;
+    const { prefix, datasets, columns, rowKey } = this.props;
     const row = [];
 
     forEach(datasets, (data, index) => {
@@ -16,8 +17,7 @@ class Body extends (PureComponent || Component) {
           index={index}
           rowIndex={index}
           prefix={prefix}
-          key={index}
-          selection={selection}
+          key={rowKey ? get(data, rowKey) : index}
         />
       );
     });

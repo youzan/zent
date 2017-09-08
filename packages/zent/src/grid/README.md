@@ -159,6 +159,65 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 选择
+```jsx
+
+import { Grid } from 'zent';
+
+const columns = [
+	{
+		title: '商品名',
+		name: 'name'
+	}, {
+		title: '访问量',
+		name: 'uv'
+	}, {
+		title: '库存',
+		name: 'stock'
+	}
+];
+
+const datasets = [];
+
+for (let i = 0; i < 6; i++) {
+	datasets.push({
+		id: i * 10,
+		name: `商品 ${i}`,
+		uv: 20,
+		stock: 5
+	})
+}
+
+class Selection extends React.Component {
+	state = {
+		selectedRowKeys: []
+	}
+
+	render() {
+		return (
+			<Grid
+				columns={columns}
+				datasets={datasets}
+				selection={{
+					selectedRowKeys: this.state.selectedRowKeys,
+					onSelect: (selectedRowkeys, selectedRows, currentRow) => {
+						console.log(selectedRowkeys, selectedRows, currentRow);
+					}
+				}}
+				rowKey="id"
+			/>
+		);
+	}
+};
+
+ReactDOM.render(
+		<Selection />
+	, mountNode
+);
+
+```
+:::
+
 
 :::demo colSpan & rowSpan
 ```jsx
