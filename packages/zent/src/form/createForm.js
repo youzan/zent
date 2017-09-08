@@ -7,6 +7,7 @@ import noop from 'lodash/noop';
 import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
+import get from 'lodash/get';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
@@ -213,12 +214,11 @@ const createForm = (config = {}) => {
       };
 
       initialize = data => {
-        const fieldNames = this.fields.map(field => field.getName());
-        const internalData = flatObj(data, fieldNames);
         this.fields.forEach(field => {
           const name = field.getName();
-          if (internalData && internalData.hasOwnProperty(name)) {
-            field.setInitialValue(internalData[name]);
+          const value = get(data, name);
+          if (value) {
+            field.setInitialValue(value);
           } else {
             field.setInitialValue();
           }
@@ -226,14 +226,23 @@ const createForm = (config = {}) => {
       };
 
       resetFieldsValue = data => {
-        const fieldNames = this.fields.map(field => field.getName());
-        const internalData = flatObj(data, fieldNames);
         this.fields.forEach(field => {
           const name = field.getName();
-          if (internalData && internalData.hasOwnProperty(name)) {
-            field.setValue(internalData[name]);
+          const value = get(data, name);
+          if (value) {
+            field.setValue(value);
           } else {
             field.resetValue();
+          }
+        });
+      };
+
+      setFieldsValue = data => {
+        this.fields.forEach(field => {
+          const name = field.getName();
+          const value = get(data, name);
+          if (value) {
+            field.setValue(value);
           }
         });
       };
@@ -568,6 +577,7 @@ const createForm = (config = {}) => {
             getFieldError: this.getFieldError,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
+            setFieldsValue: this.setFieldsValue,
             setFormPristine: this.setFormDirty,
             setFormDirty: this.setFormDirty,
             initialize: this.initialize,

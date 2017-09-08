@@ -27,143 +27,6 @@
 - `Form` 组件提供了 `getControlGroup` 方法，可以快速封装自定义表单元素组件，使用方法参考 demo 和 [`getControlGroup` API](#form-getcontrolgroup) 。
 
 
-:::DEMO FieldArray
-```jsx
-import { Form, Icon, Pop } from 'zent';
-const { Field, InputField, RadioGroupField, createForm, FormSection, FieldArray } = Form;
-
-const renderHobbies = (props) => {
-	const { fields } = props;
-	return (
-		<ul>
-			<Button onClick={() => fields.push({})} className="add-btn">添加兴趣爱好</Button>
-			{fields.map((hobby, index, value) => {
-				console.log(value);
-				return (
-					<li key={index}>
-						<div className="hobby-title">
-							<span>兴趣爱好{index + 1}</span>
-							<Pop centerArrow trigger="hover" content="删除该爱好">
-								<Icon type="close-circle" onClick={() => fields.shift()} />
-							</Pop>
-						</div>
-						<Field
-							name={`${hobby}.hob`}
-							type="text"
-							component={InputField}
-							label="兴趣爱好："
-							value={value.hob}
-							validations={{ required: true }} 
-							validationErrors={{ required: '请填写兴趣爱好' }}
-						/>
-						<Field
-							name={`${hobby}.type`}
-							label="性别："
-							component={RadioGroupField}
-							required
-							value={value.type}
-							validations={{ 
-								required(values, value) {
-									return value !== ''
-								}
-							}} 
-							validationErrors={{ 
-								required: '请选择性别'
-							}}
-						>
-							<Radio value="1">男</Radio>
-							<Radio value="2">女</Radio>
-						</Field>
-					</li>
-				);
-			})}
-		</ul>);
-}
-
-
-const renderMembers = (props) => {
-	const { fields } = props;
-	return (
-		<ul>
-			<Button onClick={() => fields.push({})} className="add-btn">添加成员</Button>
-			{fields.map((member, index, value) => {
-				return (
-					<li key={index}>
-						<div className="member-title">
-							<span>成员{index + 1}</span>
-							<Pop centerArrow trigger="hover" content="删除该成员">
-								<Icon type="close-circle" onClick={() => fields.remove(index)} 
-								/>
-							</Pop>
-						</div>
-						<Field
-							name={`${member}.name`}
-							type="text"
-							component={InputField}
-							label="名字："
-							value={value.name}
-							required
-							validations={{ required: true }}
-							validationErrors={{ required: '请填写成员名字' }}
-						/>
-						<Field
-							name={`${member}.age`}
-							type="text"
-							value={value.age}
-							component={InputField}
-							label="年龄："
-						/>
-						<FieldArray name={`${member}.hobbies`} component={renderHobbies} value={value.hobbies}/>
-					</li>
-				);
-			})}
-		</ul>);
-}
-
-
-class FieldForm extends React.Component {
-	submit = (values) => {
-		console.log(values);
-	}
-
-	resetForm = () => {
-		const { zentForm } = this.props;
-		zentForm.resetFieldsValue();
-	}
-
-	render() {
-		const { handleSubmit } = this.props;
-		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)} className="demo-form">
-				<Field
-					name="familyNumber"
-					type="text"
-					label="家庭总人数："
-					component={InputField}
-					required
-					validations={{ required: true }}
-					validationErrors={{ required: '请填写家庭总人数' }}
-				/>
-				<FieldArray name="familyMembers" component={renderMembers} />
-				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">获取表单值</Button>
-					<Button type="primary" outline onClick={this.resetForm}>重置表单值</Button>
-				</div>
-			</Form>
-		);
-	}
-};
-
-const WrappedForm = createForm()(FieldForm);
-
-ReactDOM.render(
-	<WrappedForm />
-	, mountNode
-)
-```
-:::
-
-
 :::DEMO 基本用法
 ```jsx
 import { Form, Icon, Pop } from 'zent';
@@ -1140,12 +1003,7 @@ class Party extends React.Component {
 
 class FieldsetForm extends React.Component {
 	submit = (values, zenForm) => {
-		console.log(values);
-	}
-
-	getFormValues = () => {
-		const { zentForm } = this.props;
-		console.log(zentForm.getFormValues());
+		alert(JSON.stringify(values));
 	}
 
 	getFieldError = () => {
@@ -1162,7 +1020,7 @@ class FieldsetForm extends React.Component {
 	setError = () => {
 		const { zentForm } = this.props;
 		zentForm.setFieldExternalErrors({
-			all: '总体有错',
+			all: '总人数有错',
 			buyer: {
 				age: ['年龄错误', 'ceshi']
 			},
@@ -1178,7 +1036,7 @@ class FieldsetForm extends React.Component {
 	initialize = () => {
 		const { zentForm } = this.props;
 		zentForm.initialize({
-			all: '测试总体',
+			all: '2',
 			buyer: {
 				age: 12,
 				name: '第一个名字',
@@ -1198,10 +1056,10 @@ class FieldsetForm extends React.Component {
 		});
 	}
 
-	resetFieldsValue = () => {
+	setFieldsValue = () => {
 		const { zentForm } = this.props;
-		zentForm.resetFieldsValue({
-			all: '测试总体1',
+		zentForm.setFieldsValue({
+			all: '14',
 			buyer: {
 				age: 14,
 				name: '名字',
@@ -1232,7 +1090,7 @@ class FieldsetForm extends React.Component {
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<Field
 					name="all"
-					label="总体："
+					label="总人数："
 					component={InputField}
 					type="text"
 				/>
@@ -1250,12 +1108,11 @@ class FieldsetForm extends React.Component {
 				</FormSection>
 				<div className="zent-form__form-actions">
 					<Button type="primary" htmlType="submit">提交表单值</Button>
-					<Button type="primary" onClick={this.getFormValues}>获取表单值</Button>
 					<Button type="primary" onClick={this.getFieldError}>获取表单错误值</Button>
 					<Button type="primary" onClick={this.setFormDirty}>显示表单错误值</Button>
 					<Button type="primary" onClick={this.setError}>设置额外错误值</Button>
 					<Button type="primary" onClick={this.initialize}>初始化</Button>
-					<Button type="primary" onClick={this.resetFieldsValue}>设置值</Button>
+					<Button type="primary" onClick={this.setFieldsValue}>设置值</Button>
 					<Button type="primary" onClick={this.reset}>重置</Button>
 				</div>
 			</Form>
@@ -1269,6 +1126,206 @@ ReactDOM.render(
 	, mountNode
 )
 
+```
+:::
+
+:::DEMO `FieldArray`组件
+```jsx
+import { Form, Icon, Pop } from 'zent';
+const { Field, InputField, RadioGroupField, createForm, FormSection, FieldArray } = Form;
+
+const renderHobbies = (props) => {
+	const { fields } = props;
+	return (
+		<ul>
+			<Button onClick={() => fields.push()} className="add-btn">添加兴趣爱好</Button>
+			{fields.map((hobby, index, value) => {
+				return (
+					<li key={index}>
+						<div className="hobby-title">
+							<span>兴趣爱好{index + 1}</span>
+							<Pop centerArrow trigger="hover" content="删除该爱好">
+								<Icon type="close-circle" onClick={() => fields.shift()} />
+							</Pop>
+						</div>
+						<Field
+							name={`${hobby}`}
+							type="text"
+							component={InputField}
+							label="兴趣爱好："
+							validations={{ required: true }} 
+							validationErrors={{ required: '请填写兴趣爱好' }}
+						/>
+					</li>
+				);
+			})}
+		</ul>);
+}
+
+
+const renderMembers = (props) => {
+	const { fields } = props;
+	return (
+		<ul>
+			<Button onClick={() => fields.push({})} className="add-btn">添加成员</Button>
+			{fields.map((member, index, value) => {
+				return (
+					<li key={index}>
+						<div className="member-title">
+							<span>成员{index + 1}</span>
+							<Pop centerArrow trigger="hover" content="删除该成员">
+								<Icon type="close-circle" onClick={() => fields.remove(index)} 
+								/>
+							</Pop>
+						</div>
+						<Field
+							name={`${member}.name`}
+							type="text"
+							component={InputField}
+							label="名字："
+							required
+							validations={{ required: true }}
+							validationErrors={{ required: '请填写成员名字' }}
+						/>
+						<Field
+							name={`${member}.sex`}
+							label="性别："
+							component={RadioGroupField}
+							required
+							validations={{ 
+								required(values, value) {
+									return value !== ''
+								}
+							}} 
+							validationErrors={{ 
+								required: '请选择性别'
+							}}
+						>
+							<Radio value="1">男</Radio>
+							<Radio value="2">女</Radio>
+						</Field>
+						<FieldArray name={`${member}.hobbies`} component={renderHobbies} />
+					</li>
+				);
+			})}
+		</ul>);
+}
+
+
+class FieldForm extends React.Component {
+	submit = (values, zenForm) => {
+		alert(JSON.stringify(values));
+	}
+
+	getFieldError = () => {
+		const { zentForm } = this.props;
+		console.log(zentForm.getFieldError('number'));
+		console.log(zentForm.getFieldError('members[0].sex'));
+		console.log(zentForm.getFieldError('members[0].hobbies[0]'));
+	}
+
+	setFormDirty = () => {
+		const { zentForm } = this.props;
+		zentForm.setFormDirty();
+	}
+
+	setError = () => {
+		const { zentForm } = this.props;
+		zentForm.setFieldExternalErrors({
+			number: '总人数格式不对',
+			members: [
+				{
+					name: ['名字不能是数字', '名字最少为两个字']
+				}
+			],
+		});
+	}
+
+	initialize = () => {
+		const { zentForm } = this.props;
+		zentForm.initialize({
+			all: '2',
+			buyer: {
+				age: 12,
+				name: '第一个名字',
+				address: {
+					number: 14234,
+					zipCode: 2222
+				}
+			},
+			recipient: {
+				age: 11,
+				name: '名字',
+				address: {
+					number: 14234,
+					zipCode: 2222
+				}
+			}
+		});
+	}
+
+	resetFieldsValue = () => {
+		const { zentForm } = this.props;
+		zentForm.resetFieldsValue({
+			all: '14',
+			buyer: {
+				age: 14,
+				name: '名字',
+				address: {
+					number: 1111111,
+					zipCode: 11111
+				}
+			},
+			recipient: {
+				age: 222,
+				name: '名字',
+				address: {
+					number: 11111,
+					zipCode: 1111
+				}
+			}
+		});
+	}
+
+	reset = () => {
+		const { zentForm } = this.props;
+		zentForm.resetFieldsValue();
+	}
+
+	render() {
+		const { handleSubmit } = this.props;
+		return (
+			<Form horizontal onSubmit={handleSubmit(this.submit)} className="demo-form">
+				<Field
+					name="number"
+					type="text"
+					label="家庭总人数："
+					component={InputField}
+					required
+					validations={{ required: true }}
+					validationErrors={{ required: '请填写家庭总人数' }}
+				/>
+				<FieldArray name="members" component={renderMembers} />
+				<div className="zent-form__form-actions">
+					<Button type="primary" htmlType="submit">获取表单值</Button>
+					<Button type="primary" onClick={this.getFieldError}>获取表单错误值</Button>
+					<Button type="primary" onClick={this.setFormDirty}>显示表单错误值</Button>
+					<Button type="primary" onClick={this.setError}>设置额外错误值</Button>
+					<Button type="primary" onClick={this.initialize}>初始化</Button>
+					<Button type="primary" onClick={this.resetFieldsValue}>设置值</Button>
+					<Button type="primary" onClick={this.reset}>重置</Button>
+				</div>
+			</Form>
+		);
+	}
+};
+
+const WrappedForm = createForm()(FieldForm);
+
+ReactDOM.render(
+	<WrappedForm />
+	, mountNode
+)
 ```
 :::
 
@@ -1360,6 +1417,7 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | getFieldError | 获取某个 Field 的错误信息, 没有报错信息返回空 | func(name: String) |
 | setFormDirty | 设置所有 Field 的状态为非原始状态, 用于在提交表单时让 Field 把没有显示出来的错误显示出来 | func(isDirty: Boolean) |
 | setFieldExternalErrors | 设置外部传入的错误信息（比如服务端校验错误）， errors 的 key 为 Field 的 name ， value 为错误文案 | func(errors: Object) |
+| setFieldsValue | 设置表单 Field 的值为指定值 | func(data: Object) | 
 | resetFieldsValue | 把所有 Field 的值恢复到指定值或初始状态 | func(data: Object) |
 | isValid | 表单的所有 Field 是否都通过了校验 | func |
 | isSubmitting | 表单是否正在提交 | func |

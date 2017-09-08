@@ -66,14 +66,30 @@ class Field extends (PureComponent || Component) {
     }
     const zentForm = this.context.zentForm;
     zentForm.attachToForm(this);
+
     this._name = prefixName(zentForm, this.props.name);
+    if (this.context.zentForm.getSubFieldArray) {
+      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
+      currentValue &&
+        this.setState({
+          _value: currentValue
+        });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if ('validations' in nextProps) {
       this._validations = nextProps.validations;
     }
+
     this._name = prefixName(this.context.zentForm, nextProps.name);
+    if (this.context.zentForm.getSubFieldArray) {
+      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
+      currentValue &&
+        this.setState({
+          _value: currentValue
+        });
+    }
   }
 
   componentDidUpdate(prevProps) {

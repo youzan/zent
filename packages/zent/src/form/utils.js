@@ -83,13 +83,16 @@ export function prefixName(zentForm, name) {
   return newName;
 }
 
-export function flatObj(obj, availableKeys = []) {
+export function flatObj(obj) {
   const mapObj = (newObj, originObj, prefix = '') => {
     map(originObj, (value, key) => {
       const newKey = prefix ? `${prefix}.${key}` : key;
       if (isPlainObject(value)) {
         mapObj(newObj, value, newKey);
-      } else if (availableKeys.indexOf(newKey) >= 0) {
+      } else {
+        // else if (availableKeys.indexOf(newKey) >= 0) {
+        //   newObj[newKey] = value;
+        // }
         newObj[newKey] = value;
       }
     });
