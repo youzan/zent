@@ -177,7 +177,11 @@ const columns = [
 	}
 ];
 
+const pageSize = 5;
+const totalItem = 50;
+
 const datasets = [];
+const datasets2 = [];
 
 for (let i = 0; i < 6; i++) {
 	datasets.push({
@@ -186,18 +190,39 @@ for (let i = 0; i < 6; i++) {
 		uv: 20,
 		stock: 5
 	})
+	datasets2.push({
+		id: (i + 1) * 10,
+		name: `商品 ${i * 5}`,
+		uv: 20,
+		stock: 5
+	})
 }
 
 class Selection extends React.Component {
 	state = {
-		selectedRowKeys: [ 0, 10 ]
+		selectedRowKeys: [ 0, 10 ],
+		datasets,
+		current: 1
+	}
+
+	onChange = ({ current }) => {
+		this.setState({
+			current,
+			datasets: current === 1 ? datasets : datasets2
+		})
 	}
 
 	render() {
+		console.log(this.state.datasets, 'this.state.datasets')
 		return (
 			<Grid
 				columns={columns}
-				datasets={datasets}
+				datasets={this.state.datasets}
+				pageInfo={{
+					pageSize: pageSize,
+					totalItem: totalItem,
+					current: this.state.current
+				}}
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowkeys, selectedRows, currentRow) => {
@@ -205,6 +230,7 @@ class Selection extends React.Component {
 					}
 				}}
 				rowKey="id"
+				onChange={this.onChange}
 			/>
 		);
 	}

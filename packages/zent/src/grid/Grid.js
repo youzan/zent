@@ -2,6 +2,7 @@ import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from 'loading';
 import classnames from 'classnames';
+import has from 'lodash/has';
 import get from 'lodash/get';
 import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
@@ -18,11 +19,6 @@ import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
 
-const defaultPageInfo = {
-  current: 1,
-  pageSize: 10
-};
-
 function stopPropagation(e) {
   e.stopPropagation();
   if (e.nativeEvent.stopImmediatePropagation) {
@@ -35,7 +31,7 @@ class Grid extends (PureComponent || Component) {
     super(props);
     this.store = new Store(props);
     this.store.setState({
-      columns: this.getColumns(props.columns),
+      columns: this.getColumns(),
       selectedRowKeys: get(props, 'selection.selectedRowKeys')
     });
   }
@@ -152,7 +148,7 @@ class Grid extends (PureComponent || Component) {
       return (
         <span onClick={stopPropagation}>
           <SelectionCheckbox
-            rowIndex={this.getDataKey(data, row)}
+            rowIndex={rowIndex}
             store={this.store}
             onChange={e => this.handleSelect(data, rowIndex, e)}
           />
@@ -174,6 +170,16 @@ class Grid extends (PureComponent || Component) {
     );
   };
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps, 'nextProps');
+
+    if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
+      this.store.setState({
+        selectedRowKeys: nextProps.selection.selectedRowKeys || []
+      });
+    }
+  }
+
   render() {
     const { prefix, loading, pageInfo } = this.props;
 
@@ -184,9 +190,7 @@ class Grid extends (PureComponent || Component) {
           <Footer
             prefix={prefix}
             pageInfo={pageInfo}
-            defaultPageInfo={defaultPageInfo}
             onChange={this.onChange}
-            hasPagination={this.hasPagination}
           />
         </Loading>
       </div>

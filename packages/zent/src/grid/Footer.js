@@ -5,6 +5,11 @@ import size from 'lodash/size';
 import get from 'lodash/get';
 import has from 'lodash/has';
 
+const defaultPageInfo = {
+  current: 1,
+  pageSize: 10
+};
+
 class Footer extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +25,7 @@ class Footer extends React.Component {
   }
 
   getDefaultPagination(props) {
-    const { pageInfo, defaultPageInfo } = props;
+    const { pageInfo } = props;
 
     return this.hasPagination(props)
       ? {
@@ -50,8 +55,6 @@ class Footer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (has(nextProps, 'pageInfo') || has(this.props, 'pageInfo')) {
-      const { defaultPageInfo } = this.props;
-
       this.setState(previousState => {
         const newPagination = {
           ...previousState.pageInfo,
