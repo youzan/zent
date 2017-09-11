@@ -28,9 +28,10 @@ export default class Store {
     this.listeners[eventName] = this.listeners[eventName] || [];
     this.listeners[eventName].push(listener);
 
-    return function unsubscribe() {
+    return () => {
       const listeners = get(this.listeners, eventName);
       const index = indexOf(listeners, listener);
+
       if (isArray(listeners)) {
         this.listeners[eventName].splice(index, 1);
       }

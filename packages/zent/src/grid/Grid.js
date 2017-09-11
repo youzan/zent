@@ -1,17 +1,22 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from 'loading';
-import Checkbox from 'checkbox';
 import classnames from 'classnames';
 import get from 'lodash/get';
+import indexOf from 'lodash/indexOf';
+import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
+import isFunction from 'lodash/isFunction';
+import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
+import includes from 'lodash/includes';
 import Store from './Store';
 import ColGroup from './ColGroup';
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
+import SelectionCheckboxAll from './SelectionCheckboxAll';
 
 const defaultPageInfo = {
   current: 1,
@@ -75,28 +80,81 @@ class Grid extends (PureComponent || Component) {
     );
   }
 
-  handleSelect = (data, key, e) => {
+  onSelectChange = (selectedRowKeys, data) => {
+    const { datasets, selection } = this.props;
+    const onSelect = get(selection, 'onSelect');
+
+    if (isFunction(onSelect)) {
+      const selectedRows = filter(datasets, (row, i) =>
+        includes(selectedRowKeys, this.getDataKey(row, i))
+      );
+      onSelect(selectedRowKeys, selectedRows, data);
+    }
+  };
+
+  handleSelect = (data, rowIndex, e) => {
     const checked = e.target.checked;
+
     let selectedRowKeys = this.store.getState('selectedRowKeys');
 
     if (checked) {
-      selectedRowKeys.push(key);
+      selectedRowKeys.push(rowIndex);
     } else {
-      selectedRowKeys = selectedRowKeys.filter(i => key !== i);
+      selectedRowKeys = filter(selectedRowKeys, i => rowIndex !== i);
     }
 
     this.store.setState({ selectedRowKeys });
+
+    this.onSelectChange(selectedRowKeys, data);
+  };
+
+  handleBatchSelect = type => {
+    const { datasets } = this.props;
+    let selectedRowKeys = cloneDeep(this.store.getState('selectedRowKeys'));
+
+    let changeRowKeys = [];
+
+    switch (type) {
+      case 'selectAll':
+        forEach(datasets, (key, index) => {
+          const rowIndex = this.getDataKey(key, index);
+          if (!includes(selectedRowKeys, rowIndex)) {
+            selectedRowKeys.push(rowIndex);
+            changeRowKeys.push(rowIndex);
+          }
+        });
+        break;
+      case 'removeAll':
+        forEach(datasets, (key, index) => {
+          const rowIndex = this.getDataKey(key, index);
+          if (includes(selectedRowKeys, rowIndex)) {
+            selectedRowKeys.splice(indexOf(selectedRowKeys, rowIndex), 1);
+            changeRowKeys.push(key);
+          }
+        });
+        break;
+      default:
+        break;
+    }
+
+    this.store.setState({ selectedRowKeys });
+
+    const changeRow = filter(datasets, (row, i) =>
+      includes(changeRowKeys, this.getDataKey(row, i))
+    );
+
+    this.onSelectChange(selectedRowKeys, changeRow);
   };
 
   renderSelectionCheckbox = () => {
     return (data, { row }) => {
-      let key = this.getDataKey(data, row);
+      let rowIndex = this.getDataKey(data, row);
       return (
         <span onClick={stopPropagation}>
           <SelectionCheckbox
-            rowIndex={key}
+            rowIndex={this.getDataKey(data, row)}
             store={this.store}
-            onChange={e => this.handleSelect(data, key, e)}
+            onChange={e => this.handleSelect(data, rowIndex, e)}
           />
         </span>
       );
@@ -104,7 +162,16 @@ class Grid extends (PureComponent || Component) {
   };
 
   renderSelectionCheckboxAll = () => {
-    return <Checkbox />;
+    const { datasets } = this.props;
+
+    return (
+      <SelectionCheckboxAll
+        store={this.store}
+        datasets={datasets}
+        getDataKey={this.getDataKey}
+        onSelect={this.handleBatchSelect}
+      />
+    );
   };
 
   render() {

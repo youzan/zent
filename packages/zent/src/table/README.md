@@ -389,7 +389,7 @@ class Selection extends React.Component {
 				totalItem: 6,
 			},
 			datasets: datasets,
-      selectedRowKeys: [],
+      selectedRowKeys: ['4217'],
     };
   }
 
@@ -397,7 +397,6 @@ class Selection extends React.Component {
     this.setState({
       selectedRowKeys
     });
-    alert(`你选中了：${selectedRowKeys}`);
   }
 
   getRowConf(rowData, index) {
@@ -433,6 +432,7 @@ class Selection extends React.Component {
 					needCrossPage: true,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
             self.onSelect(selectedRowkeys, selectedRows, currentRow);
+            console.log(selectedRowkeys, selectedRows, currentRow)
           }
         }}
       />

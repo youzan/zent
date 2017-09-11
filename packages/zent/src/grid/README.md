@@ -190,7 +190,7 @@ for (let i = 0; i < 6; i++) {
 
 class Selection extends React.Component {
 	state = {
-		selectedRowKeys: []
+		selectedRowKeys: [ 0, 10 ]
 	}
 
 	render() {
