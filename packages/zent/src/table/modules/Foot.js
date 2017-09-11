@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Pagination from 'pagination';
 import Checkbox from 'checkbox';
+import isNil from 'lodash/isNil';
 
 import helper from '../helper.js';
 
@@ -80,8 +81,8 @@ export default class Foot extends (PureComponent || Component) {
           {Object.keys(pageInfo).length > 0 &&
             <Pagination
               current={current}
-              totalItem={totalItem || total}
-              pageSize={pageSize || limit}
+              totalItem={isNil(totalItem) ? total : totalItem}
+              pageSize={isNil(pageSize) ? limit : pageSize}
               maxPageToShow={maxPageToShow}
               onChange={onPageChange}
             />}
