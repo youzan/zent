@@ -14,14 +14,20 @@ export default class Store {
   setState = nextState => {
     this.state = assign({}, this.state, nextState);
     forEach(keys(nextState), stateName => {
-      forEach(get(this.listeners, stateName), listeners => {
-        listeners();
+      forEach(get(this.listeners, stateName), listener => {
+        listener();
       });
     });
   };
 
   getState = propsName => {
     return propsName ? get(this.state, propsName) : this.state;
+  };
+
+  trigger = eventName => {
+    forEach(get(this.listeners, eventName), listener => {
+      listener();
+    });
   };
 
   subscribe = (eventName, listener) => {

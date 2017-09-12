@@ -2,7 +2,7 @@ import React from 'react';
 import forEach from 'lodash/forEach';
 import Cell from './Cell';
 
-class Row extends React.Component {
+class Row extends React.PureComponent {
   render() {
     const { prefix, columns, data, rowIndex } = this.props;
 

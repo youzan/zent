@@ -419,6 +419,8 @@ class Selection extends React.Component {
   render() {
     let self = this;
 
+		console.log(this.state.selectedRowKeys)
+
     return (
       <Table
         columns={columns}

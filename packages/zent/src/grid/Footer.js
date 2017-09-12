@@ -10,7 +10,7 @@ const defaultPageInfo = {
   pageSize: 10
 };
 
-class Footer extends React.Component {
+class Footer extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -45,6 +45,7 @@ class Footer extends React.Component {
   renderPage = () => {
     const { prefix } = this.props;
     const { pageInfo } = this.state;
+    console.log(pageInfo, 'pageInfo');
 
     return pageInfo
       ? <div className={classnames(`${prefix}-grid-tfoot-page`)}>
@@ -76,11 +77,14 @@ class Footer extends React.Component {
   render() {
     const { prefix } = this.props;
 
-    return (
-      <div className={`${prefix}-grid-tfoot`}>
-        {this.renderPage()}
-      </div>
-    );
+    if (this.state.pageInfo) {
+      return (
+        <div className={`${prefix}-grid-tfoot`}>
+          {this.renderPage()}
+        </div>
+      );
+    }
+    return null;
   }
 }
 

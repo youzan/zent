@@ -31,7 +31,7 @@ class Grid extends (PureComponent || Component) {
     super(props);
     this.store = new Store(props);
     this.store.setState({
-      columns: this.getColumns(),
+      columns: this.getColumns(props, props.columns),
       selectedRowKeys: get(props, 'selection.selectedRowKeys')
     });
   }
@@ -46,18 +46,30 @@ class Grid extends (PureComponent || Component) {
     return rowKey ? get(data, rowKey) : rowIndex;
   };
 
-  getColumns = () => {
-    let { columns, selection } = this.props;
-
-    columns = cloneDeep(columns);
+  getColumns = (props, columns) => {
+    let { selection, datasets } = props || this.props;
+    columns = cloneDeep(columns || this.store.getState('columns'));
 
     if (selection) {
       const selectionColumn = {
-        title: this.renderSelectionCheckboxAll(),
+        key: 'selection-column',
         bodyRender: this.renderSelectionCheckbox(selection.type)
       };
 
-      columns.unshift(selectionColumn);
+      selectionColumn.title = (
+        <SelectionCheckboxAll
+          store={this.store}
+          datasets={datasets}
+          getDataKey={this.getDataKey}
+          onSelect={this.handleBatchSelect}
+        />
+      );
+
+      if (columns[0] && columns[0].key === 'selection-column') {
+        columns[0] = selectionColumn;
+      } else {
+        columns.unshift(selectionColumn);
+      }
     }
 
     return columns;
@@ -70,7 +82,7 @@ class Grid extends (PureComponent || Component) {
     return (
       <table className={`${prefix}-grid-table`}>
         <ColGroup columns={columns} />
-        <Header prefix={prefix} columns={columns} />
+        <Header prefix={prefix} columns={columns} store={this.store} />
         <Body prefix={prefix} columns={columns} datasets={datasets} />
       </table>
     );
@@ -144,38 +156,25 @@ class Grid extends (PureComponent || Component) {
 
   renderSelectionCheckbox = () => {
     return (data, { row }) => {
-      let rowIndex = this.getDataKey(data, row);
+      const rowIndex = this.getDataKey(data, row);
       return (
         <span onClick={stopPropagation}>
           <SelectionCheckbox
             rowIndex={rowIndex}
             store={this.store}
-            onChange={e => this.handleSelect(data, rowIndex, e)}
+            onChange={e =>
+              this.handleSelect(data, this.getDataKey(data, row), e)}
           />
         </span>
       );
     };
   };
 
-  renderSelectionCheckboxAll = () => {
-    const { datasets } = this.props;
-
-    return (
-      <SelectionCheckboxAll
-        store={this.store}
-        datasets={datasets}
-        getDataKey={this.getDataKey}
-        onSelect={this.handleBatchSelect}
-      />
-    );
-  };
-
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps, 'nextProps');
-
     if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
       this.store.setState({
-        selectedRowKeys: nextProps.selection.selectedRowKeys || []
+        selectedRowKeys: nextProps.selection.selectedRowKeys || [],
+        columns: this.getColumns(nextProps)
       });
     }
   }

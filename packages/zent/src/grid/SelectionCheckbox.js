@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PureComponent, Component } from 'react';
 import Checkbox from 'checkbox';
 import includes from 'lodash/includes';
 
-class SelectionCheckbox extends React.PureComponent {
+class SelectionCheckbox extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 
@@ -11,13 +11,15 @@ class SelectionCheckbox extends React.PureComponent {
     };
   }
 
-  subscribe() {
+  subscribe = () => {
     const { store } = this.props;
     this.unsubscribe = store.subscribe('selectedRowKeys', () => {
       const checked = this.getCheckState(this.props);
-      this.setState({ checked });
+      if (this.state.checked !== checked) {
+        this.setState({ checked });
+      }
     });
-  }
+  };
 
   getCheckState = props => {
     const { store, rowIndex } = props;
@@ -26,6 +28,13 @@ class SelectionCheckbox extends React.PureComponent {
 
   componentDidMount() {
     this.subscribe();
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    const checked = this.getCheckState(nextProps);
+    if (checked !== nextState.checked) {
+      this.setState({ checked });
+    }
   }
 
   componentWillUnmount() {

@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import map from 'lodash/map';
 import forEach from 'lodash/forEach';
+import filter from 'lodash/filter';
 
 class Header extends (PureComponent || Component) {
-  rows = [];
+  constructor(props) {
+    super(props);
 
-  getHeaderRows(currentRow = 0, rows) {
-    const { columns } = this.props;
+    this.state = {
+      rows: this.getHeaderRows(props)
+    };
+  }
+
+  getHeaderRows = (props, currentRow = 0, rows) => {
+    const { columns } = props || this.props;
 
     rows = rows || [];
     rows[currentRow] = rows[currentRow] || [];
@@ -32,7 +39,32 @@ class Header extends (PureComponent || Component) {
       }
     );
 
-    return rows.filter(row => row.length > 0);
+    return filter(rows, row => row.length > 0);
+  };
+
+  subscribe = () => {
+    const { store } = this.props;
+    this.unsubscribe = store.subscribe('columns', () => {
+      this.setState({ rows: this.getHeaderRows() });
+    });
+  };
+
+  componentDidMount() {
+    this.subscribe();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.columns !== this.props.columns) {
+      this.setState({
+        rows: this.getHeaderRows(nextProps)
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
   }
 
   render() {
@@ -40,7 +72,7 @@ class Header extends (PureComponent || Component) {
 
     return (
       <thead className={`${prefix}-grid-thead`}>
-        {map(this.getHeaderRows(), (row, index) =>
+        {map(this.state.rows, (row, index) =>
           <tr key={index} className={`${prefix}-grid-tr`}>
             {row.map(props =>
               <th

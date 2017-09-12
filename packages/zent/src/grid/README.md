@@ -129,7 +129,6 @@ class PageInfo extends React.Component {
 	}
 
 	onChange = ({ current }) => {
-		console.log(current, 'current');
 		this.setState({
 			current: current
 		})
@@ -177,22 +176,22 @@ const columns = [
 	}
 ];
 
-const pageSize = 5;
-const totalItem = 50;
+const pageSize = 2;
+const totalItem = 10;
 
 const datasets = [];
 const datasets2 = [];
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 5; i++) {
 	datasets.push({
-		id: i * 10,
-		name: `商品 ${i}`,
+		id: `f-${i}`,
+		name: `商品1 ${i}`,
 		uv: 20,
 		stock: 5
 	})
 	datasets2.push({
-		id: (i + 1) * 10,
-		name: `商品 ${i * 5}`,
+		id: `s-${i}`,
+		name: `商品2 ${i}`,
 		uv: 20,
 		stock: 5
 	})
@@ -213,7 +212,6 @@ class Selection extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.datasets, 'this.state.datasets')
 		return (
 			<Grid
 				columns={columns}
@@ -225,8 +223,11 @@ class Selection extends React.Component {
 				}}
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
-					onSelect: (selectedRowkeys, selectedRows, currentRow) => {
-						console.log(selectedRowkeys, selectedRows, currentRow);
+					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
+						console.log(selectedRowKeys, selectedRows, currentRow);
+						this.setState({
+							selectedRowKeys
+						})
 					}
 				}}
 				rowKey="id"
