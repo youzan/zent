@@ -79,9 +79,9 @@ class Field extends (PureComponent || Component) {
     }
 
     // 动态改变validation方法，重新校验
-    if (!isEqual(this.props.validations, prevProps.validations)) {
-      this.context.zentForm.validate(this);
-    }
+    // if (!isEqual(this.props.validations, prevProps.validations)) {
+    //   this.context.zentForm.validate(this);
+    // }
   }
 
   componentWillUnmount() {
