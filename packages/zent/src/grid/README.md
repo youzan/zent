@@ -176,7 +176,7 @@ const columns = [
 	}
 ];
 
-const pageSize = 2;
+const pageSize = 5;
 const totalItem = 10;
 
 const datasets = [];

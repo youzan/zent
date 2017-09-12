@@ -45,7 +45,6 @@ class Footer extends React.PureComponent {
   renderPage = () => {
     const { prefix } = this.props;
     const { pageInfo } = this.state;
-    console.log(pageInfo, 'pageInfo');
 
     return pageInfo
       ? <div className={classnames(`${prefix}-grid-tfoot-page`)}>
