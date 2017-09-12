@@ -2,7 +2,7 @@
 // https://facebook.github.io/react/warnings/unknown-prop.html
 export default [
   'isTouched',
-  'isPristine',
+  'isDirty',
   'isValid',
   'isActive',
   'error',
