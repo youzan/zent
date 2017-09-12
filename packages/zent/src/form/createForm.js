@@ -209,6 +209,14 @@ const createForm = (config = {}) => {
         });
       };
 
+      setFormPristine = isPristine => {
+        this.fields.forEach(field => {
+          field.setState({
+            _isDirty: !isPristine
+          });
+        });
+      };
+
       resetFieldsValue = data => {
         this.fields.forEach(field => {
           const name = field.props.name;
