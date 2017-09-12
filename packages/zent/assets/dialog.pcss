@@ -5,6 +5,7 @@ $darkgraycolor: #666;
 $bordercolor: #e8e8e8;
 $maskbgcolor: #373737;
 $rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
+$zIndex: 1050;
 
 /*
   WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog, it makes content blurry.
@@ -26,7 +27,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1051;
+  z-index: $zIndex;
   -webkit-overflow-scrolling: touch;
   outline: 0;
   text-align: center;
@@ -121,5 +122,5 @@ $rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
   bottom: 0;
   background-color: $rgbamaskbgcolor;
   height: 100%;
-  z-index: 1050;
+  z-index: $zIndex;
 }
