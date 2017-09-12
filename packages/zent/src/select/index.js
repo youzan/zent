@@ -4,9 +4,9 @@
 
 import Select from './Select';
 import Option from './components/Option';
-import SelectTrigger from './triggers/SelectTrigger';
-import InputTrigger from './triggers/InputTrigger';
-import TagsTrigger from './triggers/TagsTrigger';
+import SelectTrigger from './trigger/SelectTrigger';
+import InputTrigger from './trigger/InputTrigger';
+import TagsTrigger from './trigger/TagsTrigger';
 
 Select.Option = Option;
 Select.SelectTrigger = SelectTrigger;

@@ -1,5 +1,20 @@
 ## 更新日志
 
+## [zent@3.5.2](https://github.com/youzan/zent/tree/zent@3.5.2) (2017-09-07)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.1...zent@3.5.2)
+
+**不兼容改动和新功能:**
+
+- form: 支持 FormSection [\#431](https://github.com/youzan/zent/issues/431)
+
+**Bug 修复:**
+
+- select: option的value是数字0时无法选中 [\#444](https://github.com/youzan/zent/issues/444)
+- 修改Select宽度，弹层宽度无法自动适应 [\#438](https://github.com/youzan/zent/issues/438)
+- select: 缺少form中校验不通过的样式 [\#406](https://github.com/youzan/zent/issues/406)
+- Select: fix bugs [\#446](https://github.com/youzan/zent/pull/446) ([LucasIcarus](https://github.com/LucasIcarus))
+- select: Fix Select proptypes [\#445](https://github.com/youzan/zent/pull/445) ([cpylua](https://github.com/cpylua))
+
 ## [zent@3.5.1](https://github.com/youzan/zent/tree/zent@3.5.1) (2017-09-04)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.0...zent@3.5.1)
 
@@ -7,7 +22,7 @@
 
 - datepicker: fix test [\#441](https://github.com/youzan/zent/pull/441) ([xuhong](https://github.com/xuhong))
 - datetimepicker: fix date range quick picker add valueType [\#440](https://github.com/youzan/zent/pull/440) ([ronghang](https://github.com/ronghang))
-- datetimepicker: fix logic and mv let ot const [\#439](https://github.com/youzan/zent/pull/439) ([xuhong](https://github.com/xuhong))
+- select: fix logic and mv let to const [\#439](https://github.com/youzan/zent/pull/439) ([xuhong](https://github.com/xuhong))
 - form: modify README, add new form layout [\#437](https://github.com/youzan/zent/pull/437) ([fairyaierl](https://github.com/fairyaierl))
 - improve typescript definitions [\#430](https://github.com/youzan/zent/pull/430) ([hzjzx](https://github.com/hzjzx))
 
