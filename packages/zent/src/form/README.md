@@ -2,7 +2,7 @@
 
 1. [基础用法](#ji-chu-yong-fa)
 2. [表单校验](#biao-dan-xiao-yan)
-3. [格式化 value](#ge-shi-hua-value-zhi)
+3. [格式化 value](#ge-shi-hua-value)
 4. [表单操作](#biao-dan-cao-zuo)
 5. [其他](#qi-ta)
 6. [组件原理](#zu-jian-yuan-li)
@@ -107,7 +107,6 @@ class FieldForm extends React.Component {
 				/>
 				<Field
 					name="type"
-					type="text"
 					label="类型："
 					component={SelectField}
 					data = {[
@@ -120,7 +119,6 @@ class FieldForm extends React.Component {
 				/>
 				<Field
 					name="sex"
-					type="text"
 					label="性别："
 					component={RadioGroupField}
 					required
@@ -134,11 +132,10 @@ class FieldForm extends React.Component {
 					}}
 				>
 					<Radio value="1">男</Radio>
-					<Radio Value="2">女</Radio>
+					<Radio value="2">女</Radio>
 				</Field>
 				<Field
 					name="tag"
-					type="text"
 					label="兴趣标签："
 					value={this.state.checkedList}
 					onChange={this.onCheckboxChange}
@@ -158,7 +155,6 @@ class FieldForm extends React.Component {
 				</Field>
 				<Field
 					name="password"
-					type="text"
 					label="信息是否公开："
 					component={CheckboxField}
 				>
@@ -587,7 +583,7 @@ const { Field, InputField, createForm } = Form;
 const FormattedForm = (props) => {
 	const { handleSubmit } = props;
 	const submit = (values) => {
-		console.log(values);
+		alert(JSON.stringify(values));
 	}
 	return (
 		<Form horizontal onSubmit={handleSubmit(submit)}>

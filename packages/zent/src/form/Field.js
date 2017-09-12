@@ -116,10 +116,10 @@ class Field extends (PureComponent || Component) {
     this.setState(
       {
         _value: value,
-        _isPristine: false
+        _isPristine: !needValidate
       },
       () => {
-        needValidate && this.context.zentForm.validate(this);
+        this.context.zentForm.validate(this);
       }
     );
   };

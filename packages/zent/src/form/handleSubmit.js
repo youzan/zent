@@ -21,11 +21,9 @@ const handleSubmit = (submit, zentForm) => {
     return;
   }
 
-  zentForm.validateForm();
-
   if (!zentForm.isValid()) {
+    validationErrors = zentForm.getValidationErrors();
     if (onSubmitFail) {
-      validationErrors = zentForm.getValidationErrors();
       onSubmitFail(new SubmissionError(validationErrors));
     }
   } else {

@@ -416,7 +416,7 @@ const createForm = (config = {}) => {
             _validationError: validation.error,
             _externalError: null
           },
-          this.onValidationComplete
+          this.validateForm
         );
       };
 
