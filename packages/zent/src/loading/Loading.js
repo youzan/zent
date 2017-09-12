@@ -2,24 +2,19 @@ import React, { Component, PureComponent } from 'react';
 import { getElementLeft, getElementTop } from './getPosition';
 
 export default class Loading extends (PureComponent || Component) {
-  static style;
-  static wrapper;
-
-  constructor(props) {
-    super(props);
-    ['show', 'setPosition', 'setWrapperRef'].forEach(
-      item => (this[item] = this[item].bind(this))
-    );
-  }
-
   state = {
     show: this.props.show
   };
 
-  show(info) {
-    if (info.show === this.state.show) {
-      return;
-    }
+  show = info => {
+    // Do not add this optimization, setState is an async operation
+    // Assume this.state.show is false,
+    // show({show: true}); show({show: false})
+    // will not set show to false if we add these lines.
+    //
+    // if (info.show === this.state.show) {
+    //   return;
+    // }
 
     if (info.show) {
       let target = this.props.target;
@@ -36,9 +31,9 @@ export default class Loading extends (PureComponent || Component) {
     this.setState({
       show: info.show
     });
-  }
+  };
 
-  setPosition() {
+  setPosition = () => {
     if (!this.wrapper) {
       return;
     }
@@ -53,11 +48,11 @@ export default class Loading extends (PureComponent || Component) {
     } else {
       this.wrapper.style.position = 'fixed';
     }
-  }
+  };
 
-  setWrapperRef(name, el) {
-    this[name] = el;
-  }
+  setWrapperRef = el => {
+    this.wrapper = el;
+  };
 
   componentDidMount() {
     this.setPosition();
@@ -100,7 +95,7 @@ export default class Loading extends (PureComponent || Component) {
       this.state.show &&
       <div
         className={`${prefix}-page-loading ${className}`}
-        ref={this.setWrapperRef.bind(null, 'wrapper')}
+        ref={this.setWrapperRef}
       >
         <div className={`${prefix}-page-mask`} />
       </div>

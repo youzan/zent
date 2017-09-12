@@ -46,14 +46,14 @@ import { Select, Button } from 'zent';
 
 const Option = Select.Option;
 const data = [
-	{ value: '1', text: '选项一' },
-	{ value: '2', text: '选项二' },
-	{ value: '3', text: '选项三' },
+	{ value: 0, text: '选项一' },
+	{ value: 1, text: '选项二' },
+	{ value: 2, text: '选项三' },
 ];
 
 class Demo extends Component {
 	state = {
-  	selectedValue: '1'
+  	selectedValue: 2
   };
 
 	reRender = () => {
@@ -261,6 +261,23 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 支持自动调整弹出层的宽度
+```jsx
+import { Select } from 'zent';
+
+const Option = Select.Option;
+
+ReactDOM.render(
+  <Select autoWidth open className="zent-select--auto-width">
+    <Option value="1">选项一</Option>
+    <Option value="2">选项二</Option>
+    <Option value="3">选项三</Option>
+  </Select>
+  , mountNode
+);
+```
+:::
+
 :::demo 支持过滤功能
 ```jsx
 import { Select } from 'zent';
@@ -365,7 +382,7 @@ const data = [1, 2, 3];
 
 ReactDOM.render(
   <Select
-    data={[1, 2, 3]}
+    data={data}
     search
     filter={(item, keyword) => {
       return `${item.value}` === `${keyword}`;
@@ -475,8 +492,9 @@ ReactDOM.render(
 | onAsyncFilter | 异步设置过滤后的数据 | function | `null` | 否 |
 | onEmptySelected | 选中过滤条件为空时的回调 | function | `noop` | 否 |
 | onOpen | 展开时的回调 | function | `noop` | 否 |
-| className | 自定义额外类名 | string | `''` | 否 |
-| wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''`    | 否 |
+| className | 可选，自定义trigger额外类名 | string | `''` | 否 |
+| popupClassName | 可选，自定义popup的类名 | string | `''`    | 否 |
+| autoWidth | 是否自动设置弹出层与输入框等宽 | bool | `false` | 否 |
 | prefix | 自定义前缀 | string | `'zent'` | 否 |
 
 `如果 data 和 children 两种方式同时使用，data 会将 children 覆盖，主要是为了可以接收异步数据直接改变 data 属性来改变选项。`
@@ -490,3 +508,9 @@ ReactDOM.render(
 | open | 是否打开Popup | boolean | `false` | 否 |
 
 `Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。` 
+
+<style>
+.zent-select--auto-width {
+	width: 300px;
+}
+</style>

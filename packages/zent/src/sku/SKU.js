@@ -13,7 +13,7 @@ class SKU extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.state = {
-      skuTree: props.skuTree,
+      skuTree: [].concat(props.skuTree),
       data: props.value
     };
   }

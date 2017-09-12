@@ -1,6 +1,5 @@
 $active_color: #38f;
 $light_blue: #def;
-$light_grey: #f2f2f2;
 $disable_color: #999;
 $light_grey: #cacaca;
 $lighter_grey: #e5e5e5;
@@ -13,7 +12,6 @@ $input_width: 183px;
 .zent-datetime-picker {
   box-sizing: border-box;
   display: inline-block;
-  background: #fff;
   line-height: normal;
   position: relative;
 
@@ -30,25 +28,18 @@ $input_width: 183px;
     width: $input_width;
     height: 30px;
     line-height: 30px;
-    padding: 0 10px;
     font-size: 12px;
-    border: 1px solid $light_grey;
     background: #fff;
     border-radius: 2px;
 
+    &--combine {
+      border: 1px solid #bbb;
+      padding: 0 10px;
+    }
+
     .zent-input {
-      padding: 0;
-      border: none;
       background: inherit;
       color: inherit;
-      height: 28px;
-
-      &:focus,
-      &:active {
-        outline: none;
-        border: none;
-        box-shadow: none;
-      }
     }
 
     .zenticon {
@@ -108,12 +99,13 @@ $input_width: 183px;
 
   &-popover {
     line-height: 1;
-    z-index: 2;
+    z-index: 2000;
 
     .date-picker,
     .month-picker,
     .time-picker,
-    .range-picker {
+    .range-picker,
+    .week-picker {
       background: #fff;
       width: $default_width;
       font-size: 12px;
@@ -184,7 +176,8 @@ $input_width: 183px;
       color: #333;
     }
 
-    .date-picker {
+    .date-picker,
+    .week-picker {
       .date-panel {
         .grid-cell {
           padding: 2px 0;
@@ -268,15 +261,7 @@ $input_width: 183px;
       border-top: 1px solid $lighter_grey;
 
       .btn--confirm {
-        line-height: normal;
-        background: $active_color;
-        color: #fff;
-        border: none;
-        border-radius: 2px;
-        padding: 10px;
         margin-left: 15px;
-        font-size: 12px;
-        cursor: pointer;
       }
 
       .link--current {
@@ -335,7 +320,44 @@ $input_width: 183px;
           border: 1px solid $active_color;
         }
 
+        &--different {
+          color: $disable_color;
+          background: none;
+
+          &:before,
+          &:after {
+            display: none;
+          }
+        }
+
         &--in-range {
+          background: $light_blue;
+          border: none;
+
+          &:before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 20px;
+            background: $light_blue;
+            position: absolute;
+            right: -8px;
+            top: 0;
+          }
+
+          &:after {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 20px;
+            background: $light_blue;
+            position: absolute;
+            left: -8px;
+            top: 0;
+          }
+        }
+
+        &--in-selected {
           background: $light_blue;
           border: none;
 
@@ -365,6 +387,7 @@ $input_width: 183px;
         &--disabled {
           cursor: not-allowed;
           color: $lighter_grey;
+          border-color: $lighter_grey;
 
           &:hover {
             background: #fff;
@@ -382,16 +405,6 @@ $input_width: 183px;
 
           &:hover {
             background: $active_color;
-          }
-        }
-
-        &--different {
-          color: $disable_color;
-          background: none;
-
-          &:before,
-          &:after {
-            display: none;
           }
         }
 

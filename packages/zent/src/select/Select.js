@@ -12,12 +12,12 @@ import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 
 import Popover from 'popover';
-import Trigger from './triggers/Index';
+import Trigger from './trigger';
 import Popup from './Popup';
-import SimpleTrigger from './triggers/SimpleTrigger';
-import SelectTrigger from './triggers/SelectTrigger';
-import InputTrigger from './triggers/InputTrigger';
-import TagsTrigger from './triggers/TagsTrigger';
+import SimpleTrigger from './trigger/SimpleTrigger';
+import SelectTrigger from './trigger/SelectTrigger';
+import InputTrigger from './trigger/InputTrigger';
+import TagsTrigger from './trigger/TagsTrigger';
 
 class PopoverClickTrigger extends Popover.Trigger.Click {
   getTriggerProps(child) {
@@ -70,26 +70,13 @@ class Select extends (PureComponent || Component) {
      *
      * @return {object}
      */
-    let data = this.uniformData(this.props);
+    const data = this.uniformData(this.props);
     this.formateData(data);
   }
 
   componentWillReceiveProps(nextProps) {
-    let data = this.uniformData(nextProps);
-    // 重置组件data
-    // let selectedItems = [];
-
+    const data = this.uniformData(nextProps);
     this.formateData(data, nextProps);
-    // if (isArray(nextProps.value)) {
-    //   this.sourceData.forEach(item => {
-    //     if (nextProps.value.indexOf(item.value) > -1) {
-    //       selectedItems.push(item);
-    //     }
-    //   });
-    // }
-    // this.setState({
-    //   selectedItems
-    // });
   }
 
   // 统一children和data中的数据
@@ -115,7 +102,7 @@ class Select extends (PureComponent || Component) {
 
   // 显示当前选项，支持通过value和index进行外部控制
   getOptions(state, props, item, i) {
-    let { value, index } = props;
+    const { value, index } = props;
     if (isArray(value) && value.indexOf(item.value) > -1) {
       // rerender 去重
       if (!state.sItems.find(selected => selected.value === item.value)) {
@@ -134,7 +121,8 @@ class Select extends (PureComponent || Component) {
       (index !== 'undefined' && `${i}` === `${index}`)
     ) {
       state.sItem = item;
-    } else if (!value && !index) {
+    } else if (!value && !index && value !== 0) {
+      // github#406 修复option-value为假值数字0时的异常重置。
       // 单选重置
       state.sItem = {};
       state.sItems = [];
@@ -146,7 +134,6 @@ class Select extends (PureComponent || Component) {
   formateData(data, props) {
     data = data || this.sourceData;
     props = props || this.props;
-    let that = this;
     const { selectedItem, selectedItems } = this.state;
     const {
       value,
@@ -180,7 +167,7 @@ class Select extends (PureComponent || Component) {
           !selectedItem.cid &&
           (initialValue !== null || initialIndex !== null)
         ) {
-          that.getOptions(
+          this.getOptions(
             selected,
             { value: initialValue, index: initialIndex },
             item,
@@ -188,9 +175,9 @@ class Select extends (PureComponent || Component) {
           );
         }
 
-        // 与受控逻辑(index, value)
+        // 处理受控逻辑(index, value)
         if (value !== null || index !== null) {
-          that.getOptions(selected, { value, index }, item, i);
+          this.getOptions(selected, { value, index }, item, i);
         }
         return item;
       });
@@ -221,7 +208,7 @@ class Select extends (PureComponent || Component) {
 
   // 将被选中的option的数据传给trigger
   optionChangedHandler = (ev, selectedItem) => {
-    let result = {};
+    const result = {};
     ev = ev || {
       preventDefault: noop,
       stopPropagation: noop
@@ -233,63 +220,71 @@ class Select extends (PureComponent || Component) {
       tags,
       onChange
     } = this.props;
-    let { selectedItems } = this.state;
+    const { selectedItems } = this.state;
     if (!selectedItem) {
       onEmptySelected(ev);
       return;
     }
-    let args = omit(selectedItem, ['cid']);
+    const args = omit(selectedItem, ['cid']);
     result[optionValue] = selectedItem.value;
     result[optionText] = selectedItem.text;
-    let data = { ...args, ...result };
+    const data = { ...args, ...result };
     if (tags) {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
       }
     }
-    onChange(
+    this.setState(
       {
-        target: {
-          ...this.props,
-          type: tags ? 'select-multiple' : 'select-one',
-          value: selectedItem.value
-        },
-
-        preventDefault() {
-          ev.preventDefault();
-        },
-
-        stopPropagation() {
-          ev.stopPropagation();
-        }
+        keyword: null,
+        selectedItems,
+        selectedItem
       },
-      data
+      () => {
+        onChange(
+          {
+            target: {
+              ...this.props,
+              type: tags ? 'select-multiple' : 'select-one',
+              value: selectedItem.value
+            },
+
+            preventDefault() {
+              ev.preventDefault();
+            },
+
+            stopPropagation() {
+              ev.stopPropagation();
+            }
+          },
+          data
+        );
+      }
     );
-    this.setState({
-      keyword: null,
-      selectedItems,
-      selectedItem
-    });
   };
 
-  handlePopoverVisibleChange = data => {
-    this.setState({ open: data });
+  handlePopoverVisibleChange = visible => {
+    if (visible) {
+      this.props.onOpen();
+    }
+    this.setState({ open: visible });
   };
 
   render() {
-    let {
+    const {
       placeholder,
       maxToShow,
       className,
-      wrapperClassName,
+      popupClassName,
       disabled,
       emptyText,
       filter = this.props.onFilter,
       onAsyncFilter,
-      searchPlaceholder
+      searchPlaceholder,
+      autoWidth
     } = this.props;
 
-    let {
+    const {
       open,
       selectedItems,
       selectedItem = {},
@@ -297,17 +292,17 @@ class Select extends (PureComponent || Component) {
       keyword = null
     } = this.state;
 
-    let { cid = '' } = selectedItem;
+    const { cid = '' } = selectedItem;
 
-    let disabledCls = disabled ? 'disabled' : '';
-    let prefixCls = `${this.props.prefix}-select`;
+    const disabledCls = disabled ? 'disabled' : '';
+    const prefixCls = `${this.props.prefix}-select`;
     return (
       <Popover
         display="inline-block"
         position={Popover.Position.AutoBottomLeft}
         visible={open}
-        className={`${prefixCls} ${className}`}
-        wrapperClassName={`${prefixCls} ${wrapperClassName} ${disabledCls}`}
+        className={`${prefixCls} ${popupClassName}`}
+        wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
         onVisibleChange={this.handlePopoverVisibleChange}
       >
         <PopoverClickTrigger>
@@ -340,6 +335,7 @@ class Select extends (PureComponent || Component) {
             onChange={this.optionChangedHandler}
             onFocus={this.popupFocusHandler}
             onBlur={this.popupBlurHandler}
+            autoWidth={autoWidth}
           />
         </Popover.Content>
       </Popover>
@@ -352,12 +348,12 @@ Select.propTypes = {
   prefix: PropTypes.string,
   className: PropTypes.string,
   open: PropTypes.bool,
-  wrapperClassName: PropTypes.string,
+  popupClassName: PropTypes.string,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   maxToShow: PropTypes.number,
   searchPlaceholder: PropTypes.string,
-  emptyText: PropTypes.string,
+  emptyText: PropTypes.node,
   selectedItem: PropTypes.shape({
     value: PropTypes.any,
     text: PropTypes.string
@@ -370,7 +366,10 @@ Select.propTypes = {
   filter: PropTypes.func,
   onAsyncFilter: PropTypes.func,
   onEmptySelected: PropTypes.func,
-  onOpen: PropTypes.func
+  onOpen: PropTypes.func,
+
+  // 自动根据ref计算弹层宽度
+  autoWidth: PropTypes.bool
 };
 
 Select.defaultProps = {
@@ -378,7 +377,7 @@ Select.defaultProps = {
   disabled: false,
   className: '',
   open: false,
-  wrapperClassName: '',
+  popupClassName: '',
   trigger: SelectTrigger,
   placeholder: '请选择',
   searchPlaceholder: '',
@@ -390,17 +389,17 @@ Select.defaultProps = {
   selectedItems: [],
   optionValue: 'value',
   optionText: 'text',
+  onChange: noop,
+  onDelete: noop,
+  onEmptySelected: noop,
+  onOpen: noop,
+  autoWidth: false,
 
   // HACK
   value: null,
   index: null,
   initialValue: null,
-  initialIndex: null,
-
-  onChange: noop,
-  onDelete: noop,
-  onEmptySelected: noop,
-  onOpen: noop
+  initialIndex: null
 };
 
 export default Select;

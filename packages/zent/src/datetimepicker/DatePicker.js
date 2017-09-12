@@ -1,15 +1,23 @@
 import React, { Component, PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
-import PropTypes from 'prop-types';
 import assign from 'lodash/assign';
+import formatDate from 'zan-utils/date/formatDate';
+import parseDate from 'zan-utils/date/parseDate';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths } from './utils';
-import { formatDate, maybeParseDate, dayStart, setTime } from './utils/date';
-import { timeFnMap, noop } from './constants/';
+import { dayStart, setTime } from './utils/date';
+import {
+  timeFnMap,
+  noop,
+  popPositionMap,
+  commonProps,
+  commonPropTypes
+} from './constants/';
 
 function extractStateFromProps(props) {
   let selected;
@@ -26,7 +34,7 @@ function extractStateFromProps(props) {
   } = props;
 
   if (value) {
-    const tmp = maybeParseDate(value, format);
+    const tmp = parseDate(value, format);
 
     if (tmp) {
       showPlaceholder = false;
@@ -46,16 +54,16 @@ function extractStateFromProps(props) {
      */
 
     if (defaultValue) {
-      actived = maybeParseDate(defaultValue, format);
+      actived = parseDate(defaultValue, format);
     } else if (min) {
-      actived = maybeParseDate(min, format);
+      actived = parseDate(min, format);
     } else if (max) {
-      actived = maybeParseDate(max, format);
+      actived = parseDate(max, format);
     } else {
       actived = dayStart();
     }
 
-    actived = maybeParseDate(actived, format);
+    actived = parseDate(actived, format);
   }
 
   if (defaultTime) {
@@ -79,45 +87,13 @@ function extractStateFromProps(props) {
 
 class DatePicker extends (PureComponent || Component) {
   static propTypes = {
-    prefix: PropTypes.string,
-    name: PropTypes.string,
-    className: PropTypes.string,
-    placeholder: PropTypes.string,
-    confirmText: PropTypes.string,
-    format: PropTypes.string,
-    defaultTime: PropTypes.string,
-
-    // onChange 返回值类型, date | number | string， 默认 string
-    valueType: PropTypes.oneOf(['date', 'number', 'string']),
-    // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
-    min: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date)
-    ]),
-    max: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date)
-    ]),
-    disabledDate: PropTypes.func,
-    onChange: PropTypes.func,
-    onClick: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    ...commonPropTypes,
+    showTime: PropTypes.bool
   };
 
   static defaultProps = {
-    prefix: 'zent',
-    className: '',
-    placeholder: '请选择日期',
-    confirmText: '确定',
-    format: 'YYYY-MM-DD',
-    min: '',
-    max: '',
-    openPanel: false,
-    disabledDate: noop,
-    onChange: noop
+    ...commonProps,
+    placeholder: '请选择日期'
   };
 
   retType = 'string';
@@ -127,7 +103,7 @@ class DatePicker extends (PureComponent || Component) {
     const { value, valueType } = props;
 
     if (valueType) {
-      this.retType = valueType;
+      this.retType = valueType.toLowerCase();
     } else if (value) {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
@@ -242,8 +218,8 @@ class DatePicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < maybeParseDate(min, format)) return true;
-    if (max && val >= maybeParseDate(max, format)) return true;
+    if (min && val < parseDate(min, format)) return true;
+    if (max && val >= parseDate(max, format)) return true;
 
     return false;
   };
@@ -331,10 +307,10 @@ class DatePicker extends (PureComponent || Component) {
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
           className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={Popover.Position.AutoBottomLeft}
+          position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
-            <div className={inputCls}>
+            <div className={inputCls} onClick={evt => evt.preventDefault()}>
               <Input
                 name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { formatDate } from 'datetimepicker/utils/date';
+import { formatDate } from 'zan-utils/date';
 import DatePicker from 'datetimepicker/DatePicker';
 
 describe('DateTimePicker', () => {
@@ -24,9 +24,6 @@ describe('DateTimePicker', () => {
   it('DatePicker has its default behavior(DatePanel, MonthPanel and YearPanel 3 level transition)', () => {
     const wrapper = mount(<DatePicker />);
 
-    // expect(pop.find('DatePanel').length).toBe(0);
-    // expect(pop.find('MonthPanel').length).toBe(0);
-    // expect(pop.find('YearPanel').length).toBe(0);
     wrapper.find('.picker-input').simulate('click');
     // get pop from ref after simulate click.
     const pop = new ReactWrapper(wrapper.instance().picker, true);
@@ -52,10 +49,6 @@ describe('DateTimePicker', () => {
     expect(pop.find('YearPanel').length).toBe(0);
     pop.find('DatePanel .panel__cell--current').simulate('click');
     pop.find('PanelFooter .btn--confirm').simulate('click');
-    // expect(document.querySelector('.zent-datetime-picker-popover')).toBe(null);
-    // expect(pop.find('DatePanel').length).toBe(0);
-    // expect(pop.find('MonthPanel').length).toBe(0);
-    // expect(pop.find('YearPanel').length).toBe(0);
   });
 
   it('DatePicker with showTime switch (some kind of 5-level panel)', () => {
@@ -96,7 +89,7 @@ describe('DateTimePicker', () => {
   });
 
   it('There are prev and next pager in Date/Month/YearPanel', () => {
-    const getMonthNumber = string => +string.match(/(\d{4}).*(\d{1})/)[2];
+    const getMonthNumber = string => +string.match(/(\d{4}).{1}(\d{1,2})/)[2];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
     const getYearRangeTail = string => +string.match(/(\d{4}).*(\d{4})/)[2];
     const wrapper = mount(<DatePicker showTime />);
@@ -240,7 +233,7 @@ describe('DateTimePicker', () => {
 
   it('DatePicker has disable prop', () => {
     // total disable switch
-    const getMonthNumber = string => +string.match(/(\d{4}).*(\d{1})/)[2];
+    const getMonthNumber = string => +string.match(/(\d{4}).{1}(\d{1,2})/)[2];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
     let wrapper = mount(<DatePicker disabled />);
     expect(wrapper.find('DatePanel').length).toBe(0);
