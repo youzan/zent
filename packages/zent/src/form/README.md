@@ -14,7 +14,7 @@
 
 #### 表单 `Form`
 
-- `Form` 组件提供两种样式：`inline`，`horizontal`， `vertical`。
+- `Form` 组件提供三种样式：`inline`，`horizontal`， `vertical`。
 - 使用 `Form` 组件，必须先调用 `createForm` 方法包装，为表单注入 `zentForm` 属性，从而提供表单和表单元素的各种操作方法，详见 demo 和 [`zentForm` API](#zentform) 。
 
 
@@ -516,8 +516,8 @@ class FieldForm extends React.Component {
 						isUrl: true
 					}} 
 					validationErrors={{
-						isUrl: '请填写正确的邮件'
-					}} 
+						isUrl: '请填写正确的网址'
+					}}
 				/>
 				<Field
 					name="certificate"
@@ -585,8 +585,12 @@ import { Form } from 'zent';
 const { Field, InputField, createForm } = Form;
 
 const FormattedForm = (props) => {
+	const { handleSubmit } = props;
+	const submit = (values) => {
+		console.log(values);
+	}
 	return (
-		<Form horizontal>
+		<Form horizontal onSubmit={handleSubmit(submit)}>
 			<Field
 				name="field1"
 				type="text"
@@ -616,6 +620,25 @@ const FormattedForm = (props) => {
 					matchRegex: '只能为字母'
 				}}
 			/>
+			<Field
+				name="field3"
+				type="text"
+				component={InputField}
+				label="submit时校验:"
+				validateOnChange={false}
+				validateOnBlur={false}
+				validations={{
+					required: true,
+					matchRegex: /^[a-zA-Z]+$/
+				}}
+				validationErrors={{
+					required: '值不能为空',
+					matchRegex: '只能为字母'
+				}}
+			/>
+			<div className="zent-form__form-actions">
+				<Button type="primary" htmlType="submit">获取表单值</Button>
+			</div>
 		</Form>
 	);
 };
