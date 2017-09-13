@@ -30,8 +30,6 @@ $basepath/../lerna publish --exact "$@"
 
 # 生成 change log
 github_changelog_generator \
-    --no-pr-wo-labels \
-    --no-issues-wo-labels \
     --exclude-tags-regex "(zent-.+|beta|alpha)" \
     --header-label "## 更新日志" \
     --bugs-label "**Bug 修复:**" \
