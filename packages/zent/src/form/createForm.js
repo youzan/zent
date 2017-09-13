@@ -395,6 +395,22 @@ const createForm = (config = {}) => {
         return results;
       };
 
+      onValidationComplete = () => {
+        const allIsValid = this.fields.every(field => {
+          return field.isValid();
+        });
+
+        this.setState({
+          isFormValid: allIsValid
+        });
+
+        if (allIsValid) {
+          this.props.onValid();
+        } else {
+          this.props.onInvalid();
+        }
+      };
+
       validate = field => {
         // 初始化时调用validate不触发onChange
         if (this._isMounted) {
@@ -446,22 +462,6 @@ const createForm = (config = {}) => {
       };
 
       validateForm = () => {
-        const onValidationComplete = () => {
-          const allIsValid = this.fields.every(field => {
-            return field.isValid();
-          });
-
-          this.setState({
-            isFormValid: allIsValid
-          });
-
-          if (allIsValid) {
-            this.props.onValid();
-          } else {
-            this.props.onInvalid();
-          }
-        };
-
         this.fields.forEach((field, index) => {
           const { _externalError } = field.state;
           const validation = this.runValidation(field);
@@ -476,7 +476,7 @@ const createForm = (config = {}) => {
               _externalError:
                 !validation.isValid && _externalError ? _externalError : null
             },
-            index === this.fields.length - 1 ? onValidationComplete : null
+            index === this.fields.length - 1 ? this.onValidationComplete : null
           );
         });
       };
