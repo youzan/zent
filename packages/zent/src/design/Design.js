@@ -620,7 +620,7 @@ export default class Design extends (PureComponent || Component) {
   }
 
   uninstallBeforeUnloadHook() {
-    window.addEventListener('beforeunload', this.onBeforeWindowUnload);
+    window.removeEventListener('beforeunload', this.onBeforeWindowUnload);
     this._hasBeforeUnloadHook = false;
   }
 
