@@ -20,6 +20,11 @@ module.exports = {
             {
               title: '更新日志',
               path: 'guides/changelog',
+              component: require('../../packages/zent/RELEASE.md')
+            },
+            {
+              title: 'Github 日志',
+              path: 'guides/github_changelog',
               component: require('../../packages/zent/CHANGELOG.md')
             }
           ]
