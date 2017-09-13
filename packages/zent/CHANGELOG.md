@@ -1,5 +1,26 @@
 ## 更新日志
 
+## [zent@3.5.3](https://github.com/youzan/zent/tree/zent@3.5.3) (2017-09-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.2...zent@3.5.3)
+
+**Bug 修复:**
+
+- \[bug fix\] Dialog: 弹层上再出一个弹层的时候，第二个弹层的背景遮罩层z-index不对 [\#459](https://github.com/youzan/zent/issues/459)
+- \[bug fix\] Form: validateOnChange和validateOnBlur同时设为false时，表单提交时不显示校验错误问题 [\#458](https://github.com/youzan/zent/issues/458)
+- \[bug fix\] Table: css 中用了不存在的 clearfix 类 [\#457](https://github.com/youzan/zent/issues/457)
+- \[bug fix\] Select：行内元素因为font-size占据高度错误。 [\#448](https://github.com/youzan/zent/issues/448)
+- Tabs: 当id为数字0的时候不会被激活 [\#434](https://github.com/youzan/zent/issues/434)
+- \[bug fix\] Table: totalItem的判断逻辑修正，修改readme中title的类型描述 [\#455](https://github.com/youzan/zent/pull/455) ([linxixuan](https://github.com/linxixuan))
+- \[bug fix\] DateRangeQuickPicker: 调整最近7天，使end\_time包含到当前时间 [\#452](https://github.com/youzan/zent/pull/452) ([ronghang](https://github.com/ronghang))
+- \[bug fix\] Tabs: 修复activeId为0时无法选中的问题 [\#451](https://github.com/youzan/zent/pull/451) ([ctyu](https://github.com/ctyu))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[bug fix\] Form: validateOnChange和validateOnBlur同设为false时，表单提交时不显示校验错误问题 [\#462](https://github.com/youzan/zent/pull/462) ([fairyaierl](https://github.com/fairyaierl))
+- Fix table clearfix [\#461](https://github.com/youzan/zent/pull/461) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Dialog: 修复弹层叠加时，遮罩层 z-index 值错误的 bug [\#460](https://github.com/youzan/zent/pull/460) ([NinoFocus](https://github.com/NinoFocus))
+- \[bug fix\] Select: 组件占据高度修正 [\#449](https://github.com/youzan/zent/pull/449) ([LucasIcarus](https://github.com/LucasIcarus))
+
 ## [zent@3.5.2](https://github.com/youzan/zent/tree/zent@3.5.2) (2017-09-07)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.1...zent@3.5.2)
 
