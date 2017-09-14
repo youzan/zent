@@ -100,7 +100,7 @@ class Field extends (PureComponent || Component) {
 
     // 动态改变validation方法，重新校验
     // if (!isEqual(this.props.validations, prevProps.validations)) {
-    //   this.context.zentForm.validate(this)
+    //   this.context.zentForm.validate(this);
     // }
   }
 
@@ -140,10 +140,10 @@ class Field extends (PureComponent || Component) {
     this.setState(
       {
         _value: value,
-        _isDirty: true
+        _isPristine: !needValidate
       },
       () => {
-        needValidate && this.context.zentForm.validate(this);
+        this.context.zentForm.validate(this);
       }
     );
   };
