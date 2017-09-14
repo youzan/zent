@@ -104,6 +104,80 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 由外部控制轮播图切换
+```jsx
+
+import { Swiper, Button } from 'zent';
+
+const pages = [1, 2, 3, 4, 5];
+
+class Simple extends React.Component {
+
+	go = (index) => {
+		this.swiper.swipeTo(index);
+	}
+
+	prev = () => {
+		this.swiper.prev();
+	}
+
+	next = () => {
+		this.swiper.next();
+	}
+
+	render() {
+		return (
+			<div className="swiper-demo-container no-flex">
+				<Swiper
+					ref={(swiper) => this.swiper = swiper}
+					className="swiper-demo-simple"
+				>
+					{
+						pages.map((item, index) => {
+							return <div className="swiper-demo-simple-h" key={index}>{item}</div>;
+						})
+					}
+				</Swiper>
+				<div className="swiper-demo-btn-group">
+					{
+						pages.map((item, index) => {
+							return (
+								<Button
+									type="primary"
+									onClick={() => this.go(index)}
+								>
+									{item}
+								</Button>
+							);
+						})
+					}
+					<Button
+						type="primary"
+						outline
+						onClick={() => this.prev()}>
+						prev
+					</Button>
+					<Button
+						type="primary"
+						outline
+						onClick={() => this.next()}>
+						next
+					</Button>
+				</div>
+			</div>
+
+		);
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
 ### API
 
 | 参数             	 	| 说明                          | 类型                | 默认值       		 | 备选值           							  			         |
@@ -119,6 +193,13 @@ ReactDOM.render(
 | onChange           | 切换时回调函数									| (current: number, prev: number): void | `noop`           |                                               |
 | className          | 自定义额外类名                  | string              | `''`						 |                                               |
 | prefix             | 自定义前缀                     | string              | `'zent'`				  |																			           |
+
+### 内部方法
+| 方法名 | 说明 | 参数名 | 参数描述 |
+| ----------- | --------------------------------------- | ------ | ------ |
+| swipeTo | 手动切换轮播图 | index | 需要切换的轮播图索引,从0开始 |
+| prev | 切换至上一张轮播图 | 无 | 无 |
+| next | 切换至下一张轮播图 | 无 | 无 |
 
 <style>
 .swiper-demo-container {
@@ -137,5 +218,11 @@ ReactDOM.render(
 }
 .swiper-demo-simple-text {
 	margin-top: 10px;
+}
+.swiper-demo-btn-group {
+	margin-top: 20px;
+}
+.no-flex {
+	display: block !important;
 }
 </style>
