@@ -7,6 +7,16 @@ declare module 'zent/lib/tabs' {
     disabled?: boolean
   }
 
+  interface ITabPanelProps {
+    className?: string
+    prefix?: string
+    actived?: boolean
+    tab: React.ReactNode
+    id?: string | number,
+    onPanelReady?: (id: string | number) => void
+    uniqueId?: number
+  }
+
   interface ITabsProps {
     activeId: string
     type?: 'normal' | 'card' | 'slider'
@@ -22,5 +32,11 @@ declare module 'zent/lib/tabs' {
     prefix?: string
   }
 
-  export default class Tabs extends React.Component<ITabsProps, any> { }
+  class Tabs extends React.Component<ITabsProps, any> { }
+
+  namespace Tabs {
+    class TabPanel extends React.Component<ITabPanelProps, any> { }
+  }
+
+  export default Tabs;
 }
