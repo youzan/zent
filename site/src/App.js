@@ -11,6 +11,7 @@ import PageFooter from 'components/PageFooter';
 import SideNav from 'components/SideNav';
 import FooterNav from 'components/FooterNav';
 import ScrollToTop from 'components/ScrollToTop';
+import throttle from 'lodash/throttle';
 
 import packageJson from '../../packages/zent/package.json';
 import navData from './nav.config';
@@ -101,14 +102,19 @@ export default class App extends Component {
     this.spiderNode = node;
   };
 
-  onMouseMove = evt => {
+  onMouseMove = throttle(evt => {
+    const { spiderReady, spiderOn } = this.state;
+    if (!spiderReady || !spiderOn) {
+      return;
+    }
+
     const { target } = evt;
     if (!this.spiderNode || !this.spiderNode.contains(target)) {
       this.setState({
         spiderOn: false
       });
     }
-  };
+  }, 16);
 
   componentDidMount() {
     window.addEventListener('mousemove', this.onMouseMove);
