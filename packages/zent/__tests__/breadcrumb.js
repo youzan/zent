@@ -66,8 +66,18 @@ describe('Breadcrumb', () => {
       </Breadcrumb>
     );
     expect(wrapper.find('a').length).toBe(2);
-    expect(wrapper.find('a').first().text()).toBe('bar');
-    expect(wrapper.find('a').last().text()).toBe('foo');
+    expect(
+      wrapper
+        .find('a')
+        .first()
+        .text()
+    ).toBe('bar');
+    expect(
+      wrapper
+        .find('a')
+        .last()
+        .text()
+    ).toBe('foo');
     expect(wrapper.find('.foobar').length).toBe(1);
     expect(wrapper.find('.barfoo').length).toBe(1);
   });
@@ -92,18 +102,40 @@ describe('Breadcrumb', () => {
       </Breadcrumb>
     );
     expect(wrapper.find('span').length).toBe(1);
-    expect(wrapper.find(Breadcrumb).children().at(0).type()).toBe('span');
+    expect(
+      wrapper
+        .find(Breadcrumb)
+        .children()
+        .at(0)
+        .type()
+    ).toBe('span');
     expect(wrapper.find('span.foo').text()).toBe('bar');
     expect(wrapper.find('a').length).toBe(3);
     expect(
-      wrapper.find(Breadcrumb.Item).at(0).find('[href="bar"]').length
+      wrapper
+        .find(Breadcrumb.Item)
+        .at(0)
+        .find('[href="bar"]').length
     ).toBe(1);
-    expect(wrapper.find(Breadcrumb.Item).at(1).find('a').length).toBe(1);
     expect(
-      wrapper.find(Breadcrumb.Item).at(1).find('[href="barfoo"]').exists()
+      wrapper
+        .find(Breadcrumb.Item)
+        .at(1)
+        .find('a').length
+    ).toBe(1);
+    expect(
+      wrapper
+        .find(Breadcrumb.Item)
+        .at(1)
+        .find('[href="barfoo"]')
+        .exists()
     ).toBe(false);
     expect(
-      wrapper.find(Breadcrumb.Item).at(2).find('[href="regularbar"]').exists()
+      wrapper
+        .find(Breadcrumb.Item)
+        .at(2)
+        .find('[href="regularbar"]')
+        .exists()
     ).toBe(true);
   });
 
@@ -128,10 +160,18 @@ describe('Breadcrumb', () => {
     );
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
     expect(wrapper.find(Breadcrumb.Item).length).toBe(2);
-    expect(wrapper.find(Breadcrumb.Item).at(0).props().download).toBe(
-      'fooProp'
-    );
-    expect(wrapper.find(Breadcrumb.Item).at(1).props().target).toBe('_blank');
+    expect(
+      wrapper
+        .find(Breadcrumb.Item)
+        .at(0)
+        .props().download
+    ).toBe('fooProp');
+    expect(
+      wrapper
+        .find(Breadcrumb.Item)
+        .at(1)
+        .props().target
+    ).toBe('_blank');
   });
 
   it('className default to zent-breadcrumb ', () => {

@@ -10,15 +10,17 @@ class SKUButton extends (PureComponent || Component) {
     return (
       <div className={prefix}>
         <h3 className="group-title">
-          {typeof disabled === 'string'
-            ? <Pop trigger="hover" position="top-left" content={disabled}>
-                <Button onClick={this.props.onClick} disabled={!!disabled}>
-                  添加规格项目
-                </Button>
-              </Pop>
-            : <Button onClick={this.props.onClick} disabled={!!disabled}>
+          {typeof disabled === 'string' ? (
+            <Pop trigger="hover" position="top-left" content={disabled}>
+              <Button onClick={this.props.onClick} disabled={!!disabled}>
                 添加规格项目
-              </Button>}
+              </Button>
+            </Pop>
+          ) : (
+            <Button onClick={this.props.onClick} disabled={!!disabled}>
+              添加规格项目
+            </Button>
+          )}
         </h3>
       </div>
     );

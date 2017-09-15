@@ -88,10 +88,9 @@ export default class Input extends (PureComponent || Component) {
 
     return (
       <div className={wrapClass}>
-        {addonBefore &&
-          <span className={`${prefix}-input-addon-before`}>
-            {addonBefore}
-          </span>}
+        {addonBefore && (
+          <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>
+        )}
         <input
           ref={input => {
             this.input = input;
@@ -100,10 +99,9 @@ export default class Input extends (PureComponent || Component) {
           {...inputProps}
           onKeyDown={this.handleKeyDown}
         />
-        {addonAfter &&
-          <span className={`${prefix}-input-addon-after`}>
-            {addonAfter}
-          </span>}
+        {addonAfter && (
+          <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>
+        )}
       </div>
     );
   }

@@ -27,10 +27,16 @@ describe('MonthPicker', () => {
     expect(pop.find('YearPanel').length).toBe(1);
     expect(pop.find('YearPanel .grid-cell').length).toBe(12);
 
-    pop.find('YearPanel .panel__cell').at(1).simulate('click');
+    pop
+      .find('YearPanel .panel__cell')
+      .at(1)
+      .simulate('click');
     expect(pop.find('YearPanel').length).toBe(0);
 
-    pop.find('MonthPanel .panel__cell').at(1).simulate('click');
+    pop
+      .find('MonthPanel .panel__cell')
+      .at(1)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
     expect(wrapper.find('ClosablePortal').prop('visible')).toBe(false);
 
@@ -45,7 +51,10 @@ describe('MonthPicker', () => {
     let wrapper;
     const onChangeMock = jest.fn();
     wrapper = mount(<MonthPicker value="2010-01" onChange={onChangeMock} />);
-    wrapper.find('.zenticon-close-circle').at(0).simulate('click');
+    wrapper
+      .find('.zenticon-close-circle')
+      .at(0)
+      .simulate('click');
     expect(onChangeMock.mock.calls[0][0].length).toBe(0);
   });
 

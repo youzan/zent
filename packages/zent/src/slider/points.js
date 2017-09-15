@@ -110,7 +110,7 @@ export default class Points extends (PureComponent || Component) {
     const { disabled, prefix } = this.props;
     return (
       <div className={`${prefix}-slider-points`}>
-        {map(conf, (value, index) =>
+        {map(conf, (value, index) => (
           <ToolTips
             prefix={prefix}
             key={index}
@@ -128,17 +128,19 @@ export default class Points extends (PureComponent || Component) {
               )}
             />
           </ToolTips>
-        )}
-        {!disabled &&
+        ))}
+        {!disabled && (
           <WindowEventHandler
             eventName="mousemove"
             callback={this.handleMouseMove}
-          />}
-        {!disabled &&
+          />
+        )}
+        {!disabled && (
           <WindowEventHandler
             eventName="mouseup"
             callback={this.handleMouseUp}
-          />}
+          />
+        )}
       </div>
     );
   }

@@ -31,11 +31,7 @@ const Child = exposeStore(
     render() {
       const { store } = this.props;
       const { count } = store;
-      return (
-        <div className="child">
-          store: {count}
-        </div>
-      );
+      return <div className="child">store: {count}</div>;
     }
   }
 );
@@ -96,14 +92,16 @@ class ContextComponent extends Component {
         <Portal className="context-portal" visible={visible}>
           <Child />
         </Portal>
-        {!visible &&
+        {!visible && (
           <button onClick={this.open} className="btn-open">
             open
-          </button>}
-        {visible &&
+          </button>
+        )}
+        {visible && (
           <button onClick={this.close} className="btn-close">
             close
-          </button>}
+          </button>
+        )}
         <button onClick={this.inc} className="btn-inc">
           +
         </button>

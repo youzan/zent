@@ -48,13 +48,19 @@ describe('BatchComponents', () => {
 
   it('function should show how many checkbox be checked', () => {
     expect(
-      wrapper.find('.tfoot__batchcomponents .child-comps--func').text().trim()
+      wrapper
+        .find('.tfoot__batchcomponents .child-comps--func')
+        .text()
+        .trim()
     ).toBe('这是一个函数，选中了0个元素');
     wrapper
       .find('.tfoot__batchcomponents .zent-checkbox input')
       .simulate('change', { target: { checked: true } });
     expect(
-      wrapper.find('.tfoot__batchcomponents .child-comps--func').text().trim()
+      wrapper
+        .find('.tfoot__batchcomponents .child-comps--func')
+        .text()
+        .trim()
     ).toBe('这是一个函数，选中了3个元素');
   });
 

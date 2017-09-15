@@ -27,30 +27,32 @@ export default class InputField extends (PureComponent || Component) {
     ]);
     return (
       <div className={`${prefix}-slider-input`}>
-        {range
-          ? <div className={`${prefix}-slider-input`}>
-              <NumberInput
-                {...numberInputProps}
-                max={value[1]}
-                decimal={getDecimal(restProps.step)}
-                onChange={this.onChange.bind(null, 'start')}
-                value={value[0]}
-              />
-              <span className="slider-input-line">-</span>
-              <NumberInput
-                {...numberInputProps}
-                min={value[0]}
-                decimal={getDecimal(restProps.step)}
-                onChange={this.onChange.bind(null, 'end')}
-                value={value[1]}
-              />
-            </div>
-          : <NumberInput
+        {range ? (
+          <div className={`${prefix}-slider-input`}>
+            <NumberInput
               {...numberInputProps}
+              max={value[1]}
               decimal={getDecimal(restProps.step)}
-              onChange={this.onChange.bind(null, 'single')}
-              value={value}
-            />}
+              onChange={this.onChange.bind(null, 'start')}
+              value={value[0]}
+            />
+            <span className="slider-input-line">-</span>
+            <NumberInput
+              {...numberInputProps}
+              min={value[0]}
+              decimal={getDecimal(restProps.step)}
+              onChange={this.onChange.bind(null, 'end')}
+              value={value[1]}
+            />
+          </div>
+        ) : (
+          <NumberInput
+            {...numberInputProps}
+            decimal={getDecimal(restProps.step)}
+            onChange={this.onChange.bind(null, 'single')}
+            value={value}
+          />
+        )}
       </div>
     );
   }

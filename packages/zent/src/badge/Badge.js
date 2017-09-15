@@ -56,11 +56,9 @@ export default class Badge extends (PureComponent || Component) {
 
     return (
       <div className={containerCls}>
-        {children
-          ? <div className={`${prefix}-badge-content`}>
-              {children}
-            </div>
-          : null}
+        {children ? (
+          <div className={`${prefix}-badge-content`}>{children}</div>
+        ) : null}
         {renderCount()}
       </div>
     );

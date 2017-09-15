@@ -223,37 +223,40 @@ export class ControlGroup extends (PureComponent || Component) {
           {
             className: `${prefix}-design-editor__control-group-container`
           },
-          showLabel
-            ? <div
-                className={cx(
-                  `${prefix}-design-editor__control-group-label`,
-                  labelAlign &&
-                    `${prefix}-design-editor__control-group-label--${labelAlign}`
-                )}
-              >
-                {required &&
-                  <span
-                    className={`${prefix}-design-editor__control-group-required-star`}
-                  >
-                    *
-                  </span>}
-                {label}
-              </div>
-            : null,
+          showLabel ? (
+            <div
+              className={cx(
+                `${prefix}-design-editor__control-group-label`,
+                labelAlign &&
+                  `${prefix}-design-editor__control-group-label--${labelAlign}`
+              )}
+            >
+              {required && (
+                <span
+                  className={`${prefix}-design-editor__control-group-required-star`}
+                >
+                  *
+                </span>
+              )}
+              {label}
+            </div>
+          ) : null,
           <div className={`${prefix}-design-editor__control-group-control`}>
             {children}
-            {helpDesc &&
+            {helpDesc && (
               <div
                 className={`${prefix}-design-editor__control-group-help-desc`}
               >
                 {helpDesc}
-              </div>}
+              </div>
+            )}
           </div>
         )}
-        {errorVisible &&
+        {errorVisible && (
           <div className={`${prefix}-design-editor__control-group-error`}>
             {error}
-          </div>}
+          </div>
+        )}
       </div>
     );
   }

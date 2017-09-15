@@ -34,31 +34,29 @@ export default class BlockHeader extends Component {
     } = this.props;
     return (
       <div className={cx(`${prefix}-block-header`, className)}>
-        {title &&
+        {title && (
           <div className={`${prefix}-block-header__left`}>
-            <h3>
-              {title}
-            </h3>
-          </div>}
+            <h3>{title}</h3>
+          </div>
+        )}
         <div className={`${prefix}-block-header__content`}>
           {content && content}
           {children && children}
         </div>
         <div className={`${prefix}-block-header__pop`}>
-          {tooltip &&
+          {tooltip && (
             <Pop
               trigger="hover"
               centerArrow
               position={position}
               content={
-                <p className={`${prefix}-block-header__tooltip`}>
-                  {tooltip}
-                </p>
+                <p className={`${prefix}-block-header__tooltip`}>{tooltip}</p>
               }
               wrapperClassName={`${prefix}-block-header__tooltip-trigger`}
             >
               <Icon type="help-circle" />
-            </Pop>}
+            </Pop>
+          )}
         </div>
       </div>
     );

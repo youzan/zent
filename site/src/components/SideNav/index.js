@@ -23,27 +23,29 @@ export default class SideNav extends Component {
     }
   };
 
-  parseData = (item, index) =>
+  parseData = (item, index) => (
     <li className="nav-item" key={`nav-${index}`}>
-      {item.path
-        ? <NavLink
-            activeClassName="active"
-            exact
-            to={this.props.base + item.path}
-          >
-            {item.name}
-          </NavLink>
-        : <a onClick={() => this.handleTitleClick(item)}>
-            {item.name}
-          </a>}
-      {item.children &&
+      {item.path ? (
+        <NavLink
+          activeClassName="active"
+          exact
+          to={this.props.base + item.path}
+        >
+          {item.name}
+        </NavLink>
+      ) : (
+        <a onClick={() => this.handleTitleClick(item)}>{item.name}</a>
+      )}
+      {item.children && (
         <ul className="pure-menu-list sub-nav">
           {item.children.map(this.parseChildren)}
-        </ul>}
+        </ul>
+      )}
       {item.groups && item.groups.map(this.parseGroup)}
-    </li>;
+    </li>
+  );
 
-  parseChildren = (navItem, index) =>
+  parseChildren = (navItem, index) => (
     <li className="nav-item" key={`nav-children-${index}`}>
       <NavLink
         activeClassName="active"
@@ -52,30 +54,28 @@ export default class SideNav extends Component {
       >
         {navItem.title || navItem.name}
       </NavLink>
-    </li>;
+    </li>
+  );
 
-  parseGroup = (group, index) =>
+  parseGroup = (group, index) => (
     <div className="nav-group" key={`nav-group-${index}`}>
-      <div className="nav-group__title">
-        {group.groupName}
-      </div>
-      <ul className="pure-menu-list">
-        {group.list.map(this.parseList)}
-      </ul>
-    </div>;
+      <div className="nav-group__title">{group.groupName}</div>
+      <ul className="pure-menu-list">{group.list.map(this.parseList)}</ul>
+    </div>
+  );
 
   parseList = (navItem, index) => {
-    return navItem.disabled
-      ? null
-      : <li className="nav-item" key={`nav-list-${index}`}>
-          <NavLink
-            activeClassName="active"
-            exact
-            to={this.props.base + navItem.path}
-          >
-            {navItem.title}
-          </NavLink>
-        </li>;
+    return navItem.disabled ? null : (
+      <li className="nav-item" key={`nav-list-${index}`}>
+        <NavLink
+          activeClassName="active"
+          exact
+          to={this.props.base + navItem.path}
+        >
+          {navItem.title}
+        </NavLink>
+      </li>
+    );
   };
 
   render() {
@@ -83,9 +83,7 @@ export default class SideNav extends Component {
 
     return (
       <div className="side-nav">
-        <ul>
-          {data.map(this.parseData)}
-        </ul>
+        <ul>{data.map(this.parseData)}</ul>
       </div>
     );
   }

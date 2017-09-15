@@ -26,12 +26,13 @@ export default class SearchInput extends (PureComponent || Component) {
       <div className={cx(`${prefix}-search-input`, className)}>
         <Icon type="search" />
         <Input {...inputProps} onChange={this.onChange} />
-        {value &&
+        {value && (
           <Icon
             type="close-circle"
             onClick={this.clearInput}
             onMouseDown={this.retainInputFocus}
-          />}
+          />
+        )}
       </div>
     );
   }

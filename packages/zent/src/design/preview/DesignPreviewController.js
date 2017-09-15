@@ -90,13 +90,14 @@ class DesignPreviewController extends (PureComponent || Component) {
     const tree = (
       <div className={cls} style={style} onClick={this.onSelect}>
         <PreviewComponent prefix={prefix} {...previewProps} {...props} />
-        {configurable &&
+        {configurable && (
           <Actions
             prefix={prefix}
             onEdit={this.onEdit}
             onAdd={this.onAdd}
             onDelete={this.onDelete}
-          />}
+          />
+        )}
       </div>
     );
 

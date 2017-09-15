@@ -413,14 +413,13 @@ export default class Table extends (PureComponent || Component) {
     return (
       <div className={`${prefix}-table-container`}>
         <Loading show={this.props.loading} static>
-          {columns &&
+          {columns && (
             <div className={`${prefix}-table ${className}`}>
-              {this.state.placeHolderHeight &&
+              {this.state.placeHolderHeight && (
                 <div className="thead place-holder">
-                  <div className="tr">
-                    {this.cloneHeaderContent()}
-                  </div>
-                </div>}
+                  <div className="tr">{this.cloneHeaderContent()}</div>
+                </div>
+              )}
               <Head
                 ref={c => (this.head = c)}
                 columns={columns}
@@ -470,7 +469,8 @@ export default class Table extends (PureComponent || Component) {
                 current={this.state.current}
                 onPageChange={this.onPageChange}
               />
-            </div>}
+            </div>
+          )}
         </Loading>
       </div>
     );

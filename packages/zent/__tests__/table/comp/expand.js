@@ -93,11 +93,7 @@ class Simple extends Component {
             return index % 2 === 0;
           },
           expandRender(record) {
-            return (
-              <div>
-                {record.title}
-              </div>
-            );
+            return <div>{record.title}</div>;
           }
         }}
       />

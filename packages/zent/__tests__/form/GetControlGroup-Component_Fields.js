@@ -42,7 +42,10 @@ describe('GetControlGroup and Component_Fields', () => {
     expect(wrapper.find('.zent-form__controls').length).toBe(1);
     expect(wrapper.find('input').length).toBe(1);
     expect(
-      wrapper.get(0).getWrappedComponent().getControlInstance() instanceof Input
+      wrapper
+        .get(0)
+        .getWrappedComponent()
+        .getControlInstance() instanceof Input
     ).toBe(true);
   });
 

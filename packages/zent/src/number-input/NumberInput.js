@@ -233,20 +233,22 @@ export default class NumberInput extends (PureComponent || Component) {
     ]);
     return (
       <div className={wrapClass}>
-        {showStepper &&
+        {showStepper && (
           <span className={upArrowClass} onClick={this.inc}>
             <Icon type="right" />
-          </span>}
+          </span>
+        )}
         <Input
           {...inputProps}
           value={value}
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
-        {showStepper &&
+        {showStepper && (
           <span className={downArrowClass} onClick={this.dec}>
             <Icon type="right" />
-          </span>}
+          </span>
+        )}
       </div>
     );
   }

@@ -38,10 +38,6 @@ export default class Steps extends (PureComponent || Component) {
 
     const StepsComponent = typeComponentMapping[type];
 
-    return (
-      <StepsComponent {...restProps}>
-        {children}
-      </StepsComponent>
-    );
+    return <StepsComponent {...restProps}>{children}</StepsComponent>;
   }
 }
