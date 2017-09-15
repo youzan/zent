@@ -215,15 +215,11 @@ export default class Table extends (PureComponent || Component) {
     }
 
     if (isSelect) {
-      allRowKeys = rowKeysCurrentPage;
-      allRows = rowsCurrentPage;
       if (this.props.selection.needCrossPage) {
         allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
         allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
       }
     } else {
-      allRowKeys = [];
-      allRows = [];
       if (this.props.selection.needCrossPage) {
         allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
         allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
