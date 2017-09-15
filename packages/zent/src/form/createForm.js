@@ -79,8 +79,8 @@ const createForm = (config = {}) => {
             isValidValue: this.isValidValue,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
-            setFormPristine: this.setFormDirty,
             setFormDirty: this.setFormDirty,
+            setFormPristine: this.setFormDirty,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }
@@ -195,10 +195,18 @@ const createForm = (config = {}) => {
         });
       };
 
-      setFormDirty = (isDirty = true) => {
+      setFormDirty = isDirty => {
         this.fields.forEach(field => {
           field.setState({
             _isDirty: isDirty
+          });
+        });
+      };
+
+      setFormPristine = isPristine => {
+        this.fields.forEach(field => {
+          field.setState({
+            _isDirty: !isPristine
           });
         });
       };
@@ -242,7 +250,7 @@ const createForm = (config = {}) => {
         this.resetFieldsValue(data);
       };
 
-      isFieldTouched = name => {
+      isFieldDirty = name => {
         const field = find(
           this.fields,
           component => component.getName() === name
@@ -568,10 +576,11 @@ const createForm = (config = {}) => {
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
             setFieldsValue: this.setFieldsValue,
-            setFormPristine: this.setFormDirty,
             setFormDirty: this.setFormDirty,
+            setFormPristine: this.setFormPristine,
             initialize: this.initialize,
-            isFieldTouched: this.isFieldTouched,
+            isFieldDirty: this.isFieldDirty,
+            isFieldTouched: this.isFieldDirty,
             isFieldValidating: this.isFieldValidating,
             isValid: this.isValid,
             isValidating: this.isValidating,

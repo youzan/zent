@@ -140,7 +140,7 @@ class Field extends (PureComponent || Component) {
     this.setState(
       {
         _value: value,
-        _isDirty: !needValidate
+        _isDirty: needValidate
       },
       () => {
         this.context.zentForm.validate(this);

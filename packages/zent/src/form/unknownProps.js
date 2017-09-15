@@ -16,5 +16,6 @@ export default [
   'clearErrorOnFocus',
   'asyncValidation',
   'normalize',
-  'format'
+  'format',
+  'fields'
 ];

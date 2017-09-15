@@ -386,7 +386,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().fields[0].state._initialValue).toBe(1);
     expect(wrapper.getNode().fields[1].state._value).toBe(2);
     expect(wrapper.getNode().fields[1].state._initialValue).toBe(2);
-    expect(wrapper.getNode().fields[0].state._isDirty).toBe(false);
+    expect(wrapper.getNode().fields[1].state._isDirty).toBe(false);
     expect(wrapper.state('isFormValid')).toBe(true);
   });
 

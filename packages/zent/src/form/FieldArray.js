@@ -154,8 +154,9 @@ class FieldArray extends (PureComponent || Component) {
       throw Error('The index for moveFields is invalid');
     }
     const fieldToMove = fieldArray.splice(fromPos, 1)[0];
+    fieldArray.splice(toPos, 0, fieldToMove);
     this.setState({
-      fieldArray: fieldArray.splice(toPos + 1, 0, fieldToMove)
+      fieldArray
     });
   };
 
@@ -187,11 +188,11 @@ class FieldArray extends (PureComponent || Component) {
     });
   };
 
-  removeAllFields = () => {
-    this.setState({
-      fieldArray: []
-    });
-  };
+  // removeAllFields = () => {
+  //   this.setState({
+  //     fieldArray: []
+  //   });
+  // };
 
   shiftFields = () => {
     const fieldArray = assign([], this.state.fieldArray);

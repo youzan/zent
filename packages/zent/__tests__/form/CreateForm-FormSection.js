@@ -17,6 +17,12 @@ describe('CreateForm and FormSection', () => {
     );
   };
 
+  it('FieldSection must be in Form Component', () => {
+    expect(() => {
+      mount(<Party />);
+    }).toThrow();
+  });
+
   it('FieldSection can have name prop and component prop', () => {
     const nestedWrapper = mount(
       <FormCreated>
