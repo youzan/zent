@@ -62,7 +62,7 @@ export default class App extends Component {
                           slideInDown: spiderOn,
                           slideOutUp: !spiderOn
                         })}
-                        src="https://octodex.github.com/images/spidertocat.png"
+                        src="https://img.yzcdn.cn/zanui/react/spidertocat.png"
                         alt="github-spider"
                       />
                     )}
