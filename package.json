@@ -18,6 +18,7 @@
     "postinstall": "./scripts/ensure-husky-hooks.sh",
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test",
+    "build": "lerna run build",
     "pub": "./scripts/publish.sh"
   },
   "lint-staged": {
