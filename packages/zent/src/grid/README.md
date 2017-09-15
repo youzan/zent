@@ -319,3 +319,53 @@ ReactDOM.render(
 
 ```
 :::
+
+### API
+
+| 参数         | 说明                                         | 类型            | 默认值         | 备选值     | 是否必须 |
+| ---------- | ------------------------------------------ | ------------- | ----------- | ------- | ---- |
+| columns    | 每一列需要的所有数据                                 | array[object] |             |         | 是    |
+| datasets   | 每一行需要展示的数据                                 | array[object] |             |         | 是    |
+| rowKey     | 每一行的key, 让react提升性能, 并防止出现一系列的问题           | string        | `id`        |         | 否    |
+| onChange   | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func          |             |         | 否    |
+| emptyLabel | 列表为空时的提示文案                                 | string        | `'没有更多数据了'` |         | 否    |
+| selection  | 表格的选择功能配置                                  | object        |             |         | 否    |
+| loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
+| className  | 自定义额外类名                                    | string        | `''`        |         | 否    |
+| prefix     | 自定义前缀                                      | string        | `'zent'`    |         | 否    |
+| pageInfo   | table对应的分页信息                              | object        | null    |         | 否    |
+
+
+#### onChange函数声明
+onChange会抛出一个对象，这个对象包含分页变化的参数：
+
+```js
+{
+	current, // {Number} 表示当前第几页
+}
+```
+
+### columns
+
+| 参数         | 说明                                  | 类型                    | 是否必须 |
+| ---------- | ----------------------------------- | -------------------- - | ---- |
+| title      | 每一列显示在thead上的名称                     |  node             | 否    |
+| name       | 每一列的主键                    | string               | 否    |
+| width      | 每一列在一行的宽度, 相对值和固定值 (如: 20% 或 100px) | string               | 否    |
+| bodyRender | 这一列对应用来渲染的组件                        | node or function |        否    |
+
+### selection
+
+| 参数              | 说明              | 类型    | 是否必须 |
+| --------------- | --------------- | ----- | ---- |
+| selectedRowKeys | 默认选中            | array | 否    |
+| onSelect(@selectedKeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  | 否    |
+
+### pageInfo
+
+| 参数              | 说明              | 类型  | 是否必须 |
+| --------------- | --------------- | --- | ----- |
+| totalItem | 总条目个数            | number| 否    |
+| pageSize | 每页个数   | number | 否    |
+| current | 当前页码 | number | 否 |
+

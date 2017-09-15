@@ -7,6 +7,7 @@ import get from 'lodash/get';
 import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
+import size from 'lodash/size';
 import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
@@ -53,6 +54,7 @@ class Grid extends (PureComponent || Component) {
     if (selection) {
       const selectionColumn = {
         key: 'selection-column',
+        width: '20px',
         bodyRender: this.renderSelectionCheckbox(selection.type)
       };
 
@@ -75,7 +77,7 @@ class Grid extends (PureComponent || Component) {
     return columns;
   };
 
-  getTable() {
+  getTable = () => {
     const { prefix, datasets } = this.props;
     const columns = this.store.getState('columns');
 
@@ -86,7 +88,20 @@ class Grid extends (PureComponent || Component) {
         <Body prefix={prefix} columns={columns} datasets={datasets} />
       </table>
     );
-  }
+  };
+
+  getEmpty = () => {
+    const { datasets, prefix, emptyLabel } = this.props;
+
+    if (size(datasets) === 0) {
+      return (
+        <div className={`${prefix}-grid-empty`}>
+          {emptyLabel}
+        </div>
+      );
+    }
+    return null;
+  };
 
   onSelectChange = (selectedRowKeys, data) => {
     const { datasets, selection } = this.props;
@@ -186,6 +201,7 @@ class Grid extends (PureComponent || Component) {
       <div className={classnames(`${prefix}-grid`)}>
         <Loading show={loading}>
           {this.getTable()}
+          {this.getEmpty()}
           <Footer
             prefix={prefix}
             pageInfo={pageInfo}
@@ -217,7 +233,8 @@ Grid.defaultProps = {
   loading: false,
   pageInfo: false,
   onChange: noop,
-  selection: null
+  selection: null,
+  emptyLabel: '没有更多数据了'
 };
 
 export default Grid;
