@@ -23,13 +23,33 @@ describe('SingleSelect', () => {
       .find('.zent-radio input')
       .at(0)
       .simulate('change', { target: { checked: true } });
-    expect(wrapper.find('.zent-radio input').at(0).prop('checked')).toBe(true);
-    expect(wrapper.find('.zent-radio input').at(1).prop('checked')).toBe(false);
+    expect(
+      wrapper
+        .find('.zent-radio input')
+        .at(0)
+        .prop('checked')
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.zent-radio input')
+        .at(1)
+        .prop('checked')
+    ).toBe(false);
     wrapper
       .find('.zent-radio input')
       .at(1)
       .simulate('change', { target: { checked: true } });
-    expect(wrapper.find('.zent-radio input').at(0).prop('checked')).toBe(false);
-    expect(wrapper.find('.zent-radio input').at(1).prop('checked')).toBe(true);
+    expect(
+      wrapper
+        .find('.zent-radio input')
+        .at(0)
+        .prop('checked')
+    ).toBe(false);
+    expect(
+      wrapper
+        .find('.zent-radio input')
+        .at(1)
+        .prop('checked')
+    ).toBe(true);
   });
 });

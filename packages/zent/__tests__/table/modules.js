@@ -10,11 +10,7 @@ const columns = [
     title: '商品',
     width: '50px',
     bodyRender: data => {
-      return (
-        <div>
-          {data.item_id}
-        </div>
-      );
+      return <div>{data.item_id}</div>;
     },
     needSort: true
   },
@@ -69,7 +65,10 @@ describe('Head in Table', () => {
       />
     );
     window.scrollY = 100;
-    wrapper.find('Head').getNode().setHeadStyle();
+    wrapper
+      .find('Head')
+      .getNode()
+      .setHeadStyle();
     expect(wrapper.find('Head').getNode().state.fixStyle.position).toEqual(
       'fixed'
     );
@@ -128,9 +127,24 @@ describe('Body in Table', () => {
         selection={{ selectedRowKeys: [], onSelect: onSelectMock }}
       />
     );
-    expect(wrapper.find('.tr').at(1).hasClass('prefix')).toBe(true);
-    expect(wrapper.find('.tr').at(2).hasClass('prefix')).toBe(true);
-    expect(wrapper.find('.tr').at(3).hasClass('prefix')).toBe(true);
+    expect(
+      wrapper
+        .find('.tr')
+        .at(1)
+        .hasClass('prefix')
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.tr')
+        .at(2)
+        .hasClass('prefix')
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.tr')
+        .at(3)
+        .hasClass('prefix')
+    ).toBe(true);
     wrapper.find('Head Checkbox input').simulate('change', {
       target: {
         checked: true
@@ -158,11 +172,14 @@ describe('Body in Table', () => {
       expect(node.prop('checked')).toBe(false);
     });
     expect(onSelectMock.mock.calls.length).toBe(2);
-    wrapper.find('Body Checkbox input').at(0).simulate('change', {
-      target: {
-        checked: false
-      }
-    });
+    wrapper
+      .find('Body Checkbox input')
+      .at(0)
+      .simulate('change', {
+        target: {
+          checked: false
+        }
+      });
     expect(onSelectMock.mock.calls.length).toBe(3);
   });
 
@@ -170,7 +187,18 @@ describe('Body in Table', () => {
     let wrapper = mount(
       <Table columns={columns} datasets={datasets} rowKey="item_id" />
     );
-    expect(wrapper.find('Td').at(4).find('.cell').text()).toBe('');
-    expect(wrapper.find('Td').at(5).find('.render-test').length).toBe(1);
+    expect(
+      wrapper
+        .find('Td')
+        .at(4)
+        .find('.cell')
+        .text()
+    ).toBe('');
+    expect(
+      wrapper
+        .find('Td')
+        .at(5)
+        .find('.render-test').length
+    ).toBe(1);
   });
 });

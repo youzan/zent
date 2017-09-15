@@ -43,11 +43,11 @@ describe('Pop', () => {
     ['click', 'hover', 'focus'].forEach(trigger => {
       const wrapper = mount(
         <Pop content={content()} trigger={trigger} position="bottom-center">
-          {trigger !== 'focus'
-            ? <Button onClick={addClick}>
-                {trigger}
-              </Button>
-            : <input placeholder="focus" onChange={() => true} />}
+          {trigger !== 'focus' ? (
+            <Button onClick={addClick}>{trigger}</Button>
+          ) : (
+            <input placeholder="focus" onChange={() => true} />
+          )}
         </Pop>
       );
       expect(wrapper.find('Portal').length).toBe(0);

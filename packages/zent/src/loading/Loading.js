@@ -83,22 +83,24 @@ export default class Loading extends (PureComponent || Component) {
           }}
         >
           {this.props.children}
-          {this.state.show &&
+          {this.state.show && (
             <div className={`${prefix}-page-loading ${className}`}>
               <div className={`${prefix}-page-mask`} />
-            </div>}
+            </div>
+          )}
         </div>
       );
     }
 
     return (
-      this.state.show &&
-      <div
-        className={`${prefix}-page-loading ${className}`}
-        ref={this.setWrapperRef}
-      >
-        <div className={`${prefix}-page-mask`} />
-      </div>
+      this.state.show && (
+        <div
+          className={`${prefix}-page-loading ${className}`}
+          ref={this.setWrapperRef}
+        >
+          <div className={`${prefix}-page-mask`} />
+        </div>
+      )
     );
   }
 }

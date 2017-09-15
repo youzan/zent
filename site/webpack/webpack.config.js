@@ -9,7 +9,6 @@ module.exports = {
     filename: '[name]-[hash].js'
   },
   resolve: {
-    modules: [join(__dirname, '../node_modules'), 'node_modules'],
     extensions: ['.js', '.pcss', '.md'],
     alias: Object.assign(
       {
