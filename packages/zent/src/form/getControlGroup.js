@@ -16,7 +16,7 @@ export default Control => {
         ...props
       } = this.props;
 
-      const showError = props.isTouched && props.error !== null;
+      const showError = props.isDirty && props.error !== null;
       const groupClassName = cx({
         'zent-form__control-group': true,
         'zent-form__control-group--active': props.isActive,

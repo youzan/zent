@@ -46,9 +46,9 @@ class Field extends (PureComponent || Component) {
     this.state = {
       _value: props.value,
       _isValid: true,
-      _isPristine: true,
+      _isDirty: false,
       _isValidating: false,
-      _pristineValue: props.value,
+      _initialValue: props.value,
       _validationError: [],
       _externalError: null
     };
@@ -88,8 +88,8 @@ class Field extends (PureComponent || Component) {
     this.context.zentForm.detachFromForm(this);
   }
 
-  isPristine = () => {
-    return this.state._isPristine;
+  isDirty = () => {
+    return this.state._isDirty;
   };
 
   isValid = () => {
@@ -104,8 +104,8 @@ class Field extends (PureComponent || Component) {
     return this.state._active;
   };
 
-  getPristineValue = () => {
-    return this.state._pristineValue;
+  getInitialValue = () => {
+    return this.state._initialValue;
   };
 
   getValue = () => {
@@ -116,7 +116,7 @@ class Field extends (PureComponent || Component) {
     this.setState(
       {
         _value: value,
-        _isPristine: !needValidate
+        _isDirty: needValidate
       },
       () => {
         this.context.zentForm.validate(this);
@@ -127,8 +127,8 @@ class Field extends (PureComponent || Component) {
   resetValue = () => {
     this.setState(
       {
-        _value: this.state._pristineValue,
-        _isPristine: true
+        _value: this.state._initialValue,
+        _isDirty: false
       },
       () => {
         this.context.zentForm.validate(this);
@@ -263,8 +263,8 @@ class Field extends (PureComponent || Component) {
       ref: ref => {
         this.wrappedComponent = ref;
       },
-      isTouched: !this.isPristine(),
-      isPristine: this.isPristine(),
+      isTouched: this.isDirty(),
+      isDirty: this.isDirty(),
       isValid: this.isValid(),
       isActive: this.isActive(),
       value: this.format(this.getValue()),

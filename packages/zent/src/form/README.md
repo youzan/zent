@@ -317,7 +317,7 @@ const countyCodeList = [
 
 const ContactPhone = (props) => {
 	const value = props.value;
-	const showError = props.isTouched && props.error;
+	const showError = props.isDirty && props.error;
 	const helpDesc = props.helpDesc;
 	const mobileClassName = cx({
 		'zent-form__control-group': true,
@@ -1036,13 +1036,13 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 |------|------|------|
 | getFormValues | 获取与 form 绑定的所有表单元素值 | func |
 | getFieldError | 获取某个 Field 的错误信息, 没有报错信息返回空 | func(name: String) |
-| setFormPristine | 设置所有 Field 的状态为非原始状态, 用于在提交表单时让 Field 把没有显示出来的错误显示出来 | func(isPristine: Boolean) |
+| setFormDirty | 设置所有 Field 的状态为非原始状态, 用于在提交表单时让 Field 把没有显示出来的错误显示出来 | func(isDirty: Boolean) |
 | setFieldExternalErrors | 设置外部传入的错误信息（比如服务端校验错误）， errors 的 key 为 Field 的 name ， value 为错误文案 | func(errors: Object) |
 | resetFieldsValue | 把所有 Field 的值恢复到指定值或初始状态 | func(data: Object) |
 | isValid | 表单的所有 Field 是否都通过了校验 | func |
 | isSubmitting | 表单是否正在提交 | func |
 | isValidating | 表单是否有 Field 在异步校验 | func |
-| isFieldTouched | Field 是否变更过值 | func(name: String) |
+| isFieldDirty | Field 是否变更过值 | func(name: String) |
 | isFieldValidating | Field 是否在异步校验 | func(name: String) |
 
 ##### **`handleSubmit`**
@@ -1093,8 +1093,7 @@ onSubmissionFail(submissionError) {
 
 | 参数 | 说明 | 类型 | 
 |------|------|------|
-| isTouched | 表单元素值被改变过 | boolean |
-| isPristine | 表单元素值没有被改变过 | boolean | 
+| isDirty | 表单元素值被改变过 | boolean |
 | isActive | 表单元素为input且获得了焦点 | boolean | 
 | error | 第一个校验错误文本信息（没有报错时为 null ） | string / Null | 
 | errors | 校验错误文本信息数组（没有错误时为空数组） | array |
@@ -1155,14 +1154,6 @@ const component = field.getWrappedComponent().getControlInstance();
 <style>
 .zent-form__controls .zent-switch-small {
 	margin-top: 5px;
-}
-
-.zent-form__controls .zent-select {
-	font-size: 0;
-}
-
-.zent-form__controls .zent-select .zent-select-text{
-	font-size: 12px;
 }
 
 .form-layout {

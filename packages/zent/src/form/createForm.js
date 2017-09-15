@@ -78,7 +78,8 @@ const createForm = (config = {}) => {
             isValidValue: this.isValidValue,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
-            setFormPristine: this.setFormPristine,
+            setFormDirty: this.setFormDirty,
+            setFormPristine: this.setFormDirty,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }
@@ -162,7 +163,7 @@ const createForm = (config = {}) => {
         return this.state.isFormValid;
       };
 
-      setFieldValidationErrors = (errors, updatePristine = true) => {
+      setFieldValidationErrors = (errors, updateDirty = true) => {
         this.fields.forEach(field => {
           const name = field.props.name;
           const data = {
@@ -170,15 +171,15 @@ const createForm = (config = {}) => {
             _validationError:
               typeof errors[name] === 'string' ? [errors[name]] : errors[name]
           };
-          if (updatePristine) {
-            data._isPristine = false;
+          if (updateDirty) {
+            data._isDirty = true;
           }
           field.setState(data);
         });
       };
 
       // 设置服务端返回的错误信息
-      setFieldExternalErrors = (errors, updatePristine = true) => {
+      setFieldExternalErrors = (errors, updateDirty = true) => {
         Object.keys(errors).forEach(name => {
           const field = find(
             this.fields,
@@ -193,17 +194,25 @@ const createForm = (config = {}) => {
             _externalError:
               typeof errors[name] === 'string' ? [errors[name]] : errors[name]
           };
-          if (updatePristine) {
-            data._isPristine = false;
+          if (updateDirty) {
+            data._isDirty = true;
           }
           field.setState(data);
+        });
+      };
+
+      setFormDirty = isDirty => {
+        this.fields.forEach(field => {
+          field.setState({
+            _isDirty: isDirty
+          });
         });
       };
 
       setFormPristine = isPristine => {
         this.fields.forEach(field => {
           field.setState({
-            _isPristine: isPristine
+            _isDirty: !isPristine
           });
         });
       };
@@ -220,18 +229,18 @@ const createForm = (config = {}) => {
       };
 
       reset = data => {
-        this.setFormPristine(true);
+        this.setFormDirty(false);
         this.resetFieldsValue(data);
       };
 
-      isFieldTouched = name => {
+      isFieldDirty = name => {
         const field = find(
           this.fields,
           component => component.props.name === name
         );
 
         if (!field) return false;
-        return !field.isPristine();
+        return field.isDirty();
       };
 
       isFieldValidating = name => {
@@ -270,16 +279,16 @@ const createForm = (config = {}) => {
         }, {});
       };
 
-      getPristineValues = () => {
+      getInitialValues = () => {
         return this.fields.reduce((values, field) => {
           const name = field.props.name;
-          values[name] = field.getPristineValue();
+          values[name] = field.getInitialValue();
           return values;
         }, {});
       };
 
       isChanged = () => {
-        return !isEqual(this.getPristineValues(), this.getFormValues());
+        return !isEqual(this.getInitialValues(), this.getFormValues());
       };
 
       isValidating = () => {
@@ -510,8 +519,10 @@ const createForm = (config = {}) => {
             getFieldError: this.getFieldError,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
+            setFormDirty: this.setFormDirty,
             setFormPristine: this.setFormPristine,
-            isFieldTouched: this.isFieldTouched,
+            isFieldDirty: this.isFieldDirty,
+            isFieldTouched: this.isFieldDirty,
             isFieldValidating: this.isFieldValidating,
             isValid: this.isValid,
             isValidating: this.isValidating,
