@@ -110,8 +110,10 @@ let skus = [
   { id: 2, text: '尺寸', leaf: [{id: 21, text: '大'}, {id: 22, text: '小'}] }
 ];
 
-console.log(flatten(skus));
 /**
+ *
+ * console.log(flatten(skus));
+ *
  * output: 
  * [
  *   {"skus":[{"k_id":1,"k":"颜色","v_id":11,"v":"红色"},{"k_id":2,"k":"尺寸","v_id":21,"v":"大"}]},
@@ -128,9 +130,11 @@ let items = [
     "skus":[{"k_id":1,"k":"颜色","v_id":11,"v":"红色"},{"k_id":2,"k":"尺寸","v_id":22,"v":"小"}]
   }
 ];
-console.log(flatten(skus, items));
 
 /**
+ *
+ * console.log(flatten(skus, items));
+ *
  * output: 
  * [
  *   {"skus":[{"k_id":1,"k":"颜色","v_id":11,"v":"红色"},{"k_id":2,"k":"尺寸","v_id":21,"v":"大"}]},
@@ -182,11 +186,12 @@ let skuD = [
   { id: 3, text: '尺寸', leaf: [{id: 21, text: '大'}, {id: 22, text: '小'}] }
 ];
 
-console.log(isSame(skuA, skuB));
-console.log(isSame(skuA, skuC));
-console.log(isSame(skuA, skuD));
-
 /**
+ *
+ * console.log(isSame(skuA, skuB));
+ * console.log(isSame(skuA, skuC));
+ * console.log(isSame(skuA, skuD));
+ *
  * output: 
  * 
  * true

@@ -58,34 +58,6 @@ export default class PageHeader extends Component {
             </li>
           </ul>
         </div>
-        <ul
-          className={`page-header__subnavs ${this.state.scrollTop > 0
-            ? 'page-header__subnavs--shadow'
-            : ''}`}
-        >
-          <li className="page-header__item">
-            <a
-              href="//www.youzanyun.com/zanui/react"
-              className="page-header__link page-header__link--active"
-            >
-              基础组件
-            </a>
-          </li>
-          <li className="page-header__item">
-            <a
-              className="page-header__link"
-              href="https://github.com/youzan/zent"
-            >{`V${this.props.version}`}</a>
-          </li>
-          <li className="page-header__item">
-            <a
-              href="https://github.com/youzan/zent"
-              className="page-header__github"
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          </li>
-        </ul>
       </div>
     );
   }

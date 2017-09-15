@@ -79,10 +79,16 @@ export default class SideNav extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, version } = this.props;
 
     return (
       <div className="side-nav">
+        <section className="side-nav__version">
+          <a href="https://github.com/youzan/zent">
+            <i className="github-logo" />
+            V{version}
+          </a>
+        </section>
         <ul>
           {data.map(this.parseData)}
         </ul>
