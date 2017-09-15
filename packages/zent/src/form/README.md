@@ -2,7 +2,7 @@
 
 1. [基础用法](#ji-chu-yong-fa)
 2. [表单校验](#biao-dan-xiao-yan)
-3. [格式化 value](#ge-shi-hua-value-zhi)
+3. [格式化 value](#ge-shi-hua-value)
 4. [表单操作](#biao-dan-cao-zuo)
 5. [其他](#qi-ta)
 6. [组件原理](#zu-jian-yuan-li)
@@ -14,7 +14,7 @@
 
 #### 表单 `Form`
 
-- `Form` 组件提供两种样式：`inline`，`horizontal`， `vertical`。
+- `Form` 组件提供三种样式：`inline`，`horizontal`， `vertical`。
 - 使用 `Form` 组件，必须先调用 `createForm` 方法包装，为表单注入 `zentForm` 属性，从而提供表单和表单元素的各种操作方法，详见 demo 和 [`zentForm` API](#zentform) 。
 
 
@@ -107,7 +107,6 @@ class FieldForm extends React.Component {
 				/>
 				<Field
 					name="type"
-					type="text"
 					label="类型："
 					component={SelectField}
 					data = {[
@@ -120,7 +119,6 @@ class FieldForm extends React.Component {
 				/>
 				<Field
 					name="sex"
-					type="text"
 					label="性别："
 					component={RadioGroupField}
 					required
@@ -134,11 +132,10 @@ class FieldForm extends React.Component {
 					}}
 				>
 					<Radio value="1">男</Radio>
-					<Radio Value="2">女</Radio>
+					<Radio value="2">女</Radio>
 				</Field>
 				<Field
 					name="tag"
-					type="text"
 					label="兴趣标签："
 					value={this.state.checkedList}
 					onChange={this.onCheckboxChange}
@@ -158,7 +155,6 @@ class FieldForm extends React.Component {
 				</Field>
 				<Field
 					name="password"
-					type="text"
 					label="信息是否公开："
 					component={CheckboxField}
 				>
@@ -516,8 +512,8 @@ class FieldForm extends React.Component {
 						isUrl: true
 					}} 
 					validationErrors={{
-						isUrl: '请填写正确的邮件'
-					}} 
+						isUrl: '请填写正确的网址'
+					}}
 				/>
 				<Field
 					name="certificate"
@@ -585,8 +581,12 @@ import { Form } from 'zent';
 const { Field, InputField, createForm } = Form;
 
 const FormattedForm = (props) => {
+	const { handleSubmit } = props;
+	const submit = (values) => {
+		alert(JSON.stringify(values));
+	}
 	return (
-		<Form horizontal>
+		<Form horizontal onSubmit={handleSubmit(submit)}>
 			<Field
 				name="field1"
 				type="text"
@@ -616,6 +616,25 @@ const FormattedForm = (props) => {
 					matchRegex: '只能为字母'
 				}}
 			/>
+			<Field
+				name="field3"
+				type="text"
+				component={InputField}
+				label="submit时校验:"
+				validateOnChange={false}
+				validateOnBlur={false}
+				validations={{
+					required: true,
+					matchRegex: /^[a-zA-Z]+$/
+				}}
+				validationErrors={{
+					required: '值不能为空',
+					matchRegex: '只能为字母'
+				}}
+			/>
+			<div className="zent-form__form-actions">
+				<Button type="primary" htmlType="submit">获取表单值</Button>
+			</div>
 		</Form>
 	);
 };
@@ -720,7 +739,7 @@ ReactDOM.render(
 
 ### 表单操作
 
-- `Form.createForm` 为组件注入 `zentForm` 属性，提供了表单和表单元素的各种操作方法，如获取表单元素值，重置获取表单元素值等，详见[`zenForm` API](#zentForm)
+- `Form.createForm` 为组件注入 `zentForm` 属性，提供了表单和表单元素的各种操作方法，如获取表单元素值，重置获取表单元素值等，详见[`zenForm` API](#zentform)
 - `Form` 组件内部对表单提交的过程也进行了封装，可以把异步提交过程封装在一个函数里并 **返回promise 对象**，组件内部会根据 promise 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过 `zentForm.isSubmitting()` 得到）。
 
 
@@ -948,9 +967,9 @@ ReactDOM.render(
 #### 封装自定义的表单元素组件
 - `Field` 的展示完全由传入到 `component` 属性中的组件所控制。这个组件能够接收到所有从 `Field` 传入的 props （包括 `Field` 中构造的一些隐含的 props ，具体[`Form.Field` API](#form-field) ）。
 
-- 对于一些常用的 `zent` 表单组件， `Form` 组件已经使用了 `getControlGroup` 函数进行了封装。如果产品设计上有一些特殊的需求，或者需要封装自定义的组件，也可以直接使用或者参考 `getControlGroup`的方式来对组件进行封装， 参考[demo 封装多个表单元素](#bao-han-duo-ge-biao-dan-yuan-su-de-biao-dan-yu-feng-zhuang)。
+- 对于一些常用的 `zent` 表单组件， `Form` 组件已经使用了 `getControlGroup` 函数进行了封装。如果产品设计上有一些特殊的需求，或者需要封装自定义的组件，也可以直接使用或者参考 `getControlGroup`的方式来对组件进行封装， 参考[demo 封装多个表单元素](#duo-ge-biao-dan-yuan-su-de-feng-zhuang)。
 
-- **如果需要在一个 `Field` 中展示多个表单元素，可以将所有的表单元素封装在一个对象中传入 Field 的value 中。具体可以参考[demo 封装多个表单元素](#bao-han-duo-ge-biao-dan-yuan-su-de-biao-dan-yu-feng-zhuang)。**
+- **如果需要在一个 `Field` 中展示多个表单元素，可以将所有的表单元素封装在一个对象中传入 Field 的value 中。具体可以参考[demo 封装多个表单元素](#duo-ge-biao-dan-yuan-su-de-feng-zhuang)。**
 
 #### `Field` 中 `value` 的生命周期
 - 表单元素的初始值需要通过在 `Field` 中指定 `value` 值传入，如果 `value` 值的生命周期如下图所示：
@@ -1028,7 +1047,7 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 
 ##### **`handleSubmit`**
 
-`createForm` 还会为被包装的组件提供一个封装过的 `handleSubmit` 方法，具体使用可以参考[demo 表单提交](#biao-dan-ti-jiao)。
+`createForm` 还会为被包装的组件提供一个封装过的 `handleSubmit` 方法，具体使用可以参考[demo 表单操作](#biao-dan-cao-zuo)。
 
 ⚠️注意：如果希望在 `onSubmitFail` 回调中正确接收到 `error` 对象，需要在 `submit` 函数中抛出一个 `SubmissionError` 类型的对象
 

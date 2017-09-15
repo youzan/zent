@@ -18,4 +18,4 @@ if [ $is_same == "true" ]; then
     exit 0
 fi
 
-fail 'Arrow offsets in SCSS(assets/pop.pcss) and JavaScript(src/pop/postion.js) are different.'
+fail 'Arrow offsets in PCSS(assets/pop.pcss) and JavaScript(src/pop/postion.js) are different.'

@@ -46,14 +46,14 @@ import { Select, Button } from 'zent';
 
 const Option = Select.Option;
 const data = [
-	{ value: 0, text: '选项一' },
-	{ value: 1, text: '选项二' },
-	{ value: 2, text: '选项三' },
+	{ value: '1', text: '选项一' },
+	{ value: '2', text: '选项二' },
+	{ value: '3', text: '选项三' },
 ];
 
 class Demo extends Component {
 	state = {
-  	selectedValue: 2
+  	selectedValue: '2'
   };
 
 	reRender = () => {
