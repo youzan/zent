@@ -5983,8 +5983,8 @@ zan-utils@>=1.0.0, zan-utils@^1.0.14, zan-utils@^1.0.3, zan-utils@^1.0.4, zan-ut
     zan-jquery "^1.0.2"
 
 zent@^3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/zent/-/zent-3.5.2.tgz#d9a4cda326ee667877003eedaa509041fb7be7cd"
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/zent/-/zent-3.5.3.tgz#468db0916119e157aa70d41fc9a6b6415a013a0a"
   dependencies:
     babel-runtime "^6.23.0"
     classnames "2.2.x"
