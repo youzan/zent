@@ -10,8 +10,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "./scripts/test.sh",
-    "build": "./scripts/build.sh",
-    "prepublish": "yarn build"
+    "build": "./scripts/build.sh"
   },
   "typings": "typings/index.d.ts",
   "author": "Youzan FE",

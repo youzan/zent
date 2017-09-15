@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
-    "test": "./scripts/test.sh",
-    "prepublish": "yarn build"
+    "test": "./scripts/test.sh"
   },
   "files": [
     "lib"
