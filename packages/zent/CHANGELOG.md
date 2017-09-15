@@ -1,19 +1,40 @@
-## 更新日志
+## Github 日志
+
+## [zent@3.5.3](https://github.com/youzan/zent/tree/zent@3.5.3) (2017-09-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.2...zent@3.5.3)
+
+**Bug 修复:**
+
+- \[bug fix\] Dialog: 弹层上再出一个弹层的时候，第二个弹层的背景遮罩层z-index不对 [\#459](https://github.com/youzan/zent/issues/459)
+- \[bug fix\] Form: validateOnChange和validateOnBlur同时设为false时，表单提交时不显示校验错误问题 [\#458](https://github.com/youzan/zent/issues/458)
+- \[bug fix\] Table: css 中用了不存在的 clearfix 类 [\#457](https://github.com/youzan/zent/issues/457)
+- \[bug fix\] Select：行内元素因为font-size占据高度错误。 [\#448](https://github.com/youzan/zent/issues/448)
+- \[bug fix\] Tabs: 当id为数字0的时候不会被激活 [\#434](https://github.com/youzan/zent/issues/434)
+- \[bug fix\] Table: totalItem的判断逻辑修正，修改readme中title的类型描述 [\#455](https://github.com/youzan/zent/pull/455) ([linxixuan](https://github.com/linxixuan))
+- \[bug fix\] DateRangeQuickPicker: 调整最近7天，使end\_time包含到当前时间 [\#452](https://github.com/youzan/zent/pull/452) ([ronghang](https://github.com/ronghang))
+- \[bug fix\] Tabs: 修复activeId为0时无法选中的问题 [\#451](https://github.com/youzan/zent/pull/451) ([ctyu](https://github.com/ctyu))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[bug fix\] Form: validateOnChange和validateOnBlur同设为false时，表单提交时不显示校验错误问题 [\#462](https://github.com/youzan/zent/pull/462) ([fairyaierl](https://github.com/fairyaierl))
+- \[bug fix\] Table: Fix table clearfix [\#461](https://github.com/youzan/zent/pull/461) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Dialog: 修复弹层叠加时，遮罩层 z-index 值错误的 bug [\#460](https://github.com/youzan/zent/pull/460) ([NinoFocus](https://github.com/NinoFocus))
+- \[bug fix\] Select: 组件占据高度修正 [\#449](https://github.com/youzan/zent/pull/449) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.5.2](https://github.com/youzan/zent/tree/zent@3.5.2) (2017-09-07)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.1...zent@3.5.2)
 
-**不兼容改动和新功能:**
-
-- form: 支持 FormSection [\#431](https://github.com/youzan/zent/issues/431)
-
 **Bug 修复:**
 
-- select: option的value是数字0时无法选中 [\#444](https://github.com/youzan/zent/issues/444)
-- 修改Select宽度，弹层宽度无法自动适应 [\#438](https://github.com/youzan/zent/issues/438)
-- select: 缺少form中校验不通过的样式 [\#406](https://github.com/youzan/zent/issues/406)
+- \[bug fix\] Select: option的value是数字0时无法选中 [\#444](https://github.com/youzan/zent/issues/444)
+- \[bug fix\] Select: 修改Select宽度，弹层宽度无法自动适应 [\#438](https://github.com/youzan/zent/issues/438)
+- \[bug fix\] Select: 缺少form中校验不通过的样式 [\#406](https://github.com/youzan/zent/issues/406)
 - Select: fix bugs [\#446](https://github.com/youzan/zent/pull/446) ([LucasIcarus](https://github.com/LucasIcarus))
 - select: Fix Select proptypes [\#445](https://github.com/youzan/zent/pull/445) ([cpylua](https://github.com/cpylua))
+
+**处理的 Issue:**
+
+- form: 支持 FormSection [\#431](https://github.com/youzan/zent/issues/431)
 
 ## [zent@3.5.1](https://github.com/youzan/zent/tree/zent@3.5.1) (2017-09-04)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.0...zent@3.5.1)
@@ -35,7 +56,8 @@
 
 **不兼容改动和新功能:**
 
-- New Component: Design [\#401](https://github.com/youzan/zent/issues/401)
+- \[new feature\] MonthPicker: 支持min/max属性 [\#423](https://github.com/youzan/zent/issues/423)
+- \[new feature\] 新组件 Design [\#401](https://github.com/youzan/zent/issues/401)
 - datetimepicker: merge DateRangePicker and DateRangePicker2 [\#381](https://github.com/youzan/zent/issues/381)
 - Datepicker暴露格式化字符串方法 [\#374](https://github.com/youzan/zent/issues/374)
 - select: Rewrite using Popover [\#258](https://github.com/youzan/zent/issues/258)
@@ -58,7 +80,8 @@
 
 **Bug 修复:**
 
-- datetimepicker: replace date formating with zan-utils [\#410](https://github.com/youzan/zent/issues/410)
+- \[bug fix\] datetimepicker: replace date formating with zan-utils [\#410](https://github.com/youzan/zent/issues/410)
+- \[bug fix\] Datepicker: 添加form中校验不通过的样式 [\#405](https://github.com/youzan/zent/issues/405)
 - NumberInput: 不支持空字符串 [\#395](https://github.com/youzan/zent/issues/395)
 - NumberInput: onChange回调函数参数不是一个标准event [\#392](https://github.com/youzan/zent/issues/392)
 - table: 多选的时候不能跨页选择 [\#328](https://github.com/youzan/zent/issues/328)
@@ -82,8 +105,6 @@
 
 **处理的 Issue:**
 
-- MonthPicker不支持min/max属性 [\#423](https://github.com/youzan/zent/issues/423)
-- datepicker: 缺少form中校验不通过的样式 [\#405](https://github.com/youzan/zent/issues/405)
 - \[咨询\]想问下基于Zent 的微杂志编辑套件的开源时间点 [\#399](https://github.com/youzan/zent/issues/399)
 - Select类型的Field调用resetFieldsValue无效 [\#378](https://github.com/youzan/zent/issues/378)
 - form: 自定义Field里调用this.props.onChange不要把整个对象覆盖掉 [\#375](https://github.com/youzan/zent/issues/375)

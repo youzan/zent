@@ -64,7 +64,7 @@ export default class Swiper extends (PureComponent || Component) {
       });
     });
 
-    this.translate(currentIndex, true);
+    innerElements.length > 1 && this.translate(currentIndex, true);
   };
 
   getSwiper = swiper => {

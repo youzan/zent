@@ -31,7 +31,7 @@ $basepath/../lerna publish --exact "$@"
 # 生成 change log
 github_changelog_generator \
     --exclude-tags-regex "(zent-.+|beta|alpha)" \
-    --header-label "## 更新日志" \
+    --header-label "## Github 日志" \
     --bugs-label "**Bug 修复:**" \
     --enhancement-label "**不兼容改动和新功能:**" \
     --issues-label "**处理的 Issue:**" \
