@@ -26,6 +26,9 @@ yarn
 # 重新bootstrap，以防有人改了依赖
 yarn bootstrap
 
+# build
+$basepath/./build.sh
+
 $basepath/../lerna publish --exact "$@"
 
 # 生成 change log
