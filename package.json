@@ -17,7 +17,8 @@
     "prettify": "yarn prettify-js && yarn prettify-style",
     "postinstall": "./scripts/ensure-husky-hooks.sh",
     "precommit": "lint-staged",
-    "prepush": "yarn lint && yarn test"
+    "prepush": "yarn lint && yarn test",
+    "pub": "./scripts/publish.sh"
   },
   "lint-staged": {
     "*.js": [
