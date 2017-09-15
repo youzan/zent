@@ -93,6 +93,7 @@ cd site && yarn dev
     :::                               // 示例结束的标记，必须接在代码段之后，否则不会识别为示例
 
 代码演示的几个书写原则：
+
 - 从简单用法开始介绍，不要上来就同时使用一大堆的 API，会让人觉得很难上手
 - 正交性原则，一个示例只演示一个（或者一类）API 的使用方法，如无特殊需求不要在一个示例中同时演示多个 API 混合使用
 - 如果示例的一句话描述无法完整描述整个场景，可以在 `:::demo` 之前写一段详细的说明性文字
@@ -129,14 +130,6 @@ cd site && yarn dev
 * 小范围的 ‘用完就关’ 的组件：Pop, Select, Datetimepicker, ColorPicker, Cascader 等 [2000, 3000)
 * 全屏幕的组件：Dialog, image-preview 等 [1000, 2000)
 * 其他：组件内部用来控制层次的 z-index 的区间 [-10, 10]，尽可能写小，一般1，2，3这种就够了。
-
-## 发布
-
-**注意：不是所有人都有发包权限的**
-
-1. 更新代码到最新: `git pull`
-2. 安装 [github-changelog-generator](https://github.com/skywinder/github-changelog-generator)
-3. `./scripts/publish.sh` 选择需要的版本即可
 
 ## Tips
 

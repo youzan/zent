@@ -140,19 +140,21 @@ code[class*="language-"] {
 }
 
 .main-content {
-  margin: $top-height 20px 40px;
+  margin: 10px 20px;
+  border: 1px solid #f4f4f4;
+  min-height: calc(100vh - $top-nav-height - $footer-height - 20px);
 }
 
 .page-container {
   background-color: #fff;
   position: relative;
   width: 100%;
-  overflow: hidden;
+  display: flex;
 }
 
 .page-content {
   box-sizing: border-box;
-  margin-left: 260px;
+  flex-grow: 1;
 
   section {
     padding: 0 40px;
@@ -242,7 +244,7 @@ code[class*="language-"] {
     .anchor-point {
       visibility: hidden;
       position: absolute;
-      top: calc(-1 * $top-height - 5px);
+      top: 0;
     }
   }
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect
 } from 'react-router-dom';
+import cx from 'classnames';
 import PageHeader from 'components/PageHeader';
 import PageFooter from 'components/PageFooter';
 import SideNav from 'components/SideNav';
@@ -16,7 +16,6 @@ import packageJson from '../../packages/zent/package.json';
 import navData from './nav.config';
 import { registerRoute, registerFooter } from './router.config';
 import { prefix } from './constants';
-import fixSideNav from './components/fix-sidenav';
 
 // one-dimentional array
 const routeData = registerRoute(navData['zh-CN']);
@@ -25,13 +24,20 @@ const routeData = registerRoute(navData['zh-CN']);
 const footerData = registerFooter(routeData);
 
 export default class App extends Component {
+  state = {
+    spiderOn: false,
+    spiderReady: false
+  };
+
   render() {
+    const { spiderOn, spiderReady } = this.state;
+
     return (
       <Router>
         <ScrollToTop>
           <PageHeader version={packageJson.version} />
           <div className="main-content">
-            <div className="page-container clearfix">
+            <div className="page-container">
               <SideNav
                 data={navData['zh-CN']}
                 base={prefix}
@@ -39,6 +45,27 @@ export default class App extends Component {
               />
               <div className="page-content">
                 <div className="react-doc-page-content">
+                  <a
+                    href="https://github.com/youzan/zent"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    ref={this.saveSpiderNode}
+                  >
+                    <div
+                      className="github-spider-trigger"
+                      onMouseEnter={this.onGithubSpiderMouseEnter}
+                    />
+                    {spiderReady && (
+                      <img
+                        className={cx('github-spider animated', {
+                          slideInDown: spiderOn,
+                          slideOutUp: !spiderOn
+                        })}
+                        src="https://octodex.github.com/images/spidertocat.png"
+                        alt="github-spider"
+                      />
+                    )}
+                  </a>
                   <Switch>
                     {routeData.map((data, index) => {
                       return (
@@ -63,21 +90,31 @@ export default class App extends Component {
     );
   }
 
-  saveSideNav = instance => {
-    this.sideNav = findDOMNode(instance);
+  onGithubSpiderMouseEnter = () => {
+    this.setState({
+      spiderReady: true,
+      spiderOn: true
+    });
   };
 
-  saveFooter = instance => {
-    this.footer = findDOMNode(instance);
+  saveSpiderNode = node => {
+    this.spiderNode = node;
+  };
+
+  onMouseMove = evt => {
+    const { target } = evt;
+    if (!this.spiderNode || !this.spiderNode.contains(target)) {
+      this.setState({
+        spiderOn: false
+      });
+    }
   };
 
   componentDidMount() {
-    this.cancelSideNavFix = fixSideNav(this.footer, this.sideNav);
+    window.addEventListener('mousemove', this.onMouseMove);
   }
 
   componentWillUnmount() {
-    if (this.cancelSideNavFix) {
-      this.cancelSideNavFix();
-    }
+    window.removeEventListener('mousemove', this.onMouseMove);
   }
 }
