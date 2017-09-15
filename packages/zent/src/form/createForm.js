@@ -11,7 +11,7 @@ import get from 'lodash/get';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
-import { getDisplayName, silenceEvent, silenceEvents, flatObj } from './utils';
+import { getDisplayName, silenceEvent, silenceEvents } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
 
@@ -181,22 +181,12 @@ const createForm = (config = {}) => {
 
       // 设置服务端返回的错误信息
       setFieldExternalErrors = (errors, updateDirty = true) => {
-        let internalErrors = flatObj(errors, this.prevFieldNames);
-        Object.keys(internalErrors).forEach(name => {
-          const field = find(
-            this.fields,
-            component => component.getName() === name
-          );
-          if (!field) {
-            throw new Error(`field ${name} does not exits`);
-          }
-
+        this.fields.forEach(field => {
+          const name = field.getName();
+          const error = get(errors, name);
           const data = {
             _isValid: false,
-            _externalError:
-              typeof internalErrors[name] === 'string'
-                ? [internalErrors[name]]
-                : internalErrors[name]
+            _externalError: typeof error === 'string' ? [error] : error
           };
           if (updateDirty) {
             data._isDirty = true;
@@ -229,7 +219,7 @@ const createForm = (config = {}) => {
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value) {
+          if (value !== undefined) {
             field.setValue(value);
           } else {
             field.resetValue();

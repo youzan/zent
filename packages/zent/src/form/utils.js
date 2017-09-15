@@ -1,6 +1,5 @@
 import isPlainObject from 'lodash/isPlainObject';
 import assign from 'lodash/assign';
-import map from 'lodash/map';
 
 const getSelectedValues = options => {
   const result = [];
@@ -81,22 +80,4 @@ export function prefixName(zentForm, name) {
     newName = `${prefix}.${name}`;
   }
   return newName;
-}
-
-export function flatObj(obj) {
-  const mapObj = (newObj, originObj, prefix = '') => {
-    map(originObj, (value, key) => {
-      const newKey = prefix ? `${prefix}.${key}` : key;
-      if (isPlainObject(value)) {
-        mapObj(newObj, value, newKey);
-      } else {
-        // else if (availableKeys.indexOf(newKey) >= 0) {
-        //   newObj[newKey] = value;
-        // }
-        newObj[newKey] = value;
-      }
-    });
-    return newObj;
-  };
-  return mapObj({}, obj);
 }

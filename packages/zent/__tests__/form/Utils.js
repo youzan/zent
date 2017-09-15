@@ -8,8 +8,7 @@ describe('Form-Utilities', () => {
     silenceEvent,
     silenceEvents,
     getCurrentValue,
-    prefixName,
-    flatObj
+    prefixName
   } = Utils;
 
   it('getValue', () => {
@@ -192,54 +191,11 @@ describe('Form-Utilities', () => {
 
   it('prefixName', () => {
     const zentForm1 = {};
-    const zentForm2 = { sectionPrefix: 'prefix' };
+    const zentForm2 = { prefix: 'boo' };
+    const zentForm3 = { prefix: 'boo[1]' };
 
-    expect(prefixName(zentForm1, 'test')).toBe('test');
-    expect(prefixName(zentForm2, 'test')).toBe('prefix.test');
-  });
-
-  it('flatObj', () => {
-    const emptyObj = {};
-    const undefinedObj = undefined;
-    const objWithValue = { address: 'bar' };
-    const objWithValue2 = { address: 'bar', name: 'foo' };
-    const objWithValue3 = {
-      address: {
-        number: 123,
-        detail: 'you'
-      },
-      name: {
-        first: 'Jack',
-        last: 'White'
-      }
-    };
-
-    // return unflat obj
-    expect(keys(flatObj(emptyObj)).length).toBe(0);
-    expect(keys(getValue(undefinedObj)).length).toBe(0);
-
-    // return empty obj when availableKeys in empty array
-    expect(keys(flatObj(objWithValue)).length).toBe(0);
-
-    // return empty obj when obj's keys in not in availableKeys
-    expect(keys(flatObj(objWithValue, ['test'])).length).toBe(0);
-
-    // return flat obj when obj's keys in in availableKeys
-    const flatObj1 = flatObj(objWithValue, ['address']);
-    expect(keys(flatObj1).length).toBe(1);
-    expect(keys(flatObj1)[0]).toBe('address');
-    expect(flatObj1.address).toBe('bar');
-
-    const flatObj2 = flatObj(objWithValue2, ['address']);
-    expect(keys(flatObj2).length).toBe(1);
-    expect(keys(flatObj2)[0]).toBe('address');
-    expect(flatObj2.address).toBe('bar');
-
-    const flatObj3 = flatObj(objWithValue3, ['address.number', 'name.first']);
-    expect(keys(flatObj3).length).toBe(2);
-    expect(keys(flatObj3)[0]).toBe('address.number');
-    expect(keys(flatObj3)[1]).toBe('name.first');
-    expect(flatObj3['address.number']).toBe(123);
-    expect(flatObj3['name.first']).toBe('Jack');
+    expect(prefixName(zentForm1, 'foo')).toBe('foo');
+    expect(prefixName(zentForm2, 'foo')).toBe('boo.foo');
+    expect(prefixName(zentForm3, 'foo')).toBe('boo[1].foo');
   });
 });

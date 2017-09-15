@@ -835,6 +835,115 @@ ReactDOM.render(
 ```
 :::
 
+:::DEMO 其他表单操作
+```jsx
+import { Form, Button } from 'zent';
+const { Field, InputField, createForm } = Form;
+
+class SubmitForm extends React.Component {
+	submit = (values, zentForm) => {
+		alert(JSON.stringify(values));
+	};
+
+	setError = () => {
+		const { zentForm } = this.props;
+		zentForm.setFieldExternalErrors({
+			name: '名字不能包含数字'
+		});
+	}
+
+	initialize = () => {
+		const { zentForm } = this.props;
+		zentForm.initialize({
+			name: '0',
+			age: '0',
+			password: '0'
+		});
+	}
+
+	setFieldsValue = () => {
+		const { zentForm } = this.props;
+		zentForm.setFieldsValue({
+			name: '3'
+		});
+	}
+
+	reset = () => {
+		const { zentForm } = this.props;
+		zentForm.resetFieldsValue();
+	}
+
+	render() {
+		const { handleSubmit, zentForm } = this.props;
+		const isSubmitting = zentForm.isSubmitting();
+
+		return (
+			<Form onSubmit={handleSubmit(this.submit)} horizontal>
+				<Field
+					name="name"
+					type="text"
+					component={InputField}
+					label="名字："
+					value="1"
+					validations={{ required: true }}
+					validationErrors={{ required: '名字不能为空' }}
+				/>
+				<Field
+					name="age"
+					type="text"
+					component={InputField}
+					label="年龄："
+					value="1"
+					validations={{ required: true }}
+					validationErrors={{ required: '年龄不能为空' }}
+				/>
+				<Field
+					name="password"
+					type="text"
+					component={InputField}
+					label="密码："
+					value="1"
+					validations={{ required: true }}
+					validationErrors={{ required: '密码不能为空' }}
+				/>
+				<Field
+					name="confirmPassword"
+					type="text"
+					component={InputField}
+					label="确认密码："
+					value="1"
+					validations={{
+						required: true,
+						isPasswordEqual(values, value) {
+							if (values.password !== value) {
+								return '两次密码输入不一致';
+							}
+							return true;
+						}
+					}}
+					validationErrors={{
+						required: '确认密码不能为空'
+					}}
+				/>
+				<div className="zent-form__form-actions">
+					<Button type="primary" htmlType="submit" loading={isSubmitting}>获取表单值</Button>
+					<Button type="primary" outline onClick={this.initialize}>初始化表单</Button>
+					<Button type="primary" outline onClick={this.setFieldsValue}>设置表单值</Button>
+					<Button type="primary" outline onClick={this.reset}>重置</Button>
+				</div>
+			</Form>
+		)
+	}	
+};
+const WrappedForm = createForm()(SubmitForm);
+
+ReactDOM.render(
+	<WrappedForm />
+	, mountNode
+)
+```
+:::
+
 ### 其他
 
 #### `Form` 布局
@@ -1029,17 +1138,6 @@ class FieldsetForm extends React.Component {
 		alert(JSON.stringify(values));
 	}
 
-	getFieldError = () => {
-		const { zentForm } = this.props;
-		console.log(zentForm.getFieldError('buyer.address.number'));
-		console.log(zentForm.getFieldError('recipient.address.number'));
-	}
-
-	setFormDirty = () => {
-		const { zentForm } = this.props;
-		zentForm.setFormDirty();
-	}
-
 	setError = () => {
 		const { zentForm } = this.props;
 		zentForm.setFieldExternalErrors({
@@ -1131,8 +1229,6 @@ class FieldsetForm extends React.Component {
 				</FormSection>
 				<div className="zent-form__form-actions">
 					<Button type="primary" htmlType="submit">提交表单值</Button>
-					<Button type="primary" onClick={this.getFieldError}>获取表单错误值</Button>
-					<Button type="primary" onClick={this.setFormDirty}>显示表单错误值</Button>
 					<Button type="primary" onClick={this.setError}>设置额外错误值</Button>
 					<Button type="primary" onClick={this.initialize}>初始化</Button>
 					<Button type="primary" onClick={this.setFieldsValue}>设置值</Button>
@@ -1151,6 +1247,8 @@ ReactDOM.render(
 
 ```
 :::
+
+#### `FieldArray` 组件
 
 :::DEMO `FieldArray`组件
 ```jsx
@@ -1240,81 +1338,6 @@ class FieldForm extends React.Component {
 		alert(JSON.stringify(values));
 	}
 
-	getFieldError = () => {
-		const { zentForm } = this.props;
-		console.log(zentForm.getFieldError('number'));
-		console.log(zentForm.getFieldError('members[0].sex'));
-		console.log(zentForm.getFieldError('members[0].hobbies[0]'));
-	}
-
-	setFormDirty = () => {
-		const { zentForm } = this.props;
-		zentForm.setFormDirty();
-	}
-
-	setError = () => {
-		const { zentForm } = this.props;
-		zentForm.setFieldExternalErrors({
-			number: '总人数格式不对',
-			members: [
-				{
-					name: ['名字不能是数字', '名字最少为两个字']
-				}
-			],
-		});
-	}
-
-	initialize = () => {
-		const { zentForm } = this.props;
-		zentForm.initialize({
-			all: '2',
-			buyer: {
-				age: 12,
-				name: '第一个名字',
-				address: {
-					number: 14234,
-					zipCode: 2222
-				}
-			},
-			recipient: {
-				age: 11,
-				name: '名字',
-				address: {
-					number: 14234,
-					zipCode: 2222
-				}
-			}
-		});
-	}
-
-	resetFieldsValue = () => {
-		const { zentForm } = this.props;
-		zentForm.resetFieldsValue({
-			all: '14',
-			buyer: {
-				age: 14,
-				name: '名字',
-				address: {
-					number: 1111111,
-					zipCode: 11111
-				}
-			},
-			recipient: {
-				age: 222,
-				name: '名字',
-				address: {
-					number: 11111,
-					zipCode: 1111
-				}
-			}
-		});
-	}
-
-	reset = () => {
-		const { zentForm } = this.props;
-		zentForm.resetFieldsValue();
-	}
-
 	render() {
 		const { handleSubmit } = this.props;
 		return (
@@ -1331,12 +1354,6 @@ class FieldForm extends React.Component {
 				<FieldArray name="members" component={renderMembers} />
 				<div className="zent-form__form-actions">
 					<Button type="primary" htmlType="submit">获取表单值</Button>
-					<Button type="primary" onClick={this.getFieldError}>获取表单错误值</Button>
-					<Button type="primary" onClick={this.setFormDirty}>显示表单错误值</Button>
-					<Button type="primary" onClick={this.setError}>设置额外错误值</Button>
-					<Button type="primary" onClick={this.initialize}>初始化</Button>
-					<Button type="primary" onClick={this.resetFieldsValue}>设置值</Button>
-					<Button type="primary" onClick={this.reset}>重置</Button>
 				</div>
 			</Form>
 		);
