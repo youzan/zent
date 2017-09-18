@@ -28,16 +28,25 @@ describe('Pagination', () => {
     expect(wrapper.children().length).toBe(2);
     expect(wrapper.find('.zent-pagination__info').length).toBe(1);
     expect(wrapper.find('.zent-pagination__info').children().length).toBe(2);
-    expect(wrapper.find('.zent-pagination__info').childAt(0).type()).toBe(
-      'span'
-    );
-    expect(wrapper.find('.zent-pagination__info').childAt(1).type()).toBe(
-      'span'
-    );
+    expect(
+      wrapper
+        .find('.zent-pagination__info')
+        .childAt(0)
+        .type()
+    ).toBe('span');
+    expect(
+      wrapper
+        .find('.zent-pagination__info')
+        .childAt(1)
+        .type()
+    ).toBe('span');
     expect(wrapper.find('.pagination-list').length).toBe(1);
     expect(wrapper.find('.pagination-list').children().length).toBe(8);
     expect(
-      wrapper.find('.pagination-list').children('div').every('.pager')
+      wrapper
+        .find('.pagination-list')
+        .children('div')
+        .every('.pager')
     ).toBe(true);
   });
 
@@ -112,13 +121,23 @@ describe('Pagination', () => {
     );
     expect(wrapper.find('.pager--omni').length).toBe(0);
     expect(wrapper.find('.pager').length).toBe(5);
-    expect(wrapper.find('.pager').at(2).text()).toBe('2 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(2)
+        .text()
+    ).toBe('2 ');
     wrapper = mount(
       <Pagination totalItem={20} pageSize={10} current={1} maxPageToShow={1} />
     );
     expect(wrapper.find('.pager--omni').length).toBe(0);
     expect(wrapper.find('.pager').length).toBe(3);
-    expect(wrapper.find('.pager').at(1).text()).toBe('1 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(1)
+        .text()
+    ).toBe('1 ');
   });
 
   it('Pagination has its omni strategy', () => {
@@ -132,7 +151,12 @@ describe('Pagination', () => {
     );
     expect(wrapper.find('.pager--omni').length).toBe(1);
     expect(wrapper.find('.pager').length).toBe(8);
-    expect(wrapper.find('.pager').at(1).text()).toBe('1 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(1)
+        .text()
+    ).toBe('1 ');
     wrapper = mount(
       <Pagination
         totalItem={100}
@@ -143,12 +167,27 @@ describe('Pagination', () => {
     );
     expect(wrapper.find('.pager--omni').length).toBe(1);
     expect(wrapper.find('.pager').length).toBe(8);
-    expect(wrapper.find('.pager').at(2).hasClass('pager--omni')).toBe(true);
+    expect(
+      wrapper
+        .find('.pager')
+        .at(2)
+        .hasClass('pager--omni')
+    ).toBe(true);
     wrapper.setProps({ current: 5 });
     expect(wrapper.find('.pager--omni').length).toBe(2);
     expect(wrapper.find('.pager').length).toBe(10);
-    expect(wrapper.find('.pager').at(1).text()).toBe('1 ');
-    expect(wrapper.find('.pager').at(7).text()).toBe('10 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(1)
+        .text()
+    ).toBe('1 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(7)
+        .text()
+    ).toBe('10 ');
 
     // HACK: branch
     expect(() => {
@@ -167,12 +206,22 @@ describe('Pagination', () => {
     );
     expect(wrapper.find('.zent-select').length).toBe(1);
     expect(wrapper.find('.pager').length).toBe(8);
-    expect(wrapper.find('.pager').at(5).text()).toBe('34 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(5)
+        .text()
+    ).toBe('34 ');
     wrapper.setProps({
       pageSize: [{ value: 20, isCurrent: true }, 30]
     });
     expect(wrapper.find('.pager').length).toBe(8);
-    expect(wrapper.find('.pager').at(5).text()).toBe('50 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(5)
+        .text()
+    ).toBe('50 ');
 
     const onChangeMock = jest.fn().mockImplementation(arg => {
       // simulate outside setState()
@@ -194,7 +243,10 @@ describe('Pagination', () => {
     });
     expect(wrapper.prop('current')).toBe(1);
     expect(wrapper.state('currentPageSize')).toBe(20);
-    wrapper.find('.pager').at(2).simulate('click');
+    wrapper
+      .find('.pager')
+      .at(2)
+      .simulate('click');
     expect(wrapper.prop('current')).toBe(2);
     expect(wrapper.state('currentPageSize')).toBe(20);
 
@@ -216,9 +268,15 @@ describe('Pagination', () => {
         maxPageToshow={10}
       />
     );
-    wrapper.find('.pager').at(1).simulate('click');
+    wrapper
+      .find('.pager')
+      .at(1)
+      .simulate('click');
     expect(wrapper.prop('current')).toBe(1);
-    wrapper.find('.pager').at(2).simulate('click');
+    wrapper
+      .find('.pager')
+      .at(2)
+      .simulate('click');
     expect(wrapper.prop('current')).toBe(1);
 
     const onChangeMock = jest.fn().mockImplementation(arg => {
@@ -236,12 +294,21 @@ describe('Pagination', () => {
       />
     );
 
-    wrapper.find('.pager').at(1).simulate('click');
+    wrapper
+      .find('.pager')
+      .at(1)
+      .simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(0);
-    wrapper.find('.pager').at(2).simulate('click');
+    wrapper
+      .find('.pager')
+      .at(2)
+      .simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(onChangeMock.mock.calls[0][0]).toBe(2);
-    wrapper.find('.pager').at(3).simulate('click');
+    wrapper
+      .find('.pager')
+      .at(3)
+      .simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(2);
     expect(onChangeMock.mock.calls[1][0]).toBe(3);
     expect(wrapper.prop('current')).toBe(3);
@@ -274,16 +341,46 @@ describe('Pagination', () => {
       .simulate('change', { target: { value: '0' } });
     wrapper.find('.pager__input').simulate('keyUp', { key: 'Enter' });
     expect(wrapper.prop('current')).toBe(0);
-    expect(wrapper.find('.pager').at(1).text()).toBe('1 ');
-    expect(wrapper.find('.pager').at(1).hasClass('pager--current')).toBe(true);
-    expect(wrapper.find('.pager').at(0).hasClass('pager--disabled')).toBe(true);
+    expect(
+      wrapper
+        .find('.pager')
+        .at(1)
+        .text()
+    ).toBe('1 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(1)
+        .hasClass('pager--current')
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.pager')
+        .at(0)
+        .hasClass('pager--disabled')
+    ).toBe(true);
     wrapper
       .find('.pager__input')
       .simulate('change', { target: { value: '10000' } });
     wrapper.find('.pager__input').simulate('keyUp', { key: 'Enter' });
     expect(wrapper.prop('current')).toBe(10);
-    expect(wrapper.find('.pager').at(5).text()).toBe('10 ');
-    expect(wrapper.find('.pager').at(5).hasClass('pager--current')).toBe(true);
-    expect(wrapper.find('.pager').at(6).hasClass('pager--disabled')).toBe(true);
+    expect(
+      wrapper
+        .find('.pager')
+        .at(5)
+        .text()
+    ).toBe('10 ');
+    expect(
+      wrapper
+        .find('.pager')
+        .at(5)
+        .hasClass('pager--current')
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.pager')
+        .at(6)
+        .hasClass('pager--disabled')
+    ).toBe(true);
   });
 });

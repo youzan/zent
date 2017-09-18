@@ -16,7 +16,12 @@ describe('DateRangePicker', () => {
     const click = new Event('click');
     document.dispatchEvent(click);
     wrapper.find('.picker-input').simulate('click');
-    pop.find('DatePanel').at(0).find('.panel__cell').at(10).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
     pop
       .find('DatePanel')
       .at(0)
@@ -29,7 +34,12 @@ describe('DateRangePicker', () => {
       .find('.panel__cell')
       .at(20)
       .simulate('mouseover');
-    pop.find('DatePanel').at(1).find('.panel__cell').at(20).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(1)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
     pop
       .find('DatePanel')
       .at(1)
@@ -43,29 +53,71 @@ describe('DateRangePicker', () => {
       true
     );
     expect(pop.find('.panel__cell--selected').length).toBe(2);
-    pop.find('DatePanel').at(1).find('.panel__cell').at(10).simulate('click');
-    pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
-    pop.find('TimePanel').at(0).find('.time__number').at(0).simulate('click');
-    pop.find('HourPanel .panel__cell').at(5).simulate('click');
-    pop.find('TimePanel').at(1).find('.time__number').at(0).simulate('click');
-    pop.find('HourPanel .panel__cell').at(1).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(1)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
+    pop
+      .find('TimePanel')
+      .at(0)
+      .find('.time__number')
+      .at(0)
+      .simulate('click');
+    pop
+      .find('HourPanel .panel__cell')
+      .at(5)
+      .simulate('click');
+    pop
+      .find('TimePanel')
+      .at(1)
+      .find('.time__number')
+      .at(0)
+      .simulate('click');
+    pop
+      .find('HourPanel .panel__cell')
+      .at(1)
+      .simulate('click');
   });
 
   it('SplitDateRangePicker has its core function', () => {
     let pop;
     const wrapper = mount(<DateRangePicker type="split" showTime />);
-    wrapper.find('.picker-input').at(0).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(0)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
     expect(pop.find('DatePanel').length).toBe(1);
 
-    pop.find('DatePanel').at(0).find('.panel__cell').at(10).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
 
-    wrapper.find('.picker-input').at(1).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(1)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
     expect(pop.find('DatePanel').length).toBe(1);
 
-    pop.find('DatePanel').at(0).find('.panel__cell').at(10).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
   });
 
@@ -75,12 +127,18 @@ describe('DateRangePicker', () => {
       <DateRangePicker type="split" value={['2017-01-01', '2017-12-30']} />
     );
     expect(wrapper.find('.zent-input').at(0).node.value).toBe('2017-01-01');
-    wrapper.find('.picker-input').at(0).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(0)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
 
-    expect(pop.find('DatePanel').find('.panel__cell--selected').text()).toBe(
-      '1'
-    );
+    expect(
+      pop
+        .find('DatePanel')
+        .find('.panel__cell--selected')
+        .text()
+    ).toBe('1');
   });
 
   it('CombineDateRangePicker is controlled by value', () => {
@@ -101,8 +159,18 @@ describe('DateRangePicker', () => {
       wrapper.find('CombineDateRangePicker').node.picker,
       true
     );
-    pop.find('DatePanel').at(1).find('.panel__cell').at(10).simulate('click');
-    pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(1)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(isArray(onChangeMock.mock.calls[0][0])).toBe(true);
@@ -115,17 +183,33 @@ describe('DateRangePicker', () => {
       wrapper.setProps({ value });
     });
     wrapper = mount(<DateRangePicker type="split" onChange={onChangeMock} />);
-    wrapper.find('.picker-input').at(0).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(0)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
-    pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(isArray(onChangeMock.mock.calls[0][0])).toBe(true);
     expect(onChangeMock.mock.calls[0][0][1].length).toBe(0);
 
-    wrapper.find('.picker-input').at(1).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(1)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').at(1).node.picker, true);
-    pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
     expect(isArray(onChangeMock.mock.calls[0][0])).toBe(true);
   });
@@ -138,11 +222,17 @@ describe('DateRangePicker', () => {
     wrapper = mount(
       <DateRangePicker type="split" onClose={onClose} onOpen={onOpen} />
     );
-    wrapper.find('.picker-input').at(0).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(0)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
     pop.find('.btn--confirm').simulate('click');
 
-    wrapper.find('.picker-input').at(1).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(1)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').at(1).node.picker, true);
     pop.find('.btn--confirm').simulate('click');
 
@@ -172,8 +262,18 @@ describe('DateRangePicker', () => {
       wrapper.find('CombineDateRangePicker').node.picker,
       true
     );
-    pop.find('DatePanel').at(1).find('.panel__cell').at(10).simulate('click');
-    pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(1)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
     expect(onChangeMock.mock.calls[0][0][0]).toBeInstanceOf(Date);
 
@@ -191,8 +291,18 @@ describe('DateRangePicker', () => {
       wrapper.find('CombineDateRangePicker').node.picker,
       true
     );
-    pop.find('DatePanel').at(1).find('.panel__cell').at(10).simulate('click');
-    pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(1)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
     expect(typeof onChangeMock.mock.calls[1][0][0]).toBe('number');
   });
@@ -208,7 +318,10 @@ describe('DateRangePicker', () => {
       />
     );
 
-    wrapper.find('.zenticon-close-circle').at(0).simulate('click');
+    wrapper
+      .find('.zenticon-close-circle')
+      .at(0)
+      .simulate('click');
     expect(onChangeMock.mock.calls[0][0].length).toBe(0);
   });
 
@@ -251,14 +364,30 @@ describe('DateRangePicker', () => {
     let wrapper = mount(
       <DateRangePicker type="split" onChange={onChangeMock} />
     );
-    wrapper.find('.picker-input').at(0).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(0)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
-    pop.find('DatePanel').at(0).find('.panel__cell').at(10).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
 
-    wrapper.find('.picker-input').at(1).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(1)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
-    pop.find('DatePanel').at(0).find('.panel__cell').at(20).simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
     pop.find('.btn--confirm').simulate('click');
 
     expect(onChangeMock.mock.calls.length).toBe(2);
@@ -266,14 +395,20 @@ describe('DateRangePicker', () => {
     // default disabledDate is noop
     // HACK: branch
     wrapper = mount(<DateRangePicker type="split" disabled />);
-    wrapper.find('.picker-input').at(0).simulate('click');
+    wrapper
+      .find('.picker-input')
+      .at(0)
+      .simulate('click');
     pop = new ReactWrapper(wrapper.find('DatePicker').node.picker, true);
 
     // support min and max
     pop = mount(
       <DateRangePicker type="split" min="2000-01-01" max="2001-01-01" />
     );
-    pop.find('.picker-input').at(0).simulate('click');
+    pop
+      .find('.picker-input')
+      .at(0)
+      .simulate('click');
     expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
   });
 });

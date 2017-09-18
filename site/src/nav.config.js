@@ -26,6 +26,11 @@ module.exports = {
               title: 'Github 日志',
               path: 'guides/github_changelog',
               component: require('../../packages/zent/CHANGELOG.md')
+            },
+            {
+              title: '贡献代码',
+              path: 'guides/contribute',
+              component: require('../../packages/zent/docs/CONTRIBUTING.md')
             }
           ]
         }

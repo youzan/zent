@@ -10,11 +10,7 @@ const columns = [
     title: '商品',
     width: '50px',
     bodyRender: data => {
-      return (
-        <div>
-          {data.item_id}
-        </div>
-      );
+      return <div>{data.item_id}</div>;
     },
     needSort: true
   },

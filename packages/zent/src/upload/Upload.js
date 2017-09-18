@@ -75,30 +75,32 @@ class Upload extends Component {
       }
     ]);
 
-    return withoutPopup
-      ? this.renderUploadPopup(uploadOptions)
-      : <div className={className}>
-          <div
-            className={triggerClassName}
-            onClick={this.showUpload.bind(this, true)}
-          >
-            {children || (Node && <Node />) || <span>+</span>}
-            {uploadOptions.localOnly && uploadOptions.maxAmount === 1
-              ? <FileInput {...uploadOptions} />
-              : ''}
-          </div>
-          <p className={`${prefix}-upload-tips`}>
-            {tips}
-          </p>
-          <Dialog
-            title="图片选择"
-            visible={visible}
-            className={dialogClassName}
-            onClose={this.closePopup}
-          >
-            {this.renderUploadPopup(uploadOptions)}
-          </Dialog>
-        </div>;
+    return withoutPopup ? (
+      this.renderUploadPopup(uploadOptions)
+    ) : (
+      <div className={className}>
+        <div
+          className={triggerClassName}
+          onClick={this.showUpload.bind(this, true)}
+        >
+          {children || (Node && <Node />) || <span>+</span>}
+          {uploadOptions.localOnly && uploadOptions.maxAmount === 1 ? (
+            <FileInput {...uploadOptions} />
+          ) : (
+            ''
+          )}
+        </div>
+        <p className={`${prefix}-upload-tips`}>{tips}</p>
+        <Dialog
+          title="图片选择"
+          visible={visible}
+          className={dialogClassName}
+          onClose={this.closePopup}
+        >
+          {this.renderUploadPopup(uploadOptions)}
+        </Dialog>
+      </div>
+    );
   }
 
   /**

@@ -112,20 +112,22 @@ class ColorPicker extends (PureComponent || Component) {
           </div>
         </PopoverClickTrigger>
         <Popover.Content>
-          {type === 'simple'
-            ? <SketchPresetColors
-                colors={presetColors}
-                onClick={this.handleChange}
-                prefix={prefix}
-                type={type}
-              />
-            : <ColorBoard
-                color={color}
-                showAlpha={showAlpha}
-                onChange={this.handleChange}
-                prefix={prefix}
-                type={type}
-              />}
+          {type === 'simple' ? (
+            <SketchPresetColors
+              colors={presetColors}
+              onClick={this.handleChange}
+              prefix={prefix}
+              type={type}
+            />
+          ) : (
+            <ColorBoard
+              color={color}
+              showAlpha={showAlpha}
+              onChange={this.handleChange}
+              prefix={prefix}
+              type={type}
+            />
+          )}
         </Popover.Content>
       </Popover>
     );

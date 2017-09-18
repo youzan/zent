@@ -325,9 +325,7 @@ class DatePicker extends (PureComponent || Component) {
               />
             </div>
           </Popover.Trigger.Click>
-          <Popover.Content>
-            {this.renderPicker()}
-          </Popover.Content>
+          <Popover.Content>{this.renderPicker()}</Popover.Content>
         </Popover>
       </div>
     );

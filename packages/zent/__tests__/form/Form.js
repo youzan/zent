@@ -37,7 +37,17 @@ describe('Form', () => {
     wrapper.find('form').simulate('submit');
     expect(submitMock.mock.calls.length).toBe(1);
     expect(wrapper.find('span').length).toBe(2);
-    expect(wrapper.find('span').at(0).hasClass('zent-form-child')).toBe(true);
-    expect(wrapper.find('span').at(1).text()).toBe('childSpan_2');
+    expect(
+      wrapper
+        .find('span')
+        .at(0)
+        .hasClass('zent-form-child')
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('span')
+        .at(1)
+        .text()
+    ).toBe('childSpan_2');
   });
 });

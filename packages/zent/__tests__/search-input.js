@@ -14,7 +14,12 @@ describe('SearchInput', () => {
     const stopPropagation = jest.fn();
     const wrapper = mount(<SearchInput value={value} onChange={onChange} />);
 
-    expect(wrapper.find('Icon').at(0).hasClass('zenticon-search')).toBe(true);
+    expect(
+      wrapper
+        .find('Icon')
+        .at(0)
+        .hasClass('zenticon-search')
+    ).toBe(true);
     expect(wrapper.find('Icon').length).toBe(1);
 
     wrapper.find('input').simulate('change', {
@@ -30,9 +35,12 @@ describe('SearchInput', () => {
     wrapper.setProps({ value });
 
     expect(wrapper.find('Icon').length).toBe(2);
-    expect(wrapper.find('Icon').at(1).hasClass('zenticon-close-circle')).toBe(
-      true
-    );
+    expect(
+      wrapper
+        .find('Icon')
+        .at(1)
+        .hasClass('zenticon-close-circle')
+    ).toBe(true);
 
     const iconPreventDefault = jest.fn();
     wrapper
@@ -41,7 +49,10 @@ describe('SearchInput', () => {
       .simulate('mousedown', { preventDefault: iconPreventDefault });
     expect(iconPreventDefault.mock.calls.length).toBe(1);
 
-    wrapper.find('Icon').at(1).simulate('click');
+    wrapper
+      .find('Icon')
+      .at(1)
+      .simulate('click');
     expect(onChange.mock.calls.length).toBe(2);
     expect(value).toBe('');
   });

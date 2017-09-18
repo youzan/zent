@@ -24,13 +24,19 @@ describe('Input', () => {
     );
     expect(wrapper.hasClass('foo-input-wrapper')).toBe(true);
     expect(wrapper.hasClass('foo-input-addons')).toBe(true);
-    expect(wrapper.find('span').at(0).hasClass('foo-input-addon-before')).toBe(
-      true
-    );
+    expect(
+      wrapper
+        .find('span')
+        .at(0)
+        .hasClass('foo-input-addon-before')
+    ).toBe(true);
     expect(wrapper.find('input').hasClass('foo-input')).toBe(true);
-    expect(wrapper.find('span').at(1).hasClass('foo-input-addon-after')).toBe(
-      true
-    );
+    expect(
+      wrapper
+        .find('span')
+        .at(1)
+        .hasClass('foo-input-addon-after')
+    ).toBe(true);
   });
 
   it('pass any props to real input element except "className" & "prefix"', () => {
@@ -59,11 +65,36 @@ describe('Input', () => {
 
   it('can insert span aside controlled by prop addon(Before|After)(node)', () => {
     const wrapper = shallow(<Input addonAfter="foo" addonBefore="bar" />);
-    expect(wrapper.find('div').childAt(0).type()).toBe('span');
-    expect(wrapper.find('div').childAt(0).text()).toBe('bar');
-    expect(wrapper.find('div').childAt(1).type()).toBe('input');
-    expect(wrapper.find('div').childAt(2).type()).toBe('span');
-    expect(wrapper.find('div').childAt(2).text()).toBe('foo');
+    expect(
+      wrapper
+        .find('div')
+        .childAt(0)
+        .type()
+    ).toBe('span');
+    expect(
+      wrapper
+        .find('div')
+        .childAt(0)
+        .text()
+    ).toBe('bar');
+    expect(
+      wrapper
+        .find('div')
+        .childAt(1)
+        .type()
+    ).toBe('input');
+    expect(
+      wrapper
+        .find('div')
+        .childAt(2)
+        .type()
+    ).toBe('span');
+    expect(
+      wrapper
+        .find('div')
+        .childAt(2)
+        .text()
+    ).toBe('foo');
   });
 
   it('can handle onChange event', () => {

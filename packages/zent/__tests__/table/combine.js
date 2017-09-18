@@ -97,25 +97,43 @@ describe('Combine', () => {
       .find('Body Checkbox input')
       .at(0)
       .simulate('change', { target: { checked: true } });
-    expect(wrapper.find('Body Checkbox').at(0).prop('checked')).toBe(true);
+    expect(
+      wrapper
+        .find('Body Checkbox')
+        .at(0)
+        .prop('checked')
+    ).toBe(true);
 
     // HACK: branch Table.js onSelectOneRow
     wrapper
       .find('Body Checkbox input')
       .at(0)
       .simulate('change', { target: { checked: true } });
-    expect(wrapper.find('Body Checkbox input').at(0).prop('checked')).toBe(
-      false
-    );
+    expect(
+      wrapper
+        .find('Body Checkbox input')
+        .at(0)
+        .prop('checked')
+    ).toBe(false);
     wrapper
       .find('Body Checkbox input')
       .at(0)
       .simulate('change', { target: { checked: false } });
-    expect(wrapper.find('Body Checkbox').at(0).prop('checked')).toBe(false);
+    expect(
+      wrapper
+        .find('Body Checkbox')
+        .at(0)
+        .prop('checked')
+    ).toBe(false);
     wrapper
       .find('Body Checkbox input')
       .at(0)
       .simulate('change', { target: { checked: false } });
-    expect(wrapper.find('Body Checkbox').at(0).prop('checked')).toBe(false);
+    expect(
+      wrapper
+        .find('Body Checkbox')
+        .at(0)
+        .prop('checked')
+    ).toBe(false);
   });
 });
