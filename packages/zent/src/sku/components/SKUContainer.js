@@ -243,77 +243,81 @@ class SKUContainer extends (PureComponent || Component) {
                 onConfirm={this.handleRenameSKULeaf.bind(this, index)}
               >
                 <div>
-                  <span>
-                    {item[optionText]}
-                  </span>
+                  <span>{item[optionText]}</span>
                   <span
                     className="item-remove"
                     onClick={this.removeSKULeaf.bind(this, index)}
                   >
                     x
                   </span>
-                  {hasSKUImage
-                    ? <div className="upload-img-wrap">
-                        <div className="arrow" />
-                        {item.img_url
-                          ? <div className="upload-img">
-                              <span
-                                className="item-remove small"
-                                title="删除"
-                                onClick={this.removeImg.bind(
-                                  this,
-                                  item[optionValue]
-                                )}
-                              >
-                                ×
-                              </span>
-                              <img
-                                src={item.img_url}
-                                role="presentation"
-                                alt=""
-                                data-src={item.img_url}
-                              />
-                              <Upload
-                                triggerClassName="img-edit"
-                                materials
-                                maxAmount="1"
-                                onUpload={this.uploadSuccess.bind(
-                                  this,
-                                  item[optionValue]
-                                )}
-                              >
-                                <span>替换</span>
-                              </Upload>
-                            </div>
-                          : <Upload
-                              materials
-                              maxAmount="1"
-                              onUpload={this.uploadSuccess.bind(
-                                this,
-                                item[optionValue]
-                              )}
-                            >
-                              <i>+</i>
-                            </Upload>}
-                      </div>
-                    : ''}
+                  {hasSKUImage ? (
+                    <div className="upload-img-wrap">
+                      <div className="arrow" />
+                      {item.img_url ? (
+                        <div className="upload-img">
+                          <span
+                            className="item-remove small"
+                            title="删除"
+                            onClick={this.removeImg.bind(
+                              this,
+                              item[optionValue]
+                            )}
+                          >
+                            ×
+                          </span>
+                          <img
+                            src={item.img_url}
+                            role="presentation"
+                            alt=""
+                            data-src={item.img_url}
+                          />
+                          <Upload
+                            triggerClassName="img-edit"
+                            materials
+                            maxAmount="1"
+                            onUpload={this.uploadSuccess.bind(
+                              this,
+                              item[optionValue]
+                            )}
+                          >
+                            <span>替换</span>
+                          </Upload>
+                        </div>
+                      ) : (
+                        <Upload
+                          materials
+                          maxAmount="1"
+                          onUpload={this.uploadSuccess.bind(
+                            this,
+                            item[optionValue]
+                          )}
+                        >
+                          <i>+</i>
+                        </Upload>
+                      )}
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </Pop>
             );
           })}
-          {sku[optionValue] > 0
-            ? <Pop
-                trigger="click"
-                position="bottom-center"
-                className={`${prefix}-pop`}
-                wrapperClassName={`${prefix}-pop`}
-                content={this.renderSKUPopContent()}
-                onConfirm={this.selectSKU}
-                onClose={this.resetLeaf}
-              >
-                <span className="sku-add">+添加</span>
-              </Pop>
-            : ''}
+          {sku[optionValue] > 0 ? (
+            <Pop
+              trigger="click"
+              position="bottom-center"
+              className={`${prefix}-pop`}
+              wrapperClassName={`${prefix}-pop`}
+              content={this.renderSKUPopContent()}
+              onConfirm={this.selectSKU}
+              onClose={this.resetLeaf}
+            >
+              <span className="sku-add">+添加</span>
+            </Pop>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     );

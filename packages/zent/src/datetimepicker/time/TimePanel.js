@@ -75,27 +75,30 @@ export default class TimePanel extends (PureComponent || Component) {
 
     return (
       <div className="time-panel">
-        {openHour &&
+        {openHour && (
           <HourPanel
             selected={actived}
             disabledHour={disabledTime && disabledTime.disabledHour}
             onSelect={this.onSelectTime('hour')}
             hidePanel={this.hidePanel('hour')}
-          />}
-        {openMinute &&
+          />
+        )}
+        {openMinute && (
           <MinutePanel
             selected={actived}
             disabledMinute={disabledTime && disabledTime.disabledMinute}
             onSelect={this.onSelectTime('minute')}
             hidePanel={this.hidePanel('minute')}
-          />}
-        {openSecond &&
+          />
+        )}
+        {openSecond && (
           <SecondPanel
             selected={actived}
             disabledSecond={disabledTime && disabledTime.disabledSecond}
             onSelect={this.onSelectTime('second')}
             hidePanel={this.hidePanel('second')}
-          />}
+          />
+        )}
 
         <div className="time-panel__preview">
           <span className="time__number" onClick={this.openPanel('hour')}>

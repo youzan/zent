@@ -237,12 +237,14 @@ export default class Tree extends (PureComponent || Component) {
     this.updateCheckedTree(root.id, checkedTree[root.id].t !== 2 ? 2 : 0);
     if (onCheck) {
       onCheck(
-        Object.keys(checkedTree).filter(k => checkedTree[k].t === 2).map(x => {
-          if (typeof root.id === 'number') {
-            x = +x;
-          }
-          return x;
-        })
+        Object.keys(checkedTree)
+          .filter(k => checkedTree[k].t === 2)
+          .map(x => {
+            if (typeof root.id === 'number') {
+              x = +x;
+            }
+            return x;
+          })
       );
     }
   }
@@ -390,24 +392,23 @@ export default class Tree extends (PureComponent || Component) {
       const optNodes = opts.map(opt => {
         const shouldRender = opt.shouldRender || (() => true);
         return (
-          shouldRender(root) &&
-          <span
-            key={`${opt.name}-${root.id}`}
-            onClick={opt.action.bind(null, root)}
-            className="opt"
-          >
-            {typeof opt.icon === 'string'
-              ? <icon className={opt.icon} />
-              : opt.icon}{' '}
-            {opt.name}
-          </span>
+          shouldRender(root) && (
+            <span
+              key={`${opt.name}-${root.id}`}
+              onClick={opt.action.bind(null, root)}
+              className="opt"
+            >
+              {typeof opt.icon === 'string' ? (
+                <icon className={opt.icon} />
+              ) : (
+                opt.icon
+              )}{' '}
+              {opt.name}
+            </span>
+          )
         );
       });
-      return (
-        <div className="operation">
-          {optNodes}
-        </div>
-      );
+      return <div className="operation">{optNodes}</div>;
     }
   }
 
@@ -443,14 +444,15 @@ export default class Tree extends (PureComponent || Component) {
               </div>
             </div>
             {root.children &&
-              root.children.length > 0 &&
-              <ul
-                key={`ul-${root.id}`}
-                className={`${prefix}-tree-child`}
-                style={isShowChildren ? {} : { display: 'none' }}
-              >
-                {this.renderTreeNodes(root.children)}
-              </ul>}
+              root.children.length > 0 && (
+                <ul
+                  key={`ul-${root.id}`}
+                  className={`${prefix}-tree-child`}
+                  style={isShowChildren ? {} : { display: 'none' }}
+                >
+                  {this.renderTreeNodes(root.children)}
+                </ul>
+              )}
           </li>
         );
       });

@@ -476,20 +476,22 @@ describe('CreateForm and Field', () => {
         const { foo, bar } = this.props;
         return (
           <Form>
-            {foo &&
+            {foo && (
               <Field
                 name="foo"
                 component={() => <div className="foo-div" />}
                 validations={{ required: true }}
                 validationErrors={{ required: '不能为空' }}
-              />}
-            {bar &&
+              />
+            )}
+            {bar && (
               <Field
                 name="bar"
                 component={() => <div className="bar-div" />}
                 validations={{ required: true }}
                 validationErrors={{ required: '不能为空' }}
-              />}
+              />
+            )}
           </Form>
         );
       }
@@ -573,23 +575,25 @@ describe('CreateForm and Field', () => {
         const { hackSwitch, showSwitch } = this.props;
         return (
           <Form>
-            {showSwitch.foo &&
+            {showSwitch.foo && (
               <Field
                 name="foo"
                 component={() => <div className="bar-div" />}
                 validations={{ required: true }}
                 validationErrors={{ required: '不能为空' }}
                 value={hackSwitch ? '占位' : ''}
-              />}
-            {showSwitch.bar &&
+              />
+            )}
+            {showSwitch.bar && (
               <Field
                 name="bar"
                 component={() => <div className="bar-div" />}
                 validations={{ isNumeric: true }}
                 validationErrors={{ isNumeric: '必须是数字' }}
                 value={hackSwitch ? 12 : ''}
-              />}
-            {showSwitch.fooBar &&
+              />
+            )}
+            {showSwitch.fooBar && (
               <Field
                 name="foo-bar"
                 component={() => <div className="bar-div" />}
@@ -597,7 +601,8 @@ describe('CreateForm and Field', () => {
                   hackRule: () => (hackSwitch ? true : 'string supported')
                 }}
                 validationErrors={{ hackRule: 'just test' }}
-              />}
+              />
+            )}
           </Form>
         );
       }

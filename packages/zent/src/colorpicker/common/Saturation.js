@@ -98,9 +98,11 @@ export default class Saturation extends Component {
         <div style={styles.white}>
           <div style={styles.black} />
           <div style={styles.pointer}>
-            {this.props.pointer
-              ? <this.props.pointer {...this.props} />
-              : <div style={styles.circle} />}
+            {this.props.pointer ? (
+              <this.props.pointer {...this.props} />
+            ) : (
+              <div style={styles.circle} />
+            )}
           </div>
         </div>
       </div>

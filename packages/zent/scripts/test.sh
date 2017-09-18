@@ -19,7 +19,7 @@ check_result
 # Only upload if we're on travis
 if [[ -n "${TRAVIS}" ]]; then
   echo 'Uploading coverage info...'
-  cat $basepath/../coverage/lcov.info | $basepath/../node_modules/.bin/coveralls
+  cat $basepath/../coverage/lcov.info | $basepath/../../../node_modules/.bin/coveralls
 
   check_result
 fi

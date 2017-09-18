@@ -111,9 +111,11 @@ class SKU extends (PureComponent || Component) {
             />
           );
         })}
-        {data.length < maxSize
-          ? <SKUButton onClick={this.addSKU} disabled={disabled} />
-          : ''}
+        {data.length < maxSize ? (
+          <SKUButton onClick={this.addSKU} disabled={disabled} />
+        ) : (
+          ''
+        )}
       </div>
     );
   }

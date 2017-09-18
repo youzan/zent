@@ -32,14 +32,10 @@ export default Control => {
           </label>
           <div className="zent-form__controls">
             <Control {...props} ref={ref => (this.control = ref)} />
-            {showError &&
-              <p className="zent-form__error-desc">
-                {props.error}
-              </p>}
-            {helpDesc &&
-              <p className="zent-form__help-desc">
-                {helpDesc}
-              </p>}
+            {showError && (
+              <p className="zent-form__error-desc">{props.error}</p>
+            )}
+            {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
           </div>
         </div>
       );

@@ -133,11 +133,13 @@ class SKUGroup extends (PureComponent || Component) {
             onOpen={this.handleReset}
             value={sku[optionValue] || ''}
           />
-          {index === 0
-            ? <Checkbox checked={hasSKUImage} onChange={this.checkSKUImage}>
-                添加规格图片
-              </Checkbox>
-            : ''}
+          {index === 0 ? (
+            <Checkbox checked={hasSKUImage} onChange={this.checkSKUImage}>
+              添加规格图片
+            </Checkbox>
+          ) : (
+            ''
+          )}
           <span className="group-remove" onClick={this.props.onSKUDelete}>
             ×
           </span>
@@ -147,13 +149,15 @@ class SKUGroup extends (PureComponent || Component) {
           hasSKUImage={hasSKUImage}
           onSKULeafChange={this.onSKULeafChange}
         />
-        {hasSKUImage
-          ? <div className="sku-group-cont">
-              <p className="help-block">目前只支持为第一个规格设置不同的规格图片</p>
-              <p className="help-block">设置后，用户选择不同规格会显示不同图片</p>
-              <p className="help-block">建议尺寸：640 x 640像素</p>
-            </div>
-          : <div className="sku-group-cont" />}
+        {hasSKUImage ? (
+          <div className="sku-group-cont">
+            <p className="help-block">目前只支持为第一个规格设置不同的规格图片</p>
+            <p className="help-block">设置后，用户选择不同规格会显示不同图片</p>
+            <p className="help-block">建议尺寸：640 x 640像素</p>
+          </div>
+        ) : (
+          <div className="sku-group-cont" />
+        )}
       </div>
     );
   }

@@ -20,9 +20,7 @@ export default class WhitespaceEditor extends DesignEditor {
             onChange={this.onHeightChange}
             withInput={false}
           />
-          <span>
-            {value.height} 像素
-          </span>
+          <span>{value.height} 像素</span>
         </ControlGroup>
       </div>
     );

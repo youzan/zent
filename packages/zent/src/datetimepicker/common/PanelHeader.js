@@ -6,19 +6,19 @@ const PanelHeader = props => {
 
   return (
     <div className="panel__header">
-      {showPrev
-        ? <span className="link--prev" onClick={prev}>
-            <Icon type="right" />
-          </span>
-        : null}
+      {showPrev ? (
+        <span className="link--prev" onClick={prev}>
+          <Icon type="right" />
+        </span>
+      ) : null}
       <span className="panel__title" onClick={onClickTitle}>
         {title}
       </span>
-      {showNext
-        ? <span className="link--next" onClick={next}>
-            <Icon type="right" />
-          </span>
-        : null}
+      {showNext ? (
+        <span className="link--next" onClick={next}>
+          <Icon type="right" />
+        </span>
+      ) : null}
     </div>
   );
 };

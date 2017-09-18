@@ -184,7 +184,7 @@ export default class Design extends (PureComponent || Component) {
 
     return (
       <div className={cls} style={{ paddingBottom: bottomGap }}>
-        {showRestoreFromCache &&
+        {showRestoreFromCache && (
           <Alert
             className={`${prefix}-design__restore-cache-alert`}
             closable
@@ -199,7 +199,8 @@ export default class Design extends (PureComponent || Component) {
             >
               使用
             </a>
-          </Alert>}
+          </Alert>
+        )}
         {this.renderPreview(preview)}
         {children}
       </div>

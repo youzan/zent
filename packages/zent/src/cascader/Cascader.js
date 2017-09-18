@@ -244,11 +244,7 @@ class Cascader extends (PureComponent || Component) {
       );
     });
 
-    return (
-      <div className={`${prefix}-cascader__list`}>
-        {cascaderItems}
-      </div>
-    );
+    return <div className={`${prefix}-cascader__list`}>{cascaderItems}</div>;
   }
 
   renderTabTitle(title, stage) {
@@ -258,9 +254,7 @@ class Cascader extends (PureComponent || Component) {
     if (isLoading && stage === loadingStage) {
       return (
         <div className={`${prefix}-cascader__loading`}>
-          <div className={`${prefix}-cascader__loading-label`}>
-            {title}
-          </div>
+          <div className={`${prefix}-cascader__loading-label`}>{title}</div>
           <div className={`${prefix}-cascader__loading-icon`} />
         </div>
       );
@@ -319,9 +313,7 @@ class Cascader extends (PureComponent || Component) {
           <PopoverClickTrigger>
             <div className={`${prefix}-cascader__select`}>
               <div className={selectTextCls}>
-                <span>
-                  {cascaderValue}
-                </span>
+                <span>{cascaderValue}</span>
                 <Icon type="caret-down" />
               </div>
             </div>

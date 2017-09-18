@@ -14,9 +14,11 @@ export default class Td extends (PureComponent || Component) {
     if (typeof bodyRender === 'function') {
       const BodyRender = bodyRender;
 
-      return isReactComponent
-        ? <BodyRender data={data} name={name} pos={pos} />
-        : bodyRender(data, pos, name);
+      return isReactComponent ? (
+        <BodyRender data={data} name={name} pos={pos} />
+      ) : (
+        bodyRender(data, pos, name)
+      );
     }
     return bodyRender;
   }
@@ -86,9 +88,7 @@ export default class Td extends (PureComponent || Component) {
     return (
       <div className={className} style={styleObj}>
         {this.renderCheckBox(data, rowKey, selection)}
-        <div className="cell__child-container">
-          {this.renderContent()}
-        </div>
+        <div className="cell__child-container">{this.renderContent()}</div>
       </div>
     );
   }

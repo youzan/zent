@@ -1,5 +1,30 @@
 ## Github 日志
 
+## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.5.4)
+
+## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...babel-plugin-zent@1.0.2)
+
+**Bug 修复:**
+
+- \[bug fix\] Swiper：少于等于一张图时的显示问题 [\#466](https://github.com/youzan/zent/issues/466)
+- \[bug fix\] Table：跨页多选处理有问题 [\#456](https://github.com/youzan/zent/issues/456)
+- \[bug fix\] Table: 修复跨页全选的bug [\#473](https://github.com/youzan/zent/pull/473) ([linxixuan](https://github.com/linxixuan))
+- \[bug fix\] Select: 宽度样式修正。 [\#472](https://github.com/youzan/zent/pull/472) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\] Tabs: 修复 typescript 类型 [\#469](https://github.com/youzan/zent/pull/469) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] Swiper: 修复当只有一个子元素时的显示错误问题 [\#468](https://github.com/youzan/zent/pull/468) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Design: 在componentWillUnmount时，移除监听的beforeunload事件 [\#464](https://github.com/youzan/zent/pull/464) ([radicalviva](https://github.com/radicalviva))
+
+**处理的 Issue:**
+
+- \[new feature\]Swiper：从外部控制轮播图展示 [\#467](https://github.com/youzan/zent/issues/467)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[docs\] 更新文档网站，添加了开发文档 [\#475](https://github.com/youzan/zent/pull/475) ([cpylua](https://github.com/cpylua))
+- \[docs\] Swiper: 增加外部控制切换相关文档和示例 [\#471](https://github.com/youzan/zent/pull/471) ([ArvinTung](https://github.com/ArvinTung))
+
 ## [zent@3.5.3](https://github.com/youzan/zent/tree/zent@3.5.3) (2017-09-13)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.2...zent@3.5.3)
 

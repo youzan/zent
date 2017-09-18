@@ -119,9 +119,7 @@ export default class Body extends (PureComponent || Component) {
           }}
         >
           <div className="td expanded-item" />
-          <div className="td">
-            {expandRender(rowData)}
-          </div>
+          <div className="td">{expandRender(rowData)}</div>
         </div>
       );
     };
@@ -139,13 +137,13 @@ export default class Body extends (PureComponent || Component) {
 
     return (
       <div className="tbody">
-        {datasets.length !== 0
-          ? trs
-          : <div className="tr">
-              <div className="cell empty-data">
-                {emptyLabel}
-              </div>
-            </div>}
+        {datasets.length !== 0 ? (
+          trs
+        ) : (
+          <div className="tr">
+            <div className="cell empty-data">{emptyLabel}</div>
+          </div>
+        )}
       </div>
     );
   }

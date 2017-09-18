@@ -1,4 +1,5 @@
 @import "./_constants.pcss";
+@import "./_animation.pcss";
 
 .app {
   min-width: 1000px;
@@ -6,10 +7,34 @@
 
 .page-content {
   overflow-x: auto;
+  position: relative;
 }
 
 .react-doc-page-content {
-  min-height: 600px;
+  min-height: 100%;
+  padding-bottom: 62px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.github-spider {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  animation-duration: 200ms;
+  width: 128px;
+  height: 128px;
+
+  &-trigger {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    z-index: 2;
+  }
 }
 
 .zandoc-react-container {

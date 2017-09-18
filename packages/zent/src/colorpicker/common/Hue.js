@@ -85,9 +85,11 @@ export default class Hue extends Component {
           onTouchStart={this.handleChange}
         >
           <div style={styles.pointer}>
-            {this.props.pointer
-              ? <this.props.pointer {...this.props} />
-              : <div style={styles.slider} />}
+            {this.props.pointer ? (
+              <this.props.pointer {...this.props} />
+            ) : (
+              <div style={styles.slider} />
+            )}
           </div>
         </div>
       </div>

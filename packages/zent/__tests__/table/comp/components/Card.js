@@ -14,9 +14,7 @@ class CardComponent extends Component {
       <div className="card">
         <img alt="图片" className="card__thumb" src={this.props.data.image_url} />
         {this.getTitle()}
-        <span className="card__info">
-          {' '}{this.props.data.info}
-        </span>
+        <span className="card__info"> {this.props.data.info}</span>
       </div>
     );
   }
