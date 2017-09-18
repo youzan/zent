@@ -87,7 +87,12 @@ describe('CreateForm and FieldArray', () => {
     expect(fieldZentform.prefix).toBe('members');
     expect(typeof fieldZentform.getSubFieldArray).toBe('function');
     expect(typeof fieldZentform.onChangeFieldArray).toBe('function');
-    expect(wrapper.find(Field).getNode().getName()).toBe('members[0].name');
+    expect(
+      wrapper
+        .find(Field)
+        .getNode()
+        .getName()
+    ).toBe('members[0].name');
     expect(wrapper.find(Field).getNode().state._value).toBe('');
     expect(wrapper.find(Field).getNode().state._isValid).toBe(false);
     expect(wrapper.find(Field).getNode().state._isDirty).toBe(false);
