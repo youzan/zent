@@ -455,7 +455,7 @@ class TagsDemo extends Component {
 					onChange={this.increaseHandler}
 					onDelete={this.deleteHandler}
 					tags
-    			filter={(item, keyword) => item.name.indexOf(keyword) > -1}
+    			filter={(item, keyword) => item.text.indexOf(keyword) > -1}
 					value={this.state.selected} />
 				<Button onClick={this.reset}>重置</Button>
 				<Button onClick={this.upgradeData}>更新Data</Button>

@@ -62,7 +62,11 @@ class Popup extends (PureComponent || Component) {
     });
 
     // trigger中传入的keyword
-    if (this.props.extraFilter || keyword !== null) {
+    if (
+      this.props.extraFilter &&
+      keyword !== null &&
+      keyword !== this.state.keyword
+    ) {
       this.searchFilterHandler(keyword);
     }
   }
