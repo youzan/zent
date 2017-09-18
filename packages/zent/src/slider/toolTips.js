@@ -11,9 +11,7 @@ export default class ToolTips extends (PureComponent || Component) {
     return (
       <div className={`${prefix}-slider-toolTips`} style={{ left: `${left}%` }}>
         <div className={cl}>
-          <div className="toolTips-inner">
-            {content}
-          </div>
+          <div className="toolTips-inner">{content}</div>
           <i className="toolTips-arrow" />
         </div>
         {this.props.children}

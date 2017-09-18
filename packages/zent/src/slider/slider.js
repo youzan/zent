@@ -92,8 +92,9 @@ export default class Slider extends (PureComponent || Component) {
       <div className={wrapClass}>
         <Range {...restProps} onChange={this.onChange} />
         {withInput &&
-          !restProps.dots &&
-          <InputField onChange={this.onChange} {...restProps} />}
+          !restProps.dots && (
+            <InputField onChange={this.onChange} {...restProps} />
+          )}
       </div>
     );
   }

@@ -98,22 +98,26 @@ class UploadPopup extends Component {
                     >
                       ×
                     </span>
-                    {item.progress
-                      ? <div className="image-progress">{`${item.progress.toFixed(
-                          1
-                        )}%`}</div>
-                      : ''}
+                    {item.progress ? (
+                      <div className="image-progress">{`${item.progress.toFixed(
+                        1
+                      )}%`}</div>
+                    ) : (
+                      ''
+                    )}
                   </li>
                 );
               })}
             </ul>
           </div>
-          {!options.maxAmount || localFiles.length < options.maxAmount
-            ? <div className={`${prefix}-add-local-image-button pull-left`}>
-                +
-                <FileInput {...props.options} onChange={this.processFiles} />
-              </div>
-            : ''}
+          {!options.maxAmount || localFiles.length < options.maxAmount ? (
+            <div className={`${prefix}-add-local-image-button pull-left`}>
+              +
+              <FileInput {...props.options} onChange={this.processFiles} />
+            </div>
+          ) : (
+            ''
+          )}
           <div className={`${prefix}-local-tips c-gray`}>
             仅支持
             {accept.replace(/image\/?/g, '').replace(/, /g, '、')}

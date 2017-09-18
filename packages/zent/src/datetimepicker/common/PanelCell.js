@@ -43,10 +43,6 @@ export default class PanelCell extends (PureComponent || Component) {
   }
 
   render() {
-    return (
-      <div>
-        {this.getTbody()}
-      </div>
-    );
+    return <div>{this.getTbody()}</div>;
   }
 }

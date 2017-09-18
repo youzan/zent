@@ -152,9 +152,7 @@ class Nav extends (PureComponent || Component) {
                   this.inkBarDom = c;
                 }}
               />
-              <div>
-                {this.renderTabs()}
-              </div>
+              <div>{this.renderTabs()}</div>
             </div>
           </div>
         </div>

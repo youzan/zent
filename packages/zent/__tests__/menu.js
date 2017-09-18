@@ -95,7 +95,10 @@ describe('Menu component', () => {
 
     expect(wrapper.find('.zent-menu-item-disabled').length).toBe(2);
 
-    wrapper.find('MenuItem').at(0).simulate('click');
+    wrapper
+      .find('MenuItem')
+      .at(0)
+      .simulate('click');
     expect(onClick.mock.calls.length).toBe(0);
   });
 });

@@ -146,11 +146,11 @@ export default class EditableInput extends Component {
           onBlur={this.handleBlur}
           placeholder={this.props.placeholder}
         />
-        {this.props.label
-          ? <span style={styles.label} onMouseDown={this.handleMouseDown}>
-              {this.props.label}
-            </span>
-          : null}
+        {this.props.label ? (
+          <span style={styles.label} onMouseDown={this.handleMouseDown}>
+            {this.props.label}
+          </span>
+        ) : null}
       </div>
     );
   }

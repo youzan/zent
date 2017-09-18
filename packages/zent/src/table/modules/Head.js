@@ -76,8 +76,9 @@ export default class Head extends (PureComponent || Component) {
       return (
         <a onClick={this.sort.bind(this, item)}>
           {item.title}
-          {item.name === this.props.sortBy &&
-            <span className={this.props.sortType} />}
+          {item.name === this.props.sortBy && (
+            <span className={this.props.sortType} />
+          )}
         </a>
       );
     }

@@ -130,34 +130,36 @@ class DesignPreview extends (PureComponent || Component) {
           />
 
           {selected &&
-            !showAddComponentOverlay &&
-            <EditorItem
-              prefix={prefix}
-              disabled={disabled}
-              ref={this.saveEditorItem(id)}
-            >
-              <comp.editor
-                {...getAdditionalProps(comp.editorProps, v)}
-                value={v}
-                onChange={onComponentValueChange(v)}
-                globalConfig={globalConfig}
-                design={design}
-                validation={validations[id] || {}}
-                showError={showError}
+            !showAddComponentOverlay && (
+              <EditorItem
                 prefix={prefix}
-              />
-            </EditorItem>}
+                disabled={disabled}
+                ref={this.saveEditorItem(id)}
+              >
+                <comp.editor
+                  {...getAdditionalProps(comp.editorProps, v)}
+                  value={v}
+                  onChange={onComponentValueChange(v)}
+                  globalConfig={globalConfig}
+                  design={design}
+                  validation={validations[id] || {}}
+                  showError={showError}
+                  prefix={prefix}
+                />
+              </EditorItem>
+            )}
 
           {selected &&
-            showAddComponentOverlay &&
-            <DesignEditorItem ref={this.saveEditorItem(id)} prefix={prefix}>
-              <DesignEditorAddComponent
-                prefix={prefix}
-                fromSelected
-                components={appendableComponents}
-                onAddComponent={onAddComponent}
-              />
-            </DesignEditorItem>}
+            showAddComponentOverlay && (
+              <DesignEditorItem ref={this.saveEditorItem(id)} prefix={prefix}>
+                <DesignEditorAddComponent
+                  prefix={prefix}
+                  fromSelected
+                  components={appendableComponents}
+                  onAddComponent={onAddComponent}
+                />
+              </DesignEditorItem>
+            )}
         </PreviewItem>
       );
     });
@@ -174,17 +176,19 @@ class DesignPreview extends (PureComponent || Component) {
           })}
         >
           {children}
-          {hasAppendableComponent &&
-            <div className={`${prefix}-design__item-list-arrow-area`} />}
+          {hasAppendableComponent && (
+            <div className={`${prefix}-design__item-list-arrow-area`} />
+          )}
         </div>
-        {hasAppendableComponent &&
+        {hasAppendableComponent && (
           <div className={`${prefix}-design__add`}>
             <DesignEditorAddComponent
               prefix={prefix}
               components={appendableComponents}
               onAddComponent={onAddComponent}
             />
-          </div>}
+          </div>
+        )}
       </div>
     );
   }

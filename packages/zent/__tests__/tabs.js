@@ -104,7 +104,10 @@ describe('Tabs', () => {
       </Tabs>
     );
 
-    wrapper.find('Tab').last().simulate('click');
+    wrapper
+      .find('Tab')
+      .last()
+      .simulate('click');
     expect(onChange.mock.calls.length).toBe(1);
     expect(onChange.mock.calls[0][0]).toBe('quux');
   });
@@ -150,11 +153,11 @@ describe('Tabs', () => {
             candel
             canadd
           >
-            {tabs.map(t =>
+            {tabs.map(t => (
               <TabPanel key={t} id={t} tab={`${t}-tab`}>
                 {t}
               </TabPanel>
-            )}
+            ))}
           </Tabs>
         );
       }
@@ -166,7 +169,10 @@ describe('Tabs', () => {
     wrapper.find('.zent-tabs-nav-add').simulate('click');
     expect(wrapper.find('Tab').length).toBe(3);
 
-    wrapper.find('Tab').last().simulate('click');
+    wrapper
+      .find('Tab')
+      .last()
+      .simulate('click');
     expect(wrapper.state('active')).toBe('bar');
 
     wrapper

@@ -138,13 +138,14 @@ export default class Pagination extends (PureComponent || Component) {
           totalItem={totalItem}
           setPageSize={this.setPageSize}
         />
-        {totalPage > 1 &&
+        {totalPage > 1 && (
           <CorePagination
             maxPageToShow={maxPageToShow}
             current={current}
             total={totalPage}
             onChange={this.props.onChange || function() {}}
-          />}
+          />
+        )}
       </div>
     );
   }

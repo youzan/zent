@@ -215,18 +215,20 @@ export default class Table extends (PureComponent || Component) {
     }
 
     if (isSelect) {
-      allRowKeys = rowKeysCurrentPage;
-      allRows = rowsCurrentPage;
       if (this.props.selection.needCrossPage) {
         allRowKeys = uniq(allRowKeys.concat(rowKeysCurrentPage));
         allRows = uniqBy(allRows.concat(rowsCurrentPage), rowKey);
+      } else {
+        allRowKeys = rowKeysCurrentPage;
+        allRows = rowsCurrentPage;
       }
     } else {
-      allRowKeys = [];
-      allRows = [];
       if (this.props.selection.needCrossPage) {
         allRowKeys = pullAll(allRowKeys, rowKeysCurrentPage);
         allRows = pullAllBy(allRows, rowsCurrentPage, rowKey);
+      } else {
+        allRowKeys = [];
+        allRows = [];
       }
     }
 
@@ -413,14 +415,13 @@ export default class Table extends (PureComponent || Component) {
     return (
       <div className={`${prefix}-table-container`}>
         <Loading show={this.props.loading} static>
-          {columns &&
+          {columns && (
             <div className={`${prefix}-table ${className}`}>
-              {this.state.placeHolderHeight &&
+              {this.state.placeHolderHeight && (
                 <div className="thead place-holder">
-                  <div className="tr">
-                    {this.cloneHeaderContent()}
-                  </div>
-                </div>}
+                  <div className="tr">{this.cloneHeaderContent()}</div>
+                </div>
+              )}
               <Head
                 ref={c => (this.head = c)}
                 columns={columns}
@@ -470,7 +471,8 @@ export default class Table extends (PureComponent || Component) {
                 current={this.state.current}
                 onPageChange={this.onPageChange}
               />
-            </div>}
+            </div>
+          )}
         </Loading>
       </div>
     );
