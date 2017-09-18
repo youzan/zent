@@ -99,11 +99,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
     const props = this.props;
     const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
 
-    return (
-      <div className={prefixCls}>
-        {this.renderPicker()}
-      </div>
-    );
+    return <div className={prefixCls}>{this.renderPicker()}</div>;
   }
 }
 
