@@ -26,11 +26,7 @@ class Row extends React.PureComponent {
       );
     });
 
-    return (
-      <tr className={`${prefix}-grid-tr`}>
-        {cells}
-      </tr>
-    );
+    return <tr className={`${prefix}-grid-tr`}>{cells}</tr>;
   }
 }
 

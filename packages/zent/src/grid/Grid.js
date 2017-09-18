@@ -94,11 +94,7 @@ class Grid extends (PureComponent || Component) {
     const { datasets, prefix, emptyLabel } = this.props;
 
     if (size(datasets) === 0) {
-      return (
-        <div className={`${prefix}-grid-empty`}>
-          {emptyLabel}
-        </div>
-      );
+      return <div className={`${prefix}-grid-empty`}>{emptyLabel}</div>;
     }
     return null;
   };

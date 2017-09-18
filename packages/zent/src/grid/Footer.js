@@ -46,11 +46,11 @@ class Footer extends React.PureComponent {
     const { prefix } = this.props;
     const { pageInfo } = this.state;
 
-    return pageInfo
-      ? <div className={classnames(`${prefix}-grid-tfoot-page`)}>
-          <Pagination {...pageInfo} onChange={this.handlePageChange} />
-        </div>
-      : null;
+    return pageInfo ? (
+      <div className={classnames(`${prefix}-grid-tfoot-page`)}>
+        <Pagination {...pageInfo} onChange={this.handlePageChange} />
+      </div>
+    ) : null;
   };
 
   componentWillReceiveProps(nextProps) {
@@ -77,11 +77,7 @@ class Footer extends React.PureComponent {
     const { prefix } = this.props;
 
     if (this.state.pageInfo) {
-      return (
-        <div className={`${prefix}-grid-tfoot`}>
-          {this.renderPage()}
-        </div>
-      );
+      return <div className={`${prefix}-grid-tfoot`}>{this.renderPage()}</div>;
     }
     return null;
   }

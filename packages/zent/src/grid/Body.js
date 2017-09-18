@@ -28,11 +28,7 @@ class Body extends (PureComponent || Component) {
   render() {
     const { prefix } = this.props;
 
-    return (
-      <tbody className={`${prefix}-grid-tbody`}>
-        {this.getRows()}
-      </tbody>
-    );
+    return <tbody className={`${prefix}-grid-tbody`}>{this.getRows()}</tbody>;
   }
 }
 

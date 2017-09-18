@@ -6,15 +6,11 @@ class ColGroup extends (PureComponent || Component) {
   render() {
     const { columns } = this.props;
 
-    const cols = map(columns, (c, index) =>
+    const cols = map(columns, (c, index) => (
       <col key={c.key || index} style={{ width: c.width, minWidth: c.width }} />
-    );
+    ));
 
-    return (
-      <colgroup>
-        {cols}
-      </colgroup>
-    );
+    return <colgroup>{cols}</colgroup>;
   }
 }
 

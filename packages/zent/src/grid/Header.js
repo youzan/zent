@@ -72,16 +72,16 @@ class Header extends (PureComponent || Component) {
 
     return (
       <thead className={`${prefix}-grid-thead`}>
-        {map(this.state.rows, (row, index) =>
+        {map(this.state.rows, (row, index) => (
           <tr key={index} className={`${prefix}-grid-tr`}>
-            {row.map(props =>
+            {row.map(props => (
               <th
                 {...props}
                 className={cx(`${prefix}-grid-th`, props.className)}
               />
-            )}
+            ))}
           </tr>
-        )}
+        ))}
       </thead>
     );
   }
