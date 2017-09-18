@@ -17,4 +17,4 @@ jobs:
       - run:
           name: NPM Test
           command: |
-            ./scripts/check-git-hooks.sh && yarn lint && yarn build && yarn test
+            ./scripts/check-git-hooks.sh && yarn lint && yarn test
