@@ -30,6 +30,7 @@ export default class SideNav extends Component {
           activeClassName="active"
           exact
           to={this.props.base + item.path}
+          title={item.name}
         >
           {item.name}
         </NavLink>
