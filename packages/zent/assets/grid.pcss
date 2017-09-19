@@ -22,6 +22,19 @@ $border-color: #e5e5e5;
     border-bottom: none;
   }
 
+  &-fixed {
+    width: auto;
+  }
+
+  &-fixed-left {
+    position: absolute;
+    top: 0;
+  }
+
+  &-scroll {
+    overflow: auto;
+  }
+
   &-empty {
     text-align: center;
     height: 50px;
@@ -46,6 +59,7 @@ $border-color: #e5e5e5;
     box-sizing: border-box;
     border-bottom: 1px solid $border-color;
     vertical-align: middle;
+    background-color: #fff;
 
     @media only screen and (-webkit-min-device-pixel-ratio: 2) {
       border-bottom-width: 0.5px;

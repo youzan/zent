@@ -8,6 +8,7 @@ import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 import size from 'lodash/size';
+import some from 'lodash/some';
 import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
@@ -47,6 +48,28 @@ class Grid extends (PureComponent || Component) {
     return rowKey ? get(data, rowKey) : rowIndex;
   };
 
+  isAnyColumnsFixed = () => {
+    return this.store.getState('isAnyColumnsFixed', () =>
+      some(this.store.getState('columns'), column => !!column.fixed)
+    );
+  };
+
+  isAnyColumnsLeftFixed = () => {
+    return this.store.getState('isAnyColumnsLeftFixed', () =>
+      some(
+        this.store.getState('columns'),
+        column => column.fixed === 'left' || column.fixed === true
+      )
+    );
+  };
+
+  getLeftColumns = () => {
+    return filter(
+      this.store.getState('columns'),
+      column => column.fixed === 'left' || column.fixed === true
+    );
+  };
+
   getColumns = (props, columns) => {
     let { selection, datasets } = props || this.props;
     columns = cloneDeep(columns || this.store.getState('columns'));
@@ -77,16 +100,41 @@ class Grid extends (PureComponent || Component) {
     return columns;
   };
 
-  getTable = () => {
-    const { prefix, datasets } = this.props;
-    const columns = this.store.getState('columns');
+  getLeftFixedTable = () => {
+    return this.getTable({
+      columns: this.getLeftColumns(),
+      fixed: 'left'
+    });
+  };
+
+  getTable = (options = {}) => {
+    const { prefix, datasets, scroll } = this.props;
+    const { fixed } = options;
+    const columns = options.columns || this.store.getState('columns');
+    let tableClassName = '';
+    let bodyStyle = {};
+    let tableStyle = {};
+
+    if (fixed || scroll.x) {
+      tableClassName = `${prefix}-grid-fixed`;
+      bodyStyle.overflowX = 'auto';
+    }
+
+    if (!fixed && scroll.x) {
+      tableStyle.width = scroll.x;
+    }
 
     return (
-      <table className={`${prefix}-grid-table`}>
-        <ColGroup columns={columns} />
-        <Header prefix={prefix} columns={columns} store={this.store} />
-        <Body prefix={prefix} columns={columns} datasets={datasets} />
-      </table>
+      <div style={bodyStyle}>
+        <table
+          className={classnames(`${prefix}-grid-table`, tableClassName)}
+          style={tableStyle}
+        >
+          <ColGroup columns={columns} />
+          <Header prefix={prefix} columns={columns} store={this.store} />
+          <Body prefix={prefix} columns={columns} datasets={datasets} />
+        </table>
+      </div>
     );
   };
 
@@ -193,16 +241,32 @@ class Grid extends (PureComponent || Component) {
   render() {
     const { prefix, loading, pageInfo } = this.props;
 
+    const content = [
+      this.getTable(),
+      this.getEmpty(),
+      <Footer
+        key="footer"
+        prefix={prefix}
+        pageInfo={pageInfo}
+        onChange={this.onChange}
+      />
+    ];
+
+    const scrollTable = this.isAnyColumnsFixed() ? (
+      <div className={`${prefix}-grid-scroll`}>{content}</div>
+    ) : (
+      content
+    );
+
     return (
       <div className={classnames(`${prefix}-grid`)}>
         <Loading show={loading}>
-          {this.getTable()}
-          {this.getEmpty()}
-          <Footer
-            prefix={prefix}
-            pageInfo={pageInfo}
-            onChange={this.onChange}
-          />
+          {scrollTable}
+          {this.isAnyColumnsLeftFixed() && (
+            <div className={`${prefix}-grid-fixed-left`}>
+              {this.getLeftFixedTable()}
+            </div>
+          )}
         </Loading>
       </div>
     );
@@ -218,7 +282,8 @@ Grid.propTypes = {
   pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   onChange: PropTypes.func,
   selection: PropTypes.object,
-  rowKey: PropTypes.string
+  rowKey: PropTypes.string,
+  scroll: PropTypes.object
 };
 
 Grid.defaultProps = {
@@ -230,7 +295,8 @@ Grid.defaultProps = {
   pageInfo: false,
   onChange: noop,
   selection: null,
-  emptyLabel: '没有更多数据了'
+  emptyLabel: '没有更多数据了',
+  scroll: {}
 };
 
 export default Grid;

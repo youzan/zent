@@ -1,5 +1,6 @@
 import assign from 'lodash/assign';
 import get from 'lodash/get';
+import has from 'lodash/has';
 import indexOf from 'lodash/indexOf';
 import isArray from 'lodash/isArray';
 import keys from 'lodash/keys';
@@ -20,8 +21,18 @@ export default class Store {
     });
   };
 
-  getState = propsName => {
-    return propsName ? get(this.state, propsName) : this.state;
+  getState = (propsName, callBack) => {
+    if (propsName) {
+      const props = get(this.state, propsName);
+      if (callBack && !has(this.state, propsName)) {
+        this.setState({
+          [propsName]: callBack()
+        });
+        return this.getState(propsName);
+      }
+      return props;
+    }
+    return this.state;
   };
 
   trigger = eventName => {

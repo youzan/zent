@@ -320,6 +320,48 @@ ReactDOM.render(
 ```
 :::
 
+
+:::demo fixed
+```jsx
+import { Grid } from 'zent';
+
+const columns = [
+	{
+		title: '商品名',
+		name: 'name',
+		width: '100',
+		fixed: true
+	}, {
+		title: '访问量',
+		name: 'uv'
+	}, {
+		title: '库存',
+		name: 'stock'
+	}
+];
+
+const datasets = [];
+
+for (let i = 0; i < 3; i++) {
+	datasets.push({
+		name: `商品 ${i}`,
+		uv: 20,
+		stock: 5
+	})
+}
+
+ReactDOM.render(
+		<Grid
+			columns={columns}
+			datasets={datasets}
+			scroll={{ x: 1300 }}
+		/>
+	, mountNode
+);
+
+```
+:::
+
 ### API
 
 | 参数         | 说明                                         | 类型            | 默认值         | 备选值     | 是否必须 |
