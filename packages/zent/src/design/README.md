@@ -130,6 +130,8 @@ ReactDOM.render(
 
 `design` 目录下面是框架结构，`Design` 组件负责数据分发和更新，整个组件分为 `Preview` 和 `Editor` 两部分。
 
+> ⚠️ 注意：Zent 里面导出的 `Design` 组件使用了 `react-dnd-html5-backend` 这个包的 `HTML5Backend`，由于 `react-dnd` 的限制，`HTML5Backend` 在一个 React 组件树里只能出现一次。如果你在外层已经有地方使用了这个 `HTML5Backend`，请使用 `zent/lib/design/Design` 这个组件。这个组件功能完全一样，区别是不依赖 `HTML5Backend`。
+
 `Design` 的重要参数有一下几个：
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必须 |

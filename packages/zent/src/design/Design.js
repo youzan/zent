@@ -706,6 +706,11 @@ export default class Design extends (PureComponent || Component) {
     }
   };
 
+  // Dummy method to make Design and DesignWithDnd compatible at source code level
+  getDecoratedComponentInstance() {
+    return this;
+  }
+
   // Actions on design
   design = (() => {
     return {
