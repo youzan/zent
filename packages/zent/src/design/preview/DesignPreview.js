@@ -53,6 +53,9 @@ class DesignPreview extends (PureComponent || Component) {
 
     disabled: PropTypes.bool,
 
+    // 每个组件的实例数量
+    componentInstanceCount: PropTypes.object,
+
     // 以下 props 由 config 组件提供
     background: PropTypes.string
   };
@@ -74,6 +77,7 @@ class DesignPreview extends (PureComponent || Component) {
       validations,
       showError,
       onComponentValueChange,
+      componentInstanceCount,
       onAddComponent,
       design,
       appendableComponents,
@@ -155,6 +159,7 @@ class DesignPreview extends (PureComponent || Component) {
                 <DesignEditorAddComponent
                   prefix={prefix}
                   fromSelected
+                  componentInstanceCount={componentInstanceCount}
                   components={appendableComponents}
                   onAddComponent={onAddComponent}
                 />
@@ -184,6 +189,7 @@ class DesignPreview extends (PureComponent || Component) {
           <div className={`${prefix}-design__add`}>
             <DesignEditorAddComponent
               prefix={prefix}
+              componentInstanceCount={componentInstanceCount}
               components={appendableComponents}
               onAddComponent={onAddComponent}
             />

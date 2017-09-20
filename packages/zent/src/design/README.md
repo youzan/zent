@@ -38,7 +38,10 @@ const components = [
 
     highlightWhenSelect: false
 	}),
-	whitespaceConf
+
+	Object.assign({}, whitespaceConf, {
+		limit: 1
+	})
 ];
 
 class Simple extends Component {
@@ -194,6 +197,11 @@ type Component = {
 
 	// 选中时是否高亮
 	highlightWhenSelect?: boolean,
+
+	// 组件最多可以添加的实例个数，可以是数字或者一个函数
+	// 不传或者传 0 表示没有限制
+	// 如果是函数，返回 false 表示不可再添加
+	limit?: number | (count: number) => boolean,
 
 	// 传给 editor 的额外 props
 	editorProps: (value: object) => object | object,
