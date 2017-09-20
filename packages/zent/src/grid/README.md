@@ -329,7 +329,7 @@ const columns = [
 	{
 		title: '商品名',
 		name: 'name',
-		width: '100',
+		width: 100,
 		fixed: true
 	}, {
 		title: '访问量',

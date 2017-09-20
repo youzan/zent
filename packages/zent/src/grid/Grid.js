@@ -36,6 +36,7 @@ class Grid extends (PureComponent || Component) {
       columns: this.getColumns(props, props.columns),
       selectedRowKeys: get(props, 'selection.selectedRowKeys')
     });
+    this.setScrollPosition('left');
   }
 
   onChange = conf => {
@@ -107,6 +108,57 @@ class Grid extends (PureComponent || Component) {
     });
   };
 
+  setScrollPosition(position) {
+    this.scrollPosition = position;
+
+    if (this.tableNode) {
+      const { prefix } = this.props;
+      if (position === 'both') {
+        this.tableNode.className = this.tableNode.className.replace(
+          new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
+          ' '
+        );
+        this.tableNode.classList.add(`${prefix}-grid-scroll-position-left`);
+        this.tableNode.classList.add(`${prefix}-grid-scroll-position-right`);
+      } else {
+        this.tableNode.className = this.tableNode.className.replace(
+          new RegExp(`${prefix}-grid-scroll-position-.+$`, 'gi'),
+          ' '
+        );
+        this.tableNode.classList.add(
+          `${prefix}-grid-scroll-position-${position}`
+        );
+      }
+    }
+  }
+
+  handleBodyScroll = e => {
+    if (e.currentTarget !== e.target) {
+      return;
+    }
+    const target = e.target;
+    const { scroll = {} } = this.props;
+
+    if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
+      const node = target || this.bodyTable;
+      const scrollToLeft = node.scrollLeft === 0;
+      const scrollToRight =
+        node.scrollLeft + 1 >=
+        node.children[0].getBoundingClientRect().width -
+          node.getBoundingClientRect().width;
+      if (scrollToLeft && scrollToRight) {
+        this.setScrollPosition('both');
+      } else if (scrollToLeft) {
+        this.setScrollPosition('left');
+      } else if (scrollToRight) {
+        this.setScrollPosition('right');
+      } else if (this.scrollPosition !== 'middle') {
+        this.setScrollPosition('middle');
+      }
+    }
+    this.lastScrollLeft = target.scrollLeft;
+  };
+
   getTable = (options = {}) => {
     const { prefix, datasets, scroll } = this.props;
     const { fixed } = options;
@@ -125,7 +177,12 @@ class Grid extends (PureComponent || Component) {
     }
 
     return (
-      <div style={bodyStyle}>
+      <div
+        style={bodyStyle}
+        ref={ref => (this.bodyTable = ref)}
+        onScroll={this.handleBodyScroll}
+        key="table"
+      >
         <table
           className={classnames(`${prefix}-grid-table`, tableClassName)}
           style={tableStyle}
@@ -142,7 +199,11 @@ class Grid extends (PureComponent || Component) {
     const { datasets, prefix, emptyLabel } = this.props;
 
     if (size(datasets) === 0) {
-      return <div className={`${prefix}-grid-empty`}>{emptyLabel}</div>;
+      return (
+        <div className={`${prefix}-grid-empty`} key="empty">
+          {emptyLabel}
+        </div>
+      );
     }
     return null;
   };
@@ -240,6 +301,22 @@ class Grid extends (PureComponent || Component) {
 
   render() {
     const { prefix, loading, pageInfo } = this.props;
+    let className = `${prefix}-grid`;
+    className = classnames(className, this.props.className);
+
+    if (this.scrollPosition === 'both') {
+      className = classnames(
+        className,
+        `${prefix}-grid-scroll-position-left`,
+        `${prefix}-grid-scroll-position-right`
+      );
+    } else {
+      className = classnames(
+        className,
+        `${prefix}-grid-scroll-position-left`,
+        `${prefix}-grid-scroll-position-${this.scrollPosition}`
+      );
+    }
 
     const content = [
       this.getTable(),
@@ -259,7 +336,7 @@ class Grid extends (PureComponent || Component) {
     );
 
     return (
-      <div className={classnames(`${prefix}-grid`)}>
+      <div className={className} ref={node => (this.tableNode = node)}>
         <Loading show={loading}>
           {scrollTable}
           {this.isAnyColumnsLeftFixed() && (
