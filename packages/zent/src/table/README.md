@@ -402,7 +402,7 @@ class Selection extends React.Component {
 
   getRowConf(rowData, index) {
     return {
-      canSelect: false
+      canSelect: index % 2 === 0
     };
   }
 
