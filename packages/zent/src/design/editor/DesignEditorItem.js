@@ -1,5 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 import { findDOMNode } from 'react-dom';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 
 export default class DesignEditorItem extends (PureComponent || Component) {
@@ -8,7 +9,9 @@ export default class DesignEditorItem extends (PureComponent || Component) {
 
     disabled: PropTypes.bool,
 
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
+
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -17,10 +20,10 @@ export default class DesignEditorItem extends (PureComponent || Component) {
   };
 
   render() {
-    const { disabled, prefix } = this.props;
+    const { disabled, prefix, className } = this.props;
 
     return (
-      <div className={`${prefix}-design-editor-item`}>
+      <div className={cx(`${prefix}-design-editor-item`, className)}>
         {disabled && <div className={`${prefix}-design__disabled-mask`} />}
         {this.props.children}
       </div>

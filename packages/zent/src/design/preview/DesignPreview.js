@@ -96,6 +96,7 @@ class DesignPreview extends (PureComponent || Component) {
       disabled,
       background
     } = this.props;
+    const isComponentsGrouped = isGrouped(appendableComponents);
 
     const children = value.map((v, idx) => {
       const valueType = v.type;
@@ -156,7 +157,14 @@ class DesignPreview extends (PureComponent || Component) {
 
           {selected &&
             showAddComponentOverlay && (
-              <DesignEditorItem ref={this.saveEditorItem(id)} prefix={prefix}>
+              <DesignEditorItem
+                ref={this.saveEditorItem(id)}
+                prefix={prefix}
+                className={cx(`${prefix}-design-add-component-overlay`, {
+                  [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
+                  [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped
+                })}
+              >
                 <DesignEditorAddComponent
                   prefix={prefix}
                   fromSelected
@@ -172,7 +180,6 @@ class DesignPreview extends (PureComponent || Component) {
 
     const cls = cx(`${prefix}-design-preview`, className);
     const hasAppendableComponent = appendableComponents.length > 0;
-    const isComponentsGrouped = isGrouped(appendableComponents);
 
     return (
       <div className={cls} style={{ background }}>
