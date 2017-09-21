@@ -4,9 +4,15 @@ import isEmpty from 'lodash/isEmpty';
 
 import { COMPONENT_GROUP_DESIGN_TYPE } from './design-type';
 
+function DummyComponent() {
+  return null;
+}
+
 export function createGroup(name) {
   return {
     type: `${uniqueId(COMPONENT_GROUP_DESIGN_TYPE)}|${name}`,
+    editor: DummyComponent,
+    preview: DummyComponent,
     name
   };
 }
