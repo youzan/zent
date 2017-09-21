@@ -402,7 +402,7 @@ class Selection extends React.Component {
 
   getRowConf(rowData, index) {
     return {
-      canSelect: index % 2 === 0
+      canSelect: false
     };
   }
 
@@ -592,8 +592,8 @@ class RowClass extends React.Component {
 
   onChange(conf) {
     this.setState(conf);
-  } 
-  
+  }
+
   render() {
     return (
       <Table
@@ -601,7 +601,7 @@ class RowClass extends React.Component {
         datasets={datasets}
         onChange={this.onChange.bind(this)}
         getRowConf={this.getRowConf}
-        rowKey="item_id" 
+        rowKey="item_id"
         expandation={{
           isExpanded(record, index) {
             return (index % 2 === 0);
@@ -712,8 +712,8 @@ class BatchCompsClass extends React.Component {
 
   onChange(conf) {
     this.setState(conf);
-  } 
-  
+  }
+
   render() {
     return (
       <Table
@@ -788,7 +788,7 @@ ReactDOM.render(
       rowClass: `row-${index}`
     }
   }
-  
+
 ```
 
 #### onChange函数声明

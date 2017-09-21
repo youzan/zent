@@ -403,7 +403,7 @@ export default class Table extends (PureComponent || Component) {
       });
 
       selectedRowKeys = selection.selectedRowKeys || [];
-      canSelectAll = selectedRowKeys.length > 0;
+      canSelectAll = canSelectRowKeysArr.length > 0;
       isSelectAll =
         canSelectRowKeysArr.length > 0 &&
         helper.isSelectAll(selectedRowKeys, canSelectRowKeysArr);
