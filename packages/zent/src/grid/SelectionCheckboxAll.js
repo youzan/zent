@@ -59,8 +59,9 @@ class SelectionCheckboxAll extends (PureComponent || Component) {
   };
 
   onChange = e => {
+    const { datasets } = this.props;
     let checked = e.target.checked;
-    this.props.onSelect(checked ? 'selectAll' : 'removeAll');
+    this.props.onSelect(checked ? 'selectAll' : 'removeAll', datasets);
   };
 
   componentDidMount() {
@@ -79,13 +80,14 @@ class SelectionCheckboxAll extends (PureComponent || Component) {
 
   render() {
     const { checked, indeterminate } = this.state;
+    const { disabled } = this.props;
 
     const props = {
       checked,
       indeterminate: indeterminate && checked ? false : indeterminate
     };
 
-    return <Checkbox {...props} onChange={this.onChange} />;
+    return <Checkbox {...props} onChange={this.onChange} disabled={disabled} />;
   }
 }
 

@@ -44,9 +44,11 @@ class SelectionCheckbox extends (PureComponent || Component) {
   }
 
   render() {
-    const { onChange } = this.props;
+    const { onChange, disabled } = this.props;
     const { checked } = this.state;
-    return <Checkbox onChange={onChange} checked={checked} />;
+    return (
+      <Checkbox onChange={onChange} checked={checked} disabled={disabled} />
+    );
   }
 }
 

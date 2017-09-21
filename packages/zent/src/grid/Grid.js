@@ -4,6 +4,7 @@ import Loading from 'loading';
 import classnames from 'classnames';
 import has from 'lodash/has';
 import get from 'lodash/get';
+import every from 'lodash/every';
 import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
@@ -31,6 +32,7 @@ function stopPropagation(e) {
 class Grid extends (PureComponent || Component) {
   constructor(props) {
     super(props);
+    this.checkboxPropsCache = {};
     this.store = new Store(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns),
@@ -76,18 +78,33 @@ class Grid extends (PureComponent || Component) {
     columns = cloneDeep(columns || this.store.getState('columns'));
 
     if (selection) {
+      const data = filter(datasets, (item, index) => {
+        const rowIndex = this.getDataKey(item, index);
+
+        if (selection.getCheckboxProps) {
+          return !get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+        }
+        return true;
+      });
+
       const selectionColumn = {
         key: 'selection-column',
         width: '20px',
         bodyRender: this.renderSelectionCheckbox(selection.type)
       };
 
+      const checkboxAllDisabled = every(data, (item, index) => {
+        const rowIndex = this.getDataKey(item, index);
+        return get(this.getCheckboxPropsByItem(item, rowIndex), 'disabled');
+      });
+
       selectionColumn.title = (
         <SelectionCheckboxAll
           store={this.store}
-          datasets={datasets}
+          datasets={data}
           getDataKey={this.getDataKey}
           onSelect={this.handleBatchSelect}
+          disabled={checkboxAllDisabled}
         />
       );
 
@@ -214,6 +231,20 @@ class Grid extends (PureComponent || Component) {
     return null;
   };
 
+  getCheckboxPropsByItem = (data, rowIndex) => {
+    const { selection } = this.props;
+
+    if (!get(selection, 'getCheckboxProps')) {
+      return {};
+    }
+
+    // Cache checkboxProps
+    if (!this.checkboxPropsCache[rowIndex]) {
+      this.checkboxPropsCache[rowIndex] = selection.getCheckboxProps(data);
+    }
+    return this.checkboxPropsCache[rowIndex];
+  };
+
   onSelectChange = (selectedRowKeys, data) => {
     const { datasets, selection } = this.props;
     const onSelect = get(selection, 'onSelect');
@@ -242,15 +273,14 @@ class Grid extends (PureComponent || Component) {
     this.onSelectChange(selectedRowKeys, data);
   };
 
-  handleBatchSelect = type => {
-    const { datasets } = this.props;
+  handleBatchSelect = (type, data) => {
     let selectedRowKeys = cloneDeep(this.store.getState('selectedRowKeys'));
 
     let changeRowKeys = [];
 
     switch (type) {
       case 'selectAll':
-        forEach(datasets, (key, index) => {
+        forEach(data, (key, index) => {
           const rowIndex = this.getDataKey(key, index);
           if (!includes(selectedRowKeys, rowIndex)) {
             selectedRowKeys.push(rowIndex);
@@ -259,7 +289,7 @@ class Grid extends (PureComponent || Component) {
         });
         break;
       case 'removeAll':
-        forEach(datasets, (key, index) => {
+        forEach(data, (key, index) => {
           const rowIndex = this.getDataKey(key, index);
           if (includes(selectedRowKeys, rowIndex)) {
             selectedRowKeys.splice(indexOf(selectedRowKeys, rowIndex), 1);
@@ -273,7 +303,7 @@ class Grid extends (PureComponent || Component) {
 
     this.store.setState({ selectedRowKeys });
 
-    const changeRow = filter(datasets, (row, i) =>
+    const changeRow = filter(data, (row, i) =>
       includes(changeRowKeys, this.getDataKey(row, i))
     );
 
@@ -283,9 +313,12 @@ class Grid extends (PureComponent || Component) {
   renderSelectionCheckbox = () => {
     return (data, { row }) => {
       const rowIndex = this.getDataKey(data, row);
+      const props = this.getCheckboxPropsByItem(data, rowIndex);
+
       return (
         <span onClick={stopPropagation}>
           <SelectionCheckbox
+            disabled={props.disabled}
             rowIndex={rowIndex}
             store={this.store}
             onChange={e =>
@@ -302,6 +335,21 @@ class Grid extends (PureComponent || Component) {
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps)
       });
+
+      const { selection } = this.props;
+      if (
+        selection &&
+        nextProps.selection.getCheckboxProps !== selection.getCheckboxProps
+      ) {
+        this.CheckboxPropsCache = {};
+      }
+    }
+
+    if (
+      has(nextProps, 'datasets') &&
+      nextProps.datasets !== this.props.datasets
+    ) {
+      this.CheckboxPropsCache = {};
     }
   }
 

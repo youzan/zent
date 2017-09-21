@@ -228,7 +228,10 @@ class Selection extends React.Component {
 						this.setState({
 							selectedRowKeys
 						})
-					}
+					},
+					getCheckboxProps: (data) => ({
+							disabled: data.name === '商品1 1'
+					})
 				}}
 				rowKey="id"
 				onChange={this.onChange}
