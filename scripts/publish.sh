@@ -27,7 +27,7 @@ yarn
 yarn bootstrap
 
 # build
-$basepath/../lerna run build
+yarn build
 
 $basepath/../lerna publish --exact "$@"
 
