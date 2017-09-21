@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import has from 'lodash/has';
 import get from 'lodash/get';
 import every from 'lodash/every';
+import assign from 'lodash/assign';
 import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
@@ -42,7 +43,10 @@ class Grid extends (PureComponent || Component) {
   }
 
   onChange = conf => {
-    this.props.onChange(conf);
+    const params = assign({}, this.store.getState('conf'), conf);
+    this.store.setState('conf', params);
+
+    this.props.onChange(params);
   };
 
   getDataKey = (data, rowIndex) => {
@@ -183,7 +187,7 @@ class Grid extends (PureComponent || Component) {
   };
 
   getTable = (options = {}) => {
-    const { prefix, datasets, scroll } = this.props;
+    const { prefix, datasets, scroll, sortType, sortBy } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
     let tableClassName = '';
@@ -211,7 +215,14 @@ class Grid extends (PureComponent || Component) {
           style={tableStyle}
         >
           <ColGroup columns={columns} />
-          <Header prefix={prefix} columns={columns} store={this.store} />
+          <Header
+            prefix={prefix}
+            columns={columns}
+            store={this.store}
+            onChange={this.onChange}
+            sortType={sortType}
+            sortBy={sortBy}
+          />
           <Body prefix={prefix} columns={columns} datasets={datasets} />
         </table>
       </div>
@@ -414,7 +425,9 @@ Grid.propTypes = {
   onChange: PropTypes.func,
   selection: PropTypes.object,
   rowKey: PropTypes.string,
-  scroll: PropTypes.object
+  scroll: PropTypes.object,
+  sortBy: PropTypes.string,
+  sortType: PropTypes.string
 };
 
 Grid.defaultProps = {

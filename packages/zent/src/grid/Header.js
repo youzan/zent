@@ -14,30 +14,77 @@ class Header extends (PureComponent || Component) {
     };
   }
 
+  onSort = (column, props) => {
+    const { sortBy } = props;
+    let name = column.name;
+    let sortType = '';
+
+    if (name === sortBy) {
+      if (this.props.sortType === '') {
+        sortType = 'desc';
+      }
+      if (this.props.sortType === 'desc') {
+        sortType = 'asc';
+      }
+      if (this.props.sortType === 'asc') {
+        sortType = '';
+      }
+    }
+
+    this.props.onChange({
+      sortBy: name,
+      sortType
+    });
+  };
+
+  getChildren = (column, props) => {
+    const { prefix, sortBy, sortType } = props;
+
+    if (column.needSort) {
+      return (
+        <a
+          onClick={() => this.onSort(column, props)}
+          className={`${prefix}-grid-thead-sort-btn`}
+        >
+          {column.title}
+          {column.name === sortBy && (
+            <span
+              className={
+                sortType
+                  ? `${prefix}-grid-thead-sort-${sortType}`
+                  : `${prefix}-grid-thead-sort`
+              }
+            />
+          )}
+        </a>
+      );
+    }
+    return column.title;
+  };
+
   getHeaderRows = (props, currentRow = 0, rows) => {
-    const { columns } = props || this.props;
+    props = props || this.props;
+    const { columns } = props;
 
     rows = rows || [];
     rows[currentRow] = rows[currentRow] || [];
 
-    forEach(
-      columns,
-      ({ name, key, className, title, colSpan, rowSpan }, index) => {
-        const cell = {
-          key: name || key || index,
-          className: className || '',
-          children: title
-        };
+    forEach(columns, (column, index) => {
+      const { name, key, className, colSpan } = column;
+      const cell = {
+        key: name || key || index,
+        className: className || '',
+        children: this.getChildren(column, props)
+      };
 
-        if (typeof colSpan === 'number') {
-          cell.colSpan = colSpan;
-        }
-
-        if (cell.colSpan !== 0) {
-          rows[currentRow].push(cell);
-        }
+      if (typeof colSpan === 'number') {
+        cell.colSpan = colSpan;
       }
-    );
+
+      if (cell.colSpan !== 0) {
+        rows[currentRow].push(cell);
+      }
+    });
 
     return filter(rows, row => row.length > 0);
   };
@@ -54,7 +101,11 @@ class Header extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.columns !== this.props.columns) {
+    if (
+      nextProps.columns !== this.props.columns ||
+      nextProps.sortType !== this.props.sortType ||
+      nextProps.sortBy !== this.props.sortBy
+    ) {
       this.setState({
         rows: this.getHeaderRows(nextProps)
       });

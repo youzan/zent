@@ -28,6 +28,26 @@ $border-color: #e5e5e5;
     border-bottom: none;
   }
 
+  &-thead {
+    &-sort-desc,
+    &-sort-asc {
+      position: absolute;
+      margin-left: 3px;
+    }
+
+    &-sort-desc {
+      &::after {
+        content: "\2193";
+      }
+    }
+
+    &-sort-asc {
+      &::after {
+        content: "\2191";
+      }
+    }
+  }
+
   &-fixed {
     width: auto;
   }
@@ -105,5 +125,10 @@ $border-color: #e5e5e5;
   &-tfoot-page {
     margin-top: 10px;
     float: right;
+  }
+
+  a {
+    color: #38f;
+    cursor: pointer;
   }
 }
