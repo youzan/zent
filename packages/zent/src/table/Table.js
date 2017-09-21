@@ -380,6 +380,7 @@ export default class Table extends (PureComponent || Component) {
     }
     let selectedRowKeys = [];
 
+    let canSelectAll = false;
     let isSelectAll = false;
     let isSelectPart = false;
 
@@ -402,6 +403,7 @@ export default class Table extends (PureComponent || Component) {
       });
 
       selectedRowKeys = selection.selectedRowKeys || [];
+      canSelectAll = selectedRowKeys.length > 0;
       isSelectAll =
         canSelectRowKeysArr.length > 0 &&
         helper.isSelectAll(selectedRowKeys, canSelectRowKeysArr);
@@ -432,6 +434,7 @@ export default class Table extends (PureComponent || Component) {
                   needSelect,
                   onSelectAll: this.onSelectAllRows,
                   isSingleSelection,
+                  canSelectAll,
                   isSelectAll,
                   isSelectPart
                 }}
