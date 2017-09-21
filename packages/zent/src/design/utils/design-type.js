@@ -38,3 +38,5 @@ export function serializeDesignType(designType) {
 
   throw new TypeError('designType should be a string or an array of strings');
 }
+
+export const COMPONENT_GROUP_DESIGN_TYPE = '__zent-design-component-group__';

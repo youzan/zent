@@ -14,18 +14,20 @@ import { Design, Button, Layout, Notify } from 'zent';
 import configConf from 'design/components/config';
 import ConfigEditor from 'design/components/config/ConfigEditor';
 import whitespaceConf from 'design/components/whitespace';
+import lineConf from 'design/components/line';
 
 // 我们仅仅提供了少数几个 Design 组件作为示例，更多业务组件需要根据你的业务需求自己实现。
 // If you use these two default design components, you have to 
 // manually include the styles in your own code:
 // import 'zent/css/design-config.css';
 // import 'zent/css/design-whitespace.css';
+// import 'zent/css/design-line.css';
 
 const { Row, Col } = Layout;
 
 const components = [
-	Object.assign({}, configConf, {
-		 // 是否可以拖拽
+  Object.assign({}, configConf, {
+    // 是否可以拖拽
     dragable: false,
 
     // 是否出现在底部的添加组件区域
@@ -37,15 +39,39 @@ const components = [
     configurable: false,
 
     highlightWhenSelect: false
-	}),
+  }),
 
-	Object.assign({}, whitespaceConf, {
-		limit: 1
-	})
+  whitespaceConf,
+  lineConf
+];
+const groupedComponents = [
+  Object.assign({}, configConf, {
+    // 是否可以拖拽
+    dragable: false,
+
+    // 是否出现在底部的添加组件区域
+    appendable: false,
+
+    // 是否可以编辑，UMP里面有些地方config是不能编辑的
+    // editable: true,
+
+    configurable: false,
+
+    highlightWhenSelect: false
+  }),
+
+	Design.group('Group 1'),
+
+  whitespaceConf,
+
+	Design.group('Group 2'),
+	
+  lineConf
 ];
 
 class Simple extends Component {
   state = {
+    grouped: false,
     value: [
       {
         type: configConf.type,
@@ -60,7 +86,17 @@ class Simple extends Component {
     });
   };
 
+  switchMode = () => {
+    const { grouped } = this.state;
+
+    this.setState({
+      grouped: !grouped
+    });
+  };
+
   render() {
+		const { grouped } = this.state;
+
     return (
       <div>
         <Design
@@ -68,10 +104,10 @@ class Simple extends Component {
           cache
           cacheId="zent-design-test"
           confirmUnsavedLeave={false}
-          components={components}
+          components={grouped ? groupedComponents : components}
           value={this.state.value}
           onChange={this.onChange}
-					scrollTopOffset={-270}
+          scrollTopOffset={-270}
           globalConfig={window._global}
         />
         <Row className="design-example-actions">
@@ -79,25 +115,30 @@ class Simple extends Component {
             <Button type="primary" onClick={this.submit}>
               上架
             </Button>
-					</Col>
-					<Col span={2} offset={1}>
-						<Button onClick={this.notImplemented}>
-							保存草稿
-						</Button>
-					</Col>
-					<Col span={2} offset={1}>
-						<Button onClick={this.notImplemented}>
-							预览
-						</Button>
+          </Col>
+          <Col span={2} offset={1}>
+            <Button onClick={this.notImplemented}>
+              保存草稿
+            </Button>
+          </Col>
+          <Col span={2} offset={1}>
+            <Button onClick={this.notImplemented}>
+              预览
+            </Button>
+          </Col>
+          <Col span={3} offset={1}>
+            <Button onClick={this.switchMode}>
+              组件{grouped ? '合并显示' : '分组显示'}
+            </Button>
           </Col>
         </Row>
       </div>
     );
   }
-	
-	notImplemented() {
-		Notify.error('仅作为演示，功能未开发');
-	}
+  
+  notImplemented() {
+    Notify.error('仅作为演示，功能未开发');
+  }
 
   saveDesign = instance => {
     this.design = instance && instance.getDecoratedComponentInstance();
@@ -109,22 +150,22 @@ class Simple extends Component {
 
   submit = () => {
     this.triggerDesignValidation()
-			.then(() => {
-				const data = Design.stripUUID(this.state.value);
-				console.log(data);
-				// submit this.state.value to server
-				this.design.markAsSaved();
-				Notify.success('提交成功');
-			})
-			.catch(validations => {
-				console.log(validations);
-			});
+      .then(() => {
+        const data = Design.stripUUID(this.state.value);
+        console.log(data);
+        // submit this.state.value to server
+        this.design.markAsSaved();
+        Notify.success('提交成功');
+      })
+      .catch(validations => {
+        console.log(validations);
+      });
   };
 }
 
 ReactDOM.render(
-	<Simple />
-	, mountNode
+  <Simple />
+  , mountNode
 );
 ```
 :::
@@ -160,58 +201,78 @@ ReactDOM.render(
 
 ```js
 type Component = {
-	// 组件类型，必须唯一
-	type: string,
+  // 组件类型，必须唯一
+  type: string,
 
-	// 渲染预览部分的组件
-	preview: ReactComponent,
+  // 渲染预览部分的组件
+  preview: ReactComponent,
 
-	// 渲染编辑部分的组件
-	editor: ReactComponent,
+  // 渲染编辑部分的组件
+  editor: ReactComponent,
 
-	// 预览组件的包裹层  
-	previewItem?: ReactComponent,
+  // 预览组件的包裹层  
+  previewItem?: ReactComponent,
 
-	// 所有预览界面上的事件都是在这个里面处理的
-	previewController?: ReactComponent,
+  // 所有预览界面上的事件都是在这个里面处理的
+  previewController?: ReactComponent,
 
-	// 编辑组件的包裹层
-	editorItem?: ReactComponent,
+  // 编辑组件的包裹层
+  editorItem?: ReactComponent,
 
-	// 组件是否可以拖拽
-	dragable?: boolean,
+  // 组件是否可以拖拽
+  dragable?: boolean,
 
-	// 组件是否出现在添加组件的列表里面
-	appendable?: boolean,
+  // 组件是否出现在添加组件的列表里面
+  appendable?: boolean,
 
-	// 是否显示右下角的编辑区域(编辑/加内容/删除)
-	// 不支持在这里配置编辑区域的按钮，参数太多。
-	// 如果要自定义编辑区域，可以通过重写 previewController 的方式来做。
-	configurable?: boolean,
+  // 是否显示右下角的编辑区域(编辑/加内容/删除)
+  // 不支持在这里配置编辑区域的按钮，参数太多。
+  // 如果要自定义编辑区域，可以通过重写 previewController 的方式来做。
+  configurable?: boolean,
 
-	// 组件是否可以编辑
-	// 可以选中的组件一定是可以编辑的
-	// 不可编辑的组件不可选中，只能展示。
-	// 右下角的编辑区域由 configurable 单独控制
-	editable?: boolean,
+  // 组件是否可以编辑
+  // 可以选中的组件一定是可以编辑的
+  // 不可编辑的组件不可选中，只能展示。
+  // 右下角的编辑区域由 configurable 单独控制
+  editable?: boolean,
 
-	// 选中时是否高亮
-	highlightWhenSelect?: boolean,
+  // 选中时是否高亮
+  highlightWhenSelect?: boolean,
 
-	// 组件最多可以添加的实例个数，可以是数字或者一个函数
-	// 不传或者传 0 表示没有限制
-	// 如果是函数，返回 false 表示不可再添加
-	limit?: number | (count: number) => boolean,
+  // 组件最多可以添加的实例个数，可以是数字或者一个函数
+  // 不传或者传 0 表示没有限制
+  // 如果是函数，返回 false 表示不可再添加
+  limit?: number | (count: number) => boolean,
 
-	// 传给 editor 的额外 props
-	editorProps: (value: object) => object | object,
+  // 传给 editor 的额外 props
+  editorProps: (value: object) => object | object,
 
-	// 传给 preview 的额外 props
-	previewProps: (value: object) => object | object
+  // 传给 preview 的额外 props
+  previewProps: (value: object) => object | object
 }
 ```
 
 `value` 是一个数组，数组里面每一项都有一个 `type` 属性，用来标识这个值应该由哪个组件来渲染。
+
+### Design.group 方法
+
+原型：`group(name: string): object`
+
+`Design` 组件支持将可添加的组件分组，只需要在 `components` 数组内适当的位置插入 `Design.group('groupName')` 组件即可。
+
+```
+[
+  config,
+
+  Design.group('分组1'),
+  componentA,
+  componentB,
+
+  Design.group('分组2'),
+  componentC,
+  componentD
+]
+```
 
 ### Design 实例方法
 
@@ -327,6 +388,6 @@ export default class NoticeEditor extends DesignEditor {
 
 <style>
 .design-example-actions {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 </style>

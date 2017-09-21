@@ -4,6 +4,7 @@ import cx from 'classnames';
 import isFunction from 'lodash/isFunction';
 
 import { serializeDesignType } from '../utils/design-type';
+import { splitGroup, isGrouped } from '../utils/component-group';
 
 export default class DesignEditorAddComponent extends (PureComponent ||
   Component) {
@@ -39,22 +40,31 @@ export default class DesignEditorAddComponent extends (PureComponent ||
       return null;
     }
 
+    if (isGrouped(components)) {
+      return this.renderGrouped();
+    }
+
     return (
-      <div className={`${prefix}-design-editor-add-component`}>
-        <div className={`${prefix}-design-editor-add-component__title`}>
+      <div
+        className={`${prefix}-design-editor-add-component ${prefix}-design-editor-add-component--mixed`}
+      >
+        <div className={`${prefix}-design-editor-add-component__mixed-title`}>
           添加内容
         </div>
-        <div className={`${prefix}-design-editor-add-component__list`}>
+        <div className={`${prefix}-design-editor-add-component__mixed-list`}>
           {components.map((c, idx) => (
             <button
               onClick={this.onAdd(c)}
               key={idx}
-              className={cx(`${prefix}-design-editor-add-component__btn`, {
-                [`${prefix}-design-editor-add-component__btn--disabled`]: !canAddMoreInstance(
-                  c,
-                  componentInstanceCount
-                )
-              })}
+              className={cx(
+                `${prefix}-design-editor-add-component__mixed-btn`,
+                {
+                  [`${prefix}-design-editor-add-component__mixed-btn--disabled`]: !canAddMoreInstance(
+                    c,
+                    componentInstanceCount
+                  )
+                }
+              )}
             >
               {c.editor.designDescription}
             </button>
@@ -63,6 +73,63 @@ export default class DesignEditorAddComponent extends (PureComponent ||
       </div>
     );
   }
+
+  renderGrouped() {
+    const { components, prefix, componentInstanceCount } = this.props;
+    const groups = splitGroup(components);
+
+    return (
+      <div
+        className={`${prefix}-design-editor-add-component ${prefix}-design-editor-add-component--grouped`}
+      >
+        {groups.map(g => (
+          <ComponentGroup
+            key={g.group.name}
+            group={g.group}
+            components={g.components}
+            componentInstanceCount={componentInstanceCount}
+            prefix={prefix}
+            onAdd={this.onAdd}
+          />
+        ))}
+      </div>
+    );
+  }
+}
+
+function ComponentGroup({
+  prefix,
+  group,
+  components,
+  onAdd,
+  componentInstanceCount
+}) {
+  return (
+    <div className={`${prefix}-design-editor-add-component__grouped`}>
+      <p className={`${prefix}-design-editor-add-component__grouped-title`}>
+        {group.name}
+      </p>
+      <div className={`${prefix}-design-editor-add-component__grouped-list`}>
+        {components.map((c, idx) => (
+          <button
+            onClick={onAdd(c)}
+            key={idx}
+            className={cx(
+              `${prefix}-design-editor-add-component__grouped-btn`,
+              {
+                [`${prefix}-design-editor-add-component__grouped-btn--disabled`]: !canAddMoreInstance(
+                  c,
+                  componentInstanceCount
+                )
+              }
+            )}
+          >
+            {c.editor.designDescription}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function canAddMoreInstance(component, componentInstanceCount) {

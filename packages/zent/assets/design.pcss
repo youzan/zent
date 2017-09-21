@@ -20,26 +20,26 @@
   }
 
   &__item-list {
-    min-height: 264px;
-    position: relative;
-    border-bottom: 1px solid #d1d1d1;
+    min-height: 304px;
     padding-bottom: 9px;
 
-    &-arrow-area {
-      height: 9px;
-      background: #f9f9f9;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1;
+    &--full-height {
+      min-height: $preview-height;
+      padding-bottom: 0;
     }
+  }
 
+  &__add {
+    padding-bottom: 5px;
+    position: relative;
+    border-top: 1px solid #d1d1d1;
+
+    /*
+      三角形边框的原理：生成两个边长相差 1px 的三角形，大的颜色用边框颜色，小的颜色用背景色，小的盖在大的里面即可。
+    */
     &:after,
     &:before {
-      bottom: -1px;
       left: 50%;
-      transform: rotate(180deg);
       border: solid transparent;
       content: " ";
       height: 0;
@@ -50,34 +50,33 @@
     }
 
     &:after {
-      border-color: transparent;
-      border-top-color: #f9f9f9;
       border-width: 8px;
       margin-left: -8px;
+      top: -16px;
     }
 
     &:before {
-      border-color: transparent;
-      border-top-color: #d1d1d1;
+      border-bottom-color: #d1d1d1;
       border-width: 9px;
       margin-left: -9px;
+      top: -18px;
     }
 
-    &--full-height {
-      min-height: $preview-height;
-      border-bottom: 0;
-      padding-bottom: 0;
+    &--mixed {
+      background: #f9f9f9;
 
-      &:after,
-      &:before {
-        display: none;
+      &:after {
+        border-bottom-color: #f9f9f9;
       }
     }
-  }
 
-  &__add {
-    background: #f9f9f9;
-    padding-bottom: 5px;
+    &--grouped {
+      background: #fff;
+
+      &:after {
+        border-bottom-color: #fff;
+      }
+    }
   }
 
   &__disabled-mask {

@@ -10,6 +10,7 @@ import DesignPreviewController from './DesignPreviewController';
 import DesignEditorItem from '../editor/DesignEditorItem';
 import DesignEditorAddComponent from '../editor/DesignEditorAddComponent';
 import { isExpectedDesginType } from '../utils/design-type';
+import { isGrouped } from '../utils/component-group';
 
 /**
  * DesignPreview 和 config 组件是相互关联的
@@ -171,6 +172,7 @@ class DesignPreview extends (PureComponent || Component) {
 
     const cls = cx(`${prefix}-design-preview`, className);
     const hasAppendableComponent = appendableComponents.length > 0;
+    const isComponentsGrouped = isGrouped(appendableComponents);
 
     return (
       <div className={cls} style={{ background }}>
@@ -181,12 +183,14 @@ class DesignPreview extends (PureComponent || Component) {
           })}
         >
           {children}
-          {hasAppendableComponent && (
-            <div className={`${prefix}-design__item-list-arrow-area`} />
-          )}
         </div>
         {hasAppendableComponent && (
-          <div className={`${prefix}-design__add`}>
+          <div
+            className={cx(`${prefix}-design__add`, {
+              [`${prefix}-design__add--grouped`]: isComponentsGrouped,
+              [`${prefix}-design__add--mixed`]: !isComponentsGrouped
+            })}
+          >
             <DesignEditorAddComponent
               prefix={prefix}
               componentInstanceCount={componentInstanceCount}

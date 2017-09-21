@@ -34,10 +34,4 @@ export default class InstanceCountMap {
     this.set(key, oldValue - 1);
     return this;
   }
-
-  clone() {
-    const map = new InstanceCountMap(this.defaultValue);
-    map.map = this.map;
-    return map;
-  }
 }
