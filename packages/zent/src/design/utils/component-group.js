@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import { COMPONENT_GROUP_DESIGN_TYPE } from './design-type';
 
-export function group(name) {
+export function createGroup(name) {
   return {
     type: `${uniqueId(COMPONENT_GROUP_DESIGN_TYPE)}|${name}`,
     name
@@ -49,7 +49,7 @@ export function splitGroup(components) {
 
   return components.reduce(
     (state, c, idx) => {
-      const { groups, buffer, g } = state;
+      const { groups, buffer, group } = state;
       const isGroup = isGroupComponent(c);
 
       if (!isGroup) {
@@ -59,16 +59,16 @@ export function splitGroup(components) {
       // When processing the last component, ensure buffer is consumed
       if (isGroup || idx === lastIndex) {
         // Empty group is ignored
-        if (g && !isEmpty(buffer)) {
+        if (group && !isEmpty(buffer)) {
           groups.push({
-            g,
+            group,
             components: buffer
           });
         }
 
         // Start a new group
         state.buffer = [];
-        state.g = c;
+        state.group = c;
       }
 
       return state;
