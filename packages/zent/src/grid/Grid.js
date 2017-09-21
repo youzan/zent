@@ -91,6 +91,12 @@ class Grid extends (PureComponent || Component) {
         />
       );
 
+      if (
+        columns.some(column => column.fixed === 'left' || column.fixed === true)
+      ) {
+        selectionColumn.fixed = 'left';
+      }
+
       if (columns[0] && columns[0].key === 'selection-column') {
         columns[0] = selectionColumn;
       } else {

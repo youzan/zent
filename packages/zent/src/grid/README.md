@@ -333,10 +333,18 @@ const columns = [
 		fixed: true
 	}, {
 		title: '访问量',
-		name: 'uv'
+		name: 'uv',
+		width: 100,
+		fixed: true
 	}, {
 		title: '库存',
 		name: 'stock'
+	}, {
+		title: '销量',
+		name: 'sold_num'
+	}, {
+		title: '创建时间',
+		name: 'created_time'
 	}
 ];
 
@@ -346,7 +354,9 @@ for (let i = 0; i < 3; i++) {
 	datasets.push({
 		name: `商品 ${i}`,
 		uv: 20,
-		stock: 5
+		stock: 5,
+		sold_num: 5,
+		created_time: '2017-09-20'
 	})
 }
 
@@ -355,6 +365,10 @@ ReactDOM.render(
 			columns={columns}
 			datasets={datasets}
 			scroll={{ x: 1300 }}
+			selection={{
+				selectedRowKeys: [],
+				onSelect: () => {}
+			}}
 		/>
 	, mountNode
 );
