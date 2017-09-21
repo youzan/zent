@@ -47,7 +47,6 @@
 
   &-list {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
   }
 
@@ -58,9 +57,14 @@
     outline: none;
     box-sizing: border-box;
     height: 30px;
-    flex: 0 0 100px;
+    flex: 0 0 96px;
     font-size: 12px;
     margin-bottom: 5px;
+    margin-right: 5px;
+
+    &:nth-child(3n+3) {
+      margin-right: 0;
+    }
 
     br {
       display: none;
@@ -73,10 +77,22 @@
   }
 }
 
-.zent-design-editor-item .zent-design-editor-add-component {
-  margin: 0 39px;
+.zent-design-editor-item {
+  .zent-design-editor-add-component--mixed {
+    margin: 0 39px;
+  }
+
+  .zent-design-editor-add-component--grouped {
+    margin: 0 44px;
+  }
 }
 
-.zent-design__add .zent-design-editor-add-component {
-  padding: 0 5px;
+.zent-design__add {
+  .zent-design-editor-add-component--mixed {
+    padding: 0 5px;
+  }
+
+  .zent-design-editor-add-component--grouped {
+    padding: 0 11px;
+  }
 }
