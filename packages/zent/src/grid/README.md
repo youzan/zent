@@ -4,14 +4,15 @@
 
 ### 代码演示
 
-:::demo 基础用法
+:::demo simple
 ```jsx
 import { Grid } from 'zent';
 
 const columns = [
 	{
 		title: '商品名',
-		name: 'name'
+		name: 'name',
+		className: 'name'
 	}, {
 		title: '访问量',
 		name: 'uv'
@@ -25,6 +26,7 @@ const datasets = [];
 
 for (let i = 0; i < 3; i++) {
 	datasets.push({
+		id: `id-${i}`,
 		name: `商品 ${i}`,
 		uv: 20,
 		stock: 5
@@ -35,6 +37,8 @@ ReactDOM.render(
 		<Grid
 			columns={columns}
 			datasets={datasets}
+			rowClassName={(data, index) => `${data.id}-${index}`}
+			onRowClick={(data, index, event) => { console.log(data, index, event.target, 'simple onRowClick') }}
 		/>
 	, mountNode
 );
@@ -43,10 +47,10 @@ ReactDOM.render(
 :::
 
 
-:::demo 加载
+:::demo loading
 ```jsx
 
-import { Grid } from 'zent';
+import { Grid, Switch } from 'zent';
 
 const columns = [
 	{
@@ -72,13 +76,26 @@ for (let i = 0; i < 3; i++) {
 }
 
 class Loading extends React.Component {
+	state={
+		loading: true
+	}
 	render() {
 		return (
-			<Grid
-				columns={columns}
-				datasets={datasets}
-				loading
-			/>
+			<div>
+				<Switch
+					onChange={value => this.setState({ loading: value })}
+					checked={this.state.loading}
+					size="small"
+					className="switch"
+				>
+					切换
+				</Switch>
+				<Grid
+					columns={columns}
+					datasets={datasets}
+					loading={this.state.loading}
+				/>
+			</div>
 		);
 	}
 };
@@ -100,7 +117,10 @@ import { Grid } from 'zent';
 const columns = [
 	{
 		title: '商品名',
-		name: 'name'
+		name: 'name',
+		onCellClick: data => {
+			console.log(data, 'data');
+		}
 	}, {
 		title: '访问量',
 		name: 'uv'
@@ -110,22 +130,31 @@ const columns = [
 	}
 ];
 
-const datasets = [];
+const pageSize = 5;
+const totalItem = 10;
 
-for (let i = 0; i < 3; i++) {
+const datasets = [];
+const datasets2 = [];
+
+for (let i = 0; i < 5; i++) {
 	datasets.push({
-		name: `商品 ${i}`,
+		id: `f-${i}`,
+		name: `母婴商品 ${i}`,
+		uv: 20,
+		stock: 5
+	})
+	datasets2.push({
+		id: `s-${i}`,
+		name: `宠物商品 ${i}`,
 		uv: 20,
 		stock: 5
 	})
 }
 
-const pageSize = 5;
-const totalItem = 50;
-
 class PageInfo extends React.Component {
 	state = {
-		current: 1
+		current: 1,
+		datasets
 	}
 
 	onChange = ({ current }) => {
@@ -135,12 +164,13 @@ class PageInfo extends React.Component {
 	}
 
 	render() {
+		const { current } = this.state;
 		return (
 			<Grid
 				columns={columns}
-				datasets={datasets}
+				datasets={current === 1 ? datasets : datasets2}
 				pageInfo={{
-					current: this.state.current,
+					current: current,
 					pageSize: pageSize,
 					totalItem: totalItem
 				}}
@@ -185,13 +215,13 @@ const datasets2 = [];
 for (let i = 0; i < 5; i++) {
 	datasets.push({
 		id: `f-${i}`,
-		name: `商品1 ${i}`,
+		name: `母婴商品 ${i}`,
 		uv: 20,
 		stock: 5
 	})
 	datasets2.push({
 		id: `s-${i}`,
-		name: `商品2 ${i}`,
+		name: `宠物商品 ${i}`,
 		uv: 20,
 		stock: 5
 	})
@@ -224,13 +254,13 @@ class Selection extends React.Component {
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-						console.log(selectedRowKeys, selectedRows, currentRow);
+						console.log(selectedRows, currentRow);
 						this.setState({
 							selectedRowKeys
 						})
 					},
 					getCheckboxProps: (data) => ({
-							disabled: data.name === '商品1 1'
+							disabled: data.name === '母婴商品 1'
 					})
 				}}
 				rowKey="id"
@@ -274,7 +304,8 @@ const columns = [
 		name: 'uv'
 	}, {
 		title: '库存',
-		name: 'stock'
+		name: 'stock',
+		needSort: true
 	}
 ];
 
@@ -329,7 +360,10 @@ const columns = [
 		title: '副标题',
 		name: 'sub',
 		colSpan: 0,
-		width: '200px'
+		width: '200px',
+		bodyRender: (data, pos) => {
+			return <span style={{ color: 'red' }}>{data.sub}</span>
+		}
 	}, {
 		title: '访问量',
 		name: 'uv',
@@ -446,18 +480,22 @@ ReactDOM.render(
 
 ### API
 
-| 参数         | 说明                                         | 类型            | 默认值         | 备选值     | 是否必须 |
-| ---------- | ------------------------------------------ | ------------- | ----------- | ------- | ---- |
-| columns    | 每一列需要的所有数据                                 | array[object] |             |         | 是    |
-| datasets   | 每一行需要展示的数据                                 | array[object] |             |         | 是    |
-| rowKey     | 每一行的key, 让react提升性能, 并防止出现一系列的问题           | string        | `id`        |         | 否    |
-| onChange   | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func          |             |         | 否    |
-| emptyLabel | 列表为空时的提示文案                                 | string        | `'没有更多数据了'` |         | 否    |
-| selection  | 表格的选择功能配置                                  | object        |             |         | 否    |
-| loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
-| className  | 自定义额外类名                                    | string        | `''`        |         | 否    |
-| prefix     | 自定义前缀                                      | string        | `'zent'`    |         | 否    |
-| pageInfo   | table对应的分页信息                              | object        | null    |         | 否    |
+| 参数     | 说明                                  | 类型    | 默认值   | 是否必须 |
+| -------- | ------------------------------------ | ----- | ------- | ------- |
+| columns  | 表格列配置                            | array |         |   是    |
+| datasets | 需要展示的数据                         | array |         |   是    |
+| rowKey   | 每一行的 key                           | string |  `id`    |   否    |
+| onChange | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func | `noop` | 否    |
+| sortBy   | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段 | string | '' | 否 |
+| sortType | 排序方式                            | string  |     ''   |   否    |
+| emptyLabel | 列表为空时的提示文案                | string   | `'没有更多数据了'` | 否 |
+| selection  | 表格的选择功能配置                 | object     |         | 否    |
+| loading    | 表格是否处于loading状态           | bool          | `false` | 否  |
+| className  | 自定义额外类名                    | string        | `''`   | 否   |
+| rowClassName | 表格行的类名                    | string or func(data, index) |  ''   | 否   |
+| prefix     | 自定义前缀                       | string       | `'zent'` | 否  |
+| pageInfo   | table对应的分页信息               | object        | null   | 否  |
+| onRowClick | 点击行时触发                      | func(data, index, event) | | 否 |
 
 
 #### onChange函数声明
@@ -466,17 +504,24 @@ onChange会抛出一个对象，这个对象包含分页变化的参数：
 ```js
 {
 	current, // {Number} 表示当前第几页
+	sortBy, // {String} 表示基于什么key进行排序
+	sortType, // {String} ['asc', 'desc', ''] 排序的方式
 }
 ```
 
 ### columns
 
-| 参数         | 说明                                  | 类型                    | 是否必须 |
-| ---------- | ----------------------------------- | -------------------- - | ---- |
-| title      | 每一列显示在thead上的名称                     |  node             | 否    |
-| name       | 每一列的主键                    | string               | 否    |
-| width      | 每一列在一行的宽度, 相对值和固定值 (如: 20% 或 100px) | string               | 否    |
-| bodyRender | 这一列对应用来渲染的组件                        | node or function |        否    |
+| 参数         | 说明                               | 类型        | 是否必须 |
+| ---------- | ----------------------------------- | ---------- | ---- |
+| title      | 列头的名称                       |  node       | 是    |
+| name       | 对应数据中的 key (建议设置) 支持 `a.b.c` 的嵌套写法  | string   | 否    |
+| width      | 列表宽度                             | string or number | 否    |
+| bodyRender | 渲染复杂组件                        | func(data, pos, name) or node |  否  |
+| className  | 列头的 className                   | string |  否  |
+| needSort   | 是否支持排序 (使用此功能 请设置 name)  | bool   | 否   |
+| colSpan    | 列合并 当为 0 时不渲染               | number | 否    |
+| fixed      | 是否固定列 可选值为 `left` `right` `true` (`true` 与 `left` 等效) | bool or strig | 否 |
+| onCellClick | 点击单元格回调                      | func(data, event) | 否 |
 
 ### selection
 
@@ -489,7 +534,13 @@ onChange会抛出一个对象，这个对象包含分页变化的参数：
 
 | 参数              | 说明              | 类型  | 是否必须 |
 | --------------- | --------------- | --- | ----- |
-| totalItem | 总条目个数            | number| 否    |
+| totalItem | 总条目个数 | number| 否    |
 | pageSize | 每页个数   | number | 否    |
 | current | 当前页码 | number | 否 |
 
+
+<style>
+  .switch {
+		margin-bottom: 10px;
+  }
+</style>

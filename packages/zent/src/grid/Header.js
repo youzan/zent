@@ -31,6 +31,10 @@ class Header extends (PureComponent || Component) {
       }
     }
 
+    if (name !== sortBy) {
+      sortType = 'desc';
+    }
+
     this.props.onChange({
       sortBy: name,
       sortType

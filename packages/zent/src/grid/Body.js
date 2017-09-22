@@ -6,7 +6,14 @@ import Row from './Row';
 
 class Body extends (PureComponent || Component) {
   getRows() {
-    const { prefix, datasets, columns, rowKey } = this.props;
+    const {
+      prefix,
+      datasets,
+      columns,
+      rowKey,
+      rowClassName,
+      onRowClick
+    } = this.props;
     const row = [];
 
     forEach(datasets, (data, index) => {
@@ -18,6 +25,8 @@ class Body extends (PureComponent || Component) {
           rowIndex={index}
           prefix={prefix}
           key={rowKey ? get(data, rowKey) : index}
+          rowClassName={rowClassName}
+          onRowClick={onRowClick}
         />
       );
     });

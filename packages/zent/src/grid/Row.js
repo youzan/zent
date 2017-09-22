@@ -1,12 +1,25 @@
 import React from 'react';
 import forEach from 'lodash/forEach';
+import isFunction from 'lodash/isFunction';
+import classnames from 'classnames';
 import Cell from './Cell';
 
 class Row extends React.PureComponent {
   render() {
-    const { prefix, columns, data, rowIndex } = this.props;
+    const {
+      prefix,
+      columns,
+      data,
+      rowIndex,
+      rowClassName,
+      onRowClick
+    } = this.props;
 
     const cells = [];
+
+    const className = isFunction(rowClassName)
+      ? rowClassName(data, rowIndex)
+      : rowClassName;
 
     forEach(columns, (column, columnIndex) => {
       let pos = {
@@ -26,7 +39,14 @@ class Row extends React.PureComponent {
       );
     });
 
-    return <tr className={`${prefix}-grid-tr`}>{cells}</tr>;
+    return (
+      <tr
+        className={classnames(`${prefix}-grid-tr`, className)}
+        onClick={e => onRowClick(data, rowIndex, e)}
+      >
+        {cells}
+      </tr>
+    );
   }
 }
 

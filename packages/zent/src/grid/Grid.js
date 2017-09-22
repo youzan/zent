@@ -45,13 +45,11 @@ class Grid extends (PureComponent || Component) {
   onChange = conf => {
     const params = assign({}, this.store.getState('conf'), conf);
     this.store.setState('conf', params);
-
     this.props.onChange(params);
   };
 
   getDataKey = (data, rowIndex) => {
     const { rowKey } = this.props;
-
     return rowKey ? get(data, rowKey) : rowIndex;
   };
 
@@ -187,7 +185,15 @@ class Grid extends (PureComponent || Component) {
   };
 
   getTable = (options = {}) => {
-    const { prefix, datasets, scroll, sortType, sortBy } = this.props;
+    const {
+      prefix,
+      datasets,
+      scroll,
+      sortType,
+      sortBy,
+      rowClassName,
+      onRowClick
+    } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
     let tableClassName = '';
@@ -223,7 +229,13 @@ class Grid extends (PureComponent || Component) {
             sortType={sortType}
             sortBy={sortBy}
           />
-          <Body prefix={prefix} columns={columns} datasets={datasets} />
+          <Body
+            prefix={prefix}
+            columns={columns}
+            datasets={datasets}
+            rowClassName={rowClassName}
+            onRowClick={onRowClick}
+          />
         </table>
       </div>
     );
@@ -249,7 +261,6 @@ class Grid extends (PureComponent || Component) {
       return {};
     }
 
-    // Cache checkboxProps
     if (!this.checkboxPropsCache[rowIndex]) {
       this.checkboxPropsCache[rowIndex] = selection.getCheckboxProps(data);
     }
@@ -356,6 +367,12 @@ class Grid extends (PureComponent || Component) {
       }
     }
 
+    if (nextProps.columns && nextProps.columns !== this.props.columns) {
+      this.store.setState({
+        columns: this.getColumns(nextProps)
+      });
+    }
+
     if (
       has(nextProps, 'datasets') &&
       nextProps.datasets !== this.props.datasets
@@ -417,6 +434,7 @@ class Grid extends (PureComponent || Component) {
 
 Grid.propTypes = {
   className: PropTypes.string,
+  rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   prefix: PropTypes.string,
   datasets: PropTypes.array,
   columns: PropTypes.array,
@@ -427,7 +445,8 @@ Grid.propTypes = {
   rowKey: PropTypes.string,
   scroll: PropTypes.object,
   sortBy: PropTypes.string,
-  sortType: PropTypes.string
+  sortType: PropTypes.string,
+  onRowClick: PropTypes.func
 };
 
 Grid.defaultProps = {
@@ -439,8 +458,10 @@ Grid.defaultProps = {
   pageInfo: false,
   onChange: noop,
   selection: null,
+  rowKey: 'id',
   emptyLabel: '没有更多数据了',
-  scroll: {}
+  scroll: {},
+  onRowClick: noop
 };
 
 export default Grid;

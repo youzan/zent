@@ -1,5 +1,6 @@
 import React from 'react';
 import get from 'lodash/get';
+import has from 'lodash/has';
 
 class Cell extends React.PureComponent {
   isInvalidRenderCellText(text) {
@@ -10,25 +11,48 @@ class Cell extends React.PureComponent {
     );
   }
 
+  getText = props => {
+    return get(props, `data.${get(props, 'column.name')}`);
+  };
+
+  onClick = e => {
+    const { data, column: { onCellClick } } = this.props;
+    if (typeof onCellClick === 'function') {
+      onCellClick(data, e);
+    }
+  };
+
+  shouldComponentUpdate(nextProps) {
+    // 如果存在 bodyRender 属性则 render
+    if (has(nextProps.column, 'bodyRender')) {
+      return true;
+    }
+
+    // 如果不存在 bodyRender 则比较 name 对应的值是否一致
+    return this.getText(this.props) !== this.getText(nextProps);
+  }
+
   render() {
     const { prefix, column, data, pos } = this.props;
     const { name, bodyRender } = column;
 
     let text = get(data, name, null);
-
-    if (typeof bodyRender === 'function') {
-      text = bodyRender(data, pos, name);
-    }
-
     let tdProps;
     let colSpan;
     let rowSpan;
 
+    if (typeof bodyRender === 'function') {
+      text = bodyRender(data, pos, name);
+      if (this.isInvalidRenderCellText(text)) {
+        tdProps = text.props || {};
+        colSpan = tdProps.colSpan;
+        rowSpan = tdProps.rowSpan;
+        text = text.children;
+      }
+    }
+
     if (this.isInvalidRenderCellText(text)) {
-      tdProps = text.props || {};
-      colSpan = tdProps.colSpan;
-      rowSpan = tdProps.rowSpan;
-      text = text.children;
+      text = null;
     }
 
     if (rowSpan === 0 || colSpan === 0) {
@@ -36,7 +60,7 @@ class Cell extends React.PureComponent {
     }
 
     return (
-      <td className={`${prefix}-grid-td`} {...tdProps}>
+      <td className={`${prefix}-grid-td`} {...tdProps} onClick={this.onClick}>
         {text}
       </td>
     );
