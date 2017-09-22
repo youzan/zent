@@ -539,7 +539,9 @@ onChange会抛出一个对象，这个对象包含分页变化的参数：
 | 参数              | 说明              | 类型    | 是否必须 |
 | --------------- | --------------- | ----- | ---- |
 | selectedRowKeys | 默认选中            | array | 否    |
-| onSelect(@selectedKeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  | 否    |
+| onSelect | 每次check的时候触发的函数 | func(selectedKeys, selectedRows, currentRow)  | 否 |
+| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | func(data) | 否 |
+
 
 ### pageInfo
 
