@@ -435,7 +435,7 @@ import { Grid } from 'zent';
 
 const columns = [
 	{
-		title: '这真是一个超级长超级长的商品名',
+		title: '商品名',
 		name: 'name',
 		width: 100,
 		fixed: true
