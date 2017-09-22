@@ -54,14 +54,19 @@ import { Grid, Switch } from 'zent';
 
 const columns = [
 	{
-		title: '商品名',
-		name: 'name'
+		title: '听说这样设置一个超长超长的商品名会不换行',
+		name: 'name',
+		width: 100,
+		nowrap: true
 	}, {
-		title: '访问量',
-		name: 'uv'
+		title: '听说这样设置访问量可以靠右对齐',
+		name: 'uv',
+		textAlign: 'right',
+		width: 300
 	}, {
-		title: '库存',
-		name: 'stock'
+		title: '这是一个大库存',
+		name: 'stock',
+		className: 'big-size'
 	}
 ];
 
@@ -87,9 +92,7 @@ class Loading extends React.Component {
 					checked={this.state.loading}
 					size="small"
 					className="switch"
-				>
-					切换
-				</Switch>
+				/>
 				<Grid
 					columns={columns}
 					datasets={datasets}
@@ -116,8 +119,10 @@ import { Grid } from 'zent';
 
 const columns = [
 	{
-		title: '商品名',
+		title: '听说这样设置一个超长超长的商品名会不换行',
 		name: 'name',
+		width: 100,
+		nowrap: true,
 		onCellClick: data => {
 			console.log(data, 'data');
 		}
@@ -175,6 +180,7 @@ class PageInfo extends React.Component {
 					totalItem: totalItem
 				}}
 				onChange={this.onChange}
+				ellipsis
 			/>
 		);
 	}
@@ -429,7 +435,7 @@ import { Grid } from 'zent';
 
 const columns = [
 	{
-		title: '商品名',
+		title: '这真是一个超级长超级长的商品名',
 		name: 'name',
 		width: 100,
 		fixed: true
@@ -446,7 +452,9 @@ const columns = [
 		name: 'sold_num'
 	}, {
 		title: '创建时间',
-		name: 'created_time'
+		name: 'created_time',
+		width: 100,
+		fixed: 'right'
 	}
 ];
 
@@ -496,7 +504,7 @@ ReactDOM.render(
 | prefix     | 自定义前缀                       | string       | `'zent'` | 否  |
 | pageInfo   | table对应的分页信息               | object        | null   | 否  |
 | onRowClick | 点击行时触发                      | func(data, index, event) | | 否 |
-
+| ellipsis   | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool | false | 否 |
 
 #### onChange函数声明
 onChange会抛出一个对象，这个对象包含分页变化的参数：
@@ -522,6 +530,9 @@ onChange会抛出一个对象，这个对象包含分页变化的参数：
 | colSpan    | 列合并 当为 0 时不渲染               | number | 否    |
 | fixed      | 是否固定列 可选值为 `left` `right` `true` (`true` 与 `left` 等效) | bool or strig | 否 |
 | onCellClick | 点击单元格回调                      | func(data, event) | 否 |
+| textAlign  | 文本对齐方式                        | string | 否 |
+| nowrap     | 是否换行 默认换行                     | bool | 否 |
+
 
 ### selection
 
@@ -542,5 +553,8 @@ onChange会抛出一个对象，这个对象包含分页变化的参数：
 <style>
   .switch {
 		margin-bottom: 10px;
+  }
+  .big-size {
+  	font-size: 20px;
   }
 </style>

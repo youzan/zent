@@ -1,6 +1,7 @@
 import React from 'react';
 import get from 'lodash/get';
 import has from 'lodash/has';
+import classnames from 'classnames';
 
 class Cell extends React.PureComponent {
   isInvalidRenderCellText(text) {
@@ -34,7 +35,7 @@ class Cell extends React.PureComponent {
 
   render() {
     const { prefix, column, data, pos } = this.props;
-    const { name, bodyRender } = column;
+    const { name, bodyRender, textAlign, nowrap, className } = column;
 
     let text = get(data, name, null);
     let tdProps;
@@ -60,7 +61,14 @@ class Cell extends React.PureComponent {
     }
 
     return (
-      <td className={`${prefix}-grid-td`} {...tdProps} onClick={this.onClick}>
+      <td
+        className={classnames(`${prefix}-grid-td`, className, {
+          [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
+          [`${prefix}-grid-nowrap`]: nowrap
+        })}
+        {...tdProps}
+        onClick={this.onClick}
+      >
         {text}
       </td>
     );

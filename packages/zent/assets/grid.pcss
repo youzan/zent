@@ -26,6 +26,32 @@ $border-color: #e5e5e5;
     }
 
     border-bottom: none;
+
+    &-ellipsis {
+      table-layout: fixed;
+
+      .zent-grid-nowrap {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  &-text-align-left {
+    text-align: left;
+  }
+
+  &-text-align-right {
+    text-align: right;
+  }
+
+  &-text-align-center {
+    text-align: center;
+  }
+
+  &-nowrap {
+    white-space: nowrap;
+    word-break: keep-all;
   }
 
   &-thead {
@@ -59,6 +85,7 @@ $border-color: #e5e5e5;
     overflow: hidden;
 
     .zent-grid-fixed {
+      border-left: none;
       border-right: none;
     }
   }
@@ -66,6 +93,11 @@ $border-color: #e5e5e5;
   &-fixed-left {
     left: 0;
     box-shadow: 4px 0 4px rgba(100, 100, 100, 0.1);
+  }
+
+  &-fixed-right {
+    right: 0;
+    box-shadow: -4px 0 4px rgba(100, 100, 100, 0.1);
   }
 
   &-scroll {
@@ -91,7 +123,6 @@ $border-color: #e5e5e5;
   &-th,
   &-td {
     line-height: 18px;
-    white-space: nowrap;
     display: table-cell;
     box-sizing: border-box;
     border-bottom: 1px solid $border-color;

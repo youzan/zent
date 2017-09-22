@@ -1,6 +1,6 @@
 import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import classnames from 'classnames';
 import map from 'lodash/map';
 import forEach from 'lodash/forEach';
 import filter from 'lodash/filter';
@@ -68,16 +68,19 @@ class Header extends (PureComponent || Component) {
 
   getHeaderRows = (props, currentRow = 0, rows) => {
     props = props || this.props;
-    const { columns } = props;
+    const { prefix, columns } = props;
 
     rows = rows || [];
     rows[currentRow] = rows[currentRow] || [];
 
     forEach(columns, (column, index) => {
-      const { name, key, className, colSpan } = column;
+      const { name, key, className, colSpan, nowrap, textAlign } = column;
       const cell = {
         key: name || key || index,
-        className: className || '',
+        className: classnames(`${prefix}-grid-th`, className, {
+          [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
+          [`${prefix}-grid-nowrap`]: nowrap
+        }),
         children: this.getChildren(column, props)
       };
 
@@ -129,12 +132,7 @@ class Header extends (PureComponent || Component) {
       <thead className={`${prefix}-grid-thead`}>
         {map(this.state.rows, (row, index) => (
           <tr key={index} className={`${prefix}-grid-tr`}>
-            {row.map(props => (
-              <th
-                {...props}
-                className={cx(`${prefix}-grid-th`, props.className)}
-              />
-            ))}
+            {row.map(props => <th {...props} />)}
           </tr>
         ))}
       </thead>

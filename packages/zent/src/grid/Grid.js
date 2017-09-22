@@ -68,10 +68,23 @@ class Grid extends (PureComponent || Component) {
     );
   };
 
+  isAnyColumnsRightFixed = () => {
+    return this.store.getState('isAnyColumnsRightFixed', () =>
+      some(this.store.getState('columns'), column => column.fixed === 'right')
+    );
+  };
+
   getLeftColumns = () => {
     return filter(
       this.store.getState('columns'),
       column => column.fixed === 'left' || column.fixed === true
+    );
+  };
+
+  getRightColumns = () => {
+    return filter(
+      this.store.getState('columns'),
+      column => column.fixed === 'right'
     );
   };
 
@@ -129,6 +142,13 @@ class Grid extends (PureComponent || Component) {
   getLeftFixedTable = () => {
     return this.getTable({
       columns: this.getLeftColumns(),
+      fixed: 'left'
+    });
+  };
+
+  getRightFixedTable = () => {
+    return this.getTable({
+      columns: this.getRightColumns(),
       fixed: 'left'
     });
   };
@@ -192,7 +212,8 @@ class Grid extends (PureComponent || Component) {
       sortType,
       sortBy,
       rowClassName,
-      onRowClick
+      onRowClick,
+      ellipsis
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -217,7 +238,9 @@ class Grid extends (PureComponent || Component) {
         key="table"
       >
         <table
-          className={classnames(`${prefix}-grid-table`, tableClassName)}
+          className={classnames(`${prefix}-grid-table`, tableClassName, {
+            [`${prefix}-grid-table-ellipsis`]: ellipsis
+          })}
           style={tableStyle}
         >
           <ColGroup columns={columns} />
@@ -426,6 +449,11 @@ class Grid extends (PureComponent || Component) {
               {this.getLeftFixedTable()}
             </div>
           )}
+          {this.isAnyColumnsRightFixed() && (
+            <div className={`${prefix}-grid-fixed-right`}>
+              {this.getRightFixedTable()}
+            </div>
+          )}
         </Loading>
       </div>
     );
@@ -446,7 +474,8 @@ Grid.propTypes = {
   scroll: PropTypes.object,
   sortBy: PropTypes.string,
   sortType: PropTypes.string,
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
+  ellipsis: PropTypes.bool
 };
 
 Grid.defaultProps = {
@@ -461,7 +490,8 @@ Grid.defaultProps = {
   rowKey: 'id',
   emptyLabel: '没有更多数据了',
   scroll: {},
-  onRowClick: noop
+  onRowClick: noop,
+  ellipsis: false
 };
 
 export default Grid;
