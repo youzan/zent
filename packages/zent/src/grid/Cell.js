@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PureComponent, Component } from 'react';
 import get from 'lodash/get';
 import has from 'lodash/has';
 import classnames from 'classnames';
 
-class Cell extends React.PureComponent {
+class Cell extends (PureComponent || Component) {
   isInvalidRenderCellText(text) {
     return (
       text &&

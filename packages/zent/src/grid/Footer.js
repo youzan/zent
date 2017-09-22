@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent, Component } from 'react';
 import Pagination from 'pagination';
 import classnames from 'classnames';
 import size from 'lodash/size';
@@ -10,7 +10,7 @@ const defaultPageInfo = {
   pageSize: 10
 };
 
-class Footer extends React.PureComponent {
+class Footer extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 
