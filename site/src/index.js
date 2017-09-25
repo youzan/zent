@@ -24,3 +24,7 @@ if (module.hot) {
     render(App);
   });
 }
+
+if (process.env.NODE_ENV !== 'production') {
+  window.Perf = require('react-addons-perf'); // eslint-disable-line global-require
+}
