@@ -1,16 +1,25 @@
+.zent-date-range-picker__filter {
+  display: inline-block;
+}
+
 .zent-date-range-picker__btn {
-  margin-left: 15px;
+  margin-left: 10px;
   display: inline-block;
   padding: 2px 4px;
   font-size: 12px;
-  color: #333;
+  color: #949494;
   cursor: pointer;
   box-sizing: border-box;
-  border: 1px solid transparent;
+  border: 1px solid #d9d9d9;
   border-radius: 2px;
+
+  &:first-child {
+    margin-left: 15px;
+  }
 
   &:hover {
     color: #38f;
+    border-color: #38f;
   }
 
   &.active {
