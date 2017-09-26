@@ -1,6 +1,8 @@
-$graycolor: #999;
-$whitecolor: #fff;
-$rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
+@import './theme/default.pcss';
+
+$graycolor: $theme-stroke-4;
+$theme-whitecolor: $theme-white;
+$rgbamaskbgcolor: $theme-mask-2;
 
 .zent-image-p-body {
   position: absolute;
@@ -21,8 +23,8 @@ $rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
   position: fixed;
   text-align: center;
   border-radius: 40px;
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  background: $theme-mask-3;
+  box-shadow: 0 0 8px $theme-mask-2;
   right: 20px;
   top: 20px;
   width: 40px;
@@ -31,7 +33,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
   z-index: 1;
 
   &:hover {
-    background: $whitecolor;
+    background: $theme-whitecolor;
   }
 
   i {
@@ -45,14 +47,14 @@ $rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
 .zent-image-p-footer {
   position: fixed;
   border-radius: 40px;
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  background: $theme-mask-3;
+  box-shadow: 0 0 8px $theme-mask-2;
   bottom: 20px;
   left: 50%;
   transform: translate(-50%);
   height: 40px;
   line-height: 40px;
-  color: #000;
+  color: $theme-black;
   z-index: 2;
   font-size: 16px;
 
@@ -76,7 +78,7 @@ $rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
     font-size: 16px;
 
     &:hover {
-      background: #fff;
+      background: $theme-white;
     }
 
     &:first-child {

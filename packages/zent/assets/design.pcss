@@ -32,7 +32,7 @@
   &__add {
     padding-bottom: 5px;
     position: relative;
-    border-top: 1px solid #d1d1d1;
+    border-top: 1px solid $theme-stroke-7;
 
     /*
       三角形边框的原理：生成两个边长相差 1px 的三角形，大的颜色用边框颜色，小的颜色用背景色，小的盖在大的里面即可。
@@ -56,25 +56,25 @@
     }
 
     &:before {
-      border-bottom-color: #d1d1d1;
+      border-bottom-color: $theme-stroke-7;
       border-width: 9px;
       margin-left: -9px;
       top: -18px;
     }
 
     &--mixed {
-      background: #f9f9f9;
+      background: $theme-stroke-9;
 
       &:after {
-        border-bottom-color: #f9f9f9;
+        border-bottom-color: $theme-stroke-9;
       }
     }
 
     &--grouped {
-      background: #fff;
+      background: $theme-white;
 
       &:after {
-        border-bottom-color: #fff;
+        border-bottom-color: $theme-white;
       }
     }
   }
@@ -82,7 +82,7 @@
   &__disabled-mask {
     position: absolute;
     z-index: 10;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: $theme-mask-1;
     height: 100%;
     width: 100%;
     cursor: not-allowed;

@@ -1,7 +1,9 @@
-$c-border: #bbb;
-$c-blue: #38f;
-$c-light-blue: #bdf;
-$c-blue-hover: #eaf3ff;
+@import './theme/default.pcss';
+
+$c-border: $theme-stroke-5;
+$c-blue: $theme-primary-2;
+$c-light-blue: $theme-primary-4;
+$c-blue-hover: $theme-primary-5;
 
 .zent-cascader {
   display: inline-block;
@@ -39,7 +41,7 @@ $c-blue-hover: #eaf3ff;
       padding: 5px 30px 5px 10px;
       transition: border-color 0.25s;
       width: 100%;
-      background-color: #fff;
+      background-color: $theme-white;
       position: relative;
       white-space: nowrap;
       overflow: hidden;
@@ -47,7 +49,7 @@ $c-blue-hover: #eaf3ff;
       font-size: 12px;
 
       &.is-placeholder {
-        color: #999;
+        color: $theme-stroke-4;
       }
 
       .zenticon {
@@ -94,7 +96,7 @@ $c-blue-hover: #eaf3ff;
       &.active {
         background: $c-blue;
         border-radius: 2px;
-        color: #fff;
+        color: $theme-white;
       }
     }
   }
@@ -130,9 +132,9 @@ $c-blue-hover: #eaf3ff;
     z-index: 2000;
 
     &-inner {
-      background: #fff;
+      background: $theme-white;
       width: 440px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 4px $theme-mask-1;
       box-sizing: border-box;
       margin-top: 5px;
     }

@@ -1,3 +1,5 @@
+@import './theme/default.pcss';
+
 /* FIXME: these two values couples with ARROW_OFFSET in postion.js */
 $arrow-offset: 14px;
 $arrow-size: 6px;
@@ -5,19 +7,19 @@ $arrow-cover-size: 11px;
 
 .zent-pop {
   border-radius: 2px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-  background-color: #fff;
+  box-shadow: 0 1px 6px $theme-mask-1;
+  background-color: $theme-white;
   z-index: 2000;
   font-size: 12px;
 
   .zent-pop-inner,
   .zent-pop-header {
     position: relative;
-    background: #fff;
+    background: $theme-white;
     border-radius: 2px;
     padding: 10px 20px;
     z-index: 2;
-    color: #333;
+    color: $theme-stroke-1;
   }
 
   .zent-pop-header {
@@ -26,7 +28,7 @@ $arrow-cover-size: 11px;
   }
 
   .zent-pop-header {
-    border-bottom: 1px solid #e9e9e9;
+    border-bottom: 1px solid $theme-stroke-7;
   }
 
   .zent-pop-buttons {
@@ -41,8 +43,8 @@ $arrow-cover-size: 11px;
     z-index: 1;
     width: $arrow-size;
     height: $arrow-size;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    background: $theme-white;
+    box-shadow: 0 1px 4px $theme-mask-1;
     overflow: hidden;
   }
 

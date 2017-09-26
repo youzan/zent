@@ -1,3 +1,5 @@
+@import './theme/default.pcss';
+
 .zent-number-input-wrapper {
   position: relative;
 }
@@ -21,16 +23,16 @@
 
   i {
     cursor: pointer;
-    color: #666;
+    color: $theme-stroke-3;
 
     &:hover {
-      color: #38f;
+      color: $theme-primary-1;
     }
   }
 
   &:hover {
     i {
-      color: #38f;
+      color: $theme-primary-1;
     }
   }
 }
@@ -40,20 +42,20 @@
 
   i {
     cursor: not-allowed;
-    color: #cacaca;
+    color: $theme-stroke-6;
   }
 
   &:hover {
     i {
-      color: #cacaca;
+      color: $theme-stroke-6;
     }
   }
 }
 
 .zent-number-input-arrowup {
   top: 1px;
-  border-left: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
+  border-left: 1px solid $theme-stroke-7;
+  border-bottom: 1px solid $theme-stroke-7;
 
   i {
     transform: rotate(-90deg) scale(0.4);
@@ -62,7 +64,7 @@
 
 .zent-number-input-arrowdown {
   bottom: 1px;
-  border-left: 1px solid #e5e5e5;
+  border-left: 1px solid $theme-stroke-7;
 
   i {
     transform: rotate(90deg) scale(0.4);
