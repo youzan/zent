@@ -1,6 +1,6 @@
 $normal-color: #333;
 $cart-color: #666;
-$wait-color: #999;
+$wait-color: #dadada;
 $error-color: #f44;
 $bg-color: #f8f8f8;
 $current-bg-color: #38f;
@@ -24,7 +24,7 @@ $current-bg-color: #38f;
     position: relative;
     width: 100%;
     border-radius: 1px;
-    height: 1px;
+    height: 3px;
     vertical-align: top;
     background: $wait-color;
 
@@ -54,7 +54,8 @@ $current-bg-color: #38f;
     position: relative;
     vertical-align: top;
     max-width: 120px;
-    color: $wait-color;
+    color: #999;
+    text-align: center;
 
     .zent-step-title {
       font-size: 14px;
@@ -73,7 +74,7 @@ $current-bg-color: #38f;
 }
 
 .zent-step-head-inner {
-  margin-right: 10px;
+  margin-right: 5px;
   font-size: 20px;
   color: $wait-color;
   line-height: 20px;
@@ -102,8 +103,8 @@ $current-bg-color: #38f;
   vertical-align: top;
 
   &:not(:first-child) .zent-step-head {
-    margin-left: -10px;
-    padding-left: 10px;
+    margin-left: -5px;
+    padding-left: 5px;
   }
 
   &.zent-steps-status-finish {
@@ -146,7 +147,7 @@ $current-bg-color: #38f;
         &::after {
           width: 100%;
           background: $current-bg-color;
-          transition: all 0.4s ease;
+          transition: all 0.2s ease;
           opacity: 1;
         }
       }
@@ -174,7 +175,6 @@ $current-bg-color: #38f;
       position: absolute;
       width: 120px;
       right: 0;
-      text-align: right;
     }
   }
 }

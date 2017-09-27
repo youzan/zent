@@ -14,7 +14,8 @@ export default class Steps extends (PureComponent || Component) {
     current: PropTypes.number,
     direction: PropTypes.string,
     size: PropTypes.string,
-    status: PropTypes.string
+    status: PropTypes.string,
+    sequence: PropTypes.bool
   };
 
   static defaultProps = {
@@ -24,7 +25,8 @@ export default class Steps extends (PureComponent || Component) {
     current: 0,
     direction: 'horizontal',
     size: 'normal',
-    status: 'finish'
+    status: 'finish',
+    sequence: true
   };
 
   render() {

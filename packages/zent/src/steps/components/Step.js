@@ -22,6 +22,11 @@ export default class Step extends (PureComponent || Component) {
     description: PropTypes.node
   };
 
+  static defaultProps = {
+    title: '',
+    description: ''
+  };
+
   render() {
     const props = this.props;
 
@@ -40,15 +45,10 @@ export default class Step extends (PureComponent || Component) {
 
     let iconNode;
 
-    if (
-      (status === 'finish' || status === 'error') &&
-      (isCurrentStep || isLastFinishStep)
-    ) {
-      if (status === 'finish') {
-        iconNode = <Icon type="check-circle" />;
-      } else {
-        iconNode = <Icon type="error-circle" />;
-      }
+    if (status === 'finish') {
+      iconNode = <Icon type="check-circle" />;
+    } else if (status === 'error') {
+      iconNode = <Icon type="error-circle" />;
     } else {
       iconNode = <span className={`${prefix}-icon`}>{stepNumber}</span>;
     }

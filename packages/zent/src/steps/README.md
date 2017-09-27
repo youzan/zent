@@ -6,15 +6,59 @@
 
 :::demo 类型为 number 的步骤条 (默认为该类型)
 ```jsx
+import { Steps, Button } from 'zent';
+
+class StepsExample extends Component {
+	state = {
+		current: 1
+	}
+
+	nextStep = () => {
+		let { current } = this.state;
+		current += 1;
+
+		if (current > 3) {
+			current = current % 3;
+		}
+
+		this.setState({
+			current
+		});
+	}
+
+	render() {
+		let { current } = this.state;
+		return (
+			<div>
+				<Steps current={current} status="finish">
+					<Steps.Step title="第一步" description="分享邀请码给好友分享邀请码给好友" />
+					<Steps.Step title="第二步" description="订购时输入你的邀请码" />
+					<Steps.Step title="第三步" description="获得有赞E卡奖励" />
+				</Steps>
+				<Button style={{ marginTop: '10px' }} onClick={this.nextStep}>下一步</Button>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(
+	<StepsExample />,
+	mountNode
+);
+```
+:::
+
+:::demo 失败状态的步骤条
+```jsx
 import { Steps } from 'zent';
 
 ReactDOM.render(
-    <Steps current={2} status="error">
-      <Steps.Step title="第一步" description="分享邀请码给好友" />
-      <Steps.Step title="第二步" description="订购时输入你的邀请码" />
-      <Steps.Step title="第三步" description="获得有赞E卡奖励" />
-    </Steps>
-  , mountNode
+	<Steps current={2} status="error">
+		<Steps.Step title="第一步" description="分享邀请码给好友" />
+		<Steps.Step title="第二步" description="订购时输入你的邀请码" />
+		<Steps.Step title="第三步" description="获得有赞E卡奖励" />
+	</Steps>
+	, mountNode
 );
 ```
 :::
@@ -24,29 +68,29 @@ ReactDOM.render(
 import { Steps } from 'zent';
 
 ReactDOM.render(
-  <Steps current={2} type="breadcrumb" >
-    <Steps.Step title="登录有赞账号" />
-    <Steps.Step title="选择门店" />
-    <Steps.Step title="绑定门店" />
-    <Steps.Step title="完成" />
-  </Steps>
-  , mountNode
+	<Steps current={2} type="breadcrumb" >
+		<Steps.Step title="登录有赞账号" />
+		<Steps.Step title="选择门店" />
+		<Steps.Step title="绑定门店" />
+		<Steps.Step title="完成" />
+	</Steps>
+	, mountNode
 );
 ```
 :::
 
-:::demo 类型为 card 的步骤条
+:::demo 类型为 card 的步骤条（通过 sequence 覆写步骤项序号）
 ```jsx
 import { Steps } from 'zent';
 
 ReactDOM.render(
-    <Steps current={2} type="card" >
-      <Steps.Step title="登录有赞账号" />
-      <Steps.Step title="选择门店" />
-      <Steps.Step title="绑定门店" />
-      <Steps.Step title="完成" />
-    </Steps>
-  , mountNode
+	<Steps current={2} sequence={false} type="card" >
+		<Steps.Step title="一、登录有赞账号" />
+		<Steps.Step title="二、选择门店" />
+		<Steps.Step title="三、绑定门店" />
+		<Steps.Step title="四、完成" />
+	</Steps>
+	, mountNode
 );
 ```
 :::
@@ -60,6 +104,7 @@ ReactDOM.render(
 | type      | steps组件类型                                  | string | `'number'`     | `'card'`,  `'breadcrumb'` |
 | current   | 指定当前步骤, 从 1 开始记数 (当不传值时, 默认为 0, 状态都为 wait) | number | `0`            |                           |
 | status    | 步骤条的状态                                     | string | `'finish'`     | `'wait'`, `'error'`       |
+| sequence    | 是否使用默认的步骤序号 (针对card, breadcrumb类型)           | boolean | `true`     |        |
 | className | 自定义额外类名                                    | string | `''`           |                           |
 | prefix    | 自定义前缀                                      | string | `'zent'`       |                           |
 

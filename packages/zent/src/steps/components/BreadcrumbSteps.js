@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export default class BreadcrumbSteps extends (PureComponent || Component) {
   render() {
     const props = this.props;
-    const { className, prefix, children, current } = props;
+    const { className, prefix, children, current, sequence } = props;
     const stepWidth = `${100 / children.length}%`;
     const classString = classNames({
       [`${prefix}-steps`]: true,
@@ -16,6 +16,7 @@ export default class BreadcrumbSteps extends (PureComponent || Component) {
       <div className={classString}>
         {React.Children.map(children, (item, index) => {
           const succClassName = index <= current - 1 ? 'is-finish' : '';
+          let itemTitle = item.props.title;
 
           return (
             <div
@@ -23,7 +24,7 @@ export default class BreadcrumbSteps extends (PureComponent || Component) {
               style={{ width: stepWidth }}
             >
               <div className={`${prefix}-steps-step`}>
-                {`${index + 1}. ${item.props.title}`}
+                {sequence ? `${index + 1}. ${itemTitle}` : itemTitle}
               </div>
             </div>
           );
