@@ -181,10 +181,18 @@ class Select extends (PureComponent || Component) {
         }
         return item;
       });
-    this.setState({
-      selectedItem: selected.sItem,
-      selectedItems: selected.sItems
-    });
+    if (this.sourceData.length) {
+      this.setState({
+        selectedItem: selected.sItem,
+        selectedItems: selected.sItems
+      });
+    } else {
+      // data置空之后选项也置空
+      this.setState({
+        selectedItem: {},
+        selectedItems: []
+      });
+    }
     return this.sourceData;
   }
 
