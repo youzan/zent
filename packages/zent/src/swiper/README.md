@@ -143,6 +143,7 @@ class Simple extends React.Component {
 						pages.map((item, index) => {
 							return (
 								<Button
+									key={index}
 									type="primary"
 									onClick={() => this.go(index)}
 								>

@@ -1,16 +1,18 @@
+@import './theme/default.pcss';
+
 @define-mixin vertical-center {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
 }
-$color-bg-warning: #fff7cc;
-$color-border-warning: #fdeeb2;
-$color-text-warning: #333;
-$color-bg-error: #ff4343;
-$color-border-error: #e8393a;
-$color-text-error: #fff;
-$color-bg-info: #f8f8f8;
-$color-text-info: #333;
+$color-bg-warning: $theme-warn-3;
+$color-border-warning: $theme-warn-2;
+$color-text-warning: $theme-stroke-1;
+$color-bg-error: $theme-error-2;
+$color-border-error: $theme-error-1;
+$color-text-error: $theme-stroke-10;
+$color-bg-info: $theme-stroke-9;
+$color-text-info: $theme-stroke-1;
 $alert-border-radius: 4px;
 $close-icon-size: 14px;
 
@@ -45,7 +47,7 @@ $close-icon-size: 14px;
       text-align: center;
       display: inline-block;
       cursor: pointer;
-      color: #999;
+      color: $theme-stroke-4;
     }
   }
 
@@ -78,7 +80,7 @@ $close-icon-size: 14px;
     color: $color-text-error;
 
     .zent-alert-close-btn {
-      color: #fff;
+      color: $theme-stroke-10;
     }
   }
 }

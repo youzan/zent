@@ -1,3 +1,5 @@
+@import './theme/default.pcss';
+
 .zent-pagination {
   font-size: 12px;
   line-height: 16px;
@@ -11,27 +13,27 @@
       display: inline-block;
       box-sizing: border-box;
       margin: 0 0 0 5px;
-      border: 1px solid #bbb;
+      border: 1px solid $theme-stroke-5;
       border-radius: 2px;
       padding: 6px 8px;
       min-width: 30px;
       text-align: center;
-      background: #fff;
+      background: $theme-stroke-10;
       cursor: pointer;
       user-select: none;
     }
 
     .pager--current {
-      color: #fff;
-      background: #38f;
-      border-color: #38f;
+      color: $theme-stroke-10;
+      background: $theme-primary-2;
+      border-color: $theme-primary-2;
       cursor: default;
     }
 
     .pager--disabled {
-      border-color: #e5e5e5;
+      border-color: $theme-stroke-7;
       cursor: not-allowed;
-      color: #e5e5e5;
+      color: $theme-stroke-7;
     }
 
     .pager--jump {
@@ -51,8 +53,8 @@
       box-sizing: border-box;
       margin: -1px;
       margin-right: 0;
-      border: 1px solid #bbb;
-      border-right-color: #bbb;
+      border: 1px solid $theme-stroke-5;
+      border-right-color: $theme-stroke-5;
       padding: 6px 2px;
       min-width: 21px;
       max-width: 40px;
@@ -64,14 +66,14 @@
       border-bottom-left-radius: 2px;
 
       &:focus {
-        border-color: #38f;
-        box-shadow: 0 0 1px #bdf;
+        border-color: $theme-primary-2;
+        box-shadow: 0 0 1px $theme-primary-4;
       }
     }
 
     .pager__suffix {
       padding: 7px 5px;
-      background: #e5e5e5;
+      background: $theme-stroke-7;
     }
   }
 }

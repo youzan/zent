@@ -1,6 +1,7 @@
-$c-border: #bbb;
-$c-blue: #38f;
-$c-light-blue: #bdf;
+@import './theme/default.pcss';
+$c-border: $theme-stroke-5;
+$c-blue: $theme-primary-2;
+$c-light-blue: $theme-primary-4;
 
 .zent-color-picker-popover {
   z-index: 2000;
@@ -39,7 +40,7 @@ $c-light-blue: #bdf;
     outline: none;
     padding: 5px;
     transition: border-color 0.25s;
-    background-color: #fff;
+    background-color: $theme-stroke-10;
     position: relative;
   }
 
@@ -51,9 +52,9 @@ $c-light-blue: #bdf;
 }
 
 .zent-colorpicker-colors-select {
-  background: #fff;
+  background: $theme-stroke-10;
   width: 190px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px $theme-mask-2;
   box-sizing: content-box;
   line-height: 10px;
   padding-top: 10px;
@@ -66,5 +67,5 @@ $c-light-blue: #bdf;
   margin-left: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 0 0 1px $theme-mask-2;
 }

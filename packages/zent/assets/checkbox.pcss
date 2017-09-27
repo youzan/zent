@@ -1,3 +1,5 @@
+@import './theme/default.pcss';
+
 .zent-checkbox-wrap {
   display: inline-block;
   cursor: pointer;
@@ -61,8 +63,8 @@
   width: 14px;
   height: 14px;
   border-radius: 2px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: 1px solid $theme-stroke-5;
+  background: $theme-stroke-10;
   box-sizing: border-box;
   transition: all 0.3s;
 
@@ -76,7 +78,7 @@
     left: 2px;
     width: 6px;
     height: 3px;
-    border: 2px solid #fff;
+    border: 2px solid $theme-stroke-10;
     background: transparent;
     border-top: none;
     border-right: none;
@@ -87,8 +89,8 @@
 
 .zent-checkbox-checked {
   .zent-checkbox-inner {
-    border-color: #27f;
-    background: #38f;
+    border-color: $theme-primary-1;
+    background: $theme-primary-2;
 
     &::after {
       transform: rotate(-45deg) scale(1);
@@ -98,8 +100,8 @@
 
 .zent-checkbox-indeterminate {
   .zent-checkbox-inner {
-    border-color: #38f;
-    background: #fff;
+    border-color: $theme-primary-2;
+    background: $theme-stroke-10;
 
     &::after {
       top: 5px;
@@ -107,7 +109,7 @@
       width: 6px;
       height: 2px;
       border: none;
-      background: #3283fa;
+      background: $theme-primary-2;
       transform: rotate(0deg);
     }
   }

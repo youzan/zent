@@ -1,6 +1,7 @@
-$blue: #38f;
-$darkblue: #27f;
-$orange: #f60;
+@import './theme/default.pcss';
+$blue: $theme-primary-2;
+$darkblue: $theme-primary-1;
+$orange: $theme-error-3;
 
 .zent-table-container {
   margin-bottom: 20px;
@@ -11,7 +12,7 @@ $orange: #f60;
   width: 100%;
 
   a {
-    color: #38f;
+    color: $blue;
     cursor: pointer;
 
     &:hover {
@@ -22,7 +23,7 @@ $orange: #f60;
 
   .tr {
     display: flex;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid $theme-stroke-7;
   }
 
   .expanded-item {
@@ -44,15 +45,15 @@ $orange: #f60;
   .thead {
     .tr {
       border-top: none;
-      border-bottom: 1px solid #e5e5e5;
-      background: #f2f2f2;
+      border-bottom: 1px solid $theme-stroke-7;
+      background: $theme-stroke-8;
     }
   }
 
   .tbody {
     .tr {
       &:hover {
-        background: #f8f8f8;
+        background: $theme-stroke-9;
 
         .empty-data {
           background: transparent;
@@ -60,7 +61,7 @@ $orange: #f60;
       }
 
       &--expanded {
-        background-color: #f8f8f8;
+        background-color: $theme-stroke-9;
       }
 
       .td {
@@ -76,9 +77,9 @@ $orange: #f60;
           width: 17px;
           height: 17px;
           text-align: center;
-          background: #fff;
+          background: $theme-stroke-10;
           line-height: 10px;
-          border: 1px solid #e9e9e9;
+          border: 1px solid $theme-stroke-7;
 
           &.expand-btn::after {
             content: "+";
@@ -108,8 +109,8 @@ $orange: #f60;
       padding-left: 10px;
 
       &--has-children {
-        border: 1px solid #eee;
-        background: #fff;
+        border: 1px solid $theme-stroke-7;
+        background: $theme-stroke-10;
       }
 
       &--fixed {

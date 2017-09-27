@@ -1,3 +1,5 @@
+@import './theme/default.pcss';
+
 .zent-notify {
   position: fixed;
   top: 80px;
@@ -5,19 +7,19 @@
   right: 25%;
   line-height: 40px;
   font-size: 14px;
-  color: #fff;
+  color: $theme-stroke-10;
   text-align: center;
   border-radius: 2px;
   z-index: 10000;
   min-height: 40px;
 
   &.zent-notify-success {
-    border: 1px solid #3aa074;
-    background: #45b182;
+    border: 1px solid $theme-success-1;
+    background: $theme-success-4;
   }
 
   &.zent-notify-error {
-    border: 1px solid #e23333;
-    background: #ff4343;
+    border: 1px solid $theme-error-1;
+    background: $theme-error-2;
   }
 }
