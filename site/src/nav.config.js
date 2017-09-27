@@ -315,7 +315,7 @@ module.exports = {
             },
             {
               path: 'component/date-range-quick-picker',
-              title: 'DateRangeQuickPicker 时间区域',
+              title: 'DateRangeQuickPicker',
               component: require('../../packages/zent/src/date-range-quick-picker/README.md')
             }
           ]
