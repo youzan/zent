@@ -18,6 +18,16 @@ module.exports = {
               component: require('../../packages/babel-plugin-zent/README.md')
             },
             {
+              title: '色彩',
+              path: 'guides/colors',
+              component: require('../../packages/zent/docs/colors.js')
+            },
+            {
+              title: '定制主题',
+              path: 'guides/theme',
+              component: require('../../packages/zent/docs/theme.md')
+            },
+            {
               title: '更新日志',
               path: 'guides/changelog',
               component: require('../../packages/zent/RELEASE.md')
