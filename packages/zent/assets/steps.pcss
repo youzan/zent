@@ -9,6 +9,8 @@ $current-bg-color: #38f;
   width: 100%;
   line-height: 1.5;
   font-size: 0;
+  display: flex;
+  box-sizing: border-box;
 }
 
 .zent-steps-tail {
@@ -16,8 +18,8 @@ $current-bg-color: #38f;
   width: 100%;
   left: 0;
   top: 10px;
-  padding: 0 10px;
   box-sizing: border-box;
+  margin-left: 55px;
 
   i {
     display: inline-block;
@@ -48,12 +50,14 @@ $current-bg-color: #38f;
     display: inline-block;
     vertical-align: top;
     background: #fff;
+    margin-left: 45px;
+    box-sizing: border-box;
   }
 
   .zent-step-main {
     position: relative;
     vertical-align: top;
-    max-width: 120px;
+    width: 120px;
     color: #999;
     text-align: center;
 
@@ -62,6 +66,8 @@ $current-bg-color: #38f;
       max-width: 120px;
       line-height: 14px;
       margin-top: 10px;
+      word-wrap: break-word;
+      word-break: break-all;
     }
 
     .zent-step-description {
@@ -69,12 +75,14 @@ $current-bg-color: #38f;
       font-size: 12px;
       line-height: 16px;
       margin-top: 5px;
+      word-wrap: break-word;
+      word-break: break-all;
     }
   }
 }
 
 .zent-step-head-inner {
-  margin-right: 5px;
+  margin: 0 5px;
   font-size: 20px;
   color: $wait-color;
   line-height: 20px;
@@ -101,11 +109,8 @@ $current-bg-color: #38f;
   position: relative;
   display: inline-block;
   vertical-align: top;
-
-  &:not(:first-child) .zent-step-head {
-    margin-left: -5px;
-    padding-left: 5px;
-  }
+  overflow: visible;
+  flex: 1;
 
   &.zent-steps-status-finish {
     &.is-current {
@@ -167,14 +172,10 @@ $current-bg-color: #38f;
   }
 
   &:last-child {
-    .zent-step-head-inner {
-      margin-right: 0;
-    }
+    flex: none;
 
-    .zent-step-main {
-      position: absolute;
-      width: 120px;
-      right: 0;
+    .zent-steps-tail {
+      display: none;
     }
   }
 }
@@ -183,6 +184,10 @@ $current-bg-color: #38f;
   .zent-steps-item {
     box-sizing: border-box;
     padding: 0 1px;
+
+    &.is-clicked {
+      cursor: pointer;
+    }
 
     &:first-child {
       padding-left: 0;
@@ -221,6 +226,10 @@ $current-bg-color: #38f;
     padding: 0 8px;
     box-sizing: border-box;
 
+    &.is-clicked {
+      cursor: pointer;
+    }
+
     &:first-child {
       padding-left: 0;
 
@@ -248,6 +257,7 @@ $current-bg-color: #38f;
       background: $bg-color;
       color: $cart-color;
       text-align: center;
+      padding: 0 10px;
 
       &::after {
         content: ' ';

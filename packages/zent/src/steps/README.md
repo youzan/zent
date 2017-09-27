@@ -31,11 +31,11 @@ class StepsExample extends Component {
 		return (
 			<div>
 				<Steps current={current} status="finish">
-					<Steps.Step title="第一步" description="分享邀请码给好友分享邀请码给好友" />
+					<Steps.Step title="第一步" description="分享邀请码给好友" />
 					<Steps.Step title="第二步" description="订购时输入你的邀请码" />
 					<Steps.Step title="第三步" description="获得有赞E卡奖励" />
 				</Steps>
-				<Button style={{ marginTop: '10px' }} onClick={this.nextStep}>下一步</Button>
+				<Button style={{ margin: '10px 0 0 30px' }} onClick={this.nextStep}>下一步</Button>
 			</div>
 		);
 	}
@@ -67,14 +67,33 @@ ReactDOM.render(
 ```jsx
 import { Steps } from 'zent';
 
+class StepsExample extends Component {
+	state = {
+		current: 1
+	}
+
+	onStepChange = (id) => {
+		this.setState({
+			current: id
+		});
+	}
+
+	render() {
+		let { current } = this.state;
+		return (
+			<Steps current={current} type="breadcrumb" onStepChange={this.onStepChange} >
+				<Steps.Step title="登录有赞账号" />
+				<Steps.Step title="选择门店" />
+				<Steps.Step title="绑定门店" />
+				<Steps.Step title="完成" />
+			</Steps>
+		);
+	}
+}
+
 ReactDOM.render(
-	<Steps current={2} type="breadcrumb" >
-		<Steps.Step title="登录有赞账号" />
-		<Steps.Step title="选择门店" />
-		<Steps.Step title="绑定门店" />
-		<Steps.Step title="完成" />
-	</Steps>
-	, mountNode
+	<StepsExample />,
+	mountNode
 );
 ```
 :::
@@ -105,6 +124,7 @@ ReactDOM.render(
 | current   | 指定当前步骤, 从 1 开始记数 (当不传值时, 默认为 0, 状态都为 wait) | number | `0`            |                           |
 | status    | 步骤条的状态                                     | string | `'finish'`     | `'wait'`, `'error'`       |
 | sequence    | 是否使用默认的步骤序号 (针对card, breadcrumb类型)           | boolean | `true`     |        |
+| onStepChange    | 传该参数后step可点击切换 (针对card, breadcrumb类型)           | func | `''`     |        |
 | className | 自定义额外类名                                    | string | `''`           |                           |
 | prefix    | 自定义前缀                                      | string | `'zent'`       |                           |
 
