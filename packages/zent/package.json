@@ -10,7 +10,8 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "./scripts/test.sh",
-    "build": "./scripts/build.sh"
+    "build": "./scripts/build.sh",
+    "theme": "rm -rf css && node ./scripts/build-theme.js"
   },
   "typings": "typings/index.d.ts",
   "author": "Youzan FE",
@@ -33,8 +34,9 @@
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",
     "tinycolor2": "^1.4.1",
-    "zan-utils": "^1.0.9",
     "uuid": "^3.1.0",
+    "zan-utils": "^1.0.9",
     "zenticons": "^1.0.3"
-  }
+  },
+  "devDependencies": {}
 }

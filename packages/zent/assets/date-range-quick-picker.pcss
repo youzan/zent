@@ -1,3 +1,5 @@
+@import './theme/default.pcss';
+
 .zent-date-range-picker__filter {
   display: inline-block;
 }
@@ -7,10 +9,10 @@
   display: inline-block;
   padding: 2px 4px;
   font-size: 12px;
-  color: #949494;
+  color: $theme-stroke-6;
   cursor: pointer;
   box-sizing: border-box;
-  border: 1px solid #d9d9d9;
+  border: 1px solid $theme-stroke-6;
   border-radius: 2px;
 
   &:first-child {
@@ -18,12 +20,12 @@
   }
 
   &:hover {
-    color: #38f;
-    border-color: #38f;
+    color: $theme-primary-2;
+    border-color: $theme-primary-2;
   }
 
   &.active {
-    border-color: #38f;
-    color: #38f;
+    border-color: $theme-primary-2;
+    color: $theme-primary-2;
   }
 }

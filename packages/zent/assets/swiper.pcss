@@ -1,12 +1,9 @@
+@import './theme/default.pcss';
+$blue: $theme-primary-2;
+$red: $theme-error-2;
+$green: $theme-success-2;
+
 .zent-swiper {
-  $black: #000;
-
-  $blue: #38f;
-
-  $red: #f44;
-
-  $green: #4b0;
-
   position: relative;
   overflow: hidden;
 
@@ -24,7 +21,7 @@
     z-index: 2;
 
     &-icon {
-      color: #e5e5e5;
+      color: $theme-stroke-7;
       font-size: 20px;
     }
 
@@ -43,7 +40,7 @@
 
   &-light {
     .zent-swiper__arrow-icon {
-      color: #fff;
+      color: $theme-stroke-10;
     }
   }
 
@@ -60,7 +57,7 @@
       margin: 12px 5px;
       border: 0;
       cursor: pointer;
-      background: #c0c0c0;
+      background: $theme-stroke-7;
       height: 12px;
       width: 12px;
       border-radius: 100%;
@@ -78,7 +75,7 @@
     }
 
     &-black .zent-swiper__dots-item-active {
-      background: $black;
+      background: $theme-stroke-1;
     }
 
     &-blue .zent-swiper__dots-item-active {
