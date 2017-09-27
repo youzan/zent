@@ -41,7 +41,7 @@ export const commonPropTypes = {
 
   // onChange 返回值类型, date | number | string， 默认 string
   valueType: PropTypes.oneOf(['date', 'number', 'string']),
-  popPosition: PropTypes.oneOf(['left', 'right']),
+  popPosition: PropTypes.string,
   // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
   min: PropTypes.oneOfType([
     PropTypes.string,

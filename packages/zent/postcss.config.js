@@ -7,7 +7,7 @@ module.exports = {
       extensions: ['pcss', 'css']
     }),
     require('autoprefixer'),
-    require('precss'),
-    require('cssnano')({ safe: true })
+    require('precss')
+    // require('cssnano')({ safe: true })
   ]
 };

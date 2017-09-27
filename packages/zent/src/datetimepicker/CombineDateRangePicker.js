@@ -37,7 +37,7 @@ function getDateTime(date, time) {
 }
 
 const extractStateFromProps = props => {
-  const { format, min, max, defaultValue, defaultTime } = props;
+  const { format, defaultValue, defaultTime } = props;
   let showPlaceholder;
   let selected = [];
   let actived = [];
@@ -62,27 +62,19 @@ const extractStateFromProps = props => {
   } else {
     showPlaceholder = true;
     value = [];
-    let start;
     if (defaultValue && isValidValue(defaultValue)) {
-      start = parseDate(defaultValue[0], format);
-    } else if (min) {
-      start = parseDate(min, format);
-    } else if (max) {
-      let maxDate = parseDate(max, format);
-      let timestamp = maxDate && maxDate.getTime();
-      if (timestamp < Date.now()) {
-        start = goMonths(maxDate, -1);
-      }
+      actived = [
+        parseDate(defaultValue[0], format),
+        parseDate(defaultValue[1], format)
+      ];
     } else {
-      start = dayStart();
+      const start = dayStart();
+      actived = [start, goMonths(start, 1)];
     }
-    actived = [start, goMonths(start, 1)];
   }
-  if (defaultTime) {
-    actived = actived.map(item => setTime(item, defaultTime));
-    range = range.map(item => {
-      return setTime(item, defaultTime);
-    });
+  if (defaultTime && isValidValue(defaultTime)) {
+    actived = actived.map((item, idx) => setTime(item, defaultTime[idx]));
+    range = range.map((item, idx) => setTime(item, defaultTime[idx]));
   }
 
   let activedTime;
@@ -110,13 +102,15 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
-    placeholder: PropTypes.array
+    placeholder: PropTypes.array,
+    defaultTime: PropTypes.arrayOf(PropTypes.string)
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: ['开始日期', '结束日期'],
-    errorText: '请选择起止时间'
+    errorText: '请选择起止时间',
+    defaultTime: ['00:00:00', '00:00:00']
   };
 
   constructor(props) {
@@ -137,6 +131,10 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     const state = extractStateFromProps(next);
     this.setState(state);
   }
+
+  getDate = () => {
+    return this.state.actived;
+  };
 
   onHover = val => {
     const { selected, range } = this.state;
@@ -207,7 +205,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
 
     if (disabledDate && disabledDate(val)) return true;
     if (min && val < parseDate(min, format)) return true;
-    if (max && val >= parseDate(max, format)) return true;
+    if (max && val > parseDate(max, format)) return true;
 
     return false;
   };

@@ -304,12 +304,15 @@ describe('DateTimePicker', () => {
     expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // max
+    const now = new Date();
     wrapper = mount(<DatePicker max="2010.01.01" />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
-    expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(1);
+    expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(
+      now.getMonth() + 1
+    );
     expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(
-      2010
+      now.getFullYear()
     );
     // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
@@ -317,9 +320,11 @@ describe('DateTimePicker', () => {
     wrapper = mount(<DatePicker min="3000.01.01" />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
-    expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(1);
+    expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(
+      now.getMonth() + 1
+    );
     expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(
-      3000
+      now.getFullYear()
     );
 
     // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);

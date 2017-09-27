@@ -23,15 +23,7 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const {
-    openPanel,
-    value,
-    format,
-    min,
-    max,
-    defaultValue,
-    defaultTime
-  } = props;
+  const { openPanel, value, format, defaultValue, defaultTime } = props;
 
   if (value) {
     const tmp = parseDate(value, format);
@@ -50,15 +42,11 @@ function extractStateFromProps(props) {
 
     /**
      * 当前面板显示优先级：
-     * defalutValue > min > max
+     * defalutValue > currentDay
      */
 
     if (defaultValue) {
       actived = parseDate(defaultValue, format);
-    } else if (min) {
-      actived = parseDate(min, format);
-    } else if (max) {
-      actived = parseDate(max, format);
     } else {
       actived = dayStart();
     }
@@ -88,7 +76,9 @@ function extractStateFromProps(props) {
 class DatePicker extends (PureComponent || Component) {
   static propTypes = {
     ...commonPropTypes,
-    showTime: PropTypes.bool
+    showTime: PropTypes.bool,
+    onBeforeConfirm: PropTypes.func,
+    onBeforeClear: PropTypes.func
   };
 
   static defaultProps = {
@@ -116,6 +106,10 @@ class DatePicker extends (PureComponent || Component) {
     const state = extractStateFromProps(next);
     this.setState(state);
   }
+
+  getDate = () => {
+    return this.state.actived;
+  };
 
   onChangeDate = val => {
     this.setState({
@@ -161,8 +155,11 @@ class DatePicker extends (PureComponent || Component) {
   };
 
   onClearInput = evt => {
+    const { onChange, onBeforeClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return;
+
     evt.stopPropagation();
-    this.props.onChange('');
+    onChange('');
   };
 
   /**
@@ -185,10 +182,10 @@ class DatePicker extends (PureComponent || Component) {
 
   onConfirm = () => {
     const { selected, activedTime } = this.state;
-    const { format, showTime, onClose, onChange } = this.props;
+    const { format, showTime, onClose, onChange, onBeforeConfirm } = this.props;
 
+    if (onBeforeConfirm && !onBeforeConfirm()) return;
     // 如果没有选择日期则默认选中当前日期
-
     let tmp = selected || new Date();
     if (this.isDisabled(tmp)) return;
 
@@ -219,7 +216,7 @@ class DatePicker extends (PureComponent || Component) {
 
     if (disabledDate && disabledDate(val)) return true;
     if (min && val < parseDate(min, format)) return true;
-    if (max && val >= parseDate(max, format)) return true;
+    if (max && val > parseDate(max, format)) return true;
 
     return false;
   };

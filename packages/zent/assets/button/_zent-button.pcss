@@ -1,3 +1,5 @@
+@import '../theme/default.pcss';
+
 .zent-btn {
   display: inline-block;
   height: 30px;
@@ -6,7 +8,7 @@
   border-radius: 2px;
   font-size: 12px;
   font-family: inherit;
-  color: #333;
+  color: $theme-stroke-1;
   background: $btn-white;
   border: 1px solid $btn-gray;
   text-align: center;
@@ -22,7 +24,7 @@
   &:link,
   &:visited,
   &:focus {
-    color: #333;
+    color: $theme-stroke-1;
     text-decoration: none;
   }
 
@@ -33,7 +35,7 @@
   }
 
   &:active {
-    color: #333;
+    color: $theme-stroke-1;
     background: $btn-light-gray;
     border-color: $btn-gray;
     text-decoration: none;

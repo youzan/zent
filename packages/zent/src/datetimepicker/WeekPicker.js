@@ -221,7 +221,7 @@ class WeekPicker extends (PureComponent || Component) {
 
     if (disabledDate && disabledDate(val)) return true;
     if (min && val < parseDate(min, format)) return true;
-    if (max && val >= parseDate(max, format)) return true;
+    if (max && val > parseDate(max, format)) return true;
 
     return false;
   };

@@ -1,39 +1,99 @@
 @import './_fn.pcss';
+@import '../theme/default.pcss';
 
 .zent-design-editor-add-component {
   box-sizing: border-box;
+}
 
-  &__title {
+.zent-design-editor-add-component__mixed {
+  &-title {
     height: 40px;
     line-height: 40px;
     text-align: center;
     font-weight: bold;
     font-size: 14px;
-    color: #333;
+    color: $theme-stroke-1;
   }
 
-  &__list {
+  &-list {
     @mixin clearfix;
   }
 
-  &__btn {
+  &-btn {
     float: left;
     margin: 0 0 10px 5px;
     outline: none;
     height: 40px;
     width: 56px;
-    border: 1px solid #d1d1d1;
-    color: #38f;
+    border: 1px solid $theme-stroke-7;
+    color: $theme-primary-2;
     font-size: 12px;
-    background: #fff;
+    background: $theme-stroke-10;
     box-sizing: border-box;
+
+    &--disabled {
+      cursor: not-allowed;
+      background: $theme-stroke-9;
+      color: $theme-stroke-5;
+    }
   }
 }
 
-.zent-design-editor-item .zent-design-editor-add-component {
-  margin: 0 39px;
+.zent-design-editor-add-component__grouped {
+  &-title {
+    font-size: 12px;
+    margin-bottom: 8px;
+    margin-top: 13px;
+  }
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-btn {
+    border: 1px dashed $theme-stroke-7;
+    color: $theme-stroke-3;
+    background: $theme-stroke-9;
+    outline: none;
+    box-sizing: border-box;
+    height: 30px;
+    flex: 0 0 96px;
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+
+    &:nth-child(3n+3) {
+      margin-right: 0;
+    }
+
+    br {
+      display: none;
+    }
+
+    &--disabled {
+      color: $theme-stroke-5;
+      cursor: not-allowed;
+    }
+  }
 }
 
-.zent-design__add .zent-design-editor-add-component {
-  padding: 0 5px;
+.zent-design-editor-item {
+  .zent-design-editor-add-component--mixed {
+    margin: 0 39px;
+  }
+
+  .zent-design-editor-add-component--grouped {
+    margin: 0 44px;
+  }
+}
+
+.zent-design__add {
+  .zent-design-editor-add-component--mixed {
+    padding: 0 5px;
+  }
+
+  .zent-design-editor-add-component--grouped {
+    padding: 0 11px;
+  }
 }

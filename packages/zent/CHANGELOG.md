@@ -1,10 +1,39 @@
 ## Github 日志
 
-## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.5.4)
+## [zent@3.6.1](https://github.com/youzan/zent/tree/zent@3.6.1) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.1)
+
+**Bug 修复:**
+
+- \[bug fix\] Design: 修复样式 [\#481](https://github.com/youzan/zent/pull/481) ([cpylua](https://github.com/cpylua))
+
+## [babel-plugin-zent@1.0.3](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.3) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.0...babel-plugin-zent@1.0.3)
+
+## [zent@3.6.0](https://github.com/youzan/zent/tree/zent@3.6.0) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.6.0)
+
+**不兼容改动和新功能:**
+
+- Switch to rollup for bundling umd [\#422](https://github.com/youzan/zent/issues/422)
+- \[new feature\] Design: 支持组件分组展示以及限制组件可添加次数 [\#480](https://github.com/youzan/zent/pull/480) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- \[bug fix\] DatePicker: MonthPicker超出了最大可选置灰后仍然可选 [\#453](https://github.com/youzan/zent/issues/453)
+- \[bug fix\] Table:  当前页都不可选时全选按钮禁用 [\#479](https://github.com/youzan/zent/pull/479) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Popover: 滚动的时候自动重新计算位置 [\#477](https://github.com/youzan/zent/pull/477) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] DatePicker：支持 onBeforeConfirm 和 onBeforeClear 钩子 [\#476](https://github.com/youzan/zent/pull/476) ([xuhong](https://github.com/xuhong))
+
+**处理的 Issue:**
+
+- \[bugs\] Table: 当前页所有项均禁用时，全选按钮未禁用 [\#478](https://github.com/youzan/zent/issues/478)
 
 ## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...babel-plugin-zent@1.0.2)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.2)
+
+## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...zent@3.5.4)
 
 **Bug 修复:**
 
