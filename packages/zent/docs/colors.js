@@ -84,10 +84,8 @@ module.exports = class Colors extends Component {
           <h4>辅助色 - 其他</h4>
           <p>主要用于蒙层或者阴影。</p>
           <div className="zandoc-react-color-row">
-            <ColorCell name="theme-mask-1" color="rgba(0, 0, 0, 0.2)" light />
-            <ColorCell name="theme-mask-2" color="rgba(0, 0, 0, 0.6)" light />
-          </div>
-          <div className="zandoc-react-color-row">
+            <ColorCell name="theme-mask-1" color="rgba(0, 0, 0, 0.6)" light />
+            <ColorCell name="theme-mask-2" color="rgba(0, 0, 0, 0.2)" light />
             <ColorCell
               className="zandoc-react-color-cell__mask-white"
               name="theme-mask-3"
