@@ -1,11 +1,11 @@
-import React, { PureComponent, Component } from 'react';
+import React, { Component } from 'react';
 import Select, { SelectTrigger } from 'select';
 import omit from 'lodash/omit';
 
 import getControlGroup from '../getControlGroup';
 import unknownProps from '../unknownProps';
 
-class SelectWrap extends (PureComponent || Component) {
+class SelectWrap extends Component {
   render() {
     const { trigger = SelectTrigger, ...props } = this.props;
     const passableProps = omit(props, unknownProps);

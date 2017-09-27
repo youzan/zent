@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { Component } from 'react';
 import Checkbox from 'checkbox';
 import omit from 'lodash/omit';
 
@@ -7,7 +7,7 @@ import unknownProps from '../unknownProps';
 
 const CheckboxGroup = Checkbox.Group;
 
-class CheckboxGroupWrap extends (PureComponent || Component) {
+class CheckboxGroupWrap extends Component {
   render() {
     const passableProps = omit(this.props, unknownProps);
     return (

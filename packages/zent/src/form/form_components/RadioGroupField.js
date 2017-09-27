@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { Component } from 'react';
 import Radio from 'radio';
 import omit from 'lodash/omit';
 
@@ -7,7 +7,7 @@ import unknownProps from '../unknownProps';
 
 const RadioGroup = Radio.Group;
 
-class RadioGroupWrap extends (PureComponent || Component) {
+class RadioGroupWrap extends Component {
   render() {
     const passableProps = omit(this.props, unknownProps);
     return <RadioGroup className="zent-form__radio-group" {...passableProps} />;

@@ -1,11 +1,11 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import Checkbox from 'checkbox';
 import omit from 'lodash/omit';
 
 import getControlGroup from '../getControlGroup';
 import unknownProps from '../unknownProps';
 
-class CheckboxWrap extends (PureComponent || Component) {
+class CheckboxWrap extends Component {
   render() {
     const passableProps = omit(this.props, unknownProps);
     return (
