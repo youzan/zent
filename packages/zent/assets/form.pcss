@@ -1,10 +1,12 @@
+@import './theme/default.pcss';
+
 .zent-form {
   margin-bottom: 30px;
   width: auto;
 
   select[readonly],
   textarea[readonly] {
-    background-color: #fff;
+    background-color: $theme-stroke-10;
     cursor: text;
   }
 }
@@ -19,7 +21,7 @@
   padding-bottom: 8px;
   margin-bottom: 20px;
   width: 100%;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $theme-stroke-7;
   font-size: 14px;
   font-weight: bold;
 }
@@ -31,7 +33,7 @@
     .zent-form__control-label,
     .zent-form__error-desc,
     .zent-form__help-block {
-      color: #f44;
+      color: $theme-error-2;
     }
   }
 }
@@ -54,7 +56,7 @@
 .zent-form__required {
   margin-right: 6px;
   font-size: 16px;
-  color: #f00;
+  color: $theme-error-1;
   vertical-align: middle;
 }
 
@@ -65,7 +67,7 @@
   font-size: 12px;
   margin-top: 6px;
   margin-bottom: 0;
-  color: #999;
+  color: $theme-stroke-4;
 
   ul li {
     font-size: 12px;
@@ -73,7 +75,7 @@
   }
 
   a {
-    color: #38f;
+    color: $theme-primary-2;
   }
 
   &:empty {

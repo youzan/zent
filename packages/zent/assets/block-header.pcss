@@ -1,8 +1,10 @@
+@import './theme/default.pcss';
+
 .zent-block-header {
   position: relative;
   margin-bottom: 20px;
   padding: 15px;
-  background-color: #f8f8f8;
+  background-color: $theme-stroke-9;
   height: 50px;
   box-sizing: border-box;
 
@@ -12,7 +14,7 @@
     h3 {
       margin: 0;
       padding-left: 5px;
-      border-left: 4px solid #f70;
+      border-left: 4px solid $theme-notice-1;
       font-weight: normal;
       font-size: 14px;
     }
@@ -27,7 +29,7 @@
     position: absolute;
     top: 15px;
     right: 15px;
-    color: #bbb;
+    color: $theme-stroke-5;
     font-size: 16px;
   }
 
@@ -36,7 +38,7 @@
     word-wrap: normal;
 
     &-trigger {
-      color: #cacaca;
+      color: $theme-stroke-6;
       font-size: 14px;
       cursor: pointer;
     }
