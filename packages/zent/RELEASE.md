@@ -6,7 +6,9 @@
 
 - 🎉 新组件 `Grid`，功能和 `Table` 组件类似，但是底层是用 `<table>` 实现的，现在 `Grid` 有些 `Table` 的功能还没有实现
 - 🎉 Zent 支持自定义主题，文档网站同步添加了色彩和主题定制的章节
-- ✨ `Steps` 新增了 `onStepChange` 和 `sequence` 参数；另外更新了 `number` 类型的样式
+- `Steps`:
+  - ✨ 新增了 `onStepChange` 和 `sequence` 参数
+  - ✨ 更新了 `number` 类型的样式
 - 🦀️ 修复了 React 16 下面的一些警告
 - 🦀️ 修复了 `Slider` 文档页面上的警告
 - 🦀️ 更新了 `DateRangeQuickPicker` 的样式
