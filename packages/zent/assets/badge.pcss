@@ -1,6 +1,7 @@
+@import './theme/default.pcss';
 $count-height: 14px;
-$count-color: #fff;
-$count-bgcolor: #f44;
+$count-color: $theme-stroke-10;
+$count-bgcolor: $theme-error-2;
 $dot-diameter: 8px;
 
 .zent-badge {
@@ -15,7 +16,7 @@ $dot-diameter: 8px;
     background: $count-bgcolor;
     color: $count-color;
     font-size: 10px;
-    border: 1px solid #fff;
+    border: 1px solid $theme-stroke-10;
     border-radius: $count-height;
     text-align: center;
     padding: 0 4px;

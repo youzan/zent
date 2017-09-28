@@ -1,4 +1,5 @@
 @import './_fn.pcss';
+@import '../theme/default.pcss';
 
 .zent-design-editor-add-component {
   box-sizing: border-box;
@@ -11,7 +12,7 @@
     text-align: center;
     font-weight: bold;
     font-size: 14px;
-    color: #333;
+    color: $theme-stroke-1;
   }
 
   &-list {
@@ -24,16 +25,16 @@
     outline: none;
     height: 40px;
     width: 56px;
-    border: 1px solid #d1d1d1;
-    color: #38f;
+    border: 1px solid $theme-stroke-7;
+    color: $theme-primary-2;
     font-size: 12px;
-    background: #fff;
+    background: $theme-stroke-10;
     box-sizing: border-box;
 
     &--disabled {
       cursor: not-allowed;
-      background: #f9f9f9;
-      color: #bbb;
+      background: $theme-stroke-9;
+      color: $theme-stroke-5;
     }
   }
 }
@@ -51,9 +52,9 @@
   }
 
   &-btn {
-    border: 1px dashed #d8d8d8;
-    color: #666;
-    background: #f8f8f8;
+    border: 1px dashed $theme-stroke-7;
+    color: $theme-stroke-3;
+    background: $theme-stroke-9;
     outline: none;
     box-sizing: border-box;
     height: 30px;
@@ -71,7 +72,7 @@
     }
 
     &--disabled {
-      color: #bbb;
+      color: $theme-stroke-5;
       cursor: not-allowed;
     }
   }

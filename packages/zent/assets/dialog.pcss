@@ -1,10 +1,10 @@
-$normalcolor: #333;
-$graycolor: #999;
-$whitecolor: #fff;
-$darkgraycolor: #666;
-$bordercolor: #e8e8e8;
-$maskbgcolor: #373737;
-$rgbamaskbgcolor: rgba(0, 0, 0, 0.6);
+@import './theme/default.pcss';
+$normalcolor: $theme-stroke-1;
+$graycolor: $theme-stroke-4;
+$theme-stroke-10color: $theme-stroke-10;
+$darkgraycolor: $theme-stroke-3;
+$bordercolor: $theme-stroke-7;
+$rgbamaskbgcolor: $theme-mask-1;
 $zIndex: 1050;
 
 /*
@@ -47,7 +47,7 @@ $zIndex: 1050;
   display: inline-block;
   vertical-align: middle; /* required */
   text-align: initial;
-  background-color: $whitecolor;
+  background-color: $theme-stroke-10color;
   border-radius: 4px;
   padding: 20px;
   box-sizing: border-box;
@@ -82,7 +82,7 @@ $zIndex: 1050;
   vertical-align: middle;
   cursor: pointer;
   border: none;
-  background-color: $whitecolor;
+  background-color: $theme-stroke-10color;
   outline: none;
   user-select: none;
   padding: 0 6px;

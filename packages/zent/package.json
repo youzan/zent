@@ -10,7 +10,8 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "./scripts/test.sh",
-    "build": "./scripts/build.sh"
+    "build": "./scripts/build.sh",
+    "theme": "rm -rf css && node ./scripts/build-theme.js"
   },
   "typings": "typings/index.d.ts",
   "author": "Youzan FE",
@@ -36,5 +37,6 @@
     "uuid": "^3.1.0",
     "zan-utils": "^1.0.9",
     "zenticons": "^1.0.3"
-  }
+  },
+  "devDependencies": {}
 }

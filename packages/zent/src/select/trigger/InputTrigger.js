@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { PureComponent, Component } from 'react';
+import React, { Component } from 'react';
 
-class InputTrigger extends (PureComponent || Component) {
+class InputTrigger extends Component {
   state = {
     value: ''
   };
