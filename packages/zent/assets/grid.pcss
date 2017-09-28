@@ -1,9 +1,11 @@
-$thead-background-color: #f2f2f2;
-$border-color: #e5e5e5;
+@import './theme/default.pcss';
+
+$thead-background-color: $theme-stroke-8;
+$border-color: $theme-stroke-7;
 
 .zent-grid {
   font-size: 12px;
-  color: #333;
+  color: $theme-stroke-1;
   position: relative;
   line-height: 1.5;
   overflow: hidden;
@@ -92,12 +94,12 @@ $border-color: #e5e5e5;
 
   &-fixed-left {
     left: 0;
-    box-shadow: 4px 0 4px rgba(100, 100, 100, 0.1);
+    box-shadow: 4px 0 4px $theme-mask-2;
   }
 
   &-fixed-right {
     right: 0;
-    box-shadow: -4px 0 4px rgba(100, 100, 100, 0.1);
+    box-shadow: -4px 0 4px $theme-mask-2;
   }
 
   &-scroll {
@@ -108,7 +110,7 @@ $border-color: #e5e5e5;
     text-align: center;
     height: 50px;
     line-height: 50px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid $border-color;
     border-top: none;
   }
 
@@ -116,7 +118,7 @@ $border-color: #e5e5e5;
     display: table-row;
 
     &:hover {
-      background: #f8f8f8;
+      background: $thead-background-color;
     }
   }
 
@@ -127,7 +129,7 @@ $border-color: #e5e5e5;
     box-sizing: border-box;
     border-bottom: 1px solid $border-color;
     vertical-align: middle;
-    background-color: #fff;
+    background-color: $theme-stroke-10;
 
     @media only screen and (-webkit-min-device-pixel-ratio: 2) {
       border-bottom-width: 0.5px;
@@ -159,7 +161,7 @@ $border-color: #e5e5e5;
   }
 
   a {
-    color: #38f;
+    color: $theme-primary-2;
     cursor: pointer;
   }
 }

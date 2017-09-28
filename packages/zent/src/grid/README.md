@@ -1,6 +1,8 @@
 ## Grid 网格
 
-网格组件
+网格组件。
+
+功能和 [Table](table) 组件类似，`Grid` 是使用 `<table>` 标签实现的，而 `Table` 是使用 `div` + `flex` 布局实现的。
 
 ### 代码演示
 
