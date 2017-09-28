@@ -4,7 +4,7 @@
 	</a>
 </p>
 <p align="center">
-    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png">
+    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png" width="200px">
 </p>
 <p align="center">
 	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
@@ -16,7 +16,7 @@
 
 ### 组件展示
 
-![zent-components](https://img.yzcdn.cn/zanui/react/zent-components.png | width=849)
+<img src="https://img.yzcdn.cn/zanui/react/zent-components.png" alt="zent-components" width="849px"/>
 
 ### 特性
 
