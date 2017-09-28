@@ -14,6 +14,25 @@
 
 [![NPM](https://nodei.co/npm/zent.png?downloads=true&downloadRank=true)](https://nodei.co/npm/zent/)
 
+### 组件展示
+
+![zent-components](https://img.yzcdn.cn/zanui/react/zent-components.png | width=849)
+
+### 特性
+
+* 高质量的 React 基础组件以及丰富的业务组件
+* 内置 TypeScript 类型定义文件
+* 支持定制主题
+* 代码/样式按需加载
+* yarn + webpack + babel + postcss + prettier + stylefmt
+* 一套有赞设计师绘制的图标库
+* 单测覆盖率在 90% 以上
+
+### 支持环境
+
+* 现代浏览器以及 IE 11 及以上
+* 支持服务端渲染(SSR)
+
 ## 安装
 
 ```shell
