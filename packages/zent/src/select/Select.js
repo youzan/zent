@@ -127,7 +127,7 @@ class Select extends (PureComponent || Component) {
   }
 
   /**
-   * accept uniformed data to traverse then render in right style
+   * accept uniformed data to traverse then inject selected option or options to next state
    *
    * @param {object[]} data - uniformedData
    * @param {object} props - props of Select
@@ -172,7 +172,7 @@ class Select extends (PureComponent || Component) {
   }
 
   /**
-   * judge if param 'item' selected then inject to next state
+   * judge if param 'item' selected
    *
    * @param {object} state - next state marked selected item or items
    * @param {object} coord - coordinate for seleted judging
