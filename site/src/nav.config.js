@@ -307,6 +307,11 @@ module.exports = {
               path: 'component/portal',
               title: 'Portal 传送门',
               component: require('../../packages/zent/src/portal/README.md')
+            },
+            {
+              path: 'component/InfiniteScroller',
+              title: 'InfiniteScroller 无限滚动',
+              component: require('../../packages/zent/src/infinite-scroller/README.md')
             }
           ]
         },
