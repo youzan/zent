@@ -1,0 +1,166 @@
+@import './theme/default.pcss';
+$thead-background-color: $theme-stroke-8;
+$border-color: $theme-stroke-7;
+
+.zent-grid {
+  font-size: 12px;
+  color: $theme-stroke-1;
+  position: relative;
+  line-height: 1.5;
+  overflow: hidden;
+
+  &.zent-grid-scroll-position-left {
+    .zent-grid-fixed-left {
+      box-shadow: none;
+    }
+  }
+
+  &-table {
+    width: 100%;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid $border-color;
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      border-width: 0.5px;
+    }
+
+    border-bottom: none;
+
+    &-ellipsis {
+      table-layout: fixed;
+
+      .zent-grid-nowrap {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  &-text-align-left {
+    text-align: left;
+  }
+
+  &-text-align-right {
+    text-align: right;
+  }
+
+  &-text-align-center {
+    text-align: center;
+  }
+
+  &-nowrap {
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+
+  &-thead {
+    &-sort-desc,
+    &-sort-asc {
+      position: absolute;
+      margin-left: 3px;
+    }
+
+    &-sort-desc {
+      &::after {
+        content: "\2193";
+      }
+    }
+
+    &-sort-asc {
+      &::after {
+        content: "\2191";
+      }
+    }
+  }
+
+  &-fixed {
+    width: auto;
+  }
+
+  &-fixed-left,
+  &-fixed-right {
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+
+    .zent-grid-fixed {
+      border-left: none;
+      border-right: none;
+    }
+  }
+
+  &-fixed-left {
+    left: 0;
+    box-shadow: 4px 0 4px $theme-mask-2;
+  }
+
+  &-fixed-right {
+    right: 0;
+    box-shadow: -4px 0 4px $theme-mask-2;
+  }
+
+  &-scroll {
+    overflow: auto;
+  }
+
+  &-empty {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid $border-color;
+    border-top: none;
+  }
+
+  &-tr {
+    display: table-row;
+
+    &:hover {
+      background: $thead-background-color;
+    }
+  }
+
+  &-th,
+  &-td {
+    line-height: 18px;
+    display: table-cell;
+    box-sizing: border-box;
+    border-bottom: 1px solid $border-color;
+    vertical-align: middle;
+    background-color: $theme-stroke-10;
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      border-bottom-width: 0.5px;
+    }
+  }
+
+  &-th {
+    padding: 11px 10px;
+    background-color: $thead-background-color;
+    font-weight: normal;
+  }
+
+  &-td {
+    padding: 16px 10px;
+  }
+
+  &-tfoot {
+    margin-top: 10px;
+    overflow: hidden;
+
+    .zent-grid-tfoot-page {
+      margin-top: 0;
+    }
+  }
+
+  &-tfoot-page {
+    margin-top: 10px;
+    float: right;
+  }
+
+  a {
+    color: $theme-primary-2;
+    cursor: pointer;
+  }
+}

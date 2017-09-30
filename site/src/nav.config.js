@@ -20,7 +20,7 @@ module.exports = {
             {
               title: '色彩',
               path: 'guides/colors',
-              component: require('../../packages/zent/docs/colors.js')
+              component: require('../src/pages/colors').default
             },
             {
               title: '定制主题',
@@ -277,6 +277,11 @@ module.exports = {
               path: 'component/table',
               title: 'Table 表格',
               component: require('../../packages/zent/src/table/README.md')
+            },
+            {
+              path: 'component/grid',
+              title: 'Grid 网格',
+              component: require('../../packages/zent/src/grid/README.md')
             },
             {
               path: 'component/tabs',
