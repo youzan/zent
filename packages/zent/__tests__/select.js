@@ -32,7 +32,9 @@ describe('<Select />', () => {
   });
 
   test('测试默认属性', () => {
-    const wrapper = mount(<Select />);
+    const wrapper = mount(
+      <Select data={[{ value: '1', text: 'pangxie' }]} autoWidth />
+    );
     expect(wrapper.prop('disabled')).toBe(false);
     expect(wrapper.prop('optionText')).toBe('text');
     expect(wrapper.prop('optionValue')).toBe('value');
@@ -40,6 +42,11 @@ describe('<Select />', () => {
     expect(wrapper.prop('filter')).toBe(undefined);
     expect(wrapper.prop('selectedItem').value).toBe('');
     expect(wrapper.prop('selectedItem').text).toBe('');
+  });
+
+  test('怪癖模式', () => {
+    const wrapper = mount(<Select data={['1', '2', '3']} initialValue={'1'} />);
+    expect(wrapper.state('selectedItem').value).toBe('1');
   });
 
   it('测试SimpleTrigger', () => {
