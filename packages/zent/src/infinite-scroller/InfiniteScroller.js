@@ -19,16 +19,13 @@ export default class InfiniteScroller extends (PureComponent || Component) {
 
   isScrollAtBottom = () => {
     const { offset } = this.props;
+    const { scrollHeight, clientHeight, scrollTop } = this.scroller;
     let isScrollAtBottom = false;
 
-    if (
-      this.scroller.scrollHeight -
-        this.scroller.clientHeight -
-        this.scroller.scrollTop <=
-      offset
-    ) {
+    if (scrollHeight - clientHeight - scrollTop <= offset) {
       isScrollAtBottom = true;
     }
+
     return isScrollAtBottom;
   };
 
