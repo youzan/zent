@@ -20,7 +20,7 @@ module.exports = {
             {
               title: '色彩',
               path: 'guides/colors',
-              component: require('../../packages/zent/docs/colors.js')
+              component: require('../src/pages/colors').default
             },
             {
               title: '定制主题',
