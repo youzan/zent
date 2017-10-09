@@ -6,14 +6,14 @@ export default class InfiniteScroller extends (PureComponent || Component) {
   static PropTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    canLoadMore: PropTypes.bool,
+    hasMore: PropTypes.bool,
     loadMore: PropTypes.func,
     offset: PropTypes.num
   };
 
   static defaultProps = {
     prefix: 'zent',
-    canLoadMore: true,
+    hasMore: true,
     offset: 20
   };
 
@@ -30,8 +30,8 @@ export default class InfiniteScroller extends (PureComponent || Component) {
   };
 
   handleScroll = () => {
-    const { canLoadMore, loadMore } = this.props;
-    if (!canLoadMore) {
+    const { hasMore, loadMore } = this.props;
+    if (!hasMore) {
       return;
     }
 

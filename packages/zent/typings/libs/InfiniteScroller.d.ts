@@ -4,7 +4,7 @@ declare module 'zent/lib/infinite-scroller' {
   interface InfiniteScrollerProps {
     className?: string
     prefix?: string
-    canLoadMore?: boolean
+    hasMore?: boolean
     loadMore?: Function
     offset?: number
   }

@@ -70,7 +70,7 @@ describe('InfiniteScroller', () => {
       render() {
         const { list } = this.state;
         return (
-          <InfiniteScroller canLoadMore={false} loadMore={this.loadMore}>
+          <InfiniteScroller hasMore={false} loadMore={this.loadMore}>
             {list.map(item => (
               <div className="child" key={item}>
                 {item}
