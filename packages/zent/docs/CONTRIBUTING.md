@@ -38,8 +38,6 @@ packages/zent
 
 以添加 `Button` 组件为例，首先在 `packages/zent/src` 目录下新建目录 `button`，这个目录下有个 `index.js` 文件导出组件，需要的话可以建其他文件来组织代码。
 
-除了代码，这个目录下还应该有一个 `README.md` 文件，这个文件是组件的详细文档，包括使用示例以及 `API` 等。
-
 新添加的组件代码要在 `packages/zent/src/index.js` 中导出。
 
 组件对应的样式需要放到 `packages/zent/assets` 目录下，像 `Button` 组件的话需要新建一个文件 `button.pcss`。如若个组件样式比较复杂，为了方便组织代码可以在 `packages/zent/assets` 下面新建一个同名目录 `button`，里面可以放一些 partial 样式。
@@ -62,7 +60,7 @@ cd site && yarn dev
 
 ## 组件文档如何编写
 
-每个组件根目录下的 `README.md` (注意名称大写) 文件即为该组件文档。组件文档采用 markdown 格式，具体书写规范请参考 [组件文档书写规范](./MARKDOWN.md)。
+每个组件根目录下的 `README.md` (注意名称大写) 文件即为该组件文档。组件文档采用 markdown 格式，内容包括使用示例以及 `API` 等。具体书写规范请参考 [组件文档书写规范](./MARKDOWN.md)。
 
 #### API 说明
 
