@@ -11,6 +11,7 @@ export default Control => {
       const {
         required = false,
         helpDesc = '',
+        notice = '',
         label = '',
         className = '',
         ...props
@@ -35,6 +36,7 @@ export default Control => {
             {showError && (
               <p className="zent-form__error-desc">{props.error}</p>
             )}
+            {notice && <p className="zent-form__notice-desc">{notice}</p>}
             {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
           </div>
         </div>

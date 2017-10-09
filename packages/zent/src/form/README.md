@@ -53,6 +53,7 @@ const FieldForm = () => {
 				type="password"
 				label="密码："
 				helpDesc={<span>密码由6-20位英文字母、数字组成，<a href="https://youzan.com" target="_blank">查看更多</a></span>}
+				notice="重要提示：填写后无法修改，请谨慎设置"
 				required
 			/>
 		</Form>
@@ -1481,6 +1482,7 @@ const component = field.getWrappedComponent();
 | label | 表单元素的label | string / React.Component | 否 |
 | className | 添加到control-group 上的额外类名，可以用来覆盖子元素的样式 | string | 否 |
 | helpDesc | 表单元素的说明性文字 | string / React.Component | 否 |
+| notice | 表单元素的重要提示性文字 | string / React.Component | 否 |
 | required | 为 true 时会在 label 前添加红色的"*" | boolean | 否 |
 
 ##### **获取 `Control` 组件实例**

@@ -49,7 +49,7 @@ describe('GetControlGroup and Component_Fields', () => {
     ).toBe(true);
   });
 
-  it('ControlGroup have three render switch: required, helpDesc and showError', () => {
+  it('ControlGroup have three render switch: required, helpDesc, notice and showError', () => {
     const Input = props => {
       const passableProps = omit(props, unknownProps);
       return <input type="text" {...passableProps} />;
@@ -61,6 +61,7 @@ describe('GetControlGroup and Component_Fields', () => {
         component={addtionInput}
         required
         helpDesc={'foo'}
+        notice={'bar'}
         validations={{ isEmail: true }}
         validationErrors={{ isEmail: '必须输入有效的Email地址' }}
       />,
@@ -70,6 +71,8 @@ describe('GetControlGroup and Component_Fields', () => {
     expect(wrapper.find('.zent-form__required').text()).toBe('*');
     expect(wrapper.find('.zent-form__help-desc').length).toBe(1);
     expect(wrapper.find('.zent-form__help-desc').text()).toBe('foo');
+    expect(wrapper.find('.zent-form__notice-desc').length).toBe(1);
+    expect(wrapper.find('.zent-form__notice-desc').text()).toBe('bar');
 
     // HACK: console.error
     // wrapper.getNode().setValue('foo');
