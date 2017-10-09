@@ -23,19 +23,19 @@
 `Field` 组件本质上是一个辅助性的组件，不提供任何样式，只负责管理表单元素 value 值的生命周期和表单元素的 error 等信息。
 
 - `Field` 必须要有 `name` 属性；
-- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `InputField`，`SelectField`，`RadioGroupField`，`CheckboxField`，`CheckboxGroupField`，也可以使用单独封装的自定义表单元素组件；
+- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，也可以使用单独封装的自定义表单元素组件；
 - `Form` 组件提供了 `getControlGroup` 方法，可以快速封装自定义表单元素组件，使用方法参考 demo 和 [`getControlGroup` API](#form-getcontrolgroup) 。
 
 
 :::DEMO 基本用法
 ```jsx
 import { Form, Icon, Pop } from 'zent';
-const { Field, InputField, createForm } = Form;
+const { Field, FormInputField, createForm } = Form;
 
 const FieldForm = () => {
 	return (
 		<Form horizontal>
-			<Field
+			<FormInputField
 				name="name"
 				type="text"
 				label={
@@ -45,15 +45,13 @@ const FieldForm = () => {
 						</Pop>：
 					</span>
 				}
-				component={InputField}
 				helpDesc="用户名为5-25个字符"
 				required
 			/>
-			<Field
+			<FormInputField
 				name="password"
 				type="password"
 				label="密码："
-				component={InputField}
 				helpDesc={<span>密码由6-20位英文字母、数字组成，<a href="https://youzan.com" target="_blank">查看更多</a></span>}
 				required
 			/>
@@ -72,7 +70,7 @@ ReactDOM.render(
 :::DEMO 使用内置表单元素组件
 ```jsx
 import { Form, Radio, Checkbox } from 'zent';
-const { Field, InputField, SelectField, RadioGroupField, CheckboxField, CheckboxGroupField, createForm } = Form;
+const { Field, FormInputField, FormSelectField, FormRadioGroupField, FormCheckboxField, FormCheckboxGroupField, FormColorPickerField, FormDateRangePickerField, FormNumberInputField, FormSwitchField, createForm } = Form;
 
 class FieldForm extends React.Component {
 	state = {
@@ -95,20 +93,18 @@ class FieldForm extends React.Component {
 		const { handleSubmit } = this.props;
 		return (
 			<Form horizontal onSubmit={handleSubmit(this.submit)} >
-				<Field
+				<FormInputField
 					name="name"
 					type="text"
 					label="昵称："
-					component={InputField}
 					required
 					spellCheck={false}
 					validations={{ required: true }} 
 					validationErrors={{ required: '请填写昵称' }} 
 				/>
-				<Field
+				<FormSelectField
 					name="type"
 					label="类型："
-					component={SelectField}
 					data = {[
 						{ value: 1, text: '普通用户' },
 						{ value: 2, text: '高级用户' }
@@ -117,10 +113,9 @@ class FieldForm extends React.Component {
 					validations={{ required: true }} 
 					validationErrors={{ required: '请选择类型' }} 
 				/>
-				<Field
+				<FormRadioGroupField
 					name="sex"
 					label="性别："
-					component={RadioGroupField}
 					required
 					validations={{ 
 						required(values, value) {
@@ -133,13 +128,12 @@ class FieldForm extends React.Component {
 				>
 					<Radio value="1">男</Radio>
 					<Radio value="2">女</Radio>
-				</Field>
-				<Field
+				</FormRadioGroupField>
+				<FormCheckboxGroupField
 					name="tag"
 					label="兴趣标签："
 					value={this.state.checkedList}
 					onChange={this.onCheckboxChange}
-					component={CheckboxGroupField}
 					required
 					validations={{ 
 						minLength: 1
@@ -152,14 +146,43 @@ class FieldForm extends React.Component {
 					<Checkbox value="book">书籍</Checkbox>
 					<Checkbox value="beauty">美妆</Checkbox>
 					<Checkbox value="travel">旅行</Checkbox>
-				</Field>
-				<Field
-					name="password"
-					label="信息是否公开："
-					component={CheckboxField}
+				</FormCheckboxGroupField>
+				<FormNumberInputField
+					name="age"
+					label="年龄："
+					showStepper
+					value={12}
+				/>
+				<FormColorPickerField
+					name="color"
+					label="喜欢的颜色："
+					value="#5197FF"
+				/>
+				<FormDateRangePickerField
+					name="dateRange"
+					label="身份证有效期："
+					type="split"
+					value={[]}
+					validations={{
+						required(values, value) {
+							return value.length !== 0
+						}
+					}}
+					validationErrors={{
+						required: '请填写有效期'
+					}}
+				/>
+				<FormSwitchField
+					name="isPublic"
+					label="公开个人信息："
+					value={false}
+				/>
+				<FormCheckboxField
+					name="agree"
+					label="同意许可条例："
 				>
 					是
-				</Field>
+				</FormCheckboxField>
 				<div className="zent-form__form-actions">
 					<Button type="primary" htmlType="submit">获取表单值</Button>
 					<Button type="primary" outline onClick={this.resetForm}>重置表单值</Button>
@@ -184,30 +207,6 @@ ReactDOM.render(
 import { Form, NumberInput, ColorPicker, DateRangePicker, Switch, Upload } from 'zent';
 const { Field, createForm, getControlGroup, unknownProps } = Form;
 import omit from 'lodash/omit';
-
-const NumberInputWrap = (props) => {
-	const passableProps = omit(props, unknownProps);
-	return <NumberInput {...passableProps} />;
-};
-const NumberInputField = getControlGroup(NumberInputWrap);
-
-const ColorPickerWrap = (props) => {
-	const passableProps = omit(props, unknownProps);
-	return <ColorPicker {...passableProps} color={props.value} />;
-};
-const ColorPickerField = getControlGroup(ColorPickerWrap);
-
-const DateRangePickerWrap = (props) => {
-	const passableProps = omit(props, unknownProps);
-	return <DateRangePicker {...passableProps} />;
-};
-const DateRangePickerField = getControlGroup(DateRangePickerWrap);
-
-const SwitchWrap = (props) => {
-	const passableProps = omit(props, unknownProps);
-	return <Switch {...passableProps} size="small" checked={props.value} />;
-};
-const SwitchField = getControlGroup(SwitchWrap);
 
 const UploadWrap = (props) => {
 	const passableProps = omit(props, unknownProps);
@@ -246,39 +245,13 @@ class FieldForm extends React.Component {
 		return (
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<Field
-					name="age"
-					label="年龄："
-					component={NumberInputField}
-					showStepper
-					value={12}
-				/>
-				<Field
-					name="color"
-					label="颜色："
-					component={ColorPickerField}
-					value="#5197FF"
-				/>
-				<Field
-					name="dateRange"
-					label="时间范围："
-					component={DateRangePickerField}
-					type="split"
-					value={[]}
-				/>
-				<Field
-					name="open"
-					label="是否开启："
-					component={SwitchField}
-					value={false}
-				/>
-				<Field
 					name="imgs"
-					label="其他资料："
+					label="资料："
 					component={UploadField}
 					value={[]}
 					maxSize={8 * 1000 * 1000}
 					triggerInline
-					tips="建议尺寸：640 x 640 像素；您可以拖拽图片调整图片顺序。"
+					tips="建议尺寸：640 x 640 像素；"
 					onUpload={this.updateLocalImage.bind(this)}
 				/>
 				<div className="zent-form__form-actions">
@@ -422,7 +395,7 @@ ReactDOM.render(
 :::DEMO 常用表单校验
 ```jsx
 import { Form, Radio, Checkbox } from 'zent';
-const { Field, InputField, CheckboxGroupField, createForm } = Form;
+const { Field, FormInputField, FormCheckboxGroupField, createForm } = Form;
 
 class FieldForm extends React.Component {
 	state = {
@@ -445,11 +418,10 @@ class FieldForm extends React.Component {
 		const { handleSubmit } =this.props;
 		return (
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<Field
+				<FormInputField
 					name="name"
 					type="text"
 					label="昵称："
-					component={InputField}
 					required
 					helpDesc="正则校验"
 					validations={{
@@ -461,11 +433,10 @@ class FieldForm extends React.Component {
 						matchRegex: '昵称只能是字母'
 					}} 
 				/>
-				<Field
+				<FormInputField
 					name="password"
 					type="text"
 					label="密码："
-					component={InputField}
 					required
 					helpDesc="非空校验"
 					validations={{
@@ -475,11 +446,10 @@ class FieldForm extends React.Component {
 						required: '请填写密码'
 					}} 
 				/>
-				<Field
+				<FormInputField
 					name="confirmPw"
 					type="text"
 					label="确认密码："
-					component={InputField}
 					required
 					helpDesc="与其他表单域对比校验"
 					validations={{
@@ -489,11 +459,10 @@ class FieldForm extends React.Component {
 						equalsField: '两次填写的密码不一致'
 					}} 
 				/>
-				<Field
+				<FormInputField
 					name="email"
 					type="text"
 					label="邮件："
-					component={InputField}
 					helpDesc="邮件校验"
 					validations={{
 						isEmail: true
@@ -502,11 +471,10 @@ class FieldForm extends React.Component {
 						isEmail: '请填写正确的邮件'
 					}} 
 				/>
-				<Field
+				<FormInputField
 					name="url"
 					type="text"
 					label="个人网站链接："
-					component={InputField}
 					helpDesc="超链接校验"
 					validations={{
 						isUrl: true
@@ -515,11 +483,10 @@ class FieldForm extends React.Component {
 						isUrl: '请填写正确的网址'
 					}}
 				/>
-				<Field
+				<FormInputField
 					name="certificate"
 					type="text"
 					label="证件号码："
-					component={InputField}
 					required
 					helpDesc="自定义校验函数"
 					validations={{
@@ -533,13 +500,12 @@ class FieldForm extends React.Component {
 						format: '证件号码是10位或者15位数字'
 					}} 
 				/>
-				<Field
+				<FormCheckboxGroupField
 					name="tag"
 					type="text"
 					label="兴趣标签："
 					value={this.state.checkedList}
 					onChange={this.onCheckboxChange}
-					component={CheckboxGroupField}
 					required
 					helpDesc="长度校验"
 					validations={{ 
@@ -553,7 +519,7 @@ class FieldForm extends React.Component {
 					<Checkbox value="book">书籍</Checkbox>
 					<Checkbox value="beauty">美妆</Checkbox>
 					<Checkbox value="travel">旅行</Checkbox>
-				</Field>
+				</FormCheckboxGroupField>
 				<div className="zent-form__form-actions">
 					<Button type="primary" htmlType="submit">获取表单值</Button>
 					<Button type="primary" outline onClick={this.resetForm}>重置表单值</Button>
@@ -578,7 +544,7 @@ ReactDOM.render(
 :::DEMO 不同校验时机
 ```jsx
 import { Form } from 'zent';
-const { Field, InputField, createForm } = Form;
+const { Field, FormInputField, createForm } = Form;
 
 const FormattedForm = (props) => {
 	const { handleSubmit } = props;
@@ -587,10 +553,9 @@ const FormattedForm = (props) => {
 	}
 	return (
 		<Form horizontal onSubmit={handleSubmit(submit)}>
-			<Field
+			<FormInputField
 				name="field1"
 				type="text"
-				component={InputField}
 				label="Change时校验:"
 				validations={{ 
 					required: true,
@@ -601,10 +566,9 @@ const FormattedForm = (props) => {
 					matchRegex: '只能为字母'
 				}}
 			/>
-			<Field
+			<FormInputField
 				name="field2"
 				type="text"
-				component={InputField}
 				label="Blur时校验:"
 				validateOnChange={false}
 				validations={{ 
@@ -616,10 +580,9 @@ const FormattedForm = (props) => {
 					matchRegex: '只能为字母'
 				}}
 			/>
-			<Field
+			<FormInputField
 				name="field3"
 				type="text"
-				component={InputField}
 				label="submit时校验:"
 				validateOnChange={false}
 				validateOnBlur={false}
@@ -653,7 +616,7 @@ ReactDOM.render(
 :::DEMO 异步校验
 ```jsx
 import { Form } from 'zent';
-const { Field, InputField, createForm } = Form;
+const { Field, FormInputField, createForm } = Form;
 
 const AsyncForm = (props) => {
 	const asyncValidation = (values, value) => {
@@ -667,14 +630,13 @@ const AsyncForm = (props) => {
 	}
 	return (
 		<Form horizontal>
-			<Field
+			<FormInputField
 				name="name"
 				type="text"
 				label="用户名："
 				value=""
 				validations={{ required: true }}
 				validationErrors={{ required: '不能为空' }}
-				component={InputField}
 				asyncValidation={asyncValidation}
 			/>
 		</Form>
@@ -696,7 +658,7 @@ ReactDOM.render(
 :::DEMO 格式化 value 值
 ```jsx
 import { Form } from 'zent';
-const { Field, InputField, createForm } = Form;
+const { Field, FormInputField, createForm } = Form;
 
 const FormattedForm = () => {
 	const lower = (value) => {
@@ -707,19 +669,17 @@ const FormattedForm = () => {
 	}
 	return (
 		<Form horizontal>
-			<Field
+			<FormInputField
 				name="field1"
 				type="text"
-				component={InputField}
 				label="To Lower:"
 				value="AAA"
 				normalize={lower}
 				format={lower}
 			/>
-			<Field
+			<FormInputField
 				name="field2"
 				type="text"
-				component={InputField}
 				label="To Upper:"
 				value="bbb"
 				normalize={upper}
@@ -746,7 +706,7 @@ ReactDOM.render(
 :::DEMO 提交表单及结果处理
 ```jsx
 import { Form, Button } from 'zent';
-const { Field, InputField, createForm, SubmissionError } = Form;
+const { Field, FormInputField, createForm, SubmissionError } = Form;
 
 const onSubmitFail = (error) => {
 	alert(error);
@@ -782,28 +742,25 @@ const SubmitForm = (props) => {
 	}
 	return (
 		<Form onSubmit={handleSubmit(submit)} horizontal>
-			<Field
+			<FormInputField
 				name="user"
 				type="text"
-				component={InputField}
 				label="用户名："
 				value="111"
 				validations={{ required: true }}
 				validationErrors={{ required: '用户名不能为空' }}
 			/>
-			<Field
+			<FormInputField
 				name="password"
 				type="password"
-				component={InputField}
 				label="密码："
 				value="222"
 				validations={{ required: true }}
 				validationErrors={{ required: '密码不能为空' }}
 			/>
-			<Field
+			<FormInputField
 				name="confirmPassword"
 				type="password"
-				component={InputField}
 				label="确认密码："
 				value="222"
 				validations={{
@@ -838,7 +795,7 @@ ReactDOM.render(
 :::DEMO 其他表单操作
 ```jsx
 import { Form, Button } from 'zent';
-const { Field, InputField, createForm } = Form;
+const { Field, FormInputField, createForm } = Form;
 
 class SubmitForm extends React.Component {
 	submit = (values, zentForm) => {
@@ -879,37 +836,33 @@ class SubmitForm extends React.Component {
 
 		return (
 			<Form onSubmit={handleSubmit(this.submit)} horizontal>
-				<Field
+				<FormInputField
 					name="name"
 					type="text"
-					component={InputField}
 					label="名字："
 					value="1"
 					validations={{ required: true }}
 					validationErrors={{ required: '名字不能为空' }}
 				/>
-				<Field
+				<FormInputField
 					name="age"
 					type="text"
-					component={InputField}
 					label="年龄："
 					value="1"
 					validations={{ required: true }}
 					validationErrors={{ required: '年龄不能为空' }}
 				/>
-				<Field
+				<FormInputField
 					name="password"
 					type="text"
-					component={InputField}
 					label="密码："
 					value="1"
 					validations={{ required: true }}
 					validationErrors={{ required: '密码不能为空' }}
 				/>
-				<Field
+				<FormInputField
 					name="confirmPassword"
 					type="text"
-					component={InputField}
 					label="确认密码："
 					value="1"
 					validations={{
@@ -951,7 +904,7 @@ ReactDOM.render(
 :::DEMO 三种 Form 布局
 ```jsx
 import { Form, Radio } from 'zent';
-const { Field, InputField, createForm } = Form;
+const { Field, FormInputField, createForm } = Form;
 
 const RadioGroup = Radio.Group;
 
@@ -981,19 +934,17 @@ class FieldForm extends React.Component {
 					<Radio value="inline">inline</Radio>
 				</RadioGroup>
 				<Form inline={formLayout === 'inline'} horizontal={formLayout === 'horizontal'} onSubmit={handleSubmit(this.submit)}>
-					<Field
+					<FormInputField
 						name="name"
 						type="text"
 						label="用户名："
 						value=""
-						component={InputField}
 					/>
-					<Field
+					<FormInputField
 						name="name2"
 						type="text"
 						label="用户名2："
 						value=""
-						component={InputField}
 					/>
 					<div className="zent-form__form-actions">
 						<Button type="primary" htmlType="submit">获取表单值</Button>
@@ -1017,7 +968,7 @@ ReactDOM.render(
 :::DEMO Fieldset
 ```jsx
 import { Form } from 'zent';
-const { Field, Fieldset, InputField, createForm } = Form;
+const { Field, Fieldset, FormInputField, createForm } = Form;
 
 const FieldsetForm = (props) => {
 	const { handleSubmit } = props;
@@ -1028,21 +979,19 @@ const FieldsetForm = (props) => {
 	return (
 		<Form horizontal onSubmit={handleSubmit(submit)}>
 			<Fieldset legend="Fieldset1">
-				<Field
+				<FormInputField
 					name="name"
 					type="text"
 					label="用户名："
 					value=""
-					component={InputField}
 				/>
 			</Fieldset>
 			<Fieldset legend="Fieldset2">
-				<Field
+				<FormInputField
 					name="name2"
 					type="text"
 					label="用户名2："
 					value=""
-					component={InputField}
 				/>
 			</Fieldset>
 			<div className="zent-form__form-actions">
@@ -1065,15 +1014,14 @@ ReactDOM.render(
 :::DEMO
 ```jsx
 import { Form } from 'zent';
-const { Field, FormSection, InputField, createForm } = Form;
+const { Field, FormSection, FormInputField, createForm } = Form;
 
 class Address extends React.Component {
 	render() {
 		return <div>
-			<Field
+			<FormInputField
 				name="streetName"
 				label="街道："
-				component={InputField}
 				type="text"
 				validations={{
 					required: true,
@@ -1084,10 +1032,9 @@ class Address extends React.Component {
 					maxLength: '超过最大长度'
 				}}
 			/>
-			<Field
+			<FormInputField
 				name="number"
 				label="门牌号："
-				component={InputField}
 				type="text"
 				validations={{
 					required: true,
@@ -1098,10 +1045,9 @@ class Address extends React.Component {
 					minLength: '不足最小长度'
 				}}
 			/>
-			<Field
+			<FormInputField
 				name="zipCode"
 				label="邮政编码："
-				component={InputField}
 				type="text"
 			/>
 		</div>
@@ -1111,16 +1057,14 @@ class Address extends React.Component {
 class Party extends React.Component {
 	render() {
 		return <div>
-			<Field
+			<FormInputField
 				name="name"
 				label="名字："
-				component={InputField}
 				type="text"
 			/>
-			<Field
+			<FormInputField
 				name="age"
 				label="年龄："
-				component={InputField}
 				type="text"
 			/>
 			<FormSection
@@ -1209,10 +1153,9 @@ class FieldsetForm extends React.Component {
 		const { handleSubmit } = this.props;
 		return (
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
-				<Field
+				<FormInputField
 					name="all"
 					label="总人数："
-					component={InputField}
 					type="text"
 				/>
 				<FormSection
@@ -1253,7 +1196,7 @@ ReactDOM.render(
 :::DEMO `FieldArray`组件
 ```jsx
 import { Form, Icon, Pop } from 'zent';
-const { Field, InputField, RadioGroupField, createForm, FormSection, FieldArray } = Form;
+const { Field, FormInputField, FormRadioGroupField, createForm, FormSection, FieldArray } = Form;
 
 const renderHobbies = (props) => {
 	const { fields } = props;
@@ -1269,10 +1212,9 @@ const renderHobbies = (props) => {
 								<Icon type="close-circle" onClick={() => fields.shift()} />
 							</Pop>
 						</div>
-						<Field
+						<FormInputField
 							name={`${hobby}`}
 							type="text"
-							component={InputField}
 							label="兴趣爱好："
 							validations={{ required: true }} 
 							validationErrors={{ required: '请填写兴趣爱好' }}
@@ -1299,19 +1241,17 @@ const renderMembers = (props) => {
 								/>
 							</Pop>
 						</div>
-						<Field
+						<FormInputField
 							name={`${member}.name`}
 							type="text"
-							component={InputField}
 							label="名字："
 							required
 							validations={{ required: true }}
 							validationErrors={{ required: '请填写成员名字' }}
 						/>
-						<Field
+						<FormRadioGroupField
 							name={`${member}.sex`}
 							label="性别："
-							component={RadioGroupField}
 							required
 							validations={{ 
 								required(values, value) {
@@ -1324,7 +1264,7 @@ const renderMembers = (props) => {
 						>
 							<Radio value="1">男</Radio>
 							<Radio value="2">女</Radio>
-						</Field>
+						</FormRadioGroupField>
 						<FieldArray name={`${member}.hobbies`} component={renderHobbies} />
 					</li>
 				);
@@ -1342,11 +1282,10 @@ class FieldForm extends React.Component {
 		const { handleSubmit } = this.props;
 		return (
 			<Form horizontal onSubmit={handleSubmit(this.submit)} className="demo-form">
-				<Field
+				<FormInputField
 					name="number"
 					type="text"
 					label="家庭总人数："
-					component={InputField}
 					required
 					validations={{ required: true }}
 					validationErrors={{ required: '请填写家庭总人数' }}
