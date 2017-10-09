@@ -62,7 +62,7 @@ cd site && yarn dev
 
 ## 组件文档如何编写
 
-每个组件根目录下的 `README.md` (注意名称大写) 文件即为该组件文档。组件文档采用 markdown 格式，具体书写规范可参考 [Markdown 组件文档书写规范](./MARKDOWN.md)。
+每个组件根目录下的 `README.md` (注意名称大写) 文件即为该组件文档。组件文档采用 markdown 格式，具体书写规范请参考 [组件文档书写规范](./MARKDOWN.md)。
 
 #### API 说明
 
