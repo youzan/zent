@@ -51,16 +51,16 @@ class Simple extends Component {
 					format="YYYY-MM-DD HH:mm:ss"
 					chooseDays={chooseDays1}
 					preset={[{
-						text: '今日',
+						text: '今',
 						value: 0
 					}, {
-						text: '昨日',
+						text: '昨',
 						value: 1
 					}, {
-						text: '最近7天',
+						text: '近7天',
 						value: 7
 					}, {
-						text: '最近30天',
+						text: '近30天',
 						value: 30
 					}]}
 				/>

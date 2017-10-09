@@ -17,6 +17,7 @@ import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
 import Form from 'form';
+import Grid from 'grid';
 import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
@@ -64,6 +65,7 @@ export {
   Design,
   Dialog,
   Form,
+  Grid,
   Layout,
   Loading,
   Icon,

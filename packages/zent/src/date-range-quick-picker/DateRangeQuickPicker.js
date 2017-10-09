@@ -35,11 +35,11 @@ export default class DateRangeQuickPicker extends Component {
     format: 'YYYY-MM-DD',
     preset: [
       {
-        text: '最近7天',
+        text: '近7天',
         value: 7
       },
       {
-        text: '最近30天',
+        text: '近30天',
         value: 30
       }
     ],
@@ -80,19 +80,21 @@ export default class DateRangeQuickPicker extends Component {
           showTime={!showTime}
           {...pickerProps}
         />
-        {map(preset, (item, index) => {
-          return (
-            <span
-              key={index}
-              className={cx(`${prefix}-date-range-picker__btn`, {
-                active: chooseDays === item.value
-              })}
-              onClick={this.handleChooseDays.bind(this, item.value)}
-            >
-              {item.text}
-            </span>
-          );
-        })}
+        <div className={`${prefix}-date-range-picker__filter`}>
+          {map(preset, (item, index) => {
+            return (
+              <span
+                key={index}
+                className={cx(`${prefix}-date-range-picker__btn`, {
+                  active: chooseDays === item.value
+                })}
+                onClick={this.handleChooseDays.bind(this, item.value)}
+              >
+                {item.text}
+              </span>
+            );
+          })}
+        </div>
       </div>
     );
   }

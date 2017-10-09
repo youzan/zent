@@ -4,7 +4,7 @@
 	</a>
 </p>
 <p align="center">
-    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png">
+    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png" width="200px">
 </p>
 <p align="center">
 	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
@@ -12,7 +12,25 @@
 
 [![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING.md)
 
-[![NPM](https://nodei.co/npm/zent.png?downloads=true&downloadRank=true)](https://nodei.co/npm/zent/)
+
+### 组件展示
+
+<img src="https://img.yzcdn.cn/zanui/react/zent-components.png" alt="zent-components" width="849px"/>
+
+### 特性
+
+* 高质量的 React 基础组件以及丰富的业务组件
+* 内置 TypeScript 类型定义文件
+* 支持定制主题
+* 代码/样式按需加载
+* yarn + webpack + babel + postcss + prettier + stylefmt
+* 一套有赞设计师绘制的图标库
+* 单测覆盖率在 90% 以上
+
+### 支持环境
+
+* 现代浏览器以及 IE 11 及以上
+* 支持服务端渲染(SSR)
 
 ## 安装
 
