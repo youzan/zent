@@ -29,7 +29,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     isLoadingShow: false
   };
 
-  closeLoading = () => {
+  stopLoading = () => {
     this.setState({ isLoadingShow: false });
   };
 
@@ -76,7 +76,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     });
 
     if (loadMore.length > 0) {
-      loadMore(this.closeLoading);
+      loadMore(this.stopLoading);
     } else {
       loadMore()
         .then(() => {
