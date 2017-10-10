@@ -14,16 +14,22 @@ import { InfiniteScroller, Card } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		list: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+		list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	}
 
-	loadMore = () => {
+	loadMore(closeLoading) {
 		const { list } = this.state;
-		const last = list[list.length - 1];
+		const latestList = list.slice(list.length - 10);
+		const newList = latestList.map(item => item + 10);
 
-		this.setState({
-			list: [...list, last + 1]
-		});
+		setTimeout(() => {
+			this.setState({
+				list: [...list, ...newList]
+			});
+			closeLoading && closeLoading();
+
+		}, 500);
+
 	}
 
 	render() {
@@ -31,7 +37,8 @@ class Simple extends React.Component {
 		return (
 			<InfiniteScroller
 				className="infinite-scroller-demo"
-				loadMore={this.loadMore}
+				useWindow={false}
+				loadMore={this.loadMore.bind(this)}
 			>
 				{
 					list.map(item => <Card key={item}>{item}</Card>)
@@ -53,7 +60,7 @@ ReactDOM.render(
 
 | 参数             	 	| 说明                          | 类型                | 默认值       		 | 备选值           							  			         |
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
-| hasMore        | 是否可以调用加载更多方法         | bool                | `true`           | `false`, `true`                               |
+| hasMore            | 是否可以调用加载更多方法         | bool                | `true`           | `false`, `true`                               |
 | loadMore      		 | 加载更多的回调函数              | func                |                  |  							  			                       |
 | offset             | 触发滚动加载的阈值              | number              | 20               |                                               |
 | className          | 自定义额外类名                  | string              | `''`						 |                                               |
@@ -62,5 +69,6 @@ ReactDOM.render(
 <style>
 .infinite-scroller-demo {
 	height: 300px;
+	overflow-y: auto;
 }
 </style>
