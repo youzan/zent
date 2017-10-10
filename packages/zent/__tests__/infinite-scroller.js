@@ -223,6 +223,7 @@ describe('InfiniteScroller', () => {
         const { list } = this.state;
         return (
           <InfiniteScroller
+            ref={scroll => (this.scroll = scroll)}
             initialLoad={false}
             hasMore={false}
             useWindow={false}
@@ -238,7 +239,48 @@ describe('InfiniteScroller', () => {
       }
     }
     const wrapper = mount(<Test />);
-    wrapper.simulate('scroll');
+    wrapper.instance().scroll.handleScroll();
+    expect(wrapper.find('.child').length).toBe(3);
+    wrapper.unmount();
+  });
+
+  it('wont load more untils scroll at bottom', () => {
+    class Test extends React.Component {
+      state = {
+        list: [1, 2, 3]
+      };
+
+      loadMore = () => {
+        const { list } = this.state;
+        const last = list[list.length - 1];
+
+        this.setState({
+          list: [...list, last + 1]
+        });
+      };
+
+      render() {
+        const { list } = this.state;
+        return (
+          <InfiniteScroller
+            ref={scroll => (this.scroll = scroll)}
+            initialLoad={false}
+            offset={-500}
+            hasMore={false}
+            useWindow={false}
+            loadMore={this.loadMore}
+          >
+            {list.map(item => (
+              <div className="child" key={item}>
+                {item}
+              </div>
+            ))}
+          </InfiniteScroller>
+        );
+      }
+    }
+    const wrapper = mount(<Test />);
+    wrapper.instance().scroll.handleScroll();
     expect(wrapper.find('.child').length).toBe(3);
     wrapper.unmount();
   });
