@@ -17,6 +17,20 @@
     &-with-marks {
       margin-bottom: 20px;
     }
+
+    &:hover {
+      .zent-slider-track {
+        background: $theme-primary-2;
+
+        &-disabled {
+          background: $theme-stroke-5;
+
+          &:hover {
+            background: $theme-stroke-5;
+          }
+        }
+      }
+    }
   }
 
   &-container {
@@ -52,7 +66,6 @@
     width: 14px;
     height: 14px;
     margin-top: -5px;
-    cursor: pointer;
     margin-left: -7px;
     border-radius: 50%;
     border: 2px solid $theme-primary-4;
@@ -186,6 +199,12 @@
       &-active {
         border: 1px solid $theme-primary-4;
       }
+    }
+  }
+
+  &-disabled {
+    .zent-slider-main {
+      cursor: not-allowed;
     }
   }
 }

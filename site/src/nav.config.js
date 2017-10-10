@@ -41,6 +41,11 @@ module.exports = {
               title: '贡献代码',
               path: 'guides/contribute',
               component: require('../../packages/zent/docs/CONTRIBUTING.md')
+            },
+            {
+              title: '文档规范',
+              path: 'guides/markdown',
+              component: require('../../packages/zent/docs/MARKDOWN.md')
             }
           ]
         }
