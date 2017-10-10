@@ -76,6 +76,5 @@ ReactDOM.render(
 <style>
 .infinite-scroller-demo {
 	height: 300px;
-	overflow-y: auto;
 }
 </style>

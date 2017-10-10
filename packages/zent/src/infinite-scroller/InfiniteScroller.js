@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import Loading from 'loading';
 
 export default class InfiniteScroller extends (PureComponent || Component) {
@@ -53,7 +54,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
               document.body
             ).scrollTop;
       offsetDistance =
-        this.calculateTopPosition(this.scroll) +
+        this.calculateTopPosition(this.scroller) +
         this.scroller.offsetHeight -
         scrollTop -
         window.innerHeight;
@@ -127,13 +128,20 @@ export default class InfiniteScroller extends (PureComponent || Component) {
   }
 
   render() {
-    const { prefix, className, children, hasMore, loader } = this.props;
+    const {
+      prefix,
+      className,
+      children,
+      hasMore,
+      loader,
+      useWindow
+    } = this.props;
     const { isLoadingShow } = this.state;
+    const classString = cx(`${prefix}-infinite-scroller`, className, {
+      [`${prefix}-infinite-scroller-y`]: !useWindow
+    });
     return (
-      <div
-        ref={scroller => (this.scroller = scroller)}
-        className={`${prefix}-infinite-scroller ${className}`}
-      >
+      <div ref={scroller => (this.scroller = scroller)} className={classString}>
         {children}
         {hasMore && isLoadingShow && loader}
       </div>
