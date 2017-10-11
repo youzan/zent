@@ -6,7 +6,7 @@ assets_index_path=$basepath/../assets/index.pcss
 js_file_name="$1.js"
 css_file_name="$1.pcss"
 
-echo "开始初始化组件 $@"
+echo "开始初始化组件：$@"
 
 function touch_js_file () {
   touch index.js
@@ -34,4 +34,8 @@ cd $basepath/../src && mkdir $1 && cd $1 && touch_js_file && cd ../../ && update
 # css代码
 cd $basepath/../assets && touch_css_file && cd ../ && update_assets_index
 
-echo "完成初始化组件 $@"
+echo "完成初始化组件：$@"
+
+echo '更新jest配置...'
+
+node $basepath/update-jest-module-mapper.js
