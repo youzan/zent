@@ -3,17 +3,18 @@
 basepath=$(dirname $0)
 js_file_path=$basepath/../src/$1/index.js
 assets_index_path=$basepath/../assets/index.pcss
-js_file_name="$1.js"
 css_file_name="$1.pcss"
 upper_name="$(tr '[:lower:]' '[:upper:]' <<< ${1:0:1})${1:1}"
 upper_js_file_name="$upper_name.js"
 
+# 添加js
 function touch_js_file () {
   touch index.js
   touch README.md
   touch $upper_js_file_name
 }
 
+# 添加pcss
 function touch_css_file () {
   touch $css_file_name
 }
