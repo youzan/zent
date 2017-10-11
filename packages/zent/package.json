@@ -11,7 +11,8 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
-    "theme": "rm -rf css && node ./scripts/build-theme.js"
+    "theme": "rm -rf css && node ./scripts/build-theme.js",
+    "new-component": "./scripts/new-component.sh"
   },
   "typings": "typings/index.d.ts",
   "author": "Youzan FE",
