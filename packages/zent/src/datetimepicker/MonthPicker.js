@@ -72,6 +72,10 @@ class MonthPicker extends (PureComponent || Component) {
     this.setState(state);
   }
 
+  getDate = () => {
+    return this.state.actived;
+  };
+
   onChangeMonth = val => {
     this.setState({
       actived: val
@@ -115,7 +119,7 @@ class MonthPicker extends (PureComponent || Component) {
 
     if (disabledDate && disabledDate(ret)) return true;
     if (min && ret < parseDate(min, format)) return true;
-    if (max && ret >= parseDate(max, format)) return true;
+    if (max && ret > parseDate(max, format)) return true;
 
     return false;
   };

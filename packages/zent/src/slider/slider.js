@@ -87,7 +87,11 @@ export default class Slider extends (PureComponent || Component) {
 
   render() {
     const { withInput, className, ...restProps } = this.props;
-    const wrapClass = classNames(`${restProps.prefix}-slider`, className);
+    const wrapClass = classNames(
+      `${restProps.prefix}-slider`,
+      { [`${restProps.prefix}-slider-disabled`]: restProps.disabled },
+      className
+    );
     return (
       <div className={wrapClass}>
         <Range {...restProps} onChange={this.onChange} />

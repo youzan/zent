@@ -11,6 +11,10 @@ function check_result {
 $basepath/validate-pop-size.sh
 check_result
 
+# Ensure only colors defined in themes are used
+$basepath/check-style-colors.sh
+check_result
+
 # clean
 rm -rf lib css
 check_result

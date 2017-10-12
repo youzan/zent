@@ -10,11 +10,17 @@ import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
 import defaultTo from 'lodash/defaultTo';
+import defer from 'lodash/defer';
 
 import DesignPreview from './preview/DesignPreview';
 import uuid from './utils/uuid';
-import { getDesignType, isExpectedDesginType } from './utils/design-type';
+import {
+  getDesignType,
+  isExpectedDesginType,
+  serializeDesignType
+} from './utils/design-type';
 import * as storage from './utils/storage';
+import InstanceCountMap from './utils/InstanceCountMap';
 
 const UUID_KEY = '__zent-design-uuid__';
 const CACHE_KEY = '__zent-design-cache-storage__';
@@ -70,7 +76,10 @@ export default class Design extends (PureComponent || Component) {
         editable: PropTypes.bool,
 
         // 选中时是否高亮
-        highlightWhenSelect: PropTypes.bool
+        highlightWhenSelect: PropTypes.bool,
+
+        // 组件可以添加的最大次数
+        limit: PropTypes.oneOfType([PropTypes.number, PropTypes.func])
       })
     ).isRequired,
 
@@ -150,6 +159,12 @@ export default class Design extends (PureComponent || Component) {
       // 当前选中的组件对应的 UUID
       selectedUUID: this.getUUIDFromValue(selectedValue),
 
+      // 每个组件当前已经添加的个数
+      componentInstanceCount: makeInstanceCountMapFromValue(
+        props.value,
+        props.components
+      ),
+
       // 是否显示添加组件的浮层
       showAddComponentOverlay: false,
 
@@ -227,11 +242,24 @@ export default class Design extends (PureComponent || Component) {
   componentWillReceiveProps(nextProps) {
     this.validateCacheProps(nextProps);
 
+    let shouldUpdateInstanceCountMap = false;
+
     if (nextProps.value !== this.props.value) {
       tagValuesWithUUID(nextProps.value);
+      shouldUpdateInstanceCountMap = true;
     }
     if (nextProps.components !== this.props.components) {
       this.cacheAppendableComponents(nextProps.components);
+      shouldUpdateInstanceCountMap = true;
+    }
+
+    if (shouldUpdateInstanceCountMap) {
+      this.setState({
+        componentInstanceCount: makeInstanceCountMapFromValue(
+          nextProps.value,
+          nextProps.components
+        )
+      });
     }
   }
 
@@ -250,7 +278,8 @@ export default class Design extends (PureComponent || Component) {
       appendableComponents,
       showAddComponentOverlay,
       validations,
-      showError
+      showError,
+      componentInstanceCount
     } = this.state;
 
     return React.createElement(preview, {
@@ -259,6 +288,7 @@ export default class Design extends (PureComponent || Component) {
       value,
       validations,
       showError,
+      componentInstanceCount,
       onComponentValueChange: this.onComponentValueChange,
       onAddComponent: this.onAdd,
       appendableComponents,
@@ -368,9 +398,9 @@ export default class Design extends (PureComponent || Component) {
     this.trackValueChange(newValue);
     this.onSelect(instance);
 
-    setTimeout(() => {
+    defer(() => {
       this.scrollToPreviewItem(id);
-    }, 0);
+    });
   };
 
   // 删除一个组件
@@ -400,9 +430,9 @@ export default class Design extends (PureComponent || Component) {
     });
 
     this.adjustHeight();
-    setTimeout(() => {
+    defer(() => {
       this.scrollToPreviewItem(nextUUID);
-    }, 0);
+    });
   };
 
   // 交换两个组件的位置
@@ -706,6 +736,11 @@ export default class Design extends (PureComponent || Component) {
     }
   };
 
+  // Dummy method to make Design and DesignWithDnd compatible at source code level
+  getDecoratedComponentInstance() {
+    return this;
+  }
+
   // Actions on design
   design = (() => {
     return {
@@ -770,4 +805,20 @@ function findFirstEditableSibling(value, components, startIndex) {
   }
 
   return null;
+}
+
+/**
+ * 根据当前的值生成一个组件使用计数
+ * @param {Array} value Design 当前的值
+ * @param {Array} components Design 支持的组件列表
+ */
+function makeInstanceCountMapFromValue(value, components) {
+  const instanceCountMap = new InstanceCountMap(0);
+
+  (value || []).forEach(val => {
+    const comp = find(components, c => isExpectedDesginType(c, val.type));
+    instanceCountMap.inc(serializeDesignType(comp.type));
+  });
+
+  return instanceCountMap;
 }

@@ -139,6 +139,69 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 支持动态操控选项数组
+```jsx
+import { Select, Button } from 'zent';
+
+const Option = Select.Option;
+
+class Demo extends Component {
+	state = {
+  	selectedValue: '2',
+		selectData: [
+			{ value: '1', text: '选项一' },
+			{ value: '2', text: '选项二' },
+			{ value: '3', text: '选项三' },
+		]
+  };
+
+	reRender = () => {
+		this.forceUpdate();
+	};
+
+	selectChangeHandler = (event, selected) => {
+		this.setState({
+			selectedValue: selected.value
+		});
+	};
+
+	reset = () => {
+		this.setState({
+			selectData: []
+		});
+	};
+
+	refill = () => {
+		this.setState({
+			selectData: [
+				{ value: '1', text: '选项一' },
+				{ value: '2', text: '选项二' },
+				{ value: '3', text: '选项三' },
+			]
+		});
+	};
+
+  render() {
+  	return (
+    	<div>
+        <Select
+					data={this.state.selectData}
+					onChange={this.selectChangeHandler}
+					value={this.state.selectedValue} />
+				<Button onClick={this.reset}>置空选项数组</Button>
+				<Button onClick={this.refill}>重新装填</Button>
+    	</div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Demo />
+  , mountNode
+);
+```
+:::
+
 :::demo 支持数组类型选项
 ```jsx
 import { Select } from 'zent';
@@ -455,7 +518,7 @@ class TagsDemo extends Component {
 					onChange={this.increaseHandler}
 					onDelete={this.deleteHandler}
 					tags
-    			filter={(item, keyword) => item.name.indexOf(keyword) > -1}
+    			filter={(item, keyword) => item.text.indexOf(keyword) > -1}
 					value={this.state.selected} />
 				<Button onClick={this.reset}>重置</Button>
 				<Button onClick={this.upgradeData}>更新Data</Button>

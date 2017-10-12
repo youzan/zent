@@ -1,9 +1,10 @@
-$activecolor: black;
-$color: #666;
-$tabbg: #f8f8f8;
-$activetabbg: white;
-$disablecolor: #c9c9c9;
-$slidercolor: #0099fc;
+@import './theme/default.pcss';
+$activecolor: $theme-stroke-1;
+$color: $theme-stroke-3;
+$tabbg: $theme-stroke-9;
+$activetabbg: $theme-stroke-10;
+$disablecolor: $theme-stroke-5;
+$slidercolor: $theme-primary-3;
 
 .zent-tabs {
   font-size: 14px;
@@ -11,7 +12,7 @@ $slidercolor: #0099fc;
 
   &-nav {
     position: relative;
-    border-bottom: 1px solid #e4e4e4;
+    border-bottom: 1px solid $theme-stroke-7;
     outline: none;
     margin-bottom: 10px;
     user-select: none;
@@ -27,7 +28,7 @@ $slidercolor: #0099fc;
 
       span {
         display: block;
-        border: 1px solid #e4d4e4;
+        border: 1px solid $theme-stroke-7;
         border-radius: 2px;
         position: relative;
         top: 50%;
@@ -71,8 +72,8 @@ $slidercolor: #0099fc;
     display: inline-block;
     cursor: pointer;
     color: $color;
-    border-top: 1px solid #e4e4e4;
-    border-right: 1px solid #e4e4e4;
+    border-top: 1px solid $theme-stroke-7;
+    border-right: 1px solid $theme-stroke-7;
     background-color: $tabbg;
     box-sizing: border-box;
 
@@ -96,7 +97,7 @@ $slidercolor: #0099fc;
   }
 
   &-tab:first-child {
-    border: 1px solid #e4e4e4;
+    border: 1px solid $theme-stroke-7;
     border-bottom: 0;
     border-top-left-radius: 4px;
   }
@@ -196,7 +197,7 @@ $slidercolor: #0099fc;
     border: 0;
 
     .zent-tabs-tab-inner {
-      border: 1px solid #e4e4d4 !important;
+      border: 1px solid $theme-stroke-7 !important;
       border-bottom: 0 !important;
       border-top-left-radius: 6px !important;
       border-top-right-radius: 6px !important;
@@ -235,5 +236,5 @@ $slidercolor: #0099fc;
 }
 
 .zent-tabs-third-level {
-  background-color: #f8f8f8;
+  background-color: $theme-stroke-9;
 }

@@ -18,6 +18,16 @@ module.exports = {
               component: require('../../packages/babel-plugin-zent/README.md')
             },
             {
+              title: '色彩',
+              path: 'guides/colors',
+              component: require('../src/pages/colors').default
+            },
+            {
+              title: '定制主题',
+              path: 'guides/theme',
+              component: require('../../packages/zent/docs/theme.md')
+            },
+            {
               title: '更新日志',
               path: 'guides/changelog',
               component: require('../../packages/zent/RELEASE.md')
@@ -31,6 +41,11 @@ module.exports = {
               title: '贡献代码',
               path: 'guides/contribute',
               component: require('../../packages/zent/docs/CONTRIBUTING.md')
+            },
+            {
+              title: '文档规范',
+              path: 'guides/markdown',
+              component: require('../../packages/zent/docs/MARKDOWN.md')
             }
           ]
         }
@@ -269,6 +284,11 @@ module.exports = {
               component: require('../../packages/zent/src/table/README.md')
             },
             {
+              path: 'component/grid',
+              title: 'Grid 网格',
+              component: require('../../packages/zent/src/grid/README.md')
+            },
+            {
               path: 'component/tabs',
               title: 'Tabs 选项卡',
               component: require('../../packages/zent/src/tabs/README.md')
@@ -305,7 +325,7 @@ module.exports = {
             },
             {
               path: 'component/date-range-quick-picker',
-              title: 'DateRangeQuickPicker 时间区域',
+              title: 'DateRangeQuickPicker',
               component: require('../../packages/zent/src/date-range-quick-picker/README.md')
             }
           ]

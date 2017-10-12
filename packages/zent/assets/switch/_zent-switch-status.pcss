@@ -1,3 +1,5 @@
+@import '../theme/default.pcss';
+
 .zent-switch-checked {
   border-color: $switch-on;
   background-color: $switch-on;
@@ -46,10 +48,10 @@
     width: 16px;
     height: 16px;
     margin: -5px 0 0 -15px;
-    border: 3px solid rgba(0, 0, 0, 0.1);
+    border: 3px solid $theme-mask-2;
     border-radius: 100%;
     box-sizing: border-box;
-    border-color: #666 transparent transparent;
+    border-color: $theme-stroke-3 transparent transparent;
     animation: switch-spin 0.6s linear;
     animation-iteration-count: infinite;
   }

@@ -1,3 +1,5 @@
+@import './theme/default.pcss';
+
 .zent-radio-group {
   display: inline-block;
   font-size: 12px;
@@ -63,8 +65,8 @@
   width: 14px;
   height: 14px;
   border-radius: 7px;
-  border: 1px solid #bbb;
-  background: #fff;
+  border: 1px solid $theme-stroke-5;
+  background: $theme-stroke-10;
   box-sizing: border-box;
   vertical-align: middle;
   transition: all 0.3s;
@@ -78,7 +80,7 @@
     width: 4px;
     height: 4px;
     border-radius: 2px;
-    background: #fff;
+    background: $theme-stroke-10;
     transform: scale(0);
     transition: all 0.12s ease-in-out;
   }
@@ -86,8 +88,8 @@
 
 .zent-radio-checked {
   .zent-radio-inner {
-    border-color: #27f;
-    background: #38f;
+    border-color: $theme-primary-1;
+    background: $theme-primary-2;
 
     &::after {
       transform: scale(1);

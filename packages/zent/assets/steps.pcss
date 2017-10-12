@@ -1,14 +1,18 @@
-$normal-color: #333;
-$cart-color: #666;
-$wait-color: #999;
-$error-color: #f44;
-$bg-color: #f8f8f8;
-$current-bg-color: #38f;
+@import './theme/default.pcss';
+$normal-color: $theme-stroke-1;
+$cart-color: $theme-stroke-3;
+$wait-color: $theme-stroke-4;
+$error-color: $theme-error-2;
+$bg-color: $theme-stroke-9;
+$current-bg-color: $theme-primary-2;
+$icon-color: $theme-stroke-6;
 
 .zent-steps {
   width: 100%;
   line-height: 1.5;
   font-size: 0;
+  display: flex;
+  box-sizing: border-box;
 }
 
 .zent-steps-tail {
@@ -16,17 +20,17 @@ $current-bg-color: #38f;
   width: 100%;
   left: 0;
   top: 10px;
-  padding: 0 10px;
   box-sizing: border-box;
+  margin-left: 55px;
 
   i {
     display: inline-block;
     position: relative;
     width: 100%;
     border-radius: 1px;
-    height: 1px;
+    height: 3px;
     vertical-align: top;
-    background: $wait-color;
+    background: $icon-color;
 
     &::after {
       content: '';
@@ -47,20 +51,25 @@ $current-bg-color: #38f;
     position: relative;
     display: inline-block;
     vertical-align: top;
-    background: #fff;
+    background: $theme-stroke-10;
+    margin-left: 45px;
+    box-sizing: border-box;
   }
 
   .zent-step-main {
     position: relative;
     vertical-align: top;
-    max-width: 120px;
-    color: $wait-color;
+    width: 120px;
+    color: $theme-stroke-4;
+    text-align: center;
 
     .zent-step-title {
       font-size: 14px;
       max-width: 120px;
       line-height: 14px;
       margin-top: 10px;
+      word-wrap: break-word;
+      word-break: break-all;
     }
 
     .zent-step-description {
@@ -68,14 +77,16 @@ $current-bg-color: #38f;
       font-size: 12px;
       line-height: 16px;
       margin-top: 5px;
+      word-wrap: break-word;
+      word-break: break-all;
     }
   }
 }
 
 .zent-step-head-inner {
-  margin-right: 10px;
+  margin: 0 5px;
   font-size: 20px;
-  color: $wait-color;
+  color: $icon-color;
   line-height: 20px;
 
   .zent-icon {
@@ -86,8 +97,8 @@ $current-bg-color: #38f;
     line-height: 20px;
     border-radius: 50%;
     text-align: center;
-    background: $wait-color;
-    color: #fff;
+    background: $icon-color;
+    color: $theme-stroke-10;
     font-size: 12px;
   }
 
@@ -100,11 +111,8 @@ $current-bg-color: #38f;
   position: relative;
   display: inline-block;
   vertical-align: top;
-
-  &:not(:first-child) .zent-step-head {
-    margin-left: -10px;
-    padding-left: 10px;
-  }
+  overflow: visible;
+  flex: 1;
 
   &.zent-steps-status-finish {
     &.is-current {
@@ -146,7 +154,7 @@ $current-bg-color: #38f;
         &::after {
           width: 100%;
           background: $current-bg-color;
-          transition: all 0.4s ease;
+          transition: all 0.2s ease;
           opacity: 1;
         }
       }
@@ -166,15 +174,10 @@ $current-bg-color: #38f;
   }
 
   &:last-child {
-    .zent-step-head-inner {
-      margin-right: 0;
-    }
+    flex: none;
 
-    .zent-step-main {
-      position: absolute;
-      width: 120px;
-      right: 0;
-      text-align: right;
+    .zent-steps-tail {
+      display: none;
     }
   }
 }
@@ -183,6 +186,10 @@ $current-bg-color: #38f;
   .zent-steps-item {
     box-sizing: border-box;
     padding: 0 1px;
+
+    &.is-clicked {
+      cursor: pointer;
+    }
 
     &:first-child {
       padding-left: 0;
@@ -208,7 +215,7 @@ $current-bg-color: #38f;
     &.is-current {
       .zent-steps-step {
         background: $current-bg-color;
-        color: #fff;
+        color: $theme-stroke-10;
       }
     }
   }
@@ -220,6 +227,10 @@ $current-bg-color: #38f;
   .zent-steps-item {
     padding: 0 8px;
     box-sizing: border-box;
+
+    &.is-clicked {
+      cursor: pointer;
+    }
 
     &:first-child {
       padding-left: 0;
@@ -248,6 +259,7 @@ $current-bg-color: #38f;
       background: $bg-color;
       color: $cart-color;
       text-align: center;
+      padding: 0 10px;
 
       &::after {
         content: ' ';
@@ -281,7 +293,7 @@ $current-bg-color: #38f;
     &.is-finish {
       .zent-steps-step {
         background: $current-bg-color;
-        color: #fff;
+        color: $theme-stroke-10;
 
         &::after {
           border-left-color: $current-bg-color;

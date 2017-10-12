@@ -1,9 +1,10 @@
-$c-gray-darker: #666 !default;
+@import './theme/default.pcss';
+$c-gray-darker: $theme-stroke-3 !default;
 
 .zent-sku {
-  background-color: #fff;
+  background-color: $theme-stroke-10;
   padding: 10px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid $theme-stroke-7;
 
   &-pop {
     z-index: 1;
@@ -20,8 +21,8 @@ $c-gray-darker: #666 !default;
       position: relative;
       padding: 7px 10px;
       margin: 0;
-      color: #666;
-      background-color: #f8f8f8;
+      color: $theme-stroke-3;
+      background-color: $theme-stroke-9;
       font-size: 12px;
       line-height: 16px;
       font-weight: normal;
@@ -32,14 +33,14 @@ $c-gray-darker: #666 !default;
       position: absolute;
       top: 12px;
       right: 10px;
-      color: #fff;
+      color: $theme-stroke-10;
       text-align: center;
       cursor: pointer;
       width: 18px;
       height: 18px;
       font-size: 14px;
       line-height: 16px;
-      background: rgba(153, 153, 153, 0.6);
+      background: $theme-mask-3;
       border-radius: 10px;
       text-indent: 0;
     }
@@ -107,7 +108,7 @@ $c-gray-darker: #666 !default;
       margin: 9px 5px 0;
       vertical-align: top;
       font-size: 12px;
-      color: #38f;
+      color: $theme-primary-2;
       text-decoration: none;
       cursor: pointer;
     }
@@ -120,50 +121,10 @@ $c-gray-darker: #666 !default;
       margin: 9px 5px 0;
       vertical-align: top;
     }
-
-    .c-color-0 {
-      color: #333;
-    }
-
-    .c-color-1 {
-      color: #999;
-    }
-
-    .c-color-2 {
-      color: #656565;
-    }
-
-    .c-color-3 {
-      color: #ac6100;
-    }
-
-    .c-color-4 {
-      color: #da0000;
-    }
-
-    .c-color-5 {
-      color: #fe6b00;
-    }
-
-    .c-color-6 {
-      color: #cdcb00;
-    }
-
-    .c-color-7 {
-      color: #bf00cc;
-    }
-
-    .c-color-8 {
-      color: #0036d2;
-    }
-
-    .c-color-9 {
-      color: #1ea100;
-    }
   }
 
   .zent-sku-item {
-    background-color: #f8f8f8;
+    background-color: $theme-stroke-9;
     padding: 5px;
     display: inline-block;
     margin-right: 10px;
@@ -194,15 +155,15 @@ $c-gray-darker: #666 !default;
       height: 20px;
       font-size: 16px;
       line-height: 18px;
-      color: #fff;
+      color: $theme-stroke-10;
       text-align: center;
       cursor: pointer;
-      background: rgba(153, 153, 153, 0.6);
+      background: $theme-mask-3;
       border-radius: 10px;
 
       &:hover {
-        color: #fff;
-        background: #000;
+        color: $theme-stroke-10;
+        background: $theme-stroke-1;
       }
 
       &.small {
@@ -236,9 +197,9 @@ $c-gray-darker: #666 !default;
       left: 0;
       padding: 2px;
       width: 84px;
-      background: #fff;
+      background: $theme-stroke-10;
       border-radius: 4px;
-      border: 1px solid #dcdcdc;
+      border: 1px solid $theme-stroke-7;
 
       img {
         width: 100%;
@@ -252,9 +213,9 @@ $c-gray-darker: #666 !default;
         height: 84px;
         line-height: 84px;
         text-align: center;
-        background: #fff;
+        background: $theme-stroke-10;
         font-size: 30px;
-        color: #e5e5e5;
+        color: $theme-stroke-7;
         cursor: pointer;
         border: 0;
       }
@@ -285,7 +246,7 @@ $c-gray-darker: #666 !default;
         border-color: transparent;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
-        border-bottom: 5px solid #000;
+        border-bottom: 5px solid $theme-stroke-1;
 
         &::after {
           position: absolute;
@@ -296,7 +257,7 @@ $c-gray-darker: #666 !default;
           border-style: solid;
           top: 0;
           margin-left: -10px;
-          border-bottom-color: #fff;
+          border-bottom-color: $theme-stroke-10;
           border-width: 10px;
           border-top-width: 0;
           content: "";
@@ -310,9 +271,9 @@ $c-gray-darker: #666 !default;
         bottom: 0;
         left: 0;
         width: 100%;
-        color: rgb(255, 255, 255);
+        color: $theme-stroke-10;
         opacity: 0.5;
-        background: rgb(0, 0, 0);
+        background: $theme-stroke-1;
       }
     }
   }

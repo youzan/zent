@@ -13,7 +13,8 @@ class SplitDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
-    placeholder: PropTypes.array
+    placeholder: PropTypes.array,
+    defaultTime: PropTypes.arrayOf(PropTypes.string)
   };
 
   static defaultProps = {
@@ -21,7 +22,8 @@ class SplitDateRangePicker extends (PureComponent || Component) {
     placeholder: ['开始日期', '结束日期'],
     format: 'YYYY-MM-DD',
     value: [],
-    openPanel: []
+    openPanel: [],
+    defaultTime: ['00:00:00', '00:00:00']
   };
 
   onChange = type => {
@@ -51,6 +53,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
       openPanel,
       onChange,
       disabledDate,
+      defaultTime,
       ...pickerProps
     } = props;
     let rangePicker;
@@ -61,7 +64,9 @@ class SplitDateRangePicker extends (PureComponent || Component) {
       <div className={pickerCls}>
         <DatePicker
           {...pickerProps}
+          max={props.value[1]}
           placeholder={placeholder[0]}
+          defaultTime={defaultTime[0]}
           value={props.value[0]}
           onClick={val => onClick && onClick(val, START)}
           onChange={this.onChange(START)}
@@ -73,7 +78,9 @@ class SplitDateRangePicker extends (PureComponent || Component) {
         <span className="picker-seperator">至</span>
         <DatePicker
           {...pickerProps}
+          min={props.value[0]}
           placeholder={placeholder[1]}
+          defaultTime={defaultTime[1]}
           value={props.value[1]}
           onClick={val => onClick && onClick(val, END)}
           onChange={this.onChange(END)}

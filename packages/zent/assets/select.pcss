@@ -1,12 +1,13 @@
-$c-border: #bbb;
-$c-light-border: #ddd;
-$c-white: #fff;
-$c-blue: #38f;
-$c-light-gray: #999;
-$c-bg-gray: #f8f8f8;
-$c-light-blue: #bdf;
-$c-half-black: rgba(0, 0, 0, 0.2);
-$errorBorderColor: #f44;
+@import './theme/default.pcss';
+$c-border: $theme-stroke-5;
+$c-light-border: $theme-stroke-7;
+$c-white: $theme-stroke-10;
+$c-blue: $theme-primary-2;
+$c-light-gray: $theme-stroke-4;
+$c-bg-gray: $theme-stroke-9;
+$c-light-blue: $theme-primary-4;
+$c-half-black: $theme-mask-2;
+$errorBorderColor: $theme-error-2;
 
 .zent-select {
   cursor: pointer;
@@ -22,13 +23,13 @@ $errorBorderColor: #f44;
   vertical-align: middle;
 
   &.disabled {
-    color: #cacaca;
+    color: $theme-stroke-6;
     cursor: not-allowed;
 
     .zent-select-input,
     .zent-select-text,
     .zent-select-tags {
-      border-color: #e5e5e5;
+      border-color: $theme-stroke-7;
       background-color: $c-bg-gray;
 
       &::after {
@@ -58,7 +59,7 @@ $errorBorderColor: #f44;
   padding: 5px 10px;
   transition: border-color 0.25s;
   width: 100%;
-  background-color: #fff;
+  background-color: $theme-stroke-10;
   position: relative;
 }
 
@@ -213,7 +214,7 @@ $errorBorderColor: #f44;
     & > .zent-select-text,
     & > .zent-select-tags {
       border: 1px solid $errorBorderColor;
-      color: #f44;
+      color: $theme-error-2;
     }
   }
 }
