@@ -41,22 +41,23 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     return el.offsetTop + this.calculateTopPosition(el.offsetParent);
   };
 
+  getWindowScrollTop = () => {
+    return window.pageYOffset !== undefined
+      ? window.pageYOffset
+      : (document.documentElement || document.body.parentNode || document.body)
+          .scrollTop;
+  };
+
   isScrollAtBottom = () => {
     const { offset, useWindow } = this.props;
     let offsetDistance;
 
     if (useWindow) {
-      const scrollTop =
-        window.scrollY !== undefined
-          ? window.scrollY
-          : (document.documentElement ||
-              document.body.parentNode ||
-              document.body
-            ).scrollTop;
+      const windowScrollTop = this.getWindowScrollTop();
       offsetDistance =
         this.calculateTopPosition(this.scroller) +
         this.scroller.offsetHeight -
-        scrollTop -
+        windowScrollTop -
         window.innerHeight;
     } else {
       const { scrollHeight, clientHeight, scrollTop } = this.scroller;
