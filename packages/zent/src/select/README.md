@@ -448,7 +448,7 @@ ReactDOM.render(
     data={data}
     search
     filter={(item, keyword) => {
-      return `${item.value}` === `${keyword}`;
+      return `${item.text}` === `${keyword}`;
     }}
   />
   , mountNode
