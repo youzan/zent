@@ -90,4 +90,15 @@ describe('Steps', () => {
     );
     expect(wrapper.find('.zent-steps-card').length).toBe(1);
   });
+
+  it('can have description', () => {
+    const wrapper = mount(
+      <Steps>
+        <Step title="第一步" description="第一步描述" />
+        <Step title="第二步" description="第二步描述" />
+        <Step title="第三步" description="第三步描述" />
+      </Steps>
+    );
+    expect(wrapper.find('.zent-step-description').length).toBe(3);
+  });
 });
