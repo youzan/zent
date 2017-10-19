@@ -56,6 +56,63 @@ ReactDOM.render(
 ```
 :::
 
+:::demo 通过hasMore控制滚动的触发
+```jsx
+
+import { InfiniteScroller, Card } from 'zent';
+
+class Simple extends React.Component {
+	state = {
+		hasMore: true,
+		list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	}
+
+	loadMore() {
+		const { list } = this.state;
+		const latestList = list.slice(list.length - 10);
+		const newList = latestList.map(item => item + 10);
+		const hasMore = [...list, ...newList].length < 30;
+
+		this.setState({
+			hasMore: false
+		});
+
+		return new Promise(resolve => {
+			setTimeout(() => {
+				this.setState({
+					list: [...list, ...newList],
+					hasMore
+				}, () => resolve());
+			}, 500);
+		});
+
+	}
+
+	render() {
+		const { list, hasMore } = this.state;
+		return (
+			<InfiniteScroller
+				className="infinite-scroller-demo"
+				useWindow={false}
+				hasMore={hasMore}
+				loadMore={this.loadMore.bind(this)}
+			>
+				{
+					list.map(item => <Card key={item}>{item}</Card>)
+				}
+			</InfiniteScroller>
+		);
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+
+```
+:::
+
 ### API
 
 | 参数             	 	| 说明                          | 类型                | 默认值       		 | 备选值           							  			         |
@@ -71,7 +128,7 @@ ReactDOM.render(
 | prefix             | 自定义前缀                     | string              | `'zent'`				  |																			          |
 
 ### loadMore
-如果是异步加载，期望该回调函数的返回值是一个promise对象，便于组件控制loading的显示，否则会传入一个用于停止loading的回调函数
+如果是异步加载，期望该回调函数的返回值是一个promise对象，便于组件控制loading的显示，否则会传入一个用于停止loading的回调函数。
 
 <style>
 .infinite-scroller-demo {
