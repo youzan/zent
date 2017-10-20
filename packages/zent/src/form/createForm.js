@@ -7,6 +7,7 @@ import noop from 'lodash/noop';
 import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
+import get from 'lodash/get';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
@@ -78,7 +79,8 @@ const createForm = (config = {}) => {
             isValidValue: this.isValidValue,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
-            setFormPristine: this.setFormPristine,
+            setFormDirty: this.setFormDirty,
+            setFormPristine: this.setFormDirty,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }
@@ -91,7 +93,7 @@ const createForm = (config = {}) => {
       }
 
       componentWillUpdate() {
-        this.prevFieldNames = this.fields.map(field => field.props.name);
+        this.prevFieldNames = this.fields.map(field => field.getName());
       }
 
       componentDidUpdate() {
@@ -104,7 +106,7 @@ const createForm = (config = {}) => {
           this.setFieldValidationErrors(validationErrors);
         }
 
-        const newFieldNames = this.fields.map(field => field.props.name);
+        const newFieldNames = this.fields.map(field => field.getName());
         if (!isEqual(this.prevFieldNames, newFieldNames)) {
           this.validateForm();
         }
@@ -162,82 +164,106 @@ const createForm = (config = {}) => {
         return this.state.isFormValid;
       };
 
-      setFieldValidationErrors = (errors, updatePristine = true) => {
+      setFieldValidationErrors = (errors, updateDirty = true) => {
         this.fields.forEach(field => {
-          const name = field.props.name;
+          const name = field.getName();
           const data = {
             _isValid: !(name in errors),
             _validationError:
               typeof errors[name] === 'string' ? [errors[name]] : errors[name]
           };
-          if (updatePristine) {
-            data._isPristine = false;
+          if (updateDirty) {
+            data._isDirty = true;
           }
           field.setState(data);
         });
       };
 
       // 设置服务端返回的错误信息
-      setFieldExternalErrors = (errors, updatePristine = true) => {
-        Object.keys(errors).forEach(name => {
-          const field = find(
-            this.fields,
-            component => component.props.name === name
-          );
-          if (!field) {
-            throw new Error(`field ${name} does not exits`);
-          }
-
+      setFieldExternalErrors = (errors, updateDirty = true) => {
+        this.fields.forEach(field => {
+          const name = field.getName();
+          const error = get(errors, name);
           const data = {
             _isValid: false,
-            _externalError:
-              typeof errors[name] === 'string' ? [errors[name]] : errors[name]
+            _externalError: typeof error === 'string' ? [error] : error
           };
-          if (updatePristine) {
-            data._isPristine = false;
+          if (updateDirty) {
+            data._isDirty = true;
           }
           field.setState(data);
+        });
+      };
+
+      setFormDirty = isDirty => {
+        this.fields.forEach(field => {
+          field.setState({
+            _isDirty: isDirty
+          });
         });
       };
 
       setFormPristine = isPristine => {
         this.fields.forEach(field => {
           field.setState({
-            _isPristine: isPristine
+            _isDirty: !isPristine
           });
+        });
+      };
+
+      initialize = data => {
+        this.fields.forEach(field => {
+          const name = field.getName();
+          const value = get(data, name);
+          if (value) {
+            field.setInitialValue(value);
+          } else {
+            field.setInitialValue();
+          }
         });
       };
 
       resetFieldsValue = data => {
         this.fields.forEach(field => {
-          const name = field.props.name;
-          if (data && data.hasOwnProperty(name)) {
-            field.setValue(data[name]);
+          const name = field.getName();
+          const value = get(data, name);
+          if (value !== undefined) {
+            field.setValue(value);
           } else {
             field.resetValue();
           }
         });
       };
 
+      setFieldsValue = data => {
+        this.fields.forEach(field => {
+          const name = field.getName();
+          const value = get(data, name);
+          if (value) {
+            field.setValue(value);
+          }
+        });
+      };
+
       reset = data => {
-        this.setFormPristine(true);
+        this.setFormDirty(false);
         this.resetFieldsValue(data);
       };
 
-      isFieldTouched = name => {
+      isFieldDirty = name => {
         const field = find(
           this.fields,
-          component => component.props.name === name
+          component => component.getName() === name
         );
 
         if (!field) return false;
-        return !field.isPristine();
+        return field.isDirty();
       };
 
       isFieldValidating = name => {
         const field = find(
           this.fields,
-          component => component.props.name === name
+          component => component.getName() === name
         );
 
         if (!field) return false;
@@ -247,7 +273,7 @@ const createForm = (config = {}) => {
       getFieldError = name => {
         const field = find(
           this.fields,
-          component => component.props.name === name
+          component => component.getName() === name
         );
 
         if (!field) return '';
@@ -255,31 +281,70 @@ const createForm = (config = {}) => {
       };
 
       getFormValues = () => {
+        const assignValue = (values, keyPath, newValue) => {
+          if (keyPath.length === 0) {
+            return;
+          }
+          let currentKey = keyPath[0];
+          if (/\[\d+\]/.test(currentKey)) {
+            // array
+            let index = currentKey.match(/\d+(?=\])/)[0];
+            currentKey = currentKey.replace(/\[\d+\]/, '');
+            if (!values[currentKey]) {
+              values[currentKey] = [];
+            }
+            if (keyPath.length > 1) {
+              index > values[currentKey].length - 1
+                ? values[currentKey].push({})
+                : null;
+              assignValue(
+                values[currentKey][index],
+                keyPath.slice(1),
+                newValue
+              );
+            } else {
+              values[currentKey][index] = newValue;
+            }
+          } else {
+            // object
+            if (!values[currentKey]) {
+              values[currentKey] = {};
+            }
+            if (keyPath.length > 1) {
+              assignValue(values[currentKey], keyPath.slice(1), newValue);
+            } else {
+              values[currentKey] = newValue;
+            }
+          }
+        };
+
         return this.fields.reduce((values, field) => {
-          const name = field.props.name;
-          values[name] = field.getValue();
+          const name = field.getName();
+          const fieldValue = field.getValue();
+          const fieldNamePath = name.split('.');
+          assignValue(values, fieldNamePath, fieldValue);
           return values;
         }, {});
       };
 
       getValidationErrors = () => {
         return this.fields.reduce((errors, field) => {
-          const name = field.props.name;
+          const name = field.getName();
           errors[name] = field.getErrorMessage();
           return errors;
         }, {});
       };
 
-      getPristineValues = () => {
+      getInitialValues = () => {
         return this.fields.reduce((values, field) => {
-          const name = field.props.name;
-          values[name] = field.getPristineValue();
+          const name = field.getName();
+          values[name] = field.getInitialValue();
           return values;
         }, {});
       };
 
       isChanged = () => {
-        return !isEqual(this.getPristineValues(), this.getFormValues());
+        return !isEqual(this.getInitialValues(), this.getFormValues());
       };
 
       isValidating = () => {
@@ -304,7 +369,7 @@ const createForm = (config = {}) => {
         );
         const isValid =
           !validationResults.failed.length &&
-          !(formValidationErrors && formValidationErrors[field.props.name]);
+          !(formValidationErrors && formValidationErrors[field.getName()]);
 
         return {
           isValid,
@@ -510,8 +575,12 @@ const createForm = (config = {}) => {
             getFieldError: this.getFieldError,
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
+            setFieldsValue: this.setFieldsValue,
+            setFormDirty: this.setFormDirty,
             setFormPristine: this.setFormPristine,
-            isFieldTouched: this.isFieldTouched,
+            initialize: this.initialize,
+            isFieldDirty: this.isFieldDirty,
+            isFieldTouched: this.isFieldDirty,
             isFieldValidating: this.isFieldValidating,
             isValid: this.isValid,
             isValidating: this.isValidating,

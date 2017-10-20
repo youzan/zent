@@ -62,10 +62,11 @@
 
 .zent-form__help-block,
 .zent-form__error-desc,
-.zent-form__help-desc {
+.zent-form__help-desc,
+.zent-form__notice-desc {
   line-height: 14px;
   font-size: 12px;
-  margin-top: 6px;
+  margin-top: 10px;
   margin-bottom: 0;
   color: $theme-stroke-4;
 
@@ -81,6 +82,13 @@
   &:empty {
     margin-top: 0 !important;
   }
+}
+
+.zent-form__notice-desc {
+  background: $theme-warn-3;
+  color: $theme-stroke-1;
+  display: inline-block;
+  padding: 5px;
 }
 
 .zent-form--horizontal {

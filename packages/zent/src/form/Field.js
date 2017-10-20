@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
 
-import { getValue, getCurrentValue } from './utils';
+import { getValue, getCurrentValue, prefixName } from './utils';
 import unknownProps from './unknownProps';
 
 class Field extends Component {
@@ -46,12 +46,13 @@ class Field extends Component {
     this.state = {
       _value: props.value,
       _isValid: true,
-      _isPristine: true,
+      _isDirty: false,
       _isValidating: false,
-      _pristineValue: props.value,
+      _initialValue: props.value,
       _validationError: [],
       _externalError: null
     };
+    this._name = prefixName(context.zentForm, props.name);
     this._validations = props.validations || {};
   }
 
@@ -63,12 +64,31 @@ class Field extends Component {
     if (!this.props.name) {
       throw new Error('Form Field requires a name property when used');
     }
-    this.context.zentForm.attachToForm(this);
+    const zentForm = this.context.zentForm;
+    zentForm.attachToForm(this);
+
+    this._name = prefixName(zentForm, this.props.name);
+    if (this.context.zentForm.getSubFieldArray) {
+      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
+      currentValue &&
+        this.setState({
+          _value: currentValue
+        });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if ('validations' in nextProps) {
       this._validations = nextProps.validations;
+    }
+
+    this._name = prefixName(this.context.zentForm, nextProps.name);
+    if (this.context.zentForm.getSubFieldArray) {
+      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
+      currentValue &&
+        this.setState({
+          _value: currentValue
+        });
     }
   }
 
@@ -88,8 +108,8 @@ class Field extends Component {
     this.context.zentForm.detachFromForm(this);
   }
 
-  isPristine = () => {
-    return this.state._isPristine;
+  isDirty = () => {
+    return this.state._isDirty;
   };
 
   isValid = () => {
@@ -104,19 +124,23 @@ class Field extends Component {
     return this.state._active;
   };
 
-  getPristineValue = () => {
-    return this.state._pristineValue;
+  getInitialValue = () => {
+    return this.state._initialValue;
   };
 
   getValue = () => {
     return this.state._value;
   };
 
+  getName = () => {
+    return this._name;
+  };
+
   setValue = (value, needValidate = true) => {
     this.setState(
       {
         _value: value,
-        _isPristine: !needValidate
+        _isDirty: needValidate
       },
       () => {
         this.context.zentForm.validate(this);
@@ -127,8 +151,21 @@ class Field extends Component {
   resetValue = () => {
     this.setState(
       {
-        _value: this.state._pristineValue,
-        _isPristine: true
+        _value: this.state._initialValue,
+        _isDirty: false
+      },
+      () => {
+        this.context.zentForm.validate(this);
+      }
+    );
+  };
+
+  setInitialValue = value => {
+    this.setState(
+      {
+        _value: value || this.state._initialValue,
+        _initialValue: value || this.state._initialValue,
+        _isDirty: false
       },
       () => {
         this.context.zentForm.validate(this);
@@ -159,7 +196,7 @@ class Field extends Component {
     const previousValue = this.getValue();
     const nextValues = {
       ...previousValues,
-      [this.props.name]: value
+      [this.getName()]: value
     };
     return normalize(value, previousValue, nextValues, previousValues);
   };
@@ -188,6 +225,8 @@ class Field extends Component {
 
     if (!preventSetValue) {
       this.setValue(newValue, validateOnChange);
+      this.context.zentForm.onChangeFieldArray &&
+        this.context.zentForm.onChangeFieldArray(this._name, newValue);
     }
   };
 
@@ -263,8 +302,9 @@ class Field extends Component {
       ref: ref => {
         this.wrappedComponent = ref;
       },
-      isTouched: !this.isPristine(),
-      isPristine: this.isPristine(),
+      name: this.getName(),
+      isTouched: this.isDirty(),
+      isDirty: this.isDirty(),
       isValid: this.isValid(),
       isActive: this.isActive(),
       value: this.format(this.getValue()),
