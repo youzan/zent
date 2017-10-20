@@ -60,12 +60,12 @@ const groupedComponents = [
     highlightWhenSelect: false
   }),
 
-	Design.group('Group 1'),
+  Design.group('Group 1'),
 
-	whitespaceConf,
+  whitespaceConf,
 
-	Design.group('Group 2'),
-	
+  Design.group('Group 2'),
+  
   lineConf
 ];
 
