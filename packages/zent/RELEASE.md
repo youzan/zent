@@ -2,6 +2,22 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 3.8.0 (2017-10-20)
+
+- 🎉 新组件 `InfiniteScroller`，用来实现滚动自动加载
+- `Form`:
+  - 🎉 新增 `FormSection` 以及 `FieldArray` 支持
+  - 🎉 新增 `setFieldsValue` 以及 `initialize` 方法
+  - 🎉 更多内置表单元素组件: `FormColorPickerField`, `FormDateRangePickerField`, `FormNumberInputField`, `FormSwitchField`
+  - 🎉 `Field` 添加重要提示 `notice` 属性
+  - ✨ 增加 `setFormDirty` 和 `isFieldDirty` 方法
+- ✨ `Select` 做了一些代码逻辑优化
+- ✨ `Design` 添加组件的时候支持回调函数终止当前操作
+- ✨ `Popover` 的 `onBeforeClose` 以及 `onBeforeShow` 支持终止当前操作
+- 🦀️ `Slider` 组件现在高亮圆点的时候会同时高亮滑动条
+- 🦀️ 修复了 `DateRangePicker` 的 TypeScript 定义
+- 🦀 修复了 `SearchInput` 的一个样式问题
+
 ### 3.7.0 (2017-09-28)
 
 - 🎉 新组件 `Grid`，功能和 `Table` 组件类似，但是底层是用 `<table>` 实现的，现在 `Grid` 有些 `Table` 的功能还没有实现

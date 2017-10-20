@@ -1,7 +1,7 @@
 ## Github 日志
 
-## [zent@3.7.1](https://github.com/youzan/zent/tree/zent@3.7.1) (2017-10-20)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.7.0...zent@3.7.1)
+## [zent@3.8.0](https://github.com/youzan/zent/tree/zent@3.8.0) (2017-10-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.7.0...zent@3.8.0)
 
 **不兼容改动和新功能:**
 
