@@ -1,4 +1,4 @@
-## Zent [![github-logo](https://img.yzcdn.cn/zanui/react/GitHub_Logo.png)](https://github.com/youzan/zent)[![github](https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png)](https://github.com/youzan/zent)
+## Zent <a href="https://github.com/youzan/zent"><img src="https://img.yzcdn.cn/zanui/react/GitHub_Logo.png" width="78" height="32" alt="github-logo" /><img src="https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png" alt="github" width="32" height="32"/></a>
 
 一套 React 的 UI 组件。
 
@@ -6,7 +6,7 @@ A collection of essential UI components written with React.
 
 ### 组件展示
 
-![zent-components](https://img.yzcdn.cn/zanui/react/zent-components.png)
+<img alt="zent-components" src="https://img.yzcdn.cn/zanui/react/zent-components.png" width="849" height="327" />
 
 ### 特性
 
@@ -58,19 +58,10 @@ import Button from 'zent/lib/button';
 img[alt="github"] {
 	float: right;
 	margin-top: 10px;
-	width: 32px;
-	height: 32px;
 }
 
 img[alt="github-logo"] {
 	float: right;
 	margin-top: 12px;
-	width: 78px;
-	height: 32px;
-}
-
-img[alt="zent-components"] {
-	width: 849px;
-	height: 327px;
 }
 </style>

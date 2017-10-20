@@ -41,6 +41,11 @@ module.exports = {
               title: '贡献代码',
               path: 'guides/contribute',
               component: require('../../packages/zent/docs/CONTRIBUTING.md')
+            },
+            {
+              title: '文档规范',
+              path: 'guides/markdown',
+              component: require('../../packages/zent/docs/MARKDOWN.md')
             }
           ]
         }
@@ -307,6 +312,11 @@ module.exports = {
               path: 'component/portal',
               title: 'Portal 传送门',
               component: require('../../packages/zent/src/portal/README.md')
+            },
+            {
+              path: 'component/InfiniteScroller',
+              title: 'InfiniteScroller 无限滚动',
+              component: require('../../packages/zent/src/infinite-scroller/README.md')
             }
           ]
         },
