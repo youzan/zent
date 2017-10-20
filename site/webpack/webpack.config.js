@@ -52,5 +52,10 @@ module.exports = {
       chunks: ['vendor', 'docs'],
       inject: 'body'
     })
-  ]
+  ],
+
+  // leak the filename and dirname for doc-loader
+  node: {
+    __dirname: true
+  }
 };

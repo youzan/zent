@@ -63,7 +63,7 @@ class Demo extends Component {
   }
 }
 
-module.exports = class ZentDocContainer extends Component {
+export default class ZentDocContainer extends Component {
   render() {
     return React.createElement(
       'div',

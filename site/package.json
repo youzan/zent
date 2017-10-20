@@ -37,6 +37,7 @@
     "react-markdown-doc-loader": "^1.0.2",
     "style-loader": "^0.19",
     "url-loader": "^0.6",
+    "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9"
   }
 }

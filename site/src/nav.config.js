@@ -89,7 +89,8 @@ module.exports = {
               component: require('../../packages/zent/src/icon/README.md')
             }
           ]
-        },
+        }
+        /*
         {
           groupName: '展示',
           list: [
@@ -330,6 +331,7 @@ module.exports = {
             }
           ]
         }
+        */
       ]
     }
   ]
