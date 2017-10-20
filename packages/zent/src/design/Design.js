@@ -79,7 +79,10 @@ export default class Design extends (PureComponent || Component) {
         highlightWhenSelect: PropTypes.bool,
 
         // 组件可以添加的最大次数
-        limit: PropTypes.oneOfType([PropTypes.number, PropTypes.func])
+        limit: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        // 是否可以添加组件的回调函数，返回一个 Promise
+        shouldCreate: PropTypes.func
       })
     ).isRequired,
 

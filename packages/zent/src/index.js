@@ -60,7 +60,6 @@ export {
   ColorPicker,
   CopyButton,
   DatePicker,
-  WeekPicker,
   DateRangePicker,
   DateRangeQuickPicker,
   Design,
@@ -95,5 +94,6 @@ export {
   Tag,
   Tree,
   Switch,
-  Upload
+  Upload,
+  WeekPicker
 };

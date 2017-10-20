@@ -1,4 +1,4 @@
-## 开发 zent
+## 如何参与 Zent 的开发
 
 #### 初始化项目:
 
@@ -62,14 +62,6 @@ cd site && yarn dev
 
 每个组件根目录下的 `README.md` (注意名称大写) 文件即为该组件文档。组件文档采用 markdown 格式，内容包括使用示例以及 `API` 等。具体书写规范请参考 [组件文档书写规范](markdown)。
 
-#### API 说明
-
-组件的 API 说明，请以表格的形式书写，表格包含以下列：
-
-| 参数         |   说明         | 类型     | 默认值      | 备选值            |
-| ------------ | ------------- | -------- | ---------- | ----------------- |
-| visible      | 是否可见       | bool     |    `false` | `true` \| `false` |
-
 ## 一些实用技巧
 
 #### 组件互相引用
@@ -79,6 +71,8 @@ cd site && yarn dev
 #### 组件导出
 
 为了统一管理，每个组件只能 `export default` 一个东西，如果需要导出多个变量，请把其余变量挂载在 `export default` 的变量上。
+
+导出的组件不要写成 [Functional Component](https://facebook.github.io/react/docs/refs-and-the-dom.html#refs-and-functional-components)，这样子使用的时候没法加 `ref`，虽然不推荐用 `ref`，但是我们应该支持在组件上加 `ref`。
 
 #### 样式
 
@@ -94,12 +88,3 @@ cd site && yarn dev
 * 小范围的 ‘用完就关’ 的组件：Pop, Select, Datetimepicker, ColorPicker, Cascader 等 [2000, 3000)
 * 全屏幕的组件：Dialog, image-preview 等 [1000, 2000)
 * 其他：组件内部用来控制层次的 z-index 的区间 [-10, 10]，尽可能写小，一般1，2，3这种就够了。
-
-## Tips
-
-* 导出的组件不要写成 [Functional Component](https://facebook.github.io/react/docs/refs-and-the-dom.html#refs-and-functional-components)，这样子使用的时候没法加 `ref` (虽然不推荐用 `ref`，但是我们不应该不让使用)。
-* 提交的代码确保已经通过 eslint 检查。
-* 不要用全局的 `lerna`，因为 `lerna` 的配置文件和版本绑定的，所以请用本地 `node_modules` 目录下的 `lerna`。
-* `scripts` 目录下有一些工具脚本。
-* `./lerna updated` 可以查看哪些包有改动。
-* 如果A依赖B，B改动的话A也会发新包。
