@@ -22,6 +22,7 @@ import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
+import InfiniteScroller from 'infinite-scroller';
 import NumberInput from 'number-input';
 import Menu from 'menu';
 import Notify from 'notify';
@@ -70,6 +71,7 @@ export {
   Loading,
   Icon,
   Input,
+  InfiniteScroller,
   NumberInput,
   Menu,
   MonthPicker,
