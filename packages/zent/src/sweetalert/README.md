@@ -1,4 +1,4 @@
-## Sweetalert
+## Sweetalert 快捷对话框
 
 快速唤起 Dialog 组件
 

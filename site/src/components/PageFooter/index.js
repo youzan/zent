@@ -35,6 +35,22 @@ export default class PageFooter extends Component {
           </li>
           <li className="page-footer__item">
             <a
+              href="//www.youzanyun.com/zanui/vue"
+              className="page-footer__link"
+            >
+              Vue
+            </a>
+          </li>
+          <li className="page-footer__item">
+            <a
+              href="https://github.com/youzan/zanui-weapp"
+              className="page-footer__link"
+            >
+              微信小程序
+            </a>
+          </li>
+          <li className="page-footer__item">
+            <a
               href="https://www.youzan.com/"
               className="page-footer__link"
               rel="noopener noreferrer"
