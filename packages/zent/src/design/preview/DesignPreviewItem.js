@@ -30,11 +30,7 @@ export default class DesignPreviewItem extends (PureComponent || Component) {
   render() {
     const { children, prefix } = this.props;
 
-    return (
-      <div className={`${prefix}-design-preview-item`}>
-        {children}
-      </div>
-    );
+    return <div className={`${prefix}-design-preview-item`}>{children}</div>;
   }
 
   scrollTop(offsets) {

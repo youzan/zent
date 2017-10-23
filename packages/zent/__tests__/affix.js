@@ -55,9 +55,7 @@ describe('Affix component', () => {
         const { value } = this.state;
         return (
           <Affix onUnpin={this.onUnpin} onPin={this.onPin} offsetBottom={50}>
-            <p id="value">
-              {value}
-            </p>
+            <p id="value">{value}</p>
           </Affix>
         );
       }

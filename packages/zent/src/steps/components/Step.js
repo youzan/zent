@@ -8,11 +8,6 @@ export default class Step extends (PureComponent || Component) {
     prefix: PropTypes.string,
     style: PropTypes.object,
     wrapperStyle: PropTypes.object,
-    tailWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    adjustMarginRight: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]),
     stepLast: PropTypes.bool,
     isCurrentStep: PropTypes.bool,
     isLastFinishStep: PropTypes.bool,
@@ -22,16 +17,19 @@ export default class Step extends (PureComponent || Component) {
     description: PropTypes.node
   };
 
+  static defaultProps = {
+    title: '',
+    description: ''
+  };
+
   render() {
     const props = this.props;
 
     const {
       prefix,
-      tailWidth,
       isCurrentStep,
       status = 'wait',
       isLastFinishStep,
-      adjustMarginRight,
       stepLast,
       stepNumber,
       title,
@@ -40,21 +38,12 @@ export default class Step extends (PureComponent || Component) {
 
     let iconNode;
 
-    if (
-      (status === 'finish' || status === 'error') &&
-      (isCurrentStep || isLastFinishStep)
-    ) {
-      if (status === 'finish') {
-        iconNode = <Icon type="check-circle" />;
-      } else {
-        iconNode = <Icon type="error-circle" />;
-      }
+    if (status === 'finish') {
+      iconNode = <Icon type="check-circle" />;
+    } else if (status === 'error') {
+      iconNode = <Icon type="error-circle" />;
     } else {
-      iconNode = (
-        <span className={`${prefix}-icon`}>
-          {stepNumber}
-        </span>
-      );
+      iconNode = <span className={`${prefix}-icon`}>{stepNumber}</span>;
     }
 
     const classString = classNames({
@@ -66,30 +55,21 @@ export default class Step extends (PureComponent || Component) {
     });
 
     return (
-      <div
-        className={classString}
-        style={{ width: tailWidth, marginRight: adjustMarginRight }}
-      >
-        {stepLast
-          ? ''
-          : <div className={`${prefix}-steps-tail`}>
-              <i />
-            </div>}
+      <div className={classString}>
+        {!stepLast && (
+          <div className={`${prefix}-steps-tail`}>
+            <i />
+          </div>
+        )}
         <div className={`${prefix}-steps-step`}>
           <div className={`${prefix}-step-head`}>
-            <div className={`${prefix}-step-head-inner`}>
-              {iconNode}
-            </div>
+            <div className={`${prefix}-step-head-inner`}>{iconNode}</div>
           </div>
           <div className={`${prefix}-step-main`}>
-            <div className={`${prefix}-step-title`}>
-              {title}
-            </div>
-            {description
-              ? <div className={`${prefix}-step-description`}>
-                  {description}
-                </div>
-              : ''}
+            <div className={`${prefix}-step-title`}>{title}</div>
+            {description && (
+              <div className={`${prefix}-step-description`}>{description}</div>
+            )}
           </div>
         </div>
       </div>

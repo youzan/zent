@@ -76,8 +76,9 @@ export default class Head extends (PureComponent || Component) {
       return (
         <a onClick={this.sort.bind(this, item)}>
           {item.title}
-          {item.name === this.props.sortBy &&
-            <span className={this.props.sortType} />}
+          {item.name === this.props.sortBy && (
+            <span className={this.props.sortType} />
+          )}
         </a>
       );
     }
@@ -109,11 +110,12 @@ export default class Head extends (PureComponent || Component) {
   };
 
   renderCheckBox(index, selection) {
-    let { needSelect, isSingleSelection } = selection;
+    let { canSelectAll, needSelect, isSingleSelection } = selection;
     if (needSelect && index === 0 && !isSingleSelection) {
       return (
         <Checkbox
           className="select-check"
+          disabled={!canSelectAll}
           onChange={this.onSelect}
           checked={selection.isSelectAll}
           indeterminate={selection.isSelectPart}

@@ -1,10 +1,20 @@
+@import "../../_constants.pcss";
+
 .page {
   &-footer {
-    height: 72px;
-    margin-top: 40px;
     background-color: #34383b;
     display: flex;
     justify-content: center;
+    height: $footer-height;
+    font-size: 12px;
+
+    &__github-link {
+      svg {
+        position: relative;
+        top: 3px;
+        right: 5px;
+      }
+    }
 
     &__item {
       float: left;
@@ -14,15 +24,7 @@
     &__link {
       display: block;
       color: #e5e5e5;
-      font-size: 12px;
-      line-height: 72px;
-    }
-
-    &__copyright {
-      color: #999;
-      font-size: 12px;
-      line-height: 72px;
-      margin-left: 50px;
+      line-height: $footer-height;
     }
   }
 }

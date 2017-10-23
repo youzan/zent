@@ -135,7 +135,10 @@ const CenterArrowPosition = {
 };
 
 export default function getPosition(position, centerArrow) {
-  let positionName = position.split('-').map(s => capitalize(s)).join('');
+  let positionName = position
+    .split('-')
+    .map(s => capitalize(s))
+    .join('');
   let pos = Position[positionName];
 
   // Choose a fallback in case position is invalid

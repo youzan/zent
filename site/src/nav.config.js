@@ -18,9 +18,34 @@ module.exports = {
               component: require('../../packages/babel-plugin-zent/README.md')
             },
             {
+              title: '色彩',
+              path: 'guides/colors',
+              component: require('../src/pages/colors').default
+            },
+            {
+              title: '定制主题',
+              path: 'guides/theme',
+              component: require('../../packages/zent/docs/theme.md')
+            },
+            {
               title: '更新日志',
               path: 'guides/changelog',
+              component: require('../../packages/zent/RELEASE.md')
+            },
+            {
+              title: 'Github 日志',
+              path: 'guides/github_changelog',
               component: require('../../packages/zent/CHANGELOG.md')
+            },
+            {
+              title: '贡献代码',
+              path: 'guides/contribute',
+              component: require('../../packages/zent/docs/CONTRIBUTING.md')
+            },
+            {
+              title: '文档规范',
+              path: 'guides/markdown',
+              component: require('../../packages/zent/docs/MARKDOWN.md')
             }
           ]
         }
@@ -79,6 +104,11 @@ module.exports = {
               component: require('../../packages/zent/src/badge/README.md')
             },
             {
+              path: 'component/block-header',
+              title: 'BlockHeader 标题',
+              component: require('../../packages/zent/src/block-header/README.md')
+            },
+            {
               path: 'component/card',
               title: 'Card 卡片',
               component: require('../../packages/zent/src/card/README.md')
@@ -104,13 +134,18 @@ module.exports = {
               component: require('../../packages/zent/src/pop/README.md')
             },
             {
+              path: 'component/preview-image',
+              title: 'previewImage 图片预览',
+              component: require('../../packages/zent/src/preview-image/README.md')
+            },
+            {
               path: 'component/progress',
               title: 'Progress 进度条',
               component: require('../../packages/zent/src/progress/README.md')
             },
             {
               path: 'component/sweet-alert',
-              title: 'SweetAlert',
+              title: 'Sweetalert 快捷对话框',
               component: require('../../packages/zent/src/sweetalert/README.md')
             },
             {
@@ -122,11 +157,6 @@ module.exports = {
               path: 'component/tag',
               title: 'Tag 标签',
               component: require('../../packages/zent/src/tag/README.md')
-            },
-            {
-              path: 'component/preview-image',
-              title: 'previewImage 图片预览',
-              component: require('../../packages/zent/src/preview-image/README.md')
             }
           ]
         },
@@ -164,6 +194,11 @@ module.exports = {
               component: require('../../packages/zent/src/datetimepicker/README.md')
             },
             {
+              path: 'component/date-range-quick-picker',
+              title: 'DateRangeQuickPicker',
+              component: require('../../packages/zent/src/date-range-quick-picker/README.md')
+            },
+            {
               path: 'component/design',
               title: 'Design 微页面编辑',
               component: require('../../packages/zent/src/design/README.md')
@@ -195,7 +230,7 @@ module.exports = {
             },
             {
               path: 'component/select',
-              title: 'Select 选择器',
+              title: 'Select 下拉选择',
               component: require('../../packages/zent/src/select/README.md')
             },
             {
@@ -234,14 +269,19 @@ module.exports = {
               component: require('../../packages/zent/src/breadcrumb/README.md')
             },
             {
-              path: 'component/menu',
-              title: 'Menu 菜单',
-              component: require('../../packages/zent/src/menu/README.md')
-            },
-            {
               path: 'component/dropdown',
               title: 'Dropdown 下拉菜单',
               component: require('../../packages/zent/src/popover/Dropdown.md')
+            },
+            {
+              path: 'component/grid',
+              title: 'Grid 网格',
+              component: require('../../packages/zent/src/grid/README.md')
+            },
+            {
+              path: 'component/menu',
+              title: 'Menu 菜单',
+              component: require('../../packages/zent/src/menu/README.md')
             },
             {
               path: 'component/pagination',
@@ -282,21 +322,11 @@ module.exports = {
               path: 'component/portal',
               title: 'Portal 传送门',
               component: require('../../packages/zent/src/portal/README.md')
-            }
-          ]
-        },
-        {
-          groupName: '业务组件',
-          list: [
-            {
-              path: 'component/block-header',
-              title: 'BlockHeader 标题',
-              component: require('../../packages/zent/src/block-header/README.md')
             },
             {
-              path: 'component/date-range-quick-picker',
-              title: 'DateRangeQuickPicker 时间区域',
-              component: require('../../packages/zent/src/date-range-quick-picker/README.md')
+              path: 'component/InfiniteScroller',
+              title: 'InfiniteScroller 无限滚动',
+              component: require('../../packages/zent/src/infinite-scroller/README.md')
             }
           ]
         }

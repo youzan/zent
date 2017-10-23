@@ -1,10 +1,12 @@
+@import './theme/default.pcss';
+
 .zent-form {
   margin-bottom: 30px;
   width: auto;
 
   select[readonly],
   textarea[readonly] {
-    background-color: #fff;
+    background-color: $theme-stroke-10;
     cursor: text;
   }
 }
@@ -19,7 +21,7 @@
   padding-bottom: 8px;
   margin-bottom: 20px;
   width: 100%;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $theme-stroke-7;
   font-size: 14px;
   font-weight: bold;
 }
@@ -31,7 +33,7 @@
     .zent-form__control-label,
     .zent-form__error-desc,
     .zent-form__help-block {
-      color: #f44;
+      color: $theme-error-2;
     }
   }
 }
@@ -54,18 +56,19 @@
 .zent-form__required {
   margin-right: 6px;
   font-size: 16px;
-  color: #f00;
+  color: $theme-error-1;
   vertical-align: middle;
 }
 
 .zent-form__help-block,
 .zent-form__error-desc,
-.zent-form__help-desc {
+.zent-form__help-desc,
+.zent-form__notice-desc {
   line-height: 14px;
   font-size: 12px;
-  margin-top: 6px;
+  margin-top: 10px;
   margin-bottom: 0;
-  color: #999;
+  color: $theme-stroke-4;
 
   ul li {
     font-size: 12px;
@@ -73,12 +76,19 @@
   }
 
   a {
-    color: #38f;
+    color: $theme-primary-2;
   }
 
   &:empty {
     margin-top: 0 !important;
   }
+}
+
+.zent-form__notice-desc {
+  background: $theme-warn-3;
+  color: $theme-stroke-1;
+  display: inline-block;
+  padding: 5px;
 }
 
 .zent-form--horizontal {

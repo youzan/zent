@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Pagination from 'pagination';
 import Checkbox from 'checkbox';
+import isNil from 'lodash/isNil';
 
 import helper from '../helper.js';
 
@@ -60,33 +61,36 @@ export default class Foot extends (PureComponent || Component) {
     }
 
     return (
-      shouldRenderFoot &&
-      <div className="tfoot clearfix" style={this.footStyleFixed}>
-        <div className={batchClassName} ref={c => (this.batch = c)}>
-          {needSelect &&
-            batchComponents &&
-            batchComponents.length > 0 &&
-            <Checkbox
-              className="select-check"
-              onChange={this.onSelect}
-              checked={selection.isSelectAll}
-              indeterminate={selection.isSelectPart}
-            />}
-          {batchComponents &&
-            batchComponents.length > 0 &&
-            this.renderBatchComps(selectedRows, batchComponents)}
+      shouldRenderFoot && (
+        <div className="tfoot clearfix" style={this.footStyleFixed}>
+          <div className={batchClassName} ref={c => (this.batch = c)}>
+            {needSelect &&
+              batchComponents &&
+              batchComponents.length > 0 && (
+                <Checkbox
+                  className="select-check"
+                  onChange={this.onSelect}
+                  checked={selection.isSelectAll}
+                  indeterminate={selection.isSelectPart}
+                />
+              )}
+            {batchComponents &&
+              batchComponents.length > 0 &&
+              this.renderBatchComps(selectedRows, batchComponents)}
+          </div>
+          <div className="tfoot__page">
+            {Object.keys(pageInfo).length > 0 && (
+              <Pagination
+                current={current}
+                totalItem={isNil(totalItem) ? total : totalItem}
+                pageSize={isNil(pageSize) ? limit : pageSize}
+                maxPageToShow={maxPageToShow}
+                onChange={onPageChange}
+              />
+            )}
+          </div>
         </div>
-        <div className="tfoot__page">
-          {Object.keys(pageInfo).length > 0 &&
-            <Pagination
-              current={current}
-              totalItem={totalItem || total}
-              pageSize={pageSize || limit}
-              maxPageToShow={maxPageToShow}
-              onChange={onPageChange}
-            />}
-        </div>
-      </div>
+      )
     );
   }
 }

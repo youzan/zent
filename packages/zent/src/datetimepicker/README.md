@@ -56,7 +56,7 @@ class Demo extends Component{
     return (
       <div>
         <DatePicker
-          className="zent-picker-demo"
+					className="zent-picker-demo"
           value={dateValue}
           max="2020-01-01"
           onChange={this.onChangeDate}
@@ -521,6 +521,8 @@ ReactDOM.render(
 | name  		| input 的 name 属性            | string    |   | 否    |
 | placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
 | defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+| onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func         |    | 否    |
+| onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func         |    | 否    |
 
 
 **注意：**

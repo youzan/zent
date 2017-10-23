@@ -94,15 +94,14 @@ export default class Tag extends (PureComponent || Component) {
 
     return (
       <div className={containerCls} style={styles}>
-        <div className={`${prefix}-tag-content`}>
-          {children}
-        </div>
-        {closable &&
+        <div className={`${prefix}-tag-content`}>{children}</div>
+        {closable && (
           <Icon
             type="close"
             className={`${prefix}-tag-close-btn`}
             onClick={this.onClose}
-          />}
+          />
+        )}
       </div>
     );
   }

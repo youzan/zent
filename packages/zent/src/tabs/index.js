@@ -132,7 +132,8 @@ export default class Tabs extends (PureComponent || Component) {
   renderWithPanel() {
     let { prefix, className, children, activeKey, activeId } = this.props;
     // 向上兼容
-    activeId = activeId || activeKey;
+    // 因为defaultProps里面activeId和activeKey默认值为空，所以不应该用是否是undefined来处理
+    activeId = activeId === '' ? activeKey : activeId;
     let tabListData = tabUtil.getTabListData(children, activeId);
     return (
       <div className={`${prefix}-tabs ${className}`}>

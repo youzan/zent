@@ -41,10 +41,6 @@ export default class TimeCell extends (PureComponent || Component) {
   }
 
   render() {
-    return (
-      <div className="panel-table__list">
-        {this.getTbody()}
-      </div>
-    );
+    return <div className="panel-table__list">{this.getTbody()}</div>;
   }
 }

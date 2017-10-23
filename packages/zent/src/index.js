@@ -17,10 +17,12 @@ import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
 import Form from 'form';
+import Grid from 'grid';
 import Layout from 'layout';
 import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
+import InfiniteScroller from 'infinite-scroller';
 import NumberInput from 'number-input';
 import Menu from 'menu';
 import Notify from 'notify';
@@ -58,16 +60,17 @@ export {
   ColorPicker,
   CopyButton,
   DatePicker,
-  WeekPicker,
   DateRangePicker,
   DateRangeQuickPicker,
   Design,
   Dialog,
   Form,
+  Grid,
   Layout,
   Loading,
   Icon,
   Input,
+  InfiniteScroller,
   NumberInput,
   Menu,
   MonthPicker,
@@ -91,5 +94,6 @@ export {
   Tag,
   Tree,
   Switch,
-  Upload
+  Upload,
+  WeekPicker
 };

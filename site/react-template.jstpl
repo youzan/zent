@@ -63,29 +63,14 @@ class Demo extends Component {
   }
 }
 
-const FULL_PAGE_COMPONENTS = [
-  /\/component\/dialog/,
-  /\/component\/preview-image/,
-  /\/component\/upload/
-];
-
 module.exports = class ZentDocContainer extends Component {
   render() {
     return React.createElement(
       'div',
       {
-        className: 'zandoc-react-container '
+        className: 'zandoc-react-container'
       },
       SECTIONS
     );
-  }
-
-  componentDidMount() {
-    const href = window.location.href;
-    if (FULL_PAGE_COMPONENTS.some(r => r.test(href))) {
-      document.querySelector('.page-header').classList.add('lower-zindex');
-    } else {
-      document.querySelector('.page-header').classList.remove('lower-zindex');
-    }
   }
 }

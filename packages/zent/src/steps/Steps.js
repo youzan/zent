@@ -2,7 +2,6 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import NumberSteps from './components/NumberSteps';
-import CardSteps from './components/CardSteps';
 import BreadcrumbSteps from './components/BreadcrumbSteps';
 
 export default class Steps extends (PureComponent || Component) {
@@ -14,7 +13,9 @@ export default class Steps extends (PureComponent || Component) {
     current: PropTypes.number,
     direction: PropTypes.string,
     size: PropTypes.string,
-    status: PropTypes.string
+    status: PropTypes.string,
+    sequence: PropTypes.bool,
+    onStepChange: PropTypes.func
   };
 
   static defaultProps = {
@@ -24,7 +25,8 @@ export default class Steps extends (PureComponent || Component) {
     current: 0,
     direction: 'horizontal',
     size: 'normal',
-    status: 'finish'
+    status: 'finish',
+    sequence: true
   };
 
   render() {
@@ -32,14 +34,14 @@ export default class Steps extends (PureComponent || Component) {
     const { type, children, ...restProps } = props;
     const typeComponentMapping = {
       number: NumberSteps,
-      card: CardSteps,
+      card: BreadcrumbSteps,
       breadcrumb: BreadcrumbSteps
     };
 
     const StepsComponent = typeComponentMapping[type];
 
     return (
-      <StepsComponent {...restProps}>
+      <StepsComponent {...restProps} type={type}>
         {children}
       </StepsComponent>
     );

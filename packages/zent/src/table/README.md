@@ -389,7 +389,7 @@ class Selection extends React.Component {
 				totalItem: 6,
 			},
 			datasets: datasets,
-      selectedRowKeys: [],
+      selectedRowKeys: ['4217'],
     };
   }
 
@@ -397,7 +397,6 @@ class Selection extends React.Component {
     this.setState({
       selectedRowKeys
     });
-    alert(`你选中了：${selectedRowKeys}`);
   }
 
   getRowConf(rowData, index) {
@@ -420,6 +419,8 @@ class Selection extends React.Component {
   render() {
     let self = this;
 
+		console.log(this.state.selectedRowKeys)
+
     return (
       <Table
         columns={columns}
@@ -433,6 +434,7 @@ class Selection extends React.Component {
 					needCrossPage: true,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
             self.onSelect(selectedRowkeys, selectedRows, currentRow);
+            console.log(selectedRowkeys, selectedRows, currentRow)
           }
         }}
       />
@@ -592,8 +594,8 @@ class RowClass extends React.Component {
 
   onChange(conf) {
     this.setState(conf);
-  } 
-  
+  }
+
   render() {
     return (
       <Table
@@ -601,7 +603,7 @@ class RowClass extends React.Component {
         datasets={datasets}
         onChange={this.onChange.bind(this)}
         getRowConf={this.getRowConf}
-        rowKey="item_id" 
+        rowKey="item_id"
         expandation={{
           isExpanded(record, index) {
             return (index % 2 === 0);
@@ -712,8 +714,8 @@ class BatchCompsClass extends React.Component {
 
   onChange(conf) {
     this.setState(conf);
-  } 
-  
+  }
+
   render() {
     return (
       <Table
@@ -788,7 +790,7 @@ ReactDOM.render(
       rowClass: `row-${index}`
     }
   }
-  
+
 ```
 
 #### onChange函数声明
@@ -806,7 +808,7 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 
 | 参数         | 说明                                  | 类型                   | 默认值     | 是否必须 |
 | ---------- | ----------------------------------- | -------------------- | ------- | ---- |
-| title      | 每一列显示在thead上的名称                     | string               |         | 否    |
+| title      | 每一列显示在thead上的名称                     |  node               |         | 否    |
 | name       | 每一列的主键, 影响到排序和筛选                    | string               |         | 否    |
 | width      | 每一列在一行的宽度, 相对值和固定值 (如: 20% 或 100px) | string               |         | 否    |
 | isMoney    | 表示是否是金额                             | bool                 | `false` | 否    |

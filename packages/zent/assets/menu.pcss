@@ -1,16 +1,17 @@
-$white: #fff;
-$item-color: #666;
-$shadow-color: #eee;
-$disabled-color: #cacaca;
-$background-color: #38f;
+@import './theme/default.pcss';
+$theme-stroke-10: $theme-stroke-10;
+$item-color: $theme-stroke-3;
+$shadow-color: $theme-stroke-8;
+$disabled-color: $theme-stroke-6;
+$background-color: $theme-primary-2;
 
 .zent-menu {
   width: 100px;
-  background-color: $white;
+  background-color: $theme-stroke-10;
   list-style: none;
   padding: 0;
   margin: 0;
-  border: 1px solid rgba(200, 200, 200, 0.3);
+  border: 1px solid $theme-stroke-8;
   box-shadow: 0 1px 2px $shadow-color;
 
   .zent-menu-item {
@@ -27,11 +28,11 @@ $background-color: #38f;
 
     &:hover {
       background-color: $background-color;
-      color: $white;
+      color: $theme-stroke-10;
     }
 
     &.zent-submenu:hover {
-      background-color: $white;
+      background-color: $theme-stroke-10;
       color: $item-color;
     }
   }
@@ -41,7 +42,7 @@ $background-color: #38f;
     cursor: not-allowed;
 
     &:hover {
-      background-color: $white;
+      background-color: $theme-stroke-10;
       color: $disabled-color;
     }
   }
@@ -51,7 +52,7 @@ $background-color: #38f;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #bbb;
+    color: $theme-stroke-5;
     font-size: 8px;
   }
 
@@ -68,7 +69,7 @@ $background-color: #38f;
 
     &:hover {
       background-color: $background-color;
-      color: $white;
+      color: $theme-stroke-10;
     }
   }
 }

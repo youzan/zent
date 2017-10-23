@@ -1,19 +1,142 @@
-## 更新日志
+## Github 日志
+
+## [zent@3.8.0](https://github.com/youzan/zent/tree/zent@3.8.0) (2017-10-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.7.0...zent@3.8.0)
+
+**不兼容改动和新功能:**
+
+- New component: Infinite scroller [\#317](https://github.com/youzan/zent/issues/317)
+- \[bug fix\] 文档及一些组件修改 [\#501](https://github.com/youzan/zent/pull/501) ([cpylua](https://github.com/cpylua))
+- \[enhancement\]Select: 代码逻辑优化 [\#493](https://github.com/youzan/zent/pull/493) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[new feature\] Form: 支持FormSection和FieldArray，添加setFieldsValue和initialize方法，合并isTouched和isPristine [\#474](https://github.com/youzan/zent/pull/474) ([fairyaierl](https://github.com/fairyaierl))
+
+**Bug 修复:**
+
+- \[bug fix\] Slider: 高亮圆点时同时高亮滑条 [\#490](https://github.com/youzan/zent/issues/490)
+- \[bug fix\]Tabs: 修复Tabs组件activeKey字段兼容问题 [\#497](https://github.com/youzan/zent/pull/497) ([ctyu](https://github.com/ctyu))
+- \[bug fix\] Slider: 高亮圆点时同时高亮滑条 [\#496](https://github.com/youzan/zent/pull/496) ([wulv](https://github.com/wulv))
+- \[bug fix\] DateRangePicker: 修复 TypeScript 类型定义 [\#492](https://github.com/youzan/zent/pull/492) ([hzjzx](https://github.com/hzjzx))
+
+**处理的 Issue:**
+
+- \[new feature\]Popover：组件通过onBeforeShow返回false来阻止弹窗显示 [\#500](https://github.com/youzan/zent/issues/500)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[new feature\] Doc: 增加组件文档书写规范 [\#495](https://github.com/youzan/zent/pull/495) ([pangxie1991](https://github.com/pangxie1991))
+- \[new feature\]: InfiniteScroller: 新增无限滚动组件 [\#491](https://github.com/youzan/zent/pull/491) ([ArvinTung](https://github.com/ArvinTung))
+
+## [zent@3.7.0](https://github.com/youzan/zent/tree/zent@3.7.0) (2017-09-28)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.1...zent@3.7.0)
+
+**不兼容改动和新功能:**
+
+- table: 用 \<table\> 重写以支持colspan rowspan [\#402](https://github.com/youzan/zent/issues/402)
+- table: 数据比较多的时候x轴支持滚动 [\#330](https://github.com/youzan/zent/issues/330)
+- Support custom themes [\#278](https://github.com/youzan/zent/issues/278)
+- \[new feature\] Steps: 增加 `onStepChange` 和 `sequence` 支持 [\#489](https://github.com/youzan/zent/pull/489) ([liaoyu](https://github.com/liaoyu))
+- \[new feature\] 支持主题 [\#485](https://github.com/youzan/zent/pull/485) ([cpylua](https://github.com/cpylua))
+- \[new feature\] 添加网格组件，替代现有的 Table 组件 [\#465](https://github.com/youzan/zent/pull/465) ([lama-pacos](https://github.com/lama-pacos))
+
+**Bug 修复:**
+
+- \[bug fix\]Select：修复select在选项数组置空后选中项不会重置的bug [\#487](https://github.com/youzan/zent/pull/487) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\] Fix React 16 warnings [\#486](https://github.com/youzan/zent/pull/486) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] DateRangeQuickPicker: UI样式调整 [\#484](https://github.com/youzan/zent/pull/484) ([ronghang](https://github.com/ronghang))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[docs\] Swiper: 修复doc内示例的warning [\#488](https://github.com/youzan/zent/pull/488) ([ArvinTung](https://github.com/ArvinTung))
+
+## [zent@3.6.1](https://github.com/youzan/zent/tree/zent@3.6.1) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.0...zent@3.6.1)
+
+**Bug 修复:**
+
+- \[bug fix\] Design: 修复样式 [\#481](https://github.com/youzan/zent/pull/481) ([cpylua](https://github.com/cpylua))
+
+## [zent@3.6.0](https://github.com/youzan/zent/tree/zent@3.6.0) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.0)
+
+## [babel-plugin-zent@1.0.3](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.3) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.3)
+
+**不兼容改动和新功能:**
+
+- Switch to rollup for bundling umd [\#422](https://github.com/youzan/zent/issues/422)
+- \[new feature\] Design: 支持组件分组展示以及限制组件可添加次数 [\#480](https://github.com/youzan/zent/pull/480) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- \[bug fix\] DatePicker: MonthPicker超出了最大可选置灰后仍然可选 [\#453](https://github.com/youzan/zent/issues/453)
+- \[bug fix\] Table:  当前页都不可选时全选按钮禁用 [\#479](https://github.com/youzan/zent/pull/479) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Popover: 滚动的时候自动重新计算位置 [\#477](https://github.com/youzan/zent/pull/477) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] DatePicker：支持 onBeforeConfirm 和 onBeforeClear 钩子 [\#476](https://github.com/youzan/zent/pull/476) ([xuhong](https://github.com/xuhong))
+
+**处理的 Issue:**
+
+- \[bugs\] Table: 当前页所有项均禁用时，全选按钮未禁用 [\#478](https://github.com/youzan/zent/issues/478)
+
+## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.5.4)
+
+## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...babel-plugin-zent@1.0.2)
+
+**Bug 修复:**
+
+- \[bug fix\] Swiper：少于等于一张图时的显示问题 [\#466](https://github.com/youzan/zent/issues/466)
+- \[bug fix\] Table：跨页多选处理有问题 [\#456](https://github.com/youzan/zent/issues/456)
+- \[bug fix\] Table: 修复跨页全选的bug [\#473](https://github.com/youzan/zent/pull/473) ([linxixuan](https://github.com/linxixuan))
+- \[bug fix\] Select: 宽度样式修正。 [\#472](https://github.com/youzan/zent/pull/472) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\] Tabs: 修复 typescript 类型 [\#469](https://github.com/youzan/zent/pull/469) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] Swiper: 修复当只有一个子元素时的显示错误问题 [\#468](https://github.com/youzan/zent/pull/468) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Design: 在componentWillUnmount时，移除监听的beforeunload事件 [\#464](https://github.com/youzan/zent/pull/464) ([radicalviva](https://github.com/radicalviva))
+
+**处理的 Issue:**
+
+- \[new feature\]Swiper：从外部控制轮播图展示 [\#467](https://github.com/youzan/zent/issues/467)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[docs\] 更新文档网站，添加了开发文档 [\#475](https://github.com/youzan/zent/pull/475) ([cpylua](https://github.com/cpylua))
+- \[docs\] Swiper: 增加外部控制切换相关文档和示例 [\#471](https://github.com/youzan/zent/pull/471) ([ArvinTung](https://github.com/ArvinTung))
+
+## [zent@3.5.3](https://github.com/youzan/zent/tree/zent@3.5.3) (2017-09-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.2...zent@3.5.3)
+
+**Bug 修复:**
+
+- \[bug fix\] Dialog: 弹层上再出一个弹层的时候，第二个弹层的背景遮罩层z-index不对 [\#459](https://github.com/youzan/zent/issues/459)
+- \[bug fix\] Form: validateOnChange和validateOnBlur同时设为false时，表单提交时不显示校验错误问题 [\#458](https://github.com/youzan/zent/issues/458)
+- \[bug fix\] Table: css 中用了不存在的 clearfix 类 [\#457](https://github.com/youzan/zent/issues/457)
+- \[bug fix\] Select：行内元素因为font-size占据高度错误。 [\#448](https://github.com/youzan/zent/issues/448)
+- \[bug fix\] Tabs: 当id为数字0的时候不会被激活 [\#434](https://github.com/youzan/zent/issues/434)
+- \[bug fix\] Table: totalItem的判断逻辑修正，修改readme中title的类型描述 [\#455](https://github.com/youzan/zent/pull/455) ([linxixuan](https://github.com/linxixuan))
+- \[bug fix\] DateRangeQuickPicker: 调整最近7天，使end\_time包含到当前时间 [\#452](https://github.com/youzan/zent/pull/452) ([ronghang](https://github.com/ronghang))
+- \[bug fix\] Tabs: 修复activeId为0时无法选中的问题 [\#451](https://github.com/youzan/zent/pull/451) ([ctyu](https://github.com/ctyu))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[bug fix\] Form: validateOnChange和validateOnBlur同设为false时，表单提交时不显示校验错误问题 [\#462](https://github.com/youzan/zent/pull/462) ([fairyaierl](https://github.com/fairyaierl))
+- \[bug fix\] Table: Fix table clearfix [\#461](https://github.com/youzan/zent/pull/461) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Dialog: 修复弹层叠加时，遮罩层 z-index 值错误的 bug [\#460](https://github.com/youzan/zent/pull/460) ([NinoFocus](https://github.com/NinoFocus))
+- \[bug fix\] Select: 组件占据高度修正 [\#449](https://github.com/youzan/zent/pull/449) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.5.2](https://github.com/youzan/zent/tree/zent@3.5.2) (2017-09-07)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.1...zent@3.5.2)
 
-**不兼容改动和新功能:**
-
-- form: 支持 FormSection [\#431](https://github.com/youzan/zent/issues/431)
-
 **Bug 修复:**
 
-- select: option的value是数字0时无法选中 [\#444](https://github.com/youzan/zent/issues/444)
-- 修改Select宽度，弹层宽度无法自动适应 [\#438](https://github.com/youzan/zent/issues/438)
-- select: 缺少form中校验不通过的样式 [\#406](https://github.com/youzan/zent/issues/406)
+- \[bug fix\] Select: option的value是数字0时无法选中 [\#444](https://github.com/youzan/zent/issues/444)
+- \[bug fix\] Select: 修改Select宽度，弹层宽度无法自动适应 [\#438](https://github.com/youzan/zent/issues/438)
+- \[bug fix\] Select: 缺少form中校验不通过的样式 [\#406](https://github.com/youzan/zent/issues/406)
 - Select: fix bugs [\#446](https://github.com/youzan/zent/pull/446) ([LucasIcarus](https://github.com/LucasIcarus))
 - select: Fix Select proptypes [\#445](https://github.com/youzan/zent/pull/445) ([cpylua](https://github.com/cpylua))
+
+**处理的 Issue:**
+
+- form: 支持 FormSection [\#431](https://github.com/youzan/zent/issues/431)
 
 ## [zent@3.5.1](https://github.com/youzan/zent/tree/zent@3.5.1) (2017-09-04)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.0...zent@3.5.1)
@@ -35,7 +158,8 @@
 
 **不兼容改动和新功能:**
 
-- New Component: Design [\#401](https://github.com/youzan/zent/issues/401)
+- \[new feature\] MonthPicker: 支持min/max属性 [\#423](https://github.com/youzan/zent/issues/423)
+- \[new feature\] 新组件 Design [\#401](https://github.com/youzan/zent/issues/401)
 - datetimepicker: merge DateRangePicker and DateRangePicker2 [\#381](https://github.com/youzan/zent/issues/381)
 - Datepicker暴露格式化字符串方法 [\#374](https://github.com/youzan/zent/issues/374)
 - select: Rewrite using Popover [\#258](https://github.com/youzan/zent/issues/258)
@@ -58,7 +182,8 @@
 
 **Bug 修复:**
 
-- datetimepicker: replace date formating with zan-utils [\#410](https://github.com/youzan/zent/issues/410)
+- \[bug fix\] datetimepicker: replace date formating with zan-utils [\#410](https://github.com/youzan/zent/issues/410)
+- \[bug fix\] Datepicker: 添加form中校验不通过的样式 [\#405](https://github.com/youzan/zent/issues/405)
 - NumberInput: 不支持空字符串 [\#395](https://github.com/youzan/zent/issues/395)
 - NumberInput: onChange回调函数参数不是一个标准event [\#392](https://github.com/youzan/zent/issues/392)
 - table: 多选的时候不能跨页选择 [\#328](https://github.com/youzan/zent/issues/328)
@@ -82,8 +207,6 @@
 
 **处理的 Issue:**
 
-- MonthPicker不支持min/max属性 [\#423](https://github.com/youzan/zent/issues/423)
-- datepicker: 缺少form中校验不通过的样式 [\#405](https://github.com/youzan/zent/issues/405)
 - \[咨询\]想问下基于Zent 的微杂志编辑套件的开源时间点 [\#399](https://github.com/youzan/zent/issues/399)
 - Select类型的Field调用resetFieldsValue无效 [\#378](https://github.com/youzan/zent/issues/378)
 - form: 自定义Field里调用this.props.onChange不要把整个对象覆盖掉 [\#375](https://github.com/youzan/zent/issues/375)

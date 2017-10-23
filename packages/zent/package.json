@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "3.5.2",
+  "version": "3.8.0",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -11,7 +11,7 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
-    "prepublish": "yarn build"
+    "theme": "rm -rf css && node ./scripts/build-theme.js"
   },
   "typings": "typings/index.d.ts",
   "author": "Youzan FE",
@@ -34,45 +34,9 @@
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",
     "tinycolor2": "^1.4.1",
-    "zan-utils": "^1.0.9",
     "uuid": "^3.1.0",
+    "zan-utils": "^1.0.9",
     "zenticons": "^1.0.3"
   },
-  "devDependencies": {
-    "autoprefixer": "^6.7.7",
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
-    "babel-jest": "^19.0.0",
-    "babel-loader": "^7.0.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
-    "babel-plugin-transform-es3-property-literals": "^6.22.0",
-    "babel-plugin-transform-react-constant-elements": "^6.23.0",
-    "babel-plugin-transform-remove-console": "^6.8.1",
-    "babel-plugin-transform-remove-debugger": "^6.8.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-es2016": "^6.24.1",
-    "babel-preset-es2017": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "babel-types": "^6.24.1",
-    "babylon": "^6.17.0",
-    "colors": "^1.1.2",
-    "coveralls": "^2.13.1",
-    "cross-env": "^4.0.0",
-    "cssnano": "^3.10.0",
-    "enzyme": "2.8.x",
-    "glob": "^7.1.1",
-    "jest": "^20.0.4",
-    "postcss-cli": "^3.2.0",
-    "postcss-easy-import": "^2.0.0",
-    "precss": "^1.4.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4",
-    "uglify-js": "^2.8.22",
-    "webpack": "^2.4.1"
-  }
+  "devDependencies": {}
 }

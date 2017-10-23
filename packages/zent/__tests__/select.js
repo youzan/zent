@@ -32,7 +32,9 @@ describe('<Select />', () => {
   });
 
   test('测试默认属性', () => {
-    const wrapper = mount(<Select />);
+    const wrapper = mount(
+      <Select data={[{ value: '1', text: 'pangxie' }]} autoWidth />
+    );
     expect(wrapper.prop('disabled')).toBe(false);
     expect(wrapper.prop('optionText')).toBe('text');
     expect(wrapper.prop('optionValue')).toBe('value');
@@ -40,6 +42,11 @@ describe('<Select />', () => {
     expect(wrapper.prop('filter')).toBe(undefined);
     expect(wrapper.prop('selectedItem').value).toBe('');
     expect(wrapper.prop('selectedItem').text).toBe('');
+  });
+
+  test('怪癖模式', () => {
+    const wrapper = mount(<Select data={['1', '2', '3']} initialValue={'1'} />);
+    expect(wrapper.state('selectedItem').value).toBe('1');
   });
 
   it('测试SimpleTrigger', () => {
@@ -51,7 +58,10 @@ describe('<Select />', () => {
     const wrapper = mount(<Select data={[1, 2, 3]} />);
     wrapper.find('SelectTrigger').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().popup, true);
-    pop.find('Option').at(1).simulate('click');
+    pop
+      .find('Option')
+      .at(1)
+      .simulate('click');
     expect(wrapper.state('selectedItem').value).toBe(2);
   });
 
@@ -109,11 +119,14 @@ describe('<Select />', () => {
     wrapper.find('SelectTrigger').simulate('click');
     let pop = new ReactWrapper(wrapper.instance().popup, true);
     expect(pop.find('Option').length).toBe(3);
-    pop.find('Search').find('input').simulate('change', {
-      target: {
-        value: '1'
-      }
-    });
+    pop
+      .find('Search')
+      .find('input')
+      .simulate('change', {
+        target: {
+          value: '1'
+        }
+      });
     expect(pop.find('Option').length).toBe(1);
 
     const asyncMock = jest.fn().mockImplementation(() => {
@@ -135,11 +148,14 @@ describe('<Select />', () => {
     wrapper.find('SelectTrigger').simulate('click');
     pop = new ReactWrapper(wrapper.instance().popup, true);
     expect(pop.find('Option').length).toBe(3);
-    pop.find('Search').find('input').simulate('change', {
-      target: {
-        value: 'anything'
-      }
-    });
+    pop
+      .find('Search')
+      .find('input')
+      .simulate('change', {
+        target: {
+          value: 'anything'
+        }
+      });
     expect(pop.find('Option').length).toBe(1);
     expect(pop.find('Option').prop('value')).toBe('选项3');
   });
@@ -149,19 +165,35 @@ describe('<Select />', () => {
     expect(wrapper.find('TagsTrigger').length).toBe(1);
     wrapper.find('TagsTrigger').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().popup, true);
-    pop.find('Option').at(1).simulate('click');
+    pop
+      .find('Option')
+      .at(1)
+      .simulate('click');
     wrapper.find('TagsTrigger').simulate('click');
-    pop.find('Option').at(2).simulate('click');
+    pop
+      .find('Option')
+      .at(2)
+      .simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(2);
-    wrapper.find('Tag').at(0).find('i').simulate('click');
+    wrapper
+      .find('Tag')
+      .at(0)
+      .find('i')
+      .simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(1);
     wrapper.find('TagsTrigger').simulate('click');
-    pop.find('Option').at(2).simulate('click');
+    pop
+      .find('Option')
+      .at(2)
+      .simulate('click');
     expect(wrapper.state('selectedItems').length).toBe(1);
 
     // HACK: branch
     wrapper.find('TagsTrigger').simulate('click');
-    pop.find('Option').at(3).simulate('click');
+    pop
+      .find('Option')
+      .at(3)
+      .simulate('click');
   });
 
   it('Popup 按键事件测试', () => {
@@ -228,7 +260,10 @@ describe('<Select />', () => {
     const wrapper = mount(<Select data={data} />);
     wrapper.find('SelectTrigger').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().popup, true);
-    pop.find('Option').at(1).simulate('click');
+    pop
+      .find('Option')
+      .at(1)
+      .simulate('click');
 
     // HACK: branch Select.js line 89
     wrapper.setProps({ data });

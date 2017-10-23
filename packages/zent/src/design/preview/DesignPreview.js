@@ -10,6 +10,7 @@ import DesignPreviewController from './DesignPreviewController';
 import DesignEditorItem from '../editor/DesignEditorItem';
 import DesignEditorAddComponent from '../editor/DesignEditorAddComponent';
 import { isExpectedDesginType } from '../utils/design-type';
+import { isGrouped } from '../utils/component-group';
 
 /**
  * DesignPreview 和 config 组件是相互关联的
@@ -53,6 +54,9 @@ class DesignPreview extends (PureComponent || Component) {
 
     disabled: PropTypes.bool,
 
+    // 每个组件的实例数量
+    componentInstanceCount: PropTypes.object,
+
     // 以下 props 由 config 组件提供
     background: PropTypes.string
   };
@@ -74,6 +78,7 @@ class DesignPreview extends (PureComponent || Component) {
       validations,
       showError,
       onComponentValueChange,
+      componentInstanceCount,
       onAddComponent,
       design,
       appendableComponents,
@@ -91,6 +96,7 @@ class DesignPreview extends (PureComponent || Component) {
       disabled,
       background
     } = this.props;
+    const isComponentsGrouped = isGrouped(appendableComponents);
 
     const children = value.map((v, idx) => {
       const valueType = v.type;
@@ -130,34 +136,44 @@ class DesignPreview extends (PureComponent || Component) {
           />
 
           {selected &&
-            !showAddComponentOverlay &&
-            <EditorItem
-              prefix={prefix}
-              disabled={disabled}
-              ref={this.saveEditorItem(id)}
-            >
-              <comp.editor
-                {...getAdditionalProps(comp.editorProps, v)}
-                value={v}
-                onChange={onComponentValueChange(v)}
-                globalConfig={globalConfig}
-                design={design}
-                validation={validations[id] || {}}
-                showError={showError}
+            !showAddComponentOverlay && (
+              <EditorItem
                 prefix={prefix}
-              />
-            </EditorItem>}
+                disabled={disabled}
+                ref={this.saveEditorItem(id)}
+              >
+                <comp.editor
+                  {...getAdditionalProps(comp.editorProps, v)}
+                  value={v}
+                  onChange={onComponentValueChange(v)}
+                  globalConfig={globalConfig}
+                  design={design}
+                  validation={validations[id] || {}}
+                  showError={showError}
+                  prefix={prefix}
+                />
+              </EditorItem>
+            )}
 
           {selected &&
-            showAddComponentOverlay &&
-            <DesignEditorItem ref={this.saveEditorItem(id)} prefix={prefix}>
-              <DesignEditorAddComponent
+            showAddComponentOverlay && (
+              <DesignEditorItem
+                ref={this.saveEditorItem(id)}
                 prefix={prefix}
-                fromSelected
-                components={appendableComponents}
-                onAddComponent={onAddComponent}
-              />
-            </DesignEditorItem>}
+                className={cx(`${prefix}-design-add-component-overlay`, {
+                  [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
+                  [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped
+                })}
+              >
+                <DesignEditorAddComponent
+                  prefix={prefix}
+                  fromSelected
+                  componentInstanceCount={componentInstanceCount}
+                  components={appendableComponents}
+                  onAddComponent={onAddComponent}
+                />
+              </DesignEditorItem>
+            )}
         </PreviewItem>
       );
     });
@@ -174,17 +190,22 @@ class DesignPreview extends (PureComponent || Component) {
           })}
         >
           {children}
-          {hasAppendableComponent &&
-            <div className={`${prefix}-design__item-list-arrow-area`} />}
         </div>
-        {hasAppendableComponent &&
-          <div className={`${prefix}-design__add`}>
+        {hasAppendableComponent && (
+          <div
+            className={cx(`${prefix}-design__add`, {
+              [`${prefix}-design__add--grouped`]: isComponentsGrouped,
+              [`${prefix}-design__add--mixed`]: !isComponentsGrouped
+            })}
+          >
             <DesignEditorAddComponent
               prefix={prefix}
+              componentInstanceCount={componentInstanceCount}
               components={appendableComponents}
               onAddComponent={onAddComponent}
             />
-          </div>}
+          </div>
+        )}
       </div>
     );
   }

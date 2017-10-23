@@ -112,14 +112,14 @@ export default class Progress extends (PureComponent || Component) {
                   }}
                 />
               </svg>
-              {showInfo
-                ? <div
-                    className={`${prefix}-progress-info`}
-                    style={{ lineHeight: `${progressWidth}px` }}
-                  >
-                    {renderInfoCont()}
-                  </div>
-                : null}
+              {showInfo ? (
+                <div
+                  className={`${prefix}-progress-info`}
+                  style={{ lineHeight: `${progressWidth}px` }}
+                >
+                  {renderInfoCont()}
+                </div>
+              ) : null}
             </div>
           );
           break;
@@ -144,11 +144,11 @@ export default class Progress extends (PureComponent || Component) {
                   }}
                 />
               </div>
-              {showInfo
-                ? <div className={`${prefix}-progress-info`}>
-                    {renderInfoCont()}
-                  </div>
-                : null}
+              {showInfo ? (
+                <div className={`${prefix}-progress-info`}>
+                  {renderInfoCont()}
+                </div>
+              ) : null}
             </div>
           );
           break;

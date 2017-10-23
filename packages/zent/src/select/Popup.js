@@ -62,7 +62,11 @@ class Popup extends (PureComponent || Component) {
     });
 
     // trigger中传入的keyword
-    if (this.props.extraFilter || keyword !== null) {
+    if (
+      this.props.extraFilter &&
+      keyword !== null &&
+      keyword !== this.state.keyword
+    ) {
       this.searchFilterHandler(keyword);
     }
   }
@@ -209,14 +213,16 @@ class Popup extends (PureComponent || Component) {
         tabIndex="0"
         style={autoWidth ? this.state.style : null}
       >
-        {!extraFilter && (filter || onAsyncFilter)
-          ? <Search
-              keyword={keyword}
-              prefixCls={prefixCls}
-              placeholder={searchPlaceholder}
-              onChange={this.searchFilterHandler}
-            />
-          : ''}
+        {!extraFilter && (filter || onAsyncFilter) ? (
+          <Search
+            keyword={keyword}
+            prefixCls={prefixCls}
+            placeholder={searchPlaceholder}
+            onChange={this.searchFilterHandler}
+          />
+        ) : (
+          ''
+        )}
         {filterData.map((item, index) => {
           const currentCls = item.cid === currentId ? 'current' : '';
           const activeCls =
@@ -234,12 +240,13 @@ class Popup extends (PureComponent || Component) {
             />
           );
         })}
-        {showEmpty &&
+        {showEmpty && (
           <Option
             className={`${prefixCls}-empty`}
             text={emptyText}
             onClick={this.optionChangedHandler}
-          />}
+          />
+        )}
       </div>
     );
   }

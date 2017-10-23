@@ -111,45 +111,49 @@ export default class Image extends Component {
                 return null;
               })}
             </div>
-            {images.length > 1
-              ? <div
-                  className={`${prefix}-image-p-footer image-p-footer-paging ${showRotateBtn
-                    ? 'show-rotate-btn'
-                    : ''}`}
+            {images.length > 1 ? (
+              <div
+                className={`${prefix}-image-p-footer image-p-footer-paging ${showRotateBtn
+                  ? 'show-rotate-btn'
+                  : ''}`}
+              >
+                <span
+                  className={`${prefix}-image-p-action`}
+                  onClick={this.handlePreviousAction}
                 >
+                  上一张
+                </span>
+                {showRotateBtn && (
                   <span
                     className={`${prefix}-image-p-action`}
-                    onClick={this.handlePreviousAction}
+                    onClick={this.handleRotate}
                   >
-                    上一张
+                    翻转
                   </span>
-                  {showRotateBtn &&
-                    <span
-                      className={`${prefix}-image-p-action`}
-                      onClick={this.handleRotate}
-                    >
-                      翻转
-                    </span>}
-                  <span
-                    className={`${prefix}-image-p-action`}
-                    onClick={this.handleNextAction}
-                  >
-                    下一张
-                  </span>
-                </div>
-              : <div
-                  className={`${prefix}-image-p-footer ${showRotateBtn
-                    ? 'show-rotate-btn'
-                    : ''}`}
+                )}
+                <span
+                  className={`${prefix}-image-p-action`}
+                  onClick={this.handleNextAction}
                 >
-                  {showRotateBtn &&
-                    <span
-                      className={`${prefix}-image-p-action rotate-action`}
-                      onClick={this.handleRotate}
-                    >
-                      翻转
-                    </span>}
-                </div>}
+                  下一张
+                </span>
+              </div>
+            ) : (
+              <div
+                className={`${prefix}-image-p-footer ${showRotateBtn
+                  ? 'show-rotate-btn'
+                  : ''}`}
+              >
+                {showRotateBtn && (
+                  <span
+                    className={`${prefix}-image-p-action rotate-action`}
+                    onClick={this.handleRotate}
+                  >
+                    翻转
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </ImagePortalESCToClose>

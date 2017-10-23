@@ -14,27 +14,45 @@ describe('Simple', () => {
     expect(wrapper.find('.zent-table-container Head').length).toBe(1);
     expect(wrapper.find('.zent-table-container Head .cell').length).toBe(4);
     expect(
-      wrapper.find('.zent-table-container Head .cell').first().hasClass('cell')
+      wrapper
+        .find('.zent-table-container Head .cell')
+        .first()
+        .hasClass('cell')
     ).toBe(true);
     expect(
-      wrapper.find('.zent-table-container Head .cell').first().text()
+      wrapper
+        .find('.zent-table-container Head .cell')
+        .first()
+        .text()
     ).toBe('商品');
-    expect(wrapper.find('.zent-table-container Head .cell').last().text()).toBe(
-      '总销量'
-    );
+    expect(
+      wrapper
+        .find('.zent-table-container Head .cell')
+        .last()
+        .text()
+    ).toBe('总销量');
   });
 
   it('table Body render', () => {
     expect(wrapper.find('.zent-table-container Body').length).toBe(1);
     expect(wrapper.find('.zent-table-container Body .tr').length).toBe(3);
     expect(
-      wrapper.find('.zent-table-container Body .tr').first().find('Td').length
+      wrapper
+        .find('.zent-table-container Body .tr')
+        .first()
+        .find('Td').length
     ).toBe(4);
     expect(
-      wrapper.find('.zent-table-container Body .tr Td').first().text()
+      wrapper
+        .find('.zent-table-container Body .tr Td')
+        .first()
+        .text()
     ).toBe('5024278');
     expect(
-      wrapper.find('.zent-table-container Body .tr Td').last().text()
+      wrapper
+        .find('.zent-table-container Body .tr Td')
+        .last()
+        .text()
     ).toBe('0');
   });
 

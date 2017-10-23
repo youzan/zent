@@ -52,7 +52,7 @@ declare module 'zent/lib/datetimepicker/DateRangePicker' {
     valueType: 'date'|'number'|'string'
     format?: string
     defaultTime?: string
-    showTime: PropTypes.bool,
+    showTime: boolean
     disabledDate?: Function
     onChange?: Function
     onClick?: Function

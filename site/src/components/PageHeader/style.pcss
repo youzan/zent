@@ -2,15 +2,6 @@
 
 .page {
   &-header {
-    position: fixed;
-    top: 0;
-    z-index: 5000;
-    width: 100%;
-
-    &.lower-zindex {
-      z-index: 20;
-    }
-
     &__top {
       overflow: hidden;
       height: $top-nav-height;
@@ -28,7 +19,7 @@
         background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
         background-size: contain;
         background-repeat: no-repeat;
-        margin: 30px 0 0 20px;
+        margin: 20px 0 0 20px;
       }
     }
 
@@ -39,24 +30,6 @@
     &__item {
       float: left;
       height: 100%;
-    }
-
-    &__subnavs {
-      line-height: $top-subnav-height;
-      display: flex;
-      justify-content: center;
-      background-color: #f2f2f2;
-      position: relative;
-      z-index: -1;
-
-      &--shadow {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      a,
-      span {
-        line-height: $top-subnav-height;
-      }
     }
 
     &__link {
@@ -73,17 +46,6 @@
       &--active {
         color: #38f;
       }
-    }
-
-    &__github {
-      display: inline-block;
-      width: 22px;
-      height: 22px;
-      overflow: hidden;
-      background-image: url(https://img.yzcdn.cn/upload_files/2017/03/30/Fil9peDfgzvk3kj-oFCsElS4FS1x.png);
-      background-size: contain;
-      background-repeat: no-repeat;
-      margin: 14px 20px 0;
     }
   }
 }

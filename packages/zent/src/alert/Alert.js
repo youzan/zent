@@ -87,7 +87,7 @@ export default class Alert extends (PureComponent || Component) {
 
     return (
       <div className={containerCls}>
-        {closable &&
+        {closable && (
           <div className={`${prefix}-alert-close-wrapper`}>
             <span
               className={`${prefix}-alert-close-btn`}
@@ -95,11 +95,10 @@ export default class Alert extends (PureComponent || Component) {
             >
               ×
             </span>
-          </div>}
-        <div className={`${prefix}-alert-content-wrapper`}>
-          <div className={`${prefix}-alert-content`}>
-            {children}
           </div>
+        )}
+        <div className={`${prefix}-alert-content-wrapper`}>
+          <div className={`${prefix}-alert-content`}>{children}</div>
         </div>
       </div>
     );
