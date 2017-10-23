@@ -1,161 +1,72 @@
-.order-list-page {
-  line-height: 1.5;
-
-  a {
-    color: #38f;
-  }
-}
-
-.c-gray {
-  color: #999;
-}
-
-.pull-left {
-  float: left;
-}
-
-.trade-order-list__filter {
-  background: #f8f8f8;
-  padding: 20px 15px;
-  font-size: 12px;
-}
-
-.trade-order-list__filter-row {
-  margin: 20px 0 20px 50px;
-
-  &:first-child {
-    margin-top: 0;
-  }
-
-  &:last-child {
-    margin: 0;
-  }
-}
-
-.trade-order-list__filter-field {
-  margin-right: 10px;
-  display: inline-block;
-
-  &.feedback-change-line-style {
-    @media (max-width: 1050px) {
-      margin: 20px 0 0 50px;
-    }
-  }
-
-  &.buyway-change-line-style {
-    @media (max-width: 1050px) {
-      margin: 20px 0 0;
-    }
-  }
-}
-
-.trade-order-list__filter-label {
-  width: 100px;
-  text-align: right;
-}
-
-.trade-order-list__filter-content {
-  display: inline-block;
-  margin-right: 0;
-
-  .zent-datetime-picker {
-    background: transparent;
-  }
-}
-
-.trade-order-list__filter-order-search {
-  margin-right: 20px;
-  display: inline-block;
-
-  .order-label {
-    width: 100px;
-
-    .zent-select-text {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      vertical-align: text-bottom;
-    }
-  }
-
-  .order-input {
-    display: inline-block;
-
-    input {
-      width: 160px;
-    }
-  }
-}
-
-.trade-order-list__tab {
-  margin-top: 20px;
-}
-
-.order-list-container__table {
-  margin-bottom: 15px;
-  padding: 0;
-  width: 100%;
-  font-size: 12px;
-  text-align: left;
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  .image-cell {
-    min-width: 70px;
-  }
-
-  .title-cell {
-    width: 100%;
-  }
-
-  .price-cell {
-    min-width: 80px;
-  }
-
-  .aftermarket-cell {
-    width: 85px;
-    min-width: 85px;
-  }
-
-  .customer-cell {
-    width: 110px;
-    min-width: 110px;
-  }
-
-  .time-cell {
-    width: 80px;
-    min-width: 80px;
-  }
-
-  .state-cell {
-    width: 100px;
-    min-width: 100px;
-  }
-
-  .pay-price-cell {
-    width: 120px;
-    min-width: 120px;
-  }
-}
-
-.order-table__header-region {
-  display: table-row;
+.order-table__item-region {
+  margin-top: 10px;
   border: 1px solid #f2f2f2;
-  background: #f8f8f8;
-  box-sizing: border-box;
 
-  .head-cell {
-    text-align: center;
-    display: table-cell;
-    padding: 10px;
-    box-sizing: border-box;
+  .item-header-row {
+    background: #fafafa;
+    padding: 5px 10px;
+    border-bottom: 1px solid #f2f2f2;
+
+    .header-row-right {
+      text-align: right;
+    }
   }
 
-  .text-align-left {
-    text-align: left;
-  }
+  .item-content-row {
+    display: table-row;
 
-  .text-align-right {
-    text-align: right;
+    .cell-style {
+      padding: 10px;
+      text-align: center;
+      box-sizing: border-box;
+      min-height: 80px;
+      border-left: 1px solid #f2f2f2;
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .image-cell {
+      padding-right: 0;
+      border-left: none;
+
+      img {
+        width: 60px;
+        height: 60px;
+        max-width: 60px;
+        max-height: 60px;
+      }
+    }
+
+    .title-cell {
+      text-align: left;
+      border-left: none;
+    }
+
+    .price-cell {
+      text-align: right;
+      border-left: none;
+
+      .goods-price {
+        margin-bottom: 10px;
+      }
+    }
+
+    .customer-cell {
+      word-break: break-all;
+
+      .margin-bottom10 {
+        margin-bottom: 10px;
+      }
+    }
+
+    .time-cell {
+      padding: 10px 0;
+    }
+  }
+}
+
+.remark-dialog {
+  textarea {
+    height: 90px;
   }
 }

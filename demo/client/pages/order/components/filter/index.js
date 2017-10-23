@@ -131,7 +131,7 @@ export default class Filter extends Component {
 
           <div
             className="trade-order-list__filter-row"
-            style={{ marginLeft: '50px' }}
+            style={{ marginLeft: '110px' }}
           >
             <Field
               label="订单状态"
@@ -169,7 +169,10 @@ export default class Filter extends Component {
             />
           </div>
 
-          <div className="trade-order-list__filter-row">
+          <div
+            className="trade-order-list__filter-row"
+            style={{ marginLeft: '110px' }}
+          >
             <Field
               label="订单时间"
               content={
@@ -183,7 +186,7 @@ export default class Filter extends Component {
             />
           </div>
 
-          {type === 'period' &&
+          {type === 'period' && (
             <div className="trade-order-list__filter-row">
               <Field
                 label="送达日期"
@@ -195,11 +198,12 @@ export default class Filter extends Component {
                   />
                 }
               />
-            </div>}
+            </div>
+          )}
 
           <div
             className="trade-order-list__filter-row"
-            style={{ marginLeft: '110px' }}
+            style={{ marginLeft: '170px' }}
           >
             <Button
               className="trade-refundsManage__filter-btn"
