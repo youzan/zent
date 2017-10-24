@@ -33,7 +33,8 @@ module.exports = {
   'theme-primary-2': '#83f',
   'theme-primary-3': '#95f',
   'theme-primary-4': '#dbf',
-  'theme-primary-5': '#f3eaff',
+  'theme-primary-5': '#f7e8fd',
+  'theme-primary-6': '#f3eaff',
 };
 ```
 
@@ -55,7 +56,8 @@ module.exports = {
         'theme-primary-2': '#83f',
         'theme-primary-3': '#95f',
         'theme-primary-4': '#dbf',
-        'theme-primary-5': '#f3eaff',
+        'theme-primary-5': '#f7e8fd',
+        'theme-primary-6': '#f3eaff',
       },
       // precss variables starts with $
       prefix: '$'
