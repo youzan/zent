@@ -15,7 +15,7 @@ module.exports = {
             {
               title: '示例',
               path: ' guides/demos',
-              component: require('../src/pages/demos').default
+              component: require('../../packages/zent/docs/demo.md')
             },
             {
               title: 'babel-plugin-zent',
@@ -38,11 +38,6 @@ module.exports = {
               component: require('../../packages/zent/RELEASE.md')
             },
             {
-              title: 'Github 日志',
-              path: 'guides/github_changelog',
-              component: require('../../packages/zent/CHANGELOG.md')
-            },
-            {
               title: '贡献代码',
               path: 'guides/contribute',
               component: require('../../packages/zent/docs/CONTRIBUTING.md')
@@ -51,6 +46,11 @@ module.exports = {
               title: '文档规范',
               path: 'guides/markdown',
               component: require('../../packages/zent/docs/MARKDOWN.md')
+            },
+            {
+              title: 'Github 日志',
+              path: 'guides/github_changelog',
+              component: require('../../packages/zent/CHANGELOG.md')
             }
           ]
         }

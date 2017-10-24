@@ -20,6 +20,7 @@
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-router-dom": "^4.1.1",
+    "transliteration": "^1.6.2",
     "webpack": "2"
   },
   "devDependencies": {

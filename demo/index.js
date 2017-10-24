@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 3000;
     app.use(errorhandler());
   }
 
-  // app.use(express.static('dist'));
+  app.use(express.static('dist'));
 
   if (!PRODUCTION) {
     const webpack = require('webpack');
