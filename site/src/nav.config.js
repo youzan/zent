@@ -13,6 +13,11 @@ module.exports = {
               component: require('../../packages/zent/README.md')
             },
             {
+              title: '示例',
+              path: ' guides/demos',
+              component: require('../src/pages/demos').default
+            },
+            {
               title: 'babel-plugin-zent',
               path: 'guides/babel-plugin-zent',
               component: require('../../packages/babel-plugin-zent/README.md')
