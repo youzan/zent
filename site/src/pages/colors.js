@@ -19,7 +19,8 @@ export default function Colors() {
         </div>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-primary-4" color="#bdf" light={false} />
-          <ColorCell name="theme-primary-5" color="#eaf3ff" light={false} />
+          <ColorCell name="theme-primary-5" color="#e8f7fd" light={false} />
+          <ColorCell name="theme-primary-6" color="#eaf3ff" light={false} />
         </div>
 
         <h4>中性色</h4>
