@@ -31,6 +31,11 @@ if (PRODUCTION) {
   plugins.push(
     new ExtractTextPlugin({ filename: 'styles_[hash].css', allChunks: true })
   );
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false
+    })
+  );
 }
 
 module.exports = {

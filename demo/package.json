@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "online": "cross-env NODE_ENV=production nodemon index.js",
-    "deploy": "yarn build && yarn online"
+    "deploy": "node ./scripts/deploy.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -37,6 +37,7 @@
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^3.0.0",
+    "gh-pages": "^1.0.0",
     "html-webpack-plugin": "^2.30.1",
     "nodemon": "^1.12.0",
     "postcss-easy-import": "^2.1.0",
