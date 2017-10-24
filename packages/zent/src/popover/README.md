@@ -95,9 +95,11 @@ ReactDOM.render(
 | wrapperClassName | 可选, trigger外层包裹div的类名 | string | `''` |  |
 | prefix | 可选, 自定义前缀 | string | `'zent'` |  |
 
-`onBeforeShow` 和 `onBeforeClose` 可以返回一个 `Promise`，`Popover` 会在 `Promise` resolve 后关闭／打开。
+`onBeforeShow` 和 `onBeforeClose` 可以返回一个 `Promise`，`Popover` 会在 `Promise` resolve 后打开/关闭，如果 `Promise` reject 的话打开/关闭操作终止。
 
-如果你不使用 `Promise`，`onBeforeShow` 和 `onBeforeClose` 也提供一个可选的参数 `callback`，如果有这个参数的话，你必须在 `onBeforeShow` 和 `onBeforeClose` 里面手动调用 `callback` 才会关闭／打开。
+如果你不使用 `Promise`，`onBeforeShow` 和 `onBeforeClose` 也提供两个可选的参数 `callback` 以及 `escapse`，如果有这两参数的话，你必须在 `onBeforeShow` 和 `onBeforeClose` 里面手动调用 `callback` 才会打开/关闭，如果要终止打开/关闭操作需要手动调用 `escape`。
+
+`onBeforeShow(callback: ?function, escape: ?escape): ?Promise`
 
 每种 trigger 都有特有的 API 来控制组件行为, 自定义 trigger 可以按需指定 trigger 的参数.
 
