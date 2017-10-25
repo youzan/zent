@@ -18,9 +18,9 @@ export default class Routes extends Component {
     return (
       <Router basename={prefix}>
         <Switch className="zent-demo-layout">
-          <Route path="/paper" component={PageShopList} />
           <Route path="/paper/create" component={PageShopCreate} />
           <Route path="/paper/edit/:id" component={PageShopEdit} />
+          <Route path="/paper" component={PageShopList} />
           <Route path="/order" component={PageOrderList} />
           <Route component={PageNotFound} />
         </Switch>

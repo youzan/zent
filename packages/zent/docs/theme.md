@@ -69,6 +69,9 @@ module.exports = {
 };
 ```
 
+项目的样式文件里需要直接引入 Zent 的样式源文件，源文件在 `zent/assets` 目录下。
+一般直接引入 `zent/assets/index.pcss` 即可，如果你希望只引入使用到的组件样式的话可以使用 [babel-plugin-zent](babel-plugin-zent) 的 `useRawStyle` 参数。
+
 <style>
   img[alt="zent-theme"] {
     width: 514px;

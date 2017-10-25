@@ -6,7 +6,7 @@
 
 #### 订单列表
 
-可以选择过滤条件，使用了 `Tab` 以及大量基础组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/order) | [源码链接](https://github.com/youzan/zent/tree/master/demo/client/pages/order/list)
+可以选择过滤条件，使用了 `Select`, `DatePicker`, `Tab` 以及大量基础组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/order) | [源码链接](https://github.com/youzan/zent/tree/master/demo/client/pages/order/list)
 
 ![demo-preview-order-list](https://img.yzcdn.cn/zanui/react/demo-order.png)
 

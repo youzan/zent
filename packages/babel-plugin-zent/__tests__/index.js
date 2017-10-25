@@ -91,4 +91,29 @@ describe('babel-plugin-zent', () => {
       /require\('zent\/css\/pop.css'\)[\s\S]*require\('zent\/css\/button.css'\)/im
     );
   });
+
+  it('can add postcss imports', () => {
+    expect(
+      compile("import { Button } from 'zent'", {
+        automaticStyleImport: true,
+        useRawStyle: true
+      })
+    ).toMatch(/require\('zent\/assets\/button.pcss'\)/);
+
+    expect(
+      compile("import { Portal } from 'zent'", {
+        automaticStyleImport: true,
+        useRawStyle: true
+      })
+    ).not.toMatch(/zent\/assets\//);
+
+    expect(
+      compile("import { Pop, Button } from 'zent'", {
+        automaticStyleImport: true,
+        useRawStyle: true
+      })
+    ).toMatch(
+      /require\('zent\/assets\/pop.pcss'\)[\s\S]*require\('zent\/assets\/button.pcss'\)/im
+    );
+  });
 });

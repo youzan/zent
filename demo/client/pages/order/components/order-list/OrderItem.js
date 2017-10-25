@@ -34,7 +34,6 @@ export default class OrderItem extends Component {
   };
 
   render() {
-    const baseUrl = window._global.url.www || '';
     const { orderInfo } = this.props;
 
     return (
@@ -46,20 +45,22 @@ export default class OrderItem extends Component {
               <span className="c-gray">{orderInfo.buy_way_str}</span>
             </div>
             <div>
-              {orderInfo.outer_transaction_number &&
+              {orderInfo.outer_transaction_number && (
                 <span>
                   外部订单号:{' '}
                   <span className="c-gray">
                     {orderInfo.outer_transaction_number}
                   </span>&nbsp;&nbsp;
-                </span>}
-              {orderInfo.inner_transaction_number &&
+                </span>
+              )}
+              {orderInfo.inner_transaction_number && (
                 <span>
                   支付流水号:{' '}
                   <span className="c-gray">
                     {orderInfo.inner_transaction_number}
                   </span>
-                </span>}
+                </span>
+              )}
             </div>
           </Col>
           <Col span={8} className="header-row-right">
@@ -122,73 +123,71 @@ export default class OrderItem extends Component {
                       </span>
                     );
                   })}
-                  {orderInfo.order_type === '35' &&
+                  {orderInfo.order_type === '35' && (
                     <span className="goods-sku">
                       {formatDate((goodsItem.goods_info || {}).goods_date)}
-                    </span>}
+                    </span>
+                  )}
                 </p>
               </div>
 
               <div className="price-cell cell-style">
-                <p className="goods-price">
-                  {goodsItem.price}
-                </p>
+                <p className="goods-price">{goodsItem.price}</p>
                 <p>{`(${goodsItem.num}件)`}</p>
               </div>
 
               <div className="aftermarket-cell cell-style">
-                {goodsItem.feedback_str &&
+                {goodsItem.feedback_str && (
                   <div>
                     <a
-                      href={`${baseUrl}/trade/order/detail.html?order_no=${orderInfo.order_no}#safeguard/${goodsItem.id}`}
+                      href="https://www.youzan.com"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       {goodsItem.feedback_str}
                     </a>
-                    {orderInfo.feedback === 250 &&
+                    {orderInfo.feedback === 250 && (
                       <a
-                        href={`${baseUrl}/trade/order/refund?order_no=${orderInfo.order_no}`}
+                        href="https://www.youzan.com"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         钱款去向
-                      </a>}
-                  </div>}
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="customer-cell cell-style">
-                {orderInfo.customer
-                  ? <p className="user-customer margin-bottom10">
-                      {orderInfo.customer}
-                    </p>
-                  : <p>非粉丝</p>}
+                {orderInfo.customer ? (
+                  <p className="user-customer margin-bottom10">
+                    {orderInfo.customer}
+                  </p>
+                ) : (
+                  <p>非粉丝</p>
+                )}
                 <p className="user-name margin-bottom10">
                   {orderInfo.user_name}
                 </p>
-                <p className="user-tel">
-                  {orderInfo.tel}
-                </p>
+                <p className="user-tel">{orderInfo.tel}</p>
               </div>
 
-              <div className="time-cell cell-style">
-                {orderInfo.book_time}
-              </div>
+              <div className="time-cell cell-style">{orderInfo.book_time}</div>
 
-              <div className="state-cell cell-style">
-                {orderInfo.state_str}
-              </div>
+              <div className="state-cell cell-style">{orderInfo.state_str}</div>
 
               <div className="pay-price-cell cell-style">
                 <div>
-                  {orderInfo.is_points
-                    ? <span>{`${orderInfo.real_point_pay}积分`}</span>
-                    : <span>
-                        {orderInfo.real_pay}
-                      </span>}
+                  {orderInfo.is_points ? (
+                    <span>{`${orderInfo.real_point_pay}积分`}</span>
+                  ) : (
+                    <span>{orderInfo.real_pay}</span>
+                  )}
                   <br />
-                  {orderInfo.postage !== '0.00' &&
-                    <span className="c-gray">{`(含运费: ${orderInfo.postage})`}</span>}
+                  {orderInfo.postage !== '0.00' && (
+                    <span className="c-gray">{`(含运费: ${orderInfo.postage})`}</span>
+                  )}
                 </div>
               </div>
             </div>

@@ -18,5 +18,6 @@ gh.publish('.', {
     '.gitignore'
   ],
   repo: gitRepo,
+  branch: 'master',
   dotfiles: true
 });

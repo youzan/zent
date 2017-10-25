@@ -42,17 +42,19 @@ import './style.pcss';
 const LINK_MENU_CONFIG = ['GoodsAndTag', 'HomePage', 'Link'];
 
 const UPLOAD_CONFIG = {
-  mediaListUrl: '/api/shop/paper/upload/media/medialist.json',
-  categoryListUrl: '/api/shop/paper/upload/category/categorylist.json',
-  fetchUrl: '/api/shop/paper/upload/dock/fetch.json',
-  tokenUrl: '/api/shop/paper/upload/dock/token.json',
-  uploadUrl: '/api/shop/paper/upload/upload.json'
+  mediaListUrl: `${_global.url
+    .demo}/api/shop/paper/upload/media/medialist.json`,
+  categoryListUrl: `${_global.url
+    .demo}/api/shop/paper/upload/category/categorylist.json`,
+  fetchUrl: `${_global.url.demo}/api/shop/paper/upload/dock/fetch.json`,
+  tokenUrl: `${_global.url.demo}/api/shop/paper/upload/dock/token.json`,
+  uploadUrl: `${_global.url.demo}/api/shop/paper/upload/upload.json`
 };
 
-const globalConfig = assign({}, window._global, {
+const globalConfig = assign({}, _global, {
   url: {
-    www: `${window.location.origin}/api/shop/paper`,
-    imgcdn: window._global.url.imgcdn
+    www: `${_global.url.demo}/api/shop/paper`,
+    imgcdn: _global.url.imgcdn
   }
 });
 

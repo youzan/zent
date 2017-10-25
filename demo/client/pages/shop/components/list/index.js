@@ -16,7 +16,7 @@ export default class List extends Component {
     return (
       <div className="paper-list">
         <div className="paper-list__actions">
-          <Button type="primary" href="/paper/create">
+          <Button type="primary" href={`${_global.url.demo}/paper/create`}>
             新建微页面
           </Button>
         </div>
@@ -88,7 +88,7 @@ export default class List extends Component {
               </Action>
               <Action
                 id={id}
-                action={`/paper/edit/${id}`}
+                action={`${_global.url.demo}/paper/edit/${id}`}
                 className="paper-list__table-action-edit"
               >
                 编辑
@@ -117,17 +117,17 @@ export default class List extends Component {
                 </Pop>
               </Action>
 
-              {data.is_homepage
-                ? <span className="paper-list__table-action-homepage">
-                    店铺主页
-                  </span>
-                : <Action
-                    id={id}
-                    action={actions.setAsHomepage}
-                    className="paper-list__table-action-homepage"
-                  >
-                    设为主页
-                  </Action>}
+              {data.is_homepage ? (
+                <span className="paper-list__table-action-homepage">店铺主页</span>
+              ) : (
+                <Action
+                  id={id}
+                  action={actions.setAsHomepage}
+                  className="paper-list__table-action-homepage"
+                >
+                  设为主页
+                </Action>
+              )}
             </div>
           );
           /* eslint-enable */
@@ -146,14 +146,12 @@ class Action extends Component {
     /* eslint-disable */
     return (
       <span className={cx('paper-list__table-action-item', className)}>
-        {isFn &&
+        {isFn && (
           <a href="javascript:void(0);" onClick={this.handleAction}>
             {children}
-          </a>}
-        {isStr &&
-          <a href={action}>
-            {children}
-          </a>}
+          </a>
+        )}
+        {isStr && <a href={action}>{children}</a>}
         {!isFn && !isStr && children}
       </span>
     );

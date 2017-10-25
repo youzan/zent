@@ -41,7 +41,8 @@ const YOUZAN_PRIVATE = !!process.env.ZENT_DEPLOY_DEMO_YOUZAN_PRIVATE;
   }
 
   // API handlers
-  app.use('/api', routes);
+  const apiPrefix = PRODUCTION && YOUZAN_PRIVATE ? '/zanui/demo/zent/' : '/';
+  app.use(`${apiPrefix}api`, routes);
 
   // redirect all unknown urls to index.html
   if (PRODUCTION) {
