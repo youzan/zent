@@ -8,6 +8,7 @@ const routes = require('./server/routes');
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 const PORT = process.env.PORT || 3000;
+const YOUZAN_PRIVATE = !!process.env.ZENT_DEPLOY_DEMO_YOUZAN_PRIVATE;
 
 (function start() {
   const app = express();
@@ -20,7 +21,10 @@ const PORT = process.env.PORT || 3000;
     app.use(errorhandler());
   }
 
-  app.use(express.static('dist'));
+  // Serve assets from node server or CDN
+  if (PRODUCTION && !YOUZAN_PRIVATE) {
+    app.use(express.static('dist'));
+  }
 
   if (!PRODUCTION) {
     const webpack = require('webpack');

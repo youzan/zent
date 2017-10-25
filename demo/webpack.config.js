@@ -7,6 +7,9 @@ const postcssConfig = require('./postcss.config');
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
+// youzan specific
+const YOUZAN_PRIVATE = !!process.env.ZENT_DEPLOY_DEMO_YOUZAN_PRIVATE;
+
 const postcssLoader = {
   loader: 'postcss-loader',
   options: postcssConfig
@@ -44,7 +47,10 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle_[hash].js',
-    publicPath: '/'
+    publicPath:
+      PRODUCTION && YOUZAN_PRIVATE
+        ? 'https://b.yzcdn.cn/zanui/demo/react/'
+        : '/'
   },
 
   module: {

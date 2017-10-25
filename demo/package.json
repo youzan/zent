@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "online": "cross-env NODE_ENV=production nodemon index.js",
-    "deploy": "node ./scripts/deploy.js"
+    "deploy": "./scripts/cdn.sh && node ./scripts/gh-pages.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
