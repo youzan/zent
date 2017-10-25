@@ -38,7 +38,7 @@ export default class PageFooter extends Component {
               href="//www.youzanyun.com/zanui/vue"
               className="page-footer__link"
             >
-              Vue
+              Vue 组件库
             </a>
           </li>
           <li className="page-footer__item">
@@ -46,7 +46,7 @@ export default class PageFooter extends Component {
               href="https://github.com/youzan/zanui-weapp"
               className="page-footer__link"
             >
-              微信小程序
+              微信小程序组件库
             </a>
           </li>
           <li className="page-footer__item">
