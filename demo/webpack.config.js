@@ -16,11 +16,10 @@ const postcssLoader = {
 };
 
 const plugins = [
-  new webpack.EnvironmentPlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-    }
-  }),
+  new webpack.EnvironmentPlugin([
+    'NODE_ENV',
+    'ZENT_DEPLOY_DEMO_YOUZAN_PRIVATE'
+  ]),
 
   new CleanWebpackPlugin(['dist']),
 

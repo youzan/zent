@@ -10,7 +10,13 @@ if (!gitRepo) {
 }
 
 gh.publish('.', {
-  src: ['dist/**/*', 'server/**/*', 'package.json', 'index.js', '.gitignore'],
+  src: [
+    'dist/index.html',
+    'server/**/*',
+    'package.json',
+    'index.js',
+    '.gitignore'
+  ],
   repo: gitRepo,
   dotfiles: true
 });
