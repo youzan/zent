@@ -10,7 +10,6 @@ import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
-import WeekPicker from 'datetimepicker/WeekPicker';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
@@ -46,6 +45,7 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
+import WeekPicker from 'datetimepicker/WeekPicker';
 
 export {
   Affix,
