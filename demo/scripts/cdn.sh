@@ -17,7 +17,7 @@ if [[ -n "${ZENT_DEPLOY_DEMO_YOUZAN_PRIVATE}" ]]; then
     fail 'superman is required to deploy demos to CDN'
   fi
 
-  superman cdn /zanui/demo/react $basepath/../dist/*.js $basepath/../dist/*.css
+  superman cdn /zanui/demo/zent $basepath/../dist/*.js $basepath/../dist/*.css
 fi
 
 

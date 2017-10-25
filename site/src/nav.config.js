@@ -3,9 +3,10 @@
 module.exports = {
   'zh-CN': [
     {
-      name: '使用指南',
+      name: '指南',
       groups: [
         {
+          groupName: '使用',
           list: [
             {
               title: '快速上手',
@@ -13,7 +14,7 @@ module.exports = {
               component: require('../../packages/zent/README.md')
             },
             {
-              title: '示例',
+              title: '项目示例',
               path: ' guides/demos',
               component: require('../../packages/zent/docs/demo.md')
             },
@@ -21,7 +22,12 @@ module.exports = {
               title: 'babel-plugin-zent',
               path: 'guides/babel-plugin-zent',
               component: require('../../packages/babel-plugin-zent/README.md')
-            },
+            }
+          ]
+        },
+        {
+          groupName: '主题',
+          list: [
             {
               title: '色彩',
               path: 'guides/colors',
@@ -31,14 +37,39 @@ module.exports = {
               title: '定制主题',
               path: 'guides/theme',
               component: require('../../packages/zent/docs/theme.md')
-            },
+            }
+          ]
+        },
+        {
+          groupName: '升级',
+          list: [
             {
               title: '更新日志',
               path: 'guides/changelog',
               component: require('../../packages/zent/RELEASE.md')
             },
             {
-              title: '贡献代码',
+              title: 'Github 日志',
+              path: 'guides/github_changelog',
+              component: require('../../packages/zent/CHANGELOG.md')
+            },
+            {
+              title: '3.x 升级指南',
+              path: 'migrating/3x',
+              component: require('../../packages/zent/docs/migrating-2-3.md')
+            },
+            {
+              title: '2.1.x 升级指南',
+              path: 'migrating/21x',
+              component: require('../../packages/zent/docs/migrating-2.1.md')
+            }
+          ]
+        },
+        {
+          groupName: '开发',
+          list: [
+            {
+              title: '如何参与',
               path: 'guides/contribute',
               component: require('../../packages/zent/docs/CONTRIBUTING.md')
             },
@@ -46,31 +77,6 @@ module.exports = {
               title: '文档规范',
               path: 'guides/markdown',
               component: require('../../packages/zent/docs/MARKDOWN.md')
-            },
-            {
-              title: 'Github 日志',
-              path: 'guides/github_changelog',
-              component: require('../../packages/zent/CHANGELOG.md')
-            }
-          ]
-        }
-      ]
-    },
-
-    {
-      name: '升级指南',
-      groups: [
-        {
-          list: [
-            {
-              title: '2.1.x 升级指南',
-              path: 'migrating/21x',
-              component: require('../../packages/zent/docs/migrating-2.1.md')
-            },
-            {
-              title: '3.x 升级指南',
-              path: 'migrating/3x',
-              component: require('../../packages/zent/docs/migrating-2-3.md')
             }
           ]
         }

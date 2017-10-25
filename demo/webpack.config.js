@@ -48,9 +48,7 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle_[hash].js',
     publicPath:
-      PRODUCTION && YOUZAN_PRIVATE
-        ? 'https://b.yzcdn.cn/zanui/demo/react/'
-        : '/'
+      PRODUCTION && YOUZAN_PRIVATE ? 'https://b.yzcdn.cn/zanui/demo/zent/' : '/'
   },
 
   module: {
