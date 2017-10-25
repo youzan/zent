@@ -120,6 +120,9 @@ function addFiles(name) {
 
   if (!fs.existsSync(componentDir)) {
     fs.mkdirSync(componentDir);
+  } else {
+    console.log(`${upperComponentName} 组件已存在，请重新输入组件名！`);
+    return false;
   }
 
   fs.writeFileSync(
