@@ -49,26 +49,33 @@ function insertJs(name) {
 
   // 分割成上下两部分
   const jsIndexFileArr = jsIndexFile.split(/\r?\n\r?\n/);
+
+  // 分别拆分
   const jsIndexFilePart1Arr = jsIndexFileArr[0].split(';\n');
-  const jsIndexFilePart2Arr = jsIndexFileArr[1].substring(
-    9,
-    jsIndexFileArr[1].length - 4
-  );
+  const jsIndexFilePart2Arr = jsIndexFileArr[1]
+    .substring(9, jsIndexFileArr[1].length - 3)
+    .split(',\n');
 
-  console.log(jsIndexFilePart2Arr);
-
+  // 计算pos
   const alphabetArr = jsIndexFilePart1Arr.map(item => {
     return item.substr(7, 1).toUpperCase();
   });
 
   alphabetArr.push(upperComponentNameFirstAlphabet);
   alphabetArr.sort();
-
   const position = alphabetArr.indexOf(upperComponentNameFirstAlphabet);
-  jsIndexFilePart1Arr.splice(position, 0, jsImportStr);
-  // jsIndexFileArrPart2.splice(position, 0, cssImportStr);
 
-  fs.writeFileSync(jsIndexPath, jsIndexFilePart1Arr.join(';\n'));
+  // 加入新增代码
+  jsIndexFilePart1Arr.splice(position, 0, jsImportStr);
+  jsIndexFilePart2Arr.splice(position, 0, `  ${upperComponentName}`);
+
+  const jsIndexFilePart1Str = jsIndexFilePart1Arr.join(';\n');
+  const jsIndexFilePart2Str = jsIndexFilePart2Arr.join(',\n');
+  const jsIndexFilePart2Str1 = `export {\n${jsIndexFilePart2Str}\n};`;
+
+  const finalStr = `${jsIndexFilePart1Str}\n\n${jsIndexFilePart2Str1}`;
+
+  fs.writeFileSync(jsIndexPath, finalStr);
 }
 
 // 插入css
@@ -98,7 +105,7 @@ function insertCss(name) {
 
 // js/css 加到index文件导出
 function addFilesToIndex(name) {
-  // insertCss(name);
+  insertCss(name);
   insertJs(name);
 }
 

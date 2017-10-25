@@ -89,11 +89,11 @@ export {
   Steps,
   Sweetalert,
   Swiper,
+  Switch,
   Table,
   Tabs,
   Tag,
   Tree,
-  Switch,
   Upload,
   WeekPicker
 };
