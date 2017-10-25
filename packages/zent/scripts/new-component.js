@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable */
-
 const fs = require('fs');
 const path = require('path');
 
@@ -53,7 +51,7 @@ function insertJs(name) {
   // 分别拆分
   const jsIndexFilePart1Arr = jsIndexFileArr[0].split(';\n');
   const jsIndexFilePart2Arr = jsIndexFileArr[1]
-    .substring(9, jsIndexFileArr[1].length - 3)
+    .substring(9, jsIndexFileArr[1].length - 4)
     .split(',\n');
 
   // 计算pos
@@ -70,10 +68,12 @@ function insertJs(name) {
   jsIndexFilePart2Arr.splice(position, 0, `  ${upperComponentName}`);
 
   const jsIndexFilePart1Str = jsIndexFilePart1Arr.join(';\n');
-  const jsIndexFilePart2Str = jsIndexFilePart2Arr.join(',\n');
-  const jsIndexFilePart2Str1 = `export {\n${jsIndexFilePart2Str}\n};`;
+  const jsIndexFilePart1StrFinal = `${jsIndexFilePart1Str}`;
 
-  const finalStr = `${jsIndexFilePart1Str}\n\n${jsIndexFilePart2Str1}`;
+  const jsIndexFilePart2Str = jsIndexFilePart2Arr.join(',\n');
+  const jsIndexFilePart2StrFinal = `export {\n${jsIndexFilePart2Str}\n};\n`;
+
+  const finalStr = `${jsIndexFilePart1StrFinal}\n\n${jsIndexFilePart2StrFinal}`;
 
   fs.writeFileSync(jsIndexPath, finalStr);
 }
@@ -118,17 +118,17 @@ function addFiles(name) {
 
   console.log(`开始新建组件：${upperComponentName}.`);
 
-  // if (!fs.existsSync(componentDir)) {
-  //   fs.mkdirSync(componentDir);
-  // }
+  if (!fs.existsSync(componentDir)) {
+    fs.mkdirSync(componentDir);
+  }
 
-  // fs.writeFileSync(
-  //   `${componentDir}/index.js`,
-  //   `export default from './${upperComponentName}.js';`
-  // );
-  // fs.writeFileSync(`${componentDir}/README.md`, `## ${upperComponentName}`);
-  // fs.writeFileSync(`${componentDir}/${upperComponentName}.js`, '');
-  // fs.writeFileSync(`${assetsDir}/${name}.pcss`, '');
+  fs.writeFileSync(
+    `${componentDir}/index.js`,
+    `export default from './${upperComponentName}.js';`
+  );
+  fs.writeFileSync(`${componentDir}/README.md`, `## ${upperComponentName}`);
+  fs.writeFileSync(`${componentDir}/${upperComponentName}.js`, '');
+  fs.writeFileSync(`${assetsDir}/${name}.pcss`, '');
 
   addFilesToIndex(name);
 }
