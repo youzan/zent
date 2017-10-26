@@ -4,8 +4,8 @@ import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
-import Cascader from 'cascader';
 import Card from 'card';
+import Cascader from 'cascader';
 import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
@@ -17,14 +17,14 @@ import Dialog from 'dialog';
 import Form from 'form';
 import Grid from 'grid';
 import Icon from 'icon';
-import Input from 'input';
 import InfiniteScroller from 'infinite-scroller';
+import Input from 'input';
 import Layout from 'layout';
 import Loading from 'loading';
 import Menu from 'menu';
 import MonthPicker from 'datetimepicker/MonthPicker';
-import NumberInput from 'number-input';
 import Notify from 'notify';
+import NumberInput from 'number-input';
 import Pagination from 'pagination';
 import Pop from 'pop';
 import Popover from 'popover';
@@ -54,8 +54,8 @@ export {
   BlockHeader,
   Breadcrumb,
   Button,
-  Cascader,
   Card,
+  Cascader,
   Checkbox,
   ColorPicker,
   CopyButton,
@@ -67,14 +67,14 @@ export {
   Form,
   Grid,
   Icon,
-  Input,
   InfiniteScroller,
+  Input,
   Layout,
   Loading,
   Menu,
   MonthPicker,
-  NumberInput,
   Notify,
+  NumberInput,
   Pagination,
   Pop,
   Popover,

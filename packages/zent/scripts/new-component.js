@@ -9,8 +9,8 @@ function main() {
   const componentName = args[2];
 
   if (componentName === undefined) {
-    console.log('Component name is required');
-    return false;
+    console.error('Component name is required');
+    process.exit(1);
   }
 
   addFiles(componentName);
@@ -116,7 +116,7 @@ function addFiles(name) {
     console.log(
       `${upperComponentName} already exists, please choose another name.`
     );
-    return false;
+    process.exit(2);
   }
 
   fs.writeFileSync(
