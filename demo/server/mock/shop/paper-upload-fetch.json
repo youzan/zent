@@ -1,0 +1,30 @@
+{
+  "code": 0,
+  "msg": "ok",
+  "data": {
+    "kdt_id": 63077,
+    "attachment_id": 836052353,
+    "attachment_file": "12a3146940f222f5edf9695fd0876b25.jpg",
+    "attachment_url": "http://img.yzcdn.cn/upload_files/2017/08/08/12a3146940f222f5edf9695fd0876b25.jpg",
+    "attachment_full_url": "http://img.yzcdn.cn/upload_files/2017/08/08/12a3146940f222f5edf9695fd0876b25.jpg",
+    "attachment_size": 83740,
+    "attachment_title": "12a3146940f222f5edf9695fd0876b25.jpg",
+    "thumb_file": "12a3146940f222f5edf9695fd0876b25.jpg",
+    "thumb_url": "12a3146940f222f5edf9695fd0876b25.jpg!100x100.jpg",
+    "file_ext": "jpg",
+    "bucket": "kdt_img",
+    "width": 2880,
+    "height": 1100,
+    "category_id": 2,
+    "media_id": "",
+    "media_type": "image",
+    "media_expire_time": null,
+    "meta": "",
+    "source": 0,
+    "create_time": null,
+    "is_delete": 0,
+    "mimeType": "image/jpeg",
+    "hash": "Fqdn2sTA_OxVHhyVdVqaQTVNTLqv",
+    "key": "upload_files/2017/08/08/12a3146940f222f5edf9695fd0876b25.jpg"
+  }
+}
