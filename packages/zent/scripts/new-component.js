@@ -37,17 +37,26 @@ function getComponentName(name) {
   return componentName;
 }
 
+function compareFunction(a, b) {
+  return a.toLowerCase().localeCompare(b.toLowerCase());
+}
+
+function pushAndSort(arr, item) {
+  arr.push(item);
+  arr.sort(compareFunction);
+  return arr;
+}
+
 // 插入js
 function insertJs(name) {
   const upperComponentName = getComponentName(name);
-  const upperComponentNameFirstAlphabet = upperComponentName[0];
 
   const jsIndexPath = path.resolve(__dirname, '../src/index.js');
   const jsIndexFile = fs.readFileSync(jsIndexPath, { encoding: 'utf-8' });
   const jsImportStr = `import ${upperComponentName} from '${name}'`;
 
   // 分割成上下两部分
-  const jsIndexFileArr = jsIndexFile.split(/\r?\n\r?\n/);
+  const jsIndexFileArr = jsIndexFile.split(';\n\n');
 
   // 分别拆分
   const jsIndexFilePart1Arr = jsIndexFileArr[0].split(';\n');
@@ -55,27 +64,16 @@ function insertJs(name) {
     .substring(9, jsIndexFileArr[1].length - 4)
     .split(',\n');
 
-  // 计算pos
-  const alphabetArr = jsIndexFilePart1Arr.map(item => {
-    return item.substr(7, 1).toUpperCase();
-  });
+  const jsIndexFilePart1Str = pushAndSort(
+    jsIndexFilePart1Arr,
+    jsImportStr
+  ).join(';\n');
+  const jsIndexFilePart2Str = pushAndSort(
+    jsIndexFilePart2Arr,
+    `  ${upperComponentName}`
+  ).join(',\n');
 
-  alphabetArr.push(upperComponentNameFirstAlphabet);
-  alphabetArr.sort();
-  const position = alphabetArr.indexOf(upperComponentNameFirstAlphabet);
-
-  // 加入新增代码
-  jsIndexFilePart1Arr.splice(position, 0, jsImportStr);
-  jsIndexFilePart2Arr.splice(position, 0, `  ${upperComponentName}`);
-
-  const jsIndexFilePart1Str = jsIndexFilePart1Arr.join(';\n');
-  const jsIndexFilePart1StrFinal = `${jsIndexFilePart1Str}`;
-
-  const jsIndexFilePart2Str = jsIndexFilePart2Arr.join(',\n');
-  const jsIndexFilePart2StrFinal = `export {\n${jsIndexFilePart2Str}\n};\n`;
-
-  const finalStr = `${jsIndexFilePart1StrFinal}\n\n${jsIndexFilePart2StrFinal}`;
-
+  const finalStr = `${jsIndexFilePart1Str};\n\nexport {\n${jsIndexFilePart2Str}\n};\n`;
   fs.writeFileSync(jsIndexPath, finalStr);
 }
 
@@ -86,22 +84,15 @@ function insertCss(name) {
   const cssImportStr = `@import './${name}.pcss'`;
 
   const cssIndexFileArr = cssIndexFile.split(';\n');
-  const alphabetArr = cssIndexFileArr.map(item => {
-    return item.substr(11, 1);
-  });
-
   // 去掉最后一个空串
-  if (alphabetArr[alphabetArr.length - 1] === '') {
-    alphabetArr.pop();
+  if (cssIndexFileArr[cssIndexFileArr.length - 1] === '') {
+    cssIndexFileArr.pop();
   }
 
-  alphabetArr.push(name[0]);
-  alphabetArr.sort();
-
-  const position = alphabetArr.indexOf(name[0]);
-  cssIndexFileArr.splice(position, 0, cssImportStr);
-
-  fs.writeFileSync(cssIndexPath, cssIndexFileArr.join(';\n'));
+  const finalStr = `${pushAndSort(cssIndexFileArr, cssImportStr).join(
+    ';\n'
+  )};\n`;
+  fs.writeFileSync(cssIndexPath, finalStr);
 }
 
 // js/css 加到index文件导出
