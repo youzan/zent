@@ -69,6 +69,7 @@ declare module 'zent' {
   import Loading from 'zent/lib/loading';
   import Icon from 'zent/lib/icon';
   import Input from 'zent/lib/input';
+  import InfiniteScroller from 'zent/lib/infinite-scroller';
   import NumberInput from 'zent/lib/number-input';
   import Menu from 'zent/lib/menu';
   import Notify from 'zent/lib/notify';
@@ -92,7 +93,7 @@ declare module 'zent' {
   import Tag from 'zent/lib/tag';
   import Tree from 'zent/lib/tree';
   import Upload from 'zent/lib/upload';
-  
+
   export {
     Affix,
     Alert,
@@ -115,6 +116,7 @@ declare module 'zent' {
     Loading,
     Icon,
     Input,
+    InfiniteScroller,
     NumberInput,
     Menu,
     MonthPicker,
@@ -140,6 +142,5 @@ declare module 'zent' {
     Switch,
     Upload
   };
-  
-}
 
+}

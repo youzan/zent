@@ -1,6 +1,6 @@
-## Select 选择器
+## Select 下拉选择
 
-选择器，提供多种选择器功能。
+下拉选择，提供多种选择器功能。
 
 ### 使用指南
 
@@ -448,7 +448,7 @@ ReactDOM.render(
     data={data}
     search
     filter={(item, keyword) => {
-      return `${item.value}` === `${keyword}`;
+      return `${item.text}` === `${keyword}`;
     }}
   />
   , mountNode

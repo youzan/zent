@@ -1,0 +1,53 @@
+.paper-homepage {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f4f4f4;
+
+  &__detail {
+    display: flex;
+
+    &-logo {
+      max-width: 39px;
+      max-height: 39px;
+      width: auto;
+      height: auto;
+    }
+
+    &-shop {
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &-title {
+        font-size: 12px;
+        color: #666;
+
+        strong {
+          color: #333;
+          font-size: 14px;
+        }
+      }
+
+      &-createtime {
+        color: #999;
+        margin-top: 5px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+  }
+
+  &__action-item {
+    cursor: pointer;
+  }
+
+  &__action-item:not(:last-child) {
+    margin-right: 10px;
+  }
+}

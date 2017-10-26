@@ -69,15 +69,23 @@ describe('Steps', () => {
     ensure('error');
   });
 
-  it('breadcrumb steps', () => {
+  it('breadcrumb steps can have onStepChange callback', () => {
+    let clicked = false;
     const wrapper = mount(
-      <Steps type="breadcrumb">
+      <Steps type="breadcrumb" onStepChange={() => (clicked = true)}>
         <Step title="第一步" />
         <Step title="第二步" />
         <Step title="第三步" />
       </Steps>
     );
     expect(wrapper.find('.zent-steps-breadcrumb').length).toBe(1);
+    expect(clicked).toBe(false);
+    wrapper.setProps({ sequence: false });
+    wrapper
+      .find('.zent-steps-item')
+      .last()
+      .simulate('click');
+    expect(clicked).toBe(true);
   });
 
   it('card steps', () => {
@@ -89,5 +97,16 @@ describe('Steps', () => {
       </Steps>
     );
     expect(wrapper.find('.zent-steps-card').length).toBe(1);
+  });
+
+  it('can have description', () => {
+    const wrapper = mount(
+      <Steps>
+        <Step title="第一步" description="第一步描述" />
+        <Step title="第二步" description="第二步描述" />
+        <Step title="第三步" description="第三步描述" />
+      </Steps>
+    );
+    expect(wrapper.find('.zent-step-description').length).toBe(3);
   });
 });

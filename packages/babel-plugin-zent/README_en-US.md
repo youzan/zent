@@ -37,10 +37,13 @@ In your component Javascript files, use zent like this: `import { Button, Dialog
 // defaults
 {
 	moduleMappingFile: 'zent/lib/module-mapping.json',
-	automaticStyleImport: false
+	automaticStyleImport: false,
+	useRawStyle: false
 }
 ```
 
 `moduleMapppingFile`: absolute path of module mapping config for zent.
 
 If `automaticStyleImport` is `true`, import styles for component.
+
+`useRawStyle` should be used with `automaticStyleImport`, imports postcss source files if set to `true`.

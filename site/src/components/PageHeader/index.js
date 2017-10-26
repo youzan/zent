@@ -28,32 +28,14 @@ export default class PageHeader extends Component {
           </h1>
           <ul className="page-header__navs">
             <li className="page-header__item">
-              <a href="//www.youzanyun.com/zanui" className="page-header__link">
-                首页
-              </a>
-            </li>
-            <li className="page-header__item">
-              <a
-                href="//www.youzanyun.com/zanui/react"
-                className="page-header__link page-header__link--active"
-              >
-                Zent - PC端
-              </a>
-            </li>
-            <li className="page-header__item">
-              <a
-                href="//www.youzanyun.com/zanui/vue"
-                className="page-header__link"
-              >
-                Vant - 移动端
-              </a>
-            </li>
-            <li className="page-header__item">
-              <a
-                href="https://github.com/youzan/zanui-weapp"
-                className="page-header__link"
-              >
-                ZanUi-WeApp - 微信小程序
+              <a href="https://github.com/youzan/zent">
+                <img
+                  src="https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png"
+                  style={{ marginTop: 14, marginRight: 20 }}
+                  alt="github"
+                  width="32"
+                  height="32"
+                />
               </a>
             </li>
           </ul>

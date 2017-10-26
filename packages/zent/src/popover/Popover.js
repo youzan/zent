@@ -32,19 +32,23 @@ import PopoverTrigger from './trigger/Trigger';
 
 const SKIPPED = () => {};
 
-function handleBeforeHook(beforeFn, arity, continuation) {
+function handleBeforeHook(beforeFn, arity, continuation, escape) {
   // 有参数，传入continuation，由外部去控制何时调用
-  if (arity >= 1) {
+  // escapse 用来终止 onChange 操作
+  if (arity === 1) {
     return beforeFn(continuation);
+  } else if (arity >= 2) {
+    return beforeFn(continuation, escape);
   }
 
-  // 无参数，如果返回Promise那么resolve后调用continuation；如果返回不是Promise，直接调用Promise
+  // 无参数，如果返回Promise那么resolve后调用continuation, reject 的话调用 escape；
+  // 如果返回不是Promise，直接调用Promise
   const mayBePromise = beforeFn();
   if (!isPromise(mayBePromise) && mayBePromise !== SKIPPED) {
     return continuation();
   }
 
-  mayBePromise.then(continuation);
+  mayBePromise.then(continuation, escape);
 }
 
 export const PopoverContextType = {
@@ -188,25 +192,38 @@ export default class Popover extends (PureComponent || Component) {
       this.pendingOnBeforeHook = true;
       return beforeHook(...args);
     };
+    const escapse = () => {
+      this.pendingOnBeforeHook = false;
+    };
 
     if (this.isVisibilityControlled(props)) {
       if (this.pendingOnBeforeHook || props.visible === visible) {
         return;
       }
 
-      handleBeforeHook(onBefore, beforeHook.length, () => {
-        props.onVisibleChange(visible);
-        this.pendingOnBeforeHook = false;
-      });
+      handleBeforeHook(
+        onBefore,
+        beforeHook.length,
+        () => {
+          props.onVisibleChange(visible);
+          this.pendingOnBeforeHook = false;
+        },
+        escapse
+      );
     } else {
       if (this.pendingOnBeforeHook || state.visible === visible) {
         return;
       }
 
-      handleBeforeHook(onBefore, beforeHook.length, () => {
-        this.safeSetState({ visible });
-        this.pendingOnBeforeHook = false;
-      });
+      handleBeforeHook(
+        onBefore,
+        beforeHook.length,
+        () => {
+          this.safeSetState({ visible });
+          this.pendingOnBeforeHook = false;
+        },
+        escapse
+      );
     }
   };
 

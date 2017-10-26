@@ -4735,7 +4735,7 @@ tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
-transliteration@^1.5.3:
+transliteration@^1.5.3, transliteration@^1.6.2:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/transliteration/-/transliteration-1.6.2.tgz#335c91bf70f3b211bb81e8d03992b2078c0dac96"
   dependencies:

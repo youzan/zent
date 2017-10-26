@@ -11,12 +11,13 @@ export default Control => {
       const {
         required = false,
         helpDesc = '',
+        notice = '',
         label = '',
         className = '',
         ...props
       } = this.props;
 
-      const showError = props.isTouched && props.error !== null;
+      const showError = props.isDirty && props.error !== null;
       const groupClassName = cx({
         'zent-form__control-group': true,
         'zent-form__control-group--active': props.isActive,
@@ -35,6 +36,7 @@ export default Control => {
             {showError && (
               <p className="zent-form__error-desc">{props.error}</p>
             )}
+            {notice && <p className="zent-form__notice-desc">{notice}</p>}
             {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
           </div>
         </div>

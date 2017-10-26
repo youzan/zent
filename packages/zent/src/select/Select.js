@@ -5,7 +5,6 @@
 import React, { Component, PureComponent, Children } from 'react';
 import assign from 'lodash/assign';
 import omit from 'lodash/omit';
-import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
@@ -66,43 +65,124 @@ class Select extends (PureComponent || Component) {
      * data支持字符串数组和对象数组两种模式
      *
      * 字符串数组默认value为下标
-     * 对象数组需提供value和text
+     * 对象数组需提供value和text, 或者通过 optionValue-prop optionText-prop 自定义
      *
-     * @return {object}
      */
-    const data = this.uniformData(this.props);
-    this.formateData(data);
+    this.uniformedData = this.uniformData(this.props);
+    this.traverseData(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const data = this.uniformData(nextProps);
-    this.formateData(data, nextProps);
+    this.uniformedData = this.uniformData(nextProps);
+    this.traverseData(nextProps);
   }
 
-  // 统一children和data中的数据
+  /**
+   * 将使用 child-element 传入的 Options 格式化为对象数组(未严格约束)
+   * data-prop 的优先级高于 child-element
+   *
+   * @param {object} props - props of Select
+   * @returns {object[]} uniformedData - 格式化后对象数组
+   * @returns {string} uniformedData[].cid - internal id of option
+   * @returns {string} uniformedData[].text - text of an option
+   * @returns {any} uniformedData[].value - token of an option
+   * @memberof Select
+   */
   uniformData(props) {
-    let data = [];
-    if (props.children) {
-      data = Children.map(props.children, item => {
+    const { data, children, optionValue, optionText } = props;
+    let uniformedData;
+
+    // data-prop 高优先级, 格式化 optionValue、optionText
+    if (data) {
+      return (uniformedData = data.map((option, index) => {
+        // 处理字符串数组
+        if (typeof option !== 'object') {
+          return { text: option, value: option, cid: `${index}` };
+        }
+
+        option.cid = `${index}`;
+        if (optionValue) {
+          option.value = option[optionValue];
+        }
+        if (optionText) {
+          option.text = option[optionText];
+        }
+        return option;
+      }));
+    }
+
+    // 格式化 child-element
+    if (children) {
+      uniformedData = Children.map(children, (item, index) => {
         let value = item.props.value;
         value = typeof value === 'undefined' ? item : value;
         return assign({}, item.props, {
           value,
+          cid: `${index}`,
           text: item.props.children
         });
       });
     }
-
-    // props.data会将子元素覆盖
-    if (props.data) {
-      data = props.data;
-    }
-    return data;
+    return uniformedData;
   }
 
-  // 显示当前选项，支持通过value和index进行外部控制
-  getOptions(state, props, item, i) {
-    const { value, index } = props;
+  /**
+   * accept uniformed data to traverse then inject selected option or options to next state
+   *
+   * @param {object[]} data - uniformedData
+   * @param {object} props - props of Select
+   * @memberof Select
+   */
+  traverseData(props, data = this.uniformedData) {
+    // option 数组置空后重置组件状态
+    if (!data.length) {
+      return this.setState({
+        selectedItem: {},
+        selectedItems: []
+      });
+    }
+
+    const { selectedItem, selectedItems } = this.state;
+    const { value, index, initialIndex, initialValue } = props;
+
+    // initialize selected internal state
+    const selected = { sItem: selectedItem, sItems: [] };
+
+    data.forEach((item, i) => {
+      // 处理 quirk 默认选项(initialIndex, initialValue)
+      if (
+        selectedItems.length === 0 &&
+        !selectedItem.cid &&
+        (initialValue !== null || initialIndex !== null)
+      ) {
+        const coord = { value: initialValue, index: initialIndex };
+        this.locateSelected(selected, coord, item, i);
+      }
+
+      // 处理受控逻辑(index, value)
+      if (value !== null || index !== null) {
+        this.locateSelected(selected, { value, index }, item, i);
+      }
+    });
+
+    this.setState({
+      selectedItem: selected.sItem,
+      selectedItems: selected.sItems
+    });
+  }
+
+  /**
+   * judge if param 'item' selected
+   *
+   * @param {object} state - next state marked selected item or items
+   * @param {object} coord - coordinate for seleted judging
+   * @param {object} item - option object after uniformed
+   * @param {number} i - index of option in options list
+   * @memberof Select
+  * */
+  locateSelected(state, coord, item, i) {
+    const { value, index } = coord;
+
     if (isArray(value) && value.indexOf(item.value) > -1) {
       // rerender 去重
       if (!state.sItems.find(selected => selected.value === item.value)) {
@@ -127,73 +207,6 @@ class Select extends (PureComponent || Component) {
       state.sItem = {};
       state.sItems = [];
     }
-    return state;
-  }
-
-  // 对data进行处理，增加cid
-  formateData(data, props) {
-    data = data || this.sourceData;
-    props = props || this.props;
-    const { selectedItem, selectedItems } = this.state;
-    const {
-      value,
-      index,
-      initialIndex,
-      initialValue,
-      optionValue,
-      optionText
-    } = props;
-    const selected = { sItem: selectedItem, sItems: [] };
-
-    this.sourceData = cloneDeep(data)
-      .map(item => {
-        let result = {};
-        if (typeof item === 'object') {
-          result.value = item[optionValue];
-          result.text = item[optionText];
-          result = { ...item, ...result };
-        } else {
-          result.value = item;
-          result.text = item;
-        }
-        return result;
-      })
-      .map((item, i) => {
-        item.cid = `${i}`;
-
-        // 处理默认选项(initialIndex, initialValue)
-        if (
-          selectedItems.length === 0 &&
-          !selectedItem.cid &&
-          (initialValue !== null || initialIndex !== null)
-        ) {
-          this.getOptions(
-            selected,
-            { value: initialValue, index: initialIndex },
-            item,
-            i
-          );
-        }
-
-        // 处理受控逻辑(index, value)
-        if (value !== null || index !== null) {
-          this.getOptions(selected, { value, index }, item, i);
-        }
-        return item;
-      });
-    if (this.sourceData.length) {
-      this.setState({
-        selectedItem: selected.sItem,
-        selectedItems: selected.sItems
-      });
-    } else {
-      // data置空之后选项也置空
-      this.setState({
-        selectedItem: {},
-        selectedItems: []
-      });
-    }
-    return this.sourceData;
   }
 
   // 接收trigger改变后的数据，将数据传给popup
@@ -331,7 +344,7 @@ class Select extends (PureComponent || Component) {
             ref={ref => (this.popup = ref)}
             cid={cid}
             prefixCls={prefixCls}
-            data={this.sourceData}
+            data={this.uniformedData}
             selectedItems={selectedItems}
             extraFilter={extraFilter}
             searchPlaceholder={searchPlaceholder}
