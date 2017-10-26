@@ -64,7 +64,7 @@ module.exports = function(babel) {
             }
 
             if (t.isImportSpecifier(sp)) {
-              return r.concat(buildImportReplacement(sp, t, state));
+              return r.concat(buildImportReplacement(sp, t, state, path));
             }
 
             throw path.buildCodeFrameError('Unexpected import type');
@@ -77,7 +77,7 @@ module.exports = function(babel) {
   };
 };
 
-function buildImportReplacement(specifier, types, state) {
+function buildImportReplacement(specifier, types, state, originalPath) {
   initModuleMapppingAsNecessary(state);
 
   // import {Button as _Button} from 'zent'
@@ -101,6 +101,12 @@ function buildImportReplacement(specifier, types, state) {
     // style
     if (options.automaticStyleImport) {
       if (options.useRawStyle) {
+        if (!rule.postcss) {
+          throw originalPath.buildCodeFrameError(
+            '`useRawStyle` is not compatible with old versions of zent, please upgrade zent to >= zent@3.8.1'
+          );
+        }
+
         rule.postcss.forEach(path => {
           if (data.STYLE_IMPORT_MAPPING[path] === undefined) {
             replacement.push(
