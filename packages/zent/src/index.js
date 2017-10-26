@@ -10,21 +10,20 @@ import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
-import WeekPicker from 'datetimepicker/WeekPicker';
-import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
 import Form from 'form';
 import Grid from 'grid';
-import Layout from 'layout';
-import Loading from 'loading';
 import Icon from 'icon';
 import Input from 'input';
 import InfiniteScroller from 'infinite-scroller';
-import NumberInput from 'number-input';
+import Layout from 'layout';
+import Loading from 'loading';
 import Menu from 'menu';
+import MonthPicker from 'datetimepicker/MonthPicker';
+import NumberInput from 'number-input';
 import Notify from 'notify';
 import Pagination from 'pagination';
 import Pop from 'pop';
@@ -46,6 +45,7 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
+import WeekPicker from 'datetimepicker/WeekPicker';
 
 export {
   Affix,
@@ -66,14 +66,14 @@ export {
   Dialog,
   Form,
   Grid,
-  Layout,
-  Loading,
   Icon,
   Input,
   InfiniteScroller,
-  NumberInput,
+  Layout,
+  Loading,
   Menu,
   MonthPicker,
+  NumberInput,
   Notify,
   Pagination,
   Pop,
@@ -89,11 +89,11 @@ export {
   Steps,
   Sweetalert,
   Swiper,
+  Switch,
   Table,
   Tabs,
   Tag,
   Tree,
-  Switch,
   Upload,
   WeekPicker
 };
