@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 
@@ -8,7 +9,7 @@ function main() {
   const componentName = args[2];
 
   if (componentName === undefined) {
-    console.log('请输入需要新建的组件名！');
+    console.log('Component name is required');
     return false;
   }
 
@@ -116,12 +117,14 @@ function addFiles(name) {
   const componentDir = `${packagesDir}/${name}`;
   const upperComponentName = getComponentName(name);
 
-  console.log(`开始新建组件：${upperComponentName}.`);
+  console.log(`Adding new component：${upperComponentName}`);
 
   if (!fs.existsSync(componentDir)) {
     fs.mkdirSync(componentDir);
   } else {
-    console.log(`${upperComponentName} 组件已存在，请重新输入组件名！`);
+    console.log(
+      `${upperComponentName} already exists, please choose another name`
+    );
     return false;
   }
 
