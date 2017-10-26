@@ -7,6 +7,7 @@ import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
+import cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
 
 import Popover from 'popover';
@@ -100,16 +101,16 @@ class Select extends (PureComponent || Component) {
         }
 
         // hacky the quirk when optionText = 'value' and avoid modify props
-        const copy = JSON.parse(JSON.stringify(option));
+        const optCopy = cloneDeep(option);
 
-        copy.cid = `${index}`;
+        optCopy.cid = `${index}`;
         if (optionValue) {
-          copy.value = option[optionValue];
+          optCopy.value = option[optionValue];
         }
         if (optionText) {
-          copy.text = option[optionText];
+          optCopy.text = option[optionText];
         }
-        return copy;
+        return optCopy;
       }));
     }
 
