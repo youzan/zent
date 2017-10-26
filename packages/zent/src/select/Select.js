@@ -3,11 +3,11 @@
  */
 
 import React, { Component, PureComponent, Children } from 'react';
-import assign from 'lodash/assign';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
+import cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
 
 import Popover from 'popover';
@@ -48,7 +48,7 @@ class Select extends (PureComponent || Component) {
       this.trigger = props.trigger;
     }
 
-    this.state = assign(
+    this.state = Object.assign(
       {
         selectedItems: [],
         selectedItem: {
@@ -100,14 +100,17 @@ class Select extends (PureComponent || Component) {
           return { text: option, value: option, cid: `${index}` };
         }
 
-        option.cid = `${index}`;
+        // hacky the quirk when optionText = 'value' and avoid modify props
+        const optCopy = cloneDeep(option);
+
+        optCopy.cid = `${index}`;
         if (optionValue) {
-          option.value = option[optionValue];
+          optCopy.value = option[optionValue];
         }
         if (optionText) {
-          option.text = option[optionText];
+          optCopy.text = option[optionText];
         }
-        return option;
+        return optCopy;
       }));
     }
 
@@ -116,7 +119,7 @@ class Select extends (PureComponent || Component) {
       uniformedData = Children.map(children, (item, index) => {
         let value = item.props.value;
         value = typeof value === 'undefined' ? item : value;
-        return assign({}, item.props, {
+        return Object.assign({}, item.props, {
           value,
           cid: `${index}`,
           text: item.props.children
