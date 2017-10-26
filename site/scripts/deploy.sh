@@ -17,7 +17,7 @@ if ! command_exists superman ; then
 fi
 
 if [[ -z "${ZENT_DEPLOY_DOC_GIT_REPO}" ]]; then
-  gh-pages -d dist
+  fail 'Environment variable ZENT_DEPLOY_DOC_GIT_REPO not set.'
 else
   gh-pages -d dist -r "${ZENT_DEPLOY_DOC_GIT_REPO}"
 fi

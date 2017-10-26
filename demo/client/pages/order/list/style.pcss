@@ -1,0 +1,165 @@
+.order-list-page {
+  line-height: 1.5;
+
+  a {
+    color: #38f;
+  }
+}
+
+/**
+ * 模块scss
+ */
+
+.c-gray {
+  color: #999;
+}
+
+.pull-left {
+  float: left;
+}
+
+.trade-order-list__filter {
+  background: #f8f8f8;
+  padding: 20px 15px;
+  font-size: 12px;
+}
+
+.trade-order-list__filter-row {
+  margin: 20px 0;
+
+  &:first-child {
+    margin: 0;
+  }
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+.trade-order-list__filter-field {
+  margin-right: 10px;
+  display: inline-block;
+
+  &.feedback-change-line-style {
+    @media (max-width: 1050px) {
+      margin: 20px 0 0 50px;
+    }
+  }
+
+  &.buyway-change-line-style {
+    @media (max-width: 1050px) {
+      margin: 20px 0 0;
+    }
+  }
+}
+
+.trade-order-list__filter-label {
+  width: 100px;
+  text-align: right;
+}
+
+.trade-order-list__filter-content {
+  display: inline-block;
+  margin-right: 0;
+
+  .zent-datetime-picker {
+    background: transparent;
+  }
+}
+
+.trade-order-list__filter-order-search {
+  margin-right: 20px;
+  display: inline-block;
+
+  .order-label {
+    width: 100px;
+
+    .zent-select-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: text-bottom;
+    }
+  }
+
+  .order-input {
+    display: inline-block;
+
+    input {
+      width: 160px;
+    }
+  }
+}
+
+.trade-order-list__tab {
+  margin-top: 20px;
+}
+
+.order-list-container__table {
+  margin-bottom: 15px;
+  padding: 0;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  .image-cell {
+    min-width: 70px;
+  }
+
+  .title-cell {
+    width: 100%;
+  }
+
+  .price-cell {
+    min-width: 80px;
+  }
+
+  .aftermarket-cell {
+    width: 85px;
+    min-width: 85px;
+  }
+
+  .customer-cell {
+    width: 110px;
+    min-width: 110px;
+  }
+
+  .time-cell {
+    width: 80px;
+    min-width: 80px;
+  }
+
+  .state-cell {
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .pay-price-cell {
+    width: 120px;
+    min-width: 120px;
+  }
+}
+
+.order-table__header-region {
+  display: table-row;
+  border: 1px solid #f2f2f2;
+  background: #f8f8f8;
+  box-sizing: border-box;
+
+  .head-cell {
+    text-align: center;
+    display: table-cell;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .text-align-left {
+    text-align: left;
+  }
+
+  .text-align-right {
+    text-align: right;
+  }
+}
