@@ -27,13 +27,16 @@
 <style>
 	img[alt="demo-preview-order-list"] {
 		max-width: 1203px;
+		width: 100%;
 	}
 
 	img[alt="demo-preview-paper-edit"] {
 		max-width: 809px;
+		width: 100%;
 	}
 
 	img[alt="demo-preview-paper-list"] {
 		max-width: 1207px;
+		width: 100%;
 	}
 </style>
