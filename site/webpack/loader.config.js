@@ -17,6 +17,7 @@ function getBabelLoader(options = {}) {
       plugins: dev
         ? [
             require.resolve('react-hot-loader/babel'),
+            require.resolve('react-loadable/babel'),
             require.resolve('babel-plugin-syntax-dynamic-import')
           ]
         : []

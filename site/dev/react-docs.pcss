@@ -1,0 +1,157 @@
+@import "./_constants.pcss";
+@import "./_animation.pcss";
+
+.app {
+  min-width: 1100px;
+}
+
+.page-content {
+  overflow-x: auto;
+  position: relative;
+}
+
+.react-doc-page-content {
+  min-height: 100%;
+  padding-bottom: 62px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.github-spider {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  animation-duration: 200ms;
+  width: 128px;
+  height: 128px;
+
+  &-trigger {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    z-index: 2;
+  }
+}
+
+.zandoc-react-container {
+  .zandoc-react-markdown code[class*="language-"] {
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  .zandoc-react-demo {
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    margin: 0 40px;
+
+    & + .zandoc-react-demo {
+      margin-top: 40px;
+    }
+
+    &__preview {
+      padding: 40px;
+    }
+
+    &__bottom {
+      padding: 20px;
+      border-top: 1px solid $border-color;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    &__toggle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid $toggle-color;
+      color: $toggle-color;
+      border-radius: 50%;
+      font-size: 12px;
+      line-height: 20px;
+      flex: 0 0 auto;
+
+      &-off {
+        transform: rotate(90deg);
+      }
+
+      &-on {
+        transform: rotate(-90deg);
+      }
+    }
+
+    &__title {
+      flex: 1;
+      color: #666;
+      font-size: 14px;
+      min-height: 20px;
+      margin-right: 20px;
+    }
+
+    &__code {
+      border-top: 1px solid $border-color;
+    }
+  }
+}
+
+.zandoc-react-color-row {
+  margin-bottom: 10px;
+
+  .zandoc-react-color-cell {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.zandoc-react-color-cell {
+  display: inline-block;
+  width: 233px;
+  height: 80px;
+  border-radius: 4px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  font-family: monospace;
+
+  .zandoc-react-color-cell__name {
+    margin-top: 8px;
+    font-size: 20px;
+  }
+
+  .zandoc-react-color-cell__color {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  &--light {
+    .zandoc-react-color-cell__name {
+      color: #fff;
+    }
+
+    .zandoc-react-color-cell__color {
+      color: #e5e5e5;
+    }
+  }
+
+  &--dark {
+    .zandoc-react-color-cell__name {
+      color: #333;
+    }
+
+    .zandoc-react-color-cell__color {
+      color: #999;
+    }
+  }
+
+  &__mask-white {
+    border: 1px solid #e5e5e5;
+  }
+}

@@ -1,12 +1,14 @@
-## Zent <a href="https://github.com/youzan/zent"><img src="https://img.yzcdn.cn/zanui/react/GitHub_Logo.png" width="78" height="32" alt="github-logo" /><img src="https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png" alt="github" width="32" height="32"/></a>
+## Zent 
 
-一套 React 的 UI 组件。
+Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一整套基础的 UI 组件以及一些常用的业务组件。
 
-A collection of essential UI components written with React.
+目前我们有 40+ 组件，这些组件都已经在有赞的各类 PC 业务中使用，我们会在此基础上，持续开发一些新组件。
+
+我们的目标是让 React 项目开发更快、更简单。
 
 ### 组件展示
 
-<img alt="zent-components" src="https://img.yzcdn.cn/zanui/react/zent-components.png" width="849" height="327" />
+![zent-components](https://img.yzcdn.cn/zanui/react/zent-components.png)
 
 ### 特性
 
@@ -55,13 +57,8 @@ import Button from 'zent/lib/button';
 适用于基于 Zent 开发的组件库，以及对 Zent 使用量较少的项目。详细使用帮助请看[插件的文档](babel-plugin-zent)。
 
 <style>
-img[alt="github"] {
-	float: right;
-	margin-top: 10px;
-}
-
-img[alt="github-logo"] {
-	float: right;
-	margin-top: 12px;
+img[alt="zent-components"] {
+  width: 849px; 
+  height: 327px;
 }
 </style>

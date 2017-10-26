@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 import 'prismjs/themes/prism.css';
-import '../src/docs.pcss';
-import '../src/react-docs.pcss';
+import './docs.pcss';
+import './react-docs.pcss';
 
 import App from './App';
 

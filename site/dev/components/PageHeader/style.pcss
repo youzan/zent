@@ -1,0 +1,51 @@
+@import "../../_constants.pcss";
+
+.page {
+  &-header {
+    &__top {
+      overflow: hidden;
+      height: $top-nav-height;
+      background-color: #fbfbfb;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &__logo {
+      float: left;
+
+      > a {
+        display: block;
+        width: 78px;
+        height: 20px;
+        background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: 20px 0 0 20px;
+      }
+    }
+
+    &__navs {
+      float: right;
+    }
+
+    &__item {
+      float: left;
+      height: 100%;
+    }
+
+    &__link {
+      display: block;
+      line-height: $top-nav-height;
+      color: #333;
+      font-size: 16px;
+      margin: 0 20px;
+
+      &:hover {
+        color: #38f;
+      }
+
+      &--active {
+        color: #38f;
+      }
+    }
+  }
+}
