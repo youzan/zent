@@ -3,7 +3,6 @@
  */
 
 import React, { Component, PureComponent, Children } from 'react';
-import assign from 'lodash/assign';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
@@ -48,7 +47,7 @@ class Select extends (PureComponent || Component) {
       this.trigger = props.trigger;
     }
 
-    this.state = assign(
+    this.state = Object.assign(
       {
         selectedItems: [],
         selectedItem: {
@@ -100,14 +99,17 @@ class Select extends (PureComponent || Component) {
           return { text: option, value: option, cid: `${index}` };
         }
 
-        option.cid = `${index}`;
+        // hacky the quirk when optionText = 'value' and avoid modify props
+        const copy = JSON.parse(JSON.stringify(option));
+
+        copy.cid = `${index}`;
         if (optionValue) {
-          option.value = option[optionValue];
+          copy.value = option[optionValue];
         }
         if (optionText) {
-          option.text = option[optionText];
+          copy.text = option[optionText];
         }
-        return option;
+        return copy;
       }));
     }
 
@@ -116,7 +118,7 @@ class Select extends (PureComponent || Component) {
       uniformedData = Children.map(children, (item, index) => {
         let value = item.props.value;
         value = typeof value === 'undefined' ? item : value;
-        return assign({}, item.props, {
+        return Object.assign({}, item.props, {
           value,
           cid: `${index}`,
           text: item.props.children
