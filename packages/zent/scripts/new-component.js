@@ -114,7 +114,7 @@ function addFiles(name) {
     fs.mkdirSync(componentDir);
   } else {
     console.log(
-      `${upperComponentName} already exists, please choose another name`
+      `${upperComponentName} already exists, please choose another name.`
     );
     return false;
   }
