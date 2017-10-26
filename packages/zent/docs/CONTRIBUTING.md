@@ -36,19 +36,11 @@ packages/zent
 - 添加文档
 - 添加 Typescript 的定义
 
-以添加 `Button` 组件为例，首先在 `packages/zent/src` 目录下新建目录 `button`，这个目录下有个 `index.js` 文件导出组件，需要的话可以建其他文件来组织代码。
+我们提供了一个脚本来自动化大部分初始化工作，在 `packages/zent` 目录下执行 `yarn new-component YOUR-COMPONENT-NAME`，脚本会自动创建组件需要的目录和样板代码。
 
-新添加的组件代码要在 `packages/zent/src/index.js` 中导出。
+代码写完之后还需要在 `packages/zent/typings` 目录下添加新组建对应的 Typescript 类型定义。
 
-组件对应的样式需要放到 `packages/zent/assets` 目录下，像 `Button` 组件的话需要新建一个文件 `button.pcss`。如若个组件样式比较复杂，为了方便组织代码可以在 `packages/zent/assets` 下面新建一个同名目录 `button`，里面可以放一些 partial 样式。
-
-新添加的 `button.pcss` 文件需要在 `packages/zent/assets/index.pcss` 中 import。
-
-添加新组件后需要跑一下 `packages/zent/scripts/update-jest-module-mapper.js` 这个脚本来更新 `Jest` 的配置文件，这个文件在测试的时候需要。
-
-做完这些之后要在 `packages/zent/typings` 目录下添加新组建对应的 Typescript 类型定义。
-
-最后，需要将新组建的文档添加到文档网站上，只需要在 `site/src/nav.config.js` 文件中合适的位置将组件的 `README.md` 文件 `require` 进去。
+最后，需要将新组建的文档添加到文档网站上，在 `site/src/nav.config.js` 文件中合适的位置将组件的 `README.md` 文件 `require` 进去就可以了。
 
 #### 本地测试
 
