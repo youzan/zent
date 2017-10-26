@@ -21,6 +21,7 @@ function main() {
   );
   const jsMapping = generateModuleJSMapping();
   const mapping = mergeJSAndCSS(jsMapping, cssMapping);
+  appendPostcssToMapping(mapping);
 
   writeJSONToFile(mapping, '../lib/module-mapping.json');
 }
@@ -160,6 +161,19 @@ function expandDenpendencies(mod, graph) {
   }
 
   return uniq(dependencies);
+}
+
+function appendPostcssToMapping(mapping) {
+  Object.keys(mapping).forEach(componentName => {
+    const config = mapping[componentName];
+    const { css } = config;
+
+    config.postcss = css.map(cssPath =>
+      cssPath.replace(/\/css\/(.+)\.css$/, '/assets/$1.pcss')
+    );
+  });
+
+  return mapping;
 }
 
 // Utilities

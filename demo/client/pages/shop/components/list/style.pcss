@@ -1,0 +1,35 @@
+.paper-list {
+  margin-top: 20px;
+
+  &__actions {
+    margin-bottom: 20px;
+  }
+
+  &__table-action-homepage {
+    color: #999;
+  }
+
+  &__table-action-item {
+    &:after {
+      content: '-';
+      margin: 0 2px;
+      display: inline-block;
+    }
+
+    &:last-child:after {
+      display: none;
+    }
+  }
+
+  &__table .tr {
+    .paper-list__table-action-copy {
+      visibility: hidden;
+    }
+
+    &:hover {
+      .paper-list__table-action-copy {
+        visibility: visible;
+      }
+    }
+  }
+}

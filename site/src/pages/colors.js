@@ -1,16 +1,18 @@
 import React from 'react';
 import cx from 'classnames';
 
-export default function Colors() {
+import { H2, H4 } from '../components/markdown/heading';
+
+export default function ColorsPage() {
   return (
     <div className="zandoc-react-container">
       <section className="zandoc-react-markdown">
-        <h2>色彩</h2>
+        <H2>色彩</H2>
         <p>
           Zent 使用了一套调色板来统一整个组件库的视觉样式，除了默认的色彩之外，可以通过<a href="theme">定制主题</a>的方式实现自定义配色。
         </p>
 
-        <h4>主色</h4>
+        <H4>主色</H4>
         <p>Zent 默认的主色调是蓝色。</p>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-primary-1" color="#27f" light />
@@ -23,7 +25,7 @@ export default function Colors() {
           <ColorCell name="theme-primary-6" color="#eaf3ff" light={false} />
         </div>
 
-        <h4>中性色</h4>
+        <H4>中性色</H4>
         <p>主要用于文字、背景、边框等地方。</p>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-stroke-1" color="#333" light />
@@ -49,7 +51,7 @@ export default function Colors() {
           />
         </div>
 
-        <h4>辅助色 - 成功</h4>
+        <H4>辅助色 - 成功</H4>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-success-1" color="#0a0" light />
           <ColorCell name="theme-success-2" color="#4b0" light />
@@ -61,27 +63,27 @@ export default function Colors() {
           <ColorCell name="theme-success-6" color="#83e5a7" light={false} />
         </div>
 
-        <h4>辅助色 - 警告</h4>
+        <H4>辅助色 - 警告</H4>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-warn-1" color="#fc0" light={false} />
           <ColorCell name="theme-warn-2" color="#feb" light={false} />
           <ColorCell name="theme-warn-3" color="#fff7cc" light={false} />
         </div>
 
-        <h4>辅助色 - 醒目提示</h4>
+        <H4>辅助色 - 醒目提示</H4>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-notice-1" color="#f60" light />
           <ColorCell name="theme-notice-2" color="#f85" light />
         </div>
 
-        <h4>辅助色 - 错误</h4>
+        <H4>辅助色 - 错误</H4>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-error-1" color="#e33" light />
           <ColorCell name="theme-error-2" color="#f44" light />
           <ColorCell name="theme-error-3" color="#f66" light />
         </div>
 
-        <h4>辅助色 - 其他</h4>
+        <H4>辅助色 - 其他</H4>
         <p>主要用于蒙层或者阴影。</p>
         <div className="zandoc-react-color-row">
           <ColorCell name="theme-mask-1" color="rgba(0, 0, 0, 0.6)" light />
