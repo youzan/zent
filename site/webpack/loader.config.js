@@ -14,7 +14,12 @@ function getBabelLoader(options = {}) {
         [require.resolve('babel-preset-es2015'), { modules: false }],
         require.resolve('babel-preset-stage-1')
       ],
-      plugins: dev ? [require.resolve('react-hot-loader/babel')] : []
+      plugins: dev
+        ? [
+            require.resolve('react-hot-loader/babel'),
+            require.resolve('babel-plugin-syntax-dynamic-import')
+          ]
+        : []
     }
   };
 }

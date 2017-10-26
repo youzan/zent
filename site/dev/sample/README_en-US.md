@@ -1,10 +1,10 @@
 ## Button 按钮
 
-按钮, 提供基础样式及基础状态..
+Button with basic style and state.
 
 ### 使用指南
 
--   通过 `type` 来控制按钮的样式.
+-   通过 `type` 来控制按钮的样式
 -   通过 `size` 控制按钮的大小.
 -   提供 `'block'`、`'disabled'`、`'loading'` 等修饰状态.
 -   传入 `href/target`, Button 将渲染为a标签, 仍然支持以其他属性控制样式及状态.

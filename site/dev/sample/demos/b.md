@@ -5,18 +5,17 @@ en-US: Title in English B
 ---
 
 ```js
+// console.log('bbb');
 import { Button } from 'zent';
 
 ReactDOM.render(
-	<div>
-		<Button type="primary">一级按钮</Button>
-		<Button type="primary" outline>二级按钮</Button>
-		<Button type="danger">一级按钮</Button>
-		<Button type="danger" outline>二级按钮</Button>
-		<Button type="success">一级按钮</Button>
-		<Button type="success" outline>二级按钮</Button>
-		<Button>三级按钮</Button>
-	</div>
-	, mountNode //eslint-disable-line
+	<Button loading>Loading</Button>
+	, mountNode
 );
 ```
+
+<style>
+.b-test {
+    color: #38f;
+}
+</style>
