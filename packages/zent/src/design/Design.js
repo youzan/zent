@@ -9,6 +9,7 @@ import assign from 'lodash/assign';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
 import defaultTo from 'lodash/defaultTo';
 import defer from 'lodash/defer';
 
@@ -155,7 +156,10 @@ export default class Design extends (PureComponent || Component) {
 
     tagValuesWithUUID(value);
 
-    const safeValueIndex = Math.min(defaultSelectedIndex, value.length - 1);
+    const safeValueIndex = getSafeSelectedValueIndex(
+      defaultSelectedIndex,
+      value
+    );
     const selectedValue = value[safeValueIndex];
 
     this.state = {
@@ -251,9 +255,21 @@ export default class Design extends (PureComponent || Component) {
       tagValuesWithUUID(nextProps.value);
       shouldUpdateInstanceCountMap = true;
     }
+
     if (nextProps.components !== this.props.components) {
       this.cacheAppendableComponents(nextProps.components);
       shouldUpdateInstanceCountMap = true;
+    }
+
+    // 如果当前没有选中的并且 value 或者 defaultSelectedIndex 改变的话
+    // 重新尝试设置默认值
+    if (
+      !this.hasSelected() &&
+      (nextProps.defaultSelectedIndex !== this.props.defaultSelectedIndex ||
+        nextProps.value !== this.props.value)
+    ) {
+      const { value, defaultSelectedIndex } = nextProps;
+      this.selectByIndex(defaultSelectedIndex, value);
     }
 
     if (shouldUpdateInstanceCountMap) {
@@ -557,9 +573,27 @@ export default class Design extends (PureComponent || Component) {
     this.adjustHeight();
   }
 
+  selectByIndex = (index, value) => {
+    value = value || this.props.value;
+    index = isUndefined(index) ? this.props.defaultSelectedIndex : index;
+    const safeIndex = getSafeSelectedValueIndex(index, value);
+    const safeValue = value[safeIndex];
+
+    this.setState({
+      selectedUUID: this.getUUIDFromValue(safeValue),
+      showAddComponentOverlay: false
+    });
+  };
+
   isSelected = value => {
     const { selectedUUID } = this.state;
     return this.getUUIDFromValue(value) === selectedUUID;
+  };
+
+  hasSelected = () => {
+    const { selectedUUID } = this.state;
+
+    return !!selectedUUID;
   };
 
   getUUIDFromValue(value) {
@@ -824,4 +858,8 @@ function makeInstanceCountMapFromValue(value, components) {
   });
 
   return instanceCountMap;
+}
+
+function getSafeSelectedValueIndex(index, value) {
+  return Math.min(index, value.length - 1);
 }
