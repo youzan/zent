@@ -35,22 +35,28 @@ export default class PageFooter extends Component {
           </li>
           <li className="page-footer__item">
             <a
-              href="https://www.youzan.com/"
+              href="//www.youzanyun.com/zanui/vue"
               className="page-footer__link"
-              rel="noopener noreferrer"
-              target="_blank"
             >
-              有赞官网
+              Vue 组件库
             </a>
           </li>
           <li className="page-footer__item">
             <a
-              href="//www.youzanyun.com"
+              href="https://github.com/youzan/zanui-weapp"
+              className="page-footer__link"
+            >
+              微信小程序组件库
+            </a>
+          </li>
+          <li className="page-footer__item">
+            <a
+              href="https://github.com/youzan/zent/issues"
               className="page-footer__link"
               rel="noopener noreferrer"
               target="_blank"
             >
-              有赞云
+              意见反馈
             </a>
           </li>
           <li className="page-footer__item">

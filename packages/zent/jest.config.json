@@ -49,6 +49,7 @@
     "^grid(.*)$": "<rootDir>/src/grid$1",
     "^icon(.*)$": "<rootDir>/src/icon$1",
     "^input(.*)$": "<rootDir>/src/input$1",
+    "^infinite-scroller(.*)$": "<rootDir>/src/infinite-scroller$1",
     "^layout(.*)$": "<rootDir>/src/layout$1",
     "^loading(.*)$": "<rootDir>/src/loading$1",
     "^menu(.*)$": "<rootDir>/src/menu$1",

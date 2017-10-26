@@ -1,5 +1,31 @@
 ## Github 日志
 
+## [zent@3.8.0](https://github.com/youzan/zent/tree/zent@3.8.0) (2017-10-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.7.0...zent@3.8.0)
+
+**不兼容改动和新功能:**
+
+- New component: Infinite scroller [\#317](https://github.com/youzan/zent/issues/317)
+- \[bug fix\] 文档及一些组件修改 [\#501](https://github.com/youzan/zent/pull/501) ([cpylua](https://github.com/cpylua))
+- \[enhancement\]Select: 代码逻辑优化 [\#493](https://github.com/youzan/zent/pull/493) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[new feature\] Form: 支持FormSection和FieldArray，添加setFieldsValue和initialize方法，合并isTouched和isPristine [\#474](https://github.com/youzan/zent/pull/474) ([fairyaierl](https://github.com/fairyaierl))
+
+**Bug 修复:**
+
+- \[bug fix\] Slider: 高亮圆点时同时高亮滑条 [\#490](https://github.com/youzan/zent/issues/490)
+- \[bug fix\]Tabs: 修复Tabs组件activeKey字段兼容问题 [\#497](https://github.com/youzan/zent/pull/497) ([ctyu](https://github.com/ctyu))
+- \[bug fix\] Slider: 高亮圆点时同时高亮滑条 [\#496](https://github.com/youzan/zent/pull/496) ([wulv](https://github.com/wulv))
+- \[bug fix\] DateRangePicker: 修复 TypeScript 类型定义 [\#492](https://github.com/youzan/zent/pull/492) ([hzjzx](https://github.com/hzjzx))
+
+**处理的 Issue:**
+
+- \[new feature\]Popover：组件通过onBeforeShow返回false来阻止弹窗显示 [\#500](https://github.com/youzan/zent/issues/500)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[new feature\] Doc: 增加组件文档书写规范 [\#495](https://github.com/youzan/zent/pull/495) ([pangxie1991](https://github.com/pangxie1991))
+- \[new feature\]: InfiniteScroller: 新增无限滚动组件 [\#491](https://github.com/youzan/zent/pull/491) ([ArvinTung](https://github.com/ArvinTung))
+
 ## [zent@3.7.0](https://github.com/youzan/zent/tree/zent@3.7.0) (2017-09-28)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.1...zent@3.7.0)
 

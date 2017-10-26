@@ -64,7 +64,7 @@ module.exports = function(babel) {
             }
 
             if (t.isImportSpecifier(sp)) {
-              return r.concat(buildImportReplacement(sp, t, state));
+              return r.concat(buildImportReplacement(sp, t, state, path));
             }
 
             throw path.buildCodeFrameError('Unexpected import type');
@@ -77,7 +77,7 @@ module.exports = function(babel) {
   };
 };
 
-function buildImportReplacement(specifier, types, state) {
+function buildImportReplacement(specifier, types, state, originalPath) {
   initModuleMapppingAsNecessary(state);
 
   // import {Button as _Button} from 'zent'
@@ -98,16 +98,33 @@ function buildImportReplacement(specifier, types, state) {
       )
     );
 
-    // css
+    // style
     if (options.automaticStyleImport) {
-      rule.css.forEach(path => {
-        if (data.CSS_IMPORT_MAPPING[path] === 0) {
-          replacement.push(
-            types.importDeclaration([], types.stringLiteral(path))
+      if (options.useRawStyle) {
+        if (!rule.postcss) {
+          throw originalPath.buildCodeFrameError(
+            '`useRawStyle` is not compatible with old versions of zent, please upgrade zent to >= zent@3.8.1'
           );
-          data.CSS_IMPORT_MAPPING[path] += 1;
         }
-      });
+
+        rule.postcss.forEach(path => {
+          if (data.STYLE_IMPORT_MAPPING[path] === undefined) {
+            replacement.push(
+              types.importDeclaration([], types.stringLiteral(path))
+            );
+            data.STYLE_IMPORT_MAPPING[path] = true;
+          }
+        });
+      } else {
+        rule.css.forEach(path => {
+          if (data.STYLE_IMPORT_MAPPING[path] === undefined) {
+            replacement.push(
+              types.importDeclaration([], types.stringLiteral(path))
+            );
+            data.STYLE_IMPORT_MAPPING[path] = true;
+          }
+        });
+      }
     }
   }
 
@@ -129,15 +146,9 @@ function initModuleMapppingAsNecessary(state) {
     // eslint-disable-next-line
     data.MODULE_MAPPING = require(moduleMappingFile);
 
+    // STYLE_IMPORT_MAPPING 是 css 和 postcss 公用的，因为两者只可能使用一种
     if (options.automaticStyleImport) {
-      data.CSS_IMPORT_MAPPING = Object.keys(
-        data.MODULE_MAPPING
-      ).reduce((mapping, key) => {
-        data.MODULE_MAPPING[key].css.forEach(path => {
-          mapping[path] = 0;
-        });
-        return mapping;
-      }, {});
+      data.STYLE_IMPORT_MAPPING = {};
     }
   }
 }

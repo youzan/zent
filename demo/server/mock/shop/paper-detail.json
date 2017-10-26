@@ -1,0 +1,65 @@
+{
+  "code": 0,
+  "msg": "",
+  "data": [
+    {
+      "type": "config",
+      "title": "微页面标题",
+      "color": "#f9f9f9",
+      "description": ""
+    },
+    {
+      "content": "请注意：这个页面的修改不会被保存到服务器。",
+      "scrollable": false,
+      "type": "notice"
+    },
+    {
+      "sub_entry": [
+        {
+          "type": "image_ad_selection",
+          "title": "111",
+          "image_id": "838946091",
+          "image_url": "https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png",
+          "image_thumb_url": "https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png",
+          "image_width": 640,
+          "image_height": 340,
+          "link_id": "345753010",
+          "link_type": "goods",
+          "link_title": "0808rxj勿动-多人拼团",
+          "link_url": "https://www.youzan.com",
+          "alias": "1yhj1uksc46md"
+        },
+        {
+          "type": "image_ad_selection",
+          "title": "",
+          "image_id": "839365023",
+          "image_url": "https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png",
+          "image_thumb_url": "https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png",
+          "image_width": 640,
+          "image_height": 340,
+          "link_id": "",
+          "link_type": "link",
+          "link_title": "http://www.youzan.com",
+          "link_url": "http://www.youzan.com",
+          "alias": ""
+        }
+      ],
+      "show_method": "0",
+      "size": "0",
+      "height": 170,
+      "type": "image_ad"
+    },
+    {
+      "color": "#bdb3b3",
+      "hasPadding": false,
+      "lineType": "dashed",
+      "type": "line"
+    },
+    {
+      "color": "#f9f9f9",
+      "content": "<p class=\"p1\" style=\"text-align: center;\"><span style=\"font-size: 22px;\">做生意，用有赞</span></p><p class=\"p1\"><span style=\"font-size: 16px;\">有赞，是一个商家服务公司，我们通过产品和服务，帮助互联网时代的生意人管店、管货、管客、管钱，让生意更好做。</span></p><p class=\"p1\"><span style=\"font-size: 16px;\"><br/></span></p><p class=\"p1\"><span style=\"font-size: 16px;\">我们致力于成为商家服务领域里最被信任的引领者，希望持续作为一个&quot;开心&quot;（enjoy）的组织。</span></p><p class=\"p1\"><br/></p><p class=\"p1\"><span style=\"font-size: 16px;\"><strong>这是一群聪明、皮实，也很有要性的年轻人:</strong></span></p><p class=\"p1\"><span style=\"font-size: 16px;\"><strong><br/></strong></span></p><p class=\"p1\"><span style=\"font-size: 16px;\">我们注重以下特征：专业，责任，服务，执行力，结果。</span></p><p class=\"p1\"><br/></p><p class=\"p1\"><span style=\"font-size: 18px;\"><strong>我们有一些共同的味道：</strong></span><br/></p><p class=\"p1\"><span style=\"font-size: 18px;\"><strong><br/></strong></span></p><p class=\"p1\"><span style=\"font-size: 16px;\"><strong>说人话做人事</strong><br/></span></p><p class=\"p1\"><span style=\"font-size: 16px;\"><strong><br/></strong></span></p><style type=\"text/css\">p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px '.PingFang SC'; color: #454545}</style><p class=\"p1\"><span style=\"font-size: 16px;\">站在客户的角度，说更容易明白的话；</span></p><p class=\"p1\"><span style=\"font-size: 16px;\">用客户更能接受和习惯的方式做事</span></p><p class=\"p1\"><span style=\"font-size: 16px;\"><br/></span></p><p class=\"p1\"><span style=\"font-size: 16px;\"><strong>直接有效，不猜测</strong></span></p><p class=\"p1\"><span style=\"font-size: 18px;\"><strong><br/></strong></span></p><p class=\"p2\">在向善的前提下，用最直接有效的方式</p><p class=\"p2\">沟通和协作，不互相猜测</p><p class=\"p4\"><strong>没有人姓公名司</strong></p><p class=\"p2\">这里没有人叫<span class=\"s1\">“</span>公司<span class=\"s1\">”</span>。没有<span class=\"s1\">“</span>公司<span class=\"s1\">”</span>来为事情背黑锅，没有<span class=\"s1\">“</span>尚方宝剑<span class=\"s1\">”</span>，每件事和每个决定都是自己的。</p><p class=\"p4\"><strong>像家人一样相处</strong></p><p class=\"p2\">我们像家人一样相处，敞开心胸交流和分享；关怀对方的状态、感受、心情等，不是只有冷冰冰的工作关系</p><p class=\"p1\"><span style=\"font-size: 16px;\"><strong>不用“投票”解决问题</strong></span></p><p class=\"p1\"><span style=\"font-size: 16px;\"><strong><br/></strong></span></p><p class=\"p2\">用投票解决问题往往是在逃避责任，</p><p class=\"p2\">每件事情都应该有个最终决策者</p><p class=\"p2\"><strong>敬畏<span class=\"s1\">“</span>钱<span class=\"s1\">”</span></strong></p><p class=\"p2\">资金问题永远是第一优先级的。</p><p class=\"p2\">每一分钱都关系到客户对我们是信任还是弃离</p><p class=\"p5\"><strong>Enjoy</strong></p><p class=\"p2\">共同打造具有参与感、成就感的氛围，让每位有赞人都会<span class=\"s1\">enjoy</span>自己的状态</p>",
+      "fullscreen": 0,
+      "type": "rich_text"
+    }
+  ]
+}

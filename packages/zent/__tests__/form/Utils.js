@@ -1,7 +1,15 @@
 import * as Utils from 'form/utils';
+import keys from 'lodash/keys';
 
 describe('Form-Utilities', () => {
-  const { getValue, getDisplayName, silenceEvent, silenceEvents } = Utils;
+  const {
+    getValue,
+    getDisplayName,
+    silenceEvent,
+    silenceEvents,
+    getCurrentValue,
+    prefixName
+  } = Utils;
 
   it('getValue', () => {
     const emptyObj = {};
@@ -126,5 +134,68 @@ describe('Form-Utilities', () => {
     expect(curryMock.mock.calls.length).toBe(2);
     expect(preMock.mock.calls.length).toBe(1);
     expect(curryMock.mock.calls[1][0]).toBe(2);
+  });
+
+  it('getDisplayName', () => {
+    const compForTest = {};
+
+    // must have arg
+    expect(() => {
+      getDisplayName();
+    }).toThrow();
+
+    // return arg[0].displayName || arg[0].name || 'Component'
+    expect(getDisplayName(compForTest)).toBe('Component');
+    compForTest.name = 'foo';
+    expect(getDisplayName(compForTest)).toBe('foo');
+    compForTest.displayName = 'bar';
+    expect(getDisplayName(compForTest)).toBe('bar');
+  });
+
+  it('silenceEvent', () => {
+    const preMock = jest.fn();
+    const stopMock = jest.fn();
+    const eventObj = {
+      preventDefault: preMock,
+      stopPropagation: stopMock
+    };
+
+    // return isEvent(arg[0])
+    expect(silenceEvent()).toBe(false);
+    expect(silenceEvent({})).toBe(false);
+    expect(preMock.mock.calls.length).toBe(0);
+    expect(stopMock.mock.calls.length).toBe(0);
+    expect(silenceEvent(eventObj)).toBe(true);
+    expect(preMock.mock.calls.length).toBe(1);
+    expect(stopMock.mock.calls.length).toBe(0);
+  });
+
+  it('getCurrentValue', () => {
+    let changedValue = { name: 'test' };
+    let prevValue1 = {};
+    let prevValue2 = { address: 'this street' };
+
+    const currentValue1 = getCurrentValue(changedValue, prevValue1);
+    expect(keys(currentValue1).length).toBe(1);
+    expect(keys(currentValue1)[0]).toBe('name');
+    expect(currentValue1.name).toBe('test');
+
+    const currentValue2 = getCurrentValue(changedValue, prevValue2);
+    expect(keys(currentValue2).length).toBe(2);
+    expect(currentValue2.name).toBe('test');
+    expect(currentValue2.address).toBe('this street');
+
+    const currentValue3 = getCurrentValue(changedValue);
+    expect(currentValue3).toBe(changedValue);
+  });
+
+  it('prefixName', () => {
+    const zentForm1 = {};
+    const zentForm2 = { prefix: 'boo' };
+    const zentForm3 = { prefix: 'boo[1]' };
+
+    expect(prefixName(zentForm1, 'foo')).toBe('foo');
+    expect(prefixName(zentForm2, 'foo')).toBe('boo.foo');
+    expect(prefixName(zentForm3, 'foo')).toBe('boo[1].foo');
   });
 });
