@@ -1,2 +1,2 @@
 export const prefix =
-  process.env.NODE_ENV === 'production' ? '/zanui/react/' : '/';
+  process.env.NODE_ENV === 'production' ? '/zanui/zent/' : '/';
