@@ -35,7 +35,7 @@ export default class PageFooter extends Component {
           </li>
           <li className="page-footer__item">
             <a
-              href="//www.youzanyun.com/zanui/vue"
+              href="//www.youzanyun.com/zanui/vant"
               className="page-footer__link"
             >
               Vue 组件库

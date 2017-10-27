@@ -5771,12 +5771,12 @@ value-equal@^0.4.0:
   resolved "https://registry.yarnpkg.com/value-equal/-/value-equal-0.4.0.tgz#c5bdd2f54ee093c04839d71ce2e4758a6890abc7"
 
 vant-css@^0.10.1:
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/vant-css/-/vant-css-0.10.3.tgz#d11c024be142b55555ef0ed05fbb006c94112812"
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/vant-css/-/vant-css-0.10.4.tgz#a1a3eb4a0488c920d2aeeaa217409aecc4764819"
 
 vant@^0.10.1:
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/vant/-/vant-0.10.3.tgz#73af8f2be72911430802a5f03712a73452923438"
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/vant/-/vant-0.10.4.tgz#9a0048981a6e48467dbf45caf256b34bbf778515"
   dependencies:
     babel-runtime "6.x"
     vue-lazyload "^1.1.4"
@@ -6142,8 +6142,8 @@ zan-utils@^1.0.14, zan-utils@^1.0.3, zan-utils@^1.0.4, zan-utils@^1.0.9, zan-uti
     zan-jquery "^1.0.2"
 
 zent@^3.5.2:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/zent/-/zent-3.8.0.tgz#49707f823fb6f200e1fb2d8cead22275487f4ef7"
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/zent/-/zent-3.8.1.tgz#dddaa29db9ab22ca86cb5966be9597f0c8564269"
   dependencies:
     babel-runtime "^6.23.0"
     classnames "2.2.x"

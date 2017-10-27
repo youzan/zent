@@ -1,5 +1,33 @@
 ## Github 日志
 
+## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
+
+## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
+
+**不兼容改动和新功能:**
+
+- \[new feature\] Add demos [\#505](https://github.com/youzan/zent/pull/505) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- \[bug fix\] Design: 修复 defaultSelectedIndex 应用逻辑 [\#511](https://github.com/youzan/zent/pull/511) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] demo: 更新 mock 数据 [\#509](https://github.com/youzan/zent/pull/509) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Select: 修正select在格式化数据时会对data数组中对象进行操作的bug.  [\#508](https://github.com/youzan/zent/pull/508) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\] babel-plugin-zent: 增加老版本 zent 的警告 [\#507](https://github.com/youzan/zent/pull/507) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: 样式更新 [\#504](https://github.com/youzan/zent/pull/504) ([cpylua](https://github.com/cpylua))
+
+**处理的 Issue:**
+
+- \[new feature\] doc: 添加新组件脚本 [\#494](https://github.com/youzan/zent/issues/494)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[new feature\] Table：支持整行选择 `canRowSelect` [\#510](https://github.com/youzan/zent/pull/510) ([lama-pacos](https://github.com/lama-pacos))
+- \[docs\] 更新文档 [\#503](https://github.com/youzan/zent/pull/503) ([cpylua](https://github.com/cpylua))
+- \[new feature\] new-component shell 新增组件脚本 [\#498](https://github.com/youzan/zent/pull/498) ([ronghang](https://github.com/ronghang))
+
 ## [zent@3.8.0](https://github.com/youzan/zent/tree/zent@3.8.0) (2017-10-20)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.7.0...zent@3.8.0)
 
@@ -59,7 +87,7 @@
 [Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.0)
 
 ## [babel-plugin-zent@1.0.3](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.3) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.3)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...babel-plugin-zent@1.0.3)
 
 **不兼容改动和新功能:**
 
@@ -77,11 +105,11 @@
 
 - \[bugs\] Table: 当前页所有项均禁用时，全选按钮未禁用 [\#478](https://github.com/youzan/zent/issues/478)
 
-## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.5.4)
-
 ## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...babel-plugin-zent@1.0.2)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.2)
+
+## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...zent@3.5.4)
 
 **Bug 修复:**
 
@@ -458,7 +486,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
 
 **不兼容改动和新功能:**
 
@@ -489,11 +517,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
-
 ## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
+
+## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
 
 **不兼容改动和新功能:**
 
