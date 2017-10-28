@@ -436,7 +436,7 @@ class Grid extends (PureComponent || Component) {
 
     if (nextProps.columns && nextProps.columns !== this.props.columns) {
       this.store.setState({
-        columns: this.getColumns(nextProps)
+        columns: this.getColumns(nextProps, nextProps.columns)
       });
     }
 
