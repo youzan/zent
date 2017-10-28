@@ -478,10 +478,6 @@ ReactDOM.render(
 				columns={columns}
 				datasets={datasets}
 				scroll={{ x: 1300 }}
-				selection={{
-					selectedRowKeys: [],
-					onSelect: () => {}
-				}}
 			/>
 		</div>
 	, mountNode
