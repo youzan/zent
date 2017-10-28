@@ -464,7 +464,7 @@ const datasets = [];
 
 for (let i = 0; i < 3; i++) {
 	datasets.push({
-		name: `商品 ${i}`,
+		name: `商品 ${i} 折行的商品伤不起啊`,
 		uv: 20,
 		stock: 5,
 		sold_num: 5,
