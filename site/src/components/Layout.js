@@ -24,11 +24,7 @@ export default function LayoutCN({
       <PageHeader version={version} i18n={i18n} />
       <div className="main-content">
         <div className="page-container">
-          <SideNav
-            data={sideNavData}
-            base={prefix + oreo}
-            ref={sideNavRef}
-          />
+          <SideNav data={sideNavData} base={prefix + oreo} ref={sideNavRef} />
           <div className="page-content">
             <div className="react-doc-page-content">
               <a

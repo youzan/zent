@@ -1,3 +1,9 @@
+---
+title: Alert
+path: component/alert
+group: Display
+---
+
 ## Alert 公告
 
 English Mode

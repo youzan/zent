@@ -1,7 +1,13 @@
 ---
 order: 2
-zh-CN: 全局模式
-en-US: Global Mode
+zh-CN:
+	title: 全局模式
+	open: 全局开启
+	close: 全局关闭
+en-US:
+	title: Global Mode
+	open: Global Open
+	close: Global Shutdown
 ---
 
 ```js
@@ -11,13 +17,13 @@ const Global = () => {
 	return (
 		<div>
 			<Button onClick={() => { Loading.on() }}>
-				全局开启
+				{i18n[open]}
 			</Button>
 			<Button
 				onClick={() => { Loading.off() }}
 				style={{ zIndex: 9999, position: 'relative' }}
 			>
-				全局关闭
+				{i18n[close]}
 			</Button>
 		</div>
 	);

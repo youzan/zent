@@ -1,3 +1,9 @@
+---
+title: Alert 公告
+path: component/alert
+group: 展示
+---
+
 ## Alert 公告
 
 公告，提供一个醒目的提示信息。

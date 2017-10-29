@@ -1,7 +1,9 @@
 ---
 order: 1
-zh-CN: 包裹模式
-en-US: Wrapper Mode
+zh-CN:
+	title: 包裹模式
+en-US:
+	title: Wrapper Mode
 ---
 
 ```js

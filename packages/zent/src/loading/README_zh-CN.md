@@ -1,3 +1,9 @@
+---
+title: Loading 等待
+path: component/loading
+group: 展示
+---
+
 ## Loading 等待
 
 等待，用于页面或者区块的等待状态。

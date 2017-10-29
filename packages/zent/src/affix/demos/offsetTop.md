@@ -1,7 +1,13 @@
 ---
 order: 0
-zh-CN: '通过 offsetTop 设置到顶部距离'
-en-US: 'offsetTop'
+zh-CN:
+	title: 通过 offsetTop 设置到顶部距离
+	index: 首页
+	affix: 固钉
+en-US:
+	title: offsetTop
+	index: Index
+	affix: Affix
 ---
 
 
@@ -12,11 +18,11 @@ const { Row, Col } = Layout;
 ReactDOM.render(
   <Row style={{ margin: '10px 0' }}>
     <Col span={8}>
-      <Button type="primary" size="large">首页</Button>
+      <Button type="primary" size="large">{i18n[index]}</Button>
     </Col>
     <Col span={8} offset={8}>
       <Affix offsetTop={135}>
-        <Button type="primary" size="large">固钉</Button>
+        <Button type="primary" size="large">{i18n[affix]}</Button>
       </Affix>
     </Col>
   </Row>

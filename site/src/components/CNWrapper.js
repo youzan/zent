@@ -12,10 +12,6 @@ export default class CNWrapper extends React.Component {
 
   render() {
     const { children, pass } = this.props;
-    return (
-      <Layout {...pass}>
-        {children}
-      </Layout>
-    )
+    return <Layout {...pass}>{children}</Layout>;
   }
 }

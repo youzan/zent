@@ -1,3 +1,9 @@
+---
+title: Affix
+path: component/affix
+group: Navigation
+---
+
 ## Affix 固钉
 
 English Mode

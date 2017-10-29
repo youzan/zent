@@ -28,21 +28,16 @@ class Demo extends Component {
 
   render() {
     const { showCode } = this.state;
-    const { title, src, demo } = this.props;
-
+    const { title, src, children } = this.props;
     return (
       <div className="zandoc-react-demo">
         <div className="zandoc-react-demo__preview">
-          {demo}
+          {children}
         </div>
         <div className="zandoc-react-demo__bottom" onClick={this.toggle}>
-          <RawHtmlRenderer
-            tag="div"
-            attributes={{
-              className: 'zandoc-react-demo__title'
-            }}
-            html={title}
-          />
+          <div className="zandoc-react-demo__title">
+            <p>{title || ''}</p>
+          </div>
           <i
             className={`zenticon zenticon-right zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
           />
@@ -68,7 +63,8 @@ export default class ZentDocContainer extends Component {
     return React.createElement(
       'div',
       {
-        className: 'zandoc-react-container'
+        className: 'zandoc-react-container',
+        key: module.hot ? Math.random() : null
       },
       SECTIONS
     );

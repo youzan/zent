@@ -1,7 +1,9 @@
 ---
 order: 0
-zh-CN: 基础用法
-en-US: Basic Usage
+zh-CN:
+	title: 基础用法
+en-US:
+	title: Basic Usage
 ---
 
 ```js

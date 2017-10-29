@@ -1,3 +1,9 @@
+---
+title: Loading
+path: component/loading
+group: Display
+---
+
 ## Loading 等待
 
 English Mode

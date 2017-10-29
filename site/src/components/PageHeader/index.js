@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+// import { Button } from 'zent';
 
 import './style.pcss';
 
+const CONTROLLS = {
+  'zh-CN': 'English',
+  'en-US': '中文'
+};
+
 export default class PageHeader extends Component {
-  state = {
-    scrollTop: 0
+  static contextTypes = {
+    router: PropTypes.shape({
+      history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+        replace: PropTypes.func.isRequired
+      }).isRequired,
+      route: PropTypes.object
+    }).isRequired
   };
 
-  componentDidMount() {
-    let timer;
-    window.addEventListener('scroll', () => {
-      clearTimeout(timer);
-      const scrollTop =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      timer = setTimeout(() => {
-        this.setState({ scrollTop });
-      }, 500);
-    });
-  }
+  toggle = () => {
+    const { replace } = this.context.router.history;
+    const path = this.context.router.route.location.pathname.split('/');
+    if (path[1] === 'en') {
+      path[1] = 'zh';
+    } else {
+      path[1] = 'en';
+    }
+    replace(path.join('/'));
+  };
 
   render() {
+    const { i18n } = this.props;
     return (
       <div className="page-header">
         <div className="page-header__top">
@@ -39,6 +52,13 @@ export default class PageHeader extends Component {
               </a>
             </li>
           </ul>
+          <div
+            className="page-header__i18n-switcher"
+            type="primary"
+            onClick={this.toggle}
+          >
+            {CONTROLLS[i18n] || ''}
+          </div>
         </div>
       </div>
     );

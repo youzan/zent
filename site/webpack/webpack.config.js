@@ -49,13 +49,8 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      chunks: ['vendor', 'docs'],
+      chunks: ['vendor', 'docs', 'markdown'],
       inject: 'body'
     })
-  ],
-
-  // leak the filename and dirname for doc-loader
-  node: {
-    __dirname: true
-  }
+  ]
 };
