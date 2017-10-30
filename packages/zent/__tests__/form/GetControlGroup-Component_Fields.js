@@ -63,8 +63,8 @@ describe('GetControlGroup and Component_Fields', () => {
       wrapper
         .get(0)
         .getWrappedComponent()
-        .getControlInstance() instanceof Input
-    ).to.equal(undefined);
+        .getControlInstance()
+    ).toBe(undefined);
   });
 
   it('ControlGroup have three render switch: required, helpDesc, notice and showError', () => {
