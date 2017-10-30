@@ -30,8 +30,8 @@ export default class PageHeader extends Component {
             <li className="page-header__item">
               <a href="https://github.com/youzan/zent">
                 <img
+                  className="page-header__github"
                   src="https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png"
-                  style={{ marginTop: 14, marginRight: 20 }}
                   alt="github"
                   width="32"
                   height="32"
