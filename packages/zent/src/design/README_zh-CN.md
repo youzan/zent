@@ -1,5 +1,6 @@
 ---
-title: Design 微页面编辑
+title: Design
+subtitle: 微页面编辑
 path: component/design
 group: 数据
 ---

@@ -1,5 +1,6 @@
 ---
-title: Layout 布局
+title: Layout
+subtitle: 布局
 path: component/layout
 group: 基础
 ---

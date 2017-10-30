@@ -1,5 +1,6 @@
 ---
-title: Alert 公告
+title: Alert
+subtitle: 公告
 path: component/alert
 group: 展示
 ---

@@ -1,5 +1,6 @@
 ---
-title: Loading 等待
+title: Loading
+subtitle: 等待
 path: component/loading
 group: 展示
 ---

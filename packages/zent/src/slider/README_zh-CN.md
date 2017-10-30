@@ -1,5 +1,6 @@
 ---
-title: Slider 滑动条
+title: Slider
+subtitle: 滑动条
 path: component/slider
 group: 数据
 ---

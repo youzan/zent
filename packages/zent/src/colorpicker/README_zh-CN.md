@@ -1,5 +1,6 @@
 ---
-title: ColorPicker 颜色选择器
+title: ColorPicker
+subtitle: 颜色选择器
 path: component/colorpicker
 group: 数据
 ---

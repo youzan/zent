@@ -16,8 +16,8 @@ import { Alert, Icon } from 'zent';
 ReactDOM.render(
 	<Alert>
 		<Icon type="error-circle" />
-		<span>{i18n[warnning]}</span>
-		<a href="" onClick={e => e.preventDefault()}>{i18n[buy]}</a>
+		<span>{i18n.warnning}</span>
+		<a href="" onClick={e => e.preventDefault()}>{i18n.buy}</a>
 	</Alert>
 	, mountNode
 )

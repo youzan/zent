@@ -1,5 +1,6 @@
 ---
-title: Pop 气泡提示
+title: Pop
+subtitle: 气泡提示
 path: component/pop
 group: 展示
 ---

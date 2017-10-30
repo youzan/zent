@@ -18,11 +18,11 @@ const { Row, Col } = Layout;
 ReactDOM.render(
   <Row style={{ margin: '10px 0' }}>
     <Col span={8}>
-      <Button type="primary" size="large">{i18n[index]}</Button>
+      <Button type="primary" size="large">{i18n.index}</Button>
     </Col>
     <Col span={8} offset={8}>
       <Affix offsetTop={135}>
-        <Button type="primary" size="large">{i18n[affix]}</Button>
+        <Button type="primary" size="large">{i18n.affix}</Button>
       </Affix>
     </Col>
   </Row>

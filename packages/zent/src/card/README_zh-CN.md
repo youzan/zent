@@ -1,5 +1,6 @@
 ---
-title: Card 卡片
+title: Card
+subtitle: 卡片
 path: component/card
 group: 展示
 ---

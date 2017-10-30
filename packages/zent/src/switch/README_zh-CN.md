@@ -1,5 +1,6 @@
 ---
-title: Switch 开关
+title: Switch
+subtitle: 开关
 path: component/switch
 group: 数据
 ---

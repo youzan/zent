@@ -1,5 +1,6 @@
 ---
-title: Tag 标签
+title: Tag
+subtitle: 标签
 path: component/tag
 group: 展示
 ---

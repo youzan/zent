@@ -1,5 +1,6 @@
 ---
-title: Progress 进度条
+title: Progress
+subtitle: 进度条
 path: component/progress
 group: 展示
 ---

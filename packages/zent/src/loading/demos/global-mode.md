@@ -17,13 +17,13 @@ const Global = () => {
 	return (
 		<div>
 			<Button onClick={() => { Loading.on() }}>
-				{i18n[open]}
+				{i18n.open}
 			</Button>
 			<Button
 				onClick={() => { Loading.off() }}
 				style={{ zIndex: 9999, position: 'relative' }}
 			>
-				{i18n[close]}
+				{i18n.close}
 			</Button>
 		</div>
 	);

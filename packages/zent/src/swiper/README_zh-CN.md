@@ -1,5 +1,6 @@
 ---
-title: Swiper 轮播
+title: Swiper
+subtitle: 轮播
 path: component/swiper
 group: 展示
 ---

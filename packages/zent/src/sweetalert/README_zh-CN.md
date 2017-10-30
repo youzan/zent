@@ -1,5 +1,6 @@
 ---
-title: SweetAlert 快捷对话框
+title: SweetAlert
+subtitle: 快捷对话框
 path: component/sweet-alert
 group: 展示
 ---

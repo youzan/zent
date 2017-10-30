@@ -1,5 +1,6 @@
 ---
-title: Table 表格
+title: Table
+subtitle: 表格
 path: component/table
 group: 导航
 ---

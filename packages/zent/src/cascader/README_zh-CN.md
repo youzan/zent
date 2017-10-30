@@ -1,5 +1,6 @@
 ---
-title: Cascader 级联选择
+title: Cascader
+subtitle: 级联选择
 path: component/cascader
 group: 数据
 ---

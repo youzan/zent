@@ -1,5 +1,6 @@
 ---
-title: InfiniteScroller 无限滚动
+title: InfiniteScroller
+subtitle: 无限滚动
 path: component/infinite-scroller
 group: 其他
 ---

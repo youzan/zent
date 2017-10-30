@@ -1,5 +1,6 @@
 ---
-title: Pagination 分页
+title: Pagination
+subtitle: 分页
 path: component/pagination
 group: 导航
 ---

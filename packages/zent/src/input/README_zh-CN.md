@@ -1,5 +1,6 @@
 ---
-title: Input 输入框
+title: Input
+subtitle: 输入框
 path: component/input
 group: 数据
 ---

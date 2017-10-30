@@ -1,5 +1,6 @@
 ---
-title: SearchInput 搜索框
+title: SearchInput
+subtitle: 搜索框
 path: component/search-input
 group: 数据
 ---

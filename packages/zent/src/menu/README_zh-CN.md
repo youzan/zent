@@ -1,5 +1,6 @@
 ---
-title: Menu 菜单
+title: Menu
+subtitle: 菜单
 path: component/menu
 group: 导航
 ---

@@ -1,5 +1,6 @@
 ---
-title: Steps 步骤条
+title: Steps
+subtitle: 步骤条
 path: component/steps
 group: 导航
 ---

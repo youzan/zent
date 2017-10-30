@@ -1,5 +1,6 @@
 ---
-title: NumberInput 数值输入框
+title: NumberInput
+subtitle: 数值输入框
 path: component/number-input
 group: 数据
 ---

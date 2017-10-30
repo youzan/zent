@@ -1,5 +1,6 @@
 ---
-title: Tree 树
+title: Tree
+subtitle: 树
 path: component/tree
 group: 导航
 ---

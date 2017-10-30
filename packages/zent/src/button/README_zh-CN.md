@@ -1,5 +1,6 @@
 ---
-title: Button 按钮
+title: Button
+subtitle: 按钮
 path: component/button
 group: 数据
 ---

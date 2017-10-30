@@ -1,5 +1,6 @@
 ---
-title: Form 表单
+title: Form
+subtitle: 表单
 path: component/form
 group: 数据
 ---

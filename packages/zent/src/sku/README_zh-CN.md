@@ -1,5 +1,6 @@
 ---
-title: SKU 规格选择器
+title: SKU
+subtitle: 规格选择器
 path: component/sku
 group: 数据
 ---

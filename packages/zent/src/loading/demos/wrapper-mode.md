@@ -3,7 +3,7 @@ order: 1
 zh-CN:
 	title: 包裹模式
 en-US:
-	title: Wrapper Mode
+  title: Wrapper Mode
 ---
 
 ```js

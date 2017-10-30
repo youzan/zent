@@ -1,5 +1,6 @@
 ---
-title: Tabs 选项卡
+title: Tabs
+subtitle: 选项卡
 path: component/tabs
 group: 导航
 ---

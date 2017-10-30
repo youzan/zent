@@ -1,5 +1,6 @@
 ---
-title: Dialog 对话框
+title: Dialog
+subtitle: 对话框
 path: component/dialog
 group: 展示
 ---

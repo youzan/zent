@@ -1,5 +1,6 @@
 ---
-title: Breadcrumb 面包屑
+title: Breadcrumb
+subtitle: 面包屑
 path: component/breadcrumb
 group: 导航
 ---

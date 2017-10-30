@@ -1,5 +1,6 @@
 ---
-title: DatePicker 时间选择
+title: DatePicker
+subtitle: 时间选择
 path: component/datepicker
 group: 数据
 ---

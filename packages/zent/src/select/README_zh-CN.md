@@ -1,5 +1,6 @@
 ---
-title: Select 下拉选择
+title: Select
+subtitle: 下拉选择
 path: component/select
 group: 数据
 ---

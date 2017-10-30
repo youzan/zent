@@ -1,5 +1,6 @@
 ---
-title: Notify 消息通知
+title: Notify
+subtitle: 消息通知
 path: component/notify
 group: 展示
 ---

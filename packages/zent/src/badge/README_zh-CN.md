@@ -1,5 +1,6 @@
 ---
-title: Badge 徽标数
+title: Badge
+subtitle: 徽标数
 path: component/badge
 group: 展示
 ---

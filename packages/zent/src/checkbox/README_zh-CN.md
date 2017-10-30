@@ -1,5 +1,6 @@
 ---
-title: Checkbox 多选
+title: Checkbox
+subtitle: 多选
 path: component/checkbox
 group: 数据
 ---

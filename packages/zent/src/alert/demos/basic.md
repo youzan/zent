@@ -12,7 +12,7 @@ en-US:
 import { Alert } from 'zent';
 
 ReactDOM.render(
-	<Alert>{i18n[content]}</Alert>
+	<Alert>{i18n.content}</Alert>
 	, mountNode
 );
 ```

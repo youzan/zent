@@ -1,5 +1,6 @@
 ---
-title: Grid 网格
+title: Grid
+subtitle: 网格
 path: component/grid
 group: 导航
 ---

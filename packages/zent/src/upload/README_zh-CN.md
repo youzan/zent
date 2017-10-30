@@ -1,5 +1,6 @@
 ---
-title: Upload 图片上传
+title: Upload
+subtitle: 图片上传
 path: component/upload
 group: 数据
 ---
