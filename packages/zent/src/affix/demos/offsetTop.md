@@ -1,5 +1,5 @@
 ---
-order: 0
+order: 1
 zh-CN:
 	title: 通过 offsetTop 设置到顶部距离
 	index: 首页

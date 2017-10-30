@@ -10,7 +10,7 @@ import App from './App';
 
 const render = ChildComponent => {
   ReactDOM.render(
-    <AppContainer>
+    <AppContainer warnings={false}>
       <ChildComponent />
     </AppContainer>,
     document.getElementById('app-container') // eslint-disable-line

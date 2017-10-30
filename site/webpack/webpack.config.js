@@ -8,16 +8,22 @@ module.exports = {
     path: join(__dirname, '../dist'),
     filename: '[name]-[hash].js'
   },
+
   resolve: {
     extensions: ['.js', '.pcss', '.md'],
+    mainFields: ['jsnext:main','main'],
     alias: Object.assign(
       {
         components: join(__dirname, '../src/components'),
-        zent$: join(__dirname, '../zent')
+        zent$: join(__dirname, '../zent'),
+        'react': 'react/dist/react.js',
+        'react-dom': 'react-dom/dist/react-dom.js'
       },
       createAlias(resolve(__dirname, '../../packages/zent/src'))
-    )
+    ),
+    // modules: [resolve(__dirname, '../node_modules'), resolve(__dirname, '../../node_modules')]
   },
+
   module: {
     rules: [
       {
@@ -52,5 +58,10 @@ module.exports = {
       chunks: ['vendor', 'docs', 'markdown'],
       inject: 'body'
     })
-  ]
+  ],
+
+  node: {
+    fs: 'empty',
+    net: 'empty',
+  }
 };

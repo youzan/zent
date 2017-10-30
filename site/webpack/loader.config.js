@@ -20,7 +20,8 @@ function getBabelLoader(options = {}) {
             require.resolve('react-loadable/babel'),
             require.resolve('babel-plugin-syntax-dynamic-import')
           ]
-        : []
+        : [],
+      cacheDirectory: dev
     }
   };
 }

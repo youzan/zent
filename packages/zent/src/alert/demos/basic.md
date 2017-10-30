@@ -1,5 +1,5 @@
 ---
-order: 0
+order: 1
 zh-CN:
 	title: 基础用法
 	content: 公告内容

@@ -1333,7 +1333,7 @@ ReactDOM.render(
 #### `Field` 中 `value` 的生命周期
 - 表单元素的初始值需要通过在 `Field` 中指定 `value` 值传入，如果 `value` 值的生命周期如下图所示：
 
-```text
+```
 Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 value 传入 component 中渲染组件
 															 ↑                                 |
 															 |                                 ↓

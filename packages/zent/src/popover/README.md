@@ -145,7 +145,7 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 Positon用于给弹层提供定位的, 内置12种基础定位, 可以添加自定义定位算法. Popover 上的 `cushion` 参数会影响定位, 通常用来提供一定量的偏移量。
 
-```text
+```
                     TopLeft     TopCenter     TopRight
 
 LeftTop                                                             RightTop
