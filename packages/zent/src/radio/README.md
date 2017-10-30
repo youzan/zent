@@ -1,4 +1,4 @@
-## Checkbox 单选
+## Radio 单选
 
 单选框组件
 
