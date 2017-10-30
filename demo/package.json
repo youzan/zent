@@ -1,0 +1,55 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "online": "cross-env NODE_ENV=production nodemon index.js",
+    "deploy": "./scripts/cdn.sh && node ./scripts/gh-pages.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
+    "request": "^2.81.0",
+    "reset-css": "^2.2.1",
+    "zan-design": "^4.2.9",
+    "zan-pc-ajax": "^4.0.6",
+    "zan-utils": "^1.0.14",
+    "zent": "^3.5.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.4",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "cssnano": "^3.10.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "gh-pages": "^1.0.0",
+    "html-webpack-plugin": "^2.30.1",
+    "nodemon": "^1.12.0",
+    "postcss-easy-import": "^2.1.0",
+    "postcss-loader": "^2.0.6",
+    "precss": "^2.0.0",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.6",
+    "webpack-dev-middleware": "^1.12.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "dist/*"
+    ]
+  }
+}

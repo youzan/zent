@@ -1,0 +1,126 @@
+{
+  "code": 0,
+  "msg": "",
+  "data": [
+    {
+      "id": 2,
+      "name": "\u672a\u5206\u7ec4",
+      "pid": 1,
+      "updateTime": 1,
+      "createTime": 1,
+      "kdtId": 0,
+      "count": 73825,
+      "mediaType": "image",
+      "updateTimeStr": "1970-01-01 08:00:01",
+      "createTimeStr": "1970-01-01 08:00:01"
+    },
+    {
+      "id": 15,
+      "name": "手机",
+      "pid": 0,
+      "updateTime": 1501749977,
+      "createTime": 1453950010,
+      "kdtId": 63077,
+      "count": 99,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-03 16:46:17",
+      "createTimeStr": "2016-01-28 11:00:10"
+    },
+    {
+      "id": 200781,
+      "name": "电脑",
+      "pid": 0,
+      "updateTime": 1501749965,
+      "createTime": 1474343496,
+      "kdtId": 63077,
+      "count": 9,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-03 16:46:05",
+      "createTimeStr": "2016-09-20 11:51:36"
+    },
+    {
+      "id": 205772,
+      "name": "风景",
+      "pid": 0,
+      "updateTime": 1501638020,
+      "createTime": 1475050056,
+      "kdtId": 63077,
+      "count": 21,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-02 09:40:20",
+      "createTimeStr": "2016-09-28 16:07:36"
+    },
+    {
+      "id": 271961,
+      "name": "文化",
+      "pid": 0,
+      "updateTime": 1501638020,
+      "createTime": 1484796988,
+      "kdtId": 63077,
+      "count": 2,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-02 09:40:20",
+      "createTimeStr": "2017-01-19 11:36:28"
+    },
+    {
+      "id": 271963,
+      "name": "旅游",
+      "pid": 0,
+      "updateTime": 1501638020,
+      "createTime": 1484796992,
+      "kdtId": 63077,
+      "count": 7,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-02 09:40:20",
+      "createTimeStr": "2017-01-19 11:36:32"
+    },
+    {
+      "id": 271964,
+      "name": "太空",
+      "pid": 0,
+      "updateTime": 1501638020,
+      "createTime": 1484796995,
+      "kdtId": 63077,
+      "count": 0,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-02 09:40:20",
+      "createTimeStr": "2017-01-19 11:36:35"
+    },
+    {
+      "id": 370389,
+      "name": "海洋",
+      "pid": 0,
+      "updateTime": 1501638020,
+      "createTime": 1500021447,
+      "kdtId": 63077,
+      "count": 0,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-02 09:40:20",
+      "createTimeStr": "2017-07-14 16:37:27"
+    },
+    {
+      "id": 370393,
+      "name": "大自然",
+      "pid": 0,
+      "updateTime": 1501638020,
+      "createTime": 1500021472,
+      "kdtId": 63077,
+      "count": 0,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-02 09:40:20",
+      "createTimeStr": "2017-07-14 16:37:52"
+    },
+    {
+      "id": 370400,
+      "name": "水果",
+      "pid": 0,
+      "updateTime": 1501638020,
+      "createTime": 1500021680,
+      "kdtId": 63077,
+      "count": 1,
+      "mediaType": "image",
+      "updateTimeStr": "2017-08-02 09:40:20",
+      "createTimeStr": "2017-07-14 16:41:20"
+    }
+  ]
+}

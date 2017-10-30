@@ -2,6 +2,7 @@ import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import isFunction from 'lodash/isFunction';
+import noop from 'lodash/noop';
 
 import { serializeDesignType } from '../utils/design-type';
 import { splitGroup, isGrouped } from '../utils/component-group';
@@ -26,10 +27,14 @@ export default class DesignEditorAddComponent extends (PureComponent ||
   };
 
   onAdd = component => () => {
-    const { onAddComponent, fromSelected, componentInstanceCount } = this.props;
+    const { componentInstanceCount } = this.props;
 
     if (canAddMoreInstance(component, componentInstanceCount)) {
-      onAddComponent(component, fromSelected);
+      const { shouldCreate } = component;
+      shouldAddComponentPromise(component, shouldCreate).then(() => {
+        const { fromSelected, onAddComponent } = this.props;
+        onAddComponent(component, fromSelected);
+      }, noop);
     }
   };
 
@@ -142,4 +147,13 @@ function canAddMoreInstance(component, componentInstanceCount) {
   }
 
   return limit ? count < limit : true;
+}
+
+// Normalize to Promise
+function shouldAddComponentPromise(component, fn) {
+  if (isFunction(fn)) {
+    return fn(component);
+  }
+
+  return Promise.resolve();
 }

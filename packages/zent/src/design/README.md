@@ -60,12 +60,12 @@ const groupedComponents = [
     highlightWhenSelect: false
   }),
 
-	Design.group('Group 1'),
+  Design.group('Group 1'),
 
   whitespaceConf,
 
-	Design.group('Group 2'),
-	
+  Design.group('Group 2'),
+  
   lineConf
 ];
 
@@ -243,6 +243,10 @@ type Component = {
   // 不传或者传 0 表示没有限制
   // 如果是函数，返回 false 表示不可再添加
   limit?: number | (count: number) => boolean,
+  
+  // 是否可以添加组件的回调函数，返回一个 Promise，resolve 的话可以创建
+  // 添加组件的实例时会调用
+  shouldCreate?: (comp: Component) => Promise,
 
   // 传给 editor 的额外 props
   editorProps: (value: object) => object | object,

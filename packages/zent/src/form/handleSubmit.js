@@ -7,7 +7,7 @@ const handleSubmit = (submit, zentForm) => {
   const { onSubmitSuccess, onSubmitFail } = props;
   let validationErrors;
 
-  zentForm.setFormPristine(false);
+  zentForm.setFormDirty(true);
 
   // 如果有异步校验未完成，阻止表单提交
   if (zentForm.isValidating()) {

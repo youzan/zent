@@ -1,0 +1,27 @@
+{
+  "code": 0,
+  "data": {
+    "attachment_file": "upload_files/2017/08/08/Fk1m3Sh59eghwj59GYVSyyXw9SM4.png",
+    "attachment_full_url": "http://img.yzcdn.cn/upload_files/2017/08/08/Fk1m3Sh59eghwj59GYVSyyXw9SM4.png",
+    "attachment_id": "838349809",
+    "attachment_size": "68933",
+    "attachment_title": "pc_shouye-white.png",
+    "attachment_url": "http://img.yzcdn.cn/upload_files/2017/08/08/Fk1m3Sh59eghwj59GYVSyyXw9SM4.png",
+    "bucket": "kdt_img",
+    "category_id": "2",
+    "create_time": "",
+    "file_ext": "png",
+    "height": 900,
+    "is_delete": "0",
+    "kdt_id": "63077",
+    "media_expire_time": "",
+    "media_id": "",
+    "media_type": "image",
+    "meta": "{\"MultiAudios\":false,\"audio\":null,\"format\":{\"bit_rate\":\"\",\"duration\":\"\",\"format_long_name\":\"piped png sequence\",\"format_name\":\"png_pipe\",\"nb_streams\":1,\"size\":\"68933\",\"start_time\":\"\",\"tags\":{}},\"subtitle\":null,\"video\":{\"Disposition\":{\"attached_pic\":0},\"avg_frame_rate\":\"0/0\",\"bit_rate\":\"\",\"codec_long_name\":\"PNG (Portable Network Graphics) image\",\"codec_name\":\"png\",\"codec_time_base\":\"1/25\",\"codec_type\":\"video\",\"coded_height\":900,\"coded_width\":1104,\"color_range\":\"pc\",\"display_aspect_ratio\":\"0:1\",\"duration\":\"\",\"height\":900,\"index\":0,\"level\":-99,\"nb_frames\":\"\",\"pix_fmt\":\"pal8\",\"profile\":\"\",\"r_frame_rate\":\"25/1\",\"refs\":1,\"sample_aspect_ratio\":\"0:1\",\"start_time\":\"\",\"tags\":{},\"width\":1104}}",
+    "source": 0,
+    "thumb_file": "upload_files/2017/08/08/Fk1m3Sh59eghwj59GYVSyyXw9SM4.png",
+    "thumb_url": "upload_files/2017/08/08/Fk1m3Sh59eghwj59GYVSyyXw9SM4.png!100x100.jpg",
+    "width": 1104
+  },
+  "msg": "ok"
+}

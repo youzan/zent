@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "3.7.0",
+  "version": "3.8.1",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -11,7 +11,8 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
-    "theme": "rm -rf css && node ./scripts/build-theme.js"
+    "theme": "rm -rf css && node ./scripts/build-theme.js",
+    "new-component": "node ./scripts/new-component.js && node ./scripts/update-jest-module-mapper.js"
   },
   "typings": "typings/index.d.ts",
   "author": "Youzan FE",

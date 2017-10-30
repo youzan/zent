@@ -46,7 +46,7 @@ const makeState = (name, onFinish, initState = HoverState.Init) => {
 
   return {
     transit(nextState) {
-      console.log(`${name}: ${state} -> ${nextState}`); // eslint-disable-line
+      // console.log(`${name}: ${state} -> ${nextState}`); // eslint-disable-line
 
       state = nextState;
 
@@ -91,7 +91,7 @@ function makeRecognizer(state, options) {
       if (!state.is(HoverState.Finish)) {
         forEachHook(recognizer.global, 'uninstall');
 
-        console.log(`destroy ${state.name}`); // eslint-disable-line
+        // console.log(`destroy ${state.name}`); // eslint-disable-line
       }
     }
   };

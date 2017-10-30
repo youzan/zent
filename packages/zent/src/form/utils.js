@@ -68,3 +68,23 @@ export function silenceEvents(fn) {
     silenceEvent(event) ? fn(...args) : fn(event, ...args);
   };
 }
+
+export function prefixName(zentForm, name) {
+  const { prefix } = zentForm;
+  let newName;
+  if (!prefix) {
+    newName = name;
+  } else if (/^\[\d+\]/.test(name)) {
+    newName = `${prefix}${name}`;
+  } else {
+    newName = `${prefix}.${name}`;
+  }
+  return newName;
+}
+
+export function isFunctional(Component) {
+  return (
+    typeof Component !== 'string' &&
+    typeof Component.prototype.render !== 'function'
+  );
+}

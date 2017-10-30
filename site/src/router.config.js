@@ -19,10 +19,11 @@ const registerRoute = navData => {
   });
 
   function addRoute(page) {
+    const { path } = page;
+
     route.push({
-      path: `${prefix}${page.path}`,
-      component: page.component,
-      title: page.title
+      ...page,
+      path: `${prefix}${path}`
     });
   }
   return route;

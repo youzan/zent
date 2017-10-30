@@ -1,6 +1,6 @@
-## Select 选择器
+## Select 下拉选择
 
-选择器，提供多种选择器功能。
+下拉选择，提供多种选择器功能。
 
 ### 使用指南
 
@@ -220,7 +220,7 @@ ReactDOM.render(
 import { Select } from 'zent';
 
 const data = [
-  {value: 1, text: '选项一'},
+  {value: 0, text: '选项一'},
   {value: 2, text: '选项二'},
   {value: 3, text: '选项三'}
 ];
@@ -418,17 +418,22 @@ ReactDOM.render(
 ```jsx
 import { Select } from 'zent';
 
+// const data = [
+//      {id: 1, value: '选项一'},
+//      {id: 2, value: '选项二'},
+//      {id: 3, value: '选项三'}
+// ];
+
 const data = [
-     {id: 1, name: '选项一'},
-     {id: 2, name: '选项二'},
-     {id: 3, name: '选项三'}
+	{ code: '+86', zh: 'zhongguo', eng: 'china', value: '中国 +86', index: 0 },
+	{ code: '+853', zh: 'aomen', eng: 'Macau', value: '中国澳门 +853', index: 1 }
 ];
 
 ReactDOM.render(
   <Select
     data={data}
-    optionValue="id"
-    optionText="name"
+    optionValue="index"
+    optionText="value"
     emptyText="No Result"
     filter={(item, keyword) => item.name.indexOf(keyword) > -1}
   />
@@ -448,7 +453,7 @@ ReactDOM.render(
     data={data}
     search
     filter={(item, keyword) => {
-      return `${item.value}` === `${keyword}`;
+      return `${item.text}` === `${keyword}`;
     }}
   />
   , mountNode

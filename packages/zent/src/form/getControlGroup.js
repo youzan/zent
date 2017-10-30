@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import cx from 'classnames';
 
+import { isFunctional } from './utils';
+
 export default Control => {
   return class ControlGroup extends (PureComponent || Component) {
     getControlInstance = () => {
@@ -11,18 +13,27 @@ export default Control => {
       const {
         required = false,
         helpDesc = '',
+        notice = '',
         label = '',
         className = '',
         ...props
       } = this.props;
 
-      const showError = props.isTouched && props.error !== null;
+      const showError = props.isDirty && props.error !== null;
       const groupClassName = cx({
         'zent-form__control-group': true,
         'zent-form__control-group--active': props.isActive,
         'has-error': showError,
         [className]: true
       });
+
+      const controlRef = isFunctional(Control)
+        ? {}
+        : {
+            ref: instance => {
+              this.control = instance;
+            }
+          };
 
       return (
         <div className={groupClassName}>
@@ -31,10 +42,11 @@ export default Control => {
             {label}
           </label>
           <div className="zent-form__controls">
-            <Control {...props} ref={ref => (this.control = ref)} />
+            <Control {...props} {...controlRef} />
             {showError && (
               <p className="zent-form__error-desc">{props.error}</p>
             )}
+            {notice && <p className="zent-form__notice-desc">{notice}</p>}
             {helpDesc && <p className="zent-form__help-desc">{helpDesc}</p>}
           </div>
         </div>
