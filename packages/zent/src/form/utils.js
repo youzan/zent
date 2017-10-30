@@ -81,3 +81,10 @@ export function prefixName(zentForm, name) {
   }
   return newName;
 }
+
+export function isFunctional(Component) {
+  return (
+    typeof Component !== 'string' &&
+    typeof Component.prototype.render !== 'function'
+  );
+}
