@@ -6,6 +6,8 @@ import has from 'lodash/has';
 import get from 'lodash/get';
 import every from 'lodash/every';
 import assign from 'lodash/assign';
+import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
@@ -15,6 +17,7 @@ import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
+import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import Store from './Store';
 import ColGroup from './ColGroup';
 import Header from './Header';
@@ -40,7 +43,38 @@ class Grid extends (PureComponent || Component) {
       selectedRowKeys: get(props, 'selection.selectedRowKeys')
     });
     this.setScrollPosition('left');
+
+    this.state = {
+      fixedColumnsBodyRowsHeight: []
+    };
   }
+
+  syncFixedTableRowHeight = () => {
+    const tableRect = this.tableNode.getBoundingClientRect();
+
+    if (tableRect.height !== undefined && tableRect.height <= 0) {
+      return;
+    }
+
+    const { prefix } = this.props;
+
+    const bodyRows =
+      this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`) || [];
+
+    const fixedColumnsBodyRowsHeight = [].map.call(
+      bodyRows,
+      row => row.getBoundingClientRect().height || 'auto'
+    );
+    if (
+      isEqual(this.state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
+    ) {
+      return;
+    }
+
+    this.setState({
+      fixedColumnsBodyRowsHeight
+    });
+  };
 
   onChange = conf => {
     const params = assign({}, this.store.getState('conf'), conf);
@@ -149,7 +183,7 @@ class Grid extends (PureComponent || Component) {
   getRightFixedTable = () => {
     return this.getTable({
       columns: this.getRightColumns(),
-      fixed: 'left'
+      fixed: 'right'
     });
   };
 
@@ -233,7 +267,9 @@ class Grid extends (PureComponent || Component) {
     return (
       <div
         style={bodyStyle}
-        ref={ref => (this.bodyTable = ref)}
+        ref={ref => {
+          if (!fixed) this.bodyTable = ref;
+        }}
         onScroll={this.handleBodyScroll}
         key="table"
       >
@@ -258,6 +294,8 @@ class Grid extends (PureComponent || Component) {
             datasets={datasets}
             rowClassName={rowClassName}
             onRowClick={onRowClick}
+            fixed={fixed}
+            fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
           />
         </table>
       </div>
@@ -374,6 +412,12 @@ class Grid extends (PureComponent || Component) {
     };
   };
 
+  componentDidMount() {
+    if (this.isAnyColumnsFixed()) {
+      this.syncFixedTableRowHeight();
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
       this.store.setState({
@@ -392,7 +436,7 @@ class Grid extends (PureComponent || Component) {
 
     if (nextProps.columns && nextProps.columns !== this.props.columns) {
       this.store.setState({
-        columns: this.getColumns(nextProps)
+        columns: this.getColumns(nextProps, nextProps.columns)
       });
     }
 
@@ -401,6 +445,12 @@ class Grid extends (PureComponent || Component) {
       nextProps.datasets !== this.props.datasets
     ) {
       this.CheckboxPropsCache = {};
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.isAnyColumnsFixed()) {
+      this.syncFixedTableRowHeight();
     }
   }
 
@@ -455,6 +505,9 @@ class Grid extends (PureComponent || Component) {
             </div>
           )}
         </Loading>
+        <WindowResizeHandler
+          onResize={debounce(this.syncFixedTableRowHeight, 500)}
+        />
       </div>
     );
   }

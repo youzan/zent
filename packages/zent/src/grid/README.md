@@ -473,15 +473,13 @@ for (let i = 0; i < 3; i++) {
 }
 
 ReactDOM.render(
-		<Grid
-			columns={columns}
-			datasets={datasets}
-			scroll={{ x: 1300 }}
-			selection={{
-				selectedRowKeys: [],
-				onSelect: () => {}
-			}}
-		/>
+		<div style={{ width: '800px' }}>
+			<Grid
+				columns={columns}
+				datasets={datasets}
+				scroll={{ x: 1300 }}
+			/>
+		</div>
 	, mountNode
 );
 
