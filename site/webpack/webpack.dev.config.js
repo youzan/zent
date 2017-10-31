@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const HappyPack = require('happyPack');
+const HappyPack = require('happypack');
 
 const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');

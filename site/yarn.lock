@@ -1882,7 +1882,7 @@ handle-thing@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
 
-happypack@^4.0.0:
+happypack@4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/happypack/download/happypack-4.0.0.tgz#de1770d472dab33e3f31782a3edb4e77cc658631"
   dependencies:
