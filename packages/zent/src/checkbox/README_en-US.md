@@ -4,36 +4,40 @@ path: component/checkbox
 group: Data Entry
 ---
 
-## Checkbox 多选
+## Checkbox
 
-### 使用指南
+### Usage
 
-- Checkbox 表现为一个[受控组件][https://facebook.github.io/react/docs/forms.html#controlled-components], 需要设置 `onChange` 回调在组件外部处理其 `value` 属性的变化.
+- Checkbox is a [controlled component][https://facebook.github.io/react/docs/forms.html#controlled-components]. You need to set the callback function `onChange` outside the component to handle the changes of `value`.
 
-- `value` 支持任意类型的值, 包括引用类型.
+- `value` supports any type of value, inclueding Referrence Type.
 
-### Checkbox API
+### demos
 
-| 参数            | 说明        | 类型            | 默认值      |
+### API
+
+#### Checkbox API
+
+| Property     |  Description  | Type     | Default  | Alternative |
 | ------------- | --------- | ------------- | -------- |
-| checked       | 指定当前是否选中  | bool          | `false`  |
-| value         | 组件对应的值，在`CheckboxGroup`中使用    | any           |          |
-| disabled      | 使组件不可用    | bool          |          |
+| checked       | Whether the checkbox is selected  | bool | `false`  |
+| value         | The value of the components, which is used in `CheckboxGroup` | any |  |
+| disabled      | Disable the checkbox | bool          |          |
 | indeterminate | 展示部分选中的模式 | bool          | `false`  |
-| onChange      | 变化时回调函数   | func(e:Event) |          |
-| className     | 自定义额外类名   | string        |          |
-| prefix        | 自定义前缀     | string        | `'zent'` |
+| onChange      | The callback function that is triggered when the checkbox is changed   | func(e:Event) |          |
+| className     | The custom classname   | string        |          |
+| prefix        | The custom prefix     | string        | `'zent'` |
 
-### Checkbox Group API
+#### Checkbox Group API
 
-| 参数           | 说明              | 类型                 | 默认值             |
+| Property     |  Description  | Type     | Default  | Alternative |
 | ------------ | --------------- | ------------------ | --------------- |
-| value        | 必填，指定选中的选项      | array<any>         | `[]`            |
-| isValueEqual | 可选，判断value值是否相等 | func(a, b)         | `() => a === b` |
-| disabled     | 使组件不可用          | bool               |                 |
-| onChange     | 变化时回调函数         | func(checkedValueList) |                 |
-| className    | 自定义额外类名         | string             |                 |
-| prefix       | 自定义前缀           | string             | `'zent'`        |
+| value        | The value when checkbox is checked, which is required | array<any>  | `[]` |
+| isValueEqual | 可选，判断value值是否相等 | func(a, b) | `() => a === b` |
+| disabled     | Disable the checkbox group  | bool               |                 |
+| onChange     | The callback function that is triggered when the checkbox group is changed | func(checkedValueList) |                 |
+| className    | The custom classname  | string             |                 |
+| prefix       | The custom prefix  | string             | `'zent'`        |
 
 [controlled-components]: https://facebook.github.io/react/docs/forms.html#controlled-components
 
