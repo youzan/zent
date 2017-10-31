@@ -1,7 +1,7 @@
 ---
 title: Button
 path: component/button
-group: Data
+group: Data Entry
 ---
 
 ## Button 按钮

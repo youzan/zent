@@ -1,7 +1,7 @@
 ---
 title: Input
 path: component/input
-group: Data
+group: Data Entry
 ---
 
 ## Input 输入框

@@ -1,7 +1,7 @@
 ---
 title: BlockHeader
 path: component/block-header
-group: Display
+group: Data Display
 ---
 
 ## BlockHeader 标题

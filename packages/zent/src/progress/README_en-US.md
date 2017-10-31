@@ -1,7 +1,7 @@
 ---
 title: Progress
 path: component/progress
-group: Display
+group: Data Display
 ---
 
 ## Progress 进度条

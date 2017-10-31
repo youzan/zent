@@ -1,7 +1,7 @@
 ---
 title: Form
 path: component/form
-group: Data
+group: Data Entry
 ---
 
 ## Form 表单组件

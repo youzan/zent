@@ -1,7 +1,7 @@
 ---
 title: Slider
 path: component/slider
-group: Data
+group: Data Entry
 ---
 
 ## Slider 滑动输入条

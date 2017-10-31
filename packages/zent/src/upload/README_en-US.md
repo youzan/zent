@@ -1,7 +1,7 @@
 ---
 title: Upload
 path: component/upload
-group: Data
+group: Data Entry
 ---
 
 # Upload 图片上传

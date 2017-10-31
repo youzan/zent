@@ -1,7 +1,7 @@
 ---
 title: Switch
 path: component/switch
-group: Data
+group: Data Entry
 ---
 
 ## Switch 开关

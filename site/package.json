@@ -10,8 +10,8 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development node scripts/start.js",
-    "dev": "cross-env NODE_ENV=development node scripts/dev.js",
-    "build": "rm -rf dist && cross-env NODE_ENV=production webpack --progress --hide-modules --config  webpack/webpack.prd.config.js",
+    "dev": "node scripts/gather.js && cross-env NODE_ENV=development node scripts/dev.js",
+    "build": "rm -rf dist && node scripts/gather.js && cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack/webpack.prd.config.js",
     "deploy": "yarn run build && ./scripts/deploy.sh"
   },
   "dependencies": {

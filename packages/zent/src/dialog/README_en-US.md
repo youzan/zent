@@ -1,7 +1,7 @@
 ---
 title: Dialog
 path: component/dialog
-group: Display
+group: Data Display
 ---
 
 ## Dialog 对话框

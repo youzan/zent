@@ -1,7 +1,7 @@
 ---
 title: Tag
 path: component/tag
-group: Display
+group: Data Display
 ---
 
 ## Tag 标签

@@ -1,7 +1,7 @@
 ---
 title: NumberInput
 path: component/number-input
-group: Data
+group: Data Entry
 ---
 
 ## NumberInput 数值输入框

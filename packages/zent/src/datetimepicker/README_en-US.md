@@ -1,7 +1,7 @@
 ---
 title: DatePicker
 path: component/datepicker
-group: Data
+group: Data Entry
 ---
 
 ## DatePicker 时间选择

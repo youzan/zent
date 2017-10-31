@@ -1,7 +1,7 @@
 ---
 title: Card
 path: component/card
-group: Display
+group: Data Display
 ---
 
 ## Card 卡片

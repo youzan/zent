@@ -1,7 +1,7 @@
 ---
 title: PreviewImage
 path: component/preview-image
-group: Display
+group: Data Display
 ---
 
 ## previewImage 图片预览

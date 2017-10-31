@@ -1,7 +1,7 @@
 ---
 title: Design
 path: component/design
-group: Data
+group: Data Entry
 ---
 
 ## design 微页面编辑组件

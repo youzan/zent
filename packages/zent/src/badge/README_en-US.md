@@ -1,7 +1,7 @@
 ---
 title: Badge
 path: component/badge
-group: Display
+group: Data Display
 ---
 
 ## Badge 徽标数

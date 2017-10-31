@@ -1,7 +1,7 @@
 ---
 title: Cascader
 path: component/cascader
-group: Data
+group: Data Entry
 ---
 
 ## Cascader 级联选择

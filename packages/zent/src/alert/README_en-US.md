@@ -1,7 +1,7 @@
 ---
 title: Alert
 path: component/alert
-group: Display
+group: Data Display
 ---
 
 ## Alert 公告

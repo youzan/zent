@@ -1,7 +1,7 @@
 ---
 title: Select
 path: component/select
-group: Data
+group: Data Entry
 ---
 
 ## Select 下拉选择

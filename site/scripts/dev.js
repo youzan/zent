@@ -4,7 +4,6 @@ const WebpackDevServer = require('webpack-dev-server');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const cp = require('child_process');
 
-const gatherDocs = require('./gather');
 const webpackConfig = require('../webpack/webpack.dev.config.js');
 
 const cmds = {
@@ -14,8 +13,6 @@ const cmds = {
 };
 
 let onceMark = true;
-
-gatherDocs();
 
 const compiler = webpack(webpackConfig);
 

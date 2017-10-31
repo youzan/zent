@@ -1,7 +1,7 @@
 ---
 title: Radio
 path: component/radio
-group: Data
+group: Data Entry
 ---
 
 ## Radio 单选

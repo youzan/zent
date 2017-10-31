@@ -1,7 +1,7 @@
 ---
 title: Layout
 path: component/layout
-group: Basic
+group: Basics
 ---
 
 ## Layout 布局

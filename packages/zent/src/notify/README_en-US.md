@@ -1,7 +1,7 @@
 ---
 title: Notify
 path: component/notify
-group: Display
+group: Data Display
 ---
 
 ## Notify 消息通知

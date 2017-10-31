@@ -25,7 +25,6 @@ const {
   propEq
 } = require('ramda');
 const fm = require('front-matter');
-// const colors = require('colors');
 
 const LIST_STATICS = require('../src/nav.static');
 const SRC = resolve(process.cwd(), '../packages/zent/src');
@@ -33,18 +32,6 @@ const NAMES = {
   'zh-CN': 'README_zh-CN.md',
   'en-US': 'README_en-US.md'
 };
-
-const list = {};
-
-// const beautyConsole = (color, ...args) => {
-//   args.forEach(arg => {
-//     console.log(`
-// ==============================
-// ${colors[color](JSON.stringify(arg, null, 2))}
-// ==============================
-// `);
-//   });
-// };
 
 const isDir = path => {
   try {
@@ -57,9 +44,7 @@ const isDir = path => {
 
 const readFileToString = curry(readFileSync)(__, 'utf8');
 
-module.exports = () => {
-  // beautyConsole('red', '重新生成前端路由文件');
-
+function gather() {
   Object.keys(NAMES).forEach(i18n => {
     const list = LIST_STATICS[i18n][1].groups;
     const groups = [];
@@ -98,8 +83,11 @@ module.exports = () => {
     )(SRC);
   });
 
+  // 将组件分组排序
+  sortComponentGroups(LIST_STATICS);
+
   writeFileSync(
-    `${resolve(process.cwd(), './src')}/nav.js`,
+    resolve(__dirname, '../src/nav.js'),
     `
 import DocLoadable from './components/Loadable';
 
@@ -109,6 +97,33 @@ export default ${JSON.stringify(LIST_STATICS, null, 2)};`.replace(
     ),
     'utf8'
   );
+}
 
-  // beautyConsole('green', 'zent/site/src/nav.js, 生成成功');
+const COMPONENT_GROUP_ORDER = {
+  'zh-CN': {
+    基础: 1,
+    导航: 2,
+    数据: 3,
+    展示: 4,
+    其他: 5
+  },
+  'en-US': {
+    Basics: 1,
+    Navigation: 2,
+    'Data Entry': 3,
+    'Data Display': 4,
+    Others: 5
+  }
 };
+
+function sortComponentGroups(config) {
+  Object.keys(NAMES).forEach(i18n => {
+    const componentGroups = config[i18n][1].groups;
+    componentGroups.sort((a, b) => {
+      const orderDefinition = COMPONENT_GROUP_ORDER[i18n];
+      return orderDefinition[a.groupName] - orderDefinition[b.groupName];
+    });
+  });
+}
+
+gather();

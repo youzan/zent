@@ -1,7 +1,7 @@
 ---
 title: SKU
 path: component/sku
-group: Data
+group: Data Entry
 ---
 
 ## SKU 规格选择器

@@ -1,7 +1,7 @@
 ---
 title: Swiper
 path: component/swiper
-group: Display
+group: Data Display
 ---
 
 ## Swiper 轮播

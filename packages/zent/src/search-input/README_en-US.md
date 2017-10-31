@@ -1,7 +1,7 @@
 ---
 title: SearchInput
 path: component/search-input
-group: Data
+group: Data Entry
 ---
 
 ## SearchInput 搜索框组件

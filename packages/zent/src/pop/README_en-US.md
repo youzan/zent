@@ -1,7 +1,7 @@
 ---
 title: Pop
 path: component/pop
-group: Display
+group: Data Display
 ---
 
 ## 气泡提示 Pop
