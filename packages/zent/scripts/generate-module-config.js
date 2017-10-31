@@ -19,6 +19,7 @@ function main() {
     expandedDependencyGraph,
     cssConfig
   );
+  prependBaseCssToMapping(cssMapping);
   const jsMapping = generateModuleJSMapping();
   const mapping = mergeJSAndCSS(jsMapping, cssMapping);
   appendPostcssToMapping(mapping);
@@ -155,7 +156,7 @@ function expandDenpendencies(mod, graph) {
 
   while (queue.length) {
     const d = queue.shift();
-    dependencies.push(d);
+    dependencies.unshift(d);
     const nextLevelDependency = graph[d];
     queue.splice(queue.length, 0, ...nextLevelDependency);
   }
@@ -174,6 +175,13 @@ function appendPostcssToMapping(mapping) {
   });
 
   return mapping;
+}
+
+function prependBaseCssToMapping(cssMapping) {
+  Object.keys(cssMapping).forEach(compName => {
+    cssMapping[compName].unshift('zent/css/base.css');
+  });
+  return cssMapping;
 }
 
 // Utilities
