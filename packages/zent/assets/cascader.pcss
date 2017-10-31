@@ -22,7 +22,6 @@ $c-blue-hover: $theme-primary-6;
     cursor: pointer;
     display: inline-block;
     font-size: 0;
-    outline: none;
     position: relative;
     text-align: left;
     user-select: none;
@@ -36,7 +35,6 @@ $c-blue-hover: $theme-primary-6;
       display: inline-block;
       min-height: 30px;
       max-height: 76px;
-      outline: none;
       padding: 5px 30px 5px 10px;
       transition: border-color 0.25s;
       width: 100%;
@@ -46,6 +44,10 @@ $c-blue-hover: $theme-primary-6;
       overflow: hidden;
       text-overflow: ellipsis;
       font-size: 12px;
+
+      &-content {
+        line-height: inherit;
+      }
 
       &.is-placeholder {
         color: $theme-stroke-4;

@@ -12,7 +12,9 @@ class Row extends (PureComponent || Component) {
       data,
       rowIndex,
       rowClassName,
-      onRowClick
+      onRowClick,
+      fixed,
+      fixedColumnsBodyRowsHeight
     } = this.props;
 
     const cells = [];
@@ -21,11 +23,18 @@ class Row extends (PureComponent || Component) {
       ? rowClassName(data, rowIndex)
       : rowClassName;
 
+    let height = null;
+
     forEach(columns, (column, columnIndex) => {
       let pos = {
         row: rowIndex,
         column: columnIndex
       };
+
+      height =
+        fixed && fixedColumnsBodyRowsHeight[columnIndex]
+          ? fixedColumnsBodyRowsHeight[columnIndex]
+          : null;
 
       cells.push(
         <Cell
@@ -43,6 +52,7 @@ class Row extends (PureComponent || Component) {
       <tr
         className={classnames(`${prefix}-grid-tr`, className)}
         onClick={e => onRowClick(data, rowIndex, e)}
+        style={{ height }}
       >
         {cells}
       </tr>

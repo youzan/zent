@@ -34,7 +34,7 @@ const postcssLoader = {
 const getRules = babelLoader => [
   {
     test: /\.js$/,
-    exclude: /node_modules/,
+    exclude: /node_modules\/(?!transliteration\/)/,
     use: babelLoader
   },
   {

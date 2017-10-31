@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import assign from 'lodash/assign';
-
+import includes from 'lodash/includes';
 import Td from './Td';
 
 // 需要传入一个组件模板
@@ -40,6 +40,13 @@ export default class Body extends (PureComponent || Component) {
     return this.state.expandItems[rowIndex] || 0;
   }
 
+  onRowClick(key) {
+    const { selection } = this.props;
+    if (selection.canRowSelect) {
+      selection.onSelect(key, !includes(selection.selectedRowKeys, key));
+    }
+  }
+
   render() {
     let {
       datasets,
@@ -55,6 +62,7 @@ export default class Body extends (PureComponent || Component) {
     let trs = [];
     let dataIterator = (rowData, rowIndex) => {
       let { canSelect = true, rowClass = '' } = getRowConf(rowData, rowIndex);
+      const key = rowData[rowKey] || rowIndex;
 
       let tds = [];
       if (needExpand) {
@@ -103,20 +111,27 @@ export default class Body extends (PureComponent || Component) {
       });
 
       trs.push(
-        <div className={`${rowClass} tr`} key={rowData[rowKey] || rowIndex}>
+        <div
+          className={`${rowClass} tr`}
+          key={key}
+          onClick={() => this.onRowClick(key)}
+        >
           {tds}
         </div>
       );
     };
 
     let expandedInterator = (rowData, rowIndex) => {
+      const key = rowData[rowKey] || rowIndex;
+
       trs.push(
         <div
           className="tr tr--expanded"
-          key={`${rowData[rowKey] || rowIndex}-expand`}
+          key={`${key}-expand`}
           style={{
             display: this.isExpanded(rowData, rowIndex) ? 'flex' : 'none'
           }}
+          onClick={() => this.onRowClick(key)}
         >
           <div className="td expanded-item" />
           <div className="td">{expandRender(rowData)}</div>

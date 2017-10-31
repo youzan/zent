@@ -7,6 +7,7 @@
       height: $top-nav-height;
       background-color: #fbfbfb;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      padding: 0 50px;
     }
 
     &__logo {
@@ -19,8 +20,12 @@
         background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
         background-size: contain;
         background-repeat: no-repeat;
-        margin: 20px 0 0 20px;
+        margin: 20px 0 0;
       }
+    }
+
+    &__github {
+      margin-top: 14px;
     }
 
     &__navs {
@@ -50,14 +55,19 @@
 
     &__i18n-switcher {
       display: inline-block;
-      line-height: 30px;
-      margin-top: 15px;
+      font-size: 12px;
+      line-height: 20px;
+      margin-top: 20px;
       cursor: pointer;
       position: absolute;
-      right: 75px;
+      right: 100px;
+      border: 1px solid #333;
+      padding: 0 4px;
+      border-radius: 2px;
 
       &:hover {
         color: #38f;
+        border-color: #38f;
       }
     }
   }

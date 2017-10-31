@@ -49,6 +49,24 @@ describe('GetControlGroup and Component_Fields', () => {
     ).toBe(true);
   });
 
+  it('will render without ref when the wrapped component is functionial', () => {
+    function Input(props) {
+      const passableProps = omit(props, unknownProps);
+      return <input {...passableProps} />;
+    }
+    const addtionInput = getControlGroup(Input);
+    const wrapper = mount(
+      <Field name="foo" ref="field" component={addtionInput} />,
+      { context }
+    );
+    expect(
+      wrapper
+        .get(0)
+        .getWrappedComponent()
+        .getControlInstance()
+    ).toBe(undefined);
+  });
+
   it('ControlGroup have three render switch: required, helpDesc, notice and showError', () => {
     const Input = props => {
       const passableProps = omit(props, unknownProps);

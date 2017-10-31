@@ -5,6 +5,7 @@ import { slugify } from 'transliteration';
 
 export function H1(props) {
   const { children } = props;
+
   const id = slugify(children);
 
   return (

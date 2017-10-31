@@ -4,28 +4,27 @@ import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
-import Cascader from 'cascader';
 import Card from 'card';
+import Cascader from 'cascader';
 import Checkbox from 'checkbox';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
-import WeekPicker from 'datetimepicker/WeekPicker';
-import MonthPicker from 'datetimepicker/MonthPicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
 import Form from 'form';
 import Grid from 'grid';
+import Icon from 'icon';
+import InfiniteScroller from 'infinite-scroller';
+import Input from 'input';
 import Layout from 'layout';
 import Loading from 'loading';
-import Icon from 'icon';
-import Input from 'input';
-import InfiniteScroller from 'infinite-scroller';
-import NumberInput from 'number-input';
 import Menu from 'menu';
+import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
+import NumberInput from 'number-input';
 import Pagination from 'pagination';
 import Pop from 'pop';
 import Popover from 'popover';
@@ -46,6 +45,7 @@ import Tabs from 'tabs';
 import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
+import WeekPicker from 'datetimepicker/WeekPicker';
 
 export {
   Affix,
@@ -54,8 +54,8 @@ export {
   BlockHeader,
   Breadcrumb,
   Button,
-  Cascader,
   Card,
+  Cascader,
   Checkbox,
   ColorPicker,
   CopyButton,
@@ -66,15 +66,15 @@ export {
   Dialog,
   Form,
   Grid,
+  Icon,
+  InfiniteScroller,
+  Input,
   Layout,
   Loading,
-  Icon,
-  Input,
-  InfiniteScroller,
-  NumberInput,
   Menu,
   MonthPicker,
   Notify,
+  NumberInput,
   Pagination,
   Pop,
   Popover,
@@ -89,11 +89,11 @@ export {
   Steps,
   Sweetalert,
   Swiper,
+  Switch,
   Table,
   Tabs,
   Tag,
   Tree,
-  Switch,
   Upload,
   WeekPicker
 };

@@ -12,7 +12,9 @@ class Body extends (PureComponent || Component) {
       columns,
       rowKey,
       rowClassName,
-      onRowClick
+      onRowClick,
+      fixed,
+      fixedColumnsBodyRowsHeight
     } = this.props;
     const row = [];
 
@@ -27,6 +29,8 @@ class Body extends (PureComponent || Component) {
           key={rowKey ? get(data, rowKey) : index}
           rowClassName={rowClassName}
           onRowClick={onRowClick}
+          fixed={fixed}
+          fixedColumnsBodyRowsHeight={fixedColumnsBodyRowsHeight}
         />
       );
     });

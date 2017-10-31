@@ -1,8 +1,6 @@
-## 示例
+## 项目示例
 
 可以使用我们的示例快速搭建一个页面，或者也可以在示例的基础上进行定制。
-
-[查看所有示例源码。](https://github.com/youzan/zent/tree/master/demo)
 
 #### 订单列表
 
@@ -12,7 +10,7 @@
 
 #### 微页面编辑
 
-用所见即所得的方式创建手机端的 H5 内容，使用了 `Design` 组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/paper/create) | [源码链接](https://github.com/youzan/zent/tree/master/demo/client/pages/shop/create)
+用所见即所得的方式创建手机端的 H5 内容，使用了 `Design` 组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/paper/create)
 
 ![demo-preview-paper-edit](https://img.yzcdn.cn/zanui/react/demo-paper-edit.png)
 
@@ -22,18 +20,19 @@
 
 ![demo-preview-paper-list](https://img.yzcdn.cn/zanui/react/demo-paper.png)
 
-[查看所有示例源码。](https://github.com/youzan/zent/tree/master/demo)
-
 <style>
 	img[alt="demo-preview-order-list"] {
 		max-width: 1203px;
+		width: 100%;
 	}
 
 	img[alt="demo-preview-paper-edit"] {
 		max-width: 809px;
+		width: 100%;
 	}
 
 	img[alt="demo-preview-paper-list"] {
 		max-width: 1207px;
+		width: 100%;
 	}
 </style>

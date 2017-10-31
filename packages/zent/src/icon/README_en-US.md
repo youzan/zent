@@ -1,7 +1,7 @@
 ---
 title: Icon
 path: component/icon
-group: Display
+group: Basic
 ---
 
 ## Icon 图标

@@ -735,7 +735,8 @@ class BatchCompsClass extends React.Component {
           selectedRowKeys: this.state.selectedRowKeys,
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
             this.onSelect(selectedRowkeys);
-          }
+          },
+          canRowSelect: true
         }}
       />
     );
@@ -824,6 +825,8 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | isSingleSelection | 是否是单选            | Boolean | false | 否    |
 | needCrossPage |   是否需要跨页的时候多选            | Boolean | false | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |
+| canRowSelect |   是否需要整行选择            | Boolean | false | 否    |
+
 
 ### pageInfo
 
