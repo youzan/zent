@@ -1,10 +1,28 @@
 ## Github 日志
 
-## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
+## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
+
+**不兼容改动和新功能:**
+
+- \[new feature\] Table:复制到富文本编辑器格式保持一致 [\#499](https://github.com/youzan/zent/issues/499)
+- \[feature\] Add some global style normalization [\#519](https://github.com/youzan/zent/pull/519) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- \[bug fix\] Grid: 修复不能动态修改 columns 属性的 bug [\#515](https://github.com/youzan/zent/pull/515) ([lama-pacos](https://github.com/lama-pacos))
+- \[bug fix\] Design: 修复变量名 [\#512](https://github.com/youzan/zent/pull/512) ([cpylua](https://github.com/cpylua))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
+- \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
 ## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
+
+## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
 
 **不兼容改动和新功能:**
 
