@@ -620,8 +620,10 @@ import { Form } from 'zent';
 const { Field, FormInputField, createForm } = Form;
 
 const AsyncForm = (props) => {
+	const { handleSubmit, zentForm } = props;
 	const asyncValidation = (values, value) => {
 		return new Promise((resolve, reject) => setTimeout(() => {
+			console.log('asyncValidation');
 			if (value === 'pangxie') {
 				reject('用户名已被占用');
 			} else {
@@ -629,17 +631,45 @@ const AsyncForm = (props) => {
 			}
 		}, 1000));
 	}
+	const asyncValidation2 = (values, value) => {
+		return new Promise((resolve, reject) => setTimeout(() => {
+			console.log('asyncValidation2');
+			if (value === 'pangxie2') {
+				reject('用户名已被占用');
+			} else {
+				resolve();
+			}
+		}, 1000));
+	}
+	const submit = (values) => {
+		alert(JSON.stringify(values));
+	}
+	const isSubmitting = zentForm.isSubmitting();
 	return (
-		<Form horizontal>
+		<Form horizontal onSubmit={handleSubmit(submit)}>
 			<FormInputField
 				name="name"
 				type="text"
 				label="用户名："
 				value=""
-				validations={{ required: true }}
-				validationErrors={{ required: '不能为空' }}
+				validations={{
+					required: true,
+				}}
+				validationErrors={{
+					required: '用户名不为空',
+				}}
 				asyncValidation={asyncValidation}
 			/>
+			<FormInputField
+				name="name2"
+				type="text"
+				label="用户名："
+				value="pangxie2"
+				asyncValidation={asyncValidation2}
+			/>
+			<div className="zent-form__form-actions">
+				<Button type="primary" htmlType="submit" loading={isSubmitting}>获取表单值</Button>
+			</div>
 		</Form>
 	);
 };

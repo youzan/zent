@@ -489,7 +489,7 @@ const createForm = (config = {}) => {
         const { asyncValidation } = field.props;
         const values = this.getFormValues();
 
-        if (field.state._validationError.length) return;
+        if (!asyncValidation && field.state._validationError.length) return;
 
         field.setState({
           _isValidating: true
@@ -503,18 +503,29 @@ const createForm = (config = {}) => {
         const handleResult = rejected => error => {
           field.setState({
             _isValidating: false,
-            _isValid: !rejected,
-            _externalError: error ? [error] : null
+            _isValid: !rejected && field.state._validationError.length === 0,
+            _externalError: error ? [error] : null,
+            _asyncValidated: true
           });
 
           if (rejected) {
             this.setState({
               isFormValid: false
             });
+            throw new Error(error);
           }
         };
 
         return promise.then(handleResult(false), handleResult(true));
+      };
+
+      isFormAsyncValidated = () => {
+        const allIsAsyncValid = this.fields.every(field => {
+          console.log(field.getName(), field.isAsyncValidated());
+          return field.isAsyncValidated();
+        });
+
+        return allIsAsyncValid;
       };
 
       validateForm = () => {
@@ -584,7 +595,8 @@ const createForm = (config = {}) => {
             isFieldValidating: this.isFieldValidating,
             isValid: this.isValid,
             isValidating: this.isValidating,
-            isSubmitting: this.isSubmitting
+            isSubmitting: this.isSubmitting,
+            isFormAsyncValidated: this.isFormAsyncValidated
           }
         });
       }
