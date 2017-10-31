@@ -1,4 +1,4 @@
-## 如何参与 Zent 的开发1
+## 如何参与 Zent 的开发
 
 English Mode
 

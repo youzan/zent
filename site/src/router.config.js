@@ -1,4 +1,4 @@
-import { prefix } from './constants';
+// import { prefix } from './constants';
 
 const registerRoute = (navData, oreo = '') => {
   let route = [];
@@ -6,10 +6,11 @@ const registerRoute = (navData, oreo = '') => {
   if (!navData) return route;
 
   function addRoute(page) {
+    const { path, source, title } = page;
     route.push({
-      path: `${prefix}${oreo}${page.path}`,
-      source: page.source,
-      title: page.title
+      path: `${oreo}/${path}`,
+      source,
+      title
     });
   }
 

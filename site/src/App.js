@@ -18,8 +18,8 @@ import USWrapper from './components/USWrapper';
 // one-dimentional array
 // 第二个参数作为处理路由分块的夹层暂时存在，后续会修复。
 const routeData = {
-  'zh-CN': registerRoute(navData['zh-CN'], 'zh/'),
-  'en-US': registerRoute(navData['en-US'], 'en/')
+  'zh-CN': registerRoute(navData['zh-CN'], '/zh'),
+  'en-US': registerRoute(navData['en-US'], '/en')
 };
 
 // double-linked list
@@ -78,7 +78,7 @@ export default class App extends Component {
     const { spiderOn, spiderReady, i18n } = this.state;
     const passthrough = i18nStr => ({
       // 奥利奥，路由路径中的夹层。
-      oreo: `${i18nStr.split('-')[0]}/`,
+      oreo: `/${i18nStr.split('-')[0]}`,
       version: packageJson.version,
       sideNavData: navData[i18nStr],
       footerData: footerData[i18nStr],
@@ -92,25 +92,17 @@ export default class App extends Component {
       spiderReady,
       i18n
     });
+
+    // 通过 basename 控制前缀，不要放到每一层路由里去
     return (
-      <Router key={module.hot ? Math.random() : null}>
+      <Router key={module.hot ? Math.random() : null} basename={prefix}>
         <ScrollToTop>
           <Switch>
             <Route
               path="/zh"
               render={() => (
                 <CNWrapper pass={passthrough('zh-CN')}>
-                  <Switch>
-                    {routeData['zh-CN'].map((data, index) => {
-                      return (
-                        <Route
-                          key={`route-${index}`}
-                          component={data.source}
-                          path={data.path}
-                        />
-                      );
-                    })}
-                  </Switch>
+                  <Switch>{routeData['zh-CN'].map(renderRouter)}</Switch>
                 </CNWrapper>
               )}
             />
@@ -118,17 +110,7 @@ export default class App extends Component {
               path="/en"
               render={() => (
                 <USWrapper pass={passthrough('en-US')}>
-                  <Switch>
-                    {routeData['en-US'].map((data, index) => {
-                      return (
-                        <Route
-                          key={`route-${index}`}
-                          component={data.source}
-                          path={data.path}
-                        />
-                      );
-                    })}
-                  </Switch>
+                  <Switch>{routeData['en-US'].map(renderRouter)}</Switch>
                 </USWrapper>
               )}
             />
@@ -138,4 +120,9 @@ export default class App extends Component {
       </Router>
     );
   }
+}
+
+function renderRouter(data) {
+  const { source, path } = data;
+  return <Route key={`route-${path}`} component={source} path={path} />;
 }
