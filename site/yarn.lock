@@ -2671,9 +2671,9 @@ markdown-doc-loader-utils@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/markdown-doc-loader-utils/-/markdown-doc-loader-utils-1.0.0.tgz#63d885e493f5064606515ed13f57af420bc3943b"
 
-markdown-doc-loader@2.0.0:
-  version "2.0.0"
-  resolved "http://registry.npm.taobao.org/markdown-doc-loader/download/markdown-doc-loader-2.0.0.tgz#da89ed828cbb36e12de34aa1650d73152c775645"
+markdown-doc-loader@2.0.1:
+  version "2.0.1"
+  resolved "http://registry.npm.taobao.org/markdown-doc-loader/download/markdown-doc-loader-2.0.1.tgz#8b1482b06c929d2a651c5426e81ba9bbb5437e27"
   dependencies:
     hast-util-is-css-style "^1.0.0"
     hast-util-to-string "^1.0.0"
