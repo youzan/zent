@@ -81,14 +81,14 @@ describe('babel-plugin-zent', () => {
 
     expect(
       compile("import { Portal } from 'zent'", { automaticStyleImport: true })
-    ).not.toMatch(/zent\/css\//);
+    ).toMatch(/require\('zent\/css\/base.css'\)/);
 
     expect(
       compile("import { Pop, Button } from 'zent'", {
         automaticStyleImport: true
       })
     ).toMatch(
-      /require\('zent\/css\/pop.css'\)[\s\S]*require\('zent\/css\/button.css'\)/im
+      /require\('zent\/css\/button.css'\)[\s\S]*require\('zent\/css\/pop.css'\)/im
     );
   });
 
@@ -105,7 +105,7 @@ describe('babel-plugin-zent', () => {
         automaticStyleImport: true,
         useRawStyle: true
       })
-    ).not.toMatch(/zent\/assets\//);
+    ).toMatch(/require\('zent\/assets\/base.pcss'\)/);
 
     expect(
       compile("import { Pop, Button } from 'zent'", {
@@ -113,7 +113,7 @@ describe('babel-plugin-zent', () => {
         useRawStyle: true
       })
     ).toMatch(
-      /require\('zent\/assets\/pop.pcss'\)[\s\S]*require\('zent\/assets\/button.pcss'\)/im
+      /require\('zent\/assets\/button.pcss'\)[\s\S]*require\('zent\/assets\/pop.pcss'\)/im
     );
   });
 });
