@@ -17,7 +17,7 @@ Badge normally appears in the upper right corner of the notification or avatar w
 
 ### API
 
-| 参数     |   说明             | 类型     | 默认值        | 备选值            |
+| Property     |  Description  | Type     | Default  | Alternative |
 | ---------| ----------------- | ------  | -------------|----------------- |
 | count | Messages count to show | int | `0` | |
 | maxCount | Max count to show | int | `99`  |                  |
