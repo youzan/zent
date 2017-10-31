@@ -489,7 +489,7 @@ export default {
           ]
         },
         {
-          groupName: 'Display',
+          groupName: '基础',
           list: [
             {
               source: DocLoadable({
@@ -499,6 +499,15 @@ export default {
               title: 'Icon',
               subtitle: '图标',
               path: 'component/icon'
+            },
+            {
+              source: DocLoadable({
+                loader: () =>
+                  import('../../packages/zent/src/layout/README_zh-CN.md')
+              }),
+              title: 'Layout',
+              subtitle: '布局',
+              path: 'component/layout'
             }
           ]
         },
@@ -531,20 +540,6 @@ export default {
               title: 'Portal',
               subtitle: '传送门',
               path: 'component/portal'
-            }
-          ]
-        },
-        {
-          groupName: '基础',
-          list: [
-            {
-              source: DocLoadable({
-                loader: () =>
-                  import('../../packages/zent/src/layout/README_zh-CN.md')
-              }),
-              title: 'Layout',
-              subtitle: '布局',
-              path: 'component/layout'
             }
           ]
         }
@@ -786,14 +781,6 @@ export default {
             {
               source: DocLoadable({
                 loader: () =>
-                  import('../../packages/zent/src/icon/README_en-US.md')
-              }),
-              title: 'Icon',
-              path: 'component/icon'
-            },
-            {
-              source: DocLoadable({
-                loader: () =>
                   import('../../packages/zent/src/loading/README_en-US.md')
               }),
               title: 'Loading',
@@ -1007,6 +994,27 @@ export default {
           ]
         },
         {
+          groupName: 'Basic',
+          list: [
+            {
+              source: DocLoadable({
+                loader: () =>
+                  import('../../packages/zent/src/icon/README_en-US.md')
+              }),
+              title: 'Icon',
+              path: 'component/icon'
+            },
+            {
+              source: DocLoadable({
+                loader: () =>
+                  import('../../packages/zent/src/layout/README_en-US.md')
+              }),
+              title: 'Layout',
+              path: 'component/layout'
+            }
+          ]
+        },
+        {
           groupName: 'Others',
           list: [
             {
@@ -1032,19 +1040,6 @@ export default {
               }),
               title: 'Portal',
               path: 'component/portal'
-            }
-          ]
-        },
-        {
-          groupName: 'Basic',
-          list: [
-            {
-              source: DocLoadable({
-                loader: () =>
-                  import('../../packages/zent/src/layout/README_en-US.md')
-              }),
-              title: 'Layout',
-              path: 'component/layout'
             }
           ]
         }

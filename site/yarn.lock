@@ -1548,6 +1548,12 @@ fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
 
+fault@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/fault/download/fault-1.0.1.tgz#de8d350dfd48be24b5dc1b02867e0871b9135092"
+  dependencies:
+    format "^0.2.2"
+
 faye-websocket@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.10.0.tgz#4e492f8d04dfb6f89003507f6edbf2d501e7c6f4"
@@ -1669,6 +1675,10 @@ form-data@~2.1.1:
     asynckit "^0.4.0"
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
+
+format@^0.2.2:
+  version "0.2.2"
+  resolved "http://registry.npm.taobao.org/format/download/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
 
 forwarded@~0.1.0, forwarded@~0.1.2:
   version "0.1.2"
@@ -2453,7 +2463,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@^3.4.3, js-yaml@^3.4.6:
+js-yaml@^3.10.0, js-yaml@^3.4.3, js-yaml@^3.4.6:
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.10.0.tgz#2e78441646bd4682e963f22b6e92823c309c62dc"
   dependencies:
@@ -2661,15 +2671,17 @@ markdown-doc-loader-utils@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/markdown-doc-loader-utils/-/markdown-doc-loader-utils-1.0.0.tgz#63d885e493f5064606515ed13f57af420bc3943b"
 
-markdown-doc-loader@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/markdown-doc-loader/-/markdown-doc-loader-1.0.0.tgz#7ca73dc4a737e3f95f2f501747a1b3da788d1d9b"
+markdown-doc-loader@2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/markdown-doc-loader/download/markdown-doc-loader-2.0.0.tgz#da89ed828cbb36e12de34aa1650d73152c775645"
   dependencies:
     hast-util-is-css-style "^1.0.0"
     hast-util-to-string "^1.0.0"
+    js-yaml "^3.10.0"
     lodash "^4.17.4"
     rehype-parse "^3.1.0"
     rehype-stringify "^3.0.0"
+    remark-frontmatter "1.1.0"
     remark-parse "^3.0.0"
     unified "^6.1.1"
     unist-builder "^1.0.2"
@@ -3914,9 +3926,9 @@ react-loadable@^5.3.0:
   version "5.3.0"
   resolved "http://registry.npm.taobao.org/react-loadable/download/react-loadable-5.3.0.tgz#ee082ea7c40f0de4cfab5895cbf3c1594efee4e2"
 
-react-markdown-doc-loader@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-markdown-doc-loader/-/react-markdown-doc-loader-1.0.2.tgz#914da00fa416363443c25e3b70ee962ff45f7241"
+react-markdown-doc-loader@2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/react-markdown-doc-loader/download/react-markdown-doc-loader-2.0.0.tgz#77f18871ba84b505ef2650d0af60b46b31e90d2a"
   dependencies:
     autoprefixer "^6.7.7"
     babel-generator "^6.24.0"
@@ -4128,6 +4140,13 @@ rehype-stringify@^3.0.0:
 relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
+
+remark-frontmatter@1.1.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/remark-frontmatter/download/remark-frontmatter-1.1.0.tgz#9d23c2b376f56617bdb5c5560f1b56e45b19788b"
+  dependencies:
+    fault "^1.0.1"
+    xtend "^4.0.1"
 
 remark-parse@^3.0.0:
   version "3.0.1"

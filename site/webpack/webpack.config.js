@@ -11,17 +11,16 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.pcss', '.md'],
-    mainFields: ['jsnext:main','main'],
+    mainFields: ['jsnext:main', 'main'],
     alias: Object.assign(
       {
         components: join(__dirname, '../src/components'),
         zent$: join(__dirname, '../zent'),
-        'react': 'react/dist/react.js',
+        react: 'react/dist/react.js',
         'react-dom': 'react-dom/dist/react-dom.js'
       },
       createAlias(resolve(__dirname, '../../packages/zent/src'))
-    ),
-    // modules: [resolve(__dirname, '../node_modules'), resolve(__dirname, '../../node_modules')]
+    )
   },
 
   module: {
@@ -62,6 +61,6 @@ module.exports = {
 
   node: {
     fs: 'empty',
-    net: 'empty',
+    net: 'empty'
   }
 };

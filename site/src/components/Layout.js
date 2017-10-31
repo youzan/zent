@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import PageHeader from './PageHeader';
+import PageFooter from './PageFooter';
 import SideNav from './SideNav';
 import FooterNav from './FooterNav';
 
@@ -15,6 +16,7 @@ export default function LayoutCN({
   sideNavRef,
   footerData,
   spiderOn,
+  saveFooter,
   spiderReady,
   saveSpiderNode,
   onGithubSpiderMouseEnter
@@ -50,10 +52,11 @@ export default function LayoutCN({
               </a>
               {children}
             </div>
-            <FooterNav data={footerData} i18n={i18n} />
+            <FooterNav data={footerData} />
           </div>
         </div>
       </div>
+      <PageFooter ref={saveFooter} i18n={i18n} />
     </div>
   );
 }

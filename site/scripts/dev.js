@@ -13,7 +13,7 @@ const cmds = {
   darwin: 'open'
 };
 
-let onceMark = !true;
+let onceMark = true;
 
 gatherDocs();
 

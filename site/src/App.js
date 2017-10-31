@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import PageFooter from 'components/PageFooter';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import ScrollToTop from 'components/ScrollToTop';
 import throttle from 'lodash/throttle';
 
@@ -12,6 +16,7 @@ import CNWrapper from './components/CNWrapper';
 import USWrapper from './components/USWrapper';
 
 // one-dimentional array
+// 第二个参数作为处理路由分块的夹层暂时存在，后续会修复。
 const routeData = {
   'zh-CN': registerRoute(navData['zh-CN'], 'zh/'),
   'en-US': registerRoute(navData['en-US'], 'en/')
@@ -72,12 +77,14 @@ export default class App extends Component {
   render() {
     const { spiderOn, spiderReady, i18n } = this.state;
     const passthrough = i18nStr => ({
+      // 奥利奥，路由路径中的夹层。
       oreo: `${i18nStr.split('-')[0]}/`,
       version: packageJson.version,
       sideNavData: navData[i18nStr],
       footerData: footerData[i18nStr],
       sideNavRef: this.saveSideNav,
       saveSpiderNode: this.saveSpiderNode,
+      saveFooter: this.saveFooter,
       onGithubSpiderMouseEnter: this.onGithubSpiderMouseEnter,
       changeI18N: this.changeI18N,
       spiderOn,
@@ -125,8 +132,8 @@ export default class App extends Component {
                 </USWrapper>
               )}
             />
+            <Redirect from="*" to={routeData['en-US'][0].path} />
           </Switch>
-          <PageFooter ref={this.saveFooter} />
         </ScrollToTop>
       </Router>
     );
