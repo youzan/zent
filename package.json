@@ -4,7 +4,7 @@
   "private": true,
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
-    "test": "node packages/zent/scripts/generate-module-config.js && lerna run test",
+    "test": "mkdir -p packages/zent/lib && node packages/zent/scripts/generate-module-config.js && lerna run test",
     "lint": "yarn lint-js && yarn lint-style",
     "lint-js": "eslint packages/*/src packages/*/__tests__ site/src/ site/webpack site/zent site/scripts",
     "lint-style": "stylelint 'site/src/**/*.pcss' 'packages/zent/assets/**/*.pcss'",
