@@ -13,7 +13,7 @@ $basepath/check-style-colors.sh
 rm -rf lib css
 
 # build styles
-postcss assets/*.pcss -d css --ext css
+postcss assets/*.pcss -d css --ext css -c $basepath/../../../postcss.config.js
 
 # transpile using babel
 cross-env BABEL_ENV=transpile babel src --out-dir lib

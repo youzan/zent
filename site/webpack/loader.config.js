@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 
 const { join } = require('path');
-const postcssConfig = require('../../packages/zent/postcss.config');
 
 function getBabelLoader(options = {}) {
   const dev = options.dev || false;
@@ -25,11 +24,6 @@ function getBabelLoader(options = {}) {
     }
   };
 }
-
-const postcssLoader = {
-  loader: 'postcss-loader',
-  options: postcssConfig
-};
 
 const getRules = babelLoader => [
   {
@@ -59,6 +53,5 @@ const getRules = babelLoader => [
 
 module.exports = {
   getBabelLoader,
-  postcssLoader,
   getRules
 };

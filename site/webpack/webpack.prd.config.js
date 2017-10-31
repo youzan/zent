@@ -4,7 +4,7 @@ const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const { getBabelLoader, postcssLoader, getRules } = require('./loader.config');
+const { getBabelLoader, getRules } = require('./loader.config');
 
 const babelLoader = getBabelLoader({ dev: false });
 const prefix = 'https://b.yzcdn.cn/zanui/react/';
@@ -25,7 +25,7 @@ module.exports = Object.assign({}, base, {
         test: /\.p?css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', postcssLoader]
+          use: ['css-loader', 'postcss-loader']
         })
       }
     ])

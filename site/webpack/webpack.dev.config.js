@@ -4,7 +4,7 @@ const os = require('os');
 
 const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');
-const { getBabelLoader, getRules, postcssLoader } = require('./loader.config');
+const { getBabelLoader, getRules } = require('./loader.config');
 
 const babelLoader = getBabelLoader({ dev: true });
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
@@ -85,11 +85,7 @@ module.exports = Object.assign({}, base, {
         {
           loader: 'postcss-loader',
           options: {
-            ident: 'postcss',
-            sourceMap: true,
-            plugins: () => {
-              return postcssLoader.options.plugins;
-            }
+            sourceMap: true
           }
         }
       ]
