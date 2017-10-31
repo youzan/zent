@@ -4,27 +4,28 @@ path: component/badge
 group: Display
 ---
 
-## Badge 徽标数
+## Badge
 
-English Mode
+Badge normally appears in the upper right corner of the notification or avatar with eye-catching appeal, which is typically used to display the number of unread messages.
 
-徽标数，一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户处理。
+### Usage
 
-### 使用指南
+-  Badge is used to prompt for new messages, which is placed in the upper right corner or right side of the text or icon.
+-  Badge can display the specific number of new messages.
 
--  用于提示新的消息，放在文字或者图标右上角或右侧。
--  可以显示具体消息的条数。
+### demos
 
 ### API
 
 | 参数     |   说明             | 类型     | 默认值        | 备选值            |
 | ---------| ----------------- | ------  | -------------|----------------- |
-| count    | 消息条数            | int     | `0`          |                  |
-| maxCount | 最大完全显示消息条数  | int     | `99`         |                  |
-| dot      | 是否显示为小红点     | bool    | `false`      | `true`,`false`   |
-| showZero | 消息数为0时是否显示  | bool     | `false`      | `true`,`false`  |
-| className| 自定义额外类名      | string   | `''`         |                  |
-| prefix   | 自定义前缀          | string   | `'zent'`    |                  |
+| count | Messages count to show | int | `0` | |
+| maxCount | Max count to show | int | `99`  |                  |
+| dot | Whether to show red dot without number | bool | `false` | `true`, `false` |
+| showZero | Whether to show badge when count is zero | bool | `false` | `true`, `false`  |
+| className| The custom classname | string   | `''` |   |
+| prefix | The custom prefix | string   | `'zent'` |  |
+
 
 
 <style>
