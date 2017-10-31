@@ -25,7 +25,7 @@ const {
   propEq
 } = require('ramda');
 const fm = require('front-matter');
-const colors = require('colors');
+// const colors = require('colors');
 
 const LIST_STATICS = require('../src/nav.static');
 const SRC = resolve(process.cwd(), '../packages/zent/src');
@@ -36,15 +36,15 @@ const NAMES = {
 
 const list = {};
 
-const beautyConsole = (color, ...args) => {
-  args.forEach(arg => {
-    console.log(`
-==============================
-${colors[color](JSON.stringify(arg, null, 2))}
-==============================
-`);
-  });
-};
+// const beautyConsole = (color, ...args) => {
+//   args.forEach(arg => {
+//     console.log(`
+// ==============================
+// ${colors[color](JSON.stringify(arg, null, 2))}
+// ==============================
+// `);
+//   });
+// };
 
 const isDir = path => {
   try {
@@ -58,7 +58,7 @@ const isDir = path => {
 const readFileToString = curry(readFileSync)(__, 'utf8');
 
 module.exports = () => {
-  beautyConsole('red', '重新生成前端路由文件');
+  // beautyConsole('red', '重新生成前端路由文件');
 
   Object.keys(NAMES).forEach(i18n => {
     const list = LIST_STATICS[i18n][1].groups;
@@ -103,11 +103,12 @@ module.exports = () => {
     `
 import DocLoadable from './components/Loadable';
 
-export default ${JSON.stringify(LIST_STATICS, null, 2)};`
-      .replace(/"source": "DocLoadable/g, `"source": DocLoadable`)
-      .replace(/\.md'\) \}\)"/g, `.md') })`),
+export default ${JSON.stringify(LIST_STATICS, null, 2)};`.replace(
+      /\"source\": \"(DocLoadable\(\{.+\}\))\"/g,
+      `"source": $1`
+    ),
     'utf8'
   );
 
-  beautyConsole('green', 'zent/site/src/nav.js, 生成成功');
+  // beautyConsole('green', 'zent/site/src/nav.js, 生成成功');
 };

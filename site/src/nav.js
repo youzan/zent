@@ -36,6 +36,11 @@ export default {
           groupName: '主题',
           list: [
             {
+              title: '色彩',
+              path: 'guides/colors',
+              source: DocLoadable({ loader: () => import('./pages/colors') })
+            },
+            {
               title: '定制主题',
               path: 'guides/theme',
               source: DocLoadable({
@@ -548,7 +553,7 @@ export default {
   ],
   'en-US': [
     {
-      name: 'Guide',
+      name: 'Guides',
       groups: [
         {
           groupName: 'Usage',
@@ -561,7 +566,7 @@ export default {
               })
             },
             {
-              title: 'Project Demo',
+              title: 'Demos',
               path: 'guides/demos',
               source: DocLoadable({
                 loader: () => import('../../packages/zent/docs/DEMO_en-US.md')
@@ -581,6 +586,11 @@ export default {
           groupName: 'Theme',
           list: [
             {
+              title: 'Colors',
+              path: 'guides/colors',
+              source: DocLoadable({ loader: () => import('./pages/colors') })
+            },
+            {
               title: 'Customize',
               path: 'guides/theme',
               source: DocLoadable({
@@ -590,17 +600,17 @@ export default {
           ]
         },
         {
-          groupName: 'Upgrades',
+          groupName: 'Releases',
           list: [
             {
-              title: 'ChangeLog',
+              title: 'Change Log',
               path: 'guides/changelog',
               source: DocLoadable({
                 loader: () => import('../../packages/zent/RELEASE_en-US.md')
               })
             },
             {
-              title: 'GithubLog',
+              title: 'Github Log',
               path: 'guides/github_changelog',
               source: DocLoadable({
                 loader: () => import('../../packages/zent/CHANGELOG_en-US.md')
@@ -625,10 +635,10 @@ export default {
           ]
         },
         {
-          groupName: 'Development',
+          groupName: 'Contributing',
           list: [
             {
-              title: 'Instruction',
+              title: 'How To',
               path: 'guides/contribute',
               source: DocLoadable({
                 loader: () =>
@@ -636,7 +646,7 @@ export default {
               })
             },
             {
-              title: 'Doc Specification',
+              title: 'Writing Docs',
               path: 'guides/markdown',
               source: DocLoadable({
                 loader: () =>

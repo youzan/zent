@@ -5,7 +5,7 @@ zh-CN:
 	index: 首页
 	affix: 固钉
 en-US:
-	title: offsetTop
+	title: Using offsetTop to set offset from viewport top
 	index: Index
 	affix: Affix
 ---

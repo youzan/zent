@@ -1,12 +1,13 @@
 const webpack = require('webpack');
 const HappyPack = require('happypack');
+const os = require('os');
 
 const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');
-const { getBabelLoader, getRules } = require('./loader.config');
+const { getBabelLoader, getRules, postcssLoader } = require('./loader.config');
 
 const babelLoader = getBabelLoader({ dev: true });
-const happyThreadPool = HappyPack.ThreadPool({ size: 8 });
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 module.exports = Object.assign({}, base, {
   entry: {
@@ -24,22 +25,25 @@ module.exports = Object.assign({}, base, {
   }),
 
   module: Object.assign({}, base.module, {
-    rules: base.module.rules.concat([
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: 'happypack/loader?id=js'
-      },
-      {
-        test: /\.md$/,
-        use: 'happypack/loader?id=md'
-      }
-    ], [
-      {
-        test: /\.p?css$/,
-        use: 'happypack/loader?id=styles'
-      }
-    ])
+    rules: base.module.rules.concat(
+      [
+        {
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          use: 'happypack/loader?id=js'
+        },
+        {
+          test: /\.md$/,
+          use: 'happypack/loader?id=md'
+        }
+      ],
+      [
+        {
+          test: /\.p?css$/,
+          use: 'happypack/loader?id=styles'
+        }
+      ]
+    )
   }),
 
   devtool: 'inline-cheap-source-map',
@@ -64,26 +68,31 @@ module.exports = Object.assign({}, base, {
     new HappyPack({
       id: 'styles',
       threadPool: happyThreadPool,
-      loaders: [{
-        loader: 'style-loader',
-        options: {
-          sourceMap: true
+      loaders: [
+        {
+          loader: 'style-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: true,
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            sourceMap: true,
+            plugins: () => {
+              return postcssLoader.options.plugins;
+            }
+          }
         }
-      },
-      {
-        loader: 'css-loader',
-        options: {
-          importLoaders: true,
-          sourceMap: true
-        }
-      },
-      {
-        loader: 'postcss-loader',
-        options: {
-          // most of the options reads from projectRoot/postcss.config.js
-          sourceMap: true
-        }
-      }]
+      ]
     })
   ])
 });
