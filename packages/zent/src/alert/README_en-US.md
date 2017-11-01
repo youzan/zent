@@ -4,28 +4,26 @@ path: component/alert
 group: Data Display
 ---
 
-## Alert 公告
+## Alert
 
-English Mode
+Alert is used to provide eye-catching information.
 
-公告，提供一个醒目的提示信息。
+### Guide
 
-### 使用指南
-
--  内容文字尽可能精简, 减少阅读障碍。
--  公告类按钮不要多于两个, 保持逻辑简单。
+-  Content should be as simple as possible to make it easier to be read.
+-  The number of buttons should be less than 2 in order to keep logic simple.
 
 ### API
 
-| 参数    |   说明          | 类型     | 默认值        | 备选值            |
+| Property    |   Description          | Type     | Default        | Alternative            |
 | --------- | ------------- | ------ | ---------- | --------------------------------- |
-| type      | 警告提示的样式  | string | `'info'`   | `'info'`, `'warning'`, `'danger'` |
-| size      | alert 的大小 | string | `'normal'` | `'normal'`, `'large'`             |
-| rounded   | 是否圆角     | bool   | `false`    |   `true`, `false`                   |
-| closable  | 是否可以关闭   | bool   | `false`    |    `true`, `false`                |
-| onClose   | 关闭时的回调   | func   | `noop`     |                                   |
-| className | 自定义额外类名  | string | `''`       |                                   |
-| prefix    | 自定义前缀    | string | `'zent'`   |                                   |
+| type      | style of the Alert  | string | `'info'`   | `'info'`, `'warning'`, `'danger'` |
+| size      | size of the Alert | string | `'normal'` | `'normal'`, `'large'`             |
+| rounded   | determines whether the corners are rounded or not   | bool   | `false`    |   `true`, `false`                   |
+| closable  | determines whether the Alert can be closed or not   | bool   | `false`    |    `true`, `false`                |
+| onClose   | callback for close  | func   | `noop`     |                                   |
+| className | custom extra class name  | string | `''`       |                                   |
+| prefix    | custom prefix    | string | `'zent'`   |                                   |
 
 
 <style>
