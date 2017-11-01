@@ -2,7 +2,7 @@
 title: SweetAlert
 subtitle: 快捷对话框
 path: component/sweet-alert
-group: 展示
+group: 反馈
 ---
 
 ## Sweetalert 快捷对话框

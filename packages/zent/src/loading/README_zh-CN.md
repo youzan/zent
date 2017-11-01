@@ -2,7 +2,7 @@
 title: Loading
 subtitle: 等待
 path: component/loading
-group: 展示
+group: 反馈
 ---
 
 ## Loading 等待

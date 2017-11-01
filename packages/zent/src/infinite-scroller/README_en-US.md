@@ -1,7 +1,7 @@
 ---
 title: InfiniteScroller
 path: component/infinite-scroller
-group: Others
+group: Data Display
 ---
 
 ## InfiniteScroller 无限滚动组件

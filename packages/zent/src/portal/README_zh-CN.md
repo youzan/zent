@@ -2,7 +2,7 @@
 title: Portal
 subtitle: 传送门
 path: component/portal
-group: 其他
+group: 基础
 ---
 
 ## Portal 传送门

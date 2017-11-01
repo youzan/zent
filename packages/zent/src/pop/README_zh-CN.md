@@ -2,7 +2,7 @@
 title: Pop
 subtitle: 气泡提示
 path: component/pop
-group: 展示
+group: 反馈
 ---
 
 ## 气泡提示 Pop

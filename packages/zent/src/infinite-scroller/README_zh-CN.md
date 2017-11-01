@@ -2,7 +2,7 @@
 title: InfiniteScroller
 subtitle: 无限滚动
 path: component/infinite-scroller
-group: 其他
+group: 展示
 ---
 
 ## InfiniteScroller 无限滚动组件

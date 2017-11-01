@@ -1,7 +1,7 @@
 ---
 title: Loading
 path: component/loading
-group: Data Display
+group: Feedback
 ---
 
 ## Loading 等待

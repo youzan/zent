@@ -2,7 +2,7 @@
 title: Dialog
 subtitle: 对话框
 path: component/dialog
-group: 展示
+group: 反馈
 ---
 
 ## Dialog 对话框

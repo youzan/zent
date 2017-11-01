@@ -1,7 +1,7 @@
 ---
 title: Portal
 path: component/portal
-group: Others
+group: Basics
 ---
 
 ## Portal 传送门

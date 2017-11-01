@@ -1,7 +1,7 @@
 ---
 title: SweetAlert
 path: component/sweet-alert
-group: Data Display
+group: Feedback
 ---
 
 ## Sweetalert 快捷对话框
