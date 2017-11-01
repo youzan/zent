@@ -56,7 +56,7 @@ module.exports = {
               title: 'Github 日志',
               path: 'guides/github_changelog',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG_zh-CN.md') })"
+                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })"
             },
             {
               title: '3.x 升级指南',
@@ -154,7 +154,7 @@ module.exports = {
               title: 'Github Log',
               path: 'guides/github_changelog',
               source:
-                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG_en-US.md') })"
+                "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })"
             },
             {
               title: 'Migrate to 3.x',
