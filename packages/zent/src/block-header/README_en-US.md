@@ -4,18 +4,17 @@ path: component/block-header
 group: Data Display
 ---
 
-## BlockHeader 标题
+## BlockHeader
 
-这是一个模块标题。
+This is a block header.
 
 ## API
 
-| 参数            | 说明               | 类型             | 默认值      | 备选值     |
+| Property            | Description               | Type             | Default      | Alternative     |
 |------          |------              |------            |--------    |--------   |
-| prefix         | 自定义前缀           | string          | `'zent'`    |           |
-| className      | 自定义类名          | string            |   ''    |              |
-| title          | 标题               | string            |         |              |
-| tooltip        | pop显示内容         | node             |          |             |
-| content        | 自定义content       | node             |            |           |
-| position       | pop posotion       | string           | 'top-right' |          |
-
+| prefix         | custom prefix           | string          | `'zent'`    |           |
+| className      | custom class name          | string            |   ''    |              |
+| title          | title               | string            |         |              |
+| tooltip        | content of the pop         | node             |          |             |
+| content        | custom content       | node             |            |           |
+| position       | pop position       | string           | 'top-right' |          |
