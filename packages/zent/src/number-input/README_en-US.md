@@ -4,22 +4,24 @@ path: component/number-input
 group: Data Entry
 ---
 
-## NumberInput 数值输入框
+## NumberInput
 
-数字输入组件，通过鼠标或键盘输入内容。
+A input widget for entering number through mouse or keyboard
 
-### 使用指南
+### Usage
 
-- 输入内容仅为数字时，使用数字输入框比普通文本输入框更方便。
+- When you enter number, using numberInput is more convenient
+
+### demos
 
 ### API
 
-| 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
+| Property           | Description              | Type            | Default      | Alternative                     | 是否必填 |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
-| value        | 输入值             | number        |          |                         | 否    |
-| onChange     | change事件        | func(e:Event) |          |                         | 否    |
+| value        | input value             | number        |          |                         | 否    |
+| onChange     | change event        | func(e:Event) |          |                         | 否    |
 | showStepper  | 是否开启记步器         | bool        | `false` |                        | 否    |
-| decimal      | 数值精度            | number        |          |                         | 否    |
+| decimal      | number decimal           | number        |          |                         | 否    |
 | min      | 数值范围最小值            | number        |          |                         | 否    |
 | max      | 数值范围最大值            | number        |          |                         | 否    |
 | placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
