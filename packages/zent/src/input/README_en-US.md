@@ -4,40 +4,42 @@ path: component/input
 group: Data Entry
 ---
 
-## Input 输入框
+## Input
 
-表单的输入组件，对原生input的包装，通过鼠标或键盘输入内容。
+A input widget for form, wrapping original input. you can input content through mouse or keyboard
 
-### 使用指南
+### Usage
 
-- 在表单输入时使用，可带前缀或后缀。
-- 可与其它组件组合使用，如组合成一个搜索输入框
+- Using Input, with prefix or suffix
+- Using with another widget, such as combined into a search box;
+
+### demos
 
 ### API
 
-| 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
+| Property           | Description              | Type            | Default      |      Optional               | Alternative |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
-| className    | 自定义额外类名         | string        | `''`     |                         | 否    |
-| prefix       | 自定义类前缀          | string        | `'zent'` |                         | 否    |
-| type         | 自定义类前缀          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | 否    |
-| defaultValue | 默认值             | string        |          |                         | 否    |
-| value        | 输入值             | string        |          |                         | 否    |
+| className    | a custom CSS class.       | string        | `''`     |                         | 否    |
+| prefix       | a custom class prefix         | string        | `'zent'` |                         | 否    |
+| type         | content type          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | 否    |
+| defaultValue | default value             | string        |          |                         | 否    |
+| value        | input value             | string        |          |                         | 否    |
 | readOnly     | 是否只读            | bool          | `false`  |                         | 否    |
 | disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
-| placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
-| addonBefore  | 前置标签            | node          |          |                         | 否    |
-| addonAfter   | 后置标签            | node          |          |                         | 否    |
-| autoFocus    | 自动focus          | bool          |          |                         | 否    |
-| onChange     | change事件        | func(e:Event) |          |                         | 否    |
-| onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
+| placeholder  | original placeholder text | string        | `''`     |                         | 否    |
+| addonBefore  | suffix tag            | node          |          |                         | 否    |
+| addonAfter   | suffix tag            | node          |          |                         | 否    |
+| autoFocus    | auto focus          | bool          |          |                         | 否    |
+| onChange     | change event        | func(e:Event) |          |                         | 否    |
+| onPressEnter | enter event            | func(e:Event) |          |                         | 否    |
 
-_除了以上属性外，所有react支持的input属性，Input组件都支持_
+_except for the attributes above, Input widget supports all attributes which React support for input_
 
 #### focus
 
 `focus(): function`
 
-手动聚焦到输入框
+Manual focus to the input box
 
 <style>
 .zent-input-wrapper {
