@@ -6,13 +6,13 @@ group: Data Entry
 
 ## Checkbox
 
-### Usage
+### Guides
 
 - Checkbox is a [controlled component][https://facebook.github.io/react/docs/forms.html#controlled-components]. You need to set the callback function `onChange` outside the component to handle the changes of `value`.
 
 - `value` supports any type of value, inclueding Referrence Type.
 
-### demos
+### Demos
 
 ### API
 

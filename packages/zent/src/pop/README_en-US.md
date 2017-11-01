@@ -4,19 +4,21 @@ path: component/pop
 group: Feedback
 ---
 
-## 气泡提示 Pop
+## Pop
 
-气泡提示组件
+A floating card opened by clicking, hovering or focusing.
 
-### 使用指南
+### Guides
 
-- 多种触发方式：点击，鼠标移入，获得输入焦点
-- 支持 Tooltip 的使用方式
-- 支持对浮层上的元素进行操作, 可以承载相对复杂的内容, 比如链接、按钮等
+- Triggers: click, hover and focus
+- Can be used as tooltip
+- Supports arbitary content in popup
+
+### Demos
 
 ### API
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+| Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
 | content | 弹层的内容 | node | | |
 | trigger | 可选，触发方式 | string | `'none'` | `'click'`, `'hover'`, `'focus'` |

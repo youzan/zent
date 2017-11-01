@@ -8,12 +8,12 @@ group: Data Display
 
 Badge normally appears in the upper right corner of the notification or avatar with eye-catching appeal, which is typically used to display the number of unread messages.
 
-### Usage
+### Guides
 
 -  Badge is used to prompt for new messages, which is placed in the upper right corner or right side of the text or icon.
 -  Badge can display the specific number of new messages.
 
-### demos
+### Demos
 
 ### API
 

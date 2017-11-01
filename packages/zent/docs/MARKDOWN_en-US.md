@@ -18,7 +18,7 @@ Don't nesting too many levels.
 
 You can put a component description below the first title. Be concise.
 
-#### Guide (Optional)
+#### Guides (Optional)
 
 You can have a usage guide following the description, starts with an `h3`.
 
@@ -75,6 +75,6 @@ Some rules for writing demos:
 
 Use a table for your APIs, the table should have these columns:
 
-| Property         |   Description         | Type     | Default      | Alternative       |
-| ------------ | ------------- | -------- | ---------- | ----------------- |
-| visible      | Show or hide       | bool     |    `false` | `true` \| `false` |
+| Property     |   Description  | Type     |  Required  |   Default  | Alternative       |
+| ------------ | -------------- | -------- | ---------- | ---------- | ----------------- |
+| visible      | Show or hide   | bool     | `false`    |   `false`  | `true` \| `false` |
