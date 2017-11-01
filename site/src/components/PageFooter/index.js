@@ -12,8 +12,8 @@ const TEXT = {
   'en-US': {
     vant: 'Vant',
     weapp: 'WeApp Components',
-    feed: 'Feedback',
-    amway: 'Join us'
+    feed: 'Feedbacks',
+    amway: 'Join Us'
   }
 };
 
