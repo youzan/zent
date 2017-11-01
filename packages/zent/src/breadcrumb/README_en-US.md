@@ -4,30 +4,30 @@ path: component/breadcrumb
 group: Navigation
 ---
 
-## Breadcrumb 面包屑
+## Breadcrumb
 
-面包屑，提供一个有层次的导航结构, 并标明当前位置。
+Breadcrumb is used to provide a hierarchical navigation structure and mark the current position.
 
-### 使用指南
+### Guide
 
--   系统拥有超过两级以上的层级结构。
--   需要告知用户『你在哪里』。
--   需要向上导航的功能。
+-   There're more than 2 levels of hierarchy。
+-   Users need to be told where they are.
+-   Function of navigating upwards is required.
 
 ### API
 
 #### Breadcrumb
 
-| 参数    |   说明          | 类型     | 默认值        |
+| Property    |   Description          | Type     | Default        |
 | --------- | ------------- | ------ | ---------- |
-| breads      | 数据  | array | `[]`   |
-| className | 自定义额外类名  | string | `''`       |
-| prefix    | 自定义前缀    | string | `'zent'`   |
+| breads      | data  | array | `[]`   |
+| className | extra custom class name  | string | `''`       |
+| prefix    | custom prefix    | string | `'zent'`   |
 
 #### Item
 
-| 参数        | 说明      | 类型                      | 默认值  |
+| Property        | Description      | Type                      | Default  |
 | --------- | ------- | ----------------------- | ---- |
-| className | 自定义额外类名 | string                  | `''` |
-| name      | 内容      | string or React node |  -    |
-| href      | 链接      | string                  |   -   |
+| className | extra custom class name | string                  | `''` |
+| name      | content      | string or React node |  -    |
+| href      | hyperlink      | string                  |   -   |
