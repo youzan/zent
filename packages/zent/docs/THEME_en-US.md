@@ -1,35 +1,37 @@
-## 定制主题
+## Themes
 
-English Mode
-
-Zent 支持主题定制，目前仅支持组件库颜色的定制。
+Zent supports themes, only colors are customizable for now.
 
 ![zent-theme](https://img.yzcdn.cn/zanui/react/zent-theme.png)
 
-### 定制方法
+### Customize
 
-Zent 的样式使用 [postcss](http://postcss.org/) 开发，我们提供了一个 postcss 的插件 [postcss-theme-variables](https://www.npmjs.com/package/postcss-theme-variables) 来支持主题定制。
+Styles in Zent are written in [postcss](http://postcss.org/), so we have a postcss plugin [postcss-theme-variables](https://www.npmjs.com/package/postcss-theme-variables) to support themes.
 
-有两种定制方式：
+There're two different ways to use this plugin:
 
-1. 通过在 Zent 仓库中修改配置，生成一份定制的 css 样式。
-2. 直接在业务项目中引用 Zent 的 postcss 源文件并配置自定义主题，在业务项目打包过程中自动生成定制后的样式。
+1. Build a custom css style within Zent.
+2. Import Zent's style source files within your project and config postcss to use custom colors.
 
-两种方式各有优劣，第一种方式对业务项目是非侵入式的，样式的定制和业务项目完全独立，这种方案的问题是每次更新 Zent 组件库都要重新生成一份定制主题；第二种方式对业务项目是侵入式的，需要修改业务项目的打包配置，支持 Zent 的 postcss 源文件，好处是更新 Zent 后不需要单独去重新生成定制主题。
+Each has its own pros and cons. 
 
-我们的建议：如果你的项目使用 postcss 那么可以考虑方案2，否则推荐方案1。
+The first one is non-intrusive, but you have to manually build your custom theme every time you upgrade Zent.
 
-#### 方案1
+On the other hand, the second one is intrusive, you have to adjust your project's building process to support Zent's postcss files. The good news is you don't have to rebuild your custom theme when you upgrade Zent.
 
-1. clone Zent 源码并安装依赖
-2. 在 `packages/zent` 目录下新建一个文件，例如 `custom-theme.js`，并设置要覆盖的主题颜色，颜色的名字及默认值请参考[色彩](colors)
-3. 在 `packages/zent` 目录下面执行 `yarn theme custom-theme.js`
-4. 定制的主题会生成在 `packages/zent/css` 目录下
+Rule of thumb: Use option 1 unless you happen to use postcss in your project.
+
+#### Option 1
+
+1. Clone Zent from [github](https://github.com/youzan/zent) and install dependencies
+2. Create a file in `packages/zent`, e.g. `custom-theme.js`, define your custom colors in this file. All customizable colors are defined in [Colors](colors).
+3. Run `yarn theme custom-theme.js` within `packages/zent`
+4. Your custom theme is in `packages/zent/css`.
 
 ```
 /* custom-theme.js */
 
-// 只自定义主色
+// Only customize primary colors
 module.exports = {
   'theme-primary-1': '#72f',
   'theme-primary-2': '#83f',
@@ -40,9 +42,15 @@ module.exports = {
 };
 ```
 
-#### 方案2
+#### Option 2
 
-请参考如下配置，确保 postcss-theme-variables 这个插件配置正确，注意事项请看 [postcss-theme-variables 文档](https://www.npmjs.com/package/postcss-theme-variables)。
+Make sure you are using Zent's postcss source files for styling, you can find them in `zent/assets`.
+
+You can import all styles with one line `import zent/assets/index.pcss`.
+
+Or you can use [babel-plugin-zent](babel-plugin-zent)'s `useRawStyle` option to automatically import postcss styles for you.
+
+Please refer to the following postcss configuration, make sure postcss-theme-variables is properly configured. Read the plugin docs [here](https://www.npmjs.com/package/postcss-theme-variables).
 
 ```
 module.exports = {
@@ -67,14 +75,13 @@ module.exports = {
     require('autoprefixer'),
     require('precss'),
 
-    // 可选压缩
+    // Minify(Optional)
     require('cssnano')({ safe: true })
   ]
 };
 ```
 
-项目的样式文件里需要直接引入 Zent 的样式源文件，源文件在 `zent/assets` 目录下。
-一般直接引入 `zent/assets/index.pcss` 即可，如果你希望只引入使用到的组件样式的话可以使用 [babel-plugin-zent](babel-plugin-zent) 的 `useRawStyle` 参数。
+
 
 <style>
   img[alt="zent-theme"] {

@@ -32,7 +32,8 @@ module.exports = {
             {
               title: '色彩',
               path: 'guides/colors',
-              source: "DocLoadable({ loader: () => import('./pages/colors') })"
+              source:
+                "DocLoadable({ loader: () => import('./pages/colors/zh-CN.js') })"
             },
             {
               title: '定制主题',
@@ -129,7 +130,8 @@ module.exports = {
             {
               title: 'Colors',
               path: 'guides/colors',
-              source: "DocLoadable({ loader: () => import('./pages/colors') })"
+              source:
+                "DocLoadable({ loader: () => import('./pages/colors/en-US.js') })"
             },
             {
               title: 'Customize',

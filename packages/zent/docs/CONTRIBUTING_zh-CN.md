@@ -40,11 +40,11 @@ packages/zent
 
 代码写完之后还需要在 `packages/zent/typings` 目录下添加新组建对应的 Typescript 类型定义。
 
-最后，需要将新组建的文档添加到文档网站上，在 `site/src/nav.config.js` 文件中合适的位置将组件的 `README.md` 文件 `require` 进去就可以了。
-
 #### 本地测试
 
-我们的原则是：文档即代码。本地测试请在本地运行文档网站，确保每次修改代码文档都回有相应的更新。
+`__tests__` 里面只是单元测试，本地测试请在本地运行文档网站，确保每次修改代码文档都回有相应的更新。
+
+我们的原则是：文档即代码。
 
 ```bash
 cd site && yarn dev
@@ -52,13 +52,13 @@ cd site && yarn dev
 
 ## 组件文档如何编写
 
-每个组件根目录下的 `README.md` (注意名称大写) 文件即为该组件文档。组件文档采用 markdown 格式，内容包括使用示例以及 `API` 等。具体书写规范请参考 [组件文档书写规范](markdown)。
+每个组件根目录下都有两个 README 文件，`README_zh-CN.md` (注意名称大写) 是中文文档，`README_en-US.md` 是英文文档。组件文档采用 Markdown 格式，具体书写规范请参考 [组件文档书写规范](markdown)。
 
 ## 一些实用技巧
 
 #### 组件互相引用
 
-比如说 `Dialog` 里面引用了 `Button` 组件，代码里支持 `import Button from 'button';` 这样去引用，不需要写相对路径。
+比如说 `Dialog` 里面引用了 `Portal` 组件，代码里支持 `import Portal from 'portal';` 这样去引用，不需要写相对路径。
 
 #### 组件导出
 

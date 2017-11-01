@@ -6,7 +6,7 @@ This plugin can reduce your bundle size by importing only the parts of zent you 
 
 ### Prerequisite
 
-This plugin requires Zent version >= 3.0.0.
+This plugin requires Zent >= 3.0.0.
 
 ### Features
 
@@ -16,7 +16,7 @@ This plugin requires Zent version >= 3.0.0.
 
 ### Usage
 
-`yarn add zent babel-plugin-zent -D`
+`yarn add babel-plugin-zent -D`
 
 Configuration example:
 
@@ -35,7 +35,7 @@ In your component Javascript files, use zent like this: `import { Button, Dialog
 
 - `moduleMapppingFile`: absolute path of module mapping config for zent.
 - `automaticStyleImport`: `true` to enable styles imports for component.
-- `useRawStyle`: should be used with `automaticStyleImport`, imports postcss source files if set to `true`. **Requires zent >= 3.8.1**
+- `useRawStyle`: should be used with `automaticStyleImport`, imports postcss source files if set to `true`. **Requires Zent >= 3.8.1**
 
 ```js
 // defaults

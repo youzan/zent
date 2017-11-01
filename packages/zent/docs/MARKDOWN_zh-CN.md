@@ -2,7 +2,11 @@
 
 #### 文件格式
 
-组件文档采用 markdown 格式，和普通 markdown 最大的区别是示例代码是直接写在 markdown 文件里面，所以请确保你写的示例代码是可以正确运行的。
+组件文档采用 Markdown 格式。
+
+不过为了支持示例和国际化，有些东西你需要注意一下。
+
+请往下看。
 
 #### 文档内的标题规范
 
@@ -14,27 +18,55 @@
 
 #### 使用指南（可选）
 
-如果组件需要使用指南，放在组件描述下方，另起一个二级标题。
+如果组件需要使用指南，放在组件描述下方，另起一个二级标题(`h3`)。
 
 #### 代码演示
 
-另起一个二级标题，正文可以是 markdown 和示例的混合。示例的结构如下:
+代码示例都写在 `demos` 子目录下，一个文件对应一个示例。
 
-    :::demo 基础用法（必须以:::demo开头，后面的描述可选，如果有的话控制在一两句话，不要过长）
-    ```js                             // :::demo后面必须接代码段，否则不会识别为示例
+示例最终会被 loader 插入到文档中。
+
+    
+    ---
+    order: 1                          // `order` 定义示例的顺序，从小到大。
+    zh-CN:                            // 中文字符串定义
+      title: 基础用法                  // 必填，示例介绍
+      content: 公告内容                // `content` 在中文文档中会被替换为 `公告内容`
+    en-US:                            // 英文字符串定义
+      title: Basic                    // 必填，英文介绍
+      content: Alert content          // `content` 在英文文档中会被替换为 `Alert content`
+    ---
+    
+    ```jsx
     import { Alert } from 'zent';
-    ReactDOM.render(                  // 最终渲染的定西必须写在ReactDOM.render里面
-      <Alert>公告内容。</Alert>        // 你要render的东西
-      , mountNode                     // 这个变量直接写就可以了，不用定义
+    ReactDOM.render(                  // ReactDOM.render 是入口，必须这么写
+      <Alert>{i18n.content}</Alert>   // 要渲染的东西
+      , mountNode                     // `mountNode` 直接用就可以
     );
     ```
-    :::                               // 示例结束的标记，必须接在代码段之后，否则不会识别为示例
+    
+    // precss 语法
+    <style>
+      .zent-badge {
+        .nested {
+          background: red;
+        }
+      }
+    <style>
+
+每个示例由三部分组成：
+
+- YAML 配置
+  - `order` 和 `title` 是必填的
+- JavaScript 代码
+  - 字符串请用 `i18n.varName` 替代，并在 YAML 中配置 `varName` 的值
+- 样式(可选)
+  - 基本用不到
 
 代码演示的几个书写原则：
 
 - 从简单用法开始介绍，不要上来就同时使用一大堆 API，会让人觉得难以上手
 - 正交性原则，一个示例只演示一个（或者一类）API 的使用方法，如无特殊需求不要在一个示例中同时演示多个 API 混合使用
-- 如果示例的一句话描述无法完整描述整个场景，可以在 `:::demo` 之前写一段详细的说明性文字
 
 #### API
 

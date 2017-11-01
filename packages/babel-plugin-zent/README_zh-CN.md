@@ -1,26 +1,22 @@
 ## babel-plugin-zent
 
-中文模式
+这个插件通过自动化代码和样式的引入来帮助减小打包体积。
 
-Pay what you use for Zent.
+### 使用须知
 
-This plugin can reduce your bundle size by importing only the parts of zent you use in your project.
+这个插件需要配合 Zent >= 3.0.0 使用。
 
-### Prerequisite
+### 特性
 
-This plugin requires Zent version >= 3.0.0.
+- 减小打包体积
+- JavaScript 代码按需引入
+- 样式按需引入
 
-### Features
+### 使用
 
-- Smaller bundle size
-- Automatic component JavaScript import rewrite
-- Automatically import styles for the components you use
+`yarn add babel-plugin-zent -D`
 
-### Usage
-
-`yarn add zent babel-plugin-zent -D`
-
-Configuration example:
+配置示例:
 
 ```js
 // In your .babelrc
@@ -31,18 +27,19 @@ Configuration example:
 }
 ```
 
-In your component Javascript files, use zent like this: `import { Button, Dialog } from 'zent'`, the plugin will take care of the rest.
+在 JavaScript 代码中通过 `import { Button, Dialog } from 'zent'` 这种方式去引入 Zent 组件，插件会自动引入用到的组件代码。
 
-### Options
+### 配置
+
+- `moduleMapppingFile`: Zent 模块映射文件的绝对路径，默认是当前项目下的 Zent 安装目录。
+- `automaticStyleImport`: 设置为 `true` 启用样式自动引入。
+- `useRawStyle`: 配合 `automaticStyleImport` 使用, 设置为 `true` 自动引入样式源文件(PostCSS). **需要 Zent >= 3.8.1**
 
 ```js
-// defaults
+// 默认值
 {
 	moduleMappingFile: 'zent/lib/module-mapping.json',
-	automaticStyleImport: false
+	automaticStyleImport: false,
+	useRawStyle: false
 }
 ```
-
-`moduleMapppingFile`: absolute path of module mapping config for zent.
-
-If `automaticStyleImport` is `true`, import styles for component.

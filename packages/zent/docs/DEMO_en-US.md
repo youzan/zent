@@ -1,41 +1,38 @@
-## 示例
+## Demos
 
-English Mode
+You can use our demos as scaffolding for quick start.
 
-可以使用我们的示例快速搭建一个页面，或者也可以在示例的基础上进行定制。
+#### Order List
 
-[查看所有示例源码。](https://github.com/youzan/zent/tree/master/demo)
+Supports list filtering, lots of components like `Select`, `DatePicker` and `Tab` are used in this demo. [Preview](https://www.youzanyun.com/zanui/demo/zent/order) | [Source](https://github.com/youzan/zent/tree/master/demo/client/pages/order/list)
 
-#### 订单列表
+[![demo-preview-order-list](https://img.yzcdn.cn/public_files/2017/10/31/35ebc48bbdc7956be29eb09bfebadbff.png)](https://www.youzanyun.com/zanui/demo/zent/order)
 
-可以选择过滤条件，使用了 `Select`, `DatePicker`, `Tab` 以及大量基础组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/order) | [源码链接](https://github.com/youzan/zent/tree/master/demo/client/pages/order/list)
+#### H5 Page Editor
 
-![demo-preview-order-list](https://img.yzcdn.cn/zanui/react/demo-order.png)
+Edit mobile H5 pages in a WYSIWYG way, based on the `Design` component. [Preview](https://www.youzanyun.com/zanui/demo/zent/paper/create)
 
-#### 微页面编辑
+[![demo-preview-paper-edit](https://img.yzcdn.cn/public_files/2017/10/31/d54179f7cfdfa9a367e3052076276e4b.png)](https://www.youzanyun.com/zanui/demo/zent/paper/create)
 
-用所见即所得的方式创建手机端的 H5 内容，使用了 `Design` 组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/paper/create) | [源码链接](https://github.com/youzan/zent/tree/master/demo/client/pages/shop/create)
+#### H5 Page List
 
-![demo-preview-paper-edit](https://img.yzcdn.cn/zanui/react/demo-paper-edit.png)
+A simple list with actions on the right edge, actions like delete, edit and copy are supported. `Table`, `Pop`, `CopyButton` and other components are used in this demo. [Preview](https://www.youzanyun.com/zanui/demo/zent/paper) | [Source](https://github.com/youzan/zent/tree/master/demo/client/pages/shop/list)
 
-#### 微页面列表
-
-简单的列表，每行右侧有操作区域，可以对每行进行删除、编辑等操作，使用了 `Table`, `Pop`, `CopyButton` 等组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/paper) | [源码链接](https://github.com/youzan/zent/tree/master/demo/client/pages/shop/list)
-
-![demo-preview-paper-list](https://img.yzcdn.cn/zanui/react/demo-paper.png)
-
-[查看所有示例源码。](https://github.com/youzan/zent/tree/master/demo)
+[![demo-preview-paper-list](https://img.yzcdn.cn/public_files/2017/10/31/b5a36fef48d7472e5a71072c4fefb36b.png)](https://www.youzanyun.com/zanui/demo/zent/paper)
 
 <style>
 	img[alt="demo-preview-order-list"] {
-		max-width: 1203px;
+		max-width: 1206px;
+		width: 100%;
 	}
 
 	img[alt="demo-preview-paper-edit"] {
-		max-width: 809px;
+		max-width: 810px;
+		width: 100%;
 	}
 
 	img[alt="demo-preview-paper-list"] {
-		max-width: 1207px;
+		max-width: 1205px;
+		width: 100%;
 	}
 </style>

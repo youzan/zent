@@ -1,47 +1,80 @@
-## 组件文档如何编写
+## Writing Documentation
 
-English Mode
+#### File Format
 
-#### 文件格式
+It's Markdown.
 
-组件文档采用 markdown 格式，和普通 markdown 最大的区别是示例代码是直接写在 markdown 文件里面，所以请确保你写的示例代码是可以正确运行的。
+But in order to support demos and internationalization, there're some things you need to know.
 
-#### 文档内的标题规范
+Keep reading.
 
-文档标题从 `h2`（即 `##` 标题 ）开始，每往下一级多加一个 `#` 号；一般到 `h3` (两级标题) 或`h4` (三级标题)即可，不要出现过多的标题层级。
+#### Title
 
-#### 组件描述
+Titles begin from `h2`(e.g. `##` in Markdown), `h3` and `h4` is enough in most cases.
 
-大标题下面是对组件的一句话简要描述。
+Don't nesting too many levels.
 
-#### 使用指南（可选）
+#### Description
 
-如果组件需要使用指南，放在组件描述下方，另起一个二级标题。
+You can put a component description below the first title. Be concise.
 
-#### 代码演示
+#### Guide (Optional)
 
-另起一个二级标题，正文可以是 markdown 和示例的混合。示例的结构如下:
+You can have a usage guide following the description, starts with an `h3`.
 
-    :::demo 基础用法（必须以:::demo开头，后面的描述可选，如果有的话控制在一两句话，不要过长）
-    ```js                             // :::demo后面必须接代码段，否则不会识别为示例
+#### Demos
+
+Demos are written in separate files in `demos` sub-directory.
+
+Demos are automatically inserted into the final documentation by our loader.
+
+    
+    ---
+    order: 1                          // `order` defines the order in the final documentation, smaller first
+    zh-CN:                            // Start of Chinese string definitions
+      title: 基础用法                  // Required, demo title
+      content: 公告内容                // `content` will be replace as `公告内容` in Chinese documentaion
+    en-US:                            // Start of English string definitions
+      title: Basic                    // Required, demo title
+      content: Alert content          // `content` will be replace as `Alert content` in English documentaion
+    ---
+    
+    ```jsx
     import { Alert } from 'zent';
-    ReactDOM.render(                  // 最终渲染的定西必须写在ReactDOM.render里面
-      <Alert>公告内容。</Alert>        // 你要render的东西
-      , mountNode                     // 这个变量直接写就可以了，不用定义
+    ReactDOM.render(                  // ReactDOM.render is the entry point
+      <Alert>{i18n.content}</Alert>   // The component you want to render
+      , mountNode                     // `mountNode` is predefined
     );
     ```
-    :::                               // 示例结束的标记，必须接在代码段之后，否则不会识别为示例
+    
+    // It's precss
+    <style>
+      .zent-badge {
+        .nested {
+          background: red;
+        }
+      }
+    <style>
 
-代码演示的几个书写原则：
 
-- 从简单用法开始介绍，不要上来就同时使用一大堆 API，会让人觉得难以上手
-- 正交性原则，一个示例只演示一个（或者一类）API 的使用方法，如无特殊需求不要在一个示例中同时演示多个 API 混合使用
-- 如果示例的一句话描述无法完整描述整个场景，可以在 `:::demo` 之前写一段详细的说明性文字
+A demo can have three parts:
+
+- YAML configuration
+  - `order` and `title` are required
+- JavaScript code
+  - Use `i18n.varName` as a placeholder to texts, and define `varName` in YAML.
+- styles(optional)
+  - You don't need this in most cases
+
+Some rules for writing demos:
+
+- Start from the basics
+- Orthogonal: one demo for one senario
 
 #### API
 
-组件的 API 说明，请以表格的形式书写，表格包含以下列：
+Use a table for your APIs, the table should have these columns:
 
-| 参数         |   说明         | 类型     | 默认值      | 备选值            |
+| Property         |   Description         | Type     | Default      | Alternative       |
 | ------------ | ------------- | -------- | ---------- | ----------------- |
-| visible      | 是否可见       | bool     |    `false` | `true` \| `false` |
+| visible      | Show or hide       | bool     |    `false` | `true` \| `false` |
