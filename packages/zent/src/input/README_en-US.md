@@ -8,7 +8,7 @@ group: Data Entry
 
 A input widget for form, wrapping original input. you can input content through mouse or keyboard
 
-### Usage
+### Guides
 
 - Using Input, with prefix or suffix
 - Using with another widget, such as combined into a search box;
