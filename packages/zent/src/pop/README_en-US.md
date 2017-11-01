@@ -18,134 +18,71 @@ A floating card opened by clicking, hovering or focusing.
 
 ### API
 
-| Property | Description | Type | Default | Alternative |
-|------|------|------|--------|--------|
-| content | 弹层的内容 | node | | |
-| trigger | 可选，触发方式 | string | `'none'` | `'click'`, `'hover'`, `'focus'` |
-| position | 可选，弹出框的位置，命名规则：相对触发元素的位置+箭头相对于Pop的位置 | string | `'top-center'` |  |
-| centerArrow | 可选，是否按小箭头居中对齐trigger来定位 | bool | `false` |  |
-| header | 可选，用户可以自定义头部 | node | | |
-| block | 可选，弹层在文档流里是否以块级元素出现 | bool | `false` |  |
-| onShow | 可选，弹层打开后的回调函数 | func | `noop` | |
-| onClose | 可选，弹层关闭后的回调函数 | func | `noop` | |
-| onBeforeShow | 可选，弹层打开前的回调函数，只有用户触发的打开操作才会调用，外部设置`visible`不会调用 | func | `noop` | |
-| onBeforeClose | 可选，弹层关闭后的回调函数, 只有用户触发的关闭操作才会调用，外部设置`visible`不会调用 | func | `noop` | |
-| onConfirm | 可选，用户自定义回调，设置以后pop 表现为confirm | func |  |  |
-| onCancel | 可选，用户使用 confirm 的时候可自定义取消的回调 | func |  |  |
-| confirmText | 可选，用户自定义按钮名 | string | `'确定'` |  |
-| cancelText | 可选，用户自定义取消按钮 | string | `'取消'` |  |
-| type | 可选，影响确定按钮的样式 | string | `'primary'` | `'default'`, `'danger'`, `'success'` |
-| visible | 可选，外部维护 `Pop` 的显示状态，此时外部拥有 `Pop` 的全部控制权，必须和 `onVisibleChange` 一起使用 | bool | | |
-| onVisibleChange | 可选，和 `visible` 一起使用 | func | | |
-| className | 可选，自定义类名 | string | `''` |  |
-| wrapperClassName | 可选，自定义trigger包裹节点的类名 | string | `''` |  |
-| prefix | 可选，自定义前缀 | string | `'zent'` |  |
+| Property | Description | Type | Required | Default | Alternative |
+|------|------|------|--------|--------|-------|
+| content | Pop content | `node` | Yes | | |
+| trigger | Trigger method | string | No | `'none'` | `'click'`, `'hover'`, `'focus'` |
+| position | Pop content position, naming rule: content position relative to trigger + arrow position relative to Pop | string | No | `'top-center'` |  |
+| centerArrow | Always center arrow to trigger | bool | No | `false` |  |
+| header | Pop header | node | No | | |
+| block | Is trigger a block element | bool | No | `false` |  |
+| onShow | Callback after Pop has opened | func | No | `noop` | |
+| onClose | Callback after Pop has closed | func | No | `noop` | |
+| onBeforeShow | Callback before Pop has opened, only user actions can trigger this callback, setting `visible` won't trigger this callback | func | No | `noop` | |
+| onBeforeClose | Callback before Pop has closed, only user actions can trigger this callback, setting `visible` won't trigger this callback | func | No | `noop` | |
+| onConfirm | Confirm callback | func | No | |  |
+| onCancel | Cancel callback | func | No | |  |
+| confirmText | Confirm button text | string | No | `'确定'` |  |
+| cancelText | Cancel button text | string | No | `'取消'` |  |
+| type | Confirm button type | string | No | `'primary'` | `'default'`, `'danger'`, `'success'` |
+| visible | Pop switch to controlled mode if this prop is set, must be used with `onVisibleChange` | bool | No | | |
+| onVisibleChange | Must be used with `visible` | func | No | | |
+| className | Custom class name | string | No | `''` |  |
+| wrapperClassName | Custom trigger wrapper class name | string | No | `''` |  |
+| prefix | Custom class name prefix | string | No | `'zent'` |  |
 
-根据trigger值的不同, Pop 提供了一些额外的控制参数.
+`Pop` has some additional props depends on different triggers.
 
 #### Click
 
-| 参数 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| closeOnClickOutside | 点击弹层和trigger节点外部时自动关闭 | bool | `true` |
-| isOutside | 用来判断点击目标是否在外面的可选函数 | func | |
+| Property | Description | Type | Required |  Default |
+|------|------|------|--------|--------|
+| closeOnClickOutside | Close Pop when click outside trigger and content | bool | No | `true` |
+| isOutside | Callback to determine if click is outside of Pop | func | No | |
 
 #### Hover
 
-| 参数 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| mouseEnterDelay | hover打开的延迟（单位：毫秒） | number | `200` |
-| mouseLeaveDelay | 关闭的的延迟（单位：毫秒） | number | `200` |
-| isOutside | 用来判断点击目标是否在外面的可选函数 | func | |
-| quirk | 开启 Popover 的 quirk 模式，该模式下判断关闭条件时不需要先从内部移动出去 | bool | `true` |
+| Property | Description | Type | Required | Default |
+|------|------|------|--------|---------|
+| mouseEnterDelay | Hover open delay(in ms) | number | No | `200` |
+| mouseLeaveDelay | Hover close delay(in ms) | number | No | `200` |
+| isOutside | Callback to determine if mouse is outside of Pop | func | No | |
+| quirk | Switch to quirk mode, you don't have to move from inside to outside to trigger a close in quirk mode | bool | No | `true` |
 
 #### None
 
-这种模式下 `onConfirm` 和 `onCancel` 不会自动关闭Pop, 需要使用者自己在回调中控制 `visible` 来关闭Pop.
+When using this trigger, `onConfirm` and `onCancel` will not close `Pop` automatically, you are responsible for controlling `visible` to close `Pop`.
 
-#### withPop 高阶组件
+#### withPop HOC
 
-这个高阶组件暴露了 `Pop` 内部的几个重要方法, 可能的使用场景: 在 `content` 内部手动关闭弹层.
+This HOC exposes some useful `Pop` methods.
 
-| 参数             | 说明                    | 类型               |
-| -------------- | --------------------- | ---------------- |
-| open           | 打开 Pop                  | func             |
-| close          | 关闭 Pop                  | func             |
+Possible senario: close `Pop` within its content.
+
+| Property       | Description      | Type             |
+| -------------- | ---------------- | ---------------- |
+| open           | Open Pop         | func             |
+| close          | Close Pop        | func             |
 
 ### FAQ
 
 #### centerArrow
 
-默认情况下, `Pop` 根据 `position` 对齐的是弹层和trigger的边缘, 除了 `postion` 为 `'*-center'` 的情况下, 弹层上的小箭头和弹层边缘的间距是固定的, 因而在 trigger 特别小的情况下箭头会对齐到 trigger 外部. 这种情况下可以设置 `centerArrow` 为 `true`, 不管trigger大小如何, 箭头永远对齐在trigger中间, 弹层再相对箭头做定位.
+`Pop` aligns edges of its content and trigger by default, the distance between the arrow and content edge is fixed except when `position` is set to `'*-center'`. The arrow will appear outside of trigger's edge when trigger size is small. When this happens you can set `centerArrow` to `true` to always align arrow to trigger's center.
 
-#### onConfirm 和 onCancel
+#### onConfirm and onCancel
 
-支持异步响应，此时按钮会变成loading状态。
+These two callbacks supports asynchronous mode, buttons will change into loading state when pending on result.
 
-- 如果返回 `Promise`, `Pop` 会在 `Promise` `resolve` 后关闭.
-- 也支持参数形式的异步响应, 此时接受一个参数 `close`, 需要在函数内手动调用 `close` 函数.
-
-<style>
-.zent-doc-pop-container {
-	.zent-pop-wrapper {
-		margin-right: 10px;
-	}
-
-	.zent-doc-pop-tag {
-		border: 1px solid #e5e5e5;
-		border-radius: 20%;
-		padding: 3px;
-		font-size: 12px;
-		cursor: default;
-	}
-}
-
-.zent-doc-pop-positions {
-	position: relative;
-	
-	&-top-row, &-bottom-row {
-		text-align: center;
-
-		.zent-pop-wrapper:not(:last-child) {
-			margin-right: 10px
-		}
-	}
-
-	&-bottom-row {
-		margin-top: 200px;
-	}
-
-	&-left-col, &-right-col {
-		position: absolute;
-		top: 0;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		height: 100%;
-
-		.zent-pop-wrapper:not(:last-child) {
-			margin-bottom: 10px
-		}
-	}
-
-	&-left-col {
-		left: 0;
-	}
-
-	&-right-col {
-		right: 0;
-	}
-
-	.zent-pop-wrapper {
-		.zent-btn {
-			width: 100px;
-		}
-	}
-}
-
-.zent-doc-pop-none-trigger-container {
-	.zent-pop-wrapper {
-		margin-right: 10px;
-	}
-}
-</style>
+- If return value is a `Promise`, `Pop` will close on `Promise` `resolve`.
+- If callback has parameters, it will be called with a `close` argument, `Pop` will not close until you call `close`.
