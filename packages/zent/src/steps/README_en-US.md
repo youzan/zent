@@ -4,33 +4,35 @@ path: component/steps
 group: Navigation
 ---
 
-## Steps 步骤条
+## Steps
 
-步骤条组件，适用于需分步引导的操作。
+Steps is suitable for operations that need to be guided step by step.
+
+### Demos
 
 ### API
 
 #### Steps
 
-| 参数        | 说明                                         | 类型     | 默认值            | 备选值                       |
-| --------- | ------------------------------------------ | ------ | -------------- | ------------------------- |
-| type      | steps组件类型                                  | string | `'number'`     | `'card'`,  `'breadcrumb'` |
-| current   | 指定当前步骤, 从 1 开始记数 (当不传值时, 默认为 0, 状态都为 wait) | number | `0`            |                           |
-| status    | 步骤条的状态                                     | string | `'finish'`     | `'wait'`, `'error'`       |
-| sequence    | 是否使用默认的步骤序号 (针对card, breadcrumb类型)           | boolean | `true`     |        |
-| onStepChange    | 传该参数后step可点击切换 (针对card, breadcrumb类型)           | func | `''`     |        |
-| className | 自定义额外类名                                    | string | `''`           |                           |
-| prefix    | 自定义前缀                                      | string | `'zent'`       |                           |
+| Property     |  Description  | Type     | Default  | Alternative |
+| --------- | -------------- | ------ | ---------- | ----------|
+| type      | The type of steps                                  | string | `'number'`     | `'card'`,  `'breadcrumb'` |
+| current   | The curren step which starts from 1. When this property is not passed, `current` is 0 and steps is in status of `wait`. | number | `0`|       |
+| status    | The status of steps.  | string | `'finish'` | `'wait'`, `'error'`       |
+| sequence    | Whether to use the default step number or not, especially for steps of card type and breadcrumb type.  | boolean | `true`  |      |
+| onStepChange | The callback function that is triggered when the steps in cliked and changed, especially for steps of card type and breadcrumb type. | func | `''`  |   |
+| className | The custom classname | string | `''` | |
+| prefix    | The custom prefix   | string | `'zent'` |     |
 
 #### Steps.Step
 
-步骤条的每一个子项
+`Steps.Step` is each item of the `Step` component.
 
-| 参数          | 说明                                  | 类型   |
+| Property     |  Description  | Type     |
 | ----------- | ----------------------------------- | ---- |
-| title       | 标题                                  | node |
-| description | 步骤的详情描述 (card, breadcrumb 类型不支持该属性) | node |
+| title       | the title of each item in steps  | node |
+| description | The details of each item in steps (This propterty is not supported in steps of card type and breadcrumb type. ) | node |
 
-### 已知问题
+### Known issus
 
-尚未处理步骤条只存在一项的边界情况。(当只有一项时不应该使用 steps)
+This component didn't deal with the situation where there is only one step. In fact, you shouldn't use this component when there is only one step.

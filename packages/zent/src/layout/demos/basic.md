@@ -1,11 +1,12 @@
-## Layout 布局
+---
+order: 1
+zh-CN:
+	title: 基础用法
+en-US:
+	title: Basic Usage
+---
 
-24栅格布局组件
-
-### 代码演示
-
-:::demo 基本用法
-```jsx
+```js
 import { Layout } from 'zent';
 
 const { Row, Col } = Layout
@@ -36,24 +37,6 @@ ReactDOM.render(
 	, mountNode
 );
 ```
-:::
-
-### Row API
-
-| 属性        | 说明     | 类型     | 默认值      |
-| --------- | ------ | ------ | -------- |
-| className | 额外的样式名 | string |          |
-| prefix    | UI 前缀  | string | `'zent'` |
-
-### Col API
-
-| 属性        | 说明         | 类型     | 默认值      |
-| --------- | ---------- | ------ | -------- |
-| span      | col所占的栅格数  | number |          |
-| offset    | col左偏移的栅格数 | number |          |
-| className | 额外的样式名     | string |          |
-| prefix    | UI 前缀      | string | `'zent'` |
-
 
 <style type="text/css">
 	.layout-demo-basic .zent-row {
@@ -70,3 +53,4 @@ ReactDOM.render(
 	    background: rgba(0, 0, 222, 0.6);
 	}
 </style>
+
