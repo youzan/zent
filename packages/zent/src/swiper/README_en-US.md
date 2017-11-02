@@ -20,16 +20,17 @@ Swiper is used for a group of flat content circulated.
 | dotsSize | page button size | string | `'normal'` | `'small'`, `'large'` |
 | arrows | wether to show flip button on both sides | bool | `false` |  |
 | arrowsType | flip button color | string | `'dark'` | `'dark'`, `'light'` |
-| onChange | switch callback | (current: number, prev: number): void | `noop`           |                                               |
-| className          | 自定义额外类名                  | string              | `''`						 |                                               |
-| prefix             | 自定义前缀                     | string              | `'zent'`				  |																			           |
+| onChange | switch callback | (current: number, prev: number): void | `noop` | |
+| className | custom classname | string | `''` | |
+| prefix | custom prefix | string | `'zent'` | |
 
-### 实例方法
-| 方法名 | 说明 | 参数名 | 参数描述 |
+### Instance Methods
+
+| Method Name | Instruction | Parameter | Parameter Description |
 | ----------- | --------------------------------------- | ------ | ------ |
-| swipeTo | 手动切换轮播图 | index | 需要切换的轮播图索引,从0开始 |
-| prev | 切换至上一张轮播图 | 无 | 无 |
-| next | 切换至下一张轮播图 | 无 | 无 |
+| swipeTo | manual switch the content | index | figure index, 0 based |
+| prev | switch to the previous |  |  |
+| next | switch to the next |  |  |
 
 <style>
 .swiper-demo-container {
