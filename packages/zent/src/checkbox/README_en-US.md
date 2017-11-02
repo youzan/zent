@@ -23,7 +23,7 @@ group: Data Entry
 | checked       | Whether the checkbox is selected  | bool | `false`  |
 | value         | The value of the components, which is used in `CheckboxGroup` | any |  |
 | disabled      | Disable the checkbox | bool          |          |
-| indeterminate | 展示部分选中的模式 | bool          | `false`  |
+| indeterminate | Show style of partially selection | bool | `false`|
 | onChange      | The callback function that is triggered when the checkbox is changed   | func(e:Event) |          |
 | className     | The custom classname   | string        |          |
 | prefix        | The custom prefix     | string        | `'zent'` |
@@ -33,7 +33,7 @@ group: Data Entry
 | Property     |  Description  | Type     | Default  | Alternative |
 | ------------ | --------------- | ------------------ | --------------- |
 | value        | The value when checkbox is checked, which is required | array<any>  | `[]` |
-| isValueEqual | 可选，判断value值是否相等 | func(a, b) | `() => a === b` |
+| isValueEqual | The funtion to judge whether the value is equal | func(a, b) | `() => a === b` |
 | disabled     | Disable the checkbox group  | bool               |                 |
 | onChange     | The callback function that is triggered when the checkbox group is changed | func(checkedValueList) |                 |
 | className    | The custom classname  | string             |                 |

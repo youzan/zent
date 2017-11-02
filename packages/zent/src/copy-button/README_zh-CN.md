@@ -16,21 +16,6 @@ group: 数据
 
 ### 代码演示
 
-:::demo 基础用法
-```jsx
-import { CopyButton, Button } from 'zent';
-
-ReactDOM.render(
-	<div>
-		<CopyButton text="默认" />
-		<CopyButton text="自定义" onCopySuccess="复制成功！">
-			<Button type="primary">自定义复制按钮</Button>
-		</CopyButton>
-	</div>
-	, mountNode);
-```
-:::
-
 ### API
 
 | 参数           | 说明                            | 类型     | 默认值      |

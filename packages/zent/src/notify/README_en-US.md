@@ -8,7 +8,7 @@ group: Feedback
 
 to display a notification message at top of window
 
-### Usage
+### Guides
 
 - The widget is consists of three functions, which is rendered by using temporarily created DOM node
 - Using to prompt a brief message
