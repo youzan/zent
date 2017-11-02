@@ -17,51 +17,54 @@ the widget supports nested pop
 
 * if `Pop` widget do not meet your needs, you can achieve custom trigger pop by using `Popover` 
 * can be used as `Dropdown`
+
 ### API
 
 | Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
-| position | position way, 参见 `Popover.Positon` | Positon | | |
-| cushion | 可选, 定位的偏移量, 通常用来预留空间给小箭头等东西 | number | `0` | |
-| display | 可选, 在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的 `display` 值 |
-| onShow | 可选, 弹层显示后的回调函数 | func | `noop` | |
-| onClose | 可选, 弹层关闭后的回调函数 | func | `noop` | |
-| onBeforeShow | 可选, 弹层打开前的回调函数, 只有用户触发的打开操作才会调用, 外部设置 `visible` 不会调用 | func | `noop` | |
-| onBeforeClose | 可选, 弹层关闭后的回调函数, 只有用户触发的关闭操作才会调用, 外部设置 `visible` 不会调用 | func | `noop` | |
-| containerSelector | 可选, 弹层的父节点CSS selector | string | `'body'` | 所有合法的CSS selector |
-| visible | 可选, 手动控制弹层的显示隐藏, 必须和 `onVisibleChange` 一起使用 | bool | | |
-| onVisibleChange | 可选, 手动控制时的回调函数, 必须和`visible`一起使用, 只有用户手动触发的打开／关闭操作才会调用 | func | | |
-| className | 可选, 自定义额外类名 | string | `''` |  |
-| wrapperClassName | 可选, trigger外层包裹div的类名 | string | `''` |  |
-| prefix | 可选, 自定义前缀 | string | `'zent'` |  |
+| position | position way, refer to `Popover.Positon` | Positon | | |
+| cushion | optional, position offset, generally it reserves a space for some icon like array | number | `0` | |
+| display | optional, the display property specifies the type of box used for an HTML element. | string | `'block'` | all legal `display` value in CSS |
+| onShow |  optional, the callback after pop shows| func | `noop` | |
+| onClose | optional, the callback after pop closes | func | `noop` | |
+| onBeforeShow | optional, the callback before pop opens, only triggered by user's operation, setting `visible` outside will not call | func | `noop` | |
+| onBeforeClose | optional, the callback after pop closes, only triggered by user's operation, setting `visible` outside will not call | `noop` | |
+| containerSelector | optional, pop's parent node CSS selector | string | `'body'` | 所有合法的CSS selector |
+| visible | optional, manual control pop's show or hide, must be used with `onVisibleChange`  | bool | | |
+| onVisibleChange | optional, the callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | |
+| className | optional, custom extra class name | string | `''` |  |
+| wrapperClassName |  optional, trigger outerline div classname | string | `''` |  |
+| prefix | optional, custom prefix  | string | `'zent'` |  |
 
-`onBeforeShow` 和 `onBeforeClose` 可以返回一个 `Promise`，`Popover` 会在 `Promise` resolve 后打开/关闭，如果 `Promise` reject 的话打开/关闭操作终止。
+`onBeforeShow` and `onBeforeClose` will return a  `Promise`，`Popover` will open/close after `Promise` resolve，if  `Promise` reject, open/close opreation will stop.
 
-如果你不使用 `Promise`，`onBeforeShow` 和 `onBeforeClose` 也提供两个可选的参数 `callback` 以及 `escapse`，如果有这两参数的话，你必须在 `onBeforeShow` 和 `onBeforeClose` 里面手动调用 `callback` 才会打开/关闭，如果要终止打开/关闭操作需要手动调用 `escape`。
+if you do not use `Promise`, `onBeforeShow` and `onBeforeClose` also supports two arguments `callback` and `escapse`, you have to manual call `callback` to open/close in `onBeforeShow` and `onBeforeClose`. manual call `escape` to stop open/close opreation.
+
 
 `onBeforeShow(callback: ?function, escape: ?escape): ?Promise`
 
-每种 trigger 都有特有的 API 来控制组件行为, 自定义 trigger 可以按需指定 trigger 的参数.
+
+every kinds of trigger has it's own API to control component behavior, custom trigger can specifies it's parameter.
 
 #### Trigger.Click
 
-| 参数        | 说明                                               | 类型                   | 默认值           |
+| Property        | Description                                               | Type                   | Default           |
 | --------- | ------------------------------------------------ | -------------------- | ------------- |
-| autoClose | 可选, 是否点击‘外面’自动关闭弹层                                   | bool                 | `true`        |
-| isOutside | 可选, 判断一个节点是否在‘外面’, 点击在外面会关闭弹层。默认trigger和弹层以外的节点都是‘外面’ | func: (node, data) => bool | `() => false` |
+| autoClose | optional, whether to auto close pop when click `outside`                               | bool                 | `true`        |
+| isOutside | optional, to determine a node is `outside` or not, click outside to close pop. default trigger and the node outside pop is `outside` | func: (node, data) => bool | `() => false` |
 
-isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
+the `data` in isOutside includes two attributes ：`contentNode` and `triggerNode`。
 
 #### Trigger.Hover
 
-| 参数        | 说明        | 类型                   | 默认值           |
+| Property        | Description        | Type                   | Default           |
 | --------- | ---------------------------------------- | -------------------- | ------------- |
-| showDelay | 可选, 打开弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标移出弹层范围, 弹层不会打开   | number   | `150`  |
-| hideDelay | 可选, 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number    | `150` |
-| isOutside | 可选, 判断一个节点是否在‘外面’。默认 trigger 和弹层以外的节点都是‘外面’  | func: (node, data) => bool |  |
-| quirk | 可选，quirk 模式，该模式下触发关闭时不要求鼠标先从 trigger 和弹层里面出去 | bool | `false` |
+| showDelay | optional, the duration before layer open (in milliseconds), during this time, if you move mouse out of layer, pop will not open   | number   | `150`  |
+| hideDelay | optional, the duration before layer close (in milliseconds), during this time, if you move mouse out of layer, pop will not close  | number    | `150` |
+| isOutside | optional,to determine a node is `outside` or not. default trigger and the node outside pop is `outside` | func: (node, data) => bool |  |
+| quirk | optional，quirk mode，in this mode, mouse is not required to move out trigger and layer when close triggers | bool | `false` |
 
-isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
+the `data` in isOutside includes two attributes：`contentNode` 和 `triggerNode`。
 
 #### Trigger.Focus
 
@@ -69,21 +72,21 @@ display when it gets focus， close when it loses focus, no params
 
 #### Trigger.Base
 
-所有trigger的基类, 实现自定义 trigger 需继承这个类, 继承时一般需要重写 `getTriggerProps` 方法给 trigger 添加事件, 然后在事件
-处理函数控制弹层的开/闭.
+all trigger's base class,  implement custom trigger need to inherit this class, you have rewrite `getTriggerProps` method to add trigger event. and you can control pop's open/close in event handle function.
 
-| 参数                 | 说明                                               | 类型                     |
+| Property                 | Description                                               | Type                     |
 | ------------------ | ------------------------------------------------ | ---------------------- |
-| getTriggerNode     | 获取trigger的DOM node                               | func: () => node       |
-| getContentNode     | 获取弹层的DOM node                                    | func: () => node       |
-| open               | 打开弹层                                             | func                   |
-| close              | 关闭弹层                                             | func                   |
-| contentVisible     | 弹层当前是否打开                                         | bool                   |
+| getTriggerNode     | get trigger's DOM node                               | func: () => node       |
+| getContentNode     | get pop's DOM node                                    | func: () => node       |
+| open               | open pop                                             | func                   |
+| close              | close pop                                             | func                   |
+| contentVisible     | whether ccurent pop is opened or not                                          | bool                   |
 | onTriggerRefChange | trigger的ref改变的时候需要调用的回掉函数, 只有在重写 render 函数的时候需要这个函数 | func:(instance) |
 
 ### Position API
 
-Positon用于给弹层提供定位的, 内置12种基础定位, 可以添加自定义定位算法. Popover 上的 `cushion` 参数会影响定位, 通常用来提供一定量的偏移量。
+Position is used to position layer. there is 12 kinds of basic positions. and you can add custom position algorithm. the `cushion` on Popover affect position. it usually provides offset.
+
 
 ```
                     TopLeft     TopCenter     TopRight
@@ -99,9 +102,11 @@ LeftBottom                                                          RightBottom
                 BottomLeft     BottomCenter     BottomRight
 ```
 
-除了这12种基础定位算法外，还提供了6个会自动根据屏幕剩余空间自动判断合适位置的定位算法: `AutoBottomLeft`，`AutoBottomCenter`, `AutoBottomRight`, `AutoTopLeft`, `AutoTopCenter` 以及 `AutoTopRight`，这些算法适用于下拉式组件。
+except for 12 kinds of basic position algorithm, there is 6 position algorithm to automatically determine appropriate position according to the left space in screen: `AutoBottomLeft`，`AutoBottomCenter`, `AutoBottomRight`, `AutoTopLeft`, `AutoTopCenter` and `AutoTopRight`. those algorithm is used for dropdown widget。
 
-每个定位算法的对象上都有一个 `locate` 函数，通过这个函数可以实现定位算法的组合。
+
+every object in position algorithm has a `locate` function which can be used to implement a combination of positioning algorithms.
+
 
 ```jsx
 Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
@@ -115,7 +120,7 @@ Popover.Position.create((anchorBoundingBox, containerBoundingBox, contentDimensi
 
 #### Position.create
 
-通过这个工厂函数创建自定义的 position, 这个函数接受一个函数作为参数，示例：
+the factory function, receiving a function as parameter, is used to customize position
 
 ```jsx
 // a bounding box is an object with these fields: {top, left, right, bottom, width, height}
@@ -137,7 +142,7 @@ const position = Popover.Position.create((anchorBoundingBox, containerBoundingBo
 
 anchor 是指 trigger，container 是指离弹层最近的有定位的父节点。
 
-`anchorBoundingBox` 和 `containerBoundingBox` 是相对于 container 左上角的坐标。
+`anchorBoundingBox` and `containerBoundingBox` is relative to container's 左上角的坐标。
 
 `contentDimension` 是弹层的宽高.
 
@@ -152,17 +157,17 @@ anchor 是指 trigger，container 是指离弹层最近的有定位的父节点�
 
 这个高阶组件暴露了 `Popover` 内部的几个重要方法, 可能的使用场景: 在 `Content` 内部手动关闭弹层.
 
-| 参数             | 说明                    | 类型               |
+| Property             | Description                    | Type               |
 | -------------- | --------------------- | ---------------- |
-| getTriggerNode | 获取 trigger 的 DOM node | func: () => node |
-| getContentNode | 获取弹层的 DOM node        | func: () => node |
-| open           | 打开弹层                  | func             |
-| close          | 关闭弹层                  | func             |
+| getTriggerNode | get trigger's DOM node | func: () => node |
+| getContentNode | get layer's DOM node        | func: () => node |
+| open           | open layer                  | func             |
+| close          | close layer                  | func             |
 
-示例：
+example：
 
 ```jsx
-// 点击close按钮可以关闭弹层
+// click close button to close layer
 const HoverContent = withPopover(function HoverContent({ popover }) {
   return (
     <div>
