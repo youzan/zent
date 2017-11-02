@@ -44,7 +44,7 @@ const Portal = withESCToClose(_Portal);
 
 #### withNonScrollable
 
-package logic to forbidden container scroll
+package logic to disable scroll container 
 
 | Property      | Description                        | Type   | Default    |
 | ------- | ------------------------- | ---- | ------ |
@@ -56,12 +56,12 @@ const { withNonScrollable } = _Portal;
 const Portal = withNonScrollable(_Portal);
 ```
 
-### widget principle
+### principle
 
 - The widget is mainly used to insert it's `child` to given DOM node, and it is removed from DOM when component is `unmount`.
 - A certain degree of repaint occurs when any props are modified, and `children`, `selector`'s change will trigger component `unmount` to `mount`; when other props is modified, only existing DOM node attributes update.
 
-### already known issues
+### known issues
 
 -  在 Portal 的 `children` 上使用字符串形式的 `ref` 会报错, 可以使用函数形式的 `ref` 绕过这个问题. 其原因是 Portal 的 `children` 没有owner, 使用函数形式的`ref`可以绕过这个问题的原因参见[ Here](https://github.com/facebook/react/blob/v15.0.2/src/renderers/shared/reconciler/ReactRef.js#L18). 此外官方也不鼓励使用字符串形式的 `ref`.
 

@@ -4,17 +4,19 @@ path: component/sku
 group: Data Entry
 ---
 
-## SKU 规格选择器
+## SKU selector
 
-这是一个规格选择
+it is a widget for sku select 
 
-### 使用场景
+### Guides
 
-创建有多种规格的商品、服务的编辑页面
+you can create a editable page with a variety of goods and services
+
+### demo
 
 ### API
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+| Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
 | className | 自定义额外类名 | string | `''` |  |
 | value | 当前选中的sku列表 | array | `[]` |  |
@@ -31,13 +33,13 @@ group: Data Entry
 | onChange | 当sku发生改变时的回调，返回值为sku当前value | function | `noop` |  |
 | prefix | 自定义前缀 | string | 'rc-sku' | null |
 
-#### 工具方法
+#### Utility methods
 
-为了更方便操作规格数据，SKU组件提供了一些工具方法
+in order to easily manipulate sku date, sku widget supports some utility methods
 
 #### SKU.flatten(sku, items, options)
 
-通过计算笛卡尔积，将树形的value变成扁平的数组
+Using cartesian product, transform tree value to platten array
 
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
