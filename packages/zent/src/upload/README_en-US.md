@@ -4,27 +4,28 @@ path: component/upload
 group: Data Entry
 ---
 
-# Upload 图片上传
+# Upload
 
-图片上传
+Image uploader.
+
+### Demos
 
 ### API
 
-| 参数 | 说明 | 类型 | 默认值 | 是否必填 |
+| Property | Description | Type | Default | Required |
 |------|------|------|--------|--------|
-| localOnly | 是否只支持本地图片 | boolean | `false` | 否 |
-| tips | 提示文案 | string | `''` | 否 |
-| maxSize | 图片大小限制，单位为b | number | `1024 * 1024` | 否 |
-| maxAmount | 图片数量限制，0为不限制，1为只支持单文件 | number | `0` | 否 |
-| accept | 支持文件类型 | string | `'image/gif, image/jpeg, image/png'` | 否 |
-| silent | 是否开启静默模式，不会提示成功/失败 | boolean | `false` | 否 |
-| triggerInline | 是否行内属性 | boolean | `false` | 否 |
-| onFetch | 提取网络图片 | function | `noop` | 否 |
-| onUpload | 上传本地图片 | function | `noop` | 否 |
-| onProgress | 上传进度 | function | `noop` | 否 |
-| onGetToken | 自定义获取token回调，需要返回一个promise，如 resolve(token) | function | `内置getToken` | 否 |
-| filterFiles | 过滤文件，支持同步和promise的方式 | function | `noop` | 否 |
-| auto | 是否自动弹出 | boolean | `false` | 否 |
-| triggerClassName | 重写trigger样式 | string | `'zent-upload-trigger'` | 否 |
-| prefix | 前缀命名空间 | string | `'zent'` | 否 |
-| withoutPopup | 是否不渲染在弹层上 | boolean | `false` | 否 |
+| localOnly | Allow local images only | boolean | `false` | No |
+| tips | Hint text | string | `''` | No |
+| maxSize | Image size limit in bytes | number | `1024 * 1024` | No |
+| maxAmount | Limit number of images, 0 means no limit | number | `0` | No |
+| accept | Allowed file types | string | `'image/gif, image/jpeg, image/png'` | No |
+| silent | No notification about sucesss/failure when set to true | boolean | `false` | No |
+| triggerInline | Make trigger node's display inline | boolean | `false` | No |
+| onFetch | Callback to fetch remote image | function | `noop` | No |
+| onUpload | Callback to upload local image | function | `noop` | No |
+| onProgress | Progress callback when uploading local image  | function | `noop` | No |
+| filterFiles | Filter local files, supports Promise as return value | function | `noop` | No |
+| auto | Open upload dialog automatically | boolean | `false` | No |
+| triggerClassName | Custom trigger class name | string | `'zent-upload-trigger'` | No |
+| prefix | Custom prefix | string | `'zent'` | No |
+| withoutPopup | Don't render inside a popup | boolean | `false` | No |
