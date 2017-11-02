@@ -4,22 +4,22 @@ path: component/popover
 group: Basics
 ---
 
-## Popover 弹层
+## Popover
 
-通用的触发式弹层组件, 可以自定义定位算法、触发方式以及弹层显示方式。
+common trigger pop widget, you can customize postion、trigger method、display style.
 
-组件支持自身多层嵌套。
+the widget supports nested pop
 
-**这个组件不提供样式, 气泡提示组件请使用 `Pop`。**
+**the widget do not support style, if you need bubble-like tips component, please use `Pop`.**
 
-### 使用场景
 
-* 如果 `Pop` 组件提供的功能无法满足你的需求，需要实现自定义的触发式弹层时可以使用 `Popover` 来简化开发。
-* 可以当做 `Dropdown` 使用。
+### Guides
 
+* if `Pop` widget do not meet your needs, you can achieve custom trigger pop by using `Popover` 
+* can be used as `Dropdown`
 ### API
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+| Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
 | position | 定位的方式, 参见 `Popover.Positon` | Positon | | |
 | cushion | 可选, 定位的偏移量, 通常用来预留空间给小箭头等东西 | number | `0` | |
@@ -65,7 +65,7 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 #### Trigger.Focus
 
-当获取焦点时显示，失去焦点时关闭，没有参数。
+display when it gets focus， close when it loses focus, no params
 
 #### Trigger.Base
 

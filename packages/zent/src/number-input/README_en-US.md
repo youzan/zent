@@ -8,7 +8,7 @@ group: Data Entry
 
 A input widget for entering number through mouse or keyboard
 
-### Usage
+### Guides
 
 - When you enter number, using numberInput is more convenient
 

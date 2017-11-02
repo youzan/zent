@@ -77,4 +77,4 @@ Use a table for your APIs, the table should have these columns:
 
 | Property     |   Description  | Type     |  Required  |   Default  | Alternative       |
 | ------------ | -------------- | -------- | ---------- | ---------- | ----------------- |
-| visible      | Show or hide   | bool     | `false`    |   `false`  | `true` \| `false` |
+| visible      | Show or hide   | bool     |  No        |   `false`  | `true` \| `false` |
