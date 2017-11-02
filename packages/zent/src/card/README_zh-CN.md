@@ -7,7 +7,7 @@ group: 展示
 
 ## Card 卡片
 
-卡片 在卡片容器内展示信息
+用于在卡片容器内展示信息
 
 ### 使用指南
 
@@ -21,7 +21,7 @@ group: 展示
 | --------- | ------- | ------ | ---- |
 | title      | 标题    | node |  |
 | action      | 操作    | node |  |
-| style | 卡片容器自定义样式 | object | {} |
-| bodyStyle | 内容区域自定义样式 | object | {} |
+| style | 卡片容器自定义样式 | object | `{}` |
+| bodyStyle | 内容区域自定义样式 | object | `{}` |
 | className | 自定义额外类名 | string | `''` |
 | prefix | 自定义前缀 | string | `zent` |

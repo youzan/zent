@@ -12,14 +12,14 @@ Nestable grid system of zent, based on `float` and `calc(width)`
 
 #### Row
 
-| 属性        | 说明     | 类型     | 默认值      |
+| Props        | Description     | Type     | Default      |
 | --------- | ------ | ------ | -------- |
 | className | custom classname | string |          |
 | prefix    | custom prefix  | string | `'zent'` |
 
 #### Col
 
-| 属性        | 说明         | 类型     | 默认值      |
+| Props        | Description         | Type     | Default      |
 | --------- | ---------- | ------ | -------- |
 | span      | column's grid number, 24 level | number |          |
 | offset    | column's offset number, 24 level | number |          |
