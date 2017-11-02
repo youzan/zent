@@ -17,6 +17,7 @@ the widget supports nested pop
 
 * if `Pop` widget do not meet your needs, you can achieve custom trigger pop by using `Popover` 
 * can be used as `Dropdown`
+
 ### API
 
 | Property | Description | Type | Default | Alternative |
