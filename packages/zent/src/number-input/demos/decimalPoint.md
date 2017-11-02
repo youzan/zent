@@ -2,8 +2,12 @@
 order: 2
 zh-CN:
 	title: 指定小数点精度
+	placehoder: 请输入数字
+
 en-US:
 	title: specify the decimal point precision
+	placehoder: please enter number
+
 ---
 
 ```jsx
@@ -11,8 +15,8 @@ import { NumberInput } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<NumberInput value={2} decimal={2} placeholder="请输入数字"/>
-		<NumberInput value={2} showStepper decimal={2} placeholder="请输入数字"/>
+		<NumberInput value={2} decimal={2} placeholder="{i18n.placehoder}"/>
+		<NumberInput value={2} showStepper decimal={2} placeholder="{i18n.placehoder}"/>
 	</div>
 	, mountNode
 );

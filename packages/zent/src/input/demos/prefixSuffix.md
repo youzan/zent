@@ -3,7 +3,7 @@ order: 2
 zh-CN:
 	title: 带前后缀的输入框
 en-US:
-	title: input box with prefix or suffix
+	title: Input with prefix or suffix
 ---
 
 ```jsx

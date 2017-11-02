@@ -6,34 +6,34 @@ group: Data Entry
 
 ## Input
 
-A input widget for form, wrapping original input. you can input content through mouse or keyboard
+A input widget for buiding forms in React, based on raw input. you can enter content through mouse or keyboard.
 
 ### Guides
 
-- Using Input, with prefix or suffix
-- Using with another widget, such as combined into a search box;
+- Using Input, with prefix or suffix.
+- Combining with another widgets, such as combined into a search box.
 
 ### demos
 
 ### API
 
-| Property           | Description              | Type            | Default      |      Optional               | Alternative |
+| Property           | Description              | Type            | Default      |      Alternative               | Required |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
-| className    | a custom CSS class.       | string        | `''`     |                         | 否    |
-| prefix       | a custom class prefix         | string        | `'zent'` |                         | 否    |
-| type         | content type          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | 否    |
-| defaultValue | default value             | string        |          |                         | 否    |
-| value        | input value             | string        |          |                         | 否    |
-| readOnly     | 是否只读            | bool          | `false`  |                         | 否    |
-| disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
-| placeholder  | original placeholder text | string        | `''`     |                         | 否    |
-| addonBefore  | suffix tag            | node          |          |                         | 否    |
-| addonAfter   | suffix tag            | node          |          |                         | 否    |
-| autoFocus    | auto focus          | bool          |          |                         | 否    |
-| onChange     | change event        | func(e:Event) |          |                         | 否    |
-| onPressEnter | enter event            | func(e:Event) |          |                         | 否    |
+| className    | a custom CSS class.       | string        | `''`     |                         | no    |
+| prefix       | a custom prefix class        | string        | `'zent'` |                         | no    |
+| type         | content type          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | no    |
+| defaultValue | default value             | string        |          |                         | no    |
+| value        | input value             | string        |          |                         | no    |
+| readOnly     | whether is only read or not          | bool          | `false`  |                         | no    |
+| disabled     | whether is disable or not            | bool          | `false`  |                         | no    |
+| placeholder  | raw placeholder text | string        | `''`     |                         | no    |
+| addonBefore  | prefix tag            | node          |          |                         | no    |
+| addonAfter   | suffix tag            | node          |          |                         | no    |
+| autoFocus    | auto focus          | bool          |          |                         | no    |
+| onChange     | change event        | func(e:Event) |          |                         | no    |
+| onPressEnter | enter event            | func(e:Event) |          |                         | no    |
 
-_except for the attributes above, Input widget supports all attributes which React support for input_
+_except for the attributes above, input widget supports all attributes that React support for input_
 
 #### focus
 

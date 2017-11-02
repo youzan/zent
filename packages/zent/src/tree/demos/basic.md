@@ -4,10 +4,12 @@ zh-CN:
 	title: 基础用法
 	index: 首页
 	tree: 树
+
 en-US:
 	title: Basic Usage
 	index: Index
 	tree: Tree
+
 ---
 
 
@@ -16,23 +18,23 @@ import { Tree } from 'zent';
 
 const treeData = [{
 	id: 1,
-	title: '杭州有赞科技有限公司',
+	title: 'hello',
 	children: [{
 		id: 2,
-		title: '技术',
+		title: 'language',
 		children: [{
 			id: 3,
-			title: '后端'
+			title: 'java'
 		}, {
 			id: 4,
-			title: '运维'
+			title: 'python'
 		}, {
 			id: 5,
-			title: '前端'
+			title: 'scala'
 		}]
 	}, {
 		id: 6,
-		title: '产品'
+		title: 'product'
 	}]
 }];
 

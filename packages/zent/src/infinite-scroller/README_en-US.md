@@ -12,19 +12,21 @@ infinite scrolling widget
 
 - Used to load content continuously as the user scrolls down the page.
 
+### demos
+
 ### API
 
 | Property             	 	| Description                          | Type                | Default       		 | Alternative           							  			         |
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
-| hasMore            | 是否可以调用loadMore回调        | bool                | `true`           | `false`, `true`                               |
-| loadMore      		 | 加载更多的回调函数，如果函数接收参数则会传入一个停止loading效果的回调| func(stopLoading)   |                  |  							  |
-| initialLoad        | 初始化时是否调用loadMore回调    | bool                |  `false`         | `false`, `true`                               |
-| useWindow          | 是否监听window上的滚动事件，如果传入false，则监听该DOM元素上的滚动事件| bool | `true` | `false`, `true`                        |
-| useCapture         | 滚动事件是否在事件捕获阶段接收    | bool                | `false`          | `false`, `true`                               |
-| loader             | 加载时显示的内容                | node                | zent的Loading    |                                               |  
-| offset             | 触发滚动加载的阈值              | number              | 20               |                                               |
-| className          | 自定义额外类名                  | string              | `''`						 |                                               |
-| prefix             | 自定义前缀                     | string              | `'zent'`				  |																			          |
+| hasMore            | if pass true, it will call loadMore function        | bool                | `true`           | `false`, `true`                               |
+| loadMore      		 | loadMore function, first argument is a callback function to stop loading animation effect| func(stopLoading)   |                  |  							  |
+| initialLoad        | whether it should be call loadMore function when it initialize    | bool                |  `false`         | `false`, `true`                               |
+| useWindow          | if pass true, it will listens window scroll event, or it will listens it's DOM element scroll event | bool | `true` | `false`, `true`                        |
+| useCapture         | whether to capture event when scroll event triggers  | bool                | `false`          | `false`, `true`                               |
+| loader             | showing content when it is loaded                | node                | zent的Loading    |                                               |  
+| offset             | it will loads data when the distance threshold has been reached              | number              | 20               |                                               |
+| className          | custom extra classname                  | string              | `''`						 |                                               |
+| prefix             | custom class prefix                     | string              | `'zent'`				  |																			          |
 
 ### loadMore
 
