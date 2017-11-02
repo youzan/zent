@@ -21,7 +21,7 @@ the widget supports nested pop
 
 | Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
-| position | 定位的方式, 参见 `Popover.Positon` | Positon | | |
+| position | position way, 参见 `Popover.Positon` | Positon | | |
 | cushion | 可选, 定位的偏移量, 通常用来预留空间给小箭头等东西 | number | `0` | |
 | display | 可选, 在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的 `display` 值 |
 | onShow | 可选, 弹层显示后的回调函数 | func | `noop` | |
