@@ -1,7 +1,7 @@
 ---
 order: 3
 zh-CN:
-	title: 设置距离底部值: `offsetBottom`
+	title: "设置距离底部值: `offsetBottom`"
 	index: 首页
 	affix: 固钉
 en-US:

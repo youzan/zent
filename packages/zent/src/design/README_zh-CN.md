@@ -5,17 +5,15 @@ path: component/design
 group: 数据
 ---
 
-## design 微页面编辑组件
+## Design 微页面编辑组件
 
 微页面编辑组件，用所见即所得(WYSIWG)的方式创建内容丰富的富文本页面。
 
+⚠️ 注意：Zent 里面导出的 `Design` 组件使用了 `react-dnd-html5-backend` 这个包的 `HTML5Backend`，由于 `react-dnd` 的限制，`HTML5Backend` 在一个 React 组件树里只能出现一次。如果你在外层已经有地方使用了这个 `HTML5Backend`，请使用 `zent/lib/design/Design` 这个组件。这个组件功能完全一样，区别是不依赖 `HTML5Backend`。
+
+### 代码演示
+
 ### API
-
-`design` 目录下面是框架结构，`Design` 组件负责数据分发和更新，整个组件分为 `Preview` 和 `Editor` 两部分。
-
-> ⚠️ 注意：Zent 里面导出的 `Design` 组件使用了 `react-dnd-html5-backend` 这个包的 `HTML5Backend`，由于 `react-dnd` 的限制，`HTML5Backend` 在一个 React 组件树里只能出现一次。如果你在外层已经有地方使用了这个 `HTML5Backend`，请使用 `zent/lib/design/Design` 这个组件。这个组件功能完全一样，区别是不依赖 `HTML5Backend`。
-
-`Design` 的重要参数有一下几个：
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必须 |
 |------|------|------|--------|--------|
@@ -130,7 +128,7 @@ type Component = {
 
 ### 如何实现新的 Design 组件
 
-每个 Design 都分为两部分：Preview 以及 Editor。
+每个 Design 组件都分为两部分：Preview 以及 Editor。
 
 Preview 比较简单，实现一个组件接受 `{ value: any, globalConfig: any, design: object }` 这些 props即可。
 
@@ -138,13 +136,12 @@ Editor 请继承 `@youzan/design/lib/base/editor/DesignEditor`，这个基类提
 
 Editor 接受如下props：`{ value: any, onChange: func, showError: boolean, validation: object, design object }`。
 
-Editor 必须提供这几个静态属性：designType, designDescription, getInitialValue, validate。
+- `validate(value): Promise` 有错误的时候 resolve 一个错误对象出来。
+- `props.design` 提供了一下可能有用的方法：例如触发组件的校验等。
 
-`validate(value): Promise` 有错误的时候 resolve 一个错误对象出来。
+Editor 必须提供这几个静态属性：`designType, designDescription, getInitialValue, validate`。
 
-`props.design` 提供了一下可能有用的方法：例如触发组件的校验等。
-
-一个例子
+#### 一个例子
 
 ```js
 // Preview
@@ -214,23 +211,3 @@ export default class NoticeEditor extends DesignEditor {
   }
 }
 ```
-
-#### 预览
-
-`DesignPreview` 组件是整个预览块的包裹层，负责渲染左侧预览的框架。`DesignPreview` 和 `config` 子组件是相关的，`config` 组件是知道 `DesignPreview` 的存在的；而 `DesignPreview` 的渲染是根据 `config` 生成的数据进行的。⚠️注意：`config` 自身有相应的负责渲染预览的模块，这个和 `DesignPreview` 不冲突，可以理解成 `config` 可以控制一些预览界面的全局样式。
-
-预览界面中按模块分成很多区域，每个区域是一个 `DesignPreviewItem`，默认的 `DesignPreviewItem` 实现可以由外部覆盖。负责每个区域的事件交互的是另一个组件 `DesignPreviewController`，这个组件负责处理添加、删除、编辑、选中以及拖拽操作，`DesignPreviewController` 的实现也是可以由外部覆盖的，⚠️注意：重写的时候所有交互都需要再这个组件里面处理。`DesignPreviewController` 内部会渲染该区域对应组件的预览模块，预览模块有两个参数：`value` 和 `design`。`value` 是当前的值，`design` 是 `Design` 组件提供的一些操作，一般用不到。
-
-#### 编辑
-
-`DesignEditorItem` 是每个区域对应的编辑区域，这个区域的显示隐藏由 `Design` 控制。`DesignEditorItem` 可以由外部覆盖重写。
-
-`DesignEditorAddComponent` 这个组件负责枚举所有**可以添加的组件**，暂不支持由外部自定义组件实现。
-
-`DesignEditor` 是所有编辑组件的基类，这个类提供了一些常用的方法（例如 `onChange` 事件的处理函数），在子类里面可以直接使用。
-
-<style>
-.design-example-actions {
-  margin-top: 20px;
-}
-</style>
