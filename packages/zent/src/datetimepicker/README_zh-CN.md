@@ -11,18 +11,20 @@ group: 数据
 
 ## 使用指南
 
-- 包含三个组件：`DatePicker` 、`MonthPicker` 和 `RangePicker`。
+- 包含四个组件：`DatePicker`、`MonthPicker`、`WeekPicker` 和 `RangePicker`。
 - `DatePicker` 和 `RangePicker` 可以通过 `showTime` 属性来支持时间的选择。
 - 通过 `format` 属性自定义日期字符串的格式，`format` 的详细说明见页面最后的表格。
+
+## 代码演示
 
 ## API
 
 ### 共同的 API
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
-| value        | 默认选择日期                   | string/Date    |     | 否    |
-| defaultValue | 默认面板显示日期               | string/Date    |     | 否    |
-| onChange     | 选择日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
+| onChange    | 选择日期回调函数，受控组件，value 和 onChange 必须同时提供  | func | `noop`   | 是    |
+| value        | 默认选择日期                   | string \| Date    |     | 是    |
+| defaultValue | 默认面板显示日期               | string \| Date    |     | 否    |
 | onClick      | 用户点击选择日期的回调 | func |   |   否 |
 | openPanel    | 面板是否打开 | boolean | false  |   否 |
 | onOpen       | 面板弹出的回调 | func |   |   否 |

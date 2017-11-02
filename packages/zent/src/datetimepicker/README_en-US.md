@@ -4,116 +4,113 @@ path: component/datepicker
 group: Data Entry
 ---
 
-## DatePicker 时间选择
+## DatePicker
 
-时间选择组件, 提供基础的时间、日期筛选功能.
+Time pickers, provides basic time choosing functionality.
 
-## 使用指南
+## Guides
 
-- 包含三个组件：`DatePicker` 、`MonthPicker` 和 `RangePicker`。
-- `DatePicker` 和 `RangePicker` 可以通过 `showTime` 属性来支持时间的选择。
-- 通过 `format` 属性自定义日期字符串的格式，`format` 的详细说明见页面最后的表格。
+- Four pickers：`DatePicker`, `MonthPicker`, `WeekPicker` and `RangePicker`.
+- `DatePicker` and `RangePicker` can use `showTime` to allow time selection.
+- Date formats can be customized using `format`, you can find formating details at the end of this page.
+
+### Demos
 
 ## API
 
-### 共同的 API
-| 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
+### Common API
+
+| Property     | Description              | Type      | Default       | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
-| value        | 默认选择日期                   | string/Date    |     | 否    |
-| defaultValue | 默认面板显示日期               | string/Date    |     | 否    |
-| onChange     | 选择日期回调函数，受控组件，value 和 onChange 必须同时提供  | func   | `noop`   | 是    |
-| onClick      | 用户点击选择日期的回调 | func |   |   否 |
-| openPanel    | 面板是否打开 | boolean | false  |   否 |
-| onOpen       | 面板弹出的回调 | func |   |   否 |
-| onClose      | 面板关闭的回调 | func |   |   否 |
-| disabled     | 是否处于 disabled 状态 | bool         | `false`         | 否    |
-| format       | 返回日期字符串格式      | string         |  不同的picker默认值不同，下详  | 否    |
-| placeholder  | 提示文案               | string    | 不同的picker默认值不同，下详   | 否    |
-| className    | 额外的 css 类          | string         |             | 否    |
-| prefix       | 自定义前缀       			 | string         | `'zent'`        | 否    |
-| confirmText  | 确定按钮文字            | string         | '确定'        | 否    |
-| popPosition  | pop 弹出层 align 方向   | oneOf(['left', 'right'])  | 'left'    | 否    |
+| onChange     | Callback when value changes  | func   | `noop`   | 是    |
+| value        | Selected value             | string \| Date    |     | Yes   |
+| defaultValue | Default value              | string \| Date    |     | No   |
+| onClick      | Callback when click on a value | func |   |   No|
+| openPanel    | Is picker visible | boolean | false  |   No|
+| onOpen       | Callback when picker is opened | func |   |   No|
+| onClose      | Callback when picker is closed | func |   |   No|
+| disabled     | Disable picker | bool         | `false`         | No   |
+| format       | Date format string   | string  |  Different pickers have different values  | No   |
+| placeholder  | Placeholder text   | string  | Differenet pickers have different values   | No   |
+| className    | Cusotm class name    | string         |             | No   |
+| prefix       | Custom prefix  	 | string         | `'zent'`        | No   |
+| confirmText  | Confirm button text     | string         | '确定'        | No   |
+| popPosition  | Popup align position   | oneOf(['left', 'right'])  | 'left'    | No   |
 
 
 ### DatePicker
 
-| 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
+| Property      | Description         | Type      | Default      | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
-| showTime     | 是否显示时间筛选 | bool   | `false` | 否    |
-| disabledTime | 时间禁用函数 | func | `noop` | 否    |
-| disabledDate | 判断日期是否可选函数  | func     | `noop`  | 否    |
-| format       | 返回日期字符串格式                | string         | `YYYY-MM-DD`  | 否    |
-| min        | 可选日期的最小值                   | string/Date    |     | 否    |
-| max        | 可选日期的最大值                   | string/Date    |     | 否    |
-| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
-| name  		| input 的 name 属性            | string    |   | 否    |
-| placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
-| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
-| onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func         |    | 否    |
-| onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func         |    | 否    |
+| showTime     | Show or hide time selection | bool   | `false` | No    |
+| disabledTime | Callback to check if specific time is disabled | func | `noop` | No    |
+| disabledDate | Callback to check if specific date is disabled  | func     | `noop`  | No    |
+| format       | Date formating string        | string         | `YYYY-MM-DD`  | No    |
+| min        | The minimium selectable date           | string/Date    |     | No    |
+| max        | The maximum selectable date      | string/Date    |     | No    |
+| valueType | Set `onChange`'s value type, one of `string`/`number`/`date` | string  | '' | No    |
+| name  		| Name attribute of the input node   | string    |   | No    |
+| placeholder  | Placeholder text            | string    | `请选择日期`   | No    |
+| defaultTime   | Default time value        | string         | `'00:00:00'`   | No    |
+| onBeforeConfirm   | Confirm callback, return `true` to allow, `false` to abort | func   |    | No    |
+| onBeforeClear   | Clear callback, return `true` to allow, `false` to abort | func  |    | No    |
 
 
-**注意：**
-- `disabledDate` 函数调用时会传入一个 date 对象作为参数，用户可以自定义这个 date 是否处于禁用区间，返回 true/false，需要特殊的禁用规则时可以通过这个函数来实现，一般情况下使用 `max` 和 `min` 就可以满足需求。
-- `max/min` 和 `disabledDate` 会存在冲突，同时存在的时候以 `disabledDate` 的返回值为准，大于**等于** min 小于 max 可选。
-- `disabledTime` 函数应该返回一个对象，对象中包含 `disabledHour`,`disabledMinute`,`disabledSecond` 三个函数。
-- `format` 只需要传日期部分，时间部分当 `showTime` 为 `true` 时会自动拼接， 同 `RangePicker`。
-
-更详细用法请看示例。
-
+- `disabledDate` will be passed a date object as argument, return true if the date should be disabled. Using `max` and `min` can cover most use cases.
+- If both `min`/`max` and `disabledDate` are present, `disabledDate` takes precedence.
+- Return value of `disabledDate` is an object, there are three functions within this object: `disabledHour`, `disabledMinute` and `disabledSecond`.
+- Only date format is allowed in `format`, time format will be appended when `showTime` is `true`.
 
 ### WeekPicker
 
-| 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
+| Property      | Description             | Type    | Default    | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
-| startDay | 一周的开始日期  | number     | 1 | 否    |
-| disabledDate | 判断日期是否可选函数  | func     | `noop`  | 否    |
-| format       | 返回日期字符串格式                | string         | `YYYY-MM-DD`  | 否    |
-| min        | 可选日期的最小值                   | string/Date    |     | 否    |
-| max        | 可选日期的最大值                   | string/Date    |     | 否    |
-| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
-| name  		| input 的 name 属性            | string    |   | 否    |
-| placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
-| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+| startDay | Start day of a week  | number     | 1 | No    |
+| disabledDate | Callback to check if date is disabled  | func     | `noop`  | No    |
+| format       | Date format string        | string         | `YYYY-MM-DD`  | No    |
+| min        | Minimum selectable date           | string/Date    |     | No    |
+| max        | Maximum seletable date            | string/Date    |     | No    |
+| valueType | Value type in `onChange`, one of `string` \| `number` \| `date`  | string     | '' | No    |
+| name  		| Name attribute of input node     | string    |   | No    |
+| placeholder  | Placeholder text              | string    | `请选择日期`   | No    |
+| defaultTime   | Default time value     | string         | `'00:00:00'`   | No    |
 
 ### MonthPicker
 
-| 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
+| Property     | Description         | Type       | Default    | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
-| value        | 选中的月份     | string/Date    | `new Date()`    | 否    |
-| format       | 返回月份字符串格式  | string | `'YYYY-MM'` | 否    |
-| disabled     | 是否处于disabled 状态          | bool      | `false`   | 否    |
-| name 				 | input 的 name 属性            | string    |   | 否    |
-| placeholder  | 提示文案          | string  | `请选择月份`   | 否    |
+| value        | Selected month    | string/Date    | `new Date()`    | No    |
+| format       | Format string  | string | `'YYYY-MM'` | No    |
+| disabled     | Is disabled         | bool      | `false`   | No    |
+| name 				 | Name attribute of input node   | string    |   | No    |
+| placeholder  | Placeholder text     | string  | `请选择月份`   | No    |
 
 
 ### RangePicker
 
-| 参数           | 说明         | 类型     | 默认值            | 是否必须 |
+| Property     | Description     | Type    | Default   | Required |
 | ------------ | ---------- | ------ | -------------- | ---- |
-| type				 | 类型，`combine`/`split` | string | `combine` | 否 |
-| showTime     | 是否显示时间筛选 | bool   | `false` | 否    |
-| value        | 默认选择日期     | array  | `[]`           | 否    |
-| format       | 返回日期字符串格式  | string | `'YYYY-MM-DD'` | 否    |
-| disabledDate | 判断日期是否可选函数 | func   | `noop`   | 否    |
-| disabledTime | 时间禁用函数 | func | `noop` | 否    |
-| min          | 可选日期的最小值   | string/instanceOf(Date)  | ``   | 否    |
-| max          | 可选日期的最大值  | string/instanceOf(Date)  | ``    | 否    |
-| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
-| placeholder  | 提示文案          | array    | `['开始日期','结束日期']`   | 否    |
-| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+| type				 | Range picker type, one of `combine`/`split` | string | `combine` | No |
+| showTime     | Show time selection | bool   | `false` | No    |
+| value        | Selected value   | array  | `[]`           | No    |
+| format       | Format string | string | `'YYYY-MM-DD'` | No    |
+| disabledDate | Callback to check date is selectable | func   | `noop`   | No    |
+| disabledTime | Callback to check time is selectable | func | `noop` | No    |
+| min          | Minimum selectable date  | string/instanceOf(Date)  | ``   | No    |
+| max          | Maximum selectable date  | string/instanceOf(Date)  | ``    | No    |
+| valueType | Value type of `onChange`, one of `string`/`number`/`date`  | string     | '' | No    |
+| placeholder  | Placeholder text     | array    | `['开始日期','结束日期']`   | No    |
+| defaultTime   | Default time value      | string   | `'00:00:00'`   | No    |
 
 
-**注意：**
-- `type` 为了和老代码兼容，默认是 `combine`，但是交互方面现在是推荐使用 `split`。
-- `showTime` 的时候，传入的 `min` 或 `max` 如果为字符串，必须有 time 部分，即 `2017-01-01 11:11:11` 种格式。
-- `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
-- `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
+- Recommended `type` is `split`.
+- When `showTime` is `true`, the `min` and `max` string must have time part, e.g. `2017-01-01 11:11:11`.
+- `disabledTime` has an additional argument `type` like in `DatePicker`, its value is `start` or `end`.
+- `onClick(val, type)`, the `type` is the same as `disabledTime`.
 
+### Format string
 
-### 格式化字符表
-
-|   | 字符 | 输出 |
+|          | Format character | Output |
 | -------- | -------- | -------- |
 | **Year**  | YY    | 70 71 ... 29 30 |
 |           | YYYY  | 1970 1971 ... 2029 2030 |
@@ -127,14 +124,14 @@ group: Data Entry
 |           | ddd   | 周日, 周一 ... 周五, 周六 |
 |           | dddd  | 星期日, 星期一 ... 星期五, 星期六 |
 
-  <style>
-    .zent-picker-demo{
-      margin-bottom: 10px;
-      margin-right: 10px;
-    }
-    .demo-subtitle{
-      margin-bottom: 5px;
-      font-size: 12px;
-      color: #666;
-    }
-  </style>
+<style>
+	.zent-picker-demo{
+		margin-bottom: 10px;
+		margin-right: 10px;
+	}
+	.demo-subtitle{
+		margin-bottom: 5px;
+		font-size: 12px;
+		color: #666;
+	}
+</style>
