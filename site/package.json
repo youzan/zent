@@ -38,7 +38,7 @@
     "html-loader": "^0.5",
     "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
-    "markdown-doc-loader": "2.0.1",
+    "markdown-doc-loader": "2.1.1",
     "postcss-loader": "2",
     "ramda": "^0.25.0",
     "react-hot-component-loader": "^1.0.3",

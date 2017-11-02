@@ -1,7 +1,7 @@
 ---
 title: Affix
 path: component/affix
-group: 导航
+group: Navigation
 ---
 
 ## Affix
