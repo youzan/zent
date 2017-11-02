@@ -4,17 +4,17 @@ path: component/infinite-scroller
 group: Data Display
 ---
 
-## InfiniteScroller 无限滚动组件
+## InfiniteScroller
 
-无限滚动组件
+infinite scrolling widget
 
-### 使用指南
+### Guides
 
--  常用于一个区域内内容的滚动加载
+- Used to load content continuously as the user scrolls down the page.
 
 ### API
 
-| 参数             	 	| 说明                          | 类型                | 默认值       		 | 备选值           							  			         |
+| Property             	 	| Description                          | Type                | Default       		 | Alternative           							  			         |
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
 | hasMore            | 是否可以调用loadMore回调        | bool                | `true`           | `false`, `true`                               |
 | loadMore      		 | 加载更多的回调函数，如果函数接收参数则会传入一个停止loading效果的回调| func(stopLoading)   |                  |  							  |
@@ -27,7 +27,9 @@ group: Data Display
 | prefix             | 自定义前缀                     | string              | `'zent'`				  |																			          |
 
 ### loadMore
-如果是异步加载，期望该回调函数的返回值是一个promise对象，便于组件控制loading的显示，否则会传入一个用于停止loading的回调函数。
+
+when it is a async loading, it is expected that the return of loadMore function is a Promise that is used to control loading show. or you have to stop loading by yourself with the first param as callback from loadMore function
+
 
 <style>
 .infinite-scroller-demo {

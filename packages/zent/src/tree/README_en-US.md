@@ -4,23 +4,23 @@ path: component/tree
 group: Navigation
 ---
 
-## Tree 树
+## Tree
 
-树形控件，展示文件结构、组织架构、地理信息等分层数据的控件。
+Tree widget is used to build and manipulate trees. such as files, organization structures, geographic infomation
 
-### 使用指南
+### Guides
 
--  支持两种数据格式，递归树形结构和单层列表结构。
--  组件展示对应传入的data属性，内部不会改变data，具体请看自定义操作的例子。
+- Supports two types of data structure, nested tree and array.
+- The widget only display input data, but not change itself.
 
 ### API
 
 #### Tree
 
-| 参数                 | 说明                                                        | 类型                 | 默认值     | 备选值                |
+| Property                 | Description                                                        | Type                 | Default     | Alternative                |
 | ------------------- | ------------------------------------------------------------| ------------------- | ---------- | -------------------- |
-| dataType            | 数据类型, 默认为tree类型                                       | string             | `'tree'`   | `'plain'`            |
-| data                | 必填, 实际传入的数据, 根据dataType进行识别                       | array              |            |                      |
+| dataType            | data structure, default is tree                                    | string             | `'tree'`   | `'plain'`            |
+| data                | required, 实际传入的数据, 根据dataType进行识别                       | array              |            |                      |
 | render              | 自定义树条目渲染方法, 传入参数为该节点数据 (包含子树)              | func(data)         |            |                      |
 | operations          | 自定义操作, 包含 `name`, `icon`, `action`, `shouldRender` 属性 | array[object]      |            |                      |
 | foldable            | 是否支持点击条目时展开与收起动作                                 | bool               | `true`     |                      |

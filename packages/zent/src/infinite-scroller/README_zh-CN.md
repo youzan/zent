@@ -28,7 +28,8 @@ group: 展示
 | prefix             | 自定义前缀                     | string              | `'zent'`				  |																			          |
 
 ### loadMore
-如果是异步加载，期望该回调函数的返回值是一个promise对象，便于组件控制loading的显示，否则会传入一个用于停止loading的回调函数。
+当异步加载时，期望传入的loadMore函数的返回值是一个promise对象，用于组件控制loading的显示，否则需要使用loadMore的回调函数手动停止loading。
+
 
 <style>
 .infinite-scroller-demo {
