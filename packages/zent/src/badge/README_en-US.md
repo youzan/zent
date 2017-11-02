@@ -19,7 +19,7 @@ Badge normally appears in the upper right corner of the notification or avatar w
 
 | Property     |  Description  | Type     | Default  | Alternative |
 | ---------| ----------------- | ------  | -------------|----------------- |
-| count | Messages count to show | int | `0` | |
+| count | The number of messages to show | int | `0` | |
 | maxCount | Max count to show | int | `99`  |                  |
 | dot | Whether to show red dot without number | bool | `false` | `true`, `false` |
 | showZero | Whether to show badge when count is zero | bool | `false` | `true`, `false`  |

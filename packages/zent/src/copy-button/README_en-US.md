@@ -4,37 +4,22 @@ path: component/copy-btn
 group: Data Entry
 ---
 
-## CopyButton 复制按钮
+## CopyButton
 
-复制按钮，点击后复制指定的文本到系统剪贴板中。
+Copy button will copy the specified text to the system clipboard when clicked.
 
-### 使用指南
+### Guides
 
-- 当需要复制某些文本的时候，可以使用此组件
-- 不依赖 Flash，所以在某些老版本浏览器上可能失败
+- When you need to copy some text, you can use this component.
+- This component may fail in some older version browsers since it doesn't rely on Flash.
 
-### 代码演示
-
-:::demo 基础用法
-```jsx
-import { CopyButton, Button } from 'zent';
-
-ReactDOM.render(
-	<div>
-		<CopyButton text="默认" />
-		<CopyButton text="自定义" onCopySuccess="复制成功！">
-			<Button type="primary">自定义复制按钮</Button>
-		</CopyButton>
-	</div>
-	, mountNode);
-```
-:::
+### Demos
 
 ### API
 
-| 参数           | 说明                            | 类型     | 默认值      |
+| Property     |  Description  | Type     | Default  | Alternative |
 | ------------ | ----------------------------- | ------ | -------- |
-| text        | 需要复制的文本                    | text   |     |
-| onCopySuccess | 复制成功后的回调函数，如果是字符串则使用 `Notify.info` 提示    | function \| string  | `复制成功` |
-| onCopyError   | 复制失败后的回调函数，如果是字符串则使用 `Notify.error` 提示     | function \| string  | `复制失败` |
+| text        | The next need to be copied | text   |     |
+| onCopySuccess | The callback function that is triggered when copy successful. If this property is string, it will show in `Notify.info`. | function \| string  | `复制成功` |
+| onCopyError   | The callback function that is triggered when copy failed. If this property is string, it will show in `Notify.error`.  | function \| string  | `复制失败` |
 
