@@ -40,3 +40,10 @@ ReactDOM.render(
 );
 
 ```
+
+
+<style>
+	.marginTop10 {
+		margin-top: 10px;
+	}
+</style>

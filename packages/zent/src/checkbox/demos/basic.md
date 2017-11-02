@@ -34,3 +34,10 @@ ReactDOM.render(
 	, mountNode
 );
 ```
+
+<style type="text/css">
+	.zent-checkbox-doc-p {
+		font-size: 12px;
+		line-height: 2em;
+	}
+</style>

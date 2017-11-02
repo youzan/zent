@@ -15,23 +15,23 @@
 import { Slider } from 'zent';
 
 class Test extends React.Component {
-  state = {
-    value: 0
-  }
+	state = {
+		value: 0
+	}
 
-  onChange = value => {
-    this.setState({ value });
-  }
+	onChange = value => {
+		this.setState({ value });
+	}
 
-  render() {
-    const { value } = this.state;
-    return (<Slider value={value} onChange={this.onChange} />);
-  }
+	render() {
+		const { value } = this.state;
+		return (<Slider value={value} onChange={this.onChange} />);
+	}
 }
 
 ReactDOM.render(
-    <Test />
-    , mountNode
+		<Test />
+		, mountNode
 );
 ```
 :::
@@ -42,23 +42,23 @@ ReactDOM.render(
 import { Slider } from 'zent';
 
 class Test extends React.Component {
-  state = {
-    value: [30, 100]
-  }
+	state = {
+		value: [30, 100]
+	}
 
-  onChange = value => {
-    this.setState({ value });
-  }
+	onChange = value => {
+		this.setState({ value });
+	}
 
-  render() {
-    const { value } = this.state;
-    return (<Slider range value={value} onChange={this.onChange} />);
-  }
+	render() {
+		const { value } = this.state;
+		return (<Slider range value={value} onChange={this.onChange} />);
+	}
 }
 
 ReactDOM.render(
-    <Test />
-    , mountNode
+		<Test />
+		, mountNode
 );
 ```
 :::
@@ -69,23 +69,23 @@ ReactDOM.render(
 import { Slider } from 'zent';
 
 class Test extends React.Component {
-  state = {
-    value: 1.3
-  }
+	state = {
+		value: 1.3
+	}
 
-  onChange = value => {
-    this.setState({ value });
-  }
+	onChange = value => {
+		this.setState({ value });
+	}
 
-  render() {
-    const { value } = this.state;
-    return (<Slider max={2} min={1} step={0.1} value={value} onChange={this.onChange} />);
-  }
+	render() {
+		const { value } = this.state;
+		return (<Slider max={2} min={1} step={0.1} value={value} onChange={this.onChange} />);
+	}
 }
 
 ReactDOM.render(
-    <Test />
-    , mountNode
+		<Test />
+		, mountNode
 );
 ```
 :::
@@ -96,28 +96,28 @@ ReactDOM.render(
 import { Slider } from 'zent';
 
 const marks = {
-  0: '0°C',
-  100: '100°C'
+	0: '0°C',
+	100: '100°C'
 };
 
 class Test extends React.Component {
-  state = {
-    value: [30, 100]
-  }
+	state = {
+		value: [30, 100]
+	}
 
-  onChange = value => {
-    this.setState({ value });
-  }
+	onChange = value => {
+		this.setState({ value });
+	}
 
-  render() {
-    const { value } = this.state;
-    return (<Slider range marks={marks} value={value} onChange={this.onChange} />);
-  }
+	render() {
+		const { value } = this.state;
+		return (<Slider range marks={marks} value={value} onChange={this.onChange} />);
+	}
 }
 
 ReactDOM.render(
-    <Test />
-    , mountNode
+		<Test />
+		, mountNode
 );
 ```
 :::
@@ -128,31 +128,31 @@ ReactDOM.render(
 import { Slider } from 'zent';
 
 const marks = {
-  0: '0°C',
-  25: '25°C',
-  50: '50°C',
-  75: '75°C',
-  100: '100°C'
+	0: '0°C',
+	25: '25°C',
+	50: '50°C',
+	75: '75°C',
+	100: '100°C'
 };
 
 class Test extends React.Component {
-  state = {
-    value: [0, 50]
-  }
+	state = {
+		value: [0, 50]
+	}
 
-  onChange = value => {
-    this.setState({ value });
-  }
+	onChange = value => {
+		this.setState({ value });
+	}
 
-  render() {
-    const { value } = this.state;
-    return (<Slider range dots marks={marks} value={value} onChange={this.onChange} />);
-  }
+	render() {
+		const { value } = this.state;
+		return (<Slider range dots marks={marks} value={value} onChange={this.onChange} />);
+	}
 }
 
 ReactDOM.render(
-    <Test />
-    , mountNode
+		<Test />
+		, mountNode
 );
 ```
 :::
@@ -163,13 +163,15 @@ ReactDOM.render(
 import { Slider } from 'zent';
 
 ReactDOM.render(
-    <Slider value={[30, 100]} range disabled />
-    , mountNode
+		<Slider value={[30, 100]} range disabled />
+		, mountNode
 );
 ```
 :::
 
 ### API
+
+⚠️注意：`range` 属性设置了必须给一个 `value` 值，且一定为一个长度为2的数组，数组项必须为数字。`dots` 属性配合 `marks` 属性使用。
 
 | 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
@@ -184,6 +186,7 @@ ReactDOM.render(
 | marks        | 标签值     | object |          |                         | 否    |
 | disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
 | className    | 自定义额外类名         | string        | `''`     |                         | 否    |
-| prefix       | 自定义类前缀          | string        | `'zent'` |                         | 否    |
+| prefix       | 自定义类前缀          | string        | `'zent'` | | 否    |
 
-`range` 属性设置了必须给一个 `value` 值，且一定为一个长度为2的数组，数组项必须为数字。`dots` 属性配合 `marks` 属性使用。
+
+

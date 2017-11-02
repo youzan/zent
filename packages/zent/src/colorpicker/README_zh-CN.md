@@ -33,9 +33,3 @@ group: 数据
 | onChange      | 颜色变化时回调函数    | func(color)         | `noop`   |         |
 | className     | 可选，自定义类名      | string              | `''`     |         |
 | prefix        | 可选，自定义前缀      | string              | `'zent'` |         |
-
-<style>
-	.marginTop10 {
-		margin-top: 10px;
-	}
-</style>

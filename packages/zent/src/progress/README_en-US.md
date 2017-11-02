@@ -4,34 +4,29 @@ path: component/progress
 group: Data Display
 ---
 
-## Progress 进度条
+## Progress
 
-进度条，用来表示操作的当前进度和状态。
+Progress represents the current progress and status of the operation.
 
-### 使用指南
+### Guides
 
--  用于时间较长的操作，为用户显示当前操作的进度和状态。
--  可显示操作进度的百分比。
+-  Progress is suitable for long-time operations, which shows the current progess and status of the current operation.
+-  Progres can display the percentage of the operation progress.
 
-### Progress API
+### Demos
 
-| 参数           | 说明                | 类型             | 默认值                 |
-| ------------ | ----------------- | -------------- | ------------------- |
-| type | 进度条样式，可选`'line'` | string | `'line'`, `'circle'` |
-| percent | 百分比 | number     | `0` |
-| status | 状态，可选`'success'`,`'exception'` | string|  |
-| showInfo | 是否显示状态信息 | boolean | `true`  |
-| format | 文字模板函数 | func | 内置函数 |
-| strokeWidth | 线条宽度，单位px | number | `10` | |
-| width | 圆形进度条直径/条形进度条总长度 | number | `132(type=circle), 580(type=line)` |   
-| className | 自定义额外类名 | string |                     |
-| prefix | 自定义前缀 | string | `'zent'`            |
+### API
 
-<style>
-.zent-progress {
-	margin-bottom: 10px;
-}
-.zent-progress-circle {
-	margin-right: 10px;
-}
-</style>
+| Property     |  Description  | Type     | Default  | Alternative |
+| -------- | ----------------- | ------- | -------| ----------------|
+| type | Style of progess | string | `'line'` | `'circle'` |
+| percent | percentage of progress | number | `0` | |
+| status | status of progress | string|  | `'success'`,`'exception'` |
+| showInfo | Whether to show status information | boolean | `true`  | `false` |
+| format | The format function of text | func | built-in function | |
+| strokeWidth | The width of progess bar, unit: px | number | `10` | |
+| width | The radius of the cicrle progress bar or the total length of the strip progess bar | number | `132(type=circle), 580(type=line)` |  | 
+| className | The custom classname | string |  | |
+| prefix | The custom prefix | string | `'zent'` |  |
+
+

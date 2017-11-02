@@ -31,4 +31,4 @@ group: 数据
 | className    | 自定义额外类名         | string        | `''`     |                         | 否    |
 | prefix       | 自定义类前缀          | string        | `'zent'` |                         | 否    |
 
-`range` 属性设置了必须给一个 `value` 值，且一定为一个长度为2的数组，数组项必须为数字。`dots` 属性配合 `marks` 属性使用。
+⚠️注意：`range` 属性设置了必须给一个 `value` 值，且一定为一个长度为2的数组，数组项必须为数字。`dots` 属性配合 `marks` 属性使用。
