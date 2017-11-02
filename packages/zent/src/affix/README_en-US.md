@@ -1,6 +1,5 @@
 ---
 title: Affix
-subtitle: 固钉
 path: component/affix
 group: 导航
 ---
