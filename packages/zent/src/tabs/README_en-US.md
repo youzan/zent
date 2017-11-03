@@ -4,43 +4,43 @@ path: component/tabs
 group: Navigation
 ---
 
-## Tabs 选项卡组件
+## Tabs
 
-选项卡组件
+Tabs is used to switch different view in one page. 
 
 ### API
 
 #### Tabs
 
-| 参数          | 说明        | 类型       | 默认值        | 备选值                   | 是否必须 |
-| ----------- | --------- | -------- | ---------- | --------------------- | ---- |
-| activeId    | 激活的tab-id | string   |            |                       | 是    |
-| type        | tabs组件类型  | string   | `'normal'` | `'card'`, `'slider'`  | 否    |
-| size        | tabs的尺寸类型 | string   | `'normal'` | `'huge'`              | 否    |
-| align       | tabs的布局类型 | string   | `'left'`   | `'right'`, `'center'` | 否    |
-| onTabChange | 选中的tab改变时 | func(id) |            |                       | 否    |
-| onTabDel    | 关闭tab时    | func(id) |            |                       | 否    |
-| onTabAdd    | 点击增加tab时  | func     |            |                       | 否    |
-| candel      | 是否可删除     | bool     | `false`    |                       | 否    |
-| canadd      | 是否可增加tab  | bool     | `false`    |                       | 否    |
-| tabs | 不使用Panel时的标签列表 | Array | `null` | | 否 |
-| className   | 自定义额外类名   | string   | `''`       |                       | 否    |
-| prefix      | 自定义前缀     | string   | `'zent'`   |                       | 否    |
+| Property     |  Description  | Type     | Default  | Alternative | Required |
+| ---------| --------- | -------- | ----- | --------- | ---- |
+| activeId    | The id of the active tab | string   | |           | yes    |
+| type        | The type of tabs  | string | `'normal'` | `'card'`, `'slider'` | no |
+| size        | The size of tabs | string   | `'normal'` | `'huge'` | no  |
+| align       | The layout of tabs | string | `'left'`   | `'right'`, `'center'` | no |
+| onTabChange | The callback function that is triggered when the tab is active | func(id) |    |    | no    |
+| onTabDel    | The callback function that is triggered when the tab is closed. | func(id) |      |         | no |
+| onTabAdd    | The callback function that is triggered when adding tab. | func | |   | no    |
+| candel      | Whether the tab can be deleted.  | bool  | `false` |  `true` | 否    |
+| canadd      | Whether the tabs can add more tab pannels. | bool | `false`    |  `true`  | no |
+| tabs | The config of tabs when not using Panel. | Array | `null` | | no |
+| className   | The custom classname   | string   | `''`   |  | no   |
+| prefix      | The custom prefix | string   | `'zent'` |   | no   |
 
-tabs参数类型：
+Paramerter type of `tabs`：
 ```ts
 Array<{
-	key: string | number, // 同TabPanel id
-	title: string | number, // 同TabPanel tab
-	disabled?: boolean // 同TabPanel disabled
+	key: string | number, // the same as TabPanel's `id`
+	title: string | number, // the same as TabPanel's `tab`
+	disabled?: boolean // the same as TabPanel's `disabled`
 }>
 
 ```
 
 #### TabPanel
 
-| 参数  | 说明                    | 类型     | 是否必须 |
+| Property     |  Description  | Type     | Required |
 | --- | --------------------- | ------ | ---- |
-| tab | 该TabPanel所对应的tab标签的名字 | string | 是    |
-| id  | 该TabPanel的id          | string | 是    |
-| disabled | 该TabPanel是否被禁用 | bool | 否
+| tab | The label of the tab which corresponding to this panel. | string | yes    |
+| id  | The id of the tab panel. | string | yes    |
+| disabled | Disable this tab panel. | bool | no |

@@ -13,8 +13,6 @@ Copy button will copy the specified text to the system clipboard when clicked.
 - When you need to copy some text, you can use this component.
 - This component may fail in some older version browsers since it doesn't rely on Flash.
 
-### Demos
-
 ### API
 
 | Property     |  Description  | Type     | Default  | Alternative |

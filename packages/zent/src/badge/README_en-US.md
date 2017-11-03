@@ -13,8 +13,6 @@ Badge normally appears in the upper right corner of the notification or avatar w
 -  Badge is used to prompt for new messages, which is placed in the upper right corner or right side of the text or icon.
 -  Badge can display the specific number of new messages.
 
-### Demos
-
 ### API
 
 | Property     |  Description  | Type     | Default  | Alternative |

@@ -13,8 +13,6 @@ group: 数据
 
 - `value` 支持任意类型的值, 包括引用类型.
 
-### 代码演示
-
 ### API
 
 #### Checkbox API

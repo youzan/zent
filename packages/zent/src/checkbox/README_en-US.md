@@ -12,8 +12,6 @@ group: Data Entry
 
 - `value` supports any type of value, inclueding Referrence Type.
 
-### Demos
-
 ### API
 
 #### Checkbox API

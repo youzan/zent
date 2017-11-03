@@ -11,7 +11,7 @@ const TabPanel = Tabs.TabPanel;
 
 class Simple extends React.Component {
 	state = {
-		activeId: 0
+		activeId: 2
 	}
 
 	onTabChange = (id) => {
@@ -35,13 +35,13 @@ class Simple extends React.Component {
 				</TabPanel>
 				<TabPanel
 					tab="选项二"
-					id={0}
+					id={2}
 				>
 					<div>选项二的内容</div>
 				</TabPanel>
 				<TabPanel
 					tab="选项三"
-					id={2}
+					id={3}
 				>
 					<div>选项三的内容</div>
 				</TabPanel>

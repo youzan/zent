@@ -4,25 +4,25 @@ path: component/switch
 group: Data Entry
 ---
 
-## Switch 开关
+## Switch
 
-开关选择器。
+Switch is a switching selector。
 
-### 使用指南
+### Guides
 
--  需要表示开关状态/两种状态之间的切换时。
--  切换 `Switch` 会直接触发状态改变。
+-  Switch is recommended to be used when you need to indicate the switch between two status.
+-  itching `Switch` will trigger the status change directly.
 
 ### API
 
-| 参数            | 说明                           | 类型                  | 默认值         | 备选值       |
-| ------------- | ---------------------------- | ------------------- | ----------- | --------- |
-| checked       | 指定当前状态                       | bool                |         |           |
-| onChange      | 变化时回调函数, 参数是改变后的 `checked` 值 | func(checked: bool) | `noop`      |           |
-| disabled      | 状态控制                         | bool                | `false`     |           |
-| checkedText   | 选中时的文案                       | string              | `'开启'`      |           |
-| uncheckedText | 未选中时的文案                      | string              | `'关闭'`      |           |
-| loading       | 加载中状态                        | bool                | `false`     |           |
-| size          | 开关大小                         | string              | `'default'` | `'small'` |
-| className     | 自定义额外类名                      | string              | `''`        |           |
-| prefix        | 自定义前缀                        | string              | `'zent'`    |           |
+| Property     |  Description  | Type     | Default  | Alternative |
+| ----------- | ------------ | --------- | --------- | --------- |
+| checked       | The current status  | bool    |         |           |
+| onChange      | The callback function that is triggered when the value of `checked` is changed. | func(checked: bool) | `noop`      |           |
+| disabled      | Disable the switch  | bool   | `false`     |   `true`    |
+| checkedText   | The text to show when the switch is on. | string   |`'开启'| |
+| uncheckedText | The text to show when the switch is off.| string | `'关闭'`| |
+| loading| The status of loading | bool| `false`     |  `true`         |
+| size | The size of the switch | string | `'default'` | `'small'` |
+| className     | The custom classname | string  | `''`        |  |
+| prefix        | The custom prefix  | string  | `'zent'`    |     |

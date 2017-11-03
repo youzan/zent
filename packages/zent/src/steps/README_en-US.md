@@ -8,8 +8,6 @@ group: Navigation
 
 Steps is suitable for operations that need to be guided step by step.
 
-### Demos
-
 ### API
 
 #### Steps

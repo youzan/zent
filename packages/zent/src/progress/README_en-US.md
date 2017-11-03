@@ -13,8 +13,6 @@ Progress represents the current progress and status of the operation.
 -  Progress is suitable for long-time operations, which shows the current progess and status of the current operation.
 -  Progres can display the percentage of the operation progress.
 
-### Demos
-
 ### API
 
 | Property     |  Description  | Type     | Default  | Alternative |
