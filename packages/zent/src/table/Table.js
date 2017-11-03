@@ -186,6 +186,15 @@ export default class Table extends (PureComponent || Component) {
     }
   };
 
+  /**
+   * 设置内部属性，cached选中结果
+   */
+  setSelection() {
+    let { selection } = this.props;
+    this.selectedRowKeys = selection.selectedRowKeys.slice(0); // copy 一份数组
+    this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
+  }
+
   /*
    * Head上的选中会全选所有的行
    * @param isSelect {Boolean} 表示是否全选
@@ -201,6 +210,8 @@ export default class Table extends (PureComponent || Component) {
         return { canSelect: true };
       }
     } = this.props;
+
+    this.setSelection();
 
     let allRowKeys = this.selectedRowKeys;
     let allRows = this.selectedRows;
@@ -246,7 +257,7 @@ export default class Table extends (PureComponent || Component) {
   onSelectOneRow = (rowKey, isSelect) => {
     let { selection } = this.props;
 
-    this.selectedRowKeys = selection.selectedRowKeys.slice(0); // copy 一份数组
+    this.setSelection();
     let index = this.selectedRowKeys.indexOf(rowKey);
     let isSingleSelection = selection.isSingleSelection || false;
 
