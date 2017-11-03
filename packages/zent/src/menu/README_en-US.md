@@ -4,47 +4,48 @@ path: component/menu
 group: Navigation
 ---
 
-## Menu 菜单
+## Menu
 
-菜单，为页面提供导航的菜单
+Menu, can be used to provide navigation.
 
 ### API
 
 #### Menu
 
-| 参数 | 说明 | 类型 | 默认值 |
+| Property | Description | Type | Default |
 |------|------|------|--------|
-| onClick | 点击菜单节点回调 | func |  |
-| className | 节点类名 | string |  |
-| prefix | 自定义前缀 | string | 'zent' |
+| onClick | Callback fires when a node of menu is clicked | func |  |
+| className | class name for the node | string |  |
+| prefix | custom prefix | string | 'zent' |
 
 
 #### MenuItem
 
-| 参数 | 说明 | 类型 | 默认值 |
+| Property | Description | Type | Default |
 |------|------|------|--------|
-| key | item 的唯一标志 | string | 内部生成的唯一ID |
-| disabled | 是否禁用当前菜单项 | bool |  |
-| className | 节点自定义类名 | string |  |
-| prefix | 节点自定义前缀 | string | 'zent' |
+| key | the unique identify of the
+ item | string | an ID generated internally  |
+| disabled | whether to disable the menu item  | bool |  |
+| className | custom class name | string |  |
+| prefix | custom prefix | string | 'zent' |
 
 
 #### SubMenu
 
-| 参数 | 说明 | 类型 | 默认值 |
+| Property | Description | Type | Default |
 |------|------|------|--------|
-| title | 子菜单项显示值 | string |  |
-| disabled | 是否禁用当前子菜单 | bool |  |
-| overlayClassName | 弹出菜单的自定义类名 | string |  |
-| className | 子菜单项自定义类名 | string |  |
-| prefix | 子菜单项自定义前缀 | string | 'zent' |
+| title | title of the submenu | string |  |
+| disabled | whether to disable the submenu  | bool |  |
+| overlayClassName | custom class name of the pop menu | string |  |
+| className | custom class name of the submenu item | string |  |
+| prefix | custom prefix of the submenu item | string | 'zent' |
 
 
 ### FAQ
 
-- 菜单组件使用统一代理的点击事件回调函数, 其参数为 event 和 key(实际上是节点的 index 属性值)。
-- 当 MenuItem 不设置 `key` 属性时的会按顺序和层级自动生成节点的唯一标识(从0开始)并保存在 `index` 属性上, 作为 `onClick` 函数的第二个参数。
-  如果手动设置了 `key` 属性则会被复制到 `index` 属性, 覆盖自动生成的标识。建议在Menu不复杂的情况下手动为 MenuItem 设置格式合理的 `key` 属性。
+- A click event callback function, whose parameters are event and key(which is the key property of the node), is used as a unified agent.
+- When the `key` property is not set for the MenuItem, a unique identify of the node (starting from 0) is generated automatically in order and hierarchy, which will be saved on the `index` property as the second argument of the `onClick` function.
+  When the `key` property is set manually, the property will be copied to the `index` property and will override  the unique identify generated. It's recommanded to manually set the `key` property to a proper value of MenuItem in the condition that the Menu is not complex.
   
   ```
 	<Menu>
