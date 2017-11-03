@@ -4,23 +4,23 @@ path: component/dropdown
 group: Navigation
 ---
 
-## Dropdown 下拉菜单
+## Dropdown
 
-向下弹出的弹层组件。
+A component pops down.
 
-我们不提供单独的名为 `Dropdown` 的组件，`Dropdown` 组件的功能是 `Popover` 组件的一个子集，这个文档描述了如何使用 `Popover` 来实现 `Dropdown` 的功能。
+We don't provide a specific component called `Dropdown`. The function of `Dropdown` component is a subset of function of `Popover` component. This doc decribes how to use `Popover` to implement a `Dropdown`.
 
-### 使用场景
+### Usage
 
-一般用于下拉菜单。
+Generally, the component is used for dropdown menu.
 
 ### API
 
-请参考 [`Popover` 的 API 文档](popover#api)。
+Please refer [the api doc of `Popover`](popover#api).
 
-### 关于下拉菜单弹出位置
+### About position
 
-建议使用 `Popover` 提供的 `AutoXxxYxx` 定位方式，例如 `AutoBottomLeft` 默认定位在左下角，但是如果超出屏幕的话会自动调整位置。
+It's recommanded to use `AutoXxxYxx` provided by `Popover` for positioning. E.g. it's positioned below the lower left corner, but the position will be adjusted if it's out of the screen.
 
-可选的定位方式请阅读 [`Popover` 的定位文档](popover#position%20api)。
+Alternative ways for positioning can be refered to [the   position doc of `Popover`](popover#position%20api)。
 
