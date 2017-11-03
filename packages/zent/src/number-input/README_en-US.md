@@ -12,8 +12,6 @@ A input widget for entering number through mouse or keyboard
 
 - When you enter number, using numberInput is more convenient
 
-### demos
-
 ### API
 
 | Property           | Description              | Type            | Default      | Alternative                     | Required |

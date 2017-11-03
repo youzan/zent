@@ -4,7 +4,6 @@ zh-CN:
 	title: 基础用法
 	index: 首页
 	tree: 树
-
 en-US:
 	title: Basic Usage
 	index: Index
@@ -18,19 +17,19 @@ import { Tree } from 'zent';
 
 const treeData = [{
 	id: 1,
-	title: 'hello',
+	title: 'Hangzhou Youzan Technology Co. Ltd',
 	children: [{
 		id: 2,
-		title: 'language',
+		title: 'engineer',
 		children: [{
 			id: 3,
-			title: 'java'
+			title: 'Back End Engineer'
 		}, {
 			id: 4,
-			title: 'python'
+			title: 'Front End Engineer'
 		}, {
 			id: 5,
-			title: 'scala'
+			title: 'Operations Engineer'
 		}]
 	}, {
 		id: 6,
