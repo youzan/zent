@@ -7,27 +7,34 @@ zh-CN:
 en-US:
 	title: Global Mode
 	open: Global Open
-	close: Global Shutdown
+	close: Global Close
 ---
 
 ```js
 import { Loading, Button } from 'zent';
 
-const Global = () => {
-	return (
-		<div>
-			<Button onClick={() => { Loading.on() }}>
-				{i18n.open}
-			</Button>
-			<Button
-				onClick={() => { Loading.off() }}
-				style={{ zIndex: 9999, position: 'relative' }}
-			>
-				{i18n.close}
-			</Button>
-		</div>
-	);
+class Example extends React.Component {
+	state = {
+		on: false
+	};
+
+	render() {
+		return (
+			<div>
+				<Button onClick={() => { this.setState({ on: true }) }}>
+					{i18n.open}
+				</Button>
+				<Button
+					onClick={() => { this.setState({ on: false }) }}
+					style={{ zIndex: 9999, position: 'relative' }}
+				>
+					{i18n.close}
+				</Button>
+				<Loading float show={this.state.on} />
+			</div>
+		);
+	}
 }
 
-ReactDOM.render(<Global />, mountNode);
+ReactDOM.render(<Example />, mountNode);
 ```
