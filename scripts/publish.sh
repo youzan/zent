@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 RED='\033[0;31m'
 basepath=$(dirname $0)
 

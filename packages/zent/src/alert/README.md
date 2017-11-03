@@ -130,8 +130,6 @@ ReactDOM.render(
 
 <style>
 .zent-alert-example {
-    padding-right: 32px;
-
     .zent-alert {
         margin-bottom: 20px;
 

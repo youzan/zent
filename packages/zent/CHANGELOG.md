@@ -1,10 +1,35 @@
 ## Github 日志
 
-## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
+## [zent@3.9.1](https://github.com/youzan/zent/tree/zent@3.9.1) (2017-11-02)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.0...zent@3.9.1)
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[bug fix\] design: preview区域右下角 action button 加 padding [\#522](https://github.com/youzan/zent/pull/522) ([ronghang](https://github.com/ronghang))
+
+## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
+
+**不兼容改动和新功能:**
+
+- \[new feature\] Table:复制到富文本编辑器格式保持一致 [\#499](https://github.com/youzan/zent/issues/499)
+- \[feature\] Add some global style normalization [\#519](https://github.com/youzan/zent/pull/519) ([cpylua](https://github.com/cpylua))
+
+**Bug 修复:**
+
+- \[bug fix\] Grid: 修复不能动态修改 columns 属性的 bug [\#515](https://github.com/youzan/zent/pull/515) ([lama-pacos](https://github.com/lama-pacos))
+- \[bug fix\] Design: 修复变量名 [\#512](https://github.com/youzan/zent/pull/512) ([cpylua](https://github.com/cpylua))
+
+**合并的 Pull Request (可能有不兼容改动):**
+
+- \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
+- \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
 ## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
+
+## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
 
 **不兼容改动和新功能:**
 
@@ -382,7 +407,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
 
 **Bug 修复:**
 
@@ -392,11 +417,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
-
 ## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
+
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
 
 **不兼容改动和新功能:**
 
@@ -486,7 +511,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
 
 **不兼容改动和新功能:**
 
@@ -517,11 +542,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
-
 ## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
+
+## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
 
 **不兼容改动和新功能:**
 
