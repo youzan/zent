@@ -52,24 +52,31 @@ ReactDOM.render(<Example />, mountNode);
 :::
 
 
-:::demo 全局开启或关闭。
+:::demo 全局加载
 ```jsx
 import { Loading, Button } from 'zent';
 
-const Example = () => {
-	return (
-		<div>
-			<Button onClick={() => { Loading.on() }}>
-				全局开启
-			</Button>
-			<Button
-				onClick={() => { Loading.off() }}
-				style={{ zIndex: 9999, position: 'relative' }}
-			>
-				全局关闭
-			</Button>
-		</div>
-	);
+class Example extends React.Component {
+	state = {
+		on: false
+	};
+
+	render() {
+		return (
+			<div>
+				<Button onClick={() => { this.setState({ on: true }) }}>
+					全局开启
+				</Button>
+				<Button
+					onClick={() => { this.setState({ on: false }) }}
+					style={{ zIndex: 9999, position: 'relative' }}
+				>
+					全局关闭
+				</Button>
+				<Loading float show={this.state.on} />
+			</div>
+		);
+	}
 }
 
 ReactDOM.render(<Example />, mountNode);
