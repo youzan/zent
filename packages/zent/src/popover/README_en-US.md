@@ -29,7 +29,7 @@ the widget supports nested pop
 | onClose | optional, the callback after pop closes | func | `noop` | |
 | onBeforeShow | optional, the callback before pop opens, only triggered by user's operation, setting `visible` outside will not call | func | `noop` | |
 | onBeforeClose | optional, the callback after pop closes, only triggered by user's operation, setting `visible` outside will not call | `noop` | |
-| containerSelector | optional, pop's parent node CSS selector | string | `'body'` | 所有合法的CSS selector |
+| containerSelector | optional, pop's parent node CSS selector | string | `'body'` | all legal CSS selector |
 | visible | optional, manual control pop's show or hide, must be used with `onVisibleChange`  | bool | | |
 | onVisibleChange | optional, the callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | |
 | className | optional, custom extra class name | string | `''` |  |
@@ -81,7 +81,7 @@ all trigger's base class,  implement custom trigger need to inherit this class, 
 | open               | open pop                                             | func                   |
 | close              | close pop                                             | func                   |
 | contentVisible     | whether ccurent pop is opened or not                                          | bool                   |
-| onTriggerRefChange | trigger的ref改变的时候需要调用的回掉函数, 只有在重写 render 函数的时候需要这个函数 | func:(instance) |
+| onTriggerRefChange | when ref changes, callback is executed. and it is only needs when you rewrite render function | func:(instance) |
 
 ### Position API
 
@@ -140,22 +140,22 @@ const position = Popover.Position.create((anchorBoundingBox, containerBoundingBo
 });
 ```
 
-anchor 是指 trigger，container 是指离弹层最近的有定位的父节点。
+anchor means trigger，container is nearst layer's parent node which have it's own position.
 
-`anchorBoundingBox` and `containerBoundingBox` is relative to container's 左上角的坐标。
+`anchorBoundingBox` and `containerBoundingBox` is relative to container's upper-left corner.
 
-`contentDimension` 是弹层的宽高.
+`contentDimension` is layer's width and height.
 
-`options` 包含了其它可能有用的参数:
-* `options.cushion` Props 上传进来的定位偏移量
-* `options.anchor` anchor 的 DOM 节点
-* `options.container` container 的 DOM 节点
-* `options.anchorBoundingBoxViewport` anchor 相对于 viewport 的坐标
-* `options.containerBoundingBoxViewport` container 相对于 viewport 的坐标
+`options` contains another useful arguments:
+* `options.cushion` position offset passed by Props
+* `options.anchor` anchor's DOM node
+* `options.container` container's DOM node
+* `options.anchorBoundingBoxViewport` anchor is a coordinate relative to viewport
+* `options.containerBoundingBoxViewport` container is a coordinate relative to viewport
 
-#### withPopover 高阶组件
+#### withPopover high-level component
 
-这个高阶组件暴露了 `Popover` 内部的几个重要方法, 可能的使用场景: 在 `Content` 内部手动关闭弹层.
+the high-level component provides some important functions. it can be used to manually close pop in `Content`
 
 | Property             | Description                    | Type               |
 | -------------- | --------------------- | ---------------- |

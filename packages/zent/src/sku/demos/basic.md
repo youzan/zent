@@ -2,40 +2,58 @@
 order: 1
 zh-CN:
 	title: 基础用法
+	color: 颜色
+	size: 尺寸
+	red: 红色
+	blue: 蓝色
+	golden: 土豪金
+	black: 黑色
+	gray: 灰色
+
 en-US:
 	title: Basic Usage
+	color: color
+	size: size
+	red: red
+	blue: blue
+	golden: golden
+	black: black
+	gray: gray
+
 ---
 
 ```jsx
 import { SKU } from 'zent';
 
+
 const skuTree = [
   {
     id: 10740,
-    text: '颜色'
+    text: "{i18n.color}"
   },
   {
     id: 40732,
-    text: '尺寸'
+    text: "{i18n.size}"
   }
 ];
 
 const sku = [{
   id: 3,
-  text: '蓝色'
+  text: "{i18n.blue}"
 }, {
   id: 10,
-  text: '红色'
+  text: "{i18n.red}"
 }, {
   id: 30,
-  text: '土豪金'
+  text: "{i18n.golden}"
 }, {
   id: 137,
-  text: '黑色'
+  text: "{i18n.black}"
 }, {
   id: 138,
-  text: '灰色'
+  text: "{i18n.gray}"
 }];
+
 
 class Simple extends Component {
   fetchSKUTree() {
