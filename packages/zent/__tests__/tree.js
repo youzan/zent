@@ -89,7 +89,7 @@ describe('Tree', () => {
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('off')).toBe(true);
     expect(example.children().length).toBe(2);
-    expect(example.childAt(0).type()).toBe('icon');
+    expect(example.childAt(0).type()).toBe('i');
     expect(example.childAt(1).type()).toBe('div');
     expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
     expect(example.childAt(1).find('span').length).toBe(1);
@@ -262,7 +262,7 @@ describe('Tree', () => {
     expect(example.hasClass('zent-tree-bar')).toBe(true);
     expect(example.hasClass('off')).toBe(true);
     expect(example.children().length).toBe(2);
-    expect(example.childAt(0).type()).toBe('icon');
+    expect(example.childAt(0).type()).toBe('i');
     expect(example.childAt(1).type()).toBe('div');
     expect(example.childAt(1).hasClass('zent-tree-node')).toBe(true);
     expect(example.childAt(1).find('span').length).toBe(1);
@@ -459,7 +459,7 @@ describe('Tree', () => {
 
     // NOTE: jest and enzyme couldn't simulate switcher.click()
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(true);
-    const iconRoot = wrapper.find('icon').at(0);
+    const iconRoot = wrapper.find('i').at(0);
     iconRoot.simulate('click');
     jest.runAllTimers();
     expect(rootSpan.closest('.zent-tree-bar').hasClass('off')).toBe(false);
@@ -480,7 +480,7 @@ describe('Tree', () => {
     const expandWrapper = mount(
       <Tree dataType="plain" data={data} onExpand={onExpandMock} />
     );
-    const expandIcon = expandWrapper.find('icon').at(0);
+    const expandIcon = expandWrapper.find('i').at(0);
     expandIcon.simulate('click');
     jest.runAllTimers();
     expect(onExpandMock.mock.calls.length).toBe(1);
@@ -555,8 +555,8 @@ describe('Tree', () => {
     const wrapper = mount(<Tree dataType="plain" data={data} />);
     const rootSpan = wrapper.find('span').at(0);
     const sonSpan = wrapper.find('span').at(1);
-    const iconRoot = wrapper.find('icon').at(0);
-    const iconSon = wrapper.find('icon').at(1);
+    const iconRoot = wrapper.find('i').at(0);
+    const iconSon = wrapper.find('i').at(1);
 
     iconRoot.simulate('click');
     jest.runAllTimers();
@@ -595,7 +595,7 @@ describe('Tree', () => {
       }
     ];
     const wrapper = mount(<Tree data={data} loadMore={loadMoreMock} />);
-    const rootIcon = wrapper.find('icon');
+    const rootIcon = wrapper.find('i');
     rootIcon.simulate('click');
     // jest.runAllTimers();
     expect(loadMoreMock.mock.calls.length).toBe(1);
@@ -618,7 +618,7 @@ describe('Tree', () => {
     const rejectWrapper = mount(
       <Tree data={dataWithEmptyArr} loadMore={loadMoreMockRejected} />
     );
-    const rejectIcon = rejectWrapper.find('icon');
+    const rejectIcon = rejectWrapper.find('i');
 
     expect(() => {
       rejectIcon.simulate('click');
@@ -640,7 +640,7 @@ describe('Tree', () => {
       }
     ];
     const hackWrapper = mount(<Tree data={hackData} loadMore={loadMoreMock} />);
-    const hackIcon = hackWrapper.find('icon').at(0);
+    const hackIcon = hackWrapper.find('i').at(0);
     hackIcon.simulate('click');
     jest.runAllTimers();
     expect(loadMoreMock.mock.calls.length).toBe(1);
@@ -662,7 +662,7 @@ describe('Tree', () => {
     const wrapper = mount(
       <Tree data={data} loadMore={() => new Promise(resolve => resolve())} />
     );
-    const sonIcon = wrapper.find('icon').at(1);
+    const sonIcon = wrapper.find('i').at(1);
     sonIcon.simulate('click');
     jest.runAllTimers();
 
