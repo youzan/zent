@@ -12,7 +12,7 @@ en-US:
 import { Button } from 'zent';
 
 ReactDOM.render(
-	<Button>i18n.button</Button>
+	<Button>{i18n.button}</Button>
 	, mountNode
 );
 ```

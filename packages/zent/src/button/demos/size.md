@@ -17,9 +17,9 @@ import { Button } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Button size="large">i18n.bigButton</Button>
-		<Button>i18n.normalButton</Button>
-		<Button size="small">i18n.smallButton</Button>
+		<Button size="large">{i18n.bigButton}</Button>
+		<Button>{i18n.normalButton}</Button>
+		<Button size="small">{i18n.smallButton}</Button>
 	</div>
 	, mountNode
 );

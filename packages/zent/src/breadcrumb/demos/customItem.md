@@ -18,12 +18,12 @@ import { Alert, Icon } from 'zent';
 ReactDOM.render(
 	<Breadcrumb>
 		<Breadcrumb.Item>
-			<a href="//www.youzan.com">i18n.index</a>
+			<a href="//www.youzan.com">{i18n.index}</a>
 		</Breadcrumb.Item>
 		<Breadcrumb.Item>
-			<span>i18n.applicationCenter</span>
+			<span>{i18n.applicationCenter}</span>
 		</Breadcrumb.Item>
-		<span>i18n.marketingCenter</span>
+		<span>{i18n.marketingCenter}</span>
 	</Breadcrumb>
 	, mountNode
 )

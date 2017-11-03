@@ -16,7 +16,7 @@ class Simple extends React.Component {
 		return (
 			<div>
 				<BlockHeader
-					title="i18n.content"
+					title="{i18n.content}"
 					tooltip={<span>test</span>}
 					content={<a href="/">content</a>}
 					position="top-center"
@@ -24,7 +24,7 @@ class Simple extends React.Component {
 				<br />
 				<BlockHeader
 					className="test-class"
-					title="i18n.content"
+					title="{i18n.content}"
 					tooltip={<span>test</span>}
 					position="top-center"
 				>

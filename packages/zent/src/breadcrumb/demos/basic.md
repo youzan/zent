@@ -16,9 +16,9 @@ en-US:
 import { Breadcrumb } from 'zent';
 
 const dataList = [
-	{ name: 'i18n.index', href: '//www.youzan.com' },
-	{ name: 'i18n.applicationCenter', href: '//www.youzan.com' },
-	{ name: 'i18n.marketingCenter' }
+	{ name: '{i18n.index}', href: '//www.youzan.com' },
+	{ name: '{i18n.applicationCenter}', href: '//www.youzan.com' },
+	{ name: '{i18n.marketingCenter}' }
 ];
 
 ReactDOM.render(
