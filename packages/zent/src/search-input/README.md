@@ -10,46 +10,7 @@
 
 :::demo 基本用法
 ```jsx
-import { SearchInput, Notify } from 'zent';
 
-class SearchInputExample extends Component {
-  state = {
-    value: ''
-  };
-
-  onChange = evt => {
-    this.setState({
-      value: evt.target.value
-    });
-  };
-
-  onPressEnter = () => {
-    const { value } = this.state;
-
-    if (value) {
-      Notify.success(`你输入了: ${value}`);
-    } else {
-      Notify.error('请输入搜索内容');
-    }
-  }
-
-  render() {
-    const { value } = this.state;
-    return (
-      <SearchInput
-        value={value}
-        onChange={this.onChange}
-        placeholder="搜索"
-        onPressEnter={this.onPressEnter}
-      />
-    );
-  }
-}
-
-ReactDOM.render(
-  <SearchInputExample />,
-  mountNode
-);
 ```
 :::
 

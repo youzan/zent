@@ -4,30 +4,26 @@ path: component/radio
 group: Data Entry
 ---
 
-## Radio 单选
+## Radio
 
-单选框组件
+`RadioGroup` is a [controlled-component][https://facebook.github.io/react/docs/forms.html#controlled-components]. There must be a `onChange` callback dealing with changes outside.
 
-### 使用指南
+### API
 
-- `RadioGroup` 是一个[受控组件][https://facebook.github.io/react/docs/forms.html#controlled-components], 必须要设置 `onChange` 回调方法在组件外部处理 `value` 变化.
+#### RadioGroup
 
-### RadioGroup API
-
-| 参数           | 说明                | 类型             | 默认值                 |
+| Props           | Description                | Type             | Default                 |
 | ------------ | ----------------- | -------------- | ------------------- |
-| value        | 用于设置当前选中的值        | any            |                     |
-| onChange     | 选项变化时的回调函数        | func(e: event) |                     |
-| isValueEqual | 可选参数，判断value值是否相等 | func(a, b)     | `(a, b) => a === b` |
-| className    | 自定义额外类名           | string         |                     |
-| prefix       | 自定义前缀             | string         | `'zent'`            |
+| value        | Used to set the currently selected value        | any            |                     |
+| onChange     | change callback        | func(e: event) |                     |
+| isValueEqual | Optional, a function to determine whether values is equal | func(a, b)     | `(a, b) => a === b` |
+| className    | custom classname           | string         |                     |
+| prefix       | custom prefix  | string         | `'zent'`            |
 
-### Radio API
+#### Radio
 
-| 参数        | 说明                   | 类型     | 默认值      |
+| Props        | Description                   | Type     | Default      |
 | --------- | -------------------- | ------ | -------- |
-| value     | 根据 value 进行比较，判断是否选中 | any    |          |
-| className | 自定义额外类名              | string |          |
-| prefix    | 自定义前缀                | string | `'zent'` |
-
-[controlled-components]: https://facebook.github.io/react/docs/forms.html#controlled-components
+| value     | Compare according to the, determine if selected | any    |          |
+| className | custom classname              | string |          |
+| prefix    | custom prefix     | string | `'zent'` |
