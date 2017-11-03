@@ -14,7 +14,6 @@ A floating card opened by clicking, hovering or focusing.
 - Can be used as tooltip
 - Supports arbitary content in popup
 
-### Demos
 
 ### API
 

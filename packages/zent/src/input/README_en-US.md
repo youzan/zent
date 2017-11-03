@@ -13,7 +13,6 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 - Using Input, with prefix or suffix.
 - Combining with another widgets, such as combined into a search box.
 
-### demos
 
 ### API
 

@@ -15,7 +15,6 @@ group: 反馈
 -  主要用于提示简要的文字信息。
 -  `Notify.success` 和 `Notify.error` 方法会返回一个id，这个id可以作为 `Notify.clear(id)` 的入参，用于关闭指定notify。
 
-### 代码演示
 
 ### API
 

@@ -8,22 +8,21 @@ group: Navigation
 
 used to fix the element in a specific area, it is common to fix navigation bar 
 
-### demo
-
 ### API
 
 | Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
-| offsetTop | emit when the offset is  specified at the top of the window | number | 0 | '' |
-| offsetBottom | emit when the offset is  specified at the bottom of the window | number | null | null |
-| onPin | execute callback function when affix emits | function | null | null |
-| onUnpin | execute callback function when affix disappears | function | null | null |
+| offsetTop | trigger when the offset is  specified at the top of the viewport | number | 0 | '' |
+| offsetBottom | trigger when the offset is  specified at the bottom of the viewport | number | null | null |
+| onPin | execute callback  when affix trigger | function | null | null |
+| onUnpin | execute callback when affix disappears | function | null | null |
 | zIndex | affix z-index | number | 10 | null |
-| className | 自定义额外类名  | string | `''`       |                                   |
-| placeHoldClassName | 占位容器的类名  | string | `''`       |                                   |
-| prefix    | 自定义前缀    | string | `'zent'`   |                                   |
+| className | custom extra class name  | string | `''`       |                                   |
+| placeHoldClassName | position container class name  | string | `''`       |                                   |
+| prefix    | custom prefix    | string | `'zent'`   |                                   |
 
-如果 `offsetTop` 和 `offsetBottom` 同时设置，优先使用 `offsetBottom`
+
+if `offsetTop` and `offsetBottom` are both set , `offsetBottom` has priority
 
 <style>
 .demo-nav {
