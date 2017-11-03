@@ -4,30 +4,32 @@ path: component/slider
 group: Data Entry
 ---
 
-## Slider 滑动输入条
+## Slider
 
-通过拖动、点击 `Slider` 组件选择数值
+You can select a value by dragging or clicking `Slider`.
 
-### 使用指南
+### Guides
 
-- 可设置单滑块或者双滑块
-- 可与 `Input` 输入框配合使用
+- Support a single slider and double slider.
+- Can be used with `Input`.
+
+### Demos
 
 ### API
 
-| 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
-| ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
-| value        | 输入值    | [number,array] |    0      |    [0,0]    | 是    |
-| onChange     | change 事件        | func(e:Event) |          |                         | 否    |
-| range        | 是否选择范围    | bool          |     false     |                         | 否    |
-| max          | 最大范围     | number     | 100 | 50 | 否    |
-| min          | 最小范围     | number     |  0  |   -100        | 否    |
-| step         | 间隔 | number        |  1     |                 | 否    |
-| withInput    | 是否带输入框            | bool          |       true   |                  | 否    |
-| dots         | 是否只能在标签值中选择     | bool |       true   |                         | 否    |
-| marks        | 标签值     | object |          |                         | 否    |
-| disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
-| className    | 自定义额外类名         | string        | `''`     |                         | 否    |
-| prefix       | 自定义类前缀          | string        | `'zent'` |                         | 否    |
+| Property     |  Description  | Type     | Default  | Alternative | Required |
+| ------------ | ------------ | -------| -------- | --------------| ---- |
+| value        | The value of input | [number,array] |    0   | [0,0] | yes |
+| onChange     | The callback function that is triggered when the slider is changed | func(e:Event) |   |     | no    |
+| range        | Whether the range selection can be used or not | bool   |     false  |   |  no  |
+| max          | The max value    | number     | 100 | 50 | no    |
+| min          | The min value     | number     |  0  |   -100        | no    |
+| step         |The interval between values | number |  1 |     | no    |
+| withInput    | Whether the input is included | bool   | `true` | `false` |  no |
+| dots         | Whether the value of slider can only be selected from label values or not | bool | true |   | no |
+| marks        | label values | object |   |   | no |
+| disabled     | Disable the silder | bool  | `false`  |      | no |
+| className    | The custom classname | string | `''` | | no |
+| prefix       | The custom prefix | string | `'zent'` |  | no   |
 
-`range` 属性设置了必须给一个 `value` 值，且一定为一个长度为2的数组，数组项必须为数字。`dots` 属性配合 `marks` 属性使用。
+**Ps.** When setting `range`, you should set `value` as an array of length 2. The array entry must be a number. Property `dots` must be used with `marks`.

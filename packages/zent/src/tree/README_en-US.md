@@ -13,47 +13,51 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 - Supports two types of data structure, nested tree and array.
 - The widget only display input data, but not change itself.
 
+### demos
+
+
 ### API
+
 
 #### Tree
 
 | Property                 | Description                                                        | Type                 | Default     | Alternative                |
 | ------------------- | ------------------------------------------------------------| ------------------- | ---------- | -------------------- |
 | dataType            | data structure, default is tree                                    | string             | `'tree'`   | `'plain'`            |
-| data                | required, 实际传入的数据, 根据dataType进行识别                       | array              |            |                      |
-| render              | 自定义树条目渲染方法, 传入参数为该节点数据 (包含子树)              | func(data)         |            |                      |
-| operations          | 自定义操作, 包含 `name`, `icon`, `action`, `shouldRender` 属性 | array[object]      |            |                      |
-| foldable            | 是否支持点击条目时展开与收起动作                                 | bool               | `true`     |                      |
-| checkable           | 是否支持checkbox选择                                          | bool               | `true`     |                      |
-| onCheck             | 点击checkbox的回调函数, 传入包含所有点击节点id数组                | func(data)         |            |                      |
-| defaultCheckedKeys  | 默认选中节点id数组                                            | array              |             |                      |
-| disabledCheckedKeys | 默认禁选节点id数组                                            | array              |             |                      |
-| size                | 大小                                                         | string             | `'medium'` | `'small'`, `'large'` |
-| commonStyle         | 设置整个tree的外层style                                       | object             |             |                      |
-| expandAll           | 是否展开所有节点                                              | bool               | `false`     |                      |
-| onExpand            | 展开节点之后的回调函数                                         | func(data, config) |             |                      |
-| autoExpandOnSelect  | 点击节点是否展开                                              | bool               | `true`      |                      |
-| onSelect            | 选择树的一个节点的回调函数                                      | func(data, target) |            |                      |
-| isRoot              | plain数据类型，判断节点是否为根节点的api                         | func(node)         |            |                      |
+| data                | required, input data, identified by dataType                       | array              |            |                      |
+| render              | you can customize function to render tree , the parameter is node data (includings children tree)            | func(data)         |            |                      |
+| operations          | custom operate, includings `name`, `icon`, `action`, `shouldRender` 属性 | array[object]      |            |                      |
+| foldable            | whether to support item show and hide                                  | bool               | `true`     |                      |
+| checkable           | whether to support checkbox                                          | bool               | `true`     |                      |
+| onCheck             | when you click checkbox, callback function will call, params is a array includes all nodes id array               | func(data)         |            |                      |
+| defaultCheckedKeys  | default choosen node id array                                            | array              |             |                      |
+| disabledCheckedKeys | default forbidden choosen node id array                                            | array              |             |                      |
+| size                | size                                                         | string             | `'medium'` | `'small'`, `'large'` |
+| commonStyle         | set entire tree style                                      | object             |             |                      |
+| expandAll           | whether to expand all nodes                                              | bool               | `false`     |                      |
+| onExpand            | after node expands, callback is trigger                                         | func(data, config) |             |                      |
+| autoExpandOnSelect  | node auto expands when you select it                                               | bool               | `true`      |                      |
+| onSelect            | the callback when you choose tree node                                     | func(data, target) |            |                      |
+| isRoot              | plain data, to determine whether the node is the api of the root node                         | func(node)         |            |                      |
 
 #### data
 
-可在每个节点任意添加初下列属性之外的key-value，回调函数中会拿到用户传入的完整数据。
+except for key-value below, you can add attributes on anynode,  the callback will get entire data that user input
 
-| 参数      | 说明                                                | 类型           | 默认值   | 备选值 |
+| Property      | Description                                                | Type           | Default   | Alternative |
 | -------- | --------------------------------------------------- | ------------- | ------- |--------|
-| id       | 必填, 数据的唯一标识                                   | number/string |         |       |
-| title    | 必填, 显示内容                                        | string        |         |       |
-| children | 子树 (`dataType="tree"` 时生效)                       | array[object] |         |       |
-| parentId | 父节点Id (`dataType="plain"` 时生效), 根节点为0或不定义 | number/string |         |       |
-| expand   | 是否展开                                             | bool          | `false` |       |
-| isLeaf   | 是否叶子节点                                          | bool          | `false` |       |
+| id       | required, uniuqe key                                   | number/string |         |       |
+| title    | required, show title                                        | string        |         |       |
+| children | children tree (`dataType="tree"` it works)                       | array[object] |         |       |
+| parentId | parent Id (`dataType="plain"` it works), roort node is 0 or undefined | number/string |         |       |
+| expand   | whether to expand or not                                             | bool          | `false` |       |
+| isLeaf   | whether is leaf node or not                                        | bool          | `false` |       |
 
 #### operations
 
-| 参数           | 说明                            | 类型              |  默认值   | 备选值 |
+| Property           | Description                            | Type              |  Default   | Alternative |
 | ------------ | -------------------------------- | ----------------- | ------- |--------|
-| name         | 必填，显示内容                     | string            |         |        |
-| icon         | 显示icon的className, 或ReactNode  | string／ReactNode  |         |       |
-| action       | 必填，点击回调函数，参数为子树信息    | func(data)        |         |        |
-| shouldRender | 是否更新，返回true/false           | func(data)        | `true`  |        |
+| name         | required，show content                     | string            |         |        |
+| icon         | display icon className, or ReactNode  | string／ReactNode  |         |       |
+| action       | required，click callback，the parameter is children tree   | func(data)        |         |        |
+| shouldRender | is it need to update，return true/false           | func(data)        | `true`  |        |

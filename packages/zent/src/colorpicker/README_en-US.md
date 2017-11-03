@@ -32,9 +32,3 @@ ColorPicker is used for color selection and supports multiple formats.
 | onChange      | The callback function that is triggerd when color is changed    | func(color)         | `noop`   |         |
 | className     | The cutom clasname      | string              | `''`     |         |
 | prefix        | The custom prefix      | string              | `'zent'` |         |
-
-<style>
-	.marginTop10 {
-		margin-top: 10px;
-	}
-</style>

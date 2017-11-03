@@ -26,22 +26,3 @@ group: 展示
 | showZero | 消息数为0时是否显示  | bool     | `false`      | `true`,`false`  |
 | className| 自定义额外类名      | string   | `''`         |                  |
 | prefix   | 自定义前缀          | string   | `'zent'`    |                  |
-
-<style>
-.zent-badge .demo-cont {
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border-radius: 20px;
-	background: #38f;
-	color: #fff;
-	font-size: 20px;
-}
-.zent-badge {
-	margin-right: 30px;
-}
-.zent-badge-demo-wrapper {
-	display: flex;
-	align-items: center;
-}
-</style>

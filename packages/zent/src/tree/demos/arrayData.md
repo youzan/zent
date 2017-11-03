@@ -4,10 +4,12 @@ zh-CN:
 	title: 列表格式数据源
 	index: 首页
 	tree: 树
+
 en-US:
-	title: Basic Usage
+	title: array data
 	index: Index
 	tree: Tree
+
 ---
 
 

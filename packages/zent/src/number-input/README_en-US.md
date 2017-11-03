@@ -16,18 +16,18 @@ A input widget for entering number through mouse or keyboard
 
 ### API
 
-| Property           | Description              | Type            | Default      | Alternative                     | 是否必填 |
+| Property           | Description              | Type            | Default      | Alternative                     | Required |
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
-| value        | input value             | number        |          |                         | 否    |
-| onChange     | change event        | func(e:Event) |          |                         | 否    |
-| showStepper  | 是否开启记步器         | bool        | `false` |                        | 否    |
-| decimal      | number decimal           | number        |          |                         | 否    |
-| min      | 数值范围最小值            | number        |          |                         | 否    |
-| max      | 数值范围最大值            | number        |          |                         | 否    |
-| placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
-| disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
-| className    | 自定义额外类名        | string        | `''`     |                         | 否    |
-| prefix       | 自定义类前缀         | string        | `'zent'` |                         | 否    |
+| value        | input value             | number        |          |                         | no    |
+| onChange     | change event        | func(e:Event) |          |                         | no    |
+| showStepper  | whether stepper is open         | bool        | `false` |                        | no    |
+| decimal      | number decimal           | number        |          |                         | no    |
+| min      | the minimum value in the range            | number        |          |                         | no    |
+| max      | the maximum value in the range            | number        |          |                         | no    |
+| placeholder  | raw placeholder text | string        | `''`     |                         | no    |
+| disabled     | whether is disable or not            | bool          | `false`  |                         | no    |
+| className    | custom extra class name        | string        | `''`     |                         | no    |
+| prefix       | custom class prefix         | string        | `'zent'` |                         | no    |
 
 <style>
 .zent-number-input-wrapper {

@@ -25,24 +25,3 @@ Badge normally appears in the upper right corner of the notification or avatar w
 | showZero | Whether to show badge when count is zero | bool | `false` | `true`, `false`  |
 | className| The custom classname | string   | `''` |   |
 | prefix | The custom prefix | string   | `'zent'` |  |
-
-
-
-<style>
-.zent-badge .demo-cont {
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border-radius: 20px;
-	background: #38f;
-	color: #fff;
-	font-size: 20px;
-}
-.zent-badge {
-	margin-right: 30px;
-}
-.zent-badge-demo-wrapper {
-	display: flex;
-	align-items: center;
-}
-</style>

@@ -40,10 +40,3 @@ group: Data Entry
 | prefix       | The custom prefix  | string             | `'zent'`        |
 
 [controlled-components]: https://facebook.github.io/react/docs/forms.html#controlled-components
-
-<style type="text/css">
-	.zent-checkbox-doc-p {
-		font-size: 12px;
-		line-height: 2em;
-	}
-</style>

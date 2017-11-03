@@ -3,7 +3,7 @@ order: 4
 zh-CN:
 	title: 事件处理
 en-US:
-	title: event handler
+	title: Event handler
 ---
 
 ```jsx

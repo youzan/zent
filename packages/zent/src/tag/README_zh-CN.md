@@ -7,13 +7,15 @@ group: 展示
 
 ## Tag 标签
 
-标签，进行标记和分类的小标签。
+标签用于进行标记和分类。
 
 ### 使用指南
 
 -  用于添加特殊标记或者分类记号。
 -  可添加多个标签。
 -  标签内字数建议不超过四个字。
+
+### 代码示例
 
 ### API
 
@@ -29,10 +31,3 @@ group: 展示
 | fontColor | 文字颜色 | string | | |
 | className| 自定义额外类名  | string   | `''`         |                  |
 | prefix  | 自定义前缀      | string   | `'zent'`     |                  |
-
-
-<style>
-.zent-tag{
-	margin: 0 10px 5px 0; 
-}
-</style>
