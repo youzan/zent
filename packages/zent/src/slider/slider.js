@@ -54,7 +54,8 @@ export default class Slider extends (PureComponent || Component) {
     range: PropTypes.bool,
     step: PropTypes.number,
     withInput: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -65,7 +66,8 @@ export default class Slider extends (PureComponent || Component) {
     disabled: false,
     withInput: true,
     range: false,
-    value: 0
+    value: 0,
+    style: {}
   };
 
   constructor(props) {
@@ -86,14 +88,14 @@ export default class Slider extends (PureComponent || Component) {
   };
 
   render() {
-    const { withInput, className, ...restProps } = this.props;
+    const { withInput, className, style, ...restProps } = this.props;
     const wrapClass = classNames(
       `${restProps.prefix}-slider`,
       { [`${restProps.prefix}-slider-disabled`]: restProps.disabled },
       className
     );
     return (
-      <div className={wrapClass}>
+      <div className={wrapClass} style={style}>
         <Range {...restProps} onChange={this.onChange} />
         {withInput &&
           !restProps.dots && (

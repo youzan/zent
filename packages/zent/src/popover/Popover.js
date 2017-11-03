@@ -345,13 +345,14 @@ export default class Popover extends (PureComponent || Component) {
       wrapperClassName,
       containerSelector,
       position,
-      cushion
+      cushion,
+      style
     } = this.props;
     const visible = this.getVisible();
 
     return (
       <div
-        style={{ display }}
+        style={{ display, ...style }}
         className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}
       >
         {React.cloneElement(trigger, {

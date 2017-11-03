@@ -176,7 +176,7 @@ class MonthPicker extends (PureComponent || Component) {
     });
 
     return (
-      <div className={wrapperCls}>
+      <div style={props.style} className={wrapperCls}>
         <Popover
           cushion={5}
           visible={state.openPanel}
@@ -185,7 +185,7 @@ class MonthPicker extends (PureComponent || Component) {
           position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
-            <div className={inputCls}>
+            <div style={props.style} className={inputCls}>
               <Input
                 name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}

@@ -10,20 +10,22 @@ import PropTypes from 'prop-types';
 export default class SearchInput extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
+    style: PropTypes.object
   };
 
   static defaultProps = {
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
+    style: {}
   };
 
   render() {
-    const { prefix, className, value } = this.props;
+    const { prefix, className, value, style } = this.props;
     const inputProps = omit(this.props, 'className', 'type', 'onChange');
 
     return (
-      <div className={cx(`${prefix}-search-input`, className)}>
+      <div style={style} className={cx(`${prefix}-search-input`, className)}>
         <Icon type="search" />
         <Input {...inputProps} onChange={this.onChange} />
         {value && (

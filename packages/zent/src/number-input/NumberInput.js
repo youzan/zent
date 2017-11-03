@@ -17,7 +17,8 @@ export default class NumberInput extends (PureComponent || Component) {
     value: PropTypes.any,
     max: PropTypes.number,
     min: PropTypes.number,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -26,6 +27,7 @@ export default class NumberInput extends (PureComponent || Component) {
     value: '',
     decimal: 0,
     disabled: false,
+    style: {},
     onChange: () => {}
   };
 
@@ -187,7 +189,14 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   render() {
-    const { prefix, className, showStepper, disabled, readOnly } = this.props;
+    const {
+      prefix,
+      className,
+      showStepper,
+      disabled,
+      readOnly,
+      style
+    } = this.props;
     const { value, upArrow, downArrow } = this.state;
 
     // 箭头状态
@@ -224,6 +233,7 @@ export default class NumberInput extends (PureComponent || Component) {
       // 'addonBefore',
       // 'addonAfter',
       'onChange',
+      'style',
 
       // 这些是 NumberInput 特有的 props
       'showStepper',
@@ -232,7 +242,7 @@ export default class NumberInput extends (PureComponent || Component) {
       'decimal'
     ]);
     return (
-      <div className={wrapClass}>
+      <div className={wrapClass} style={style}>
         {showStepper && (
           <span className={upArrowClass} onClick={this.inc}>
             <Icon type="right" />

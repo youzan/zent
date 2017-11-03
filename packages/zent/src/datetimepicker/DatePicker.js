@@ -298,7 +298,7 @@ class DatePicker extends (PureComponent || Component) {
     });
 
     return (
-      <div className={wrapperCls}>
+      <div style={props.style} className={wrapperCls}>
         <Popover
           cushion={5}
           visible={state.openPanel}
@@ -307,7 +307,11 @@ class DatePicker extends (PureComponent || Component) {
           position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
-            <div className={inputCls} onClick={evt => evt.preventDefault()}>
+            <div
+              style={props.style}
+              className={inputCls}
+              onClick={evt => evt.preventDefault()}
+            >
               <Input
                 name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}
