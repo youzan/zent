@@ -7,13 +7,11 @@ group: 数据
 
 ## Radio 单选
 
-单选框组件
+`RadioGroup` 是一个[受控组件][https://facebook.github.io/react/docs/forms.html#controlled-components], 必须要设置 `onChange` 回调方法在组件外部处理 `value` 变化.
 
-### 使用指南
+### API
 
-- `RadioGroup` 是一个[受控组件][https://facebook.github.io/react/docs/forms.html#controlled-components], 必须要设置 `onChange` 回调方法在组件外部处理 `value` 变化.
-
-### RadioGroup API
+#### RadioGroup
 
 | 参数           | 说明                | 类型             | 默认值                 |
 | ------------ | ----------------- | -------------- | ------------------- |
@@ -23,7 +21,7 @@ group: 数据
 | className    | 自定义额外类名           | string         |                     |
 | prefix       | 自定义前缀             | string         | `'zent'`            |
 
-### Radio API
+#### Radio
 
 | 参数        | 说明                   | 类型     | 默认值      |
 | --------- | -------------------- | ------ | -------- |
@@ -31,4 +29,3 @@ group: 数据
 | className | 自定义额外类名              | string |          |
 | prefix    | 自定义前缀                | string | `'zent'` |
 
-[controlled-components]: https://facebook.github.io/react/docs/forms.html#controlled-components
