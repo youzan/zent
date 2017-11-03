@@ -12,14 +12,12 @@ infinite scrolling widget
 
 - Used to load content continuously as the user scrolls down the page.
 
-### demos
-
 ### API
 
 | Property             	 	| Description                          | Type                | Default       		 | Alternative           							  			         |
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
 | hasMore            | if pass true, it will call loadMore function        | bool                | `true`           | `false`, `true`                               |
-| loadMore      		 | loadMore function, first argument is a callback function to stop loading animation effect| func(stopLoading)   |                  |  							  |
+| loadMore      		 | loadMore function, first argument is a callback to stop loading animation effect| func(stopLoading)   |                  |  							  |
 | initialLoad        | whether it should be call loadMore function when it initialize    | bool                |  `false`         | `false`, `true`                               |
 | useWindow          | if pass true, it will listens window scroll event, or it will listens it's DOM element scroll event | bool | `true` | `false`, `true`                        |
 | useCapture         | whether to capture event when scroll event triggers  | bool                | `false`          | `false`, `true`                               |
