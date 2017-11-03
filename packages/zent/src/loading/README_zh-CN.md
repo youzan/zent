@@ -23,17 +23,3 @@ group: 反馈
 | className      | 自定义额外类名                                                | string | `''`     |
 | containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |
 | prefix         | 自定义前缀                                                  | string | `'zent'` |
-
-
-<style>
-.zent-loading-example-switch {
-	margin-top: 10px;
-}
-
-.zent-loading-example-hello-world {
-	background-color: #e5e5e5;
-	text-align: center;
-	height: 160px;
-	line-height: 160px;
-}
-</style>
