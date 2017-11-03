@@ -37,3 +37,15 @@ class Wrapper extends React.Component {
 
 ReactDOM.render(<Wrapper />, mountNode);
 ```
+
+<style>
+.zent-loading-example-switch {
+	margin-top: 10px;
+}
+.zent-loading-example-hello-world {
+	background-color: #e5e5e5;
+	text-align: center;
+	height: 160px;
+	line-height: 160px;
+}
+</style>

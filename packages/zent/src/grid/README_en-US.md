@@ -4,76 +4,76 @@ path: component/grid
 group: Navigation
 ---
 
-## Grid 网格
+## Grid
 
-网格组件。
+Grid component
 
-功能和 [Table](table) 组件类似，`Grid` 是使用 `<table>` 标签实现的，而 `Table` 是使用 `div` + `flex` 布局实现的。
+The function of the component is similar to the function of [Table](table) component. `Grid` is implemented by `<table>` tag, while `Table` is implemented by `div` and `flex` layout.
 
 ### API
 
-| 参数     | 说明                                  | 类型    | 默认值   | 是否必须 |
+| Property     | Descripition                     | Type    | Default   | Required |
 | -------- | ------------------------------------ | ----- | ------- | ------- |
-| columns  | 表格列配置                            | array |         |   是    |
-| datasets | 需要展示的数据                         | array |         |   是    |
-| rowKey   | 每一行的 key                           | string |  `id`    |   否    |
-| onChange | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func | `noop` | 否    |
-| sortBy   | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段 | string | '' | 否 |
-| sortType | 排序方式                            | string  |     ''   |   否    |
-| emptyLabel | 列表为空时的提示文案                | string   | `'没有更多数据了'` | 否 |
-| selection  | 表格的选择功能配置                 | object     |         | 否    |
-| loading    | 表格是否处于loading状态           | bool          | `false` | 否  |
-| className  | 自定义额外类名                    | string        | `''`   | 否   |
-| rowClassName | 表格行的类名                    | string or func(data, index) |  ''   | 否   |
-| prefix     | 自定义前缀                       | string       | `'zent'` | 否  |
-| pageInfo   | table对应的分页信息               | object        | null   | 否  |
-| onRowClick | 点击行时触发                      | func(data, index, event) | | 否 |
-| ellipsis   | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool | false | 否 |
+| columns  | columns                            | array |         |   Yes    |
+| datasets | data to be displayed                         | array |         |   Yes    |
+| rowKey   | key for each row                          | string |  `id`    |   No    |
+| onChange | callback fires when columns change, filtering and sorting included  | func | `noop` | No    |
+| sortBy   | the field which rows are sorted accoring to, should be one of keys for columns| string | '' | No |
+| sortType | The way to sort                            | string  |     ''   |   No    |
+| emptyLabel | Text to be displayed when there's no data                | string   | `'没有更多数据了'` | No |
+| selection  | the configuration for selection                | object     |         | No    |
+| loading    | determines whether data is being loaded or not          | bool          | `false` | No  |
+| className  | extra custom class name                    | string        | `''`   | No   |
+| rowClassName | class name for row                  | string or func(data, index) |  ''   | No   |
+| prefix     | custom prefix                       | string       | `'zent'` | No  |
+| pageInfo   | pagination information               | object        | null   | No  |
+| onRowClick | callback fires when a row is clicked                     | func(data, index, event) | | No |
+| ellipsis   | whether ellipsis should be displayed when content overflows (nowrap of columns needs to be set) | bool | false | No |
 
-#### onChange函数声明
-onChange会抛出一个对象，这个对象包含分页变化的参数：
+#### onChange function declaration
+onChange will throw an object, which includes parameters about the change part of pagination.
 
 ```js
 {
-	current, // {Number} 表示当前第几页
-	sortBy, // {String} 表示基于什么key进行排序
-	sortType, // {String} ['asc', 'desc', ''] 排序的方式
+	current, // {Number} the current page
+	sortBy, // {String} the key which rows are sorted according to
+	sortType, // {String} ['asc', 'desc', ''] the way to sort
 }
 ```
 
 #### columns
 
-| 参数         | 说明                               | 类型        | 是否必须 |
+| Property         | Description                               | Type        | Required |
 | ---------- | ----------------------------------- | ---------- | ---- |
-| title      | 列头的名称                       |  node       | 是    |
-| name       | 对应数据中的 key (建议设置) 支持 `a.b.c` 的嵌套写法  | string   | 否    |
-| width      | 列表宽度                             | string or number | 否    |
-| bodyRender | 渲染复杂组件                        | func(data, pos, name) or node |  否  |
-| className  | 列头的 className                   | string |  否  |
-| needSort   | 是否支持排序 (使用此功能 请设置 name)  | bool   | 否   |
-| colSpan    | 列合并 当为 0 时不渲染               | number | 否    |
-| fixed      | 是否固定列 可选值为 `left` `right` `true` (`true` 与 `left` 等效) | bool or strig | 否 |
-| onCellClick | 点击单元格回调                      | func(data, event) | 否 |
-| textAlign  | 文本对齐方式                        | string | 否 |
-| nowrap     | 是否换行 默认换行                     | bool | 否 |
+| title      | column title                       |  node       | Yes    |
+| name       | key for the corresponding data(recommanded to be set). Nested description like `a.b.c` is supported  | string   | No    |
+| width      | column width                             | string or number | No    |
+| bodyRender | Render complex component                        | func(data, pos, name) or node |  No  |
+| className  | class name of the column title                 | string |  No  |
+| needSort   | whether to support sorting  | bool   | No   |
+| colSpan    | span of columns. It won't be rendered if the value is set to 0             | number | No    |
+| fixed      | whether columns fixed or not. The value can be `left` `right` `true` (`true` is same to `left`) | bool or strig | No |
+| onCellClick | callback fires when a cell is clicked                     | func(data, event) | 否 |
+| textAlign  | Text alignment                        | string | No |
+| nowrap     | whether to wrap, true by default                    | bool | No |
 
 
 #### selection
 
-| 参数              | 说明              | 类型    | 是否必须 |
+| Property              | Description              | Type    | Required |
 | --------------- | --------------- | ----- | ---- |
-| selectedRowKeys | 默认选中            | array | 否    |
-| onSelect | 每次check的时候触发的函数 | func(selectedKeys, selectedRows, currentRow)  | 否 |
-| getCheckboxProps | 选择框属性配置 (当前仅支持 disabled) | func(data) | 否 |
+| selectedRowKeys | keys of selected rows by default            | array | No    |
+| onSelect | callback fires when a check changes | func(selectedKeys, selectedRows, currentRow)  | No |
+| getCheckboxProps | function to get properties of the checkbox | func(data) | No |
 
 
 #### pageInfo
 
-| 参数              | 说明              | 类型  | 是否必须 |
+| Property              | Description              | Type  | Required |
 | --------------- | --------------- | --- | ----- |
-| totalItem | 总条目个数 | number| 否    |
-| pageSize | 每页个数   | number | 否    |
-| current | 当前页码 | number | 否 |
+| totalItem | Total number of items | number| No    |
+| pageSize | Number of items to be displayed per page   | number | No    |
+| current | current page | number | No |
 
 
 <style>

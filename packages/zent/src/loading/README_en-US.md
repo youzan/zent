@@ -4,37 +4,22 @@ path: component/loading
 group: Feedback
 ---
 
-## Loading 等待
+## Loading
 
-English Mode
+Loading is used for indicate loading state of section.
 
-等待，用于页面或者区块的等待状态。
+### Guides
 
-### 使用指南
--  当页面处于渲染中或者加载异步数据时，可以使用此组件减少用户等待时的焦虑感。
+-  You can use this component to reduce users' anxiety when the page is rendering or some data is loaded asynchronously.
 
 ### API
 
-| 参数             | 说明                                                     | 类型     | 默认值 |
+| Props             | Description                                                     | Type     | Default |
 | -------------- | ------------------------------------------------------ | ------ | -------- |
-| show           | 显示控制                                                   | bool   | `false`  |
-| float         | 是否脱离文档流，一般全局加载的时候设置为 `true`        | bool   | `false`   |
-| height       | float 为 false 时设置高度，如果包裹了组件，将会表现为组件高度，否则将会使用默认高度 | number | `160`    |
-| zIndex         | 设置 z-index                                             | number | `9998`   |
-| className      | 自定义额外类名                                                | string | `''`     |
-| containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |
-| prefix         | 自定义前缀                                                  | string | `'zent'` |
-
-
-<style>
-.zent-loading-example-switch {
-	margin-top: 10px;
-}
-
-.zent-loading-example-hello-world {
-	background-color: #e5e5e5;
-	text-align: center;
-	height: 160px;
-	line-height: 160px;
-}
-</style>
+| show           | display control switch                                                   | bool   | `false`  |
+| float         | Whether from the document flow, set to `true` in global mode        | bool   | `false`   |
+| height       | set height when `float` prop is `false` | number | `160`    |
+| zIndex         | set z-index property of loading                                          | number | `9998`   |
+| className      | custom classname                           | string | `''`     |
+| containerClass | custom classname of wrapper                                     | string | `''`     |
+| prefix         | custom prefix                            | string | `'zent'` |
