@@ -360,7 +360,7 @@ export default class Tree extends (PureComponent || Component) {
       (loadMore || (root.children && root.children.length > 0))
     ) {
       return (
-        <icon
+        <i
           className="switcher"
           onClick={foldable && this.handleExpandClick.bind(this, root)}
         />
@@ -399,7 +399,7 @@ export default class Tree extends (PureComponent || Component) {
               className="opt"
             >
               {typeof opt.icon === 'string' ? (
-                <icon className={opt.icon} />
+                <i className={opt.icon} />
               ) : (
                 opt.icon
               )}{' '}

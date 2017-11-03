@@ -1,11 +1,13 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import isBrowser from 'utils/isBrowser';
+import defer from 'lodash/defer';
 
 import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 
+// Global loading instance
 let loadingInstance;
 
 export default class Instance extends (PureComponent || Component) {
@@ -84,9 +86,12 @@ export default class Instance extends (PureComponent || Component) {
   }
 }
 
-Instance.on = on;
-Instance.off = off;
-Instance.newInstance = newInstance;
+// ReactDOM.render returns null when called inside lifecycle methods
+// Just a workaround
+// These methods should be considered deprecated, don't use them.
+Instance.on = options => defer(on, options);
+Instance.off = options => defer(off, options);
+Instance.newInstance = props => defer(newInstance, props);
 
 function on(
   { prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}
