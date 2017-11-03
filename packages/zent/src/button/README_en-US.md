@@ -4,33 +4,33 @@ path: component/button
 group: Data Entry
 ---
 
-## Button 按钮
+## Button
 
-按钮, 提供基础样式及基础状态.
+Button. Basic style and basic status are provided.
 
-### 使用指南
+### Guide
 
--   通过 `type` 来控制按钮的样式
--   通过 `size` 控制按钮的大小.
--   提供 `'block'`、`'disabled'`、`'loading'` 等修饰状态.
--   传入 `href/target`, Button 将渲染为a标签, 仍然支持以其他属性控制样式及状态.
+-   Style can be set by `type`.
+-   Size can be set by `size`.
+-   Decorate statuses like `'block'`, `'disabled'` and `'loading'` are supported.
+- If `href/target` are provided, Button will be rendered as an a tag while style and status are supported as well.
 
 ### API
 
-| 参数        | 说明                          | 类型     | 默认值         | 备选值                                |
+| Property        | Description                          | Type     | Default         | Alternative                                |
 | --------- | --------------------------- | ------ | ----------- | ---------------------------------- |
-| type      | 风格                          | string | `'default'` | `'primary'`、`'danger'`、`'success'` |
-| size      | 尺寸                          | string | `'medium'`  | `'large'`、`'small'`                |
-| htmlType  | button标签原生type属性          | string | `'button'`  |  `submit`、`reset`、`button`           |
-| block     | 是否以块级元素的形式展开                | bool   | `false`     |                                    |
-| disabled  | 状态控制                        | bool   | `false`     |                                    |
-| loading   | 状态控制                        | bool   | `false`     |                                    |
-| outline   | 边框有颜色，内部没有颜色                | bool   | `false`     |                              |
-| bordered  | 边框透明控制                      | bool   | `true`      |                                    |
-| 其他参数      |                             |        |             |                                    |
-| component | 自定义组件标签类型                   | string\|func |             |                                    |
-| href      | 可选，如果设置的话会用a标签而不是button     | string |             |                           |
-| target    | 可选，和href一起使用，就是a标签的target属性 | string | `''`        | `'_blank'`                  |
-| className | 自定义类名                       | string |             |                                    |
-| style     | 自定style                      | object |             |                                    |
-| prefix    | 自定义前缀                       | string | `'zent'`    |                                    |
+| type      | style                          | string | `'default'` | `'primary'`、`'danger'`、`'success'` |
+| size      | size                          | string | `'medium'`  | `'large'`、`'small'`                |
+| htmlType  | button tag native type attribute          | string | `'button'`  |  `submit`、`reset`、`button`           |
+| block     | whether to be displayed as a block                | bool   | `false`     |                                    |
+| disabled  | controls status                        | bool   | `false`     |                                    |
+| loading   | controls status                        | bool   | `false`     |                                    |
+| outline   | determines whether the background is transparent               | bool   | `false`     |                              |
+| bordered  | determines whether the border is displayed                      | bool   | `true`      |                                    |
+| Other Properties      |                             |        |             |                                    |
+| component | custom component tag type                   | string\|func |             |                                    |
+| href      | Optional, the component will be rendered as an a tag instead of a button tag if this property is set    | string |             |                           |
+| target    | Optional, used together with href, which is the target property of the a tag | string | `''`        | `'_blank'`                  |
+| className | custom class name                       | string |             |                                    |
+| style     | custom style                      | object |             |                                    |
+| prefix    | custom prefix                       | string | `'zent'`    |                                    |
