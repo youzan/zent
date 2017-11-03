@@ -4,57 +4,57 @@ path: component/pagination
 group: Navigation
 ---
 
-## Pagination 分页
+## Pagination
 
-分页组件
+Pagination component
 
-### 使用指南
+### Guide
 
-- 展示条目的总数量必须已知
+- The total number of items to display need to be known.
 
 ### API
 
-| 参数            | 说明      | 类型            | 默认值      | 是否必填 |
+| Property            | Description      | Type            | Default      | Required |
 | ---------------| --------- | -------------- | ---------- | ------- |
-| current       | 当前页数    | number        | `1`      | 是    |
-| totalItem     | 总个数     | number        |          | 是    |
-| pageSize      | 每页个数    | number, array | `10`     | 否    |
-| maxPageToShow | 最大可显示页数 | number        |          | 否    |
-| onChange      | 翻页回调    | function      |          | 否    |
-| className     | 自定义额外类名 | string        | `''`     | 否    |
-| prefix        | 自定义前缀   | string        | `'zent'` | 否    |
+| current       | current page    | number        | `1`      | Yes    |
+| totalItem     | number of total items     | number        |          | Yes    |
+| pageSize      | number of items to be displayed per page    | number, array | `10`     | No    |
+| maxPageToShow | max number of pages to be displayed | number        |          | No    |
+| onChange      | callback for page changing    | function      |          | No    |
+| className     | extra custom class name | string        | `''`     | No    |
+| prefix        | custom prefix   | string        | `'zent'` | No   |
 
-#### 关于 `pageSize` 属性
+#### About `pageSize`
 
-pageSize 属性支持3种格式：
+pageSize property supports 3 types of structure:
 
 - number: `30`
 
 - arrayOf(number): `[10,20,30]`
 
-初始值为 10
+The initial value is 10.
 
 - `[10, 20, { value: 30, isCurrent: true }]`
 
-初始值为 30
+The initial value is 30.
 
-### 组件原理
+### Component Mechanism
 
-- 组件结构上分为 core-pagination 和 zent-pagination
+- The component is composed of core-pagination and zent-pagination.
 
-前者是核心的分页组件, 只提供分页功能, 后者是基于前组件的扩展, 模拟 www 的交互
+The former is the core pagination component. The later simulates the interaction of www, based on the former.
 
-- 组件内置独立的 parser 模块作为数据的中台, 将输入的条目信息统一为 `renderData`.
+- There's a built-in parser to parse input to `renderData`.
 
-### parser 的输入与输出
+### Input/Output of the parser
 
-#### 输入
+#### Input
 
 ```
 { total: 20, current: 4 }
 ```
 
-#### 输出
+#### Output
 
 ```javascript
 [{
