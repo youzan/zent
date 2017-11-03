@@ -13,8 +13,6 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 - Supports two types of data structure, nested tree and array.
 - The widget only display input data, but not change itself.
 
-### demos
-
 
 ### API
 

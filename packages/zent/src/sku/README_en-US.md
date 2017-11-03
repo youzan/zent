@@ -12,26 +12,25 @@ it is a widget for sku select
 
 you can create a editable page with a variety of goods and services
 
-### demo
 
 ### API
 
 | Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
-| className | 自定义额外类名 | string | `''` |  |
-| value | 当前选中的sku列表 | array | `[]` |  |
-| maxSize | 最大规格名称数 | number | `3` |  |
-| maxSKUTextLength | 规格名称文字最大长度 | number | `4` |  |
-| maxLeafTextLength | 规格值文字最大长度 | number | `20` |  |
-| skuTree | 可选的规格列表 | array | `[]` |  |
-| optionValue | 自定义sku的id的key值 | string | `'id'` |  |
-| optionText | 自定义sku的文案的key值 | string | `'text'` |  |
-| onFetchGroup | 异步获取可选的规格列表，如“颜色”、“尺寸” | function | `Promise` |  |
-| onFetchSKU | 异步获取单个规格可选的值，如“红色”、“蓝色” | function | `Promise` |  |
-| onCreateGroup | 创建新的规格名，如“星座” | function | `Promise` |  |
-| onCreateSKU | 创建新的规格值，如“处女座” | function | `Promise` |  |
-| onChange | 当sku发生改变时的回调，返回值为sku当前value | function | `noop` |  |
-| prefix | 自定义前缀 | string | 'rc-sku' | null |
+| className | custom extra class name | string | `''` |  |
+| value | current chosen sku array | array | `[]` |  |
+| maxSize | sku key maximum size | number | `3` |  |
+| maxSKUTextLength | sku text value maximum length | number | `4` |  |
+| maxLeafTextLength | left text value maximum length | number | `20` |  |
+| skuTree | choosable sku array | array | `[]` |  |
+| optionValue | custom sku id  | string | `'id'` |  |
+| optionText | custom sku text | string | `'text'` |  |
+| onFetchGroup | async get choosable sku array, such as "color"、"size" | function | `Promise` |  |
+| onFetchSKU | async get one sku value, such as "red"、"blue" | function | `Promise` |  |
+| onCreateGroup | create a new sku key, such as "constellation" | function | `Promise` |  |
+| onCreateSKU | create a new sku value, such as "virgo"  | function | `Promise` |  |
+| onChange | the callback will return current sku value when sku changes | function | `noop` |  |
+| prefix | custom prefix | string | 'rc-sku' | null |
 
 #### Utility methods
 
@@ -41,8 +40,8 @@ in order to easily manipulate sku date, sku widget supports some utility methods
 
 Using cartesian product, transform tree value to platten array
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
+| Property | Description | Type | Default | Alternative |
 |------|------|------|--------|--------|
-| sku | 当前选中规格的value | array | `[]` |  |
-| items | 当前已存在的数据 | array | `[]` |  |
-| options | 可配置参数 | object | `{}` | `optionValue: 'id', optionText: 'text'` |
+| sku | current chosen sku value | array | `[]` |  |
+| items | exist array | array | `[]` |  |
+| options | optional parameter | object | `{}` | `optionValue: 'id', optionText: 'text'` |
