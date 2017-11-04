@@ -4,69 +4,63 @@ path: component/select
 group: Data Entry
 ---
 
-## Select 下拉选择
+## Select
 
-下拉选择，提供多种选择器功能。
+Select is a drop-down selection component with variety functions.
 
-### 使用指南
+### Guides
 
-组件分层：主要分成 Select, Popup, Trigger 三个模块
+Component mainly made up of Select, Popup, Trigger three modules.
 
-#### 1. Select
+#### Select
 
-核心控制器，主要职责是格式化数据，负责 Popup 和 Trigger 间的数据传输
+Core controller, the main responsibility is to format data and data transfer between Popup and Trigger.
 
-#### 2. Popup
+#### Popup
 
-选项列表弹出层，主要负责展示选项，数据过滤控制
+Options list pop-up layer, is mainly responsible for display options, data filtering control.
 
-#### 3. Trigger
+#### Trigger
 
-  - 触发器，暴露给使用者，可以通过 trigger 属性进行配置
-  - 核心的 trigger 有 SelectTrigger 和 InputTrigger
-  - TagsTrigger 是基于 InputTrigger 扩展出来的拥有多选功能的 trigger
-  - 使用者可以自行扩展或开发 trigger
+- Triggers, exposed to the user, can be configured via the trigger prop.
+- Core triggers are SelectTrigger and InputTrigger.
+- TagsTrigger is based on the InputTrigger extended multi-select function.
+- Users can expand or develop their own trigger.
 
 ### API
 
-| 参数 | 说明 | 类型 | 默认值 | 是否必填 |
+| Props | Description | Type | Default | Required |
 |------|------|------|--------|--------|
-| data | 选项数据 | array | `[]` | 是 |
-| value | 选中的值，当为tags类型时，可以传入数组 | any | `null` | 否 |
-| index | 选中索引 | any | `null` | 否 |
-| disabled | 禁用组件 | bool | `false` | 否 |
-| placeholder | 默认提示文案 | string | `'请选择'` | 否 |
-| searchPlaceholder | 搜索框默认文案 | string | `''` | 否 |
-| emptyText | 空列表提示文案 | string | `'没有找到匹配项'` | 否 |
-| trigger | 自定义触发器 | function | `Select.SelectTrigger` | 否 |
-| optionText | 自定义选项显示文案对应的key, 如{ id: 1, name: '文案' }, 设置optionText="name" | string | `'text'` | 否 |
-| optionValue | 自定义选项的值对应的key, 如{ id: 1, name: '文案' }, 设置optionValue="id" | string | `'value'` | 否 |
-| onChange | 选择变更后的回调函数 | function | `noop` | 否 |
-| onDelete | 删除标签后的回调函数 | function | `noop` | 否 |
-| filter | 过滤条件，设置以后才会开启过滤功能 | function | `null` | 否 |
-| maxToShow | 在有过滤条件时，设置 Option 的最大显示数量 | number | | 否 |
-| onAsyncFilter | 异步设置过滤后的数据 | function | `null` | 否 |
-| onEmptySelected | 选中过滤条件为空时的回调 | function | `noop` | 否 |
-| onOpen | 展开时的回调 | function | `noop` | 否 |
-| className | 可选，自定义trigger额外类名 | string | `''` | 否 |
-| popupClassName | 可选，自定义popup的类名 | string | `''`    | 否 |
-| autoWidth | 是否自动设置弹出层与输入框等宽 | bool | `false` | 否 |
-| prefix | 自定义前缀 | string | `'zent'` | 否 |
+| data | Option data | array | `[]` | yes |
+| value | Selected value, when tags type, can be passed into the array | any | `null` | no |
+| index | Select the index | any | `null` | no |
+| disabled | Disable switch | bool | `false` | no |
+| placeholder | The default prompt text | string | `'请选择'` | no |
+| searchPlaceholder | Search box default text | string | `''` | no |
+| emptyText | Empty list prompt text | string | `'没有找到匹配项'` | no |
+| trigger | Custom trigger | function | `Select.SelectTrigger` | no |
+| optionText | Custom options display text's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `optionText="name"` | string | `'text'` | no |
+| optionValue | Custom options value's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `optionValue="id"` | string | `'value'` | no |
+| onChange | Select changed callback | function | `noop` | no |
+| onDelete | Tag removed callback | function | `noop` | no |
+| filter | Filter conditions, set to open the filter function | function | `null` | no |
+| maxToShow | When there is a filter, set the maximum number options to display | number | | no |
+| onAsyncFilter | Asynchronous filter function | function | `null` | no |
+| onEmptySelected | Empty filtered data callback | function | `noop` | no |
+| onOpen | Expanded callback | function | `noop` | no |
+| className | Optional, custom trigger additional classname | string | `''` | no |
+| popupClassName | Optional, custom popup classname | string | `''`    | no |
+| autoWidth | Whether to automatically set the width of pop-up layer equal with input-box's width | bool | `false` | no |
+| prefix | Custom prefix | string | `'zent'` | no |
 
-`如果 data 和 children 两种方式同时使用，data 会将 children 覆盖，主要是为了可以接收异步数据直接改变 data 属性来改变选项。`
+If both data and children are used, data will cover the children, mainly in order to receive asynchronous data directly change the data property to change the options.
 
-### Trigger开发API
+#### Trigger
 
-| 参数 | 说明 | 类型 | 默认值 | 是否必填 |
+| Props | Desctription | Type | Default | Required |
 |------|------|------|--------|--------|
-| selectedItems | 已选择的条目 | array | `[]` | 否 |
-| extraFilter | 是否自带过滤功能 | boolean | `false` | 否 |
-| open | 是否打开Popup | boolean | `false` | 否 |
+| selectedItems | Selected entry | array | `[]` | no |
+| extraFilter | Whether has filter function | boolean | `false` | no |
+| open | Whether to open Popup | boolean | `false` | no |
 
-`Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。` 
-
-<style>
-.zent-select--auto-width {
-	width: 300px;
-}
-</style>
+Trigger can pass parameter changes by changing the props of Popup by calling `this.props.onChange({...})`.

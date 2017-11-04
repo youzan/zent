@@ -13,20 +13,20 @@ group: 数据
 
 组件分层：主要分成 Select, Popup, Trigger 三个模块
 
-#### 1. Select
+#### Select
 
 核心控制器，主要职责是格式化数据，负责 Popup 和 Trigger 间的数据传输
 
-#### 2. Popup
+#### Popup
 
 选项列表弹出层，主要负责展示选项，数据过滤控制
 
-#### 3. Trigger
+#### Trigger
 
-  - 触发器，暴露给使用者，可以通过 trigger 属性进行配置
-  - 核心的 trigger 有 SelectTrigger 和 InputTrigger
-  - TagsTrigger 是基于 InputTrigger 扩展出来的拥有多选功能的 trigger
-  - 使用者可以自行扩展或开发 trigger
+- 触发器，暴露给使用者，可以通过 trigger 属性进行配置
+- 核心的 trigger 有 SelectTrigger 和 InputTrigger
+- TagsTrigger 是基于 InputTrigger 扩展出来的拥有多选功能的 trigger
+- 使用者可以自行扩展或开发 trigger
 
 ### API
 
@@ -54,7 +54,7 @@ group: 数据
 | autoWidth | 是否自动设置弹出层与输入框等宽 | bool | `false` | 否 |
 | prefix | 自定义前缀 | string | `'zent'` | 否 |
 
-`如果 data 和 children 两种方式同时使用，data 会将 children 覆盖，主要是为了可以接收异步数据直接改变 data 属性来改变选项。`
+如果 `data` 和 `children` 两种方式同时使用，`data` 会将 `children` 覆盖，主要是为了可以接收异步数据直接改变 `data` 属性来改变选项。
 
 ### Trigger开发API
 
@@ -64,10 +64,4 @@ group: 数据
 | extraFilter | 是否自带过滤功能 | boolean | `false` | 否 |
 | open | 是否打开Popup | boolean | `false` | 否 |
 
-`Trigger 可以通过调用 this.props.onChange({...}) 通过改变 Popup 的 props 实现参数传递。` 
-
-<style>
-.zent-select--auto-width {
-	width: 300px;
-}
-</style>
+Trigger 可以通过调用 `this.props.onChange({...})` 通过改变 Popup 的 props 实现参数传递。 
