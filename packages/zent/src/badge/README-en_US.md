@@ -1,0 +1,162 @@
+## Badge
+
+Badge normally appears in the upper right corner of the notification or avatar with eye-catching appeal, typically displaying the count of unread messages.
+
+### Usage guide
+
+-  Badge is used to prompt for new messages，which is placed in the upper right corner or right side of the text or icon.
+-  Badge can display new messages count.
+
+### Code demo
+
+:::demo Basic usage
+```jsx
+import { Badge,Icon } from 'zent';
+
+ReactDOM.render(
+	<Badge count={5}>
+		<Icon type="bell-o" className="demo-cont"/>
+	</Badge>
+	, mountNode
+);
+```
+:::
+
+:::demo Set the max count of messages to show
+```jsx
+import { Badge,Icon } from 'zent';
+
+ReactDOM.render(
+	<div>
+		<Badge count={99}>
+			<Icon type="bell-o" className="demo-cont"/>
+		</Badge>
+		<Badge count={120}>
+			<Icon type="bell-o" className="demo-cont"/>
+		</Badge>
+		<Badge count={120} maxCount={10}>
+			<Icon type="bell-o" className="demo-cont"/>
+		</Badge>
+		<Badge count={1200} maxCount={999}>
+			<Icon type="bell-o" className="demo-cont"/>
+		</Badge>
+	</div>
+	, mountNode
+);
+```
+:::
+
+:::demo Whether to display count 0
+```jsx
+import { Badge,Icon,Switch } from 'zent';
+
+class Demo extends React.Component {
+	state = {showZero: true}
+
+	handleChange = (showZero) => {
+		this.setState({ showZero });
+	}
+
+	render() {
+		const { showZero } = this.state;
+		return (
+			<div>
+				<Badge count={0} showZero={showZero}>
+					<Icon type="bell-o" className="demo-cont"/>
+				</Badge>
+				<Switch size="small" checked={showZero} onChange={this.handleChange} />
+			</div>
+		)
+	}
+
+	
+}
+ReactDOM.render(
+	<Demo />, mountNode
+);
+```
+:::
+
+:::demo Red dot without number
+```jsx
+import { Badge,Icon,Switch } from 'zent';
+
+class Demo extends React.Component {
+	state = {showDot: true}
+
+	handleChange = (showDot) => {
+		this.setState({ showDot });
+	}
+
+	render() {
+		const { showDot } = this.state;
+		return (
+			<div>
+				<Badge dot={showDot}>
+					<Icon type="bell-o" className="demo-cont"/>
+				</Badge>
+				<Switch size="small" checked={showDot} onChange={this.handleChange} />
+			</div>
+		)
+	}
+
+	
+}
+ReactDOM.render(
+	<Demo />, mountNode
+);
+```
+:::
+
+:::demo Standalone
+```jsx
+import { Badge } from 'zent';
+
+ReactDOM.render(
+	<div>
+		<div className="zent-badge-demo-wrapper">
+			<span>Shop messages</span>
+			<Badge count={100}/ >
+		</div>
+		<div className="zent-badge-demo-wrapper">
+			<span>Shop messages</span>
+			<Badge count={100} dot/ >
+		</div>
+	</div>
+	, mountNode
+);
+```
+:::
+
+
+
+### API
+
+| Property  | Description                                 | Type     | Default      | Options          |
+| ----------| ------------------------------------------- | ------   | ------------ | ---------------- |
+| count     | Messages count to show                      | int      | `0`          |                  |
+| maxCount  | Max count to show                           | int      | `99`         |                  |
+| dot       | Whether to show red dot without number      | bool     | `false`      | `true`,`false`   |
+| showZero  | Whether to show badge when count is zero    | bool     | `false`      | `true`,`false`   |
+| className | The custom class name                       | string   | `''`         |                  |
+| prefix    | The custom prefix                           | string   | `'zent'`     |                  |
+
+
+<style>
+.zent-badge .demo-cont {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background: #38f;
+	color: #fff;
+	font-size: 20px;
+}
+.zent-badge {
+	margin-right: 30px;
+}
+.zent-badge-demo-wrapper {
+	display: flex;
+	align-items: center;
+}
+</style>
