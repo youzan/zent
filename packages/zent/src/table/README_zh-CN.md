@@ -28,13 +28,13 @@ group: 导航
 | loading    | 表格是否loading状态                              | bool          | `false`     |         | 否    |
 | getRowConf | 每一行的配置函数，返回一个配置对象`{ canSelect, rowClass }` | func          |             |         | 否    |
 | expandation     |  展开配置                                      | object        |     |         | 否    |
-| batchComponents     |  批量操作的组件列表，如何使用，看批量操作的示例   | array[html/function/React Component] |   null  |   null | 否    |
+| batchComponents     |  批量操作的组件列表，如何使用，看批量操作的示例   | array[html/function/React Component] |   `null`  |   | 否    |
 | batchComponentsAutoFixed  |   是否要自动fix批量操作      | bool          | `true`     |         | 否    |
 | autoStick  | 是否自动将head stick到窗口                         | bool          | `false`     |         | 否    |
 | autoScroll | 是否点击分页自动滚到table顶部                          | boll          | `false`     |         | 否    |
 | className  | 自定义额外类名                                    | string        | `''`        |         | 否    |
 | prefix     | 自定义前缀                                      | string        | `'zent'`    |         | 否    |
-| pageInfo   | table对应的分页信息                              | object        | null    |         | 否    |
+| pageInfo   | table对应的分页信息                              | object        | `null`    |         | 否    |
 
 #### getRowConf的特别声明：
 ```jsx
@@ -43,7 +43,7 @@ group: 导航
   * @param data {Object} 每一行的数据
   * @param index {number} 每一行在列表中的index
   * @return {
-  *  canSelect {boolean} 是否可选，默认为true
+  *  canSelect {bool} 是否可选，默认为true
   *  rowClass {string} 这一行的特殊class，默认是空字符串
   * }
   */
@@ -76,34 +76,34 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | width      | 每一列在一行的宽度, 相对值和固定值 (如: 20% 或 100px) | string               |         | 否    |
 | isMoney    | 表示是否是金额                             | bool                 | `false` | 否    |
 | needSort   | 这一列是否支持排序, 这一列必须设置了key, 才能正常使用排序功能  | bool                 | `false` | 否    |
-| bodyRender | 这一列对应用来渲染的组件                        | node|function |         | 否    |
-| textAlign  | 文本对齐方式                        | string |    ''     | 否    |
+| bodyRender | 这一列对应用来渲染的组件                        | node|  |         | 否    |
+| textAlign  | 文本对齐方式                        | string |    `''`     | 否    |
 
 ### selection
 
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
-| isSingleSelection | 是否是单选            | Boolean | false | 否    |
-| needCrossPage |   是否需要跨页的时候多选            | Boolean | false | 否    |
+| isSingleSelection | 是否是单选            | bool | `false` | 否    |
+| needCrossPage |   是否需要跨页的时候多选            | bool | `false` | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |
 
 ### pageInfo
 
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
-| totalItem | 总条目个数            | number | 0 | 否    |
+| totalItem | 总条目个数            | number | `0`| 否    |
 | pageSize | 每页个数   | number |  | 否    |
 | current | 当前页码 | number | | |
 | maxPageToShow    | 最多可显示的个数 | number  |  | 否  
-| total | 总条目个数**[deprecated]**   | number | 0 | 否    |
+| total | 总条目个数**[deprecated]**   | number | `0` | 否    |
 | limit | 每页个数**[deprecated]**   | number |  | 否    |
 
 ### expandation
 
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
-| isExpanded | 是否展开当前行            | boolean | false | 否    |
+| isExpanded | 是否展开当前行            | bool | `false` | 否    |
 | expandRender        | 展开行的补充内容render | func  |  | 否  
 
 <style>
