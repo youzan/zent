@@ -79,7 +79,5 @@ export const setSameDate = (val, target) => {
   val.setFullYear(target.getFullYear());
   val.setMonth(target.getMonth());
   val.setDate(target.getDate());
-  console.log(val, target);
-
   return val;
 };
