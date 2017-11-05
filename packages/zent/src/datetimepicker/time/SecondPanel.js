@@ -1,20 +1,13 @@
-import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
-import PanelHeader from '../common/PanelHeader';
-import TimeCell from './TimeCell';
-import { CURRENT, padLeft } from '../utils';
+import React, { Component, PureComponent } from "react";
+import classNames from "classnames";
+import PanelHeader from "../common/PanelHeader";
+import TimeCell from "./TimeCell";
+import { CURRENT, padLeft } from "../utils";
 
 const ROW = 9;
 const COL = 7;
 
 export default class SecondPanel extends (PureComponent || Component) {
-  isDisabled(val) {
-    const { disabledSecond } = this.props;
-    if (typeof disabledSecond === 'function') {
-      return disabledSecond(val);
-    }
-  }
-
   isSelected(val) {
     const { selected } = this.props;
     return selected.getSeconds() === val;
@@ -30,14 +23,14 @@ export default class SecondPanel extends (PureComponent || Component) {
     for (let j = 0; j < ROW; j++) {
       cells[j] = [];
       for (let k = 0; k < COL && i < 60; k++) {
-        const isDisabled = this.isDisabled(i);
+        const isDisabled = this.props.isDisabled && this.props.isDisabled(i);
         const isSelected = this.isSelected(i);
         const isCurrent = this.isCurrent(i);
         let className = classNames({
-          'panel__cell time-panel__cell': true,
-          'panel__cell--disabled': isDisabled,
-          'panel__cell--selected': isSelected,
-          'panel__cell--current': isCurrent
+          "panel__cell time-panel__cell": true,
+          "panel__cell--disabled": isDisabled,
+          "panel__cell--selected": isSelected,
+          "panel__cell--current": isCurrent
         });
         cells[j][k] = {
           text: padLeft(i),
@@ -55,7 +48,7 @@ export default class SecondPanel extends (PureComponent || Component) {
   render() {
     const { hidePanel, onSelect } = this.props;
     const seconds = this.getSeconds();
-    const title = '选择秒';
+    const title = "选择秒";
 
     return (
       <div className="second-panel">

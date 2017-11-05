@@ -19,12 +19,9 @@ export const popPositionMap = {
 
 export const commonProps = {
   prefix: 'zent',
-  className: '',
   confirmText: '确定',
   format: 'YYYY-MM-DD',
   popPosition: 'left',
-  min: '',
-  max: '',
   openPanel: false,
   disabledDate: noop,
   onChange: noop

@@ -57,8 +57,10 @@ class Demo extends Component{
       <div>
         <DatePicker
 					className="zent-picker-demo"
-          value={dateValue}
-          max="2020-01-01"
+					value={dateValue}
+					showTime
+					format="YYYY-MM-DD HH:mm:ss"
+          min="2017-10-30 03:33:33"
           onChange={this.onChangeDate}
         />
 				<br />
@@ -222,7 +224,7 @@ class Demo extends Component{
         <DateRangePicker
           className="zent-picker-demo"
           showTime
-          format="YYYY-MM-DD HH:mm:ss"
+					format="YYYY-MM-DD HH:mm:ss"
           value={rangeValue}
           onChange={this.onChangeRange}
           />

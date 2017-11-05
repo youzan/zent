@@ -1,21 +1,14 @@
-import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import React, { Component, PureComponent } from "react";
+import classNames from "classnames";
 
-import PanelHeader from '../common/PanelHeader';
-import TimeCell from './TimeCell';
-import { CURRENT, padLeft } from '../utils';
+import PanelHeader from "../common/PanelHeader";
+import TimeCell from "./TimeCell";
+import { CURRENT, padLeft } from "../utils";
 
 const ROW = 4;
 const COL = 7;
 
 export default class HourPanel extends (PureComponent || Component) {
-  isDisabled(val) {
-    const { disabledHour } = this.props;
-    if (typeof disabledHour === 'function') {
-      return disabledHour(val);
-    }
-  }
-
   isSelected(val) {
     const { selected } = this.props;
     return selected.getHours() === val;
@@ -31,14 +24,14 @@ export default class HourPanel extends (PureComponent || Component) {
     for (let j = 0; j < ROW; j++) {
       cells[j] = [];
       for (let k = 0; k < COL && i < 24; k++) {
-        const isDisabled = this.isDisabled(i);
+        const isDisabled = this.props.isDisabled && this.props.isDisabled(i);
         const isSelected = this.isSelected(i);
         const isCurrent = this.isCurrent(i);
         let className = classNames({
-          'panel__cell time-panel__cell': true,
-          'panel__cell--disabled': isDisabled,
-          'panel__cell--selected': isSelected,
-          'panel__cell--current': isCurrent
+          "panel__cell time-panel__cell": true,
+          "panel__cell--disabled": isDisabled,
+          "panel__cell--selected": isSelected,
+          "panel__cell--current": isCurrent
         });
         cells[j][k] = {
           text: padLeft(i),
@@ -55,7 +48,7 @@ export default class HourPanel extends (PureComponent || Component) {
   render() {
     const { hidePanel, onSelect } = this.props;
     const hours = this.getHours();
-    const title = '选择小时';
+    const title = "选择小时";
 
     return (
       <div className="hour-panel">

@@ -4,7 +4,12 @@
 
 export function dayStart(date) {
   const now = date || new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return setTime(now);
+}
+
+export function dayEnd(date) {
+  const now = date || new Date();
+  return setTime(now, '23:59:59')
 }
 
 export function setTime(date, time = '00:00:00') {
