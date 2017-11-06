@@ -21,7 +21,7 @@ Tabs is used to switch different view in one page.
 | onTabChange | The callback function that is triggered when the tab is active | func(id) |    |    | no    |
 | onTabDel    | The callback function that is triggered when the tab is closed. | func(id) |      |         | no |
 | onTabAdd    | The callback function that is triggered when adding tab. | func | |   | no    |
-| candel      | Whether the tab can be deleted.  | bool  | `false` |  `true` | 否    |
+| candel      | Whether the tab can be deleted.  | bool  | `false` |  `true` | no    |
 | canadd      | Whether the tabs can add more tab pannels. | bool | `false`    |  `true`  | no |
 | tabs | The config of tabs when not using Panel. | Array | `null` | | no |
 | className   | The custom classname   | string   | `''`   |  | no   |

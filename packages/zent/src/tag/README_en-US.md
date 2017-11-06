@@ -19,7 +19,7 @@ Tag is suitable for marking and sorting。
 | Property     |  Description  | Type     | Default  | Alternative |
 | ------- | -------------  | ------  | -------------|----------------- |
 | color   | The color of tag | string  | `'red'`      | `'red'` \| `'green'` \| `'yellow'` \| `'blue'` \| `'darkgreen'` |
-| outline | 边框有颜色，内部没有颜色 | bool    | `'false'`    |`true` \| `false`    |
+| outline | The style with colorful border and transparent backgound. | bool    | `'false'`    |`true` \| `false`    |
 | rounded | Whether the tag is rounded or not | bool | `true` | `true` \| `false` |
 | closable| Whether the tag can be closed | bool    | `false`      | `true` \| `false`   |
 | onClose | The callback function that is trigged when the tag is closed | func | `noop`  |  |

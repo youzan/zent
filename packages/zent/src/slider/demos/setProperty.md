@@ -3,7 +3,7 @@ order: 3
 zh-CN:
 	title: 设置最大值，最小值，间隔
 en-US:
-	title: Set the max value, the min value and the interval between values.
+	title: Set the maximun value, the minimun value and the interval between values.
 ---
 
 ```jsx

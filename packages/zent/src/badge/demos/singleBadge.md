@@ -5,7 +5,7 @@ zh-CN:
 	content: 店铺消息
 en-US:
 	title: Standalone badge
-	content: shop message
+	content: shop messages
 ---
 
 ```jsx

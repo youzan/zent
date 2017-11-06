@@ -3,20 +3,21 @@ title: Form
 subtitle: 表单
 path: component/form
 group: 数据
+scatter: true
 ---
 
 ## Form 表单组件
 
-1. [基础用法](#ji-chu-yong-fa)
+1. [使用指南](#shi-yong-zhi-nan)
 2. [表单校验](#biao-dan-xiao-yan)
 3. [格式化 value](#ge-shi-hua-value)
 4. [表单操作](#biao-dan-cao-zuo)
 5. [其他](#qi-ta)
 6. [组件原理](#zu-jian-yuan-li)
-7. [使用指南](#shi-yong-zhi-nan)
+7. [其他说明](#qi-ta-shuo-ming)
 8. [API](#api)
 
-### API
+### 使用指南
 
 #### 表单 `Form`
 
@@ -32,6 +33,74 @@ group: 数据
 - `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，也可以使用单独封装的自定义表单元素组件；
 - `Form` 组件提供了 `getControlGroup` 方法，可以快速封装自定义表单元素组件，使用方法参考 demo 和 [`getControlGroup` API](#form-getcontrolgroup) 。
 
+<!-- demo-slot-1 -->
+<!-- demo-slot-2 -->
+
+#### 使用 `getControlGroup` 封装自定义表单域
+
+<!-- demo-slot-3 -->
+
+#### 多个表单元素的封装
+
+当一个 `Field` 里需要封装多个表单元素时，一般会将多个表单元素的 value 值封装在一个对象里传入到 `Field` 中。当无法使用 `getControlGroup` 满足封装要求时，可以自己封装组件，通过调用 `Field` 组件传入的 `onChange` 事件更改 `Field` 的 value。
+
+⚠️注意：调用 `Field` 传入的 `onChange` 事件默认会覆盖原值，可以通过传入 `{ merge: true}` 参数可以部分覆盖 value 值。
+
+<!-- demo-slot-4 -->
+
+### 表单校验
+
+#### 表单校验的使用
+
+- `Field` 组件支持传入 `validations` 和 `validationErrors` 来指定校验规则和校验提示；
+- `validations` 对象支持预置的内部校验规则（详见[内置 validation rules](#nei-zhi-validation-rules) ）, 也支持传入自定义的校验函数，校验函数返回 `true` 时表示验证通过；
+- 可以通过 `Form.createForm` 扩展内部校验规则，详见 [`Form.createForm` API](#form-createform) 。
+
+<!-- demo-slot-5 -->
+
+#### 表单校验时机
+
+表单的默认校验时机是 value 值改变的时候。可以修改 `validateOnChange`，`validateOnBlur` 来改变校验时机，如在 blur 时再校验（一般用于Input输入框）。
+
+<!-- demo-slot-6 -->
+
+#### 异步校验
+异步校验在 blur 时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用`props.onBlur(event)`。 `value` 值可以直接传给 `event` ，或者作为 `event` 的属性传入。
+
+<!-- demo-slot-7 -->
+
+### 格式化 `value`
+
+`Form` 组件提供了 `format` 和 `nomalize` 方法 来对 `value` 进行格式化，它们的执行时机详见 [value 的生命周期](#field-zhong-value-de-sheng-ming-zhou-qi)。
+
+<!-- demo-slot-8 -->
+
+### 表单操作
+
+- `Form.createForm` 为组件注入 `zentForm` 属性，提供了表单和表单元素的各种操作方法，如获取表单元素值，重置获取表单元素值等，详见 [`zenForm` API](#zentform)
+- `Form` 组件内部对表单提交的过程也进行了封装，可以把异步提交过程封装在一个函数里并**返回 `Promise` 对象**，组件内部会根据 `Promise` 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过 `zentForm.isSubmitting()` 得到）。
+
+<!-- demo-slot-9 -->
+<!-- demo-slot-10 -->
+
+### 其他
+
+#### `Form` 布局
+
+<!-- demo-slot-11 -->
+
+#### `Fieldset` 组件
+
+<!-- demo-slot-12 -->
+
+#### `FormSection` 组件
+
+<!-- demo-slot-13 -->
+
+#### `FieldArray` 组件
+
+<!-- demo-slot-14 -->
+
 ### 组件原理
 
 本组件核心由以下几部分组成：
@@ -42,7 +111,7 @@ group: 数据
 
 具体的使用，详见 [API 说明](#api)。
 
-### 使用指南
+### 其他说明
 
 #### 封装自定义的表单元素组件
 - `Field` 的展示完全由传入到 `component` 属性中的组件所控制。这个组件能够接收到所有从 `Field` 传入的 props （包括 `Field` 中构造的一些隐含的 props ，具体[`Form.Field` API](#form-field) ）。
@@ -52,7 +121,7 @@ group: 数据
 - **如果需要在一个 `Field` 中展示多个表单元素，可以将所有的表单元素封装在一个对象中传入 Field 的value 中。具体可以参考 [demo 封装多个表单元素](#duo-ge-biao-dan-yuan-su-de-feng-zhuang)。**
 
 #### `Field` 中 `value` 的生命周期
-- 表单元素的初始值需要通过在 `Field` 中指定 `value` 值传入，如果 `value` 值的生命周期如下图所示：
+- 表单元素的初始值需要通过在 `Field` 中指定 `value` 值传入。 `value` 值的生命周期如下图所示：
 
 ```
 Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 value 传入 component 中渲染组件
@@ -65,6 +134,8 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 ```
 
 - 如果传入 `Field` 的 `value` 值是一个动态值，在外部改变 value 后会重新开始 value 的生命周期。
+
+### API
 
 #### **`Form`**
 
@@ -231,29 +302,3 @@ const component = field.getWrappedComponent().getControlInstance();
 | equalsField | 是否与表单中的其他元素值相等 | 其他 Field 的name(String) |
 | maxLength | 字符串或数组不能超过指定长度 | 长度值(Number) |
 | minLength | 字符串或数组不能小于指定长度 | 长度值(Number) |
-
-<style>
-.zent-form__controls .zent-switch-small {
-	margin-top: 5px;
-}
-
-.form-layout {
-	margin-bottom: 30px;
-}
-
-.add-btn {
-	margin-left: 130px;
-}
-
-.demo-form{
-	.member-title{
-		margin: 30px 0 20px;
-	}
-	.hobby-title {
-		margin: 10px 0 5px;
-	}
-	.zenticon {
-		margin-left: 10px;
-	}
-}
-</style>
