@@ -36,7 +36,12 @@ H5 page editor, build your H5 pages in a WYSIWYG way.
 ```js
 type Component = {
   // Component type, must be unique
-  type: string,
+  type: string | string[],
+  
+  // Default component type
+  // If `type` is an array, `defaultType` can be a number
+  // If `defaultType` is a function, it will be called with `type` as the sole argument
+  defaultType?: number | (string[] | string) => string
 
   // Component to render preview
   preview: ReactComponent,
@@ -59,28 +64,28 @@ type Component = {
   // Should this component appear in the component list?
   appendable?: boolean,
 
-	// Is this component configurable(edit/add/delete on the bottom right corner)?
+  // Is this component configurable(edit/add/delete on the bottom right corner)?
   configurable?: boolean,
 
-	// Is this component editable? Only editable components are selectable
+  // Is this component editable? Only editable components are selectable
   editable?: boolean,
 
-	// Highlight preview when selected
+  // Highlight preview when selected
   highlightWhenSelect?: boolean,
 
-	// Maximum number of instances this component can have
-	// Zero is no limit
-	// If passing a function, return false to stop adding more
+  // Maximum number of instances this component can have
+  // Zero is no limit
+  // If passing a function, return false to stop adding more
   limit?: number | (count: number) => boolean,
   
-	// Callback when adding a new instance for component
-	// Add only if Promise resolves.
+  // Callback when adding a new instance for component
+  // Add only if Promise resolves.
   shouldCreate?: (comp: Component) => Promise,
 
-	// Additional props passed to editor
+  // Additional props passed to editor
   editorProps: (value: object) => object | object,
 
-	// Addtional props passed to preview
+  // Addtional props passed to preview
   previewProps: (value: object) => object | object
 }
 ```

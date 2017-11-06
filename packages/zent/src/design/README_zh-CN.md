@@ -37,7 +37,12 @@ group: 数据
 ```js
 type Component = {
   // 组件类型，必须唯一
-  type: string,
+  type: string | string[],
+
+  // 组件类型的默认值
+  // 如果 type 是数组，可以传一个下标
+  // 如果是函数，不管 type 是字符串还是数组都会调用
+  defaultType?: number | (string[] | string) => string
 
   // 渲染预览部分的组件
   preview: ReactComponent,
