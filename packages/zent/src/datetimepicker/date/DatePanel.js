@@ -1,8 +1,8 @@
-import React, { Component, PureComponent } from "react";
-import PanelHeader from "../common/PanelHeader";
-import DatePanelBody from "./DatePanelBody";
-import MonthPanel from "../month/MonthPanel";
-import TimePanel from "../time/TimePanel";
+import React, { Component, PureComponent } from 'react';
+import PanelHeader from '../common/PanelHeader';
+import DatePanelBody from './DatePanelBody';
+import MonthPanel from '../month/MonthPanel';
+import TimePanel from '../time/TimePanel';
 
 export default class DatePanel extends (PureComponent || Component) {
   static defaultProps = {
@@ -67,8 +67,8 @@ export default class DatePanel extends (PureComponent || Component) {
           onSelect={props.onSelect}
           onHover={props.onHover}
         />
-        {state.showMonth ? monthPanel : ""}
-        {props.showTime ? timePanel : ""}
+        {state.showMonth ? monthPanel : ''}
+        {props.showTime ? timePanel : ''}
       </div>
     );
   }

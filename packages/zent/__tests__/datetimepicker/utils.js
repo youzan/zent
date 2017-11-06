@@ -1,23 +1,23 @@
-import makeDateStr from "zan-utils/date/makeDateStr"
-import makeDateTimeStr from "zan-utils/date/makeDateTimeStr"
-import * as Ut from "datetimepicker/utils";
-import { dayStart, dayEnd, setTime } from "datetimepicker/utils/date";
+import makeDateStr from 'zan-utils/date/makeDateStr';
+import makeDateTimeStr from 'zan-utils/date/makeDateTimeStr';
+import * as Ut from 'datetimepicker/utils';
+import { dayStart, dayEnd, setTime } from 'datetimepicker/utils/date';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
  */
 
-describe("Utils", () => {
-  it("The Ut contains some CONSTANTS", () => {
+describe('Utils', () => {
+  it('The Ut contains some CONSTANTS', () => {
     expect(Ut.CURRENT instanceof Date).toBe(true);
     expect(Ut.CURRENT_DAY instanceof Date).toBe(true);
-    expect(typeof Ut.CURRENT_YEAR).toBe("number");
-    expect(typeof Ut.CURRENT_MONTH).toBe("number");
-    expect(typeof Ut.CURRENT_DATE).toBe("number");
+    expect(typeof Ut.CURRENT_YEAR).toBe('number');
+    expect(typeof Ut.CURRENT_MONTH).toBe('number');
+    expect(typeof Ut.CURRENT_DATE).toBe('number');
     expect(Ut.ONEDAY).toBe(86400000);
   });
 
-  it("Ut has some utils methods as package of Date Object", () => {
+  it('Ut has some utils methods as package of Date Object', () => {
     const {
       padLeft,
       getMonthStr,
@@ -34,18 +34,18 @@ describe("Utils", () => {
     // all arg with toString/Number() return NaN will return itself
     // NOTE: no typecheck in it and with no error throw when has array as arg
     expect(padLeft()).toBe();
-    expect(padLeft("1")).toBe("01");
-    expect(padLeft("10")).toBe("10");
+    expect(padLeft('1')).toBe('01');
+    expect(padLeft('10')).toBe('10');
     expect(padLeft(10)).toBe(10);
 
     // expect a Date Obj as arg
-    expect(getMonthStr(new Date(2000, 0, 1))).toBe("2000-01");
+    expect(getMonthStr(new Date(2000, 0, 1))).toBe('2000-01');
     expect(() => {
       getMonthStr({});
     }).toThrow();
 
     // NOTE: date number without padLeft
-    expect(getDateStr(new Date(2000, 0, 1))).toBe("2000-01-1");
+    expect(getDateStr(new Date(2000, 0, 1))).toBe('2000-01-1');
 
     expect(
       isSameDate(new Date(2010, 0, 10, 23, 59), new Date(2010, 0, 10, 0, 1))
@@ -85,42 +85,42 @@ describe("Utils", () => {
   });
 });
 
-describe("dayStart", () => {
+describe('dayStart', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
 
-  it("return day with hours/minutes/seconds equal 0", () => {
+  it('return day with hours/minutes/seconds equal 0', () => {
     expect(dayStart(DAY).getHours()).toBe(0);
     expect(dayStart(DAY).getMinutes()).toBe(0);
     expect(dayStart(DAY).getSeconds()).toBe(0);
   });
 });
 
-describe("dayEnd", () => {
+describe('dayEnd', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
 
-  it("return day with hours/minutes/seconds equal 23:59:59", () => {
+  it('return day with hours/minutes/seconds equal 23:59:59', () => {
     expect(dayEnd(DAY).getHours()).toBe(23);
     expect(dayEnd(DAY).getMinutes()).toBe(59);
     expect(dayEnd(DAY).getSeconds()).toBe(59);
   });
 
-  const TODAY = new Date()
+  const TODAY = new Date();
   it("will return end of today if don't pass params", () => {
-    expect(makeDateTimeStr(dayEnd())).toBe(`${makeDateStr(TODAY)} 23:59:59`)
-  })
+    expect(makeDateTimeStr(dayEnd())).toBe(`${makeDateStr(TODAY)} 23:59:59`);
+  });
 });
 
-describe("setTime", () => {
+describe('setTime', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
-  const TIME = "09:11:48";
-  it("default set time to 00:00:00 if user does not pass time", () => {
+  const TIME = '09:11:48';
+  it('default set time to 00:00:00 if user does not pass time', () => {
     const ret = setTime(DAY);
     expect(ret.getHours()).toBe(0);
     expect(ret.getMinutes()).toBe(0);
     expect(ret.getSeconds()).toBe(0);
   });
 
-  it("set time to user specified time", () => {
+  it('set time to user specified time', () => {
     const ret = setTime(DAY, TIME);
     expect(ret.getHours()).toBe(9);
     expect(ret.getMinutes()).toBe(11);

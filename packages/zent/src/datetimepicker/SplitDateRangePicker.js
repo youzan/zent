@@ -1,13 +1,13 @@
-import React, { Component, PureComponent } from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import React, { Component, PureComponent } from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
-import { commonProps, commonPropTypes } from "./constants/";
-import DatePicker from "./DatePicker";
+import { commonProps, commonPropTypes } from './constants/';
+import DatePicker from './DatePicker';
 
 // type
-const START = "start";
-const END = "end";
+const START = 'start';
+const END = 'end';
 
 class SplitDateRangePicker extends (PureComponent || Component) {
   static PropTypes = {
@@ -19,11 +19,11 @@ class SplitDateRangePicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: ["开始日期", "结束日期"],
-    format: "YYYY-MM-DD",
+    placeholder: ['开始日期', '结束日期'],
+    format: 'YYYY-MM-DD',
     value: [],
     openPanel: [],
-    defaultTime: ["00:00:00", "00:00:00"]
+    defaultTime: ['00:00:00', '00:00:00']
   };
 
   onChange = type => {
@@ -32,9 +32,9 @@ class SplitDateRangePicker extends (PureComponent || Component) {
       const ret = value ? value.slice() : [];
 
       if (type === START) {
-        ret.length === 2 ? ret.splice(0, 1, val) : ret.splice(0, 1, val, "");
+        ret.length === 2 ? ret.splice(0, 1, val) : ret.splice(0, 1, val, '');
       } else {
-        ret.length === 0 ? ret.splice(1, 1, "", val) : ret.splice(1, 1, val);
+        ret.length === 0 ? ret.splice(1, 1, '', val) : ret.splice(1, 1, val);
       }
       onChange(ret);
     };
@@ -58,7 +58,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
     } = props;
     let rangePicker;
 
-    const pickerCls = classNames("range-picker2");
+    const pickerCls = classNames('range-picker2');
 
     rangePicker = (
       <div className={pickerCls}>

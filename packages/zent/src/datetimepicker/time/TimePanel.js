@@ -1,21 +1,21 @@
-import React, { Component, PureComponent } from "react";
-import PropTypes from "prop-types";
+import React, { Component, PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-import { padLeft, isSameDate } from "../utils";
-import HourPanel from "./HourPanel";
-import MinutePanel from "./MinutePanel";
-import SecondPanel from "./SecondPanel";
+import { padLeft, isSameDate } from '../utils';
+import HourPanel from './HourPanel';
+import MinutePanel from './MinutePanel';
+import SecondPanel from './SecondPanel';
 
 const stateMap = {
-  hour: "openHour",
-  minute: "openMinute",
-  second: "openSecond"
+  hour: 'openHour',
+  minute: 'openMinute',
+  second: 'openSecond'
 };
 
 const disabledMap = {
-  hour: "disabledHour",
-  minute: "disabledMinute",
-  second: "disabledSecond"
+  hour: 'disabledHour',
+  minute: 'disabledMinute',
+  second: 'disabledSecond'
 };
 
 export default class TimePanel extends (PureComponent || Component) {
@@ -91,36 +91,36 @@ export default class TimePanel extends (PureComponent || Component) {
         {openHour && (
           <HourPanel
             selected={actived}
-            isDisabled={this.isDisabled("hour")}
-            onSelect={this.onSelectTime("hour")}
-            hidePanel={this.hidePanel("hour")}
+            isDisabled={this.isDisabled('hour')}
+            onSelect={this.onSelectTime('hour')}
+            hidePanel={this.hidePanel('hour')}
           />
         )}
         {openMinute && (
           <MinutePanel
             selected={actived}
-            isDisabled={this.isDisabled("minute")}
-            onSelect={this.onSelectTime("minute")}
-            hidePanel={this.hidePanel("minute")}
+            isDisabled={this.isDisabled('minute')}
+            onSelect={this.onSelectTime('minute')}
+            hidePanel={this.hidePanel('minute')}
           />
         )}
         {openSecond && (
           <SecondPanel
             selected={actived}
-            isDisabled={this.isDisabled("second")}
-            onSelect={this.onSelectTime("second")}
-            hidePanel={this.hidePanel("second")}
+            isDisabled={this.isDisabled('second')}
+            onSelect={this.onSelectTime('second')}
+            hidePanel={this.hidePanel('second')}
           />
         )}
 
         <div className="time-panel__preview">
-          <span className="time__number" onClick={this.openPanel("hour")}>
+          <span className="time__number" onClick={this.openPanel('hour')}>
             {padLeft(actived.getHours())} 时
           </span>
-          <span className="time__number" onClick={this.openPanel("minute")}>
+          <span className="time__number" onClick={this.openPanel('minute')}>
             {padLeft(actived.getMinutes())} 分
           </span>
-          <span className="time__number" onClick={this.openPanel("second")}>
+          <span className="time__number" onClick={this.openPanel('second')}>
             {padLeft(actived.getSeconds())} 秒
           </span>
         </div>

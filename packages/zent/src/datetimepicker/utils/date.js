@@ -9,7 +9,7 @@ export function dayStart(date) {
 
 export function dayEnd(date) {
   const now = date || new Date();
-  return setTime(now, '23:59:59')
+  return setTime(now, '23:59:59');
 }
 
 export function setTime(date, time = '00:00:00') {
