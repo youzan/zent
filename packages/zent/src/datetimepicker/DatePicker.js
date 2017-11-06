@@ -215,7 +215,6 @@ class DatePicker extends (PureComponent || Component) {
 
   isDisabled = val => {
     const { disabledDate, min, max, format } = this.props;
-
     if (disabledDate && disabledDate(val)) return true;
     if (min && dayEnd(val) < parseDate(min, format)) return true;
     if (max && dayStart(val) > parseDate(max, format)) return true;

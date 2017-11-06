@@ -210,12 +210,12 @@ class Demo extends Component{
   }
 
   render(){
-    const { dateValue, rangeValue } = this.state;
+		const { dateValue, rangeValue } = this.state;
     return (
       <div>
         <DatePicker
           className="zent-picker-demo"
-          showTime
+					showTime
           format="YYYY-MM-DD HH:mm:ss"
           value={dateValue}
           onChange={this.onChangeDate}
