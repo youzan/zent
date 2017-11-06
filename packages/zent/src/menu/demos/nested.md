@@ -28,13 +28,13 @@ en-US:
 	changzhou: Changzhou
 	zhenjiang: Zhenjiang
 	nanjing: Nanjing
-	jiangningqu: Jiangning District
-	xianlinqu: Xianling District
+	jiangningqu: Jiangning
+	xianlinqu: Xianling
 	shandong: Shandong
 	zhejiang: Zhejiang
 	hangzhou: Hangzhou
-	xihuqu: Xihu District
-	shangchengqu: Shangcheng District
+	xihuqu: Xihu
+	shangchengqu: Shangcheng
 	wenzhou: Wenzhou
 	shaoxing: Shaoxing
 	jiaxing: Jiaxing

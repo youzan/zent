@@ -14,8 +14,6 @@ Time pickers, provides basic time choosing functionality.
 - `DatePicker` and `RangePicker` can use `showTime` to allow time selection.
 - Date formats can be customized using `format`, you can find formating details at the end of this page.
 
-### Demos
-
 ## API
 
 ### Common API

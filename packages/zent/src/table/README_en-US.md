@@ -24,7 +24,7 @@ group: Navigation
 | selection  | Form selection function configuration | object        |             |         | no    |
 | loading    | Loading status of form | bool          | `false`     |         | no    |
 | getRowConf | The configuration function for each line, return a configuration object `{canSelect, rowClass}` | func          |             |         | no    |
-| expandation     |  Expand the configuration                                      | object        |     |         | no    |
+| expandation     |  Expand configuration                                      | object        |     |         | no    |
 | batchComponents     |  List for batch operations   | array[html/function/React Component] |   `null`  |   `null` | no    |
 | batchComponentsAutoFixed  |   Whether to automatically fix batch operation      | bool          | `true`     |         | no    |
 | autoStick  | Whether to stick the head to the window automatically                         | bool          | `false`     |         | no    |

@@ -8,8 +8,6 @@ group: Data Entry
 
 Image uploader.
 
-### Demos
-
 ### API
 
 | Property | Description | Type | Default | Required |

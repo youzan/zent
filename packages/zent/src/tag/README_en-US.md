@@ -14,8 +14,6 @@ Tag is suitable for marking and sorting。
 -  You can add multiple tags for one item.
 -  The text in tag should not more than four words.
 
-### Demos
-
 ### API
 
 | Property     |  Description  | Type     | Default  | Alternative |

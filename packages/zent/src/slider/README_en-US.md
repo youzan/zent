@@ -13,8 +13,6 @@ You can select a value by dragging or clicking `Slider`.
 - Support a single slider and double slider.
 - Can be used with `Input`.
 
-### Demos
-
 ### API
 
 | Property     |  Description  | Type     | Default  | Alternative | Required |

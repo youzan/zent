@@ -15,8 +15,6 @@ group: 数据
 - `DatePicker` 和 `RangePicker` 可以通过 `showTime` 属性来支持时间的选择。
 - 通过 `format` 属性自定义日期字符串的格式，`format` 的详细说明见页面最后的表格。
 
-## 代码演示
-
 ## API
 
 ### 共同的 API

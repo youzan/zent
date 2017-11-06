@@ -13,13 +13,13 @@ zh-CN:
 	cleanser: 洗面奶
 en-US:
 	title: Submenu
-	foodCategory: Food Category
-	clothCategory: Clothing Category
-	eleCategory: Electrical Category
-	makeupCategory: Makeup Category
+	foodCategory: Food
+	clothCategory: Clothing
+	eleCategory: Electrical
+	makeupCategory: Makeup
 	tv: TV
 	laptop: Laptop
-	washingMachine: Washing Machine
+	washingMachine: Washing
 	eyeShadow: Eye Shadow
 	cleanser: Cleanser
 ---
@@ -39,7 +39,7 @@ const Example = () => {
 			className="hello"
 		>
 			<MenuItem key="1-1" className="food">{i18n.foodCategory}</MenuItem>
-			<MenuItem key="1-2" disabled>{i18n.clothCategoty}</MenuItem>
+			<MenuItem key="1-2" disabled>{i18n.clothCategory}</MenuItem>
 			<SubMenu title={"{i18n.eleCategory}"} overlayClassName="sub">
 				<MenuItem key="2-1" className="tv">{i18n.tv}</MenuItem>
 				<MenuItem key="2-2" disabled>{i18n.laptop}</MenuItem>

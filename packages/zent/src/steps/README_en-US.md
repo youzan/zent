@@ -31,6 +31,6 @@ Steps is suitable for operations that need to be guided step by step.
 | title       | the title of each item in steps  | node |
 | description | The details of each item in steps (This propterty is not supported in steps of card type and breadcrumb type. ) | node |
 
-### Known issus
+### Known issues
 
 This component didn't deal with the situation where there is only one step. In fact, you shouldn't use this component when there is only one step.

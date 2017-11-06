@@ -6,8 +6,8 @@ zh-CN:
 	clothCategory: 服装分类
 en-US:
 	title: Basic Usage
-	foodCategory: Food Category
-	clothCategory: Clothing Category
+	foodCategory: Food
+	clothCategory: Clothing
 ---
 
 ```jsx
