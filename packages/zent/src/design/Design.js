@@ -394,9 +394,9 @@ export default class Design extends (PureComponent || Component) {
   // 添加一个新组件
   onAdd = (component, fromSelected) => {
     const { value } = this.props;
-    const editor = component.editor;
+    const { editor, defaultType } = component;
     const instance = editor.getInitialValue();
-    instance.type = getDesignType(editor);
+    instance.type = getDesignType(editor, defaultType);
     const id = uuid();
     this.setUUIDForValue(instance, id);
 
