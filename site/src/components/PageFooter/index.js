@@ -2,8 +2,24 @@ import React, { Component } from 'react';
 
 import './style.pcss';
 
+const TEXT = {
+  'zh-CN': {
+    vant: 'Vant-Vue 组件库',
+    weapp: '微信小程序组件库',
+    feed: '意见反馈',
+    amway: '加入我们'
+  },
+  'en-US': {
+    vant: 'Vant',
+    weapp: 'WeApp Components',
+    feed: 'Feedbacks',
+    amway: 'Join Us'
+  }
+};
+
 export default class PageFooter extends Component {
   render() {
+    const i18n = this.props.i18n || 'en-US';
     return (
       <div className="page-footer">
         <ul className="page-footer__navs">
@@ -38,7 +54,7 @@ export default class PageFooter extends Component {
               href="//www.youzanyun.com/zanui/vant"
               className="page-footer__link"
             >
-              Vue 组件库
+              {TEXT[i18n].vant}
             </a>
           </li>
           <li className="page-footer__item">
@@ -46,7 +62,7 @@ export default class PageFooter extends Component {
               href="https://github.com/youzan/zanui-weapp"
               className="page-footer__link"
             >
-              微信小程序组件库
+              {TEXT[i18n].weapp}
             </a>
           </li>
           <li className="page-footer__item">
@@ -56,7 +72,7 @@ export default class PageFooter extends Component {
               rel="noopener noreferrer"
               target="_blank"
             >
-              意见反馈
+              {TEXT[i18n].feed}
             </a>
           </li>
           <li className="page-footer__item">
@@ -66,7 +82,7 @@ export default class PageFooter extends Component {
               rel="noopener noreferrer"
               target="_blank"
             >
-              加入我们
+              {TEXT[i18n].amway}
             </a>
           </li>
         </ul>

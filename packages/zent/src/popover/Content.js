@@ -85,14 +85,19 @@ export default class PopoverContent extends (PureComponent || Component) {
 
       return;
     }
+    const contentBoundingBox = content.getBoundingClientRect();
 
     const anchor = this.getAnchor();
+    if (!anchor) {
+      return;
+    }
     const boundingBox = anchor.getBoundingClientRect();
 
     const parent = this.getPositionedParent();
+    if (!parent) {
+      return;
+    }
     const parentBoundingBox = parent.getBoundingClientRect();
-
-    const contentBoundingBox = content.getBoundingClientRect();
 
     const relativeBB = translateToContainerCoordinates(
       parentBoundingBox,

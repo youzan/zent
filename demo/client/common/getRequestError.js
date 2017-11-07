@@ -25,5 +25,7 @@ function extractError(resp) {
 }
 
 export default function getRequestError(...maybeResponse) {
-  return flatten(maybeResponse).map(extractError).join('\n');
+  return flatten(maybeResponse)
+    .map(extractError)
+    .join('\n');
 }

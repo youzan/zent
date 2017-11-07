@@ -8,12 +8,12 @@ import './react-docs.pcss';
 
 import App from './App';
 
-const render = Component => {
+const render = ChildComponent => {
   ReactDOM.render(
-    <AppContainer>
-      <Component />
+    <AppContainer warnings={false}>
+      <ChildComponent />
     </AppContainer>,
-    document.getElementById('app-container')
+    document.getElementById('app-container') // eslint-disable-line
   );
 };
 
