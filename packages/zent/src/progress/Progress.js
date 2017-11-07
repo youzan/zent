@@ -65,6 +65,16 @@ export default class Progress extends (PureComponent || Component) {
       [`${prefix}-progress-success`]: percent >= 100
     });
 
+    const getCurrentColor = () => {
+      if (percent < 100 && status === 'exception') {
+        return exceptionColor || normalColor;
+      }
+      if (percent >= 100) {
+        return successColor;
+      }
+      return normalColor;
+    };
+
     const renderInfoCont = () => {
       let infoCont;
       if (format) {
@@ -76,7 +86,7 @@ export default class Progress extends (PureComponent || Component) {
             <Icon
               type={type === 'circle' ? 'check' : 'check-circle'}
               style={{
-                color: successColor
+                color: getCurrentColor()
               }}
             />
           );
@@ -85,23 +95,13 @@ export default class Progress extends (PureComponent || Component) {
             <Icon
               type={type === 'circle' ? 'close' : 'close-circle'}
               style={{
-                color: exceptionColor
+                color: getCurrentColor()
               }}
             />
           );
         }
       }
       return infoCont;
-    };
-
-    const getCurrentColor = () => {
-      if (percent < 100 && status === 'exception') {
-        return exceptionColor;
-      }
-      if (percent >= 100) {
-        return successColor;
-      }
-      return normalColor;
     };
 
     const renderProgressCont = () => {
