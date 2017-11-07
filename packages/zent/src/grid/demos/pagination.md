@@ -50,13 +50,13 @@ const datasets2 = [];
 for (let i = 0; i < 5; i++) {
 	datasets.push({
 		id: `f-${i}`,
-		name: `{i18n.babyProduct} ${i}`,
+		name: `{i18n.babyProducts} ${i}`,
 		uv: 20,
 		stock: 5
 	})
 	datasets2.push({
 		id: `s-${i}`,
-		name: `{i18n.petProduct} ${i}`,
+		name: `{i18n.petProducts} ${i}`,
 		uv: 20,
 		stock: 5
 	})
