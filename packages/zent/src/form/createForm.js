@@ -521,8 +521,7 @@ const createForm = (config = {}) => {
 
       isFormAsyncValidated = () => {
         const allIsAsyncValid = this.fields.every(field => {
-          console.log(field.getName(), field.isAsyncValidated());
-          return field.isAsyncValidated();
+          return field.isAsyncValidated() || !field.props.asyncValidation;
         });
 
         return allIsAsyncValid;
