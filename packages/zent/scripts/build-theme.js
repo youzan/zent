@@ -5,7 +5,7 @@ const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
 const path = require('path');
 const themeVariables = require('postcss-theme-variables');
-const plugins = require('../postcss.config').plugins;
+const plugins = require('../../../postcss.config').plugins;
 
 const themeFile = process.argv[2];
 const theme = themeFile

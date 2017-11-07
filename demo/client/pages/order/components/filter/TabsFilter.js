@@ -14,9 +14,9 @@ export default class TabsFilter extends PureComponent {
     return (
       <div className="trade-order-list__tab">
         <Tabs activeId={activeId} onTabChange={this.handleTabChange}>
-          {tabs.map(({ value, text }) =>
+          {tabs.map(({ value, text }) => (
             <TabPanel key={value} tab={text} id={value} />
-          )}
+          ))}
         </Tabs>
       </div>
     );
