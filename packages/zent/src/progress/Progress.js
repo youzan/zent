@@ -14,7 +14,11 @@ export default class Progress extends (PureComponent || Component) {
     format: PropTypes.func,
     strokeWidth: PropTypes.number,
     width: PropTypes.number,
-    style: PropTypes.object
+    style: PropTypes.object,
+    normalColor: PropTypes.string,
+    exceptionColor: PropTypes.string,
+    successColor: PropTypes.string,
+    bgColor: PropTypes.string
   };
 
   static defaultProps = {
@@ -37,7 +41,11 @@ export default class Progress extends (PureComponent || Component) {
       format,
       strokeWidth,
       width,
-      style
+      style,
+      normalColor,
+      exceptionColor,
+      successColor,
+      bgColor
     } = this.props;
 
     const progressWidth = width || (type === 'circle' ? 132 : 580);
@@ -65,15 +73,35 @@ export default class Progress extends (PureComponent || Component) {
         infoCont = `${percent}%`;
         if (percent >= 100) {
           infoCont = (
-            <Icon type={type === 'circle' ? 'check' : 'check-circle'} />
+            <Icon
+              type={type === 'circle' ? 'check' : 'check-circle'}
+              style={{
+                color: successColor
+              }}
+            />
           );
         } else if (status === 'exception') {
           infoCont = (
-            <Icon type={type === 'circle' ? 'close' : 'close-circle'} />
+            <Icon
+              type={type === 'circle' ? 'close' : 'close-circle'}
+              style={{
+                color: exceptionColor
+              }}
+            />
           );
         }
       }
       return infoCont;
+    };
+
+    const getCurrentColor = () => {
+      if (percent < 100 && status === 'exception') {
+        return exceptionColor;
+      }
+      if (percent >= 100) {
+        return successColor;
+      }
+      return normalColor;
     };
 
     const renderProgressCont = () => {
@@ -92,7 +120,8 @@ export default class Progress extends (PureComponent || Component) {
                 className={`${prefix}-progress-wrapper`}
                 style={{
                   borderRadius: progressWidth,
-                  borderWidth: strokeWidth
+                  borderWidth: strokeWidth,
+                  borderColor: bgColor
                 }}
               />
               <svg className={`${prefix}-progress-inner`}>
@@ -102,6 +131,7 @@ export default class Progress extends (PureComponent || Component) {
                   cy={progressWidth / 2}
                   r={(progressWidth - strokeWidth) / 2}
                   style={{
+                    stroke: getCurrentColor(),
                     strokeWidth,
                     strokeDasharray: Math.PI * (progressWidth - strokeWidth),
                     strokeDashoffset:
@@ -130,6 +160,7 @@ export default class Progress extends (PureComponent || Component) {
               <div
                 className={`${prefix}-progress-wrapper`}
                 style={{
+                  background: bgColor,
                   width: progressWidth,
                   height: strokeWidth,
                   borderRadius: strokeWidth
@@ -138,6 +169,7 @@ export default class Progress extends (PureComponent || Component) {
                 <div
                   className={`${prefix}-progress-inner`}
                   style={{
+                    background: getCurrentColor(),
                     width: `${percent}%`,
                     height: strokeWidth,
                     borderRadius: strokeWidth
