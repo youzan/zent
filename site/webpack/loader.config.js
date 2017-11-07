@@ -27,7 +27,7 @@ function getMarkdownLoaders(babelLoader) {
   return [
     babelLoader,
     {
-      loader: require.resolve('../../../react-markdown-doc-loader'),
+      loader: require.resolve('react-markdown-doc-loader'),
       options: {
         jsTemplate: join(__dirname, '../react-template.jstpl'),
         renderers: {
