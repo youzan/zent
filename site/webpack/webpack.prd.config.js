@@ -1,13 +1,13 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const HappyPack = require('happypack');
 const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const { getBabelLoader, postcssLoader, getRules } = require('./loader.config');
+const happyThreadPool = require('./happypack-thread-pool');
 
-const babelLoader = getBabelLoader({ dev: false });
-const prefix = 'https://b.yzcdn.cn/zanui/react/';
+const prefix = 'https://b.yzcdn.cn/zanui/zent/';
 
 module.exports = Object.assign({}, base, {
   entry: {
@@ -20,16 +20,26 @@ module.exports = Object.assign({}, base, {
   }),
 
   module: Object.assign({}, base.module, {
-    rules: base.module.rules.concat(getRules(babelLoader), [
-      {
-        test: /\.p?css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', postcssLoader]
-        })
-      }
-    ])
+    rules: base.module.rules.concat({
+      test: /\.p?css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'happypack/loader?id=styles'
+      })
+    })
   }),
+
+  // module: Object.assign({}, base.module, {
+  //   rules: base.module.rules.concat(getRules(babelLoader), [
+  //     {
+  //       test: /\.p?css$/,
+  //       use: ExtractTextPlugin.extract({
+  //         fallback: 'style-loader',
+  //         use: ['css-loader', 'postcss-loader']
+  //       })
+  //     }
+  //   ])
+  // }),
 
   plugins: base.plugins.concat([
     new FaviconsWebpackPlugin({
@@ -64,6 +74,20 @@ module.exports = Object.assign({}, base, {
         yandex: false,
         windows: false
       }
+    }),
+
+    new HappyPack({
+      id: 'styles',
+      threadPool: happyThreadPool,
+      loaders: [
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1
+          }
+        },
+        'postcss-loader'
+      ]
     }),
 
     new webpack.optimize.UglifyJsPlugin({

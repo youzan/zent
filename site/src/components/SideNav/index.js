@@ -18,7 +18,7 @@ export default class SideNav extends Component {
   handleTitleClick = item => {
     if (item.groups[0].list[0].path) {
       this.context.router.history.push(
-        this.props.base + item.groups[0].list[0].path
+        getFullPath(this.props.base, item.groups[0].list[0].path)
       );
     }
   };
@@ -29,7 +29,7 @@ export default class SideNav extends Component {
         <NavLink
           activeClassName="active"
           exact
-          to={this.props.base + item.path}
+          to={getFullPath(this.props.base, item.path)}
           title={item.name}
         >
           {item.name}
@@ -63,7 +63,7 @@ export default class SideNav extends Component {
         <NavLink
           activeClassName="active"
           exact
-          to={this.props.base + navItem.path}
+          to={getFullPath(this.props.base, navItem.path)}
         >
           {linkTitle}
         </NavLink>
@@ -80,4 +80,8 @@ export default class SideNav extends Component {
       </div>
     );
   }
+}
+
+function getFullPath(base, path) {
+  return `${base}/${path}`;
 }
