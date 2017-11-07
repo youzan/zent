@@ -5,7 +5,7 @@ zh-CN:
 	placehoder: 请输入数字
 
 en-US:
-	title: enter number in a range
+	title: Enter number in a range
 	placehoder: please enter number
 	
 ---

@@ -6,11 +6,11 @@ group: Data Entry
 
 ## SKU selector
 
-it is a widget for sku select 
+It is a widget for sku select 
 
 ### Guides
 
-you can create a editable page with a variety of goods and services
+You can create a editable page with a variety of goods and services
 
 
 ### API

@@ -5,7 +5,7 @@ zh-CN:
 	placehoder: 请输入数字
 
 en-US:
-	title: disable status
+	title: Disable status
 	placehoder: please enter number
 
 ---

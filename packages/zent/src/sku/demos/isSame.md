@@ -10,7 +10,7 @@ zh-CN:
 	small: 小
 
 en-US:
-	title: isSame
+	title: IsSame
 	color: color
 	size: size
 	red: red

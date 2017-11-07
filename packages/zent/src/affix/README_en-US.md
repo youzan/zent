@@ -6,7 +6,7 @@ group: Navigation
 
 ## Affix
 
-used to fix the element in a specific area, it is common to fix navigation bar 
+Used to fix the element in a specific area, it is common to fix navigation bar 
 
 ### API
 
@@ -22,7 +22,7 @@ used to fix the element in a specific area, it is common to fix navigation bar
 | prefix    | custom prefix    | string | `'zent'`   |                                   |
 
 
-if `offsetTop` and `offsetBottom` are both set , `offsetBottom` has priority
+If `offsetTop` and `offsetBottom` are both set , `offsetBottom` has priority
 
 <style>
 .demo-nav {

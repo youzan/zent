@@ -7,7 +7,7 @@ zh-CN:
 	finishText: 已经固定啦
 	cancalText: 取消固定啦
 en-US:
-	title: set callback function
+	title: Set callback function
 	index: Index
 	affix: Affix
 	finishText: fixed

@@ -6,7 +6,7 @@ zh-CN:
 	tree: 树
 
 en-US:
-	title: array data
+	title: Array data
 	index: Index
 	tree: Tree
 

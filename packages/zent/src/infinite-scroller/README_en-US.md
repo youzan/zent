@@ -6,7 +6,7 @@ group: Data Display
 
 ## InfiniteScroller
 
-infinite scrolling widget
+Infinite scrolling widget
 
 ### Guides
 
@@ -28,7 +28,7 @@ infinite scrolling widget
 
 ### loadMore
 
-when it is a async loading, it is expected that the return of loadMore function is a Promise that is used to control loading show. or you have to stop loading by yourself with the first param as callback from loadMore function
+When it is a async loading, it is expected that the return of loadMore function is a Promise that is used to control loading show. or you have to stop loading by yourself with the first param as callback from loadMore function
 
 
 <style>

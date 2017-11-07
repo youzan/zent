@@ -5,7 +5,7 @@ zh-CN:
 	placehoder: 请输入数字
 
 en-US:
-	title: specify the decimal point precision
+	title: Specify the decimal point precision
 	placehoder: please enter number
 
 ---
