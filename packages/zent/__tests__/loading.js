@@ -36,18 +36,25 @@ describe('Loading', () => {
       .find('button')
       .at(0)
       .simulate('click');
+    jest.runOnlyPendingTimers();
+
     wrapper
       .find('button')
       .at(1)
       .simulate('click');
+    jest.runOnlyPendingTimers();
+
     wrapper
       .find('button')
       .at(0)
       .simulate('click');
+    jest.runOnlyPendingTimers();
+
     wrapper
       .find('button')
       .at(1)
       .simulate('click');
+    jest.runOnlyPendingTimers();
   });
 
   it('Loading has static model, support containerClass and prefix...props', () => {
