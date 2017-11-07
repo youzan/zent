@@ -6,26 +6,29 @@ import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import isFunction from 'lodash/isFunction';
 import PropTypes from 'prop-types';
+import getWidth from 'utils/getWidth';
 
 export default class SearchInput extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   };
 
   static defaultProps = {
     className: '',
-    prefix: 'zent',
-    style: {}
+    prefix: 'zent'
   };
 
   render() {
-    const { prefix, className, value, style } = this.props;
+    const { prefix, className, value, width } = this.props;
     const inputProps = omit(this.props, 'className', 'type', 'onChange');
 
     return (
-      <div style={style} className={cx(`${prefix}-search-input`, className)}>
+      <div
+        style={getWidth(width)}
+        className={cx(`${prefix}-search-input`, className)}
+      >
         <Icon type="search" />
         <Input {...inputProps} onChange={this.onChange} />
         {value && (

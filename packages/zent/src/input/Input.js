@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
+import getWidth from 'utils/getWidth';
 
 export default class Input extends (PureComponent || Component) {
   static propTypes = {
@@ -18,7 +19,7 @@ export default class Input extends (PureComponent || Component) {
     onPressEnter: PropTypes.func,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
-    style: PropTypes.object
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   };
 
   static defaultProps = {
@@ -26,8 +27,7 @@ export default class Input extends (PureComponent || Component) {
     readOnly: false,
     prefix: 'zent',
     type: 'text',
-    autoFocus: false,
-    style: {}
+    autoFocus: false
   };
 
   componentDidMount() {
@@ -57,8 +57,9 @@ export default class Input extends (PureComponent || Component) {
       prefix,
       className,
       type,
-      style
+      width
     } = this.props;
+    const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
 
     const wrapClass = classNames(
@@ -77,13 +78,13 @@ export default class Input extends (PureComponent || Component) {
       'addonBefore',
       'addonAfter',
       'onPressEnter',
-      'style'
+      'width'
     ]);
 
     if (isTextarea) {
       inputProps = omit(inputProps, ['type']);
       return (
-        <div className={wrapClass} style={style}>
+        <div className={wrapClass} style={widthStyle}>
           <textarea
             ref={input => {
               this.input = input;
@@ -97,7 +98,7 @@ export default class Input extends (PureComponent || Component) {
     }
 
     return (
-      <div className={wrapClass} style={style}>
+      <div className={wrapClass} style={widthStyle}>
         {addonBefore && (
           <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>
         )}

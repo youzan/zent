@@ -4,6 +4,7 @@ import Input from 'input';
 import Popover from 'popover';
 import formatDate from 'zan-utils/date/formatDate';
 import parseDate from 'zan-utils/date/parseDate';
+import getWidth from 'utils/getWidth';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
@@ -174,9 +175,10 @@ class MonthPicker extends (PureComponent || Component) {
       'picker-input--filled': !state.showPlaceholder,
       'picker-input--disabled': props.disabled
     });
+    const widthStyle = getWidth(props.width);
 
     return (
-      <div style={props.style} className={wrapperCls}>
+      <div style={widthStyle} className={wrapperCls}>
         <Popover
           cushion={5}
           visible={state.openPanel}
@@ -185,7 +187,7 @@ class MonthPicker extends (PureComponent || Component) {
           position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
-            <div style={props.style} className={inputCls}>
+            <div style={widthStyle} className={inputCls}>
               <Input
                 name={props.name}
                 value={state.showPlaceholder ? props.placeholder : state.value}

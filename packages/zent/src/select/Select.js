@@ -306,7 +306,7 @@ class Select extends (PureComponent || Component) {
       onAsyncFilter,
       searchPlaceholder,
       autoWidth,
-      style
+      width
     } = this.props;
 
     const {
@@ -329,7 +329,7 @@ class Select extends (PureComponent || Component) {
         className={`${prefixCls} ${popupClassName}`}
         wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
         onVisibleChange={this.handlePopoverVisibleChange}
-        style={style}
+        width={width}
       >
         <PopoverClickTrigger>
           <Trigger
@@ -393,7 +393,7 @@ Select.propTypes = {
   onAsyncFilter: PropTypes.func,
   onEmptySelected: PropTypes.func,
   onOpen: PropTypes.func,
-  style: PropTypes.object,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   // 自动根据ref计算弹层宽度
   autoWidth: PropTypes.bool
@@ -421,7 +421,6 @@ Select.defaultProps = {
   onEmptySelected: noop,
   onOpen: noop,
   autoWidth: false,
-  style: {},
 
   // HACK
   value: null,

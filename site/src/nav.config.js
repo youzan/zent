@@ -15,7 +15,7 @@ module.exports = {
             },
             {
               title: '项目示例',
-              path: ' guides/demos',
+              path: 'guides/demos',
               component: require('../../packages/zent/docs/demo.md')
             },
             {

@@ -6,6 +6,7 @@ import isFunction from 'lodash/isFunction';
 import noop from 'lodash/noop';
 import Input from 'input';
 import Icon from 'icon';
+import getWidth from 'utils/getWidth';
 
 export default class NumberInput extends (PureComponent || Component) {
   static propTypes = {
@@ -18,7 +19,7 @@ export default class NumberInput extends (PureComponent || Component) {
     max: PropTypes.number,
     min: PropTypes.number,
     onChange: PropTypes.func,
-    style: PropTypes.object
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
@@ -27,7 +28,6 @@ export default class NumberInput extends (PureComponent || Component) {
     value: '',
     decimal: 0,
     disabled: false,
-    style: {},
     onChange: () => {}
   };
 
@@ -195,8 +195,9 @@ export default class NumberInput extends (PureComponent || Component) {
       showStepper,
       disabled,
       readOnly,
-      style
+      width
     } = this.props;
+    const widthStyle = getWidth(width);
     const { value, upArrow, downArrow } = this.state;
 
     // 箭头状态
@@ -226,14 +227,14 @@ export default class NumberInput extends (PureComponent || Component) {
       [`${prefix}-number-input-arrow-disable`]: downArrowState
     });
 
-    // 可传入Input组件的属性
+    // 不可传入Input组件的属性
     let inputProps = omit(this.props, [
       // 这几个 Input 的 props 不要透传
       'type',
       // 'addonBefore',
       // 'addonAfter',
       'onChange',
-      'style',
+      'width',
 
       // 这些是 NumberInput 特有的 props
       'showStepper',
@@ -242,7 +243,7 @@ export default class NumberInput extends (PureComponent || Component) {
       'decimal'
     ]);
     return (
-      <div className={wrapClass} style={style}>
+      <div className={wrapClass} style={widthStyle}>
         {showStepper && (
           <span className={upArrowClass} onClick={this.inc}>
             <Icon type="right" />
