@@ -9,8 +9,8 @@ import parseDate from 'zan-utils/date/parseDate';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT_DAY, goMonths } from './utils';
-import { dayStart, setTime } from './utils/date';
+import { CURRENT_DAY, goMonths, setSameDate } from './utils';
+import { dayStart, dayEnd, setTime } from './utils/date';
 import {
   timeFnMap,
   noop,
@@ -119,11 +119,13 @@ class DatePicker extends (PureComponent || Component) {
 
   onSelectDate = val => {
     const { onClick } = this.props;
+    const { activedTime } = this.state;
     if (this.isDisabled(val)) return;
-
+    // update activedTime here
     this.setState({
       actived: val,
-      selected: val
+      selected: val,
+      activedTime: setSameDate(activedTime, val)
     });
     onClick && onClick(val);
   };
@@ -213,24 +215,23 @@ class DatePicker extends (PureComponent || Component) {
 
   isDisabled = val => {
     const { disabledDate, min, max, format } = this.props;
-
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
+    if (min && dayEnd(val) < parseDate(min, format)) return true;
+    if (max && dayStart(val) > parseDate(max, format)) return true;
 
     return false;
   };
 
   renderPicker() {
-    const state = this.state;
-    const props = this.props;
+    const { state, props, format } = this;
     let showTime;
     let datePicker;
 
     if (props.showTime) {
       showTime = assign(
-        {},
         {
+          min: props.min && parseDate(props.min, format),
+          max: props.max && parseDate(props.max, format),
           actived: state.activedTime,
           disabledTime: noop
         },
@@ -288,8 +289,7 @@ class DatePicker extends (PureComponent || Component) {
   };
 
   render() {
-    const state = this.state;
-    const props = this.props;
+    const { state, props } = this;
     const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input': true,
