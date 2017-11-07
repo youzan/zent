@@ -9,21 +9,26 @@ en-US:
 ```jsx
 import { Progress } from 'zent';
 
+const bgColor = '#e5e5e5';
+const normalColor = '#38f';
+const successColor = '#0a0';
+const exceptionColor = '#f85';
+
 class App extends Component {
 
 	render() {
 		return (
 			<div>
-				<Progress bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress percent={70} bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress percent={100} bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress percent={80} status="exception" bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress percent={80} status="exception" bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" exceptionColor="#f85"/>
-				<Progress type="circle" bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress type="circle" percent={70} bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress type="circle" percent={100} bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress type="circle" percent={80} status="exception" bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" />
-				<Progress type="circle" percent={80} status="exception" bgColor="#e5e5e5" normalColor="#38f" successColor="#0a0" exceptionColor="#f85"/>
+				<Progress bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress percent={70} bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress percent={100} bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress percent={80} status="exception" bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress percent={80} status="exception" bgColor={bgColor} normalColor={normalColor} successColor={successColor} exceptionColor={exceptionColor} />
+				<Progress type="circle" bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress type="circle" percent={70} bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress type="circle" percent={100} bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress type="circle" percent={80} status="exception" bgColor={bgColor} normalColor={normalColor} successColor={successColor} />
+				<Progress type="circle" percent={80} status="exception" bgColor={bgColor} normalColor={normalColor} successColor={successColor} exceptionColor={exceptionColor} />
 			</div>
 		);
 	}
