@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 4
 zh-CN:
 	title: 自定义通知内容
 	text: 自定义内容通知

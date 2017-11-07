@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 zh-CN:
 	title: 自定义通知结束回调
 	name: 自定义通知结束回调

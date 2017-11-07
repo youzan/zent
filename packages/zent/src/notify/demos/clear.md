@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 zh-CN:
 	title: 清除屏幕所有通知
 	success: 成功通知

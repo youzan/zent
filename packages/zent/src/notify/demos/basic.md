@@ -8,7 +8,6 @@ en-US:
 	title: Basic usage
 	success: success
 	error: error
-
 ---
 
 ```jsx
