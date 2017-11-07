@@ -2,6 +2,13 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { formatDate } from 'zan-utils/date';
 import DatePicker from 'datetimepicker/DatePicker';
+import { setTime } from 'datetimepicker/utils/date';
+
+const HOURS = 10;
+const MINUTES = 10;
+const SECONDS = 10;
+
+const TIME = '10:10:10';
 
 describe('DateTimePicker', () => {
   it('DatePicker has its default structure', () => {
@@ -374,5 +381,112 @@ describe('DateTimePicker', () => {
     expect(pop.find('SecondPanel').length).toBe(1);
     pop.find('SecondPanel .link--prev').simulate('click');
     expect(pop.find('SecondPanel').length).toBe(0);
+  });
+
+  it('support disabled time with min', () => {
+    const now = setTime(new Date(), TIME);
+
+    const wrapper = mount(<DatePicker showTime min={now} />);
+    wrapper.find('.picker-input').simulate('click');
+    const pop = new ReactWrapper(wrapper.instance().picker, true);
+
+    pop.find('DatePanel .panel__cell--current').simulate('click');
+    pop
+      .find('TimePanel .time__number')
+      .first()
+      .simulate('click');
+
+    expect(
+      pop
+        .find('HourPanel .panel__cell')
+        .at(HOURS - 1)
+        .hasClass('panel__cell--disabled')
+    ).toBe(true);
+
+    pop
+      .find('HourPanel .panel__cell')
+      .at(HOURS)
+      .simulate('click');
+
+    pop
+      .find('TimePanel .time__number')
+      .at(1)
+      .simulate('click');
+
+    expect(
+      pop
+        .find('MinutePanel .panel__cell')
+        .at(MINUTES - 1)
+        .hasClass('panel__cell--disabled')
+    ).toBe(true);
+
+    pop
+      .find('MinutePanel .panel__cell')
+      .at(MINUTES)
+      .simulate('click');
+    pop
+      .find('TimePanel .time__number')
+      .at(2)
+      .simulate('click');
+
+    expect(
+      pop
+        .find('SecondPanel .panel__cell')
+        .at(SECONDS - 1)
+        .hasClass('panel__cell--disabled')
+    ).toBe(true);
+  });
+
+  it('support disabled time with max', () => {
+    const now = setTime(new Date(), TIME);
+
+    const wrapper = mount(<DatePicker showTime max={now} />);
+    wrapper.find('.picker-input').simulate('click');
+    const pop = new ReactWrapper(wrapper.instance().picker, true);
+
+    pop.find('DatePanel .panel__cell--current').simulate('click');
+    pop
+      .find('TimePanel .time__number')
+      .first()
+      .simulate('click');
+
+    expect(
+      pop
+        .find('HourPanel .panel__cell')
+        .at(HOURS + 1)
+        .hasClass('panel__cell--disabled')
+    ).toBe(true);
+
+    pop
+      .find('HourPanel .panel__cell')
+      .at(HOURS)
+      .simulate('click');
+    pop
+      .find('TimePanel .time__number')
+      .at(1)
+      .simulate('click');
+
+    expect(
+      pop
+        .find('MinutePanel .panel__cell')
+        .at(MINUTES + 1)
+        .hasClass('panel__cell--disabled')
+    ).toBe(true);
+
+    pop
+      .find('MinutePanel .panel__cell')
+      .at(MINUTES)
+      .simulate('click');
+    pop
+      .find('TimePanel .time__number')
+      .at(2)
+      .simulate('click');
+
+    expect(
+      pop
+        .find('SecondPanel .panel__cell')
+        .at(SECONDS + 1)
+        .hasClass('panel__cell--disabled')
+    ).toBe(true);
   });
 });

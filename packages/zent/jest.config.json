@@ -11,7 +11,7 @@
   "coverageThreshold": {
     "global": {
       "statements": 96,
-      "branches": 87,
+      "branches": 85,
       "functions": 96,
       "lines": 96
     }
@@ -24,6 +24,7 @@
     "<rootDir>/src/slider/common.js",
     "<rootDir>/src/slider/container.js",
     "<rootDir>/src/slider/points.js",
+    "<rootDir>/src/colorpicker/helpers/reactcss",
     "<rootDir>/src/colorpicker/SketchFields.js",
     "<rootDir>/src/colorpicker/SketchPresetColors.js",
     "<rootDir>/src/colorpicker/common/ColorWrap.js",

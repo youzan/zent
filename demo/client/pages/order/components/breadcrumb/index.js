@@ -14,12 +14,13 @@ const Simple = activeArr => {
         href="#list?type=all"
         className={activeArr === 'all' && 'zent-breadcrumb-nav-active'}
       />
-      {isSuperStore &&
+      {isSuperStore && (
         <Breadcrumb.Item
           name="网点订单"
           href="#list?ext_type=multistore"
           className={activeArr === 'multistore' && 'zent-breadcrumb-nav-active'}
-        />}
+        />
+      )}
       <Breadcrumb.Item
         name="同城送订单"
         href="#list?express_type=city&disable_express_type=1"

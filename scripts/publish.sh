@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 RED='\033[0;31m'
 basepath=$(dirname $0)
 
@@ -31,11 +33,7 @@ $basepath/../lerna publish --exact "$@"
 # 生成 change log
 github_changelog_generator \
     --exclude-tags-regex "(zent-.+|beta|alpha)" \
-    --header-label "## Github 日志" \
-    --bugs-label "**Bug 修复:**" \
-    --enhancement-label "**不兼容改动和新功能:**" \
-    --issues-label "**处理的 Issue:**" \
-    --pr-label "**合并的 Pull Request (可能有不兼容改动):**" \
+    --header-label "## Github Change Log" \
     --no-unreleased \
     -o $basepath/../packages/zent/CHANGELOG.md
 

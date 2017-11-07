@@ -75,6 +75,9 @@ export const isArray = val => {
   return Array.isArray(val);
 };
 
-// export const isFunction = val => {
-//   return Object.prototype.toString.call(val) === '[object Function]';
-// };
+export const setSameDate = (val, target) => {
+  val.setFullYear(target.getFullYear());
+  val.setMonth(target.getMonth());
+  val.setDate(target.getDate());
+  return val;
+};

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, PureComponent, createElement } from 'react';
+import { Component, createElement } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import { prefixName } from './utils';
 import unknownProps from './unknownProps';
 
-class FieldArray extends (PureComponent || Component) {
+class FieldArray extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])

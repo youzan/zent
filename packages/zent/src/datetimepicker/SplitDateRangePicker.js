@@ -64,29 +64,29 @@ class SplitDateRangePicker extends (PureComponent || Component) {
       <div className={pickerCls}>
         <DatePicker
           {...pickerProps}
-          max={props.value[1]}
+          openPanel={openPanel[0]}
           placeholder={placeholder[0]}
+          max={value[1] || pickerProps.max}
           defaultTime={defaultTime[0]}
-          value={props.value[0]}
+          value={value[0]}
           onClick={val => onClick && onClick(val, START)}
-          onChange={this.onChange(START)}
           onOpen={() => onOpen && onOpen(START)}
           onClose={() => onClose && onClose(START)}
-          openPanel={openPanel[0]}
+          onChange={this.onChange(START)}
           disabledDate={val => disabledDate(val, START)}
         />
         <span className="picker-seperator">至</span>
         <DatePicker
           {...pickerProps}
-          min={props.value[0]}
+          openPanel={openPanel[1]}
           placeholder={placeholder[1]}
+          min={value[0] || pickerProps.min}
           defaultTime={defaultTime[1]}
-          value={props.value[1]}
+          value={value[1]}
           onClick={val => onClick && onClick(val, END)}
-          onChange={this.onChange(END)}
           onOpen={() => onOpen && onOpen(END)}
           onClose={() => onClose && onClose(END)}
-          openPanel={openPanel[1]}
+          onChange={this.onChange(END)}
           disabledDate={val => disabledDate(val, END)}
         />
       </div>

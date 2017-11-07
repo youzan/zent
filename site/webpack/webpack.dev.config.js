@@ -1,10 +1,8 @@
 const webpack = require('webpack');
-
+const HappyPack = require('happypack');
 const vendorEntry = require('./vendor-entry');
 const base = require('./webpack.config');
-const { getBabelLoader, postcssLoader, getRules } = require('./loader.config');
-
-const babelLoader = getBabelLoader({ dev: true });
+const happyThreadPool = require('./happypack-thread-pool');
 
 module.exports = Object.assign({}, base, {
   entry: {
@@ -22,12 +20,10 @@ module.exports = Object.assign({}, base, {
   }),
 
   module: Object.assign({}, base.module, {
-    rules: base.module.rules.concat(getRules(babelLoader), [
-      {
-        test: /\.p?css$/,
-        use: ['style-loader?sourceMap', 'css-loader?sourceMap', postcssLoader]
-      }
-    ])
+    rules: base.module.rules.concat({
+      test: /\.p?css$/,
+      use: 'happypack/loader?id=styles'
+    })
   }),
 
   devtool: 'inline-cheap-source-map',
@@ -35,6 +31,32 @@ module.exports = Object.assign({}, base, {
   plugins: base.plugins.concat([
     new webpack.HotModuleReplacementPlugin(),
 
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+
+    new HappyPack({
+      id: 'styles',
+      threadPool: happyThreadPool,
+      loaders: [
+        {
+          loader: 'style-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 0,
+            sourceMap: true
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true
+          }
+        }
+      ]
+    })
   ])
 });

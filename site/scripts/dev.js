@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const cp = require('child_process');
+
 const webpackConfig = require('../webpack/webpack.dev.config.js');
 
 const cmds = {
