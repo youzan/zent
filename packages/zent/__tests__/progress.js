@@ -16,7 +16,12 @@ describe('Progress', () => {
       wrapper.contains(
         <div
           className="zent-progress-inner"
-          style={{ width: '0%', height: 10, borderRadius: 10 }}
+          style={{
+            background: undefined,
+            width: '0%',
+            height: 10,
+            borderRadius: 10
+          }}
         />
       )
     ).toBe(true);
@@ -77,7 +82,12 @@ describe('Progress', () => {
       wrapper.contains(
         <div
           className="zent-progress-inner"
-          style={{ width: '70%', height: 10, borderRadius: 10 }}
+          style={{
+            background: undefined,
+            width: '70%',
+            height: 10,
+            borderRadius: 10
+          }}
         />
       )
     ).toBe(true);
@@ -91,13 +101,23 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
         <div
           className="zent-progress-inner"
-          style={{ width: '100%', height: 10, borderRadius: 10 }}
+          style={{
+            background: undefined,
+            width: '100%',
+            height: 10,
+            borderRadius: 10
+          }}
         />
       )
     ).toBe(true);
@@ -111,13 +131,23 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(false);
     expect(
       wrapper.contains(
         <div
           className="zent-progress-inner"
-          style={{ width: '70%', height: 10, borderRadius: 10 }}
+          style={{
+            background: undefined,
+            width: '70%',
+            height: 10,
+            borderRadius: 10
+          }}
         />
       )
     ).toBe(true);
@@ -128,13 +158,23 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
         <div
           className="zent-progress-inner"
-          style={{ width: '70%', height: 10, borderRadius: 10 }}
+          style={{
+            background: undefined,
+            width: '70%',
+            height: 10,
+            borderRadius: 10
+          }}
         />
       )
     ).toBe(true);
@@ -146,13 +186,23 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
         <div
           className="zent-progress-inner"
-          style={{ width: '100%', height: 10, borderRadius: 10 }}
+          style={{
+            background: undefined,
+            width: '100%',
+            height: 10,
+            borderRadius: 10
+          }}
         />
       )
     ).toBe(true);
@@ -164,15 +214,141 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
         <div
           className="zent-progress-inner"
-          style={{ width: '100%', height: 10, borderRadius: 10 }}
+          style={{
+            background: undefined,
+            width: '100%',
+            height: 10,
+            borderRadius: 10
+          }}
         />
       )
+    ).toBe(true);
+  });
+
+  it('can support custom color', () => {
+    let wrapper = mount(<Progress percent={70} bgColor="#eee" />);
+    expect(
+      wrapper.contains(
+        <div
+          className="zent-progress-wrapper"
+          style={{
+            background: '#eee',
+            width: '100%',
+            height: 10,
+            borderRadius: 10
+          }}
+        />
+      )
+    ).toBe(false);
+
+    wrapper = mount(<Progress percent={70} normalColor="#eee" />);
+    expect(
+      wrapper.contains(
+        <div
+          className="zent-progress-inner"
+          style={{
+            background: '#eee',
+            width: '70%',
+            height: 10,
+            borderRadius: 10
+          }}
+        />
+      )
+    ).toBe(true);
+
+    wrapper = mount(<Progress percent={100} successColor="#eee" />);
+    expect(
+      wrapper.contains(
+        <div
+          className="zent-progress-inner"
+          style={{
+            background: '#eee',
+            width: '100%',
+            height: 10,
+            borderRadius: 10
+          }}
+        />
+      )
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.zent-progress-info')
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: '#eee' }}
+          />
+        )
+    ).toBe(true);
+
+    wrapper = mount(
+      <Progress percent={80} normalColor="#eee" status="exception" />
+    );
+    expect(
+      wrapper.contains(
+        <div
+          className="zent-progress-inner"
+          style={{
+            background: '#eee',
+            width: '80%',
+            height: 10,
+            borderRadius: 10
+          }}
+        />
+      )
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.zent-progress-info')
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: '#eee' }}
+          />
+        )
+    ).toBe(true);
+
+    wrapper = mount(
+      <Progress
+        percent={80}
+        normalColor="#eee"
+        exceptionColor="#000"
+        status="exception"
+      />
+    );
+    expect(
+      wrapper.contains(
+        <div
+          className="zent-progress-inner"
+          style={{
+            background: '#000',
+            width: '80%',
+            height: 10,
+            borderRadius: 10
+          }}
+        />
+      )
+    ).toBe(true);
+    expect(
+      wrapper
+        .find('.zent-progress-info')
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: '#000' }}
+          />
+        )
     ).toBe(true);
   });
 
@@ -187,7 +363,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(false);
 
     wrapper = mount(
@@ -198,7 +379,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(false);
   });
 
