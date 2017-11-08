@@ -31,6 +31,7 @@ group: 数据
 | format       | 返回日期字符串格式      | string         |  不同的picker默认值不同，下详  | 否    |
 | placeholder  | 提示文案               | string    | 不同的picker默认值不同，下详   | 否    |
 | className    | 额外的 css 类          | string         |             | 否    |
+| width    | 宽度         | string \|  number         |             | 否    |
 | prefix       | 自定义前缀       			 | string         | `'zent'`        | 否    |
 | confirmText  | 确定按钮文字            | string         | '确定'        | 否    |
 | popPosition  | pop 弹出层 align 方向   | oneOf(['left', 'right'])  | 'left'    | 否    |

@@ -34,6 +34,7 @@ the widget supports nested pop
 | onVisibleChange | optional, the callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | |
 | className | optional, custom extra class name | string | `''` |  |
 | wrapperClassName |  optional, trigger outerline div classname | string | `''` |  |
+| width | optional, width | string or number |  |  |
 | prefix | optional, custom prefix  | string | `'zent'` |  |
 
 `onBeforeShow` and `onBeforeClose` will return a  `Promise`，`Popover` will open/close after `Promise` resolve，if  `Promise` reject, open/close opreation will stop.

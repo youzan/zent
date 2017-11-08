@@ -26,4 +26,5 @@ group: Data Entry
 | --------- | -------------------- | ------ | -------- |
 | value     | Compare according to the, determine if selected | any    |          |
 | className | custom classname              | string |          |
+| width    | radio's width           | string or number         |                     |
 | prefix    | custom prefix     | string | `'zent'` |

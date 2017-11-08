@@ -97,7 +97,7 @@ describe('Radio Section', () => {
   it('Radio can have custom style which loaded on wrapper', () => {
     const styleObj = { color: 'red' };
     const wrapper = shallow(<Radio style={styleObj} />);
-    expect(wrapper.find('.zent-radio-wrap').props().style).toBe(styleObj);
+    expect(wrapper.find('.zent-radio-wrap').props().style).toEqual(styleObj);
   });
 
   it('Radio can pass custom prop to the input element', () => {

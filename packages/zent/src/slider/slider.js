@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
+import getWidth from 'utils/getWidth';
 
 import Range from './range';
 import InputField from './inputField';
@@ -54,7 +55,8 @@ export default class Slider extends (PureComponent || Component) {
     range: PropTypes.bool,
     step: PropTypes.number,
     withInput: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
@@ -86,14 +88,14 @@ export default class Slider extends (PureComponent || Component) {
   };
 
   render() {
-    const { withInput, className, ...restProps } = this.props;
+    const { withInput, className, width, ...restProps } = this.props;
     const wrapClass = classNames(
       `${restProps.prefix}-slider`,
       { [`${restProps.prefix}-slider-disabled`]: restProps.disabled },
       className
     );
     return (
-      <div className={wrapClass}>
+      <div className={wrapClass} style={getWidth(width)}>
         <Range {...restProps} onChange={this.onChange} />
         {withInput &&
           !restProps.dots && (

@@ -21,7 +21,8 @@ group: 数据
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
 | className    | 自定义额外类名         | string        | `''`     |                         | 否    |
 | prefix       | 自定义类前缀          | string        | `'zent'` |                         | 否    |
-| type         | 自定义类前缀          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | 否    |
+| width       | 宽度          | string or number       |   |                         | 否    |
+| type         | 类型          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | 否    |
 | defaultValue | 默认值             | string        |          |                         | 否    |
 | value        | 输入值             | string        |          |                         | 否    |
 | readOnly     | 是否只读            | bool          | `false`  |                         | 否    |

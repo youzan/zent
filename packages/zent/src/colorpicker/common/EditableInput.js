@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Input from 'input';
 import reactCSS from '../helpers/reactcss';
 
 export default class EditableInput extends Component {
@@ -136,7 +135,7 @@ export default class EditableInput extends Component {
 
     return (
       <div style={styles.wrap}>
-        <Input
+        <input
           prefix="colorpicker-rgb"
           style={styles.input}
           ref={ref => (this.refs = ref)}

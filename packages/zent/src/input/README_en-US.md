@@ -20,6 +20,7 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
 | className    | a custom CSS class.       | string        | `''`     |                         | no    |
 | prefix       | a custom prefix class        | string        | `'zent'` |                         | no    |
+| width       | width          | string or number       |   |                         | no   |
 | type         | content type          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | no    |
 | defaultValue | default value             | string        |          |                         | no    |
 | value        | input value             | string        |          |                         | no    |

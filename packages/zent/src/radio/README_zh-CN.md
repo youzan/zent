@@ -27,5 +27,6 @@ group: 数据
 | --------- | -------------------- | ------ | -------- |
 | value     | 根据 value 进行比较，判断是否选中 | any    |          |
 | className | 自定义额外类名              | string |          |
+| width    | 宽度          | string or number         |                     |
 | prefix    | 自定义前缀                | string | `'zent'` |
 
