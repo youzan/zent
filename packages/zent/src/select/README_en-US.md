@@ -51,6 +51,7 @@ Options list pop-up layer, is mainly responsible for display options, data filte
 | className | Optional, custom trigger additional classname | string | `''` | no |
 | popupClassName | Optional, custom popup classname | string | `''`    | no |
 | autoWidth | Whether to automatically set the width of pop-up layer equal with input-box's width | bool | `false` | no |
+| width |  input-box's width | string or number |  | no |
 | prefix | Custom prefix | string | `'zent'` | no |
 
 If both data and children are used, data will cover the children, mainly in order to receive asynchronous data directly change the data property to change the options.

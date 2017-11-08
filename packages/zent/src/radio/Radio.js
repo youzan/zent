@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import assgin from 'lodash/assgin';
+import getWidth from 'utils/getWidth';
 
 export default class Radio extends (PureComponent || Component) {
   static propTypes = {
@@ -13,7 +15,8 @@ export default class Radio extends (PureComponent || Component) {
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
@@ -58,7 +61,7 @@ export default class Radio extends (PureComponent || Component) {
 
       // value不要放到input上去
       value, // eslint-disable-line
-
+      width,
       ...others
     } = this.props;
 
@@ -68,9 +71,10 @@ export default class Radio extends (PureComponent || Component) {
       [`${prefix}-radio-checked`]: !!checked,
       [`${prefix}-radio-disabled`]: disabled || readOnly
     });
-
+    const widthStyle = getWidth(width);
+    const wrapStyle = assgin({}, style, widthStyle);
     return (
-      <label className={classString} style={style}>
+      <label className={classString} style={wrapStyle}>
         <span className={`${prefix}-radio`}>
           <span className={`${prefix}-radio-inner`} />
           <input

@@ -31,6 +31,7 @@ Time pickers, provides basic time choosing functionality.
 | format       | Date format string   | string  |  Different pickers have different values  | No   |
 | placeholder  | Placeholder text   | string  | Differenet pickers have different values   | No   |
 | className    | Cusotm class name    | string         |             | No   |
+| width    | width         | string \|  number         |             | No    |
 | prefix       | Custom prefix  	 | string         | `'zent'`        | No   |
 | confirmText  | Confirm button text     | string         | '确定'        | No   |
 | popPosition  | Popup align position   | oneOf(['left', 'right'])  | 'left'    | No   |

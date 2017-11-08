@@ -26,6 +26,7 @@ group: 数据
 | placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
 | disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
 | className    | 自定义额外类名        | string        | `''`     |                         | 否    |
+| width    | 宽度        | string or number        |      |                         | 否    |
 | prefix       | 自定义类前缀         | string        | `'zent'` |                         | 否    |
 
 <style>

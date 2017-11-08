@@ -34,6 +34,7 @@ group: 基础
 | onVisibleChange | 可选, 手动控制时的回调函数, 必须和`visible`一起使用, 只有用户手动触发的打开／关闭操作才会调用 | func | | |
 | className | 可选, 自定义额外类名 | string | `''` |  |
 | wrapperClassName | 可选, trigger外层包裹div的类名 | string | `''` |  |
+| width | 可选, 宽度 | string or number |  |  |
 | prefix | 可选, 自定义前缀 | string | `'zent'` |  |
 
 `onBeforeShow` 和 `onBeforeClose` 可以返回一个 `Promise`，`Popover` 会在 `Promise` resolve 后打开/关闭，如果 `Promise` reject 的话打开/关闭操作终止。

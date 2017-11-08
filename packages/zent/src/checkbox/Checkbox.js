@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import assgin from 'lodash/assgin';
+import getWidth from 'utils/getWidth';
 
 export default class Checkbox extends (PureComponent || Component) {
   static propTypes = {
@@ -11,7 +13,8 @@ export default class Checkbox extends (PureComponent || Component) {
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
@@ -51,7 +54,7 @@ export default class Checkbox extends (PureComponent || Component) {
       readOnly,
       children,
       indeterminate,
-
+      width,
       // value可以是任意类型，不要写到dom上去
       value, // eslint-disable-line
 
@@ -66,8 +69,11 @@ export default class Checkbox extends (PureComponent || Component) {
       [`${prefix}-checkbox-indeterminate`]: indeterminate
     });
 
+    const widthStyle = getWidth(width);
+    const wrapStyle = assgin({}, style, widthStyle);
+
     return (
-      <label className={classString} style={style}>
+      <label className={classString} style={wrapStyle}>
         <span className={`${prefix}-checkbox`}>
           <span className={`${prefix}-checkbox-inner`} />
           <input

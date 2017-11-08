@@ -25,6 +25,7 @@ A input widget for entering number through mouse or keyboard
 | placeholder  | raw placeholder text | string        | `''`     |                         | no    |
 | disabled     | whether is disable or not            | bool          | `false`  |                         | no    |
 | className    | custom extra class name        | string        | `''`     |                         | no    |
+| width    | width    | string or number        |      |                         | no   |
 | prefix       | custom class prefix         | string        | `'zent'` |                         | no    |
 
 <style>

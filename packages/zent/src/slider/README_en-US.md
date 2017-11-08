@@ -28,6 +28,7 @@ You can select a value by dragging or clicking `Slider`.
 | marks        | label values | object |   |   | no |
 | disabled     | Disable the silder | bool  | `false`  |      | no |
 | className    | The custom classname | string | `''` | | no |
+| width    | width   | string or number       |     |               |no否
 | prefix       | The custom prefix | string | `'zent'` |  | no   |
 
 **Ps.** When setting `range`, you should set `value` as an array of length 2. The array entry must be a number. Property `dots` must be used with `marks`.
