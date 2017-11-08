@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import assgin from 'lodash/assgin';
+import assign from 'lodash/assign';
 import getWidth from 'utils/getWidth';
 
 export default class Checkbox extends (PureComponent || Component) {
@@ -70,7 +70,7 @@ export default class Checkbox extends (PureComponent || Component) {
     });
 
     const widthStyle = getWidth(width);
-    const wrapStyle = assgin({}, style, widthStyle);
+    const wrapStyle = assign({}, style, widthStyle);
 
     return (
       <label className={classString} style={wrapStyle}>
