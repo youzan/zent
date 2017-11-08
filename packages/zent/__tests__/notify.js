@@ -44,6 +44,7 @@ describe('Notify component', () => {
     expect(cb.mock.calls.length).toBe(1);
   });
 
+  // This test case needs to be placed last
   it('Global default duration configurable', () => {
     Notify.config({ duration: 3000 });
     Notify.error('test error');
