@@ -12,7 +12,6 @@ class Search extends (PureComponent || Component) {
   }
 
   changeHandler(ev) {
-    console.log(ev.target.value);
     this.props.onChange(ev.target.value);
   }
 
