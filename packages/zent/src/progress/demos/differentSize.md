@@ -1,9 +1,9 @@
 ---
 order: 3
 zh-CN:
-	title: 支持不同状态
+	title: 不同尺寸
 en-US:
-	title: Support different status
+	title: Support different size
 ---
 ```jsx
 import { Progress } from 'zent';

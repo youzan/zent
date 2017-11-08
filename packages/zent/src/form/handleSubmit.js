@@ -1,4 +1,5 @@
 import isPromise from 'utils/isPromise';
+import map from 'lodash/map';
 import SubmissionError from './SubmissionError';
 
 const handleSubmit = (submit, zentForm) => {
@@ -22,6 +23,7 @@ const handleSubmit = (submit, zentForm) => {
   }
 
   if (!zentForm.isValid()) {
+    // 存在校验错误
     validationErrors = zentForm.getValidationErrors();
     if (onSubmitFail) {
       onSubmitFail(new SubmissionError(validationErrors));
@@ -89,7 +91,23 @@ const handleSubmit = (submit, zentForm) => {
       return result;
     };
 
-    return doSubmit();
+    // 存在没有进行过的异步校验
+    if (!zentForm.isFormAsyncValidated()) {
+      const asyncValidations = map(zentForm.fields, field => {
+        return zentForm.asyncValidate(field, field.getValue());
+      });
+      Promise.all(asyncValidations)
+        .then(() => {
+          return doSubmit();
+        })
+        .catch(error => {
+          if (onSubmitFail) {
+            onSubmitFail(new SubmissionError(error));
+          }
+        });
+    } else {
+      return doSubmit();
+    }
   }
 };
 

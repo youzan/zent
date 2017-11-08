@@ -68,6 +68,8 @@ The default timing of validations is when the value of field changes. You can ch
 
 Asynchronous validations is usually triggered on blur. If you need to manually trigger asynchronous validations in a custom component, you need to call `props.onBlur (event)` yourself.  `value` can be passed to the function directly as the `event` parameter or an attribute of `event`.
 
+If you submit a form without operating the fields that have asynchronous validations, these asynchronous validations will not be triggered by default. Using the built-in `handleSubmit` method for submitting will help to trigger the asynchronous verifications which have never been triggered.
+
 <!-- demo-slot-7 -->
 
 ### The format of `value`
