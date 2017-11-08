@@ -1,5 +1,7 @@
+import makeDateStr from 'zan-utils/date/makeDateStr';
+import makeDateTimeStr from 'zan-utils/date/makeDateTimeStr';
 import * as Ut from 'datetimepicker/utils';
-import { dayStart, setTime } from 'datetimepicker/utils/date';
+import { dayStart, dayEnd, setTime } from 'datetimepicker/utils/date';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
@@ -90,6 +92,21 @@ describe('dayStart', () => {
     expect(dayStart(DAY).getHours()).toBe(0);
     expect(dayStart(DAY).getMinutes()).toBe(0);
     expect(dayStart(DAY).getSeconds()).toBe(0);
+  });
+});
+
+describe('dayEnd', () => {
+  const DAY = new Date(2017, 1, 14, 21, 27, 22);
+
+  it('return day with hours/minutes/seconds equal 23:59:59', () => {
+    expect(dayEnd(DAY).getHours()).toBe(23);
+    expect(dayEnd(DAY).getMinutes()).toBe(59);
+    expect(dayEnd(DAY).getSeconds()).toBe(59);
+  });
+
+  const TODAY = new Date();
+  it("will return end of today if don't pass params", () => {
+    expect(makeDateTimeStr(dayEnd())).toBe(`${makeDateStr(TODAY)} 23:59:59`);
   });
 });
 

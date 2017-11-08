@@ -6,6 +6,7 @@ export default [
   'isPristine',
   'isValid',
   'isActive',
+  'isAsyncValidated',
   'error',
   'errors',
   'validationError',
