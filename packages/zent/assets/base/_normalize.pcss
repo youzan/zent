@@ -544,6 +544,12 @@ video {
 body {
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
   font-weight: 400;
+
+  /* font smoothing */
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased; /* stylelint-disable-line */
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
