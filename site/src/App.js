@@ -114,7 +114,7 @@ export default class App extends Component {
                 </USWrapper>
               )}
             />
-            <Redirect from="*" to={routeData['en-US'][0].path} />
+            <Redirect from="*" to={routeData['zh-CN'][0].path} />
           </Switch>
         </ScrollToTop>
       </Router>
