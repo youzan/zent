@@ -1,5 +1,28 @@
 ## Github Change Log
 
+## [zent@3.9.3](https://github.com/youzan/zent/tree/zent@3.9.3) (2017-11-09)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.2...zent@3.9.3)
+
+**Implemented enhancements:**
+
+- \[new feature\] Progress: 支持自定义颜色 [\#518](https://github.com/youzan/zent/issues/518)
+- \[new feature\] 表单组件支持设置宽度 [\#470](https://github.com/youzan/zent/issues/470)
+- \[new feature\] Form: 提交表单时触发没有校验过的异步校验 [\#532](https://github.com/youzan/zent/pull/532) ([fairyaierl](https://github.com/fairyaierl))
+- \[new feature\] Progress: 支持自定义颜色 [\#530](https://github.com/youzan/zent/pull/530) ([fairyaierl](https://github.com/fairyaierl))
+- \[new feature\] 部分组件实现 width=xxx 方式修改宽度 [\#525](https://github.com/youzan/zent/pull/525) ([wulv](https://github.com/wulv))
+
+**Fixed bugs:**
+
+-  Popover: adjustPosition 里面 getBoundingClientRect 有时候会失败 [\#528](https://github.com/youzan/zent/issues/528)
+- \[bugfix\] doc: 升级文档网站打包使用的loader，修复了Grid组件文档的bug [\#531](https://github.com/youzan/zent/pull/531) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\] Popover: Add null guard in Popover [\#529](https://github.com/youzan/zent/pull/529) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] DatePicker: 支持max和min来禁用时间 [\#526](https://github.com/youzan/zent/pull/526) ([xuhong](https://github.com/xuhong))
+
+**Merged pull requests:**
+
+- \[new feature\] Notify: 增加config函数，用于控制页面级别的通知框默认持续时间。 [\#533](https://github.com/youzan/zent/pull/533) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[feature\] doc: English doc [\#521](https://github.com/youzan/zent/pull/521) ([cpylua](https://github.com/cpylua))
+
 ## [zent@3.9.2](https://github.com/youzan/zent/tree/zent@3.9.2) (2017-11-06)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.1...zent@3.9.2)
 
@@ -422,7 +445,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
 
 **Fixed bugs:**
 
@@ -432,11 +455,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
-
 ## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
+
+## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
 
 **Implemented enhancements:**
 
