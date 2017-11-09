@@ -1,13 +1,13 @@
 ---
 order: 2
 zh-CN:
-	title: loading
+	title: Loading
 	product: 商品
 	longName: 听说这样设置一个超长超长的商品名会不换行
 	alignRight: 听说这样设置访问量可以靠右对齐
 	bigStock: 这是一个大库存
 en-US:
-	title: loading
+	title: Loading
 	product: Product
 	longName: a very very looooooooonnnnng name
 	alignRight: right alignment

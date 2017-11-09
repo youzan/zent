@@ -6,10 +6,10 @@ zh-CN:
 	bigButton: 大号按钮
 	smallButton: 小号按钮
 en-US:
-	title: Size of the buttonf
-	normalButton: Normal Button
-	bigButton: Big Button
-	smallButton: Small Button
+	title: Button sizes
+	normalButton: Normal
+	bigButton: Big
+	smallButton: Small
 ---
 
 ```jsx

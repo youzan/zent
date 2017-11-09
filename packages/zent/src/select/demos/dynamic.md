@@ -6,7 +6,7 @@ zh-CN:
 	empty: 没有找到匹配项
 en-US:
 	title: Modify the option data dynamically
-	pla: select an option
+	pla: Select an option
 	empty: No matches found
 ---
 

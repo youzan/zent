@@ -7,9 +7,9 @@ zh-CN:
 	button3: 三级按钮
 en-US:
 	title: Style
-	button1: Third Level of Button
-	button2: Second Level of Button
-	button3: Third Level of Button
+	button1: Third Level
+	button2: Second Level
+	button3: Third Level
 ---
 
 ```jsx

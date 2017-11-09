@@ -34,8 +34,8 @@ class App extends React.Component {
 				isValueEqual={this.isValueEqual}
 				onChange={this.onChange} 
 			>
-				<Radio value={{ foo: 1 }}>foo 1</Radio>
-				<Radio value={{ foo: 2 }}>foo 2</Radio>
+				<Radio value={{ foo: 1 }}>Foo 1</Radio>
+				<Radio value={{ foo: 2 }}>Foo 2</Radio>
 			</RadioGroup>
 		);
 	}

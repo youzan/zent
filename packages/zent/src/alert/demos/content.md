@@ -22,3 +22,10 @@ ReactDOM.render(
 	, mountNode
 )
 ```
+
+<style>
+.zenticon-error-circle {
+	color: #FF4343;
+	margin-right: 5px;
+}
+</style>

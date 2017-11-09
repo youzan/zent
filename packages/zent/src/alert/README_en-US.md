@@ -27,28 +27,6 @@ Alert is used to provide eye-catching information.
 
 
 <style>
-.zent-alert-example {
-    padding-right: 32px;
-
-    .zent-alert {
-        margin-bottom: 20px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        a {
-            color: #3388FF;
-            margin-left: 10px;
-        }
-    }
-}
-
-.zenticon-error-circle {
-	color: #FF4343;
-	margin-right: 5px;
-}
-
 .zent-alert {
 	.text {
 		margin-bottom: 5px;

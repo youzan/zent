@@ -6,8 +6,8 @@ zh-CN:
 	female: 女
 en-US:
 	title: Basic Usage
-	male: male
-	female: female
+	male: Male
+	female: Female
 ---
 
 ```js

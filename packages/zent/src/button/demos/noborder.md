@@ -5,7 +5,7 @@ zh-CN:
 	button: 一级按钮
 en-US:
 	title: Button without border, generally used in a darker background
-	button: First level of button
+	button: First level
 ---
 
 ```jsx

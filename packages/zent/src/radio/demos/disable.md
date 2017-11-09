@@ -9,11 +9,11 @@ zh-CN:
 	pangxie: 黄瓜
 en-US:
 	title: Disable State
-	male: male
-	female: female
-	apple: apple
-	pear: pear
-	pangxie: cucumber
+	male: Male
+	female: Female
+	apple: Apple
+	pear: Pear
+	pangxie: Cucumber
 ---
 
 ```js

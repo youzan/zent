@@ -5,7 +5,7 @@ zh-CN:
 	pla: 请选择
 en-US:
 	title: Disabled
-	pla: select an option
+	pla: Select an option
 ---
 
 ```js

@@ -6,9 +6,8 @@ zh-CN:
 	clear: 清除通知
 en-US:
 	title: Clear all nofications in screen
-	success: notify success
-	clear: notify clear
-
+	success: Notify success
+	clear: Clear
 ---
 
 ```jsx

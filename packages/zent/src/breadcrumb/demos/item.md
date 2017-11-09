@@ -17,9 +17,9 @@ import { Alert, Icon } from 'zent';
 
 ReactDOM.render(
 	<Breadcrumb>
-		<Breadcrumb.Item name={"i18n.index"} href="//www.youzan.com" />
-		<Breadcrumb.Item name={"i18n.applicationCenter"} href="//www.youzan.com" className="zent-demo-bread" />
-		<Breadcrumb.Item name={"i18n.marketingCenter"} />
+		<Breadcrumb.Item name="{i18n.index}" href="//www.youzan.com" />
+		<Breadcrumb.Item name="{i18n.applicationCenter}" href="//www.youzan.com" className="zent-demo-bread" />
+		<Breadcrumb.Item name="{i18n.marketingCenter}" />
 	</Breadcrumb>
 	, mountNode
 )

@@ -7,7 +7,7 @@ zh-CN:
 	re: 重新渲染
 en-US:
 	title: Controlled Mode
-	pla: select an option..
+	pla: Select an option..
 	reset: Reset
 	re: Rerender
 ---

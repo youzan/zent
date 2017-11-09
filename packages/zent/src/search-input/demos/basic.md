@@ -7,7 +7,7 @@ zh-CN:
 	err: 请输入搜索内容
 en-US:
 	title: Basic Usage
-	place: search
+	place: Search
 	suc: Your enter content
 	err: Please input search content
 ---

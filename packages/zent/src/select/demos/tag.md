@@ -5,7 +5,7 @@ zh-CN:
 	pla: 请选择
 en-US:
 	title: Multiple Select with Tag
-	pla: select options
+	pla: Select options
 ---
 
 ```js

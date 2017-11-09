@@ -5,7 +5,7 @@ zh-CN:
 	pla: 请选择
 en-US:
 	title: Max to Show with Filter
-	pla: select an option
+	pla: Select an option
 ---
 
 ```js
