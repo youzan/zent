@@ -1,5 +1,4 @@
 import React from 'react';
-import cx from 'classnames';
 
 import PageHeader from './PageHeader';
 import PageFooter from './PageFooter';
@@ -14,11 +13,7 @@ export default function LayoutCN({
   sideNavData,
   sideNavRef,
   footerData,
-  spiderOn,
-  saveFooter,
-  spiderReady,
-  saveSpiderNode,
-  onGithubSpiderMouseEnter
+  saveFooter
 }) {
   return (
     <div className="doc__layout">
@@ -27,30 +22,7 @@ export default function LayoutCN({
         <div className="page-container">
           <SideNav data={sideNavData} base={oreo} ref={sideNavRef} />
           <div className="page-content">
-            <div className="react-doc-page-content">
-              <a
-                href="https://github.com/youzan/zent"
-                target="_blank"
-                rel="noopener noreferrer"
-                ref={saveSpiderNode}
-              >
-                <div
-                  className="github-spider-trigger"
-                  onMouseEnter={onGithubSpiderMouseEnter}
-                />
-                {spiderReady && (
-                  <img
-                    className={cx('github-spider animated', {
-                      slideInDown: spiderOn,
-                      slideOutUp: !spiderOn
-                    })}
-                    src="https://img.yzcdn.cn/zanui/react/spidertocat.png"
-                    alt="github-spider"
-                  />
-                )}
-              </a>
-              {children}
-            </div>
+            <div className="react-doc-page-content">{children}</div>
             <FooterNav data={footerData} />
           </div>
         </div>

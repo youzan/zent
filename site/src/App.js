@@ -6,7 +6,6 @@ import {
   Redirect
 } from 'react-router-dom';
 import ScrollToTop from 'components/ScrollToTop';
-import throttle from 'lodash/throttle';
 
 import packageJson from '../../packages/zent/package.json';
 import navData from './nav';
@@ -30,8 +29,6 @@ const footerData = {
 
 export default class App extends Component {
   state = {
-    spiderOn: false,
-    spiderReady: false,
     i18n: ''
   };
 
@@ -41,41 +38,8 @@ export default class App extends Component {
     });
   };
 
-  onGithubSpiderMouseEnter = () => {
-    this.setState({
-      spiderReady: true,
-      spiderOn: true
-    });
-  };
-
-  saveSpiderNode = node => {
-    this.spiderNode = node;
-  };
-
-  onMouseMove = throttle(evt => {
-    const { spiderReady, spiderOn } = this.state;
-    if (!spiderReady || !spiderOn) {
-      return;
-    }
-
-    const { target } = evt;
-    if (!this.spiderNode || !this.spiderNode.contains(target)) {
-      this.setState({
-        spiderOn: false
-      });
-    }
-  }, 16);
-
-  componentDidMount() {
-    window.addEventListener('mousemove', this.onMouseMove);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mousemove', this.onMouseMove);
-  }
-
   render() {
-    const { spiderOn, spiderReady, i18n } = this.state;
+    const { i18n } = this.state;
     const passthrough = i18nStr => ({
       // 奥利奥，路由路径中的夹层。
       oreo: `/${i18nStr.split('-')[0]}`,
@@ -83,13 +47,9 @@ export default class App extends Component {
       sideNavData: navData[i18nStr],
       footerData: footerData[i18nStr],
       sideNavRef: this.saveSideNav,
-      saveSpiderNode: this.saveSpiderNode,
       saveFooter: this.saveFooter,
-      onGithubSpiderMouseEnter: this.onGithubSpiderMouseEnter,
       changeI18N: this.changeI18N,
-      spiderOn,
       prefix,
-      spiderReady,
       i18n
     });
 
