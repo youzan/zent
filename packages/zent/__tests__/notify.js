@@ -43,4 +43,20 @@ describe('Notify component', () => {
     Notify.clear(id);
     expect(cb.mock.calls.length).toBe(1);
   });
+
+  // This test case needs to be placed last
+  it('Global default duration configurable', () => {
+    Notify.config({ duration: 3000 });
+    Notify.error('test error');
+    jest.runTimersToTime(2500);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(1);
+    jest.runTimersToTime(1000);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(0);
+    Notify.config({ duration: 1000 });
+    jest.runTimersToTime(500);
+    Notify.error('test error');
+    expect(document.querySelectorAll('.zent-notify').length).toBe(1);
+    jest.runTimersToTime(1000);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(0);
+  });
 });
