@@ -4,7 +4,7 @@ path: component/layout
 group: Basics
 ---
 
-## Layout 布局
+## Layout
 
 Nestable grid system of zent, based on `float` and `calc(width)`
 

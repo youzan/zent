@@ -4,7 +4,7 @@ path: component/sku
 group: Data Entry
 ---
 
-## SKU selector
+## SKU Selector
 
 It is a widget for sku select 
 

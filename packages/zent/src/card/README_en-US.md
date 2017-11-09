@@ -4,7 +4,7 @@ path: component/card
 group: Data Display
 ---
 
-## Card 卡片
+## Card
 
 Card is used for information displayed on the card container.
 

@@ -4,7 +4,7 @@ path: component/cascader
 group: Data Entry
 ---
 
-## Cascader 级联选择
+## Cascader
 
 Cascader is used for cascade operation, e.g. cascade location selection.
 
