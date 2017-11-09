@@ -1,5 +1,12 @@
 ## Github Change Log
 
+## [zent@3.9.4](https://github.com/youzan/zent/tree/zent@3.9.4) (2017-11-09)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.3...zent@3.9.4)
+
+**Merged pull requests:**
+
+- \[docs\]: 更新英文文档 [\#535](https://github.com/youzan/zent/pull/535) ([iscarecrow](https://github.com/iscarecrow))
+
 ## [zent@3.9.3](https://github.com/youzan/zent/tree/zent@3.9.3) (2017-11-09)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.2...zent@3.9.3)
 
@@ -46,7 +53,7 @@
 - \[bug fix\] design: preview区域右下角 action button 加 padding [\#522](https://github.com/youzan/zent/pull/522) ([ronghang](https://github.com/ronghang))
 
 ## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...zent@3.9.0)
 
 **Implemented enhancements:**
 
@@ -63,11 +70,11 @@
 - \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
 - \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
-## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
-
 ## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
+
+## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
 
 **Implemented enhancements:**
 
