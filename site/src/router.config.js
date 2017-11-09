@@ -1,7 +1,19 @@
-import { prefix } from './constants';
+// import { prefix } from './constants';
 
-const registerRoute = navData => {
+const registerRoute = (navData, oreo = '') => {
   let route = [];
+
+  if (!navData) return route;
+
+  function addRoute(page) {
+    const { path, source, title } = page;
+    route.push({
+      path: `${oreo}/${path}`,
+      source,
+      title
+    });
+  }
+
   navData.forEach(nav => {
     if (nav.groups) {
       nav.groups.forEach(group => {
@@ -18,14 +30,6 @@ const registerRoute = navData => {
     }
   });
 
-  function addRoute(page) {
-    const { path } = page;
-
-    route.push({
-      ...page,
-      path: `${prefix}${path}`
-    });
-  }
   return route;
 };
 

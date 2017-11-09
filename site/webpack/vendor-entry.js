@@ -4,5 +4,6 @@ module.exports = [
   'react-dom',
   'prop-types',
   'classnames',
-  'react-router-dom'
+  'react-router-dom',
+  'zent'
 ];

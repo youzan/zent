@@ -17,8 +17,8 @@ export default class YearPanel extends (PureComponent || Component) {
   };
 
   render() {
-    const props = this.props;
-    const { actived, onSelect, selected } = this.props;
+    const { props } = this;
+    const { actived, onSelect, selected } = props;
     const currentYear = parseInt(actived.getFullYear(), 10);
     const title = `${currentYear - 4}~${currentYear + 7}`;
 

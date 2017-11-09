@@ -22,4 +22,4 @@ else
   gh-pages -d dist -r "${ZENT_DEPLOY_DOC_GIT_REPO}"
 fi
 
-superman cdn /zanui/react $basepath/../dist/*
+superman cdn /zanui/zent $basepath/../dist/*

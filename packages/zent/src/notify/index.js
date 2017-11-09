@@ -1,7 +1,8 @@
-import { success, error, clear } from './Notify';
+import { success, error, clear, config } from './Notify';
 
 export default {
   success,
   error,
-  clear
+  clear,
+  config
 };
