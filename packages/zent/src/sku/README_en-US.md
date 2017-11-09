@@ -34,7 +34,7 @@ You can create a editable page with a variety of goods and services
 
 #### Utility methods
 
-in order to easily manipulate sku date, sku widget supports some utility methods
+In order to easily manipulate sku date, sku widget supports some utility methods
 
 #### SKU.flatten(sku, items, options)
 

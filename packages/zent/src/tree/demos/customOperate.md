@@ -4,10 +4,22 @@ zh-CN:
 	title: 自定义操作
 	index: 首页
 	tree: 树
+	title1: 杭州有赞科技有限公司
+	title2: 技术
+	title3: 后端
+	title4: 运维
+	title5: 前端
+	title6: 产品
 en-US:
 	title: Custom Operate
 	index: Index
 	tree: Tree
+	title1: Hangzhou Youzan Technology Co. Ltd
+	title2: Engineer
+	title3: Back End Engineer
+	title4: Front End Engineer
+	title5: Operations Engineer
+	title6: Product
 ---
 
 ```jsx
@@ -16,26 +28,26 @@ import { Tree, Icon, Radio } from 'zent';
 const RadioGroup = Radio.Group;
 const originData = [{
 	id: 1,
-	title: '杭州有赞科技有限公司',
+	title: '{i18n.title1}',
 }, {
 	id: 2,
-	title: '技术',
+	title: '{i18n.title2}',
 	parentId: 1
 }, {
 	id: 3,
-	title: '后端',
+	title: '{i18n.title3}',
 	parentId: 2
 }, {
 	id: 4,
-	title: '运维',
+	title: '{i18n.title4}',
 	parentId: 2
 }, {
 	id: 5,
-	title: '前端',
+	title: '{i18n.title5}',
 	parentId: 2
 }, {
 	id: 6,
-	title: '产品',
+	title: '{i18n.title6}',
 	parentId: 1
 }];
 

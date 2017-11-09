@@ -28,7 +28,7 @@ Portals provide a first-class way to render children into a DOM node that exists
 
 #### withESCToClose
 
-package logic to close by using enter ESC
+Package logic to close by using enter ESC
 
 | Property      | Description                        | Type   | Default    |
 | ------- | ------------------------- | ---- | ------ |
@@ -43,7 +43,7 @@ const Portal = withESCToClose(_Portal);
 
 #### withNonScrollable
 
-package logic to disable scroll container 
+Package logic to disable scroll container 
 
 | Property      | Description                        | Type   | Default    |
 | ------- | ------------------------- | ---- | ------ |
