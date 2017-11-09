@@ -40,7 +40,7 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 
 #### data
 
-except for key-value below, you can add attributes on anynode,  the callback will get entire data that user input
+Except for key-value below, you can add attributes on anynode,  the callback will get entire data that user input
 
 | Property      | Description                                                | Type           | Default   | Alternative |
 | -------- | --------------------------------------------------- | ------------- | ------- |--------|
