@@ -6,19 +6,26 @@ group: Feedback
 
 ## Notify
 
-to display a notification message at top of window
+Display a notification at top of the viewport.
 
 ### Guides
 
-- The widget is consists of three functions, which is rendered by using temporarily created DOM node
-- Using to prompt a brief message
-- When using `Notify.success` or `Notify.error` methods, it will return a id, which can be used by `Notify.clear(id)` to close specified notify;
-
+- Display a brief message
 
 ### API
 
+- `Notify.success(text: node, duration?: number, callback?: () => ()): number`
+- `Notify.error(text: node, duration?: number, callback?: () => ()): number`
+
+`Notify.success` and `Notify.error` return an id, which can be used by `Notify.clear(id)` to close the specific notify instance;
+
+- `Notify.clear(number?: id): void`
+
+If no `id` is passed to `Notify.clear`, it will close all notify instances that are active.
+
+
 | Property       | Description            | Type     | Default    |
 | -------- | ------------- | ------ | ------ |
-| text     | notify message    | any   | `''`   |
+| text     | notify message    | node   | `''`   |
 | duration | duration          | number | `2000` |
-| callback | customize callabck when notify finishs | func   |        |
+| callback | customize callabck when notify closes | func   |        |
