@@ -2,6 +2,26 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.9.3 (2017-11-09)
+
+- 🎉 New documentation site with English support
+- ✨ `Progress` adds the ability to customize colors
+- ✨ Form components(`Input`, `Select` etc.) now supports `width=xx` to set width
+- ✨ `Notify` now has a `config` method to set duration globally
+- ✨ `DatePicker` adds time support in `max` and `min`
+- 🦀️ Fix async validations that haven't triggered before not triggered when submitting
+- 🦀️ Fix `getBoundingClientRect` errors in `Popover`
+
+### 3.9.2 (2017-11-06)
+
+- ✨ `Design` now supports custom component type when creating new instance
+- 🦀️ Fix cross page selection not working in some circumstances
+- 🦀️ Fix some compatibility issues in React 16
+
+### 3.9.1 (2017-11-02)
+
+- 🦀️ Fix some style issues in `Design`
+
 ### 3.9.0 (2017-10-31)
 
 - ✨ Add global normalization style，just like `normalize.css` and `reset.css`
