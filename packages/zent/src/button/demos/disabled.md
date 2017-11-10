@@ -5,14 +5,14 @@ zh-CN:
 	button: 不可用的按钮
 en-US:
 	title: Disabled
-	button: button disabled
+	button: Button disabled
 ---
 
 ```jsx
 import { Button } from 'zent';
 
 ReactDOM.render(
-	<Button disabled>i18n.button</Button>
+	<Button disabled>{i18n.button}</Button>
 	, mountNode
 );
 ```
