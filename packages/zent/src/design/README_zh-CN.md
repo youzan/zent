@@ -2,7 +2,7 @@
 title: Design
 subtitle: 微页面编辑
 path: component/design
-group: 数据
+group: 业务组件
 ---
 
 ## Design 微页面编辑组件

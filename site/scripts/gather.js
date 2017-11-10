@@ -105,14 +105,16 @@ const COMPONENT_GROUP_ORDER = {
     导航: 2,
     数据: 3,
     展示: 4,
-    反馈: 5
+    反馈: 5,
+    业务组件: 6
   },
   'en-US': {
     Basics: 1,
     Navigation: 2,
     'Data Entry': 3,
     'Data Display': 4,
-    Feedback: 5
+    Feedback: 5,
+    'Domain-specific': 6
   }
 };
 

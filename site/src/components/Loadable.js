@@ -6,8 +6,8 @@ export default function DocLoadable(opts) {
     Object.assign(
       {
         loading: DocLoading,
-        delay: 200,
-        timeout: 1000
+        delay: 200, // Avoiding Flash Of Loading Component
+        timeout: 5000 // 5 seconds
       },
       opts
     )

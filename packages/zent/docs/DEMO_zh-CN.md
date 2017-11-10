@@ -10,7 +10,7 @@
 
 #### 微页面编辑
 
-用所见即所得的方式创建手机端的 H5 内容，使用了 `Design` 组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/paper/create)
+用所见即所得的方式创建手机端的 H5 内容，使用了 [`Design`](../component/design) 组件。[在线预览](https://www.youzanyun.com/zanui/demo/zent/paper/create)
 
 [![demo-preview-paper-edit](https://img.yzcdn.cn/public_files/2017/10/31/d54179f7cfdfa9a367e3052076276e4b.png)](https://www.youzanyun.com/zanui/demo/zent/paper/create)
 

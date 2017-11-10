@@ -10,7 +10,7 @@ Supports list filtering, lots of components like `Select`, `DatePicker` and `Tab
 
 #### H5 Page Editor
 
-Edit mobile H5 pages in a WYSIWYG way, based on the `Design` component. [Preview](https://www.youzanyun.com/zanui/demo/zent/paper/create)
+Edit mobile H5 pages in a WYSIWYG way, based on the [`Design`](../component/design) component. [Preview](https://www.youzanyun.com/zanui/demo/zent/paper/create)
 
 [![demo-preview-paper-edit](https://img.yzcdn.cn/public_files/2017/10/31/d54179f7cfdfa9a367e3052076276e4b.png)](https://www.youzanyun.com/zanui/demo/zent/paper/create)
 

@@ -1,0 +1,59 @@
+@keyframes zandoc-react-loading-ripple {
+  0% {
+    top: 96px;
+    left: 96px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 18px;
+    left: 18px;
+    width: 156px;
+    height: 156px;
+    opacity: 0;
+  }
+}
+
+.zandoc-react-loading {
+  margin-top: 150px;
+}
+
+.zandoc-react-loading-error {
+  margin: 20px;
+  font-size: 18px;
+  color: #e33;
+}
+
+.zandoc-react-loading-ripple {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.zandoc-react-loading-ripple div {
+  box-sizing: content-box;
+  position: absolute;
+  border-width: 4px;
+  border-style: solid;
+  opacity: 1;
+  border-radius: 50%;
+  animation: zandoc-react-loading-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.zandoc-react-loading-ripple div:nth-child(1) {
+  border-color: #27f;
+}
+
+.zandoc-react-loading-ripple div:nth-child(2) {
+  border-color: #bdf;
+  animation-delay: -0.5s;
+}
+
+.zandoc-react-loading-ripple {
+  width: 200px !important;
+  height: 200px !important;
+  transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}

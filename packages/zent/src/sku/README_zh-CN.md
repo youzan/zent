@@ -2,7 +2,7 @@
 title: SKU
 subtitle: 规格选择器
 path: component/sku
-group: 数据
+group: 业务组件
 ---
 
 ## SKU 规格选择器

@@ -1,7 +1,7 @@
 ---
 title: Design
 path: component/design
-group: Data Entry
+group: Domain-specific
 ---
 
 ## Design

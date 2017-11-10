@@ -1,7 +1,7 @@
 ---
 title: SKU
 path: component/sku
-group: Data Entry
+group: Domain-specific
 ---
 
 ## SKU Selector
