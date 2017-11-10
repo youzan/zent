@@ -26,7 +26,7 @@ npm install zent --save
 
 ## Usage
 
-Documentation: [https://www.youzanyun.com/zanui/react](https://www.youzanyun.com/zanui/react)
+Documentation: [https://www.youzanyun.com/zanui/zent](https://www.youzanyun.com/zanui/zent)
 
 ## Contribution
 

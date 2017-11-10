@@ -44,7 +44,7 @@ npm install zent --save
 
 ## 使用组件
 
-组件库文档：[https://www.youzanyun.com/zanui/react](https://www.youzanyun.com/zanui/react)
+组件库文档：[https://www.youzanyun.com/zanui/zent](https://www.youzanyun.com/zanui/zent)
 
 ## 贡献代码
 
