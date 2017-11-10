@@ -192,7 +192,7 @@ describe('Input', () => {
     ).toBe(true);
   });
 
-  it('can call textarea focus method', () => {
+  it('can call textarea select method', () => {
     const wrapper = mount(<Input type="textarea" defaultValue="autoSelect" />);
     wrapper.instance().select();
     expect(
