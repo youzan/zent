@@ -29,7 +29,9 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | placeholder  | raw placeholder text | string        | `''`     |                         | no    |
 | addonBefore  | prefix tag            | node          |          |                         | no    |
 | addonAfter   | suffix tag            | node          |          |                         | no    |
-| autoFocus    | auto focus          | bool          |          |                         | no    |
+| autoFocus    | auto focus          | bool          |  `false`        |                    | no  |
+| autoSelect   | auto select         | bool          | `false`  |                         | no
+|
 | onChange     | change event        | func(e:Event) |          |                         | no    |
 | onPressEnter | enter event            | func(e:Event) |          |                         | no    |
 
@@ -40,6 +42,11 @@ _except for the attributes above, input widget supports all attributes that Reac
 `focus(): function`
 
 Manual focus to the input box
+
+### select
+`select() function`
+
+Manual select to the input box
 
 <style>
 .zent-input-wrapper {
