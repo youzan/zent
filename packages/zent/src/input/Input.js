@@ -19,6 +19,7 @@ export default class Input extends (PureComponent || Component) {
     onPressEnter: PropTypes.func,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
+    autoSelect: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   };
 
@@ -27,18 +28,27 @@ export default class Input extends (PureComponent || Component) {
     readOnly: false,
     prefix: 'zent',
     type: 'text',
-    autoFocus: false
+    autoFocus: false,
+    autoSelect: false
   };
 
   componentDidMount() {
-    const { autoFocus } = this.props;
+    const { autoFocus, autoSelect } = this.props;
+
     if (autoFocus) {
       this.input.focus();
+    }
+    if (autoSelect) {
+      this.input.select();
     }
   }
 
   focus() {
     this.input.focus();
+  }
+
+  select() {
+    this.input.select();
   }
 
   handleKeyDown = evt => {
@@ -78,7 +88,8 @@ export default class Input extends (PureComponent || Component) {
       'addonBefore',
       'addonAfter',
       'onPressEnter',
-      'width'
+      'width',
+      'autoSelect'
     ]);
 
     if (isTextarea) {

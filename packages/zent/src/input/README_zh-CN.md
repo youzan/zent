@@ -30,7 +30,8 @@ group: 数据
 | placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
 | addonBefore  | 前置标签            | node          |          |                         | 否    |
 | addonAfter   | 后置标签            | node          |          |                         | 否    |
-| autoFocus    | 自动focus          | bool          |          |                         | 否    |
+| autoFocus    | 自动focus          | bool          |  `false` |                     | 否    |
+| autoSelect   | 自动select         | bol           |  `false` |                     | 否    |
 | onChange     | change事件        | func(e:Event) |          |                         | 否    |
 | onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
 
@@ -41,6 +42,11 @@ _除了以上属性外，所有react支持的input属性，Input组件都支持_
 `focus(): function`
 
 手动聚焦到输入框
+
+### select
+`select() function`
+
+选中输入框内所有内容
 
 <style>
 .zent-input-wrapper {
