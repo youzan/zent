@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import ScrollToTop from 'components/ScrollToTop';
+import ScrollToTop from './components/ScrollToTop';
 
 import packageJson from '../../packages/zent/package.json';
 import navData from './nav';

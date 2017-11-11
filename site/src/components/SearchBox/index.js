@@ -8,6 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import ResultList from './ResultList';
 import makeSearcher from './search';
 import './style.pcss';
+import { SKIP_SCROLL } from './constants';
 
 const i18n = {
   'zh-CN': {
@@ -27,40 +28,10 @@ class SearchBox extends Component {
 
   state = {
     keyword: '',
-    activeIndex: -1, // not used for now
+    activeIndex: SKIP_SCROLL,
     matches: [],
     resultVisible: false
   };
-
-  // react-hot-loader rewrites this function into an infinite loop... lol
-  // if we use arrow function here
-  onKeywordChange(evt) {
-    const keyword = evt.target.value;
-    this.search(keyword);
-  }
-
-  onKeydown(evt) {
-    const { key } = evt;
-
-    if (key === 'Enter') {
-      setTimeout(() => {
-        const { matches } = this.state;
-        if (!isEmpty(matches)) {
-          this.redirectToResult(matches[0]);
-        }
-      }, 0);
-    }
-  }
-
-  onResultVisibleChange(visible) {
-    this.setState({
-      resultVisible: visible
-    });
-  }
-
-  onFocus() {
-    this.search(this.state.keyword);
-  }
 
   constructor(props) {
     super(props);
@@ -92,7 +63,7 @@ class SearchBox extends Component {
             placeholder={i18n[locale].placeholder}
             value={keyword}
             onChange={this.onKeywordChange.bind(this)}
-            onFocus={this.onFocus.bind(this)}
+            onClick={this.onInputClick.bind(this)}
             onKeyDown={this.onKeydown.bind(this)}
           />
         </Popover.Trigger.Click>
@@ -103,27 +74,117 @@ class SearchBox extends Component {
             activeIndex={activeIndex}
             locale={locale}
             redirectToResult={this.redirectToResult.bind(this)}
+            clearActiveIndex={this.clearActiveIndex.bind(this)}
           />
         </Popover.Content>
       </Popover>
     );
   }
 
-  buildLUT(navData) {
-    const data = navData.reduce((lut, section) => {
-      const { groups } = section;
+  // react-hot-loader rewrites this function into an infinite loop... lol
+  // if we use arrow function here
+  onKeywordChange(evt) {
+    const keyword = evt.target.value;
+    if (keyword !== this.state.keyword) {
+      this.search(keyword);
+    }
+  }
 
-      return groups.reduce(
+  onKeydown(evt) {
+    const { key } = evt;
+
+    if (key === 'Enter') {
+      return setTimeout(() => {
+        const { matches } = this.state;
+        if (!isEmpty(matches)) {
+          let { activeIndex } = this.state;
+          if (activeIndex < 0) {
+            activeIndex = 0;
+          }
+          this.redirectToResult(matches[activeIndex]);
+        }
+      }, 0);
+    }
+
+    if (key !== 'ArrowDown' && key !== 'ArrowUp') {
+      return;
+    }
+
+    const { resultVisible } = this.state;
+    if (!resultVisible) {
+      this.setState({
+        activeIndex: 0,
+        resultVisible: true
+      });
+      return;
+    }
+
+    // Scroll list with arrow keys
+    let { activeIndex } = this.state;
+    if (activeIndex === SKIP_SCROLL) {
+      activeIndex = -1;
+    }
+
+    if (key === 'ArrowDown') {
+      activeIndex++;
+    } else if (key === 'ArrowUp') {
+      activeIndex--;
+    } else {
+      return;
+    }
+    const { matches } = this.state;
+    const maxIndex = matches.length - 1;
+    if (activeIndex < 0) {
+      activeIndex = maxIndex;
+    } else if (activeIndex > maxIndex) {
+      activeIndex = 0;
+    }
+
+    this.setState({
+      activeIndex,
+      resultVisible: true
+    });
+  }
+
+  onResultVisibleChange(visible) {
+    this.setState({
+      resultVisible: visible
+    });
+  }
+
+  onInputClick() {
+    this.search(this.state.keyword);
+  }
+
+  clearActiveIndex() {
+    this.setState({
+      activeIndex: SKIP_SCROLL
+    });
+  }
+
+  buildLUT(navData) {
+    // Only include components
+    const { groups } = navData[1];
+    const data = groups.reduce(
+      // eslint-disable-next-line
+      (lut, grp) =>
         // eslint-disable-next-line
-        (lut, grp) =>
-          // eslint-disable-next-line
-          grp.list.reduce((lut, item) => {
-            lut.push(item);
-            return lut;
-          }, lut),
-        lut
-      );
-    }, []);
+        grp.list.reduce((lut, item) => {
+          lut.push(item);
+          return lut;
+        }, lut),
+      []
+    );
+
+    data.sort((a, b) => {
+      if (a.title > b.title) {
+        return 1;
+      } else if (a.title === b.title) {
+        return 0;
+      }
+
+      return -1;
+    });
 
     this.lut = makeSearcher(data);
   }
@@ -134,7 +195,8 @@ class SearchBox extends Component {
     this.setState({
       keyword,
       resultVisible: true,
-      matches
+      matches,
+      activeIndex: 0
     });
   }
 
