@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import isBrowser from 'utils/isBrowser';
 import NotifyContent from './NotifyContent';
 
-const containerList = {};
-
-let id = 0;
-
+let index = 0;
 let durationDefault = 2000;
+const containerList = {};
+const notifyContainerClass = 'zent-notify-container';
 
-function createContainerId() {
-  return ++id;
-}
+const createContainerId = () => {
+  return ++index;
+};
 
 /**
  * 执行notify结束callback
@@ -52,6 +51,22 @@ const closeAllNotify = () => {
 };
 
 /**
+ * 创建承载notify portal的容器
+ */
+const createNotifyContainerNode = () => {
+  let notifyContainerNode = document.querySelector('.zent-notify-container');
+
+  if (!notifyContainerNode) {
+    const bodyNode = document.body;
+    const div = document.createElement('div');
+    div.className = notifyContainerClass;
+    notifyContainerNode = bodyNode.appendChild(div);
+  }
+
+  return notifyContainerNode;
+};
+
+/**
  * 显示notify
  * @param  {[type]}   container notify容器
  * @param  {[type]}   props     notify属性
@@ -80,11 +95,14 @@ const readyToShow = (text, duration, status, callback) => {
   if (!isBrowser) return;
 
   let container = document.createElement('div');
+  const notifyContainerNode = createNotifyContainerNode();
+
   const props = {
     visible: true,
     text,
     duration,
-    status
+    status,
+    selector: notifyContainerNode
   };
   return showNotify(container, props, callback);
 };
