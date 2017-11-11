@@ -11,11 +11,7 @@ import { Input } from 'zent';
 
 ReactDOM.render(
   <div>
-      <Input
-        placeholder="Please input your name"
-        defaultValue="auto focus and select"
-        autoFocus
-        autoSelect />
+      <Input placeholder="Please input your name" autoFocus />
       <Input type="password" placeholder="Please input your password" />
   </div>
   , mountNode

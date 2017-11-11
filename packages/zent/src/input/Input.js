@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
+import isNumber from 'lodash/isNumber';
 import getWidth from 'utils/getWidth';
 
 export default class Input extends (PureComponent || Component) {
@@ -19,6 +20,8 @@ export default class Input extends (PureComponent || Component) {
     onPressEnter: PropTypes.func,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
+    initSelectionStart: PropTypes.number,
+    initSelectionEnd: PropTypes.number,
     autoSelect: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   };
@@ -33,13 +36,18 @@ export default class Input extends (PureComponent || Component) {
   };
 
   componentDidMount() {
-    const { autoFocus, autoSelect } = this.props;
+    const {
+      autoFocus,
+      autoSelect,
+      initSelectionStart,
+      initSelectionEnd
+    } = this.props;
 
     if (autoFocus) {
       this.input.focus();
     }
     if (autoSelect) {
-      this.input.select();
+      this.select(initSelectionStart, initSelectionEnd);
     }
   }
 
@@ -47,8 +55,12 @@ export default class Input extends (PureComponent || Component) {
     this.input.focus();
   }
 
-  select() {
-    this.input.select();
+  select(selectioinStart, selectionEnd) {
+    if (isNumber(selectioinStart) && isNumber(selectionEnd)) {
+      this.input.setSelectionRange(selectioinStart, selectionEnd);
+    } else {
+      this.input.select();
+    }
   }
 
   handleKeyDown = evt => {
@@ -89,7 +101,9 @@ export default class Input extends (PureComponent || Component) {
       'addonAfter',
       'onPressEnter',
       'width',
-      'autoSelect'
+      'autoSelect',
+      'initSelectionStart',
+      'initSelectionEnd'
     ]);
 
     if (isTextarea) {

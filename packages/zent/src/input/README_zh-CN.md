@@ -32,6 +32,8 @@ group: 数据
 | addonAfter   | 后置标签            | node          |          |                         | 否    |
 | autoFocus    | 自动focus          | bool          |  `false` |                     | 否    |
 | autoSelect   | 自动select         | bol           |  `false` |                     | 否    |
+| initSelectionStart | 初始被选中的第一个字符的位置 | number |          |                | 否     |
+| initSelectionEnd | 初始被选中的最后一个字符的下一个位置。 | number |          |         | 否     |
 | onChange     | change事件        | func(e:Event) |          |                         | 否    |
 | onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
 
