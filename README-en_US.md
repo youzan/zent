@@ -37,6 +37,7 @@ Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https:/
 ## Contact Us
 
 - [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
+- [Discord](https://discord.gg/Nf6wVd2)
 
 ## License
 
