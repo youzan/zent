@@ -17,7 +17,8 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "core-js": "^2.4.1",
-    "prismjs": "^1.6.0",
+    "prismjs": "^1.8.4",
+    "prop-types": "^15.6.0",
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-loadable": "^5.3.0",
@@ -43,7 +44,7 @@
     "ramda": "^0.25.0",
     "react-hot-component-loader": "^1.0.3",
     "react-hot-loader": "3",
-    "react-markdown-doc-loader": "2.0.1",
+    "react-markdown-doc-loader": "2.1.0",
     "style-loader": "^0.19",
     "url-loader": "^0.6",
     "webpack": "3",
