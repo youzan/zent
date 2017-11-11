@@ -29,7 +29,7 @@ const footerData = {
 
 export default class App extends Component {
   state = {
-    i18n: ''
+    i18n: 'zh-CN'
   };
 
   changeI18N = target => {

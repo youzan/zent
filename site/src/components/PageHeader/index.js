@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-// import { Button } from 'zent';
 
+import SearchBox from '../SearchBox';
+import RouterContext from '../router-context-type';
 import './style.pcss';
 
 const CONTROLLS = {
@@ -10,15 +10,7 @@ const CONTROLLS = {
 };
 
 export default class PageHeader extends Component {
-  static contextTypes = {
-    router: PropTypes.shape({
-      history: PropTypes.shape({
-        push: PropTypes.func.isRequired,
-        replace: PropTypes.func.isRequired
-      }).isRequired,
-      route: PropTypes.object
-    }).isRequired
-  };
+  static contextTypes = RouterContext;
 
   toggle = () => {
     const { replace } = this.context.router.history;
@@ -32,13 +24,16 @@ export default class PageHeader extends Component {
   };
 
   render() {
-    const { i18n } = this.props;
+    const { i18n, sideNavData } = this.props;
+
     return (
       <div className="page-header">
         <div className="page-header__top">
           <h1 className="page-header__logo">
             <a href="//www.youzanyun.com/zanui" />
           </h1>
+          <div className="page-header__search-sep" />
+          <SearchBox locale={i18n} navData={sideNavData} />
           <ul className="page-header__navs">
             <li className="page-header__item">
               <a href="https://github.com/youzan/zent">

@@ -17,6 +17,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "core-js": "^2.4.1",
+    "fuse.js": "^3.2.0",
     "prismjs": "^1.8.4",
     "prop-types": "^15.6.0",
     "react": "15.5.x",
