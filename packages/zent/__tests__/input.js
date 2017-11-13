@@ -183,6 +183,21 @@ describe('Input', () => {
     ).toBe(true);
   });
 
+  it('can have input auto select and inintSelectionRange', () => {
+    const wrapper = mount(
+      <Input
+        defaultValue="autoSelect"
+        autoSelect
+        initSelectionStart={0}
+        initSelectionEnd={10}
+      />
+    );
+    expect(
+      wrapper.find('input').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
+  });
+
   it('can call input select method', () => {
     const wrapper = mount(<Input defaultValue="autoSelect" />);
     wrapper.instance().select();

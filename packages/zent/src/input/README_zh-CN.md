@@ -50,6 +50,10 @@ _除了以上属性外，所有react支持的input属性，Input组件都支持_
 
 选中输入框内所有内容
 
+`select(selectionStart, selectionEnd) function`
+
+选中区间范围在[selectionStart, selectionEnd]里的内容
+
 <style>
 .zent-input-wrapper {
     width: 200px;

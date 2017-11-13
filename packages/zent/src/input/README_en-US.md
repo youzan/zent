@@ -49,6 +49,10 @@ Manual focus to the input box
 
 Manual select to the input box
 
+`select(selectionStart, selectionEnd) function`
+
+Manual select the content between selectionStart and selectionEnd
+
 <style>
 .zent-input-wrapper {
     width: 200px;
