@@ -34,6 +34,11 @@ Read our [contributing guide](packages/zent/docs/CONTRIBUTING_en-US.md) to learn
 
 Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https://github.com/youzan/zent/pulls) with your ideas.
 
+## Contact Us
+
+- [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
+- [Discord](https://discord.gg/Nf6wVd2)
+
 ## License
 
 Project licensed under [MIT](https://en.wikipedia.org/wiki/MIT_License) license, feel free to enjoy and participate in Open Source.
