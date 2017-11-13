@@ -7,8 +7,8 @@ function getBabelLoaderOptions(options = {}) {
   const plugins = [require.resolve('babel-plugin-syntax-dynamic-import')];
   if (dev) {
     plugins.unshift(
-      require.resolve('react-hot-loader/babel'),
-      require.resolve('react-loadable/babel')
+      require.resolve('react-loadable/babel'),
+      require.resolve('react-hot-loader/babel')
     );
   }
 
