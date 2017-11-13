@@ -2,6 +2,15 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.9.5 (2017-11-13)
+
+- ✨ You can search components in doc site now.
+- 🦀️ Fix disable logic in  `DatePicker`
+
+### 3.9.4 (2017-11-09)
+
+- 🦀️ Update English documentation
+
 ### 3.9.3 (2017-11-09)
 
 - 🎉 New documentation site with English support
