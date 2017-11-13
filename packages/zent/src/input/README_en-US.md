@@ -40,16 +40,16 @@ _except for the attributes above, input widget supports all attributes that Reac
 
 #### focus
 
-`focus(): function`
+`focus(): void`
 
 Manual focus to the input box
 
 ### select
-`select() function`
+`select(): void`
 
 Manual select to the input box
 
-`select(selectionStart, selectionEnd) function`
+`select(selectionStart?: number, selectionEnd?: number): void`
 
 Manual select the content between selectionStart and selectionEnd
 

@@ -41,16 +41,16 @@ _除了以上属性外，所有react支持的input属性，Input组件都支持_
 
 #### focus
 
-`focus(): function`
+`focus(): void`
 
 手动聚焦到输入框
 
 ### select
-`select() function`
+`select(): void`
 
 选中输入框内所有内容
 
-`select(selectionStart, selectionEnd) function`
+`select(selectionStart?: number, selectionEnd?: number): void`
 
 选中区间范围在[selectionStart, selectionEnd]里的内容
 

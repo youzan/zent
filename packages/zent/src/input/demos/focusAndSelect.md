@@ -1,9 +1,15 @@
 ---
 order: 5
 zh-CN:
-	title: 主动调用foucs和select方法
+	title: 主动调用foucs和select方法,
+	val: 测试内容
+	selectAllText: 点击选择全部
+	selectRangeText: 点击选择第三个字符
 en-US:
 	title: Manual focus and select method
+	val: Test content
+	selectAllText: click me select all
+	selectRangeText: click me select the third char
 ---
 
 ```jsx
@@ -23,9 +29,9 @@ class FocusAndSelectTest extends React.Component {
   render() {
     return (
       <div>
-				<Input defaultValue="test" ref={input => this.input = input} />
-				<Button onClick={this.focusAndSelectAll}>click me select all</Button>
-				<Button onClick={this.selectTheThirdChar}>click me select the third char</Button>
+				<Input defaultValue='{i18n.val}' ref={input => this.input = input} />
+				<Button onClick={this.focusAndSelectAll}>{i18n.selectAllText}</Button>
+				<Button onClick={this.selectTheThirdChar}>{i18n.selectRangeText}</Button>
       </div>
     );
   }
