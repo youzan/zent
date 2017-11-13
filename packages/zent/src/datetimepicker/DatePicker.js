@@ -224,15 +224,15 @@ class DatePicker extends (PureComponent || Component) {
   };
 
   renderPicker() {
-    const { state, props, format } = this;
+    const { state, props } = this;
     let showTime;
     let datePicker;
 
     if (props.showTime) {
       showTime = assign(
         {
-          min: props.min && parseDate(props.min, format),
-          max: props.max && parseDate(props.max, format),
+          min: props.min && parseDate(props.min, props.format),
+          max: props.max && parseDate(props.max, props.format),
           actived: state.activedTime,
           disabledTime: noop
         },
