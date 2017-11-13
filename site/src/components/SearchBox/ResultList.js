@@ -11,7 +11,7 @@ const i18n = {
     notFound: '未找到结果'
   },
   'en-US': {
-    notFound: 'No result found'
+    notFound: 'No results found'
   }
 };
 

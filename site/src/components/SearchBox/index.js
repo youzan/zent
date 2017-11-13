@@ -190,6 +190,10 @@ class SearchBox extends Component {
   }
 
   search(keyword) {
+    if (!this.lut) {
+      return;
+    }
+
     const matches = this.lut.search(keyword);
 
     this.setState({
