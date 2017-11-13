@@ -1,5 +1,16 @@
 ## Github Change Log
 
+## [zent@3.9.5](https://github.com/youzan/zent/tree/zent@3.9.5) (2017-11-13)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.4...zent@3.9.5)
+
+**Fixed bugs:**
+
+- \[bug fix\] Datepicker: 修复时间组件日期时间联动禁用逻辑 [\#538](https://github.com/youzan/zent/pull/538) ([xuhong](https://github.com/xuhong))
+
+**Merged pull requests:**
+
+- \[new feature\] Doc: Implement component search [\#537](https://github.com/youzan/zent/pull/537) ([cpylua](https://github.com/cpylua))
+
 ## [zent@3.9.4](https://github.com/youzan/zent/tree/zent@3.9.4) (2017-11-09)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.3...zent@3.9.4)
 
@@ -147,17 +158,17 @@
 - \[docs\] Swiper: 修复doc内示例的warning [\#488](https://github.com/youzan/zent/pull/488) ([ArvinTung](https://github.com/ArvinTung))
 
 ## [zent@3.6.1](https://github.com/youzan/zent/tree/zent@3.6.1) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.0...zent@3.6.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.1)
 
 **Fixed bugs:**
 
 - \[bug fix\] Design: 修复样式 [\#481](https://github.com/youzan/zent/pull/481) ([cpylua](https://github.com/cpylua))
 
-## [zent@3.6.0](https://github.com/youzan/zent/tree/zent@3.6.0) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.0)
-
 ## [babel-plugin-zent@1.0.3](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.3) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...babel-plugin-zent@1.0.3)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.0...babel-plugin-zent@1.0.3)
+
+## [zent@3.6.0](https://github.com/youzan/zent/tree/zent@3.6.0) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.6.0)
 
 **Implemented enhancements:**
 
@@ -452,7 +463,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
 
 **Fixed bugs:**
 
@@ -462,11 +473,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
-
 ## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
+
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
 
 **Implemented enhancements:**
 
