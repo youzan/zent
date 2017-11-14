@@ -31,7 +31,7 @@ function extractStateFromProps(props) {
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      selected = actived = dayStart();
+      actived = dayStart();
     }
   } else {
     showPlaceholder = true;
@@ -40,11 +40,10 @@ function extractStateFromProps(props) {
     } else {
       actived = dayStart();
     }
-    selected = actived = parseDate(actived, format);
   }
 
   return {
-    value: formatDate(selected, format),
+    value: selected && formatDate(selected, format),
     actived,
     selected,
     openPanel: false,
@@ -79,8 +78,12 @@ class MonthPicker extends (PureComponent || Component) {
     });
   };
 
-  onSelectMonth = val => {
+  onSelectMonth = (val, isYear = false) => {
     const { onClick } = this.props;
+    const month = val.getMonth();
+
+    if (!isYear && this.isDisabled(month)) return;
+
     this.setState({
       selected: val,
       actived: val
@@ -95,9 +98,12 @@ class MonthPicker extends (PureComponent || Component) {
   };
 
   onConfirm = () => {
-    const { format } = this.props;
-    const { selected } = this.state;
-    const value = formatDate(selected, format);
+    const { props, state } = this;
+
+    let value = '';
+    if (state.selected) {
+      value = formatDate(state.selected, props.format);
+    }
 
     this.setState({
       value,
@@ -111,7 +117,6 @@ class MonthPicker extends (PureComponent || Component) {
     const year = this.state.actived.getFullYear();
     const dateStr = `${year}-${val + 1}`;
     const ret = parseDate(dateStr, 'YYYY-MM');
-
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(ret)) return true;
@@ -122,8 +127,7 @@ class MonthPicker extends (PureComponent || Component) {
   };
 
   renderPicker() {
-    const state = this.state;
-    const props = this.props;
+    const { state, props } = this;
 
     let monthPicker;
     if (state.openPanel) {
@@ -163,8 +167,7 @@ class MonthPicker extends (PureComponent || Component) {
   };
 
   render() {
-    const state = this.state;
-    const props = this.props;
+    const { props, state } = this;
     const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input': true,
