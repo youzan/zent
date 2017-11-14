@@ -9,7 +9,8 @@ const COL = 3;
 export default class MonthPanelBody extends (PureComponent || Component) {
   isSelected(val) {
     const { selected } = this.props;
-    if (selected) {
+
+    if (selected && selected instanceof Date) {
       return val === selected.getMonth();
     }
   }

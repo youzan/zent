@@ -41,6 +41,7 @@ export default class DatePanel extends (PureComponent || Component) {
         <MonthPanel
           actived={props.actived}
           selected={props.selected}
+          onChange={this.onSelectMonth}
           onSelect={this.onSelectMonth}
         />
       );
