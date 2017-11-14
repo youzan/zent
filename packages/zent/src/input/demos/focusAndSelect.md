@@ -6,10 +6,10 @@ zh-CN:
 	selectAllText: 点击选择全部
 	selectRangeText: 点击选择第三个字符
 en-US:
-	title: Manual focus and select method
+	title: Manual focus and select
 	val: Test content
-	selectAllText: click me select all
-	selectRangeText: click me select the third char
+	selectAllText: Select All
+	selectRangeText: Select the 3rd Character
 ---
 
 ```jsx
