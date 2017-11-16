@@ -7,6 +7,7 @@ import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
 import isPromise from 'utils/isPromise';
+import forEach from 'lodash/forEach';
 
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
@@ -14,9 +15,6 @@ import { formatMaxSize } from '../utils';
 
 const BUTTON_LOADING_TEXT = '提取中...';
 const BUTTON_TEXT = '提取';
-
-const ArrayForEach = Array.prototype.forEach;
-const arraySlice = Array.prototype.slice;
 
 class UploadPopup extends Component {
   constructor(props) {
@@ -200,7 +198,7 @@ class UploadPopup extends Component {
     const { options } = this.props;
     const { maxSize, silent, maxAmount } = options;
 
-    ArrayForEach.call(files, (file, index) => {
+    forEach(files, (file, index) => {
       if (maxAmount && index >= maxAmount) {
         !silent && Notify.error(`已经自动过滤超过${options.maxAmount}张的图片文件`);
         return false;
@@ -213,10 +211,8 @@ class UploadPopup extends Component {
     });
   }
 
-  processFiles(evt) {
+  processFiles(files) {
     const { options } = this.props;
-    let files = arraySlice.call(evt.target.files);
-    this.uploadFiles = files;
 
     let filterResult = options.filterFiles(files);
     if (isPromise(filterResult)) {

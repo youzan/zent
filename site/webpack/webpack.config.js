@@ -26,10 +26,8 @@ module.exports = {
     mainFields: ['jsnext:main', 'main'],
     alias: Object.assign(
       {
-        components: join(__dirname, '../src/components'),
+        // components: join(__dirname, '../src/components'),
         zent$: join(__dirname, '../zent')
-        // react: 'react/dist/react.js',
-        // 'react-dom': 'react-dom/dist/react-dom.js'
       },
       createAlias(resolve(__dirname, '../../packages/zent/src'))
     )

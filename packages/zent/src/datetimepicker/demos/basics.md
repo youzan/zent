@@ -46,6 +46,7 @@ class Demo extends Component{
 
   render(){
     const { dateValue, monthValue, rangeValue, weekValue } = this.state;
+		const now = new Date();
 
     return (
       <div>
@@ -67,7 +68,7 @@ class Demo extends Component{
         <MonthPicker
           className="zent-picker-demo"
           value={monthValue}
-					max="2017-06"
+					max={now}
           onChange={this.onChangeMonth}
         />
         <br />

@@ -5,7 +5,7 @@ import PageFooter from './PageFooter';
 import SideNav from './SideNav';
 import FooterNav from './FooterNav';
 
-export default function LayoutCN({
+export default function Layout({
   oreo,
   i18n,
   children,
@@ -17,7 +17,7 @@ export default function LayoutCN({
 }) {
   return (
     <div className="doc__layout">
-      <PageHeader version={version} i18n={i18n} />
+      <PageHeader version={version} i18n={i18n} sideNavData={sideNavData} />
       <div className="main-content">
         <div className="page-container">
           <SideNav data={sideNavData} base={oreo} ref={sideNavRef} />

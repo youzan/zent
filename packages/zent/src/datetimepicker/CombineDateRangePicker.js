@@ -350,8 +350,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   };
 
   renderPicker() {
-    const state = this.state;
-    const props = this.props;
+    const { state, props } = this;
     let rangePicker;
 
     const getTimeConfig = type => {
@@ -445,8 +444,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   };
 
   render() {
-    const state = this.state;
-    const props = this.props;
+    const { state, props } = this;
     const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input--range picker-input picker-input--combine': true,

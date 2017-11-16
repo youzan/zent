@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
+import isNumber from 'lodash/isNumber';
 import getWidth from 'utils/getWidth';
 
 export default class Input extends (PureComponent || Component) {
@@ -19,6 +20,9 @@ export default class Input extends (PureComponent || Component) {
     onPressEnter: PropTypes.func,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
+    initSelectionStart: PropTypes.number,
+    initSelectionEnd: PropTypes.number,
+    autoSelect: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   };
 
@@ -27,18 +31,36 @@ export default class Input extends (PureComponent || Component) {
     readOnly: false,
     prefix: 'zent',
     type: 'text',
-    autoFocus: false
+    autoFocus: false,
+    autoSelect: false
   };
 
   componentDidMount() {
-    const { autoFocus } = this.props;
+    const {
+      autoFocus,
+      autoSelect,
+      initSelectionStart,
+      initSelectionEnd
+    } = this.props;
+
     if (autoFocus) {
       this.input.focus();
+    }
+    if (autoSelect) {
+      this.select(initSelectionStart, initSelectionEnd);
     }
   }
 
   focus() {
     this.input.focus();
+  }
+
+  select(selectioinStart, selectionEnd) {
+    if (isNumber(selectioinStart) && isNumber(selectionEnd)) {
+      this.input.setSelectionRange(selectioinStart, selectionEnd);
+    } else {
+      this.input.select();
+    }
   }
 
   handleKeyDown = evt => {
@@ -57,14 +79,18 @@ export default class Input extends (PureComponent || Component) {
       prefix,
       className,
       type,
-      width
+      width,
+      disabled,
+      readOnly
     } = this.props;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
+    const editable = !(disabled || readOnly);
 
     const wrapClass = classNames(
       {
         [`${prefix}-input-wrapper`]: true,
+        [`${prefix}-input-wrapper__not-editable`]: !editable,
         [`${prefix}-textarea-wrapper`]: isTextarea,
         [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore)
       },
@@ -78,7 +104,10 @@ export default class Input extends (PureComponent || Component) {
       'addonBefore',
       'addonAfter',
       'onPressEnter',
-      'width'
+      'width',
+      'autoSelect',
+      'initSelectionStart',
+      'initSelectionEnd'
     ]);
 
     if (isTextarea) {

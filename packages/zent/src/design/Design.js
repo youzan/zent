@@ -39,15 +39,15 @@ import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import defaultTo from 'lodash/defaultTo';
 import defer from 'lodash/defer';
+import * as storage from 'utils/storage';
+import uuid from 'utils/uuid';
 
 import DesignPreview from './preview/DesignPreview';
-import uuid from './utils/uuid';
 import {
   getDesignType,
   isExpectedDesginType,
   serializeDesignType
 } from './utils/design-type';
-import * as storage from './utils/storage';
 import InstanceCountMap from './utils/InstanceCountMap';
 
 const UUID_KEY = '__zent-design-uuid__';

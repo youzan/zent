@@ -9,6 +9,15 @@ $borderRadius: 2px;
   height: 30px;
   max-height: 36px;
   line-height: 28px;
+
+  &__not-editable {
+    .zent-input-addon-before,
+    .zent-input-addon-after {
+      border-color: $theme-stroke-7;
+      color: $theme-stroke-6;
+      background: $theme-stroke-8;
+    }
+  }
 }
 
 .zent-textarea-wrapper {
@@ -54,6 +63,7 @@ $borderRadius: 2px;
 }
 
 .zent-textarea[disabled],
+.zent-textarea[readonly],
 .zent-input[disabled],
 .zent-input[readonly] {
   border-color: $theme-stroke-7;
@@ -102,7 +112,7 @@ $borderRadius: 2px;
   }
 
   & > .zent-input[disabled]:first-child {
-    border-right: 1px solid $defaultBorderColor;
+    border-right: 1px solid $theme-stroke-7;
   }
 
   & > .zent-input:last-child {
@@ -111,7 +121,7 @@ $borderRadius: 2px;
   }
 
   & > .zent-input[disabled]:last-child {
-    border-left: 1px solid $defaultBorderColor;
+    border-left: 1px solid $theme-stroke-7;
   }
 }
 

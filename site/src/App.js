@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import ScrollToTop from 'components/ScrollToTop';
+import ScrollToTop from './components/ScrollToTop';
 
 import packageJson from '../../packages/zent/package.json';
 import navData from './nav';
@@ -29,7 +29,7 @@ const footerData = {
 
 export default class App extends Component {
   state = {
-    i18n: ''
+    i18n: 'zh-CN'
   };
 
   changeI18N = target => {
