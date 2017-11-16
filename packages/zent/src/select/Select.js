@@ -90,7 +90,7 @@ class Select extends (PureComponent || Component) {
    */
   uniformData(props) {
     const { data, children, optionValue, optionText } = props;
-    let uniformedData;
+    let uniformedData = [];
 
     // data-prop 高优先级, 格式化 optionValue、optionText
     if (data) {
@@ -138,7 +138,7 @@ class Select extends (PureComponent || Component) {
    */
   traverseData(props, data = this.uniformedData) {
     // option 数组置空后重置组件状态
-    if (!data.length) {
+    if (!data || !data.length) {
       return this.setState({
         selectedItem: {},
         selectedItems: []
