@@ -26,6 +26,7 @@ import isBoolean from 'lodash/isBoolean';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 import kindOf from 'utils/kindOf';
+import getWidth from 'utils/getWidth';
 
 import PopoverContent from './Content';
 import PopoverTrigger from './trigger/Trigger';
@@ -345,13 +346,14 @@ export default class Popover extends (PureComponent || Component) {
       wrapperClassName,
       containerSelector,
       position,
-      cushion
+      cushion,
+      width
     } = this.props;
     const visible = this.getVisible();
 
     return (
       <div
-        style={{ display }}
+        style={{ display, ...getWidth(width) }}
         className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}
       >
         {React.cloneElement(trigger, {

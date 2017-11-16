@@ -8,7 +8,11 @@ const COL = 3;
 
 export default class MonthPanelBody extends (PureComponent || Component) {
   isSelected(val) {
-    return val === this.props.actived.getMonth();
+    const { selected } = this.props;
+
+    if (selected && selected instanceof Date) {
+      return val === selected.getMonth();
+    }
   }
 
   getMonths() {
@@ -31,7 +35,8 @@ export default class MonthPanelBody extends (PureComponent || Component) {
           text: `${index + 1}月`,
           value: index,
           title: `${index + 1}月`,
-          className
+          className,
+          isDisabled
         };
         index++;
       }

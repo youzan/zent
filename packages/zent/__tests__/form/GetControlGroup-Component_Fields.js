@@ -193,9 +193,12 @@ describe('GetControlGroup and Component_Fields', () => {
 
   it('SwitchField', () => {
     const { SwitchField } = ZentForm;
-    const wrapper = mount(<Field name="foo" component={SwitchField} />, {
-      context
-    });
+    const wrapper = mount(
+      <Field name="foo" value={false} component={SwitchField} />,
+      {
+        context
+      }
+    );
     expect(wrapper.find('.zent-switch').length).toBe(1);
   });
 
@@ -305,7 +308,7 @@ describe('GetControlGroup and Component_Fields', () => {
     const { FormSwitchField } = ZentForm;
     const wrapper = mount(
       <FormCreated>
-        <FormSwitchField name="foo" />
+        <FormSwitchField value={false} name="foo" />
       </FormCreated>
     );
     expect(wrapper.find('.zent-switch').length).toBe(1);

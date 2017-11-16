@@ -1,0 +1,78 @@
+---
+order: 3
+zh-CN:
+	title: 动态加载数据
+	placeholder: 请选择
+	zj: 浙江省
+	xj: 新疆维吾尔自治区
+	pro: 省
+	city: 市
+	dis: 区
+en-US:
+	title: Dynamic Loading
+	placeholder: Please choose
+	zj: Zhejiang
+	xj: Xinjiang
+	pro: Province
+	city: City
+	dis: District
+---
+
+```js
+import { Cascader, Notify } from 'zent';
+
+class Simple extends React.Component {
+
+	state = {
+		value: [],
+		options: [
+			{
+				id: '330000',
+				title: '{i18n.zj}'
+			},
+			{
+				id: '120000',
+				title: '{i18n.xj}'
+			}
+		]
+	}
+
+	loadMore = (root, stage) => new Promise((resolve, reject) => {
+		setTimeout(() => {
+			let isLeaf = stage >= 2;
+			let children = [{
+				id: `66666${stage}`,
+				title: `Label${stage}`,
+				isLeaf
+			}];
+			resolve(children);
+		}, 500);
+	})
+
+	onChange = (data) => {
+		Notify.success(JSON.stringify(data));
+	}
+
+	render() {
+		return (
+			<Cascader
+				value={this.state.value}
+				options={this.state.options}
+				onChange={this.onChange}
+				loadMore={this.loadMore}
+				placeholder="{i18n.placeholder}"
+				title={[
+					'{i18n.pro}',
+					'{i18n.city}',
+					'{i18n.dis}'
+				]}
+			/>
+		);
+	}
+}
+
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
+```

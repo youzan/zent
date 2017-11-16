@@ -31,8 +31,7 @@ export default class DatePanel extends (PureComponent || Component) {
   };
 
   render() {
-    const state = this.state;
-    const props = this.props;
+    const { state, props } = this;
     const title = `${props.actived.getFullYear()}年${props.actived.getMonth() +
       1}月`;
     let monthPanel;
@@ -42,21 +41,13 @@ export default class DatePanel extends (PureComponent || Component) {
         <MonthPanel
           actived={props.actived}
           selected={props.selected}
+          onChange={this.onSelectMonth}
           onSelect={this.onSelectMonth}
         />
       );
     }
     if (props.showTime) {
-      timePanel = (
-        <TimePanel
-          hidePanel={props.showTime.hidePanel}
-          actived={props.showTime.actived}
-          disabledTime={props.showTime.disabledTime}
-          onChange={props.showTime.onChange}
-          onClose={props.showTime.onClose}
-          onOpen={props.showTime.onOpen}
-        />
-      );
+      timePanel = <TimePanel {...props.showTime} />;
     }
 
     return (
@@ -77,8 +68,8 @@ export default class DatePanel extends (PureComponent || Component) {
           onSelect={props.onSelect}
           onHover={props.onHover}
         />
-        {state.showMonth ? monthPanel : ''}
-        {props.showTime ? timePanel : ''}
+        {state.showMonth && monthPanel}
+        {props.showTime && timePanel}
       </div>
     );
   }

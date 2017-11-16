@@ -10,7 +10,7 @@
 	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
 </p>
 
-[![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING.md)
+[![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_zh-CN.md)
 
 
 ### 组件展示
@@ -44,13 +44,18 @@ npm install zent --save
 
 ## 使用组件
 
-组件库文档：[https://www.youzanyun.com/zanui/react](https://www.youzanyun.com/zanui/react)
+组件库文档：[https://www.youzanyun.com/zanui/zent](https://www.youzanyun.com/zanui/zent)
 
 ## 贡献代码
 
-修改代码请阅读我们的[开发指南](packages/zent/docs/CONTRIBUTING.md)。
+修改代码请阅读我们的[开发指南](packages/zent/docs/CONTRIBUTING_zh-CN.md)。
 
 使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/zent/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/zent/pulls)。
+
+## 联系我们
+
+- [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
+- [Discord](https://discord.gg/Nf6wVd2)
 
 ## 开源协议
 

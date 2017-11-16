@@ -3,6 +3,12 @@ import { shallow, mount } from 'enzyme';
 import Input from 'input';
 
 describe('Input', () => {
+  beforeAll(() => {
+    window.getSelection = function() {
+      return 'autoSelect';
+    };
+  });
+
   it('will render div wrapper contains an input without any props', () => {
     const wrapper = shallow(<Input />);
     expect(wrapper.type()).toBe('div');
@@ -167,5 +173,46 @@ describe('Input', () => {
     const wrapper = mount(<Input type="textarea" />);
     wrapper.instance().focus();
     expect(wrapper.find('textarea').node === document.activeElement).toBe(true);
+  });
+
+  it('can have input auto select', () => {
+    const wrapper = mount(<Input defaultValue="autoSelect" autoSelect />);
+    expect(
+      wrapper.find('input').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
+  });
+
+  it('can have input auto select and inintSelectionRange', () => {
+    const wrapper = mount(
+      <Input
+        defaultValue="autoSelect"
+        autoSelect
+        initSelectionStart={0}
+        initSelectionEnd={10}
+      />
+    );
+    expect(
+      wrapper.find('input').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
+  });
+
+  it('can call input select method', () => {
+    const wrapper = mount(<Input defaultValue="autoSelect" />);
+    wrapper.instance().select();
+    expect(
+      wrapper.find('input').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
+  });
+
+  it('can call textarea select method', () => {
+    const wrapper = mount(<Input type="textarea" defaultValue="autoSelect" />);
+    wrapper.instance().select();
+    expect(
+      wrapper.find('textarea').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
   });
 });

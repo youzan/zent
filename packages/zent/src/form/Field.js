@@ -50,7 +50,8 @@ class Field extends Component {
       _isValidating: false,
       _initialValue: props.value,
       _validationError: [],
-      _externalError: null
+      _externalError: null,
+      _asyncValidated: false
     };
     this._name = prefixName(context.zentForm, props.name);
     this._validations = props.validations || {};
@@ -134,6 +135,10 @@ class Field extends Component {
 
   getName = () => {
     return this._name;
+  };
+
+  isAsyncValidated = () => {
+    return this.state._asyncValidated;
   };
 
   setValue = (value, needValidate = true) => {
@@ -306,6 +311,7 @@ class Field extends Component {
       isTouched: this.isDirty(),
       isDirty: this.isDirty(),
       isValid: this.isValid(),
+      isAsyncValidated: this.isAsyncValidated,
       isActive: this.isActive(),
       value: this.format(this.getValue()),
       error: this.getErrorMessage(),
