@@ -45,7 +45,7 @@ npm install zent --save
 
 ## Documentation
 
-[https://www.youzanyun.com/zanui/zent](https://www.youzanyun.com/zanui/zent)
+[https://www.youzanyun.com/zanui/zent/en/guides/install](https://www.youzanyun.com/zanui/zent/en/guides/install)
 
 ## Contribution
 
