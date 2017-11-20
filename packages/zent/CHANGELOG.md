@@ -1,5 +1,31 @@
 ## Github Change Log
 
+## [zent@3.9.6](https://github.com/youzan/zent/tree/zent@3.9.6) (2017-11-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.5...zent@3.9.6)
+
+**Implemented enhancements:**
+
+- English documentation [\#206](https://github.com/youzan/zent/issues/206)
+- \[new feature\] Design: Add tooltip support in components. [\#555](https://github.com/youzan/zent/pull/555) ([cpylua](https://github.com/cpylua))
+- \[new feature\] Input: 新增select方法 [\#536](https://github.com/youzan/zent/pull/536) ([radicalviva](https://github.com/radicalviva))
+
+**Fixed bugs:**
+
+- \[bug fix\] Upload: 选中同一张图片无效 [\#543](https://github.com/youzan/zent/issues/543)
+- \[bug fix\]: Fix bugs [\#548](https://github.com/youzan/zent/pull/548) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Button: 修正类型定义，onClick不再必需 [\#547](https://github.com/youzan/zent/pull/547) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] Datepicker: 修复月份选择器禁用bug [\#541](https://github.com/youzan/zent/pull/541) ([xuhong](https://github.com/xuhong))
+- \[doc\] Input: Update Input doc [\#539](https://github.com/youzan/zent/pull/539) ([cpylua](https://github.com/cpylua))
+
+**Closed issues:**
+
+- \[new feature\] upload 组件暴露一个回调使上传和抓取可以由业务处理后端返回的数据 [\#534](https://github.com/youzan/zent/issues/534)
+- \[feature\] Doc: 文档支持组件搜索 [\#520](https://github.com/youzan/zent/issues/520)
+
+**Merged pull requests:**
+
+- \[doc\] Table: 修改Table组件emptyLabel类型 [\#545](https://github.com/youzan/zent/pull/545) ([linrz](https://github.com/linrz))
+
 ## [zent@3.9.5](https://github.com/youzan/zent/tree/zent@3.9.5) (2017-11-13)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.4...zent@3.9.5)
 
@@ -64,7 +90,7 @@
 - \[bug fix\] design: preview区域右下角 action button 加 padding [\#522](https://github.com/youzan/zent/pull/522) ([ronghang](https://github.com/ronghang))
 
 ## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...zent@3.9.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
 
 **Implemented enhancements:**
 
@@ -81,11 +107,11 @@
 - \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
 - \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
-## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
-
 ## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
+
+## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
 
 **Implemented enhancements:**
 
