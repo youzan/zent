@@ -179,7 +179,8 @@ function ComponentButton(props) {
       visible={visible}
       onVisibleChange={onPopVisibleChange(key)}
       position="top-center"
-      wrapperClassName={`${prefix}-design-editor-add-component-btn-wrapper`}
+      className={`${prefix}-design-editor-add-component-pop`}
+      wrapperClassName={`${prefix}-design-editor-add-component-btn-wrapper ${prefix}-design-editor-add-component__${type}-btn-wrapper`}
     >
       <button
         onClick={onAdd(component)}
