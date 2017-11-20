@@ -14,9 +14,6 @@ export default class FileInput extends (PureComponent || Component) {
 
     const files = toArray(evt.target.files);
 
-    // 清楚当前的值，否则选同一张图片不会触发事件
-    evt.target.value = null;
-
     if (onChange) {
       onChange(files);
     } else {
@@ -24,6 +21,9 @@ export default class FileInput extends (PureComponent || Component) {
         localFiles: files.map(f => ({ file: f, src: createObjectURL(f) }))
       });
     }
+
+    // 清楚当前的值，否则选同一张图片不会触发事件
+    evt.target.value = null;
   };
 
   render() {
