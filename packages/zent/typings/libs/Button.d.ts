@@ -15,7 +15,7 @@ declare module 'zent/lib/button' {
     target?: string
     className?: string
     prefix?: string
-    onClick: React.UIEventHandler<HTMLButtonElement>
+    onClick?: React.UIEventHandler<HTMLButtonElement>
   }
 
   export default class Button extends React.Component<IButtonProps, any> { }

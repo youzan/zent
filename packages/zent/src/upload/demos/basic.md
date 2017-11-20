@@ -13,55 +13,59 @@ import { Upload } from 'zent';
 
 class Simple extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            imageList: []
-        };
-        this.updateLocalImage = this.updateLocalImage.bind(this);
+			super(props);
+			this.state = {
+					imageList: []
+			};
     }
 
     renderTrigger() {
-        return <span></span>;
+			return <span></span>;
     }
 
     fetchNetworkImage(data) {
-        return new Promise(resolve => {
-            console.log(data);
-            resolve(data);
-        });
+			return new Promise(resolve => {
+				this.setState({
+					imageList: [{
+						file: null,
+						src: data
+					}]
+				});
+				resolve(data);
+			});
     }
 
     updateLocalImage(data) {
         return new Promise(resolve => {
-            this.setState({
-                imageList: data
-            });
-            resolve(data);
+					this.setState({
+						imageList: data
+					});
+					resolve(data);
         })
     }
 
     render() {
-        return (
-            <div>
-                <Upload
-                    maxSize={8 * 1000 * 1000}
-                    triggerInline
-                    tips="{i18n.tip}"
-                    onFetch={this.fetchNetworkImage}
-                    onUpload={this.updateLocalImage}
-                />
-                {
-                    this.state.imageList.map((item, index) => {
-                        return <img width="80" height="80" key={index} src={item.src} style={{marginLeft: '10px'}} />
-                    })
-                }
-            </div>
-        );
+			return (
+				<div>
+					<Upload
+						maxSize={8 * 1000 * 1000}
+						triggerInline
+						tips="{i18n.tip}"
+						onFetch={this.fetchNetworkImage.bind(this)}
+						onUpload={this.updateLocalImage.bind(this)}
+					/>
+					{
+						this.state.imageList.map((item, index) => {
+							return <img width="80" height="80" key={index} src={item.src} style={{marginLeft: '10px'}} />
+						})
+					}
+				</div>
+			);
     }
 }
 
 ReactDOM.render(
-    <Simple />
-    , mountNode
+	<Simple />
+	, mountNode
 );
 ```

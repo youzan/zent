@@ -10,15 +10,15 @@ export default class MonthPanel extends (PureComponent || Component) {
   };
 
   prevYear = () => {
-    const { actived, onSelect } = this.props;
+    const { actived, onChange } = this.props;
     const prev = goYears(actived, -1);
-    onSelect(prev, true);
+    onChange(prev, true);
   };
 
   nextYear = () => {
-    const { actived, onSelect } = this.props;
+    const { actived, onChange } = this.props;
     const next = goYears(actived, 1);
-    onSelect(next, true);
+    onChange(next, true);
   };
 
   showYearPanel = () => {
@@ -28,11 +28,11 @@ export default class MonthPanel extends (PureComponent || Component) {
   };
 
   onSelectYear = (val, close = false) => {
-    const { actived, onSelect } = this.props;
+    const { actived, onChange } = this.props;
     const copy = new Date(actived);
 
     copy.setFullYear(val);
-    onSelect(copy, true);
+    onChange(copy, true);
 
     this.setState({
       showYear: close
@@ -48,8 +48,7 @@ export default class MonthPanel extends (PureComponent || Component) {
   };
 
   render() {
-    const props = this.props;
-    const state = this.state;
+    const { props, state } = this;
     const title = `${props.actived.getFullYear()}年`;
 
     let yearPanel;
@@ -73,7 +72,7 @@ export default class MonthPanel extends (PureComponent || Component) {
           disabledDate={props.disabledDate}
           onSelect={this.onSelectMonth}
         />
-        {state.showYear ? yearPanel : ''}
+        {state.showYear && yearPanel}
       </div>
     );
   }

@@ -6,7 +6,6 @@ zh-CN:
 en-US:
 	title: Basic usage
 	placehoder: please enter number
-
 ---
 
 ```jsx

@@ -79,14 +79,18 @@ export default class Input extends (PureComponent || Component) {
       prefix,
       className,
       type,
-      width
+      width,
+      disabled,
+      readOnly
     } = this.props;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
+    const editable = !(disabled || readOnly);
 
     const wrapClass = classNames(
       {
         [`${prefix}-input-wrapper`]: true,
+        [`${prefix}-input-wrapper__not-editable`]: !editable,
         [`${prefix}-textarea-wrapper`]: isTextarea,
         [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore)
       },

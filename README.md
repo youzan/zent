@@ -1,38 +1,39 @@
 <p>
-	<a href="https://github.com/youzan/">
-		<img alt="有赞logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan">
-	</a>
+  <a href="https://github.com/youzan/">
+    <img alt="Youzan logo" width="36px" src="https://img.yzcdn.cn/public_files/2017/02/09/e84aa8cbbf7852688c86218c1f3bbf17.png" alt="youzan">
+  </a>
 </p>
 <p align="center">
-    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png" width="200px">
+    <img alt="Zent logo" src="https://img.yzcdn.cn/public_files/2017/02/21/e96fcc2bb29150080fcf5da39cd27fbe.png">
 </p>
 <p align="center">
-	Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
+  Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
 </p>
 
-[![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_zh-CN.md)
+[![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_en-US.md)
 
+Zent ( \ˈzent\ ) is a React component library developed and used at Youzan. Zent provides a collection of essential UI components and lots of useful domain specific components.
 
-### 组件展示
+We have more than 40 components for now and we're releasing more.
 
-<img src="https://img.yzcdn.cn/zanui/react/zent-components.png" alt="zent-components" width="849px"/>
+Our goal is making React development faster and simpler.
 
-### 特性
+### Features
 
-* 高质量的 React 基础组件以及丰富的业务组件
-* 内置 TypeScript 类型定义文件
-* 支持定制主题
-* 代码/样式按需加载
+* High quality React components
+* Builtin TypeScript support
+* Supports custom themes
+* Import JavaScript and styles only if they are used
 * yarn + webpack + babel + postcss + prettier + stylefmt
-* 一套有赞设计师绘制的图标库
-* 单测覆盖率在 90% 以上
+* Handmade icon font
+* Tests coverage is above 90%
 
-### 支持环境
+### Supported Environments
 
-* 现代浏览器以及 IE 11 及以上
-* 支持服务端渲染(SSR)
+* Modern browsers and IE >= 11
+* Supports server-side rendering(SSR)
 
-## 安装
+## Install
 
 ```shell
 yarn add zent
@@ -42,21 +43,21 @@ yarn add zent
 npm install zent --save
 ```
 
-## 使用组件
+## Documentation
 
-组件库文档：[https://www.youzanyun.com/zanui/zent](https://www.youzanyun.com/zanui/zent)
+[https://www.youzanyun.com/zanui/zent/en/guides/install](https://www.youzanyun.com/zanui/zent/en/guides/install)
 
-## 贡献代码
+## Contribution
 
-修改代码请阅读我们的[开发指南](packages/zent/docs/CONTRIBUTING_zh-CN.md)。
+Read our [contributing guide](packages/zent/docs/CONTRIBUTING_en-US.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Zent.
 
-使用过程中发现任何问题都可以提 [Issue](https://github.com/youzan/zent/issues) 给我们，当然，我们也非常欢迎你给我们发 [PR](https://github.com/youzan/zent/pulls)。
+Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https://github.com/youzan/zent/pulls) with your ideas.
 
-## 联系我们
+## Contact Us
 
 - [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
 - [Discord](https://discord.gg/Nf6wVd2)
 
-## 开源协议
+## License
 
-本项目基于 [MIT](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89) 协议，请自由地享受和参与开源。
+Project licensed under [MIT](https://en.wikipedia.org/wiki/MIT_License) license, feel free to enjoy and participate in Open Source.
