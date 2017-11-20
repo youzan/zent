@@ -179,10 +179,12 @@ function ComponentButton(props) {
       visible={visible}
       onVisibleChange={onPopVisibleChange(key)}
       position="top-center"
+      mouseLeaveDelay={100}
+      mouseEnterDelay={300}
       className={`${prefix}-design-editor-add-component-pop`}
       wrapperClassName={`${prefix}-design-editor-add-component-btn-wrapper ${prefix}-design-editor-add-component__${type}-btn-wrapper`}
     >
-      <button
+      <a
         onClick={onAdd(component)}
         className={cx(`${prefix}-design-editor-add-component__${type}-btn`, {
           [`${prefix}-design-editor-add-component__${type}-btn--disabled`]: disabled
@@ -190,7 +192,7 @@ function ComponentButton(props) {
         disabled={disabled}
       >
         {component.editor.designDescription}
-      </button>
+      </a>
     </Pop>
   );
 }
