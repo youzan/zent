@@ -2,17 +2,17 @@
 order: 6
 zh-CN:
 	title: 不同校验时机
-	validationOnChange: Change时校验：
-	validationOnBlur: Blur时校验：
+	validationOnChange: Change时校验
+	validationOnBlur: Blur时校验
 	validationOnSubmit: submit时校验
 	fieldError1: 值不能为空
 	fieldError2: 只能为字母
 	submit: 获取表单值
 en-US:
 	title: Different time when the validation is triggered.
-	validationOnChange: Vaidate when field is changed：
-	validationOnBlur: Vaidate when field is out of focus：
-	validationOnSubmit: Validate when form is submitted：
+	validationOnChange: Vaidate when field is changed
+	validationOnBlur: Vaidate when field is out of focus
+	validationOnSubmit: Validate when form is submitted
 	fieldError1: The value should be non-empty.
 	fieldError2: The value can only be letters.
 	submit: submit
@@ -63,7 +63,7 @@ class FormattedForm extends React.Component {
 				<FormInputField
 					name="field3"
 					type="text"
-					label="{i18n.validationOnSubmit}"
+					label="{i18n.validationOnSubmit}:"
 					validateOnChange={false}
 					validateOnBlur={false}
 					validations={{

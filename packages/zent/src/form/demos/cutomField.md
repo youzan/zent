@@ -2,14 +2,13 @@
 order: 3
 zh-CN:
 	title: 使用 getControlGroup 封装自定义表单元素组件
-	imgText: 资料：
+	imgText: 资料
 	submit: 获取表单值
 	reset: 重置表单值
 	tip: 建议尺寸：640 x 640 像素；
 en-US:
 	title: Package custom field component using getControlGroup
-	name: name：
-	imgText: materials：
+	imgText: materials
 	submit: submit
 	reset: reset
 	tip: Recommended size：640 x 640 pixels
@@ -74,7 +73,7 @@ class FieldForm extends React.Component {
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<Field
 					name="imgs"
-					label="{i18n.imgText}"
+					label="{i18n.imgText}:"
 					component={UploadField}
 					value={[]}
 					maxSize={8 * 1000 * 1000}

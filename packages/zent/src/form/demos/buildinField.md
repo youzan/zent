@@ -2,53 +2,53 @@
 order: 2
 zh-CN:
 	title: 使用内置表单元素组件
-	name: 昵称：
+	name: 昵称
 	nameValidationError: 请填写昵称
-	type: 类型：
+	type: 类型
 	typeText1: 普通用户
 	typeText2: 高级用户
 	typeValidationErrors: 请选择类型
-	sex: 性别：
+	sex: 性别
 	sexValidationErrors: 请选择性别
 	sexText1: 男
 	sexText2: 女
-	tagText: 兴趣标签：
+	tagText: 兴趣标签
 	tagValidationErrors: 请选择标签
 	tagText1: 电影
 	tagText2: 书籍
 	tagText3: 旅行
 	ageText: 年龄
-	colorText: 喜欢的颜色：
-	dateRangeText: 身份证有效期：
+	colorText: 喜欢的颜色
+	dateRangeText: 身份证有效期
 	dateRangeValidationErrors: 请填写有效期
-	isPublicText: 公开个人信息：
-	agreeText: 同意许可条例：
+	isPublicText: 公开个人信息
+	agreeText: 同意许可条例
 	agreeCont: 是
 	submit: 获取表单值
 	reset: 重置表单值
 en-US:
 	title: Use build-in field components
-	name: name：
+	name: name
 	nameValidationError: Please enter the name.
-	type: type：
+	type: type
 	typeText1: general user
 	typeText2: vip
 	typeValidationErrors: Please choose the type.
-	sex: sex：
+	sex: sex
 	sexValidationErrors: Please choose sex.
 	sexText1: male
 	sexText2: female
-	tagText: hobbies：
+	tagText: hobbies
 	tagValidationErrors: Please choose hobbies.
 	tagText1: movie
 	tagText2: book
 	tagText3: travel
 	ageText: age
-	colorText: Favourite color：
+	colorText: Favourite color
 	dateRangeText: Valid period of ID card
 	dateRangeValidationErrors: Please select the dateRange
-	isPublicText: Public information：
-	agreeText: All permissions：
+	isPublicText: Public information
+	agreeText: All permissions
 	agreeCont: agree
 	submit: submit
 	reset: reset
@@ -82,7 +82,7 @@ class FieldForm extends React.Component {
 				<FormInputField
 					name="name"
 					type="text"
-					label="{i18n.name}"
+					label="{i18n.name}:"
 					required
 					spellCheck={false}
 					validations={{ required: true }} 
@@ -90,7 +90,7 @@ class FieldForm extends React.Component {
 				/>
 				<FormSelectField
 					name="type"
-					label="{i18n.type}"
+					label="{i18n.type}:"
 					data = {[
 						{ value: 1, text: '{i18n.typeText1}' },
 						{ value: 2, text: '{i18n.typeText2}' }
@@ -101,7 +101,7 @@ class FieldForm extends React.Component {
 				/>
 				<FormRadioGroupField
 					name="sex"
-					label="{i18n.sex}"
+					label="{i18n.sex}:"
 					required
 					validations={{ 
 						required(values, value) {
@@ -117,7 +117,7 @@ class FieldForm extends React.Component {
 				</FormRadioGroupField>
 				<FormCheckboxGroupField
 					name="hobbies"
-					label="{i18n.tagText}"
+					label="{i18n.tagText}:"
 					value={this.state.checkedList}
 					onChange={this.onCheckboxChange}
 					required
@@ -134,18 +134,18 @@ class FieldForm extends React.Component {
 				</FormCheckboxGroupField>
 				<FormNumberInputField
 					name="age"
-					label="{i18n.ageText}"
+					label="{i18n.ageText}:"
 					showStepper
 					value={12}
 				/>
 				<FormColorPickerField
 					name="color"
-					label="{i18n.colorText}"
+					label="{i18n.colorText}:"
 					value="#5197FF"
 				/>
 				<FormDateRangePickerField
 					name="dateRange"
-					label="{i18n.dateRangeText}"
+					label="{i18n.dateRangeText}:"
 					type="split"
 					value={[]}
 					validations={{
@@ -159,12 +159,12 @@ class FieldForm extends React.Component {
 				/>
 				<FormSwitchField
 					name="isPublic"
-					label="{i18n.isPublicText}"
+					label="{i18n.isPublicText}:"
 					value={false}
 				/>
 				<FormCheckboxField
 					name="agree"
-					label="{i18n.agreeText}"
+					label="{i18n.agreeText}:"
 				>
 					{i18n.agreeCont}
 				</FormCheckboxField>
