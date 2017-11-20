@@ -54,7 +54,8 @@ const components = [
     highlightWhenSelect: false
   }),
 
-  whitespaceConf,
+  Object.assign({limit: 1}, whitespaceConf),
+
   lineConf
 ];
 const groupedComponents = [
@@ -75,7 +76,7 @@ const groupedComponents = [
 
   Design.group('Group 1'),
 
-  whitespaceConf,
+  Object.assign({limit: 1}, whitespaceConf),
 
   Design.group('Group 2'),
   
@@ -84,7 +85,7 @@ const groupedComponents = [
 
 class Simple extends Component {
   state = {
-    grouped: false,
+    grouped: true,
     value: [
       {
         type: configConf.type,
