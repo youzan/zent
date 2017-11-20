@@ -84,7 +84,7 @@ const groupedComponents = [
 
 class Simple extends Component {
   state = {
-    grouped: false,
+    grouped: true,
     value: [
       {
         type: configConf.type,
