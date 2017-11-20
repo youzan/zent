@@ -14,7 +14,7 @@ export default class FileInput extends (PureComponent || Component) {
 
     const files = toArray(evt.target.files);
 
-    // 清楚当前的值，否则选同一张图片不会触发事件
+    // 清除当前的值，否则选同一张图片不会触发事件
     evt.target.value = null;
 
     if (onChange) {
