@@ -78,6 +78,10 @@ type Component = {
   // If passing a function, return false to stop adding more
   limit?: number | (count: number) => boolean,
   
+  // Tooltip when a component reaches its limit
+  // If limit is a number, limitMessage has a default value.
+  limitMessage?: node | (count: number) => node,
+  
   // Callback when adding a new instance for component
   // Add only if Promise resolves.
   shouldCreate?: (comp: Component) => Promise,

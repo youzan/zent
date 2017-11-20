@@ -8,7 +8,7 @@
   &__actions {
     display: none;
     cursor: pointer;
-    background-color: $theme-mask-2;
+    background: transparent;
     z-index: 10;
     font-size: 12px;
   }
@@ -16,15 +16,15 @@
   &__action-btn {
     padding: 2px 6px;
     outline: none;
-    background: transparent;
+    background-color: $theme-mask-2;
     border: 0;
     cursor: pointer;
     color: $theme-stroke-10;
-    border-left: 1px solid $theme-stroke-10;
     border-radius: 0;
+    margin-left: 1px;
 
     &:first-child {
-      border-left: 0;
+      margin-left: 0;
     }
 
     &:hover {
@@ -45,7 +45,7 @@
   }
 
   .zent-pop-wrapper {
-    border-left: 1px solid $theme-stroke-10;
+    margin-left: 1px;
   }
 }
 
