@@ -50,7 +50,7 @@ class Hobbies extends React.Component {
 				<Button onClick={() => fields.push()} className="add-btn">{i18n.addHobby}</Button>
 				{fields.map((hobby, index) => {
 					return (
-						<li key={index}>
+						<li key={`hobby${index}`}>
 							<div className="hobby-title">
 								<span>{i18n.hobby}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delHobby}">
@@ -80,7 +80,7 @@ class Members extends React.Component {
 				<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>
 				{fields.map((member, index) => {
 					return (
-						<li key={index}>
+						<li key={`member${index}`}>
 							<div className="member-title">
 								<span>{i18n.member}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delMember}">
