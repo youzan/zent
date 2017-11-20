@@ -48,7 +48,7 @@ import {
   isExpectedDesginType,
   serializeDesignType
 } from './utils/design-type';
-import InstanceCountMap from './utils/InstanceCountMap';
+import LazyMap from './utils/LazyMap';
 
 const UUID_KEY = '__zent-design-uuid__';
 const CACHE_KEY = '__zent-design-cache-storage__';
@@ -108,6 +108,9 @@ export default class Design extends (PureComponent || Component) {
 
         // 组件可以添加的最大次数
         limit: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        // 组件达到最大添加次数后，鼠标移上去的提示
+        limitMessage: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 
         // 是否可以添加组件的回调函数，返回一个 Promise
         shouldCreate: PropTypes.func
@@ -877,7 +880,7 @@ function findFirstEditableSibling(value, components, startIndex) {
  * @param {Array} components Design 支持的组件列表
  */
 function makeInstanceCountMapFromValue(value, components) {
-  const instanceCountMap = new InstanceCountMap(0);
+  const instanceCountMap = new LazyMap(0);
 
   (value || []).forEach(val => {
     const comp = find(components, c => isExpectedDesginType(c, val.type));

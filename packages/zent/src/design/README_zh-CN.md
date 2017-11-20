@@ -84,6 +84,12 @@ type Component = {
   // 如果是函数，返回 false 表示不可再添加
   limit?: number | (count: number) => boolean,
   
+  // 组件不可再添加后，鼠标移上去的提示
+  // 如果是个函数，需要返回一个错误信息
+  // 如果 limit 是个正整数，limitMessage 会有一个默认的值：该组件最多添加 xx 个
+  // 如果 limit 是个负数，limitMessage 默认为：该组件暂不可用
+  limitMessage?: node | (count: number) => node,
+  
   // 是否可以添加组件的回调函数，返回一个 Promise，resolve 的话可以创建
   // 添加组件的实例时会调用
   shouldCreate?: (comp: Component) => Promise,

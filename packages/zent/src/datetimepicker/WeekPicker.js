@@ -28,7 +28,7 @@ function extractStateFromProps(props) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { openPanel, value, format, min, max, defaultValue, startDay } = props;
+  const { openPanel, value, format, defaultValue, startDay } = props;
 
   // 如果 value 是数组就取数组第一个值，否则就取 value
   const hasValue = isArray(value) ? value[0] : value;
@@ -48,17 +48,8 @@ function extractStateFromProps(props) {
   } else {
     showPlaceholder = true;
 
-    /**
-     * 当前面板显示优先级：
-     * defalutValue > min > max
-     */
-
     if (defaultValue) {
       actived = parseDate(defaultValue, format);
-    } else if (min) {
-      actived = parseDate(min, format);
-    } else if (max) {
-      actived = parseDate(max, format);
     } else {
       actived = dayStart();
     }
@@ -228,8 +219,7 @@ class WeekPicker extends (PureComponent || Component) {
   };
 
   renderPicker() {
-    const state = this.state;
-    const props = this.props;
+    const { props, state } = this;
     let weekPicker;
 
     // 打开面板的时候才渲染
@@ -282,8 +272,7 @@ class WeekPicker extends (PureComponent || Component) {
   };
 
   render() {
-    const state = this.state;
-    const props = this.props;
+    const { props, state } = this;
     const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
     const inputCls = classNames({
       'picker-input': true,
