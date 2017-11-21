@@ -215,7 +215,7 @@ const createForm = (config = {}) => {
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value) {
+          if (value !== undefined) {
             field.setInitialValue(value);
           } else {
             field.setInitialValue();
@@ -239,7 +239,7 @@ const createForm = (config = {}) => {
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value) {
+          if (value !== undefined) {
             field.setValue(value);
           }
         });
@@ -295,7 +295,7 @@ const createForm = (config = {}) => {
             }
             if (keyPath.length > 1) {
               index > values[currentKey].length - 1
-                ? values[currentKey].push({})
+                ? (values[currentKey][index] = {})
                 : null;
               assignValue(
                 values[currentKey][index],

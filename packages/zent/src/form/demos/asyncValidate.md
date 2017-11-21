@@ -3,13 +3,13 @@ order: 7
 zh-CN:
 	title: 异步校验
 	asyncValidationError: 用户名已被占用
-	name: 用户名：
+	name: 用户名
 	validationError: 用户名不能为空
 	submit: 获取表单值
 en-US:
 	title: Asynchronous validation
 	asyncValidationError: This name is occupied.
-	name: name：
+	name: name
 	validationError: The value should be non-empty.
 	submit: submit
 ---
@@ -47,7 +47,7 @@ const AsyncForm = (props) => {
 			<FormInputField
 				name="name"
 				type="text"
-				label="{i18n.name}"
+				label="{i18n.name}:"
 				value=""
 				validations={{
 					required: true,
@@ -60,7 +60,7 @@ const AsyncForm = (props) => {
 			<FormInputField
 				name="name2"
 				type="text"
-				label="{i18n.name}"
+				label="{i18n.name}:"
 				value="pangxie2"
 				asyncValidation={asyncValidation2}
 			/>

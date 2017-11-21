@@ -2,12 +2,12 @@
 order: 9
 zh-CN:
 	title: 提交表单及结果处理
-	name: 用户名：
+	name: 用户名
 	asyncValidationError: 用户名已被占用
 	nameValidationError: 用户名不能为空
-	password: 密码：
+	password: 密码
 	pwValidationError: 密码不能为空
-	comfirmPw: 确认密码：
+	comfirmPw: 确认密码
 	comfirmValidatiaonError1: 两次填写的密码不一致
 	comfirmValidatiaonError2: 确认密码不能为空
 	comment1: 可以使用throw SubmissionError 在 onSubmitFail 中处理，也可以在这里直接 alert 错误信息
@@ -17,12 +17,12 @@ zh-CN:
 	reset: 重置
 en-US:
 	title: Submit the form and deal with the result
-	name: user name：
+	name: user name
 	asyncValidationError: This name is occupied.
 	nameValidationError: The user name should be non-empty.
-	password: password：
+	password: password
 	pwValidationError: The password should be non-empty.
-	comfirmPw: Comfirm password：
+	comfirmPw: Comfirm password
 	comfirmValidatiaonError1: The password you enter the second time is not the same as the one you first filled in.
 	comfirmValidatiaonError2: The field should be non-empty.
 	comment1: You can throw a SubmissionError to deal with the error in the onSubmitFail function. Otherwise, you can use alert to show the error message directly. 
@@ -79,7 +79,7 @@ class SubmitForm extends React.Component {
 				<FormInputField
 					name="user"
 					type="text"
-					label="{i18n.name}"
+					label="{i18n.name}:"
 					value="111"
 					validations={{ required: true }}
 					validationErrors={{ required: '{i18n.nameValidationError}' }}
@@ -87,7 +87,7 @@ class SubmitForm extends React.Component {
 				<FormInputField
 					name="password"
 					type="password"
-					label="{i18n.password}"
+					label="{i18n.password}:"
 					value="222"
 					validations={{ required: true }}
 					validationErrors={{ required: '{i18n.pwValidationError}' }}
@@ -95,7 +95,7 @@ class SubmitForm extends React.Component {
 				<FormInputField
 					name="confirmPassword"
 					type="password"
-					label="{i18n.comfirmPw}"
+					label="{i18n.comfirmPw}:"
 					value="222"
 					validations={{
 						required: true,
