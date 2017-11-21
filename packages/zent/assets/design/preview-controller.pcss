@@ -54,7 +54,7 @@
     bottom: -2px;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 306px;
     opacity: 0.8;
     z-index: 4;
     display: none;
@@ -114,7 +114,15 @@
     &:before {
       z-index: 2;
       display: block;
-      border: 1px dashed $theme-error-3;
+      border: 1px dashed $theme-primary-2;
     }
+  }
+
+  &:hover:before {
+    opacity: 0.5;
+  }
+
+  &--selected:before {
+    opacity: 1;
   }
 }
