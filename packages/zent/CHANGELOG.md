@@ -1,5 +1,18 @@
 ## Github Change Log
 
+## [zent@3.9.8](https://github.com/youzan/zent/tree/zent@3.9.8) (2017-11-21)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.7...zent@3.9.8)
+
+**Implemented enhancements:**
+
+- \[new feature\] Design: 更新组件交互 [\#559](https://github.com/youzan/zent/pull/559) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: Fix style [\#561](https://github.com/youzan/zent/pull/561) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: Update style [\#560](https://github.com/youzan/zent/pull/560) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: Replace button with a in Design, workaround for React mouseleave event bug [\#558](https://github.com/youzan/zent/pull/558) ([cpylua](https://github.com/cpylua))
+
 ## [zent@3.9.7](https://github.com/youzan/zent/tree/zent@3.9.7) (2017-11-20)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.6...zent@3.9.7)
 
