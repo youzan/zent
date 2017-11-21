@@ -5,39 +5,47 @@
   box-sizing: border-box;
   border: 0;
 
-  &__actions {
-    display: none;
-    cursor: pointer;
-    background: transparent;
-    z-index: 10;
-    font-size: 12px;
+  &__action-btn-delete {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 5;
+    cursor: default;
+
+    .zenticon {
+      font-size: 20px;
+      color: $theme-mask-black-3;
+      display: none;
+
+      &:hover {
+        color: $theme-mask-black-5;
+      }
+    }
   }
 
-  &__action-btn {
-    padding: 2px 6px;
-    outline: none;
-    background-color: $theme-mask-2;
-    border: 0;
-    cursor: pointer;
-    color: $theme-stroke-10;
-    border-radius: 0;
-    margin-left: 1px;
-
-    &:first-child {
-      margin-left: 0;
-    }
+  &__action-btn-add {
+    position: absolute;
+    bottom: -9px;
+    right: -9px;
+    z-index: 5;
+    font-size: 0;
+    cursor: default;
+    display: none;
 
     &:hover {
-      color: $theme-stroke-8;
+      .zent-design-preview-controller__icon-add {
+        opacity: 1;
+      }
+    }
+
+    .zent-design-preview-controller__icon-add {
+      opacity: 0.8;
     }
   }
 
-  &:hover &__actions,
-  &--selected &__actions {
+  &:hover &__action-btn-delete .zenticon,
+  &:hover &__action-btn-add {
     display: block;
-    position: absolute;
-    right: 0;
-    bottom: 0;
   }
 
   &--dragable {
@@ -67,7 +75,7 @@
     &:before {
       z-index: 2;
       display: block;
-      border: 2px dashed $theme-error-2;
+      border: 1px dashed $theme-error-3;
     }
   }
 }

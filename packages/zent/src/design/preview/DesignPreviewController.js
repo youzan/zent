@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop from 'pop';
+import Icon from 'icon';
 import pick from 'lodash/pick';
 import { DropTarget, DragSource } from 'react-dnd';
 
@@ -91,12 +92,24 @@ class DesignPreviewController extends (PureComponent || Component) {
       <div className={cls} style={style} onClick={this.onSelect}>
         <PreviewComponent prefix={prefix} {...previewProps} {...props} />
         {configurable && (
-          <Actions
-            prefix={prefix}
-            onEdit={this.onEdit}
-            onAdd={this.onAdd}
-            onDelete={this.onDelete}
-          />
+          <Pop
+            content="确定删除？"
+            trigger="click"
+            position="left-center"
+            centerArrow
+            onConfirm={this.onDelete}
+            wrapperClassName={`${prefix}-design-preview-controller__action-btn-delete`}
+          >
+            <Icon onClick={evt => evt.stopPropagation()} type="close-circle" />
+          </Pop>
+        )}
+        {configurable && (
+          <a
+            className={`${prefix}-design-preview-controller__action-btn-add`}
+            onClick={this.onAdd}
+          >
+            <IconAdd prefix={prefix} />
+          </a>
         )}
       </div>
     );
@@ -115,9 +128,6 @@ class DesignPreviewController extends (PureComponent || Component) {
     }
 
     this.invokeCallback('onSelect', evt, false);
-  };
-
-  onEdit = evt => {
     this.invokeCallback('onEdit', evt, true);
   };
 
@@ -199,33 +209,36 @@ const dndTarget = {
   }
 };
 
-function Actions({ onEdit, onAdd, onDelete, prefix }) {
+/* Exported from Sketch */
+function IconAdd({ prefix }) {
   return (
-    <div className={`${prefix}-design-preview-controller__actions`}>
-      <button
-        onClick={onEdit}
-        className={`${prefix}-design-preview-controller__action-btn`}
-      >
-        编辑
-      </button>
-      <button
-        onClick={onAdd}
-        className={`${prefix}-design-preview-controller__action-btn`}
-      >
-        加内容
-      </button>
-      <Pop
-        content="确定删除？"
-        trigger="click"
-        position="left-center"
-        centerArrow
-        onConfirm={onDelete}
-      >
-        <button className={`${prefix}-design-preview-controller__action-btn`}>
-          删除
-        </button>
-      </Pop>
-    </div>
+    <svg
+      width="24px"
+      height="19px"
+      viewBox="0 0 24 19"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs />
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g transform="translate(-421.000000, -510.000000)">
+          <g transform="translate(0.000000, -1.000000)">
+            <g transform="translate(100.000000, 60.000000)">
+              <g transform="translate(320.000000, 451.000000)">
+                <path
+                  d="M9,16.4282444 C10.6993072,18.0231466 12.9855754,19 15.5,19 C20.7467051,19 25,14.7467051 25,9.5 C25,4.25329488 20.7467051,0 15.5,0 C12.9855754,0 10.6993072,0.976853423 9,2.57175559 L9,2.5 L0.997899669,9.5 L9,16.5 L9,16.4282444 Z"
+                  fill="#3388FF"
+                  className={`${prefix}-design-preview-controller__icon-add`}
+                />
+                <g transform="translate(12.000000, 6.000000)" fill="#FFFFFF">
+                  <path d="M3,3 L0,3 L0,4 L3,4 L3,7 L4,7 L4,4 L7,4 L7,3 L4,3 L4,0 L3,6.123234e-17 L3,3 Z" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
   );
 }
 

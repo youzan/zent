@@ -392,8 +392,8 @@ export default class Design extends (PureComponent || Component) {
     this.toggleEditOrAdd(component, true);
 
     // 将当前组件滚动到顶部
-    const id = this.getUUIDFromValue(component);
-    this.scrollToPreviewItem(id);
+    // const id = this.getUUIDFromValue(component);
+    // this.scrollToPreviewItem(id);
   };
 
   // 编辑一个已有组件
