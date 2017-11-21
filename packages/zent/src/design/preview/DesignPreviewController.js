@@ -7,7 +7,7 @@ import Icon from 'icon';
 import pick from 'lodash/pick';
 import { DropTarget, DragSource } from 'react-dnd';
 
-const COMPONENT = 'component';
+const COMPONENT = 'zent-design-preview-controller';
 
 class DesignPreviewController extends (PureComponent || Component) {
   static propTypes = {
@@ -75,6 +75,7 @@ class DesignPreviewController extends (PureComponent || Component) {
       isDragging,
       connectDragSource,
       connectDropTarget,
+      connectDragPreview,
       component: PreviewComponent,
       previewProps,
       prefix
@@ -85,13 +86,14 @@ class DesignPreviewController extends (PureComponent || Component) {
       [`${prefix}-design-preview-controller--dragable`]: dragable
     });
     const props = pick(this.props, ['value', 'design', 'globalConfig']);
-    const style = {
-      opacity: isDragging ? 0 : 1
-    };
-    const tree = (
-      <div className={cls} style={style} onClick={this.onSelect}>
+
+    // 拖拽的时候隐藏各种按钮，会很丑
+    const showButtons = configurable && !isDragging;
+
+    const tree = connectDragPreview(
+      <div className={cls} onClick={this.onSelect}>
         <PreviewComponent prefix={prefix} {...previewProps} {...props} />
-        {configurable && (
+        {showButtons && (
           <Pop
             content="确定删除？"
             trigger="click"
@@ -103,7 +105,7 @@ class DesignPreviewController extends (PureComponent || Component) {
             <Icon onClick={evt => evt.stopPropagation()} type="close-circle" />
           </Pop>
         )}
-        {configurable && (
+        {showButtons && (
           <a
             className={`${prefix}-design-preview-controller__action-btn-add`}
             onClick={this.onAdd}
@@ -111,7 +113,18 @@ class DesignPreviewController extends (PureComponent || Component) {
             <IconAdd prefix={prefix} />
           </a>
         )}
-      </div>
+        {showButtons && (
+          <div className={`${prefix}-design-preview-controller__add-marker`}>
+            <i
+              className={`${prefix}-design-preview-controller__add-marker-circle`}
+            />
+            <div
+              className={`${prefix}-design-preview-controller__add-marker-line`}
+            />
+          </div>
+        )}
+      </div>,
+      { captureDraggingState: true }
     );
 
     if (!dragable) {
@@ -248,6 +261,7 @@ export default DropTarget(COMPONENT, dndTarget, connect => ({
 }))(
   DragSource(COMPONENT, dndSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
   }))(DesignPreviewController)
 );
