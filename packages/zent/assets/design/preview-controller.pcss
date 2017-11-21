@@ -9,7 +9,7 @@
     position: absolute;
     top: -10px;
     right: -10px;
-    z-index: 5;
+    z-index: 10;
     cursor: default;
 
     .zenticon {
@@ -27,13 +27,18 @@
     position: absolute;
     bottom: -9px;
     right: -9px;
-    z-index: 5;
+    z-index: 10;
     font-size: 0;
     cursor: default;
     display: none;
 
     &:hover {
       .zent-design-preview-controller__icon-add {
+        opacity: 1;
+      }
+
+      + .zent-design-preview-controller__add-marker {
+        display: flex;
         opacity: 1;
       }
     }
@@ -43,9 +48,32 @@
     }
   }
 
-  &:hover &__action-btn-delete .zenticon,
-  &:hover &__action-btn-add {
-    display: block;
+  &__add-marker {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    opacity: 0.8;
+    z-index: 4;
+    display: none;
+
+    &-circle {
+      border: 1px solid $theme-primary-2;
+      border-radius: 50%;
+      width: 3px;
+      height: 3px;
+      display: inline-block;
+      z-index: 1;
+      background: $theme-stroke-10;
+    }
+
+    &-line {
+      background: $theme-primary-2;
+      height: 1px;
+      width: 100%;
+    }
   }
 
   &--dragable {
@@ -54,6 +82,17 @@
 
   .zent-pop-wrapper {
     margin-left: 1px;
+  }
+
+  &:hover &__action-btn-delete .zenticon,
+  &:hover &__action-btn-add {
+    display: block;
+  }
+
+  &:hover {
+    .zent-design-preview-controller__add-marker {
+      display: flex;
+    }
   }
 }
 

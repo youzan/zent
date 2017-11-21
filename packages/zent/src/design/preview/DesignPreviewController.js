@@ -111,6 +111,16 @@ class DesignPreviewController extends (PureComponent || Component) {
             <IconAdd prefix={prefix} />
           </a>
         )}
+        {configurable && (
+          <div className={`${prefix}-design-preview-controller__add-marker`}>
+            <i
+              className={`${prefix}-design-preview-controller__add-marker-circle`}
+            />
+            <div
+              className={`${prefix}-design-preview-controller__add-marker-line`}
+            />
+          </div>
+        )}
       </div>
     );
 
