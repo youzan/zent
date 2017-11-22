@@ -5,7 +5,7 @@ zh-CN:
 	countyListText1: 中国 +86
 	countyListText2: 中国澳门 +853
 	comment1: 覆盖部分value
-	contact: 联系方式：
+	contact: 联系方式
 	phonePlaceholder: 请填写手机号
 	contactPlaceholder: 目前仅支持中国内陆地区和澳门地区电话号码
 	contactError: 请输入正确的手机号
@@ -67,7 +67,7 @@ class ContactPhone extends React.Component {
 
 		return (
 			<div className={mobileClassName}>
-				<label className="zent-form__control-label">{i18n.contact}</label>
+				<label className="zent-form__control-label">{i18n.contact}:</label>
 				<div className="zent-form__controls">
 					<Select className="areacode"
 						value={value.areacode}

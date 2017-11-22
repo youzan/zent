@@ -2,13 +2,13 @@
 order: 11
 zh-CN:
 	title: 三种 Form 布局
-	name: 用户名：
-	name2: 用户名2：
+	name: 用户名
+	name2: 用户名2
 	submit: 获取表单值
 en-US:
 	title: Three layout of form
-	name: name：
-	name2: name2：
+	name: name
+	name2: name2
 	submit: submit
 ---
 
@@ -47,13 +47,13 @@ class FieldForm extends React.Component {
 					<FormInputField
 						name="name"
 						type="text"
-						label="{i18n.name}"
+						label="{i18n.name}:"
 						value=""
 					/>
 					<FormInputField
 						name="name2"
 						type="text"
-						label="{i18n.name2}"
+						label="{i18n.name2}:"
 						value=""
 					/>
 					<div className="zent-form__form-actions">

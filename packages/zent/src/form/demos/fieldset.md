@@ -2,13 +2,13 @@
 order: 12
 zh-CN:
 	title: Fieldset
-	name: 用户名：
-	name2: 用户名2：
+	name: 用户名
+	name2: 用户名2
 	submit: 获取表单值
 en-US:
 	title: Fieldset
-	name: name：
-	name2: name2：
+	name: name
+	name2: name2
 	submit: submit
 ---
 
@@ -31,7 +31,7 @@ class FieldsetForm extends React.Component {
 					<FormInputField
 						name="name"
 						type="text"
-						label="{i18n.name}"
+						label="{i18n.name}:"
 						value=""
 					/>
 				</Fieldset>
@@ -39,7 +39,7 @@ class FieldsetForm extends React.Component {
 					<FormInputField
 						name="name2"
 						type="text"
-						label="{i18n.name2}"
+						label="{i18n.name2}:"
 						value=""
 					/>
 				</Fieldset>

@@ -2,14 +2,14 @@
 order: 10
 zh-CN:
 	title: 其他表单操作
-	name: 用户名：
+	name: 用户名
 	nameValidationError: 用户名不能为空
 	nameValidationError2: 用户名不能为空
-	age: 年龄：
+	age: 年龄
 	ageValidationError: 年龄不能为空
-	password: 密码：
+	password: 密码
 	pwValidationError: 密码不能为空
-	comfirmPw: 确认密码：
+	comfirmPw: 确认密码
 	comfirmValidatiaonError1: 两次填写的密码不一致
 	comfirmValidatiaonError2: 确认密码不能为空
 	submit: 获取表单值
@@ -18,14 +18,14 @@ zh-CN:
 	reset: 重置
 en-US:
 	title: Other operation of form
-	name: name：
+	name: name
 	nameValidationError: The name should be non-empty.
 	nameValidationError2: The name can only be letters.
-	age: age：
+	age: age
 	ageValidationError: The age should be non-empty.
-	password: password：
+	password: password
 	pwValidationError: The password should be non-empty.
-	comfirmPw: Comfirm password：
+	comfirmPw: Comfirm password
 	comfirmValidatiaonError1: The password you enter the second time is not the same as the one you first filled in.
 	comfirmValidatiaonError2: The field should be non-empty.
 	submit: submit
@@ -80,7 +80,7 @@ class SubmitForm extends React.Component {
 				<FormInputField
 					name="name"
 					type="text"
-					label="{i18n.name}"
+					label="{i18n.name}:"
 					value="1"
 					validations={{ required: true }}
 					validationErrors={{ required: '{i18n.nameValidationError}' }}
@@ -88,7 +88,7 @@ class SubmitForm extends React.Component {
 				<FormInputField
 					name="age"
 					type="text"
-					label="{i18n.age}"
+					label="{i18n.age}:"
 					value="1"
 					validations={{ required: true }}
 					validationErrors={{ required: '{i18n.ageValidationError}' }}
@@ -96,7 +96,7 @@ class SubmitForm extends React.Component {
 				<FormInputField
 					name="password"
 					type="text"
-					label="{i18n.password}"
+					label="{i18n.password}:"
 					value="1"
 					validations={{ required: true }}
 					validationErrors={{ required: '{i18n.pwValidationError}' }}
@@ -104,7 +104,7 @@ class SubmitForm extends React.Component {
 				<FormInputField
 					name="confirmPassword"
 					type="text"
-					label="{i18n.comfirmPw}"
+					label="{i18n.comfirmPw}:"
 					value="1"
 					validations={{
 						required: true,

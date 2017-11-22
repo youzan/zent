@@ -9,13 +9,13 @@ zh-CN:
 	addMember: 添加成员
 	delMember: 删除该成员
 	member: 成员
-	name: 名字：
-	sex: 性别：
+	name: 名字
+	sex: 性别
 	nameValidationError: 请填写成员名字
 	sexValidationError: 请选择性别
 	male: 男
 	female: 女
-	totalNumber: 家庭总人数：
+	totalNumber: 家庭总人数
 	totalNumberError: 请填写家庭总人数
 	submit: 获取表单值
 en-US:
@@ -27,13 +27,13 @@ en-US:
 	addMember: Add member
 	delMember: Delete member
 	member: Member
-	name: Name：
-	sex: Sex：
+	name: Name
+	sex: Sex
 	nameValidationError: Please enter the name of member.
 	sexValidationError: Please select the sex of member.
 	male: male
 	female: female
-	totalNumber: Total number：
+	totalNumber: Total number
 	totalNumberError: Please enter the total number of the family.
 	submit: submit
 ---
@@ -50,7 +50,7 @@ class Hobbies extends React.Component {
 				<Button onClick={() => fields.push()} className="add-btn">{i18n.addHobby}</Button>
 				{fields.map((hobby, index) => {
 					return (
-						<li key={index}>
+						<li key={`hobby${index}`}>
 							<div className="hobby-title">
 								<span>{i18n.hobby}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delHobby}">
@@ -60,7 +60,7 @@ class Hobbies extends React.Component {
 							<FormInputField
 								name={`${hobby}`}
 								type="text"
-								label="{i18n.hobby}："
+								label="{i18n.hobby}:"
 								validations={{ required: true }} 
 								validationErrors={{ required: '{i18n.hobbyValidation}' }}
 							/>
@@ -80,7 +80,7 @@ class Members extends React.Component {
 				<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>
 				{fields.map((member, index) => {
 					return (
-						<li key={index}>
+						<li key={`member${index}`}>
 							<div className="member-title">
 								<span>{i18n.member}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delMember}">
@@ -91,14 +91,14 @@ class Members extends React.Component {
 							<FormInputField
 								name={`${member}.name`}
 								type="text"
-								label="{i18n.name}"
+								label="{i18n.name}:"
 								required
 								validations={{ required: true }}
 								validationErrors={{ required: '{i18n.nameValidationError}' }}
 							/>
 							<FormRadioGroupField
 								name={`${member}.sex`}
-								label="{i18n.sex}"
+								label="{i18n.sex}:"
 								required
 								validations={{ 
 									required(values, value) {
@@ -133,7 +133,7 @@ class FieldForm extends React.Component {
 				<FormInputField
 					name="number"
 					type="text"
-					label="{i18n.totalNumber}"
+					label="{i18n.totalNumber}:"
 					required
 					validations={{ required: true }}
 					validationErrors={{ required: '{i18n.totalNumberError}' }}
