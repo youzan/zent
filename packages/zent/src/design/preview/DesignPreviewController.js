@@ -141,7 +141,7 @@ class DesignPreviewController extends (PureComponent || Component) {
     }
 
     this.invokeCallback('onSelect', evt, false);
-    this.invokeCallback('onEdit', evt, true);
+    // this.invokeCallback('onEdit', evt, true);
   };
 
   onAdd = evt => {
