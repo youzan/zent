@@ -352,7 +352,7 @@ Cascader.defaultProps = {
   options: [],
   placeholder: '请选择',
   changeOnSelect: false,
-  title: ['省份', '城市', '县区']
+  title: []
 };
 
 export default Cascader;
