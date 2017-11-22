@@ -1,5 +1,20 @@
 ## Github Change Log
 
+## [zent@3.9.9](https://github.com/youzan/zent/tree/zent@3.9.9) (2017-11-22)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.8...zent@3.9.9)
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: bug fixes [\#563](https://github.com/youzan/zent/pull/563) ([cpylua](https://github.com/cpylua))
+
+**Closed issues:**
+
+- \[bug fix\]  fix when unmount FieldArray undefined bug  [\#553](https://github.com/youzan/zent/issues/553)
+
+**Merged pull requests:**
+
+- \[bug fix\] Form: 修复嵌套fieldArray嵌套在增删时错误，修复fieldArray删减时表单校验报错 [\#557](https://github.com/youzan/zent/pull/557) ([fairyaierl](https://github.com/fairyaierl))
+
 ## [zent@3.9.8](https://github.com/youzan/zent/tree/zent@3.9.8) (2017-11-21)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.7...zent@3.9.8)
 
@@ -110,7 +125,7 @@
 - \[bug fix\] design: preview区域右下角 action button 加 padding [\#522](https://github.com/youzan/zent/pull/522) ([ronghang](https://github.com/ronghang))
 
 ## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...zent@3.9.0)
 
 **Implemented enhancements:**
 
@@ -127,11 +142,11 @@
 - \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
 - \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
-## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
-
 ## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
+
+## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
 
 **Implemented enhancements:**
 
