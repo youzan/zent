@@ -14,14 +14,10 @@ export default class YearPanelBody extends (PureComponent || Component) {
     onSelect: PropTypes.func
   };
 
-  isSelected(val) {
-    return this.props.actived.getFullYear() === val;
-  }
-
   getYears() {
     const years = [];
     let index = 0;
-    const actived = this.props.actived;
+    const { actived, selected, disabledDate } = this.props;
     const beginYear = actived.getFullYear() - 4;
 
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
@@ -29,17 +25,21 @@ export default class YearPanelBody extends (PureComponent || Component) {
       for (let colIndex = 0; colIndex < COL; colIndex++) {
         const val = beginYear + index;
         const isCurrent = val === CURRENT_YEAR;
-        const isSelected = this.isSelected(val);
+        const isSelected =
+          selected instanceof Date && selected.getFullYear() === val;
+        const isDisabled = disabledDate && disabledDate(val);
         const className = classNames({
           'year-panel__cell panel__cell': true,
           'panel__cell--current': isCurrent,
-          'panel__cell--selected': isSelected
+          'panel__cell--selected': isSelected,
+          'panel__cell--disabled': isDisabled
         });
         years[rowIndex][colIndex] = {
           text: val,
           value: val,
           title: `${val}年`,
-          className
+          className,
+          isDisabled
         };
         index++;
       }
@@ -49,8 +49,8 @@ export default class YearPanelBody extends (PureComponent || Component) {
   }
 
   render() {
-    const years = this.getYears();
     const { onSelect } = this.props;
+    const years = this.getYears();
 
     return (
       <div className="year-table panel-table">
