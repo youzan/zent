@@ -484,14 +484,74 @@ export default class Design extends (PureComponent || Component) {
     });
   };
 
-  // 交换两个组件的位置
   onMove = (fromIndex, toIndex) => {
-    const { value } = this.props;
-    const newValue = value.slice();
+    if (fromIndex === toIndex) {
+      return;
+    }
 
-    const tmp = value[fromIndex];
-    newValue[fromIndex] = newValue[toIndex];
-    newValue[toIndex] = tmp;
+    const { value, components } = this.props;
+    const newValue = [];
+    let tmp;
+
+    /**
+     * 这个算法不是仅仅交换两个位置的节点，所有中间节点都需要移位
+     * 需要考虑数组中间有不可拖拽节点的情况，这种情况下 fromIndex, toIndex 的值是不包括这些节点的
+     * 例如 [1, 0, 0, 1, 0, 0, 1]: fromIndex = 0, toIndex = 1 表示移动第一个和第二个 1。
+     */
+    let passedFromIndex = false;
+    let passedToIndex = false;
+
+    if (fromIndex < toIndex) {
+      for (let i = 0, dragableIndex = -1; i < value.length; i++) {
+        const val = value[i];
+
+        const comp = find(components, c => isExpectedDesginType(c, val.type));
+        const dragable = comp && defaultTo(comp.dragable, true);
+        if (dragable) {
+          dragableIndex++;
+        }
+
+        /* Invariant: Each step copies one value, except one copies 2 and another doesn't copy */
+        if (dragableIndex === fromIndex && !passedFromIndex) {
+          tmp = val;
+          passedFromIndex = true;
+        } else if (dragableIndex < toIndex && passedFromIndex) {
+          newValue[i - 1] = val;
+        } else if (dragableIndex === toIndex && !passedToIndex) {
+          newValue[i - 1] = val;
+          newValue[i] = tmp;
+          passedToIndex = true;
+        } else {
+          newValue[i] = val;
+        }
+      }
+    } else {
+      let toInsetIndex;
+
+      for (let i = 0, dragableIndex = -1; i < value.length; i++) {
+        const val = value[i];
+
+        const comp = find(components, c => isExpectedDesginType(c, val.type));
+        const dragable = comp && defaultTo(comp.dragable, true);
+        if (dragable) {
+          dragableIndex++;
+        }
+
+        /* Invariant: each step copies one value */
+        if (dragableIndex === toIndex && !passedToIndex) {
+          toInsetIndex = i;
+          newValue[i + 1] = val;
+          passedToIndex = true;
+        } else if (dragableIndex < fromIndex && passedToIndex) {
+          newValue[i + 1] = val;
+        } else if (dragableIndex === fromIndex && !passedFromIndex) {
+          newValue[toInsetIndex] = val;
+          passedFromIndex = true;
+        } else {
+          newValue[i] = val;
+        }
+      }
+    }
 
     this.trackValueChange(newValue);
   };
