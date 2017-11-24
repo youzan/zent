@@ -13,7 +13,13 @@ export function dayEnd(date) {
 }
 
 export function setTime(date, time = '00:00:00') {
-  const timeArr = time.split(':');
+  let timeArr;
+  if (time instanceof Date) {
+    timeArr = [time.getHours(), time.getMinutes(), time.getSeconds()];
+  } else {
+    timeArr = time.split(':');
+  }
+
   const dateTimeArr = [
     date.getFullYear(),
     date.getMonth(),
