@@ -11,8 +11,6 @@ import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
-import YearPicker from 'datetimepicker/YearPicker';
-import TimePicker from 'datetimepicker/TimePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
@@ -48,6 +46,7 @@ import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
+import YearPicker from 'datetimepicker/YearPicker';
 
 export {
   Affix,
@@ -95,7 +94,6 @@ export {
   Table,
   Tabs,
   Tag,
-  TimePicker,
   Tree,
   Upload,
   WeekPicker,
