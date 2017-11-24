@@ -228,7 +228,7 @@ function DeleteButton({ prefix, onDelete }) {
       onConfirm={onDelete}
       wrapperClassName={`${prefix}-design-preview-controller__action-btn-delete`}
     >
-      <IconDelete prefix={prefix} />
+      <IconDelete prefix={prefix} onClick={stopEventPropagation} />
     </Pop>
   );
 }
@@ -311,6 +311,10 @@ class IconDelete extends (PureComponent || Component) {
       </svg>
     );
   }
+}
+
+function stopEventPropagation(evt) {
+  evt && evt.stopPropagation();
 }
 
 export default DesignPreviewController;
