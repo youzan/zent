@@ -7,6 +7,7 @@ import Icon from 'icon';
 import forEach from 'lodash/forEach';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
+import isArray from 'lodash/isArray';
 
 const PopoverContent = Popover.Content;
 const withPopover = Popover.withPopover;
@@ -32,8 +33,8 @@ class Cascader extends (PureComponent || Component) {
     super(props);
 
     this.state = {
-      value: props.value,
-      options: props.options,
+      value: isArray(props.value) ? props.value : [],
+      options: isArray(props.options) ? props.options : [],
       onChangeValue: [],
       activeId: 1,
       open: false
@@ -48,7 +49,7 @@ class Cascader extends (PureComponent || Component) {
     let { loadMore } = this.props;
 
     if (nextProps.hasOwnProperty('value')) {
-      let nextValue = nextProps.value || [];
+      let nextValue = isArray(nextProps.value) ? nextProps.value : [];
       if (!loadMore) {
         this.setState({
           value: nextValue
@@ -58,7 +59,7 @@ class Cascader extends (PureComponent || Component) {
     }
     if (this.props.options !== nextProps.options) {
       this.setState({
-        options: nextProps.options
+        options: isArray(nextProps.options) ? nextProps.options : []
       });
     }
   }
@@ -180,7 +181,7 @@ class Cascader extends (PureComponent || Component) {
     let { options, value } = this.state;
     let tabTitle = '标题';
 
-    title = title || [];
+    title = isArray(title) ? title : [];
     if (title.length > 0) {
       tabTitle = title[0];
     }
@@ -351,7 +352,7 @@ Cascader.defaultProps = {
   options: [],
   placeholder: '请选择',
   changeOnSelect: false,
-  title: ['省份', '城市', '县区']
+  title: []
 };
 
 export default Cascader;
