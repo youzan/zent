@@ -23,6 +23,7 @@ class Upload extends Component {
       visible: false,
       activeId: 'materials'
     };
+    this.typeName = props.type === 'voice' ? '语音' : '图片';
     this.showUpload = this.showUpload.bind(this);
     this.closePopup = this.closePopup.bind(this);
   }
@@ -92,7 +93,7 @@ class Upload extends Component {
         </div>
         <p className={`${prefix}-upload-tips`}>{tips}</p>
         <Dialog
-          title="图片选择"
+          title={`${this.typeName}选择`}
           visible={visible}
           className={dialogClassName}
           onClose={this.closePopup}
@@ -131,7 +132,7 @@ class Upload extends Component {
   showUpload = (visible = true) => {
     let { localOnly, maxAmount } = this.props;
 
-    if (!localOnly || maxAmount !== 1) {
+    if (!this.isUnmount && (!localOnly || maxAmount !== 1)) {
       // 直接打开本地文件
       this.setState({
         visible
@@ -150,9 +151,9 @@ Upload.defaultProps = {
   tips: '',
   localOnly: false,
   auto: false,
+  type: 'image',
   fetchUrl: '',
   tokenUrl: '',
-  uploadUrl: '//upload.qbox.me',
   filterFiles: identity,
   onFetch: promiseNoop,
   onUpload: promiseNoop,
