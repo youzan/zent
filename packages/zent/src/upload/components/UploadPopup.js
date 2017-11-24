@@ -164,7 +164,7 @@ class UploadPopup extends Component {
       localUploading: true
     });
     uploadLocalImage(options, {
-      localFiles: localFiles.map(item => item.file),
+      localFiles,
       onProgress: this.fileProgressHandler
     })
       .then(() => {
@@ -206,7 +206,7 @@ class UploadPopup extends Component {
     const { maxSize, silent, maxAmount } = options;
     const typeName = options.type === 'voice' ? '音频' : '图片';
 
-    forEach.call(files, (file, index) => {
+    forEach(files, (file, index) => {
       if (maxAmount && index >= maxAmount) {
         !silent && Notify.error(`已经自动过滤超过${options.maxAmount}张的${typeName}文件`);
         return false;
