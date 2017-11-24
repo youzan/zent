@@ -1,5 +1,19 @@
 ## Github Change Log
 
+## [zent@3.10.0](https://github.com/youzan/zent/tree/zent@3.10.0) (2017-11-24)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.9...zent@3.10.0)
+
+**Fixed bugs:**
+
+- \[bug fix\] Cascader: options 为空的时候如何处理 [\#546](https://github.com/youzan/zent/issues/546)
+- \[bug fix\] Design: Prevent component select when click on delete button [\#566](https://github.com/youzan/zent/pull/566) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: new dnd [\#565](https://github.com/youzan/zent/pull/565) ([cpylua](https://github.com/cpylua))
+
+**Merged pull requests:**
+
+- \[new feature\] datetimepicker：添加年份选择 [\#564](https://github.com/youzan/zent/pull/564) ([xuhong](https://github.com/xuhong))
+- \[bug fix\] Cascader: 参数 `value`、`options`、`title`不为数组时的兼容处理 [\#562](https://github.com/youzan/zent/pull/562) ([liaoyu](https://github.com/liaoyu))
+
 ## [zent@3.9.9](https://github.com/youzan/zent/tree/zent@3.9.9) (2017-11-22)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.8...zent@3.9.9)
 
@@ -229,7 +243,7 @@
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.0...babel-plugin-zent@1.0.3)
 
 ## [zent@3.6.0](https://github.com/youzan/zent/tree/zent@3.6.0) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...zent@3.6.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.6.0)
 
 **Implemented enhancements:**
 
@@ -247,11 +261,11 @@
 
 - \[bugs\] Table: 当前页所有项均禁用时，全选按钮未禁用 [\#478](https://github.com/youzan/zent/issues/478)
 
-## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.5.4)
-
 ## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...babel-plugin-zent@1.0.2)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.2)
+
+## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...zent@3.5.4)
 
 **Fixed bugs:**
 
@@ -524,7 +538,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
 
 **Fixed bugs:**
 
@@ -534,11 +548,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
-
 ## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
+
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
 
 **Implemented enhancements:**
 
@@ -628,7 +642,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -659,11 +673,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
-
 ## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
+
+## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
 
 **Implemented enhancements:**
 
