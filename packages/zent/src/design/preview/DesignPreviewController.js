@@ -2,10 +2,10 @@ import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop from 'pop';
-import Icon from 'icon';
 import pick from 'lodash/pick';
 import { Draggable } from 'react-beautiful-dnd';
 import { DND_PREVIEW_CONTROLLER } from './constants';
+import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
 
 class DesignPreviewController extends (PureComponent || Component) {
   static propTypes = {
@@ -126,8 +126,20 @@ class DesignPreviewController extends (PureComponent || Component) {
               {showButtons && (
                 <DeleteButton prefix={prefix} onDelete={this.onDelete} />
               )}
-              {showButtons && <AddButton prefix={prefix} onAdd={this.onAdd} />}
-              {showButtons && <AddMarker />}
+              {showButtons && (
+                <AddButton
+                  prefix={prefix}
+                  onAdd={this.onPrepend}
+                  className={`${prefix}-design-preview-controller__prepend`}
+                />
+              )}
+              {showButtons && (
+                <AddButton
+                  prefix={prefix}
+                  onAdd={this.onAppend}
+                  className={`${prefix}-design-preview-controller__append`}
+                />
+              )}
             </div>
           );
         }}
@@ -149,8 +161,20 @@ class DesignPreviewController extends (PureComponent || Component) {
         {configurable && (
           <DeleteButton prefix={prefix} onDelete={this.onDelete} />
         )}
-        {configurable && <AddButton prefix={prefix} onAdd={this.onAdd} />}
-        {configurable && <AddMarker />}
+        {configurable && (
+          <AddButton
+            prefix={prefix}
+            onAdd={this.onPrepend}
+            className={`${prefix}-design-preview-controller__prepend`}
+          />
+        )}
+        {configurable && (
+          <AddButton
+            prefix={prefix}
+            onAdd={this.onAppend}
+            className={`${prefix}-design-preview-controller__append`}
+          />
+        )}
       </div>
     );
 
@@ -164,25 +188,33 @@ class DesignPreviewController extends (PureComponent || Component) {
     }
 
     this.invokeCallback('onSelect', evt, false);
-    // this.invokeCallback('onEdit', evt, true);
   };
 
-  onAdd = evt => {
-    this.invokeCallback('onAdd', evt, true);
+  onPrepend = evt => {
+    this.invokeCallback('onAdd', evt, true, ADD_COMPONENT_OVERLAY_POSITION.TOP);
+  };
+
+  onAppend = evt => {
+    this.invokeCallback(
+      'onAdd',
+      evt,
+      true,
+      ADD_COMPONENT_OVERLAY_POSITION.BOTTOM
+    );
   };
 
   onDelete = () => {
     this.invokeCallback('onDelete', null, true);
   };
 
-  invokeCallback(action, evt, stopPropagation) {
+  invokeCallback(action, evt, stopPropagation, ...args) {
     if (stopPropagation && evt) {
       evt.stopPropagation();
     }
 
     const { value } = this.props;
     const cb = this.props[action];
-    cb && cb(value);
+    cb && cb(value, ...args);
   }
 }
 
@@ -196,66 +228,89 @@ function DeleteButton({ prefix, onDelete }) {
       onConfirm={onDelete}
       wrapperClassName={`${prefix}-design-preview-controller__action-btn-delete`}
     >
-      <Icon onClick={stopEventPropagation} type="close-circle" />
+      <IconDelete prefix={prefix} />
     </Pop>
   );
 }
 
-function AddButton({ prefix, onAdd }) {
+function AddButton({ prefix, onAdd, className }) {
   return (
-    <a
-      className={`${prefix}-design-preview-controller__action-btn-add`}
-      onClick={onAdd}
+    <div
+      className={cx(
+        `${prefix}-design-preview-controller__action-btn-add-container`,
+        className
+      )}
     >
-      <IconAdd prefix={prefix} />
-    </a>
+      <a
+        className={`${prefix}-design-preview-controller__action-btn-add`}
+        onClick={onAdd}
+      >
+        <IconAdd prefix={prefix} />
+      </a>
+      <AddMarker prefix={prefix} />
+    </div>
   );
 }
 
 function AddMarker({ prefix }) {
   return (
     <div className={`${prefix}-design-preview-controller__add-marker`}>
-      <i className={`${prefix}-design-preview-controller__add-marker-circle`} />
+      <i
+        className={cx(
+          `${prefix}-design-preview-controller__add-marker-circle`,
+          `${prefix}-design-preview-controller__add-marker-circle--left`
+        )}
+      />
       <div className={`${prefix}-design-preview-controller__add-marker-line`} />
+      <i
+        className={cx(
+          `${prefix}-design-preview-controller__add-marker-circle`,
+          `${prefix}-design-preview-controller__add-marker-circle--right`
+        )}
+      />
     </div>
   );
 }
 
-/* Exported from Sketch */
 function IconAdd({ prefix }) {
   return (
     <svg
-      width="24px"
-      height="19px"
-      viewBox="0 0 24 19"
-      version="1.1"
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
       xmlns="http://www.w3.org/2000/svg"
+      className={`${prefix}-design-preview-controller__icon-add`}
     >
-      <defs />
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <g transform="translate(-421.000000, -510.000000)">
-          <g transform="translate(0.000000, -1.000000)">
-            <g transform="translate(100.000000, 60.000000)">
-              <g transform="translate(320.000000, 451.000000)">
-                <path
-                  d="M9,16.4282444 C10.6993072,18.0231466 12.9855754,19 15.5,19 C20.7467051,19 25,14.7467051 25,9.5 C25,4.25329488 20.7467051,0 15.5,0 C12.9855754,0 10.6993072,0.976853423 9,2.57175559 L9,2.5 L0.997899669,9.5 L9,16.5 L9,16.4282444 Z"
-                  fill="#3388FF"
-                  className={`${prefix}-design-preview-controller__icon-add`}
-                />
-                <g transform="translate(12.000000, 6.000000)" fill="#FFFFFF">
-                  <path d="M3,3 L0,3 L0,4 L3,4 L3,7 L4,7 L4,4 L7,4 L7,3 L4,3 L4,0 L3,6.123234e-17 L3,3 Z" />
-                </g>
-              </g>
-            </g>
-          </g>
-        </g>
+      <g fill="none" fillRule="evenodd">
+        <circle fill="#38F" cx="8.5" cy="8.5" r="8.5" />
+        <path d="M8 8H5v1h3v3h1V9h3V8H9V5H8v3z" fill="#FFF" />
       </g>
     </svg>
   );
 }
 
-function stopEventPropagation(evt) {
-  evt && evt.stopPropagation();
+class IconDelete extends (PureComponent || Component) {
+  render() {
+    const { prefix, onClick } = this.props;
+    return (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        className={`${prefix}-design-preview-controller__icon-delete`}
+        onClick={onClick}
+      >
+        <g fill="none" fillRule="evenodd">
+          <circle fill="#000" cx="10" cy="10" r="10" />
+          <path
+            fill="#FFF"
+            d="M13.75 7.188l-.937-.938L10 9.063 7.188 6.25l-.938.937L9.062 10 6.25 12.812l.937.938L10 10.938l2.812 2.812.938-.937L10.938 10"
+          />
+        </g>
+      </svg>
+    );
+  }
 }
 
 export default DesignPreviewController;

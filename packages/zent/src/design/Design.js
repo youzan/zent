@@ -49,6 +49,7 @@ import {
   serializeDesignType
 } from './utils/design-type';
 import LazyMap from './utils/LazyMap';
+import { ADD_COMPONENT_OVERLAY_POSITION } from './constants';
 
 const UUID_KEY = '__zent-design-uuid__';
 const CACHE_KEY = '__zent-design-cache-storage__';
@@ -205,6 +206,9 @@ export default class Design extends (PureComponent || Component) {
       // 是否显示添加组件的浮层
       showAddComponentOverlay: false,
 
+      // 添加组件浮层的位置
+      addComponentOverlayPosition: ADD_COMPONENT_OVERLAY_POSITION.UNKNOWN,
+
       // 可添加的组件列表
       appendableComponents: [],
 
@@ -326,6 +330,7 @@ export default class Design extends (PureComponent || Component) {
       selectedUUID,
       appendableComponents,
       showAddComponentOverlay,
+      addComponentOverlayPosition,
       validations,
       showError,
       componentInstanceCount
@@ -344,6 +349,7 @@ export default class Design extends (PureComponent || Component) {
       selectedUUID,
       getUUIDFromValue: this.getUUIDFromValue,
       showAddComponentOverlay,
+      addComponentOverlayPosition,
       onAdd: this.onShowAddComponentOverlay,
       onEdit: this.onShowEditComponentOverlay,
       onSelect: this.onSelect,
@@ -388,8 +394,8 @@ export default class Design extends (PureComponent || Component) {
   };
 
   // 打开右侧添加新组件的弹层
-  onShowAddComponentOverlay = component => {
-    this.toggleEditOrAdd(component, true);
+  onShowAddComponentOverlay = (component, addPosition) => {
+    this.toggleEditOrAdd(component, true, addPosition);
 
     // 将当前组件滚动到顶部
     // const id = this.getUUIDFromValue(component);
@@ -408,8 +414,9 @@ export default class Design extends (PureComponent || Component) {
   // 选中一个组件
   onSelect = component => {
     const id = this.getUUIDFromValue(component);
+    const { showAddComponentOverlay } = this.state;
 
-    if (this.isSelected(component)) {
+    if (this.isSelected(component) && !showAddComponentOverlay) {
       return;
     }
 
@@ -437,9 +444,16 @@ export default class Design extends (PureComponent || Component) {
     let newValue;
     if (fromSelected) {
       newValue = value.slice();
+      const { addComponentOverlayPosition } = this.state;
       const { selectedUUID } = this.state;
       const selectedIndex = findIndex(value, { [UUID_KEY]: selectedUUID });
-      newValue.splice(selectedIndex + 1, 0, instance);
+
+      // 两种位置，插入到当前选中的前面或者后面
+      const delta =
+        addComponentOverlayPosition === ADD_COMPONENT_OVERLAY_POSITION.TOP
+          ? 0
+          : 1;
+      newValue.splice(selectedIndex + delta, 0, instance);
     } else {
       newValue = value.concat(instance);
     }
@@ -648,17 +662,26 @@ export default class Design extends (PureComponent || Component) {
     this.removeCache();
   };
 
-  toggleEditOrAdd(component, showAdd) {
-    const { showAddComponentOverlay } = this.state;
+  toggleEditOrAdd(
+    component,
+    showAdd,
+    addPosition = ADD_COMPONENT_OVERLAY_POSITION.UNKNOWN
+  ) {
+    const { showAddComponentOverlay, addComponentOverlayPosition } = this.state;
     const id = this.getUUIDFromValue(component);
 
-    if (this.isSelected(component) && showAddComponentOverlay === showAdd) {
+    if (
+      this.isSelected(component) &&
+      showAddComponentOverlay === showAdd &&
+      addPosition === addComponentOverlayPosition
+    ) {
       return;
     }
 
     this.setState({
       selectedUUID: id,
-      showAddComponentOverlay: showAdd
+      showAddComponentOverlay: showAdd,
+      addComponentOverlayPosition: addPosition
     });
     this.adjustHeight();
   }

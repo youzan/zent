@@ -13,6 +13,7 @@ import DesignEditorAddComponent from '../editor/DesignEditorAddComponent';
 import { isExpectedDesginType } from '../utils/design-type';
 import { isGrouped } from '../utils/component-group';
 import { DND_PREVIEW_CONTROLLER } from './constants';
+import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
 
 /**
  * DesignPreview 和 config 组件是相互关联的
@@ -35,6 +36,8 @@ class DesignPreview extends (PureComponent || Component) {
     appendableComponents: PropTypes.array,
 
     showAddComponentOverlay: PropTypes.bool.isRequired,
+
+    addComponentOverlayPosition: PropTypes.number.isRequired,
 
     selectedUUID: PropTypes.string,
 
@@ -81,12 +84,13 @@ class DesignPreview extends (PureComponent || Component) {
       showError,
       onComponentValueChange,
       componentInstanceCount,
-      onAddComponent,
       design,
       appendableComponents,
       showAddComponentOverlay,
+      addComponentOverlayPosition,
       selectedUUID,
       getUUIDFromValue,
+      onAddComponent,
       onSelect,
       onDelete,
       onEdit,
@@ -190,6 +194,12 @@ class DesignPreview extends (PureComponent || Component) {
                             className={cx(
                               `${prefix}-design-add-component-overlay`,
                               {
+                                [`${prefix}-design-add-component-overlay--top`]:
+                                  addComponentOverlayPosition ===
+                                  ADD_COMPONENT_OVERLAY_POSITION.TOP,
+                                [`${prefix}-design-add-component-overlay--bottom`]:
+                                  addComponentOverlayPosition ===
+                                  ADD_COMPONENT_OVERLAY_POSITION.BOTTOM,
                                 [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
                                 [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped
                               }
