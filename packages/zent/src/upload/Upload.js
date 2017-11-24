@@ -107,7 +107,12 @@ class Upload extends Component {
    * 显示上传图片弹框
    */
   renderUploadPopup(options) {
-    const { prefix, accept, className } = this.props;
+    let { prefix, accept, className } = this.props;
+
+    if (options.type === 'voice') {
+      accept = 'audio/mpeg, audio/amr';
+    }
+
     return (
       <UploadPopup
         prefix={`${prefix}-upload`}
