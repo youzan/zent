@@ -2,6 +2,37 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.9.8 (2017-11-21)
+
+- 🦀️ Update add/remove component UI in `Design`
+
+### 3.9.7 (2017-11-20)
+
+- 🦀️ Fix grouped style in `Design`
+
+### 3.9.6 (2017-11-20)
+
+- `Design`
+  - ✨ Supports tooltip if component count reaches limit
+  - ✨ Style updates
+- `Input`
+  - ✨ Add `select` method to support text selection; and a corresponding `autoSelect` prop
+  - 🦀️ Fix styles in `disabled` state
+- 🦀️ Fix cannot upload the same image twice in `Upload`
+- 🦀️ Fix exceptions when `data` in `undefined` or `null` in `Select`
+- 🦀️ Fix disable logic in  `MonthPicker`
+- 🦀️ Fix `emptyLabel` type in `Table`
+- 🦀️ Fix TypeScript definition for `Button`
+
+### 3.9.5 (2017-11-13)
+
+- ✨ You can search components in doc site now.
+- 🦀️ Fix disable logic in  `DatePicker`
+
+### 3.9.4 (2017-11-09)
+
+- 🦀️ Update English documentation
+
 ### 3.9.3 (2017-11-09)
 
 - 🎉 New documentation site with English support

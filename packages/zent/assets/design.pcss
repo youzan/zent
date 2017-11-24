@@ -36,7 +36,6 @@
 
     /*
       三角形边框的原理：生成两个边长相差 1px 的三角形，大的颜色用边框颜色，小的颜色用背景色，小的盖在大的里面即可。
-    */
     &:after,
     &:before {
       left: 50%;
@@ -61,6 +60,7 @@
       margin-left: -9px;
       top: -18px;
     }
+    */
 
     &--mixed {
       background: $theme-stroke-9;
@@ -82,7 +82,7 @@
   &__disabled-mask {
     position: absolute;
     z-index: 10;
-    background-color: $theme-mask-2;
+    background-color: $theme-mask-black-2;
     height: 100%;
     width: 100%;
     cursor: not-allowed;
