@@ -12,6 +12,8 @@ Image uploader.
 
 | Property | Description | Type | Default | Required |
 |------|------|------|--------|--------|
+| type | Upload type, the default value is 'image', the audio is uploaded as 'voice' | string | `'image'` | No |
+| className | Extension class name | string | `''` | 否 |
 | localOnly | Allow local images only | boolean | `false` | No |
 | tips | Hint text | string | `''` | No |
 | maxSize | Image size limit in bytes | number | `1024 * 1024` | No |

@@ -152,8 +152,6 @@ Upload.defaultProps = {
   localOnly: false,
   auto: false,
   type: 'image',
-  fetchUrl: '',
-  tokenUrl: '',
   filterFiles: identity,
   onFetch: promiseNoop,
   onUpload: promiseNoop,

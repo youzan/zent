@@ -13,6 +13,8 @@ group: 数据
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 |------|------|------|--------|--------|
+| type | 上传类型，默认为image，音频上传为voice | string | `'image'` | 否 |
+| className | 扩展类名 | string | `''` | 否 |
 | localOnly | 是否只支持本地图片 | boolean | `false` | 否 |
 | tips | 提示文案 | string | `''` | 否 |
 | maxSize | 图片大小限制，单位为 byte | number | `1024 * 1024` | 否 |
