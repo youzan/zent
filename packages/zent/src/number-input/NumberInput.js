@@ -13,6 +13,7 @@ export default class NumberInput extends (PureComponent || Component) {
     className: PropTypes.string,
     prefix: PropTypes.string,
     showStepper: PropTypes.bool,
+    showCounter: PropTypes.bool,
     decimal: PropTypes.number,
     disabled: PropTypes.bool,
     value: PropTypes.any,
@@ -25,6 +26,7 @@ export default class NumberInput extends (PureComponent || Component) {
   static defaultProps = {
     prefix: 'zent',
     showStepper: false,
+    showCounter: false,
     value: '',
     decimal: 0,
     disabled: false,
@@ -34,6 +36,7 @@ export default class NumberInput extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     const { value, min, max, decimal } = props;
+    this.validateStatus(props);
     let { num, upArrow, downArrow } = this.adjustFixed(
       value,
       min,
@@ -49,6 +52,7 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.validateStatus(nextProps);
     let props = this.props;
     if (
       nextProps.decimal !== props.decimal ||
@@ -71,6 +75,15 @@ export default class NumberInput extends (PureComponent || Component) {
         downArrow
       });
       this.onPropChange(num);
+    }
+  }
+
+  validateStatus(props) {
+    const { showStepper, showCounter } = props;
+    if (showStepper && showCounter) {
+      throw new Error(
+        'NumberInput: showStepper、 showCounter cannot exist at the same time'
+      );
     }
   }
 
@@ -193,6 +206,7 @@ export default class NumberInput extends (PureComponent || Component) {
       prefix,
       className,
       showStepper,
+      showCounter,
       disabled,
       readOnly,
       width
@@ -201,14 +215,15 @@ export default class NumberInput extends (PureComponent || Component) {
     const { value, upArrow, downArrow } = this.state;
 
     // 箭头状态
-    let upArrowState = disabled || readOnly || upArrow;
-    let downArrowState = disabled || readOnly || downArrow;
+    let addState = disabled || readOnly || upArrow;
+    let reduceState = disabled || readOnly || downArrow;
 
     // 最外层样式
     const wrapClass = classNames(
       {
         [`${prefix}-number-input-wrapper`]: true,
-        [`${prefix}-number-input-count-wrapper`]: showStepper
+        [`${prefix}-number-input-count-wrapper`]: showStepper,
+        [`${prefix}-number-input-counter-wrapper`]: showCounter
       },
       className
     );
@@ -217,14 +232,28 @@ export default class NumberInput extends (PureComponent || Component) {
     const upArrowClass = classNames({
       [`${prefix}-number-input-arrow`]: true,
       [`${prefix}-number-input-arrowup`]: true,
-      [`${prefix}-number-input-arrow-disable`]: upArrowState
+      [`${prefix}-number-input-arrow-disable`]: addState
     });
 
     // 下arrow样式
     const downArrowClass = classNames({
       [`${prefix}-number-input-arrow`]: true,
       [`${prefix}-number-input-arrowdown`]: true,
-      [`${prefix}-number-input-arrow-disable`]: downArrowState
+      [`${prefix}-number-input-arrow-disable`]: reduceState
+    });
+
+    // 减号样式
+    const reduceCountClass = classNames({
+      [`${prefix}-number-input-count`]: true,
+      [`${prefix}-number-input-countreduce`]: true,
+      [`${prefix}-number-input-count-disable`]: reduceState
+    });
+
+    // 加号样式
+    const addCountClass = classNames({
+      [`${prefix}-number-input-count`]: true,
+      [`${prefix}-number-input-countadd`]: true,
+      [`${prefix}-number-input-count-disable`]: addState
     });
 
     // 不可传入Input组件的属性
@@ -238,6 +267,7 @@ export default class NumberInput extends (PureComponent || Component) {
 
       // 这些是 NumberInput 特有的 props
       'showStepper',
+      'showCounter',
       'min',
       'max',
       'decimal'
@@ -249,12 +279,22 @@ export default class NumberInput extends (PureComponent || Component) {
             <Icon type="right" />
           </span>
         )}
+        {showCounter && (
+          <span className={reduceCountClass} onClick={this.dec}>
+            –
+          </span>
+        )}
         <Input
           {...inputProps}
           value={value}
           onChange={this.onChange}
           onBlur={this.onBlur}
         />
+        {showCounter && (
+          <span className={addCountClass} onClick={this.inc}>
+            +
+          </span>
+        )}
         {showStepper && (
           <span className={downArrowClass} onClick={this.dec}>
             <Icon type="right" />
