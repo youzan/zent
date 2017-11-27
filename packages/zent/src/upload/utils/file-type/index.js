@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+/* See README.md for why this exists. */
+
 'use strict';
 const toBytes = s => Array.from(s).map(c => c.charCodeAt(0));
 const xpiZipFilename = toBytes('META-INF/mozilla.rsa');
