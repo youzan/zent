@@ -66,6 +66,8 @@ class Upload extends Component {
       className = '';
     }
 
+    const typeName = this.props.type === 'voice' ? '语音' : '图片';
+
     let dialogClassName = classnames([`${prefix}-upload`, className]);
 
     className = classnames([
@@ -92,7 +94,7 @@ class Upload extends Component {
         </div>
         <p className={`${prefix}-upload-tips`}>{tips}</p>
         <Dialog
-          title="图片选择"
+          title={`${typeName}选择`}
           visible={visible}
           className={dialogClassName}
           onClose={this.closePopup}
@@ -107,7 +109,12 @@ class Upload extends Component {
    * 显示上传图片弹框
    */
   renderUploadPopup(options) {
-    const { prefix, accept, className } = this.props;
+    let { prefix, accept, className } = this.props;
+
+    if (options.type === 'voice') {
+      accept = 'audio/mpeg, audio/amr';
+    }
+
     return (
       <UploadPopup
         prefix={`${prefix}-upload`}
@@ -126,7 +133,7 @@ class Upload extends Component {
   showUpload = (visible = true) => {
     let { localOnly, maxAmount } = this.props;
 
-    if (!localOnly || maxAmount !== 1) {
+    if (!this.isUnmount && (!localOnly || maxAmount !== 1)) {
       // 直接打开本地文件
       this.setState({
         visible
@@ -145,9 +152,7 @@ Upload.defaultProps = {
   tips: '',
   localOnly: false,
   auto: false,
-  fetchUrl: '',
-  tokenUrl: '',
-  uploadUrl: '//upload.qbox.me',
+  type: 'image',
   filterFiles: identity,
   onFetch: promiseNoop,
   onUpload: promiseNoop,
