@@ -1,5 +1,80 @@
 ## Github Change Log
 
+## [zent@3.10.0](https://github.com/youzan/zent/tree/zent@3.10.0) (2017-11-24)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.9...zent@3.10.0)
+
+**Fixed bugs:**
+
+- \[bug fix\] Cascader: options 为空的时候如何处理 [\#546](https://github.com/youzan/zent/issues/546)
+- \[bug fix\] Design: Prevent component select when click on delete button [\#566](https://github.com/youzan/zent/pull/566) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: new dnd [\#565](https://github.com/youzan/zent/pull/565) ([cpylua](https://github.com/cpylua))
+
+**Merged pull requests:**
+
+- \[new feature\] datetimepicker：添加年份选择 [\#564](https://github.com/youzan/zent/pull/564) ([xuhong](https://github.com/xuhong))
+- \[bug fix\] Cascader: 参数 `value`、`options`、`title`不为数组时的兼容处理 [\#562](https://github.com/youzan/zent/pull/562) ([liaoyu](https://github.com/liaoyu))
+
+## [zent@3.9.9](https://github.com/youzan/zent/tree/zent@3.9.9) (2017-11-22)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.8...zent@3.9.9)
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: bug fixes [\#563](https://github.com/youzan/zent/pull/563) ([cpylua](https://github.com/cpylua))
+
+**Closed issues:**
+
+- \[bug fix\]  fix when unmount FieldArray undefined bug  [\#553](https://github.com/youzan/zent/issues/553)
+
+**Merged pull requests:**
+
+- \[bug fix\] Form: 修复嵌套fieldArray嵌套在增删时错误，修复fieldArray删减时表单校验报错 [\#557](https://github.com/youzan/zent/pull/557) ([fairyaierl](https://github.com/fairyaierl))
+
+## [zent@3.9.8](https://github.com/youzan/zent/tree/zent@3.9.8) (2017-11-21)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.7...zent@3.9.8)
+
+**Implemented enhancements:**
+
+- \[new feature\] Design: 更新组件交互 [\#559](https://github.com/youzan/zent/pull/559) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: Fix style [\#561](https://github.com/youzan/zent/pull/561) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: Update style [\#560](https://github.com/youzan/zent/pull/560) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: Replace button with a in Design, workaround for React mouseleave event bug [\#558](https://github.com/youzan/zent/pull/558) ([cpylua](https://github.com/cpylua))
+
+## [zent@3.9.7](https://github.com/youzan/zent/tree/zent@3.9.7) (2017-11-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.6...zent@3.9.7)
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: Update styles [\#556](https://github.com/youzan/zent/pull/556) ([cpylua](https://github.com/cpylua))
+
+## [zent@3.9.6](https://github.com/youzan/zent/tree/zent@3.9.6) (2017-11-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.5...zent@3.9.6)
+
+**Implemented enhancements:**
+
+- English documentation [\#206](https://github.com/youzan/zent/issues/206)
+- \[new feature\] Design: Add tooltip support in components. [\#555](https://github.com/youzan/zent/pull/555) ([cpylua](https://github.com/cpylua))
+- \[new feature\] Input: 新增select方法 [\#536](https://github.com/youzan/zent/pull/536) ([radicalviva](https://github.com/radicalviva))
+
+**Fixed bugs:**
+
+- \[bug fix\] Upload: 选中同一张图片无效 [\#543](https://github.com/youzan/zent/issues/543)
+- \[bug fix\]: Fix bugs [\#548](https://github.com/youzan/zent/pull/548) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Button: 修正类型定义，onClick不再必需 [\#547](https://github.com/youzan/zent/pull/547) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] Datepicker: 修复月份选择器禁用bug [\#541](https://github.com/youzan/zent/pull/541) ([xuhong](https://github.com/xuhong))
+- \[doc\] Input: Update Input doc [\#539](https://github.com/youzan/zent/pull/539) ([cpylua](https://github.com/cpylua))
+
+**Closed issues:**
+
+- \[new feature\] upload 组件暴露一个回调使上传和抓取可以由业务处理后端返回的数据 [\#534](https://github.com/youzan/zent/issues/534)
+- \[feature\] Doc: 文档支持组件搜索 [\#520](https://github.com/youzan/zent/issues/520)
+
+**Merged pull requests:**
+
+- \[doc\] Table: 修改Table组件emptyLabel类型 [\#545](https://github.com/youzan/zent/pull/545) ([linrz](https://github.com/linrz))
+
 ## [zent@3.9.5](https://github.com/youzan/zent/tree/zent@3.9.5) (2017-11-13)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.4...zent@3.9.5)
 

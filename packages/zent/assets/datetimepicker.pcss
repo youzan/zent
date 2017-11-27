@@ -106,12 +106,13 @@ $input_width: 183px;
     .month-picker,
     .time-picker,
     .range-picker,
-    .week-picker {
+    .week-picker,
+    .year-picker {
       background: $theme-stroke-10;
       width: $default_width;
       font-size: 12px;
       border-radius: 2px;
-      box-shadow: 0 1px 4px $theme-mask-2;
+      box-shadow: 0 1px 4px $theme-mask-black-2;
       z-index: 10;
     }
 
@@ -217,6 +218,17 @@ $input_width: 183px;
             height: 47.5px;
             padding: 0;
           }
+        }
+      }
+    }
+
+    .year-picker {
+      .year-panel {
+        position: relative;
+
+        .grid-cell {
+          height: 41.5px;
+          padding: 0;
         }
       }
     }

@@ -10,7 +10,7 @@
   border-radius: 5px;
   border: 1px solid $theme-stroke-7;
   width: 420px;
-  margin-left: 15px;
+  margin-left: 20px;
   font-size: 12px;
   box-sizing: border-box;
   z-index: 5;
@@ -45,5 +45,20 @@
     border-right-color: $theme-stroke-7;
     border-width: 7px;
     margin-top: -7px;
+  }
+
+  &.zent-design-add-component-overlay {
+    width: 320px;
+    box-sizing: content-box;
+    padding: 0;
+    margin-top: -20px;
+
+    &.zent-design-add-component-overlay--bottom {
+      top: 100%;
+    }
+
+    &.zent-design-add-component-overlay--top {
+      top: 0;
+    }
   }
 }

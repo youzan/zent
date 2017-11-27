@@ -2,6 +2,74 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.10.0 (2017-11-24)
+
+- 🎉 New `YearPicker` component
+- `Design`
+  - ✨ New add component UI
+  - ✨ Remove dependency on `react-dnd`
+- 🦀️ Allow empty data in `Cascader`
+
+If your `Desgin` componets rely on `react-dnd`, you may have to inject `react-dnd`'s context into your app.
+
+```jsx
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContextProvider } from 'react-dnd';
+
+export default class YourApp {
+  render() {
+    return (
+      <DragDropContextProvider backend={HTML5Backend}>
+      /* ... */
+      </DragDropContextProvider>
+    );
+  };
+}
+```
+
+### 3.9.9 (2017-11-22)
+
+- `Design`
+  - 🦀️ Fix font color in add component popup
+  - 🦀️ Temporarily removed the scroll into screen behavior when selecting a component
+- `Form`
+  - 🦀️ Fix `FieldArray` validation error after removing element
+  - 🦀️ Fix corrupted data in nested `FieldArray`
+  - 🦀️ Fix typo in documentation
+  - 🦀️ Fix `setFieldsValue` and `initialize` cannot set value to `0`
+  - 🦀️ Fix non-submit validation still reports error when `validateOnChange` and `validateOnBlur` both are `false`
+
+### 3.9.8 (2017-11-21)
+
+- 🦀️ Update add/remove component UI in `Design`
+
+### 3.9.7 (2017-11-20)
+
+- 🦀️ Fix grouped style in `Design`
+
+### 3.9.6 (2017-11-20)
+
+- `Design`
+  - ✨ Supports tooltip if component count reaches limit
+  - ✨ Style updates
+- `Input`
+  - ✨ Add `select` method to support text selection; and a corresponding `autoSelect` prop
+  - 🦀️ Fix styles in `disabled` state
+- 🦀️ Fix cannot upload the same image twice in `Upload`
+- 🦀️ Fix exceptions when `data` in `undefined` or `null` in `Select`
+- 🦀️ Fix disable logic in  `MonthPicker`
+- 🦀️ Fix `emptyLabel` type in `Table`
+- 🦀️ Fix TypeScript definition for `Button`
+
+### 3.9.5 (2017-11-13)
+
+- ✨ You can search components in doc site now.
+- 🦀️ Fix disable logic in  `DatePicker`
+
+### 3.9.4 (2017-11-09)
+
+- 🦀️ Update English documentation
+
 ### 3.9.3 (2017-11-09)
 
 - 🎉 New documentation site with English support

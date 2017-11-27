@@ -9,8 +9,6 @@ group: 业务组件
 
 微页面编辑组件，用所见即所得(WYSIWG)的方式创建内容丰富的富文本页面。
 
-⚠️ 注意：Zent 里面导出的 `Design` 组件使用了 `react-dnd-html5-backend` 这个包的 `HTML5Backend`，由于 `react-dnd` 的限制，`HTML5Backend` 在一个 React 组件树里只能出现一次。如果你在外层已经有地方使用了这个 `HTML5Backend`，请使用 `zent/lib/design/Design` 这个组件。这个组件功能完全一样，区别是不依赖 `HTML5Backend`。
-
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必须 |
@@ -66,9 +64,14 @@ type Component = {
   appendable?: boolean,
 
   // 是否显示右下角的编辑区域(编辑/加内容/删除)
-  // 不支持在这里配置编辑区域的按钮，参数太多。
   // 如果要自定义编辑区域，可以通过重写 previewController 的方式来做。
   configurable?: boolean,
+  
+  // 是否显示删除按钮
+  canDelete?: boolean,
+
+  // 是否显示添加组件按钮
+  canInsert?: boolean,
 
   // 组件是否可以编辑
   // 可以选中的组件一定是可以编辑的
@@ -83,6 +86,12 @@ type Component = {
   // 不传或者传 0 表示没有限制
   // 如果是函数，返回 false 表示不可再添加
   limit?: number | (count: number) => boolean,
+  
+  // 组件不可再添加后，鼠标移上去的提示
+  // 如果是个函数，需要返回一个错误信息
+  // 如果 limit 是个正整数，limitMessage 会有一个默认的值：该组件最多添加 xx 个
+  // 如果 limit 是个负数，limitMessage 默认为：该组件暂不可用
+  limitMessage?: node | (count: number) => node,
   
   // 是否可以添加组件的回调函数，返回一个 Promise，resolve 的话可以创建
   // 添加组件的实例时会调用

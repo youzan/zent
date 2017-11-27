@@ -5,39 +5,101 @@
   box-sizing: border-box;
   border: 0;
 
-  &__actions {
-    display: none;
-    cursor: pointer;
-    background-color: $theme-mask-2;
-    z-index: 10;
-    font-size: 12px;
+  &__action-btn-delete {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 15;
+    cursor: default;
+    font-size: 0;
+    line-height: 0;
   }
 
-  &__action-btn {
-    padding: 2px 6px;
-    outline: none;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    color: $theme-stroke-10;
-    border-left: 1px solid $theme-stroke-10;
-    border-radius: 0;
+  &__icon-delete {
+    display: none;
 
-    &:first-child {
-      border-left: 0;
+    circle {
+      fill: $theme-stroke-5;
     }
 
     &:hover {
-      color: $theme-stroke-8;
+      circle {
+        fill: $theme-stroke-4;
+      }
     }
   }
 
-  &:hover &__actions,
-  &--selected &__actions {
-    display: block;
+  &__action-btn-add-container {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    display: none;
+
+    &.zent-design-preview-controller__prepend {
+      top: 1px;
+    }
+
+    &.zent-design-preview-controller__append {
+      bottom: 0;
+    }
+  }
+
+  &__action-btn-add {
+    position: absolute;
+    right: 50%;
+    margin-right: -8px;
+    top: -9px;
+    z-index: 5;
+
+    /* ignore whitespace in html */
+    font-size: 0;
+    line-height: 0;
+    cursor: default;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    border-radius: 50%;
+    background: $theme-primary-2;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+
+      + .zent-design-preview-controller__add-marker {
+        display: flex;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__add-marker {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    opacity: 0.8;
+    z-index: 4;
+    display: flex;
+
+    &-circle {
+      border: 1px solid $theme-primary-2;
+      border-radius: 50%;
+      width: 3px;
+      height: 3px;
+      display: inline-block;
+      z-index: 1;
+      flex: 0 0 3px;
+      background: $theme-stroke-10;
+    }
+
+    &-line {
+      background: $theme-primary-2;
+      height: 1px;
+      width: 100%;
+    }
   }
 
   &--dragable {
@@ -45,7 +107,12 @@
   }
 
   .zent-pop-wrapper {
-    border-left: 1px solid $theme-stroke-10;
+    margin-left: 1px;
+  }
+
+  &:hover &__icon-delete,
+  &:hover &__action-btn-add-container {
+    display: block;
   }
 }
 
@@ -67,7 +134,15 @@
     &:before {
       z-index: 2;
       display: block;
-      border: 2px dashed $theme-error-2;
+      border: 1px dashed $theme-primary-2;
     }
+  }
+
+  &:hover:before {
+    opacity: 0.5;
+  }
+
+  &--selected:before {
+    opacity: 1;
   }
 }

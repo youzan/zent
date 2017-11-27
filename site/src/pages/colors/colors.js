@@ -86,11 +86,67 @@ export default function Colors(props) {
         <H4>{palettes.auxiliary.others.title}</H4>
         {palettes.auxiliary.others.desc}
         <div className="zandoc-react-color-row">
-          <ColorCell name="theme-mask-1" color="rgba(0, 0, 0, 0.6)" light />
-          <ColorCell name="theme-mask-2" color="rgba(0, 0, 0, 0.2)" light />
+          <ColorCell name="theme-mask-black-1" color="rgba(0, 0, 0, 0.1)" />
+          <ColorCell name="theme-mask-black-2" color="rgba(0, 0, 0, 0.2)" />
+          <ColorCell
+            name="theme-mask-black-3"
+            color="rgba(0, 0, 0, 0.3)"
+            light
+          />
+        </div>
+        <div className="zandoc-react-color-row">
+          <ColorCell
+            name="theme-mask-black-4"
+            color="rgba(0, 0, 0, 0.4)"
+            light
+          />
+          <ColorCell
+            name="theme-mask-black-5"
+            color="rgba(0, 0, 0, 0.5)"
+            light
+          />
+          <ColorCell
+            name="theme-mask-black-6"
+            color="rgba(0, 0, 0, 0.6)"
+            light
+          />
+        </div>
+        <div className="zandoc-react-color-row">
           <ColorCell
             className="zandoc-react-color-cell__mask-white"
-            name="theme-mask-3"
+            name="theme-mask-white-1"
+            color="rgba(255, 255, 255, 0.1)"
+            light={false}
+          />
+          <ColorCell
+            className="zandoc-react-color-cell__mask-white"
+            name="theme-mask-white-2"
+            color="rgba(255, 255, 255, 0.2)"
+            light={false}
+          />
+          <ColorCell
+            className="zandoc-react-color-cell__mask-white"
+            name="theme-mask-white-3"
+            color="rgba(255, 255, 255, 0.3)"
+            light={false}
+          />
+        </div>
+        <div className="zandoc-react-color-row">
+          <ColorCell
+            className="zandoc-react-color-cell__mask-white"
+            name="theme-mask-white-4"
+            color="rgba(255, 255, 255, 0.4)"
+            light={false}
+          />
+          <ColorCell
+            className="zandoc-react-color-cell__mask-white"
+            name="theme-mask-white-5"
+            color="rgba(255, 255, 255, 0.5)"
+            light={false}
+          />
+          <ColorCell
+            className="zandoc-react-color-cell__mask-white"
+            name="theme-mask-white-6"
             color="rgba(255, 255, 255, 0.6)"
             light={false}
           />

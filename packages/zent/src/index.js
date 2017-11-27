@@ -46,6 +46,7 @@ import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
+import YearPicker from 'datetimepicker/YearPicker';
 
 export {
   Affix,
@@ -95,5 +96,6 @@ export {
   Tag,
   Tree,
   Upload,
-  WeekPicker
+  WeekPicker,
+  YearPicker
 };

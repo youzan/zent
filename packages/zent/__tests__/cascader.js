@@ -74,8 +74,11 @@ describe('Cascader', () => {
         ]
       }
     ];
+    const title = ['省份', '城市', '县区'];
 
-    const wrapper = mount(<Cascader value={value} options={options} />);
+    const wrapper = mount(
+      <Cascader value={value} options={options} title={title} />
+    );
     expect(
       wrapper
         .find('.zent-cascader__select-text')

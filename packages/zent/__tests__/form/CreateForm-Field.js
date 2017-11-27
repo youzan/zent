@@ -44,14 +44,35 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().getWrappedForm() instanceof Form).toBe(true);
   });
 
-  // HACK: console.error
-  // it('Field must in a created zent-form. Must have name and component props', () => {
-  // expect(() => { shallow(<Field />) }).toThrow();
-  // expect(() => { mount(<Field />) }).toThrow();
-  // expect(() => { mount(<FormCreated><Field component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).toThrow();
-  // expect(() => { mount(<FormCreated><Field name="foo" /></FormCreated>) }).toThrow();
-  // expect(() => { mount(<FormCreated><Field name="foo" component={props => (<div {...props} className="bar" />)} /></FormCreated>) }).not.toThrow();
-  // });
+  it('Field must in a created zent-form. Must have name and component props', () => {
+    expect(() => {
+      mount(<Field />);
+    }).toThrow();
+    expect(() => {
+      mount(
+        <FormCreated>
+          <Field component={props => <div {...props} className="bar" />} />
+        </FormCreated>
+      );
+    }).toThrow();
+    expect(() => {
+      mount(
+        <FormCreated>
+          <Field name="foo" />
+        </FormCreated>
+      );
+    }).toThrow();
+    expect(() => {
+      mount(
+        <FormCreated>
+          <Field
+            name="foo"
+            component={props => <div {...props} className="bar" />}
+          />
+        </FormCreated>
+      );
+    }).not.toThrow();
+  });
 
   it('While render, Field will load default state and contextObj from created zent-form', () => {
     const nestedWrapper = mount(

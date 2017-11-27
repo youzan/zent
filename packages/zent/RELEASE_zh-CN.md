@@ -2,6 +2,74 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 3.10.0 (2017-11-24)
+
+- 🎉 新增年份选择组件 `YearPicker`
+- `Design`
+  - ✨ 新的添加组件交互
+  - ✨ 不再依赖 `react-dnd`
+- 🦀️ 修复 `Cascader` 数据不能为空的问题
+
+如果你的 `Design` 组件依赖 `react-dnd` 你可能需要在 App 的顶层自己注入 `react-dnd` 的 context.
+
+```jsx
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContextProvider } from 'react-dnd';
+
+export default class YourApp {
+  render() {
+    return (
+      <DragDropContextProvider backend={HTML5Backend}>
+      /* ... */
+      </DragDropContextProvider>
+    );
+  };
+}
+```
+
+### 3.9.9 (2017-11-22)
+
+- `Design`
+  - 🦀️ 修复添加组件浮层字体颜色不对的问题
+  - 🦀️ 暂时去掉了选中组件时滚动到屏幕内的行为
+- `Form`
+  - 🦀️ 修复 `FieldArray` 因删减导致的表单校验报错的问题
+  - 🦀️ 修复 `FieldArray` 在嵌套使用时，部分域增删时数据不对问题
+  - 🦀️ 修复文档中错误文字
+  - 🦀️ 修复 `setFieldsValue` 和 `initialize` 方法无法设定表单域为 `0` 的问题
+  - 🦀️ 修复 `validateOnChange` 和 `validateOnBlur` 同为 `false` 时，部分情况下仍然在非提交时报错
+
+### 3.9.8 (2017-11-21)
+
+- 🦀️ 更新 `Design` 删除/添加组件的交互
+
+### 3.9.7 (2017-11-20)
+
+- 🦀️ 修复 `Design` 分组样式问题
+
+### 3.9.6 (2017-11-20)
+
+- `Design`
+  - ✨ 当组件达到最大可添加数量时，支持展示一个提示给用户
+  - ✨ 样式更新，最主要的是去掉了添加组件区域上面的箭头
+- `Input`
+  - ✨ 增加了一个 `select` 方法用于选中输入框的文字，同时也支持 `autoSelect` 来默认选中部分文字
+  - 🦀️ 修复了 `diabled` 状态的样式问题
+- 🦀️ 修复了 `Upload` 组件无法重复上传同一个组件的问题
+- 🦀️ 修复了 `Select` 中 `data` 参数为 `undefined` 或者 `null` 时报错的问题
+- 🦀️ 修复了 `MonthPicker` 的禁用逻辑
+- 🦀️ 修复了 `Table` 组件的 `emptyLabel` 类型
+- 🦀️ 修复了 `Button` 组件的 TypeScript 定义
+
+### 3.9.5 (2017-11-13)
+
+- ✨ 文档网站增加组件搜索功能
+- 🦀️ 修复了 `DatePicker` 时间联动禁用逻辑
+
+### 3.9.4 (2017-11-09)
+
+- 🦀️ 更新英文文档
+
 ### 3.9.3 (2017-11-09)
 
 - 🎉 新版文档网站，加入了英文文档支持

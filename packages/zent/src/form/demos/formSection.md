@@ -2,17 +2,17 @@
 order: 13
 zh-CN:
 	title: FormSection
-	street: 街道：
+	street: 街道
 	streetValidationError1: 街道必填
 	streetValidationError2: 超过最大长度
-	number: 门牌号：
+	number: 门牌号
 	numberValidationError1: 门牌号必填
 	numberValidationError2: 不足最小长度
-	zipCode: 邮政编码：
-	name: 用户名：
-	age: 年龄：
-	address: 地址：
-	totalNumber: 总人数：
+	zipCode: 邮政编码
+	name: 用户名
+	age: 年龄
+	address: 地址
+	totalNumber: 总人数
 	totalNumberError: 总人数有错
 	ageError: 年龄错误
 	zipCodeError: 格式不对
@@ -24,17 +24,17 @@ zh-CN:
 	reset: 重置
 en-US:
 	title: FormSection
-	street: Street：
+	street: Street
 	streetValidationError1: The street should be non-empty.
 	streetValidationError2: The length of value exceeds the maximum length.
-	number: House number：
+	number: House number
 	numberValidationError1: The house number should be non-empty.
 	numberValidationError2: The length of value is less than minimum length.
-	zipCode: Zip code：
-	name: Name：
-	age: Age：
-	address: Address：
-	totalNumber: Total number：
+	zipCode: Zip code
+	name: Name
+	age: Age
+	address: Address
+	totalNumber: Total number
 	totalNumberError: The total number is wrong.
 	ageError: The age is wrong.
 	zipCodeError: The format of the zip code is incorrect.
@@ -55,7 +55,7 @@ class Address extends React.Component {
 		return <div>
 			<FormInputField
 				name="streetName"
-				label="{i18n.street}"
+				label="{i18n.street}:"
 				type="text"
 				validations={{
 					required: true,
@@ -68,7 +68,7 @@ class Address extends React.Component {
 			/>
 			<FormInputField
 				name="number"
-				label="{i18n.number}"
+				label="{i18n.number}:"
 				type="text"
 				validations={{
 					required: true,
@@ -81,7 +81,7 @@ class Address extends React.Component {
 			/>
 			<FormInputField
 				name="zipCode"
-				label="{i18n.zipCode}"
+				label="{i18n.zipCode}:"
 				type="text"
 			/>
 		</div>
@@ -93,17 +93,17 @@ class Party extends React.Component {
 		return <div>
 			<FormInputField
 				name="name"
-				label="{i18n.name}"
+				label="{i18n.name}:"
 				type="text"
 			/>
 			<FormInputField
 				name="age"
-				label="{i18n.age}"
+				label="{i18n.age}:"
 				type="text"
 			/>
 			<FormSection
 				name="address"
-				label="{i18n.address}"
+				label="{i18n.address}:"
 			>
 				<Address />
 			</FormSection>
@@ -189,7 +189,7 @@ class FieldsetForm extends React.Component {
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<FormInputField
 					name="all"
-					label="{i18n.totalNumber}"
+					label="{i18n.totalNumber}:"
 					type="text"
 				/>
 				<FormSection
