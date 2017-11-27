@@ -154,7 +154,6 @@ Upload.defaultProps = {
   triggerClassName: 'zent-upload-trigger',
   maxSize: 1 * 1024 * 1024,
   maxAmount: 0,
-  accept: '',
   tips: '',
   localOnly: false,
   auto: false,
