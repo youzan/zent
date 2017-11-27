@@ -62,8 +62,14 @@ type Component = {
   // Should this component appear in the component list?
   appendable?: boolean,
 
-  // Is this component configurable(edit/add/delete on the bottom right corner)?
+  // Is this component configurable(add/delete on the bottom right corner)?
   configurable?: boolean,
+  
+  // show delete button
+  canDelete?: boolean,
+
+  // show add button
+  canInsert?: boolean,
 
   // Is this component editable? Only editable components are selectable
   editable?: boolean,

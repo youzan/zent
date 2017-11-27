@@ -93,10 +93,16 @@ export default class Design extends (PureComponent || Component) {
         // 组件是否出现在添加组件的列表里面
         appendable: PropTypes.bool,
 
-        // 是否显示右下角的编辑区域(编辑/加内容/删除)
-        // 不支持在这里配置编辑区域的按钮，参数太多。
+        // 是否显示右下角的编辑区域(加内容/删除)
+        // 如果要单独控制删除/加内容，请使用 canDelete 和 canInsert 来控制
         // 如果要自定义编辑区域，可以通过重写 previewController 的方式来做。
         configurable: PropTypes.bool,
+
+        // 是否可以删除
+        canDelete: PropTypes.bool,
+
+        // hover 的时候时候显示添加组件的按钮
+        canInsert: PropTypes.bool,
 
         // 组件是否可以编辑
         // 可以选中的组件一定是可以编辑的

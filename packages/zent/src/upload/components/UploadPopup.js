@@ -92,7 +92,7 @@ class UploadPopup extends Component {
                     />
                     <span
                       className="close-modal small"
-                      onClick={this.removeLocalImage.bind(this, item)}
+                      onClick={this.removeLocalImage.bind(this, index)}
                     >
                       ×
                     </span>
