@@ -12,6 +12,7 @@ import { NumberInput } from 'zent';
 ReactDOM.render(
 	<div>
 		<NumberInput value={3} disabled />
+		<NumberInput value={3} disabled showCounter/>
 		<NumberInput value={3} disabled showStepper />
 	</div>
 	, mountNode
