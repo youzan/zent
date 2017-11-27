@@ -4,13 +4,15 @@
   position: relative;
 }
 
-.zent-number-input-count-wrapper {
+.zent-number-input-wrapper.zent-number-input-count-wrapper {
   .zent-input {
     padding: 0 20px 0 10px;
   }
 }
 
-.zent-number-input-counter-wrapper {
+.zent-number-input-wrapper.zent-number-input-counter-wrapper {
+  width: 108px;
+
   .zent-input {
     padding: 0 35px;
     text-align: center;
@@ -54,12 +56,16 @@
   top: 1px;
   color: $theme-stroke-1;
   line-height: 28px;
-}
 
-.zent-number-input-count-disable {
-  cursor: not-allowed;
-  color: $theme-stroke-6;
-  background: $theme-stroke-8;
+  &:hover {
+    color: $theme-primary-2;
+  }
+
+  &.zent-number-input-count-disable {
+    cursor: not-allowed;
+    color: $theme-stroke-6;
+    background: $theme-stroke-9;
+  }
 }
 
 .zent-number-input-arrow-disable {

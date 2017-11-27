@@ -267,6 +267,7 @@ export default class NumberInput extends (PureComponent || Component) {
 
       // 这些是 NumberInput 特有的 props
       'showStepper',
+      'showCounter',
       'min',
       'max',
       'decimal'

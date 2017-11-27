@@ -32,7 +32,7 @@ group: 数据
 
 <style>
 .zent-number-input-wrapper {
-	width: 200px;
-	margin-bottom: 20px;
+  width: 200px;
+  margin-bottom: 20px;
 }
 </style>

@@ -31,7 +31,7 @@ A input widget for entering number through mouse or keyboard
 
 <style>
 .zent-number-input-wrapper {
-	width: 200px;
-	margin-bottom: 20px;
+  width: 200px;
+  margin-bottom: 20px;
 }
 </style>
