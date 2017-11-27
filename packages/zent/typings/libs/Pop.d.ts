@@ -2,11 +2,11 @@
 
 declare module 'zent/lib/pop' {
   interface IPopProps {
-    content: React.ReactNode
+    content?: React.ReactNode
     trigger?: 'none' | 'click' | 'hover' | 'focus'
     position?: string
     centerArrow?: boolean
-    header: React.ReactNode
+    header?: React.ReactNode
     block?: boolean
     onShow?: Function
     onClose?: Function
