@@ -166,4 +166,6 @@ Upload.defaultProps = {
   withoutPopup: false
 };
 
+Upload.FileInput = FileInput;
+
 export default Upload;
