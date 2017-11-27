@@ -36,6 +36,7 @@ export default class NumberInput extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     const { value, min, max, decimal } = props;
+    this.validateStatus(props);
     let { num, upArrow, downArrow } = this.adjustFixed(
       value,
       min,
@@ -51,6 +52,7 @@ export default class NumberInput extends (PureComponent || Component) {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.validateStatus(nextProps);
     let props = this.props;
     if (
       nextProps.decimal !== props.decimal ||
@@ -73,6 +75,15 @@ export default class NumberInput extends (PureComponent || Component) {
         downArrow
       });
       this.onPropChange(num);
+    }
+  }
+
+  validateStatus(props) {
+    const { showStepper, showCounter } = props;
+    if (showStepper && showCounter) {
+      throw new Error(
+        'NumberInput: showStepper、 showCounter cannot exist at the same time'
+      );
     }
   }
 
