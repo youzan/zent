@@ -42,7 +42,7 @@ class Demo extends Component {
 
 	reset = () => {
 		this.setState({
-			selectedValue: ''
+			selectedValue: null
 		});
 	};
 
