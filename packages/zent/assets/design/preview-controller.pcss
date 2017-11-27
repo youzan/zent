@@ -56,20 +56,20 @@
     font-size: 0;
     line-height: 0;
     cursor: default;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    border-radius: 50%;
+    background: $theme-primary-2;
+    opacity: 0.8;
 
     &:hover {
-      .zent-design-preview-controller__icon-add {
-        opacity: 1;
-      }
+      opacity: 1;
 
       + .zent-design-preview-controller__add-marker {
         display: flex;
         opacity: 1;
       }
-    }
-
-    .zent-design-preview-controller__icon-add {
-      opacity: 0.8;
     }
   }
 
@@ -91,6 +91,7 @@
       height: 3px;
       display: inline-block;
       z-index: 1;
+      flex: 0 0 3px;
       background: $theme-stroke-10;
     }
 

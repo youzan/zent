@@ -273,6 +273,7 @@ function AddMarker({ prefix }) {
 }
 
 function IconAdd({ prefix }) {
+  // 小数的圆心和半径有时候显示有问题，所以圆不用 SVG
   return (
     <svg
       width="17"
@@ -282,7 +283,7 @@ function IconAdd({ prefix }) {
       className={`${prefix}-design-preview-controller__icon-add`}
     >
       <g fill="none" fillRule="evenodd">
-        <circle fill="#38F" cx="8.5" cy="8.5" r="8.5" />
+        {/* <circle fill="#38F" cx="8.5" cy="8.5" r="8.5" /> */}
         <path d="M8 8H5v1h3v3h1V9h3V8H9V5H8v3z" fill="#FFF" />
       </g>
     </svg>
