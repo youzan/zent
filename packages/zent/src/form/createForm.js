@@ -11,7 +11,12 @@ import get from 'lodash/get';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
-import { getDisplayName, silenceEvent, silenceEvents } from './utils';
+import {
+  getDisplayName,
+  silenceEvent,
+  silenceEvents,
+  scrollToNode
+} from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
 
@@ -50,7 +55,8 @@ const createForm = (config = {}) => {
         onValid: PropTypes.func,
         onInvalid: PropTypes.func,
         onChange: PropTypes.func,
-        validationErrors: PropTypes.object
+        validationErrors: PropTypes.object,
+        scrollToError: PropTypes.bool
       };
 
       static defaultProps = {
@@ -60,7 +66,8 @@ const createForm = (config = {}) => {
         onValid: noop,
         onInvalid: noop,
         onChange: noop,
-        validationErrors: null
+        validationErrors: null,
+        scrollToError: false
       };
 
       static childContextTypes = {
@@ -193,6 +200,17 @@ const createForm = (config = {}) => {
           }
           field.setState(data);
         });
+        // 滚动到第一个错误处
+        if (this.props.scrollToError) {
+          for (let i = 0; i < this.fields.length; i++) {
+            const field = this.fields[i];
+            if (!field.isValid()) {
+              const node = field.getWrappedComponent().getControlInstance();
+              scrollToNode(node);
+              return false;
+            }
+          }
+        }
       };
 
       setFormDirty = isDirty => {

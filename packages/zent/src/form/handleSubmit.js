@@ -1,11 +1,12 @@
 import isPromise from 'utils/isPromise';
 import map from 'lodash/map';
 import SubmissionError from './SubmissionError';
+import { scrollToNode } from './utils';
 
 const handleSubmit = (submit, zentForm) => {
   const props = zentForm.props;
   const values = zentForm.getFormValues();
-  const { onSubmitSuccess, onSubmitFail } = props;
+  const { onSubmitSuccess, onSubmitFail, scrollToError } = props;
   let validationErrors;
 
   zentForm.setFormDirty(true);
@@ -25,6 +26,19 @@ const handleSubmit = (submit, zentForm) => {
   if (!zentForm.isValid()) {
     // 存在校验错误
     validationErrors = zentForm.getValidationErrors();
+
+    // 滚动到第一个错误处
+    if (scrollToError) {
+      for (let i = 0; i < zentForm.fields.length; i++) {
+        const field = zentForm.fields[i];
+        if (!field.isValid()) {
+          const node = field.getWrappedComponent().getControlInstance();
+          scrollToNode(node);
+          return false;
+        }
+      }
+    }
+
     if (onSubmitFail) {
       onSubmitFail(new SubmissionError(validationErrors));
     }

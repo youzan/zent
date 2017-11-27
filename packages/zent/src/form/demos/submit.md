@@ -122,7 +122,7 @@ class SubmitForm extends React.Component {
 const WrappedForm = createForm()(SubmitForm);
 
 ReactDOM.render(
-	<WrappedForm onSubmitFail={onSubmitFail} onSubmitSuccess={onSubmitSuccess} />
+	<WrappedForm scrollToError onSubmitFail={onSubmitFail} onSubmitSuccess={onSubmitSuccess} />
 	, mountNode
 )
 ```
