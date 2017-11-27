@@ -89,15 +89,6 @@ export function responseParse(file) {
   };
 }
 
-export function isPromiseLike(p) {
-  if (!p) {
-    return false;
-  }
-
-  const proto = Object.getPrototypeOf ? Object.getPrototypeOf(p) : p.__proto__; // eslint-disable-line
-  return typeof proto.then === 'function';
-}
-
 export function base64ToArrayBuffer(base64) {
   let binary_string = window.atob(base64);
   let len = binary_string.length;
@@ -106,10 +97,4 @@ export function base64ToArrayBuffer(base64) {
     bytes[i] = binary_string.charCodeAt(i);
   }
   return bytes.buffer;
-}
-
-export function createObjectURL(object) {
-  return window.URL
-    ? window.URL.createObjectURL(object)
-    : window.webkitURL.createObjectURL(object);
 }
