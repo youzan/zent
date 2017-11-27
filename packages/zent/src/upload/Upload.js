@@ -11,6 +11,11 @@ import identity from 'lodash/identity';
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
 
+const DEFAULT_ACCEPT = {
+  image: 'image/gif, image/jpeg, image/png',
+  voice: 'audio/mpeg, audio/amr'
+};
+
 const promiseNoop = () =>
   new Promise(resolve => {
     resolve([]);
@@ -111,8 +116,9 @@ class Upload extends Component {
   renderUploadPopup(options) {
     let { prefix, accept, className } = this.props;
 
-    if (options.type === 'voice') {
-      accept = 'audio/mpeg, audio/amr';
+    // 根据type设置accept默认值
+    if (!accept) {
+      accept = DEFAULT_ACCEPT[options.type];
     }
 
     return (
@@ -148,7 +154,6 @@ Upload.defaultProps = {
   triggerClassName: 'zent-upload-trigger',
   maxSize: 1 * 1024 * 1024,
   maxAmount: 0,
-  accept: 'image/gif, image/jpeg, image/png',
   tips: '',
   localOnly: false,
   auto: false,
@@ -160,5 +165,7 @@ Upload.defaultProps = {
   silent: false,
   withoutPopup: false
 };
+
+Upload.FileInput = FileInput;
 
 export default Upload;
