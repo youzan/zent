@@ -19,6 +19,7 @@ A input widget for entering number through mouse or keyboard
 | value        | input value             | number        |          |                         | no    |
 | onChange     | change event        | func(e:Event) |          |                         | no    |
 | showStepper  | whether stepper is open         | bool        | `false` |                        | no    |
+| showCounter  | whether counter is open         | bool        | `false` |                        | no    |
 | decimal      | number decimal           | number        |          |                         | no    |
 | min      | the minimum value in the range            | number        |          |                         | no    |
 | max      | the maximum value in the range            | number        |          |                         | no    |
