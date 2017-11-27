@@ -64,9 +64,14 @@ type Component = {
   appendable?: boolean,
 
   // 是否显示右下角的编辑区域(编辑/加内容/删除)
-  // 不支持在这里配置编辑区域的按钮，参数太多。
   // 如果要自定义编辑区域，可以通过重写 previewController 的方式来做。
   configurable?: boolean,
+  
+  // 是否显示删除按钮
+  canDelete?: boolean,
+
+  // 是否显示添加组件按钮
+  canInsert?: boolean,
 
   // 组件是否可以编辑
   // 可以选中的组件一定是可以编辑的

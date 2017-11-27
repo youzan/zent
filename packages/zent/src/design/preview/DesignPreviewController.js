@@ -25,6 +25,12 @@ class DesignPreviewController extends (PureComponent || Component) {
     // 是否显示右下角的编辑区域
     configurable: PropTypes.bool,
 
+    // 时候现实删除按钮
+    canDelete: PropTypes.bool,
+
+    // 是否吸纳事添加组件按钮
+    canInsert: PropTypes.bool,
+
     // 选中时是否高亮
     highlightWhenSelect: PropTypes.bool,
 
@@ -72,6 +78,8 @@ class DesignPreviewController extends (PureComponent || Component) {
     const {
       dragable,
       configurable,
+      canDelete,
+      canInsert,
       highlightWhenSelect,
       isSelected,
       component: PreviewComponent,
@@ -123,23 +131,26 @@ class DesignPreviewController extends (PureComponent || Component) {
               </div>
               {provided.placeholder}
 
-              {showButtons && (
-                <DeleteButton prefix={prefix} onDelete={this.onDelete} />
-              )}
-              {showButtons && (
-                <AddButton
-                  prefix={prefix}
-                  onAdd={this.onPrepend}
-                  className={`${prefix}-design-preview-controller__prepend`}
-                />
-              )}
-              {showButtons && (
-                <AddButton
-                  prefix={prefix}
-                  onAdd={this.onAppend}
-                  className={`${prefix}-design-preview-controller__append`}
-                />
-              )}
+              {showButtons &&
+                canDelete && (
+                  <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+                )}
+              {showButtons &&
+                canInsert && (
+                  <AddButton
+                    prefix={prefix}
+                    onAdd={this.onPrepend}
+                    className={`${prefix}-design-preview-controller__prepend`}
+                  />
+                )}
+              {showButtons &&
+                canInsert && (
+                  <AddButton
+                    prefix={prefix}
+                    onAdd={this.onAppend}
+                    className={`${prefix}-design-preview-controller__append`}
+                  />
+                )}
             </div>
           );
         }}
@@ -158,23 +169,26 @@ class DesignPreviewController extends (PureComponent || Component) {
           <PreviewComponent prefix={prefix} {...previewProps} {...props} />
         </div>
 
-        {configurable && (
-          <DeleteButton prefix={prefix} onDelete={this.onDelete} />
-        )}
-        {configurable && (
-          <AddButton
-            prefix={prefix}
-            onAdd={this.onPrepend}
-            className={`${prefix}-design-preview-controller__prepend`}
-          />
-        )}
-        {configurable && (
-          <AddButton
-            prefix={prefix}
-            onAdd={this.onAppend}
-            className={`${prefix}-design-preview-controller__append`}
-          />
-        )}
+        {configurable &&
+          canDelete && (
+            <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+          )}
+        {configurable &&
+          canInsert && (
+            <AddButton
+              prefix={prefix}
+              onAdd={this.onPrepend}
+              className={`${prefix}-design-preview-controller__prepend`}
+            />
+          )}
+        {configurable &&
+          canInsert && (
+            <AddButton
+              prefix={prefix}
+              onAdd={this.onAppend}
+              className={`${prefix}-design-preview-controller__append`}
+            />
+          )}
       </div>
     );
 
