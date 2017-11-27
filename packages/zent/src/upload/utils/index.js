@@ -23,39 +23,12 @@ export function formatFileSize(size, toFixed) {
   return `${size.toFixed(toFixed)} B`;
 }
 
-/**
- * 将持续时间格式化成适合阅读的字符串
- * @param  {number} duration 秒
- * @return {string}
- * @example
- * formatDuration(100) => '01:40'
- * formatDuration(10000) => '02:46:40'
- */
-export function formatDuration(duration) {
-  duration = Math.max(0, (+duration || 0).toFixed(0));
-
-  let secondPart = duration % 60;
-  let minutePart = ((duration - secondPart) / 60) % 60;
-  let hourPart = (duration - minutePart * 60 - secondPart) / 3600;
-
-  // 补零
-  let padding = n => (n < 10 ? `0${n}` : n);
-
-  let result = [padding(minutePart), padding(secondPart)];
-
-  if (hourPart > 0) {
-    result.unshift(padding(hourPart));
-  }
-
-  return result.join(':');
-}
-
 export function base64ToArrayBuffer(base64) {
-  let binary_string = window.atob(base64);
-  let len = binary_string.length;
+  let binaryString = window.atob(base64);
+  let len = binaryString.length;
   let bytes = new Uint8Array(len);
   for (let i = 0; i < len; i++) {
-    bytes[i] = binary_string.charCodeAt(i);
+    bytes[i] = binaryString.charCodeAt(i);
   }
   return bytes.buffer;
 }

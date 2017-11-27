@@ -23,7 +23,6 @@ class Upload extends Component {
       visible: false,
       activeId: 'materials'
     };
-    this.typeName = props.type === 'voice' ? '语音' : '图片';
     this.showUpload = this.showUpload.bind(this);
     this.closePopup = this.closePopup.bind(this);
   }
@@ -67,6 +66,8 @@ class Upload extends Component {
       className = '';
     }
 
+    const typeName = this.props.type === 'voice' ? '语音' : '图片';
+
     let dialogClassName = classnames([`${prefix}-upload`, className]);
 
     className = classnames([
@@ -93,7 +94,7 @@ class Upload extends Component {
         </div>
         <p className={`${prefix}-upload-tips`}>{tips}</p>
         <Dialog
-          title={`${this.typeName}选择`}
+          title={`${typeName}选择`}
           visible={visible}
           className={dialogClassName}
           onClose={this.closePopup}

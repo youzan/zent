@@ -6,7 +6,7 @@ group: Data Entry
 
 # Upload
 
-Image uploader.
+File uploader.
 
 ### API
 

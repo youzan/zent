@@ -1,13 +1,13 @@
 ---
 title: Upload
-subtitle: 图片上传
+subtitle: 文件上传
 path: component/upload
 group: 数据
 ---
 
-# Upload 图片上传
+# Upload 文件上传
 
-图片上传
+文件上传
 
 ### API
 
