@@ -98,7 +98,7 @@ class UploadPopup extends Component {
       <li key={index} className="upload-local-voice-item voice-item">
         <div className="voice-icon" />
         <div className="voice-name">{item.file.name}</div>
-        <div className="voice-createtime">{item.file.size}</div>
+        <div className="voice-createtime">{formatFileSize(item.file.size)}</div>
         <span
           className="close-modal small"
           onClick={this.removeLocalImage.bind(this, index)}
