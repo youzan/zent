@@ -1,5 +1,12 @@
 ## Github Change Log
 
+## [zent@3.10.2](https://github.com/youzan/zent/tree/zent@3.10.2) (2017-11-28)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.1...zent@3.10.2)
+
+**Fixed bugs:**
+
+- \[bug fix\] Upload: 修复audio不能修改accept的bug [\#574](https://github.com/youzan/zent/pull/574) ([huangsy](https://github.com/huangsy))
+
 ## [zent@3.10.1](https://github.com/youzan/zent/tree/zent@3.10.1) (2017-11-27)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.0...zent@3.10.1)
 
@@ -667,7 +674,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -698,11 +705,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
-
 ## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
+
+## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
 
 **Implemented enhancements:**
 
