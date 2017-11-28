@@ -213,7 +213,7 @@ const createForm = (config = {}) => {
         }
       };
 
-      setFormDirty = isDirty => {
+      setFormDirty = (isDirty = true) => {
         this.fields.forEach(field => {
           field.setState({
             _isDirty: isDirty
@@ -221,7 +221,7 @@ const createForm = (config = {}) => {
         });
       };
 
-      setFormPristine = isPristine => {
+      setFormPristine = (isPristine = false) => {
         this.fields.forEach(field => {
           field.setState({
             _isDirty: !isPristine
