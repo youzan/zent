@@ -51,8 +51,6 @@ class Simple extends React.Component {
 						maxSize={8 * 1000 * 1000}
 						triggerInline
 						tips="{i18n.tip}"
-						type="voice"
-						accept="audio/mp3, audio/mpeg"
 						onFetch={this.fetchNetworkImage.bind(this)}
 						onUpload={this.updateLocalImage.bind(this)}
 					/>
