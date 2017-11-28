@@ -445,6 +445,79 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().getFieldError('bar')).toBe('不能为空');
   });
 
+  it('Field can clear the error or not by setting clearErrorOnFocus', () => {
+    class FormForTest extends React.Component {
+      static propTypes = {
+        fieldName: PropTypes.string.isRequired
+      };
+
+      static defaultProps = {
+        fieldName: 'foo'
+      };
+
+      render() {
+        const { fieldName } = this.props;
+        return (
+          <Form>
+            <Field
+              name={fieldName}
+              component={InputField}
+              validations={{ required: true }}
+              validationErrors={{ required: '不能为空' }}
+              value={fieldName === 'foo' ? 1 : undefined}
+            />
+          </Form>
+        );
+      }
+    }
+
+    const CreatedForm = createForm()(FormForTest);
+    const wrapper = mount(<CreatedForm fieldName="bar" />);
+    expect(wrapper.getNode().fields[0].state._isValid).toBe(false);
+    expect(wrapper.getNode().getFieldError('bar')).toBe('不能为空');
+
+    let input = wrapper.find('input');
+    input.simulate('focus');
+    expect(wrapper.getNode().fields[0].state._isValid).toBe(true);
+    expect(wrapper.getNode().getFieldError('bar')).toBe(null);
+
+    class FormForTest2 extends React.Component {
+      static propTypes = {
+        fieldName: PropTypes.string.isRequired
+      };
+
+      static defaultProps = {
+        fieldName: 'foo'
+      };
+
+      render() {
+        const { fieldName } = this.props;
+        return (
+          <Form>
+            <Field
+              name={fieldName}
+              component={InputField}
+              validations={{ required: true }}
+              validationErrors={{ required: '不能为空' }}
+              value={fieldName === 'foo' ? 1 : undefined}
+              clearErrorOnFocus={false}
+            />
+          </Form>
+        );
+      }
+    }
+
+    const CreatedForm2 = createForm()(FormForTest2);
+    const wrapper2 = mount(<CreatedForm2 fieldName="bar" />);
+    expect(wrapper2.getNode().fields[0].state._isValid).toBe(false);
+    expect(wrapper2.getNode().getFieldError('bar')).toBe('不能为空');
+
+    let input2 = wrapper2.find('input');
+    input2.simulate('focus');
+    expect(wrapper2.getNode().fields[0].state._isValid).toBe(false);
+    expect(wrapper2.getNode().getFieldError('bar')).toBe('不能为空');
+  });
+
   // NOTE: need catch up.
   it('CreatedForm have an unused function "isValidValue"', () => {
     class FormForTest extends React.Component {
@@ -729,5 +802,107 @@ describe('CreateForm and Field', () => {
     expect(onChangeMock.mock.calls.length).toBe(1);
     expect(onFocusMock.mock.calls.length).toBe(1);
     expect(onBlurMock.mock.calls.length).toBe(1);
+  });
+
+  it('Field can have prevent value change through custom onChange/onBlur/onFocus callback', () => {
+    const contextCopy = Object.assign({}, context, {});
+    const customOnChange = (e, newValue, prevValue, preventSetValue) => {
+      preventSetValue();
+    };
+    const customOnBlur = (e, newValue, prevValue, preventSetValue) => {
+      preventSetValue();
+    };
+    const wrapper = mount(
+      <Field
+        name="foo"
+        value="1"
+        onChange={customOnChange}
+        onBlur={customOnBlur}
+        component={InputField}
+      />,
+      {
+        context: contextCopy
+      }
+    );
+    let input = wrapper.find('input');
+    input.simulate('change', { target: { value: '' } });
+    expect(wrapper.state('_value')).toBe('1');
+    input.simulate('blur', { target: { value: '2' } });
+    expect(wrapper.state('_value')).toBe('1');
+  });
+
+  it('Field can choose merge value or not', () => {
+    const contextCopy = Object.assign({}, context, {});
+    class ContactPhone extends React.Component {
+      onCountryChange = e => {
+        const merge = this.props.merge;
+        const newValue = {
+          country: e.target.value
+        };
+        this.props.onChange(newValue, { merge });
+      };
+
+      onPhoneChange = e => {
+        const merge = this.props.merge;
+        const newValue = {
+          mobile: e.target.value
+        };
+        this.props.onChange(newValue, { merge });
+      };
+
+      filterHandler = (item, keyword) => {
+        return (
+          keyword &&
+          item.text
+            .trim()
+            .toLowerCase()
+            .indexOf(keyword.trim().toLowerCase()) > -1
+        );
+      };
+
+      render() {
+        const props = this.props;
+        const value = props.value;
+
+        return (
+          <div className="zent-form__controls">
+            <input
+              className="country"
+              type="text"
+              placeholder="{i18n.phonePlaceholder}"
+              value={value.country}
+              onChange={this.onCountryChange}
+            />
+            <input
+              className="mobile"
+              type="text"
+              placeholder="{i18n.phonePlaceholder}"
+              value={value.mobile}
+              onChange={this.onPhoneChange}
+            />
+          </div>
+        );
+      }
+    }
+
+    const wrapper = mount(
+      <Field
+        name="foo"
+        component={ContactPhone}
+        value={{
+          country: '1',
+          mobile: '15899776666'
+        }}
+        merge
+      />,
+      {
+        context: contextCopy
+      }
+    );
+
+    let mobileInput = wrapper.find('input.mobile');
+    mobileInput.simulate('change', { target: { value: '2' } });
+    expect(wrapper.state('_value').country).toBe('1');
+    expect(wrapper.state('_value').mobile).toBe('2');
   });
 });
