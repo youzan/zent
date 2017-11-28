@@ -87,7 +87,7 @@ const createForm = (config = {}) => {
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
             setFormDirty: this.setFormDirty,
-            setFormPristine: this.setFormDirty,
+            setFormPristine: this.setFormPristine,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }
