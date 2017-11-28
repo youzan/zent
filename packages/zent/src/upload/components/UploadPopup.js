@@ -270,17 +270,15 @@ class UploadPopup extends Component {
 
   addFile(file) {
     let fileReader = new FileReader();
-    let { options } = this.props;
+    let { options, accept } = this.props;
     let { localFiles } = this.state;
 
     fileReader.onload = e => {
       const mimeType = fileType(
         base64ToArrayBuffer(e.target.result.replace(/^(.*?)base64,/, ''))
       );
-      if (
-        options.accept &&
-        (!mimeType || options.accept.indexOf(mimeType.mime) > -1)
-      ) {
+      console.log(mimeType, accept);
+      if (accept && (!mimeType || accept.indexOf(mimeType.mime) > -1)) {
         localFiles.push({
           src: e.target.result,
           file
