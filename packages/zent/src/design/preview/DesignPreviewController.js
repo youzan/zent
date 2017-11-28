@@ -1,18 +1,20 @@
 import React, { PureComponent, Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop from 'pop';
-import Icon from 'icon';
 import pick from 'lodash/pick';
-import { DropTarget, DragSource } from 'react-dnd';
-
-const COMPONENT = 'zent-design-preview-controller';
+import { Draggable } from 'react-beautiful-dnd';
+import { DND_PREVIEW_CONTROLLER } from './constants';
+import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
 
 class DesignPreviewController extends (PureComponent || Component) {
   static propTypes = {
-    // 这个组件所在位置的下标
-    index: PropTypes.number.isRequired,
+    // 这个组件的唯一标示，不随位置变化而变化
+    id: PropTypes.string.isRequired,
+
+    // 是否允许 hover 效果，不允许的话不会显示各种按钮
+    // 拖拽的时候用
+    allowHoverEffects: PropTypes.bool.isRequired,
 
     // 是否可以编辑，UMP里面有些地方config是不能编辑的
     editable: PropTypes.bool,
@@ -22,6 +24,12 @@ class DesignPreviewController extends (PureComponent || Component) {
 
     // 是否显示右下角的编辑区域
     configurable: PropTypes.bool,
+
+    // 时候现实删除按钮
+    canDelete: PropTypes.bool,
+
+    // 是否吸纳事添加组件按钮
+    canInsert: PropTypes.bool,
 
     // 选中时是否高亮
     highlightWhenSelect: PropTypes.bool,
@@ -70,68 +78,121 @@ class DesignPreviewController extends (PureComponent || Component) {
     const {
       dragable,
       configurable,
+      canDelete,
+      canInsert,
       highlightWhenSelect,
       isSelected,
-      isDragging,
-      connectDragSource,
-      connectDropTarget,
-      connectDragPreview,
       component: PreviewComponent,
       previewProps,
-      prefix
+      prefix,
+      id,
+      allowHoverEffects
     } = this.props;
-    const cls = cx(`${prefix}-design-preview-controller`, {
-      [`${prefix}-design-preview-controller--selected`]: isSelected,
-      [`${prefix}-design-preview-controller--highlight`]: highlightWhenSelect,
-      [`${prefix}-design-preview-controller--dragable`]: dragable
-    });
     const props = pick(this.props, ['value', 'design', 'globalConfig']);
+    const getClassName = highlight =>
+      cx(`${prefix}-design-preview-controller`, {
+        [`${prefix}-design-preview-controller--selected`]: isSelected,
+        [`${prefix}-design-preview-controller--highlight`]: highlight,
+        [`${prefix}-design-preview-controller--dragable`]: dragable
+      });
 
-    // 拖拽的时候隐藏各种按钮，会很丑
-    const showButtons = configurable && !isDragging;
+    const tree = dragable ? (
+      <Draggable
+        draggableId={id}
+        type={DND_PREVIEW_CONTROLLER}
+        isDragDisabled={!dragable}
+      >
+        {(provided, snapshot) => {
+          // 拖拽的时候隐藏各种按钮，会很丑
+          const showButtons =
+            configurable && allowHoverEffects && !snapshot.isDragging;
+          const onClick = evt => {
+            if (provided.dragHandleProps) {
+              provided.dragHandleProps.onClick(evt);
+            }
 
-    const tree = connectDragPreview(
-      <div className={cls} onClick={this.onSelect}>
-        <PreviewComponent prefix={prefix} {...previewProps} {...props} />
-        {showButtons && (
-          <Pop
-            content="确定删除？"
-            trigger="click"
-            position="left-center"
-            centerArrow
-            onConfirm={this.onDelete}
-            wrapperClassName={`${prefix}-design-preview-controller__action-btn-delete`}
-          >
-            <Icon onClick={evt => evt.stopPropagation()} type="close-circle" />
-          </Pop>
-        )}
-        {showButtons && (
-          <a
-            className={`${prefix}-design-preview-controller__action-btn-add`}
-            onClick={this.onAdd}
-          >
-            <IconAdd prefix={prefix} />
-          </a>
-        )}
-        {showButtons && (
-          <div className={`${prefix}-design-preview-controller__add-marker`}>
-            <i
-              className={`${prefix}-design-preview-controller__add-marker-circle`}
+            this.onSelect(evt);
+          };
+          const cls = getClassName(allowHoverEffects && highlightWhenSelect);
+
+          return (
+            <div className={cls} onClick={onClick}>
+              <div
+                ref={provided.innerRef}
+                style={provided.draggableStyle}
+                className={`${prefix}-design-preview-controller__drag-handle`}
+                {...provided.dragHandleProps}
+              >
+                <PreviewComponent
+                  prefix={prefix}
+                  {...previewProps}
+                  {...props}
+                />
+              </div>
+              {provided.placeholder}
+
+              {showButtons &&
+                canDelete && (
+                  <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+                )}
+              {showButtons &&
+                canInsert && (
+                  <AddButton
+                    prefix={prefix}
+                    onAdd={this.onPrepend}
+                    className={`${prefix}-design-preview-controller__prepend`}
+                  />
+                )}
+              {showButtons &&
+                canInsert && (
+                  <AddButton
+                    prefix={prefix}
+                    onAdd={this.onAppend}
+                    className={`${prefix}-design-preview-controller__append`}
+                  />
+                )}
+            </div>
+          );
+        }}
+      </Draggable>
+    ) : (
+      <div
+        className={getClassName(highlightWhenSelect)}
+        onClick={this.onSelect}
+      >
+        <div
+          className={cx(
+            `${prefix}-design-preview-controller__drag-handle`,
+            `${prefix}-design-preview-controller__drag-handle--inactive`
+          )}
+        >
+          <PreviewComponent prefix={prefix} {...previewProps} {...props} />
+        </div>
+
+        {configurable &&
+          canDelete && (
+            <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+          )}
+        {configurable &&
+          canInsert && (
+            <AddButton
+              prefix={prefix}
+              onAdd={this.onPrepend}
+              className={`${prefix}-design-preview-controller__prepend`}
             />
-            <div
-              className={`${prefix}-design-preview-controller__add-marker-line`}
+          )}
+        {configurable &&
+          canInsert && (
+            <AddButton
+              prefix={prefix}
+              onAdd={this.onAppend}
+              className={`${prefix}-design-preview-controller__append`}
             />
-          </div>
-        )}
-      </div>,
-      { captureDraggingState: true }
+          )}
+      </div>
     );
 
-    if (!dragable) {
-      return tree;
-    }
-
-    return connectDragSource(connectDropTarget(tree));
+    return tree;
   }
 
   onSelect = evt => {
@@ -141,128 +202,134 @@ class DesignPreviewController extends (PureComponent || Component) {
     }
 
     this.invokeCallback('onSelect', evt, false);
-    // this.invokeCallback('onEdit', evt, true);
   };
 
-  onAdd = evt => {
-    this.invokeCallback('onAdd', evt, true);
+  onPrepend = evt => {
+    this.invokeCallback('onAdd', evt, true, ADD_COMPONENT_OVERLAY_POSITION.TOP);
+  };
+
+  onAppend = evt => {
+    this.invokeCallback(
+      'onAdd',
+      evt,
+      true,
+      ADD_COMPONENT_OVERLAY_POSITION.BOTTOM
+    );
   };
 
   onDelete = () => {
     this.invokeCallback('onDelete', null, true);
   };
 
-  invokeCallback(action, evt, stopPropagation) {
+  invokeCallback(action, evt, stopPropagation, ...args) {
     if (stopPropagation && evt) {
       evt.stopPropagation();
     }
 
     const { value } = this.props;
     const cb = this.props[action];
-    cb && cb(value);
+    cb && cb(value, ...args);
   }
 }
 
-const dndSource = {
-  canDrag(props) {
-    return props.dragable;
-  },
+function DeleteButton({ prefix, onDelete }) {
+  return (
+    <Pop
+      content="确定删除？"
+      trigger="click"
+      position="left-center"
+      centerArrow
+      onConfirm={onDelete}
+      wrapperClassName={`${prefix}-design-preview-controller__action-btn-delete`}
+    >
+      <IconDelete prefix={prefix} onClick={stopEventPropagation} />
+    </Pop>
+  );
+}
 
-  beginDrag(props) {
-    return {
-      index: props.index
-    };
-  }
-};
+function AddButton({ prefix, onAdd, className }) {
+  return (
+    <div
+      className={cx(
+        `${prefix}-design-preview-controller__action-btn-add-container`,
+        className
+      )}
+    >
+      <a
+        className={`${prefix}-design-preview-controller__action-btn-add`}
+        onClick={onAdd}
+      >
+        <IconAdd prefix={prefix} />
+      </a>
+      <AddMarker prefix={prefix} />
+    </div>
+  );
+}
 
-const dndTarget = {
-  hover(props, monitor, component) {
-    const dragIndex = monitor.getItem().index;
-    const hoverIndex = props.index;
+function AddMarker({ prefix }) {
+  return (
+    <div className={`${prefix}-design-preview-controller__add-marker`}>
+      <i
+        className={cx(
+          `${prefix}-design-preview-controller__add-marker-circle`,
+          `${prefix}-design-preview-controller__add-marker-circle--left`
+        )}
+      />
+      <div className={`${prefix}-design-preview-controller__add-marker-line`} />
+      <i
+        className={cx(
+          `${prefix}-design-preview-controller__add-marker-circle`,
+          `${prefix}-design-preview-controller__add-marker-circle--right`
+        )}
+      />
+    </div>
+  );
+}
 
-    // Don't replace items with themselves
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-
-    // Determine rectangle on screen
-    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-
-    // Get vertical middle
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
-    // Determine mouse position
-    const clientOffset = monitor.getClientOffset();
-
-    // Get pixels to the top
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-    // Only perform the move when the mouse has crossed half of the items height
-    // When dragging downwards, only move when the cursor is below 50%
-    // When dragging upwards, only move when the cursor is above 50%
-
-    // Dragging downwards
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
-    }
-
-    // Dragging upwards
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-      return;
-    }
-
-    // Time to actually perform the action
-    props.onMove(dragIndex, hoverIndex);
-
-    // Note: we're mutating the monitor item here!
-    // Generally it's better to avoid mutations,
-    // but it's good here for the sake of performance
-    // to avoid expensive index searches.
-    monitor.getItem().index = hoverIndex;
-  }
-};
-
-/* Exported from Sketch */
 function IconAdd({ prefix }) {
+  // 小数的圆心和半径有时候显示有问题，所以圆不用 SVG
   return (
     <svg
-      width="24px"
-      height="19px"
-      viewBox="0 0 24 19"
-      version="1.1"
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
       xmlns="http://www.w3.org/2000/svg"
+      className={`${prefix}-design-preview-controller__icon-add`}
     >
-      <defs />
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <g transform="translate(-421.000000, -510.000000)">
-          <g transform="translate(0.000000, -1.000000)">
-            <g transform="translate(100.000000, 60.000000)">
-              <g transform="translate(320.000000, 451.000000)">
-                <path
-                  d="M9,16.4282444 C10.6993072,18.0231466 12.9855754,19 15.5,19 C20.7467051,19 25,14.7467051 25,9.5 C25,4.25329488 20.7467051,0 15.5,0 C12.9855754,0 10.6993072,0.976853423 9,2.57175559 L9,2.5 L0.997899669,9.5 L9,16.5 L9,16.4282444 Z"
-                  fill="#3388FF"
-                  className={`${prefix}-design-preview-controller__icon-add`}
-                />
-                <g transform="translate(12.000000, 6.000000)" fill="#FFFFFF">
-                  <path d="M3,3 L0,3 L0,4 L3,4 L3,7 L4,7 L4,4 L7,4 L7,3 L4,3 L4,0 L3,6.123234e-17 L3,3 Z" />
-                </g>
-              </g>
-            </g>
-          </g>
-        </g>
+      <g fill="none" fillRule="evenodd">
+        {/* <circle fill="#38F" cx="8.5" cy="8.5" r="8.5" /> */}
+        <path d="M8 8H5v1h3v3h1V9h3V8H9V5H8v3z" fill="#FFF" />
       </g>
     </svg>
   );
 }
 
-/* eslint-disable new-cap, no-use-before-define */
-export default DropTarget(COMPONENT, dndTarget, connect => ({
-  connectDropTarget: connect.dropTarget()
-}))(
-  DragSource(COMPONENT, dndSource, (connect, monitor) => ({
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging()
-  }))(DesignPreviewController)
-);
-/* eslint-enable new-cap, no-use-before-define */
+class IconDelete extends (PureComponent || Component) {
+  render() {
+    const { prefix, onClick } = this.props;
+    return (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        className={`${prefix}-design-preview-controller__icon-delete`}
+        onClick={onClick}
+      >
+        <g fill="none" fillRule="evenodd">
+          <circle fill="#000" cx="10" cy="10" r="10" />
+          <path
+            fill="#FFF"
+            d="M13.75 7.188l-.937-.938L10 9.063 7.188 6.25l-.938.937L9.062 10 6.25 12.812l.937.938L10 10.938l2.812 2.812.938-.937L10.938 10"
+          />
+        </g>
+      </svg>
+    );
+  }
+}
+
+function stopEventPropagation(evt) {
+  evt && evt.stopPropagation();
+}
+
+export default DesignPreviewController;

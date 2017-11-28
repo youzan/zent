@@ -14,7 +14,7 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 |------|------|------|--------|--------|
 | value | The selected value | array | [] | '' |
 | options | Optional data source | array | [] | '' |
-| title | title of tab | array | ['省份', '城市', '县区'] | '' |
+| title | Title of tab, tab title default is `标题` | array | [] | '' |
 | onChange | The callback when data changes | func | noop | '' |
 | loadMore | Function to load data dynamicly, must return Promise | func | - | '' |
 | changeOnSelect | Wether trigger change once sth. is seleted | boolean | false | '' |

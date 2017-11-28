@@ -8,8 +8,6 @@ group: Domain-specific
 
 H5 page editor, build your H5 pages in a WYSIWYG way.
 
-⚠️ Warning：The `Design` component exported by Zent uses `react-dnd-html5-backend`'s `HTML5Backend`. Each React component tree can have only one instance of `HTML5Backend`. Please use `zent/lib/design/Design` to replace the default export from Zent if you are using `HTML5Backend` somewhere else. There two components are almost the same, except the one in `zent/lib/design/Design` does not depend on `HTML5Backend`.
-
 ### API
 
 | Property | Description | Type | Default | Required |
@@ -64,8 +62,14 @@ type Component = {
   // Should this component appear in the component list?
   appendable?: boolean,
 
-  // Is this component configurable(edit/add/delete on the bottom right corner)?
+  // Is this component configurable(add/delete on the bottom right corner)?
   configurable?: boolean,
+  
+  // show delete button
+  canDelete?: boolean,
+
+  // show add button
+  canInsert?: boolean,
 
   // Is this component editable? Only editable components are selectable
   editable?: boolean,

@@ -48,10 +48,17 @@
   }
 
   &.zent-design-add-component-overlay {
-    top: 100%;
-    margin-top: -20px;
     width: 320px;
     box-sizing: content-box;
     padding: 0;
+    margin-top: -20px;
+
+    &.zent-design-add-component-overlay--bottom {
+      top: 100%;
+    }
+
+    &.zent-design-add-component-overlay--top {
+      top: 0;
+    }
   }
 }

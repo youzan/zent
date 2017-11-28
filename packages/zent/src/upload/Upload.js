@@ -11,6 +11,11 @@ import identity from 'lodash/identity';
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
 
+const DEFAULT_ACCEPT = {
+  image: 'image/gif, image/jpeg, image/png',
+  voice: 'audio/mpeg, audio/amr'
+};
+
 const promiseNoop = () =>
   new Promise(resolve => {
     resolve([]);
@@ -66,6 +71,8 @@ class Upload extends Component {
       className = '';
     }
 
+    const typeName = this.props.type === 'voice' ? '语音' : '图片';
+
     let dialogClassName = classnames([`${prefix}-upload`, className]);
 
     className = classnames([
@@ -92,7 +99,7 @@ class Upload extends Component {
         </div>
         <p className={`${prefix}-upload-tips`}>{tips}</p>
         <Dialog
-          title="图片选择"
+          title={`${typeName}选择`}
           visible={visible}
           className={dialogClassName}
           onClose={this.closePopup}
@@ -107,7 +114,13 @@ class Upload extends Component {
    * 显示上传图片弹框
    */
   renderUploadPopup(options) {
-    const { prefix, accept, className } = this.props;
+    let { prefix, accept, className } = this.props;
+
+    // 根据type设置accept默认值
+    if (!accept) {
+      accept = DEFAULT_ACCEPT[options.type];
+    }
+
     return (
       <UploadPopup
         prefix={`${prefix}-upload`}
@@ -126,7 +139,7 @@ class Upload extends Component {
   showUpload = (visible = true) => {
     let { localOnly, maxAmount } = this.props;
 
-    if (!localOnly || maxAmount !== 1) {
+    if (!this.isUnmount && (!localOnly || maxAmount !== 1)) {
       // 直接打开本地文件
       this.setState({
         visible
@@ -141,13 +154,10 @@ Upload.defaultProps = {
   triggerClassName: 'zent-upload-trigger',
   maxSize: 1 * 1024 * 1024,
   maxAmount: 0,
-  accept: 'image/gif, image/jpeg, image/png',
   tips: '',
   localOnly: false,
   auto: false,
-  fetchUrl: '',
-  tokenUrl: '',
-  uploadUrl: '//upload.qbox.me',
+  type: 'image',
   filterFiles: identity,
   onFetch: promiseNoop,
   onUpload: promiseNoop,
@@ -155,5 +165,7 @@ Upload.defaultProps = {
   silent: false,
   withoutPopup: false
 };
+
+Upload.FileInput = FileInput;
 
 export default Upload;

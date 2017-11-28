@@ -489,7 +489,7 @@ const createForm = (config = {}) => {
         const { asyncValidation } = field.props;
         const values = this.getFormValues();
 
-        if (!asyncValidation && field.state._validationError.length) return;
+        if (!asyncValidation || field.state._validationError.length) return;
 
         field.setState({
           _isValidating: true

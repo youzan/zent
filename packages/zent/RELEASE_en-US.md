@@ -2,6 +2,56 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.10.1 (2017-11-27)
+
+- 🎉 Add a new style for `NumberInput`, just set `showCounter` to `true`
+- `Upload`
+  - ✨ Enhance file type check
+  - ✨ Supports audio upload
+  - 🦀️ Fix remove wrong image
+- `Design`
+  - 🦀️ Fix some style issues
+  - ✨ Add `canInsert`, `canDelete` to control Add/Delete button visiblity
+- 🦀️ Fix `Form` cannot submit when containing async validations
+- 🦀️ Fix `Pop`'s TypeScript definition
+
+### 3.10.0 (2017-11-24)
+
+- 🎉 New `YearPicker` component
+- `Design`
+  - ✨ New add component UI
+  - ✨ Remove dependency on `react-dnd`
+- 🦀️ Allow empty data in `Cascader`
+
+If your `Desgin` componets rely on `react-dnd`, you may have to inject `react-dnd`'s context into your app.
+
+```jsx
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContextProvider } from 'react-dnd';
+
+export default class YourApp {
+  render() {
+    return (
+      <DragDropContextProvider backend={HTML5Backend}>
+      /* ... */
+      </DragDropContextProvider>
+    );
+  };
+}
+```
+
+### 3.9.9 (2017-11-22)
+
+- `Design`
+  - 🦀️ Fix font color in add component popup
+  - 🦀️ Temporarily removed the scroll into screen behavior when selecting a component
+- `Form`
+  - 🦀️ Fix `FieldArray` validation error after removing element
+  - 🦀️ Fix corrupted data in nested `FieldArray`
+  - 🦀️ Fix typo in documentation
+  - 🦀️ Fix `setFieldsValue` and `initialize` cannot set value to `0`
+  - 🦀️ Fix non-submit validation still reports error when `validateOnChange` and `validateOnBlur` both are `false`
+
 ### 3.9.8 (2017-11-21)
 
 - 🦀️ Update add/remove component UI in `Design`

@@ -13,8 +13,7 @@
     "production": {
       "plugins": [
         "transform-remove-console",
-        "transform-remove-debugger",
-        "transform-react-constant-elements"
+        "transform-remove-debugger"
       ]
     },
 
@@ -22,7 +21,6 @@
       "plugins": [
         "transform-remove-console",
         "transform-remove-debugger",
-        "transform-react-constant-elements",
         "./scripts/babel/babel-plugin-resolve-zent-module"
       ]
     }

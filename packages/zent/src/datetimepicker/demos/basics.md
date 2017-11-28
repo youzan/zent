@@ -7,7 +7,7 @@ en-US:
 ---
 
 ```jsx
-import { DatePicker, MonthPicker, DateRangePicker, WeekPicker } from 'zent'
+import { DatePicker, MonthPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
 
 class Demo extends Component{
   state = {
@@ -44,8 +44,15 @@ class Demo extends Component{
 		})
 	}
 
+	onChangeYear = (val) => {
+		console.log(val);
+		this.setState({
+			yearValue: val
+		})
+	}
+
   render(){
-    const { dateValue, monthValue, rangeValue, weekValue } = this.state;
+    const { dateValue, monthValue, rangeValue, weekValue, yearValue } = this.state;
 		const now = new Date();
 
     return (
@@ -83,6 +90,13 @@ class Demo extends Component{
 					type="split"
 					value={rangeValue}
 					onChange={this.onChangeRangeSplit}
+				/>
+				<br/>
+				<YearPicker
+					className="zent-picker-demo"
+					value={yearValue}
+					max={2020}
+					onChange={this.onChangeYear}
 				/>
       </div>
     )
