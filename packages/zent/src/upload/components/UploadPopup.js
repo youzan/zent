@@ -277,7 +277,6 @@ class UploadPopup extends Component {
       const mimeType = fileType(
         base64ToArrayBuffer(e.target.result.replace(/^(.*?)base64,/, ''))
       );
-      console.log(mimeType, accept);
       if (accept && (!mimeType || accept.indexOf(mimeType.mime) > -1)) {
         localFiles.push({
           src: e.target.result,
