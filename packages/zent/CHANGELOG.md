@@ -1,5 +1,51 @@
 ## Github Change Log
 
+## [zent@3.10.2](https://github.com/youzan/zent/tree/zent@3.10.2) (2017-11-28)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.1...zent@3.10.2)
+
+**Fixed bugs:**
+
+- \[bug fix\] Upload: 修复audio不能修改accept的bug [\#574](https://github.com/youzan/zent/pull/574) ([huangsy](https://github.com/huangsy))
+
+## [zent@3.10.1](https://github.com/youzan/zent/tree/zent@3.10.1) (2017-11-27)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.0...zent@3.10.1)
+
+**Implemented enhancements:**
+
+- \[new feature\] NumberInput: 添加一个新样式 [\#550](https://github.com/youzan/zent/issues/550)
+- \[new feature\] NumberInput: 新样式支持 [\#572](https://github.com/youzan/zent/pull/572) ([oConnerCooper](https://github.com/oConnerCooper))
+- \[new feature\] Upload: 增强文件类型检查 [\#568](https://github.com/youzan/zent/pull/568) ([huangsy](https://github.com/huangsy))
+
+**Fixed bugs:**
+
+- Form 问题汇总贴 [\#442](https://github.com/youzan/zent/issues/442)
+- 明确浏览器支持情况 [\#361](https://github.com/youzan/zent/issues/361)
+- \[bug fix\] bug fixes for Upload and Design [\#571](https://github.com/youzan/zent/pull/571) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Pop: 修复类型定义 [\#570](https://github.com/youzan/zent/pull/570) ([hzjzx](https://github.com/hzjzx))
+
+**Closed issues:**
+
+- 上传图片组件Upload，删除图片的时候，删除不是对应的图片 [\#567](https://github.com/youzan/zent/issues/567)
+- \[new feature\] Upload: 增加使用图片数据判断图片类型的支持 [\#483](https://github.com/youzan/zent/issues/483)
+
+**Merged pull requests:**
+
+- \[bug fix\] Form: 修复部分field有异步校验时导致form无法提交的问题 [\#569](https://github.com/youzan/zent/pull/569) ([fairyaierl](https://github.com/fairyaierl))
+
+## [zent@3.10.0](https://github.com/youzan/zent/tree/zent@3.10.0) (2017-11-24)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.9...zent@3.10.0)
+
+**Fixed bugs:**
+
+- \[bug fix\] Cascader: options 为空的时候如何处理 [\#546](https://github.com/youzan/zent/issues/546)
+- \[bug fix\] Design: Prevent component select when click on delete button [\#566](https://github.com/youzan/zent/pull/566) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Design: new dnd [\#565](https://github.com/youzan/zent/pull/565) ([cpylua](https://github.com/cpylua))
+
+**Merged pull requests:**
+
+- \[new feature\] datetimepicker：添加年份选择 [\#564](https://github.com/youzan/zent/pull/564) ([xuhong](https://github.com/xuhong))
+- \[bug fix\] Cascader: 参数 `value`、`options`、`title`不为数组时的兼容处理 [\#562](https://github.com/youzan/zent/pull/562) ([liaoyu](https://github.com/liaoyu))
+
 ## [zent@3.9.9](https://github.com/youzan/zent/tree/zent@3.9.9) (2017-11-22)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.9.8...zent@3.9.9)
 
@@ -524,7 +570,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
 
 **Fixed bugs:**
 
@@ -534,11 +580,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
-
 ## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
+
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
 
 **Implemented enhancements:**
 

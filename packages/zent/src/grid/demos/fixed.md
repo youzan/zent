@@ -59,7 +59,7 @@ for (let i = 0; i < 3; i++) {
 }
 
 ReactDOM.render(
-		<div style={{ width: '800px' }}>
+		<div>
 			<Grid
 				columns={columns}
 				datasets={datasets}

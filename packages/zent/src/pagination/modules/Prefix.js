@@ -23,8 +23,13 @@ export default class Prefix extends (PureComponent || Component) {
 
     return (
       <span className="each">
-        ，每页
-        <Select value={currentPageSize} onChange={this.changePageSize}>
+        ，每页&nbsp;
+        <Select
+          value={currentPageSize}
+          onChange={this.changePageSize}
+          width={60}
+          autoWidth
+        >
           {pageSize.map((item, i) => (
             <Option key={i} value={item}>
               {item}

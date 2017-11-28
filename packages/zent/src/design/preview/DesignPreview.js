@@ -152,6 +152,8 @@ class DesignPreview extends (PureComponent || Component) {
                         dragable={defaultTo(comp.dragable, true)}
                         editable={defaultTo(comp.editable, true)}
                         configurable={defaultTo(comp.configurable, true)}
+                        canDelete={defaultTo(comp.canDelete, true)}
+                        canInsert={defaultTo(comp.canInsert, true)}
                         highlightWhenSelect={defaultTo(
                           comp.highlightWhenSelect,
                           true

@@ -25,6 +25,12 @@ class DesignPreviewController extends (PureComponent || Component) {
     // 是否显示右下角的编辑区域
     configurable: PropTypes.bool,
 
+    // 时候现实删除按钮
+    canDelete: PropTypes.bool,
+
+    // 是否吸纳事添加组件按钮
+    canInsert: PropTypes.bool,
+
     // 选中时是否高亮
     highlightWhenSelect: PropTypes.bool,
 
@@ -72,6 +78,8 @@ class DesignPreviewController extends (PureComponent || Component) {
     const {
       dragable,
       configurable,
+      canDelete,
+      canInsert,
       highlightWhenSelect,
       isSelected,
       component: PreviewComponent,
@@ -123,23 +131,26 @@ class DesignPreviewController extends (PureComponent || Component) {
               </div>
               {provided.placeholder}
 
-              {showButtons && (
-                <DeleteButton prefix={prefix} onDelete={this.onDelete} />
-              )}
-              {showButtons && (
-                <AddButton
-                  prefix={prefix}
-                  onAdd={this.onPrepend}
-                  className={`${prefix}-design-preview-controller__prepend`}
-                />
-              )}
-              {showButtons && (
-                <AddButton
-                  prefix={prefix}
-                  onAdd={this.onAppend}
-                  className={`${prefix}-design-preview-controller__append`}
-                />
-              )}
+              {showButtons &&
+                canDelete && (
+                  <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+                )}
+              {showButtons &&
+                canInsert && (
+                  <AddButton
+                    prefix={prefix}
+                    onAdd={this.onPrepend}
+                    className={`${prefix}-design-preview-controller__prepend`}
+                  />
+                )}
+              {showButtons &&
+                canInsert && (
+                  <AddButton
+                    prefix={prefix}
+                    onAdd={this.onAppend}
+                    className={`${prefix}-design-preview-controller__append`}
+                  />
+                )}
             </div>
           );
         }}
@@ -158,23 +169,26 @@ class DesignPreviewController extends (PureComponent || Component) {
           <PreviewComponent prefix={prefix} {...previewProps} {...props} />
         </div>
 
-        {configurable && (
-          <DeleteButton prefix={prefix} onDelete={this.onDelete} />
-        )}
-        {configurable && (
-          <AddButton
-            prefix={prefix}
-            onAdd={this.onPrepend}
-            className={`${prefix}-design-preview-controller__prepend`}
-          />
-        )}
-        {configurable && (
-          <AddButton
-            prefix={prefix}
-            onAdd={this.onAppend}
-            className={`${prefix}-design-preview-controller__append`}
-          />
-        )}
+        {configurable &&
+          canDelete && (
+            <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+          )}
+        {configurable &&
+          canInsert && (
+            <AddButton
+              prefix={prefix}
+              onAdd={this.onPrepend}
+              className={`${prefix}-design-preview-controller__prepend`}
+            />
+          )}
+        {configurable &&
+          canInsert && (
+            <AddButton
+              prefix={prefix}
+              onAdd={this.onAppend}
+              className={`${prefix}-design-preview-controller__append`}
+            />
+          )}
       </div>
     );
 
@@ -228,7 +242,7 @@ function DeleteButton({ prefix, onDelete }) {
       onConfirm={onDelete}
       wrapperClassName={`${prefix}-design-preview-controller__action-btn-delete`}
     >
-      <IconDelete prefix={prefix} />
+      <IconDelete prefix={prefix} onClick={stopEventPropagation} />
     </Pop>
   );
 }
@@ -273,6 +287,7 @@ function AddMarker({ prefix }) {
 }
 
 function IconAdd({ prefix }) {
+  // 小数的圆心和半径有时候显示有问题，所以圆不用 SVG
   return (
     <svg
       width="17"
@@ -282,7 +297,7 @@ function IconAdd({ prefix }) {
       className={`${prefix}-design-preview-controller__icon-add`}
     >
       <g fill="none" fillRule="evenodd">
-        <circle fill="#38F" cx="8.5" cy="8.5" r="8.5" />
+        {/* <circle fill="#38F" cx="8.5" cy="8.5" r="8.5" /> */}
         <path d="M8 8H5v1h3v3h1V9h3V8H9V5H8v3z" fill="#FFF" />
       </g>
     </svg>
@@ -311,6 +326,10 @@ class IconDelete extends (PureComponent || Component) {
       </svg>
     );
   }
+}
+
+function stopEventPropagation(evt) {
+  evt && evt.stopPropagation();
 }
 
 export default DesignPreviewController;

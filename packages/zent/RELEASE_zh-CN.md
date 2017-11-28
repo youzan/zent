@@ -2,6 +2,56 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 3.10.1 (2017-11-27)
+
+- 🎉 `NumberInput` 新增一种新样式，通过 `showCounter` 开启
+- `Upload`
+  - ✨ 组件增强文件类型判断功能
+  - ✨ 支持语音上传
+  - 🦀️ 修复删除图片位置不对的问题
+- `Design`
+  - 🦀️ 修复了一些样式问题
+  - ✨ 新增 `canInsert`, `canDelete` 用于细粒度控制添加/删除按钮
+- 🦀️ 修复 `Form` 组件有异步校验导致无法提交的问题
+- 🦀️ 修复 `Pop` 的 TypeScript 类型定义
+
+### 3.10.0 (2017-11-24)
+
+- 🎉 新增年份选择组件 `YearPicker`
+- `Design`
+  - ✨ 新的添加组件交互
+  - ✨ 不再依赖 `react-dnd`
+- 🦀️ 修复 `Cascader` 数据不能为空的问题
+
+如果你的 `Design` 组件依赖 `react-dnd` 你可能需要在 App 的顶层自己注入 `react-dnd` 的 context.
+
+```jsx
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContextProvider } from 'react-dnd';
+
+export default class YourApp {
+  render() {
+    return (
+      <DragDropContextProvider backend={HTML5Backend}>
+      /* ... */
+      </DragDropContextProvider>
+    );
+  };
+}
+```
+
+### 3.9.9 (2017-11-22)
+
+- `Design`
+  - 🦀️ 修复添加组件浮层字体颜色不对的问题
+  - 🦀️ 暂时去掉了选中组件时滚动到屏幕内的行为
+- `Form`
+  - 🦀️ 修复 `FieldArray` 因删减导致的表单校验报错的问题
+  - 🦀️ 修复 `FieldArray` 在嵌套使用时，部分域增删时数据不对问题
+  - 🦀️ 修复文档中错误文字
+  - 🦀️ 修复 `setFieldsValue` 和 `initialize` 方法无法设定表单域为 `0` 的问题
+  - 🦀️ 修复 `validateOnChange` 和 `validateOnBlur` 同为 `false` 时，部分情况下仍然在非提交时报错
+
 ### 3.9.8 (2017-11-21)
 
 - 🦀️ 更新 `Design` 删除/添加组件的交互

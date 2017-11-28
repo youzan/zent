@@ -6,14 +6,13 @@ group: Data Entry
 
 # Upload
 
-File uploader.
+File uploader. Supports images and audios.
 
 ### API
 
 | Property | Description | Type | Default | Required |
 |------|------|------|--------|--------|
-| type | Upload type, the default value is 'image', the audio is uploaded as 'voice' | string | `'image'` | No |
-| className | Extension class name | string | `''` | 否 |
+| type | Upload type, the default value is 'image', use 'voice' for audio | string | `'image'` | No |
 | localOnly | Allow local images only | boolean | `false` | No |
 | tips | Hint text | string | `''` | No |
 | maxSize | Image size limit in bytes | number | `1024 * 1024` | No |
@@ -26,6 +25,7 @@ File uploader.
 | onProgress | Progress callback when uploading local image  | function | `noop` | No |
 | filterFiles | Filter local files, supports Promise as return value | function | `noop` | No |
 | auto | Open upload dialog automatically | boolean | `false` | No |
-| triggerClassName | Custom trigger class name | string | `'zent-upload-trigger'` | No |
-| prefix | Custom prefix | string | `'zent'` | No |
 | withoutPopup | Don't render inside a popup | boolean | `false` | No |
+| triggerClassName | Custom trigger class name | string | `'zent-upload-trigger'` | No |
+| className | Extension class name | string | `''` | 否 |
+| prefix | Custom prefix | string | `'zent'` | No |
