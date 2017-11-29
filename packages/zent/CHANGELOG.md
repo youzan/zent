@@ -1,5 +1,19 @@
 ## Github Change Log
 
+## [zent@3.10.3](https://github.com/youzan/zent/tree/zent@3.10.3) (2017-11-29)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.2...zent@3.10.3)
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: remove scroll behavior [\#580](https://github.com/youzan/zent/pull/580) ([cpylua](https://github.com/cpylua))
+- upload: 修复accept没获取到的bug [\#579](https://github.com/youzan/zent/pull/579) ([huangsy](https://github.com/huangsy))
+- upload: 语音上传bug修复 [\#578](https://github.com/youzan/zent/pull/578) ([huangsy](https://github.com/huangsy))
+- \[bug fix\]Pagination: 增加空格，修改select配置 [\#577](https://github.com/youzan/zent/pull/577) ([linxixuan](https://github.com/linxixuan))
+
+**Merged pull requests:**
+
+- \[bug fix\] Grid: 修复scroll.x小于屏幕宽度时，显示错位 [\#576](https://github.com/youzan/zent/pull/576) ([wulv](https://github.com/wulv))
+
 ## [zent@3.10.2](https://github.com/youzan/zent/tree/zent@3.10.2) (2017-11-28)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.1...zent@3.10.2)
 
