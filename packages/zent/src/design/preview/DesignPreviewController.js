@@ -287,7 +287,6 @@ function AddMarker({ prefix }) {
 }
 
 function IconAdd({ prefix }) {
-  // 小数的圆心和半径有时候显示有问题，所以圆不用 SVG
   return (
     <svg
       width="17"
@@ -297,7 +296,7 @@ function IconAdd({ prefix }) {
       className={`${prefix}-design-preview-controller__icon-add`}
     >
       <g fill="none" fillRule="evenodd">
-        {/* <circle fill="#38F" cx="8.5" cy="8.5" r="8.5" /> */}
+        <circle cx="8.5" cy="8.5" r="8.5" />
         <path d="M8 8H5v1h3v3h1V9h3V8H9V5H8v3z" fill="#FFF" />
       </g>
     </svg>
@@ -317,7 +316,7 @@ class IconDelete extends (PureComponent || Component) {
         onClick={onClick}
       >
         <g fill="none" fillRule="evenodd">
-          <circle fill="#000" cx="10" cy="10" r="10" />
+          <circle cx="10" cy="10" r="10" />
           <path
             fill="#FFF"
             d="M13.75 7.188l-.937-.938L10 9.063 7.188 6.25l-.938.937L9.062 10 6.25 12.812l.937.938L10 10.938l2.812 2.812.938-.937L10.938 10"
