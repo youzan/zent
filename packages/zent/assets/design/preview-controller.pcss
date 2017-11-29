@@ -29,6 +29,18 @@
     }
   }
 
+  &__icon-add {
+    circle {
+      fill: $theme-primary-3;
+    }
+
+    &:hover {
+      circle {
+        fill: $theme-primary-2;
+      }
+    }
+  }
+
   &__action-btn-add-container {
     position: absolute;
     left: 0;
@@ -59,16 +71,16 @@
     width: 17px;
     height: 17px;
     display: inline-block;
-    border-radius: 50%;
-    background: $theme-primary-2;
-    opacity: 0.8;
 
     &:hover {
-      opacity: 1;
-
       + .zent-design-preview-controller__add-marker {
-        display: flex;
-        opacity: 1;
+        .zent-design-preview-controller__add-marker-circle {
+          border-color: $theme-primary-2;
+        }
+
+        .zent-design-preview-controller__add-marker-line {
+          background: $theme-primary-2;
+        }
       }
     }
   }
@@ -80,12 +92,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    opacity: 0.8;
     z-index: 4;
     display: flex;
 
     &-circle {
-      border: 1px solid $theme-primary-2;
+      border: 1px solid $theme-primary-3;
       border-radius: 50%;
       width: 3px;
       height: 3px;
@@ -96,7 +107,7 @@
     }
 
     &-line {
-      background: $theme-primary-2;
+      background: $theme-primary-3;
       height: 1px;
       width: 100%;
     }
