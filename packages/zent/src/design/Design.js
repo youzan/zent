@@ -475,19 +475,24 @@ export default class Design extends (PureComponent || Component) {
       return skip;
     });
 
-    // 删除后默认选中前一项可选的，如果不存在则往后找一个可选项
-    const nextSelectedValue = findFirstEditableSibling(
-      newValue,
-      components,
-      nextIndex
-    );
-    const nextUUID = this.getUUIDFromValue(nextSelectedValue);
+    const newState = {
+      showAddComponentOverlay: false
+    };
+
+    // 删除选中项目后默认选中前一项可选的，如果不存在则往后找一个可选项
+    const componentUUID = this.getUUIDFromValue(component);
+    if (componentUUID === this.state.selectedUUID) {
+      const nextSelectedValue = findFirstEditableSibling(
+        newValue,
+        components,
+        nextIndex
+      );
+      const nextUUID = this.getUUIDFromValue(nextSelectedValue);
+      newState.selectedUUID = nextUUID;
+    }
 
     this.trackValueChange(newValue);
-    this.setState({
-      selectedUUID: nextUUID,
-      showAddComponentOverlay: false
-    });
+    this.setState(newState);
 
     this.adjustHeight();
   };
