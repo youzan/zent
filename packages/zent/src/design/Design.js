@@ -38,7 +38,6 @@ import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import defaultTo from 'lodash/defaultTo';
-import defer from 'lodash/defer';
 import * as storage from 'utils/storage';
 import uuid from 'utils/uuid';
 
@@ -402,10 +401,6 @@ export default class Design extends (PureComponent || Component) {
   // 打开右侧添加新组件的弹层
   onShowAddComponentOverlay = (component, addPosition) => {
     this.toggleEditOrAdd(component, true, addPosition);
-
-    // 将当前组件滚动到顶部
-    // const id = this.getUUIDFromValue(component);
-    // this.scrollToPreviewItem(id);
   };
 
   // 编辑一个已有组件
@@ -466,10 +461,6 @@ export default class Design extends (PureComponent || Component) {
 
     this.trackValueChange(newValue);
     this.onSelect(instance);
-
-    defer(() => {
-      this.scrollToPreviewItem(id);
-    });
   };
 
   // 删除一个组件
@@ -499,9 +490,6 @@ export default class Design extends (PureComponent || Component) {
     });
 
     this.adjustHeight();
-    defer(() => {
-      this.scrollToPreviewItem(nextUUID);
-    });
   };
 
   onMove = (fromIndex, toIndex) => {
