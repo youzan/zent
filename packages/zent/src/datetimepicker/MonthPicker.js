@@ -65,6 +65,7 @@ class MonthPicker extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.state = extractStateFromProps(props);
+    this.isfooterShow = props.showTime || props.isFooterVisble;
   }
 
   componentWillReceiveProps(next) {
@@ -90,6 +91,9 @@ class MonthPicker extends (PureComponent || Component) {
     });
 
     onClick && onClick(val);
+    if (!this.isfooterShow) {
+      this.onConfirm();
+    }
   };
 
   onClearInput = evt => {
@@ -128,11 +132,13 @@ class MonthPicker extends (PureComponent || Component) {
 
   renderPicker() {
     const { state, props } = this;
-
     let monthPicker;
     if (state.openPanel) {
+      const monthPickerClass = classNames('month-picker', {
+        small: this.isfooterShow
+      });
       monthPicker = (
-        <div className="month-picker" ref={ref => (this.picker = ref)}>
+        <div className={monthPickerClass} ref={ref => (this.picker = ref)}>
           <MonthPanel
             actived={state.actived}
             selected={state.selected}
@@ -140,13 +146,15 @@ class MonthPicker extends (PureComponent || Component) {
             onSelect={this.onSelectMonth}
             disabledDate={this.isDisabled}
           />
-          <PanelFooter
-            buttonText={props.confirmText}
-            linkText="当前月"
-            linkCls="link--current"
-            onClickLink={() => this.onSelectMonth(CURRENT)}
-            onClickButton={this.onConfirm}
-          />
+          {this.isfooterShow ? (
+            <PanelFooter
+              buttonText={props.confirmText}
+              linkText="当前月"
+              linkCls="link--current"
+              onClickLink={() => this.onSelectMonth(CURRENT)}
+              onClickButton={this.onConfirm}
+            />
+          ) : null}
         </div>
       );
     }

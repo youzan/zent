@@ -198,6 +198,9 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     });
 
     onClick && onClick(val, type);
+    if (!this.props.isFooterVisble) {
+      this.onConfirm();
+    }
   };
 
   isDisabled = val => {
@@ -352,7 +355,6 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   renderPicker() {
     const { state, props } = this;
     let rangePicker;
-
     const getTimeConfig = type => {
       if (!props.showTime) return false;
       const handleMap = {
@@ -420,12 +422,14 @@ class CombineDateRangePicker extends (PureComponent || Component) {
               showNext
             />
           </div>
-          <PanelFooter
-            buttonText={props.confirmText}
-            onClickButton={this.onConfirm}
-            showError={state.showError}
-            errorText={props.errorText}
-          />
+          {props.showTime || props.isFooterVisble ? (
+            <PanelFooter
+              buttonText={props.confirmText}
+              onClickButton={this.onConfirm}
+              showError={state.showError}
+              errorText={props.errorText}
+            />
+          ) : null}
         </div>
       );
     }

@@ -138,13 +138,13 @@ $input_width: 183px;
 
         .month-panel {
           .grid-cell {
-            height: 41.5px;
+            height: 47.5px;
           }
         }
 
         .year-panel {
           .grid-cell {
-            height: 41.5px;
+            height: 47.5px;
           }
         }
       }
@@ -182,7 +182,7 @@ $input_width: 183px;
     .week-picker {
       .date-panel {
         .grid-cell {
-          padding: 2px 0;
+          padding: 4px 0;
         }
       }
 
@@ -192,7 +192,7 @@ $input_width: 183px;
         left: 0;
 
         .grid-cell {
-          height: 55.5px;
+          height: 47.5px;
           vertical-align: middle;
           padding: 0;
         }
@@ -200,9 +200,37 @@ $input_width: 183px;
 
       .year-panel {
         .grid-cell {
-          height: 55.5px;
+          height: 47.5px;
           vertical-align: middle;
           padding: 0;
+        }
+      }
+
+      &.small {
+        .date-panel {
+          .grid-cell {
+            padding: 2px 0;
+          }
+        }
+
+        .month-panel {
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          .grid-cell {
+            height: 41.5px;
+            vertical-align: middle;
+            padding: 0;
+          }
+        }
+
+        .year-panel {
+          .grid-cell {
+            height: 41.5px;
+            vertical-align: middle;
+            padding: 0;
+          }
         }
       }
     }
@@ -210,13 +238,28 @@ $input_width: 183px;
     .month-picker {
       .month-panel {
         .grid-cell {
-          height: 36px;
+          height: 47.5px;
         }
 
         .year-panel {
           .grid-cell {
             height: 47.5px;
             padding: 0;
+          }
+        }
+      }
+
+      &.small {
+        .month-panel {
+          .grid-cell {
+            height: 41.5px;
+          }
+
+          .year-panel {
+            .grid-cell {
+              height: 41.5px;
+              padding: 0;
+            }
           }
         }
       }
@@ -227,7 +270,7 @@ $input_width: 183px;
         position: relative;
 
         .grid-cell {
-          height: 41.5px;
+          height: 47.5px;
           padding: 0;
         }
       }
@@ -437,6 +480,17 @@ $input_width: 183px;
           width: 50px;
           height: 30px;
           line-height: 30px;
+        }
+      }
+    }
+
+    .panel-table.small {
+      .date-picker,
+      .week-picker {
+        .date-panel {
+          .grid-cell {
+            padding: 2px 0;
+          }
         }
       }
     }
