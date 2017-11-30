@@ -1,5 +1,11 @@
 @import './theme/default.pcss';
 
+@define-mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .zent-upload {
   .center,
   .text-center {
@@ -207,7 +213,7 @@
       top: 12px;
       left: 60px;
 
-      @include ellipsis;
+      @mixin ellipsis;
     }
 
     .voice-createtime {
