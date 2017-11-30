@@ -233,12 +233,25 @@ export default class Popover extends (PureComponent || Component) {
   };
 
   onTriggerRefChange = triggerInstance => {
-    this.triggerNode = ReactDOM.findDOMNode(triggerInstance);
+    this.triggerNode = triggerInstance
+      ? ReactDOM.findDOMNode(triggerInstance)
+      : undefined;
+    this.triggerInstance = triggerInstance;
+  };
+
+  onContentRefChange = contentInstance => {
+    this.contentInstance = contentInstance;
   };
 
   getTriggerNode = () => {
     return this.triggerNode;
   };
+
+  adjustPosition() {
+    if (this.contentInstance && this.contentInstance.adjustPosition) {
+      this.contentInstance.adjustPosition();
+    }
+  }
 
   open = () => {
     this.setVisible(true);
@@ -373,6 +386,7 @@ export default class Popover extends (PureComponent || Component) {
           id: this.id,
           getContentNode: this.getPopoverNode,
           getAnchor: this.getTriggerNode,
+          ref: this.onContentRefChange,
           visible,
           cushion,
           containerSelector,
