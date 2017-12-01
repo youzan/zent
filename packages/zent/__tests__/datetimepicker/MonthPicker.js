@@ -6,7 +6,7 @@ import formatDate from 'zan-utils/date/formatDate';
 describe('MonthPicker', () => {
   it('MonthPicker has 2 level panel', () => {
     let pop;
-    const wrapper = mount(<MonthPicker />);
+    const wrapper = mount(<MonthPicker showTime isFooterVisble />);
     const inst = wrapper.instance();
     expect(inst.state.openPanel).toBe(false);
     expect(inst.state.showPlaceholder).toBe(true);
@@ -50,7 +50,9 @@ describe('MonthPicker', () => {
   it('MonthPicker return empty string when click clear icon', () => {
     let wrapper;
     const onChangeMock = jest.fn();
-    wrapper = mount(<MonthPicker value="2010-01" onChange={onChangeMock} />);
+    wrapper = mount(
+      <MonthPicker value="2010-01" onChange={onChangeMock} isFooterVisble />
+    );
     wrapper
       .find('.zenticon-close-circle')
       .at(0)
@@ -60,10 +62,10 @@ describe('MonthPicker', () => {
 
   it('MonthPicker support default value', () => {
     let wrapper;
-    wrapper = mount(<MonthPicker defaultValue="2010-01" />);
+    wrapper = mount(<MonthPicker defaultValue="2010-01" isFooterVisble />);
     expect(wrapper.instance().state.actived).toBeInstanceOf(Date);
 
-    wrapper = mount(<MonthPicker vaule="xxxx-xx" />);
+    wrapper = mount(<MonthPicker vaule="xxxx-xx" isFooterVisble />);
     expect(wrapper.instance().state.showPlaceholder).toBe(true);
   });
 
@@ -73,7 +75,9 @@ describe('MonthPicker', () => {
     const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({ value });
     });
-    wrapper = mount(<MonthPicker value="2010-01" onChange={onChangeMock} />);
+    wrapper = mount(
+      <MonthPicker value="2010-01" onChange={onChangeMock} isFooterVisble />
+    );
 
     const inst = wrapper.instance();
     expect(inst.state.showPlaceholder).toBe(false);

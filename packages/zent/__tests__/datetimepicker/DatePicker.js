@@ -19,7 +19,7 @@ describe('DateTimePicker', () => {
      *       {palceholder||value}
      *       span.zenticon-calendar-o
      */
-    const wrapper = mount(<DatePicker />);
+    const wrapper = mount(<DatePicker showTime isFooterVisble />);
     expect(wrapper.find('DatePicker').length).toBe(1);
     // expect(wrapper.find('.zent-datetime-picker').childAt(0).type()).toBe('div');
     // expect(wrapper.find('.zent-datetime-picker').childAt(0).hasClass('picker-wrapper')).toBe(true);
@@ -29,7 +29,7 @@ describe('DateTimePicker', () => {
   });
 
   it('DatePicker has its default behavior(DatePanel, MonthPanel and YearPanel 3 level transition)', () => {
-    const wrapper = mount(<DatePicker />);
+    const wrapper = mount(<DatePicker isFooterVisble />);
 
     wrapper.find('.picker-input').simulate('click');
     // get pop from ref after simulate click.
@@ -59,7 +59,7 @@ describe('DateTimePicker', () => {
   });
 
   it('DatePicker with showTime switch (some kind of 5-level panel)', () => {
-    const wrapper = mount(<DatePicker showTime />);
+    const wrapper = mount(<DatePicker showTime isFooterVisble />);
     wrapper.find('.picker-input').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().picker, true);
     pop.find('.link--current').simulate('click');
@@ -117,7 +117,7 @@ describe('DateTimePicker', () => {
     const getMonthNumber = string => +string.match(/(\d{4}).{1}(\d{1,2})/)[2];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
     const getYearRangeTail = string => +string.match(/(\d{4}).*(\d{4})/)[2];
-    const wrapper = mount(<DatePicker showTime />);
+    const wrapper = mount(<DatePicker showTime isFooterVisble />);
 
     // DatePanel
     wrapper.find('.picker-input').simulate('click');
@@ -207,6 +207,7 @@ describe('DateTimePicker', () => {
         value="2017-01-01"
         onChange={onChangeMock}
         onHover={hoverMock}
+        isFooterVisble
       />
     );
     wrapper.find('.picker-input').simulate('click');
@@ -244,12 +245,12 @@ describe('DateTimePicker', () => {
 
   // HACK: branch description is not clear
   it('DatePicker will set actived to Date.now() when value prop is unable to parse', () => {
-    let wrapper = mount(<DatePicker value={'2001年9月11日'} />);
+    let wrapper = mount(<DatePicker value={'2001年9月11日'} isFooterVisble />);
     expect(
       wrapper.find('DatePicker').getNode().state.actived instanceof Date
     ).toBe(true);
 
-    wrapper = mount(<DatePicker />);
+    wrapper = mount(<DatePicker isFooterVisble />);
     wrapper.setProps({ prefix: 'zent-custom' });
     expect(wrapper.find('.zent-custom-datetime-picker').length).toBe(1);
     wrapper.setProps({ value: false });
@@ -283,11 +284,14 @@ describe('DateTimePicker', () => {
       <DatePicker
         onChange={onChangeMock}
         value={new Date(2017, 1, 1).getTime()}
+        isFooterVisble
       />
     );
     changeValue(wrapper);
     expect(typeof onChangeMock.mock.calls[0][0]).toBe('number');
-    wrapper = mount(<DatePicker onChange={onChangeMock} value={new Date()} />);
+    wrapper = mount(
+      <DatePicker onChange={onChangeMock} value={new Date()} isFooterVisble />
+    );
     changeValue(wrapper);
     expect(onChangeMock.mock.calls[1][0] instanceof Date).toBe(true);
   });
@@ -296,7 +300,7 @@ describe('DateTimePicker', () => {
     // total disable switch
     const getMonthNumber = string => +string.match(/(\d{4}).{1}(\d{1,2})/)[2];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
-    let wrapper = mount(<DatePicker disabled />);
+    let wrapper = mount(<DatePicker disabled isFooterVisble />);
     expect(wrapper.find('DatePanel').length).toBe(0);
     wrapper.find('.picker-input').simulate('click');
     expect(wrapper.find('DatePanel').length).toBe(0);
@@ -305,14 +309,14 @@ describe('DateTimePicker', () => {
     const disFunc = val => {
       return val.getFullYear() > 2000;
     };
-    wrapper = mount(<DatePicker disabledDate={disFunc} />);
+    wrapper = mount(<DatePicker disabledDate={disFunc} isFooterVisble />);
     wrapper.find('.picker-input').simulate('click');
     let pop = new ReactWrapper(wrapper.instance().picker, true);
     expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // max
     const now = new Date();
-    wrapper = mount(<DatePicker max="2010.01.01" />);
+    wrapper = mount(<DatePicker max="2010.01.01" isFooterVisble />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
     expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(
@@ -324,7 +328,7 @@ describe('DateTimePicker', () => {
     // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // min
-    wrapper = mount(<DatePicker min="3000.01.01" />);
+    wrapper = mount(<DatePicker min="3000.01.01" isFooterVisble />);
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(wrapper.instance().picker, true);
     expect(getMonthNumber(pop.find('DatePanel .panel__title').text())).toBe(
@@ -352,7 +356,7 @@ describe('DateTimePicker', () => {
       };
     };
     const wrapper = mount(
-      <DatePicker showTime disabledTime={getDisabledTime} />
+      <DatePicker showTime disabledTime={getDisabledTime} isFooterVisble />
     );
     wrapper.find('.picker-input').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().picker, true);
@@ -386,7 +390,7 @@ describe('DateTimePicker', () => {
   it('support disabled time with min', () => {
     const now = setTime(new Date(), TIME);
 
-    const wrapper = mount(<DatePicker showTime min={now} />);
+    const wrapper = mount(<DatePicker showTime min={now} isFooterVisble />);
     wrapper.find('.picker-input').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().picker, true);
 
@@ -440,7 +444,7 @@ describe('DateTimePicker', () => {
   it('support disabled time with max', () => {
     const now = setTime(new Date(), TIME);
 
-    const wrapper = mount(<DatePicker showTime max={now} />);
+    const wrapper = mount(<DatePicker showTime max={now} isFooterVisble />);
     wrapper.find('.picker-input').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().picker, true);
 
