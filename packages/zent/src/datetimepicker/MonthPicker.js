@@ -134,11 +134,12 @@ class MonthPicker extends (PureComponent || Component) {
     const { state, props } = this;
     let monthPicker;
     if (state.openPanel) {
-      const monthPickerClass = classNames('month-picker', {
+      const monthPickerCls = classNames({
+        'month-picker': true,
         small: this.isfooterShow
       });
       monthPicker = (
-        <div className={monthPickerClass} ref={ref => (this.picker = ref)}>
+        <div className={monthPickerCls} ref={ref => (this.picker = ref)}>
           <MonthPanel
             actived={state.actived}
             selected={state.selected}

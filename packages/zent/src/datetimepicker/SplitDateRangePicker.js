@@ -42,7 +42,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
 
   renderPicker() {
     const props = this.props;
-    console.log('splitDateRange');
+
     const {
       value,
       placeholder,

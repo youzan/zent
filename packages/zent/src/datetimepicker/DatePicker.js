@@ -249,10 +249,6 @@ class DatePicker extends (PureComponent || Component) {
       );
     }
 
-    const datePickerClass = classNames('date-picker', {
-      small: this.isfooterShow
-    });
-
     // 打开面板的时候才渲染
     if (state.openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
@@ -260,9 +256,13 @@ class DatePicker extends (PureComponent || Component) {
         'link--current': true,
         'link--disabled': isDisabled
       });
-      // props.isFooterVisble = true;
+      const datePickerCls = classNames({
+        'date-picker': true,
+        small: this.isfooterShow
+      });
+
       datePicker = (
-        <div className={datePickerClass} ref={ref => (this.picker = ref)}>
+        <div className={datePickerCls} ref={ref => (this.picker = ref)}>
           <DatePanel
             showTime={showTime}
             actived={state.actived}

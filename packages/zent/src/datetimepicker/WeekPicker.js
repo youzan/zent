@@ -235,12 +235,13 @@ class WeekPicker extends (PureComponent || Component) {
         'link--disabled': isDisabled
       });
 
-      const weekPickerClass = classNames('week-picker', {
+      const weekPickerCls = classNames({
+        'week-picker': true,
         small: this.isfooterShow
       });
 
       weekPicker = (
-        <div className={weekPickerClass} ref={ref => (this.picker = ref)}>
+        <div className={weekPickerCls} ref={ref => (this.picker = ref)}>
           <div onMouseOut={this.onMouseOut}>
             <DatePanel
               range={state.range}

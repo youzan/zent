@@ -125,6 +125,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     }
 
     this.state = extractStateFromProps(props);
+    this.isfooterShow = props.showTime || props.isFooterVisble;
   }
 
   componentWillReceiveProps(next) {
@@ -198,7 +199,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     });
 
     onClick && onClick(val, type);
-    if (!this.props.isFooterVisble) {
+    if (!this.isfooterShow) {
       this.onConfirm();
     }
   };
@@ -388,9 +389,14 @@ class CombineDateRangePicker extends (PureComponent || Component) {
         'range-picker': true,
         'range-picker--showTime': props.showTime
       });
+      const datePickerCls = classNames({
+        'date-picker': true,
+        small: this.isfooterShow
+      });
+
       rangePicker = (
         <div className={pickerCls} ref={ref => (this.picker = ref)}>
-          <div className="date-picker">
+          <div className={datePickerCls}>
             <DatePanel
               range={state.range}
               showTime={getTimeConfig('start')}
@@ -406,7 +412,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
               showNext={false}
             />
           </div>
-          <div className="date-picker">
+          <div className={datePickerCls}>
             <DatePanel
               range={state.range}
               showTime={getTimeConfig('end')}
@@ -422,7 +428,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
               showNext
             />
           </div>
-          {props.showTime || props.isFooterVisble ? (
+          {this.isfooterShow ? (
             <PanelFooter
               buttonText={props.confirmText}
               onClickButton={this.onConfirm}
