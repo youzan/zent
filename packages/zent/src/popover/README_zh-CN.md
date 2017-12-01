@@ -184,6 +184,12 @@ const HoverContent = withPopover(function HoverContent({ popover }) {
 </Popover>
 ```
 
+#### `adjustPosition` 方法
+
+可以通过这个方法调整 `Pop` 的位置。
+
+一般是用于某些特殊场合，`Pop` 无法自动更新位置时手动调用。
+
 <style>
 .zent-doc-popover {
 	border: 1px solid #e5e5e5;

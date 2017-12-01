@@ -2,8 +2,11 @@
 
 /* See README.md for why this exists. */
 
-'use strict';
-const toBytes = s => Array.from(s).map(c => c.charCodeAt(0));
+import toArray from 'lodash/toArray';
+import assign from 'lodash/assign';
+import findIndex from 'lodash/findIndex';
+
+const toBytes = s => toArray(s).map(c => c.charCodeAt(0));
 const xpiZipFilename = toBytes('META-INF/mozilla.rsa');
 const oxmlContentTypes = toBytes('[Content_Types].xml');
 const oxmlRels = toBytes('_rels/.rels');
@@ -16,7 +19,7 @@ module.exports = input => {
   }
 
   const check = (header, opts) => {
-    opts = Object.assign(
+    opts = assign(
       {
         offset: 0
       },
@@ -59,7 +62,11 @@ module.exports = input => {
     };
   }
 
-  if (check([0x57, 0x45, 0x42, 0x50], { offset: 8 })) {
+  if (
+    check([0x57, 0x45, 0x42, 0x50], {
+      offset: 8
+    })
+  ) {
     return {
       ext: 'webp',
       mime: 'image/webp'
@@ -76,7 +83,9 @@ module.exports = input => {
   // Needs to be before `tif` check
   if (
     (check([0x49, 0x49, 0x2a, 0x0]) || check([0x4d, 0x4d, 0x0, 0x2a])) &&
-    check([0x43, 0x52], { offset: 8 })
+    check([0x43, 0x52], {
+      offset: 8
+    })
   ) {
     return {
       ext: 'cr2',
@@ -147,7 +156,9 @@ module.exports = input => {
           0x69,
           0x70
         ],
-        { offset: 30 }
+        {
+          offset: 30
+        }
       )
     ) {
       return {
@@ -157,7 +168,11 @@ module.exports = input => {
     }
 
     // Assumes signed `.xpi` from addons.mozilla.org
-    if (check(xpiZipFilename, { offset: 30 })) {
+    if (
+      check(xpiZipFilename, {
+        offset: 30
+      })
+    ) {
       return {
         ext: 'xpi',
         mime: 'application/x-xpinstall'
@@ -166,12 +181,17 @@ module.exports = input => {
 
     // https://github.com/file/file/blob/master/magic/Magdir/msooxml
     if (
-      check(oxmlContentTypes, { offset: 30 }) ||
-      check(oxmlRels, { offset: 30 })
+      check(oxmlContentTypes, {
+        offset: 30
+      }) ||
+      check(oxmlRels, {
+        offset: 30
+      })
     ) {
       const sliced = buf.subarray(4, 4 + 2000);
       const nextZipHeaderIndex = arr =>
-        arr.findIndex(
+        findIndex(
+          arr,
           (el, i, arr) =>
             arr[i] === 0x50 &&
             arr[i + 1] === 0x4b &&
@@ -187,7 +207,11 @@ module.exports = input => {
         if (header3Pos !== -1) {
           const offset = 8 + header2Pos + header3Pos + 30;
 
-          if (check(toBytes('word/'), { offset })) {
+          if (
+            check(toBytes('word/'), {
+              offset
+            })
+          ) {
             return {
               ext: 'docx',
               mime:
@@ -195,7 +219,11 @@ module.exports = input => {
             };
           }
 
-          if (check(toBytes('ppt/'), { offset })) {
+          if (
+            check(toBytes('ppt/'), {
+              offset
+            })
+          ) {
             return {
               ext: 'pptx',
               mime:
@@ -203,7 +231,11 @@ module.exports = input => {
             };
           }
 
-          if (check(toBytes('xl/'), { offset })) {
+          if (
+            check(toBytes('xl/'), {
+              offset
+            })
+          ) {
             return {
               ext: 'xlsx',
               mime:
@@ -226,7 +258,11 @@ module.exports = input => {
     };
   }
 
-  if (check([0x75, 0x73, 0x74, 0x61, 0x72], { offset: 257 })) {
+  if (
+    check([0x75, 0x73, 0x74, 0x61, 0x72], {
+      offset: 257
+    })
+  ) {
     return {
       ext: 'tar',
       mime: 'application/x-tar'
@@ -274,14 +310,30 @@ module.exports = input => {
   if (
     check([0x33, 0x67, 0x70, 0x35]) || // 3gp5
     (check([0x0, 0x0, 0x0]) &&
-      check([0x66, 0x74, 0x79, 0x70], { offset: 4 }) &&
-      (check([0x6d, 0x70, 0x34, 0x31], { offset: 8 }) || // MP41
-      check([0x6d, 0x70, 0x34, 0x32], { offset: 8 }) || // MP42
-      check([0x69, 0x73, 0x6f, 0x6d], { offset: 8 }) || // ISOM
-      check([0x69, 0x73, 0x6f, 0x32], { offset: 8 }) || // ISO2
-      check([0x6d, 0x6d, 0x70, 0x34], { offset: 8 }) || // MMP4
-      check([0x4d, 0x34, 0x56], { offset: 8 }) || // M4V
-        check([0x64, 0x61, 0x73, 0x68], { offset: 8 }))) // DASH
+      check([0x66, 0x74, 0x79, 0x70], {
+        offset: 4
+      }) &&
+      (check([0x6d, 0x70, 0x34, 0x31], {
+        offset: 8
+      }) || // MP41
+      check([0x6d, 0x70, 0x34, 0x32], {
+        offset: 8
+      }) || // MP42
+      check([0x69, 0x73, 0x6f, 0x6d], {
+        offset: 8
+      }) || // ISOM
+      check([0x69, 0x73, 0x6f, 0x32], {
+        offset: 8
+      }) || // ISO2
+      check([0x6d, 0x6d, 0x70, 0x34], {
+        offset: 8
+      }) || // MMP4
+      check([0x4d, 0x34, 0x56], {
+        offset: 8
+      }) || // M4V
+        check([0x64, 0x61, 0x73, 0x68], {
+          offset: 8
+        }))) // DASH
   ) {
     return {
       ext: 'mp4',
@@ -299,14 +351,15 @@ module.exports = input => {
   // https://github.com/threatstack/libmagic/blob/master/magic/Magdir/matroska
   if (check([0x1a, 0x45, 0xdf, 0xa3])) {
     const sliced = buf.subarray(4, 4 + 4096);
-    const idPos = sliced.findIndex(
+    const idPos = findIndex(
+      sliced,
       (el, i, arr) => arr[i] === 0x42 && arr[i + 1] === 0x82
     );
 
     if (idPos !== -1) {
       const docTypePos = idPos + 3;
       const findDocType = type =>
-        Array.from(type).every(
+        toArray(type).every(
           (c, i) => sliced[docTypePos + i] === c.charCodeAt(0)
         );
 
@@ -341,10 +394,18 @@ module.exports = input => {
       0x20,
       0x20
     ]) ||
-    check([0x66, 0x72, 0x65, 0x65], { offset: 4 }) ||
-    check([0x66, 0x74, 0x79, 0x70, 0x71, 0x74, 0x20, 0x20], { offset: 4 }) ||
-    check([0x6d, 0x64, 0x61, 0x74], { offset: 4 }) || // MJPEG
-    check([0x77, 0x69, 0x64, 0x65], { offset: 4 })
+    check([0x66, 0x72, 0x65, 0x65], {
+      offset: 4
+    }) ||
+    check([0x66, 0x74, 0x79, 0x70, 0x71, 0x74, 0x20, 0x20], {
+      offset: 4
+    }) ||
+    check([0x6d, 0x64, 0x61, 0x74], {
+      offset: 4
+    }) || // MJPEG
+    check([0x77, 0x69, 0x64, 0x65], {
+      offset: 4
+    })
   ) {
     return {
       ext: 'mov',
@@ -354,7 +415,9 @@ module.exports = input => {
 
   if (
     check([0x52, 0x49, 0x46, 0x46]) &&
-    check([0x41, 0x56, 0x49], { offset: 8 })
+    check([0x41, 0x56, 0x49], {
+      offset: 8
+    })
   ) {
     return {
       ext: 'avi',
@@ -388,8 +451,13 @@ module.exports = input => {
   // Check for MP3 header at different starting offsets
   for (let start = 0; start < 2 && start < buf.length - 16; start++) {
     if (
-      check([0x49, 0x44, 0x33], { offset: start }) || // ID3 header
-      check([0xff, 0xe2], { offset: start, mask: [0xff, 0xe2] }) // MPEG 1 or 2 Layer 3 header
+      check([0x49, 0x44, 0x33], {
+        offset: start
+      }) || // ID3 header
+      check([0xff, 0xe2], {
+        offset: start,
+        mask: [0xff, 0xe2]
+      }) // MPEG 1 or 2 Layer 3 header
     ) {
       return {
         ext: 'mp3',
@@ -399,7 +467,9 @@ module.exports = input => {
   }
 
   if (
-    check([0x66, 0x74, 0x79, 0x70, 0x4d, 0x34, 0x41], { offset: 4 }) ||
+    check([0x66, 0x74, 0x79, 0x70, 0x4d, 0x34, 0x41], {
+      offset: 4
+    }) ||
     check([0x4d, 0x34, 0x41, 0x20])
   ) {
     return {
@@ -409,7 +479,11 @@ module.exports = input => {
   }
 
   // Needs to be before `ogg` check
-  if (check([0x4f, 0x70, 0x75, 0x73, 0x48, 0x65, 0x61, 0x64], { offset: 28 })) {
+  if (
+    check([0x4f, 0x70, 0x75, 0x73, 0x48, 0x65, 0x61, 0x64], {
+      offset: 28
+    })
+  ) {
     return {
       ext: 'opus',
       mime: 'audio/opus'
@@ -421,21 +495,33 @@ module.exports = input => {
     // This is a OGG container
 
     // If ' theora' in header.
-    if (check([0x80, 0x74, 0x68, 0x65, 0x6f, 0x72, 0x61], { offset: 28 })) {
+    if (
+      check([0x80, 0x74, 0x68, 0x65, 0x6f, 0x72, 0x61], {
+        offset: 28
+      })
+    ) {
       return {
         ext: 'ogv',
         mime: 'video/ogg'
       };
     }
     // If '\x01video' in header.
-    if (check([0x01, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x00], { offset: 28 })) {
+    if (
+      check([0x01, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x00], {
+        offset: 28
+      })
+    ) {
       return {
         ext: 'ogm',
         mime: 'video/ogg'
       };
     }
     // If ' FLAC' in header  https://xiph.org/flac/faq.html
-    if (check([0x7f, 0x46, 0x4c, 0x41, 0x43], { offset: 28 })) {
+    if (
+      check([0x7f, 0x46, 0x4c, 0x41, 0x43], {
+        offset: 28
+      })
+    ) {
       return {
         ext: 'oga',
         mime: 'audio/ogg'
@@ -443,7 +529,11 @@ module.exports = input => {
     }
 
     // 'Speex  ' in header https://en.wikipedia.org/wiki/Speex
-    if (check([0x53, 0x70, 0x65, 0x65, 0x78, 0x20, 0x20], { offset: 28 })) {
+    if (
+      check([0x53, 0x70, 0x65, 0x65, 0x78, 0x20, 0x20], {
+        offset: 28
+      })
+    ) {
       return {
         ext: 'spx',
         mime: 'audio/ogg'
@@ -451,7 +541,11 @@ module.exports = input => {
     }
 
     // If '\x01vorbis' in header
-    if (check([0x01, 0x76, 0x6f, 0x72, 0x62, 0x69, 0x73], { offset: 28 })) {
+    if (
+      check([0x01, 0x76, 0x6f, 0x72, 0x62, 0x69, 0x73], {
+        offset: 28
+      })
+    ) {
       return {
         ext: 'ogg',
         mime: 'audio/ogg'
@@ -474,7 +568,9 @@ module.exports = input => {
 
   if (
     check([0x52, 0x49, 0x46, 0x46]) &&
-    check([0x57, 0x41, 0x56, 0x45], { offset: 8 })
+    check([0x57, 0x41, 0x56, 0x45], {
+      offset: 8
+    })
   ) {
     return {
       ext: 'wav',
@@ -505,7 +601,9 @@ module.exports = input => {
 
   if (
     (buf[0] === 0x43 || buf[0] === 0x46) &&
-    check([0x57, 0x53], { offset: 1 })
+    check([0x57, 0x53], {
+      offset: 1
+    })
   ) {
     return {
       ext: 'swf',
@@ -529,8 +627,12 @@ module.exports = input => {
 
   if (
     check([0x77, 0x4f, 0x46, 0x46]) &&
-    (check([0x00, 0x01, 0x00, 0x00], { offset: 4 }) ||
-      check([0x4f, 0x54, 0x54, 0x4f], { offset: 4 }))
+    (check([0x00, 0x01, 0x00, 0x00], {
+      offset: 4
+    }) ||
+      check([0x4f, 0x54, 0x54, 0x4f], {
+        offset: 4
+      }))
   ) {
     return {
       ext: 'woff',
@@ -540,8 +642,12 @@ module.exports = input => {
 
   if (
     check([0x77, 0x4f, 0x46, 0x32]) &&
-    (check([0x00, 0x01, 0x00, 0x00], { offset: 4 }) ||
-      check([0x4f, 0x54, 0x54, 0x4f], { offset: 4 }))
+    (check([0x00, 0x01, 0x00, 0x00], {
+      offset: 4
+    }) ||
+      check([0x4f, 0x54, 0x54, 0x4f], {
+        offset: 4
+      }))
   ) {
     return {
       ext: 'woff2',
@@ -550,10 +656,18 @@ module.exports = input => {
   }
 
   if (
-    check([0x4c, 0x50], { offset: 34 }) &&
-    (check([0x00, 0x00, 0x01], { offset: 8 }) ||
-      check([0x01, 0x00, 0x02], { offset: 8 }) ||
-      check([0x02, 0x00, 0x02], { offset: 8 }))
+    check([0x4c, 0x50], {
+      offset: 34
+    }) &&
+    (check([0x00, 0x00, 0x01], {
+      offset: 8
+    }) ||
+      check([0x01, 0x00, 0x02], {
+        offset: 8
+      }) ||
+      check([0x02, 0x00, 0x02], {
+        offset: 8
+      }))
   ) {
     return {
       ext: 'eot',
@@ -723,8 +837,15 @@ module.exports = input => {
   }
 
   if (
-    check([0x47], { offset: 4 }) &&
-    (check([0x47], { offset: 192 }) || check([0x47], { offset: 196 }))
+    check([0x47], {
+      offset: 4
+    }) &&
+    (check([0x47], {
+      offset: 192
+    }) ||
+      check([0x47], {
+        offset: 196
+      }))
   ) {
     return {
       ext: 'mts',
@@ -764,28 +885,44 @@ module.exports = input => {
   ) {
     // JPEG-2000 family
 
-    if (check([0x6a, 0x70, 0x32, 0x20], { offset: 20 })) {
+    if (
+      check([0x6a, 0x70, 0x32, 0x20], {
+        offset: 20
+      })
+    ) {
       return {
         ext: 'jp2',
         mime: 'image/jp2'
       };
     }
 
-    if (check([0x6a, 0x70, 0x78, 0x20], { offset: 20 })) {
+    if (
+      check([0x6a, 0x70, 0x78, 0x20], {
+        offset: 20
+      })
+    ) {
       return {
         ext: 'jpx',
         mime: 'image/jpx'
       };
     }
 
-    if (check([0x6a, 0x70, 0x6d, 0x20], { offset: 20 })) {
+    if (
+      check([0x6a, 0x70, 0x6d, 0x20], {
+        offset: 20
+      })
+    ) {
       return {
         ext: 'jpm',
         mime: 'image/jpm'
       };
     }
 
-    if (check([0x6d, 0x6a, 0x70, 0x32], { offset: 20 })) {
+    if (
+      check([0x6d, 0x6a, 0x70, 0x32], {
+        offset: 20
+      })
+    ) {
       return {
         ext: 'mj2',
         mime: 'image/mj2'
