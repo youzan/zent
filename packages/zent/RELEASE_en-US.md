@@ -2,6 +2,21 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.10.3 (2017-11-29)
+
+- `Upload`
+  - 🦀️ Fix `accept` not working
+  - 🦀️ Fix audio uplaod
+- 🦀️ Fix `Pagination` style
+- `Design`
+  - ✨ Update add component button style
+  - ✨ Optimize add component
+  - 🦀️ Remove auto scroll when adding/removing component
+
+### 3.10.2 (2017-11-28)
+
+- 🦀️ Fix `accept` not working in `Upload`
+
 ### 3.10.1 (2017-11-27)
 
 - 🎉 Add a new style for `NumberInput`, just set `showCounter` to `true`
