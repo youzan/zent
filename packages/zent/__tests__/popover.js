@@ -747,4 +747,17 @@ describe('Popover', () => {
     });
     expect(trigger.isOutsideSelf()).toBe(false);
   });
+
+  it('has adjustPosition method', () => {
+    const wrapper = mount(
+      <Popover position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger>abc</PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+        </PopoverContent>
+      </Popover>
+    );
+
+    expect(() => wrapper.getNode().adjustPosition()).not.toThrow();
+  });
 });

@@ -73,6 +73,14 @@ Possible senario: close `Pop` within its content.
 | open           | Open Pop         | func             |
 | close          | Close Pop        | func             |
 
+#### `adjustPosition`
+
+Use this function to manually adjust `Pop` position.
+
+#### `getWrappedPopover`
+
+Use this function to get the internal `Popover` instance.
+
 ### FAQ
 
 #### centerArrow

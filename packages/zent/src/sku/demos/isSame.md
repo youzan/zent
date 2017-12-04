@@ -8,6 +8,7 @@ zh-CN:
 	blue: 蓝色
 	big: 大
 	small: 小
+	viewCode: 请看代码
 
 en-US:
 	title: IsSame
@@ -17,6 +18,7 @@ en-US:
 	blue: blue
 	big: big
 	small: small
+	viewCode: See code below
 
 ---
 
@@ -58,7 +60,7 @@ console.log(isSame(skuA, skuD));
  */
 
 ReactDOM.render(
-    <span />
+    <p style={{fontSize: 14, color: '#333'}}>{i18n.viewCode}</p>
     , mountNode
 );
 

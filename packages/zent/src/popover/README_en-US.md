@@ -188,6 +188,12 @@ const HoverContent = withPopover(function HoverContent({ popover }) {
 </Popover>
 ```
 
+#### `adjustPosition`
+
+You can use this method to update `Pop` position.
+
+You rarely need it. `Pop` will update its position automatically on window scroll and resize.
+
 <style>
 .zent-doc-popover {
 	border: 1px solid #e5e5e5;

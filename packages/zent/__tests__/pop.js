@@ -325,4 +325,21 @@ describe('Pop', () => {
     wrapper.unmount();
     expect(instance.isUnmounted).toBe(true);
   });
+
+  it('has adjustPosition and getWrappedPopover method', () => {
+    let wrapper = mount(
+      <Pop
+        content={content()}
+        trigger={'click'}
+        className="bar11"
+        block
+        header={header()}
+      >
+        <Button>click</Button>
+      </Pop>
+    );
+    expect(() => wrapper.instance().adjustPosition()).not.toThrow();
+    expect(() => wrapper.instance().getWrappedPopover()).not.toThrow();
+    wrapper.unmount();
+  });
 });
