@@ -7,10 +7,11 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - `Design`
   - ✨ Preview width is now `375px`
   - 🦀️ Update styles
+- ✨ `Pop` and `Popover` exports `adjustPosition`, it is rarely needed but can be used to trigger manual position update in some cases.
+- 🦀️ Fix `Button` broken style in some cases.
 - `Upload`
   - 🦀️ Update styles
   - 🦀️ Fix some ES6 compatibility issues
-- ✨ `Pop` and `Popover` exports `adjustPosition`, it is rarely needed but can be used to trigger manual position update in some cases.
 
 ### 3.10.3 (2017-11-29)
 
