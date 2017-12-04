@@ -4,9 +4,25 @@ import MonthPicker from 'datetimepicker/MonthPicker';
 import formatDate from 'zan-utils/date/formatDate';
 
 describe('MonthPicker', () => {
+  it('MonthPicker not show footer ', () => {
+    let pop;
+    const wrapper = mount(<MonthPicker />);
+    const inst = wrapper.instance();
+    wrapper.find('.picker-input').simulate('click');
+
+    pop = new ReactWrapper(inst.picker, true);
+
+    expect(pop.find('MonthPanel').length).toBe(1);
+    pop
+      .find('.grid-cell')
+      .at(1)
+      .simulate('click');
+    expect(wrapper.find('MonthPanel').length).toBe(0);
+  });
+
   it('MonthPicker has 2 level panel', () => {
     let pop;
-    const wrapper = mount(<MonthPicker showTime isFooterVisble />);
+    const wrapper = mount(<MonthPicker isFooterVisble />);
     const inst = wrapper.instance();
     expect(inst.state.openPanel).toBe(false);
     expect(inst.state.showPlaceholder).toBe(true);

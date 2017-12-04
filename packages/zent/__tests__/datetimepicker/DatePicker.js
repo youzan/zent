@@ -11,6 +11,18 @@ const SECONDS = 10;
 const TIME = '10:10:10';
 
 describe('DateTimePicker', () => {
+  it('DatePicker not show footer', () => {
+    const wrapper = mount(<DatePicker />);
+    wrapper.find('.picker-input').simulate('click');
+    const pop = new ReactWrapper(wrapper.instance().picker, true);
+    expect(pop.find('DatePanel').length).toBe(1);
+    pop
+      .find('.grid-cell')
+      .at(1)
+      .simulate('click');
+    expect(wrapper.find('DatePanel').length).toBe(0);
+  });
+
   it('DatePicker has its default structure', () => {
     /**
      * .zent-datetime-picker

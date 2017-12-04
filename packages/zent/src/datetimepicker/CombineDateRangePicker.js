@@ -133,10 +133,6 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     this.setState(state);
   }
 
-  getDate = () => {
-    return this.state.actived;
-  };
-
   onHover = val => {
     const { selected, range } = this.state;
     const scp = selected.slice();

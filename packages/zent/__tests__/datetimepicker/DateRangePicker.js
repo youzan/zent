@@ -4,6 +4,33 @@ import DateRangePicker from 'datetimepicker/DateRangePicker';
 import { isArray } from 'datetimepicker/utils';
 
 describe('DateRangePicker', () => {
+  it('CombineDateRangePicker not show footer', () => {
+    let pop;
+    const wrapper = mount(<DateRangePicker type="combine" />);
+    wrapper.find('.picker-input').simulate('click');
+    pop = new ReactWrapper(
+      wrapper.find('CombineDateRangePicker').node.picker,
+      true
+    );
+
+    expect(pop.find('DatePanel').length).toBe(2);
+    wrapper.find('.picker-input').simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
+    pop
+      .find('DatePanel')
+      .at(1)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
+
+    expect(wrapper.find('DatePanel').length).toBe(0);
+  });
+
   it('CombineDateRangePicker has its core function', () => {
     let pop;
     const wrapper = mount(
