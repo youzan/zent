@@ -2,6 +2,16 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.10.04 (2017-12-04)
+
+- `Design`
+  - ✨ Preview width is now `375px`
+  - 🦀️ Update styles
+- `Upload`
+  - 🦀️ Update styles
+  - 🦀️ Fix some ES6 compatibility issues
+- ✨ `Pop` and `Popover` exports `adjustPosition`, it is rarely needed but can be used to trigger manual position update in some cases.
+
 ### 3.10.3 (2017-11-29)
 
 - `Upload`
