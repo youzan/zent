@@ -100,6 +100,29 @@ describe('Body in Table', () => {
     expect(wrapper.find('.empty-data').text()).toBe('没有更多数据了');
   });
 
+  it('Table row can trigger click event', () => {
+    // HACK: branch
+    const getRowConfMock = jest.fn().mockImplementation(() => {
+      return {};
+    });
+    const onSelectMock = jest.fn();
+    let wrapper = mount(
+      <Table
+        columns={columns}
+        datasets={[datasets[0]]}
+        rowKey="foo_id"
+        getRowConf={getRowConfMock}
+        selection={{
+          canRowSelect: true,
+          selectedRowKeys: [],
+          onSelect: onSelectMock
+        }}
+      />
+    );
+    wrapper.find('Body .tr').simulate('click');
+    expect(onSelectMock.mock.calls.length).toBe(1);
+  });
+
   it('Table can have custom getRowConf prop, and will change acting of Body', () => {
     // HACK: branch
     const getRowConfMock = jest.fn().mockImplementation(() => {

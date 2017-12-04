@@ -56,13 +56,15 @@ describe('Pop', () => {
   });
 
   it('Position prop of Pop have type-check and default with TopCenter', () => {
+    let wrapper;
     expect(() => {
-      mount(
+      wrapper = mount(
         <Pop content={content()} trigger={'click'}>
           <Button onClick={addClick}>click</Button>
         </Pop>
       );
     }).not.toThrow();
+    expect(wrapper.prop('position')).toBe('top-center');
   });
 
   it('Pop can have custom prefix, className, and block switch, meanwhile content and header pass through prop', () => {

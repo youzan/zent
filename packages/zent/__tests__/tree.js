@@ -711,12 +711,18 @@ describe('Tree', () => {
       }
     ];
 
+    let onCheckedData;
+    const onCheck = checkedData => {
+      onCheckedData = checkedData;
+    };
+
     const wrapper = mount(
       <Tree
         data={data}
         defaultCheckedKeys={[10]}
         checkable
         disabledCheckedKeys={[10]}
+        onCheck={onCheck}
       />
     );
     expect(wrapper.state('checkedTree')['1'].t).toBe(1);
@@ -734,6 +740,7 @@ describe('Tree', () => {
     expect(wrapper.find('Checkbox').everyWhere(n => n.prop('checked'))).toBe(
       true
     );
+    expect(onCheckedData.length).toBe(8);
     wrapper
       .find('Checkbox input')
       .at(0)
@@ -743,6 +750,7 @@ describe('Tree', () => {
         .find('Checkbox')
         .everyWhere(n => n.prop('checked') && n.prop('indeterminate'))
     ).toBe(false);
+    expect(onCheckedData.length).toBe(0);
 
     wrapper
       .find('Checkbox input')
