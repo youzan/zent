@@ -411,6 +411,32 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('isFormValid')).toBe(true);
   });
 
+  it('CreatedForm has setFormDirty, setFormPristine and isFieldDirty methods', () => {
+    class FormForTest extends React.Component {
+      render() {
+        return (
+          <Form>
+            <Field
+              name="foo"
+              component={() => <div className="foo-div" />}
+              validations={{ required: true }}
+              value={1}
+            />
+          </Form>
+        );
+      }
+    }
+
+    const CreatedForm = createForm()(FormForTest);
+    const wrapper = mount(<CreatedForm />);
+    wrapper.getNode().setFormDirty(true);
+    expect(wrapper.getNode().fields[0].state._isDirty).toBe(true);
+    wrapper.getNode().setFormPristine(true);
+    expect(wrapper.getNode().fields[0].state._isDirty).toBe(false);
+    expect(wrapper.getNode().isFieldDirty('foo')).toBe(false);
+    expect(wrapper.getNode().isFieldDirty('bar')).toBe(false);
+  });
+
   it('CreatedForm have isValid and getFieldError methods', () => {
     class FormForTest extends React.Component {
       static propTypes = {
@@ -769,6 +795,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.find('InputWrap').prop('error')).toBeNull();
     expect(wrapper.getNode().isValidating()).toBe(true);
     expect(wrapper.getNode().isFieldValidating('foo')).toBe(true);
+    expect(wrapper.getNode().isFieldValidating('bar')).toBe(false);
     jest.runAllTimers();
     // Promise.resolve().then(() => {
     // expect(wrapper.getNode().isValidating()).toBe(false);

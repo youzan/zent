@@ -10,7 +10,9 @@ describe('NumberInput', () => {
   });
 
   it('will throw error with showStepper and showCounter', () => {
-    expect(mount(<NumberInput showCounter showStepper />)).toThrow();
+    expect(() => {
+      mount(<NumberInput showCounter showStepper />);
+    }).toThrow();
   });
 
   it('can have custom wrapper classNames', () => {

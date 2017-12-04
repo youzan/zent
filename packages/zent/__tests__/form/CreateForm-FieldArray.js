@@ -38,28 +38,6 @@ describe('CreateForm and FieldArray', () => {
     );
   };
 
-  // const subFieldComponent = props => {
-  //   const { fields } = props;
-  //   return (
-  //     <ul>
-  //       <div onClick={() => fields.push({})}>添加</div>
-  //       {fields.map((member, index) => {
-  //         return (
-  //           <li key={index}>
-  //             <div
-  //               className="member-sisters"
-  //               onClick={() => fields.remove(index)}
-  //             >
-  //               删除
-  //             </div>
-  //             <FieldArray name={`${member}.sister`} component={fieldComponent} />
-  //           </li>
-  //         );
-  //       })}
-  //     </ul>
-  //   );
-  // };
-
   const context = mount(
     <FormCreated>
       <FieldArray name="members" component={fieldComponent} />
@@ -84,6 +62,12 @@ describe('CreateForm and FieldArray', () => {
   it('FieldArray must be in Form Component', () => {
     expect(() => {
       mount(<FieldArray name="members" component={fieldComponent} />);
+    }).toThrow();
+  });
+
+  it('FieldArray must have props name', () => {
+    expect(() => {
+      mount(<FieldArray component={fieldComponent} />, { context });
     }).toThrow();
   });
 
