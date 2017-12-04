@@ -2,7 +2,7 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
-### 3.10.04 (2017-12-04)
+### 3.10.4 (2017-12-04)
 
 - `Design`
   - ✨ Preview width is now `375px`
