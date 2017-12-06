@@ -1,5 +1,12 @@
 ## Github Change Log
 
+## [zent@3.10.5](https://github.com/youzan/zent/tree/zent@3.10.5) (2017-12-05)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.4...zent@3.10.5)
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: Revert Design preview width [\#589](https://github.com/youzan/zent/pull/589) ([cpylua](https://github.com/cpylua))
+
 ## [zent@3.10.4](https://github.com/youzan/zent/tree/zent@3.10.4) (2017-12-04)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.3...zent@3.10.4)
 
