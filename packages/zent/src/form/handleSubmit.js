@@ -1,7 +1,7 @@
 import isPromise from 'utils/isPromise';
 import map from 'lodash/map';
 import SubmissionError from './SubmissionError';
-import { scrollToNode } from './utils';
+import { srcollToFirstError } from './utils';
 
 const handleSubmit = (submit, zentForm) => {
   const props = zentForm.props;
@@ -28,16 +28,7 @@ const handleSubmit = (submit, zentForm) => {
     validationErrors = zentForm.getValidationErrors();
 
     // 滚动到第一个错误处
-    if (scrollToError) {
-      for (let i = 0; i < zentForm.fields.length; i++) {
-        const field = zentForm.fields[i];
-        if (!field.isValid()) {
-          const node = field.getWrappedComponent().getControlInstance();
-          scrollToNode(node);
-          return false;
-        }
-      }
-    }
+    scrollToError && srcollToFirstError(zentForm.fields);
 
     if (onSubmitFail) {
       onSubmitFail(new SubmissionError(validationErrors));

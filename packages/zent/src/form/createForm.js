@@ -15,7 +15,7 @@ import {
   getDisplayName,
   silenceEvent,
   silenceEvents,
-  scrollToNode
+  srcollToFirstError
 } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
@@ -201,16 +201,7 @@ const createForm = (config = {}) => {
           field.setState(data);
         });
         // 滚动到第一个错误处
-        if (this.props.scrollToError) {
-          for (let i = 0; i < this.fields.length; i++) {
-            const field = this.fields[i];
-            if (!field.isValid()) {
-              const node = field.getWrappedComponent().getControlInstance();
-              scrollToNode(node);
-              return false;
-            }
-          }
-        }
+        this.props.scrollToError && srcollToFirstError(this.fields);
       };
 
       setFormDirty = (isDirty = true) => {

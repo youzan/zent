@@ -98,3 +98,14 @@ export function scrollToNode(node) {
   const x = elementBound.left + window.pageXOffset;
   scroll(document.body, x, y);
 }
+
+export function srcollToFirstError(fields) {
+  for (let i = 0; i < fields.length; i++) {
+    const field = fields[i];
+    if (!field.isValid()) {
+      const node = field.getWrappedComponent().getControlInstance();
+      scrollToNode(node);
+      return false;
+    }
+  }
+}
