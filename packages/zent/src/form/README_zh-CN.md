@@ -80,7 +80,7 @@ scatter: true
 ### 表单操作
 
 - `Form.createForm` 为组件注入 `zentForm` 属性，提供了表单和表单元素的各种操作方法，如获取表单元素值，重置获取表单元素值等，详见 [`zenForm` API](#zentform)
-- `Form` 组件内部对表单提交的过程也进行了封装，可以把异步提交过程封装在一个函数里并**返回 `Promise` 对象**，组件内部会根据 `Promise` 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过 `zentForm.isSubmitting()` 得到）。
+- `Form` 组件内部对表单提交的过程也进行了封装了 `handleSubmit` 方法，可以把异步提交过程封装在一个函数里并**返回 `Promise` 对象**，组件内部会根据 `Promise` 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过 `zentForm.isSubmitting()` 得到）。此外，当设定 `scrollToError` 时，支持表单提交时自动滚动到第一个报错的表单域。
 
 <!-- demo-slot-9 -->
 <!-- demo-slot-10 -->
@@ -171,11 +171,12 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 
 `createForm` 方法构建了一个高阶组件，该组件可以定义了一些额外的 props 。
 
-| 参数 | 说明 | 类型 | 是否必填 |
-|------|------|------|------|
-| onChange | 任意表单元素修改后触发的回调，参数为所有表单元素值的对象 | func(values: Object) | 否 |
-| onSubmitSuccess | 提交成功后的回调，参数是 submit 函数中 promise 的返回值 | func(submitResult: any) | 否 |
-| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是 undefined | func(submitError: SubmissionError) | 否 |
+| 参数 | 说明 | 类型 | 默认值 |是否必填 |
+|------|------|------|------|------|
+| onChange | 任意表单元素修改后触发的回调，参数为所有表单元素值的对象 | func(values: Object) | noop | 否 |
+| onSubmitSuccess | 提交成功后的回调，参数是 submit 函数中 promise 的返回值 | func(submitResult: any) |noop | 否 |
+| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是 undefined | func(submitError: SubmissionError) |noop | 否 |
+| scrollToError | 表单提交时或者设置外部错误时，表单自动滚动至第一个报错表单域 | boolean | `false` | 否 |
 
 ⚠️注意：想要获取被 createForm 包裹的 FormComponent 的实例，可以在 createForm 创建的组件上添加 ref 然后调用`getWrappedForm`方法获取到。
 

@@ -11,7 +11,12 @@ import get from 'lodash/get';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
-import { getDisplayName, silenceEvent, silenceEvents } from './utils';
+import {
+  getDisplayName,
+  silenceEvent,
+  silenceEvents,
+  srcollToFirstError
+} from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
 
@@ -50,7 +55,8 @@ const createForm = (config = {}) => {
         onValid: PropTypes.func,
         onInvalid: PropTypes.func,
         onChange: PropTypes.func,
-        validationErrors: PropTypes.object
+        validationErrors: PropTypes.object,
+        scrollToError: PropTypes.bool
       };
 
       static defaultProps = {
@@ -60,7 +66,8 @@ const createForm = (config = {}) => {
         onValid: noop,
         onInvalid: noop,
         onChange: noop,
-        validationErrors: null
+        validationErrors: null,
+        scrollToError: false
       };
 
       static childContextTypes = {
@@ -80,7 +87,7 @@ const createForm = (config = {}) => {
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
             setFormDirty: this.setFormDirty,
-            setFormPristine: this.setFormDirty,
+            setFormPristine: this.setFormPristine,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting
           }
@@ -193,9 +200,11 @@ const createForm = (config = {}) => {
           }
           field.setState(data);
         });
+        // 滚动到第一个错误处
+        this.props.scrollToError && srcollToFirstError(this.fields);
       };
 
-      setFormDirty = isDirty => {
+      setFormDirty = (isDirty = true) => {
         this.fields.forEach(field => {
           field.setState({
             _isDirty: isDirty
@@ -203,7 +212,7 @@ const createForm = (config = {}) => {
         });
       };
 
-      setFormPristine = isPristine => {
+      setFormPristine = (isPristine = false) => {
         this.fields.forEach(field => {
           field.setState({
             _isDirty: !isPristine

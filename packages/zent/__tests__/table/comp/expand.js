@@ -63,6 +63,7 @@ class Simple extends Component {
     this.setState({
       selectedRowKeys
     });
+    // console.log(selectedRowKeys);
     // console.log(`你选中了：${selectedRowKeys}`); // eslint-disable-line
   };
 
@@ -78,6 +79,7 @@ class Simple extends Component {
         sortType={this.state.sortType}
         rowKey={this.state.rowKey}
         selection={{
+          canRowSelect: true,
           selectedRowKeys: this.state.selectedRowKeys,
           onSelect(selectedRowkeys) {
             self.onSelect(selectedRowkeys);

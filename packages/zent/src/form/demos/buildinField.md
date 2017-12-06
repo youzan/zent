@@ -179,7 +179,7 @@ class FieldForm extends React.Component {
 const WrappedForm = createForm()(FieldForm);
 
 ReactDOM.render(
-	<WrappedForm />
+	<WrappedForm scrollToError/>
 	, mountNode
 )
 ```
