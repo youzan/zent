@@ -48,7 +48,7 @@ class Simple extends React.Component {
 			return (
 				<div>
 					<Upload
-						maxSize={8 * 1000 * 1000}
+						maxSize={100 * 1000}
 						triggerInline
 						tips="{i18n.tip}"
 						onFetch={this.fetchNetworkImage.bind(this)}
