@@ -9,7 +9,10 @@ const config = {
       extensions: ['pcss', 'css']
     }),
     require('autoprefixer')(),
-    require('precss')()
+    require('precss')(),
+
+    // reduces calc(10px * 2) to 20px
+    require('postcss-calc')()
   ]
 };
 

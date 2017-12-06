@@ -72,6 +72,14 @@ group: 反馈
 | open           | 打开 Pop                 | func             |
 | close          | 关闭 Pop                 | func             |
 
+#### `adjustPosition` 方法
+
+用于手动调整 `Pop` 位置。
+
+#### `getWrappedPopover` 方法
+
+用于获取内部的 `Popover` 实例。
+
 ### FAQ
 
 #### centerArrow

@@ -10,9 +10,9 @@
     top: -10px;
     right: -10px;
     z-index: 15;
-    cursor: default;
     font-size: 0;
     line-height: 0;
+    cursor: pointer;
   }
 
   &__icon-delete {
@@ -25,6 +25,18 @@
     &:hover {
       circle {
         fill: $theme-stroke-4;
+      }
+    }
+  }
+
+  &__icon-add {
+    circle {
+      fill: $theme-primary-3;
+    }
+
+    &:hover {
+      circle {
+        fill: $theme-primary-2;
       }
     }
   }
@@ -55,20 +67,20 @@
     /* ignore whitespace in html */
     font-size: 0;
     line-height: 0;
-    cursor: default;
     width: 17px;
     height: 17px;
     display: inline-block;
-    border-radius: 50%;
-    background: $theme-primary-2;
-    opacity: 0.8;
+    cursor: pointer;
 
     &:hover {
-      opacity: 1;
-
       + .zent-design-preview-controller__add-marker {
-        display: flex;
-        opacity: 1;
+        .zent-design-preview-controller__add-marker-circle {
+          border-color: $theme-primary-2;
+        }
+
+        .zent-design-preview-controller__add-marker-line {
+          background: $theme-primary-2;
+        }
       }
     }
   }
@@ -80,12 +92,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    opacity: 0.8;
     z-index: 4;
     display: flex;
 
     &-circle {
-      border: 1px solid $theme-primary-2;
+      border: 1px solid $theme-primary-3;
       border-radius: 50%;
       width: 3px;
       height: 3px;
@@ -96,7 +107,7 @@
     }
 
     &-line {
-      background: $theme-primary-2;
+      background: $theme-primary-3;
       height: 1px;
       width: 100%;
     }

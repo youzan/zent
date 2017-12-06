@@ -323,11 +323,26 @@ class Pop extends (PureComponent || Component) {
         onClose={onClose}
         onBeforeClose={onBeforeClose}
         onBeforeShow={onBeforeShow}
+        ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}
         {this.renderContent()}
       </Popover>
     );
+  }
+
+  onPopoverRefChange = popoverInstance => {
+    this.popover = popoverInstance;
+  };
+
+  adjustPosition() {
+    if (this.popover) {
+      this.popover.adjustPosition();
+    }
+  }
+
+  getWrappedPopover() {
+    return this.popover;
   }
 }
 

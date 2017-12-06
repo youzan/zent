@@ -38,7 +38,6 @@ import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import defaultTo from 'lodash/defaultTo';
-import defer from 'lodash/defer';
 import * as storage from 'utils/storage';
 import uuid from 'utils/uuid';
 
@@ -402,10 +401,6 @@ export default class Design extends (PureComponent || Component) {
   // 打开右侧添加新组件的弹层
   onShowAddComponentOverlay = (component, addPosition) => {
     this.toggleEditOrAdd(component, true, addPosition);
-
-    // 将当前组件滚动到顶部
-    // const id = this.getUUIDFromValue(component);
-    // this.scrollToPreviewItem(id);
   };
 
   // 编辑一个已有组件
@@ -466,10 +461,6 @@ export default class Design extends (PureComponent || Component) {
 
     this.trackValueChange(newValue);
     this.onSelect(instance);
-
-    defer(() => {
-      this.scrollToPreviewItem(id);
-    });
   };
 
   // 删除一个组件
@@ -484,24 +475,26 @@ export default class Design extends (PureComponent || Component) {
       return skip;
     });
 
-    // 删除后默认选中前一项可选的，如果不存在则往后找一个可选项
-    const nextSelectedValue = findFirstEditableSibling(
-      newValue,
-      components,
-      nextIndex
-    );
-    const nextUUID = this.getUUIDFromValue(nextSelectedValue);
+    const newState = {
+      showAddComponentOverlay: false
+    };
+
+    // 删除选中项目后默认选中前一项可选的，如果不存在则往后找一个可选项
+    const componentUUID = this.getUUIDFromValue(component);
+    if (componentUUID === this.state.selectedUUID) {
+      const nextSelectedValue = findFirstEditableSibling(
+        newValue,
+        components,
+        nextIndex
+      );
+      const nextUUID = this.getUUIDFromValue(nextSelectedValue);
+      newState.selectedUUID = nextUUID;
+    }
 
     this.trackValueChange(newValue);
-    this.setState({
-      selectedUUID: nextUUID,
-      showAddComponentOverlay: false
-    });
+    this.setState(newState);
 
     this.adjustHeight();
-    defer(() => {
-      this.scrollToPreviewItem(nextUUID);
-    });
   };
 
   onMove = (fromIndex, toIndex) => {
