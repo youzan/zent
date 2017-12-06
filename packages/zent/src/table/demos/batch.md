@@ -99,7 +99,7 @@ class BatchCompsClass extends React.Component {
         onChange={this.onChange.bind(this)}
         getRowConf={this.getRowConf}
         rowKey="item_id"
-          batchComponents={[
+				batchComponents={[
           <span key="pure" className="child-comps">This is a DOM element.  </span>,
           (data) => {
             return <span key="func" className="child-comps" style={{color: "blueviolet"}}>   This is a function, {data.length} elements was selected.    </span>
