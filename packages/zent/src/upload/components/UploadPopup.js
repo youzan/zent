@@ -6,12 +6,9 @@ import React, { Component } from 'react';
 import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
-import isPromise from 'utils/isPromise';
-import forEach from 'lodash/forEach';
-import fileType from '../utils/file-type';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
-import { formatFileSize, base64ToArrayBuffer } from '../utils';
+import { formatFileSize } from '../utils';
 
 const BUTTON_LOADING_TEXT = '提取中...';
 const BUTTON_TEXT = '提取';
@@ -29,7 +26,6 @@ class UploadPopup extends Component {
     this.networkUrl = '';
     this.confirmNetworkUrl = this.confirmNetworkUrl.bind(this);
     this.networkUrlChanged = this.networkUrlChanged.bind(this);
-    this.processFiles = this.processFiles.bind(this);
     this.uploadLocalImages = this.uploadLocalImages.bind(this);
     this.fileProgressHandler = this.fileProgressHandler.bind(this);
   }
@@ -146,7 +142,7 @@ class UploadPopup extends Component {
               <FileInput
                 {...props.options}
                 accept={accept}
-                onChange={this.processFiles}
+                onChange={this.handleChange}
               />
             </div>
           ) : (
@@ -231,70 +227,18 @@ class UploadPopup extends Component {
     this.networkUrl = evt.target.value;
   }
 
-  iteratorFiles(files) {
-    const { options } = this.props;
-    const { maxSize, silent, maxAmount } = options;
-    const typeName = options.type === 'voice' ? '语音' : '图片';
-
-    forEach(files, (file, index) => {
-      if (maxAmount && index >= maxAmount) {
-        !silent && Notify.error(`已经自动过滤超过${options.maxAmount}张的${typeName}文件`);
-        return false;
-      }
-      if (!maxSize || file.size <= maxSize) {
-        this.addFile(file);
-      } else {
-        !silent &&
-          Notify.error(`已经自动过滤大于${formatFileSize(maxSize)}的${typeName}文件`);
-      }
-    });
-  }
-
-  processFiles(files) {
-    const { options } = this.props;
-
-    let filterResult = options.filterFiles(files);
-    if (isPromise(filterResult)) {
-      filterResult.then(this.iteratorFiles, options.onError);
-    } else {
-      files = filterResult;
-      this.iteratorFiles(files);
-    }
-  }
-
   fileProgressHandler(index, progress) {
     let { localFiles } = this.state;
     localFiles[index].progress = progress;
     this.setState(localFiles);
   }
 
-  addFile(file) {
-    let fileReader = new FileReader();
-    let { options, accept } = this.props;
+  handleChange = files => {
     let { localFiles } = this.state;
-
-    fileReader.onload = e => {
-      const mimeType = fileType(
-        base64ToArrayBuffer(e.target.result.replace(/^(.*?)base64,/, ''))
-      );
-      if (accept && (!mimeType || accept.indexOf(mimeType.mime) > -1)) {
-        localFiles.push({
-          src: e.target.result,
-          file
-        });
-      } else {
-        !options.silent &&
-          Notify.error(
-            `已经自动过滤类型不正确的${options.type === 'voice' ? '语音' : '图片'}文件`
-          );
-      }
-      this.setState({
-        localFiles
-      });
-    };
-
-    fileReader.readAsDataURL(file);
-  }
+    this.setState({
+      localFiles: localFiles.concat(files)
+    });
+  };
 
   /**
    * 提取网络图片
