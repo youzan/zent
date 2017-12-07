@@ -15,6 +15,7 @@ Menu, can be used to provide navigation.
 | Property | Description | Type | Default |
 |------|------|------|--------|
 | onClick | Callback fires when a node of menu is clicked | func |  |
+| style | Custom inline styles | object |  |
 | className | class name for the node | string |  |
 | prefix | custom prefix | string | 'zent' |
 
