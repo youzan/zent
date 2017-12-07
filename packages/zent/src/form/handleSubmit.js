@@ -23,6 +23,13 @@ const handleSubmit = (submit, zentForm) => {
     return;
   }
 
+  // 对于从未校验过的表单域进行校验
+  map(zentForm.fields, field => {
+    if (!field.props.validationOnChange && !field.props.validationOnBlur) {
+      zentForm.validate(field);
+    }
+  });
+
   if (!zentForm.isValid()) {
     // 存在校验错误
     validationErrors = zentForm.getValidationErrors();
