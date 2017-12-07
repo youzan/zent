@@ -14,7 +14,7 @@ import { Select } from 'zent';
 const data = ['Option 1', 'Option 2', 'Option 3'];
 
 ReactDOM.render(
-	<Select placeholder="{i18n.pla}" data={data} />,
+	<Select resetOption placeholder="{i18n.pla}" data={data} />,
 	mountNode
 );
 ```

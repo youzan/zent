@@ -280,15 +280,44 @@ describe('<Select />', () => {
     expect(wrapper.state('selectedItem').value).toBe(2);
   });
 
-  // it('initial value and index', () => {
-  //   const data = [
-  //     { value: '1', text: '选项一' },
-  //     { value: '2', text: '选项二' },
-  //     { value: '3', text: '选项三' },
-  //   ];
-  //   let wrapper = mount(<Select data={data} initialValue="1" />);
-  //   expect(wrapper.state('selectedItem').value).toBe('1');
-  //   wrapper = mount(<Select data={data} initialIndex={2} />);
-  //   expect(wrapper.state('selectedItem').value).toBe('2');
-  // });
+  it('Reset after data array erased', () => {
+    let data = ['1', '2', '3'];
+    const wrapper = mount(<Select data={data} />);
+    wrapper.find('SelectTrigger').simulate('click');
+    let pop = new ReactWrapper(wrapper.instance().popup, true);
+    expect(pop.find('Option').length).toBe(3);
+    pop
+      .find('Option')
+      .at(1)
+      .simulate('click');
+    expect(wrapper.state('selectedItem').value).toBe('2');
+    wrapper.setProps({ data: [] });
+    expect(wrapper.state('selectedItem').value).toBe(undefined);
+    expect(wrapper.find('.zent-select-text').text()).toBe(
+      wrapper.prop('placeholder')
+    );
+  });
+
+  it('Reset Option', () => {
+    const data = ['1', '2', '3'];
+    const wrapper = mount(<Select data={data} resetOption />);
+    wrapper.find('SelectTrigger').simulate('click');
+    let pop = new ReactWrapper(wrapper.instance().popup, true);
+    expect(pop.find('Option').length).toBe(4);
+    pop
+      .find('Option')
+      .at(1)
+      .simulate('click');
+    expect(wrapper.state('selectedItem').value).toBe('1');
+    wrapper.find('SelectTrigger').simulate('click');
+    pop = new ReactWrapper(wrapper.instance().popup, true);
+    pop
+      .find('Option')
+      .at(0)
+      .simulate('click');
+    expect(wrapper.state('selectedItem').value).toBe(undefined);
+    expect(wrapper.find('.zent-select-text').text()).toBe(
+      wrapper.prop('placeholder')
+    );
+  });
 });
