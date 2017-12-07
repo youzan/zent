@@ -65,7 +65,7 @@ class Select extends (PureComponent || Component) {
      * data支持字符串数组和对象数组两种模式
      *
      * 字符串数组默认value为下标
-     * 对象数组需提供value和text, 或者通过 optionValue-prop optionText-prop 自定义
+     * 对象数组需提供value和text, 或者通过 optionValue(prop) optionText(prop) 自定义
      *
      */
     this.uniformedData = this.uniformData(this.props);
@@ -89,42 +89,58 @@ class Select extends (PureComponent || Component) {
    * @memberof Select
    */
   uniformData(props) {
-    const { data, children, optionValue, optionText } = props;
-    let uniformedData = [];
+    const {
+      data,
+      children,
+      optionValue,
+      optionText,
+      resetOption,
+      resetText
+    } = props;
+
+    let uniformedData =
+      resetOption && data.length
+        ? [{ cid: '-1', value: null, text: resetText }] // insert reset option
+        : [];
 
     // data-prop 高优先级, 格式化 optionValue、optionText
     if (data) {
-      return (uniformedData = data.map((option, index) => {
-        // 处理字符串数组
-        if (typeof option !== 'object') {
-          return { text: option, value: option, cid: `${index}` };
-        }
+      uniformedData = uniformedData.concat(
+        data.map((option, index) => {
+          // 处理字符串数组
+          if (typeof option !== 'object') {
+            return { text: option, value: option, cid: `${index}` };
+          }
 
-        // hacky the quirk when optionText = 'value' and avoid modify props
-        const optCopy = cloneDeep(option);
+          // hacky the quirk when optionText = 'value' and avoid modify props
+          const optCopy = cloneDeep(option);
 
-        optCopy.cid = `${index}`;
-        if (optionValue) {
-          optCopy.value = option[optionValue];
-        }
-        if (optionText) {
-          optCopy.text = option[optionText];
-        }
-        return optCopy;
-      }));
+          optCopy.cid = `${index}`;
+          if (optionValue) {
+            optCopy.value = option[optionValue];
+          }
+          if (optionText) {
+            optCopy.text = option[optionText];
+          }
+          return optCopy;
+        })
+      );
+      return uniformedData;
     }
 
     // 格式化 child-element
     if (children) {
-      uniformedData = Children.map(children, (item, index) => {
-        let value = item.props.value;
-        value = typeof value === 'undefined' ? item : value;
-        return Object.assign({}, item.props, {
-          value,
-          cid: `${index}`,
-          text: item.props.children
-        });
-      });
+      uniformedData = uniformedData.concat(
+        Children.map(children, (item, index) => {
+          let value = item.props.value;
+          value = typeof value === 'undefined' ? item : value;
+          return Object.assign({}, item.props, {
+            value,
+            cid: `${index}`,
+            text: item.props.children
+          });
+        })
+      );
     }
     return uniformedData;
   }
@@ -132,7 +148,7 @@ class Select extends (PureComponent || Component) {
   /**
    * accept uniformed data to traverse then inject selected option or options to next state
    *
-   * @param {object[]} data - uniformedData
+   * @param {object[]} data - uniformed data
    * @param {object} props - props of Select
    * @memberof Select
    */
@@ -152,7 +168,7 @@ class Select extends (PureComponent || Component) {
     const selected = { sItem: selectedItem, sItems: [] };
 
     data.forEach((item, i) => {
-      // 处理 quirk 默认选项(initialIndex, initialValue)
+      // 处理 quirk 默认选项(initialIndex, initialValue) , 主要用于在非受控组件模式下指定默认值
       if (
         selectedItems.length === 0 &&
         !selectedItem.cid &&
@@ -182,7 +198,7 @@ class Select extends (PureComponent || Component) {
    * @param {object} item - option object after uniformed
    * @param {number} i - index of option in options list
    * @memberof Select
-  * */
+   * */
   locateSelected(state, coord, item, i) {
     const { value, index } = coord;
 
@@ -257,6 +273,9 @@ class Select extends (PureComponent || Component) {
       if (!selectedItems.some(item => item.cid === selectedItem.cid)) {
         selectedItems.push(selectedItem);
       }
+    } else if (selectedItem.value === null) {
+      // customize reset option
+      selectedItem = {};
     }
     this.setState(
       {
@@ -396,7 +415,13 @@ Select.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   // 自动根据ref计算弹层宽度
-  autoWidth: PropTypes.bool
+  autoWidth: PropTypes.bool,
+
+  // 自动添加重置选项
+  resetOption: PropTypes.bool,
+
+  // 重置选项展示文本
+  resetText: PropTypes.string
 };
 
 Select.defaultProps = {
@@ -422,7 +447,11 @@ Select.defaultProps = {
   onOpen: noop,
   autoWidth: false,
 
-  // HACK
+  // 重置为默认值
+  resetOption: false,
+  resetText: '请选择',
+
+  // 内部状态标记，默认初始值为 null
   value: null,
   index: null,
   initialValue: null,
