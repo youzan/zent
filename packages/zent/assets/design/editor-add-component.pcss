@@ -4,6 +4,7 @@
 .zent-design-editor-add-component {
   box-sizing: border-box;
 
+  /* Remove this style */
   .zent-design-editor-add-component__mixed {
     padding: 0 5px;
 
@@ -19,14 +20,15 @@
     &-list {
       @mixin clearfix;
 
-      padding: 0 5px;
+      padding-right: 5px;
     }
 
     &-btn-wrapper {
       float: left;
-      margin: 0 0 10px 5px;
+      padding-left: 5px;
+      margin-bottom: 10px;
       height: 40px;
-      width: 56px;
+      width: 20%;
       box-sizing: border-box;
     }
 
@@ -49,7 +51,7 @@
   }
 
   .zent-design-editor-add-component__grouped {
-    padding: 0 11px;
+    padding: 0 5px 0 10px;
 
     &-title {
       font-size: 12px;
@@ -64,14 +66,10 @@
 
     &-btn-wrapper {
       box-sizing: border-box;
-      flex: 0 0 96px;
+      flex: 0 0 33.33%;
       height: 30px;
       margin-bottom: 5px;
-      margin-right: 5px;
-
-      &:nth-child(3n+3) {
-        margin-right: 0;
-      }
+      padding-right: 5px;
     }
 
     &-btn {

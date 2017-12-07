@@ -81,7 +81,7 @@ The `Form` component provides` format` and `nomalize` methods for formatting` va
 ### The operations of form
 
 - `Form.createForm` helps injecting the `zentForm` property into a component, which providing various methods for manipulating form and field, such as getting the values of form, resetting the values and so on. See more details in [zenForm API](#zentform);
-- The submission process of form is also encapsulated in `Form` component. You can encapsulate the asynchronous commit process in a function and **return a Promise object **. Then `Form` components will call the `onSubmitSuccess` method and the `onSubmitFail` methods according to the results of the Promise object and maintains the updates of the `isSubmitting` property (`isSubmitting` is available via `zentForm.isSubmitting ()`).
+- The submission process of form, which is the function `handleSubmit`, is also encapsulated in `Form` component. You can encapsulate the asynchronous commit process in a function and **return a Promise object **. Then `Form` components will call the `onSubmitSuccess` method and the `onSubmitFail` methods according to the results of the Promise object and maintains the updates of the `isSubmitting` property (`isSubmitting` is available via `zentForm.isSubmitting ()`). Otherwise, the form will scroll to the first error field automatically when submitting by setting the property `srcollToError`.
 
 <!-- demo-slot-9 -->
 <!-- demo-slot-10 -->
@@ -164,7 +164,7 @@ pass value into Field ---> format the value using format() ---> use the value af
 
 `options` supports the following configuartion items:
 
-| Property     |  Description  | Type     | Default  | Required |
+| Property     |  Description  | Type     | Required |
 |------|------|------|------|
 | formValidations | The property is used to add custom validation methods which can be passed extra parameters when used in validations. | object | no |
 
@@ -175,10 +175,11 @@ pass value into Field ---> format the value using format() ---> use the value af
 The `createForm` method builds a higher-order component that defines some additional `props`.
 
 | Property     |  Description  | Type     | Default  | Required |
-|------|------|------|------|
-| onChange | The callback function that is triggered when any fields in the form. The parameter of this function is the object of all the values of fields. | func(values: Object) | no |
-| onSubmitSuccess | The callback function that is triggered when the form submission is successful. The parameter of this function is the return result of the promise in submit function. | func(submitResult: any) | no |
-| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or `undefined`. | func(submitError: SubmissionError) | no |
+|------|------|------|------|------|
+| onChange | The callback function that is triggered when any fields in the form. The parameter of this function is the object of all the values of fields. | func(values: Object) | noop | no |
+| onSubmitSuccess | The callback function that is triggered when the form submission is successful. The parameter of this function is the return result of the promise in submit function. | func(submitResult: any) | noop | no |
+| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or `undefined`. | func(submitError: SubmissionError) | noop | no |
+| scrollToError | The form automatically scrolls to the first field with error when the form is submitting or extra error is setting. | boolean | `false` | no |
 
 ⚠️Ps: To get an instance of a the form component which is wrapped by `createForm`, you can add a ref on the component created by `createForm` and then call the `getWrappedForm` method.
 
@@ -228,7 +229,7 @@ onSubmissionFail(submissionError) {
 All the field components that need to maintain `value` need to be wrapped by the `Field` component.
 The following `props` will be passed into the `Field` component. All the `props` expect for `component` (including the custom `props`) will be passed to the field component defined in `component`:
 
-| Property     |  Description  | Type     | Default  | Required |
+| Property     |  Description  | Type     |  Required |
 |------|------|------|------|
 | name | The name of the field | string | yes |
 | component | The real component of the field which will determine how the field is displayed. The value of this property can be string (standard html tag name) or React node. | string / React.Component | yes |
@@ -273,7 +274,7 @@ const component = field.getWrappedComponent();
 
 The packaged components support the following properties which can be pass from `Field`:
 
-| Property     |  Description  | Type     | Default  | Required |
+| Property     |  Description  | Type     | Required |
 |------|------|------|------|
 | label | The label of the field | string / React.Component | no |
 | className | The extra class name which will be added to the control-group and will override the style of the child component. | string | no |

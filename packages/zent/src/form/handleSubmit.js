@@ -1,11 +1,12 @@
 import isPromise from 'utils/isPromise';
 import map from 'lodash/map';
 import SubmissionError from './SubmissionError';
+import { srcollToFirstError } from './utils';
 
 const handleSubmit = (submit, zentForm) => {
   const props = zentForm.props;
   const values = zentForm.getFormValues();
-  const { onSubmitSuccess, onSubmitFail } = props;
+  const { onSubmitSuccess, onSubmitFail, scrollToError } = props;
   let validationErrors;
 
   zentForm.setFormDirty(true);
@@ -25,6 +26,10 @@ const handleSubmit = (submit, zentForm) => {
   if (!zentForm.isValid()) {
     // 存在校验错误
     validationErrors = zentForm.getValidationErrors();
+
+    // 滚动到第一个错误处
+    scrollToError && srcollToFirstError(zentForm.fields);
+
     if (onSubmitFail) {
       onSubmitFail(new SubmissionError(validationErrors));
     }

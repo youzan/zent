@@ -5,9 +5,9 @@ import Menu from 'menu';
 const { MenuItem, SubMenu } = Menu;
 
 describe('Menu component', () => {
-  it('can have className', () => {
+  it('can have className and style', () => {
     let wrapper = mount(
-      <Menu className="hello">
+      <Menu className="hello" style={{ maxHeight: 10, overflow: 'auto' }}>
         {null}
         <MenuItem key="1-1" className="food">
           食品分类
@@ -17,6 +17,9 @@ describe('Menu component', () => {
 
     expect(wrapper.find('.hello').length).toBe(1);
     expect(wrapper.find('.food').length).toBe(1);
+    expect(wrapper.getDOMNode().style.cssText).toMatch(
+      /max-height:\s*10px;\s*overflow:\s*auto/
+    );
   });
 
   it('can have prefix', () => {

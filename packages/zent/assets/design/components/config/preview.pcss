@@ -1,19 +1,21 @@
 @import '../../_fn.pcss';
 @import '../../../theme/default.pcss';
+@import '../../_variable.pcss';
 
 .zent-design-component-config-preview {
-  height: 64px;
-  width: 320px;
+  height: $preview-header-height;
+  width: $preview-width;
   background-image: url('https://img.yzcdn.cn/public_files/2017/10/24/12e73dca6848e7977396a6fa123b9140.png');
   background-repeat: no-repeat;
   background-size: contain;
 
   &__title {
     display: inline-block;
-    padding: 23px 60px 0;
-    height: 40px;
-    line-height: 40px;
-    width: 200px;
+    padding: 23px 40px 0 60px;
+    height: $preview-header-height;
+    line-height: calc($preview-header-height - 24px);
+    width: 100%;
+    box-sizing: border-box;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

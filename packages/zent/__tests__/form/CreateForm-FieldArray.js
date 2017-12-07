@@ -65,6 +65,12 @@ describe('CreateForm and FieldArray', () => {
     }).toThrow();
   });
 
+  it('FieldArray must have props name', () => {
+    expect(() => {
+      mount(<FieldArray component={fieldComponent} />, { context });
+    }).toThrow();
+  });
+
   it('FieldArray have componentWillRecieveProps method', () => {
     const wrapper = mount(
       <FieldArray name="members" component={fieldComponent} />,
@@ -373,4 +379,14 @@ describe('CreateForm and FieldArray', () => {
     const inputField = nestedWrapper.find(FieldArray);
     expect(inputField.length).toBe(1);
   });
+
+  // it('FieldArray can be nested.', () => {
+  //   const nestedWrapper = mount(
+  //     <FormCreated>
+  //       <FieldArray name="members" component={subFieldComponent} />
+  //     </FormCreated>
+  //   );
+  //   console.log(nestedWrapper.find(FieldArray));
+  //   const fieldZentform = nestedWrapper.find(Field).getNode().context.zentForm;
+  // });
 });

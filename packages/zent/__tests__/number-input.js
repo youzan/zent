@@ -9,6 +9,12 @@ describe('NumberInput', () => {
     expect(wrapper.hasClass('zent-number-input-wrapper')).toBe(true);
   });
 
+  it('will throw error with showStepper and showCounter', () => {
+    expect(() => {
+      mount(<NumberInput showCounter showStepper />);
+    }).toThrow();
+  });
+
   it('can have custom wrapper classNames', () => {
     const wrapper = shallow(<NumberInput className="foo" />);
     expect(wrapper.hasClass('foo')).toBe(true);
