@@ -1,5 +1,7 @@
 import isPlainObject from 'lodash/isPlainObject';
 import assign from 'lodash/assign';
+import scroll from 'utils/scroll';
+import { findDOMNode } from 'react-dom';
 
 const getSelectedValues = options => {
   const result = [];
@@ -87,4 +89,23 @@ export function isFunctional(Component) {
     typeof Component !== 'string' &&
     typeof Component.prototype.render !== 'function'
   );
+}
+
+export function scrollToNode(node) {
+  const element = findDOMNode(node);
+  const elementBound = element.getBoundingClientRect();
+  const y = elementBound.top + window.pageYOffset;
+  const x = elementBound.left + window.pageXOffset;
+  scroll(document.body, x, y);
+}
+
+export function srcollToFirstError(fields) {
+  for (let i = 0; i < fields.length; i++) {
+    const field = fields[i];
+    if (!field.isValid()) {
+      const node = field.getWrappedComponent().getControlInstance();
+      scrollToNode(node);
+      return false;
+    }
+  }
 }
