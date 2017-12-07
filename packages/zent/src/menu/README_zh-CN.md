@@ -16,6 +16,7 @@ group: 导航
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | onClick | 点击菜单节点回调 | func |  |
+| style | 自定义内联样式 | object |  |
 | className | 节点类名 | string |  |
 | prefix | 自定义前缀 | string | 'zent' |
 
