@@ -170,7 +170,6 @@ class Emotion extends Component {
         className="emotion-tabs"
       >
         {this.allTabs}
-        <div className="emotion-tabIconReview" />
       </Tabs>
     );
   }

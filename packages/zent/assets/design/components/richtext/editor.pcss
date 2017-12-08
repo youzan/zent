@@ -40,7 +40,7 @@
     label {
       font-weight: bold;
       margin: 0 5px 0 0;
-      color: #06c;
+      color: $theme-primary-2;
       display: inline;
       font-size: 14px;
       width: auto;
@@ -48,7 +48,7 @@
 
     #preview {
       min-height: 280px;
-      background-color: #ddd;
+      background-color: $theme-stroke-6;
       text-align: center;
       font-size: 20px;
 
@@ -71,55 +71,8 @@
     position: relative;
   }
 
-  .emotion-close {
-    position: absolute;
-    z-index: 200;
-    cursor: pointer;
-    right: 8px;
-    top: 13px;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    font-size: 17px;
-    transition: all 1s;
-  }
-
-  .emotion-close:hover {
-    color: #0c3;
-  }
-
-  .emotion-head {
-    span {
-      cursor: pointer;
-    }
-
-    span.tag {
-      display: inline-block;
-      background-color: transparent;
-      border: 1px solid #e5e5e5;
-      border-radius: 3px 3px 0 0;
-      text-align: center;
-      margin: 0;
-      color: #999;
-      font-size: 14px;
-      line-height: 18px;
-      padding: 4px;
-    }
-
-    span.tag-green {
-      color: #06bf04;
-      border-top: 1px solid #0c3;
-      border-left: 1px solid #0c3;
-      border-right: 1px solid #0c3;
-      border-bottom: 1px solid #fff;
-      position: relative;
-      z-index: 20;
-    }
-  }
-
   .emotion-content {
-    border: 1px solid #0c3;
+    border: 1px solid $theme-stroke-7;
     margin-top: -1px;
     border-radius: 0 4px 4px;
     position: relative;
@@ -137,8 +90,8 @@
       div {
         float: left;
         padding: 5px;
-        border-right: 1px solid #f0f0f0;
-        border-bottom: 1px solid #f0f0f0;
+        border-right: 1px solid $theme-stroke-7;
+        border-bottom: 1px solid $theme-stroke-7;
 
         span {
           display: block;
@@ -149,7 +102,7 @@
       }
 
       div:hover {
-        background: #f0f0f0;
+        background: $theme-stroke-7;
       }
     }
 
@@ -195,25 +148,6 @@
       height: 24px !important;
       background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/qq.gif?v=1.1');
       background-repeat: no-repeat;
-    }
-  }
-
-  .emotion-tabIconReview {
-    display: none;
-    position: absolute;
-    width: 90px;
-    height: 76px;
-    border: 2px solid #9cb945;
-    background: #fff;
-    text-align: center;
-    top: 37px;
-    z-index: 200;
-
-    img {
-      background-position: center;
-      background-repeat: no-repeat;
-      width: 94px;
-      height: 80px;
     }
   }
 
