@@ -98,8 +98,9 @@ class Select extends (PureComponent || Component) {
       resetText
     } = props;
 
+    // 在需要时插入重置选项。
     let uniformedData =
-      resetOption && data.length
+      resetOption && (data || children)
         ? [{ cid: '-1', value: null, text: resetText }] // insert reset option
         : [];
 
@@ -142,6 +143,7 @@ class Select extends (PureComponent || Component) {
         })
       );
     }
+
     return uniformedData;
   }
 
