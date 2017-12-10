@@ -176,10 +176,10 @@ class FieldForm extends React.Component {
 		);
 	}
 };
-const WrappedForm = createForm()(FieldForm);
+const WrappedForm = createForm({scrollToError: true})(FieldForm);
 
 ReactDOM.render(
-	<WrappedForm scrollToError/>
+	<WrappedForm />
 	, mountNode
 )
 ```
