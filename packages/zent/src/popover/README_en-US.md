@@ -20,50 +20,49 @@ The widget supports nested pop
 
 ### API
 
-| Property | Description | Type | Default | Alternative |
-|------|------|------|--------|--------|
-| position | position way, refer to `Popover.Positon` | Positon | | |
-| cushion | optional, position offset, generally it reserves a space for some icon like array | number | `0` | |
-| display | optional, the display property specifies the type of box used for an HTML element. | string | `'block'` | all legal `display` value in CSS |
-| onShow |  optional, the callback after pop shows| func | `noop` | |
-| onClose | optional, the callback after pop closes | func | `noop` | |
-| onBeforeShow | optional, the callback before pop opens, only triggered by user's operation, setting `visible` outside will not call | func | `noop` | |
-| onBeforeClose | optional, the callback after pop closes, only triggered by user's operation, setting `visible` outside will not call | `noop` | |
-| containerSelector | optional, pop's parent node CSS selector | string | `'body'` | all legal CSS selector |
-| visible | optional, manual control pop's show or hide, must be used with `onVisibleChange`  | bool | | |
-| onVisibleChange | optional, the callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | |
-| className | optional, custom extra class name | string | `''` |  |
-| wrapperClassName |  optional, trigger outerline div classname | string | `''` |  |
-| width | optional, width | string or number |  |  |
-| prefix | optional, custom prefix  | string | `'zent'` |  |
+| Property | Description | Type | Default | Alternative | Required |
+|------|------|------|--------|--------|--------|
+| position | position way, refer to `Popover.Positon` | Positon | | | Yes |
+| cushion | position offset, generally it reserves a space for some icon like array | number | `0` | | No |
+| display | the display property specifies the type of box used for an HTML element. | string | `'block'` | all legal `display` value in CSS | No |
+| onShow |  the callback after pop shows| func | `noop` | | No |
+| onClose | the callback after pop closes | func | `noop` | | No |
+| onBeforeShow | the callback before pop opens, only triggered by user's operation, setting `visible` outside will not call | func | `noop` | | No |
+| onBeforeClose | the callback after pop closes, only triggered by user's operation, setting `visible` outside will not call | `noop` | | No |
+| containerSelector | pop's parent node CSS selector | string | `'body'` | all legal CSS selector | No |
+| visible | manual control pop's show or hide, must be used with `onVisibleChange`  | bool | | | No |
+| onVisibleChange | the callback when manual control, must be used with `visible`,  only triggered by user's open/close operation | func | | | No |
+| onPositionUpdated | callback after position updates, a position update does not imply a position change | func | `noop` | | No |
+| className | custom extra class name | string | `''` |  | No |
+| wrapperClassName |  trigger outerline div classname | string | `''` |  | No |
+| width | width | string or number |  |  | No |
+| prefix | custom prefix  | string | `'zent'` |  | No |
 
 `onBeforeShow` and `onBeforeClose` will return a  `Promise`，`Popover` will open/close after `Promise` resolve，if  `Promise` reject, open/close opreation will stop.
 
 If you do not use `Promise`, `onBeforeShow` and `onBeforeClose` also supports two arguments `callback` and `escapse`, you have to manual call `callback` to open/close in `onBeforeShow` and `onBeforeClose`. manual call `escape` to stop open/close opreation.
 
-
 `onBeforeShow(callback: ?function, escape: ?escape): ?Promise`
-
 
 Every kinds of trigger has it's own API to control component behavior, custom trigger can specifies it's parameter.
 
 #### Trigger.Click
 
-| Property        | Description                                               | Type                   | Default           |
-| --------- | ------------------------------------------------ | -------------------- | ------------- |
-| autoClose | optional, whether to auto close pop when click `outside`                               | bool                 | `true`        |
-| isOutside | optional, to determine a node is `outside` or not, click outside to close pop. default trigger and the node outside pop is `outside` | func: (node, data) => bool | `() => false` |
+| Property        | Description          | Type        | Default           |  Required |
+| --------- | ---------------- | -------------------- | ------------- | -------- |
+| autoClose | whether to auto close pop when click `outside` | bool  | `true` | No |
+| isOutside | to determine a node is `outside` or not, click outside to close pop. default trigger and the node outside pop is `outside` | func: (node, data) => bool | `() => false` | No |
 
 The `data` in isOutside includes two attributes ：`contentNode` and `triggerNode`。
 
 #### Trigger.Hover
 
-| Property        | Description        | Type                   | Default           |
-| --------- | ---------------------------------------- | -------------------- | ------------- |
-| showDelay | optional, the duration before layer open (in milliseconds), during this time, if you move mouse out of layer, pop will not open   | number   | `150`  |
-| hideDelay | optional, the duration before layer close (in milliseconds), during this time, if you move mouse out of layer, pop will not close  | number    | `150` |
-| isOutside | optional,to determine a node is `outside` or not. default trigger and the node outside pop is `outside` | func: (node, data) => bool |  |
-| quirk | optional，quirk mode，in this mode, mouse is not required to move out trigger and layer when close triggers | bool | `false` |
+| Property        | Description        | Type                   | Default           | Required |
+| --------- | ---------------- | -------------------- | ------------- |---------|
+| showDelay | the duration before layer open (in milliseconds), during this time, if you move mouse out of layer, pop will not open   | number   | `150`  | No |
+| hideDelay | the duration before layer close (in milliseconds), during this time, if you move mouse out of layer, pop will not close  | number    | `150` | No |
+| isOutside | to determine a node is `outside` or not. default trigger and the node outside pop is `outside` | func: (node, data) => bool |  | No |
+| quirk | quirk mode，in this mode, mouse is not required to move out trigger and layer when close triggers | bool | `false` | No |
 
 The `data` in isOutside includes two attributes：`contentNode` 和 `triggerNode`。
 

@@ -158,6 +158,8 @@ class Pop extends (PureComponent || Component) {
     closeOnClickOutside: PropTypes.bool,
     isClickOutside: PropTypes.func,
 
+    onPositionUpdated: PropTypes.func,
+
     prefix: PropTypes.string,
     className: PropTypes.string,
     wrapperClassName: PropTypes.string
@@ -174,6 +176,7 @@ class Pop extends (PureComponent || Component) {
     closeOnClickOutside: true,
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
+    onPositionUpdated: noop,
     className: '',
     wrapperClassName: '',
     prefix: 'zent',
@@ -299,7 +302,8 @@ class Pop extends (PureComponent || Component) {
       position,
       centerArrow,
       onBeforeClose,
-      onBeforeShow
+      onBeforeShow,
+      onPositionUpdated
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -323,6 +327,7 @@ class Pop extends (PureComponent || Component) {
         onClose={onClose}
         onBeforeClose={onBeforeClose}
         onBeforeShow={onBeforeShow}
+        onPositionUpdated={onPositionUpdated}
         ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}
