@@ -49,7 +49,9 @@ export default class PopoverContent extends (PureComponent || Component) {
     getAnchor: PropTypes.func,
 
     // defaults to body
-    containerSelector: PropTypes.string
+    containerSelector: PropTypes.string,
+
+    onPositionUpdated: PropTypes.func
   };
 
   state = {
@@ -124,9 +126,12 @@ export default class PopoverContent extends (PureComponent || Component) {
       }
     );
 
-    this.setState({
-      position
-    });
+    this.setState(
+      {
+        position
+      },
+      this.props.onPositionUpdated
+    );
   };
 
   onWindowResize = throttle((evt, delta) => {
