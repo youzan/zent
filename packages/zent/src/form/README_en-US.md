@@ -157,6 +157,7 @@ pass value into Field ---> format the value using format() ---> use the value af
 | inline | Whether to use the inline layout | boolean | `false` | no |
 | onSubmit | The callback function that is triggered when the form is submitted. | func(e:Event) | `noop` | no |
 | style | The style of form | object | null | no |
+| disableEnterSubmit | Whether to disable the enter event to submit the form | boolean | `true` | no |
 
 #### **`Form.createForm`**
 

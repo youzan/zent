@@ -12,12 +12,20 @@ class Form extends (PureComponent || Component) {
     vertical: PropTypes.bool,
     onSubmit: PropTypes.func,
     children: PropTypes.any,
-    style: PropTypes.object
+    style: PropTypes.object,
+    disableEnterSubmit: PropTypes.bool
   };
 
   static defaultProps = {
     prefix: 'zent',
-    onSubmit: noop
+    onSubmit: noop,
+    disableEnterSubmit: true
+  };
+
+  onKeyDown = event => {
+    if (this.props.disableEnterSubmit && event.keyCode === 13) {
+      event.preventDefault();
+    }
   };
 
   render() {
@@ -37,7 +45,12 @@ class Form extends (PureComponent || Component) {
       [className]: !!className
     });
     return (
-      <form className={formClassName} style={style} onSubmit={onSubmit}>
+      <form
+        className={formClassName}
+        style={style}
+        onSubmit={onSubmit}
+        onKeyDown={this.onKeyDown}
+      >
         {this.props.children}
       </form>
     );
