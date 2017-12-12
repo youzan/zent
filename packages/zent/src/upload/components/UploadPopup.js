@@ -103,24 +103,22 @@ class UploadPopup extends Component {
     );
   }
 
+  listWrapper = node => {
+    return this.context.dragDropManager ? (
+      node
+    ) : (
+      <DragDropContextProvider backend={HTML5Backend}>
+        {node}
+      </DragDropContextProvider>
+    );
+  };
+
   /**
    * 本地上传图片、语音
    */
   renderLocalUploadRegion(props) {
     let { prefix, accept, options } = props;
-
     let { localFiles } = this.state;
-
-    let node = (
-      <ul className={`${options.type}-list upload-local-${options.type}-list`}>
-        {localFiles.map(
-          (item, index) =>
-            options.type === 'voice'
-              ? this.renderLocalVoice(item, index)
-              : this.renderLocalImage(item, index)
-        )}
-      </ul>
-    );
 
     return (
       <div className={`${prefix}-local-attachment-region`}>
@@ -128,12 +126,17 @@ class UploadPopup extends Component {
           本地{options.type === 'voice' ? '语音' : '图片'}：
         </div>
         <div className={`${prefix}-content`}>
-          {this.context.dragDropManager ? (
-            node
-          ) : (
-            <DragDropContextProvider backend={HTML5Backend}>
-              {node}
-            </DragDropContextProvider>
+          {this.listWrapper(
+            <ul
+              className={`${options.type}-list upload-local-${options.type}-list`}
+            >
+              {localFiles.map(
+                (item, index) =>
+                  options.type === 'voice'
+                    ? this.renderLocalVoice(item, index)
+                    : this.renderLocalImage(item, index)
+              )}
+            </ul>
           )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
