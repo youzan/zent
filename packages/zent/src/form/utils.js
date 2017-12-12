@@ -104,8 +104,14 @@ export function srcollToFirstError(fields) {
     const field = fields[i];
     if (!field.isValid()) {
       const node = field.getWrappedComponent().getControlInstance();
-      scrollToNode(node);
-      return false;
+      /*
+        stateless function components don't have ref
+        so can't get instance
+      */
+      if (node) {
+        scrollToNode(node);
+        return false;
+      }
     }
   }
 }
