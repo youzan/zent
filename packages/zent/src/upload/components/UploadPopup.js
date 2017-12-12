@@ -3,6 +3,7 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
@@ -110,24 +111,30 @@ class UploadPopup extends Component {
 
     let { localFiles } = this.state;
 
+    let node = (
+      <ul className={`${options.type}-list upload-local-${options.type}-list`}>
+        {localFiles.map(
+          (item, index) =>
+            options.type === 'voice'
+              ? this.renderLocalVoice(item, index)
+              : this.renderLocalImage(item, index)
+        )}
+      </ul>
+    );
+
     return (
       <div className={`${prefix}-local-attachment-region`}>
         <div className={`${prefix}-title`}>
           本地{options.type === 'voice' ? '语音' : '图片'}：
         </div>
         <div className={`${prefix}-content`}>
-          <DragDropContextProvider backend={HTML5Backend}>
-            <ul
-              className={`${options.type}-list upload-local-${options.type}-list`}
-            >
-              {localFiles.map(
-                (item, index) =>
-                  options.type === 'voice'
-                    ? this.renderLocalVoice(item, index)
-                    : this.renderLocalImage(item, index)
-              )}
-            </ul>
-          </DragDropContextProvider>
+          {this.context.dragDropManager ? (
+            node
+          ) : (
+            <DragDropContextProvider backend={HTML5Backend}>
+              {node}
+            </DragDropContextProvider>
+          )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
               +
@@ -166,17 +173,6 @@ class UploadPopup extends Component {
       </div>
     );
   }
-
-  onUploadDragEnd = result => {
-    const { source, destination } = result;
-    console.log(source, destination);
-    // dropped outside
-    if (!destination) {
-      return;
-    }
-
-    this.onMove(source.index, destination.index);
-  };
 
   handleMove = (fromIndex, toIndex) => {
     let { localFiles } = this.state;
@@ -279,6 +275,10 @@ class UploadPopup extends Component {
       }
     );
   }
+
+  static contextTypes = {
+    dragDropManager: PropTypes.object
+  };
 }
 
 UploadPopup.defaultProps = {
