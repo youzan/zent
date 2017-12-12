@@ -58,7 +58,7 @@ export default class FileInput extends (PureComponent || Component) {
     evt.target.value = null;
   };
 
-  iteratorFiles(files) {
+  iteratorFiles = files => {
     const { type, maxSize, silent, maxAmount } = this.props;
     const typeName = type === 'voice' ? '语音' : '图片';
 
@@ -74,7 +74,7 @@ export default class FileInput extends (PureComponent || Component) {
           Notify.error(`已经自动过滤大于${formatFileSize(maxSize)}的${typeName}文件`);
       }
     });
-  }
+  };
 
   addFile(file) {
     let fileReader = new FileReader();

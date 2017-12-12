@@ -1,10 +1,10 @@
 ---
 order: 4
 zh-CN:
-	title: 字符串数组
+	title: 字符串数组带重置选项
 	pla: 请选择
 en-US:
-	title: String Array
+	title: String Array with reset option
 	pla: Select an option
 ---
 
@@ -14,7 +14,7 @@ import { Select } from 'zent';
 const data = ['Option 1', 'Option 2', 'Option 3'];
 
 ReactDOM.render(
-	<Select placeholder="{i18n.pla}" data={data} />,
+	<Select resetOption resetText="..." placeholder="{i18n.pla}" data={data} />,
 	mountNode
 );
 ```

@@ -145,10 +145,10 @@ class Field extends Component {
     this.setState(
       {
         _value: value,
-        _isDirty: needValidate
+        _isDirty: true
       },
       () => {
-        this.context.zentForm.validate(this);
+        needValidate && this.context.zentForm.validate(this);
       }
     );
   };

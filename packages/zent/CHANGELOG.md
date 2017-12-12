@@ -1,5 +1,16 @@
 ## Github Change Log
 
+## [zent@3.10.7](https://github.com/youzan/zent/tree/zent@3.10.7) (2017-12-07)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.6...zent@3.10.7)
+
+**Implemented enhancements:**
+
+- \[new feature\] Menu: Allow custom styles [\#595](https://github.com/youzan/zent/pull/595) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- \[bug fix\] Upload: 修复单文件上传bug [\#594](https://github.com/youzan/zent/pull/594) ([huangsy](https://github.com/huangsy))
+
 ## [zent@3.10.6](https://github.com/youzan/zent/tree/zent@3.10.6) (2017-12-06)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.5...zent@3.10.6)
 
@@ -311,17 +322,17 @@
 - \[docs\] Swiper: 修复doc内示例的warning [\#488](https://github.com/youzan/zent/pull/488) ([ArvinTung](https://github.com/ArvinTung))
 
 ## [zent@3.6.1](https://github.com/youzan/zent/tree/zent@3.6.1) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.0...zent@3.6.1)
 
 **Fixed bugs:**
 
 - \[bug fix\] Design: 修复样式 [\#481](https://github.com/youzan/zent/pull/481) ([cpylua](https://github.com/cpylua))
 
-## [babel-plugin-zent@1.0.3](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.3) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.6.0...babel-plugin-zent@1.0.3)
-
 ## [zent@3.6.0](https://github.com/youzan/zent/tree/zent@3.6.0) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...zent@3.6.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.0)
+
+## [babel-plugin-zent@1.0.3](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.3) (2017-09-21)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...babel-plugin-zent@1.0.3)
 
 **Implemented enhancements:**
 
@@ -339,11 +350,11 @@
 
 - \[bugs\] Table: 当前页所有项均禁用时，全选按钮未禁用 [\#478](https://github.com/youzan/zent/issues/478)
 
-## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.5.4)
-
 ## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...babel-plugin-zent@1.0.2)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.2)
+
+## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...zent@3.5.4)
 
 **Fixed bugs:**
 
