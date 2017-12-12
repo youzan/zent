@@ -278,7 +278,9 @@ class Field extends Component {
     if (!preventSetValue) {
       this.setValue(newValue, validateOnBlur);
       if (asyncValidation) {
-        this.context.zentForm.asyncValidate(this, newValue);
+        this.context.zentForm.asyncValidate(this, newValue).catch(error => {
+          console.log(error);
+        });
       }
     }
   };

@@ -23,6 +23,7 @@ class Form extends (PureComponent || Component) {
   };
 
   onKeyDown = event => {
+    // 默认禁止回车触发表单提交事件
     if (this.props.disableEnterSubmit && event.keyCode === 13) {
       event.preventDefault();
     }
