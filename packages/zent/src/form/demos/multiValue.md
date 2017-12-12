@@ -45,6 +45,7 @@ class ContactPhone extends React.Component {
 	};
 
 	onPhoneChange = (e) => {
+		const value = this.props.value;
 		const newValue = Object.assign({}, value,{
 			mobile: e.target.value
 		});

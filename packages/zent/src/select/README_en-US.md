@@ -51,6 +51,8 @@ Options list pop-up layer, is mainly responsible for display options, data filte
 | className | Optional, custom trigger additional classname | string | `''` | no |
 | popupClassName | Optional, custom popup classname | string | `''`    | no |
 | autoWidth | Whether to automatically set the width of pop-up layer equal with input-box's width | bool | `false` | no |
+| resetOption | Whether to add a reset option | bool | `false` | no |
+| resetText | Reset option text | string | `'请选择'` | no |
 | width |  input-box's width | string or number |  | no |
 | prefix | Custom prefix | string | `'zent'` | no |
 

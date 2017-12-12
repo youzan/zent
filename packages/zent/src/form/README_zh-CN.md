@@ -62,12 +62,14 @@ scatter: true
 
 表单的默认校验时机是 value 值改变的时候。可以修改 `validateOnChange`，`validateOnBlur` 来改变校验时机，如在 blur 时再校验（一般用于Input输入框）。
 
+如果你需要在提交时校验表单项，可以设置 `validateOnChange`，`validateOnBlur` 都为 `false`，并使用内置表单提交操作 `handleSubmit`。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.validateForm(true, callback)` 方法强制触发表单的校验，并在 `callback` 中处理后续逻辑。
+
 <!-- demo-slot-6 -->
 
 #### 异步校验
 异步校验在 blur 时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用`props.onBlur(event)`。 `value` 值可以直接传给 `event` ，或者作为 `event` 的属性传入。
 
-如果在没有触发异步校验的情况下（比如没有对表单项进行过操作）直接提交表单时，默认不会触发异步校验，使用内置的`handleSubmit`方法可以在提交表单时触发从未进行的异步校验。
+如果在没有触发异步校验的情况下（比如没有对表单项进行过操作）直接提交表单时，默认不会触发异步校验，使用内置的`handleSubmit`方法可以在提交表单时触发从未进行的异步校验。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.isFormAsyncValidated` 判断表单是否经过了异步校验，并根据结果选择是否使用 `zentForm.asyncValidateForm(resolve, reject)` 方法强制触发表单的异步校验。
 
 <!-- demo-slot-7 -->
 
@@ -152,6 +154,7 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | inline | 行内排列布局 | boolean | `false` | 否 |
 | onSubmit | 表单提交回调 | func(e:Event) | `noop` | 否 |
 | style | 内联样式 | object | null | 否 |
+| disableEnterSubmit | 禁止回车提交表单 | boolean | `true` | 否 |
 
 #### **`Form.createForm`**
 
@@ -178,7 +181,10 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是 undefined | func(submitError: SubmissionError) |noop | 否 |
 | scrollToError | 表单提交时或者设置外部错误时，表单自动滚动至第一个报错表单域 | boolean | `false` | 否 |
 
-⚠️注意：想要获取被 createForm 包裹的 FormComponent 的实例，可以在 createForm 创建的组件上添加 ref 然后调用`getWrappedForm`方法获取到。
+⚠️注意：
+
+1. `onChange`, `onSubmitSuccess`, `onSubmitFail`, `scrollToError` 也支持通过 `createForm` 的 `options` 参数传入；
+2. 想要获取被 createForm 包裹的 FormComponent 的实例，可以在 createForm 创建的组件上添加 ref 然后调用`getWrappedForm`方法获取到。
 
 ##### **`zentForm`**
 
@@ -197,7 +203,9 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | isSubmitting | 表单是否正在提交 | func |
 | isValidating | 表单是否有 Field 在异步校验 | func |
 | isFieldDirty | Field 是否变更过值 | func(name: String) |
-| isFieldValidating | Field 是否在异步校验 | func(name: String) |
+| isFormAsyncValidated | 所有 field 是否都进行了异步校验 | func |
+| validateForm | 强制表单进行同步校验 | func(forceValidate: Boolean, callback: Function) |
+| asyncValidateForm | 强制表单进行异步校验 | func(resolve: Function, reject: Function) |
 
 ##### **`handleSubmit`**
 

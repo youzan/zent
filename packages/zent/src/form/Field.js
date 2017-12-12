@@ -145,10 +145,10 @@ class Field extends Component {
     this.setState(
       {
         _value: value,
-        _isDirty: needValidate
+        _isDirty: true
       },
       () => {
-        this.context.zentForm.validate(this);
+        needValidate && this.context.zentForm.validate(this);
       }
     );
   };
@@ -278,7 +278,9 @@ class Field extends Component {
     if (!preventSetValue) {
       this.setValue(newValue, validateOnBlur);
       if (asyncValidation) {
-        this.context.zentForm.asyncValidate(this, newValue);
+        this.context.zentForm.asyncValidate(this, newValue).catch(error => {
+          console.log(error);
+        });
       }
     }
   };
