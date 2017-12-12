@@ -10,7 +10,7 @@ const START = 'start';
 const END = 'end';
 
 class SplitDateRangePicker extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
     placeholder: PropTypes.array,

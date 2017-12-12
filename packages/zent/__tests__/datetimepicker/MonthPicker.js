@@ -14,10 +14,10 @@ describe('MonthPicker', () => {
 
     expect(pop.find('MonthPanel').length).toBe(1);
     pop
-      .find('.grid-cell')
+      .find('.panel__cell')
       .at(1)
       .simulate('click');
-    expect(wrapper.find('MonthPanel').length).toBe(0);
+    expect(wrapper.state('openPanel').length).toBe(0);
   });
 
   it('MonthPicker has 2 level panel', () => {

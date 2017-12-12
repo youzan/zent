@@ -194,7 +194,7 @@ class DatePicker extends (PureComponent || Component) {
 
     if (onBeforeConfirm && !onBeforeConfirm()) return;
     // 如果没有选择日期则默认选中当前日期
-    let tmp = selected || new Date();
+    let tmp = selected || dayStart();
     if (this.isDisabled(tmp)) return;
 
     if (showTime) {

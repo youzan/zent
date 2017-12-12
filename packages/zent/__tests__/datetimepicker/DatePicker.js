@@ -15,12 +15,13 @@ describe('DateTimePicker', () => {
     const wrapper = mount(<DatePicker />);
     wrapper.find('.picker-input').simulate('click');
     const pop = new ReactWrapper(wrapper.instance().picker, true);
-    expect(pop.find('DatePanel').length).toBe(1);
+
     pop
-      .find('.grid-cell')
+      .find('.panel__cell')
       .at(1)
       .simulate('click');
-    expect(wrapper.find('DatePanel').length).toBe(0);
+
+    expect(wrapper.state('openPanel')).toBe(false);
   });
 
   it('DatePicker has its default structure', () => {
@@ -33,8 +34,6 @@ describe('DateTimePicker', () => {
      */
     const wrapper = mount(<DatePicker showTime isFooterVisble />);
     expect(wrapper.find('DatePicker').length).toBe(1);
-    // expect(wrapper.find('.zent-datetime-picker').childAt(0).type()).toBe('div');
-    // expect(wrapper.find('.zent-datetime-picker').childAt(0).hasClass('picker-wrapper')).toBe(true);
     expect(wrapper.find('.picker-input').length).toBe(1);
     expect(wrapper.find('.zenticon').length).toBe(2);
     wrapper.find('.picker-input').simulate('click');
@@ -276,7 +275,7 @@ describe('DateTimePicker', () => {
     const click = new Event('click');
     document.dispatchEvent(click);
     expect(wrapper.find('ClosablePortal').prop('visible')).toBe(false);
-    expect(wrapper.find('DatePanel').length).toBe(0);
+    expect(wrapper.state('openPanel')).toBe(false);
   });
 
   it('DatePicker support value whose type is number or DateObj', () => {
@@ -337,7 +336,7 @@ describe('DateTimePicker', () => {
     expect(getYearNumber(pop.find('DatePanel .panel__title').text())).toBe(
       now.getFullYear()
     );
-    // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
+    expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // min
     wrapper = mount(<DatePicker min="3000.01.01" isFooterVisble />);
@@ -350,11 +349,11 @@ describe('DateTimePicker', () => {
       now.getFullYear()
     );
 
-    // expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
+    expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
 
     // when disabled, the current link is hidden
     expect(pop.find('.link--current').length).toBe(0);
-    // expect(pop.find('DatePicker').getNode().state.selected).toBe(undefined);
+    expect(pop.find('DatePicker').getNode().state.selected).toBe(undefined);
     pop.find('.btn--confirm').simulate('click');
     expect(pop.find('DatePanel').length).toBe(1);
   });
