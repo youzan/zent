@@ -24,17 +24,25 @@ const datasets = [{
   bro_uvpv: '0/0',
   stock_num: 159,
   sold_num: 0,
+}];
+
+const datasets2 = [{
+  item_id: '4217',
+  bro_uvpv: '0/0',
+  stock_num: '60',
+  sold_num: 0,
 }, {
-  item_id: '13213',
-  bro_uvpv: '1/2',
-  stock_num: 1592,
-  sold_num: 1,
+  item_id: '50',
+  bro_uvpv: '0/0',
+  stock_num: 59,
+  sold_num: 0,
 }, {
-  item_id: '13215',
-  bro_uvpv: '2/3',
-  stock_num: 1591,
+  item_id: '13123',
+  bro_uvpv: '0/0',
+  stock_num: 159,
   sold_num: 0,
 }];
+
 const columns = [{
   title: 'Product',
   width: '150px',
@@ -70,9 +78,12 @@ class BatchCompsClass extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      limit: 10,
-      current: 0,
-      total: 101,
+			datasets,
+			page: {
+				pageSize: 3,
+				current: 0,
+				totalItem: 6,
+			},
       selectedRowKeys: []
     };
   }
@@ -87,17 +98,26 @@ class BatchCompsClass extends React.Component {
     this.setState({selectedRowKeys: selectedRowkeys});
   }
 
-  onChange(conf) {
-    this.setState(conf);
-  }
+	onChange(conf) {
+		console.log(conf);
+		this.setState({
+			page: {
+				pageSize: 3,
+				current: conf.current,
+				totalItem: 6
+			},
+			datasets: conf.current === 1 ? datasets : datasets2
+		})
+	}
 
   render() {
     return (
       <Table
         columns={columns}
-        datasets={datasets}
+        datasets={this.state.datasets}
         onChange={this.onChange.bind(this)}
         getRowConf={this.getRowConf}
+				pageInfo={this.state.page}
         rowKey="item_id"
         batchComponents={[
           <span key="pure" className="child-comps">This is a DOM element.  </span>,
@@ -111,7 +131,7 @@ class BatchCompsClass extends React.Component {
           onSelect: (selectedRowkeys, selectedRows, currentRow) => {
             this.onSelect(selectedRowkeys);
           },
-          canRowSelect: true
+					needCrossPage: true
         }}
       />
     );

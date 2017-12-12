@@ -49,6 +49,7 @@ export default class Foot extends (PureComponent || Component) {
 
   render() {
     const { onPageChange, batchComponents, selection, current } = this.props;
+    console.log(selection);
 
     let pageInfo = this.props.pageInfo || {};
     let { totalItem, pageSize, total, limit, maxPageToShow } = pageInfo;
