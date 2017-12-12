@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import isString from 'lodash/isString';
 
 import { commonProps, commonPropTypes } from './constants/';
 import DatePicker from './DatePicker';
@@ -41,8 +42,6 @@ class SplitDateRangePicker extends (PureComponent || Component) {
   };
 
   renderPicker() {
-    const props = this.props;
-
     const {
       value,
       placeholder,
@@ -55,9 +54,12 @@ class SplitDateRangePicker extends (PureComponent || Component) {
       disabledDate,
       defaultTime,
       ...pickerProps
-    } = props;
+    } = this.props;
     let rangePicker;
-
+    // 兼容老 api ，支持传入字符串
+    const timeArr = isString(defaultTime)
+      ? [defaultTime, defaultTime]
+      : defaultTime;
     const pickerCls = classNames('range-picker2');
 
     rangePicker = (
@@ -67,7 +69,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
           openPanel={openPanel[0]}
           placeholder={placeholder[0]}
           max={value[1] || pickerProps.max}
-          defaultTime={defaultTime[0]}
+          defaultTime={timeArr[0]}
           value={value[0]}
           onClick={val => onClick && onClick(val, START)}
           onOpen={() => onOpen && onOpen(START)}
@@ -81,7 +83,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
           openPanel={openPanel[1]}
           placeholder={placeholder[1]}
           min={value[0] || pickerProps.min}
-          defaultTime={defaultTime[1]}
+          defaultTime={timeArr[1]}
           value={value[1]}
           onClick={val => onClick && onClick(val, END)}
           onOpen={() => onOpen && onOpen(END)}

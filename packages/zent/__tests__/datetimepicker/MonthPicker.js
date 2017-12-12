@@ -17,7 +17,8 @@ describe('MonthPicker', () => {
       .find('.panel__cell')
       .at(1)
       .simulate('click');
-    expect(wrapper.state('openPanel').length).toBe(0);
+
+    expect(wrapper.state('openPanel')).toBe(false);
   });
 
   it('MonthPicker has 2 level panel', () => {
