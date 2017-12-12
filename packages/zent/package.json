@@ -33,6 +33,8 @@
     "prop-types": "15.5.x",
     "raf": "^3.3.2",
     "react-beautiful-dnd": "^2.6.4",
+    "react-dnd": "^2.5.4",
+    "react-dnd-html5-backend": "^2.5.4",
     "tinycolor2": "^1.4.1",
     "uuid": "^3.1.0",
     "zan-utils": "^1.0.9",
