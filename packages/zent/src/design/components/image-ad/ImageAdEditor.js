@@ -17,7 +17,6 @@ import { ImageEntry, createEmptyImageEntry } from './ImageEntry';
 
 const RadioGroup = Radio.Group;
 
-// TODO: 拖拽
 export default class ImageAdEditor extends DesignEditor {
   constructor(props) {
     super(props);
