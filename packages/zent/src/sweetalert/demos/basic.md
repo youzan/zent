@@ -19,9 +19,7 @@ import { Sweetalert, Button } from 'zent';
 
 const showAlertInfo = () => {
 	Sweetalert.alert({
-		content: '{i18n.text1}',
-		title: '{i18n.text2}',
-		confirmText: '{i18n.confirm}'
+		content: '{i18n.text1}'
 	});
 }
 
