@@ -47,7 +47,6 @@ import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
 import YearPicker from 'datetimepicker/YearPicker';
-import I18n from 'i18n';
 
 export {
   Affix,
@@ -71,7 +70,6 @@ export {
   Icon,
   InfiniteScroller,
   Input,
-  I18n,
   Layout,
   Loading,
   Menu,
