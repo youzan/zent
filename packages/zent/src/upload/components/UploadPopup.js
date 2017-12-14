@@ -75,6 +75,7 @@ class UploadPopup extends Component {
         data={item}
         index={index}
         isDragable
+        isInline
         onMove={this.handleMove}
         onDelete={this.handleDelete}
       />
