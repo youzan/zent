@@ -12,3 +12,8 @@ export const Pagination = {
   perPageText: ' per page.',
   comma: ', '
 };
+
+export const Switch = {
+  checkedText: 'On',
+  uncheckedText: 'Off'
+};

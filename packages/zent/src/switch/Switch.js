@@ -2,6 +2,9 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import setClass from 'classnames';
 
+import { I18nReciever as Reciever } from 'i18n';
+import { Switch as I18nDefault } from 'i18n/default';
+
 export default class Switch extends (PureComponent || Component) {
   static propTypes = {
     size: PropTypes.oneOf(['large', 'default', 'small']),
@@ -23,8 +26,8 @@ export default class Switch extends (PureComponent || Component) {
     loading: false,
     checked: false,
     onChange() {},
-    checkedText: '开启',
-    uncheckedText: '关闭'
+    checkedText: '',
+    uncheckedText: ''
   };
 
   // 处理点击时间，直接执行外部onChange方法
@@ -33,20 +36,27 @@ export default class Switch extends (PureComponent || Component) {
     onChange(!checked);
   };
 
-  getInnerText() {
-    return this.props.checked
-      ? this.props.checkedText
-      : this.props.uncheckedText;
-  }
+  renderInner = i18n => {
+    const { checkedText, uncheckedText } = i18n;
+    const { prefix, checked } = this.props;
+    const textClassName = `${prefix}-switch-inner`;
+    return (
+      <span className={textClassName}>
+        {checked
+          ? this.props.checkedText || checkedText
+          : this.props.uncheckedText || uncheckedText}
+      </span>
+    );
+  };
 
   // render span 标签
   renderSwitch(classNames) {
     const disabled = this.props.disabled || this.props.loading;
-    const textClassName = `${this.props.prefix}-switch-inner`;
-
     return (
       <span className={classNames} onClick={disabled ? null : this.toggle}>
-        <span className={textClassName}>{this.getInnerText()}</span>
+        <Reciever componentName="Switch" defaultI18n={I18nDefault}>
+          {this.renderInner}
+        </Reciever>
       </span>
     );
   }

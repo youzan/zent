@@ -34,7 +34,6 @@ export default class I18nReciever extends (PureComponent || Component) {
   }
 
   render() {
-    console.log('re-render');
     return this.props.children(this.recieve());
   }
 }

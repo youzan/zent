@@ -12,3 +12,8 @@ export const Pagination = {
   perPageText: '每页',
   comma: '，'
 };
+
+export const Switch = {
+  checkedText: '开启',
+  uncheckedText: '关闭'
+};
