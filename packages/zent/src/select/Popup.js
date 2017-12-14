@@ -6,7 +6,11 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
 import trim from 'lodash/trim';
+
 import Popover from 'popover';
+import { I18nReciever as Reciever } from 'i18n';
+import { Select as I18nDefault } from 'i18n/default';
+
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
@@ -214,12 +218,16 @@ class Popup extends (PureComponent || Component) {
         style={autoWidth ? this.state.style : null}
       >
         {!extraFilter && (filter || onAsyncFilter) ? (
-          <Search
-            keyword={keyword}
-            prefixCls={prefixCls}
-            placeholder={searchPlaceholder}
-            onChange={this.searchFilterHandler}
-          />
+          <Reciever componentName="Select" defaultI18n={I18nDefault}>
+            {i18n => (
+              <Search
+                keyword={keyword}
+                prefixCls={prefixCls}
+                placeholder={searchPlaceholder || i18n.search}
+                onChange={this.searchFilterHandler}
+              />
+            )}
+          </Reciever>
         ) : (
           ''
         )}

@@ -20,11 +20,9 @@ en-US:
 import { Pop, Sweetalert, Button } from 'zent';
 
 ReactDOM.render(
-	<Pop 
+	<Pop
 		trigger="click"
 		content="{i18n.popContent}"
-		confirmText="{i18n.confirm}"
-		cancelText="{i18n.cancel}"
 		onConfirm={() => Sweetalert.alert({ content: '{i18n.content}' })}
 	>
 		<Button type="primary">{i18n.btnText}</Button>

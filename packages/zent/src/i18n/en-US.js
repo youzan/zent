@@ -33,3 +33,14 @@ export const RangePicker = {
   7: '7 days',
   30: '30 days'
 };
+
+export const Select = {
+  input: 'please choose',
+  search: 'No matches found'
+};
+
+export const Pop = {
+  ...common
+};
+
+export const TimePicker = {};

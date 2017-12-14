@@ -30,6 +30,17 @@ export const CopyButton = {
 };
 
 export const RangePicker = {
-  7: '7天',
-  30: '30天'
+  7: '近7天',
+  30: '近30天'
 };
+
+export const Select = {
+  input: '请选择',
+  search: '没有找到匹配项'
+};
+
+export const Pop = {
+  ...common
+};
+
+export const TimePicker = {};
