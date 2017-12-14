@@ -13,6 +13,16 @@ export default class I18nReciever extends (PureComponent || Component) {
     lang: PropTypes.object
   };
 
+  /**
+   * as a functional wrapper, update itself as its father re-render.
+   *
+   * @returns true
+   * @memberof I18nReciever
+   */
+  shouldComponentUpdate() {
+    return true;
+  }
+
   recieve() {
     const { componentName, defaultI18n } = this.props;
     const { zentI18n } = this.context;
@@ -24,6 +34,7 @@ export default class I18nReciever extends (PureComponent || Component) {
   }
 
   render() {
+    console.log('re-render');
     return this.props.children(this.recieve());
   }
 }

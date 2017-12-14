@@ -1,5 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 
+import { I18nReciever as Reciever } from 'i18n';
+import { Pagination as I18nDefault } from 'i18n/default';
+
 export default class Jump extends (PureComponent || Component) {
   state = {
     pageLabel: this.props.content.trim()
@@ -35,6 +38,15 @@ export default class Jump extends (PureComponent || Component) {
     });
   };
 
+  renderSuffix = i18n => {
+    const { pagesText } = i18n;
+    return (
+      <span className="pager__suffix">
+        {`/ ${this.props.total} ${pagesText}`}
+      </span>
+    );
+  };
+
   render() {
     return (
       <div className="pager pager--jump">
@@ -44,7 +56,9 @@ export default class Jump extends (PureComponent || Component) {
           onKeyUp={this.onKeyUp}
           onChange={this.onChange}
         />
-        <span className="pager__suffix">/共{this.props.total}页</span>
+        <Reciever componentName="Pagination" defaultI18n={I18nDefault}>
+          {this.renderSuffix}
+        </Reciever>
       </div>
     );
   }

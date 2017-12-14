@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { Reciever } from 'i18n';
+import { I18nReciever as Reciever } from 'i18n';
 import { Sweetalert as i18nDefault } from 'i18n/default';
 import Dialog from 'dialog';
 import Icon from 'icon';
@@ -17,6 +17,13 @@ import { TitleIconMap, CommonProps } from './constants';
 
 const { openDialog } = Dialog;
 
+/**
+ * sweet [main function]
+ *
+ * @param {object} config [config object passed by entry function]
+ * @param {string} sweetType [internal type of entry function]
+ * @returns {function} [close function returned by openDialog]
+ */
 function sweet(config, sweetType) {
   let {
     className = '',
@@ -30,6 +37,7 @@ function sweet(config, sweetType) {
     ...rest
   } = config;
 
+  // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
   let close = null;
 
   const renderTitle = i18n => {
