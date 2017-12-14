@@ -125,7 +125,7 @@ const dndTarget = {
       if (
         dragIndex < hoverIndex &&
         hoverClientY < hoverMiddleY &&
-        hoverClientX < hoverMiddleY
+        hoverClientX < hoverMiddleX
       ) {
         return;
       }
