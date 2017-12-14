@@ -7,12 +7,19 @@ en-US:
 ---
 
 ```jsx
-import { DatePicker, MonthPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
+import { DatePicker, MonthPicker, SeasonPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
 
 class Demo extends Component{
   state = {
-		dateValue: new Date()
-  }
+
+	}
+	
+	onChangeSeason = (val) => {
+		console.log(val)
+		this.setState({
+			seasonValue: val
+		})
+	}
 
   onChangeDate = (val) => {
     this.setState({
@@ -51,11 +58,11 @@ class Demo extends Component{
 	}
 
   render(){
-    const { dateValue, monthValue, rangeValue, weekValue, yearValue } = this.state;
+    const { dateValue, monthValue, rangeValue, weekValue, yearValue, seasonValue } = this.state;
 		const now = new Date();
 
     return (
-      <div>
+			<div>
         <DatePicker
 					className="zent-picker-demo"
           value={dateValue}
@@ -96,6 +103,11 @@ class Demo extends Component{
 					value={yearValue}
 					max={2020}
 					onChange={this.onChangeYear}
+				/>
+				<br />
+				<SeasonPicker
+					value={seasonValue}
+					onChange={this.onChangeSeason}
 				/>
       </div>
     )
