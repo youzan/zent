@@ -45,7 +45,6 @@ class Demo extends Component{
 	}
 
 	onChangeYear = (val) => {
-		console.log(val);
 		this.setState({
 			yearValue: val
 		})

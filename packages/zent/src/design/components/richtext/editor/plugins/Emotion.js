@@ -120,8 +120,6 @@ class Emotion extends Component {
             <span
               className={item.wrapClass}
               style={styleObj}
-              onMouseEnter={this.onMouseEnter.bind(this, item)}
-              onMouseLeave={this.onMouseLeave.bind(this, item)}
               onClick={this.onClick.bind(this, item, imgSrc, pos)}
             />
           </div>
@@ -143,14 +141,6 @@ class Emotion extends Component {
       activeId: id
     });
   };
-
-  onMouseEnter() {
-    // console.log(item)
-  }
-
-  onMouseLeave() {
-    // console.log(item)
-  }
 
   onClick(item, imgSrc) {
     let imgAddr = 'https://b.yzcdn.cn/v2';

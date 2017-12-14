@@ -154,6 +154,7 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | inline | 行内排列布局 | boolean | `false` | 否 |
 | onSubmit | 表单提交回调 | func(e:Event) | `noop` | 否 |
 | style | 内联样式 | object | null | 否 |
+| disableEnterSubmit | 禁止回车提交表单 | boolean | `true` | 否 |
 
 #### **`Form.createForm`**
 

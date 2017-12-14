@@ -125,16 +125,13 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     }
 
     this.state = extractStateFromProps(props);
+    this.isfooterShow = props.showTime || props.isFooterVisble;
   }
 
   componentWillReceiveProps(next) {
     const state = extractStateFromProps(next);
     this.setState(state);
   }
-
-  getDate = () => {
-    return this.state.actived;
-  };
 
   onHover = val => {
     const { selected, range } = this.state;
@@ -198,6 +195,9 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     });
 
     onClick && onClick(val, type);
+    if (!this.isfooterShow) {
+      this.onConfirm();
+    }
   };
 
   isDisabled = val => {
@@ -352,7 +352,6 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   renderPicker() {
     const { state, props } = this;
     let rangePicker;
-
     const getTimeConfig = type => {
       if (!props.showTime) return false;
       const handleMap = {
@@ -386,9 +385,14 @@ class CombineDateRangePicker extends (PureComponent || Component) {
         'range-picker': true,
         'range-picker--showTime': props.showTime
       });
+      const datePickerCls = classNames({
+        'date-picker': true,
+        small: this.isfooterShow
+      });
+
       rangePicker = (
         <div className={pickerCls} ref={ref => (this.picker = ref)}>
-          <div className="date-picker">
+          <div className={datePickerCls}>
             <DatePanel
               range={state.range}
               showTime={getTimeConfig('start')}
@@ -404,7 +408,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
               showNext={false}
             />
           </div>
-          <div className="date-picker">
+          <div className={datePickerCls}>
             <DatePanel
               range={state.range}
               showTime={getTimeConfig('end')}
@@ -420,12 +424,14 @@ class CombineDateRangePicker extends (PureComponent || Component) {
               showNext
             />
           </div>
-          <PanelFooter
-            buttonText={props.confirmText}
-            onClickButton={this.onConfirm}
-            showError={state.showError}
-            errorText={props.errorText}
-          />
+          {this.isfooterShow ? (
+            <PanelFooter
+              buttonText={props.confirmText}
+              onClickButton={this.onConfirm}
+              showError={state.showError}
+              errorText={props.errorText}
+            />
+          ) : null}
         </div>
       );
     }

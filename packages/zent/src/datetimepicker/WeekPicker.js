@@ -101,6 +101,8 @@ class WeekPicker extends (PureComponent || Component) {
     }
 
     this.state = extractStateFromProps(props);
+    // 没有footer的逻辑
+    this.isfooterShow = props.showTime || props.isFooterVisble;
   }
 
   componentWillReceiveProps(next) {
@@ -136,6 +138,9 @@ class WeekPicker extends (PureComponent || Component) {
     });
 
     onClick && onClick(week);
+    if (!this.isfooterShow) {
+      this.onConfirm();
+    }
   };
 
   onChangeMonth = type => {
@@ -230,8 +235,13 @@ class WeekPicker extends (PureComponent || Component) {
         'link--disabled': isDisabled
       });
 
+      const weekPickerCls = classNames({
+        'week-picker': true,
+        small: this.isfooterShow
+      });
+
       weekPicker = (
-        <div className="week-picker" ref={ref => (this.picker = ref)}>
+        <div className={weekPickerCls} ref={ref => (this.picker = ref)}>
           <div onMouseOut={this.onMouseOut}>
             <DatePanel
               range={state.range}
@@ -245,14 +255,16 @@ class WeekPicker extends (PureComponent || Component) {
               onNext={this.onChangeMonth('next')}
             />
           </div>
-          <PanelFooter
-            buttonText={props.confirmText}
-            onClickButton={this.onConfirm}
-            linkText="本周"
-            linkCls={linkCls}
-            showLink={!isDisabled}
-            onClickLink={() => this.onSelectDate(CURRENT_DAY)}
-          />
+          {this.isfooterShow ? (
+            <PanelFooter
+              buttonText={props.confirmText}
+              onClickButton={this.onConfirm}
+              linkText="本周"
+              linkCls={linkCls}
+              showLink={!isDisabled}
+              onClickLink={() => this.onSelectDate(CURRENT_DAY)}
+            />
+          ) : null}
         </div>
       );
     }

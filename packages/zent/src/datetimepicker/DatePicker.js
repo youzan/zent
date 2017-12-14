@@ -101,6 +101,8 @@ class DatePicker extends (PureComponent || Component) {
     }
 
     this.state = extractStateFromProps(props);
+    // 没有footer的逻辑
+    this.isfooterShow = props.showTime || props.isFooterVisble;
   }
 
   componentWillReceiveProps(next) {
@@ -129,6 +131,9 @@ class DatePicker extends (PureComponent || Component) {
       activedTime: setSameDate(activedTime, val)
     });
     onClick && onClick(val);
+    if (!this.isfooterShow) {
+      this.onConfirm();
+    }
   };
 
   onChangeTime = (val, type) => {
@@ -189,7 +194,7 @@ class DatePicker extends (PureComponent || Component) {
 
     if (onBeforeConfirm && !onBeforeConfirm()) return;
     // 如果没有选择日期则默认选中当前日期
-    let tmp = selected || new Date();
+    let tmp = selected || dayStart();
     if (this.isDisabled(tmp)) return;
 
     if (showTime) {
@@ -228,6 +233,7 @@ class DatePicker extends (PureComponent || Component) {
     let showTime;
     let datePicker;
 
+    // let isShow
     if (props.showTime) {
       showTime = assign(
         {
@@ -250,9 +256,13 @@ class DatePicker extends (PureComponent || Component) {
         'link--current': true,
         'link--disabled': isDisabled
       });
+      const datePickerCls = classNames({
+        'date-picker': true,
+        small: this.isfooterShow
+      });
 
       datePicker = (
-        <div className="date-picker" ref={ref => (this.picker = ref)}>
+        <div className={datePickerCls} ref={ref => (this.picker = ref)}>
           <DatePanel
             showTime={showTime}
             actived={state.actived}
@@ -263,14 +273,16 @@ class DatePicker extends (PureComponent || Component) {
             onPrev={this.onChangeMonth('prev')}
             onNext={this.onChangeMonth('next')}
           />
-          <PanelFooter
-            buttonText={props.confirmText}
-            onClickButton={this.onConfirm}
-            linkText="今天"
-            linkCls={linkCls}
-            showLink={!isDisabled}
-            onClickLink={() => this.onSelectDate(CURRENT_DAY)}
-          />
+          {this.isfooterShow ? (
+            <PanelFooter
+              buttonText={props.confirmText}
+              onClickButton={this.onConfirm}
+              linkText="今天"
+              linkCls={linkCls}
+              showLink={!isDisabled}
+              onClickLink={() => this.onSelectDate(CURRENT_DAY)}
+            />
+          ) : null}
         </div>
       );
     }
@@ -298,7 +310,6 @@ class DatePicker extends (PureComponent || Component) {
       'picker-input--disabled': props.disabled
     });
     const widthStyle = getWidth(props.width);
-
     return (
       <div style={widthStyle} className={wrapperCls}>
         <Popover
