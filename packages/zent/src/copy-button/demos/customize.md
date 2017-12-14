@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 2
 zh-CN:
 	title: 基础用法
 	customText: 自定义
@@ -17,7 +17,9 @@ import { CopyButton, Button } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<CopyButton text="{i18n.customText}" />
+		<CopyButton text="{i18n.customText}" onCopySuccess="{i18n.onCopySuccess}">
+			<Button type="primary">{i18n.customBtnText}</Button>
+		</CopyButton>
 	</div>
 	, mountNode);
 ```

@@ -38,16 +38,8 @@ export default class Jump extends (PureComponent || Component) {
     });
   };
 
-  renderSuffix = i18n => {
-    const { pagesText } = i18n;
-    return (
-      <span className="pager__suffix">
-        {`/ ${this.props.total} ${pagesText}`}
-      </span>
-    );
-  };
-
   render() {
+    const { total } = this.props;
     return (
       <div className="pager pager--jump">
         <input
@@ -57,7 +49,9 @@ export default class Jump extends (PureComponent || Component) {
           onChange={this.onChange}
         />
         <Reciever componentName="Pagination" defaultI18n={I18nDefault}>
-          {this.renderSuffix}
+          {i18n => (
+            <span className="pager__suffix">{`/ ${total} ${i18n.pages}`}</span>
+          )}
         </Reciever>
       </div>
     );

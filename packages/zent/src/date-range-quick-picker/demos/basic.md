@@ -48,13 +48,6 @@ class Simple extends Component {
 					format="YYYY-MM-DD HH:mm:ss"
 					valueType="number"
 					chooseDays={chooseDays}
-					preset={[{
-						text: '{i18n.seven}',
-						value: 7
-					}, {
-						text: '{i18n.thirty}',
-						value: 30
-					}]}
 				/>
 				<br />
 				<DateRangeQuickPicker

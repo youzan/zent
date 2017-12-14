@@ -34,6 +34,8 @@ function sweet(config, sweetType) {
     content,
     onConfirm,
     onCancel,
+    confirmText,
+    cancelText,
     ...rest
   } = config;
 
@@ -41,20 +43,18 @@ function sweet(config, sweetType) {
   let close = null;
 
   const renderTitle = i18n => {
-    const { titleText } = i18n;
     const icon = TitleIconMap[type] || '';
     return (
       <div className={`${prefix}-sweetalert-${type ? 'icon-' : ''}title`}>
         {type && (
           <Icon className={`${prefix}-sweetalert-type-icon`} type={icon} />
         )}
-        {title || titleText}
+        {title || i18n.title}
       </div>
     );
   };
 
   const renderButtons = i18n => {
-    const { alertText, confirmText, cancelText } = i18n;
     const isAlert = sweetType === 'alert';
     return (
       <div className={`sweet-${sweetType}-actions`}>
@@ -64,7 +64,7 @@ function sweet(config, sweetType) {
           className={`${prefix}-sweetalert-${sweetType}-btn-confirm`}
           getClose={() => close}
           onClick={onConfirm}
-          text={rest.confirmText || (isAlert ? alertText : confirmText)}
+          text={confirmText || (isAlert ? i18n.ok : i18n.confirm)}
         />
         {!isAlert && (
           <ActionButton
@@ -73,7 +73,7 @@ function sweet(config, sweetType) {
             className={`${prefix}-sweetalert-${sweetType}-btn-cancel`}
             getClose={() => close}
             onClick={onCancel}
-            text={rest.cancelText || cancelText}
+            text={cancelText || i18n.cancel}
           />
         )}
       </div>

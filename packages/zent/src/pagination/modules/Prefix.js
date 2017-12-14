@@ -19,51 +19,35 @@ export default class Prefix extends (PureComponent || Component) {
     this.props.setPageSize(data.text);
   };
 
-  renderTotal = i18n => {
-    const { totalText, itemsText, comma } = i18n;
-    return (
-      <span className="total">
-        {`${totalText} ${this.props.totalItem} ${itemsText}${comma}`}
-      </span>
-    );
-  };
-
-  renderEach = i18n => {
-    let { pageSize, currentPageSize } = this.props;
-    let isNeedSelect = Array.isArray(pageSize) && pageSize.length > 1;
-    pageSize = pageSize.map(item => `${item.value}`);
-    const { perPageText, itemsText } = i18n;
-    return (
-      <span className="each">
-        {isNeedSelect ? (
-          <Select
-            value={currentPageSize}
-            onChange={this.changePageSize}
-            width={60}
-            autoWidth
-          >
-            {pageSize.map((item, i) => (
-              <Option key={i} value={item}>
-                {item}
-              </Option>
-            ))}
-          </Select>
-        ) : (
-          currentPageSize
-        )}
-        {`${itemsText}${perPageText}`}
-      </span>
-    );
-  };
-
   render() {
+    const { totalItem, pageSize, currentPageSize } = this.props;
+    const isNeedSelect = Array.isArray(pageSize) && pageSize.length > 1;
+    const pageSizeForSelect = pageSize.map(item => `${item.value}`);
     return (
       <span className="zent-pagination__info">
         <Reciever componentName="Pagination" defaultI18n={I18nDefault}>
-          {this.renderTotal}
-        </Reciever>
-        <Reciever componentName="Pagination" defaultI18n={I18nDefault}>
-          {this.renderEach}
+          {i18n => (
+            <span className="total each">
+              {`${i18n.total} ${totalItem} ${i18n.items}${i18n.comma}`}
+              {isNeedSelect ? (
+                <Select
+                  value={currentPageSize}
+                  onChange={this.changePageSize}
+                  width={60}
+                  autoWidth
+                >
+                  {pageSizeForSelect.map((item, i) => (
+                    <Option key={i} value={item}>
+                      {item}
+                    </Option>
+                  ))}
+                </Select>
+              ) : (
+                currentPageSize
+              )}
+              {`${i18n.items}${i18n.perPage}`}
+            </span>
+          )}
         </Reciever>
       </span>
     );

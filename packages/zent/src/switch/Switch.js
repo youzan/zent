@@ -36,33 +36,18 @@ export default class Switch extends (PureComponent || Component) {
     onChange(!checked);
   };
 
-  renderInner = i18n => {
-    const { checkedText, uncheckedText } = i18n;
-    const { prefix, checked } = this.props;
-    const textClassName = `${prefix}-switch-inner`;
-    return (
-      <span className={textClassName}>
-        {checked
-          ? this.props.checkedText || checkedText
-          : this.props.uncheckedText || uncheckedText}
-      </span>
-    );
-  };
-
-  // render span 标签
-  renderSwitch(classNames) {
-    const disabled = this.props.disabled || this.props.loading;
-    return (
-      <span className={classNames} onClick={disabled ? null : this.toggle}>
-        <Reciever componentName="Switch" defaultI18n={I18nDefault}>
-          {this.renderInner}
-        </Reciever>
-      </span>
-    );
-  }
-
   render() {
-    const { className, size, disabled, loading, prefix, checked } = this.props;
+    const {
+      className,
+      size,
+      disabled,
+      loading,
+      prefix,
+      checked,
+      checkedText,
+      uncheckedText
+    } = this.props;
+    const switchDisabled = disabled || loading;
     const classNames = setClass(
       {
         [`${prefix}-switch-${size}`]: size !== 'default',
@@ -74,6 +59,21 @@ export default class Switch extends (PureComponent || Component) {
       className
     );
 
-    return this.renderSwitch(classNames);
+    return (
+      <span
+        className={classNames}
+        onClick={switchDisabled ? null : this.toggle}
+      >
+        <Reciever componentName="Switch" defaultI18n={I18nDefault}>
+          {i18n => (
+            <span className={`${prefix}-switch-inner`}>
+              {checked
+                ? checkedText || i18n.checked
+                : uncheckedText || i18n.unchecked}
+            </span>
+          )}
+        </Reciever>
+      </span>
+    );
   }
 }

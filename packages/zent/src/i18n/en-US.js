@@ -1,19 +1,35 @@
+const common = {
+  confirm: 'Confirm',
+  cancel: 'Cancel',
+  comma: ', ',
+  ok: 'Get it.'
+};
+
 export const Sweetalert = {
-  alertText: 'Get it.',
-  confirmText: 'Confirm',
-  cancelText: 'Cancel',
-  titleText: 'Alert'
+  ...common,
+  title: 'Alert'
 };
 
 export const Pagination = {
-  totalText: 'Total',
-  pagesText: 'pages',
-  itemsText: ' items',
-  perPageText: ' per page.',
-  comma: ', '
+  comma: common.comma,
+  total: 'Total',
+  pages: 'pages',
+  items: ' items',
+  perPage: ' per page'
 };
 
 export const Switch = {
-  checkedText: 'On',
-  uncheckedText: 'Off'
+  checked: 'On',
+  unchecked: 'Off'
+};
+
+export const CopyButton = {
+  copy: 'Copy',
+  success: 'Copy successfully',
+  error: 'Copy failed'
+};
+
+export const RangePicker = {
+  7: '7 days',
+  30: '30 days'
 };

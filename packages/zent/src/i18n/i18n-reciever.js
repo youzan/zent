@@ -10,7 +10,7 @@ export default class I18nReciever extends (PureComponent || Component) {
   };
 
   static contextType = {
-    lang: PropTypes.object
+    zentI18n: PropTypes.object
   };
 
   /**
@@ -34,6 +34,7 @@ export default class I18nReciever extends (PureComponent || Component) {
   }
 
   render() {
-    return this.props.children(this.recieve());
+    const { children, componentName, defaultI18n, ...bypass } = this.props;
+    return children(this.recieve(), bypass);
   }
 }
