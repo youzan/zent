@@ -99,7 +99,6 @@ class BatchCompsClass extends React.Component {
   }
 
 	onChange(conf) {
-		console.log(conf);
 		this.setState({
 			page: {
 				pageSize: 3,

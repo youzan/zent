@@ -426,8 +426,6 @@ export default class Table extends (PureComponent || Component) {
         helper.isSelectPart(selectedRowKeys, canSelectRowKeysArr);
     }
 
-    console.log(selectedRowKeys);
-
     return (
       <div className={`${prefix}-table-container`}>
         <Loading show={this.props.loading} static>
