@@ -4,9 +4,38 @@ import DateRangePicker from 'datetimepicker/DateRangePicker';
 import { isArray } from 'datetimepicker/utils';
 
 describe('DateRangePicker', () => {
+  it('CombineDateRangePicker not show footer', () => {
+    let pop;
+    const wrapper = mount(<DateRangePicker type="combine" />);
+    wrapper.find('.picker-input').simulate('click');
+    pop = new ReactWrapper(
+      wrapper.find('CombineDateRangePicker').node.picker,
+      true
+    );
+
+    expect(pop.find('DatePanel').length).toBe(2);
+    wrapper.find('.picker-input').simulate('click');
+    pop
+      .find('DatePanel')
+      .at(0)
+      .find('.panel__cell')
+      .at(10)
+      .simulate('click');
+    pop
+      .find('DatePanel')
+      .at(1)
+      .find('.panel__cell')
+      .at(20)
+      .simulate('click');
+
+    expect(wrapper.find('DatePanel').length).toBe(0);
+  });
+
   it('CombineDateRangePicker has its core function', () => {
     let pop;
-    const wrapper = mount(<DateRangePicker type="combine" showTime />);
+    const wrapper = mount(
+      <DateRangePicker type="combine" showTime isFooterVisble />
+    );
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(
       wrapper.find('CombineDateRangePicker').node.picker,
@@ -89,7 +118,9 @@ describe('DateRangePicker', () => {
 
   it('SplitDateRangePicker has its core function', () => {
     let pop;
-    const wrapper = mount(<DateRangePicker type="split" showTime />);
+    const wrapper = mount(
+      <DateRangePicker type="split" showTime isFooterVisble />
+    );
     wrapper
       .find('.picker-input')
       .at(0)
@@ -124,7 +155,11 @@ describe('DateRangePicker', () => {
   it('SplitDateRangePicker render value', () => {
     let pop;
     const wrapper = mount(
-      <DateRangePicker type="split" value={['2017-01-01', '2017-12-30']} />
+      <DateRangePicker
+        type="split"
+        value={['2017-01-01', '2017-12-30']}
+        isFooterVisble
+      />
     );
     expect(wrapper.find('.zent-input').at(0).node.value).toBe('2017-01-01');
     wrapper
@@ -152,6 +187,7 @@ describe('DateRangePicker', () => {
         type="combine"
         value={['2000-01-01', '2000-02-02']}
         onChange={onChangeMock}
+        isFooterVisble
       />
     );
     wrapper.find('.picker-input').simulate('click');
@@ -182,7 +218,9 @@ describe('DateRangePicker', () => {
     const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({ value });
     });
-    wrapper = mount(<DateRangePicker type="split" onChange={onChangeMock} />);
+    wrapper = mount(
+      <DateRangePicker type="split" onChange={onChangeMock} isFooterVisble />
+    );
     wrapper
       .find('.picker-input')
       .at(0)
@@ -220,7 +258,12 @@ describe('DateRangePicker', () => {
     const onClose = jest.fn();
     const onOpen = jest.fn();
     wrapper = mount(
-      <DateRangePicker type="split" onClose={onClose} onOpen={onOpen} />
+      <DateRangePicker
+        type="split"
+        onClose={onClose}
+        onOpen={onOpen}
+        isFooterVisble
+      />
     );
     wrapper
       .find('.picker-input')
@@ -254,6 +297,7 @@ describe('DateRangePicker', () => {
         value={['2000-01-01', '2000-02-02']}
         valueType="date"
         onChange={onChangeMock}
+        isFooterVisble
       />
     );
 
@@ -283,6 +327,7 @@ describe('DateRangePicker', () => {
         value={['2000-01-01', '2000-02-02']}
         valueType="number"
         onChange={onChangeMock}
+        isFooterVisble
       />
     );
 
@@ -315,6 +360,7 @@ describe('DateRangePicker', () => {
         type="combine"
         value={['2000-01-01', '2000-02-02']}
         onChange={onChangeMock}
+        isFooterVisble
       />
     );
 
@@ -329,7 +375,7 @@ describe('DateRangePicker', () => {
     const onChangeMock = jest.fn();
     let pop;
     let wrapper = mount(
-      <DateRangePicker type="combine" onChange={onChangeMock} />
+      <DateRangePicker type="combine" onChange={onChangeMock} isFooterVisble />
     );
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(
@@ -341,7 +387,9 @@ describe('DateRangePicker', () => {
 
     // default disabledDate is noop
     // HACK: branch
-    wrapper = mount(<DateRangePicker type="combine" disabledDate={false} />);
+    wrapper = mount(
+      <DateRangePicker type="combine" disabledDate={false} isFooterVisble />
+    );
     wrapper.find('.picker-input').simulate('click');
     pop = new ReactWrapper(
       wrapper.find('CombineDateRangePicker').node.picker,
@@ -352,7 +400,12 @@ describe('DateRangePicker', () => {
     // BUG: logic error with array disabledDate
     // support min and max
     pop = mount(
-      <DateRangePicker type="combine" min="2000-01-01" max="2001-01-01" />
+      <DateRangePicker
+        type="combine"
+        min="2000-01-01"
+        max="2001-01-01"
+        isFooterVisble
+      />
     );
     pop.find('.picker-input').simulate('click');
     expect(pop.find('.panel__cell').every('.panel__cell--disabled')).toBe(true);
@@ -362,7 +415,7 @@ describe('DateRangePicker', () => {
     const onChangeMock = jest.fn();
     let pop;
     let wrapper = mount(
-      <DateRangePicker type="split" onChange={onChangeMock} />
+      <DateRangePicker type="split" onChange={onChangeMock} isFooterVisble />
     );
     wrapper
       .find('.picker-input')
@@ -394,7 +447,7 @@ describe('DateRangePicker', () => {
 
     // default disabledDate is noop
     // HACK: branch
-    wrapper = mount(<DateRangePicker type="split" disabled />);
+    wrapper = mount(<DateRangePicker type="split" disabled isFooterVisble />);
     wrapper
       .find('.picker-input')
       .at(0)
@@ -403,7 +456,12 @@ describe('DateRangePicker', () => {
 
     // support min and max
     pop = mount(
-      <DateRangePicker type="split" min="2000-01-01" max="2001-01-01" />
+      <DateRangePicker
+        type="split"
+        min="2000-01-01"
+        max="2001-01-01"
+        isFooterVisble
+      />
     );
     pop
       .find('.picker-input')

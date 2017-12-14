@@ -71,8 +71,8 @@ Time pickers, provides basic time choosing functionality.
 | max        | Maximum seletable date            | string/Date    |     | No    |
 | valueType | Value type in `onChange`, one of `string` \| `number` \| `date`  | string     | '' | No    |
 | name  		| Name attribute of input node     | string    |   | No    |
-| placeholder  | Placeholder text              | string    | `请选择日期`   | No    |
-| defaultTime   | Default time value     | string         | `'00:00:00'`   | No    |
+| placeholder  | Placeholder text              | string    | `请选择周`   | No    |
+
 
 ### MonthPicker
 
