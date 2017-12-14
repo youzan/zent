@@ -28,7 +28,7 @@ class Simple extends React.Component {
 		return (
 			<div>
 				<ColorBoard color={color} onChange={this.handleChange} />
-				<div className="marginTop10" style={{ color }}>{}{color}</div>
+				<div style={{ color, marginTop: 10 }}>{}{color}</div>
 			</div>
 		)
 	}
@@ -40,10 +40,3 @@ ReactDOM.render(
 );
 
 ```
-
-
-<style>
-	.marginTop10 {
-		margin-top: 10px;
-	}
-</style>
