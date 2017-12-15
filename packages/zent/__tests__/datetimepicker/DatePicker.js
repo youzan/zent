@@ -1,8 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { formatDate, parseDate } from 'zan-utils/date';
+import { formatDate } from 'zan-utils/date';
 
-import { TimePicker as i18n } from 'i18n/default';
 import DatePicker from 'datetimepicker/DatePicker';
 import { setTime } from 'datetimepicker/utils/date';
 
@@ -127,8 +126,7 @@ describe('DateTimePicker', () => {
   });
 
   it('There are prev and next pager in Date/Month/YearPanel', () => {
-    const getMonthNumber = string =>
-      parseDate(string, i18n.panel.titleFormat).getMonth() + 1;
+    const getMonthNumber = string => +string.match(/\d{4}.{1}(\d{1,2})/)[1];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
     const getYearRangeTail = string => +string.match(/(\d{4}).*(\d{4})/)[2];
     const wrapper = mount(<DatePicker showTime isFooterVisble />);
@@ -312,8 +310,7 @@ describe('DateTimePicker', () => {
 
   it('DatePicker has disable prop', () => {
     // total disable switch
-    const getMonthNumber = string =>
-      parseDate(string, i18n.panel.titleFormat).getMonth() + 1;
+    const getMonthNumber = string => +string.match(/\d{4}.{1}(\d{1,2})/)[1];
     const getYearNumber = string => +string.match(/(\d{4})/)[1];
     let wrapper = mount(<DatePicker disabled isFooterVisble />);
     expect(wrapper.find('DatePanel').length).toBe(0);

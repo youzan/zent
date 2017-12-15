@@ -64,7 +64,7 @@ export const TimePicker = {
     year: '今年'
   },
   panel: {
-    titleFormat: 'YYYY年MMMM',
+    titleFormat: 'YYYY年MMM',
     dayNames: ['日', '一', '二', '三', '四', '五', '六'],
     monthNames: [
       '1月',

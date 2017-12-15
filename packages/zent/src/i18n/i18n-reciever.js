@@ -30,7 +30,7 @@ export default class I18nReciever extends (PureComponent || Component) {
     return {
       ...defaultI18n,
       ...i18n,
-      i18nMark: (zentI18n && zentI18n.mark) || 'en' // i18n 标记, 默认 fallback 到中文标记
+      i18nMark: (zentI18n && zentI18n.mark) || 'zh' // i18n 标记, 默认 fallback 到中文标记
     };
   }
 
