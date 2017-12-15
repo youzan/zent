@@ -2,10 +2,8 @@
 order: 11
 zh-CN:
 	title: 自定义搜索框文案
-	pla: 请选择
 en-US:
 	title: Custom Search Text
-	pla: Select an option
 ---
 
 ```js
@@ -19,7 +17,6 @@ const data = [
 
 ReactDOM.render(
 	<Select
-		placeholder="{i18n.pla}"
     data={data}
     optionValue="id"
     optionText="name"

@@ -26,8 +26,8 @@ export const Pop = {
 };
 
 export const RangePicker = {
-  7: '7 days',
-  30: '30 days'
+  7: 'Nearly 7 days',
+  30: 'Nearly 30 days'
 };
 
 export const Select = {
@@ -46,14 +46,15 @@ export const Switch = {
 };
 
 export const TimePicker = {
+  ...common,
   date: 'Please select a date',
   week: 'Please select a week',
   month: 'Please select the month',
   year: 'Please choose year',
   range: 'start-date to end-date',
-  range_error: 'Please select the starting and ending time',
-  start: 'Start date',
-  end: 'End date',
+  rangeError: 'Please select the starting and ending time',
+  start: 'start-date',
+  end: 'end-date',
   to: 'to',
   current: {
     time: 'Now',

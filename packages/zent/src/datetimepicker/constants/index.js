@@ -19,7 +19,7 @@ export const popPositionMap = {
 
 export const commonProps = {
   prefix: 'zent',
-  confirmText: '确定',
+  confirmText: '',
   format: 'YYYY-MM-DD',
   popPosition: 'left',
   openPanel: false,

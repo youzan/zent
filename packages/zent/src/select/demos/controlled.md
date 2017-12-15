@@ -2,7 +2,7 @@
 order: 2
 zh-CN:
 	title: 受控模式下使用组件
-	pla: 请选择
+	pla: 选择一项
 	reset: 重置为初始状态
 	re: 重新渲染
 	external: 外部状态

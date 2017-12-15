@@ -21,8 +21,8 @@ group: 数据
 | checked       | 指定当前状态                       | bool                |         |           |
 | onChange      | 变化时回调函数, 参数是改变后的 `checked` 值 | func(checked: bool) | `noop`      |           |
 | disabled      | 状态控制                         | bool                | `false`     |  `true`         |
-| checkedText   | 选中时的文案                       | string              | `''`      |           |
-| uncheckedText | 未选中时的文案                      | string              | `''`      |           |
+| checkedText   | 选中时的文案                       | string              | `'开启'`      |           |
+| uncheckedText | 未选中时的文案                      | string              | `'关闭'`      |           |
 | loading       | 加载中状态                        | bool                | `false`     |   `true`        |
 | size          | 开关大小                         | string              | `'default'` | `'small'` |
 | className     | 自定义额外类名                      | string              | `''`        |           |

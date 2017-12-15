@@ -153,7 +153,7 @@ class MonthPicker extends (PureComponent || Component) {
             <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
               {i18n => (
                 <PanelFooter
-                  buttonText={props.confirmText}
+                  buttonText={props.confirmText || i18n.confirm}
                   linkText={i18n.current.month}
                   linkCls="link--current"
                   onClickLink={() => this.onSelectMonth(CURRENT)}
@@ -197,7 +197,9 @@ class MonthPicker extends (PureComponent || Component) {
           cushion={5}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
-          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          className={`${props.prefix}-datetime-picker-popover ${
+            props.className
+          }-popover`}
           position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>

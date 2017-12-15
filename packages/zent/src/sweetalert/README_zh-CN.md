@@ -23,7 +23,7 @@ group: 反馈
 | type        | 弹窗的类型, 设置会在title左边显示一个小图标, 不传不会显示图标 | string |    -    | `'info'`, `'success'`, `'error'`, `'warning'` |
 | title       | 弹窗的标题                               | node   | `''`     |                                               |
 | onConfirm   | 确定操作回调函数                            | func   | `noop`   |                                               |
-| confirmText | 确定按钮文案                              | string | `'取消'`   |                                               |
+| confirmText | 确定按钮文案                              | string | `'我知道了'`   |                                               |
 | confirmType | 确定按钮的类型  | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
 | className   | 额外的className                        | string | `''`     |                                               |
 | prefix      | 默认className的前缀                      | string | `'zent'`|     |

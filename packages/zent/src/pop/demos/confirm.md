@@ -5,15 +5,11 @@ zh-CN:
 	content: Pop关闭了
 	popContent: 提示内容
 	btnText: 打开气泡
-	confirm: 确定
-	cancel: 取消
 en-US:
 	title: Confirm Pop
 	content: Pop Closed
 	popContent: Pop content
 	btnText: Open
-	confirm: Confirm
-	cancel: Cancel
 ---
 
 ```jsx

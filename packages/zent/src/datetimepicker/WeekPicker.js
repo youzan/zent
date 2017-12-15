@@ -263,7 +263,7 @@ class WeekPicker extends (PureComponent || Component) {
             <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
               {i18n => (
                 <PanelFooter
-                  buttonText={props.confirmText}
+                  buttonText={props.confirmText || i18n.confirm}
                   onClickButton={this.onConfirm}
                   linkText={i18n.current.week}
                   linkCls={linkCls}
@@ -307,7 +307,9 @@ class WeekPicker extends (PureComponent || Component) {
           cushion={5}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
-          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          className={`${props.prefix}-datetime-picker-popover ${
+            props.className
+          }-popover`}
           position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>

@@ -46,12 +46,13 @@ export const Sweetalert = {
 };
 
 export const TimePicker = {
+  ...common,
   date: '请选择日期',
   week: '请选择自然周',
   month: '请选择月份',
   year: '请选择年',
   range: '开始日期 至 结束日期',
-  range_error: '请选择起止时间',
+  rangeError: '请选择起止时间',
   start: '开始日期',
   end: '结束日期',
   to: '至',

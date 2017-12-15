@@ -22,7 +22,7 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | type        | dialog type, will show an icon on the left side of title if this prop is set. | string |    `''`    | `'info'`, `'success'`, `'error'`, `'warning'` |
 | title       | title of the dialog | node   | `''`     |                                               |
 | onConfirm   | callback of confirm operation | func   | `noop`   |                                               |
-| confirmText | text of confirm button | string | `'取消'`   |                                               |
+| confirmText | text of confirm button | string | `'Get it'`   |                                               |
 | confirmType | type of confirm button | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
 | className   | custom classname                       | string | `''`     |                                               |
 | prefix      | custom prefix  | string | `'zent'`|     |
@@ -36,8 +36,8 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | title       | title of the dialog                               | node   | `''`     |                                               |
 | onCancel    | callback of cancel operation                            | func   | `noop`   |                                               |
 | onConfirm   | callback of confirm operation                            | func   | `noop`   |                                               |
-| cancelText  | text of cancel button                              | string | `'取消'`   |                                               |
-| confirmText | text of confirm button   | string | `'确定'`   |                                               |
+| cancelText  | text of cancel button                              | string | `'Cancel'`   |                                               |
+| confirmText | text of confirm button   | string | `'Confirm'`   |                                               |
 | confirmType | type of confirm button  | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
 | className   | custom classname | string | `''`     |                                               |
 | prefix      | custom prefix                      | string | `'zent'` |                                               |

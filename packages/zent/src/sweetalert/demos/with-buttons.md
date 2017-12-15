@@ -6,16 +6,12 @@ zh-CN:
 	message2: 我真的取消了
 	content: 这个是内容
 	button: 消息对话框
-	confirm: 确定
-	cancel: 取消
 en-US:
 	title: With Confirm and Cancel Button
 	message1: I know.
 	message2: Canceled.
 	content: This is content.
 	button: Message Dialog
-	confirm: Confirm
-	cancel: Cancel
 ---
 
 ```js
@@ -33,9 +29,7 @@ const showAlertConfirm = () => {
 	Sweetalert.confirm({
 		content: <p>{i18n.content}</p>,
 		onConfirm: onConfirm,
-		onCancel: onCancel,
-		confirmText: '{i18n.confirm}',
-		cancelText: '{i18n.cancel}'
+		onCancel: onCancel
 	});
 }
 

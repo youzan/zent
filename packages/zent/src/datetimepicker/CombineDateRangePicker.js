@@ -428,12 +428,16 @@ class CombineDateRangePicker extends (PureComponent || Component) {
             />
           </div>
           {this.isfooterShow ? (
-            <PanelFooter
-              buttonText={props.confirmText}
-              onClickButton={this.onConfirm}
-              showError={state.showError}
-              errorText={props.errorText}
-            />
+            <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+              {i18n => (
+                <PanelFooter
+                  buttonText={props.confirmText || i18n.confirm}
+                  onClickButton={this.onConfirm}
+                  showError={state.showError}
+                  errorText={props.errorText || i18n.rangeError}
+                />
+              )}
+            </Reciever>
           ) : null}
         </div>
       );

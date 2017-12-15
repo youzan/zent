@@ -2,10 +2,8 @@
 order: 1
 zh-CN:
 	title: 基础用法
-	pla: 请选择
 en-US:
 	title: Basic Usage
-	pla: Select an option...
 ---
 
 ```js
