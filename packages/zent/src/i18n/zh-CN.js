@@ -43,4 +43,21 @@ export const Pop = {
   ...common
 };
 
-export const TimePicker = {};
+export const TimePicker = {
+  date: '请选择日期',
+  week: '请选择自然周',
+  month: '请选择月份',
+  year: '请选择年',
+  range: '开始日期 至 结束日期',
+  range_error: '请选择起止时间',
+  start: '开始日期',
+  end: '结束日期',
+  to: '至',
+  current: {
+    time: '此刻',
+    date: '今天',
+    week: '本周',
+    month: '当前月',
+    year: '今年'
+  }
+};

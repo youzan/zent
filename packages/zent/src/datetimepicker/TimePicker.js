@@ -2,6 +2,9 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import formatDate from 'zan-utils/date/formatDate';
 
+import { I18nReciever as Reciever } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
+
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
 import clickOutside from './utils/clickOutside';
@@ -83,12 +86,16 @@ class TimePicker extends (PureComponent || Component) {
             disabledTime={props.disabledTime()}
             onChange={this.onChangeTime}
           />
-          <PanelFooter
-            linkText="此刻"
-            linkCls="link--current"
-            onClickLink={this.onSelectCurrent}
-            onClickButton={this.onConfirm}
-          />
+          <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+            {i18n => (
+              <PanelFooter
+                linkText={i18n.current.time}
+                linkCls="link--current"
+                onClickLink={this.onSelectCurrent}
+                onClickButton={this.onConfirm}
+              />
+            )}
+          </Reciever>
         </div>
       );
     }

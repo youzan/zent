@@ -20,9 +20,7 @@ class Controlled extends Component {
 	};
 
 	onBeforeShow = (cont) => {
-		setTimeout(() => {
-			cont();
-		}, 500);
+		setTimeout(cont, 500);
 	};
 
 	onBeforeClose = () => {

@@ -43,4 +43,21 @@ export const Pop = {
   ...common
 };
 
-export const TimePicker = {};
+export const TimePicker = {
+  date: 'Please select a date',
+  week: 'Please select a week',
+  month: 'Please select the month',
+  year: 'Please choose year',
+  range: 'start-date to end-date',
+  range_error: 'Please select the starting and ending time',
+  start: 'Start date',
+  end: 'End date',
+  to: 'to',
+  current: {
+    time: 'Now',
+    date: 'Today',
+    week: 'This week',
+    month: 'Current month',
+    year: 'This year'
+  }
+};

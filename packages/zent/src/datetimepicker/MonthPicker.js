@@ -1,10 +1,13 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-import Input from 'input';
-import Popover from 'popover';
 import formatDate from 'zan-utils/date/formatDate';
 import parseDate from 'zan-utils/date/parseDate';
+
+import Input from 'input';
+import Popover from 'popover';
 import getWidth from 'utils/getWidth';
+import { I18nReciever as Reciever } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
@@ -58,7 +61,7 @@ class MonthPicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: '请选择月份',
+    placeholder: '',
     format: 'YYYY-MM'
   };
 
@@ -140,13 +143,17 @@ class MonthPicker extends (PureComponent || Component) {
             onSelect={this.onSelectMonth}
             disabledDate={this.isDisabled}
           />
-          <PanelFooter
-            buttonText={props.confirmText}
-            linkText="当前月"
-            linkCls="link--current"
-            onClickLink={() => this.onSelectMonth(CURRENT)}
-            onClickButton={this.onConfirm}
-          />
+          <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+            {i18n => (
+              <PanelFooter
+                buttonText={props.confirmText}
+                linkText={i18n.current.month}
+                linkCls="link--current"
+                onClickLink={() => this.onSelectMonth(CURRENT)}
+                onClickButton={this.onConfirm}
+              />
+            )}
+          </Reciever>
         </div>
       );
     }
@@ -187,12 +194,20 @@ class MonthPicker extends (PureComponent || Component) {
         >
           <Popover.Trigger.Click>
             <div style={widthStyle} className={inputCls}>
-              <Input
-                name={props.name}
-                value={state.showPlaceholder ? props.placeholder : state.value}
-                onChange={noop}
-                disabled={props.disabled}
-              />
+              <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+                {i18n => (
+                  <Input
+                    name={props.name}
+                    value={
+                      state.showPlaceholder
+                        ? props.placeholder || i18n.month
+                        : state.value
+                    }
+                    onChange={noop}
+                    disabled={props.disabled}
+                  />
+                )}
+              </Reciever>
 
               <span className="zenticon zenticon-calendar-o" />
               <span
