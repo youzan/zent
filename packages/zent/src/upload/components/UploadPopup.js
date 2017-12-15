@@ -72,7 +72,7 @@ class UploadPopup extends Component {
     return (
       <UploadImageItem
         key={index}
-        data={item}
+        {...item}
         index={index}
         isDragable
         isInline
@@ -151,11 +151,11 @@ class UploadPopup extends Component {
           ) : (
             ''
           )}
-        </div>
-        <div className={`${prefix}-local-tips c-gray`}>
-          仅支持{`${accept
-            .replace(/image\/?|audio\/?/g, '')
-            .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
+          <div className={`${prefix}-local-tips c-gray`}>
+            仅支持{`${accept
+              .replace(/image\/?|audio\/?/g, '')
+              .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
+          </div>
         </div>
       </div>
     );
@@ -206,7 +206,6 @@ class UploadPopup extends Component {
     })
       .then(() => {
         this.setState({
-          localFiles: [],
           localUploading: false
         });
         showUploadPopup(false);
@@ -238,7 +237,7 @@ class UploadPopup extends Component {
     this.networkUrl = evt.target.value;
   }
 
-  fileProgressHandler(index, progress) {
+  fileProgressHandler(progress, index) {
     let { localFiles } = this.state;
     localFiles[index].progress = progress;
     this.setState(localFiles);
