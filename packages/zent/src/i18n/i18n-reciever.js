@@ -29,7 +29,8 @@ export default class I18nReciever extends (PureComponent || Component) {
     const i18n = (zentI18n && zentI18n[componentName]) || {};
     return {
       ...defaultI18n,
-      ...i18n
+      ...i18n,
+      i18nMark: (zentI18n && zentI18n.mark) || 'en' // i18n 标记, 默认 fallback 到中文标记
     };
   }
 

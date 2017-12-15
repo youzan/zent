@@ -5,6 +5,8 @@ const common = {
   ok: 'Get it.'
 };
 
+export const mark = 'en';
+
 export const Sweetalert = {
   ...common,
   title: 'Alert'
@@ -59,5 +61,23 @@ export const TimePicker = {
     week: 'This week',
     month: 'Current month',
     year: 'This year'
+  },
+  panel: {
+    titleFormat: 'MMMM YYYY',
+    dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+    monthNames: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ]
   }
 };

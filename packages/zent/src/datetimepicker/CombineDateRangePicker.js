@@ -468,34 +468,34 @@ class CombineDateRangePicker extends (PureComponent || Component) {
           cushion={5}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
-          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          className={`${props.prefix}-datetime-picker-popover ${
+            props.className
+          }-popover`}
           position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
-            <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
-              {i18n => {
-                // i18n hack
-                const placeholder = [
-                  props.placeholder[0] || i18n.start,
-                  props.placeholder[1] || i18n.end
-                ];
-                return (
-                  <div
-                    className={inputCls}
-                    onClick={evt => evt.preventDefault()}
-                  >
-                    {state.showPlaceholder
-                      ? placeholder.join(` ${i18n.to} `)
-                      : state.value.join(` ${i18n.to} `)}
-                    <span className="zenticon zenticon-calendar-o" />
-                    <span
-                      onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
-                    />
-                  </div>
-                );
-              }}
-            </Reciever>
+            <div className={inputCls} onClick={evt => evt.preventDefault()}>
+              <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+                {i18n => {
+                  // i18n hack
+                  let placeholder = props.placeholder.every(Boolean)
+                    ? props.placeholder.join(` ${i18n.to} `)
+                    : i18n.range;
+                  return (
+                    <span>
+                      {state.showPlaceholder
+                        ? placeholder
+                        : state.value.join(` ${i18n.to} `)}
+                    </span>
+                  );
+                }}
+              </Reciever>
+              <span className="zenticon zenticon-calendar-o" />
+              <span
+                onClick={this.onClearInput}
+                className="zenticon zenticon-close-circle"
+              />
+            </div>
           </Popover.Trigger.Click>
           <Popover.Content>{this.renderPicker()}</Popover.Content>
         </Popover>

@@ -5,6 +5,8 @@ const common = {
   comma: '，'
 };
 
+export const mark = 'zh';
+
 export const Sweetalert = {
   ...common,
   title: '提示'
@@ -59,5 +61,23 @@ export const TimePicker = {
     week: '本周',
     month: '当前月',
     year: '今年'
+  },
+  panel: {
+    titleFormat: 'YYYY年MMMM',
+    dayNames: ['日', '一', '二', '三', '四', '五', '六'],
+    monthNames: [
+      '1月',
+      '2月',
+      '3月',
+      '4月',
+      '5月',
+      '6月',
+      '7月',
+      '8月',
+      '9月',
+      '10月',
+      '11月',
+      '12月'
+    ]
   }
 };

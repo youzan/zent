@@ -49,7 +49,7 @@ export default class MonthPanel extends (PureComponent || Component) {
 
   render() {
     const { props, state } = this;
-    const title = `${props.actived.getFullYear()}年`;
+    const title = `${props.actived.getFullYear()}`;
 
     let yearPanel;
     if (state.showYear) {

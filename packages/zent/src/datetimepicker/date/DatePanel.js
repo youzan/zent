@@ -1,8 +1,13 @@
 import React, { Component, PureComponent } from 'react';
-import PanelHeader from '../common/PanelHeader';
+import formatDate from 'zan-utils/date/formatDate';
+
+import { I18nReciever as Reciever } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
+
 import DatePanelBody from './DatePanelBody';
 import MonthPanel from '../month/MonthPanel';
 import TimePanel from '../time/TimePanel';
+import PanelHeader from '../common/PanelHeader';
 
 export default class DatePanel extends (PureComponent || Component) {
   static defaultProps = {
@@ -32,8 +37,6 @@ export default class DatePanel extends (PureComponent || Component) {
 
   render() {
     const { state, props } = this;
-    const title = `${props.actived.getFullYear()}年${props.actived.getMonth() +
-      1}月`;
     let monthPanel;
     let timePanel;
     if (state.showMonth) {
@@ -52,14 +55,22 @@ export default class DatePanel extends (PureComponent || Component) {
 
     return (
       <div className="date-panel">
-        <PanelHeader
-          title={title}
-          onClickTitle={this.showMonth}
-          prev={props.onPrev}
-          next={props.onNext}
-          showPrev={props.showPrev}
-          showNext={props.showNext}
-        />
+        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => (
+            <PanelHeader
+              title={formatDate(
+                props.actived,
+                i18n.panel.titleFormat,
+                i18n.i18nMark
+              )}
+              onClickTitle={this.showMonth}
+              prev={props.onPrev}
+              next={props.onNext}
+              showPrev={props.showPrev}
+              showNext={props.showNext}
+            />
+          )}
+        </Reciever>
         <DatePanelBody
           actived={props.actived}
           range={props.range}
