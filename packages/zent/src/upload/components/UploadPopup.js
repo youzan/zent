@@ -3,11 +3,15 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContextProvider } from 'react-dnd';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
+import UploadImageItem from './UploadImageItem';
 import { formatFileSize } from '../utils';
 
 const BUTTON_LOADING_TEXT = '提取中...';
@@ -66,25 +70,15 @@ class UploadPopup extends Component {
   // 上传图片列表
   renderLocalImage(item, index) {
     return (
-      <li key={index} className="upload-local-image-item">
-        <div
-          className="image-box"
-          style={{
-            backgroundImage: `url(${item.src})`
-          }}
-        />
-        <span
-          className="close-modal small"
-          onClick={this.removeLocalImage.bind(this, index)}
-        >
-          ×
-        </span>
-        {item.progress ? (
-          <div className="image-progress">{`${item.progress.toFixed(1)}%`}</div>
-        ) : (
-          ''
-        )}
-      </li>
+      <UploadImageItem
+        key={index}
+        data={item}
+        index={index}
+        isDragable
+        isInline
+        onMove={this.handleMove}
+        onDelete={this.handleDelete}
+      />
     );
   }
 
@@ -97,7 +91,7 @@ class UploadPopup extends Component {
         <div className="voice-createtime">{formatFileSize(item.file.size)}</div>
         <span
           className="close-modal small"
-          onClick={this.removeLocalImage.bind(this, index)}
+          onClick={this.handleDelete.bind(this, index)}
         >
           ×
         </span>
@@ -110,12 +104,21 @@ class UploadPopup extends Component {
     );
   }
 
+  listWrapper = node => {
+    return this.context.dragDropManager ? (
+      node
+    ) : (
+      <DragDropContextProvider backend={HTML5Backend}>
+        {node}
+      </DragDropContextProvider>
+    );
+  };
+
   /**
    * 本地上传图片、语音
    */
   renderLocalUploadRegion(props) {
     let { prefix, accept, options } = props;
-
     let { localFiles } = this.state;
 
     return (
@@ -124,9 +127,9 @@ class UploadPopup extends Component {
           本地{options.type === 'voice' ? '语音' : '图片'}：
         </div>
         <div className={`${prefix}-content`}>
-          <div>
+          {this.listWrapper(
             <ul
-              className={`${options.type}-list upload-local-${options.type}-list ui-sortable`}
+              className={`${options.type}-list upload-local-${options.type}-list`}
             >
               {localFiles.map(
                 (item, index) =>
@@ -135,7 +138,7 @@ class UploadPopup extends Component {
                     : this.renderLocalImage(item, index)
               )}
             </ul>
-          </div>
+          )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
               +
@@ -148,11 +151,11 @@ class UploadPopup extends Component {
           ) : (
             ''
           )}
-          <div className={`${prefix}-local-tips c-gray`}>
-            仅支持{`${accept
-              .replace(/image\/?|audio\/?/g, '')
-              .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
-          </div>
+        </div>
+        <div className={`${prefix}-local-tips c-gray`}>
+          仅支持{`${accept
+            .replace(/image\/?|audio\/?/g, '')
+            .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
         </div>
       </div>
     );
@@ -175,13 +178,21 @@ class UploadPopup extends Component {
     );
   }
 
-  removeLocalImage(index) {
+  handleMove = (fromIndex, toIndex) => {
+    let { localFiles } = this.state;
+    const result = Array.from(localFiles);
+    const [removed] = result.splice(fromIndex, 1);
+    result.splice(toIndex, 0, removed);
+    this.setState({ localFiles: result });
+  };
+
+  handleDelete = index => {
     let { localFiles } = this.state;
     localFiles.splice(index, 1);
     this.setState({
       localFiles
     });
-  }
+  };
 
   uploadLocalImages() {
     let { options, showUploadPopup } = this.props;
@@ -268,6 +279,10 @@ class UploadPopup extends Component {
       }
     );
   }
+
+  static contextTypes = {
+    dragDropManager: PropTypes.object
+  };
 }
 
 UploadPopup.defaultProps = {

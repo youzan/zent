@@ -2,6 +2,7 @@ import React, { PureComponent, Component } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
+import some from 'lodash/some';
 import defaultTo from 'lodash/defaultTo';
 import isFunction from 'lodash/isFunction';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -75,6 +76,7 @@ class DesignPreview extends (PureComponent || Component) {
 
   previewItems = {};
   editorItems = {};
+  editors = {};
 
   render() {
     const {
@@ -107,7 +109,7 @@ class DesignPreview extends (PureComponent || Component) {
     const hasAppendableComponent = appendableComponents.length > 0;
 
     return (
-      <DragDropContext onDragEnd={this.onPreviewDragEnd}>
+      <DragDropContext onDragEnd={this.dispatchDragEnd}>
         <div className={cls} style={{ background }}>
           {disabled && <div className={`${prefix}-design__disabled-mask`} />}
 
@@ -177,6 +179,7 @@ class DesignPreview extends (PureComponent || Component) {
                           >
                             <comp.editor
                               {...getAdditionalProps(comp.editorProps, v)}
+                              ref={this.saveEditor(id)}
                               value={v}
                               onChange={onComponentValueChange(v)}
                               globalConfig={globalConfig}
@@ -244,7 +247,28 @@ class DesignPreview extends (PureComponent || Component) {
     );
   }
 
-  onPreviewDragEnd = result => {
+  dispatchDragEnd = result => {
+    const { type } = result;
+    if (type === DND_PREVIEW_CONTROLLER) {
+      this.onPreviewDragEnd(result);
+      return;
+    }
+
+    // Let editors handle their dnd actions
+    some(this.editors, editor => {
+      if (
+        isFunction(editor.shouldHandleDragEnd) &&
+        editor.shouldHandleDragEnd(type)
+      ) {
+        isFunction(editor.onDragEnd) && editor.onDragEnd(result);
+        return true;
+      }
+
+      return false;
+    });
+  };
+
+  onPreviewDragEnd(result) {
     const { source, destination } = result;
 
     // dropped outside
@@ -254,14 +278,18 @@ class DesignPreview extends (PureComponent || Component) {
 
     const { onMove } = this.props;
     onMove(source.index, destination.index);
-  };
+  }
 
   savePreviewItem = id => instance => {
-    this.previewItems[id] = instance;
+    saveRef(this.previewItems, id, instance);
   };
 
   saveEditorItem = id => instance => {
-    this.editorItems[id] = instance;
+    saveRef(this.editorItems, id, instance);
+  };
+
+  saveEditor = id => instance => {
+    saveRef(this.editors, id, instance);
   };
 
   scrollToItem = (id, offsets) => {
@@ -289,6 +317,14 @@ function getAdditionalProps(propsOrFn, value) {
   const props = isFunction(propsOrFn) ? propsOrFn(value) : propsOrFn;
 
   return props || {};
+}
+
+function saveRef(map, id, instance) {
+  if (!instance) {
+    delete map[id];
+  } else {
+    map[id] = instance;
+  }
 }
 
 export default DesignPreview;

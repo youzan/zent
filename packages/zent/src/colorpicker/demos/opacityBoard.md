@@ -29,7 +29,7 @@ class Simple extends React.Component {
 		return (
 			<div>
 				<ColorBoard color={color} showAlpha={showAlpha} onChange={this.handleChange} />
-				<div className="marginTop10" style={{ color }}>{i18n.content}{color}</div>
+				<div style={{ color, marginTop: 10 }}>{i18n.content}{color}</div>
 			</div>
 		)
 	}

@@ -7,7 +7,6 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import Dialog from 'dialog';
 import identity from 'lodash/identity';
-
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
 

@@ -33,6 +33,7 @@ import ConfigEditor from 'design/components/config/ConfigEditor';
 import whitespaceConf from 'design/components/whitespace';
 import lineConf from 'design/components/line';
 import richtextConf from 'design/components/richtext';
+import imageAdConf from 'design/components/image-ad';
 
 // 我们仅仅提供了少数几个 Design 组件作为示例，更多业务组件需要根据你的业务需求自己实现。
 // If you use these two default design components, you have to 
@@ -60,6 +61,8 @@ const components = [
   }),
 
   richtextConf,
+  
+  imageAdConf,
 
   Object.assign({ limit: 1 }, whitespaceConf),
 
@@ -84,6 +87,7 @@ const groupedComponents = [
 
   Design.group('{i18n.groupBasic}'),
   richtextConf,
+  imageAdConf,
 
   Design.group('{i18n.groupOther}'),
   Object.assign({ limit: 1 }, whitespaceConf),

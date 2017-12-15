@@ -256,7 +256,6 @@ export default class Table extends (PureComponent || Component) {
    */
   onSelectOneRow = (rowKey, isSelect) => {
     let { selection } = this.props;
-
     this.setSelection();
     let index = this.selectedRowKeys.indexOf(rowKey);
     let isSingleSelection = selection.isSingleSelection || false;
@@ -280,10 +279,10 @@ export default class Table extends (PureComponent || Component) {
         this.props.datasets.map(item => item[this.props.rowKey])
       );
     }
-    let selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
+    this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
     let currentRow = isSelect ? this.getCurrentRow(rowKey) : null;
 
-    selection.onSelect(this.selectedRowKeys, selectedRows, currentRow);
+    selection.onSelect(this.selectedRowKeys, this.selectedRows, currentRow);
   };
 
   getCurrentRow(key) {

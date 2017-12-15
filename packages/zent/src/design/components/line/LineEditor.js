@@ -73,6 +73,7 @@ export default class LineEditor extends DesignEditor {
 
   static designType = 'line';
   static designDescription = '辅助线';
+
   static getInitialValue() {
     return {
       color: DEFAULT_COLOR,
