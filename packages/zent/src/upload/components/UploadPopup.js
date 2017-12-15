@@ -151,11 +151,11 @@ class UploadPopup extends Component {
           ) : (
             ''
           )}
-        </div>
-        <div className={`${prefix}-local-tips c-gray`}>
-          仅支持{`${accept
-            .replace(/image\/?|audio\/?/g, '')
-            .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
+          <div className={`${prefix}-local-tips c-gray`}>
+            仅支持{`${accept
+              .replace(/image\/?|audio\/?/g, '')
+              .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
+          </div>
         </div>
       </div>
     );
