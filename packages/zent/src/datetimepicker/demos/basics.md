@@ -12,8 +12,8 @@ import { DatePicker, MonthPicker, SeasonPicker, DateRangePicker, WeekPicker, Yea
 class Demo extends Component{
   state = {
 
-	}
-	
+	};
+
 	onChangeSeason = (val) => {
 		console.log(val)
 		this.setState({
