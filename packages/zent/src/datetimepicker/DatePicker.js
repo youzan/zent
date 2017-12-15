@@ -323,9 +323,7 @@ class DatePicker extends (PureComponent || Component) {
           cushion={5}
           visible={state.openPanel}
           onVisibleChange={this.togglePicker}
-          className={`${props.prefix}-datetime-picker-popover ${
-            props.className
-          }-popover`}
+          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
           position={popPositionMap[props.popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
