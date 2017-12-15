@@ -7,10 +7,9 @@ describe('MonthPicker', () => {
   it('MonthPicker not show footer ', () => {
     let pop;
     const wrapper = mount(<MonthPicker />);
-    const inst = wrapper.instance();
     wrapper.find('.picker-input').simulate('click');
 
-    pop = new ReactWrapper(inst.picker, true);
+    pop = new ReactWrapper(wrapper.instance().picker, true);
 
     expect(pop.find('MonthPanel').length).toBe(1);
     pop
