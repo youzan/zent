@@ -9,7 +9,7 @@ export default class I18nReciever extends (PureComponent || Component) {
     defaultI18n: PropTypes.object.isRequired
   };
 
-  static contextType = {
+  static contextTypes = {
     zentI18n: PropTypes.object
   };
 

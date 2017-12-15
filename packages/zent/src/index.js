@@ -19,6 +19,7 @@ import Grid from 'grid';
 import Icon from 'icon';
 import InfiniteScroller from 'infinite-scroller';
 import Input from 'input';
+import I18n from 'i18n';
 import Layout from 'layout';
 import Loading from 'loading';
 import Menu from 'menu';
@@ -70,6 +71,7 @@ export {
   Icon,
   InfiniteScroller,
   Input,
+  I18n,
   Layout,
   Loading,
   Menu,

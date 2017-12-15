@@ -7,9 +7,10 @@ const common = {
 
 export const mark = 'zh';
 
-export const Sweetalert = {
-  ...common,
-  title: '提示'
+export const CopyButton = {
+  copy: '复制',
+  success: '复制成功',
+  error: '复制失败'
 };
 
 export const Pagination = {
@@ -20,15 +21,8 @@ export const Pagination = {
   comma: common.comma
 };
 
-export const Switch = {
-  checked: '开启',
-  unchecked: '关闭'
-};
-
-export const CopyButton = {
-  copy: '复制',
-  success: '复制成功',
-  error: '复制失败'
+export const Pop = {
+  ...common
 };
 
 export const RangePicker = {
@@ -41,8 +35,14 @@ export const Select = {
   search: '没有找到匹配项'
 };
 
-export const Pop = {
-  ...common
+export const Switch = {
+  checked: '开启',
+  unchecked: '关闭'
+};
+
+export const Sweetalert = {
+  ...common,
+  title: '提示'
 };
 
 export const TimePicker = {

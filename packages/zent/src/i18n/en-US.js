@@ -7,9 +7,10 @@ const common = {
 
 export const mark = 'en';
 
-export const Sweetalert = {
-  ...common,
-  title: 'Alert'
+export const CopyButton = {
+  copy: 'Copy',
+  success: 'Copy successfully',
+  error: 'Copy failed'
 };
 
 export const Pagination = {
@@ -20,15 +21,8 @@ export const Pagination = {
   perPage: ' per page'
 };
 
-export const Switch = {
-  checked: 'On',
-  unchecked: 'Off'
-};
-
-export const CopyButton = {
-  copy: 'Copy',
-  success: 'Copy successfully',
-  error: 'Copy failed'
+export const Pop = {
+  ...common
 };
 
 export const RangePicker = {
@@ -41,8 +35,14 @@ export const Select = {
   search: 'No matches found'
 };
 
-export const Pop = {
-  ...common
+export const Sweetalert = {
+  ...common,
+  title: 'Alert'
+};
+
+export const Switch = {
+  checked: 'On',
+  unchecked: 'Off'
 };
 
 export const TimePicker = {
