@@ -43,7 +43,13 @@ class UploadImageItem extends (PureComponent || Component) {
   };
 
   render() {
-    let { data, connectDragSource, connectDropTarget, isDragging } = this.props;
+    let {
+      progress,
+      src,
+      connectDragSource,
+      connectDropTarget,
+      isDragging
+    } = this.props;
 
     let { hideDeleteIcon } = this.state;
 
@@ -61,7 +67,7 @@ class UploadImageItem extends (PureComponent || Component) {
         <div
           className="image-box"
           style={{
-            backgroundImage: `url(${data.src})`
+            backgroundImage: `url(${src})`
           }}
         />
         {!hideDeleteIcon && (
@@ -69,8 +75,8 @@ class UploadImageItem extends (PureComponent || Component) {
             ×
           </span>
         )}
-        {data.progress && (
-          <div className="image-progress">{`${data.progress.toFixed(1)}%`}</div>
+        {progress && (
+          <div className="image-progress">{`${progress.toFixed(1)}%`}</div>
         )}
       </li>
     );

@@ -72,7 +72,7 @@ class UploadPopup extends Component {
     return (
       <UploadImageItem
         key={index}
-        data={item}
+        {...item}
         index={index}
         isDragable
         isInline
@@ -206,7 +206,6 @@ class UploadPopup extends Component {
     })
       .then(() => {
         this.setState({
-          localFiles: [],
           localUploading: false
         });
         showUploadPopup(false);
