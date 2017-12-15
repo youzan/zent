@@ -60,7 +60,6 @@ class PopAction extends (PureComponent || Component) {
   };
 
   handleCancel = () => {
-    console.log('object');
     this.handleClick('onCancel');
   };
 
