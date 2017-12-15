@@ -237,7 +237,7 @@ class UploadPopup extends Component {
     this.networkUrl = evt.target.value;
   }
 
-  fileProgressHandler(index, progress) {
+  fileProgressHandler(progress, index) {
     let { localFiles } = this.state;
     localFiles[index].progress = progress;
     this.setState(localFiles);
