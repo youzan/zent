@@ -142,9 +142,23 @@ describe('setTime', () => {
 });
 
 describe('getSeasonFromDate', () => {
-  const DAY = new Date(2018, 11, 11);
-  it('should be in season4', () => {
-    const ret = getSeasonFromDate(DAY);
-    expect(ret).toBe(3);
+  let day;
+  let season;
+  it('should return right season', () => {
+    day = new Date(2018, 1, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(0);
+
+    day = new Date(2018, 4, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(1);
+
+    day = new Date(2018, 7, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(2);
+
+    day = new Date(2018, 10, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(3);
   });
 });
