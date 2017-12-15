@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import isArray from 'lodash/isArray';
 import formatDate from 'zan-utils/date/formatDate';
 import parseDate from 'zan-utils/date/parseDate';
@@ -104,6 +105,8 @@ class WeekPicker extends (PureComponent || Component) {
     }
 
     this.state = extractStateFromProps(props);
+    // 没有footer的逻辑
+    this.isfooterShow = props.showTime || props.isFooterVisble;
   }
 
   componentWillReceiveProps(next) {
@@ -139,6 +142,9 @@ class WeekPicker extends (PureComponent || Component) {
     });
 
     onClick && onClick(week);
+    if (!this.isfooterShow) {
+      this.onConfirm();
+    }
   };
 
   onChangeMonth = type => {
@@ -233,8 +239,13 @@ class WeekPicker extends (PureComponent || Component) {
         'link--disabled': isDisabled
       });
 
+      const weekPickerCls = classNames({
+        'week-picker': true,
+        small: this.isfooterShow
+      });
+
       weekPicker = (
-        <div className="week-picker" ref={ref => (this.picker = ref)}>
+        <div className={weekPickerCls} ref={ref => (this.picker = ref)}>
           <div onMouseOut={this.onMouseOut}>
             <DatePanel
               range={state.range}
@@ -248,18 +259,20 @@ class WeekPicker extends (PureComponent || Component) {
               onNext={this.onChangeMonth('next')}
             />
           </div>
-          <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
-            {i18n => (
-              <PanelFooter
-                buttonText={props.confirmText}
-                onClickButton={this.onConfirm}
-                linkText={i18n.current.week}
-                linkCls={linkCls}
-                showLink={!isDisabled}
-                onClickLink={() => this.onSelectDate(CURRENT_DAY)}
-              />
-            )}
-          </Reciever>
+          {this.isfooterShow ? (
+            <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+              {i18n => (
+                <PanelFooter
+                  buttonText={props.confirmText}
+                  onClickButton={this.onConfirm}
+                  linkText={i18n.current.week}
+                  linkCls={linkCls}
+                  showLink={!isDisabled}
+                  onClickLink={() => this.onSelectDate(CURRENT_DAY)}
+                />
+              )}
+            </Reciever>
+          ) : null}
         </div>
       );
     }

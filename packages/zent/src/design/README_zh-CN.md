@@ -149,9 +149,12 @@ Editor 请继承 `@youzan/design/lib/base/editor/DesignEditor`，这个基类提
 Editor 接受如下props：`{ value: any, onChange: func, showError: boolean, validation: object, design object }`。
 
 - `validate(value): Promise` 有错误的时候 resolve 一个错误对象出来。
+- `reorder<T>(array: T[], fromIndex: number, toIndex: number): T[]` 用于在拖拽结束后调整数组内容。
 - `props.design` 提供了一下可能有用的方法：例如触发组件的校验等。
 
 Editor 必须提供这几个静态属性：`designType, designDescription, getInitialValue, validate`。
+
+Editor 内部支持使用 [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) 实现拖拽，只需要实现 `shouldHandleDragEnd(type: string): boolean` 以及 `onDragEnd(result)` 即可。`react-beautiful-dnd` 的使用请看官方文档以及 `components/image-ad` 下的示例。
 
 #### 一个例子
 

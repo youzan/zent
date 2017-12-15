@@ -50,7 +50,7 @@ group: 数据
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | name  		| input 的 name 属性            | string    |   | 否    |
 | placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
-| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+| defaultTime   | 自定义时间的默认值              | string/Date         | `'00:00:00'`   | 否    |
 | onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func         |    | 否    |
 | onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func         |    | 否    |
 
@@ -75,8 +75,7 @@ group: 数据
 | max        | 可选日期的最大值                   | string/Date    |     | 否    |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | name  		| input 的 name 属性            | string    |   | 否    |
-| placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
-| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+| placeholder  | 提示文案                   | string    | `请选择周`   | 否    |
 
 ### MonthPicker
 
@@ -99,11 +98,11 @@ group: 数据
 | format       | 返回日期字符串格式  | string | `'YYYY-MM-DD'` | 否    |
 | disabledDate | 判断日期是否可选函数 | func   | `noop`   | 否    |
 | disabledTime | 时间禁用函数 | func | `noop` | 否    |
-| min          | 可选日期的最小值   | string/instanceOf(Date)  | ``   | 否    |
-| max          | 可选日期的最大值  | string/instanceOf(Date)  | ``    | 否    |
+| min          | 可选日期的最小值   | string/Date  | ``   | 否    |
+| max          | 可选日期的最大值  | string/Date  | ``    | 否    |
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
 | placeholder  | 提示文案          | array    | `['开始日期','结束日期']`   | 否    |
-| defaultTime   | 自定义时间的默认值              | string         | `'00:00:00'`   | 否    |
+| defaultTime   | 自定义时间的默认值         | string/Date    | `00:00:00`   | 否    |
 
 
 **注意：**

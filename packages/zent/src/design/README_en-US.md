@@ -144,11 +144,14 @@ Editor has these props:
 `{ value: any, onChange: func, showError: boolean, validation: object, design object }`
 
 - `validate(value): Promise` You should resolve an error object if there're errors
+- `reorder<T>(array: T[], fromIndex: number, toIndex: number): T[]` Reorder array after drag
 - `props.design` There're some useful methods on this prop
 
 A editor component must have these static properties: 
 
 `designType, designDescription, getInitialValue, validate`
+
+You can use [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) to implement drag-and-drop inside an editor, implement these two functions in your editor: `shouldHandleDragEnd(type: string): boolean` and `onDragEnd(result)`. Check `react-beautiful-dnd`'s documentation for detailed instructions. There's also a demo in `components/image-ad`.
 
 #### Example
 
