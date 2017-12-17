@@ -7,6 +7,7 @@ let index = 0;
 let durationDefault = 2000;
 const containerList = {};
 const notifyContainerClass = 'zent-notify-container';
+const notifyOutClass = 'zent-notify-out';
 
 const createContainerId = () => {
   return ++index;
@@ -29,12 +30,12 @@ const closeNotifyCallback = callback => {
  */
 const closeNotify = containerId => {
   const containerObj = containerList[containerId];
-
   if (!containerObj) {
     return;
   }
 
   const { container, callback, timeOutId } = containerObj;
+
   clearTimeout(timeOutId);
   ReactDOM.unmountComponentAtNode(container);
   delete containerList[containerId];
@@ -67,25 +68,7 @@ const createNotifyContainerNode = () => {
 };
 
 /**
- * 显示notify
- * @param  {[type]}   container notify容器
- * @param  {[type]}   props     notify属性
- * @param  {Function} callback  notify消失时回调
- */
-const showNotify = (container, props, callback) => {
-  ReactDOM.render(React.createElement(NotifyContent, props), container);
-
-  const containerId = createContainerId();
-  const timeOutId = setTimeout(() => {
-    closeNotify(containerId);
-  }, props.duration || durationDefault);
-
-  containerList[containerId] = { container, callback, timeOutId };
-  return containerId;
-};
-
-/**
- * notify显示前初始化
+ * notify显示前初始化      
  * @param  {[type]}   text     显示文案
  * @param  {[type]}   duration 显示时长
  * @param  {[type]}   status   notify状态
@@ -96,15 +79,28 @@ const readyToShow = (text, duration, status, callback) => {
 
   let container = document.createElement('div');
   const notifyContainerNode = createNotifyContainerNode();
-
   const props = {
-    visible: true,
     text,
     duration,
     status,
     selector: notifyContainerNode
   };
-  return showNotify(container, props, callback);
+
+  ReactDOM.render(React.createElement(NotifyContent, props), container);
+  const containerId = createContainerId();
+  const timeOutId = setTimeout(() => {
+    ReactDOM.render(
+      <NotifyContent
+        selector={notifyContainerNode}
+        status={status}
+        className={notifyOutClass}
+        close={() => closeNotify(containerId)}
+      />,
+      container
+    );
+  }, props.duration || durationDefault);
+
+  containerList[containerId] = { container, callback, timeOutId };
 };
 
 export function success(text, duration, callback) {

@@ -8,6 +8,8 @@
 }
 
 .zent-notify {
+  padding: 0 25px;
+  margin-bottom: 10px;
   line-height: 40px;
   font-size: 14px;
   color: $theme-stroke-10;
@@ -15,17 +17,52 @@
   border-radius: 2px;
   box-sizing: border-box;
   z-index: 10000;
-  min-height: 40px;
-  min-width: 400px;
-  margin-bottom: 10px;
+  height: 40px;
+  width: 330px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation-name: notifyMoveIn;
+  animation-duration: 0.3s;
 
   &.zent-notify-success {
-    border: 1px solid $theme-success-1;
-    background: $theme-success-4;
+    background: $theme-success-7;
   }
 
   &.zent-notify-error {
-    border: 1px solid $theme-error-1;
-    background: $theme-error-2;
+    background: $theme-error-4;
+  }
+}
+
+.zent-notify-out {
+  animation-name: notifyMoveOut;
+  animation-duration: 0.3s;
+}
+
+.zent-notify-hidden {
+  display: none;
+}
+
+@keyframes notifyMoveIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes notifyMoveOut {
+  0% {
+    opacity: 1;
+    max-height: 150px;
+  }
+
+  100% {
+    opacity: 0;
+    max-height: 0;
   }
 }

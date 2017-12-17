@@ -5,26 +5,43 @@ import Portal from 'portal';
 export default class NotifyContent extends (PureComponent || Component) {
   static propTypes = {
     text: PropTypes.any,
-    status: PropTypes.string,
-    visible: PropTypes.bool
+    status: PropTypes.string
   };
 
   static defaultProps = {
     text: '',
-    visible: false,
-    status: ''
+    status: '',
+    className: ''
+  };
+
+  state = {
+    transition: ''
+  };
+
+  onAnimationEnd = () => {
+    const { className, close } = this.props;
+    if (className) {
+      // 过渡样式设为display:none 防止动画效果消失后还未unmount掉
+      this.setState(
+        {
+          transition: 'zent-notify-hidden'
+        },
+        close
+      );
+    }
   };
 
   render() {
-    const { visible, text, status, selector } = this.props;
-
+    const { text, status, selector, className } = this.props;
+    const { transition } = this.state;
     return (
-      <Portal
-        visible={visible}
-        className="zent-image-p-anchor"
-        selector={selector}
-      >
-        <div className={`zent-notify zent-notify-${status}`}>{text}</div>
+      <Portal className="zent-image-p-anchor" selector={selector}>
+        <div
+          className={`zent-notify zent-notify-${status} ${className} ${transition}`}
+          onAnimationEnd={this.onAnimationEnd}
+        >
+          {text}
+        </div>
       </Portal>
     );
   }
