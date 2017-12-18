@@ -59,7 +59,9 @@ class Grid extends (PureComponent || Component) {
     const { prefix } = this.props;
 
     const bodyRows =
-      this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`) || [];
+      (this.bodyTable &&
+        this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
+      [];
 
     const fixedColumnsBodyRowsHeight = [].map.call(
       bodyRows,
@@ -218,7 +220,18 @@ class Grid extends (PureComponent || Component) {
     const target = e.target;
     const { scroll = {} } = this.props;
 
+    if (target.scrollTop !== this.lastScrollTop && scroll.y) {
+      this.leftBody && (this.leftBody.scrollTop = target.scrollTop);
+      this.rightBody && (this.rightBody.scrollTop = target.scrollTop);
+      this.scrollBody && (this.scrollBody.scrollTop = target.scrollTop);
+
+      this.lastScrollTop = target.scrollTop;
+      return;
+    }
+
     if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
+      this.scrollHeader && (this.scrollHeader.scrollLeft = target.scrollLeft);
+
       const node = target || this.bodyTable;
       const scrollToLeft = node.scrollLeft === 0;
       const scrollToRight =
@@ -234,8 +247,8 @@ class Grid extends (PureComponent || Component) {
       } else if (this.scrollPosition !== 'middle') {
         this.setScrollPosition('middle');
       }
+      this.lastScrollLeft = target.scrollLeft;
     }
-    this.lastScrollLeft = target.scrollLeft;
   };
 
   getTable = (options = {}) => {
@@ -263,7 +276,56 @@ class Grid extends (PureComponent || Component) {
     if (!fixed && scroll.x) {
       tableStyle.width = scroll.x;
     }
+    const header = (
+      <Header
+        prefix={prefix}
+        columns={columns}
+        fixed={fixed}
+        store={this.store}
+        onChange={this.onChange}
+        sortType={sortType}
+        scroll={scroll}
+        sortBy={sortBy}
+      />
+    );
 
+    const body = (
+      <Body
+        prefix={prefix}
+        columns={columns}
+        datasets={datasets}
+        rowClassName={rowClassName}
+        onRowClick={onRowClick}
+        fixed={fixed}
+        scroll={scroll}
+        fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
+      />
+    );
+    const { y } = scroll;
+    if (y) {
+      return (
+        <div className={`${prefix}-grid-scroll`} key="table">
+          <div
+            className={`${prefix}-grid-header`}
+            ref={ref => {
+              if (!fixed) this.scrollHeader = ref;
+            }}
+          >
+            {header}
+          </div>
+          <div
+            className={`${prefix}-grid-body`}
+            style={{ maxHeight: y, overflowY: 'scroll' }}
+            ref={ref => {
+              this[`${fixed || 'scroll'}Body`] = ref;
+            }}
+            onScroll={this.handleBodyScroll}
+          >
+            {body}
+          </div>
+        </div>
+      );
+    }
     return (
       <div
         style={bodyStyle}
@@ -280,23 +342,8 @@ class Grid extends (PureComponent || Component) {
           style={tableStyle}
         >
           <ColGroup columns={columns} />
-          <Header
-            prefix={prefix}
-            columns={columns}
-            store={this.store}
-            onChange={this.onChange}
-            sortType={sortType}
-            sortBy={sortBy}
-          />
-          <Body
-            prefix={prefix}
-            columns={columns}
-            datasets={datasets}
-            rowClassName={rowClassName}
-            onRowClick={onRowClick}
-            fixed={fixed}
-            fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
-          />
+          {header}
+          {body}
         </table>
       </div>
     );

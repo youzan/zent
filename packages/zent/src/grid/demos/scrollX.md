@@ -1,7 +1,7 @@
 ---
 order: 7
 zh-CN:
-	title: fixed
+	title: scroll x
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -9,7 +9,7 @@ zh-CN:
 	soldNumber: 销量
 	createdTime: 创建时间
 en-US:
-	title: Fixed
+	title: scroll x
 	product: Product
 	productName: Product Name
 	uv: uv
