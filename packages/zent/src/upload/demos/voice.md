@@ -50,6 +50,16 @@ class Simple extends React.Component {
     render() {
 			return (
 				<div>
+					{
+						this.state.voiceList.map((item, index) => {
+							return (
+								<div key={index} style={{ fontSize: 12, lineHeight: 1.5, marginTop: 10 }}>
+									<p>{i18n.fileName}{item.file.name}</p>
+									<p>{i18n.fileSize}{(item.file.size / 1024).toFixed(1)} KB</p>
+								</div>
+							)
+						})
+					}
 					<Upload
 						maxSize={8 * 1000 * 1000}
 						triggerInline
@@ -62,16 +72,6 @@ class Simple extends React.Component {
 						triggerClassName=""
 						trigger={() => <a href="javascript:;">{i18n.buttonText}</a>}
 					/>
-					{
-						this.state.voiceList.map((item, index) => {
-							return (
-								<div key={index} style={{ fontSize: 12, lineHeight: 1.5, marginTop: 10 }}>
-									<p>{i18n.fileName}{item.file.name}</p>
-									<p>{i18n.fileSize}{(item.file.size / 1024).toFixed(1)} KB</p>
-								</div>
-							)
-						})
-					}
 				</div>
 			);
     }
