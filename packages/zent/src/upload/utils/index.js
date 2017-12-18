@@ -1,3 +1,6 @@
+const oneMB = 1024 * 1024;
+const oneGB = 1024 * oneMB;
+
 /**
  * 将文件的Byte转换为可读性更好的GB\MB\KB\B
  * @param  {number} size    大小，单位Byte
@@ -13,10 +16,10 @@ export function formatFileSize(size, toFixed) {
     toFixed = 1;
   }
 
-  if (size >= 1024 * 1024 * 1024) {
-    return `${(size / (1024 * 1024 * 1024)).toFixed(toFixed)} GB`;
-  } else if (size >= 1024 * 1024) {
-    return `${(size / (1024 * 1024)).toFixed(toFixed)} MB`;
+  if (size >= oneGB) {
+    return `${(size / oneGB).toFixed(toFixed)} GB`;
+  } else if (size >= oneMB) {
+    return `${(size / oneMB).toFixed(toFixed)} MB`;
   } else if (size >= 1024) {
     return `${(size / 1024).toFixed(toFixed)} KB`;
   }
