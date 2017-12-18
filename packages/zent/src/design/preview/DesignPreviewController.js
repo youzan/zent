@@ -78,6 +78,7 @@ class DesignPreviewController extends (PureComponent || Component) {
     const {
       dragable,
       configurable,
+      editable,
       canDelete,
       canInsert,
       highlightWhenSelect,
@@ -91,6 +92,7 @@ class DesignPreviewController extends (PureComponent || Component) {
     const props = pick(this.props, ['value', 'design', 'globalConfig']);
     const getClassName = highlight =>
       cx(`${prefix}-design-preview-controller`, {
+        [`${prefix}-design-preview-controller--editable`]: editable,
         [`${prefix}-design-preview-controller--selected`]: isSelected,
         [`${prefix}-design-preview-controller--highlight`]: highlight,
         [`${prefix}-design-preview-controller--dragable`]: dragable
