@@ -107,7 +107,8 @@ $input_width: 183px;
     .time-picker,
     .range-picker,
     .week-picker,
-    .year-picker {
+    .year-picker,
+    .season-picker {
       background: $theme-stroke-10;
       width: $default_width;
       font-size: 12px;
@@ -194,6 +195,7 @@ $input_width: 183px;
 
     .date-panel,
     .month-panel,
+    .season-panel,
     .year-panel {
       position: relative;
       width: $default_width;
@@ -293,12 +295,30 @@ $input_width: 183px;
       }
     }
 
+    .season-picker {
+      .season-panel {
+        height: 240px;
+
+        .grid-cell {
+          height: 47.5px;
+        }
+      }
+
+      .year-panel {
+        .grid-cell {
+          height: 47.5px;
+          padding: 0;
+        }
+      }
+    }
+
     .panel__header {
       position: relative;
       text-align: center;
       height: 36px;
       line-height: 36px;
       border-bottom: 1px solid $lighter_grey;
+      box-sizing: border-box;
 
       .link--prev {
         cursor: pointer;
@@ -497,6 +517,12 @@ $input_width: 183px;
           width: 50px;
           height: 30px;
           line-height: 30px;
+        }
+
+        &.season-panel__cell {
+          height: 32px;
+          line-height: 32px;
+          width: 100%;
         }
       }
     }
