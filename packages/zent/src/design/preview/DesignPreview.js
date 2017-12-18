@@ -34,6 +34,8 @@ class DesignPreview extends (PureComponent || Component) {
 
     value: PropTypes.array.isRequired,
 
+    footer: PropTypes.node,
+
     appendableComponents: PropTypes.array,
 
     showAddComponentOverlay: PropTypes.bool.isRequired,
@@ -102,7 +104,8 @@ class DesignPreview extends (PureComponent || Component) {
       prefix,
       globalConfig,
       disabled,
-      background
+      background,
+      footer
     } = this.props;
     const isComponentsGrouped = isGrouped(appendableComponents);
     const cls = cx(`${prefix}-design-preview`, className);
@@ -242,6 +245,7 @@ class DesignPreview extends (PureComponent || Component) {
               />
             </div>
           )}
+          {footer}
         </div>
       </DragDropContext>
     );
