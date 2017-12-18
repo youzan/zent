@@ -47,6 +47,11 @@ class Simple extends React.Component {
     render() {
 			return (
 				<div>
+                    {
+                        this.state.imageList.map((item, index) => {
+                            return <img width="80" height="80" key={index} src={item.src} style={{marginRight: '10px'}} />
+                        })
+                    }
 					<Upload
 						maxSize={10 * 1024 * 1024}
 						triggerInline
@@ -54,11 +59,6 @@ class Simple extends React.Component {
 						onFetch={this.fetchNetworkImage.bind(this)}
 						onUpload={this.updateLocalImage.bind(this)}
 					/>
-					{
-						this.state.imageList.map((item, index) => {
-							return <img width="80" height="80" key={index} src={item.src} style={{marginLeft: '10px'}} />
-						})
-					}
 				</div>
 			);
     }
