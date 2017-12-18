@@ -134,6 +134,9 @@ export default class Design extends (PureComponent || Component) {
     // 用来渲染整个 Design 组件
     preview: PropTypes.func,
 
+    // 预览部分底部的额外信息
+    previewFooter: PropTypes.node,
+
     // 有未保存数据关闭窗口时需要用户确认
     // 离开时的确认文案新版本的浏览器是不能自定义的。
     // https://www.chromestatus.com/feature/5349061406228480
@@ -330,7 +333,14 @@ export default class Design extends (PureComponent || Component) {
   }
 
   renderPreview(preview) {
-    const { components, prefix, value, disabled, globalConfig } = this.props;
+    const {
+      components,
+      prefix,
+      value,
+      disabled,
+      previewFooter,
+      globalConfig
+    } = this.props;
     const {
       selectedUUID,
       appendableComponents,
@@ -347,6 +357,7 @@ export default class Design extends (PureComponent || Component) {
       value,
       validations,
       showError,
+      footer: previewFooter,
       componentInstanceCount,
       onComponentValueChange: this.onComponentValueChange,
       onAddComponent: this.onAdd,
