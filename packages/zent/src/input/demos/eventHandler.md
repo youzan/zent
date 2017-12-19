@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 zh-CN:
 	title: 事件处理
 en-US:
