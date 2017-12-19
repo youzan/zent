@@ -238,7 +238,7 @@ export default class Swiper extends (PureComponent || Component) {
         onMouseLeave={this.handleMouseLeave}
       >
         {arrows &&
-          childrenCount && (
+          childrenCount > 1 && (
             <div
               className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
               onClick={this.prev}
