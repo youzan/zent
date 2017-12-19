@@ -8,14 +8,13 @@ export default class Textarea extends (PureComponent || Component) {
   };
 
   onChange = e => {
-    const { autoSize } = this.props.inputProps;
+    const { autoSize, onChange } = this.props.inputProps;
     if (autoSize) {
       const { scrollHeight } = this.textarea;
       this.setState({
         height: scrollHeight
       });
     }
-    const { onChange } = this.props.inputProps;
     onChange && onChange(e);
   };
 
