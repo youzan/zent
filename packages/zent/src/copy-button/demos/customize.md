@@ -6,7 +6,7 @@ zh-CN:
 	customBtnText: 点我
 en-US:
 	title: Basic usage
-	onCopySuccess: Copy successfully！
+	onCopySuccess: Copied！
 	customBtnText: Click！
 ---
 
@@ -15,7 +15,7 @@ import { CopyButton, Button } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<CopyButton text="36a3ec36db8c3e1dfb43e098108cf3d4778c7135" onCopySuccess="{i18n.onCopySuccess}">
+		<CopyButton text="foobar quux" onCopySuccess="{i18n.onCopySuccess}">
 			<Button type="primary">{i18n.customBtnText}</Button>
 		</CopyButton>
 	</div>

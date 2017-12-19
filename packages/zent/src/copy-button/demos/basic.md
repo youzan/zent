@@ -11,7 +11,7 @@ import { CopyButton, Button } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<CopyButton text="1c2ebcc68f1cf6e18bfa69bf74778c19dac70c2e" />
+		<CopyButton text="foobar quux" />
 	</div>
 	, mountNode);
 ```

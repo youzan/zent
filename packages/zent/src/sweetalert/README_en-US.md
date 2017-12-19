@@ -22,7 +22,7 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | type        | dialog type, will show an icon on the left side of title if this prop is set. | string |    `''`    | `'info'`, `'success'`, `'error'`, `'warning'` |
 | title       | title of the dialog | node   | `''`     |                                               |
 | onConfirm   | callback of confirm operation | func   | `noop`   |                                               |
-| confirmText | text of confirm button | string | `'Get it'`   |                                               |
+| confirmText | text of confirm button | string | `'OK'`   |                                               |
 | confirmType | type of confirm button | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
 | className   | custom classname                       | string | `''`     |                                               |
 | prefix      | custom prefix  | string | `'zent'`|     |

@@ -2,14 +2,14 @@ const common = {
   confirm: 'Confirm',
   cancel: 'Cancel',
   comma: ', ',
-  ok: 'Get it.'
+  ok: 'OK'
 };
 
 export const mark = 'en';
 
 export const CopyButton = {
   copy: 'Copy',
-  success: 'Copy successfully',
+  success: 'Copied',
   error: 'Copy failed'
 };
 
@@ -26,12 +26,12 @@ export const Pop = {
 };
 
 export const RangePicker = {
-  7: 'Nearly 7 days',
-  30: 'Nearly 30 days'
+  7: '7 days',
+  30: '30 days'
 };
 
 export const Select = {
-  input: 'please choose',
+  input: 'Please choose...',
   search: 'No matches found'
 };
 
@@ -49,18 +49,18 @@ export const TimePicker = {
   ...common,
   date: 'Please select a date',
   week: 'Please select a week',
-  month: 'Please select the month',
-  year: 'Please choose year',
-  range: 'start-date to end-date',
+  month: 'Please select a month',
+  year: 'Please select a year',
+  range: 'Please select a range',
   rangeError: 'Please select the starting and ending time',
-  start: 'start-date',
-  end: 'end-date',
+  start: 'Start date',
+  end: 'End date',
   to: 'to',
   current: {
     time: 'Now',
     date: 'Today',
     week: 'This week',
-    month: 'Current month',
+    month: 'This month',
     year: 'This year'
   },
   panel: {
