@@ -3,7 +3,6 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
@@ -105,7 +104,7 @@ class UploadPopup extends Component {
   }
 
   listWrapper = node => {
-    return this.context.dragDropManager ? (
+    return window.__isReactDndBackendSetUp ? (
       node
     ) : (
       <DragDropContextProvider backend={HTML5Backend}>
@@ -278,10 +277,6 @@ class UploadPopup extends Component {
       }
     );
   }
-
-  static contextTypes = {
-    dragDropManager: PropTypes.object
-  };
 }
 
 UploadPopup.defaultProps = {
