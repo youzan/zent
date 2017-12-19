@@ -13,16 +13,23 @@ en-US:
 ```js
 import { Sweetalert, Button } from 'zent';
 
-const autoCloseConfirm = () => {
-	const close = Sweetalert.confirm({
-		content: <p>{i18n.close}</p>
-	});
+class Wrapper extends React.Component {
+	autoCloseConfirm = () => {
+		const close = Sweetalert.confirm({
+			content: <p>{i18n.close}</p>,
+			parentComponent: this
+		});
 
-	setTimeout(close, 1000);
+		setTimeout(close, 1000);
+	}
+
+	render() {
+		return <Button onClick={this.autoCloseConfirm}>{i18n.button}</Button>;
+	}
 }
 
 ReactDOM.render(
-	<Button onClick={autoCloseConfirm}>{i18n.button}</Button>,
+	<Wrapper />,
 	mountNode
 );
 ```

@@ -106,6 +106,7 @@ function sweet(config, sweetType) {
 export function alert(config = {}) {
   return sweet(config, 'alert');
 }
+
 export const info = alert;
 
 export function confirm(config = {}) {

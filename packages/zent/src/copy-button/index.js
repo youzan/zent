@@ -22,25 +22,19 @@ export default class Copy extends (PureComponent || Component) {
 
   onCopyCallback = (type, callback) => {
     if (typeof callback === 'string') {
-      Notify[type](
-        <Reciever defaultI18n={I18nDefault} componentName="CopyButton">
-          {(notifyType => i18n => <span>{callback || i18n[notifyType]}</span>)(
-            type
-          )}
-        </Reciever>
-      );
+      Notify[type](callback);
     } else {
       callback();
     }
   };
 
-  onCopy = (text, result) => {
+  onCopy = i18n => (text, result) => {
     const { onCopySuccess, onCopyError } = this.props;
 
     if (result) {
-      this.onCopyCallback('success', onCopySuccess);
+      this.onCopyCallback('success', onCopySuccess || i18n.success);
     } else {
-      this.onCopyCallback('error', onCopyError);
+      this.onCopyCallback('error', onCopyError || i18n.error);
     }
   };
 
@@ -48,19 +42,19 @@ export default class Copy extends (PureComponent || Component) {
     const { text, children } = this.props;
 
     return (
-      <CopyToClipboard text={text} onCopy={this.onCopy}>
-        {children ? (
-          React.Children.only(children)
-        ) : (
-          <Reciever defaultI18n={I18nDefault} componentName="CopyButton">
-            {(i18n, { onClick = null }) => (
+      <Reciever defaultI18n={I18nDefault} componentName="CopyButton">
+        {(i18n, { onClick = null }) => (
+          <CopyToClipboard text={text} onCopy={this.onCopy(i18n)}>
+            {children ? (
+              React.Children.only(children)
+            ) : (
               <Button onClick={onClick} type="primary">
                 {i18n.copy}
               </Button>
             )}
-          </Reciever>
+          </CopyToClipboard>
         )}
-      </CopyToClipboard>
+      </Reciever>
     );
   }
 }

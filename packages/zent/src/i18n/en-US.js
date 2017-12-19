@@ -25,6 +25,13 @@ export const Pop = {
   ...common
 };
 
+export const PreviewImage = {
+  alt: 'Image download failed',
+  prev: 'Previous',
+  next: 'Next',
+  rotate: 'Rotate'
+};
+
 export const RangePicker = {
   7: '7 days',
   30: '30 days'

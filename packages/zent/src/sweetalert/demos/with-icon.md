@@ -15,16 +15,23 @@ en-US:
 ```js
 import { Sweetalert, Button } from 'zent';
 
-const showAlertInfo = () => {
-	Sweetalert.alert({
-		type: 'info',
-		content: '{i18n.content}',
-		title: '{i18n.title1}'
-	});
+class Wrapper extends React.Component {
+	showAlertInfo = () => {
+		Sweetalert.alert({
+			type: 'info',
+			content: '{i18n.content}',
+			title: '{i18n.title1}',
+			parentComponent: this
+		});
+	}
+
+	render() {
+		return <Button onClick={this.showAlertInfo}>{i18n.button}</Button>;
+	}
 }
 
 ReactDOM.render(
-	<Button onClick={showAlertInfo}>{i18n.button}</Button>,
+	<Wrapper />,
 	mountNode
 );
 ```

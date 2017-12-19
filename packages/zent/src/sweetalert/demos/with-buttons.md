@@ -17,24 +17,31 @@ en-US:
 ```js
 import { Sweetalert, Button, Notify } from 'zent';
 
-const onConfirm = () => {
-	Notify.success('{i18n.message1}');
-}
+class Wrapper extends React.Component {
+	onConfirm = () => {
+		Notify.success('{i18n.message1}');
+	}
 
-const onCancel = () => {
-	Notify.error('{i18n.message2}');
-}
+	onCancel = () => {
+		Notify.error('{i18n.message2}');
+	}
 
-const showAlertConfirm = () => {
-	Sweetalert.confirm({
-		content: <p>{i18n.content}</p>,
-		onConfirm: onConfirm,
-		onCancel: onCancel
-	});
+	showAlertConfirm = () => {
+		Sweetalert.confirm({
+			content: <p>{i18n.content}</p>,
+			onConfirm: this.onConfirm,
+			onCancel: this.onCancel,
+			parentComponent: this
+		});
+	}
+
+	render() {
+		return <Button onClick={this.showAlertConfirm}>{i18n.button}</Button>;
+	}
 }
 
 ReactDOM.render(
-	<Button onClick={showAlertConfirm}>{i18n.button}</Button>,
+	<Wrapper />,
 	mountNode
 );
 ```

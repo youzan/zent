@@ -25,6 +25,13 @@ export const Pop = {
   ...common
 };
 
+export const PreviewImage = {
+  alt: '图片下载失败',
+  prev: '上一张',
+  next: '下一张',
+  rotate: '翻转'
+};
+
 export const RangePicker = {
   7: '近7天',
   30: '近30天'
