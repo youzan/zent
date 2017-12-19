@@ -121,9 +121,7 @@ export default class Input extends (PureComponent || Component) {
           prefix={prefix}
           handleKeyDown={this.handleKeyDown}
           inputProps={inputProps}
-          ref={input => {
-            this.input = input;
-          }}
+          inputRef={this}
         />
       );
     }

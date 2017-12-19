@@ -20,7 +20,13 @@ export default class Textarea extends (PureComponent || Component) {
   };
 
   render() {
-    const { wrapClass, widthStyle, prefix, handleKeyDown } = this.props;
+    const {
+      wrapClass,
+      widthStyle,
+      prefix,
+      handleKeyDown,
+      inputRef
+    } = this.props;
     let { inputProps } = this.props;
     const { showCount, value = '', maxLength } = inputProps;
     inputProps = omit(inputProps, [
@@ -37,6 +43,7 @@ export default class Textarea extends (PureComponent || Component) {
         <textarea
           style={{ height: this.state.height }}
           ref={ref => {
+            inputRef.input = ref;
             this.textarea = ref;
           }}
           className={cx(`${prefix}-textarea`, {

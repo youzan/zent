@@ -154,7 +154,7 @@ describe('Input', () => {
   });
 
   it('can supports textarea', () => {
-    const wrapper = shallow(<Input type="textarea" />);
+    const wrapper = mount(<Input type="textarea" />);
     expect(wrapper.find('textarea').length).toBe(1);
   });
 
