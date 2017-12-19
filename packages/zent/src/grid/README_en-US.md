@@ -18,6 +18,7 @@ The function of the component is similar to the function of [Table](table) compo
 | datasets | data to be displayed                         | array |         |   Yes    |
 | rowKey   | key for each row                          | string |  `id`    |   No    |
 | onChange | callback fires when columns change, filtering and sorting included  | func | `noop` | No    |
+| scroll |  can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body：{{ x: 1300, y: 300 }}  | object |  | No   |
 | sortBy   | the field which rows are sorted accoring to, should be one of keys for columns| string | '' | No |
 | sortType | The way to sort                            | string  |     ''   |   No    |
 | emptyLabel | Text to be displayed when there's no data                | string   | `'没有更多数据了'` | No |
