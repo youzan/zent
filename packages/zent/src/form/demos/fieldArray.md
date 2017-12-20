@@ -54,7 +54,7 @@ class Hobbies extends React.Component {
 							<div className="hobby-title">
 								<span>{i18n.hobby}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delHobby}">
-									<Icon type="close-circle" onClick={() => fields.shift()} />
+									<Icon type="close-circle" onClick={() => fields.remove(index)} />
 								</Pop>
 							</div>
 							<FormInputField

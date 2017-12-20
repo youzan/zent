@@ -33,6 +33,8 @@ scatter: true
 - `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，也可以使用单独封装的自定义表单元素组件；
 - `Form` 组件提供了 `getControlGroup` 方法，可以快速封装自定义表单元素组件，使用方法参考 demo 和 [`getControlGroup` API](#form-getcontrolgroup) 。
 
+<!-- demo-slot-14 -->
+
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->
 
@@ -102,8 +104,6 @@ scatter: true
 <!-- demo-slot-13 -->
 
 #### `FieldArray` 组件
-
-<!-- demo-slot-14 -->
 
 ### 组件原理
 
