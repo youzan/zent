@@ -2,8 +2,7 @@ import Sortable from 'sortablejs';
 
 const UNSORTABLE = 'unsortable';
 
-export function initSortable(id, onMove) {
-  let el = typeof id === 'string' ? document.getElementById(id) : id;
+export function initSortable(el, onMove) {
   let initState = [];
   let sortable = Sortable.create(el, {
     filter: `.${UNSORTABLE}`,
