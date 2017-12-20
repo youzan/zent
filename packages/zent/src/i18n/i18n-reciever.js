@@ -6,7 +6,8 @@ const { Component, PureComponent } = React;
 export default class I18nReciever extends (PureComponent || Component) {
   static propTypes = {
     componentName: PropTypes.string.isRequired,
-    defaultI18n: PropTypes.object.isRequired
+    defaultI18n: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+      .isRequired
   };
 
   static contextTypes = {
@@ -28,9 +29,8 @@ export default class I18nReciever extends (PureComponent || Component) {
     const { zentI18n } = this.context;
     const i18n = (zentI18n && zentI18n[componentName]) || {};
     return {
-      ...defaultI18n,
-      ...i18n,
-      i18nMark: (zentI18n && zentI18n.mark) || 'zh' // i18n 标记, 默认 fallback 到中文标记
+      ...(typeof defaultI18n === 'function' ? defaultI18n() : defaultI18n),
+      ...(typeof i18n === 'function' ? i18n() : i18n)
     };
   }
 

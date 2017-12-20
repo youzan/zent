@@ -47,13 +47,16 @@ export default class MinutePanel extends (PureComponent || Component) {
   }
 
   render() {
-    const { hidePanel, onSelect } = this.props;
+    const { hidePanel, onSelect, i18n } = this.props;
     const minutes = this.getMinutes();
-    const title = '选择分钟';
 
     return (
       <div className="minute-panel">
-        <PanelHeader title={title} showNext={false} prev={hidePanel} />
+        <PanelHeader
+          title={i18n.panel.minuteSelect}
+          showNext={false}
+          prev={hidePanel}
+        />
         <div className="minute-table panel-table">
           <TimeCell cells={minutes} onSelect={onSelect} />
         </div>

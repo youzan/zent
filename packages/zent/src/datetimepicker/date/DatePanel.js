@@ -1,9 +1,6 @@
 import React, { Component, PureComponent } from 'react';
-import formatDate from 'zan-utils/date/formatDate';
 
-import { I18nReciever as Reciever } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
-
+import { formatDate } from '../lib';
 import DatePanelBody from './DatePanelBody';
 import MonthPanel from '../month/MonthPanel';
 import TimePanel from '../time/TimePanel';
@@ -36,51 +33,62 @@ export default class DatePanel extends (PureComponent || Component) {
   };
 
   render() {
-    const { state, props } = this;
+    const {
+      props: {
+        actived,
+        disabledDate,
+        i18n,
+        onHover,
+        onNext,
+        onPrev,
+        onSelect,
+        range,
+        selected,
+        showNext,
+        showPrev,
+        showTime
+      },
+      state: { showMonth }
+    } = this;
+
     let monthPanel;
     let timePanel;
-    if (state.showMonth) {
+    if (showMonth) {
       monthPanel = (
         <MonthPanel
-          actived={props.actived}
-          selected={props.selected}
+          actived={actived}
+          selected={selected}
           onChange={this.onSelectMonth}
           onSelect={this.onSelectMonth}
+          i18n={i18n}
         />
       );
     }
-    if (props.showTime) {
-      timePanel = <TimePanel {...props.showTime} />;
+    if (showTime) {
+      timePanel = <TimePanel {...showTime} i18n={i18n} />;
     }
 
     return (
       <div className="date-panel">
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
-          {i18n => (
-            <PanelHeader
-              title={formatDate(
-                props.actived,
-                i18n.panel.titleFormat,
-                i18n.i18nMark
-              )}
-              onClickTitle={this.showMonth}
-              prev={props.onPrev}
-              next={props.onNext}
-              showPrev={props.showPrev}
-              showNext={props.showNext}
-            />
-          )}
-        </Reciever>
-        <DatePanelBody
-          actived={props.actived}
-          range={props.range}
-          selected={props.selected}
-          disabledDate={props.disabledDate}
-          onSelect={props.onSelect}
-          onHover={props.onHover}
+        <PanelHeader
+          title={formatDate(actived, i18n.panel.titleFormat)}
+          onClickTitle={this.showMonth}
+          prev={onPrev}
+          next={onNext}
+          showPrev={showPrev}
+          showNext={showNext}
         />
-        {state.showMonth && monthPanel}
-        {props.showTime && timePanel}
+        <DatePanelBody
+          actived={actived}
+          range={range}
+          selected={selected}
+          disabledDate={disabledDate}
+          onSelect={onSelect}
+          onHover={onHover}
+          i18n={i18n}
+        />
+        {showMonth && monthPanel}
+        {showTime && timePanel}
       </div>
     );
   }

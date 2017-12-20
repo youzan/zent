@@ -2,8 +2,6 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash/assign';
-import formatDate from 'zan-utils/date/formatDate';
-import parseDate from 'zan-utils/date/parseDate';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -11,6 +9,7 @@ import getWidth from 'utils/getWidth';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
+import { formatDate, parseDate } from './lib';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import { CURRENT_DAY, goMonths, setSameDate } from './utils';
@@ -68,7 +67,7 @@ function extractStateFromProps(props) {
    */
 
   return {
-    value: selected && formatDate(selected, props.format),
+    value: selected && formatDate(selected, format),
     actived,
     selected,
     activedTime: selected || actived,
@@ -94,7 +93,7 @@ class DatePicker extends (PureComponent || Component) {
 
   constructor(props) {
     super(props);
-    const { value, valueType } = props;
+    const { value, valueType, showTime, isFooterVisble } = props;
 
     if (valueType) {
       this.retType = valueType.toLowerCase();
@@ -105,7 +104,7 @@ class DatePicker extends (PureComponent || Component) {
 
     this.state = extractStateFromProps(props);
     // 没有footer的逻辑
-    this.isfooterShow = props.showTime || props.isFooterVisble;
+    this.isfooterShow = showTime || isFooterVisble;
   }
 
   componentWillReceiveProps(next) {
@@ -179,7 +178,7 @@ class DatePicker extends (PureComponent || Component) {
    * 默认返回 format 格式的字符串
    */
 
-  getReturnValue(date, format) {
+  getReturnValue(date, format, locale) {
     if (this.retType === 'number') {
       return date.getTime();
     }
@@ -188,7 +187,7 @@ class DatePicker extends (PureComponent || Component) {
       return date;
     }
 
-    return formatDate(date, format);
+    return formatDate(date, format, locale);
   }
 
   onConfirm = () => {
@@ -231,29 +230,32 @@ class DatePicker extends (PureComponent || Component) {
     return false;
   };
 
-  renderPicker() {
-    const { state, props } = this;
+  renderPicker(i18n) {
+    const {
+      state: { activedTime, openPanel, actived, selected },
+      props: { min, max, format, disabledTime, confirmText }
+    } = this;
     let showTime;
     let datePicker;
 
     // let isShow
-    if (props.showTime) {
+    if (this.props.showTime) {
       showTime = assign(
         {
-          min: props.min && parseDate(props.min, props.format),
-          max: props.max && parseDate(props.max, props.format),
-          actived: state.activedTime,
+          min: min && parseDate(min, format),
+          max: max && parseDate(max, format),
+          actived: activedTime,
           disabledTime: noop
         },
         {
-          disabledTime: props.disabledTime && props.disabledTime(),
+          disabledTime: disabledTime && disabledTime(),
           onChange: this.onChangeTime
         }
       );
     }
 
     // 打开面板的时候才渲染
-    if (state.openPanel) {
+    if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
       const linkCls = classNames({
         'link--current': true,
@@ -268,27 +270,24 @@ class DatePicker extends (PureComponent || Component) {
         <div className={datePickerCls} ref={ref => (this.picker = ref)}>
           <DatePanel
             showTime={showTime}
-            actived={state.actived}
-            selected={state.selected}
+            actived={actived}
+            selected={selected}
             disabledDate={this.isDisabled}
             onSelect={this.onSelectDate}
             onChange={this.onChangeDate}
             onPrev={this.onChangeMonth('prev')}
             onNext={this.onChangeMonth('next')}
+            i18n={i18n}
           />
           {this.isfooterShow ? (
-            <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
-              {i18n => (
-                <PanelFooter
-                  buttonText={props.confirmText || i18n.confirm}
-                  onClickButton={this.onConfirm}
-                  linkText={i18n.current.date}
-                  linkCls={linkCls}
-                  showLink={!isDisabled}
-                  onClickLink={() => this.onSelectDate(CURRENT_DAY)}
-                />
-              )}
-            </Reciever>
+            <PanelFooter
+              buttonText={confirmText || i18n.confirm}
+              onClickButton={this.onConfirm}
+              linkText={i18n.current.date}
+              linkCls={linkCls}
+              showLink={!isDisabled}
+              onClickLink={() => this.onSelectDate(CURRENT_DAY)}
+            />
           ) : null}
         </div>
       );
@@ -309,53 +308,59 @@ class DatePicker extends (PureComponent || Component) {
   };
 
   render() {
-    const { state, props } = this;
-    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const {
+      props: {
+        prefix,
+        className,
+        disabled,
+        width,
+        popPosition,
+        name,
+        placeholder
+      },
+      state: { showPlaceholder, openPanel, value }
+    } = this;
+    const wrapperCls = `${prefix}-datetime-picker ${className}`;
     const inputCls = classNames({
       'picker-input': true,
-      'picker-input--filled': !state.showPlaceholder,
-      'picker-input--disabled': props.disabled
+      'picker-input--filled': !showPlaceholder,
+      'picker-input--disabled': disabled
     });
-    const widthStyle = getWidth(props.width);
+    const widthStyle = getWidth(width);
     return (
       <div style={widthStyle} className={wrapperCls}>
-        <Popover
-          cushion={5}
-          visible={state.openPanel}
-          onVisibleChange={this.togglePicker}
-          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={popPositionMap[props.popPosition.toLowerCase()]}
-        >
-          <Popover.Trigger.Click>
-            <div
-              style={widthStyle}
-              className={inputCls}
-              onClick={evt => evt.preventDefault()}
+        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => (
+            <Popover
+              cushion={5}
+              visible={openPanel}
+              onVisibleChange={this.togglePicker}
+              className={`${prefix}-datetime-picker-popover ${className}-popover`}
+              position={popPositionMap[popPosition.toLowerCase()]}
             >
-              <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
-                {i18n => (
+              <Popover.Trigger.Click>
+                <div
+                  style={widthStyle}
+                  className={inputCls}
+                  onClick={evt => evt.preventDefault()}
+                >
                   <Input
-                    name={props.name}
-                    value={
-                      state.showPlaceholder
-                        ? props.placeholder || i18n.date
-                        : state.value
-                    }
+                    name={name}
+                    value={showPlaceholder ? placeholder || i18n.date : value}
                     onChange={noop}
-                    disabled={props.disabled}
+                    disabled={disabled}
                   />
-                )}
-              </Reciever>
-
-              <span className="zenticon zenticon-calendar-o" />
-              <span
-                onClick={this.onClearInput}
-                className="zenticon zenticon-close-circle"
-              />
-            </div>
-          </Popover.Trigger.Click>
-          <Popover.Content>{this.renderPicker()}</Popover.Content>
-        </Popover>
+                  <span className="zenticon zenticon-calendar-o" />
+                  <span
+                    onClick={this.onClearInput}
+                    className="zenticon zenticon-close-circle"
+                  />
+                </div>
+              </Popover.Trigger.Click>
+              <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>
+            </Popover>
+          )}
+        </Reciever>
       </div>
     );
   }

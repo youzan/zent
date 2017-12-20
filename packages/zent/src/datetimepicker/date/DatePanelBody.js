@@ -1,9 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-import formatDate from 'zan-utils/date/formatDate';
-
-import { I18nReciever as Reciever } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
+import { formatDate } from '../lib';
 
 import {
   goDays,
@@ -105,18 +102,14 @@ export default class DatePanelBody extends (PureComponent || Component) {
   }
 
   render() {
-    const { onSelect, onHover } = this.props;
+    const { onSelect, onHover, i18n } = this.props;
     const days = this.getDays();
 
     return (
       <div className="date-table panel-table">
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
-          {i18n => (
-            <ul className="panel-table__row panel-table__head">
-              {i18n.panel.dayNames.map((item, i) => <li key={i}>{item}</li>)}
-            </ul>
-          )}
-        </Reciever>
+        <ul className="panel-table__row panel-table__head">
+          {i18n.panel.dayNames.map((item, i) => <li key={i}>{item}</li>)}
+        </ul>
         <PanelCell onSelect={onSelect} onHover={onHover} cells={days} />
       </div>
     );

@@ -46,16 +46,16 @@ class SplitDateRangePicker extends (PureComponent || Component) {
 
   renderPicker() {
     const {
-      value,
-      placeholder,
       className,
+      defaultTime,
+      disabledDate,
+      onChange,
+      onClick,
       onClose,
       onOpen,
-      onClick,
       openPanel,
-      onChange,
-      disabledDate,
-      defaultTime,
+      placeholder,
+      value,
       ...pickerProps
     } = this.props;
     let rangePicker;
@@ -113,8 +113,8 @@ class SplitDateRangePicker extends (PureComponent || Component) {
   }
 
   render() {
-    const props = this.props;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const { prefix, className } = this.props;
+    const prefixCls = `${prefix}-datetime-picker ${className}`;
 
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }

@@ -37,7 +37,7 @@
     "react-dnd-html5-backend": "^2.5.4",
     "tinycolor2": "^1.4.1",
     "uuid": "^3.1.0",
-    "zan-utils": "^1.0.9",
+    "zan-utils": "^1.1.8",
     "zenticons": "^1.0.3"
   },
   "devDependencies": {}

@@ -1,11 +1,11 @@
+import { setLocale, enUS } from './time-locale';
+
 const common = {
   confirm: 'Confirm',
   cancel: 'Cancel',
   comma: ', ',
   ok: 'OK'
 };
-
-export const mark = 'en';
 
 export const CopyButton = {
   copy: 'Copy',
@@ -52,40 +52,49 @@ export const Switch = {
   unchecked: 'Off'
 };
 
-export const TimePicker = {
-  ...common,
-  date: 'Please select a date',
-  week: 'Please select a week',
-  month: 'Please select a month',
-  year: 'Please select a year',
-  range: 'Please select a range',
-  rangeError: 'Please select the starting and ending time',
-  start: 'Start date',
-  end: 'End date',
-  to: 'to',
-  current: {
-    time: 'Now',
-    date: 'Today',
-    week: 'This week',
-    month: 'This month',
-    year: 'This year'
-  },
-  panel: {
-    titleFormat: 'MMMM YYYY',
-    dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
-    monthNames: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ]
-  }
+export const TimePicker = () => {
+  setLocale(enUS);
+  return {
+    ...common,
+    date: 'Please select a date',
+    week: 'Please select a week',
+    month: 'Please select a month',
+    year: 'Please select a year',
+    range: 'Please select a range',
+    rangeError: 'Please select the starting and ending time',
+    start: 'Start date',
+    end: 'End date',
+    to: 'to',
+    current: {
+      time: 'Now',
+      date: 'Today',
+      week: 'This week',
+      month: 'This month',
+      year: 'This year'
+    },
+    panel: {
+      hour: '',
+      minute: '',
+      second: '',
+      hourSelect: 'Choose hours',
+      minuteSelect: 'Choose minutes',
+      secondSelect: 'Choose seconds',
+      titleFormat: 'MMMM YYYY',
+      dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+      monthNames: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ]
+    }
+  };
 };
