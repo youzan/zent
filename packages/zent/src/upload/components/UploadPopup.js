@@ -105,7 +105,6 @@ class UploadPopup extends Component {
   renderLocalUploadRegion(props) {
     let { prefix, accept, options } = props;
     let { localFiles } = this.state;
-    let sortable;
     return (
       <div className={`${prefix}-local-attachment-region`}>
         <div className={`${prefix}-title`}>
@@ -115,9 +114,9 @@ class UploadPopup extends Component {
           <ul
             ref={ref => {
               if (ref) {
-                sortable = initSortable(ref, this.handleMove);
+                this.sortable = initSortable(ref, this.handleMove);
               } else {
-                sortable && sortable.destroy();
+                this.sortable && this.sortable.destroy();
               }
             }}
             className={`${options.type}-list upload-local-${options.type}-list`}
