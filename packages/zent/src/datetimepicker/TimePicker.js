@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { formatDate } from './lib';
+import { formatDate } from './utils';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
 import clickOutside from './utils/clickOutside';

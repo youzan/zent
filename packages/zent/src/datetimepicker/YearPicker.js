@@ -7,10 +7,9 @@ import getWidth from 'utils/getWidth';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { formatDate, parseDate } from './lib';
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT } from './utils/';
+import { CURRENT, formatDate, parseDate } from './utils/';
 import { dayStart } from './utils/date';
 import {
   noop,

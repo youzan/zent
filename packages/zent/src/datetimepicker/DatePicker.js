@@ -9,10 +9,15 @@ import getWidth from 'utils/getWidth';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { formatDate, parseDate } from './lib';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT_DAY, goMonths, setSameDate } from './utils';
+import {
+  CURRENT_DAY,
+  goMonths,
+  setSameDate,
+  formatDate,
+  parseDate
+} from './utils';
 import { dayStart, dayEnd, setTime } from './utils/date';
 import {
   timeFnMap,
@@ -93,7 +98,7 @@ class DatePicker extends (PureComponent || Component) {
 
   constructor(props) {
     super(props);
-    const { value, valueType, showTime, isFooterVisble } = props;
+    const { isFooterVisble, showTime, value, valueType } = props;
 
     if (valueType) {
       this.retType = valueType.toLowerCase();
@@ -178,7 +183,7 @@ class DatePicker extends (PureComponent || Component) {
    * 默认返回 format 格式的字符串
    */
 
-  getReturnValue(date, format, locale) {
+  getReturnValue(date, format) {
     if (this.retType === 'number') {
       return date.getTime();
     }
@@ -187,7 +192,7 @@ class DatePicker extends (PureComponent || Component) {
       return date;
     }
 
-    return formatDate(date, format, locale);
+    return formatDate(date, format);
   }
 
   onConfirm = () => {
@@ -232,8 +237,8 @@ class DatePicker extends (PureComponent || Component) {
 
   renderPicker(i18n) {
     const {
-      state: { activedTime, openPanel, actived, selected },
-      props: { min, max, format, disabledTime, confirmText }
+      props: { confirmText, disabledTime, format, max, min },
+      state: { actived, activedTime, openPanel, selected }
     } = this;
     let showTime;
     let datePicker;

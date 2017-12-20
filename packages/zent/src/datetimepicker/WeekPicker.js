@@ -9,10 +9,9 @@ import getWidth from 'utils/getWidth';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { formatDate, parseDate } from './lib';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT_DAY, goMonths, goDays } from './utils';
+import { CURRENT_DAY, goMonths, goDays, formatDate, parseDate } from './utils';
 import { dayStart, setTime } from './utils/date';
 import {
   noop,

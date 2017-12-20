@@ -6,10 +6,9 @@ import Popover from 'popover';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { formatDate, parseDate } from './lib';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { goMonths, isArray, isSameMonth } from './utils';
+import { goMonths, isArray, isSameMonth, formatDate, parseDate } from './utils';
 import { dayStart, setTime } from './utils/date';
 import {
   timeFnMap,
@@ -310,7 +309,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   }
 
   onConfirm = () => {
-    const { selected, activedTime } = this.state;
+    const { activedTime, selected } = this.state;
 
     if (selected.length !== 2) {
       this.setState({
@@ -353,8 +352,8 @@ class CombineDateRangePicker extends (PureComponent || Component) {
 
   renderPicker(i18n) {
     const {
-      state: { activedTime, openPanel, range, actived, selected, showError },
-      props: { showTime, disabledTime, confirmText, errorText }
+      props: { confirmText, disabledTime, errorText, showTime },
+      state: { actived, activedTime, openPanel, range, selected, showError }
     } = this;
     let rangePicker;
     const getTimeConfig = type => {

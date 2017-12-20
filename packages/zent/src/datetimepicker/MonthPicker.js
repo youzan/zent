@@ -7,10 +7,9 @@ import getWidth from 'utils/getWidth';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { formatDate, parseDate } from './lib';
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT } from './utils/';
+import { CURRENT, formatDate, parseDate } from './utils/';
 import { dayStart } from './utils/date';
 import {
   noop,
@@ -133,8 +132,8 @@ class MonthPicker extends (PureComponent || Component) {
 
   renderPicker(i18n) {
     const {
-      state: { openPanel, actived, selected },
-      props: { isFooterVisble, confirmText }
+      props: { confirmText, isFooterVisble },
+      state: { actived, openPanel, selected }
     } = this;
     let monthPicker;
     if (openPanel) {

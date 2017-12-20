@@ -1,13 +1,13 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-import { formatDate } from '../lib';
 
 import {
   goDays,
   isSameDate,
   isBeforeMonth,
   isAfterMonth,
-  CURRENT
+  CURRENT,
+  formatDate
 } from '../utils/';
 import PanelCell from '../common/PanelCell';
 

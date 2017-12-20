@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 
-import { formatDate } from '../lib';
+import { formatDate } from '../utils';
 import DatePanelBody from './DatePanelBody';
 import MonthPanel from '../month/MonthPanel';
 import TimePanel from '../time/TimePanel';
