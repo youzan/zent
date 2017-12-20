@@ -26,7 +26,6 @@ class UploadPopup extends Component {
       localFiles: []
     };
     this.networkUrl = '';
-    this.sortableId = `${props.prefix}__sortable`;
     this.confirmNetworkUrl = this.confirmNetworkUrl.bind(this);
     this.networkUrlChanged = this.networkUrlChanged.bind(this);
     this.uploadLocalImages = this.uploadLocalImages.bind(this);
@@ -34,7 +33,7 @@ class UploadPopup extends Component {
   }
 
   componentDidMount() {
-    initSortable(this.sortableId, this.handleMove);
+    initSortable(this.sortable, this.handleMove);
   }
 
   /**
@@ -118,7 +117,7 @@ class UploadPopup extends Component {
         </div>
         <div className={`${prefix}-content`}>
           <ul
-            id={`${this.sortableId}`}
+            ref={sortable => (this.sortable = sortable)}
             className={`${options.type}-list upload-local-${options.type}-list`}
           >
             {localFiles.map((item, index) => {
