@@ -22,7 +22,6 @@ export default class Swiper extends (PureComponent || Component) {
     className: PropTypes.string,
     prefix: PropTypes.string,
     transitionDuration: PropTypes.number,
-    transitionForReset: PropTypes.number,
     autoplay: PropTypes.bool,
     autoplayInterval: PropTypes.number,
     dots: PropTypes.bool,
@@ -37,7 +36,6 @@ export default class Swiper extends (PureComponent || Component) {
     className: '',
     prefix: 'zent',
     transitionDuration: 300,
-    transitionForReset: 100,
     autoplay: false,
     autoplayInterval: 3000,
     dots: true,
@@ -118,23 +116,35 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   resetPosition = currentIndex => {
-    const { transitionDuration, transitionForReset, children: { length } } = this.props;
+    const { transitionDuration, children: { length } } = this.props;
     if (currentIndex < 0) {
-      setTimeout(
-        () =>
-          this.setState({
-            currentIndex: length - 1
-          }),
-        transitionDuration
-      );
+      !this.resetTimer &&
+        (this.resetTimer = setTimeout(
+          () =>
+            this.setState(
+              {
+                currentIndex: length - 1
+              },
+              () => {
+                this.resetTimer = undefined;
+              }
+            ),
+          transitionDuration
+        ));
     } else {
-      setTimeout(
-        () =>
-          this.setState({
-            currentIndex: 0
-          }),
-        transitionForReset
-      );
+      !this.resetTimer &&
+        (this.resetTimer = setTimeout(
+          () =>
+            this.setState(
+              {
+                currentIndex: 0
+              },
+              () => {
+                this.resetTimer = undefined;
+              }
+            ),
+          transitionDuration
+        ));
     }
   };
 
