@@ -19,6 +19,7 @@ export function initSortable(id, onMove) {
       onMove(oldIndex, newIndex);
     }
   });
+  return sortable;
 }
 
 export function swapArray(list, fromIndex, toIndex) {

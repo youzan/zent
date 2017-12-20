@@ -32,10 +32,6 @@ class UploadPopup extends Component {
     this.fileProgressHandler = this.fileProgressHandler.bind(this);
   }
 
-  componentDidMount() {
-    initSortable(this.sortable, this.handleMove);
-  }
-
   /**
    * 网络图片渲染
    */
@@ -109,7 +105,7 @@ class UploadPopup extends Component {
   renderLocalUploadRegion(props) {
     let { prefix, accept, options } = props;
     let { localFiles } = this.state;
-
+    let sortable;
     return (
       <div className={`${prefix}-local-attachment-region`}>
         <div className={`${prefix}-title`}>
@@ -117,7 +113,13 @@ class UploadPopup extends Component {
         </div>
         <div className={`${prefix}-content`}>
           <ul
-            ref={sortable => (this.sortable = sortable)}
+            ref={ref => {
+              if (ref) {
+                sortable = initSortable(ref, this.handleMove);
+              } else {
+                sortable && sortable.destroy();
+              }
+            }}
             className={`${options.type}-list upload-local-${options.type}-list`}
           >
             {localFiles.map((item, index) => {
