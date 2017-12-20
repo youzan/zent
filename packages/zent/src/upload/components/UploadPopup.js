@@ -112,13 +112,7 @@ class UploadPopup extends Component {
         </div>
         <div className={`${prefix}-content`}>
           <ul
-            ref={ref => {
-              if (ref) {
-                this.sortable = initSortable(ref, this.handleMove);
-              } else {
-                this.sortable && this.sortable.destroy();
-              }
-            }}
+            ref={this.onListRefChange}
             className={`${options.type}-list upload-local-${options.type}-list`}
           >
             {localFiles.map((item, index) => {
@@ -263,6 +257,14 @@ class UploadPopup extends Component {
       }
     );
   }
+
+  onListRefChange = list => {
+    if (list) {
+      this.sortable = initSortable(list, this.handleMove);
+    } else {
+      this.sortable && this.sortable.destroy();
+    }
+  };
 }
 
 UploadPopup.defaultProps = {
