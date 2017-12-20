@@ -136,21 +136,33 @@ export default class Swiper extends (PureComponent || Component) {
     const { transitionDuration, children: { length } } = this.props;
 
     if (currentIndex < 0) {
-      setTimeout(
-        () =>
-          this.setState({
-            currentIndex: length - 1
-          }),
-        transitionDuration
-      );
+      !this.resetTimer &&
+        (this.resetTimer = setTimeout(
+          () =>
+            this.setState(
+              {
+                currentIndex: length - 1
+              },
+              () => {
+                this.resetTimer = undefined;
+              }
+            ),
+          transitionDuration
+        ));
     } else {
-      setTimeout(
-        () =>
-          this.setState({
-            currentIndex: 0
-          }),
-        transitionDuration
-      );
+      !this.resetTimer &&
+        (this.resetTimer = setTimeout(
+          () =>
+            this.setState(
+              {
+                currentIndex: 0
+              },
+              () => {
+                this.resetTimer = undefined;
+              }
+            ),
+          transitionDuration
+        ));
     }
   };
 
