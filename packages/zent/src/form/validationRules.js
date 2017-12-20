@@ -8,7 +8,7 @@ const isEmpty = function(value) {
 
 const validations = {
   required(values, value) {
-    return value !== undefined && value !== '';
+    return isExisty(value) && !isEmpty(value);
   },
   isExisty(values, value) {
     return isExisty(value);
