@@ -3,9 +3,7 @@ import omit from 'lodash/omit';
 import cx from 'classnames';
 
 export default class Textarea extends (PureComponent || Component) {
-  state = {
-    height: 54
-  };
+  state = {};
 
   onChange = e => {
     const { autoSize, onChange } = this.props.inputProps;
@@ -27,6 +25,7 @@ export default class Textarea extends (PureComponent || Component) {
       inputRef
     } = this.props;
     let { inputProps } = this.props;
+    const { height } = this.state;
     const { showCount, value = '', maxLength } = inputProps;
     inputProps = omit(inputProps, [
       'type',
@@ -36,11 +35,14 @@ export default class Textarea extends (PureComponent || Component) {
     ]);
     let currentCount = value.length;
     currentCount = currentCount > maxLength ? maxLength : currentCount;
+    const textareaStyle = {};
+
+    height && (textareaStyle.height = height);
 
     return (
       <div className={wrapClass} style={widthStyle}>
         <textarea
-          style={{ height: this.state.height }}
+          style={textareaStyle}
           ref={ref => {
             inputRef.input = ref;
             this.textarea = ref;
