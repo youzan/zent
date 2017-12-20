@@ -6,11 +6,10 @@ import React, { Component } from 'react';
 import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContextProvider } from 'react-dnd';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
+import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
 
 const BUTTON_LOADING_TEXT = '提取中...';
@@ -27,10 +26,15 @@ class UploadPopup extends Component {
       localFiles: []
     };
     this.networkUrl = '';
+    this.sortableId = `${props.prefix}__sortable`;
     this.confirmNetworkUrl = this.confirmNetworkUrl.bind(this);
     this.networkUrlChanged = this.networkUrlChanged.bind(this);
     this.uploadLocalImages = this.uploadLocalImages.bind(this);
     this.fileProgressHandler = this.fileProgressHandler.bind(this);
+  }
+
+  componentDidMount() {
+    initSortable(this.sortableId, this.handleMove);
   }
 
   /**
@@ -73,9 +77,6 @@ class UploadPopup extends Component {
         key={index}
         {...item}
         index={index}
-        isDragable
-        isInline
-        onMove={this.handleMove}
         onDelete={this.handleDelete}
       />
     );
@@ -103,16 +104,6 @@ class UploadPopup extends Component {
     );
   }
 
-  listWrapper = node => {
-    return window.__isReactDndBackendSetUp ? (
-      node
-    ) : (
-      <DragDropContextProvider backend={HTML5Backend}>
-        {node}
-      </DragDropContextProvider>
-    );
-  };
-
   /**
    * 本地上传图片、语音
    */
@@ -126,18 +117,16 @@ class UploadPopup extends Component {
           本地{options.type === 'voice' ? '语音' : '图片'}：
         </div>
         <div className={`${prefix}-content`}>
-          {this.listWrapper(
-            <ul
-              className={`${options.type}-list upload-local-${options.type}-list`}
-            >
-              {localFiles.map(
-                (item, index) =>
-                  options.type === 'voice'
-                    ? this.renderLocalVoice(item, index)
-                    : this.renderLocalImage(item, index)
-              )}
-            </ul>
-          )}
+          <ul
+            id={`${this.sortableId}`}
+            className={`${options.type}-list upload-local-${options.type}-list`}
+          >
+            {localFiles.map((item, index) => {
+              return options.type === 'voice'
+                ? this.renderLocalVoice(item, index)
+                : this.renderLocalImage(item, index);
+            })}
+          </ul>
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
               +
@@ -179,10 +168,7 @@ class UploadPopup extends Component {
 
   handleMove = (fromIndex, toIndex) => {
     let { localFiles } = this.state;
-    const result = Array.from(localFiles);
-    const [removed] = result.splice(fromIndex, 1);
-    result.splice(toIndex, 0, removed);
-    this.setState({ localFiles: result });
+    this.setState({ localFiles: swapArray(localFiles, fromIndex, toIndex) });
   };
 
   handleDelete = index => {
