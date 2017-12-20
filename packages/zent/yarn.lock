@@ -239,7 +239,7 @@ setimmediate@^1.0.5:
 
 sortablejs@^1.7.0:
   version "1.7.0"
-  resolved "http://registry.npm.qima-inc.com/sortablejs/download/sortablejs-1.7.0.tgz#80a2b2370abd568e1cec8c271131ef30a904fa28"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.7.0.tgz#80a2b2370abd568e1cec8c271131ef30a904fa28"
 
 symbol-observable@^1.0.3:
   version "1.0.4"
