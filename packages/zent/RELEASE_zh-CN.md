@@ -2,6 +2,45 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 3.11.0 (2017-12-20)
+
+- 🎉 新组件季度选择器 `SeasonPicker`
+- ✨ `Select` 支持选中后清除
+- ✨ `Grid` 支持表头固定的纵向滚动方式
+- ✨ `DatePicker` 交互优化，没有时间的时候不需要按确认按钮
+- ✨ `Upload` 支持已选图片拖拽排序
+- ✨ `Input` 的 `textarea` 模式支持文字计数
+- ✨ `Input` 的 `textarea` 模式支持根据高度自动撑高
+- ✨ `BlockHeader` 修改弹层位置
+- `Design`
+  - ✨ 新增图片广告示例组件
+  - ✨ 新增富文本示例组件
+  - ✨ 支持在 preview 底部显示额外的信息
+- ✨ `Popover` 和 `Pop` 新增 `onPositionUpdated` 回调函数
+- `Form`
+  - ✨ 修改 `required` 校验规则，`null` 也认为是错误
+  - ✨ 支持禁止表单内部输入框回车提交表单的行为
+  - 🦀️ 修复 `validationOnChange` 为 `false` 时部分情况下组件重新渲染的问题
+  - 🦀️ 修复自动滚动到第一个错误处无法处理 Functional Component 的问题
+- `Swiper`
+  - 🦀️ 修复只有一个图片时的问题
+  - 🦀️ 修复快速连续点击上一张/下一张的动画问题
+- 🦀️ `Loading` 修复图标不居中的问题
+- 🦀️ 滚动函数支持运行在 `node.js` 环境
+- 🦀️ `Table` 修复使用 `batchcomponents` 时报错的问题
+- 📚 `InfiniteScroller` 修复文档错误
+- 📚 `Button` 修复示例
+
+### 3.10.7 (2017-12-07)
+
+- ✨ `Menu` 支持传入额外的自定义样式
+- 🦀️ `Upload` 修复单文件上传的问题
+
+### 3.10.6 (2017-12-06)
+
+- ✨ `Form` 组件支持表单报错事滚动到第一个错误处
+- 🦀️ `Upload` 增加文件过滤支持
+
 ### 3.10.5 (2017-12-05)
 
 - 🦀️ 回滚 `Design` 的预览宽度为 `320px`

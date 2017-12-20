@@ -39,10 +39,6 @@ export default class BlockHeader extends Component {
             <h3>{title}</h3>
           </div>
         )}
-        <div className={`${prefix}-block-header__content`}>
-          {content && content}
-          {children && children}
-        </div>
         <div className={`${prefix}-block-header__pop`}>
           {tooltip && (
             <Pop
@@ -57,6 +53,10 @@ export default class BlockHeader extends Component {
               <Icon type="help-circle" />
             </Pop>
           )}
+        </div>
+        <div className={`${prefix}-block-header__content`}>
+          {content && content}
+          {children && children}
         </div>
       </div>
     );

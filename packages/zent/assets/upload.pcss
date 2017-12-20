@@ -53,6 +53,8 @@
 .zent-upload-container {
   width: 760px;
   height: 480px;
+  display: flex;
+  flex-direction: column;
 }
 
 .zent-upload-network-image-region,
@@ -69,11 +71,9 @@
 
   .zent-upload-content {
     background-color: $theme-stroke-10;
-    float: left;
     position: relative;
     zoom: 1;
-    width: 660px;
-    margin-left: 10px;
+    margin-left: 80px;
   }
 }
 
@@ -110,10 +110,12 @@
 }
 
 .zent-upload-local-attachment-region {
+  height: 100%;
+
   .zent-upload-content {
-    height: 296px;
     overflow: auto;
     margin-top: -10px;
+    height: 100%;
   }
 
   .zent-upload-local-tips {

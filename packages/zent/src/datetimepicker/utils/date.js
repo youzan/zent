@@ -28,3 +28,35 @@ export function setTime(date, time = '00:00:00') {
   ];
   return new Date(...dateTimeArr);
 }
+
+export function getSeasonFromDate(date) {
+  const month = date.getMonth();
+
+  let season;
+  switch (month) {
+    case 0:
+    case 1:
+    case 2:
+      season = 0;
+      break;
+    case 3:
+    case 4:
+    case 5:
+      season = 1;
+      break;
+    case 6:
+    case 7:
+    case 8:
+      season = 2;
+      break;
+    case 9:
+    case 10:
+    case 11:
+      season = 3;
+      break;
+    default:
+      break;
+  }
+
+  return season;
+}

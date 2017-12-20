@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 zh-CN:
 	title: 主动调用foucs和select方法,
 	val: 测试内容

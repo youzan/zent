@@ -1,7 +1,12 @@
 import makeDateStr from 'zan-utils/date/makeDateStr';
 import makeDateTimeStr from 'zan-utils/date/makeDateTimeStr';
 import * as Ut from 'datetimepicker/utils';
-import { dayStart, dayEnd, setTime } from 'datetimepicker/utils/date';
+import {
+  dayStart,
+  dayEnd,
+  setTime,
+  getSeasonFromDate
+} from 'datetimepicker/utils/date';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
@@ -113,6 +118,7 @@ describe('dayEnd', () => {
 describe('setTime', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
   const TIME = '09:11:48';
+  const TIMEDATE = new Date(2018, 1, 1, 1, 1, 1);
   it('default set time to 00:00:00 if user does not pass time', () => {
     const ret = setTime(DAY);
     expect(ret.getHours()).toBe(0);
@@ -125,5 +131,34 @@ describe('setTime', () => {
     expect(ret.getHours()).toBe(9);
     expect(ret.getMinutes()).toBe(11);
     expect(ret.getSeconds()).toBe(48);
+  });
+
+  it('support setTime with date instance', () => {
+    const ret = setTime(DAY, TIMEDATE);
+    expect(ret.getHours()).toBe(1);
+    expect(ret.getMinutes()).toBe(1);
+    expect(ret.getSeconds()).toBe(1);
+  });
+});
+
+describe('getSeasonFromDate', () => {
+  let day;
+  let season;
+  it('should return right season', () => {
+    day = new Date(2018, 1, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(0);
+
+    day = new Date(2018, 4, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(1);
+
+    day = new Date(2018, 7, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(2);
+
+    day = new Date(2018, 10, 1);
+    season = getSeasonFromDate(day);
+    expect(season).toBe(3);
   });
 });

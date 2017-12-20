@@ -8,7 +8,7 @@ export default function uploadLocalImage(options, uploadConfig) {
       return reject('onUpload is not a function');
     }
 
-    onUpload(uploadConfig.localFiles || []);
+    onUpload(uploadConfig.localFiles || [], uploadConfig);
     resolve();
   });
 }

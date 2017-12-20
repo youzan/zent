@@ -28,8 +28,12 @@ group: 展示
 | prefix             | 自定义前缀                     | string              | `'zent'`				  |																			          |
 
 ### loadMore
+
 当异步加载时，期望传入的loadMore函数的返回值是一个promise对象，用于组件控制loading的显示，否则需要使用loadMore的回调函数手动停止loading。
 
+### useWindow
+
+默认为true，作用于全屏的滚动加载，如果需要限定为某一个区域内的滚动加载，则将此参数置为false
 
 <style>
 .infinite-scroller-demo {

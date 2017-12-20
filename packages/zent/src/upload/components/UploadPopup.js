@@ -3,15 +3,13 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Button from 'button';
 import Input from 'input';
 import Notify from 'notify';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContextProvider } from 'react-dnd';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
+import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
 
 const BUTTON_LOADING_TEXT = '提取中...';
@@ -72,11 +70,8 @@ class UploadPopup extends Component {
     return (
       <UploadImageItem
         key={index}
-        data={item}
+        {...item}
         index={index}
-        isDragable
-        isInline
-        onMove={this.handleMove}
         onDelete={this.handleDelete}
       />
     );
@@ -104,41 +99,28 @@ class UploadPopup extends Component {
     );
   }
 
-  listWrapper = node => {
-    return this.context.dragDropManager ? (
-      node
-    ) : (
-      <DragDropContextProvider backend={HTML5Backend}>
-        {node}
-      </DragDropContextProvider>
-    );
-  };
-
   /**
    * 本地上传图片、语音
    */
   renderLocalUploadRegion(props) {
     let { prefix, accept, options } = props;
     let { localFiles } = this.state;
-
     return (
       <div className={`${prefix}-local-attachment-region`}>
         <div className={`${prefix}-title`}>
           本地{options.type === 'voice' ? '语音' : '图片'}：
         </div>
         <div className={`${prefix}-content`}>
-          {this.listWrapper(
-            <ul
-              className={`${options.type}-list upload-local-${options.type}-list`}
-            >
-              {localFiles.map(
-                (item, index) =>
-                  options.type === 'voice'
-                    ? this.renderLocalVoice(item, index)
-                    : this.renderLocalImage(item, index)
-              )}
-            </ul>
-          )}
+          <ul
+            ref={this.onListRefChange}
+            className={`${options.type}-list upload-local-${options.type}-list`}
+          >
+            {localFiles.map((item, index) => {
+              return options.type === 'voice'
+                ? this.renderLocalVoice(item, index)
+                : this.renderLocalImage(item, index);
+            })}
+          </ul>
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
               +
@@ -151,11 +133,11 @@ class UploadPopup extends Component {
           ) : (
             ''
           )}
-        </div>
-        <div className={`${prefix}-local-tips c-gray`}>
-          仅支持{`${accept
-            .replace(/image\/?|audio\/?/g, '')
-            .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
+          <div className={`${prefix}-local-tips c-gray`}>
+            仅支持{`${accept
+              .replace(/image\/?|audio\/?/g, '')
+              .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
+          </div>
         </div>
       </div>
     );
@@ -180,10 +162,7 @@ class UploadPopup extends Component {
 
   handleMove = (fromIndex, toIndex) => {
     let { localFiles } = this.state;
-    const result = Array.from(localFiles);
-    const [removed] = result.splice(fromIndex, 1);
-    result.splice(toIndex, 0, removed);
-    this.setState({ localFiles: result });
+    this.setState({ localFiles: swapArray(localFiles, fromIndex, toIndex) });
   };
 
   handleDelete = index => {
@@ -206,7 +185,6 @@ class UploadPopup extends Component {
     })
       .then(() => {
         this.setState({
-          localFiles: [],
           localUploading: false
         });
         showUploadPopup(false);
@@ -238,7 +216,7 @@ class UploadPopup extends Component {
     this.networkUrl = evt.target.value;
   }
 
-  fileProgressHandler(index, progress) {
+  fileProgressHandler(progress, index) {
     let { localFiles } = this.state;
     localFiles[index].progress = progress;
     this.setState(localFiles);
@@ -280,8 +258,12 @@ class UploadPopup extends Component {
     );
   }
 
-  static contextTypes = {
-    dragDropManager: PropTypes.object
+  onListRefChange = list => {
+    if (list) {
+      this.sortable = initSortable(list, this.handleMove);
+    } else {
+      this.sortable && this.sortable.destroy();
+    }
   };
 }
 

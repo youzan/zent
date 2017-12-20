@@ -38,6 +38,14 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 
 _except for the attributes above, input widget supports all attributes that React support for input_
 
+#### textarea
+
+| 参数           | 说明              | 类型            | 默认值      | 备选值                     | 是否必填 |
+| ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
+| maxLength    | max length of the value       | number        |      |                         | No    |
+| showCount    | show count of the value      | bool        | false     |                         |  No    |
+| autoSize       | auto size         | bool        | false  |                         | No   |
+
 #### focus
 
 `focus(): void`
