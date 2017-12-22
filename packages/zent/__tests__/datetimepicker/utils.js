@@ -5,7 +5,7 @@ import {
   dayStart,
   dayEnd,
   setTime,
-  getSeasonFromDate
+  getQuaterFromDate
 } from 'datetimepicker/utils/date';
 
 /**
@@ -141,24 +141,24 @@ describe('setTime', () => {
   });
 });
 
-describe('getSeasonFromDate', () => {
+describe('getQuaterFromDate', () => {
   let day;
-  let season;
-  it('should return right season', () => {
+  let quater;
+  it('should return right quater', () => {
     day = new Date(2018, 1, 1);
-    season = getSeasonFromDate(day);
-    expect(season).toBe(0);
+    quater = getQuaterFromDate(day);
+    expect(quater).toBe(0);
 
     day = new Date(2018, 4, 1);
-    season = getSeasonFromDate(day);
-    expect(season).toBe(1);
+    quater = getQuaterFromDate(day);
+    expect(quater).toBe(1);
 
     day = new Date(2018, 7, 1);
-    season = getSeasonFromDate(day);
-    expect(season).toBe(2);
+    quater = getQuaterFromDate(day);
+    expect(quater).toBe(2);
 
     day = new Date(2018, 10, 1);
-    season = getSeasonFromDate(day);
-    expect(season).toBe(3);
+    quater = getQuaterFromDate(day);
+    expect(quater).toBe(3);
   });
 });

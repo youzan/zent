@@ -30,7 +30,8 @@ export default class I18nReciever extends (PureComponent || Component) {
     const i18n = (zentI18n && zentI18n[componentName]) || {};
     return {
       ...(typeof defaultI18n === 'function' ? defaultI18n() : defaultI18n),
-      ...(typeof i18n === 'function' ? i18n() : i18n)
+      ...(typeof i18n === 'function' ? i18n() : i18n),
+      mark: (zentI18n && zentI18n.mark) || 'zh-CN' // i18n标记
     };
   }
 

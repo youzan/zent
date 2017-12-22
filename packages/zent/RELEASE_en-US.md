@@ -4,11 +4,11 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 3.11.0 (2017-12-20)
 
-- 🎉 New component `SeasonPicker`
+- 🎉 New component `QuaterPicker`
 - ✨ `Select` can have a reset option
 - ✨ Support vertical scroll with fixed header in `Grid`
 - ✨ No more confirm in `DatePicker` when used without time selection
-- ✨ Support image drag-and-drag in `Upload` 
+- ✨ Support image drag-and-drag in `Upload`
 - ✨ Support autoresize for `textarea`
 - ✨ Support character count in `textarea`
 - ✨ Update pop position in `BlockHeader`
@@ -28,13 +28,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Fix image not centered in `Loading`
 - 🦀️ Allow `scroll` function to run in `node.js`
 - 🦀️ Fix bug when using `batchcomponents` in `Form`
-- 📚 Fix `InfiniteScroller` documentation 
+- 📚 Fix `InfiniteScroller` documentation
 - 📚 Fix `Button` demo
 
 ### 3.10.7 (2017-12-07)
 
 - ✨ Allow custom styles to be applied in `Menu`
-- 🦀️ Fix single file uploading in `Upload` 
+- 🦀️ Fix single file uploading in `Upload`
 
 ### 3.10.6 (2017-12-06)
 
