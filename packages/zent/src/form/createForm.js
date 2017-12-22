@@ -312,9 +312,9 @@ const createForm = (config = {}) => {
               values[currentKey] = [];
             }
             if (keyPath.length > 1) {
-              index > values[currentKey].length - 1
-                ? (values[currentKey][index] = {})
-                : null;
+              if (!values[currentKey][index]) {
+                values[currentKey][index] = {};
+              }
               assignValue(
                 values[currentKey][index],
                 keyPath.slice(1),

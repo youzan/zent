@@ -39,7 +39,7 @@ en-US:
 ---
 
 ```jsx
-import { Form, Icon, Pop } from 'zent';
+import { Form, Icon, Pop, Notify } from 'zent';
 const { Field, FormInputField, FormRadioGroupField, createForm, FormSection, FieldArray } = Form;
 
 class Hobbies extends React.Component {
@@ -48,9 +48,9 @@ class Hobbies extends React.Component {
 		return (
 			<ul>
 				<Button onClick={() => fields.push()} className="add-btn">{i18n.addHobby}</Button>
-				{fields.map((hobby, index) => {
+				{fields.map((hobby, key, index, value, fieldValues) => {
 					return (
-						<li key={`hobby${index}`}>
+						<li key={`hobby${key}`}>
 							<div className="hobby-title">
 								<span>{i18n.hobby}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delHobby}">
@@ -78,9 +78,9 @@ class Members extends React.Component {
 		return (
 			<ul>
 				<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>
-				{fields.map((member, index) => {
+				{fields.map((member, key, index, value, fieldValues) => {
 					return (
-						<li key={`member${index}`}>
+						<li key={`member${key}`}>
 							<div className="member-title">
 								<span>{i18n.member}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delMember}">
@@ -123,7 +123,7 @@ class Members extends React.Component {
 
 class FieldForm extends React.Component {
 	submit = (values, zenForm) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	}
 
 	render() {

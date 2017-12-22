@@ -19,13 +19,13 @@ en-US:
 ---
 
 ```jsx
-import { Form } from 'zent';
+import { Form, Notify } from 'zent';
 
 const { Field, FormInputField, createForm } = Form;
 
 class FormattedForm extends React.Component {
 	submit = (values) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	}
 
 	render() {

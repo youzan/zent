@@ -47,7 +47,7 @@ en-US:
 ---
 
 ```jsx
-import { Form } from 'zent';
+import { Form, Notify } from 'zent';
 const { Field, FormSection, FormInputField, createForm } = Form;
 
 class Address extends React.Component {
@@ -113,7 +113,7 @@ class Party extends React.Component {
 
 class FieldsetForm extends React.Component {
 	submit = (values, zenForm) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	}
 
 	setError = () => {
