@@ -88,6 +88,7 @@ const readyToShow = (text, duration, status, callback) => {
 
   ReactDOM.render(React.createElement(NotifyContent, props), container);
   const containerId = createContainerId();
+
   const timeOutId = setTimeout(() => {
     ReactDOM.render(
       <NotifyContent
@@ -101,6 +102,7 @@ const readyToShow = (text, duration, status, callback) => {
   }, props.duration || durationDefault);
 
   containerList[containerId] = { container, callback, timeOutId };
+  return containerId;
 };
 
 export function success(text, duration, callback) {
