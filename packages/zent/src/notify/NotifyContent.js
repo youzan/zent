@@ -16,10 +16,14 @@ export default class NotifyContent extends (PureComponent || Component) {
   };
 
   render() {
-    const { visible, text, status } = this.props;
+    const { visible, text, status, selector } = this.props;
 
     return (
-      <Portal visible={visible} className="zent-image-p-anchor">
+      <Portal
+        visible={visible}
+        className="zent-image-p-anchor"
+        selector={selector}
+      >
         <div className={`zent-notify zent-notify-${status}`}>{text}</div>
       </Portal>
     );

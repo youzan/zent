@@ -1,17 +1,23 @@
 @import './theme/default.pcss';
 
-.zent-notify {
+.zent-notify-container {
   position: fixed;
   top: 80px;
   left: 25%;
   right: 25%;
+}
+
+.zent-notify {
   line-height: 40px;
   font-size: 14px;
   color: $theme-stroke-10;
   text-align: center;
   border-radius: 2px;
+  box-sizing: border-box;
   z-index: 10000;
   min-height: 40px;
+  min-width: 400px;
+  margin-bottom: 10px;
 
   &.zent-notify-success {
     border: 1px solid $theme-success-1;
