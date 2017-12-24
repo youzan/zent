@@ -20,6 +20,9 @@ describe('Notify component', () => {
     Notify.error('test error', 1000);
     jest.runAllTimers();
     expect(document.querySelectorAll('.zent-notify-out').length).toBe(1);
+    setTimeout(() => {
+      expect(document.querySelectorAll('.zent-notify').length).toBe(0);
+    }, 300);
   });
 
   it('test duration', () => {
