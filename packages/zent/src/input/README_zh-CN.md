@@ -30,7 +30,10 @@ group: 数据
 | placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
 | addonBefore  | 前置标签            | node          |          |                         | 否    |
 | addonAfter   | 后置标签            | node          |          |                         | 否    |
-| autoFocus    | 自动focus          | bool          |          |                         | 否    |
+| autoFocus    | 自动focus          | bool          |  `false` |                     | 否    |
+| autoSelect   | 自动select         | bol           |  `false` |                     | 否    |
+| initSelectionStart | 初始被选中的第一个字符的位置 | number |          |                | 否     |
+| initSelectionEnd | 初始被选中的最后一个字符的下一个位置。 | number |          |         | 否     |
 | onChange     | change事件        | func(e:Event) |          |                         | 否    |
 | onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
 
@@ -38,9 +41,18 @@ _除了以上属性外，所有react支持的input属性，Input组件都支持_
 
 #### focus
 
-`focus(): function`
+`focus(): void`
 
 手动聚焦到输入框
+
+### select
+`select(): void`
+
+选中输入框内所有内容
+
+`select(selectionStart?: number, selectionEnd?: number): void`
+
+选中区间范围在[selectionStart, selectionEnd]里的内容
 
 <style>
 .zent-input-wrapper {
