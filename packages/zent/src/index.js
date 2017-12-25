@@ -49,6 +49,8 @@ import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
 import YearPicker from 'datetimepicker/YearPicker';
 
+const QuarterPicker = SeasonPicker;
+
 export {
   Affix,
   Alert,
@@ -86,6 +88,7 @@ export {
   Radio,
   SearchInput,
   SeasonPicker,
+  QuarterPicker,
   Select,
   SKU,
   Slider,
