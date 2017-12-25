@@ -111,6 +111,15 @@ export default class SketchFileds extends (PureComponent || Component) {
     }
   };
 
+  componentWillReceiveProps(nextProps) {
+    const nextHexColor = nextProps.hex.replace('#', '');
+    if (this.state.hexColor !== nextHexColor) {
+      this.setState({
+        hexColor: nextHexColor
+      });
+    }
+  }
+
   render() {
     const { prefix, rgb } = this.props;
     const { hexColor } = this.state;
