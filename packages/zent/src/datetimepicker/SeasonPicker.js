@@ -73,7 +73,7 @@ function extractStateFromProps(props) {
 }
 
 class SeasonPicker extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     ...commonPropTypes
   };
 
