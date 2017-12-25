@@ -3,14 +3,22 @@ import omit from 'lodash/omit';
 import cx from 'classnames';
 
 export default class Textarea extends (PureComponent || Component) {
-  state = {};
+  state = {
+    textareaStyle: {}
+  };
 
   onChange = e => {
     const { autoSize, onChange } = this.props.inputProps;
+    const { scrollHeight, offsetHeight } = this.textarea;
     if (autoSize) {
-      const { scrollHeight } = this.textarea;
+      if (this.originalHeight === undefined) {
+        this.originalHeight = offsetHeight;
+      }
       this.setState({
-        height: scrollHeight
+        textareaStyle: {
+          height: scrollHeight,
+          minHeight: this.originalHeight
+        }
       });
     }
     onChange && onChange(e);
@@ -25,7 +33,7 @@ export default class Textarea extends (PureComponent || Component) {
       inputRef
     } = this.props;
     let { inputProps } = this.props;
-    const { height } = this.state;
+    const { textareaStyle } = this.state;
     const { showCount, value = '', maxLength } = inputProps;
     inputProps = omit(inputProps, [
       'type',
@@ -35,9 +43,6 @@ export default class Textarea extends (PureComponent || Component) {
     ]);
     let currentCount = value.length;
     currentCount = currentCount > maxLength ? maxLength : currentCount;
-    const textareaStyle = {};
-
-    height && (textareaStyle.height = height);
 
     return (
       <div className={wrapClass} style={widthStyle}>
