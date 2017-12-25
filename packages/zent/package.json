@@ -12,7 +12,7 @@
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
     "theme": "rm -rf css && node ./scripts/build-theme.js",
-    "new-component": "node ./scripts/new-component.js && node ./scripts/update-jest-module-mapper.js"
+    "new-component": "node ./scripts/new-component.js"
   },
   "typings": "typings/index.d.ts",
   "author": "Youzan FE",
