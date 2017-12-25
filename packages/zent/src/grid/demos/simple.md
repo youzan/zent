@@ -1,7 +1,7 @@
 ---
 order: 1
 zh-CN:
-	title: Simple
+	title: 基础用法
 	product: 商品
 	productName: 商品名
 	uv: 访问量

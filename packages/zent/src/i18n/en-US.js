@@ -54,6 +54,22 @@ export const Switch = {
   unchecked: 'Off'
 };
 
+export const Grid = {
+  ...common,
+  emptyLabel: 'No data'
+};
+
+export const Table = {
+  ...common,
+  emptyLabel: 'No data'
+};
+
+export const Cascader = {
+  ...common,
+  title: 'Title',
+  placeholder: 'Please choose'
+};
+
 export const TimePicker = () => {
   setLocale(enUS);
   return {

@@ -54,6 +54,22 @@ export const Sweetalert = {
   title: '提示'
 };
 
+export const Grid = {
+  ...common,
+  emptyLabel: '没有更多数据了'
+};
+
+export const Table = {
+  ...common,
+  emptyLabel: '没有更多数据了'
+};
+
+export const Cascader = {
+  ...common,
+  title: '标题',
+  placeholder: '请选择'
+};
+
 export const TimePicker = () => {
   setLocale(zhCN);
 

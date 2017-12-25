@@ -10,8 +10,8 @@ en-US:
 	title: Basic Usage
 	today: Today
 	yesterday: Yesterday
-	seven: Nearly 7 days
-	thirty: Nearly 30 days
+	seven: 7 days
+	thirty: 30 days
 ---
 
 ```js
