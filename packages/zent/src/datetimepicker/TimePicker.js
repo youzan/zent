@@ -8,7 +8,7 @@ import { formatDate } from './utils';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
 import clickOutside from './utils/clickOutside';
-import { TIME_PROPS } from './constants/';
+import { TIME_PROPS } from './constants';
 
 class TimePicker extends (PureComponent || Component) {
   static defaultProps = TIME_PROPS;

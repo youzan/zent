@@ -18,7 +18,7 @@ import {
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants/';
+} from './constants';
 
 function getSelectedWeek(val, start = 1) {
   const offset = val.getDay();

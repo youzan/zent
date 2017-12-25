@@ -16,7 +16,7 @@ import {
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants/';
+} from './constants';
 
 const quaterMonthMap = {
   0: 0,

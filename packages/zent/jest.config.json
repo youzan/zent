@@ -30,7 +30,8 @@
     "<rootDir>/src/colorpicker/common/ColorWrap.js",
     "<rootDir>/src/colorpicker/helpers/checkboard.js",
     "<rootDir>/src/utils/scroll.js",
-    "<rootDir>/src/utils/getWidth.js"
+    "<rootDir>/src/utils/getWidth.js",
+    "<rootDir>/src/i18n"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",

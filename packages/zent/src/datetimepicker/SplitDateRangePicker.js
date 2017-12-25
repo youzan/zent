@@ -6,7 +6,7 @@ import isString from 'lodash/isString';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { commonProps, commonPropTypes } from './constants/';
+import { commonProps, commonPropTypes } from './constants';
 import DatePicker from './DatePicker';
 
 // type
