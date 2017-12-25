@@ -53,7 +53,7 @@ function extractStateFromProps(props) {
 }
 
 class YearPicker extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     ...commonPropTypes
   };
 

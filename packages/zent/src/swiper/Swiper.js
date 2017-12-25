@@ -18,7 +18,7 @@ function setStyle(target, styles) {
 }
 
 export default class Swiper extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
     transitionDuration: PropTypes.number,

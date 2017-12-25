@@ -9,7 +9,7 @@ const ROW = 4;
 const COL = 3;
 
 export default class YearPanelBody extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     actived: PropTypes.instanceOf(Date),
     onSelect: PropTypes.func
   };

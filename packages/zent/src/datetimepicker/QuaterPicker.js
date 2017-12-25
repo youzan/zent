@@ -76,7 +76,7 @@ function extractStateFromProps(props) {
 }
 
 class QuaterPicker extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     ...commonPropTypes
   };
 

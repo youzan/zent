@@ -100,7 +100,7 @@ const extractStateFromProps = props => {
 };
 
 class CombineDateRangePicker extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
     placeholder: PropTypes.array,

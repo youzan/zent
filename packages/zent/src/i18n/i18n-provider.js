@@ -6,7 +6,7 @@ import * as defaultI18n from './default';
 const { Component, PureComponent, Children } = React;
 
 export default class I18nProvider extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     i18n: PropTypes.object
   };
 
