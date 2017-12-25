@@ -1,7 +1,5 @@
-import * as React from 'react';
+import { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
-const { Component, PureComponent } = React;
 
 export default class I18nReciever extends (PureComponent || Component) {
   static propTypes = {

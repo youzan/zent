@@ -6,19 +6,11 @@ import Input from 'input';
 import ColorPicker from 'colorpicker';
 
 import { DesignEditor, ControlGroup } from '../../editor/DesignEditor';
-
-const DEFAULT_BACKGROUND = '#f9f9f9';
+import { DEFAULT_BACKGROUND } from '../../preview/constants';
 
 export default class ConfigEditor extends DesignEditor {
-  constructor(props) {
-    super(props);
-
-    const { design } = this.props;
-    design.injections.getPreviewProps(this.getPreviewProps);
-  }
-
   render() {
-    const { value, prefix, showError, validation } = this.props;
+    const { value, settings, prefix, showError, validation } = this.props;
 
     return (
       <div className={`${prefix}-design-component-config-editor`}>
@@ -62,7 +54,7 @@ export default class ConfigEditor extends DesignEditor {
             className={`${prefix}-design-component-config-editor__background-control`}
           >
             <ColorPicker
-              color={getBackground(value)}
+              color={getBackground(value, settings)}
               onChange={this.onBackgroundChange}
             />
             <Button onClick={this.resetBackground}>重置</Button>
@@ -80,23 +72,17 @@ export default class ConfigEditor extends DesignEditor {
   onColorChange = this.onCustomInputChange('color');
 
   onBackgroundChange = color => {
-    // 因为外层会在组件刷新前调用getPreviewBgColor方法，所以缓存起来
-    this.cachedBackground = color;
+    // 修改 Config 组件的值
     this.onColorChange(color);
+
+    // 修改 settings
+    this.props.onSettingsChange({
+      previewBackground: color
+    });
   };
 
   resetBackground = () => {
     this.onBackgroundChange(DEFAULT_BACKGROUND);
-  };
-
-  getPreviewProps = () => {
-    const { value } = this.props;
-    const bg = this.cachedBackground || getBackground(value);
-    this.cachedBackground = undefined;
-
-    return {
-      background: bg
-    };
   };
 
   filterTag = (item, keyword) => item.text.indexOf(keyword) > -1;
@@ -110,7 +96,7 @@ export default class ConfigEditor extends DesignEditor {
       title: '微页面标题',
 
       //  背景颜色
-      color: DEFAULT_BACKGROUND,
+      color: '',
 
       // 页面描述
       description: ''
@@ -132,6 +118,8 @@ export default class ConfigEditor extends DesignEditor {
   }
 }
 
-function getBackground(value) {
-  return (value && value.color) || DEFAULT_BACKGROUND;
+function getBackground(value, settings) {
+  return (
+    (value && value.color) || settings.previewBackground || DEFAULT_BACKGROUND
+  );
 }
