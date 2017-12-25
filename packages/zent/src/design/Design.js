@@ -623,9 +623,6 @@ export default class Design extends (PureComponent || Component) {
     this.trackValueChange(newValue);
   };
 
-  // Injections can be overwritten
-  // getPreviewProps() {}
-
   setValidation = validation => {
     this.setState({
       validations: assign({}, this.state.validations, validation)
