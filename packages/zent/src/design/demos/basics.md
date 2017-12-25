@@ -102,12 +102,21 @@ class Simple extends Component {
         type: configConf.type,
         ...ConfigEditor.getInitialValue()
       }
-    ]
+    ],
+    settings: {
+      // previewBackground: 'red'
+    }
   };
 
   onChange = newValue => {
     this.setState({
       value: newValue
+    });
+  };
+  
+  onSettingsChange = newSettings => {
+    this.setState({
+      settings: newSettings
     });
   };
 
@@ -132,6 +141,8 @@ class Simple extends Component {
           components={grouped ? groupedComponents : components}
           value={this.state.value}
           onChange={this.onChange}
+          settings={this.state.settings}
+          onSettingsChange={this.onSettingsChange}
           scrollTopOffset={-270}
           globalConfig={window._global}
         />

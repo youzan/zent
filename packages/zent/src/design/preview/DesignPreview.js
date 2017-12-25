@@ -5,6 +5,7 @@ import find from 'lodash/find';
 import some from 'lodash/some';
 import defaultTo from 'lodash/defaultTo';
 import isFunction from 'lodash/isFunction';
+import get from 'lodash/get';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import DesignPreviewItem from './DesignPreviewItem';
@@ -13,7 +14,7 @@ import DesignEditorItem from '../editor/DesignEditorItem';
 import DesignEditorAddComponent from '../editor/DesignEditorAddComponent';
 import { isExpectedDesginType } from '../utils/design-type';
 import { isGrouped } from '../utils/component-group';
-import { DND_PREVIEW_CONTROLLER } from './constants';
+import { DND_PREVIEW_CONTROLLER, DEFAULT_BACKGROUND } from './constants';
 import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
 
 /**
@@ -33,6 +34,10 @@ class DesignPreview extends (PureComponent || Component) {
     components: PropTypes.array.isRequired,
 
     value: PropTypes.array.isRequired,
+
+    settings: PropTypes.object,
+
+    onSettingsChange: PropTypes.func,
 
     footer: PropTypes.node,
 
@@ -86,6 +91,8 @@ class DesignPreview extends (PureComponent || Component) {
       value,
       validations,
       showError,
+      settings,
+      onSettingsChange,
       onComponentValueChange,
       componentInstanceCount,
       design,
@@ -104,7 +111,6 @@ class DesignPreview extends (PureComponent || Component) {
       prefix,
       globalConfig,
       disabled,
-      background,
       footer
     } = this.props;
     const isComponentsGrouped = isGrouped(appendableComponents);
@@ -113,7 +119,12 @@ class DesignPreview extends (PureComponent || Component) {
 
     return (
       <DragDropContext onDragEnd={this.dispatchDragEnd}>
-        <div className={cls} style={{ background }}>
+        <div
+          className={cls}
+          style={{
+            background: get(settings, 'previewBackground', DEFAULT_BACKGROUND)
+          }}
+        >
           {disabled && <div className={`${prefix}-design__disabled-mask`} />}
 
           <Droppable
@@ -151,6 +162,7 @@ class DesignPreview extends (PureComponent || Component) {
                         prefix={prefix}
                         value={v}
                         globalConfig={globalConfig}
+                        settings={settings}
                         design={design}
                         id={id}
                         allowHoverEffects={!snapshot.isDraggingOver}
@@ -185,6 +197,8 @@ class DesignPreview extends (PureComponent || Component) {
                               ref={this.saveEditor(id)}
                               value={v}
                               onChange={onComponentValueChange(v)}
+                              settings={settings}
+                              onSettingsChange={onSettingsChange}
                               globalConfig={globalConfig}
                               design={design}
                               validation={validations[id] || {}}
