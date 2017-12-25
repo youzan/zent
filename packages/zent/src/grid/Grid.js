@@ -355,6 +355,7 @@ class Grid extends (PureComponent || Component) {
             style={{ maxHeight: y, overflowY: 'scroll' }}
             ref={ref => {
               this[`${fixed || 'scroll'}Body`] = ref;
+              if (!fixed) this.bodyTable = ref;
             }}
             onScroll={this.handleBodyScroll}
           >
