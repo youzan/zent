@@ -62,7 +62,7 @@ export const TimePicker = () => {
     date: '请选择日期',
     week: '请选择自然周',
     month: '请选择月份',
-    quater: '请选择季度',
+    quarter: '请选择季度',
     year: '请选择年',
     range: '开始日期 至 结束日期',
     rangeError: '请选择起止时间',
@@ -84,7 +84,7 @@ export const TimePicker = () => {
       minuteSelect: '选择分钟',
       secondSelect: '选择秒',
       titleFormat: 'YYYY年MMM',
-      quaterNames: ['第一季度', '第二季度', '第三季度', '第四季度'],
+      quarterNames: ['第一季度', '第二季度', '第三季度', '第四季度'],
       dayNames: ['日', '一', '二', '三', '四', '五', '六'],
       monthNames: [
         '1月',

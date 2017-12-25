@@ -5,7 +5,7 @@ import {
   dayStart,
   dayEnd,
   setTime,
-  getQuaterFromDate
+  getQuarterFromDate
 } from 'datetimepicker/utils/date';
 
 /**
@@ -141,24 +141,24 @@ describe('setTime', () => {
   });
 });
 
-describe('getQuaterFromDate', () => {
+describe('getQuarterFromDate', () => {
   let day;
-  let quater;
-  it('should return right quater', () => {
+  let quarter;
+  it('should return right quarter', () => {
     day = new Date(2018, 1, 1);
-    quater = getQuaterFromDate(day);
-    expect(quater).toBe(0);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(0);
 
     day = new Date(2018, 4, 1);
-    quater = getQuaterFromDate(day);
-    expect(quater).toBe(1);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(1);
 
     day = new Date(2018, 7, 1);
-    quater = getQuaterFromDate(day);
-    expect(quater).toBe(2);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(2);
 
     day = new Date(2018, 10, 1);
-    quater = getQuaterFromDate(day);
-    expect(quater).toBe(3);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(3);
   });
 });

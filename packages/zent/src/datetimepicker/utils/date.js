@@ -29,34 +29,34 @@ export function setTime(date, time = '00:00:00') {
   return new Date(...dateTimeArr);
 }
 
-export function getQuaterFromDate(date) {
+export function getQuarterFromDate(date) {
   const month = date.getMonth();
 
-  let quater;
+  let quarter;
   switch (month) {
     case 0:
     case 1:
     case 2:
-      quater = 0;
+      quarter = 0;
       break;
     case 3:
     case 4:
     case 5:
-      quater = 1;
+      quarter = 1;
       break;
     case 6:
     case 7:
     case 8:
-      quater = 2;
+      quarter = 2;
       break;
     case 9:
     case 10:
     case 11:
-      quater = 3;
+      quarter = 3;
       break;
     default:
       break;
   }
 
-  return quater;
+  return quarter;
 }

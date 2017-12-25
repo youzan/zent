@@ -25,6 +25,7 @@ group: 反馈
 | onConfirm   | 确定操作回调函数                            | func   | `noop`   |                                               |
 | confirmText | 确定按钮文案                              | string | `'我知道了'`   |                                               |
 | confirmType | 确定按钮的类型  | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| parentComponent | 父级组件实例，i18n 需要通过这个传递 context | ReactInstance | | |
 | className   | 额外的className                        | string | `''`     |                                               |
 | prefix      | 默认className的前缀                      | string | `'zent'`|     |
 

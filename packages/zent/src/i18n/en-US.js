@@ -61,7 +61,7 @@ export const TimePicker = () => {
     date: 'Please select a date',
     week: 'Please select a week',
     month: 'Please select a month',
-    quater: 'Please select a quater',
+    quarter: 'Please select a quarter',
     year: 'Please select a year',
     range: 'Please select a range',
     rangeError: 'Please select the starting and ending time',
@@ -83,7 +83,12 @@ export const TimePicker = () => {
       minuteSelect: 'Choose minutes',
       secondSelect: 'Choose seconds',
       titleFormat: 'MMMM YYYY',
-      quaterNames: ['1st Quater', '2nd Quater', '3rd Quater', '4th Quater'],
+      quarterNames: [
+        '1st Quarter',
+        '2nd Quarter',
+        '3rd Quarter',
+        '4th Quarter'
+      ],
       dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
       monthNames: [
         'Jan',

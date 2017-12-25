@@ -8,7 +8,7 @@
 - \[new feature\] 穿梭组件 例子:可配送区域 [\#598](https://github.com/youzan/zent/issues/598)
 - \[new feature\] Select: 选中某一项后支持清除选择 [\#544](https://github.com/youzan/zent/issues/544)
 - \[new feature\] Grid: 添加scroll.y [\#616](https://github.com/youzan/zent/pull/616) ([wulv](https://github.com/wulv))
-- \[new feature\] datetimepicker: 增加 `QuaterPicker` 支持 [\#612](https://github.com/youzan/zent/pull/612) ([xuhong](https://github.com/xuhong))
+- \[new feature\] datetimepicker: 增加 `QuarterPicker` 支持 [\#612](https://github.com/youzan/zent/pull/612) ([xuhong](https://github.com/xuhong))
 - \[new feature\] Design: Add image-ad component [\#608](https://github.com/youzan/zent/pull/608) ([cpylua](https://github.com/cpylua))
 - \[new feature\] 时间选择组件默认不需要 confirm [\#607](https://github.com/youzan/zent/pull/607) ([xuhong](https://github.com/xuhong))
 - \[new fewture\] Upload: 增加上传文件列表拖拽调整顺序 [\#606](https://github.com/youzan/zent/pull/606) ([huangsy](https://github.com/huangsy))

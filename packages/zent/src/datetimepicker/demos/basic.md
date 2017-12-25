@@ -7,17 +7,17 @@ en-US:
 ---
 
 ```jsx
-import { DatePicker, MonthPicker, QuaterPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
+import { DatePicker, MonthPicker, QuarterPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
 
 class Demo extends Component{
   state = {
 
 	};
 
-	onChangeQuater = (val) => {
+	onChangeQuarter = (val) => {
 		console.log(val)
 		this.setState({
-			quaterValue: val
+			quarterValue: val
 		})
 	}
 
@@ -58,7 +58,7 @@ class Demo extends Component{
 	}
 
   render(){
-    const { dateValue, monthValue, rangeValue, weekValue, yearValue, quaterValue } = this.state;
+    const { dateValue, monthValue, rangeValue, weekValue, yearValue, quarterValue } = this.state;
 		const now = new Date();
 
     return (
@@ -105,9 +105,9 @@ class Demo extends Component{
 					onChange={this.onChangeYear}
 				/>
 				<br />
-				<QuaterPicker
-					value={quaterValue}
-					onChange={this.onChangeQuater}
+				<QuarterPicker
+					value={quarterValue}
+					onChange={this.onChangeQuarter}
 				/>
       </div>
     )

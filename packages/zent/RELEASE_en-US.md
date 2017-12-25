@@ -4,7 +4,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 3.11.0 (2017-12-20)
 
-- 🎉 New component `QuaterPicker`
+- 🎉 New component `QuarterPicker`
 - ✨ `Select` can have a reset option
 - ✨ Support vertical scroll with fixed header in `Grid`
 - ✨ No more confirm in `DatePicker` when used without time selection

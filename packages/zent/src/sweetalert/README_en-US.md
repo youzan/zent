@@ -24,6 +24,7 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | onConfirm   | callback of confirm operation | func   | `noop`   |                                               |
 | confirmText | text of confirm button | string | `'OK'`   |                                               |
 | confirmType | type of confirm button | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| parentComponent | Parent component instance，i18n needs this to pass context through | ReactInstance | | |
 | className   | custom classname                       | string | `''`     |                                               |
 | prefix      | custom prefix  | string | `'zent'`|     |
 

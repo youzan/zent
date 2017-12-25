@@ -9,8 +9,8 @@ import getWidth from 'utils/getWidth';
 import { I18nReciever as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import QuaterPanel from './quater/QuaterPanel';
-import { dayStart, dayEnd, getQuaterFromDate } from './utils/date';
+import QuarterPanel from './quarter/QuarterPanel';
+import { dayStart, dayEnd, getQuarterFromDate } from './utils/date';
 import {
   noop,
   popPositionMap,
@@ -18,22 +18,22 @@ import {
   commonPropTypes
 } from './constants';
 
-const quaterMonthMap = {
+const quarterMonthMap = {
   0: 0,
   1: 3,
   2: 6,
   3: 9
 };
 
-function getQuaterLastDay(quater, year) {
-  const quaterLastDayMap = {
+function getQuarterLastDay(quarter, year) {
+  const quarterLastDayMap = {
     0: [2, 31],
     1: [5, 30],
     2: [8, 30],
     3: [11, 31]
   };
 
-  return new Date(year, ...quaterLastDayMap[quater]);
+  return new Date(year, ...quarterLastDayMap[quarter]);
 }
 
 function extractStateFromProps(props) {
@@ -61,13 +61,13 @@ function extractStateFromProps(props) {
       actived = dayStart();
     }
   }
-  let quater;
+  let quarter;
   if (selected) {
-    quater = getQuaterFromDate(selected);
+    quarter = getQuarterFromDate(selected);
   }
 
   return {
-    value: quater,
+    value: quarter,
     actived,
     selected,
     openPanel: false,
@@ -75,7 +75,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class QuaterPicker extends (PureComponent || Component) {
+class QuarterPicker extends (PureComponent || Component) {
   static propTypes = {
     ...commonPropTypes
   };
@@ -96,26 +96,26 @@ class QuaterPicker extends (PureComponent || Component) {
     this.setState(state);
   }
 
-  onChangeQuater = val => {
+  onChangeQuarter = val => {
     this.setState({
       actived: val
     });
   };
 
-  onSelectQuater = quater => {
+  onSelectQuarter = quarter => {
     const { actived } = this.state;
     const { onChange } = this.props;
     const year = actived.getFullYear();
-    const month = quaterMonthMap[quater];
+    const month = quarterMonthMap[quarter];
 
-    if (this.isDisabled(quater)) return;
+    if (this.isDisabled(quarter)) return;
 
     const begin = new Date(year, month, 1);
-    const end = getQuaterLastDay(quater, year);
+    const end = getQuarterLastDay(quarter, year);
     const ret = [dayStart(begin), dayEnd(end)];
 
     this.setState({
-      value: quater,
+      value: quarter,
       selected: begin,
       actived: begin,
       openPanel: false,
@@ -130,13 +130,13 @@ class QuaterPicker extends (PureComponent || Component) {
     this.props.onChange([]);
   };
 
-  isDisabled = quater => {
+  isDisabled = quarter => {
     const { disabledDate } = this.props;
     const { actived } = this.state;
     const year = actived.getFullYear();
-    const month = quaterMonthMap[quater];
+    const month = quarterMonthMap[quarter];
     const begin = new Date(year, month, 1);
-    const end = getQuaterLastDay(quater, year);
+    const end = getQuarterLastDay(quarter, year);
     const ret = [dayStart(begin), dayEnd(end)];
 
     if (disabledDate) return disabledDate(ret);
@@ -146,15 +146,15 @@ class QuaterPicker extends (PureComponent || Component) {
 
   renderPicker(i18n) {
     const { openPanel, actived, selected } = this.state;
-    let quaterPicker;
+    let quarterPicker;
     if (openPanel) {
-      quaterPicker = (
-        <div className="quater-picker" ref={ref => (this.picker = ref)}>
-          <QuaterPanel
+      quarterPicker = (
+        <div className="quarter-picker" ref={ref => (this.picker = ref)}>
+          <QuarterPanel
             actived={actived}
             selected={selected}
-            onChange={this.onChangeQuater}
-            onSelect={this.onSelectQuater}
+            onChange={this.onChangeQuarter}
+            onSelect={this.onSelectQuarter}
             disabledDate={this.isDisabled}
             i18n={i18n}
           />
@@ -162,7 +162,7 @@ class QuaterPicker extends (PureComponent || Component) {
       );
     }
 
-    return quaterPicker;
+    return quarterPicker;
   }
 
   togglePicker = () => {
@@ -205,12 +205,14 @@ class QuaterPicker extends (PureComponent || Component) {
             if (selected) {
               inputVal =
                 i18n.mark === 'zh-CN'
-                  ? `${selected.getFullYear()}年${i18n.panel.quaterNames[value]}`
-                  : `${i18n.panel.quaterNames[
+                  ? `${selected.getFullYear()}年${i18n.panel.quarterNames[
+                      value
+                    ]}`
+                  : `${i18n.panel.quarterNames[
                       value
                     ]} of ${selected.getFullYear()}`;
             }
-            const placeholderText = placeholder || i18n.quater;
+            const placeholderText = placeholder || i18n.quarter;
             return (
               <Popover
                 cushion={5}
@@ -244,4 +246,4 @@ class QuaterPicker extends (PureComponent || Component) {
   }
 }
 
-export default QuaterPicker;
+export default QuarterPicker;

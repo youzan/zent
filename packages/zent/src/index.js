@@ -34,7 +34,7 @@ import previewImage from 'preview-image';
 import Progress from 'progress';
 import Radio from 'radio';
 import SearchInput from 'search-input';
-import QuaterPicker from 'datetimepicker/QuaterPicker';
+import QuarterPicker from 'datetimepicker/QuarterPicker';
 import Select from 'select';
 import SKU from 'sku';
 import Slider from 'slider';
@@ -85,7 +85,7 @@ export {
   Portal,
   previewImage,
   Progress,
-  QuaterPicker,
+  QuarterPicker,
   Radio,
   SearchInput,
   Select,

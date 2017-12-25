@@ -1,10 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import PanelHeader from '../common/PanelHeader';
-import QuaterPanelBody from './QuaterPanelBody';
+import QuarterPanelBody from './QuarterPanelBody';
 import YearPanel from '../year/YearPanel';
 import { goYears } from '../utils/';
 
-export default class QuaterPanel extends (PureComponent || Component) {
+export default class QuarterPanel extends (PureComponent || Component) {
   state = {
     showYear: false
   };
@@ -60,14 +60,14 @@ export default class QuaterPanel extends (PureComponent || Component) {
     }
 
     return (
-      <div className="quater-panel">
+      <div className="quarter-panel">
         <PanelHeader
           title={title}
           onClickTitle={this.showYearPanel}
           prev={this.prevYear}
           next={this.nextYear}
         />
-        <QuaterPanelBody
+        <QuarterPanelBody
           actived={actived}
           selected={selected}
           disabledDate={disabledDate}
