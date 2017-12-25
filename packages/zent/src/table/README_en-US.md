@@ -20,7 +20,7 @@ group: Navigation
 | sortBy     | Field which used to sort, should be one element's key of columns       | string        |             |         | no    |
 | sortType   | Sort order                                       | string        | `'desc'`    | `'asc'` | no    |
 | onChange   | Change callback  | func          |             |         | no    |
-| emptyLabel | Prompt text when list is empty                                | node        | `'没有更多数据了'` |         | no    |
+| emptyLabel | Prompt text when list is empty                                | node        | `'No data'` |         | no    |
 | selection  | Form selection function configuration | object        |             |         | no    |
 | loading    | Loading status of form | bool          | `false`     |         | no    |
 | getRowConf | The configuration function for each line, return a configuration object `{canSelect, rowClass}` | func          |             |         | no    |

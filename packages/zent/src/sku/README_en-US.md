@@ -6,7 +6,7 @@ group: Domain-specific
 
 ## SKU Selector
 
-It is a widget for sku select 
+A widget for SKU selection.
 
 ### Guides
 

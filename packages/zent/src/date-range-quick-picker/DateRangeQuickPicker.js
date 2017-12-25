@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DateRangePicker from 'datetimepicker/DateRangePicker';
 import cx from 'classnames';
 import map from 'lodash/map';
+
+import DateRangePicker from 'datetimepicker/DateRangePicker';
+import { I18nReciever as Reciever } from 'i18n';
+import { RangePicker as I18nDefault } from 'i18n/default';
+
 import * as Helper from './helper';
 
 export default class DateRangeQuickPicker extends Component {
@@ -35,11 +39,9 @@ export default class DateRangeQuickPicker extends Component {
     format: 'YYYY-MM-DD',
     preset: [
       {
-        text: '近7天',
         value: 7
       },
       {
-        text: '近30天',
         value: 30
       }
     ],
@@ -81,19 +83,25 @@ export default class DateRangeQuickPicker extends Component {
           {...pickerProps}
         />
         <div className={`${prefix}-date-range-picker__filter`}>
-          {map(preset, (item, index) => {
-            return (
-              <span
-                key={index}
-                className={cx(`${prefix}-date-range-picker__btn`, {
-                  active: chooseDays === item.value
-                })}
-                onClick={this.handleChooseDays.bind(this, item.value)}
-              >
-                {item.text}
-              </span>
-            );
-          })}
+          {map(preset, (item, index) => (
+            <Reciever
+              key={index}
+              componentName="RangePicker"
+              defaultI18n={I18nDefault}
+            >
+              {i18n => (
+                <span
+                  key={index}
+                  className={cx(`${prefix}-date-range-picker__btn`, {
+                    active: chooseDays === item.value
+                  })}
+                  onClick={this.handleChooseDays.bind(this, item.value)}
+                >
+                  {item.text || i18n[item.value]}
+                </span>
+              )}
+            </Reciever>
+          ))}
         </div>
       </div>
     );

@@ -6,41 +6,42 @@ zh-CN:
 	message2: 我真的取消了
 	content: 这个是内容
 	button: 消息对话框
-	confirm: 确定
-	cancel: 取消
 en-US:
 	title: With Confirm and Cancel Button
 	message1: I know.
 	message2: Canceled.
 	content: This is content.
 	button: Message Dialog
-	confirm: Confirm
-	cancel: Cancel
 ---
 
 ```js
 import { Sweetalert, Button, Notify } from 'zent';
 
-const onConfirm = () => {
-	Notify.success('{i18n.message1}');
-}
+class Wrapper extends React.Component {
+	onConfirm = () => {
+		Notify.success('{i18n.message1}');
+	}
 
-const onCancel = () => {
-	Notify.error('{i18n.message2}');
-}
+	onCancel = () => {
+		Notify.error('{i18n.message2}');
+	}
 
-const showAlertConfirm = () => {
-	Sweetalert.confirm({
-		content: <p>{i18n.content}</p>,
-		onConfirm: onConfirm,
-		onCancel: onCancel,
-		confirmText: '{i18n.confirm}',
-		cancelText: '{i18n.cancel}'
-	});
+	showAlertConfirm = () => {
+		Sweetalert.confirm({
+			content: <p>{i18n.content}</p>,
+			onConfirm: this.onConfirm,
+			onCancel: this.onCancel,
+			parentComponent: this
+		});
+	}
+
+	render() {
+		return <Button onClick={this.showAlertConfirm}>{i18n.button}</Button>;
+	}
 }
 
 ReactDOM.render(
-	<Button onClick={showAlertConfirm}>{i18n.button}</Button>,
+	<Wrapper />,
 	mountNode
 );
 ```

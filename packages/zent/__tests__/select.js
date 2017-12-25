@@ -1,6 +1,8 @@
 import React from 'react';
-import Select, { Option } from 'select';
 import { mount, ReactWrapper } from 'enzyme';
+
+import { Select as I18nDefault } from 'i18n/default';
+import Select, { Option } from 'select';
 
 describe('<Select />', () => {
   test('data的传参方式有效', () => {
@@ -310,8 +312,6 @@ describe('<Select />', () => {
       .at(0)
       .simulate('click');
     expect(wrapper.state('selectedItem').value).toBe(undefined);
-    expect(wrapper.find('.zent-select-text').text()).toBe(
-      wrapper.prop('placeholder')
-    );
+    expect(wrapper.find('.zent-select-text').text()).toBe(I18nDefault.input);
   });
 });

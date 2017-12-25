@@ -33,7 +33,7 @@ Time pickers, provides basic time choosing functionality.
 | className    | Cusotm class name    | string         |             | No   |
 | width    | width         | string \|  number         |             | No    |
 | prefix       | Custom prefix  	 | string         | `'zent'`        | No   |
-| confirmText  | Confirm button text     | string         | '确定'        | No   |
+| confirmText  | Confirm button text     | string         | `'Confirm'`        | No   |
 | popPosition  | Popup align position   | oneOf(['left', 'right'])  | 'left'    | No   |
 
 
@@ -49,7 +49,7 @@ Time pickers, provides basic time choosing functionality.
 | max        | The maximum selectable date      | string/Date    |     | No    |
 | valueType | Set `onChange`'s value type, one of `string`/`number`/`date` | string  | '' | No    |
 | name  		| Name attribute of the input node   | string    |   | No    |
-| placeholder  | Placeholder text            | string    | `请选择日期`   | No    |
+| placeholder  | Placeholder text            | string    | `Please select a date`   | No    |
 | defaultTime   | Default time value        | string         | `'00:00:00'`   | No    |
 | onBeforeConfirm   | Confirm callback, return `true` to allow, `false` to abort | func   |    | No    |
 | onBeforeClear   | Clear callback, return `true` to allow, `false` to abort | func  |    | No    |
@@ -71,7 +71,7 @@ Time pickers, provides basic time choosing functionality.
 | max        | Maximum seletable date            | string/Date    |     | No    |
 | valueType | Value type in `onChange`, one of `string` \| `number` \| `date`  | string     | '' | No    |
 | name  		| Name attribute of input node     | string    |   | No    |
-| placeholder  | Placeholder text              | string    | `请选择周`   | No    |
+| placeholder  | Placeholder text              | string    | `Please select a week`   | No    |
 
 
 ### MonthPicker
@@ -82,7 +82,7 @@ Time pickers, provides basic time choosing functionality.
 | format       | Format string  | string | `'YYYY-MM'` | No    |
 | disabled     | Is disabled         | bool      | `false`   | No    |
 | name 				 | Name attribute of input node   | string    |   | No    |
-| placeholder  | Placeholder text     | string  | `请选择月份`   | No    |
+| placeholder  | Placeholder text     | string  | `Please select the month`   | No    |
 
 
 ### RangePicker
@@ -98,7 +98,7 @@ Time pickers, provides basic time choosing functionality.
 | min          | Minimum selectable date  | string/instanceOf(Date)  | ``   | No    |
 | max          | Maximum selectable date  | string/instanceOf(Date)  | ``    | No    |
 | valueType | Value type of `onChange`, one of `string`/`number`/`date`  | string     | '' | No    |
-| placeholder  | Placeholder text     | array    | `['开始日期','结束日期']`   | No    |
+| placeholder  | Placeholder text     | array    | `['start-date','end-date']`   | No    |
 | defaultTime   | Default time value      | string   | `'00:00:00'`   | No    |
 
 
@@ -115,13 +115,13 @@ Time pickers, provides basic time choosing functionality.
 |           | YYYY  | 1970 1971 ... 2029 2030 |
 | **Month** | M     | 1 2 ... 11 1 |
 |           | MM    | 01 02 ... 11 12 |
-|           | MMM   | 1月, 2月 ... 11月, 12月 |
-|           | MMMM  | 一月, 二月 ... 十一月, 十二月 |
+|           | MMM   | Jan, Feb ... Nov, Dec |
+|           | MMMM  | January, February ... November, December |
 | **Date**  | D     | 1 2 ... 30 31 |
 |           | DD    | 01 02 ... 30 31 |
 |           | d     | 0 1 ... 5 6 |
-|           | ddd   | 周日, 周一 ... 周五, 周六 |
-|           | dddd  | 星期日, 星期一 ... 星期五, 星期六 |
+|           | ddd   | Sun, Mon ... Fri, Sat |
+|           | dddd  | Sunday, Monday ... Friday, Saturday |
 
 <style>
 	.zent-picker-demo{

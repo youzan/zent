@@ -2,14 +2,10 @@
 order: 3
 zh-CN:
 	title: 动态修改选项数据
-	pla: 请选择
-	empty: 没有找到匹配项
 	blank: 空数组选项
 	reset: 重置
 en-US:
 	title: Modify the option data dynamically
-	pla: Select an option
-	empty: No matches found
 	blank: Empty option array
 	reset: Reset
 ---
@@ -59,8 +55,6 @@ class Demo extends Component {
   	return (
     	<div>
 				<Select
-					placeholder="{i18n.pla}"
-					emptyText="{i18n.empty}"
 					data={this.state.selectData}
 					onChange={this.selectChangeHandler}
 					value={this.state.selectedValue} />

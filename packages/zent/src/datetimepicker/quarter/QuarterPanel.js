@@ -1,10 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import PanelHeader from '../common/PanelHeader';
-import SeasonPanelBody from './SeasonPanelBody';
+import QuarterPanelBody from './QuarterPanelBody';
 import YearPanel from '../year/YearPanel';
 import { goYears } from '../utils/';
 
-export default class SeasonPanel extends (PureComponent || Component) {
+export default class QuarterPanel extends (PureComponent || Component) {
   state = {
     showYear: false
   };
@@ -40,15 +40,19 @@ export default class SeasonPanel extends (PureComponent || Component) {
   };
 
   render() {
-    const { props, state } = this;
-    const title = `${props.actived.getFullYear()}年`;
+    const {
+      props: { actived, disabledDate, i18n, onSelect, selected },
+      state: { showYear }
+    } = this;
+
+    const title = `${actived.getFullYear()}`;
 
     let yearPanel;
-    if (state.showYear) {
+    if (showYear) {
       yearPanel = (
         <YearPanel
-          actived={props.actived}
-          selected={props.selected}
+          actived={actived}
+          selected={selected}
           onChange={this.onSelectYear}
           onSelect={this.onSelectYear}
         />
@@ -56,20 +60,21 @@ export default class SeasonPanel extends (PureComponent || Component) {
     }
 
     return (
-      <div className="season-panel">
+      <div className="quarter-panel">
         <PanelHeader
           title={title}
           onClickTitle={this.showYearPanel}
           prev={this.prevYear}
           next={this.nextYear}
         />
-        <SeasonPanelBody
-          actived={props.actived}
-          selected={props.selected}
-          disabledDate={props.disabledDate}
-          onSelect={props.onSelect}
+        <QuarterPanelBody
+          actived={actived}
+          selected={selected}
+          disabledDate={disabledDate}
+          onSelect={onSelect}
+          i18n={i18n}
         />
-        {state.showYear && yearPanel}
+        {showYear && yearPanel}
       </div>
     );
   }

@@ -5,30 +5,39 @@ zh-CN:
 	content: Pop关闭了
 	popContent: 提示内容
 	btnText: 打开气泡
-	confirm: 确定
-	cancel: 取消
 en-US:
 	title: Confirm Pop
 	content: Pop Closed
 	popContent: Pop content
 	btnText: Open
-	confirm: Confirm
-	cancel: Cancel
 ---
 
 ```jsx
 import { Pop, Sweetalert, Button } from 'zent';
 
+class Wrapper extends React.Component {
+	confirmHandler = () => {
+		Sweetalert.alert({
+			content: '{i18n.content}',
+			parentComponent: this
+		});
+	}
+
+	render() {
+		return (
+			<Pop
+				trigger="click"
+				content="{i18n.popContent}"
+				onConfirm={this.confirmHandler}
+			>
+				<Button type="primary">{i18n.btnText}</Button>
+			</Pop>
+		);
+	}
+}
+
 ReactDOM.render(
-	<Pop 
-		trigger="click"
-		content="{i18n.popContent}"
-		confirmText="{i18n.confirm}"
-		cancelText="{i18n.cancel}"
-		onConfirm={() => Sweetalert.alert({ content: '{i18n.content}' })}
-	>
-		<Button type="primary">{i18n.btnText}</Button>
-	</Pop>
+	<Wrapper />
 	, mountNode
 );
 ```

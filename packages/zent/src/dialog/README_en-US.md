@@ -40,7 +40,7 @@ Dialog is used for opening a floating layer.
 | parameter           | description                            | Type     | Default      |
 | ------------ | ----------------------------- | ------ | -------- |
 | dialogId   | Optional, the id of dialog. The dialog can be closed throuth `closeDialog(dialogId)`.  | string | `'random-id'` |
-| parentComponent |  Optional, the reference of dialog's parent, used to correlate the `context` | object  | `null`     |
+| parentComponent |  Optional, the reference of dialog's parent, used to correlate the `context` | ReactInstance  |     |
 
 A `ref` function passed to `openDialog` can provide a reference to the instance, **`ref` in string format is non-supported.**
 

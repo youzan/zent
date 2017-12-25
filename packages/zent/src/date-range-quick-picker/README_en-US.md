@@ -18,7 +18,7 @@ As a filter control above list pages.
 |------          |------              |------            |--------    |--------   |
 | prefix         | custom prefix           | string          | `'zent'`    |           |
 | className      | custom classname          | string            |   `''`      |              |
-| preset         | custom quick option text      | array             | `[{text: '最近7天', value: 7}, {text: '最近30天', value: 30}]`    |           |
+| preset         | custom quick option text      | array             | `[{text: '7 days', value: 7}, {text: '30 days', value: 30}]`    |           |
 | onChange       | change event callback  | func             |         |              |
 | value          | starting and end time       | array           |   `[]`        |             |
 | valueType | Argument type of onChange | string | `''` | `'string'`, `'number'` |
