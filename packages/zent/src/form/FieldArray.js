@@ -253,7 +253,7 @@ class FieldArray extends Component {
         forEach: this.forEachFields,
         get: this.getField,
         getAll: this.getAllFields,
-        insert: this.insertField,
+        // insert: this.insertField,
         map: this.mapFields,
         move: this.moveFields,
         pop: this.popFields,

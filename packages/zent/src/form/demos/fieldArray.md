@@ -48,7 +48,7 @@ class Hobbies extends React.Component {
 		return (
 			<ul>
 				<Button onClick={() => fields.push()} className="add-btn">{i18n.addHobby}</Button>
-				{fields.map((hobby, key, index, value, fieldValues) => {
+				{fields.map((hobby, key, index) => {
 					return (
 						<li key={`hobby${key}`}>
 							<div className="hobby-title">
@@ -77,8 +77,8 @@ class Members extends React.Component {
 		const { fields } = this.props;
 		return (
 			<ul>
-				<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>
-				{fields.map((member, key, index, value, fieldValues) => {
+				{fields.length < 3 && (<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>)}
+				{fields.map((member, key, index) => {
 					return (
 						<li key={`member${key}`}>
 							<div className="member-title">
