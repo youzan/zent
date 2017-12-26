@@ -19,6 +19,7 @@ H5 page editor, build your H5 pages in a WYSIWYG way.
 | onSettingsChange | Callback to change settings | func | | No |
 | defaultSelectedIndex| Default selected index in value array | number | -1 | No |
 | preview | Custom Preview component | Component | DesingPreview | No |
+| previewFooter | Custom footer after preview section | node |  | No | 
 | confirmUnsavedLeave| Show a confirm dialog if there're unsaved changes | boolean | true | No |
 | cache | Cache unsaved changes to `localStorage` | boolean | false | No |
 | cacheId | Cache id, must be used with `cache` | string | | Yes if `cache` is `true`, No otherwise |
