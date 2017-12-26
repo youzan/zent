@@ -56,7 +56,7 @@ declare module 'zent' {
   import Cascader from 'zent/lib/cascader';
   import Card from 'zent/lib/card';
   import Checkbox from 'zent/lib/checkbox';
-  import ColorPicker from 'zent/lib/colorpicker';
+  import ColorPicker from 'zent/lib/color-picker';
   import CopyButton from 'zent/lib/copy-button';
   import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';

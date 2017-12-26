@@ -20,7 +20,7 @@ class Simple extends React.Component {
 
 	render() {
 		return (
-			<Switch checked={this.state.checked} onChange={this.handleChange} checkedText={'open'} uncheckedText={'close'} />
+			<Switch checked={this.state.checked} onChange={this.handleChange} checkedText="ON" uncheckedText="OFF" />
 		)
 	}
 }

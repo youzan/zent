@@ -433,9 +433,9 @@ Select.defaultProps = {
   open: false,
   popupClassName: '',
   trigger: SelectTrigger,
-  placeholder: '请选择',
+  placeholder: '',
   searchPlaceholder: '',
-  emptyText: '没有找到匹配项',
+  emptyText: '',
   selectedItem: {
     value: '',
     text: ''
@@ -451,7 +451,7 @@ Select.defaultProps = {
 
   // 重置为默认值
   resetOption: false,
-  resetText: '请选择',
+  resetText: '...',
 
   // 内部状态标记，默认初始值为 null
   value: null,

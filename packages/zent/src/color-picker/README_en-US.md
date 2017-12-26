@@ -1,6 +1,6 @@
 ---
 title: ColorPicker
-path: component/colorpicker
+path: component/color-picker
 group: Data Entry
 ---
 

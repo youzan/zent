@@ -5,6 +5,8 @@ import isEqual from 'lodash/isEqual';
 import CorePagination from './modules/CorePagination';
 import Prefix from './modules/Prefix';
 
+// 17.12.14 修改所有报错信息为英文。
+
 const { number, func, string } = PropTypes;
 
 export default class Pagination extends (PureComponent || Component) {
@@ -19,12 +21,12 @@ export default class Pagination extends (PureComponent || Component) {
 
       if (typeof pageSize === 'number') {
         if (pageSize < 0) {
-          return new Error('pageSize必须大等于0');
+          return new Error('PageSize must be greater than or equal to 0.');
         }
       } else if (Array.isArray(pageSize)) {
         let isAllNumber;
         if (pageSize.length === 0) {
-          return new Error('pageSize的长度必须大于0');
+          return new Error('The length of pageSize must be greater than 0.');
         }
 
         isAllNumber = pageSize.every(item => {
@@ -32,10 +34,10 @@ export default class Pagination extends (PureComponent || Component) {
         });
 
         if (!isAllNumber) {
-          return new Error('pageSize每一项必须是数字或对象');
+          return new Error('Each item of pageSize must be a number or object.');
         }
       } else {
-        return new Error('pageSize只能是数字或数组');
+        return new Error('PageSize can only be numbers or arrays.');
       }
     },
     onChange: func
@@ -72,7 +74,7 @@ export default class Pagination extends (PureComponent || Component) {
         return ps[i].value;
       }
     }
-    throw new Error(`pageSize 数据有错误 ${ps}`);
+    throw new Error(`PageSize data is wrong, ${ps}`);
   }
 
   parsePageSize(pageSize) {

@@ -40,6 +40,9 @@ class DesignPreviewController extends (PureComponent || Component) {
     // 这个组件对应的值
     value: PropTypes.object.isRequired,
 
+    // Design 组件的全局配置
+    settings: PropTypes.object,
+
     // 选中的会掉函数
     onSelect: PropTypes.func.isRequired,
 
@@ -89,7 +92,12 @@ class DesignPreviewController extends (PureComponent || Component) {
       id,
       allowHoverEffects
     } = this.props;
-    const props = pick(this.props, ['value', 'design', 'globalConfig']);
+    const props = pick(this.props, [
+      'value',
+      'design',
+      'globalConfig',
+      'settings'
+    ]);
     const getClassName = highlight =>
       cx(`${prefix}-design-preview-controller`, {
         [`${prefix}-design-preview-controller--editable`]: editable,

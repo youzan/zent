@@ -1,31 +1,31 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PanelCell from '../common/PanelCell';
-import { getSeasonFromDate } from '../utils/date';
+import { getQuarterFromDate } from '../utils/date';
 
 const ROW = 2;
 const COL = 2;
 
-export default class SeasonPanelBody extends (PureComponent || Component) {
-  getSeasons() {
-    const { disabledDate, selected } = this.props;
-    const seasons = [];
+export default class QuarterPanelBody extends (PureComponent || Component) {
+  getQuarters() {
+    const { disabledDate, selected, i18n } = this.props;
+    const quarters = [];
     let index = 0;
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
-      seasons[rowIndex] = [];
+      quarters[rowIndex] = [];
       for (let colIndex = 0; colIndex < COL; colIndex++) {
-        const isSelected = selected && getSeasonFromDate(selected) === index;
+        const isSelected = selected && getQuarterFromDate(selected) === index;
         const isDisabled = disabledDate && disabledDate(index);
         const className = classNames({
-          'panel__cell season-panel__cell': true,
+          'panel__cell quarter-panel__cell': true,
           'panel__cell--current': false,
           'panel__cell--selected': isSelected,
           'panel__cell--disabled': isDisabled
         });
-        seasons[rowIndex][colIndex] = {
-          text: `${index + 1}季度`,
+        quarters[rowIndex][colIndex] = {
+          text: i18n.panel.quarterNames[index],
           value: index,
-          title: `${index + 1}季度`,
+          title: i18n.panel.quarterNames[index],
           className,
           isDisabled
         };
@@ -33,16 +33,16 @@ export default class SeasonPanelBody extends (PureComponent || Component) {
       }
     }
 
-    return seasons;
+    return quarters;
   }
 
   render() {
     const { onSelect } = this.props;
-    const seasons = this.getSeasons();
+    const quarters = this.getQuarters();
 
     return (
-      <div className="season-table panel-table">
-        <PanelCell onSelect={onSelect} cells={seasons} />
+      <div className="quarter-table panel-table">
+        <PanelCell onSelect={onSelect} cells={quarters} />
       </div>
     );
   }

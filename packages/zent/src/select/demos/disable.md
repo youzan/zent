@@ -2,10 +2,8 @@
 order: 7
 zh-CN:
 	title: 禁用状态
-	pla: 请选择
 en-US:
 	title: Disabled
-	pla: Select an option
 ---
 
 ```js
@@ -19,7 +17,6 @@ const data = [
 
 ReactDOM.render(
 	<Select
-		placeholder="{i18n.pla}"
     data={data}
     optionValue="id"
     optionText="name"

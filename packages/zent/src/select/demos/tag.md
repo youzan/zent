@@ -2,7 +2,6 @@
 order: 13
 zh-CN:
 	title: 标签多选
-	pla: 请选择
 	reset: 重置
 	refill: 填充数据
 	external: 外部状态
@@ -10,7 +9,6 @@ zh-CN:
 	optionAdded: 新加的选项是
 en-US:
 	title: Multiple Select with Tag
-	pla: Select options
 	reset: Reset
 	refill: Fill Data
 	external: External state
@@ -75,7 +73,6 @@ class TagsDemo extends Component {
 					<br />
 					<br />
 				<Select
-					placeholder="{i18n.pla}"
 					data={this.state.data}
 					onChange={this.increaseHandler}
 					onDelete={this.deleteHandler}

@@ -38,6 +38,7 @@ import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import defaultTo from 'lodash/defaultTo';
+import isFunction from 'lodash/isFunction';
 import * as storage from 'utils/storage';
 import uuid from 'utils/uuid';
 
@@ -125,6 +126,18 @@ export default class Design extends (PureComponent || Component) {
 
     value: PropTypes.arrayOf(PropTypes.object),
 
+    // Design 组件通用的全局设置
+    settings: PropTypes.object,
+
+    // settings 改变的回调函数
+    onSettingsChange(props, propName, componentName) {
+      if (props.settings && !isFunction(props[propName])) {
+        throw new Error(
+          `Invalid prop ${propName} supplied to ${componentName}, expects a function.`
+        );
+      }
+    },
+
     // 默认选中的组件下标
     defaultSelectedIndex: PropTypes.number,
 
@@ -210,6 +223,9 @@ export default class Design extends (PureComponent || Component) {
         props.value,
         props.components
       ),
+
+      // 外面没传的时候用 state 上的 settings
+      settings: {},
 
       // 是否显示添加组件的浮层
       showAddComponentOverlay: false,
@@ -338,6 +354,7 @@ export default class Design extends (PureComponent || Component) {
       prefix,
       value,
       disabled,
+      settings,
       previewFooter,
       globalConfig
     } = this.props;
@@ -348,6 +365,7 @@ export default class Design extends (PureComponent || Component) {
       addComponentOverlayPosition,
       validations,
       showError,
+      settings: managedSettings,
       componentInstanceCount
     } = this.state;
 
@@ -357,6 +375,8 @@ export default class Design extends (PureComponent || Component) {
       value,
       validations,
       showError,
+      settings: settings || managedSettings,
+      onSettingsChange: this.onSettingsChange,
       footer: previewFooter,
       componentInstanceCount,
       onComponentValueChange: this.onComponentValueChange,
@@ -374,11 +394,34 @@ export default class Design extends (PureComponent || Component) {
       design: this.design,
       globalConfig,
       disabled,
-      ...this.getPreviewProps(),
-
       ref: this.savePreview
     });
   }
+
+  onSettingsChange = value => {
+    const { settings, onSettingsChange } = this.props;
+    const onSettingsChangeExists = isFunction(onSettingsChange);
+
+    if (settings && !onSettingsChangeExists) {
+      throw new Error('Expects onSettingsChange to be a function');
+    }
+
+    if (settings && onSettingsChangeExists) {
+      onSettingsChange({
+        ...settings,
+        ...value
+      });
+    }
+
+    if (!settings) {
+      this.setState({
+        settings: {
+          ...this.state.settings,
+          ...value
+        }
+      });
+    }
+  };
 
   onComponentValueChange = identity => (diff, replace = false) => {
     const { value } = this.props;
@@ -579,9 +622,6 @@ export default class Design extends (PureComponent || Component) {
 
     this.trackValueChange(newValue);
   };
-
-  // Injections can be overwritten
-  getPreviewProps() {}
 
   setValidation = validation => {
     this.setState({
@@ -905,8 +945,13 @@ export default class Design extends (PureComponent || Component) {
   design = (() => {
     return {
       injections: {
-        getPreviewProps: implementation => {
-          this.getPreviewProps = implementation;
+        getPreviewProps: (/* implementation */) => {
+          // eslint-disable-next-line
+          console.warn(
+            'Design injections are no longer supported, use `settings` and `onSettingsChange` instead.'
+          );
+
+          // this.getPreviewProps = implementation;
         }
       },
 

@@ -1,3 +1,1 @@
-import DateRangeQuickPicker from './DateRangeQuickPicker';
-
-export default DateRangeQuickPicker;
+export default from './DateRangeQuickPicker';

@@ -2,10 +2,8 @@
 order: 12
 zh-CN:
 	title: 自定义搜索无匹配文案
-	pla: 请选择
 en-US:
 	title: Custom No Match Text
-	pla: Select an option
 ---
 
 ```js
@@ -20,7 +18,6 @@ const data = [
 ReactDOM.render(
   <Select
 		data={data}
-		placeholder="{i18n.pla}"
     emptyText="No Result"
     filter={(item, keyword) => item.text.indexOf(keyword) > -1}
 	/>,

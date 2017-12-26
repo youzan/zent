@@ -262,7 +262,7 @@ zan-jquery@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/zan-jquery/-/zan-jquery-1.0.2.tgz#d9a45088d0d152cfe41729aca70b6682e30ce5cf"
 
-zan-utils@^1.0.9:
+zan-utils@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/zan-utils/-/zan-utils-1.1.8.tgz#bca338c0861630ac8890e5422a1e655f164da69f"
   dependencies:

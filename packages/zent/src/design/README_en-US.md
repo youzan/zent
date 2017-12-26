@@ -15,6 +15,8 @@ H5 page editor, build your H5 pages in a WYSIWYG way.
 | components | All available components in Design | array | [] | Yes |
 | value | Current value | array | [] | Yes |
 | onChange | Callback when value changes | func(value: array): void | Yes |
+| settings | Design settings, will be passed to every Design component | object | | No |
+| onSettingsChange | Callback to change settings | func | | No |
 | defaultSelectedIndex| Default selected index in value array | number | -1 | No |
 | preview | Custom Preview component | Component | DesingPreview | No |
 | confirmUnsavedLeave| Show a confirm dialog if there're unsaved changes | boolean | true | No |
@@ -119,6 +121,12 @@ Declaration：`group(name: string): object`
   componentD
 ]
 ```
+
+### `settings` and `onSettingsChange`
+
+You can pass in a `settings` object and a corresponding `onSettingsChange` callback. This two props will be pass to every Design component.
+
+There's a predefined setting called `previewBackground`, Design will use this value as the preview background.
 
 ### Design Instance Methods
 

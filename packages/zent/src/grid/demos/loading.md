@@ -1,7 +1,7 @@
 ---
 order: 2
 zh-CN:
-	title: Loading
+	title: 加载中
 	product: 商品
 	longName: 听说这样设置一个超长超长的商品名会不换行
 	alignRight: 听说这样设置访问量可以靠右对齐

@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'icon';
 
 const PanelHeader = props => {
-  const { prev, next, showPrev, showNext, title, onClickTitle } = props;
+  const { onClickTitle, next, prev, showPrev, showNext, title } = props;
 
   return (
     <div className="panel__header">

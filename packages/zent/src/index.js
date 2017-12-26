@@ -7,7 +7,7 @@ import Button from 'button';
 import Card from 'card';
 import Cascader from 'cascader';
 import Checkbox from 'checkbox';
-import ColorPicker from 'colorpicker';
+import ColorPicker from 'color-picker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
@@ -19,6 +19,7 @@ import Grid from 'grid';
 import Icon from 'icon';
 import InfiniteScroller from 'infinite-scroller';
 import Input from 'input';
+import I18n from 'i18n';
 import Layout from 'layout';
 import Loading from 'loading';
 import Menu from 'menu';
@@ -33,7 +34,7 @@ import previewImage from 'preview-image';
 import Progress from 'progress';
 import Radio from 'radio';
 import SearchInput from 'search-input';
-import SeasonPicker from 'datetimepicker/SeasonPicker';
+import QuarterPicker from 'datetimepicker/QuarterPicker';
 import Select from 'select';
 import SKU from 'sku';
 import Slider from 'slider';
@@ -71,6 +72,7 @@ export {
   Icon,
   InfiniteScroller,
   Input,
+  I18n,
   Layout,
   Loading,
   Menu,
@@ -83,9 +85,9 @@ export {
   Portal,
   previewImage,
   Progress,
+  QuarterPicker,
   Radio,
   SearchInput,
-  SeasonPicker,
   Select,
   SKU,
   Slider,

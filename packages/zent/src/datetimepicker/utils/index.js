@@ -1,3 +1,10 @@
+import {
+  formatDate as formatBase,
+  parseDate as parseBase
+} from 'zan-utils/date';
+
+import { getLocale } from 'i18n/time-locale';
+
 export const CURRENT = new Date();
 export const CURRENT_DAY = new Date(
   CURRENT.getFullYear(),
@@ -81,3 +88,28 @@ export const setSameDate = (val, target) => {
   val.setDate(target.getDate());
   return val;
 };
+
+/**
+ * add by fancy to inject i18n
+ * simple wrapper for formatDate in zan-utils
+ *
+ * @param {Date|number} date The date to format
+ * @param {string} format
+ * @param {string|object} locale the i18n setting for fecha
+ * @returns {strning} format result by zan-utils
+ */
+export function formatDate(date, format, locale = getLocale() || 'zh') {
+  return formatBase(date, format, locale);
+}
+
+/**
+ * add by fancy to inject i18n
+ * simple wrapper for parseDate in zan-utils
+ *
+ * @param {string} dateStr Date string to parse
+ * @param {string} format
+ * @param {string|object} locale the i18n setting for fecha
+ */
+export function parseDate(dateStr, format, locale = getLocale() || 'zh') {
+  return parseBase(dateStr, format, locale);
+}
