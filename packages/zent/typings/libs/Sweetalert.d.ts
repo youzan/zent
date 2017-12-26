@@ -10,7 +10,7 @@ declare module 'zent/lib/sweetalert' {
       confirmText?: string
       confirmType?: 'default' | 'primary' | 'danger' | 'success'
       closeBtn?: boolean
-      maskClosable?: booleang
+      maskClosable?: boolean
       className?: string
       prefix?: string
     }
