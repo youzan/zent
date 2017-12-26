@@ -6,7 +6,7 @@ import parseDate from 'zan-utils/date/parseDate';
 import Input from 'input';
 import Popover from 'popover';
 import getWidth from 'utils/getWidth';
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import QuarterPanel from './quarter/QuarterPanel';
@@ -199,7 +199,7 @@ class QuarterPicker extends (PureComponent || Component) {
 
     return (
       <div style={widthStyle} className={wrapperCls}>
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => {
             let inputVal;
             if (selected) {
@@ -240,7 +240,7 @@ class QuarterPicker extends (PureComponent || Component) {
               </Popover>
             );
           }}
-        </Reciever>
+        </Receiver>
       </div>
     );
   }

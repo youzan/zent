@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
 import getWidth from 'utils/getWidth';
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import YearPanel from './year/YearPanel';
@@ -138,7 +138,7 @@ class YearPicker extends (PureComponent || Component) {
     let yearPicker;
     if (state.openPanel) {
       yearPicker = (
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => (
             <div className="year-picker" ref={ref => (this.picker = ref)}>
               <YearPanel
@@ -160,7 +160,7 @@ class YearPicker extends (PureComponent || Component) {
               )}
             </div>
           )}
-        </Reciever>
+        </Receiver>
       );
     }
 
@@ -212,7 +212,7 @@ class YearPicker extends (PureComponent || Component) {
         >
           <Popover.Trigger.Click>
             <div style={widthStyle} className={inputCls}>
-              <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+              <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
                 {i18n => (
                   <Input
                     name={name}
@@ -221,7 +221,7 @@ class YearPicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                 )}
-              </Reciever>
+              </Receiver>
 
               <span className="zenticon zenticon-calendar-o" />
               <span

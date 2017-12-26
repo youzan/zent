@@ -8,7 +8,7 @@ import forEach from 'lodash/forEach';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
 import isArray from 'lodash/isArray';
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Cascader as I18nDefault } from 'i18n/default';
 
 const PopoverContent = Popover.Content;
@@ -293,7 +293,7 @@ class Cascader extends (PureComponent || Component) {
 
   render() {
     return (
-      <Reciever defaultI18n={I18nDefault} componentName="Cascader">
+      <Receiver defaultI18n={I18nDefault} componentName="Cascader">
         {i18n => {
           let { prefix, className, popClassName, placeholder } = this.props;
           let { onChangeValue, open, activeId } = this.state;
@@ -360,7 +360,7 @@ class Cascader extends (PureComponent || Component) {
             </div>
           );
         }}
-      </Reciever>
+      </Receiver>
     );
   }
 }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
 
 class InputTrigger extends Component {
@@ -35,7 +35,7 @@ class InputTrigger extends Component {
     const { prefixCls, placeholder, keyword, text } = this.props;
 
     return (
-      <Reciever componentName="Select" defaultI18n={I18nDefault}>
+      <Receiver componentName="Select" defaultI18n={I18nDefault}>
         {i18n => (
           <input
             ref={input => (this.input = input)}
@@ -47,7 +47,7 @@ class InputTrigger extends Component {
             onClick={this.props.onClick}
           />
         )}
-      </Reciever>
+      </Receiver>
     );
   }
 }

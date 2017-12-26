@@ -4,7 +4,7 @@ import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { PreviewImage as I18nDefault } from 'i18n/default';
 
 // 有关闭按钮的时候同时具有ESC关闭的行为
@@ -101,7 +101,7 @@ export default class Image extends Component {
             <div className={`${prefix}-image-p-close`} onClick={this.onClose}>
               <Icon type="close" />
             </div>
-            <Reciever defaultI18n={I18nDefault} componentName="PreviewImage">
+            <Receiver defaultI18n={I18nDefault} componentName="PreviewImage">
               {i18n => (
                 <div className={`${prefix}-image-p-body`}>
                   {images.map((image, index) => {
@@ -120,8 +120,8 @@ export default class Image extends Component {
                   })}
                 </div>
               )}
-            </Reciever>
-            <Reciever defaultI18n={I18nDefault} componentName="PreviewImage">
+            </Receiver>
+            <Receiver defaultI18n={I18nDefault} componentName="PreviewImage">
               {i18n => {
                 const needPager = images.length > 1;
                 const footerCxs = cx(`${prefix}-image-p-footer`, {
@@ -157,7 +157,7 @@ export default class Image extends Component {
                   </div>
                 );
               }}
-            </Reciever>
+            </Receiver>
           </div>
         </div>
       </ImagePortalESCToClose>

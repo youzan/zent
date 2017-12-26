@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'select';
 
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Pagination as I18nDefault } from 'i18n/default';
 
 const { number, array, oneOfType, func } = PropTypes;
@@ -25,7 +25,7 @@ export default class Prefix extends (PureComponent || Component) {
     const pageSizeForSelect = pageSize.map(item => `${item.value}`);
     return (
       <span className="zent-pagination__info">
-        <Reciever componentName="Pagination" defaultI18n={I18nDefault}>
+        <Receiver componentName="Pagination" defaultI18n={I18nDefault}>
           {i18n => (
             <span className="total each">
               {`${i18n.total} ${totalItem} ${i18n.items}${i18n.comma}`}
@@ -48,7 +48,7 @@ export default class Prefix extends (PureComponent || Component) {
               {`${i18n.items}${i18n.perPage}`}
             </span>
           )}
-        </Reciever>
+        </Receiver>
       </span>
     );
   }

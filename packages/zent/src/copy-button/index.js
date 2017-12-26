@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'button';
 import Notify from 'notify';
 
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { CopyButton as I18nDefault } from 'i18n/default';
 
 import CopyToClipboard from './ReactCopyToClipboard';
@@ -42,7 +42,7 @@ export default class Copy extends (PureComponent || Component) {
     const { text, children } = this.props;
 
     return (
-      <Reciever defaultI18n={I18nDefault} componentName="CopyButton">
+      <Receiver defaultI18n={I18nDefault} componentName="CopyButton">
         {(i18n, { onClick = null }) => (
           <CopyToClipboard text={text} onCopy={this.onCopy(i18n)}>
             {children ? (
@@ -54,7 +54,7 @@ export default class Copy extends (PureComponent || Component) {
             )}
           </CopyToClipboard>
         )}
-      </Reciever>
+      </Receiver>
     );
   }
 }

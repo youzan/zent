@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Pagination as I18nDefault } from 'i18n/default';
 
 export default class Jump extends (PureComponent || Component) {
@@ -48,11 +48,11 @@ export default class Jump extends (PureComponent || Component) {
           onKeyUp={this.onKeyUp}
           onChange={this.onChange}
         />
-        <Reciever componentName="Pagination" defaultI18n={I18nDefault}>
+        <Receiver componentName="Pagination" defaultI18n={I18nDefault}>
           {i18n => (
             <span className="pager__suffix">{`/ ${total} ${i18n.pages}`}</span>
           )}
-        </Reciever>
+        </Receiver>
       </div>
     );
   }

@@ -11,7 +11,7 @@ import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import pullAll from 'lodash/pullAll';
 import pullAllBy from 'lodash/pullAllBy';
-import { I18nReceiver as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Table as I18nDefault } from 'i18n/default';
 
 import Head from './modules/Head';
@@ -429,7 +429,7 @@ export default class Table extends (PureComponent || Component) {
     }
 
     return (
-      <Reciever defaultI18n={I18nDefault} componentName="Table">
+      <Receiver defaultI18n={I18nDefault} componentName="Table">
         {i18n => (
           <div className={`${prefix}-table-container`}>
             <Loading show={this.props.loading} static>
@@ -496,7 +496,7 @@ export default class Table extends (PureComponent || Component) {
             </Loading>
           </div>
         )}
-      </Reciever>
+      </Receiver>
     );
   }
 }
