@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import setClass from 'classnames';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Switch as I18nDefault } from 'i18n/default';
 
 export default class Switch extends (PureComponent || Component) {

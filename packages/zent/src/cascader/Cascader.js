@@ -8,7 +8,7 @@ import forEach from 'lodash/forEach';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
 import isArray from 'lodash/isArray';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Cascader as I18nDefault } from 'i18n/default';
 
 const PopoverContent = Popover.Content;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'button';
 import Notify from 'notify';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { CopyButton as I18nDefault } from 'i18n/default';
 
 import CopyToClipboard from './ReactCopyToClipboard';

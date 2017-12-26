@@ -4,7 +4,7 @@ import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { PreviewImage as I18nDefault } from 'i18n/default';
 
 // 有关闭按钮的时候同时具有ESC关闭的行为

@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import { formatDate } from './utils';

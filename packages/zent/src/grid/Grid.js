@@ -18,7 +18,7 @@ import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Grid as I18nDefault } from 'i18n/default';
 
 import Store from './Store';

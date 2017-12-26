@@ -1,6 +1,6 @@
 import React from 'react';
 import Radio from 'radio';
-import ColorPicker from 'color-picker';
+import ColorPicker from 'colorpicker';
 
 import { DesignEditor, ControlGroup } from '../../editor/DesignEditor';
 

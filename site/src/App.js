@@ -6,7 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import { I18nProvider as Provider } from 'i18n';
+import { I18nProvider } from 'i18n';
 import * as i18nEN from 'i18n/en-US';
 
 import ScrollToTop from './components/ScrollToTop';
@@ -72,11 +72,11 @@ export default class App extends Component {
             <Route
               path="/en"
               render={() => (
-                <Provider i18n={i18nEN}>
+                <I18nProvider i18n={i18nEN}>
                   <USWrapper pass={passthrough('en-US')}>
                     <Switch>{routeData['en-US'].map(renderRouter)}</Switch>
                   </USWrapper>
-                </Provider>
+                </I18nProvider>
               )}
             />
             <Redirect from="*" to={routeData['zh-CN'][0].path} />

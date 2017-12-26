@@ -8,7 +8,7 @@ import take from 'lodash/take';
 import trim from 'lodash/trim';
 
 import Popover from 'popover';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
 
 import Search from './components/Search';

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Sweetalert as i18nDefault } from 'i18n/default';
 import Dialog from 'dialog';
 import Icon from 'icon';

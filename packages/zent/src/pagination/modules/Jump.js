@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Pagination as I18nDefault } from 'i18n/default';
 
 export default class Jump extends (PureComponent || Component) {

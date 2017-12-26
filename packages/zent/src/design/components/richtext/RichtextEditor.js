@@ -1,5 +1,5 @@
 import React from 'react';
-import ColorPicker from 'color-picker';
+import ColorPicker from 'colorpicker';
 import Button from 'button';
 import Checkbox from 'checkbox';
 

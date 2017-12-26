@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Popover from 'popover';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import DatePanel from './date/DatePanel';

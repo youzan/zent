@@ -1,5 +1,5 @@
 import React, { PureComponent, Component } from 'react';
-import ColorPicker from 'color-picker';
+import ColorPicker from 'colorpicker';
 import omit from 'lodash/omit';
 
 import getControlGroup from '../getControlGroup';

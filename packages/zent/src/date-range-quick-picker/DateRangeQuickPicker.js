@@ -4,7 +4,7 @@ import cx from 'classnames';
 import map from 'lodash/map';
 
 import DateRangePicker from 'datetimepicker/DateRangePicker';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { RangePicker as I18nDefault } from 'i18n/default';
 
 import * as Helper from './helper';

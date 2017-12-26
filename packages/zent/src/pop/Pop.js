@@ -8,7 +8,7 @@ import Popover from 'popover';
 import Button from 'button';
 import isPromise from 'utils/isPromise';
 import { exposePopover } from 'popover/withPopover';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Pop as I18nDefault } from 'i18n/default';
 
 import NoneTrigger from './NoneTrigger';

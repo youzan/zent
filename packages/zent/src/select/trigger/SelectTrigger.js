@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component, PureComponent } from 'react';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
 
 class SelectTrigger extends (PureComponent || Component) {

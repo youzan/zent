@@ -6,7 +6,7 @@ import assign from 'lodash/assign';
 import Input from 'input';
 import Popover from 'popover';
 import getWidth from 'utils/getWidth';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Reciever } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import DatePanel from './date/DatePanel';
