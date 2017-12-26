@@ -1,0 +1,18 @@
+## I18n
+
+The default language of zent is Simplified Chinese, if you want switch to Engilish, you can follow the instruction below.
+
+#### I18nProvider
+
+zent provides a React Component I18nProvider used to configure the locale text.
+
+```jsx
+import { I18nProvider as Provider } from 'zent';
+import enUS from 'zent/lib/i18n/en-US';
+
+<Provider i18n={enUS}>
+	<App />
+</Provider>
+```
+
+At present, only Chinese / English language packs are available, corresponding to two files of `en-US.js` /` zh-CN.js` in i18n folder.

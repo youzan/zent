@@ -1,0 +1,18 @@
+## 国际化
+
+目前 zent 的默认语言为中文，同时提供英文支持。如需要在国际化场景下使用 zent 组件，可以参考下面的方法。
+
+#### I18nProvider
+
+zent 提供一个 Provider 组件用于配置语言。
+
+```jsx
+import { I18nProvider as Provider } from 'zent';
+import enUS from 'zent/lib/i18n/en-US';
+
+<Provider i18n={enUS}>
+	<App />
+</Provider>
+```
+
+目前仅有中文/英文两种语言包，分别对应i18n文件夹下 `en-US.js`/`zh-CN.js`两个文件。
