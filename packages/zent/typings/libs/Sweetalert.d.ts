@@ -9,6 +9,8 @@ declare module 'zent/lib/sweetalert' {
       onConfirm?: () => void | Promise<any>
       confirmText?: string
       confirmType?: 'default' | 'primary' | 'danger' | 'success'
+      closeBtn?: boolean
+      maskClosable?: boolean
       className?: string
       prefix?: string
     }
