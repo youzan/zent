@@ -11,7 +11,7 @@
   "coverageThreshold": {
     "global": {
       "statements": 96,
-      "branches": 87,
+      "branches": 85,
       "functions": 96,
       "lines": 96
     }
@@ -24,10 +24,14 @@
     "<rootDir>/src/slider/common.js",
     "<rootDir>/src/slider/container.js",
     "<rootDir>/src/slider/points.js",
-    "<rootDir>/src/colorpicker/SketchFields.js",
-    "<rootDir>/src/colorpicker/SketchPresetColors.js",
-    "<rootDir>/src/colorpicker/common/ColorWrap.js",
-    "<rootDir>/src/colorpicker/helpers/checkboard.js"
+    "<rootDir>/src/color-picker/helpers/reactcss",
+    "<rootDir>/src/color-picker/SketchFields.js",
+    "<rootDir>/src/color-picker/SketchPresetColors.js",
+    "<rootDir>/src/color-picker/common/ColorWrap.js",
+    "<rootDir>/src/color-picker/helpers/checkboard.js",
+    "<rootDir>/src/utils/scroll.js",
+    "<rootDir>/src/utils/getWidth.js",
+    "<rootDir>/src/i18n"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
@@ -39,7 +43,7 @@
     "^card(.*)$": "<rootDir>/src/card$1",
     "^cascader(.*)$": "<rootDir>/src/cascader$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
-    "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1",
+    "^color-picker(.*)$": "<rootDir>/src/color-picker$1",
     "^copy-button(.*)$": "<rootDir>/src/copy-button$1",
     "^date-range-quick-picker(.*)$": "<rootDir>/src/date-range-quick-picker$1",
     "^datetimepicker(.*)$": "<rootDir>/src/datetimepicker$1",
@@ -50,6 +54,7 @@
     "^icon(.*)$": "<rootDir>/src/icon$1",
     "^input(.*)$": "<rootDir>/src/input$1",
     "^infinite-scroller(.*)$": "<rootDir>/src/infinite-scroller$1",
+    "^i18n(.*)$": "<rootDir>/src/i18n$1",
     "^layout(.*)$": "<rootDir>/src/layout$1",
     "^loading(.*)$": "<rootDir>/src/loading$1",
     "^menu(.*)$": "<rootDir>/src/menu$1",

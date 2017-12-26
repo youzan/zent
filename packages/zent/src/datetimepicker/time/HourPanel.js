@@ -9,13 +9,6 @@ const ROW = 4;
 const COL = 7;
 
 export default class HourPanel extends (PureComponent || Component) {
-  isDisabled(val) {
-    const { disabledHour } = this.props;
-    if (typeof disabledHour === 'function') {
-      return disabledHour(val);
-    }
-  }
-
   isSelected(val) {
     const { selected } = this.props;
     return selected.getHours() === val;
@@ -31,7 +24,7 @@ export default class HourPanel extends (PureComponent || Component) {
     for (let j = 0; j < ROW; j++) {
       cells[j] = [];
       for (let k = 0; k < COL && i < 24; k++) {
-        const isDisabled = this.isDisabled(i);
+        const isDisabled = this.props.isDisabled && this.props.isDisabled(i);
         const isSelected = this.isSelected(i);
         const isCurrent = this.isCurrent(i);
         let className = classNames({
@@ -53,13 +46,16 @@ export default class HourPanel extends (PureComponent || Component) {
     return cells;
   }
   render() {
-    const { hidePanel, onSelect } = this.props;
+    const { hidePanel, i18n, onSelect } = this.props;
     const hours = this.getHours();
-    const title = '选择小时';
 
     return (
       <div className="hour-panel">
-        <PanelHeader title={title} showNext={false} prev={hidePanel} />
+        <PanelHeader
+          title={i18n.panel.hourSelect}
+          showNext={false}
+          prev={hidePanel}
+        />
         <div className="hour-table panel-table">
           <TimeCell cells={hours} onSelect={onSelect} />
         </div>

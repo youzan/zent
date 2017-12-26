@@ -1,5 +1,12 @@
+import makeDateStr from 'zan-utils/date/makeDateStr';
+import makeDateTimeStr from 'zan-utils/date/makeDateTimeStr';
 import * as Ut from 'datetimepicker/utils';
-import { dayStart, setTime } from 'datetimepicker/utils/date';
+import {
+  dayStart,
+  dayEnd,
+  setTime,
+  getQuarterFromDate
+} from 'datetimepicker/utils/date';
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
@@ -93,9 +100,25 @@ describe('dayStart', () => {
   });
 });
 
+describe('dayEnd', () => {
+  const DAY = new Date(2017, 1, 14, 21, 27, 22);
+
+  it('return day with hours/minutes/seconds equal 23:59:59', () => {
+    expect(dayEnd(DAY).getHours()).toBe(23);
+    expect(dayEnd(DAY).getMinutes()).toBe(59);
+    expect(dayEnd(DAY).getSeconds()).toBe(59);
+  });
+
+  const TODAY = new Date();
+  it("will return end of today if don't pass params", () => {
+    expect(makeDateTimeStr(dayEnd())).toBe(`${makeDateStr(TODAY)} 23:59:59`);
+  });
+});
+
 describe('setTime', () => {
   const DAY = new Date(2017, 1, 14, 21, 27, 22);
   const TIME = '09:11:48';
+  const TIMEDATE = new Date(2018, 1, 1, 1, 1, 1);
   it('default set time to 00:00:00 if user does not pass time', () => {
     const ret = setTime(DAY);
     expect(ret.getHours()).toBe(0);
@@ -108,5 +131,34 @@ describe('setTime', () => {
     expect(ret.getHours()).toBe(9);
     expect(ret.getMinutes()).toBe(11);
     expect(ret.getSeconds()).toBe(48);
+  });
+
+  it('support setTime with date instance', () => {
+    const ret = setTime(DAY, TIMEDATE);
+    expect(ret.getHours()).toBe(1);
+    expect(ret.getMinutes()).toBe(1);
+    expect(ret.getSeconds()).toBe(1);
+  });
+});
+
+describe('getQuarterFromDate', () => {
+  let day;
+  let quarter;
+  it('should return right quarter', () => {
+    day = new Date(2018, 1, 1);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(0);
+
+    day = new Date(2018, 4, 1);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(1);
+
+    day = new Date(2018, 7, 1);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(2);
+
+    day = new Date(2018, 10, 1);
+    quarter = getQuarterFromDate(day);
+    expect(quarter).toBe(3);
   });
 });

@@ -22,7 +22,6 @@ $c-blue-hover: $theme-primary-6;
     cursor: pointer;
     display: inline-block;
     font-size: 0;
-    outline: none;
     position: relative;
     text-align: left;
     user-select: none;
@@ -35,8 +34,8 @@ $c-blue-hover: $theme-primary-6;
       border-radius: 2px;
       display: inline-block;
       min-height: 30px;
+      line-height: 1.5;
       max-height: 76px;
-      outline: none;
       padding: 5px 30px 5px 10px;
       transition: border-color 0.25s;
       width: 100%;
@@ -46,6 +45,10 @@ $c-blue-hover: $theme-primary-6;
       overflow: hidden;
       text-overflow: ellipsis;
       font-size: 12px;
+
+      &-content {
+        line-height: inherit;
+      }
 
       &.is-placeholder {
         color: $theme-stroke-4;
@@ -133,7 +136,7 @@ $c-blue-hover: $theme-primary-6;
     &-inner {
       background: $theme-stroke-10;
       width: 440px;
-      box-shadow: 0 1px 4px $theme-mask-2;
+      box-shadow: 0 1px 4px $theme-mask-black-2;
       box-sizing: border-box;
       margin-top: 5px;
     }

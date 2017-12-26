@@ -1,6 +1,4 @@
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-
+/* For compatibility only, this function does nothing */
 export default function withDnd(component) {
-  return DragDropContext(HTML5Backend)(component);
+  return component;
 }

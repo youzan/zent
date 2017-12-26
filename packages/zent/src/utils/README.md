@@ -37,3 +37,18 @@
 `getViewportSize(): { width: number, height: number }`
 
 获取当前viewport的大小, viewport指浏览器的可视空间.
+
+#### localStorage Helpers
+
+- `read(namespace: string, key: string)`
+- `write(namespace: string, key: string, value: string)`
+- `remove(namespace: string, key: string)`
+
+
+#### Smooth scroll
+
+`scroll(element: HTMLElement, x: number, y: number, duration?: number)`
+
+#### UUID
+
+`uuid()` generate a UUID.

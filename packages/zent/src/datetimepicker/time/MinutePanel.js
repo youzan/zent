@@ -9,13 +9,6 @@ const ROW = 9;
 const COL = 7;
 
 export default class MinutePanel extends (PureComponent || Component) {
-  isDisabled(val) {
-    const { disabledMinute } = this.props;
-    if (typeof disabledMinute === 'function') {
-      return disabledMinute(val);
-    }
-  }
-
   isSelected(val) {
     const { selected } = this.props;
     return selected.getMinutes() === val;
@@ -31,7 +24,7 @@ export default class MinutePanel extends (PureComponent || Component) {
     for (let j = 0; j < ROW; j++) {
       cells[j] = [];
       for (let k = 0; k < COL && i < 60; k++) {
-        const isDisabled = this.isDisabled(i);
+        const isDisabled = this.props.isDisabled && this.props.isDisabled(i);
         const isSelected = this.isSelected(i);
         const isCurrent = this.isCurrent(i);
         let className = classNames({
@@ -54,13 +47,16 @@ export default class MinutePanel extends (PureComponent || Component) {
   }
 
   render() {
-    const { hidePanel, onSelect } = this.props;
+    const { hidePanel, onSelect, i18n } = this.props;
     const minutes = this.getMinutes();
-    const title = '选择分钟';
 
     return (
       <div className="minute-panel">
-        <PanelHeader title={title} showNext={false} prev={hidePanel} />
+        <PanelHeader
+          title={i18n.panel.minuteSelect}
+          showNext={false}
+          prev={hidePanel}
+        />
         <div className="minute-table panel-table">
           <TimeCell cells={minutes} onSelect={onSelect} />
         </div>

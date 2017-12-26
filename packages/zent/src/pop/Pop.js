@@ -1,12 +1,15 @@
 import React, { Component, PureComponent } from 'react';
-import Popover from 'popover';
-import { exposePopover } from 'popover/withPopover';
-import Button from 'button';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import noop from 'lodash/noop';
 import isFunction from 'lodash/isFunction';
+
+import Popover from 'popover';
+import Button from 'button';
 import isPromise from 'utils/isPromise';
-import PropTypes from 'prop-types';
+import { exposePopover } from 'popover/withPopover';
+import { I18nReciever as Reciever } from 'i18n';
+import { Pop as I18nDefault } from 'i18n/default';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
@@ -78,23 +81,31 @@ class PopAction extends (PureComponent || Component) {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Button
-          loading={confirmPending}
-          disabled={cancelPending}
-          size="small"
-          type={type}
-          onClick={this.handleConfirm}
-        >
-          {confirmText}
-        </Button>
-        <Button
-          loading={cancelPending}
-          disabled={confirmPending}
-          size="small"
-          onClick={this.handleCancel}
-        >
-          {cancelText}
-        </Button>
+        <Reciever componentName="Pop" defaultI18n={I18nDefault}>
+          {i18n => (
+            <Button
+              loading={confirmPending}
+              disabled={cancelPending}
+              size="small"
+              type={type}
+              onClick={this.handleConfirm}
+            >
+              {confirmText || i18n.confirm}
+            </Button>
+          )}
+        </Reciever>
+        <Reciever componentName="Pop" defaultI18n={I18nDefault}>
+          {i18n => (
+            <Button
+              loading={cancelPending}
+              disabled={confirmPending}
+              size="small"
+              onClick={this.handleCancel}
+            >
+              {cancelText || i18n.cancel}
+            </Button>
+          )}
+        </Reciever>
       </div>
     );
   }
@@ -158,6 +169,8 @@ class Pop extends (PureComponent || Component) {
     closeOnClickOutside: PropTypes.bool,
     isClickOutside: PropTypes.func,
 
+    onPositionUpdated: PropTypes.func,
+
     prefix: PropTypes.string,
     className: PropTypes.string,
     wrapperClassName: PropTypes.string
@@ -168,12 +181,13 @@ class Pop extends (PureComponent || Component) {
     position: 'top-center',
     centerArrow: false,
     block: false,
-    confirmText: '确定',
-    cancelText: '取消',
+    confirmText: '',
+    cancelText: '',
     type: 'primary',
     closeOnClickOutside: true,
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
+    onPositionUpdated: noop,
     className: '',
     wrapperClassName: '',
     prefix: 'zent',
@@ -299,7 +313,8 @@ class Pop extends (PureComponent || Component) {
       position,
       centerArrow,
       onBeforeClose,
-      onBeforeShow
+      onBeforeShow,
+      onPositionUpdated
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -323,11 +338,27 @@ class Pop extends (PureComponent || Component) {
         onClose={onClose}
         onBeforeClose={onBeforeClose}
         onBeforeShow={onBeforeShow}
+        onPositionUpdated={onPositionUpdated}
+        ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}
         {this.renderContent()}
       </Popover>
     );
+  }
+
+  onPopoverRefChange = popoverInstance => {
+    this.popover = popoverInstance;
+  };
+
+  adjustPosition() {
+    if (this.popover) {
+      this.popover.adjustPosition();
+    }
+  }
+
+  getWrappedPopover() {
+    return this.popover;
   }
 }
 

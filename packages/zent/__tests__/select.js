@@ -1,6 +1,8 @@
 import React from 'react';
-import Select, { Option } from 'select';
 import { mount, ReactWrapper } from 'enzyme';
+
+import { Select as I18nDefault } from 'i18n/default';
+import Select, { Option } from 'select';
 
 describe('<Select />', () => {
   test('data的传参方式有效', () => {
@@ -291,4 +293,25 @@ describe('<Select />', () => {
   //   wrapper = mount(<Select data={data} initialIndex={2} />);
   //   expect(wrapper.state('selectedItem').value).toBe('2');
   // });
+
+  it('Reset Option', () => {
+    const data = ['1', '2', '3'];
+    const wrapper = mount(<Select data={data} resetOption />);
+    wrapper.find('SelectTrigger').simulate('click');
+    let pop = new ReactWrapper(wrapper.instance().popup, true);
+    expect(pop.find('Option').length).toBe(4);
+    pop
+      .find('Option')
+      .at(1)
+      .simulate('click');
+    expect(wrapper.state('selectedItem').value).toBe('1');
+    wrapper.find('SelectTrigger').simulate('click');
+    pop = new ReactWrapper(wrapper.instance().popup, true);
+    pop
+      .find('Option')
+      .at(0)
+      .simulate('click');
+    expect(wrapper.state('selectedItem').value).toBe(undefined);
+    expect(wrapper.find('.zent-select-text').text()).toBe(I18nDefault.input);
+  });
 });

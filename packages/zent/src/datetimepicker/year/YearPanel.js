@@ -5,20 +5,19 @@ import { noop } from '../constants';
 
 export default class YearPanel extends (PureComponent || Component) {
   prevYears = () => {
-    const { actived, onSelect } = this.props;
+    const { actived, onChange } = this.props;
     const prev = actived.getFullYear() - 12;
-    onSelect(prev, true);
+    onChange(prev, true);
   };
 
   nextYears = () => {
-    const { actived, onSelect } = this.props;
+    const { actived, onChange } = this.props;
     const next = actived.getFullYear() + 12;
-    onSelect(next, true);
+    onChange(next, true);
   };
 
   render() {
-    const props = this.props;
-    const { actived, onSelect, selected } = this.props;
+    const { actived, onSelect, selected, disabledDate } = this.props;
     const currentYear = parseInt(actived.getFullYear(), 10);
     const title = `${currentYear - 4}~${currentYear + 7}`;
 
@@ -33,8 +32,7 @@ export default class YearPanel extends (PureComponent || Component) {
         <YearPanelBody
           actived={actived}
           selected={selected}
-          max={props.max}
-          min={props.min}
+          disabledDate={disabledDate}
           onSelect={onSelect}
         />
       </div>

@@ -5,6 +5,8 @@ import map from 'lodash/map';
 import forEach from 'lodash/forEach';
 import filter from 'lodash/filter';
 
+import ColGroup from './ColGroup';
+
 class Header extends (PureComponent || Component) {
   constructor(props) {
     super(props);
@@ -125,7 +127,7 @@ class Header extends (PureComponent || Component) {
     }
   }
 
-  render() {
+  renderThead() {
     const { prefix } = this.props;
 
     return (
@@ -136,6 +138,22 @@ class Header extends (PureComponent || Component) {
           </tr>
         ))}
       </thead>
+    );
+  }
+
+  render() {
+    const { scroll, fixed, prefix, columns } = this.props;
+    const headerStyle = {};
+    if (!fixed && scroll.x) {
+      headerStyle.width = scroll.x;
+    }
+    return scroll.y ? (
+      <table className={`${prefix}-grid-table`} style={headerStyle}>
+        <ColGroup columns={columns} />
+        {this.renderThead()}
+      </table>
+    ) : (
+      this.renderThead()
     );
   }
 }

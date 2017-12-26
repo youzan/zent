@@ -3,6 +3,12 @@ import { shallow, mount } from 'enzyme';
 import Input from 'input';
 
 describe('Input', () => {
+  beforeAll(() => {
+    window.getSelection = function() {
+      return 'autoSelect';
+    };
+  });
+
   it('will render div wrapper contains an input without any props', () => {
     const wrapper = shallow(<Input />);
     expect(wrapper.type()).toBe('div');
@@ -148,8 +154,48 @@ describe('Input', () => {
   });
 
   it('can supports textarea', () => {
-    const wrapper = shallow(<Input type="textarea" />);
+    const wrapper = mount(<Input type="textarea" />);
     expect(wrapper.find('textarea').length).toBe(1);
+  });
+
+  it('can supports textarea with showCount', () => {
+    const wrapper = mount(<Input type="textarea" showCount />);
+    expect(wrapper.find('.zent-textarea-count').length).toBe(1);
+  });
+
+  it('can supports textarea with onChange and autoSize', () => {
+    class TextArea extends React.Component {
+      state = {
+        value: ''
+      };
+
+      handleChange = e => {
+        this.setState({ value: e.target.value });
+      };
+
+      render() {
+        const { value } = this.state;
+        return (
+          <div>
+            <Input
+              type="textarea"
+              value={value}
+              onChange={this.handleChange}
+              maxLength={100}
+              showCount
+              autoSize
+            />
+          </div>
+        );
+      }
+    }
+    const wrapper = mount(<TextArea />);
+
+    wrapper
+      .find('textarea')
+      .simulate('change', { target: { value: '12345678' } });
+
+    expect(wrapper.find('textarea').node.value).toBe('12345678');
   });
 
   it('can have input auto focus', () => {
@@ -167,5 +213,46 @@ describe('Input', () => {
     const wrapper = mount(<Input type="textarea" />);
     wrapper.instance().focus();
     expect(wrapper.find('textarea').node === document.activeElement).toBe(true);
+  });
+
+  it('can have input auto select', () => {
+    const wrapper = mount(<Input defaultValue="autoSelect" autoSelect />);
+    expect(
+      wrapper.find('input').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
+  });
+
+  it('can have input auto select and inintSelectionRange', () => {
+    const wrapper = mount(
+      <Input
+        defaultValue="autoSelect"
+        autoSelect
+        initSelectionStart={0}
+        initSelectionEnd={10}
+      />
+    );
+    expect(
+      wrapper.find('input').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
+  });
+
+  it('can call input select method', () => {
+    const wrapper = mount(<Input defaultValue="autoSelect" />);
+    wrapper.instance().select();
+    expect(
+      wrapper.find('input').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
+  });
+
+  it('can call textarea select method', () => {
+    const wrapper = mount(<Input type="textarea" defaultValue="autoSelect" />);
+    wrapper.instance().select();
+    expect(
+      wrapper.find('textarea').props().defaultValue ===
+        window.getSelection().toString()
+    ).toBe(true);
   });
 });

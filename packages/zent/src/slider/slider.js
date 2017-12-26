@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
+import getWidth from 'utils/getWidth';
 
 import Range from './range';
 import InputField from './inputField';
@@ -12,28 +13,28 @@ function checkProps(props) {
   const { range, value, max, min, dots, marks } = props;
   if (range) {
     if (!isArray(value)) {
-      throw 'has range props value must an array';
+      throw '`value` must an array when `range` is true';
     }
     if (!(value.length === 2)) {
-      throw "value' length must as 2";
+      throw "value's length must as 2 when `range` is true";
     }
     if (!value.every(v => isNumber(v) && v >= min && v <= max)) {
-      throw "value' each item must a number and between min to max";
+      throw "value's each item must be a number and between min and max when `range` is true";
     }
     if (!(value[0] <= value[1])) {
-      throw 'value[0] must less than value[1]';
+      throw 'value[0] must be less than value[1] when `range` is true';
     }
   } else {
     if (!isNumber(value)) {
-      throw 'not has range props value must an number';
+      throw 'value must an number when `range` is false';
     }
     if (value < min || value > max) {
-      throw 'value must between min to max';
+      throw 'value must between min and max when `range` is false';
     }
   }
   if (dots) {
     if (!marks) {
-      throw 'has dots props must has marks two';
+      throw 'marks must be used with dots';
     }
   }
 }
@@ -54,7 +55,8 @@ export default class Slider extends (PureComponent || Component) {
     range: PropTypes.bool,
     step: PropTypes.number,
     withInput: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
@@ -86,14 +88,14 @@ export default class Slider extends (PureComponent || Component) {
   };
 
   render() {
-    const { withInput, className, ...restProps } = this.props;
+    const { withInput, className, width, ...restProps } = this.props;
     const wrapClass = classNames(
       `${restProps.prefix}-slider`,
       { [`${restProps.prefix}-slider-disabled`]: restProps.disabled },
       className
     );
     return (
-      <div className={wrapClass}>
+      <div className={wrapClass} style={getWidth(width)}>
         <Range {...restProps} onChange={this.onChange} />
         {withInput &&
           !restProps.dots && (

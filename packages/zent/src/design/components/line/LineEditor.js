@@ -1,6 +1,6 @@
 import React from 'react';
 import Radio from 'radio';
-import ColorPicker from 'colorpicker';
+import ColorPicker from 'color-picker';
 
 import { DesignEditor, ControlGroup } from '../../editor/DesignEditor';
 
@@ -73,6 +73,7 @@ export default class LineEditor extends DesignEditor {
 
   static designType = 'line';
   static designDescription = '辅助线';
+
   static getInitialValue() {
     return {
       color: DEFAULT_COLOR,

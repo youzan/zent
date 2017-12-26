@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Loading from 'loading';
 
 export default class InfiniteScroller extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
     hasMore: PropTypes.bool,

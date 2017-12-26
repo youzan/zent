@@ -79,6 +79,6 @@ export function splitGroup(components) {
 
       return state;
     },
-    { groups: [], buffer: [], g: null }
+    { groups: [], buffer: [], group: null }
   ).groups;
 }

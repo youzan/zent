@@ -1,0 +1,71 @@
+.zandoc-react-search-box {
+  &-popover-wrapper {
+    margin-top: 15px;
+    margin-left: 20px;
+    vertical-align: top;
+  }
+
+  &-input {
+    display: inline-block;
+    width: 250px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 0;
+    box-shadow: none;
+    background: #fbfbfb;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-bottom: 1px solid #38f;
+    }
+  }
+
+  &-result-list {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    max-height: 400px;
+    overflow: auto;
+    box-sizing: border-box;
+
+    &--no-result {
+      height: 60px;
+      line-height: 60px;
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+    }
+  }
+
+  &-result-item {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+
+    &:hover,
+    &__active {
+      background: #59f;
+
+      .zandoc-react-search-box-result-item__title {
+        color: white;
+      }
+
+      .zandoc-react-search-box-result-item__subtitle {
+        color: #f2f2f2;
+      }
+    }
+
+    &__title {
+      font-size: 14px;
+    }
+
+    &__subtitle {
+      color: #999;
+      font-size: 12px;
+      float: right;
+    }
+  }
+}

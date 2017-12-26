@@ -5,122 +5,89 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import cx from 'classnames';
-import PageHeader from 'components/PageHeader';
-import PageFooter from 'components/PageFooter';
-import SideNav from 'components/SideNav';
-import FooterNav from 'components/FooterNav';
-import ScrollToTop from 'components/ScrollToTop';
-import throttle from 'lodash/throttle';
 
+import { I18nProvider as Provider } from 'i18n';
+import * as i18nEN from 'i18n/en-US';
+
+import ScrollToTop from './components/ScrollToTop';
 import packageJson from '../../packages/zent/package.json';
-import navData from './nav.config';
+import navData from './nav';
 import { registerRoute, registerFooter } from './router.config';
 import { prefix } from './constants';
+import CNWrapper from './components/CNWrapper';
+import USWrapper from './components/USWrapper';
 
 // one-dimentional array
-const routeData = registerRoute(navData['zh-CN']);
+// 第二个参数作为处理路由分块的夹层暂时存在，后续会修复。
+const routeData = {
+  'zh-CN': registerRoute(navData['zh-CN'], '/zh'),
+  'en-US': registerRoute(navData['en-US'], '/en')
+};
 
 // double-linked list
-const footerData = registerFooter(routeData);
+const footerData = {
+  'zh-CN': registerFooter(routeData['zh-CN']),
+  'en-US': registerFooter(routeData['en-US'])
+};
 
 export default class App extends Component {
   state = {
-    spiderOn: false,
-    spiderReady: false
+    i18n: 'zh-CN'
+  };
+
+  changeI18N = target => {
+    this.setState({
+      i18n: target
+    });
   };
 
   render() {
-    const { spiderOn, spiderReady } = this.state;
+    const { i18n } = this.state;
+    const passthrough = i18nStr => ({
+      // 奥利奥，路由路径中的夹层。
+      oreo: `/${i18nStr.split('-')[0]}`,
+      version: packageJson.version,
+      sideNavData: navData[i18nStr],
+      footerData: footerData[i18nStr],
+      sideNavRef: this.saveSideNav,
+      saveFooter: this.saveFooter,
+      changeI18N: this.changeI18N,
+      prefix,
+      i18n
+    });
 
+    // 通过 basename 控制前缀，不要放到每一层路由里去
     return (
-      <Router>
+      <Router key={module.hot ? Math.random() : null} basename={prefix}>
         <ScrollToTop>
-          <PageHeader version={packageJson.version} />
-          <div className="main-content">
-            <div className="page-container">
-              <SideNav
-                data={navData['zh-CN']}
-                base={prefix}
-                ref={this.saveSideNav}
-              />
-              <div className="page-content">
-                <div className="react-doc-page-content">
-                  <a
-                    href="https://github.com/youzan/zent"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    ref={this.saveSpiderNode}
-                  >
-                    <div
-                      className="github-spider-trigger"
-                      onMouseEnter={this.onGithubSpiderMouseEnter}
-                    />
-                    {spiderReady && (
-                      <img
-                        className={cx('github-spider animated', {
-                          slideInDown: spiderOn,
-                          slideOutUp: !spiderOn
-                        })}
-                        src="https://img.yzcdn.cn/zanui/react/spidertocat.png"
-                        alt="github-spider"
-                      />
-                    )}
-                  </a>
-                  <Switch>
-                    {routeData.map((data, index) => {
-                      return (
-                        <Route
-                          key={`route-${index}`}
-                          component={data.component}
-                          path={data.path}
-                        />
-                      );
-                    })}
-
-                    <Redirect from="*" to={routeData[0].path} />
-                  </Switch>
-                </div>
-                <FooterNav data={footerData} />
-              </div>
-            </div>
-          </div>
-          <PageFooter ref={this.saveFooter} />
+          <Switch>
+            <Route
+              path="/zh"
+              render={() => (
+                <CNWrapper pass={passthrough('zh-CN')}>
+                  <Switch>{routeData['zh-CN'].map(renderRouter)}</Switch>
+                </CNWrapper>
+              )}
+            />
+            <Route
+              path="/en"
+              render={() => (
+                <Provider i18n={i18nEN}>
+                  <USWrapper pass={passthrough('en-US')}>
+                    <Switch>{routeData['en-US'].map(renderRouter)}</Switch>
+                  </USWrapper>
+                </Provider>
+              )}
+            />
+            <Redirect from="*" to={routeData['zh-CN'][0].path} />
+          </Switch>
         </ScrollToTop>
       </Router>
     );
   }
+}
 
-  onGithubSpiderMouseEnter = () => {
-    this.setState({
-      spiderReady: true,
-      spiderOn: true
-    });
-  };
-
-  saveSpiderNode = node => {
-    this.spiderNode = node;
-  };
-
-  onMouseMove = throttle(evt => {
-    const { spiderReady, spiderOn } = this.state;
-    if (!spiderReady || !spiderOn) {
-      return;
-    }
-
-    const { target } = evt;
-    if (!this.spiderNode || !this.spiderNode.contains(target)) {
-      this.setState({
-        spiderOn: false
-      });
-    }
-  }, 16);
-
-  componentDidMount() {
-    window.addEventListener('mousemove', this.onMouseMove);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mousemove', this.onMouseMove);
-  }
+function renderRouter(data) {
+  const { source, path } = data;
+  return <Route key={`route-${path}`} component={source} path={path} />;
 }

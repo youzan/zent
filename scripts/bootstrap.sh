@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 lerna clean --yes
 
 cd packages/zent && yarn && yarn build

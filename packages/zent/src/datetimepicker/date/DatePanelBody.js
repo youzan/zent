@@ -1,13 +1,13 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-import formatDate from 'zan-utils/date/formatDate';
 
 import {
   goDays,
   isSameDate,
   isBeforeMonth,
   isAfterMonth,
-  CURRENT
+  CURRENT,
+  formatDate
 } from '../utils/';
 import PanelCell from '../common/PanelCell';
 
@@ -101,22 +101,14 @@ export default class DatePanelBody extends (PureComponent || Component) {
     return days;
   }
 
-  getThead() {
-    const arr = ['日', '一', '二', '三', '四', '五', '六'];
-
-    return arr.map((item, i) => {
-      return <li key={i}>{item}</li>;
-    });
-  }
-
   render() {
-    const { onSelect, onHover } = this.props;
+    const { onSelect, onHover, i18n } = this.props;
     const days = this.getDays();
 
     return (
       <div className="date-table panel-table">
         <ul className="panel-table__row panel-table__head">
-          {this.getThead()}
+          {i18n.panel.dayNames.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
         <PanelCell onSelect={onSelect} onHover={onHover} cells={days} />
       </div>

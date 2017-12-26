@@ -7,6 +7,7 @@
       height: $top-nav-height;
       background-color: #fbfbfb;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      padding: 0 50px;
     }
 
     &__logo {
@@ -19,8 +20,21 @@
         background-image: url(https://img.yzcdn.cn/upload_files/2017/04/20/FjwR1mraVIqtHWb8YWDW_YzQ_Kh2.png);
         background-size: contain;
         background-repeat: no-repeat;
-        margin: 20px 0 0 20px;
+        margin: 20px 0 0;
       }
+    }
+
+    &__search-sep {
+      display: inline-block;
+      height: 20px;
+      width: 1px;
+      background: #bbb;
+      margin-top: 20px;
+      margin-left: 20px;
+    }
+
+    &__github {
+      margin-top: 14px;
     }
 
     &__navs {
@@ -45,6 +59,25 @@
 
       &--active {
         color: #38f;
+      }
+    }
+
+    &__i18n-switcher {
+      display: inline-block;
+      font-size: 12px;
+      line-height: 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      position: absolute;
+      right: 100px;
+      border: 1px solid #e5e5e5;
+      padding: 0 4px;
+      border-radius: 2px;
+      color: #666;
+
+      &:hover {
+        color: #38f;
+        border-color: #38f;
       }
     }
   }

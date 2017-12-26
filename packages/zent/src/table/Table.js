@@ -11,6 +11,8 @@ import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
 import pullAll from 'lodash/pullAll';
 import pullAllBy from 'lodash/pullAllBy';
+import { I18nReciever as Reciever } from 'i18n';
+import { Table as I18nDefault } from 'i18n/default';
 
 import Head from './modules/Head';
 import Body from './modules/Body';
@@ -45,7 +47,7 @@ export default class Table extends (PureComponent || Component) {
     className: '',
     datasets: [],
     columns: [],
-    emptyLabel: '没有更多数据了',
+    emptyLabel: '',
     rowKey: 'id',
     sortType: 'desc',
     loading: false,
@@ -186,6 +188,15 @@ export default class Table extends (PureComponent || Component) {
     }
   };
 
+  /**
+   * 设置内部属性，cached选中结果
+   */
+  setSelection() {
+    let { selection } = this.props;
+    this.selectedRowKeys = selection.selectedRowKeys.slice(0); // copy 一份数组
+    this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
+  }
+
   /*
    * Head上的选中会全选所有的行
    * @param isSelect {Boolean} 表示是否全选
@@ -201,6 +212,8 @@ export default class Table extends (PureComponent || Component) {
         return { canSelect: true };
       }
     } = this.props;
+
+    this.setSelection();
 
     let allRowKeys = this.selectedRowKeys;
     let allRows = this.selectedRows;
@@ -245,8 +258,7 @@ export default class Table extends (PureComponent || Component) {
    */
   onSelectOneRow = (rowKey, isSelect) => {
     let { selection } = this.props;
-
-    this.selectedRowKeys = selection.selectedRowKeys.slice(0); // copy 一份数组
+    this.setSelection();
     let index = this.selectedRowKeys.indexOf(rowKey);
     let isSingleSelection = selection.isSingleSelection || false;
 
@@ -269,10 +281,10 @@ export default class Table extends (PureComponent || Component) {
         this.props.datasets.map(item => item[this.props.rowKey])
       );
     }
-    let selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
+    this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
     let currentRow = isSelect ? this.getCurrentRow(rowKey) : null;
 
-    selection.onSelect(this.selectedRowKeys, selectedRows, currentRow);
+    selection.onSelect(this.selectedRowKeys, this.selectedRows, currentRow);
   };
 
   getCurrentRow(key) {
@@ -417,70 +429,74 @@ export default class Table extends (PureComponent || Component) {
     }
 
     return (
-      <div className={`${prefix}-table-container`}>
-        <Loading show={this.props.loading} static>
-          {columns && (
-            <div className={`${prefix}-table ${className}`}>
-              {this.state.placeHolderHeight && (
-                <div className="thead place-holder">
-                  <div className="tr">{this.cloneHeaderContent()}</div>
+      <Reciever defaultI18n={I18nDefault} componentName="Table">
+        {i18n => (
+          <div className={`${prefix}-table-container`}>
+            <Loading show={this.props.loading} static>
+              {columns && (
+                <div className={`${prefix}-table ${className}`}>
+                  {this.state.placeHolderHeight && (
+                    <div className="thead place-holder">
+                      <div className="tr">{this.cloneHeaderContent()}</div>
+                    </div>
+                  )}
+                  <Head
+                    ref={c => (this.head = c)}
+                    columns={columns}
+                    sortBy={sortBy}
+                    sortType={sortType}
+                    onSort={this.onSort}
+                    selection={{
+                      needSelect,
+                      onSelectAll: this.onSelectAllRows,
+                      isSingleSelection,
+                      canSelectAll,
+                      isSelectAll,
+                      isSelectPart
+                    }}
+                    needExpand={needExpand}
+                    autoStick={autoStick}
+                    style={this.state.fixStyle}
+                  />
+                  <Body
+                    datasets={datasets}
+                    columns={columns}
+                    emptyLabel={emptyLabel || i18n.emptyLabel}
+                    rowKey={rowKey}
+                    getRowConf={getRowConf}
+                    selection={{
+                      needSelect,
+                      selectedRowKeys,
+                      isSingleSelection,
+                      onSelect: this.onSelectOneRow,
+                      canRowSelect
+                    }}
+                    needExpand={needExpand}
+                    isExpanded={isExpanded}
+                    expandRender={expandRender}
+                  />
+                  <Foot
+                    ref={c => (this.foot = c)}
+                    batchComponents={batchComponents}
+                    pageInfo={pageInfo}
+                    batchComponentsFixed={this.state.batchComponentsFixed}
+                    selection={{
+                      needSelect,
+                      isSingleSelection,
+                      onSelectAll: this.onSelectAllRows,
+                      selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
+                      isSelectAll,
+                      isSelectPart
+                    }}
+                    current={this.state.current}
+                    onPageChange={this.onPageChange}
+                  />
                 </div>
               )}
-              <Head
-                ref={c => (this.head = c)}
-                columns={columns}
-                sortBy={sortBy}
-                sortType={sortType}
-                onSort={this.onSort}
-                selection={{
-                  needSelect,
-                  onSelectAll: this.onSelectAllRows,
-                  isSingleSelection,
-                  canSelectAll,
-                  isSelectAll,
-                  isSelectPart
-                }}
-                needExpand={needExpand}
-                autoStick={autoStick}
-                style={this.state.fixStyle}
-              />
-              <Body
-                datasets={datasets}
-                columns={columns}
-                emptyLabel={emptyLabel}
-                rowKey={rowKey}
-                getRowConf={getRowConf}
-                selection={{
-                  needSelect,
-                  selectedRowKeys,
-                  isSingleSelection,
-                  onSelect: this.onSelectOneRow,
-                  canRowSelect
-                }}
-                needExpand={needExpand}
-                isExpanded={isExpanded}
-                expandRender={expandRender}
-              />
-              <Foot
-                ref={c => (this.foot = c)}
-                batchComponents={batchComponents}
-                pageInfo={pageInfo}
-                batchComponentsFixed={this.state.batchComponentsFixed}
-                selection={{
-                  needSelect,
-                  isSingleSelection,
-                  onSelectAll: this.onSelectAllRows,
-                  selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
-                  isSelectAll,
-                  isSelectPart
-                }}
-                current={this.state.current}
-                onPageChange={this.onPageChange}
-              />
-            </div>
-          )}
-        </Loading>
-      </div>
+            </Loading>
+          </div>
+        )}
+      </Reciever>
     );
   }
 }

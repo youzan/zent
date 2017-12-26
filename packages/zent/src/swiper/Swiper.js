@@ -18,7 +18,7 @@ function setStyle(target, styles) {
 }
 
 export default class Swiper extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
     transitionDuration: PropTypes.number,
@@ -64,7 +64,7 @@ export default class Swiper extends (PureComponent || Component) {
       });
     });
 
-    innerElements.length > 1 && this.translate(currentIndex, true);
+    innerElements.length > 1 && this.translate(currentIndex, null, true);
   };
 
   getSwiper = swiper => {
@@ -99,24 +99,42 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   swipeTo = index => {
-    let currentIndex = index;
-    this.setState({ currentIndex });
+    // 当动画进行时禁用用户的切换操作
+    if (this.isSwiping) {
+      return;
+    }
+    this.isSwiping = true;
+    this.setState({ currentIndex: index });
   };
 
-  translate = (currentIndex, isSilent) => {
-    const { transitionDuration } = this.props;
+  translate = (currentIndex, prevIndex, isSilent) => {
+    const { transitionDuration, children: { length }, onChange } = this.props;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;
     const translateDistance = itemWidth * (initIndex - currentIndex);
+    const realDuration = isSilent ? 0 : transitionDuration;
 
     setStyle(this.swiperContainer, {
       transform: `translateX(${translateDistance}px)`,
-      'transition-duration': isSilent ? '0ms' : `${transitionDuration}ms`
+      'transition-duration': `${realDuration}ms`
     });
+
+    if (currentIndex > length - 1 || currentIndex < 0) {
+      // 如果当前元素为复制元素，则做一次复位操作，再次移动到真实元素，在此之前，不会将isSwiping的状态更改为false
+      return this.resetPosition(currentIndex);
+    }
+
+    // 等待动画结束之后将isSwiping置为false
+    setTimeout(() => {
+      this.isSwiping = false;
+    }, realDuration);
+
+    onChange && onChange(currentIndex, this.getRealPrevIndex(prevIndex));
   };
 
   resetPosition = currentIndex => {
     const { transitionDuration, children: { length } } = this.props;
+
     if (currentIndex < 0) {
       setTimeout(
         () =>
@@ -189,22 +207,17 @@ export default class Swiper extends (PureComponent || Component) {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onChange, children: { length } } = this.props;
+    const { children: { length } } = this.props;
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
+    // isSilent表示静默地做一次位移动画，在用户无感知的情况下从复制元素translate到真实元素
+    const isSilent = prevIndex > length - 1 || prevIndex < 0;
 
     if (prevIndex === currentIndex) {
       return;
     }
 
-    const isSilent = prevIndex > length - 1 || prevIndex < 0;
-    this.translate(currentIndex, isSilent);
-
-    if (currentIndex > length - 1 || currentIndex < 0) {
-      return this.resetPosition(currentIndex);
-    }
-
-    onChange && onChange(currentIndex, this.getRealPrevIndex(prevIndex));
+    this.translate(currentIndex, prevIndex, isSilent);
   }
 
   componentWillUnmount() {
@@ -238,7 +251,7 @@ export default class Swiper extends (PureComponent || Component) {
         onMouseLeave={this.handleMouseLeave}
       >
         {arrows &&
-          childrenCount && (
+          childrenCount > 1 && (
             <div
               className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
               onClick={this.prev}

@@ -50,7 +50,8 @@ class Field extends Component {
       _isValidating: false,
       _initialValue: props.value,
       _validationError: [],
-      _externalError: null
+      _externalError: null,
+      _asyncValidated: false
     };
     this._name = prefixName(context.zentForm, props.name);
     this._validations = props.validations || {};
@@ -95,7 +96,7 @@ class Field extends Component {
   componentDidUpdate(prevProps) {
     // 支持props中的value动态更新
     if (!isEqual(this.props.value, prevProps.value)) {
-      this.setValue(this.props.value);
+      this.setValue(this.props.value, this.props.validateOnBlur);
     }
 
     // 动态改变validation方法，重新校验
@@ -136,14 +137,18 @@ class Field extends Component {
     return this._name;
   };
 
+  isAsyncValidated = () => {
+    return this.state._asyncValidated;
+  };
+
   setValue = (value, needValidate = true) => {
     this.setState(
       {
         _value: value,
-        _isDirty: needValidate
+        _isDirty: true
       },
       () => {
-        this.context.zentForm.validate(this);
+        needValidate && this.context.zentForm.validate(this);
       }
     );
   };
@@ -161,10 +166,12 @@ class Field extends Component {
   };
 
   setInitialValue = value => {
+    const currentInitialValue =
+      value !== undefined ? value : this.state._initialValue;
     this.setState(
       {
-        _value: value || this.state._initialValue,
-        _initialValue: value || this.state._initialValue,
+        _value: currentInitialValue,
+        _initialValue: currentInitialValue,
         _isDirty: false
       },
       () => {
@@ -271,7 +278,10 @@ class Field extends Component {
     if (!preventSetValue) {
       this.setValue(newValue, validateOnBlur);
       if (asyncValidation) {
-        this.context.zentForm.asyncValidate(this, newValue);
+        this.context.zentForm.asyncValidate(this, newValue).catch(error => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
       }
     }
   };
@@ -306,6 +316,7 @@ class Field extends Component {
       isTouched: this.isDirty(),
       isDirty: this.isDirty(),
       isValid: this.isValid(),
+      isAsyncValidated: this.isAsyncValidated,
       isActive: this.isActive(),
       value: this.format(this.getValue()),
       error: this.getErrorMessage(),

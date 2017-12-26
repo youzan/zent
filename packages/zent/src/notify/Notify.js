@@ -7,6 +7,8 @@ const containerList = {};
 
 let id = 0;
 
+let durationDefault = 2000;
+
 function createContainerId() {
   return ++id;
 }
@@ -61,7 +63,7 @@ const showNotify = (container, props, callback) => {
   const containerId = createContainerId();
   const timeOutId = setTimeout(() => {
     closeNotify(containerId);
-  }, props.duration || 2000);
+  }, props.duration || durationDefault);
 
   containerList[containerId] = { container, callback, timeOutId };
   return containerId;
@@ -100,5 +102,11 @@ export function clear(containerId) {
     closeNotify(containerId);
   } else {
     closeAllNotify();
+  }
+}
+
+export function config(options) {
+  if (options.duration) {
+    durationDefault = options.duration;
   }
 }

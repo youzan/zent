@@ -1,14 +1,16 @@
-import React from 'react';
-import ColorPicker from 'colorpicker';
+import React, { PureComponent, Component } from 'react';
+import ColorPicker from 'color-picker';
 import omit from 'lodash/omit';
 
 import getControlGroup from '../getControlGroup';
 import unknownProps from '../unknownProps';
 
-const ColorPickerWrap = props => {
-  const passableProps = omit(props, unknownProps);
-  return <ColorPicker {...passableProps} color={props.value} />;
-};
+class ColorPickerWrap extends (PureComponent || Component) {
+  render() {
+    const passableProps = omit(this.props, unknownProps);
+    return <ColorPicker {...passableProps} color={this.props.value} />;
+  }
+}
 const ColorPickerField = getControlGroup(ColorPickerWrap);
 
 export default ColorPickerField;

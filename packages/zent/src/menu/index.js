@@ -12,9 +12,10 @@ export default class Menu extends CommonMenu {
   static SubMenu = SubMenu;
 
   static propTypes = {
-    prefix: PropTypes.string,
+    onClick: PropTypes.func,
+    style: PropTypes.object,
     className: PropTypes.string,
-    onClick: PropTypes.func
+    prefix: PropTypes.string
   };
 
   static defaultProps = {
@@ -36,10 +37,10 @@ export default class Menu extends CommonMenu {
   };
 
   render() {
-    const { children, prefix, className } = this.props;
+    const { children, prefix, className, style } = this.props;
 
     return (
-      <ul className={cx(`${prefix}-menu`, className)}>
+      <ul className={cx(`${prefix}-menu`, className)} style={style}>
         {React.Children.map(children, this.renderMenuItem)}
       </ul>
     );

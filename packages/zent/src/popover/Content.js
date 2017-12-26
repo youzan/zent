@@ -49,7 +49,9 @@ export default class PopoverContent extends (PureComponent || Component) {
     getAnchor: PropTypes.func,
 
     // defaults to body
-    containerSelector: PropTypes.string
+    containerSelector: PropTypes.string,
+
+    onPositionUpdated: PropTypes.func
   };
 
   state = {
@@ -85,14 +87,19 @@ export default class PopoverContent extends (PureComponent || Component) {
 
       return;
     }
+    const contentBoundingBox = content.getBoundingClientRect();
 
     const anchor = this.getAnchor();
+    if (!anchor) {
+      return;
+    }
     const boundingBox = anchor.getBoundingClientRect();
 
     const parent = this.getPositionedParent();
+    if (!parent) {
+      return;
+    }
     const parentBoundingBox = parent.getBoundingClientRect();
-
-    const contentBoundingBox = content.getBoundingClientRect();
 
     const relativeBB = translateToContainerCoordinates(
       parentBoundingBox,
@@ -119,9 +126,12 @@ export default class PopoverContent extends (PureComponent || Component) {
       }
     );
 
-    this.setState({
-      position
-    });
+    this.setState(
+      {
+        position
+      },
+      this.props.onPositionUpdated
+    );
   };
 
   onWindowResize = throttle((evt, delta) => {
