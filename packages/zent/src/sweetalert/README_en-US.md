@@ -1,6 +1,6 @@
 ---
-title: SweetAlert
-path: component/sweet-alert
+title: Sweetalert
+path: component/sweetalert
 group: Feedback
 ---
 
