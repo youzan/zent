@@ -9,6 +9,11 @@ export default class Textarea extends (PureComponent || Component) {
     autoSize && autosize(this.textarea);
   }
 
+  componentWillUnmount() {
+    const { autoSize } = this.props.inputProps;
+    autoSize && autosize.destroy(this.textarea);
+  }
+
   render() {
     const {
       wrapClass,
