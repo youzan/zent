@@ -25,6 +25,7 @@
     "typings/"
   ],
   "dependencies": {
+    "autosize": "^4.0.0",
     "babel-runtime": "^6.23.0",
     "classnames": "2.2.x",
     "es6-error": "4.0.x",

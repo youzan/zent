@@ -20,6 +20,7 @@ group: 业务组件
 | onSettingsChange | 组件配置信息的修改回调函数 | func | | 可选 |
 | defaultSelectedIndex| 默认选中的下标（value）| number | -1 | 可选 |
 | preview | 用于自定义整个 Design 的渲染 | Component | DesingPreview | 可选 |
+| previewFooter | 自定义 Preview 底部的额外信息 | node |  | 可选 | 
 | confirmUnsavedLeave| 有未保存数据关闭窗口时需要用户确认 | boolean | true | 可选 |
 | cache | 是否将未保存的数据暂存到 localStorage 中 | boolean | false | 可选 |
 | cacheId | 配合 cache 使用，用于设置 Design 示例的缓存 id | string | | cache 为 true 时必填 |
