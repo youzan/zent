@@ -214,11 +214,11 @@ class Select extends (PureComponent || Component) {
         )
       ) {
         state.sItems[valueIndex] = item;
+      } else if (value.length === 0) {
+        // 多选重置
+        state.sItem = {};
+        state.sItems = [];
       }
-    } else if (isArray(value) && value.length === 0) {
-      // 多选重置
-      state.sItem = {};
-      state.sItems = [];
     } else if (typeof value === 'object' && isEqual(value, item.value)) {
       state.sItem = item;
     } else if (
