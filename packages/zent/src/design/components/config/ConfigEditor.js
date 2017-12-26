@@ -3,7 +3,7 @@
 import React from 'react';
 import Button from 'button';
 import Input from 'input';
-import ColorPicker from 'color-picker';
+import ColorPicker from 'colorpicker';
 
 import { DesignEditor, ControlGroup } from '../../editor/DesignEditor';
 import { DEFAULT_BACKGROUND } from '../../preview/constants';
