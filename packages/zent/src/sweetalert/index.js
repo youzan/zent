@@ -7,7 +7,7 @@ import Dialog from 'dialog';
 import Icon from 'icon';
 
 import ActionButton from './action-button';
-import { TitleIconMap, CommonProps } from './constants';
+import { TitleIconMap } from './constants';
 
 /**
  * 17.12.13 从相似的 alert 与 confirm 函数中提取公共逻辑，方便 i18n 注入
@@ -25,18 +25,19 @@ const { openDialog } = Dialog;
  * @returns {function} [close function returned by openDialog]
  */
 function sweet(config, sweetType) {
-  let {
+  const {
     className = '',
     prefix = 'zent',
     confirmType = 'primary',
+    closeBtn = false,
+    maskClosable = false,
     title,
     type,
     content,
     onConfirm,
     onCancel,
     confirmText,
-    cancelText,
-    ...rest
+    cancelText
   } = config;
 
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
@@ -81,8 +82,9 @@ function sweet(config, sweetType) {
   };
 
   close = openDialog({
-    ...CommonProps,
     prefix,
+    closeBtn,
+    maskClosable,
     className: cx(`${prefix}-sweetalert-${sweetType}`, {
       [className]: !!className
     }),
@@ -96,8 +98,7 @@ function sweet(config, sweetType) {
       <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
         {renderButtons}
       </Receiver>
-    ),
-    ...rest
+    )
   });
 
   return close;
