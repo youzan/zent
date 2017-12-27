@@ -62,7 +62,6 @@ describe('Input', () => {
     expect(wrapper.find('input').props().readOnly).toBe(true);
     expect(wrapper.find('input').props().max).toBe(11);
     expect(wrapper.find('input').props().min).toBe(8);
-    expect(wrapper.find('input').props().defaultValue).toBe('not placeholder');
     wrapper = shallow(<Input placeholder="default" type="password" disabled />);
     expect(wrapper.find('input').props().type).toBe('password');
     expect(wrapper.find('input').props().placeholder).toBe('default');
@@ -103,14 +102,40 @@ describe('Input', () => {
     ).toBe('foo');
   });
 
+  it('can supports showClear props', () => {
+    const wrapper = shallow(<Input showClear />);
+    expect(wrapper.find('Icon').length).toBe(0);
+    wrapper.find('input').simulate('change', { target: { value: 'test' } });
+    expect(wrapper.find('Icon').length).toBe(1);
+    expect(wrapper.state().value).toBe('test');
+    expect(wrapper.find('input').node.props.value).toBe('test');
+    wrapper.find('Icon').simulate('mouseDown', { preventDefault: jest.fn() });
+    wrapper.find('Icon').simulate('click');
+    expect(wrapper.state().value).toBe('');
+    expect(wrapper.find('input').node.props.value).toBe('');
+    expect(wrapper.find('Icon').length).toBe(0);
+  });
+
   it('can handle onChange event', () => {
-    const onChangeMock = jest.fn();
-    const wrapper = shallow(<Input onChange={onChangeMock} />);
-    wrapper.find('input').simulate('change');
-    expect(onChangeMock.mock.calls.length).toBe(1);
-    wrapper.find('input').simulate('change');
-    wrapper.find('input').simulate('change');
-    expect(onChangeMock.mock.calls.length).toBe(3);
+    class InputTest extends React.Component {
+      state = {
+        value: ''
+      };
+
+      handleChange = e => {
+        this.setState({ value: e.target.value });
+        e.preventDefault();
+        e.stopPropagation();
+      };
+
+      render() {
+        const { value } = this.state;
+        return <Input value={value} onChange={this.handleChange} />;
+      }
+    }
+    const wrapper = mount(<InputTest />);
+    wrapper.find('input').simulate('change', { target: { value: 'test' } });
+    expect(wrapper.state().value).toBe('test');
   });
 
   it('can distinguish enter and other keys through keyDown event', () => {
@@ -196,6 +221,7 @@ describe('Input', () => {
       .simulate('change', { target: { value: '12345678' } });
 
     expect(wrapper.find('textarea').node.value).toBe('12345678');
+    wrapper.unmount();
   });
 
   it('can have input auto focus', () => {
@@ -217,10 +243,9 @@ describe('Input', () => {
 
   it('can have input auto select', () => {
     const wrapper = mount(<Input defaultValue="autoSelect" autoSelect />);
-    expect(
-      wrapper.find('input').props().defaultValue ===
-        window.getSelection().toString()
-    ).toBe(true);
+    expect(wrapper.state().value === window.getSelection().toString()).toBe(
+      true
+    );
   });
 
   it('can have input auto select and inintSelectionRange', () => {
@@ -232,19 +257,17 @@ describe('Input', () => {
         initSelectionEnd={10}
       />
     );
-    expect(
-      wrapper.find('input').props().defaultValue ===
-        window.getSelection().toString()
-    ).toBe(true);
+    expect(wrapper.state().value === window.getSelection().toString()).toBe(
+      true
+    );
   });
 
   it('can call input select method', () => {
     const wrapper = mount(<Input defaultValue="autoSelect" />);
     wrapper.instance().select();
-    expect(
-      wrapper.find('input').props().defaultValue ===
-        window.getSelection().toString()
-    ).toBe(true);
+    expect(wrapper.state().value === window.getSelection().toString()).toBe(
+      true
+    );
   });
 
   it('can call textarea select method', () => {
