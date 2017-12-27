@@ -127,6 +127,7 @@ class UploadPopup extends Component {
               <FileInput
                 {...props.options}
                 accept={accept}
+                initIndex={localFiles.length}
                 onChange={this.handleChange}
               />
             </div>
@@ -162,7 +163,14 @@ class UploadPopup extends Component {
 
   handleMove = (fromIndex, toIndex) => {
     let { localFiles } = this.state;
-    this.setState({ localFiles: swapArray(localFiles, fromIndex, toIndex) });
+    localFiles = swapArray(localFiles, fromIndex, toIndex);
+    this.setState({
+      localFiles: localFiles.map((item, index) => {
+        // 拖拽移动以后重建索引
+        item.index = index;
+        return item;
+      })
+    });
   };
 
   handleDelete = index => {
@@ -224,8 +232,11 @@ class UploadPopup extends Component {
 
   handleChange = files => {
     let { localFiles } = this.state;
+    localFiles = localFiles.concat(files);
+    // 根据索引进行排序，防止读取文件导致顺序错乱
+    localFiles.sort((a, b) => (a.index > b.index ? 1 : -1));
     this.setState({
-      localFiles: localFiles.concat(files)
+      localFiles
     });
   };
 

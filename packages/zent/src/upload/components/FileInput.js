@@ -68,7 +68,7 @@ export default class FileInput extends (PureComponent || Component) {
         return false;
       }
       if (!maxSize || file.size <= maxSize) {
-        this.addFile(file);
+        this.addFile(file, index);
       } else {
         !silent &&
           Notify.error(`已经自动过滤大于${formatFileSize(maxSize)}的${typeName}文件`);
@@ -76,9 +76,9 @@ export default class FileInput extends (PureComponent || Component) {
     });
   };
 
-  addFile(file) {
+  addFile(file, index) {
     let fileReader = new FileReader();
-    let { silent, type } = this.props;
+    let { silent, type, initIndex } = this.props;
     let { accept } = this.state;
     let localFiles = [];
 
@@ -89,7 +89,8 @@ export default class FileInput extends (PureComponent || Component) {
       if (accept && (!mimeType || accept.indexOf(mimeType.mime) > -1)) {
         localFiles.push({
           src: e.target.result,
-          file
+          file,
+          index: initIndex + index
         });
       } else {
         !silent &&
