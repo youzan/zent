@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import Icon from 'icon';
+import isFunction from 'lodash/isFunction';
 import omit from 'lodash/omit';
 import isNumber from 'lodash/isNumber';
 import getWidth from 'utils/getWidth';
@@ -20,6 +22,7 @@ export default class Input extends (PureComponent || Component) {
     addonAfter: PropTypes.node,
     onPressEnter: PropTypes.func,
     showCount: PropTypes.bool,
+    showClear: PropTypes.bool,
     autoSize: PropTypes.bool,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
@@ -35,8 +38,29 @@ export default class Input extends (PureComponent || Component) {
     prefix: 'zent',
     type: 'text',
     autoFocus: false,
-    autoSelect: false
+    autoSelect: false,
+    showClear: false
   };
+
+  constructor(props) {
+    super(props);
+    const { value, defaultValue } = props;
+    this.state = {
+      value: value || defaultValue || ''
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { value, defaultValue } = nextProps;
+    if (
+      value !== this.props.value ||
+      defaultValue !== this.props.defaultValue
+    ) {
+      this.state = {
+        value: value || defaultValue || ''
+      };
+    }
+  }
 
   componentDidMount() {
     const {
@@ -75,6 +99,33 @@ export default class Input extends (PureComponent || Component) {
     if (onKeyDown) onKeyDown(evt);
   };
 
+  onChange = evt => {
+    this.triggerCustomChangeEvent(evt.target.value, evt);
+  };
+
+  clearInput = evt => {
+    this.triggerCustomChangeEvent('', evt);
+  };
+
+  retainInputFocus = evt => {
+    evt.preventDefault();
+  };
+
+  triggerCustomChangeEvent(value, evt) {
+    const { onChange } = this.props;
+
+    isFunction(onChange) &&
+      onChange({
+        target: {
+          ...this.props,
+          value
+        },
+        preventDefault: () => evt.preventDefault(),
+        stopPropagation: () => evt.stopPropagation()
+      });
+    this.setState({ value });
+  }
+
   render() {
     const {
       addonBefore,
@@ -82,10 +133,12 @@ export default class Input extends (PureComponent || Component) {
       prefix,
       className,
       type,
+      showClear,
       width,
       disabled,
       readOnly
     } = this.props;
+    const { value } = this.state;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
     const editable = !(disabled || readOnly);
@@ -108,6 +161,7 @@ export default class Input extends (PureComponent || Component) {
       'addonAfter',
       'onPressEnter',
       'width',
+      'showClear',
       'autoSelect',
       'initSelectionStart',
       'initSelectionEnd'
@@ -125,6 +179,7 @@ export default class Input extends (PureComponent || Component) {
         />
       );
     }
+    inputProps = omit(inputProps, ['defaultValue', 'value', 'onChange']);
 
     return (
       <div className={wrapClass} style={widthStyle}>
@@ -137,8 +192,18 @@ export default class Input extends (PureComponent || Component) {
           }}
           className={`${prefix}-input`}
           {...inputProps}
+          value={value}
+          onChange={this.onChange}
           onKeyDown={this.handleKeyDown}
         />
+        {showClear &&
+          value && (
+            <Icon
+              type="close-circle"
+              onClick={this.clearInput}
+              onMouseDown={this.retainInputFocus}
+            />
+          )}
         {addonAfter && (
           <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>
         )}

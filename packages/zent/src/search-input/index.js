@@ -21,7 +21,7 @@ export default class SearchInput extends (PureComponent || Component) {
   };
 
   render() {
-    const { prefix, className, value, width } = this.props;
+    const { prefix, className, width } = this.props;
     const inputProps = omit(this.props, 'className', 'type', 'onChange');
 
     return (
@@ -30,28 +30,13 @@ export default class SearchInput extends (PureComponent || Component) {
         className={cx(`${prefix}-search-input`, className)}
       >
         <Icon type="search" />
-        <Input {...inputProps} onChange={this.onChange} />
-        {value && (
-          <Icon
-            type="close-circle"
-            onClick={this.clearInput}
-            onMouseDown={this.retainInputFocus}
-          />
-        )}
+        <Input {...inputProps} onChange={this.onChange} showClear />
       </div>
     );
   }
 
   onChange = evt => {
     this.triggerCustomChangeEvent(evt.target.value, evt);
-  };
-
-  clearInput = evt => {
-    this.triggerCustomChangeEvent('', evt);
-  };
-
-  retainInputFocus = evt => {
-    evt.preventDefault();
   };
 
   triggerCustomChangeEvent(value, evt) {
