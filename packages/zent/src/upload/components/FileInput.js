@@ -90,7 +90,7 @@ export default class FileInput extends (PureComponent || Component) {
         localFiles.push({
           src: e.target.result,
           file,
-          index: initIndex + index
+          __uid: initIndex + index
         });
       } else {
         !silent &&
