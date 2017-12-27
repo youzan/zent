@@ -105,6 +105,13 @@ class UploadPopup extends Component {
   renderLocalUploadRegion(props) {
     let { prefix, accept, options } = props;
     let { localFiles } = this.state;
+    // 记录最后一项的索引
+    let lastIndex = 0;
+    let filesLength = localFiles.length;
+    if (filesLength > 0) {
+      // 保证新添加的都是在旧添加的文件后面
+      lastIndex = localFiles[filesLength - 1].index + 1;
+    }
     return (
       <div className={`${prefix}-local-attachment-region`}>
         <div className={`${prefix}-title`}>
@@ -127,7 +134,7 @@ class UploadPopup extends Component {
               <FileInput
                 {...props.options}
                 accept={accept}
-                initIndex={localFiles.length}
+                initIndex={lastIndex}
                 onChange={this.handleChange}
               />
             </div>
