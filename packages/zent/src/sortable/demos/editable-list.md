@@ -1,9 +1,9 @@
 ---
-order: 1
+order: 2
 zh-CN:
-	title: 基础用法
+	title: 可编辑列表
 en-US:
-	title: Basic Usage
+	title: Editable List
 ---
 
 ```js
@@ -65,38 +65,39 @@ class Simple extends React.Component {
 	render() {
 		const { list } = this.state;
 		return (
-			<Sortable
-				className="demo-sortable"
-				items={list}
-				options={{
-					filter: '.demo-sortable-add',
-					dragClass: 'demo-sortable-drag'
-				}}
-				onChange={this.handleChange}
-			>
-				{
-					list.map(({ name }, index ) => {
-						return (
-							<div
-								className="demo-sortable-item"
-								key={name}
-							>
-								{name}
-								<Icon
-									className="demo-sortable-icon"
-									type="close"
-									onClick={() => this.handleRemove(index)}
-								/>
-							</div>
-						)
-					})
-				}
+			<div className="demo-sortable-container">
+				<Sortable
+					className="demo-sortable"
+					items={list}
+					options={{
+						dragClass: 'demo-sortable-drag'
+					}}
+					onChange={this.handleChange}
+				>
+					{
+						list.map(({ name }, index ) => {
+							return (
+								<div
+									className="demo-sortable-item"
+									key={name}
+								>
+									{name}
+									<Icon
+										className="demo-sortable-icon"
+										type="close"
+										onClick={() => this.handleRemove(index)}
+									/>
+								</div>
+							)
+						})
+					}
+				</Sortable>
 				<div
 					className="demo-sortable-add"
 					onClick={this.handleAdd}>
 					<Icon type="plus" />
 				</div>
-			</Sortable>
+			</div>
 		);
 	}
 }

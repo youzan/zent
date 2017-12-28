@@ -21,28 +21,39 @@ Sortable 主要用于一个区域内元素的拖拽排序
 | prefix             | 自定义前缀                     | string              | `'zent'`				  |															|
 
 <style>
-	.demo-sortable {
+	.demo-sortable-container {
 		padding: 0 140px;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
 	}
 
-	.demo-sortable-item,
-	.demo-sortable-add {
+	.demo-sortable {
+		height: auto;
+	}
+
+	.demo-sortable-item {
 		position: relative;
 		text-align: center;
 		line-height: 100px;
 		border: 1px solid #bbb;
 		border-radius: 4px;
-		flex: 0 0 100px;
-		height: 100px;
-		margin: 0 20px 20px 0;
+    float: left;
+    margin: 0 20px 20px 0;
+    width: 100px;
+    height: 100px;
 	}
 
 	.demo-sortable-add {
+		overflow: hidden;
+		display: inline-block;
 		cursor: pointer;
+		text-align: center;
+		line-height: 100px;
+		border: 1px solid #bbb;
+		border-radius: 4px;
+		margin: 0 20px 20px 0;
+    width: 100px;
+    height: 100px;
 	}
+
 
 	.demo-sortable-item:hover {
 		.demo-sortable-icon {
