@@ -16,15 +16,6 @@ describe('Notify component', () => {
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
   });
 
-  it('have move out class', () => {
-    Notify.error('test error', 1000);
-    jest.runAllTimers();
-    expect(document.querySelectorAll('.zent-notify-out').length).toBe(1);
-    setTimeout(() => {
-      expect(document.querySelectorAll('.zent-notify').length).toBe(0);
-    }, 300);
-  });
-
   it('test duration', () => {
     Notify.error('test error', 2000);
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);

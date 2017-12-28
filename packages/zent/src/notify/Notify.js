@@ -7,7 +7,6 @@ let index = 0;
 let durationDefault = 2000;
 const containerList = {};
 const notifyContainerClass = 'zent-notify-container';
-const notifyOutClass = 'zent-notify-out';
 
 const createContainerId = () => {
   return ++index;
@@ -68,13 +67,13 @@ const createNotifyContainerNode = () => {
 };
 
 /**
- * notify显示前初始化      
+ * notify显示
  * @param  {[type]}   text     显示文案
  * @param  {[type]}   duration 显示时长
  * @param  {[type]}   status   notify状态
  * @param  {Function} callback notify消失时回调
  */
-const readyToShow = (text, duration, status, callback) => {
+const show = (text, duration, status, callback) => {
   if (!isBrowser) return;
 
   let container = document.createElement('div');
@@ -83,6 +82,7 @@ const readyToShow = (text, duration, status, callback) => {
     text,
     duration,
     status,
+    isIn: true,
     selector: notifyContainerNode
   };
 
@@ -94,7 +94,6 @@ const readyToShow = (text, duration, status, callback) => {
       <NotifyContent
         selector={notifyContainerNode}
         status={status}
-        className={notifyOutClass}
         close={() => closeNotify(containerId)}
       />,
       container
@@ -106,11 +105,11 @@ const readyToShow = (text, duration, status, callback) => {
 };
 
 export function success(text, duration, callback) {
-  return readyToShow(text, duration, 'success', callback);
+  return show(text, duration, 'success', callback);
 }
 
 export function error(text, duration, callback) {
-  return readyToShow(text, duration, 'error', callback);
+  return show(text, duration, 'error', callback);
 }
 
 export function clear(containerId) {

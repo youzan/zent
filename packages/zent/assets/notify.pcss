@@ -26,21 +26,19 @@
   animation-duration: 0.3s;
 
   &.zent-notify-success {
-    background: $theme-success-7;
+    border: 1px solid $theme-success-1;
+    background: $theme-success-4;
   }
 
   &.zent-notify-error {
-    background: $theme-error-4;
+    border: 1px solid $theme-error-1;
+    background: $theme-error-2;
   }
 }
 
-.zent-notify-out {
+.zent-notify-exiting {
   animation-name: notifyMoveOut;
   animation-duration: 0.3s;
-}
-
-.zent-notify-hidden {
-  display: none;
 }
 
 @keyframes notifyMoveIn {
