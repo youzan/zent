@@ -29,14 +29,17 @@ export default class Sortable extends (PureComponent || Component) {
   };
 
   initSortable = instance => {
-    const { options, onChange } = this.props;
+    const { prefix, options, onChange } = this.props;
 
     if (!instance) {
       return;
     }
 
     const sortableOptions = {
-      sort: true,
+      ghostClass: `${prefix}-ghost`,
+      chosenClass: `${prefix}-chosen`,
+      dragClass: `${prefix}-drag`,
+      fallbackClass: `${prefix}-fallback`,
       onEnd: e => {
         const { items } = this.props;
         const { oldIndex, newIndex } = e;
