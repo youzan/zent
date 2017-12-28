@@ -49,7 +49,7 @@ Sortable 主要用于一个容器内元素的拖拽排序
 
 | 参数             	 	| 说明                          | 类型                | 默认值       		 | 备选值           							  			         |
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
-| setData | 用于调用HTML5原生的DataTransfer.setData()方法 | (dataTransfer: object, dragEl: HTMLElement): void | || ||
+| setData | 用于调用HTML5原生的DataTransfer.setData方法 | (dataTransfer: object, dragEl: HTMLElement): void | || ||
 | onChoose | 元素被选中时的回调函数 | (e: Event) (详见[事件回调](#shi-jian-hui-diao)) | | |
 | onStart | 元素开始拖拽时的回调函数 | (e: Event) (详见[事件回调](#shi-jian-hui-diao)) | | |
 | onEnd | 元素结束拖拽时的回调函数 | (e: Event) (详见[事件回调](#shi-jian-hui-diao)) | | |
@@ -75,7 +75,7 @@ Sortable 主要用于一个容器内元素的拖拽排序
 
 ```js
 	function (/**Event*/evt) {
-		evt.oldIndex;  // 元素在父元素中的下标
+		evt.oldIndex;  // 元素在父元素中的下标(number)
 	},
 ```
 
@@ -107,7 +107,7 @@ Sortable 主要用于一个容器内元素的拖拽排序
 		evt.draggedRect; // 被拖拽元素的TextRectangle {left, top, right, bottom}
 		evt.related; // 拖拽的目标元素(HTMLElement)
 		evt.relatedRect; // 拖拽的目标元素的TextRectangle {left, top, right, bottom}
-		originalEvent.clientY; // 鼠标所在的位置
+		originalEvent.clientY; // 鼠标所在的位置(number)
 		// return false; — 用于取消拖拽
 	},
 ```
