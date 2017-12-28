@@ -65,39 +65,36 @@ class Simple extends React.Component {
 	render() {
 		const { list } = this.state;
 		return (
-			<div className="demo-sortable-container">
-				<Sortable
-					className="demo-sortable"
-					items={list}
-					options={{
-						dragClass: 'demo-sortable-drag'
-					}}
-					onChange={this.handleChange}
-				>
-					{
-						list.map(({ name }, index ) => {
-							return (
-								<div
-									className="demo-sortable-item"
-									key={name}
-								>
-									{name}
-									<Icon
-										className="demo-sortable-icon"
-										type="close"
-										onClick={() => this.handleRemove(index)}
-									/>
-								</div>
-							)
-						})
-					}
-				</Sortable>
+			<Sortable
+				className="demo-sortable"
+				items={list}
+				filterClass="demo-sortable-add"
+				dragClass="demo-sortable-drag"
+				onChange={this.handleChange}
+			>
+				{
+					list.map(({ name }, index ) => {
+						return (
+							<div
+								className="demo-sortable-item"
+								key={name}
+							>
+								{name}
+								<Icon
+									className="demo-sortable-icon"
+									type="close"
+									onClick={() => this.handleRemove(index)}
+								/>
+							</div>
+						)
+					})
+				}
 				<div
 					className="demo-sortable-add"
 					onClick={this.handleAdd}>
 					<Icon type="plus" />
 				</div>
-			</div>
+			</Sortable>
 		);
 	}
 }
