@@ -95,8 +95,8 @@ class FieldArray extends Component {
     fieldArray.forEach((item, index) => {
       callback(
         `[${index}]`,
-        item._fieldInternalKey,
         index,
+        item._fieldInternalKey,
         fieldArrayValues[index],
         fieldArrayValues
       );
@@ -135,8 +135,8 @@ class FieldArray extends Component {
     return map(fieldArray, (item, index) => {
       return callback(
         `[${index}]`,
-        item._fieldInternalKey,
         index,
+        item._fieldInternalKey,
         fieldArrayValues[index],
         fieldArrayValues
       );

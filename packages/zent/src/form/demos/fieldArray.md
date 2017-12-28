@@ -1,7 +1,7 @@
 ---
 order: 14
 zh-CN:
-	title: FieldArray
+	title: FieldArray 基本使用
 	addHobby: 添加兴趣爱好
 	delHobby: 删除该爱好
 	hobby: 兴趣爱好
@@ -19,7 +19,7 @@ zh-CN:
 	totalNumberError: 请填写总人数
 	submit: 获取表单值
 en-US:
-	title: FieldArray
+	title: Basic usage of FieldArray
 	addHobby: Add hobby
 	delHobby: Delete hobby
 	hobby: Hobby
@@ -48,7 +48,7 @@ class Hobbies extends React.Component {
 		return (
 			<ul>
 				<Button onClick={() => fields.push()} className="add-btn">{i18n.addHobby}</Button>
-				{fields.map((hobby, key, index) => {
+				{fields.map((hobby, index, key) => {
 					return (
 						<li className="hobbies" key={`hobby${key}`}>
 							<FormInputField
@@ -73,7 +73,7 @@ class Members extends React.Component {
 		return (
 			<ul>
 				{fields.length < 3 && (<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>)}
-				{fields.map((member, key, index) => {
+				{fields.map((member, index, key) => {
 					return (
 						<li className="members" key={`member${key}`}>
 							<div className="member-title">

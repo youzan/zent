@@ -245,7 +245,6 @@ describe('CreateForm and FieldArray', () => {
     moveFields(0, 2);
     const fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(3);
-    console.log(fields);
     expect(fields[0]._fieldInternalValue.name).toBe('bar');
     expect(fields[1]._fieldInternalValue.name).toBe('test');
     expect(fields[2]._fieldInternalValue.name).toBe('foo');

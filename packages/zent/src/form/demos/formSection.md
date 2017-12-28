@@ -1,7 +1,7 @@
 ---
 order: 13
 zh-CN:
-	title: FormSection
+	title: FormSection 基本使用
 	buyerInfo: 购买者信息
 	recipientInfo: 发票信息
 	street: 街道
@@ -13,7 +13,6 @@ zh-CN:
 	zipCode: 邮政编码
 	name: 名字
 	mobile: 手机号
-	address: 地址
 	orderNo: 订单号
 	orderNoError: 订单号错误
 	mobileError: 手机号错误
@@ -25,7 +24,7 @@ zh-CN:
 	setValue: 设置表单值
 	reset: 重置
 en-US:
-	title: FormSection
+	title: Basic usage of FormSection
 	buyerInfo: Buyer Info
 	recipientInfo: Recipient Info
 	street: Street
@@ -37,7 +36,6 @@ en-US:
 	zipCode: Zip code
 	name: Name
 	mobile: Mobile
-	address: Address
 	orderNo: Order Number
 	orderNoError: The order number is wrong.
 	mobileError: The mobile is wrong.
@@ -107,7 +105,6 @@ class BasicInfo extends React.Component {
 			/>
 			<FormSection
 				name="address"
-				label="{i18n.address}:"
 			>
 				<Address />
 			</FormSection>
