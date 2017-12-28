@@ -25,6 +25,10 @@ export default class Portal extends (PureComponent || Component) {
     prefix: 'zent'
   };
 
+  static contextTypes = {
+    zentI18n: PropTypes.object
+  };
+
   // openPortal和closePortal之所以不暴露出去是因为这两个API的调用容易出BUG，有操作是异步的。
   componentDidMount() {
     util.openPortal.call(this);

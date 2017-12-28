@@ -265,6 +265,7 @@ class Field extends Component {
       this.setValue(newValue, validateOnBlur);
       if (asyncValidation) {
         this.context.zentForm.asyncValidate(this, newValue).catch(error => {
+          // eslint-disable-next-line
           console.log(error);
         });
       }

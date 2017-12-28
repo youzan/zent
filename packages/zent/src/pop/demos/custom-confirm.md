@@ -15,17 +15,29 @@ en-US:
 ```jsx
 import { Pop, Sweetalert, Button } from 'zent';
 
-ReactDOM.render(
-	<Pop 
-		trigger="click"
-		content="{i18n.popContent}"
-		type="danger"
-		confirmText="Error"
-		cancelText="Close"
-		onConfirm={() => Sweetalert.alert({ content: '{i18n.content}' })}
-	>
-		<Button type="primary">{i18n.btnText}</Button>
-	</Pop>
-	, mountNode
-);
+class Wrapper extends React.Component {
+	confirmHandler = () => {
+		Sweetalert.alert({
+			content: '{i18n.content}',
+			parentComponent: this
+		});
+	}
+
+	render() {
+		return (
+			<Pop
+				trigger="click"
+				content="{i18n.popContent}"
+				type="danger"
+				confirmText="Error"
+				cancelText="Close"
+				onConfirm={this.confirmHandler}
+			>
+				<Button type="primary">{i18n.btnText}</Button>
+			</Pop>
+		);
+	}
+}
+
+ReactDOM.render(<Wrapper/>, mountNode);
 ```

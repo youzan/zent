@@ -5,7 +5,7 @@ zh-CN:
 	button: 按钮
 en-US:
 	title: Basic Usage
-	button: button
+	button: Button
 ---
 
 ```jsx

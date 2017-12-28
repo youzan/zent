@@ -46,13 +46,16 @@ export default class SecondPanel extends (PureComponent || Component) {
   }
 
   render() {
-    const { hidePanel, onSelect } = this.props;
+    const { hidePanel, onSelect, i18n } = this.props;
     const seconds = this.getSeconds();
-    const title = '选择秒';
 
     return (
       <div className="second-panel">
-        <PanelHeader title={title} showNext={false} prev={hidePanel} />
+        <PanelHeader
+          title={i18n.panel.minuteSelect}
+          showNext={false}
+          prev={hidePanel}
+        />
         <div className="second-table panel-table">
           <TimeCell cells={seconds} onSelect={onSelect} />
         </div>

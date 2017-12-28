@@ -9,7 +9,7 @@ const ROW = 4;
 const COL = 3;
 
 export default class YearPanelBody extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     actived: PropTypes.instanceOf(Date),
     onSelect: PropTypes.func
   };
@@ -37,7 +37,7 @@ export default class YearPanelBody extends (PureComponent || Component) {
         years[rowIndex][colIndex] = {
           text: val,
           value: val,
-          title: `${val}年`,
+          title: `${val}`,
           className,
           isDisabled
         };

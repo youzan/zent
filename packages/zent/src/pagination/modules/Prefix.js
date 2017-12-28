@@ -2,6 +2,9 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'select';
 
+import { I18nReceiver as Receiver } from 'i18n';
+import { Pagination as I18nDefault } from 'i18n/default';
+
 const { number, array, oneOfType, func } = PropTypes;
 const { Option } = Select;
 
@@ -16,40 +19,36 @@ export default class Prefix extends (PureComponent || Component) {
     this.props.setPageSize(data.text);
   };
 
-  renderSelect() {
-    let { pageSize, currentPageSize } = this.props;
-
-    pageSize = pageSize.map(item => `${item.value}`);
-
-    return (
-      <span className="each">
-        ，每页&nbsp;
-        <Select
-          value={currentPageSize}
-          onChange={this.changePageSize}
-          width={60}
-          autoWidth
-        >
-          {pageSize.map((item, i) => (
-            <Option key={i} value={item}>
-              {item}
-            </Option>
-          ))}
-        </Select>
-        条
-      </span>
-    );
-  }
-
   render() {
-    let { pageSize, totalItem, currentPageSize } = this.props;
-    let isNeedSelect = Array.isArray(pageSize) && pageSize.length > 1;
-
+    const { totalItem, pageSize, currentPageSize } = this.props;
+    const isNeedSelect = Array.isArray(pageSize) && pageSize.length > 1;
+    const pageSizeForSelect = pageSize.map(item => `${item.value}`);
     return (
       <span className="zent-pagination__info">
-        <span className="total">共{totalItem}条</span>
-        {!isNeedSelect && <span className="each">，每页{currentPageSize}条</span>}
-        {isNeedSelect && this.renderSelect()}
+        <Receiver componentName="Pagination" defaultI18n={I18nDefault}>
+          {i18n => (
+            <span className="total each">
+              {`${i18n.total} ${totalItem} ${i18n.items}${i18n.comma}`}
+              {isNeedSelect ? (
+                <Select
+                  value={currentPageSize}
+                  onChange={this.changePageSize}
+                  width={60}
+                  autoWidth
+                >
+                  {pageSizeForSelect.map((item, i) => (
+                    <Option key={i} value={item}>
+                      {item}
+                    </Option>
+                  ))}
+                </Select>
+              ) : (
+                currentPageSize
+              )}
+              {`${i18n.items}${i18n.perPage}`}
+            </span>
+          )}
+        </Receiver>
       </span>
     );
   }

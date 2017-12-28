@@ -1,21 +1,22 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
+
 import Input from 'input';
 import Popover from 'popover';
-import formatDate from 'zan-utils/date/formatDate';
-import parseDate from 'zan-utils/date/parseDate';
 import getWidth from 'utils/getWidth';
+import { I18nReceiver as Receiver } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
 
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT } from './utils/';
+import { CURRENT, formatDate, parseDate } from './utils/';
 import { dayStart } from './utils/date';
 import {
   noop,
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants/';
+} from './constants';
 
 function extractStateFromProps(props) {
   let showPlaceholder;
@@ -52,13 +53,13 @@ function extractStateFromProps(props) {
 }
 
 class YearPicker extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     ...commonPropTypes
   };
 
   static defaultProps = {
     ...commonProps,
-    placeholder: '请选择年',
+    placeholder: '',
     format: 'YYYY',
     needConfirm: false
   };
@@ -106,11 +107,11 @@ class YearPicker extends (PureComponent || Component) {
   };
 
   onConfirm = () => {
-    const { props, state } = this;
+    const { props: { format, onChange }, state: { selected } } = this;
 
     let value = '';
-    if (state.selected) {
-      value = formatDate(state.selected, props.format);
+    if (selected) {
+      value = formatDate(selected, format);
     }
 
     this.setState({
@@ -118,7 +119,7 @@ class YearPicker extends (PureComponent || Component) {
       openPanel: false,
       showPlaceholder: false
     });
-    this.props.onChange(value);
+    onChange(value);
   };
 
   isDisabled = val => {
@@ -137,24 +138,29 @@ class YearPicker extends (PureComponent || Component) {
     let yearPicker;
     if (state.openPanel) {
       yearPicker = (
-        <div className="year-picker" ref={ref => (this.picker = ref)}>
-          <YearPanel
-            actived={state.actived}
-            selected={state.selected}
-            onChange={this.onChangeYear}
-            onSelect={this.onSelectYear}
-            disabledDate={this.isDisabled}
-          />
-          {props.needConfirm && (
-            <PanelFooter
-              buttonText={props.confirmText}
-              linkText="今年"
-              linkCls="link--current"
-              onClickLink={() => this.onSelectYear(CURRENT)}
-              onClickButton={this.onConfirm}
-            />
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => (
+            <div className="year-picker" ref={ref => (this.picker = ref)}>
+              <YearPanel
+                actived={state.actived}
+                selected={state.selected}
+                onChange={this.onChangeYear}
+                onSelect={this.onSelectYear}
+                disabledDate={this.isDisabled}
+                i18n={i18n}
+              />
+              {props.needConfirm && (
+                <PanelFooter
+                  buttonText={props.confirmText || i18n.confirm}
+                  linkText={i18n.current.year}
+                  linkCls="link--current"
+                  onClickLink={() => this.onSelectYear(CURRENT)}
+                  onClickButton={this.onConfirm}
+                />
+              )}
+            </div>
           )}
-        </div>
+        </Receiver>
       );
     }
 
@@ -174,32 +180,48 @@ class YearPicker extends (PureComponent || Component) {
   };
 
   render() {
-    const { props, state } = this;
-    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const {
+      props: {
+        className,
+        disabled,
+        name,
+        placeholder,
+        popPosition,
+        prefix,
+        width
+      },
+      state: { openPanel, showPlaceholder, value }
+    } = this;
+
+    const wrapperCls = `${prefix}-datetime-picker ${className}`;
     const inputCls = classNames({
       'picker-input': true,
-      'picker-input--filled': !state.showPlaceholder,
-      'picker-input--disabled': props.disabled
+      'picker-input--filled': !showPlaceholder,
+      'picker-input--disabled': disabled
     });
-    const widthStyle = getWidth(props.width);
+    const widthStyle = getWidth(width);
 
     return (
       <div style={widthStyle} className={wrapperCls}>
         <Popover
           cushion={5}
-          visible={state.openPanel}
+          visible={openPanel}
           onVisibleChange={this.togglePicker}
-          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={popPositionMap[props.popPosition.toLowerCase()]}
+          className={`${prefix}-datetime-picker-popover ${className}-popover`}
+          position={popPositionMap[popPosition.toLowerCase()]}
         >
           <Popover.Trigger.Click>
             <div style={widthStyle} className={inputCls}>
-              <Input
-                name={props.name}
-                value={state.showPlaceholder ? props.placeholder : state.value}
-                onChange={noop}
-                disabled={props.disabled}
-              />
+              <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+                {i18n => (
+                  <Input
+                    name={name}
+                    value={showPlaceholder ? placeholder || i18n.year : value}
+                    onChange={noop}
+                    disabled={disabled}
+                  />
+                )}
+              </Receiver>
 
               <span className="zenticon zenticon-calendar-o" />
               <span

@@ -18,6 +18,9 @@ import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Grid as I18nDefault } from 'i18n/default';
+
 import Store from './Store';
 import ColGroup from './ColGroup';
 import Header from './Header';
@@ -34,6 +37,40 @@ function stopPropagation(e) {
 }
 
 class Grid extends (PureComponent || Component) {
+  static propTypes = {
+    className: PropTypes.string,
+    rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    prefix: PropTypes.string,
+    datasets: PropTypes.array,
+    columns: PropTypes.array,
+    loading: PropTypes.bool,
+    pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    onChange: PropTypes.func,
+    selection: PropTypes.object,
+    rowKey: PropTypes.string,
+    scroll: PropTypes.object,
+    sortBy: PropTypes.string,
+    sortType: PropTypes.string,
+    onRowClick: PropTypes.func,
+    ellipsis: PropTypes.bool
+  };
+
+  static defaultProps = {
+    className: '',
+    prefix: 'zent',
+    datasets: [],
+    columns: [],
+    loading: false,
+    pageInfo: false,
+    onChange: noop,
+    selection: null,
+    rowKey: 'id',
+    emptyLabel: '',
+    scroll: {},
+    onRowClick: noop,
+    ellipsis: false
+  };
+
   constructor(props) {
     super(props);
     this.checkboxPropsCache = {};
@@ -318,6 +355,7 @@ class Grid extends (PureComponent || Component) {
             style={{ maxHeight: y, overflowY: 'scroll' }}
             ref={ref => {
               this[`${fixed || 'scroll'}Body`] = ref;
+              if (!fixed) this.bodyTable = ref;
             }}
             onScroll={this.handleBodyScroll}
           >
@@ -349,13 +387,13 @@ class Grid extends (PureComponent || Component) {
     );
   };
 
-  getEmpty = () => {
+  getEmpty = i18n => {
     const { datasets, prefix, emptyLabel } = this.props;
 
     if (size(datasets) === 0) {
       return (
         <div className={`${prefix}-grid-empty`} key="empty">
-          {emptyLabel}
+          {emptyLabel || i18n.emptyLabel}
         </div>
       );
     }
@@ -520,78 +558,50 @@ class Grid extends (PureComponent || Component) {
       );
     }
 
-    const content = [
-      this.getTable(),
-      this.getEmpty(),
-      <Footer
-        key="footer"
-        prefix={prefix}
-        pageInfo={pageInfo}
-        onChange={this.onChange}
-      />
-    ];
-
-    const scrollTable = this.isAnyColumnsFixed() ? (
-      <div className={`${prefix}-grid-scroll`}>{content}</div>
-    ) : (
-      content
-    );
-
     return (
-      <div className={className} ref={node => (this.tableNode = node)}>
-        <Loading show={loading}>
-          {scrollTable}
-          {this.isAnyColumnsLeftFixed() && (
-            <div className={`${prefix}-grid-fixed-left`}>
-              {this.getLeftFixedTable()}
+      <Receiver defaultI18n={I18nDefault} componentName="Grid">
+        {i18n => {
+          const content = [
+            this.getTable(),
+            this.getEmpty(i18n),
+            <Footer
+              key="footer"
+              prefix={prefix}
+              pageInfo={pageInfo}
+              onChange={this.onChange}
+            />
+          ];
+
+          const scrollTable = this.isAnyColumnsFixed() ? (
+            <div className={`${prefix}-grid-scroll`}>{content}</div>
+          ) : (
+            content
+          );
+
+          return (
+            <div className={className} ref={node => (this.tableNode = node)}>
+              <Loading show={loading}>
+                {scrollTable}
+                {this.isAnyColumnsLeftFixed() && (
+                  <div className={`${prefix}-grid-fixed-left`}>
+                    {this.getLeftFixedTable()}
+                  </div>
+                )}
+                {this.isAnyColumnsRightFixed() && (
+                  <div className={`${prefix}-grid-fixed-right`}>
+                    {this.getRightFixedTable()}
+                  </div>
+                )}
+              </Loading>
+              <WindowResizeHandler
+                onResize={debounce(this.syncFixedTableRowHeight, 500)}
+              />
             </div>
-          )}
-          {this.isAnyColumnsRightFixed() && (
-            <div className={`${prefix}-grid-fixed-right`}>
-              {this.getRightFixedTable()}
-            </div>
-          )}
-        </Loading>
-        <WindowResizeHandler
-          onResize={debounce(this.syncFixedTableRowHeight, 500)}
-        />
-      </div>
+          );
+        }}
+      </Receiver>
     );
   }
 }
-
-Grid.propTypes = {
-  className: PropTypes.string,
-  rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  prefix: PropTypes.string,
-  datasets: PropTypes.array,
-  columns: PropTypes.array,
-  loading: PropTypes.bool,
-  pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  onChange: PropTypes.func,
-  selection: PropTypes.object,
-  rowKey: PropTypes.string,
-  scroll: PropTypes.object,
-  sortBy: PropTypes.string,
-  sortType: PropTypes.string,
-  onRowClick: PropTypes.func,
-  ellipsis: PropTypes.bool
-};
-
-Grid.defaultProps = {
-  className: '',
-  prefix: 'zent',
-  datasets: [],
-  columns: [],
-  loading: false,
-  pageInfo: false,
-  onChange: noop,
-  selection: null,
-  rowKey: 'id',
-  emptyLabel: '没有更多数据了',
-  scroll: {},
-  onRowClick: noop,
-  ellipsis: false
-};
 
 export default Grid;

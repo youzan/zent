@@ -2,10 +2,8 @@
 order: 5
 zh-CN:
 	title: 对象数组
-	pla: 请选择
 en-US:
 	title: Object Array
-	pla: Select an option
 ---
 
 ```js
@@ -18,7 +16,7 @@ const data = [
 ];
 
 ReactDOM.render(
-  <Select placeholder="{i18n.pla}" data={data} />
+  <Select data={data} />
   , mountNode
 );
 ```

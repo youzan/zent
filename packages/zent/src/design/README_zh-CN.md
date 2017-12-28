@@ -16,8 +16,11 @@ group: 业务组件
 | components | 所有组件的定义数组 | array | [] | 必须 |
 | value | 组件当前的值 | array | [] | 可选 |
 | onChange | 组件值修改时触发的回调函数 | func(value: array): void | 必须 |
+| settings | 组件的配置信息，会传给每个 Design 组件 | object | | 可选 |
+| onSettingsChange | 组件配置信息的修改回调函数 | func | | 可选 |
 | defaultSelectedIndex| 默认选中的下标（value）| number | -1 | 可选 |
 | preview | 用于自定义整个 Design 的渲染 | Component | DesingPreview | 可选 |
+| previewFooter | 自定义 Preview 底部的额外信息 | node |  | 可选 | 
 | confirmUnsavedLeave| 有未保存数据关闭窗口时需要用户确认 | boolean | true | 可选 |
 | cache | 是否将未保存的数据暂存到 localStorage 中 | boolean | false | 可选 |
 | cacheId | 配合 cache 使用，用于设置 Design 示例的缓存 id | string | | cache 为 true 时必填 |
@@ -126,6 +129,12 @@ type Component = {
   componentD
 ]
 ```
+
+### `settings` 和 `onSettingsChange`
+
+可以传入一个可选的 `settings` 以及相应的 `onSettingsChange` 回调函数，这两个属性会被传递给每一个 Design 组件。
+
+`Design` 预定义个了一个设置：`previewBackground`，`Design` 使用 `settings.previewBackground` 来设置预览区域的背景色。
 
 ### Design 实例方法
 

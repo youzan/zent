@@ -2,10 +2,8 @@
 order: 8
 zh-CN:
 	title: 支持自动调整弹出层的宽度
-	pla: 请选择
 en-US:
 	title: Auto Width
-	pla: Select an option
 ---
 
 ```js
@@ -15,7 +13,6 @@ const Option = Select.Option;
 
 ReactDOM.render(
 	<Select
-		placeholder="{i18n.pla}"
 		autoWidth
 		open
 		className="zent-select--auto-width"

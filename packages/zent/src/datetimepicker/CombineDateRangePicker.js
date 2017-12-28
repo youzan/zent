@@ -1,13 +1,14 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import Popover from 'popover';
-import formatDate from 'zan-utils/date/formatDate';
-import parseDate from 'zan-utils/date/parseDate';
+import { I18nReceiver as Receiver } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { goMonths, isArray, isSameMonth } from './utils';
+import { goMonths, isArray, isSameMonth, formatDate, parseDate } from './utils';
 import { dayStart, setTime } from './utils/date';
 import {
   timeFnMap,
@@ -15,7 +16,7 @@ import {
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants/';
+} from './constants';
 
 let retType = 'string';
 
@@ -99,7 +100,7 @@ const extractStateFromProps = props => {
 };
 
 class CombineDateRangePicker extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
     placeholder: PropTypes.array,
@@ -108,8 +109,8 @@ class CombineDateRangePicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: ['开始日期', '结束日期'],
-    errorText: '请选择起止时间',
+    placeholder: ['', ''],
+    errorText: '',
     defaultTime: ['00:00:00', '00:00:00']
   };
 
@@ -308,7 +309,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   }
 
   onConfirm = () => {
-    const { selected, activedTime } = this.state;
+    const { activedTime, selected } = this.state;
 
     if (selected.length !== 2) {
       this.setState({
@@ -349,11 +350,14 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     this.props.onChange(ret);
   };
 
-  renderPicker() {
-    const { state, props } = this;
+  renderPicker(i18n) {
+    const {
+      props: { confirmText, disabledTime, errorText, showTime },
+      state: { actived, activedTime, openPanel, range, selected, showError }
+    } = this;
     let rangePicker;
     const getTimeConfig = type => {
-      if (!props.showTime) return false;
+      if (!showTime) return false;
       const handleMap = {
         start: this.onChangeStartTime,
         end: this.onChangeEndTime
@@ -372,18 +376,18 @@ class CombineDateRangePicker extends (PureComponent || Component) {
       };
 
       return {
-        hidePanel: state[timeStatusMap[type]],
-        actived: state.activedTime[indexMap[type]],
-        disabledTime: props.disabledTime && props.disabledTime(type),
+        hidePanel: this.state[timeStatusMap[type]],
+        actived: activedTime[indexMap[type]],
+        disabledTime: disabledTime && disabledTime(type),
         onChange: handleMap[type],
         onOpen: timeHandleMap[type]
       };
     };
 
-    if (state.openPanel) {
+    if (openPanel) {
       const pickerCls = classNames({
         'range-picker': true,
-        'range-picker--showTime': props.showTime
+        'range-picker--showTime': showTime
       });
       const datePickerCls = classNames({
         'date-picker': true,
@@ -394,42 +398,44 @@ class CombineDateRangePicker extends (PureComponent || Component) {
         <div className={pickerCls} ref={ref => (this.picker = ref)}>
           <div className={datePickerCls}>
             <DatePanel
-              range={state.range}
+              range={range}
               showTime={getTimeConfig('start')}
-              actived={state.actived[0]}
-              selected={state.selected}
+              actived={actived[0]}
+              selected={selected}
               disabledDate={this.isDisabled}
               onSelect={this.onSelectDate}
               onChange={this.onChangeStart}
               onHover={this.onHover}
               onPrev={this.onChangeMonth('prev')}
               onNext={noop}
+              i18n={i18n}
               showPrev
               showNext={false}
             />
           </div>
           <div className={datePickerCls}>
             <DatePanel
-              range={state.range}
+              range={range}
               showTime={getTimeConfig('end')}
-              actived={state.actived[1]}
-              selected={state.selected}
+              actived={actived[1]}
+              selected={selected}
               disabledDate={this.isDisabled}
               onSelect={this.onSelectDate}
               onChange={this.onChangeEnd}
               onHover={this.onHover}
               onPrev={noop}
               onNext={this.onChangeMonth('next')}
+              i18n={i18n}
               showPrev={false}
               showNext
             />
           </div>
           {this.isfooterShow ? (
             <PanelFooter
-              buttonText={props.confirmText}
+              buttonText={confirmText || i18n.confirm}
               onClickButton={this.onConfirm}
-              showError={state.showError}
-              errorText={props.errorText}
+              showError={showError}
+              errorText={errorText || i18n.rangeError}
             />
           ) : null}
         </div>
@@ -450,38 +456,62 @@ class CombineDateRangePicker extends (PureComponent || Component) {
   };
 
   render() {
-    const { state, props } = this;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const {
+      props: {
+        className,
+        disabled,
+        placeholder,
+        popPosition,
+        prefix,
+        showTime
+      },
+      state: { openPanel, showPlaceholder, value }
+    } = this;
+    const prefixCls = `${prefix}-datetime-picker ${className}`;
     const inputCls = classNames({
       'picker-input--range picker-input picker-input--combine': true,
-      'picker-input--filled': !state.showPlaceholder,
-      'picker-input--showTime': props.showTime,
-      'picker-input--disabled': props.disabled
+      'picker-input--filled': !showPlaceholder,
+      'picker-input--showTime': showTime,
+      'picker-input--disabled': disabled
     });
 
     return (
       <div className={prefixCls}>
-        <Popover
-          cushion={5}
-          visible={state.openPanel}
-          onVisibleChange={this.togglePicker}
-          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
-          position={popPositionMap[props.popPosition.toLowerCase()]}
-        >
-          <Popover.Trigger.Click>
-            <div className={inputCls} onClick={evt => evt.preventDefault()}>
-              {state.showPlaceholder
-                ? props.placeholder.join(' 至 ')
-                : state.value.join(' 至 ')}
-              <span className="zenticon zenticon-calendar-o" />
-              <span
-                onClick={this.onClearInput}
-                className="zenticon zenticon-close-circle"
-              />
-            </div>
-          </Popover.Trigger.Click>
-          <Popover.Content>{this.renderPicker()}</Popover.Content>
-        </Popover>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => {
+            let placeholderText = placeholder.every(Boolean)
+              ? placeholder.join(` ${i18n.to} `)
+              : i18n.range;
+            return (
+              <Popover
+                cushion={5}
+                visible={openPanel}
+                onVisibleChange={this.togglePicker}
+                className={`${prefix}-datetime-picker-popover ${className}-popover`}
+                position={popPositionMap[popPosition.toLowerCase()]}
+              >
+                <Popover.Trigger.Click>
+                  <div
+                    className={inputCls}
+                    onClick={evt => evt.preventDefault()}
+                  >
+                    <span>
+                      {showPlaceholder
+                        ? placeholderText
+                        : value.join(` ${i18n.to} `)}
+                    </span>
+                    <span className="zenticon zenticon-calendar-o" />
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  </div>
+                </Popover.Trigger.Click>
+                <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>
+              </Popover>
+            );
+          }}
+        </Receiver>
       </div>
     );
   }

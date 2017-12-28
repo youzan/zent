@@ -3,7 +3,10 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import isString from 'lodash/isString';
 
-import { commonProps, commonPropTypes } from './constants/';
+import { I18nReceiver as Receiver } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
+
+import { commonProps, commonPropTypes } from './constants';
 import DatePicker from './DatePicker';
 
 // type
@@ -20,7 +23,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: ['开始日期', '结束日期'],
+    placeholder: ['', ''],
     format: 'YYYY-MM-DD',
     value: [],
     openPanel: [],
@@ -43,16 +46,16 @@ class SplitDateRangePicker extends (PureComponent || Component) {
 
   renderPicker() {
     const {
-      value,
-      placeholder,
       className,
+      defaultTime,
+      disabledDate,
+      onChange,
+      onClick,
       onClose,
       onOpen,
-      onClick,
       openPanel,
-      onChange,
-      disabledDate,
-      defaultTime,
+      placeholder,
+      value,
       ...pickerProps
     } = this.props;
     let rangePicker;
@@ -64,33 +67,45 @@ class SplitDateRangePicker extends (PureComponent || Component) {
 
     rangePicker = (
       <div className={pickerCls}>
-        <DatePicker
-          {...pickerProps}
-          openPanel={openPanel[0]}
-          placeholder={placeholder[0]}
-          max={value[1] || pickerProps.max}
-          defaultTime={timeArr[0]}
-          value={value[0]}
-          onClick={val => onClick && onClick(val, START)}
-          onOpen={() => onOpen && onOpen(START)}
-          onClose={() => onClose && onClose(START)}
-          onChange={this.onChange(START)}
-          disabledDate={val => disabledDate(val, START)}
-        />
-        <span className="picker-seperator">至</span>
-        <DatePicker
-          {...pickerProps}
-          openPanel={openPanel[1]}
-          placeholder={placeholder[1]}
-          min={value[0] || pickerProps.min}
-          defaultTime={timeArr[1]}
-          value={value[1]}
-          onClick={val => onClick && onClick(val, END)}
-          onOpen={() => onOpen && onOpen(END)}
-          onClose={() => onClose && onClose(END)}
-          onChange={this.onChange(END)}
-          disabledDate={val => disabledDate(val, END)}
-        />
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => (
+            <DatePicker
+              {...pickerProps}
+              openPanel={openPanel[0]}
+              placeholder={placeholder[0] || i18n.start}
+              max={value[1] || pickerProps.max}
+              defaultTime={timeArr[0]}
+              value={value[0]}
+              onClick={val => onClick && onClick(val, START)}
+              onOpen={() => onOpen && onOpen(START)}
+              onClose={() => onClose && onClose(START)}
+              onChange={this.onChange(START)}
+              disabledDate={val => disabledDate(val, START)}
+            />
+          )}
+        </Receiver>
+
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => <span className="picker-seperator">{i18n.to}</span>}
+        </Receiver>
+
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => (
+            <DatePicker
+              {...pickerProps}
+              openPanel={openPanel[1]}
+              placeholder={placeholder[1] || i18n.end}
+              min={value[0] || pickerProps.min}
+              defaultTime={timeArr[1]}
+              value={value[1]}
+              onClick={val => onClick && onClick(val, END)}
+              onOpen={() => onOpen && onOpen(END)}
+              onClose={() => onClose && onClose(END)}
+              onChange={this.onChange(END)}
+              disabledDate={val => disabledDate(val, END)}
+            />
+          )}
+        </Receiver>
       </div>
     );
 
@@ -98,8 +113,8 @@ class SplitDateRangePicker extends (PureComponent || Component) {
   }
 
   render() {
-    const props = this.props;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const { prefix, className } = this.props;
+    const prefixCls = `${prefix}-datetime-picker ${className}`;
 
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }

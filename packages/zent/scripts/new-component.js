@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
 function main() {
   const args = process.argv;
@@ -14,6 +15,7 @@ function main() {
   }
 
   addFiles(componentName);
+  exec('node ./scripts/update-jest-module-mapper.js');
 }
 
 main();

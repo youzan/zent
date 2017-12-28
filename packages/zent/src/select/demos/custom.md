@@ -2,10 +2,8 @@
 order: 5
 zh-CN:
 	title: 支持自定义选项字段
-	pla: 请选择
 en-US:
 	title: Custom Key
-	pla: Select an option
 ---
 
 ```js
@@ -19,7 +17,6 @@ const data = [
 
 ReactDOM.render(
 	<Select
-		placeholder="{i18n.pla}"
     data={data}
     optionValue="id"
     optionText="name"

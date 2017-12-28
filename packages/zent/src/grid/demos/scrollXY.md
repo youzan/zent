@@ -1,7 +1,7 @@
 ---
 order: 9
 zh-CN:
-	title: scroll x and y
+	title: 水平和垂直滚动
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -9,7 +9,7 @@ zh-CN:
 	soldNumber: 销量
 	createdTime: 创建时间
 en-US:
-	title: scroll x and y
+	title: Horizontal and vertical scroll
 	product: Product
 	productName: Product Name
 	uv: uv

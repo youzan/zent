@@ -1,8 +1,10 @@
 import React, { Component, PureComponent } from 'react';
-import PanelHeader from '../common/PanelHeader';
+
+import { formatDate } from '../utils';
 import DatePanelBody from './DatePanelBody';
 import MonthPanel from '../month/MonthPanel';
 import TimePanel from '../time/TimePanel';
+import PanelHeader from '../common/PanelHeader';
 
 export default class DatePanel extends (PureComponent || Component) {
   static defaultProps = {
@@ -31,45 +33,62 @@ export default class DatePanel extends (PureComponent || Component) {
   };
 
   render() {
-    const { state, props } = this;
-    const title = `${props.actived.getFullYear()}年${props.actived.getMonth() +
-      1}月`;
+    const {
+      props: {
+        actived,
+        disabledDate,
+        i18n,
+        onHover,
+        onNext,
+        onPrev,
+        onSelect,
+        range,
+        selected,
+        showNext,
+        showPrev,
+        showTime
+      },
+      state: { showMonth }
+    } = this;
+
     let monthPanel;
     let timePanel;
-    if (state.showMonth) {
+    if (showMonth) {
       monthPanel = (
         <MonthPanel
-          actived={props.actived}
-          selected={props.selected}
+          actived={actived}
+          selected={selected}
           onChange={this.onSelectMonth}
           onSelect={this.onSelectMonth}
+          i18n={i18n}
         />
       );
     }
-    if (props.showTime) {
-      timePanel = <TimePanel {...props.showTime} />;
+    if (showTime) {
+      timePanel = <TimePanel {...showTime} i18n={i18n} />;
     }
 
     return (
       <div className="date-panel">
         <PanelHeader
-          title={title}
+          title={formatDate(actived, i18n.panel.titleFormat)}
           onClickTitle={this.showMonth}
-          prev={props.onPrev}
-          next={props.onNext}
-          showPrev={props.showPrev}
-          showNext={props.showNext}
+          prev={onPrev}
+          next={onNext}
+          showPrev={showPrev}
+          showNext={showNext}
         />
         <DatePanelBody
-          actived={props.actived}
-          range={props.range}
-          selected={props.selected}
-          disabledDate={props.disabledDate}
-          onSelect={props.onSelect}
-          onHover={props.onHover}
+          actived={actived}
+          range={range}
+          selected={selected}
+          disabledDate={disabledDate}
+          onSelect={onSelect}
+          onHover={onHover}
+          i18n={i18n}
         />
-        {state.showMonth && monthPanel}
-        {props.showTime && timePanel}
+        {showMonth && monthPanel}
+        {showTime && timePanel}
       </div>
     );
   }

@@ -1,11 +1,14 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-import formatDate from 'zan-utils/date/formatDate';
 
+import { I18nReceiver as Receiver } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
+
+import { formatDate } from './utils';
 import TimePanel from './time/TimePanel';
 import PanelFooter from './common/PanelFooter';
 import clickOutside from './utils/clickOutside';
-import { TIME_PROPS } from './constants/';
+import { TIME_PROPS } from './constants';
 
 class TimePicker extends (PureComponent || Component) {
   static defaultProps = TIME_PROPS;
@@ -67,38 +70,46 @@ class TimePicker extends (PureComponent || Component) {
   };
 
   render() {
-    const { props, state } = this;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const {
+      props: { className, disabledTime, format, placeholder, prefix },
+      state: { actived, openPanel, showPlaceholder, value }
+    } = this;
+    const prefixCls = `${prefix}-datetime-picker ${className}`;
     const inputCls = classNames({
       'picker-input': true,
-      'picker-input--empty': state.showPlaceholder
+      'picker-input--empty': showPlaceholder
     });
     let timePicker;
-    if (state.openPanel) {
+    if (openPanel) {
       timePicker = (
-        <div className="time-picker">
-          <TimePanel
-            actived={state.actived}
-            format={props.format}
-            disabledTime={props.disabledTime()}
-            onChange={this.onChangeTime}
-          />
-          <PanelFooter
-            linkText="此刻"
-            linkCls="link--current"
-            onClickLink={this.onSelectCurrent}
-            onClickButton={this.onConfirm}
-          />
-        </div>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+          {i18n => (
+            <div className="time-picker">
+              <TimePanel
+                actived={actived}
+                format={format}
+                disabledTime={disabledTime()}
+                onChange={this.onChangeTime}
+                i18n={i18n}
+              />
+              <PanelFooter
+                linkText={i18n.current.time}
+                linkCls="link--current"
+                onClickLink={this.onSelectCurrent}
+                onClickButton={this.onConfirm(i18n)}
+              />
+            </div>
+          )}
+        </Receiver>
       );
     }
     return (
       <div className={prefixCls} ref={ref => (this.picker = ref)}>
         <div className="picker-wrapper">
           <div className={inputCls} onClick={this.onClickInput}>
-            {state.showPlaceholder ? props.placeholder : state.value}
+            {showPlaceholder ? placeholder : value}
           </div>
-          {state.openPanel ? timePicker : ''}
+          {openPanel ? timePicker : ''}
         </div>
       </div>
     );

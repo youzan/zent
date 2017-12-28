@@ -2,6 +2,9 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import setClass from 'classnames';
 
+import { I18nReceiver as Receiver } from 'i18n';
+import { Switch as I18nDefault } from 'i18n/default';
+
 export default class Switch extends (PureComponent || Component) {
   static propTypes = {
     size: PropTypes.oneOf(['large', 'default', 'small']),
@@ -23,8 +26,8 @@ export default class Switch extends (PureComponent || Component) {
     loading: false,
     checked: false,
     onChange() {},
-    checkedText: '开启',
-    uncheckedText: '关闭'
+    checkedText: '',
+    uncheckedText: ''
   };
 
   // 处理点击时间，直接执行外部onChange方法
@@ -33,26 +36,18 @@ export default class Switch extends (PureComponent || Component) {
     onChange(!checked);
   };
 
-  getInnerText() {
-    return this.props.checked
-      ? this.props.checkedText
-      : this.props.uncheckedText;
-  }
-
-  // render span 标签
-  renderSwitch(classNames) {
-    const disabled = this.props.disabled || this.props.loading;
-    const textClassName = `${this.props.prefix}-switch-inner`;
-
-    return (
-      <span className={classNames} onClick={disabled ? null : this.toggle}>
-        <span className={textClassName}>{this.getInnerText()}</span>
-      </span>
-    );
-  }
-
   render() {
-    const { className, size, disabled, loading, prefix, checked } = this.props;
+    const {
+      className,
+      size,
+      disabled,
+      loading,
+      prefix,
+      checked,
+      checkedText,
+      uncheckedText
+    } = this.props;
+    const switchDisabled = disabled || loading;
     const classNames = setClass(
       {
         [`${prefix}-switch-${size}`]: size !== 'default',
@@ -64,6 +59,21 @@ export default class Switch extends (PureComponent || Component) {
       className
     );
 
-    return this.renderSwitch(classNames);
+    return (
+      <span
+        className={classNames}
+        onClick={switchDisabled ? null : this.toggle}
+      >
+        <Receiver componentName="Switch" defaultI18n={I18nDefault}>
+          {i18n => (
+            <span className={`${prefix}-switch-inner`}>
+              {checked
+                ? checkedText || i18n.checked
+                : uncheckedText || i18n.unchecked}
+            </span>
+          )}
+        </Receiver>
+      </span>
+    );
   }
 }

@@ -1,13 +1,13 @@
 ---
 order: 8
 zh-CN:
-	title: scroll y
+	title: 垂直滚动
 	product: 商品
 	productName: 商品名
 	uv: 访问量
 	stock: 库存
 en-US:
-	title: scroll y
+	title: Vertical scroll
 	product: Product
 	productName: Product Name
 	uv: uv

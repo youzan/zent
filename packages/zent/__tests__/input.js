@@ -154,8 +154,48 @@ describe('Input', () => {
   });
 
   it('can supports textarea', () => {
-    const wrapper = shallow(<Input type="textarea" />);
+    const wrapper = mount(<Input type="textarea" />);
     expect(wrapper.find('textarea').length).toBe(1);
+  });
+
+  it('can supports textarea with showCount', () => {
+    const wrapper = mount(<Input type="textarea" showCount />);
+    expect(wrapper.find('.zent-textarea-count').length).toBe(1);
+  });
+
+  it('can supports textarea with onChange and autoSize', () => {
+    class TextArea extends React.Component {
+      state = {
+        value: ''
+      };
+
+      handleChange = e => {
+        this.setState({ value: e.target.value });
+      };
+
+      render() {
+        const { value } = this.state;
+        return (
+          <div>
+            <Input
+              type="textarea"
+              value={value}
+              onChange={this.handleChange}
+              maxLength={100}
+              showCount
+              autoSize
+            />
+          </div>
+        );
+      }
+    }
+    const wrapper = mount(<TextArea />);
+
+    wrapper
+      .find('textarea')
+      .simulate('change', { target: { value: '12345678' } });
+
+    expect(wrapper.find('textarea').node.value).toBe('12345678');
   });
 
   it('can have input auto focus', () => {

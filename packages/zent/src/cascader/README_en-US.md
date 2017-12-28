@@ -14,11 +14,11 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 |------|------|------|--------|--------|
 | value | The selected value | array | [] | '' |
 | options | Optional data source | array | [] | '' |
-| title | Title of tab, tab title default is `标题` | array | [] | '' |
+| title | Title of tab, tab title default is `'Title'` | array | [] | '' |
 | onChange | The callback when data changes | func | noop | '' |
 | loadMore | Function to load data dynamicly, must return Promise | func | - | '' |
 | changeOnSelect | Wether trigger change once sth. is seleted | boolean | false | '' |
-| placeholder | The placeholder text of input box | string | '请选择' | '' |
+| placeholder | The placeholder text of input box | string | 'Please choose' | '' |
 | prefix | custom prefix | string | 'zent' | '' |
 | className | custom classname | string | '' | '' |
 | popClassName | custom classname of popover | string | ''zent-cascader__popup'' | '' |

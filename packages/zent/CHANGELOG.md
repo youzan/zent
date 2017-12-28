@@ -1,5 +1,50 @@
 ## Github Change Log
 
+## [zent@3.11.0](https://github.com/youzan/zent/tree/zent@3.11.0) (2017-12-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.7...zent@3.11.0)
+
+**Implemented enhancements:**
+
+- \[new feature\] 穿梭组件 例子:可配送区域 [\#598](https://github.com/youzan/zent/issues/598)
+- \[new feature\] Select: 选中某一项后支持清除选择 [\#544](https://github.com/youzan/zent/issues/544)
+- \[new feature\] Grid: 添加scroll.y [\#616](https://github.com/youzan/zent/pull/616) ([wulv](https://github.com/wulv))
+- \[new feature\] datetimepicker: 增加 `QuarterPicker` 支持 [\#612](https://github.com/youzan/zent/pull/612) ([xuhong](https://github.com/xuhong))
+- \[new feature\] Design: Add image-ad component [\#608](https://github.com/youzan/zent/pull/608) ([cpylua](https://github.com/cpylua))
+- \[new feature\] 时间选择组件默认不需要 confirm [\#607](https://github.com/youzan/zent/pull/607) ([xuhong](https://github.com/xuhong))
+- \[new fewture\] Upload: 增加上传文件列表拖拽调整顺序 [\#606](https://github.com/youzan/zent/pull/606) ([huangsy](https://github.com/huangsy))
+- \[new feature\] Popover: Add onPositionUpdated callback to Popover and Pop [\#603](https://github.com/youzan/zent/pull/603) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Form：修复`validationOnChange` 为 `false` 时部分情况下组件重新渲染问题 [\#599](https://github.com/youzan/zent/pull/599) ([fairyaierl](https://github.com/fairyaierl))
+- \[new feature\] Design: Add richtext component to Design [\#591](https://github.com/youzan/zent/pull/591) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- swiper 组件，arrows = true 且 children（slider）个数为1时，会出现左箭头 [\#620](https://github.com/youzan/zent/issues/620)
+- \[bug fix\]  Swiper:  Block user interaction during animation [\#628](https://github.com/youzan/zent/pull/628) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Upload: 更换react-dnd为sortablejs [\#627](https://github.com/youzan/zent/pull/627) ([huangsy](https://github.com/huangsy))
+- \[bug fix\] Form: 修改内置validation rule中required规则 [\#626](https://github.com/youzan/zent/pull/626) ([fairyaierl](https://github.com/fairyaierl))
+- \[new feature\] Input: textarea添加计数和自动大小 [\#624](https://github.com/youzan/zent/pull/624) ([wulv](https://github.com/wulv))
+- \[bug fix\] Upload: 变更backend是否存在的判断方式 [\#623](https://github.com/youzan/zent/pull/623) ([huangsy](https://github.com/huangsy))
+- \[bug fix\] Loading: 修复logo不居中问题 [\#622](https://github.com/youzan/zent/pull/622) ([fairyaierl](https://github.com/fairyaierl))
+- \[bug fix\] InfiniteScroller: typo，文档更新 [\#617](https://github.com/youzan/zent/pull/617) ([ArvinTung](https://github.com/ArvinTung))
+- \[new feature\] BlockHeader: 修改pop提示的位置 [\#615](https://github.com/youzan/zent/pull/615) ([ronghang](https://github.com/ronghang))
+- \[new feature\] Design: Allow custom footer in preview [\#614](https://github.com/youzan/zent/pull/614) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Upload: 修复demo样式问题 [\#613](https://github.com/youzan/zent/pull/613) ([huangsy](https://github.com/huangsy))
+- \[bug fix\] Upload: Refactor [\#611](https://github.com/youzan/zent/pull/611) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Form: scrollToError增加对Field的判断 [\#605](https://github.com/youzan/zent/pull/605) ([radicalviva](https://github.com/radicalviva))
+- \[new feature\] Form: 支持禁止回车提交表单 [\#604](https://github.com/youzan/zent/pull/604) ([fairyaierl](https://github.com/fairyaierl))
+- \[bug fix\] Button: Fix no border demo in Button [\#602](https://github.com/youzan/zent/pull/602) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Utils: Fix scroll on node.js [\#601](https://github.com/youzan/zent/pull/601) ([cpylua](https://github.com/cpylua))
+- \[new feature\] Select: 增加重置选项开关和重置选项文本设置选项。 [\#597](https://github.com/youzan/zent/pull/597) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\] Table: 给batchcomponents自动加个wrapper [\#593](https://github.com/youzan/zent/pull/593) ([linxixuan](https://github.com/linxixuan))
+
+**Closed issues:**
+
+- \[bug\]webpack compile error [\#600](https://github.com/youzan/zent/issues/600)
+
+**Merged pull requests:**
+
+- \[bug fix\]  Swiper:  当只有一个children时隐藏arrows [\#621](https://github.com/youzan/zent/pull/621) ([ArvinTung](https://github.com/ArvinTung))
+
 ## [zent@3.10.7](https://github.com/youzan/zent/tree/zent@3.10.7) (2017-12-07)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.6...zent@3.10.7)
 
@@ -332,7 +377,7 @@
 [Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.3...zent@3.6.0)
 
 ## [babel-plugin-zent@1.0.3](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.3) (2017-09-21)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...babel-plugin-zent@1.0.3)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.3)
 
 **Implemented enhancements:**
 
@@ -350,11 +395,11 @@
 
 - \[bugs\] Table: 当前页所有项均禁用时，全选按钮未禁用 [\#478](https://github.com/youzan/zent/issues/478)
 
-## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.4...babel-plugin-zent@1.0.2)
-
 ## [zent@3.5.4](https://github.com/youzan/zent/tree/zent@3.5.4) (2017-09-15)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...zent@3.5.4)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.2...zent@3.5.4)
+
+## [babel-plugin-zent@1.0.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.2) (2017-09-15)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.5.3...babel-plugin-zent@1.0.2)
 
 **Fixed bugs:**
 
@@ -627,7 +672,7 @@
 - tree: fix dataType=plain data order unstable \#323 [\#331](https://github.com/youzan/zent/pull/331) ([wangchao0502](https://github.com/wangchao0502))
 
 ## [zent@3.3.1](https://github.com/youzan/zent/tree/zent@3.3.1) (2017-06-20)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...zent@3.3.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.1)
 
 **Fixed bugs:**
 
@@ -637,11 +682,11 @@
 
 - 修复关于change事件用bind方式造成的多引用问题 [\#325](https://github.com/youzan/zent/pull/325) ([oConnerCooper](https://github.com/oConnerCooper))
 
-## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.1...zent@3.3.0)
-
 ## [babel-plugin-zent@1.0.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.1) (2017-06-16)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...babel-plugin-zent@1.0.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.3.0...babel-plugin-zent@1.0.1)
+
+## [zent@3.3.0](https://github.com/youzan/zent/tree/zent@3.3.0) (2017-06-16)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.2.0...zent@3.3.0)
 
 **Implemented enhancements:**
 
@@ -731,7 +776,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -762,11 +807,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
-
 ## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
+
+## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
 
 **Implemented enhancements:**
 

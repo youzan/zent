@@ -2,10 +2,8 @@
 order: 9
 zh-CN:
 	title: 支持选项过滤
-	pla: 请选择
 en-US:
 	title: With Option Filter
-	pla: Select an option
 ---
 
 ```js
@@ -19,7 +17,6 @@ const data = [
 
 ReactDOM.render(
 	<Select
-		placeholder="{i18n.pla}"
     data={data}
     optionValue="id"
     optionText="name"

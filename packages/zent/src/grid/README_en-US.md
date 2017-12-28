@@ -6,8 +6,6 @@ group: Navigation
 
 ## Grid
 
-Grid component
-
 The function of the component is similar to the function of [Table](table) component. `Grid` is implemented by `<table>` tag, while `Table` is implemented by `div` and `flex` layout.
 
 ### API
@@ -21,7 +19,7 @@ The function of the component is similar to the function of [Table](table) compo
 | scroll |  can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body：{{ x: 1300, y: 300 }}  | object |  | No   |
 | sortBy   | the field which rows are sorted accoring to, should be one of keys for columns| string | '' | No |
 | sortType | The way to sort                            | string  |     ''   |   No    |
-| emptyLabel | Text to be displayed when there's no data                | string   | `'没有更多数据了'` | No |
+| emptyLabel | Text to be displayed when there's no data                | string   | `'No data'` | No |
 | selection  | the configuration for selection                | object     |         | No    |
 | loading    | determines whether data is being loaded or not          | bool          | `false` | No  |
 | className  | extra custom class name                    | string        | `''`   | No   |

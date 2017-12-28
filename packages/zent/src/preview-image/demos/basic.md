@@ -20,7 +20,8 @@ class Simple extends React.Component {
 	handlePreview = (e) => {
 		previewImage({
 			images: imgArr,
-			index: imgArr.indexOf(e.target.src)
+			index: imgArr.indexOf(e.target.src),
+			parentComponent: this
 		});
 	}
 

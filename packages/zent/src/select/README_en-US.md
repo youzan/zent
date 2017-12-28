@@ -35,9 +35,9 @@ Options list pop-up layer, is mainly responsible for display options, data filte
 | value | Selected value, when tags type, can be passed into the array | any | `null` | no |
 | index | Select the index | any | `null` | no |
 | disabled | Disable switch | bool | `false` | no |
-| placeholder | The default prompt text | string | `'请选择'` | no |
+| placeholder | The default prompt text | string | `'please choose'` | no |
 | searchPlaceholder | Search box default text | string | `''` | no |
-| emptyText | Empty list prompt text | string | `'没有找到匹配项'` | no |
+| emptyText | Empty list prompt text | string | `'No matches found'` | no |
 | trigger | Custom trigger | function | `Select.SelectTrigger` | no |
 | optionText | Custom options display text's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `optionText="name"` | string | `'text'` | no |
 | optionValue | Custom options value's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `optionValue="id"` | string | `'value'` | no |
@@ -52,7 +52,7 @@ Options list pop-up layer, is mainly responsible for display options, data filte
 | popupClassName | Optional, custom popup classname | string | `''`    | no |
 | autoWidth | Whether to automatically set the width of pop-up layer equal with input-box's width | bool | `false` | no |
 | resetOption | Whether to add a reset option | bool | `false` | no |
-| resetText | Reset option text | string | `'请选择'` | no |
+| resetText | Reset option text | string | `'...'` | no |
 | width |  input-box's width | string or number |  | no |
 | prefix | Custom prefix | string | `'zent'` | no |
 
