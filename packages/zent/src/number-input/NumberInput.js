@@ -131,7 +131,7 @@ export default class NumberInput extends (PureComponent || Component) {
     }
   };
 
-  onBlur = evt => {
+  onBlur = () => {
     const { decimal, min, max } = this.props;
     let { value } = this.state;
     if (/^(\-|\+)?$/g.test(value)) {
@@ -154,7 +154,17 @@ export default class NumberInput extends (PureComponent || Component) {
 
     const { onBlur } = this.props;
     if (isFunction(onBlur)) {
-      onBlur(evt);
+      const props = this.props;
+      num = num === '' ? '' : parseFloat(num);
+      onBlur({
+        target: {
+          ...props,
+          type: 'number',
+          value: num
+        },
+        preventDefault: noop,
+        stopPropagation: noop
+      });
     }
   };
 
