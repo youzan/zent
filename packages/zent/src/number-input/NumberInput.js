@@ -154,17 +154,8 @@ export default class NumberInput extends (PureComponent || Component) {
 
     const { onBlur } = this.props;
     if (isFunction(onBlur)) {
-      const props = this.props;
-      num = num === '' ? '' : parseFloat(num);
-      onBlur({
-        target: {
-          ...props,
-          type: 'number',
-          value: num
-        },
-        preventDefault: noop,
-        stopPropagation: noop
-      });
+      const data = this.popData(num);
+      onBlur(data);
     }
   };
 
@@ -197,10 +188,10 @@ export default class NumberInput extends (PureComponent || Component) {
     this.onArrow(downArrowState, -1);
   };
 
-  onPropChange(result) {
-    const props = this.props;
+  popData(result) {
     result = result === '' ? '' : parseFloat(result);
-    props.onChange({
+    const props = this.props;
+    return {
       target: {
         ...props,
         type: 'number',
@@ -208,7 +199,12 @@ export default class NumberInput extends (PureComponent || Component) {
       },
       preventDefault: noop,
       stopPropagation: noop
-    });
+    };
+  }
+
+  onPropChange(result) {
+    const data = this.popData(result);
+    this.props.onChange(data);
   }
 
   render() {
