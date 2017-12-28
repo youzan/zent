@@ -125,21 +125,6 @@ class FieldArray extends Component {
     return fieldArrayValues;
   };
 
-  insertField = (index, value) => {
-    const fieldArray = assign([], this.state.fieldArray);
-    const fieldLen = fieldArray.length;
-    if (index >= fieldLen) {
-      throw Error('The index for insertField is invalid');
-    }
-    fieldArray.splice(index, 0, {
-      _fieldInternalValue: value,
-      _fieldInternalKey: this._uniqueKey++
-    });
-    this.setState({
-      fieldArray
-    });
-  };
-
   mapFields = callback => {
     const { fieldArray } = this.state;
     const fieldArrayValues = get(
@@ -253,7 +238,6 @@ class FieldArray extends Component {
         forEach: this.forEachFields,
         get: this.getField,
         getAll: this.getAllFields,
-        // insert: this.insertField,
         map: this.mapFields,
         move: this.moveFields,
         pop: this.popFields,

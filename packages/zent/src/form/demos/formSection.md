@@ -2,6 +2,8 @@
 order: 13
 zh-CN:
 	title: FormSection
+	buyerInfo: 购买者信息
+	recipientInfo: 发票信息
 	street: 街道
 	streetValidationError1: 街道必填
 	streetValidationError2: 超过最大长度
@@ -9,14 +11,14 @@ zh-CN:
 	numberValidationError1: 门牌号必填
 	numberValidationError2: 不足最小长度
 	zipCode: 邮政编码
-	name: 用户名
-	age: 年龄
+	name: 名字
+	mobile: 手机号
 	address: 地址
-	totalNumber: 总人数
-	totalNumberError: 总人数有错
-	ageError: 年龄错误
+	orderNo: 订单号
+	orderNoError: 订单号错误
+	mobileError: 手机号错误
 	zipCodeError: 格式不对
-	ageError2: 年龄重填
+	mobileError2: 请重填手机号
 	submit: 获取表单值
 	initialize: 初始化表单
 	setError: 设置额外错误
@@ -24,6 +26,8 @@ zh-CN:
 	reset: 重置
 en-US:
 	title: FormSection
+	buyerInfo: Buyer Info
+	recipientInfo: Recipient Info
 	street: Street
 	streetValidationError1: The street should be non-empty.
 	streetValidationError2: The length of value exceeds the maximum length.
@@ -32,13 +36,13 @@ en-US:
 	numberValidationError2: The length of value is less than minimum length.
 	zipCode: Zip code
 	name: Name
-	age: Age
+	mobile: Mobile
 	address: Address
-	totalNumber: Total number
-	totalNumberError: The total number is wrong.
-	ageError: The age is wrong.
+	orderNo: Order Number
+	orderNoError: The order number is wrong.
+	mobileError: The mobile is wrong.
 	zipCodeError: The format of the zip code is incorrect.
-	ageError2: The age needs to be refilled.
+	mobileError2: The mobile needs to be refilled.
 	submit: submit
 	setError: set extra errors
 	initialize: initialize
@@ -88,7 +92,7 @@ class Address extends React.Component {
 	}
 }
 
-class Party extends React.Component {
+class BasicInfo extends React.Component {
 	render() {
 		return <div>
 			<FormInputField
@@ -97,8 +101,8 @@ class Party extends React.Component {
 				type="text"
 			/>
 			<FormInputField
-				name="age"
-				label="{i18n.age}:"
+				name="mobile"
+				label="{i18n.mobile}:"
 				type="text"
 			/>
 			<FormSection
@@ -119,15 +123,15 @@ class FieldsetForm extends React.Component {
 	setError = () => {
 		const { zentForm } = this.props;
 		zentForm.setFieldExternalErrors({
-			all: '{i18n.totalNumberError}',
+			orderNo: '{i18n.orderNoError}',
 			buyer: {
-				age: ['{i18n.ageError}', 'test']
+				mobile: ['{i18n.mobileError}', 'test']
 			},
 			recipient: {
 				address: {
 					zipCode: '{i18n.zipCodeError}' 
 				},
-				age: '{i18n.ageError2}'
+				mobile: '{i18n.mobileError2}'
 			}
 		});
 	}
@@ -135,9 +139,9 @@ class FieldsetForm extends React.Component {
 	initialize = () => {
 		const { zentForm } = this.props;
 		zentForm.initialize({
-			all: '2',
+			orderNo: 'E1111111',
 			buyer: {
-				age: 12,
+				mobile: 13423532345,
 				name: 'Allen',
 				address: {
 					number: 14234,
@@ -145,7 +149,7 @@ class FieldsetForm extends React.Component {
 				}
 			},
 			recipient: {
-				age: 11,
+				mobile: 13245343533,
 				name: 'Selina',
 				address: {
 					number: 14234,
@@ -158,9 +162,8 @@ class FieldsetForm extends React.Component {
 	setFieldsValue = () => {
 		const { zentForm } = this.props;
 		zentForm.setFieldsValue({
-			all: '14',
+			orderNo: 'E143423',
 			buyer: {
-				age: 30,
 				name: 'Sherldon',
 				address: {
 					number: 1111111,
@@ -168,7 +171,6 @@ class FieldsetForm extends React.Component {
 				}
 			},
 			recipient: {
-				age: 32,
 				name: 'Leonard',
 				address: {
 					number: 11111,
@@ -188,21 +190,21 @@ class FieldsetForm extends React.Component {
 		return (
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<FormInputField
-					name="all"
-					label="{i18n.totalNumber}:"
+					name="orderNo"
+					label="{i18n.orderNo}:"
 					type="text"
 				/>
 				<FormSection
 					name="buyer"
-					label="buyer"
 				>
-						<Party/>
+					<div className="sec-label">{i18n.buyerInfo}</div>
+					<BasicInfo />
 				</FormSection>
 				<FormSection
 					name="recipient"
-					label="recipient"
 				>
-						<Party/>
+					<div className="sec-label">{i18n.recipientInfo}</div>
+					<BasicInfo />
 				</FormSection>
 				<div className="zent-form__form-actions">
 					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
@@ -221,5 +223,13 @@ ReactDOM.render(
 	<WrappedForm />
 	, mountNode
 )
-
 ```
+ 
+<style>
+.sec-label {
+	color: #666;
+	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 20px;
+	padding-bottom: 5px;
+}   
+</style>

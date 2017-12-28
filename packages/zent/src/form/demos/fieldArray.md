@@ -15,8 +15,8 @@ zh-CN:
 	sexValidationError: 请选择性别
 	male: 男
 	female: 女
-	totalNumber: 家庭总人数
-	totalNumberError: 请填写家庭总人数
+	totalNumber: 总人数
+	totalNumberError: 请填写总人数
 	submit: 获取表单值
 en-US:
 	title: FieldArray
@@ -50,20 +50,15 @@ class Hobbies extends React.Component {
 				<Button onClick={() => fields.push()} className="add-btn">{i18n.addHobby}</Button>
 				{fields.map((hobby, key, index) => {
 					return (
-						<li key={`hobby${key}`}>
-							<div className="hobby-title">
-								<span>{i18n.hobby}{index + 1}</span>
-								<Pop centerArrow trigger="hover" content="{i18n.delHobby}">
-									<Icon type="close-circle" onClick={() => fields.remove(index)} />
-								</Pop>
-							</div>
+						<li className="hobbies" key={`hobby${key}`}>
 							<FormInputField
 								name={`${hobby}`}
 								type="text"
-								label="{i18n.hobby}:"
+								label={`{i18n.hobby}${index+1}:`}
 								validations={{ required: true }} 
 								validationErrors={{ required: '{i18n.hobbyValidation}' }}
 							/>
+							<span className="del-btn" onClick={() => fields.remove(index)}>{i18n.delHobby}</span>
 						</li>
 					);
 				})}
@@ -80,11 +75,11 @@ class Members extends React.Component {
 				{fields.length < 3 && (<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>)}
 				{fields.map((member, key, index) => {
 					return (
-						<li key={`member${key}`}>
+						<li className="members" key={`member${key}`}>
 							<div className="member-title">
 								<span>{i18n.member}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delMember}">
-									<Icon type="close-circle" onClick={() => fields.remove(index)} 
+									<Icon className="del-btn" type="close-circle" onClick={() => fields.remove(index)} 
 									/>
 								</Pop>
 							</div>
@@ -161,12 +156,44 @@ ReactDOM.render(
 }
 
 .demo-form{
-	.member-title{
-		margin: 30px 0 20px;
+
+	.members {
+		border: 1px dashed #ccc;
+		margin: 20px 0;
+		padding: 10px 0;
+		position: relative;
+
+		.del-btn {
+			color: #666;
+			cursor: pointer;
+			position: absolute;
+			right: -8px;
+			top: -8px;
+		}
 	}
+
+	.member-title{
+		margin: 0 10px;
+	}
+
+	.hobbies {
+		margin-top: 20px;
+		position: relative;
+
+		.del-btn {
+			color: #38f;
+			cursor: pointer;
+			font-size: 12px;
+			position: absolute;
+			top: 6px;
+			left: 300px;
+		}
+	}
+
 	.hobby-title {
 		margin: 10px 0 5px;
 	}
+
 	.zenticon {
 		margin-left: 10px;
 	}

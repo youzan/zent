@@ -50,7 +50,7 @@ scatter: true
 
 ### 表单校验
 
-#### 表单校验的使用
+#### 表单校验的使用方法
 
 - `Field` 组件支持传入 `validations` 和 `validationErrors` 来指定校验规则和校验提示；
 - `validations` 对象支持预置的内部校验规则（详见[内置 validation rules](#nei-zhi-validation-rules) ）, 也支持传入自定义的校验函数，校验函数返回 `true` 时表示验证通过；
@@ -91,6 +91,8 @@ scatter: true
 
 #### `Form` 布局
 
+`Form` 组件提供三种简单的样式：行内布局 `inline`，水平布局 `horizontal`， 垂直布局 `vertical`。
+
 <!-- demo-slot-11 -->
 
 #### `Fieldset` 组件
@@ -99,9 +101,15 @@ scatter: true
 
 #### `FormSection` 组件
 
+`FormSection` 组件可以复用切分为更小模块的表单域，其对应的表单数据是对象形式。`FormSection` 支持的参数详见[`Form.FormSection` API](#form-formsection)。
+
 <!-- demo-slot-13 -->
 
 #### `FieldArray` 组件
+
+`FieldArray` 组件可以方便地渲染一组相同的单元域，并且可以增加和删除单元域，类似数组中元素的添加和删除。
+
+`FieldArray` 
 
 <!-- demo-slot-14 -->
 
@@ -292,6 +300,16 @@ const component = field.getWrappedComponent();
 ```jsx
 const component = field.getWrappedComponent().getControlInstance();
 ```
+
+#### **`Form.FormSection`**
+
+`FormSection` 提供以下参数：
+
+| 参数 | 说明 | 类型 | 默认值 | 是否必填 |
+|------|------|------|-----|------|
+| name | 表单块的名字 | string | 无 | 是 |
+| component | 包裹 `FormSection` 的 html 标签 | string |  `'div'` |否 |
+| children | 表单块的子元素 | string / React.Component | 无 | 否 |
 
 #### **内置 validation rules**
 可以直接在 `Field` 的 `validations` 属性中使用，使用方法参考[demo 常用表单校验](#biao-dan-xiao-yan-de-shi-yong)。内置规则如下：
