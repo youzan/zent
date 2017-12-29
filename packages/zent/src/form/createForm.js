@@ -98,7 +98,8 @@ const createForm = (config = {}) => {
             isValid: this.isValid,
             isSubmitting: this.isSubmitting,
             validateForm: this.validateForm,
-            asyncValidateForm: this.asyncValidateForm
+            asyncValidateForm: this.asyncValidateForm,
+            setFormSubmitted: this.setFormSubmitted
           }
         };
       }
@@ -375,6 +376,14 @@ const createForm = (config = {}) => {
         return this.runValidation(field, value).isValid;
       };
 
+      setFormSubmitted = (isSubmitted = true) => {
+        this.fields.forEach(field => {
+          field.setState({
+            _isSubmitted: isSubmitted
+          });
+        });
+      };
+
       runValidation = (field, value = field.getValue()) => {
         const formValidationErrors = this.props.validationErrors;
         const { name, validationError, validationErrors } = field.props;
@@ -481,7 +490,8 @@ const createForm = (config = {}) => {
           {
             _isValid: validation.isValid,
             _validationError: validation.error,
-            _externalError: null
+            _externalError: null,
+            _isSubmitted: false
           },
           this.validateForm
         );
@@ -542,7 +552,7 @@ const createForm = (config = {}) => {
           });
       };
 
-      validateForm = (forceValidate = false, callback) => {
+      validateForm = callback => {
         const onValidationComplete = () => {
           const allIsValid = this.fields.every(field => {
             return field.isValid();
@@ -565,21 +575,19 @@ const createForm = (config = {}) => {
         this.fields.forEach((field, index) => {
           const { _externalError } = field.state;
           const validation = this.runValidation(field);
-          if (forceValidate || field.props.validateOnBlur) {
-            if (validation.isValid && _externalError) {
-              validation.isValid = false;
-            }
-
-            field.setState(
-              {
-                _isValid: validation.isValid,
-                _validationError: validation.error,
-                _externalError:
-                  !validation.isValid && _externalError ? _externalError : null
-              },
-              index === this.fields.length - 1 ? onValidationComplete : null
-            );
+          if (validation.isValid && _externalError) {
+            validation.isValid = false;
           }
+
+          field.setState(
+            {
+              _isValid: validation.isValid,
+              _validationError: validation.error,
+              _externalError:
+                !validation.isValid && _externalError ? _externalError : null
+            },
+            index === this.fields.length - 1 ? onValidationComplete : null
+          );
         });
       };
 
@@ -633,7 +641,8 @@ const createForm = (config = {}) => {
             isSubmitting: this.isSubmitting,
             isFormAsyncValidated: this.isFormAsyncValidated,
             validateForm: this.validateForm,
-            asyncValidateForm: this.asyncValidateForm
+            asyncValidateForm: this.asyncValidateForm,
+            setFormSubmitted: this.setFormSubmitted
           }
         });
       }

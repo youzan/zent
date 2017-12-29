@@ -62,7 +62,7 @@ When a `Field` needs to contains multiple elements, it is recommended to assembl
 
 The default timing of validations is when the value of field changes. You can change the timing when the validation is triggered by specifing `validateOnChange`, `validateOnBlur`. For example, the field will trigger the validation in blur when set `validateOnChange` to be `false` and `validateOnBlur` to be `true`. Notice that these property are typically for input fields.
 
-If you want to validate the form when submitting, yoy should set `validateOnChange` and `validateOnBlur` to be `false` and the built-in `handleSubmit` method to submit the form。If you don't want to use `handleSubmit`, you should use `zentForm.validateForm(true, callback)` to tigger the validations of form by yourself and deal with the submitting logic in `callback`.
+If you want to validate the form when submitting, yoy should set `validateOnChange` and `validateOnBlur` to be `false` and the built-in `handleSubmit` method to submit the form。If you don't want to use `handleSubmit`, you should use `zentForm.setFormSubmitted(true)` to ensure the correct display of error messages. If you want to determine the show logic of error messages, you can set the property `showError` of the field.
 
 <!-- demo-slot-6 -->
 
@@ -208,8 +208,9 @@ The components packaged via `Form.createForm` will be added with the `zenForm` p
 | isFieldDirty | The function to get the state whether the field has been changed. | func(name: String) |
 | isFieldValidating | The function to get the state whether the field is in asynchronous validation. | func(name: String) |
 | isFormAsyncValidated | The function to get the state whether all of the fields has been asynchronous validated. | func |
-| validateForm | The function to validate the form. | func(forceValidate: Boolean, callback: Function) |
+| validateForm | The function to validate the form. | func(callback: Function) |
 | asyncValidateForm | The function to asynchronous validate the form. | func(resolve: Function, reject: Function) |
+| setFormSubmitted | The function to set the status of form to be submitted | func(isSubmitted: Boolean) |
 
 ##### **`handleSubmit`**
 
@@ -254,6 +255,7 @@ The following `props` will be passed into the `Field` component. All the `props`
 | validateOnBlur | Whether to trigger the field's validations when the field is on blur. | boolean | no |
 | clearErrorOnFocus | Whether to clear the error messages when the field in on focus. | boolean | no |
 | asyncValidation | The asynchronous validations which should return a Promise object. | func(values, value) | no |
+| showError | Whether to show the error message | boolean | no |
 
 In addition to the above parameters, the `Field` component implicitly passes the following props to the wrapped field component:
 

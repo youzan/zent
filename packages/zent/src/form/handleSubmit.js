@@ -9,6 +9,7 @@ const handleSubmit = (submit, zentForm) => {
   let validationErrors;
 
   zentForm.setFormDirty(true);
+  zentForm.setFormSubmitted(true);
 
   // 如果有异步校验未完成，阻止表单提交
   if (zentForm.isValidating()) {
@@ -83,44 +84,30 @@ const handleSubmit = (submit, zentForm) => {
     return result;
   };
 
-  const afterValidation = () => {
-    if (!zentForm.isValid()) {
-      // 存在校验错误
-      validationErrors = zentForm.getValidationErrors();
+  if (!zentForm.isValid()) {
+    // 存在校验错误
+    validationErrors = zentForm.getValidationErrors();
 
-      // 滚动到第一个错误处
-      scrollToError && srcollToFirstError(zentForm.fields);
+    // 滚动到第一个错误处
+    scrollToError && srcollToFirstError(zentForm.fields);
 
-      if (onSubmitFail) {
-        onSubmitFail(new SubmissionError(validationErrors));
-      }
-    } else if (!zentForm.isFormAsyncValidated()) {
-      // 存在没有进行过的异步校验
-      zentForm.asyncValidateForm(
-        () => {
-          return doSubmit();
-        },
-        error => {
-          if (onSubmitFail) {
-            onSubmitFail(new SubmissionError(error));
-          }
-        }
-      );
-    } else {
-      return doSubmit();
+    if (onSubmitFail) {
+      onSubmitFail(new SubmissionError(validationErrors));
     }
-  };
-
-  const allIsValidated = zentForm.fields.every(field => {
-    return field.props.validateOnChange || field.props.validateOnBlur;
-  });
-
-  if (allIsValidated) {
-    // 不存在没有进行过同步校验的field
-    afterValidation();
+  } else if (!zentForm.isFormAsyncValidated()) {
+    // 存在没有进行过的异步校验
+    zentForm.asyncValidateForm(
+      () => {
+        return doSubmit();
+      },
+      error => {
+        if (onSubmitFail) {
+          onSubmitFail(new SubmissionError(error));
+        }
+      }
+    );
   } else {
-    // 存在没有进行过同步校验的field
-    zentForm.validateForm(true, afterValidation);
+    return doSubmit();
   }
 };
 
