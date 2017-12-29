@@ -26,7 +26,7 @@ en-US:
 
 ```jsx
 import cx from 'classnames';
-import { Form, Select, Input } from 'zent';
+import { Form, Select, Input, Notify } from 'zent';
 
 const { Field, createForm } = Form;
 const { SelectTrigger } = Select;
@@ -125,7 +125,7 @@ class ContactPhone extends React.Component {
 class CustomFieldForm extends React.Component {
 	getFormValues = () => {
 		const { zentForm } = this.props;
-		alert(JSON.stringify(zentForm.getFormValues()));
+		Notify.success(JSON.stringify(zentForm.getFormValues()));
 	};
 
 	resetForm = () => {

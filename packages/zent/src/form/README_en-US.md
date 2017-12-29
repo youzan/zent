@@ -92,6 +92,8 @@ The `Form` component provides` format` and `nomalize` methods for formatting` va
 
 #### `Form` layouts
 
+`Form` provides three kind of layouts: `inline`，`horizontal`， `vertical`.
+
 <!-- demo-slot-11 -->
 
 #### `Fieldset`
@@ -100,9 +102,15 @@ The `Form` component provides` format` and `nomalize` methods for formatting` va
 
 #### `FormSection`
 
+When there are several similar sections of fields in your form, you can use `FormSection` to reuse these fields. With `FormSection`, the values of form is a nested object. See more details in [`Form.FormSection` API](#form-formsection)。
+
 <!-- demo-slot-13 -->
 
 #### `FieldArray`
+
+`FieldArray` helps to render an array of identical fields. You can add and delete the cell fields in the array, similary to the addition and deletion of elements in an array.
+
+`FieldArray` injects the `fields` property for its `component`, which provides the traversal, addition, deletion and other operations of cell fields. See more details in [`Form.FieldArray` API](#form-fieldarray)。
 
 <!-- demo-slot-14 -->
 
@@ -191,7 +199,7 @@ The `createForm` method builds a higher-order component that defines some additi
 
 ##### **`zentForm`**
 
-The components packaged via `Form.createForm` will be added with the `zenForm` property in its `props`. You can accesss `zentForm` via `this.props.zentForm`. APIs provided by` zentForm` are as follows:
+The components packaged via `Form.createForm` will be added with the `zenForm` property in its `props`. You can accesss `zentForm` via `this.props.zentForm`. APIs provided by `zentForm` are as follows:
 
 | Property     |  Description  | Type     |
 |------|------|------|
@@ -300,6 +308,45 @@ Similar to getting the instance of the component of `Field` above, you can call 
 ```jsx
 const component = field.getWrappedComponent().getControlInstance();
 ```
+#### **`Form.FormSection`**
+
+`FormSection` provides the following properties:
+
+| Property     |  Description  | Type     | Default  | Required |
+|------|------|------|-----|------|
+| name | The name of `FormSection` | string | null | yes |
+| component | The html tag which wrapped the form section  | string |  `'div'` | no |
+| children | The children of `FormSection` | string / React.Component | null | no |
+
+#### **`Form.FieldArray`**
+
+`FieldArray` provides the following properties:
+
+| Property     |  Description  | Type     | Required |
+|------|------|------|-----|------|
+| name | The name of `FieldArray` | string | yes |
+| component | The real component of the `FieldArray` which will determine how the `FieldArray` is displayed. The value of this property can be string (standard html tag name) or React node. | string / React.Component | yes |
+
+`FieldArray` will inject the `fields` property for the `component`, which provides the traversal, addition, deletion and other operations of field array. APIs provided by `fields` are as follows:
+
+| Property     |  Description  | Type     |
+|------|------|------|
+| name | The name of `FieldArray` | string |
+| length | The length of the field array | number |
+| forEach | The traversal function of the field array | func(callback: Function) |
+| get | The function to get the value of last item in the field array | func(index: Number) |
+| getAll | The function to get all the values of the field array. | func |
+| map | The function to map the field array. | func(callback: Function) |
+| move | The function to move the curtain item in the field array. | func(fromPos: Number, toPos: Number) |
+| pop | The function to remove the last item of the field array. | func |
+| push | The function to add one item at the end of the field array. | func(value: Object/String) |
+| remove | The function to remove the curtain item of the field array. | func(index: Number) |
+| removeAll | The function to remove all the item of the field array. | func |
+| shift | The function to remove the first item of the field array. | func |
+| swap | The function to swap two items of the field array. | func(indexA: Number, indexB: Number) |
+| unshift | The function to add one item to the head of the field array. | func(value: Object/String) |
+
+⚠️Ps: The callback function of `forEach` and `map` will receive five paramters: item(the name of the current item in the field array), index(the index of the current item in the field array), key(the unique key of the current item in the field array), value(the value of the current item in the field array), fieldsValue(the values of the field array). In order to ensure that the data of FieldArray is correct when deleted and added, you should set the correct `name` and` key` of the child nodes in `component` when traversing. The usage of `FieldArray` is in the demo [The basic usage of FieldArray](#fieldarray).
 
 #### **Built-in validation rules**
 

@@ -70,13 +70,6 @@ class Field extends Component {
     zentForm.attachToForm(this);
 
     this._name = prefixName(zentForm, this.props.name);
-    if (this.context.zentForm.getSubFieldArray) {
-      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
-      currentValue &&
-        this.setState({
-          _value: currentValue
-        });
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -85,13 +78,6 @@ class Field extends Component {
     }
 
     this._name = prefixName(this.context.zentForm, nextProps.name);
-    if (this.context.zentForm.getSubFieldArray) {
-      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
-      currentValue &&
-        this.setState({
-          _value: currentValue
-        });
-    }
   }
 
   componentDidUpdate(prevProps) {

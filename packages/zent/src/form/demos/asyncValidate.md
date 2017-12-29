@@ -21,7 +21,7 @@ en-US:
 ---
 
 ```jsx
-import { Form } from 'zent';
+import { Form, Notify } from 'zent';
 const { Field, FormInputField, createForm } = Form;
 
 const AsyncForm = (props) => {
@@ -45,7 +45,7 @@ const AsyncForm = (props) => {
 		}, 1000));
 	}
 	const submit = (values) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	}
 	const isSubmitting = zentForm.isSubmitting();
 	return (

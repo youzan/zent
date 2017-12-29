@@ -6,7 +6,7 @@ class FormSection extends (PureComponent || Component) {
   static propTypes = {
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    childrend: PropTypes.any
+    children: PropTypes.any
   };
 
   static defaultProps = {

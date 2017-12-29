@@ -33,16 +33,16 @@ en-US:
 ---
 
 ```jsx
-import { Form, Button } from 'zent';
+import { Form, Button, Notify } from 'zent';
 
 const { FormInputField, createForm, SubmissionError } = Form;
 
 function onSubmitFail(error) {
-	alert(error);
+	Notify.error(error);
 }
 
 function onSubmitSuccess(result) {
-	alert(result);
+	Notify.success(result);
 }
 
 class SubmitForm extends React.Component {
