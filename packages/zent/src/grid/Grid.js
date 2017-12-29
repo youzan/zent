@@ -18,7 +18,7 @@ import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Grid as I18nDefault } from 'i18n/default';
 
 import Store from './Store';
@@ -559,7 +559,7 @@ class Grid extends (PureComponent || Component) {
     }
 
     return (
-      <Reciever defaultI18n={I18nDefault} componentName="Grid">
+      <Receiver defaultI18n={I18nDefault} componentName="Grid">
         {i18n => {
           const content = [
             this.getTable(),
@@ -599,7 +599,7 @@ class Grid extends (PureComponent || Component) {
             </div>
           );
         }}
-      </Reciever>
+      </Receiver>
     );
   }
 }

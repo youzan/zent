@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import { formatDate } from './utils';
@@ -82,7 +82,7 @@ class TimePicker extends (PureComponent || Component) {
     let timePicker;
     if (openPanel) {
       timePicker = (
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => (
             <div className="time-picker">
               <TimePanel
@@ -100,7 +100,7 @@ class TimePicker extends (PureComponent || Component) {
               />
             </div>
           )}
-        </Reciever>
+        </Receiver>
       );
     }
     return (

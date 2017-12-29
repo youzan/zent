@@ -7,7 +7,7 @@ import Button from 'button';
 import Card from 'card';
 import Cascader from 'cascader';
 import Checkbox from 'checkbox';
-import ColorPicker from 'color-picker';
+import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';

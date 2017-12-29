@@ -8,7 +8,7 @@ import take from 'lodash/take';
 import trim from 'lodash/trim';
 
 import Popover from 'popover';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
 
 import Search from './components/Search';
@@ -218,7 +218,7 @@ class Popup extends (PureComponent || Component) {
         style={autoWidth ? this.state.style : null}
       >
         {!extraFilter && (filter || onAsyncFilter) ? (
-          <Reciever componentName="Select" defaultI18n={I18nDefault}>
+          <Receiver componentName="Select" defaultI18n={I18nDefault}>
             {i18n => (
               <Search
                 keyword={keyword}
@@ -227,7 +227,7 @@ class Popup extends (PureComponent || Component) {
                 onChange={this.searchFilterHandler}
               />
             )}
-          </Reciever>
+          </Receiver>
         ) : (
           ''
         )}

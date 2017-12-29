@@ -1,7 +1,7 @@
 import { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class I18nReciever extends (PureComponent || Component) {
+export default class I18nReceiver extends (PureComponent || Component) {
   static propTypes = {
     componentName: PropTypes.string.isRequired,
     defaultI18n: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
@@ -16,7 +16,7 @@ export default class I18nReciever extends (PureComponent || Component) {
    * as a functional wrapper, update itself as its father re-render.
    *
    * @returns true
-   * @memberof I18nReciever
+   * @memberof I18nReceiver
    */
   shouldComponentUpdate() {
     return true;

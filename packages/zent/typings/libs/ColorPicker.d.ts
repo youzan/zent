@@ -1,6 +1,6 @@
 /// <reference types="react" />
 
-declare module 'zent/lib/color-picker' {
+declare module 'zent/lib/colorpicker' {
   interface IColorPickerProps {
     color: string
     showAlpha?: boolean
