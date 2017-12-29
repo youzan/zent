@@ -2,7 +2,7 @@
 title: Sortable
 subtitle: Drag and drop sort
 path: component/sortable
-group: Data Entry
+group: Data Display
 ---
 
 ## Sortable Drag and drop sort
