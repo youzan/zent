@@ -24,6 +24,7 @@
     "<rootDir>/src/slider/common.js",
     "<rootDir>/src/slider/container.js",
     "<rootDir>/src/slider/points.js",
+    "<rootDir>/src/sortable",
     "<rootDir>/src/colorpicker/helpers/reactcss",
     "<rootDir>/src/colorpicker/SketchFields.js",
     "<rootDir>/src/colorpicker/SketchPresetColors.js",

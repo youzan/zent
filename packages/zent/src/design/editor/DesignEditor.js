@@ -2,6 +2,7 @@ import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import assign from 'lodash/assign';
+import reorder from 'utils/reorder';
 
 const NOT_EVENT_MSG =
   'onInputChange expects an `Event` with { target: { name, value } } as argument';
@@ -174,40 +175,7 @@ export class DesignEditor extends (PureComponent || Component) {
    * Scans the list only once.
   */
   reorder(array, fromIndex, toIndex) {
-    const lastIndex = array.length - 1;
-    const firstIndex = 0;
-    const result = new Array(array.length);
-    let tmp;
-
-    if (fromIndex < toIndex) {
-      for (let i = firstIndex; i <= lastIndex; i++) {
-        if (i === fromIndex) {
-          tmp = array[i];
-        } else if (i > fromIndex && i < toIndex) {
-          result[i - 1] = array[i];
-        } else if (i === toIndex) {
-          result[i - 1] = array[i];
-          result[i] = tmp;
-        } else {
-          result[i] = array[i];
-        }
-      }
-    } else {
-      for (let i = lastIndex; i >= firstIndex; i--) {
-        if (i === fromIndex) {
-          tmp = array[i];
-        } else if (i < fromIndex && i > toIndex) {
-          result[i + 1] = array[i];
-        } else if (i === toIndex) {
-          result[i] = tmp;
-          result[i + 1] = array[i];
-        } else {
-          result[i] = array[i];
-        }
-      }
-    }
-
-    return result;
+    return reorder(array, fromIndex, toIndex);
   }
 }
 
