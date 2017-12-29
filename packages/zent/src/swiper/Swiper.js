@@ -55,6 +55,7 @@ export default class Swiper extends (PureComponent || Component) {
     const childrenCount = Children.count(children);
     const innerElements = this.swiperContainer.children;
 
+    this.clearAutoplay();
     this.setSwiperWidth();
     setStyle(this.swiperContainer, {
       width: `${this.swiperWidth * innerElements.length}px`
@@ -204,6 +205,20 @@ export default class Swiper extends (PureComponent || Component) {
   handleDotsClick = index => {
     this.setState({ currentIndex: index });
   };
+
+  componentWillReceiveProps(nextProps) {
+    const { children } = this.props;
+    const { children: newChildren } = nextProps;
+
+    if (Children.count(children) !== Children.count(newChildren)) {
+      this.setState(
+        {
+          currentIndex: 0
+        },
+        () => this.init()
+      );
+    }
+  }
 
   componentDidMount() {
     this.init();
