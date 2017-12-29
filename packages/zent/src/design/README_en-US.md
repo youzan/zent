@@ -212,7 +212,7 @@ export default class NoticeEditor extends DesignEditor {
 
   static designType = 'notice';
   static designDescription = '公告';
-  static getInitialValue() {
+  static getInitialValue(settings, globalConfig) {
     return {
       content: '',
       scrollable: false
