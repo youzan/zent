@@ -80,26 +80,22 @@ export default class Input extends (PureComponent || Component) {
   };
 
   clearInput = evt => {
-    this.triggerCustomChangeEvent('', evt);
-  };
-
-  retainInputFocus = evt => {
-    evt.preventDefault();
-  };
-
-  triggerCustomChangeEvent(value, evt) {
     const { onChange } = this.props;
 
     isFunction(onChange) &&
       onChange({
         target: {
           ...this.props,
-          value
+          value: ''
         },
         preventDefault: () => evt.preventDefault(),
         stopPropagation: () => evt.stopPropagation()
       });
-  }
+  };
+
+  retainInputFocus = evt => {
+    evt.preventDefault();
+  };
 
   render() {
     const {
@@ -170,7 +166,7 @@ export default class Input extends (PureComponent || Component) {
           value={value}
           onKeyDown={this.handleKeyDown}
         />
-        {onChange &&
+        {isFunction(onChange) &&
           showClear &&
           value && (
             <Icon
