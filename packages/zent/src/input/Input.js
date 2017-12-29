@@ -42,26 +42,6 @@ export default class Input extends (PureComponent || Component) {
     showClear: false
   };
 
-  constructor(props) {
-    super(props);
-    const { value, defaultValue } = props;
-    this.state = {
-      value: value || defaultValue || ''
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { value, defaultValue } = nextProps;
-    if (
-      value !== this.props.value ||
-      defaultValue !== this.props.defaultValue
-    ) {
-      this.state = {
-        value: value || defaultValue || ''
-      };
-    }
-  }
-
   componentDidMount() {
     const {
       autoFocus,
@@ -99,10 +79,6 @@ export default class Input extends (PureComponent || Component) {
     if (onKeyDown) onKeyDown(evt);
   };
 
-  onChange = evt => {
-    this.triggerCustomChangeEvent(evt.target.value, evt);
-  };
-
   clearInput = evt => {
     this.triggerCustomChangeEvent('', evt);
   };
@@ -123,7 +99,6 @@ export default class Input extends (PureComponent || Component) {
         preventDefault: () => evt.preventDefault(),
         stopPropagation: () => evt.stopPropagation()
       });
-    this.setState({ value });
   }
 
   render() {
@@ -133,12 +108,13 @@ export default class Input extends (PureComponent || Component) {
       prefix,
       className,
       type,
+      onChange,
+      value,
       showClear,
       width,
       disabled,
       readOnly
     } = this.props;
-    const { value } = this.state;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
     const editable = !(disabled || readOnly);
@@ -179,7 +155,6 @@ export default class Input extends (PureComponent || Component) {
         />
       );
     }
-    inputProps = omit(inputProps, ['defaultValue', 'value', 'onChange']);
 
     return (
       <div className={wrapClass} style={widthStyle}>
@@ -193,10 +168,10 @@ export default class Input extends (PureComponent || Component) {
           className={`${prefix}-input`}
           {...inputProps}
           value={value}
-          onChange={this.onChange}
           onKeyDown={this.handleKeyDown}
         />
-        {showClear &&
+        {onChange &&
+          showClear &&
           value && (
             <Icon
               type="close-circle"

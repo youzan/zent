@@ -15,7 +15,7 @@ import { Input } from 'zent';
 
 ReactDOM.render(
   <div>
-      <Input placeholder="{i18n.name}" showClear />
+      <Input placeholder="{i18n.name}" />
       <Input type="password" placeholder="{i18n.password}" />
   </div>
   , mountNode

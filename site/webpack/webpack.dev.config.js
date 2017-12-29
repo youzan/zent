@@ -26,7 +26,7 @@ module.exports = Object.assign({}, base, {
     })
   }),
 
-  devtool: 'source-map',
+  devtool: 'inline-cheap-module-source-map',
 
   plugins: base.plugins.concat([
     new webpack.HotModuleReplacementPlugin(),
