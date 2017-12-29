@@ -91,6 +91,8 @@ scatter: true
 
 #### `Form` 布局
 
+`Form` 组件提供三种简单的样式：行内布局 `inline`，水平布局 `horizontal`， 垂直布局 `vertical`。
+
 <!-- demo-slot-11 -->
 
 #### `Fieldset` 组件
@@ -99,9 +101,15 @@ scatter: true
 
 #### `FormSection` 组件
 
+`FormSection` 组件可以复用切分为更小模块的表单域，其对应的表单数据是对象形式。`FormSection` 支持的参数详见[`Form.FormSection` API](#form-formsection)。
+
 <!-- demo-slot-13 -->
 
 #### `FieldArray` 组件
+
+`FieldArray` 组件可以方便地渲染一组相同的单元域，并且可以增加和删除单元域，类似数组中元素的添加和删除。
+
+`FieldArray` 会为其 `component` 注入 `fields` 这个属性，可以提供单元域的遍历、增加、删除等操作，该属性支持的属性和方法详见[`Form.FieldArray` API](#form-fieldarray)。
 
 <!-- demo-slot-14 -->
 
@@ -292,6 +300,46 @@ const component = field.getWrappedComponent();
 ```jsx
 const component = field.getWrappedComponent().getControlInstance();
 ```
+
+#### **`Form.FormSection`**
+
+`FormSection` 提供以下参数：
+
+| 参数 | 说明 | 类型 | 默认值 | 是否必填 |
+|------|------|------|-----|------|
+| name | 表单块的名字 | string | 无 | 是 |
+| component | 包裹 `FormSection` 的 html 标签 | string |  `'div'` |否 |
+| children | 表单块的子元素 | string / React.Component | 无 | 否 |
+
+#### **`Form.FieldArray`**
+
+`FieldArray` 组件支持如下：
+
+| 参数 | 说明 | 类型 | 是否必填 |
+|------|------|------|-----|------|
+| name | `FieldArray` 的名字 | string | 是 |
+| component | `FieldArray` 中展示的表单元素组件，可以是字符串(标准 html 元素名), 或者 React 组件 | string / React.Component | 是 |
+
+`FieldArray` 会为其 `component` 注入 `fields` 属性并提供表单域数组的遍历、增加、删除等功能，其 API 如下所示：
+
+| 参数 | 说明 | 类型 |
+|------|------|------|
+| name | `FieldArray` 的名字 | string |
+| length | `FieldArray` 中表单域数组的长度 | number |
+| forEach | 遍历 `FieldArray` 中表单域数组 | func(callback: Function) |
+| get | 获取 `FieldArray` 中表单域数组中某一项的值 | func(index: Number) |
+| getAll | 获取 `FieldArray` 中表单域数组的所有值 | func |
+| map | 遍历 `FieldArray` 中表单域数组 | func(callback: Function) |
+| move | 移动 `FieldArray` 中表单域数组的某一项 | func(fromPos: Number, toPos: Number) |
+| pop | 删除 `FieldArray` 中表单域数组的最后一项 | func |
+| push | 在 `FieldArray` 中表单域数组末尾添加一项 | func(value: Object/String) |
+| remove | 删除 `FieldArray` 中表单域数组中的某一项 | func(index: Number) |
+| removeAll | 删除 `FieldArray` 中整个表单域数组 | func |
+| shift | 删除 `FieldArray` 中表单域数组的第一项 | func |
+| swap | 交换 `FieldArray` 中表单域数组的某两项 | func(indexA: Number, indexB: Number) |
+| unshift | 在 `FieldArray` 中表单域数组的头部添加一项 | func(value: Object/String) |
+
+⚠️注意：遍历的回调函数 callback 将接受五个参数: item（`FieldArray` 中当前项的名字），index（`FieldArray` 中当前项的次序），key（`FieldArray` 中当前项的唯一 key 值），value（`FieldArray` 中当前项的值）， fieldsValue（`FieldArray` 的所有值）。为了保证 `FieldArray` 在删除和添加时数据正确，遍历时一定要给 `component` 中的子节点设置正确的 `name` 和 `key`, 详见使用参考[FieldArray 基本使用](#fieldarray-zu-jian)
 
 #### **内置 validation rules**
 可以直接在 `Field` 的 `validations` 属性中使用，使用方法参考[demo 常用表单校验](#biao-dan-xiao-yan-de-shi-yong)。内置规则如下：
