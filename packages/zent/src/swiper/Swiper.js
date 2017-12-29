@@ -50,7 +50,9 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   init = () => {
+    const { autoplay, children } = this.props;
     const { currentIndex } = this.state;
+    const childrenCount = Children.count(children);
     const innerElements = this.swiperContainer.children;
 
     this.setSwiperWidth();
@@ -64,7 +66,10 @@ export default class Swiper extends (PureComponent || Component) {
       });
     });
 
-    innerElements.length > 1 && this.translate(currentIndex, null, true);
+    if (childrenCount > 1) {
+      autoplay && this.startAutoplay();
+      this.translate(currentIndex, null, true);
+    }
   };
 
   getSwiper = swiper => {
@@ -201,8 +206,6 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   componentDidMount() {
-    const { autoplay } = this.props;
-    autoplay && this.startAutoplay();
     this.init();
   }
 
