@@ -56,7 +56,7 @@ class ContactPhone extends React.Component {
 		return keyword && item.text.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1;
 	};
 
-	showError = () => {
+	getShowError = () => {
 		const {
       validateOnChange,
 			validateOnBlur,
