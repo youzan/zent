@@ -38,6 +38,10 @@ $input_width: 183px;
       padding: 0 10px;
     }
 
+    &--combine.picker-input--disabled {
+      border-color: $theme-stroke-7;
+    }
+
     .zent-input {
       background: inherit;
       color: inherit;
@@ -106,12 +110,14 @@ $input_width: 183px;
     .month-picker,
     .time-picker,
     .range-picker,
-    .week-picker {
+    .week-picker,
+    .year-picker,
+    .quarter-picker {
       background: $theme-stroke-10;
       width: $default_width;
       font-size: 12px;
       border-radius: 2px;
-      box-shadow: 0 1px 4px $theme-mask-2;
+      box-shadow: 0 1px 4px $theme-mask-black-2;
       z-index: 10;
     }
 
@@ -137,13 +143,27 @@ $input_width: 183px;
 
         .month-panel {
           .grid-cell {
-            height: 41.5px;
+            height: 47.5px;
           }
         }
 
         .year-panel {
           .grid-cell {
-            height: 41.5px;
+            height: 47.5px;
+          }
+        }
+
+        &.small {
+          .month-panel {
+            .grid-cell {
+              height: 41.5px;
+            }
+          }
+
+          .year-panel {
+            .grid-cell {
+              height: 41.5px;
+            }
           }
         }
       }
@@ -154,6 +174,15 @@ $input_width: 183px;
           .year-panel {
             .grid-cell {
               height: 56px;
+            }
+          }
+
+          &.small {
+            .month-panel,
+            .year-panel {
+              .grid-cell {
+                height: 56px;
+              }
             }
           }
 
@@ -170,6 +199,7 @@ $input_width: 183px;
 
     .date-panel,
     .month-panel,
+    .quarter-panel,
     .year-panel {
       position: relative;
       width: $default_width;
@@ -181,7 +211,7 @@ $input_width: 183px;
     .week-picker {
       .date-panel {
         .grid-cell {
-          padding: 2px 0;
+          padding: 4px 0;
         }
       }
 
@@ -191,7 +221,7 @@ $input_width: 183px;
         left: 0;
 
         .grid-cell {
-          height: 55.5px;
+          height: 47.5px;
           vertical-align: middle;
           padding: 0;
         }
@@ -199,9 +229,30 @@ $input_width: 183px;
 
       .year-panel {
         .grid-cell {
-          height: 55.5px;
+          height: 47.5px;
           vertical-align: middle;
           padding: 0;
+        }
+      }
+
+      &.small {
+        .date-panel {
+          .grid-cell {
+            padding: 2px 0;
+          }
+        }
+
+        .month-panel {
+          .grid-cell {
+            height: 55.5px;
+            padding: 0;
+          }
+        }
+
+        .year-panel {
+          .grid-cell {
+            height: 55.5px;
+          }
         }
       }
     }
@@ -209,7 +260,7 @@ $input_width: 183px;
     .month-picker {
       .month-panel {
         .grid-cell {
-          height: 36px;
+          height: 47.5px;
         }
 
         .year-panel {
@@ -217,6 +268,50 @@ $input_width: 183px;
             height: 47.5px;
             padding: 0;
           }
+        }
+      }
+
+      &.small {
+        .month-panel {
+          .grid-cell {
+            height: 36px;
+          }
+        }
+      }
+    }
+
+    .year-picker {
+      .year-panel {
+        position: relative;
+
+        .grid-cell {
+          height: 47.5px;
+          padding: 0;
+        }
+      }
+
+      &.small {
+        .year-panel {
+          .grid-cell {
+            height: 41.5px;
+          }
+        }
+      }
+    }
+
+    .quarter-picker {
+      .quarter-panel {
+        height: 240px;
+
+        .grid-cell {
+          height: 47.5px;
+        }
+      }
+
+      .year-panel {
+        .grid-cell {
+          height: 47.5px;
+          padding: 0;
         }
       }
     }
@@ -227,6 +322,7 @@ $input_width: 183px;
       height: 36px;
       line-height: 36px;
       border-bottom: 1px solid $lighter_grey;
+      box-sizing: border-box;
 
       .link--prev {
         cursor: pointer;
@@ -425,6 +521,12 @@ $input_width: 183px;
           width: 50px;
           height: 30px;
           line-height: 30px;
+        }
+
+        &.quarter-panel__cell {
+          height: 32px;
+          line-height: 32px;
+          width: 100%;
         }
       }
     }

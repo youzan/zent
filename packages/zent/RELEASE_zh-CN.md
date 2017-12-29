@@ -2,6 +2,156 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 3.11.0 (2017-12-20)
+
+- 🎉 新组件季度选择器 `QuarterPicker`
+- ✨ `Select` 支持选中后清除
+- ✨ `Grid` 支持表头固定的纵向滚动方式
+- ✨ `DatePicker` 交互优化，没有时间的时候不需要按确认按钮
+- ✨ `Upload` 支持已选图片拖拽排序
+- ✨ `Input` 的 `textarea` 模式支持文字计数
+- ✨ `Input` 的 `textarea` 模式支持根据高度自动撑高
+- ✨ `BlockHeader` 修改弹层位置
+- `Design`
+  - ✨ 新增图片广告示例组件
+  - ✨ 新增富文本示例组件
+  - ✨ 支持在 preview 底部显示额外的信息
+- ✨ `Popover` 和 `Pop` 新增 `onPositionUpdated` 回调函数
+- `Form`
+  - ✨ 修改 `required` 校验规则，`null` 也认为是错误
+  - ✨ 支持禁止表单内部输入框回车提交表单的行为
+  - 🦀️ 修复 `validationOnChange` 为 `false` 时部分情况下组件重新渲染的问题
+  - 🦀️ 修复自动滚动到第一个错误处无法处理 Functional Component 的问题
+- `Swiper`
+  - 🦀️ 修复只有一个图片时的问题
+  - 🦀️ 修复快速连续点击上一张/下一张的动画问题
+- 🦀️ `Loading` 修复图标不居中的问题
+- 🦀️ 滚动函数支持运行在 `node.js` 环境
+- 🦀️ `Table` 修复使用 `batchcomponents` 时报错的问题
+- 📚 `InfiniteScroller` 修复文档错误
+- 📚 `Button` 修复示例
+
+### 3.10.7 (2017-12-07)
+
+- ✨ `Menu` 支持传入额外的自定义样式
+- 🦀️ `Upload` 修复单文件上传的问题
+
+### 3.10.6 (2017-12-06)
+
+- ✨ `Form` 组件支持表单报错事滚动到第一个错误处
+- 🦀️ `Upload` 增加文件过滤支持
+
+### 3.10.5 (2017-12-05)
+
+- 🦀️ 回滚 `Design` 的预览宽度为 `320px`
+
+### 3.10.4 (2017-12-04)
+
+- `Design`
+  - ✨ 预览区域宽度调整为 `375px`
+  - 🦀️ 样式优化
+- ✨ `Pop` 和 `Popover` 组件导出了 `adjustPosition` 用于在极端情况下手动触发位置更新
+- 🦀️ 修复 `Button` 组件在某些全局环境下，样式错误的问题
+- `Upload`
+  - 🦀️ 样式优化
+  - 🦀️ 处理了一些 ES6 的兼容问题
+
+### 3.10.3 (2017-11-29)
+
+- `Upload`
+  - 🦀️ 修复 `accept` 参数无效的问题
+  - 🦀️ 修复语音上传问题
+- 🦀️ `Pagination` 样式修复
+- `Design`
+  - ✨ 修改添加组件按钮样式
+  - ✨ 优化删除组件逻辑
+  - 🦀️ 去掉添加/删除组件时的自动滚动
+
+### 3.10.2 (2017-11-28)
+
+- 🦀️ 修复 `Upload` 组件 `accept` 参数无效的问题
+
+### 3.10.1 (2017-11-27)
+
+- 🎉 `NumberInput` 新增一种新样式，通过 `showCounter` 开启
+- `Upload`
+  - ✨ 组件增强文件类型判断功能
+  - ✨ 支持语音上传
+  - 🦀️ 修复删除图片位置不对的问题
+- `Design`
+  - 🦀️ 修复了一些样式问题
+  - ✨ 新增 `canInsert`, `canDelete` 用于细粒度控制添加/删除按钮
+- 🦀️ 修复 `Form` 组件有异步校验导致无法提交的问题
+- 🦀️ 修复 `Pop` 的 TypeScript 类型定义
+
+### 3.10.0 (2017-11-24)
+
+- 🎉 新增年份选择组件 `YearPicker`
+- `Design`
+  - ✨ 新的添加组件交互
+  - ✨ 不再依赖 `react-dnd`
+- 🦀️ 修复 `Cascader` 数据不能为空的问题
+
+如果你的 `Design` 组件依赖 `react-dnd` 你可能需要在 App 的顶层自己注入 `react-dnd` 的 context.
+
+```jsx
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContextProvider } from 'react-dnd';
+
+export default class YourApp {
+  render() {
+    return (
+      <DragDropContextProvider backend={HTML5Backend}>
+      /* ... */
+      </DragDropContextProvider>
+    );
+  };
+}
+```
+
+### 3.9.9 (2017-11-22)
+
+- `Design`
+  - 🦀️ 修复添加组件浮层字体颜色不对的问题
+  - 🦀️ 暂时去掉了选中组件时滚动到屏幕内的行为
+- `Form`
+  - 🦀️ 修复 `FieldArray` 因删减导致的表单校验报错的问题
+  - 🦀️ 修复 `FieldArray` 在嵌套使用时，部分域增删时数据不对问题
+  - 🦀️ 修复文档中错误文字
+  - 🦀️ 修复 `setFieldsValue` 和 `initialize` 方法无法设定表单域为 `0` 的问题
+  - 🦀️ 修复 `validateOnChange` 和 `validateOnBlur` 同为 `false` 时，部分情况下仍然在非提交时报错
+
+### 3.9.8 (2017-11-21)
+
+- 🦀️ 更新 `Design` 删除/添加组件的交互
+
+### 3.9.7 (2017-11-20)
+
+- 🦀️ 修复 `Design` 分组样式问题
+
+### 3.9.6 (2017-11-20)
+
+- `Design`
+  - ✨ 当组件达到最大可添加数量时，支持展示一个提示给用户
+  - ✨ 样式更新，最主要的是去掉了添加组件区域上面的箭头
+- `Input`
+  - ✨ 增加了一个 `select` 方法用于选中输入框的文字，同时也支持 `autoSelect` 来默认选中部分文字
+  - 🦀️ 修复了 `diabled` 状态的样式问题
+- 🦀️ 修复了 `Upload` 组件无法重复上传同一个组件的问题
+- 🦀️ 修复了 `Select` 中 `data` 参数为 `undefined` 或者 `null` 时报错的问题
+- 🦀️ 修复了 `MonthPicker` 的禁用逻辑
+- 🦀️ 修复了 `Table` 组件的 `emptyLabel` 类型
+- 🦀️ 修复了 `Button` 组件的 TypeScript 定义
+
+### 3.9.5 (2017-11-13)
+
+- ✨ 文档网站增加组件搜索功能
+- 🦀️ 修复了 `DatePicker` 时间联动禁用逻辑
+
+### 3.9.4 (2017-11-09)
+
+- 🦀️ 更新英文文档
+
 ### 3.9.3 (2017-11-09)
 
 - 🎉 新版文档网站，加入了英文文档支持

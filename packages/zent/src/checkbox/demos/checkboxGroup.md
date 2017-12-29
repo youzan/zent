@@ -8,10 +8,10 @@ zh-CN:
 	rottenOrange: 烂橘子
 en-US:
 	title: Checkbox group
-	apple: apple
-	pear: pear
-	orange: orange
-	rottenOrange: rotten orange
+	apple: Apple
+	pear: Pear
+	orange: Orange
+	rottenOrange: Rotten Orange
 ---
 
 ```jsx

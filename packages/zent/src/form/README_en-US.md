@@ -62,13 +62,15 @@ When a `Field` needs to contains multiple elements, it is recommended to assembl
 
 The default timing of validations is when the value of field changes. You can change the timing when the validation is triggered by specifing `validateOnChange`, `validateOnBlur`. For example, the field will trigger the validation in blur when set `validateOnChange` to be `false` and `validateOnBlur` to be `true`. Notice that these property are typically for input fields.
 
+If you want to validate the form when submitting, yoy should set `validateOnChange` and `validateOnBlur` to be `false` and the built-in `handleSubmit` method to submit the form。If you don't want to use `handleSubmit`, you should use `zentForm.validateForm(true, callback)` to tigger the validations of form by yourself and deal with the submitting logic in `callback`.
+
 <!-- demo-slot-6 -->
 
 #### Asynchronous validations
 
 Asynchronous validations is usually triggered on blur. If you need to manually trigger asynchronous validations in a custom component, you need to call `props.onBlur (event)` yourself.  `value` can be passed to the function directly as the `event` parameter or an attribute of `event`.
 
-If you submit a form without operating the fields that have asynchronous validations, these asynchronous validations will not be triggered by default. Using the built-in `handleSubmit` method for submitting will help to trigger the asynchronous verifications which have never been triggered.
+If you submit a form without operating the fields that have asynchronous validations, these asynchronous validations will not be triggered by default. Using the built-in `handleSubmit` method for submitting will help to trigger the asynchronous verifications which have never been triggered. If you don't want to use `handleSubmit` method, you should use the `zentForm.isFormAsyncValidated` method to judge wheather the form has been asynchronous validated. Depending on the result, you should choose whether to use the `zentForm.asyncValidateForm (resolve, reject)` method to force the asynchronous validations of the form.
 
 <!-- demo-slot-7 -->
 
@@ -81,7 +83,7 @@ The `Form` component provides` format` and `nomalize` methods for formatting` va
 ### The operations of form
 
 - `Form.createForm` helps injecting the `zentForm` property into a component, which providing various methods for manipulating form and field, such as getting the values of form, resetting the values and so on. See more details in [zenForm API](#zentform);
-- The submission process of form is also encapsulated in `Form` component. You can encapsulate the asynchronous commit process in a function and **return a Promise object **. Then `Form` components will call the `onSubmitSuccess` method and the `onSubmitFail` methods according to the results of the Promise object and maintains the updates of the `isSubmitting` property (`isSubmitting` is available via `zentForm.isSubmitting ()`).
+- The submission process of form, which is the function `handleSubmit`, is also encapsulated in `Form` component. You can encapsulate the asynchronous commit process in a function and **return a Promise object **. Then `Form` components will call the `onSubmitSuccess` method and the `onSubmitFail` methods according to the results of the Promise object and maintains the updates of the `isSubmitting` property (`isSubmitting` is available via `zentForm.isSubmitting ()`). Otherwise, the form will scroll to the first error field automatically when submitting by setting the property `srcollToError`.
 
 <!-- demo-slot-9 -->
 <!-- demo-slot-10 -->
@@ -155,6 +157,7 @@ pass value into Field ---> format the value using format() ---> use the value af
 | inline | Whether to use the inline layout | boolean | `false` | no |
 | onSubmit | The callback function that is triggered when the form is submitted. | func(e:Event) | `noop` | no |
 | style | The style of form | object | null | no |
+| disableEnterSubmit | Whether to disable the enter event to submit the form | boolean | `true` | no |
 
 #### **`Form.createForm`**
 
@@ -164,7 +167,7 @@ pass value into Field ---> format the value using format() ---> use the value af
 
 `options` supports the following configuartion items:
 
-| Property     |  Description  | Type     | Default  | Required |
+| Property     |  Description  | Type     | Required |
 |------|------|------|------|
 | formValidations | The property is used to add custom validation methods which can be passed extra parameters when used in validations. | object | no |
 
@@ -175,12 +178,16 @@ pass value into Field ---> format the value using format() ---> use the value af
 The `createForm` method builds a higher-order component that defines some additional `props`.
 
 | Property     |  Description  | Type     | Default  | Required |
-|------|------|------|------|
-| onChange | The callback function that is triggered when any fields in the form. The parameter of this function is the object of all the values of fields. | func(values: Object) | no |
-| onSubmitSuccess | The callback function that is triggered when the form submission is successful. The parameter of this function is the return result of the promise in submit function. | func(submitResult: any) | no |
-| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or `undefined`. | func(submitError: SubmissionError) | no |
+|------|------|------|------|------|
+| onChange | The callback function that is triggered when any fields in the form. The parameter of this function is the object of all the values of fields. | func(values: Object) | noop | no |
+| onSubmitSuccess | The callback function that is triggered when the form submission is successful. The parameter of this function is the return result of the promise in submit function. | func(submitResult: any) | noop | no |
+| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or `undefined`. | func(submitError: SubmissionError) | noop | no |
+| scrollToError | The form automatically scrolls to the first field with error when the form is submitting or extra error is setting. | boolean | `false` | no |
 
-⚠️Ps: To get an instance of a the form component which is wrapped by `createForm`, you can add a ref on the component created by `createForm` and then call the `getWrappedForm` method.
+⚠️Ps:
+
+1. It is supported to set `onChange`, `onSubmitSuccess`, `onSubmitFail`, `scrollToError` through the parameter `options` of `createForm`;
+2. To get an instance of a the form component which is wrapped by `createForm`, you can add a ref on the component created by `createForm` and then call the `getWrappedForm` method.
 
 ##### **`zentForm`**
 
@@ -200,6 +207,9 @@ The components packaged via `Form.createForm` will be added with the `zenForm` p
 | isValidating | The function to get the state whether the form is in asynchronous validation. | func |
 | isFieldDirty | The function to get the state whether the field has been changed. | func(name: String) |
 | isFieldValidating | The function to get the state whether the field is in asynchronous validation. | func(name: String) |
+| isFormAsyncValidated | The function to get the state whether all of the fields has been asynchronous validated. | func |
+| validateForm | The function to validate the form. | func(forceValidate: Boolean, callback: Function) |
+| asyncValidateForm | The function to asynchronous validate the form. | func(resolve: Function, reject: Function) |
 
 ##### **`handleSubmit`**
 
@@ -228,7 +238,7 @@ onSubmissionFail(submissionError) {
 All the field components that need to maintain `value` need to be wrapped by the `Field` component.
 The following `props` will be passed into the `Field` component. All the `props` expect for `component` (including the custom `props`) will be passed to the field component defined in `component`:
 
-| Property     |  Description  | Type     | Default  | Required |
+| Property     |  Description  | Type     |  Required |
 |------|------|------|------|
 | name | The name of the field | string | yes |
 | component | The real component of the field which will determine how the field is displayed. The value of this property can be string (standard html tag name) or React node. | string / React.Component | yes |
@@ -273,7 +283,7 @@ const component = field.getWrappedComponent();
 
 The packaged components support the following properties which can be pass from `Field`:
 
-| Property     |  Description  | Type     | Default  | Required |
+| Property     |  Description  | Type     | Required |
 |------|------|------|------|
 | label | The label of the field | string / React.Component | no |
 | className | The extra class name which will be added to the control-group and will override the style of the child component. | string | no |

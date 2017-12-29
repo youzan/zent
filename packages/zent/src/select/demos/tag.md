@@ -2,10 +2,18 @@
 order: 13
 zh-CN:
 	title: 标签多选
-	pla: 请选择
+	reset: 重置
+	refill: 填充数据
+	external: 外部状态
+	optionDeleted: 被删除的选项是
+	optionAdded: 新加的选项是
 en-US:
 	title: Multiple Select with Tag
-	pla: Select options
+	reset: Reset
+	refill: Fill Data
+	external: External state
+	optionDeleted: The value of new deleted option is
+	optionAdded: The value of new added option is
 ---
 
 ```js
@@ -43,7 +51,7 @@ class TagsDemo extends Component {
 		this.setState({
 			value: this.state.selected.push(item.value)
 		});
-		Notify.success(<span>The value of new added option was {item.value}.</span>);
+		Notify.success(<span>{i18n.optionAdded} {item.value}</span>);
 	}
 
 	deleteHandler = (item) => {
@@ -55,17 +63,16 @@ class TagsDemo extends Component {
 		this.setState({
 			selected: newSelected
 		});
-		Notify.success(<span>The value of new deleted option was {item.value}.</span>);
+		Notify.success(<span>{i18n.optionDeleted} {item.value}</span>);
 	}
 
 	render() {
 		return (
 			<div>
-				<span>External State: {this.state.selected.join(',')}</span>
+				<span>{i18n.external}: {this.state.selected.join(',')}</span>
 					<br />
 					<br />
 				<Select
-					placeholder="{i18n.pla}"
 					data={this.state.data}
 					onChange={this.increaseHandler}
 					onDelete={this.deleteHandler}
@@ -73,8 +80,8 @@ class TagsDemo extends Component {
 					tags
     			filter={(item, keyword) => item.text.indexOf(keyword) > -1}
 					value={this.state.selected} />
-				<Button onClick={this.reset}>Reset</Button>
-				<Button onClick={this.upgradeData}>Refill Data</Button>
+				<Button onClick={this.reset}>{i18n.reset}</Button>
+				<Button onClick={this.upgradeData}>{i18n.refill}</Button>
 			</div>
 		);
 	}

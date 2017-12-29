@@ -329,4 +329,70 @@ describe('CreatedForm and HandleSubmit', () => {
     wrapper.simulate('submit');
     expect(subFailMock.mock.calls.length).toBe(1);
   });
+
+  it('Form can handle async validations when submitting if the async validations are not checked', () => {
+    jest.clearAllTimers();
+    jest.useFakeTimers();
+
+    const submitMock = jest.fn();
+    const subSuccessMock = jest.fn();
+    const subFailMock = jest.fn();
+    const asyncValidationMock = jest
+      .fn()
+      .mockImplementation((values, value) => {
+        return new Promise((resolve, reject) =>
+          setTimeout(() => {
+            if (value === 'pangxie') {
+              reject('用户名已被占用');
+            } else {
+              resolve();
+            }
+          }, 50)
+        );
+      });
+
+    class FormForAsyncValidation extends React.Component {
+      render() {
+        const { handleSubmit } = this.props;
+
+        return (
+          <Form onSubmit={handleSubmit(submitMock)}>
+            <Field
+              name="foo"
+              component={InputField}
+              asyncValidation={asyncValidationMock}
+              validations={{ required: true }}
+              validationErrors={{ required: '不能为空' }}
+              value="111"
+              validateOnChange={false}
+              validateOnBlur={false}
+            />
+          </Form>
+        );
+      }
+    }
+    let TempForm = createForm()(FormForAsyncValidation);
+    let wrapper = mount(
+      <TempForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />
+    );
+    wrapper.simulate('submit');
+    expect(asyncValidationMock.mock.calls.length).toBe(1);
+    setTimeout(() => {
+      expect(submitMock.mock.calls.length).toBe(1);
+      expect(subSuccessMock.mock.calls.length).toBe(1);
+      expect(subFailMock.mock.calls.length).toBe(0);
+    }, 100);
+
+    setTimeout(() => {
+      let input = wrapper.find('input');
+      input.simulate('change', { target: { value: 'pangxie' } });
+      wrapper.simulate('submit');
+      expect(asyncValidationMock.mock.calls.length).toBe(2);
+      setTimeout(() => {
+        expect(submitMock.mock.calls.length).toBe(2);
+        expect(subSuccessMock.mock.calls.length).toBe(1);
+        expect(subFailMock.mock.calls.length).toBe(1);
+      }, 100);
+    }, 200);
+  });
 });

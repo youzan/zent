@@ -8,8 +8,6 @@ group: Domain-specific
 
 H5 page editor, build your H5 pages in a WYSIWYG way.
 
-⚠️ Warning：The `Design` component exported by Zent uses `react-dnd-html5-backend`'s `HTML5Backend`. Each React component tree can have only one instance of `HTML5Backend`. Please use `zent/lib/design/Design` to replace the default export from Zent if you are using `HTML5Backend` somewhere else. There two components are almost the same, except the one in `zent/lib/design/Design` does not depend on `HTML5Backend`.
-
 ### API
 
 | Property | Description | Type | Default | Required |
@@ -17,8 +15,11 @@ H5 page editor, build your H5 pages in a WYSIWYG way.
 | components | All available components in Design | array | [] | Yes |
 | value | Current value | array | [] | Yes |
 | onChange | Callback when value changes | func(value: array): void | Yes |
+| settings | Design settings, will be passed to every Design component | object | | No |
+| onSettingsChange | Callback to change settings | func | | No |
 | defaultSelectedIndex| Default selected index in value array | number | -1 | No |
 | preview | Custom Preview component | Component | DesingPreview | No |
+| previewFooter | Custom footer after preview section | node |  | No | 
 | confirmUnsavedLeave| Show a confirm dialog if there're unsaved changes | boolean | true | No |
 | cache | Cache unsaved changes to `localStorage` | boolean | false | No |
 | cacheId | Cache id, must be used with `cache` | string | | Yes if `cache` is `true`, No otherwise |
@@ -64,8 +65,14 @@ type Component = {
   // Should this component appear in the component list?
   appendable?: boolean,
 
-  // Is this component configurable(edit/add/delete on the bottom right corner)?
+  // Is this component configurable(add/delete on the bottom right corner)?
   configurable?: boolean,
+  
+  // show delete button
+  canDelete?: boolean,
+
+  // show add button
+  canInsert?: boolean,
 
   // Is this component editable? Only editable components are selectable
   editable?: boolean,
@@ -77,6 +84,10 @@ type Component = {
   // Zero is no limit
   // If passing a function, return false to stop adding more
   limit?: number | (count: number) => boolean,
+  
+  // Tooltip when a component reaches its limit
+  // If limit is a number, limitMessage has a default value.
+  limitMessage?: node | (count: number) => node,
   
   // Callback when adding a new instance for component
   // Add only if Promise resolves.
@@ -112,6 +123,12 @@ Declaration：`group(name: string): object`
 ]
 ```
 
+### `settings` and `onSettingsChange`
+
+You can pass in a `settings` object and a corresponding `onSettingsChange` callback. This two props will be pass to every Design component.
+
+There's a predefined setting called `previewBackground`, Design will use this value as the preview background.
+
 ### Design Instance Methods
 
 * `design.validate(): Promise`, trigger a validation, resolves only if there's no erro.
@@ -136,11 +153,14 @@ Editor has these props:
 `{ value: any, onChange: func, showError: boolean, validation: object, design object }`
 
 - `validate(value): Promise` You should resolve an error object if there're errors
+- `reorder<T>(array: T[], fromIndex: number, toIndex: number): T[]` Reorder array after drag
 - `props.design` There're some useful methods on this prop
 
 A editor component must have these static properties: 
 
 `designType, designDescription, getInitialValue, validate`
+
+You can use [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) to implement drag-and-drop inside an editor, implement these two functions in your editor: `shouldHandleDragEnd(type: string): boolean` and `onDragEnd(result)`. Check `react-beautiful-dnd`'s documentation for detailed instructions. There's also a demo in `components/image-ad`.
 
 #### Example
 
@@ -192,7 +212,7 @@ export default class NoticeEditor extends DesignEditor {
 
   static designType = 'notice';
   static designDescription = '公告';
-  static getInitialValue() {
+  static getInitialValue(settings, globalConfig) {
     return {
       content: '',
       scrollable: false

@@ -5,7 +5,7 @@ zh-CN:
 	name: 用户名
 	nameTip: 用户名用于个人账号登录
 	nameHelpdesc: 用户名为5-25个字符
-	password: 密码：
+	password: 密码
 	pwHelpDesc: 密码由6-20位英文字母、数字组成，
 	link: 查看更多
 	notice: 重要提示：填写后无法修改，请谨慎设置
@@ -35,7 +35,7 @@ class FieldForm extends React.Component {
 						<span>{i18n.name}&nbsp;
 							<Pop trigger="hover" content="{i18n.nameTip}" centerArrow>
 								<Icon type="error-circle-o" />
-							</Pop>：
+							</Pop>:
 						</span>
 					}
 					helpDesc="{i18n.nameHelpdesc}"
@@ -44,7 +44,7 @@ class FieldForm extends React.Component {
 				<FormInputField
 					name="password"
 					type="password"
-					label="{i18n.password}"
+					label="{i18n.password}:"
 					helpDesc={<span>{i18n.pwHelpDesc}<a href="https://youzan.com" target="_blank">{i18n.link}</a></span>}
 					notice="{i18n.notice}"
 					required

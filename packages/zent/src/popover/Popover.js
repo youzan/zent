@@ -97,7 +97,10 @@ export default class Popover extends (PureComponent || Component) {
 
     // 两个必须一起出现
     visible: PropTypes.bool,
-    onVisibleChange: PropTypes.func
+    onVisibleChange: PropTypes.func,
+
+    // 位置改变后会触发，可能存在实际位置没变但也触发的情况
+    onPositionUpdated: PropTypes.func
   };
 
   static defaultProps = {
@@ -110,7 +113,8 @@ export default class Popover extends (PureComponent || Component) {
     onClose: noop,
     onShow: noop,
     cushion: 0,
-    containerSelector: 'body'
+    containerSelector: 'body',
+    onPositionUpdated: noop
   };
 
   static contextTypes = PopoverContextType;
@@ -233,12 +237,25 @@ export default class Popover extends (PureComponent || Component) {
   };
 
   onTriggerRefChange = triggerInstance => {
-    this.triggerNode = ReactDOM.findDOMNode(triggerInstance);
+    this.triggerNode = triggerInstance
+      ? ReactDOM.findDOMNode(triggerInstance)
+      : undefined;
+    this.triggerInstance = triggerInstance;
+  };
+
+  onContentRefChange = contentInstance => {
+    this.contentInstance = contentInstance;
   };
 
   getTriggerNode = () => {
     return this.triggerNode;
   };
+
+  adjustPosition() {
+    if (this.contentInstance && this.contentInstance.adjustPosition) {
+      this.contentInstance.adjustPosition();
+    }
+  }
 
   open = () => {
     this.setVisible(true);
@@ -347,7 +364,8 @@ export default class Popover extends (PureComponent || Component) {
       containerSelector,
       position,
       cushion,
-      width
+      width,
+      onPositionUpdated
     } = this.props;
     const visible = this.getVisible();
 
@@ -373,10 +391,12 @@ export default class Popover extends (PureComponent || Component) {
           id: this.id,
           getContentNode: this.getPopoverNode,
           getAnchor: this.getTriggerNode,
+          ref: this.onContentRefChange,
           visible,
           cushion,
           containerSelector,
-          placement: position
+          placement: position,
+          onPositionUpdated
         })}
       </div>
     );

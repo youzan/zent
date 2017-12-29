@@ -55,12 +55,12 @@ const { withNonScrollable } = _Portal;
 const Portal = withNonScrollable(_Portal);
 ```
 
-### principle
+### Principle
 
 - The widget is mainly used to insert it's `child` to given DOM node, and it is removed from DOM when component is `unmount`.
 - A certain degree of repaint occurs when any props are modified, and `children`, `selector`'s change will trigger component `unmount` to `mount`; when other props is modified, only existing DOM node attributes update.
 
-### known issues
+### Known issues
 
 - Using string `ref` on Portal's `children` throws error, to avoid this question, you can use functional `ref`. the reason is Portal's `chilren` has no owner, if you want to read more detail about this issue, click [ Here](https://github.com/facebook/react/blob/v15.0.2/src/renderers/shared/reconciler/ReactRef.js#L18). Using string `ref` on Portal's `children` is also not encouraged by official react team.
 

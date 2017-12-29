@@ -7,6 +7,9 @@ import Icon from 'icon';
 import forEach from 'lodash/forEach';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
+import isArray from 'lodash/isArray';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Cascader as I18nDefault } from 'i18n/default';
 
 const PopoverContent = Popover.Content;
 const withPopover = Popover.withPopover;
@@ -28,12 +31,37 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
 }
 
 class Cascader extends (PureComponent || Component) {
+  static propTypes = {
+    prefix: PropTypes.string,
+    className: PropTypes.string,
+    popClassName: PropTypes.string,
+    onChange: PropTypes.func,
+    loadMore: PropTypes.func,
+    value: PropTypes.array,
+    options: PropTypes.array,
+    placeholder: PropTypes.string,
+    changeOnSelect: PropTypes.bool,
+    title: PropTypes.array
+  };
+
+  static defaultProps = {
+    prefix: 'zent',
+    className: '',
+    popClassName: 'zent-cascader__popup',
+    onChange: noop,
+    value: [],
+    options: [],
+    placeholder: '',
+    changeOnSelect: false,
+    title: []
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      value: props.value,
-      options: props.options,
+      value: isArray(props.value) ? props.value : [],
+      options: isArray(props.options) ? props.options : [],
       onChangeValue: [],
       activeId: 1,
       open: false
@@ -48,7 +76,7 @@ class Cascader extends (PureComponent || Component) {
     let { loadMore } = this.props;
 
     if (nextProps.hasOwnProperty('value')) {
-      let nextValue = nextProps.value || [];
+      let nextValue = isArray(nextProps.value) ? nextProps.value : [];
       if (!loadMore) {
         this.setState({
           value: nextValue
@@ -58,7 +86,7 @@ class Cascader extends (PureComponent || Component) {
     }
     if (this.props.options !== nextProps.options) {
       this.setState({
-        options: nextProps.options
+        options: isArray(nextProps.options) ? nextProps.options : []
       });
     }
   }
@@ -172,15 +200,15 @@ class Cascader extends (PureComponent || Component) {
     }
   }
 
-  renderPanels(popover) {
+  renderPanels(popover, i18n) {
     let PanelEls = [];
     let tabIndex = 1;
     let { title } = this.props;
 
     let { options, value } = this.state;
-    let tabTitle = '标题';
+    let tabTitle = i18n.title;
 
-    title = title || [];
+    title = isArray(title) ? title : [];
     if (title.length > 0) {
       tabTitle = title[0];
     }
@@ -202,7 +230,7 @@ class Cascader extends (PureComponent || Component) {
         if (title.length >= tabIndex) {
           tabTitle = title[tabIndex - 1];
         } else {
-          tabTitle = '标题';
+          tabTitle = i18n.title;
         }
         if (options) {
           PanelEls.push(
@@ -264,94 +292,77 @@ class Cascader extends (PureComponent || Component) {
   }
 
   render() {
-    let { prefix, className, popClassName, placeholder } = this.props;
-    let { onChangeValue, open, activeId } = this.state;
-
-    const CascaderPopoverContent = withPopover(({ popover }) => {
-      return (
-        <div className={`${prefix}-cascader__popup-inner`}>
-          <Tabs
-            activeId={activeId}
-            onTabChange={this.onTabChange}
-            className={`${prefix}-cascader__tabs`}
-          >
-            {this.renderPanels(popover)}
-          </Tabs>
-        </div>
-      );
-    });
-
-    let cascaderValue = placeholder;
-    let hasValue = false;
-    if (onChangeValue && onChangeValue.length > 0) {
-      hasValue = true;
-      cascaderValue = onChangeValue.map(valueItem => {
-        return valueItem.title;
-      });
-      cascaderValue = cascaderValue.join(' / ');
-    }
-
-    let cascaderCls = classnames({
-      [`${prefix}-cascader`]: true,
-      [className]: true,
-      open
-    });
-
-    let selectTextCls = classnames({
-      [`${prefix}-cascader__select-text`]: true,
-      'is-placeholder': !hasValue
-    });
-
     return (
-      <div className={cascaderCls}>
-        <Popover
-          className={popClassName}
-          position={Popover.Position.BottomLeft}
-          onShow={this.onShow}
-          onClose={this.onClose}
-        >
-          <PopoverClickTrigger>
-            <div className={`${prefix}-cascader__select`}>
-              <div className={selectTextCls}>
-                <span className={`${prefix}-cascader__select-text-content`}>
-                  {cascaderValue}
-                </span>
-                <Icon type="caret-down" />
+      <Receiver defaultI18n={I18nDefault} componentName="Cascader">
+        {i18n => {
+          let { prefix, className, popClassName, placeholder } = this.props;
+          let { onChangeValue, open, activeId } = this.state;
+
+          const CascaderPopoverContent = withPopover(({ popover }) => {
+            return (
+              <div className={`${prefix}-cascader__popup-inner`}>
+                <Tabs
+                  activeId={activeId}
+                  onTabChange={this.onTabChange}
+                  className={`${prefix}-cascader__tabs`}
+                >
+                  {this.renderPanels(popover, i18n)}
+                </Tabs>
               </div>
+            );
+          });
+
+          let cascaderValue = placeholder || i18n.placeholder;
+          let hasValue = false;
+          if (onChangeValue && onChangeValue.length > 0) {
+            hasValue = true;
+            cascaderValue = onChangeValue.map(valueItem => {
+              return valueItem.title;
+            });
+            cascaderValue = cascaderValue.join(' / ');
+          }
+
+          let cascaderCls = classnames({
+            [`${prefix}-cascader`]: true,
+            [className]: true,
+            open
+          });
+
+          let selectTextCls = classnames({
+            [`${prefix}-cascader__select-text`]: true,
+            'is-placeholder': !hasValue
+          });
+
+          return (
+            <div className={cascaderCls}>
+              <Popover
+                className={popClassName}
+                position={Popover.Position.BottomLeft}
+                onShow={this.onShow}
+                onClose={this.onClose}
+              >
+                <PopoverClickTrigger>
+                  <div className={`${prefix}-cascader__select`}>
+                    <div className={selectTextCls}>
+                      <span
+                        className={`${prefix}-cascader__select-text-content`}
+                      >
+                        {cascaderValue}
+                      </span>
+                      <Icon type="caret-down" />
+                    </div>
+                  </div>
+                </PopoverClickTrigger>
+                <PopoverContent>
+                  <CascaderPopoverContent ref={ref => (this.cascader = ref)} />
+                </PopoverContent>
+              </Popover>
             </div>
-          </PopoverClickTrigger>
-          <PopoverContent>
-            <CascaderPopoverContent ref={ref => (this.cascader = ref)} />
-          </PopoverContent>
-        </Popover>
-      </div>
+          );
+        }}
+      </Receiver>
     );
   }
 }
-
-Cascader.propTypes = {
-  prefix: PropTypes.string,
-  className: PropTypes.string,
-  popClassName: PropTypes.string,
-  onChange: PropTypes.func,
-  loadMore: PropTypes.func,
-  value: PropTypes.array,
-  options: PropTypes.array,
-  placeholder: PropTypes.string,
-  changeOnSelect: PropTypes.bool,
-  title: PropTypes.array
-};
-
-Cascader.defaultProps = {
-  prefix: 'zent',
-  className: '',
-  popClassName: 'zent-cascader__popup',
-  onChange: noop,
-  value: [],
-  options: [],
-  placeholder: '请选择',
-  changeOnSelect: false,
-  title: ['省份', '城市', '县区']
-};
 
 export default Cascader;

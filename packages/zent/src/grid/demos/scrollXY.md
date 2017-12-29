@@ -1,7 +1,7 @@
 ---
-order: 7
+order: 9
 zh-CN:
-	title: fixed
+	title: 水平和垂直滚动
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -9,7 +9,7 @@ zh-CN:
 	soldNumber: 销量
 	createdTime: 创建时间
 en-US:
-	title: Fixed
+	title: Horizontal and vertical scroll
 	product: Product
 	productName: Product Name
 	uv: uv
@@ -48,7 +48,7 @@ const columns = [
 
 const datasets = [];
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 5; i++) {
 	datasets.push({
 		name: `{i18n.product} ${i}`,
 		uv: 20,
@@ -59,11 +59,11 @@ for (let i = 0; i < 3; i++) {
 }
 
 ReactDOM.render(
-		<div style={{ width: '800px' }}>
+		<div>
 			<Grid
 				columns={columns}
 				datasets={datasets}
-				scroll={{ x: 1300 }}
+				scroll={{ x: 1300, y: 200 }}
 			/>
 		</div>
 	, mountNode

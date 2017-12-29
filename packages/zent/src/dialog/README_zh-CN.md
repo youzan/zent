@@ -43,7 +43,7 @@ group: 反馈
 | 参数           | 说明                            | 类型     | 默认值      |
 | ------------ | ----------------------------- | ------ | -------- |
 | dialogId   | 可选，对话框的 ID，可以通过 `closeDialog(dialogId)` 来关闭对话框  | string | 随机生成的唯一ID  |
-| parentComponent |  可选，父组件的引用, 用于关联 context   | object  | `null`     |
+| parentComponent |  可选，父组件的引用, 用于关联 context   | ReactInstance  |    |
 
 如果需要组件实例的引用, 可以传一个函数形式的 `ref` 给 `openDialog`, **不支持字符串形式的 `ref`.**
 

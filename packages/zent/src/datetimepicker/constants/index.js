@@ -19,12 +19,13 @@ export const popPositionMap = {
 
 export const commonProps = {
   prefix: 'zent',
-  confirmText: '确定',
+  confirmText: '',
   format: 'YYYY-MM-DD',
   popPosition: 'left',
   openPanel: false,
   disabledDate: noop,
-  onChange: noop
+  onChange: noop,
+  isFooterVisble: false
 };
 
 export const commonPropTypes = {
@@ -35,7 +36,6 @@ export const commonPropTypes = {
   confirmText: PropTypes.string,
   format: PropTypes.string,
   defaultTime: PropTypes.string,
-
   // onChange 返回值类型, date | number | string， 默认 string
   valueType: PropTypes.oneOf(['date', 'number', 'string']),
   popPosition: PropTypes.string,

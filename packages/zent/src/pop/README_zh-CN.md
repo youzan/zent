@@ -37,6 +37,7 @@ group: 反馈
 | type | 影响确定按钮的样式 | string | 否  | `'primary'` | `'default'`, `'danger'`, `'success'` |
 | visible | 外部维护 `Pop` 的显示状态，此时外部拥有 `Pop` 的全部控制权，必须和 `onVisibleChange` 一起使用 | bool | 否 |  | |
 | onVisibleChange | 和 `visible` 一起使用 | func | 否 | | |
+| onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | No | `noop` | |
 | className | 自定义类名 | string | 否 | `''` |  |
 | wrapperClassName | 自定义trigger包裹节点的类名 | string | 否 | `''` |  |
 | prefix | 自定义前缀 | string | 否 | `'zent'` |  |
@@ -71,6 +72,14 @@ group: 反馈
 | -------------- | ---------------------   | ------------------ |
 | open           | 打开 Pop                 | func             |
 | close          | 关闭 Pop                 | func             |
+
+#### `adjustPosition` 方法
+
+用于手动调整 `Pop` 位置。
+
+#### `getWrappedPopover` 方法
+
+用于获取内部的 `Popover` 实例。
 
 ### FAQ
 

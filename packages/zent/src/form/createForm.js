@@ -8,10 +8,16 @@ import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
 import get from 'lodash/get';
+import map from 'lodash/map';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
-import { getDisplayName, silenceEvent, silenceEvents } from './utils';
+import {
+  getDisplayName,
+  silenceEvent,
+  silenceEvents,
+  srcollToFirstError
+} from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
 
@@ -25,7 +31,13 @@ const checkSubmit = submit => {
   return submit;
 };
 const createForm = (config = {}) => {
-  const { formValidations } = config;
+  const {
+    formValidations,
+    onChange,
+    onSubmitSuccess,
+    onSubmitFail,
+    scrollToError
+  } = config;
   const validationRules = assign({}, rules, formValidations);
 
   return WrappedForm => {
@@ -50,17 +62,19 @@ const createForm = (config = {}) => {
         onValid: PropTypes.func,
         onInvalid: PropTypes.func,
         onChange: PropTypes.func,
-        validationErrors: PropTypes.object
+        validationErrors: PropTypes.object,
+        scrollToError: PropTypes.bool
       };
 
       static defaultProps = {
         onSubmit: noop,
-        onSubmitSuccess: noop,
-        onSubmitFail: noop,
+        onSubmitSuccess: onSubmitSuccess || noop,
+        onSubmitFail: onSubmitFail || noop,
         onValid: noop,
         onInvalid: noop,
-        onChange: noop,
-        validationErrors: null
+        onChange: onChange || noop,
+        validationErrors: null,
+        scrollToError: scrollToError || false
       };
 
       static childContextTypes = {
@@ -80,9 +94,11 @@ const createForm = (config = {}) => {
             setFieldExternalErrors: this.setFieldExternalErrors,
             resetFieldsValue: this.resetFieldsValue,
             setFormDirty: this.setFormDirty,
-            setFormPristine: this.setFormDirty,
+            setFormPristine: this.setFormPristine,
             isValid: this.isValid,
-            isSubmitting: this.isSubmitting
+            isSubmitting: this.isSubmitting,
+            validateForm: this.validateForm,
+            asyncValidateForm: this.asyncValidateForm
           }
         };
       }
@@ -193,9 +209,11 @@ const createForm = (config = {}) => {
           }
           field.setState(data);
         });
+        // 滚动到第一个错误处
+        this.props.scrollToError && srcollToFirstError(this.fields);
       };
 
-      setFormDirty = isDirty => {
+      setFormDirty = (isDirty = true) => {
         this.fields.forEach(field => {
           field.setState({
             _isDirty: isDirty
@@ -203,7 +221,7 @@ const createForm = (config = {}) => {
         });
       };
 
-      setFormPristine = isPristine => {
+      setFormPristine = (isPristine = false) => {
         this.fields.forEach(field => {
           field.setState({
             _isDirty: !isPristine
@@ -215,7 +233,7 @@ const createForm = (config = {}) => {
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value) {
+          if (value !== undefined) {
             field.setInitialValue(value);
           } else {
             field.setInitialValue();
@@ -239,7 +257,7 @@ const createForm = (config = {}) => {
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value) {
+          if (value !== undefined) {
             field.setValue(value);
           }
         });
@@ -295,7 +313,7 @@ const createForm = (config = {}) => {
             }
             if (keyPath.length > 1) {
               index > values[currentKey].length - 1
-                ? values[currentKey].push({})
+                ? (values[currentKey][index] = {})
                 : null;
               assignValue(
                 values[currentKey][index],
@@ -451,22 +469,6 @@ const createForm = (config = {}) => {
         return results;
       };
 
-      onValidationComplete = () => {
-        const allIsValid = this.fields.every(field => {
-          return field.isValid();
-        });
-
-        this.setState({
-          isFormValid: allIsValid
-        });
-
-        if (allIsValid) {
-          this.props.onValid();
-        } else {
-          this.props.onInvalid();
-        }
-      };
-
       validate = field => {
         // 初始化时调用validate不触发onChange
         if (this._isMounted) {
@@ -489,7 +491,7 @@ const createForm = (config = {}) => {
         const { asyncValidation } = field.props;
         const values = this.getFormValues();
 
-        if (!asyncValidation && field.state._validationError.length) return;
+        if (!asyncValidation || field.state._validationError.length) return;
 
         field.setState({
           _isValidating: true
@@ -527,23 +529,57 @@ const createForm = (config = {}) => {
         return allIsAsyncValid;
       };
 
-      validateForm = () => {
+      asyncValidateForm = (resolve, reject) => {
+        const asyncValidations = map(this.fields, field => {
+          return this.asyncValidate(field, field.getValue());
+        });
+        Promise.all(asyncValidations)
+          .then(() => {
+            resolve && resolve();
+          })
+          .catch(error => {
+            reject && reject(error);
+          });
+      };
+
+      validateForm = (forceValidate = false, callback) => {
+        const onValidationComplete = () => {
+          const allIsValid = this.fields.every(field => {
+            return field.isValid();
+          });
+
+          this.setState(
+            {
+              isFormValid: allIsValid
+            },
+            callback
+          );
+
+          if (allIsValid) {
+            this.props.onValid();
+          } else {
+            this.props.onInvalid();
+          }
+        };
+
         this.fields.forEach((field, index) => {
           const { _externalError } = field.state;
           const validation = this.runValidation(field);
-          if (validation.isValid && _externalError) {
-            validation.isValid = false;
-          }
+          if (forceValidate || field.props.validateOnBlur) {
+            if (validation.isValid && _externalError) {
+              validation.isValid = false;
+            }
 
-          field.setState(
-            {
-              _isValid: validation.isValid,
-              _validationError: validation.error,
-              _externalError:
-                !validation.isValid && _externalError ? _externalError : null
-            },
-            index === this.fields.length - 1 ? this.onValidationComplete : null
-          );
+            field.setState(
+              {
+                _isValid: validation.isValid,
+                _validationError: validation.error,
+                _externalError:
+                  !validation.isValid && _externalError ? _externalError : null
+              },
+              index === this.fields.length - 1 ? onValidationComplete : null
+            );
+          }
         });
       };
 
@@ -595,7 +631,9 @@ const createForm = (config = {}) => {
             isValid: this.isValid,
             isValidating: this.isValidating,
             isSubmitting: this.isSubmitting,
-            isFormAsyncValidated: this.isFormAsyncValidated
+            isFormAsyncValidated: this.isFormAsyncValidated,
+            validateForm: this.validateForm,
+            asyncValidateForm: this.asyncValidateForm
           }
         });
       }

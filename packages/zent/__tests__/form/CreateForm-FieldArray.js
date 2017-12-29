@@ -37,6 +37,7 @@ describe('CreateForm and FieldArray', () => {
       </ul>
     );
   };
+
   const context = mount(
     <FormCreated>
       <FieldArray name="members" component={fieldComponent} />
@@ -64,6 +65,12 @@ describe('CreateForm and FieldArray', () => {
     }).toThrow();
   });
 
+  it('FieldArray must have props name', () => {
+    expect(() => {
+      mount(<FieldArray component={fieldComponent} />, { context });
+    }).toThrow();
+  });
+
   it('FieldArray have componentWillRecieveProps method', () => {
     const wrapper = mount(
       <FieldArray name="members" component={fieldComponent} />,
@@ -87,6 +94,7 @@ describe('CreateForm and FieldArray', () => {
     expect(fieldZentform.prefix).toBe('members');
     expect(typeof fieldZentform.getSubFieldArray).toBe('function');
     expect(typeof fieldZentform.onChangeFieldArray).toBe('function');
+    expect(typeof fieldZentform.updateSubFieldArray).toBe('function');
     expect(
       wrapper
         .find(Field)
@@ -289,7 +297,6 @@ describe('CreateForm and FieldArray', () => {
     push(field1);
     push(field2);
     const removeFields = wrapper.find(FieldArray).getNode().removeFields;
-    // const removeAllFields = wrapper.find(FieldArray).getNode().removeAllFields;
     removeFields(1);
     let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(2);
@@ -298,9 +305,6 @@ describe('CreateForm and FieldArray', () => {
     expect(() => {
       removeFields(2);
     }).toThrow();
-    // removeAllFields();
-    // fields = wrapper.find(FieldArray).getNode().state.fieldArray;
-    // expect(fields.length).toBe(0);
   });
 
   it('FieldArray have shiftFields and unshiftFields method', () => {
@@ -375,4 +379,14 @@ describe('CreateForm and FieldArray', () => {
     const inputField = nestedWrapper.find(FieldArray);
     expect(inputField.length).toBe(1);
   });
+
+  // it('FieldArray can be nested.', () => {
+  //   const nestedWrapper = mount(
+  //     <FormCreated>
+  //       <FieldArray name="members" component={subFieldComponent} />
+  //     </FormCreated>
+  //   );
+  //   console.log(nestedWrapper.find(FieldArray));
+  //   const fieldZentform = nestedWrapper.find(Field).getNode().context.zentForm;
+  // });
 });

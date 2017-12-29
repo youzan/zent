@@ -2,6 +2,156 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.11.0 (2017-12-20)
+
+- 🎉 New component `QuarterPicker`
+- ✨ `Select` can have a reset option
+- ✨ Support vertical scroll with fixed header in `Grid`
+- ✨ No more confirm in `DatePicker` when used without time selection
+- ✨ Support image drag-and-drag in `Upload`
+- ✨ Support autoresize for `textarea`
+- ✨ Support character count in `textarea`
+- ✨ Update pop position in `BlockHeader`
+- `Design`
+  - ✨ New image ad demo
+  - ✨ New richtext demo
+  - ✨ Allow custom content after preview section
+- ✨ Add `onPositionUpdated` to `Popover` and `Pop`
+- `Form`
+  - ✨ Change `required` rule，`null` is considered an error
+  - ✨ Add option to disable form submition triggered by pressing Enter in input
+  - 🦀️ Fix rerender when `validationOnChange` is `false`
+  - 🦀️ Support functional component in scroll to first error
+- `Swiper`
+  - 🦀️ Fix bug with only one image
+  - 🦀️ Fix animation when quickly click on prev/next button
+- 🦀️ Fix image not centered in `Loading`
+- 🦀️ Allow `scroll` function to run in `node.js`
+- 🦀️ Fix bug when using `batchcomponents` in `Form`
+- 📚 Fix `InfiniteScroller` documentation
+- 📚 Fix `Button` demo
+
+### 3.10.7 (2017-12-07)
+
+- ✨ Allow custom styles to be applied in `Menu`
+- 🦀️ Fix single file uploading in `Upload`
+
+### 3.10.6 (2017-12-06)
+
+- ✨ `Form` supports scroll to first error
+- 🦀️ `Upload` adds support for file filter
+
+### 3.10.5 (2017-12-05)
+
+- 🦀️ Revert `Design`'s preview width to `320px`
+
+### 3.10.4 (2017-12-04)
+
+- `Design`
+  - ✨ Preview width is now `375px`
+  - 🦀️ Update styles
+- ✨ `Pop` and `Popover` exports `adjustPosition`, it is rarely needed but can be used to trigger manual position update in some cases.
+- 🦀️ Fix `Button` broken style in some cases.
+- `Upload`
+  - 🦀️ Update styles
+  - 🦀️ Fix some ES6 compatibility issues
+
+### 3.10.3 (2017-11-29)
+
+- `Upload`
+  - 🦀️ Fix `accept` not working
+  - 🦀️ Fix audio uplaod
+- 🦀️ Fix `Pagination` style
+- `Design`
+  - ✨ Update add component button style
+  - ✨ Optimize add component
+  - 🦀️ Remove auto scroll when adding/removing component
+
+### 3.10.2 (2017-11-28)
+
+- 🦀️ Fix `accept` not working in `Upload`
+
+### 3.10.1 (2017-11-27)
+
+- 🎉 Add a new style for `NumberInput`, just set `showCounter` to `true`
+- `Upload`
+  - ✨ Enhance file type check
+  - ✨ Supports audio upload
+  - 🦀️ Fix remove wrong image
+- `Design`
+  - 🦀️ Fix some style issues
+  - ✨ Add `canInsert`, `canDelete` to control Add/Delete button visiblity
+- 🦀️ Fix `Form` cannot submit when containing async validations
+- 🦀️ Fix `Pop`'s TypeScript definition
+
+### 3.10.0 (2017-11-24)
+
+- 🎉 New `YearPicker` component
+- `Design`
+  - ✨ New add component UI
+  - ✨ Remove dependency on `react-dnd`
+- 🦀️ Allow empty data in `Cascader`
+
+If your `Desgin` componets rely on `react-dnd`, you may have to inject `react-dnd`'s context into your app.
+
+```jsx
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContextProvider } from 'react-dnd';
+
+export default class YourApp {
+  render() {
+    return (
+      <DragDropContextProvider backend={HTML5Backend}>
+      /* ... */
+      </DragDropContextProvider>
+    );
+  };
+}
+```
+
+### 3.9.9 (2017-11-22)
+
+- `Design`
+  - 🦀️ Fix font color in add component popup
+  - 🦀️ Temporarily removed the scroll into screen behavior when selecting a component
+- `Form`
+  - 🦀️ Fix `FieldArray` validation error after removing element
+  - 🦀️ Fix corrupted data in nested `FieldArray`
+  - 🦀️ Fix typo in documentation
+  - 🦀️ Fix `setFieldsValue` and `initialize` cannot set value to `0`
+  - 🦀️ Fix non-submit validation still reports error when `validateOnChange` and `validateOnBlur` both are `false`
+
+### 3.9.8 (2017-11-21)
+
+- 🦀️ Update add/remove component UI in `Design`
+
+### 3.9.7 (2017-11-20)
+
+- 🦀️ Fix grouped style in `Design`
+
+### 3.9.6 (2017-11-20)
+
+- `Design`
+  - ✨ Supports tooltip if component count reaches limit
+  - ✨ Style updates
+- `Input`
+  - ✨ Add `select` method to support text selection; and a corresponding `autoSelect` prop
+  - 🦀️ Fix styles in `disabled` state
+- 🦀️ Fix cannot upload the same image twice in `Upload`
+- 🦀️ Fix exceptions when `data` in `undefined` or `null` in `Select`
+- 🦀️ Fix disable logic in  `MonthPicker`
+- 🦀️ Fix `emptyLabel` type in `Table`
+- 🦀️ Fix TypeScript definition for `Button`
+
+### 3.9.5 (2017-11-13)
+
+- ✨ You can search components in doc site now.
+- 🦀️ Fix disable logic in  `DatePicker`
+
+### 3.9.4 (2017-11-09)
+
+- 🦀️ Update English documentation
+
 ### 3.9.3 (2017-11-09)
 
 - 🎉 New documentation site with English support

@@ -38,7 +38,7 @@ import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import defaultTo from 'lodash/defaultTo';
-import defer from 'lodash/defer';
+import isFunction from 'lodash/isFunction';
 import * as storage from 'utils/storage';
 import uuid from 'utils/uuid';
 
@@ -48,7 +48,8 @@ import {
   isExpectedDesginType,
   serializeDesignType
 } from './utils/design-type';
-import InstanceCountMap from './utils/InstanceCountMap';
+import LazyMap from './utils/LazyMap';
+import { ADD_COMPONENT_OVERLAY_POSITION } from './constants';
 
 const UUID_KEY = '__zent-design-uuid__';
 const CACHE_KEY = '__zent-design-cache-storage__';
@@ -92,10 +93,16 @@ export default class Design extends (PureComponent || Component) {
         // 组件是否出现在添加组件的列表里面
         appendable: PropTypes.bool,
 
-        // 是否显示右下角的编辑区域(编辑/加内容/删除)
-        // 不支持在这里配置编辑区域的按钮，参数太多。
+        // 是否显示右下角的编辑区域(加内容/删除)
+        // 如果要单独控制删除/加内容，请使用 canDelete 和 canInsert 来控制
         // 如果要自定义编辑区域，可以通过重写 previewController 的方式来做。
         configurable: PropTypes.bool,
+
+        // 是否可以删除
+        canDelete: PropTypes.bool,
+
+        // hover 的时候时候显示添加组件的按钮
+        canInsert: PropTypes.bool,
 
         // 组件是否可以编辑
         // 可以选中的组件一定是可以编辑的
@@ -109,12 +116,27 @@ export default class Design extends (PureComponent || Component) {
         // 组件可以添加的最大次数
         limit: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
+        // 组件达到最大添加次数后，鼠标移上去的提示
+        limitMessage: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+
         // 是否可以添加组件的回调函数，返回一个 Promise
         shouldCreate: PropTypes.func
       })
     ).isRequired,
 
     value: PropTypes.arrayOf(PropTypes.object),
+
+    // Design 组件通用的全局设置
+    settings: PropTypes.object,
+
+    // settings 改变的回调函数
+    onSettingsChange(props, propName, componentName) {
+      if (props.settings && !isFunction(props[propName])) {
+        throw new Error(
+          `Invalid prop ${propName} supplied to ${componentName}, expects a function.`
+        );
+      }
+    },
 
     // 默认选中的组件下标
     defaultSelectedIndex: PropTypes.number,
@@ -124,6 +146,9 @@ export default class Design extends (PureComponent || Component) {
 
     // 用来渲染整个 Design 组件
     preview: PropTypes.func,
+
+    // 预览部分底部的额外信息
+    previewFooter: PropTypes.node,
 
     // 有未保存数据关闭窗口时需要用户确认
     // 离开时的确认文案新版本的浏览器是不能自定义的。
@@ -199,8 +224,14 @@ export default class Design extends (PureComponent || Component) {
         props.components
       ),
 
+      // 外面没传的时候用 state 上的 settings
+      settings: {},
+
       // 是否显示添加组件的浮层
       showAddComponentOverlay: false,
+
+      // 添加组件浮层的位置
+      addComponentOverlayPosition: ADD_COMPONENT_OVERLAY_POSITION.UNKNOWN,
 
       // 可添加的组件列表
       appendableComponents: [],
@@ -318,13 +349,23 @@ export default class Design extends (PureComponent || Component) {
   }
 
   renderPreview(preview) {
-    const { components, prefix, value, disabled, globalConfig } = this.props;
+    const {
+      components,
+      prefix,
+      value,
+      disabled,
+      settings,
+      previewFooter,
+      globalConfig
+    } = this.props;
     const {
       selectedUUID,
       appendableComponents,
       showAddComponentOverlay,
+      addComponentOverlayPosition,
       validations,
       showError,
+      settings: managedSettings,
       componentInstanceCount
     } = this.state;
 
@@ -334,6 +375,9 @@ export default class Design extends (PureComponent || Component) {
       value,
       validations,
       showError,
+      settings: settings || managedSettings,
+      onSettingsChange: this.onSettingsChange,
+      footer: previewFooter,
       componentInstanceCount,
       onComponentValueChange: this.onComponentValueChange,
       onAddComponent: this.onAdd,
@@ -341,6 +385,7 @@ export default class Design extends (PureComponent || Component) {
       selectedUUID,
       getUUIDFromValue: this.getUUIDFromValue,
       showAddComponentOverlay,
+      addComponentOverlayPosition,
       onAdd: this.onShowAddComponentOverlay,
       onEdit: this.onShowEditComponentOverlay,
       onSelect: this.onSelect,
@@ -349,11 +394,34 @@ export default class Design extends (PureComponent || Component) {
       design: this.design,
       globalConfig,
       disabled,
-      ...this.getPreviewProps(),
-
       ref: this.savePreview
     });
   }
+
+  onSettingsChange = value => {
+    const { settings, onSettingsChange } = this.props;
+    const onSettingsChangeExists = isFunction(onSettingsChange);
+
+    if (settings && !onSettingsChangeExists) {
+      throw new Error('Expects onSettingsChange to be a function');
+    }
+
+    if (settings && onSettingsChangeExists) {
+      onSettingsChange({
+        ...settings,
+        ...value
+      });
+    }
+
+    if (!settings) {
+      this.setState({
+        settings: {
+          ...this.state.settings,
+          ...value
+        }
+      });
+    }
+  };
 
   onComponentValueChange = identity => (diff, replace = false) => {
     const { value } = this.props;
@@ -385,12 +453,8 @@ export default class Design extends (PureComponent || Component) {
   };
 
   // 打开右侧添加新组件的弹层
-  onShowAddComponentOverlay = component => {
-    this.toggleEditOrAdd(component, true);
-
-    // 将当前组件滚动到顶部
-    const id = this.getUUIDFromValue(component);
-    this.scrollToPreviewItem(id);
+  onShowAddComponentOverlay = (component, addPosition) => {
+    this.toggleEditOrAdd(component, true, addPosition);
   };
 
   // 编辑一个已有组件
@@ -405,8 +469,9 @@ export default class Design extends (PureComponent || Component) {
   // 选中一个组件
   onSelect = component => {
     const id = this.getUUIDFromValue(component);
+    const { showAddComponentOverlay } = this.state;
 
-    if (this.isSelected(component)) {
+    if (this.isSelected(component) && !showAddComponentOverlay) {
       return;
     }
 
@@ -420,9 +485,12 @@ export default class Design extends (PureComponent || Component) {
 
   // 添加一个新组件
   onAdd = (component, fromSelected) => {
-    const { value } = this.props;
+    const { value, settings, globalConfig } = this.props;
     const { editor, defaultType } = component;
-    const instance = editor.getInitialValue();
+    const instance = editor.getInitialValue({
+      settings,
+      globalConfig
+    });
     instance.type = getDesignType(editor, defaultType);
     const id = uuid();
     this.setUUIDForValue(instance, id);
@@ -434,19 +502,22 @@ export default class Design extends (PureComponent || Component) {
     let newValue;
     if (fromSelected) {
       newValue = value.slice();
+      const { addComponentOverlayPosition } = this.state;
       const { selectedUUID } = this.state;
       const selectedIndex = findIndex(value, { [UUID_KEY]: selectedUUID });
-      newValue.splice(selectedIndex + 1, 0, instance);
+
+      // 两种位置，插入到当前选中的前面或者后面
+      const delta =
+        addComponentOverlayPosition === ADD_COMPONENT_OVERLAY_POSITION.TOP
+          ? 0
+          : 1;
+      newValue.splice(selectedIndex + delta, 0, instance);
     } else {
       newValue = value.concat(instance);
     }
 
     this.trackValueChange(newValue);
     this.onSelect(instance);
-
-    defer(() => {
-      this.scrollToPreviewItem(id);
-    });
   };
 
   // 删除一个组件
@@ -461,40 +532,99 @@ export default class Design extends (PureComponent || Component) {
       return skip;
     });
 
-    // 删除后默认选中前一项可选的，如果不存在则往后找一个可选项
-    const nextSelectedValue = findFirstEditableSibling(
-      newValue,
-      components,
-      nextIndex
-    );
-    const nextUUID = this.getUUIDFromValue(nextSelectedValue);
+    const newState = {
+      showAddComponentOverlay: false
+    };
+
+    // 删除选中项目后默认选中前一项可选的，如果不存在则往后找一个可选项
+    const componentUUID = this.getUUIDFromValue(component);
+    if (componentUUID === this.state.selectedUUID) {
+      const nextSelectedValue = findFirstEditableSibling(
+        newValue,
+        components,
+        nextIndex
+      );
+      const nextUUID = this.getUUIDFromValue(nextSelectedValue);
+      newState.selectedUUID = nextUUID;
+    }
 
     this.trackValueChange(newValue);
-    this.setState({
-      selectedUUID: nextUUID,
-      showAddComponentOverlay: false
-    });
+    this.setState(newState);
 
     this.adjustHeight();
-    defer(() => {
-      this.scrollToPreviewItem(nextUUID);
-    });
   };
 
-  // 交换两个组件的位置
   onMove = (fromIndex, toIndex) => {
-    const { value } = this.props;
-    const newValue = value.slice();
+    if (fromIndex === toIndex) {
+      return;
+    }
 
-    const tmp = value[fromIndex];
-    newValue[fromIndex] = newValue[toIndex];
-    newValue[toIndex] = tmp;
+    const { value, components } = this.props;
+    const newValue = [];
+    let tmp;
+
+    /**
+     * 这个算法不是仅仅交换两个位置的节点，所有中间节点都需要移位
+     * 需要考虑数组中间有不可拖拽节点的情况，这种情况下 fromIndex, toIndex 的值是不包括这些节点的
+     * 例如 [1, 0, 0, 1, 0, 0, 1]: fromIndex = 0, toIndex = 1 表示移动第一个和第二个 1。
+     */
+    let passedFromIndex = false;
+    let passedToIndex = false;
+
+    if (fromIndex < toIndex) {
+      for (let i = 0, dragableIndex = -1; i < value.length; i++) {
+        const val = value[i];
+
+        const comp = find(components, c => isExpectedDesginType(c, val.type));
+        const dragable = comp && defaultTo(comp.dragable, true);
+        if (dragable) {
+          dragableIndex++;
+        }
+
+        /* Invariant: Each step copies one value, except one copies 2 and another doesn't copy */
+        if (dragableIndex === fromIndex && !passedFromIndex) {
+          tmp = val;
+          passedFromIndex = true;
+        } else if (dragableIndex < toIndex && passedFromIndex) {
+          newValue[i - 1] = val;
+        } else if (dragableIndex === toIndex && !passedToIndex) {
+          newValue[i - 1] = val;
+          newValue[i] = tmp;
+          passedToIndex = true;
+        } else {
+          newValue[i] = val;
+        }
+      }
+    } else {
+      let toInsetIndex;
+
+      for (let i = 0, dragableIndex = -1; i < value.length; i++) {
+        const val = value[i];
+
+        const comp = find(components, c => isExpectedDesginType(c, val.type));
+        const dragable = comp && defaultTo(comp.dragable, true);
+        if (dragable) {
+          dragableIndex++;
+        }
+
+        /* Invariant: each step copies one value */
+        if (dragableIndex === toIndex && !passedToIndex) {
+          toInsetIndex = i;
+          newValue[i + 1] = val;
+          passedToIndex = true;
+        } else if (dragableIndex < fromIndex && passedToIndex) {
+          newValue[i + 1] = val;
+        } else if (dragableIndex === fromIndex && !passedFromIndex) {
+          newValue[toInsetIndex] = val;
+          passedFromIndex = true;
+        } else {
+          newValue[i] = val;
+        }
+      }
+    }
 
     this.trackValueChange(newValue);
   };
-
-  // Injections can be overwritten
-  getPreviewProps() {}
 
   setValidation = validation => {
     this.setState({
@@ -585,17 +715,26 @@ export default class Design extends (PureComponent || Component) {
     this.removeCache();
   };
 
-  toggleEditOrAdd(component, showAdd) {
-    const { showAddComponentOverlay } = this.state;
+  toggleEditOrAdd(
+    component,
+    showAdd,
+    addPosition = ADD_COMPONENT_OVERLAY_POSITION.UNKNOWN
+  ) {
+    const { showAddComponentOverlay, addComponentOverlayPosition } = this.state;
     const id = this.getUUIDFromValue(component);
 
-    if (this.isSelected(component) && showAddComponentOverlay === showAdd) {
+    if (
+      this.isSelected(component) &&
+      showAddComponentOverlay === showAdd &&
+      addPosition === addComponentOverlayPosition
+    ) {
       return;
     }
 
     this.setState({
       selectedUUID: id,
-      showAddComponentOverlay: showAdd
+      showAddComponentOverlay: showAdd,
+      addComponentOverlayPosition: addPosition
     });
     this.adjustHeight();
   }
@@ -809,8 +948,13 @@ export default class Design extends (PureComponent || Component) {
   design = (() => {
     return {
       injections: {
-        getPreviewProps: implementation => {
-          this.getPreviewProps = implementation;
+        getPreviewProps: (/* implementation */) => {
+          // eslint-disable-next-line
+          console.warn(
+            'Design injections are no longer supported, use `settings` and `onSettingsChange` instead.'
+          );
+
+          // this.getPreviewProps = implementation;
         }
       },
 
@@ -877,7 +1021,7 @@ function findFirstEditableSibling(value, components, startIndex) {
  * @param {Array} components Design 支持的组件列表
  */
 function makeInstanceCountMapFromValue(value, components) {
-  const instanceCountMap = new InstanceCountMap(0);
+  const instanceCountMap = new LazyMap(0);
 
   (value || []).forEach(val => {
     const comp = find(components, c => isExpectedDesginType(c, val.type));

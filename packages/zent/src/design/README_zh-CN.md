@@ -9,8 +9,6 @@ group: 业务组件
 
 微页面编辑组件，用所见即所得(WYSIWG)的方式创建内容丰富的富文本页面。
 
-⚠️ 注意：Zent 里面导出的 `Design` 组件使用了 `react-dnd-html5-backend` 这个包的 `HTML5Backend`，由于 `react-dnd` 的限制，`HTML5Backend` 在一个 React 组件树里只能出现一次。如果你在外层已经有地方使用了这个 `HTML5Backend`，请使用 `zent/lib/design/Design` 这个组件。这个组件功能完全一样，区别是不依赖 `HTML5Backend`。
-
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必须 |
@@ -18,8 +16,11 @@ group: 业务组件
 | components | 所有组件的定义数组 | array | [] | 必须 |
 | value | 组件当前的值 | array | [] | 可选 |
 | onChange | 组件值修改时触发的回调函数 | func(value: array): void | 必须 |
+| settings | 组件的配置信息，会传给每个 Design 组件 | object | | 可选 |
+| onSettingsChange | 组件配置信息的修改回调函数 | func | | 可选 |
 | defaultSelectedIndex| 默认选中的下标（value）| number | -1 | 可选 |
 | preview | 用于自定义整个 Design 的渲染 | Component | DesingPreview | 可选 |
+| previewFooter | 自定义 Preview 底部的额外信息 | node |  | 可选 | 
 | confirmUnsavedLeave| 有未保存数据关闭窗口时需要用户确认 | boolean | true | 可选 |
 | cache | 是否将未保存的数据暂存到 localStorage 中 | boolean | false | 可选 |
 | cacheId | 配合 cache 使用，用于设置 Design 示例的缓存 id | string | | cache 为 true 时必填 |
@@ -66,9 +67,14 @@ type Component = {
   appendable?: boolean,
 
   // 是否显示右下角的编辑区域(编辑/加内容/删除)
-  // 不支持在这里配置编辑区域的按钮，参数太多。
   // 如果要自定义编辑区域，可以通过重写 previewController 的方式来做。
   configurable?: boolean,
+  
+  // 是否显示删除按钮
+  canDelete?: boolean,
+
+  // 是否显示添加组件按钮
+  canInsert?: boolean,
 
   // 组件是否可以编辑
   // 可以选中的组件一定是可以编辑的
@@ -83,6 +89,12 @@ type Component = {
   // 不传或者传 0 表示没有限制
   // 如果是函数，返回 false 表示不可再添加
   limit?: number | (count: number) => boolean,
+  
+  // 组件不可再添加后，鼠标移上去的提示
+  // 如果是个函数，需要返回一个错误信息
+  // 如果 limit 是个正整数，limitMessage 会有一个默认的值：该组件最多添加 xx 个
+  // 如果 limit 是个负数，limitMessage 默认为：该组件暂不可用
+  limitMessage?: node | (count: number) => node,
   
   // 是否可以添加组件的回调函数，返回一个 Promise，resolve 的话可以创建
   // 添加组件的实例时会调用
@@ -118,6 +130,12 @@ type Component = {
 ]
 ```
 
+### `settings` 和 `onSettingsChange`
+
+可以传入一个可选的 `settings` 以及相应的 `onSettingsChange` 回调函数，这两个属性会被传递给每一个 Design 组件。
+
+`Design` 预定义个了一个设置：`previewBackground`，`Design` 使用 `settings.previewBackground` 来设置预览区域的背景色。
+
 ### Design 实例方法
 
 * `design.validate(): Promise`, 触发校验，如果有错误会 reject，否则 resolve
@@ -140,9 +158,12 @@ Editor 请继承 `@youzan/design/lib/base/editor/DesignEditor`，这个基类提
 Editor 接受如下props：`{ value: any, onChange: func, showError: boolean, validation: object, design object }`。
 
 - `validate(value): Promise` 有错误的时候 resolve 一个错误对象出来。
+- `reorder<T>(array: T[], fromIndex: number, toIndex: number): T[]` 用于在拖拽结束后调整数组内容。
 - `props.design` 提供了一下可能有用的方法：例如触发组件的校验等。
 
 Editor 必须提供这几个静态属性：`designType, designDescription, getInitialValue, validate`。
+
+Editor 内部支持使用 [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) 实现拖拽，只需要实现 `shouldHandleDragEnd(type: string): boolean` 以及 `onDragEnd(result)` 即可。`react-beautiful-dnd` 的使用请看官方文档以及 `components/image-ad` 下的示例。
 
 #### 一个例子
 
@@ -194,7 +215,7 @@ export default class NoticeEditor extends DesignEditor {
 
   static designType = 'notice';
   static designDescription = '公告';
-  static getInitialValue() {
+  static getInitialValue(settings, globalConfig) {
     return {
       content: '',
       scrollable: false

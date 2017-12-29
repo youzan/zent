@@ -1,13 +1,14 @@
-export default function uploadLocalImage(options, e) {
-  return new Promise(resolve => {
-    let localFiles = [];
-    if (e.localFiles) {
-      localFiles = e.localFiles;
+import isFunction from 'lodash/isFunction';
+
+export default function uploadLocalImage(options, uploadConfig) {
+  return new Promise((resolve, reject) => {
+    const { onUpload } = options;
+
+    if (!isFunction(onUpload)) {
+      return reject('onUpload is not a function');
     }
 
-    if (typeof options.onUpload !== 'function') return false;
-
-    options.onUpload(localFiles);
+    onUpload(uploadConfig.localFiles || [], uploadConfig);
     resolve();
   });
 }

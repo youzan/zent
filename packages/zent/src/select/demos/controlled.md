@@ -2,14 +2,16 @@
 order: 2
 zh-CN:
 	title: 受控模式下使用组件
-	pla: 请选择
+	pla: 选择一项
 	reset: 重置为初始状态
 	re: 重新渲染
+	external: 外部状态
 en-US:
 	title: Controlled Mode
 	pla: Select an option..
 	reset: Reset
 	re: Rerender
+	external: External state
 ---
 
 ```js
@@ -49,7 +51,7 @@ class Demo extends Component {
   render() {
   	return (
     	<div>
-				<span>External State: {this.state.selectedValue}</span>
+				<span>{i18n.external}: {this.state.selectedValue}</span>
 				<br />
 				<br />
 				<Select

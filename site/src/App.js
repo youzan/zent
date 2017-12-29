@@ -5,8 +5,11 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import ScrollToTop from './components/ScrollToTop';
 
+import { I18nProvider } from 'i18n';
+import * as i18nEN from 'i18n/en-US';
+
+import ScrollToTop from './components/ScrollToTop';
 import packageJson from '../../packages/zent/package.json';
 import navData from './nav';
 import { registerRoute, registerFooter } from './router.config';
@@ -69,9 +72,11 @@ export default class App extends Component {
             <Route
               path="/en"
               render={() => (
-                <USWrapper pass={passthrough('en-US')}>
-                  <Switch>{routeData['en-US'].map(renderRouter)}</Switch>
-                </USWrapper>
+                <I18nProvider i18n={i18nEN}>
+                  <USWrapper pass={passthrough('en-US')}>
+                    <Switch>{routeData['en-US'].map(renderRouter)}</Switch>
+                  </USWrapper>
+                </I18nProvider>
               )}
             />
             <Redirect from="*" to={routeData['zh-CN'][0].path} />

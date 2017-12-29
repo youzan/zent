@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import isNumber from 'lodash/isNumber';
 import getWidth from 'utils/getWidth';
+import Textarea from './Textarea';
 
 export default class Input extends (PureComponent || Component) {
   static propTypes = {
@@ -18,6 +19,8 @@ export default class Input extends (PureComponent || Component) {
     addonBefore: PropTypes.node,
     addonAfter: PropTypes.node,
     onPressEnter: PropTypes.func,
+    showCount: PropTypes.bool,
+    autoSize: PropTypes.bool,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
     initSelectionStart: PropTypes.number,
@@ -79,14 +82,18 @@ export default class Input extends (PureComponent || Component) {
       prefix,
       className,
       type,
-      width
+      width,
+      disabled,
+      readOnly
     } = this.props;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
+    const editable = !(disabled || readOnly);
 
     const wrapClass = classNames(
       {
         [`${prefix}-input-wrapper`]: true,
+        [`${prefix}-input-wrapper__not-editable`]: !editable,
         [`${prefix}-textarea-wrapper`]: isTextarea,
         [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore)
       },
@@ -107,18 +114,15 @@ export default class Input extends (PureComponent || Component) {
     ]);
 
     if (isTextarea) {
-      inputProps = omit(inputProps, ['type']);
       return (
-        <div className={wrapClass} style={widthStyle}>
-          <textarea
-            ref={input => {
-              this.input = input;
-            }}
-            className={`${prefix}-textarea`}
-            {...inputProps}
-            onKeyDown={this.handleKeyDown}
-          />
-        </div>
+        <Textarea
+          wrapClass={wrapClass}
+          widthStyle={widthStyle}
+          prefix={prefix}
+          handleKeyDown={this.handleKeyDown}
+          inputProps={inputProps}
+          inputRef={this}
+        />
       );
     }
 

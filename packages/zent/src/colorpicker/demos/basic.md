@@ -27,7 +27,7 @@ class Simple extends React.Component {
 		return (
 			<div>
 				<ColorPicker color={color} onChange={this.handleChange} />
-				<div style={{ color }}>{i18n.content}{color}</div>
+				<div style={{ color, marginTop: 5 }}>{i18n.content}{color}</div>
 			</div>
 		)
 	}
@@ -37,5 +37,4 @@ ReactDOM.render(
 	<Simple />
 	, mountNode
 );
-
 ```

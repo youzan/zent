@@ -10,16 +10,17 @@ This component is used to preview images.
 
 ### Guide
 
--  	It's used to zoom thumbnail.
--   Next image and previous image can be selected.
--   Images can be rotated.
+-  It's used to zoom thumbnail.
+-  Next image and previous image can be selected.
+-  Images can be rotated.
 
 ## API
 
 | Property            | Description             | Type             | Default      | Alternative     |
 |------          |------              |------            |--------    |--------   |
-| images         | urls for images      | array            |         |              |
-| index          | 显示第几张，从0开始  | number           | 0       |              |
-| showRotateBtn  | determines whether display   | bool             | true     |  true,false |
+| images         | Urls for images      | array            |         |              |
+| index          | Start index  | number           | 0       |              |
+| showRotateBtn  | Show rotate button   | bool             | true     |  true,false |
+| parentComponent | Parent component instance，i18n needs this to pass context through | ReactInstance | | |
 | className      | Optional. Custom class name     | string           | `''`     |         |
 | prefix         | Optional. Custom prefix.    | string           | `'zent'` |         |

@@ -37,6 +37,7 @@ class FieldArray extends Component {
         ...zentForm,
         prefix: this._name,
         getSubFieldArray: this.getSubFieldArray,
+        updateSubFieldArray: this.updateSubFieldArray,
         onChangeFieldArray: this.onChangeFieldArray
       }
     };
@@ -92,6 +93,15 @@ class FieldArray extends Component {
     return get(fieldArray, fieldPath, null);
   };
 
+  updateSubFieldArray = (name, subFieldArray) => {
+    let currentFieldArray = assign([], this.state.fieldArray);
+    const fieldPath = name.replace(this._name, '');
+    set(currentFieldArray, fieldPath, subFieldArray);
+    this.setState({
+      fieldArray: currentFieldArray
+    });
+  };
+
   onChangeFieldArray = (name, value) => {
     const fieldArray = assign([], this.state.fieldArray);
     const fieldPath = name.replace(this._name, '');
@@ -128,6 +138,12 @@ class FieldArray extends Component {
     return this.state.fieldArray;
   };
 
+  updateParent = subFieldArray => {
+    if (this.context.zentForm && this.context.zentForm.updateSubFieldArray) {
+      this.context.zentForm.updateSubFieldArray(this._name, subFieldArray);
+    }
+  };
+
   insertField = (index, value) => {
     const fieldArray = assign([], this.state.fieldArray);
     const fieldLen = fieldArray.length;
@@ -135,9 +151,14 @@ class FieldArray extends Component {
       throw Error('The index for insertField is invalid');
     }
     fieldArray.splice(index, 0, value);
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
 
   mapFields = callback => {
@@ -155,25 +176,40 @@ class FieldArray extends Component {
     }
     const fieldToMove = fieldArray.splice(fromPos, 1)[0];
     fieldArray.splice(toPos, 0, fieldToMove);
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
 
   popFields = () => {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.pop();
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
 
   pushFields = value => {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.push(value);
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
 
   removeFields = index => {
@@ -183,23 +219,27 @@ class FieldArray extends Component {
       throw Error('The index for removeFields is invalid');
     }
     fieldArray.splice(index, 1);
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
-
-  // removeAllFields = () => {
-  //   this.setState({
-  //     fieldArray: []
-  //   });
-  // };
 
   shiftFields = () => {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.shift();
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
 
   swapFields = (indexA, indexB) => {
@@ -211,17 +251,27 @@ class FieldArray extends Component {
     const fieldA = assign({}, fieldArray[indexA]);
     fieldArray[indexA] = fieldArray[indexB];
     fieldArray[indexB] = fieldA;
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
 
   unshiftFields = value => {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.unshift(value);
-    this.setState({
-      fieldArray
-    });
+    this.setState(
+      {
+        fieldArray
+      },
+      () => {
+        this.updateParent(fieldArray);
+      }
+    );
   };
 
   render() {

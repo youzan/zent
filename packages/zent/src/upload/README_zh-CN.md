@@ -1,18 +1,19 @@
 ---
 title: Upload
-subtitle: 图片上传
+subtitle: 文件上传
 path: component/upload
 group: 数据
 ---
 
-# Upload 图片上传
+# Upload 文件上传
 
-图片上传
+文件上传，支持图片和音频。
 
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 |------|------|------|--------|--------|
+| type | 上传类型，默认为image，语音上传为voice | string | `'image'` | 否 |
 | localOnly | 是否只支持本地图片 | boolean | `false` | 否 |
 | tips | 提示文案 | string | `''` | 否 |
 | maxSize | 图片大小限制，单位为 byte | number | `1024 * 1024` | 否 |
@@ -25,6 +26,7 @@ group: 数据
 | onProgress | 上传进度 | function | `noop` | 否 |
 | filterFiles | 过滤文件，支持同步和promise的方式 | function | `noop` | 否 |
 | auto | 是否自动弹出 | boolean | `false` | 否 |
-| triggerClassName | 重写trigger样式 | string | `'zent-upload-trigger'` | 否 |
-| prefix | 前缀命名空间 | string | `'zent'` | 否 |
 | withoutPopup | 是否不渲染在弹层上 | boolean | `false` | 否 |
+| triggerClassName | 重写trigger样式 | string | `'zent-upload-trigger'` | 否 |
+| className | 扩展类名 | string | `''` | 否 |
+| prefix | 前缀命名空间 | string | `'zent'` | 否 |

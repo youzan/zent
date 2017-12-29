@@ -19,6 +19,7 @@ import Grid from 'grid';
 import Icon from 'icon';
 import InfiniteScroller from 'infinite-scroller';
 import Input from 'input';
+import I18n from 'i18n';
 import Layout from 'layout';
 import Loading from 'loading';
 import Menu from 'menu';
@@ -33,6 +34,7 @@ import previewImage from 'preview-image';
 import Progress from 'progress';
 import Radio from 'radio';
 import SearchInput from 'search-input';
+import QuarterPicker from 'datetimepicker/QuarterPicker';
 import Select from 'select';
 import SKU from 'sku';
 import Slider from 'slider';
@@ -46,6 +48,7 @@ import Tag from 'tag';
 import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
+import YearPicker from 'datetimepicker/YearPicker';
 
 export {
   Affix,
@@ -69,6 +72,7 @@ export {
   Icon,
   InfiniteScroller,
   Input,
+  I18n,
   Layout,
   Loading,
   Menu,
@@ -81,6 +85,7 @@ export {
   Portal,
   previewImage,
   Progress,
+  QuarterPicker,
   Radio,
   SearchInput,
   Select,
@@ -95,5 +100,6 @@ export {
   Tag,
   Tree,
   Upload,
-  WeekPicker
+  WeekPicker,
+  YearPicker
 };

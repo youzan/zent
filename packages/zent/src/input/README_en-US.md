@@ -36,7 +36,15 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | onChange     | change event        | func(e:Event) |          |                         | No    |
 | onPressEnter | enter event            | func(e:Event) |          |                         | No    |
 
-_except for the attributes above, input widget supports all attributes that React support for input_
+_Except for the attributes listed above, `Input` supports all attributes that React supports for native input._
+
+#### textarea
+
+| Property    | Description     | Type       | Default   | Alternative              | Required |
+| ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
+| maxLength    | Max length of the value       | number        |      |                         | No    |
+| showCount    | Show character count      | bool        | false     |                         |  No    |
+| autoSize       | Auto resize on value change         | bool        | false  |                         | No   |
 
 #### focus
 

@@ -7,12 +7,19 @@ en-US:
 ---
 
 ```jsx
-import { DatePicker, MonthPicker, DateRangePicker, WeekPicker } from 'zent'
+import { DatePicker, MonthPicker, QuarterPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
 
 class Demo extends Component{
   state = {
-		dateValue: new Date()
-  }
+
+	};
+
+	onChangeQuarter = (val) => {
+		console.log(val)
+		this.setState({
+			quarterValue: val
+		})
+	}
 
   onChangeDate = (val) => {
     this.setState({
@@ -44,11 +51,18 @@ class Demo extends Component{
 		})
 	}
 
+	onChangeYear = (val) => {
+		this.setState({
+			yearValue: val
+		})
+	}
+
   render(){
-    const { dateValue, monthValue, rangeValue, weekValue } = this.state;
+    const { dateValue, monthValue, rangeValue, weekValue, yearValue, quarterValue } = this.state;
+		const now = new Date();
 
     return (
-      <div>
+			<div>
         <DatePicker
 					className="zent-picker-demo"
           value={dateValue}
@@ -67,7 +81,7 @@ class Demo extends Component{
         <MonthPicker
           className="zent-picker-demo"
           value={monthValue}
-					max="2017-06"
+					max={now}
           onChange={this.onChangeMonth}
         />
         <br />
@@ -82,6 +96,18 @@ class Demo extends Component{
 					type="split"
 					value={rangeValue}
 					onChange={this.onChangeRangeSplit}
+				/>
+				<br/>
+				<YearPicker
+					className="zent-picker-demo"
+					value={yearValue}
+					max={2020}
+					onChange={this.onChangeYear}
+				/>
+				<br />
+				<QuarterPicker
+					value={quarterValue}
+					onChange={this.onChangeQuarter}
 				/>
       </div>
     )

@@ -4,10 +4,12 @@ import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
+import { I18nReceiver as Receiver } from 'i18n';
+import { PreviewImage as I18nDefault } from 'i18n/default';
+
 // 有关闭按钮的时候同时具有ESC关闭的行为
 const { withNonScrollable, withESCToClose } = Portal;
-const ImagePortal = withNonScrollable(Portal);
-const ImagePortalESCToClose = withESCToClose(ImagePortal);
+const ImagePortalESCToClose = withESCToClose(withNonScrollable(Portal));
 
 export default class Image extends Component {
   state = {
@@ -30,6 +32,10 @@ export default class Image extends Component {
     showRotateBtn: true,
     images: [],
     index: 0
+  };
+
+  static contextTypes = {
+    zentI18n: PropTypes.object
   };
 
   onMaskClick = e => {
@@ -95,65 +101,63 @@ export default class Image extends Component {
             <div className={`${prefix}-image-p-close`} onClick={this.onClose}>
               <Icon type="close" />
             </div>
-            <div className={`${prefix}-image-p-body`}>
-              {images.map((image, index) => {
-                if (index === this.state.imageIndex) {
-                  return (
-                    <img
-                      className={`${prefix}-show-image`}
-                      style={this.state.imageStyle}
-                      src={image}
-                      key={index}
-                      alt="图片下载失败"
-                    />
-                  );
-                }
-                return null;
-              })}
-            </div>
-            {images.length > 1 ? (
-              <div
-                className={`${prefix}-image-p-footer image-p-footer-paging ${showRotateBtn
-                  ? 'show-rotate-btn'
-                  : ''}`}
-              >
-                <span
-                  className={`${prefix}-image-p-action`}
-                  onClick={this.handlePreviousAction}
-                >
-                  上一张
-                </span>
-                {showRotateBtn && (
-                  <span
-                    className={`${prefix}-image-p-action`}
-                    onClick={this.handleRotate}
-                  >
-                    翻转
-                  </span>
-                )}
-                <span
-                  className={`${prefix}-image-p-action`}
-                  onClick={this.handleNextAction}
-                >
-                  下一张
-                </span>
-              </div>
-            ) : (
-              <div
-                className={`${prefix}-image-p-footer ${showRotateBtn
-                  ? 'show-rotate-btn'
-                  : ''}`}
-              >
-                {showRotateBtn && (
-                  <span
-                    className={`${prefix}-image-p-action rotate-action`}
-                    onClick={this.handleRotate}
-                  >
-                    翻转
-                  </span>
-                )}
-              </div>
-            )}
+            <Receiver defaultI18n={I18nDefault} componentName="PreviewImage">
+              {i18n => (
+                <div className={`${prefix}-image-p-body`}>
+                  {images.map((image, index) => {
+                    if (index === this.state.imageIndex) {
+                      return (
+                        <img
+                          className={`${prefix}-show-image`}
+                          style={this.state.imageStyle}
+                          src={image}
+                          key={index}
+                          alt={i18n.alt}
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              )}
+            </Receiver>
+            <Receiver defaultI18n={I18nDefault} componentName="PreviewImage">
+              {i18n => {
+                const needPager = images.length > 1;
+                const footerCxs = cx(`${prefix}-image-p-footer`, {
+                  'show-rotate-btn': showRotateBtn,
+                  'image-p-footer-paging': needPager
+                });
+                const rotateCxs = cx(`${prefix}-image-p-action`, {
+                  'rotate-action': !needPager
+                });
+                return (
+                  <div className={footerCxs}>
+                    {needPager && (
+                      <span
+                        className={`${prefix}-image-p-action`}
+                        onClick={this.handlePreviousAction}
+                      >
+                        {i18n.prev}
+                      </span>
+                    )}
+                    {showRotateBtn && (
+                      <span className={rotateCxs} onClick={this.handleRotate}>
+                        {i18n.rotate}
+                      </span>
+                    )}
+                    {needPager && (
+                      <span
+                        className={`${prefix}-image-p-action`}
+                        onClick={this.handleNextAction}
+                      >
+                        {i18n.next}
+                      </span>
+                    )}
+                  </div>
+                );
+              }}
+            </Receiver>
           </div>
         </div>
       </ImagePortalESCToClose>
