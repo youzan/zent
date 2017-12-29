@@ -1,7 +1,7 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/infinite-scroller' {
-  interface InfiniteScrollerProps {
+  interface IInfiniteScrollerProps {
     className?: string
     prefix?: string
     hasMore?: boolean
@@ -13,5 +13,5 @@ declare module 'zent/lib/infinite-scroller' {
     loader?: React.ReactNode
   }
 
-  export default class InfiniteScroller extends React.Component<IInfiniteScroller, any> {}
+  export default class InfiniteScroller extends React.Component<IInfiniteScrollerProps, any> {}
 }
