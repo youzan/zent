@@ -19,9 +19,10 @@ describe('Notify component', () => {
   it('test duration', () => {
     Notify.error('test error', 2000);
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
-    setTimeout(() => {
-      expect(document.querySelectorAll('.zent-notify').length).toBe(0);
-    }, 2500);
+    jest.runTimersToTime(1000);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(1);
+    jest.runTimersToTime(2000);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(0);
   });
 
   it('supports close callback', () => {
@@ -44,8 +45,7 @@ describe('Notify component', () => {
     Notify.config({ duration: 1000 });
     Notify.error('test error');
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
-    setTimeout(() => {
-      expect(document.querySelectorAll('.zent-notify').length).toBe(0);
-    }, 2000);
+    jest.runTimersToTime(1500);
+    expect(document.querySelectorAll('.zent-notify').length).toBe(0);
   });
 });
