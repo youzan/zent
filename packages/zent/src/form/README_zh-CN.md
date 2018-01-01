@@ -55,6 +55,7 @@ scatter: true
 - `Field` 组件支持传入 `validations` 和 `validationErrors` 来指定校验规则和校验提示；
 - `validations` 对象支持预置的内部校验规则（详见[内置 validation rules](#nei-zhi-validation-rules) ）, 也支持传入自定义的校验函数，校验函数返回 `true` 时表示验证通过；
 - 可以通过 `Form.createForm` 扩展内部校验规则，详见 [`Form.createForm` API](#form-createform) 。
+- 默认在任一表单进行校验时，其他所有表单域都会进行校验。如果想修改这种默认行为，可以给 `Field` 的 `dependencies` 属性为一组表单域的名字数组，这样当当前表单域校验时，只会校验这些指定的表单域。
 
 <!-- demo-slot-5 -->
 
@@ -260,6 +261,7 @@ onSubmissionFail(submissionError) {
 | clearErrorOnFocus | 是否在触发focus事件时清空错误信息 | boolean | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
 | showError | 显示错误信息 | boolean | 否 |
+| dependencies | 当前表单域对哪些表单域的校验有影响 | array | 否 |
 
 除了上述参数之外， `Field` 组件会隐含地向被包裹的表单元素组件中传入以下 props ：
 

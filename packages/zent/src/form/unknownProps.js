@@ -19,5 +19,6 @@ export default [
   'normalize',
   'format',
   'fields',
-  'isSubmitted'
+  'isSubmitted',
+  'dependencies'
 ];

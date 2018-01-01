@@ -20,7 +20,8 @@ class Field extends Component {
     validationErrors: PropTypes.object,
     validateOnBlur: PropTypes.bool,
     validateOnChange: PropTypes.bool,
-    clearErrorOnFocus: PropTypes.bool
+    clearErrorOnFocus: PropTypes.bool,
+    dependencies: PropTypes.arrayOf(PropTypes.string)
   };
 
   // validationError为默认错误提示

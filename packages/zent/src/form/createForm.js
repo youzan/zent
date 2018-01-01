@@ -59,8 +59,8 @@ const createForm = (config = {}) => {
         onSubmit: PropTypes.func,
         onSubmitSuccess: PropTypes.func,
         onSubmitFail: PropTypes.func,
-        onValid: PropTypes.func,
-        onInvalid: PropTypes.func,
+        onValid: PropTypes.func, // 暂时未对外
+        onInvalid: PropTypes.func, // 暂时未对外
         onChange: PropTypes.func,
         validationErrors: PropTypes.object,
         scrollToError: PropTypes.bool
@@ -493,7 +493,7 @@ const createForm = (config = {}) => {
             _externalError: null,
             _isSubmitted: false
           },
-          this.validateForm
+          () => this.validateForm(null, field.props.dependencies)
         );
       };
 
@@ -552,8 +552,11 @@ const createForm = (config = {}) => {
           });
       };
 
-      validateForm = callback => {
-        const onValidationComplete = () => {
+      validateForm = (callback, dependencies) => {
+        const onValidationComplete = index => {
+          if (index !== this.fields.length - 1) {
+            return;
+          }
           const allIsValid = this.fields.every(field => {
             return field.isValid();
           });
@@ -573,21 +576,28 @@ const createForm = (config = {}) => {
         };
 
         this.fields.forEach((field, index) => {
-          const { _externalError } = field.state;
-          const validation = this.runValidation(field);
-          if (validation.isValid && _externalError) {
-            validation.isValid = false;
-          }
+          if (
+            dependencies === undefined ||
+            (dependencies && dependencies.indexOf(field.getName()) >= 0)
+          ) {
+            const { _externalError } = field.state;
+            const validation = this.runValidation(field);
+            if (validation.isValid && _externalError) {
+              validation.isValid = false;
+            }
 
-          field.setState(
-            {
-              _isValid: validation.isValid,
-              _validationError: validation.error,
-              _externalError:
-                !validation.isValid && _externalError ? _externalError : null
-            },
-            index === this.fields.length - 1 ? onValidationComplete : null
-          );
+            field.setState(
+              {
+                _isValid: validation.isValid,
+                _validationError: validation.error,
+                _externalError:
+                  !validation.isValid && _externalError ? _externalError : null
+              },
+              () => onValidationComplete(index)
+            );
+          } else {
+            onValidationComplete(index);
+          }
         });
       };
 
