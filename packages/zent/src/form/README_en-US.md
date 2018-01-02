@@ -55,7 +55,7 @@ When a `Field` needs to contains multiple elements, it is recommended to assembl
 - The `Field` component supports passing `validations` and `validationErrors` to specify the validation rules and validation prompts;
 - `validations` provides several internal validation rules(See more detail in section [Built-in validation rules](#built-in-validation-rules). It also supports custom validation function. When the validation function returns `true`, it is indicates that the validation is passed;
 - Internal validation rules can be extended through using `Form.createForm`, which is explained in [`Form.createForm` API](#form-createform) 。
-- When any field is validated, all of the other fields will be validated. If you want to change this default behavior, you can set the `dependencies` property of `Field` as an array of fields' names so that when the current field is validated, only those specified fields will be valiated.
+- When any field is validated, all of the other fields will be validated. If you want to change this default behavior, you can set the `relatedFields` property of `Field` as an array of fields' names so that when the current field is validated, only those specified fields will be valiated.
 
 <!-- demo-slot-5 -->
 
@@ -265,7 +265,7 @@ The following `props` will be passed into the `Field` component. All the `props`
 | clearErrorOnFocus | Whether to clear the error messages when the field in on focus. | boolean | no |
 | asyncValidation | The asynchronous validations which should return a Promise object. | func(values, value) | no |
 | showError | Whether to show the error message | boolean | no |
-| dependencies | The fields should be validated when current field is validated. | array | no |
+| relatedFields | The fields should be validated when current field is validated. | array | no |
 
 In addition to the above parameters, the `Field` component implicitly passes the following props to the wrapped field component:
 

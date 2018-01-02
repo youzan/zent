@@ -261,7 +261,7 @@ onSubmissionFail(submissionError) {
 | clearErrorOnFocus | 是否在触发focus事件时清空错误信息 | boolean | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
 | showError | 显示错误信息 | boolean | 否 |
-| dependencies | 当前表单域对哪些表单域的校验有影响 | array | 否 |
+| relatedFields | 当前表单域对哪些表单域的校验有影响 | array | 否 |
 
 除了上述参数之外， `Field` 组件会隐含地向被包裹的表单元素组件中传入以下 props ：
 

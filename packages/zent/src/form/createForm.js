@@ -493,7 +493,7 @@ const createForm = (config = {}) => {
             _externalError: null,
             _isSubmitted: false
           },
-          () => this.validateForm(null, field.props.dependencies)
+          () => this.validateForm(null, field.props.relatedFields)
         );
       };
 
@@ -552,7 +552,7 @@ const createForm = (config = {}) => {
           });
       };
 
-      validateForm = (callback, dependencies) => {
+      validateForm = (callback, relatedFields) => {
         const onValidationComplete = index => {
           if (index !== this.fields.length - 1) {
             return;
@@ -577,8 +577,8 @@ const createForm = (config = {}) => {
 
         this.fields.forEach((field, index) => {
           if (
-            dependencies === undefined ||
-            (dependencies && dependencies.indexOf(field.getName()) >= 0)
+            relatedFields === undefined ||
+            (relatedFields && relatedFields.indexOf(field.getName()) >= 0)
           ) {
             const { _externalError } = field.state;
             const validation = this.runValidation(field);

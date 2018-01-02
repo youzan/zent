@@ -20,5 +20,5 @@ export default [
   'format',
   'fields',
   'isSubmitted',
-  'dependencies'
+  'relatedFields'
 ];
