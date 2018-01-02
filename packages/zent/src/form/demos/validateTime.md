@@ -5,6 +5,7 @@ zh-CN:
 	validationOnChange: Change时校验
 	validationOnBlur: Blur时校验
 	validationOnSubmit: submit时校验
+	customDisplayError: 自定义错误显示
 	fieldError1: 值不能为空
 	fieldError2: 只能为字母
 	submit: 获取表单值
@@ -13,6 +14,7 @@ en-US:
 	validationOnChange: Vaidate when field is changed
 	validationOnBlur: Vaidate when field is out of focus
 	validationOnSubmit: Validate when form is submitted
+	customDisplayError: Custom way of display error
 	fieldError1: The value should be non-empty.
 	fieldError2: The value can only be letters.
 	submit: submit
@@ -29,7 +31,7 @@ class FormattedForm extends React.Component {
 	}
 
 	render() {
-		const { handleSubmit } = this.props;
+		const { handleSubmit, zentForm } = this.props;
 
 		return (
 			<Form horizontal onSubmit={handleSubmit(this.submit)}>
@@ -66,6 +68,20 @@ class FormattedForm extends React.Component {
 					label="{i18n.validationOnSubmit}:"
 					validateOnChange={false}
 					validateOnBlur={false}
+					validations={{
+						required: true,
+						matchRegex: /^[a-zA-Z]+$/
+					}}
+					validationErrors={{
+						required: '{i18n.fieldError1}',
+						matchRegex: '{i18n.fieldError2}'
+					}}
+				/>
+				<FormInputField
+					name="field4"
+					type="text"
+					label="{i18n.customDisplayError}:"
+					displayError={zentForm.isFormSubmitFail() && !!zentForm.getFieldError('field4')}
 					validations={{
 						required: true,
 						matchRegex: /^[a-zA-Z]+$/

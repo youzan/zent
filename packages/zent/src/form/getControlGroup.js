@@ -16,10 +16,14 @@ export default Control => {
         notice = '',
         label = '',
         className = '',
+        displayError,
         ...props
       } = this.props;
 
-      const showError = props.isDirty && props.error !== null;
+      const showError =
+        displayError === undefined
+          ? props.isDirty && props.error !== null
+          : displayError;
       const groupClassName = cx({
         'zent-form__control-group': true,
         'zent-form__control-group--active': props.isActive,

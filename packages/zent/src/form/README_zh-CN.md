@@ -55,6 +55,7 @@ scatter: true
 - `Field` 组件支持传入 `validations` 和 `validationErrors` 来指定校验规则和校验提示；
 - `validations` 对象支持预置的内部校验规则（详见[内置 validation rules](#nei-zhi-validation-rules) ）, 也支持传入自定义的校验函数，校验函数返回 `true` 时表示验证通过；
 - 可以通过 `Form.createForm` 扩展内部校验规则，详见 [`Form.createForm` API](#form-createform) 。
+- 默认在任一表单进行校验时，其他所有表单域都会进行校验。如果想修改这种默认行为，可以给 `Field` 的 `relatedFields` 属性为一组表单域的名字数组，这样当当前表单域校验时，只会校验这些指定的表单域。
 
 <!-- demo-slot-5 -->
 
@@ -62,14 +63,14 @@ scatter: true
 
 表单的默认校验时机是 value 值改变的时候。可以修改 `validateOnChange`，`validateOnBlur` 来改变校验时机，如在 blur 时再校验（一般用于Input输入框）。
 
-如果你需要在提交时校验表单项，可以设置 `validateOnChange`，`validateOnBlur` 都为 `false`，并使用内置表单提交操作 `handleSubmit`。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.validateForm(true, callback)` 方法强制触发表单的校验，并在 `callback` 中处理后续逻辑。
+如果你需要在提交时校验表单项，可以设置 `validateOnChange`，`validateOnBlur` 都为 `false`，并使用内置表单提交操作 `handleSubmit`。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.validateForm(true, callback)` 方法强制触发表单的校验，并在 `callback` 中处理后续逻辑。如果需要自主控制错误信息的展示，可以使用 `Field` 的 `displayError` 属性来控制错误信息的显示。
 
 <!-- demo-slot-6 -->
 
 #### 异步校验
 异步校验在 blur 时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用`props.onBlur(event)`。 `value` 值可以直接传给 `event` ，或者作为 `event` 的属性传入。
 
-如果在没有触发异步校验的情况下（比如没有对表单项进行过操作）直接提交表单时，默认不会触发异步校验，使用内置的`handleSubmit`方法可以在提交表单时触发从未进行的异步校验。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.isFormAsyncValidated` 判断表单是否经过了异步校验，并根据结果选择是否使用 `zentForm.asyncValidateForm(resolve, reject)` 方法强制触发表单的异步校验。
+如果在没有触发异步校验的情况下（比如没有对表单项进行过操作）直接提交表单时，默认不会触发异步校验，使用内置的 `handleSubmit` 方法可以在提交表单时触发从未进行的异步校验。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.isFormAsyncValidated` 判断表单是否经过了异步校验，并根据结果选择是否使用 `zentForm.asyncValidateForm(resolve, reject)` 方法强制触发表单的异步校验。
 
 <!-- demo-slot-7 -->
 
@@ -212,8 +213,11 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | isValidating | 表单是否有 Field 在异步校验 | func |
 | isFieldDirty | Field 是否变更过值 | func(name: String) |
 | isFormAsyncValidated | 所有 field 是否都进行了异步校验 | func |
-| validateForm | 强制表单进行同步校验 | func(forceValidate: Boolean, callback: Function) |
+| validateForm | 强制表单进行同步校验 | func(forceValidate: Boolean, callback: Function, relatedFields: Array) |
 | asyncValidateForm | 强制表单进行异步校验 | func(resolve: Function, reject: Function) |
+| isFormSubmitFail | 表单是否提交失败，初始时为 `false` | func |
+| isFormSubmitSuccess | 表单是否提交成功, 初始时为 `true` | func |
+| updateFormSubmitStatus | 更新表单提交成功、失败状态 | func(submitSuccess: Boolean) |
 
 ##### **`handleSubmit`**
 
@@ -258,6 +262,8 @@ onSubmissionFail(submissionError) {
 | validateOnBlur | 是否在触发blur事件时执行表单校验 | boolean | 否 |
 | clearErrorOnFocus | 是否在触发focus事件时清空错误信息 | boolean | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
+| displayError | 显示错误信息 | boolean | 否 |
+| relatedFields | 当前表单域对哪些表单域的校验有影响 | array | 否 |
 
 除了上述参数之外， `Field` 组件会隐含地向被包裹的表单元素组件中传入以下 props ：
 
