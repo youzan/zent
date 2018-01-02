@@ -83,7 +83,7 @@ class Field extends Component {
   componentDidUpdate(prevProps) {
     // 支持props中的value动态更新
     if (!isEqual(this.props.value, prevProps.value)) {
-      this.setValue(this.props.value);
+      this.setValue(this.props.value, this.props.validateOnBlur);
     }
 
     // 动态改变validation方法，重新校验
