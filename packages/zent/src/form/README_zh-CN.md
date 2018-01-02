@@ -63,7 +63,7 @@ scatter: true
 
 表单的默认校验时机是 value 值改变的时候。可以修改 `validateOnChange`，`validateOnBlur` 来改变校验时机，如在 blur 时再校验（一般用于Input输入框）。
 
-如果你需要在提交时校验表单项，可以设置 `validateOnChange`，`validateOnBlur` 都为 `false`，并使用内置表单提交操作 `handleSubmit`。如果不使用 `handleSubmit` 请使用 `zentForm.setFormSubmitted(true)`保证错误信息的正确展示。如果需要自主控制错误信息的展示，可以使用 `Field` 的 `showError` 属性来控制错误信息的显示。
+如果你需要在提交时校验表单项，可以设置 `validateOnChange`，`validateOnBlur` 都为 `false`，并使用内置表单提交操作 `handleSubmit`。如果不使用 `handleSubmit` 请使用 `zentForm.validateForm(true, callback)`保证错误信息的正确展示。如果需要自主控制错误信息的展示，可以使用 `Field` 的 `displayError` 属性来控制错误信息的显示。
 
 <!-- demo-slot-6 -->
 
@@ -213,9 +213,11 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | isValidating | 表单是否有 Field 在异步校验 | func |
 | isFieldDirty | Field 是否变更过值 | func(name: String) |
 | isFormAsyncValidated | 所有 field 是否都进行了异步校验 | func |
-| validateForm | 强制表单进行同步校验 | func(callback: Function) |
+| validateForm | 强制表单进行同步校验 | func(forceValidate: Boolean, callback: Function, relatedFields: Array) |
 | asyncValidateForm | 强制表单进行异步校验 | func(resolve: Function, reject: Function) |
-| setFormSubmitted | 设置表单为提交过的状态 | func(isSubmitted: Boolean) |
+| isFormSubmitFail | 表单是否提交失败，初始时为 `false` | func |
+| isFormSubmitSuccess | 表单是否提交成功, 初始时为 `true` | func |
+| updateFormSubmitStatus | 更新表单提交成功、失败状态 | func(submitSuccess: Boolean) |
 
 ##### **`handleSubmit`**
 
@@ -260,7 +262,7 @@ onSubmissionFail(submissionError) {
 | validateOnBlur | 是否在触发blur事件时执行表单校验 | boolean | 否 |
 | clearErrorOnFocus | 是否在触发focus事件时清空错误信息 | boolean | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
-| showError | 显示错误信息 | boolean | 否 |
+| displayError | 显示错误信息 | boolean | 否 |
 | relatedFields | 当前表单域对哪些表单域的校验有影响 | array | 否 |
 
 除了上述参数之外， `Field` 组件会隐含地向被包裹的表单元素组件中传入以下 props ：

@@ -55,37 +55,11 @@ class ContactPhone extends React.Component {
 	filterHandler = (item, keyword) => {
 		return keyword && item.text.trim().toLowerCase().indexOf(keyword.trim().toLowerCase()) > -1;
 	};
-
-	getShowError = () => {
-		const {
-      validateOnChange,
-			validateOnBlur,
-			isDirty,
-			error,
-			showError,
-			isSubmitted,
-			isActive,
-		} = this.props;
-
-		const hasError = isDirty && error !== null;
-
-		// 外部控制是否显示错误信息
-		if (showError !== undefined) {
-			return showError && error !== null;
-		} else if (!validateOnChange && validateOnBlur) {
-			return !isActive && hasError;
-		} else if (!validateOnChange && !validateOnBlur) {
-			// 如果validateOnChange和validateOnBlur都是false，未提交的在提交时显示错误信息，已提交的onBlur时显示错误信息
-			return isSubmitted && hasError;
-		}
-
-		return hasError;
-	}
 	
 	render() {
 		const props = this.props;
-		const value = props.value;
-		const showError = this.getShowError();
+		const { value, displayError } = props;
+		const showError = displayError === undefined ?  props.isDirty && props.error !== null : displayError;
 		const helpDesc = props.helpDesc;
 		const mobileClassName = cx({
 			'zent-form__control-group': true,

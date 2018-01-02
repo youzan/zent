@@ -52,8 +52,7 @@ class Field extends Component {
       _initialValue: props.value,
       _validationError: [],
       _externalError: null,
-      _asyncValidated: false,
-      _isSubmitted: false
+      _asyncValidated: false
     };
     this._name = prefixName(context.zentForm, props.name);
     this._validations = props.validations || {};
@@ -111,10 +110,6 @@ class Field extends Component {
 
   isActive = () => {
     return this.state._active;
-  };
-
-  isSubmitted = () => {
-    return this.state._isSubmitted;
   };
 
   getInitialValue = () => {
@@ -209,7 +204,7 @@ class Field extends Component {
   };
 
   handleChange = (event, options = { merge: false }) => {
-    const { onChange } = this.props;
+    const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
     const currentValue = options.merge
       ? getCurrentValue(getValue(event), previousValue)
@@ -223,7 +218,7 @@ class Field extends Component {
     }
 
     if (!preventSetValue) {
-      this.setValue(newValue, true);
+      this.setValue(newValue, validateOnChange);
       this.context.zentForm.onChangeFieldArray &&
         this.context.zentForm.onChangeFieldArray(this._name, newValue);
     }
@@ -251,7 +246,7 @@ class Field extends Component {
   };
 
   handleBlur = (event, options = { merge: false }) => {
-    const { onBlur, asyncValidation } = this.props;
+    const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();
     const currentValue = options.merge
       ? getCurrentValue(getValue(event), previousValue)
@@ -268,7 +263,7 @@ class Field extends Component {
     });
 
     if (!preventSetValue) {
-      this.setValue(newValue, true);
+      this.setValue(newValue, validateOnBlur);
       if (asyncValidation) {
         this.context.zentForm.asyncValidate(this, newValue).catch(error => {
           // eslint-disable-next-line
@@ -309,7 +304,6 @@ class Field extends Component {
       isDirty: this.isDirty(),
       isValid: this.isValid(),
       isAsyncValidated: this.isAsyncValidated,
-      isSubmitted: this.isSubmitted(),
       isActive: this.isActive(),
       value: this.format(this.getValue()),
       error: this.getErrorMessage(),

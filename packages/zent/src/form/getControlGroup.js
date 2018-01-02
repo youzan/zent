@@ -9,32 +9,6 @@ export default Control => {
       return this.control;
     };
 
-    getShowError = () => {
-      const {
-        validateOnChange = true,
-        validateOnBlur = true,
-        isDirty,
-        error,
-        showError,
-        isSubmitted,
-        isActive
-      } = this.props;
-
-      const hasError = isDirty && error !== null;
-
-      // 外部控制是否显示错误信息
-      if (showError !== undefined) {
-        return showError && error !== null;
-      } else if (!validateOnChange && validateOnBlur) {
-        return !isActive && hasError;
-      } else if (!validateOnChange && !validateOnBlur) {
-        // 如果validateOnChange和validateOnBlur都是false，未提交的在提交时显示错误信息，已提交的onBlur时显示错误信息
-        return isSubmitted && hasError;
-      }
-
-      return hasError;
-    };
-
     render() {
       const {
         required = false,
@@ -42,10 +16,14 @@ export default Control => {
         notice = '',
         label = '',
         className = '',
+        displayError,
         ...props
       } = this.props;
 
-      const showError = this.getShowError();
+      const showError =
+        displayError === undefined
+          ? props.isDirty && props.error !== null
+          : displayError;
       const groupClassName = cx({
         'zent-form__control-group': true,
         'zent-form__control-group--active': props.isActive,

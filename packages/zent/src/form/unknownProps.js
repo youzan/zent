@@ -19,6 +19,7 @@ export default [
   'normalize',
   'format',
   'fields',
-  'isSubmitted',
-  'relatedFields'
+  'relatedFields',
+  'submitFailed',
+  'submitSuccess'
 ];
