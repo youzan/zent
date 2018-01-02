@@ -55,7 +55,7 @@ scatter: true
 - `Field` 组件支持传入 `validations` 和 `validationErrors` 来指定校验规则和校验提示；
 - `validations` 对象支持预置的内部校验规则（详见[内置 validation rules](#nei-zhi-validation-rules) ）, 也支持传入自定义的校验函数，校验函数返回 `true` 时表示验证通过；
 - 可以通过 `Form.createForm` 扩展内部校验规则，详见 [`Form.createForm` API](#form-createform) 。
-- 默认在任一表单进行校验时，其他所有表单域都会进行校验。如果想修改这种默认行为，可以给 `Field` 的 `dependencies` 属性为一组表单域的名字数组，这样当当前表单域校验时，只会校验这些指定的表单域。
+- 默认在任一表单进行校验时，其他所有表单域都会进行校验。如果想修改这种默认行为，可以给 `Field` 的 `relatedFields` 属性为一组表单域的名字数组，这样当当前表单域校验时，只会校验这些指定的表单域。
 
 <!-- demo-slot-5 -->
 
