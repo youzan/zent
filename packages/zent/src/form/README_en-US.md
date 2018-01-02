@@ -63,7 +63,7 @@ When a `Field` needs to contains multiple elements, it is recommended to assembl
 
 The default timing of validations is when the value of field changes. You can change the timing when the validation is triggered by specifing `validateOnChange`, `validateOnBlur`. For example, the field will trigger the validation in blur when set `validateOnChange` to be `false` and `validateOnBlur` to be `true`. Notice that these property are typically for input fields.
 
-If you want to validate the form when submitting, yoy should set `validateOnChange` and `validateOnBlur` to be `false` and the built-in `handleSubmit` method to submit the form。If you don't want to use `handleSubmit`, you should use `zentForm.validateForm(true, callback)` to ensure the correct display of error messages. If you want to determine the show logic of error messages, you can set the property `displayError` of the field.
+If you want to validate the form when submitting, yoy should set `validateOnChange` and `validateOnBlur` to be `false` and the built-in `handleSubmit` method to submit the form。If you don't want to use `handleSubmit`, you should use `zentForm.validateForm(true, callback)` to tigger the validations of form by yourself and deal with the submitting logic in `callback`. If you want to determine the show logic of error messages, you can set the property `displayError` of the field.
 
 <!-- demo-slot-6 -->
 
