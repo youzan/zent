@@ -11,8 +11,15 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT_DAY, goMonths, goDays, formatDate, parseDate } from './utils';
-import { dayStart, setTime } from './utils/date';
+import {
+  CURRENT_DAY,
+  goMonths,
+  goDays,
+  formatDate,
+  parseDate,
+  dayStart,
+  setTime
+} from './utils';
 import {
   noop,
   popPositionMap,
@@ -134,14 +141,18 @@ class WeekPicker extends (PureComponent || Component) {
     const { onClick, startDay } = this.props;
     const week = getSelectedWeek(val, startDay);
 
-    this.setState({
-      selected: week
-    });
+    this.setState(
+      {
+        selected: week
+      },
+      () => {
+        if (!this.isfooterShow) {
+          this.onConfirm();
+        }
+      }
+    );
 
     onClick && onClick(week);
-    if (!this.isfooterShow) {
-      this.onConfirm();
-    }
   };
 
   onChangeMonth = type => {

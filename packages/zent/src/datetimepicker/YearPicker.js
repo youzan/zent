@@ -9,8 +9,7 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT, formatDate, parseDate } from './utils/';
-import { dayStart } from './utils/date';
+import { CURRENT, formatDate, parseDate, dayStart } from './utils';
 import {
   noop,
   popPositionMap,
@@ -86,11 +85,11 @@ class YearPicker extends (PureComponent || Component) {
 
   onSelectYear = val => {
     if (this.isDisabled(val)) return;
-    const { props: { needConfirm, onChange }, state: { actived } } = this;
+    const { props: { isFooterVisble, onChange }, state: { actived } } = this;
     const acp = new Date(actived);
     acp.setFullYear(val);
 
-    if (!needConfirm) {
+    if (!isFooterVisble) {
       this.setState({
         value: acp,
         selected: acp,
