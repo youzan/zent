@@ -37,7 +37,8 @@ function sweet(config, sweetType) {
     onConfirm,
     onCancel,
     confirmText,
-    cancelText
+    cancelText,
+    parentComponent
   } = config;
 
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
@@ -98,7 +99,8 @@ function sweet(config, sweetType) {
       <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
         {renderButtons}
       </Receiver>
-    )
+    ),
+    parentComponent
   });
 
   return close;
