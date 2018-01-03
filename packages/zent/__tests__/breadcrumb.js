@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Breadcrumb from 'breadcrumb';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 /**
  * 只开了一个 Section 因为这个组件结构比较简单
@@ -78,8 +81,8 @@ describe('Breadcrumb', () => {
         .last()
         .text()
     ).toBe('foo');
-    expect(wrapper.find('.foobar').length).toBe(1);
-    expect(wrapper.find('.barfoo').length).toBe(1);
+    expect(wrapper.find('a.foobar').length).toBe(1);
+    expect(wrapper.find('a.barfoo').length).toBe(1);
   });
 
   it('will render a empty div without props or children', () => {
@@ -102,13 +105,7 @@ describe('Breadcrumb', () => {
       </Breadcrumb>
     );
     expect(wrapper.find('span').length).toBe(1);
-    expect(
-      wrapper
-        .find(Breadcrumb)
-        .children()
-        .at(0)
-        .type()
-    ).toBe('span');
+    expect(wrapper.find('span.foo').length).toBe(1);
     expect(wrapper.find('span.foo').text()).toBe('bar');
     expect(wrapper.find('a').length).toBe(3);
     expect(
@@ -127,6 +124,7 @@ describe('Breadcrumb', () => {
       wrapper
         .find(Breadcrumb.Item)
         .at(1)
+        .children()
         .find('[href="barfoo"]')
         .exists()
     ).toBe(false);
