@@ -10,6 +10,7 @@ import isPromise from 'utils/isPromise';
 import { formatFileSize, base64ToArrayBuffer } from '../utils';
 import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
+import { UID_KEY } from '../constants';
 
 const DEFAULT_ACCEPT = {
   image: 'image/gif, image/jpeg, image/png',
@@ -90,7 +91,7 @@ export default class FileInput extends (PureComponent || Component) {
         localFiles.push({
           src: e.target.result,
           file,
-          __uid: initIndex + index
+          [UID_KEY]: initIndex + index
         });
       } else {
         !silent &&

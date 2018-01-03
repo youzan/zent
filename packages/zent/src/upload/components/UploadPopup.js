@@ -11,6 +11,7 @@ import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
 import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
+import { UID_KEY } from '../constants';
 
 const BUTTON_LOADING_TEXT = '提取中...';
 const BUTTON_TEXT = '提取';
@@ -110,7 +111,7 @@ class UploadPopup extends Component {
     let filesLength = localFiles.length;
     if (filesLength > 0) {
       // 保证新添加的都是在旧添加的文件后面
-      lastIndex = localFiles[filesLength - 1].__uid + 1;
+      lastIndex = localFiles[filesLength - 1][UID_KEY] + 1;
     }
     return (
       <div className={`${prefix}-local-attachment-region`}>
@@ -174,7 +175,7 @@ class UploadPopup extends Component {
     this.setState({
       localFiles: localFiles.map((item, index) => {
         // 拖拽移动以后重建索引
-        item.__uid = index;
+        item[UID_KEY] = index;
         return item;
       })
     });
@@ -241,7 +242,7 @@ class UploadPopup extends Component {
     let { localFiles } = this.state;
     localFiles = localFiles.concat(files);
     // 根据索引进行排序，防止读取文件导致顺序错乱
-    localFiles.sort((a, b) => (a.__uid > b.__uid ? 1 : -1));
+    localFiles.sort((a, b) => (a[UID_KEY] > b[UID_KEY] ? 1 : -1));
     this.setState({
       localFiles
     });
