@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import Button from 'button';
 import Input from 'input';
-import Notify from 'notify';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
@@ -267,7 +266,6 @@ class UploadPopup extends Component {
         showUploadPopup(false);
       },
       () => {
-        !options.silent && Notify.error('提取失败，请确认图片地址是否正确');
         this.setState({
           networkUploading: false,
           buttonText: BUTTON_TEXT
