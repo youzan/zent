@@ -8,7 +8,7 @@ import Popover from 'popover';
 import Button from 'button';
 import isPromise from 'utils/isPromise';
 import { exposePopover } from 'popover/withPopover';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Pop as I18nDefault } from 'i18n/default';
 
 import NoneTrigger from './NoneTrigger';
@@ -81,7 +81,7 @@ class PopAction extends (PureComponent || Component) {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Reciever componentName="Pop" defaultI18n={I18nDefault}>
+        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
           {i18n => (
             <Button
               loading={confirmPending}
@@ -93,8 +93,8 @@ class PopAction extends (PureComponent || Component) {
               {confirmText || i18n.confirm}
             </Button>
           )}
-        </Reciever>
-        <Reciever componentName="Pop" defaultI18n={I18nDefault}>
+        </Receiver>
+        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
           {i18n => (
             <Button
               loading={cancelPending}
@@ -105,7 +105,7 @@ class PopAction extends (PureComponent || Component) {
               {cancelText || i18n.cancel}
             </Button>
           )}
-        </Reciever>
+        </Receiver>
       </div>
     );
   }

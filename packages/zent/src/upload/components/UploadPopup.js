@@ -105,6 +105,13 @@ class UploadPopup extends Component {
   renderLocalUploadRegion(props) {
     let { prefix, accept, options } = props;
     let { localFiles } = this.state;
+    // 记录最后一项的索引
+    let lastIndex = 0;
+    let filesLength = localFiles.length;
+    if (filesLength > 0) {
+      // 保证新添加的都是在旧添加的文件后面
+      lastIndex = localFiles[filesLength - 1].__uid + 1;
+    }
     return (
       <div className={`${prefix}-local-attachment-region`}>
         <div className={`${prefix}-title`}>
@@ -127,6 +134,7 @@ class UploadPopup extends Component {
               <FileInput
                 {...props.options}
                 accept={accept}
+                initIndex={lastIndex}
                 onChange={this.handleChange}
               />
             </div>
@@ -162,7 +170,14 @@ class UploadPopup extends Component {
 
   handleMove = (fromIndex, toIndex) => {
     let { localFiles } = this.state;
-    this.setState({ localFiles: swapArray(localFiles, fromIndex, toIndex) });
+    localFiles = swapArray(localFiles, fromIndex, toIndex);
+    this.setState({
+      localFiles: localFiles.map((item, index) => {
+        // 拖拽移动以后重建索引
+        item.__uid = index;
+        return item;
+      })
+    });
   };
 
   handleDelete = index => {
@@ -224,8 +239,11 @@ class UploadPopup extends Component {
 
   handleChange = files => {
     let { localFiles } = this.state;
+    localFiles = localFiles.concat(files);
+    // 根据索引进行排序，防止读取文件导致顺序错乱
+    localFiles.sort((a, b) => (a.__uid > b.__uid ? 1 : -1));
     this.setState({
-      localFiles: localFiles.concat(files)
+      localFiles
     });
   };
 

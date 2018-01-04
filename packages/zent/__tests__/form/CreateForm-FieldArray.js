@@ -71,7 +71,7 @@ describe('CreateForm and FieldArray', () => {
     }).toThrow();
   });
 
-  it('FieldArray have componentWillRecieveProps method', () => {
+  it('FieldArray has componentWillRecieveProps method', () => {
     const wrapper = mount(
       <FieldArray name="members" component={fieldComponent} />,
       { context }
@@ -80,7 +80,7 @@ describe('CreateForm and FieldArray', () => {
     expect(wrapper.find(FieldArray).getNode()._name).toBe('test');
   });
 
-  it('FieldArray have push method', () => {
+  it('FieldArray has push method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
@@ -92,9 +92,7 @@ describe('CreateForm and FieldArray', () => {
     const fieldZentform = wrapper.find(Field).getNode().context.zentForm;
     expect(typeof fieldZentform).toBe('object');
     expect(fieldZentform.prefix).toBe('members');
-    expect(typeof fieldZentform.getSubFieldArray).toBe('function');
     expect(typeof fieldZentform.onChangeFieldArray).toBe('function');
-    expect(typeof fieldZentform.updateSubFieldArray).toBe('function');
     expect(
       wrapper
         .find(Field)
@@ -110,37 +108,26 @@ describe('CreateForm and FieldArray', () => {
     expect(wrapper.find(Field).getNode().state._externalError).toBe(null);
   });
 
-  it('FieldArray have getFieldsIndex method', () => {
+  it('FieldArray has forEachFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: '1' };
-    const field1 = { name: '2' };
-    push(field0);
-    push(field1);
-    const getFieldsIndex = wrapper.find(FieldArray).getNode().getFieldsIndex;
-    expect(wrapper.find(Field).length).toBe(2);
-    expect(getFieldsIndex(field0)).toBe(0);
-    expect(getFieldsIndex(field1)).toBe(1);
-  });
-
-  it('FieldArray have forEachFields method', () => {
-    const wrapper = mount(
-      <FormCreated>
-        <FieldArray name="members" component={fieldComponent} />
-      </FormCreated>
-    );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    push(field0);
-    push(field1);
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
     const values = [];
     const forEachFields = wrapper.find(FieldArray).getNode().forEachFields;
-    forEachFields((name, index, value) => {
+    forEachFields((name, index, key, value) => {
       values.push(`${name}=${value.name}`);
     });
     expect(values.length).toBe(2);
@@ -148,17 +135,23 @@ describe('CreateForm and FieldArray', () => {
     expect(values[1]).toBe('[1]=bar');
   });
 
-  it('FieldArray have getField method', () => {
+  it('FieldArray has getField method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    push(field0);
-    push(field1);
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
     const getField = wrapper.find(FieldArray).getNode().getField;
     expect(() => getField(10)).toThrow();
     const fieldValue = getField(1);
@@ -168,17 +161,23 @@ describe('CreateForm and FieldArray', () => {
     expect(fieldValue.name).toBe('bar');
   });
 
-  it('FieldArray have getAllFields method', () => {
+  it('FieldArray has getAllFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    push(field0);
-    push(field1);
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
     const getAllFields = wrapper.find(FieldArray).getNode().getAllFields;
     const fieldValue = getAllFields();
     expect(typeof fieldValue).toBe('object');
@@ -193,40 +192,25 @@ describe('CreateForm and FieldArray', () => {
     expect(fieldValue[1].name).toBe('bar');
   });
 
-  it('FieldArray have insertField method', () => {
+  it('FieldArray has mapFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    push(field0);
-    push(field1);
-    const insertField = wrapper.find(FieldArray).getNode().insertField;
-    expect(() => insertField(4, { name: 'test' })).toThrow();
-    insertField(1, { name: 'test' });
-    const fields = wrapper.find(FieldArray).getNode().state.fieldArray;
-    expect(fields.length).toBe(3);
-    expect(fields[0].name).toBe('foo');
-    expect(fields[1].name).toBe('test');
-    expect(fields[2].name).toBe('bar');
-  });
-
-  it('FieldArray have mapFields method', () => {
-    const wrapper = mount(
-      <FormCreated>
-        <FieldArray name="members" component={fieldComponent} />
-      </FormCreated>
-    );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    push(field0);
-    push(field1);
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
     const mapFields = wrapper.find(FieldArray).getNode().mapFields;
-    const result = mapFields((name, index, value) => {
+    const result = mapFields((name, key, index, value) => {
       return `${name}=${value.name}`;
     });
     expect(result.length).toBe(2);
@@ -234,118 +218,193 @@ describe('CreateForm and FieldArray', () => {
     expect(result[1]).toBe('[1]=bar');
   });
 
-  it('FieldArray have moveFields method', () => {
+  it('FieldArray has moveFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    const field2 = { name: 'test' };
-    push(field0);
-    push(field1);
-    push(field2);
+    push({});
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
+    wrapper
+      .find('input')
+      .at(2)
+      .simulate('change', { target: { value: 'test' } });
     const moveFields = wrapper.find(FieldArray).getNode().moveFields;
     expect(() => moveFields(0, 4)).toThrow();
     moveFields(0, 2);
     const fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(3);
-    expect(fields[0].name).toBe('bar');
-    expect(fields[1].name).toBe('test');
-    expect(fields[2].name).toBe('foo');
+    expect(fields[0]._fieldInternalValue.name).toBe('bar');
+    expect(fields[1]._fieldInternalValue.name).toBe('test');
+    expect(fields[2]._fieldInternalValue.name).toBe('foo');
   });
 
-  it('FieldArray have popFields and pushFields method', () => {
+  it('FieldArray has popFields and pushFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    const field2 = { name: 'test' };
-    push(field0);
-    push(field1);
-    push(field2);
+    push({});
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
+    wrapper
+      .find('input')
+      .at(2)
+      .simulate('change', { target: { value: 'test' } });
     let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(3);
-    expect(fields[0].name).toBe('foo');
-    expect(fields[1].name).toBe('bar');
-    expect(fields[2].name).toBe('test');
+    expect(fields[0]._fieldInternalValue.name).toBe('foo');
+    expect(fields[1]._fieldInternalValue.name).toBe('bar');
+    expect(fields[2]._fieldInternalValue.name).toBe('test');
     const pop = wrapper.find(FieldArray).getNode().popFields;
     pop();
     fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(2);
-    expect(fields[0].name).toBe('foo');
-    expect(fields[1].name).toBe('bar');
+    expect(fields[0]._fieldInternalValue.name).toBe('foo');
+    expect(fields[1]._fieldInternalValue.name).toBe('bar');
   });
 
-  it('FieldArray have removeFields method', () => {
+  it('FieldArray has removeFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    const field2 = { name: 'test' };
-    push(field0);
-    push(field1);
-    push(field2);
+    push({});
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
+    wrapper
+      .find('input')
+      .at(2)
+      .simulate('change', { target: { value: 'test' } });
     const removeFields = wrapper.find(FieldArray).getNode().removeFields;
     removeFields(1);
     let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(2);
-    expect(fields[0].name).toBe('foo');
-    expect(fields[1].name).toBe('test');
+    expect(fields[0]._fieldInternalValue.name).toBe('foo');
+    expect(fields[1]._fieldInternalValue.name).toBe('test');
     expect(() => {
       removeFields(2);
     }).toThrow();
   });
 
-  it('FieldArray have shiftFields and unshiftFields method', () => {
+  it('FieldArray has removeAllFields method', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+    const push = wrapper.find(FieldArray).getNode().pushFields;
+    push({});
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
+    wrapper
+      .find('input')
+      .at(2)
+      .simulate('change', { target: { value: 'test' } });
+    let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    expect(fields.length).toBe(3);
+    const removeAllFields = wrapper.find(FieldArray).getNode().removeAllFields;
+    removeAllFields();
+    fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    expect(fields.length).toBe(0);
+  });
+
+  it('FieldArray has shiftFields and unshiftFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const unshiftFields = wrapper.find(FieldArray).getNode().unshiftFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    const field2 = { name: 'test' };
-    unshiftFields(field0);
-    unshiftFields(field1);
-    unshiftFields(field2);
+    unshiftFields({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    unshiftFields({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'bar' } });
+    unshiftFields({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'test' } });
     let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(3);
-    expect(fields[0].name).toBe('test');
-    expect(fields[1].name).toBe('bar');
-    expect(fields[2].name).toBe('foo');
+    expect(fields[0]._fieldInternalValue.name).toBe('test');
+    expect(fields[1]._fieldInternalValue.name).toBe('bar');
+    expect(fields[2]._fieldInternalValue.name).toBe('foo');
     const shiftFields = wrapper.find(FieldArray).getNode().shiftFields;
     shiftFields();
     fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(2);
-    expect(fields[0].name).toBe('bar');
-    expect(fields[1].name).toBe('foo');
+    expect(fields[0]._fieldInternalValue.name).toBe('bar');
+    expect(fields[1]._fieldInternalValue.name).toBe('foo');
   });
 
-  it('FieldArray have swapFields method', () => {
+  it('FieldArray has swapFields method', () => {
     const wrapper = mount(
       <FormCreated>
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
     const push = wrapper.find(FieldArray).getNode().pushFields;
-    const field0 = { name: 'foo' };
-    const field1 = { name: 'bar' };
-    const field2 = { name: 'test' };
-    push(field0);
-    push(field1);
-    push(field2);
+    push({});
+    push({});
+    push({});
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
+    wrapper
+      .find('input')
+      .at(2)
+      .simulate('change', { target: { value: 'test' } });
     const swapFields = wrapper.find(FieldArray).getNode().swapFields;
     expect(() => {
       swapFields(2, 10);
@@ -353,12 +412,12 @@ describe('CreateForm and FieldArray', () => {
     swapFields(0, 2);
     let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
     expect(fields.length).toBe(3);
-    expect(fields[0].name).toBe('test');
-    expect(fields[1].name).toBe('bar');
-    expect(fields[2].name).toBe('foo');
+    expect(fields[0]._fieldInternalValue.name).toBe('test');
+    expect(fields[1]._fieldInternalValue.name).toBe('bar');
+    expect(fields[2]._fieldInternalValue.name).toBe('foo');
   });
 
-  it('FieldArray have an unused getWrappedComponent method(not metioned in docs)', () => {
+  it('FieldArray has an unused getWrappedComponent method(not metioned in docs)', () => {
     const wrapper = mount(
       <FieldArray name="members" component={fieldComponent} />,
       { context }
@@ -379,14 +438,4 @@ describe('CreateForm and FieldArray', () => {
     const inputField = nestedWrapper.find(FieldArray);
     expect(inputField.length).toBe(1);
   });
-
-  // it('FieldArray can be nested.', () => {
-  //   const nestedWrapper = mount(
-  //     <FormCreated>
-  //       <FieldArray name="members" component={subFieldComponent} />
-  //     </FormCreated>
-  //   );
-  //   console.log(nestedWrapper.find(FieldArray));
-  //   const fieldZentform = nestedWrapper.find(Field).getNode().context.zentForm;
-  // });
 });

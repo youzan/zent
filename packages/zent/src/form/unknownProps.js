@@ -18,5 +18,8 @@ export default [
   'asyncValidation',
   'normalize',
   'format',
-  'fields'
+  'fields',
+  'relatedFields',
+  'submitFailed',
+  'submitSuccess'
 ];

@@ -1,6 +1,6 @@
 ---
-title: SweetAlert
-path: component/sweet-alert
+title: Sweetalert
+path: component/sweetalert
 group: Feedback
 ---
 
@@ -24,6 +24,8 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | onConfirm   | callback of confirm operation | func   | `noop`   |                                               |
 | confirmText | text of confirm button | string | `'OK'`   |                                               |
 | confirmType | type of confirm button | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| closeBtn     | visibility of the close button at the upper right corner | bool   | `false`   |
+| maskClosable | wether click on the mask is to close the dialog | bool   | `true`   |
 | parentComponent | Parent component instance，i18n needs this to pass context through | ReactInstance | | |
 | className   | custom classname                       | string | `''`     |                                               |
 | prefix      | custom prefix  | string | `'zent'`|     |
@@ -40,6 +42,8 @@ Sweetalert is a function used for arouse a Dialog rapidly.
 | cancelText  | text of cancel button                              | string | `'Cancel'`   |                                               |
 | confirmText | text of confirm button   | string | `'Confirm'`   |                                               |
 | confirmType | type of confirm button  | string | `'primary'` | `'default'`、`'primary'`、`'danger'`、`'success'` |
+| closeBtn     | visibility of the close button at the upper right corner | bool   | `false`   |
+| maskClosable | wether click on the mask is to close the dialog | bool   | `true`   |
 | className   | custom classname | string | `''`     |                                               |
 | prefix      | custom prefix                      | string | `'zent'` |                                               |
 

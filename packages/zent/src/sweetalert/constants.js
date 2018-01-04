@@ -4,8 +4,3 @@ export const TitleIconMap = {
   error: 'close-circle-o',
   warning: 'error-circle-o'
 };
-
-export const CommonProps = {
-  closeBtn: false,
-  maskClosable: false
-};

@@ -13,7 +13,7 @@ en-US:
 ---
 
 ```jsx
-import { Form, Radio } from 'zent';
+import { Form, Radio, Notify } from 'zent';
 const { Field, FormInputField, createForm } = Form;
 
 const RadioGroup = Radio.Group;
@@ -30,7 +30,7 @@ class FieldForm extends React.Component {
 	}
 
 	submit = (values, zentForm) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	};
 
 	render() {

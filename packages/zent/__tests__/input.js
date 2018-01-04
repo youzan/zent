@@ -24,6 +24,34 @@ describe('Input', () => {
     expect(wrapper.find('input').hasClass('foo')).toBe(false);
   });
 
+  it('can supports showClear props', () => {
+    class InputTest extends React.Component {
+      state = {
+        value: ''
+      };
+
+      handleChange = e => {
+        this.setState({ value: e.target.value });
+        e.preventDefault();
+        e.stopPropagation();
+      };
+
+      render() {
+        const { value } = this.state;
+        return <Input value={value} onChange={this.handleChange} showClear />;
+      }
+    }
+    const wrapper = mount(<InputTest />);
+    expect(wrapper.find('Icon').length).toBe(0);
+    wrapper.find('input').simulate('change', { target: { value: 'test' } });
+    expect(wrapper.find('Icon').length).toBe(1);
+    expect(wrapper.find('Input').props().value).toBe('test');
+    wrapper.find('Icon').simulate('mouseDown', { preventDefault: jest.fn() });
+    wrapper.find('Icon').simulate('click');
+    expect(wrapper.find('Input').props().value).toBe('');
+    expect(wrapper.find('Icon').length).toBe(0);
+  });
+
   it('can have custom prefix of classNames', () => {
     const wrapper = shallow(
       <Input prefix="foo" addonAfter="bar" addonBefore="rab" />
@@ -196,6 +224,7 @@ describe('Input', () => {
       .simulate('change', { target: { value: '12345678' } });
 
     expect(wrapper.find('textarea').node.value).toBe('12345678');
+    wrapper.unmount();
   });
 
   it('can have input auto focus', () => {

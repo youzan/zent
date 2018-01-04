@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import isString from 'lodash/isString';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import { commonProps, commonPropTypes } from './constants';
@@ -67,7 +67,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
 
     rangePicker = (
       <div className={pickerCls}>
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => (
             <DatePicker
               {...pickerProps}
@@ -83,13 +83,13 @@ class SplitDateRangePicker extends (PureComponent || Component) {
               disabledDate={val => disabledDate(val, START)}
             />
           )}
-        </Reciever>
+        </Receiver>
 
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => <span className="picker-seperator">{i18n.to}</span>}
-        </Reciever>
+        </Receiver>
 
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => (
             <DatePicker
               {...pickerProps}
@@ -105,7 +105,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
               disabledDate={val => disabledDate(val, END)}
             />
           )}
-        </Reciever>
+        </Receiver>
       </div>
     );
 

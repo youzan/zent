@@ -55,7 +55,7 @@ en-US:
 ---
 
 ```jsx
-import { Form, Radio, Checkbox, Button } from 'zent';
+import { Form, Radio, Checkbox, Button, Notify } from 'zent';
 const { Field, FormInputField, FormSelectField, FormRadioGroupField, FormCheckboxField, FormCheckboxGroupField, FormColorPickerField, FormDateRangePickerField, FormNumberInputField, FormSwitchField, createForm } = Form;
 
 class FieldForm extends React.Component {
@@ -68,7 +68,7 @@ class FieldForm extends React.Component {
 	}
 
 	submit = (values, zentForm) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	};
 
 	resetForm = () => {

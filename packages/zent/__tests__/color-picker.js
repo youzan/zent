@@ -1,15 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
-import ColorPicker from 'color-picker';
-import * as alpha from 'color-picker/helpers/alpha';
-import * as hue from 'color-picker/helpers/hue';
-import * as saturation from 'color-picker/helpers/saturation';
-import flattenNames from 'color-picker/helpers/reactcss/flattenNames.js';
-import mergeClasses from 'color-picker/helpers/reactcss/mergeClasses.js';
-import helpColor from 'color-picker/helpers/color';
-import SketchFields from 'color-picker/SketchFields';
-import SketchPresetColors from 'color-picker/SketchPresetColors';
+import ColorPicker from 'colorpicker';
+import * as alpha from 'colorpicker/helpers/alpha';
+import * as hue from 'colorpicker/helpers/hue';
+import * as saturation from 'colorpicker/helpers/saturation';
+import flattenNames from 'colorpicker/helpers/reactcss/flattenNames.js';
+import mergeClasses from 'colorpicker/helpers/reactcss/mergeClasses.js';
+import helpColor from 'colorpicker/helpers/color';
+import SketchFields from 'colorpicker/SketchFields';
+import SketchPresetColors from 'colorpicker/SketchPresetColors';
 import {
   Alpha,
   Checkboard,
@@ -17,7 +17,7 @@ import {
   Hue,
   Saturation,
   Swatch
-} from 'color-picker/common';
+} from 'colorpicker/common';
 
 const red = {
   hsl: { a: 1, h: 0, l: 0.5, s: 1 },

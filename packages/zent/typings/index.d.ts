@@ -36,8 +36,9 @@
 /// <reference path="./libs/Select.d.ts" />
 /// <reference path="./libs/SKU.d.ts" />
 /// <reference path="./libs/Slider.d.ts" />
+/// <reference path="./libs/Sortable.d.ts" />
 /// <reference path="./libs/Steps.d.ts" />
-/// <reference path="./libs/SweetAlert.d.ts" />
+/// <reference path="./libs/Sweetalert.d.ts" />
 /// <reference path="./libs/Swiper.d.ts" />
 /// <reference path="./libs/Switch.d.ts" />
 /// <reference path="./libs/Table.d.ts" />
@@ -56,7 +57,7 @@ declare module 'zent' {
   import Cascader from 'zent/lib/cascader';
   import Card from 'zent/lib/card';
   import Checkbox from 'zent/lib/checkbox';
-  import ColorPicker from 'zent/lib/color-picker';
+  import ColorPicker from 'zent/lib/colorpicker';
   import CopyButton from 'zent/lib/copy-button';
   import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
@@ -84,6 +85,7 @@ declare module 'zent' {
   import Select from 'zent/lib/select';
   import SKU from 'zent/lib/sku';
   import Slider from 'zent/lib/slider';
+  import Sortable from 'zent/lib/sortable';
   import Steps from 'zent/lib/steps';
   import Sweetalert from 'zent/lib/sweetalert';
   import Swiper from 'zent/lib/swiper';
@@ -132,6 +134,7 @@ declare module 'zent' {
     Select,
     SKU,
     Slider,
+    Sortable,
     Steps,
     Sweetalert,
     Swiper,

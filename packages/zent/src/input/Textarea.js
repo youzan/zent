@@ -1,20 +1,18 @@
 import React, { Component, PureComponent } from 'react';
 import omit from 'lodash/omit';
 import cx from 'classnames';
+import autosize from 'autosize';
 
 export default class Textarea extends (PureComponent || Component) {
-  state = {};
+  componentDidMount() {
+    const { autoSize } = this.props.inputProps;
+    autoSize && autosize(this.textarea);
+  }
 
-  onChange = e => {
-    const { autoSize, onChange } = this.props.inputProps;
-    if (autoSize) {
-      const { scrollHeight } = this.textarea;
-      this.setState({
-        height: scrollHeight
-      });
-    }
-    onChange && onChange(e);
-  };
+  componentWillUnmount() {
+    const { autoSize } = this.props.inputProps;
+    autoSize && autosize.destroy(this.textarea);
+  }
 
   render() {
     const {
@@ -25,24 +23,14 @@ export default class Textarea extends (PureComponent || Component) {
       inputRef
     } = this.props;
     let { inputProps } = this.props;
-    const { height } = this.state;
     const { showCount, value = '', maxLength } = inputProps;
-    inputProps = omit(inputProps, [
-      'type',
-      'showCount',
-      'autoSize',
-      'onChange'
-    ]);
+    inputProps = omit(inputProps, ['type', 'showCount', 'autoSize']);
     let currentCount = value.length;
     currentCount = currentCount > maxLength ? maxLength : currentCount;
-    const textareaStyle = {};
-
-    height && (textareaStyle.height = height);
 
     return (
       <div className={wrapClass} style={widthStyle}>
         <textarea
-          style={textareaStyle}
           ref={ref => {
             inputRef.input = ref;
             this.textarea = ref;
@@ -51,7 +39,6 @@ export default class Textarea extends (PureComponent || Component) {
             [`${prefix}-textarea-with-count`]: showCount
           })}
           {...inputProps}
-          onChange={this.onChange}
           onKeyDown={handleKeyDown}
         />
         {showCount && (

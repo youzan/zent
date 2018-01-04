@@ -18,6 +18,25 @@ $borderRadius: 2px;
       background: $theme-stroke-8;
     }
   }
+
+  .zenticon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    &-close-circle {
+      font-size: 12px;
+      right: 10px;
+      cursor: pointer;
+      padding: 4px 0;
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
 .zent-textarea-wrapper {
@@ -132,7 +151,7 @@ $borderRadius: 2px;
   overflow-y: hidden;
 
   &-with-count {
-    padding-bottom: 30px;
+    padding-bottom: 21px;
   }
 
   &-count {

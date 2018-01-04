@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Popover from 'popover';
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import DatePanel from './date/DatePanel';
@@ -477,7 +477,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
 
     return (
       <div className={prefixCls}>
-        <Reciever componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => {
             let placeholderText = placeholder.every(Boolean)
               ? placeholder.join(` ${i18n.to} `)
@@ -511,7 +511,7 @@ class CombineDateRangePicker extends (PureComponent || Component) {
               </Popover>
             );
           }}
-        </Reciever>
+        </Receiver>
       </div>
     );
   }

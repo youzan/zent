@@ -204,15 +204,21 @@ class Select extends (PureComponent || Component) {
   locateSelected(state, coord, item, i) {
     const { value, index } = coord;
 
-    if (isArray(value) && value.indexOf(item.value) > -1) {
+    if (isArray(value)) {
+      let valueIndex = value.indexOf(item.value);
       // rerender 去重
-      if (!state.sItems.find(selected => selected.value === item.value)) {
-        state.sItems.push(item);
+      if (
+        valueIndex > -1 &&
+        !state.sItems.find(
+          selected => selected && selected.value === item.value
+        )
+      ) {
+        state.sItems[valueIndex] = item;
+      } else if (value.length === 0) {
+        // 多选重置
+        state.sItem = {};
+        state.sItems = [];
       }
-    } else if (isArray(value) && value.length === 0) {
-      // 多选重置
-      state.sItem = {};
-      state.sItems = [];
     } else if (typeof value === 'object' && isEqual(value, item.value)) {
       state.sItem = item;
     } else if (

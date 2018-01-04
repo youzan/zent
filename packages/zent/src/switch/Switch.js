@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import setClass from 'classnames';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Switch as I18nDefault } from 'i18n/default';
 
 export default class Switch extends (PureComponent || Component) {
@@ -64,7 +64,7 @@ export default class Switch extends (PureComponent || Component) {
         className={classNames}
         onClick={switchDisabled ? null : this.toggle}
       >
-        <Reciever componentName="Switch" defaultI18n={I18nDefault}>
+        <Receiver componentName="Switch" defaultI18n={I18nDefault}>
           {i18n => (
             <span className={`${prefix}-switch-inner`}>
               {checked
@@ -72,7 +72,7 @@ export default class Switch extends (PureComponent || Component) {
                 : uncheckedText || i18n.unchecked}
             </span>
           )}
-        </Reciever>
+        </Receiver>
       </span>
     );
   }

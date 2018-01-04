@@ -1,13 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { I18nReciever as Reciever } from 'i18n';
+import { I18nReceiver as Receiver } from 'i18n';
 import { Sweetalert as i18nDefault } from 'i18n/default';
 import Dialog from 'dialog';
 import Icon from 'icon';
 
 import ActionButton from './action-button';
-import { TitleIconMap, CommonProps } from './constants';
+import { TitleIconMap } from './constants';
 
 /**
  * 17.12.13 从相似的 alert 与 confirm 函数中提取公共逻辑，方便 i18n 注入
@@ -25,10 +25,12 @@ const { openDialog } = Dialog;
  * @returns {function} [close function returned by openDialog]
  */
 function sweet(config, sweetType) {
-  let {
+  const {
     className = '',
     prefix = 'zent',
     confirmType = 'primary',
+    closeBtn = false,
+    maskClosable = false,
     title,
     type,
     content,
@@ -36,7 +38,7 @@ function sweet(config, sweetType) {
     onCancel,
     confirmText,
     cancelText,
-    ...rest
+    parentComponent
   } = config;
 
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
@@ -81,23 +83,24 @@ function sweet(config, sweetType) {
   };
 
   close = openDialog({
-    ...CommonProps,
     prefix,
+    closeBtn,
+    maskClosable,
     className: cx(`${prefix}-sweetalert-${sweetType}`, {
       [className]: !!className
     }),
     title: (
-      <Reciever componentName="Sweetalert" defaultI18n={i18nDefault}>
+      <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
         {renderTitle}
-      </Reciever>
+      </Receiver>
     ),
     children: content,
     footer: (
-      <Reciever componentName="Sweetalert" defaultI18n={i18nDefault}>
+      <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
         {renderButtons}
-      </Reciever>
+      </Receiver>
     ),
-    ...rest
+    parentComponent
   });
 
   return close;
