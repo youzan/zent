@@ -22,7 +22,7 @@ export default class NotifyContent extends (PureComponent || Component) {
   render() {
     const { text, status, selector, isIn } = this.props;
     return (
-      <Portal className="zent-image-p-anchor" selector={selector}>
+      <Portal selector={selector}>
         <Transition timeout={300} in={isIn} onExited={this.onExited}>
           {state => {
             return (
