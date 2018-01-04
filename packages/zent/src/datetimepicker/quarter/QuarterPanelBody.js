@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PanelCell from '../common/PanelCell';
-import { getQuarterFromDate } from '../utils/date';
+import { getQuarterFromDate } from '../utils';
 
 const ROW = 2;
 const COL = 2;

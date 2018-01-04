@@ -97,9 +97,9 @@ Time pickers, provides basic time choosing functionality.
 | disabledTime | Callback to check time is selectable | func | `noop` | No    |
 | min          | Minimum selectable date  | string/instanceOf(Date)  | ``   | No    |
 | max          | Maximum selectable date  | string/instanceOf(Date)  | ``    | No    |
-| valueType | Value type of `onChange`, one of `string`/`number`/`date`  | string     | '' | No    |
-| placeholder  | Placeholder text     | array    | `['start-date','end-date']`   | No    |
-| defaultTime   | Default time value      | string   | `'00:00:00'`   | No    |
+| valueType | Value type of `onChange`, one of `string`/`number`/`date`  | `string`     | '' | No    |
+| placeholder  | Placeholder text     | arrayOf(string)    | `['start-date','end-date']`   | No    |
+| defaultTime   | Default time value     | arrayOf(string/Date)    | `['00:00:00', '00:00:00']`   | No    |
 
 
 - Recommended `type` is `split`.
