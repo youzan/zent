@@ -10,7 +10,7 @@ import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import QuarterPanel from './quarter/QuarterPanel';
-import { dayStart, dayEnd, getQuarterFromDate } from './utils/date';
+import { dayStart, dayEnd, getQuarterFromDate } from './utils';
 import {
   noop,
   popPositionMap,

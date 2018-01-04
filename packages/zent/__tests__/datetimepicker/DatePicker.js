@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from 'enzyme';
 import { formatDate } from 'zan-utils/date';
 
 import DatePicker from 'datetimepicker/DatePicker';
-import { setTime } from 'datetimepicker/utils/date';
+import { setTime } from 'datetimepicker/utils';
 
 const HOURS = 10;
 const MINUTES = 10;

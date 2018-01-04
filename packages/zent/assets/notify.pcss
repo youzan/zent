@@ -1,7 +1,10 @@
 @import './theme/default.pcss';
 
 .zent-notify-container {
+  z-index: 10000;
   position: fixed;
+  min-width: 330px;
+  max-width: 720px;
   top: 80px;
   left: 50%;
   transform: translateX(-50%);
@@ -11,17 +14,14 @@
   padding: 0 25px;
   margin-bottom: 10px;
   line-height: 40px;
+  max-height: 200px;
+  overflow-y: auto;
   font-size: 14px;
   color: $theme-stroke-10;
   text-align: center;
   border-radius: 2px;
   box-sizing: border-box;
-  z-index: 10000;
-  height: 40px;
-  width: 330px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  min-height: 40px;
   animation-name: notifyMoveIn;
   animation-duration: 0.3s;
 

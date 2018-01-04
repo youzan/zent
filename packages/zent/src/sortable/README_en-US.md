@@ -1,6 +1,5 @@
 ---
 title: Sortable
-subtitle: Drag and drop sort
 path: component/sortable
 group: Data Display
 ---
