@@ -22,8 +22,8 @@
   ],
   "coveragePathIgnorePatterns": [
     "<rootDir>/src/slider/common.js",
-    "<rootDir>/src/slider/container.js",
-    "<rootDir>/src/slider/points.js",
+    "<rootDir>/src/slider/Container.js",
+    "<rootDir>/src/slider/Points.js",
     "<rootDir>/src/sortable",
     "<rootDir>/src/colorpicker/helpers/reactcss",
     "<rootDir>/src/colorpicker/SketchFields.js",
