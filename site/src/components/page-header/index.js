@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import SearchBox from '../SearchBox';
+import SearchBox from '../search-box';
 import RouterContext from '../router-context-type';
 import './style.pcss';
 
