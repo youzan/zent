@@ -10,10 +10,10 @@ zh-CN:
 en-US:
 	title: The type of button in Dialog is settable.
 	content: Confirm to delete?
-	title1: Confirm.
+	title1: Confirm
 	confirm: Delete
 	cancel: Cancel
-	button: Dialog before delete sth.
+	button: Remove
 ---
 
 ```js

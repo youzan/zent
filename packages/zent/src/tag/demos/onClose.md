@@ -13,14 +13,14 @@ en-US:
 ---
 
 ```jsx
-import { Tag } from 'zent';
+import { Tag, Notify } from 'zent';
 
 const closeCallback = (e) => {
-	alert("cloase tag")
+	Notify.success("Close tag")
 }
 
 const closeCallback2 = (e) => {
-	alert("cloase tag2")
+	Notify.success("Close tag2")
 }
 
 ReactDOM.render(

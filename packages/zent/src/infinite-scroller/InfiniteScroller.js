@@ -9,7 +9,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     className: PropTypes.string,
     hasMore: PropTypes.bool,
     loadMore: PropTypes.func,
-    offset: PropTypes.num,
+    offset: PropTypes.number,
     initialLoad: PropTypes.bool,
     useWindow: PropTypes.bool,
     useCapture: PropTypes.bool,

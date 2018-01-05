@@ -38,6 +38,7 @@ import QuarterPicker from 'datetimepicker/QuarterPicker';
 import Select from 'select';
 import SKU from 'sku';
 import Slider from 'slider';
+import Sortable from 'sortable';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
 import Swiper from 'swiper';
@@ -91,6 +92,7 @@ export {
   Select,
   SKU,
   Slider,
+  Sortable,
   Steps,
   Sweetalert,
   Swiper,

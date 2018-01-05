@@ -26,7 +26,7 @@ en-US:
 
 ```jsx
 import cx from 'classnames';
-import { Form, Select, Input } from 'zent';
+import { Form, Select, Input, Notify } from 'zent';
 
 const { Field, createForm } = Form;
 const { SelectTrigger } = Select;
@@ -58,8 +58,8 @@ class ContactPhone extends React.Component {
 	
 	render() {
 		const props = this.props;
-		const value = props.value;
-		const showError = props.isDirty && props.error;
+		const { value, displayError } = props;
+		const showError = displayError === undefined ?  props.isDirty && props.error !== null : displayError;
 		const helpDesc = props.helpDesc;
 		const mobileClassName = cx({
 			'zent-form__control-group': true,
@@ -99,7 +99,7 @@ class ContactPhone extends React.Component {
 class CustomFieldForm extends React.Component {
 	getFormValues = () => {
 		const { zentForm } = this.props;
-		alert(JSON.stringify(zentForm.getFormValues()));
+		Notify.success(JSON.stringify(zentForm.getFormValues()));
 	};
 
 	resetForm = () => {

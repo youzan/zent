@@ -1,5 +1,54 @@
 ## Github Change Log
 
+## [zent@3.12.1](https://github.com/youzan/zent/tree/zent@3.12.1) (2018-01-05)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.0...zent@3.12.1)
+
+**Fixed bugs:**
+
+-  \[bug fix\] Datepicker: 修复 CombineDateRangePicker 选中一个日期就 confirm 的bug [\#662](https://github.com/youzan/zent/pull/662) ([xuhong](https://github.com/xuhong))
+- \[bug fix\]Notify：调整出场动画 [\#661](https://github.com/youzan/zent/pull/661) ([linrz](https://github.com/linrz))
+
+## [zent@3.12.0](https://github.com/youzan/zent/tree/zent@3.12.0) (2018-01-04)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.11.0...zent@3.12.0)
+
+**Implemented enhancements:**
+
+- \[bug fix\] Tag: 外面控制是否显示 [\#656](https://github.com/youzan/zent/issues/656)
+- \[new feature\] Sortable [\#629](https://github.com/youzan/zent/issues/629)
+- \[new feature\] 季度选择器 [\#549](https://github.com/youzan/zent/issues/549)
+- \[new feature\] Input: 支持右边的清除按钮 [\#542](https://github.com/youzan/zent/issues/542)
+-  \[new feature\] Grid: 表头可以固定 [\#540](https://github.com/youzan/zent/issues/540)
+- \[new feature\] Notify: 弹出框不相互覆盖 [\#514](https://github.com/youzan/zent/issues/514)
+- \[bug fix\] Notify: 互不遮挡，增加动画 [\#653](https://github.com/youzan/zent/pull/653) ([linrz](https://github.com/linrz))
+- \[break change\] Form: 修改错误显示逻辑 [\#652](https://github.com/youzan/zent/pull/652) ([fairyaierl](https://github.com/fairyaierl))
+- \[new feature\] Swiper: support dynamic items [\#651](https://github.com/youzan/zent/pull/651) ([ArvinTung](https://github.com/ArvinTung))
+- \[new feature\] Design: Add settings and globalConfig to getInitialValue [\#650](https://github.com/youzan/zent/pull/650) ([cpylua](https://github.com/cpylua))
+- Add new component Sortable [\#649](https://github.com/youzan/zent/pull/649) ([ArvinTung](https://github.com/ArvinTung))
+- \[new feature\] Input: add input clear [\#646](https://github.com/youzan/zent/pull/646) ([wulv](https://github.com/wulv))
+- \[new feature\] Sweetalert: Support closeBtn and maskClosable   [\#639](https://github.com/youzan/zent/pull/639) ([ArvinTung](https://github.com/ArvinTung))
+- \[new feature\] Design: Support custom settings [\#636](https://github.com/youzan/zent/pull/636) ([cpylua](https://github.com/cpylua))
+- \[feature\] i18n: 添加 i18n 相关的内部组件，完成组件的国际化. [\#609](https://github.com/youzan/zent/pull/609) ([LucasIcarus](https://github.com/LucasIcarus))
+
+**Fixed bugs:**
+
+- \[bug fix\] Notify: 不要把内容截掉 [\#657](https://github.com/youzan/zent/issues/657)
+- \[bug fix\] DateRangePicker: 禁用的时候样式不对 [\#619](https://github.com/youzan/zent/issues/619)
+- \[bug fix\] Loading: 样式不居中 [\#618](https://github.com/youzan/zent/issues/618)
+- Upload: 去掉多余的提示 [\#659](https://github.com/youzan/zent/pull/659) ([huangsy](https://github.com/huangsy))
+- \[bug fix \]Notify and Tag [\#658](https://github.com/youzan/zent/pull/658) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] DatePicker：修复组件 onChange 值没更新的问题 [\#655](https://github.com/youzan/zent/pull/655) ([xuhong](https://github.com/xuhong))
+- \[breaking change\] Form: 重构 FieldArray，更新文档 [\#648](https://github.com/youzan/zent/pull/648) ([fairyaierl](https://github.com/fairyaierl))
+- 在form中blur抛出数据与onChange一致 [\#647](https://github.com/youzan/zent/pull/647) ([oConnerCooper](https://github.com/oConnerCooper))
+- Upload: 保证按顺序显示添加的图片 [\#644](https://github.com/youzan/zent/pull/644) ([huangsy](https://github.com/huangsy))
+- Select: tag类型改为按value数组顺序选中标签 [\#643](https://github.com/youzan/zent/pull/643) ([huangsy](https://github.com/huangsy))
+- \[bug fix\] DatePicker: 修复 daterangepicker disabled 样式 [\#642](https://github.com/youzan/zent/pull/642) ([xuhong](https://github.com/xuhong))
+- \[bug fix\] Revert colorpicker file names [\#641](https://github.com/youzan/zent/pull/641) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Grid: 滚动时计算高度 [\#638](https://github.com/youzan/zent/pull/638) ([wulv](https://github.com/wulv))
+- \[bug fix\] ColorPicker: hex颜色值只在按回车和鼠标失焦时更新 [\#637](https://github.com/youzan/zent/pull/637) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Input: fix textarea auto size [\#634](https://github.com/youzan/zent/pull/634) ([wulv](https://github.com/wulv))
+- \[bug fix\] new-component shell：修改新建组件脚本，增加格式化测试配置文件功能 [\#633](https://github.com/youzan/zent/pull/633) ([ronghang](https://github.com/ronghang))
+- \[bug fix\]: typo PropTypes -\> propTypes [\#630](https://github.com/youzan/zent/pull/630) ([ArvinTung](https://github.com/ArvinTung))
+
 ## [zent@3.11.0](https://github.com/youzan/zent/tree/zent@3.11.0) (2017-12-20)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.10.7...zent@3.11.0)
 
@@ -123,7 +172,7 @@
 - Form 问题汇总贴 [\#442](https://github.com/youzan/zent/issues/442)
 - 明确浏览器支持情况 [\#361](https://github.com/youzan/zent/issues/361)
 - \[bug fix\] bug fixes for Upload and Design [\#571](https://github.com/youzan/zent/pull/571) ([cpylua](https://github.com/cpylua))
-- \[bug fix\] Pop: 修复类型定义 [\#570](https://github.com/youzan/zent/pull/570) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] Pop: 修复类型定义 [\#570](https://github.com/youzan/zent/pull/570) ([intellild](https://github.com/intellild))
 
 **Closed issues:**
 
@@ -196,7 +245,7 @@
 
 - \[bug fix\] Upload: 选中同一张图片无效 [\#543](https://github.com/youzan/zent/issues/543)
 - \[bug fix\]: Fix bugs [\#548](https://github.com/youzan/zent/pull/548) ([cpylua](https://github.com/cpylua))
-- \[bug fix\] Button: 修正类型定义，onClick不再必需 [\#547](https://github.com/youzan/zent/pull/547) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] Button: 修正类型定义，onClick不再必需 [\#547](https://github.com/youzan/zent/pull/547) ([intellild](https://github.com/intellild))
 - \[bug fix\] Datepicker: 修复月份选择器禁用bug [\#541](https://github.com/youzan/zent/pull/541) ([xuhong](https://github.com/xuhong))
 - \[doc\] Input: Update Input doc [\#539](https://github.com/youzan/zent/pull/539) ([cpylua](https://github.com/cpylua))
 
@@ -333,7 +382,7 @@
 - \[bug fix\] Slider: 高亮圆点时同时高亮滑条 [\#490](https://github.com/youzan/zent/issues/490)
 - \[bug fix\]Tabs: 修复Tabs组件activeKey字段兼容问题 [\#497](https://github.com/youzan/zent/pull/497) ([ctyu](https://github.com/ctyu))
 - \[bug fix\] Slider: 高亮圆点时同时高亮滑条 [\#496](https://github.com/youzan/zent/pull/496) ([wulv](https://github.com/wulv))
-- \[bug fix\] DateRangePicker: 修复 TypeScript 类型定义 [\#492](https://github.com/youzan/zent/pull/492) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] DateRangePicker: 修复 TypeScript 类型定义 [\#492](https://github.com/youzan/zent/pull/492) ([intellild](https://github.com/intellild))
 
 **Closed issues:**
 
@@ -407,7 +456,7 @@
 - \[bug fix\] Table：跨页多选处理有问题 [\#456](https://github.com/youzan/zent/issues/456)
 - \[bug fix\] Table: 修复跨页全选的bug [\#473](https://github.com/youzan/zent/pull/473) ([linxixuan](https://github.com/linxixuan))
 - \[bug fix\] Select: 宽度样式修正。 [\#472](https://github.com/youzan/zent/pull/472) ([LucasIcarus](https://github.com/LucasIcarus))
-- \[bug fix\] Tabs: 修复 typescript 类型 [\#469](https://github.com/youzan/zent/pull/469) ([hzjzx](https://github.com/hzjzx))
+- \[bug fix\] Tabs: 修复 typescript 类型 [\#469](https://github.com/youzan/zent/pull/469) ([intellild](https://github.com/intellild))
 - \[bug fix\] Swiper: 修复当只有一个子元素时的显示错误问题 [\#468](https://github.com/youzan/zent/pull/468) ([ArvinTung](https://github.com/ArvinTung))
 - \[bug fix\] Design: 在componentWillUnmount时，移除监听的beforeunload事件 [\#464](https://github.com/youzan/zent/pull/464) ([radicalviva](https://github.com/radicalviva))
 
@@ -465,7 +514,7 @@
 - datetimepicker: fix date range quick picker add valueType [\#440](https://github.com/youzan/zent/pull/440) ([ronghang](https://github.com/ronghang))
 - select: fix logic and mv let to const [\#439](https://github.com/youzan/zent/pull/439) ([xuhong](https://github.com/xuhong))
 - form: modify README, add new form layout [\#437](https://github.com/youzan/zent/pull/437) ([fairyaierl](https://github.com/fairyaierl))
-- improve typescript definitions [\#430](https://github.com/youzan/zent/pull/430) ([hzjzx](https://github.com/hzjzx))
+- improve typescript definitions [\#430](https://github.com/youzan/zent/pull/430) ([intellild](https://github.com/intellild))
 
 **Closed issues:**
 
@@ -496,7 +545,7 @@
 - form: 自定义Field里调用this.props.onChange会将整个对象覆盖掉 [\#387](https://github.com/youzan/zent/pull/387) ([fairyaierl](https://github.com/fairyaierl))
 - table: cross page selection [\#380](https://github.com/youzan/zent/pull/380) ([linxixuan](https://github.com/linxixuan))
 - select: 用Popover将Select重构 [\#373](https://github.com/youzan/zent/pull/373) ([huangsy](https://github.com/huangsy))
-- Add typescript definitions [\#293](https://github.com/youzan/zent/pull/293) ([hzjzx](https://github.com/hzjzx))
+- Add typescript definitions [\#293](https://github.com/youzan/zent/pull/293) ([intellild](https://github.com/intellild))
 
 **Fixed bugs:**
 
@@ -534,8 +583,8 @@
 **Merged pull requests:**
 
 - datetimepicker: fix readme [\#435](https://github.com/youzan/zent/pull/435) ([xuhong](https://github.com/xuhong))
-- fix typings files [\#416](https://github.com/youzan/zent/pull/416) ([hzjzx](https://github.com/hzjzx))
-- move typings to correct place [\#411](https://github.com/youzan/zent/pull/411) ([hzjzx](https://github.com/hzjzx))
+- fix typings files [\#416](https://github.com/youzan/zent/pull/416) ([intellild](https://github.com/intellild))
+- move typings to correct place [\#411](https://github.com/youzan/zent/pull/411) ([intellild](https://github.com/intellild))
 - 增加table单测 [\#397](https://github.com/youzan/zent/pull/397) ([linxixuan](https://github.com/linxixuan))
 - 修改table组件的reademe中关于bodyRender的描述 [\#389](https://github.com/youzan/zent/pull/389) ([radicalviva](https://github.com/radicalviva))
 - select: 去掉warning [\#385](https://github.com/youzan/zent/pull/385) ([huangsy](https://github.com/huangsy))
@@ -776,7 +825,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -807,11 +856,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
-
 ## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
+
+## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
 
 **Implemented enhancements:**
 
@@ -990,7 +1039,7 @@
 **Merged pull requests:**
 
 - Update picker style [\#136](https://github.com/youzan/zent/pull/136) ([xuhong](https://github.com/xuhong))
-- Tabs without panel [\#134](https://github.com/youzan/zent/pull/134) ([hzjzx](https://github.com/hzjzx))
+- Tabs without panel [\#134](https://github.com/youzan/zent/pull/134) ([intellild](https://github.com/intellild))
 - Doc site [\#133](https://github.com/youzan/zent/pull/133) ([cookfront](https://github.com/cookfront))
 - Hotfix/select warning 0329 [\#131](https://github.com/youzan/zent/pull/131) ([huangsy](https://github.com/huangsy))
 - 使component属性支持更多类型 [\#128](https://github.com/youzan/zent/pull/128) ([NinoFocus](https://github.com/NinoFocus))

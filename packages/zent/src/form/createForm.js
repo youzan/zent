@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, PureComponent, createElement } from 'react';
+import { Component, createElement } from 'react';
 import omit from 'lodash/omit';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
@@ -41,12 +41,14 @@ const createForm = (config = {}) => {
   const validationRules = assign({}, rules, formValidations);
 
   return WrappedForm => {
-    return class Form extends (PureComponent || Component) {
+    return class Form extends Component {
       constructor(props) {
         super(props);
         this.state = {
           isFormValid: true,
-          isSubmitting: false
+          isSubmitting: false,
+          submitFail: false,
+          submitSuccess: false
         };
         this.fields = [];
         this._isMounted = false;
@@ -59,8 +61,8 @@ const createForm = (config = {}) => {
         onSubmit: PropTypes.func,
         onSubmitSuccess: PropTypes.func,
         onSubmitFail: PropTypes.func,
-        onValid: PropTypes.func,
-        onInvalid: PropTypes.func,
+        onValid: PropTypes.func, // 暂时未对外
+        onInvalid: PropTypes.func, // 暂时未对外
         onChange: PropTypes.func,
         validationErrors: PropTypes.object,
         scrollToError: PropTypes.bool
@@ -98,7 +100,10 @@ const createForm = (config = {}) => {
             isValid: this.isValid,
             isSubmitting: this.isSubmitting,
             validateForm: this.validateForm,
-            asyncValidateForm: this.asyncValidateForm
+            asyncValidateForm: this.asyncValidateForm,
+            isFormSubmitFail: this.isFormSubmitFail,
+            isFormSubmitSuccess: this.isFormSubmitSuccess,
+            updateFormSubmitStatus: this.updateFormSubmitStatus
           }
         };
       }
@@ -130,11 +135,13 @@ const createForm = (config = {}) => {
 
       submitCompleted = result => {
         delete this.submitPromise;
+        this.updateFormSubmitStatus(false);
         return result;
       };
 
       submitFailed = error => {
         delete this.submitPromise;
+        this.updateFormSubmitStatus(true);
         throw error;
       };
 
@@ -312,9 +319,9 @@ const createForm = (config = {}) => {
               values[currentKey] = [];
             }
             if (keyPath.length > 1) {
-              index > values[currentKey].length - 1
-                ? (values[currentKey][index] = {})
-                : null;
+              if (!values[currentKey][index]) {
+                values[currentKey][index] = {};
+              }
               assignValue(
                 values[currentKey][index],
                 keyPath.slice(1),
@@ -373,6 +380,21 @@ const createForm = (config = {}) => {
 
       isValidValue = (field, value) => {
         return this.runValidation(field, value).isValid;
+      };
+
+      updateFormSubmitStatus = submitSuccess => {
+        this.setState({
+          submitFail: !submitSuccess,
+          submitSuccess
+        });
+      };
+
+      isFormSubmitFail = () => {
+        return this.state.submitFail;
+      };
+
+      isFormSubmitSuccess = () => {
+        return this.state.submitSuccess;
       };
 
       runValidation = (field, value = field.getValue()) => {
@@ -483,7 +505,7 @@ const createForm = (config = {}) => {
             _validationError: validation.error,
             _externalError: null
           },
-          this.validateForm
+          () => this.validateForm(false, null, field.props.relatedFields)
         );
       };
 
@@ -542,8 +564,11 @@ const createForm = (config = {}) => {
           });
       };
 
-      validateForm = (forceValidate = false, callback) => {
-        const onValidationComplete = () => {
+      validateForm = (forceValidate = false, callback, relatedFields) => {
+        const onValidationComplete = index => {
+          if (index !== this.fields.length - 1) {
+            return;
+          }
           const allIsValid = this.fields.every(field => {
             return field.isValid();
           });
@@ -563,9 +588,15 @@ const createForm = (config = {}) => {
         };
 
         this.fields.forEach((field, index) => {
-          const { _externalError } = field.state;
-          const validation = this.runValidation(field);
-          if (forceValidate || field.props.validateOnBlur) {
+          if (!forceValidate && !field.props.validateOnBlur) {
+            return;
+          }
+          if (
+            relatedFields === undefined ||
+            (relatedFields && relatedFields.indexOf(field.getName()) >= 0)
+          ) {
+            const { _externalError } = field.state;
+            const validation = this.runValidation(field);
             if (validation.isValid && _externalError) {
               validation.isValid = false;
             }
@@ -577,8 +608,10 @@ const createForm = (config = {}) => {
                 _externalError:
                   !validation.isValid && _externalError ? _externalError : null
               },
-              index === this.fields.length - 1 ? onValidationComplete : null
+              () => onValidationComplete(index)
             );
+          } else {
+            onValidationComplete(index);
           }
         });
       };
@@ -633,7 +666,10 @@ const createForm = (config = {}) => {
             isSubmitting: this.isSubmitting,
             isFormAsyncValidated: this.isFormAsyncValidated,
             validateForm: this.validateForm,
-            asyncValidateForm: this.asyncValidateForm
+            asyncValidateForm: this.asyncValidateForm,
+            isFormSubmitFail: this.isFormSubmitFail,
+            isFormSubmitSuccess: this.isFormSubmitSuccess,
+            updateFormSubmitStatus: this.updateFormSubmitStatus
           }
         });
       }

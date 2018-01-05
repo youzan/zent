@@ -28,6 +28,7 @@ group: 数据
 | readOnly     | 是否只读            | bool          | `false`  |                         | 否    |
 | disabled     | 是否禁用            | bool          | `false`  |                         | 否    |
 | placeholder  | 原生placeholder文案 | string        | `''`     |                         | 否    |
+| showClear  | 显示清除按钮 | bool        | `false`     |                       | 否    |
 | addonBefore  | 前置标签            | node          |          |                         | 否    |
 | addonAfter   | 后置标签            | node          |          |                         | 否    |
 | autoFocus    | 自动focus          | bool          |  `false` |                     | 否    |

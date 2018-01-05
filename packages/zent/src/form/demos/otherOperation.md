@@ -35,12 +35,12 @@ en-US:
 ---
 
 ```jsx
-import { Form, Button } from 'zent';
+import { Form, Button, Notify } from 'zent';
 const { Field, FormInputField, createForm } = Form;
 
 class SubmitForm extends React.Component {
 	submit = (values, zentForm) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	};
 
 	setError = () => {

@@ -15,7 +15,7 @@ en-US:
 ---
 
 ```jsx
-import { Form, NumberInput, ColorPicker, DateRangePicker, Switch, Upload } from 'zent';
+import { Form, NumberInput, ColorPicker, DateRangePicker, Switch, Upload, Notify } from 'zent';
 import omit from 'lodash/omit';
 
 const { Field, createForm, getControlGroup, unknownProps } = Form;
@@ -60,7 +60,7 @@ class FieldForm extends React.Component {
 	};
 
 	submit = (values, zentForm) => {
-		alert(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	};
 
 	resetForm = () => {

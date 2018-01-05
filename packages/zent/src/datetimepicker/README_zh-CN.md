@@ -100,9 +100,9 @@ group: 数据
 | disabledTime | 时间禁用函数 | func | `noop` | 否    |
 | min          | 可选日期的最小值   | string/Date  | ``   | 否    |
 | max          | 可选日期的最大值  | string/Date  | ``    | 否    |
-| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | string     | '' | 否    |
-| placeholder  | 提示文案          | array    | `['开始日期','结束日期']`   | 否    |
-| defaultTime   | 自定义时间的默认值         | string/Date    | `00:00:00`   | 否    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | `string`     | '' | 否    |
+| placeholder  | 提示文案          | arrayOf(string)    | `['开始日期','结束日期']`   | 否    |
+| defaultTime   | 自定义时间的默认值         | arrayOf(string/Date)    | `['00:00:00', '00:00:00']`   | 否    |
 
 
 **注意：**

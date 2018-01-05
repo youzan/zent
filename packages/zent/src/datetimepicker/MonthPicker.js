@@ -9,8 +9,7 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT, formatDate, parseDate } from './utils/';
-import { dayStart } from './utils/date';
+import { CURRENT, formatDate, parseDate, dayStart } from './utils';
 import {
   noop,
   popPositionMap,
@@ -85,15 +84,19 @@ class MonthPicker extends (PureComponent || Component) {
 
     if (!isYear && this.isDisabled(month)) return;
 
-    this.setState({
-      selected: val,
-      actived: val
-    });
+    this.setState(
+      {
+        selected: val,
+        actived: val
+      },
+      () => {
+        if (!isFooterVisble) {
+          this.onConfirm();
+        }
+      }
+    );
 
     onClick && onClick(val);
-    if (!isFooterVisble) {
-      this.onConfirm();
-    }
   };
 
   onClearInput = evt => {

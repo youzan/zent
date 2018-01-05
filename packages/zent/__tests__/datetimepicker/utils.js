@@ -1,12 +1,8 @@
 import makeDateStr from 'zan-utils/date/makeDateStr';
 import makeDateTimeStr from 'zan-utils/date/makeDateTimeStr';
 import * as Ut from 'datetimepicker/utils';
-import {
-  dayStart,
-  dayEnd,
-  setTime,
-  getQuarterFromDate
-} from 'datetimepicker/utils/date';
+
+const { dayStart, dayEnd, setTime, getQuarterFromDate } = Ut;
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component

@@ -7,7 +7,7 @@ zh-CN:
 	title1: onConfirm返回Promise
 en-US:
 	title: callback returns Promise
-	button: self-closing with Promise
+	button: Self-closing with Promise
 	content: Click confirm, close automatically after 3 seconds
 	title1: onConfirm returns Promise
 ---

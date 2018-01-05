@@ -2,12 +2,14 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import isString from 'lodash/isString';
+import isDate from 'lodash/isDate';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import { commonProps, commonPropTypes } from './constants';
 import DatePicker from './DatePicker';
+import { TIME_BEGIN } from './utils';
 
 // type
 const START = 'start';
@@ -18,7 +20,10 @@ class SplitDateRangePicker extends (PureComponent || Component) {
     ...commonPropTypes,
     showTime: PropTypes.bool,
     placeholder: PropTypes.array,
-    defaultTime: PropTypes.arrayOf(PropTypes.string)
+    defaultTime: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+    ),
+    valueType: PropTypes.oneOf(['string', 'number', 'date'])
   };
 
   static defaultProps = {
@@ -27,7 +32,7 @@ class SplitDateRangePicker extends (PureComponent || Component) {
     format: 'YYYY-MM-DD',
     value: [],
     openPanel: [],
-    defaultTime: ['00:00:00', '00:00:00']
+    defaultTime: [TIME_BEGIN, TIME_BEGIN]
   };
 
   onChange = type => {
@@ -60,9 +65,10 @@ class SplitDateRangePicker extends (PureComponent || Component) {
     } = this.props;
     let rangePicker;
     // 兼容老 api ，支持传入字符串
-    const timeArr = isString(defaultTime)
-      ? [defaultTime, defaultTime]
-      : defaultTime;
+    const timeArr =
+      isString(defaultTime) || isDate(defaultTime)
+        ? [defaultTime, defaultTime]
+        : defaultTime;
     const pickerCls = classNames('range-picker2');
 
     rangePicker = (

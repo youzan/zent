@@ -8,8 +8,16 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { goMonths, isArray, isSameMonth, formatDate, parseDate } from './utils';
-import { dayStart, setTime } from './utils/date';
+import {
+  goMonths,
+  isArray,
+  isSameMonth,
+  formatDate,
+  parseDate,
+  dayStart,
+  setTime,
+  TIME_BEGIN
+} from './utils';
 import {
   timeFnMap,
   noop,
@@ -104,14 +112,16 @@ class CombineDateRangePicker extends (PureComponent || Component) {
     ...commonPropTypes,
     showTime: PropTypes.bool,
     placeholder: PropTypes.array,
-    defaultTime: PropTypes.arrayOf(PropTypes.string)
+    defaultTime: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+    )
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: ['', ''],
     errorText: '',
-    defaultTime: ['00:00:00', '00:00:00']
+    defaultTime: [TIME_BEGIN, TIME_BEGIN]
   };
 
   constructor(props) {
@@ -189,16 +199,20 @@ class CombineDateRangePicker extends (PureComponent || Component) {
       type = 'start';
     }
 
-    this.setState({
-      selected: scp,
-      actived: acp,
-      range: rcp
-    });
+    this.setState(
+      {
+        selected: scp,
+        actived: acp,
+        range: rcp
+      },
+      () => {
+        if (!this.isfooterShow && scp.length === 2) {
+          this.onConfirm();
+        }
+      }
+    );
 
     onClick && onClick(val, type);
-    if (!this.isfooterShow) {
-      this.onConfirm();
-    }
   };
 
   isDisabled = val => {

@@ -147,4 +147,29 @@ describe('Tag', () => {
       true
     );
   });
+
+  it('visibility can be controlled from props', () => {
+    let visible = true;
+    const onVisibleChange = jest.fn().mockImplementation(value => {
+      visible = value;
+    });
+    const onClose = jest.fn();
+
+    const wrapper = mount(
+      <Tag
+        closable
+        visible={visible}
+        onVisibleChange={onVisibleChange}
+        onClose={onClose}
+      />
+    );
+    wrapper.find('.zent-tag-close-btn').simulate('click');
+    expect(onClose.mock.calls.length).toBe(1);
+    expect(onVisibleChange.mock.calls.length).toBe(1);
+    expect(visible).toBe(false);
+
+    // Hidden tag
+    const wrapper2 = mount(<Tag visible={false} />);
+    expect(wrapper2.find('.zent-tag').length).toBe(0);
+  });
 });

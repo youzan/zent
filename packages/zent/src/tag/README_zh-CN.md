@@ -24,8 +24,12 @@ group: 展示
 | rounded | 是否有圆角 | bool | `true` | `true` \| `false` |
 | closable| 是否可以关闭     | bool    | `false`      | `true` \| `false`   |
 | onClose | 关闭时的回调     | func    | `noop`       |                  |
+| visible | 外部控制隐藏显示 | bool | | `true` \| `false` |
+| onVisibleChange | 外部控制时关闭的回调函数 | func | | |
 | borderColor | 边框颜色 | string | | |
 | bgColor | 背景颜色 | string | | |
 | fontColor | 文字颜色 | string | | |
 | className| 自定义额外类名  | string   | `''`         |                  |
 | prefix  | 自定义前缀      | string   | `'zent'`     |                  |
+
+> 所有参数都是可选，搭配 `visible` 和 `onVisibleChange` 可以由外部控制显示隐藏

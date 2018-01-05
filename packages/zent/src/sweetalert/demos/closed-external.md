@@ -6,7 +6,7 @@ zh-CN:
 	close: 一秒后自动关闭
 en-US:
 	title: Self-closing
-	button: self-closing dialog
+	button: Self-closing dialog
 	close: Close automatically after one second
 ---
 
