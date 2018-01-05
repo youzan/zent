@@ -5,8 +5,8 @@ import isArray from 'lodash/isArray';
 import isNumber from 'lodash/isNumber';
 import getWidth from 'utils/getWidth';
 
-import Range from './range';
-import InputField from './inputField';
+import Range from './Range';
+import InputField from './InputField';
 
 /* eslint no-throw-literal: 0 */
 function checkProps(props) {
