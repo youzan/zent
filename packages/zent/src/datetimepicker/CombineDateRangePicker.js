@@ -199,16 +199,20 @@ class CombineDateRangePicker extends (PureComponent || Component) {
       type = 'start';
     }
 
-    this.setState({
-      selected: scp,
-      actived: acp,
-      range: rcp
-    });
+    this.setState(
+      {
+        selected: scp,
+        actived: acp,
+        range: rcp
+      },
+      () => {
+        if (!this.isfooterShow && scp.length === 2) {
+          this.onConfirm();
+        }
+      }
+    );
 
     onClick && onClick(val, type);
-    if (!this.isfooterShow) {
-      this.onConfirm();
-    }
   };
 
   isDisabled = val => {
