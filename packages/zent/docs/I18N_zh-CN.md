@@ -4,7 +4,7 @@
 
 #### I18nProvider
 
-zent 提供一个 Provider 组件用于配置语言。
+zent 提供一个 Provider 组件用于配置组件内部文案的语言。组件利用 context 实现对组件内部文案的配置，需要在应用最外层包裹使用。
 
 ```jsx
 import { I18nProvider as Provider } from 'zent';

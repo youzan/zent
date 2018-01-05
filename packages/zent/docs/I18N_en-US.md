@@ -4,7 +4,7 @@ The default language of zent is Simplified Chinese, if you want switch to Engili
 
 #### I18nProvider
 
-zent provides a React Component I18nProvider used to configure the locale text.
+zent provides a React Component I18nProvider used to configure the locale text. Components using context, a feature of React, to achieve global effectiveness by wrapping your app.
 
 ```jsx
 import { I18nProvider as Provider } from 'zent';
