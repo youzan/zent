@@ -1,5 +1,13 @@
 ## Github Change Log
 
+## [zent@3.12.1](https://github.com/youzan/zent/tree/zent@3.12.1) (2018-01-05)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.0...zent@3.12.1)
+
+**Fixed bugs:**
+
+-  \[bug fix\] Datepicker: 修复 CombineDateRangePicker 选中一个日期就 confirm 的bug [\#662](https://github.com/youzan/zent/pull/662) ([xuhong](https://github.com/xuhong))
+- \[bug fix\]Notify：调整出场动画 [\#661](https://github.com/youzan/zent/pull/661) ([linrz](https://github.com/linrz))
+
 ## [zent@3.12.0](https://github.com/youzan/zent/tree/zent@3.12.0) (2018-01-04)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.11.0...zent@3.12.0)
 
@@ -817,7 +825,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -848,11 +856,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
-
 ## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
+
+## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
 
 **Implemented enhancements:**
 
