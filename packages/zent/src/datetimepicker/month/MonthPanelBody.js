@@ -9,27 +9,28 @@ const COL = 3;
 
 export default class MonthPanelBody extends (PureComponent || Component) {
   isSelected(val) {
-    const { selected } = this.props;
+    const { selected, year } = this.props;
 
     if (selected && selected instanceof Date) {
-      return val === selected.getMonth();
+      return val === selected.getMonth() && year == selected.getFullYear();
     }
   }
 
   render() {
-    const { onSelect, disabledDate, i18n } = this.props;
+    const { onSelect, disabledDate, i18n, year } = this.props;
 
     return (
       <div className="month-table panel-table">
         <PanelCell
           onSelect={onSelect}
           cells={(() => {
-            const months = [];
+            const months = [],
+              curYear = new Date().getFullYear();
             let index = 0;
             for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
               months[rowIndex] = [];
               for (let colIndex = 0; colIndex < COL; colIndex++) {
-                const isCurrent = index === CURRENT_MONTH;
+                const isCurrent = index === CURRENT_MONTH && year == curYear;
                 const isSelected = this.isSelected(index);
                 const isDisabled = disabledDate && disabledDate(index);
                 const className = classNames({
