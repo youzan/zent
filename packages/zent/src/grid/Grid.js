@@ -17,6 +17,7 @@ import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
+import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import { I18nReceiver as Receiver } from 'i18n';
 import { Grid as I18nDefault } from 'i18n/default';
@@ -339,11 +340,18 @@ class Grid extends (PureComponent || Component) {
       />
     );
     const { y } = scroll;
+
     if (y) {
+      const scrollbarWidth = measureScrollbar();
+      const headStyle = {};
+      if (scrollbarWidth > 0) {
+        headStyle.paddingBottom = 0;
+      }
       return (
         <div className={`${prefix}-grid-scroll`} key="table">
           <div
             className={`${prefix}-grid-header`}
+            style={headStyle}
             ref={ref => {
               if (!fixed) this.scrollHeader = ref;
             }}
