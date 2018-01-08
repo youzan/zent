@@ -251,41 +251,52 @@ class Grid extends (PureComponent || Component) {
     }
   }
 
+  setScrollPositionClassName() {
+    const node = this.bodyTable;
+    const scrollToLeft = node.scrollLeft === 0;
+    const scrollToRight =
+      node.scrollLeft + 1 >=
+      node.children[0].getBoundingClientRect().width -
+        node.getBoundingClientRect().width;
+    if (scrollToLeft && scrollToRight) {
+      this.setScrollPosition('both');
+    } else if (scrollToLeft) {
+      this.setScrollPosition('left');
+    } else if (scrollToRight) {
+      this.setScrollPosition('right');
+    } else if (this.scrollPosition !== 'middle') {
+      this.setScrollPosition('middle');
+    }
+  }
+
   handleBodyScroll = e => {
     if (e.currentTarget !== e.target) {
       return;
     }
     const target = e.target;
     const { scroll = {} } = this.props;
-
-    if (target.scrollTop !== this.lastScrollTop && scroll.y) {
-      this.leftBody && (this.leftBody.scrollTop = target.scrollTop);
-      this.rightBody && (this.rightBody.scrollTop = target.scrollTop);
-      this.scrollBody && (this.scrollBody.scrollTop = target.scrollTop);
-
-      this.lastScrollTop = target.scrollTop;
-      return;
-    }
+    const scrollTop = target.scrollTop;
+    const { leftBody, rightBody, scrollBody } = this;
 
     if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-      this.scrollHeader && (this.scrollHeader.scrollLeft = target.scrollLeft);
-
-      const node = target || this.bodyTable;
-      const scrollToLeft = node.scrollLeft === 0;
-      const scrollToRight =
-        node.scrollLeft + 1 >=
-        node.children[0].getBoundingClientRect().width -
-          node.getBoundingClientRect().width;
-      if (scrollToLeft && scrollToRight) {
-        this.setScrollPosition('both');
-      } else if (scrollToLeft) {
-        this.setScrollPosition('left');
-      } else if (scrollToRight) {
-        this.setScrollPosition('right');
-      } else if (this.scrollPosition !== 'middle') {
-        this.setScrollPosition('middle');
+      if (this.scrollHeader && target === scrollBody) {
+        this.scrollHeader.scrollLeft = target.scrollLeft;
       }
-      this.lastScrollLeft = target.scrollLeft;
+      this.setScrollPositionClassName();
+    }
+    this.lastScrollLeft = target.scrollLeft;
+    if (target.scrollTop !== this.lastScrollTop && scroll.y) {
+      if (leftBody && target !== leftBody) {
+        leftBody.scrollTop = scrollTop;
+      }
+      if (rightBody && target !== rightBody) {
+        rightBody.scrollTop = scrollTop;
+      }
+      if (scrollBody && target !== scrollBody) {
+        scrollBody.scrollTop = scrollTop;
+      }
+
+      this.lastScrollTop = target.scrollTop;
     }
   };
 
@@ -347,32 +358,32 @@ class Grid extends (PureComponent || Component) {
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
       }
-      return (
-        <div className={`${prefix}-grid-scroll`} key="table">
-          <div
-            className={`${prefix}-grid-header`}
-            style={headStyle}
-            ref={ref => {
-              if (!fixed) this.scrollHeader = ref;
-            }}
-          >
-            {header}
-          </div>
-          <div
-            className={`${prefix}-grid-body`}
-            style={{ maxHeight: y, overflowY: 'scroll' }}
-            ref={ref => {
-              this[`${fixed || 'scroll'}Body`] = ref;
-              if (!fixed) this.bodyTable = ref;
-            }}
-            onScroll={this.handleBodyScroll}
-          >
-            {body}
-          </div>
+      return [
+        <div
+          key="header"
+          className={`${prefix}-grid-header`}
+          style={headStyle}
+          ref={ref => {
+            if (!fixed) this.scrollHeader = ref;
+          }}
+        >
+          {header}
+        </div>,
+        <div
+          key="body"
+          className={`${prefix}-grid-body`}
+          style={{ maxHeight: y, overflowY: 'scroll' }}
+          ref={ref => {
+            this[`${fixed || 'scroll'}Body`] = ref;
+            if (!fixed) this.bodyTable = ref;
+          }}
+          onScroll={this.handleBodyScroll}
+        >
+          {body}
         </div>
-      );
+      ];
     }
-    return (
+    return [
       <div
         style={bodyStyle}
         ref={ref => {
@@ -392,7 +403,7 @@ class Grid extends (PureComponent || Component) {
           {body}
         </table>
       </div>
-    );
+    ];
   };
 
   getEmpty = i18n => {
