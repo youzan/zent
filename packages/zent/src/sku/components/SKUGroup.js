@@ -102,7 +102,7 @@ class SKUGroup extends (PureComponent || Component) {
   };
 
   render() {
-    let { sku, index, skuTree } = this.props;
+    let { sku, index, skuTree, i18n } = this.props;
     let { optionValue, optionText } = this.context;
     let { newSKUText, hasSKUImage } = this.state;
 
@@ -135,7 +135,7 @@ class SKUGroup extends (PureComponent || Component) {
           />
           {index === 0 ? (
             <Checkbox checked={hasSKUImage} onChange={this.checkSKUImage}>
-              添加规格图片
+              {i18n.group.add}
             </Checkbox>
           ) : (
             ''
@@ -146,14 +146,15 @@ class SKUGroup extends (PureComponent || Component) {
         </h3>
         <SKUContainer
           sku={{ ...sku }}
+          i18n={i18n}
           hasSKUImage={hasSKUImage}
           onSKULeafChange={this.onSKULeafChange}
         />
         {hasSKUImage ? (
           <div className="sku-group-cont">
-            <p className="help-block">目前只支持为第一个规格设置不同的规格图片</p>
-            <p className="help-block">设置后，用户选择不同规格会显示不同图片</p>
-            <p className="help-block">建议尺寸：640 x 640像素</p>
+            <p className="help-block">{i18n.group.imageTip1}</p>
+            <p className="help-block">{i18n.group.imageTip2}</p>
+            <p className="help-block">{i18n.group.imageTip3}</p>
           </div>
         ) : (
           <div className="sku-group-cont" />
