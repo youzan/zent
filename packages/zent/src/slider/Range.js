@@ -2,11 +2,11 @@ import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
 
-import Point from './points';
-import Dots from './dots';
-import Marks from './marks';
-import Container from './container';
-import Track from './track';
+import Point from './Points';
+import Dots from './Dots';
+import Marks from './Marks';
+import Container from './Container';
+import Track from './Track';
 
 export default class Range extends (PureComponent || Component) {
   clientWidth = null;

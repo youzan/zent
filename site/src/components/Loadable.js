@@ -1,5 +1,5 @@
 import Loadable from 'react-loadable';
-import DocLoading from './Loading';
+import DocLoading from './loading';
 
 export default function DocLoadable(opts) {
   return Loadable(

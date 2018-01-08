@@ -6,7 +6,7 @@ import { Sweetalert as i18nDefault } from 'i18n/default';
 import Dialog from 'dialog';
 import Icon from 'icon';
 
-import ActionButton from './action-button';
+import ActionButton from './ActionButton';
 import { TitleIconMap } from './constants';
 
 /**
