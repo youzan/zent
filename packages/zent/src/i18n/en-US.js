@@ -140,3 +140,39 @@ export const Sku = {
     imageTip3: 'Recommended size: 640 x 640 pixels.'
   }
 };
+
+const TypeMap = {
+  image: 'Image',
+  voice: 'Audio'
+};
+
+export const Upload = {
+  ...common,
+  title_voice: 'Choose the voice',
+  title_image: 'Choose the image',
+  input: {
+    holder: 'Add',
+    maxAmount(maxAmount, type) {
+      return `${TypeMap[
+        type
+      ]} files whose serial number is larger than ${maxAmount} have been filtered`;
+    },
+    maxSize(maxSize, type) {
+      return `${TypeMap[type]} files larger than ${maxSize} have been filtered`;
+    },
+    type(type) {
+      return `${TypeMap[type]} files with incorrect type have been filtered`;
+    }
+  },
+  popup: {
+    web: 'Web image',
+    holder: 'Please input the source address of web image',
+    title_voice: 'Local audio',
+    title_image: 'Local image',
+    type(types, size) {
+      return `Only support ${types.join(' /')}, smaller than ${size}`;
+    },
+    extract: 'Extract',
+    extracting: 'Extracting...'
+  }
+};

@@ -135,3 +135,37 @@ export const Sku = {
     imageTip3: '建议尺寸：640 x 640像素'
   }
 };
+
+const TypeMap = {
+  image: '图片',
+  voice: '音频'
+};
+
+export const Upload = {
+  ...common,
+  title_voice: '声音选择',
+  title_image: '图片选择',
+  input: {
+    holder: '添加',
+    maxAmount(maxAmount, type) {
+      return `已经自动过滤${maxAmount}张之后的${TypeMap[type]}文件`;
+    },
+    maxSize(maxSize, type) {
+      return `已经自动过滤大于${maxSize}的${TypeMap[type]}文件`;
+    },
+    type(type) {
+      return `已经自动过滤类型不正确的${TypeMap[type]}文件`;
+    }
+  },
+  popup: {
+    web: '网络图片',
+    holder: '请添加网络图片地址',
+    title_voice: '本地音频',
+    title_image: '本地图片',
+    type(types, size) {
+      return `仅支持 ${types.join('、')} ${types.length}种格式, 大小不超过${size}`;
+    },
+    extract: '提取',
+    extracting: '提取中...'
+  }
+};

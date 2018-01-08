@@ -55,26 +55,25 @@ export default class FileInput extends (PureComponent || Component) {
   };
 
   iteratorFiles = files => {
-    const { type, maxSize, silent, maxAmount } = this.props;
-    const typeName = type === 'voice' ? '语音' : '图片';
+    const { type, maxSize, silent, maxAmount, i18n } = this.props;
 
     forEach(files, (file, index) => {
       if (maxAmount && index >= maxAmount) {
-        !silent && Notify.error(`已经自动过滤超过${maxAmount}张的${typeName}文件`);
+        !silent && Notify.error(i18n.input.maxAmount(maxAmount, type));
         return false;
       }
       if (!maxSize || file.size <= maxSize) {
         this.addFile(file, index);
       } else {
         !silent &&
-          Notify.error(`已经自动过滤大于${formatFileSize(maxSize)}的${typeName}文件`);
+          Notify.error(i18n.input.maxSize(formatFileSize(maxSize), type));
       }
     });
   };
 
   addFile(file, index) {
     let fileReader = new FileReader();
-    let { silent, type, initIndex } = this.props;
+    let { silent, type, initIndex, i18n } = this.props;
     let { accept } = this.state;
     let localFiles = [];
 
@@ -89,8 +88,7 @@ export default class FileInput extends (PureComponent || Component) {
           __uid: initIndex + index
         });
       } else {
-        !silent &&
-          Notify.error(`已经自动过滤类型不正确的${type === 'voice' ? '语音' : '图片'}文件`);
+        !silent && Notify.error(i18n.input.type(type));
       }
       this.onFileChange(localFiles);
     };
@@ -99,13 +97,13 @@ export default class FileInput extends (PureComponent || Component) {
   }
 
   render() {
-    let { maxAmount } = this.props;
+    let { maxAmount, i18n } = this.props;
     let { accept } = this.state;
 
     return (
       <input
         type="file"
-        placeholder="添加 +"
+        placeholder={`${i18n.input.holder} +`}
         multiple={maxAmount !== 1}
         accept={accept}
         onChange={this.processFiles}
