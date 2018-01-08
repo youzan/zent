@@ -123,3 +123,20 @@ export const TimePicker = () => {
     }
   };
 };
+
+export const Sku = {
+  notify: 'The same sku name not allowed',
+  buttonAdd: 'Add sku',
+  container: {
+    del: 'Delete',
+    replace: 'Replace',
+    add: '+Add'
+  },
+  group: {
+    add: 'Add sku picture',
+    imageTip1: 'Currently, only the first sku portrait can be set.',
+    imageTip2:
+      'After setting, corresponding portrait of the choosen sku will be rendered.',
+    imageTip3: 'Recommended size: 640 x 640 pixels.'
+  }
+};
