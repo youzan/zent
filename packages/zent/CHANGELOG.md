@@ -1,5 +1,25 @@
 ## Github Change Log
 
+## [zent@3.12.2](https://github.com/youzan/zent/tree/zent@3.12.2) (2018-01-09)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.1...zent@3.12.2)
+
+**Implemented enhancements:**
+
+- \[new feature\] Loading: Remove loading background when no children is supplied [\#668](https://github.com/youzan/zent/pull/668) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] file name and path names format [\#663](https://github.com/youzan/zent/pull/663) ([ArvinTung](https://github.com/ArvinTung))
+
+**Fixed bugs:**
+
+- \[bug fix\] Grid: header样式挂了 [\#654](https://github.com/youzan/zent/issues/654)
+- \[bug\] Loading: 灰背景太丑了 [\#645](https://github.com/youzan/zent/issues/645)
+- \[bug fix\] Button: Fix large button font size [\#667](https://github.com/youzan/zent/pull/667) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Grid: 修复不插鼠标样式问题 [\#666](https://github.com/youzan/zent/pull/666) ([wulv](https://github.com/wulv))
+- \[bugfix\]MonthPicker: 当前月份和选中的月份加上年份判断 [\#665](https://github.com/youzan/zent/pull/665) ([dickenslian](https://github.com/dickenslian))
+
+**Merged pull requests:**
+
+- \[Docs\] 增加 I18nProvider 的文档 [\#664](https://github.com/youzan/zent/pull/664) ([LucasIcarus](https://github.com/LucasIcarus))
+
 ## [zent@3.12.1](https://github.com/youzan/zent/tree/zent@3.12.1) (2018-01-05)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.0...zent@3.12.1)
 
@@ -322,7 +342,7 @@
 - \[bug fix\] design: preview区域右下角 action button 加 padding [\#522](https://github.com/youzan/zent/pull/522) ([ronghang](https://github.com/ronghang))
 
 ## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...zent@3.9.0)
 
 **Implemented enhancements:**
 
@@ -339,11 +359,11 @@
 - \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
 - \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
-## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
-
 ## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
+
+## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
 
 **Implemented enhancements:**
 
