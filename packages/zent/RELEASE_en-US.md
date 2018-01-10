@@ -2,6 +2,21 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+
+### 3.12.2 (2018-01-09)
+
+- ✨ Remove mask background when `Loading` has no `children`
+- ✨ Rename files to follow the project naming style
+- 🦀️ Fix `Grid` header style
+- 🦀️ Fix font size in large `Button`
+- 🦀️ Fix year not checked in `MonthPicker`
+- 📚 New internationalization documentation
+
+### 3.12.1 (2018-01-05)
+
+- 🦀️ Fix `CombineDateRangePicker` closes before select the second date
+- 🦀️ Fix exit animation in `Notify`
+
 ### 3.12.0 (2018-01-04)
 
 - 🎉 New component `Sortable`
