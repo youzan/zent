@@ -10,11 +10,7 @@ import isPromise from 'utils/isPromise';
 import { formatFileSize, base64ToArrayBuffer } from '../utils';
 import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
-
-const DEFAULT_ACCEPT = {
-  image: 'image/gif, image/jpeg, image/png',
-  voice: 'audio/mpeg, audio/amr'
-};
+import { DEFAULT_ACCEPT } from '../constants';
 
 export default class FileInput extends (PureComponent || Component) {
   constructor(props) {
