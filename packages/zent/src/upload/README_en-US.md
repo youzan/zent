@@ -17,7 +17,7 @@ File uploader. Supports images and audios.
 | tips | Hint text | string | `''` | No |
 | maxSize | Image size limit in bytes | number | `1024 * 1024` | No |
 | maxAmount | Limit number of images, 0 means no limit | number | `0` | No |
-| accept | Allowed file types | string | `'image/gif, image/jpeg, image/png'` | No |
+| accept | Allowed file types | string | `'image/gif, image/jpeg, image/png, image/bmp'` | No |
 | silent | No notification about sucesss/failure when set to true | boolean | `false` | No |
 | triggerInline | Make trigger node's display inline | boolean | `false` | No |
 | onFetch | Callback to fetch remote image | function | `noop` | No |

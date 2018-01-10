@@ -355,8 +355,11 @@ class Grid extends (PureComponent || Component) {
     if (y) {
       const scrollbarWidth = measureScrollbar();
       const headStyle = {};
+      const scrollBodyStyle = { maxHeight: y, overflowY: 'scroll' };
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
+      } else {
+        scrollBodyStyle.marginBottom = 0;
       }
       return [
         <div
@@ -372,7 +375,7 @@ class Grid extends (PureComponent || Component) {
         <div
           key="body"
           className={`${prefix}-grid-body`}
-          style={{ maxHeight: y, overflowY: 'scroll' }}
+          style={scrollBodyStyle}
           ref={ref => {
             this[`${fixed || 'scroll'}Body`] = ref;
             if (!fixed) this.bodyTable = ref;
