@@ -1,5 +1,14 @@
 ## Github Change Log
 
+## [zent@3.12.3](https://github.com/youzan/zent/tree/zent@3.12.3) (2018-01-10)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.2...zent@3.12.3)
+
+**Fixed bugs:**
+
+- \[bug fix\] Design: fix button layout and size [\#671](https://github.com/youzan/zent/pull/671) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Slider: 修改背景色成透明 [\#670](https://github.com/youzan/zent/pull/670) ([wulv](https://github.com/wulv))
+- \[new feature\] Upload: 添加bmp格式 [\#669](https://github.com/youzan/zent/pull/669) ([wulv](https://github.com/wulv))
+
 ## [zent@3.12.2](https://github.com/youzan/zent/tree/zent@3.12.2) (2018-01-09)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.1...zent@3.12.2)
 
@@ -845,7 +854,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -876,11 +885,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
-
 ## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
+
+## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
 
 **Implemented enhancements:**
 
