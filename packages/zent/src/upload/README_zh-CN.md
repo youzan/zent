@@ -18,7 +18,7 @@ group: 数据
 | tips | 提示文案 | string | `''` | 否 |
 | maxSize | 图片大小限制，单位为 byte | number | `1024 * 1024` | 否 |
 | maxAmount | 图片数量限制，0为不限制，1为只支持单文件 | number | `0` | 否 |
-| accept | 支持文件类型 | string | `'image/gif, image/jpeg, image/png'` | 否 |
+| accept | 支持文件类型 | string | `'image/gif, image/jpeg, image/png, image/bmp'` | 否 |
 | silent | 是否开启静默模式，不会提示成功/失败 | boolean | `false` | 否 |
 | triggerInline | 是否行内属性 | boolean | `false` | 否 |
 | onFetch | 提取网络图片 | function | `noop` | 否 |
