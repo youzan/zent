@@ -2,6 +2,47 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+
+### 3.12.2 (2018-01-09)
+
+- ✨ `Loading` 没有 `children` 时去掉蒙层的背景色
+- ✨ 重命名文件，保持项目内统一
+- 🦀️ 修复 `Grid` 头部样式
+- 🦀️ 修复大号 `Button` 字体大小
+- 🦀️ 修复 `MonthPicker` 没有判断年份的问题
+- 📚 增加了国际化的文档
+
+### 3.12.1 (2018-01-05)
+
+- 🦀️ 修复 `CombineDateRangePicker` 没有选完就关闭的问题
+- 🦀️ 修复 `Notify` 出场动画问题
+
+### 3.12.0 (2018-01-04)
+
+- 🎉 新增拖拽排序组件 `Sortable`
+- 🎉 组件国际化支持
+- ✨ `Tag` 支持外部控制显示隐藏
+- ✨ `Input` 组件支持清除按钮
+- ✨ `Grid` 组件支持表头固定垂直滚动
+- ✨ `Notify` 支持多个实例排列显示，同时加上了进出场动画
+- `Form`
+  - ✨ `Field` 修改错误显示逻辑，支持 `displayError` 控制错误是否显示
+  - ✨ `Field` 支持 `relatedFields` 指定检验时同时触发的其他字段
+  - ✨ 重写 `FieldArray`
+- ✨ `Swiper` 支持动态增减图片
+- ✨ `Design` 支持 `settings` 以及 `onSettingsChange` 来设置动态全局配置
+- ✨ `Sweetalert` 支持配置关闭按钮以及点击蒙层是否关闭
+- 🦀️ 修复 `DateRangePicker` 禁用样式
+- 🦀️ 修复 `Loading` 布局中的问题
+- 🦀️ 修复 `DatePicker` `onChange` 值不对的问题
+- 🦀️ 修复 `NumberInput` `onBlur` 与 `onChange` 事件抛出的值不一致的问题
+- 🦀️ 修复 `Upload` 上传图片乱序的问题
+- 🦀️ 修复 `Select` tag 类型选中顺序不一致的问题
+- 🦀️ 修复 `ColorPicker` 颜色输入框无法删除的问题
+- 🦀️ 修复 `textarea` 高度抖动的问题
+- 🦀️ 修复了一些 typo
+- 🦀️ 修复 `yarn new-component` 命令
+
 ### 3.11.0 (2017-12-20)
 
 - 🎉 新组件季度选择器 `QuarterPicker`

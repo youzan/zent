@@ -146,28 +146,20 @@ class Simple extends Component {
           scrollTopOffset={-270}
           globalConfig={window._global}
         />
-        <Row className="design-example-actions">
-          <Col span={2} offset={1}>
-            <Button type="primary" onClick={this.submit}>
-              {i18n.submit}
-            </Button>
-          </Col>
-          <Col span={2} offset={1}>
-            <Button onClick={this.notImplemented}>
-              {i18n.draft}
-            </Button>
-          </Col>
-          <Col span={2} offset={1}>
-            <Button onClick={this.notImplemented}>
-              {i18n.preview}
-            </Button>
-          </Col>
-          <Col span={3} offset={1}>
-            <Button onClick={this.switchMode}>
-              {grouped ? '{i18n.combined}' : '{i18n.grouped}'}
-            </Button>
-          </Col>
-        </Row>
+        <div className="design-example-actions">
+					<Button type="primary" onClick={this.submit}>
+						{i18n.submit}
+					</Button>
+					<Button onClick={this.notImplemented}>
+						{i18n.draft}
+					</Button>
+					<Button onClick={this.notImplemented}>
+						{i18n.preview}
+					</Button>
+					<Button onClick={this.switchMode}>
+						{grouped ? '{i18n.combined}' : '{i18n.grouped}'}
+					</Button>
+        </div>
       </div>
     );
   }
@@ -208,5 +200,10 @@ ReactDOM.render(
 <style>
 .design-example-actions {
   margin-top: 20px;
+
+	.zent-btn {
+		width: 40px;
+		margin-right: 10px;
+	}
 }
 </style>

@@ -105,10 +105,10 @@ $border-color: $theme-stroke-7;
     }
 
     .zent-grid-body {
-      margin-bottom: -15px;
-      padding-bottom: 15px;
       margin-right: -20px;
       box-sizing: border-box;
+      margin-bottom: -15px;
+      overflow: scroll;
     }
   }
 
@@ -125,9 +125,9 @@ $border-color: $theme-stroke-7;
     }
 
     .zent-grid-body {
-      margin-bottom: -15px;
-      padding-bottom: 15px;
       box-sizing: border-box;
+      margin-bottom: -15px;
+      overflow: scroll;
     }
   }
 
@@ -143,6 +143,11 @@ $border-color: $theme-stroke-7;
     .zent-grid-header {
       overflow-x: scroll;
       margin-bottom: -15px;
+      padding-bottom: 15px;
+    }
+
+    .zent-grid-body {
+      position: relative;
     }
   }
 

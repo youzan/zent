@@ -6,19 +6,19 @@ import Pop from 'pop';
 class SKUButton extends (PureComponent || Component) {
   render() {
     const prefix = `${this.context.prefix}-group`;
-    let { disabled } = this.props;
+    let { disabled, i18n } = this.props;
     return (
       <div className={prefix}>
         <h3 className="group-title">
           {typeof disabled === 'string' ? (
             <Pop trigger="hover" position="top-left" content={disabled}>
               <Button onClick={this.props.onClick} disabled={!!disabled}>
-                添加规格项目
+                {i18n.buttonAdd}
               </Button>
             </Pop>
           ) : (
             <Button onClick={this.props.onClick} disabled={!!disabled}>
-              添加规格项目
+              {i18n.buttonAdd}
             </Button>
           )}
         </h3>

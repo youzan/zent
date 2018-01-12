@@ -1,4 +1,6 @@
 import React, { Component, PureComponent } from 'react';
+import cx from 'classnames';
+
 import { getElementLeft, getElementTop } from './getPosition';
 
 export default class Loading extends (PureComponent || Component) {
@@ -69,20 +71,25 @@ export default class Loading extends (PureComponent || Component) {
   }
 
   render() {
-    let { prefix, className, containerClass } = this.props;
+    let { prefix, className, containerClass, children } = this.props;
 
     if (!this.props.float) {
       return (
         <div
-          className={`${prefix}-loading-container ${prefix}-loading-container-static ${containerClass}`}
+          className={cx(
+            `${prefix}-loading-container`,
+            `${prefix}-loading-container-static`,
+            containerClass,
+            {
+              [`${prefix}-loading-container--empty`]:
+                React.Children.count(children) === 0
+            }
+          )}
           style={{
-            height:
-              this.props.children || !this.state.show
-                ? 'initial'
-                : this.props.height
+            height: children || !this.state.show ? 'initial' : this.props.height
           }}
         >
-          {this.props.children}
+          {children}
           {this.state.show && (
             <div className={`${prefix}-page-loading ${className}`}>
               <div className={`${prefix}-page-mask`} />

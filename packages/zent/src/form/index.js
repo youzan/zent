@@ -9,15 +9,15 @@ import FormSection from './FormSection';
 import getControlGroup from './getControlGroup';
 import unknownProps from './unknownProps';
 import SubmissionError from './SubmissionError';
-import InputField from './form_components/InputField';
-import CheckboxField from './form_components/CheckboxField';
-import CheckboxGroupField from './form_components/CheckboxGroupField';
-import RadioGroupField from './form_components/RadioGroupField';
-import SelectField from './form_components/SelectField';
-import NumberInputField from './form_components/NumberInputField';
-import ColorPickerField from './form_components/ColorPickerField';
-import DateRangePickerField from './form_components/DateRangePickerField';
-import SwitchField from './form_components/SwitchField';
+import InputField from './form-components/InputField';
+import CheckboxField from './form-components/CheckboxField';
+import CheckboxGroupField from './form-components/CheckboxGroupField';
+import RadioGroupField from './form-components/RadioGroupField';
+import SelectField from './form-components/SelectField';
+import NumberInputField from './form-components/NumberInputField';
+import ColorPickerField from './form-components/ColorPickerField';
+import DateRangePickerField from './form-components/DateRangePickerField';
+import SwitchField from './form-components/SwitchField';
 
 import {
   FormCheckboxField,
@@ -29,7 +29,7 @@ import {
   FormRadioGroupField,
   FormSelectField,
   FormSwitchField
-} from './form_components/FormComponentField';
+} from './form-components/FormComponentField';
 
 export default assign(Form, {
   Form,

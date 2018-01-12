@@ -19,6 +19,12 @@ module.exports = {
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/DEMO_zh-CN.md') })"
             },
             {
+              title: '国际化',
+              path: 'guides/i18n',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/docs/I18N_zh-CN.md') })"
+            },
+            {
               title: 'babel-plugin-zent',
               path: 'guides/babel-plugin-zent',
               source:
@@ -115,6 +121,12 @@ module.exports = {
               path: 'guides/demos',
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/DEMO_en-US.md') })"
+            },
+            {
+              title: 'Internationalization',
+              path: 'guides/i18n',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/docs/I18N_en-US.md') })"
             },
             {
               title: 'babel-plugin-zent',

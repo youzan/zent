@@ -16,9 +16,11 @@ import {
   goMonths,
   setSameDate,
   formatDate,
-  parseDate
+  parseDate,
+  dayStart,
+  dayEnd,
+  setTime
 } from './utils';
-import { dayStart, dayEnd, setTime } from './utils/date';
 import {
   timeFnMap,
   noop,
@@ -86,7 +88,8 @@ class DatePicker extends (PureComponent || Component) {
     ...commonPropTypes,
     showTime: PropTypes.bool,
     onBeforeConfirm: PropTypes.func,
-    onBeforeClear: PropTypes.func
+    onBeforeClear: PropTypes.func,
+    valueType: PropTypes.oneOf(['string', 'number', 'date'])
   };
 
   static defaultProps = {
@@ -99,7 +102,9 @@ class DatePicker extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     const { isFooterVisble, showTime, value, valueType } = props;
-
+    /**
+     * 如果没有有明确指定 valueType，则返回和 value 一致的值，数字或日期或字符串
+     */
     if (valueType) {
       this.retType = valueType.toLowerCase();
     } else if (value) {
@@ -132,15 +137,19 @@ class DatePicker extends (PureComponent || Component) {
     const { activedTime } = this.state;
     if (this.isDisabled(val)) return;
     // update activedTime here
-    this.setState({
-      actived: val,
-      selected: val,
-      activedTime: setSameDate(activedTime, val)
-    });
+    this.setState(
+      {
+        actived: val,
+        selected: val,
+        activedTime: setSameDate(activedTime, val)
+      },
+      () => {
+        if (!this.isfooterShow) {
+          this.onConfirm();
+        }
+      }
+    );
     onClick && onClick(val);
-    if (!this.isfooterShow) {
-      this.onConfirm();
-    }
   };
 
   onChangeTime = (val, type) => {
@@ -171,7 +180,7 @@ class DatePicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     const { onChange, onBeforeClear } = this.props;
-    if (onBeforeClear && !onBeforeClear()) return;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
 
     evt.stopPropagation();
     onChange('');
@@ -199,7 +208,7 @@ class DatePicker extends (PureComponent || Component) {
     const { selected, activedTime } = this.state;
     const { format, showTime, onClose, onChange, onBeforeConfirm } = this.props;
 
-    if (onBeforeConfirm && !onBeforeConfirm()) return;
+    if (onBeforeConfirm && !onBeforeConfirm()) return; //
     // 如果没有选择日期则默认选中当前日期
     let tmp = selected || dayStart();
     if (this.isDisabled(tmp)) return;
@@ -332,6 +341,7 @@ class DatePicker extends (PureComponent || Component) {
       'picker-input--disabled': disabled
     });
     const widthStyle = getWidth(width);
+
     return (
       <div style={widthStyle} className={wrapperCls}>
         <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>

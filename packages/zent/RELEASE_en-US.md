@@ -2,6 +2,47 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+
+### 3.12.2 (2018-01-09)
+
+- ✨ Remove mask background when `Loading` has no `children`
+- ✨ Rename files to follow the project naming style
+- 🦀️ Fix `Grid` header style
+- 🦀️ Fix font size in large `Button`
+- 🦀️ Fix year not checked in `MonthPicker`
+- 📚 New internationalization documentation
+
+### 3.12.1 (2018-01-05)
+
+- 🦀️ Fix `CombineDateRangePicker` closes before select the second date
+- 🦀️ Fix exit animation in `Notify`
+
+### 3.12.0 (2018-01-04)
+
+- 🎉 New component `Sortable`
+- 🎉 i18n support for components
+- ✨ `Tag` visibility can be controlled using props
+- ✨ `Input` supports clear button
+- ✨ `Grid` supports scroll with fixed header
+- ✨ `Notify` supports pile many instances with enter/leave animation
+- `Form`
+  - ✨ `Field` supports `displayError` to control error message display
+  - ✨ `Field` supports `relatedFields` to specify validation dependencies.
+  - ✨ Rewrite `FieldArray`
+- ✨ `Swiper` supports add/remove images dynamically
+- ✨ `Design` supports `settings` and `onSettingsChange` to manage dynamic global settings
+- ✨ `Sweetalert` can configure close button and click on mask to close
+- 🦀️ Fix `DateRangePicker` disabled style
+- 🦀️ Fix `Loading` not centered
+- 🦀️ Fix `DatePicker` wrong value in `onChange` 
+- 🦀️ Fix `NumberInput` inconsistent `onBlur` and `onChange` values
+- 🦀️ Fix `Upload` image order after uploading
+- 🦀️ Fix `Select` item order in tag mode
+- 🦀️ Fix can not edit hex in  `ColorPicker` 
+- 🦀️ Fix `textarea` height tingle
+- 🦀️ Fix some typo
+- 🦀️ Fix `yarn new-component` command
+
 ### 3.11.0 (2017-12-20)
 
 - 🎉 New component `QuarterPicker`

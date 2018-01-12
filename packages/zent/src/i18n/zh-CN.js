@@ -119,3 +119,19 @@ export const TimePicker = () => {
     }
   };
 };
+
+export const Sku = {
+  notify: '规格名不能相同',
+  buttonAdd: '添加规格项目',
+  container: {
+    del: '删除',
+    replace: '替换',
+    add: '+添加'
+  },
+  group: {
+    add: '添加规格图片',
+    imageTip1: '目前只支持为第一个规格设置不同的规格图片',
+    imageTip2: '设置后，用户选择不同规格会显示不同图片',
+    imageTip3: '建议尺寸：640 x 640像素'
+  }
+};

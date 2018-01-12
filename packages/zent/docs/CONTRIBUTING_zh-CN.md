@@ -43,8 +43,9 @@ packages/zent
 #### 文件命名
 
 * 组件文件名字驼峰，例如 `ActionButton` 组件的文件名就是 `ActionsButton.js`
-* 导出函数的文件名驼峰（首字母小些），一般和函数名字保持一致，例如 `withPop`
+* 导出函数的文件名驼峰（首字母小写），一般和函数名字保持一致，例如 `withPop`
 * 文件夹名字用 - 隔开，例如 `number-input`
+* demos文件夹中的Md文件名字用 - 隔开，例如 `with-close-btn`
 
 #### 本地测试
 

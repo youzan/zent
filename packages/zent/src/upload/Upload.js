@@ -9,11 +9,7 @@ import Dialog from 'dialog';
 import identity from 'lodash/identity';
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
-
-const DEFAULT_ACCEPT = {
-  image: 'image/gif, image/jpeg, image/png',
-  voice: 'audio/mpeg, audio/amr'
-};
+import { DEFAULT_ACCEPT } from './constants';
 
 const promiseNoop = () =>
   new Promise(resolve => {

@@ -23,8 +23,12 @@ Tag is suitable for marking and sorting。
 | rounded | Whether the tag is rounded or not | bool | `true` | `true` \| `false` |
 | closable| Whether the tag can be closed | bool    | `false`      | `true` \| `false`   |
 | onClose | The callback function that is trigged when the tag is closed | func | `noop`  |  |
+| visible | Controlled visibility | bool | | `true` \| `false` |
+| onVisibleChange | Visibility change callback | func | | |
 | borderColor | The color of tag's border | string | | |
 | bgColor | The color of tag's background | string | | |
 | fontColor | The color of tag's content | string | | |
 | className| The custom classname | string   | `''`  |  |
 | prefix  | The custom prefix  | string   | `'zent'` |  |
+
+> All props are optional, visibility can be controlled by using `visible` and `onVisibleChange` together.

@@ -16,6 +16,8 @@ export default class Tag extends (PureComponent || Component) {
     bgColor: PropTypes.string,
     fontColor: PropTypes.string,
     closable: PropTypes.bool,
+    visible: PropTypes.bool,
+    onVisibleChange: PropTypes.func,
     onClose: PropTypes.func,
     children: PropTypes.node,
     style: PropTypes.object,
@@ -33,28 +35,51 @@ export default class Tag extends (PureComponent || Component) {
   };
 
   state = {
-    closed: false
+    visible: true
   };
 
   onClose = e => {
     e.persist();
-    this.setState(
-      {
-        closed: true
-      },
-      () => {
-        // onClose是在*关闭以后*被调用的
-        const { onClose } = this.props;
-        if (isFunction(onClose)) {
-          onClose(e);
-        }
+    const cb = () => {
+      // onClose是在*关闭以后*被调用的
+      const { onClose } = this.props;
+      if (isFunction(onClose)) {
+        onClose(e);
       }
-    );
+    };
+
+    const { onVisibleChange } = this.props;
+    if (this.isControlled() && isFunction(onVisibleChange)) {
+      onVisibleChange(false);
+      cb();
+    } else {
+      this.setState(
+        {
+          visible: false
+        },
+        cb
+      );
+    }
   };
 
+  isControlled() {
+    const { closable, visible, onVisibleChange } = this.props;
+    const isVisibleBoolean = visible === false || visible === true;
+
+    if (closable && isVisibleBoolean && isFunction(onVisibleChange)) {
+      return true;
+    }
+
+    if (!closable && isVisibleBoolean) {
+      return true;
+    }
+  }
+
   render() {
-    const { closed } = this.state;
-    if (closed) {
+    const visible = this.isControlled()
+      ? this.props.visible
+      : this.state.visible;
+    if (!visible) {
       return null;
     }
 

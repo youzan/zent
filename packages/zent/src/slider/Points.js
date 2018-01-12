@@ -6,7 +6,7 @@ import noop from 'lodash/noop';
 import classNames from 'classnames';
 
 import { getLeft, toFixed, checkValueInRange } from './common';
-import ToolTips from './toolTips';
+import ToolTips from './ToolTips';
 
 export default class Points extends (PureComponent || Component) {
   constructor(props) {

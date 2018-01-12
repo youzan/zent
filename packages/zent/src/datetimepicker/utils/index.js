@@ -16,6 +16,9 @@ export const CURRENT_MONTH = CURRENT.getMonth();
 export const CURRENT_DATE = CURRENT.getDate();
 export const ONEDAY = 24 * 60 * 60 * 1000;
 
+export const TIME_BEGIN = '00:00:00';
+export const TIME_END = '23:59:59';
+
 export const padLeft = val => {
   return val < 10 ? `0${val}` : val;
 };
@@ -112,4 +115,61 @@ export function formatDate(date, format, locale = getLocale() || 'zh') {
  */
 export function parseDate(dateStr, format, locale = getLocale() || 'zh') {
   return parseBase(dateStr, format, locale);
+}
+
+export function dayStart(date = new Date()) {
+  return setTime(date);
+}
+
+export function dayEnd(date = new Date()) {
+  return setTime(date, TIME_END);
+}
+
+export function setTime(date, time = TIME_BEGIN) {
+  let timeArr;
+  if (time instanceof Date) {
+    timeArr = [time.getHours(), time.getMinutes(), time.getSeconds()];
+  } else {
+    timeArr = time.split(':');
+  }
+
+  const dateTimeArr = [
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    ...timeArr
+  ];
+  return new Date(...dateTimeArr);
+}
+
+export function getQuarterFromDate(date) {
+  const month = date.getMonth();
+
+  let quarter;
+  switch (month) {
+    case 0:
+    case 1:
+    case 2:
+      quarter = 0;
+      break;
+    case 3:
+    case 4:
+    case 5:
+      quarter = 1;
+      break;
+    case 6:
+    case 7:
+    case 8:
+      quarter = 2;
+      break;
+    case 9:
+    case 10:
+    case 11:
+      quarter = 3;
+      break;
+    default:
+      break;
+  }
+
+  return quarter;
 }
