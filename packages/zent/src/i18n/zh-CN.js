@@ -41,7 +41,7 @@ export const RangePicker = {
 
 export const Select = {
   input: '请选择',
-  search: '没有找到匹配项'
+  empty: '没有找到匹配项'
 };
 
 export const Switch = {

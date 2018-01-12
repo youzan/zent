@@ -218,16 +218,12 @@ class Popup extends (PureComponent || Component) {
         style={autoWidth ? this.state.style : null}
       >
         {!extraFilter && (filter || onAsyncFilter) ? (
-          <Receiver componentName="Select" defaultI18n={I18nDefault}>
-            {i18n => (
-              <Search
-                keyword={keyword}
-                prefixCls={prefixCls}
-                placeholder={searchPlaceholder || i18n.search}
-                onChange={this.searchFilterHandler}
-              />
-            )}
-          </Receiver>
+          <Search
+            keyword={keyword}
+            prefixCls={prefixCls}
+            placeholder={searchPlaceholder}
+            onChange={this.searchFilterHandler}
+          />
         ) : (
           ''
         )}
@@ -249,11 +245,15 @@ class Popup extends (PureComponent || Component) {
           );
         })}
         {showEmpty && (
-          <Option
-            className={`${prefixCls}-empty`}
-            text={emptyText}
-            onClick={this.optionChangedHandler}
-          />
+          <Receiver componentName="Select" defaultI18n={I18nDefault}>
+            {i18n => (
+              <Option
+                className={`${prefixCls}-empty`}
+                text={emptyText || i18n.empty}
+                onClick={this.optionChangedHandler}
+              />
+            )}
+          </Receiver>
         )}
       </div>
     );
