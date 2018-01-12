@@ -156,6 +156,7 @@ Upload.defaultProps = {
   filterFiles: identity,
   onFetch: promiseNoop,
   onUpload: promiseNoop,
+  categoryList: [],
   triggerInline: false,
   silent: false,
   withoutPopup: false
