@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import smoothScroll from 'utils/scroll';
 IMPORTS
 
 DEMO_DECLARATIONS
@@ -13,18 +14,6 @@ function Markdown(props) {
 
 function Style(props) {
   return <RawHtmlRenderer tag="style" html={props.style} />;
-}
-
-function scrollTo(element, to, duration) {
-  if (duration <= 0) return;
-  const difference = to - element.scrollTop;
-  const perTick = difference / duration * 10;
-
-  setTimeout(() => {
-    element.scrollTop = element.scrollTop + perTick;
-    if (element.scrollTop === to) return;
-    scrollTo(element, to, duration - 10);
-  }, 10);
 }
 
 function offsetY(element, offset) {
@@ -85,7 +74,7 @@ export default class ZentDocContainer extends Component {
     const hash = location.hash;
     if (hash) {
       const anchor = document.querySelector(`a[href="${hash}"]`);
-      scrollTo(document.documentElement, offsetY(anchor, -9), 400);
+      smoothScroll(document.documentElement, 0, offsetY(anchor, -9));
     }
   }
 
