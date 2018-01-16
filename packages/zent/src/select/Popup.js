@@ -2,7 +2,7 @@
  * Popup
  */
 
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
 import trim from 'lodash/trim';
@@ -15,7 +15,7 @@ import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
 
-class Popup extends (PureComponent || Component) {
+class Popup extends Component {
   constructor(props) {
     super(props);
 
@@ -26,6 +26,7 @@ class Popup extends (PureComponent || Component) {
       keyword: props.keyword || '',
       style: {}
     };
+    this.focused = false;
   }
 
   componentWillMount() {
@@ -40,13 +41,15 @@ class Popup extends (PureComponent || Component) {
   }
 
   componentDidMount() {
-    if (!this.props.filter && !this.props.onAsyncFilter) {
-      this.popup.focus();
-    }
     this.popup.addEventListener('mousewheel', this.handleScroll);
   }
 
+  componentWillUnmount() {
+    this.popup.removeEventListener('mousewheel', this.handleScroll);
+  }
+
   handleScroll = evt => {
+    evt.stopPropagation();
     if (
       (this.popup.scrollTop === 0 && evt.deltaY < 0) ||
       (this.popup.scrollTop + this.popup.clientHeight ===
@@ -58,6 +61,20 @@ class Popup extends (PureComponent || Component) {
   };
 
   componentWillReceiveProps(nextProps) {
+    // 渲染时在 popover content ready 后延时触发 focus, 只触发一次
+    // NOTE: win7 360浏览器, 兼容性 bug 修复
+    if (
+      !this.focused &&
+      nextProps.ready &&
+      !nextProps.filter &&
+      !nextProps.onAsyncFilter
+    ) {
+      setTimeout(() => {
+        this.popup.focus();
+      }, 150);
+      this.focused = true;
+    }
+
     const keyword = nextProps.keyword;
     this.setState({
       data: nextProps.data,
@@ -192,7 +209,8 @@ class Popup extends (PureComponent || Component) {
       filter,
       onAsyncFilter,
       maxToShow,
-      autoWidth
+      autoWidth,
+      ready
     } = this.props;
 
     const { keyword, data, currentId } = this.state;
@@ -216,6 +234,9 @@ class Popup extends (PureComponent || Component) {
         onKeyDown={this.keydownHandler}
         tabIndex="0"
         style={autoWidth ? this.state.style : null}
+        onFocus={event => {
+          event.preventDefault();
+        }}
       >
         {!extraFilter && (filter || onAsyncFilter) ? (
           <Search
