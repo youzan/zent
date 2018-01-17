@@ -128,15 +128,27 @@ class Header extends (PureComponent || Component) {
   }
 
   renderThead() {
-    const { prefix } = this.props;
+    const { prefix, fixed, fixedColumnsHeadRowsHeight } = this.props;
 
     return (
       <thead className={`${prefix}-grid-thead`}>
-        {map(this.state.rows, (row, index) => (
-          <tr key={index} className={`${prefix}-grid-tr`}>
-            {row.map(props => <th {...props} />)}
-          </tr>
-        ))}
+        {map(this.state.rows, (row, index) => {
+          const height =
+            fixed && fixedColumnsHeadRowsHeight[index]
+              ? fixedColumnsHeadRowsHeight[index]
+              : null;
+          return (
+            <tr
+              key={index}
+              className={`${prefix}-grid-tr`}
+              style={{
+                height
+              }}
+            >
+              {row.map(props => <th {...props} />)}
+            </tr>
+          );
+        })}
       </thead>
     );
   }

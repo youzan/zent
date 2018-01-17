@@ -83,7 +83,8 @@ class Grid extends (PureComponent || Component) {
     this.setScrollPosition('left');
 
     this.state = {
-      fixedColumnsBodyRowsHeight: []
+      fixedColumnsBodyRowsHeight: [],
+      fixedColumnsHeadRowsHeight: []
     };
   }
 
@@ -101,18 +102,32 @@ class Grid extends (PureComponent || Component) {
         this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
       [];
 
+    const headRows =
+      (this.scrollHeader &&
+        this.scrollHeader.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
+      [];
+
     const fixedColumnsBodyRowsHeight = [].map.call(
       bodyRows,
       row => row.getBoundingClientRect().height || 'auto'
     );
+    const fixedColumnsHeadRowsHeight = [].map.call(
+      headRows,
+      row => row.getBoundingClientRect().height || 'auto'
+    );
     if (
-      isEqual(this.state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
+      isEqual(
+        this.state.fixedColumnsBodyRowsHeight,
+        fixedColumnsBodyRowsHeight
+      ) &&
+      isEqual(this.state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight)
     ) {
       return;
     }
 
     this.setState({
-      fixedColumnsBodyRowsHeight
+      fixedColumnsBodyRowsHeight,
+      fixedColumnsHeadRowsHeight
     });
   };
 
@@ -335,6 +350,7 @@ class Grid extends (PureComponent || Component) {
         sortType={sortType}
         scroll={scroll}
         sortBy={sortBy}
+        fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
       />
     );
 
