@@ -41,7 +41,7 @@ export const RangePicker = {
 
 export const Select = {
   input: 'Please choose...',
-  search: 'No matches found'
+  empty: 'No matches found'
 };
 
 export const Sweetalert = {
