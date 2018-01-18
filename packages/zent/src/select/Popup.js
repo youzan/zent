@@ -244,6 +244,7 @@ class Popup extends Component {
             prefixCls={prefixCls}
             placeholder={searchPlaceholder}
             onChange={this.searchFilterHandler}
+            ready={ready}
           />
         ) : (
           ''

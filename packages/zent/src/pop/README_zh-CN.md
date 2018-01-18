@@ -37,7 +37,8 @@ group: 反馈
 | type | 影响确定按钮的样式 | string | 否  | `'primary'` | `'default'`, `'danger'`, `'success'` |
 | visible | 外部维护 `Pop` 的显示状态，此时外部拥有 `Pop` 的全部控制权，必须和 `onVisibleChange` 一起使用 | bool | 否 |  | |
 | onVisibleChange | 和 `visible` 一起使用 | func | 否 | | |
-| onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | No | `noop` | |
+| onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | 否 | `noop` | |
+| onPositionReady | 位置进入窗口时的回调，生命周期内只调用一次 | func | 否 | `noop` | |
 | className | 自定义类名 | string | 否 | `''` |  |
 | wrapperClassName | 自定义trigger包裹节点的类名 | string | 否 | `''` |  |
 | prefix | 自定义前缀 | string | 否 | `'zent'` |  |
