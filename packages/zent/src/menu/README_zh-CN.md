@@ -35,7 +35,7 @@ group: 导航
 
 | 参数 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
-| title | 子菜单项显示值 | string |  |
+| title | 子菜单项显示值 | node |  |
 | disabled | 是否禁用当前子菜单 | bool |  |
 | overlayClassName | 弹出菜单的自定义类名 | string |  |
 | className | 子菜单项自定义类名 | string |  |
