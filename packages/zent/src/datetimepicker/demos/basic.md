@@ -65,8 +65,8 @@ class Demo extends Component{
 			<div>
         <DatePicker
 					className="zent-picker-demo"
-          value={dateValue}
-          max="2020-01-01"
+					value={dateValue}
+					max="2020-01-01"
           onChange={this.onChangeDate}
         />
 				<br />
