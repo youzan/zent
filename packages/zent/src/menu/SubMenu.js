@@ -6,7 +6,7 @@ import SubPopupMenu from './SubPopupMenu';
 
 export default class SubMenu extends (PureComponent || Component) {
   static propTypes = {
-    title: PropTypes.string || PropTypes.node,
+    title: PropTypes.node,
     prefix: PropTypes.string,
     className: PropTypes.string,
     overlayClassName: PropTypes.string,
