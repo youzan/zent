@@ -74,7 +74,7 @@ export default class ZentDocContainer extends Component {
     const hash = location.hash;
     if (hash) {
       const anchor = document.querySelector(`a[href="${hash}"]`);
-      smoothScroll(document.documentElement, 0, offsetY(anchor, -9));
+      anchor && smoothScroll(document.documentElement, 0, offsetY(anchor, -9));
     }
   }
 
