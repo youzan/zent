@@ -139,10 +139,10 @@ class UploadPopup extends Component {
             ''
           )}
           <div className={`${prefix}-local-tips c-gray`}>
-            {i18n.popup.type(
-              accept.replace(/image\/?|audio\/?/g, '').split(','),
-              formatFileSize(options.maxSize)
-            )}
+            {i18n.popup.type({
+              types: accept.replace(/image\/?|audio\/?/g, '').split(','),
+              size: formatFileSize(options.maxSize)
+            })}
           </div>
         </div>
       </div>

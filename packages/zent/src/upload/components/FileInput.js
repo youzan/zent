@@ -59,14 +59,19 @@ export default class FileInput extends (PureComponent || Component) {
 
     forEach(files, (file, index) => {
       if (maxAmount && index >= maxAmount) {
-        !silent && Notify.error(i18n.input.maxAmount(maxAmount, type));
+        !silent && Notify.error(i18n.input.maxAmount({ maxAmount, type }));
         return false;
       }
       if (!maxSize || file.size <= maxSize) {
         this.addFile(file, index);
       } else {
         !silent &&
-          Notify.error(i18n.input.maxSize(formatFileSize(maxSize), type));
+          Notify.error(
+            i18n.input.maxSize({
+              maxSize: formatFileSize(maxSize),
+              type
+            })
+          );
       }
     });
   };
@@ -88,7 +93,7 @@ export default class FileInput extends (PureComponent || Component) {
           __uid: initIndex + index
         });
       } else {
-        !silent && Notify.error(i18n.input.type(type));
+        !silent && Notify.error(i18n.input.type({ type }));
       }
       this.onFileChange(localFiles);
     };

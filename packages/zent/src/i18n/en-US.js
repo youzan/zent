@@ -152,15 +152,15 @@ export const Upload = {
   title_image: 'Choose the image',
   input: {
     holder: 'Add',
-    maxAmount(maxAmount, type) {
+    maxAmount({ maxAmount, type }) {
       return `${TypeMap[
         type
       ]} files whose serial number is larger than ${maxAmount} have been filtered`;
     },
-    maxSize(maxSize, type) {
+    maxSize({ maxSize, type }) {
       return `${TypeMap[type]} files larger than ${maxSize} have been filtered`;
     },
-    type(type) {
+    type({ type }) {
       return `${TypeMap[type]} files with incorrect type have been filtered`;
     }
   },
@@ -169,7 +169,7 @@ export const Upload = {
     holder: 'Please input the source address of web image',
     title_voice: 'Local audio',
     title_image: 'Local image',
-    type(types, size) {
+    type({ types, size }) {
       return `Only support ${types.join(' /')}, smaller than ${size}`;
     },
     extract: 'Extract',
