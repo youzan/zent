@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import smoothScroll from 'utils/scroll';
 IMPORTS
 
 DEMO_DECLARATIONS
@@ -13,6 +14,16 @@ function Markdown(props) {
 
 function Style(props) {
   return <RawHtmlRenderer tag="style" html={props.style} />;
+}
+
+function offsetY(element, offset) {
+  while(element) {
+    if (element.offsetTop && getComputedStyle(element)['position'] !== 'static') {
+      offset += element.offsetTop;
+    }
+    return offsetY(element.parentNode, offset);
+  }
+  return offset;
 }
 
 class Demo extends Component {
@@ -59,6 +70,14 @@ class Demo extends Component {
 }
 
 export default class ZentDocContainer extends Component {
+  componentDidMount() {
+    const hash = location.hash;
+    if (hash) {
+      const anchor = document.querySelector(`a[href="${hash}"]`);
+      anchor && smoothScroll(document.documentElement, 0, offsetY(anchor, -9));
+    }
+  }
+
   render() {
     return React.createElement(
       'div',
