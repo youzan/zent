@@ -39,7 +39,8 @@ class Demo extends Component{
         <DatePicker
           className="zent-picker-demo"
           showTime
-          format="YYYY-MM-DD HH:mm:ss"
+					format="YYYY-MM-DD HH:mm:ss"
+					min={new Date()}
           value={dateValue}
           onChange={this.onChangeDate}
         />
@@ -56,6 +57,7 @@ class Demo extends Component{
 					className="zent-picker-demo"
 					type="split"
 					showTime
+					min={new Date()}
 					format="YYYY-MM-DD HH:mm:ss"
 					value={rangeValue}
 					onChange={this.onChangeRangeSplit}

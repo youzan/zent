@@ -6,7 +6,7 @@ import SubPopupMenu from './SubPopupMenu';
 
 export default class SubMenu extends (PureComponent || Component) {
   static propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.node,
     prefix: PropTypes.string,
     className: PropTypes.string,
     overlayClassName: PropTypes.string,
@@ -89,7 +89,12 @@ export default class SubMenu extends (PureComponent || Component) {
           onClick={this.titleClickHandler}
         >
           {title}
-          {!disabled && <Icon type="right" />}
+          {!disabled && (
+            <Icon
+              className={`${prefix}-submenu-title-operate-icon`}
+              type="right"
+            />
+          )}
         </div>
         {!disabled && this.renderContent()}
       </li>
