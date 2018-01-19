@@ -285,12 +285,13 @@ class UploadPopup extends Component {
    */
   confirmNetworkUrl() {
     let { options, showUploadPopup } = this.props;
+    const { categoryId } = this.state;
     if (!this.networkUrl) return false;
     this.setState({
       networkUploading: true,
       buttonText: BUTTON_LOADING_TEXT
     });
-    options.onFetch(this.networkUrl).then(
+    options.onFetch(this.networkUrl, categoryId).then(
       () => {
         this.setState({
           networkImage: {},
