@@ -100,7 +100,10 @@ export default class Popover extends (PureComponent || Component) {
     onVisibleChange: PropTypes.func,
 
     // 位置改变后会触发，可能存在实际位置没变但也触发的情况
-    onPositionUpdated: PropTypes.func
+    onPositionUpdated: PropTypes.func,
+
+    // content 第一次进入屏幕内时触发, 生命周期内只触发一次
+    onPositionReady: PropTypes.func
   };
 
   static defaultProps = {
@@ -114,7 +117,8 @@ export default class Popover extends (PureComponent || Component) {
     onShow: noop,
     cushion: 0,
     containerSelector: 'body',
-    onPositionUpdated: noop
+    onPositionUpdated: noop,
+    onPositionReady: noop
   };
 
   static contextTypes = PopoverContextType;
@@ -365,7 +369,8 @@ export default class Popover extends (PureComponent || Component) {
       position,
       cushion,
       width,
-      onPositionUpdated
+      onPositionUpdated,
+      onPositionReady
     } = this.props;
     const visible = this.getVisible();
 
@@ -396,7 +401,8 @@ export default class Popover extends (PureComponent || Component) {
           cushion,
           containerSelector,
           placement: position,
-          onPositionUpdated
+          onPositionUpdated,
+          onPositionReady
         })}
       </div>
     );

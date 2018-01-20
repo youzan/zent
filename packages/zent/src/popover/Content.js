@@ -51,12 +51,20 @@ export default class PopoverContent extends (PureComponent || Component) {
     // defaults to body
     containerSelector: PropTypes.string,
 
-    onPositionUpdated: PropTypes.func
+    onPositionUpdated: PropTypes.func,
+
+    onPositionReady: PropTypes.func
   };
 
-  state = {
-    position: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      position: null
+    };
+
+    // 标记 content 的位置是否 ready
+    this.positionReady = false;
+  }
 
   getAnchor() {
     return this.props.getAnchor();
@@ -84,9 +92,9 @@ export default class PopoverContent extends (PureComponent || Component) {
         position: invisiblePlacement(this.props.prefix)
       });
       setTimeout(this.adjustPosition, 0);
-
       return;
     }
+
     const contentBoundingBox = content.getBoundingClientRect();
 
     const anchor = this.getAnchor();
@@ -130,7 +138,13 @@ export default class PopoverContent extends (PureComponent || Component) {
       {
         position
       },
-      this.props.onPositionUpdated
+      () => {
+        this.props.onPositionUpdated();
+        if (!this.positionReady) {
+          this.positionReady = true;
+          this.props.onPositionReady();
+        }
+      }
     );
   };
 
@@ -152,6 +166,9 @@ export default class PopoverContent extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.visible && nextProps.visible !== this.props.visible) {
+      // reset position mark
+      this.positionReady = false;
+
       this.adjustPosition();
     }
   }

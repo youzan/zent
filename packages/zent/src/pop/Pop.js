@@ -169,6 +169,10 @@ class Pop extends (PureComponent || Component) {
     closeOnClickOutside: PropTypes.bool,
     isClickOutside: PropTypes.func,
 
+    // 在 popover-content 进入屏幕内时触发, 声明周期内仅触发一次
+    onPositionReady: PropTypes.func,
+
+    // 在 popover-content 新位置计算完成时触发
     onPositionUpdated: PropTypes.func,
 
     prefix: PropTypes.string,
@@ -188,6 +192,7 @@ class Pop extends (PureComponent || Component) {
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
     onPositionUpdated: noop,
+    onPositionReady: noop,
     className: '',
     wrapperClassName: '',
     prefix: 'zent',
@@ -314,7 +319,8 @@ class Pop extends (PureComponent || Component) {
       centerArrow,
       onBeforeClose,
       onBeforeShow,
-      onPositionUpdated
+      onPositionUpdated,
+      onPositionReady
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -339,6 +345,7 @@ class Pop extends (PureComponent || Component) {
         onBeforeClose={onBeforeClose}
         onBeforeShow={onBeforeShow}
         onPositionUpdated={onPositionUpdated}
+        onPositionReady={onPositionReady}
         ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}
