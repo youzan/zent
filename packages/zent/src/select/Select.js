@@ -2,51 +2,24 @@
  * Select
  */
 
-import React, { Component, Children } from 'react';
+// import React, { Component, Children } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import cloneDeep from 'lodash/cloneDeep';
-import PropTypes from 'prop-types';
 
 import Popover from 'popover';
+
 import Trigger from './trigger';
 import Popup from './Popup';
-import SimpleTrigger from './trigger/SimpleTrigger';
-import SelectTrigger from './trigger/SelectTrigger';
-import InputTrigger from './trigger/InputTrigger';
-import TagsTrigger from './trigger/TagsTrigger';
+import { decideTrigger } from './lib';
 
-class PopoverClickTrigger extends Popover.Trigger.Click {
-  getTriggerProps(child) {
-    return {
-      onClick: evt => {
-        evt.preventDefault();
-        if (this.props.contentVisible) {
-          this.props.close();
-        } else if (!child.props.disabled) {
-          this.props.open();
-          this.triggerEvent(child, 'onClick', evt);
-        }
-      }
-    };
-  }
-}
-
-class Select extends Component {
+class Select extends React.Component {
   constructor(props) {
     super(props);
-
-    if (props.simple) {
-      this.trigger = SimpleTrigger;
-    } else if (props.search) {
-      this.trigger = InputTrigger;
-    } else if (props.tags) {
-      this.trigger = TagsTrigger;
-    } else {
-      this.trigger = props.trigger;
-    }
 
     this.state = Object.assign(
       {
@@ -135,7 +108,7 @@ class Select extends Component {
     // 格式化 child-element
     if (children) {
       uniformedData = uniformedData.concat(
-        Children.map(children, (item, index) => {
+        React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
           return Object.assign({}, item.props, {
@@ -348,6 +321,8 @@ class Select extends Component {
       keyword = null
     } = this.state;
 
+    const trigger = decideTrigger(this.props);
+
     const { cid = '' } = selectedItem;
 
     const disabledCls = disabled ? 'disabled' : '';
@@ -362,24 +337,22 @@ class Select extends Component {
         onVisibleChange={this.handlePopoverVisibleChange}
         width={width}
       >
-        <PopoverClickTrigger>
-          <Trigger
-            disabled={disabled}
-            prefixCls={prefixCls}
-            trigger={this.trigger}
-            placeholder={placeholder}
-            selectedItems={selectedItems}
-            keyword={keyword}
-            {...selectedItem}
-            onChange={this.triggerChangeHandler}
-            onDelete={this.triggerDeleteHandler}
-            onPositionReady={() => {
-              this.setState({
-                optionsReady: true
-              });
-            }}
-          />
-        </PopoverClickTrigger>
+        <Trigger
+          disabled={disabled}
+          prefixCls={prefixCls}
+          placeholder={placeholder}
+          selectedItems={selectedItems}
+          keyword={keyword}
+          {...selectedItem}
+          trigger={trigger}
+          onChange={this.triggerChangeHandler}
+          onDelete={this.triggerDeleteHandler}
+          onPositionReady={() => {
+            this.setState({
+              optionsReady: true
+            });
+          }}
+        />
         <Popover.Content>
           <Popup
             ref={ref => (this.popup = ref)}
@@ -448,7 +421,6 @@ Select.defaultProps = {
   className: '',
   open: false,
   popupClassName: '',
-  trigger: SelectTrigger,
   placeholder: '',
   searchPlaceholder: '',
   emptyText: '',
