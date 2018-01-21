@@ -34,6 +34,7 @@ class Demo extends Component{
 	}
 
   onChangeMonth = (val) => {
+		console.log(val)
     this.setState({
       monthValue: val
     })
@@ -93,6 +94,8 @@ class Demo extends Component{
 				/>
 				<br />
 				<QuarterPicker
+					valueType="date"
+					max={new Date()}
 					value={quarterValue}
 					onChange={this.onChangeQuarter}
 				/>

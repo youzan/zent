@@ -1,19 +1,25 @@
 import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import isString from 'lodash/isString';
 import isDate from 'lodash/isDate';
+import isArray from 'lodash/isArray';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
-import { commonProps, commonPropTypes } from './constants';
+import { TIME_BEGIN, commonProps, commonPropTypes, noop } from './constants';
 import DatePicker from './DatePicker';
-import { TIME_BEGIN } from './utils';
 
 // type
 const START = 'start';
 const END = 'end';
+
+function compatibleInterface(prop) {
+  if (!prop) return [];
+  if (isArray(prop)) return prop;
+  return isString(prop) || isDate(prop) ? [prop, prop] : prop;
+}
 
 class DateRangePicker extends (PureComponent || Component) {
   static propTypes = {
@@ -28,6 +34,7 @@ class DateRangePicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
+    disabledDate: noop,
     placeholder: ['', ''],
     format: 'YYYY-MM-DD',
     value: [],
@@ -53,6 +60,7 @@ class DateRangePicker extends (PureComponent || Component) {
     const {
       className,
       defaultTime,
+      defaultValue,
       disabledDate,
       onChange,
       onClick,
@@ -65,14 +73,11 @@ class DateRangePicker extends (PureComponent || Component) {
     } = this.props;
     let rangePicker;
     // 兼容老 api ，支持传入字符串
-    const timeArr =
-      isString(defaultTime) || isDate(defaultTime)
-        ? [defaultTime, defaultTime]
-        : defaultTime;
-    const pickerCls = classNames('range-picker2');
+    const timeArr = compatibleInterface(defaultTime);
+    const defaultValueArr = compatibleInterface(defaultValue);
 
     rangePicker = (
-      <div className={pickerCls}>
+      <div className={cx(className, 'range-picker2')}>
         <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
           {i18n => (
             <DatePicker
@@ -80,6 +85,7 @@ class DateRangePicker extends (PureComponent || Component) {
               openPanel={openPanel[0]}
               placeholder={placeholder[0] || i18n.start}
               max={value[1] || pickerProps.max}
+              defaultValue={defaultValueArr[0]}
               defaultTime={timeArr[0]}
               value={value[0]}
               onClick={val => onClick && onClick(val, START)}
@@ -102,6 +108,7 @@ class DateRangePicker extends (PureComponent || Component) {
               openPanel={openPanel[1]}
               placeholder={placeholder[1] || i18n.end}
               min={value[0] || pickerProps.min}
+              defaultValue={defaultValueArr[1]}
               defaultTime={timeArr[1]}
               value={value[1]}
               onClick={val => onClick && onClick(val, END)}

@@ -81,7 +81,7 @@ export default class MonthPanel extends (PureComponent || Component) {
           disabledDate={disabledDate}
           onSelect={this.onSelectMonth}
           i18n={i18n}
-          year={title}
+          year={actived.getFullYear()}
         />
         {showYear && yearPanel}
       </div>
