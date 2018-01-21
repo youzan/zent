@@ -45,12 +45,6 @@ class Demo extends Component{
     })
   }
 
-	onChangeRangeSplit = (val) => {
-		this.setState({
-			rangeValue: val
-		})
-	}
-
 	onChangeYear = (val) => {
 		this.setState({
 			yearValue: val
@@ -90,13 +84,6 @@ class Demo extends Component{
           value={rangeValue}
           onChange={this.onChangeRange}
           />
-				<br/>
-				<DateRangePicker
-					className="zent-picker-demo"
-					type="split"
-					value={rangeValue}
-					onChange={this.onChangeRangeSplit}
-				/>
 				<br/>
 				<YearPicker
 					className="zent-picker-demo"
