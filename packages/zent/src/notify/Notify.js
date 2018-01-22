@@ -92,6 +92,8 @@ const show = (text, duration, status, callback) => {
   const timeOutId = setTimeout(() => {
     ReactDOM.render(
       <NotifyContent
+        isIn={false}
+        text={text}
         selector={notifyContainerNode}
         status={status}
         close={() => closeNotify(containerId)}
