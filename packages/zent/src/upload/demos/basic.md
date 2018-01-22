@@ -12,9 +12,9 @@ en-US:
 import { Upload } from 'zent';
 
 const categoryList = [
-	{ id: 205772, name: '测试1' },
-	{ id: 205773, name: '测试2' },
-	{ id: 205774, name: '测试3' }
+	{ id: 205772, name: 'test1' },
+	{ id: 205773, name: 'test2' },
+	{ id: 205774, name: 'test3' }
 ];
 
 class Simple extends React.Component {

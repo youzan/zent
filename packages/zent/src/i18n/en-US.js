@@ -166,7 +166,7 @@ export const Upload = {
   },
   popup: {
     web: 'Web image',
-    group: 'Group',
+    group: 'Upload to group',
     holder: 'Please input the source address of web image',
     title_voice: 'Local audio',
     title_image: 'Local image',
