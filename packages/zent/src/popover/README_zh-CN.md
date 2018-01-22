@@ -33,6 +33,7 @@ group: 基础
 | visible | 手动控制弹层的显示隐藏, 必须和 `onVisibleChange` 一起使用 | bool | | | 否 |
 | onVisibleChange | 手动控制时的回调函数, 必须和`visible`一起使用, 只有用户手动触发的打开／关闭操作才会调用 | func | | | 否 |
 | onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | `noop` |  | 否 |
+| onPositionReady | content 位置进入窗口时的回调，生命周期内只调用一次 | func | `noop` |  | 否 |
 | className | 自定义额外类名 | string | `''` |  | 否 |
 | wrapperClassName | trigger外层包裹div的类名 | string | `''` |  | 否 |
 | width | 宽度 | string or number |  |  | 否 |
