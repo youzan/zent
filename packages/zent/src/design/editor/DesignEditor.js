@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import assign from 'lodash/assign';
 import reorder from 'utils/reorder';
+import shallowEqual from 'utils/shallowEqual';
 
 const NOT_EVENT_MSG =
   'onInputChange expects an `Event` with { target: { name, value } } as argument';
 
-export class DesignEditor extends (PureComponent || Component) {
+export class DesignEditor extends Component {
   static propTypes = {
     value: PropTypes.object,
 
@@ -176,6 +177,11 @@ export class DesignEditor extends (PureComponent || Component) {
   */
   reorder(array, fromIndex, toIndex) {
     return reorder(array, fromIndex, toIndex);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    !shallowEqual(this.props, nextProps) ||
+      !shallowEqual(this.state, nextState);
   }
 }
 

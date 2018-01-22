@@ -20,7 +20,7 @@ declare module 'zent/lib/menu' {
     class MenuItem extends React.Component<MenuItem, any> { }
 
     interface ISubMenuProps {
-      title: string
+      title: React.ReactNode
       disabled?: boolean
       overlayClassName?: string
       className?: string

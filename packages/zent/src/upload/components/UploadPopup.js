@@ -5,23 +5,22 @@
 import React, { Component } from 'react';
 import Button from 'button';
 import Input from 'input';
+import Select from 'select';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
 import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
 
-const BUTTON_LOADING_TEXT = '提取中...';
-const BUTTON_TEXT = '提取';
-
 class UploadPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      categoryId: '',
       networkImage: props.networkImage,
       networkUploading: props.networkUploading,
       localUploading: props.localUploading,
-      buttonText: props.buttonText,
+      buttonText: props.i18n.popup.extract, // hacky
       localFiles: []
     };
     this.networkUrl = '';
@@ -29,22 +28,69 @@ class UploadPopup extends Component {
     this.networkUrlChanged = this.networkUrlChanged.bind(this);
     this.uploadLocalImages = this.uploadLocalImages.bind(this);
     this.fileProgressHandler = this.fileProgressHandler.bind(this);
+    this.setCategoryId = this.setCategoryId.bind(this);
+  }
+
+  render() {
+    let { prefix, options, className } = this.props;
+    const { categoryList } = options;
+
+    return (
+      <div className={className}>
+        <div className={`${prefix}-container`}>
+          {categoryList.length > 0 && this.renderUploadGroup(this.props)}
+          {!options.localOnly &&
+            options.type !== 'voice' &&
+            this.renderNetworkRegion(this.props)}
+          {this.renderLocalUploadRegion(this.props)}
+        </div>
+        {this.renderFooterRegion()}
+      </div>
+    );
+  }
+
+  setCategoryId(evt, data) {
+    this.setState({ categoryId: data.id });
+  }
+
+  /**
+   * 渲染上传分组
+   */
+  renderUploadGroup(props) {
+    let { prefix, i18n, options: { categoryList } } = props;
+    const { categoryId } = this.state;
+    return (
+      <div className={`${prefix}-group-region`}>
+        <div className={`${prefix}-title`}>{i18n.popup.group}：</div>
+        <div className={`${prefix}-content`}>
+          <Select
+            width={300}
+            autoWidth
+            data={categoryList}
+            value={categoryId}
+            optionValue="id"
+            optionText="name"
+            onChange={this.setCategoryId.bind(this)}
+          />
+        </div>
+      </div>
+    );
   }
 
   /**
    * 网络图片渲染
    */
   renderNetworkRegion(props) {
-    let { prefix } = props;
+    let { prefix, i18n } = props;
     let { networkImage, networkUploading, buttonText } = this.state;
     return (
       <div className={`${prefix}-network-image-region`}>
-        <div className={`${prefix}-title`}>网络图片：</div>
+        <div className={`${prefix}-title`}>{i18n.popup.web}：</div>
         <div className={`${prefix}-content`}>
           <div className={`${prefix}-input-append`}>
             <Input
               type="text"
-              placeholder="请添加网络图片地址"
+              placeholder={i18n.popup.holder}
               onChange={this.networkUrlChanged}
             />
           </div>
@@ -102,19 +148,19 @@ class UploadPopup extends Component {
    * 本地上传图片、语音
    */
   renderLocalUploadRegion(props) {
-    let { prefix, accept, options } = props;
+    let { prefix, accept, options, i18n } = props;
     let { localFiles } = this.state;
     // 记录最后一项的索引
     let lastIndex = 0;
     let filesLength = localFiles.length;
     if (filesLength > 0) {
       // 保证新添加的都是在旧添加的文件后面
-      lastIndex = localFiles[filesLength - 1].__uid + 1;
+      lastIndex = localFiles[filesLength - 1].__uid + 1; // eslint-disable-line
     }
     return (
       <div className={`${prefix}-local-attachment-region`}>
         <div className={`${prefix}-title`}>
-          本地{options.type === 'voice' ? '语音' : '图片'}：
+          {`${i18n.popup[`title_${options.type}`]}：`}
         </div>
         <div className={`${prefix}-content`}>
           <ul
@@ -132,6 +178,7 @@ class UploadPopup extends Component {
               +
               <FileInput
                 {...props.options}
+                i18n={i18n}
                 accept={accept}
                 initIndex={lastIndex}
                 onChange={this.handleChange}
@@ -141,9 +188,10 @@ class UploadPopup extends Component {
             ''
           )}
           <div className={`${prefix}-local-tips c-gray`}>
-            仅支持{`${accept
-              .replace(/image\/?|audio\/?/g, '')
-              .replace(/, ?/g, '、')} ${accept.split(',').length}`}种格式, 大小不超过{formatFileSize(options.maxSize)}
+            {i18n.popup.type({
+              types: accept.replace(/image\/?|audio\/?/g, '').split(','),
+              size: formatFileSize(options.maxSize)
+            })}
           </div>
         </div>
       </div>
@@ -152,6 +200,7 @@ class UploadPopup extends Component {
 
   renderFooterRegion() {
     const { localUploading, localFiles } = this.state;
+    const { i18n } = this.props;
     return (
       <div className="text-center">
         <Button
@@ -161,7 +210,7 @@ class UploadPopup extends Component {
           loading={localUploading}
           onClick={this.uploadLocalImages}
         >
-          确定
+          {i18n.confirm}
         </Button>
       </div>
     );
@@ -173,7 +222,7 @@ class UploadPopup extends Component {
     this.setState({
       localFiles: localFiles.map((item, index) => {
         // 拖拽移动以后重建索引
-        item.__uid = index;
+        item.__uid = index; // eslint-disable-line
         return item;
       })
     });
@@ -189,12 +238,13 @@ class UploadPopup extends Component {
 
   uploadLocalImages() {
     let { options, showUploadPopup } = this.props;
-    let { localFiles } = this.state;
+    let { localFiles, categoryId } = this.state;
     this.setState({
       localUploading: true
     });
     uploadLocalImage(options, {
       localFiles,
+      categoryId,
       onProgress: this.fileProgressHandler
     })
       .then(() => {
@@ -208,22 +258,6 @@ class UploadPopup extends Component {
           localUploading: false
         });
       });
-  }
-
-  render() {
-    let { prefix, options, className } = this.props;
-
-    return (
-      <div className={className}>
-        <div className={`${prefix}-container`}>
-          {!options.localOnly &&
-            options.type !== 'voice' &&
-            this.renderNetworkRegion(this.props)}
-          {this.renderLocalUploadRegion(this.props)}
-        </div>
-        {this.renderFooterRegion()}
-      </div>
-    );
   }
 
   networkUrlChanged(evt) {
@@ -240,7 +274,7 @@ class UploadPopup extends Component {
     let { localFiles } = this.state;
     localFiles = localFiles.concat(files);
     // 根据索引进行排序，防止读取文件导致顺序错乱
-    localFiles.sort((a, b) => (a.__uid > b.__uid ? 1 : -1));
+    localFiles.sort((a, b) => (a.__uid > b.__uid ? 1 : -1)); // eslint-disable-line
     this.setState({
       localFiles
     });
@@ -250,25 +284,27 @@ class UploadPopup extends Component {
    * 提取网络图片
    */
   confirmNetworkUrl() {
-    let { options, showUploadPopup } = this.props;
+    let { options, showUploadPopup, i18n } = this.props;
+    const { categoryId } = this.state;
+
     if (!this.networkUrl) return false;
     this.setState({
       networkUploading: true,
-      buttonText: BUTTON_LOADING_TEXT
+      buttonText: i18n.popup.extracting
     });
-    options.onFetch(this.networkUrl).then(
+    options.onFetch(this.networkUrl, categoryId).then(
       () => {
         this.setState({
           networkImage: {},
           networkUploading: false,
-          buttonText: BUTTON_TEXT
+          buttonText: i18n.popup.extract
         });
         showUploadPopup(false);
       },
       () => {
         this.setState({
           networkUploading: false,
-          buttonText: BUTTON_TEXT
+          buttonText: i18n.popup.extract
         });
       }
     );
@@ -286,7 +322,7 @@ class UploadPopup extends Component {
 UploadPopup.defaultProps = {
   networkImage: {},
   networkUploading: false,
-  buttonText: BUTTON_TEXT,
+  buttonText: '',
   options: {},
   className: ''
 };

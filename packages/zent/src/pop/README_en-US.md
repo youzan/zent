@@ -37,6 +37,7 @@ A floating card opened by clicking, hovering or focusing.
 | visible | Pop switch to controlled mode if this prop is set, must be used with `onVisibleChange` | bool | No | | |
 | onVisibleChange | Must be used with `visible` | func | No | | |
 | onPositionUpdated | callback after position updates, a position update does not imply a position change | func | No | `noop` | |
+| onPositionReady | callback after content enter viewport, only called once within the life cycle | func | No | `noop` | |
 | className | Custom class name | string | No | `''` |  |
 | wrapperClassName | Custom trigger wrapper class name | string | No | `''` |  |
 | prefix | Custom class name prefix | string | No | `'zent'` |  |

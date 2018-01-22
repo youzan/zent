@@ -1,7 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
-import parseDate from 'zan-utils/date/parseDate';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -10,7 +9,13 @@ import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import QuarterPanel from './quarter/QuarterPanel';
-import { dayStart, dayEnd, getQuarterFromDate } from './utils';
+import {
+  dayStart,
+  dayEnd,
+  formatDate,
+  parseDate,
+  getQuarterFromDate
+} from './utils';
 import {
   noop,
   popPositionMap,
@@ -27,10 +32,10 @@ const quarterMonthMap = {
 
 function getQuarterLastDay(quarter, year) {
   const quarterLastDayMap = {
-    0: [2, 31],
-    1: [5, 30],
-    2: [8, 30],
-    3: [11, 31]
+    0: [3, 0],
+    1: [6, 0],
+    2: [9, 0],
+    3: [12, 0]
   };
 
   return new Date(year, ...quarterLastDayMap[quarter]);
@@ -86,15 +91,38 @@ class QuarterPicker extends (PureComponent || Component) {
     format: 'YYYY-MM-DD'
   };
 
+  retType = 'string';
+
   constructor(props) {
     super(props);
     this.state = extractStateFromProps(props);
+
+    const { value, valueType } = props;
+    if (valueType) {
+      this.retType = valueType.toLowerCase();
+    } else if (value) {
+      if (typeof value === 'number') this.retType = 'number';
+      if (value instanceof Date) this.retType = 'date';
+    }
   }
 
   componentWillReceiveProps(next) {
     const state = extractStateFromProps(next);
     this.setState(state);
   }
+
+  getReturnValue = date => {
+    const { format } = this.props;
+    if (this.retType === 'number') {
+      return date.getTime();
+    }
+
+    if (this.retType === 'date') {
+      return date;
+    }
+
+    return formatDate(date, format);
+  };
 
   onChangeQuarter = val => {
     this.setState({
@@ -122,7 +150,7 @@ class QuarterPicker extends (PureComponent || Component) {
       showPlaceholder: false
     });
 
-    onChange(ret);
+    onChange(ret.map(this.getReturnValue));
   };
 
   onClearInput = evt => {
@@ -131,15 +159,17 @@ class QuarterPicker extends (PureComponent || Component) {
   };
 
   isDisabled = quarter => {
-    const { disabledDate } = this.props;
+    const { disabledDate, min, max, format } = this.props;
     const { actived } = this.state;
     const year = actived.getFullYear();
     const month = quarterMonthMap[quarter];
-    const begin = new Date(year, month, 1);
-    const end = getQuarterLastDay(quarter, year);
-    const ret = [dayStart(begin), dayEnd(end)];
+    const begin = dayStart(new Date(year, month, 1));
+    const end = dayEnd(getQuarterLastDay(quarter, year));
+    const ret = [begin, end];
 
     if (disabledDate) return disabledDate(ret);
+    if (min && end < parseDate(min, format)) return true;
+    if (max && begin > parseDate(max, format)) return true;
 
     return false;
   };

@@ -1,7 +1,7 @@
 ---
 order: 7,
 zh-CN:
-	title: 通过 defaultValue 来控制面板弹出是默认显示的日期。
+	title: 通过 defaultValue 来控制面板弹出时默认显示的日期。
 en-US:
 	title: Setting default value.
 ---

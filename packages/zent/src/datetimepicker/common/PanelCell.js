@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+
 import { noop } from '../constants';
 
 export default class PanelCell extends (PureComponent || Component) {

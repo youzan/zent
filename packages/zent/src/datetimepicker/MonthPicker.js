@@ -9,8 +9,9 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT, formatDate, parseDate, dayStart } from './utils';
+import { formatDate, parseDate, dayStart } from './utils';
 import {
+  CURRENT,
   noop,
   popPositionMap,
   commonProps,
@@ -62,15 +63,38 @@ class MonthPicker extends (PureComponent || Component) {
     format: 'YYYY-MM'
   };
 
+  retType = 'string';
+
   constructor(props) {
     super(props);
     this.state = extractStateFromProps(props);
+    const { value, valueType } = props;
+
+    if (valueType) {
+      this.retType = valueType.toLowerCase();
+    } else if (value) {
+      if (typeof value === 'number') this.retType = 'number';
+      if (value instanceof Date) this.retType = 'date';
+    }
   }
 
   componentWillReceiveProps(next) {
     const state = extractStateFromProps(next);
     this.setState(state);
   }
+
+  getReturnValue = date => {
+    const { format } = this.props;
+    if (this.retType === 'number') {
+      return date.getTime();
+    }
+
+    if (this.retType === 'date') {
+      return date;
+    }
+
+    return formatDate(date, format);
+  };
 
   onChangeMonth = val => {
     this.setState({
@@ -117,7 +141,7 @@ class MonthPicker extends (PureComponent || Component) {
       openPanel: false,
       showPlaceholder: false
     });
-    onChange(value);
+    onChange(this.getReturnValue(selected));
   };
 
   isDisabled = val => {

@@ -12,7 +12,6 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import {
-  CURRENT_DAY,
   goMonths,
   setSameDate,
   formatDate,
@@ -22,6 +21,7 @@ import {
   setTime
 } from './utils';
 import {
+  CURRENT_DAY,
   timeFnMap,
   noop,
   popPositionMap,
@@ -67,6 +67,7 @@ function extractStateFromProps(props) {
   if (defaultTime) {
     actived = setTime(actived, defaultTime);
   }
+
   /**
    * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
    * selected 用来存放用户选择的日期，点击日期时会设置 selected 的值
@@ -133,15 +134,24 @@ class DatePicker extends (PureComponent || Component) {
   };
 
   onSelectDate = val => {
-    const { onClick } = this.props;
-    const { activedTime } = this.state;
+    const { onClick, min, format } = this.props;
+    let { activedTime } = this.state;
     if (this.isDisabled(val)) return;
-    // update activedTime here
+
+    // 如果选择的日期和最小日期同一天，则设置时间为最小日期的时间
+    activedTime = setSameDate(activedTime, val);
+    if (min) {
+      const minDate = parseDate(min, format);
+      if (activedTime < minDate) {
+        activedTime = new Date(minDate);
+      }
+    }
+
     this.setState(
       {
         actived: val,
         selected: val,
-        activedTime: setSameDate(activedTime, val)
+        activedTime
       },
       () => {
         if (!this.isfooterShow) {
@@ -192,7 +202,8 @@ class DatePicker extends (PureComponent || Component) {
    * 默认返回 format 格式的字符串
    */
 
-  getReturnValue(date, format) {
+  getReturnValue = date => {
+    const { format } = this.props;
     if (this.retType === 'number') {
       return date.getTime();
     }
@@ -202,11 +213,18 @@ class DatePicker extends (PureComponent || Component) {
     }
 
     return formatDate(date, format);
-  }
+  };
 
   onConfirm = () => {
     const { selected, activedTime } = this.state;
-    const { format, showTime, onClose, onChange, onBeforeConfirm } = this.props;
+    const {
+      min,
+      format,
+      showTime,
+      onClose,
+      onChange,
+      onBeforeConfirm
+    } = this.props;
 
     if (onBeforeConfirm && !onBeforeConfirm()) return; //
     // 如果没有选择日期则默认选中当前日期
@@ -222,6 +240,13 @@ class DatePicker extends (PureComponent || Component) {
         activedTime.getMinutes(),
         activedTime.getSeconds()
       );
+    }
+
+    if (min) {
+      const minDate = parseDate(min, format);
+      if (tmp < minDate) {
+        tmp = new Date(minDate);
+      }
     }
 
     this.setState({
