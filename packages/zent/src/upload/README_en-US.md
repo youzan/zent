@@ -24,8 +24,9 @@ File uploader. Supports images and audios.
 | onUpload | Callback to upload local image | function | `noop` | No |
 | onProgress | Progress callback when uploading local image  | function | `noop` | No |
 | filterFiles | Filter local files, supports Promise as return value | function | `noop` | No |
+| categoryList | Group data | array | [] | No |
 | auto | Open upload dialog automatically | boolean | `false` | No |
 | withoutPopup | Don't render inside a popup | boolean | `false` | No |
 | triggerClassName | Custom trigger class name | string | `'zent-upload-trigger'` | No |
-| className | Extension class name | string | `''` | 否 |
+| className | Extension class name | string | `''` | No |
 | prefix | Custom prefix | string | `'zent'` | No |

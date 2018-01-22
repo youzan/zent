@@ -159,6 +159,7 @@ export const Upload = {
   },
   popup: {
     web: '网络图片',
+    group: '上传至分组',
     holder: '请添加网络图片地址',
     title_voice: '本地音频',
     title_image: '本地图片',

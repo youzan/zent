@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import Button from 'button';
 import Input from 'input';
+import Select from 'select';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
@@ -15,6 +16,7 @@ class UploadPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      categoryId: '',
       networkImage: props.networkImage,
       networkUploading: props.networkUploading,
       localUploading: props.localUploading,
@@ -26,6 +28,53 @@ class UploadPopup extends Component {
     this.networkUrlChanged = this.networkUrlChanged.bind(this);
     this.uploadLocalImages = this.uploadLocalImages.bind(this);
     this.fileProgressHandler = this.fileProgressHandler.bind(this);
+    this.setCategoryId = this.setCategoryId.bind(this);
+  }
+
+  render() {
+    let { prefix, options, className } = this.props;
+    const { categoryList } = options;
+
+    return (
+      <div className={className}>
+        <div className={`${prefix}-container`}>
+          {categoryList.length > 0 && this.renderUploadGroup(this.props)}
+          {!options.localOnly &&
+            options.type !== 'voice' &&
+            this.renderNetworkRegion(this.props)}
+          {this.renderLocalUploadRegion(this.props)}
+        </div>
+        {this.renderFooterRegion()}
+      </div>
+    );
+  }
+
+  setCategoryId(evt, data) {
+    this.setState({ categoryId: data.id });
+  }
+
+  /**
+   * 渲染上传分组
+   */
+  renderUploadGroup(props) {
+    let { prefix, i18n, options: { categoryList } } = props;
+    const { categoryId } = this.state;
+    return (
+      <div className={`${prefix}-group-region`}>
+        <div className={`${prefix}-title`}>{i18n.popup.group}：</div>
+        <div className={`${prefix}-content`}>
+          <Select
+            width={300}
+            autoWidth
+            data={categoryList}
+            value={categoryId}
+            optionValue="id"
+            optionText="name"
+            onChange={this.setCategoryId.bind(this)}
+          />
+        </div>
+      </div>
+    );
   }
 
   /**
@@ -36,7 +85,7 @@ class UploadPopup extends Component {
     let { networkImage, networkUploading, buttonText } = this.state;
     return (
       <div className={`${prefix}-network-image-region`}>
-        <div className={`${prefix}-title`}>{i18n.popup.web}</div>
+        <div className={`${prefix}-title`}>{i18n.popup.web}：</div>
         <div className={`${prefix}-content`}>
           <div className={`${prefix}-input-append`}>
             <Input
@@ -189,12 +238,13 @@ class UploadPopup extends Component {
 
   uploadLocalImages() {
     let { options, showUploadPopup } = this.props;
-    let { localFiles } = this.state;
+    let { localFiles, categoryId } = this.state;
     this.setState({
       localUploading: true
     });
     uploadLocalImage(options, {
       localFiles,
+      categoryId,
       onProgress: this.fileProgressHandler
     })
       .then(() => {
@@ -208,22 +258,6 @@ class UploadPopup extends Component {
           localUploading: false
         });
       });
-  }
-
-  render() {
-    let { prefix, options, className } = this.props;
-
-    return (
-      <div className={className}>
-        <div className={`${prefix}-container`}>
-          {!options.localOnly &&
-            options.type !== 'voice' &&
-            this.renderNetworkRegion(this.props)}
-          {this.renderLocalUploadRegion(this.props)}
-        </div>
-        {this.renderFooterRegion()}
-      </div>
-    );
   }
 
   networkUrlChanged(evt) {
@@ -251,12 +285,14 @@ class UploadPopup extends Component {
    */
   confirmNetworkUrl() {
     let { options, showUploadPopup, i18n } = this.props;
+    const { categoryId } = this.state;
+
     if (!this.networkUrl) return false;
     this.setState({
       networkUploading: true,
       buttonText: i18n.popup.extracting
     });
-    options.onFetch(this.networkUrl).then(
+    options.onFetch(this.networkUrl, categoryId).then(
       () => {
         this.setState({
           networkImage: {},
