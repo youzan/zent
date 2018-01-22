@@ -45,7 +45,7 @@ describe('Notify component', () => {
     Notify.config({ duration: 1000 });
     Notify.error('test error');
     expect(document.querySelectorAll('.zent-notify').length).toBe(1);
-    jest.runTimersToTime(1500);
+    jest.runTimersToTime(1800);
     expect(document.querySelectorAll('.zent-notify').length).toBe(0);
   });
 });
