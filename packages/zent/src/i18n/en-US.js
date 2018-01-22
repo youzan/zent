@@ -148,14 +148,12 @@ const TypeMap = {
 
 export const Upload = {
   ...common,
-  title_voice: 'Choose the voice',
-  title_image: 'Choose the image',
+  title_voice: 'Choose voice',
+  title_image: 'Choose image',
   input: {
     holder: 'Add',
     maxAmount({ maxAmount, type }) {
-      return `${TypeMap[
-        type
-      ]} files whose serial number is larger than ${maxAmount} have been filtered`;
+      return `Only ${maxAmount} ${TypeMap[type]} files can be added`;
     },
     maxSize({ maxSize, type }) {
       return `${TypeMap[type]} files larger than ${maxSize} have been filtered`;
@@ -166,12 +164,12 @@ export const Upload = {
   },
   popup: {
     web: 'Web image',
-    group: 'Upload to group',
-    holder: 'Please input the source address of web image',
+    group: 'Group',
+    holder: 'Image url',
     title_voice: 'Local audio',
     title_image: 'Local image',
     type({ types, size }) {
-      return `Only support ${types.join(' /')}, smaller than ${size}`;
+      return `Supports ${types.join(' /')} only, smaller than ${size}`;
     },
     extract: 'Extract',
     extracting: 'Extracting...'
