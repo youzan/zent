@@ -9,8 +9,9 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT, formatDate, parseDate, dayStart } from './utils';
+import { formatDate, parseDate, dayStart } from './utils';
 import {
+  CURRENT,
   noop,
   popPositionMap,
   commonProps,

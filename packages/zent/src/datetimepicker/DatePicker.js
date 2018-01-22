@@ -12,7 +12,6 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import {
-  CURRENT_DAY,
   goMonths,
   setSameDate,
   formatDate,
@@ -22,6 +21,7 @@ import {
   setTime
 } from './utils';
 import {
+  CURRENT_DAY,
   timeFnMap,
   noop,
   popPositionMap,
@@ -202,7 +202,8 @@ class DatePicker extends (PureComponent || Component) {
    * 默认返回 format 格式的字符串
    */
 
-  getReturnValue(date, format) {
+  getReturnValue = date => {
+    const { format } = this.props;
     if (this.retType === 'number') {
       return date.getTime();
     }
@@ -212,7 +213,7 @@ class DatePicker extends (PureComponent || Component) {
     }
 
     return formatDate(date, format);
-  }
+  };
 
   onConfirm = () => {
     const { selected, activedTime } = this.state;

@@ -5,19 +5,7 @@ import {
 
 import { getLocale } from 'i18n/time-locale';
 
-export const CURRENT = new Date();
-export const CURRENT_DAY = new Date(
-  CURRENT.getFullYear(),
-  CURRENT.getMonth(),
-  CURRENT.getDate()
-);
-export const CURRENT_YEAR = CURRENT.getFullYear();
-export const CURRENT_MONTH = CURRENT.getMonth();
-export const CURRENT_DATE = CURRENT.getDate();
-export const ONEDAY = 24 * 60 * 60 * 1000;
-
-export const TIME_BEGIN = '00:00:00';
-export const TIME_END = '23:59:59';
+import { CURRENT_MONTH, ONEDAY, TIME_BEGIN, TIME_END } from '../constants';
 
 export const padLeft = val => {
   return val < 10 ? `0${val}` : val;
@@ -79,10 +67,6 @@ export const goMonths = (val, diff) => {
 export const goYears = (val, diff) => {
   const cp = new Date(val);
   return new Date(cp.setFullYear(cp.getFullYear() + diff));
-};
-
-export const isArray = val => {
-  return Array.isArray(val);
 };
 
 export const setSameDate = (val, target) => {

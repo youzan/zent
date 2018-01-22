@@ -92,7 +92,6 @@ group: 数据
 
 | 参数           | 说明         | 类型     | 默认值            | 是否必须 |
 | ------------ | ---------- | ------ | -------------- | ---- |
-| type				 | 类型，`combine`/`split` | string | `combine` | 否 |
 | showTime     | 是否显示时间筛选 | bool   | `false` | 否    |
 | value        | 默认选择日期     | array  | `[]`           | 否    |
 | format       | 返回日期字符串格式  | string | `'YYYY-MM-DD'` | 否    |
@@ -106,7 +105,6 @@ group: 数据
 
 
 **注意：**
-- `type` 为了和老代码兼容，默认是 `combine`，但是交互方面现在是推荐使用 `split`。
 - `showTime` 的时候，传入的 `min` 或 `max` 如果为字符串，必须有 time 部分，即 `2017-01-01 11:11:11` 种格式。
 - `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
 - `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。

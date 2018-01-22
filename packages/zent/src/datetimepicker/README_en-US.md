@@ -89,7 +89,6 @@ Time pickers, provides basic time choosing functionality.
 
 | Property     | Description     | Type    | Default   | Required |
 | ------------ | ---------- | ------ | -------------- | ---- |
-| type				 | Range picker type, one of `combine`/`split` | string | `combine` | No |
 | showTime     | Show time selection | bool   | `false` | No    |
 | value        | Selected value   | array  | `[]`           | No    |
 | format       | Format string | string | `'YYYY-MM-DD'` | No    |
@@ -102,7 +101,6 @@ Time pickers, provides basic time choosing functionality.
 | defaultTime   | Default time value     | arrayOf(string/Date)    | `['00:00:00', '00:00:00']`   | No    |
 
 
-- Recommended `type` is `split`.
 - When `showTime` is `true`, the `min` and `max` string must have time part, e.g. `2017-01-01 11:11:11`.
 - `disabledTime` has an additional argument `type` like in `DatePicker`, its value is `start` or `end`.
 - `onClick(val, type)`, the `type` is the same as `disabledTime`.

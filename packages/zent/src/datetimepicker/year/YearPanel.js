@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+
 import PanelHeader from '../common/PanelHeader';
 import YearPanelBody from './YearPanelBody';
 import { noop } from '../constants';
