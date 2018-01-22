@@ -9,7 +9,7 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { formatDate, parseDate, dayStart } from './utils';
+import { formatDate, parseDate, dayStart, dayEnd } from './utils';
 import {
   CURRENT,
   noop,
@@ -151,8 +151,8 @@ class MonthPicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(ret)) return true;
-    if (min && ret < parseDate(min, format)) return true;
-    if (max && ret > parseDate(max, format)) return true;
+    if (min && dayEnd(ret) < parseDate(min, format)) return true;
+    if (max && dayStart(ret) > parseDate(max, format)) return true;
 
     return false;
   };

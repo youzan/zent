@@ -3,7 +3,7 @@ import makeDateTimeStr from 'zan-utils/date/makeDateTimeStr';
 import * as Ut from 'datetimepicker/utils';
 import { CURRENT, CURRENT_MONTH } from 'datetimepicker/constants';
 
-const { dayStart, dayEnd, setTime, getQuarterFromDate } = Ut;
+const { dayStart, dayEnd, setTime } = Ut;
 
 /**
  * Utnit_Test for Uttility fUtnctions of DateTimePicker Component
@@ -126,27 +126,5 @@ describe('setTime', () => {
     expect(ret.getHours()).toBe(1);
     expect(ret.getMinutes()).toBe(1);
     expect(ret.getSeconds()).toBe(1);
-  });
-});
-
-describe('getQuarterFromDate', () => {
-  let day;
-  let quarter;
-  it('should return right quarter', () => {
-    day = new Date(2018, 1, 1);
-    quarter = getQuarterFromDate(day);
-    expect(quarter).toBe(0);
-
-    day = new Date(2018, 4, 1);
-    quarter = getQuarterFromDate(day);
-    expect(quarter).toBe(1);
-
-    day = new Date(2018, 7, 1);
-    quarter = getQuarterFromDate(day);
-    expect(quarter).toBe(2);
-
-    day = new Date(2018, 10, 1);
-    quarter = getQuarterFromDate(day);
-    expect(quarter).toBe(3);
   });
 });
