@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 
 import PanelCell from '../common/PanelCell';
-import { CURRENT_MONTH } from '../utils/';
+import { CURRENT_MONTH, CURRENT_YEAR } from '../constants';
 
 const ROW = 4;
 const COL = 3;
@@ -12,7 +12,7 @@ export default class MonthPanelBody extends (PureComponent || Component) {
     const { selected, year } = this.props;
 
     if (selected && selected instanceof Date) {
-      return val === selected.getMonth() && year == selected.getFullYear();
+      return val === selected.getMonth() && year === selected.getFullYear();
     }
   }
 
@@ -24,13 +24,13 @@ export default class MonthPanelBody extends (PureComponent || Component) {
         <PanelCell
           onSelect={onSelect}
           cells={(() => {
-            const months = [],
-              curYear = new Date().getFullYear();
+            const months = [];
             let index = 0;
             for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
               months[rowIndex] = [];
               for (let colIndex = 0; colIndex < COL; colIndex++) {
-                const isCurrent = index === CURRENT_MONTH && year == curYear;
+                const isCurrent =
+                  index === CURRENT_MONTH && year === CURRENT_YEAR;
                 const isSelected = this.isSelected(index);
                 const isDisabled = disabledDate && disabledDate(index);
                 const className = classNames({

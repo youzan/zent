@@ -1,8 +1,13 @@
 import React, { Component, PureComponent } from 'react';
-import { Transition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Portal from 'portal';
 
+const NotifyTransition = ({ children, ...props }) => (
+  <CSSTransition {...props} timeout={800} classNames="notify">
+    {children}
+  </CSSTransition>
+);
 export default class NotifyContent extends (PureComponent || Component) {
   static propTypes = {
     text: PropTypes.any,
@@ -23,17 +28,14 @@ export default class NotifyContent extends (PureComponent || Component) {
     const { text, status, selector, isIn } = this.props;
     return (
       <Portal selector={selector}>
-        <Transition timeout={300} in={isIn} onExited={this.onExited}>
-          {state => {
-            return (
-              <div
-                className={`zent-notify zent-notify-${status} zent-notify-${state}`}
-              >
-                {text}
-              </div>
-            );
-          }}
-        </Transition>
+        <NotifyTransition
+          appear
+          unmountOnExit
+          in={isIn}
+          onExited={this.onExited}
+        >
+          <div className={`zent-notify zent-notify-${status}`}>{text}</div>
+        </NotifyTransition>
       </Portal>
     );
   }

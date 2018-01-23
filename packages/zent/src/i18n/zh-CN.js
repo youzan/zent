@@ -41,7 +41,7 @@ export const RangePicker = {
 
 export const Select = {
   input: '请选择',
-  search: '没有找到匹配项'
+  empty: '没有找到匹配项'
 };
 
 export const Switch = {
@@ -133,5 +133,40 @@ export const Sku = {
     imageTip1: '目前只支持为第一个规格设置不同的规格图片',
     imageTip2: '设置后，用户选择不同规格会显示不同图片',
     imageTip3: '建议尺寸：640 x 640像素'
+  }
+};
+
+const TypeMap = {
+  image: '图片',
+  voice: '音频'
+};
+
+export const Upload = {
+  ...common,
+  title_voice: '声音选择',
+  title_image: '图片选择',
+  input: {
+    holder: '添加',
+    maxAmount({ maxAmount, type }) {
+      return `已经自动过滤${maxAmount}张之后的${TypeMap[type]}文件`;
+    },
+    maxSize({ maxSize, type }) {
+      return `已经自动过滤大于${maxSize}的${TypeMap[type]}文件`;
+    },
+    type({ type }) {
+      return `已经自动过滤类型不正确的${TypeMap[type]}文件`;
+    }
+  },
+  popup: {
+    web: '网络图片',
+    group: '上传至分组',
+    holder: '请添加网络图片地址',
+    title_voice: '本地音频',
+    title_image: '本地图片',
+    type({ types, size }) {
+      return `仅支持 ${types.join('、')} ${types.length}种格式, 大小不超过${size}`;
+    },
+    extract: '提取',
+    extracting: '提取中...'
   }
 };

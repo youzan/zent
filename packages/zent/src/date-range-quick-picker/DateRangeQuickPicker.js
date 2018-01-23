@@ -75,7 +75,6 @@ export default class DateRangeQuickPicker extends Component {
     return (
       <div className={cx(`${prefix}-date-range-picker`, className)}>
         <DateRangePicker
-          type="split"
           value={value}
           onChange={this.handleTimeChange}
           format={format}

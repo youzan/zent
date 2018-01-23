@@ -1,14 +1,15 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
+import isArray from 'lodash/isArray';
 
 import {
   goDays,
   isSameDate,
   isBeforeMonth,
   isAfterMonth,
-  CURRENT,
   formatDate
 } from '../utils/';
+import { CURRENT } from '../constants';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 6;
@@ -19,7 +20,7 @@ export default class DatePanelBody extends (PureComponent || Component) {
     const { selected } = this.props;
     if (!selected) return false;
 
-    if (Array.isArray(selected)) {
+    if (isArray(selected)) {
       let i = 0;
       selected.forEach(item => {
         isSameDate(val, item) ? i++ : '';
@@ -32,7 +33,7 @@ export default class DatePanelBody extends (PureComponent || Component) {
 
   isInSelect(val) {
     const { selected } = this.props;
-    if (Array.isArray(selected) && selected[0] && selected[1]) {
+    if (isArray(selected) && selected[0] && selected[1]) {
       if (val > selected[0] && val < selected[1]) {
         return true;
       }
@@ -43,7 +44,7 @@ export default class DatePanelBody extends (PureComponent || Component) {
 
   isInRange(val) {
     const { range } = this.props;
-    if (Array.isArray(range) && range[0] && range[1]) {
+    if (isArray(range) && range[0] && range[1]) {
       if (val > range[0] && val < range[1]) {
         return true;
       }

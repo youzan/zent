@@ -11,6 +11,12 @@ en-US:
 ```jsx
 import { Upload } from 'zent';
 
+const categoryList = [
+	{ id: 205772, name: 'test1' },
+	{ id: 205773, name: 'test2' },
+	{ id: 205774, name: 'test3' }
+];
+
 class Simple extends React.Component {
     constructor(props) {
       super(props);
@@ -53,7 +59,8 @@ class Simple extends React.Component {
           <Upload
             maxSize={10 * 1024 * 1024}
             triggerInline
-            tips="{i18n.tip}"
+						tips="{i18n.tip}"
+						categoryList={categoryList}
             onFetch={this.fetchNetworkImage.bind(this)}
             onUpload={this.updateLocalImage.bind(this)}
           />

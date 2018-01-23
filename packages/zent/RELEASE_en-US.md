@@ -2,6 +2,11 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 3.12.3 (2018-01-10)
+
+- 🦀️ Fix `Slider` background
+- 🦀️ Support `image/bmp` in `Upload`
+- 🦀️ Fix button styles and layout in `Design`
 
 ### 3.12.2 (2018-01-09)
 

@@ -1,8 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
+
 import PanelHeader from '../common/PanelHeader';
 import TimeCell from './TimeCell';
-import { CURRENT, padLeft } from '../utils';
+import { padLeft } from '../utils';
+import { CURRENT } from '../constants';
 
 const ROW = 9;
 const COL = 7;

@@ -2,7 +2,7 @@
  * Select
  */
 
-import React, { Component, PureComponent, Children } from 'react';
+import React, { Component, Children } from 'react';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
@@ -34,7 +34,7 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
   }
 }
 
-class Select extends (PureComponent || Component) {
+class Select extends Component {
   constructor(props) {
     super(props);
 
@@ -54,7 +54,10 @@ class Select extends (PureComponent || Component) {
         selectedItem: {
           value: '',
           text: ''
-        }
+        },
+
+        // popover content 位置就绪可以进行 focus 操作的标记.
+        optionsReady: false
       },
       props
     );
@@ -341,6 +344,7 @@ class Select extends (PureComponent || Component) {
       selectedItems,
       selectedItem = {},
       extraFilter,
+      optionsReady,
       keyword = null
     } = this.state;
 
@@ -369,6 +373,11 @@ class Select extends (PureComponent || Component) {
             {...selectedItem}
             onChange={this.triggerChangeHandler}
             onDelete={this.triggerDeleteHandler}
+            onPositionReady={() => {
+              this.setState({
+                optionsReady: true
+              });
+            }}
           />
         </PopoverClickTrigger>
         <Popover.Content>
@@ -377,6 +386,7 @@ class Select extends (PureComponent || Component) {
             cid={cid}
             prefixCls={prefixCls}
             data={this.uniformedData}
+            ready={optionsReady}
             selectedItems={selectedItems}
             extraFilter={extraFilter}
             searchPlaceholder={searchPlaceholder}

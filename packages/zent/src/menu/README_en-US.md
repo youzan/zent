@@ -35,7 +35,7 @@ Menu, can be used to provide navigation.
 
 | Property | Description | Type | Default |
 |------|------|------|--------|
-| title | title of the submenu | string |  |
+| title | title of the submenu | node |  |
 | disabled | whether to disable the submenu  | bool |  |
 | overlayClassName | custom class name of the pop menu | string |  |
 | className | custom class name of the submenu item | string |  |

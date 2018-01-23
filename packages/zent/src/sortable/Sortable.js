@@ -75,7 +75,7 @@ export default class Sortable extends (PureComponent || Component) {
     }
 
     const sortableOptions = {
-      filter: `.${filterClass}`,
+      filter: filterClass ? `.${filterClass}` : '',
       ghostClass: `${prefix}-ghost`,
       chosenClass: `${prefix}-chosen`,
       dragClass: `${prefix}-drag`,

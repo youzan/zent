@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { CURRENT_YEAR } from '../utils/';
+import { CURRENT_YEAR } from '../constants';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 4;
