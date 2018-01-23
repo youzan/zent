@@ -2,6 +2,8 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
+import startOfWeek from 'date-fns/start_of_week';
+import endOfWeek from 'date-fns/end_of_week';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -29,8 +31,14 @@ import {
 } from './constants';
 
 function getSelectedWeek(val, start = 1) {
-  const offset = val.getDay();
-  return [goDays(val, start - offset), goDays(val, 6 + start - offset)];
+  return [
+    startOfWeek(val, {
+      weekStartsOn: start
+    }),
+    endOfWeek(val, {
+      weekStartsOn: start
+    })
+  ];
 }
 
 function extractStateFromProps(props) {
@@ -232,8 +240,8 @@ class WeekPicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
+    if (min && dayEnd(val) < parseDate(min, format)) return true;
+    if (max && dayStart(val) > parseDate(max, format)) return true;
 
     return false;
   };

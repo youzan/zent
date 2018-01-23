@@ -18,7 +18,8 @@ import {
   parseDate,
   dayStart,
   dayEnd,
-  setTime
+  setTime,
+  commonFns
 } from './utils';
 import {
   CURRENT_DAY,
@@ -405,5 +406,7 @@ class DatePicker extends (PureComponent || Component) {
     );
   }
 }
+
+assign(DatePicker, commonFns); // 挂载一些常用方法暴露出去
 
 export default DatePicker;
