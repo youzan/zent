@@ -59,10 +59,10 @@ export default class FileInput extends (PureComponent || Component) {
   };
 
   iteratorFiles = i18n => files => {
-    const { type, maxSize, silent, maxAmount } = this.props;
+    const { type, maxSize, silent, maxAmount, initIndex } = this.props;
 
     forEach(files, (file, index) => {
-      if (maxAmount && index >= maxAmount) {
+      if (maxAmount && index + initIndex >= maxAmount) {
         !silent && Notify.error(i18n.input.maxAmount({ maxAmount, type }));
         return false;
       }
