@@ -1,12 +1,13 @@
 @import "./_constants.pcss";
 
 body {
-  background-color: $bg-color;
+  background-color: #fff;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   font-smoothing: antialiased; /* stylelint-disable-line */
   -webkit-font-smoothing: antialiased;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+  font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
 }
 
 a {
@@ -14,14 +15,20 @@ a {
 }
 
 code[class*="language-"] {
-  line-height: 1.5;
-  font-family: Menlo, Monaco, Consolas, Courier, monospace;
-  font-size: 12px;
   display: block;
-  background-color: $code-bg-color;
-  padding: 20px;
-  -webkit-font-smoothing: auto;
+  font-size: 13px;
   overflow-x: auto;
+  font-weight: 400;
+  line-height: 22px;
+  border-radius: 3px;
+  margin-bottom: 25px;
+  position: relative;
+  word-break: break-all;
+  white-space: pre-wrap;
+  background-color: #f5f7fa;
+  color: #455a64;
+  padding: 18px 10px 18px 20px;
+  font-family: Source Code Pro, Monaco, Inconsolata, monospace;
 }
 
 .clearfix {
@@ -38,8 +45,12 @@ code[class*="language-"] {
 }
 
 .main-content {
-  margin: 20px 50px;
   min-height: calc(100vh - $top-nav-height - $footer-height - 20px);
+
+  @media (min-width: 1440px) {
+    width: 1440px;
+    margin: 0 auto;
+  }
 }
 
 .page-container {
@@ -63,11 +74,12 @@ code[class*="language-"] {
     > h4,
     > h5,
     > h6 {
-      color: #333;
       line-height: 1.5;
-      margin: 20px 0;
       font-weight: normal;
       position: relative;
+      margin: 20px 0 10px;
+      color: rgba(51, 51, 51, 0.9);
+      font-family: Dosis, Source Sans Pro, PingFang SC, Helvetica Neue, Arial, sans-serif;
 
       &:hover a:first-child {
         opacity: 0.4;
@@ -82,19 +94,25 @@ code[class*="language-"] {
     }
 
     > h1 {
-      font-size: 40px;
+      font-size: 36px;
+      line-height: 45px;
     }
 
     > h2 {
-      font-size: 36px;
-    }
-
-    > h3 {
       font-size: 30px;
     }
 
+    > h3 {
+      font-size: 22px;
+    }
+
     > h4 {
-      font-size: 24px;
+      font-size: 20px;
+    }
+
+    > h3,
+    > h4 {
+      margin-top: 30px;
     }
 
     > h5 {
@@ -123,15 +141,16 @@ code[class*="language-"] {
       position: relative;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
-        width: 8px;
-        height: 8px;
-        box-sizing: border-box;
-        border: 2px solid #999;
-        border-radius: 50%;
-        top: 6px;
+        top: 0;
         left: 0;
+        width: 6px;
+        height: 6px;
+        margin-top: 8px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border: 1px solid #666;
       }
 
       li {
@@ -149,14 +168,20 @@ code[class*="language-"] {
   p > code,
   .table code,
   li > code {
-    background-color: $code-bg-color;
-    display: inline-block;
-    border: 1px solid $border-color;
-    border-radius: 2px;
-    line-height: 1;
-    padding: 4px 5px;
-    color: #333;
-    margin: 0 3px;
+    margin: 0;
+    font-size: 13px;
+    overflow-x: auto;
+    font-weight: 400;
+    line-height: 22px;
+    border-radius: 3px;
+    position: relative;
+    word-break: break-all;
+    white-space: pre-wrap;
+    background-color: #f5f7fa;
+    color: #455a64;
+    font-family: Source Code Pro, Monaco, Inconsolata, monospace;
+    padding: 4px 7px;
+    display: inline;
   }
 
   blockquote {

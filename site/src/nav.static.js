@@ -1,7 +1,7 @@
 module.exports = {
   'zh-CN': [
     {
-      name: '指南',
+      name: '开发指南',
       groups: [
         {
           groupName: '使用',
