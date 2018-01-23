@@ -2,6 +2,28 @@
 
 You can find detailed change logs for versions prior to 3.5.3 at [Github Log](github_changelog#zent-3-5-2-2017-09-07).
 
+### 4.0.0 (2018-01-23)
+
+- 💥 Remove combine mode in `DateRangePicker`, `type` prop is removed.
+- `Upload` 
+  - ✨ Supports file groups
+  - ✨ Supports i18n
+- ✨ Add support for icons in `Menu` 
+- `DatePicker`
+  - 🦀️ Fix minimum time not respected in some cases
+  - 🦀️ Fix minimum time test bug
+- `Design`
+  - 🦀️ Fix styles in demos
+  - 🦀️ `DesignEditor` no longer inherits `PureComponent`
+- 🦀️ Fix style in `Slider`
+- 🦀️ Fix anchor not working in documentation site
+- 🦀️ Fix header not synchronized in `Grid`
+- 🦀️ Tune `Notify` animation
+- `Select`
+  - 🦀️ Fix compatibility bug in some browsers
+  - 🦀️ Fix `emptyText` not working
+- 🦀️ Fix demos in `Sortable`
+
 ### 3.12.3 (2018-01-10)
 
 - 🦀️ Fix `Slider` background
