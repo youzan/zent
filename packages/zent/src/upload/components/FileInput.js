@@ -7,6 +7,9 @@ import Notify from 'notify';
 import toArray from 'lodash/toArray';
 import forEach from 'lodash/forEach';
 import isPromise from 'utils/isPromise';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Upload as I18nDefault } from 'i18n/default';
+
 import { formatFileSize, base64ToArrayBuffer } from '../utils';
 import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
@@ -38,24 +41,25 @@ export default class FileInput extends (PureComponent || Component) {
     }
   };
 
-  processFiles = evt => {
+  processFiles = i18n => evt => {
     let files = toArray(evt.target.files);
     const { filterFiles, onError } = this.props;
 
     let filterResult = filterFiles(files);
+    const iterator = this.iteratorFiles(i18n);
     if (isPromise(filterResult)) {
-      filterResult.then(this.iteratorFiles, onError);
+      filterResult.then(iterator, onError);
     } else {
       files = filterResult;
-      this.iteratorFiles(files);
+      iterator(files);
     }
 
     // 清除当前的值，否则选同一张图片不会触发事件
     evt.target.value = null;
   };
 
-  iteratorFiles = files => {
-    const { type, maxSize, silent, maxAmount, i18n } = this.props;
+  iteratorFiles = i18n => files => {
+    const { type, maxSize, silent, maxAmount } = this.props;
 
     forEach(files, (file, index) => {
       if (maxAmount && index >= maxAmount) {
@@ -63,7 +67,7 @@ export default class FileInput extends (PureComponent || Component) {
         return false;
       }
       if (!maxSize || file.size <= maxSize) {
-        this.addFile(file, index);
+        this.addFile(file, index, i18n);
       } else {
         !silent &&
           Notify.error(
@@ -76,9 +80,9 @@ export default class FileInput extends (PureComponent || Component) {
     });
   };
 
-  addFile(file, index) {
+  addFile(file, index, i18n) {
     let fileReader = new FileReader();
-    let { silent, type, initIndex, i18n } = this.props;
+    let { silent, type, initIndex } = this.props;
     let { accept } = this.state;
     let localFiles = [];
 
@@ -102,17 +106,21 @@ export default class FileInput extends (PureComponent || Component) {
   }
 
   render() {
-    let { maxAmount, i18n } = this.props;
+    let { maxAmount } = this.props;
     let { accept } = this.state;
 
     return (
-      <input
-        type="file"
-        placeholder={`${i18n.input.holder} +`}
-        multiple={maxAmount !== 1}
-        accept={accept}
-        onChange={this.processFiles}
-      />
+      <Receiver componentName="Upload" defaultI18n={I18nDefault}>
+        {i18n => (
+          <input
+            type="file"
+            placeholder={`${i18n.input.holder} +`}
+            multiple={maxAmount !== 1}
+            accept={accept}
+            onChange={this.processFiles(i18n)}
+          />
+        )}
+      </Receiver>
     );
   }
 }
