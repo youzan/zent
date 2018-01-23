@@ -1,5 +1,39 @@
 ## Github Change Log
 
+## [zent@4.0.0](https://github.com/youzan/zent/tree/zent@4.0.0) (2018-01-23)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.3...zent@4.0.0)
+
+**Implemented enhancements:**
+
+- Datepicker: 设置最小日期为当天需要计算当天0点的时间 [\#635](https://github.com/youzan/zent/issues/635)
+- State preserving with react-hot-loader and markdown-doc-loader [\#239](https://github.com/youzan/zent/issues/239)
+- \[breaking change\]DatePicker: 移除旧交互方式的 rangepicker [\#689](https://github.com/youzan/zent/pull/689) ([xuhong](https://github.com/xuhong))
+- \[new feature\] Upload: 增加上传分组 [\#676](https://github.com/youzan/zent/pull/676) ([wulv](https://github.com/wulv))
+
+**Fixed bugs:**
+
+- \[bug fix\]Doc: 微页面组件文档页面按钮文字溢出 [\#677](https://github.com/youzan/zent/issues/677)
+- \[bug fix\] Slider: 圆圈样式问题 [\#674](https://github.com/youzan/zent/issues/674)
+- \[bug fix\] Notify: 出场动画有问题 [\#660](https://github.com/youzan/zent/issues/660)
+- \[bug fix\] Doc: 链接中的anchor没有效果 [\#640](https://github.com/youzan/zent/issues/640)
+- \[bugfix\]DatePicker: 挂载一些常用方法到 DatePicker 上 [\#692](https://github.com/youzan/zent/pull/692) ([xuhong](https://github.com/xuhong))
+- \[bug fix\] Upload English doc fix [\#691](https://github.com/youzan/zent/pull/691) ([cpylua](https://github.com/cpylua))
+- \[bug fix\]Notify: 颜色和动画修改 [\#690](https://github.com/youzan/zent/pull/690) ([linrz](https://github.com/linrz))
+- \[feature\]i18n: Upload 组件支持国际化 [\#687](https://github.com/youzan/zent/pull/687) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bugfix\] DatePicker：修复未选择时间直接确认没有考虑最小时间的问题 [\#686](https://github.com/youzan/zent/pull/686) ([xuhong](https://github.com/xuhong))
+- \[bug fix\] Design: DesignEditor 去除 PureComponent [\#685](https://github.com/youzan/zent/pull/685) ([ArvinTung](https://github.com/ArvinTung))
+- \[new feature\] Menu: title中增加icon支持 [\#684](https://github.com/youzan/zent/pull/684) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Grid: head 高度同步 [\#683](https://github.com/youzan/zent/pull/683) ([wulv](https://github.com/wulv))
+- \[bugfix\]Select: 修复win7下部分浏览器的兼容性 bug, 使用 popover 的 autoPosition 模式 [\#682](https://github.com/youzan/zent/pull/682) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\] Sortable: filter bug修复 [\#680](https://github.com/youzan/zent/pull/680) ([ArvinTung](https://github.com/ArvinTung))
+- \[bugfix\]Select: 修复国际化导致的 emptyText 属性默认值消失的 bug [\#675](https://github.com/youzan/zent/pull/675) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bugfix\]Doc-site: 修复文档网站带 hash 地址 anchor 滚动不正确的 bug. [\#673](https://github.com/youzan/zent/pull/673) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bug fix\]Notify: 修复动画后样式回弹 [\#672](https://github.com/youzan/zent/pull/672) ([linrz](https://github.com/linrz))
+
+**Closed issues:**
+
+- 没有vue么.... [\#681](https://github.com/youzan/zent/issues/681)
+
 ## [zent@3.12.3](https://github.com/youzan/zent/tree/zent@3.12.3) (2018-01-10)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.2...zent@3.12.3)
 
