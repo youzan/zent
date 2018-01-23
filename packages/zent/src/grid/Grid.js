@@ -390,7 +390,7 @@ class Grid extends (PureComponent || Component) {
         </div>,
         <div
           key="body"
-          className={`${prefix}-grid-body`}
+          className={`${prefix}-grid-body ${prefix}-grid-scroll-y-body`}
           style={scrollBodyStyle}
           ref={ref => {
             this[`${fixed || 'scroll'}Body`] = ref;
