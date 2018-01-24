@@ -1,26 +1,32 @@
 import React, { Component, PureComponent } from 'react';
 import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 export default class Card extends (PureComponent || Component) {
-  static defaultProps = {
-    style: {},
-    bodyStyle: {},
-    className: '',
-    prefix: 'zent'
-  };
   static propTypes = {
     title: PropTypes.node,
     action: PropTypes.node,
+    type: PropTypes.oneOf(['nested', 'normal']),
     style: PropTypes.object,
     bodyStyle: PropTypes.object,
     className: PropTypes.string,
     prefix: PropTypes.string
   };
+
+  static defaultProps = {
+    type: 'normal',
+    style: {},
+    bodyStyle: {},
+    className: '',
+    prefix: 'zent'
+  };
+
   render() {
     const {
       title,
       action,
+      type,
       style,
       children,
       className,
@@ -28,17 +34,23 @@ export default class Card extends (PureComponent || Component) {
       prefix
     } = this.props;
 
-    this.isValidTitle = !isNil(title);
-    this.isValidAction = !isNil(action);
+    const isValidTitle = !isNil(title);
+    const isValidAction = !isNil(action);
 
     return (
-      <div className={`${prefix}-card ${className}`} style={style}>
-        {(this.isValidTitle || this.isValidAction) && (
+      <div
+        className={cx(`${prefix}-card`, className, {
+          [`${prefix}-card--normal`]: type === 'normal',
+          [`${prefix}-card--nested`]: type === 'nested'
+        })}
+        style={style}
+      >
+        {(isValidTitle || isValidAction) && (
             <div className={`${prefix}-card-header`}>
-              {this.isValidTitle && (
+              {isValidTitle && (
                 <h3 className={`${prefix}-card-header__title`}>{title}</h3>
               )}
-              {this.isValidAction && (
+              {isValidAction && (
                 <div className={`${prefix}-card-header__action`}>{action}</div>
               )}
             </div>

@@ -16,11 +16,12 @@ Card is used for information displayed on the card container.
 
 ### API
 
-| Props        | Description      | Type     | Default  |
-| --------- | ------- | ------ | ---- |
-| title      | card's title    | node |  |
-| action      | card's operation    | node |  |
-| style | custom style of the card container | object | `{}` |
-| bodyStyle | custom style of the content area | object | `{}` |
-| className | custom calssname | string | `''` |
-| prefix | custom prefix | string | `zent` |
+| Props        | Description      | Type     | Default  | Alternative |
+| --------- | ------- | ------ | ---- |-----|
+| title      | card's title    | node |  |  |
+| action      | card's operation    | node |  |  |
+| type      | Card type  | string | `'normal'` | `'nested'` |
+| style | custom style of the card container | object | `{}` |  |
+| bodyStyle | custom style of the content area | object | `{}` |  |
+| className | custom calssname | string | `''` |  |
+| prefix | custom prefix | string | `zent` |  |

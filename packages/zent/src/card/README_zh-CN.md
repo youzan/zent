@@ -17,11 +17,12 @@ group: 展示
 
 ### API
 
-| 参数        | 说明      | 类型     | 默认值  |
-| --------- | ------- | ------ | ---- |
-| title      | 标题    | node |  |
-| action      | 操作    | node |  |
-| style | 卡片容器自定义样式 | object | `{}` |
-| bodyStyle | 内容区域自定义样式 | object | `{}` |
-| className | 自定义额外类名 | string | `''` |
-| prefix | 自定义前缀 | string | `zent` |
+| 参数        | 说明      | 类型     | 默认值  | 备选值 |
+| --------- | ------- | ------ | ---- |-------|
+| title      | 标题    | node |  |  |
+| action      | 操作    | node |  |  |
+| type      | 卡片类型，现在有两种，普通和嵌套  | string | `'normal'` | `'nested'` |
+| style | 卡片容器自定义样式 | object | `{}` |  |
+| bodyStyle | 内容区域自定义样式 | object | `{}` |  |
+| className | 自定义额外类名 | string | `''` |  |
+| prefix | 自定义前缀 | string | `zent` |  |

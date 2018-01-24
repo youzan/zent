@@ -13,9 +13,9 @@ import { Card } from 'zent';
 
 ReactDOM.render(
   <Card style={{ width: 400 }} 
-      title="card title"
+      title="Card Title"
       action={<a target="_blank" href="//youzan.com">{i18n.youzan}</a>}>
-      <p>card item</p>
+      <p>Card item</p>
   </Card>
   , mountNode
 );
