@@ -26,6 +26,7 @@ group: 数据
 | onProgress | 上传进度 | function | `noop` | 否 |
 | filterFiles | 过滤文件，支持同步和promise的方式 | function | `noop` | 否 |
 | categoryList | 分组数据 | array | [] | 否 |
+| categoryId | 分组id | number | [] | 否 |
 | auto | 是否自动弹出 | boolean | `false` | 否 |
 | withoutPopup | 是否不渲染在弹层上 | boolean | `false` | 否 |
 | triggerClassName | 重写trigger样式 | string | `'zent-upload-trigger'` | 否 |
