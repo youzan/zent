@@ -11,7 +11,7 @@ import { Card } from 'zent';
 
 ReactDOM.render(
   <Card style={{ width: 400 }} bodyStyle={{ background: '#e5e5e5'}}>
-      <p>Custom background</p>
+		<p>Custom background</p>
   </Card>
   , mountNode
 );
