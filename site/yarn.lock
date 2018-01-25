@@ -3006,9 +3006,9 @@ markdown-doc-loader-utils@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/markdown-doc-loader-utils/-/markdown-doc-loader-utils-1.0.0.tgz#63d885e493f5064606515ed13f57af420bc3943b"
 
-markdown-doc-loader@2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/markdown-doc-loader/-/markdown-doc-loader-2.1.2.tgz#6236f0dd2a7045698dd8639ddf206239f325a37e"
+markdown-doc-loader@2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/markdown-doc-loader/-/markdown-doc-loader-2.1.3.tgz#b158168475a6778f4b7e6857352b9c2c9510b0f9"
   dependencies:
     hast-util-is-css-style "^1.0.0"
     hast-util-to-string "^1.0.0"
@@ -4421,9 +4421,9 @@ react-loadable@^5.3.0:
   dependencies:
     prop-types "^15.5.0"
 
-react-markdown-doc-loader@2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/react-markdown-doc-loader/-/react-markdown-doc-loader-2.1.1.tgz#1c3e23fec969a4b5853f2186817923cfd86430ae"
+react-markdown-doc-loader@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-markdown-doc-loader/-/react-markdown-doc-loader-2.1.2.tgz#21e6800e723db0af96f52bb5272c1ca14f9e7840"
   dependencies:
     autoprefixer "7.1.x"
     babel-generator "^6.24.0"
