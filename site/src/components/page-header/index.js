@@ -29,9 +29,13 @@ export default class PageHeader extends Component {
     return (
       <div className="page-header">
         <div className="page-header__top">
-          <h1 className="page-header__logo">
-            <a href="//www.youzanyun.com/zanui" />
-          </h1>
+          <a href="//www.youzanyun.com/zanui" className="page-header__logo">
+            <img
+              src="https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png"
+              alt="logo"
+            />
+            <span>Zan UI</span>
+          </a>
           <div className="page-header__search-sep" />
           <SearchBox locale={i18n} navData={sideNavData} />
           <ul className="page-header__navs">
@@ -41,8 +45,8 @@ export default class PageHeader extends Component {
                   className="page-header__github"
                   src="https://img.yzcdn.cn/zanui/react/GitHub-Mark-120px-plus.png"
                   alt="github"
-                  width="32"
-                  height="32"
+                  width="28"
+                  height="28"
                 />
               </a>
             </li>

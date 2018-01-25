@@ -3,6 +3,7 @@
  */
 
 import React, { PureComponent, Component } from 'react';
+import PropTypes from 'prop-types';
 import Notify from 'notify';
 import toArray from 'lodash/toArray';
 import forEach from 'lodash/forEach';
@@ -15,7 +16,29 @@ import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
 import { DEFAULT_ACCEPT } from '../constants';
 
+const noop = res => res;
+
 export default class FileInput extends (PureComponent || Component) {
+  static defaultProps = {
+    initIndex: 0,
+    maxAmount: 0,
+    silent: false,
+    maxSize: 0,
+    type: '',
+    filterFiles: noop,
+    onError: noop
+  };
+
+  static propTypes = {
+    initIndex: PropTypes.number,
+    maxAmount: PropTypes.number,
+    silent: PropTypes.bool,
+    maxSize: PropTypes.number,
+    type: PropTypes.string,
+    filterFiles: PropTypes.func,
+    onError: PropTypes.func
+  };
+
   constructor(props) {
     super(props);
 
@@ -59,10 +82,10 @@ export default class FileInput extends (PureComponent || Component) {
   };
 
   iteratorFiles = i18n => files => {
-    const { type, maxSize, silent, maxAmount } = this.props;
+    const { type, maxSize, silent, maxAmount, initIndex } = this.props;
 
     forEach(files, (file, index) => {
-      if (maxAmount && index >= maxAmount) {
+      if (maxAmount && index + initIndex >= maxAmount) {
         !silent && Notify.error(i18n.input.maxAmount({ maxAmount, type }));
         return false;
       }
@@ -105,6 +128,18 @@ export default class FileInput extends (PureComponent || Component) {
     fileReader.readAsDataURL(file);
   }
 
+  autoShowInput = fileInput => {
+    let { maxAmount, auto } = this.props;
+    if (
+      auto &&
+      maxAmount === 1 &&
+      fileInput &&
+      typeof fileInput.click === 'function'
+    ) {
+      fileInput.click();
+    }
+  };
+
   render() {
     let { maxAmount } = this.props;
     let { accept } = this.state;
@@ -113,6 +148,7 @@ export default class FileInput extends (PureComponent || Component) {
       <Receiver componentName="Upload" defaultI18n={I18nDefault}>
         {i18n => (
           <input
+            ref={this.autoShowInput}
             type="file"
             placeholder={`${i18n.input.holder} +`}
             multiple={maxAmount !== 1}

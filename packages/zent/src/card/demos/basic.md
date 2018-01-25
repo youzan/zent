@@ -11,8 +11,8 @@ import { Card } from 'zent';
 
 ReactDOM.render(
 	<Card style={{ width: 400 }}>
-        <p>card item</p>
-    </Card>
+		<p>Card item</p>
+	</Card>
 	, mountNode
 );
 ```

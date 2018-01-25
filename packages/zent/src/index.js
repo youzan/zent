@@ -27,6 +27,7 @@ import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
 import NumberInput from 'number-input';
 import Pagination from 'pagination';
+import Placeholder from 'placeholder';
 import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
@@ -83,6 +84,7 @@ export {
   Notify,
   NumberInput,
   Pagination,
+  Placeholder,
   Pop,
   Popover,
   Portal,
