@@ -106,13 +106,23 @@ export default class FileInput extends (PureComponent || Component) {
   }
 
   render() {
-    let { maxAmount } = this.props;
+    let { maxAmount, auto } = this.props;
     let { accept } = this.state;
 
     return (
       <Receiver componentName="Upload" defaultI18n={I18nDefault}>
         {i18n => (
           <input
+            ref={fileInput => {
+              if (
+                auto &&
+                maxAmount === 1 &&
+                fileInput &&
+                typeof fileInput.click === 'function'
+              ) {
+                fileInput.click();
+              }
+            }}
             type="file"
             placeholder={`${i18n.input.holder} +`}
             multiple={maxAmount !== 1}
