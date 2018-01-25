@@ -11,7 +11,7 @@ body {
 }
 
 a {
-  color: #38f;
+  color: $link-color;
 }
 
 code[class*="language-"] {
@@ -112,7 +112,12 @@ code[class*="language-"] {
 
     > h3,
     > h4 {
-      margin-top: 30px;
+      margin-top: 40px;
+
+      + h3,
+      + h4 {
+        margin-top: 15px;
+      }
     }
 
     > h5 {
@@ -200,10 +205,11 @@ code[class*="language-"] {
   margin-bottom: 45px;
 
   th {
-    text-align: left;
-    border: 1px solid $border-color;
-    background-color: $code-bg-color;
     padding: 10px;
+    text-align: left;
+    font-weight: normal;
+    background-color: #f5f7fa;
+    border: 1px solid $border-color;
 
     &:first-child {
       padding-left: 10px;
@@ -211,7 +217,32 @@ code[class*="language-"] {
   }
 
   td {
-    border: 1px solid $border-color;
     padding: 10px;
+    border: 1px solid $border-color;
   }
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #1976d2;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #32a973;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #1976d2;
 }

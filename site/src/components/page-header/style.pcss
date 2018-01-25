@@ -2,7 +2,7 @@
 
 .page {
   &-header {
-    border-bottom: 1px solid #eaeefb;
+    border-bottom: 1px solid $border-color;
 
     &__top {
       padding: 0 40px;
@@ -20,6 +20,7 @@
 
     &__logo {
       float: left;
+      font-size: 0;
       line-height: 60px;
 
       span,
@@ -70,11 +71,11 @@
       margin: 0 20px;
 
       &:hover {
-        color: #38f;
+        color: $link-color;
       }
 
       &--active {
-        color: #38f;
+        color: $link-color;
       }
     }
 
@@ -95,8 +96,8 @@
       font-family: Helvetica Neue, Arial, sans-serif;
 
       &:hover {
-        color: #38f;
-        border-color: #38f;
+        color: $link-color;
+        border-color: $link-color;
       }
     }
   }

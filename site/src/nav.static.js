@@ -98,7 +98,7 @@ module.exports = {
       ]
     },
     {
-      name: 'Components 组件',
+      name: '组件',
       groups: []
     }
   ],
