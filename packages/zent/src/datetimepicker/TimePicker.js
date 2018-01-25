@@ -111,8 +111,23 @@ export default class TimePicker extends (PureComponent || Component) {
     const tmp = new Date(this.state.value);
     tmp[fn](val);
 
+    let nextTabKey = this.state.tabKey;
+    switch (type) {
+      case TIME_KEY.HOUR:
+        nextTabKey = TIME_KEY.MINUTE;
+        break;
+      case TIME_KEY.MINUTE: {
+        if (this.props.showSecond) {
+          nextTabKey = TIME_KEY.SECOND;
+        }
+        break;
+      }
+      default:
+    }
+
     this.setState({
-      value: tmp
+      value: tmp,
+      tabKey: nextTabKey
     });
   };
 
