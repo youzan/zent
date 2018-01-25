@@ -155,6 +155,7 @@ Upload.defaultProps = {
   onFetch: promiseNoop,
   onUpload: promiseNoop,
   categoryList: [],
+  categoryId: '',
   triggerInline: false,
   silent: false,
   withoutPopup: false

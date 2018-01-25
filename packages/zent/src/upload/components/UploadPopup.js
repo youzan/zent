@@ -16,7 +16,7 @@ class UploadPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryId: '',
+      categoryId: props.options.categoryId,
       networkImage: props.networkImage,
       networkUploading: props.networkUploading,
       localUploading: props.localUploading,
@@ -29,6 +29,15 @@ class UploadPopup extends Component {
     this.uploadLocalImages = this.uploadLocalImages.bind(this);
     this.fileProgressHandler = this.fileProgressHandler.bind(this);
     this.setCategoryId = this.setCategoryId.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { categoryId } = nextProps.options;
+    if (this.props.options.categoryId !== categoryId) {
+      this.setState({
+        categoryId
+      });
+    }
   }
 
   render() {
