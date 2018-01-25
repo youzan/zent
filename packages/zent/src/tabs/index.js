@@ -1,7 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
 
 import TabPanel from './components/TabPanel';
 import LazyMount from './components/LazyMount';
@@ -19,9 +18,17 @@ export default class Tabs extends (PureComponent || Component) {
     activeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     size: PropTypes.oneOf(['huge', 'normal']),
     align: PropTypes.oneOf(['left', 'right', 'center']),
+
+    // deprecated, do NOT use
     onTabChange: PropTypes.func,
     onTabDel: PropTypes.func,
     onTabAdd: PropTypes.func,
+
+    // Use these instead
+    onChange: PropTypes.func,
+    onDelete: PropTypes.func,
+    onAdd: PropTypes.func,
+
     candel: PropTypes.bool,
     canadd: PropTypes.bool,
     tabs: PropTypes.arrayOf(
@@ -42,9 +49,6 @@ export default class Tabs extends (PureComponent || Component) {
     activeId: '',
     size: 'normal',
     align: 'left',
-    onTabChange: noop,
-    onTabDel: noop,
-    onTabAdd: noop,
     candel: false,
     canadd: false
   };
@@ -59,41 +63,47 @@ export default class Tabs extends (PureComponent || Component) {
   }
 
   // 选中tab
-  onTabChange(selectKey) {
-    let { onTabChange } = this.props;
-    if (onTabChange) {
-      onTabChange(selectKey);
+  onTabChange = selectKey => {
+    const { onTabChange, onChange } = this.props;
+    const onChangeFn = onChange || onTabChange;
+
+    if (onChangeFn) {
+      onChangeFn(selectKey);
     }
-  }
+  };
 
   // 删除tab
-  onTabDel(tabKey) {
-    let { onTabDel } = this.props;
-    if (onTabDel) {
-      onTabDel(tabKey);
+  onTabDel = tabKey => {
+    const { onTabDel, onDelete } = this.props;
+    const onDeleteFn = onDelete || onTabDel;
+
+    if (onDeleteFn) {
+      onDeleteFn(tabKey);
     }
-  }
+  };
 
   // 增加tab
-  onTabAdd() {
-    let { onTabAdd } = this.props;
-    if (onTabAdd) {
-      onTabAdd();
+  onTabAdd = () => {
+    const { onTabAdd, onAdd } = this.props;
+    const onAddFn = onAdd || onTabAdd;
+
+    if (onAddFn) {
+      onAddFn();
     }
-  }
+  };
 
   renderNav(tabListData) {
     let { type, align, canadd, candel, prefix, size } = this.props;
     if (tabListData && tabListData.length) {
       return (
         <Nav
-          onChange={this.onTabChange.bind(this)}
+          onChange={this.onTabChange}
           tabListData={tabListData}
           type={type}
           align={align}
           size={size}
-          onDelete={this.onTabDel.bind(this)}
-          onTabAdd={this.onTabAdd.bind(this)}
+          onDelete={this.onTabDel}
+          onTabAdd={this.onTabAdd}
           canadd={canadd}
           candel={candel}
           prefix={prefix}

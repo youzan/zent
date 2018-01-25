@@ -37,7 +37,7 @@ class Simple extends React.Component {
 		return (
 			<Tabs
 				activeId={this.state.activeId}
-				onTabChange={this.onTabChange}
+				onChange={this.onTabChange}
 				type="card"
 			>
 				<TabPanel

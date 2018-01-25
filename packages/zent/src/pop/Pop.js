@@ -128,7 +128,13 @@ class Pop extends (PureComponent || Component) {
       'top-right',
       'bottom-left',
       'bottom-center',
-      'bottom-right'
+      'bottom-right',
+      'auto-bottom-center',
+      'auto-bottom-left',
+      'auto-bottom-right',
+      'auto-top-center',
+      'auto-top-left',
+      'auto-top-right'
     ]),
 
     // 是否按小箭头居中对齐trigger来定位
