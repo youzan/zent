@@ -1,7 +1,7 @@
 module.exports = {
   'zh-CN': [
     {
-      name: '指南',
+      name: '开发指南',
       groups: [
         {
           groupName: '使用',
@@ -98,7 +98,7 @@ module.exports = {
       ]
     },
     {
-      name: 'Components 组件',
+      name: '组件',
       groups: []
     }
   ],
