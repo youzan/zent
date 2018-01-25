@@ -47,7 +47,7 @@ class Simple extends Component {
 				<div style={{ marginTop: '10px' }}>
 					<Tabs
 						activeId={this.state.activeId}
-						onTabChange={this.onTabChange.bind(this)}
+						onChange={this.onTabChange.bind(this)}
 						tabs={this.state.tabs} />
 					<h1>{this.state.activeId}</h1>
 				</div>

@@ -18,9 +18,9 @@ Tabs is used to switch different view in one page.
 | type        | The type of tabs  | string | `'normal'` | `'card'`, `'slider'` | no |
 | size        | The size of tabs | string   | `'normal'` | `'huge'` | no  |
 | align       | The layout of tabs | string | `'left'`   | `'right'`, `'center'` | no |
-| onTabChange | The callback function that is triggered when the tab is active | func(id) |    |    | no    |
-| onTabDel    | The callback function that is triggered when the tab is closed. | func(id) |      |         | no |
-| onTabAdd    | The callback function that is triggered when adding tab. | func | |   | no    |
+| onChange    | The callback function that is triggered when the tab is active | func(id) |    |    | no    |
+| onDelete    | The callback function that is triggered when the tab is closed. | func(id) |      |         | no |
+| onAdd       | The callback function that is triggered when adding tab. | func | |   | no    |
 | candel      | Whether the tab can be deleted.  | bool  | `false` |  `true` | no    |
 | canadd      | Whether the tabs can add more tab pannels. | bool | `false`    |  `true`  | no |
 | tabs | The config of tabs when not using Panel. | Array | `null` | | no |
