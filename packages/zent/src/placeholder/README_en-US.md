@@ -63,7 +63,7 @@ Dashed text row.
 
 | Property     |   Description  | Type     |  Required  |   Default  | Alternative       |
 | ------------ | ------------- | -------- | ---------- | ---------- | ----------------- |
-| segments     | Line segments, each segment can be a percent or fixed width       | `(number \| string)[]`  |  No        |  Random   |       |
+| segments     | Line segments, each segment can be a percent or fixed width       | `(number | string)[]`  |  No        |  Random   |       |
 | lineSpacing  | Line spacing on top     | `string` \| `number`    |  No   |  `'0.7em'`   |  |
 | style        | Additional styles    | `object`  |  No       | `{}`       |  |
 | animate      | Animate shapes  | `bool`    | No         |  `true`   | `false`  |
