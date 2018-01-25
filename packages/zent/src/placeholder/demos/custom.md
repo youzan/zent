@@ -11,7 +11,7 @@ import { Placeholder } from 'zent';
 
 ReactDOM.render(
 	<div style={{ display: 'flex', alignItems: 'center' }}>
-		<Placeholder.Circle radius={80} />
+		<Placeholder.Circle diameter={160} />
 		<Placeholder.TextBlock rows={6} style={{ margin: '0 10px' }} />
 		<Placeholder.Rectangle width={160} height={160} />
 	</div>
