@@ -150,7 +150,10 @@ class QuarterPicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange([]);
+    const { canClear, onChange } = this.props;
+    if (!canClear) return;
+
+    onChange([]);
   };
 
   isDisabled = quarter => {

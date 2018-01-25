@@ -190,10 +190,12 @@ class DatePicker extends (PureComponent || Component) {
   };
 
   onClearInput = evt => {
-    const { onChange, onBeforeClear } = this.props;
+    evt.stopPropagation();
+    const { onChange, onBeforeClear, canClear } = this.props;
     if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
 
-    evt.stopPropagation();
+    if (!canClear) return;
+
     onChange('');
   };
 
