@@ -8,7 +8,7 @@ export default class Circle extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    radius: PropTypes.number,
+    diameter: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     animate: PropTypes.bool,
     prefix: PropTypes.string
   };
@@ -17,13 +17,12 @@ export default class Circle extends (PureComponent || Component) {
     style: {},
     prefix: 'zent',
     animate: true,
-    radius: 40
+    diameter: 80
   };
 
   render() {
-    const { className, prefix, radius, style, ...passThrough } = this.props;
+    const { className, prefix, diameter, style, ...passThrough } = this.props;
     const classes = cx(`${prefix}-placeholder-circle`, className);
-    const diameter = radius * 2;
     const mergedStyle = {
       height: diameter,
       minWidth: diameter,

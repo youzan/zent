@@ -10,10 +10,12 @@ export default class TextBlock extends (PureComponent || Component) {
     rows: PropTypes.number.isRequired,
     lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     widths: PropTypes.arrayOf(PropTypes.number),
-    dashSegments: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-    style: PropTypes.object,
-    animate: PropTypes.bool,
+    dashSegments: PropTypes.arrayOf(
+      PropTypes.arrayOf(PropTypes.number, PropTypes.string)
+    ),
     dashed: PropTypes.bool,
+    animate: PropTypes.bool,
+    style: PropTypes.object,
     className: PropTypes.string,
     prefix: PropTypes.string
   };

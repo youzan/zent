@@ -4,8 +4,8 @@ import cx from 'classnames';
 
 export default class TextRow extends (PureComponent || Component) {
   static propTypes = {
-    style: PropTypes.object,
     lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    style: PropTypes.object,
     animate: PropTypes.bool,
     className: PropTypes.string,
     prefix: PropTypes.string

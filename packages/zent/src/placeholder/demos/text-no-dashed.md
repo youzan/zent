@@ -3,7 +3,7 @@ order: 2
 zh-CN:
 	title: 实线文本块
 en-US:
-	title: Full line text rows
+	title: Solid line text rows
 ---
 
 ```js

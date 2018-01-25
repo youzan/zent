@@ -2,11 +2,13 @@ import React, { Component, PureComponent } from 'react';
 import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import Placeholder from 'placeholder';
 
 export default class Card extends (PureComponent || Component) {
   static propTypes = {
     title: PropTypes.node,
     action: PropTypes.node,
+    loading: PropTypes.bool,
     type: PropTypes.oneOf(['nested', 'normal']),
     style: PropTypes.object,
     bodyStyle: PropTypes.object,
@@ -18,6 +20,7 @@ export default class Card extends (PureComponent || Component) {
     type: 'normal',
     style: {},
     bodyStyle: {},
+    loading: false,
     className: '',
     prefix: 'zent'
   };
@@ -27,6 +30,7 @@ export default class Card extends (PureComponent || Component) {
       title,
       action,
       type,
+      loading,
       style,
       children,
       className,
@@ -56,7 +60,7 @@ export default class Card extends (PureComponent || Component) {
             </div>
           )}
         <div className={`${prefix}-card-body`} style={bodyStyle}>
-          {children}
+          {loading ? <Placeholder.TextBlock rows={5} /> : children}
         </div>
       </div>
     );

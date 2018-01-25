@@ -10,10 +10,13 @@ export default class RichTextBlock extends (PureComponent || Component) {
   static propTypes = {
     rows: PropTypes.number.isRequired,
     shape: PropTypes.oneOf(['circle', 'rect']),
-    size: PropTypes.number,
-    style: PropTypes.object,
-    animate: PropTypes.bool,
+    size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    widths: PropTypes.arrayOf(PropTypes.number),
     dashed: PropTypes.bool,
+    dashSegments: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    animate: PropTypes.bool,
+    style: PropTypes.object,
     className: PropTypes.string,
     prefix: PropTypes.string
   };
@@ -37,7 +40,10 @@ export default class RichTextBlock extends (PureComponent || Component) {
       prefix,
       size,
       animate,
-      dashed
+      dashed,
+      widths,
+      dashSegments,
+      lineSpacing
     } = this.props;
     const classes = cx(`${prefix}-placeholder-richtext-block`, className);
     const shapeStyle = { marginRight: 10 };
@@ -45,7 +51,7 @@ export default class RichTextBlock extends (PureComponent || Component) {
     return (
       <div className={classes} style={{ ...style, display: 'flex' }}>
         {shape === 'circle' ? (
-          <Circle style={shapeStyle} radius={size / 2} animate={animate} />
+          <Circle style={shapeStyle} diameter={size} animate={animate} />
         ) : (
           <Rectangle
             style={shapeStyle}
@@ -54,7 +60,14 @@ export default class RichTextBlock extends (PureComponent || Component) {
             animate={animate}
           />
         )}
-        <TextBlock rows={rows} animate={animate} dashed={dashed} />
+        <TextBlock
+          rows={rows}
+          animate={animate}
+          dashed={dashed}
+          widths={widths}
+          dashSegments={dashSegments}
+          lineSpacing={lineSpacing}
+        />
       </div>
     );
   }

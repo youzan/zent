@@ -8,8 +8,8 @@ export default class Rectangle extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    width: PropTypes.number,
-    height: PropTypes.number,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     animate: PropTypes.bool,
     prefix: PropTypes.string
   };
