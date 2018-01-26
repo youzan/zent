@@ -4,7 +4,8 @@ const common = {
   confirm: 'Confirm',
   cancel: 'Cancel',
   comma: ', ',
-  ok: 'OK'
+  ok: 'OK',
+  reset: 'Reset'
 };
 
 export const mark = 'en-US';
@@ -74,6 +75,7 @@ export const TimePicker = () => {
   setLocale(enUS);
   return {
     ...common,
+    time: 'Please select a time',
     date: 'Please select a date',
     week: 'Please select a week',
     month: 'Please select a month',
@@ -83,6 +85,8 @@ export const TimePicker = () => {
     rangeError: 'Please select the starting and ending time',
     start: 'Start date',
     end: 'End date',
+    startTime: 'Start time',
+    endTime: 'End time',
     to: 'to',
     current: {
       time: 'Now',

@@ -36,7 +36,6 @@ Time pickers, provides basic time choosing functionality.
 | confirmText  | Confirm button text     | string         | `'Confirm'`        | No   |
 | popPosition  | Popup align position   | oneOf(['left', 'right'])  | 'left'    | No   |
 
-
 ### DatePicker
 
 | Property      | Description         | Type      | Default      | Required |
@@ -104,6 +103,41 @@ Time pickers, provides basic time choosing functionality.
 - When `showTime` is `true`, the `min` and `max` string must have time part, e.g. `2017-01-01 11:11:11`.
 - `disabledTime` has an additional argument `type` like in `DatePicker`, its value is `start` or `end`.
 - `onClick(val, type)`, the `type` is the same as `disabledTime`.
+
+### TimePicker
+
+| Property      | Description         | Type      | Default      | Required |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showSecond       | Whether to show second selector to not.          | boolean         | false  | No    |
+| format       | Time formatting string        | string         | `HH:mm:ss`  | No    |
+| min        | The minimum selectable time           | string/Date    |     | No    |
+| max        | The maximum selectable time      | string/Date    |     | No    |
+| valueType | Set `onChange`'s value type, one of `string`/`number`/`date` | string  | '' | No    |
+| hourStep        | The hour step of the hours displayed.           | number    | 1    | No    |
+| minuteStep        | The minute step of the minutes displayed.           | number    | 1    | No    |
+| secondStep        | The second step of the seconds displayed.           | number    | 1    | No    |
+| name  		| Name attribute of the input node   | string    |   | No    |
+| placeholder  | Placeholder text            | string    | `Please select a date`   | No    |
+| onBeforeConfirm   | Confirm callback, return `true` to allow, `false` to abort | func   |    | No    |
+| onBeforeClear   | Clear callback, return `true` to allow, `false` to abort | func  |    | No    |
+
+- If `format` is not changed, the actual format used will be `HH:mm` when `showSecond` is false. Otherwise, the user defined format will be used.
+
+### TimeRangePicker
+
+| Property      | Description         | Type      | Default      | Required |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showSecond       | Whether to show second selector to not.          | boolean         | false  | No    |
+| format       | Time formatting string        | string         | `HH:mm:ss`  | No    |
+| value        | Selected value   | array  | `[]`           | No    |
+| min        | The minimum selectable time           | string/Date    |     | No    |
+| max        | The maximum selectable time      | string/Date    |     | No    |
+| valueType | Set `onChange`'s value type, one of `string`/`number`/`date` | string  | '' | No    |
+| hourStep        | The hour step of the hours displayed.           | number    | 1    | No    |
+| minuteStep        | The minute step of the minutes displayed.           | number    | 1    | No    |
+| secondStep        | The second step of the seconds displayed.           | number    | 1    | No    |
+
+- If `format` is not changed, the actual format used will be 'HH:mm' when `showSecond` is false. Otherwise, the user defined format will be used.
 
 ### Format string
 
