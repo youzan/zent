@@ -28,6 +28,7 @@
     "autosize": "^4.0.0",
     "babel-runtime": "^6.23.0",
     "classnames": "2.2.x",
+    "date-fns": "^1.29.0",
     "es6-error": "4.0.x",
     "fecha": "2.3.x",
     "lodash": "4.17.x",
