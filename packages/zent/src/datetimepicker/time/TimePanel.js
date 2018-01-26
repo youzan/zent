@@ -91,6 +91,7 @@ export default class TimePanel extends (PureComponent || Component) {
       <div className="time-panel">
         {openHour && (
           <HourPanel
+            className="panel-content"
             selected={actived}
             isDisabled={this.isDisabled('hour')}
             onSelect={this.onSelectTime('hour')}
@@ -100,6 +101,7 @@ export default class TimePanel extends (PureComponent || Component) {
         )}
         {openMinute && (
           <MinutePanel
+            className="panel-content"
             selected={actived}
             isDisabled={this.isDisabled('minute')}
             onSelect={this.onSelectTime('minute')}
@@ -109,6 +111,7 @@ export default class TimePanel extends (PureComponent || Component) {
         )}
         {openSecond && (
           <SecondPanel
+            className="panel-content"
             selected={actived}
             isDisabled={this.isDisabled('second')}
             onSelect={this.onSelectTime('second')}

@@ -109,6 +109,40 @@ group: 数据
 - `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
 - `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
 
+### TimePicker
+
+| Property      | Description         | Type      | Default      | Required |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showSecond       | 是否显示秒的选择          | boolean         | false  | No    |
+| format       | 输入和返回值格式        | string         | `HH:mm:ss`  | No    |
+| min        | 可选时间的最小值           | string/Date    |     | No    |
+| max        | 可选时间的最大值      | string/Date    |     | No    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date` | string  | '' | No    |
+| hourStep        | 显示的小时步长           | number    | 1    | No    |
+| minuteStep        | 显示的分钟步长           | number    | 1    | No    |
+| secondStep        | 显示的秒步长           | number    | 1    | No    |
+| name  		| input 的 name 属性   | string    |   | No    |
+| placeholder  | 提示文案            | string    | `请选择时间`   | No    |
+| onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func   |    | No    |
+| onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func  |    | No    |
+
+- 如果用户没有更改 `format` , 实际使用的格式会根据 `showSecond` 改变，当 `showSecond` 是 false 时，实际使用 `HH:mm`. 如果传入了不同的 `format`，那么以用户传入的为准.
+
+### TimeRangePicker
+
+| Property      | Description         | Type      | Default      | Required |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showSecond       | 是否显示秒的选择          | boolean         | false  | No    |
+| format       | 输入和返回值格式        | string         | `HH:mm:ss`  | No    |
+| value        | 已选中的时间范围   | array  | `[]`           | No    |
+| min        | 可选时间的最小值           | string/Date    |     | No    |
+| max        | 可选时间的最大值      | string/Date    |     | No    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date` | string  | '' | No    |
+| hourStep        | 显示的小时步长           | number    | 1    | No    |
+| minuteStep        | 显示的分钟步长          | number    | 1    | No    |
+| secondStep        | 显示的秒步长           | number    | 1    | No    |
+
+- 如果用户没有更改 `format` , 实际使用的格式会根据 `showSecond` 改变，当 `showSecond` 是 false 时，实际使用 `HH:mm`. 如果传入了不同的 `format`，那么以用户传入的为准.
 
 #### 格式化字符表
 

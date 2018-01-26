@@ -64,7 +64,7 @@ group: 反馈
 
 | 参数         |   说明         | 类型     | 是否必须    | 默认值      | 备选值            |
 | ------------ | ------------- | -------- | ---------- | ---------- | ----------------- |
-| segments     | 分段配置       | `(number \| string)[]`  | 否         | 随机生成    |       |
+| segments     | 分段配置       | `(number | string)[]`  | 否         | 随机生成    |       |
 | lineSpacing  | 顶部间距       | `string` \| `number`    |  否   |  `'0.7em'`   |  |
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |

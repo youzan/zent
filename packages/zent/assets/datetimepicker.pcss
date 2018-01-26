@@ -58,6 +58,10 @@ $input_width: 183px;
       display: block;
     }
 
+    .zenticon-clock-o {
+      display: block;
+    }
+
     .zenticon-close-circle {
       display: none;
     }
@@ -81,6 +85,10 @@ $input_width: 183px;
         .zenticon-calendar-o {
           display: none;
         }
+
+        .zenticon-clock-o {
+          display: none;
+        }
       }
     }
 
@@ -95,6 +103,10 @@ $input_width: 183px;
         }
 
         .zenticon-calendar-o {
+          display: block;
+        }
+
+        .zenticon-clock-o {
           display: block;
         }
       }
@@ -186,9 +198,7 @@ $input_width: 183px;
           }
 
           .time-panel {
-            .hour-panel,
-            .minute-panel,
-            .second-panel {
+            .panel-content {
               height: 265px;
             }
           }
@@ -549,9 +559,7 @@ $input_width: 183px;
         }
       }
 
-      .hour-panel,
-      .minute-panel,
-      .second-panel {
+      .panel-content {
         position: absolute;
         top: 0;
         left: 0;
@@ -580,5 +588,75 @@ $input_width: 183px;
         }
       }
     }
+
+    .time-picker-panel {
+      &__header {
+        height: 50px;
+        display: flex;
+        align-items: center;
+      }
+
+      &__tab-group {
+        margin: 12px 60px;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        display: flex;
+        flex: 1;
+
+        &.show-second {
+          margin: 12px 30px;
+        }
+
+        .time__number {
+          flex: 1;
+          cursor: pointer;
+          border: 1px solid $theme-stroke-5;
+          border-right-width: 0;
+          user-select: none;
+
+          &:first-child {
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+          }
+
+          &:last-child {
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+            border-right-width: 1px;
+          }
+
+          &.checked {
+            border: 1px solid $active_color;
+            color: $active_color;
+            outline: none;
+          }
+
+          &.checked + .time__number {
+            border-left-width: 0;
+          }
+        }
+      }
+
+      &__content {
+        height: 210px;
+        padding: 6px 0;
+        font-weight: lighter;
+
+        .grid-cell {
+          padding: 2px 0;
+        }
+      }
+
+      &__footer {
+        .panel__footer {
+          border-top: none;
+        }
+      }
+    }
+  }
+
+  .time-picker-input {
+    width: 100px;
   }
 }
