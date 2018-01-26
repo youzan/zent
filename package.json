@@ -42,7 +42,9 @@
   ],
   "author": "Youzan FE",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "date-fns": "^1.29.0"
+  },
   "files": [],
   "devDependencies": {
     "@types/react": "^15.0.36",
