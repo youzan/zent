@@ -48,12 +48,12 @@ import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
 import Tag from 'tag';
+import TimePicker from 'datetimepicker/TimePicker';
+import TimeRangePicker from 'datetimepicker/TimeRangePicker';
 import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
 import YearPicker from 'datetimepicker/YearPicker';
-import TimePicker from 'datetimepicker/TimePicker';
-import TimeRangePicker from 'datetimepicker/TimeRangePicker';
 
 export {
   Affix,
@@ -106,10 +106,10 @@ export {
   Table,
   Tabs,
   Tag,
-  Tree,
-  Upload,
   TimePicker,
   TimeRangePicker,
+  Tree,
+  Upload,
   WeekPicker,
   YearPicker
 };

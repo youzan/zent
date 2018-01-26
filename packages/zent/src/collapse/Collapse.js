@@ -2,12 +2,18 @@ import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import kindOf from 'utils/kindOf';
+import isString from 'lodash/isString';
+import isArray from 'lodash/isArray';
+import includes from 'lodash/includes';
 
 import Panel from './Panel';
 
 export default class Collapse extends (PureComponent || Component) {
   static propTypes = {
-    activeKey: PropTypes.string,
+    activeKey: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string)
+    ]),
     onChange: PropTypes.func.isRequired,
     bordered: PropTypes.bool,
     children(props, propName, componentName) {
@@ -43,7 +49,8 @@ export default class Collapse extends (PureComponent || Component) {
         {React.Children.map(children, c =>
           React.cloneElement(c, {
             onChange: this.onChange,
-            active: activeKey === c.key
+            active: isPanelActive(activeKey, c.key),
+            panelKey: c.key
           })
         )}
       </div>
@@ -53,4 +60,15 @@ export default class Collapse extends (PureComponent || Component) {
   onChange = (key, active) => {
     console.log(key, active);
   };
+}
+
+function isPanelActive(activeKeys, key) {
+  console.log(key);
+  if (isString(activeKeys)) {
+    return activeKeys === key;
+  } else if (isArray(activeKeys)) {
+    return includes(activeKeys, key);
+  }
+
+  return false;
 }
