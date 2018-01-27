@@ -1,22 +1,22 @@
-import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import React, { Component, PureComponent } from "react";
+import cx from "classnames";
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
+import Input from "input";
+import Popover from "popover";
+import getWidth from "utils/getWidth";
+import { I18nReceiver as Receiver } from "i18n";
+import { TimePicker as I18nDefault } from "i18n/default";
 
-import MonthPanel from './month/MonthPanel';
-import PanelFooter from './common/PanelFooter';
-import { formatDate, parseDate, dayStart, dayEnd } from './utils';
+import MonthPanel from "./month/MonthPanel";
+import PanelFooter from "./common/PanelFooter";
+import { formatDate, parseDate, dayStart, dayEnd } from "./utils";
 import {
   CURRENT,
   noop,
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants';
+} from "./constants";
 
 function extractStateFromProps(props) {
   let showPlaceholder;
@@ -59,11 +59,11 @@ class MonthPicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: '',
-    format: 'YYYY-MM'
+    placeholder: "",
+    format: "YYYY-MM"
   };
 
-  retType = 'string';
+  retType = "string";
 
   constructor(props) {
     super(props);
@@ -73,8 +73,8 @@ class MonthPicker extends (PureComponent || Component) {
     if (valueType) {
       this.retType = valueType.toLowerCase();
     } else if (value) {
-      if (typeof value === 'number') this.retType = 'number';
-      if (value instanceof Date) this.retType = 'date';
+      if (typeof value === "number") this.retType = "number";
+      if (value instanceof Date) this.retType = "date";
     }
   }
 
@@ -85,11 +85,11 @@ class MonthPicker extends (PureComponent || Component) {
 
   getReturnValue = date => {
     const { format } = this.props;
-    if (this.retType === 'number') {
+    if (this.retType === "number") {
       return date.getTime();
     }
 
-    if (this.retType === 'date') {
+    if (this.retType === "date") {
       return date;
     }
 
@@ -128,13 +128,13 @@ class MonthPicker extends (PureComponent || Component) {
     const { canClear, onChange } = this.props;
     if (!canClear) return;
 
-    onChange('');
+    onChange("");
   };
 
   onConfirm = () => {
     const { props: { format, onChange }, state: { selected } } = this;
 
-    let value = '';
+    let value = "";
     if (selected) {
       value = formatDate(selected, format);
     }
@@ -150,7 +150,7 @@ class MonthPicker extends (PureComponent || Component) {
   isDisabled = val => {
     const year = this.state.actived.getFullYear();
     const dateStr = `${year}-${val + 1}`;
-    const ret = parseDate(dateStr, 'YYYY-MM');
+    const ret = parseDate(dateStr, "YYYY-MM");
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(ret)) return true;
@@ -167,8 +167,8 @@ class MonthPicker extends (PureComponent || Component) {
     } = this;
     let monthPicker;
     if (openPanel) {
-      const monthPickerCls = classNames({
-        'month-picker': true,
+      const monthPickerCls = cx({
+        "month-picker": true,
         small: isFooterVisble
       });
       monthPicker = (
@@ -222,11 +222,11 @@ class MonthPicker extends (PureComponent || Component) {
       },
       state: { openPanel, showPlaceholder, value }
     } = this;
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
-      'picker-input': true,
-      'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
+      "picker-input": true,
+      "picker-input--filled": !showPlaceholder,
+      "picker-input--disabled": disabled
     });
     const widthStyle = getWidth(width);
 

@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -196,8 +196,8 @@ class YearPicker extends (PureComponent || Component) {
       state: { openPanel, showPlaceholder, value }
     } = this;
 
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled

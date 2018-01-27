@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cx from 'classnames';
 import isArray from 'lodash/isArray';
 import startOfWeek from 'date-fns/start_of_week';
 import endOfWeek from 'date-fns/end_of_week';
@@ -259,12 +259,12 @@ class WeekPicker extends (PureComponent || Component) {
     // 打开面板的时候才渲染
     if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
-      const linkCls = classNames({
+      const linkCls = cx({
         'link--current': true,
         'link--disabled': isDisabled
       });
 
-      const weekPickerCls = classNames({
+      const weekPickerCls = cx({
         'week-picker': true,
         small: this.isfooterShow
       });
@@ -327,8 +327,8 @@ class WeekPicker extends (PureComponent || Component) {
       state: { openPanel, showPlaceholder, value }
     } = this;
 
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled

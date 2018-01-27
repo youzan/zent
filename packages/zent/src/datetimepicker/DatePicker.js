@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cx from 'classnames';
 import assign from 'lodash/assign';
 
 import Input from 'input';
@@ -299,11 +299,11 @@ class DatePicker extends (PureComponent || Component) {
     // 打开面板的时候才渲染
     if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
-      const linkCls = classNames({
+      const linkCls = cx({
         'link--current': true,
         'link--disabled': isDisabled
       });
-      const datePickerCls = classNames({
+      const datePickerCls = cx({
         'date-picker': true,
         small: this.isfooterShow
       });
@@ -362,8 +362,8 @@ class DatePicker extends (PureComponent || Component) {
       },
       state: { showPlaceholder, openPanel, value }
     } = this;
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled
