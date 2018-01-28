@@ -1,32 +1,32 @@
-import React, { Component, PureComponent } from "react";
-import PropTypes from "prop-types";
-import cx from "classnames";
+import React, { Component, PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
-import Input from "input";
-import Popover from "popover";
-import getWidth from "utils/getWidth";
-import { I18nReceiver as Receiver } from "i18n";
-import { TimePicker as I18nDefault } from "i18n/default";
+import Input from 'input';
+import Popover from 'popover';
+import getWidth from 'utils/getWidth';
+import { I18nReceiver as Receiver } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
 
-import HourPanel from "./time/HourPanel";
-import MinutePanel from "./time/MinutePanel";
-import SecondPanel from "./time/SecondPanel";
-import PanelFooter from "./common/PanelFooter";
-import { formatDate, parseDate, dayStart, padLeft } from "./utils";
+import HourPanel from './time/HourPanel';
+import MinutePanel from './time/MinutePanel';
+import SecondPanel from './time/SecondPanel';
+import PanelFooter from './common/PanelFooter';
+import { formatDate, parseDate, dayStart, padLeft } from './utils';
 import {
   timeFnMap,
   noop,
   popPositionMap,
   commonProps,
   commonPropTypes
-} from "./constants";
+} from './constants';
 
-const DEFAULT_FORMAT = "HH:mm:ss";
-const DEFAULT_FORMAT_WITHOUT_SECOND = "HH:mm";
+const DEFAULT_FORMAT = 'HH:mm:ss';
+const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';
 const TIME_KEY = {
-  HOUR: "hour",
-  MINUTE: "minute",
-  SECOND: "second"
+  HOUR: 'hour',
+  MINUTE: 'minute',
+  SECOND: 'second'
 };
 
 /**
@@ -46,26 +46,26 @@ function getFormat(props) {
 export default class TimePicker extends (PureComponent || Component) {
   static propTypes = {
     ...commonPropTypes,
-    valueType: PropTypes.oneOf(["string", "number", "date"]),
+    valueType: PropTypes.oneOf(['string', 'number', 'date']),
     value: PropTypes.string,
     hourStep: PropTypes.number,
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
 
-    onBeforeConfirm: PropTypes.func,
+    onBeforeConfirm: PropTypes.func
   };
 
   static defaultProps = {
     ...commonProps,
-    placeholder: "",
-    format: "HH:mm:ss",
+    placeholder: '',
+    format: 'HH:mm:ss',
     isFooterVisble: true,
     hourStep: 1,
     minuteStep: 1,
     secondStep: 1
   };
 
-  retType = "string";
+  retType = 'string';
 
   constructor(props) {
     super(props);
@@ -76,8 +76,8 @@ export default class TimePicker extends (PureComponent || Component) {
     if (valueType) {
       this.retType = valueType.toLowerCase();
     } else if (value) {
-      if (typeof value === "number") this.retType = "number";
-      if (value instanceof Date) this.retType = "date";
+      if (typeof value === 'number') this.retType = 'number';
+      if (value instanceof Date) this.retType = 'date';
     }
 
     this.state = this.extractStateFromProps(props);
@@ -89,7 +89,7 @@ export default class TimePicker extends (PureComponent || Component) {
   }
 
   extractParsedDate = props => {
-    return parseDate(props.value || "", getFormat(props));
+    return parseDate(props.value || '', getFormat(props));
   };
 
   extractStateFromProps = props => {
@@ -135,7 +135,7 @@ export default class TimePicker extends (PureComponent || Component) {
     const { canClear, onChange } = this.props;
     if (!canClear) return;
 
-    onChange("");
+    onChange('');
   };
 
   /**
@@ -146,11 +146,11 @@ export default class TimePicker extends (PureComponent || Component) {
   getReturnValue = date => {
     const format = getFormat(this.props);
 
-    if (this.retType === "number") {
+    if (this.retType === 'number') {
       return date.getTime();
     }
 
-    if (this.retType === "date") {
+    if (this.retType === 'date') {
       return date;
     }
 
@@ -269,7 +269,7 @@ export default class TimePicker extends (PureComponent || Component) {
             step={this.props.hourStep}
             selected={value}
             isDisabled={this.isCellDisabled(TIME_KEY.HOUR)}
-            onSelect={v => this.onChangeTime(v, "hour")}
+            onSelect={v => this.onChangeTime(v, 'hour')}
             i18n={i18n}
             hideHeader
           />
@@ -280,7 +280,7 @@ export default class TimePicker extends (PureComponent || Component) {
             step={this.props.minuteStep}
             selected={value}
             isDisabled={this.isCellDisabled(TIME_KEY.MINUTE)}
-            onSelect={v => this.onChangeTime(v, "minute")}
+            onSelect={v => this.onChangeTime(v, 'minute')}
             i18n={i18n}
             hideHeader
           />
@@ -291,7 +291,7 @@ export default class TimePicker extends (PureComponent || Component) {
             step={this.props.secondStep}
             selected={value}
             isDisabled={this.isCellDisabled(TIME_KEY.SECOND)}
-            onSelect={v => this.onChangeTime(v, "second")}
+            onSelect={v => this.onChangeTime(v, 'second')}
             i18n={i18n}
             hideHeader
           />
@@ -312,7 +312,7 @@ export default class TimePicker extends (PureComponent || Component) {
     // 打开面板的时候才渲染
     if (isPanelOpen) {
       const linkCls = cx({
-        "link--current": true
+        'link--current': true
       });
 
       const radioButtonGroup = [
@@ -339,7 +339,7 @@ export default class TimePicker extends (PureComponent || Component) {
           return (
             <span
               key={tabKey}
-              className={cx("time__number", {
+              className={cx('time__number', {
                 checked: this.state.tabKey === tabKey
               })}
               onClick={() => this.switchTab(tabKey)}
@@ -353,8 +353,8 @@ export default class TimePicker extends (PureComponent || Component) {
         <div className="time-picker time-panel time-picker-panel">
           <div className="panel__header time-picker-panel__header">
             <div
-              className={cx("time-picker-panel__tab-group", {
-                "show-second": showSecond
+              className={cx('time-picker-panel__tab-group', {
+                'show-second': showSecond
               })}
             >
               {radioButtonGroup}
@@ -399,14 +399,14 @@ export default class TimePicker extends (PureComponent || Component) {
 
     const format = getFormat(this.props);
     const formattedValue =
-      (value && formatDate(parseDate(value, format), format)) || "";
+      (value && formatDate(parseDate(value, format), format)) || '';
 
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
-      "picker-input": true,
-      "picker-input--filled": !!formattedValue,
-      "picker-input--disabled": disabled,
-      "time-picker-input": true
+      'picker-input': true,
+      'picker-input--filled': !!formattedValue,
+      'picker-input--disabled': disabled,
+      'time-picker-input': true
     });
     const widthStyle = getWidth(width);
 
