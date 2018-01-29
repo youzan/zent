@@ -5,6 +5,7 @@ import kindOf from 'utils/kindOf';
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
 import includes from 'lodash/includes';
+import indexOf from 'lodash/indexOf';
 
 import Panel from './Panel';
 
@@ -15,6 +16,7 @@ export default class Collapse extends (PureComponent || Component) {
       PropTypes.arrayOf(PropTypes.string)
     ]),
     onChange: PropTypes.func.isRequired,
+    accordion: PropTypes.bool,
     bordered: PropTypes.bool,
     children(props, propName, componentName) {
       const propValue = props[propName];
@@ -33,6 +35,7 @@ export default class Collapse extends (PureComponent || Component) {
 
   static defaultProps = {
     bordered: true,
+    accordion: false,
     prefix: 'zent'
   };
 
@@ -46,11 +49,13 @@ export default class Collapse extends (PureComponent || Component) {
           [`${prefix}-collpase--no-border`]: !bordered
         })}
       >
-        {React.Children.map(children, c =>
+        {React.Children.map(children, (c, idx) =>
           React.cloneElement(c, {
             onChange: this.onChange,
             active: isPanelActive(activeKey, c.key),
-            panelKey: c.key
+            panelKey: c.key,
+            isLast: idx === React.Children.count(children) - 1,
+            isFirst: idx === 0
           })
         )}
       </div>
@@ -58,16 +63,31 @@ export default class Collapse extends (PureComponent || Component) {
   }
 
   onChange = (key, active) => {
-    console.log(key, active);
+    const { activeKey, accordion, onChange } = this.props;
+
+    if (accordion) {
+      if (activeKey !== key && active) {
+        onChange(key);
+      }
+    } else {
+      const activeKeyArray = [].concat(activeKey);
+      const keyIndex = indexOf(activeKeyArray, key);
+      if (active) {
+        keyIndex === -1 && activeKeyArray.push(key);
+      } else {
+        keyIndex !== -1 && activeKeyArray.splice(keyIndex, 1);
+      }
+
+      onChange(activeKeyArray);
+    }
   };
 }
 
-function isPanelActive(activeKeys, key) {
-  console.log(key);
-  if (isString(activeKeys)) {
-    return activeKeys === key;
-  } else if (isArray(activeKeys)) {
-    return includes(activeKeys, key);
+function isPanelActive(activeKey, key) {
+  if (isString(activeKey)) {
+    return activeKey === key;
+  } else if (isArray(activeKey)) {
+    return includes(activeKey, key);
   }
 
   return false;

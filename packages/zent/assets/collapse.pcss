@@ -1,10 +1,52 @@
 @import './theme/default.pcss';
+$border-style: 1px solid $theme-stroke-7;
+$content-padding: 15px;
 
 .zent-collapse {
   box-sizing: border-box;
+  overflow: hidden;
 
   &--has-border {
     border: 1px solid $theme-stroke-7;
     border-radius: 4px;
+  }
+}
+
+.zent-collapse-panel {
+  box-sizing: border-box;
+
+  &__title {
+    font-size: 14px;
+    line-height: 1.5;
+    background: $theme-stroke-9;
+    padding: 10px;
+    border-bottom: $border-style;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  &__content-box {
+    padding: 0 $content-padding;
+    border-bottom: $border-style;
+    background: $theme-stroke-10;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    &.rah-static--height-zero {
+      border-bottom: 0;
+    }
+  }
+
+  &__content {
+    padding: $content-padding 0;
+  }
+
+  &__arrow {
+    fill: $theme-stroke-3;
+    width: 14px;
+    height: 14px;
+    margin-right: 10px;
   }
 }
