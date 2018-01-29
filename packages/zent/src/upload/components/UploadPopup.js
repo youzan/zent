@@ -187,6 +187,7 @@ class UploadPopup extends Component {
               +
               <FileInput
                 {...props.options}
+                auto={false}
                 i18n={i18n}
                 accept={accept}
                 initIndex={lastIndex}
