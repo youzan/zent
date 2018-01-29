@@ -1,7 +1,9 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cx from 'classnames';
 import isArray from 'lodash/isArray';
+import startOfWeek from 'date-fns/start_of_week';
+import endOfWeek from 'date-fns/end_of_week';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -29,8 +31,14 @@ import {
 } from './constants';
 
 function getSelectedWeek(val, start = 1) {
-  const offset = val.getDay();
-  return [goDays(val, start - offset), goDays(val, 6 + start - offset)];
+  return [
+    startOfWeek(val, {
+      weekStartsOn: start
+    }),
+    endOfWeek(val, {
+      weekStartsOn: start
+    })
+  ];
 }
 
 function extractStateFromProps(props) {
@@ -174,7 +182,10 @@ class WeekPicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange([]);
+    const { canClear, onChange } = this.props;
+    if (!canClear) return;
+
+    onChange([]);
   };
 
   onMouseOut = evt => {
@@ -232,8 +243,8 @@ class WeekPicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
+    if (min && dayEnd(val) < parseDate(min, format)) return true;
+    if (max && dayStart(val) > parseDate(max, format)) return true;
 
     return false;
   };
@@ -248,12 +259,12 @@ class WeekPicker extends (PureComponent || Component) {
     // 打开面板的时候才渲染
     if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
-      const linkCls = classNames({
+      const linkCls = cx({
         'link--current': true,
         'link--disabled': isDisabled
       });
 
-      const weekPickerCls = classNames({
+      const weekPickerCls = cx({
         'week-picker': true,
         small: this.isfooterShow
       });
@@ -316,8 +327,8 @@ class WeekPicker extends (PureComponent || Component) {
       state: { openPanel, showPlaceholder, value }
     } = this;
 
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled

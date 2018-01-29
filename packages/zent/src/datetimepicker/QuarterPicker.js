@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 import isArray from 'lodash/isArray';
+import getQuarter from 'date-fns/get_quarter';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -9,13 +10,7 @@ import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import QuarterPanel from './quarter/QuarterPanel';
-import {
-  dayStart,
-  dayEnd,
-  formatDate,
-  parseDate,
-  getQuarterFromDate
-} from './utils';
+import { dayStart, dayEnd, formatDate, parseDate } from './utils';
 import {
   noop,
   popPositionMap,
@@ -68,7 +63,7 @@ function extractStateFromProps(props) {
   }
   let quarter;
   if (selected) {
-    quarter = getQuarterFromDate(selected);
+    quarter = getQuarter(selected) - 1;
   }
 
   return {
@@ -155,7 +150,10 @@ class QuarterPicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange([]);
+    const { canClear, onChange } = this.props;
+    if (!canClear) return;
+
+    onChange([]);
   };
 
   isDisabled = quarter => {
@@ -219,8 +217,8 @@ class QuarterPicker extends (PureComponent || Component) {
       },
       state: { openPanel, selected, showPlaceholder, value }
     } = this;
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled

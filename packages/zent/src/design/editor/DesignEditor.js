@@ -180,8 +180,10 @@ export class DesignEditor extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    !shallowEqual(this.props, nextProps) ||
-      !shallowEqual(this.state, nextState);
+    return (
+      !shallowEqual(this.props, nextProps) ||
+      !shallowEqual(this.state, nextState)
+    );
   }
 }
 

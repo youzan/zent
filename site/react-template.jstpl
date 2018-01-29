@@ -50,7 +50,7 @@ class Demo extends Component {
             <p>{title || ''}</p>
           </div>
           <i
-            className={`zenticon zenticon-right zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
+            className={`zenticon zenticon-caret-up zandoc-react-demo__toggle ${showCode ? 'zandoc-react-demo__toggle-on' : 'zandoc-react-demo__toggle-off'}`}
           />
         </div>
         {showCode &&

@@ -21,8 +21,7 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
-      activeId: 'materials'
+      visible: false
     };
     this.showUpload = this.showUpload.bind(this);
     this.closePopup = this.closePopup.bind(this);
@@ -53,7 +52,6 @@ class Upload extends Component {
       tips,
       children,
       triggerInline,
-      materials,
       withoutPopup,
       ...uploadOptions
     } = this.props;
@@ -155,6 +153,7 @@ Upload.defaultProps = {
   onFetch: promiseNoop,
   onUpload: promiseNoop,
   categoryList: [],
+  categoryId: '',
   triggerInline: false,
   silent: false,
   withoutPopup: false

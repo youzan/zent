@@ -1,0 +1,40 @@
+@import './theme/default.pcss';
+
+.zent-placeholder-shape {
+  background-color: $theme-stroke-8;
+
+  &--animate {
+    animation: zent-placeholder 2s linear infinite;
+    background: linear-gradient(to right, $placeholder-animate-stop-1, $placeholder-animate-stop-2, $placeholder-animate-stop-3);
+    background-size: 300% 300%;
+  }
+}
+
+.zent-placeholder-text-row,
+.zent-placeholder-text-row-dashed .zent-placeholder-shape {
+  width: 100%;
+  height: 1em;
+}
+
+.zent-placeholder-text-row-dashed {
+  display: flex;
+
+  &-segment {
+    box-sizing: border-box;
+  }
+}
+
+.zent-placeholder-circle {
+  border-radius: 50%;
+}
+
+@keyframes zent-placeholder {
+  0%,
+  100% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}

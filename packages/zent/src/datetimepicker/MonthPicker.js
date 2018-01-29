@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -9,7 +9,7 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { formatDate, parseDate, dayStart } from './utils';
+import { formatDate, parseDate, dayStart, dayEnd } from './utils';
 import {
   CURRENT,
   noop,
@@ -125,7 +125,10 @@ class MonthPicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange('');
+    const { canClear, onChange } = this.props;
+    if (!canClear) return;
+
+    onChange('');
   };
 
   onConfirm = () => {
@@ -151,8 +154,8 @@ class MonthPicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(ret)) return true;
-    if (min && ret < parseDate(min, format)) return true;
-    if (max && ret > parseDate(max, format)) return true;
+    if (min && dayEnd(ret) < parseDate(min, format)) return true;
+    if (max && dayStart(ret) > parseDate(max, format)) return true;
 
     return false;
   };
@@ -164,7 +167,7 @@ class MonthPicker extends (PureComponent || Component) {
     } = this;
     let monthPicker;
     if (openPanel) {
-      const monthPickerCls = classNames({
+      const monthPickerCls = cx({
         'month-picker': true,
         small: isFooterVisble
       });
@@ -219,8 +222,8 @@ class MonthPicker extends (PureComponent || Component) {
       },
       state: { openPanel, showPlaceholder, value }
     } = this;
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled

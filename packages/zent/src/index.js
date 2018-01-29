@@ -27,6 +27,7 @@ import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
 import NumberInput from 'number-input';
 import Pagination from 'pagination';
+import Placeholder from 'placeholder';
 import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
@@ -50,6 +51,8 @@ import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
 import YearPicker from 'datetimepicker/YearPicker';
+import TimePicker from 'datetimepicker/TimePicker';
+import TimeRangePicker from 'datetimepicker/TimeRangePicker';
 
 export {
   Affix,
@@ -81,6 +84,7 @@ export {
   Notify,
   NumberInput,
   Pagination,
+  Placeholder,
   Pop,
   Popover,
   Portal,
@@ -102,6 +106,8 @@ export {
   Tag,
   Tree,
   Upload,
+  TimePicker,
+  TimeRangePicker,
   WeekPicker,
   YearPicker
 };

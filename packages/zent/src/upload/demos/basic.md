@@ -57,7 +57,8 @@ class Simple extends React.Component {
             <img width="80" height="80" key={index} src={item.src} style={{marginRight: '10px'}} />
           ))}
           <Upload
-            maxSize={10 * 1024 * 1024}
+						maxSize={1 * 1024 * 1024}
+						maxAmount={10}
             triggerInline
 						tips="{i18n.tip}"
 						categoryList={categoryList}
