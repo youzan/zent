@@ -35,6 +35,8 @@ group: 数据
 | prefix       | 自定义前缀       			 | string         | `'zent'`        | 否    |
 | confirmText  | 确定按钮文字            | string         | '确定'        | 否    |
 | popPosition  | pop 弹出层 align 方向   | oneOf(['left', 'right'])  | 'left'    | 否    |
+| onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func         |    | 否    |
+| canClear  | 用户是否可以清除选中的值   | bool  | true    | 否   |
 
 
 #### DatePicker
@@ -52,8 +54,6 @@ group: 数据
 | placeholder  | 提示文案                   | string    | `请选择日期`   | 否    |
 | defaultTime   | 自定义时间的默认值              | string/Date         | `'00:00:00'`   | 否    |
 | onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func         |    | 否    |
-| onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func         |    | 否    |
-| canClear  | 用户是否可以清除选中的值   | bool  | true    | 否   |
 
 **注意：**
 - `disabledDate` 函数调用时会传入一个 date 对象作为参数，用户可以自定义这个 date 是否处于禁用区间，返回 true/false，需要特殊的禁用规则时可以通过这个函数来实现，一般情况下使用 `max` 和 `min` 就可以满足需求。
@@ -124,7 +124,6 @@ group: 数据
 | name  		| input 的 name 属性   | string    |   | No    |
 | placeholder  | 提示文案            | string    | `请选择时间`   | No    |
 | onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func   |    | No    |
-| onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func  |    | No    |
 
 - 如果用户没有更改 `format` , 实际使用的格式会根据 `showSecond` 改变，当 `showSecond` 是 false 时，实际使用 `HH:mm`. 如果传入了不同的 `format`，那么以用户传入的为准.
 
