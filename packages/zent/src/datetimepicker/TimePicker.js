@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -52,8 +52,7 @@ export default class TimePicker extends (PureComponent || Component) {
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
 
-    onBeforeConfirm: PropTypes.func,
-    onBeforeClear: PropTypes.func // 用户可以通过这个函数返回 false 来阻止清空
+    onBeforeConfirm: PropTypes.func
   };
 
   static defaultProps = {
@@ -132,10 +131,10 @@ export default class TimePicker extends (PureComponent || Component) {
   };
 
   onClearInput = evt => {
-    const { onChange, onBeforeClear } = this.props;
-    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
-
     evt.stopPropagation();
+    const { canClear, onChange } = this.props;
+    if (!canClear) return;
+
     onChange('');
   };
 
@@ -312,7 +311,7 @@ export default class TimePicker extends (PureComponent || Component) {
 
     // 打开面板的时候才渲染
     if (isPanelOpen) {
-      const linkCls = classNames({
+      const linkCls = cx({
         'link--current': true
       });
 
@@ -340,7 +339,7 @@ export default class TimePicker extends (PureComponent || Component) {
           return (
             <span
               key={tabKey}
-              className={classNames('time__number', {
+              className={cx('time__number', {
                 checked: this.state.tabKey === tabKey
               })}
               onClick={() => this.switchTab(tabKey)}
@@ -354,7 +353,7 @@ export default class TimePicker extends (PureComponent || Component) {
         <div className="time-picker time-panel time-picker-panel">
           <div className="panel__header time-picker-panel__header">
             <div
-              className={classNames('time-picker-panel__tab-group', {
+              className={cx('time-picker-panel__tab-group', {
                 'show-second': showSecond
               })}
             >
@@ -402,8 +401,8 @@ export default class TimePicker extends (PureComponent || Component) {
     const formattedValue =
       (value && formatDate(parseDate(value, format), format)) || '';
 
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !!formattedValue,
       'picker-input--disabled': disabled,

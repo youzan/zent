@@ -35,6 +35,7 @@ Time pickers, provides basic time choosing functionality.
 | prefix       | Custom prefix  	 | string         | `'zent'`        | No   |
 | confirmText  | Confirm button text     | string         | `'Confirm'`        | No   |
 | popPosition  | Popup align position   | oneOf(['left', 'right'])  | 'left'    | No   |
+| canClear  | can use clear the selected value   | bool  | true    | No   |
 
 ### DatePicker
 

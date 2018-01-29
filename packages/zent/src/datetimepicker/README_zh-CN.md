@@ -53,7 +53,7 @@ group: 数据
 | defaultTime   | 自定义时间的默认值              | string/Date         | `'00:00:00'`   | 否    |
 | onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func         |    | 否    |
 | onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func         |    | 否    |
-
+| canClear  | 用户是否可以清除选中的值   | bool  | true    | 否   |
 
 **注意：**
 - `disabledDate` 函数调用时会传入一个 date 对象作为参数，用户可以自定义这个 date 是否处于禁用区间，返回 true/false，需要特殊的禁用规则时可以通过这个函数来实现，一般情况下使用 `max` 和 `min` 就可以满足需求。
