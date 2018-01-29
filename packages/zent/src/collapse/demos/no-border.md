@@ -1,7 +1,7 @@
 ---
-order: 2
+order: 3
 zh-CN:
-	title: 手风琴风格，每次只能打开一个面板。
+	title: 无边框样式
 	panelOneTitle: 南歌子（暮春）
 	panelOneContent: "紫陌寻春去，红尘拂面来。无人不道看花回。惟见石榴新蕊、一枝开。
 	冰簟堆云髻，金尊滟玉醅。绿阴青子相催。留取红巾千点、照池台。"
@@ -13,7 +13,7 @@ zh-CN:
 
 废沼夜来秋水满，茂林深处晚莺啼。行人肠断草凄迷。"
 en-US:
-	title: Accordion style, only one panel can be active at the same time.
+	title: No border
 	panelOneTitle: A Lover's Complaint
 	panelOneContent: "FROM off a hill whose concave womb reworded
 A plaintful story from a sistering vale,
@@ -57,7 +57,7 @@ class Simple extends React.Component {
 	render() {
 		const { activeKey } = this.state;
 		return (
-			<Collapse activeKey={activeKey} onChange={this.handleChange.bind(this)} accordion>
+			<Collapse activeKey={activeKey} onChange={this.handleChange.bind(this)} bordered={false}>
 				<Collapse.Panel title="{i18n.panelOneTitle}" key="1">
 					{i18n.panelOneContent}
 				</Collapse.Panel>

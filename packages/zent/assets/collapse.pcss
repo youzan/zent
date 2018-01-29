@@ -7,8 +7,16 @@ $content-padding: 15px;
   overflow: hidden;
 
   &--has-border {
-    border: 1px solid $theme-stroke-7;
+    border: $border-style;
     border-radius: 4px;
+
+    .zent-collapse-panel__title {
+      background: $theme-stroke-9;
+    }
+  }
+
+  &--no-border {
+    background: $theme-stroke-10;
   }
 }
 
@@ -18,7 +26,6 @@ $content-padding: 15px;
   &__title {
     font-size: 14px;
     line-height: 1.5;
-    background: $theme-stroke-9;
     padding: 10px;
     border-bottom: $border-style;
     cursor: pointer;
@@ -34,10 +41,6 @@ $content-padding: 15px;
     background: $theme-stroke-10;
     overflow: hidden;
     box-sizing: border-box;
-
-    &.rah-static--height-zero {
-      border-bottom: 0;
-    }
   }
 
   &__content {
@@ -48,7 +51,7 @@ $content-padding: 15px;
   &__arrow {
     fill: $theme-stroke-3;
     margin-right: 10px;
-    transition: transform 250ms ease;
+    transition: transform 200ms ease;
   }
 
   &--inactive {
@@ -66,5 +69,9 @@ $content-padding: 15px;
       color: $theme-stroke-5;
       cursor: not-allowed;
     }
+  }
+
+  &--animating {
+    user-select: none;
   }
 }

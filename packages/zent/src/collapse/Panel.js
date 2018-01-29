@@ -6,7 +6,9 @@ import LazyMount from 'utils/component/LazyMount';
 
 const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,
-  transition: 'border-bottom-width 50ms ease'
+  borderBottomColor: 'rgba(255, 255, 255, 0)',
+  transition:
+    'border-bottom-width 200ms ease-out, border-bottom-color 200ms ease-out'
 };
 const NO_STYLE = {};
 
@@ -25,7 +27,7 @@ export default class Panel extends (PureComponent || Component) {
     onChange: PropTypes.func,
     panelKey: PropTypes.string,
     isLast: PropTypes.bool,
-    isFirst: PropTypes.bool
+    bordered: PropTypes.bool
   };
 
   static defaultProps = {
@@ -38,7 +40,6 @@ export default class Panel extends (PureComponent || Component) {
     super(props);
 
     this.state = {
-      animating: false,
       animateAppear: !props.active
     };
   }
@@ -53,13 +54,16 @@ export default class Panel extends (PureComponent || Component) {
       prefix,
       showArrow,
       className,
-      isLast
+      isLast,
+      bordered
     } = this.props;
-    const { animating, animateAppear } = this.state;
+    const { animateAppear } = this.state;
+    const isBorderedLast = bordered && isLast;
 
-    const titleStyle =
-      !animating && isLast && !active ? NO_BOTTOM_BORDER : NO_STYLE;
-    const contentBoxStyle = !animating && isLast ? NO_BOTTOM_BORDER : NO_STYLE;
+    // border transitions are done in JS to keep height animtion in sync
+    const titleStyle = isBorderedLast && !active ? NO_BOTTOM_BORDER : NO_STYLE;
+    const contentBoxStyle =
+      isBorderedLast || !active ? NO_BOTTOM_BORDER : NO_STYLE;
 
     return (
       <div
@@ -70,9 +74,12 @@ export default class Panel extends (PureComponent || Component) {
           [`${prefix}-collapse-panel--disabled`]: disabled
         })}
         style={style}
-        onClick={this.toggle}
       >
-        <div className={`${prefix}-collapse-panel__title`} style={titleStyle}>
+        <div
+          className={`${prefix}-collapse-panel__title`}
+          style={titleStyle}
+          onClick={this.toggle}
+        >
           {showArrow && <Arrow className={`${prefix}-collapse-panel__arrow`} />}
           {title}
         </div>
@@ -83,8 +90,6 @@ export default class Panel extends (PureComponent || Component) {
             height={active ? 'auto' : 0}
             className={`${prefix}-collapse-panel__content-box`}
             style={contentBoxStyle}
-            onAnimationStart={this.onAnimationStart}
-            onAnimationEnd={this.onAnimationEnd}
           >
             <div className={`${prefix}-collapse-panel__content`}>
               {children}
@@ -101,18 +106,6 @@ export default class Panel extends (PureComponent || Component) {
     if (!disabled) {
       onChange(panelKey, !active);
     }
-  };
-
-  onAnimationEnd = () => {
-    this.setState({
-      animating: false
-    });
-  };
-
-  onAnimationStart = () => {
-    this.setState({
-      animating: true
-    });
   };
 }
 

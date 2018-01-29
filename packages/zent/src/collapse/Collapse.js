@@ -55,7 +55,7 @@ export default class Collapse extends (PureComponent || Component) {
             active: isPanelActive(activeKey, c.key),
             panelKey: c.key,
             isLast: idx === React.Children.count(children) - 1,
-            isFirst: idx === 0
+            bordered
           })
         )}
       </div>
@@ -68,6 +68,8 @@ export default class Collapse extends (PureComponent || Component) {
     if (accordion) {
       if (activeKey !== key && active) {
         onChange(key);
+      } else if (activeKey === key && !active) {
+        onChange(null);
       }
     } else {
       const activeKeyArray = [].concat(activeKey);
