@@ -1,7 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
+import getQuarter from 'date-fns/get_quarter';
+
 import PanelCell from '../common/PanelCell';
-import { getQuarterFromDate } from '../utils';
 
 const ROW = 2;
 const COL = 2;
@@ -14,7 +15,7 @@ export default class QuarterPanelBody extends (PureComponent || Component) {
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {
       quarters[rowIndex] = [];
       for (let colIndex = 0; colIndex < COL; colIndex++) {
-        const isSelected = selected && getQuarterFromDate(selected) === index;
+        const isSelected = selected && getQuarter(selected) === index + 1;
         const isDisabled = disabledDate && disabledDate(index);
         const className = classNames({
           'panel__cell quarter-panel__cell': true,

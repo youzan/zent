@@ -37,7 +37,8 @@ export const commonProps = {
   popPosition: 'left',
   openPanel: false,
   onChange: noop,
-  isFooterVisble: false
+  isFooterVisble: false,
+  canClear: true
 };
 
 export const commonPropTypes = {
@@ -66,5 +67,6 @@ export const commonPropTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onOpen: PropTypes.func,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  canClear: PropTypes.bool
 };

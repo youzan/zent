@@ -3,9 +3,12 @@ import {
   parseDate as parseBase
 } from 'zan-utils/date';
 
+import startOfDay from 'date-fns/start_of_day';
+import endOfDay from 'date-fns/end_of_day';
+
 import { getLocale } from 'i18n/time-locale';
 
-import { CURRENT_MONTH, ONEDAY, TIME_BEGIN, TIME_END } from '../constants';
+import { CURRENT_MONTH, ONEDAY, TIME_BEGIN } from '../constants';
 
 export const padLeft = val => {
   return val < 10 ? `0${val}` : val;
@@ -102,11 +105,11 @@ export function parseDate(dateStr, format, locale = getLocale() || 'zh') {
 }
 
 export function dayStart(date = new Date()) {
-  return setTime(date);
+  return startOfDay(date);
 }
 
 export function dayEnd(date = new Date()) {
-  return setTime(date, TIME_END);
+  return endOfDay(date);
 }
 
 export function setTime(date, time = TIME_BEGIN) {
@@ -126,34 +129,13 @@ export function setTime(date, time = TIME_BEGIN) {
   return new Date(...dateTimeArr);
 }
 
-export function getQuarterFromDate(date) {
-  const month = date.getMonth();
-
-  let quarter;
-  switch (month) {
-    case 0:
-    case 1:
-    case 2:
-      quarter = 0;
-      break;
-    case 3:
-    case 4:
-    case 5:
-      quarter = 1;
-      break;
-    case 6:
-    case 7:
-    case 8:
-      quarter = 2;
-      break;
-    case 9:
-    case 10:
-    case 11:
-      quarter = 3;
-      break;
-    default:
-      break;
-  }
-
-  return quarter;
-}
+export const commonFns = {
+  goDays,
+  goMonths,
+  goYears,
+  setTime,
+  dayStart,
+  dayEnd,
+  parseDate,
+  formatDate
+};

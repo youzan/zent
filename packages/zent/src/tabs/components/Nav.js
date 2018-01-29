@@ -81,8 +81,8 @@ class Nav extends (PureComponent || Component) {
       TabList.push(
         <Tab
           prefix={this.props.prefix}
-          onSelected={this.onTabSelected.bind(this)}
-          onDelete={this.onTabDel.bind(this)}
+          onSelected={this.onTabSelected}
+          onDelete={this.onTabDel}
           uniqueId={this.props.uniqueId}
           {...renderDataItem}
           id={renderDataItem.key}
@@ -95,21 +95,20 @@ class Nav extends (PureComponent || Component) {
     return TabList;
   }
 
-  onTabSelected(id) {
+  onTabSelected = id => {
     let { onChange } = this.props;
-    // change
     onChange(id);
-  }
+  };
 
-  onTabDel(id) {
+  onTabDel = id => {
     let { onDelete } = this.props;
     onDelete(id);
-  }
+  };
 
-  onTabAdd() {
+  onTabAdd = () => {
     let { onTabAdd } = this.props;
     onTabAdd();
-  }
+  };
 
   render() {
     let { prefix, align, canadd, size, type } = this.props;
@@ -120,10 +119,7 @@ class Nav extends (PureComponent || Component) {
     let addOperation = '';
     if (canadd && align !== 'center') {
       addOperation = (
-        <div
-          className={`${prefix}-tabs-nav-add`}
-          onClick={this.onTabAdd.bind(this)}
-        >
+        <div className={`${prefix}-tabs-nav-add`} onClick={this.onTabAdd}>
           <span>+</span>
         </div>
       );

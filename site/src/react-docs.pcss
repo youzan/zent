@@ -12,19 +12,13 @@
 
 .react-doc-page-content {
   min-height: 100%;
-  padding-bottom: 62px;
+  padding: 10px 0 62px;
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
 }
 
 .zandoc-react-container {
-  .zandoc-react-markdown code[class*="language-"] {
-    border: 1px solid $border-color;
-    border-radius: 4px;
-    margin-bottom: 20px;
-  }
-
   .zandoc-react-demo {
     border-radius: 4px;
     border: 1px solid $border-color;
@@ -45,25 +39,27 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      background-color: #f5f7fa;
+
+      &:hover {
+        background-color: #ebeff5;
+      }
     }
 
     &__toggle {
       display: inline-block;
       width: 20px;
       height: 20px;
-      border: 2px solid $toggle-color;
       color: $toggle-color;
-      border-radius: 50%;
       font-size: 12px;
       line-height: 20px;
       flex: 0 0 auto;
+      transition: 0.2s ease;
 
       &-off {
-        transform: rotate(90deg);
-      }
-
-      &-on {
-        transform: rotate(-90deg);
+        transform: rotate(180deg);
       }
     }
 
@@ -76,7 +72,10 @@
     }
 
     &__code {
-      border-top: 1px solid $border-color;
+      code[class*="language-"] {
+        margin: 0;
+        border-top: 1px solid $border-color;
+      }
     }
   }
 }
@@ -98,9 +97,9 @@
   width: 250px;
   height: 80px;
   border-radius: 4px;
-  padding: 5px 10px;
+  padding: 5px 15px;
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
 
   .zandoc-react-color-cell__name {
     margin-top: 8px;

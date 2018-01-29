@@ -42,7 +42,12 @@ export default class SideNav extends Component {
   );
 
   parseList = (navItem, index) => {
-    const { title, subtitle } = navItem;
+    const { title, subtitle, hidden } = navItem;
+
+    if (hidden) {
+      return null;
+    }
+
     const linkTitle = subtitle ? (
       <span>
         {title} <span className="nav-item__subtitle">{subtitle}</span>

@@ -4,9 +4,8 @@
   width: 250px;
   flex-shrink: 0;
   box-sizing: border-box;
-  border-right: 1px solid #f4f4f4;
   overflow: auto;
-  padding: 20px 0 10px;
+  padding: 25px 0 10px;
 
   li {
     list-style: none;
@@ -20,48 +19,33 @@
 
   .nav-group-item {
     a {
-      font-size: 16px;
-      color: #333;
-      line-height: 40px;
-      height: 40px;
-      margin: 0;
-      text-decoration: none;
+      height: 44px;
+      line-height: 44px;
       display: block;
-      position: relative;
+      color: #455a64;
+      font-weight: bold;
+      font-size: 16px;
       transition: all 0.3s;
-      padding: 0 20px;
-      cursor: pointer;
+      padding: 0 20px 0 40px;
     }
 
     .nav-item {
       a {
-        display: block;
-        height: 40px;
-        line-height: 40px;
         font-size: 14px;
-        padding-left: 44px;
-        border-right: 3px solid transparent;
+        font-weight: normal;
 
         .nav-item__subtitle {
           font-size: 12px;
           color: #666;
         }
 
-        &:hover {
-          color: #38f;
-
-          .nav-item__subtitle {
-            color: #69f;
-          }
-        }
-
+        &:hover,
         &.active {
-          color: #38f;
-          background-color: #f2f2f2;
-          border-right-color: #38f;
+          color: $link-color;
+          background-color: #f5f7fa;
 
           .nav-item__subtitle {
-            color: #69f;
+            color: $link-color;
           }
         }
       }
@@ -69,10 +53,9 @@
   }
 
   .nav-group__title {
-    font-size: 12px;
-    color: #666;
-    padding-left: 28px;
-    line-height: 26px;
-    margin-top: 10px;
+    font-size: 13px;
+    line-height: 44px;
+    padding-left: 40px;
+    color: rgba(69, 90, 100, 0.6);
   }
 }

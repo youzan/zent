@@ -2,6 +2,48 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 升级指南
+
+- [3.x 升级指南](../migrating/3x)
+- [2.1.x 升级指南](../migrating/21x)
+
+### 4.1.0 (2018-01-29)
+
+- 🎉 新增 `TimePicker` 和 `TimeRangePicker`
+- 🎉 新增 `Placeholder` 组件
+- 🎉 新的文档网站样式
+- `Card`
+  - ✨ 新增 `loading` 状态支持
+  - ✨ 支持嵌套的卡片
+  - 🦀️ 样式更新
+- ✨ `DatePicker` 支持 `canClear` 参数配置是否可以清除选中的时间
+- `Upload`
+  - ✨ 支持外部传入分组
+  - 🦀️ 修复可以选择超过 `maxAmount` 数量文件的问题
+  - 🦀️ 修复自动弹出的问题
+- 🦀️ 修复 `Notify` 背景色
+
+### 4.0.0 (2018-01-23)
+
+- 💥 `DateRangePicker` 不再支持合并模式，`type` 参数废弃，升级请注意样式
+- `Upload` 
+  - ✨ 支持分组功能
+  - ✨ 国际化支持
+- ✨ `Menu` 支持图标展示
+- `DatePicker`
+  - 🦀️ 修复未选择时间直接确认没有考虑最小时间的问题
+  - 🦀️ 修复最小时间的判断问题
+- `Design`
+  - 🦀️ 文档样式修复
+  - 🦀️ `DesignEditor` 不再继承 `PureComponent`
+- 🦀️ `Slider` 样式修复
+- 🦀️ 修复文档网站锚点失效的问题
+- 🦀️ `Grid` 修复头部高度不同步的问题
+- 🦀️ 优化 `Notify` 的动画
+- `Select`
+  - 🦀️ 修复在部分浏览器下的兼容性问题
+  - 🦀️ 修复 `emptyText` 无效的问题
+- 🦀️ `Sortable` 修复示例
 
 ### 3.12.3 (2018-01-10)
 

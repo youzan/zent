@@ -4,7 +4,8 @@ const common = {
   confirm: 'Confirm',
   cancel: 'Cancel',
   comma: ', ',
-  ok: 'OK'
+  ok: 'OK',
+  reset: 'Reset'
 };
 
 export const mark = 'en-US';
@@ -74,6 +75,7 @@ export const TimePicker = () => {
   setLocale(enUS);
   return {
     ...common,
+    time: 'Please select a time',
     date: 'Please select a date',
     week: 'Please select a week',
     month: 'Please select a month',
@@ -83,6 +85,8 @@ export const TimePicker = () => {
     rangeError: 'Please select the starting and ending time',
     start: 'Start date',
     end: 'End date',
+    startTime: 'Start time',
+    endTime: 'End time',
     to: 'to',
     current: {
       time: 'Now',
@@ -133,8 +137,8 @@ export const Sku = {
     add: '+Add'
   },
   group: {
-    add: 'Add sku picture',
-    imageTip1: 'Currently, only the first sku portrait can be set.',
+    add: 'Add sku image',
+    imageTip1: 'Only the first sku portrait can be set',
     imageTip2:
       'After setting, corresponding portrait of the choosen sku will be rendered.',
     imageTip3: 'Recommended size: 640 x 640 pixels.'
@@ -148,14 +152,12 @@ const TypeMap = {
 
 export const Upload = {
   ...common,
-  title_voice: 'Choose the voice',
-  title_image: 'Choose the image',
+  title_voice: 'Choose voice',
+  title_image: 'Choose image',
   input: {
     holder: 'Add',
     maxAmount({ maxAmount, type }) {
-      return `${TypeMap[
-        type
-      ]} files whose serial number is larger than ${maxAmount} have been filtered`;
+      return `Only ${maxAmount} ${TypeMap[type]} files can be added`;
     },
     maxSize({ maxSize, type }) {
       return `${TypeMap[type]} files larger than ${maxSize} have been filtered`;
@@ -166,12 +168,12 @@ export const Upload = {
   },
   popup: {
     web: 'Web image',
-    group: 'Upload to group',
-    holder: 'Please input the source address of web image',
+    group: 'Group',
+    holder: 'Image url',
     title_voice: 'Local audio',
     title_image: 'Local image',
     type({ types, size }) {
-      return `Only support ${types.join(' /')}, smaller than ${size}`;
+      return `Supports ${types.join(' /')} only, smaller than ${size}`;
     },
     extract: 'Extract',
     extracting: 'Extracting...'
