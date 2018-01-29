@@ -1,7 +1,7 @@
 module.exports = {
   'zh-CN': [
     {
-      name: '指南',
+      name: '开发指南',
       groups: [
         {
           groupName: '使用',
@@ -27,6 +27,7 @@ module.exports = {
             {
               title: 'babel-plugin-zent',
               path: 'guides/babel-plugin-zent',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/babel-plugin-zent/README_zh-CN.md') })"
             }
@@ -61,18 +62,21 @@ module.exports = {
             {
               title: 'Github 日志',
               path: 'guides/github_changelog',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })"
             },
             {
               title: '3.x 升级指南',
               path: 'migrating/3x',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/migrating-2-3_zh-CN.md') })"
             },
             {
               title: '2.1.x 升级指南',
               path: 'migrating/21x',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/migrating-2.1_zh-CN.md') })"
             }
@@ -98,7 +102,7 @@ module.exports = {
       ]
     },
     {
-      name: 'Components 组件',
+      name: '组件',
       groups: []
     }
   ],
@@ -131,6 +135,7 @@ module.exports = {
             {
               title: 'babel-plugin-zent',
               path: 'guides/babel-plugin-zent',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/babel-plugin-zent/README_en-US.md') })"
             }
@@ -165,18 +170,21 @@ module.exports = {
             {
               title: 'Github Log',
               path: 'guides/github_changelog',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/CHANGELOG.md') })"
             },
             {
-              title: 'Migrate to 3.x',
+              title: 'Upgrade to 3.x',
               path: 'migrating/3x',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/migrating-2-3_en-US.md') })"
             },
             {
-              title: 'Migrate to 2.1.x',
+              title: 'Upgrade to 2.1.x',
               path: 'migrating/21x',
+              hidden: true,
               source:
                 "DocLoadable({ loader: () => import('../../packages/zent/docs/migrating-2.1_en-US.md') })"
             }

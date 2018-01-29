@@ -1,4 +1,4 @@
-## Zent
+# Zent
 
 Zent ( \ˈzent\ ) is a React component library developed and used at Youzan. Zent provides a collection of essential UI components and lots of useful domain specific components.
 

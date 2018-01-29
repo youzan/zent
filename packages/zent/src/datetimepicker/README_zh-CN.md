@@ -9,15 +9,15 @@ group: 数据
 
 时间选择组件, 提供基础的时间、日期筛选功能.
 
-## 使用指南
+### 使用指南
 
 - 包含四个组件：`DatePicker`、`MonthPicker`、`WeekPicker` 和 `RangePicker`。
 - `DatePicker` 和 `RangePicker` 可以通过 `showTime` 属性来支持时间的选择。
 - 通过 `format` 属性自定义日期字符串的格式，`format` 的详细说明见页面最后的表格。
 
-## API
+### API
 
-### 共同的 API
+#### 共同的 API
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
 | onChange    | 选择日期回调函数，受控组件，value 和 onChange 必须同时提供  | func | `noop`   | 是    |
@@ -37,7 +37,7 @@ group: 数据
 | popPosition  | pop 弹出层 align 方向   | oneOf(['left', 'right'])  | 'left'    | 否    |
 
 
-### DatePicker
+#### DatePicker
 
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
@@ -53,7 +53,7 @@ group: 数据
 | defaultTime   | 自定义时间的默认值              | string/Date         | `'00:00:00'`   | 否    |
 | onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func         |    | 否    |
 | onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func         |    | 否    |
-
+| canClear  | 用户是否可以清除选中的值   | bool  | true    | 否   |
 
 **注意：**
 - `disabledDate` 函数调用时会传入一个 date 对象作为参数，用户可以自定义这个 date 是否处于禁用区间，返回 true/false，需要特殊的禁用规则时可以通过这个函数来实现，一般情况下使用 `max` 和 `min` 就可以满足需求。
@@ -64,7 +64,7 @@ group: 数据
 更详细用法请看示例。
 
 
-### WeekPicker
+#### WeekPicker
 
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
@@ -77,7 +77,7 @@ group: 数据
 | name  		| input 的 name 属性            | string    |   | 否    |
 | placeholder  | 提示文案                   | string    | `请选择周`   | 否    |
 
-### MonthPicker
+#### MonthPicker
 
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
@@ -88,7 +88,7 @@ group: 数据
 | placeholder  | 提示文案          | string  | `请选择月份`   | 否    |
 
 
-### RangePicker
+#### RangePicker
 
 | 参数           | 说明         | 类型     | 默认值            | 是否必须 |
 | ------------ | ---------- | ------ | -------------- | ---- |
@@ -109,8 +109,42 @@ group: 数据
 - `disabledTime` 和 `DatePicker` 的类似，区别在于被调用时会传入一个 `type` 参数，值为 `start/end`，参照上面的 `disabledTime` 函数。
 - `onClick` 调用时会传入被点击的日期值和点击的类型（start/end) 作为参数，即 `onClick(val, type)`。
 
+### TimePicker
 
-### 格式化字符表
+| Property      | Description         | Type      | Default      | Required |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showSecond       | 是否显示秒的选择          | boolean         | false  | No    |
+| format       | 输入和返回值格式        | string         | `HH:mm:ss`  | No    |
+| min        | 可选时间的最小值           | string/Date    |     | No    |
+| max        | 可选时间的最大值      | string/Date    |     | No    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date` | string  | '' | No    |
+| hourStep        | 显示的小时步长           | number    | 1    | No    |
+| minuteStep        | 显示的分钟步长           | number    | 1    | No    |
+| secondStep        | 显示的秒步长           | number    | 1    | No    |
+| name  		| input 的 name 属性   | string    |   | No    |
+| placeholder  | 提示文案            | string    | `请选择时间`   | No    |
+| onBeforeConfirm   | 用户点击确认前的回调函数，返回 true 表示可以确认，false 表示不能确认 | func   |    | No    |
+| onBeforeClear   | 用户点击清除icon前的回调函数，返回 true 表示可以清除，false 表示不能清除 | func  |    | No    |
+
+- 如果用户没有更改 `format` , 实际使用的格式会根据 `showSecond` 改变，当 `showSecond` 是 false 时，实际使用 `HH:mm`. 如果传入了不同的 `format`，那么以用户传入的为准.
+
+### TimeRangePicker
+
+| Property      | Description         | Type      | Default      | Required |
+| ------------ | ------------------------ | -------------- | --------------- | ---- |
+| showSecond       | 是否显示秒的选择          | boolean         | false  | No    |
+| format       | 输入和返回值格式        | string         | `HH:mm:ss`  | No    |
+| value        | 已选中的时间范围   | array  | `[]`           | No    |
+| min        | 可选时间的最小值           | string/Date    |     | No    |
+| max        | 可选时间的最大值      | string/Date    |     | No    |
+| valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date` | string  | '' | No    |
+| hourStep        | 显示的小时步长           | number    | 1    | No    |
+| minuteStep        | 显示的分钟步长          | number    | 1    | No    |
+| secondStep        | 显示的秒步长           | number    | 1    | No    |
+
+- 如果用户没有更改 `format` , 实际使用的格式会根据 `showSecond` 改变，当 `showSecond` 是 false 时，实际使用 `HH:mm`. 如果传入了不同的 `format`，那么以用户传入的为准.
+
+#### 格式化字符表
 
 |   | 字符 | 输出 |
 | -------- | -------- | -------- |

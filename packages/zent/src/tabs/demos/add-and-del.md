@@ -87,9 +87,9 @@ class Simple extends React.Component {
 				candel
 				canadd
 				activeId={this.state.activeId}
-				onTabChange={this.onTabChange.bind(this)}
-				onTabDel={this.onTabDel.bind(this)}
-				onTabAdd={this.onTabAdd.bind(this)}
+				onChange={this.onTabChange.bind(this)}
+				onDelete={this.onTabDel.bind(this)}
+				onAdd={this.onTabAdd.bind(this)}
 			>
 				{this.renderPanels()}
 			</Tabs>

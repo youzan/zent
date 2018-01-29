@@ -4,7 +4,8 @@ const common = {
   confirm: '确认',
   cancel: '取消',
   ok: '我知道了',
-  comma: '，'
+  comma: '，',
+  reset: '重置'
 };
 
 export const mark = 'zh-CN';
@@ -75,6 +76,7 @@ export const TimePicker = () => {
 
   return {
     ...common,
+    time: '请选择时间',
     date: '请选择日期',
     week: '请选择自然周',
     month: '请选择月份',
@@ -84,6 +86,8 @@ export const TimePicker = () => {
     rangeError: '请选择起止时间',
     start: '开始日期',
     end: '结束日期',
+    startTime: '开始时间',
+    endTime: '结束时间',
     to: '至',
     current: {
       time: '此刻',
