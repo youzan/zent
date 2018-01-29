@@ -79,7 +79,7 @@ export default class Panel extends (PureComponent || Component) {
         <LazyMount mount={active}>
           <AnimateHeight
             appear={animateAppear}
-            duration={150}
+            duration={200}
             height={active ? 'auto' : 0}
             className={`${prefix}-collapse-panel__content-box`}
             style={contentBoxStyle}
@@ -96,8 +96,11 @@ export default class Panel extends (PureComponent || Component) {
   }
 
   toggle = () => {
-    const { onChange, panelKey, active } = this.props;
-    onChange(panelKey, !active);
+    const { onChange, panelKey, active, disabled } = this.props;
+
+    if (!disabled) {
+      onChange(panelKey, !active);
+    }
   };
 
   onAnimationEnd = () => {
@@ -116,11 +119,16 @@ export default class Panel extends (PureComponent || Component) {
 function Arrow({ className }) {
   return (
     <svg
+      width="10"
+      height="5"
+      viewBox="0 0 10 5"
       className={className}
-      viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M478.312 644.16c24.38 26.901 64.507 26.538 88.507-.89l270.57-309.222c7.758-8.867 6.86-22.344-2.008-30.103-8.866-7.759-22.344-6.86-30.103 2.007L534.71 615.173c-7.202 8.231-17.541 8.325-24.782.335L229.14 305.674c-7.912-8.73-21.403-9.394-30.133-1.482s-9.394 21.403-1.482 30.134l280.786 309.833z" />
+      <path
+        d="M.01.268a.26.26 0 0 0 .077.189l4.329 4.325a.754.754 0 0 0 1.043.013L9.912.461A.26.26 0 0 0 9.91.085a.283.283 0 0 0-.39.001L5.07 4.418a.186.186 0 0 1-.129.049.186.186 0 0 1-.129-.054L.483.087a.283.283 0 0 0-.39-.006.26.26 0 0 0-.083.187z"
+        fillRule="nonzero"
+      />
     </svg>
   );
 }

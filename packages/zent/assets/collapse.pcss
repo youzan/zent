@@ -25,6 +25,7 @@ $content-padding: 15px;
     display: flex;
     align-items: center;
     overflow: hidden;
+    color: $theme-stroke-1;
   }
 
   &__content-box {
@@ -41,12 +42,29 @@ $content-padding: 15px;
 
   &__content {
     padding: $content-padding 0;
+    color: $theme-stroke-3;
   }
 
   &__arrow {
     fill: $theme-stroke-3;
-    width: 14px;
-    height: 14px;
     margin-right: 10px;
+    transition: transform 250ms ease;
+  }
+
+  &--inactive {
+    .zent-collapse-panel__arrow {
+      transform: translateY(-1px) rotate(-90deg);
+    }
+  }
+
+  &--disabled {
+    .zent-collapse-panel__arrow {
+      fill: $theme-stroke-5;
+    }
+
+    .zent-collapse-panel__title {
+      color: $theme-stroke-5;
+      cursor: not-allowed;
+    }
   }
 }
