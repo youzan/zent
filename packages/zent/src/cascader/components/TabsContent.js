@@ -13,7 +13,6 @@ class TabsContent extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    popClassName: PropTypes.string,
     clickHandler: PropTypes.func,
     value: PropTypes.array,
     options: PropTypes.array,

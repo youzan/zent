@@ -54,7 +54,7 @@ class Cascader extends (PureComponent || Component) {
     placeholder: '',
     changeOnSelect: false,
     title: [],
-    type: 'menu'
+    type: 'tabs'
   };
 
   constructor(props) {

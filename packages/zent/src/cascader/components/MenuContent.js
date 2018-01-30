@@ -11,11 +11,9 @@ class MenuContent extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    popClassName: PropTypes.string,
     clickHandler: PropTypes.func,
     value: PropTypes.array,
     options: PropTypes.array,
-    title: PropTypes.array,
     isLoading: PropTypes.bool
   };
 
