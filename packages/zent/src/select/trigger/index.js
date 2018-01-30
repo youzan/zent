@@ -8,17 +8,12 @@ import Base from './BaseTrigger';
 import Simple from './SimpleTrigger';
 import Tags from './TagsTrigger';
 
-<<<<<<< HEAD
-Trigger.propTypes = {
-  trigger: PropTypes.any,
-=======
 // Compatible with old APIs. e.g. props.simple / props.search
 const NodeMap = {
   Input,
   Base,
   Simple,
-  Tags
->>>>>>> 63435098... dev: unify the trigger of select, maybe cause test cases not pass
+  Tags,
 };
 
 /**
@@ -31,12 +26,12 @@ const NodeMap = {
 export default class SelectClickTrigger extends Popover.Trigger.Click {
   static propTypes = {
     disabled: PropTypes.bool.isRequired,
-    open: PropTypes.func.isRequired,
-    close: PropTypes.func.isRequired,
-    contentVisible: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
+    open: PropTypes.func,
+    close: PropTypes.func,
+    contentVisible: PropTypes.bool,
+    onClick: PropTypes.func,
     trigger: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    onKeyDown: PropTypes.func.isRequired
+    onKeyDown: PropTypes.func,
   };
 
   clickHandler = event => {
@@ -46,7 +41,9 @@ export default class SelectClickTrigger extends Popover.Trigger.Click {
       close();
     } else if (!disabled) {
       open();
-      onClick(event);
+      if (onClick) {
+        onClick(event);
+      }
     }
   };
 

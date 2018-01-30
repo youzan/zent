@@ -17,6 +17,8 @@ import Trigger from './trigger';
 import Popup from './Popup';
 import { decideTrigger } from './lib';
 
+const { Content } = Popover;
+
 class Select extends React.Component {
   constructor(props) {
     super(props);
@@ -293,6 +295,8 @@ class Select extends React.Component {
   handlePopoverVisibleChange = visible => {
     if (visible) {
       this.props.onOpen();
+    } else {
+      this.setState({ optionsReady: false });
     }
     this.setState({ open: visible });
   };
@@ -330,6 +334,7 @@ class Select extends React.Component {
     return (
       <Popover
         display="inline-block"
+        ref={ref => (this.popover = ref)}
         position={Popover.Position.AutoBottomLeft}
         visible={open}
         className={`${prefixCls} ${popupClassName}`}
@@ -353,7 +358,7 @@ class Select extends React.Component {
           onChange={this.triggerChangeHandler}
           onDelete={this.triggerDeleteHandler}
         />
-        <Popover.Content>
+        <Content>
           <Popup
             ref={ref => (this.popup = ref)}
             cid={cid}
@@ -372,8 +377,11 @@ class Select extends React.Component {
             onFocus={this.popupFocusHandler}
             onBlur={this.popupBlurHandler}
             autoWidth={autoWidth}
+            adjustPosition={
+              this.popover && this.popover.adjustPosition.bind(this.popover)
+            }
           />
-        </Popover.Content>
+        </Content>
       </Popover>
     );
   }
