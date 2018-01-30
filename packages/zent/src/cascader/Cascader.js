@@ -92,6 +92,15 @@ class Cascader extends (PureComponent || Component) {
     }
   }
 
+  recursiveNextOptions(options, id) {
+    if (options && options.length > 0) {
+      let currOptions = find(options, { id });
+      if (currOptions && currOptions.children) {
+        return currOptions.children;
+      }
+    }
+  }
+
   resetCascaderValue(value, options, isTriggerChange = true) {
     let activeValue = [];
     let activeId = 1;
@@ -217,6 +226,7 @@ class Cascader extends (PureComponent || Component) {
           activeId={activeId}
           onTabChange={this.onTabChange}
           title={title}
+          recursiveNextOptions={this.recursiveNextOptions}
           options={options}
           ref={ref => (this.cascader = ref)}
         />

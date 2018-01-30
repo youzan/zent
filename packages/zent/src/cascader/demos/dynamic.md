@@ -63,6 +63,7 @@ class Simple extends React.Component {
 				onChange={this.onChange}
 				loadMore={this.loadMore}
 				placeholder="{i18n.placeholder}"
+				type="menu"
 				title={[
 					'{i18n.pro}',
 					'{i18n.city}',

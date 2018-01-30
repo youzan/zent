@@ -1,6 +1,5 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import find from 'lodash/find';
 import Icon from 'icon';
 import classnames from 'classnames';
 import Popover from 'popover';
@@ -14,7 +13,8 @@ class MenuContent extends (PureComponent || Component) {
     clickHandler: PropTypes.func,
     value: PropTypes.array,
     options: PropTypes.array,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    recursiveNextOptions: PropTypes.func
   };
 
   getMenuItemIcon(item, isShowLoading, isActive) {
@@ -67,26 +67,17 @@ class MenuContent extends (PureComponent || Component) {
     );
   }
 
-  recursiveNextOptions(options, id) {
-    if (options && options.length > 0) {
-      let currOptions = find(options, { id });
-      if (currOptions && currOptions.children) {
-        return currOptions.children;
-      }
-    }
-  }
-
   renderPanels(popover) {
     let PanelEls = [];
     let tabIndex = 1;
-    let { options, value } = this.props;
+    let { options, value, recursiveNextOptions } = this.props;
 
     PanelEls.push(this.renderCascaderItems(options, tabIndex, popover));
 
     if (value && value.length > 0) {
       for (let i = 0; i < value.length; i++) {
         tabIndex++;
-        options = this.recursiveNextOptions(options, value[i]);
+        options = recursiveNextOptions(options, value[i]);
 
         if (options) {
           PanelEls.push(this.renderCascaderItems(options, tabIndex, popover));

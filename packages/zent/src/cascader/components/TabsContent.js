@@ -2,7 +2,6 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'tabs';
 import isArray from 'lodash/isArray';
-import find from 'lodash/find';
 import classnames from 'classnames';
 import Popover from 'popover';
 
@@ -17,7 +16,8 @@ class TabsContent extends (PureComponent || Component) {
     value: PropTypes.array,
     options: PropTypes.array,
     title: PropTypes.array,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    recursiveNextOptions: PropTypes.func
   };
 
   renderCascaderItems(items, stage, popover) {
@@ -60,19 +60,10 @@ class TabsContent extends (PureComponent || Component) {
     return title;
   }
 
-  recursiveNextOptions(options, id) {
-    if (options && options.length > 0) {
-      let currOptions = find(options, { id });
-      if (currOptions && currOptions.children) {
-        return currOptions.children;
-      }
-    }
-  }
-
   renderPanels(popover, i18n) {
     let PanelEls = [];
     let tabIndex = 1;
-    let { title, options, value } = this.props;
+    let { title, options, value, recursiveNextOptions } = this.props;
 
     let tabTitle = i18n.title;
 
@@ -94,7 +85,7 @@ class TabsContent extends (PureComponent || Component) {
     if (value && value.length > 0) {
       for (let i = 0; i < value.length; i++) {
         tabIndex++;
-        options = this.recursiveNextOptions(options, value[i]);
+        options = recursiveNextOptions(options, value[i]);
         if (title.length >= tabIndex) {
           tabTitle = title[tabIndex - 1];
         } else {
