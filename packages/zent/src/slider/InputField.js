@@ -32,7 +32,6 @@ export default class InputField extends (PureComponent || Component) {
             <NumberInput
               {...numberInputProps}
               max={value[1]}
-              onPressEnter={this.onChange.bind(null, 'start')}
               decimal={getDecimal(restProps.step)}
               onChange={this.onChange.bind(null, 'start')}
               value={value[0]}
@@ -42,7 +41,6 @@ export default class InputField extends (PureComponent || Component) {
               {...numberInputProps}
               min={value[0]}
               decimal={getDecimal(restProps.step)}
-              onPressEnter={this.onChange.bind(null, 'end')}
               onChange={this.onChange.bind(null, 'end')}
               value={value[1]}
             />
@@ -51,7 +49,6 @@ export default class InputField extends (PureComponent || Component) {
           <NumberInput
             {...numberInputProps}
             decimal={getDecimal(restProps.step)}
-            onPressEnter={this.onChange.bind(null, 'single')}
             onChange={this.onChange.bind(null, 'single')}
             value={value}
           />
