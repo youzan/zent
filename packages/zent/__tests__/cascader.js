@@ -155,6 +155,62 @@ describe('Cascader', () => {
     dispatchWithTimers(window, new MouseEvent('click'));
   });
 
+  it('can have menu type', () => {
+    const value = [];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon'
+              }
+            ]
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon'
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const wrapper = mount(
+      <Cascader type="menu" value={value} options={options} />
+    );
+
+    wrapper.find('.zent-cascader__select').simulate('click');
+    jest.runAllTimers();
+
+    const pop = new ReactWrapper(wrapper.instance().cascader, true);
+    expect(pop.find('.zent-cascader__menu-item').length).toBe(1);
+    expect(
+      pop
+        .find('.zent-cascader__menu-item')
+        .at(0)
+        .text()
+    ).toBe('root');
+
+    pop
+      .find('.zent-cascader__menu-item')
+      .at(0)
+      .simulate('click');
+    jest.runAllTimers();
+
+    dispatchWithTimers(window, new MouseEvent('click'));
+  });
+
   it('changeOnSelect when click item', () => {
     const value = [];
     const options = [
