@@ -62,10 +62,15 @@ describe('NumberInput', () => {
       // simulate outside setState()
       wrapper.setProps({ value: arg });
     });
+    const onPressEnter = jest.fn().mockImplementation(arg => {
+      // simulate outside setState()
+      wrapper.setProps({ value: arg });
+    });
     wrapper = mount(
       <NumberInput
         onChange={onChangeMock}
         onBlur={onBlurMock}
+        onPressEnter={onPressEnter}
         showStepper
         value={2}
       />
@@ -79,6 +84,8 @@ describe('NumberInput', () => {
     expect(onChangeMock.mock.calls.length).toBe(2);
     wrapper.find('input').simulate('blur');
     expect(onBlurMock.mock.calls.length).toBe(1);
+    wrapper.find('input').simulate('keyDown', { keyCode: 13 });
+    expect(onPressEnter.mock.calls.length).toBe(1);
     wrapper.setProps({ value: 4 });
     expect(wrapper.state('value')).toBe('4');
     wrapper = mount(<NumberInput min={0} showStepper value={-1} />);
