@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 zh-CN:
 	title: 动态加载数据
 	placeholder: 请选择
@@ -28,11 +28,13 @@ class Simple extends React.Component {
 		options: [
 			{
 				id: '330000',
-				title: '{i18n.zj}'
+				title: '{i18n.zj}',
+				isLeaf: false
 			},
 			{
 				id: '120000',
-				title: '{i18n.xj}'
+				title: '{i18n.xj}',
+				isLeaf: false
 			}
 		]
 	}

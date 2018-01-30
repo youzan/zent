@@ -66,6 +66,76 @@ $c-blue-hover: $theme-primary-6;
     }
   }
 
+  &__menu {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 111px;
+    height: 180px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid $theme-stroke-7;
+    overflow: auto;
+
+    &-item {
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      text-align: left;
+      color: $theme-stroke-3;
+      padding-left: 10px;
+      padding-right: 30px;
+      box-sizing: border-box;
+
+      &-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $theme-stroke-5;
+        font-size: 8px;
+      }
+
+      &-loading {
+        width: 12px;
+        height: 12px;
+        margin-top: -6px;
+        position: absolute;
+        display: inline-block;
+        animation: zenticon-animation-spin 1s infinite linear;
+        border: 1px solid $theme-stroke-5;
+        border-radius: 50%;
+        right: 10px;
+        top: 50%;
+        border-top-color: rgba(0, 0, 0, 0) !important;
+        box-sizing: border-box;
+      }
+
+      &:hover {
+        background: $c-blue-hover;
+      }
+
+      &.active {
+        background: $c-blue;
+        color: $theme-stroke-10;
+      }
+    }
+  }
+
+  @keyframes zenticon-animation-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(359deg);
+    }
+  }
+
   &__list {
     font-size: 0;
     padding: 10px 4px;
@@ -139,6 +209,10 @@ $c-blue-hover: $theme-primary-6;
       box-shadow: 0 1px 4px $theme-mask-black-2;
       box-sizing: border-box;
       margin-top: 5px;
+
+      &-menu {
+        width: auto;
+      }
     }
   }
 
