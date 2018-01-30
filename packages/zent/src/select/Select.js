@@ -361,6 +361,11 @@ class Select extends Component {
         wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
         onVisibleChange={this.handlePopoverVisibleChange}
         width={width}
+        onPositionReady={() => {
+          this.setState({
+            optionsReady: true
+          });
+        }}
       >
         <PopoverClickTrigger>
           <Trigger
@@ -373,11 +378,6 @@ class Select extends Component {
             {...selectedItem}
             onChange={this.triggerChangeHandler}
             onDelete={this.triggerDeleteHandler}
-            onPositionReady={() => {
-              this.setState({
-                optionsReady: true
-              });
-            }}
           />
         </PopoverClickTrigger>
         <Popover.Content>
