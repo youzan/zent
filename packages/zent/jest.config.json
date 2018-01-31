@@ -33,7 +33,8 @@
     "<rootDir>/src/utils/scroll.js",
     "<rootDir>/src/utils/getWidth.js",
     "<rootDir>/src/i18n",
-    "<rootDir>/src/placeholder"
+    "<rootDir>/src/placeholder",
+    "<rootDir>/src/collapse"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
