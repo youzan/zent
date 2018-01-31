@@ -132,7 +132,9 @@ export default class TimePicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    const { canClear, onChange } = this.props;
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
     if (!canClear) return;
 
     onChange('');
@@ -392,7 +394,8 @@ export default class TimePicker extends (PureComponent || Component) {
         popPosition,
         name,
         placeholder,
-        value
+        value,
+        canClear
       },
       state: { isPanelOpen }
     } = this;
@@ -435,10 +438,12 @@ export default class TimePicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-clock-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

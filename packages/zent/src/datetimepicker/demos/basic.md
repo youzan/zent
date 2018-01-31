@@ -26,7 +26,6 @@ class Demo extends Component{
   }
 
 	onChangeQuarter = (val) => {
-		console.log(val)
 		this.setState({
 			quarterValue: val
 		})
@@ -68,7 +67,7 @@ class Demo extends Component{
     const now = new Date();
 
     return (
-      <div>
+			<div>
         <TimePicker 
           className="zent-picker-demo"
           value={timeValue}

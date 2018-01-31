@@ -36,6 +36,7 @@ Time pickers, provides basic time choosing functionality.
 | confirmText  | Confirm button text     | string         | `'Confirm'`        | No   |
 | popPosition  | Popup align position   | oneOf(['left', 'right'])  | 'left'    | No   |
 | canClear  | can use clear the selected value   | bool  | true    | No   |
+| onBeforeClear   | Clear callback, return `true` to allow, `false` to abort | func  |    | No    |
 
 ### DatePicker
 
@@ -52,8 +53,6 @@ Time pickers, provides basic time choosing functionality.
 | placeholder  | Placeholder text            | string    | `Please select a date`   | No    |
 | defaultTime   | Default time value        | string         | `'00:00:00'`   | No    |
 | onBeforeConfirm   | Confirm callback, return `true` to allow, `false` to abort | func   |    | No    |
-| onBeforeClear   | Clear callback, return `true` to allow, `false` to abort | func  |    | No    |
-
 
 - `disabledDate` will be passed a date object as argument, return true if the date should be disabled. Using `max` and `min` can cover most use cases.
 - If both `min`/`max` and `disabledDate` are present, `disabledDate` takes precedence.
@@ -73,7 +72,6 @@ Time pickers, provides basic time choosing functionality.
 | name  		| Name attribute of input node     | string    |   | No    |
 | placeholder  | Placeholder text              | string    | `Please select a week`   | No    |
 
-
 ### MonthPicker
 
 | Property     | Description         | Type       | Default    | Required |
@@ -83,7 +81,6 @@ Time pickers, provides basic time choosing functionality.
 | disabled     | Is disabled         | bool      | `false`   | No    |
 | name 				 | Name attribute of input node   | string    |   | No    |
 | placeholder  | Placeholder text     | string  | `Please select the month`   | No    |
-
 
 ### RangePicker
 
@@ -120,7 +117,6 @@ Time pickers, provides basic time choosing functionality.
 | name  		| Name attribute of the input node   | string    |   | No    |
 | placeholder  | Placeholder text            | string    | `Please select a date`   | No    |
 | onBeforeConfirm   | Confirm callback, return `true` to allow, `false` to abort | func   |    | No    |
-| onBeforeClear   | Clear callback, return `true` to allow, `false` to abort | func  |    | No    |
 
 - If `format` is not changed, the actual format used will be `HH:mm` when `showSecond` is false. Otherwise, the user defined format will be used.
 
