@@ -1,5 +1,35 @@
 ## Github Change Log
 
+## [zent@4.1.0](https://github.com/youzan/zent/tree/zent@4.1.0) (2018-01-29)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@4.0.0...zent@4.1.0)
+
+**Implemented enhancements:**
+
+- \[new feature\] TimePicker: TimePicker and TimeRangePicker [\#705](https://github.com/youzan/zent/pull/705) ([HyczZhu](https://github.com/HyczZhu))
+- \[new feature\] Card update and new component Placeholder [\#699](https://github.com/youzan/zent/pull/699) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- Upload: 修复自动弹出fileinput的bug [\#711](https://github.com/youzan/zent/pull/711) ([huangsy](https://github.com/huangsy))
+- \[new feature\] DatePicker: 添加是否可以清除值配置 [\#709](https://github.com/youzan/zent/pull/709) ([xuhong](https://github.com/xuhong))
+- \[bugfix\]: DatePicker：添加 date-fns 依赖 [\#707](https://github.com/youzan/zent/pull/707) ([xuhong](https://github.com/xuhong))
+- Upload: FileInput增加自动弹出 [\#703](https://github.com/youzan/zent/pull/703) ([huangsy](https://github.com/huangsy))
+- \[bug fix\] Placeholder: Fix Placeholder demos [\#701](https://github.com/youzan/zent/pull/701) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Doc: Update markdown doc loaders [\#700](https://github.com/youzan/zent/pull/700) ([cpylua](https://github.com/cpylua))
+- Upload: 修复可以添加超过maxAmount数量的问题 [\#695](https://github.com/youzan/zent/pull/695) ([huangsy](https://github.com/huangsy))
+- \[bug fix\] Notify: Fix notify background color [\#694](https://github.com/youzan/zent/pull/694) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Upload: Fix FileUpload bug [\#693](https://github.com/youzan/zent/pull/693) ([cpylua](https://github.com/cpylua))
+
+**Closed issues:**
+
+- 执行yarn dev到90%左右时报错 [\#698](https://github.com/youzan/zent/issues/698)
+
+**Merged pull requests:**
+
+- \[bug fix\] Doc: Update links [\#704](https://github.com/youzan/zent/pull/704) ([cpylua](https://github.com/cpylua))
+- \[Docs\] update document site style [\#702](https://github.com/youzan/zent/pull/702) ([chenjiahan](https://github.com/chenjiahan))
+- \[new feature\] Upload:  categoryId从props传递 [\#697](https://github.com/youzan/zent/pull/697) ([wulv](https://github.com/wulv))
+
 ## [zent@4.0.0](https://github.com/youzan/zent/tree/zent@4.0.0) (2018-01-23)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@3.12.3...zent@4.0.0)
 
@@ -888,7 +918,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -919,11 +949,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
-
 ## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
+
+## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
 
 **Implemented enhancements:**
 

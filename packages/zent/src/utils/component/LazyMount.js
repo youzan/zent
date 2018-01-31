@@ -6,36 +6,35 @@ import { Component, PureComponent } from 'react';
  */
 export default class LazyMount extends (PureComponent || Component) {
   static propTypes = {
-    mountTrigger: PropTypes.bool
+    mount: PropTypes.bool
   };
 
   static defaultProps = {
-    mountTrigger: false
+    mount: false
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      mounted: props.mountTrigger
-    };
-  }
 
-  componentWillReceiveProps(nextProps) {
-    let { mountTrigger } = nextProps;
-    let { mounted } = this.state;
-    if (mountTrigger && !mounted) {
-      this.setState({
-        mounted: true
-      });
-    }
+    this.state = {
+      mounted: props.mount
+    };
   }
 
   render() {
     let { children } = this.props;
     let { mounted } = this.state;
-    if (mounted) {
-      return children;
+
+    return mounted ? children : null;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let { mount } = nextProps;
+    let { mounted } = this.state;
+    if (mount && !mounted) {
+      this.setState({
+        mounted: true
+      });
     }
-    return null;
   }
 }

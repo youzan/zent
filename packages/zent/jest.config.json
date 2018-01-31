@@ -33,7 +33,8 @@
     "<rootDir>/src/utils/scroll.js",
     "<rootDir>/src/utils/getWidth.js",
     "<rootDir>/src/i18n",
-    "<rootDir>/src/placeholder"
+    "<rootDir>/src/placeholder",
+    "<rootDir>/src/collapse"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
@@ -45,6 +46,7 @@
     "^card(.*)$": "<rootDir>/src/card$1",
     "^cascader(.*)$": "<rootDir>/src/cascader$1",
     "^checkbox(.*)$": "<rootDir>/src/checkbox$1",
+    "^collapse(.*)$": "<rootDir>/src/collapse$1",
     "^colorpicker(.*)$": "<rootDir>/src/colorpicker$1",
     "^copy-button(.*)$": "<rootDir>/src/copy-button$1",
     "^date-range-quick-picker(.*)$": "<rootDir>/src/date-range-quick-picker$1",

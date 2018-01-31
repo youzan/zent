@@ -131,7 +131,7 @@ export default class NumberInput extends (PureComponent || Component) {
     }
   };
 
-  onBlur = () => {
+  calculateNum() {
     const { decimal, min, max } = this.props;
     let { value } = this.state;
     if (/^(\-|\+)?$/g.test(value)) {
@@ -151,11 +151,26 @@ export default class NumberInput extends (PureComponent || Component) {
       downArrow
     });
     this.onPropChange(num);
+    return num;
+  }
+
+  onBlur = () => {
+    const num = this.calculateNum();
 
     const { onBlur } = this.props;
     if (isFunction(onBlur)) {
       const data = this.popData(num);
       onBlur(data);
+    }
+  };
+
+  onPressEnter = () => {
+    const num = this.calculateNum();
+
+    const { onPressEnter } = this.props;
+    if (isFunction(onPressEnter)) {
+      const data = this.popData(num);
+      onPressEnter(data);
     }
   };
 
@@ -295,6 +310,7 @@ export default class NumberInput extends (PureComponent || Component) {
           value={value}
           onChange={this.onChange}
           onBlur={this.onBlur}
+          onPressEnter={this.onPressEnter}
         />
         {showCounter && (
           <span className={addCountClass} onClick={this.inc}>

@@ -125,7 +125,14 @@ function addFiles(name) {
     `${componentDir}/index.js`,
     `export default from './${upperComponentName}.js';`
   );
-  fs.writeFileSync(`${componentDir}/README.md`, `## ${upperComponentName}`);
+  fs.writeFileSync(
+    `${componentDir}/README_en-US.md`,
+    `## ${upperComponentName}`
+  );
+  fs.writeFileSync(
+    `${componentDir}/README_zh-CN.md`,
+    `## ${upperComponentName}`
+  );
   fs.writeFileSync(`${componentDir}/${upperComponentName}.js`, '');
   fs.writeFileSync(`${assetsDir}/${name}.pcss`, '');
 

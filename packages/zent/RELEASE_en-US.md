@@ -7,6 +7,22 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 4.1.0 (2018-01-29)
+
+- 🎉 New component: `TimePicker` and `TimeRangePicker`
+- 🎉 New compponent: `Placeholder`, a composable placeholder
+- 🎉 New documation site
+- `Card`
+  - ✨ Supports `loading` state
+  - ✨ Supports nested cards
+  - 🦀️ Update styles
+- ✨ Add `canClear` to `DatePicker` to control reset
+- `Upload`
+  - ✨ Category id can be passed from outside
+  - 🦀️ Fix file amount can exceed `maxAmount`
+  - 🦀️ Fix auto open bug
+- 🦀️ Fix `Notify` background color
+
 ### 4.0.0 (2018-01-23)
 
 - 💥 Remove combine mode in `DateRangePicker`, `type` prop is removed.

@@ -44,7 +44,7 @@ scatter: true
 
 当一个 `Field` 里需要封装多个表单元素时，一般会将多个表单元素的 value 值封装在一个对象里传入到 `Field` 中。当无法使用 `getControlGroup` 满足封装要求时，可以自己封装组件，通过调用 `Field` 组件传入的 `onChange` 事件更改 `Field` 的 value。
 
-⚠️注意：调用 `Field` 传入的 `onChange` 事件默认会覆盖原值，可以通过传入 `{ merge: true}` 参数可以部分覆盖 value 值。
+⚠️注意：调用 `Field` 传入的 `onChange` 事件默认会覆盖原值，可以通过传入 `{ merge: true}` 参数来部分覆盖 value 值。
 
 <!-- demo-slot-4 -->
 
@@ -362,7 +362,7 @@ const component = field.getWrappedComponent().getControlInstance();
 | isNumeric | 是否数字类型 | 任意 |
 | isInt | 是否整数 | 任意 |
 | isFloat | 是否小数 | 任意 |
-| isLenght | 字符串或数组是否为指定长度 | 长度值(Number) |
+| isLength | 字符串或数组是否为指定长度 | 长度值(Number) |
 | equals | 是否与指定值相等 | 指定值 |
 | equalsField | 是否与表单中的其他元素值相等 | 其他 Field 的name(String) |
 | maxLength | 字符串或数组不能超过指定长度 | 长度值(Number) |

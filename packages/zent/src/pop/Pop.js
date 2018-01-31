@@ -175,7 +175,7 @@ class Pop extends (PureComponent || Component) {
     closeOnClickOutside: PropTypes.bool,
     isClickOutside: PropTypes.func,
 
-    // 在 popover-content 进入屏幕内时触发, 声明周期内仅触发一次
+    // 在 popover-content 进入屏幕内时触发, 生命周期内仅触发一次
     onPositionReady: PropTypes.func,
 
     // 在 popover-content 新位置计算完成时触发
