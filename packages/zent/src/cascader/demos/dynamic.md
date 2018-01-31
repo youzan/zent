@@ -53,6 +53,9 @@ class Simple extends React.Component {
 
 	onChange = (data) => {
 		Notify.success(JSON.stringify(data));
+		this.setState({
+			value: data.map(item => item.id)
+		});
 	}
 
 	render() {

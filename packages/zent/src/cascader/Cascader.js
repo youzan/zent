@@ -139,8 +139,11 @@ class Cascader extends (PureComponent || Component) {
   };
 
   onClose = () => {
+    const { value } = this.props;
     this.setState({
-      open: false
+      open: false,
+      value: isArray(value) ? value : [],
+      activeId: 1
     });
   };
 
