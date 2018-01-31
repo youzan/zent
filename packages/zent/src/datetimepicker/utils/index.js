@@ -30,12 +30,6 @@ export const isSameDate = (val, cmp) => {
   );
 };
 
-export const isSameMonth = (val, cmp) => {
-  return (
-    val.getFullYear() === cmp.getFullYear() && val.getMonth() === cmp.getMonth()
-  );
-};
-
 export const isCurrentMonth = val => {
   return val.getMonth() === CURRENT_MONTH;
 };

@@ -1,16 +1,16 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import assign from 'lodash/assign';
+import React, { Component, PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import assign from "lodash/assign";
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
+import Input from "input";
+import Popover from "popover";
+import getWidth from "utils/getWidth";
+import { I18nReceiver as Receiver } from "i18n";
+import { TimePicker as I18nDefault } from "i18n/default";
 
-import DatePanel from './date/DatePanel';
-import PanelFooter from './common/PanelFooter';
+import DatePanel from "./date/DatePanel";
+import PanelFooter from "./common/PanelFooter";
 import {
   goMonths,
   setSameDate,
@@ -20,7 +20,7 @@ import {
   dayEnd,
   setTime,
   commonFns
-} from './utils';
+} from "./utils";
 import {
   CURRENT_DAY,
   timeFnMap,
@@ -28,7 +28,7 @@ import {
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants';
+} from "./constants";
 
 function extractStateFromProps(props) {
   let selected;
@@ -91,15 +91,15 @@ class DatePicker extends (PureComponent || Component) {
     showTime: PropTypes.bool,
     onBeforeConfirm: PropTypes.func,
     onBeforeClear: PropTypes.func,
-    valueType: PropTypes.oneOf(['string', 'number', 'date'])
+    valueType: PropTypes.oneOf(["string", "number", "date"])
   };
 
   static defaultProps = {
     ...commonProps,
-    placeholder: ''
+    placeholder: ""
   };
 
-  retType = 'string';
+  retType = "string";
 
   constructor(props) {
     super(props);
@@ -110,8 +110,8 @@ class DatePicker extends (PureComponent || Component) {
     if (valueType) {
       this.retType = valueType.toLowerCase();
     } else if (value) {
-      if (typeof value === 'number') this.retType = 'number';
-      if (value instanceof Date) this.retType = 'date';
+      if (typeof value === "number") this.retType = "number";
+      if (value instanceof Date) this.retType = "date";
     }
 
     this.state = extractStateFromProps(props);
@@ -196,7 +196,7 @@ class DatePicker extends (PureComponent || Component) {
 
     if (!canClear) return;
 
-    onChange('');
+    onChange("");
   };
 
   /**
@@ -207,11 +207,11 @@ class DatePicker extends (PureComponent || Component) {
 
   getReturnValue = date => {
     const { format } = this.props;
-    if (this.retType === 'number') {
+    if (this.retType === "number") {
       return date.getTime();
     }
 
-    if (this.retType === 'date') {
+    if (this.retType === "date") {
       return date;
     }
 
@@ -300,11 +300,11 @@ class DatePicker extends (PureComponent || Component) {
     if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
       const linkCls = cx({
-        'link--current': true,
-        'link--disabled': isDisabled
+        "link--current": true,
+        "link--disabled": isDisabled
       });
       const datePickerCls = cx({
-        'date-picker': true,
+        "date-picker": true,
         small: this.isfooterShow
       });
 
@@ -317,8 +317,8 @@ class DatePicker extends (PureComponent || Component) {
             disabledDate={this.isDisabled}
             onSelect={this.onSelectDate}
             onChange={this.onChangeDate}
-            onPrev={this.onChangeMonth('prev')}
-            onNext={this.onChangeMonth('next')}
+            onPrev={this.onChangeMonth("prev")}
+            onNext={this.onChangeMonth("next")}
             i18n={i18n}
           />
           {this.isfooterShow ? (
@@ -358,15 +358,16 @@ class DatePicker extends (PureComponent || Component) {
         width,
         popPosition,
         name,
-        placeholder
+        placeholder,
+        canClear
       },
       state: { showPlaceholder, openPanel, value }
     } = this;
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
-      'picker-input': true,
-      'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      "picker-input": true,
+      "picker-input--filled": !showPlaceholder,
+      "picker-input--disabled": disabled
     });
     const widthStyle = getWidth(width);
 
@@ -394,10 +395,12 @@ class DatePicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

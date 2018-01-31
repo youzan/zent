@@ -1,18 +1,18 @@
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import isArray from 'lodash/isArray';
-import startOfWeek from 'date-fns/start_of_week';
-import endOfWeek from 'date-fns/end_of_week';
+import React, { Component, PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import isArray from "lodash/isArray";
+import startOfWeek from "date-fns/start_of_week";
+import endOfWeek from "date-fns/end_of_week";
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
+import Input from "input";
+import Popover from "popover";
+import getWidth from "utils/getWidth";
+import { I18nReceiver as Receiver } from "i18n";
+import { TimePicker as I18nDefault } from "i18n/default";
 
-import DatePanel from './date/DatePanel';
-import PanelFooter from './common/PanelFooter';
+import DatePanel from "./date/DatePanel";
+import PanelFooter from "./common/PanelFooter";
 import {
   goMonths,
   goDays,
@@ -21,14 +21,14 @@ import {
   dayStart,
   dayEnd,
   setTime
-} from './utils';
+} from "./utils";
 import {
   CURRENT_DAY,
   noop,
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants';
+} from "./constants";
 
 function getSelectedWeek(val, start = 1) {
   return [
@@ -100,11 +100,11 @@ class WeekPicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: '',
+    placeholder: "",
     startDay: 1
   };
 
-  retType = 'string';
+  retType = "string";
 
   constructor(props) {
     super(props);
@@ -113,8 +113,8 @@ class WeekPicker extends (PureComponent || Component) {
     if (valueType) {
       this.retType = valueType.toLowerCase();
     } else if (value) {
-      if (typeof value === 'number') this.retType = 'number';
-      if (value instanceof Date) this.retType = 'date';
+      if (typeof value === "number") this.retType = "number";
+      if (value instanceof Date) this.retType = "date";
     }
 
     this.state = extractStateFromProps(props);
@@ -205,11 +205,11 @@ class WeekPicker extends (PureComponent || Component) {
 
   getReturnValue = date => {
     const { format } = this.props;
-    if (this.retType === 'number') {
+    if (this.retType === "number") {
       return date.getTime();
     }
 
-    if (this.retType === 'date') {
+    if (this.retType === "date") {
       return date;
     }
 
@@ -262,12 +262,12 @@ class WeekPicker extends (PureComponent || Component) {
     if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
       const linkCls = cx({
-        'link--current': true,
-        'link--disabled': isDisabled
+        "link--current": true,
+        "link--disabled": isDisabled
       });
 
       const weekPickerCls = cx({
-        'week-picker': true,
+        "week-picker": true,
         small: this.isfooterShow
       });
 
@@ -282,8 +282,8 @@ class WeekPicker extends (PureComponent || Component) {
               onHover={this.onHover}
               onSelect={this.onSelectDate}
               onChange={this.onChangeDate}
-              onPrev={this.onChangeMonth('prev')}
-              onNext={this.onChangeMonth('next')}
+              onPrev={this.onChangeMonth("prev")}
+              onNext={this.onChangeMonth("next")}
               i18n={i18n}
             />
           </div>
@@ -324,16 +324,17 @@ class WeekPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear
       },
       state: { openPanel, showPlaceholder, value }
     } = this;
 
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
-      'picker-input': true,
-      'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      "picker-input": true,
+      "picker-input--filled": !showPlaceholder,
+      "picker-input--disabled": disabled
     });
     const widthStyle = getWidth(width);
 
@@ -366,10 +367,12 @@ class WeekPicker extends (PureComponent || Component) {
                   />
 
                   <span className="zenticon zenticon-calendar-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

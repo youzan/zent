@@ -394,7 +394,8 @@ export default class TimePicker extends (PureComponent || Component) {
         popPosition,
         name,
         placeholder,
-        value
+        value,
+        canClear
       },
       state: { isPanelOpen }
     } = this;
@@ -437,10 +438,12 @@ export default class TimePicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-clock-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

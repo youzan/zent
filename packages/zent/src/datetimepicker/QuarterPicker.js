@@ -1,22 +1,22 @@
-import React, { Component, PureComponent } from 'react';
-import cx from 'classnames';
-import isArray from 'lodash/isArray';
-import getQuarter from 'date-fns/get_quarter';
+import React, { Component, PureComponent } from "react";
+import cx from "classnames";
+import isArray from "lodash/isArray";
+import getQuarter from "date-fns/get_quarter";
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
+import Input from "input";
+import Popover from "popover";
+import getWidth from "utils/getWidth";
+import { I18nReceiver as Receiver } from "i18n";
+import { TimePicker as I18nDefault } from "i18n/default";
 
-import QuarterPanel from './quarter/QuarterPanel';
-import { dayStart, dayEnd, formatDate, parseDate } from './utils';
+import QuarterPanel from "./quarter/QuarterPanel";
+import { dayStart, dayEnd, formatDate, parseDate } from "./utils";
 import {
   noop,
   popPositionMap,
   commonProps,
   commonPropTypes
-} from './constants';
+} from "./constants";
 
 const quarterMonthMap = {
   0: 0,
@@ -82,11 +82,11 @@ class QuarterPicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: '',
-    format: 'YYYY-MM-DD'
+    placeholder: "",
+    format: "YYYY-MM-DD"
   };
 
-  retType = 'string';
+  retType = "string";
 
   constructor(props) {
     super(props);
@@ -96,8 +96,8 @@ class QuarterPicker extends (PureComponent || Component) {
     if (valueType) {
       this.retType = valueType.toLowerCase();
     } else if (value) {
-      if (typeof value === 'number') this.retType = 'number';
-      if (value instanceof Date) this.retType = 'date';
+      if (typeof value === "number") this.retType = "number";
+      if (value instanceof Date) this.retType = "date";
     }
   }
 
@@ -108,11 +108,11 @@ class QuarterPicker extends (PureComponent || Component) {
 
   getReturnValue = date => {
     const { format } = this.props;
-    if (this.retType === 'number') {
+    if (this.retType === "number") {
       return date.getTime();
     }
 
-    if (this.retType === 'date') {
+    if (this.retType === "date") {
       return date;
     }
 
@@ -215,15 +215,16 @@ class QuarterPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear
       },
       state: { openPanel, selected, showPlaceholder, value }
     } = this;
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
-      'picker-input': true,
-      'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      "picker-input": true,
+      "picker-input--filled": !showPlaceholder,
+      "picker-input--disabled": disabled
     });
     const widthStyle = getWidth(width);
 
@@ -234,7 +235,7 @@ class QuarterPicker extends (PureComponent || Component) {
             let inputVal;
             if (selected) {
               inputVal =
-                i18n.mark === 'zh-CN'
+                i18n.mark === "zh-CN"
                   ? `${selected.getFullYear()}年${i18n.panel.quarterNames[
                       value
                     ]}`
@@ -243,6 +244,7 @@ class QuarterPicker extends (PureComponent || Component) {
                     ]} of ${selected.getFullYear()}`;
             }
             const placeholderText = placeholder || i18n.quarter;
+
             return (
               <Popover
                 cushion={5}
@@ -260,10 +262,12 @@ class QuarterPicker extends (PureComponent || Component) {
                       disabled={disabled}
                     />
                     <span className="zenticon zenticon-calendar-o" />
-                    <span
-                      onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
-                    />
+                    {canClear && (
+                      <span
+                        onClick={this.onClearInput}
+                        className="zenticon zenticon-close-circle"
+                      />
+                    )}
                   </div>
                 </Popover.Trigger.Click>
                 <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>
