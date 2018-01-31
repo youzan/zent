@@ -1,22 +1,22 @@
-import React, { Component, PureComponent } from "react";
-import cx from "classnames";
+import React, { Component, PureComponent } from 'react';
+import cx from 'classnames';
 
-import Input from "input";
-import Popover from "popover";
-import getWidth from "utils/getWidth";
-import { I18nReceiver as Receiver } from "i18n";
-import { TimePicker as I18nDefault } from "i18n/default";
+import Input from 'input';
+import Popover from 'popover';
+import getWidth from 'utils/getWidth';
+import { I18nReceiver as Receiver } from 'i18n';
+import { TimePicker as I18nDefault } from 'i18n/default';
 
-import YearPanel from "./year/YearPanel";
-import PanelFooter from "./common/PanelFooter";
-import { formatDate, parseDate, dayStart } from "./utils";
+import YearPanel from './year/YearPanel';
+import PanelFooter from './common/PanelFooter';
+import { formatDate, parseDate, dayStart } from './utils';
 import {
   CURRENT,
   noop,
   popPositionMap,
   commonProps,
   commonPropTypes
-} from "./constants";
+} from './constants';
 
 function extractStateFromProps(props) {
   let showPlaceholder;
@@ -59,8 +59,8 @@ class YearPicker extends (PureComponent || Component) {
 
   static defaultProps = {
     ...commonProps,
-    placeholder: "",
-    format: "YYYY",
+    placeholder: '',
+    format: 'YYYY',
     needConfirm: false
   };
 
@@ -108,13 +108,13 @@ class YearPicker extends (PureComponent || Component) {
 
     if (!canClear) return;
 
-    onChange("");
+    onChange('');
   };
 
   onConfirm = () => {
     const { props: { format, onChange }, state: { selected } } = this;
 
-    let value = "";
+    let value = '';
     if (selected) {
       value = formatDate(selected, format);
     }
@@ -201,9 +201,9 @@ class YearPicker extends (PureComponent || Component) {
 
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
-      "picker-input": true,
-      "picker-input--filled": !showPlaceholder,
-      "picker-input--disabled": disabled
+      'picker-input': true,
+      'picker-input--filled': !showPlaceholder,
+      'picker-input--disabled': disabled
     });
     const widthStyle = getWidth(width);
 
