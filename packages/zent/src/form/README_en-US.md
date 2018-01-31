@@ -368,7 +368,7 @@ You can use it directly in the `validations` property of `Field`. See more detai
 | isNumeric | Whether the value is a numeric type. | Any |
 | isInt | Whether the value is a integer type. | Any |
 | isFloat | Whether the value is a decimal type. | Any |
-| isLenght | Whether the length of the strging of the array is the specified length. | The value of length(Number) |
+| isLength | Whether the length of the strging of the array is the specified length. | The value of length(Number) |
 | equals | Whether the value is equal to the specified value | specified value |
 | equalsField | Whether the value is equal to the value of other field | The name of other field(String) |
 | maxLength | The maximum length of the string or the array | The value of length(Number) |

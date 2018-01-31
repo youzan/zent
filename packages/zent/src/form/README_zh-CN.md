@@ -362,7 +362,7 @@ const component = field.getWrappedComponent().getControlInstance();
 | isNumeric | 是否数字类型 | 任意 |
 | isInt | 是否整数 | 任意 |
 | isFloat | 是否小数 | 任意 |
-| isLenght | 字符串或数组是否为指定长度 | 长度值(Number) |
+| isLength | 字符串或数组是否为指定长度 | 长度值(Number) |
 | equals | 是否与指定值相等 | 指定值 |
 | equalsField | 是否与表单中的其他元素值相等 | 其他 Field 的name(String) |
 | maxLength | 字符串或数组不能超过指定长度 | 长度值(Number) |
