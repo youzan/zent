@@ -9,7 +9,7 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { formatDate, parseDate, dayStart, dayEnd } from './utils';
+import { formatDate, parseDate, dayStart, dayEnd, monthStart } from './utils';
 import {
   CURRENT,
   noop,
@@ -28,18 +28,18 @@ function extractStateFromProps(props) {
     const tmp = parseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
-      selected = actived = tmp;
+      selected = actived = monthStart(tmp);
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      actived = dayStart();
+      actived = monthStart();
     }
   } else {
     showPlaceholder = true;
     if (defaultValue) {
-      actived = parseDate(defaultValue, format);
+      actived = monthStart(parseDate(defaultValue, format));
     } else {
-      actived = dayStart();
+      actived = monthStart();
     }
   }
 
