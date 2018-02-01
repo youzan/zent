@@ -91,13 +91,14 @@ export default class SubMenu extends CommonMenu {
       expandKeys,
       handleSelect,
       toggleExpand,
+      specKey,
     } = this.props;
 
     if (!component) {
       return null;
     }
 
-    return this.renderCommonMenuItem(component, index, null, {
+    return this.renderCommonMenuItem(component, index, specKey, {
       depth: depth + 1,
       isInline,
       inlineIndent,

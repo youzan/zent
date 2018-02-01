@@ -22,7 +22,6 @@ export default class Menu extends CommonMenu {
     defaultExpandKeys: PropTypes.array,
     defaultSelectedKey: PropTypes.string,
     inlineIndent: PropTypes.number,
-    accordion: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -66,7 +65,7 @@ export default class Menu extends CommonMenu {
       return null;
     }
 
-    return this.renderCommonMenuItem(component, index, null, {
+    return this.renderCommonMenuItem(component, index, undefined, {
       depth: 1,
       isInline: this.props.mode === 'inline',
       inlineIndent: this.props.inlineIndent,

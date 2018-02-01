@@ -18,12 +18,12 @@ export default class PopupMenu extends CommonMenu {
     onClick(e, specKey);
   };
 
-  renderSubMenuItems = (c, i) => {
-    if (!c) {
+  renderSubMenuItems = (component, index) => {
+    if (!component) {
       return null;
     }
     const { specKey } = this.props;
-    return this.renderCommonMenuItem(c, i, specKey);
+    return this.renderCommonMenuItem(component, index, specKey);
   };
 
   render() {
