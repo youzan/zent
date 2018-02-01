@@ -198,7 +198,7 @@ describe('Pop', () => {
       </Pop>
     );
     wrapper.setProps({
-      visible: false
+      visible: false,
     });
   });
 
@@ -234,7 +234,7 @@ describe('Pop', () => {
       'bottom-right',
       'left-top',
       'left-center',
-      'left-bottom'
+      'left-bottom',
     ].forEach(test);
   });
 
@@ -263,7 +263,7 @@ describe('Pop', () => {
     );
 
     wrapper.setProps({
-      visible: true
+      visible: true,
     });
     jest.runAllTimers();
 
@@ -300,7 +300,7 @@ describe('Pop', () => {
     );
 
     wrapper.setProps({
-      visible: true
+      visible: true,
     });
     jest.runAllTimers();
 

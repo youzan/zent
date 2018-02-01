@@ -20,6 +20,6 @@ function createStyle(value) {
     borderTopWidth: '1px',
     margin: hasPadding ? '0 10px' : 0,
     borderColor: color,
-    borderStyle: lineType
+    borderStyle: lineType,
   };
 }

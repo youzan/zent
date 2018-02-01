@@ -14,11 +14,11 @@ function locate() {
         left: `${x}px`,
         top: `${y}px`,
         zIndex: -10,
-        opacity: 0
+        opacity: 0,
       };
     },
 
-    name: 'position-invisible'
+    name: 'position-invisible',
   };
 }
 

@@ -14,7 +14,7 @@ import PopoverClickTrigger from './PopoverClickTrigger';
 
 class ColorPicker extends (PureComponent || Component) {
   state = {
-    popVisible: false
+    popVisible: false,
   };
 
   static propTypes = {
@@ -25,7 +25,7 @@ class ColorPicker extends (PureComponent || Component) {
     wrapperClassName: PropTypes.string,
     prefix: PropTypes.string,
     type: PropTypes.oneOf(['default', 'simple']),
-    presetColors: PropTypes.array
+    presetColors: PropTypes.array,
   };
 
   static defaultProps = {
@@ -50,8 +50,8 @@ class ColorPicker extends (PureComponent || Component) {
       '#00CD98',
       '#5197FF',
       '#BADCFF',
-      '#FFEFB8'
-    ]
+      '#FFEFB8',
+    ],
   };
 
   static ColorBoard = ColorBoard;
@@ -67,7 +67,7 @@ class ColorPicker extends (PureComponent || Component) {
 
   handleVisibleChange = visible => {
     this.setState({
-      popVisible: visible
+      popVisible: visible,
     });
   };
 
@@ -79,7 +79,7 @@ class ColorPicker extends (PureComponent || Component) {
       className,
       wrapperClassName,
       type,
-      presetColors
+      presetColors,
     } = this.props;
     const { popVisible } = this.state;
     const openClassName = popVisible ? 'open' : '';

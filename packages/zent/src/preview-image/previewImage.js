@@ -19,7 +19,7 @@ export default function previewImage(options = {}) {
 
   const props = {
     ...rest,
-    onClose: closePreviewMask
+    onClose: closePreviewMask,
   };
 
   // 保持context

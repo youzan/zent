@@ -16,6 +16,6 @@ export default function getScrollPosition() {
 
   return {
     x,
-    y
+    y,
   };
 }

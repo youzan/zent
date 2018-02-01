@@ -78,7 +78,7 @@ export default class LineEditor extends DesignEditor {
     return {
       color: DEFAULT_COLOR,
       hasPadding: false,
-      lineType: 'solid'
+      lineType: 'solid',
     };
   }
 }

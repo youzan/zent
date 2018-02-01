@@ -11,13 +11,13 @@ const NotifyTransition = ({ children, ...props }) => (
 export default class NotifyContent extends (PureComponent || Component) {
   static propTypes = {
     text: PropTypes.any,
-    status: PropTypes.string
+    status: PropTypes.string,
   };
 
   static defaultProps = {
     text: '',
     status: '',
-    className: ''
+    className: '',
   };
 
   onExited = () => {

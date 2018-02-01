@@ -102,6 +102,6 @@ export default function smoothScroll(el, x, y, duration = SCROLL_TIME) {
     startX,
     startY,
     x,
-    y
+    y,
   });
 }

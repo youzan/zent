@@ -22,12 +22,12 @@ export const TIME_FORMAT = 'HH:mm:ss';
 export const timeFnMap = {
   hour: 'setHours',
   minute: 'setMinutes',
-  second: 'setSeconds'
+  second: 'setSeconds',
 };
 
 export const popPositionMap = {
   left: Popover.Position.AutoBottomLeft,
-  right: Popover.Position.AutoBottomRight
+  right: Popover.Position.AutoBottomRight,
 };
 
 export const commonProps = {
@@ -38,7 +38,7 @@ export const commonProps = {
   openPanel: false,
   onChange: noop,
   isFooterVisble: false,
-  canClear: true
+  canClear: true,
 };
 
 export const commonPropTypes = {
@@ -56,17 +56,17 @@ export const commonPropTypes = {
   min: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.instanceOf(Date)
+    PropTypes.instanceOf(Date),
   ]),
   max: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.instanceOf(Date)
+    PropTypes.instanceOf(Date),
   ]),
   disabledDate: PropTypes.func,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
-  canClear: PropTypes.bool
+  canClear: PropTypes.bool,
 };

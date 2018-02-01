@@ -18,7 +18,7 @@ class Nav extends (PureComponent || Component) {
     onTabAdd: PropTypes.func,
     candel: PropTypes.bool,
     canadd: PropTypes.bool,
-    uniqueId: PropTypes.number
+    uniqueId: PropTypes.number,
   };
 
   static defaultProps = {
@@ -32,7 +32,7 @@ class Nav extends (PureComponent || Component) {
     candel: false,
     canadd: false,
     onTabAdd: noop,
-    uniqueId: 0
+    uniqueId: 0,
   };
 
   componentDidMount() {

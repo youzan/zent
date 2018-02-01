@@ -200,7 +200,7 @@ describe('Pagination', () => {
         .text()
     ).toBe('34 ');
     wrapper.setProps({
-      pageSize: [{ value: 20, isCurrent: true }, 30]
+      pageSize: [{ value: 20, isCurrent: true }, 30],
     });
     expect(wrapper.find('.pager').length).toBe(8);
     expect(
@@ -226,7 +226,7 @@ describe('Pagination', () => {
     );
     expect(wrapper.state('currentPageSize')).toBe(30);
     wrapper.setProps({
-      pageSize: [{ value: 20, isCurrent: true }, 30]
+      pageSize: [{ value: 20, isCurrent: true }, 30],
     });
     expect(wrapper.prop('current')).toBe(1);
     expect(wrapper.state('currentPageSize')).toBe(20);

@@ -5,11 +5,11 @@ import { noop } from '../constants';
 
 export default class TimeCell extends (PureComponent || Component) {
   static propTypes = {
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
   };
 
   static defaultProps = {
-    onSelect: noop
+    onSelect: noop,
   };
 
   onClickCell = cell => {

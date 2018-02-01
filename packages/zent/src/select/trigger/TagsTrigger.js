@@ -29,21 +29,21 @@ class TagsTrigger extends (PureComponent || Component) {
       selectedItems.push({
         cid,
         text,
-        value
+        value,
       });
       this.props.onChange({
         selectedItems,
         selectedItem: {
-          value: ''
+          value: '',
         },
-        open: false
+        open: false,
       });
     } else if (isExist) {
       this.isAdded = true;
       this.props.onChange({
         selectedItem: {
-          value: ''
-        }
+          value: '',
+        },
       });
     }
   }
@@ -56,7 +56,7 @@ class TagsTrigger extends (PureComponent || Component) {
     this.props.onChange({
       selectedItems: selectedItems.filter(item => item.cid !== cid),
       selectedItem: {},
-      open: false
+      open: false,
     });
   }
 
@@ -93,12 +93,12 @@ TagsTrigger.propTypes = {
   selectedItem: PropTypes.object,
   placeholder: PropTypes.string,
   value: PropTypes.any,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
 };
 
 TagsTrigger.defaultProps = {
   selectedItems: [],
-  onDelete: noop
+  onDelete: noop,
 };
 
 export default TagsTrigger;

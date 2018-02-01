@@ -52,12 +52,12 @@ export default class Sortable extends (PureComponent || Component) {
     onRemove: PropTypes.func,
     onFilter: PropTypes.func,
     onMove: PropTypes.func,
-    onClone: PropTypes.func
+    onClone: PropTypes.func,
   };
 
   static defaultProps = {
     prefix: 'zent',
-    tag: 'div'
+    tag: 'div',
   };
 
   initSortable = instance => {
@@ -89,7 +89,7 @@ export default class Sortable extends (PureComponent || Component) {
         const newItems = reorder(items, oldIndex, newIndex);
         onChange && onChange(newItems);
       },
-      ...rest
+      ...rest,
     };
 
     this.sortable = sortableJS.create(instance, sortableOptions);

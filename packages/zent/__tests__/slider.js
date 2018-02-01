@@ -6,7 +6,7 @@ describe('Slider', () => {
   it('will render div wrapper contains an Slider without any props', () => {
     class Test extends React.Component {
       state = {
-        value: 0
+        value: 0,
       };
       onChange = value => {
         this.setState({ value });
@@ -89,11 +89,11 @@ describe('Slider', () => {
       0: '0%',
       20: '20%',
       50: '50%',
-      100: '100%'
+      100: '100%',
     };
     class EventTest extends React.Component {
       state = {
-        value: [0, 20]
+        value: [0, 20],
       };
       onChange = value => {
         this.setState({ value });

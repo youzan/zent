@@ -9,12 +9,12 @@ export const Swatch = ({ color, style, onClick, title = color }) => {
           background: color,
           height: '100%',
           width: '100%',
-          cursor: 'pointer'
-        }
+          cursor: 'pointer',
+        },
       },
       custom: {
-        swatch: style
-      }
+        swatch: style,
+      },
     },
     'custom'
   );

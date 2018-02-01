@@ -161,7 +161,7 @@ function ColorCell({ color, name, light, className }) {
     <div
       className={cx('zandoc-react-color-cell', className, {
         'zandoc-react-color-cell--light': light,
-        'zandoc-react-color-cell--dark': !light
+        'zandoc-react-color-cell--dark': !light,
       })}
       style={{ background: color }}
     >

@@ -7,18 +7,18 @@ const MyPortal = withESCToClose(Portal);
 
 class EscToClose extends Component {
   state = {
-    visible: false
+    visible: false,
   };
 
   onClose = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
   onOpen = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
   };
 
@@ -56,7 +56,7 @@ describe('withESCToClose', () => {
     expect(document.querySelector('.esc-close-portal')).toBeTruthy();
 
     const escKeyUpEvent = new window.KeyboardEvent('keyup', {
-      keyCode: 27
+      keyCode: 27,
     });
     document.body.dispatchEvent(escKeyUpEvent);
     jest.runOnlyPendingTimers();

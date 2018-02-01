@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class WhitespacePreview extends (PureComponent || Component) {
   static propTypes = {
     value: PropTypes.object,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   render() {

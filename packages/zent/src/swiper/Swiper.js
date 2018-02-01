@@ -29,7 +29,7 @@ export default class Swiper extends (PureComponent || Component) {
     dotsSize: PropTypes.oneOf(['normal', 'small', 'large']),
     arrows: PropTypes.bool,
     arrowsType: PropTypes.oneOf(['dark', 'light']),
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -42,11 +42,11 @@ export default class Swiper extends (PureComponent || Component) {
     dotsColor: 'black',
     dotsSize: 'normal',
     arrows: false,
-    arrowsType: 'dark'
+    arrowsType: 'dark',
   };
 
   state = {
-    currentIndex: 0
+    currentIndex: 0,
   };
 
   init = () => {
@@ -58,12 +58,12 @@ export default class Swiper extends (PureComponent || Component) {
     this.clearAutoplay();
     this.setSwiperWidth();
     setStyle(this.swiperContainer, {
-      width: `${this.swiperWidth * innerElements.length}px`
+      width: `${this.swiperWidth * innerElements.length}px`,
     });
 
     forEach(innerElements, item => {
       setStyle(item, {
-        width: `${100 / innerElements.length}%`
+        width: `${100 / innerElements.length}%`,
       });
     });
 
@@ -122,7 +122,7 @@ export default class Swiper extends (PureComponent || Component) {
 
     setStyle(this.swiperContainer, {
       transform: `translateX(${translateDistance}px)`,
-      'transition-duration': `${realDuration}ms`
+      'transition-duration': `${realDuration}ms`,
     });
 
     if (currentIndex > length - 1 || currentIndex < 0) {
@@ -145,7 +145,7 @@ export default class Swiper extends (PureComponent || Component) {
       setTimeout(
         () =>
           this.setState({
-            currentIndex: length - 1
+            currentIndex: length - 1,
           }),
         transitionDuration
       );
@@ -153,7 +153,7 @@ export default class Swiper extends (PureComponent || Component) {
       setTimeout(
         () =>
           this.setState({
-            currentIndex: 0
+            currentIndex: 0,
           }),
         transitionDuration
       );
@@ -213,7 +213,7 @@ export default class Swiper extends (PureComponent || Component) {
     if (Children.count(children) !== Children.count(newChildren)) {
       this.setState(
         {
-          currentIndex: 0
+          currentIndex: 0,
         },
         () => this.init()
       );
@@ -251,12 +251,12 @@ export default class Swiper extends (PureComponent || Component) {
       dotsSize,
       arrows,
       arrowsType,
-      children
+      children,
     } = this.props;
     const { currentIndex } = this.state;
 
     const classString = cx(`${prefix}-swiper`, className, {
-      [`${prefix}-swiper-light`]: arrows && arrowsType === 'light'
+      [`${prefix}-swiper-light`]: arrows && arrowsType === 'light',
     });
     const childrenCount = Children.count(children);
     const clonedChildren = this.cloneChildren(children);
@@ -299,7 +299,7 @@ export default class Swiper extends (PureComponent || Component) {
           {Children.map(clonedChildren, (child, index) => {
             return cloneElement(child, {
               key: index - 1,
-              style: { float: 'left', height: '100%' }
+              style: { float: 'left', height: '100%' },
             });
           })}
         </div>

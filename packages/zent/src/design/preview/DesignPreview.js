@@ -71,14 +71,14 @@ class DesignPreview extends (PureComponent || Component) {
     componentInstanceCount: PropTypes.object,
 
     // 以下 props 由 config 组件提供
-    background: PropTypes.string
+    background: PropTypes.string,
   };
 
   static defaultProps = {
     background: '#f9f9f9',
     disabled: false,
     appendableComponents: [],
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   previewItems = {};
@@ -111,7 +111,7 @@ class DesignPreview extends (PureComponent || Component) {
       prefix,
       globalConfig,
       disabled,
-      footer
+      footer,
     } = this.props;
     const isComponentsGrouped = isGrouped(appendableComponents);
     const cls = cx(`${prefix}-design-preview`, className);
@@ -122,7 +122,7 @@ class DesignPreview extends (PureComponent || Component) {
         <div
           className={cls}
           style={{
-            background: get(settings, 'previewBackground', DEFAULT_BACKGROUND)
+            background: get(settings, 'previewBackground', DEFAULT_BACKGROUND),
           }}
         >
           {disabled && <div className={`${prefix}-design__disabled-mask`} />}
@@ -136,7 +136,7 @@ class DesignPreview extends (PureComponent || Component) {
               <div
                 ref={provided.innerRef}
                 className={cx(`${prefix}-design__item-list`, {
-                  [`${prefix}-design__item-list--full-height`]: !hasAppendableComponent
+                  [`${prefix}-design__item-list--full-height`]: !hasAppendableComponent,
                 })}
               >
                 {value.map(v => {
@@ -223,7 +223,7 @@ class DesignPreview extends (PureComponent || Component) {
                                   addComponentOverlayPosition ===
                                   ADD_COMPONENT_OVERLAY_POSITION.BOTTOM,
                                 [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
-                                [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped
+                                [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped,
                               }
                             )}
                           >
@@ -248,7 +248,7 @@ class DesignPreview extends (PureComponent || Component) {
             <div
               className={cx(`${prefix}-design__add`, {
                 [`${prefix}-design__add--grouped`]: isComponentsGrouped,
-                [`${prefix}-design__add--mixed`]: !isComponentsGrouped
+                [`${prefix}-design__add--mixed`]: !isComponentsGrouped,
               })}
             >
               <DesignEditorAddComponent

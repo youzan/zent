@@ -36,7 +36,7 @@ export default class Dots extends (PureComponent || Component) {
               key={value}
               className={classNames({
                 'zent-slider-dot': true,
-                'zent-slider-dot-active': this.isInTrack(index)
+                'zent-slider-dot-active': this.isInTrack(index),
               })}
             />
           );

@@ -11,7 +11,7 @@ import {
   IMAGE_SIZE,
   IMAGE_AD_LIMIT,
   IMAGE_AD_ENTRY_UUID_KEY,
-  IMAGE_AD_DND_TYPE
+  IMAGE_AD_DND_TYPE,
 } from './constants';
 import { ImageEntry, createEmptyImageEntry } from './ImageEntry';
 
@@ -23,7 +23,7 @@ export default class ImageAdEditor extends DesignEditor {
 
     this.state = {
       ...this.state,
-      localImage: ''
+      localImage: '',
     };
   }
 
@@ -137,7 +137,7 @@ export default class ImageAdEditor extends DesignEditor {
     const { value, onChange } = this.props;
 
     onChange({
-      images: value.images.concat(createEmptyImageEntry({ imageUrl }))
+      images: value.images.concat(createEmptyImageEntry({ imageUrl })),
     });
   };
 
@@ -145,7 +145,7 @@ export default class ImageAdEditor extends DesignEditor {
     const { value: { images }, onChange } = this.props;
 
     onChange({
-      images: images.filter(img => img[IMAGE_AD_ENTRY_UUID_KEY] !== id)
+      images: images.filter(img => img[IMAGE_AD_ENTRY_UUID_KEY] !== id),
     });
   };
 
@@ -157,7 +157,7 @@ export default class ImageAdEditor extends DesignEditor {
       newImages.splice(index, 0, createEmptyImageEntry());
 
       onChange({
-        images: newImages
+        images: newImages,
       });
     }
   };
@@ -170,7 +170,7 @@ export default class ImageAdEditor extends DesignEditor {
       newImages.splice(index + 1, 0, createEmptyImageEntry());
 
       onChange({
-        images: newImages
+        images: newImages,
       });
     }
   };
@@ -185,9 +185,9 @@ export default class ImageAdEditor extends DesignEditor {
 
         return {
           ...img,
-          ...delta
+          ...delta,
         };
-      })
+      }),
     });
   };
 
@@ -212,7 +212,7 @@ export default class ImageAdEditor extends DesignEditor {
     const { value, onChange } = this.props;
     const newValue = {
       ...value,
-      images: this.reorder(value.images, source.index, destination.index)
+      images: this.reorder(value.images, source.index, destination.index),
     };
 
     onChange(newValue);
@@ -228,7 +228,7 @@ export default class ImageAdEditor extends DesignEditor {
   static getInitialValue() {
     return {
       size: IMAGE_SIZE.SMALL,
-      images: []
+      images: [],
     };
   }
 

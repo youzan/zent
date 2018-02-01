@@ -40,25 +40,25 @@ export default class Pagination extends (PureComponent || Component) {
         return new Error('PageSize can only be numbers or arrays.');
       }
     },
-    onChange: func
+    onChange: func,
   };
 
   static defaultProps = {
     prefix: 'zent',
     pageSize: 10,
-    className: ''
+    className: '',
   };
 
   // 为了能本地动态修改每页个数，得自己缓存pageSize了
   state = {
     currentPageSize: this.getCurrentPageSize(
       this.parsePageSize(this.props.pageSize)
-    )
+    ),
   };
 
   setPageSize = num => {
     this.setState({
-      currentPageSize: parseInt(num, 10)
+      currentPageSize: parseInt(num, 10),
     });
   };
 
@@ -83,8 +83,8 @@ export default class Pagination extends (PureComponent || Component) {
       ps = [
         {
           value: pageSize,
-          isCurrent: true
-        }
+          isCurrent: true,
+        },
       ];
     } else {
       let hasCurrent;
@@ -92,7 +92,7 @@ export default class Pagination extends (PureComponent || Component) {
         let tmp;
         if (typeof item === 'number') {
           tmp = {
-            value: item
+            value: item,
           };
         } else {
           tmp = item;
@@ -114,7 +114,7 @@ export default class Pagination extends (PureComponent || Component) {
       let pageSize = this.parsePageSize(nextProps.pageSize);
       let currentPageSize = this.getCurrentPageSize(pageSize);
       this.setState({
-        currentPageSize
+        currentPageSize,
       });
     }
   }

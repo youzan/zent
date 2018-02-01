@@ -13,13 +13,13 @@ class Form extends (PureComponent || Component) {
     onSubmit: PropTypes.func,
     children: PropTypes.any,
     style: PropTypes.object,
-    disableEnterSubmit: PropTypes.bool
+    disableEnterSubmit: PropTypes.bool,
   };
 
   static defaultProps = {
     prefix: 'zent',
     onSubmit: noop,
-    disableEnterSubmit: true
+    disableEnterSubmit: true,
   };
 
   onKeyDown = event => {
@@ -36,14 +36,14 @@ class Form extends (PureComponent || Component) {
       style,
       horizontal,
       inline,
-      onSubmit
+      onSubmit,
     } = this.props;
     const formClassName = classNames({
       [`${prefix}-form`]: true,
       [`${prefix}-form--horizontal`]: horizontal,
       [`${prefix}-form--inline`]: inline,
       [`${prefix}-form--vertical`]: !horizontal && !inline,
-      [className]: !!className
+      [className]: !!className,
     });
     return (
       <form

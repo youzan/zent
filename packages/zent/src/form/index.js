@@ -28,7 +28,7 @@ import {
   FormNumberInputField,
   FormRadioGroupField,
   FormSelectField,
-  FormSwitchField
+  FormSwitchField,
 } from './form-components/FormComponentField';
 
 export default assign(Form, {
@@ -58,5 +58,5 @@ export default assign(Form, {
   FormNumberInputField,
   FormRadioGroupField,
   FormSelectField,
-  FormSwitchField
+  FormSwitchField,
 });

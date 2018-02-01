@@ -3,7 +3,7 @@ import Col from './Col';
 
 const Layout = {
   Row,
-  Col
+  Col,
 };
 
 export default Layout;

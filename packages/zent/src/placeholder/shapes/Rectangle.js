@@ -11,7 +11,7 @@ export default class Rectangle extends (PureComponent || Component) {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     animate: PropTypes.bool,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -19,7 +19,7 @@ export default class Rectangle extends (PureComponent || Component) {
     prefix: 'zent',
     animate: true,
     width: 80,
-    height: 80
+    height: 80,
   };
 
   render() {
@@ -35,7 +35,7 @@ export default class Rectangle extends (PureComponent || Component) {
     const mergedStyle = {
       minWidth: width,
       height,
-      ...style
+      ...style,
     };
 
     return (

@@ -12,11 +12,11 @@ export default function withNonScrollable(Portal) {
 
   return class NonScrollableWrapper extends (PureComponent || Component) {
     static propTypes = {
-      selector: PropTypes.string
+      selector: PropTypes.string,
     };
 
     static defaultProps = {
-      selector: 'body'
+      selector: 'body',
     };
 
     restoreStyle() {

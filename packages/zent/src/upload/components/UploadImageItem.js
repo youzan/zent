@@ -10,11 +10,11 @@ class UploadImageItem extends (PureComponent || Component) {
     // 组件所在位置的下标
     index: PropTypes.number.isRequired,
     // 删除组件的回调函数
-    onDelete: PropTypes.func.isRequired
+    onDelete: PropTypes.func.isRequired,
   };
 
   state = {
-    hideDeleteIcon: false
+    hideDeleteIcon: false,
   };
 
   handleRemove = () => {
@@ -24,13 +24,13 @@ class UploadImageItem extends (PureComponent || Component) {
 
   handleDragStart = () => {
     this.setState({
-      hideDeleteIcon: true
+      hideDeleteIcon: true,
     });
   };
 
   handleDragEnd = () => {
     this.setState({
-      hideDeleteIcon: false
+      hideDeleteIcon: false,
     });
   };
 
@@ -49,7 +49,7 @@ class UploadImageItem extends (PureComponent || Component) {
         <div
           className="image-box"
           style={{
-            backgroundImage: `url(${src})`
+            backgroundImage: `url(${src})`,
           }}
         />
         {!hideDeleteIcon && (

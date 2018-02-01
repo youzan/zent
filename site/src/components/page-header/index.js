@@ -6,7 +6,7 @@ import './style.pcss';
 
 const CONTROLLS = {
   'zh-CN': 'EN',
-  'en-US': '中文'
+  'en-US': '中文',
 };
 
 export default class PageHeader extends Component {

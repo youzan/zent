@@ -21,7 +21,7 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
     };
     this.showUpload = this.showUpload.bind(this);
     this.closePopup = this.closePopup.bind(this);
@@ -39,7 +39,7 @@ class Upload extends Component {
 
   closePopup() {
     this.setState({
-      visible: false
+      visible: false,
     });
   }
 
@@ -70,8 +70,8 @@ class Upload extends Component {
     className = classnames([
       dialogClassName,
       {
-        inline: triggerInline
-      }
+        inline: triggerInline,
+      },
     ]);
 
     // 根据type设置accept默认值
@@ -118,7 +118,8 @@ class Upload extends Component {
                 />
               </Dialog>
             </div>
-          )}
+          )
+        }
       </Receiver>
     );
   }
@@ -133,7 +134,7 @@ class Upload extends Component {
     if (!this.isUnmount && (!localOnly || maxAmount !== 1)) {
       // 直接打开本地文件
       this.setState({
-        visible
+        visible,
       });
     }
   };
@@ -156,7 +157,7 @@ Upload.defaultProps = {
   categoryId: '',
   triggerInline: false,
   silent: false,
-  withoutPopup: false
+  withoutPopup: false,
 };
 
 Upload.FileInput = FileInput;

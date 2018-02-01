@@ -10,11 +10,11 @@ export default class ActionButton extends (PureComponent || Component) {
     text: PropTypes.node.isRequired,
     className: PropTypes.string.isRequired,
     getClose: PropTypes.func.isRequired,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
   };
 
   state = {
-    loading: false
+    loading: false,
   };
 
   onClick = () => {
@@ -32,7 +32,7 @@ export default class ActionButton extends (PureComponent || Component) {
     // 返回值是个Promise，resolve后自动关闭
     if (isPromise(value)) {
       this.setState({
-        loading: true
+        loading: true,
       });
       value.then(
         () => {
@@ -41,7 +41,7 @@ export default class ActionButton extends (PureComponent || Component) {
         },
         () => {
           this.setState({
-            loading: false
+            loading: false,
           });
         }
       );

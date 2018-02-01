@@ -5,7 +5,7 @@ const common = {
   cancel: '取消',
   ok: '我知道了',
   comma: '，',
-  reset: '重置'
+  reset: '重置',
 };
 
 export const mark = 'zh-CN';
@@ -13,7 +13,7 @@ export const mark = 'zh-CN';
 export const CopyButton = {
   copy: '复制',
   success: '复制成功',
-  error: '复制失败'
+  error: '复制失败',
 };
 
 export const Pagination = {
@@ -21,54 +21,54 @@ export const Pagination = {
   pages: '页',
   items: '条',
   perPage: '每页',
-  comma: common.comma
+  comma: common.comma,
 };
 
 export const Pop = {
-  ...common
+  ...common,
 };
 
 export const PreviewImage = {
   alt: '图片下载失败',
   prev: '上一张',
   next: '下一张',
-  rotate: '翻转'
+  rotate: '翻转',
 };
 
 export const RangePicker = {
   7: '近7天',
-  30: '近30天'
+  30: '近30天',
 };
 
 export const Select = {
   input: '请选择',
-  empty: '没有找到匹配项'
+  empty: '没有找到匹配项',
 };
 
 export const Switch = {
   checked: '开启',
-  unchecked: '关闭'
+  unchecked: '关闭',
 };
 
 export const Sweetalert = {
   ...common,
-  title: '提示'
+  title: '提示',
 };
 
 export const Grid = {
   ...common,
-  emptyLabel: '没有更多数据了'
+  emptyLabel: '没有更多数据了',
 };
 
 export const Table = {
   ...common,
-  emptyLabel: '没有更多数据了'
+  emptyLabel: '没有更多数据了',
 };
 
 export const Cascader = {
   ...common,
   title: '标题',
-  placeholder: '请选择'
+  placeholder: '请选择',
 };
 
 export const TimePicker = () => {
@@ -94,7 +94,7 @@ export const TimePicker = () => {
       date: '今天',
       week: '本周',
       month: '当前月',
-      year: '今年'
+      year: '今年',
     },
     panel: {
       hour: '时',
@@ -118,9 +118,9 @@ export const TimePicker = () => {
         '9月',
         '10月',
         '11月',
-        '12月'
-      ]
-    }
+        '12月',
+      ],
+    },
   };
 };
 
@@ -130,19 +130,19 @@ export const Sku = {
   container: {
     del: '删除',
     replace: '替换',
-    add: '+添加'
+    add: '+添加',
   },
   group: {
     add: '添加规格图片',
     imageTip1: '目前只支持为第一个规格设置不同的规格图片',
     imageTip2: '设置后，用户选择不同规格会显示不同图片',
-    imageTip3: '建议尺寸：640 x 640像素'
-  }
+    imageTip3: '建议尺寸：640 x 640像素',
+  },
 };
 
 const TypeMap = {
   image: '图片',
-  voice: '音频'
+  voice: '音频',
 };
 
 export const Upload = {
@@ -159,7 +159,7 @@ export const Upload = {
     },
     type({ type }) {
       return `已经自动过滤类型不正确的${TypeMap[type]}文件`;
-    }
+    },
   },
   popup: {
     web: '网络图片',
@@ -168,9 +168,11 @@ export const Upload = {
     title_voice: '本地音频',
     title_image: '本地图片',
     type({ types, size }) {
-      return `仅支持 ${types.join('、')} ${types.length}种格式, 大小不超过${size}`;
+      return `仅支持 ${types.join('、')} ${
+        types.length
+      }种格式, 大小不超过${size}`;
     },
     extract: '提取',
-    extracting: '提取中...'
-  }
+    extracting: '提取中...',
+  },
 };

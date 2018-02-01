@@ -16,7 +16,7 @@ class ColGroup extends (PureComponent || Component) {
 }
 
 ColGroup.propTypes = {
-  columns: PropTypes.array
+  columns: PropTypes.array,
 };
 
 export default ColGroup;

@@ -13,7 +13,7 @@ export default class Card extends (PureComponent || Component) {
     style: PropTypes.object,
     bodyStyle: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -22,7 +22,7 @@ export default class Card extends (PureComponent || Component) {
     bodyStyle: {},
     loading: false,
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
@@ -35,7 +35,7 @@ export default class Card extends (PureComponent || Component) {
       children,
       className,
       bodyStyle,
-      prefix
+      prefix,
     } = this.props;
 
     const isValidTitle = !isNil(title);
@@ -45,20 +45,20 @@ export default class Card extends (PureComponent || Component) {
       <div
         className={cx(`${prefix}-card`, className, {
           [`${prefix}-card--normal`]: type === 'normal',
-          [`${prefix}-card--nested`]: type === 'nested'
+          [`${prefix}-card--nested`]: type === 'nested',
         })}
         style={style}
       >
         {(isValidTitle || isValidAction) && (
-            <div className={`${prefix}-card-header`}>
-              {isValidTitle && (
-                <h3 className={`${prefix}-card-header__title`}>{title}</h3>
-              )}
-              {isValidAction && (
-                <div className={`${prefix}-card-header__action`}>{action}</div>
-              )}
-            </div>
-          )}
+          <div className={`${prefix}-card-header`}>
+            {isValidTitle && (
+              <h3 className={`${prefix}-card-header__title`}>{title}</h3>
+            )}
+            {isValidAction && (
+              <div className={`${prefix}-card-header__action`}>{action}</div>
+            )}
+          </div>
+        )}
         <div className={`${prefix}-card-body`} style={bodyStyle}>
           {loading ? <Placeholder.TextBlock rows={5} /> : children}
         </div>

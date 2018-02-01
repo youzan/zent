@@ -77,7 +77,7 @@ export default class ConfigEditor extends DesignEditor {
 
     // 修改 settings
     this.props.onSettingsChange({
-      previewBackground: color
+      previewBackground: color,
     });
   };
 
@@ -99,7 +99,7 @@ export default class ConfigEditor extends DesignEditor {
       color: '',
 
       // 页面描述
-      description: ''
+      description: '',
     };
   }
 

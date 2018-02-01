@@ -15,7 +15,7 @@ export default class Switch extends (PureComponent || Component) {
     loading: PropTypes.bool,
     onChange: PropTypes.func,
     checkedText: PropTypes.any,
-    uncheckedText: PropTypes.any
+    uncheckedText: PropTypes.any,
   };
 
   static defaultProps = {
@@ -27,7 +27,7 @@ export default class Switch extends (PureComponent || Component) {
     checked: false,
     onChange() {},
     checkedText: '',
-    uncheckedText: ''
+    uncheckedText: '',
   };
 
   // 处理点击时间，直接执行外部onChange方法
@@ -45,7 +45,7 @@ export default class Switch extends (PureComponent || Component) {
       prefix,
       checked,
       checkedText,
-      uncheckedText
+      uncheckedText,
     } = this.props;
     const switchDisabled = disabled || loading;
     const classNames = setClass(
@@ -53,7 +53,7 @@ export default class Switch extends (PureComponent || Component) {
         [`${prefix}-switch-${size}`]: size !== 'default',
         [`${prefix}-switch-disabled`]: disabled,
         [`${prefix}-switch-loading`]: loading,
-        [`${prefix}-switch-checked`]: checked
+        [`${prefix}-switch-checked`]: checked,
       },
       `${prefix}-switch`,
       className

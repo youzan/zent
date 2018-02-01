@@ -12,25 +12,25 @@ import { SKIP_SCROLL } from './constants';
 
 const i18n = {
   'zh-CN': {
-    placeholder: '搜索组件...'
+    placeholder: '搜索组件...',
   },
 
   'en-US': {
-    placeholder: 'Search components...'
-  }
+    placeholder: 'Search components...',
+  },
 };
 
 class SearchBox extends Component {
   static propTypes = {
     locale: PropTypes.string.isRequired,
-    navData: PropTypes.array.isRequired
+    navData: PropTypes.array.isRequired,
   };
 
   state = {
     keyword: '',
     activeIndex: SKIP_SCROLL,
     matches: [],
-    resultVisible: false
+    resultVisible: false,
   };
 
   constructor(props) {
@@ -114,7 +114,7 @@ class SearchBox extends Component {
     if (!resultVisible) {
       this.setState({
         activeIndex: 0,
-        resultVisible: true
+        resultVisible: true,
       });
       return;
     }
@@ -142,13 +142,13 @@ class SearchBox extends Component {
 
     this.setState({
       activeIndex,
-      resultVisible: true
+      resultVisible: true,
     });
   }
 
   onResultVisibleChange(visible) {
     this.setState({
-      resultVisible: visible
+      resultVisible: visible,
     });
   }
 
@@ -158,7 +158,7 @@ class SearchBox extends Component {
 
   clearActiveIndex() {
     this.setState({
-      activeIndex: SKIP_SCROLL
+      activeIndex: SKIP_SCROLL,
     });
   }
 
@@ -200,7 +200,7 @@ class SearchBox extends Component {
       keyword,
       resultVisible: true,
       matches,
-      activeIndex: 0
+      activeIndex: 0,
     });
   }
 

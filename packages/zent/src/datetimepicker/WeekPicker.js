@@ -20,24 +20,24 @@ import {
   parseDate,
   dayStart,
   dayEnd,
-  setTime
+  setTime,
 } from './utils';
 import {
   CURRENT_DAY,
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function getSelectedWeek(val, start = 1) {
   return [
     startOfWeek(val, {
-      weekStartsOn: start
+      weekStartsOn: start,
     }),
     endOfWeek(val, {
-      weekStartsOn: start
-    })
+      weekStartsOn: start,
+    }),
   ];
 }
 
@@ -88,20 +88,20 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class WeekPicker extends (PureComponent || Component) {
   static propTypes = {
     ...commonPropTypes,
-    startDay: PropTypes.number
+    startDay: PropTypes.number,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
-    startDay: 1
+    startDay: 1,
   };
 
   retType = 'string';
@@ -129,7 +129,7 @@ class WeekPicker extends (PureComponent || Component) {
 
   onChangeDate = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
@@ -138,11 +138,11 @@ class WeekPicker extends (PureComponent || Component) {
     const offset = val.getDay();
     const week = [
       goDays(val, -offset + startDay - 1),
-      goDays(val, 7 + startDay - offset)
+      goDays(val, 7 + startDay - offset),
     ];
 
     this.setState({
-      range: week
+      range: week,
     });
   };
 
@@ -152,7 +152,7 @@ class WeekPicker extends (PureComponent || Component) {
 
     this.setState(
       {
-        selected: week
+        selected: week,
       },
       () => {
         if (!this.isfooterShow) {
@@ -167,7 +167,7 @@ class WeekPicker extends (PureComponent || Component) {
   onChangeMonth = type => {
     const typeMap = {
       prev: -1,
-      next: 1
+      next: 1,
     };
 
     return () => {
@@ -175,7 +175,7 @@ class WeekPicker extends (PureComponent || Component) {
       const acp = goMonths(actived, typeMap[type]);
 
       this.setState({
-        actived: acp
+        actived: acp,
       });
     };
   };
@@ -193,7 +193,7 @@ class WeekPicker extends (PureComponent || Component) {
   onMouseOut = evt => {
     evt.stopPropagation();
     this.setState({
-      range: []
+      range: [],
     });
   };
 
@@ -233,7 +233,7 @@ class WeekPicker extends (PureComponent || Component) {
       value,
       openPanel: false,
       showPlaceholder: false,
-      range: []
+      range: [],
     });
 
     const ret = tmp.map(this.getReturnValue);
@@ -254,7 +254,7 @@ class WeekPicker extends (PureComponent || Component) {
   renderPicker(i18n) {
     const {
       props: { confirmText },
-      state: { openPanel, range, actived, selected }
+      state: { openPanel, range, actived, selected },
     } = this;
     let weekPicker;
 
@@ -263,12 +263,12 @@ class WeekPicker extends (PureComponent || Component) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
       const linkCls = cx({
         'link--current': true,
-        'link--disabled': isDisabled
+        'link--disabled': isDisabled,
       });
 
       const weekPickerCls = cx({
         'week-picker': true,
-        small: this.isfooterShow
+        small: this.isfooterShow,
       });
 
       weekPicker = (
@@ -311,7 +311,7 @@ class WeekPicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel
+      openPanel,
     });
   };
 
@@ -325,16 +325,16 @@ class WeekPicker extends (PureComponent || Component) {
         popPosition,
         prefix,
         width,
-        canClear
+        canClear,
       },
-      state: { openPanel, showPlaceholder, value }
+      state: { openPanel, showPlaceholder, value },
     } = this;
 
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 

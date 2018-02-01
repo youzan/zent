@@ -10,14 +10,14 @@ export default class Circle extends (PureComponent || Component) {
     style: PropTypes.object,
     diameter: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     animate: PropTypes.bool,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
     style: {},
     prefix: 'zent',
     animate: true,
-    diameter: 80
+    diameter: 80,
   };
 
   render() {
@@ -26,7 +26,7 @@ export default class Circle extends (PureComponent || Component) {
     const mergedStyle = {
       height: diameter,
       minWidth: diameter,
-      ...style
+      ...style,
     };
 
     return (

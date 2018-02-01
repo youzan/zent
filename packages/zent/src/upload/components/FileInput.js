@@ -26,7 +26,7 @@ export default class FileInput extends (PureComponent || Component) {
     maxSize: 0,
     type: '',
     filterFiles: noop,
-    onError: noop
+    onError: noop,
   };
 
   static propTypes = {
@@ -36,7 +36,7 @@ export default class FileInput extends (PureComponent || Component) {
     maxSize: PropTypes.number,
     type: PropTypes.string,
     filterFiles: PropTypes.func,
-    onError: PropTypes.func
+    onError: PropTypes.func,
   };
 
   constructor(props) {
@@ -49,7 +49,7 @@ export default class FileInput extends (PureComponent || Component) {
     }
 
     this.state = {
-      accept
+      accept,
     };
   }
 
@@ -59,7 +59,7 @@ export default class FileInput extends (PureComponent || Component) {
       onChange(localFiles);
     } else {
       uploadLocalImage(this.props, {
-        localFiles
+        localFiles,
       });
     }
   };
@@ -96,7 +96,7 @@ export default class FileInput extends (PureComponent || Component) {
           Notify.error(
             i18n.input.maxSize({
               maxSize: formatFileSize(maxSize),
-              type
+              type,
             })
           );
       }
@@ -117,7 +117,7 @@ export default class FileInput extends (PureComponent || Component) {
         localFiles.push({
           src: e.target.result,
           file,
-          __uid: initIndex + index
+          __uid: initIndex + index,
         });
       } else {
         !silent && Notify.error(i18n.input.type({ type }));

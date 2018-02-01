@@ -10,7 +10,7 @@ const registerRoute = (navData, oreo = '') => {
     route.push({
       path: `${oreo}/${path}`,
       source,
-      title
+      title,
     });
   }
 

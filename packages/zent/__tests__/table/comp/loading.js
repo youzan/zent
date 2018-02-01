@@ -13,24 +13,24 @@ const columns = [
     width: 50,
     bodyRender: data => {
       return <div>{data.item_id}</div>;
-    }
+    },
   },
   {
     title: '访问量',
     name: 'bro_uvpv',
     width: 10,
-    bodyRender: TextComponent
+    bodyRender: TextComponent,
   },
   {
     title: '库存',
     name: 'stock_num',
-    width: 20
+    width: 20,
   },
   {
     title: '总销量',
     name: 'sold_num',
-    width: 20
-  }
+    width: 20,
+  },
 ];
 
 class Simple extends Component {
@@ -38,7 +38,7 @@ class Simple extends Component {
     limit: 10,
     current: 0,
     total: 101,
-    loading: true
+    loading: true,
   };
 
   // 用定时器模拟loading
@@ -46,7 +46,7 @@ class Simple extends Component {
     let self = this;
     setTimeout(() => {
       self.setState({
-        loading: false
+        loading: false,
       });
     }, 3000);
   }

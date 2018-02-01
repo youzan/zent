@@ -23,13 +23,13 @@ export default class SwiperDots extends (PureComponent || Component) {
       dotsSize,
       items,
       currentIndex,
-      onDotsClick
+      onDotsClick,
     } = this.props;
     const classString = cx(
       `${prefix}-swiper__dots`,
       `${prefix}-swiper__dots-${dotsSize}`,
       {
-        [`${prefix}-swiper__dots-${dotsColor}`]: this.isBuildInColor(dotsColor)
+        [`${prefix}-swiper__dots-${dotsColor}`]: this.isBuildInColor(dotsColor),
       }
     );
 
@@ -50,7 +50,7 @@ export default class SwiperDots extends (PureComponent || Component) {
             <li
               key={index}
               className={cx(`${prefix}-swiper__dots-item`, {
-                [`${prefix}-swiper__dots-item-active`]: isActive
+                [`${prefix}-swiper__dots-item-active`]: isActive,
               })}
               onClick={() => onDotsClick(index)}
             />

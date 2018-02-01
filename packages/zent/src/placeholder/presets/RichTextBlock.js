@@ -18,7 +18,7 @@ export default class RichTextBlock extends (PureComponent || Component) {
     animate: PropTypes.bool,
     style: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -28,7 +28,7 @@ export default class RichTextBlock extends (PureComponent || Component) {
     shape: 'circle',
     animate: true,
     dashed: true,
-    size: 80
+    size: 80,
   };
 
   render() {
@@ -43,7 +43,7 @@ export default class RichTextBlock extends (PureComponent || Component) {
       dashed,
       widths,
       dashSegments,
-      lineSpacing
+      lineSpacing,
     } = this.props;
     const classes = cx(`${prefix}-placeholder-richtext-block`, className);
     const shapeStyle = { marginRight: 10 };

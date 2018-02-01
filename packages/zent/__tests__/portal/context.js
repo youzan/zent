@@ -12,7 +12,7 @@ https://github.com/facebook/react/pull/7125
 function exposeStore(BaseComponent) {
   return class ExposeStoreWrapper extends Component {
     static contextTypes = {
-      store: PropTypes.object.isRequired
+      store: PropTypes.object.isRequired,
     };
 
     render() {
@@ -25,7 +25,7 @@ function exposeStore(BaseComponent) {
 const Child = exposeStore(
   class _Child extends Component {
     static propTypes = {
-      store: PropTypes.object.isRequired
+      store: PropTypes.object.isRequired,
     };
 
     render() {
@@ -39,18 +39,18 @@ const Child = exposeStore(
 class ContextComponent extends Component {
   state = {
     store: {
-      count: 0
+      count: 0,
     },
-    visible: false
+    visible: false,
   };
 
   static childContextTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
   };
 
   getChildContext() {
     return {
-      store: this.state.store
+      store: this.state.store,
     };
   }
 
@@ -58,8 +58,8 @@ class ContextComponent extends Component {
     const { store } = this.state;
     this.setState({
       store: {
-        count: store.count + 1
-      }
+        count: store.count + 1,
+      },
     });
   };
 
@@ -67,20 +67,20 @@ class ContextComponent extends Component {
     const { store } = this.state;
     this.setState({
       store: {
-        count: store.count - 1
-      }
+        count: store.count - 1,
+      },
     });
   };
 
   open = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
   };
 
   close = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
@@ -119,7 +119,7 @@ describe('Portal', () => {
     expect(document.body.querySelector('.context-portal .child')).toBeFalsy();
 
     wrapper.setState({
-      visible: true
+      visible: true,
     });
     expect(
       document.body.querySelector('.context-portal .child').textContent

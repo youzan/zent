@@ -64,7 +64,7 @@ class Cell extends Component {
       <td
         className={classnames(`${prefix}-grid-td`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
-          [`${prefix}-grid-nowrap`]: nowrap
+          [`${prefix}-grid-nowrap`]: nowrap,
         })}
         {...tdProps}
         onClick={this.onClick}

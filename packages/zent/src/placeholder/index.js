@@ -14,5 +14,5 @@ export default {
 
   // 预定义的模版
   TextBlock,
-  RichTextBlock
+  RichTextBlock,
 };

@@ -46,7 +46,7 @@ import DesignPreview from './preview/DesignPreview';
 import {
   getDesignType,
   isExpectedDesginType,
-  serializeDesignType
+  serializeDesignType,
 } from './utils/design-type';
 import LazyMap from './utils/LazyMap';
 import { ADD_COMPONENT_OVERLAY_POSITION } from './constants';
@@ -63,7 +63,7 @@ export default class Design extends (PureComponent || Component) {
         // 组件类型
         type: PropTypes.oneOfType([
           PropTypes.string,
-          PropTypes.arrayOf(PropTypes.string)
+          PropTypes.arrayOf(PropTypes.string),
         ]).isRequired,
 
         // 预览这个组件的 Component
@@ -120,7 +120,7 @@ export default class Design extends (PureComponent || Component) {
         limitMessage: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 
         // 是否可以添加组件的回调函数，返回一个 Promise
-        shouldCreate: PropTypes.func
+        shouldCreate: PropTypes.func,
       })
     ).isRequired,
 
@@ -183,7 +183,7 @@ export default class Design extends (PureComponent || Component) {
 
     className: PropTypes.string,
 
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -193,10 +193,11 @@ export default class Design extends (PureComponent || Component) {
     globalConfig: {},
     confirmUnsavedLeave: true,
     cacheToLocalStorage: false,
-    cacheRestoreMessage: '提示：在浏览器中发现未提交的内容，是否使用该内容替换当前内容？',
+    cacheRestoreMessage:
+      '提示：在浏览器中发现未提交的内容，是否使用该内容替换当前内容？',
     scrollTopOffset: -10,
     scrollLeftOffset: -10,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   constructor(props) {
@@ -247,7 +248,7 @@ export default class Design extends (PureComponent || Component) {
       showRestoreFromCache: false,
 
       // 当 preview 很长时，为了对齐 preview 底部需要的额外空间
-      bottomGap: 0
+      bottomGap: 0,
     };
   }
 
@@ -257,7 +258,7 @@ export default class Design extends (PureComponent || Component) {
       prefix,
       preview,
       cacheRestoreMessage,
-      children
+      children,
     } = this.props;
     const { showRestoreFromCache, bottomGap } = this.state;
     const cls = cx(`${prefix}-design`, className);
@@ -335,7 +336,7 @@ export default class Design extends (PureComponent || Component) {
         componentInstanceCount: makeInstanceCountMapFromValue(
           nextProps.value,
           nextProps.components
-        )
+        ),
       });
     }
   }
@@ -344,7 +345,7 @@ export default class Design extends (PureComponent || Component) {
     this.setState({
       appendableComponents: components.filter(
         c => c.appendable === undefined || c.appendable
-      )
+      ),
     });
   }
 
@@ -356,7 +357,7 @@ export default class Design extends (PureComponent || Component) {
       disabled,
       settings,
       previewFooter,
-      globalConfig
+      globalConfig,
     } = this.props;
     const {
       selectedUUID,
@@ -366,7 +367,7 @@ export default class Design extends (PureComponent || Component) {
       validations,
       showError,
       settings: managedSettings,
-      componentInstanceCount
+      componentInstanceCount,
     } = this.state;
 
     return React.createElement(preview, {
@@ -394,7 +395,7 @@ export default class Design extends (PureComponent || Component) {
       design: this.design,
       globalConfig,
       disabled,
-      ref: this.savePreview
+      ref: this.savePreview,
     });
   }
 
@@ -409,7 +410,7 @@ export default class Design extends (PureComponent || Component) {
     if (settings && onSettingsChangeExists) {
       onSettingsChange({
         ...settings,
-        ...value
+        ...value,
       });
     }
 
@@ -417,8 +418,8 @@ export default class Design extends (PureComponent || Component) {
       this.setState({
         settings: {
           ...this.state.settings,
-          ...value
-        }
+          ...value,
+        },
       });
     }
   };
@@ -432,14 +433,12 @@ export default class Design extends (PureComponent || Component) {
     const changedProps = Object.keys(diff);
 
     this.trackValueChange(newValue);
-    this.validateComponentValue(
-      newComponentValue,
-      identity,
-      changedProps
-    ).then(errors => {
-      const id = this.getUUIDFromValue(newComponentValue);
-      this.setValidation({ [id]: errors });
-    });
+    this.validateComponentValue(newComponentValue, identity, changedProps).then(
+      errors => {
+        const id = this.getUUIDFromValue(newComponentValue);
+        this.setValidation({ [id]: errors });
+      }
+    );
   };
 
   validateComponentValue = (value, prevValue, changedProps) => {
@@ -477,7 +476,7 @@ export default class Design extends (PureComponent || Component) {
 
     this.setState({
       selectedUUID: id,
-      showAddComponentOverlay: false
+      showAddComponentOverlay: false,
     });
 
     this.adjustHeight();
@@ -489,7 +488,7 @@ export default class Design extends (PureComponent || Component) {
     const { editor, defaultType } = component;
     const instance = editor.getInitialValue({
       settings,
-      globalConfig
+      globalConfig,
     });
     instance.type = getDesignType(editor, defaultType);
     const id = uuid();
@@ -533,7 +532,7 @@ export default class Design extends (PureComponent || Component) {
     });
 
     const newState = {
-      showAddComponentOverlay: false
+      showAddComponentOverlay: false,
     };
 
     // 删除选中项目后默认选中前一项可选的，如果不存在则往后找一个可选项
@@ -628,7 +627,7 @@ export default class Design extends (PureComponent || Component) {
 
   setValidation = validation => {
     this.setState({
-      validations: assign({}, this.state.validations, validation)
+      validations: assign({}, this.state.validations, validation),
     });
 
     this.adjustHeight();
@@ -665,7 +664,7 @@ export default class Design extends (PureComponent || Component) {
         this.setState(
           {
             showError: true,
-            validations
+            validations,
           },
           () => {
             // 跳转到第一个有错误的组件
@@ -679,7 +678,7 @@ export default class Design extends (PureComponent || Component) {
               this.setState({
                 selectedUUID: id,
                 showAddComponentOverlay: false,
-                onShowEditComponentOverlay: true
+                onShowEditComponentOverlay: true,
               });
             }
 
@@ -734,7 +733,7 @@ export default class Design extends (PureComponent || Component) {
     this.setState({
       selectedUUID: id,
       showAddComponentOverlay: showAdd,
-      addComponentOverlayPosition: addPosition
+      addComponentOverlayPosition: addPosition,
     });
     this.adjustHeight();
   }
@@ -747,7 +746,7 @@ export default class Design extends (PureComponent || Component) {
 
     this.setState({
       selectedUUID: this.getUUIDFromValue(safeValue),
-      showAddComponentOverlay: false
+      showAddComponentOverlay: false,
     });
   };
 
@@ -788,7 +787,7 @@ export default class Design extends (PureComponent || Component) {
       this.preview.scrollToItem &&
         this.preview.scrollToItem(id, {
           top: scrollTopOffset,
-          left: scrollLeftOffset
+          left: scrollLeftOffset,
         });
     }
   }
@@ -808,7 +807,7 @@ export default class Design extends (PureComponent || Component) {
         const editorBB = this.preview.getEditorBoundingBox(id);
         if (!editorBB) {
           return this.setState({
-            bottomGap: 0
+            bottomGap: 0,
           });
         }
 
@@ -820,7 +819,7 @@ export default class Design extends (PureComponent || Component) {
 
         const gap = Math.max(0, editorBB.bottom - previewBB.bottom);
         this.setState({
-          bottomGap: gap
+          bottomGap: gap,
         });
       }
     }, 0);
@@ -886,7 +885,7 @@ export default class Design extends (PureComponent || Component) {
 
       if (cachedValue !== storage.NOT_FOUND) {
         this.setState({
-          showRestoreFromCache: true
+          showRestoreFromCache: true,
         });
       }
     }
@@ -921,7 +920,7 @@ export default class Design extends (PureComponent || Component) {
   // 关闭提示，但是不清楚缓存
   onRestoreCacheAlertClose = () => {
     this.setState({
-      showRestoreFromCache: false
+      showRestoreFromCache: false,
     });
   };
 
@@ -933,7 +932,7 @@ export default class Design extends (PureComponent || Component) {
     if (cachedValue !== storage.NOT_FOUND) {
       this.trackValueChange(cachedValue, false);
       this.setState({
-        showRestoreFromCache: false
+        showRestoreFromCache: false,
       });
       this.removeCache();
     }
@@ -955,7 +954,7 @@ export default class Design extends (PureComponent || Component) {
           );
 
           // this.getPreviewProps = implementation;
-        }
+        },
       },
 
       getUUID: this.getUUIDFromValue,
@@ -966,7 +965,7 @@ export default class Design extends (PureComponent || Component) {
 
       markAsSaved: this.markAsSaved,
 
-      adjustPreviewHeight: this.adjustHeight
+      adjustPreviewHeight: this.adjustHeight,
     };
   })();
 }

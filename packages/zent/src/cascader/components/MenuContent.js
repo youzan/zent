@@ -14,7 +14,7 @@ class MenuContent extends (PureComponent || Component) {
     value: PropTypes.array,
     options: PropTypes.array,
     isLoading: PropTypes.bool,
-    recursiveNextOptions: PropTypes.func
+    recursiveNextOptions: PropTypes.func,
   };
 
   getMenuItemIcon(item, isShowLoading, isActive) {
@@ -43,7 +43,7 @@ class MenuContent extends (PureComponent || Component) {
       const isActive = item.id === value[stage - 1];
       let cascaderItemCls = classnames({
         [`${prefix}-cascader__menu-item`]: true,
-        active: isActive
+        active: isActive,
       });
 
       return (

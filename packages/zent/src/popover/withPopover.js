@@ -17,8 +17,8 @@ export const exposePopover = propName => Base => {
       const context = {
         [propName]: omit(popover, [
           'registerDescendant',
-          'unregisterDescendant'
-        ])
+          'unregisterDescendant',
+        ]),
       };
 
       return <Base {...this.props} {...context} />;

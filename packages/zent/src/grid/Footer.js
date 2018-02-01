@@ -7,7 +7,7 @@ import has from 'lodash/has';
 
 const defaultPageInfo = {
   current: 1,
-  pageSize: 10
+  pageSize: 10,
 };
 
 class Footer extends (PureComponent || Component) {
@@ -15,7 +15,7 @@ class Footer extends (PureComponent || Component) {
     super(props);
 
     this.state = {
-      pageInfo: this.getDefaultPagination(props)
+      pageInfo: this.getDefaultPagination(props),
     };
   }
 
@@ -31,7 +31,7 @@ class Footer extends (PureComponent || Component) {
       ? {
           ...pageInfo,
           current: pageInfo.current || defaultPageInfo.current,
-          pageSize: pageInfo.pageSize || defaultPageInfo.pageSize
+          pageSize: pageInfo.pageSize || defaultPageInfo.pageSize,
         }
       : null;
   }
@@ -58,7 +58,7 @@ class Footer extends (PureComponent || Component) {
       this.setState(previousState => {
         const newPagination = {
           ...previousState.pageInfo,
-          ...nextProps.pageInfo
+          ...nextProps.pageInfo,
         };
 
         newPagination.current =
@@ -67,7 +67,7 @@ class Footer extends (PureComponent || Component) {
           newPagination.pageSize || defaultPageInfo.pageSize;
 
         return {
-          pageInfo: this.hasPagination(nextProps) ? newPagination : null
+          pageInfo: this.hasPagination(nextProps) ? newPagination : null,
         };
       });
     }

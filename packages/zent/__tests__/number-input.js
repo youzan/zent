@@ -101,8 +101,8 @@ describe('NumberInput', () => {
     const wrapper = mount(<NumberInput onChange={handleChange} value={1} />);
     wrapper.find('input').simulate('change', {
       target: {
-        value: ''
-      }
+        value: '',
+      },
     });
     expect(wrapper.state('value')).toBe('');
   });

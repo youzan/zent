@@ -8,7 +8,7 @@ export default class ConfigPreview extends (PureComponent || Component) {
     // 用来和 Design 交互
     design: PropTypes.object,
 
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   render() {

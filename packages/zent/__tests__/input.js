@@ -27,7 +27,7 @@ describe('Input', () => {
   it('can supports showClear props', () => {
     class InputTest extends React.Component {
       state = {
-        value: ''
+        value: '',
       };
 
       handleChange = e => {
@@ -194,7 +194,7 @@ describe('Input', () => {
   it('can supports textarea with onChange and autoSize', () => {
     class TextArea extends React.Component {
       state = {
-        value: ''
+        value: '',
       };
 
       handleChange = e => {

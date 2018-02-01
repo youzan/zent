@@ -11,7 +11,7 @@ class SelectionCheckboxAll extends (PureComponent || Component) {
 
     this.state = {
       checked: this.getCheckState(props),
-      indeterminate: this.getIndeterminateState(props)
+      indeterminate: this.getIndeterminateState(props),
     };
   }
 
@@ -84,7 +84,7 @@ class SelectionCheckboxAll extends (PureComponent || Component) {
 
     const props = {
       checked,
-      indeterminate: indeterminate && checked ? false : indeterminate
+      indeterminate: indeterminate && checked ? false : indeterminate,
     };
 
     return <Checkbox {...props} onChange={this.onChange} disabled={disabled} />;

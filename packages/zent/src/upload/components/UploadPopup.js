@@ -21,7 +21,7 @@ class UploadPopup extends Component {
       networkUploading: props.networkUploading,
       localUploading: props.localUploading,
       buttonText: props.i18n.popup.extract, // hacky
-      localFiles: []
+      localFiles: [],
     };
     this.networkUrl = '';
     this.confirmNetworkUrl = this.confirmNetworkUrl.bind(this);
@@ -35,7 +35,7 @@ class UploadPopup extends Component {
     const { categoryId } = nextProps.options;
     if (this.props.options.categoryId !== categoryId) {
       this.setState({
-        categoryId
+        categoryId,
       });
     }
   }
@@ -168,9 +168,9 @@ class UploadPopup extends Component {
     }
     return (
       <div className={`${prefix}-local-attachment-region`}>
-        <div className={`${prefix}-title`}>
-          {`${i18n.popup[`title_${options.type}`]}：`}
-        </div>
+        <div className={`${prefix}-title`}>{`${
+          i18n.popup[`title_${options.type}`]
+        }：`}</div>
         <div className={`${prefix}-content`}>
           <ul
             ref={this.onListRefChange}
@@ -200,7 +200,7 @@ class UploadPopup extends Component {
           <div className={`${prefix}-local-tips c-gray`}>
             {i18n.popup.type({
               types: accept.replace(/image\/?|audio\/?/g, '').split(','),
-              size: formatFileSize(options.maxSize)
+              size: formatFileSize(options.maxSize),
             })}
           </div>
         </div>
@@ -234,7 +234,7 @@ class UploadPopup extends Component {
         // 拖拽移动以后重建索引
         item.__uid = index; // eslint-disable-line
         return item;
-      })
+      }),
     });
   };
 
@@ -242,7 +242,7 @@ class UploadPopup extends Component {
     let { localFiles } = this.state;
     localFiles.splice(index, 1);
     this.setState({
-      localFiles
+      localFiles,
     });
   };
 
@@ -250,22 +250,22 @@ class UploadPopup extends Component {
     let { options, showUploadPopup } = this.props;
     let { localFiles, categoryId } = this.state;
     this.setState({
-      localUploading: true
+      localUploading: true,
     });
     uploadLocalImage(options, {
       localFiles,
       categoryId,
-      onProgress: this.fileProgressHandler
+      onProgress: this.fileProgressHandler,
     })
       .then(() => {
         this.setState({
-          localUploading: false
+          localUploading: false,
         });
         showUploadPopup(false);
       })
       .catch(() => {
         this.setState({
-          localUploading: false
+          localUploading: false,
         });
       });
   }
@@ -286,7 +286,7 @@ class UploadPopup extends Component {
     // 根据索引进行排序，防止读取文件导致顺序错乱
     localFiles.sort((a, b) => (a.__uid > b.__uid ? 1 : -1)); // eslint-disable-line
     this.setState({
-      localFiles
+      localFiles,
     });
   };
 
@@ -300,21 +300,21 @@ class UploadPopup extends Component {
     if (!this.networkUrl) return false;
     this.setState({
       networkUploading: true,
-      buttonText: i18n.popup.extracting
+      buttonText: i18n.popup.extracting,
     });
     options.onFetch(this.networkUrl, categoryId).then(
       () => {
         this.setState({
           networkImage: {},
           networkUploading: false,
-          buttonText: i18n.popup.extract
+          buttonText: i18n.popup.extract,
         });
         showUploadPopup(false);
       },
       () => {
         this.setState({
           networkUploading: false,
-          buttonText: i18n.popup.extract
+          buttonText: i18n.popup.extract,
         });
       }
     );
@@ -334,7 +334,7 @@ UploadPopup.defaultProps = {
   networkUploading: false,
   buttonText: '',
   options: {},
-  className: ''
+  className: '',
 };
 
 export default UploadPopup;

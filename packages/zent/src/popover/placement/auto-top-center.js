@@ -14,7 +14,7 @@ const positionMap = {
   BottomCenter,
   TopLeft,
   TopRight,
-  TopCenter
+  TopCenter,
 };
 
 function locate(

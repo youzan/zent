@@ -14,7 +14,7 @@ export default class Points extends (PureComponent || Component) {
     const { range, value } = props;
     this.state = {
       visibility: false,
-      conf: range ? { start: value[0], end: value[1] } : { simple: value }
+      conf: range ? { start: value[0], end: value[1] } : { simple: value },
     };
   }
 
@@ -72,7 +72,7 @@ export default class Points extends (PureComponent || Component) {
         step,
         dots,
         marks,
-        range
+        range,
       } = this.props;
       let newValue = (evt.clientX - left) / getClientWidth();
       newValue = (max - min) * newValue;
@@ -100,7 +100,7 @@ export default class Points extends (PureComponent || Component) {
     const { range, value } = props;
     if (this.left === null) {
       this.setState({
-        conf: range ? { start: value[0], end: value[1] } : { simple: value }
+        conf: range ? { start: value[0], end: value[1] } : { simple: value },
       });
     }
   }

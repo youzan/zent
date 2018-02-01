@@ -14,7 +14,7 @@ import WindowEventHandler from './WindowEventHandler';
  */
 export default class WindowResizeHandler extends (PureComponent || Component) {
   static propTypes = {
-    onResize: PropTypes.func.isRequired
+    onResize: PropTypes.func.isRequired,
   };
 
   onResize = evt => {
@@ -22,7 +22,7 @@ export default class WindowResizeHandler extends (PureComponent || Component) {
     const prevViewportSize = this._prevViewportSize;
     const delta = {
       deltaX: viewportSize.width - prevViewportSize.width,
-      deltaY: viewportSize.height - prevViewportSize.height
+      deltaY: viewportSize.height - prevViewportSize.height,
     };
 
     if (delta.deltaX === 0 && delta.deltaY === 0) {

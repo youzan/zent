@@ -8,7 +8,7 @@ describe('Dialog component', () => {
 
   class DialogTest extends Component {
     state = {
-      visible: false
+      visible: false,
     };
 
     render() {
@@ -18,7 +18,7 @@ describe('Dialog component', () => {
 
   const open = () => {
     dialog.setState({
-      visible: true
+      visible: true,
     });
   };
 
@@ -30,7 +30,7 @@ describe('Dialog component', () => {
   beforeEach(() => {
     function onClose() {
       dialog.setState({
-        visible: false
+        visible: false,
       });
     }
 
@@ -56,7 +56,7 @@ describe('Dialog component', () => {
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
 
     dialog.setState({
-      visible: false
+      visible: false,
     });
 
     jest.runOnlyPendingTimers();
@@ -69,7 +69,7 @@ describe('Dialog component', () => {
 
   it('can have no title', () => {
     dialog.setProps({
-      title: undefined
+      title: undefined,
     });
     open();
     expect(document.querySelectorAll('.zent-dialog-r-header').length).toBe(0);
@@ -77,7 +77,7 @@ describe('Dialog component', () => {
 
   it('can have no close button', () => {
     dialog.setProps({
-      closeBtn: false
+      closeBtn: false,
     });
     open();
     expect(document.querySelectorAll('.zent-dialog-r-close').length).toBe(0);
@@ -85,7 +85,7 @@ describe('Dialog component', () => {
 
   it('can have no mask', () => {
     dialog.setProps({
-      mask: false
+      mask: false,
     });
     open();
     expect(document.querySelectorAll('.zent-dialog-r-backdrop').length).toBe(0);
@@ -116,7 +116,7 @@ describe('Dialog component', () => {
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
 
     const escKeyUpEvent = new window.KeyboardEvent('keyup', {
-      keyCode: 27
+      keyCode: 27,
     });
     document.body.dispatchEvent(escKeyUpEvent);
 

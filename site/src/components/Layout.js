@@ -13,7 +13,7 @@ export default function Layout({
   sideNavData,
   sideNavRef,
   footerData,
-  saveFooter
+  saveFooter,
 }) {
   return (
     <div className="doc__layout">

@@ -7,7 +7,7 @@ export default class EditableInput extends Component {
 
     this.state = {
       value: String(props.value).toUpperCase(),
-      blurValue: String(props.value).toUpperCase()
+      blurValue: String(props.value).toUpperCase(),
     };
   }
 
@@ -113,8 +113,8 @@ export default class EditableInput extends Component {
       {
         default: {
           wrap: {
-            position: 'relative'
-          }
+            position: 'relative',
+          },
         },
         'user-override': {
           wrap:
@@ -128,16 +128,16 @@ export default class EditableInput extends Component {
           label:
             this.props.style && this.props.style.label
               ? this.props.style.label
-              : {}
+              : {},
         },
         'dragLabel-true': {
           label: {
-            cursor: 'ew-resize'
-          }
-        }
+            cursor: 'ew-resize',
+          },
+        },
       },
       {
-        'user-override': true
+        'user-override': true,
       },
       this.props
     );

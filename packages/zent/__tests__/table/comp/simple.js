@@ -12,33 +12,33 @@ const columns = [
     title: '商品',
     bodyRender: data => {
       return <div>{data.item_id}</div>;
-    }
+    },
   },
   {
     title: '访问量',
     name: 'bro_uvpv',
     width: '200px',
-    bodyRender: TextComponent
+    bodyRender: TextComponent,
   },
   {
     title: '库存',
     name: 'stock_num',
     width: '100px',
     textAlign: 'center',
-    isMoney: true
+    isMoney: true,
   },
   {
     width: '3em',
     title: '总销量',
-    name: 'sold_num'
-  }
+    name: 'sold_num',
+  },
 ];
 
 class Simple extends Component {
   state = {
     limit: 10,
     current: 0,
-    total: 101
+    total: 101,
   };
 
   onChange = conf => {

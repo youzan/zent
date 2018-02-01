@@ -8,25 +8,25 @@ export default class TextRow extends (PureComponent || Component) {
     style: PropTypes.object,
     animate: PropTypes.bool,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
     lineSpacing: '0.7em',
     animate: true,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
     const { className, lineSpacing, animate, style, prefix } = this.props;
     const defaultStyles = {
-      marginTop: lineSpacing
+      marginTop: lineSpacing,
     };
     const classes = cx(
       `${prefix}-placeholder-text-row`,
       `${prefix}-placeholder-shape`,
       {
-        [`${prefix}-placeholder-shape--animate`]: animate
+        [`${prefix}-placeholder-shape--animate`]: animate,
       },
       className
     );

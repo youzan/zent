@@ -14,7 +14,7 @@ const defaultTab = [
     wrapClass: 'jd',
     sum: 84,
     imgFolder: 'jx2/',
-    imgName: 'j_00'
+    imgName: 'j_00',
   },
   {
     name: '兔斯基',
@@ -23,7 +23,7 @@ const defaultTab = [
     wrapClass: 'tsj',
     sum: 40,
     imgFolder: 'tsj/',
-    imgName: 't_00'
+    imgName: 't_00',
   },
   {
     name: '绿豆蛙',
@@ -32,7 +32,7 @@ const defaultTab = [
     wrapClass: 'ldw',
     sum: 52,
     imgFolder: 'ldw/',
-    imgName: 'w_00'
+    imgName: 'w_00',
   },
   {
     name: '波波',
@@ -41,7 +41,7 @@ const defaultTab = [
     wrapClass: 'bb',
     sum: 63,
     imgFolder: 'bobo/',
-    imgName: 'b_00'
+    imgName: 'b_00',
   },
   {
     name: '北鼻猫',
@@ -50,7 +50,7 @@ const defaultTab = [
     wrapClass: 'cat',
     sum: 20,
     imgFolder: 'babycat/',
-    imgName: 'C_00'
+    imgName: 'C_00',
   },
   {
     name: '泡泡',
@@ -59,7 +59,7 @@ const defaultTab = [
     wrapClass: 'pp',
     sum: 50,
     imgFolder: 'face/',
-    imgName: 'i_f_'
+    imgName: 'i_f_',
   },
   {
     name: '有啊',
@@ -68,7 +68,7 @@ const defaultTab = [
     wrapClass: 'youa',
     sum: 44,
     imgFolder: 'youa/',
-    imgName: 'y_00'
+    imgName: 'y_00',
   },
   {
     name: 'QQ',
@@ -77,15 +77,15 @@ const defaultTab = [
     wrapClass: 'qq',
     sum: 105,
     imgFolder: 'qq/',
-    imgName: ''
-  }
+    imgName: '',
+  },
 ];
 
 class Emotion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeId: 'Choice'
+      activeId: 'Choice',
     };
   }
 
@@ -98,9 +98,9 @@ class Emotion extends Component {
       let tabContent = [];
 
       for (let i = 1, len = item.sum; i <= len; i++) {
-        let imgSrc = `${item.imgFolder}${item.imgName}${i < 10
-          ? `0${i}`
-          : i}.gif`;
+        let imgSrc = `${item.imgFolder}${item.imgName}${
+          i < 10 ? `0${i}` : i
+        }.gif`;
         let styleObj = {};
         let pos = '';
 
@@ -138,7 +138,7 @@ class Emotion extends Component {
 
   onTabChange = id => {
     this.setState({
-      activeId: id
+      activeId: id,
     });
   };
 
@@ -169,6 +169,6 @@ export default function(options) {
   openDialog({
     dialogId,
     className: 'zent-design-component-richtext__emotion',
-    children: <Emotion callback={options.callback} />
+    children: <Emotion callback={options.callback} />,
   });
 }
