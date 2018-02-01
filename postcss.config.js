@@ -6,11 +6,11 @@ const config = {
   plugins: [
     require('postcss-easy-import')({
       prefix: '_',
-      extensions: ['pcss', 'css']
+      extensions: ['pcss', 'css'],
     }),
     require('autoprefixer')(),
-    require('precss')()
-  ]
+    require('precss')(),
+  ],
 };
 
 if (PRODUCTION) {
