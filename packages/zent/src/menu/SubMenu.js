@@ -94,10 +94,6 @@ export default class SubMenu extends CommonMenu {
       specKey,
     } = this.props;
 
-    if (!component) {
-      return null;
-    }
-
     return this.renderCommonMenuItem(component, index, specKey, {
       depth: depth + 1,
       isInline,

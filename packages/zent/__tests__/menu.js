@@ -130,6 +130,7 @@ describe('Menu component', () => {
         <SubMenu key="3" title="美妆分类">
           <MenuItem key="3-1">眼影</MenuItem>
         </SubMenu>
+        <SubMenu key="4" />
       </Menu>
     );
 
