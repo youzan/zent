@@ -35,7 +35,7 @@ group: 数据
 | autoSelect   | 自动select         | bol           |  `false` |                     | 否    |
 | initSelectionStart | 初始被选中的第一个字符的位置 | number |          |                | 否     |
 | initSelectionEnd | 初始被选中的最后一个字符的下一个位置。 | number |          |         | 否     |
-| onChange     | change事件        | func(e:Event) |          |                         | 否    |
+| onChange     | change 事件回调函数，`e.fromClearButton` 为 `true` 说明事件来自清空按钮        | func(e:Event) |          |                         | 否    |
 | onPressEnter | 回车事件            | func(e:Event) |          |                         | 否    |
 
 _除了以上属性外，所有react支持的input属性，Input组件都支持_
