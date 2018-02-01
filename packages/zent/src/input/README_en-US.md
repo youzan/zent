@@ -34,7 +34,7 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | autoSelect    | auto select          | bool          |  `false`        |                  | No  |
 | initSelectionStart    | The 0-based index of the first selected character  | number        |         |    | No  |
 | initSelectionEnd    | The 0-based index of the character after the last selected character  | number        |         |    | No  |
-| onChange     | change event        | func(e:Event) |          |                         | No    |
+| onChange     | change event, `e.fromClearButton` is `true` if clear button is clicked       | func(e:Event) |          |                         | No    |
 | onPressEnter | enter event            | func(e:Event) |          |                         | No    |
 
 _Except for the attributes listed above, `Input` supports all attributes that React supports for native input._

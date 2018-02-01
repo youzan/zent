@@ -23,7 +23,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     initialLoad: true,
     useWindow: true,
     useCapture: false,
-    loader: <Loading className="zent-infinite-scroller-loading" show />,
+    loader: <Loading height={60} show />,
   };
 
   state = {

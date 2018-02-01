@@ -90,6 +90,8 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 Positon用于给弹层提供定位的, 内置12种基础定位, 可以添加自定义定位算法. Popover 上的 `cushion` 参数会影响定位, 通常用来提供一定量的偏移量。
 
 ```
+// 基础定位
+
                     TopLeft     TopCenter     TopRight
 
 LeftTop                                                             RightTop
@@ -188,9 +190,9 @@ const HoverContent = withPopover(function HoverContent({ popover }) {
 
 #### `adjustPosition` 方法
 
-可以通过这个方法调整 `Pop` 的位置。
+可以通过这个方法调整 `Popover` 的位置。
 
-一般是用于某些特殊场合，`Pop` 无法自动更新位置时手动调用。
+一般是用于某些特殊场合，`Popover` 无法自动更新位置时手动调用。
 
 <style>
 .zent-doc-popover {
