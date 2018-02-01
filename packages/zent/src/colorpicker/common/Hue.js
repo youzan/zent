@@ -39,16 +39,16 @@ export default class Hue extends Component {
             background: `linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%,
             #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)`,
             borderRadius: this.props.radius,
-            boxShadow: this.props.shadow
+            boxShadow: this.props.shadow,
           },
           container: {
             margin: '0 2px',
             position: 'relative',
-            height: '100%'
+            height: '100%',
           },
           pointer: {
             position: 'absolute',
-            left: `${this.props.hsl.h * 100 / 360}%`
+            left: `${this.props.hsl.h * 100 / 360}%`,
           },
           slider: {
             marginTop: '1px',
@@ -57,19 +57,19 @@ export default class Hue extends Component {
             height: '8px',
             boxShadow: '0 0 2px rgba(0, 0, 0, .6)',
             background: '#fff',
-            transform: 'translateX(-2px)'
-          }
+            transform: 'translateX(-2px)',
+          },
         },
         vertical: {
           hue: {
             background: `linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%,
-            #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)`
+            #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)`,
           },
           pointer: {
             left: '0px',
-            top: `${-(this.props.hsl.h * 100 / 360) + 100}%`
-          }
-        }
+            top: `${-(this.props.hsl.h * 100 / 360) + 100}%`,
+          },
+        },
       },
       { vertical: this.props.direction === 'vertical' }
     );

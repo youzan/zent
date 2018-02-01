@@ -111,5 +111,5 @@ export {
   Tree,
   Upload,
   WeekPicker,
-  YearPicker
+  YearPicker,
 };

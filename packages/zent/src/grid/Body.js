@@ -15,7 +15,7 @@ class Body extends (PureComponent || Component) {
       rowClassName,
       onRowClick,
       fixed,
-      fixedColumnsBodyRowsHeight
+      fixedColumnsBodyRowsHeight,
     } = this.props;
     const row = [];
 
@@ -64,7 +64,7 @@ class Body extends (PureComponent || Component) {
 
 Body.propTypes = {
   prefix: PropTypes.string,
-  columns: PropTypes.array
+  columns: PropTypes.array,
 };
 
 export default Body;

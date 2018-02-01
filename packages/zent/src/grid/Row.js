@@ -14,7 +14,7 @@ class Row extends (PureComponent || Component) {
       rowClassName,
       onRowClick,
       fixed,
-      fixedColumnsBodyRowsHeight
+      fixedColumnsBodyRowsHeight,
     } = this.props;
 
     const cells = [];
@@ -31,7 +31,7 @@ class Row extends (PureComponent || Component) {
     forEach(columns, (column, columnIndex) => {
       let pos = {
         row: rowIndex,
-        column: columnIndex
+        column: columnIndex,
       };
 
       cells.push(

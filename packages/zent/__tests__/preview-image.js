@@ -9,13 +9,13 @@ describe('previewImage render', () => {
     const imgArr = [
       'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
       'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
     ];
 
     previewImage({
       images: imgArr,
       showRotateBtn: true,
-      index: 0
+      index: 0,
     });
     expect(document.querySelectorAll('.zent-portal').length).toBe(1);
     expect(document.querySelectorAll('.zent-image-p-anchor').length).toBe(1);
@@ -34,7 +34,7 @@ describe('previewImage render', () => {
     const imgArr = [
       'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
       'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
     ];
 
     const wrapper = mount(
@@ -50,7 +50,7 @@ describe('previewImage render', () => {
 
     const event = {
       target: 1,
-      currentTarget: 1
+      currentTarget: 1,
     };
 
     expect(ImageDom.node.onMaskClick(event)).toBe(undefined);
@@ -64,7 +64,7 @@ describe('previewImage render', () => {
     const imgArr = [
       'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
       'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
     ];
 
     const wrapper = mount(
@@ -80,13 +80,13 @@ describe('previewImage render', () => {
 
     const event = {
       target: 0,
-      currentTarget: 1
+      currentTarget: 1,
     };
 
     ImageDom.node.onMaskClick(event);
 
     const imgArr1 = [
-      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg'
+      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
     ];
 
     const wrapper1 = mount(
@@ -111,13 +111,13 @@ describe('previewImage render', () => {
     const imgArr = [
       'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
       'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg'
+      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
     ];
 
     previewImageFunc({
       images: imgArr,
       showRotateBtn: true,
-      index: 0
+      index: 0,
     });
   });
 });

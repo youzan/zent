@@ -17,7 +17,7 @@ class TabsContent extends (PureComponent || Component) {
     options: PropTypes.array,
     title: PropTypes.array,
     isLoading: PropTypes.bool,
-    recursiveNextOptions: PropTypes.func
+    recursiveNextOptions: PropTypes.func,
   };
 
   renderCascaderItems(items, stage, popover) {
@@ -26,7 +26,7 @@ class TabsContent extends (PureComponent || Component) {
     let cascaderItems = items.map(item => {
       let cascaderItemCls = classnames({
         [`${prefix}-cascader__list-link`]: true,
-        active: item.id === value[stage - 1]
+        active: item.id === value[stage - 1],
       });
 
       return (

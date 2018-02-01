@@ -11,7 +11,7 @@ const COL = 3;
 export default class YearPanelBody extends (PureComponent || Component) {
   static propTypes = {
     actived: PropTypes.instanceOf(Date),
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
   };
 
   getYears() {
@@ -32,14 +32,14 @@ export default class YearPanelBody extends (PureComponent || Component) {
           'year-panel__cell panel__cell': true,
           'panel__cell--current': isCurrent,
           'panel__cell--selected': isSelected,
-          'panel__cell--disabled': isDisabled
+          'panel__cell--disabled': isDisabled,
         });
         years[rowIndex][colIndex] = {
           text: val,
           value: val,
           title: `${val}`,
           className,
-          isDisabled
+          isDisabled,
         };
         index++;
       }

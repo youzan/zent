@@ -23,7 +23,7 @@ export default class InputField extends (PureComponent || Component) {
       'min',
       'disabled',
       'className',
-      'prefix'
+      'prefix',
     ]);
     return (
       <div className={`${prefix}-slider-input`}>

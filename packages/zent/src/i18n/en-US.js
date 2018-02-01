@@ -5,7 +5,7 @@ const common = {
   cancel: 'Cancel',
   comma: ', ',
   ok: 'OK',
-  reset: 'Reset'
+  reset: 'Reset',
 };
 
 export const mark = 'en-US';
@@ -13,7 +13,7 @@ export const mark = 'en-US';
 export const CopyButton = {
   copy: 'Copy',
   success: 'Copied',
-  error: 'Copy failed'
+  error: 'Copy failed',
 };
 
 export const Pagination = {
@@ -21,54 +21,54 @@ export const Pagination = {
   total: 'Total',
   pages: 'pages',
   items: ' items',
-  perPage: ' per page'
+  perPage: ' per page',
 };
 
 export const Pop = {
-  ...common
+  ...common,
 };
 
 export const PreviewImage = {
   alt: 'Image download failed',
   prev: 'Previous',
   next: 'Next',
-  rotate: 'Rotate'
+  rotate: 'Rotate',
 };
 
 export const RangePicker = {
   7: '7 days',
-  30: '30 days'
+  30: '30 days',
 };
 
 export const Select = {
   input: 'Please choose...',
-  empty: 'No matches found'
+  empty: 'No matches found',
 };
 
 export const Sweetalert = {
   ...common,
-  title: 'Alert'
+  title: 'Alert',
 };
 
 export const Switch = {
   checked: 'On',
-  unchecked: 'Off'
+  unchecked: 'Off',
 };
 
 export const Grid = {
   ...common,
-  emptyLabel: 'No data'
+  emptyLabel: 'No data',
 };
 
 export const Table = {
   ...common,
-  emptyLabel: 'No data'
+  emptyLabel: 'No data',
 };
 
 export const Cascader = {
   ...common,
   title: 'Title',
-  placeholder: 'Please choose'
+  placeholder: 'Please choose',
 };
 
 export const TimePicker = () => {
@@ -93,7 +93,7 @@ export const TimePicker = () => {
       date: 'Today',
       week: 'This week',
       month: 'This month',
-      year: 'This year'
+      year: 'This year',
     },
     panel: {
       hour: '',
@@ -107,7 +107,7 @@ export const TimePicker = () => {
         '1st Quarter',
         '2nd Quarter',
         '3rd Quarter',
-        '4th Quarter'
+        '4th Quarter',
       ],
       dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
       monthNames: [
@@ -122,9 +122,9 @@ export const TimePicker = () => {
         'Sep',
         'Oct',
         'Nov',
-        'Dec'
-      ]
-    }
+        'Dec',
+      ],
+    },
   };
 };
 
@@ -134,20 +134,20 @@ export const Sku = {
   container: {
     del: 'Delete',
     replace: 'Replace',
-    add: '+Add'
+    add: '+Add',
   },
   group: {
     add: 'Add sku image',
     imageTip1: 'Only the first sku portrait can be set',
     imageTip2:
       'After setting, corresponding portrait of the choosen sku will be rendered.',
-    imageTip3: 'Recommended size: 640 x 640 pixels.'
-  }
+    imageTip3: 'Recommended size: 640 x 640 pixels.',
+  },
 };
 
 const TypeMap = {
   image: 'Image',
-  voice: 'Audio'
+  voice: 'Audio',
 };
 
 export const Upload = {
@@ -164,7 +164,7 @@ export const Upload = {
     },
     type({ type }) {
       return `${TypeMap[type]} files with incorrect type have been filtered`;
-    }
+    },
   },
   popup: {
     web: 'Web image',
@@ -176,6 +176,6 @@ export const Upload = {
       return `Supports ${types.join(' /')} only, smaller than ${size}`;
     },
     extract: 'Extract',
-    extracting: 'Extracting...'
-  }
+    extracting: 'Extracting...',
+  },
 };

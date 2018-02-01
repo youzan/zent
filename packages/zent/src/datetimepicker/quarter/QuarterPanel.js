@@ -6,7 +6,7 @@ import { goYears } from '../utils/';
 
 export default class QuarterPanel extends (PureComponent || Component) {
   state = {
-    showYear: false
+    showYear: false,
   };
 
   prevYear = () => {
@@ -23,7 +23,7 @@ export default class QuarterPanel extends (PureComponent || Component) {
 
   showYearPanel = () => {
     this.setState({
-      showYear: true
+      showYear: true,
     });
   };
 
@@ -35,14 +35,14 @@ export default class QuarterPanel extends (PureComponent || Component) {
     onChange(acp);
 
     this.setState({
-      showYear: close
+      showYear: close,
     });
   };
 
   render() {
     const {
       props: { actived, disabledDate, i18n, onSelect, selected },
-      state: { showYear }
+      state: { showYear },
     } = this;
 
     const title = `${actived.getFullYear()}`;

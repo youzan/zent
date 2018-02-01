@@ -66,7 +66,7 @@ export function flatten(tree, stocks = [], options) {
         k_id: sku[optionValue],
         k: sku[optionText],
         v_id: item[optionValue],
-        v: item[optionText]
+        v: item[optionText],
       });
     });
     let { ...data } = stockMap[mapKey.join('|')] || {};

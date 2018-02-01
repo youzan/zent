@@ -7,18 +7,18 @@ const happyThreadPool = require('./happypack-thread-pool');
 
 const {
   getBabelLoaderOptions,
-  getMarkdownLoaders
+  getMarkdownLoaders,
 } = require('./loader.config');
 
 const babelLoader = {
   loader: 'babel-loader',
-  options: getBabelLoaderOptions({ dev: true })
+  options: getBabelLoaderOptions({ dev: true }),
 };
 
 module.exports = {
   output: {
     path: join(__dirname, '../dist'),
-    filename: '[name]-[hash].js'
+    filename: '[name]-[hash].js',
   },
 
   resolve: {
@@ -27,71 +27,71 @@ module.exports = {
     alias: Object.assign(
       {
         // components: join(__dirname, '../src/components'),
-        zent$: join(__dirname, '../zent')
+        zent$: join(__dirname, '../zent'),
       },
       createAlias(resolve(__dirname, '../../packages/zent/src'))
-    )
+    ),
   },
 
   module: {
     rules: [
       {
         test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
-        use: 'url-loader'
+        use: 'url-loader',
       },
       {
         test: /\.json$/,
-        use: 'json-loader'
+        use: 'json-loader',
       },
       {
         test: /\.html$/,
-        use: 'html-loader'
+        use: 'html-loader',
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules\/(?!transliteration\/)/,
-        use: 'happypack/loader?id=js'
+        use: 'happypack/loader?id=js',
       },
       {
         test: /\.md$/,
-        use: 'happypack/loader?id=md'
-      }
-    ]
+        use: 'happypack/loader?id=md',
+      },
+    ],
   },
 
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity
+      minChunks: Infinity,
     }),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       chunks: ['vendor', 'docs', 'markdown'],
-      inject: 'body'
+      inject: 'body',
     }),
 
     new HappyPack({
       id: 'js',
       threadPool: happyThreadPool,
-      loaders: [babelLoader]
+      loaders: [babelLoader],
     }),
 
     new HappyPack({
       id: 'md',
       threadPool: happyThreadPool,
-      loaders: getMarkdownLoaders(babelLoader)
-    })
+      loaders: getMarkdownLoaders(babelLoader),
+    }),
   ],
 
   node: {
     fs: 'empty',
-    net: 'empty'
-  }
+    net: 'empty',
+  },
 };

@@ -14,7 +14,7 @@ class Trigger extends (PureComponent || Component) {
 }
 
 Trigger.propTypes = {
-  trigger: PropTypes.any
+  trigger: PropTypes.any,
 };
 
 export default Trigger;

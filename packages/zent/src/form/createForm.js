@@ -16,7 +16,7 @@ import {
   getDisplayName,
   silenceEvent,
   silenceEvents,
-  srcollToFirstError
+  srcollToFirstError,
 } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
@@ -36,7 +36,7 @@ const createForm = (config = {}) => {
     onChange,
     onSubmitSuccess,
     onSubmitFail,
-    scrollToError
+    scrollToError,
   } = config;
   const validationRules = assign({}, rules, formValidations);
 
@@ -48,7 +48,7 @@ const createForm = (config = {}) => {
           isFormValid: true,
           isSubmitting: false,
           submitFail: false,
-          submitSuccess: false
+          submitSuccess: false,
         };
         this.fields = [];
         this._isMounted = false;
@@ -65,7 +65,7 @@ const createForm = (config = {}) => {
         onInvalid: PropTypes.func, // 暂时未对外
         onChange: PropTypes.func,
         validationErrors: PropTypes.object,
-        scrollToError: PropTypes.bool
+        scrollToError: PropTypes.bool,
       };
 
       static defaultProps = {
@@ -76,11 +76,11 @@ const createForm = (config = {}) => {
         onInvalid: noop,
         onChange: onChange || noop,
         validationErrors: null,
-        scrollToError: scrollToError || false
+        scrollToError: scrollToError || false,
       };
 
       static childContextTypes = {
-        zentForm: PropTypes.object
+        zentForm: PropTypes.object,
       };
 
       getChildContext() {
@@ -103,8 +103,8 @@ const createForm = (config = {}) => {
             asyncValidateForm: this.asyncValidateForm,
             isFormSubmitFail: this.isFormSubmitFail,
             isFormSubmitSuccess: this.isFormSubmitSuccess,
-            updateFormSubmitStatus: this.updateFormSubmitStatus
-          }
+            updateFormSubmitStatus: this.updateFormSubmitStatus,
+          },
         };
       }
 
@@ -193,7 +193,7 @@ const createForm = (config = {}) => {
           const data = {
             _isValid: !(name in errors),
             _validationError:
-              typeof errors[name] === 'string' ? [errors[name]] : errors[name]
+              typeof errors[name] === 'string' ? [errors[name]] : errors[name],
           };
           if (updateDirty) {
             data._isDirty = true;
@@ -209,7 +209,7 @@ const createForm = (config = {}) => {
           const error = get(errors, name);
           const data = {
             _isValid: false,
-            _externalError: typeof error === 'string' ? [error] : error
+            _externalError: typeof error === 'string' ? [error] : error,
           };
           if (updateDirty) {
             data._isDirty = true;
@@ -223,7 +223,7 @@ const createForm = (config = {}) => {
       setFormDirty = (isDirty = true) => {
         this.fields.forEach(field => {
           field.setState({
-            _isDirty: isDirty
+            _isDirty: isDirty,
           });
         });
       };
@@ -231,7 +231,7 @@ const createForm = (config = {}) => {
       setFormPristine = (isPristine = false) => {
         this.fields.forEach(field => {
           field.setState({
-            _isDirty: !isPristine
+            _isDirty: !isPristine,
           });
         });
       };
@@ -385,7 +385,7 @@ const createForm = (config = {}) => {
       updateFormSubmitStatus = submitSuccess => {
         this.setState({
           submitFail: !submitSuccess,
-          submitSuccess
+          submitSuccess,
         });
       };
 
@@ -440,14 +440,14 @@ const createForm = (config = {}) => {
                   return arr.indexOf(x) === pos;
                 });
             }
-          })()
+          })(),
         };
       };
 
       runRules = (value, currentValues, validations = []) => {
         const results = {
           errors: [],
-          failed: []
+          failed: [],
         };
 
         function updateResults(validation, validationMethod) {
@@ -503,7 +503,7 @@ const createForm = (config = {}) => {
           {
             _isValid: validation.isValid,
             _validationError: validation.error,
-            _externalError: null
+            _externalError: null,
           },
           () => this.validateForm(false, null, field.props.relatedFields)
         );
@@ -516,7 +516,7 @@ const createForm = (config = {}) => {
         if (!asyncValidation || field.state._validationError.length) return;
 
         field.setState({
-          _isValidating: true
+          _isValidating: true,
         });
 
         const promise = asyncValidation(values, value);
@@ -529,12 +529,12 @@ const createForm = (config = {}) => {
             _isValidating: false,
             _isValid: !rejected && field.state._validationError.length === 0,
             _externalError: error ? [error] : null,
-            _asyncValidated: true
+            _asyncValidated: true,
           });
 
           if (rejected) {
             this.setState({
-              isFormValid: false
+              isFormValid: false,
             });
             throw new Error(error);
           }
@@ -575,7 +575,7 @@ const createForm = (config = {}) => {
 
           this.setState(
             {
-              isFormValid: allIsValid
+              isFormValid: allIsValid,
             },
             callback
           );
@@ -606,7 +606,7 @@ const createForm = (config = {}) => {
                 _isValid: validation.isValid,
                 _validationError: validation.error,
                 _externalError:
-                  !validation.isValid && _externalError ? _externalError : null
+                  !validation.isValid && _externalError ? _externalError : null,
               },
               () => onValidationComplete(index)
             );
@@ -640,7 +640,7 @@ const createForm = (config = {}) => {
         const passableProps = omit(this.props, [
           'validationErrors',
           'handleSubmit',
-          'onChange'
+          'onChange',
         ]);
 
         return createElement(WrappedForm, {
@@ -669,8 +669,8 @@ const createForm = (config = {}) => {
             asyncValidateForm: this.asyncValidateForm,
             isFormSubmitFail: this.isFormSubmitFail,
             isFormSubmitSuccess: this.isFormSubmitSuccess,
-            updateFormSubmitStatus: this.updateFormSubmitStatus
-          }
+            updateFormSubmitStatus: this.updateFormSubmitStatus,
+          },
         });
       }
     };

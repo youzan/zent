@@ -29,7 +29,7 @@ class DateRangePicker extends (PureComponent || Component) {
     defaultTime: PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     ),
-    valueType: PropTypes.oneOf(['string', 'number', 'date'])
+    valueType: PropTypes.oneOf(['string', 'number', 'date']),
   };
 
   static defaultProps = {
@@ -39,7 +39,7 @@ class DateRangePicker extends (PureComponent || Component) {
     format: 'YYYY-MM-DD',
     value: [],
     openPanel: [],
-    defaultTime: [TIME_BEGIN, TIME_BEGIN]
+    defaultTime: [TIME_BEGIN, TIME_BEGIN],
   };
 
   onChange = type => {

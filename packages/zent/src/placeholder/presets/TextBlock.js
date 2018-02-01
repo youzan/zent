@@ -17,7 +17,7 @@ export default class TextBlock extends (PureComponent || Component) {
     animate: PropTypes.bool,
     style: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -26,14 +26,14 @@ export default class TextBlock extends (PureComponent || Component) {
     animate: true,
     dashed: true,
     lineSpacing: '0.7em',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   getRowStyle = i => {
     const { widths } = this.props;
 
     return {
-      width: `${widths[i % widths.length]}%`
+      width: `${widths[i % widths.length]}%`,
     };
   };
 
@@ -44,7 +44,7 @@ export default class TextBlock extends (PureComponent || Component) {
       prefix,
       animate,
       dashed,
-      dashSegments
+      dashSegments,
     } = this.props;
     const textRows = [];
 
@@ -55,7 +55,7 @@ export default class TextBlock extends (PureComponent || Component) {
         lineSpacing: i ? lineSpacing : 0,
         prefix,
         animate,
-        key: i
+        key: i,
       };
       if (dashed) {
         props.segments = dashSegments[i % dashSegments.length];

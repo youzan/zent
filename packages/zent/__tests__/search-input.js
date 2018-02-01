@@ -25,7 +25,7 @@ describe('SearchInput', () => {
     wrapper.find('input').simulate('change', {
       target: { value: 'abc' },
       preventDefault,
-      stopPropagation
+      stopPropagation,
     });
     expect(onChange.mock.calls.length).toBe(1);
     expect(value).toBe('abc');

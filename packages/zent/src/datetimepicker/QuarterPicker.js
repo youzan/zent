@@ -15,14 +15,14 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 const quarterMonthMap = {
   0: 0,
   1: 3,
   2: 6,
-  3: 9
+  3: 9,
 };
 
 function getQuarterLastDay(quarter, year) {
@@ -30,7 +30,7 @@ function getQuarterLastDay(quarter, year) {
     0: [3, 0],
     1: [6, 0],
     2: [9, 0],
-    3: [12, 0]
+    3: [12, 0],
   };
 
   return new Date(year, ...quarterLastDayMap[quarter]);
@@ -71,19 +71,19 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel: false,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class QuarterPicker extends (PureComponent || Component) {
   static propTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
-    format: 'YYYY-MM-DD'
+    format: 'YYYY-MM-DD',
   };
 
   retType = 'string';
@@ -121,7 +121,7 @@ class QuarterPicker extends (PureComponent || Component) {
 
   onChangeQuarter = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
@@ -142,7 +142,7 @@ class QuarterPicker extends (PureComponent || Component) {
       selected: begin,
       actived: begin,
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
 
     onChange(ret.map(this.getReturnValue));
@@ -202,7 +202,7 @@ class QuarterPicker extends (PureComponent || Component) {
     if (disabled) return;
 
     this.setState({
-      openPanel
+      openPanel,
     });
   };
 
@@ -216,15 +216,15 @@ class QuarterPicker extends (PureComponent || Component) {
         popPosition,
         prefix,
         width,
-        canClear
+        canClear,
       },
-      state: { openPanel, selected, showPlaceholder, value }
+      state: { openPanel, selected, showPlaceholder, value },
     } = this;
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 
@@ -236,12 +236,12 @@ class QuarterPicker extends (PureComponent || Component) {
             if (selected) {
               inputVal =
                 i18n.mark === 'zh-CN'
-                  ? `${selected.getFullYear()}年${i18n.panel.quarterNames[
-                      value
-                    ]}`
-                  : `${i18n.panel.quarterNames[
-                      value
-                    ]} of ${selected.getFullYear()}`;
+                  ? `${selected.getFullYear()}年${
+                      i18n.panel.quarterNames[value]
+                    }`
+                  : `${
+                      i18n.panel.quarterNames[value]
+                    } of ${selected.getFullYear()}`;
             }
             const placeholderText = placeholder || i18n.quarter;
 

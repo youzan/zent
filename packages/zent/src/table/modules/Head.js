@@ -14,7 +14,7 @@ export default class Head extends (PureComponent || Component) {
     super();
 
     this.state = {
-      isShowFixRow: false
+      isShowFixRow: false,
     };
     this.relativeTop = 0;
   }
@@ -22,7 +22,7 @@ export default class Head extends (PureComponent || Component) {
   componentDidMount() {
     if (this.props.autoStick) {
       this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, {
-        leading: true
+        leading: true,
       });
 
       window.addEventListener('scroll', this.throttleSetHeadStyle, true);
@@ -43,7 +43,7 @@ export default class Head extends (PureComponent || Component) {
     rect = {
       top: tmpRect.top,
       height: tmpRect.height - 1,
-      width: tmpRect.width
+      width: tmpRect.width,
     };
     this.relativeTop =
       rect.top - document.documentElement.getBoundingClientRect().top;
@@ -60,13 +60,13 @@ export default class Head extends (PureComponent || Component) {
           left: `${rect.left}px`,
           height: `${rect.height}px`,
           width: `${rect.width}px`,
-          zIndex: 1000
-        }
+          zIndex: 1000,
+        },
       });
     } else {
       this.setState({
         isShowFixRow: false,
-        fixStyle: {}
+        fixStyle: {},
       });
     }
   };
@@ -96,7 +96,7 @@ export default class Head extends (PureComponent || Component) {
 
     this.props.onSort({
       sortBy: name,
-      sortType
+      sortType,
     });
   }
 
@@ -155,7 +155,7 @@ export default class Head extends (PureComponent || Component) {
       if (width) {
         styleObj = {
           width,
-          flex: '0 1 auto'
+          flex: '0 1 auto',
         };
       }
 

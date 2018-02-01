@@ -16,7 +16,7 @@ export function initSortable(el, onMove) {
       const { newIndex, oldIndex } = evt;
       sortable.sort(initState);
       onMove(oldIndex, newIndex);
-    }
+    },
   });
   return sortable;
 }

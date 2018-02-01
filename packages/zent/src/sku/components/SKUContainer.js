@@ -15,7 +15,7 @@ class SKUContainer extends (PureComponent || Component) {
       skuOptions: [],
       newLeafText: '',
       leafValue: [],
-      id: 0
+      id: 0,
     };
   }
 
@@ -36,7 +36,7 @@ class SKUContainer extends (PureComponent || Component) {
     this.context.onFetchSKU(id).then(skuOptions => {
       this.setState({
         id,
-        skuOptions
+        skuOptions,
       });
     });
   }
@@ -86,7 +86,7 @@ class SKUContainer extends (PureComponent || Component) {
     }
     onCreateSKU({
       text: leaf[optionText],
-      id: sku[optionValue]
+      id: sku[optionValue],
     }).then(data => {
       let newSKULeaf = {};
       leafValue.push(data);
@@ -96,7 +96,7 @@ class SKUContainer extends (PureComponent || Component) {
       this.setState({
         newLeafText: '',
         leafValue: [].concat(leafValue),
-        skuOptions: [].concat(skuOptions)
+        skuOptions: [].concat(skuOptions),
       });
     });
   };
@@ -116,7 +116,7 @@ class SKUContainer extends (PureComponent || Component) {
     }
     if (skuOptions.some(item => item[optionText] === keyword)) return;
     this.setState({
-      newLeafText: keyword
+      newLeafText: keyword,
     });
   };
 
@@ -130,7 +130,7 @@ class SKUContainer extends (PureComponent || Component) {
 
   handleReset = () => {
     this.setState({
-      newLeafText: ''
+      newLeafText: '',
     });
   };
 
@@ -148,14 +148,14 @@ class SKUContainer extends (PureComponent || Component) {
     }
     onCreateSKU({
       text: this.renameText,
-      id: sku[optionValue]
+      id: sku[optionValue],
     }).then(data => {
       let newSKULeaf = {};
       newSKULeaf[optionText] = this.renameText;
       newSKULeaf[optionValue] = data;
       skuOptions.push(newSKULeaf);
       this.setState({
-        skuOptions: [].concat(skuOptions)
+        skuOptions: [].concat(skuOptions),
       });
       sku.leaf[index] = newSKULeaf;
       onSKULeafChange(sku.leaf);
@@ -238,7 +238,7 @@ class SKUContainer extends (PureComponent || Component) {
                   />
                 }
                 wrapperClassName={cx(`${this.context.prefix}-item`, {
-                  active: hasSKUImage
+                  active: hasSKUImage,
                 })}
                 onConfirm={this.handleRenameSKULeaf.bind(this, index)}
               >
@@ -330,7 +330,7 @@ SKUContainer.contextTypes = {
   optionValue: PropTypes.string,
   optionText: PropTypes.string,
   onFetchSKU: PropTypes.func,
-  onCreateSKU: PropTypes.func
+  onCreateSKU: PropTypes.func,
 };
 
 export default SKUContainer;

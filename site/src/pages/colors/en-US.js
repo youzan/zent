@@ -5,30 +5,30 @@ import Colors from './colors';
 const palettes = {
   primary: {
     title: 'Primary Colors',
-    desc: <p>The primary color in Zent is blue.</p>
+    desc: <p>The primary color in Zent is blue.</p>,
   },
   neutral: {
     title: 'Neutral Colors',
-    desc: <p>Used in texts, backgrounds and borders.</p>
+    desc: <p>Used in texts, backgrounds and borders.</p>,
   },
   auxiliary: {
     success: {
-      title: 'Auxiliary - Success'
+      title: 'Auxiliary - Success',
     },
     warning: {
-      title: 'Auxiliary - Warning'
+      title: 'Auxiliary - Warning',
     },
     notice: {
-      title: 'Auxiliary - Notice'
+      title: 'Auxiliary - Notice',
     },
     error: {
-      title: 'Auxiliary - Error'
+      title: 'Auxiliary - Error',
     },
     others: {
       title: 'Auxiliary - Others',
-      desc: <p>Used for masks or shadows.</p>
-    }
-  }
+      desc: <p>Used for masks or shadows.</p>,
+    },
+  },
 };
 
 export default function ColorsUS() {

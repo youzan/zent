@@ -7,14 +7,14 @@ const TEXT = {
     vant: 'Vant-Vue 组件库',
     weapp: '微信小程序组件库',
     feed: '意见反馈',
-    amway: '加入我们'
+    amway: '加入我们',
   },
   'en-US': {
     vant: 'Vant',
     weapp: 'WeApp Components',
     feed: 'Feedbacks',
-    amway: 'Join Us'
-  }
+    amway: 'Join Us',
+  },
 };
 
 export default class PageFooter extends Component {

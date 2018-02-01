@@ -8,7 +8,7 @@ const emptyRichtext =
 export default class RichtextPreview extends Component {
   static propTypes = {
     value: PropTypes.object,
-    design: PropTypes.object
+    design: PropTypes.object,
   };
 
   render() {
@@ -20,7 +20,7 @@ export default class RichtextPreview extends Component {
       <div
         dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line
         className={cx('zent-design-component-richtext-preview', {
-          'zent-design-component-richtext-preview--fullscreen': fullscreen
+          'zent-design-component-richtext-preview--fullscreen': fullscreen,
         })}
         style={{ backgroundColor: color }}
       />

@@ -10,12 +10,12 @@ export default class SearchInput extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
-    style: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    style: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   static defaultProps = {
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {

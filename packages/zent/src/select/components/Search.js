@@ -42,7 +42,7 @@ class Search extends (PureComponent || Component) {
 Search.propTypes = {
   prefixCls: PropTypes.string,
   value: PropTypes.any,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 
 export default Search;

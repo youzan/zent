@@ -22,7 +22,7 @@ export default class Range extends (PureComponent || Component) {
   render() {
     const { dots, marks, value, ...restProps } = this.props;
     const warpClass = cx(`${restProps.prefix}-slider-main`, {
-      [`${restProps.prefix}-slider-main-with-marks`]: marks
+      [`${restProps.prefix}-slider-main-with-marks`]: marks,
     });
     return (
       <div className={warpClass}>

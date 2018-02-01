@@ -5,5 +5,5 @@ module.exports = [
   'prop-types',
   'classnames',
   'react-router-dom',
-  'zent'
+  'zent',
 ];

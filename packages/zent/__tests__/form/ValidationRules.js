@@ -263,7 +263,7 @@ describe('Validation-Rules', () => {
           foo: 'bar',
           valueOf() {
             return 12;
-          }
+          },
         },
         12
       )
@@ -290,7 +290,7 @@ describe('Validation-Rules', () => {
           foo: 'bar',
           valueOf() {
             return 12;
-          }
+          },
         },
         'foo'
       )

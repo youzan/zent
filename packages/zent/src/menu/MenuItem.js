@@ -5,11 +5,11 @@ import cx from 'classnames';
 export default class MenuItem extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   static defaultProps = {
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   onClick = e => {
@@ -26,7 +26,7 @@ export default class MenuItem extends (PureComponent || Component) {
     return (
       <li
         className={cx(`${prefix}-menu-item`, className, {
-          [`${prefix}-menu-item-disabled`]: disabled
+          [`${prefix}-menu-item-disabled`]: disabled,
         })}
         onClick={this.onClick}
       >

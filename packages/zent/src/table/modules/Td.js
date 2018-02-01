@@ -69,7 +69,7 @@ export default class Td extends (PureComponent || Component) {
     const width = helper.getCalculatedWidth(column.width);
     let className = cx('cell', column.className, {
       'cell--selection': needSelect,
-      'cell--money': isMoney
+      'cell--money': isMoney,
     });
 
     let styleObj = {};
@@ -77,7 +77,7 @@ export default class Td extends (PureComponent || Component) {
     if (width) {
       styleObj = {
         width,
-        flex: '0 1 auto'
+        flex: '0 1 auto',
       };
     }
 

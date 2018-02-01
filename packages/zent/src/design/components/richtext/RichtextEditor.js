@@ -10,7 +10,7 @@ const reserColor = '#f9f9f9';
 
 export default class RichtextEditor extends DesignEditor {
   static defaultProps = {
-    richTextConfig: {}
+    richTextConfig: {},
   };
 
   handleResetBackground = () => {
@@ -64,7 +64,7 @@ export default class RichtextEditor extends DesignEditor {
             onChange={this.onEditorChange}
             editorConfig={{
               initialFrameWidth: 386,
-              initialFrameHeight: 600
+              initialFrameHeight: 600,
             }}
             {...richTextConfig}
           />
@@ -80,7 +80,7 @@ export default class RichtextEditor extends DesignEditor {
     return {
       color: reserColor,
       content: '',
-      fullscreen: 0
+      fullscreen: 0,
     };
   }
 }

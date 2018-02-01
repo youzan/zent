@@ -7,7 +7,7 @@ import { goYears, monthStart } from '../utils';
 
 export default class MonthPanel extends (PureComponent || Component) {
   state = {
-    showYear: false
+    showYear: false,
   };
 
   prevYear = () => {
@@ -24,7 +24,7 @@ export default class MonthPanel extends (PureComponent || Component) {
 
   showYearPanel = () => {
     this.setState({
-      showYear: true
+      showYear: true,
     });
   };
 
@@ -36,7 +36,7 @@ export default class MonthPanel extends (PureComponent || Component) {
     onChange(acp, true);
 
     this.setState({
-      showYear: close
+      showYear: close,
     });
   };
 
@@ -51,7 +51,7 @@ export default class MonthPanel extends (PureComponent || Component) {
   render() {
     const {
       props: { actived, disabledDate, i18n, selected },
-      state: { showYear }
+      state: { showYear },
     } = this;
     const title = `${actived.getFullYear()}`;
 

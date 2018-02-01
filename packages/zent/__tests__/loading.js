@@ -106,9 +106,9 @@ describe('Loading', () => {
         offsetParent: {
           offsetLeft: 3,
           offsetTop: 30,
-          offsetParent: null
-        }
-      }
+          offsetParent: null,
+        },
+      },
     };
     expect(getElementLeft(tree)).toBe(6);
     expect(getElementTop(tree)).toBe(60);

@@ -30,7 +30,7 @@ export class DesignEditor extends Component {
     settings: PropTypes.object,
 
     // 修改 settings 的回调函数
-    onSettingsChange: PropTypes.func
+    onSettingsChange: PropTypes.func,
   };
 
   // 以下属性需要子类重写
@@ -54,7 +54,7 @@ export class DesignEditor extends Component {
     super(props);
 
     this.state = assign({}, this.state, {
-      meta: {}
+      meta: {},
     });
 
     this.validateValue();
@@ -81,7 +81,7 @@ export class DesignEditor extends Component {
     }
 
     onChange({
-      [name]: value
+      [name]: value,
     });
 
     this.setMetaProperty(name, 'dirty');
@@ -142,8 +142,8 @@ export class DesignEditor extends Component {
     if (!states || states[property] !== state) {
       this.setState({
         meta: assign({}, meta, {
-          [name]: assign({}, states, { [property]: state })
-        })
+          [name]: assign({}, states, { [property]: state }),
+        }),
       });
     }
   }
@@ -206,7 +206,7 @@ export class ControlGroup extends (PureComponent || Component) {
 
     required: PropTypes.bool,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -215,7 +215,7 @@ export class ControlGroup extends (PureComponent || Component) {
     showLabel: true,
     focusOnLabelClick: true,
     error: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
@@ -230,7 +230,7 @@ export class ControlGroup extends (PureComponent || Component) {
       helpDesc,
       required,
       children,
-      focusOnLabelClick
+      focusOnLabelClick,
     } = this.props;
 
     const errorVisible = showError && error;
@@ -238,13 +238,13 @@ export class ControlGroup extends (PureComponent || Component) {
     return (
       <div
         className={cx(`${prefix}-design-editor__control-group`, className, {
-          'has-error': errorVisible
+          'has-error': errorVisible,
         })}
       >
         {React.createElement(
           focusOnLabelClick ? 'label' : 'div',
           {
-            className: `${prefix}-design-editor__control-group-container`
+            className: `${prefix}-design-editor__control-group-container`,
           },
           showLabel ? (
             <div

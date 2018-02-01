@@ -13,7 +13,7 @@ Cascader is used for cascade operation, e.g. cascade location selection.
 | Props | Description | Type | Default | Alternatives |
 |------|------|------|--------|--------|
 | value | The selected value | array | [] | '' |
-| type | ui type | string | 'tabs' | 'menu' |
+| type | UI type, tab style or menu style | string | 'tabs' | 'menu' |
 | options | Optional data source | array | [] | '' |
 | title | Title of tab, tab title default is `'Title'` | array | [] | '' |
 | onChange | The callback when data changes | func | noop | '' |

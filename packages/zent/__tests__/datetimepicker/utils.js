@@ -21,7 +21,7 @@ describe('Utils', () => {
       isAfterMonth,
       goDays,
       goMonths,
-      goYears
+      goYears,
     } = Ut;
 
     // all arg with toString/Number() return NaN will return itself

@@ -38,7 +38,7 @@ export default class Table extends (PureComponent || Component) {
     selection: object,
     expandation: object,
     batchComponentsAutoFixed: bool,
-    batchComponents: array
+    batchComponents: array,
   };
 
   static defaultProps = {
@@ -55,7 +55,7 @@ export default class Table extends (PureComponent || Component) {
     autoStick: false,
     selection: null,
     batchComponentsAutoFixed: true,
-    batchComponents: null
+    batchComponents: null,
   };
 
   constructor(props) {
@@ -65,7 +65,7 @@ export default class Table extends (PureComponent || Component) {
       current: props.pageInfo ? props.pageInfo.current : 1,
       batchComponentsFixed: false,
       placeHolderHeight: false,
-      fixStyle: {}
+      fixStyle: {},
     };
     this.tableRect = null;
     this.relativeTop = 0;
@@ -79,7 +79,7 @@ export default class Table extends (PureComponent || Component) {
     const toggleListener = helper.toggleEventListener(this.props, nextProps);
     toggleListener && this[toggleListener](nextProps);
     this.setState({
-      current: nextProps.pageInfo ? nextProps.pageInfo.current : 1
+      current: nextProps.pageInfo ? nextProps.pageInfo.current : 1,
     });
   }
 
@@ -104,7 +104,7 @@ export default class Table extends (PureComponent || Component) {
           },
           100,
           {
-            leading: true
+            leading: true,
           }
         );
 
@@ -155,7 +155,7 @@ export default class Table extends (PureComponent || Component) {
     );
     if (typeof needFixedBatchComps === 'boolean') {
       this.setState({
-        batchComponentsFixed: needFixedBatchComps
+        batchComponentsFixed: needFixedBatchComps,
       });
     }
   }
@@ -181,7 +181,7 @@ export default class Table extends (PureComponent || Component) {
 
   onPageChange = current => {
     this.wrapPropsOnChange({
-      current
+      current,
     });
     if (this.props.autoScroll) {
       this.scrollToTop(400);
@@ -210,7 +210,7 @@ export default class Table extends (PureComponent || Component) {
       selection,
       getRowConf = () => {
         return { canSelect: true };
-      }
+      },
     } = this.props;
 
     this.setSelection();
@@ -382,7 +382,7 @@ export default class Table extends (PureComponent || Component) {
         return { canSelect: true, rowClass: '' };
       },
       expandation = null,
-      batchComponents = null
+      batchComponents = null,
     } = this.props;
 
     let needSelect = selection !== null;
@@ -452,7 +452,7 @@ export default class Table extends (PureComponent || Component) {
                       isSingleSelection,
                       canSelectAll,
                       isSelectAll,
-                      isSelectPart
+                      isSelectPart,
                     }}
                     needExpand={needExpand}
                     autoStick={autoStick}
@@ -469,7 +469,7 @@ export default class Table extends (PureComponent || Component) {
                       selectedRowKeys,
                       isSingleSelection,
                       onSelect: this.onSelectOneRow,
-                      canRowSelect
+                      canRowSelect,
                     }}
                     needExpand={needExpand}
                     isExpanded={isExpanded}
@@ -486,7 +486,7 @@ export default class Table extends (PureComponent || Component) {
                       onSelectAll: this.onSelectAllRows,
                       selectedRows: this.getSelectedRowsByKeys(selectedRowKeys),
                       isSelectAll,
-                      isSelectPart
+                      isSelectPart,
                     }}
                     current={this.state.current}
                     onPageChange={this.onPageChange}

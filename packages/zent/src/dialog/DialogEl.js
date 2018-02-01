@@ -56,13 +56,13 @@ export default class DialogEl extends (PureComponent || Component) {
       footer,
       mask,
       style,
-      children
+      children,
     } = this.props;
 
     let Header = this.renderHeader();
 
     const closeBtnCls = cx(`${prefix}-dialog-r-close`, {
-      [`${prefix}-dialog-r-has-title`]: !!Header
+      [`${prefix}-dialog-r-has-title`]: !!Header,
     });
     let Closer = closeBtn && (
       <button type="button" className={closeBtnCls} onClick={onClose}>

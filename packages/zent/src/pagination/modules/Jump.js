@@ -5,12 +5,12 @@ import { Pagination as I18nDefault } from 'i18n/default';
 
 export default class Jump extends (PureComponent || Component) {
   state = {
-    pageLabel: this.props.content.trim()
+    pageLabel: this.props.content.trim(),
   };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      pageLabel: nextProps.content.trim()
+      pageLabel: nextProps.content.trim(),
     });
   }
 
@@ -34,7 +34,7 @@ export default class Jump extends (PureComponent || Component) {
 
   onChange = e => {
     this.setState({
-      pageLabel: e.target.value.trim()
+      pageLabel: e.target.value.trim(),
     });
   };
 

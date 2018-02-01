@@ -18,7 +18,7 @@ class SKU extends (PureComponent || Component) {
     super(props);
     this.state = {
       skuTree: [].concat(props.skuTree),
-      data: props.value
+      data: props.value,
     };
   }
 
@@ -31,7 +31,7 @@ class SKU extends (PureComponent || Component) {
       optionText: this.props.optionText,
       onFetchSKU: this.props.onFetchSKU,
       onCreateGroup: this.props.onCreateGroup,
-      onCreateSKU: this.props.onCreateSKU
+      onCreateSKU: this.props.onCreateSKU,
     };
   }
 
@@ -46,14 +46,14 @@ class SKU extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      data: nextProps.value
+      data: nextProps.value,
     });
   }
 
   addSKU = () => {
     let { data } = this.state;
     data.push({
-      leaf: []
+      leaf: [],
     });
     data = [].concat(data);
     this.setState({ data });
@@ -138,7 +138,7 @@ SKU.childContextTypes = {
   optionText: PropTypes.string,
   onFetchSKU: PropTypes.func,
   onCreateGroup: PropTypes.func,
-  onCreateSKU: PropTypes.func
+  onCreateSKU: PropTypes.func,
 };
 
 SKU.propTypes = {
@@ -156,7 +156,7 @@ SKU.propTypes = {
   onCreateGroup: PropTypes.func,
   onCreateSKU: PropTypes.func,
   onChange: PropTypes.func,
-  prefix: PropTypes.string
+  prefix: PropTypes.string,
 };
 
 SKU.defaultProps = {
@@ -173,7 +173,7 @@ SKU.defaultProps = {
   onCreateGroup: noopPromise,
   onCreateSKU: noopPromise,
   onChange: noop,
-  prefix: 'zent'
+  prefix: 'zent',
 };
 
 export default SKU;

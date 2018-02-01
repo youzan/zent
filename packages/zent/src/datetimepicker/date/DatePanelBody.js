@@ -7,7 +7,7 @@ import {
   isSameDate,
   isBeforeMonth,
   isAfterMonth,
-  formatDate
+  formatDate,
 } from '../utils/';
 import { CURRENT } from '../constants';
 import PanelCell from '../common/PanelCell';
@@ -86,14 +86,14 @@ export default class DatePanelBody extends (PureComponent || Component) {
           'panel__cell--disabled': isDisabled,
           'panel__cell--selected': isSelected,
           'panel__cell--in-range': isInRange,
-          'panel__cell--in-selected': isInSelect
+          'panel__cell--in-selected': isInSelect,
         });
         days[rowIndex][colIndex] = {
           text: val.getDate(),
           value: val,
           title: formatDate(val, 'YYYY-MM-DD'),
           isDisabled,
-          className
+          className,
         };
         index++;
       }

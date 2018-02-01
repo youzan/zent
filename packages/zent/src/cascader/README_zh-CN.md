@@ -16,7 +16,7 @@ group: 数据
 | 参数 | 说明 | 类型 | 默认值 | 备选值 |
 |------|------|------|--------|--------|
 | value | 级联的选中值 | array | [] | '' |
-| type | ui类型 | string | 'tabs' | 'menu' |
+| type | UI 类型，有标签形式和菜单形式 | string | `'tabs'` | `'menu'` |
 | options | 可选项数据源 | array | [] | '' |
 | title | tab子项的标题，每一项的默认值是 `标题` | array | [] | '' |
 | onChange | 数据变化时的回调 | func | noop | '' |

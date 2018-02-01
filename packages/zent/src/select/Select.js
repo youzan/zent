@@ -29,7 +29,7 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
           this.props.open();
           this.triggerEvent(child, 'onClick', evt);
         }
-      }
+      },
     };
   }
 }
@@ -53,11 +53,11 @@ class Select extends Component {
         selectedItems: [],
         selectedItem: {
           value: '',
-          text: ''
+          text: '',
         },
 
         // popover content 位置就绪可以进行 focus 操作的标记.
-        optionsReady: false
+        optionsReady: false,
       },
       props
     );
@@ -98,7 +98,7 @@ class Select extends Component {
       optionValue,
       optionText,
       resetOption,
-      resetText
+      resetText,
     } = props;
 
     // 在需要时插入重置选项。
@@ -141,7 +141,7 @@ class Select extends Component {
           return Object.assign({}, item.props, {
             value,
             cid: `${index}`,
-            text: item.props.children
+            text: item.props.children,
           });
         })
       );
@@ -162,7 +162,7 @@ class Select extends Component {
     if (!data || !data.length) {
       return this.setState({
         selectedItem: {},
-        selectedItems: []
+        selectedItems: [],
       });
     }
 
@@ -191,7 +191,7 @@ class Select extends Component {
 
     this.setState({
       selectedItem: selected.sItem,
-      selectedItems: selected.sItems
+      selectedItems: selected.sItems,
     });
   }
 
@@ -249,7 +249,7 @@ class Select extends Component {
     selectedItems = selectedItems.filter(item => item.cid !== data.cid);
     this.setState(
       {
-        selectedItems
+        selectedItems,
       },
       () => {
         this.props.onDelete(data);
@@ -262,14 +262,14 @@ class Select extends Component {
     const result = {};
     ev = ev || {
       preventDefault: noop,
-      stopPropagation: noop
+      stopPropagation: noop,
     };
     const {
       onEmptySelected,
       optionValue,
       optionText,
       tags,
-      onChange
+      onChange,
     } = this.props;
     const { selectedItems } = this.state;
     if (!selectedItem) {
@@ -292,7 +292,7 @@ class Select extends Component {
       {
         keyword: null,
         selectedItems,
-        selectedItem
+        selectedItem,
       },
       () => {
         onChange(
@@ -300,7 +300,7 @@ class Select extends Component {
             target: {
               ...this.props,
               type: tags ? 'select-multiple' : 'select-one',
-              value: selectedItem.value
+              value: selectedItem.value,
             },
 
             preventDefault() {
@@ -309,7 +309,7 @@ class Select extends Component {
 
             stopPropagation() {
               ev.stopPropagation();
-            }
+            },
           },
           data
         );
@@ -336,7 +336,7 @@ class Select extends Component {
       onAsyncFilter,
       searchPlaceholder,
       autoWidth,
-      width
+      width,
     } = this.props;
 
     const {
@@ -345,7 +345,7 @@ class Select extends Component {
       selectedItem = {},
       extraFilter,
       optionsReady,
-      keyword = null
+      keyword = null,
     } = this.state;
 
     const { cid = '' } = selectedItem;
@@ -363,7 +363,7 @@ class Select extends Component {
         width={width}
         onPositionReady={() => {
           this.setState({
-            optionsReady: true
+            optionsReady: true,
           });
         }}
       >
@@ -419,7 +419,7 @@ Select.propTypes = {
   emptyText: PropTypes.node,
   selectedItem: PropTypes.shape({
     value: PropTypes.any,
-    text: PropTypes.string
+    text: PropTypes.string,
   }),
   trigger: PropTypes.func,
   optionValue: PropTypes.string,
@@ -439,7 +439,7 @@ Select.propTypes = {
   resetOption: PropTypes.bool,
 
   // 重置选项展示文本
-  resetText: PropTypes.string
+  resetText: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -454,7 +454,7 @@ Select.defaultProps = {
   emptyText: '',
   selectedItem: {
     value: '',
-    text: ''
+    text: '',
   },
   selectedItems: [],
   optionValue: 'value',
@@ -473,7 +473,7 @@ Select.defaultProps = {
   value: null,
   index: null,
   initialValue: null,
-  initialIndex: null
+  initialIndex: null,
 };
 
 export default Select;

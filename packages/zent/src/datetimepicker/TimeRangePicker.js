@@ -37,7 +37,7 @@ export default class TimeRangePicker extends (PureComponent || Component) {
     hourStep: PropTypes.number,
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
-    showSecond: PropTypes.bool
+    showSecond: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -51,7 +51,7 @@ export default class TimeRangePicker extends (PureComponent || Component) {
     placeholder: ['', ''],
     value: [],
     openPanel: [],
-    showSecond: false
+    showSecond: false,
   };
 
   onChange = type => {

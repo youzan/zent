@@ -57,9 +57,9 @@ describe('Cascader', () => {
             children: [
               {
                 id: 3,
-                title: 'grandSon'
-              }
-            ]
+                title: 'grandSon',
+              },
+            ],
           },
           {
             id: 4,
@@ -67,12 +67,12 @@ describe('Cascader', () => {
             children: [
               {
                 id: 5,
-                title: 'anotherGrandSon'
-              }
-            ]
-          }
-        ]
-      }
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
     ];
     const title = ['省份', '城市', '县区'];
 
@@ -122,9 +122,9 @@ describe('Cascader', () => {
             children: [
               {
                 id: 3,
-                title: 'grandSon'
-              }
-            ]
+                title: 'grandSon',
+              },
+            ],
           },
           {
             id: 4,
@@ -132,12 +132,12 @@ describe('Cascader', () => {
             children: [
               {
                 id: 5,
-                title: 'anotherGrandSon'
-              }
-            ]
-          }
-        ]
-      }
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
     ];
 
     const wrapper = mount(<Cascader value={value} options={options} />);
@@ -176,9 +176,9 @@ describe('Cascader', () => {
             children: [
               {
                 id: 3,
-                title: 'grandSon'
-              }
-            ]
+                title: 'grandSon',
+              },
+            ],
           },
           {
             id: 4,
@@ -186,12 +186,12 @@ describe('Cascader', () => {
             children: [
               {
                 id: 5,
-                title: 'anotherGrandSon'
-              }
-            ]
-          }
-        ]
-      }
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
     ];
 
     const wrapper = mount(
@@ -232,9 +232,9 @@ describe('Cascader', () => {
             children: [
               {
                 id: 3,
-                title: 'grandSon'
-              }
-            ]
+                title: 'grandSon',
+              },
+            ],
           },
           {
             id: 4,
@@ -242,12 +242,12 @@ describe('Cascader', () => {
             children: [
               {
                 id: 5,
-                title: 'anotherGrandSon'
-              }
-            ]
-          }
-        ]
-      }
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
     ];
 
     let wrapper;
@@ -291,8 +291,8 @@ describe('Cascader', () => {
       {
         id: 1,
         title: 'root',
-        isLeaf: false
-      }
+        isLeaf: false,
+      },
     ];
 
     let wrapper;
@@ -304,11 +304,11 @@ describe('Cascader', () => {
             {
               id: `66666${stage}`,
               title: `Label${stage}`,
-              isLeaf
-            }
+              isLeaf,
+            },
           ];
           wrapper.setProps({
-            options: [...options]
+            options: [...options],
           });
           resolve();
         }, 500);
@@ -337,8 +337,8 @@ describe('Cascader', () => {
       {
         id: 1,
         title: 'root',
-        isLeaf: false
-      }
+        isLeaf: false,
+      },
     ];
 
     let wrapper;
@@ -349,11 +349,11 @@ describe('Cascader', () => {
             {
               id: `66666${stage}`,
               title: `Label${stage}`,
-              isLeaf: true
-            }
+              isLeaf: true,
+            },
           ];
           wrapper.setProps({
-            options: [...options]
+            options: [...options],
           });
           resolve();
         }, 500);

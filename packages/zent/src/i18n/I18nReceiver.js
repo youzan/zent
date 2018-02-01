@@ -5,11 +5,11 @@ export default class I18nReceiver extends Component {
   static propTypes = {
     componentName: PropTypes.string.isRequired,
     defaultI18n: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
-      .isRequired
+      .isRequired,
   };
 
   static contextTypes = {
-    zentI18n: PropTypes.object
+    zentI18n: PropTypes.object,
   };
 
   recieve() {
@@ -19,7 +19,7 @@ export default class I18nReceiver extends Component {
     return {
       ...(typeof defaultI18n === 'function' ? defaultI18n() : defaultI18n),
       ...(typeof i18n === 'function' ? i18n() : i18n),
-      mark: (zentI18n && zentI18n.mark) || 'zh-CN' // i18n标记
+      mark: (zentI18n && zentI18n.mark) || 'zh-CN', // i18n标记
     };
   }
 

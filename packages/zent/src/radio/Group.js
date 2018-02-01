@@ -9,7 +9,7 @@ export default class Group extends (PureComponent || Component) {
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -19,7 +19,7 @@ export default class Group extends (PureComponent || Component) {
     isValueEqual(a, b) {
       return a === b;
     },
-    onChange() {}
+    onChange() {},
   };
 
   onRadioChange(e) {
@@ -41,14 +41,14 @@ export default class Group extends (PureComponent || Component) {
           readOnly:
             radio.props.readOnly !== undefined
               ? radio.props.readOnly
-              : this.props.readOnly
+              : this.props.readOnly,
         });
       }
     });
 
     const classString = classNames({
       [`${prefix}-radio-group`]: true,
-      [className]: !!className
+      [className]: !!className,
     });
 
     return (

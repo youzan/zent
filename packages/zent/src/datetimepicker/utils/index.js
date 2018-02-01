@@ -1,6 +1,6 @@
 import {
   formatDate as formatBase,
-  parseDate as parseBase
+  parseDate as parseBase,
 } from 'zan-utils/date';
 
 import startOfMonth from 'date-fns/start_of_month';
@@ -123,7 +123,7 @@ export function setTime(date, time = TIME_BEGIN) {
     date.getFullYear(),
     date.getMonth(),
     date.getDate(),
-    ...timeArr
+    ...timeArr,
   ];
   return new Date(...dateTimeArr);
 }
@@ -136,5 +136,5 @@ export const commonFns = {
   dayStart,
   dayEnd,
   parseDate,
-  formatDate
+  formatDate,
 };

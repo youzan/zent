@@ -20,7 +20,7 @@ export default class Textarea extends (PureComponent || Component) {
       widthStyle,
       prefix,
       handleKeyDown,
-      inputRef
+      inputRef,
     } = this.props;
     let { inputProps } = this.props;
     const { showCount, value = '', maxLength } = inputProps;
@@ -36,7 +36,7 @@ export default class Textarea extends (PureComponent || Component) {
             this.textarea = ref;
           }}
           className={cx(`${prefix}-textarea`, {
-            [`${prefix}-textarea-with-count`]: showCount
+            [`${prefix}-textarea-with-count`]: showCount,
           })}
           {...inputProps}
           onKeyDown={handleKeyDown}

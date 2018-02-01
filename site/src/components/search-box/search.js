@@ -7,7 +7,7 @@ const options = {
   distance: 100,
   maxPatternLength: 32,
   minMatchCharLength: 1,
-  keys: ['title', 'subtitle']
+  keys: ['title', 'subtitle'],
 };
 
 export default function makeSearcher(list) {
@@ -20,6 +20,6 @@ export default function makeSearcher(list) {
       }
 
       return fuse.search(keyword);
-    }
+    },
   };
 }

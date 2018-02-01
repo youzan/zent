@@ -6,7 +6,7 @@ export default class CopyToClipboard extends (PureComponent || Component) {
   static propTypes = {
     text: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,
-    onCopy: PropTypes.func
+    onCopy: PropTypes.func,
   };
 
   onClick = event => {

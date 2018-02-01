@@ -8,7 +8,7 @@ export default class NumberSteps extends (PureComponent || Component) {
     const lastIndex = children.length - 1;
     const classString = classNames({
       [`${prefix}-steps`]: true,
-      [`${className}`]: true
+      [`${className}`]: true,
     });
 
     return (
@@ -22,7 +22,7 @@ export default class NumberSteps extends (PureComponent || Component) {
               isCurrentStep: index === current - 1,
               isLastFinishStep: status === 'error' && index === current - 2,
               prefix,
-              status: 'wait'
+              status: 'wait',
             };
 
             if (!item.props.status) {

@@ -18,7 +18,7 @@ function translateToContainerCoordinates(containerBB, bb) {
     top: bb.top - top,
     left: bb.left - left,
     bottom: bb.bottom - top,
-    right: bb.right - left
+    right: bb.right - left,
   };
 }
 
@@ -53,13 +53,13 @@ export default class PopoverContent extends (PureComponent || Component) {
 
     onPositionUpdated: PropTypes.func,
 
-    onPositionReady: PropTypes.func
+    onPositionReady: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      position: null
+      position: null,
     };
 
     // 标记 content 的位置是否 ready
@@ -89,7 +89,7 @@ export default class PopoverContent extends (PureComponent || Component) {
     // 可能还未渲染出来，先放到一个不可见的位置
     if (!content) {
       this.setState({
-        position: invisiblePlacement(this.props.prefix)
+        position: invisiblePlacement(this.props.prefix),
       });
       setTimeout(this.adjustPosition, 0);
       return;
@@ -123,20 +123,20 @@ export default class PopoverContent extends (PureComponent || Component) {
       relativeContainerBB,
       {
         width: contentBoundingBox.width,
-        height: contentBoundingBox.height
+        height: contentBoundingBox.height,
       },
       {
         cushion: this.props.cushion,
         anchor,
         container: parent,
         anchorBoundingBoxViewport: boundingBox,
-        containerBoundingBoxViewport: parentBoundingBox
+        containerBoundingBoxViewport: parentBoundingBox,
       }
     );
 
     this.setState(
       {
-        position
+        position,
       },
       () => {
         this.props.onPositionUpdated();
@@ -180,7 +180,7 @@ export default class PopoverContent extends (PureComponent || Component) {
       id,
       visible,
       children,
-      containerSelector
+      containerSelector,
     } = this.props;
     const { position } = this.state;
 

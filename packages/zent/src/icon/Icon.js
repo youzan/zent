@@ -6,18 +6,18 @@ export default class Icon extends (PureComponent || Component) {
   static propTypes = {
     type: PropTypes.string.isRequired,
     className: PropTypes.string,
-    spin: PropTypes.bool
+    spin: PropTypes.bool,
   };
 
   static defaultProps = {
     className: '',
-    spin: false
+    spin: false,
   };
 
   render() {
     const { type, className, spin, ...otherProps } = this.props;
     const cls = cx('zenticon', `zenticon-${type}`, className, {
-      'zenticon-spin': spin
+      'zenticon-spin': spin,
     });
 
     return <i className={cls} {...otherProps} />;

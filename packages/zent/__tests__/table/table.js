@@ -12,25 +12,25 @@ const columns = [
     bodyRender: data => {
       return <div>{data.item_id}</div>;
     },
-    needSort: true
+    needSort: true,
   },
   {
     title: '访问量',
     name: 'bro_uvpv',
     width: '100px',
-    bodyRender: TextComponent
+    bodyRender: TextComponent,
   },
   {
     title: '库存',
     name: 'stock_num',
     width: '100px',
     isMoney: true,
-    needSort: true
+    needSort: true,
   },
   {
     title: '总销量',
-    name: 'sold_num'
-  }
+    name: 'sold_num',
+  },
 ];
 
 describe('Table', () => {

@@ -22,7 +22,7 @@ export default class Tag extends (PureComponent || Component) {
     children: PropTypes.node,
     style: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -31,11 +31,11 @@ export default class Tag extends (PureComponent || Component) {
     rounded: true,
     closable: false,
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   state = {
-    visible: true
+    visible: true,
   };
 
   onClose = e => {
@@ -55,7 +55,7 @@ export default class Tag extends (PureComponent || Component) {
     } else {
       this.setState(
         {
-          visible: false
+          visible: false,
         },
         cb
       );
@@ -94,17 +94,17 @@ export default class Tag extends (PureComponent || Component) {
       children,
       className,
       prefix,
-      style
+      style,
     } = this.props;
     const containerCls = cx(
       `${prefix}-tag`,
-      `${prefix}-tag-style${colorTypes.indexOf(color) >= 0
-        ? `-${color}`
-        : ''}${outline ? '-outline' : ''}`,
+      `${prefix}-tag-style${colorTypes.indexOf(color) >= 0 ? `-${color}` : ''}${
+        outline ? '-outline' : ''
+      }`,
       {
         [className]: !!className,
         [`${prefix}-tag-rounded`]: rounded,
-        [`${prefix}-tag-closable`]: closable
+        [`${prefix}-tag-closable`]: closable,
       }
     );
 

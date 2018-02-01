@@ -14,12 +14,12 @@ export default class Step extends (PureComponent || Component) {
     stepNumber: PropTypes.string,
     status: PropTypes.string,
     title: PropTypes.node.isRequired,
-    description: PropTypes.node
+    description: PropTypes.node,
   };
 
   static defaultProps = {
     title: '',
-    description: ''
+    description: '',
   };
 
   render() {
@@ -33,7 +33,7 @@ export default class Step extends (PureComponent || Component) {
       stepLast,
       stepNumber,
       title,
-      description
+      description,
     } = props;
 
     let iconNode;
@@ -51,7 +51,7 @@ export default class Step extends (PureComponent || Component) {
       [`${prefix}-steps-status-finish`]: status === 'finish',
       [`${prefix}-steps-status-error`]: status === 'error',
       'is-current': isCurrentStep,
-      'is-last-finish': isLastFinishStep
+      'is-last-finish': isLastFinishStep,
     });
 
     return (

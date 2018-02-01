@@ -16,17 +16,17 @@ class FieldArray extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-      .isRequired
+      .isRequired,
   };
 
   static defaultProps = {};
 
   static contextTypes = {
-    zentForm: PropTypes.object
+    zentForm: PropTypes.object,
   };
 
   static childContextTypes = {
-    zentForm: PropTypes.object.isRequired
+    zentForm: PropTypes.object.isRequired,
   };
 
   getChildContext() {
@@ -35,8 +35,8 @@ class FieldArray extends Component {
       zentForm: {
         ...zentForm,
         prefix: this._name,
-        onChangeFieldArray: this.onChangeFieldArray
-      }
+        onChangeFieldArray: this.onChangeFieldArray,
+      },
     };
   }
 
@@ -47,7 +47,7 @@ class FieldArray extends Component {
     }
 
     this.state = {
-      fieldArray: []
+      fieldArray: [],
     };
     this._name = prefixName(context.zentForm, props.name);
     this._uniqueKey = 0;
@@ -152,7 +152,7 @@ class FieldArray extends Component {
     const fieldToMove = fieldArray.splice(fromPos, 1)[0];
     fieldArray.splice(toPos, 0, fieldToMove);
     this.setState({
-      fieldArray
+      fieldArray,
     });
   };
 
@@ -160,7 +160,7 @@ class FieldArray extends Component {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.pop();
     this.setState({
-      fieldArray
+      fieldArray,
     });
   };
 
@@ -168,10 +168,10 @@ class FieldArray extends Component {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.push({
       _fieldInternalValue: value,
-      _fieldInternalKey: this._uniqueKey++
+      _fieldInternalKey: this._uniqueKey++,
     });
     this.setState({
-      fieldArray
+      fieldArray,
     });
   };
 
@@ -182,13 +182,13 @@ class FieldArray extends Component {
     }
     fieldArray.splice(index, 1);
     this.setState({
-      fieldArray
+      fieldArray,
     });
   };
 
   removeAllFields = () => {
     this.setState({
-      fieldArray: []
+      fieldArray: [],
     });
   };
 
@@ -196,7 +196,7 @@ class FieldArray extends Component {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.shift();
     this.setState({
-      fieldArray
+      fieldArray,
     });
   };
 
@@ -210,7 +210,7 @@ class FieldArray extends Component {
     fieldArray[indexA] = fieldArray[indexB];
     fieldArray[indexB] = fieldA;
     this.setState({
-      fieldArray
+      fieldArray,
     });
   };
 
@@ -218,10 +218,10 @@ class FieldArray extends Component {
     const fieldArray = assign([], this.state.fieldArray);
     fieldArray.unshift({
       _fieldInternalValue: value,
-      _fieldInternalKey: this._uniqueKey++
+      _fieldInternalKey: this._uniqueKey++,
     });
     this.setState({
-      fieldArray
+      fieldArray,
     });
   };
 
@@ -246,14 +246,14 @@ class FieldArray extends Component {
         removeAll: this.removeAllFields,
         shift: this.shiftFields,
         swap: this.swapFields,
-        unshift: this.unshiftFields
-      }
+        unshift: this.unshiftFields,
+      },
     };
 
     // 原生的标签不能传非标准属性进去
     if (typeof component === 'string') {
       return createElement(component, {
-        ...omit(passableProps, unknownProps)
+        ...omit(passableProps, unknownProps),
       });
     }
 

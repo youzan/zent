@@ -8,18 +8,18 @@ const MyPortal = withNonScrollable(Portal);
 
 export default class NonScrollable extends Component {
   state = {
-    visible: false
+    visible: false,
   };
 
   onClose = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
   onOpen = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
   };
 

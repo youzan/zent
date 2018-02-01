@@ -8,7 +8,7 @@ const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,
   borderBottomColor: 'rgba(255, 255, 255, 0)',
   transition:
-    'border-bottom-width 200ms ease-out, border-bottom-color 200ms ease-out'
+    'border-bottom-width 200ms ease-out, border-bottom-color 200ms ease-out',
 };
 const NO_STYLE = {};
 
@@ -27,20 +27,20 @@ export default class Panel extends (PureComponent || Component) {
     onChange: PropTypes.func,
     panelKey: PropTypes.string,
     isLast: PropTypes.bool,
-    bordered: PropTypes.bool
+    bordered: PropTypes.bool,
   };
 
   static defaultProps = {
     disabled: false,
     showArrow: true,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      animateAppear: !props.active
+      animateAppear: !props.active,
     };
   }
 
@@ -55,7 +55,7 @@ export default class Panel extends (PureComponent || Component) {
       showArrow,
       className,
       isLast,
-      bordered
+      bordered,
     } = this.props;
     const { animateAppear } = this.state;
     const isBorderedLast = bordered && isLast;
@@ -71,7 +71,7 @@ export default class Panel extends (PureComponent || Component) {
           [`${prefix}-collapse-panel--has-arrow`]: showArrow,
           [`${prefix}-collapse-panel--active`]: active,
           [`${prefix}-collapse-panel--inactive`]: !active,
-          [`${prefix}-collapse-panel--disabled`]: disabled
+          [`${prefix}-collapse-panel--disabled`]: disabled,
         })}
         style={style}
       >

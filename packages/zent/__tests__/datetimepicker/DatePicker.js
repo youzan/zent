@@ -363,7 +363,7 @@ describe('DateTimePicker', () => {
       return {
         disabledHour: () => false,
         disabledMinute: () => false,
-        disabledSecond: () => false
+        disabledSecond: () => false,
       };
     };
     const wrapper = mount(

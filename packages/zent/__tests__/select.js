@@ -89,16 +89,16 @@ describe('<Select />', () => {
     wrapper.find('InputTrigger').simulate('click');
     wrapper.find('input').simulate('change', {
       target: {
-        value: 4
-      }
+        value: 4,
+      },
     });
     const pop = new ReactWrapper(wrapper.instance().popup, true);
     pop.find('Option').simulate('click');
     expect(onEmptyMock.mock.calls.length).toBe(1);
     wrapper.find('input').simulate('change', {
       target: {
-        value: 3
-      }
+        value: 3,
+      },
     });
     expect(pop.find('Option').length).toBe(3);
     pop.find('Popup').simulate('keydown', { keyCode: 27 });
@@ -114,7 +114,8 @@ describe('<Select />', () => {
           item.value
             .trim()
             .toLowerCase()
-            .indexOf(keyword.trim().toLowerCase()) > -1}
+            .indexOf(keyword.trim().toLowerCase()) > -1
+        }
         searchPlaceholder="search"
       />
     );
@@ -126,14 +127,14 @@ describe('<Select />', () => {
       .find('input')
       .simulate('change', {
         target: {
-          value: '1'
-        }
+          value: '1',
+        },
       });
     expect(pop.find('Option').length).toBe(1);
 
     const asyncMock = jest.fn().mockImplementation(() => {
       wrapper.setProps({
-        data: ['选项3']
+        data: ['选项3'],
       });
     });
 
@@ -155,8 +156,8 @@ describe('<Select />', () => {
       .find('input')
       .simulate('change', {
         target: {
-          value: 'anything'
-        }
+          value: 'anything',
+        },
       });
     expect(pop.find('Option').length).toBe(1);
     expect(pop.find('Option').prop('value')).toBe('选项3');

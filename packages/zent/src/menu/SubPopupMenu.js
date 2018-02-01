@@ -10,7 +10,7 @@ export default class PopupMenu extends CommonMenu {
     visible: PropTypes.bool,
     onClick: PropTypes.func,
     index: PropTypes.string,
-    overlayCx: PropTypes.string
+    overlayCx: PropTypes.string,
   };
 
   handleClick = (e, index) => {

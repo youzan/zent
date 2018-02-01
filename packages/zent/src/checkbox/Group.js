@@ -19,7 +19,7 @@ export default class Group extends (PureComponent || Component) {
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -30,7 +30,7 @@ export default class Group extends (PureComponent || Component) {
     onChange() {},
     isValueEqual(a, b) {
       return a === b;
-    }
+    },
   };
 
   onCheckboxChange = e => {
@@ -65,14 +65,14 @@ export default class Group extends (PureComponent || Component) {
           readOnly:
             checkbox.props.readOnly !== undefined
               ? checkbox.props.readOnly
-              : this.props.readOnly
+              : this.props.readOnly,
         });
       }
     });
 
     const classString = classNames({
       [`${prefix}-checkbox-group`]: true,
-      [className]: !!className
+      [className]: !!className,
     });
 
     return (

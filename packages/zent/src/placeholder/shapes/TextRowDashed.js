@@ -12,7 +12,7 @@ export const DEFAULT_SEGMENTS = [
   [12, 32, 53],
   [45, 12, 42],
   [20, 10, 47, 18],
-  [14, 47, 37]
+  [14, 47, 37],
 ];
 
 export default class TextRowDashed extends (PureComponent || Component) {
@@ -22,20 +22,20 @@ export default class TextRowDashed extends (PureComponent || Component) {
     segments: PropTypes.array,
     animate: PropTypes.bool,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
     lineSpacing: '0.7em',
     animate: true,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      segments: sample(DEFAULT_SEGMENTS)
+      segments: sample(DEFAULT_SEGMENTS),
     };
   }
 
@@ -46,14 +46,14 @@ export default class TextRowDashed extends (PureComponent || Component) {
       animate,
       segments,
       style,
-      prefix
+      prefix,
     } = this.props;
     const defaultStyles = {
-      marginTop: lineSpacing
+      marginTop: lineSpacing,
     };
     const classes = cx(`${prefix}-placeholder-text-row-dashed`, className);
     const segmengtClasses = cx(`${prefix}-placeholder-shape`, {
-      [`${prefix}-placeholder-shape--animate`]: animate
+      [`${prefix}-placeholder-shape--animate`]: animate,
     });
     const rawSegments = isArray(segments) ? segments : this.state.segments;
 

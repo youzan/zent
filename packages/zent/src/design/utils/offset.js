@@ -4,6 +4,6 @@ export default function offset(node) {
   const bb = node.getBoundingClientRect();
   return {
     top: bb.top + y,
-    left: bb.left + x
+    left: bb.left + x,
   };
 }

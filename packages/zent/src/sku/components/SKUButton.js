@@ -28,7 +28,7 @@ class SKUButton extends (PureComponent || Component) {
 }
 
 SKUButton.contextTypes = {
-  prefix: PropTypes.string
+  prefix: PropTypes.string,
 };
 
 export default SKUButton;

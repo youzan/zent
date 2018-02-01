@@ -1,12 +1,12 @@
 import createPlacement from './create';
 
 /**
-* ----------------------
-* |                    |----------
-* |   anchor           | popover |
-* |                    |---------
-* |--------------------|
-*/
+ * ----------------------
+ * |                    |----------
+ * |   anchor           | popover |
+ * |                    |---------
+ * |--------------------|
+ */
 function locate(
   anchorBoundingBox,
   containerBoundingBox,
@@ -23,11 +23,11 @@ function locate(
       return {
         position: 'absolute',
         left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`
+        top: `${Math.round(y)}px`,
       };
     },
 
-    name: 'position-right-center'
+    name: 'position-right-center',
   };
 }
 

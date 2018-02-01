@@ -19,7 +19,7 @@ export default class Dialog extends (PureComponent || Component) {
     closeBtn: PropTypes.bool,
     mask: PropTypes.bool,
     maskClosable: PropTypes.bool,
-    footer: PropTypes.node
+    footer: PropTypes.node,
   };
 
   static defaultProps = {
@@ -32,7 +32,7 @@ export default class Dialog extends (PureComponent || Component) {
     closeBtn: true,
     mask: true,
     maskClosable: true,
-    footer: null
+    footer: null,
   };
 
   onClose = e => {
@@ -45,7 +45,7 @@ export default class Dialog extends (PureComponent || Component) {
     // load default max/min-width value when width is not specified in style prop
     const elStyle = {
       ...(style.width ? {} : { minWidth: '450px', maxWidth: '75%' }),
-      ...style
+      ...style,
     };
 
     // 有关闭按钮的时候同时具有ESC关闭的行为

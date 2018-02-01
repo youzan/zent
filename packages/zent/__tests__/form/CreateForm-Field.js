@@ -85,7 +85,7 @@ describe('CreateForm and Field', () => {
       'object'
     );
     const wrapper = mount(<Field name="foo" component={DivComponent} />, {
-      context
+      context,
     });
     expect(typeof wrapper.context('zentForm')).toBe('object');
     expect(wrapper.state('_value')).toBe('');
@@ -109,7 +109,7 @@ describe('CreateForm and Field', () => {
 
   it('Field have componentWillRecieveProps method', () => {
     const wrapper = mount(<Field name="foo" component={DivComponent} />, {
-      context
+      context,
     });
     expect(Object.keys(wrapper.getNode()._validations).length).toBe(0);
     const validationsObj = { foo: noop };
@@ -122,7 +122,7 @@ describe('CreateForm and Field', () => {
     const validateMock = jest.fn();
     contextCopy.zentForm.validate = validateMock;
     const wrapper = mount(<Field name="foo" component={DivComponent} />, {
-      context: contextCopy
+      context: contextCopy,
     });
     expect(wrapper.state('_value')).toBe('');
     wrapper.setProps({ value: 'foo' });
@@ -191,7 +191,9 @@ describe('CreateForm and Field', () => {
         format={formatMock}
         value="aaa"
       />,
-      { context }
+      {
+        context,
+      }
     );
     // format影响value的渲染，但不影响实际保存的value值
     expect(wrapper.state('_value')).toBe('aaa');
@@ -213,7 +215,9 @@ describe('CreateForm and Field', () => {
         normalize={normalizeMock}
         value="init"
       />,
-      { context: contextCopy }
+      {
+        context: contextCopy,
+      }
     );
     // Field初始化时不会调用normalize
     expect(wrapper.find(DivComponent).prop('value')).toBe('init');
@@ -289,11 +293,11 @@ describe('CreateForm and Field', () => {
   it('CreatedForm will revalidate when names of fields change, and it has reset method which will be excuted with another revalidate', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired,
       };
 
       static defaultProps = {
-        fieldName: 'foo'
+        fieldName: 'foo',
       };
 
       render() {
@@ -323,7 +327,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.find(Field).getNode().state._value).toBe('');
     expect(wrapper.state('isFormValid')).toBe(false);
     wrapper.getNode().reset({
-      foo: 1
+      foo: 1,
     });
     expect(wrapper.find(Field).getNode().state._value).toBe(1);
     expect(wrapper.state('isFormValid')).toBe(true);
@@ -351,13 +355,13 @@ describe('CreateForm and Field', () => {
     expect(wrapper.find(Field).getNode().state._value).toBe(1);
     expect(wrapper.find(Field).getNode().state._initialValue).toBe(1);
     wrapper.getNode().initialize({
-      foo: 12
+      foo: 12,
     });
     expect(wrapper.find(Field).getNode().state._value).toBe(12);
     expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
     expect(wrapper.state('isFormValid')).toBe(true);
     wrapper.getNode().reset({
-      foo: ''
+      foo: '',
     });
     expect(wrapper.find(Field).getNode().state._value).toBe('');
     expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
@@ -400,7 +404,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.getNode().fields[1].state._initialValue).toBe(2);
     expect(wrapper.getNode().fields[1].state._isDirty).toBe(false);
     wrapper.getNode().setFieldsValue({
-      foo: 12
+      foo: 12,
     });
     expect(wrapper.getNode().fields[0].state._value).toBe(12);
     expect(wrapper.getNode().fields[0].state._isDirty).toBe(true);
@@ -440,11 +444,11 @@ describe('CreateForm and Field', () => {
   it('CreatedForm have isValid and getFieldError methods', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired,
       };
 
       static defaultProps = {
-        fieldName: 'foo'
+        fieldName: 'foo',
       };
 
       render() {
@@ -474,11 +478,11 @@ describe('CreateForm and Field', () => {
   it('Field can clear the error or not by setting clearErrorOnFocus', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired,
       };
 
       static defaultProps = {
-        fieldName: 'foo'
+        fieldName: 'foo',
       };
 
       render() {
@@ -509,11 +513,11 @@ describe('CreateForm and Field', () => {
 
     class FormForTest2 extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired,
       };
 
       static defaultProps = {
-        fieldName: 'foo'
+        fieldName: 'foo',
       };
 
       render() {
@@ -548,11 +552,11 @@ describe('CreateForm and Field', () => {
   it('CreatedForm have an unused function "isValidValue"', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired
+        fieldName: PropTypes.string.isRequired,
       };
 
       static defaultProps = {
-        fieldName: 'foo'
+        fieldName: 'foo',
       };
 
       render() {
@@ -584,12 +588,12 @@ describe('CreateForm and Field', () => {
     class FormForTest extends React.Component {
       static propTypes = {
         foo: PropTypes.bool.isRequired,
-        bar: PropTypes.bool.isRequired
+        bar: PropTypes.bool.isRequired,
       };
 
       static defaultProps = {
         foo: true,
-        bar: false
+        bar: false,
       };
 
       render() {
@@ -648,7 +652,7 @@ describe('CreateForm and Field', () => {
 
     class FormWithUndef extends React.Component {
       static propTypes = {
-        vals: PropTypes.any
+        vals: PropTypes.any,
       };
 
       render() {
@@ -678,8 +682,8 @@ describe('CreateForm and Field', () => {
         showSwitch: PropTypes.shape({
           foo: PropTypes.bool,
           bar: PropTypes.bool,
-          fooBar: PropTypes.bool
-        })
+          fooBar: PropTypes.bool,
+        }),
       };
 
       static defaultProps = {
@@ -687,8 +691,8 @@ describe('CreateForm and Field', () => {
         showSwitch: {
           foo: true,
           bar: true,
-          fooBar: true
-        }
+          fooBar: true,
+        },
       };
 
       render() {
@@ -718,7 +722,7 @@ describe('CreateForm and Field', () => {
                 name="foo-bar"
                 component={() => <div className="bar-div" />}
                 validations={{
-                  hackRule: () => (hackSwitch ? true : 'string supported')
+                  hackRule: () => (hackSwitch ? true : 'string supported'),
                 }}
                 validationErrors={{ hackRule: 'just test' }}
               />
@@ -819,7 +823,7 @@ describe('CreateForm and Field', () => {
         component={InputField}
       />,
       {
-        context: contextCopy
+        context: contextCopy,
       }
     );
     let input = wrapper.find('input');
@@ -848,7 +852,7 @@ describe('CreateForm and Field', () => {
         component={InputField}
       />,
       {
-        context: contextCopy
+        context: contextCopy,
       }
     );
     let input = wrapper.find('input');
@@ -864,7 +868,7 @@ describe('CreateForm and Field', () => {
       onCountryChange = e => {
         const merge = this.props.merge;
         const newValue = {
-          country: e.target.value
+          country: e.target.value,
         };
         this.props.onChange(newValue, { merge });
       };
@@ -872,7 +876,7 @@ describe('CreateForm and Field', () => {
       onPhoneChange = e => {
         const merge = this.props.merge;
         const newValue = {
-          mobile: e.target.value
+          mobile: e.target.value,
         };
         this.props.onChange(newValue, { merge });
       };
@@ -918,12 +922,12 @@ describe('CreateForm and Field', () => {
         component={ContactPhone}
         value={{
           country: '1',
-          mobile: '15899776666'
+          mobile: '15899776666',
         }}
         merge
       />,
       {
-        context: contextCopy
+        context: contextCopy,
       }
     );
 

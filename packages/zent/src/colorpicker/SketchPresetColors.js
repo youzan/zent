@@ -13,26 +13,26 @@ const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
           borderTop: '1px solid #eee',
           display: 'flex',
           flexWrap: 'wrap',
-          position: 'relative'
+          position: 'relative',
         },
         swatchWrap: {
           width: '16px',
           height: '16px',
-          margin: '0 10px 10px 0'
+          margin: '0 10px 10px 0',
         },
         swatch: {
           borderRadius: '3px',
-          boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.15)'
-        }
+          boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.15)',
+        },
       },
       'no-presets': {
         colors: {
-          display: 'none'
-        }
-      }
+          display: 'none',
+        },
+      },
     },
     {
-      'no-presets': !colors || !colors.length
+      'no-presets': !colors || !colors.length,
     }
   );
 
@@ -40,7 +40,7 @@ const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
     onClick(
       {
         hex,
-        source: 'hex'
+        source: 'hex',
       },
       e
     );
@@ -85,10 +85,10 @@ SketchPresetColors.propTypes = {
       PropTypes.string,
       PropTypes.shape({
         color: PropTypes.string,
-        title: PropTypes.string
-      })
+        title: PropTypes.string,
+      }),
     ])
-  )
+  ),
 };
 
 export default SketchPresetColors;

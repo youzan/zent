@@ -47,7 +47,7 @@ export default function openDialog(options = {}) {
     onClose: oldOnClose,
     ref,
     dialogId = uniqueId('__zent-dialog__'),
-    parentComponent
+    parentComponent,
   } = options;
 
   ensureUniqDialogInstance(dialogId);
@@ -57,14 +57,14 @@ export default function openDialog(options = {}) {
   // 确保多次调用close不会报错
   const close = evt => {
     closeDialog(dialogId, {
-      triggerOnClose: evt !== false
+      triggerOnClose: evt !== false,
     });
   };
 
   const props = {
     ...options,
     visible: true,
-    onClose: close
+    onClose: close,
   };
 
   // 只支持函数形式的ref
@@ -81,7 +81,7 @@ export default function openDialog(options = {}) {
 
   addDialogInstance(dialogId, {
     onClose: oldOnClose,
-    container
+    container,
   });
 
   return close;

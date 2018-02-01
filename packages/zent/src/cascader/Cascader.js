@@ -25,7 +25,7 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
           this.props.open();
         }
         this.triggerEvent(child, 'onClick', evt);
-      }
+      },
     };
   }
 }
@@ -41,7 +41,8 @@ class Cascader extends (PureComponent || Component) {
     options: PropTypes.array,
     placeholder: PropTypes.string,
     changeOnSelect: PropTypes.bool,
-    title: PropTypes.array
+    title: PropTypes.array,
+    type: PropTypes.oneOf(['tabs', 'menu']),
   };
 
   static defaultProps = {
@@ -54,7 +55,7 @@ class Cascader extends (PureComponent || Component) {
     placeholder: '',
     changeOnSelect: false,
     title: [],
-    type: 'tabs'
+    type: 'tabs',
   };
 
   constructor(props) {
@@ -65,7 +66,7 @@ class Cascader extends (PureComponent || Component) {
       options: isArray(props.options) ? props.options : [],
       activeValue: [],
       activeId: 1,
-      open: false
+      open: false,
     };
   }
 
@@ -80,14 +81,14 @@ class Cascader extends (PureComponent || Component) {
       let nextValue = isArray(nextProps.value) ? nextProps.value : [];
       if (!loadMore) {
         this.setState({
-          value: nextValue
+          value: nextValue,
         });
       }
       this.resetCascaderValue(nextValue, nextProps.options, false);
     }
     if (this.props.options !== nextProps.options) {
       this.setState({
-        options: isArray(nextProps.options) ? nextProps.options : []
+        options: isArray(nextProps.options) ? nextProps.options : [],
       });
     }
   }
@@ -117,7 +118,7 @@ class Cascader extends (PureComponent || Component) {
         options = nextOption.children;
         activeValue.push({
           id: nextOption.id,
-          title: nextOption.title
+          title: nextOption.title,
         });
       });
     }
@@ -128,13 +129,13 @@ class Cascader extends (PureComponent || Component) {
 
     this.setState({
       activeValue,
-      activeId
+      activeId,
     });
   }
 
   onShow = () => {
     this.setState({
-      open: true
+      open: true,
     });
   };
 
@@ -143,13 +144,13 @@ class Cascader extends (PureComponent || Component) {
     this.setState({
       open: false,
       value: isArray(value) ? value : [],
-      activeId: 1
+      activeId: 1,
     });
   };
 
   onTabChange = id => {
     this.setState({
-      activeId: id
+      activeId: id,
     });
   };
 
@@ -166,14 +167,14 @@ class Cascader extends (PureComponent || Component) {
     ) {
       this.setState({
         isLoading: true,
-        loadingStage: stage
+        loadingStage: stage,
       });
       loadMore(item, stage).then(children => {
         item.children = children;
         this.expandHandler(item, stage, popover);
         this.setState({
           options,
-          isLoading: false
+          isLoading: false,
         });
       });
     }
@@ -188,7 +189,7 @@ class Cascader extends (PureComponent || Component) {
     value.push(item.id);
 
     let obj = {
-      value
+      value,
     };
 
     if (item.children || item.isLeaf === false) {
@@ -214,7 +215,9 @@ class Cascader extends (PureComponent || Component) {
     } else if (type === 'menu') {
       PopoverContentType = MenuPopoverContent;
     } else {
-      console.warn('type invalid');
+      throw new Error(
+        'Invalid type found in Cascader, only tabs and menu are allowed'
+      );
     }
 
     return (
@@ -257,12 +260,12 @@ class Cascader extends (PureComponent || Component) {
           let cascaderCls = classnames({
             [`${prefix}-cascader`]: true,
             [className]: true,
-            open
+            open,
           });
 
           let selectTextCls = classnames({
             [`${prefix}-cascader__select-text`]: true,
-            'is-placeholder': !hasValue
+            'is-placeholder': !hasValue,
           });
 
           return (

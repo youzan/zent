@@ -53,7 +53,7 @@ class Grid extends (PureComponent || Component) {
     sortBy: PropTypes.string,
     sortType: PropTypes.string,
     onRowClick: PropTypes.func,
-    ellipsis: PropTypes.bool
+    ellipsis: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -69,7 +69,7 @@ class Grid extends (PureComponent || Component) {
     emptyLabel: '',
     scroll: {},
     onRowClick: noop,
-    ellipsis: false
+    ellipsis: false,
   };
 
   constructor(props) {
@@ -78,13 +78,13 @@ class Grid extends (PureComponent || Component) {
     this.store = new Store(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns),
-      selectedRowKeys: get(props, 'selection.selectedRowKeys')
+      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
     });
     this.setScrollPosition('left');
 
     this.state = {
       fixedColumnsBodyRowsHeight: [],
-      fixedColumnsHeadRowsHeight: []
+      fixedColumnsHeadRowsHeight: [],
     };
   }
 
@@ -127,7 +127,7 @@ class Grid extends (PureComponent || Component) {
 
     this.setState({
       fixedColumnsBodyRowsHeight,
-      fixedColumnsHeadRowsHeight
+      fixedColumnsHeadRowsHeight,
     });
   };
 
@@ -194,7 +194,7 @@ class Grid extends (PureComponent || Component) {
       const selectionColumn = {
         key: 'selection-column',
         width: '20px',
-        bodyRender: this.renderSelectionCheckbox(selection.type)
+        bodyRender: this.renderSelectionCheckbox(selection.type),
       };
 
       const checkboxAllDisabled = every(data, (item, index) => {
@@ -231,14 +231,14 @@ class Grid extends (PureComponent || Component) {
   getLeftFixedTable = () => {
     return this.getTable({
       columns: this.getLeftColumns(),
-      fixed: 'left'
+      fixed: 'left',
     });
   };
 
   getRightFixedTable = () => {
     return this.getTable({
       columns: this.getRightColumns(),
-      fixed: 'right'
+      fixed: 'right',
     });
   };
 
@@ -324,7 +324,7 @@ class Grid extends (PureComponent || Component) {
       sortBy,
       rowClassName,
       onRowClick,
-      ellipsis
+      ellipsis,
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -399,7 +399,7 @@ class Grid extends (PureComponent || Component) {
           onScroll={this.handleBodyScroll}
         >
           {body}
-        </div>
+        </div>,
       ];
     }
     return [
@@ -413,7 +413,7 @@ class Grid extends (PureComponent || Component) {
       >
         <table
           className={classnames(`${prefix}-grid-table`, tableClassName, {
-            [`${prefix}-grid-table-ellipsis`]: ellipsis
+            [`${prefix}-grid-table-ellipsis`]: ellipsis,
           })}
           style={tableStyle}
         >
@@ -421,7 +421,7 @@ class Grid extends (PureComponent || Component) {
           {header}
           {body}
         </table>
-      </div>
+      </div>,
     ];
   };
 
@@ -528,7 +528,8 @@ class Grid extends (PureComponent || Component) {
             rowIndex={rowIndex}
             store={this.store}
             onChange={e =>
-              this.handleSelect(data, this.getDataKey(data, row), e)}
+              this.handleSelect(data, this.getDataKey(data, row), e)
+            }
           />
         </span>
       );
@@ -545,7 +546,7 @@ class Grid extends (PureComponent || Component) {
     if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
-        columns: this.getColumns(nextProps)
+        columns: this.getColumns(nextProps),
       });
 
       const { selection } = this.props;
@@ -559,7 +560,7 @@ class Grid extends (PureComponent || Component) {
 
     if (nextProps.columns && nextProps.columns !== this.props.columns) {
       this.store.setState({
-        columns: this.getColumns(nextProps, nextProps.columns)
+        columns: this.getColumns(nextProps, nextProps.columns),
       });
     }
 
@@ -607,7 +608,7 @@ class Grid extends (PureComponent || Component) {
               prefix={prefix}
               pageInfo={pageInfo}
               onChange={this.onChange}
-            />
+            />,
           ];
 
           const scrollTable = this.isAnyColumnsFixed() ? (

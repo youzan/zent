@@ -17,7 +17,7 @@ export const enUS = {
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday'
+    'Saturday',
   ],
   monthNamesShort: [
     'Jan',
@@ -31,7 +31,7 @@ export const enUS = {
     'Sep',
     'Oct',
     'Nov',
-    'Dec'
+    'Dec',
   ],
   monthNames: [
     'January',
@@ -45,7 +45,7 @@ export const enUS = {
     'September',
     'October',
     'November',
-    'December'
+    'December',
   ],
   amPm: ['am', 'pm'],
   DoFn: function DoFn(D) {
@@ -53,12 +53,20 @@ export const enUS = {
       D +
       ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : ((D - D % 10 !== 10) * D) % 10]
     );
-  }
+  },
 };
 
 export const zhCN = {
   dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
-  dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+  dayNames: [
+    '星期日',
+    '星期一',
+    '星期二',
+    '星期三',
+    '星期四',
+    '星期五',
+    '星期六',
+  ],
   monthNamesShort: [
     '1月',
     '2月',
@@ -71,7 +79,7 @@ export const zhCN = {
     '9月',
     '10月',
     '11月',
-    '12月'
+    '12月',
   ],
   monthNames: [
     '一月',
@@ -85,7 +93,7 @@ export const zhCN = {
     '九月',
     '十月',
     '十一月',
-    '十二月'
+    '十二月',
   ],
   amPm: ['上午', '下午'],
   DoFn: function DoFn(D) {
@@ -93,5 +101,5 @@ export const zhCN = {
       D +
       ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : ((D - D % 10 !== 10) * D) % 10]
     );
-  }
+  },
 };

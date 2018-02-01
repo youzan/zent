@@ -15,12 +15,12 @@ export default class Menu extends CommonMenu {
     onClick: PropTypes.func,
     style: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
     prefix: 'zent',
-    onClick: noop
+    onClick: noop,
   };
 
   handleClick = (e, key) => {

@@ -11,16 +11,16 @@ export default class SubMenu extends (PureComponent || Component) {
     className: PropTypes.string,
     overlayClassName: PropTypes.string,
     disabled: PropTypes.bool,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   state = {
-    subMenuVisible: false
+    subMenuVisible: false,
   };
 
   handleClick = (e, index) => {
@@ -74,17 +74,17 @@ export default class SubMenu extends (PureComponent || Component) {
       ? {}
       : {
           onMouseEnter: this.onMouseEnter,
-          onMouseLeave: this.onMouseLeave
+          onMouseLeave: this.onMouseLeave,
         };
     const cls = cx(`${prefix}-menu-item`, `${prefix}-submenu`, className, {
-      [`${prefix}-menu-item-disabled`]: disabled
+      [`${prefix}-menu-item-disabled`]: disabled,
     });
 
     return (
       <li className={cls} {...mouseEvents}>
         <div
           className={cx(`${prefix}-submenu-title`, {
-            [`${prefix}-submenu-disabled`]: disabled
+            [`${prefix}-submenu-disabled`]: disabled,
           })}
           onClick={this.titleClickHandler}
         >

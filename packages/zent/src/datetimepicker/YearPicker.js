@@ -15,7 +15,7 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function extractStateFromProps(props) {
@@ -48,20 +48,20 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel: false,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class YearPicker extends (PureComponent || Component) {
   static propTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
     format: 'YYYY',
-    needConfirm: false
+    needConfirm: false,
   };
 
   constructor(props) {
@@ -80,7 +80,7 @@ class YearPicker extends (PureComponent || Component) {
     acp.setFullYear(val);
 
     this.setState({
-      actived: acp
+      actived: acp,
     });
   };
 
@@ -95,7 +95,7 @@ class YearPicker extends (PureComponent || Component) {
         value: acp,
         selected: acp,
         openPanel: false,
-        showPlaceholder: false
+        showPlaceholder: false,
       });
       onChange(`${val}`);
     }
@@ -122,7 +122,7 @@ class YearPicker extends (PureComponent || Component) {
     this.setState({
       value,
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
     onChange(value);
   };
@@ -180,7 +180,7 @@ class YearPicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel: !this.state.openPanel
+      openPanel: !this.state.openPanel,
     });
   };
 
@@ -194,16 +194,16 @@ class YearPicker extends (PureComponent || Component) {
         popPosition,
         prefix,
         width,
-        canClear
+        canClear,
       },
-      state: { openPanel, showPlaceholder, value }
+      state: { openPanel, showPlaceholder, value },
     } = this;
 
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 

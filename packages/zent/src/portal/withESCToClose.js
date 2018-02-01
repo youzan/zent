@@ -11,7 +11,7 @@ export default function withESCToClose(Closable) {
   return class ESCToCloseWrapper extends (PureComponent || Component) {
     static propTypes = {
       visible: PropTypes.bool.isRequired,
-      onClose: PropTypes.func.isRequired
+      onClose: PropTypes.func.isRequired,
     };
 
     onKeyUp = evt => {

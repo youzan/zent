@@ -17,7 +17,7 @@ export default class Instance extends (PureComponent || Component) {
     float: PropTypes.bool,
     show: PropTypes.bool,
     zIndex: PropTypes.number,
-    containerClass: PropTypes.string
+    containerClass: PropTypes.string,
   };
 
   static defaultProps = {
@@ -28,7 +28,7 @@ export default class Instance extends (PureComponent || Component) {
     show: false,
     height: 160,
     zIndex: 9998,
-    containerClass: ''
+    containerClass: '',
   };
 
   componentDidMount() {
@@ -61,7 +61,7 @@ export default class Instance extends (PureComponent || Component) {
       }
       this.instance = newInstance({
         ...this.props,
-        target
+        target,
       });
     }
 
@@ -93,9 +93,12 @@ Instance.on = options => defer(on, options);
 Instance.off = options => defer(off, options);
 Instance.newInstance = props => defer(newInstance, props);
 
-function on(
-  { prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}
-) {
+function on({
+  prefix = 'zent',
+  className = '',
+  containerClass = '',
+  zIndex = 9998,
+} = {}) {
   if (!isBrowser) return;
 
   if (!loadingInstance) {
@@ -105,14 +108,14 @@ function on(
       className,
       containerClass,
       zIndex,
-      float: true
+      float: true,
     });
 
     return;
   }
 
   loadingInstance.show({
-    show: true
+    show: true,
   });
 }
 
@@ -122,7 +125,7 @@ function off() {
   if (!loadingInstance) return;
 
   loadingInstance.show({
-    show: false
+    show: false,
   });
 }
 
@@ -135,7 +138,7 @@ function newInstance(props) {
   let loading = ReactDOM.render(<Loading {...props} />, div);
   return {
     show: loading.show,
-    container: div
+    container: div,
   };
 }
 
