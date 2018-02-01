@@ -1,10 +1,12 @@
 ---
-order: 3
+order: 2
 zh-CN:
-	title: 选中即时改变
+	title: 菜单类型
 	zj: 浙江省
 	hz: 杭州市
 	xh: 西湖区
+	wz: 温州市
+	lw: 龙湾区
 	xj: 新疆维吾尔自治区
 	be: 博尔塔拉蒙古自治州
 	al: 阿拉山口市
@@ -12,10 +14,12 @@ zh-CN:
 	city: 市
 	dis: 区
 en-US:
-	title: Change at any seleted
+	title: menu type ui
 	zj: Zhejiang
 	hz: Hangzhou
 	xh: Xihu
+	wz: Wenzhou
+	lw: Longwan
 	xj: Xinjiang
 	be: Bortala
 	al: Alashankou
@@ -45,6 +49,16 @@ class Simple extends React.Component {
 								title: '{i18n.xh}'
 							}
 						]
+					},
+					{
+						id: '330200',
+						title: '{i18n.wz}',
+						children: [
+							{
+								id: '330206',
+								title: '{i18n.lw}'
+							}
+						]
 					}
 				]
 			},
@@ -69,6 +83,10 @@ class Simple extends React.Component {
 
 	onChange = (data) => {
 		Notify.success(JSON.stringify(data));
+
+		this.setState({
+			value: data.map(item => item.id)
+		});
 	}
 
 	render() {
@@ -77,7 +95,7 @@ class Simple extends React.Component {
 				value={this.state.value}
 				options={this.state.options}
 				onChange={this.onChange}
-				changeOnSelect
+				type='menu'
 				title={[
 					'{i18n.pro}',
 					'{i18n.city}',
