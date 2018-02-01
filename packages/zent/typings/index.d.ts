@@ -11,6 +11,7 @@
 /// <reference path="./libs/Card.d.ts" />
 /// <reference path="./libs/Cascader.d.ts" />
 /// <reference path="./libs/CheckBox.d.ts" />
+/// <reference path="./libs/Collapse.d.ts" />
 /// <reference path="./libs/ColorPicker.d.ts" />
 /// <reference path="./libs/CopyButton.d.ts" />
 /// <reference path="./libs/DateRangeQuickPicker.d.ts" />
@@ -19,6 +20,7 @@
 /// <reference path="./libs/Dialog.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
 /// <reference path="./libs/Icon.d.ts" />
+/// <reference path="./libs/InfiniteScroller.d.ts" />
 /// <reference path="./libs/Input.d.ts" />
 /// <reference path="./libs/Layout.d.ts" />
 /// <reference path="./libs/Loading.d.ts" />
@@ -26,6 +28,7 @@
 /// <reference path="./libs/Notify.d.ts" />
 /// <reference path="./libs/NumberInput.d.ts" />
 /// <reference path="./libs/Pagination.d.ts" />
+/// <reference path="./libs/Placeholder.d.ts" />
 /// <reference path="./libs/Pop.d.ts" />
 /// <reference path="./libs/Popover.d.ts" />
 /// <reference path="./libs/Portal.d.ts" />
@@ -58,6 +61,7 @@ declare module 'zent' {
   import Card from 'zent/lib/card';
   import Checkbox from 'zent/lib/checkbox';
   import ColorPicker from 'zent/lib/colorpicker';
+  import Collapse from 'zent/lib/collapse';
   import CopyButton from 'zent/lib/copy-button';
   import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
@@ -75,6 +79,7 @@ declare module 'zent' {
   import Menu from 'zent/lib/menu';
   import Notify from 'zent/lib/notify';
   import Pagination from 'zent/lib/pagination';
+  import Placeholder from 'zent/lib/placeholder';
   import Pop from 'zent/lib/pop';
   import Popover from 'zent/lib/popover';
   import Portal from 'zent/lib/portal';
@@ -107,6 +112,7 @@ declare module 'zent' {
     Card,
     Checkbox,
     ColorPicker,
+    Collapse,
     CopyButton,
     DatePicker,
     DateRangePicker,
@@ -124,6 +130,7 @@ declare module 'zent' {
     MonthPicker,
     Notify,
     Pagination,
+    Placeholder,
     Pop,
     Popover,
     Portal,

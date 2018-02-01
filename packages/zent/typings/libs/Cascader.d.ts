@@ -2,6 +2,7 @@
 
 declare module 'zent/lib/cascader' {
   interface ICascaderProps {
+    type?: 'tabs' | 'menu'
     value?: Array<any>
     options?: Array<any>
     title?: Array<any>
