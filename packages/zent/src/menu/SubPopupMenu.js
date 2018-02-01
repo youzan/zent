@@ -9,21 +9,21 @@ export default class PopupMenu extends CommonMenu {
     prefix: PropTypes.string,
     visible: PropTypes.bool,
     onClick: PropTypes.func,
-    index: PropTypes.string,
+    specKey: PropTypes.string,
     overlayCx: PropTypes.string,
   };
 
-  handleClick = (e, index) => {
+  handleClick = (e, specKey) => {
     const { onClick } = this.props;
-    onClick(e, index);
+    onClick(e, specKey);
   };
 
   renderSubMenuItems = (c, i) => {
     if (!c) {
       return null;
     }
-    const { index } = this.props;
-    return this.renderCommonMenuItem(c, i, index);
+    const { specKey } = this.props;
+    return this.renderCommonMenuItem(c, i, specKey);
   };
 
   render() {
