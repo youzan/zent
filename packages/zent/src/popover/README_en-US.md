@@ -90,6 +90,8 @@ Position is used to position layer. there is 12 kinds of basic positions. and yo
 
 
 ```
+// Basic positions
+
                     TopLeft     TopCenter     TopRight
 
 LeftTop                                                             RightTop
@@ -190,9 +192,9 @@ const HoverContent = withPopover(function HoverContent({ popover }) {
 
 #### `adjustPosition`
 
-You can use this method to update `Pop` position.
+You can use this method to update `Popover` position.
 
-You rarely need it. `Pop` will update its position automatically on window scroll and resize.
+You rarely need it. `Popover` will update its position automatically on window scroll and resize.
 
 <style>
 .zent-doc-popover {
