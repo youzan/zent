@@ -90,6 +90,9 @@ export default class Input extends (PureComponent || Component) {
         },
         preventDefault: () => evt.preventDefault(),
         stopPropagation: () => evt.stopPropagation(),
+
+        // 标记这个事件来自清空按钮
+        fromClearButton: true,
       });
   };
 
