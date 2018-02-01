@@ -1,14 +1,8 @@
 {
   "root": true,
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/react"
-  ],
+  "extends": ["airbnb", "prettier", "prettier/react"],
   "parser": "babel-eslint",
-  "plugins": [
-    "lean-imports"
-  ],
+  "plugins": ["lean-imports"],
   "rules": {
     "one-var": 0,
     "no-var": 2,
@@ -58,11 +52,7 @@
     ],
     "consistent-this": 0,
     "class-methods-use-this": 0,
-    "lean-imports/import": [
-      2, [
-        "lodash"
-      ]
-    ],
+    "lean-imports/import": [2, ["lodash"]],
     "eqeqeq": 1,
     "import/no-unresolved": 0,
     "import/no-extraneous-dependencies": 0,

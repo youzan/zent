@@ -6,7 +6,7 @@ import { EditableInput } from './common';
 
 export default class SketchFileds extends (PureComponent || Component) {
   state = {
-    hexColor: this.props.hex.replace('#', '')
+    hexColor: this.props.hex.replace('#', ''),
   };
 
   get styles() {
@@ -17,25 +17,25 @@ export default class SketchFileds extends (PureComponent || Component) {
         default: {
           fields: {
             display: 'flex',
-            paddingTop: '4px'
+            paddingTop: '4px',
           },
           single: {
             flex: '1',
-            paddingLeft: '6px'
+            paddingLeft: '6px',
           },
           alpha: {
             flex: '1',
-            paddingLeft: '6px'
+            paddingLeft: '6px',
           },
           double: {
-            flex: '2'
+            flex: '2',
           },
           input: {
             width: '80%',
             padding: '4px 10% 3px',
             border: 'none',
             boxShadow: 'inset 0 0 0 1px #ccc',
-            fontSize: '11px'
+            fontSize: '11px',
           },
           label: {
             display: 'block',
@@ -44,14 +44,14 @@ export default class SketchFileds extends (PureComponent || Component) {
             color: '#222',
             paddingTop: '3px',
             paddingBottom: '4px',
-            textTransform: 'capitalize'
-          }
+            textTransform: 'capitalize',
+          },
         },
         showAlpha: {
           alpha: {
-            display: 'none'
-          }
-        }
+            display: 'none',
+          },
+        },
       },
       { showAlpha: !showAlpha }
     );
@@ -64,7 +64,7 @@ export default class SketchFileds extends (PureComponent || Component) {
       onChange(
         {
           hex: hexColor,
-          source: 'hex'
+          source: 'hex',
         },
         e
       );
@@ -72,7 +72,7 @@ export default class SketchFileds extends (PureComponent || Component) {
 
   handleHexChange = data => {
     this.setState({
-      hexColor: data.hex
+      hexColor: data.hex,
     });
   };
 
@@ -86,7 +86,7 @@ export default class SketchFileds extends (PureComponent || Component) {
           g: data.g || rgb.g,
           b: data.b || rgb.b,
           a: rgb.a,
-          source: 'rgb'
+          source: 'rgb',
         },
         e
       );
@@ -104,7 +104,7 @@ export default class SketchFileds extends (PureComponent || Component) {
           s: hsl.s,
           l: hsl.l,
           a: data.a,
-          source: 'rgb'
+          source: 'rgb',
         },
         e
       );
@@ -115,7 +115,7 @@ export default class SketchFileds extends (PureComponent || Component) {
     const nextHexColor = nextProps.hex.replace('#', '');
     if (this.state.hexColor !== nextHexColor) {
       this.setState({
-        hexColor: nextHexColor
+        hexColor: nextHexColor,
       });
     }
   }

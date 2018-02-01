@@ -18,7 +18,7 @@ export default function createPlacement(locate) {
 
       toString() {
         return name;
-      }
+      },
     };
   };
   pos.locate = locate;

@@ -5,7 +5,7 @@ import { getElementLeft, getElementTop } from './getPosition';
 
 export default class Loading extends (PureComponent || Component) {
   state = {
-    show: this.props.show
+    show: this.props.show,
   };
 
   show = info => {
@@ -25,13 +25,13 @@ export default class Loading extends (PureComponent || Component) {
           left: getElementLeft(target),
           top: getElementTop(target),
           width: target.offsetWidth,
-          height: target.offsetHeight
+          height: target.offsetHeight,
         };
       }
     }
 
     this.setState({
-      show: info.show
+      show: info.show,
     });
   };
 
@@ -66,7 +66,7 @@ export default class Loading extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      show: nextProps.show
+      show: nextProps.show,
     });
   }
 
@@ -82,11 +82,12 @@ export default class Loading extends (PureComponent || Component) {
             containerClass,
             {
               [`${prefix}-loading-container--empty`]:
-                React.Children.count(children) === 0
+                React.Children.count(children) === 0,
             }
           )}
           style={{
-            height: children || !this.state.show ? 'initial' : this.props.height
+            height:
+              children || !this.state.show ? 'initial' : this.props.height,
           }}
         >
           {children}

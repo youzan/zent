@@ -12,7 +12,7 @@ class Tab extends (PureComponent || Component) {
     onSelected: PropTypes.func,
     onDelete: PropTypes.func,
     candel: PropTypes.bool,
-    uniqueId: PropTypes.number
+    uniqueId: PropTypes.number,
   };
 
   static defaultProps = {
@@ -23,7 +23,7 @@ class Tab extends (PureComponent || Component) {
     minWidth: '',
     onSelected: noop,
     onDelete: noop,
-    candel: false
+    candel: false,
   };
 
   onDel(e) {
@@ -71,7 +71,9 @@ class Tab extends (PureComponent || Component) {
     return (
       <div
         role="tab"
-        aria-labelledby={`${props.prefix}-tabpanel-${props.uniqueId}-${props.id}`}
+        aria-labelledby={`${props.prefix}-tabpanel-${props.uniqueId}-${
+          props.id
+        }`}
         className={classes}
         aria-disabled={props.disabled}
         aria-selected={props.actived}

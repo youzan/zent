@@ -10,7 +10,7 @@ class TabPanel extends (PureComponent || Component) {
     tab: PropTypes.any.isRequired,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onPanelReady: PropTypes.func,
-    uniqueId: PropTypes.number
+    uniqueId: PropTypes.number,
   };
 
   static defaultProps = {
@@ -18,7 +18,7 @@ class TabPanel extends (PureComponent || Component) {
     className: '',
     actived: false,
     onPanelReady: noop,
-    uniqueId: 0
+    uniqueId: 0,
   };
 
   componentDidMount() {

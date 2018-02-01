@@ -28,7 +28,7 @@ export default Control => {
         'zent-form__control-group': true,
         'zent-form__control-group--active': props.isActive,
         'has-error': showError,
-        [className]: true
+        [className]: true,
       });
 
       const controlRef = isFunctional(Control)
@@ -36,7 +36,7 @@ export default Control => {
         : {
             ref: instance => {
               this.control = instance;
-            }
+            },
           };
 
       return (

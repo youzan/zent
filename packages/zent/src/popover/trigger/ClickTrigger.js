@@ -14,11 +14,11 @@ export default class PopoverClickTrigger extends Trigger {
 
     // Optional click outside check
     // (target) => boolean
-    isOutside: PropTypes.func
+    isOutside: PropTypes.func,
   };
 
   static defaultProps = {
-    autoClose: true
+    autoClose: true,
   };
 
   onClickOutside = evt => {
@@ -39,7 +39,7 @@ export default class PopoverClickTrigger extends Trigger {
       onClick: evt => {
         this.props.open();
         this.triggerEvent(child, 'onClick', evt);
-      }
+      },
     };
   }
 

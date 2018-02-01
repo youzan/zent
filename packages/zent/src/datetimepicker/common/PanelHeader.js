@@ -25,7 +25,7 @@ const PanelHeader = props => {
 
 PanelHeader.defaultProps = {
   showPrev: true,
-  showNext: true
+  showNext: true,
 };
 
 export default PanelHeader;

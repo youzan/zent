@@ -136,7 +136,7 @@ describe('RadioGroup Section', () => {
 
   it('RadioGroup can have custom prefix, className, style object', () => {
     const styleObj = {
-      color: 'red'
+      color: 'red',
     };
     const wrapper = shallow(
       <Group className="foo" prefix="bar" style={styleObj} />

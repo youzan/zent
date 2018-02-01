@@ -16,14 +16,14 @@ export default class Radio extends (PureComponent || Component) {
     className: PropTypes.string,
     style: PropTypes.object,
     prefix: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
     prefix: 'zent',
     className: '',
     style: {},
-    onChange() {}
+    onChange() {},
   };
 
   // event liftup
@@ -35,7 +35,7 @@ export default class Radio extends (PureComponent || Component) {
       target: {
         ...props,
         type: 'radio',
-        checked: evt.target.checked
+        checked: evt.target.checked,
       },
 
       preventDefault() {
@@ -44,7 +44,7 @@ export default class Radio extends (PureComponent || Component) {
 
       stopPropagation() {
         evt.stopPropagation();
-      }
+      },
     });
   };
 
@@ -69,7 +69,7 @@ export default class Radio extends (PureComponent || Component) {
       [className]: !!className,
       [`${prefix}-radio-wrap`]: true,
       [`${prefix}-radio-checked`]: !!checked,
-      [`${prefix}-radio-disabled`]: disabled || readOnly
+      [`${prefix}-radio-disabled`]: disabled || readOnly,
     });
     const widthStyle = getWidth(width);
     const wrapStyle = assign({}, style, widthStyle);

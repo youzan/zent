@@ -12,7 +12,7 @@ class Header extends (PureComponent || Component) {
     super(props);
 
     this.state = {
-      rows: this.getHeaderRows(props)
+      rows: this.getHeaderRows(props),
     };
   }
 
@@ -39,7 +39,7 @@ class Header extends (PureComponent || Component) {
 
     this.props.onChange({
       sortBy: name,
-      sortType
+      sortType,
     });
   };
 
@@ -81,9 +81,9 @@ class Header extends (PureComponent || Component) {
         key: name || key || index,
         className: classnames(`${prefix}-grid-th`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
-          [`${prefix}-grid-nowrap`]: nowrap
+          [`${prefix}-grid-nowrap`]: nowrap,
         }),
-        children: this.getChildren(column, props)
+        children: this.getChildren(column, props),
       };
 
       if (typeof colSpan === 'number') {
@@ -116,7 +116,7 @@ class Header extends (PureComponent || Component) {
       nextProps.sortBy !== this.props.sortBy
     ) {
       this.setState({
-        rows: this.getHeaderRows(nextProps)
+        rows: this.getHeaderRows(nextProps),
       });
     }
   }
@@ -142,7 +142,7 @@ class Header extends (PureComponent || Component) {
               key={index}
               className={`${prefix}-grid-tr`}
               style={{
-                height
+                height,
               }}
             >
               {row.map(props => <th {...props} />)}
@@ -172,7 +172,7 @@ class Header extends (PureComponent || Component) {
 
 Header.propTypes = {
   prefix: PropTypes.string,
-  columns: PropTypes.array
+  columns: PropTypes.array,
 };
 
 export default Header;

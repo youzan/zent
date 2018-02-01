@@ -8,11 +8,11 @@ import { SKIP_SCROLL } from './constants';
 
 const i18n = {
   'zh-CN': {
-    notFound: '未找到结果'
+    notFound: '未找到结果',
   },
   'en-US': {
-    notFound: 'No results found'
-  }
+    notFound: 'No results found',
+  },
 };
 
 export default class ResultList extends Component {
@@ -21,7 +21,7 @@ export default class ResultList extends Component {
     locale: PropTypes.string.isRequired,
     activeIndex: PropTypes.number,
     redirectToResult: PropTypes.func.isRequired,
-    clearActiveIndex: PropTypes.func.isRequired
+    clearActiveIndex: PropTypes.func.isRequired,
   };
 
   componentDidUpdate() {
@@ -53,7 +53,7 @@ export default class ResultList extends Component {
               key={path}
               className={cx('zandoc-react-search-box-result-item', {
                 'zandoc-react-search-box-result-item__active':
-                  idx === activeIndex
+                  idx === activeIndex,
               })}
               onClick={() => redirectToResult(item)}
             >

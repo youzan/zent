@@ -19,7 +19,7 @@ import {
   dayStart,
   dayEnd,
   setTime,
-  commonFns
+  commonFns,
 } from './utils';
 import {
   CURRENT_DAY,
@@ -27,7 +27,7 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function extractStateFromProps(props) {
@@ -81,7 +81,7 @@ function extractStateFromProps(props) {
     selected,
     activedTime: selected || actived,
     openPanel,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
@@ -91,12 +91,12 @@ class DatePicker extends (PureComponent || Component) {
     showTime: PropTypes.bool,
     onBeforeConfirm: PropTypes.func,
     onBeforeClear: PropTypes.func,
-    valueType: PropTypes.oneOf(['string', 'number', 'date'])
+    valueType: PropTypes.oneOf(['string', 'number', 'date']),
   };
 
   static defaultProps = {
     ...commonProps,
-    placeholder: ''
+    placeholder: '',
   };
 
   retType = 'string';
@@ -130,7 +130,7 @@ class DatePicker extends (PureComponent || Component) {
 
   onChangeDate = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
@@ -152,7 +152,7 @@ class DatePicker extends (PureComponent || Component) {
       {
         actived: val,
         selected: val,
-        activedTime
+        activedTime,
       },
       () => {
         if (!this.isfooterShow) {
@@ -169,14 +169,14 @@ class DatePicker extends (PureComponent || Component) {
     tmp[fn](val);
 
     this.setState({
-      activedTime: tmp
+      activedTime: tmp,
     });
   };
 
   onChangeMonth = type => {
     const typeMap = {
       prev: -1,
-      next: 1
+      next: 1,
     };
 
     return () => {
@@ -184,7 +184,7 @@ class DatePicker extends (PureComponent || Component) {
       const acp = goMonths(actived, typeMap[type]);
 
       this.setState({
-        actived: acp
+        actived: acp,
       });
     };
   };
@@ -226,7 +226,7 @@ class DatePicker extends (PureComponent || Component) {
       showTime,
       onClose,
       onChange,
-      onBeforeConfirm
+      onBeforeConfirm,
     } = this.props;
 
     if (onBeforeConfirm && !onBeforeConfirm()) return; //
@@ -255,7 +255,7 @@ class DatePicker extends (PureComponent || Component) {
     this.setState({
       value: formatDate(tmp, format),
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
 
     const ret = this.getReturnValue(tmp, format);
@@ -275,7 +275,7 @@ class DatePicker extends (PureComponent || Component) {
   renderPicker(i18n) {
     const {
       props: { confirmText, disabledTime, format, max, min },
-      state: { actived, activedTime, openPanel, selected }
+      state: { actived, activedTime, openPanel, selected },
     } = this;
     let showTime;
     let datePicker;
@@ -287,11 +287,11 @@ class DatePicker extends (PureComponent || Component) {
           min: min && parseDate(min, format),
           max: max && parseDate(max, format),
           actived: activedTime,
-          disabledTime: noop
+          disabledTime: noop,
         },
         {
           disabledTime: disabledTime && disabledTime(),
-          onChange: this.onChangeTime
+          onChange: this.onChangeTime,
         }
       );
     }
@@ -301,11 +301,11 @@ class DatePicker extends (PureComponent || Component) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
       const linkCls = cx({
         'link--current': true,
-        'link--disabled': isDisabled
+        'link--disabled': isDisabled,
       });
       const datePickerCls = cx({
         'date-picker': true,
-        small: this.isfooterShow
+        small: this.isfooterShow,
       });
 
       datePicker = (
@@ -345,7 +345,7 @@ class DatePicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel
+      openPanel,
     });
   };
 
@@ -359,15 +359,15 @@ class DatePicker extends (PureComponent || Component) {
         popPosition,
         name,
         placeholder,
-        canClear
+        canClear,
       },
-      state: { showPlaceholder, openPanel, value }
+      state: { showPlaceholder, openPanel, value },
     } = this;
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 

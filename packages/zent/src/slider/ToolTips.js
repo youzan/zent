@@ -6,7 +6,7 @@ export default class ToolTips extends (PureComponent || Component) {
     const { left, content, visibility, prefix } = this.props;
     const cl = classNames({
       'toolTips-content': true,
-      'toolTips-content-hide': !visibility
+      'toolTips-content-hide': !visibility,
     });
     return (
       <div className={`${prefix}-slider-toolTips`} style={{ left: `${left}%` }}>

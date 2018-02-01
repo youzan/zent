@@ -14,7 +14,7 @@ const BLACK_LIST = [
   'outline',
   'bordered',
   'className',
-  'prefix'
+  'prefix',
 ];
 
 const BTN_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
@@ -33,7 +33,7 @@ export default class Button extends (PureComponent || Component) {
     loading: PropTypes.bool,
     outline: PropTypes.bool,
     bordered: PropTypes.bool,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -46,7 +46,7 @@ export default class Button extends (PureComponent || Component) {
     loading: false,
     outline: false,
     bordered: true,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   constructor(props) {
@@ -114,7 +114,7 @@ export default class Button extends (PureComponent || Component) {
       loading,
       outline,
       bordered,
-      prefix
+      prefix,
     } = this.props;
     let classNames = setClass(
       {
@@ -124,7 +124,7 @@ export default class Button extends (PureComponent || Component) {
         [`${prefix}-btn-block`]: block,
         [`${prefix}-btn-loading`]: loading,
         [`${prefix}-btn-disabled`]: disabled,
-        [`${prefix}-btn-border-transparent`]: !bordered
+        [`${prefix}-btn-border-transparent`]: !bordered,
       },
       `${prefix}-btn`,
       className

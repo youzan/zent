@@ -15,10 +15,10 @@ const LinkForm = createForm({})(
               name="linkUrl"
               label="链接地址"
               validations={{
-                required: true
+                required: true,
               }}
               validationErrors={{
-                required: '链接地址不能为空'
+                required: '链接地址不能为空',
               }}
               onPressEnter={this.onPressEnter}
               autoFocus
@@ -51,13 +51,15 @@ export default function(options) {
 
         // 包含http,ftp,file开头的地址，直接引用
         if (!cheackURl) {
-          Notify.success('您输入的超链接中不包含http等协议名称，默认将为您添加http://前缀');
+          Notify.success(
+            '您输入的超链接中不包含http等协议名称，默认将为您添加http://前缀'
+          );
           linkUrl = `http://${linkUrl}`;
         }
         const urlInfo = {
           target: reg.test(linkUrl) ? '' : '_blank',
           href: linkUrl,
-          textValue: linkUrl
+          textValue: linkUrl,
         };
         options.callback(urlInfo);
         resolve();
@@ -81,6 +83,6 @@ export default function(options) {
     className: 'zent-design-component-richtext__link',
     title: '超链接',
     content: <LinkForm onPressEnter={onPressEnter} ref={f => (form = f)} />,
-    onConfirm
+    onConfirm,
   });
 }

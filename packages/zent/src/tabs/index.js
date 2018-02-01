@@ -36,9 +36,9 @@ export default class Tabs extends (PureComponent || Component) {
         key: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
           .isRequired,
         title: PropTypes.node.isRequired,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
       })
-    )
+    ),
   };
 
   static defaultProps = {
@@ -50,7 +50,7 @@ export default class Tabs extends (PureComponent || Component) {
     size: 'normal',
     align: 'left',
     candel: false,
-    canadd: false
+    canadd: false,
   };
 
   static uniqueId = 0;

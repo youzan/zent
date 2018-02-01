@@ -13,7 +13,7 @@ class SKUGroup extends (PureComponent || Component) {
       newSKUText: '',
       hasSKUImage: props.sku.leaf
         ? props.sku.leaf.some(item => item.img_url)
-        : false
+        : false,
     };
   }
 
@@ -47,7 +47,7 @@ class SKUGroup extends (PureComponent || Component) {
         sku[optionValue] = data;
         sku[optionText] = text;
         this.setState({
-          newSKUText: ''
+          newSKUText: '',
         });
         onSKUChange(sku, index);
       }
@@ -62,7 +62,7 @@ class SKUGroup extends (PureComponent || Component) {
     }
     if (skuTree.some(item => item[optionText] === keyword)) return;
     this.setState({
-      newSKUText: keyword
+      newSKUText: keyword,
     });
   };
 
@@ -90,14 +90,14 @@ class SKUGroup extends (PureComponent || Component) {
       return item;
     });
     this.setState({
-      hasSKUImage: isShow
+      hasSKUImage: isShow,
     });
     onSKUChange(sku, index);
   };
 
   handleReset = () => {
     this.setState({
-      newSKUText: ''
+      newSKUText: '',
     });
   };
 
@@ -169,21 +169,21 @@ SKUGroup.contextTypes = {
   maxSKUTextLength: PropTypes.number,
   optionValue: PropTypes.string,
   optionText: PropTypes.string,
-  onCreateGroup: PropTypes.func
+  onCreateGroup: PropTypes.func,
 };
 
 SKUGroup.propTypes = {
   index: PropTypes.number,
   sku: PropTypes.object.isRequired,
   onSKUDelete: PropTypes.func,
-  onSKUChange: PropTypes.func
+  onSKUChange: PropTypes.func,
 };
 
 SKUGroup.defaultProps = {
   index: 0,
   data: {},
   onSKUDelete: noop,
-  onSKUChange: noop
+  onSKUChange: noop,
 };
 
 export default SKUGroup;

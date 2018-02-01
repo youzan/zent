@@ -31,7 +31,7 @@ export default class Foot extends (PureComponent || Component) {
   componentWillReceiveProps(nextProps) {
     if (nextProps.batchComponentsFixed) {
       this.footStyleFixed = {
-        height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height
+        height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height,
       };
     } else {
       this.footStyleFixed = {};

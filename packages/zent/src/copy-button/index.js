@@ -12,12 +12,12 @@ export default class Copy extends (PureComponent || Component) {
   static propTypes = {
     text: PropTypes.string.isRequired,
     onCopySuccess: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    onCopyError: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+    onCopyError: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   };
 
   static defaultProps = {
     onCopySuccess: '',
-    onCopyError: ''
+    onCopyError: '',
   };
 
   onCopyCallback = (type, callback) => {

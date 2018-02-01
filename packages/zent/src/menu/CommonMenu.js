@@ -6,7 +6,7 @@ export default class CommonMenu extends (PureComponent || Component) {
     const newChildProps = {
       index: getKeyFromChildrenIndex(c, i, subPrefix),
       onClick: this.handleClick,
-      ...extraProps
+      ...extraProps,
     };
 
     return React.cloneElement(c, newChildProps);

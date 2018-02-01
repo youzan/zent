@@ -1,12 +1,13 @@
 import React, { Component, PureComponent } from 'react';
+
 import PanelHeader from '../common/PanelHeader';
 import MonthPanelBody from './MonthPanelBody';
 import YearPanel from '../year/YearPanel';
-import { goYears } from '../utils/';
+import { goYears, monthStart } from '../utils';
 
 export default class MonthPanel extends (PureComponent || Component) {
   state = {
-    showYear: false
+    showYear: false,
   };
 
   prevYear = () => {
@@ -23,7 +24,7 @@ export default class MonthPanel extends (PureComponent || Component) {
 
   showYearPanel = () => {
     this.setState({
-      showYear: true
+      showYear: true,
     });
   };
 
@@ -35,13 +36,13 @@ export default class MonthPanel extends (PureComponent || Component) {
     onChange(acp, true);
 
     this.setState({
-      showYear: close
+      showYear: close,
     });
   };
 
   onSelectMonth = val => {
     const { actived, onSelect } = this.props;
-    const acp = new Date(actived);
+    const acp = monthStart(actived);
 
     acp.setMonth(val);
     onSelect(acp);
@@ -50,7 +51,7 @@ export default class MonthPanel extends (PureComponent || Component) {
   render() {
     const {
       props: { actived, disabledDate, i18n, selected },
-      state: { showYear }
+      state: { showYear },
     } = this;
     const title = `${actived.getFullYear()}`;
 

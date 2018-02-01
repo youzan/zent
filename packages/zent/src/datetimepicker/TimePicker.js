@@ -18,7 +18,7 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';
@@ -26,7 +26,7 @@ const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';
 const TIME_KEY = {
   HOUR: 'hour',
   MINUTE: 'minute',
-  SECOND: 'second'
+  SECOND: 'second',
 };
 
 /**
@@ -52,7 +52,7 @@ export default class TimePicker extends (PureComponent || Component) {
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
 
-    onBeforeConfirm: PropTypes.func
+    onBeforeConfirm: PropTypes.func,
   };
 
   static defaultProps = {
@@ -62,7 +62,7 @@ export default class TimePicker extends (PureComponent || Component) {
     isFooterVisble: true,
     hourStep: 1,
     minuteStep: 1,
-    secondStep: 1
+    secondStep: 1,
   };
 
   retType = 'string';
@@ -101,7 +101,7 @@ export default class TimePicker extends (PureComponent || Component) {
 
     return {
       value: parsedDate || dayStart(), // 利用传入的format解析value，失败则返回默认值
-      isPanelOpen: false
+      isPanelOpen: false,
     };
   };
 
@@ -126,7 +126,7 @@ export default class TimePicker extends (PureComponent || Component) {
 
     this.setState({
       value: tmp,
-      tabKey: nextTabKey
+      tabKey: nextTabKey,
     });
   };
 
@@ -188,7 +188,7 @@ export default class TimePicker extends (PureComponent || Component) {
 
     this.setState({
       value: tmp,
-      isPanelOpen: false
+      isPanelOpen: false,
     });
 
     const ret = this.getReturnValue(tmp);
@@ -233,7 +233,7 @@ export default class TimePicker extends (PureComponent || Component) {
           s < minSecond) ||
         (value.getHours() === maxHour &&
           value.getMinutes() === maxMinute &&
-          s > maxSecond)
+          s > maxSecond),
     }[type];
   };
 
@@ -245,19 +245,19 @@ export default class TimePicker extends (PureComponent || Component) {
     isPanelOpen ? onOpen && onOpen() : onClose && onClose();
     this.setState({
       isPanelOpen,
-      tabKey: isPanelOpen ? TIME_KEY.HOUR : null
+      tabKey: isPanelOpen ? TIME_KEY.HOUR : null,
     });
   };
 
   switchTab = tabKey => {
     this.setState({
-      tabKey
+      tabKey,
     });
   };
 
   resetTime = () => {
     this.setState({
-      value: this.extractParsedDate(this.props) || dayStart()
+      value: this.extractParsedDate(this.props) || dayStart(),
     });
   };
 
@@ -306,7 +306,7 @@ export default class TimePicker extends (PureComponent || Component) {
   renderPicker = i18n => {
     const {
       props: { confirmText, showSecond },
-      state: { value, isPanelOpen }
+      state: { value, isPanelOpen },
     } = this;
 
     let datePicker;
@@ -314,26 +314,26 @@ export default class TimePicker extends (PureComponent || Component) {
     // 打开面板的时候才渲染
     if (isPanelOpen) {
       const linkCls = cx({
-        'link--current': true
+        'link--current': true,
       });
 
       const radioButtonGroup = [
         {
           value: TIME_KEY.HOUR,
-          content: `${padLeft(value.getHours())}${i18n.panel.hour}`
+          content: `${padLeft(value.getHours())}${i18n.panel.hour}`,
         },
         {
           value: TIME_KEY.MINUTE,
-          content: `${padLeft(value.getMinutes())}${i18n.panel.minute}`
-        }
+          content: `${padLeft(value.getMinutes())}${i18n.panel.minute}`,
+        },
       ]
         .concat(
           showSecond
             ? [
                 {
                   value: TIME_KEY.SECOND,
-                  content: `${padLeft(value.getSeconds())}${i18n.panel.second}`
-                }
+                  content: `${padLeft(value.getSeconds())}${i18n.panel.second}`,
+                },
               ]
             : []
         )
@@ -342,7 +342,7 @@ export default class TimePicker extends (PureComponent || Component) {
             <span
               key={tabKey}
               className={cx('time__number', {
-                checked: this.state.tabKey === tabKey
+                checked: this.state.tabKey === tabKey,
               })}
               onClick={() => this.switchTab(tabKey)}
             >
@@ -356,7 +356,7 @@ export default class TimePicker extends (PureComponent || Component) {
           <div className="panel__header time-picker-panel__header">
             <div
               className={cx('time-picker-panel__tab-group', {
-                'show-second': showSecond
+                'show-second': showSecond,
               })}
             >
               {radioButtonGroup}
@@ -395,9 +395,9 @@ export default class TimePicker extends (PureComponent || Component) {
         name,
         placeholder,
         value,
-        canClear
+        canClear,
       },
-      state: { isPanelOpen }
+      state: { isPanelOpen },
     } = this;
 
     const format = getFormat(this.props);
@@ -409,7 +409,7 @@ export default class TimePicker extends (PureComponent || Component) {
       'picker-input': true,
       'picker-input--filled': !!formattedValue,
       'picker-input--disabled': disabled,
-      'time-picker-input': true
+      'time-picker-input': true,
     });
     const widthStyle = getWidth(width);
 

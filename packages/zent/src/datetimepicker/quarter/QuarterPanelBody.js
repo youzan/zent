@@ -21,14 +21,14 @@ export default class QuarterPanelBody extends (PureComponent || Component) {
           'panel__cell quarter-panel__cell': true,
           'panel__cell--current': false,
           'panel__cell--selected': isSelected,
-          'panel__cell--disabled': isDisabled
+          'panel__cell--disabled': isDisabled,
         });
         quarters[rowIndex][colIndex] = {
           text: i18n.panel.quarterNames[index],
           value: index,
           title: i18n.panel.quarterNames[index],
           className,
-          isDisabled
+          isDisabled,
         };
         index++;
       }

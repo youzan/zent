@@ -14,14 +14,14 @@ export default class Checkbox extends (PureComponent || Component) {
     className: PropTypes.string,
     style: PropTypes.object,
     prefix: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
     prefix: 'zent',
     className: '',
     style: {},
-    onChange() {}
+    onChange() {},
   };
 
   onChange = evt => {
@@ -31,7 +31,7 @@ export default class Checkbox extends (PureComponent || Component) {
       target: {
         ...props,
         type: 'checkbox',
-        checked: evt.target.checked
+        checked: evt.target.checked,
       },
 
       preventDefault() {
@@ -40,7 +40,7 @@ export default class Checkbox extends (PureComponent || Component) {
 
       stopPropagation() {
         evt.stopPropagation();
-      }
+      },
     });
   };
 
@@ -66,7 +66,7 @@ export default class Checkbox extends (PureComponent || Component) {
       [`${prefix}-checkbox-wrap`]: true,
       [`${prefix}-checkbox-checked`]: !!checked,
       [`${prefix}-checkbox-disabled`]: disabled || readOnly,
-      [`${prefix}-checkbox-indeterminate`]: indeterminate
+      [`${prefix}-checkbox-indeterminate`]: indeterminate,
     });
 
     const widthStyle = getWidth(width);

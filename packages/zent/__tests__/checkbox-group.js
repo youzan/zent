@@ -65,12 +65,12 @@ describe('Controlled CheckboxGroup', () => {
     );
 
     TestUtils.Simulate.change(bananaCheckboxInputNode, {
-      target: { checked: true }
+      target: { checked: true },
     });
     expect(value).toEqual(['apple', 'banana']);
 
     TestUtils.Simulate.change(appleCheckboxInputNode, {
-      target: { checked: true }
+      target: { checked: true },
     });
     expect(value).toEqual([]);
   });

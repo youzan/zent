@@ -9,13 +9,13 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { formatDate, parseDate, dayStart, dayEnd } from './utils';
+import { formatDate, parseDate, dayStart, dayEnd, monthStart } from './utils';
 import {
   CURRENT,
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function extractStateFromProps(props) {
@@ -28,18 +28,18 @@ function extractStateFromProps(props) {
     const tmp = parseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
-      selected = actived = tmp;
+      selected = actived = monthStart(tmp);
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      actived = dayStart();
+      actived = monthStart();
     }
   } else {
     showPlaceholder = true;
     if (defaultValue) {
-      actived = parseDate(defaultValue, format);
+      actived = monthStart(parseDate(defaultValue, format));
     } else {
-      actived = dayStart();
+      actived = monthStart();
     }
   }
 
@@ -48,19 +48,19 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel: false,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class MonthPicker extends (PureComponent || Component) {
   static propTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
-    format: 'YYYY-MM'
+    format: 'YYYY-MM',
   };
 
   retType = 'string';
@@ -98,7 +98,7 @@ class MonthPicker extends (PureComponent || Component) {
 
   onChangeMonth = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
@@ -111,7 +111,7 @@ class MonthPicker extends (PureComponent || Component) {
     this.setState(
       {
         selected: val,
-        actived: val
+        actived: val,
       },
       () => {
         if (!isFooterVisble) {
@@ -144,7 +144,7 @@ class MonthPicker extends (PureComponent || Component) {
     this.setState({
       value,
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
     onChange(this.getReturnValue(selected));
   };
@@ -165,13 +165,13 @@ class MonthPicker extends (PureComponent || Component) {
   renderPicker(i18n) {
     const {
       props: { confirmText, isFooterVisble },
-      state: { actived, openPanel, selected }
+      state: { actived, openPanel, selected },
     } = this;
     let monthPicker;
     if (openPanel) {
       const monthPickerCls = cx({
         'month-picker': true,
-        small: isFooterVisble
+        small: isFooterVisble,
       });
       monthPicker = (
         <div className={monthPickerCls} ref={ref => (this.picker = ref)}>
@@ -207,7 +207,7 @@ class MonthPicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel: !this.state.openPanel
+      openPanel: !this.state.openPanel,
     });
   };
 
@@ -221,15 +221,15 @@ class MonthPicker extends (PureComponent || Component) {
         popPosition,
         prefix,
         width,
-        canClear
+        canClear,
       },
-      state: { openPanel, showPlaceholder, value }
+      state: { openPanel, showPlaceholder, value },
     } = this;
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 

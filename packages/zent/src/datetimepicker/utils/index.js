@@ -1,8 +1,9 @@
 import {
   formatDate as formatBase,
-  parseDate as parseBase
+  parseDate as parseBase,
 } from 'zan-utils/date';
 
+import startOfMonth from 'date-fns/start_of_month';
 import startOfDay from 'date-fns/start_of_day';
 import endOfDay from 'date-fns/end_of_day';
 
@@ -98,6 +99,10 @@ export function parseDate(dateStr, format, locale = getLocale() || 'zh') {
   return parseBase(dateStr, format, locale);
 }
 
+export function monthStart(date = new Date()) {
+  return startOfMonth(date);
+}
+
 export function dayStart(date = new Date()) {
   return startOfDay(date);
 }
@@ -118,7 +123,7 @@ export function setTime(date, time = TIME_BEGIN) {
     date.getFullYear(),
     date.getMonth(),
     date.getDate(),
-    ...timeArr
+    ...timeArr,
   ];
   return new Date(...dateTimeArr);
 }
@@ -131,5 +136,5 @@ export const commonFns = {
   dayStart,
   dayEnd,
   parseDate,
-  formatDate
+  formatDate,
 };

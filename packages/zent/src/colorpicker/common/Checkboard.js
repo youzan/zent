@@ -12,9 +12,9 @@ const Checkboard = ({ white, grey, size, renderers }) => {
           grey,
           size,
           renderers.canvas
-        )}) center left`
-      }
-    }
+        )}) center left`,
+      },
+    },
   });
 
   return <div style={styles.grid} />;
@@ -24,7 +24,7 @@ Checkboard.defaultProps = {
   size: 8,
   white: 'transparent',
   grey: 'rgba(0,0,0,.08)',
-  renderers: {}
+  renderers: {},
 };
 
 export default Checkboard;

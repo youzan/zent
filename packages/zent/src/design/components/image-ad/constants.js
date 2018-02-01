@@ -1,6 +1,6 @@
 export const IMAGE_SIZE = {
   SMALL: 1,
-  LARGE: 2
+  LARGE: 2,
 };
 
 export const IMAGE_AD_LIMIT = 10;

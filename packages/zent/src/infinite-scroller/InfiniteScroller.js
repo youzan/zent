@@ -13,7 +13,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     initialLoad: PropTypes.bool,
     useWindow: PropTypes.bool,
     useCapture: PropTypes.bool,
-    loader: PropTypes.node
+    loader: PropTypes.node,
   };
 
   static defaultProps = {
@@ -23,11 +23,11 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     initialLoad: true,
     useWindow: true,
     useCapture: false,
-    loader: <Loading height={60} show />
+    loader: <Loading height={60} show />,
   };
 
   state = {
-    isLoadingShow: false
+    isLoadingShow: false,
   };
 
   stopLoading = () => {
@@ -74,7 +74,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
     }
 
     this.setState({
-      isLoadingShow: true
+      isLoadingShow: true,
     });
 
     if (loadMore.length > 0) {
@@ -135,11 +135,11 @@ export default class InfiniteScroller extends (PureComponent || Component) {
       children,
       hasMore,
       loader,
-      useWindow
+      useWindow,
     } = this.props;
     const { isLoadingShow } = this.state;
     const classString = cx(`${prefix}-infinite-scroller`, className, {
-      [`${prefix}-infinite-scroller-y`]: !useWindow
+      [`${prefix}-infinite-scroller-y`]: !useWindow,
     });
     return (
       <div ref={scroller => (this.scroller = scroller)} className={classString}>

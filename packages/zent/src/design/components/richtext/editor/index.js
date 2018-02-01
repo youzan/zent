@@ -24,7 +24,7 @@ const initConfig = {
       '|',
       'insertunorderedlist',
       'insertorderedlist',
-      'blockquote'
+      'blockquote',
     ],
     [
       'emotion',
@@ -36,7 +36,7 @@ const initConfig = {
       'rowspacingbottom',
       'lineheight',
       'paragraph',
-      'fontsize'
+      'fontsize',
     ],
     [
       'inserttable',
@@ -51,8 +51,8 @@ const initConfig = {
       'mergedown',
       'splittocells',
       'splittorows',
-      'splittocols'
-    ]
+      'splittocols',
+    ],
   ],
   autoClearinitialContent: false,
   autoFloatEnabled: true, // 是否保持 toolbar 滚动时不动
@@ -62,7 +62,7 @@ const initConfig = {
   pasteplain: false, // 是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
   initialFrameWidth: 640, // 初始化编辑器宽度
   initialFrameHeight: 200,
-  maximumWords: 10000
+  maximumWords: 10000,
 };
 
 class RichText extends Component {
@@ -75,7 +75,7 @@ class RichText extends Component {
     ueditorIframeUrl: PropTypes.string,
     editorConfig: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -89,7 +89,7 @@ class RichText extends Component {
     ueditorIframeUrl: '//www.youzan.com/v2/static/vendor/ueditor/dist/',
     editorConfig: {}, // ueditor 默认值
     className: '',
-    prefix: 'zent-design-component'
+    prefix: 'zent-design-component',
   };
 
   constructor(props) {
@@ -128,7 +128,7 @@ class RichText extends Component {
       ueditorHomeUrl,
       ueditorIframeUrl,
       ueditorUrl,
-      ueditorConfigUrl
+      ueditorConfigUrl,
     } = this.props;
 
     window.UEDITOR_HOME_URL = ueditorHomeUrl;

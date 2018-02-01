@@ -25,7 +25,7 @@ export function calculateChange(e, skip, props, container) {
         s: props.hsl.s,
         l: props.hsl.l,
         a: props.hsl.a,
-        source: 'rgb'
+        source: 'rgb',
       };
     }
   } else {
@@ -45,7 +45,7 @@ export function calculateChange(e, skip, props, container) {
         s: props.hsl.s,
         l: props.hsl.l,
         a: props.hsl.a,
-        source: 'rgb'
+        source: 'rgb',
       };
     }
   }

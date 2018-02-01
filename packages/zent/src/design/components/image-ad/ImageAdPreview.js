@@ -28,7 +28,7 @@ export default class ImageAdPreview extends Component {
           [`${prefix}-design-component-image-ad-preview--large`]:
             size === IMAGE_SIZE.LARGE,
           [`${prefix}-design-component-image-ad-preview--small`]:
-            size === IMAGE_SIZE.SMALL
+            size === IMAGE_SIZE.SMALL,
         })}
       >
         {images.map(img => {

@@ -11,7 +11,7 @@ export default class CorePagination extends (PureComponent || Component) {
   static propTypes = {
     current: number,
     total: number,
-    onChange: func
+    onChange: func,
   };
 
   renderPager = (item, index) => {
@@ -51,7 +51,7 @@ export default class CorePagination extends (PureComponent || Component) {
 
     let pages = parser.getPages({
       current,
-      total
+      total,
     });
 
     return (

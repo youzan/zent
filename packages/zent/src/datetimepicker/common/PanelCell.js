@@ -6,11 +6,11 @@ import { noop } from '../constants';
 export default class PanelCell extends (PureComponent || Component) {
   static propTypes = {
     onHover: PropTypes.func,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
   };
 
   static defaultProps = {
-    onHover: noop
+    onHover: noop,
   };
 
   onClickCell = cell => {

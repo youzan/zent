@@ -31,14 +31,14 @@ export default class HourPanel extends (PureComponent || Component) {
           'panel__cell time-panel__cell': true,
           'panel__cell--disabled': isDisabled,
           'panel__cell--selected': isSelected,
-          'panel__cell--current': isCurrent
+          'panel__cell--current': isCurrent,
         });
         cells[j] = cells[j] || [];
         cells[j][k] = {
           text: padLeft(i),
           value: i,
           isDisabled,
-          className
+          className,
         };
         i += this.props.step || 1;
       }

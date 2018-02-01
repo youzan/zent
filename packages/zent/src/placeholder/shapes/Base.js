@@ -7,13 +7,13 @@ export default class Base extends (PureComponent || Component) {
     className: PropTypes.string,
     style: PropTypes.object,
     animate: PropTypes.bool,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
     style: {},
     prefix: 'zent',
-    animate: true
+    animate: true,
   };
 
   render() {
@@ -22,7 +22,7 @@ export default class Base extends (PureComponent || Component) {
     const classes = cx(
       `${prefix}-placeholder-shape`,
       {
-        [`${prefix}-placeholder-shape--animate`]: animate
+        [`${prefix}-placeholder-shape--animate`]: animate,
       },
       className
     );

@@ -29,7 +29,7 @@ const ANIMATION_STATE_CLASSES = {
   static: 'rah-static',
   staticHeightZero: 'rah-static--height-zero',
   staticHeightAuto: 'rah-static--height-auto',
-  staticHeightSpecific: 'rah-static--height-specific'
+  staticHeightSpecific: 'rah-static--height-specific',
 };
 
 export class AnimateHeightNoAppear extends (PureComponent || Component) {
@@ -44,7 +44,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
     onAnimationEnd: PropTypes.func,
     onAnimationStart: PropTypes.func,
     style: PropTypes.object,
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   static defaultProps = {
@@ -52,7 +52,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
     easing: 'ease',
     style: {},
     animationStateClasses: ANIMATION_STATE_CLASSES,
-    applyInlineTransitions: true
+    applyInlineTransitions: true,
   };
 
   constructor(props) {
@@ -71,7 +71,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
 
     this.animationStateClasses = {
       ...ANIMATION_STATE_CLASSES,
-      ...props.animationStateClasses
+      ...props.animationStateClasses,
     };
 
     const animationStateClasses = this.getStaticStateClasses(height);
@@ -80,7 +80,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
       animationStateClasses,
       height,
       overflow,
-      shouldUseTransitions: false
+      shouldUseTransitions: false,
     };
   }
 
@@ -92,13 +92,13 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
       contentClassName,
       duration,
       easing,
-      style
+      style,
     } = this.props;
     const {
       height,
       overflow,
       animationStateClasses,
-      shouldUseTransitions
+      shouldUseTransitions,
     } = this.state;
 
     // Include transition passed through styles
@@ -108,7 +108,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
     const componentStyle = {
       ...style,
       height,
-      overflow: overflow || style.overflow
+      overflow: overflow || style.overflow,
     };
 
     if (shouldUseTransitions && applyInlineTransitions) {
@@ -121,7 +121,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
 
     const componentClasses = cx({
       [animationStateClasses]: true,
-      [className]: className
+      [className]: className,
     });
 
     const propsToOmit = [
@@ -130,7 +130,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
       'easing',
       'contentClassName',
       'animationStateClasses',
-      'applyInlineTransitions'
+      'applyInlineTransitions',
     ];
 
     return (
@@ -175,7 +175,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
       let newHeight = null;
       const timeoutState = {
         height: null, // it will be always set to either 'auto' or specific number
-        overflow: 'hidden'
+        overflow: 'hidden',
       };
       const isCurrentHeightAuto = this.state.height === 'auto';
 
@@ -215,7 +215,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
         [this.animationStateClasses.animatingToHeightAuto]:
           timeoutState.height === 'auto',
         [this.animationStateClasses.animatingToHeightSpecific]:
-          timeoutState.height > 0
+          timeoutState.height > 0,
       });
 
       // Animation classes to be put after animation is complete
@@ -230,7 +230,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
         overflow: 'hidden',
         // When animating from 'auto' we first need to set fixed height
         // that change should be animated
-        shouldUseTransitions: !isCurrentHeightAuto
+        shouldUseTransitions: !isCurrentHeightAuto,
       });
 
       // Clear timeouts
@@ -253,7 +253,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
         this.animationClassesTimeoutID = setTimeout(() => {
           this.setState({
             animationStateClasses: timeoutAnimationStateClasses,
-            shouldUseTransitions: false
+            shouldUseTransitions: false,
           });
 
           // ANIMATION ENDS
@@ -314,7 +314,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
       [this.animationStateClasses.static]: true,
       [this.animationStateClasses.staticHeightZero]: height === 0,
       [this.animationStateClasses.staticHeightSpecific]: height > 0,
-      [this.animationStateClasses.staticHeightAuto]: height === 'auto'
+      [this.animationStateClasses.staticHeightAuto]: height === 'auto',
     });
   }
 
@@ -325,7 +325,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
 
 export class AnimateHeightAppear extends (PureComponent || Component) {
   state = {
-    mounted: false
+    mounted: false,
   };
 
   render() {
@@ -337,7 +337,7 @@ export class AnimateHeightAppear extends (PureComponent || Component) {
   componentDidMount() {
     // eslint-disable-next-line
     this.setState({
-      mounted: true
+      mounted: true,
     });
   }
 }

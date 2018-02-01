@@ -7,7 +7,7 @@ class SimpleState extends Component {
   static propTypes = {
     inc: PropTypes.func.isRequired,
     close: PropTypes.func.isRequired,
-    count: PropTypes.number.isRequired
+    count: PropTypes.number.isRequired,
   };
 
   render() {
@@ -32,25 +32,25 @@ class SimpleState extends Component {
 class State extends Component {
   state = {
     visible: false,
-    count: 0
+    count: 0,
   };
 
   onClose = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
   onOpen = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
   };
 
   inc = () => {
     const { count } = this.state;
     this.setState({
-      count: count + 1
+      count: count + 1,
     });
   };
 

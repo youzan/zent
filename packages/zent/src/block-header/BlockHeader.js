@@ -11,7 +11,7 @@ export default class BlockHeader extends Component {
     tooltip: PropTypes.node,
     content: PropTypes.node,
     position: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -19,7 +19,7 @@ export default class BlockHeader extends Component {
     className: '',
     position: 'top-right',
     tooltip: '',
-    content: ''
+    content: '',
   };
 
   render() {
@@ -30,7 +30,7 @@ export default class BlockHeader extends Component {
       tooltip,
       position,
       className,
-      children
+      children,
     } = this.props;
     return (
       <div className={cx(`${prefix}-block-header`, className)}>

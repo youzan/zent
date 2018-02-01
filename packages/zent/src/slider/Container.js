@@ -13,7 +13,7 @@ export default class Container extends (PureComponent || Component) {
       onChange,
       max,
       min,
-      step
+      step,
     } = this.props;
     let newValue;
     if (!dots) {

@@ -17,7 +17,7 @@ import getPosition from './position';
 const { Trigger, withPopover } = Popover;
 const stateMap = {
   onConfirm: 'confirmPending',
-  onCancel: 'cancelPending'
+  onCancel: 'cancelPending',
 };
 
 class PopAction extends (PureComponent || Component) {
@@ -72,7 +72,7 @@ class PopAction extends (PureComponent || Component) {
       confirmText,
       cancelText,
       confirmPending,
-      cancelPending
+      cancelPending,
     } = this.props;
 
     if (!onConfirm && !onCancel) {
@@ -134,7 +134,7 @@ class Pop extends (PureComponent || Component) {
       'auto-bottom-right',
       'auto-top-center',
       'auto-top-left',
-      'auto-top-right'
+      'auto-top-right',
     ]),
 
     // 是否按小箭头居中对齐trigger来定位
@@ -183,7 +183,7 @@ class Pop extends (PureComponent || Component) {
 
     prefix: PropTypes.string,
     className: PropTypes.string,
-    wrapperClassName: PropTypes.string
+    wrapperClassName: PropTypes.string,
   };
 
   static defaultProps = {
@@ -202,12 +202,12 @@ class Pop extends (PureComponent || Component) {
     className: '',
     wrapperClassName: '',
     prefix: 'zent',
-    quirk: true
+    quirk: true,
   };
 
   state = {
     confirmPending: false,
-    cancelPending: false
+    cancelPending: false,
   };
 
   changePending = (key, pending, callback) => {
@@ -217,7 +217,7 @@ class Pop extends (PureComponent || Component) {
 
     this.setState(
       {
-        [key]: pending
+        [key]: pending,
       },
       callback
     );
@@ -232,7 +232,7 @@ class Pop extends (PureComponent || Component) {
       onCancel,
       confirmText,
       cancelText,
-      type
+      type,
     } = this.props;
     const { confirmPending, cancelPending } = this.state;
 
@@ -268,7 +268,7 @@ class Pop extends (PureComponent || Component) {
       mouseLeaveDelay,
       mouseEnterDelay,
       children,
-      quirk
+      quirk,
     } = this.props;
 
     if (trigger === 'click') {
@@ -326,7 +326,7 @@ class Pop extends (PureComponent || Component) {
       onBeforeClose,
       onBeforeShow,
       onPositionUpdated,
-      onPositionReady
+      onPositionReady,
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {

@@ -10,7 +10,7 @@ export default class Badge extends (PureComponent || Component) {
     showZero: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -19,7 +19,7 @@ export default class Badge extends (PureComponent || Component) {
     dot: false,
     showZero: false,
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
@@ -30,12 +30,12 @@ export default class Badge extends (PureComponent || Component) {
       showZero,
       className,
       prefix,
-      children
+      children,
     } = this.props;
     const containerCls = cx({
       [`${prefix}-badge`]: true,
       [`${prefix}-badge-none-cont`]: !children,
-      [className]: !!className
+      [className]: !!className,
     });
 
     const renderCount = () => {

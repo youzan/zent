@@ -21,5 +21,5 @@ export default [
   'fields',
   'relatedFields',
   'submitFailed',
-  'submitSuccess'
+  'submitSuccess',
 ];

@@ -20,7 +20,7 @@ export default class Body extends (PureComponent || Component) {
     }, {});
 
     this.state = {
-      expandItems
+      expandItems,
     };
   }
 
@@ -31,7 +31,7 @@ export default class Body extends (PureComponent || Component) {
       expandItems[rowIndex] = !(expandItems[rowIndex] || 0);
 
       this.setState({
-        expandItems
+        expandItems,
       });
     };
   }
@@ -56,7 +56,7 @@ export default class Body extends (PureComponent || Component) {
       selection,
       getRowConf,
       expandRender,
-      needExpand
+      needExpand,
     } = this.props;
 
     let trs = [];
@@ -84,7 +84,7 @@ export default class Body extends (PureComponent || Component) {
         // 位置信息
         let pos = {
           row: rowIndex,
-          column: columnIndex
+          column: columnIndex,
         };
 
         let needSelect = false;
@@ -104,7 +104,7 @@ export default class Body extends (PureComponent || Component) {
               isSingleSelection: selection.isSingleSelection,
               canSelect,
               selectedRowKeys: selection.selectedRowKeys,
-              onSelect: selection.onSelect
+              onSelect: selection.onSelect,
             }}
           />
         );
@@ -129,7 +129,7 @@ export default class Body extends (PureComponent || Component) {
           className="tr tr--expanded"
           key={`${key}-expand`}
           style={{
-            display: this.isExpanded(rowData, rowIndex) ? 'flex' : 'none'
+            display: this.isExpanded(rowData, rowIndex) ? 'flex' : 'none',
           }}
           onClick={() => this.onRowClick(key)}
         >

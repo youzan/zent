@@ -5,11 +5,11 @@ import cx from 'classnames';
 export default class Row extends (PureComponent || Component) {
   static propTypes = {
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
@@ -17,7 +17,7 @@ export default class Row extends (PureComponent || Component) {
 
     const classes = cx({
       [`${prefix}-row`]: true,
-      [className]: className
+      [className]: className,
     });
 
     return (

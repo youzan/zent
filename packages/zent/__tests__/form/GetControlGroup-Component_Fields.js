@@ -101,7 +101,7 @@ describe('GetControlGroup and Component_Fields', () => {
   it('CheckboxField', () => {
     const { CheckboxField } = ZentForm;
     const wrapper = mount(<Field name="foo" component={CheckboxField} />, {
-      context
+      context,
     });
     expect(wrapper.find('Checkbox').length).toBe(1);
     expect('checked' in wrapper.find('Checkbox').props()).toBe(true);
@@ -112,7 +112,7 @@ describe('GetControlGroup and Component_Fields', () => {
     const wrapper = mount(
       <Field name="foo" component={CheckboxGroupField} value={[]} />,
       {
-        context
+        context,
       }
     );
     expect(wrapper.find('Group').length).toBe(1);
@@ -121,7 +121,7 @@ describe('GetControlGroup and Component_Fields', () => {
   it('InputField', () => {
     const { InputField } = ZentForm;
     const wrapper = mount(<Field name="foo" component={InputField} />, {
-      context
+      context,
     });
     expect(wrapper.find('input').length).toBe(1);
     expect(wrapper.find('input').prop('type')).toBe('text');
@@ -130,7 +130,7 @@ describe('GetControlGroup and Component_Fields', () => {
   it('RadioGroupField', () => {
     const { RadioGroupField } = ZentForm;
     const wrapper = mount(<Field name="foo" component={RadioGroupField} />, {
-      context
+      context,
     });
     expect(wrapper.find('Group').length).toBe(1);
   });
@@ -164,7 +164,7 @@ describe('GetControlGroup and Component_Fields', () => {
   it('NumberInputField', () => {
     const { NumberInputField } = ZentForm;
     const wrapper = mount(<Field name="foo" component={NumberInputField} />, {
-      context
+      context,
     });
     expect(wrapper.find('input').length).toBe(1);
     expect(wrapper.find('input').prop('type')).toBe('text');
@@ -174,7 +174,7 @@ describe('GetControlGroup and Component_Fields', () => {
   it('ColorPickerField', () => {
     const { ColorPickerField } = ZentForm;
     const wrapper = mount(<Field name="foo" component={ColorPickerField} />, {
-      context
+      context,
     });
     expect(wrapper.find('.zent-color-picker').length).toBe(1);
   });
@@ -184,7 +184,7 @@ describe('GetControlGroup and Component_Fields', () => {
     const wrapper = mount(
       <Field name="foo" component={DateRangePickerField} type="split" />,
       {
-        context
+        context,
       }
     );
     expect(wrapper.find('.zent-datetime-picker').length).toBe(3);
@@ -196,7 +196,7 @@ describe('GetControlGroup and Component_Fields', () => {
     const wrapper = mount(
       <Field name="foo" value={false} component={SwitchField} />,
       {
-        context
+        context,
       }
     );
     expect(wrapper.find('.zent-switch').length).toBe(1);

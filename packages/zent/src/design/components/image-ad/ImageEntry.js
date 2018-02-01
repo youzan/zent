@@ -16,11 +16,11 @@ export class ImageEntry extends Component {
     linkUrl: PropTypes.string,
     linkTitle: PropTypes.string,
     error: PropTypes.string,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
   };
 
   state = {
-    localImage: ''
+    localImage: '',
   };
 
   render() {
@@ -46,7 +46,7 @@ export class ImageEntry extends Component {
                     `${prefix}-design-component-image-ad-editor__image-entry-image-upload`,
                     {
                       [`${prefix}-design-component-image-ad-editor__image-entry-image-upload--has-image`]: imageUrl,
-                      [`${prefix}-design-component-image-ad-editor__image-entry-image-upload--no-image`]: !imageUrl
+                      [`${prefix}-design-component-image-ad-editor__image-entry-image-upload--no-image`]: !imageUrl,
                     }
                   )}
                 >
@@ -120,6 +120,6 @@ export function createEmptyImageEntry(override) {
     linkTitle: '',
     linkUrl: '',
     [IMAGE_AD_ENTRY_UUID_KEY]: uuid(),
-    ...override
+    ...override,
   };
 }

@@ -7,5 +7,5 @@ export default {
   Click: ClickTrigger,
   Hover: HoverTrigger,
   Focus: FocusTrigger,
-  Base: Trigger
+  Base: Trigger,
 };

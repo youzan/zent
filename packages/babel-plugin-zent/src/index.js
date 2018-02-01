@@ -72,8 +72,8 @@ module.exports = function(babel) {
 
           path.replaceWithMultiple(replacement);
         }
-      }
-    }
+      },
+    },
   };
 };
 

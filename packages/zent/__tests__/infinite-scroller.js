@@ -21,7 +21,7 @@ describe('InfiniteScroller', () => {
   it('can have initialLoad', () => {
     class Test extends React.Component {
       state = {
-        list: [1, 2, 3]
+        list: [1, 2, 3],
       };
 
       loadMore = () => {
@@ -29,7 +29,7 @@ describe('InfiniteScroller', () => {
         const last = list[list.length - 1];
 
         this.setState({
-          list: [...list, last + 1]
+          list: [...list, last + 1],
         });
       };
 
@@ -53,7 +53,7 @@ describe('InfiniteScroller', () => {
   it('can stop initialLoad', () => {
     class Test extends React.Component {
       state = {
-        list: [1, 2, 3]
+        list: [1, 2, 3],
       };
 
       loadMore = () => {
@@ -61,7 +61,7 @@ describe('InfiniteScroller', () => {
         const last = list[list.length - 1];
 
         this.setState({
-          list: [...list, last + 1]
+          list: [...list, last + 1],
         });
       };
 
@@ -85,7 +85,7 @@ describe('InfiniteScroller', () => {
   it('can scroll to bottom and load more no use window', () => {
     class Test extends React.Component {
       state = {
-        list: [1, 2, 3]
+        list: [1, 2, 3],
       };
 
       loadMore = stopLoading => {
@@ -93,7 +93,7 @@ describe('InfiniteScroller', () => {
         const last = list[list.length - 1];
 
         this.setState({
-          list: [...list, last + 1]
+          list: [...list, last + 1],
         });
 
         stopLoading && stopLoading();
@@ -126,7 +126,7 @@ describe('InfiniteScroller', () => {
   it('can scroll to bottom and load more use window', () => {
     class Test extends React.Component {
       state = {
-        list: [1, 2, 3]
+        list: [1, 2, 3],
       };
 
       loadMore = () => {
@@ -134,7 +134,7 @@ describe('InfiniteScroller', () => {
         const last = list[list.length - 1];
 
         this.setState({
-          list: [...list, last + 1]
+          list: [...list, last + 1],
         });
 
         return Promise.resolve();
@@ -166,7 +166,7 @@ describe('InfiniteScroller', () => {
   it('loading will disappear when promise reject', () => {
     class Test extends React.Component {
       state = {
-        list: [1, 2, 3]
+        list: [1, 2, 3],
       };
 
       loadMore = () => {
@@ -174,7 +174,7 @@ describe('InfiniteScroller', () => {
         const last = list[list.length - 1];
 
         this.setState({
-          list: [...list, last + 1]
+          list: [...list, last + 1],
         });
 
         return Promise.reject();
@@ -207,7 +207,7 @@ describe('InfiniteScroller', () => {
   it('can stop load more', () => {
     class Test extends React.Component {
       state = {
-        list: [1, 2, 3]
+        list: [1, 2, 3],
       };
 
       loadMore = () => {
@@ -215,7 +215,7 @@ describe('InfiniteScroller', () => {
         const last = list[list.length - 1];
 
         this.setState({
-          list: [...list, last + 1]
+          list: [...list, last + 1],
         });
       };
 
@@ -247,7 +247,7 @@ describe('InfiniteScroller', () => {
   it('wont load more untils scroll at bottom', () => {
     class Test extends React.Component {
       state = {
-        list: [1, 2, 3]
+        list: [1, 2, 3],
       };
 
       loadMore = () => {
@@ -255,7 +255,7 @@ describe('InfiniteScroller', () => {
         const last = list[list.length - 1];
 
         this.setState({
-          list: [...list, last + 1]
+          list: [...list, last + 1],
         });
       };
 

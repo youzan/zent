@@ -25,7 +25,7 @@ const handleSubmit = (submit, zentForm) => {
     if (onSubmitFail) {
       handleOnSubmitError(
         new SubmissionError({
-          isValidating: true
+          isValidating: true,
         })
       );
     }
@@ -59,13 +59,13 @@ const handleSubmit = (submit, zentForm) => {
 
     if (isPromise(result)) {
       zentForm.setState({
-        isSubmitting: true
+        isSubmitting: true,
       });
 
       return result.then(
         submitResult => {
           zentForm.setState({
-            isSubmitting: false
+            isSubmitting: false,
           });
           if (onSubmitSuccess) {
             handleOnSubmitSuccess(submitResult);
@@ -74,7 +74,7 @@ const handleSubmit = (submit, zentForm) => {
         },
         submitError => {
           zentForm.setState({
-            isSubmitting: false
+            isSubmitting: false,
           });
           const error = handleSubmitError(submitError);
           if (error || onSubmitFail) {

@@ -17,7 +17,7 @@ const Sketch = ({
   renderers,
   prefix,
   className,
-  type
+  type,
 }) => {
   const styles = reactCSS(
     {
@@ -28,25 +28,25 @@ const Sketch = ({
           boxSizing: 'initial',
           background: '#fff',
           borderRadius: '4px',
-          boxShadow: '0 0 0 1px rgba(0,0,0,.15), 0 8px 16px rgba(0,0,0,.15)'
+          boxShadow: '0 0 0 1px rgba(0,0,0,.15), 0 8px 16px rgba(0,0,0,.15)',
         },
         saturation: {
           width: '100%',
           paddingBottom: '75%',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
         },
         Saturation: {
           radius: '3px',
           shadow:
-            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)',
         },
         controls: {
-          display: 'flex'
+          display: 'flex',
         },
         sliders: {
           padding: '4px 0',
-          flex: '1'
+          flex: '1',
         },
         color: {
           width: '24px',
@@ -54,48 +54,48 @@ const Sketch = ({
           position: 'relative',
           marginTop: '4px',
           marginLeft: '4px',
-          borderRadius: '3px'
+          borderRadius: '3px',
         },
         activeColor: {
           absolute: '0px 0px 0px 0px',
           borderRadius: '2px',
           background: `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`,
           boxShadow:
-            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)',
         },
         hue: {
           position: 'relative',
           height: '10px',
-          overflow: 'hidden'
+          overflow: 'hidden',
         },
         Hue: {
           radius: '2px',
           shadow:
-            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)',
         },
         alpha: {
           position: 'relative',
           height: '10px',
           marginTop: '4px',
-          overflow: 'hidden'
+          overflow: 'hidden',
         },
         Alpha: {
           radius: '2px',
           shadow:
-            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
-        }
+            'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)',
+        },
       },
       showAlpha: {
         color: {
-          height: '10px'
+          height: '10px',
         },
         hue: {
-          height: '10px'
+          height: '10px',
         },
         alpha: {
-          display: 'none'
-        }
-      }
+          display: 'none',
+        },
+      },
     },
     { showAlpha: !showAlpha }
   );
@@ -168,12 +168,12 @@ Sketch.defaultProps = {
     '#00CD98',
     '#5197FF',
     '#BADCFF',
-    '#FFEFB8'
+    '#FFEFB8',
   ],
   width: 200,
   showAlpha: false,
   prefix: 'zent',
-  className: ''
+  className: '',
 };
 
 const ColorBoard = ColorWrap(Sketch);

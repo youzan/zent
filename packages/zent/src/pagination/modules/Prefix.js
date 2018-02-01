@@ -12,7 +12,7 @@ export default class Prefix extends (PureComponent || Component) {
   static propTypes = {
     totalItem: number,
     pageSize: oneOfType([number, array]),
-    setPageSize: func
+    setPageSize: func,
   };
 
   changePageSize = (e, data) => {

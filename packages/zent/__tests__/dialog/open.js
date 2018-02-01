@@ -13,7 +13,7 @@ describe('Dialog component', () => {
   it('should open a dialog when called', () => {
     close = openDialog({
       title: 'hello',
-      children: 'content'
+      children: 'content',
     });
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
     unmount();
@@ -23,7 +23,7 @@ describe('Dialog component', () => {
   it('should ignore `visible` config', () => {
     close = openDialog({
       children: 'content',
-      visible: false
+      visible: false,
     });
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
     unmount();
@@ -33,7 +33,7 @@ describe('Dialog component', () => {
     const onRefChagne = jest.fn();
     close = openDialog({
       children: '',
-      ref: onRefChagne
+      ref: onRefChagne,
     });
     expect(onRefChagne.mock.calls.length).toBe(1);
     unmount();
@@ -44,7 +44,7 @@ describe('Dialog component', () => {
   it('does not support string ref', () => {
     close = openDialog({
       children: '',
-      ref: 'stringRefNotWorking'
+      ref: 'stringRefNotWorking',
     });
 
     // 根据DOM node找到react的component instance
@@ -64,7 +64,7 @@ describe('Dialog component', () => {
     const onClose = jest.fn();
     close = openDialog({
       children: '',
-      onClose
+      onClose,
     });
 
     unmount(false);
@@ -75,7 +75,7 @@ describe('Dialog component', () => {
     const onClose = jest.fn();
     close = openDialog({
       children: '',
-      onClose
+      onClose,
     });
     unmount();
     expect(onClose.mock.calls.length).toBe(1);
@@ -89,7 +89,7 @@ describe('Dialog component', () => {
     openDialog({
       dialogId: 'foobar',
       title: 'hello',
-      children: 'content'
+      children: 'content',
     });
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
     closeDialog('foobar');
@@ -105,14 +105,14 @@ describe('Dialog component', () => {
     openDialog({
       dialogId: 'foobar',
       title: 'hello',
-      children: 'content'
+      children: 'content',
     });
 
     expect(() => {
       openDialog({
         dialogId: 'foobar',
         title: 'hello',
-        children: 'content'
+        children: 'content',
       });
     }).toThrow();
 

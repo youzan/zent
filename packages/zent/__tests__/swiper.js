@@ -37,7 +37,7 @@ describe('Swiper', () => {
     class Test extends React.Component {
       state = {
         currentIndex: null,
-        prevIndex: null
+        prevIndex: null,
       };
 
       handleChange = (currentIndex, prevIndex) => {

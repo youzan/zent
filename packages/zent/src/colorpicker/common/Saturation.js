@@ -49,22 +49,22 @@ export default class Saturation extends Component {
           color: {
             absolute: '0px 0px 0px 0px',
             background: `hsl(${this.props.hsl.h},100%, 50%)`,
-            borderRadius: this.props.radius
+            borderRadius: this.props.radius,
           },
           white: {
             absolute: '0px 0px 0px 0px',
-            background: 'linear-gradient(to right, #fff, rgba(255,255,255,0))'
+            background: 'linear-gradient(to right, #fff, rgba(255,255,255,0))',
           },
           black: {
             absolute: '0px 0px 0px 0px',
             background: 'linear-gradient(to top, #000, rgba(0,0,0,0))',
-            boxShadow: this.props.shadow
+            boxShadow: this.props.shadow,
           },
           pointer: {
             position: 'absolute',
             top: `${-(this.props.hsv.v * 100) + 100}%`,
             left: `${this.props.hsv.s * 100}%`,
-            cursor: 'default'
+            cursor: 'default',
           },
           circle: {
             width: '4px',
@@ -73,16 +73,16 @@ export default class Saturation extends Component {
             0 0 1px 2px rgba(0,0,0,.4)`,
             borderRadius: '50%',
             cursor: 'hand',
-            transform: 'translate(-2px, -2px)'
-          }
+            transform: 'translate(-2px, -2px)',
+          },
         },
         custom: {
           color,
           white,
           black,
           pointer,
-          circle
-        }
+          circle,
+        },
       },
       { custom: !!this.props.style }
     );

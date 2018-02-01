@@ -37,14 +37,14 @@ export default class MonthPanelBody extends (PureComponent || Component) {
                   'panel__cell month-panel__cell': true,
                   'panel__cell--current': isCurrent,
                   'panel__cell--selected': isSelected,
-                  'panel__cell--disabled': isDisabled
+                  'panel__cell--disabled': isDisabled,
                 });
                 months[rowIndex][colIndex] = {
                   text: i18n.panel.monthNames[index],
                   value: index,
                   title: i18n.panel.monthNames[index],
                   className,
-                  isDisabled
+                  isDisabled,
                 };
                 index++;
               }

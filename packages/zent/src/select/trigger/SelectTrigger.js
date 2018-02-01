@@ -24,7 +24,7 @@ SelectTrigger.propTypes = {
   prefixCls: PropTypes.string,
   value: PropTypes.any,
   text: PropTypes.any,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 
 export default SelectTrigger;

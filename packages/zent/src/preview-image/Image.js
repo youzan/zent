@@ -15,7 +15,7 @@ export default class Image extends Component {
   state = {
     imageIndex: this.props.index || 0,
     imageStyle: {},
-    rotateIndex: 0
+    rotateIndex: 0,
   };
 
   static propTypes = {
@@ -23,7 +23,7 @@ export default class Image extends Component {
     prefix: PropTypes.string,
     showRotateBtn: PropTypes.bool,
     images: PropTypes.array,
-    index: PropTypes.number
+    index: PropTypes.number,
   };
 
   static defaultProps = {
@@ -31,11 +31,11 @@ export default class Image extends Component {
     prefix: 'zent',
     showRotateBtn: true,
     images: [],
-    index: 0
+    index: 0,
   };
 
   static contextTypes = {
-    zentI18n: PropTypes.object
+    zentI18n: PropTypes.object,
   };
 
   onMaskClick = e => {
@@ -55,9 +55,9 @@ export default class Image extends Component {
     this.setState({
       imageStyle: {
         transform: `rotate(${deg}deg)`,
-        transitionDuration: '0.5s'
+        transitionDuration: '0.5s',
       },
-      rotateIndex
+      rotateIndex,
     });
   };
 
@@ -68,9 +68,9 @@ export default class Image extends Component {
     this.setState({
       imageIndex,
       imageStyle: {
-        transform: 'rotate(0deg)'
+        transform: 'rotate(0deg)',
       },
-      rotateIndex: 0
+      rotateIndex: 0,
     });
   };
 
@@ -81,9 +81,9 @@ export default class Image extends Component {
     this.setState({
       imageIndex,
       imageStyle: {
-        transform: 'rotate(0deg)'
+        transform: 'rotate(0deg)',
       },
-      rotateIndex: 0
+      rotateIndex: 0,
     });
   };
 
@@ -126,10 +126,10 @@ export default class Image extends Component {
                 const needPager = images.length > 1;
                 const footerCxs = cx(`${prefix}-image-p-footer`, {
                   'show-rotate-btn': showRotateBtn,
-                  'image-p-footer-paging': needPager
+                  'image-p-footer-paging': needPager,
                 });
                 const rotateCxs = cx(`${prefix}-image-p-action`, {
-                  'rotate-action': !needPager
+                  'rotate-action': !needPager,
                 });
                 return (
                   <div className={footerCxs}>

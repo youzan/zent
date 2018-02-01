@@ -13,7 +13,7 @@ export default class Collapse extends (PureComponent || Component) {
   static propTypes = {
     activeKey: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
+      PropTypes.arrayOf(PropTypes.string),
     ]),
     onChange: PropTypes.func.isRequired,
     accordion: PropTypes.bool,
@@ -30,13 +30,13 @@ export default class Collapse extends (PureComponent || Component) {
       });
     },
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
     bordered: true,
     accordion: false,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
@@ -46,7 +46,7 @@ export default class Collapse extends (PureComponent || Component) {
       <div
         className={cx(`${prefix}-collapse`, className, {
           [`${prefix}-collapse--has-border`]: bordered,
-          [`${prefix}-collpase--no-border`]: !bordered
+          [`${prefix}-collpase--no-border`]: !bordered,
         })}
       >
         {React.Children.map(children, (c, idx) =>
@@ -55,7 +55,7 @@ export default class Collapse extends (PureComponent || Component) {
             active: isPanelActive(activeKey, c.key),
             panelKey: c.key,
             isLast: idx === React.Children.count(children) - 1,
-            bordered
+            bordered,
           })
         )}
       </div>

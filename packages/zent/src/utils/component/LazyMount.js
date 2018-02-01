@@ -6,18 +6,18 @@ import { Component, PureComponent } from 'react';
  */
 export default class LazyMount extends (PureComponent || Component) {
   static propTypes = {
-    mount: PropTypes.bool
+    mount: PropTypes.bool,
   };
 
   static defaultProps = {
-    mount: false
+    mount: false,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      mounted: props.mount
+      mounted: props.mount,
     };
   }
 
@@ -33,7 +33,7 @@ export default class LazyMount extends (PureComponent || Component) {
     let { mounted } = this.state;
     if (mount && !mounted) {
       this.setState({
-        mounted: true
+        mounted: true,
       });
     }
   }

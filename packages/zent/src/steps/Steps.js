@@ -15,7 +15,7 @@ export default class Steps extends (PureComponent || Component) {
     size: PropTypes.string,
     status: PropTypes.string,
     sequence: PropTypes.bool,
-    onStepChange: PropTypes.func
+    onStepChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -26,7 +26,7 @@ export default class Steps extends (PureComponent || Component) {
     direction: 'horizontal',
     size: 'normal',
     status: 'finish',
-    sequence: true
+    sequence: true,
   };
 
   render() {
@@ -35,7 +35,7 @@ export default class Steps extends (PureComponent || Component) {
     const typeComponentMapping = {
       number: NumberSteps,
       card: BreadcrumbSteps,
-      breadcrumb: BreadcrumbSteps
+      breadcrumb: BreadcrumbSteps,
     };
 
     const StepsComponent = typeComponentMapping[type];

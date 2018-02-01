@@ -49,14 +49,14 @@ export default class Slider extends (PureComponent || Component) {
     marks: PropTypes.object,
     value: PropTypes.oneOfType([
       PropTypes.number,
-      PropTypes.arrayOf(PropTypes.number)
+      PropTypes.arrayOf(PropTypes.number),
     ]).isRequired,
     disabled: PropTypes.bool,
     range: PropTypes.bool,
     step: PropTypes.number,
     withInput: PropTypes.bool,
     onChange: PropTypes.func,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
@@ -67,7 +67,7 @@ export default class Slider extends (PureComponent || Component) {
     disabled: false,
     withInput: true,
     range: false,
-    value: 0
+    value: 0,
   };
 
   constructor(props) {

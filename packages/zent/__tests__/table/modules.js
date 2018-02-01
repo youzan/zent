@@ -12,35 +12,35 @@ const columns = [
     bodyRender: data => {
       return <div>{data.item_id}</div>;
     },
-    needSort: true
+    needSort: true,
   },
   {
     title: '访问量',
     name: 'bro_uvpv',
     width: '100px',
-    bodyRender: TextComponent
+    bodyRender: TextComponent,
   },
   {
     title: '库存',
     name: 'stock_num',
     width: '100px',
     isMoney: true,
-    needSort: true
+    needSort: true,
   },
   {
     title: '总销量',
-    name: 'sold_num'
+    name: 'sold_num',
   },
   {
     title: 'test',
     bodyRender: () => {
       return undefined;
-    }
+    },
   },
   {
     title: 'render jsx',
-    bodyRender: <div className="render-test" />
-  }
+    bodyRender: <div className="render-test" />,
+  },
 ];
 
 describe('Head in Table', () => {
@@ -115,7 +115,7 @@ describe('Body in Table', () => {
         selection={{
           canRowSelect: true,
           selectedRowKeys: [],
-          onSelect: onSelectMock
+          onSelect: onSelectMock,
         }}
       />
     );
@@ -170,8 +170,8 @@ describe('Body in Table', () => {
     ).toBe(true);
     wrapper.find('Head Checkbox input').simulate('change', {
       target: {
-        checked: true
-      }
+        checked: true,
+      },
     });
     wrapper.find('Checkbox').forEach(node => {
       expect(node.prop('checked')).toBe(false);
@@ -188,8 +188,8 @@ describe('Body in Table', () => {
 
     wrapper.find('Head Checkbox input').simulate('change', {
       target: {
-        checked: true
-      }
+        checked: true,
+      },
     });
     wrapper.find('Checkbox').forEach(node => {
       expect(node.prop('checked')).toBe(false);
@@ -200,8 +200,8 @@ describe('Body in Table', () => {
       .at(0)
       .simulate('change', {
         target: {
-          checked: false
-        }
+          checked: false,
+        },
       });
     expect(onSelectMock.mock.calls.length).toBe(3);
   });

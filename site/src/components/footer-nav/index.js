@@ -5,7 +5,7 @@ import './style.pcss';
 
 class FooterNav extends Component {
   state = {
-    nav: { prev: null, next: null }
+    nav: { prev: null, next: null },
   };
 
   componentWillMount() {

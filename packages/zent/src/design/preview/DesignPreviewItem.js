@@ -20,11 +20,11 @@ function scrollNodeToTop(node, offsets) {
 export default class DesignPreviewItem extends (PureComponent || Component) {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {

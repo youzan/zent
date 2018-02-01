@@ -24,7 +24,7 @@ class Popup extends Component {
       // 默认选中第一项
       currentId: props.data[0] ? props.data[0].cid : 0,
       keyword: props.keyword || '',
-      style: {}
+      style: {},
     };
     this.focused = false;
   }
@@ -34,8 +34,8 @@ class Popup extends Component {
     if (autoWidth) {
       this.setState({
         style: {
-          width: `${popover.getTriggerNode().clientWidth + 2}px`
-        }
+          width: `${popover.getTriggerNode().clientWidth + 2}px`,
+        },
       });
     }
   }
@@ -79,7 +79,7 @@ class Popup extends Component {
     this.setState({
       data: nextProps.data,
       // 默认选中第一项
-      currentId: nextProps.data[0] ? nextProps.data[0].cid : 0
+      currentId: nextProps.data[0] ? nextProps.data[0].cid : 0,
     });
 
     // trigger中传入的keyword
@@ -96,7 +96,7 @@ class Popup extends Component {
     const { filter, data } = this.props;
     const { keyword } = this.state;
     this.setState({
-      keyword: ''
+      keyword: '',
     });
     this.props.popover.close();
     this.props.onChange(
@@ -114,7 +114,7 @@ class Popup extends Component {
     keyword = trim(keyword);
     this.setState({
       keyword,
-      currentId: ''
+      currentId: '',
     });
 
     if (typeof onAsyncFilter === 'function') {
@@ -132,7 +132,7 @@ class Popup extends Component {
       .forEach((item, index) => {
         if ((keyword && item.text === keyword) || (!currentId && index === 0)) {
           this.setState({
-            currentId: item.cid
+            currentId: item.cid,
           });
         }
       });
@@ -188,13 +188,13 @@ class Popup extends Component {
         break;
     }
     this.setState({
-      currentId
+      currentId,
     });
   };
 
   updateCurrentId(cid) {
     this.setState({
-      currentId: cid
+      currentId: cid,
     });
   }
 
@@ -210,7 +210,7 @@ class Popup extends Component {
       onAsyncFilter,
       maxToShow,
       autoWidth,
-      ready
+      ready,
     } = this.props;
 
     const { keyword, data, currentId } = this.state;
@@ -291,7 +291,7 @@ Popup.propTypes = {
   prefixCls: PropTypes.string,
   extraFilter: PropTypes.bool,
   filter: PropTypes.func,
-  onAsyncFilter: PropTypes.func
+  onAsyncFilter: PropTypes.func,
 };
 
 Popup.defaultProps = {
@@ -301,7 +301,7 @@ Popup.defaultProps = {
   emptyText: '',
   prefixCls: '',
   extraFilter: false,
-  searchPlaceholder: ''
+  searchPlaceholder: '',
 };
 
 export default Popover.withPopover(Popup);

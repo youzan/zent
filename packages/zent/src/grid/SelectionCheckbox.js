@@ -7,7 +7,7 @@ class SelectionCheckbox extends (PureComponent || Component) {
     super(props);
 
     this.state = {
-      checked: this.getCheckState(props)
+      checked: this.getCheckState(props),
     };
   }
 
