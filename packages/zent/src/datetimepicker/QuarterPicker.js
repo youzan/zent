@@ -150,7 +150,9 @@ class QuarterPicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    const { canClear, onChange } = this.props;
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
     if (!canClear) return;
 
     onChange([]);
@@ -213,7 +215,8 @@ class QuarterPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear
       },
       state: { openPanel, selected, showPlaceholder, value }
     } = this;
@@ -241,6 +244,7 @@ class QuarterPicker extends (PureComponent || Component) {
                     ]} of ${selected.getFullYear()}`;
             }
             const placeholderText = placeholder || i18n.quarter;
+
             return (
               <Popover
                 cushion={5}
@@ -258,10 +262,12 @@ class QuarterPicker extends (PureComponent || Component) {
                       disabled={disabled}
                     />
                     <span className="zenticon zenticon-calendar-o" />
-                    <span
-                      onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
-                    />
+                    {canClear && (
+                      <span
+                        onClick={this.onClearInput}
+                        className="zenticon zenticon-close-circle"
+                      />
+                    )}
                   </div>
                 </Popover.Trigger.Click>
                 <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

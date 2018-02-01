@@ -9,7 +9,7 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { formatDate, parseDate, dayStart, dayEnd } from './utils';
+import { formatDate, parseDate, dayStart, dayEnd, monthStart } from './utils';
 import {
   CURRENT,
   noop,
@@ -28,18 +28,18 @@ function extractStateFromProps(props) {
     const tmp = parseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
-      selected = actived = tmp;
+      selected = actived = monthStart(tmp);
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      actived = dayStart();
+      actived = monthStart();
     }
   } else {
     showPlaceholder = true;
     if (defaultValue) {
-      actived = parseDate(defaultValue, format);
+      actived = monthStart(parseDate(defaultValue, format));
     } else {
-      actived = dayStart();
+      actived = monthStart();
     }
   }
 
@@ -125,7 +125,9 @@ class MonthPicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    const { canClear, onChange } = this.props;
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
     if (!canClear) return;
 
     onChange('');
@@ -218,7 +220,8 @@ class MonthPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear
       },
       state: { openPanel, showPlaceholder, value }
     } = this;
@@ -250,10 +253,12 @@ class MonthPicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

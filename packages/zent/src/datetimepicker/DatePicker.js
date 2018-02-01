@@ -358,7 +358,8 @@ class DatePicker extends (PureComponent || Component) {
         width,
         popPosition,
         name,
-        placeholder
+        placeholder,
+        canClear
       },
       state: { showPlaceholder, openPanel, value }
     } = this;
@@ -394,10 +395,12 @@ class DatePicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

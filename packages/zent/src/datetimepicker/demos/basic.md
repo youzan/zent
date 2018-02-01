@@ -26,7 +26,6 @@ class Demo extends Component{
   }
 
 	onChangeQuarter = (val) => {
-		console.log(val)
 		this.setState({
 			quarterValue: val
 		})
@@ -45,7 +44,6 @@ class Demo extends Component{
 	}
 
   onChangeMonth = (val) => {
-		console.log(val)
     this.setState({
       monthValue: val
     })
@@ -68,7 +66,7 @@ class Demo extends Component{
     const now = new Date();
 
     return (
-      <div>
+			<div>
         <TimePicker 
           className="zent-picker-demo"
           value={timeValue}
@@ -84,7 +82,7 @@ class Demo extends Component{
         />
         <br />
         <DatePicker
-          className="zent-picker-demo"
+					className="zent-picker-demo"
           value={dateValue}
           max="2020-01-01"
           onChange={this.onChangeDate}
@@ -98,7 +96,7 @@ class Demo extends Component{
           onChange={this.onChangeWeek}
         />
         <br />
-        <MonthPicker
+				<MonthPicker
           className="zent-picker-demo"
           value={monthValue}
 					max={now}

@@ -3,6 +3,7 @@ import {
   parseDate as parseBase
 } from 'zan-utils/date';
 
+import startOfMonth from 'date-fns/start_of_month';
 import startOfDay from 'date-fns/start_of_day';
 import endOfDay from 'date-fns/end_of_day';
 
@@ -27,12 +28,6 @@ export const isSameDate = (val, cmp) => {
     val.getFullYear() === cmp.getFullYear() &&
     val.getMonth() === cmp.getMonth() &&
     val.getDate() === cmp.getDate()
-  );
-};
-
-export const isSameMonth = (val, cmp) => {
-  return (
-    val.getFullYear() === cmp.getFullYear() && val.getMonth() === cmp.getMonth()
   );
 };
 
@@ -102,6 +97,10 @@ export function formatDate(date, format, locale = getLocale() || 'zh') {
  */
 export function parseDate(dateStr, format, locale = getLocale() || 'zh') {
   return parseBase(dateStr, format, locale);
+}
+
+export function monthStart(date = new Date()) {
+  return startOfMonth(date);
 }
 
 export function dayStart(date = new Date()) {
