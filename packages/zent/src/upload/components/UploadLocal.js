@@ -1,4 +1,5 @@
 import isFunction from 'lodash/isFunction';
+import isPromise from 'utils/isPromise';
 
 export default function uploadLocalImage(options, uploadConfig) {
   return new Promise((resolve, reject) => {
@@ -8,7 +9,11 @@ export default function uploadLocalImage(options, uploadConfig) {
       return reject('onUpload is not a function');
     }
 
-    onUpload(uploadConfig.localFiles || [], uploadConfig);
-    resolve();
+    let uploadCallback = onUpload(uploadConfig.localFiles || [], uploadConfig);
+    if (isPromise(uploadCallback)) {
+      uploadCallback.then(resolve).catch(reject);
+    } else {
+      resolve();
+    }
   });
 }

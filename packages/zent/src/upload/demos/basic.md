@@ -46,8 +46,10 @@ class Simple extends React.Component {
           this.setState({
             imageList: data
           });
-          resolve(data);
-        })
+          setTimeout(() => {
+            resolve(data);
+          }, 3000);
+        });
     }
 
     render() {
