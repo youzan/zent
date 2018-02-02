@@ -23,6 +23,7 @@ File uploader. Supports images and audios.
 | onFetch | Callback to fetch remote image | function | `noop` | No |
 | onUpload | Callback to upload local image | function | `noop` | No |
 | onProgress | Progress callback when uploading local image  | function | `noop` | No |
+| onGetFileType | Callback to get the mime type of the upload file  | function | `noop` | No |
 | filterFiles | Filter local files, supports Promise as return value | function | `noop` | No |
 | categoryList | Group data | array | [] | No |
 | categoryId | Group id | number | [] | No |

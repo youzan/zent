@@ -24,6 +24,7 @@ group: 数据
 | onFetch | 提取网络图片 | function | `noop` | 否 |
 | onUpload | 上传本地图片 | function | `noop` | 否 |
 | onProgress | 上传进度 | function | `noop` | 否 |
+| onGetFileType | 获取文件类型 | function | `noop` | 否 |
 | filterFiles | 过滤文件，支持同步和promise的方式 | function | `noop` | 否 |
 | categoryList | 分组数据 | array | [] | 否 |
 | categoryId | 分组id | number | [] | 否 |
