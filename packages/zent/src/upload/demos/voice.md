@@ -47,10 +47,6 @@ class Simple extends React.Component {
         })
     }
 
-    handleGetFileType(type) {
-      console.log('文件类型: ', type);
-    }
-
     render() {
       return (
         <div>
@@ -69,7 +65,6 @@ class Simple extends React.Component {
             maxAmount={1}
             onFetch={this.fetchNetworkImage.bind(this)}
             onUpload={this.updateLocalImage.bind(this)}
-            onGetFileType={this.handleGetFileType.bind(this)}
             triggerClassName=""
             trigger={() => <a href="javascript:;">{i18n.buttonText}</a>}
           />

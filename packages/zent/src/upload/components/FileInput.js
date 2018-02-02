@@ -27,7 +27,6 @@ export default class FileInput extends (PureComponent || Component) {
     type: '',
     filterFiles: noop,
     onError: noop,
-    onGetFileType: noop,
   };
 
   static propTypes = {
@@ -38,7 +37,6 @@ export default class FileInput extends (PureComponent || Component) {
     type: PropTypes.string,
     filterFiles: PropTypes.func,
     onError: PropTypes.func,
-    onGetFileType: PropTypes.func,
   };
 
   constructor(props) {
@@ -107,7 +105,7 @@ export default class FileInput extends (PureComponent || Component) {
 
   addFile(file, index, i18n) {
     let fileReader = new FileReader();
-    let { silent, type, initIndex, onGetFileType } = this.props;
+    let { silent, type, initIndex } = this.props;
     let { accept } = this.state;
     let localFiles = [];
 
@@ -115,8 +113,7 @@ export default class FileInput extends (PureComponent || Component) {
       const mimeType = fileType(
         base64ToArrayBuffer(e.target.result.replace(/^(.*?)base64,/, ''))
       );
-      onGetFileType(mimeType);
-      if (accept && (!mimeType || accept.indexOf(mimeType.mime) > -1)) {
+      if (accept && (!mimeType || mimeType.mime.match(new RegExp(accept)))) {
         localFiles.push({
           src: e.target.result,
           file,
