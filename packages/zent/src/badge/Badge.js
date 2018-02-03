@@ -1,6 +1,9 @@
 import React, { PureComponent, Component } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import isArray from 'lodash/isArray';
+
+const NO_STYLE = {};
 
 export default class Badge extends (PureComponent || Component) {
   static propTypes = {
@@ -8,6 +11,8 @@ export default class Badge extends (PureComponent || Component) {
     maxCount: PropTypes.number,
     dot: PropTypes.bool,
     showZero: PropTypes.bool,
+    offset: PropTypes.array,
+    style: PropTypes.object,
     children: PropTypes.node,
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -28,25 +33,39 @@ export default class Badge extends (PureComponent || Component) {
       maxCount,
       dot,
       showZero,
+      offset,
+      style,
       className,
       prefix,
       children,
     } = this.props;
     const containerCls = cx({
       [`${prefix}-badge`]: true,
-      [`${prefix}-badge-none-cont`]: !children,
+      [`${prefix}-badge--has-content`]: children,
+      [`${prefix}-badge--no-content`]: !children,
       [className]: !!className,
+
+      // For compatibility only
+      [`${prefix}-badge-none-cont`]: !children,
     });
+    const posStyle =
+      isArray(offset) && offset.length === 2
+        ? {
+            top: offset[0],
+            right: offset[1],
+          }
+        : NO_STYLE;
+    const badgeStyle = style ? { ...style, ...posStyle } : posStyle;
 
     const renderCount = () => {
       let countEle = null;
       if (dot) {
         countEle = (
-          <span className={`${prefix}-badge-count ${prefix}-badge-dot`} />
+          <span className={`${prefix}-badge-dot`} style={badgeStyle} />
         );
       } else if (count > 0 || (count === 0 && showZero)) {
         countEle = (
-          <span className={`${prefix}-badge-count`}>
+          <span className={`${prefix}-badge-count`} style={badgeStyle}>
             {count > maxCount ? `${maxCount}+` : count}
           </span>
         );
