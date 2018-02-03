@@ -48,7 +48,7 @@ class Simple extends React.Component {
           });
           setTimeout(() => {
             resolve(data);
-          }, 3000);
+          }, 1000);
         });
     }
 
