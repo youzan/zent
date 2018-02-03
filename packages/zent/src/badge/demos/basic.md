@@ -30,8 +30,4 @@ ReactDOM.render(
 .zent-badge {
 	margin-right: 30px;
 }
-.zent-badge-demo-wrapper {
-	display: flex;
-	align-items: center;
-}
 </style>
