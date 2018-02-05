@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
+import WindowEventHandler from 'utils/component/WindowEventHandler';
 
 import Point from './Points';
 import Dots from './Dots';
@@ -13,10 +14,14 @@ export default class Range extends (PureComponent || Component) {
 
   getClientWidth = () => {
     if (this.clientWidth === null) {
-      const $root = ReactDOM.findDOMNode(this);
-      this.clientWidth = $root.clientWidth;
+      this.handleResize();
     }
     return this.clientWidth;
+  };
+
+  handleResize = () => {
+    const $root = ReactDOM.findDOMNode(this);
+    this.clientWidth = $root.clientWidth;
   };
 
   render() {
@@ -43,6 +48,7 @@ export default class Range extends (PureComponent || Component) {
           value={value}
         />
         {marks && <Marks marks={marks} {...restProps} />}
+        <WindowEventHandler eventName="resize" callback={this.handleResize} />
       </div>
     );
   }

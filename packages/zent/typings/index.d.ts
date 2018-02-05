@@ -65,9 +65,8 @@ declare module 'zent' {
   import ColorPicker from 'zent/lib/colorpicker';
   import Collapse from 'zent/lib/collapse';
   import CopyButton from 'zent/lib/copy-button';
-  import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
-  import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
+  import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangePicker from 'zent/lib/datetimepicker/DateRangePicker';
   import Design from 'zent/lib/design';
   import Dialog from 'zent/lib/dialog';
@@ -79,6 +78,7 @@ declare module 'zent' {
   import InfiniteScroller from 'zent/lib/infinite-scroller';
   import NumberInput from 'zent/lib/number-input';
   import Menu from 'zent/lib/menu';
+  import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
   import Notify from 'zent/lib/notify';
   import Pagination from 'zent/lib/pagination';
   import Placeholder from 'zent/lib/placeholder';
@@ -87,6 +87,7 @@ declare module 'zent' {
   import Portal from 'zent/lib/portal';
   import previewImage from 'zent/lib/preview-image';
   import Progress from 'zent/lib/progress';
+  import QuarterPicker from 'zent/lib/datetimepicker/QuarterPicker';
   import Radio from 'zent/lib/radio';
   import SearchInput from 'zent/lib/search-input';
   import Select from 'zent/lib/select';
@@ -101,7 +102,11 @@ declare module 'zent' {
   import Tabs from 'zent/lib/tabs';
   import Tag from 'zent/lib/tag';
   import Tree from 'zent/lib/tree';
+  import TimePicker from 'zent/lib/datetimepicker/TimePicker';
+  import TimeRangePicker from 'zent/lib/datetimepicker/TimeRangePicker';
   import Upload from 'zent/lib/upload';
+  import WeekPicker from 'zent/lib/datetimepicker/WeekPicker';
+  import YearPicker from 'zent/lib/datetimepicker/YearPicker';
 
   export {
     Affix,
@@ -139,6 +144,7 @@ declare module 'zent' {
     Portal,
     previewImage,
     Progress,
+    QuarterPicker,
     Radio,
     SearchInput,
     Select,
@@ -152,8 +158,12 @@ declare module 'zent' {
     Tabs,
     Tag,
     Tree,
+    TimePicker,
+    TimeRangePicker,
     Switch,
-    Upload
+    Upload,
+    WeekPicker,
+    YearPicker
   };
 
 }
