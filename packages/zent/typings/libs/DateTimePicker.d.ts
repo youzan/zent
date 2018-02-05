@@ -1,6 +1,6 @@
 /// <reference types="react" />
 
-interface IShapeProps {
+interface DateShapeProps {
   prefix?: string,
   name?: string,
   className?: string,
@@ -25,7 +25,7 @@ interface IShapeProps {
 }
 
 declare module 'zent/lib/datetimepicker/DatePicker' {
-  interface IDatePickerProps extends IShapeProps {
+  interface IDatePickerProps extends DateShapeProps {
     showTime?: boolean,
     disabledTime?: Function,
     onBeforeConfirm?: Function,
@@ -36,7 +36,7 @@ declare module 'zent/lib/datetimepicker/DatePicker' {
 }
 
 declare module 'zent/lib/datetimepicker/MonthPicker' {
-  interface IMonthPickerProps extends IShapeProps {
+  interface IMonthPickerProps extends DateShapeProps {
     value?: string|Date,
     disabled?: boolean,
   }
@@ -45,7 +45,7 @@ declare module 'zent/lib/datetimepicker/MonthPicker' {
 }
 
 declare module 'zent/lib/datetimepicker/DateRangePicker' {
-  interface IDateRangePickerProps extends IShapeProps {
+  interface IDateRangePickerProps extends DateShapeProps {
     showTime: boolean
     value?: Array,
     disabledTime?: Function,
@@ -55,7 +55,7 @@ declare module 'zent/lib/datetimepicker/DateRangePicker' {
 }
 
 declare module 'zent/lib/datetimepicker/WeekPicker' {
-  interface IWeekPickerProps extends IShapeProps {
+  interface IWeekPickerProps extends DateShapeProps {
     startDay?: number
   }
 
@@ -63,7 +63,7 @@ declare module 'zent/lib/datetimepicker/WeekPicker' {
 }
 
 declare module 'zent/lib/datetimepicker/YearPicker' {
-  interface IYearPickerProps extends IShapeProps {
+  interface IYearPickerProps extends DateShapeProps {
     needConfirm?: boolean
   }
 
@@ -71,9 +71,9 @@ declare module 'zent/lib/datetimepicker/YearPicker' {
 }
 
 declare module 'zent/lib/datetimepicker/TimePicker' {
-  interface ITimePickerProps extends IShapeProps {
+  interface ITimePickerProps extends DateShapeProps {
     isFooterVisble?: boolean,
-    showSecond?: boolean, 
+    showSecond?: boolean,
     hourStep?: number,
     minuteStep?: number,
     secondStep?: number,
@@ -85,9 +85,9 @@ declare module 'zent/lib/datetimepicker/TimePicker' {
 }
 
 declare module 'zent/lib/datetimepicker/TimeRangePicker' {
-  interface ITimeRangePickerProps extends IShapeProps {
+  interface ITimeRangePickerProps extends DateShapeProps {
     isFooterVisble?: boolean,
-    showSecond?: boolean, 
+    showSecond?: boolean,
     hourStep?: number,
     minuteStep?: number,
     secondStep?: number,
@@ -97,7 +97,7 @@ declare module 'zent/lib/datetimepicker/TimeRangePicker' {
 }
 
 declare module 'zent/lib/datetimepicker/QuarterPicker' {
-  interface IQuarterPickerProps extends IShapeProps {
+  interface IQuarterPickerProps extends DateShapeProps {
   }
 
   export default class QuarterPicker extends React.Component<IQuarterPickerProps, any> {}
