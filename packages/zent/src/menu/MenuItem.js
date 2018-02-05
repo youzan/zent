@@ -1,34 +1,66 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { getExtraStyle } from './utils';
 
 export default class MenuItem extends (PureComponent || Component) {
   static propTypes = {
+    disabled: PropTypes.bool,
     prefix: PropTypes.string,
     className: PropTypes.string,
+    isInline: PropTypes.bool,
+
+    // inline模式独有props
+    depth: PropTypes.number,
+    inlineIndent: PropTypes.number,
+    selectedKey: PropTypes.string,
+    handleSelect: PropTypes.func,
   };
 
   static defaultProps = {
     prefix: 'zent',
   };
 
-  onClick = e => {
-    const { index, onClick, disabled } = this.props;
+  handleClick = e => {
+    const { specKey, onClick, disabled, isInline, handleSelect } = this.props;
 
     if (disabled) return;
 
-    onClick(e, index);
+    if (isInline) {
+      handleSelect(specKey);
+    }
+
+    onClick(e, specKey);
   };
 
   render() {
-    const { prefix, className, children, disabled } = this.props;
+    const {
+      specKey,
+      prefix,
+      className,
+      children,
+      disabled,
+      isInline,
+      selectedKey,
+      depth,
+      inlineIndent,
+    } = this.props;
+    const isSelected = selectedKey === specKey;
+    const styleObj = getExtraStyle({
+      isInline,
+      depth,
+      inlineIndent,
+    });
 
     return (
       <li
         className={cx(`${prefix}-menu-item`, className, {
+          [`${prefix}-menu__inline-item`]: isInline,
+          [`${prefix}-menu__inline-item-selected`]: isSelected,
           [`${prefix}-menu-item-disabled`]: disabled,
         })}
-        onClick={this.onClick}
+        style={styleObj}
+        onClick={this.handleClick}
       >
         {children}
       </li>
