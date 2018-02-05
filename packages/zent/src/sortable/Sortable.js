@@ -64,6 +64,8 @@ export default class Sortable extends (PureComponent || Component) {
     const {
       prefix,
       options,
+      onMove,
+      onEnd,
       onChange,
       filterClass,
       children,
@@ -81,12 +83,18 @@ export default class Sortable extends (PureComponent || Component) {
       dragClass: `${prefix}-drag`,
       fallbackClass: `${prefix}-fallback`,
       onMove: e => {
+        if (onMove) {
+          return onMove(e);
+        }
+
         return e.related.className !== filterClass;
       },
       onEnd: e => {
         const { items } = this.props;
         const { oldIndex, newIndex } = e;
         const newItems = reorder(items, oldIndex, newIndex);
+
+        onEnd && onEnd(e);
         onChange && onChange(newItems);
       },
       ...rest,
