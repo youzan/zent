@@ -1,5 +1,57 @@
 ## Github Change Log
 
+## [zent@4.2.0](https://github.com/youzan/zent/tree/zent@4.2.0) (2018-02-05)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.2...zent@4.2.0)
+
+## [babel-plugin-zent@1.1.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.2) (2018-02-05)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.1...babel-plugin-zent@1.1.2)
+
+**Implemented enhancements:**
+
+- 时间选择器各种 Picker 类型 TypeScript 定义不全 [\#721](https://github.com/youzan/zent/issues/721)
+- \[bug fix\] DatePicker: 添加typeing [\#727](https://github.com/youzan/zent/pull/727) ([wulv](https://github.com/wulv))
+
+**Fixed bugs:**
+
+- \[bug fix\] Sortable: 修复onMove和onEnd与onChange同时传入时的问题 [\#734](https://github.com/youzan/zent/pull/734) ([ArvinTung](https://github.com/ArvinTung))
+- Select: 修复可能会导致循环渲染的问题 [\#733](https://github.com/youzan/zent/pull/733) ([huangsy](https://github.com/huangsy))
+
+**Merged pull requests:**
+
+- \[new feature\] Menu: 增加inline模式 [\#729](https://github.com/youzan/zent/pull/729) ([ArvinTung](https://github.com/ArvinTung))
+
+## [babel-plugin-zent@1.1.1](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.1) (2018-02-05)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@4.1.0...babel-plugin-zent@1.1.1)
+
+**Implemented enhancements:**
+
+- \[new feature\] Avatar [\#732](https://github.com/youzan/zent/pull/732) ([cpylua](https://github.com/cpylua))
+- \[new feature\] Badge: 功能完善 [\#731](https://github.com/youzan/zent/pull/731) ([cpylua](https://github.com/cpylua))
+- Upload: onUpload增加promise支持 [\#728](https://github.com/youzan/zent/pull/728) ([huangsy](https://github.com/huangsy))
+- \[new feature\] Input: Add fromClearButton to Input onChange event [\#724](https://github.com/youzan/zent/pull/724) ([cpylua](https://github.com/cpylua))
+- Add missing ts definition [\#722](https://github.com/youzan/zent/pull/722) ([cpylua](https://github.com/cpylua))
+- Package upgrades [\#720](https://github.com/youzan/zent/pull/720) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] NumberInput: 添加`onPressEnter`事件处理，不允许超过`max` [\#717](https://github.com/youzan/zent/pull/717) ([wulv](https://github.com/wulv))
+-  \[new feature\] Cascader: 增加 menu 类型 [\#716](https://github.com/youzan/zent/pull/716) ([wulv](https://github.com/wulv))
+- \[new feature\] Collapse [\#712](https://github.com/youzan/zent/pull/712) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- \[bug fix\] Form: Disable enter in Form only if element is an input [\#726](https://github.com/youzan/zent/pull/726) ([cpylua](https://github.com/cpylua))
+- \[style\] InfiniteScroller: 去除css中的important [\#723](https://github.com/youzan/zent/pull/723) ([ArvinTung](https://github.com/ArvinTung))
+- \[bugfix\]: MonthPicker: 修复月份选择返回日期不正确的问题 [\#719](https://github.com/youzan/zent/pull/719) ([xuhong](https://github.com/xuhong))
+- \[bugfix\]Select: 修复在修改 focus 逻辑后导致键盘事件失效的 bug. [\#714](https://github.com/youzan/zent/pull/714) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[bugfix\] Grid: 删除多余的边框 [\#713](https://github.com/youzan/zent/pull/713) ([lama-pacos](https://github.com/lama-pacos))
+- \[bugfix\] DatePicker: add onbeforeclear api [\#710](https://github.com/youzan/zent/pull/710) ([xuhong](https://github.com/xuhong))
+
+**Closed issues:**
+
+- 考虑 extends Component 而不是 PureComponent [\#715](https://github.com/youzan/zent/issues/715)
+
+**Merged pull requests:**
+
+- \[doc\] Update docs [\#718](https://github.com/youzan/zent/pull/718) ([cpylua](https://github.com/cpylua))
+
 ## [zent@4.1.0](https://github.com/youzan/zent/tree/zent@4.1.0) (2018-01-29)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@4.0.0...zent@4.1.0)
 
@@ -918,7 +970,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -949,11 +1001,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
-
 ## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
+
+## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
 
 **Implemented enhancements:**
 
