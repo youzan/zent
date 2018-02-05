@@ -195,7 +195,7 @@ export class ControlGroup extends (PureComponent || Component) {
     showError: PropTypes.bool,
     error: PropTypes.node,
     showLabel: PropTypes.bool,
-    helpDesc: PropTypes.string,
+    helpDesc: PropTypes.node,
     label: PropTypes.node,
 
     // 自定义label对齐方式
