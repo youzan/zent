@@ -17,7 +17,14 @@ const render = ChildComponent => {
   );
 };
 
-render(App);
+// Add a delay in dev mode to ensure styles are loaded before executing any JavaScript code
+if (process.env.NODE_ENV !== 'production') {
+  setTimeout(() => {
+    render(App);
+  }, 500);
+} else {
+  render(App);
+}
 
 if (module.hot) {
   module.hot.accept('./App', () => {

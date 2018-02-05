@@ -1,5 +1,6 @@
 import Affix from 'affix';
 import Alert from 'alert';
+import Avatar from 'avatar';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
@@ -58,6 +59,7 @@ import YearPicker from 'datetimepicker/YearPicker';
 export {
   Affix,
   Alert,
+  Avatar,
   Badge,
   BlockHeader,
   Breadcrumb,

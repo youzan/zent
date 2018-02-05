@@ -202,7 +202,7 @@ ReactDOM.render(
   margin-top: 20px;
 
 	.zent-btn {
-		width: 40px;
+		width: 100px;
 		margin-right: 10px;
 	}
 }
