@@ -7,6 +7,24 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 4.2.0 (2018-02-05)
+
+- 🎉 新组件 `Avatar`
+- 🎉 新组件 `Collpase`
+- ✨ `Menu` 增加内联模式
+- ✨ `Cascader` 支持菜单样式
+- ✨ `Input` 清空按钮的回调函数中加入判断来自按钮的参数
+- ✨ 补全各个时间选择器的 `TypeScript` 定义
+- ✨ `Badge` 组件支持自定义偏移量
+- ✨ `NumberInput` 支持回车确认输入 
+- ✨ `Upload` 的 `onUpload` 回调支持返回一个 `Promise`
+- 🦀️ 修复 `Sortable` 中 `onMove`, `onEnd` 与 `onChange` 同时传入时的问题
+- 🦀️ 修复 `Form` 中的多行文本框无法换行的问题
+- 🦀️ 修复 `InfiniteScroller` 样式问题
+- 🦀️ 修复 `Select` 键盘事件无效的问题
+- 🦀️ 修复 `Grid` 边框样式问题
+- 🦀️ 修复 `Select` 死循环问题
+
 ### 4.1.0 (2018-01-29)
 
 - 🎉 新增 `TimePicker` 和 `TimeRangePicker`

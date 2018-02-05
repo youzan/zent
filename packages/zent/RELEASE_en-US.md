@@ -7,6 +7,24 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 4.2.0 (2018-02-05)
+
+- 🎉 New component `Avatar`
+- 🎉 New component `Collpase`
+- ✨ `Menu` adds inline style
+- ✨ `Cascader` adds menu style
+- ✨ `Input` adds `fromClearButton` in callback event
+- ✨ Add missing `TypeScript` definitions
+- ✨ `Badge` supports custom offset
+- ✨ `NumberInput` supports presss enter to confirm input
+- ✨ `onUpload` can return a `Promise` in `Upload`
+- 🦀️ Fix a bug in `Sortable` when `onMove`, `onEnd` and `onChange` are present at the same time
+- 🦀️ Fix can not start new line in textarea when using `Form`
+- 🦀️ Fix styles in `InfiniteScroller`
+- 🦀️ Fix keyboard events not working in `Select`
+- 🦀️ Fix border style in `Grid`
+- 🦀️ Fix infinite loop in `Select`
+
 ### 4.1.0 (2018-01-29)
 
 - 🎉 New component: `TimePicker` and `TimeRangePicker`
