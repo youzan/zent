@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
-import trim from 'lodash/trim';
 
 import Popover from 'popover';
 import { I18nReceiver as Receiver } from 'i18n';
@@ -110,33 +109,29 @@ class Popup extends Component {
   };
 
   searchFilterHandler = keyword => {
-    const { onAsyncFilter } = this.props;
-    keyword = trim(keyword);
-    this.setState({
-      keyword,
-      currentId: '',
-    });
+    const { onAsyncFilter, filter } = this.props;
+    // keyword = trim(keyword); 防止空格输入不进去
+    let { data, currentId } = this.state;
 
-    if (typeof onAsyncFilter === 'function') {
-      onAsyncFilter(`${keyword}`);
-    }
-  };
-
-  componentWillUpdate(nextProps, nextState) {
-    const { filter } = nextProps;
-    const { data, keyword, currentId } = nextState;
     data
       .filter(item => {
         return !keyword || !filter || filter(item, `${keyword}`);
       })
       .forEach((item, index) => {
         if ((keyword && item.text === keyword) || (!currentId && index === 0)) {
-          this.setState({
-            currentId: item.cid,
-          });
+          currentId = item.cid;
         }
       });
-  }
+
+    this.setState({
+      keyword,
+      currentId,
+    });
+
+    if (typeof onAsyncFilter === 'function') {
+      onAsyncFilter(`${keyword}`);
+    }
+  };
 
   keydownHandler = ev => {
     const code = ev.keyCode;
