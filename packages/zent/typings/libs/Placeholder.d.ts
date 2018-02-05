@@ -33,7 +33,7 @@ declare module 'zent/lib/placeholder' {
     dashSegments?: (string | number)[][]
   }
 
-  interface IRichTextBlockProps extends  ITextRowProps {
+  interface IRichTextBlockProps extends ITextRowProps {
     shape?: 'circle' | 'react'
     size?: string | number
   }

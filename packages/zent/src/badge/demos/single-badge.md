@@ -25,3 +25,10 @@ ReactDOM.render(
 	, mountNode
 );
 ```
+
+<style>
+.zent-badge-demo-wrapper {
+	display: flex;
+	align-items: center;
+}
+</style>

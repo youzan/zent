@@ -41,6 +41,7 @@
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
     "^alert(.*)$": "<rootDir>/src/alert$1",
+    "^avatar(.*)$": "<rootDir>/src/avatar$1",
     "^badge(.*)$": "<rootDir>/src/badge$1",
     "^block-header(.*)$": "<rootDir>/src/block-header$1",
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",

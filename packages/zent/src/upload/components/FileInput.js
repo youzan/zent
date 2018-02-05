@@ -113,7 +113,7 @@ export default class FileInput extends (PureComponent || Component) {
       const mimeType = fileType(
         base64ToArrayBuffer(e.target.result.replace(/^(.*?)base64,/, ''))
       );
-      if (accept && (!mimeType || accept.indexOf(mimeType.mime) > -1)) {
+      if (accept && (!mimeType || mimeType.mime.match(new RegExp(accept)))) {
         localFiles.push({
           src: e.target.result,
           file,

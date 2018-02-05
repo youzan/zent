@@ -61,7 +61,7 @@ describe('Badge', () => {
 
   it('can show a red dot when setting dot', () => {
     const wrapper = mount(<Badge dot>news</Badge>);
-    expect(wrapper.find('.zent-badge-count').length).toBe(1);
+    expect(wrapper.find('.zent-badge-count').length).toBe(0);
     expect(wrapper.find('.zent-badge-dot').length).toBe(1);
   });
 
@@ -79,7 +79,26 @@ describe('Badge', () => {
     expect(wrapper.find('.zent-badge.zent-badge-none-cont').length).toBe(1);
     expect(wrapper.find('.zent-badge-content').length).toBe(0);
     expect(wrapper.find('.zent-badge-dot').length).toBe(1);
-    expect(wrapper.find('.zent-badge-count').length).toBe(1);
-    expect(wrapper.find('.zent-badge-count').text()).toBe('');
+    expect(wrapper.find('.zent-badge-count').length).toBe(0);
+    expect(wrapper.find('.zent-badge-dot').text()).toBe('');
+  });
+
+  it('can have custom offset', () => {
+    const wrapper = mount(<Badge offset={[0, 0]} count={5} />);
+    expect(wrapper.find('.zent-badge').length).toBe(1);
+    expect(wrapper.find('.zent-badge-count').getNode().style.top).toMatch(
+      /0(px)?/
+    );
+    expect(wrapper.find('.zent-badge-count').getNode().style.right).toMatch(
+      /0(px)?/
+    );
+  });
+
+  it('can have custom style', () => {
+    const wrapper = mount(<Badge style={{ background: 'red' }} dot />);
+    expect(wrapper.find('.zent-badge').length).toBe(1);
+    expect(wrapper.find('.zent-badge-dot').getNode().style.background).toBe(
+      'red'
+    );
   });
 });
