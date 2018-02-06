@@ -34,6 +34,7 @@ export default class Step extends (PureComponent || Component) {
       stepNumber,
       title,
       description,
+      sequence,
     } = props;
 
     let iconNode;
@@ -43,7 +44,9 @@ export default class Step extends (PureComponent || Component) {
     } else if (status === 'error') {
       iconNode = <Icon type="error-circle" />;
     } else {
-      iconNode = <span className={`${prefix}-icon`}>{stepNumber}</span>;
+      iconNode = (
+        <span className={`${prefix}-icon`}>{sequence ? stepNumber : ''}</span>
+      );
     }
 
     const classString = classNames({
