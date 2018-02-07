@@ -7,7 +7,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 4.2.1 (2018-02-06)
+
+- 🦀️ Fix `Upload` file type bug
+
 ### 4.2.0 (2018-02-05)
+
+Do NOT use this version, use 4.2.1 instead.
 
 - 🎉 New component `Avatar`
 - 🎉 New component `Collpase`
