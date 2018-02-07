@@ -34,7 +34,13 @@ export default class NotifyContent extends (PureComponent || Component) {
           in={isIn}
           onExited={this.onExited}
         >
-          <div className={`zent-notify zent-notify-${status}`}>{text}</div>
+          <div className={`zent-notify`}>
+            <div
+              className={`zent-notify-content zent-notify-content-${status}`}
+            >
+              {text}
+            </div>
+          </div>
         </NotifyTransition>
       </Portal>
     );
