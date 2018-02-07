@@ -7,7 +7,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 4.2.2 (2018-02-07)
+
+- ✨ Add vertical style to `Steps`
+- 🦀️ Fix header height in `Grid`
+- 🦀️ Fix styles missing after build
+
 ### 4.2.1 (2018-02-06)
+
+Do NOT use this version, use 4.2.1 instead.
 
 - 🦀️ Fix `Upload` file type bug
 
