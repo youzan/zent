@@ -95,17 +95,24 @@ class Grid extends (PureComponent || Component) {
       return;
     }
 
-    const { prefix } = this.props;
+    const { prefix, scroll } = this.props;
 
     const bodyRows =
       (this.bodyTable &&
         this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
       [];
 
-    const headRows =
+    let headRows =
       (this.scrollHeader &&
         this.scrollHeader.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
       [];
+
+    if (!scroll.y && scroll.x) {
+      headRows =
+        (this.bodyTable &&
+          this.bodyTable.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
+        [];
+    }
 
     const fixedColumnsBodyRowsHeight = [].map.call(
       bodyRows,

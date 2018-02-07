@@ -117,7 +117,26 @@
 
 .zent-checkbox-disabled {
   .zent-checkbox-inner {
-    opacity: 0.4;
+    background-color: $theme-stroke-9;
+    border-color: $theme-stroke-7;
+  }
+
+  &.zent-checkbox-checked {
+    .zent-checkbox-inner {
+      background-color: $theme-stroke-7;
+      border-color: $theme-stroke-7;
+    }
+  }
+
+  &.zent-checkbox-indeterminate {
+    .zent-checkbox-inner {
+      background-color: $theme-stroke-7;
+      border-color: $theme-stroke-7;
+
+      &::after {
+        background: $theme-stroke-10;
+      }
+    }
   }
 
   input[type="checkbox"] {

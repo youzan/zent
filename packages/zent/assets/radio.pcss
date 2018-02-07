@@ -99,7 +99,15 @@
 
 .zent-radio-disabled {
   .zent-radio-inner {
-    opacity: 0.4;
+    background-color: $theme-stroke-9;
+    border-color: $theme-stroke-7;
+  }
+
+  &.zent-radio-checked {
+    .zent-radio-inner {
+      background-color: $theme-stroke-7;
+      border-color: $theme-stroke-7;
+    }
   }
 
   input[type="radio"] {
