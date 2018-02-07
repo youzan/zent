@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 zh-CN:
 	title: 类型为 card 的步骤条（通过 sequence 覆写步骤项序号）
 	stepOneText: 一、登录有赞账号

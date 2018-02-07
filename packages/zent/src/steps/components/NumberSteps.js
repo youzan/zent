@@ -4,11 +4,20 @@ import classNames from 'classnames';
 export default class NumberSteps extends (PureComponent || Component) {
   render() {
     const props = this.props;
-    const { className, prefix, children, current, status } = props;
+    const {
+      className,
+      prefix,
+      children,
+      current,
+      status,
+      direction,
+      sequence,
+    } = props;
     const lastIndex = children.length - 1;
     const classString = classNames({
       [`${prefix}-steps`]: true,
       [`${className}`]: true,
+      [`${prefix}-steps__${direction}`]: true,
     });
 
     return (
@@ -17,6 +26,7 @@ export default class NumberSteps extends (PureComponent || Component) {
           children,
           (item, index) => {
             const np = {
+              sequence,
               stepNumber: (index + 1).toString(),
               stepLast: index === lastIndex,
               isCurrentStep: index === current - 1,

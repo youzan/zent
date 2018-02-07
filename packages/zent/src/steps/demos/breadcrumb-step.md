@@ -1,5 +1,5 @@
 ---
-order: 3
+order: 4
 zh-CN:
 	title: 类型为 breadcrumb 的步骤条
 	stepOneText: 登录有赞账号
