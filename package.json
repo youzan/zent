@@ -90,7 +90,7 @@
     "postcss-cli": "^4.1.1",
     "postcss-easy-import": "^3.0.0",
     "postcss-theme-variables": "^1.0.0",
-    "precss": "3.1.0",
+    "precss": "2.0.0",
     "prettier": "1.10.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
