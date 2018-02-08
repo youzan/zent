@@ -21,7 +21,10 @@ class App extends Component {
 
 	render() {
 		return (
-			<Rate character={<Icon type="youzan" />} allowHalf value={this.state.value} onChange={this.onChange} />
+			<ul>
+				<li><Rate character={<Icon type="youzan" />} allowHalf value={this.state.value} onChange={this.onChange} /></li>
+				<li><Rate character="赞" allowHalf value={this.state.value} onChange={this.onChange} /></li>
+			</ul>
 		);
 	}
 }
