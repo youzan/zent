@@ -5,6 +5,7 @@
 /// <reference path="./libs/Affix.d.ts" />
 /// <reference path="./libs/Alert.d.ts" />
 /// <reference path="./libs/Avatar.d.ts" />
+/// <reference path="./libs/AutoComplete.d.ts" />
 /// <reference path="./libs/Badge.d.ts" />
 /// <reference path="./libs/BlockHeader.d.ts" />
 /// <reference path="./libs/Breadcrumb.d.ts" />
@@ -55,6 +56,7 @@ declare module 'zent' {
   import Affix from 'zent/lib/affix';
   import Alert from 'zent/lib/alert';
   import Avatar from 'zent/lib/avatar';
+  import AutoComplete from 'zent/lib/auto-complete';
   import Badge from 'zent/lib/badge';
   import BlockHeader from 'zent/lib/block-header';
   import Breadcrumb from 'zent/lib/breadcrumb';
@@ -112,6 +114,7 @@ declare module 'zent' {
     Affix,
     Alert,
     Avatar,
+    AutoComplete,
     Badge,
     BlockHeader,
     Breadcrumb,

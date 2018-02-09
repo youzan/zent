@@ -1,6 +1,7 @@
 import Affix from 'affix';
 import Alert from 'alert';
 import Avatar from 'avatar';
+import AutoComplete from 'auto-complete';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
@@ -60,6 +61,7 @@ export {
   Affix,
   Alert,
   Avatar,
+  AutoComplete,
   Badge,
   BlockHeader,
   Breadcrumb,
