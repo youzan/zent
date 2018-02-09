@@ -91,10 +91,16 @@ export default class Sortable extends (PureComponent || Component) {
       },
       onEnd: e => {
         const { items } = this.props;
+
+        onEnd && onEnd(e);
+
+        if (!items) {
+          return;
+        }
+
         const { oldIndex, newIndex } = e;
         const newItems = reorder(items, oldIndex, newIndex);
 
-        onEnd && onEnd(e);
         onChange && onChange(newItems);
       },
       ...rest,
