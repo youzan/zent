@@ -15,7 +15,6 @@ import Popover from 'popover';
 
 import Trigger from './trigger';
 import Popup from './Popup';
-import { decideTrigger } from './lib';
 
 const { Content } = Popover;
 
@@ -309,11 +308,17 @@ class Select extends React.Component {
       popupClassName,
       disabled,
       emptyText,
-      filter = this.props.onFilter,
+      filter = this.props.onFilter, // TODO: confusing code
       onAsyncFilter,
       searchPlaceholder,
       autoWidth,
       width,
+
+      // Old API about trigger
+      simple,
+      search,
+      tags,
+      trigger,
     } = this.props;
 
     const {
@@ -324,8 +329,6 @@ class Select extends React.Component {
       optionsReady,
       keyword = null,
     } = this.state;
-
-    const trigger = decideTrigger(this.props);
 
     const { cid = '' } = selectedItem;
 
@@ -354,7 +357,12 @@ class Select extends React.Component {
           selectedItems={selectedItems}
           keyword={keyword}
           {...selectedItem}
-          trigger={trigger}
+          trigger={{
+            simple,
+            search,
+            tags,
+            trigger,
+          }}
           onChange={this.triggerChangeHandler}
           onDelete={this.triggerDeleteHandler}
         />

@@ -8,13 +8,18 @@ import Base from './BaseTrigger';
 import Simple from './SimpleTrigger';
 import Tags from './TagsTrigger';
 
-// Compatible with old APIs. e.g. props.simple / props.search
-const NodeMap = {
-  Input,
-  Base,
-  Simple,
-  Tags,
-};
+/**
+ * @description Return string tag used to determine which trigger will be used
+ * @export
+ * @param {props} { simple, search, tags, trigger }
+ * @returns {string|Class|Function}
+ */
+function decideTrigger({ simple, search, tags, trigger }) {
+  if (simple) return Simple;
+  if (search) return Input;
+  if (tags) return Tags;
+  return trigger || Base;
+}
 
 /**
  * @description exclusive click trigger of select
@@ -30,7 +35,7 @@ export default class SelectClickTrigger extends Popover.Trigger.Click {
     close: PropTypes.func,
     contentVisible: PropTypes.bool,
     onClick: PropTypes.func,
-    trigger: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    trigger: PropTypes.object.isRequired,
     onKeyDown: PropTypes.func,
   };
 
@@ -49,7 +54,7 @@ export default class SelectClickTrigger extends Popover.Trigger.Click {
 
   render() {
     const { onClick, trigger, onTriggerRefChange, ...rest } = this.props;
-    const Node = typeof trigger === 'string' ? NodeMap[trigger] : trigger;
+    const Node = decideTrigger(trigger);
     return (
       <Node {...rest} ref={onTriggerRefChange} onClick={this.clickHandler} />
     );
