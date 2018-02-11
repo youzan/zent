@@ -36,6 +36,7 @@
 /// <reference path="./libs/previewImage.d.ts" />
 /// <reference path="./libs/Progress.d.ts" />
 /// <reference path="./libs/Radio.d.ts" />
+/// <reference path="./libs/Rate.d.ts" />
 /// <reference path="./libs/SearchInput.d.ts" />
 /// <reference path="./libs/Select.d.ts" />
 /// <reference path="./libs/SKU.d.ts" />
@@ -89,6 +90,7 @@ declare module 'zent' {
   import Progress from 'zent/lib/progress';
   import QuarterPicker from 'zent/lib/datetimepicker/QuarterPicker';
   import Radio from 'zent/lib/radio';
+  import Rate from 'zent/lib/rate';
   import SearchInput from 'zent/lib/search-input';
   import Select from 'zent/lib/select';
   import SKU from 'zent/lib/sku';
@@ -146,6 +148,7 @@ declare module 'zent' {
     Progress,
     QuarterPicker,
     Radio,
+    Rate,
     SearchInput,
     Select,
     SKU,
