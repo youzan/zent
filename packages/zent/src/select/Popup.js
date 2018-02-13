@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
+import noop from 'lodash/noop';
 
 import Popover from 'popover';
 import { I18nReceiver as Receiver } from 'i18n';
@@ -109,7 +110,7 @@ class Popup extends Component {
   };
 
   searchFilterHandler = keyword => {
-    const { onAsyncFilter, filter } = this.props;
+    const { onAsyncFilter, filter, adjustPosition } = this.props;
     // keyword = trim(keyword); 防止空格输入不进去
     let { data, currentId } = this.state;
 
@@ -130,6 +131,11 @@ class Popup extends Component {
 
     if (typeof onAsyncFilter === 'function') {
       onAsyncFilter(`${keyword}`);
+    } else {
+      // 同步关键词过滤后更新 Popup 位置
+      setTimeout(() => {
+        adjustPosition();
+      }, 1);
     }
   };
 
@@ -278,6 +284,7 @@ class Popup extends Component {
 }
 
 Popup.propTypes = {
+  adjustPosition: PropTypes.func,
   cid: PropTypes.string,
   keyword: PropTypes.any,
   selectedItems: PropTypes.array,
@@ -290,6 +297,7 @@ Popup.propTypes = {
 };
 
 Popup.defaultProps = {
+  adjustPosition: noop,
   cid: -1,
   keyword: '',
   selectedItems: [],
