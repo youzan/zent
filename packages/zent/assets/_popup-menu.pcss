@@ -1,0 +1,75 @@
+@import './theme/default.pcss';
+@import './_popup.pcss';
+$c-light-border: $theme-stroke-7;
+$c-white: $theme-stroke-10;
+$c-blue: $theme-primary-2;
+$c-light-gray: $theme-stroke-4;
+$c-half-black: $theme-mask-black-2;
+$disablecolor: $theme-stroke-5;
+
+@define-mixin popup-menu-item-common {
+  background-color: $c-white;
+  display: block;
+  outline: none;
+  padding: 5px 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@define-mixin popup-menu-item-specific {
+  &.current,
+  &.hover,
+  &:hover {
+    background-color: $c-blue;
+    color: $c-white;
+  }
+
+  &.active {
+    color: $c-blue;
+  }
+
+  &.active:hover,
+  &.active.hover,
+  &.active.current {
+    color: $c-white;
+  }
+}
+
+@define-mixin popup-menu-item {
+  @mixin popup-menu-item-common;
+  @mixin popup-menu-item-specific;
+}
+
+.zent-popup-menu {
+  @mixin popup;
+
+  .zent-popup-menu-item {
+    @mixin popup-menu-item;
+
+    &.disabled {
+      color: $disablecolor;
+      cursor: not-allowed;
+
+      &:hover {
+        background: none;
+        color: $disablecolor;
+      }
+    }
+  }
+}
+
+.zent-menu-item-group-header {
+  font-size: 11px;
+  background: none;
+  color: $theme-stroke-4;
+  cursor: default;
+  text-transform: uppercase;
+  padding: 5px 7px;
+  font-weight: bold;
+}
+
+.zent-divider-line {
+  border-top: 1px solid $c-light-border;
+  margin: 6px 0;
+}
