@@ -26,7 +26,7 @@ group: 数据
 | popupClassName | 可选，自定义popup的类名 | string | 否 | `''` | |
 | width | 输入框宽度 | string or number | 否 | | |
 
-### data结构
+### data 结构
 * 使用方式 1: string array, 此时选项显示内容和选项value相同, 推荐使用
 * 使用方式 2: object array, 其中每项的结构是：
 ```

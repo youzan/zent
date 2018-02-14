@@ -7,8 +7,9 @@ import isEmpty from 'lodash/isEmpty';
 
 import ResultList from './ResultList';
 import makeSearcher from './search';
-import './style.pcss';
 import { SKIP_SCROLL } from './constants';
+
+import './style.pcss';
 
 const i18n = {
   'zh-CN': {

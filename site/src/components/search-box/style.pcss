@@ -7,19 +7,20 @@
     vertical-align: top;
   }
 
-  &-input {
-    display: inline-block;
-    width: 250px;
-    height: 30px;
-    box-sizing: border-box;
-    border: 0;
-    box-shadow: none;
-    background: #fff;
-    font-size: 14px;
-    outline: none;
+  &-input.zent-search-input {
+    .zenticon-search {
+      color: #bbb;
+    }
 
-    &:focus {
-      border-bottom: 1px solid $link-color;
+    .zent-input-wrapper input {
+      width: 250px;
+      border: 0;
+      box-shadow: none;
+      font-size: 14px;
+
+      &:focus {
+        border-bottom: 1px solid $link-color;
+      }
     }
   }
 
