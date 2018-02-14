@@ -7,6 +7,16 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 4.3.0 (2018-02-14)
+
+> Happy Chinese New Year!
+
+- New component `AutoComplete`
+- New component `Rate`
+- Optimize `Notify` animation
+- Remove unnecessary `!important` in `Tabs` style
+- Fix input focus lost in `Select`
+
 ### 4.2.3 (2018-02-09)
 
 - 🦀️ Fix bug in `Sortable` when `items` is missing
