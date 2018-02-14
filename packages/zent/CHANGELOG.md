@@ -1,5 +1,33 @@
 ## Github Change Log
 
+## [zent@4.3.0](https://github.com/youzan/zent/tree/zent@4.3.0) (2018-02-14)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@4.2.1...zent@4.3.0)
+
+**Implemented enhancements:**
+
+- Steps: 方向可选 [\#414](https://github.com/youzan/zent/issues/414)
+- \[bug fix\]: 文档网站使用zent的SearchInput组件 [\#741](https://github.com/youzan/zent/pull/741) ([wulv](https://github.com/wulv))
+- \[new feature\] 新增 Rate 组件 [\#740](https://github.com/youzan/zent/pull/740) ([wulv](https://github.com/wulv))
+- \[new feature\] Steps: 增加竖直方向的样式 [\#737](https://github.com/youzan/zent/pull/737) ([liaoyu](https://github.com/liaoyu))
+
+**Fixed bugs:**
+
+- \[bug fix\]Tabs: CSS 样式中去掉 important [\#725](https://github.com/youzan/zent/issues/725)
+- \[Select\]bugfix: 重整 Trigger 的引入方法, 修复只会单次触发焦点获取的 bug [\#745](https://github.com/youzan/zent/pull/745) ([LucasIcarus](https://github.com/LucasIcarus))
+- \[new feature\] AutoComplete [\#744](https://github.com/youzan/zent/pull/744) ([HyczZhu](https://github.com/HyczZhu))
+- fix\(Sortable\): 当不传items传onEnd时的问题修复 [\#743](https://github.com/youzan/zent/pull/743) ([ArvinTung](https://github.com/ArvinTung))
+- \[bug fix\] Tabs：删除css内!important样式 [\#738](https://github.com/youzan/zent/pull/738) ([ctyu](https://github.com/ctyu))
+- \[bug fix\] Grid:修复表头高度不一致 [\#735](https://github.com/youzan/zent/pull/735) ([wulv](https://github.com/wulv))
+- \[bug fix\] Notify：多个Notify消失时动画不平滑问题 [\#696](https://github.com/youzan/zent/pull/696) ([HyczZhu](https://github.com/HyczZhu))
+
+**Closed issues:**
+
+- \[bugfix\] Select: popup弹出后光标直接到搜索输入框 [\#742](https://github.com/youzan/zent/issues/742)
+
+**Merged pull requests:**
+
+- Publish 4.2.2 [\#739](https://github.com/youzan/zent/pull/739) ([ArvinTung](https://github.com/ArvinTung))
+
 ## [zent@4.2.1](https://github.com/youzan/zent/tree/zent@4.2.1) (2018-02-06)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@4.2.0...zent@4.2.1)
 
@@ -474,7 +502,7 @@
 - \[bug fix\] design: preview区域右下角 action button 加 padding [\#522](https://github.com/youzan/zent/pull/522) ([ronghang](https://github.com/ronghang))
 
 ## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...zent@3.9.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
 
 **Implemented enhancements:**
 
@@ -491,11 +519,11 @@
 - \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
 - \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
-## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
-
 ## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
+
+## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
 
 **Implemented enhancements:**
 
