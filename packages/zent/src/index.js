@@ -1,6 +1,7 @@
 import Affix from 'affix';
 import Alert from 'alert';
 import Avatar from 'avatar';
+import AutoComplete from 'auto-complete';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
@@ -37,6 +38,7 @@ import previewImage from 'preview-image';
 import Progress from 'progress';
 import QuarterPicker from 'datetimepicker/QuarterPicker';
 import Radio from 'radio';
+import Rate from 'rate';
 import SearchInput from 'search-input';
 import Select from 'select';
 import SKU from 'sku';
@@ -60,6 +62,7 @@ export {
   Affix,
   Alert,
   Avatar,
+  AutoComplete,
   Badge,
   BlockHeader,
   Breadcrumb,
@@ -96,6 +99,7 @@ export {
   Progress,
   QuarterPicker,
   Radio,
+  Rate,
   SearchInput,
   Select,
   SKU,

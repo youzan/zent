@@ -1,4 +1,5 @@
 @import './theme/default.pcss';
+@import '_popup-menu.pcss';
 $c-border: $theme-stroke-5;
 $c-light-border: $theme-stroke-7;
 $c-white: $theme-stroke-10;
@@ -136,27 +137,12 @@ $errorBorderColor: $theme-error-2;
 }
 
 .zent-select-popup {
-  box-shadow: 0 1px 4px $c-half-black;
-  left: 0;
-  outline: none;
-  overflow-y: auto;
-  position: relative;
-  width: 100%;
-  z-index: 2000;
-  margin-top: 2px;
-  background-color: $c-white;
-  max-height: 224px;
+  @mixin popup;
 
   .zent-select-option,
   .zent-select-filter,
   .zent-select-empty {
-    background-color: $c-white;
-    display: block;
-    outline: none;
-    padding: 5px 10px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    @mixin popup-menu-item-common;
   }
 
   .zent-select-search {
@@ -186,21 +172,7 @@ $errorBorderColor: $theme-error-2;
   }
 
   .zent-select-option {
-    &.current,
-    &:hover {
-      background-color: $c-blue;
-      border-color: $c-blue;
-      color: $c-white;
-    }
-
-    &.active {
-      color: $c-blue;
-    }
-
-    &.active:hover,
-    &.active.current {
-      color: $c-white;
-    }
+    @mixin popup-menu-item-specific;
   }
 
   .zent-select-empty {

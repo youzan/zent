@@ -5,6 +5,7 @@
 /// <reference path="./libs/Affix.d.ts" />
 /// <reference path="./libs/Alert.d.ts" />
 /// <reference path="./libs/Avatar.d.ts" />
+/// <reference path="./libs/AutoComplete.d.ts" />
 /// <reference path="./libs/Badge.d.ts" />
 /// <reference path="./libs/BlockHeader.d.ts" />
 /// <reference path="./libs/Breadcrumb.d.ts" />
@@ -36,6 +37,7 @@
 /// <reference path="./libs/previewImage.d.ts" />
 /// <reference path="./libs/Progress.d.ts" />
 /// <reference path="./libs/Radio.d.ts" />
+/// <reference path="./libs/Rate.d.ts" />
 /// <reference path="./libs/SearchInput.d.ts" />
 /// <reference path="./libs/Select.d.ts" />
 /// <reference path="./libs/SKU.d.ts" />
@@ -55,6 +57,7 @@ declare module 'zent' {
   import Affix from 'zent/lib/affix';
   import Alert from 'zent/lib/alert';
   import Avatar from 'zent/lib/avatar';
+  import AutoComplete from 'zent/lib/auto-complete';
   import Badge from 'zent/lib/badge';
   import BlockHeader from 'zent/lib/block-header';
   import Breadcrumb from 'zent/lib/breadcrumb';
@@ -89,6 +92,7 @@ declare module 'zent' {
   import Progress from 'zent/lib/progress';
   import QuarterPicker from 'zent/lib/datetimepicker/QuarterPicker';
   import Radio from 'zent/lib/radio';
+  import Rate from 'zent/lib/rate';
   import SearchInput from 'zent/lib/search-input';
   import Select from 'zent/lib/select';
   import SKU from 'zent/lib/sku';
@@ -112,6 +116,7 @@ declare module 'zent' {
     Affix,
     Alert,
     Avatar,
+    AutoComplete,
     Badge,
     BlockHeader,
     Breadcrumb,
@@ -146,6 +151,7 @@ declare module 'zent' {
     Progress,
     QuarterPicker,
     Radio,
+    Rate,
     SearchInput,
     Select,
     SKU,

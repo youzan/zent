@@ -31,6 +31,7 @@
     "date-fns": "^1.29.0",
     "es6-error": "4.0.x",
     "fecha": "2.3.x",
+    "keycode": "^2.1.9",
     "lodash": "4.17.x",
     "prop-types": "15.5.x",
     "raf": "^3.3.2",
