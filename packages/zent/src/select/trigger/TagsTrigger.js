@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
@@ -66,7 +67,12 @@ class TagsTrigger extends (PureComponent || Component) {
     return (
       <Receiver componentName="Select" defaultI18n={I18nDefault}>
         {i18n => (
-          <div className={`${prefixCls}-tags`} onClick={onClick}>
+          <div
+            className={cx(`${prefixCls}-tags`, {
+              tags__empty: !selectedItems.length,
+            })}
+            onClick={onClick}
+          >
             {selectedItems.length > 0
               ? selectedItems.map((item, index) => {
                   return (
