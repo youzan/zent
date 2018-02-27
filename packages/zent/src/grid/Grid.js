@@ -373,7 +373,7 @@ class Grid extends (PureComponent || Component) {
         fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
       />
     );
-    const { y } = scroll;
+    const { y, x } = scroll;
 
     if (y) {
       const scrollbarWidth = measureScrollbar();
@@ -381,6 +381,9 @@ class Grid extends (PureComponent || Component) {
       const scrollBodyStyle = { maxHeight: y, overflowY: 'scroll' };
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
+        if (!fixed && x) {
+          headStyle.marginBottom = -scrollbarWidth;
+        }
       } else {
         scrollBodyStyle.marginBottom = 0;
       }
