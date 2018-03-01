@@ -84,6 +84,10 @@ export default class PopoverContent extends (PureComponent || Component) {
   }
 
   adjustPosition = () => {
+    if (!this.props.visible) {
+      return;
+    }
+
     const content = this.props.getContentNode();
 
     // 可能还未渲染出来，先放到一个不可见的位置
@@ -164,8 +168,8 @@ export default class PopoverContent extends (PureComponent || Component) {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.visible && nextProps.visible !== this.props.visible) {
+  componentDidUpdate(prevProps) {
+    if (this.props.visible && prevProps.visible !== this.props.visible) {
       // reset position mark
       this.positionReady = false;
 
