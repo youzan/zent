@@ -69,8 +69,7 @@ export default class Checkbox extends Component {
       indeterminate,
       width,
       // value可以是任意类型，不要写到dom上去
-      value, // eslint-disable-line
-
+      value,
       ...others
     } = props;
     const { checkboxGroup } = context;
@@ -80,8 +79,8 @@ export default class Checkbox extends Component {
         findIndex(checkboxGroup.value, val =>
           checkboxGroup.isValueEqual(val, value)
         ) !== -1;
-      disabled = disabled || checkboxGroup.disabled;
-      readOnly = readOnly || checkboxGroup.readOnly;
+      disabled = checkboxGroup.disabled || disabled;
+      readOnly = checkboxGroup.readOnly || readOnly;
     }
 
     const classString = classNames({

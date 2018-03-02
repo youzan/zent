@@ -26,23 +26,13 @@ class App extends React.Component {
 
 		return (
 			<div>
-        <CheckboxGroup value={checkedList} onChange={this.onChange}>
+        <CheckboxGroup value={checkedList} onChange={this.onChange} style={{ width: '100%' }}>
           <Row>
-            <Col span={8}>
-              <Checkbox value="A">A</Checkbox>
-            </Col>
-            <Col span={8}>
-              <Checkbox value="B">B</Checkbox>
-            </Col>
-            <Col span={8}>
-              <Checkbox value="C">C</Checkbox>
-            </Col>
-            <Col span={8}>
-              <Checkbox value="D">D</Checkbox>
-            </Col>
-            <Col span={8}>
-              <Checkbox value="E">E</Checkbox>
-            </Col>
+            <Col span={8}><Checkbox value="A">A</Checkbox></Col>
+            <Col span={8}><Checkbox value="B">B</Checkbox></Col>
+            <Col span={8}><Checkbox value="C">C</Checkbox></Col>
+            <Col span={8}><Checkbox value="D">D</Checkbox></Col>
+            <Col span={8}><Checkbox value="E">E</Checkbox></Col>
           </Row>
 				</CheckboxGroup>
 			</div>

@@ -36,11 +36,11 @@ export default class Group extends (PureComponent || Component) {
     const { value, disabled, readOnly, isValueEqual } = this.props;
     return {
       checkboxGroup: {
-        onCheckboxChange: this.onCheckboxChange,
         value,
         disabled,
         readOnly,
-        isValueEqual
+        isValueEqual,
+        onCheckboxChange: this.onCheckboxChange
       }
     };
   }
