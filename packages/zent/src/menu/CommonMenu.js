@@ -2,13 +2,13 @@ import React, { Component, PureComponent } from 'react';
 import { getKeyFromChildrenIndex } from './utils';
 
 export default class CommonMenu extends (PureComponent || Component) {
-  renderCommonMenuItem(c, i, subPrefix, extraProps) {
+  renderCommonMenuItem(component, index, subPrefix, extraProps) {
     const newChildProps = {
-      index: getKeyFromChildrenIndex(c, i, subPrefix),
+      specKey: getKeyFromChildrenIndex(component, index, subPrefix),
       onClick: this.handleClick,
-      ...extraProps
+      ...extraProps,
     };
 
-    return React.cloneElement(c, newChildProps);
+    return React.cloneElement(component, newChildProps);
   }
 }

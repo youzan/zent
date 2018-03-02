@@ -17,7 +17,11 @@ import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
+import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Grid as I18nDefault } from 'i18n/default';
+
 import Store from './Store';
 import ColGroup from './ColGroup';
 import Header from './Header';
@@ -34,18 +38,53 @@ function stopPropagation(e) {
 }
 
 class Grid extends (PureComponent || Component) {
+  static propTypes = {
+    className: PropTypes.string,
+    rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    prefix: PropTypes.string,
+    datasets: PropTypes.array,
+    columns: PropTypes.array,
+    loading: PropTypes.bool,
+    pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    onChange: PropTypes.func,
+    selection: PropTypes.object,
+    rowKey: PropTypes.string,
+    scroll: PropTypes.object,
+    sortBy: PropTypes.string,
+    sortType: PropTypes.string,
+    onRowClick: PropTypes.func,
+    ellipsis: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    className: '',
+    prefix: 'zent',
+    datasets: [],
+    columns: [],
+    loading: false,
+    pageInfo: false,
+    onChange: noop,
+    selection: null,
+    rowKey: 'id',
+    emptyLabel: '',
+    scroll: {},
+    onRowClick: noop,
+    ellipsis: false,
+  };
+
   constructor(props) {
     super(props);
     this.checkboxPropsCache = {};
     this.store = new Store(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns),
-      selectedRowKeys: get(props, 'selection.selectedRowKeys')
+      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
     });
     this.setScrollPosition('left');
 
     this.state = {
-      fixedColumnsBodyRowsHeight: []
+      fixedColumnsBodyRowsHeight: [],
+      fixedColumnsHeadRowsHeight: [],
     };
   }
 
@@ -56,23 +95,46 @@ class Grid extends (PureComponent || Component) {
       return;
     }
 
-    const { prefix } = this.props;
+    const { prefix, scroll } = this.props;
 
     const bodyRows =
-      this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`) || [];
+      (this.bodyTable &&
+        this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
+      [];
+
+    let headRows =
+      (this.scrollHeader &&
+        this.scrollHeader.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
+      [];
+
+    if (!scroll.y && scroll.x) {
+      headRows =
+        (this.bodyTable &&
+          this.bodyTable.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
+        [];
+    }
 
     const fixedColumnsBodyRowsHeight = [].map.call(
       bodyRows,
       row => row.getBoundingClientRect().height || 'auto'
     );
+    const fixedColumnsHeadRowsHeight = [].map.call(
+      headRows,
+      row => row.getBoundingClientRect().height || 'auto'
+    );
     if (
-      isEqual(this.state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
+      isEqual(
+        this.state.fixedColumnsBodyRowsHeight,
+        fixedColumnsBodyRowsHeight
+      ) &&
+      isEqual(this.state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight)
     ) {
       return;
     }
 
     this.setState({
-      fixedColumnsBodyRowsHeight
+      fixedColumnsBodyRowsHeight,
+      fixedColumnsHeadRowsHeight,
     });
   };
 
@@ -139,7 +201,7 @@ class Grid extends (PureComponent || Component) {
       const selectionColumn = {
         key: 'selection-column',
         width: '20px',
-        bodyRender: this.renderSelectionCheckbox(selection.type)
+        bodyRender: this.renderSelectionCheckbox(selection.type),
       };
 
       const checkboxAllDisabled = every(data, (item, index) => {
@@ -176,14 +238,14 @@ class Grid extends (PureComponent || Component) {
   getLeftFixedTable = () => {
     return this.getTable({
       columns: this.getLeftColumns(),
-      fixed: 'left'
+      fixed: 'left',
     });
   };
 
   getRightFixedTable = () => {
     return this.getTable({
       columns: this.getRightColumns(),
-      fixed: 'right'
+      fixed: 'right',
     });
   };
 
@@ -211,31 +273,53 @@ class Grid extends (PureComponent || Component) {
     }
   }
 
+  setScrollPositionClassName() {
+    const node = this.bodyTable;
+    const scrollToLeft = node.scrollLeft === 0;
+    const scrollToRight =
+      node.scrollLeft + 1 >=
+      node.children[0].getBoundingClientRect().width -
+        node.getBoundingClientRect().width;
+    if (scrollToLeft && scrollToRight) {
+      this.setScrollPosition('both');
+    } else if (scrollToLeft) {
+      this.setScrollPosition('left');
+    } else if (scrollToRight) {
+      this.setScrollPosition('right');
+    } else if (this.scrollPosition !== 'middle') {
+      this.setScrollPosition('middle');
+    }
+  }
+
   handleBodyScroll = e => {
     if (e.currentTarget !== e.target) {
       return;
     }
     const target = e.target;
     const { scroll = {} } = this.props;
+    const scrollTop = target.scrollTop;
+    const { leftBody, rightBody, scrollBody } = this;
 
     if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-      const node = target || this.bodyTable;
-      const scrollToLeft = node.scrollLeft === 0;
-      const scrollToRight =
-        node.scrollLeft + 1 >=
-        node.children[0].getBoundingClientRect().width -
-          node.getBoundingClientRect().width;
-      if (scrollToLeft && scrollToRight) {
-        this.setScrollPosition('both');
-      } else if (scrollToLeft) {
-        this.setScrollPosition('left');
-      } else if (scrollToRight) {
-        this.setScrollPosition('right');
-      } else if (this.scrollPosition !== 'middle') {
-        this.setScrollPosition('middle');
+      if (this.scrollHeader && target === scrollBody) {
+        this.scrollHeader.scrollLeft = target.scrollLeft;
       }
+      this.setScrollPositionClassName();
     }
     this.lastScrollLeft = target.scrollLeft;
+    if (target.scrollTop !== this.lastScrollTop && scroll.y) {
+      if (leftBody && target !== leftBody) {
+        leftBody.scrollTop = scrollTop;
+      }
+      if (rightBody && target !== rightBody) {
+        rightBody.scrollTop = scrollTop;
+      }
+      if (scrollBody && target !== scrollBody) {
+        scrollBody.scrollTop = scrollTop;
+      }
+
+      this.lastScrollTop = target.scrollTop;
+    }
   };
 
   getTable = (options = {}) => {
@@ -247,7 +331,7 @@ class Grid extends (PureComponent || Component) {
       sortBy,
       rowClassName,
       onRowClick,
-      ellipsis
+      ellipsis,
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -263,8 +347,72 @@ class Grid extends (PureComponent || Component) {
     if (!fixed && scroll.x) {
       tableStyle.width = scroll.x;
     }
+    const header = (
+      <Header
+        prefix={prefix}
+        columns={columns}
+        fixed={fixed}
+        store={this.store}
+        onChange={this.onChange}
+        sortType={sortType}
+        scroll={scroll}
+        sortBy={sortBy}
+        fixedColumnsHeadRowsHeight={this.state.fixedColumnsHeadRowsHeight}
+      />
+    );
 
-    return (
+    const body = (
+      <Body
+        prefix={prefix}
+        columns={columns}
+        datasets={datasets}
+        rowClassName={rowClassName}
+        onRowClick={onRowClick}
+        fixed={fixed}
+        scroll={scroll}
+        fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
+      />
+    );
+    const { y, x } = scroll;
+
+    if (y) {
+      const scrollbarWidth = measureScrollbar();
+      const headStyle = {};
+      const scrollBodyStyle = { maxHeight: y, overflowY: 'scroll' };
+      if (scrollbarWidth > 0) {
+        headStyle.paddingBottom = 0;
+        if (!fixed && x) {
+          headStyle.marginBottom = -scrollbarWidth;
+        }
+      } else {
+        scrollBodyStyle.marginBottom = 0;
+      }
+      return [
+        <div
+          key="header"
+          className={`${prefix}-grid-header`}
+          style={headStyle}
+          ref={ref => {
+            if (!fixed) this.scrollHeader = ref;
+          }}
+        >
+          {header}
+        </div>,
+        <div
+          key="body"
+          className={`${prefix}-grid-body`}
+          style={scrollBodyStyle}
+          ref={ref => {
+            this[`${fixed || 'scroll'}Body`] = ref;
+            if (!fixed) this.bodyTable = ref;
+          }}
+          onScroll={this.handleBodyScroll}
+        >
+          {body}
+        </div>,
+      ];
+    }
+    return [
       <div
         style={bodyStyle}
         ref={ref => {
@@ -275,40 +423,25 @@ class Grid extends (PureComponent || Component) {
       >
         <table
           className={classnames(`${prefix}-grid-table`, tableClassName, {
-            [`${prefix}-grid-table-ellipsis`]: ellipsis
+            [`${prefix}-grid-table-ellipsis`]: ellipsis,
           })}
           style={tableStyle}
         >
           <ColGroup columns={columns} />
-          <Header
-            prefix={prefix}
-            columns={columns}
-            store={this.store}
-            onChange={this.onChange}
-            sortType={sortType}
-            sortBy={sortBy}
-          />
-          <Body
-            prefix={prefix}
-            columns={columns}
-            datasets={datasets}
-            rowClassName={rowClassName}
-            onRowClick={onRowClick}
-            fixed={fixed}
-            fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
-          />
+          {header}
+          {body}
         </table>
-      </div>
-    );
+      </div>,
+    ];
   };
 
-  getEmpty = () => {
+  getEmpty = i18n => {
     const { datasets, prefix, emptyLabel } = this.props;
 
     if (size(datasets) === 0) {
       return (
         <div className={`${prefix}-grid-empty`} key="empty">
-          {emptyLabel}
+          {emptyLabel || i18n.emptyLabel}
         </div>
       );
     }
@@ -422,7 +555,7 @@ class Grid extends (PureComponent || Component) {
     if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
       this.store.setState({
         selectedRowKeys: nextProps.selection.selectedRowKeys || [],
-        columns: this.getColumns(nextProps)
+        columns: this.getColumns(nextProps),
       });
 
       const { selection } = this.props;
@@ -436,7 +569,7 @@ class Grid extends (PureComponent || Component) {
 
     if (nextProps.columns && nextProps.columns !== this.props.columns) {
       this.store.setState({
-        columns: this.getColumns(nextProps, nextProps.columns)
+        columns: this.getColumns(nextProps, nextProps.columns),
       });
     }
 
@@ -473,78 +606,50 @@ class Grid extends (PureComponent || Component) {
       );
     }
 
-    const content = [
-      this.getTable(),
-      this.getEmpty(),
-      <Footer
-        key="footer"
-        prefix={prefix}
-        pageInfo={pageInfo}
-        onChange={this.onChange}
-      />
-    ];
-
-    const scrollTable = this.isAnyColumnsFixed() ? (
-      <div className={`${prefix}-grid-scroll`}>{content}</div>
-    ) : (
-      content
-    );
-
     return (
-      <div className={className} ref={node => (this.tableNode = node)}>
-        <Loading show={loading}>
-          {scrollTable}
-          {this.isAnyColumnsLeftFixed() && (
-            <div className={`${prefix}-grid-fixed-left`}>
-              {this.getLeftFixedTable()}
+      <Receiver defaultI18n={I18nDefault} componentName="Grid">
+        {i18n => {
+          const content = [
+            this.getTable(),
+            this.getEmpty(i18n),
+            <Footer
+              key="footer"
+              prefix={prefix}
+              pageInfo={pageInfo}
+              onChange={this.onChange}
+            />,
+          ];
+
+          const scrollTable = this.isAnyColumnsFixed() ? (
+            <div className={`${prefix}-grid-scroll`}>{content}</div>
+          ) : (
+            content
+          );
+
+          return (
+            <div className={className} ref={node => (this.tableNode = node)}>
+              <Loading show={loading}>
+                {scrollTable}
+                {this.isAnyColumnsLeftFixed() && (
+                  <div className={`${prefix}-grid-fixed-left`}>
+                    {this.getLeftFixedTable()}
+                  </div>
+                )}
+                {this.isAnyColumnsRightFixed() && (
+                  <div className={`${prefix}-grid-fixed-right`}>
+                    {this.getRightFixedTable()}
+                  </div>
+                )}
+              </Loading>
+              <WindowResizeHandler
+                onResize={debounce(this.syncFixedTableRowHeight, 500)}
+              />
             </div>
-          )}
-          {this.isAnyColumnsRightFixed() && (
-            <div className={`${prefix}-grid-fixed-right`}>
-              {this.getRightFixedTable()}
-            </div>
-          )}
-        </Loading>
-        <WindowResizeHandler
-          onResize={debounce(this.syncFixedTableRowHeight, 500)}
-        />
-      </div>
+          );
+        }}
+      </Receiver>
     );
   }
 }
-
-Grid.propTypes = {
-  className: PropTypes.string,
-  rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  prefix: PropTypes.string,
-  datasets: PropTypes.array,
-  columns: PropTypes.array,
-  loading: PropTypes.bool,
-  pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  onChange: PropTypes.func,
-  selection: PropTypes.object,
-  rowKey: PropTypes.string,
-  scroll: PropTypes.object,
-  sortBy: PropTypes.string,
-  sortType: PropTypes.string,
-  onRowClick: PropTypes.func,
-  ellipsis: PropTypes.bool
-};
-
-Grid.defaultProps = {
-  className: '',
-  prefix: 'zent',
-  datasets: [],
-  columns: [],
-  loading: false,
-  pageInfo: false,
-  onChange: noop,
-  selection: null,
-  rowKey: 'id',
-  emptyLabel: '没有更多数据了',
-  scroll: {},
-  onRowClick: noop,
-  ellipsis: false
-};
 
 export default Grid;

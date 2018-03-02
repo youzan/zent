@@ -10,7 +10,7 @@ export default class PopoverClickTrigger extends Popover.Trigger.Click {
           this.props.open();
         }
         this.triggerEvent(child, 'onClick', evt);
-      }
+      },
     };
   }
 }

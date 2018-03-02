@@ -16,15 +16,19 @@ export default Control => {
         notice = '',
         label = '',
         className = '',
+        displayError,
         ...props
       } = this.props;
 
-      const showError = props.isDirty && props.error !== null;
+      const showError =
+        displayError === undefined
+          ? props.isDirty && props.error !== null
+          : displayError;
       const groupClassName = cx({
         'zent-form__control-group': true,
         'zent-form__control-group--active': props.isActive,
         'has-error': showError,
-        [className]: true
+        [className]: true,
       });
 
       const controlRef = isFunctional(Control)
@@ -32,7 +36,7 @@ export default Control => {
         : {
             ref: instance => {
               this.control = instance;
-            }
+            },
           };
 
       return (

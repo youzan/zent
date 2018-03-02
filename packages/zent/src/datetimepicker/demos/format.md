@@ -55,16 +55,8 @@ class Demo extends Component{
           onChange={this.onChangeMonth}
         />
         <br />
-        <DateRangePicker
-          className="zent-picker-demo"
-          format="YYYY-MM-DD"
-          value={rangeValue}
-          onChange={this.onChangeRange}
-          />
-				<br />
 				<DateRangePicker
-				 className="zent-picker-demo"
-					type="split"
+				 	className="zent-picker-demo"
 					format="YYYY-MM-DD"
 					value={rangeValue}
 					onChange={this.onChangeRangeSplit}

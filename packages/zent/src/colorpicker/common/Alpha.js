@@ -38,27 +38,27 @@ export class Alpha extends Component {
         default: {
           alpha: {
             absolute: '0px 0px 0px 0px',
-            borderRadius: this.props.radius
+            borderRadius: this.props.radius,
           },
           checkboard: {
             absolute: '0px 0px 0px 0px',
-            overflow: 'hidden'
+            overflow: 'hidden',
           },
           gradient: {
             absolute: '0px 0px 0px 0px',
             background: `linear-gradient(to right, rgba(${rgb.r},${rgb.g},${rgb.b}, 0) 0%,
            rgba(${rgb.r},${rgb.g},${rgb.b}, 1) 100%)`,
             boxShadow: this.props.shadow,
-            borderRadius: this.props.radius
+            borderRadius: this.props.radius,
           },
           container: {
             position: 'relative',
             height: '100%',
-            margin: '0 3px'
+            margin: '0 3px',
           },
           pointer: {
             position: 'absolute',
-            left: `${rgb.a * 100}%`
+            left: `${rgb.a * 100}%`,
           },
           slider: {
             width: '4px',
@@ -67,26 +67,26 @@ export class Alpha extends Component {
             boxShadow: '0 0 2px rgba(0, 0, 0, .6)',
             background: '#fff',
             marginTop: '1px',
-            transform: 'translateX(-2px)'
-          }
+            transform: 'translateX(-2px)',
+          },
         },
         vertical: {
           gradient: {
             background: `linear-gradient(to bottom, rgba(${rgb.r},${rgb.g},${rgb.b}, 0) 0%,
-           rgba(${rgb.r},${rgb.g},${rgb.b}, 1) 100%)`
+           rgba(${rgb.r},${rgb.g},${rgb.b}, 1) 100%)`,
           },
           pointer: {
             left: 0,
-            top: `${rgb.a * 100}%`
-          }
+            top: `${rgb.a * 100}%`,
+          },
         },
         overwrite: {
-          ...this.props.style
-        }
+          ...this.props.style,
+        },
       },
       {
         vertical: this.props.direction === 'vertical',
-        overwrite: true
+        overwrite: true,
       }
     );
 

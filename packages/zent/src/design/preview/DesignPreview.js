@@ -2,8 +2,10 @@ import React, { PureComponent, Component } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
+import some from 'lodash/some';
 import defaultTo from 'lodash/defaultTo';
 import isFunction from 'lodash/isFunction';
+import get from 'lodash/get';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import DesignPreviewItem from './DesignPreviewItem';
@@ -12,7 +14,7 @@ import DesignEditorItem from '../editor/DesignEditorItem';
 import DesignEditorAddComponent from '../editor/DesignEditorAddComponent';
 import { isExpectedDesginType } from '../utils/design-type';
 import { isGrouped } from '../utils/component-group';
-import { DND_PREVIEW_CONTROLLER } from './constants';
+import { DND_PREVIEW_CONTROLLER, DEFAULT_BACKGROUND } from './constants';
 import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
 
 /**
@@ -32,6 +34,12 @@ class DesignPreview extends (PureComponent || Component) {
     components: PropTypes.array.isRequired,
 
     value: PropTypes.array.isRequired,
+
+    settings: PropTypes.object,
+
+    onSettingsChange: PropTypes.func,
+
+    footer: PropTypes.node,
 
     appendableComponents: PropTypes.array,
 
@@ -63,18 +71,19 @@ class DesignPreview extends (PureComponent || Component) {
     componentInstanceCount: PropTypes.object,
 
     // 以下 props 由 config 组件提供
-    background: PropTypes.string
+    background: PropTypes.string,
   };
 
   static defaultProps = {
     background: '#f9f9f9',
     disabled: false,
     appendableComponents: [],
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   previewItems = {};
   editorItems = {};
+  editors = {};
 
   render() {
     const {
@@ -82,6 +91,8 @@ class DesignPreview extends (PureComponent || Component) {
       value,
       validations,
       showError,
+      settings,
+      onSettingsChange,
       onComponentValueChange,
       componentInstanceCount,
       design,
@@ -100,15 +111,20 @@ class DesignPreview extends (PureComponent || Component) {
       prefix,
       globalConfig,
       disabled,
-      background
+      footer,
     } = this.props;
     const isComponentsGrouped = isGrouped(appendableComponents);
     const cls = cx(`${prefix}-design-preview`, className);
     const hasAppendableComponent = appendableComponents.length > 0;
 
     return (
-      <DragDropContext onDragEnd={this.onPreviewDragEnd}>
-        <div className={cls} style={{ background }}>
+      <DragDropContext onDragEnd={this.dispatchDragEnd}>
+        <div
+          className={cls}
+          style={{
+            background: get(settings, 'previewBackground', DEFAULT_BACKGROUND),
+          }}
+        >
           {disabled && <div className={`${prefix}-design__disabled-mask`} />}
 
           <Droppable
@@ -120,7 +136,7 @@ class DesignPreview extends (PureComponent || Component) {
               <div
                 ref={provided.innerRef}
                 className={cx(`${prefix}-design__item-list`, {
-                  [`${prefix}-design__item-list--full-height`]: !hasAppendableComponent
+                  [`${prefix}-design__item-list--full-height`]: !hasAppendableComponent,
                 })}
               >
                 {value.map(v => {
@@ -146,6 +162,7 @@ class DesignPreview extends (PureComponent || Component) {
                         prefix={prefix}
                         value={v}
                         globalConfig={globalConfig}
+                        settings={settings}
                         design={design}
                         id={id}
                         allowHoverEffects={!snapshot.isDraggingOver}
@@ -177,8 +194,11 @@ class DesignPreview extends (PureComponent || Component) {
                           >
                             <comp.editor
                               {...getAdditionalProps(comp.editorProps, v)}
+                              ref={this.saveEditor(id)}
                               value={v}
                               onChange={onComponentValueChange(v)}
+                              settings={settings}
+                              onSettingsChange={onSettingsChange}
                               globalConfig={globalConfig}
                               design={design}
                               validation={validations[id] || {}}
@@ -203,7 +223,7 @@ class DesignPreview extends (PureComponent || Component) {
                                   addComponentOverlayPosition ===
                                   ADD_COMPONENT_OVERLAY_POSITION.BOTTOM,
                                 [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
-                                [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped
+                                [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped,
                               }
                             )}
                           >
@@ -228,7 +248,7 @@ class DesignPreview extends (PureComponent || Component) {
             <div
               className={cx(`${prefix}-design__add`, {
                 [`${prefix}-design__add--grouped`]: isComponentsGrouped,
-                [`${prefix}-design__add--mixed`]: !isComponentsGrouped
+                [`${prefix}-design__add--mixed`]: !isComponentsGrouped,
               })}
             >
               <DesignEditorAddComponent
@@ -239,12 +259,34 @@ class DesignPreview extends (PureComponent || Component) {
               />
             </div>
           )}
+          {footer}
         </div>
       </DragDropContext>
     );
   }
 
-  onPreviewDragEnd = result => {
+  dispatchDragEnd = result => {
+    const { type } = result;
+    if (type === DND_PREVIEW_CONTROLLER) {
+      this.onPreviewDragEnd(result);
+      return;
+    }
+
+    // Let editors handle their dnd actions
+    some(this.editors, editor => {
+      if (
+        isFunction(editor.shouldHandleDragEnd) &&
+        editor.shouldHandleDragEnd(type)
+      ) {
+        isFunction(editor.onDragEnd) && editor.onDragEnd(result);
+        return true;
+      }
+
+      return false;
+    });
+  };
+
+  onPreviewDragEnd(result) {
     const { source, destination } = result;
 
     // dropped outside
@@ -254,14 +296,18 @@ class DesignPreview extends (PureComponent || Component) {
 
     const { onMove } = this.props;
     onMove(source.index, destination.index);
-  };
+  }
 
   savePreviewItem = id => instance => {
-    this.previewItems[id] = instance;
+    saveRef(this.previewItems, id, instance);
   };
 
   saveEditorItem = id => instance => {
-    this.editorItems[id] = instance;
+    saveRef(this.editorItems, id, instance);
+  };
+
+  saveEditor = id => instance => {
+    saveRef(this.editors, id, instance);
   };
 
   scrollToItem = (id, offsets) => {
@@ -289,6 +335,14 @@ function getAdditionalProps(propsOrFn, value) {
   const props = isFunction(propsOrFn) ? propsOrFn(value) : propsOrFn;
 
   return props || {};
+}
+
+function saveRef(map, id, instance) {
+  if (!instance) {
+    delete map[id];
+  } else {
+    map[id] = instance;
+  }
 }
 
 export default DesignPreview;

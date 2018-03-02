@@ -5,30 +5,30 @@ import Colors from './colors';
 const palettes = {
   primary: {
     title: '主色',
-    desc: <p>Zent 默认的主色调是蓝色。</p>
+    desc: <p>Zent 默认的主色调是蓝色。</p>,
   },
   neutral: {
     title: '中性色',
-    desc: <p>主要用于文字、背景、边框等地方。</p>
+    desc: <p>主要用于文字、背景、边框等地方。</p>,
   },
   auxiliary: {
     success: {
-      title: '辅助色 - 成功'
+      title: '辅助色 - 成功',
     },
     warning: {
-      title: '辅助色 - 警告'
+      title: '辅助色 - 警告',
     },
     notice: {
-      title: '辅助色 - 醒目提示'
+      title: '辅助色 - 醒目提示',
     },
     error: {
-      title: '辅助色 - 错误'
+      title: '辅助色 - 错误',
     },
     others: {
       title: '辅助色 - 其他',
-      desc: <p>主要用于蒙层或者阴影。</p>
-    }
-  }
+      desc: <p>主要用于蒙层或者阴影。</p>,
+    },
+  },
 };
 
 export default function ColorsCN() {

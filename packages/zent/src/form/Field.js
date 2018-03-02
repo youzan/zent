@@ -20,7 +20,8 @@ class Field extends Component {
     validationErrors: PropTypes.object,
     validateOnBlur: PropTypes.bool,
     validateOnChange: PropTypes.bool,
-    clearErrorOnFocus: PropTypes.bool
+    clearErrorOnFocus: PropTypes.bool,
+    relatedFields: PropTypes.arrayOf(PropTypes.string),
   };
 
   // validationError为默认错误提示
@@ -31,11 +32,11 @@ class Field extends Component {
     validationErrors: {},
     validateOnBlur: true,
     validateOnChange: true,
-    clearErrorOnFocus: true
+    clearErrorOnFocus: true,
   };
 
   static contextTypes = {
-    zentForm: PropTypes.object
+    zentForm: PropTypes.object,
   };
 
   constructor(props, context) {
@@ -51,7 +52,7 @@ class Field extends Component {
       _initialValue: props.value,
       _validationError: [],
       _externalError: null,
-      _asyncValidated: false
+      _asyncValidated: false,
     };
     this._name = prefixName(context.zentForm, props.name);
     this._validations = props.validations || {};
@@ -69,13 +70,6 @@ class Field extends Component {
     zentForm.attachToForm(this);
 
     this._name = prefixName(zentForm, this.props.name);
-    if (this.context.zentForm.getSubFieldArray) {
-      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
-      currentValue &&
-        this.setState({
-          _value: currentValue
-        });
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,13 +78,6 @@ class Field extends Component {
     }
 
     this._name = prefixName(this.context.zentForm, nextProps.name);
-    if (this.context.zentForm.getSubFieldArray) {
-      const currentValue = this.context.zentForm.getSubFieldArray(this._name);
-      currentValue &&
-        this.setState({
-          _value: currentValue
-        });
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -145,10 +132,10 @@ class Field extends Component {
     this.setState(
       {
         _value: value,
-        _isDirty: needValidate
+        _isDirty: true,
       },
       () => {
-        this.context.zentForm.validate(this);
+        needValidate && this.context.zentForm.validate(this);
       }
     );
   };
@@ -157,7 +144,7 @@ class Field extends Component {
     this.setState(
       {
         _value: this.state._initialValue,
-        _isDirty: false
+        _isDirty: false,
       },
       () => {
         this.context.zentForm.validate(this);
@@ -172,7 +159,7 @@ class Field extends Component {
       {
         _value: currentInitialValue,
         _initialValue: currentInitialValue,
-        _isDirty: false
+        _isDirty: false,
       },
       () => {
         this.context.zentForm.validate(this);
@@ -203,7 +190,7 @@ class Field extends Component {
     const previousValue = this.getValue();
     const nextValues = {
       ...previousValues,
-      [this.getName()]: value
+      [this.getName()]: value,
     };
     return normalize(value, previousValue, nextValues, previousValues);
   };
@@ -240,7 +227,7 @@ class Field extends Component {
   handleFocus = event => {
     const { onFocus, clearErrorOnFocus } = this.props;
     let data = {
-      _active: true
+      _active: true,
     };
 
     if (onFocus) {
@@ -251,7 +238,7 @@ class Field extends Component {
       assign(data, {
         _isValid: true,
         _validationError: [],
-        _externalError: null
+        _externalError: null,
       });
     }
 
@@ -272,13 +259,16 @@ class Field extends Component {
     }
 
     this.setState({
-      _active: false
+      _active: false,
     });
 
     if (!preventSetValue) {
       this.setValue(newValue, validateOnBlur);
       if (asyncValidation) {
-        this.context.zentForm.asyncValidate(this, newValue);
+        this.context.zentForm.asyncValidate(this, newValue).catch(error => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
       }
     }
   };
@@ -289,13 +279,13 @@ class Field extends Component {
       return {
         ...rest,
         checked: !!value,
-        type
+        type,
       };
     }
     if (type === 'file') {
       return {
         ...rest,
-        type
+        type,
       };
     }
 
@@ -320,13 +310,13 @@ class Field extends Component {
       errors: this.getErrorMessages(),
       onChange: this.handleChange,
       onBlur: this.handleBlur,
-      onFocus: this.handleFocus
+      onFocus: this.handleFocus,
     });
 
     // 原生的标签不能传非标准属性进去
     if (typeof component === 'string') {
       return createElement(component, {
-        ...omit(passableProps, unknownProps)
+        ...omit(passableProps, unknownProps),
       });
     }
 

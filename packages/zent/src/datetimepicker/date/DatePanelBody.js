@@ -1,14 +1,15 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
-import formatDate from 'zan-utils/date/formatDate';
+import isArray from 'lodash/isArray';
 
 import {
   goDays,
   isSameDate,
   isBeforeMonth,
   isAfterMonth,
-  CURRENT
+  formatDate,
 } from '../utils/';
+import { CURRENT } from '../constants';
 import PanelCell from '../common/PanelCell';
 
 const ROW = 6;
@@ -19,7 +20,7 @@ export default class DatePanelBody extends (PureComponent || Component) {
     const { selected } = this.props;
     if (!selected) return false;
 
-    if (Array.isArray(selected)) {
+    if (isArray(selected)) {
       let i = 0;
       selected.forEach(item => {
         isSameDate(val, item) ? i++ : '';
@@ -32,7 +33,7 @@ export default class DatePanelBody extends (PureComponent || Component) {
 
   isInSelect(val) {
     const { selected } = this.props;
-    if (Array.isArray(selected) && selected[0] && selected[1]) {
+    if (isArray(selected) && selected[0] && selected[1]) {
       if (val > selected[0] && val < selected[1]) {
         return true;
       }
@@ -43,7 +44,7 @@ export default class DatePanelBody extends (PureComponent || Component) {
 
   isInRange(val) {
     const { range } = this.props;
-    if (Array.isArray(range) && range[0] && range[1]) {
+    if (isArray(range) && range[0] && range[1]) {
       if (val > range[0] && val < range[1]) {
         return true;
       }
@@ -85,14 +86,14 @@ export default class DatePanelBody extends (PureComponent || Component) {
           'panel__cell--disabled': isDisabled,
           'panel__cell--selected': isSelected,
           'panel__cell--in-range': isInRange,
-          'panel__cell--in-selected': isInSelect
+          'panel__cell--in-selected': isInSelect,
         });
         days[rowIndex][colIndex] = {
           text: val.getDate(),
           value: val,
           title: formatDate(val, 'YYYY-MM-DD'),
           isDisabled,
-          className
+          className,
         };
         index++;
       }
@@ -101,22 +102,14 @@ export default class DatePanelBody extends (PureComponent || Component) {
     return days;
   }
 
-  getThead() {
-    const arr = ['日', '一', '二', '三', '四', '五', '六'];
-
-    return arr.map((item, i) => {
-      return <li key={i}>{item}</li>;
-    });
-  }
-
   render() {
-    const { onSelect, onHover } = this.props;
+    const { onSelect, onHover, i18n } = this.props;
     const days = this.getDays();
 
     return (
       <div className="date-table panel-table">
         <ul className="panel-table__row panel-table__head">
-          {this.getThead()}
+          {i18n.panel.dayNames.map((item, i) => <li key={i}>{item}</li>)}
         </ul>
         <PanelCell onSelect={onSelect} onHover={onHover} cells={days} />
       </div>

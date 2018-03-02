@@ -40,6 +40,9 @@ class DesignPreviewController extends (PureComponent || Component) {
     // 这个组件对应的值
     value: PropTypes.object.isRequired,
 
+    // Design 组件的全局配置
+    settings: PropTypes.object,
+
     // 选中的会掉函数
     onSelect: PropTypes.func.isRequired,
 
@@ -67,17 +70,18 @@ class DesignPreviewController extends (PureComponent || Component) {
     // preview 额外的 props
     previewProps: PropTypes.object,
 
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
     const {
       dragable,
       configurable,
+      editable,
       canDelete,
       canInsert,
       highlightWhenSelect,
@@ -86,14 +90,20 @@ class DesignPreviewController extends (PureComponent || Component) {
       previewProps,
       prefix,
       id,
-      allowHoverEffects
+      allowHoverEffects,
     } = this.props;
-    const props = pick(this.props, ['value', 'design', 'globalConfig']);
+    const props = pick(this.props, [
+      'value',
+      'design',
+      'globalConfig',
+      'settings',
+    ]);
     const getClassName = highlight =>
       cx(`${prefix}-design-preview-controller`, {
+        [`${prefix}-design-preview-controller--editable`]: editable,
         [`${prefix}-design-preview-controller--selected`]: isSelected,
         [`${prefix}-design-preview-controller--highlight`]: highlight,
-        [`${prefix}-design-preview-controller--dragable`]: dragable
+        [`${prefix}-design-preview-controller--dragable`]: dragable,
       });
 
     const tree = dragable ? (

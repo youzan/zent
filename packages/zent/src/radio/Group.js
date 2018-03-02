@@ -11,7 +11,7 @@ export default class Group extends (PureComponent || Component) {
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -23,11 +23,11 @@ export default class Group extends (PureComponent || Component) {
     isValueEqual(a, b) {
       return a === b;
     },
-    onChange() {}
+    onChange() {},
   };
 
   static childContextTypes = {
-    radioGroup: PropTypes.any
+    radioGroup: PropTypes.any,
   };
 
   getChildContext() {
@@ -38,8 +38,8 @@ export default class Group extends (PureComponent || Component) {
         disabled,
         readOnly,
         isValueEqual,
-        onRadioChange: this.onRadioChange
-      }
+        onRadioChange: this.onRadioChange,
+      },
     };
   }
 
@@ -52,7 +52,7 @@ export default class Group extends (PureComponent || Component) {
 
     const classString = classNames({
       [`${prefix}-radio-group`]: true,
-      [className]: !!className
+      [className]: !!className,
     });
 
     return (

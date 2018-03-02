@@ -6,6 +6,7 @@ declare module 'zent/lib/card' {
     action?: React.ReactNode,
     style?: React.CSSProperties,
     bodyStyle?: React.CSSProperties,
+    loading?: boolean
     className?: string,
     prefix?: string
   }

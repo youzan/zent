@@ -18,6 +18,25 @@ $borderRadius: 2px;
       background: $theme-stroke-8;
     }
   }
+
+  .zenticon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    &-close-circle {
+      font-size: 12px;
+      right: 10px;
+      cursor: pointer;
+      padding: 4px 0;
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
 .zent-textarea-wrapper {
@@ -129,6 +148,19 @@ $borderRadius: 2px;
   height: 54px;
   padding: 5px 10px;
   appearance: none;
+
+  &-with-count {
+    padding-bottom: 21px;
+  }
+
+  &-count {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    font-size: 10px;
+    color: $theme-stroke-4;
+  }
 }
 
 /** placeholder **/

@@ -75,7 +75,7 @@ describe('Popover', () => {
         {},
         {
           deltaX: 0,
-          deltaY: 0
+          deltaY: 0,
         }
       );
     wrapper
@@ -85,7 +85,7 @@ describe('Popover', () => {
         {},
         {
           deltaX: 10,
-          deltaY: 10
+          deltaY: 10,
         }
       );
 
@@ -238,7 +238,7 @@ describe('Popover', () => {
       AutoBottomRight,
       AutoTopLeft,
       AutoTopCenter,
-      AutoTopRight
+      AutoTopRight,
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -258,7 +258,7 @@ describe('Popover', () => {
       AutoBottomRight,
       AutoTopLeft,
       AutoTopCenter,
-      AutoTopRight
+      AutoTopRight,
     ];
 
     positionArr.forEach(pos => {
@@ -383,7 +383,7 @@ describe('Popover', () => {
     expect(document.querySelector('.zent-popover')).toBeTruthy();
 
     wrapper.setProps({
-      visible: false
+      visible: false,
     });
     jest.runAllTimers();
     expect(document.querySelector('.zent-popover')).toBeFalsy();
@@ -392,12 +392,12 @@ describe('Popover', () => {
     wrapper.instance().open();
     jest.runAllTimers();
     wrapper.setProps({
-      visible: true
+      visible: true,
     });
     expect(document.querySelector('.zent-popover')).toBeTruthy();
 
     wrapper.setProps({
-      visible: false
+      visible: false,
     });
     jest.runAllTimers();
     expect(document.querySelector('.zent-popover')).toBeFalsy();
@@ -497,7 +497,7 @@ describe('Popover', () => {
       {
         get() {
           return window;
-        }
+        },
       }
     );
     Object.defineProperty(evt, 'target', descriptor);
@@ -587,7 +587,7 @@ describe('Popover', () => {
       AutoBottomCenter,
       AutoTopLeft,
       AutoTopRight,
-      AutoTopCenter
+      AutoTopCenter,
     } = Popover.Position;
     let viewport = {
       left: 0,
@@ -595,11 +595,11 @@ describe('Popover', () => {
       right: 1024,
       bottom: 768,
       width: 1024,
-      height: 768
+      height: 768,
     };
     let content = {
       width: 10,
-      height: 10
+      height: 10,
     };
     let anchor = {
       left: 1020,
@@ -607,11 +607,11 @@ describe('Popover', () => {
       right: 1021,
       bottom: 761,
       width: 1,
-      height: 1
+      height: 1,
     };
     let options = {
       anchorBoundingBoxViewport: anchor,
-      cushion: 0
+      cushion: 0,
     };
     let container = viewport;
 
@@ -715,16 +715,16 @@ describe('Popover', () => {
         return {
           contains() {
             return true;
-          }
+          },
         };
       },
       getContentNode() {
         return {
           contains() {
             return true;
-          }
+          },
         };
-      }
+      },
     });
     expect(trigger.isOutsideSelf()).toBe(false);
 
@@ -734,16 +734,16 @@ describe('Popover', () => {
         return {
           contains() {
             return false;
-          }
+          },
         };
       },
       getContentNode() {
         return {
           contains() {
             return true;
-          }
+          },
         };
-      }
+      },
     });
     expect(trigger.isOutsideSelf()).toBe(false);
   });

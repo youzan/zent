@@ -12,7 +12,7 @@ class Tab extends (PureComponent || Component) {
     onSelected: PropTypes.func,
     onDelete: PropTypes.func,
     candel: PropTypes.bool,
-    uniqueId: PropTypes.number
+    uniqueId: PropTypes.number,
   };
 
   static defaultProps = {
@@ -23,7 +23,7 @@ class Tab extends (PureComponent || Component) {
     minWidth: '',
     onSelected: noop,
     onDelete: noop,
-    candel: false
+    candel: false,
   };
 
   onDel(e) {

@@ -18,7 +18,7 @@ function setStyle(target, styles) {
 }
 
 export default class Swiper extends (PureComponent || Component) {
-  static PropTypes = {
+  static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
     transitionDuration: PropTypes.number,
@@ -29,7 +29,7 @@ export default class Swiper extends (PureComponent || Component) {
     dotsSize: PropTypes.oneOf(['normal', 'small', 'large']),
     arrows: PropTypes.bool,
     arrowsType: PropTypes.oneOf(['dark', 'light']),
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -42,29 +42,35 @@ export default class Swiper extends (PureComponent || Component) {
     dotsColor: 'black',
     dotsSize: 'normal',
     arrows: false,
-    arrowsType: 'dark'
+    arrowsType: 'dark',
   };
 
   state = {
-    currentIndex: 0
+    currentIndex: 0,
   };
 
   init = () => {
+    const { autoplay, children } = this.props;
     const { currentIndex } = this.state;
+    const childrenCount = Children.count(children);
     const innerElements = this.swiperContainer.children;
 
+    this.clearAutoplay();
     this.setSwiperWidth();
     setStyle(this.swiperContainer, {
-      width: `${this.swiperWidth * innerElements.length}px`
+      width: `${this.swiperWidth * innerElements.length}px`,
     });
 
     forEach(innerElements, item => {
       setStyle(item, {
-        width: `${100 / innerElements.length}%`
+        width: `${100 / innerElements.length}%`,
       });
     });
 
-    innerElements.length > 1 && this.translate(currentIndex, true);
+    if (childrenCount > 1) {
+      autoplay && this.startAutoplay();
+      this.translate(currentIndex, null, true);
+    }
   };
 
   getSwiper = swiper => {
@@ -99,29 +105,47 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   swipeTo = index => {
-    let currentIndex = index;
-    this.setState({ currentIndex });
+    // 当动画进行时禁用用户的切换操作
+    if (this.isSwiping) {
+      return;
+    }
+    this.isSwiping = true;
+    this.setState({ currentIndex: index });
   };
 
-  translate = (currentIndex, isSilent) => {
-    const { transitionDuration } = this.props;
+  translate = (currentIndex, prevIndex, isSilent) => {
+    const { transitionDuration, children: { length }, onChange } = this.props;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;
     const translateDistance = itemWidth * (initIndex - currentIndex);
+    const realDuration = isSilent ? 0 : transitionDuration;
 
     setStyle(this.swiperContainer, {
       transform: `translateX(${translateDistance}px)`,
-      'transition-duration': isSilent ? '0ms' : `${transitionDuration}ms`
+      'transition-duration': `${realDuration}ms`,
     });
+
+    if (currentIndex > length - 1 || currentIndex < 0) {
+      // 如果当前元素为复制元素，则做一次复位操作，再次移动到真实元素，在此之前，不会将isSwiping的状态更改为false
+      return this.resetPosition(currentIndex);
+    }
+
+    // 等待动画结束之后将isSwiping置为false
+    setTimeout(() => {
+      this.isSwiping = false;
+    }, realDuration);
+
+    onChange && onChange(currentIndex, this.getRealPrevIndex(prevIndex));
   };
 
   resetPosition = currentIndex => {
     const { transitionDuration, children: { length } } = this.props;
+
     if (currentIndex < 0) {
       setTimeout(
         () =>
           this.setState({
-            currentIndex: length - 1
+            currentIndex: length - 1,
           }),
         transitionDuration
       );
@@ -129,7 +153,7 @@ export default class Swiper extends (PureComponent || Component) {
       setTimeout(
         () =>
           this.setState({
-            currentIndex: 0
+            currentIndex: 0,
           }),
         transitionDuration
       );
@@ -182,29 +206,36 @@ export default class Swiper extends (PureComponent || Component) {
     this.setState({ currentIndex: index });
   };
 
+  componentWillReceiveProps(nextProps) {
+    const { children } = this.props;
+    const { children: newChildren } = nextProps;
+
+    if (Children.count(children) !== Children.count(newChildren)) {
+      this.setState(
+        {
+          currentIndex: 0,
+        },
+        () => this.init()
+      );
+    }
+  }
+
   componentDidMount() {
-    const { autoplay } = this.props;
-    autoplay && this.startAutoplay();
     this.init();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onChange, children: { length } } = this.props;
+    const { children: { length } } = this.props;
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
+    // isSilent表示静默地做一次位移动画，在用户无感知的情况下从复制元素translate到真实元素
+    const isSilent = prevIndex > length - 1 || prevIndex < 0;
 
     if (prevIndex === currentIndex) {
       return;
     }
 
-    const isSilent = prevIndex > length - 1 || prevIndex < 0;
-    this.translate(currentIndex, isSilent);
-
-    if (currentIndex > length - 1 || currentIndex < 0) {
-      return this.resetPosition(currentIndex);
-    }
-
-    onChange && onChange(currentIndex, this.getRealPrevIndex(prevIndex));
+    this.translate(currentIndex, prevIndex, isSilent);
   }
 
   componentWillUnmount() {
@@ -220,12 +251,12 @@ export default class Swiper extends (PureComponent || Component) {
       dotsSize,
       arrows,
       arrowsType,
-      children
+      children,
     } = this.props;
     const { currentIndex } = this.state;
 
     const classString = cx(`${prefix}-swiper`, className, {
-      [`${prefix}-swiper-light`]: arrows && arrowsType === 'light'
+      [`${prefix}-swiper-light`]: arrows && arrowsType === 'light',
     });
     const childrenCount = Children.count(children);
     const clonedChildren = this.cloneChildren(children);
@@ -238,7 +269,7 @@ export default class Swiper extends (PureComponent || Component) {
         onMouseLeave={this.handleMouseLeave}
       >
         {arrows &&
-          childrenCount && (
+          childrenCount > 1 && (
             <div
               className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
               onClick={this.prev}
@@ -268,7 +299,7 @@ export default class Swiper extends (PureComponent || Component) {
           {Children.map(clonedChildren, (child, index) => {
             return cloneElement(child, {
               key: index - 1,
-              style: { float: 'left', height: '100%' }
+              style: { float: 'left', height: '100%' },
             });
           })}
         </div>

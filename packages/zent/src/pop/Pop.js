@@ -1,12 +1,15 @@
 import React, { Component, PureComponent } from 'react';
-import Popover from 'popover';
-import { exposePopover } from 'popover/withPopover';
-import Button from 'button';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import noop from 'lodash/noop';
 import isFunction from 'lodash/isFunction';
+
+import Popover from 'popover';
+import Button from 'button';
 import isPromise from 'utils/isPromise';
-import PropTypes from 'prop-types';
+import { exposePopover } from 'popover/withPopover';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Pop as I18nDefault } from 'i18n/default';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
@@ -14,7 +17,7 @@ import getPosition from './position';
 const { Trigger, withPopover } = Popover;
 const stateMap = {
   onConfirm: 'confirmPending',
-  onCancel: 'cancelPending'
+  onCancel: 'cancelPending',
 };
 
 class PopAction extends (PureComponent || Component) {
@@ -69,7 +72,7 @@ class PopAction extends (PureComponent || Component) {
       confirmText,
       cancelText,
       confirmPending,
-      cancelPending
+      cancelPending,
     } = this.props;
 
     if (!onConfirm && !onCancel) {
@@ -78,23 +81,31 @@ class PopAction extends (PureComponent || Component) {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Button
-          loading={confirmPending}
-          disabled={cancelPending}
-          size="small"
-          type={type}
-          onClick={this.handleConfirm}
-        >
-          {confirmText}
-        </Button>
-        <Button
-          loading={cancelPending}
-          disabled={confirmPending}
-          size="small"
-          onClick={this.handleCancel}
-        >
-          {cancelText}
-        </Button>
+        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
+          {i18n => (
+            <Button
+              loading={confirmPending}
+              disabled={cancelPending}
+              size="small"
+              type={type}
+              onClick={this.handleConfirm}
+            >
+              {confirmText || i18n.confirm}
+            </Button>
+          )}
+        </Receiver>
+        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
+          {i18n => (
+            <Button
+              loading={cancelPending}
+              disabled={confirmPending}
+              size="small"
+              onClick={this.handleCancel}
+            >
+              {cancelText || i18n.cancel}
+            </Button>
+          )}
+        </Receiver>
       </div>
     );
   }
@@ -117,7 +128,13 @@ class Pop extends (PureComponent || Component) {
       'top-right',
       'bottom-left',
       'bottom-center',
-      'bottom-right'
+      'bottom-right',
+      'auto-bottom-center',
+      'auto-bottom-left',
+      'auto-bottom-right',
+      'auto-top-center',
+      'auto-top-left',
+      'auto-top-right',
     ]),
 
     // 是否按小箭头居中对齐trigger来定位
@@ -158,9 +175,15 @@ class Pop extends (PureComponent || Component) {
     closeOnClickOutside: PropTypes.bool,
     isClickOutside: PropTypes.func,
 
+    // 在 popover-content 进入屏幕内时触发, 生命周期内仅触发一次
+    onPositionReady: PropTypes.func,
+
+    // 在 popover-content 新位置计算完成时触发
+    onPositionUpdated: PropTypes.func,
+
     prefix: PropTypes.string,
     className: PropTypes.string,
-    wrapperClassName: PropTypes.string
+    wrapperClassName: PropTypes.string,
   };
 
   static defaultProps = {
@@ -168,21 +191,23 @@ class Pop extends (PureComponent || Component) {
     position: 'top-center',
     centerArrow: false,
     block: false,
-    confirmText: '确定',
-    cancelText: '取消',
+    confirmText: '',
+    cancelText: '',
     type: 'primary',
     closeOnClickOutside: true,
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
+    onPositionUpdated: noop,
+    onPositionReady: noop,
     className: '',
     wrapperClassName: '',
     prefix: 'zent',
-    quirk: true
+    quirk: true,
   };
 
   state = {
     confirmPending: false,
-    cancelPending: false
+    cancelPending: false,
   };
 
   changePending = (key, pending, callback) => {
@@ -192,7 +217,7 @@ class Pop extends (PureComponent || Component) {
 
     this.setState(
       {
-        [key]: pending
+        [key]: pending,
       },
       callback
     );
@@ -207,7 +232,7 @@ class Pop extends (PureComponent || Component) {
       onCancel,
       confirmText,
       cancelText,
-      type
+      type,
     } = this.props;
     const { confirmPending, cancelPending } = this.state;
 
@@ -243,7 +268,7 @@ class Pop extends (PureComponent || Component) {
       mouseLeaveDelay,
       mouseEnterDelay,
       children,
-      quirk
+      quirk,
     } = this.props;
 
     if (trigger === 'click') {
@@ -299,7 +324,9 @@ class Pop extends (PureComponent || Component) {
       position,
       centerArrow,
       onBeforeClose,
-      onBeforeShow
+      onBeforeShow,
+      onPositionUpdated,
+      onPositionReady,
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -323,6 +350,8 @@ class Pop extends (PureComponent || Component) {
         onClose={onClose}
         onBeforeClose={onBeforeClose}
         onBeforeShow={onBeforeShow}
+        onPositionUpdated={onPositionUpdated}
+        onPositionReady={onPositionReady}
         ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}

@@ -27,8 +27,8 @@ const datasets = [
     changed_info: [],
     changed_description: '',
     urls: {
-      koudaitong: 'http://wap.koudaitong.com/v2/goods/2fqanb96l48ch'
-    }
+      koudaitong: 'http://wap.koudaitong.com/v2/goods/2fqanb96l48ch',
+    },
   },
   {
     sync_status: 0,
@@ -57,8 +57,8 @@ const datasets = [
     changed_info: [],
     changed_description: '',
     urls: {
-      koudaitong: 'http://wap.koudaitong.com/v2/goods/3f1i9ej23ake9'
-    }
+      koudaitong: 'http://wap.koudaitong.com/v2/goods/3f1i9ej23ake9',
+    },
   },
   {
     sync_status: 0,
@@ -87,9 +87,9 @@ const datasets = [
     changed_info: [],
     changed_description: '',
     urls: {
-      koudaitong: 'http://wap.koudaitong.com/v2/goods/3f1i9ej23ake9'
-    }
-  }
+      koudaitong: 'http://wap.koudaitong.com/v2/goods/3f1i9ej23ake9',
+    },
+  },
 ];
 
 export default datasets;

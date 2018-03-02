@@ -10,23 +10,23 @@ module.exports = Object.assign({}, base, {
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4396',
       'webpack/hot/only-dev-server',
-      './src/index.js'
+      './src/index.js',
     ],
-    vendor: vendorEntry
+    vendor: vendorEntry,
   },
 
   output: Object.assign({}, base.output, {
-    publicPath: '/'
+    publicPath: '/',
   }),
 
   module: Object.assign({}, base.module, {
     rules: base.module.rules.concat({
       test: /\.p?css$/,
-      use: 'happypack/loader?id=styles'
-    })
+      use: 'happypack/loader?id=styles',
+    }),
   }),
 
-  devtool: 'inline-cheap-source-map',
+  devtool: 'inline-cheap-module-source-map',
 
   plugins: base.plugins.concat([
     new webpack.HotModuleReplacementPlugin(),
@@ -40,23 +40,23 @@ module.exports = Object.assign({}, base, {
         {
           loader: 'style-loader',
           options: {
-            sourceMap: true
-          }
+            sourceMap: true,
+          },
         },
         {
           loader: 'css-loader',
           options: {
             importLoaders: 0,
-            sourceMap: true
-          }
+            sourceMap: true,
+          },
         },
         {
           loader: 'postcss-loader',
           options: {
-            sourceMap: true
-          }
-        }
-      ]
-    })
-  ])
+            sourceMap: true,
+          },
+        },
+      ],
+    }),
+  ]),
 });

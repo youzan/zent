@@ -2,10 +2,8 @@
 order: 10
 zh-CN:
 	title: 支持有过滤函数时设置最大显示数量
-	pla: 请选择
 en-US:
 	title: Max to Show with Filter
-	pla: Select an option
 ---
 
 ```js
@@ -26,7 +24,6 @@ const data = cycle(100);
 
 ReactDOM.render(
 	<Select
-		placeholder="{i18n.pla}"
 		data={data}
 		filter={(item, keyword) => item.text.indexOf(keyword) > -1}
 		maxToShow={6} />

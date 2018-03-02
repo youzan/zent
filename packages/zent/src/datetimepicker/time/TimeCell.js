@@ -1,14 +1,15 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+
 import { noop } from '../constants';
 
 export default class TimeCell extends (PureComponent || Component) {
-  static PropTypes = {
-    onSelect: PropTypes.func
+  static propTypes = {
+    onSelect: PropTypes.func,
   };
 
   static defaultProps = {
-    onSelect: noop
+    onSelect: noop,
   };
 
   onClickCell = cell => {

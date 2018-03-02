@@ -44,7 +44,7 @@ scatter: true
 
 当一个 `Field` 里需要封装多个表单元素时，一般会将多个表单元素的 value 值封装在一个对象里传入到 `Field` 中。当无法使用 `getControlGroup` 满足封装要求时，可以自己封装组件，通过调用 `Field` 组件传入的 `onChange` 事件更改 `Field` 的 value。
 
-⚠️注意：调用 `Field` 传入的 `onChange` 事件默认会覆盖原值，可以通过传入 `{ merge: true}` 参数可以部分覆盖 value 值。
+⚠️注意：调用 `Field` 传入的 `onChange` 事件默认会覆盖原值，可以通过传入 `{ merge: true}` 参数来部分覆盖 value 值。
 
 <!-- demo-slot-4 -->
 
@@ -55,6 +55,7 @@ scatter: true
 - `Field` 组件支持传入 `validations` 和 `validationErrors` 来指定校验规则和校验提示；
 - `validations` 对象支持预置的内部校验规则（详见[内置 validation rules](#nei-zhi-validation-rules) ）, 也支持传入自定义的校验函数，校验函数返回 `true` 时表示验证通过；
 - 可以通过 `Form.createForm` 扩展内部校验规则，详见 [`Form.createForm` API](#form-createform) 。
+- 默认在任一表单进行校验时，其他所有表单域都会进行校验。如果想修改这种默认行为，可以给 `Field` 的 `relatedFields` 属性为一组表单域的名字数组，这样当当前表单域校验时，只会校验这些指定的表单域。
 
 <!-- demo-slot-5 -->
 
@@ -62,12 +63,14 @@ scatter: true
 
 表单的默认校验时机是 value 值改变的时候。可以修改 `validateOnChange`，`validateOnBlur` 来改变校验时机，如在 blur 时再校验（一般用于Input输入框）。
 
+如果你需要在提交时校验表单项，可以设置 `validateOnChange`，`validateOnBlur` 都为 `false`，并使用内置表单提交操作 `handleSubmit`。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.validateForm(true, callback)` 方法强制触发表单的校验，并在 `callback` 中处理后续逻辑。如果需要自主控制错误信息的展示，可以使用 `Field` 的 `displayError` 属性来控制错误信息的显示。
+
 <!-- demo-slot-6 -->
 
 #### 异步校验
 异步校验在 blur 时触发，如果需要在自定义组件中手动触发异步校验，需要自己调用`props.onBlur(event)`。 `value` 值可以直接传给 `event` ，或者作为 `event` 的属性传入。
 
-如果在没有触发异步校验的情况下（比如没有对表单项进行过操作）直接提交表单时，默认不会触发异步校验，使用内置的`handleSubmit`方法可以在提交表单时触发从未进行的异步校验。
+如果在没有触发异步校验的情况下（比如没有对表单项进行过操作）直接提交表单时，默认不会触发异步校验，使用内置的 `handleSubmit` 方法可以在提交表单时触发从未进行的异步校验。如果不使用 `handleSubmit` 处理表单提交操作，你需要在表单提交时使用 `zentForm.isFormAsyncValidated` 判断表单是否经过了异步校验，并根据结果选择是否使用 `zentForm.asyncValidateForm(resolve, reject)` 方法强制触发表单的异步校验。
 
 <!-- demo-slot-7 -->
 
@@ -80,7 +83,7 @@ scatter: true
 ### 表单操作
 
 - `Form.createForm` 为组件注入 `zentForm` 属性，提供了表单和表单元素的各种操作方法，如获取表单元素值，重置获取表单元素值等，详见 [`zenForm` API](#zentform)
-- `Form` 组件内部对表单提交的过程也进行了封装，可以把异步提交过程封装在一个函数里并**返回 `Promise` 对象**，组件内部会根据 `Promise` 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过 `zentForm.isSubmitting()` 得到）。
+- `Form` 组件内部对表单提交的过程也进行了封装了 `handleSubmit` 方法，可以把异步提交过程封装在一个函数里并**返回 `Promise` 对象**，组件内部会根据 `Promise` 对象的执行结果分别调用 `onSubmitSuccess` 和 `onSubmitFail` 方法，同时更新内部维护的 `isSubmitting` 属性（可以通过 `zentForm.isSubmitting()` 得到）。此外，当设定 `scrollToError` 时，支持表单提交时自动滚动到第一个报错的表单域。
 
 <!-- demo-slot-9 -->
 <!-- demo-slot-10 -->
@@ -88,6 +91,8 @@ scatter: true
 ### 其他
 
 #### `Form` 布局
+
+`Form` 组件提供三种简单的样式：行内布局 `inline`，水平布局 `horizontal`， 垂直布局 `vertical`。
 
 <!-- demo-slot-11 -->
 
@@ -97,9 +102,15 @@ scatter: true
 
 #### `FormSection` 组件
 
+`FormSection` 组件可以复用切分为更小模块的表单域，其对应的表单数据是对象形式。`FormSection` 支持的参数详见[`Form.FormSection` API](#form-formsection)。
+
 <!-- demo-slot-13 -->
 
 #### `FieldArray` 组件
+
+`FieldArray` 组件可以方便地渲染一组相同的单元域，并且可以增加和删除单元域，类似数组中元素的添加和删除。
+
+`FieldArray` 会为其 `component` 注入 `fields` 这个属性，可以提供单元域的遍历、增加、删除等操作，该属性支持的属性和方法详见[`Form.FieldArray` API](#form-fieldarray)。
 
 <!-- demo-slot-14 -->
 
@@ -152,6 +163,7 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | inline | 行内排列布局 | boolean | `false` | 否 |
 | onSubmit | 表单提交回调 | func(e:Event) | `noop` | 否 |
 | style | 内联样式 | object | null | 否 |
+| disableEnterSubmit | 禁止回车提交表单 | boolean | `true` | 否 |
 
 #### **`Form.createForm`**
 
@@ -171,13 +183,17 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 
 `createForm` 方法构建了一个高阶组件，该组件可以定义了一些额外的 props 。
 
-| 参数 | 说明 | 类型 | 是否必填 |
-|------|------|------|------|
-| onChange | 任意表单元素修改后触发的回调，参数为所有表单元素值的对象 | func(values: Object) | 否 |
-| onSubmitSuccess | 提交成功后的回调，参数是 submit 函数中 promise 的返回值 | func(submitResult: any) | 否 |
-| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是 undefined | func(submitError: SubmissionError) | 否 |
+| 参数 | 说明 | 类型 | 默认值 |是否必填 |
+|------|------|------|------|------|
+| onChange | 任意表单元素修改后触发的回调，参数为所有表单元素值的对象 | func(values: Object) | noop | 否 |
+| onSubmitSuccess | 提交成功后的回调，参数是 submit 函数中 promise 的返回值 | func(submitResult: any) |noop | 否 |
+| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是 undefined | func(submitError: SubmissionError) |noop | 否 |
+| scrollToError | 表单提交时或者设置外部错误时，表单自动滚动至第一个报错表单域 | boolean | `false` | 否 |
 
-⚠️注意：想要获取被 createForm 包裹的 FormComponent 的实例，可以在 createForm 创建的组件上添加 ref 然后调用`getWrappedForm`方法获取到。
+⚠️注意：
+
+1. `onChange`, `onSubmitSuccess`, `onSubmitFail`, `scrollToError` 也支持通过 `createForm` 的 `options` 参数传入；
+2. 想要获取被 createForm 包裹的 FormComponent 的实例，可以在 createForm 创建的组件上添加 ref 然后调用`getWrappedForm`方法获取到。
 
 ##### **`zentForm`**
 
@@ -196,7 +212,12 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | isSubmitting | 表单是否正在提交 | func |
 | isValidating | 表单是否有 Field 在异步校验 | func |
 | isFieldDirty | Field 是否变更过值 | func(name: String) |
-| isFieldValidating | Field 是否在异步校验 | func(name: String) |
+| isFormAsyncValidated | 所有 field 是否都进行了异步校验 | func |
+| validateForm | 强制表单进行同步校验 | func(forceValidate: Boolean, callback: Function, relatedFields: Array) |
+| asyncValidateForm | 强制表单进行异步校验 | func(resolve: Function, reject: Function) |
+| isFormSubmitFail | 表单是否提交失败，初始时为 `false` | func |
+| isFormSubmitSuccess | 表单是否提交成功, 初始时为 `true` | func |
+| updateFormSubmitStatus | 更新表单提交成功、失败状态 | func(submitSuccess: Boolean) |
 
 ##### **`handleSubmit`**
 
@@ -241,6 +262,8 @@ onSubmissionFail(submissionError) {
 | validateOnBlur | 是否在触发blur事件时执行表单校验 | boolean | 否 |
 | clearErrorOnFocus | 是否在触发focus事件时清空错误信息 | boolean | 否 |
 | asyncValidation | 异步校验 func, 需要返回 Promise | func(values, value) | 否 |
+| displayError | 显示错误信息 | boolean | 否 |
+| relatedFields | 当前表单域对哪些表单域的校验有影响 | array | 否 |
 
 除了上述参数之外， `Field` 组件会隐含地向被包裹的表单元素组件中传入以下 props ：
 
@@ -284,6 +307,46 @@ const component = field.getWrappedComponent();
 const component = field.getWrappedComponent().getControlInstance();
 ```
 
+#### **`Form.FormSection`**
+
+`FormSection` 提供以下参数：
+
+| 参数 | 说明 | 类型 | 默认值 | 是否必填 |
+|------|------|------|-----|------|
+| name | 表单块的名字 | string | 无 | 是 |
+| component | 包裹 `FormSection` 的 html 标签 | string |  `'div'` |否 |
+| children | 表单块的子元素 | string / React.Component | 无 | 否 |
+
+#### **`Form.FieldArray`**
+
+`FieldArray` 组件支持如下：
+
+| 参数 | 说明 | 类型 | 是否必填 |
+|------|------|------|-----|------|
+| name | `FieldArray` 的名字 | string | 是 |
+| component | `FieldArray` 中展示的表单元素组件，可以是字符串(标准 html 元素名), 或者 React 组件 | string / React.Component | 是 |
+
+`FieldArray` 会为其 `component` 注入 `fields` 属性并提供表单域数组的遍历、增加、删除等功能，其 API 如下所示：
+
+| 参数 | 说明 | 类型 |
+|------|------|------|
+| name | `FieldArray` 的名字 | string |
+| length | `FieldArray` 中表单域数组的长度 | number |
+| forEach | 遍历 `FieldArray` 中表单域数组 | func(callback: Function) |
+| get | 获取 `FieldArray` 中表单域数组中某一项的值 | func(index: Number) |
+| getAll | 获取 `FieldArray` 中表单域数组的所有值 | func |
+| map | 遍历 `FieldArray` 中表单域数组 | func(callback: Function) |
+| move | 移动 `FieldArray` 中表单域数组的某一项 | func(fromPos: Number, toPos: Number) |
+| pop | 删除 `FieldArray` 中表单域数组的最后一项 | func |
+| push | 在 `FieldArray` 中表单域数组末尾添加一项 | func(value: Object/String) |
+| remove | 删除 `FieldArray` 中表单域数组中的某一项 | func(index: Number) |
+| removeAll | 删除 `FieldArray` 中整个表单域数组 | func |
+| shift | 删除 `FieldArray` 中表单域数组的第一项 | func |
+| swap | 交换 `FieldArray` 中表单域数组的某两项 | func(indexA: Number, indexB: Number) |
+| unshift | 在 `FieldArray` 中表单域数组的头部添加一项 | func(value: Object/String) |
+
+⚠️注意：遍历的回调函数 callback 将接受五个参数: item（`FieldArray` 中当前项的名字），index（`FieldArray` 中当前项的次序），key（`FieldArray` 中当前项的唯一 key 值），value（`FieldArray` 中当前项的值）， fieldsValue（`FieldArray` 的所有值）。为了保证 `FieldArray` 在删除和添加时数据正确，遍历时一定要给 `component` 中的子节点设置正确的 `name` 和 `key`, 详见使用参考[FieldArray 基本使用](#fieldarray-zu-jian)
+
 #### **内置 validation rules**
 可以直接在 `Field` 的 `validations` 属性中使用，使用方法参考[demo 常用表单校验](#biao-dan-xiao-yan-de-shi-yong)。内置规则如下：
 
@@ -299,7 +362,7 @@ const component = field.getWrappedComponent().getControlInstance();
 | isNumeric | 是否数字类型 | 任意 |
 | isInt | 是否整数 | 任意 |
 | isFloat | 是否小数 | 任意 |
-| isLenght | 字符串或数组是否为指定长度 | 长度值(Number) |
+| isLength | 字符串或数组是否为指定长度 | 长度值(Number) |
 | equals | 是否与指定值相等 | 指定值 |
 | equalsField | 是否与表单中的其他元素值相等 | 其他 Field 的name(String) |
 | maxLength | 字符串或数组不能超过指定长度 | 长度值(Number) |

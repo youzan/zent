@@ -7,8 +7,6 @@ group: 导航
 
 ## Grid 网格
 
-网格组件。
-
 功能和 [Table](table) 组件类似，`Grid` 是使用 `<table>` 标签实现的，而 `Table` 是使用 `div` + `flex` 布局实现的。
 
 ### API
@@ -19,6 +17,7 @@ group: 导航
 | datasets | 需要展示的数据                         | array |         |   是    |
 | rowKey   | 每一行的 key                           | string |  `id`    |   否    |
 | onChange | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func | `noop` | 否    |
+| scroll | 横向或纵向指定滚动区域的宽高度：{{ x: 1300, y: 300 }}  | object |  | 否    |
 | sortBy   | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段 | string | '' | 否 |
 | sortType | 排序方式                            | string  |     ''   |   否    |
 | emptyLabel | 列表为空时的提示文案                | string   | `'没有更多数据了'` | 否 |

@@ -15,7 +15,7 @@ const MOUSE_EVENT_WHITE_LIST = [
   'over',
   'out',
   'enter',
-  'leave'
+  'leave',
 ];
 
 function isMouseEventSuffix(suffix) {
@@ -32,7 +32,7 @@ const HoverState = {
   // 延迟等待中
   Pending: 3,
 
-  Finish: 255
+  Finish: 255,
 };
 
 /**
@@ -59,7 +59,7 @@ const makeState = (name, onFinish, initState = HoverState.Init) => {
       return st === state;
     },
 
-    name
+    name,
   };
 };
 
@@ -93,7 +93,7 @@ function makeRecognizer(state, options) {
 
         // console.log(`destroy ${state.name}`); // eslint-disable-line
       }
-    }
+    },
   };
 
   forEachHook(recognizer.global, 'install');
@@ -133,8 +133,8 @@ function makeHoverEnterRecognizer({ enterDelay, onEnter }) {
 
           state.transit(HoverState.Init);
         }
-      }
-    }
+      },
+    },
   });
 
   return recognizer;
@@ -201,8 +201,8 @@ function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide, quirk }) {
         }
 
         gotoFinishState();
-      }
-    }
+      },
+    },
   });
 
   return recognizer;
@@ -228,13 +228,13 @@ export default class PopoverHoverTrigger extends Trigger {
 
     isOutside: PropTypes.func,
 
-    quirk: PropTypes.bool
+    quirk: PropTypes.bool,
   };
 
   static defaultProps = {
     showDelay: 150,
     hideDelay: 150,
-    quirk: false
+    quirk: false,
   };
 
   open = () => {
@@ -247,7 +247,7 @@ export default class PopoverHoverTrigger extends Trigger {
 
   state = {
     enterRecognizer: null,
-    leaveRecognizer: null
+    leaveRecognizer: null,
   };
 
   makeEnterRecognizer() {
@@ -256,7 +256,7 @@ export default class PopoverHoverTrigger extends Trigger {
     return makeHoverEnterRecognizer({
       enterDelay: showDelay,
       onEnter: this.open,
-      quirk
+      quirk,
     });
   }
 
@@ -267,7 +267,7 @@ export default class PopoverHoverTrigger extends Trigger {
       leaveDelay: hideDelay,
       onLeave: this.close,
       isOutSide: isOutsideStacked,
-      quirk
+      quirk,
     });
   }
 
@@ -307,7 +307,7 @@ export default class PopoverHoverTrigger extends Trigger {
     this.cleanup();
     this.setState({
       enterRecognizer: contentVisible ? null : this.makeEnterRecognizer(),
-      leaveRecognizer: contentVisible ? this.makeLeaveRecognizer() : null
+      leaveRecognizer: contentVisible ? this.makeLeaveRecognizer() : null,
     });
   }
 

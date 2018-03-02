@@ -12,11 +12,11 @@ const prefix = 'https://b.yzcdn.cn/zanui/zent/';
 module.exports = Object.assign({}, base, {
   entry: {
     docs: './src/index.js',
-    vendor: vendorEntry
+    vendor: vendorEntry,
   },
 
   output: Object.assign({}, base.output, {
-    publicPath: prefix
+    publicPath: prefix,
   }),
 
   module: Object.assign({}, base.module, {
@@ -24,9 +24,9 @@ module.exports = Object.assign({}, base, {
       test: /\.p?css$/,
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',
-        use: 'happypack/loader?id=styles'
-      })
-    })
+        use: 'happypack/loader?id=styles',
+      }),
+    }),
   }),
 
   // module: Object.assign({}, base.module, {
@@ -72,8 +72,8 @@ module.exports = Object.assign({}, base, {
         opengraph: false,
         twitter: false,
         yandex: false,
-        windows: false
-      }
+        windows: false,
+      },
     }),
 
     new HappyPack({
@@ -83,34 +83,34 @@ module.exports = Object.assign({}, base, {
         {
           loader: 'css-loader',
           options: {
-            importLoaders: 1
-          }
+            importLoaders: 1,
+          },
         },
-        'postcss-loader'
-      ]
+        'postcss-loader',
+      ],
     }),
 
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
+        warnings: false,
       },
       output: {
-        comments: false
+        comments: false,
       },
-      sourceMap: false
+      sourceMap: false,
     }),
 
     new webpack.LoaderOptionsPlugin({
-      minimize: true
+      minimize: true,
     }),
 
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
-      allChunks: true
-    })
+      allChunks: true,
+    }),
   ]),
   devServer: {
     contentBase: resolve(__dirname, 'dist'),
-    publicPath: prefix
-  }
+    publicPath: prefix,
+  },
 });

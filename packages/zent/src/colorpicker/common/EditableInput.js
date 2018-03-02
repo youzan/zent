@@ -7,7 +7,7 @@ export default class EditableInput extends Component {
 
     this.state = {
       value: String(props.value).toUpperCase(),
-      blurValue: String(props.value).toUpperCase()
+      blurValue: String(props.value).toUpperCase(),
     };
   }
 
@@ -26,10 +26,11 @@ export default class EditableInput extends Component {
     this.unbindEventListeners();
   }
 
-  handleBlur = () => {
+  handleBlur = e => {
     if (this.state.blurValue) {
       this.setState({ value: this.state.blurValue, blurValue: null });
     }
+    this.props.onBlur && this.props.onBlur(e);
   };
 
   handleChange = e => {
@@ -45,30 +46,38 @@ export default class EditableInput extends Component {
 
   handleKeyDown = e => {
     const number = Number(e.target.value);
-    if (!isNaN(number)) {
-      const amount = this.props.arrowOffset || 1;
 
-      // Up
-      if (e.keyCode === 38) {
-        if (this.props.label !== null) {
-          this.props.onChange({ [this.props.label]: number + amount }, e);
-        } else {
-          this.props.onChange(number + amount, e);
-        }
+    if (isNaN(number)) {
+      return;
+    }
 
-        this.setState({ value: number + amount });
+    const amount = this.props.arrowOffset || 1;
+
+    // Up
+    if (e.keyCode === 38) {
+      if (this.props.label !== null) {
+        this.props.onChange({ [this.props.label]: number + amount }, e);
+      } else {
+        this.props.onChange(number + amount, e);
       }
 
-      // Down
-      if (e.keyCode === 40) {
-        if (this.props.label !== null) {
-          this.props.onChange({ [this.props.label]: number - amount }, e);
-        } else {
-          this.props.onChange(number - amount, e);
-        }
+      this.setState({ value: number + amount });
+    }
 
-        this.setState({ value: number - amount });
+    // Down
+    if (e.keyCode === 40) {
+      if (this.props.label !== null) {
+        this.props.onChange({ [this.props.label]: number - amount }, e);
+      } else {
+        this.props.onChange(number - amount, e);
       }
+
+      this.setState({ value: number - amount });
+    }
+
+    // Enter
+    if (e.keyCode === 13) {
+      this.props.onPressEnter && this.props.onPressEnter(e);
     }
   };
 
@@ -104,8 +113,8 @@ export default class EditableInput extends Component {
       {
         default: {
           wrap: {
-            position: 'relative'
-          }
+            position: 'relative',
+          },
         },
         'user-override': {
           wrap:
@@ -119,16 +128,16 @@ export default class EditableInput extends Component {
           label:
             this.props.style && this.props.style.label
               ? this.props.style.label
-              : {}
+              : {},
         },
         'dragLabel-true': {
           label: {
-            cursor: 'ew-resize'
-          }
-        }
+            cursor: 'ew-resize',
+          },
+        },
       },
       {
-        'user-override': true
+        'user-override': true,
       },
       this.props
     );

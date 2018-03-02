@@ -2,16 +2,20 @@
  * Popup
  */
 
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
-import trim from 'lodash/trim';
+import noop from 'lodash/noop';
+
 import Popover from 'popover';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Select as I18nDefault } from 'i18n/default';
+
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
 
-class Popup extends (PureComponent || Component) {
+class Popup extends Component {
   constructor(props) {
     super(props);
 
@@ -20,8 +24,9 @@ class Popup extends (PureComponent || Component) {
       // 默认选中第一项
       currentId: props.data[0] ? props.data[0].cid : 0,
       keyword: props.keyword || '',
-      style: {}
+      style: {},
     };
+    this.focused = false;
   }
 
   componentWillMount() {
@@ -29,20 +34,22 @@ class Popup extends (PureComponent || Component) {
     if (autoWidth) {
       this.setState({
         style: {
-          width: `${popover.getTriggerNode().clientWidth + 2}px`
-        }
+          width: `${popover.getTriggerNode().clientWidth + 2}px`,
+        },
       });
     }
   }
 
   componentDidMount() {
-    if (!this.props.filter && !this.props.onAsyncFilter) {
-      this.popup.focus();
-    }
     this.popup.addEventListener('mousewheel', this.handleScroll);
   }
 
+  componentWillUnmount() {
+    this.popup.removeEventListener('mousewheel', this.handleScroll);
+  }
+
   handleScroll = evt => {
+    evt.stopPropagation();
     if (
       (this.popup.scrollTop === 0 && evt.deltaY < 0) ||
       (this.popup.scrollTop + this.popup.clientHeight ===
@@ -54,11 +61,25 @@ class Popup extends (PureComponent || Component) {
   };
 
   componentWillReceiveProps(nextProps) {
+    // 渲染时在 popover content ready 后延时触发 focus, 只触发一次
+    // NOTE: win7 360浏览器, 兼容性 bug 修复
+    if (
+      !this.focused &&
+      nextProps.ready &&
+      !nextProps.filter &&
+      !nextProps.onAsyncFilter
+    ) {
+      setTimeout(() => {
+        this.popup.focus();
+      }, 150);
+      this.focused = true;
+    }
+
     const keyword = nextProps.keyword;
     this.setState({
       data: nextProps.data,
       // 默认选中第一项
-      currentId: nextProps.data[0] ? nextProps.data[0].cid : 0
+      currentId: nextProps.data[0] ? nextProps.data[0].cid : 0,
     });
 
     // trigger中传入的keyword
@@ -75,7 +96,7 @@ class Popup extends (PureComponent || Component) {
     const { filter, data } = this.props;
     const { keyword } = this.state;
     this.setState({
-      keyword: ''
+      keyword: '',
     });
     this.props.popover.close();
     this.props.onChange(
@@ -89,33 +110,34 @@ class Popup extends (PureComponent || Component) {
   };
 
   searchFilterHandler = keyword => {
-    const { onAsyncFilter } = this.props;
-    keyword = trim(keyword);
-    this.setState({
-      keyword,
-      currentId: ''
-    });
+    const { onAsyncFilter, filter, adjustPosition } = this.props;
+    // keyword = trim(keyword); 防止空格输入不进去
+    let { data, currentId } = this.state;
 
-    if (typeof onAsyncFilter === 'function') {
-      onAsyncFilter(`${keyword}`);
-    }
-  };
-
-  componentWillUpdate(nextProps, nextState) {
-    const { filter } = nextProps;
-    const { data, keyword, currentId } = nextState;
     data
       .filter(item => {
         return !keyword || !filter || filter(item, `${keyword}`);
       })
       .forEach((item, index) => {
         if ((keyword && item.text === keyword) || (!currentId && index === 0)) {
-          this.setState({
-            currentId: item.cid
-          });
+          currentId = item.cid;
         }
       });
-  }
+
+    this.setState({
+      keyword,
+      currentId,
+    });
+
+    if (typeof onAsyncFilter === 'function') {
+      onAsyncFilter(`${keyword}`);
+    } else {
+      // 同步关键词过滤后更新 Popup 位置
+      setTimeout(() => {
+        adjustPosition();
+      }, 1);
+    }
+  };
 
   keydownHandler = ev => {
     const code = ev.keyCode;
@@ -167,13 +189,13 @@ class Popup extends (PureComponent || Component) {
         break;
     }
     this.setState({
-      currentId
+      currentId,
     });
   };
 
   updateCurrentId(cid) {
     this.setState({
-      currentId: cid
+      currentId: cid,
     });
   }
 
@@ -188,7 +210,8 @@ class Popup extends (PureComponent || Component) {
       filter,
       onAsyncFilter,
       maxToShow,
-      autoWidth
+      autoWidth,
+      ready,
     } = this.props;
 
     const { keyword, data, currentId } = this.state;
@@ -212,6 +235,9 @@ class Popup extends (PureComponent || Component) {
         onKeyDown={this.keydownHandler}
         tabIndex="0"
         style={autoWidth ? this.state.style : null}
+        onFocus={event => {
+          event.preventDefault();
+        }}
       >
         {!extraFilter && (filter || onAsyncFilter) ? (
           <Search
@@ -219,6 +245,7 @@ class Popup extends (PureComponent || Component) {
             prefixCls={prefixCls}
             placeholder={searchPlaceholder}
             onChange={this.searchFilterHandler}
+            ready={ready}
           />
         ) : (
           ''
@@ -241,11 +268,15 @@ class Popup extends (PureComponent || Component) {
           );
         })}
         {showEmpty && (
-          <Option
-            className={`${prefixCls}-empty`}
-            text={emptyText}
-            onClick={this.optionChangedHandler}
-          />
+          <Receiver componentName="Select" defaultI18n={I18nDefault}>
+            {i18n => (
+              <Option
+                className={`${prefixCls}-empty`}
+                text={emptyText || i18n.empty}
+                onClick={this.optionChangedHandler}
+              />
+            )}
+          </Receiver>
         )}
       </div>
     );
@@ -253,6 +284,7 @@ class Popup extends (PureComponent || Component) {
 }
 
 Popup.propTypes = {
+  adjustPosition: PropTypes.func,
   cid: PropTypes.string,
   keyword: PropTypes.any,
   selectedItems: PropTypes.array,
@@ -261,17 +293,18 @@ Popup.propTypes = {
   prefixCls: PropTypes.string,
   extraFilter: PropTypes.bool,
   filter: PropTypes.func,
-  onAsyncFilter: PropTypes.func
+  onAsyncFilter: PropTypes.func,
 };
 
 Popup.defaultProps = {
+  adjustPosition: noop,
   cid: -1,
   keyword: '',
   selectedItems: [],
   emptyText: '',
   prefixCls: '',
   extraFilter: false,
-  searchPlaceholder: ''
+  searchPlaceholder: '',
 };
 
 export default Popover.withPopover(Popup);

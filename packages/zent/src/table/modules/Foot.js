@@ -10,21 +10,28 @@ export default class Foot extends (PureComponent || Component) {
   // 拿到所有的选中的item
   renderBatchComps(selectedRows, batchComponents) {
     return batchComponents.map((comp, index) => {
+      let subComponent;
       if (helper.isReactComponent(comp)) {
         const Comp = comp;
-        return <Comp key={index} data={selectedRows} />;
+        subComponent = <Comp data={selectedRows} />;
+      } else if (typeof comp === 'function') {
+        subComponent = comp(selectedRows, index);
+      } else {
+        subComponent = comp;
       }
-      if (typeof comp === 'function') {
-        return comp(selectedRows, index);
-      }
-      return comp;
+
+      return (
+        <div className="subcomponent-wrapper" key={index}>
+          {subComponent}
+        </div>
+      );
     });
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.batchComponentsFixed) {
       this.footStyleFixed = {
-        height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height
+        height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height,
       };
     } else {
       this.footStyleFixed = {};

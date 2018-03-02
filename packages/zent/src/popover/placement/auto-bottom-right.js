@@ -10,7 +10,7 @@ const positionMap = {
   BottomLeft,
   BottomRight,
   TopLeft,
-  TopRight
+  TopRight,
 };
 
 function locate(

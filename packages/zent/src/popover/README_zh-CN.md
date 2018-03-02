@@ -20,22 +20,24 @@ group: 基础
 
 ### API
 
-| 参数 | 说明 | 类型 | 默认值 | 备选值 |
-|------|------|------|--------|--------|
-| position | 定位的方式, 参见 `Popover.Positon` | Positon | | |
-| cushion | 可选, 定位的偏移量, 通常用来预留空间给小箭头等东西 | number | `0` | |
-| display | 可选, 在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的 `display` 值 |
-| onShow | 可选, 弹层显示后的回调函数 | func | `noop` | |
-| onClose | 可选, 弹层关闭后的回调函数 | func | `noop` | |
-| onBeforeShow | 可选, 弹层打开前的回调函数, 只有用户触发的打开操作才会调用, 外部设置 `visible` 不会调用 | func | `noop` | |
-| onBeforeClose | 可选, 弹层关闭后的回调函数, 只有用户触发的关闭操作才会调用, 外部设置 `visible` 不会调用 | func | `noop` | |
-| containerSelector | 可选, 弹层的父节点CSS selector | string | `'body'` | 所有合法的CSS selector |
-| visible | 可选, 手动控制弹层的显示隐藏, 必须和 `onVisibleChange` 一起使用 | bool | | |
-| onVisibleChange | 可选, 手动控制时的回调函数, 必须和`visible`一起使用, 只有用户手动触发的打开／关闭操作才会调用 | func | | |
-| className | 可选, 自定义额外类名 | string | `''` |  |
-| wrapperClassName | 可选, trigger外层包裹div的类名 | string | `''` |  |
-| width | 可选, 宽度 | string or number |  |  |
-| prefix | 可选, 自定义前缀 | string | `'zent'` |  |
+| 参数 | 说明 | 类型 | 默认值 | 备选值 | 是否必须 |
+|------|------|------|--------|--------|-------|
+| position | 定位的方式, 参见 `Popover.Positon` | Positon | | | 是 |
+| cushion | 定位的偏移量, 通常用来预留空间给小箭头等东西 | number | `0` | | 否 |
+| display | 在文档流里的出现形式 | string | `'block'` | 所有CSS中合法的 `display` 值 | 否 |
+| onShow | 弹层显示后的回调函数 | func | `noop` | | 否 |
+| onClose | 弹层关闭后的回调函数 | func | `noop` | | 否 |
+| onBeforeShow | 弹层打开前的回调函数, 只有用户触发的打开操作才会调用, 外部设置 `visible` 不会调用 | func | `noop` | | 否 |
+| onBeforeClose | 弹层关闭后的回调函数, 只有用户触发的关闭操作才会调用, 外部设置 `visible` 不会调用 | func | `noop` | | 否 |
+| containerSelector | 弹层的父节点CSS selector | string | `'body'` | 所有合法的CSS selector | 否 |
+| visible | 手动控制弹层的显示隐藏, 必须和 `onVisibleChange` 一起使用 | bool | | | 否 |
+| onVisibleChange | 手动控制时的回调函数, 必须和`visible`一起使用, 只有用户手动触发的打开／关闭操作才会调用 | func | | | 否 |
+| onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | `noop` |  | 否 |
+| onPositionReady | content 位置进入窗口时的回调，生命周期内只调用一次 | func | `noop` |  | 否 |
+| className | 自定义额外类名 | string | `''` |  | 否 |
+| wrapperClassName | trigger外层包裹div的类名 | string | `''` |  | 否 |
+| width | 宽度 | string or number |  |  | 否 |
+| prefix | 自定义前缀 | string | `'zent'` |  | 否 |
 
 `onBeforeShow` 和 `onBeforeClose` 可以返回一个 `Promise`，`Popover` 会在 `Promise` resolve 后打开/关闭，如果 `Promise` reject 的话打开/关闭操作终止。
 
@@ -47,21 +49,21 @@ group: 基础
 
 #### Trigger.Click
 
-| 参数        | 说明                                               | 类型                   | 默认值           |
-| --------- | ------------------------------------------------ | -------------------- | ------------- |
-| autoClose | 可选, 是否点击‘外面’自动关闭弹层                                   | bool                 | `true`        |
-| isOutside | 可选, 判断一个节点是否在‘外面’, 点击在外面会关闭弹层。默认trigger和弹层以外的节点都是‘外面’ | func: (node, data) => bool | `() => false` |
+| 参数        | 说明             | 类型             | 默认值     | 是否必须 |
+| --------- | ----------------- | --------------- | ------------- | ---- |
+| autoClose | 是否点击‘外面’自动关闭弹层     | bool    | `true`    | 否  |
+| isOutside | 判断一个节点是否在‘外面’, 点击在外面会关闭弹层。默认trigger和弹层以外的节点都是‘外面’ | func: (node, data) => bool | `() => false` | 否 |
 
 isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 #### Trigger.Hover
 
-| 参数        | 说明        | 类型                   | 默认值           |
-| --------- | ---------------------------------------- | -------------------- | ------------- |
-| showDelay | 可选, 打开弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标移出弹层范围, 弹层不会打开   | number   | `150`  |
-| hideDelay | 可选, 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number    | `150` |
-| isOutside | 可选, 判断一个节点是否在‘外面’。默认 trigger 和弹层以外的节点都是‘外面’  | func: (node, data) => bool |  |
-| quirk | 可选，quirk 模式，该模式下触发关闭时不要求鼠标先从 trigger 和弹层里面出去 | bool | `false` |
+| 参数        | 说明        | 类型                   | 默认值           | 是否必须 |
+| --------- | ------------ | -------------------- | ------------- |---------|
+| showDelay | 打开弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标移出弹层范围, 弹层不会打开   | number   | `150`  | 否 |
+| hideDelay | 关闭弹层前的延迟（单位毫秒）, 如果在这段时间内鼠标重新移入弹层范围, 弹层不会关闭 | number    | `150` | 否 |
+| isOutside | 判断一个节点是否在‘外面’。默认 trigger 和弹层以外的节点都是‘外面’  | func: (node, data) => bool |  | 否 |
+| quirk | quirk 模式，该模式下触发关闭时不要求鼠标先从 trigger 和弹层里面出去 | bool | `false` | 否 |
 
 isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
@@ -88,6 +90,8 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 Positon用于给弹层提供定位的, 内置12种基础定位, 可以添加自定义定位算法. Popover 上的 `cushion` 参数会影响定位, 通常用来提供一定量的偏移量。
 
 ```
+// 基础定位
+
                     TopLeft     TopCenter     TopRight
 
 LeftTop                                                             RightTop
@@ -186,9 +190,9 @@ const HoverContent = withPopover(function HoverContent({ popover }) {
 
 #### `adjustPosition` 方法
 
-可以通过这个方法调整 `Pop` 的位置。
+可以通过这个方法调整 `Popover` 的位置。
 
-一般是用于某些特殊场合，`Pop` 无法自动更新位置时手动调用。
+一般是用于某些特殊场合，`Popover` 无法自动更新位置时手动调用。
 
 <style>
 .zent-doc-popover {

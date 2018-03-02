@@ -9,7 +9,7 @@ const webpackConfig = require('../webpack/webpack.dev.config.js');
 const cmds = {
   wind32: 'start',
   linux: 'xdg-open',
-  darwin: 'open'
+  darwin: 'open',
 };
 
 let onceMark = true;
@@ -20,7 +20,7 @@ compiler.apply(
   new ProgressPlugin({
     format: '  build [:bar] :percent (:elapsed seconds)',
     clear: false,
-    width: 60
+    width: 60,
   })
 );
 
@@ -33,14 +33,14 @@ compiler.plugin('done', () => {
 
 const server = new WebpackDevServer(compiler, {
   stats: {
-    colors: true
+    colors: true,
   },
   hot: true,
   contentBase: resolve(__dirname, 'dist'),
   publicPath: '/',
   disableHostCheck: true,
   inline: true,
-  historyApiFallback: true
+  historyApiFallback: true,
 });
 
 server.listen(4396, '0.0.0.0', () => {

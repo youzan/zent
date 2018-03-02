@@ -1,7 +1,11 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import Notify from 'notify';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Sku as I18nDefault } from 'i18n/default';
+
 import SKUGroup from './components/SKUGroup';
 import SKUButton from './components/SKUButton';
 
@@ -14,7 +18,7 @@ class SKU extends (PureComponent || Component) {
     super(props);
     this.state = {
       skuTree: [].concat(props.skuTree),
-      data: props.value
+      data: props.value,
     };
   }
 
@@ -27,7 +31,7 @@ class SKU extends (PureComponent || Component) {
       optionText: this.props.optionText,
       onFetchSKU: this.props.onFetchSKU,
       onCreateGroup: this.props.onCreateGroup,
-      onCreateSKU: this.props.onCreateSKU
+      onCreateSKU: this.props.onCreateSKU,
     };
   }
 
@@ -42,20 +46,20 @@ class SKU extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      data: nextProps.value
+      data: nextProps.value,
     });
   }
 
   addSKU = () => {
     let { data } = this.state;
     data.push({
-      leaf: []
+      leaf: [],
     });
     data = [].concat(data);
     this.setState({ data });
   };
 
-  rebuildSKU = (sku, index) => {
+  rebuildSKU = i18n => (sku, index) => {
     let { optionValue } = this.props;
     let { data, skuTree } = this.state;
     if (
@@ -63,7 +67,7 @@ class SKU extends (PureComponent || Component) {
         (item, idx) => item[optionValue] === sku[optionValue] && index !== idx
       )
     ) {
-      Notify.error('规格名不能相同');
+      Notify.error(i18n.notify);
       data = [].concat(data);
       this.setState({ data });
       return false;
@@ -97,26 +101,31 @@ class SKU extends (PureComponent || Component) {
     const { skuTree, data } = this.state;
 
     return (
-      <div className={cx(`${prefix}-sku`, className)}>
-        {data.map((item, index) => {
-          return (
-            <SKUGroup
-              key={index}
-              index={index}
-              sku={item}
-              skuTree={skuTree}
-              onSKUChange={this.rebuildSKU}
-              onSKUDelete={this.deleteSKU.bind(this, index)}
-              onSKUCreate={onCreateGroup}
-            />
-          );
-        })}
-        {data.length < maxSize ? (
-          <SKUButton onClick={this.addSKU} disabled={disabled} />
-        ) : (
-          ''
+      <Receiver componentName="Sku" defaultI18n={I18nDefault}>
+        {i18n => (
+          <div className={cx(`${prefix}-sku`, className)}>
+            {data.map((item, index) => (
+              <SKUGroup
+                key={index}
+                index={index}
+                sku={item}
+                i18n={i18n}
+                skuTree={skuTree}
+                onSKUChange={this.rebuildSKU(i18n)}
+                onSKUDelete={this.deleteSKU.bind(this, index)}
+                onSKUCreate={onCreateGroup}
+              />
+            ))}
+            {data.length < maxSize && (
+              <SKUButton
+                onClick={this.addSKU}
+                i18n={i18n}
+                disabled={disabled}
+              />
+            )}
+          </div>
         )}
-      </div>
+      </Receiver>
     );
   }
 }
@@ -129,7 +138,7 @@ SKU.childContextTypes = {
   optionText: PropTypes.string,
   onFetchSKU: PropTypes.func,
   onCreateGroup: PropTypes.func,
-  onCreateSKU: PropTypes.func
+  onCreateSKU: PropTypes.func,
 };
 
 SKU.propTypes = {
@@ -147,7 +156,7 @@ SKU.propTypes = {
   onCreateGroup: PropTypes.func,
   onCreateSKU: PropTypes.func,
   onChange: PropTypes.func,
-  prefix: PropTypes.string
+  prefix: PropTypes.string,
 };
 
 SKU.defaultProps = {
@@ -164,7 +173,7 @@ SKU.defaultProps = {
   onCreateGroup: noopPromise,
   onCreateSKU: noopPromise,
   onChange: noop,
-  prefix: 'zent'
+  prefix: 'zent',
 };
 
 export default SKU;

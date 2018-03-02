@@ -25,23 +25,23 @@ describe('Tree', () => {
       {
         id: 1,
         title: 'root',
-        parentId: 0
+        parentId: 0,
       },
       {
         id: 2,
         title: 'son',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 3,
         title: 'grandSon',
-        parentId: 2
+        parentId: 2,
       },
       {
         id: 4,
         title: 'anotherSon',
-        parentId: 1
-      }
+        parentId: 1,
+      },
     ];
     const wrapper = shallow(<Tree dataType="plain" data={data} />);
     /**
@@ -113,16 +113,16 @@ describe('Tree', () => {
             children: [
               {
                 id: 3,
-                title: 'grandSon'
-              }
-            ]
+                title: 'grandSon',
+              },
+            ],
           },
           {
             id: 4,
-            title: 'anotherSon'
-          }
-        ]
-      }
+            title: 'anotherSon',
+          },
+        ],
+      },
     ];
     const wrapper = shallow(<Tree data={data} />);
     expect(wrapper.type()).toBe('ul');
@@ -208,24 +208,24 @@ describe('Tree', () => {
       {
         id: 1,
         title: 'root',
-        isRoot: true
+        isRoot: true,
       },
       {
         id: 2,
         title: 'son',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 3,
         title: 'grandSon',
         parentId: 2,
-        isLeaf: true
+        isLeaf: true,
       },
       {
         id: 4,
         title: 'anotherSon',
-        parentId: 1
-      }
+        parentId: 1,
+      },
     ];
     const wrapper = shallow(
       <Tree dataType="plain" data={data} isRoot={node => node.isRoot} />
@@ -278,24 +278,24 @@ describe('Tree', () => {
     const data = [
       {
         id: 1,
-        title: 'root'
+        title: 'root',
       },
       {
         id: 2,
         title: 'son',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 3,
         title: 'grandSon',
         parentId: 2,
-        isLeaf: true
+        isLeaf: true,
       },
       {
         id: 4,
         title: 'anotherSon',
-        parentId: 1
-      }
+        parentId: 1,
+      },
     ];
     const wrapper = shallow(
       <Tree
@@ -318,13 +318,13 @@ describe('Tree', () => {
       {
         id: 1,
         title: 'root',
-        isRoot: true
+        isRoot: true,
       },
       {
         id: 2,
         title: 'sonOfOthers',
-        parentId: 3
-      }
+        parentId: 3,
+      },
     ];
     const wrapper = shallow(<Tree dataType="plain" data={data} />);
     expect(wrapper.find('li').length).toBe(1);
@@ -341,13 +341,13 @@ describe('Tree', () => {
       {
         id: 1,
         title: 'root',
-        parentId: 0
+        parentId: 0,
       },
       {
         id: 2,
         title: 'son',
-        parentId: 1
-      }
+        parentId: 1,
+      },
     ];
     const wrapper = mount(<Tree dataType="plain" data={initialData} />);
     expect(wrapper.find('li').length).toBe(2);
@@ -358,48 +358,48 @@ describe('Tree', () => {
       {
         id: 1,
         title: 'root',
-        parentId: 0
+        parentId: 0,
       },
       {
         id: 2,
         title: 'son',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 3,
         title: 'daughter',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 4,
         title: 'littleSon',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 5,
         title: 'littleDaughter',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 6,
         title: 'grandSon',
-        parentId: 2
+        parentId: 2,
       },
       {
         id: 7,
         title: 'grandDaughter',
-        parentId: 2
+        parentId: 2,
       },
       {
         id: 8,
         title: 'grandSon',
-        parentId: 3
+        parentId: 3,
       },
       {
         id: 9,
         title: 'grandDaughter',
-        parentId: 3
-      }
+        parentId: 3,
+      },
     ];
     wrapper.setProps({ data: updatedData });
     expect(wrapper.find('li').length).toBe(9);
@@ -426,23 +426,23 @@ describe('Tree', () => {
       {
         id: 1,
         title: 'root',
-        parentId: 0
+        parentId: 0,
       },
       {
         id: 2,
         title: 'son',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 3,
         title: 'daughter',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 4,
         title: 'grandSon',
-        parentId: 2
-      }
+        parentId: 2,
+      },
     ];
     const wrapper = mount(<Tree dataType="plain" data={data} />);
     const rootSpan = wrapper.find('span').at(0);
@@ -498,10 +498,10 @@ describe('Tree', () => {
         children: [
           {
             id: 2,
-            title: 'son'
-          }
-        ]
-      }
+            title: 'son',
+          },
+        ],
+      },
     ];
     let hackWrapper = mount(<Tree data={hackData} />);
     hackWrapper
@@ -534,23 +534,23 @@ describe('Tree', () => {
       {
         id: 1,
         title: 'root',
-        parentId: 0
+        parentId: 0,
       },
       {
         id: 2,
         title: 'son',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 3,
         title: 'daughter',
-        parentId: 1
+        parentId: 1,
       },
       {
         id: 4,
         title: 'grandSon',
-        parentId: 2
-      }
+        parentId: 2,
+      },
     ];
     const wrapper = mount(<Tree dataType="plain" data={data} />);
     const rootSpan = wrapper.find('span').at(0);
@@ -591,8 +591,8 @@ describe('Tree', () => {
       {
         id: 1,
         parentId: 0,
-        title: 'root'
-      }
+        title: 'root',
+      },
     ];
     const wrapper = mount(<Tree data={data} loadMore={loadMoreMock} />);
     const rootIcon = wrapper.find('i');
@@ -604,8 +604,8 @@ describe('Tree', () => {
       {
         id: 0,
         title: 'root',
-        children: []
-      }
+        children: [],
+      },
     ];
 
     // BUG: loadMore in expand flow has no reject processing
@@ -634,10 +634,10 @@ describe('Tree', () => {
         children: [
           {
             id: 2,
-            title: 'son'
-          }
-        ]
-      }
+            title: 'son',
+          },
+        ],
+      },
     ];
     const hackWrapper = mount(<Tree data={hackData} loadMore={loadMoreMock} />);
     const hackIcon = hackWrapper.find('i').at(0);
@@ -654,10 +654,10 @@ describe('Tree', () => {
         children: [
           {
             id: 2,
-            title: 'son'
-          }
-        ]
-      }
+            title: 'son',
+          },
+        ],
+      },
     ];
     const wrapper = mount(
       <Tree data={data} loadMore={() => new Promise(resolve => resolve())} />
@@ -681,13 +681,13 @@ describe('Tree', () => {
             children: [
               {
                 id: 4,
-                title: 'grandSon'
+                title: 'grandSon',
               },
               {
                 id: 5,
-                title: 'grandDaughter'
-              }
-            ]
+                title: 'grandDaughter',
+              },
+            ],
           },
           {
             id: 3,
@@ -695,21 +695,26 @@ describe('Tree', () => {
             children: [
               {
                 id: 6,
-                title: 'grandDaughter'
+                title: 'grandDaughter',
               },
               {
                 id: 7,
-                title: 'grandSon'
-              }
-            ]
+                title: 'grandSon',
+              },
+            ],
           },
           {
             id: 10,
-            title: 'wife'
-          }
-        ]
-      }
+            title: 'wife',
+          },
+        ],
+      },
     ];
+
+    let onCheckedData;
+    const onCheck = checkedData => {
+      onCheckedData = checkedData;
+    };
 
     const wrapper = mount(
       <Tree
@@ -717,6 +722,7 @@ describe('Tree', () => {
         defaultCheckedKeys={[10]}
         checkable
         disabledCheckedKeys={[10]}
+        onCheck={onCheck}
       />
     );
     expect(wrapper.state('checkedTree')['1'].t).toBe(1);
@@ -734,6 +740,7 @@ describe('Tree', () => {
     expect(wrapper.find('Checkbox').everyWhere(n => n.prop('checked'))).toBe(
       true
     );
+    expect(onCheckedData.length).toBe(8);
     wrapper
       .find('Checkbox input')
       .at(0)
@@ -743,6 +750,7 @@ describe('Tree', () => {
         .find('Checkbox')
         .everyWhere(n => n.prop('checked') && n.prop('indeterminate'))
     ).toBe(false);
+    expect(onCheckedData.length).toBe(0);
 
     wrapper
       .find('Checkbox input')
@@ -800,13 +808,13 @@ describe('Tree', () => {
         name: 'Delete',
         icon: 'bar',
         action: actionMockDelete,
-        shouldRender: data => data.id % 2 === 0
+        shouldRender: data => data.id % 2 === 0,
       },
       {
         name: 'Clone',
         icon: 'foo',
-        action: actionMockClone
-      }
+        action: actionMockClone,
+      },
     ];
     const data = [
       {
@@ -815,10 +823,10 @@ describe('Tree', () => {
         children: [
           {
             id: 2,
-            title: 'son'
-          }
-        ]
-      }
+            title: 'son',
+          },
+        ],
+      },
     ];
     const wrapper = mount(<Tree data={data} operations={operations} />);
     expect(wrapper.find('.operation').length).toBe(2);

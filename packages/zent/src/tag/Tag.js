@@ -16,11 +16,13 @@ export default class Tag extends (PureComponent || Component) {
     bgColor: PropTypes.string,
     fontColor: PropTypes.string,
     closable: PropTypes.bool,
+    visible: PropTypes.bool,
+    onVisibleChange: PropTypes.func,
     onClose: PropTypes.func,
     children: PropTypes.node,
     style: PropTypes.object,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -29,32 +31,55 @@ export default class Tag extends (PureComponent || Component) {
     rounded: true,
     closable: false,
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   state = {
-    closed: false
+    visible: true,
   };
 
   onClose = e => {
     e.persist();
-    this.setState(
-      {
-        closed: true
-      },
-      () => {
-        // onClose是在*关闭以后*被调用的
-        const { onClose } = this.props;
-        if (isFunction(onClose)) {
-          onClose(e);
-        }
+    const cb = () => {
+      // onClose是在*关闭以后*被调用的
+      const { onClose } = this.props;
+      if (isFunction(onClose)) {
+        onClose(e);
       }
-    );
+    };
+
+    const { onVisibleChange } = this.props;
+    if (this.isControlled() && isFunction(onVisibleChange)) {
+      onVisibleChange(false);
+      cb();
+    } else {
+      this.setState(
+        {
+          visible: false,
+        },
+        cb
+      );
+    }
   };
 
+  isControlled() {
+    const { closable, visible, onVisibleChange } = this.props;
+    const isVisibleBoolean = visible === false || visible === true;
+
+    if (closable && isVisibleBoolean && isFunction(onVisibleChange)) {
+      return true;
+    }
+
+    if (!closable && isVisibleBoolean) {
+      return true;
+    }
+  }
+
   render() {
-    const { closed } = this.state;
-    if (closed) {
+    const visible = this.isControlled()
+      ? this.props.visible
+      : this.state.visible;
+    if (!visible) {
       return null;
     }
 
@@ -69,7 +94,7 @@ export default class Tag extends (PureComponent || Component) {
       children,
       className,
       prefix,
-      style
+      style,
     } = this.props;
     const containerCls = cx(
       `${prefix}-tag`,
@@ -79,7 +104,7 @@ export default class Tag extends (PureComponent || Component) {
       {
         [className]: !!className,
         [`${prefix}-tag-rounded`]: rounded,
-        [`${prefix}-tag-closable`]: closable
+        [`${prefix}-tag-closable`]: closable,
       }
     );
 

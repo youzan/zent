@@ -4,5 +4,5 @@ export default {
   success,
   error,
   clear,
-  config
+  config,
 };

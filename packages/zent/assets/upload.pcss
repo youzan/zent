@@ -17,7 +17,7 @@
   }
 
   .zent-dialog-r {
-    min-width: 760px;
+    min-width: 760px !important;
 
     &-footer {
       margin-top: 0;
@@ -53,9 +53,12 @@
 .zent-upload-container {
   width: 760px;
   height: 480px;
+  display: flex;
+  flex-direction: column;
 }
 
 .zent-upload-network-image-region,
+.zent-upload-group-region,
 .zent-upload-local-attachment-region {
   padding: 30px 10px;
   overflow: hidden;
@@ -65,15 +68,20 @@
     font-size: 14px;
     font-weight: bold;
     text-align: right;
+    width: 100px;
   }
 
   .zent-upload-content {
     background-color: $theme-stroke-10;
-    float: left;
     position: relative;
     zoom: 1;
-    width: 660px;
-    margin-left: 10px;
+    margin-left: 100px;
+  }
+}
+
+.zent-upload-group-region {
+  .zent-upload-title {
+    line-height: 30px;
   }
 }
 
@@ -110,6 +118,14 @@
 }
 
 .zent-upload-local-attachment-region {
+  height: 100%;
+
+  .zent-upload-content {
+    overflow: auto;
+    margin-top: -10px;
+    height: 100%;
+  }
+
   .zent-upload-local-tips {
     clear: both;
     padding-top: 20px;
@@ -118,13 +134,14 @@
 
   .upload-local-image-list {
     height: auto;
+    padding-top: 10px;
   }
 
   .image-list {
     .upload-local-image-item {
       position: relative;
       float: left;
-      margin: 0 20px 20px 0;
+      margin: 0 10px 10px 0;
       width: 80px;
       height: 80px;
 

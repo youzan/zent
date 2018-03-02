@@ -5,14 +5,14 @@ import { noop } from '../constants';
 
 const PanelFooter = props => {
   const {
+    buttonText,
+    errorText,
     linkCls,
     linkText,
-    onClickLink,
     onClickButton,
-    buttonText,
-    showLink,
+    onClickLink,
     showError,
-    errorText
+    showLink,
   } = props;
 
   return (
@@ -35,7 +35,7 @@ PanelFooter.defaultProps = {
   onClickButton: noop,
   showLink: true,
   showError: false,
-  errorText: ''
+  errorText: '',
 };
 
 export default PanelFooter;

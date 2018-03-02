@@ -4,6 +4,8 @@
 
 /// <reference path="./libs/Affix.d.ts" />
 /// <reference path="./libs/Alert.d.ts" />
+/// <reference path="./libs/Avatar.d.ts" />
+/// <reference path="./libs/AutoComplete.d.ts" />
 /// <reference path="./libs/Badge.d.ts" />
 /// <reference path="./libs/BlockHeader.d.ts" />
 /// <reference path="./libs/Breadcrumb.d.ts" />
@@ -11,6 +13,7 @@
 /// <reference path="./libs/Card.d.ts" />
 /// <reference path="./libs/Cascader.d.ts" />
 /// <reference path="./libs/CheckBox.d.ts" />
+/// <reference path="./libs/Collapse.d.ts" />
 /// <reference path="./libs/ColorPicker.d.ts" />
 /// <reference path="./libs/CopyButton.d.ts" />
 /// <reference path="./libs/DateRangeQuickPicker.d.ts" />
@@ -19,6 +22,7 @@
 /// <reference path="./libs/Dialog.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
 /// <reference path="./libs/Icon.d.ts" />
+/// <reference path="./libs/InfiniteScroller.d.ts" />
 /// <reference path="./libs/Input.d.ts" />
 /// <reference path="./libs/Layout.d.ts" />
 /// <reference path="./libs/Loading.d.ts" />
@@ -26,18 +30,21 @@
 /// <reference path="./libs/Notify.d.ts" />
 /// <reference path="./libs/NumberInput.d.ts" />
 /// <reference path="./libs/Pagination.d.ts" />
+/// <reference path="./libs/Placeholder.d.ts" />
 /// <reference path="./libs/Pop.d.ts" />
 /// <reference path="./libs/Popover.d.ts" />
 /// <reference path="./libs/Portal.d.ts" />
 /// <reference path="./libs/previewImage.d.ts" />
 /// <reference path="./libs/Progress.d.ts" />
 /// <reference path="./libs/Radio.d.ts" />
+/// <reference path="./libs/Rate.d.ts" />
 /// <reference path="./libs/SearchInput.d.ts" />
 /// <reference path="./libs/Select.d.ts" />
 /// <reference path="./libs/SKU.d.ts" />
 /// <reference path="./libs/Slider.d.ts" />
+/// <reference path="./libs/Sortable.d.ts" />
 /// <reference path="./libs/Steps.d.ts" />
-/// <reference path="./libs/SweetAlert.d.ts" />
+/// <reference path="./libs/Sweetalert.d.ts" />
 /// <reference path="./libs/Swiper.d.ts" />
 /// <reference path="./libs/Switch.d.ts" />
 /// <reference path="./libs/Table.d.ts" />
@@ -49,6 +56,8 @@
 declare module 'zent' {
   import Affix from 'zent/lib/affix';
   import Alert from 'zent/lib/alert';
+  import Avatar from 'zent/lib/avatar';
+  import AutoComplete from 'zent/lib/auto-complete';
   import Badge from 'zent/lib/badge';
   import BlockHeader from 'zent/lib/block-header';
   import Breadcrumb from 'zent/lib/breadcrumb';
@@ -57,10 +66,10 @@ declare module 'zent' {
   import Card from 'zent/lib/card';
   import Checkbox from 'zent/lib/checkbox';
   import ColorPicker from 'zent/lib/colorpicker';
+  import Collapse from 'zent/lib/collapse';
   import CopyButton from 'zent/lib/copy-button';
-  import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
-  import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
+  import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangePicker from 'zent/lib/datetimepicker/DateRangePicker';
   import Design from 'zent/lib/design';
   import Dialog from 'zent/lib/dialog';
@@ -72,18 +81,23 @@ declare module 'zent' {
   import InfiniteScroller from 'zent/lib/infinite-scroller';
   import NumberInput from 'zent/lib/number-input';
   import Menu from 'zent/lib/menu';
+  import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
   import Notify from 'zent/lib/notify';
   import Pagination from 'zent/lib/pagination';
+  import Placeholder from 'zent/lib/placeholder';
   import Pop from 'zent/lib/pop';
   import Popover from 'zent/lib/popover';
   import Portal from 'zent/lib/portal';
   import previewImage from 'zent/lib/preview-image';
   import Progress from 'zent/lib/progress';
+  import QuarterPicker from 'zent/lib/datetimepicker/QuarterPicker';
   import Radio from 'zent/lib/radio';
+  import Rate from 'zent/lib/rate';
   import SearchInput from 'zent/lib/search-input';
   import Select from 'zent/lib/select';
   import SKU from 'zent/lib/sku';
   import Slider from 'zent/lib/slider';
+  import Sortable from 'zent/lib/sortable';
   import Steps from 'zent/lib/steps';
   import Sweetalert from 'zent/lib/sweetalert';
   import Swiper from 'zent/lib/swiper';
@@ -92,11 +106,17 @@ declare module 'zent' {
   import Tabs from 'zent/lib/tabs';
   import Tag from 'zent/lib/tag';
   import Tree from 'zent/lib/tree';
+  import TimePicker from 'zent/lib/datetimepicker/TimePicker';
+  import TimeRangePicker from 'zent/lib/datetimepicker/TimeRangePicker';
   import Upload from 'zent/lib/upload';
+  import WeekPicker from 'zent/lib/datetimepicker/WeekPicker';
+  import YearPicker from 'zent/lib/datetimepicker/YearPicker';
 
   export {
     Affix,
     Alert,
+    Avatar,
+    AutoComplete,
     Badge,
     BlockHeader,
     Breadcrumb,
@@ -105,6 +125,7 @@ declare module 'zent' {
     Card,
     Checkbox,
     ColorPicker,
+    Collapse,
     CopyButton,
     DatePicker,
     DateRangePicker,
@@ -122,16 +143,20 @@ declare module 'zent' {
     MonthPicker,
     Notify,
     Pagination,
+    Placeholder,
     Pop,
     Popover,
     Portal,
     previewImage,
     Progress,
+    QuarterPicker,
     Radio,
+    Rate,
     SearchInput,
     Select,
     SKU,
     Slider,
+    Sortable,
     Steps,
     Sweetalert,
     Swiper,
@@ -139,8 +164,12 @@ declare module 'zent' {
     Tabs,
     Tag,
     Tree,
+    TimePicker,
+    TimeRangePicker,
     Switch,
-    Upload
+    Upload,
+    WeekPicker,
+    YearPicker
   };
 
 }

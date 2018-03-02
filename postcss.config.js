@@ -1,21 +1,23 @@
 /* eslint-disable global-require */
 
-// const PRODUCTION = process.env.NODE_ENV === 'production';
+const PRODUCTION = process.env.NODE_ENV === 'production';
 
 const config = {
   plugins: [
     require('postcss-easy-import')({
       prefix: '_',
-      extensions: ['pcss', 'css']
+      extensions: ['pcss', 'css'],
     }),
     require('autoprefixer')(),
-    require('precss')()
-  ]
+    require('precss')(),
+  ],
 };
 
-// FIXME: cssnano does not support postcss 6
-// if (PRODUCTION) {
-//   config.plugins.push(require('cssnano')({ safe: true }));
-// }
+if (PRODUCTION) {
+  config.plugins.push(require('cssnano')({ preset: 'default' }));
+} else {
+  // reduces calc(10px * 2) to 20px
+  config.plugins.push(require('postcss-calc')());
+}
 
 module.exports = config;

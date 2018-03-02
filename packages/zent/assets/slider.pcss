@@ -10,8 +10,8 @@
     height: 14px;
     cursor: pointer;
     position: relative;
-    border-top: 5px solid $theme-stroke-10;
-    border-bottom: 5px solid $theme-stroke-10;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
     box-sizing: border-box;
 
     &-with-marks {
@@ -79,7 +79,7 @@
     }
 
     &:active {
-      box-shadow: 0 0 0 2px $theme-primary-6;
+      box-shadow: 0 0 0 2px $slider-point-active-shadow-color;
     }
 
     &-disabled {
@@ -126,6 +126,7 @@
         line-height: 11px;
         position: relative;
         z-index: 2;
+        white-space: nowrap;
       }
 
       .toolTips-arrow {

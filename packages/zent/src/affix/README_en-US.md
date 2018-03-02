@@ -22,7 +22,7 @@ Used to fix the element in a specific area, it is common to fix navigation bar
 | prefix    | custom prefix    | string | `'zent'`   |                                   |
 
 
-If `offsetTop` and `offsetBottom` are both set , `offsetBottom` has priority
+If `offsetTop` and `offsetBottom` are both set , `offsetBottom` has higher priority.
 
 <style>
 .demo-nav {

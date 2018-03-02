@@ -38,6 +38,7 @@ import findIndex from 'lodash/findIndex';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import defaultTo from 'lodash/defaultTo';
+import isFunction from 'lodash/isFunction';
 import * as storage from 'utils/storage';
 import uuid from 'utils/uuid';
 
@@ -45,7 +46,7 @@ import DesignPreview from './preview/DesignPreview';
 import {
   getDesignType,
   isExpectedDesginType,
-  serializeDesignType
+  serializeDesignType,
 } from './utils/design-type';
 import LazyMap from './utils/LazyMap';
 import { ADD_COMPONENT_OVERLAY_POSITION } from './constants';
@@ -62,7 +63,7 @@ export default class Design extends (PureComponent || Component) {
         // 组件类型
         type: PropTypes.oneOfType([
           PropTypes.string,
-          PropTypes.arrayOf(PropTypes.string)
+          PropTypes.arrayOf(PropTypes.string),
         ]).isRequired,
 
         // 预览这个组件的 Component
@@ -119,11 +120,23 @@ export default class Design extends (PureComponent || Component) {
         limitMessage: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 
         // 是否可以添加组件的回调函数，返回一个 Promise
-        shouldCreate: PropTypes.func
+        shouldCreate: PropTypes.func,
       })
     ).isRequired,
 
     value: PropTypes.arrayOf(PropTypes.object),
+
+    // Design 组件通用的全局设置
+    settings: PropTypes.object,
+
+    // settings 改变的回调函数
+    onSettingsChange(props, propName, componentName) {
+      if (props.settings && !isFunction(props[propName])) {
+        throw new Error(
+          `Invalid prop ${propName} supplied to ${componentName}, expects a function.`
+        );
+      }
+    },
 
     // 默认选中的组件下标
     defaultSelectedIndex: PropTypes.number,
@@ -133,6 +146,9 @@ export default class Design extends (PureComponent || Component) {
 
     // 用来渲染整个 Design 组件
     preview: PropTypes.func,
+
+    // 预览部分底部的额外信息
+    previewFooter: PropTypes.node,
 
     // 有未保存数据关闭窗口时需要用户确认
     // 离开时的确认文案新版本的浏览器是不能自定义的。
@@ -167,7 +183,7 @@ export default class Design extends (PureComponent || Component) {
 
     className: PropTypes.string,
 
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -180,7 +196,7 @@ export default class Design extends (PureComponent || Component) {
     cacheRestoreMessage: '提示：在浏览器中发现未提交的内容，是否使用该内容替换当前内容？',
     scrollTopOffset: -10,
     scrollLeftOffset: -10,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   constructor(props) {
@@ -208,6 +224,9 @@ export default class Design extends (PureComponent || Component) {
         props.components
       ),
 
+      // 外面没传的时候用 state 上的 settings
+      settings: {},
+
       // 是否显示添加组件的浮层
       showAddComponentOverlay: false,
 
@@ -228,7 +247,7 @@ export default class Design extends (PureComponent || Component) {
       showRestoreFromCache: false,
 
       // 当 preview 很长时，为了对齐 preview 底部需要的额外空间
-      bottomGap: 0
+      bottomGap: 0,
     };
   }
 
@@ -238,7 +257,7 @@ export default class Design extends (PureComponent || Component) {
       prefix,
       preview,
       cacheRestoreMessage,
-      children
+      children,
     } = this.props;
     const { showRestoreFromCache, bottomGap } = this.state;
     const cls = cx(`${prefix}-design`, className);
@@ -316,7 +335,7 @@ export default class Design extends (PureComponent || Component) {
         componentInstanceCount: makeInstanceCountMapFromValue(
           nextProps.value,
           nextProps.components
-        )
+        ),
       });
     }
   }
@@ -325,12 +344,20 @@ export default class Design extends (PureComponent || Component) {
     this.setState({
       appendableComponents: components.filter(
         c => c.appendable === undefined || c.appendable
-      )
+      ),
     });
   }
 
   renderPreview(preview) {
-    const { components, prefix, value, disabled, globalConfig } = this.props;
+    const {
+      components,
+      prefix,
+      value,
+      disabled,
+      settings,
+      previewFooter,
+      globalConfig,
+    } = this.props;
     const {
       selectedUUID,
       appendableComponents,
@@ -338,7 +365,8 @@ export default class Design extends (PureComponent || Component) {
       addComponentOverlayPosition,
       validations,
       showError,
-      componentInstanceCount
+      settings: managedSettings,
+      componentInstanceCount,
     } = this.state;
 
     return React.createElement(preview, {
@@ -347,6 +375,9 @@ export default class Design extends (PureComponent || Component) {
       value,
       validations,
       showError,
+      settings: settings || managedSettings,
+      onSettingsChange: this.onSettingsChange,
+      footer: previewFooter,
       componentInstanceCount,
       onComponentValueChange: this.onComponentValueChange,
       onAddComponent: this.onAdd,
@@ -363,11 +394,34 @@ export default class Design extends (PureComponent || Component) {
       design: this.design,
       globalConfig,
       disabled,
-      ...this.getPreviewProps(),
-
-      ref: this.savePreview
+      ref: this.savePreview,
     });
   }
+
+  onSettingsChange = value => {
+    const { settings, onSettingsChange } = this.props;
+    const onSettingsChangeExists = isFunction(onSettingsChange);
+
+    if (settings && !onSettingsChangeExists) {
+      throw new Error('Expects onSettingsChange to be a function');
+    }
+
+    if (settings && onSettingsChangeExists) {
+      onSettingsChange({
+        ...settings,
+        ...value,
+      });
+    }
+
+    if (!settings) {
+      this.setState({
+        settings: {
+          ...this.state.settings,
+          ...value,
+        },
+      });
+    }
+  };
 
   onComponentValueChange = identity => (diff, replace = false) => {
     const { value } = this.props;
@@ -423,7 +477,7 @@ export default class Design extends (PureComponent || Component) {
 
     this.setState({
       selectedUUID: id,
-      showAddComponentOverlay: false
+      showAddComponentOverlay: false,
     });
 
     this.adjustHeight();
@@ -431,9 +485,12 @@ export default class Design extends (PureComponent || Component) {
 
   // 添加一个新组件
   onAdd = (component, fromSelected) => {
-    const { value } = this.props;
+    const { value, settings, globalConfig } = this.props;
     const { editor, defaultType } = component;
-    const instance = editor.getInitialValue();
+    const instance = editor.getInitialValue({
+      settings,
+      globalConfig,
+    });
     instance.type = getDesignType(editor, defaultType);
     const id = uuid();
     this.setUUIDForValue(instance, id);
@@ -476,7 +533,7 @@ export default class Design extends (PureComponent || Component) {
     });
 
     const newState = {
-      showAddComponentOverlay: false
+      showAddComponentOverlay: false,
     };
 
     // 删除选中项目后默认选中前一项可选的，如果不存在则往后找一个可选项
@@ -569,12 +626,9 @@ export default class Design extends (PureComponent || Component) {
     this.trackValueChange(newValue);
   };
 
-  // Injections can be overwritten
-  getPreviewProps() {}
-
   setValidation = validation => {
     this.setState({
-      validations: assign({}, this.state.validations, validation)
+      validations: assign({}, this.state.validations, validation),
     });
 
     this.adjustHeight();
@@ -611,7 +665,7 @@ export default class Design extends (PureComponent || Component) {
         this.setState(
           {
             showError: true,
-            validations
+            validations,
           },
           () => {
             // 跳转到第一个有错误的组件
@@ -625,7 +679,7 @@ export default class Design extends (PureComponent || Component) {
               this.setState({
                 selectedUUID: id,
                 showAddComponentOverlay: false,
-                onShowEditComponentOverlay: true
+                onShowEditComponentOverlay: true,
               });
             }
 
@@ -680,7 +734,7 @@ export default class Design extends (PureComponent || Component) {
     this.setState({
       selectedUUID: id,
       showAddComponentOverlay: showAdd,
-      addComponentOverlayPosition: addPosition
+      addComponentOverlayPosition: addPosition,
     });
     this.adjustHeight();
   }
@@ -693,7 +747,7 @@ export default class Design extends (PureComponent || Component) {
 
     this.setState({
       selectedUUID: this.getUUIDFromValue(safeValue),
-      showAddComponentOverlay: false
+      showAddComponentOverlay: false,
     });
   };
 
@@ -734,7 +788,7 @@ export default class Design extends (PureComponent || Component) {
       this.preview.scrollToItem &&
         this.preview.scrollToItem(id, {
           top: scrollTopOffset,
-          left: scrollLeftOffset
+          left: scrollLeftOffset,
         });
     }
   }
@@ -754,7 +808,7 @@ export default class Design extends (PureComponent || Component) {
         const editorBB = this.preview.getEditorBoundingBox(id);
         if (!editorBB) {
           return this.setState({
-            bottomGap: 0
+            bottomGap: 0,
           });
         }
 
@@ -766,7 +820,7 @@ export default class Design extends (PureComponent || Component) {
 
         const gap = Math.max(0, editorBB.bottom - previewBB.bottom);
         this.setState({
-          bottomGap: gap
+          bottomGap: gap,
         });
       }
     }, 0);
@@ -832,7 +886,7 @@ export default class Design extends (PureComponent || Component) {
 
       if (cachedValue !== storage.NOT_FOUND) {
         this.setState({
-          showRestoreFromCache: true
+          showRestoreFromCache: true,
         });
       }
     }
@@ -867,7 +921,7 @@ export default class Design extends (PureComponent || Component) {
   // 关闭提示，但是不清楚缓存
   onRestoreCacheAlertClose = () => {
     this.setState({
-      showRestoreFromCache: false
+      showRestoreFromCache: false,
     });
   };
 
@@ -879,7 +933,7 @@ export default class Design extends (PureComponent || Component) {
     if (cachedValue !== storage.NOT_FOUND) {
       this.trackValueChange(cachedValue, false);
       this.setState({
-        showRestoreFromCache: false
+        showRestoreFromCache: false,
       });
       this.removeCache();
     }
@@ -894,9 +948,14 @@ export default class Design extends (PureComponent || Component) {
   design = (() => {
     return {
       injections: {
-        getPreviewProps: implementation => {
-          this.getPreviewProps = implementation;
-        }
+        getPreviewProps: (/* implementation */) => {
+          // eslint-disable-next-line
+          console.warn(
+            'Design injections are no longer supported, use `settings` and `onSettingsChange` instead.'
+          );
+
+          // this.getPreviewProps = implementation;
+        },
       },
 
       getUUID: this.getUUIDFromValue,
@@ -907,7 +966,7 @@ export default class Design extends (PureComponent || Component) {
 
       markAsSaved: this.markAsSaved,
 
-      adjustPreviewHeight: this.adjustHeight
+      adjustPreviewHeight: this.adjustHeight,
     };
   })();
 }

@@ -12,11 +12,11 @@ const createPosition = (x, y, side) => {
       return {
         position: 'absolute',
         left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`
+        top: `${Math.round(y)}px`,
       };
     },
 
-    name: `position-${side}`
+    name: `position-${side}`,
   };
 };
 
@@ -45,7 +45,7 @@ const CenterArrowPosition = {
         (middle, contentDimension) =>
           middle - (contentDimension.width - ARROW_OFFSET),
         'right'
-      )
+      ),
     };
   })(),
 
@@ -73,7 +73,7 @@ const CenterArrowPosition = {
         (middle, contentDimension) =>
           middle - (contentDimension.width - ARROW_OFFSET),
         'right'
-      )
+      ),
     };
   })(),
 
@@ -101,7 +101,7 @@ const CenterArrowPosition = {
         (middle, contentDimension) =>
           middle - (contentDimension.height - ARROW_OFFSET),
         'bottom'
-      )
+      ),
     };
   })(),
 
@@ -129,9 +129,9 @@ const CenterArrowPosition = {
         (middle, contentDimension) =>
           middle - (contentDimension.height - ARROW_OFFSET),
         'bottom'
-      )
+      ),
     };
-  })()
+  })(),
 };
 
 export default function getPosition(position, centerArrow) {

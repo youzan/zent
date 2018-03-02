@@ -76,7 +76,7 @@ describe('Combine', () => {
 
   it('pagination total info', () => {
     wrapper.setState({ total: 1000 });
-    expect(wrapper.find('.total').text()).toBe('共1000条');
+    expect(wrapper.find('.total').text()).toContain('1000');
   });
 
   it('selectRows', () => {

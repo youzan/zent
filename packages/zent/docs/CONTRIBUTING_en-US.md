@@ -40,6 +40,13 @@ The boring part is automated, just run `yarn new-component YOUR-COMPONENT-NAME` 
 
 Remember to add TypeScript definitions in `packages/zent/typings` for your new component.
 
+#### Naming
+
+* Component file name should be camel case，e.g. `ActionButton`'s file name should be `ActionsButton.js`
+* Files export functions should be camel case(first letter is lower case), e.g. `withPop`
+* Directory name should be lower case separated by -, e.g. `number-input`
+* file name in demos should be lower case separated by -, e.g `with-close-btn`
+
 #### Testing
 
 Beside the unit tests in `__tests__`, remember to update documentation whenever you make a change.

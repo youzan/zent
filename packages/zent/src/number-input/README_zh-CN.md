@@ -20,7 +20,7 @@ group: 数据
 | value        | 输入值             | number        |          |    | 否    |
 | onChange     | change事件        | func(e:Event) |          |     | 否    |
 | showStepper  | 是否开启记步器         | bool        | `false` |    | 否    |
-| showStepper  | 是否开启加减号         | bool        | `false` |    | 否    |
+| showCounter  | 是否开启加减号         | bool        | `false` |    | 否    |
 | decimal      | 数值精度            | number        |          |     | 否    |
 | min      | 数值范围最小值            | number        |          |     | 否    |
 | max      | 数值范围最大值            | number        |          |     | 否    |

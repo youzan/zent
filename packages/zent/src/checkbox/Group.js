@@ -12,7 +12,7 @@ export default class Group extends (PureComponent || Component) {
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -25,11 +25,11 @@ export default class Group extends (PureComponent || Component) {
     onChange() {},
     isValueEqual(a, b) {
       return a === b;
-    }
+    },
   };
 
   static childContextTypes = {
-    checkboxGroup: PropTypes.any
+    checkboxGroup: PropTypes.any,
   };
 
   getChildContext() {
@@ -40,8 +40,8 @@ export default class Group extends (PureComponent || Component) {
         disabled,
         readOnly,
         isValueEqual,
-        onCheckboxChange: this.onCheckboxChange
-      }
+        onCheckboxChange: this.onCheckboxChange,
+      },
     };
   }
 
@@ -65,7 +65,7 @@ export default class Group extends (PureComponent || Component) {
 
     const classString = classNames({
       [`${prefix}-checkbox-group`]: true,
-      [className]: !!className
+      [className]: !!className,
     });
 
     return (

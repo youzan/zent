@@ -3,7 +3,7 @@ import React, { Component, PureComponent } from 'react';
 
 export default class Item extends (PureComponent || Component) {
   static propTypes = {
-    href: PropTypes.string
+    href: PropTypes.string,
   };
 
   render() {

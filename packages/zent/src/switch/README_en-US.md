@@ -20,8 +20,8 @@ Switch is a switching selector。
 | checked       | The current status  | bool    |         |           |
 | onChange      | The callback function that is triggered when the value of `checked` is changed. | func(checked: bool) | `noop`      |           |
 | disabled      | Disable the switch  | bool   | `false`     |   `true`    |
-| checkedText   | The text to show when the switch is on. | string   |`'开启'`| |
-| uncheckedText | The text to show when the switch is off.| string | `'关闭'`| |
+| checkedText   | The text to show when the switch is on. | string   |`'On'`| |
+| uncheckedText | The text to show when the switch is off.| string | `'Off'`| |
 | loading| The status of loading | bool| `false`     |  `true`         |
 | size | The size of the switch | string | `'default'` | `'small'` |
 | className     | The custom classname | string  | `''`        |  |

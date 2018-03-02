@@ -26,13 +26,9 @@ $border-color: $theme-stroke-7;
     text-align: left;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid $border-color;
 
-    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-      border-width: 0.5px;
-    }
-
-    border-bottom: none;
+    /* 取消边框, 和 table 一致 */
+    border-top: 1px solid $border-color;
 
     &-ellipsis {
       table-layout: fixed;
@@ -64,7 +60,6 @@ $border-color: $theme-stroke-7;
   &-thead {
     &-sort-desc,
     &-sort-asc {
-      position: absolute;
       margin-left: 3px;
     }
 
@@ -83,7 +78,6 @@ $border-color: $theme-stroke-7;
 
   &-fixed {
     width: auto;
-    min-width: 100%;
   }
 
   &-fixed-left,
@@ -101,23 +95,62 @@ $border-color: $theme-stroke-7;
   &-fixed-left {
     left: 0;
     box-shadow: 4px 0 4px $theme-mask-black-2;
+
+    .zent-grid-header .zent-grid-table {
+      border-right: none;
+    }
+
+    .zent-grid-body {
+      margin-right: -20px;
+      box-sizing: border-box;
+      margin-bottom: -15px;
+      overflow: scroll;
+    }
   }
 
   &-fixed-right {
     right: 0;
     box-shadow: -4px 0 4px $theme-mask-black-2;
+
+    .zent-grid-header .zent-grid-table {
+      border-left: none;
+    }
+
+    .zent-grid-body .zent-grid-table {
+      border-left: none;
+    }
+
+    .zent-grid-body {
+      box-sizing: border-box;
+      margin-bottom: -15px;
+      overflow: scroll;
+    }
   }
 
   &-scroll {
     overflow: auto;
+
+    table {
+      width: auto;
+      min-width: 100%;
+    }
+
+    .zent-grid-header {
+      overflow-x: scroll;
+      margin-bottom: -15px;
+      padding-bottom: 15px;
+    }
+
+    .zent-grid-body {
+      position: relative;
+    }
   }
 
   &-empty {
     text-align: center;
     height: 50px;
     line-height: 50px;
-    border: 1px solid $border-color;
-    border-top: none;
+    border-bottom: 1px solid $border-color;
   }
 
   &-tr {
@@ -135,11 +168,10 @@ $border-color: $theme-stroke-7;
     box-sizing: border-box;
     border-bottom: 1px solid $border-color;
     vertical-align: middle;
-    background-color: $theme-stroke-10;
+  }
 
-    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-      border-bottom-width: 0.5px;
-    }
+  &-td {
+    background-color: $theme-stroke-10;
   }
 
   &-th {

@@ -97,7 +97,7 @@ const helper = {
     }
 
     return toggleEventListener;
-  }
+  },
 };
 
 export default helper;

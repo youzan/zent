@@ -15,7 +15,7 @@ export default class Checkbox extends Component {
     className: PropTypes.string,
     style: PropTypes.object,
     prefix: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
@@ -24,11 +24,11 @@ export default class Checkbox extends Component {
     style: {},
     disabled: false,
     readOnly: false,
-    onChange() {}
+    onChange() {},
   };
 
   static contextTypes = {
-    checkboxGroup: PropTypes.any
+    checkboxGroup: PropTypes.any,
   };
 
   onChange = evt => {
@@ -37,7 +37,7 @@ export default class Checkbox extends Component {
       target: {
         ...props,
         type: 'checkbox',
-        checked: evt.target.checked
+        checked: evt.target.checked,
       },
 
       preventDefault() {
@@ -46,7 +46,7 @@ export default class Checkbox extends Component {
 
       stopPropagation() {
         evt.stopPropagation();
-      }
+      },
     };
 
     if (context.checkboxGroup) {
@@ -88,7 +88,7 @@ export default class Checkbox extends Component {
       [`${prefix}-checkbox-wrap`]: true,
       [`${prefix}-checkbox-checked`]: !!checked,
       [`${prefix}-checkbox-disabled`]: disabled || readOnly,
-      [`${prefix}-checkbox-indeterminate`]: indeterminate
+      [`${prefix}-checkbox-indeterminate`]: indeterminate,
     });
 
     const widthStyle = getWidth(width);

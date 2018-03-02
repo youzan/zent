@@ -7,7 +7,7 @@ zh-CN:
 en-US:
 	title: Click to close
 	open: Click
-	close: close men
+	close: Close menu
 ---
 
 ```js

@@ -1,72 +1,92 @@
-import React from 'react';
+import React, { Component, PureComponent } from 'react';
 import reactCSS from './helpers/reactcss';
 import color from './helpers/color';
 
 import { EditableInput } from './common';
 
-const ShetchFields = ({ onChange, rgb, hsl, hex, showAlpha, prefix }) => {
-  const styles = reactCSS(
-    {
-      default: {
-        fields: {
-          display: 'flex',
-          paddingTop: '4px'
-        },
-        single: {
-          flex: '1',
-          paddingLeft: '6px'
-        },
-        alpha: {
-          flex: '1',
-          paddingLeft: '6px'
-        },
-        double: {
-          flex: '2'
-        },
-        input: {
-          width: '80%',
-          padding: '4px 10% 3px',
-          border: 'none',
-          boxShadow: 'inset 0 0 0 1px #ccc',
-          fontSize: '11px'
-        },
-        label: {
-          display: 'block',
-          textAlign: 'center',
-          fontSize: '11px',
-          color: '#222',
-          paddingTop: '3px',
-          paddingBottom: '4px',
-          textTransform: 'capitalize'
-        }
-      },
-      showAlpha: {
-        alpha: {
-          display: 'none'
-        }
-      }
-    },
-    { showAlpha: !showAlpha }
-  );
+export default class SketchFileds extends (PureComponent || Component) {
+  state = {
+    hexColor: this.props.hex.replace('#', ''),
+  };
 
-  const handleChange = (data, e) => {
-    if (data.hex) {
-      color.isValidHex(data.hex) &&
-        onChange(
-          {
-            hex: data.hex,
-            source: 'hex'
+  get styles() {
+    const { showAlpha } = this.props;
+
+    return reactCSS(
+      {
+        default: {
+          fields: {
+            display: 'flex',
+            paddingTop: '4px',
           },
-          e
-        );
-    } else if (data.r || data.g || data.b) {
+          single: {
+            flex: '1',
+            paddingLeft: '6px',
+          },
+          alpha: {
+            flex: '1',
+            paddingLeft: '6px',
+          },
+          double: {
+            flex: '2',
+          },
+          input: {
+            width: '80%',
+            padding: '4px 10% 3px',
+            border: 'none',
+            boxShadow: 'inset 0 0 0 1px #ccc',
+            fontSize: '11px',
+          },
+          label: {
+            display: 'block',
+            textAlign: 'center',
+            fontSize: '11px',
+            color: '#222',
+            paddingTop: '3px',
+            paddingBottom: '4px',
+            textTransform: 'capitalize',
+          },
+        },
+        showAlpha: {
+          alpha: {
+            display: 'none',
+          },
+        },
+      },
+      { showAlpha: !showAlpha }
+    );
+  }
+
+  confirmHexChange = e => {
+    const { onChange } = this.props;
+    const { hexColor } = this.state;
+    color.isValidHex(hexColor) &&
+      onChange(
+        {
+          hex: hexColor,
+          source: 'hex',
+        },
+        e
+      );
+  };
+
+  handleHexChange = data => {
+    this.setState({
+      hexColor: data.hex,
+    });
+  };
+
+  handleChange = (data, e) => {
+    const { rgb, hsl, onChange } = this.props;
+
+    if (data.r || data.g || data.b) {
       onChange(
         {
           r: data.r || rgb.r,
           g: data.g || rgb.g,
           b: data.b || rgb.b,
           a: rgb.a,
-          source: 'rgb'
+          source: 'rgb',
         },
         e
       );
@@ -84,61 +104,75 @@ const ShetchFields = ({ onChange, rgb, hsl, hex, showAlpha, prefix }) => {
           s: hsl.s,
           l: hsl.l,
           a: data.a,
-          source: 'rgb'
+          source: 'rgb',
         },
         e
       );
     }
   };
 
-  return (
-    <div style={styles.fields} className={`${prefix}-colorpicker-input`}>
-      <div style={styles.double}>
-        <EditableInput
-          style={{ input: styles.input, label: styles.label }}
-          label="hex"
-          value={hex.replace('#', '')}
-          onChange={handleChange}
-        />
-      </div>
-      <div style={styles.single}>
-        <EditableInput
-          style={{ input: styles.input, label: styles.label }}
-          label="r"
-          value={rgb.r}
-          onChange={handleChange}
-          dragMax="255"
-        />
-      </div>
-      <div style={styles.single}>
-        <EditableInput
-          style={{ input: styles.input, label: styles.label }}
-          label="g"
-          value={rgb.g}
-          onChange={handleChange}
-          dragMax="255"
-        />
-      </div>
-      <div style={styles.single}>
-        <EditableInput
-          style={{ input: styles.input, label: styles.label }}
-          label="b"
-          value={rgb.b}
-          onChange={handleChange}
-          dragMax="255"
-        />
-      </div>
-      <div style={styles.alpha}>
-        <EditableInput
-          style={{ input: styles.input, label: styles.label }}
-          label="a"
-          value={Math.round(rgb.a * 100)}
-          onChange={handleChange}
-          dragMax="100"
-        />
-      </div>
-    </div>
-  );
-};
+  componentWillReceiveProps(nextProps) {
+    const nextHexColor = nextProps.hex.replace('#', '');
+    if (this.state.hexColor !== nextHexColor) {
+      this.setState({
+        hexColor: nextHexColor,
+      });
+    }
+  }
 
-export default ShetchFields;
+  render() {
+    const { prefix, rgb } = this.props;
+    const { hexColor } = this.state;
+    const styles = this.styles;
+    return (
+      <div style={styles.fields} className={`${prefix}-colorpicker-input`}>
+        <div style={styles.double}>
+          <EditableInput
+            style={{ input: styles.input, label: styles.label }}
+            label="hex"
+            value={hexColor}
+            onBlur={this.confirmHexChange}
+            onPressEnter={this.confirmHexChange}
+            onChange={this.handleHexChange}
+          />
+        </div>
+        <div style={styles.single}>
+          <EditableInput
+            style={{ input: styles.input, label: styles.label }}
+            label="r"
+            value={rgb.r}
+            onChange={this.handleChange}
+            dragMax="255"
+          />
+        </div>
+        <div style={styles.single}>
+          <EditableInput
+            style={{ input: styles.input, label: styles.label }}
+            label="g"
+            value={rgb.g}
+            onChange={this.handleChange}
+            dragMax="255"
+          />
+        </div>
+        <div style={styles.single}>
+          <EditableInput
+            style={{ input: styles.input, label: styles.label }}
+            label="b"
+            value={rgb.b}
+            onChange={this.handleChange}
+            dragMax="255"
+          />
+        </div>
+        <div style={styles.alpha}>
+          <EditableInput
+            style={{ input: styles.input, label: styles.label }}
+            label="a"
+            value={Math.round(rgb.a * 100)}
+            onChange={this.handleChange}
+            dragMax="100"
+          />
+        </div>
+      </div>
+    );
+  }
+}

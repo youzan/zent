@@ -13,14 +13,14 @@ const columns = [
   {
     title: '商品',
     width: 50,
-    bodyRender: CardComponent
+    bodyRender: CardComponent,
   },
   {
     title: '访问量',
     name: 'bro_uvpv',
     width: 10,
     needSort: true,
-    bodyRender: TextComponent
+    bodyRender: TextComponent,
   },
   {
     title: '库存',
@@ -34,13 +34,13 @@ const columns = [
           {pos.row}
         </p>
       );
-    }
+    },
   },
   {
     title: '总销量',
     name: 'sold_num',
-    width: 20
-  }
+    width: 20,
+  },
 ];
 
 class Simple extends Component {
@@ -51,7 +51,7 @@ class Simple extends Component {
     sortBy: 'bro_uvpv',
     sortType: 'desc',
     rowKey: 'item_id',
-    selectedRowKeys: []
+    selectedRowKeys: [],
   };
 
   onChange = conf => {
@@ -61,8 +61,9 @@ class Simple extends Component {
 
   onSelect = selectedRowKeys => {
     this.setState({
-      selectedRowKeys
+      selectedRowKeys,
     });
+    // console.log(selectedRowKeys);
     // console.log(`你选中了：${selectedRowKeys}`); // eslint-disable-line
   };
 
@@ -78,15 +79,16 @@ class Simple extends Component {
         sortType={this.state.sortType}
         rowKey={this.state.rowKey}
         selection={{
+          canRowSelect: true,
           selectedRowKeys: this.state.selectedRowKeys,
           onSelect(selectedRowkeys) {
             self.onSelect(selectedRowkeys);
-          }
+          },
         }}
         pageInfo={{
           limit: this.state.limit,
           current: this.state.current,
-          total: this.state.total
+          total: this.state.total,
         }}
         expandation={{
           isExpanded(record, index) {
@@ -94,7 +96,7 @@ class Simple extends Component {
           },
           expandRender(record) {
             return <div>{record.title}</div>;
-          }
+          },
         }}
       />
     );

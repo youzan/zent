@@ -5,9 +5,9 @@ import Menu from 'menu';
 const { MenuItem, SubMenu } = Menu;
 
 describe('Menu component', () => {
-  it('can have className', () => {
+  it('can have className and style', () => {
     let wrapper = mount(
-      <Menu className="hello">
+      <Menu className="hello" style={{ maxHeight: 10, overflow: 'auto' }}>
         {null}
         <MenuItem key="1-1" className="food">
           食品分类
@@ -17,6 +17,9 @@ describe('Menu component', () => {
 
     expect(wrapper.find('.hello').length).toBe(1);
     expect(wrapper.find('.food').length).toBe(1);
+    expect(wrapper.getDOMNode().style.cssText).toMatch(
+      /max-height:\s*10px;\s*overflow:\s*auto/
+    );
   });
 
   it('can have prefix', () => {
@@ -100,5 +103,55 @@ describe('Menu component', () => {
       .at(0)
       .simulate('click');
     expect(onClick.mock.calls.length).toBe(0);
+  });
+
+  it('can be inline mode', () => {
+    let wrapper = mount(
+      <Menu mode="inline">
+        <MenuItem key="1-1">食品分类</MenuItem>
+        <SubMenu title="美妆分类">
+          <MenuItem key="3-1">眼影</MenuItem>
+        </SubMenu>
+      </Menu>
+    );
+
+    expect(wrapper.find('.zent-menu__inline').length).toBe(1);
+  });
+
+  it('can have default keys for inline menu', () => {
+    let wrapper = mount(
+      <Menu
+        defaultSelectedKey="1-1"
+        defaultExpandKeys={['3']}
+        inlineIndent={10}
+        mode="inline"
+      >
+        <MenuItem key="1-1">食品分类</MenuItem>
+        <SubMenu key="3" title="美妆分类">
+          <MenuItem key="3-1">眼影</MenuItem>
+        </SubMenu>
+      </Menu>
+    );
+
+    expect(wrapper.find('.zent-menu__inline-item-selected').length).toBe(1);
+    expect(wrapper.find('.zent-menu__inner').length).toBe(1);
+  });
+
+  it('can select menuItem and expand subMenu', () => {
+    let wrapper = mount(
+      <Menu mode="inline">
+        <MenuItem key="1-1">食品分类</MenuItem>
+        <SubMenu key="3" title="美妆分类">
+          <MenuItem key="3-1">眼影</MenuItem>
+        </SubMenu>
+      </Menu>
+    );
+
+    wrapper.find('.zent-menu__inline-submenu-title').simulate('click');
+    expect(wrapper.find('.zent-menu__inner').length).toBe(1);
+
+    wrapper.find('.zent-menu__inline-submenu-title').simulate('click');
+    wrapper.find('SubMenu MenuItem').simulate('click');
+    expect(wrapper.find('.zent-menu__inline-item-selected').length).toBe(1);
   });
 });

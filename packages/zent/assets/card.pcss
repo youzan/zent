@@ -4,14 +4,8 @@
   background-color: $theme-stroke-10;
   border-radius: 2px;
   position: relative;
-  transition: all 0.3s;
   border: 1px solid $theme-stroke-7;
   overflow: hidden;
-
-  &:hover {
-    box-shadow: 0 1px 6px $theme-mask-black-2;
-    border-color: transparent;
-  }
 
   &-header {
     height: 48px;
@@ -21,6 +15,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    font-weight: 500;
 
     &__title {
       text-overflow: ellipsis;
@@ -38,6 +33,22 @@
 
   &-body {
     padding: 20px;
-    font-size: 12px;
+  }
+
+  &--normal {
+    .zent-card-header {
+      font-size: 16px;
+    }
+
+    .zent-card-body {
+      font-size: 14px;
+    }
+  }
+
+  &--nested {
+    .zent-card-header {
+      font-size: 14px;
+      background: $theme-stroke-9;
+    }
   }
 }

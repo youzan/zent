@@ -1,0 +1,169 @@
+@import '../../../theme/default.pcss';
+
+.zent-design-component-richtext__link {
+  z-index: 2000;
+
+  .zent-form__control-label {
+    width: 60px;
+  }
+
+  .zent-input-wrapper {
+    width: 300px;
+  }
+
+  .btn-primary {
+    margin-right: 10px;
+  }
+}
+
+.zent-design-component-richtext__video {
+  z-index: 2000;
+  width: 650px;
+
+  .modal-body {
+    position: relative;
+  }
+
+  .video-content {
+    position: relative;
+    z-index: 10;
+
+    .zent-form {
+      &__control-group {
+        margin: 10px 0;
+        display: flex;
+      }
+
+      &__control-label + .zent-form__controls {
+        flex: 1;
+      }
+    }
+
+    label {
+      font-weight: bold;
+      margin: 0 5px 0 0;
+      color: $theme-primary-2;
+      display: inline;
+      font-size: 14px;
+      width: auto;
+    }
+
+    #preview {
+      min-height: 280px;
+      background-color: $theme-stroke-6;
+      text-align: center;
+      font-size: 20px;
+
+      span {
+        display: block;
+        padding-top: 120px;
+      }
+    }
+  }
+
+  .btn-primary {
+    margin-right: 10px;
+  }
+}
+
+.zent-design-component-richtext__emotion {
+  z-index: 2000;
+
+  .ui-popover-inner {
+    position: relative;
+  }
+
+  .emotion-content {
+    border: 1px solid $theme-stroke-7;
+    margin-top: -1px;
+    border-radius: 0 4px 4px;
+    position: relative;
+    z-index: 10;
+
+    .emotion-list-wrapper {
+      width: 506px;
+
+      &::after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+
+      div {
+        float: left;
+        padding: 5px;
+        border-right: 1px solid $theme-stroke-7;
+        border-bottom: 1px solid $theme-stroke-7;
+
+        span {
+          display: block;
+          width: 35px;
+          height: 35px;
+          cursor: pointer;
+        }
+      }
+
+      div:hover {
+        background: $theme-stroke-7;
+      }
+    }
+
+    span.jd {
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/jxface2.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+
+    span.tsj {
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/tface.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+
+    span.ldw {
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/wface.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+
+    span.bb {
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/bface.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+
+    span.cat {
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/cface.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+
+    span.pp {
+      width: 24px !important;
+      height: 24px !important;
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/fface.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+
+    span.youa {
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/yface.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+
+    span.qq {
+      width: 24px !important;
+      height: 24px !important;
+      background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/qq.gif?v=1.1');
+      background-repeat: no-repeat;
+    }
+  }
+
+  .posLeft {
+    left: 10px;
+  }
+
+  .posRight {
+    right: 10px;
+  }
+
+  .emotion-tabs {
+    .zent-tabs-tab-inner {
+      min-width: 50px;
+    }
+  }
+}

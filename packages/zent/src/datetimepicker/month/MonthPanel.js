@@ -1,12 +1,13 @@
 import React, { Component, PureComponent } from 'react';
+
 import PanelHeader from '../common/PanelHeader';
 import MonthPanelBody from './MonthPanelBody';
 import YearPanel from '../year/YearPanel';
-import { goYears } from '../utils/';
+import { goYears, monthStart } from '../utils';
 
 export default class MonthPanel extends (PureComponent || Component) {
   state = {
-    showYear: false
+    showYear: false,
   };
 
   prevYear = () => {
@@ -23,7 +24,7 @@ export default class MonthPanel extends (PureComponent || Component) {
 
   showYearPanel = () => {
     this.setState({
-      showYear: true
+      showYear: true,
     });
   };
 
@@ -35,30 +36,34 @@ export default class MonthPanel extends (PureComponent || Component) {
     onChange(acp, true);
 
     this.setState({
-      showYear: close
+      showYear: close,
     });
   };
 
   onSelectMonth = val => {
     const { actived, onSelect } = this.props;
-    const acp = new Date(actived);
+    const acp = monthStart(actived);
 
     acp.setMonth(val);
     onSelect(acp);
   };
 
   render() {
-    const { props, state } = this;
-    const title = `${props.actived.getFullYear()}年`;
+    const {
+      props: { actived, disabledDate, i18n, selected },
+      state: { showYear },
+    } = this;
+    const title = `${actived.getFullYear()}`;
 
     let yearPanel;
-    if (state.showYear) {
+    if (showYear) {
       yearPanel = (
         <YearPanel
-          actived={props.actived}
-          selected={props.selected}
+          actived={actived}
+          selected={selected}
           onChange={this.onSelectYear}
           onSelect={this.onSelectYear}
+          i18n={i18n}
         />
       );
     }
@@ -72,12 +77,14 @@ export default class MonthPanel extends (PureComponent || Component) {
           next={this.nextYear}
         />
         <MonthPanelBody
-          actived={props.actived}
-          selected={props.selected}
-          disabledDate={props.disabledDate}
+          actived={actived}
+          selected={selected}
+          disabledDate={disabledDate}
           onSelect={this.onSelectMonth}
+          i18n={i18n}
+          year={actived.getFullYear()}
         />
-        {state.showYear && yearPanel}
+        {showYear && yearPanel}
       </div>
     );
   }

@@ -1,13 +1,16 @@
 import React, { Component, PureComponent } from 'react';
 
+import { I18nReceiver as Receiver } from 'i18n';
+import { Pagination as I18nDefault } from 'i18n/default';
+
 export default class Jump extends (PureComponent || Component) {
   state = {
-    pageLabel: this.props.content.trim()
+    pageLabel: this.props.content.trim(),
   };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      pageLabel: nextProps.content.trim()
+      pageLabel: nextProps.content.trim(),
     });
   }
 
@@ -31,11 +34,12 @@ export default class Jump extends (PureComponent || Component) {
 
   onChange = e => {
     this.setState({
-      pageLabel: e.target.value.trim()
+      pageLabel: e.target.value.trim(),
     });
   };
 
   render() {
+    const { total } = this.props;
     return (
       <div className="pager pager--jump">
         <input
@@ -44,7 +48,11 @@ export default class Jump extends (PureComponent || Component) {
           onKeyUp={this.onKeyUp}
           onChange={this.onChange}
         />
-        <span className="pager__suffix">/共{this.props.total}页</span>
+        <Receiver componentName="Pagination" defaultI18n={I18nDefault}>
+          {i18n => (
+            <span className="pager__suffix">{`/ ${total} ${i18n.pages}`}</span>
+          )}
+        </Receiver>
       </div>
     );
   }

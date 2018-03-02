@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
 function main() {
   const args = process.argv;
@@ -14,6 +15,7 @@ function main() {
   }
 
   addFiles(componentName);
+  exec('node ./scripts/update-jest-module-mapper.js');
 }
 
 main();
@@ -123,7 +125,14 @@ function addFiles(name) {
     `${componentDir}/index.js`,
     `export default from './${upperComponentName}.js';`
   );
-  fs.writeFileSync(`${componentDir}/README.md`, `## ${upperComponentName}`);
+  fs.writeFileSync(
+    `${componentDir}/README_en-US.md`,
+    `## ${upperComponentName}`
+  );
+  fs.writeFileSync(
+    `${componentDir}/README_zh-CN.md`,
+    `## ${upperComponentName}`
+  );
   fs.writeFileSync(`${componentDir}/${upperComponentName}.js`, '');
   fs.writeFileSync(`${assetsDir}/${name}.pcss`, '');
 

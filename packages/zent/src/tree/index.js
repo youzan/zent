@@ -63,7 +63,7 @@ export default class Tree extends (PureComponent || Component) {
 
   state = {
     checkedTree: {},
-    loadingNode: []
+    loadingNode: [],
   };
 
   static propTypes = {
@@ -82,7 +82,7 @@ export default class Tree extends (PureComponent || Component) {
     size: PropTypes.oneOf(['large', 'medium', 'small']),
     operations: PropTypes.arrayOf(PropTypes.object),
     render: PropTypes.func,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -91,7 +91,7 @@ export default class Tree extends (PureComponent || Component) {
     foldable: true,
     checkable: false,
     size: 'medium',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   componentWillMount() {
@@ -100,7 +100,7 @@ export default class Tree extends (PureComponent || Component) {
     const formatData = this.formatDataIntoTree(data, dataType);
 
     this.setState({
-      checkedTree: this.formatDataIntoCheckedTree(formatData)
+      checkedTree: this.formatDataIntoCheckedTree(formatData),
     });
   }
 
@@ -111,7 +111,7 @@ export default class Tree extends (PureComponent || Component) {
 
       const data = this.formatDataIntoTree(nextProps.data, nextProps.dataType);
       this.setState({
-        checkedTree: this.formatDataIntoCheckedTree(data)
+        checkedTree: this.formatDataIntoCheckedTree(data),
       });
     }
   }
@@ -181,7 +181,7 @@ export default class Tree extends (PureComponent || Component) {
         loadMore(root)
           .then(() => {
             this.setState({
-              loadingNode: loadingNode.filter(x => x !== root.id)
+              loadingNode: loadingNode.filter(x => x !== root.id),
             });
             this.handleFoldClick(root, e);
           })
@@ -202,7 +202,7 @@ export default class Tree extends (PureComponent || Component) {
 
       if (onExpand) {
         onExpand(root, {
-          isExpanded: !isClose
+          isExpanded: !isClose,
         });
       }
 
@@ -331,7 +331,7 @@ export default class Tree extends (PureComponent || Component) {
           find(defaultCheckedKeys, x => x === root.id) >= 0;
         newCheckedTree[root.id] = {
           p: parentId.toString(),
-          t: isSetDefault ? 2 : 0
+          t: isSetDefault ? 2 : 0,
         };
       });
     });
@@ -346,7 +346,7 @@ export default class Tree extends (PureComponent || Component) {
       this.updateCheckedTreeRecursive(tree, '', (root, parentId) => {
         newCheckedTree[root.id] = {
           p: parentId.toString(),
-          t: checkedTree[root.id] ? checkedTree[root.id].t : 0
+          t: checkedTree[root.id] ? checkedTree[root.id].t : 0,
         };
       });
     });
@@ -425,7 +425,7 @@ export default class Tree extends (PureComponent || Component) {
           isShowChildren = root.expand;
         }
         const barClassName = classnames(`${prefix}-tree-bar`, {
-          off: !isShowChildren
+          off: !isShowChildren,
         });
         return (
           <li key={`${root.id}`}>
@@ -464,7 +464,7 @@ export default class Tree extends (PureComponent || Component) {
     const roots = this.formatDataIntoTree(deepClone(data), dataType);
     const treeNodes = this.renderTreeNodes(roots);
     const classNames = classnames(`${prefix}-tree`, {
-      [`${prefix}-tree-${size}`]: size !== 'medium'
+      [`${prefix}-tree-${size}`]: size !== 'medium',
     });
 
     return (

@@ -2,6 +2,194 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 升级指南
+
+- [3.x 升级指南](../migrating/3x)
+- [2.1.x 升级指南](../migrating/21x)
+
+### 4.3.0 (2018-02-14)
+
+> 情人节快乐！新春快乐!
+
+- 🎉 新增 `AutoComplete` 组件
+- 🎉 新增 `Rate` 评分组件
+- 🦀️ 优化 `Notify` 动画
+- 🦀️ 去除 `Tabs` 组件样式中不必要的 `!important`
+- 🦀️ 修复 `Select` 搜索框无法获取输入焦点的问题
+
+### 4.2.3 (2018-02-09)
+
+- 🦀️ 修复 `Sortable` 在没传 `items` 时的问题
+
+### 4.2.2 (2018-02-07)
+
+- ✨ `Steps` 新增垂直样式
+- 🦀️ 修复 `Grid` 表头高度问题
+- 🦀️ 修复打包 CSS 样式丢失问题
+
+### 4.2.1 (2018-02-06)
+
+请不要使用这个版本，用 4.2.2。
+
+- 🦀️ 修复 `Upload` 文件类型判断问题
+
+### 4.2.0 (2018-02-05)
+
+请不要使用这个版本，用 4.2.2。
+
+- 🎉 新组件 `Avatar`
+- 🎉 新组件 `Collpase`
+- ✨ `Menu` 增加内联模式
+- ✨ `Cascader` 支持菜单样式
+- ✨ `Input` 清空按钮的回调函数中加入判断来自按钮的参数
+- ✨ 补全各个时间选择器的 `TypeScript` 定义
+- ✨ `Badge` 组件支持自定义偏移量
+- ✨ `NumberInput` 支持回车确认输入 
+- ✨ `Upload` 的 `onUpload` 回调支持返回一个 `Promise`
+- 🦀️ 修复 `Sortable` 中 `onMove`, `onEnd` 与 `onChange` 同时传入时的问题
+- 🦀️ 修复 `Form` 中的多行文本框无法换行的问题
+- 🦀️ 修复 `InfiniteScroller` 样式问题
+- 🦀️ 修复 `Select` 键盘事件无效的问题
+- 🦀️ 修复 `Grid` 边框样式问题
+- 🦀️ 修复 `Select` 死循环问题
+
+### 4.1.0 (2018-01-29)
+
+- 🎉 新增 `TimePicker` 和 `TimeRangePicker`
+- 🎉 新增 `Placeholder` 组件
+- 🎉 新的文档网站样式
+- `Card`
+  - ✨ 新增 `loading` 状态支持
+  - ✨ 支持嵌套的卡片
+  - 🦀️ 样式更新
+- ✨ `DatePicker` 支持 `canClear` 参数配置是否可以清除选中的时间
+- `Upload`
+  - ✨ 支持外部传入分组
+  - 🦀️ 修复可以选择超过 `maxAmount` 数量文件的问题
+  - 🦀️ 修复自动弹出的问题
+- 🦀️ 修复 `Notify` 背景色
+
+### 4.0.0 (2018-01-23)
+
+- 💥 `DateRangePicker` 不再支持合并模式，`type` 参数废弃，升级请注意样式
+- `Upload` 
+  - ✨ 支持分组功能
+  - ✨ 国际化支持
+- ✨ `Menu` 支持图标展示
+- `DatePicker`
+  - 🦀️ 修复未选择时间直接确认没有考虑最小时间的问题
+  - 🦀️ 修复最小时间的判断问题
+- `Design`
+  - 🦀️ 文档样式修复
+  - 🦀️ `DesignEditor` 不再继承 `PureComponent`
+- 🦀️ `Slider` 样式修复
+- 🦀️ 修复文档网站锚点失效的问题
+- 🦀️ `Grid` 修复头部高度不同步的问题
+- 🦀️ 优化 `Notify` 的动画
+- `Select`
+  - 🦀️ 修复在部分浏览器下的兼容性问题
+  - 🦀️ 修复 `emptyText` 无效的问题
+- 🦀️ `Sortable` 修复示例
+
+### 3.12.3 (2018-01-10)
+
+- 🦀️ 修复 `Slider` 组件背景色问题
+- 🦀️ `Upload` 添加 `image/bmp` 支持
+- 🦀️ 修复 `Design` demo 中按钮布局和样式
+
+### 3.12.2 (2018-01-09)
+
+- ✨ `Loading` 没有 `children` 时去掉蒙层的背景色
+- ✨ 重命名文件，保持项目内统一
+- 🦀️ 修复 `Grid` 头部样式
+- 🦀️ 修复大号 `Button` 字体大小
+- 🦀️ 修复 `MonthPicker` 没有判断年份的问题
+- 📚 增加了国际化的文档
+
+### 3.12.1 (2018-01-05)
+
+- 🦀️ 修复 `CombineDateRangePicker` 没有选完就关闭的问题
+- 🦀️ 修复 `Notify` 出场动画问题
+
+### 3.12.0 (2018-01-04)
+
+- 🎉 新增拖拽排序组件 `Sortable`
+- 🎉 组件国际化支持
+- ✨ `Tag` 支持外部控制显示隐藏
+- ✨ `Input` 组件支持清除按钮
+- ✨ `Grid` 组件支持表头固定垂直滚动
+- ✨ `Notify` 支持多个实例排列显示，同时加上了进出场动画
+- `Form`
+  - ✨ `Field` 修改错误显示逻辑，支持 `displayError` 控制错误是否显示
+  - ✨ `Field` 支持 `relatedFields` 指定检验时同时触发的其他字段
+  - ✨ 重写 `FieldArray`
+- ✨ `Swiper` 支持动态增减图片
+- ✨ `Design` 支持 `settings` 以及 `onSettingsChange` 来设置动态全局配置
+- ✨ `Sweetalert` 支持配置关闭按钮以及点击蒙层是否关闭
+- 🦀️ 修复 `DateRangePicker` 禁用样式
+- 🦀️ 修复 `Loading` 布局中的问题
+- 🦀️ 修复 `DatePicker` `onChange` 值不对的问题
+- 🦀️ 修复 `NumberInput` `onBlur` 与 `onChange` 事件抛出的值不一致的问题
+- 🦀️ 修复 `Upload` 上传图片乱序的问题
+- 🦀️ 修复 `Select` tag 类型选中顺序不一致的问题
+- 🦀️ 修复 `ColorPicker` 颜色输入框无法删除的问题
+- 🦀️ 修复 `textarea` 高度抖动的问题
+- 🦀️ 修复了一些 typo
+- 🦀️ 修复 `yarn new-component` 命令
+
+### 3.11.0 (2017-12-20)
+
+- 🎉 新组件季度选择器 `QuarterPicker`
+- ✨ `Select` 支持选中后清除
+- ✨ `Grid` 支持表头固定的纵向滚动方式
+- ✨ `DatePicker` 交互优化，没有时间的时候不需要按确认按钮
+- ✨ `Upload` 支持已选图片拖拽排序
+- ✨ `Input` 的 `textarea` 模式支持文字计数
+- ✨ `Input` 的 `textarea` 模式支持根据高度自动撑高
+- ✨ `BlockHeader` 修改弹层位置
+- `Design`
+  - ✨ 新增图片广告示例组件
+  - ✨ 新增富文本示例组件
+  - ✨ 支持在 preview 底部显示额外的信息
+- ✨ `Popover` 和 `Pop` 新增 `onPositionUpdated` 回调函数
+- `Form`
+  - ✨ 修改 `required` 校验规则，`null` 也认为是错误
+  - ✨ 支持禁止表单内部输入框回车提交表单的行为
+  - 🦀️ 修复 `validationOnChange` 为 `false` 时部分情况下组件重新渲染的问题
+  - 🦀️ 修复自动滚动到第一个错误处无法处理 Functional Component 的问题
+- `Swiper`
+  - 🦀️ 修复只有一个图片时的问题
+  - 🦀️ 修复快速连续点击上一张/下一张的动画问题
+- 🦀️ `Loading` 修复图标不居中的问题
+- 🦀️ 滚动函数支持运行在 `node.js` 环境
+- 🦀️ `Table` 修复使用 `batchcomponents` 时报错的问题
+- 📚 `InfiniteScroller` 修复文档错误
+- 📚 `Button` 修复示例
+
+### 3.10.7 (2017-12-07)
+
+- ✨ `Menu` 支持传入额外的自定义样式
+- 🦀️ `Upload` 修复单文件上传的问题
+
+### 3.10.6 (2017-12-06)
+
+- ✨ `Form` 组件支持表单报错事滚动到第一个错误处
+- 🦀️ `Upload` 增加文件过滤支持
+
+### 3.10.5 (2017-12-05)
+
+- 🦀️ 回滚 `Design` 的预览宽度为 `320px`
+
+### 3.10.4 (2017-12-04)
+
+- `Design`
+  - ✨ 预览区域宽度调整为 `375px`
+  - 🦀️ 样式优化
+- ✨ `Pop` 和 `Popover` 组件导出了 `adjustPosition` 用于在极端情况下手动触发位置更新
+- 🦀️ 修复 `Button` 组件在某些全局环境下，样式错误的问题
+- `Upload`
+  - 🦀️ 样式优化
+  - 🦀️ 处理了一些 ES6 的兼容问题
 
 ### 3.10.3 (2017-11-29)
 

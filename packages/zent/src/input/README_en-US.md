@@ -26,17 +26,26 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | value        | input value             | string        |          |                         | No    |
 | readOnly     | whether is only read or not          | bool          | `false`  |                         | No    |
 | disabled     | whether is disable or not            | bool          | `false`  |                         | No    |
-| placeholder  | raw placeholder text | string        | `''`     |                         | No    |
+| placeholder  | raw placeholder text | string        | `''`     |    
+| showClear  | show clear botton | bool        | `false`     |                       | No    |
 | addonBefore  | prefix tag            | node          |          |                         | No    |
 | addonAfter   | suffix tag            | node          |          |                         | No    |
 | autoFocus    | auto focus          | bool          |  `false`        |                    | No  |
 | autoSelect    | auto select          | bool          |  `false`        |                  | No  |
 | initSelectionStart    | The 0-based index of the first selected character  | number        |         |    | No  |
 | initSelectionEnd    | The 0-based index of the character after the last selected character  | number        |         |    | No  |
-| onChange     | change event        | func(e:Event) |          |                         | No    |
+| onChange     | change event, `e.fromClearButton` is `true` if clear button is clicked       | func(e:Event) |          |                         | No    |
 | onPressEnter | enter event            | func(e:Event) |          |                         | No    |
 
-_except for the attributes above, input widget supports all attributes that React support for input_
+_Except for the attributes listed above, `Input` supports all attributes that React supports for native input._
+
+#### textarea
+
+| Property    | Description     | Type       | Default   | Alternative              | Required |
+| ------------ | --------------- | ------------- | -------- | ----------------------- | ---- |
+| maxLength    | Max length of the value       | number        |      |                         | No    |
+| showCount    | Show character count      | bool        | false     |                         |  No    |
+| autoSize       | Auto resize on value change         | bool        | false  |                         | No   |
 
 #### focus
 

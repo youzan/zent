@@ -40,6 +40,13 @@ packages/zent
 
 代码写完之后还需要在 `packages/zent/typings` 目录下添加新组建对应的 Typescript 类型定义。
 
+#### 文件命名
+
+* 组件文件名字驼峰，例如 `ActionButton` 组件的文件名就是 `ActionsButton.js`
+* 导出函数的文件名驼峰（首字母小写），一般和函数名字保持一致，例如 `withPop`
+* 文件夹名字用 - 隔开，例如 `number-input`
+* demos文件夹中的Md文件名字用 - 隔开，例如 `with-close-btn`
+
 #### 本地测试
 
 `__tests__` 里面只是单元测试，本地测试请在本地运行文档网站，确保每次修改代码文档都回有相应的更新。

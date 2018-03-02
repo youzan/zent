@@ -15,8 +15,7 @@ describe('Pagination', () => {
     /**
      * .zent-pagination
      *   span.zent-pagination__info
-     *     span.total
-     *     span.each
+     *     span.total.each
      *   .pagination-list // NOTE: should use ul?
      *     div.pager
      *     ...
@@ -27,19 +26,7 @@ describe('Pagination', () => {
      */
     expect(wrapper.children().length).toBe(2);
     expect(wrapper.find('.zent-pagination__info').length).toBe(1);
-    expect(wrapper.find('.zent-pagination__info').children().length).toBe(2);
-    expect(
-      wrapper
-        .find('.zent-pagination__info')
-        .childAt(0)
-        .type()
-    ).toBe('span');
-    expect(
-      wrapper
-        .find('.zent-pagination__info')
-        .childAt(1)
-        .type()
-    ).toBe('span');
+    expect(wrapper.find('.zent-pagination__info').children().length).toBe(1);
     expect(wrapper.find('.pagination-list').length).toBe(1);
     expect(wrapper.find('.pagination-list').children().length).toBe(8);
     expect(
@@ -213,7 +200,7 @@ describe('Pagination', () => {
         .text()
     ).toBe('34 ');
     wrapper.setProps({
-      pageSize: [{ value: 20, isCurrent: true }, 30]
+      pageSize: [{ value: 20, isCurrent: true }, 30],
     });
     expect(wrapper.find('.pager').length).toBe(8);
     expect(
@@ -239,7 +226,7 @@ describe('Pagination', () => {
     );
     expect(wrapper.state('currentPageSize')).toBe(30);
     wrapper.setProps({
-      pageSize: [{ value: 20, isCurrent: true }, 30]
+      pageSize: [{ value: 20, isCurrent: true }, 30],
     });
     expect(wrapper.prop('current')).toBe(1);
     expect(wrapper.state('currentPageSize')).toBe(20);

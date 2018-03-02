@@ -14,7 +14,7 @@ export default class Radio extends Component {
     className: PropTypes.string,
     style: PropTypes.object,
     prefix: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
@@ -23,11 +23,11 @@ export default class Radio extends Component {
     style: {},
     disabled: false,
     readOnly: false,
-    onChange() {}
+    onChange() {},
   };
 
   static contextTypes = {
-    radioGroup: PropTypes.any
+    radioGroup: PropTypes.any,
   };
 
   // event liftup
@@ -39,7 +39,7 @@ export default class Radio extends Component {
       target: {
         ...props,
         type: 'radio',
-        checked: evt.target.checked
+        checked: evt.target.checked,
       },
 
       preventDefault() {
@@ -48,7 +48,7 @@ export default class Radio extends Component {
 
       stopPropagation() {
         evt.stopPropagation();
-      }
+      },
     };
 
     if (radioGroup) {
@@ -86,7 +86,7 @@ export default class Radio extends Component {
       [className]: !!className,
       [`${prefix}-radio-wrap`]: true,
       [`${prefix}-radio-checked`]: !!checked,
-      [`${prefix}-radio-disabled`]: disabled || readOnly
+      [`${prefix}-radio-disabled`]: disabled || readOnly,
     });
     const widthStyle = getWidth(width);
     const wrapStyle = assign({}, style, widthStyle);

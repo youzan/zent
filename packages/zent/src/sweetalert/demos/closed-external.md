@@ -4,31 +4,32 @@ zh-CN:
 	title: 自动关闭
 	button: 自动关闭对话框
 	close: 一秒后自动关闭
-	confirm: 确认
-	cancel: 取消
 en-US:
 	title: Self-closing
-	button: self-closing dialog
+	button: Self-closing dialog
 	close: Close automatically after one second
-	confirm: Confirm
-	cancel: Cancel
 ---
 
 ```js
 import { Sweetalert, Button } from 'zent';
 
-const autoCloseConfirm = () => {
-	const close = Sweetalert.confirm({
-		content: <p>{i18n.close}</p>,
-		confirmText: '{i18n.confirm}',
-		cancelText: '{i18n.cancel}'
-	});
+class Wrapper extends React.Component {
+	autoCloseConfirm = () => {
+		const close = Sweetalert.confirm({
+			content: <p>{i18n.close}</p>,
+			parentComponent: this
+		});
 
-	setTimeout(close, 1000);
+		setTimeout(close, 1000);
+	}
+
+	render() {
+		return <Button onClick={this.autoCloseConfirm}>{i18n.button}</Button>;
+	}
 }
 
 ReactDOM.render(
-	<Button onClick={autoCloseConfirm}>{i18n.button}</Button>,
+	<Wrapper />,
 	mountNode
 );
 ```

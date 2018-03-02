@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 const isExisty = function(value) {
   return value !== null && value !== undefined;
 };
@@ -8,7 +10,7 @@ const isEmpty = function(value) {
 
 const validations = {
   required(values, value) {
-    return value !== undefined && value !== '';
+    return isExisty(value) && !isEmpty(value);
   },
   isExisty(values, value) {
     return isExisty(value);
@@ -66,7 +68,7 @@ const validations = {
     return !isExisty(value) || isEmpty(value) || value == eql;
   },
   equalsField(values, value, field) {
-    return value == values[field];
+    return value == get(values, field);
     /* eslint-enable eqeqeq */
   },
   maxLength(values, value, length) {
@@ -74,7 +76,7 @@ const validations = {
   },
   minLength(values, value, length) {
     return !isExisty(value) || isEmpty(value) || value.length >= length;
-  }
+  },
 };
 
 export default validations;

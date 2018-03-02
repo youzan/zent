@@ -20,7 +20,7 @@ describe('Progress', () => {
             background: undefined,
             width: '0%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -86,7 +86,7 @@ describe('Progress', () => {
             background: undefined,
             width: '70%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -116,7 +116,7 @@ describe('Progress', () => {
             background: undefined,
             width: '100%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -146,7 +146,7 @@ describe('Progress', () => {
             background: undefined,
             width: '70%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -173,7 +173,7 @@ describe('Progress', () => {
             background: undefined,
             width: '70%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -201,7 +201,7 @@ describe('Progress', () => {
             background: undefined,
             width: '100%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -229,7 +229,7 @@ describe('Progress', () => {
             background: undefined,
             width: '100%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -246,7 +246,7 @@ describe('Progress', () => {
             background: '#eee',
             width: '100%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -261,7 +261,7 @@ describe('Progress', () => {
             background: '#eee',
             width: '70%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -276,7 +276,7 @@ describe('Progress', () => {
             background: '#eee',
             width: '100%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -303,7 +303,7 @@ describe('Progress', () => {
             background: '#eee',
             width: '80%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )
@@ -335,7 +335,7 @@ describe('Progress', () => {
             background: '#000',
             width: '80%',
             height: 10,
-            borderRadius: 10
+            borderRadius: 10,
           }}
         />
       )

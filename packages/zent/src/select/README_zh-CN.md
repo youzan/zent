@@ -52,6 +52,8 @@ group: 数据
 | className | 可选，自定义trigger额外类名 | string | `''` | 否 |
 | popupClassName | 可选，自定义popup的类名 | string | `''`    | 否 |
 | autoWidth | 是否自动设置弹出层与输入框等宽 | bool | `false` | 否 |
+| resetOption | 是否加入一个重置选项 | bool | `false` | 否 |
+| resetText | 重置选项文本 | string | `'...'` | 否 |
 | width |  输入框宽度 | string or number |  | 否 |
 | prefix | 自定义前缀 | string | `'zent'` | 否 |
 
@@ -65,4 +67,4 @@ group: 数据
 | extraFilter | 是否自带过滤功能 | boolean | `false` | 否 |
 | open | 是否打开Popup | boolean | `false` | 否 |
 
-Trigger 可以通过调用 `this.props.onChange({...})` 通过改变 Popup 的 props 实现参数传递。 
+Trigger 可以通过调用 `this.props.onChange({...})` 通过改变 Popup 的 props 实现参数传递。

@@ -5,12 +5,14 @@ import map from 'lodash/map';
 import forEach from 'lodash/forEach';
 import filter from 'lodash/filter';
 
+import ColGroup from './ColGroup';
+
 class Header extends (PureComponent || Component) {
   constructor(props) {
     super(props);
 
     this.state = {
-      rows: this.getHeaderRows(props)
+      rows: this.getHeaderRows(props),
     };
   }
 
@@ -37,7 +39,7 @@ class Header extends (PureComponent || Component) {
 
     this.props.onChange({
       sortBy: name,
-      sortType
+      sortType,
     });
   };
 
@@ -79,9 +81,9 @@ class Header extends (PureComponent || Component) {
         key: name || key || index,
         className: classnames(`${prefix}-grid-th`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
-          [`${prefix}-grid-nowrap`]: nowrap
+          [`${prefix}-grid-nowrap`]: nowrap,
         }),
-        children: this.getChildren(column, props)
+        children: this.getChildren(column, props),
       };
 
       if (typeof colSpan === 'number') {
@@ -114,7 +116,7 @@ class Header extends (PureComponent || Component) {
       nextProps.sortBy !== this.props.sortBy
     ) {
       this.setState({
-        rows: this.getHeaderRows(nextProps)
+        rows: this.getHeaderRows(nextProps),
       });
     }
   }
@@ -125,24 +127,52 @@ class Header extends (PureComponent || Component) {
     }
   }
 
-  render() {
-    const { prefix } = this.props;
+  renderThead() {
+    const { prefix, fixed, fixedColumnsHeadRowsHeight } = this.props;
 
     return (
       <thead className={`${prefix}-grid-thead`}>
-        {map(this.state.rows, (row, index) => (
-          <tr key={index} className={`${prefix}-grid-tr`}>
-            {row.map(props => <th {...props} />)}
-          </tr>
-        ))}
+        {map(this.state.rows, (row, index) => {
+          const height =
+            fixed && fixedColumnsHeadRowsHeight[index]
+              ? fixedColumnsHeadRowsHeight[index]
+              : null;
+          return (
+            <tr
+              key={index}
+              className={`${prefix}-grid-tr`}
+              style={{
+                height,
+              }}
+            >
+              {row.map(props => <th {...props} />)}
+            </tr>
+          );
+        })}
       </thead>
+    );
+  }
+
+  render() {
+    const { scroll, fixed, prefix, columns } = this.props;
+    const headerStyle = {};
+    if (!fixed && scroll.x) {
+      headerStyle.width = scroll.x;
+    }
+    return scroll.y ? (
+      <table className={`${prefix}-grid-table`} style={headerStyle}>
+        <ColGroup columns={columns} />
+        {this.renderThead()}
+      </table>
+    ) : (
+      this.renderThead()
     );
   }
 }
 
 Header.propTypes = {
   prefix: PropTypes.string,
-  columns: PropTypes.array
+  columns: PropTypes.array,
 };
 
 export default Header;

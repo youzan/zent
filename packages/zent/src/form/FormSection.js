@@ -6,19 +6,19 @@ class FormSection extends (PureComponent || Component) {
   static propTypes = {
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    childrend: PropTypes.any
+    children: PropTypes.any,
   };
 
   static defaultProps = {
-    component: 'div'
+    component: 'div',
   };
 
   static contextTypes = {
-    zentForm: PropTypes.object
+    zentForm: PropTypes.object,
   };
 
   static childContextTypes = {
-    zentForm: PropTypes.object.isRequired
+    zentForm: PropTypes.object.isRequired,
   };
 
   constructor(props, context) {
@@ -34,8 +34,8 @@ class FormSection extends (PureComponent || Component) {
     return {
       zentForm: {
         ...zentForm,
-        prefix: prefixName(zentForm, name)
-      }
+        prefix: prefixName(zentForm, name),
+      },
     };
   }
 
@@ -43,7 +43,7 @@ class FormSection extends (PureComponent || Component) {
     const { children, component, ...rest } = this.props;
     return createElement(component, {
       ...rest,
-      children
+      children,
     });
   }
 }

@@ -20,7 +20,7 @@ export default class NumberInput extends (PureComponent || Component) {
     max: PropTypes.number,
     min: PropTypes.number,
     onChange: PropTypes.func,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
@@ -30,7 +30,7 @@ export default class NumberInput extends (PureComponent || Component) {
     value: '',
     decimal: 0,
     disabled: false,
-    onChange: () => {}
+    onChange: () => {},
   };
 
   constructor(props) {
@@ -47,7 +47,7 @@ export default class NumberInput extends (PureComponent || Component) {
     this.state = {
       value: num,
       upArrow,
-      downArrow
+      downArrow,
     };
   }
 
@@ -72,7 +72,7 @@ export default class NumberInput extends (PureComponent || Component) {
       this.setState({
         value: num,
         upArrow,
-        downArrow
+        downArrow,
       });
       this.onPropChange(num);
     }
@@ -103,7 +103,7 @@ export default class NumberInput extends (PureComponent || Component) {
     return {
       num,
       upArrow,
-      downArrow
+      downArrow,
     };
   }
 
@@ -131,7 +131,7 @@ export default class NumberInput extends (PureComponent || Component) {
     }
   };
 
-  onBlur = evt => {
+  calculateNum() {
     const { decimal, min, max } = this.props;
     let { value } = this.state;
     if (/^(\-|\+)?$/g.test(value)) {
@@ -148,13 +148,29 @@ export default class NumberInput extends (PureComponent || Component) {
     this.setState({
       value: num,
       upArrow,
-      downArrow
+      downArrow,
     });
     this.onPropChange(num);
+    return num;
+  }
+
+  onBlur = () => {
+    const num = this.calculateNum();
 
     const { onBlur } = this.props;
     if (isFunction(onBlur)) {
-      onBlur(evt);
+      const data = this.popData(num);
+      onBlur(data);
+    }
+  };
+
+  onPressEnter = () => {
+    const num = this.calculateNum();
+
+    const { onPressEnter } = this.props;
+    if (isFunction(onPressEnter)) {
+      const data = this.popData(num);
+      onPressEnter(data);
     }
   };
 
@@ -166,7 +182,7 @@ export default class NumberInput extends (PureComponent || Component) {
     this.setState({
       value: num,
       upArrow,
-      downArrow
+      downArrow,
     });
     this.onPropChange(num);
   }
@@ -187,18 +203,23 @@ export default class NumberInput extends (PureComponent || Component) {
     this.onArrow(downArrowState, -1);
   };
 
-  onPropChange(result) {
-    const props = this.props;
+  popData(result) {
     result = result === '' ? '' : parseFloat(result);
-    props.onChange({
+    const props = this.props;
+    return {
       target: {
         ...props,
         type: 'number',
-        value: result
+        value: result,
       },
       preventDefault: noop,
-      stopPropagation: noop
-    });
+      stopPropagation: noop,
+    };
+  }
+
+  onPropChange(result) {
+    const data = this.popData(result);
+    this.props.onChange(data);
   }
 
   render() {
@@ -209,7 +230,7 @@ export default class NumberInput extends (PureComponent || Component) {
       showCounter,
       disabled,
       readOnly,
-      width
+      width,
     } = this.props;
     const widthStyle = getWidth(width);
     const { value, upArrow, downArrow } = this.state;
@@ -223,7 +244,7 @@ export default class NumberInput extends (PureComponent || Component) {
       {
         [`${prefix}-number-input-wrapper`]: true,
         [`${prefix}-number-input-count-wrapper`]: showStepper,
-        [`${prefix}-number-input-counter-wrapper`]: showCounter
+        [`${prefix}-number-input-counter-wrapper`]: showCounter,
       },
       className
     );
@@ -232,28 +253,28 @@ export default class NumberInput extends (PureComponent || Component) {
     const upArrowClass = classNames({
       [`${prefix}-number-input-arrow`]: true,
       [`${prefix}-number-input-arrowup`]: true,
-      [`${prefix}-number-input-arrow-disable`]: addState
+      [`${prefix}-number-input-arrow-disable`]: addState,
     });
 
     // 下arrow样式
     const downArrowClass = classNames({
       [`${prefix}-number-input-arrow`]: true,
       [`${prefix}-number-input-arrowdown`]: true,
-      [`${prefix}-number-input-arrow-disable`]: reduceState
+      [`${prefix}-number-input-arrow-disable`]: reduceState,
     });
 
     // 减号样式
     const reduceCountClass = classNames({
       [`${prefix}-number-input-count`]: true,
       [`${prefix}-number-input-countreduce`]: true,
-      [`${prefix}-number-input-count-disable`]: reduceState
+      [`${prefix}-number-input-count-disable`]: reduceState,
     });
 
     // 加号样式
     const addCountClass = classNames({
       [`${prefix}-number-input-count`]: true,
       [`${prefix}-number-input-countadd`]: true,
-      [`${prefix}-number-input-count-disable`]: addState
+      [`${prefix}-number-input-count-disable`]: addState,
     });
 
     // 不可传入Input组件的属性
@@ -270,7 +291,7 @@ export default class NumberInput extends (PureComponent || Component) {
       'showCounter',
       'min',
       'max',
-      'decimal'
+      'decimal',
     ]);
     return (
       <div className={wrapClass} style={widthStyle}>
@@ -289,6 +310,7 @@ export default class NumberInput extends (PureComponent || Component) {
           value={value}
           onChange={this.onChange}
           onBlur={this.onBlur}
+          onPressEnter={this.onPressEnter}
         />
         {showCounter && (
           <span className={addCountClass} onClick={this.inc}>

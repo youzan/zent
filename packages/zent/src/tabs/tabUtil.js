@@ -30,7 +30,7 @@ const tabUtil = {
           children: panelChildren,
           onTabReady,
           panelClassName,
-          tabClassName
+          tabClassName,
         } = child.props;
         listData.push({
           title: tab || '',
@@ -40,7 +40,7 @@ const tabUtil = {
           content: panelChildren,
           panelClassName,
           tabClassName,
-          onTabReady
+          onTabReady,
         });
       }
     });
@@ -51,7 +51,7 @@ const tabUtil = {
   checkIfTabPanel(rEl) {
     const type = rEl && rEl.type;
     return kindOf(type, TabPanel);
-  }
+  },
 };
 
 export default tabUtil;
