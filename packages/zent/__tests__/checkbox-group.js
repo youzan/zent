@@ -152,7 +152,7 @@ describe('Controlled CheckboxGroup', () => {
       expect(bananaCheckboxInputNode.disabled).toBe(false);
     });
 
-    it('checkbox not disabled in disabled group', () => {
+    it('checkbox disabled in disabled group', () => {
       const checkboxGroup = TestUtils.renderIntoDocument(
         <CheckboxGroup value={['apple']} disabled>
           <Checkbox value="apple" disabled={false}>
@@ -179,12 +179,10 @@ describe('Controlled CheckboxGroup', () => {
         'input'
       );
 
-      expect(appleCheckboxNode.className).not.toContain(
-        'zent-checkbox-disabled'
-      );
+      expect(appleCheckboxNode.className).toContain('zent-checkbox-disabled');
       expect(bananaCheckboxNode.className).toContain('zent-checkbox-disabled');
 
-      expect(appleCheckboxInputNode.disabled).toBe(false);
+      expect(appleCheckboxInputNode.disabled).toBe(true);
       expect(bananaCheckboxInputNode.disabled).toBe(true);
     });
   });
@@ -258,7 +256,7 @@ describe('Controlled CheckboxGroup', () => {
       expect(bananaCheckboxInputNode.readOnly).toBe(false);
     });
 
-    it('checkbox not readOnly in readOnly group', () => {
+    it('checkbox readOnly in readOnly group', () => {
       const checkboxGroup = TestUtils.renderIntoDocument(
         <CheckboxGroup value={['apple']} readOnly>
           <Checkbox value="apple" readOnly={false}>
@@ -285,12 +283,10 @@ describe('Controlled CheckboxGroup', () => {
         'input'
       );
 
-      expect(appleCheckboxNode.className).not.toContain(
-        'zent-checkbox-disabled'
-      );
+      expect(appleCheckboxNode.className).toContain('zent-checkbox-disabled');
       expect(bananaCheckboxNode.className).toContain('zent-checkbox-disabled');
 
-      expect(appleCheckboxInputNode.readOnly).toBe(false);
+      expect(appleCheckboxInputNode.readOnly).toBe(true);
       expect(bananaCheckboxInputNode.readOnly).toBe(true);
     });
   });

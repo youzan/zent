@@ -18,6 +18,8 @@ export default class Group extends (PureComponent || Component) {
   static defaultProps = {
     value: [],
     prefix: 'zent',
+    disabled: false,
+    readOnly: false,
     className: '',
     style: {},
     onChange() {},

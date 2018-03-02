@@ -22,6 +22,8 @@ export default class Checkbox extends Component {
     prefix: 'zent',
     className: '',
     style: {},
+    disabled: false,
+    readOnly: false,
     onChange() {}
   };
 
@@ -78,8 +80,8 @@ export default class Checkbox extends Component {
         findIndex(checkboxGroup.value, val =>
           checkboxGroup.isValueEqual(val, value)
         ) !== -1;
-      disabled = disabled !== undefined ? disabled : checkboxGroup.disabled;
-      readOnly = readOnly !== undefined ? readOnly : checkboxGroup.readOnly;
+      disabled = disabled || checkboxGroup.disabled;
+      readOnly = readOnly || checkboxGroup.readOnly;
     }
 
     const classString = classNames({
