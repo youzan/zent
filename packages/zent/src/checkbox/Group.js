@@ -1,21 +1,14 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
-function findIndex(array, predicate) {
-  for (let i = 0; i < array.length; i++) {
-    if (predicate(array[i])) {
-      return i;
-    }
-  }
-
-  return -1;
-}
+import findIndex from './findIndex';
 
 export default class Group extends (PureComponent || Component) {
   static propTypes = {
     value: PropTypes.array,
     isValueEqual: PropTypes.func,
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -33,6 +26,23 @@ export default class Group extends (PureComponent || Component) {
     }
   };
 
+  static childContextTypes = {
+    checkboxGroup: PropTypes.any
+  };
+
+  getChildContext() {
+    const { value, disabled, readOnly, isValueEqual } = this.props;
+    return {
+      checkboxGroup: {
+        onCheckboxChange: this.onCheckboxChange,
+        value,
+        disabled,
+        readOnly,
+        isValueEqual
+      }
+    };
+  }
+
   onCheckboxChange = e => {
     const changedValue = e.target.value;
     const groupValue = this.props.value.slice();
@@ -49,26 +59,7 @@ export default class Group extends (PureComponent || Component) {
   };
 
   render() {
-    const { className, prefix, style, isValueEqual, value } = this.props;
-    const children = React.Children.map(this.props.children, checkbox => {
-      if (checkbox && checkbox.props) {
-        return React.cloneElement(checkbox, {
-          ...checkbox.props,
-          onChange: this.onCheckboxChange,
-          checked:
-            findIndex(value, val => isValueEqual(val, checkbox.props.value)) !==
-            -1,
-          disabled:
-            checkbox.props.disabled !== undefined
-              ? checkbox.props.disabled
-              : this.props.disabled,
-          readOnly:
-            checkbox.props.readOnly !== undefined
-              ? checkbox.props.readOnly
-              : this.props.readOnly
-        });
-      }
-    });
+    const { className, prefix, style, children } = this.props;
 
     const classString = classNames({
       [`${prefix}-checkbox-group`]: true,

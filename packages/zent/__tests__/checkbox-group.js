@@ -2,15 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Checkbox from 'checkbox';
+import Layout from 'layout';
 
 const CheckboxGroup = Checkbox.Group;
+const { Row, Col } = Layout;
 
 describe('Controlled CheckboxGroup', () => {
   it('value', () => {
     const radioGroup = TestUtils.renderIntoDocument(
       <CheckboxGroup value={['apple']}>
-        <Checkbox value="apple">Apple</Checkbox>
-        <Checkbox value="banana">Banana</Checkbox>
+        <Row>
+          <Col span={12}>
+            <Checkbox value="apple">Apple</Checkbox>
+          </Col>
+          <Col span={12}>
+            <Checkbox value="banana">Banana</Checkbox>
+          </Col>
+        </Row>
       </CheckboxGroup>
     );
 
