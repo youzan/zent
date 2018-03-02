@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 zh-CN:
 	title: 全选，在实现全选效果时，你可能会用到 `indeterminate` 属性
 	content: 全选
