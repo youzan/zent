@@ -1,5 +1,18 @@
 ## Github Change Log
 
+## [zent@4.3.1](https://github.com/youzan/zent/tree/zent@4.3.1) (2018-03-02)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@4.3.0...zent@4.3.1)
+
+**Fixed bugs:**
+
+- \[bug fix\] Select: 标签选择时placeholder缩进不一致 [\#747](https://github.com/youzan/zent/issues/747)
+- Popover: Pop的visible为false时会不停地调用adjustPosition [\#746](https://github.com/youzan/zent/issues/746)
+- \[bug fix\] Tree: Fix tree style [\#752](https://github.com/youzan/zent/pull/752) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Popover: 修复极端情况下Popover循环调用adjustPosition [\#751](https://github.com/youzan/zent/pull/751) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Grid: 修复win系统头部显示问题 [\#750](https://github.com/youzan/zent/pull/750) ([wulv](https://github.com/wulv))
+- \[bug fix\]Copy-Button: 修改选择复制区域的api, 修复在某些情况下区域选择错误的bug [\#749](https://github.com/youzan/zent/pull/749) ([lama-pacos](https://github.com/lama-pacos))
+- \[bugfix\]Select: 统一显示样式. [\#748](https://github.com/youzan/zent/pull/748) ([LucasIcarus](https://github.com/LucasIcarus))
+
 ## [zent@4.3.0](https://github.com/youzan/zent/tree/zent@4.3.0) (2018-02-14)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@4.2.1...zent@4.3.0)
 
@@ -29,17 +42,17 @@
 - Publish 4.2.2 [\#739](https://github.com/youzan/zent/pull/739) ([ArvinTung](https://github.com/ArvinTung))
 
 ## [zent@4.2.1](https://github.com/youzan/zent/tree/zent@4.2.1) (2018-02-06)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@4.2.0...zent@4.2.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.2...zent@4.2.1)
 
 **Fixed bugs:**
 
 - Upload: 修复文件类型判断不正确的问题 [\#736](https://github.com/youzan/zent/pull/736) ([huangsy](https://github.com/huangsy))
 
-## [zent@4.2.0](https://github.com/youzan/zent/tree/zent@4.2.0) (2018-02-05)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.2...zent@4.2.0)
-
 ## [babel-plugin-zent@1.1.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.2) (2018-02-05)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.1...babel-plugin-zent@1.1.2)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@4.2.0...babel-plugin-zent@1.1.2)
+
+## [zent@4.2.0](https://github.com/youzan/zent/tree/zent@4.2.0) (2018-02-05)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.1...zent@4.2.0)
 
 **Implemented enhancements:**
 
@@ -1005,7 +1018,7 @@
 - Optimize style of site. [\#260](https://github.com/youzan/zent/pull/260) ([LucasIcarus](https://github.com/LucasIcarus))
 
 ## [zent@3.1.0](https://github.com/youzan/zent/tree/zent@3.1.0) (2017-05-12)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...zent@3.1.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.1.0)
 
 **Implemented enhancements:**
 
@@ -1036,11 +1049,11 @@
 - Datepicker: add confirm button cursor [\#242](https://github.com/youzan/zent/pull/242) ([xuhong](https://github.com/xuhong))
 - tree: 用zent的checkbox替换内部实现 [\#241](https://github.com/youzan/zent/pull/241) ([wangchao0502](https://github.com/wangchao0502))
 
-## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.0.0...zent@3.0.0)
-
 ## [babel-plugin-zent@1.0.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.0.0) (2017-05-08)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...babel-plugin-zent@1.0.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.0.0...babel-plugin-zent@1.0.0)
+
+## [zent@3.0.0](https://github.com/youzan/zent/tree/zent@3.0.0) (2017-05-08)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@2.1.0...zent@3.0.0)
 
 **Implemented enhancements:**
 
