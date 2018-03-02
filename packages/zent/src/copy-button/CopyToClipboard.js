@@ -31,7 +31,7 @@ function copy(text) {
 
     document.body.appendChild(mark);
 
-    range.selectNode(mark);
+    range.selectNodeContents(mark);
     selection.addRange(range);
 
     let successful = document.execCommand('copy');

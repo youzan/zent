@@ -102,11 +102,15 @@ $errorBorderColor: $theme-error-2;
 .zent-select-tags {
   padding: 2px 5px;
   overflow-y: auto;
-  margin-bottom: -5px;
   line-height: 24px;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  &.tags__empty {
+    padding: 5px 20px 5px 10px;
+    line-height: 18px;
   }
 
   .zent-select-inner {

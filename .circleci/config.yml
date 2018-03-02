@@ -9,6 +9,7 @@ jobs:
       - run:
           name: Pre-Dependencies
           command: |
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import
             curl -o- -L https://yarnpkg.com/install.sh | bash
       - run:
           name: Install Dependencies
