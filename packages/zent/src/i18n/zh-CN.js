@@ -168,7 +168,9 @@ export const Upload = {
     title_voice: '本地音频',
     title_image: '本地图片',
     type({ types, size }) {
-      return `仅支持 ${types.join('、')} ${types.length}种格式, 大小不超过${size}`;
+      return `仅支持 ${types.join('、')} ${
+        types.length
+      }种格式, 大小不超过${size}`;
     },
     extract: '提取',
     extracting: '提取中...',

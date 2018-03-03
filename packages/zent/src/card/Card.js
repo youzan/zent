@@ -50,15 +50,15 @@ export default class Card extends (PureComponent || Component) {
         style={style}
       >
         {(isValidTitle || isValidAction) && (
-            <div className={`${prefix}-card-header`}>
-              {isValidTitle && (
-                <h3 className={`${prefix}-card-header__title`}>{title}</h3>
-              )}
-              {isValidAction && (
-                <div className={`${prefix}-card-header__action`}>{action}</div>
-              )}
-            </div>
-          )}
+          <div className={`${prefix}-card-header`}>
+            {isValidTitle && (
+              <h3 className={`${prefix}-card-header__title`}>{title}</h3>
+            )}
+            {isValidAction && (
+              <div className={`${prefix}-card-header__action`}>{action}</div>
+            )}
+          </div>
+        )}
         <div className={`${prefix}-card-body`} style={bodyStyle}>
           {loading ? <Placeholder.TextBlock rows={5} /> : children}
         </div>

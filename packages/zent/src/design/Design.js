@@ -193,7 +193,8 @@ export default class Design extends (PureComponent || Component) {
     globalConfig: {},
     confirmUnsavedLeave: true,
     cacheToLocalStorage: false,
-    cacheRestoreMessage: '提示：在浏览器中发现未提交的内容，是否使用该内容替换当前内容？',
+    cacheRestoreMessage:
+      '提示：在浏览器中发现未提交的内容，是否使用该内容替换当前内容？',
     scrollTopOffset: -10,
     scrollLeftOffset: -10,
     prefix: 'zent',
@@ -432,14 +433,12 @@ export default class Design extends (PureComponent || Component) {
     const changedProps = Object.keys(diff);
 
     this.trackValueChange(newValue);
-    this.validateComponentValue(
-      newComponentValue,
-      identity,
-      changedProps
-    ).then(errors => {
-      const id = this.getUUIDFromValue(newComponentValue);
-      this.setValidation({ [id]: errors });
-    });
+    this.validateComponentValue(newComponentValue, identity, changedProps).then(
+      errors => {
+        const id = this.getUUIDFromValue(newComponentValue);
+        this.setValidation({ [id]: errors });
+      }
+    );
   };
 
   validateComponentValue = (value, prevValue, changedProps) => {

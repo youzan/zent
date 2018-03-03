@@ -236,12 +236,12 @@ class QuarterPicker extends (PureComponent || Component) {
             if (selected) {
               inputVal =
                 i18n.mark === 'zh-CN'
-                  ? `${selected.getFullYear()}年${i18n.panel.quarterNames[
-                      value
-                    ]}`
-                  : `${i18n.panel.quarterNames[
-                      value
-                    ]} of ${selected.getFullYear()}`;
+                  ? `${selected.getFullYear()}年${
+                      i18n.panel.quarterNames[value]
+                    }`
+                  : `${
+                      i18n.panel.quarterNames[value]
+                    } of ${selected.getFullYear()}`;
             }
             const placeholderText = placeholder || i18n.quarter;
 

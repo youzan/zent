@@ -98,9 +98,9 @@ class Emotion extends Component {
       let tabContent = [];
 
       for (let i = 1, len = item.sum; i <= len; i++) {
-        let imgSrc = `${item.imgFolder}${item.imgName}${i < 10
-          ? `0${i}`
-          : i}.gif`;
+        let imgSrc = `${item.imgFolder}${item.imgName}${
+          i < 10 ? `0${i}` : i
+        }.gif`;
         let styleObj = {};
         let pos = '';
 

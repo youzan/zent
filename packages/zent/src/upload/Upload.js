@@ -118,7 +118,8 @@ class Upload extends Component {
                 />
               </Dialog>
             </div>
-          )}
+          )
+        }
       </Receiver>
     );
   }

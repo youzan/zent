@@ -51,7 +51,9 @@ export default function(options) {
 
         // 包含http,ftp,file开头的地址，直接引用
         if (!cheackURl) {
-          Notify.success('您输入的超链接中不包含http等协议名称，默认将为您添加http://前缀');
+          Notify.success(
+            '您输入的超链接中不包含http等协议名称，默认将为您添加http://前缀'
+          );
           linkUrl = `http://${linkUrl}`;
         }
         const urlInfo = {

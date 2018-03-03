@@ -46,7 +46,9 @@ export class Alpha extends Component {
           },
           gradient: {
             absolute: '0px 0px 0px 0px',
-            background: `linear-gradient(to right, rgba(${rgb.r},${rgb.g},${rgb.b}, 0) 0%,
+            background: `linear-gradient(to right, rgba(${rgb.r},${rgb.g},${
+              rgb.b
+            }, 0) 0%,
            rgba(${rgb.r},${rgb.g},${rgb.b}, 1) 100%)`,
             boxShadow: this.props.shadow,
             borderRadius: this.props.radius,
@@ -72,7 +74,9 @@ export class Alpha extends Component {
         },
         vertical: {
           gradient: {
-            background: `linear-gradient(to bottom, rgba(${rgb.r},${rgb.g},${rgb.b}, 0) 0%,
+            background: `linear-gradient(to bottom, rgba(${rgb.r},${rgb.g},${
+              rgb.b
+            }, 0) 0%,
            rgba(${rgb.r},${rgb.g},${rgb.b}, 1) 100%)`,
           },
           pointer: {

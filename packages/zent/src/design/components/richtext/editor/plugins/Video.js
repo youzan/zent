@@ -56,11 +56,15 @@ const VideoForm = createForm({})(
       if (url.indexOf('v.qq.com') >= 0) {
         id = url.match(/vid=([^&]*)($|&)/);
         if (id) {
-          iframeUrl = `https://v.qq.com/iframe/player.html?vid=${id[1]}&tiny=0&auto=0`;
+          iframeUrl = `https://v.qq.com/iframe/player.html?vid=${
+            id[1]
+          }&tiny=0&auto=0`;
         } else {
           id = url.match(/\/([0-9a-zA-Z]+).html/);
           if (id) {
-            iframeUrl = `https://v.qq.com/iframe/player.html?vid=${id[1]}&tiny=0&auto=0`;
+            iframeUrl = `https://v.qq.com/iframe/player.html?vid=${
+              id[1]
+            }&tiny=0&auto=0`;
           }
         }
         if (!id) {
@@ -85,8 +89,9 @@ const VideoForm = createForm({})(
       src = src || this.iframeUrl;
 
       if (src) {
-        let video = `<iframe src="${src}" width="${this.width}" height="${this
-          .height}" allowfullscreen="true"></ifame>`;
+        let video = `<iframe src="${src}" width="${this.width}" height="${
+          this.height
+        }" allowfullscreen="true"></ifame>`;
 
         if (this.isYouku() || this.isTudou()) {
           video = `<img src="${this.getSiteLogoImage()}" />`;
@@ -126,8 +131,9 @@ const VideoForm = createForm({})(
       };
 
       if (this.isYouku() || this.isTudou()) {
-        imgInfo.html = `<a class="video-link" target="_blank" href="${this
-          .iframeUrl}"><img src="${this.getSiteLogoImage()}" /></a>`;
+        imgInfo.html = `<a class="video-link" target="_blank" href="${
+          this.iframeUrl
+        }"><img src="${this.getSiteLogoImage()}" /></a>`;
       }
 
       this.props.callback(imgInfo);

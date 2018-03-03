@@ -168,9 +168,9 @@ class UploadPopup extends Component {
     }
     return (
       <div className={`${prefix}-local-attachment-region`}>
-        <div className={`${prefix}-title`}>{`${i18n.popup[
-          `title_${options.type}`
-        ]}：`}</div>
+        <div className={`${prefix}-title`}>{`${
+          i18n.popup[`title_${options.type}`]
+        }：`}</div>
         <div className={`${prefix}-content`}>
           <ul
             ref={this.onListRefChange}

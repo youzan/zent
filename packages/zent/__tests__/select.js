@@ -114,7 +114,8 @@ describe('<Select />', () => {
           item.value
             .trim()
             .toLowerCase()
-            .indexOf(keyword.trim().toLowerCase()) > -1}
+            .indexOf(keyword.trim().toLowerCase()) > -1
+        }
         searchPlaceholder="search"
       />
     );

@@ -93,9 +93,12 @@ Instance.on = options => defer(on, options);
 Instance.off = options => defer(off, options);
 Instance.newInstance = props => defer(newInstance, props);
 
-function on(
-  { prefix = 'zent', className = '', containerClass = '', zIndex = 9998 } = {}
-) {
+function on({
+  prefix = 'zent',
+  className = '',
+  containerClass = '',
+  zIndex = 9998,
+} = {}) {
   if (!isBrowser) return;
 
   if (!loadingInstance) {

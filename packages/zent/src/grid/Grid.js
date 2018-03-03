@@ -538,7 +538,8 @@ class Grid extends (PureComponent || Component) {
             rowIndex={rowIndex}
             store={this.store}
             onChange={e =>
-              this.handleSelect(data, this.getDataKey(data, row), e)}
+              this.handleSelect(data, this.getDataKey(data, row), e)
+            }
           />
         </span>
       );

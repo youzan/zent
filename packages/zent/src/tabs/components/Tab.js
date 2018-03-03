@@ -71,7 +71,9 @@ class Tab extends (PureComponent || Component) {
     return (
       <div
         role="tab"
-        aria-labelledby={`${props.prefix}-tabpanel-${props.uniqueId}-${props.id}`}
+        aria-labelledby={`${props.prefix}-tabpanel-${props.uniqueId}-${
+          props.id
+        }`}
         className={classes}
         aria-disabled={props.disabled}
         aria-selected={props.actived}
