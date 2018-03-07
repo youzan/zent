@@ -86,8 +86,7 @@ export default class Loading extends (PureComponent || Component) {
             }
           )}
           style={{
-            height:
-              children || !this.state.show ? 'initial' : this.props.height,
+            height: !this.state.show ? 'initial' : this.props.height,
           }}
         >
           {children}
