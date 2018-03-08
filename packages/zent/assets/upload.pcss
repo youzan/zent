@@ -7,11 +7,6 @@
 }
 
 .zent-upload {
-  .center,
-  .text-center {
-    text-align: center;
-  }
-
   &.inline {
     display: inline;
   }
@@ -34,6 +29,10 @@
     &.zent-dialog-r {
       padding: 15px;
     }
+  }
+
+  &__footer {
+    text-align: center;
   }
 }
 
@@ -131,13 +130,11 @@
     font-size: 12px;
   }
 
-  .upload-local-image-list {
+  .zent-upload__upload-local-image-list {
     height: auto;
     padding-top: 10px;
-  }
 
-  .image-list {
-    .upload-local-image-item {
+    .zent-upload-image-item {
       position: relative;
       float: left;
       margin: 0 10px 10px 0;
@@ -145,34 +142,34 @@
       height: 80px;
 
       &:hover {
-        .close-modal {
+        .zent-upload__close-modal {
           display: block;
         }
       }
-    }
 
-    .image-box {
-      width: 80px;
-      height: 80px;
-      background-size: cover;
-      background-position: 50% 50%;
-    }
+      &__box {
+        width: 80px;
+        height: 80px;
+        background-size: cover;
+        background-position: 50% 50%;
+      }
 
-    .image-progress {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: $theme-mask-black-6;
-      color: $theme-stroke-10;
-      text-align: center;
-      line-height: 80px;
-      font-size: 14px;
+      &__progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: $theme-mask-black-6;
+        color: $theme-stroke-10;
+        text-align: center;
+        line-height: 80px;
+        font-size: 14px;
+      }
     }
   }
 
-  .voice-list {
+  .zent-upload__upload-local-voice-list {
     margin-left: -10px;
     height: auto;
 
@@ -184,7 +181,7 @@
       visibility: hidden;
     }
 
-    .voice-item {
+    .zent-upload-voice-item {
       position: relative;
       float: left;
       width: 300px;
@@ -197,104 +194,94 @@
       box-sizing: border-box;
 
       &:hover {
-        .close-modal {
+        .zent-upload__close-modal {
           display: block;
         }
       }
-    }
 
-    .voice-icon {
-      width: 40px;
-      height: 40px;
-      background: $theme-stroke-6;
-      background-size: 40px 40px;
-      background-image: url('https://b.yzcdn.cn/upload/image/play@2x.png');
+      &__icon {
+        width: 40px;
+        height: 40px;
+        background: $theme-stroke-6;
+        background-size: 40px 40px;
+        background-image: url('https://b.yzcdn.cn/upload/image/play@2x.png');
 
-      &.loading {
-        background-image: url('https://b.yzcdn.cn/upload/image/loading@2x.gif');
+        &.loading {
+          background-image: url('https://b.yzcdn.cn/upload/image/loading@2x.gif');
+        }
+
+        &.playing {
+          background-image: url('https://b.yzcdn.cn/upload/image/playing@2x.gif');
+        }
       }
 
-      &.playing {
-        background-image: url('https://b.yzcdn.cn/upload/image/playing@2x.gif');
+      &__name {
+        position: absolute;
+        width: 200px;
+        height: 18px;
+        line-height: 18px;
+        top: 10px;
+        left: 60px;
+
+        @mixin ellipsis;
       }
-    }
 
-    .voice-name {
-      position: absolute;
-      width: 200px;
-      height: 18px;
-      line-height: 18px;
-      top: 10px;
-      left: 60px;
+      &__createtime {
+        position: absolute;
+        bottom: 10px;
+        left: 60px;
+        line-height: 14px;
+        color: $theme-stroke-4;
+      }
 
-      @mixin ellipsis;
-    }
+      &__duration {
+        position: absolute;
+        top: 12px;
+        right: 10px;
+      }
 
-    .voice-createtime {
-      position: absolute;
-      bottom: 10px;
-      left: 60px;
-      line-height: 14px;
-      color: $theme-stroke-4;
-    }
+      &__progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: $theme-mask-black-6;
+        color: $theme-stroke-10;
+        text-align: center;
+        line-height: 60px;
+        font-size: 14px;
+      }
 
-    .voice-duration {
-      position: absolute;
-      top: 12px;
-      right: 10px;
-    }
-
-    .voice-size {
-      position: absolute;
-      top: 34px;
-      right: 10px;
-      color: $theme-stroke-4;
-    }
-
-    .voice-progress {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: $theme-mask-black-6;
-      color: $theme-stroke-10;
-      text-align: center;
-      line-height: 60px;
-      font-size: 14px;
+      &__size {
+        position: absolute;
+        top: 34px;
+        right: 10px;
+        color: $theme-stroke-4;
+      }
     }
   }
+}
 
-  .close-modal {
-    display: none;
-    position: absolute;
-    z-index: 2;
-    top: -9px;
-    right: -9px;
-    width: 20px;
-    height: 20px;
-    font-size: 16px;
-    line-height: 18px;
+.zent-upload__close-modal {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  color: $theme-stroke-10;
+  text-align: center;
+  cursor: pointer;
+  background: $theme-mask-black-3;
+  top: -8px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+  line-height: 16px;
+  border-radius: 9px;
+
+  &:hover {
     color: $theme-stroke-10;
-    text-align: center;
-    cursor: pointer;
-    background: $theme-mask-black-3;
-    border-radius: 10px;
-
-    &.small {
-      top: -8px;
-      right: -8px;
-      width: 18px;
-      height: 18px;
-      font-size: 14px;
-      line-height: 16px;
-      border-radius: 9px;
-
-      &:hover {
-        color: $theme-stroke-10;
-        background: $theme-stroke-1;
-      }
-    }
+    background: $theme-stroke-1;
   }
 }
 
