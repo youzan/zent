@@ -37,7 +37,7 @@
   margin: 0;
   padding: 0;
 
-  input {
+  & > input {
     position: absolute;
     left: 0;
     right: 0;
@@ -93,48 +93,58 @@
 }
 
 .zent-checkbox-checked {
-  .zent-checkbox-inner {
-    border-color: $theme-primary-1;
-    background: $theme-primary-2;
+  & > .zent-checkbox {
+    & > .zent-checkbox-inner {
+      border-color: $theme-primary-1;
+      background: $theme-primary-2;
 
-    &::after {
-      transform: rotate(-45deg) scale(1);
+      &::after {
+        transform: rotate(-45deg) scale(1);
+      }
     }
   }
 }
 
 .zent-checkbox-indeterminate {
-  .zent-checkbox-inner {
-    border-color: $theme-primary-2;
-    background: $theme-stroke-10;
+  & > .zent-checkbox {
+    & > .zent-checkbox-inner {
+      border-color: $theme-primary-2;
+      background: $theme-stroke-10;
 
-    &::after {
-      top: 5px;
-      left: 3px;
-      width: 6px;
-      height: 2px;
-      border: none;
-      background: $theme-primary-2;
-      transform: rotate(0deg);
+      &::after {
+        top: 5px;
+        left: 3px;
+        width: 6px;
+        height: 2px;
+        border: none;
+        background: $theme-primary-2;
+        transform: rotate(0deg);
+      }
     }
   }
 }
 
 .zent-checkbox-disabled {
-  .zent-checkbox-inner {
-    background-color: $theme-stroke-9;
-    border-color: $theme-stroke-7;
+  & > .zent-checkbox {
+    & > .zent-checkbox-inner {
+      background-color: $theme-stroke-9;
+      border-color: $theme-stroke-7;
+    }
+
+    & > input[type="checkbox"] {
+      cursor: not-allowed;
+    }
   }
 
-  &.zent-checkbox-checked {
-    .zent-checkbox-inner {
+  &.zent-checkbox-checked > .zent-checkbox {
+    & > .zent-checkbox-inner {
       background-color: $theme-stroke-7;
       border-color: $theme-stroke-7;
     }
   }
 
-  &.zent-checkbox-indeterminate {
-    .zent-checkbox-inner {
+  &.zent-checkbox-indeterminate > .zent-checkbox {
+    & > .zent-checkbox-inner {
       background-color: $theme-stroke-7;
       border-color: $theme-stroke-7;
 
@@ -142,9 +152,5 @@
         background: $theme-stroke-10;
       }
     }
-  }
-
-  input[type="checkbox"] {
-    cursor: not-allowed;
   }
 }

@@ -1,5 +1,18 @@
 ## Github Change Log
 
+## [zent@4.3.2](https://github.com/youzan/zent/tree/zent@4.3.2) (2018-03-07)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@4.3.1...zent@4.3.2)
+
+**Implemented enhancements:**
+
+- \[new feature\] Checkbox.Group & Radio.Group: 支持元素嵌套，不再污染非指定的子元素 [\#753](https://github.com/youzan/zent/pull/753) ([NinoFocus](https://github.com/NinoFocus))
+
+**Fixed bugs:**
+
+- \[bug fix\] Pagination: 调整pagination显示文案 [\#756](https://github.com/youzan/zent/pull/756) ([wulv](https://github.com/wulv))
+- \[bug fix\] Radio: 修复多级 radio 的样式覆盖问题 [\#755](https://github.com/youzan/zent/pull/755) ([liaoyu](https://github.com/liaoyu))
+- \[bug fix\] Upload: 修复upload语音上传样式 [\#754](https://github.com/youzan/zent/pull/754) ([wulv](https://github.com/wulv))
+
 ## [zent@4.3.1](https://github.com/youzan/zent/tree/zent@4.3.1) (2018-03-02)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@4.3.0...zent@4.3.1)
 
@@ -42,17 +55,17 @@
 - Publish 4.2.2 [\#739](https://github.com/youzan/zent/pull/739) ([ArvinTung](https://github.com/ArvinTung))
 
 ## [zent@4.2.1](https://github.com/youzan/zent/tree/zent@4.2.1) (2018-02-06)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.2...zent@4.2.1)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@4.2.0...zent@4.2.1)
 
 **Fixed bugs:**
 
 - Upload: 修复文件类型判断不正确的问题 [\#736](https://github.com/youzan/zent/pull/736) ([huangsy](https://github.com/huangsy))
 
-## [babel-plugin-zent@1.1.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.2) (2018-02-05)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@4.2.0...babel-plugin-zent@1.1.2)
-
 ## [zent@4.2.0](https://github.com/youzan/zent/tree/zent@4.2.0) (2018-02-05)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.1...zent@4.2.0)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.2...zent@4.2.0)
+
+## [babel-plugin-zent@1.1.2](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.2) (2018-02-05)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.1...babel-plugin-zent@1.1.2)
 
 **Implemented enhancements:**
 

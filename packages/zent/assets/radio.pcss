@@ -34,7 +34,7 @@
   margin: 0;
   padding: 0;
 
-  input {
+  & > input {
     position: absolute;
     left: 0;
     right: 0;
@@ -87,30 +87,34 @@
 }
 
 .zent-radio-checked {
-  .zent-radio-inner {
-    border-color: $theme-primary-1;
-    background: $theme-primary-2;
+  & > .zent-radio {
+    & > .zent-radio-inner {
+      border-color: $theme-primary-1;
+      background: $theme-primary-2;
 
-    &::after {
-      transform: scale(1);
+      &::after {
+        transform: scale(1);
+      }
     }
   }
 }
 
 .zent-radio-disabled {
-  .zent-radio-inner {
-    background-color: $theme-stroke-9;
-    border-color: $theme-stroke-7;
-  }
-
-  &.zent-radio-checked {
-    .zent-radio-inner {
-      background-color: $theme-stroke-7;
+  & > .zent-radio {
+    & > .zent-radio-inner {
+      background-color: $theme-stroke-9;
       border-color: $theme-stroke-7;
+    }
+
+    & > input[type="radio"] {
+      cursor: not-allowed;
     }
   }
 
-  input[type="radio"] {
-    cursor: not-allowed;
+  &.zent-radio-checked > .zent-radio {
+    & > .zent-radio-inner {
+      background-color: $theme-stroke-7;
+      border-color: $theme-stroke-7;
+    }
   }
 }

@@ -7,6 +7,22 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 4.3.2 (2018-03-07)
+
+- 🦀️ Update `Loading` height logic
+- 🦀️ Fix text in `Paginatin`
+- 🦀️ Fix bugs when using nested `Radio` and `Checkbox`
+- 🦀️ `Radio` and `Checkbox` will ignore `readonly` and `disabled` settings on itself if it is within a group
+- 🦀️ Fix `Upload` style issues
+
+### 4.3.1 (2018-03-05)
+
+- 🦀️ Fix wrong placeholder indentation when using tag style in `Select`
+- 🦀️ Fix calling `adjustPosition` in `Popover` in some cases
+- 🦀️ Adjust font size in `Tree`
+- 🦀️ Fix `Grid` style issues in Windows
+- 🦀️ Fix wrong selection in `CopyButton`
+
 ### 4.3.0 (2018-02-14)
 
 > Happy Valentine's Day and happy Chinese New Year!

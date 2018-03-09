@@ -121,7 +121,6 @@
   height: 100%;
 
   .zent-upload-content {
-    overflow: auto;
     margin-top: -10px;
     height: 100%;
   }
@@ -192,7 +191,7 @@
       height: 60px;
       margin-left: 10px;
       margin-bottom: 10px;
-      padding: 10px;
+      padding: 9px;
       border: 1px solid $theme-stroke-7;
       cursor: pointer;
       box-sizing: border-box;
@@ -225,7 +224,7 @@
       width: 200px;
       height: 18px;
       line-height: 18px;
-      top: 12px;
+      top: 10px;
       left: 60px;
 
       @mixin ellipsis;
@@ -233,8 +232,9 @@
 
     .voice-createtime {
       position: absolute;
-      top: 34px;
+      bottom: 10px;
       left: 60px;
+      line-height: 14px;
       color: $theme-stroke-4;
     }
 
@@ -249,6 +249,19 @@
       top: 34px;
       right: 10px;
       color: $theme-stroke-4;
+    }
+
+    .voice-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: $theme-mask-black-6;
+      color: $theme-stroke-10;
+      text-align: center;
+      line-height: 60px;
+      font-size: 14px;
     }
   }
 
