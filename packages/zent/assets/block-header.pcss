@@ -11,10 +11,20 @@
   &__left {
     display: inline-block;
 
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      position: relative;
+      top: 1px;
+      background: $theme-notice-1;
+    }
+
     h3 {
+      display: inline-block;
       margin: 0;
       padding-left: 5px;
-      border-left: 4px solid $theme-notice-1;
       font-weight: normal;
       font-size: 14px;
     }
