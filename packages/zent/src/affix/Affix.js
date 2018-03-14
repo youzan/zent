@@ -15,19 +15,19 @@ class Affix extends (PureComponent || Component) {
     offsetTop: PropTypes.number,
     offsetBottom: PropTypes.number,
     onPin: PropTypes.func,
-    onUnpin: PropTypes.func
+    onUnpin: PropTypes.func,
   };
 
   static defaultProps = {
     offsetTop: 0,
     prefix: 'zent',
-    zIndex: 10
+    zIndex: 10,
   };
 
   state = {
     position: 'static',
     width: null,
-    placeHoldStyle: {}
+    placeHoldStyle: {},
   };
 
   affix = false;
@@ -48,7 +48,7 @@ class Affix extends (PureComponent || Component) {
     this.setState({
       position: 'static',
       width: null,
-      placeHoldStyle: { overflow: 'hidden' }
+      placeHoldStyle: { overflow: 'hidden' },
     });
     onUnpin && onUnpin();
   }
@@ -60,8 +60,8 @@ class Affix extends (PureComponent || Component) {
       width: element.offsetWidth,
       placeHoldStyle: {
         width: '100%',
-        height: element.offsetHeight
-      }
+        height: element.offsetHeight,
+      },
     });
   }
 

@@ -1,11 +1,11 @@
 import createPlacement from './create';
 
 /**
-* -------------------------------
-* |   anchor           | popover |
-* |                    |---------
-* ----------------------
-*/
+ * -------------------------------
+ * |   anchor           | popover |
+ * |                    |---------
+ * ----------------------
+ */
 function locate(
   anchorBoundingBox,
   containerBoundingBox,
@@ -21,11 +21,11 @@ function locate(
       return {
         position: 'absolute',
         left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`
+        top: `${Math.round(y)}px`,
       };
     },
 
-    name: 'position-right-top'
+    name: 'position-right-top',
   };
 }
 
@@ -34,11 +34,11 @@ const RightTop = createPlacement(locate);
 export default RightTop;
 
 /**
-* ----------------------------------
-* |                  |   popover   |
-* |   anchor          --------------|
-* ----------------------------------|
-*/
+ * ----------------------------------
+ * |                  |   popover   |
+ * |   anchor          --------------|
+ * ----------------------------------|
+ */
 // export function TopRightInnerPlacement(anchorBoundingBox, containerBoundingBox) {
 //   const { right, top } = anchorBoundingBox;
 //   const x = containerBoundingBox.right - right;

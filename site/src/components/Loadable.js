@@ -7,7 +7,7 @@ export default function DocLoadable(opts) {
       {
         loading: DocLoading,
         delay: 200, // Avoiding Flash Of Loading Component
-        timeout: 5000 // 5 seconds
+        timeout: 5000, // 5 seconds
       },
       opts
     )

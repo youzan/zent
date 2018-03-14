@@ -41,7 +41,7 @@ export default class WhitespaceEditor extends DesignEditor {
   // 添加组件时调用，用来获取新组件的初始值
   static getInitialValue() {
     return {
-      height: 30
+      height: 30,
     };
   }
 }

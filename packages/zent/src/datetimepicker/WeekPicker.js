@@ -1,7 +1,9 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cx from 'classnames';
 import isArray from 'lodash/isArray';
+import startOfWeek from 'date-fns/start_of_week';
+import endOfWeek from 'date-fns/end_of_week';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -11,18 +13,32 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT_DAY, goMonths, goDays, formatDate, parseDate } from './utils';
-import { dayStart, setTime } from './utils/date';
 import {
+  goMonths,
+  goDays,
+  formatDate,
+  parseDate,
+  dayStart,
+  dayEnd,
+  setTime,
+} from './utils';
+import {
+  CURRENT_DAY,
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function getSelectedWeek(val, start = 1) {
-  const offset = val.getDay();
-  return [goDays(val, start - offset), goDays(val, 6 + start - offset)];
+  return [
+    startOfWeek(val, {
+      weekStartsOn: start,
+    }),
+    endOfWeek(val, {
+      weekStartsOn: start,
+    }),
+  ];
 }
 
 function extractStateFromProps(props) {
@@ -72,20 +88,20 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class WeekPicker extends (PureComponent || Component) {
   static propTypes = {
     ...commonPropTypes,
-    startDay: PropTypes.number
+    startDay: PropTypes.number,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
-    startDay: 1
+    startDay: 1,
   };
 
   retType = 'string';
@@ -113,7 +129,7 @@ class WeekPicker extends (PureComponent || Component) {
 
   onChangeDate = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
@@ -122,11 +138,11 @@ class WeekPicker extends (PureComponent || Component) {
     const offset = val.getDay();
     const week = [
       goDays(val, -offset + startDay - 1),
-      goDays(val, 7 + startDay - offset)
+      goDays(val, 7 + startDay - offset),
     ];
 
     this.setState({
-      range: week
+      range: week,
     });
   };
 
@@ -134,20 +150,24 @@ class WeekPicker extends (PureComponent || Component) {
     const { onClick, startDay } = this.props;
     const week = getSelectedWeek(val, startDay);
 
-    this.setState({
-      selected: week
-    });
+    this.setState(
+      {
+        selected: week,
+      },
+      () => {
+        if (!this.isfooterShow) {
+          this.onConfirm();
+        }
+      }
+    );
 
     onClick && onClick(week);
-    if (!this.isfooterShow) {
-      this.onConfirm();
-    }
   };
 
   onChangeMonth = type => {
     const typeMap = {
       prev: -1,
-      next: 1
+      next: 1,
     };
 
     return () => {
@@ -155,20 +175,25 @@ class WeekPicker extends (PureComponent || Component) {
       const acp = goMonths(actived, typeMap[type]);
 
       this.setState({
-        actived: acp
+        actived: acp,
       });
     };
   };
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange([]);
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
+    if (!canClear) return;
+
+    onChange([]);
   };
 
   onMouseOut = evt => {
     evt.stopPropagation();
     this.setState({
-      range: []
+      range: [],
     });
   };
 
@@ -178,7 +203,8 @@ class WeekPicker extends (PureComponent || Component) {
    * 默认返回 format 格式的字符串
    */
 
-  getReturnValue(date, format) {
+  getReturnValue = date => {
+    const { format } = this.props;
     if (this.retType === 'number') {
       return date.getTime();
     }
@@ -188,7 +214,7 @@ class WeekPicker extends (PureComponent || Component) {
     }
 
     return formatDate(date, format);
-  }
+  };
 
   onConfirm = () => {
     const { selected } = this.state;
@@ -201,15 +227,16 @@ class WeekPicker extends (PureComponent || Component) {
     let tmp = selected.slice();
     if (this.isDisabled(tmp[0] || this.isDisabled(tmp[1]))) return;
 
+    tmp = [dayStart(tmp[0]), dayEnd(tmp[1])];
     const value = tmp.map(item => formatDate(item, format));
     this.setState({
       value,
       openPanel: false,
       showPlaceholder: false,
-      range: []
+      range: [],
     });
 
-    const ret = tmp.map(item => this.getReturnValue(item, format));
+    const ret = tmp.map(this.getReturnValue);
     onChange(ret);
     onClose && onClose();
   };
@@ -218,8 +245,8 @@ class WeekPicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && val < parseDate(min, format)) return true;
-    if (max && val > parseDate(max, format)) return true;
+    if (min && dayEnd(val) < parseDate(min, format)) return true;
+    if (max && dayStart(val) > parseDate(max, format)) return true;
 
     return false;
   };
@@ -227,21 +254,21 @@ class WeekPicker extends (PureComponent || Component) {
   renderPicker(i18n) {
     const {
       props: { confirmText },
-      state: { openPanel, range, actived, selected }
+      state: { openPanel, range, actived, selected },
     } = this;
     let weekPicker;
 
     // 打开面板的时候才渲染
     if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
-      const linkCls = classNames({
+      const linkCls = cx({
         'link--current': true,
-        'link--disabled': isDisabled
+        'link--disabled': isDisabled,
       });
 
-      const weekPickerCls = classNames({
+      const weekPickerCls = cx({
         'week-picker': true,
-        small: this.isfooterShow
+        small: this.isfooterShow,
       });
 
       weekPicker = (
@@ -284,7 +311,7 @@ class WeekPicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel
+      openPanel,
     });
   };
 
@@ -297,16 +324,17 @@ class WeekPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear,
       },
-      state: { openPanel, showPlaceholder, value }
+      state: { openPanel, showPlaceholder, value },
     } = this;
 
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 
@@ -339,10 +367,12 @@ class WeekPicker extends (PureComponent || Component) {
                   />
 
                   <span className="zenticon zenticon-calendar-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

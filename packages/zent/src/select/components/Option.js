@@ -32,7 +32,7 @@ Option.propTypes = {
   value: PropTypes.any,
   text: PropTypes.any,
   placeholder: PropTypes.string,
-  onMouseEnter: PropTypes.func
+  onMouseEnter: PropTypes.func,
 };
 
 export default Option;

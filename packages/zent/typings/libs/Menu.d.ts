@@ -3,6 +3,11 @@
 declare module 'zent/lib/menu' {
   interface IMenuProps {
     onClick?: React.UIEventHandler<HTMLDivElement|HTMLLIElement>
+    style?: React.CSSProperties
+    mode?: 'pop' | 'inline'
+    defautExpandKeys?: Array<string>
+    defaultSelectedKey?: string
+    inlineIndent?: number
     className?: string
     prefix?: string
   }
@@ -20,7 +25,8 @@ declare module 'zent/lib/menu' {
     class MenuItem extends React.Component<MenuItem, any> { }
 
     interface ISubMenuProps {
-      title: string
+      key?: string
+      title: React.ReactNode
       disabled?: boolean
       overlayClassName?: string
       className?: string

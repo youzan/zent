@@ -12,7 +12,7 @@ export default class Prefix extends (PureComponent || Component) {
   static propTypes = {
     totalItem: number,
     pageSize: oneOfType([number, array]),
-    setPageSize: func
+    setPageSize: func,
   };
 
   changePageSize = (e, data) => {
@@ -29,6 +29,7 @@ export default class Prefix extends (PureComponent || Component) {
           {i18n => (
             <span className="total each">
               {`${i18n.total} ${totalItem} ${i18n.items}${i18n.comma}`}
+              {`${i18n.perPage} `}
               {isNeedSelect ? (
                 <Select
                   value={currentPageSize}
@@ -45,7 +46,7 @@ export default class Prefix extends (PureComponent || Component) {
               ) : (
                 currentPageSize
               )}
-              {`${i18n.items}${i18n.perPage}`}
+              {` ${i18n.items}`}
             </span>
           )}
         </Receiver>

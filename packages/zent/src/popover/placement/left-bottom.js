@@ -20,11 +20,11 @@ function locate(
       return {
         position: 'absolute',
         left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`
+        top: `${Math.round(y)}px`,
       };
     },
 
-    name: 'position-left-bottom'
+    name: 'position-left-bottom',
   };
 }
 

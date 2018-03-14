@@ -9,16 +9,16 @@ import PanelHeader from '../common/PanelHeader';
 export default class DatePanel extends (PureComponent || Component) {
   static defaultProps = {
     showPrev: true,
-    showNext: true
+    showNext: true,
   };
 
   state = {
-    showMonth: false
+    showMonth: false,
   };
 
   showMonth = () => {
     this.setState({
-      showMonth: true
+      showMonth: true,
     });
   };
 
@@ -28,7 +28,7 @@ export default class DatePanel extends (PureComponent || Component) {
   onSelectMonth = (val, hide) => {
     this.props.onChange(val);
     this.setState({
-      showMonth: hide || false
+      showMonth: hide || false,
     });
   };
 
@@ -46,9 +46,9 @@ export default class DatePanel extends (PureComponent || Component) {
         selected,
         showNext,
         showPrev,
-        showTime
+        showTime,
       },
-      state: { showMonth }
+      state: { showMonth },
     } = this;
 
     let monthPanel;

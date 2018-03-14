@@ -83,7 +83,7 @@ const show = (text, duration, status, callback) => {
     duration,
     status,
     isIn: true,
-    selector: notifyContainerNode
+    selector: notifyContainerNode,
   };
 
   ReactDOM.render(React.createElement(NotifyContent, props), container);
@@ -92,6 +92,8 @@ const show = (text, duration, status, callback) => {
   const timeOutId = setTimeout(() => {
     ReactDOM.render(
       <NotifyContent
+        isIn={false}
+        text={text}
         selector={notifyContainerNode}
         status={status}
         close={() => closeNotify(containerId)}

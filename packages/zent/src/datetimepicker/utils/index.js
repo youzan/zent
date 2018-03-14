@@ -1,20 +1,15 @@
 import {
   formatDate as formatBase,
-  parseDate as parseBase
+  parseDate as parseBase,
 } from 'zan-utils/date';
+
+import startOfMonth from 'date-fns/start_of_month';
+import startOfDay from 'date-fns/start_of_day';
+import endOfDay from 'date-fns/end_of_day';
 
 import { getLocale } from 'i18n/time-locale';
 
-export const CURRENT = new Date();
-export const CURRENT_DAY = new Date(
-  CURRENT.getFullYear(),
-  CURRENT.getMonth(),
-  CURRENT.getDate()
-);
-export const CURRENT_YEAR = CURRENT.getFullYear();
-export const CURRENT_MONTH = CURRENT.getMonth();
-export const CURRENT_DATE = CURRENT.getDate();
-export const ONEDAY = 24 * 60 * 60 * 1000;
+import { CURRENT_MONTH, ONEDAY, TIME_BEGIN } from '../constants';
 
 export const padLeft = val => {
   return val < 10 ? `0${val}` : val;
@@ -33,12 +28,6 @@ export const isSameDate = (val, cmp) => {
     val.getFullYear() === cmp.getFullYear() &&
     val.getMonth() === cmp.getMonth() &&
     val.getDate() === cmp.getDate()
-  );
-};
-
-export const isSameMonth = (val, cmp) => {
-  return (
-    val.getFullYear() === cmp.getFullYear() && val.getMonth() === cmp.getMonth()
   );
 };
 
@@ -78,10 +67,6 @@ export const goYears = (val, diff) => {
   return new Date(cp.setFullYear(cp.getFullYear() + diff));
 };
 
-export const isArray = val => {
-  return Array.isArray(val);
-};
-
 export const setSameDate = (val, target) => {
   val.setFullYear(target.getFullYear());
   val.setMonth(target.getMonth());
@@ -113,3 +98,43 @@ export function formatDate(date, format, locale = getLocale() || 'zh') {
 export function parseDate(dateStr, format, locale = getLocale() || 'zh') {
   return parseBase(dateStr, format, locale);
 }
+
+export function monthStart(date = new Date()) {
+  return startOfMonth(date);
+}
+
+export function dayStart(date = new Date()) {
+  return startOfDay(date);
+}
+
+export function dayEnd(date = new Date()) {
+  return endOfDay(date);
+}
+
+export function setTime(date, time = TIME_BEGIN) {
+  let timeArr;
+  if (time instanceof Date) {
+    timeArr = [time.getHours(), time.getMinutes(), time.getSeconds()];
+  } else {
+    timeArr = time.split(':');
+  }
+
+  const dateTimeArr = [
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    ...timeArr,
+  ];
+  return new Date(...dateTimeArr);
+}
+
+export const commonFns = {
+  goDays,
+  goMonths,
+  goYears,
+  setTime,
+  dayStart,
+  dayEnd,
+  parseDate,
+  formatDate,
+};

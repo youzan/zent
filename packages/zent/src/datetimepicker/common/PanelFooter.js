@@ -12,7 +12,7 @@ const PanelFooter = props => {
     onClickButton,
     onClickLink,
     showError,
-    showLink
+    showLink,
   } = props;
 
   return (
@@ -35,7 +35,7 @@ PanelFooter.defaultProps = {
   onClickButton: noop,
   showLink: true,
   showError: false,
-  errorText: ''
+  errorText: '',
 };
 
 export default PanelFooter;

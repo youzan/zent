@@ -23,11 +23,11 @@ export function locate(
       return {
         position: 'absolute',
         left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`
+        top: `${Math.round(y)}px`,
       };
     },
 
-    name: 'position-bottom-right'
+    name: 'position-bottom-right',
   };
 }
 

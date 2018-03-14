@@ -6,7 +6,7 @@ import { Sweetalert as i18nDefault } from 'i18n/default';
 import Dialog from 'dialog';
 import Icon from 'icon';
 
-import ActionButton from './action-button';
+import ActionButton from './ActionButton';
 import { TitleIconMap } from './constants';
 
 /**
@@ -38,7 +38,7 @@ function sweet(config, sweetType) {
     onCancel,
     confirmText,
     cancelText,
-    parentComponent
+    parentComponent,
   } = config;
 
   // close 的引用地址，后续会指向函数的返回值，供 ActionButton 调用。
@@ -87,7 +87,7 @@ function sweet(config, sweetType) {
     closeBtn,
     maskClosable,
     className: cx(`${prefix}-sweetalert-${sweetType}`, {
-      [className]: !!className
+      [className]: !!className,
     }),
     title: (
       <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
@@ -100,7 +100,7 @@ function sweet(config, sweetType) {
         {renderButtons}
       </Receiver>
     ),
-    parentComponent
+    parentComponent,
   });
 
   return close;
@@ -119,5 +119,5 @@ export function confirm(config = {}) {
 export default {
   alert,
   info,
-  confirm
+  confirm,
 };

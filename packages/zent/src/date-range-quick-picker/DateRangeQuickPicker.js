@@ -22,13 +22,13 @@ export default class DateRangeQuickPicker extends Component {
     min: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
-      PropTypes.instanceOf(Date)
+      PropTypes.instanceOf(Date),
     ]),
     max: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
-      PropTypes.instanceOf(Date)
-    ])
+      PropTypes.instanceOf(Date),
+    ]),
   };
 
   static defaultProps = {
@@ -39,14 +39,14 @@ export default class DateRangeQuickPicker extends Component {
     format: 'YYYY-MM-DD',
     preset: [
       {
-        value: 7
+        value: 7,
       },
       {
-        value: 30
-      }
+        value: 30,
+      },
     ],
     min: '',
-    max: ''
+    max: '',
   };
 
   handleTimeChange = value => {
@@ -75,7 +75,6 @@ export default class DateRangeQuickPicker extends Component {
     return (
       <div className={cx(`${prefix}-date-range-picker`, className)}>
         <DateRangePicker
-          type="split"
           value={value}
           onChange={this.handleTimeChange}
           format={format}
@@ -93,7 +92,7 @@ export default class DateRangeQuickPicker extends Component {
                 <span
                   key={index}
                   className={cx(`${prefix}-date-range-picker__btn`, {
-                    active: chooseDays === item.value
+                    active: chooseDays === item.value,
                   })}
                   onClick={this.handleChooseDays.bind(this, item.value)}
                 >

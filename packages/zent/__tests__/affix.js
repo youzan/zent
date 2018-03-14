@@ -44,7 +44,7 @@ describe('Affix component', () => {
     wrapper.instance().updatePin();
     class Test extends React.Component {
       state = {
-        value: 0
+        value: 0,
       };
       onUnpin = () => {
         this.setState({ value: 10 });

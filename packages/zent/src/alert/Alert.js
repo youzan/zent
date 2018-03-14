@@ -10,13 +10,13 @@ const styleClassMap = {
 
   // error as an alias to danger
   error: 'alert-style-danger',
-  danger: 'alert-style-danger'
+  danger: 'alert-style-danger',
 };
 
 // 忽略不支持的size
 const sizeClassMap = {
   normal: 'alert-size-normal',
-  large: 'alert-size-large'
+  large: 'alert-size-large',
 };
 
 export default class Alert extends (PureComponent || Component) {
@@ -28,7 +28,7 @@ export default class Alert extends (PureComponent || Component) {
     onClose: PropTypes.func,
     children: PropTypes.node,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -37,17 +37,17 @@ export default class Alert extends (PureComponent || Component) {
     closable: false,
     rounded: false,
     className: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   state = {
-    closed: false
+    closed: false,
   };
 
   onClose = () => {
     this.setState(
       {
-        closed: true
+        closed: true,
       },
       () => {
         // onClose是在*关闭以后*被调用的
@@ -72,7 +72,7 @@ export default class Alert extends (PureComponent || Component) {
       className,
       closable,
       size,
-      children
+      children,
     } = this.props;
     const containerCls = cx(
       `${prefix}-alert`,
@@ -81,7 +81,7 @@ export default class Alert extends (PureComponent || Component) {
       {
         [className]: !!className,
         [`${prefix}-alert-border-rounded`]: rounded,
-        [`${prefix}-alert-closable`]: closable
+        [`${prefix}-alert-closable`]: closable,
       }
     );
 

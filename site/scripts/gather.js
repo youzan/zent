@@ -7,7 +7,7 @@ const {
   statSync,
   existsSync,
   readFileSync,
-  writeFileSync
+  writeFileSync,
 } = require('fs');
 
 const {
@@ -22,7 +22,7 @@ const {
   omit,
   pipe,
   prop,
-  propEq
+  propEq,
 } = require('ramda');
 const fm = require('front-matter');
 
@@ -30,7 +30,7 @@ const LIST_STATICS = require('../src/nav.static');
 const SRC = resolve(process.cwd(), '../packages/zent/src');
 const NAMES = {
   'zh-CN': 'README_zh-CN.md',
-  'en-US': 'README_en-US.md'
+  'en-US': 'README_en-US.md',
 };
 
 const isDir = path => {
@@ -63,7 +63,7 @@ function gather() {
             source: `DocLoadable({ loader: () => import('${relative(
               resolve(process.cwd(), './src'),
               str
-            )}') })`
+            )}') })`,
           })
         )(str)
       ),
@@ -72,7 +72,7 @@ function gather() {
           groups.push(component.group);
           list.push({
             groupName: component.group,
-            list: [omit(['group'], component)]
+            list: [omit(['group'], component)],
           });
         } else {
           list
@@ -106,7 +106,7 @@ const COMPONENT_GROUP_ORDER = {
     数据: 3,
     展示: 4,
     反馈: 5,
-    业务组件: 6
+    业务组件: 6,
   },
   'en-US': {
     Basics: 1,
@@ -114,8 +114,8 @@ const COMPONENT_GROUP_ORDER = {
     'Data Entry': 3,
     'Data Display': 4,
     Feedback: 5,
-    'Domain-specific': 6
-  }
+    'Domain-specific': 6,
+  },
 };
 
 function sortComponentGroups(config) {

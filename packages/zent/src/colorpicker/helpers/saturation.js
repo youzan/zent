@@ -25,6 +25,6 @@ export function calculateChange(e, skip, props, container) {
     s: saturation,
     v: bright,
     a: props.hsl.a,
-    source: 'rgb'
+    source: 'rgb',
   };
 }

@@ -10,7 +10,7 @@ function unmount(fn = close) {
 function testCallback(modal, btnSelector, key) {
   // no callback
   close = modal({
-    title: 'foobar'
+    title: 'foobar',
   });
   expect(document.querySelectorAll(btnSelector).length).toBe(1);
   Simulate.click(document.querySelector(btnSelector));
@@ -21,7 +21,7 @@ function testCallback(modal, btnSelector, key) {
   // no args in callback
   const cb = jest.fn();
   close = modal({
-    [key]: cb
+    [key]: cb,
   });
   Simulate.click(document.querySelector(btnSelector));
   expect(cb.mock.calls.length).toBe(1);
@@ -36,7 +36,7 @@ function testCallback(modal, btnSelector, key) {
     }, 2000);
   };
   close = modal({
-    [key]: cbWithArg
+    [key]: cbWithArg,
   });
   Simulate.click(document.querySelector(btnSelector));
   jest.runOnlyPendingTimers();
@@ -52,7 +52,7 @@ function testCallback(modal, btnSelector, key) {
     });
   };
   close = modal({
-    [key]: cbPromise
+    [key]: cbPromise,
   });
   expect(called).toBe(false);
   Simulate.click(document.querySelector(btnSelector));
@@ -69,7 +69,7 @@ function testCallback(modal, btnSelector, key) {
     });
   };
   close = modal({
-    [key]: cbFailedPromise
+    [key]: cbFailedPromise,
   });
   expect(called).toBe(false);
   Simulate.click(document.querySelector(btnSelector));
@@ -98,7 +98,7 @@ function testCallback(modal, btnSelector, key) {
     });
   };
   close = modal({
-    [key]: cbPromiseWithArg
+    [key]: cbPromiseWithArg,
   });
   expect(called).toBe(false);
   Simulate.click(document.querySelector(btnSelector));
@@ -118,7 +118,7 @@ describe('alert', () => {
   it('customize prefix and className', () => {
     close = alert({
       prefix: 'foobar',
-      className: 'quux'
+      className: 'quux',
     });
     expect(document.querySelectorAll('.foobar-sweetalert-alert').length).toBe(
       1
@@ -131,7 +131,7 @@ describe('alert', () => {
     close = alert({
       title: 'hello',
       content: 'world',
-      confirmText: 'OK'
+      confirmText: 'OK',
     });
     expect(
       document.querySelector('.zent-sweetalert-alert .zent-dialog-r-body')
@@ -149,7 +149,7 @@ describe('alert', () => {
 
   it('can have icon in title', () => {
     close = alert({
-      type: 'success'
+      type: 'success',
     });
     expect(
       document.querySelector('.zent-sweetalert-alert .zenticon')
@@ -160,7 +160,7 @@ describe('alert', () => {
   it('can set confirm button type', () => {
     close = alert({
       confirmType: 'danger',
-      onConfirm: jest.fn
+      onConfirm: jest.fn,
     });
     expect(
       document.querySelector(
@@ -186,7 +186,7 @@ describe('confirm', () => {
   it('customize prefix and className', () => {
     close = confirm({
       prefix: 'foobar',
-      className: 'quux'
+      className: 'quux',
     });
     expect(document.querySelectorAll('.foobar-sweetalert-confirm').length).toBe(
       1
@@ -200,7 +200,7 @@ describe('confirm', () => {
       title: 'hello',
       content: 'world',
       confirmText: 'OK',
-      cancelText: 'CANCEL'
+      cancelText: 'CANCEL',
     });
     expect(
       document.querySelector('.zent-sweetalert-confirm .zent-dialog-r-body')
@@ -225,7 +225,7 @@ describe('confirm', () => {
 
   it('can have icon in title', () => {
     close = confirm({
-      type: 'error'
+      type: 'error',
     });
     expect(
       document.querySelector('.zent-sweetalert-confirm .zenticon')
@@ -236,7 +236,7 @@ describe('confirm', () => {
   it('can set confirm button type', () => {
     close = confirm({
       confirmType: 'success',
-      onConfirm: jest.fn
+      onConfirm: jest.fn,
     });
     expect(
       document.querySelector(

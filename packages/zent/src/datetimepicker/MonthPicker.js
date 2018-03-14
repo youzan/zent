@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -9,13 +9,13 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT, formatDate, parseDate } from './utils/';
-import { dayStart } from './utils/date';
+import { formatDate, parseDate, dayStart, dayEnd, monthStart } from './utils';
 import {
+  CURRENT,
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function extractStateFromProps(props) {
@@ -28,18 +28,18 @@ function extractStateFromProps(props) {
     const tmp = parseDate(value, format);
     if (tmp) {
       showPlaceholder = false;
-      selected = actived = tmp;
+      selected = actived = monthStart(tmp);
     } else {
       console.warn("date and format don't match."); // eslint-disable-line
       showPlaceholder = true;
-      actived = dayStart();
+      actived = monthStart();
     }
   } else {
     showPlaceholder = true;
     if (defaultValue) {
-      actived = parseDate(defaultValue, format);
+      actived = monthStart(parseDate(defaultValue, format));
     } else {
-      actived = dayStart();
+      actived = monthStart();
     }
   }
 
@@ -48,24 +48,34 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel: false,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class MonthPicker extends (PureComponent || Component) {
   static propTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
-    format: 'YYYY-MM'
+    format: 'YYYY-MM',
   };
+
+  retType = 'string';
 
   constructor(props) {
     super(props);
     this.state = extractStateFromProps(props);
+    const { value, valueType } = props;
+
+    if (valueType) {
+      this.retType = valueType.toLowerCase();
+    } else if (value) {
+      if (typeof value === 'number') this.retType = 'number';
+      if (value instanceof Date) this.retType = 'date';
+    }
   }
 
   componentWillReceiveProps(next) {
@@ -73,9 +83,22 @@ class MonthPicker extends (PureComponent || Component) {
     this.setState(state);
   }
 
+  getReturnValue = date => {
+    const { format } = this.props;
+    if (this.retType === 'number') {
+      return date.getTime();
+    }
+
+    if (this.retType === 'date') {
+      return date;
+    }
+
+    return formatDate(date, format);
+  };
+
   onChangeMonth = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
@@ -85,20 +108,29 @@ class MonthPicker extends (PureComponent || Component) {
 
     if (!isYear && this.isDisabled(month)) return;
 
-    this.setState({
-      selected: val,
-      actived: val
-    });
+    this.setState(
+      {
+        selected: val,
+        actived: val,
+      },
+      () => {
+        if (!isFooterVisble) {
+          this.onConfirm();
+        }
+      }
+    );
 
     onClick && onClick(val);
-    if (!isFooterVisble) {
-      this.onConfirm();
-    }
   };
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange('');
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
+    if (!canClear) return;
+
+    onChange('');
   };
 
   onConfirm = () => {
@@ -112,9 +144,9 @@ class MonthPicker extends (PureComponent || Component) {
     this.setState({
       value,
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
-    onChange(value);
+    onChange(this.getReturnValue(selected));
   };
 
   isDisabled = val => {
@@ -124,8 +156,8 @@ class MonthPicker extends (PureComponent || Component) {
     const { disabledDate, min, max, format } = this.props;
 
     if (disabledDate && disabledDate(ret)) return true;
-    if (min && ret < parseDate(min, format)) return true;
-    if (max && ret > parseDate(max, format)) return true;
+    if (min && dayEnd(ret) < parseDate(min, format)) return true;
+    if (max && dayStart(ret) > parseDate(max, format)) return true;
 
     return false;
   };
@@ -133,13 +165,13 @@ class MonthPicker extends (PureComponent || Component) {
   renderPicker(i18n) {
     const {
       props: { confirmText, isFooterVisble },
-      state: { actived, openPanel, selected }
+      state: { actived, openPanel, selected },
     } = this;
     let monthPicker;
     if (openPanel) {
-      const monthPickerCls = classNames({
+      const monthPickerCls = cx({
         'month-picker': true,
-        small: isFooterVisble
+        small: isFooterVisble,
       });
       monthPicker = (
         <div className={monthPickerCls} ref={ref => (this.picker = ref)}>
@@ -175,7 +207,7 @@ class MonthPicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel: !this.state.openPanel
+      openPanel: !this.state.openPanel,
     });
   };
 
@@ -188,15 +220,16 @@ class MonthPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear,
       },
-      state: { openPanel, showPlaceholder, value }
+      state: { openPanel, showPlaceholder, value },
     } = this;
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 
@@ -220,10 +253,12 @@ class MonthPicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

@@ -1,0 +1,84 @@
+@import './theme/default.pcss';
+$avatar-size-small: 24px;
+$avatar-size-default: 32px;
+$avatar-size-large: 40px;
+
+.zent-avatar {
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  color: $theme-stroke-10;
+  cursor: default;
+  overflow: hidden;
+  position: relative;
+  font-size: 16px;
+
+  &--size-default {
+    width: $avatar-size-default;
+    height: $avatar-size-default;
+    line-height: $avatar-size-default;
+  }
+
+  &--size-small {
+    width: $avatar-size-small;
+    height: $avatar-size-small;
+    line-height: $avatar-size-small;
+  }
+
+  &--size-large {
+    width: $avatar-size-large;
+    height: $avatar-size-large;
+    line-height: $avatar-size-large;
+  }
+
+  &--type-image {
+    background: transparent;
+
+    .zent-avatar-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  &--type-string {
+    background: $theme-stroke-6;
+
+    .zent-avatar-string {
+      font-weight: 500;
+    }
+
+    &.zent-avatar--size-small {
+      font-size: 14px;
+    }
+
+    &.zent-avatar--size-large {
+      font-size: 18px;
+    }
+  }
+
+  &--type-icon {
+    background: $theme-stroke-6;
+    font-size: 18px;
+
+    &.zent-avatar--size-small {
+      font-size: 14px;
+    }
+
+    &.zent-avatar--size-large {
+      font-size: 24px;
+    }
+  }
+
+  &--shape-circle {
+    border-radius: 50%;
+  }
+
+  &--shape-square {
+    border-radius: 4px;
+  }
+
+  &--bordered {
+    border: 1px solid $theme-stroke-5;
+  }
+}

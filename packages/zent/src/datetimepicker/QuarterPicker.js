@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 import isArray from 'lodash/isArray';
-import parseDate from 'zan-utils/date/parseDate';
+import getQuarter from 'date-fns/get_quarter';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -10,27 +10,27 @@ import { I18nReceiver as Receiver } from 'i18n';
 import { TimePicker as I18nDefault } from 'i18n/default';
 
 import QuarterPanel from './quarter/QuarterPanel';
-import { dayStart, dayEnd, getQuarterFromDate } from './utils/date';
+import { dayStart, dayEnd, formatDate, parseDate } from './utils';
 import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 const quarterMonthMap = {
   0: 0,
   1: 3,
   2: 6,
-  3: 9
+  3: 9,
 };
 
 function getQuarterLastDay(quarter, year) {
   const quarterLastDayMap = {
-    0: [2, 31],
-    1: [5, 30],
-    2: [8, 30],
-    3: [11, 31]
+    0: [3, 0],
+    1: [6, 0],
+    2: [9, 0],
+    3: [12, 0],
   };
 
   return new Date(year, ...quarterLastDayMap[quarter]);
@@ -63,7 +63,7 @@ function extractStateFromProps(props) {
   }
   let quarter;
   if (selected) {
-    quarter = getQuarterFromDate(selected);
+    quarter = getQuarter(selected) - 1;
   }
 
   return {
@@ -71,24 +71,34 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel: false,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class QuarterPicker extends (PureComponent || Component) {
   static propTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
-    format: 'YYYY-MM-DD'
+    format: 'YYYY-MM-DD',
   };
+
+  retType = 'string';
 
   constructor(props) {
     super(props);
     this.state = extractStateFromProps(props);
+
+    const { value, valueType } = props;
+    if (valueType) {
+      this.retType = valueType.toLowerCase();
+    } else if (value) {
+      if (typeof value === 'number') this.retType = 'number';
+      if (value instanceof Date) this.retType = 'date';
+    }
   }
 
   componentWillReceiveProps(next) {
@@ -96,9 +106,22 @@ class QuarterPicker extends (PureComponent || Component) {
     this.setState(state);
   }
 
+  getReturnValue = date => {
+    const { format } = this.props;
+    if (this.retType === 'number') {
+      return date.getTime();
+    }
+
+    if (this.retType === 'date') {
+      return date;
+    }
+
+    return formatDate(date, format);
+  };
+
   onChangeQuarter = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
@@ -119,27 +142,34 @@ class QuarterPicker extends (PureComponent || Component) {
       selected: begin,
       actived: begin,
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
 
-    onChange(ret);
+    onChange(ret.map(this.getReturnValue));
   };
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange([]);
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
+    if (!canClear) return;
+
+    onChange([]);
   };
 
   isDisabled = quarter => {
-    const { disabledDate } = this.props;
+    const { disabledDate, min, max, format } = this.props;
     const { actived } = this.state;
     const year = actived.getFullYear();
     const month = quarterMonthMap[quarter];
-    const begin = new Date(year, month, 1);
-    const end = getQuarterLastDay(quarter, year);
-    const ret = [dayStart(begin), dayEnd(end)];
+    const begin = dayStart(new Date(year, month, 1));
+    const end = dayEnd(getQuarterLastDay(quarter, year));
+    const ret = [begin, end];
 
     if (disabledDate) return disabledDate(ret);
+    if (min && end < parseDate(min, format)) return true;
+    if (max && begin > parseDate(max, format)) return true;
 
     return false;
   };
@@ -172,7 +202,7 @@ class QuarterPicker extends (PureComponent || Component) {
     if (disabled) return;
 
     this.setState({
-      openPanel
+      openPanel,
     });
   };
 
@@ -185,15 +215,16 @@ class QuarterPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear,
       },
-      state: { openPanel, selected, showPlaceholder, value }
+      state: { openPanel, selected, showPlaceholder, value },
     } = this;
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 
@@ -205,14 +236,15 @@ class QuarterPicker extends (PureComponent || Component) {
             if (selected) {
               inputVal =
                 i18n.mark === 'zh-CN'
-                  ? `${selected.getFullYear()}年${i18n.panel.quarterNames[
-                      value
-                    ]}`
-                  : `${i18n.panel.quarterNames[
-                      value
-                    ]} of ${selected.getFullYear()}`;
+                  ? `${selected.getFullYear()}年${
+                      i18n.panel.quarterNames[value]
+                    }`
+                  : `${
+                      i18n.panel.quarterNames[value]
+                    } of ${selected.getFullYear()}`;
             }
             const placeholderText = placeholder || i18n.quarter;
+
             return (
               <Popover
                 cushion={5}
@@ -230,10 +262,12 @@ class QuarterPicker extends (PureComponent || Component) {
                       disabled={disabled}
                     />
                     <span className="zenticon zenticon-calendar-o" />
-                    <span
-                      onClick={this.onClearInput}
-                      className="zenticon zenticon-close-circle"
-                    />
+                    {canClear && (
+                      <span
+                        onClick={this.onClearInput}
+                        className="zenticon zenticon-close-circle"
+                      />
+                    )}
                   </div>
                 </Popover.Trigger.Click>
                 <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>

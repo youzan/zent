@@ -5,27 +5,23 @@
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import Dialog from 'dialog';
 import identity from 'lodash/identity';
+
+import Dialog from 'dialog';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Upload as I18nDefault } from 'i18n/default';
+
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
+import { DEFAULT_ACCEPT } from './constants';
 
-const DEFAULT_ACCEPT = {
-  image: 'image/gif, image/jpeg, image/png',
-  voice: 'audio/mpeg, audio/amr'
-};
-
-const promiseNoop = () =>
-  new Promise(resolve => {
-    resolve([]);
-  });
+const promiseNoop = () => new Promise(resolve => resolve([]));
 
 class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      activeId: 'materials'
     };
     this.showUpload = this.showUpload.bind(this);
     this.closePopup = this.closePopup.bind(this);
@@ -43,7 +39,7 @@ class Upload extends Component {
 
   closePopup() {
     this.setState({
-      visible: false
+      visible: false,
     });
   }
 
@@ -56,7 +52,6 @@ class Upload extends Component {
       tips,
       children,
       triggerInline,
-      materials,
       withoutPopup,
       ...uploadOptions
     } = this.props;
@@ -70,64 +65,62 @@ class Upload extends Component {
       className = '';
     }
 
-    const typeName = this.props.type === 'voice' ? '语音' : '图片';
-
     let dialogClassName = classnames([`${prefix}-upload`, className]);
 
     className = classnames([
       dialogClassName,
       {
-        inline: triggerInline
-      }
+        inline: triggerInline,
+      },
     ]);
 
-    return withoutPopup ? (
-      this.renderUploadPopup(uploadOptions)
-    ) : (
-      <div className={className}>
-        <div
-          className={triggerClassName}
-          onClick={this.showUpload.bind(this, true)}
-        >
-          {children || (Node && <Node />) || <span>+</span>}
-          {uploadOptions.localOnly && uploadOptions.maxAmount === 1 ? (
-            <FileInput {...uploadOptions} />
-          ) : (
-            ''
-          )}
-        </div>
-        <p className={`${prefix}-upload-tips`}>{tips}</p>
-        <Dialog
-          title={`${typeName}选择`}
-          visible={visible}
-          className={dialogClassName}
-          onClose={this.closePopup}
-        >
-          {this.renderUploadPopup(uploadOptions)}
-        </Dialog>
-      </div>
-    );
-  }
-
-  /**
-   * 显示上传图片弹框
-   */
-  renderUploadPopup(options) {
-    let { prefix, accept, className } = this.props;
-
     // 根据type设置accept默认值
-    if (!accept) {
-      accept = DEFAULT_ACCEPT[options.type];
-    }
+    const accept = uploadOptions.accept || DEFAULT_ACCEPT[uploadOptions.type];
 
     return (
-      <UploadPopup
-        prefix={`${prefix}-upload`}
-        options={options}
-        accept={accept}
-        className={className}
-        showUploadPopup={this.showUpload}
-      />
+      <Receiver componentName="Upload" defaultI18n={I18nDefault}>
+        {i18n =>
+          withoutPopup ? (
+            <UploadPopup
+              prefix={`${prefix}-upload`}
+              options={uploadOptions}
+              accept={accept}
+              className={className}
+              i18n={i18n}
+              showUploadPopup={this.showUpload}
+            />
+          ) : (
+            <div className={className}>
+              <div
+                className={triggerClassName}
+                onClick={this.showUpload.bind(this, true)}
+              >
+                {children || (Node && <Node />) || <span>+</span>}
+                {uploadOptions.localOnly &&
+                  uploadOptions.maxAmount === 1 && (
+                    <FileInput {...uploadOptions} i18n={i18n} />
+                  )}
+              </div>
+              <p className={`${prefix}-upload-tips`}>{tips}</p>
+              <Dialog
+                title={i18n[`title_${this.props.type}`]}
+                visible={visible}
+                className={dialogClassName}
+                onClose={this.closePopup}
+              >
+                <UploadPopup
+                  prefix={`${prefix}-upload`}
+                  options={uploadOptions}
+                  accept={accept}
+                  className={className}
+                  i18n={i18n}
+                  showUploadPopup={this.showUpload}
+                />
+              </Dialog>
+            </div>
+          )
+        }
+      </Receiver>
     );
   }
 
@@ -141,7 +134,7 @@ class Upload extends Component {
     if (!this.isUnmount && (!localOnly || maxAmount !== 1)) {
       // 直接打开本地文件
       this.setState({
-        visible
+        visible,
       });
     }
   };
@@ -160,9 +153,11 @@ Upload.defaultProps = {
   filterFiles: identity,
   onFetch: promiseNoop,
   onUpload: promiseNoop,
+  categoryList: [],
+  categoryId: '',
   triggerInline: false,
   silent: false,
-  withoutPopup: false
+  withoutPopup: false,
 };
 
 Upload.FileInput = FileInput;

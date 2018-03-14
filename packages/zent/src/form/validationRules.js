@@ -76,7 +76,7 @@ const validations = {
   },
   minLength(values, value, length) {
     return !isExisty(value) || isEmpty(value) || value.length >= length;
-  }
+  },
 };
 
 export default validations;

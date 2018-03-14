@@ -2,59 +2,36 @@
  * Select
  */
 
-import React, { Component, PureComponent, Children } from 'react';
+// import React, { Component, Children } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import cloneDeep from 'lodash/cloneDeep';
-import PropTypes from 'prop-types';
 
 import Popover from 'popover';
+
 import Trigger from './trigger';
 import Popup from './Popup';
-import SimpleTrigger from './trigger/SimpleTrigger';
-import SelectTrigger from './trigger/SelectTrigger';
-import InputTrigger from './trigger/InputTrigger';
-import TagsTrigger from './trigger/TagsTrigger';
 
-class PopoverClickTrigger extends Popover.Trigger.Click {
-  getTriggerProps(child) {
-    return {
-      onClick: evt => {
-        evt.preventDefault();
-        if (this.props.contentVisible) {
-          this.props.close();
-        } else if (!child.props.disabled) {
-          this.props.open();
-          this.triggerEvent(child, 'onClick', evt);
-        }
-      }
-    };
-  }
-}
+const { Content } = Popover;
 
-class Select extends (PureComponent || Component) {
+class Select extends React.Component {
   constructor(props) {
     super(props);
-
-    if (props.simple) {
-      this.trigger = SimpleTrigger;
-    } else if (props.search) {
-      this.trigger = InputTrigger;
-    } else if (props.tags) {
-      this.trigger = TagsTrigger;
-    } else {
-      this.trigger = props.trigger;
-    }
 
     this.state = Object.assign(
       {
         selectedItems: [],
         selectedItem: {
           value: '',
-          text: ''
-        }
+          text: '',
+        },
+
+        // popover content 位置就绪可以进行 focus 操作的标记.
+        optionsReady: false,
       },
       props
     );
@@ -95,7 +72,7 @@ class Select extends (PureComponent || Component) {
       optionValue,
       optionText,
       resetOption,
-      resetText
+      resetText,
     } = props;
 
     // 在需要时插入重置选项。
@@ -132,13 +109,13 @@ class Select extends (PureComponent || Component) {
     // 格式化 child-element
     if (children) {
       uniformedData = uniformedData.concat(
-        Children.map(children, (item, index) => {
+        React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
           return Object.assign({}, item.props, {
             value,
             cid: `${index}`,
-            text: item.props.children
+            text: item.props.children,
           });
         })
       );
@@ -159,7 +136,7 @@ class Select extends (PureComponent || Component) {
     if (!data || !data.length) {
       return this.setState({
         selectedItem: {},
-        selectedItems: []
+        selectedItems: [],
       });
     }
 
@@ -188,7 +165,7 @@ class Select extends (PureComponent || Component) {
 
     this.setState({
       selectedItem: selected.sItem,
-      selectedItems: selected.sItems
+      selectedItems: selected.sItems,
     });
   }
 
@@ -246,7 +223,7 @@ class Select extends (PureComponent || Component) {
     selectedItems = selectedItems.filter(item => item.cid !== data.cid);
     this.setState(
       {
-        selectedItems
+        selectedItems,
       },
       () => {
         this.props.onDelete(data);
@@ -259,14 +236,14 @@ class Select extends (PureComponent || Component) {
     const result = {};
     ev = ev || {
       preventDefault: noop,
-      stopPropagation: noop
+      stopPropagation: noop,
     };
     const {
       onEmptySelected,
       optionValue,
       optionText,
       tags,
-      onChange
+      onChange,
     } = this.props;
     const { selectedItems } = this.state;
     if (!selectedItem) {
@@ -289,7 +266,7 @@ class Select extends (PureComponent || Component) {
       {
         keyword: null,
         selectedItems,
-        selectedItem
+        selectedItem,
       },
       () => {
         onChange(
@@ -297,7 +274,7 @@ class Select extends (PureComponent || Component) {
             target: {
               ...this.props,
               type: tags ? 'select-multiple' : 'select-one',
-              value: selectedItem.value
+              value: selectedItem.value,
             },
 
             preventDefault() {
@@ -306,7 +283,7 @@ class Select extends (PureComponent || Component) {
 
             stopPropagation() {
               ev.stopPropagation();
-            }
+            },
           },
           data
         );
@@ -317,6 +294,8 @@ class Select extends (PureComponent || Component) {
   handlePopoverVisibleChange = visible => {
     if (visible) {
       this.props.onOpen();
+    } else {
+      this.setState({ optionsReady: false });
     }
     this.setState({ open: visible });
   };
@@ -329,11 +308,17 @@ class Select extends (PureComponent || Component) {
       popupClassName,
       disabled,
       emptyText,
-      filter = this.props.onFilter,
+      filter = this.props.onFilter, // TODO: confusing code
       onAsyncFilter,
       searchPlaceholder,
       autoWidth,
-      width
+      width,
+
+      // Old API about trigger
+      simple,
+      search,
+      tags,
+      trigger,
     } = this.props;
 
     const {
@@ -341,7 +326,8 @@ class Select extends (PureComponent || Component) {
       selectedItems,
       selectedItem = {},
       extraFilter,
-      keyword = null
+      optionsReady,
+      keyword = null,
     } = this.state;
 
     const { cid = '' } = selectedItem;
@@ -351,32 +337,42 @@ class Select extends (PureComponent || Component) {
     return (
       <Popover
         display="inline-block"
+        ref={ref => (this.popover = ref)}
         position={Popover.Position.AutoBottomLeft}
         visible={open}
         className={`${prefixCls} ${popupClassName}`}
         wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
         onVisibleChange={this.handlePopoverVisibleChange}
         width={width}
+        onPositionReady={() => {
+          this.setState({
+            optionsReady: true,
+          });
+        }}
       >
-        <PopoverClickTrigger>
-          <Trigger
-            disabled={disabled}
-            prefixCls={prefixCls}
-            trigger={this.trigger}
-            placeholder={placeholder}
-            selectedItems={selectedItems}
-            keyword={keyword}
-            {...selectedItem}
-            onChange={this.triggerChangeHandler}
-            onDelete={this.triggerDeleteHandler}
-          />
-        </PopoverClickTrigger>
-        <Popover.Content>
+        <Trigger
+          disabled={disabled}
+          prefixCls={prefixCls}
+          placeholder={placeholder}
+          selectedItems={selectedItems}
+          keyword={keyword}
+          {...selectedItem}
+          trigger={{
+            simple,
+            search,
+            tags,
+            trigger,
+          }}
+          onChange={this.triggerChangeHandler}
+          onDelete={this.triggerDeleteHandler}
+        />
+        <Content>
           <Popup
             ref={ref => (this.popup = ref)}
             cid={cid}
             prefixCls={prefixCls}
             data={this.uniformedData}
+            ready={optionsReady}
             selectedItems={selectedItems}
             extraFilter={extraFilter}
             searchPlaceholder={searchPlaceholder}
@@ -389,8 +385,11 @@ class Select extends (PureComponent || Component) {
             onFocus={this.popupFocusHandler}
             onBlur={this.popupBlurHandler}
             autoWidth={autoWidth}
+            adjustPosition={
+              this.popover && this.popover.adjustPosition.bind(this.popover)
+            }
           />
-        </Popover.Content>
+        </Content>
       </Popover>
     );
   }
@@ -409,7 +408,7 @@ Select.propTypes = {
   emptyText: PropTypes.node,
   selectedItem: PropTypes.shape({
     value: PropTypes.any,
-    text: PropTypes.string
+    text: PropTypes.string,
   }),
   trigger: PropTypes.func,
   optionValue: PropTypes.string,
@@ -429,7 +428,7 @@ Select.propTypes = {
   resetOption: PropTypes.bool,
 
   // 重置选项展示文本
-  resetText: PropTypes.string
+  resetText: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -438,13 +437,12 @@ Select.defaultProps = {
   className: '',
   open: false,
   popupClassName: '',
-  trigger: SelectTrigger,
   placeholder: '',
   searchPlaceholder: '',
   emptyText: '',
   selectedItem: {
     value: '',
-    text: ''
+    text: '',
   },
   selectedItems: [],
   optionValue: 'value',
@@ -463,7 +461,7 @@ Select.defaultProps = {
   value: null,
   index: null,
   initialValue: null,
-  initialIndex: null
+  initialIndex: null,
 };
 
 export default Select;

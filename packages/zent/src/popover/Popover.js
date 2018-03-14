@@ -61,8 +61,8 @@ export const PopoverContextType = {
 
     // 用于维护 Popover 栈，处理嵌套的问题
     registerDescendant: PropTypes.func,
-    unregisterDescendant: PropTypes.func
-  })
+    unregisterDescendant: PropTypes.func,
+  }),
 };
 
 export default class Popover extends (PureComponent || Component) {
@@ -100,7 +100,10 @@ export default class Popover extends (PureComponent || Component) {
     onVisibleChange: PropTypes.func,
 
     // 位置改变后会触发，可能存在实际位置没变但也触发的情况
-    onPositionUpdated: PropTypes.func
+    onPositionUpdated: PropTypes.func,
+
+    // content 第一次进入屏幕内时触发, 生命周期内只触发一次
+    onPositionReady: PropTypes.func,
   };
 
   static defaultProps = {
@@ -114,7 +117,8 @@ export default class Popover extends (PureComponent || Component) {
     onShow: noop,
     cushion: 0,
     containerSelector: 'body',
-    onPositionUpdated: noop
+    onPositionUpdated: noop,
+    onPositionReady: noop,
   };
 
   static contextTypes = PopoverContextType;
@@ -130,8 +134,8 @@ export default class Popover extends (PureComponent || Component) {
         getTriggerNode: this.getTriggerNode,
 
         registerDescendant: this.registerDescendant,
-        unregisterDescendant: this.unregisterDescendant
-      }
+        unregisterDescendant: this.unregisterDescendant,
+      },
     };
   }
 
@@ -155,7 +159,7 @@ export default class Popover extends (PureComponent || Component) {
 
     if (!this.isVisibilityControlled(props)) {
       this.state = {
-        visible: false
+        visible: false,
       };
     }
 
@@ -365,7 +369,8 @@ export default class Popover extends (PureComponent || Component) {
       position,
       cushion,
       width,
-      onPositionUpdated
+      onPositionUpdated,
+      onPositionReady,
     } = this.props;
     const visible = this.getVisible();
 
@@ -383,7 +388,7 @@ export default class Popover extends (PureComponent || Component) {
           open: this.open,
           close: this.close,
           isOutsideStacked: this.isOutsideStacked,
-          injectIsOutsideSelf: this.injectIsOutsideSelf
+          injectIsOutsideSelf: this.injectIsOutsideSelf,
         })}
         {React.cloneElement(content, {
           prefix,
@@ -396,7 +401,8 @@ export default class Popover extends (PureComponent || Component) {
           cushion,
           containerSelector,
           placement: position,
-          onPositionUpdated
+          onPositionUpdated,
+          onPositionReady,
         })}
       </div>
     );

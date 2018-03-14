@@ -1,8 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
+
 import PanelHeader from '../common/PanelHeader';
 import TimeCell from './TimeCell';
-import { CURRENT, padLeft } from '../utils';
+import { padLeft } from '../utils';
+import { CURRENT } from '../constants';
 
 const ROW = 9;
 const COL = 7;
@@ -21,7 +23,6 @@ export default class SecondPanel extends (PureComponent || Component) {
     const cells = [];
     let i = 0;
     for (let j = 0; j < ROW; j++) {
-      cells[j] = [];
       for (let k = 0; k < COL && i < 60; k++) {
         const isDisabled = this.props.isDisabled && this.props.isDisabled(i);
         const isSelected = this.isSelected(i);
@@ -30,15 +31,16 @@ export default class SecondPanel extends (PureComponent || Component) {
           'panel__cell time-panel__cell': true,
           'panel__cell--disabled': isDisabled,
           'panel__cell--selected': isSelected,
-          'panel__cell--current': isCurrent
+          'panel__cell--current': isCurrent,
         });
+        cells[j] = cells[j] || [];
         cells[j][k] = {
           text: padLeft(i),
           value: i,
           isDisabled,
-          className
+          className,
         };
-        i++;
+        i += this.props.step || 1;
       }
     }
 
@@ -46,16 +48,18 @@ export default class SecondPanel extends (PureComponent || Component) {
   }
 
   render() {
-    const { hidePanel, onSelect, i18n } = this.props;
+    const { hidePanel, onSelect, i18n, className, hideHeader } = this.props;
     const seconds = this.getSeconds();
 
     return (
-      <div className="second-panel">
-        <PanelHeader
-          title={i18n.panel.minuteSelect}
-          showNext={false}
-          prev={hidePanel}
-        />
+      <div className={classNames('second-panel', className)}>
+        {!hideHeader && (
+          <PanelHeader
+            title={i18n.panel.secondSelect}
+            showNext={false}
+            prev={hidePanel}
+          />
+        )}
         <div className="second-table panel-table">
           <TimeCell cells={seconds} onSelect={onSelect} />
         </div>

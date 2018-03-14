@@ -33,6 +33,7 @@ group: 基础
 | visible | 手动控制弹层的显示隐藏, 必须和 `onVisibleChange` 一起使用 | bool | | | 否 |
 | onVisibleChange | 手动控制时的回调函数, 必须和`visible`一起使用, 只有用户手动触发的打开／关闭操作才会调用 | func | | | 否 |
 | onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | `noop` |  | 否 |
+| onPositionReady | content 位置进入窗口时的回调，生命周期内只调用一次 | func | `noop` |  | 否 |
 | className | 自定义额外类名 | string | `''` |  | 否 |
 | wrapperClassName | trigger外层包裹div的类名 | string | `''` |  | 否 |
 | width | 宽度 | string or number |  |  | 否 |
@@ -89,6 +90,8 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 Positon用于给弹层提供定位的, 内置12种基础定位, 可以添加自定义定位算法. Popover 上的 `cushion` 参数会影响定位, 通常用来提供一定量的偏移量。
 
 ```
+// 基础定位
+
                     TopLeft     TopCenter     TopRight
 
 LeftTop                                                             RightTop
@@ -187,9 +190,9 @@ const HoverContent = withPopover(function HoverContent({ popover }) {
 
 #### `adjustPosition` 方法
 
-可以通过这个方法调整 `Pop` 的位置。
+可以通过这个方法调整 `Popover` 的位置。
 
-一般是用于某些特殊场合，`Pop` 无法自动更新位置时手动调用。
+一般是用于某些特殊场合，`Popover` 无法自动更新位置时手动调用。
 
 <style>
 .zent-doc-popover {

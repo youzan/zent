@@ -16,14 +16,14 @@ import {
   EditableInput,
   Hue,
   Saturation,
-  Swatch
+  Swatch,
 } from 'colorpicker/common';
 
 const red = {
   hsl: { a: 1, h: 0, l: 0.5, s: 1 },
   hex: '#ff0000',
   rgb: { r: 255, g: 0, b: 0, a: 1 },
-  hsv: { h: 0, s: 1, v: 1, a: 1 }
+  hsv: { h: 0, s: 1, v: 1, a: 1 },
 };
 
 describe('ColorPicker', () => {
@@ -62,7 +62,7 @@ describe('ColorPicker', () => {
       hsl: { a: 1, h: 0, l: 0.5, s: 1 },
       hex: '#ff0000',
       rgba: { r: 255, g: 0, b: 0, a: 1 },
-      hsv: { h: 0, s: 1, v: 1, a: 1 }
+      hsv: { h: 0, s: 1, v: 1, a: 1 },
     };
     const ColorPickerDom = wrapper.find('ColorPicker');
     expect(ColorPickerDom.node.handleChange(color)).toBe(undefined);
@@ -83,7 +83,7 @@ describe('ColorPicker', () => {
       hsl: { a: 1, h: 0, l: 0.5, s: 1 },
       hex: '#ff0000',
       rgba: { r: 255, g: 0, b: 0, a: 1 },
-      hsv: { h: 0, s: 1, v: 1, a: 1 }
+      hsv: { h: 0, s: 1, v: 1, a: 1 },
     };
     const ColorPickerDom = wrapper.find('ColorPicker');
     expect(ColorPickerDom.node.handleChange(color)).toBe(undefined);
@@ -113,12 +113,12 @@ describe('ColorPicker', () => {
       r: 255,
       g: 0,
       b: 0,
-      a: 1
+      a: 1,
     };
     const e = {
       target: {
-        value: 0
-      }
+        value: 0,
+      },
     };
     const wrapper = mount(<SketchFields {...red} onChange={handleChange} />);
     const editableInputs = wrapper.find('EditableInput');
@@ -143,7 +143,7 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 1,
-      pageY: 2
+      pageY: 2,
     };
     const AlphaDom = wrapper.find('Alpha');
     expect(AlphaDom.node.componentWillUnmount()).toBe(undefined);
@@ -176,7 +176,7 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 1,
-      pageY: 2
+      pageY: 2,
     };
     const HueDom = wrapper.find('Hue');
     expect(HueDom.node.componentWillUnmount()).toBe(undefined);
@@ -206,7 +206,7 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 1,
-      pageY: 2
+      pageY: 2,
     };
     const SaturationDom = wrapper.find('Saturation');
     expect(SaturationDom.node.componentWillUnmount()).toBe(undefined);
@@ -237,7 +237,7 @@ describe('ColorPicker', () => {
   it('EditableInput mount', () => {
     const handleChange = jest.fn();
     const style = {
-      wrap: 1
+      wrap: 1,
     };
     const wrapper = mount(
       <EditableInput
@@ -266,12 +266,12 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       target: {
-        value: 1
+        value: 1,
       },
       pageX: 1,
       pageY: 2,
       keyCode: 40,
-      movementX: 0
+      movementX: 0,
     };
     const EditableInputDom = wrapper.find('EditableInput');
     expect(EditableInputDom.node.componentWillUnmount()).toBe(undefined);
@@ -286,7 +286,7 @@ describe('ColorPicker', () => {
   it('EditableInput mount', () => {
     const handleChange = jest.fn();
     const style = {
-      input: 1
+      input: 1,
     };
     const wrapper = mount(
       <EditableInput
@@ -301,21 +301,21 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       target: {
-        value: 1
+        value: 1,
       },
       pageX: 1,
       pageY: 2,
       keyCode: 40,
-      movementX: 0
+      movementX: 0,
     };
     const EditableInputDom = wrapper.find('EditableInput');
     expect(EditableInputDom.node.handleChange(e)).toBe(undefined);
 
     const nextProps = {
-      value: 10
+      value: 10,
     };
     const style1 = {
-      labal: 1
+      labal: 1,
     };
     const wrapper1 = mount(
       <EditableInput
@@ -337,12 +337,12 @@ describe('ColorPicker', () => {
     const e1 = {
       preventDefault: () => {},
       target: {
-        value: 1
+        value: 1,
       },
       pageX: 1,
       pageY: 2,
       keyCode: 38,
-      movementX: 0
+      movementX: 0,
     };
     expect(EditableInputDom1.node.handleKeyDown(e1)).toBe(undefined);
   });
@@ -351,7 +351,7 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 1,
-      pageY: 2
+      pageY: 2,
     };
     const props = {
       direction: 'vertical',
@@ -359,8 +359,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -368,12 +368,12 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
     expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
-      a: 0
+      a: 0,
     });
   });
 
@@ -381,7 +381,7 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 1,
-      pageY: 0
+      pageY: 0,
     };
     const props = {
       direction: 'vertical',
@@ -389,8 +389,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -398,12 +398,12 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
     expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
-      source: 'rgb'
+      source: 'rgb',
     });
   });
 
@@ -411,7 +411,7 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 1,
-      pageY: 30
+      pageY: 30,
     };
     const props = {
       direction: 'vertical',
@@ -419,8 +419,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -428,9 +428,9 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
     expect(alpha.calculateChange(e, true, props, container)).toBe(null);
   });
@@ -439,7 +439,7 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 0,
-      pageY: 30
+      pageY: 30,
     };
     const props = {
       direction: 'vertical1',
@@ -447,135 +447,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
-    };
-    const container = {
-      clientWidth: 10,
-      clientHeight: 20,
-      getBoundingClientRect: () => {
-        return {
-          left: 1,
-          top: 2
-        };
-      }
-    };
-    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
-      s: 20
-    });
-  });
-
-  it('check helpers func alpha other branch', () => {
-    const e = {
-      preventDefault: () => {},
-      pageX: 2,
-      pageY: 30
-    };
-    const props = {
-      direction: 'vertical1',
-      hsl: {
-        h: 1,
-        s: 20,
-        l: 30,
-        a: 1
-      }
-    };
-    const container = {
-      clientWidth: 10,
-      clientHeight: 20,
-      getBoundingClientRect: () => {
-        return {
-          left: 1,
-          top: 2
-        };
-      }
-    };
-    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
-      l: 30
-    });
-  });
-
-  it('check helpers func alpha other branch', () => {
-    const e = {
-      preventDefault: () => {},
-      pageX: 2,
-      pageY: 30
-    };
-    const props = {
-      direction: 'vertical1',
-      hsl: {
-        h: 1,
-        s: 20,
-        l: 30,
-        a: 1
-      }
-    };
-    const container = {
-      clientWidth: 10,
-      clientHeight: 20,
-      getBoundingClientRect: () => {
-        return {
-          left: 1,
-          top: 2
-        };
-      }
-    };
-    expect(alpha.calculateChange(e, false, props, container)).toMatchObject({
-      a: 0.1
-    });
-  });
-
-  it('check helpers func alpha other branch', () => {
-    const e = {
-      preventDefault: () => {},
-      pageX: '2',
-      pageY: '23',
-      touches: [
-        {
-          pageX: 2,
-          pageY: 23
-        }
-      ]
-    };
-    const props = {
-      direction: 'vertical1',
-      hsl: {
-        h: 1,
-        s: 20,
-        l: 30,
-        a: 1
+        a: 1,
       },
-      a: 1
-    };
-    const container = {
-      clientWidth: 19,
-      clientHeight: 28,
-      getBoundingClientRect: () => {
-        return {
-          left: 1,
-          top: 2
-        };
-      }
-    };
-    expect(alpha.calculateChange(e, false, props, container)).toMatchObject({
-      a: 0.05
-    });
-  });
-
-  it('check helpers func hue other branch', () => {
-    const e = {
-      preventDefault: () => {},
-      pageX: 0,
-      pageY: 30
-    };
-    const props = {
-      direction: 'vertical',
-      hsl: {
-        h: 1,
-        s: 20,
-        l: 30,
-        a: 1
-      }
     };
     const container = {
       clientWidth: 10,
@@ -583,80 +456,20 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
-    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
-      a: 1
+    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
+      s: 20,
     });
   });
 
-  it('check helpers func hue other branch', () => {
+  it('check helpers func alpha other branch', () => {
     const e = {
       preventDefault: () => {},
-      pageX: 0,
-      pageY: 30
-    };
-    const props = {
-      direction: 'vertical',
-      hsl: {
-        h: 1,
-        s: 20,
-        l: 30,
-        a: 1
-      }
-    };
-    const container = {
-      clientWidth: 10,
-      clientHeight: 28,
-      getBoundingClientRect: () => {
-        return {
-          left: 1,
-          top: 2
-        };
-      }
-    };
-    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
-      a: 1
-    });
-  });
-
-  it('check helpers func hue other branch', () => {
-    const e = {
-      preventDefault: () => {},
-      pageX: 0,
-      pageY: 1
-    };
-    const props = {
-      direction: 'vertical',
-      hsl: {
-        h: 1,
-        s: 20,
-        l: 30,
-        a: 1
-      }
-    };
-    const container = {
-      clientWidth: 10,
-      clientHeight: 28,
-      getBoundingClientRect: () => {
-        return {
-          left: 1,
-          top: 2
-        };
-      }
-    };
-    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
-      a: 1
-    });
-  });
-
-  it('check helpers func hue other branch', () => {
-    const e = {
-      preventDefault: () => {},
-      pageX: 0,
-      pageY: 30
+      pageX: 2,
+      pageY: 30,
     };
     const props = {
       direction: 'vertical1',
@@ -664,29 +477,29 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
-      clientHeight: 28,
+      clientHeight: 20,
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
-    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
-      a: 1
+    expect(alpha.calculateChange(e, true, props, container)).toMatchObject({
+      l: 30,
     });
   });
 
-  it('check helpers func hue other branch', () => {
+  it('check helpers func alpha other branch', () => {
     const e = {
       preventDefault: () => {},
-      pageX: 20,
-      pageY: 30
+      pageX: 2,
+      pageY: 30,
     };
     const props = {
       direction: 'vertical1',
@@ -694,8 +507,45 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2,
+        };
+      },
+    };
+    expect(alpha.calculateChange(e, false, props, container)).toMatchObject({
+      a: 0.1,
+    });
+  });
+
+  it('check helpers func alpha other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: '2',
+      pageY: '23',
+      touches: [
+        {
+          pageX: 2,
+          pageY: 23,
+        },
+      ],
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1,
+      },
+      a: 1,
     };
     const container = {
       clientWidth: 19,
@@ -703,20 +553,110 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
-    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
-      a: 1
+    expect(alpha.calculateChange(e, false, props, container)).toMatchObject({
+      a: 0.05,
     });
   });
 
   it('check helpers func hue other branch', () => {
     const e = {
       preventDefault: () => {},
-      pageX: 20,
-      pageY: 30
+      pageX: 0,
+      pageY: 30,
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1,
+      },
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 20,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2,
+        };
+      },
+    };
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1,
+    });
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 30,
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1,
+      },
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2,
+        };
+      },
+    };
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1,
+    });
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 1,
+    };
+    const props = {
+      direction: 'vertical',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1,
+      },
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2,
+        };
+      },
+    };
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1,
+    });
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 0,
+      pageY: 30,
     };
     const props = {
       direction: 'vertical1',
@@ -724,8 +664,38 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
+    };
+    const container = {
+      clientWidth: 10,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2,
+        };
+      },
+    };
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1,
+    });
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 20,
+      pageY: 30,
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 19,
@@ -733,12 +703,42 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
+    };
+    expect(hue.calculateChange(e, true, props, container)).toMatchObject({
+      a: 1,
+    });
+  });
+
+  it('check helpers func hue other branch', () => {
+    const e = {
+      preventDefault: () => {},
+      pageX: 20,
+      pageY: 30,
+    };
+    const props = {
+      direction: 'vertical1',
+      hsl: {
+        h: 1,
+        s: 20,
+        l: 30,
+        a: 1,
+      },
+    };
+    const container = {
+      clientWidth: 19,
+      clientHeight: 28,
+      getBoundingClientRect: () => {
+        return {
+          left: 1,
+          top: 2,
+        };
+      },
     };
     expect(hue.calculateChange(e, false, props, container)).toMatchObject({
-      a: 1
+      a: 1,
     });
   });
 
@@ -750,9 +750,9 @@ describe('ColorPicker', () => {
       touches: [
         {
           pageX: 2,
-          pageY: 23
-        }
-      ]
+          pageY: 23,
+        },
+      ],
     };
     const props = {
       direction: 'vertical1',
@@ -760,8 +760,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 19,
@@ -769,12 +769,12 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
     expect(hue.calculateChange(e, false, props, container)).toMatchObject({
-      a: 1
+      a: 1,
     });
   });
 
@@ -786,9 +786,9 @@ describe('ColorPicker', () => {
       touches: [
         {
           pageX: 2,
-          pageY: 23
-        }
-      ]
+          pageY: 23,
+        },
+      ],
     };
     const props = {
       direction: 'quux',
@@ -796,8 +796,8 @@ describe('ColorPicker', () => {
         h: 18,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 20,
@@ -805,9 +805,9 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
     expect(hue.calculateChange(e, false, props, container)).toBe(null);
   });
@@ -816,15 +816,15 @@ describe('ColorPicker', () => {
     const e = {
       preventDefault: () => {},
       pageX: 0,
-      pageY: 20
+      pageY: 20,
     };
     const props = {
       hsl: {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -832,20 +832,20 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
-    expect(
-      saturation.calculateChange(e, true, props, container)
-    ).toMatchObject({ a: 1 });
+    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
+      { a: 1 }
+    );
   });
 
   it('check helpers func saturation other branch', () => {
     const e = {
       preventDefault: () => {},
       pageX: 2,
-      pageY: 1
+      pageY: 1,
     };
     const props = {
       direction: 'vertical',
@@ -853,8 +853,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -862,20 +862,20 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
-    expect(
-      saturation.calculateChange(e, true, props, container)
-    ).toMatchObject({ a: 1 });
+    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
+      { a: 1 }
+    );
   });
 
   it('check helpers func saturation other branch', () => {
     const e = {
       preventDefault: () => {},
       pageX: 2,
-      pageY: 23
+      pageY: 23,
     };
     const props = {
       direction: 'vertical',
@@ -883,8 +883,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -892,20 +892,20 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
-    expect(
-      saturation.calculateChange(e, true, props, container)
-    ).toMatchObject({ a: 1 });
+    expect(saturation.calculateChange(e, true, props, container)).toMatchObject(
+      { a: 1 }
+    );
   });
 
   it('check helpers func saturation other branch', () => {
     const e = {
       preventDefault: () => {},
       pageX: 2,
-      pageY: 23
+      pageY: 23,
     };
     const props = {
       direction: 'vertical',
@@ -913,8 +913,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -922,9 +922,9 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
     expect(
       saturation.calculateChange(e, false, props, container)
@@ -939,9 +939,9 @@ describe('ColorPicker', () => {
       touches: [
         {
           pageX: 2,
-          pageY: 23
-        }
-      ]
+          pageY: 23,
+        },
+      ],
     };
     const props = {
       direction: 'vertical',
@@ -949,8 +949,8 @@ describe('ColorPicker', () => {
         h: 1,
         s: 20,
         l: 30,
-        a: 1
-      }
+        a: 1,
+      },
     };
     const container = {
       clientWidth: 10,
@@ -958,9 +958,9 @@ describe('ColorPicker', () => {
       getBoundingClientRect: () => {
         return {
           left: 1,
-          top: 2
+          top: 2,
         };
-      }
+      },
     };
     expect(
       saturation.calculateChange(e, false, props, container)
@@ -976,15 +976,15 @@ describe('ColorPicker', () => {
   it('check helpers func mergeClasses other branch', () => {
     const classes = {
       default: {
-        name: 'name'
+        name: 'name',
       },
       test1: {
-        name: 'name'
-      }
+        name: 'name',
+      },
     };
     const activeNames = ['test1'];
     expect(mergeClasses(classes, activeNames)).toMatchObject({
-      name: { '0': 'n', '1': 'a', '2': 'm', '3': 'e' }
+      name: { '0': 'n', '1': 'a', '2': 'm', '3': 'e' },
     });
   });
 
@@ -1030,7 +1030,7 @@ describe('ColorPicker', () => {
 
   it('check helpColor func toState2', () => {
     expect(helpColor.toState('blue')).toMatchObject({
-      hex: '#0000ff'
+      hex: '#0000ff',
     });
   });
 

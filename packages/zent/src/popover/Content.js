@@ -18,7 +18,7 @@ function translateToContainerCoordinates(containerBB, bb) {
     top: bb.top - top,
     left: bb.left - left,
     bottom: bb.bottom - top,
-    right: bb.right - left
+    right: bb.right - left,
   };
 }
 
@@ -51,12 +51,20 @@ export default class PopoverContent extends (PureComponent || Component) {
     // defaults to body
     containerSelector: PropTypes.string,
 
-    onPositionUpdated: PropTypes.func
+    onPositionUpdated: PropTypes.func,
+
+    onPositionReady: PropTypes.func,
   };
 
-  state = {
-    position: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      position: null,
+    };
+
+    // 标记 content 的位置是否 ready
+    this.positionReady = false;
+  }
 
   getAnchor() {
     return this.props.getAnchor();
@@ -76,17 +84,21 @@ export default class PopoverContent extends (PureComponent || Component) {
   }
 
   adjustPosition = () => {
+    if (!this.props.visible) {
+      return;
+    }
+
     const content = this.props.getContentNode();
 
     // 可能还未渲染出来，先放到一个不可见的位置
     if (!content) {
       this.setState({
-        position: invisiblePlacement(this.props.prefix)
+        position: invisiblePlacement(this.props.prefix),
       });
       setTimeout(this.adjustPosition, 0);
-
       return;
     }
+
     const contentBoundingBox = content.getBoundingClientRect();
 
     const anchor = this.getAnchor();
@@ -115,22 +127,28 @@ export default class PopoverContent extends (PureComponent || Component) {
       relativeContainerBB,
       {
         width: contentBoundingBox.width,
-        height: contentBoundingBox.height
+        height: contentBoundingBox.height,
       },
       {
         cushion: this.props.cushion,
         anchor,
         container: parent,
         anchorBoundingBoxViewport: boundingBox,
-        containerBoundingBoxViewport: parentBoundingBox
+        containerBoundingBoxViewport: parentBoundingBox,
       }
     );
 
     this.setState(
       {
-        position
+        position,
       },
-      this.props.onPositionUpdated
+      () => {
+        this.props.onPositionUpdated();
+        if (!this.positionReady) {
+          this.positionReady = true;
+          this.props.onPositionReady();
+        }
+      }
     );
   };
 
@@ -150,8 +168,11 @@ export default class PopoverContent extends (PureComponent || Component) {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.visible && nextProps.visible !== this.props.visible) {
+  componentDidUpdate(prevProps) {
+    if (this.props.visible && prevProps.visible !== this.props.visible) {
+      // reset position mark
+      this.positionReady = false;
+
       this.adjustPosition();
     }
   }
@@ -163,7 +184,7 @@ export default class PopoverContent extends (PureComponent || Component) {
       id,
       visible,
       children,
-      containerSelector
+      containerSelector,
     } = this.props;
     const { position } = this.state;
 

@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 
 import { I18nProvider } from 'i18n';
@@ -21,23 +21,23 @@ import USWrapper from './components/USWrapper';
 // 第二个参数作为处理路由分块的夹层暂时存在，后续会修复。
 const routeData = {
   'zh-CN': registerRoute(navData['zh-CN'], '/zh'),
-  'en-US': registerRoute(navData['en-US'], '/en')
+  'en-US': registerRoute(navData['en-US'], '/en'),
 };
 
 // double-linked list
 const footerData = {
   'zh-CN': registerFooter(routeData['zh-CN']),
-  'en-US': registerFooter(routeData['en-US'])
+  'en-US': registerFooter(routeData['en-US']),
 };
 
 export default class App extends Component {
   state = {
-    i18n: 'zh-CN'
+    i18n: 'zh-CN',
   };
 
   changeI18N = target => {
     this.setState({
-      i18n: target
+      i18n: target,
     });
   };
 
@@ -53,7 +53,7 @@ export default class App extends Component {
       saveFooter: this.saveFooter,
       changeI18N: this.changeI18N,
       prefix,
-      i18n
+      i18n,
     });
 
     // 通过 basename 控制前缀，不要放到每一层路由里去

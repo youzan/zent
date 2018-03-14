@@ -1,41 +1,45 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash/assign';
 import getWidth from 'utils/getWidth';
 
-export default class Radio extends (PureComponent || Component) {
+export default class Radio extends Component {
   static propTypes = {
     checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     value: PropTypes.any,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-
-    // will be rewrite by RadioGroup
     onChange: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
     prefix: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
     prefix: 'zent',
     className: '',
     style: {},
-    onChange() {}
+    disabled: false,
+    readOnly: false,
+    onChange() {},
+  };
+
+  static contextTypes = {
+    radioGroup: PropTypes.any,
   };
 
   // event liftup
   // link: https://facebook.github.io/react/docs/lifting-state-up.html
   handleChange = evt => {
-    const props = this.props;
-
-    props.onChange({
+    const { props, context } = this;
+    const { radioGroup } = context;
+    const e = {
       target: {
         ...props,
         type: 'radio',
-        checked: evt.target.checked
+        checked: evt.target.checked,
       },
 
       preventDefault() {
@@ -44,14 +48,20 @@ export default class Radio extends (PureComponent || Component) {
 
       stopPropagation() {
         evt.stopPropagation();
-      }
-    });
+      },
+    };
+
+    if (radioGroup) {
+      radioGroup.onRadioChange(e);
+    } else {
+      props.onChange(e);
+    }
   };
 
   render() {
-    const {
+    const { props, context } = this;
+    let {
       checked,
-      // onChange,
       className,
       style,
       prefix,
@@ -60,16 +70,23 @@ export default class Radio extends (PureComponent || Component) {
       children,
 
       // value不要放到input上去
-      value, // eslint-disable-line
+      value,
       width,
       ...others
-    } = this.props;
+    } = props;
+    const { radioGroup } = context;
+
+    if (radioGroup) {
+      checked = radioGroup.isValueEqual(radioGroup.value, value);
+      disabled = radioGroup.disabled || disabled;
+      readOnly = radioGroup.readOnly || readOnly;
+    }
 
     const classString = classNames({
       [className]: !!className,
       [`${prefix}-radio-wrap`]: true,
       [`${prefix}-radio-checked`]: !!checked,
-      [`${prefix}-radio-disabled`]: disabled || readOnly
+      [`${prefix}-radio-disabled`]: disabled || readOnly,
     });
     const widthStyle = getWidth(width);
     const wrapStyle = assign({}, style, widthStyle);

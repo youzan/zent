@@ -43,7 +43,7 @@ ReactDOM.render(<Wrapper />, mountNode);
 	margin-top: 10px;
 }
 .zent-loading-example-hello-world {
-	background-color: #e5e5e5;
+	background: #f8f8f8;
 	text-align: center;
 	height: 160px;
 	line-height: 160px;

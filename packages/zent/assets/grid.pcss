@@ -26,13 +26,9 @@ $border-color: $theme-stroke-7;
     text-align: left;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid $border-color;
 
-    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-      border-width: 0.5px;
-    }
-
-    border-bottom: none;
+    /* 取消边框, 和 table 一致 */
+    border-top: 1px solid $border-color;
 
     &-ellipsis {
       table-layout: fixed;
@@ -105,10 +101,10 @@ $border-color: $theme-stroke-7;
     }
 
     .zent-grid-body {
-      margin-bottom: -15px;
-      padding-bottom: 15px;
       margin-right: -20px;
       box-sizing: border-box;
+      margin-bottom: -15px;
+      overflow: scroll;
     }
   }
 
@@ -125,15 +121,14 @@ $border-color: $theme-stroke-7;
     }
 
     .zent-grid-body {
-      margin-bottom: -15px;
-      padding-bottom: 15px;
       box-sizing: border-box;
+      margin-bottom: -15px;
+      overflow: scroll;
     }
   }
 
   &-scroll {
     overflow: auto;
-    overflow-x: hidden;
 
     table {
       width: auto;
@@ -143,6 +138,11 @@ $border-color: $theme-stroke-7;
     .zent-grid-header {
       overflow-x: scroll;
       margin-bottom: -15px;
+      padding-bottom: 15px;
+    }
+
+    .zent-grid-body {
+      position: relative;
     }
   }
 
@@ -150,8 +150,7 @@ $border-color: $theme-stroke-7;
     text-align: center;
     height: 50px;
     line-height: 50px;
-    border: 1px solid $border-color;
-    border-top: none;
+    border-bottom: 1px solid $border-color;
   }
 
   &-tr {
@@ -169,11 +168,10 @@ $border-color: $theme-stroke-7;
     box-sizing: border-box;
     border-bottom: 1px solid $border-color;
     vertical-align: middle;
-    background-color: $theme-stroke-10;
+  }
 
-    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-      border-bottom-width: 0.5px;
-    }
+  &-td {
+    background-color: $theme-stroke-10;
   }
 
   &-th {

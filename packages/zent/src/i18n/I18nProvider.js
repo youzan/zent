@@ -5,23 +5,23 @@ import * as defaultI18n from './default';
 
 export default class I18nProvider extends (PureComponent || Component) {
   static propTypes = {
-    i18n: PropTypes.object
+    i18n: PropTypes.object,
   };
 
   static defaultProps = {
-    i18n: defaultI18n
+    i18n: defaultI18n,
   };
 
   static childContextTypes = {
-    zentI18n: PropTypes.object
+    zentI18n: PropTypes.object,
     // __i18n_recieved__: PropTypes.bool  i18n标记
   };
 
   getChildContext() {
     return {
       zentI18n: {
-        ...this.props.i18n
-      }
+        ...this.props.i18n,
+      },
     };
   }
 

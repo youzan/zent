@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -9,13 +9,13 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
-import { CURRENT, formatDate, parseDate } from './utils/';
-import { dayStart } from './utils/date';
+import { formatDate, parseDate, dayStart } from './utils';
 import {
+  CURRENT,
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function extractStateFromProps(props) {
@@ -48,20 +48,20 @@ function extractStateFromProps(props) {
     actived,
     selected,
     openPanel: false,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
 class YearPicker extends (PureComponent || Component) {
   static propTypes = {
-    ...commonPropTypes
+    ...commonPropTypes,
   };
 
   static defaultProps = {
     ...commonProps,
     placeholder: '',
     format: 'YYYY',
-    needConfirm: false
+    needConfirm: false,
   };
 
   constructor(props) {
@@ -80,22 +80,22 @@ class YearPicker extends (PureComponent || Component) {
     acp.setFullYear(val);
 
     this.setState({
-      actived: acp
+      actived: acp,
     });
   };
 
   onSelectYear = val => {
     if (this.isDisabled(val)) return;
-    const { props: { needConfirm, onChange }, state: { actived } } = this;
+    const { props: { isFooterVisble, onChange }, state: { actived } } = this;
     const acp = new Date(actived);
     acp.setFullYear(val);
 
-    if (!needConfirm) {
+    if (!isFooterVisble) {
       this.setState({
         value: acp,
         selected: acp,
         openPanel: false,
-        showPlaceholder: false
+        showPlaceholder: false,
       });
       onChange(`${val}`);
     }
@@ -103,7 +103,12 @@ class YearPicker extends (PureComponent || Component) {
 
   onClearInput = evt => {
     evt.stopPropagation();
-    this.props.onChange('');
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
+    if (!canClear) return;
+
+    onChange('');
   };
 
   onConfirm = () => {
@@ -117,7 +122,7 @@ class YearPicker extends (PureComponent || Component) {
     this.setState({
       value,
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
     onChange(value);
   };
@@ -175,7 +180,7 @@ class YearPicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel: !this.state.openPanel
+      openPanel: !this.state.openPanel,
     });
   };
 
@@ -188,16 +193,17 @@ class YearPicker extends (PureComponent || Component) {
         placeholder,
         popPosition,
         prefix,
-        width
+        width,
+        canClear,
       },
-      state: { openPanel, showPlaceholder, value }
+      state: { openPanel, showPlaceholder, value },
     } = this;
 
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
 
@@ -224,10 +230,12 @@ class YearPicker extends (PureComponent || Component) {
               </Receiver>
 
               <span className="zenticon zenticon-calendar-o" />
-              <span
-                onClick={this.onClearInput}
-                className="zenticon zenticon-close-circle"
-              />
+              {canClear && (
+                <span
+                  onClick={this.onClearInput}
+                  className="zenticon zenticon-close-circle"
+                />
+              )}
             </div>
           </Popover.Trigger.Click>
           <Popover.Content>{this.renderPicker()}</Popover.Content>

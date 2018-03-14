@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from 'enzyme';
 import { formatDate } from 'zan-utils/date';
 
 import DatePicker from 'datetimepicker/DatePicker';
-import { setTime } from 'datetimepicker/utils/date';
+import { setTime, isSameDate } from 'datetimepicker/utils';
 
 const HOURS = 10;
 const MINUTES = 10;
@@ -363,7 +363,7 @@ describe('DateTimePicker', () => {
       return {
         disabledHour: () => false,
         disabledMinute: () => false,
-        disabledSecond: () => false
+        disabledSecond: () => false,
       };
     };
     const wrapper = mount(
@@ -503,5 +503,32 @@ describe('DateTimePicker', () => {
         .at(SECONDS + 1)
         .hasClass('panel__cell--disabled')
     ).toBe(true);
+  });
+
+  it('support set actived date with defaultValue', () => {
+    const today = new Date();
+    const wrapper = mount(<DatePicker defaultValue={today} />);
+    expect(isSameDate(wrapper.state('actived'), today)).toBe(true);
+  });
+
+  it('support set return value with valueType', () => {
+    const valueType = 'number';
+    const wrapper = mount(<DatePicker valueType={valueType} />);
+    expect(wrapper.instance().retType).toBe(valueType);
+  });
+
+  it('support disabled clear input with onBeforeClear api', () => {
+    const today = new Date();
+    const wrapper = mount(
+      <DatePicker onBeforeClear={() => false} value={today} />
+    );
+    wrapper.find('.picker-input .zenticon-close-circle').simulate('click');
+    expect(isSameDate(wrapper.prop('value'), today)).toBe(true);
+  });
+
+  it('Support get actived date with getDate method', () => {
+    const today = new Date();
+    const wrapper = mount(<DatePicker value={today} />);
+    expect(isSameDate(wrapper.instance().getDate(), today)).toBe(true);
   });
 });

@@ -13,7 +13,7 @@ export function createGroup(name) {
     type: `${uniqueId(COMPONENT_GROUP_DESIGN_TYPE)}|${name}`,
     editor: DummyComponent,
     preview: DummyComponent,
-    name
+    name,
   };
 }
 
@@ -68,7 +68,7 @@ export function splitGroup(components) {
         if (group && !isEmpty(buffer)) {
           groups.push({
             group,
-            components: buffer
+            components: buffer,
           });
         }
 

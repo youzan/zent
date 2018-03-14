@@ -9,16 +9,16 @@ export default class Pager extends (PureComponent || Component) {
     content: string,
     current: bool,
     onClick: func,
-    target: number
+    target: number,
   };
 
   state = {
-    pageLabel: this.props.content
+    pageLabel: this.props.content,
   };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      pageLabel: nextProps.content
+      pageLabel: nextProps.content,
     });
   }
 
@@ -37,7 +37,7 @@ export default class Pager extends (PureComponent || Component) {
       pager: true,
       'pager--current': current,
       'pager--omni': type === 'omni',
-      'pager--disabled': type !== 'omni' && !target
+      'pager--disabled': type !== 'omni' && !target,
     });
 
     return (

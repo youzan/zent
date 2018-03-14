@@ -16,10 +16,10 @@ function getBabelLoaderOptions(options = {}) {
     presets: [
       require.resolve('babel-preset-react'),
       [require.resolve('babel-preset-es2015'), { modules: false }],
-      require.resolve('babel-preset-stage-1')
+      require.resolve('babel-preset-stage-1'),
     ],
     plugins,
-    cacheDirectory: dev
+    cacheDirectory: dev,
   };
 }
 
@@ -33,15 +33,15 @@ function getMarkdownLoaders(babelLoader) {
         renderers: {
           markdown: 'Markdown',
           style: 'Style',
-          demo: 'Demo'
-        }
-      }
+          demo: 'Demo',
+        },
+      },
     },
-    require.resolve('markdown-doc-loader')
+    require.resolve('markdown-doc-loader'),
   ];
 }
 
 module.exports = {
   getBabelLoaderOptions,
-  getMarkdownLoaders
+  getMarkdownLoaders,
 };

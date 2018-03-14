@@ -1,5 +1,7 @@
 import Affix from 'affix';
 import Alert from 'alert';
+import Avatar from 'avatar';
+import AutoComplete from 'auto-complete';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
@@ -7,6 +9,7 @@ import Button from 'button';
 import Card from 'card';
 import Cascader from 'cascader';
 import Checkbox from 'checkbox';
+import Collapse from 'collapse';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
@@ -16,10 +19,10 @@ import Design from 'design';
 import Dialog from 'dialog';
 import Form from 'form';
 import Grid from 'grid';
+import I18nProvider from 'i18n';
 import Icon from 'icon';
 import InfiniteScroller from 'infinite-scroller';
 import Input from 'input';
-import I18n from 'i18n';
 import Layout from 'layout';
 import Loading from 'loading';
 import Menu from 'menu';
@@ -27,14 +30,16 @@ import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
 import NumberInput from 'number-input';
 import Pagination from 'pagination';
+import Placeholder from 'placeholder';
 import Pop from 'pop';
 import Popover from 'popover';
 import Portal from 'portal';
 import previewImage from 'preview-image';
 import Progress from 'progress';
-import Radio from 'radio';
-import SearchInput from 'search-input';
 import QuarterPicker from 'datetimepicker/QuarterPicker';
+import Radio from 'radio';
+import Rate from 'rate';
+import SearchInput from 'search-input';
 import Select from 'select';
 import SKU from 'sku';
 import Slider from 'slider';
@@ -46,6 +51,8 @@ import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
 import Tag from 'tag';
+import TimePicker from 'datetimepicker/TimePicker';
+import TimeRangePicker from 'datetimepicker/TimeRangePicker';
 import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
@@ -54,6 +61,8 @@ import YearPicker from 'datetimepicker/YearPicker';
 export {
   Affix,
   Alert,
+  Avatar,
+  AutoComplete,
   Badge,
   BlockHeader,
   Breadcrumb,
@@ -61,6 +70,7 @@ export {
   Card,
   Cascader,
   Checkbox,
+  Collapse,
   ColorPicker,
   CopyButton,
   DatePicker,
@@ -70,10 +80,10 @@ export {
   Dialog,
   Form,
   Grid,
+  I18nProvider,
   Icon,
   InfiniteScroller,
   Input,
-  I18n,
   Layout,
   Loading,
   Menu,
@@ -81,6 +91,7 @@ export {
   Notify,
   NumberInput,
   Pagination,
+  Placeholder,
   Pop,
   Popover,
   Portal,
@@ -88,6 +99,7 @@ export {
   Progress,
   QuarterPicker,
   Radio,
+  Rate,
   SearchInput,
   Select,
   SKU,
@@ -100,8 +112,10 @@ export {
   Table,
   Tabs,
   Tag,
+  TimePicker,
+  TimeRangePicker,
   Tree,
   Upload,
   WeekPicker,
-  YearPicker
+  YearPicker,
 };

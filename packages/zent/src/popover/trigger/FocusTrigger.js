@@ -11,7 +11,7 @@ export default class FocusTrigger extends Trigger {
       onBlur: evt => {
         this.props.close();
         this.triggerEvent(child, 'onBlur', evt);
-      }
+      },
     };
   }
 }

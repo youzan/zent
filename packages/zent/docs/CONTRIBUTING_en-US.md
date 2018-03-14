@@ -45,6 +45,7 @@ Remember to add TypeScript definitions in `packages/zent/typings` for your new c
 * Component file name should be camel case，e.g. `ActionButton`'s file name should be `ActionsButton.js`
 * Files export functions should be camel case(first letter is lower case), e.g. `withPop`
 * Directory name should be lower case separated by -, e.g. `number-input`
+* file name in demos should be lower case separated by -, e.g `with-close-btn`
 
 #### Testing
 

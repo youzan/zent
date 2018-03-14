@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import assign from 'lodash/assign';
 import reorder from 'utils/reorder';
+import shallowEqual from 'utils/shallowEqual';
 
 const NOT_EVENT_MSG =
   'onInputChange expects an `Event` with { target: { name, value } } as argument';
 
-export class DesignEditor extends (PureComponent || Component) {
+export class DesignEditor extends Component {
   static propTypes = {
     value: PropTypes.object,
 
@@ -29,7 +30,7 @@ export class DesignEditor extends (PureComponent || Component) {
     settings: PropTypes.object,
 
     // 修改 settings 的回调函数
-    onSettingsChange: PropTypes.func
+    onSettingsChange: PropTypes.func,
   };
 
   // 以下属性需要子类重写
@@ -53,7 +54,7 @@ export class DesignEditor extends (PureComponent || Component) {
     super(props);
 
     this.state = assign({}, this.state, {
-      meta: {}
+      meta: {},
     });
 
     this.validateValue();
@@ -80,7 +81,7 @@ export class DesignEditor extends (PureComponent || Component) {
     }
 
     onChange({
-      [name]: value
+      [name]: value,
     });
 
     this.setMetaProperty(name, 'dirty');
@@ -141,8 +142,8 @@ export class DesignEditor extends (PureComponent || Component) {
     if (!states || states[property] !== state) {
       this.setState({
         meta: assign({}, meta, {
-          [name]: assign({}, states, { [property]: state })
-        })
+          [name]: assign({}, states, { [property]: state }),
+        }),
       });
     }
   }
@@ -177,6 +178,13 @@ export class DesignEditor extends (PureComponent || Component) {
   reorder(array, fromIndex, toIndex) {
     return reorder(array, fromIndex, toIndex);
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      !shallowEqual(this.props, nextProps) ||
+      !shallowEqual(this.state, nextState)
+    );
+  }
 }
 
 /**
@@ -187,7 +195,7 @@ export class ControlGroup extends (PureComponent || Component) {
     showError: PropTypes.bool,
     error: PropTypes.node,
     showLabel: PropTypes.bool,
-    helpDesc: PropTypes.string,
+    helpDesc: PropTypes.node,
     label: PropTypes.node,
 
     // 自定义label对齐方式
@@ -198,7 +206,7 @@ export class ControlGroup extends (PureComponent || Component) {
 
     required: PropTypes.bool,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -207,7 +215,7 @@ export class ControlGroup extends (PureComponent || Component) {
     showLabel: true,
     focusOnLabelClick: true,
     error: '',
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
@@ -222,7 +230,7 @@ export class ControlGroup extends (PureComponent || Component) {
       helpDesc,
       required,
       children,
-      focusOnLabelClick
+      focusOnLabelClick,
     } = this.props;
 
     const errorVisible = showError && error;
@@ -230,13 +238,13 @@ export class ControlGroup extends (PureComponent || Component) {
     return (
       <div
         className={cx(`${prefix}-design-editor__control-group`, className, {
-          'has-error': errorVisible
+          'has-error': errorVisible,
         })}
       >
         {React.createElement(
           focusOnLabelClick ? 'label' : 'div',
           {
-            className: `${prefix}-design-editor__control-group-container`
+            className: `${prefix}-design-editor__control-group-container`,
           },
           showLabel ? (
             <div

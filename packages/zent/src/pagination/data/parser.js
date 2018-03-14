@@ -5,14 +5,14 @@ const parser = {
   getPrev(conf) {
     return {
       content: '❮',
-      target: conf.current === 1 ? null : conf.current - 1
+      target: conf.current === 1 ? null : conf.current - 1,
     };
   },
 
   getNext(conf) {
     return {
       content: '❯',
-      target: conf.current === conf.total ? null : conf.current + 1
+      target: conf.current === conf.total ? null : conf.current + 1,
     };
   },
 
@@ -44,7 +44,7 @@ const parser = {
 
     res = {
       content: `${index} `,
-      target: index
+      target: index,
     };
 
     if (conf.current === index) {
@@ -62,7 +62,7 @@ const parser = {
       return {
         content: `${conf.current} `,
         total: conf.total,
-        type: 'input'
+        type: 'input',
       };
     }
     return null;
@@ -134,7 +134,7 @@ const parser = {
     pages.push(this.getJump(conf));
 
     return pages;
-  }
+  },
 };
 
 export default parser;

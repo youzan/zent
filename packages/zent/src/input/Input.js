@@ -29,7 +29,7 @@ export default class Input extends (PureComponent || Component) {
     initSelectionStart: PropTypes.number,
     initSelectionEnd: PropTypes.number,
     autoSelect: PropTypes.bool,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   static defaultProps = {
@@ -39,7 +39,7 @@ export default class Input extends (PureComponent || Component) {
     type: 'text',
     autoFocus: false,
     autoSelect: false,
-    showClear: false
+    showClear: false,
   };
 
   componentDidMount() {
@@ -47,7 +47,7 @@ export default class Input extends (PureComponent || Component) {
       autoFocus,
       autoSelect,
       initSelectionStart,
-      initSelectionEnd
+      initSelectionEnd,
     } = this.props;
 
     if (autoFocus) {
@@ -86,10 +86,13 @@ export default class Input extends (PureComponent || Component) {
       onChange({
         target: {
           ...this.props,
-          value: ''
+          value: '',
         },
         preventDefault: () => evt.preventDefault(),
-        stopPropagation: () => evt.stopPropagation()
+        stopPropagation: () => evt.stopPropagation(),
+
+        // 标记这个事件来自清空按钮
+        fromClearButton: true,
       });
   };
 
@@ -109,7 +112,7 @@ export default class Input extends (PureComponent || Component) {
       showClear,
       width,
       disabled,
-      readOnly
+      readOnly,
     } = this.props;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
@@ -120,7 +123,7 @@ export default class Input extends (PureComponent || Component) {
         [`${prefix}-input-wrapper`]: true,
         [`${prefix}-input-wrapper__not-editable`]: !editable,
         [`${prefix}-textarea-wrapper`]: isTextarea,
-        [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore)
+        [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore),
       },
       className
     );
@@ -136,7 +139,7 @@ export default class Input extends (PureComponent || Component) {
       'showClear',
       'autoSelect',
       'initSelectionStart',
-      'initSelectionEnd'
+      'initSelectionEnd',
     ]);
 
     if (isTextarea) {

@@ -26,7 +26,7 @@ export default class Store {
       const props = get(this.state, propsName);
       if (callBack && !has(this.state, propsName)) {
         this.setState({
-          [propsName]: callBack()
+          [propsName]: callBack(),
         });
         return this.getState(propsName);
       }

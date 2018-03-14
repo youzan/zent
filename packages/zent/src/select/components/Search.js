@@ -5,10 +5,16 @@ class Search extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     this.changeHandler = this.changeHandler.bind(this);
+    this.focused = false;
   }
 
-  componentDidMount() {
-    this.input.focus();
+  componentWillReceiveProps(nextProps) {
+    if (!this.focused && nextProps.ready) {
+      setTimeout(() => {
+        this.input.focus();
+      }, 150);
+      this.focused = true;
+    }
   }
 
   changeHandler(ev) {
@@ -36,7 +42,7 @@ class Search extends (PureComponent || Component) {
 Search.propTypes = {
   prefixCls: PropTypes.string,
   value: PropTypes.any,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 
 export default Search;

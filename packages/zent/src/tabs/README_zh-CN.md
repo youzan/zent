@@ -19,9 +19,9 @@ group: 导航
 | type        | tabs组件类型  | string   | `'normal'` | `'card'`, `'slider'`  | 否    |
 | size        | tabs的尺寸类型 | string   | `'normal'` | `'huge'`              | 否    |
 | align       | tabs的布局类型 | string   | `'left'`   | `'right'`, `'center'` | 否    |
-| onTabChange | 选中的tab改变时 | func(id) |            |                       | 否    |
-| onTabDel    | 关闭tab时    | func(id) |            |                       | 否    |
-| onTabAdd    | 点击增加tab时  | func     |            |                       | 否    |
+| onChange    | 选中的tab改变时 | func(id) |            |                       | 否    |
+| onDelete    | 关闭tab时    | func(id) |            |                       | 否    |
+| onAdd       | 点击增加tab时  | func     |            |                       | 否    |
 | candel      | 是否可删除     | bool     | `false`    |                       | 否    |
 | canadd      | 是否可增加tab  | bool     | `false`    |                       | 否    |
 | tabs | 不使用Panel时的标签列表 | Array | `null` | | 否 |

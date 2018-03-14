@@ -8,7 +8,7 @@ describe('Form-Utilities', () => {
     silenceEvent,
     silenceEvents,
     getCurrentValue,
-    prefixName
+    prefixName,
   } = Utils;
 
   it('getValue', () => {
@@ -17,7 +17,7 @@ describe('Form-Utilities', () => {
     const target = {};
     const canPassEventTest = {
       preventDefault: () => {},
-      stopPropagation: () => {}
+      stopPropagation: () => {},
     };
 
     // return arg[0]
@@ -62,7 +62,7 @@ describe('Form-Utilities', () => {
     target.options = [
       { selected: 0, value: 1 },
       { selected: 1, value: 0 },
-      { selected: 'foo', value: 'bar' }
+      { selected: 'foo', value: 'bar' },
     ];
     expect(getValue(canPassEventTest).length).toBe(2);
     expect(getValue(canPassEventTest)[0]).toBe(0);
@@ -99,7 +99,7 @@ describe('Form-Utilities', () => {
     const stopMock = jest.fn();
     const eventObj = {
       preventDefault: preMock,
-      stopPropagation: stopMock
+      stopPropagation: stopMock,
     };
 
     // return isEvent(arg[0])
@@ -117,7 +117,7 @@ describe('Form-Utilities', () => {
     const preMock = jest.fn();
     const eventObj = {
       preventDefault: preMock,
-      stopPropagation: true
+      stopPropagation: true,
     };
     const notEventObj = { bar: 'foo' };
 
@@ -157,7 +157,7 @@ describe('Form-Utilities', () => {
     const stopMock = jest.fn();
     const eventObj = {
       preventDefault: preMock,
-      stopPropagation: stopMock
+      stopPropagation: stopMock,
     };
 
     // return isEvent(arg[0])

@@ -52,18 +52,20 @@ export default class Sortable extends (PureComponent || Component) {
     onRemove: PropTypes.func,
     onFilter: PropTypes.func,
     onMove: PropTypes.func,
-    onClone: PropTypes.func
+    onClone: PropTypes.func,
   };
 
   static defaultProps = {
     prefix: 'zent',
-    tag: 'div'
+    tag: 'div',
   };
 
   initSortable = instance => {
     const {
       prefix,
       options,
+      onMove,
+      onEnd,
       onChange,
       filterClass,
       children,
@@ -75,21 +77,33 @@ export default class Sortable extends (PureComponent || Component) {
     }
 
     const sortableOptions = {
-      filter: `.${filterClass}`,
+      filter: filterClass ? `.${filterClass}` : '',
       ghostClass: `${prefix}-ghost`,
       chosenClass: `${prefix}-chosen`,
       dragClass: `${prefix}-drag`,
       fallbackClass: `${prefix}-fallback`,
       onMove: e => {
+        if (onMove) {
+          return onMove(e);
+        }
+
         return e.related.className !== filterClass;
       },
       onEnd: e => {
         const { items } = this.props;
+
+        onEnd && onEnd(e);
+
+        if (!items) {
+          return;
+        }
+
         const { oldIndex, newIndex } = e;
         const newItems = reorder(items, oldIndex, newIndex);
+
         onChange && onChange(newItems);
       },
-      ...rest
+      ...rest,
     };
 
     this.sortable = sortableJS.create(instance, sortableOptions);

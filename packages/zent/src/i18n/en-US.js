@@ -4,7 +4,8 @@ const common = {
   confirm: 'Confirm',
   cancel: 'Cancel',
   comma: ', ',
-  ok: 'OK'
+  ok: 'OK',
+  reset: 'Reset',
 };
 
 export const mark = 'en-US';
@@ -12,7 +13,7 @@ export const mark = 'en-US';
 export const CopyButton = {
   copy: 'Copy',
   success: 'Copied',
-  error: 'Copy failed'
+  error: 'Copy failed',
 };
 
 export const Pagination = {
@@ -20,60 +21,61 @@ export const Pagination = {
   total: 'Total',
   pages: 'pages',
   items: ' items',
-  perPage: ' per page'
+  perPage: ' per page',
 };
 
 export const Pop = {
-  ...common
+  ...common,
 };
 
 export const PreviewImage = {
   alt: 'Image download failed',
   prev: 'Previous',
   next: 'Next',
-  rotate: 'Rotate'
+  rotate: 'Rotate',
 };
 
 export const RangePicker = {
   7: '7 days',
-  30: '30 days'
+  30: '30 days',
 };
 
 export const Select = {
   input: 'Please choose...',
-  search: 'No matches found'
+  empty: 'No matches found',
 };
 
 export const Sweetalert = {
   ...common,
-  title: 'Alert'
+  title: 'Alert',
 };
 
 export const Switch = {
   checked: 'On',
-  unchecked: 'Off'
+  unchecked: 'Off',
 };
 
 export const Grid = {
   ...common,
-  emptyLabel: 'No data'
+  emptyLabel: 'No data',
 };
 
 export const Table = {
   ...common,
-  emptyLabel: 'No data'
+  emptyLabel: 'No data',
 };
 
 export const Cascader = {
   ...common,
   title: 'Title',
-  placeholder: 'Please choose'
+  placeholder: 'Please choose',
 };
 
 export const TimePicker = () => {
   setLocale(enUS);
   return {
     ...common,
+    time: 'Please select a time',
     date: 'Please select a date',
     week: 'Please select a week',
     month: 'Please select a month',
@@ -83,13 +85,15 @@ export const TimePicker = () => {
     rangeError: 'Please select the starting and ending time',
     start: 'Start date',
     end: 'End date',
+    startTime: 'Start time',
+    endTime: 'End time',
     to: 'to',
     current: {
       time: 'Now',
       date: 'Today',
       week: 'This week',
       month: 'This month',
-      year: 'This year'
+      year: 'This year',
     },
     panel: {
       hour: '',
@@ -103,7 +107,7 @@ export const TimePicker = () => {
         '1st Quarter',
         '2nd Quarter',
         '3rd Quarter',
-        '4th Quarter'
+        '4th Quarter',
       ],
       dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
       monthNames: [
@@ -118,8 +122,60 @@ export const TimePicker = () => {
         'Sep',
         'Oct',
         'Nov',
-        'Dec'
-      ]
-    }
+        'Dec',
+      ],
+    },
   };
+};
+
+export const Sku = {
+  notify: 'The same sku name not allowed',
+  buttonAdd: 'Add sku',
+  container: {
+    del: 'Delete',
+    replace: 'Replace',
+    add: '+Add',
+  },
+  group: {
+    add: 'Add sku image',
+    imageTip1: 'Only the first sku portrait can be set',
+    imageTip2:
+      'After setting, corresponding portrait of the choosen sku will be rendered.',
+    imageTip3: 'Recommended size: 640 x 640 pixels.',
+  },
+};
+
+const TypeMap = {
+  image: 'Image',
+  voice: 'Audio',
+};
+
+export const Upload = {
+  ...common,
+  title_voice: 'Choose voice',
+  title_image: 'Choose image',
+  input: {
+    holder: 'Add',
+    maxAmount({ maxAmount, type }) {
+      return `Only ${maxAmount} ${TypeMap[type]} files can be added`;
+    },
+    maxSize({ maxSize, type }) {
+      return `${TypeMap[type]} files larger than ${maxSize} have been filtered`;
+    },
+    type({ type }) {
+      return `${TypeMap[type]} files with incorrect type have been filtered`;
+    },
+  },
+  popup: {
+    web: 'Web image',
+    group: 'Group',
+    holder: 'Image url',
+    title_voice: 'Local audio',
+    title_image: 'Local image',
+    type({ types, size }) {
+      return `Supports ${types.join(' /')} only, smaller than ${size}`;
+    },
+    extract: 'Extract',
+    extracting: 'Extracting...',
+  },
 };

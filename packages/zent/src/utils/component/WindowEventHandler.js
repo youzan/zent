@@ -5,11 +5,11 @@ export default class WindowEventHandler extends (PureComponent || Component) {
   static propTypes = {
     eventName: PropTypes.string.isRequired,
     callback: PropTypes.func.isRequired,
-    useCapture: PropTypes.bool
+    useCapture: PropTypes.bool,
   };
 
   static defaultProps = {
-    useCapture: false
+    useCapture: false,
   };
 
   componentDidMount() {

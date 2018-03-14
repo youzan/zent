@@ -11,12 +11,12 @@ export default class DesignEditorItem extends (PureComponent || Component) {
 
     prefix: PropTypes.string,
 
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   static defaultProps = {
     disabled: false,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {

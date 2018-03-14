@@ -21,21 +21,21 @@ export default class DesignEditorAddComponent extends (PureComponent ||
 
     fromSelected: PropTypes.bool,
 
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
     fromSelected: false,
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   state = {
-    popVisibleMap: new LazyMap(false)
+    popVisibleMap: new LazyMap(false),
   };
 
   onPopVisibleChange = key => visible => {
     this.setState({
-      popVisibleMap: this.state.popVisibleMap.clone().set(key, visible)
+      popVisibleMap: this.state.popVisibleMap.clone().set(key, visible),
     });
   };
 
@@ -126,7 +126,7 @@ function ComponentGroup({
   onAdd,
   componentInstanceCount,
   onPopVisibleChange,
-  popVisibleMap
+  popVisibleMap,
 }) {
   return (
     <div className={`${prefix}-design-editor-add-component__grouped`}>
@@ -164,7 +164,7 @@ function ComponentButton(props) {
     onAdd,
     popVisibleMap,
     onPopVisibleChange,
-    type
+    type,
   } = props;
 
   const disabled = !canAddMoreInstance(component, componentInstanceCount);
@@ -187,7 +187,7 @@ function ComponentButton(props) {
       <a
         onClick={onAdd(component)}
         className={cx(`${prefix}-design-editor-add-component__${type}-btn`, {
-          [`${prefix}-design-editor-add-component__${type}-btn--disabled`]: disabled
+          [`${prefix}-design-editor-add-component__${type}-btn--disabled`]: disabled,
         })}
         disabled={disabled}
       >

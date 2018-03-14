@@ -13,6 +13,7 @@ describe('Steps', () => {
         <Step title="第三步" />
       </Steps>
     );
+    expect(wrapper.find('.zent-steps__horizontal').length).toBe(1);
     expect(wrapper.find('Steps').length).toBe(1);
     expect(wrapper.find('NumberSteps').length).toBe(1);
     expect(wrapper.find('Step').length).toBe(3);
@@ -108,5 +109,16 @@ describe('Steps', () => {
       </Steps>
     );
     expect(wrapper.find('.zent-step-description').length).toBe(3);
+  });
+
+  it('vertical steps', () => {
+    const wrapper = mount(
+      <Steps direction="vertical">
+        <Step title="第一步" />
+        <Step title="第二步" />
+        <Step title="第三步" />
+      </Steps>
+    );
+    expect(wrapper.find('.zent-steps__vertical').length).toBe(1);
   });
 });

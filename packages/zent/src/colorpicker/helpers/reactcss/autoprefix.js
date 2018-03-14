@@ -7,7 +7,7 @@ const transforms = {
       MozBorderRadius: value,
       OBorderRadius: value,
       WebkitBorderRadius: value,
-      borderRadius: value
+      borderRadius: value,
     };
   },
   boxShadow: value => {
@@ -16,7 +16,7 @@ const transforms = {
       MozBoxShadow: value,
       OBoxShadow: value,
       WebkitBoxShadow: value,
-      boxShadow: value
+      boxShadow: value,
     };
   },
   userSelect: value => {
@@ -26,7 +26,7 @@ const transforms = {
       MozUserSelect: value,
       msUserSelect: value,
       WebkitUserSelect: value,
-      userSelect: value
+      userSelect: value,
     };
   },
 
@@ -36,19 +36,19 @@ const transforms = {
       MozBoxFlex: value,
       WebkitFlex: value,
       msFlex: value,
-      flex: value
+      flex: value,
     };
   },
   flexBasis: value => {
     return {
       WebkitFlexBasis: value,
-      flexBasis: value
+      flexBasis: value,
     };
   },
   justifyContent: value => {
     return {
       WebkitJustifyContent: value,
-      justifyContent: value
+      justifyContent: value,
     };
   },
 
@@ -58,7 +58,7 @@ const transforms = {
       MozTransition: value,
       OTransition: value,
       WebkitTransition: value,
-      transition: value
+      transition: value,
     };
   },
 
@@ -68,7 +68,7 @@ const transforms = {
       MozTransform: value,
       OTransform: value,
       WebkitTransform: value,
-      transform: value
+      transform: value,
     };
   },
   absolute: value => {
@@ -78,9 +78,9 @@ const transforms = {
       top: direction && direction[0],
       right: direction && direction[1],
       bottom: direction && direction[2],
-      left: direction && direction[3]
+      left: direction && direction[3],
     };
-  }
+  },
   // extend: (name, otherElementStyles) => {
   //   const otherStyle = otherElementStyles[name];
   //   if (otherStyle) {

@@ -2,6 +2,157 @@
 
 3.5.3 之前版本的详细修改记录请看 [Github 日志](github_changelog#zent-3-5-2-2017-09-07)。
 
+### 升级指南
+
+- [3.x 升级指南](../migrating/3x)
+- [2.1.x 升级指南](../migrating/21x)
+
+### 4.3.2 (2018-03-07)
+
+- 🦀️ 更新 `Loading` 组件高度设置逻辑
+- 🦀️ 修复 `Paginatin` 文案
+- 🦀️ 修复 `Radio` 和 `Checkbox` 组件嵌套使用时的问题
+- 🦀️ `Radio` 和 `Checkbox` 的分组组件只读或禁用时会忽略组件自身的设置
+- 🦀️ 修复 `Upload` 组件样式问题
+
+### 4.3.1 (2018-03-05)
+
+- 🦀️ 修复 `Select` 组件在标签样式下 placeholder 缩进不一致的问题
+- 🦀️ 修复 `Popover` 在特定情况下循环调用 `adjustPosition` 的问题
+- 🦀️ 调整 `Tree` 组件的字体大小
+- 🦀️ 修复 `Grid` 组件在 Windows 系统下的现实问题
+- 🦀️ 修复 `CopyButton` 在某些情况下选择错误的问题
+
+### 4.3.0 (2018-02-14)
+
+> 情人节快乐！新春快乐!
+
+- 🎉 新增 `AutoComplete` 组件
+- 🎉 新增 `Rate` 评分组件
+- 🦀️ 优化 `Notify` 动画
+- 🦀️ 去除 `Tabs` 组件样式中不必要的 `!important`
+- 🦀️ 修复 `Select` 搜索框无法获取输入焦点的问题
+
+### 4.2.3 (2018-02-09)
+
+- 🦀️ 修复 `Sortable` 在没传 `items` 时的问题
+
+### 4.2.2 (2018-02-07)
+
+- ✨ `Steps` 新增垂直样式
+- 🦀️ 修复 `Grid` 表头高度问题
+- 🦀️ 修复打包 CSS 样式丢失问题
+
+### 4.2.1 (2018-02-06)
+
+请不要使用这个版本，用 4.2.2。
+
+- 🦀️ 修复 `Upload` 文件类型判断问题
+
+### 4.2.0 (2018-02-05)
+
+请不要使用这个版本，用 4.2.2。
+
+- 🎉 新组件 `Avatar`
+- 🎉 新组件 `Collpase`
+- ✨ `Menu` 增加内联模式
+- ✨ `Cascader` 支持菜单样式
+- ✨ `Input` 清空按钮的回调函数中加入判断来自按钮的参数
+- ✨ 补全各个时间选择器的 `TypeScript` 定义
+- ✨ `Badge` 组件支持自定义偏移量
+- ✨ `NumberInput` 支持回车确认输入 
+- ✨ `Upload` 的 `onUpload` 回调支持返回一个 `Promise`
+- 🦀️ 修复 `Sortable` 中 `onMove`, `onEnd` 与 `onChange` 同时传入时的问题
+- 🦀️ 修复 `Form` 中的多行文本框无法换行的问题
+- 🦀️ 修复 `InfiniteScroller` 样式问题
+- 🦀️ 修复 `Select` 键盘事件无效的问题
+- 🦀️ 修复 `Grid` 边框样式问题
+- 🦀️ 修复 `Select` 死循环问题
+
+### 4.1.0 (2018-01-29)
+
+- 🎉 新增 `TimePicker` 和 `TimeRangePicker`
+- 🎉 新增 `Placeholder` 组件
+- 🎉 新的文档网站样式
+- `Card`
+  - ✨ 新增 `loading` 状态支持
+  - ✨ 支持嵌套的卡片
+  - 🦀️ 样式更新
+- ✨ `DatePicker` 支持 `canClear` 参数配置是否可以清除选中的时间
+- `Upload`
+  - ✨ 支持外部传入分组
+  - 🦀️ 修复可以选择超过 `maxAmount` 数量文件的问题
+  - 🦀️ 修复自动弹出的问题
+- 🦀️ 修复 `Notify` 背景色
+
+### 4.0.0 (2018-01-23)
+
+- 💥 `DateRangePicker` 不再支持合并模式，`type` 参数废弃，升级请注意样式
+- `Upload` 
+  - ✨ 支持分组功能
+  - ✨ 国际化支持
+- ✨ `Menu` 支持图标展示
+- `DatePicker`
+  - 🦀️ 修复未选择时间直接确认没有考虑最小时间的问题
+  - 🦀️ 修复最小时间的判断问题
+- `Design`
+  - 🦀️ 文档样式修复
+  - 🦀️ `DesignEditor` 不再继承 `PureComponent`
+- 🦀️ `Slider` 样式修复
+- 🦀️ 修复文档网站锚点失效的问题
+- 🦀️ `Grid` 修复头部高度不同步的问题
+- 🦀️ 优化 `Notify` 的动画
+- `Select`
+  - 🦀️ 修复在部分浏览器下的兼容性问题
+  - 🦀️ 修复 `emptyText` 无效的问题
+- 🦀️ `Sortable` 修复示例
+
+### 3.12.3 (2018-01-10)
+
+- 🦀️ 修复 `Slider` 组件背景色问题
+- 🦀️ `Upload` 添加 `image/bmp` 支持
+- 🦀️ 修复 `Design` demo 中按钮布局和样式
+
+### 3.12.2 (2018-01-09)
+
+- ✨ `Loading` 没有 `children` 时去掉蒙层的背景色
+- ✨ 重命名文件，保持项目内统一
+- 🦀️ 修复 `Grid` 头部样式
+- 🦀️ 修复大号 `Button` 字体大小
+- 🦀️ 修复 `MonthPicker` 没有判断年份的问题
+- 📚 增加了国际化的文档
+
+### 3.12.1 (2018-01-05)
+
+- 🦀️ 修复 `CombineDateRangePicker` 没有选完就关闭的问题
+- 🦀️ 修复 `Notify` 出场动画问题
+
+### 3.12.0 (2018-01-04)
+
+- 🎉 新增拖拽排序组件 `Sortable`
+- 🎉 组件国际化支持
+- ✨ `Tag` 支持外部控制显示隐藏
+- ✨ `Input` 组件支持清除按钮
+- ✨ `Grid` 组件支持表头固定垂直滚动
+- ✨ `Notify` 支持多个实例排列显示，同时加上了进出场动画
+- `Form`
+  - ✨ `Field` 修改错误显示逻辑，支持 `displayError` 控制错误是否显示
+  - ✨ `Field` 支持 `relatedFields` 指定检验时同时触发的其他字段
+  - ✨ 重写 `FieldArray`
+- ✨ `Swiper` 支持动态增减图片
+- ✨ `Design` 支持 `settings` 以及 `onSettingsChange` 来设置动态全局配置
+- ✨ `Sweetalert` 支持配置关闭按钮以及点击蒙层是否关闭
+- 🦀️ 修复 `DateRangePicker` 禁用样式
+- 🦀️ 修复 `Loading` 布局中的问题
+- 🦀️ 修复 `DatePicker` `onChange` 值不对的问题
+- 🦀️ 修复 `NumberInput` `onBlur` 与 `onChange` 事件抛出的值不一致的问题
+- 🦀️ 修复 `Upload` 上传图片乱序的问题
+- 🦀️ 修复 `Select` tag 类型选中顺序不一致的问题
+- 🦀️ 修复 `ColorPicker` 颜色输入框无法删除的问题
+- 🦀️ 修复 `textarea` 高度抖动的问题
+- 🦀️ 修复了一些 typo
+- 🦀️ 修复 `yarn new-component` 命令
+
 ### 3.11.0 (2017-12-20)
 
 - 🎉 新组件季度选择器 `QuarterPicker`

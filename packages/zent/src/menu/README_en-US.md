@@ -12,20 +12,23 @@ Menu, can be used to provide navigation.
 
 #### Menu
 
-| Property | Description | Type | Default |
-|------|------|------|--------|
-| onClick | Callback fires when a node of menu is clicked | func |  |
-| style | Custom inline styles | object |  |
+| Property | Description | Type | Default | Optional |
+|------|------|------|--------|---------|
+| onClick | Callback fires when a node of menu is clicked | func |  | |
+| style | Custom inline styles | object |  | |
+| mode | the display mode | string | 'pop' | 'pop', 'inline' |
+| defaultExpandKeys | the default expand keys for SubMenu | array | | |
+| defaultSelectedKey | the default selected Key for MenuItem | string | |
+| inlineIndent | the distance in px when the mode is inline | number | 24 | |
 | className | class name for the node | string |  |
-| prefix | custom prefix | string | 'zent' |
+| prefix | custom prefix | string | 'zent' | |
 
 
 #### MenuItem
 
 | Property | Description | Type | Default |
 |------|------|------|--------|
-| key | the unique identify of the
- item | string | an ID generated internally  |
+| key | the unique identify of the item | string | an ID generated internally |
 | disabled | whether to disable the menu item  | bool |  |
 | className | custom class name | string |  |
 | prefix | custom prefix | string | 'zent' |
@@ -35,7 +38,8 @@ Menu, can be used to provide navigation.
 
 | Property | Description | Type | Default |
 |------|------|------|--------|
-| title | title of the submenu | string |  |
+| key | the unique identify of the item | string | an ID generated internally |
+| title | title of the submenu | node |  |
 | disabled | whether to disable the submenu  | bool |  |
 | overlayClassName | custom class name of the pop menu | string |  |
 | className | custom class name of the submenu item | string |  |

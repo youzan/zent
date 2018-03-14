@@ -10,16 +10,18 @@ Badge normally appears in the upper right corner of the notification or avatar w
 
 ### Guides
 
--  Badge is used to prompt for new messages, which is placed in the upper right corner or right side of the text or icon.
--  Badge can display the specific number of new messages.
+- Badge is used to prompt for new messages, which is placed in the upper right corner or right side of the text or icon.
+- Badge can display the specific number of new messages.
 
 ### API
 
-| Property     |  Description  | Type     | Default  | Alternative |
+| Property     |  Description  | Type     |  Required  | Default  | Alternative |
 | ---------| ----------------- | ------  | -------------|----------------- |
-| count | The number of messages to show | int | `0` | |
-| maxCount | Max count to show | int | `99`  |                  |
-| dot | Whether to show red dot without number | bool | `false` | `true`, `false` |
-| showZero | Whether to show badge when count is zero | bool | `false` | `true`, `false`  |
-| className| The custom classname | string   | `''` |   |
-| prefix | The custom prefix | string   | `'zent'` |  |
+| count | The number of messages to show | `number` | No | `0` | |
+| maxCount | Max count to show | `number` | No | `99`  |                  |
+| dot | Whether to show red dot without number | `bool` | No | `false` | `true`, `false` |
+| showZero | Whether to show badge when count is zero | `bool` | No |  `false` | `true`, `false`  |
+| offset   | Badge offset, `[x, y]` | `array` | No | | |
+| style    | Custom style | `object` | No | | |
+| className| The custom classname | `string`   | No | `''` |   |
+| prefix | The custom prefix | `string`   | No | `'zent'` |  |

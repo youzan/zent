@@ -1,44 +1,74 @@
 @import './theme/default.pcss';
 
 .zent-notify-container {
+  z-index: 10000;
   position: fixed;
+  min-width: 330px;
+  max-width: 720px;
   top: 80px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .zent-notify {
-  padding: 0 25px;
-  margin-bottom: 10px;
-  line-height: 40px;
-  font-size: 14px;
-  color: $theme-stroke-10;
-  text-align: center;
-  border-radius: 2px;
-  box-sizing: border-box;
-  z-index: 10000;
-  height: 40px;
-  width: 330px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  animation-name: notifyMoveIn;
-  animation-duration: 0.3s;
+  padding-bottom: 10px;
 
-  &.zent-notify-success {
-    border: 1px solid $theme-success-1;
-    background: $theme-success-4;
-  }
+  &-content {
+    padding: 0 25px;
+    line-height: 40px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 14px;
+    color: $theme-stroke-10;
+    text-align: center;
+    border-radius: 2px;
+    box-sizing: border-box;
 
-  &.zent-notify-error {
-    border: 1px solid $theme-error-1;
-    background: $theme-error-2;
+    &:empty:before {
+      content: "\200b";
+    }
+
+    &.zent-notify-content-success {
+      background: $notify-success;
+    }
+
+    &.zent-notify-content-error {
+      background: $notify-error;
+    }
   }
 }
 
-.zent-notify-exiting {
+.notify-appear {
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.notify-appear.notify-appear-active {
+  animation-play-state: running;
+  animation-name: notifyMoveIn;
+  animation-duration: 0.3s;
+}
+
+.notify-exit {
+  animation-fill-mode: both;
+  animation-play-state: paused;
+
+  .zent-notify-content {
+    animation-fill-mode: both;
+    animation-play-state: paused;
+  }
+}
+
+.notify-exit.notify-exit-active {
+  animation-play-state: running;
   animation-name: notifyMoveOut;
   animation-duration: 0.3s;
+
+  .zent-notify-content {
+    animation-play-state: running;
+    animation-name: notifyContentMoveOut;
+    animation-duration: 0.3s;
+  }
 }
 
 @keyframes notifyMoveIn {
@@ -56,11 +86,22 @@
 @keyframes notifyMoveOut {
   0% {
     opacity: 1;
-    max-height: 150px;
+    max-height: 50px;
   }
 
   100% {
     opacity: 0;
     max-height: 0;
+    padding: 0;
+  }
+}
+
+@keyframes notifyContentMoveOut {
+  0% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-100%);
   }
 }

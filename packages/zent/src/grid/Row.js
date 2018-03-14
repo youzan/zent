@@ -14,7 +14,7 @@ class Row extends (PureComponent || Component) {
       rowClassName,
       onRowClick,
       fixed,
-      fixedColumnsBodyRowsHeight
+      fixedColumnsBodyRowsHeight,
     } = this.props;
 
     const cells = [];
@@ -23,18 +23,16 @@ class Row extends (PureComponent || Component) {
       ? rowClassName(data, rowIndex)
       : rowClassName;
 
-    let height = null;
+    const height =
+      fixed && fixedColumnsBodyRowsHeight[rowIndex]
+        ? fixedColumnsBodyRowsHeight[rowIndex]
+        : null;
 
     forEach(columns, (column, columnIndex) => {
       let pos = {
         row: rowIndex,
-        column: columnIndex
+        column: columnIndex,
       };
-
-      height =
-        fixed && fixedColumnsBodyRowsHeight[columnIndex]
-          ? fixedColumnsBodyRowsHeight[columnIndex]
-          : null;
 
       cells.push(
         <Cell

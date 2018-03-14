@@ -22,6 +22,7 @@ group: 数据
 | checked       | 指定当前是否选中  | bool          | `false`  |
 | value         | 组件对应的值，在`CheckboxGroup`中使用    | any           |          |
 | disabled      | 使组件不可用    | bool          |          |
+| readOnly      | 使组件只读           | bool               |                 |
 | indeterminate | 展示部分选中的模式 | bool          | `false`  |
 | onChange      | 变化时回调函数   | func(e:Event) |          |
 | className     | 自定义额外类名   | string        |          |
@@ -34,6 +35,7 @@ group: 数据
 | value        | 必填，指定选中的选项      | array<any>         | `[]`            |
 | isValueEqual | 可选，判断value值是否相等 | func(a, b)         | `() => a === b` |
 | disabled     | 使组件不可用          | bool               |                 |
+| readOnly     | 使组件只读           | bool               |                 |
 | onChange     | 变化时回调函数         | func(checkedValueList) |                 |
 | className    | 自定义额外类名         | string             |                 |
 | prefix       | 自定义前缀           | string             | `'zent'`        |

@@ -31,17 +31,17 @@ describe('Breadcrumb', () => {
     const breads = [
       {
         name: 'foo',
-        href: 'bar'
+        href: 'bar',
       },
       {
         name: 'bar',
         href: 'foo',
-        className: 'bread-link'
+        className: 'bread-link',
       },
       {
         name: 'foobar',
-        className: 'bread-span'
-      }
+        className: 'bread-span',
+      },
     ];
     const wrapper = mount(<Breadcrumb breads={breads} />);
     expect(wrapper.find('a').length).toBe(2);
@@ -60,8 +60,8 @@ describe('Breadcrumb', () => {
       {
         name: 'foo',
         href: 'bar',
-        className: 'foobar'
-      }
+        className: 'foobar',
+      },
     ];
     const wrapper = mount(
       <Breadcrumb breads={breads}>
@@ -143,8 +143,8 @@ describe('Breadcrumb', () => {
         name: 'foo',
         href: 'bar',
         className: 'foobar',
-        target: '_blank'
-      }
+        target: '_blank',
+      },
     ];
     const wrapper = mount(
       <Breadcrumb breads={breads}>

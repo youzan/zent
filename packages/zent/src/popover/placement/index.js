@@ -39,5 +39,5 @@ export default {
   AutoBottomCenter,
   AutoTopLeft,
   AutoTopRight,
-  AutoTopCenter
+  AutoTopCenter,
 };

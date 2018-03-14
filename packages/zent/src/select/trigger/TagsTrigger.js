@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
@@ -29,21 +30,21 @@ class TagsTrigger extends (PureComponent || Component) {
       selectedItems.push({
         cid,
         text,
-        value
+        value,
       });
       this.props.onChange({
         selectedItems,
         selectedItem: {
-          value: ''
+          value: '',
         },
-        open: false
+        open: false,
       });
     } else if (isExist) {
       this.isAdded = true;
       this.props.onChange({
         selectedItem: {
-          value: ''
-        }
+          value: '',
+        },
       });
     }
   }
@@ -56,7 +57,7 @@ class TagsTrigger extends (PureComponent || Component) {
     this.props.onChange({
       selectedItems: selectedItems.filter(item => item.cid !== cid),
       selectedItem: {},
-      open: false
+      open: false,
     });
   }
 
@@ -66,7 +67,12 @@ class TagsTrigger extends (PureComponent || Component) {
     return (
       <Receiver componentName="Select" defaultI18n={I18nDefault}>
         {i18n => (
-          <div className={`${prefixCls}-tags`} onClick={onClick}>
+          <div
+            className={cx(`${prefixCls}-tags`, {
+              tags__empty: !selectedItems.length,
+            })}
+            onClick={onClick}
+          >
             {selectedItems.length > 0
               ? selectedItems.map((item, index) => {
                   return (
@@ -93,12 +99,12 @@ TagsTrigger.propTypes = {
   selectedItem: PropTypes.object,
   placeholder: PropTypes.string,
   value: PropTypes.any,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
 };
 
 TagsTrigger.defaultProps = {
   selectedItems: [],
-  onDelete: noop
+  onDelete: noop,
 };
 
 export default TagsTrigger;

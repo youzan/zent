@@ -1,9 +1,11 @@
 import React, { Component, PureComponent } from 'react';
+import cx from 'classnames';
+
 import { getElementLeft, getElementTop } from './getPosition';
 
 export default class Loading extends (PureComponent || Component) {
   state = {
-    show: this.props.show
+    show: this.props.show,
   };
 
   show = info => {
@@ -23,13 +25,13 @@ export default class Loading extends (PureComponent || Component) {
           left: getElementLeft(target),
           top: getElementTop(target),
           width: target.offsetWidth,
-          height: target.offsetHeight
+          height: target.offsetHeight,
         };
       }
     }
 
     this.setState({
-      show: info.show
+      show: info.show,
     });
   };
 
@@ -64,25 +66,30 @@ export default class Loading extends (PureComponent || Component) {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      show: nextProps.show
+      show: nextProps.show,
     });
   }
 
   render() {
-    let { prefix, className, containerClass } = this.props;
+    let { prefix, className, containerClass, children } = this.props;
 
     if (!this.props.float) {
       return (
         <div
-          className={`${prefix}-loading-container ${prefix}-loading-container-static ${containerClass}`}
+          className={cx(
+            `${prefix}-loading-container`,
+            `${prefix}-loading-container-static`,
+            containerClass,
+            {
+              [`${prefix}-loading-container--empty`]:
+                React.Children.count(children) === 0,
+            }
+          )}
           style={{
-            height:
-              this.props.children || !this.state.show
-                ? 'initial'
-                : this.props.height
+            height: !this.state.show ? 'initial' : this.props.height,
           }}
         >
-          {this.props.children}
+          {children}
           {this.state.show && (
             <div className={`${prefix}-page-loading ${className}`}>
               <div className={`${prefix}-page-mask`} />

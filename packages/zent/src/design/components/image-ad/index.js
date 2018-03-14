@@ -4,5 +4,5 @@ import Preview from './ImageAdPreview';
 export default {
   type: Editor.designType,
   editor: Editor,
-  preview: Preview
+  preview: Preview,
 };

@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import cx from 'classnames';
 import assign from 'lodash/assign';
 
 import Input from 'input';
@@ -12,19 +12,22 @@ import { TimePicker as I18nDefault } from 'i18n/default';
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import {
-  CURRENT_DAY,
   goMonths,
   setSameDate,
   formatDate,
-  parseDate
+  parseDate,
+  dayStart,
+  dayEnd,
+  setTime,
+  commonFns,
 } from './utils';
-import { dayStart, dayEnd, setTime } from './utils/date';
 import {
+  CURRENT_DAY,
   timeFnMap,
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes
+  commonPropTypes,
 } from './constants';
 
 function extractStateFromProps(props) {
@@ -65,6 +68,7 @@ function extractStateFromProps(props) {
   if (defaultTime) {
     actived = setTime(actived, defaultTime);
   }
+
   /**
    * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
    * selected 用来存放用户选择的日期，点击日期时会设置 selected 的值
@@ -77,7 +81,7 @@ function extractStateFromProps(props) {
     selected,
     activedTime: selected || actived,
     openPanel,
-    showPlaceholder
+    showPlaceholder,
   };
 }
 
@@ -86,12 +90,13 @@ class DatePicker extends (PureComponent || Component) {
     ...commonPropTypes,
     showTime: PropTypes.bool,
     onBeforeConfirm: PropTypes.func,
-    onBeforeClear: PropTypes.func
+    onBeforeClear: PropTypes.func,
+    valueType: PropTypes.oneOf(['string', 'number', 'date']),
   };
 
   static defaultProps = {
     ...commonProps,
-    placeholder: ''
+    placeholder: '',
   };
 
   retType = 'string';
@@ -99,7 +104,9 @@ class DatePicker extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     const { isFooterVisble, showTime, value, valueType } = props;
-
+    /**
+     * 如果没有有明确指定 valueType，则返回和 value 一致的值，数字或日期或字符串
+     */
     if (valueType) {
       this.retType = valueType.toLowerCase();
     } else if (value) {
@@ -123,24 +130,37 @@ class DatePicker extends (PureComponent || Component) {
 
   onChangeDate = val => {
     this.setState({
-      actived: val
+      actived: val,
     });
   };
 
   onSelectDate = val => {
-    const { onClick } = this.props;
-    const { activedTime } = this.state;
+    const { onClick, min, format } = this.props;
+    let { activedTime } = this.state;
     if (this.isDisabled(val)) return;
-    // update activedTime here
-    this.setState({
-      actived: val,
-      selected: val,
-      activedTime: setSameDate(activedTime, val)
-    });
-    onClick && onClick(val);
-    if (!this.isfooterShow) {
-      this.onConfirm();
+
+    // 如果选择的日期和最小日期同一天，则设置时间为最小日期的时间
+    activedTime = setSameDate(activedTime, val);
+    if (min) {
+      const minDate = parseDate(min, format);
+      if (activedTime < minDate) {
+        activedTime = new Date(minDate);
+      }
     }
+
+    this.setState(
+      {
+        actived: val,
+        selected: val,
+        activedTime,
+      },
+      () => {
+        if (!this.isfooterShow) {
+          this.onConfirm();
+        }
+      }
+    );
+    onClick && onClick(val);
   };
 
   onChangeTime = (val, type) => {
@@ -149,14 +169,14 @@ class DatePicker extends (PureComponent || Component) {
     tmp[fn](val);
 
     this.setState({
-      activedTime: tmp
+      activedTime: tmp,
     });
   };
 
   onChangeMonth = type => {
     const typeMap = {
       prev: -1,
-      next: 1
+      next: 1,
     };
 
     return () => {
@@ -164,16 +184,18 @@ class DatePicker extends (PureComponent || Component) {
       const acp = goMonths(actived, typeMap[type]);
 
       this.setState({
-        actived: acp
+        actived: acp,
       });
     };
   };
 
   onClearInput = evt => {
-    const { onChange, onBeforeClear } = this.props;
-    if (onBeforeClear && !onBeforeClear()) return;
-
     evt.stopPropagation();
+    const { onChange, onBeforeClear, canClear } = this.props;
+    if (onBeforeClear && !onBeforeClear()) return; // 用户可以通过这个函数返回 false 来阻止清空
+
+    if (!canClear) return;
+
     onChange('');
   };
 
@@ -183,7 +205,8 @@ class DatePicker extends (PureComponent || Component) {
    * 默认返回 format 格式的字符串
    */
 
-  getReturnValue(date, format) {
+  getReturnValue = date => {
+    const { format } = this.props;
     if (this.retType === 'number') {
       return date.getTime();
     }
@@ -193,13 +216,20 @@ class DatePicker extends (PureComponent || Component) {
     }
 
     return formatDate(date, format);
-  }
+  };
 
   onConfirm = () => {
     const { selected, activedTime } = this.state;
-    const { format, showTime, onClose, onChange, onBeforeConfirm } = this.props;
+    const {
+      min,
+      format,
+      showTime,
+      onClose,
+      onChange,
+      onBeforeConfirm,
+    } = this.props;
 
-    if (onBeforeConfirm && !onBeforeConfirm()) return;
+    if (onBeforeConfirm && !onBeforeConfirm()) return; //
     // 如果没有选择日期则默认选中当前日期
     let tmp = selected || dayStart();
     if (this.isDisabled(tmp)) return;
@@ -215,10 +245,17 @@ class DatePicker extends (PureComponent || Component) {
       );
     }
 
+    if (min) {
+      const minDate = parseDate(min, format);
+      if (tmp < minDate) {
+        tmp = new Date(minDate);
+      }
+    }
+
     this.setState({
       value: formatDate(tmp, format),
       openPanel: false,
-      showPlaceholder: false
+      showPlaceholder: false,
     });
 
     const ret = this.getReturnValue(tmp, format);
@@ -238,7 +275,7 @@ class DatePicker extends (PureComponent || Component) {
   renderPicker(i18n) {
     const {
       props: { confirmText, disabledTime, format, max, min },
-      state: { actived, activedTime, openPanel, selected }
+      state: { actived, activedTime, openPanel, selected },
     } = this;
     let showTime;
     let datePicker;
@@ -250,11 +287,11 @@ class DatePicker extends (PureComponent || Component) {
           min: min && parseDate(min, format),
           max: max && parseDate(max, format),
           actived: activedTime,
-          disabledTime: noop
+          disabledTime: noop,
         },
         {
           disabledTime: disabledTime && disabledTime(),
-          onChange: this.onChangeTime
+          onChange: this.onChangeTime,
         }
       );
     }
@@ -262,13 +299,13 @@ class DatePicker extends (PureComponent || Component) {
     // 打开面板的时候才渲染
     if (openPanel) {
       const isDisabled = this.isDisabled(CURRENT_DAY);
-      const linkCls = classNames({
+      const linkCls = cx({
         'link--current': true,
-        'link--disabled': isDisabled
+        'link--disabled': isDisabled,
       });
-      const datePickerCls = classNames({
+      const datePickerCls = cx({
         'date-picker': true,
-        small: this.isfooterShow
+        small: this.isfooterShow,
       });
 
       datePicker = (
@@ -308,7 +345,7 @@ class DatePicker extends (PureComponent || Component) {
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
     this.setState({
-      openPanel
+      openPanel,
     });
   };
 
@@ -321,17 +358,19 @@ class DatePicker extends (PureComponent || Component) {
         width,
         popPosition,
         name,
-        placeholder
+        placeholder,
+        canClear,
       },
-      state: { showPlaceholder, openPanel, value }
+      state: { showPlaceholder, openPanel, value },
     } = this;
-    const wrapperCls = `${prefix}-datetime-picker ${className}`;
-    const inputCls = classNames({
+    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
-      'picker-input--disabled': disabled
+      'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
+
     return (
       <div style={widthStyle} className={wrapperCls}>
         <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
@@ -356,10 +395,12 @@ class DatePicker extends (PureComponent || Component) {
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />
-                  <span
-                    onClick={this.onClearInput}
-                    className="zenticon zenticon-close-circle"
-                  />
+                  {canClear && (
+                    <span
+                      onClick={this.onClearInput}
+                      className="zenticon zenticon-close-circle"
+                    />
+                  )}
                 </div>
               </Popover.Trigger.Click>
               <Popover.Content>{this.renderPicker(i18n)}</Popover.Content>
@@ -370,5 +411,7 @@ class DatePicker extends (PureComponent || Component) {
     );
   }
 }
+
+assign(DatePicker, commonFns); // 挂载一些常用方法暴露出去
 
 export default DatePicker;

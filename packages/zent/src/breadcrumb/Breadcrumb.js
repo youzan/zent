@@ -9,13 +9,13 @@ export default class Breadcrumb extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
-    breads: PropTypes.array
+    breads: PropTypes.array,
   };
 
   static defaultProps = {
     prefix: 'zent',
     className: '',
-    breads: []
+    breads: [],
   };
 
   render() {

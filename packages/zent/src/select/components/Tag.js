@@ -39,7 +39,7 @@ Tag.propTypes = {
   cid: PropTypes.string,
   value: PropTypes.any,
   text: PropTypes.any,
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
 };
 
 export default Tag;

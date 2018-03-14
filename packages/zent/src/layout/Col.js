@@ -7,11 +7,11 @@ export default class Col extends (PureComponent || Component) {
     span: PropTypes.number,
     offset: PropTypes.number,
     className: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
-    prefix: 'zent'
+    prefix: 'zent',
   };
 
   render() {
@@ -21,7 +21,7 @@ export default class Col extends (PureComponent || Component) {
       [`${prefix}-col`]: true,
       [`${prefix}-col-${span}`]: span,
       [`${prefix}-col-offset-${offset}`]: offset,
-      [className]: className
+      [className]: className,
     });
 
     return (

@@ -14,12 +14,12 @@ export const PopoverTriggerPropTypes = {
   close: PropTypes.func,
 
   isOutsideStacked: PropTypes.func,
-  injectIsOutsideSelf: PropTypes.func
+  injectIsOutsideSelf: PropTypes.func,
 };
 
 export default class PopoverTrigger extends (PureComponent || Component) {
   static propTypes = {
-    ...PopoverTriggerPropTypes
+    ...PopoverTriggerPropTypes,
   };
 
   constructor(props) {
@@ -39,7 +39,7 @@ export default class PopoverTrigger extends (PureComponent || Component) {
     if (isOutside) {
       return isOutside(target, {
         contentNode: box,
-        triggerNode: anchor
+        triggerNode: anchor,
       });
     }
 
@@ -100,7 +100,7 @@ export default class PopoverTrigger extends (PureComponent || Component) {
 
     return React.cloneElement(child, {
       ref: this.props.onTriggerRefChange,
-      ...this.getTriggerProps(child)
+      ...this.getTriggerProps(child),
     });
   }
 }

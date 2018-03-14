@@ -1,9 +1,9 @@
 import React from 'react';
 
-import PageHeader from './PageHeader';
-import PageFooter from './PageFooter';
-import SideNav from './SideNav';
-import FooterNav from './FooterNav';
+import PageHeader from './page-header';
+import PageFooter from './page-footer';
+import SideNav from './side-nav';
+import FooterNav from './footer-nav';
 
 export default function Layout({
   oreo,
@@ -13,7 +13,7 @@ export default function Layout({
   sideNavData,
   sideNavRef,
   footerData,
-  saveFooter
+  saveFooter,
 }) {
   return (
     <div className="doc__layout">

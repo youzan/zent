@@ -3,21 +3,42 @@
  */
 
 import React, { PureComponent, Component } from 'react';
+import PropTypes from 'prop-types';
 import Notify from 'notify';
 import toArray from 'lodash/toArray';
 import forEach from 'lodash/forEach';
 import isPromise from 'utils/isPromise';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Upload as I18nDefault } from 'i18n/default';
+
 import { formatFileSize, base64ToArrayBuffer } from '../utils';
 import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
-import { UID_KEY } from '../constants';
+import { UID_KEY, DEFAULT_ACCEPT } from '../constants';
 
-const DEFAULT_ACCEPT = {
-  image: 'image/gif, image/jpeg, image/png',
-  voice: 'audio/mpeg, audio/amr'
-};
+const noop = res => res;
 
 export default class FileInput extends (PureComponent || Component) {
+  static defaultProps = {
+    initIndex: 0,
+    maxAmount: 0,
+    silent: false,
+    maxSize: 0,
+    type: '',
+    filterFiles: noop,
+    onError: noop,
+  };
+
+  static propTypes = {
+    initIndex: PropTypes.number,
+    maxAmount: PropTypes.number,
+    silent: PropTypes.bool,
+    maxSize: PropTypes.number,
+    type: PropTypes.string,
+    filterFiles: PropTypes.func,
+    onError: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
 
@@ -28,7 +49,7 @@ export default class FileInput extends (PureComponent || Component) {
     }
 
     this.state = {
-      accept
+      accept,
     };
   }
 
@@ -38,46 +59,51 @@ export default class FileInput extends (PureComponent || Component) {
       onChange(localFiles);
     } else {
       uploadLocalImage(this.props, {
-        localFiles
+        localFiles,
       });
     }
   };
 
-  processFiles = evt => {
+  processFiles = i18n => evt => {
     let files = toArray(evt.target.files);
     const { filterFiles, onError } = this.props;
 
     let filterResult = filterFiles(files);
+    const iterator = this.iteratorFiles(i18n);
     if (isPromise(filterResult)) {
-      filterResult.then(this.iteratorFiles, onError);
+      filterResult.then(iterator, onError);
     } else {
       files = filterResult;
-      this.iteratorFiles(files);
+      iterator(files);
     }
 
     // 清除当前的值，否则选同一张图片不会触发事件
     evt.target.value = null;
   };
 
-  iteratorFiles = files => {
-    const { type, maxSize, silent, maxAmount } = this.props;
-    const typeName = type === 'voice' ? '语音' : '图片';
+  iteratorFiles = i18n => files => {
+    const { type, maxSize, silent, maxAmount, initIndex } = this.props;
 
     forEach(files, (file, index) => {
-      if (maxAmount && index >= maxAmount) {
-        !silent && Notify.error(`已经自动过滤超过${maxAmount}张的${typeName}文件`);
+      if (maxAmount && index + initIndex >= maxAmount) {
+        !silent && Notify.error(i18n.input.maxAmount({ maxAmount, type }));
         return false;
       }
       if (!maxSize || file.size <= maxSize) {
-        this.addFile(file, index);
+        this.addFile(file, index, i18n);
       } else {
         !silent &&
-          Notify.error(`已经自动过滤大于${formatFileSize(maxSize)}的${typeName}文件`);
+          Notify.error(
+            i18n.input.maxSize({
+              maxSize: formatFileSize(maxSize),
+              type,
+            })
+          );
       }
     });
   };
 
-  addFile(file, index) {
+  addFile(file, index, i18n) {
     let fileReader = new FileReader();
     let { silent, type, initIndex } = this.props;
     let { accept } = this.state;
@@ -87,15 +113,18 @@ export default class FileInput extends (PureComponent || Component) {
       const mimeType = fileType(
         base64ToArrayBuffer(e.target.result.replace(/^(.*?)base64,/, ''))
       );
-      if (accept && (!mimeType || accept.indexOf(mimeType.mime) > -1)) {
+      if (
+        accept &&
+        (!mimeType ||
+          mimeType.mime.match(new RegExp(accept.replace(/, ?/g, '|'))))
+      ) {
         localFiles.push({
           src: e.target.result,
           file,
-          [UID_KEY]: initIndex + index
+          [UID_KEY]: initIndex + index,
         });
       } else {
-        !silent &&
-          Notify.error(`已经自动过滤类型不正确的${type === 'voice' ? '语音' : '图片'}文件`);
+        !silent && Notify.error(i18n.input.type({ type }));
       }
       this.onFileChange(localFiles);
     };
@@ -103,18 +132,35 @@ export default class FileInput extends (PureComponent || Component) {
     fileReader.readAsDataURL(file);
   }
 
+  autoShowInput = fileInput => {
+    let { maxAmount, auto } = this.props;
+    if (
+      auto &&
+      maxAmount === 1 &&
+      fileInput &&
+      typeof fileInput.click === 'function'
+    ) {
+      fileInput.click();
+    }
+  };
+
   render() {
     let { maxAmount } = this.props;
     let { accept } = this.state;
 
     return (
-      <input
-        type="file"
-        placeholder="添加 +"
-        multiple={maxAmount !== 1}
-        accept={accept}
-        onChange={this.processFiles}
-      />
+      <Receiver componentName="Upload" defaultI18n={I18nDefault}>
+        {i18n => (
+          <input
+            ref={this.autoShowInput}
+            type="file"
+            placeholder={`${i18n.input.holder} +`}
+            multiple={maxAmount !== 1}
+            accept={accept}
+            onChange={this.processFiles(i18n)}
+          />
+        )}
+      </Receiver>
     );
   }
 }

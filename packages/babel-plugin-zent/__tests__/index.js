@@ -10,10 +10,10 @@ function compile(code, options) {
         'env',
         {
           targets: {
-            node: 4
-          }
-        }
-      ]
+            node: 4,
+          },
+        },
+      ],
     ],
 
     plugins: [
@@ -22,9 +22,9 @@ function compile(code, options) {
         Object.assign(
           { moduleMappingFile: '../../zent/lib/module-mapping.json' },
           options
-        )
-      ]
-    ]
+        ),
+      ],
+    ],
   }).code;
 }
 
@@ -85,7 +85,7 @@ describe('babel-plugin-zent', () => {
 
     expect(
       compile("import { Pop, Button } from 'zent'", {
-        automaticStyleImport: true
+        automaticStyleImport: true,
       })
     ).toMatch(
       /require\('zent\/css\/button.css'\)[\s\S]*require\('zent\/css\/pop.css'\)/im
@@ -96,21 +96,21 @@ describe('babel-plugin-zent', () => {
     expect(
       compile("import { Button } from 'zent'", {
         automaticStyleImport: true,
-        useRawStyle: true
+        useRawStyle: true,
       })
     ).toMatch(/require\('zent\/assets\/button.pcss'\)/);
 
     expect(
       compile("import { Portal } from 'zent'", {
         automaticStyleImport: true,
-        useRawStyle: true
+        useRawStyle: true,
       })
     ).toMatch(/require\('zent\/assets\/base.pcss'\)/);
 
     expect(
       compile("import { Pop, Button } from 'zent'", {
         automaticStyleImport: true,
-        useRawStyle: true
+        useRawStyle: true,
       })
     ).toMatch(
       /require\('zent\/assets\/button.pcss'\)[\s\S]*require\('zent\/assets\/pop.pcss'\)/im

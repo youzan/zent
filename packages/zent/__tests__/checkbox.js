@@ -53,7 +53,7 @@ describe('Controlled Checkbox', () => {
       },
       stopPropagation() {
         stopPropagationCalled = true;
-      }
+      },
     });
     expect(checked).toBe(true);
   });

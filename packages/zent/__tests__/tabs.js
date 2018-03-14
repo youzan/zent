@@ -116,12 +116,12 @@ describe('Tabs', () => {
     class App extends Component {
       state = {
         active: 'foobar',
-        tabs: ['foobar', 'quux']
+        tabs: ['foobar', 'quux'],
       };
 
       onChange = jest.fn().mockImplementationOnce(id =>
         this.setState({
-          active: id
+          active: id,
         })
       );
 
@@ -132,13 +132,13 @@ describe('Tabs', () => {
               tabs.push(t);
             }
             return tabs;
-          }, [])
+          }, []),
         });
       });
 
       onAdd = jest.fn().mockImplementationOnce(() =>
         this.setState({
-          tabs: this.state.tabs.concat('bar')
+          tabs: this.state.tabs.concat('bar'),
         })
       );
 
@@ -194,17 +194,17 @@ describe('Tabs', () => {
             {
               title: '选项一',
               key: '1',
-              disabled: true
+              disabled: true,
             },
             {
               title: '选项二',
-              key: '2'
+              key: '2',
             },
             {
               title: '选项三',
-              key: '3'
-            }
-          ]
+              key: '3',
+            },
+          ],
         };
       }
 

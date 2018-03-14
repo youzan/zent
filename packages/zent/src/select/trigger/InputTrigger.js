@@ -6,12 +6,12 @@ import { Select as I18nDefault } from 'i18n/default';
 
 class InputTrigger extends Component {
   state = {
-    value: ''
+    value: '',
   };
 
   componentDidMount() {
     this.props.onChange({
-      extraFilter: true
+      extraFilter: true,
     });
   }
 
@@ -21,13 +21,13 @@ class InputTrigger extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      value: nextProps.keyword === null ? nextProps.value : nextProps.keyword
+      value: nextProps.keyword === null ? nextProps.value : nextProps.keyword,
     });
   }
 
   inputChangeHandler = ev => {
     this.props.onChange({
-      keyword: ev.target.value
+      keyword: ev.target.value,
     });
   };
 
@@ -55,7 +55,7 @@ class InputTrigger extends Component {
 InputTrigger.propTypes = {
   prefixCls: PropTypes.string,
   value: PropTypes.any,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 
 export default InputTrigger;

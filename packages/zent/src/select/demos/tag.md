@@ -76,7 +76,6 @@ class TagsDemo extends Component {
 					data={this.state.data}
 					onChange={this.increaseHandler}
 					onDelete={this.deleteHandler}
-					className="zent-custom-select"
 					tags
     			filter={(item, keyword) => item.text.indexOf(keyword) > -1}
 					value={this.state.selected} />
@@ -92,9 +91,3 @@ ReactDOM.render(
   , mountNode
 );
 ```
-
-<style>
-.zent-custom-select {
-	min-height: 30px;
-}
-</style>

@@ -13,18 +13,20 @@ class Form extends (PureComponent || Component) {
     onSubmit: PropTypes.func,
     children: PropTypes.any,
     style: PropTypes.object,
-    disableEnterSubmit: PropTypes.bool
+    disableEnterSubmit: PropTypes.bool,
   };
 
   static defaultProps = {
     prefix: 'zent',
     onSubmit: noop,
-    disableEnterSubmit: true
+    disableEnterSubmit: true,
   };
 
   onKeyDown = event => {
-    // 默认禁止回车触发表单提交事件
-    if (this.props.disableEnterSubmit && event.keyCode === 13) {
+    // 默认禁止输入框回车触发表单提交事件
+    const isFromInput = event.target.tagName === 'INPUT';
+
+    if (isFromInput && this.props.disableEnterSubmit && event.keyCode === 13) {
       event.preventDefault();
     }
   };
@@ -36,14 +38,14 @@ class Form extends (PureComponent || Component) {
       style,
       horizontal,
       inline,
-      onSubmit
+      onSubmit,
     } = this.props;
     const formClassName = classNames({
       [`${prefix}-form`]: true,
       [`${prefix}-form--horizontal`]: horizontal,
       [`${prefix}-form--inline`]: inline,
       [`${prefix}-form--vertical`]: !horizontal && !inline,
-      [className]: !!className
+      [className]: !!className,
     });
     return (
       <form

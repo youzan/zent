@@ -34,7 +34,7 @@ describe('Portal', () => {
     );
     return {
       wrapper,
-      container
+      container,
     };
   }
 
@@ -108,7 +108,7 @@ describe('Portal', () => {
 
     const anotherContainer = createContainer('another-container');
     wrapper.setProps({
-      selector: '.another-container'
+      selector: '.another-container',
     });
 
     expect(anotherContainer.querySelector('.portal-child')).toBeFalsy();
@@ -126,7 +126,7 @@ describe('Portal', () => {
   it('should only update container attributes when `className` changes', () => {
     const { wrapper, container } = mountPortal();
     wrapper.setProps({
-      className: 'new-className'
+      className: 'new-className',
     });
 
     jest.runOnlyPendingTimers();
@@ -138,7 +138,7 @@ describe('Portal', () => {
   it('should only update container attributes when `prefix` changes', () => {
     const { wrapper, container } = mountPortal();
     wrapper.setProps({
-      prefix: 'new-prefix'
+      prefix: 'new-prefix',
     });
 
     jest.runOnlyPendingTimers();

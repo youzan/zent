@@ -4,9 +4,9 @@ path: component/sortable
 group: Data Display
 ---
 
-## Sortable Drag and drop sort
+## Sortable
 
-Sortable Mainly used for drag and drop elements of a container
+Sortable is used for drag and drop elements of a container
 
 ### API
 

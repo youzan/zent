@@ -27,7 +27,7 @@ const navUtil = {
           i === tabListData.length - 1
             ? widthInfo.lastWidth || ''
             : widthInfo.width || '',
-        candel: candel && !tabItem.disabled
+        candel: candel && !tabItem.disabled,
       };
       modifiedTabListData.push(modifiedTabInfo);
     });
@@ -47,10 +47,10 @@ const navUtil = {
       lastWidth = `${(1 - 1 / childCount * (childCount - 1)) * 100}%`;
       return {
         width,
-        lastWidth
+        lastWidth,
       };
     }
-  }
+  },
 };
 
 export default navUtil;
