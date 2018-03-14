@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Button from 'button';
+import Icon from 'icon';
+import { shallow } from 'enzyme';
 
 describe('<Button />', () => {
   let button;
@@ -22,6 +24,7 @@ describe('<Button />', () => {
 
     expect(buttonNode.className).toContain('zent-btn');
     expect(buttonNode.textContent).toBe('OK');
+    expect(buttonNode.querySelectorAll('span').length).toBe(1);
     expect(buttonNode.tagName.toLowerCase()).toBe('button');
   });
 
@@ -99,6 +102,14 @@ describe('<Button />', () => {
 
     expect(buttonNode.tagName.toLowerCase()).toBe('a');
     expect(buttonNode.href).toBe('http://youzan.com/');
+    expect(buttonNode.target).toBe('_blank');
+  });
+
+  test('Button target', () => {
+    mount(<Button target="_blank" />);
+
+    expect(buttonNode.tagName.toLowerCase()).toBe('a');
+    expect(buttonNode.href).toBe('');
     expect(buttonNode.target).toBe('_blank');
   });
 
@@ -201,6 +212,9 @@ describe('<Button />', () => {
 
     mount(<Button htmlType="button" />);
     expect(buttonNode.type).toBe('button');
+
+    mount(<Button htmlType={null} />);
+    expect(buttonNode.type).toBe('submit');
   });
 
   test('Custom inline style', () => {
@@ -227,5 +241,58 @@ describe('<Button />', () => {
     mount(<Button href="http://www.youzan.com" download="foobar" />);
 
     expect(buttonNode.download).toBe('foobar');
+  });
+
+  test('with icon props', () => {
+    const wrapper = shallow(<Button icon="check" />);
+
+    expect(wrapper.contains(<Icon type="check" />)).toBe(true);
+  });
+
+  test('placing an Icon component within the Button', () => {
+    const wrapper = shallow(
+      <Button>
+        <Icon type="check" />Check
+      </Button>
+    );
+
+    expect(wrapper.contains(<Icon type="check" />)).toBe(true);
+    expect(wrapper.contains(<span>Check</span>)).toBe(true);
+  });
+});
+
+describe('<Button.Group />', () => {
+  let buttonGroup;
+  let buttonGroupNode;
+
+  function mount(Component) {
+    buttonGroup = TestUtils.renderIntoDocument(Component);
+    buttonGroupNode = ReactDOM.findDOMNode(buttonGroup);
+  }
+
+  afterEach(() => {
+    buttonGroup = null;
+    buttonGroupNode = null;
+  });
+
+  test('Default Button.Group', () => {
+    mount(<Button.Group />);
+    expect(buttonGroupNode.classList.contains('zent-btn-group')).toBe(true);
+  });
+
+  test('Prefix', () => {
+    mount(<Button.Group prefix="hi" />);
+    expect(buttonGroupNode.classList.contains('zent-btn-group')).toBe(false);
+    expect(buttonGroupNode.classList.contains('hi-btn-group')).toBe(true);
+  });
+
+  test('Custom ClassName', () => {
+    mount(<Button.Group className="custom-group" />);
+    expect(buttonGroupNode.classList.contains('custom-group')).toBe(true);
+  });
+
+  test('Custom inline style', () => {
+    mount(<Button.Group style={{ fontSize: '20px' }} />);
+    expect(buttonGroupNode.style.fontSize).toBe('20px');
   });
 });

@@ -18,6 +18,8 @@ group: 数据
 
 ### API
 
+#### Button
+
 | 参数        | 说明                          | 类型     | 默认值         | 备选值                                |
 | --------- | --------------------------- | ------ | ----------- | ---------------------------------- |
 | type      | 风格                          | string | `'default'` | `'primary'`、`'danger'`、`'success'` |
@@ -35,3 +37,10 @@ group: 数据
 | className | 自定义类名                       | string |             |                                    |
 | style     | 自定style                      | object |             |                                    |
 | prefix    | 自定义前缀                       | string | `'zent'`    |                                    |
+#### Button.Group
+
+| 参数        | 说明                          | 类型     | 默认值         | 备选值                                |
+| --------- | --------------------------- | ------ | ----------- | ---------------------------------- |
+| className | 自定义类名                       | string |             |                                    |
+| style     | 自定style                      | object |             |                                    |
+| prefix    | 自定义前缀                       | string | `'zent'`    |   

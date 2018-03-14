@@ -17,6 +17,8 @@ Button. Basic style and basic status are provided.
 
 ### API
 
+#### Button
+
 | Property        | Description                          | Type     | Default         | Alternative                                |
 | --------- | --------------------------- | ------ | ----------- | ---------------------------------- |
 | type      | style                          | string | `'default'` | `'primary'`、`'danger'`、`'success'` |
@@ -31,6 +33,14 @@ Button. Basic style and basic status are provided.
 | component | custom component tag type                   | string\|func |             |                                    |
 | href      | Optional, the component will be rendered as an a tag instead of a button tag if this property is set    | string |             |                           |
 | target    | Optional, used together with href, which is the target property of the a tag | string | `''`        | `'_blank'`                  |
+| className | custom class name                       | string |             |                                    |
+| style     | custom style                      | object |             |                                    |
+| prefix    | custom prefix                       | string | `'zent'`    |                                    |
+
+#### Button.Group
+
+| Property        | Description                          | Type     | Default         | Alternative                                |
+| --------- | --------------------------- | ------ | ----------- | ---------------------------------- |
 | className | custom class name                       | string |             |                                    |
 | style     | custom style                      | object |             |                                    |
 | prefix    | custom prefix                       | string | `'zent'`    |                                    |
