@@ -30,5 +30,6 @@ group: 数据
 | auto | 是否自动弹出 | boolean | `false` | 否 |
 | withoutPopup | 是否不渲染在弹层上 | boolean | `false` | 否 |
 | triggerClassName | 重写trigger样式 | string | `'zent-upload-trigger'` | 否 |
+| errorMessages | 自定义错误提示文案，包含 overMaxSize、overMaxAmount、wrongMimeType 这几种类型 | object | `{}` | 否 |
 | className | 扩展类名 | string | `''` | 否 |
 | prefix | 前缀命名空间 | string | `'zent'` | 否 |

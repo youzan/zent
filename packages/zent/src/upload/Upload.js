@@ -158,6 +158,7 @@ Upload.defaultProps = {
   triggerInline: false,
   silent: false,
   withoutPopup: false,
+  errorMessages: {},
 };
 
 Upload.FileInput = FileInput;

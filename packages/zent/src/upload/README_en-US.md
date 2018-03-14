@@ -29,5 +29,6 @@ File uploader. Supports images and audios.
 | auto | Open upload dialog automatically | boolean | `false` | No |
 | withoutPopup | Don't render inside a popup | boolean | `false` | No |
 | triggerClassName | Custom trigger class name | string | `'zent-upload-trigger'` | No |
+| errorMessages | Custom error message, contains overMaxSize, overMaxAmount, wrongMimeType | object | `{}` | No |
 | className | Extension class name | string | `''` | No |
 | prefix | Custom prefix | string | `'zent'` | No |
