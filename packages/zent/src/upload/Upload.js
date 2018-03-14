@@ -91,7 +91,7 @@ class Upload extends Component {
             />
           ) : (
             <div className={className}>
-              <div
+              <span
                 className={triggerClassName}
                 onClick={this.showUpload.bind(this, true)}
               >
@@ -100,7 +100,7 @@ class Upload extends Component {
                   uploadOptions.maxAmount === 1 && (
                     <FileInput {...uploadOptions} i18n={i18n} />
                   )}
-              </div>
+              </span>
               <p className={`${prefix}-upload-tips`}>{tips}</p>
               <Dialog
                 title={i18n[`title_${this.props.type}`]}
