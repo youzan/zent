@@ -180,16 +180,18 @@ class UploadPopup extends Component {
           i18n.popup[`title_${options.type}`]
         }：`}</div>
         <div className={`${prefix}-content`}>
-          <ul
-            ref={this.onListRefChange}
-            className={`${prefix}__upload-local-${options.type}-list`}
-          >
-            {localFiles.map((item, index) => {
-              return options.type === 'voice'
-                ? this.renderLocalVoice(item, index)
-                : this.renderLocalImage(item, index);
-            })}
-          </ul>
+          {filesLength > 0 && (
+            <ul
+              ref={this.onListRefChange}
+              className={`${prefix}__upload-local-${options.type}-list`}
+            >
+              {localFiles.map((item, index) => {
+                return options.type === 'voice'
+                  ? this.renderLocalVoice(item, index)
+                  : this.renderLocalImage(item, index);
+              })}
+            </ul>
+          )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
               +
