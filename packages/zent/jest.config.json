@@ -39,7 +39,10 @@
     "<rootDir>/scr/utils/component/LazyMount.js",
     "<rootDir>/src/i18n",
     "<rootDir>/src/placeholder",
-    "<rootDir>/src/collapse"
+    "<rootDir>/src/collapse",
+    "<rootDir>/src/select",
+    "<rootDir>/src/cascader",
+    "<rootDir>/src/datetimepicker"
   ],
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
