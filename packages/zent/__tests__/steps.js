@@ -57,7 +57,7 @@ describe('Steps', () => {
           <Step title="第三步" />
         </Steps>
       );
-      status = status || 'finish';
+      status = status || 'process';
       expect(
         wrapper
           .find('.zent-steps-item')
@@ -66,6 +66,8 @@ describe('Steps', () => {
       ).toBe(true);
     };
     ensure();
+    ensure('wait');
+    ensure('process');
     ensure('finish');
     ensure('error');
   });
