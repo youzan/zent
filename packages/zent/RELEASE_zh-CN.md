@@ -10,7 +10,7 @@
 ### 4.3.2 (2018-03-07)
 
 - 🦀️ 更新 `Loading` 组件高度设置逻辑
-- 🦀️ 修复 `Paginatin` 文案
+- 🦀️ 修复 `Pagination` 文案
 - 🦀️ 修复 `Radio` 和 `Checkbox` 组件嵌套使用时的问题
 - 🦀️ `Radio` 和 `Checkbox` 的分组组件只读或禁用时会忽略组件自身的设置
 - 🦀️ 修复 `Upload` 组件样式问题

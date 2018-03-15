@@ -10,7 +10,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 ### 4.3.2 (2018-03-07)
 
 - 🦀️ Update `Loading` height logic
-- 🦀️ Fix text in `Paginatin`
+- 🦀️ Fix text in `Pagination`
 - 🦀️ Fix bugs when using nested `Radio` and `Checkbox`
 - 🦀️ `Radio` and `Checkbox` will ignore `readonly` and `disabled` settings on itself if it is within a group
 - 🦀️ Fix `Upload` style issues
