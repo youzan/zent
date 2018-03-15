@@ -306,9 +306,11 @@ describe('Pop', () => {
       visible: true,
     });
     jest.runAllTimers();
+    wrapper.update();
 
     document.querySelector('.zent-btn-primary').click();
     jest.runAllTimers();
+    wrapper.update();
     expect(a).toBe(2);
   });
 
