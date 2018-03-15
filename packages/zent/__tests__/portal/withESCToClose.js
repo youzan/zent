@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Portal from 'portal';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const { withESCToClose } = Portal;
 const MyPortal = withESCToClose(Portal);
@@ -53,6 +56,7 @@ describe('withESCToClose', () => {
 
     expect(document.querySelector('.esc-close-portal')).toBeFalsy();
     wrapper.find('.btn-open').simulate('click');
+    wrapper.update();
     expect(document.querySelector('.esc-close-portal')).toBeTruthy();
 
     const escKeyUpEvent = new window.KeyboardEvent('keyup', {
@@ -60,13 +64,16 @@ describe('withESCToClose', () => {
     });
     document.body.dispatchEvent(escKeyUpEvent);
     jest.runOnlyPendingTimers();
+    wrapper.update();
     expect(document.querySelector('.esc-close-portal')).toBeFalsy();
 
     wrapper.find('.btn-open').simulate('click');
+    wrapper.update();
     expect(document.querySelector('.esc-close-portal')).toBeTruthy();
 
     wrapper.unmount();
     jest.runOnlyPendingTimers();
+    wrapper.update();
     expect(document.querySelector('.esc-close-portal')).toBeFalsy();
   });
 });

@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Input from 'input';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Input', () => {
   beforeAll(() => {
@@ -223,25 +226,31 @@ describe('Input', () => {
       .find('textarea')
       .simulate('change', { target: { value: '12345678' } });
 
-    expect(wrapper.find('textarea').node.value).toBe('12345678');
+    expect(wrapper.find('textarea').instance().value).toBe('12345678');
     wrapper.unmount();
   });
 
   it('can have input auto focus', () => {
     const wrapper = mount(<Input autoFocus />);
-    expect(wrapper.find('input').node === document.activeElement).toBe(true);
+    expect(wrapper.find('input').instance() === document.activeElement).toBe(
+      true
+    );
   });
 
   it('can call input focus method', () => {
     const wrapper = mount(<Input />);
     wrapper.instance().focus();
-    expect(wrapper.find('input').node === document.activeElement).toBe(true);
+    expect(wrapper.find('input').instance() === document.activeElement).toBe(
+      true
+    );
   });
 
   it('can call textarea focus method', () => {
     const wrapper = mount(<Input type="textarea" />);
     wrapper.instance().focus();
-    expect(wrapper.find('textarea').node === document.activeElement).toBe(true);
+    expect(wrapper.find('textarea').instance() === document.activeElement).toBe(
+      true
+    );
   });
 
   it('can have input auto select', () => {

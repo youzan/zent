@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Steps from 'steps';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const Step = Steps.Step;
 

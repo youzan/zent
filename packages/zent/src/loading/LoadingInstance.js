@@ -63,9 +63,7 @@ export default class Instance extends (PureComponent || Component) {
         ...this.props,
         target,
       });
-    }
-
-    if (this.instance) {
+    } else if (this.instance.show) {
       this.instance.show(this.props);
     }
   }
@@ -135,9 +133,11 @@ function newInstance(props) {
   let div = document.createElement('div');
   div.className = `${props.prefix}-loading-container ${props.containerClass}`;
   document.body.appendChild(div);
+
+  // FIXME: loading may be null in React 16
   let loading = ReactDOM.render(<Loading {...props} />, div);
   return {
-    show: loading.show,
+    show: loading && loading.show,
     container: div,
   };
 }

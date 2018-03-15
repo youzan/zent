@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Progress from 'progress';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Progress', () => {
   it('render a default Progress', () => {
@@ -39,7 +42,7 @@ describe('Progress', () => {
 
   it('can have a custom classname', () => {
     const wrapper = mount(<Progress className="test" />);
-    expect(wrapper.find('.test').length).toBe(1);
+    expect(wrapper.find('div.test').length).toBe(1);
     expect(wrapper.find('.test.zent-progress').length).toBe(1);
   });
 

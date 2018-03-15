@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Radio from 'radio';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const Group = Radio.Group;
 
@@ -109,13 +112,13 @@ describe('Radio Section', () => {
   it('Radio have an change event liftup', () => {
     const propOnChangeMock = jest.fn();
     const wrapper = mount(<Radio onChange={propOnChangeMock} />);
-    const handleChange = wrapper.find(Radio).node.handleChange;
+    const handleChange = wrapper.find(Radio).instance().handleChange;
     expect(wrapper.find('input').props().onChange).not.toBe(propOnChangeMock);
     expect(wrapper.find('input').props().onChange).toBe(handleChange);
     expect(propOnChangeMock.mock.calls.length).toBe(0);
     wrapper
       .find('input')
-      .simulate('change', { target: wrapper.find('input').node });
+      .simulate('change', { target: wrapper.find('input').instance() });
     expect(propOnChangeMock.mock.calls.length).toBe(1);
   });
 });
@@ -185,6 +188,7 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(0)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(true);
     wrapper.setProps({ value: null });
@@ -192,6 +196,7 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(2)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(true);
     wrapper.setProps({ value: 321 });
@@ -199,6 +204,7 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(1)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(true);
   });
@@ -228,6 +234,7 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(0)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(true);
 
@@ -241,12 +248,14 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(3)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(true);
     expect(
       wrapper
         .find(Radio)
         .at(0)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(false);
 
@@ -258,12 +267,14 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(1)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(true);
     expect(
       wrapper
         .find(Radio)
         .at(3)
+        .children()
         .hasClass('zent-radio-checked')
     ).toBe(false);
   });

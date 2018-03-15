@@ -89,10 +89,10 @@ describe('Badge', () => {
   it('can have custom offset', () => {
     const wrapper = mount(<Badge offset={[0, 0]} count={5} />);
     expect(wrapper.find('.zent-badge').length).toBe(1);
-    expect(wrapper.find('.zent-badge-count').getNode().style.top).toMatch(
+    expect(wrapper.find('.zent-badge-count').instance().style.top).toMatch(
       /0(px)?/
     );
-    expect(wrapper.find('.zent-badge-count').getNode().style.right).toMatch(
+    expect(wrapper.find('.zent-badge-count').instance().style.right).toMatch(
       /0(px)?/
     );
   });
@@ -100,7 +100,7 @@ describe('Badge', () => {
   it('can have custom style', () => {
     const wrapper = mount(<Badge style={{ background: 'red' }} dot />);
     expect(wrapper.find('.zent-badge').length).toBe(1);
-    expect(wrapper.find('.zent-badge-dot').getNode().style.background).toBe(
+    expect(wrapper.find('.zent-badge-dot').instance().style.background).toBe(
       'red'
     );
   });
