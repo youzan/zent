@@ -431,8 +431,8 @@ export default class Table extends (PureComponent || Component) {
     return (
       <Receiver defaultI18n={I18nDefault} componentName="Table">
         {i18n => (
-          <div className={`${prefix}-table-container`}>
-            <Loading show={this.props.loading} static>
+          <Loading show={this.props.loading} height>
+            <div className={`${prefix}-table-container`}>
               {columns && (
                 <div className={`${prefix}-table ${className}`}>
                   {this.state.placeHolderHeight && (
@@ -493,8 +493,8 @@ export default class Table extends (PureComponent || Component) {
                   />
                 </div>
               )}
-            </Loading>
-          </div>
+            </div>
+          </Loading>
         )}
       </Receiver>
     );
