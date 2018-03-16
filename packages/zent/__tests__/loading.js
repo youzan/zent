@@ -62,7 +62,7 @@ describe('Loading', () => {
 
   it('Loading has static model, support containerClass and prefix...props', () => {
     const wrapper = mount(<Loading show={false} containerClass="foo" />);
-    expect(wrapper.prop('height')).toBe(160);
+    expect(wrapper.prop('height')).toBeUndefined();
     expect(wrapper.prop('zIndex')).toBe(9998);
     expect(wrapper.find('Loading').find('div').length).toBe(1);
     expect(
