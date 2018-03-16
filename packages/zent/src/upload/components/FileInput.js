@@ -11,7 +11,11 @@ import isPromise from 'utils/isPromise';
 import { I18nReceiver as Receiver } from 'i18n';
 import { Upload as I18nDefault } from 'i18n/default';
 
-import { formatFileSize, base64ToArrayBuffer } from '../utils';
+import {
+  formatFileSize,
+  base64ToArrayBuffer,
+  formatErrorMessages,
+} from '../utils';
 import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
 import { UID_KEY, DEFAULT_ACCEPT } from '../constants';
@@ -82,30 +86,44 @@ export default class FileInput extends (PureComponent || Component) {
   };
 
   iteratorFiles = i18n => files => {
-    const { type, maxSize, silent, maxAmount, initIndex } = this.props;
+    const {
+      type,
+      maxSize,
+      maxAmount,
+      silent,
+      initIndex,
+      errorMessages,
+    } = this.props;
 
     forEach(files, (file, index) => {
       if (maxAmount && index + initIndex >= maxAmount) {
-        !silent && Notify.error(i18n.input.maxAmount({ maxAmount, type }));
+        let message = formatErrorMessages(
+          errorMessages.overMaxAmount,
+          { maxAmount, type },
+          i18n.input.maxAmount
+        );
+        !silent && message && Notify.error(message);
         return false;
       }
       if (!maxSize || file.size <= maxSize) {
         this.addFile(file, index, i18n);
       } else {
-        !silent &&
-          Notify.error(
-            i18n.input.maxSize({
-              maxSize: formatFileSize(maxSize),
-              type,
-            })
-          );
+        let message = formatErrorMessages(
+          errorMessages.overMaxSize,
+          {
+            maxSize: formatFileSize(maxSize),
+            type,
+          },
+          i18n.input.maxSize
+        );
+        !silent && message && Notify.error(message);
       }
     });
   };
 
   addFile(file, index, i18n) {
     let fileReader = new FileReader();
-    let { silent, type, initIndex } = this.props;
+    let { type, initIndex, silent, errorMessages } = this.props;
     let { accept } = this.state;
     let localFiles = [];
 
@@ -124,7 +142,12 @@ export default class FileInput extends (PureComponent || Component) {
           [UID_KEY]: initIndex + index,
         });
       } else {
-        !silent && Notify.error(i18n.input.type({ type }));
+        let message = formatErrorMessages(
+          errorMessages.wrongMimeType,
+          { type },
+          i18n.input.type
+        );
+        !silent && message && Notify.error(message);
       }
       this.onFileChange(localFiles);
     };

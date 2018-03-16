@@ -60,12 +60,17 @@ class Simple extends React.Component {
           ))}
           <Upload
 						maxSize={1 * 1024 * 1024}
-						maxAmount={10}
+						maxAmount={2}
             triggerInline
 						tips="{i18n.tip}"
 						categoryList={categoryList}
             onFetch={this.fetchNetworkImage.bind(this)}
             onUpload={this.updateLocalImage.bind(this)}
+            errorMessages={{
+              overMaxSize: (data) => `Over size: ${data.maxSize}`, // function
+              overMaxAmount: 'So many', // string
+              wrongMimeType: false || null || '' || (() => false) // show nothing
+            }}
           />
         </div>
       );
