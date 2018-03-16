@@ -119,7 +119,7 @@ export default class InfiniteScroller extends (PureComponent || Component) {
 
     this.addScrollListener();
 
-    if (initialLoad) {
+    if (initialLoad && loadMore) {
       loadMore();
     }
   }

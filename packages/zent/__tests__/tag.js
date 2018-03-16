@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Tag from 'tag';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Tag', () => {
   it('render a default tag', () => {
@@ -33,19 +36,17 @@ describe('Tag', () => {
         <span>tag</span>
       </Tag>
     );
-    expect(wrapper.find('.zent-tag-close-btn').length).toBe(1);
+    expect(wrapper.find('Icon').length).toBe(1);
   });
 
   it('can have a onClose callback', () => {
     const onClose = jest.fn();
     let wrapper = mount(<Tag closable onClose={onClose} />);
-    wrapper.find('.zent-tag-close-btn').simulate('click');
+    wrapper.find('Icon').simulate('click');
     expect(onClose.mock.calls.length).toBe(1);
 
     wrapper = mount(<Tag closable onClose={null} />);
-    expect(() =>
-      wrapper.find('.zent-tag-close-btn').simulate('click')
-    ).not.toThrow();
+    expect(() => wrapper.find('Icon').simulate('click')).not.toThrow();
   });
 
   it('has red style', () => {
@@ -163,7 +164,7 @@ describe('Tag', () => {
         onClose={onClose}
       />
     );
-    wrapper.find('.zent-tag-close-btn').simulate('click');
+    wrapper.find('Icon').simulate('click');
     expect(onClose.mock.calls.length).toBe(1);
     expect(onVisibleChange.mock.calls.length).toBe(1);
     expect(visible).toBe(false);

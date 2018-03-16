@@ -14,7 +14,7 @@ import { Upload as I18nDefault } from 'i18n/default';
 import { formatFileSize, base64ToArrayBuffer } from '../utils';
 import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
-import { DEFAULT_ACCEPT } from '../constants';
+import { UID_KEY, DEFAULT_ACCEPT } from '../constants';
 
 const noop = res => res;
 
@@ -121,7 +121,7 @@ export default class FileInput extends (PureComponent || Component) {
         localFiles.push({
           src: e.target.result,
           file,
-          __uid: initIndex + index,
+          [UID_KEY]: initIndex + index,
         });
       } else {
         !silent && Notify.error(i18n.input.type({ type }));

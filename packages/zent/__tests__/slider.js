@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Slider from 'slider';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Slider', () => {
   it('will render div wrapper contains an Slider without any props', () => {
@@ -22,13 +25,19 @@ describe('Slider', () => {
       wrapper
         .find('Slider')
         .at(0)
+        .children()
         .hasClass('zent-slider')
     ).toBe(true);
     expect(wrapper.find('.zent-slider-main').length).toBe(1);
     expect(wrapper.find('.zent-slider-input').length).toBe(1);
     wrapper.setProps({ value: 10 });
     expect(wrapper.find('input').length).toBe(1);
-    expect(wrapper.find('input').at(0).node.value).toBe('0');
+    expect(
+      wrapper
+        .find('input')
+        .at(0)
+        .instance().value
+    ).toBe('0');
     expect(
       wrapper
         .find('.zent-slider-toolTips')
@@ -61,8 +70,18 @@ describe('Slider', () => {
         .at(1)
         .props().style.left
     ).toBe('30%');
-    expect(wrapper.find('input').at(0).node.value).toBe('20');
-    expect(wrapper.find('input').at(1).node.value).toBe('30');
+    expect(
+      wrapper
+        .find('input')
+        .at(0)
+        .instance().value
+    ).toBe('20');
+    expect(
+      wrapper
+        .find('input')
+        .at(1)
+        .instance().value
+    ).toBe('30');
     const style = wrapper
       .find('.zent-slider-track')
       .at(0)
@@ -137,7 +156,12 @@ describe('Slider', () => {
         .at(0)
         .props().style.left
     ).toBe('0%');
-    expect(wrapper.find('Range').node.getClientWidth()).toBe(0);
+    expect(
+      wrapper
+        .find('Range')
+        .instance()
+        .getClientWidth()
+    ).toBe(0);
 
     const disabledWrapper = mount(
       <Slider range value={[0, 20]} marks={marks} dots disabled />
@@ -161,8 +185,18 @@ describe('Slider', () => {
         .at(1)
         .props().style.left
     ).toBe('30%');
-    expect(wrapper.find('input').at(0).node.value).toBe('20');
-    expect(wrapper.find('input').at(1).node.value).toBe('30');
+    expect(
+      wrapper
+        .find('input')
+        .at(0)
+        .instance().value
+    ).toBe('20');
+    expect(
+      wrapper
+        .find('input')
+        .at(1)
+        .instance().value
+    ).toBe('30');
     const style = wrapper
       .find('.zent-slider-track')
       .at(0)
@@ -176,10 +210,12 @@ describe('Slider', () => {
     wrapper
       .find('InputField')
       .at(0)
-      .node.onChange('start', { target: { value: 25 } });
+      .instance()
+      .onChange('start', { target: { value: 25 } });
     wrapper
       .find('InputField')
       .at(0)
-      .node.onChange('end', { target: { value: 50 } });
+      .instance()
+      .onChange('end', { target: { value: 50 } });
   });
 });
