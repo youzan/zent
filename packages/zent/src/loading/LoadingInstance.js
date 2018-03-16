@@ -26,7 +26,6 @@ export default class Instance extends (PureComponent || Component) {
     // FIXME: use defaultProps when we drop support for static
     // float: false,
     show: false,
-    height: 160,
     zIndex: 9998,
     containerClass: '',
   };
