@@ -86,7 +86,14 @@ export default class FileInput extends (PureComponent || Component) {
   };
 
   iteratorFiles = i18n => files => {
-    const { type, maxSize, maxAmount, initIndex, errorMessages } = this.props;
+    const {
+      type,
+      maxSize,
+      maxAmount,
+      silent,
+      initIndex,
+      errorMessages,
+    } = this.props;
 
     forEach(files, (file, index) => {
       if (maxAmount && index + initIndex >= maxAmount) {
@@ -95,7 +102,7 @@ export default class FileInput extends (PureComponent || Component) {
           { maxAmount, type },
           i18n.input.maxAmount
         );
-        message && Notify.error(message);
+        !silent && message && Notify.error(message);
         return false;
       }
       if (!maxSize || file.size <= maxSize) {
@@ -109,14 +116,14 @@ export default class FileInput extends (PureComponent || Component) {
           },
           i18n.input.maxSize
         );
-        message && Notify.error(message);
+        !silent && message && Notify.error(message);
       }
     });
   };
 
   addFile(file, index, i18n) {
     let fileReader = new FileReader();
-    let { type, initIndex, errorMessages } = this.props;
+    let { type, initIndex, silent, errorMessages } = this.props;
     let { accept } = this.state;
     let localFiles = [];
 
@@ -140,7 +147,7 @@ export default class FileInput extends (PureComponent || Component) {
           { type },
           i18n.input.type
         );
-        message && Notify.error(message);
+        !silent && message && Notify.error(message);
       }
       this.onFileChange(localFiles);
     };

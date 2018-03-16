@@ -31,6 +31,11 @@ class Upload extends Component {
     if (this.props.auto) {
       this.showUpload();
     }
+    if (this.props.silent) {
+      console.warn(
+        'silent is deprecated, please use errorMessages to instead.'
+      );
+    }
   }
 
   componentWillUnmount() {
