@@ -119,7 +119,7 @@ $icon-color: $theme-stroke-6;
       .zent-steps-tail {
         i {
           &::after {
-            width: 50%;
+            width: 0;
           }
         }
       }
@@ -169,6 +169,14 @@ $icon-color: $theme-stroke-6;
     .zent-step-main {
       .zent-step-title {
         color: $error-color;
+      }
+    }
+  }
+
+  &.zent-steps-status-process {
+    .zent-step-head-inner {
+      .zent-icon {
+        background: $current-bg-color;
       }
     }
   }

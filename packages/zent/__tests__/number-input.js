@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import NumberInput from 'number-input';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('NumberInput', () => {
   it('will render div wrapper contains an Input component', () => {

@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import Enzyme, { mount, ReactWrapper } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Cascader from 'cascader';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const dispatchWithTimers = (node, event, ...arg) => {
   node.dispatchEvent(event, ...arg);
@@ -10,12 +13,12 @@ const dispatchWithTimers = (node, event, ...arg) => {
 describe('Cascader', () => {
   it('className default to zent-cascader ', () => {
     const wrapper = mount(<Cascader />);
-    expect(wrapper.hasClass('zent-cascader')).toBe(true);
+    expect(wrapper.find('.zent-cascader').length).toBe(1);
   });
 
   it('can have custom prefix', () => {
     const wrapper = mount(<Cascader prefix="rc" />);
-    expect(wrapper.hasClass('rc-cascader')).toBe(true);
+    expect(wrapper.find('.rc-cascader').length).toBe(1);
   });
 
   it('can have custom className', () => {
@@ -40,7 +43,7 @@ describe('Cascader', () => {
     jest.runAllTimers();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
 
-    dispatchWithTimers(window, new MouseEvent('click'));
+    dispatchWithTimers(document.body, new MouseEvent('click'));
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
   });
 
@@ -89,7 +92,7 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    expect(wrapper.hasClass('open')).toBe(true);
+    expect(wrapper.find('.zent-cascader').hasClass('open')).toBe(true);
     const allTabs = document.querySelectorAll('.zent-tabs-tab');
     expect(allTabs.length).toBe(3);
     expect(allTabs[0].textContent).toBe('省份');

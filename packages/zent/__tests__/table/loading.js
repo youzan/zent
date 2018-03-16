@@ -1,7 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import Loading from './comp/loading';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Loading', () => {
   jest.useFakeTimers();
@@ -14,6 +17,7 @@ describe('Loading', () => {
   it('table loading', () => {
     expect(wrapper.find('.zent-page-loading').length).toBe(1);
     jest.runAllTimers();
+    wrapper.update();
     expect(wrapper.find('.zent-page-loading').length).toBe(0);
   });
 
