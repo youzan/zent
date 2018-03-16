@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import WindowEventHandler from 'utils/component/WindowEventHandler';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('WindowEventHandler', () => {
   it('should bind event handler to window', () => {

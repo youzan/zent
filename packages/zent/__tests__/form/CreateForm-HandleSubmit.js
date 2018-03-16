@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import ZentForm from 'form';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('CreatedForm and HandleSubmit', () => {
   const { Form, createForm, Field, InputField, SubmissionError } = ZentForm;
@@ -96,14 +99,14 @@ describe('CreatedForm and HandleSubmit', () => {
     expect(() => {
       wrapper.simulate('submit');
     }).not.toThrow();
-    expect(wrapper.getNode().isSubmitting()).toBe(false);
+    expect(wrapper.instance().isSubmitting()).toBe(false);
     expect(promiseSuccessMock.mock.calls.length).toBe(1);
     wrapper = mount(<CreatedForm onSubmitSuccess={null} />);
     expect(() => {
       wrapper.simulate('submit');
     }).not.toThrow();
-    expect(wrapper.getNode().isSubmitting()).toBe(false);
-    expect(wrapper.getNode().isSubmitting()).toBe(false);
+    expect(wrapper.instance().isSubmitting()).toBe(false);
+    expect(wrapper.instance().isSubmitting()).toBe(false);
   });
 
   it('onSubmitFail will be excuted when then promise rejected', () => {
@@ -145,29 +148,29 @@ describe('CreatedForm and HandleSubmit', () => {
     expect(() => {
       wrapper.simulate('submit');
     }).not.toThrow();
-    expect(wrapper.getNode().isSubmitting()).toBe(true);
+    expect(wrapper.instance().isSubmitting()).toBe(true);
     expect(promiseSuccessMock.mock.calls.length).toBe(0);
     expect(promiseFailMock.mock.calls.length).toBe(0);
     jest.runAllTimers();
     // Promise.resolve().then(() => {
     //   expect(promiseSuccessMock.mock.calls.length).toBe(0);
     //   expect(promiseFailMock.mock.calls.length).toBe(1);
-    //   expect(wrapper.getNode().isSubmitting()).toBe(false);
+    //   expect(wrapper.instance().isSubmitting()).toBe(false);
     // });
     wrapper = mount(<CreatedForm onSubmitSuccess={null} onSubmitFail={null} />);
     expect(() => {
       wrapper.simulate('submit');
     }).not.toThrow();
-    expect(wrapper.getNode().isSubmitting()).toBe(true);
+    expect(wrapper.instance().isSubmitting()).toBe(true);
     jest.runAllTimers();
     // Promise.resolve().then(() => {
-    //   expect(wrapper.getNode().isSubmitting()).toBe(false);
+    //   expect(wrapper.instance().isSubmitting()).toBe(false);
     // });
 
     // BUG: promise rejected will excute zent-form.submitCompleted not submitFailed
     // HACK lines
     expect(() => {
-      wrapper.getNode().submitFailed(new Error());
+      wrapper.instance().submitFailed(new Error());
     }).toThrow();
   });
 
@@ -322,8 +325,8 @@ describe('CreatedForm and HandleSubmit', () => {
       <TempForm onSubmitFail={subFailMock} onSubmitSuccess={subSuccessMock} />
     );
     let input = wrapper.find('input');
-    expect(wrapper.getNode().isValidating()).toBe(false);
-    expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
+    expect(wrapper.instance().isValidating()).toBe(false);
+    expect(wrapper.instance().isFieldValidating('foo')).toBe(false);
     input.simulate('focus');
     input.simulate('blur');
     wrapper.simulate('submit');

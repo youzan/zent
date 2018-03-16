@@ -1,9 +1,12 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Table from 'table';
+import Adapter from 'enzyme-adapter-react-16';
 
 import datasets from './comp/data/conf';
 import TextComponent from './comp/components/Text';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const columns = [
   {
@@ -50,7 +53,7 @@ describe('Head in Table', () => {
     let wrapper = mount(
       <Table columns={columns} datasets={datasets} rowKey="item_id" autoStick />
     );
-    expect(wrapper.find('Head').getNode().state.fixStyle).toBeUndefined();
+    expect(wrapper.find('Head').instance().state.fixStyle).toBeUndefined();
     wrapper.unmount();
 
     wrapper = mount(
@@ -67,9 +70,9 @@ describe('Head in Table', () => {
     window.scrollY = 100;
     wrapper
       .find('Head')
-      .getNode()
+      .instance()
       .setHeadStyle();
-    expect(wrapper.find('Head').getNode().state.fixStyle.position).toEqual(
+    expect(wrapper.find('Head').instance().state.fixStyle.position).toEqual(
       'fixed'
     );
     wrapper = mount(

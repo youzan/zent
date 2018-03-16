@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Button from 'button';
 import Icon from 'icon';
-import { shallow } from 'enzyme';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('<Button />', () => {
   let button;

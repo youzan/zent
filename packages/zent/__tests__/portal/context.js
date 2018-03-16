@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Portal from 'portal';
 import PropTypes from 'prop-types';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 /*
 **react<=15.2.1的版本有bug，除了initial render外context不会更新**

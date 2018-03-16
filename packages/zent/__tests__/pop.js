@@ -1,8 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { Simulate } from 'react-dom/test-utils';
 import Pop from 'pop';
 import Button from 'button';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 let contentId = 1;
 let headerId = 2;
@@ -304,8 +307,8 @@ describe('Pop', () => {
     });
     jest.runAllTimers();
 
-    document.querySelector('.zent-btn-primary').click();
-    jest.runAllTimers();
+    Simulate.click(document.querySelector('.zent-btn-primary'));
+    jest.runOnlyPendingTimers();
     expect(a).toBe(2);
   });
 

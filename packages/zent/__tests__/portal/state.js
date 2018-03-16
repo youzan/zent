@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import PropTypes from 'prop-types';
 import Portal from 'portal';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 class SimpleState extends Component {
   static propTypes = {
@@ -97,15 +100,16 @@ describe('Portal', () => {
       document.querySelector('.state-body-portal .state-count').textContent
     ).toBe('0');
 
-    const stateContainer = wrapper.wrap(wrapper.instance().stateContainer);
+    wrapper.instance().inc();
+    wrapper.update();
 
-    stateContainer.find('.btn-inc').simulate('click');
     expect(
       document.querySelector('.state-body-portal .state-count').textContent
     ).toBe('1');
 
-    stateContainer.find('.btn-close').simulate('click');
+    wrapper.instance().onClose();
     jest.runOnlyPendingTimers();
+    wrapper.update();
     expect(document.querySelector('.state-body-portal')).toBeFalsy();
 
     wrapper.unmount();
