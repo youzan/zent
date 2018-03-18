@@ -360,7 +360,7 @@ class WeekPicker extends (PureComponent || Component) {
                     value={
                       showPlaceholder
                         ? placeholder || i18n.week
-                        : value.join(` ${i18n.to} `)
+                        : value.join(`${i18n.to}`)
                     }
                     onChange={noop}
                     disabled={disabled}
