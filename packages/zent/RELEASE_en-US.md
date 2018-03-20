@@ -7,6 +7,24 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 5.0.0 (2018-03-16)
+
+> `React` 16 is now offfically supported.
+
+- 🎉 Upgrade to `React` 16
+- `Button`
+  - ✨ Add support for `Icons`
+  - ✨ New `Button.Group` component
+- ✨ `Steps` now has a new state: `process`, and default state value is changed to `process`
+- 🦀️ Fix height bug in `Loading`
+- 🦀️ Fix `BlockHeader` style
+- `Tree`
+  - 🦀️ Fix `expand` not working
+  - 📚 Add doc about `loadMore`
+- `Upload`
+  - ✨ Allow custom error messages through `errorMessages`
+  - 🦀️ Move CSS class name to `zent-upload` namespace
+
 ### 4.3.2 (2018-03-07)
 
 - 🦀️ Update `Loading` height logic
