@@ -1,5 +1,13 @@
 ## Github Change Log
 
+## [zent@5.0.1](https://github.com/youzan/zent/tree/zent@5.0.1) (2018-03-20)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@5.0.0...zent@5.0.1)
+
+**Fixed bugs:**
+
+- WeekPicker: 文字超出输入框 [\#767](https://github.com/youzan/zent/issues/767)
+- fix\(weekpicker\): trim value space [\#773](https://github.com/youzan/zent/pull/773) ([xuhong](https://github.com/xuhong))
+
 ## [zent@5.0.0](https://github.com/youzan/zent/tree/zent@5.0.0) (2018-03-16)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@4.3.2...zent@5.0.0)
 
