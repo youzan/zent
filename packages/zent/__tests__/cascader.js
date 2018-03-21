@@ -6,6 +6,11 @@ import Cascader from 'cascader';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const simulateWithTimers = (node, event, ...arg) => {
+  node.simulate(event, ...arg);
+  jest.runAllTimers();
+};
+
 const simulateRawWithTimers = (node, event, ...arg) => {
   Simulate[event](node, ...arg);
   jest.runAllTimers();
@@ -20,16 +25,19 @@ describe('Cascader', () => {
   it('className default to zent-cascader ', () => {
     const wrapper = mount(<Cascader />);
     expect(wrapper.find('.zent-cascader').length).toBe(1);
+    wrapper.unmount();
   });
 
   it('can have custom prefix', () => {
     const wrapper = mount(<Cascader prefix="rc" />);
     expect(wrapper.find('.rc-cascader').length).toBe(1);
+    wrapper.unmount();
   });
 
   it('can have custom className', () => {
     const wrapper = mount(<Cascader className="rc-cascader-custom" />);
     expect(wrapper.hasClass('rc-cascader-custom')).toBe(true);
+    wrapper.unmount();
   });
 
   it('can have custom placeholder', () => {
@@ -40,17 +48,56 @@ describe('Cascader', () => {
         .find('span')
         .text()
     ).toBe('hold on');
+    wrapper.unmount();
   });
 
   it('can have custom popClassName', () => {
-    const wrapper = mount(<Cascader popClassName="rc-cascader-popover" />);
+    const value = [];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
 
-    wrapper.find('.zent-cascader__select').simulate('click');
-    jest.runAllTimers();
+    const wrapper = mount(
+      <Cascader
+        popClassName="rc-cascader-popover"
+        value={value}
+        options={options}
+      />
+    );
+
+    simulateWithTimers(wrapper.find('.zent-cascader__select'), 'click');
+    wrapper.update();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
+    wrapper.update;
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
+    wrapper.unmount();
   });
 
   it('has default value and options', () => {
@@ -110,6 +157,7 @@ describe('Cascader', () => {
     wrapper.update();
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
+    wrapper.update;
     expect(wrapper.hasClass('open')).toBe(false);
     wrapper.unmount();
   });
@@ -163,6 +211,7 @@ describe('Cascader', () => {
     wrapper.update();
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
+    wrapper.unmount();
   });
 
   it('can have menu type', () => {
@@ -217,6 +266,7 @@ describe('Cascader', () => {
     wrapper.update();
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
+    wrapper.unmount();
   });
 
   it('changeOnSelect when click item', () => {
@@ -284,6 +334,7 @@ describe('Cascader', () => {
     expect(onChangeMock.mock.calls.length).toBe(1);
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
+    wrapper.unmount();
   });
 
   it('loadMore when click item', () => {
@@ -330,6 +381,7 @@ describe('Cascader', () => {
     wrapper.update();
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
+    wrapper.unmount();
   });
 
   it('loadMore when click item and menu type', () => {
@@ -385,5 +437,6 @@ describe('Cascader', () => {
     wrapper.update();
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
+    wrapper.unmount();
   });
 });
