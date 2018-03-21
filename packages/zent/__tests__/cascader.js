@@ -21,6 +21,10 @@ const dispatchWithTimers = (node, event, ...arg) => {
   jest.runAllTimers();
 };
 
+beforeAll(() => {
+  jest.useFakeTimers();
+});
+
 describe('Cascader', () => {
   it('className default to zent-cascader ', () => {
     const wrapper = mount(<Cascader />);
@@ -95,9 +99,8 @@ describe('Cascader', () => {
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
-    wrapper.update;
-    expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
     wrapper.unmount();
+    expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
   });
 
   it('has default value and options', () => {
@@ -157,9 +160,8 @@ describe('Cascader', () => {
     wrapper.update();
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
-    wrapper.update;
-    expect(wrapper.hasClass('open')).toBe(false);
     wrapper.unmount();
+    expect(wrapper.hasClass('open')).toBe(false);
   });
 
   it('onChange when click item', () => {
