@@ -16,11 +16,6 @@ const simulateRawWithTimers = (node, event, ...arg) => {
   jest.runAllTimers();
 };
 
-const dispatchWithTimers = (node, event, ...arg) => {
-  node.dispatchEvent(event, ...arg);
-  jest.runAllTimers();
-};
-
 beforeAll(() => {
   jest.useFakeTimers();
 });
@@ -99,6 +94,7 @@ describe('Cascader', () => {
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
 
     simulateWithTimers(wrapper.find('.zent-cascader__select'), 'click');
+    wrapper.update();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
     wrapper.unmount();
   });
@@ -159,9 +155,10 @@ describe('Cascader', () => {
     simulateRawWithTimers(document.querySelector('.zent-tabs-tab'), 'click');
     wrapper.update();
 
-    dispatchWithTimers(document.body, new MouseEvent('click'));
-    wrapper.unmount();
+    simulateWithTimers(wrapper.find('.zent-cascader__select'), 'click');
+    wrapper.update();
     expect(wrapper.hasClass('open')).toBe(false);
+    wrapper.unmount();
   });
 
   it('onChange when click item', () => {
@@ -210,9 +207,7 @@ describe('Cascader', () => {
       pop.querySelectorAll('.zent-cascader__list-link')[0],
       'click'
     );
-    wrapper.update();
 
-    dispatchWithTimers(document.body, new MouseEvent('click'));
     wrapper.unmount();
   });
 
@@ -265,9 +260,7 @@ describe('Cascader', () => {
       pop.querySelectorAll('.zent-cascader__menu-item')[0],
       'click'
     );
-    wrapper.update();
 
-    dispatchWithTimers(document.body, new MouseEvent('click'));
     wrapper.unmount();
   });
 
@@ -335,7 +328,6 @@ describe('Cascader', () => {
     ).toBe('root');
     expect(onChangeMock.mock.calls.length).toBe(1);
 
-    dispatchWithTimers(document.body, new MouseEvent('click'));
     wrapper.unmount();
   });
 
@@ -380,9 +372,7 @@ describe('Cascader', () => {
       pop.querySelectorAll('.zent-cascader__list-link')[0],
       'click'
     );
-    wrapper.update();
 
-    dispatchWithTimers(document.body, new MouseEvent('click'));
     wrapper.unmount();
   });
 
@@ -436,9 +426,7 @@ describe('Cascader', () => {
       pop.querySelectorAll('.zent-cascader__menu-item')[1],
       'click'
     );
-    wrapper.update();
 
-    dispatchWithTimers(document.body, new MouseEvent('click'));
     wrapper.unmount();
   });
 });
