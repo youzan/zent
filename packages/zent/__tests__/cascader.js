@@ -98,9 +98,9 @@ describe('Cascader', () => {
     wrapper.update();
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(1);
 
-    dispatchWithTimers(document.body, new MouseEvent('click'));
-    wrapper.unmount();
+    simulateWithTimers(wrapper.find('.zent-cascader__select'), 'click');
     expect(document.querySelectorAll('.rc-cascader-popover').length).toBe(0);
+    wrapper.unmount();
   });
 
   it('has default value and options', () => {
