@@ -1,9 +1,15 @@
 import React from 'react';
-import Enzyme, { mount, ReactWrapper } from 'enzyme';
+import { Simulate } from 'react-dom/test-utils';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Cascader from 'cascader';
 
 Enzyme.configure({ adapter: new Adapter() });
+
+const simulateRawWithTimers = (node, event, ...arg) => {
+  Simulate[event](node, ...arg);
+  jest.runAllTimers();
+};
 
 const dispatchWithTimers = (node, event, ...arg) => {
   node.dispatchEvent(event, ...arg);
@@ -100,16 +106,12 @@ describe('Cascader', () => {
     expect(allTabs[2].textContent).toBe('县区');
     expect(allTabs[2].classList.contains('zent-tabs-actived')).toBe(true);
 
-    const pop = new ReactWrapper(wrapper.instance().cascader, true);
+    simulateRawWithTimers(document.querySelector('.zent-tabs-tab'), 'click');
+    wrapper.update();
 
-    pop
-      .find('.zent-tabs-tab')
-      .at(0)
-      .simulate('click');
-    jest.runAllTimers();
-
-    dispatchWithTimers(window, new MouseEvent('click'));
+    dispatchWithTimers(document.body, new MouseEvent('click'));
     expect(wrapper.hasClass('open')).toBe(false);
+    wrapper.unmount();
   });
 
   it('onChange when click item', () => {
@@ -148,22 +150,19 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = new ReactWrapper(wrapper.instance().cascader, true);
-    expect(pop.find('.zent-cascader__list-link').length).toBe(1);
+    const pop = document.querySelector('.zent-popover-content');
+    expect(pop.querySelectorAll('.zent-cascader__list-link').length).toBe(1);
     expect(
-      pop
-        .find('.zent-cascader__list-link')
-        .at(0)
-        .text()
+      pop.querySelectorAll('.zent-cascader__list-link')[0].textContent
     ).toBe('root');
 
-    pop
-      .find('.zent-cascader__list-link')
-      .at(0)
-      .simulate('click');
-    jest.runAllTimers();
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__list-link')[0],
+      'click'
+    );
+    wrapper.update();
 
-    dispatchWithTimers(window, new MouseEvent('click'));
+    dispatchWithTimers(document.body, new MouseEvent('click'));
   });
 
   it('can have menu type', () => {
@@ -204,22 +203,20 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = new ReactWrapper(wrapper.instance().cascader, true);
-    expect(pop.find('.zent-cascader__menu-item').length).toBe(1);
+    const pop = document.querySelector('.zent-popover-content');
+
+    expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(1);
     expect(
-      pop
-        .find('.zent-cascader__menu-item')
-        .at(0)
-        .text()
+      pop.querySelectorAll('.zent-cascader__menu-item')[0].textContent
     ).toBe('root');
 
-    pop
-      .find('.zent-cascader__menu-item')
-      .at(0)
-      .simulate('click');
-    jest.runAllTimers();
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      'click'
+    );
+    wrapper.update();
 
-    dispatchWithTimers(window, new MouseEvent('click'));
+    dispatchWithTimers(document.body, new MouseEvent('click'));
   });
 
   it('changeOnSelect when click item', () => {
@@ -270,13 +267,14 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = new ReactWrapper(wrapper.instance().cascader, true);
+    const pop = document.querySelector('.zent-popover-content');
 
-    pop
-      .find('.zent-cascader__list-link')
-      .at(0)
-      .simulate('click');
-    jest.runAllTimers();
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__list-link')[0],
+      'click'
+    );
+    wrapper.update();
+
     expect(
       wrapper
         .find('.zent-cascader__select-text')
@@ -285,7 +283,7 @@ describe('Cascader', () => {
     ).toBe('root');
     expect(onChangeMock.mock.calls.length).toBe(1);
 
-    dispatchWithTimers(window, new MouseEvent('click'));
+    dispatchWithTimers(document.body, new MouseEvent('click'));
   });
 
   it('loadMore when click item', () => {
@@ -323,15 +321,15 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = new ReactWrapper(wrapper.instance().cascader, true);
+    const pop = document.querySelector('.zent-popover-content');
 
-    pop
-      .find('.zent-cascader__list-link')
-      .at(0)
-      .simulate('click');
-    jest.runAllTimers();
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__list-link')[0],
+      'click'
+    );
+    wrapper.update();
 
-    dispatchWithTimers(window, new MouseEvent('click'));
+    dispatchWithTimers(document.body, new MouseEvent('click'));
   });
 
   it('loadMore when click item and menu type', () => {
@@ -373,19 +371,19 @@ describe('Cascader', () => {
     wrapper.find('.zent-cascader__select').simulate('click');
     jest.runAllTimers();
 
-    const pop = new ReactWrapper(wrapper.instance().cascader, true);
+    const pop = document.querySelector('.zent-popover-content');
 
-    pop
-      .find('.zent-cascader__menu-item')
-      .at(0)
-      .simulate('click');
-    jest.runAllTimers();
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      'click'
+    );
+    wrapper.update();
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__menu-item')[1],
+      'click'
+    );
+    wrapper.update();
 
-    pop
-      .find('.zent-cascader__menu-item')
-      .at(1)
-      .simulate('click');
-    jest.runAllTimers();
-    dispatchWithTimers(window, new MouseEvent('click'));
+    dispatchWithTimers(document.body, new MouseEvent('click'));
   });
 });
