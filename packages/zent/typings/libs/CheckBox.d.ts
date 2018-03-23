@@ -5,6 +5,7 @@ declare module 'zent/lib/checkbox' {
     checked?: boolean
     value?: any
     disabled?: boolean
+    readOnly?: boolean
     indeterminate?: boolean
     onChange?: React.ChangeEventHandler<HTMLInputElement>
     className?: string
@@ -15,6 +16,7 @@ declare module 'zent/lib/checkbox' {
     value: Array<any>
     isValueEqual?: (value1: any, value2: any) => boolean
     disabled?: boolean
+    readOnly?: boolean
     onChange?: (values: Array<any>) => void
     className?: string
     prefix?: string

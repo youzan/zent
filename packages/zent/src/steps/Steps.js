@@ -25,7 +25,7 @@ export default class Steps extends (PureComponent || Component) {
     current: 0,
     direction: 'horizontal',
     size: 'normal',
-    status: 'finish',
+    status: 'process',
     sequence: true,
   };
 

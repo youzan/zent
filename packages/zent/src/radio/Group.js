@@ -5,6 +5,8 @@ import classNames from 'classnames';
 export default class Group extends (PureComponent || Component) {
   static propTypes = {
     value: PropTypes.any,
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
     isValueEqual: PropTypes.func,
     onChange: PropTypes.func,
     className: PropTypes.string,
@@ -16,35 +18,37 @@ export default class Group extends (PureComponent || Component) {
     prefix: 'zent',
     className: '',
     style: {},
+    disabled: false,
+    readOnly: false,
     isValueEqual(a, b) {
       return a === b;
     },
     onChange() {},
   };
 
-  onRadioChange(e) {
-    this.props.onChange(e);
+  static childContextTypes = {
+    radioGroup: PropTypes.any,
+  };
+
+  getChildContext() {
+    const { value, isValueEqual, disabled, readOnly } = this.props;
+    return {
+      radioGroup: {
+        value,
+        disabled,
+        readOnly,
+        isValueEqual,
+        onRadioChange: this.onRadioChange,
+      },
+    };
   }
 
+  onRadioChange = e => {
+    this.props.onChange(e);
+  };
+
   render() {
-    const { className, prefix, style, isValueEqual } = this.props;
-    const children = React.Children.map(this.props.children, radio => {
-      if (radio && radio.props) {
-        return React.cloneElement(radio, {
-          ...radio.props,
-          onChange: this.onRadioChange.bind(this),
-          checked: isValueEqual(this.props.value, radio.props.value),
-          disabled:
-            radio.props.disabled !== undefined
-              ? radio.props.disabled
-              : this.props.disabled,
-          readOnly:
-            radio.props.readOnly !== undefined
-              ? radio.props.readOnly
-              : this.props.readOnly,
-        });
-      }
-    });
+    const { className, prefix, style, children } = this.props;
 
     const classString = classNames({
       [`${prefix}-radio-group`]: true,

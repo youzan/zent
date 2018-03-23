@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import InfiniteScroller from 'infinite-scroller';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('InfiniteScroller', () => {
   it('className default to zent-infinite-scroller ', () => {
@@ -119,6 +122,7 @@ describe('InfiniteScroller', () => {
     }
     const wrapper = mount(<Test />);
     wrapper.instance().scroll.handleScroll();
+    wrapper.update();
     expect(wrapper.find('.child').length).toBe(4);
     wrapper.unmount();
   });
@@ -159,6 +163,7 @@ describe('InfiniteScroller', () => {
     }
     const wrapper = mount(<Test />);
     wrapper.instance().scroll.handleScroll();
+    wrapper.update();
     expect(wrapper.find('.child').length).toBe(4);
     wrapper.unmount();
   });
@@ -200,6 +205,7 @@ describe('InfiniteScroller', () => {
     }
     const wrapper = mount(<Test />);
     wrapper.instance().scroll.handleScroll();
+    wrapper.update();
     expect(wrapper.find('.child').length).toBe(4);
     wrapper.unmount();
   });

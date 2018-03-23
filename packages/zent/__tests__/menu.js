@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Menu from 'menu';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const { MenuItem, SubMenu } = Menu;
 
@@ -15,8 +18,8 @@ describe('Menu component', () => {
       </Menu>
     );
 
-    expect(wrapper.find('.hello').length).toBe(1);
-    expect(wrapper.find('.food').length).toBe(1);
+    expect(wrapper.find('Menu').length).toBe(1);
+    expect(wrapper.find('MenuItem').length).toBe(1);
     expect(wrapper.getDOMNode().style.cssText).toMatch(
       /max-height:\s*10px;\s*overflow:\s*auto/
     );
@@ -64,6 +67,7 @@ describe('Menu component', () => {
 
     wrapper.find('SubMenu').simulate('mouseenter');
     jest.runAllTimers();
+    wrapper.update();
     expect(wrapper.find('.zent-submenu-content').length).toBe(1);
 
     wrapper.find('SubMenu MenuItem').simulate('click');

@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Radio from 'radio';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const Group = Radio.Group;
 
@@ -109,13 +112,13 @@ describe('Radio Section', () => {
   it('Radio have an change event liftup', () => {
     const propOnChangeMock = jest.fn();
     const wrapper = mount(<Radio onChange={propOnChangeMock} />);
-    const handleChange = wrapper.find(Radio).node.handleChange;
+    const handleChange = wrapper.find(Radio).instance().handleChange;
     expect(wrapper.find('input').props().onChange).not.toBe(propOnChangeMock);
     expect(wrapper.find('input').props().onChange).toBe(handleChange);
     expect(propOnChangeMock.mock.calls.length).toBe(0);
     wrapper
       .find('input')
-      .simulate('change', { target: wrapper.find('input').node });
+      .simulate('change', { target: wrapper.find('input').instance() });
     expect(propOnChangeMock.mock.calls.length).toBe(1);
   });
 });
@@ -146,8 +149,7 @@ describe('RadioGroup Section', () => {
     expect(wrapper.props().style).toBe(styleObj);
   });
 
-  // NOTE: Group will load some useless props to its custom children
-  it('Group have conflict when have custom child', () => {
+  it('Group have custom child', () => {
     const wrapper = mount(
       <Group>
         <div className="deffect" />
@@ -155,45 +157,8 @@ describe('RadioGroup Section', () => {
         hack branch
       </Group>
     );
-    expect(wrapper.find('.deffect').props().checked).toBe(true);
-    expect(wrapper.find('span').props().checked).toBe(true);
-  });
-
-  it('RadioGroup will rewrite some props of Radio(onChange: always, checked: always, disabled: conditional, readOnly: conditional), and clone others', () => {
-    const onChangeMock = jest.fn();
-    const wrapper = mount(
-      <Group disabled={false} readOnly={false}>
-        <Radio
-          onChange={onChangeMock}
-          checked={1}
-          className="foo"
-          prefix="bar"
-        />
-      </Group>
-    );
-    expect(wrapper.find(Radio).props().onChange).not.toBe(onChangeMock);
-    expect(wrapper.find(Radio).props().checked).not.toBe(1);
-    expect(wrapper.find(Radio).props().className).toBe('foo');
-    expect(wrapper.find(Radio).props().prefix).toBe('bar');
-
-    // NOTE: Group组件没有定义staticProps[(disabled|readOnly)]和defaultProps[(disabled|readOnly)]
-    // NOTE: 判断逻辑 radio.props.disabled !== void 0 ? radio.props.disabled : this.props.disabled 存在一个逻辑问题，当上层组件disabled={true}时，内部 Radio 可能disabled＝{false}
-    // NOTE: 写成Group.props.disabled默认 false，this.props.disabled ? this.props.disabled : radio.props.disabled 是不是更好些？
-
-    const conditionalOne = mount(
-      <Group disabled readOnly={false}>
-        <Radio disabled={false} readOnly />
-      </Group>
-    );
-    const conditionalTwo = mount(
-      <Group disabled readOnly>
-        <Radio />
-      </Group>
-    );
-    expect(conditionalOne.find(Radio).props().disabled).toBe(false);
-    expect(conditionalOne.find(Radio).props().readOnly).toBe(true);
-    expect(conditionalTwo.find(Radio).props().disabled).toBe(true);
-    expect(conditionalTwo.find(Radio).props().readOnly).toBe(true);
+    expect(wrapper.find('.deffect').props().checked).toBe(undefined);
+    expect(wrapper.find('span').props().checked).toBe(undefined);
   });
 
   it('Group can have value prop of any type in javascript', () => {
@@ -223,21 +188,24 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(0)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(true);
     wrapper.setProps({ value: null });
     expect(
       wrapper
         .find(Radio)
         .at(2)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(true);
     wrapper.setProps({ value: 321 });
     expect(
       wrapper
         .find(Radio)
         .at(1)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(true);
   });
 
@@ -266,7 +234,8 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(0)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(true);
 
     // Radio features
@@ -279,13 +248,15 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(3)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(true);
     expect(
       wrapper
         .find(Radio)
         .at(0)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(false);
 
     wrapper
@@ -296,13 +267,15 @@ describe('RadioGroup Section', () => {
       wrapper
         .find(Radio)
         .at(1)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(true);
     expect(
       wrapper
         .find(Radio)
         .at(3)
-        .props().checked
+        .children()
+        .hasClass('zent-radio-checked')
     ).toBe(false);
   });
 });

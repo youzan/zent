@@ -1,8 +1,11 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import Enzyme, { mount, ReactWrapper } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import { Select as I18nDefault } from 'i18n/default';
 import Select, { Option } from 'select';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('<Select />', () => {
   test('data的传参方式有效', () => {

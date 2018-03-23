@@ -7,6 +7,40 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 5.0.0 (2018-03-16)
+
+> 从这个版本开始正式支持 `React` 16，后续开发都将基于 16。
+
+- 🎉 升级 `React` 以及 `Enzyme` 到最新版本，正式支持 `React` 16
+- `Button`
+  - ✨ 添加对图标的支持
+  - ✨ 新增 `Button.Group` 容器
+- ✨ `Steps` 组件新增一个 `process` 状态，并且默认值也修改为 `process`
+- 🦀️ 修复 `Loading` 组件高度问题
+- 🦀️ 更新 `BlockHeader` 组件样式
+- `Tree`
+  - 🦀️ 修复节点 `expand` 不生效的问题
+  - 📚 补充 `loadMore` 的文档
+- `Upload`
+  - ✨ 允许通过 `errorMessages` 参数自定义错误提示文案
+  - 🦀️ 收敛 CSS 的类名，降低冲突风险
+
+### 4.3.2 (2018-03-07)
+
+- 🦀️ 更新 `Loading` 组件高度设置逻辑
+- 🦀️ 修复 `Pagination` 文案
+- 🦀️ 修复 `Radio` 和 `Checkbox` 组件嵌套使用时的问题
+- 🦀️ `Radio` 和 `Checkbox` 的分组组件只读或禁用时会忽略组件自身的设置
+- 🦀️ 修复 `Upload` 组件样式问题
+
+### 4.3.1 (2018-03-05)
+
+- 🦀️ 修复 `Select` 组件在标签样式下 placeholder 缩进不一致的问题
+- 🦀️ 修复 `Popover` 在特定情况下循环调用 `adjustPosition` 的问题
+- 🦀️ 调整 `Tree` 组件的字体大小
+- 🦀️ 修复 `Grid` 组件在 Windows 系统下的现实问题
+- 🦀️ 修复 `CopyButton` 在某些情况下选择错误的问题
+
 ### 4.3.0 (2018-02-14)
 
 > 情人节快乐！新春快乐!

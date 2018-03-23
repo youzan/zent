@@ -25,27 +25,33 @@ import { Steps, Button } from 'zent';
 
 class StepsExample extends Component {
 	state = {
-		current: 1
+		current: 1,
+		status: 'process'
 	}
 
 	nextStep = () => {
-		let { current } = this.state;
-		current += 1;
-
-		if (current > 3) {
-			current = current % 3;
+		let { current, status } = this.state;
+		if (current === 3 && status === 'process') {
+			status = 'finish';
+		} else {
+			current++;
+			if (current > 3) {
+				current = current % 3;
+			}
+			status = 'process';
 		}
 
 		this.setState({
-			current
+			current,
+			status
 		});
 	}
 
 	render() {
-		let { current } = this.state;
+		let { current, status } = this.state;
 		return (
 			<div>
-				<Steps current={current} status="finish">
+				<Steps current={current} status={status}>
 					<Steps.Step title="{i18n.stepOne}" description="{i18n.stepOneText}" />
 					<Steps.Step title="{i18n.stepTwo}" description="{i18n.stepTwoText}" />
 					<Steps.Step title="{i18n.stepThree}" description="{i18n.stepThreeText}" />

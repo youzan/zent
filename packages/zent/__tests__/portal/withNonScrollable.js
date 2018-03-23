@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Portal from 'portal';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const { withNonScrollable } = Portal;
 

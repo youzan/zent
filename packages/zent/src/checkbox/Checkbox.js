@@ -1,10 +1,11 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash/assign';
 import getWidth from 'utils/getWidth';
+import findIndex from './findIndex';
 
-export default class Checkbox extends (PureComponent || Component) {
+export default class Checkbox extends Component {
   static propTypes = {
     checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     disabled: PropTypes.bool,
@@ -21,13 +22,18 @@ export default class Checkbox extends (PureComponent || Component) {
     prefix: 'zent',
     className: '',
     style: {},
+    disabled: false,
+    readOnly: false,
     onChange() {},
   };
 
-  onChange = evt => {
-    const props = this.props;
+  static contextTypes = {
+    checkboxGroup: PropTypes.any,
+  };
 
-    props.onChange({
+  onChange = evt => {
+    const { props, context } = this;
+    const e = {
       target: {
         ...props,
         type: 'checkbox',
@@ -41,11 +47,18 @@ export default class Checkbox extends (PureComponent || Component) {
       stopPropagation() {
         evt.stopPropagation();
       },
-    });
+    };
+
+    if (context.checkboxGroup) {
+      context.checkboxGroup.onCheckboxChange(e);
+    } else {
+      props.onChange(e);
+    }
   };
 
   render() {
-    const {
+    const { props, context } = this;
+    let {
       checked,
       className,
       style,
@@ -56,10 +69,19 @@ export default class Checkbox extends (PureComponent || Component) {
       indeterminate,
       width,
       // value可以是任意类型，不要写到dom上去
-      value, // eslint-disable-line
-
+      value,
       ...others
-    } = this.props;
+    } = props;
+    const { checkboxGroup } = context;
+
+    if (checkboxGroup) {
+      checked =
+        findIndex(checkboxGroup.value, val =>
+          checkboxGroup.isValueEqual(val, value)
+        ) !== -1;
+      disabled = checkboxGroup.disabled || disabled;
+      readOnly = checkboxGroup.readOnly || readOnly;
+    }
 
     const classString = classNames({
       [className]: !!className,

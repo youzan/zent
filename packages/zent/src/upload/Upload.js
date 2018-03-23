@@ -31,6 +31,11 @@ class Upload extends Component {
     if (this.props.auto) {
       this.showUpload();
     }
+    if (this.props.silent) {
+      console.warn(
+        'silent is deprecated, please use errorMessages to instead.'
+      );
+    }
   }
 
   componentWillUnmount() {
@@ -91,7 +96,7 @@ class Upload extends Component {
             />
           ) : (
             <div className={className}>
-              <div
+              <span
                 className={triggerClassName}
                 onClick={this.showUpload.bind(this, true)}
               >
@@ -100,7 +105,7 @@ class Upload extends Component {
                   uploadOptions.maxAmount === 1 && (
                     <FileInput {...uploadOptions} i18n={i18n} />
                   )}
-              </div>
+              </span>
               <p className={`${prefix}-upload-tips`}>{tips}</p>
               <Dialog
                 title={i18n[`title_${this.props.type}`]}
@@ -158,6 +163,7 @@ Upload.defaultProps = {
   triggerInline: false,
   silent: false,
   withoutPopup: false,
+  errorMessages: {},
 };
 
 Upload.FileInput = FileInput;

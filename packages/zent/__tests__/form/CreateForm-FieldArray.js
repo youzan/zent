@@ -1,8 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import ZentForm from 'form';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('CreateForm and FieldArray', () => {
   const { Form, createForm, Field, FieldArray, InputField } = ZentForm;
@@ -44,7 +47,7 @@ describe('CreateForm and FieldArray', () => {
     </FormCreated>
   )
     .find(FieldArray)
-    .getNode().context;
+    .instance().context;
 
   it('While render, Field will load default state and contextObj from created zent-form', () => {
     const wrapper = mount(
@@ -53,10 +56,10 @@ describe('CreateForm and FieldArray', () => {
       </FormCreated>
     );
     expect(wrapper.find(Field).length).toBe(0);
-    expect(typeof wrapper.find(FieldArray).getNode().context.zentForm).toBe(
+    expect(typeof wrapper.find(FieldArray).instance().context.zentForm).toBe(
       'object'
     );
-    expect(wrapper.find(FieldArray).getNode()._name).toBe('members');
+    expect(wrapper.find(FieldArray).instance()._name).toBe('members');
   });
 
   it('FieldArray must be in Form Component', () => {
@@ -77,7 +80,7 @@ describe('CreateForm and FieldArray', () => {
       { context }
     );
     wrapper.setProps({ name: 'test' });
-    expect(wrapper.find(FieldArray).getNode()._name).toBe('test');
+    expect(wrapper.find(FieldArray).instance()._name).toBe('test');
   });
 
   it('FieldArray has push method', () => {
@@ -86,26 +89,29 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
-    expect(wrapper.find(Field).length).toBe(1);
-    const fieldZentform = wrapper.find(Field).getNode().context.zentForm;
+    wrapper.update();
+    expect(wrapper.find('Field').length).toBe(1);
+    const fieldZentform = wrapper.find(Field).instance().context.zentForm;
     expect(typeof fieldZentform).toBe('object');
     expect(fieldZentform.prefix).toBe('members');
     expect(typeof fieldZentform.onChangeFieldArray).toBe('function');
     expect(
       wrapper
         .find(Field)
-        .getNode()
+        .instance()
         .getName()
     ).toBe('members[0].name');
-    expect(wrapper.find(Field).getNode().state._value).toBe('');
-    expect(wrapper.find(Field).getNode().state._isValid).toBe(false);
-    expect(wrapper.find(Field).getNode().state._isDirty).toBe(false);
-    expect(wrapper.find(Field).getNode().state._isValidating).toBe(false);
-    expect(wrapper.find(Field).getNode().state._initialValue).toBe('');
-    expect(wrapper.find(Field).getNode().state._validationError.length).toBe(1);
-    expect(wrapper.find(Field).getNode().state._externalError).toBe(null);
+    expect(wrapper.find(Field).instance().state._value).toBe('');
+    expect(wrapper.find(Field).instance().state._isValid).toBe(false);
+    expect(wrapper.find(Field).instance().state._isDirty).toBe(false);
+    expect(wrapper.find(Field).instance().state._isValidating).toBe(false);
+    expect(wrapper.find(Field).instance().state._initialValue).toBe('');
+    expect(wrapper.find(Field).instance().state._validationError.length).toBe(
+      1
+    );
+    expect(wrapper.find(Field).instance().state._externalError).toBe(null);
   });
 
   it('FieldArray has forEachFields method', () => {
@@ -114,9 +120,10 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -126,7 +133,7 @@ describe('CreateForm and FieldArray', () => {
       .at(1)
       .simulate('change', { target: { value: 'bar' } });
     const values = [];
-    const forEachFields = wrapper.find(FieldArray).getNode().forEachFields;
+    const forEachFields = wrapper.find(FieldArray).instance().forEachFields;
     forEachFields((name, index, key, value) => {
       values.push(`${name}=${value.name}`);
     });
@@ -141,9 +148,10 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -152,7 +160,7 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(1)
       .simulate('change', { target: { value: 'bar' } });
-    const getField = wrapper.find(FieldArray).getNode().getField;
+    const getField = wrapper.find(FieldArray).instance().getField;
     expect(() => getField(10)).toThrow();
     const fieldValue = getField(1);
     expect(typeof fieldValue).toBe('object');
@@ -167,9 +175,10 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -178,7 +187,7 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(1)
       .simulate('change', { target: { value: 'bar' } });
-    const getAllFields = wrapper.find(FieldArray).getNode().getAllFields;
+    const getAllFields = wrapper.find(FieldArray).instance().getAllFields;
     const fieldValue = getAllFields();
     expect(typeof fieldValue).toBe('object');
     expect(fieldValue.length).toBe(2);
@@ -198,9 +207,10 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -209,7 +219,7 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(1)
       .simulate('change', { target: { value: 'bar' } });
-    const mapFields = wrapper.find(FieldArray).getNode().mapFields;
+    const mapFields = wrapper.find(FieldArray).instance().mapFields;
     const result = mapFields((name, key, index, value) => {
       return `${name}=${value.name}`;
     });
@@ -224,10 +234,11 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -240,10 +251,10 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(2)
       .simulate('change', { target: { value: 'test' } });
-    const moveFields = wrapper.find(FieldArray).getNode().moveFields;
+    const moveFields = wrapper.find(FieldArray).instance().moveFields;
     expect(() => moveFields(0, 4)).toThrow();
     moveFields(0, 2);
-    const fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    const fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(3);
     expect(fields[0]._fieldInternalValue.name).toBe('bar');
     expect(fields[1]._fieldInternalValue.name).toBe('test');
@@ -256,10 +267,11 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -272,14 +284,14 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(2)
       .simulate('change', { target: { value: 'test' } });
-    let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(3);
     expect(fields[0]._fieldInternalValue.name).toBe('foo');
     expect(fields[1]._fieldInternalValue.name).toBe('bar');
     expect(fields[2]._fieldInternalValue.name).toBe('test');
-    const pop = wrapper.find(FieldArray).getNode().popFields;
+    const pop = wrapper.find(FieldArray).instance().popFields;
     pop();
-    fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(2);
     expect(fields[0]._fieldInternalValue.name).toBe('foo');
     expect(fields[1]._fieldInternalValue.name).toBe('bar');
@@ -291,10 +303,11 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -307,9 +320,9 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(2)
       .simulate('change', { target: { value: 'test' } });
-    const removeFields = wrapper.find(FieldArray).getNode().removeFields;
+    const removeFields = wrapper.find(FieldArray).instance().removeFields;
     removeFields(1);
-    let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(2);
     expect(fields[0]._fieldInternalValue.name).toBe('foo');
     expect(fields[1]._fieldInternalValue.name).toBe('test');
@@ -324,10 +337,11 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -340,11 +354,11 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(2)
       .simulate('change', { target: { value: 'test' } });
-    let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(3);
-    const removeAllFields = wrapper.find(FieldArray).getNode().removeAllFields;
+    const removeAllFields = wrapper.find(FieldArray).instance().removeAllFields;
     removeAllFields();
-    fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(0);
   });
 
@@ -354,8 +368,9 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const unshiftFields = wrapper.find(FieldArray).getNode().unshiftFields;
+    const unshiftFields = wrapper.find(FieldArray).instance().unshiftFields;
     unshiftFields({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -370,14 +385,14 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(0)
       .simulate('change', { target: { value: 'test' } });
-    let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(3);
     expect(fields[0]._fieldInternalValue.name).toBe('test');
     expect(fields[1]._fieldInternalValue.name).toBe('bar');
     expect(fields[2]._fieldInternalValue.name).toBe('foo');
-    const shiftFields = wrapper.find(FieldArray).getNode().shiftFields;
+    const shiftFields = wrapper.find(FieldArray).instance().shiftFields;
     shiftFields();
-    fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(2);
     expect(fields[0]._fieldInternalValue.name).toBe('bar');
     expect(fields[1]._fieldInternalValue.name).toBe('foo');
@@ -389,10 +404,11 @@ describe('CreateForm and FieldArray', () => {
         <FieldArray name="members" component={fieldComponent} />
       </FormCreated>
     );
-    const push = wrapper.find(FieldArray).getNode().pushFields;
+    const push = wrapper.find(FieldArray).instance().pushFields;
     push({});
     push({});
     push({});
+    wrapper.update();
     wrapper
       .find('input')
       .at(0)
@@ -405,12 +421,12 @@ describe('CreateForm and FieldArray', () => {
       .find('input')
       .at(2)
       .simulate('change', { target: { value: 'test' } });
-    const swapFields = wrapper.find(FieldArray).getNode().swapFields;
+    const swapFields = wrapper.find(FieldArray).instance().swapFields;
     expect(() => {
       swapFields(2, 10);
     }).toThrow();
     swapFields(0, 2);
-    let fields = wrapper.find(FieldArray).getNode().state.fieldArray;
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(3);
     expect(fields[0]._fieldInternalValue.name).toBe('test');
     expect(fields[1]._fieldInternalValue.name).toBe('bar');
@@ -422,11 +438,11 @@ describe('CreateForm and FieldArray', () => {
       <FieldArray name="members" component={fieldComponent} />,
       { context }
     );
-    expect(typeof wrapper.getNode().getWrappedComponent).toBe('function');
+    expect(typeof wrapper.instance().getWrappedComponent).toBe('function');
 
     // NOTE: 'this.getWrappedComponent = ref' turns out null, need catch up.
     // component是functional component的时候ref是null
-    expect(wrapper.getNode().getWrappedComponent()).toBe(null);
+    expect(wrapper.instance().getWrappedComponent()).toBeFalsy();
   });
 
   it('The component prop of FieldArray can be a html tag string', () => {

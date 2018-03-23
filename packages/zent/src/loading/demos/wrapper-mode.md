@@ -45,7 +45,7 @@ ReactDOM.render(<Wrapper />, mountNode);
 .zent-loading-example-hello-world {
 	background: #f8f8f8;
 	text-align: center;
-	height: 160px;
+	height: 260px;
 	line-height: 160px;
 }
 </style>

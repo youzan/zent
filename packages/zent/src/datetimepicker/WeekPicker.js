@@ -331,8 +331,7 @@ class WeekPicker extends (PureComponent || Component) {
     } = this;
 
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
-    const inputCls = cx({
-      'picker-input': true,
+    const inputCls = cx('picker-input', 'week-picker-input', {
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled,
     });

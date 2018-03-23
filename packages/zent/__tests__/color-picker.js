@@ -1,6 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import ColorPicker from 'colorpicker';
 import * as alpha from 'colorpicker/helpers/alpha';
 import * as hue from 'colorpicker/helpers/hue';
@@ -18,6 +18,8 @@ import {
   Saturation,
   Swatch,
 } from 'colorpicker/common';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const red = {
   hsl: { a: 1, h: 0, l: 0.5, s: 1 },
@@ -65,7 +67,7 @@ describe('ColorPicker', () => {
       hsv: { h: 0, s: 1, v: 1, a: 1 },
     };
     const ColorPickerDom = wrapper.find('ColorPicker');
-    expect(ColorPickerDom.node.handleChange(color)).toBe(undefined);
+    expect(ColorPickerDom.instance().handleChange(color)).toBe(undefined);
   });
 
   it('colorPicker showAlpha true', () => {
@@ -86,7 +88,7 @@ describe('ColorPicker', () => {
       hsv: { h: 0, s: 1, v: 1, a: 1 },
     };
     const ColorPickerDom = wrapper.find('ColorPicker');
-    expect(ColorPickerDom.node.handleChange(color)).toBe(undefined);
+    expect(ColorPickerDom.instance().handleChange(color)).toBe(undefined);
   });
 
   it('colorPicker type simple', () => {
@@ -123,13 +125,18 @@ describe('ColorPicker', () => {
     const wrapper = mount(<SketchFields {...red} onChange={handleChange} />);
     const editableInputs = wrapper.find('EditableInput');
     expect(editableInputs.length).toBe(5);
-    expect(editableInputs.node.props.onChange(data, e)).toBe(undefined);
+    expect(
+      editableInputs
+        .at(0)
+        .instance()
+        .props.onChange(data, e)
+    ).toBe(undefined);
   });
 
   it('SketchPresetColors renders correctly', () => {
-    const tree = renderer
-      .create(<SketchPresetColors colors={['#fff', '#999', '#000']} />)
-      .toJSON();
+    const tree = mount(
+      <SketchPresetColors colors={['#fff', '#999', '#000']} />
+    );
     expect(tree).toBeTruthy();
   });
 
@@ -146,10 +153,10 @@ describe('ColorPicker', () => {
       pageY: 2,
     };
     const AlphaDom = wrapper.find('Alpha');
-    expect(AlphaDom.node.componentWillUnmount()).toBe(undefined);
-    expect(AlphaDom.node.handleMouseDown(e)).toBe(undefined);
-    expect(AlphaDom.node.handleMouseUp()).toBe(undefined);
-    expect(AlphaDom.node.unbindEventListeners()).toBe(undefined);
+    expect(AlphaDom.instance().componentWillUnmount()).toBe(undefined);
+    expect(AlphaDom.instance().handleMouseDown(e)).toBe(undefined);
+    expect(AlphaDom.instance().handleMouseUp()).toBe(undefined);
+    expect(AlphaDom.instance().unbindEventListeners()).toBe(undefined);
   });
 
   it('Alpha renders correctly branch check', () => {
@@ -179,10 +186,10 @@ describe('ColorPicker', () => {
       pageY: 2,
     };
     const HueDom = wrapper.find('Hue');
-    expect(HueDom.node.componentWillUnmount()).toBe(undefined);
-    expect(HueDom.node.handleMouseDown(e)).toBe(undefined);
-    expect(HueDom.node.handleMouseUp()).toBe(undefined);
-    expect(HueDom.node.unbindEventListeners()).toBe(undefined);
+    expect(HueDom.instance().componentWillUnmount()).toBe(undefined);
+    expect(HueDom.instance().handleMouseDown(e)).toBe(undefined);
+    expect(HueDom.instance().handleMouseUp()).toBe(undefined);
+    expect(HueDom.instance().unbindEventListeners()).toBe(undefined);
   });
 
   it('Hue renders correctly branch check', () => {
@@ -209,10 +216,10 @@ describe('ColorPicker', () => {
       pageY: 2,
     };
     const SaturationDom = wrapper.find('Saturation');
-    expect(SaturationDom.node.componentWillUnmount()).toBe(undefined);
-    expect(SaturationDom.node.handleMouseDown(e)).toBe(undefined);
-    expect(SaturationDom.node.handleMouseUp()).toBe(undefined);
-    expect(SaturationDom.node.unbindEventListeners()).toBe(undefined);
+    expect(SaturationDom.instance().componentWillUnmount()).toBe(undefined);
+    expect(SaturationDom.instance().handleMouseDown(e)).toBe(undefined);
+    expect(SaturationDom.instance().handleMouseUp()).toBe(undefined);
+    expect(SaturationDom.instance().unbindEventListeners()).toBe(undefined);
   });
 
   it('Saturation renders correctly branch check', () => {
@@ -230,7 +237,7 @@ describe('ColorPicker', () => {
   });
 
   it('Checkboard renders correctly', () => {
-    const tree = renderer.create(<Checkboard />).toJSON();
+    const tree = mount(<Checkboard />);
     expect(tree).toBeTruthy();
   });
 
@@ -274,13 +281,13 @@ describe('ColorPicker', () => {
       movementX: 0,
     };
     const EditableInputDom = wrapper.find('EditableInput');
-    expect(EditableInputDom.node.componentWillUnmount()).toBe(undefined);
-    expect(EditableInputDom.node.handleMouseDown(e)).toBe(undefined);
-    expect(EditableInputDom.node.handleMouseUp()).toBe(undefined);
-    expect(EditableInputDom.node.handleDrag(e)).toBe(undefined);
-    expect(EditableInputDom.node.handleKeyDown(e)).toBe(undefined);
-    expect(EditableInputDom.node.unbindEventListeners()).toBe(undefined);
-    expect(EditableInputDom.node.handleChange(e)).toBe(undefined);
+    expect(EditableInputDom.instance().componentWillUnmount()).toBe(undefined);
+    expect(EditableInputDom.instance().handleMouseDown(e)).toBe(undefined);
+    expect(EditableInputDom.instance().handleMouseUp()).toBe(undefined);
+    expect(EditableInputDom.instance().handleDrag(e)).toBe(undefined);
+    expect(EditableInputDom.instance().handleKeyDown(e)).toBe(undefined);
+    expect(EditableInputDom.instance().unbindEventListeners()).toBe(undefined);
+    expect(EditableInputDom.instance().handleChange(e)).toBe(undefined);
   });
 
   it('EditableInput mount', () => {
@@ -309,7 +316,7 @@ describe('ColorPicker', () => {
       movementX: 0,
     };
     const EditableInputDom = wrapper.find('EditableInput');
-    expect(EditableInputDom.node.handleChange(e)).toBe(undefined);
+    expect(EditableInputDom.instance().handleChange(e)).toBe(undefined);
 
     const nextProps = {
       value: 10,
@@ -329,10 +336,10 @@ describe('ColorPicker', () => {
       />
     );
     const EditableInputDom1 = wrapper1.find('EditableInput');
-    expect(EditableInputDom1.node.handleKeyDown(e)).toBe(undefined);
-    expect(EditableInputDom1.node.componentWillReceiveProps(nextProps)).toBe(
-      undefined
-    );
+    expect(EditableInputDom1.instance().handleKeyDown(e)).toBe(undefined);
+    expect(
+      EditableInputDom1.instance().componentWillReceiveProps(nextProps)
+    ).toBe(undefined);
 
     const e1 = {
       preventDefault: () => {},
@@ -344,7 +351,7 @@ describe('ColorPicker', () => {
       keyCode: 38,
       movementX: 0,
     };
-    expect(EditableInputDom1.node.handleKeyDown(e1)).toBe(undefined);
+    expect(EditableInputDom1.instance().handleKeyDown(e1)).toBe(undefined);
   });
 
   it('check helpers alpha func', () => {
