@@ -7,6 +7,11 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 5.0.1 (2018-03-20)
+
+- 🦀️ Fix text overflow issues in `WeekPicker`
+- 🦀️ Fix some build issues
+
 ### 5.0.0 (2018-03-16)
 
 > `React` 16 is now offfically supported.
