@@ -1,11 +1,11 @@
 ---
 order: 2
 zh-CN:
-	title: 基础用法
+	title: 自定义组件
 	onCopySuccess: 复制成功啦！
 	customBtnText: 点我
 en-US:
-	title: Basic usage
+	title: Customize usage
 	onCopySuccess: Copied！
 	customBtnText: Click！
 ---
@@ -14,10 +14,8 @@ en-US:
 import { CopyButton, Button } from 'zent';
 
 ReactDOM.render(
-	<div>
-		<CopyButton text="foobar quux" onCopySuccess="{i18n.onCopySuccess}">
-			<Button type="primary">{i18n.customBtnText}</Button>
-		</CopyButton>
-	</div>
+	<CopyButton text="customize usage" onCopySuccess="{i18n.onCopySuccess}">
+		<Button type="primary">{i18n.customBtnText}</Button>
+	</CopyButton>
 	, mountNode);
 ```
