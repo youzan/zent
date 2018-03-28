@@ -1,7 +1,7 @@
 import Affix from 'affix';
 import Alert from 'alert';
-import Avatar from 'avatar';
 import AutoComplete from 'auto-complete';
+import Avatar from 'avatar';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
@@ -44,6 +44,7 @@ import Select from 'select';
 import SKU from 'sku';
 import Slider from 'slider';
 import Sortable from 'sortable';
+import SplitButton from 'split-button';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
 import Swiper from 'swiper';
@@ -61,8 +62,8 @@ import YearPicker from 'datetimepicker/YearPicker';
 export {
   Affix,
   Alert,
-  Avatar,
   AutoComplete,
+  Avatar,
   Badge,
   BlockHeader,
   Breadcrumb,
@@ -105,6 +106,7 @@ export {
   SKU,
   Slider,
   Sortable,
+  SplitButton,
   Steps,
   Sweetalert,
   Swiper,
