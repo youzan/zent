@@ -122,7 +122,11 @@ class DesignPreview extends (PureComponent || Component) {
         <div
           className={cls}
           style={{
-            background: get(settings, 'previewBackground', DEFAULT_BACKGROUND),
+            backgroundColor: get(
+              settings,
+              'previewBackground',
+              DEFAULT_BACKGROUND
+            ),
           }}
         >
           {disabled && <div className={`${prefix}-design__disabled-mask`} />}
@@ -132,116 +136,126 @@ class DesignPreview extends (PureComponent || Component) {
             type={DND_PREVIEW_CONTROLLER}
             direction="vertical"
           >
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                className={cx(`${prefix}-design__item-list`, {
-                  [`${prefix}-design__item-list--full-height`]: !hasAppendableComponent,
-                })}
-              >
-                {value.map(v => {
-                  const valueType = v.type;
-                  const comp = find(components, c =>
-                    isExpectedDesginType(c, valueType)
-                  );
-                  const PreviewItem = comp.previewItem || DesignPreviewItem;
-                  const EditorItem = comp.editorItem || DesignEditorItem;
-                  const id = getUUIDFromValue(v);
-                  const selected = id === selectedUUID;
-                  const PreviewController =
-                    comp.previewController || DesignPreviewController;
+            {(provided, snapshot) => {
+              let draggableIndex = 0;
 
-                  return (
-                    <PreviewItem
-                      prefix={prefix}
-                      key={id}
-                      id={id}
-                      ref={this.savePreviewItem(id)}
-                    >
-                      <PreviewController
+              return (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className={cx(`${prefix}-design__item-list`, {
+                    [`${prefix}-design__item-list--full-height`]: !hasAppendableComponent,
+                  })}
+                >
+                  {value.map(v => {
+                    const valueType = v.type;
+                    const comp = find(components, c =>
+                      isExpectedDesginType(c, valueType)
+                    );
+                    const PreviewItem = comp.previewItem || DesignPreviewItem;
+                    const EditorItem = comp.editorItem || DesignEditorItem;
+                    const id = getUUIDFromValue(v);
+                    const selected = id === selectedUUID;
+                    const PreviewController =
+                      comp.previewController || DesignPreviewController;
+                    const draggable = defaultTo(comp.dragable, true);
+
+                    return (
+                      <PreviewItem
                         prefix={prefix}
-                        value={v}
-                        globalConfig={globalConfig}
-                        settings={settings}
-                        design={design}
+                        key={id}
                         id={id}
-                        allowHoverEffects={!snapshot.isDraggingOver}
-                        dragable={defaultTo(comp.dragable, true)}
-                        editable={defaultTo(comp.editable, true)}
-                        configurable={defaultTo(comp.configurable, true)}
-                        canDelete={defaultTo(comp.canDelete, true)}
-                        canInsert={defaultTo(comp.canInsert, true)}
-                        highlightWhenSelect={defaultTo(
-                          comp.highlightWhenSelect,
-                          true
-                        )}
-                        isSelected={selected}
-                        onSelect={onSelect}
-                        onDelete={onDelete}
-                        onEdit={onEdit}
-                        onAdd={onAdd}
-                        onMove={onMove}
-                        component={comp.preview}
-                        previewProps={getAdditionalProps(comp.previewProps, v)}
-                      />
+                        ref={this.savePreviewItem(id)}
+                      >
+                        <PreviewController
+                          prefix={prefix}
+                          value={v}
+                          globalConfig={globalConfig}
+                          settings={settings}
+                          design={design}
+                          id={id}
+                          index={draggable ? draggableIndex++ : -1}
+                          allowHoverEffects={!snapshot.isDraggingOver}
+                          dragable={draggable}
+                          editable={defaultTo(comp.editable, true)}
+                          configurable={defaultTo(comp.configurable, true)}
+                          canDelete={defaultTo(comp.canDelete, true)}
+                          canInsert={defaultTo(comp.canInsert, true)}
+                          highlightWhenSelect={defaultTo(
+                            comp.highlightWhenSelect,
+                            true
+                          )}
+                          isSelected={selected}
+                          onSelect={onSelect}
+                          onDelete={onDelete}
+                          onEdit={onEdit}
+                          onAdd={onAdd}
+                          onMove={onMove}
+                          component={comp.preview}
+                          previewProps={getAdditionalProps(
+                            comp.previewProps,
+                            v
+                          )}
+                        />
 
-                      {selected &&
-                        !showAddComponentOverlay && (
-                          <EditorItem
-                            prefix={prefix}
-                            disabled={disabled}
-                            ref={this.saveEditorItem(id)}
-                          >
-                            <comp.editor
-                              {...getAdditionalProps(comp.editorProps, v)}
-                              ref={this.saveEditor(id)}
-                              value={v}
-                              onChange={onComponentValueChange(v)}
-                              settings={settings}
-                              onSettingsChange={onSettingsChange}
-                              globalConfig={globalConfig}
-                              design={design}
-                              validation={validations[id] || {}}
-                              showError={showError}
+                        {selected &&
+                          !showAddComponentOverlay && (
+                            <EditorItem
                               prefix={prefix}
-                            />
-                          </EditorItem>
-                        )}
+                              disabled={disabled}
+                              ref={this.saveEditorItem(id)}
+                            >
+                              <comp.editor
+                                {...getAdditionalProps(comp.editorProps, v)}
+                                ref={this.saveEditor(id)}
+                                value={v}
+                                onChange={onComponentValueChange(v)}
+                                settings={settings}
+                                onSettingsChange={onSettingsChange}
+                                globalConfig={globalConfig}
+                                design={design}
+                                validation={validations[id] || {}}
+                                showError={showError}
+                                prefix={prefix}
+                              />
+                            </EditorItem>
+                          )}
 
-                      {selected &&
-                        showAddComponentOverlay && (
-                          <DesignEditorItem
-                            ref={this.saveEditorItem(id)}
-                            prefix={prefix}
-                            className={cx(
-                              `${prefix}-design-add-component-overlay`,
-                              {
-                                [`${prefix}-design-add-component-overlay--top`]:
-                                  addComponentOverlayPosition ===
-                                  ADD_COMPONENT_OVERLAY_POSITION.TOP,
-                                [`${prefix}-design-add-component-overlay--bottom`]:
-                                  addComponentOverlayPosition ===
-                                  ADD_COMPONENT_OVERLAY_POSITION.BOTTOM,
-                                [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
-                                [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped,
-                              }
-                            )}
-                          >
-                            <DesignEditorAddComponent
+                        {selected &&
+                          showAddComponentOverlay && (
+                            <DesignEditorItem
+                              ref={this.saveEditorItem(id)}
                               prefix={prefix}
-                              fromSelected
-                              componentInstanceCount={componentInstanceCount}
-                              components={appendableComponents}
-                              onAddComponent={onAddComponent}
-                            />
-                          </DesignEditorItem>
-                        )}
-                    </PreviewItem>
-                  );
-                })}
-                {provided.placeholder}
-              </div>
-            )}
+                              className={cx(
+                                `${prefix}-design-add-component-overlay`,
+                                {
+                                  [`${prefix}-design-add-component-overlay--top`]:
+                                    addComponentOverlayPosition ===
+                                    ADD_COMPONENT_OVERLAY_POSITION.TOP,
+                                  [`${prefix}-design-add-component-overlay--bottom`]:
+                                    addComponentOverlayPosition ===
+                                    ADD_COMPONENT_OVERLAY_POSITION.BOTTOM,
+                                  [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
+                                  [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped,
+                                }
+                              )}
+                            >
+                              <DesignEditorAddComponent
+                                prefix={prefix}
+                                fromSelected
+                                componentInstanceCount={componentInstanceCount}
+                                components={appendableComponents}
+                                onAddComponent={onAddComponent}
+                              />
+                            </DesignEditorItem>
+                          )}
+                      </PreviewItem>
+                    );
+                  })}
+                  {provided.placeholder}
+                </div>
+              );
+            }}
           </Droppable>
 
           {hasAppendableComponent && (
