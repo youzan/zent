@@ -130,9 +130,9 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
   dependencies:
     js-tokens "^3.0.0"
 
-memoize-one@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-3.0.1.tgz#7b599850bb41be8beed305f4eefd963c8cea9a0a"
+memoize-one@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-3.1.1.tgz#ef609811e3bc28970eac2884eece64d167830d17"
 
 node-fetch@^1.0.1:
   version "1.7.3"
@@ -179,9 +179,9 @@ querystringify@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
 
-raf-schd@^2.0.2:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/raf-schd/-/raf-schd-2.1.0.tgz#64d645723380ec25cc1714e909b953ef1cf254bf"
+raf-schd@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/raf-schd/-/raf-schd-2.1.1.tgz#0b59964cee2e96b7dd46ffaeb5c08740f3a5e7ab"
 
 raf@^3.1.0, raf@^3.3.2:
   version "3.4.0"
@@ -189,15 +189,15 @@ raf@^3.1.0, raf@^3.3.2:
   dependencies:
     performance-now "^2.1.0"
 
-react-beautiful-dnd@^2.6.4:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-2.6.4.tgz#e1632696aeeec5b20720037c348834eb3e8e22cf"
+react-beautiful-dnd@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-6.0.1.tgz#f5b70cc37188bd9e79c2bd2152bebfadb2861cff"
   dependencies:
     babel-runtime "^6.26.0"
     invariant "^2.2.2"
-    memoize-one "^3.0.1"
+    memoize-one "^3.1.1"
     prop-types "^15.6.0"
-    raf-schd "^2.0.2"
+    raf-schd "^2.1.1"
     react-motion "^0.5.2"
     react-redux "^5.0.6"
     redux "^3.7.2"
