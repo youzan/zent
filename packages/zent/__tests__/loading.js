@@ -1,7 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Loading from 'loading';
 import { getElementLeft, getElementTop } from 'loading/getPosition';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 /* eslint-disable */
 beforeAll(() => {
@@ -59,7 +62,7 @@ describe('Loading', () => {
 
   it('Loading has static model, support containerClass and prefix...props', () => {
     const wrapper = mount(<Loading show={false} containerClass="foo" />);
-    expect(wrapper.prop('height')).toBe(160);
+    expect(wrapper.prop('height')).toBeUndefined();
     expect(wrapper.prop('zIndex')).toBe(9998);
     expect(wrapper.find('Loading').find('div').length).toBe(1);
     expect(

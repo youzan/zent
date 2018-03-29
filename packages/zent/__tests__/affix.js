@@ -1,6 +1,9 @@
 import Affix from 'affix';
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Affix component', () => {
   it('Affix has props', () => {
@@ -22,7 +25,7 @@ describe('Affix component', () => {
     expect(props.prefix).toBe('wulv');
     expect(props.zIndex).toBe(100);
     expect(props.className).toBe('affix');
-    expect(wrapper.node.affix).toBe(true);
+    expect(wrapper.instance().affix).toBe(true);
     expect(state.position).toBe('fixed');
     expect(state.width).toBe(0);
   });
@@ -31,14 +34,14 @@ describe('Affix component', () => {
     const wrapper = mount(<Affix offsetTop={50} />);
     const state = wrapper.state();
 
-    expect(wrapper.node.affix).toBe(true);
+    expect(wrapper.instance().affix).toBe(true);
     expect(state.width).toBe(0);
     expect(state.position).toBe('fixed');
     expect(state.placeHoldStyle.width).toBe('100%');
     expect(state.placeHoldStyle.height).toBe(0);
-    expect(wrapper.node.affix).toBe(true);
+    expect(wrapper.instance().affix).toBe(true);
     wrapper.setProps({ offsetTop: -100 });
-    wrapper.node.updatePin();
+    wrapper.instance().updatePin();
     class Test extends React.Component {
       state = {
         value: 0,
@@ -62,12 +65,12 @@ describe('Affix component', () => {
     }
     const wrapper1 = mount(<Test />);
     const affix = wrapper1.find('Affix');
-    const state1 = affix.node.state;
+    const state1 = affix.instance().state;
     expect(state1.width).toBe(0);
-    affix.node.handleScroll();
+    affix.instance().handleScroll();
 
-    affix.node.pin();
-    affix.node.unpin();
+    affix.instance().pin();
+    affix.instance().unpin();
     wrapper1.unmount();
   });
 
@@ -75,7 +78,7 @@ describe('Affix component', () => {
     const wrapper = mount(
       <Affix prefix="wulv" className="affix" zIndex={100} offsetTop={50} />
     );
-    const { node } = wrapper;
+    const node = wrapper.instance();
     expect(node.affix).toBe(true);
     wrapper.setProps({ offsetTop: -100 });
     expect(node.affix).toBe(true);

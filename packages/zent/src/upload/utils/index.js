@@ -35,3 +35,13 @@ export function base64ToArrayBuffer(base64) {
   }
   return bytes.buffer;
 }
+
+export function formatErrorMessages(type, data, defaults) {
+  if (typeof type === 'undefined') {
+    type = defaults;
+  }
+  if (typeof type === 'function') {
+    return type(data);
+  }
+  return type;
+}

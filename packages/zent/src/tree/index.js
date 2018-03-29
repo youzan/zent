@@ -424,6 +424,9 @@ export default class Tree extends (PureComponent || Component) {
         if (loadMore) {
           isShowChildren = root.expand;
         }
+        if (root.expand) {
+          isShowChildren = root.expand;
+        }
         const barClassName = classnames(`${prefix}-tree-bar`, {
           off: !isShowChildren,
         });

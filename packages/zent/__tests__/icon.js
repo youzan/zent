@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Icon from 'icon';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Icon', () => {
   it('Icon will render an <i> element has default className', () => {

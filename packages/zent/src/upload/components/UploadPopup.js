@@ -11,6 +11,7 @@ import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
 import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
+import { UID_KEY } from '../constants';
 
 class UploadPopup extends Component {
   constructor(props) {
@@ -121,8 +122,10 @@ class UploadPopup extends Component {
 
   // 上传图片列表
   renderLocalImage(item, index) {
+    const { prefix } = this.props;
     return (
       <UploadImageItem
+        prefix={prefix}
         key={index}
         {...item}
         index={index}
@@ -133,19 +136,25 @@ class UploadPopup extends Component {
 
   // 上传语音列表
   renderLocalVoice(item, index) {
+    const { prefix } = this.props;
+
     return (
-      <li key={index} className="upload-local-voice-item voice-item">
-        <div className="voice-icon" />
-        <div className="voice-name">{item.file.name}</div>
-        <div className="voice-createtime">{formatFileSize(item.file.size)}</div>
+      <li key={index} className={`${prefix}-voice-item`}>
+        <div className={`${prefix}-voice-item__icon`} />
+        <div className={`${prefix}-voice-item__name`}>{item.file.name}</div>
+        <div className={`${prefix}-voice-item__createtime`}>
+          {formatFileSize(item.file.size)}
+        </div>
         <span
-          className="close-modal small"
+          className={`${prefix}__close-modal`}
           onClick={this.handleDelete.bind(this, index)}
         >
           ×
         </span>
         {item.progress ? (
-          <div className="voice-progress">{`${item.progress.toFixed(1)}%`}</div>
+          <div
+            className={`${prefix}-voice-item__progress`}
+          >{`${item.progress.toFixed(1)}%`}</div>
         ) : (
           ''
         )}
@@ -164,7 +173,7 @@ class UploadPopup extends Component {
     let filesLength = localFiles.length;
     if (filesLength > 0) {
       // 保证新添加的都是在旧添加的文件后面
-      lastIndex = localFiles[filesLength - 1].__uid + 1; // eslint-disable-line
+      lastIndex = localFiles[filesLength - 1][UID_KEY] + 1;
     }
     return (
       <div className={`${prefix}-local-attachment-region`}>
@@ -172,16 +181,18 @@ class UploadPopup extends Component {
           i18n.popup[`title_${options.type}`]
         }：`}</div>
         <div className={`${prefix}-content`}>
-          <ul
-            ref={this.onListRefChange}
-            className={`${options.type}-list upload-local-${options.type}-list`}
-          >
-            {localFiles.map((item, index) => {
-              return options.type === 'voice'
-                ? this.renderLocalVoice(item, index)
-                : this.renderLocalImage(item, index);
-            })}
-          </ul>
+          {filesLength > 0 && (
+            <ul
+              ref={this.onListRefChange}
+              className={`${prefix}__upload-local-${options.type}-list`}
+            >
+              {localFiles.map((item, index) => {
+                return options.type === 'voice'
+                  ? this.renderLocalVoice(item, index)
+                  : this.renderLocalImage(item, index);
+              })}
+            </ul>
+          )}
           {!options.maxAmount || localFiles.length < options.maxAmount ? (
             <div className={`${prefix}-add-local-image-button pull-left`}>
               +
@@ -210,9 +221,9 @@ class UploadPopup extends Component {
 
   renderFooterRegion() {
     const { localUploading, localFiles } = this.state;
-    const { i18n } = this.props;
+    const { i18n, prefix } = this.props;
     return (
-      <div className="text-center">
+      <div className={`${prefix}__footer`}>
         <Button
           type="primary"
           size="large"
@@ -232,7 +243,7 @@ class UploadPopup extends Component {
     this.setState({
       localFiles: localFiles.map((item, index) => {
         // 拖拽移动以后重建索引
-        item.__uid = index; // eslint-disable-line
+        item[UID_KEY] = index;
         return item;
       }),
     });
@@ -284,7 +295,7 @@ class UploadPopup extends Component {
     let { localFiles } = this.state;
     localFiles = localFiles.concat(files);
     // 根据索引进行排序，防止读取文件导致顺序错乱
-    localFiles.sort((a, b) => (a.__uid > b.__uid ? 1 : -1)); // eslint-disable-line
+    localFiles.sort((a, b) => (a[UID_KEY] > b[UID_KEY] ? 1 : -1));
     this.setState({
       localFiles,
     });

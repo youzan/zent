@@ -7,10 +7,33 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 5.0.1 (2018-03-20)
+
+- 🦀️ 修复 `WeekPicker` 文字溢出问题
+- 🦀️ 修复了一些打包问题
+
+### 5.0.0 (2018-03-16)
+
+> 从这个版本开始正式支持 `React` 16，后续开发都将基于 16。
+
+- 🎉 升级 `React` 以及 `Enzyme` 到最新版本，正式支持 `React` 16
+- `Button`
+  - ✨ 添加对图标的支持
+  - ✨ 新增 `Button.Group` 容器
+- ✨ `Steps` 组件新增一个 `process` 状态，并且默认值也修改为 `process`
+- 🦀️ 修复 `Loading` 组件高度问题
+- 🦀️ 更新 `BlockHeader` 组件样式
+- `Tree`
+  - 🦀️ 修复节点 `expand` 不生效的问题
+  - 📚 补充 `loadMore` 的文档
+- `Upload`
+  - ✨ 允许通过 `errorMessages` 参数自定义错误提示文案
+  - 🦀️ 收敛 CSS 的类名，降低冲突风险
+
 ### 4.3.2 (2018-03-07)
 
 - 🦀️ 更新 `Loading` 组件高度设置逻辑
-- 🦀️ 修复 `Paginatin` 文案
+- 🦀️ 修复 `Pagination` 文案
 - 🦀️ 修复 `Radio` 和 `Checkbox` 组件嵌套使用时的问题
 - 🦀️ `Radio` 和 `Checkbox` 的分组组件只读或禁用时会忽略组件自身的设置
 - 🦀️ 修复 `Upload` 组件样式问题

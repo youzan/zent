@@ -1,21 +1,24 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Swiper from 'swiper';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Swiper', () => {
   it('className default to zent-swiper ', () => {
-    const wrapper = shallow(<Swiper />);
-    expect(wrapper.hasClass('zent-swiper')).toBe(true);
+    const wrapper = mount(<Swiper />);
+    expect(wrapper.children().hasClass('zent-swiper')).toBe(true);
   });
 
   it('can have custom prefix', () => {
-    const wrapper = shallow(<Swiper prefix="dwb" />);
-    expect(wrapper.hasClass('dwb-swiper')).toBe(true);
+    const wrapper = mount(<Swiper prefix="dwb" />);
+    expect(wrapper.children().hasClass('dwb-swiper')).toBe(true);
   });
 
   it('can have custom className', () => {
-    const wrapper = shallow(<Swiper className="dengwenbo" />);
-    expect(wrapper.hasClass('dengwenbo')).toBe(true);
+    const wrapper = mount(<Swiper className="dengwenbo" />);
+    expect(wrapper.children().hasClass('dengwenbo')).toBe(true);
   });
 
   it('can have one children', () => {
@@ -24,7 +27,7 @@ describe('Swiper', () => {
         <div className="swiper-test-child">1</div>
       </Swiper>
     );
-    expect(wrapper.hasClass('zent-swiper')).toBe(true);
+    expect(wrapper.children().hasClass('zent-swiper')).toBe(true);
     expect(wrapper.find('.zent-swiper__container').length).toBe(1);
     expect(wrapper.find('.zent-swiper__arrow').length).toBe(0);
     expect(wrapper.find('.zent-swiper__dots').length).toBe(0);
@@ -133,7 +136,7 @@ describe('Swiper', () => {
     }
     const wrapper = mount(<Test />);
     expect(wrapper.find('.zent-swiper__arrow').length).toBe(2);
-    expect(wrapper.hasClass('zent-swiper-light')).toBe(true);
+    expect(wrapper.find('.zent-swiper-light')).toBeTruthy();
     expect(
       wrapper.find('.zent-swiper__dots').hasClass('zent-swiper__dots-red')
     ).toBe(true);
@@ -170,6 +173,6 @@ describe('Swiper', () => {
       }
     }
     const wrapper = mount(<Test />);
-    expect(wrapper.hasClass('zent-swiper')).toBe(true);
+    expect(wrapper.find('.zent-swiper')).toBeTruthy();
   });
 });

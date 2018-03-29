@@ -4,8 +4,11 @@ import React from 'react';
 import noop from 'lodash/noop';
 import omit from 'lodash/omit';
 import PropTypes from 'prop-types';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import ZentForm from 'form';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('CreateForm and Field', () => {
   const { Form, createForm, Field, InputField, unknownProps } = ZentForm;
@@ -22,7 +25,7 @@ describe('CreateForm and Field', () => {
     </FormCreated>
   )
     .find(Field)
-    .getNode().context;
+    .instance().context;
 
   it('createForm return a function that have arg[0] using react.createElement.\nThat returnedFunction return a react class with default state, props, methods', () => {
     expect(typeof returnedFunction).toBe('function');
@@ -39,9 +42,9 @@ describe('CreateForm and Field', () => {
     expect(wrapper.props().validationErrors).toBe(null);
     expect(wrapper.state('isFormValid')).toBe(true);
     expect(wrapper.state('isSubmitting')).toBe(false);
-    expect(wrapper.getNode().fields.length).toBe(0);
-    expect(wrapper.getNode()._isMounted).toBe(true);
-    expect(wrapper.getNode().getWrappedForm() instanceof Form).toBe(true);
+    expect(wrapper.instance().fields.length).toBe(0);
+    expect(wrapper.instance()._isMounted).toBe(true);
+    expect(wrapper.instance().getWrappedForm() instanceof Form).toBe(true);
   });
 
   it('Field must in a created zent-form. Must have name and component props', () => {
@@ -81,7 +84,7 @@ describe('CreateForm and Field', () => {
       </FormCreated>
     );
     expect(nestedWrapper.find(Field).length).toBe(1);
-    expect(typeof nestedWrapper.find(Field).getNode().context.zentForm).toBe(
+    expect(typeof nestedWrapper.find(Field).instance().context.zentForm).toBe(
       'object'
     );
     const wrapper = mount(<Field name="foo" component={DivComponent} />, {
@@ -111,10 +114,10 @@ describe('CreateForm and Field', () => {
     const wrapper = mount(<Field name="foo" component={DivComponent} />, {
       context,
     });
-    expect(Object.keys(wrapper.getNode()._validations).length).toBe(0);
+    expect(Object.keys(wrapper.instance()._validations).length).toBe(0);
     const validationsObj = { foo: noop };
     wrapper.setProps({ validations: validationsObj });
-    expect(wrapper.getNode()._validations).toBe(validationsObj);
+    expect(wrapper.instance()._validations).toBe(validationsObj);
   });
 
   it('Field have componentWillUpdate method', () => {
@@ -127,7 +130,7 @@ describe('CreateForm and Field', () => {
     expect(wrapper.state('_value')).toBe('');
     wrapper.setProps({ value: 'foo' });
     expect(validateMock.mock.calls.length).toBe(1);
-    expect(validateMock.mock.calls[0][0]).toBe(wrapper.getNode());
+    expect(validateMock.mock.calls[0][0]).toBe(wrapper.instance());
     wrapper.setProps({ value: undefined });
   });
 
@@ -140,7 +143,7 @@ describe('CreateForm and Field', () => {
   //   expect(detachFromFormMock.mock.calls.length).toBe(0);
   //   wrapper.unmount();
   //   expect(detachFromFormMock.mock.calls.length).toBe(1);
-  //   expect(detachFromFormMock.mock.calls[0][0]).toBe(wrapper.getNode());
+  //   expect(detachFromFormMock.mock.calls[0][0]).toBe(wrapper.instance());
   // });
 
   it('In Field render function, an element based on component prop will be created and will load its different processed props(add "checked" on checkbox and delete "value" on both checkbox and file)', () => {
@@ -241,11 +244,11 @@ describe('CreateForm and Field', () => {
       <Field name="foo" component={() => <div className="foo" />} />,
       { context }
     );
-    expect(typeof wrapper.getNode().getWrappedComponent).toBe('function');
+    expect(typeof wrapper.instance().getWrappedComponent).toBe('function');
 
     // NOTE: 'this.getWrappedComponent = ref' turns out null, need catch up.
     // component是functional component的时候ref是null
-    expect(wrapper.getNode().getWrappedComponent()).toBe(null);
+    expect(wrapper.instance().getWrappedComponent()).toBeFalsy();
   });
 
   // HACK: branch
@@ -274,20 +277,20 @@ describe('CreateForm and Field', () => {
     }
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm />);
-    expect(wrapper.getNode().fields[0].props.name).toBe('foo');
-    expect(wrapper.getNode().fields[0].state._isValid).toBe(true);
-    expect(wrapper.getNode().fields[1].props.name).toBe('bar');
-    expect(wrapper.getNode().fields[1].state._isValid).toBe(true);
+    expect(wrapper.instance().fields[0].props.name).toBe('foo');
+    expect(wrapper.instance().fields[0].state._isValid).toBe(true);
+    expect(wrapper.instance().fields[1].props.name).toBe('bar');
+    expect(wrapper.instance().fields[1].state._isValid).toBe(true);
     wrapper.setProps({ validationErrors: { foo: 'bar', bar: 'foo' } });
-    expect(wrapper.getNode().prevFieldNames[0]).toBe('foo');
-    expect(wrapper.getNode().prevFieldNames[1]).toBe('bar');
-    expect(wrapper.getNode().fields[0].state._isValid).toBe(false);
-    expect(wrapper.getNode().fields[0].state._validationError[0]).toBe('bar');
-    expect(wrapper.getNode().fields[1].state._isValid).toBe(false);
-    expect(wrapper.getNode().fields[1].state._validationError[0]).toBe('foo');
+    expect(wrapper.instance().prevFieldNames[0]).toBe('foo');
+    expect(wrapper.instance().prevFieldNames[1]).toBe('bar');
+    expect(wrapper.instance().fields[0].state._isValid).toBe(false);
+    expect(wrapper.instance().fields[0].state._validationError[0]).toBe('bar');
+    expect(wrapper.instance().fields[1].state._isValid).toBe(false);
+    expect(wrapper.instance().fields[1].state._validationError[0]).toBe('foo');
     wrapper.setProps({ validationErrors: { foo: 123, bar: 321 } });
-    expect(wrapper.getNode().fields[0].state._validationError).toBe(123);
-    expect(wrapper.getNode().fields[1].state._validationError).toBe(321);
+    expect(wrapper.instance().fields[0].state._validationError).toBe(123);
+    expect(wrapper.instance().fields[1].state._validationError).toBe(321);
   });
 
   it('CreatedForm will revalidate when names of fields change, and it has reset method which will be excuted with another revalidate', () => {
@@ -322,14 +325,14 @@ describe('CreateForm and Field', () => {
     wrapper.setProps({ fieldName: 'foo' });
     expect(wrapper.find(Field).props().name).toBe('foo');
     expect(wrapper.state('isFormValid')).toBe(true);
-    expect(wrapper.find(Field).getNode().state._value).toBe(1);
-    wrapper.getNode().reset();
-    expect(wrapper.find(Field).getNode().state._value).toBe('');
+    expect(wrapper.find(Field).instance().state._value).toBe(1);
+    wrapper.instance().reset();
+    expect(wrapper.find(Field).instance().state._value).toBe('');
     expect(wrapper.state('isFormValid')).toBe(false);
-    wrapper.getNode().reset({
+    wrapper.instance().reset({
       foo: 1,
     });
-    expect(wrapper.find(Field).getNode().state._value).toBe(1);
+    expect(wrapper.find(Field).instance().state._value).toBe(1);
     expect(wrapper.state('isFormValid')).toBe(true);
   });
 
@@ -352,23 +355,23 @@ describe('CreateForm and Field', () => {
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm />);
     expect(wrapper.state('isFormValid')).toBe(true);
-    expect(wrapper.find(Field).getNode().state._value).toBe(1);
-    expect(wrapper.find(Field).getNode().state._initialValue).toBe(1);
-    wrapper.getNode().initialize({
+    expect(wrapper.find(Field).instance().state._value).toBe(1);
+    expect(wrapper.find(Field).instance().state._initialValue).toBe(1);
+    wrapper.instance().initialize({
       foo: 12,
     });
-    expect(wrapper.find(Field).getNode().state._value).toBe(12);
-    expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
+    expect(wrapper.find(Field).instance().state._value).toBe(12);
+    expect(wrapper.find(Field).instance().state._initialValue).toBe(12);
     expect(wrapper.state('isFormValid')).toBe(true);
-    wrapper.getNode().reset({
+    wrapper.instance().reset({
       foo: '',
     });
-    expect(wrapper.find(Field).getNode().state._value).toBe('');
-    expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
+    expect(wrapper.find(Field).instance().state._value).toBe('');
+    expect(wrapper.find(Field).instance().state._initialValue).toBe(12);
     expect(wrapper.state('isFormValid')).toBe(false);
-    wrapper.getNode().initialize();
-    expect(wrapper.find(Field).getNode().state._value).toBe(12);
-    expect(wrapper.find(Field).getNode().state._initialValue).toBe(12);
+    wrapper.instance().initialize();
+    expect(wrapper.find(Field).instance().state._value).toBe(12);
+    expect(wrapper.find(Field).instance().state._initialValue).toBe(12);
     expect(wrapper.state('isFormValid')).toBe(true);
   });
 
@@ -397,21 +400,21 @@ describe('CreateForm and Field', () => {
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm />);
     expect(wrapper.state('isFormValid')).toBe(true);
-    expect(wrapper.getNode().fields[0].state._value).toBe(1);
-    expect(wrapper.getNode().fields[0].state._initialValue).toBe(1);
-    expect(wrapper.getNode().fields[0].state._isDirty).toBe(false);
-    expect(wrapper.getNode().fields[1].state._value).toBe(2);
-    expect(wrapper.getNode().fields[1].state._initialValue).toBe(2);
-    expect(wrapper.getNode().fields[1].state._isDirty).toBe(false);
-    wrapper.getNode().setFieldsValue({
+    expect(wrapper.instance().fields[0].state._value).toBe(1);
+    expect(wrapper.instance().fields[0].state._initialValue).toBe(1);
+    expect(wrapper.instance().fields[0].state._isDirty).toBe(false);
+    expect(wrapper.instance().fields[1].state._value).toBe(2);
+    expect(wrapper.instance().fields[1].state._initialValue).toBe(2);
+    expect(wrapper.instance().fields[1].state._isDirty).toBe(false);
+    wrapper.instance().setFieldsValue({
       foo: 12,
     });
-    expect(wrapper.getNode().fields[0].state._value).toBe(12);
-    expect(wrapper.getNode().fields[0].state._isDirty).toBe(true);
-    expect(wrapper.getNode().fields[0].state._initialValue).toBe(1);
-    expect(wrapper.getNode().fields[1].state._value).toBe(2);
-    expect(wrapper.getNode().fields[1].state._initialValue).toBe(2);
-    expect(wrapper.getNode().fields[1].state._isDirty).toBe(false);
+    expect(wrapper.instance().fields[0].state._value).toBe(12);
+    expect(wrapper.instance().fields[0].state._isDirty).toBe(true);
+    expect(wrapper.instance().fields[0].state._initialValue).toBe(1);
+    expect(wrapper.instance().fields[1].state._value).toBe(2);
+    expect(wrapper.instance().fields[1].state._initialValue).toBe(2);
+    expect(wrapper.instance().fields[1].state._isDirty).toBe(false);
     expect(wrapper.state('isFormValid')).toBe(true);
   });
 
@@ -433,12 +436,12 @@ describe('CreateForm and Field', () => {
 
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm />);
-    wrapper.getNode().setFormDirty(true);
-    expect(wrapper.getNode().fields[0].state._isDirty).toBe(true);
-    wrapper.getNode().setFormPristine(true);
-    expect(wrapper.getNode().fields[0].state._isDirty).toBe(false);
-    expect(wrapper.getNode().isFieldDirty('foo')).toBe(false);
-    expect(wrapper.getNode().isFieldDirty('bar')).toBe(false);
+    wrapper.instance().setFormDirty(true);
+    expect(wrapper.instance().fields[0].state._isDirty).toBe(true);
+    wrapper.instance().setFormPristine(true);
+    expect(wrapper.instance().fields[0].state._isDirty).toBe(false);
+    expect(wrapper.instance().isFieldDirty('foo')).toBe(false);
+    expect(wrapper.instance().isFieldDirty('bar')).toBe(false);
   });
 
   it('CreatedForm have isValid and getFieldError methods', () => {
@@ -470,9 +473,9 @@ describe('CreateForm and Field', () => {
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm fieldName="bar" />);
     expect(wrapper.state('isFormValid')).toBe(false);
-    expect(wrapper.getNode().isValid()).toBe(false);
-    expect(wrapper.getNode().getFieldError('foo')).toBe('');
-    expect(wrapper.getNode().getFieldError('bar')).toBe('不能为空');
+    expect(wrapper.instance().isValid()).toBe(false);
+    expect(wrapper.instance().getFieldError('foo')).toBe('');
+    expect(wrapper.instance().getFieldError('bar')).toBe('不能为空');
   });
 
   it('Field can clear the error or not by setting clearErrorOnFocus', () => {
@@ -503,13 +506,13 @@ describe('CreateForm and Field', () => {
 
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm fieldName="bar" />);
-    expect(wrapper.getNode().fields[0].state._isValid).toBe(false);
-    expect(wrapper.getNode().getFieldError('bar')).toBe('不能为空');
+    expect(wrapper.instance().fields[0].state._isValid).toBe(false);
+    expect(wrapper.instance().getFieldError('bar')).toBe('不能为空');
 
     let input = wrapper.find('input');
     input.simulate('focus');
-    expect(wrapper.getNode().fields[0].state._isValid).toBe(true);
-    expect(wrapper.getNode().getFieldError('bar')).toBe(null);
+    expect(wrapper.instance().fields[0].state._isValid).toBe(true);
+    expect(wrapper.instance().getFieldError('bar')).toBe(null);
 
     class FormForTest2 extends React.Component {
       static propTypes = {
@@ -539,13 +542,13 @@ describe('CreateForm and Field', () => {
 
     const CreatedForm2 = createForm()(FormForTest2);
     const wrapper2 = mount(<CreatedForm2 fieldName="bar" />);
-    expect(wrapper2.getNode().fields[0].state._isValid).toBe(false);
-    expect(wrapper2.getNode().getFieldError('bar')).toBe('不能为空');
+    expect(wrapper2.instance().fields[0].state._isValid).toBe(false);
+    expect(wrapper2.instance().getFieldError('bar')).toBe('不能为空');
 
     let input2 = wrapper2.find('input');
     input2.simulate('focus');
-    expect(wrapper2.getNode().fields[0].state._isValid).toBe(false);
-    expect(wrapper2.getNode().getFieldError('bar')).toBe('不能为空');
+    expect(wrapper2.instance().fields[0].state._isValid).toBe(false);
+    expect(wrapper2.instance().getFieldError('bar')).toBe('不能为空');
   });
 
   // NOTE: need catch up.
@@ -577,9 +580,9 @@ describe('CreateForm and Field', () => {
 
     const CreatedForm = createForm()(FormForTest);
     const wrapper = mount(<CreatedForm fieldName="bar" />);
-    expect(typeof wrapper.getNode().isValidValue).toBe('function');
+    expect(typeof wrapper.instance().isValidValue).toBe('function');
     expect(
-      wrapper.getNode().isValidValue(wrapper.find(Field).getNode(), '非空')
+      wrapper.instance().isValidValue(wrapper.find(Field).instance(), '非空')
     ).toBe(true);
   });
 
@@ -672,9 +675,9 @@ describe('CreateForm and Field', () => {
     TempForm = createForm()(FormWithUndef);
     let tempWrapper = mount(<TempForm vals={{ required: true }} />);
     tempWrapper.setProps({ vals: undefined });
-    expect(tempWrapper.find(Field).getNode()._validations).toBe(undefined);
+    expect(tempWrapper.find(Field).instance()._validations).toBe(undefined);
     // HACK: branch
-    tempWrapper.getNode().runValidation(tempWrapper.find(Field).getNode());
+    tempWrapper.instance().runValidation(tempWrapper.find(Field).instance());
 
     class FormForTest extends React.Component {
       static propTypes = {
@@ -745,13 +748,13 @@ describe('CreateForm and Field', () => {
     wrapper.unmount();
     wrapper.mount();
     expect(wrapper.state('isFormValid')).toBe(false);
-    // const external = wrapper.getNode().setFieldExternalErrors;
+    // const external = wrapper.instance().setFieldExternalErrors;
     // expect(() => {
     //   external({ foo: 'bar', bar: 321 });
     // }).toThrow();
     wrapper = mount(<CreatedForm />);
     wrapper.setProps({ hackSwitch: true });
-    wrapper.getNode().setFieldExternalErrors({ foo: 'bar', bar: 321 });
+    wrapper.instance().setFieldExternalErrors({ foo: 'bar', bar: 321 });
 
     // HACK: branch
     wrapper.unmount();
@@ -792,18 +795,18 @@ describe('CreateForm and Field', () => {
     let TempForm = createForm()(FormForAsyncValidation);
     let wrapper = mount(<TempForm />);
     let input = wrapper.find('input');
-    expect(wrapper.getNode().isValidating()).toBe(false);
-    expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
+    expect(wrapper.instance().isValidating()).toBe(false);
+    expect(wrapper.instance().isFieldValidating('foo')).toBe(false);
     input.simulate('focus');
     input.simulate('blur');
     expect(wrapper.find('InputWrap').prop('error')).toBeNull();
-    expect(wrapper.getNode().isValidating()).toBe(true);
-    expect(wrapper.getNode().isFieldValidating('foo')).toBe(true);
-    expect(wrapper.getNode().isFieldValidating('bar')).toBe(false);
+    expect(wrapper.instance().isValidating()).toBe(true);
+    expect(wrapper.instance().isFieldValidating('foo')).toBe(true);
+    expect(wrapper.instance().isFieldValidating('bar')).toBe(false);
     jest.runAllTimers();
     // Promise.resolve().then(() => {
-    // expect(wrapper.getNode().isValidating()).toBe(false);
-    // expect(wrapper.getNode().isFieldValidating('foo')).toBe(false);
+    // expect(wrapper.instance().isValidating()).toBe(false);
+    // expect(wrapper.instance().isFieldValidating('foo')).toBe(false);
     // expect(wrapper.find('InputWrap').prop('validationError')).toBe('用户名已被占用');
     // });
   });
