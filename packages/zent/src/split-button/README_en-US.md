@@ -21,6 +21,10 @@ SplitButton a button with a dropdown menu
 | dropdownValue | custom options value's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `optionValue="id"` | string | `'value'` | |
 | dropdownText | custom options display text's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `dropdownText="name"` | string | `'text'` | |
 | onClick | the click callback for left button | func | | |
-| onSelect | the select callback for the right dropdown menu | (dropdownValue):void | | |
+| onSelect | the select callback for the right dropdown menu | func | | |
 | className          | custom classname                  | string              | `''`						 |                                               |
 | prefix             | custom prefix                     | string              | `'zent'`				  |																			           |
+
+### onSelect
+
+the param in callback is dropdownValue
