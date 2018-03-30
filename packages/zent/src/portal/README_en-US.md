@@ -17,10 +17,16 @@ Portals provide a first-class way to render children into a DOM node that exists
 | Property        | Description                | Type                    | Default      | Alternative              |
 | --------- | ----------------- | --------------------- | -------- | ------------------------ |
 | children  | required parameter, only supports one child        | string         |          |                |
+| render    | optional parameter, render the `Portal` content, which replaces children | function | | |
 | selector  | optional parameter, render child DOM node     | string or DOM Element | `'body'` | legal CSS selector or certain DOM node |
 | visible   | optional parameter, whether to render child    | bool         | `true`   |                |
-| className | optional parameter, custom extra class name      | string                | `''`     |         |
-| css      | optional parameter, extra css style. such as, `{ 'margin-left': '10px' }` | object  | `{}`     |     |
+| layer | optional parameter, the layer curtain tag name | string | `div` | |
+| useLayerForClickAway | optional parameter, whether to use a layer for click away from `Portal` | boolean | false | |
+| onClickAway | optional parameter, the callback when user clicks away from `Portal` | function | | |
+| onLayerReady | optional parameter, the hook when layer is ready | function | | |
+| className | optional parameter, the layer class name     | string                | `''`     |         |
+| style | optional parameter, the layer style | object | | |
+| css      | (Deprecated, use style instead) optional parameter, extra css style. such as, `{ 'margin-left': '10px' }` | object  | `{}`     |     |
 | prefix    | optional parameter, custom prefix        | string       | `'zent'` |     |
 
 

@@ -2,10 +2,25 @@
 
 declare module 'zent/lib/portal' {
   interface IPortalProps {
-    children: React.ReactChild
-    selector?: string | HTMLElement
+    // visible
     visible?: boolean
+
+    // children
+    children: React.ReactChild
+    render?: Function
+
+    // parent node
+    selector?: string | HTMLElement
+
+    // layer
+    layer?: string
+    useLayerForClickAway?: boolean
+    onClickAway?: Function
+    onLayerReady?: Function
+
+    // layer style
     className?: string
+    style?: React.CSSProperties
     css?: React.CSSProperties
     prefix?: string
   }

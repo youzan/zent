@@ -18,10 +18,16 @@ group: 基础
 | 参数        | 说明                | 类型                    | 默认值      | 备选值              |
 | --------- | ----------------- | --------------------- | -------- | ------------------------ |
 | children  | 必填参数, 只支持一个child        | string         |          |                |
+| render    | 可选参数, 用于渲染`Portal`内容, 替代children | function | | |
 | selector  | 可选参数, 渲染child的DOM节点     | string or DOM Element | `'body'` | 合法的CSS selector或者某个DOM节点 |
 | visible   | 可选参数, 是否渲染child    | bool         | `true`   |                |
-| className | 可选参数, 自定义额外类名      | string                | `''`     |         |
-| css      | 可选参数, 额外的css样式. 例如, `{ 'margin-left': '10px' }` | object  | `{}`     |     |
+| layer | 可选参数, 遮罩的标签名 | string | `div` | |
+| useLayerForClickAway | 可选参数, 是否使用遮罩来触发`Portal`关闭 | boolean | false | |
+| onClickAway | 可选参数, 点击到非`Portal`处的回调 | function | | |
+| onLayerReady | 可选参数, 遮罩准备好时的hook | function | | |
+| className | 可选参数, 遮罩的className      | string                | `''`     |         |
+| style | 可选参数, 遮罩的style | object | | |
+| css      | (已废弃, 请使用style)可选参数, 额外的css样式. 例如, `{ 'margin-left': '10px' }` | object  | `{}`     |     |
 | prefix    | 可选参数, 自定义前缀        | string       | `'zent'` |     |
 
 `Portal` 另外还提供了几个高阶组件(HOC)，提供了一些弹层常用的逻辑。
