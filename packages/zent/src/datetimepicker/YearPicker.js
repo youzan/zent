@@ -18,6 +18,14 @@ import {
   commonPropTypes,
 } from './constants';
 
+function getYear(val) {
+  if (val instanceof Date) {
+    return val.getFullYear();
+  }
+
+  return val;
+}
+
 function extractStateFromProps(props) {
   let showPlaceholder;
   let selected;
@@ -128,11 +136,11 @@ class YearPicker extends (PureComponent || Component) {
   };
 
   isDisabled = val => {
-    const { disabledDate, min, max } = this.props;
+    let { disabledDate, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && +val < +min) return true;
-    if (max && +val > +max) return true;
+    if (min && +val < +getYear(min)) return true;
+    if (max && +val > +getYear(max)) return true;
 
     return false;
   };
