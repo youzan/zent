@@ -79,7 +79,6 @@ export default class Dialog extends (PureComponent || Component) {
         refClose={this.props.refClose}
         origin={this.props.origin}
         timeout={TIMEOUT} // animation timeout
-        animationClassName="hahahs"
       >
         <DialogEl
           {...this.props}

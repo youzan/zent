@@ -182,7 +182,7 @@ describe('Pop', () => {
     expect(document.querySelectorAll('.zent-pop-inner-button').length).toBe(1);
     Simulate.click(document.querySelector('.zent-pop-inner-button'));
     jest.runAllTimers();
-    expect(wrapper.find('Portal').length).toBe(0);
+    expect(wrapper.find('.zent-pop-inner-button').length).toBe(0);
 
     // HACK: initial with truthy visible;
     visible = true;

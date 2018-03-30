@@ -49,6 +49,7 @@ class PortalBasic extends Component {
         		    visible={this.state.bodyPortalVisible} 
         		    onClickAway={this.hideBodyPortal} 
         		    onClose={this.hideBodyPortal}
+        		    className="layer"
         		    style={{ background: 'rgba(0, 0, 0, 0.2)' }}
         		    useLayerForClickAway
                 >

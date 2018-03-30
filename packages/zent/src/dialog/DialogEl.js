@@ -9,6 +9,10 @@ class DialogInnerEl extends (PureComponent || Component) {
     this.resetTransformOrigin();
   }
 
+  componentDidUpdate() {
+    this.resetTransformOrigin();
+  }
+
   resetTransformOrigin = (props = this.props) => {
     const { mousePosition } = props;
     if (
@@ -18,7 +22,7 @@ class DialogInnerEl extends (PureComponent || Component) {
       this.dialogEl &&
       this.dialogEl.getBoundingClientRect
     ) {
-      const { x, y } = this.dialogEl.getBoundingClientRect();
+      const { left: x, top: y } = this.dialogEl.getBoundingClientRect();
       const origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
       const style = this.dialogEl.style;
       ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {

@@ -94,10 +94,6 @@ export default function animatedClosable(Origin) {
 
       const Animation = animation || CSSTransition;
 
-      console.log('in', this.state.open && !this.state.closing);
-      console.log('closing', this.state.closing);
-      console.log('timeout', this.props.timeout);
-
       return (
         <Animation
           appear

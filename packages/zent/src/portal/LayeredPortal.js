@@ -20,7 +20,7 @@ export default class LayeredPortal extends (PureComponent || Component) {
     visible: PropTypes.bool.isRequired,
 
     // children
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     render: PropTypes.func,
 
     // parent node
