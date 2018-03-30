@@ -13,6 +13,8 @@ export default class Portal extends (PureComponent || Component) {
     children: PropTypes.node.isRequired,
     selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
       .isRequired,
+    onMount: PropTypes.func,
+    onUnmount: PropTypes.func,
     className: PropTypes.string,
     css: PropTypes.object,
     prefix: PropTypes.string,
