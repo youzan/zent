@@ -28,13 +28,24 @@ export function closeDialog(dialogId, options = {}) {
 
   delete dialogInstanceMap[dialogId];
 
-  const { onClose, container } = dialog;
-  const { triggerOnClose = true } = options;
-  if (triggerOnClose && onClose) {
-    onClose();
-  }
+  const { onClose, container, close } = dialog;
 
-  ReactDOM.unmountComponentAtNode(container);
+  const closeCallback = () => {
+    const { triggerOnClose = true } = options;
+    if (triggerOnClose && onClose) {
+      onClose();
+    }
+
+    ReactDOM.unmountComponentAtNode(container);
+  };
+
+  if (close) {
+    close(() => {
+      closeCallback();
+    });
+  } else {
+    closeCallback();
+  }
 }
 
 /*
@@ -48,6 +59,7 @@ export default function openDialog(options = {}) {
     ref,
     dialogId = uniqueId('__zent-dialog__'),
     parentComponent,
+    // event,
   } = options;
 
   ensureUniqDialogInstance(dialogId);
@@ -55,16 +67,21 @@ export default function openDialog(options = {}) {
   let container = document.createElement('div');
 
   // 确保多次调用close不会报错
-  const close = evt => {
+  const closeHandler = evt => {
     closeDialog(dialogId, {
       triggerOnClose: evt !== false,
     });
   };
 
+  let close = null;
+
   const props = {
     ...options,
     visible: true,
-    onClose: close,
+    onClose: closeHandler,
+    refClose: closeInstance => {
+      close = closeInstance;
+    },
   };
 
   // 只支持函数形式的ref
@@ -82,7 +99,8 @@ export default function openDialog(options = {}) {
   addDialogInstance(dialogId, {
     onClose: oldOnClose,
     container,
+    close,
   });
 
-  return close;
+  return closeHandler;
 }

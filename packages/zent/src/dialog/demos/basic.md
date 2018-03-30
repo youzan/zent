@@ -25,19 +25,6 @@ class Example extends React.Component {
 	};
 
 	render() {
-		let dialog;
-		if (this.state.visible) {
-			dialog = (
-				<Dialog
-					visible={this.state.visible}
-					onClose={() => this.triggerDialog(false)}
-					title="{i18n.title1}"
-				>
-					<p>{i18n.content}</p>
-					<p>{i18n.content1}</p>
-				</Dialog>);
-		}
-
 		return (
 			<div>
 				<Button
@@ -46,7 +33,14 @@ class Example extends React.Component {
 				>
 					{i18n.show}
 				</Button>
-				{dialog}
+				<Dialog
+                    visible={this.state.visible}
+                    onClose={() => this.triggerDialog(false)}
+                    title="{i18n.title1}"
+                >
+                    <p>{i18n.content}</p>
+                    <p>{i18n.content1}</p>
+                </Dialog>
 			</div>
 		);
 	}
