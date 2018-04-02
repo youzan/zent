@@ -11,8 +11,15 @@ const DialogPortalESCToClose = animatedClosable(withESCToClose(DialogPortal));
 
 const TIMEOUT = 300; // ms
 
-let mouseEventBound = false;
 let mousePosition = null;
+
+// Inspired by antd and rc-dialog
+document.documentElement.addEventListener('click', e => {
+  mousePosition = {
+    x: e.clientX,
+    y: e.clientY,
+  };
+});
 
 export default class Dialog extends (PureComponent || Component) {
   static propTypes = {
@@ -40,19 +47,6 @@ export default class Dialog extends (PureComponent || Component) {
     maskClosable: true,
     footer: null,
   };
-
-  componentDidMount() {
-    // Inspired by antd and rc-dialog
-    if (!mouseEventBound) {
-      document.documentElement.addEventListener('click', e => {
-        mousePosition = {
-          x: e.clientX,
-          y: e.clientY,
-        };
-      });
-      mouseEventBound = true;
-    }
-  }
 
   onClose = e => {
     this.props.onClose && this.props.onClose(e);
