@@ -29,7 +29,6 @@ class DateRangePicker extends (PureComponent || Component) {
     defaultTime: PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     ),
-    valueType: PropTypes.oneOf(['string', 'number', 'date']),
   };
 
   static defaultProps = {

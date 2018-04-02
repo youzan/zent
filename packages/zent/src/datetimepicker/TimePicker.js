@@ -51,7 +51,6 @@ export default class TimePicker extends (PureComponent || Component) {
     hourStep: PropTypes.number,
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
-
     onBeforeConfirm: PropTypes.func,
   };
 

@@ -18,5 +18,6 @@ group: 展示
 | title          | 标题               | string            |         |              |
 | tooltip        | pop显示内容         | node             |          |             |
 | content        | 自定义content       | node             |            |           |
+| childAlign     | 子元素对齐方式 | string | `'left'`  | `'left'、'right'` |
 | position       | pop posotion       | string           | 'top-right' |          |
 
