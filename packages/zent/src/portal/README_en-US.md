@@ -10,36 +10,36 @@ Portal widget
 
 ### Guides
 
-Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+Portal provides a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
 
 ### API
 
-| Property        | Description                | Type                    | Default      | Alternative              |
-| --------- | ----------------- | --------------------- | -------- | ------------------------ |
-| children  | required parameter, only supports one child        | string         |          |                |
-| render    | optional parameter, render the `Portal` content, which replaces children | function | | |
-| selector  | optional parameter, render child DOM node     | string or DOM Element | `'body'` | legal CSS selector or certain DOM node |
-| visible   | optional parameter, whether to render child    | bool         | `true`   |                |
-| layer | optional parameter, the layer curtain tag name | string | `div` | |
-| useLayerForClickAway | optional parameter, whether to use a layer for click away from `Portal` | boolean | false | |
-| onClickAway | optional parameter, the callback when user clicks away from `Portal` | function | | |
-| onLayerReady | optional parameter, the hook when layer is ready | function | | |
-| className | optional parameter, the layer class name     | string                | `''`     |         |
-| style | optional parameter, the layer style | object | | |
-| css      | (Deprecated, use style instead) optional parameter, extra css style. such as, `{ 'margin-left': '10px' }` | object  | `{}`     |     |
-| prefix    | optional parameter, custom prefix        | string       | `'zent'` |     |
+| Property     | Description     | Type     | Required | Default      | Alternative         |
+| --------- | ----------------- | ---------- | ----------- | -------- | -------------------- |
+| children  | Only supports one child        | string    | Yes  |          |                |
+| selector  | DOM node to render child    | string or DOM Element | No | `'body'` | legal CSS selector or certain DOM node |
+| visible   | Whether to render child    | bool   | No     | `true`   |                |
+| onMount   | Callback after child is mounted | func | No | | |
+| onUnmount | Callback after child is unmounted | func | No | | |
+| layer | The layer curtain tag name | string | No | `div` | |
+| useLayerForClickAway | Whether to use a layer for click away from `Portal` | boolean | No | false | |
+| onClickAway | The callback when user clicks away from `Portal` | function | No | | |
+| onLayerReady | The hook when layer is ready | function | No | | |
+| className | The layer class name     | string | No | `''`     |         |
+| style | The layer style | object | No | | |
+| css      | (Deprecated, use style instead) Extra css style. such as, `{ 'margin-left': '10px' }` | object  | No | `{}`     |     |
+| prefix    | Custom prefix        | string   | No   | `'zent'` |     |
 
-
-`Portal` provides some high-level component(HOC)，including some logic are generally used in popover 
+`Portal` provides some high-level components(HOC)，including some logics that are generally used in popovers.
 
 #### withESCToClose
 
-Package logic to close by using enter ESC
+Implements close on ESC.
 
-| Property      | Description                        | Type   | Default    |
-| ------- | ------------------------- | ---- | ------ |
-| visible | required, the Portal's original attribute is selectable| bool | `true` |
-| onClose | required, callback is trigger when ESC enter         | func |    |   |
+| Property      | Description      | Type  |   Required         |  Default    |
+| ------- | --------------- | ---------- | ---- | ------ |
+| visible | Is portal visible | bool | Yes | `true` |
+| onClose | Callback when portal closes        | func | Yes |  |   |
 
 ```jsx
 import { Portal as _Portal } from 'zent';
@@ -49,11 +49,11 @@ const Portal = withESCToClose(_Portal);
 
 #### withNonScrollable
 
-Package logic to disable scroll container 
+Disable scroll on body when portal is open.
 
-| Property      | Description                        | Type   | Default    |
-| ------- | ------------------------- | ---- | ------ |
-| visible | required, the Portal's original attribute is selectable | bool | `true` |
+| Property      | Description         | Type  | Required | Default    |
+| ------- | ------------------------- | ---- | ------ | ---- |
+| visible | Is Portal visible | bool | Yes | `true` |
 
 ```jsx
 import { Portal as _Portal } from 'zent';
@@ -63,7 +63,7 @@ const Portal = withNonScrollable(_Portal);
 
 ### Principle
 
-- The widget is mainly used to insert it's `child` to given DOM node, and it is removed from DOM when component is `unmount`.
+- The widget is mainly used to insert it's `child` to given DOM node, and it is removed from DOM when component is unmounted.
 - A certain degree of repaint occurs when any props are modified, and `children`, `selector`'s change will trigger component `unmount` to `mount`; when other props is modified, only existing DOM node attributes update.
 
 ### Known issues

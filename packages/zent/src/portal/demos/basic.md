@@ -9,10 +9,10 @@ zh-CN:
 	bodyPortalButton: 添加带遮罩的Portal到body
 en-US:
 	title: Basic usage
-	originalContent: the original content
-	portalContent: the content that Portal inserts dynamically
-	purePortalContent: the content that PurePortal inserts dynamically, overwrites the original content inside the container
-	bodyPortalContent: the content is appended to body by default, and a curtain is set for closing
+	originalContent: Original content
+	portalContent: Content that Portal inserts dynamically
+	purePortalContent: Content that PurePortal inserts dynamically, overwrites the original content inside the container
+	bodyPortalContent: The content is appended to body by default, and a curtain is set for closing
 	bodyPortalButton: Append a Portal with curtain to body
 
 ---

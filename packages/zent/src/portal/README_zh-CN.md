@@ -15,20 +15,21 @@ group: 基础
 
 ### API
 
-| 参数        | 说明                | 类型                    | 默认值      | 备选值              |
-| --------- | ----------------- | --------------------- | -------- | ------------------------ |
-| children  | 必填参数, 只支持一个child        | string         |          |                |
-| render    | 可选参数, 用于渲染`Portal`内容, 替代children | function | | |
-| selector  | 可选参数, 渲染child的DOM节点     | string or DOM Element | `'body'` | 合法的CSS selector或者某个DOM节点 |
-| visible   | 可选参数, 是否渲染child    | bool         | `true`   |                |
-| layer | 可选参数, 遮罩的标签名 | string | `div` | |
-| useLayerForClickAway | 可选参数, 是否使用遮罩来触发`Portal`关闭 | boolean | false | |
-| onClickAway | 可选参数, 点击到非`Portal`处的回调 | function | | |
-| onLayerReady | 可选参数, 遮罩准备好时的hook | function | | |
-| className | 可选参数, 遮罩的className      | string                | `''`     |         |
-| style | 可选参数, 遮罩的style | object | | |
-| css      | (已废弃, 请使用style)可选参数, 额外的css样式. 例如, `{ 'margin-left': '10px' }` | object  | `{}`     |     |
-| prefix    | 可选参数, 自定义前缀        | string       | `'zent'` |     |
+| 参数        | 说明             | 类型       | 是否必须    | 默认值      | 备选值              |
+| --------- | ----------------- | ---------- | ----------- | -------- | ------------------- |
+| children  | 只支持一个child        | string         |  是   |     |                |
+| selector  | 渲染child的DOM节点     | string or DOM Element | 否 | `'body'` | 合法的CSS selector或者某个DOM节点 |
+| visible   | 是否渲染child    | bool         | 否 | `true`   |                |
+| onMount   | `children` 被 mount 之后的回调函数 | func | 否 | | |
+| onUnmount | `children` 被 unmount 之后的回调函数 | func | 否 | | |
+| layer | 遮罩的标签名 | string | 否 | `div` | |
+| useLayerForClickAway | 是否使用遮罩来触发`Portal`关闭 | boolean | 否 | false | |
+| onClickAway | 点击到非`Portal`处的回调 | function | 否 | | |
+| onLayerReady | 遮罩准备好时的hook | function | 否 | | |
+| className | 遮罩的className      | string | 否 | `''`     |         |
+| style | 遮罩的style | object | 否 | | |
+| css      | (已废弃, 请使用style)额外的css样式. 例如, `{ 'margin-left': '10px' }` | object  | 否 | `{}`     |     |
+| prefix    | 自定义前缀        | string       | 否 | `'zent'` |     |
 
 `Portal` 另外还提供了几个高阶组件(HOC)，提供了一些弹层常用的逻辑。
 
@@ -36,10 +37,10 @@ group: 基础
 
 封装了按ESC关闭的逻辑.
 
-| 参数      | 说明                        | 类型   | 默认值    |
-| ------- | ------------------------- | ---- | ------ |
-| visible | 必填参数, 注意这个属性原始的Portal是可选的 | bool | `true` |
-| onClose | 必填参数, ESC按下是的回调函数         | func |    |   |
+| 参数      | 说明                        | 类型   | 是否必须 | 默认值    |
+| ------- | ------------------------- | ---- | ------ | ---- |
+| visible | 注意这个属性原始的Portal是可选的 | bool | 是 | `true` |
+| onClose | ESC按下是的回调函数         | func |  是 |   |   |
 
 ```jsx
 import { Portal as _Portal } from 'zent';
@@ -51,9 +52,9 @@ const Portal = withESCToClose(_Portal);
 
 封装了禁止container滚动的逻辑.
 
-| 参数      | 说明                        | 类型   | 默认值    |
+| 参数      | 说明                        | 类型   | 是否必须 | 默认值    |
 | ------- | ------------------------- | ---- | ------ |
-| visible | 必填参数, 注意这个属性原始的Portal是可选的 | bool | `true` |
+| visible | 注意这个属性原始的Portal是可选的 | bool | 是 | `true` |
 
 ```jsx
 import { Portal as _Portal } from 'zent';

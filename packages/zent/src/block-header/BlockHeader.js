@@ -10,6 +10,7 @@ export default class BlockHeader extends Component {
     title: PropTypes.string.isRequired,
     tooltip: PropTypes.node,
     content: PropTypes.node,
+    childAlign: PropTypes.oneOf('left', 'right'),
     position: PropTypes.string,
     prefix: PropTypes.string,
   };
@@ -17,6 +18,7 @@ export default class BlockHeader extends Component {
   static defaultProps = {
     prefix: 'zent',
     className: '',
+    childAlign: 'left',
     position: 'top-right',
     tooltip: '',
     content: '',
@@ -28,6 +30,7 @@ export default class BlockHeader extends Component {
       content,
       title,
       tooltip,
+      childAlign,
       position,
       className,
       children,
@@ -54,7 +57,11 @@ export default class BlockHeader extends Component {
             </Pop>
           )}
         </div>
-        <div className={`${prefix}-block-header__content`}>
+        <div
+          className={cx(`${prefix}-block-header__content`, {
+            [`${prefix}-block-header__content-right`]: childAlign === 'right',
+          })}
+        >
           {content && content}
           {children && children}
         </div>

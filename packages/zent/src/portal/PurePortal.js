@@ -5,7 +5,7 @@ import isFunction from 'lodash/isFunction';
 
 import { getNodeFromSelector } from './util';
 
-export function unstable_unrenderPortal(containerNode, callback) {
+export function unstable_unrenderPortal(containerNode, callback, onUnmount) {
   if (containerNode) {
     // React不支持在event handler中unmount组件，会引起问题。Portal的使用场景很容易出现
     // 这种情况，比如在portal内部按了关闭按钮关掉portal。setTimeout的作用是把unmount放到下一个tick
@@ -18,18 +18,25 @@ export function unstable_unrenderPortal(containerNode, callback) {
       ReactDOM.unmountComponentAtNode(containerNode);
 
       isFunction(callback) && callback();
+
+      isFunction(onUnmount) && onUnmount();
     }, 0);
   }
 }
 
-export function unstable_renderPortal(child, containerNode) {
+export function unstable_renderPortal(child, containerNode, onMount) {
   if (!containerNode) {
     return;
   }
 
   // 这个API虽然是unstable，但是现在实现portal只能用它，如果用ReactDOM.render会导致
   // context失效。
-  ReactDOM.unstable_renderSubtreeIntoContainer(this, child, containerNode);
+  ReactDOM.unstable_renderSubtreeIntoContainer(
+    this,
+    child,
+    containerNode,
+    onMount
+  );
 }
 
 /**
@@ -37,8 +44,14 @@ export function unstable_renderPortal(child, containerNode) {
  */
 export default class PurePortal extends (PureComponent || Component) {
   static propTypes = {
+    onMount: PropTypes.func,
+    onUnmount: PropTypes.func,
+
+    // render
     children: PropTypes.node.isRequired,
     render: PropTypes.func, // prior to children
+
+    // parent node
     selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
       .isRequired,
   };
@@ -78,10 +91,15 @@ export default class PurePortal extends (PureComponent || Component) {
   unrenderPortal = callback => {
     const containerNode = this.containerNode;
 
-    unstable_unrenderPortal.call(this, containerNode, () => {
-      this.containerNode = null;
-      isFunction(callback) && callback();
-    });
+    unstable_unrenderPortal.call(
+      this,
+      containerNode,
+      () => {
+        this.containerNode = null;
+        isFunction(callback) && callback();
+      },
+      this.props.onUnmount
+    );
   };
 
   renderPortal = (props = this.props) => {
@@ -100,7 +118,12 @@ export default class PurePortal extends (PureComponent || Component) {
     const { children, render } = props;
     const content = render ? render() : Children.only(children);
 
-    unstable_renderPortal.call(this, content, this.containerNode);
+    unstable_renderPortal.call(
+      this,
+      content,
+      this.containerNode,
+      this.props.onMount
+    );
   };
 
   render() {

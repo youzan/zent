@@ -8,6 +8,7 @@ import throttle from 'lodash/throttle';
 
 import PropTypes from 'prop-types';
 
+import isEqualPlacement from './placement/isEqual';
 import invisiblePlacement from './placement/invisible';
 
 function translateToContainerCoordinates(containerBB, bb) {
@@ -138,18 +139,20 @@ export default class PopoverContent extends (PureComponent || Component) {
       }
     );
 
-    this.setState(
-      {
-        position,
-      },
-      () => {
-        this.props.onPositionUpdated();
-        if (!this.positionReady) {
-          this.positionReady = true;
-          this.props.onPositionReady();
+    if (!isEqualPlacement(this.state.position, position)) {
+      this.setState(
+        {
+          position,
+        },
+        () => {
+          this.props.onPositionUpdated();
+          if (!this.positionReady) {
+            this.positionReady = true;
+            this.props.onPositionReady();
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   onWindowResize = throttle((evt, delta) => {
@@ -201,6 +204,7 @@ export default class PopoverContent extends (PureComponent || Component) {
         selector={containerSelector}
         className={cls}
         css={position.getCSSStyle()}
+        onMount={this.adjustPosition}
       >
         <div className={`${prefix}-popover-content`}>
           {children}

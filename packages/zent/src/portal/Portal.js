@@ -8,6 +8,8 @@ export default class Portal extends (PureComponent || Component) {
   static propTypes = {
     // visible
     visible: PropTypes.bool.isRequired,
+    onMount: PropTypes.func,
+    onUnmount: PropTypes.func,
 
     // children
     children: PropTypes.node.isRequired,
