@@ -6,8 +6,8 @@ zh-CN:
 	portalContent: 这里是 Portal 动态插入的内容
 en-US:
 	title: Basic usage
-	originalContent: the original content
-	portalContent: the content that Portal inserts dynamically
+	originalContent: Original content
+	portalContent: Content that Portal inserts dynamically
 
 ---
 
