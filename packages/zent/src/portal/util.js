@@ -46,7 +46,8 @@ export function openPortal(props) {
   ReactDOM.unstable_renderSubtreeIntoContainer(
     this,
     Children.only(children),
-    node
+    node,
+    props.onMount
   );
 }
 
@@ -66,6 +67,9 @@ export function destroyPortal(callback) {
       this.node = undefined;
 
       isFunction(callback) && callback();
+
+      const { onUnmount } = this.props;
+      isFunction(onUnmount) && onUnmount();
     }, 0);
   }
 }
