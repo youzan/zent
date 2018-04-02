@@ -1,16 +1,13 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import capitalize from 'lodash/capitalize';
 import Button from 'button';
 import Popover from 'popover';
 import Menu from 'menu';
 import Icon from 'icon';
 
 const { MenuItem } = Menu;
-
-function titleCase(str) {
-  return str.replace(/( |^)[a-z]/g, L => L.toUpperCase());
-}
 
 export default class SplitButton extends (PureComponent || Component) {
   static propTypes = {
@@ -72,7 +69,7 @@ export default class SplitButton extends (PureComponent || Component) {
 
     const classString = cx(`${prefix}-split-button`, className);
 
-    const trigger = titleCase(dropdownTrigger);
+    const trigger = capitalize(dropdownTrigger);
 
     const Trigger =
       disabled || loading ? Popover.Trigger.Base : Popover.Trigger[trigger];
