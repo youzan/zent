@@ -3,6 +3,7 @@ import Portal from 'portal';
 import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { PreviewImage as I18nDefault } from 'i18n/default';
@@ -16,7 +17,7 @@ export default class Image extends Component {
     imageIndex: this.props.index || 0,
     imageStyle: {},
     rotateIndex: 0,
-    scaleTag: 0,
+    scaleTag: false,
   };
 
   static propTypes = {
@@ -25,6 +26,7 @@ export default class Image extends Component {
     showRotateBtn: PropTypes.bool,
     images: PropTypes.array,
     index: PropTypes.number,
+    scaleRatio: PropTypes.string,
   };
 
   static defaultProps = {
@@ -33,6 +35,7 @@ export default class Image extends Component {
     showRotateBtn: true,
     images: [],
     index: 0,
+    scaleRatio: '1.2',
   };
 
   static contextTypes = {
@@ -49,26 +52,6 @@ export default class Image extends Component {
     this.props.onClose();
   };
 
-  // 旋转
-  handleRotate = () => {
-    let rotateIndex = this.state.rotateIndex;
-    let deg = 90 + rotateIndex * 90;
-
-    console.log(rotateIndex);
-    console.log(deg);
-
-    rotateIndex++;
-
-    this.setState({
-      imageStyle: {
-        transform: `rotate(${deg}deg)`,
-        transitionDuration: '0.5s',
-      },
-      rotateIndex,
-      scaleTag: 0,
-    });
-  };
-
   // 上一张
   handlePreviousAction = () => {
     const imagesNum = this.props.images.length;
@@ -80,7 +63,7 @@ export default class Image extends Component {
         transform: 'rotate(0deg)',
       },
       rotateIndex: 0,
-      scaleTag: 0,
+      scaleTag: false,
     });
   };
 
@@ -95,25 +78,49 @@ export default class Image extends Component {
         transform: 'rotate(0deg)',
       },
       rotateIndex: 0,
-      scaleTag: 0,
+      scaleTag: false,
     });
   };
 
-  // 放大缩小
-  handleScale = () => {
-    const { rotateIndex, scaleTag } = this.state;
-    let deg = rotateIndex * 90;
-    const transformStyle =
-      scaleTag === 0
-        ? `rotate(${deg}deg) scale(1.2)`
-        : `rotate(${deg}deg) scale(1)`;
+  // 旋转
+  handleRotate = () => {
+    const { scaleTag } = this.state;
+    const { scaleRatio } = this.props;
+    let rotateIndex = this.state.rotateIndex;
+    let deg = 90 + rotateIndex * 90;
+    rotateIndex++;
+
+    // 旋转时，缩放样式带上
+    const transformStyle = scaleTag
+      ? `rotate(${deg}deg) scale(${scaleRatio})`
+      : `rotate(${deg}deg) scale(1)`;
 
     this.setState({
       imageStyle: {
         transform: transformStyle,
         transitionDuration: '0.5s',
       },
-      scaleTag: (scaleTag + 1) % 2,
+      rotateIndex,
+    });
+  };
+
+  // 缩放
+  handleScale = () => {
+    const { rotateIndex, scaleTag } = this.state;
+    const { scaleRatio } = this.props;
+    let deg = rotateIndex * 90;
+
+    // 缩放时，旋转样式带上
+    const transformStyle = scaleTag
+      ? `rotate(${deg}deg) scale(1)`
+      : `rotate(${deg}deg) scale(${scaleRatio})`;
+
+    this.setState({
+      imageStyle: {
+        transform: transformStyle,
+        transitionDuration: '0.5s',
+      },
+      scaleTag: !scaleTag,
     });
   };
 
@@ -121,7 +128,7 @@ export default class Image extends Component {
     const { images, prefix, showRotateBtn, className } = this.props;
     const { scaleTag, imageIndex, imageStyle } = this.state;
     const imageClassName = cx(`${prefix}-show-image`, {
-      'image-is-zooming': scaleTag === 1,
+      'image-is-zooming': scaleTag,
     });
 
     return (
@@ -177,7 +184,10 @@ export default class Image extends Component {
                       </span>
                     )}
                     {showRotateBtn && (
-                      <span className={rotateCxs} onClick={this.handleRotate}>
+                      <span
+                        className={rotateCxs}
+                        onClick={debounce(this.handleRotate, 200)}
+                      >
                         {i18n.rotate}
                       </span>
                     )}
