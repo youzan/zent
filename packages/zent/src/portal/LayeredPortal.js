@@ -18,6 +18,8 @@ export default class LayeredPortal extends (PureComponent || Component) {
   static propTypes = {
     // visible
     visible: PropTypes.bool.isRequired,
+    onMount: PropTypes.func,
+    onUnmount: PropTypes.func,
 
     // children
     children: PropTypes.node,
@@ -157,15 +159,20 @@ export default class LayeredPortal extends (PureComponent || Component) {
     if (layerNode) {
       this.undecorateLayer(layerNode);
 
-      unstable_unrenderPortal.call(this, layerNode, () => {
-        removeNodeFromDOMTree(layerNode);
+      unstable_unrenderPortal.call(
+        this,
+        layerNode,
+        () => {
+          removeNodeFromDOMTree(layerNode);
 
-        // Reset
-        this.layerNode = null;
-        this.parentNode = null;
+          // Reset
+          this.layerNode = null;
+          this.parentNode = null;
 
-        isFunction(callback) && callback();
-      });
+          isFunction(callback) && callback();
+        },
+        this.props.onUnmount
+      );
     }
   };
 
@@ -192,7 +199,12 @@ export default class LayeredPortal extends (PureComponent || Component) {
       const { children, render } = props;
       const content = render ? render() : Children.only(children);
 
-      unstable_renderPortal.call(this, content, this.layerNode);
+      unstable_renderPortal.call(
+        this,
+        content,
+        this.layerNode,
+        this.props.onMount
+      );
     } else {
       this.unrenderLayer();
     }
