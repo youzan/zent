@@ -45,8 +45,8 @@
   "moduleNameMapper": {
     "^affix(.*)$": "<rootDir>/src/affix$1",
     "^alert(.*)$": "<rootDir>/src/alert$1",
-    "^avatar(.*)$": "<rootDir>/src/avatar$1",
     "^auto-complete(.*)$": "<rootDir>/src/auto-complete$1",
+    "^avatar(.*)$": "<rootDir>/src/avatar$1",
     "^badge(.*)$": "<rootDir>/src/badge$1",
     "^block-header(.*)$": "<rootDir>/src/block-header$1",
     "^breadcrumb(.*)$": "<rootDir>/src/breadcrumb$1",
@@ -87,6 +87,7 @@
     "^sku(.*)$": "<rootDir>/src/sku$1",
     "^slider(.*)$": "<rootDir>/src/slider$1",
     "^sortable(.*)$": "<rootDir>/src/sortable$1",
+    "^split-button(.*)$": "<rootDir>/src/split-button$1",
     "^steps(.*)$": "<rootDir>/src/steps$1",
     "^sweetalert(.*)$": "<rootDir>/src/sweetalert$1",
     "^swiper(.*)$": "<rootDir>/src/swiper$1",
