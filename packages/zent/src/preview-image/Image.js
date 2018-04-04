@@ -35,7 +35,7 @@ export default class Image extends Component {
     showRotateBtn: true,
     images: [],
     index: 0,
-    scaleRatio: '1.2',
+    scaleRatio: '1.5',
   };
 
   static contextTypes = {
