@@ -10,7 +10,7 @@ export default class BlockHeader extends Component {
     title: PropTypes.string.isRequired,
     tooltip: PropTypes.node,
     content: PropTypes.node,
-    childAlign: PropTypes.oneOf('left', 'right'),
+    childAlign: PropTypes.oneOf(['left', 'right']),
     position: PropTypes.string,
     prefix: PropTypes.string,
   };

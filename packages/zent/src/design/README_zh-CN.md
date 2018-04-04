@@ -23,7 +23,7 @@ group: 业务组件
 | previewFooter | 自定义 Preview 底部的额外信息 | node |  | 可选 | 
 | confirmUnsavedLeave| 有未保存数据关闭窗口时需要用户确认 | boolean | true | 可选 |
 | cache | 是否将未保存的数据暂存到 localStorage 中 | boolean | false | 可选 |
-| cacheId | 配合 cache 使用，用于设置 Design 示例的缓存 id | string | | cache 为 true 时必填 |
+| cacheId | 配合 cache 使用，用于设置 Design 实例的缓存 id | string | | cache 为 true 时必填 |
 | cacheRestoreMessage | 恢复缓存时的提示文案 | node | 提示：在浏览器中发现未提交的内容，是否使用该内容替换当前内容？ | 可选 |
 | disabled | 是否禁用编辑 | boolean | false | 可选 |
 | globalConfig | 全局参数，通常是 window._global | object | | 可选 |
