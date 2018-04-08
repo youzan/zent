@@ -3,6 +3,7 @@ import Portal from 'portal';
 import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { PreviewImage as I18nDefault } from 'i18n/default';
@@ -16,6 +17,7 @@ export default class Image extends Component {
     imageIndex: this.props.index || 0,
     imageStyle: {},
     rotateIndex: 0,
+    scaleTag: false,
   };
 
   static propTypes = {
@@ -24,6 +26,14 @@ export default class Image extends Component {
     showRotateBtn: PropTypes.bool,
     images: PropTypes.array,
     index: PropTypes.number,
+    scaleRatio(props, propName, componentName) {
+      const value = props[propName];
+      if (value < 1) {
+        return new Error(
+          `Invalid prop \`${propName}\` in ${componentName}, ${propName} should be greater than 1. Validation failed.`
+        );
+      }
+    },
   };
 
   static defaultProps = {
@@ -32,6 +42,7 @@ export default class Image extends Component {
     showRotateBtn: true,
     images: [],
     index: 0,
+    scaleRatio: 1.5,
   };
 
   static contextTypes = {
@@ -48,19 +59,7 @@ export default class Image extends Component {
     this.props.onClose();
   };
 
-  handleRotate = () => {
-    let rotateIndex = this.state.rotateIndex;
-    let deg = 90 + rotateIndex * 90;
-    rotateIndex++;
-    this.setState({
-      imageStyle: {
-        transform: `rotate(${deg}deg)`,
-        transitionDuration: '0.5s',
-      },
-      rotateIndex,
-    });
-  };
-
+  // 上一张
   handlePreviousAction = () => {
     const imagesNum = this.props.images.length;
     let imageIndex = this.state.imageIndex;
@@ -71,9 +70,11 @@ export default class Image extends Component {
         transform: 'rotate(0deg)',
       },
       rotateIndex: 0,
+      scaleTag: false,
     });
   };
 
+  // 下一张
   handleNextAction = () => {
     const imagesNum = this.props.images.length;
     let imageIndex = this.state.imageIndex;
@@ -84,11 +85,58 @@ export default class Image extends Component {
         transform: 'rotate(0deg)',
       },
       rotateIndex: 0,
+      scaleTag: false,
+    });
+  };
+
+  // 旋转
+  handleRotate = () => {
+    const { scaleTag } = this.state;
+    const { scaleRatio } = this.props;
+    let rotateIndex = this.state.rotateIndex;
+    let deg = 90 + rotateIndex * 90;
+    rotateIndex++;
+
+    // 旋转时，缩放样式带上
+    const transformStyle = scaleTag
+      ? `rotate(${deg}deg) scale(${scaleRatio})`
+      : `rotate(${deg}deg) scale(1)`;
+
+    this.setState({
+      imageStyle: {
+        transform: transformStyle,
+        transitionDuration: '0.5s',
+      },
+      rotateIndex,
+    });
+  };
+
+  // 缩放
+  handleScale = () => {
+    const { rotateIndex, scaleTag } = this.state;
+    const { scaleRatio } = this.props;
+    let deg = rotateIndex * 90;
+
+    // 缩放时，旋转样式带上
+    const transformStyle = scaleTag
+      ? `rotate(${deg}deg) scale(1)`
+      : `rotate(${deg}deg) scale(${scaleRatio})`;
+
+    this.setState({
+      imageStyle: {
+        transform: transformStyle,
+        transitionDuration: '0.5s',
+      },
+      scaleTag: !scaleTag,
     });
   };
 
   render() {
     const { images, prefix, showRotateBtn, className } = this.props;
+    const { scaleTag, imageIndex, imageStyle } = this.state;
+    const imageClassName = cx(`${prefix}-show-image`, {
+      'image-is-zooming': scaleTag,
+    });
 
     return (
       <ImagePortalESCToClose
@@ -105,11 +153,12 @@ export default class Image extends Component {
               {i18n => (
                 <div className={`${prefix}-image-p-body`}>
                   {images.map((image, index) => {
-                    if (index === this.state.imageIndex) {
+                    if (index === imageIndex) {
                       return (
                         <img
-                          className={`${prefix}-show-image`}
-                          style={this.state.imageStyle}
+                          className={imageClassName}
+                          onClick={this.handleScale}
+                          style={imageStyle}
                           src={image}
                           key={index}
                           alt={i18n.alt}
@@ -142,7 +191,10 @@ export default class Image extends Component {
                       </span>
                     )}
                     {showRotateBtn && (
-                      <span className={rotateCxs} onClick={this.handleRotate}>
+                      <span
+                        className={rotateCxs}
+                        onClick={debounce(this.handleRotate, 200)}
+                      >
                         {i18n.rotate}
                       </span>
                     )}

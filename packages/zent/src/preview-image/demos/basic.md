@@ -21,7 +21,8 @@ class Simple extends React.Component {
 		previewImage({
 			images: imgArr,
 			index: imgArr.indexOf(e.target.src),
-			parentComponent: this
+			parentComponent: this,
+			scaleRatio: 3
 		});
 	}
 

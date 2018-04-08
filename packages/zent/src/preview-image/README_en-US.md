@@ -21,6 +21,7 @@ This component is used to preview images.
 | images         | Urls for images      | array            |         |              |
 | index          | Start index  | number           | 0       |              |
 | showRotateBtn  | Show rotate button   | bool             | true     |  true,false |
+| scaleRatio     | Custom scale Ratio   | number           | 1.5     |     |
 | parentComponent | Parent component instance，i18n needs this to pass context through | ReactInstance | | |
 | className      | Optional. Custom class name     | string           | `''`     |         |
 | prefix         | Optional. Custom prefix.    | string           | `'zent'` |         |
