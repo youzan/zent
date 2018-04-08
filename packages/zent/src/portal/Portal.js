@@ -7,17 +7,16 @@ import LayeredPortal from './LayeredPortal';
 export default class Portal extends (PureComponent || Component) {
   static propTypes = {
     // visible
-    visible: PropTypes.bool.isRequired,
+    visible: PropTypes.bool,
     onMount: PropTypes.func,
     onUnmount: PropTypes.func,
 
     // children
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     render: PropTypes.func,
 
     // parent node
-    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-      .isRequired,
+    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     // layer
     layer: PropTypes.string,

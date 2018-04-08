@@ -95,11 +95,9 @@ export default class LayeredPortal extends (PureComponent || Component) {
       return;
     }
 
-    console.log(`BEGIN: ${event.target instanceof Node} :END`);
-    console.log(event.target);
-
     const layerNode = this.layerNode;
     if (
+      !(event.target instanceof Node) ||
       (event.target !== layerNode && event.target === window) ||
       (document.documentElement.contains(event.target) &&
         !isDescendant(layerNode, event.target))
