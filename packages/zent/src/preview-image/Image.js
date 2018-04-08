@@ -26,7 +26,14 @@ export default class Image extends Component {
     showRotateBtn: PropTypes.bool,
     images: PropTypes.array,
     index: PropTypes.number,
-    scaleRatio: PropTypes.string,
+    scaleRatio(props, propName, componentName) {
+      const value = props[propName];
+      if (value < 1) {
+        return new Error(
+          `Invalid prop \`${propName}\` in ${componentName}, ${propName} should be greater than 1. Validation failed.`
+        );
+      }
+    },
   };
 
   static defaultProps = {
@@ -35,7 +42,7 @@ export default class Image extends Component {
     showRotateBtn: true,
     images: [],
     index: 0,
-    scaleRatio: '1.5',
+    scaleRatio: 1.5,
   };
 
   static contextTypes = {

@@ -22,7 +22,7 @@ class Simple extends React.Component {
 			images: imgArr,
 			index: imgArr.indexOf(e.target.src),
 			parentComponent: this,
-			scaleRatio: '3'
+			scaleRatio: 3
 		});
 	}
 
