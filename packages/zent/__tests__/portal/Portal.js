@@ -199,7 +199,8 @@ describe('Portal', () => {
       </Portal>
     );
     expect(document.querySelector('.portal-child').textContent).toBe('child');
-    document.querySelector('.layer').click();
+    const layerNode = document.querySelector('.layer');
+    layerNode.dispatchEvent(new MouseEvent('click'));
     jest.runAllTimers();
     expect(document.querySelector('.portal-child')).toBe(null);
     unmountPortal(wrapper);
