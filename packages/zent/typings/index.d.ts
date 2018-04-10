@@ -1,3 +1,5 @@
+import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
+
 // TypeScript Version: 2.3
 
 /// <reference types="react" />
@@ -20,6 +22,7 @@
 /// <reference path="./libs/DateTimePicker.d.ts" />
 /// <reference path="./libs/Design.d.ts" />
 /// <reference path="./libs/Dialog.d.ts" />
+/// <reference path="./libs/ErrorBoundary.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
 /// <reference path="./libs/Icon.d.ts" />
 /// <reference path="./libs/InfiniteScroller.d.ts" />
@@ -74,6 +77,7 @@ declare module 'zent' {
   import DateRangePicker from 'zent/lib/datetimepicker/DateRangePicker';
   import Design from 'zent/lib/design';
   import Dialog from 'zent/lib/dialog';
+  import ErrorBoundary from 'zent/lib/error-boundary';
   import Form from 'zent/lib/form';
   import Layout from 'zent/lib/layout';
   import Loading from 'zent/lib/loading';
@@ -134,6 +138,7 @@ declare module 'zent' {
     DateRangeQuickPicker,
     Design,
     Dialog,
+    ErrorBoundary,
     Form,
     Layout,
     Loading,
@@ -172,7 +177,6 @@ declare module 'zent' {
     Switch,
     Upload,
     WeekPicker,
-    YearPicker
+    YearPicker,
   };
-
 }

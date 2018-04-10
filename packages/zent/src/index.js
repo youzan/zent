@@ -17,6 +17,7 @@ import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
+import ErrorBoundary from 'error-boundary';
 import Form from 'form';
 import Grid from 'grid';
 import I18nProvider from 'i18n';
@@ -79,6 +80,7 @@ export {
   DateRangeQuickPicker,
   Design,
   Dialog,
+  ErrorBoundary,
   Form,
   Grid,
   I18nProvider,
