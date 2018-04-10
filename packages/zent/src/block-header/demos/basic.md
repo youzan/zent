@@ -25,7 +25,6 @@ class Simple extends React.Component {
 				<BlockHeader
 					className="test-class"
 					title="{i18n.content}"
-					tooltip={<span>test</span>}
 					position="top-center"
 				>
 					<a href="/">children</a>
