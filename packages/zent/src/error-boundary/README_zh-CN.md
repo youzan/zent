@@ -26,8 +26,10 @@ group: 基础
 | 参数         |   说明         | 类型     | 是否必须    | 默认值      | 备选值            |
 | ------------ | ------------- | -------- | ---------- | ---------- | ----------------- |
 | children    | 受保护的子组件 | `node` | 是 | | |
-| onError     | 子组件出错时的回调函数 | `(error: Error, stackTrace: string): void` | 否 | | |
+| onError     | 子组件出错时的回调函数 | `(error: Error, componentStack: string): void` | 否 | | |
 | FallbackComponent      | 出错时用来替换子组件的组件       | `Component`     |  否   |     |  |
+
+`FallbackComponent` 接受两个参数: `error` 以及 `componentStack`，和 `onError` 一致。
 
 #### withErrorBoundary
 

@@ -28,6 +28,8 @@ Note：
 | onError     | Callback when an error occurs inside a child component | `(error: Error, stackTrace: string): void` | No | | |
 | FallbackComponent      | Component to render when an error occurs      | `Component`     |  No   |     |  |
 
+`FallbackComponent` has two props: `error` and `componentStack`，they are the same as `onError`'s parameters。
+
 #### withErrorBoundary
 
 This is a high order component, it provides the same functionality as `ErrorBoundary`.
