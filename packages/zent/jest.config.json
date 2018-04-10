@@ -62,6 +62,7 @@
     "^design(.*)$": "<rootDir>/src/design$1",
     "^dialog(.*)$": "<rootDir>/src/dialog$1",
     "^dropdown(.*)$": "<rootDir>/src/dropdown$1",
+    "^error-boundary(.*)$": "<rootDir>/src/error-boundary$1",
     "^form(.*)$": "<rootDir>/src/form$1",
     "^grid(.*)$": "<rootDir>/src/grid$1",
     "^i18n(.*)$": "<rootDir>/src/i18n$1",
