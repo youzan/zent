@@ -91,7 +91,6 @@ class DatePicker extends (PureComponent || Component) {
     showTime: PropTypes.bool,
     onBeforeConfirm: PropTypes.func,
     onBeforeClear: PropTypes.func,
-    valueType: PropTypes.oneOf(['string', 'number', 'date']),
   };
 
   static defaultProps = {

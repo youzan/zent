@@ -4,17 +4,22 @@ $theme-stroke-10color: $theme-stroke-10;
 $rgbamaskbgcolor: $theme-mask-black-6;
 
 .zent-image-p-body {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: top 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   z-index: 1;
 
   .zent-show-image {
     max-width: 90vw;
     max-height: 90vh;
+    cursor: zoom-in;
+
+    &.image-is-zooming {
+      cursor: zoom-out;
+    }
   }
 }
 
@@ -29,7 +34,7 @@ $rgbamaskbgcolor: $theme-mask-black-6;
   width: 40px;
   height: 40px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 2;
 
   &:hover {
     background: $theme-stroke-10color;

@@ -6,6 +6,7 @@ declare module 'zent/lib/block-header' {
     title: string
     tooltip?: React.ReactNode
     content?: React.ReactNode,
+    childAlign?: string,
     position?: string,
     prefix?: string
   }

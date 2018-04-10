@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop from 'pop';
 import pick from 'lodash/pick';
+import get from 'lodash/get';
 import { Draggable } from 'react-beautiful-dnd';
-import { DND_PREVIEW_CONTROLLER } from './constants';
+import { DND_PREVIEW_CONTROLLER, DEFAULT_BACKGROUND } from './constants';
 import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
 
 class DesignPreviewController extends (PureComponent || Component) {
   static propTypes = {
     // 这个组件的唯一标示，不随位置变化而变化
     id: PropTypes.string.isRequired,
+
+    // 组件的下标，-1 如果不可拖拽
+    index: PropTypes.number,
 
     // 是否允许 hover 效果，不允许的话不会显示各种按钮
     // 拖拽的时候用
@@ -88,8 +92,10 @@ class DesignPreviewController extends (PureComponent || Component) {
       isSelected,
       component: PreviewComponent,
       previewProps,
+      settings,
       prefix,
       id,
+      index,
       allowHoverEffects,
     } = this.props;
     const props = pick(this.props, [
@@ -111,27 +117,29 @@ class DesignPreviewController extends (PureComponent || Component) {
         draggableId={id}
         type={DND_PREVIEW_CONTROLLER}
         isDragDisabled={!dragable}
+        index={index}
       >
         {(provided, snapshot) => {
           // 拖拽的时候隐藏各种按钮，会很丑
           const showButtons =
             configurable && allowHoverEffects && !snapshot.isDragging;
-          const onClick = evt => {
-            if (provided.dragHandleProps) {
-              provided.dragHandleProps.onClick(evt);
-            }
-
-            this.onSelect(evt);
-          };
           const cls = getClassName(allowHoverEffects && highlightWhenSelect);
 
           return (
-            <div className={cls} onClick={onClick}>
+            <div className={cls} onClick={this.onSelect}>
               <div
                 ref={provided.innerRef}
-                style={provided.draggableStyle}
-                className={`${prefix}-design-preview-controller__drag-handle`}
+                {...provided.draggableProps}
                 {...provided.dragHandleProps}
+                style={{
+                  ...provided.draggableProps.style,
+                  backgroundColor: get(
+                    settings,
+                    'previewBackground',
+                    DEFAULT_BACKGROUND
+                  ),
+                }}
+                className={`${prefix}-design-preview-controller__drag-handle`}
               >
                 <PreviewComponent
                   prefix={prefix}

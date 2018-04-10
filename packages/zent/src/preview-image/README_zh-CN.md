@@ -21,6 +21,7 @@ group: 展示
 | images         | 待预览图片url       | array            |         |              |
 | index          | 显示第几张，从0开始  | number           | 0       |              |
 | showRotateBtn  | 是否显示翻转按钮     | bool             | true     |  true,false |
+| scaleRatio     | 自定义缩放比例       | number           | 1.5    |        |
 | parentComponent | 父级组件实例，i18n 需要通过这个传递 context | ReactInstance | | |
 | className      | 可选，自定义类名     | string           | `''`     |         |
 | prefix         | 可选，自定义前缀     | string           | `'zent'` |         |

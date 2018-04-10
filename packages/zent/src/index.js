@@ -1,7 +1,7 @@
 import Affix from 'affix';
 import Alert from 'alert';
-import Avatar from 'avatar';
 import AutoComplete from 'auto-complete';
+import Avatar from 'avatar';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
@@ -17,6 +17,7 @@ import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
+import ErrorBoundary from 'error-boundary';
 import Form from 'form';
 import Grid from 'grid';
 import I18nProvider from 'i18n';
@@ -44,6 +45,7 @@ import Select from 'select';
 import SKU from 'sku';
 import Slider from 'slider';
 import Sortable from 'sortable';
+import SplitButton from 'split-button';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
 import Swiper from 'swiper';
@@ -61,8 +63,8 @@ import YearPicker from 'datetimepicker/YearPicker';
 export {
   Affix,
   Alert,
-  Avatar,
   AutoComplete,
+  Avatar,
   Badge,
   BlockHeader,
   Breadcrumb,
@@ -78,6 +80,7 @@ export {
   DateRangeQuickPicker,
   Design,
   Dialog,
+  ErrorBoundary,
   Form,
   Grid,
   I18nProvider,
@@ -105,6 +108,7 @@ export {
   SKU,
   Slider,
   Sortable,
+  SplitButton,
   Steps,
   Sweetalert,
   Swiper,

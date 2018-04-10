@@ -1,3 +1,5 @@
+import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
+
 // TypeScript Version: 2.3
 
 /// <reference types="react" />
@@ -20,6 +22,7 @@
 /// <reference path="./libs/DateTimePicker.d.ts" />
 /// <reference path="./libs/Design.d.ts" />
 /// <reference path="./libs/Dialog.d.ts" />
+/// <reference path="./libs/ErrorBoundary.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
 /// <reference path="./libs/Icon.d.ts" />
 /// <reference path="./libs/InfiniteScroller.d.ts" />
@@ -43,6 +46,7 @@
 /// <reference path="./libs/SKU.d.ts" />
 /// <reference path="./libs/Slider.d.ts" />
 /// <reference path="./libs/Sortable.d.ts" />
+/// <reference path="./libs/SplitButton.d.ts" />
 /// <reference path="./libs/Steps.d.ts" />
 /// <reference path="./libs/Sweetalert.d.ts" />
 /// <reference path="./libs/Swiper.d.ts" />
@@ -73,6 +77,7 @@ declare module 'zent' {
   import DateRangePicker from 'zent/lib/datetimepicker/DateRangePicker';
   import Design from 'zent/lib/design';
   import Dialog from 'zent/lib/dialog';
+  import ErrorBoundary from 'zent/lib/error-boundary';
   import Form from 'zent/lib/form';
   import Layout from 'zent/lib/layout';
   import Loading from 'zent/lib/loading';
@@ -98,6 +103,7 @@ declare module 'zent' {
   import SKU from 'zent/lib/sku';
   import Slider from 'zent/lib/slider';
   import Sortable from 'zent/lib/sortable';
+  import SplitButton from 'zent/lib/split-button';
   import Steps from 'zent/lib/steps';
   import Sweetalert from 'zent/lib/sweetalert';
   import Swiper from 'zent/lib/swiper';
@@ -132,6 +138,7 @@ declare module 'zent' {
     DateRangeQuickPicker,
     Design,
     Dialog,
+    ErrorBoundary,
     Form,
     Layout,
     Loading,
@@ -157,6 +164,7 @@ declare module 'zent' {
     SKU,
     Slider,
     Sortable,
+    SplitButton,
     Steps,
     Sweetalert,
     Swiper,
@@ -169,7 +177,6 @@ declare module 'zent' {
     Switch,
     Upload,
     WeekPicker,
-    YearPicker
+    YearPicker,
   };
-
 }
