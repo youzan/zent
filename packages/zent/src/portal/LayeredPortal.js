@@ -17,7 +17,7 @@ import {
 export default class LayeredPortal extends (PureComponent || Component) {
   static propTypes = {
     // visible
-    visible: PropTypes.bool.isRequired,
+    visible: PropTypes.bool,
     onMount: PropTypes.func,
     onUnmount: PropTypes.func,
 

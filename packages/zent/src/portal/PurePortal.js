@@ -48,7 +48,7 @@ export default class PurePortal extends (PureComponent || Component) {
     onUnmount: PropTypes.func,
 
     // render
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     render: PropTypes.func, // prior to children
 
     // parent node
