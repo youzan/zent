@@ -26,7 +26,7 @@ const open = () => {
 		footer: <Button onClick={() => closeDialog(id)}>{i18n.close}</Button>,
 		onClose() {
 			console.log('outer dialog closed');
-		}
+		},
 	});
 };
 

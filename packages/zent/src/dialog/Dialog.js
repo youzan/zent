@@ -2,11 +2,24 @@ import React, { Component, PureComponent } from 'react';
 import Portal from 'portal';
 import PropTypes from 'prop-types';
 
+import animatedClosable from '../internal/animatedClosable';
 import DialogEl from './DialogEl';
 
 const { withNonScrollable, withESCToClose } = Portal;
 const DialogPortal = withNonScrollable(Portal);
-const DialogPortalESCToClose = withESCToClose(DialogPortal);
+const DialogPortalESCToClose = animatedClosable(withESCToClose(DialogPortal));
+
+const TIMEOUT = 300; // ms
+
+let mousePosition = null;
+
+// Inspired by antd and rc-dialog
+document.documentElement.addEventListener('click', e => {
+  mousePosition = {
+    x: e.clientX,
+    y: e.clientY,
+  };
+});
 
 export default class Dialog extends (PureComponent || Component) {
   static propTypes = {
@@ -36,7 +49,7 @@ export default class Dialog extends (PureComponent || Component) {
   };
 
   onClose = e => {
-    this.props.onClose(e);
+    this.props.onClose && this.props.onClose(e);
   };
 
   render() {
@@ -53,11 +66,21 @@ export default class Dialog extends (PureComponent || Component) {
 
     return (
       <PortalComponent
+        open={visible}
         visible={visible}
         onClose={this.onClose}
         className={`${prefix}-dialog-r-anchor`}
+        refClose={this.props.refClose}
+        origin={this.props.origin}
+        timeout={TIMEOUT} // animation timeout
       >
-        <DialogEl {...this.props} onClose={this.onClose} style={elStyle}>
+        <DialogEl
+          {...this.props}
+          onClose={this.onClose}
+          style={elStyle}
+          timeout={TIMEOUT}
+          mousePosition={mousePosition}
+        >
           {this.props.children}
         </DialogEl>
       </PortalComponent>

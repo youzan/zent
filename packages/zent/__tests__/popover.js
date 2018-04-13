@@ -55,7 +55,7 @@ describe('Popover', () => {
           <Button>click me</Button>
         </PopoverClickTrigger>
         <PopoverContent>
-          <div>popover content</div>
+          <div className="first-content">popover content</div>
           <div>line two</div>
         </PopoverContent>
       </Popover>
@@ -96,8 +96,9 @@ describe('Popover', () => {
     expect(wrapper.find('Portal').length).toBe(1);
 
     wrapper.instance().close();
+    jest.runAllTimers();
     wrapper.update();
-    expect(wrapper.find('Portal').length).toBe(0);
+    expect(wrapper.find('.first-content').length).toBe(0);
     wrapper.unmount();
 
     wrapper = mount(
@@ -273,7 +274,7 @@ describe('Popover', () => {
             <Button>click me</Button>
           </PopoverClickTrigger>
           <PopoverContent>
-            <div>popover content</div>
+            <div className=".first-content">popover content</div>
             <div>line two</div>
           </PopoverContent>
         </Popover>
@@ -292,7 +293,7 @@ describe('Popover', () => {
         .instance()
         .onClickOutside({ target: document.createElement('div') });
       wrapper.update();
-      expect(wrapper.find('Portal').length).toBe(0);
+      expect(wrapper.find('.first-content').length).toBe(0);
       wrapper.unmount();
     });
   });

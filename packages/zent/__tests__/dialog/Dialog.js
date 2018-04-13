@@ -27,7 +27,7 @@ describe('Dialog component', () => {
 
   const unmount = () => {
     dialog.unmount();
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
   };
 
   beforeEach(() => {
@@ -62,7 +62,7 @@ describe('Dialog component', () => {
       visible: false,
     });
 
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(0);
   });
 
@@ -100,7 +100,7 @@ describe('Dialog component', () => {
 
     const mask = document.querySelector('.zent-dialog-r-wrap');
     Simulate.click(mask);
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
     expect(document.querySelectorAll('.zent-dialog-r-wrap').length).toBe(0);
   });
 
@@ -109,7 +109,7 @@ describe('Dialog component', () => {
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
 
     Simulate.click(document.querySelector('.zent-dialog-r-close'));
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(0);
   });
 
@@ -123,7 +123,58 @@ describe('Dialog component', () => {
     });
     document.body.dispatchEvent(escKeyUpEvent);
 
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(0);
+  });
+
+  it('should still be open after reopen before close animation finish', () => {
+    open();
+    expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
+
+    dialog.setState(
+      {
+        visible: false,
+      },
+      () => {
+        dialog.setState({
+          visible: true,
+        });
+      }
+    );
+
+    jest.runAllTimers();
+    expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
+  });
+
+  it('should has transform origin', () => {
+    const button = document.createElement('button');
+    button.style.position = 'absolute';
+    button.style.left = '100px';
+    button.style.top = '100px';
+    button.addEventListener('click', () => open());
+
+    document.body.appendChild(button);
+    button.click();
+
+    jest.runAllTimers();
+
+    dialog.setState(
+      {
+        visible: false,
+      },
+      () => {
+        dialog.setState({
+          visible: true,
+        });
+      }
+    );
+
+    jest.runAllTimers();
+
+    expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
+    console.log(document.querySelector('.zent-dialog-r').style);
+    expect(
+      document.querySelector('.zent-dialog-r').style.transformOrigin
+    ).toBeTruthy();
   });
 });

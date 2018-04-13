@@ -148,4 +148,62 @@ describe('Portal', () => {
     unmountPortal(wrapper);
     removeContainer(container);
   });
+
+  it('should support render', () => {
+    const container = createContainer();
+    const wrapper = mount(
+      <Portal
+        selector=".custom-container"
+        render={() => <div className="portal-child">child</div>}
+      />
+    );
+    expect(container.querySelector('.portal-child').textContent).toBe('child');
+    unmountPortal(wrapper);
+    removeContainer(container);
+  });
+
+  it('should support layer', () => {
+    const container = createContainer();
+    const wrapper = mount(
+      <Portal
+        selector=".custom-container"
+        className="layer"
+        useLayerForClickAway
+      >
+        <div className="portal-child">child</div>
+      </Portal>
+    );
+    expect(
+      wrapper
+        .find('LayeredPortal')
+        .instance()
+        .getLayer()
+    ).toBe(document.querySelector('.layer'));
+    unmountPortal(wrapper);
+    removeContainer(container);
+  });
+
+  it('should support layer click away', () => {
+    const container = createContainer();
+    const wrapper = mount(
+      <Portal
+        className="layer"
+        useLayerForClickAway
+        onClickAway={() => {
+          wrapper.setProps({
+            visible: false,
+          });
+        }}
+      >
+        <div className="portal-child">child</div>
+      </Portal>
+    );
+    expect(document.querySelector('.portal-child').textContent).toBe('child');
+    const layerNode = document.querySelector('.layer');
+    layerNode.dispatchEvent(new MouseEvent('click'));
+    jest.runAllTimers();
+    expect(document.querySelector('.portal-child')).toBe(null);
+    unmountPortal(wrapper);
+    removeContainer(container);
+  });
 });
