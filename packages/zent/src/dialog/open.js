@@ -59,7 +59,6 @@ export default function openDialog(options = {}) {
     ref,
     dialogId = uniqueId('__zent-dialog__'),
     parentComponent,
-    // event,
   } = options;
 
   ensureUniqDialogInstance(dialogId);

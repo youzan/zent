@@ -48,6 +48,8 @@ export default class Dialog extends (PureComponent || Component) {
     footer: null,
   };
 
+  lastMousePosition = null;
+
   onClose = e => {
     this.props.onClose && this.props.onClose(e);
   };
@@ -60,6 +62,10 @@ export default class Dialog extends (PureComponent || Component) {
       ...(style.width ? {} : { minWidth: '450px', maxWidth: '75%' }),
       ...style,
     };
+
+    if (visible) {
+      this.lastMousePosition = this.lastMousePosition || mousePosition;
+    }
 
     // 有关闭按钮的时候同时具有ESC关闭的行为
     const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
@@ -79,7 +85,7 @@ export default class Dialog extends (PureComponent || Component) {
           onClose={this.onClose}
           style={elStyle}
           timeout={TIMEOUT}
-          mousePosition={mousePosition}
+          mousePosition={this.lastMousePosition}
         >
           {this.props.children}
         </DialogEl>
