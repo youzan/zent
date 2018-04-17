@@ -65,6 +65,8 @@ export default class Dialog extends (PureComponent || Component) {
 
     if (visible) {
       this.lastMousePosition = this.lastMousePosition || mousePosition;
+    } else {
+      this.lastMousePosition = null;
     }
 
     // 有关闭按钮的时候同时具有ESC关闭的行为
