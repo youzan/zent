@@ -7,6 +7,27 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 5.1.0 (2018-04-17)
+
+- 🎉 New component `ErrorBoundary`, requires `React` >= 16
+- 🎉 New component `SplitButton`
+- ✨ `previewImage` now supports image zoom
+- ✨ `BlockHeader` adds a new prop `childAlign` to control child position
+- ✨ Refactor `Portal`, add `PurePortal` and `LayeredPortal`
+- ✨ Upgrade DnD library in `Design`
+- ✨ Add open/close animation to `Dialog`
+- `YearPicker`
+  - ✨ Add  `max` and `min` support
+  - ✨ `value` supports `Date` type
+- 🦀️ Fix `Loading` `height` ignored in some cases
+- 🦀️ Fix `BlockHeader` style
+- 🦀️ Fix `Popover` wrong position in `React` 16
+- 🦀️ Fix `Form` `asyncValidate` not returning `Promise` in some cases
+- 🦀️ Fix `Pagination` style
+- 🦀️ `tag` mode in `Select` will not scroll when content overflows
+- 🦀️ Fix `Cascader` tests in `React` 16
+- 📚 Update screenshots in docs
+
 ### 5.0.1 (2018-03-20)
 
 - 🦀️ Fix text overflow issues in `WeekPicker`
