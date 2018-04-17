@@ -8,7 +8,7 @@ Our goal is making React development faster and simpler.
 
 ### Showcase
 
-![zent-components](https://img.yzcdn.cn/zanui/react/zent-components.png)
+![zent-components](https://img.yzcdn.cn/public_files/2018/04/17/ab32128950146c5932c267cbc19f9363.png)
 
 ### Features
 
@@ -61,7 +61,7 @@ You can find detailed instructions in its [documentation](babel-plugin-zent).
 
 <style>
 img[alt="zent-components"] {
-  width: 849px; 
-  height: 327px;
+  width: 523px;
+  height: 435px;
 }
 </style>
