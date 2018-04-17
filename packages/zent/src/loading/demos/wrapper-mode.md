@@ -46,6 +46,6 @@ ReactDOM.render(<Wrapper />, mountNode);
 	background: #f8f8f8;
 	text-align: center;
 	height: 260px;
-	line-height: 160px;
+	line-height: 260px;
 }
 </style>

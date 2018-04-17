@@ -74,15 +74,15 @@ export default class Loading extends (PureComponent || Component) {
   render() {
     let { prefix, className, containerClass, children, height } = this.props;
 
-    // 没有包裹内容时设置一个默认高度，有包裹内容时默认撑满内容高度
-    const hasHeightProp = has(this.props, 'height');
-    if (!children && !hasHeightProp) {
-      height = 160;
-    } else if (children && !hasHeightProp) {
-      height = 'initial';
-    }
-
     if (!this.props.float) {
+      // 没有包裹内容时设置一个默认高度，有包裹内容时默认撑满内容高度
+      const hasHeightProp = has(this.props, 'height');
+      if (!children && !hasHeightProp) {
+        height = 160;
+      } else if (children && !hasHeightProp) {
+        height = 'initial';
+      }
+
       return (
         <div
           className={cx(
@@ -94,9 +94,7 @@ export default class Loading extends (PureComponent || Component) {
                 React.Children.count(children) === 0,
             }
           )}
-          style={{
-            height: !this.state.show ? 'initial' : height,
-          }}
+          style={{ height }}
         >
           {children}
           {this.state.show && (
