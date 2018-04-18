@@ -14,7 +14,7 @@ fail () {
 
 pushd $basepath/.. >/dev/null 2>&1
 yarn prettify
-git diff-index --quite HEAD --
+git diff-index --quiet HEAD --
 rv=$?
 echo $rv
 popd >/dev/null 2>&1
