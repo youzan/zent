@@ -67,7 +67,11 @@ class UploadPopup extends Component {
    * 渲染上传分组
    */
   renderUploadGroup(props) {
-    let { prefix, i18n, options: { categoryList } } = props;
+    let {
+      prefix,
+      i18n,
+      options: { categoryList },
+    } = props;
     const { categoryId } = this.state;
     return (
       <div className={`${prefix}-group-region`}>

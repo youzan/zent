@@ -94,7 +94,10 @@ class YearPicker extends (PureComponent || Component) {
 
   onSelectYear = val => {
     if (this.isDisabled(val)) return;
-    const { props: { isFooterVisble, onChange }, state: { actived } } = this;
+    const {
+      props: { isFooterVisble, onChange },
+      state: { actived },
+    } = this;
     const acp = new Date(actived);
     acp.setFullYear(val);
 
@@ -120,7 +123,10 @@ class YearPicker extends (PureComponent || Component) {
   };
 
   onConfirm = () => {
-    const { props: { format, onChange }, state: { selected } } = this;
+    const {
+      props: { format, onChange },
+      state: { selected },
+    } = this;
 
     let value = '';
     if (selected) {

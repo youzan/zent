@@ -98,17 +98,23 @@ export class ImageEntry extends Component {
   }
 
   onTitleChange = evt => {
-    const { target: { value } } = evt;
+    const {
+      target: { value },
+    } = evt;
     this.props.onChange({ linkTitle: value });
   };
 
   onUrlChange = evt => {
-    const { target: { value } } = evt;
+    const {
+      target: { value },
+    } = evt;
     this.props.onChange({ linkUrl: value });
   };
 
   onImageChange = evt => {
-    const { target: { files } } = evt;
+    const {
+      target: { files },
+    } = evt;
     const imageUrl = createObjectURL(files[0]);
     this.props.onChange({ imageUrl });
   };

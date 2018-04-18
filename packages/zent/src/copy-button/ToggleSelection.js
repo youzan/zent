@@ -14,7 +14,9 @@ export default function() {
     ranges.push(selection.getRangeAt(i));
   }
 
-  switch (active.tagName.toUpperCase()) { // .toUpperCase handles XHTML
+  switch (
+    active.tagName.toUpperCase() // .toUpperCase handles XHTML
+  ) {
     case 'INPUT':
     case 'TEXTAREA':
       active.blur();

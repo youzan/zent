@@ -132,7 +132,9 @@ export default class ImageAdEditor extends DesignEditor {
   }
 
   onAddImageEntry = evt => {
-    const { target: { files } } = evt;
+    const {
+      target: { files },
+    } = evt;
     const imageUrl = createObjectURL(files[0]);
     const { value, onChange } = this.props;
 
@@ -142,7 +144,10 @@ export default class ImageAdEditor extends DesignEditor {
   };
 
   removeImageEntry = id => () => {
-    const { value: { images }, onChange } = this.props;
+    const {
+      value: { images },
+      onChange,
+    } = this.props;
 
     onChange({
       images: images.filter(img => img[IMAGE_AD_ENTRY_UUID_KEY] !== id),
@@ -150,7 +155,10 @@ export default class ImageAdEditor extends DesignEditor {
   };
 
   prependImageEntry = id => () => {
-    const { value: { images }, onChange } = this.props;
+    const {
+      value: { images },
+      onChange,
+    } = this.props;
     const index = findIndex(images, img => img[IMAGE_AD_ENTRY_UUID_KEY] === id);
     if (index !== -1) {
       const newImages = images.slice();
@@ -163,7 +171,10 @@ export default class ImageAdEditor extends DesignEditor {
   };
 
   appendImageEntry = id => () => {
-    const { value: { images }, onChange } = this.props;
+    const {
+      value: { images },
+      onChange,
+    } = this.props;
     const index = findIndex(images, img => img[IMAGE_AD_ENTRY_UUID_KEY] === id);
     if (index !== -1) {
       const newImages = images.slice();
@@ -176,7 +187,10 @@ export default class ImageAdEditor extends DesignEditor {
   };
 
   onImageEntryChange = id => delta => {
-    const { value: { images }, onChange } = this.props;
+    const {
+      value: { images },
+      onChange,
+    } = this.props;
     onChange({
       images: images.map(img => {
         if (img[IMAGE_AD_ENTRY_UUID_KEY] !== id) {
@@ -192,7 +206,9 @@ export default class ImageAdEditor extends DesignEditor {
   };
 
   isAddImageEntryAllowed() {
-    const { value: { images } } = this.props;
+    const {
+      value: { images },
+    } = this.props;
 
     return images.length < IMAGE_AD_LIMIT;
   }

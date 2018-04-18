@@ -17,7 +17,10 @@ class Cell extends Component {
   };
 
   onClick = e => {
-    const { data, column: { onCellClick } } = this.props;
+    const {
+      data,
+      column: { onCellClick },
+    } = this.props;
     if (typeof onCellClick === 'function') {
       onCellClick(data, e);
     }
