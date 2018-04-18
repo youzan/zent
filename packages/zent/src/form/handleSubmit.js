@@ -1,6 +1,6 @@
 import isPromise from 'utils/isPromise';
 import SubmissionError from './SubmissionError';
-import { srcollToFirstError } from './utils';
+import { scrollToFirstError } from './utils';
 
 const handleSubmit = (submit, zentForm) => {
   const props = zentForm.props;
@@ -99,7 +99,7 @@ const handleSubmit = (submit, zentForm) => {
       validationErrors = zentForm.getValidationErrors();
 
       // 滚动到第一个错误处
-      scrollToError && srcollToFirstError(zentForm.fields);
+      scrollToError && scrollToFirstError(zentForm.fields);
 
       if (onSubmitFail) {
         handleOnSubmitError(new SubmissionError(validationErrors));

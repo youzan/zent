@@ -99,7 +99,7 @@ export function scrollToNode(node) {
   scroll(document.body, x, y);
 }
 
-export function srcollToFirstError(fields) {
+export function scrollToFirstError(fields) {
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i];
     if (!field.isValid()) {

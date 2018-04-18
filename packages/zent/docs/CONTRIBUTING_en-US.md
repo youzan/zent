@@ -3,10 +3,7 @@
 #### Setup Environment
 
 ```bash
-yarn
-yarn run bootstrap
-
-cd site && yarn
+yarn bootstrap
 ```
 
 #### Code Structure
@@ -52,7 +49,7 @@ Remember to add TypeScript definitions in `packages/zent/typings` for your new c
 Beside the unit tests in `__tests__`, remember to update documentation whenever you make a change.
 
 ```bash
-cd site && yarn dev
+yarn dev
 ```
 
 ## How to Write Documentation

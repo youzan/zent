@@ -18,7 +18,8 @@
     "postinstall": "./scripts/ensure-husky-hooks.sh",
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "dev": "cd site && yarn dev"
   },
   "lint-staged": {
     "*.js": [
@@ -84,7 +85,7 @@
     "gulp-rename": "^1.2.2",
     "husky": "^0.13.3",
     "jest": "22.0.4",
-    "lerna": "2.0.0-beta.38",
+    "lerna": "^2.10.2",
     "lint-staged": "^3.4.0",
     "postcss-calc": "^6.0.1",
     "postcss-cli": "^4.1.1",
