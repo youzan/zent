@@ -19,5 +19,6 @@ rv=$?
 popd >/dev/null 2>&1
 
 if [ $rv -ne 0 ]; then
+  git diff --name-only
   fail 'Git hooks not installed. Follow these instructions on your local machine:\n1. yarn install\n2. yarn prettify\n3. Commit your changes and push.'
 fi
