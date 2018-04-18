@@ -114,7 +114,11 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   translate = (currentIndex, prevIndex, isSilent) => {
-    const { transitionDuration, children: { length }, onChange } = this.props;
+    const {
+      transitionDuration,
+      children: { length },
+      onChange,
+    } = this.props;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;
     const translateDistance = itemWidth * (initIndex - currentIndex);
@@ -139,7 +143,10 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   resetPosition = currentIndex => {
-    const { transitionDuration, children: { length } } = this.props;
+    const {
+      transitionDuration,
+      children: { length },
+    } = this.props;
 
     if (currentIndex < 0) {
       setTimeout(
@@ -161,7 +168,9 @@ export default class Swiper extends (PureComponent || Component) {
   };
 
   getRealPrevIndex = index => {
-    const { children: { length } } = this.props;
+    const {
+      children: { length },
+    } = this.props;
 
     if (index > length - 1) {
       return length - 1;
@@ -225,7 +234,9 @@ export default class Swiper extends (PureComponent || Component) {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { children: { length } } = this.props;
+    const {
+      children: { length },
+    } = this.props;
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
     // isSilent表示静默地做一次位移动画，在用户无感知的情况下从复制元素translate到真实元素

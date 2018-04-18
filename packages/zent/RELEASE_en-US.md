@@ -98,7 +98,7 @@ Do NOT use this version, use 4.2.1 instead.
 Do NOT use this version, use 4.2.1 instead.
 
 - 🎉 New component `Avatar`
-- 🎉 New component `Collpase`
+- 🎉 New component `Collapase`
 - ✨ `Menu` adds inline style
 - ✨ `Cascader` adds menu style
 - ✨ `Input` adds `fromClearButton` in callback event

@@ -107,7 +107,9 @@ export class DesignEditor extends Component {
       throw new Error(NOT_EVENT_MSG);
     }
 
-    const { target: { name } } = evt;
+    const {
+      target: { name },
+    } = evt;
     this.onCustomInputBlur(name);
   };
 

@@ -16,7 +16,7 @@ import {
   getDisplayName,
   silenceEvent,
   silenceEvents,
-  srcollToFirstError,
+  scrollToFirstError,
 } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
@@ -217,7 +217,7 @@ const createForm = (config = {}) => {
           field.setState(data);
         });
         // 滚动到第一个错误处
-        this.props.scrollToError && srcollToFirstError(this.fields);
+        this.props.scrollToError && scrollToFirstError(this.fields);
       };
 
       setFormDirty = (isDirty = true) => {

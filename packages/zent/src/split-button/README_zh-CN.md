@@ -1,7 +1,7 @@
 ---
 title: SplitButton
 subtitle: 下拉按钮
-path: component/SplitButton
+path: component/split-button
 group: 数据
 ---
 
