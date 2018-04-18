@@ -194,6 +194,18 @@ describe('GetControlGroup and Component_Fields', () => {
     expect(wrapper.find('input').length).toBe(2);
   });
 
+  it('DateRangeQuickPickerField', () => {
+    const { DateRangeQuickPickerField } = ZentForm;
+    const wrapper = mount(
+      <Field name="foo" component={DateRangeQuickPickerField} />,
+      {
+        context,
+      }
+    );
+
+    expect(wrapper.find('.zent-date-range-picker').length).toBe(1);
+  });
+
   it('SwitchField', () => {
     const { SwitchField } = ZentForm;
     const wrapper = mount(
@@ -305,6 +317,17 @@ describe('GetControlGroup and Component_Fields', () => {
     );
     expect(wrapper.find('.zent-datetime-picker').length).toBe(3);
     expect(wrapper.find('input').length).toBe(2);
+  });
+
+  it('FormDateRangeQuickPickerField', () => {
+    const { FormDateRangeQuickPickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormDateRangeQuickPickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-date-range-picker').length).toBe(1);
   });
 
   it('FormSwitchField', () => {

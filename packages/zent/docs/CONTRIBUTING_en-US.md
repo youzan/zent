@@ -52,6 +52,12 @@ Beside the unit tests in `__tests__`, remember to update documentation whenever 
 yarn dev
 ```
 
+There's a separate command to run tests for only one component at a time.
+
+```bash
+yarn test-componet button
+```
+
 ## How to Write Documentation
 
 There're two READMEs in each component directory, `README_zh-CN.md` is Chinese documentaion and `README_en-US.md` is English documentation. These docs are written in Markdown format.

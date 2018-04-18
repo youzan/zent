@@ -4,6 +4,7 @@ import CheckboxField from './CheckboxField';
 import CheckboxGroupField from './CheckboxGroupField';
 import ColorPickerField from './ColorPickerField';
 import DateRangePickerField from './DateRangePickerField';
+import DateRangeQuickPickerField from './DateRangeQuickPickerField';
 import InputField from './InputField';
 import NumberInputField from './NumberInputField';
 import RadioGroupField from './RadioGroupField';
@@ -32,6 +33,13 @@ export class FormColorPickerField extends (PureComponent || Component) {
 export class FormDateRangePickerField extends (PureComponent || Component) {
   render() {
     return <Field {...this.props} component={DateRangePickerField} />;
+  }
+}
+
+export class FormDateRangeQuickPickerField extends (PureComponent ||
+  Component) {
+  render() {
+    return <Field {...this.props} component={DateRangeQuickPickerField} />;
   }
 }
 

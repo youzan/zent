@@ -1,6 +1,7 @@
 import isPlainObject from 'lodash/isPlainObject';
 import assign from 'lodash/assign';
 import scroll from 'utils/scroll';
+import isFunction from 'lodash/isFunction';
 import { findDOMNode } from 'react-dom';
 
 const getSelectedValues = options => {
@@ -103,15 +104,21 @@ export function scrollToFirstError(fields) {
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i];
     if (!field.isValid()) {
-      const node = field.getWrappedComponent().getControlInstance();
-      /*
-        stateless function components don't have ref
-        so can't get instance
-      */
+      const fieldComponent = field.getWrappedComponent();
+      let node;
+
+      if (fieldComponent && isFunction(fieldComponent.getControlInstance)) {
+        node = fieldComponent.getControlInstance();
+      } else {
+        node = fieldComponent;
+      }
+
       if (node) {
         scrollToNode(node);
-        return false;
+        return true;
       }
     }
   }
+
+  return false;
 }
