@@ -146,6 +146,8 @@ export default class DialogEl extends (PureComponent || Component) {
         animationClassName="zoom"
         timout={this.props.timeout || 300}
         {...this.props}
+        refClose={this.props.refClose}
+        origin={this.props.origin}
         open={this.props.visible}
       >
         <DialogInnerEl {...this.props} />
