@@ -16,6 +16,7 @@ pushd $basepath/.. >/dev/null 2>&1
 yarn prettify
 git diff-index --quiet HEAD --
 rv=$?
+echo $rv
 popd >/dev/null 2>&1
 
 if [ $rv -ne 0 ]; then
