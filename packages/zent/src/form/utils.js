@@ -23,7 +23,10 @@ const isEvent = candidate =>
 export function getValue(event) {
   // 简单判断是否是一个原生事件对象
   if (isEvent(event)) {
-    const { target: { type, value, checked, files }, dataTransfer } = event;
+    const {
+      target: { type, value, checked, files },
+      dataTransfer,
+    } = event;
     if (type === 'checkbox') {
       return checked;
     }
