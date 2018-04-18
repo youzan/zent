@@ -14,9 +14,10 @@ fail () {
 
 pushd $basepath/.. >/dev/null 2>&1
 yarn prettify
-git diff-index --quiet HEAD --
+git diff-index HEAD --
 rv=$?
 echo $rv
+git diff --name-only --exit-code
 popd >/dev/null 2>&1
 
 if [ $rv -ne 0 ]; then
