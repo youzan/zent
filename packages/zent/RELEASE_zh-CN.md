@@ -7,6 +7,29 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+
+### 5.1.0 (2018-04-17)
+
+- 🎉 新组件 `ErrorBoundary`，需要 `React` >= 16
+- 🎉 新组件 `SplitButton`
+- ✨ `previewImage` 支持图片缩放
+- ✨ `BlockHeader` 增加 `childAlign` 属性，支持子元素靠右侧显示
+- ✨ `Portal` 组件重构，新增 `PurePortal` 和 `LayeredPortal`
+- ✨ 升级 `Design` 组件的拖拽库
+- ✨ `Dialog` 增加打开/关闭动画
+- `YearPicker`
+  - ✨ 支持设置 `max` 和 `min`
+  - ✨ `value` 支持 `Date` 类型
+- 🦀️ 修复 `height` 在 `Loading` 不显示的时候被忽略的问题
+- 🦀️ 修复 `BlockHeader` 弹层样式
+- 🦀️ 修复 `Popover` 在 `React` 16 下位置计算不正确的问题
+- 🦀️ 修复 `Form` 组件 `asyncValidate` 的返回值在某些条件下不是 `Promise` 的问题
+- 🦀️ 修复 `Pagination` 样式问题
+- 🦀️ `Select` 的 `tag` 模式会撑大内容区域，而不是出现滚动条
+- 🦀️ `Cascader` 单测兼容 `React` 16
+- 📚 更新文档网站中英文截图
+
+
 ### 5.0.1 (2018-03-20)
 
 - 🦀️ 修复 `WeekPicker` 文字溢出问题
@@ -77,7 +100,7 @@
 请不要使用这个版本，用 4.2.2。
 
 - 🎉 新组件 `Avatar`
-- 🎉 新组件 `Collpase`
+- 🎉 新组件 `Collapase`
 - ✨ `Menu` 增加内联模式
 - ✨ `Cascader` 支持菜单样式
 - ✨ `Input` 清空按钮的回调函数中加入判断来自按钮的参数

@@ -134,7 +134,10 @@ class MonthPicker extends (PureComponent || Component) {
   };
 
   onConfirm = () => {
-    const { props: { format, onChange }, state: { selected } } = this;
+    const {
+      props: { format, onChange },
+      state: { selected },
+    } = this;
 
     let value = '';
     if (selected) {

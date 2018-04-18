@@ -3,10 +3,7 @@
 #### 初始化项目:
 
 ```bash
-yarn
-yarn run bootstrap
-
-cd site && yarn
+yarn bootstrap
 ```
 
 #### 代码目录结构
@@ -54,7 +51,7 @@ packages/zent
 我们的原则是：文档即代码。
 
 ```bash
-cd site && yarn dev
+yarn dev
 ```
 
 ## 组件文档如何编写

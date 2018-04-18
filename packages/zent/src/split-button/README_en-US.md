@@ -1,6 +1,6 @@
 ---
 title: SplitButton
-path: component/SplitButton
+path: component/split-button
 group: Data Entry
 ---
 
