@@ -44,7 +44,7 @@ const columns = [{
 	isMoney: true,
   isMoney: true
 }, {
-  width: '3em',
+  width: '6em',
   title: 'Sales',
   name: 'sold_num'
 }];

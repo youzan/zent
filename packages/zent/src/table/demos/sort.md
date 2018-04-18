@@ -47,7 +47,7 @@ const columns = [{
   textAlign: 'center',
   isMoney: true
 }, {
-  width: '3em',
+  width: '6em',
   title: 'Sales',
   needSort: true,
   name: 'sold_num'
