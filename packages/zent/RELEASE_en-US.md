@@ -7,6 +7,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 5.1.1 (2018-04-19)
+
+- 🦀️ Fix missing `Dialog` close animation in some cases
+- 🦀️ Fix incorrect `Table` cell width
+- 🦀️ Allow non `ControlGroup` in `Form` when scrolling to first error
+- ✨ Upgrade `lerna` to latest version
+
 ### 5.1.0 (2018-04-17)
 
 - 🎉 New component `ErrorBoundary`, requires `React` >= 16
