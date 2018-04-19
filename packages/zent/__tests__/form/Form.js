@@ -52,5 +52,15 @@ describe('Form', () => {
         .at(1)
         .text()
     ).toBe('childSpan_2');
+
+    const pd = jest.fn();
+    wrapper
+      .find('form')
+      .simulate('keyDown', {
+        target: { tagName: 'INPUT' },
+        preventDefault: pd,
+        keyCode: 13,
+      });
+    expect(pd.mock.calls.length).toBe(1);
   });
 });
