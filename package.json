@@ -20,7 +20,8 @@
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test",
     "build": "lerna run build",
-    "dev": "cd site && yarn dev"
+    "dev": "cd site && yarn dev",
+    "deploy": "cd site && yarn deploy"
   },
   "lint-staged": {
     "*.js": [
