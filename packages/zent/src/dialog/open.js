@@ -28,7 +28,7 @@ export function closeDialog(dialogId, options = {}) {
 
   delete dialogInstanceMap[dialogId];
 
-  const { onClose, container, close } = dialog;
+  const { onClose, container, getClose } = dialog;
 
   const closeCallback = () => {
     const { triggerOnClose = true } = options;
@@ -38,6 +38,8 @@ export function closeDialog(dialogId, options = {}) {
 
     ReactDOM.unmountComponentAtNode(container);
   };
+
+  const close = getClose();
 
   if (close) {
     close(() => {
@@ -98,7 +100,7 @@ export default function openDialog(options = {}) {
   addDialogInstance(dialogId, {
     onClose: oldOnClose,
     container,
-    close,
+    getClose: () => close, // the order of the call of refClose and here is uncertain, use closure
   });
 
   return closeHandler;
