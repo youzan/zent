@@ -4,7 +4,8 @@
   "private": true,
   "description": "一套前端设计语言和基于React的实现",
   "scripts": {
-    "test": "mkdir -p packages/zent/lib && node packages/zent/scripts/generate-module-config.js && lerna run test",
+    "test": "./scripts/test.sh",
+    "test-component": "./scripts/test-component.sh",
     "lint": "yarn lint-js && yarn lint-style",
     "lint-js": "eslint packages/*/src packages/*/__tests__ site/src/ site/webpack site/zent site/scripts",
     "lint-style": "stylelint 'site/src/**/*.pcss' 'packages/zent/assets/**/*.pcss'",
@@ -18,7 +19,9 @@
     "postinstall": "./scripts/ensure-husky-hooks.sh",
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test",
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "dev": "cd site && yarn dev",
+    "deploy": "cd site && yarn deploy"
   },
   "lint-staged": {
     "*.js": [
@@ -43,7 +46,7 @@
   "author": "Youzan FE",
   "license": "MIT",
   "devDependencies": {
-    "@types/react": "^15.0.36",
+    "@types/react": "16.3.11",
     "autoprefixer": "7.1.6",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
@@ -84,7 +87,7 @@
     "gulp-rename": "^1.2.2",
     "husky": "^0.13.3",
     "jest": "22.0.4",
-    "lerna": "2.0.0-beta.38",
+    "lerna": "2.10.2",
     "lint-staged": "^3.4.0",
     "postcss-calc": "^6.0.1",
     "postcss-cli": "^4.1.1",

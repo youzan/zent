@@ -7,7 +7,7 @@ describe('Dialog component', () => {
 
   function unmount(arg) {
     close(arg);
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
   }
 
   it('should open a dialog when called', () => {
@@ -93,7 +93,7 @@ describe('Dialog component', () => {
     });
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
     closeDialog('foobar');
-    jest.runOnlyPendingTimers();
+    jest.runAllTimers();
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(0);
   });
 

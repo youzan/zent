@@ -14,12 +14,12 @@ Loading is used for indicate loading state of section.
 
 ### API
 
-| Props             | Description                                                     | Type     | Default |
-| -------------- | ------------------------------------------------------ | ------ | -------- |
-| show           | display control switch                                                   | bool   | `false`  |
-| float         | Whether from the document flow, set to `true` in global mode        | bool   | `false`   |
-| height       | set height when `float` prop is `false` | number | `160`    |
-| zIndex         | set z-index property of loading                                          | number | `9998`   |
-| className      | custom classname                           | string | `''`     |
-| containerClass | custom classname of wrapper                                     | string | `''`     |
-| prefix         | custom prefix                            | string | `'zent'` |
+| Props          | Description                          | Type     | Default |
+| -------------- | ---------------------------------------- | ------ | -------- |
+| show           | Show loading                    | bool   | `false`  |
+| float          | Remove from the normal document flow     | bool   | `false`   |
+| height         | Available only when `float` is `false` | number | `160`    |
+| zIndex         | `z-index` of loading            | number | `9998`   |
+| className      | Custom classname                           | string | `''`     |
+| containerClass | Custom classname of loading container      | string | `''`     |
+| prefix         | Custom prefix                            | string | `'zent'` |

@@ -28,24 +28,24 @@ zh-CN:
 	reset: 重置表单值
 en-US:
 	title: Use build-in field components
-	name: name
+	name: Name
 	nameValidationError: Please enter the name.
-	type: type
-	typeText1: general user
-	typeText2: vip
+	type: Type
+	typeText1: Volumn
+	typeText2: VIP
 	typeValidationErrors: Please choose the type.
-	sex: sex
+	sex: Gender
 	sexValidationErrors: Please choose sex.
-	sexText1: male
-	sexText2: female
-	tagText: hobbies
+	sexText1: Male
+	sexText2: Female
+	tagText: Hobbies
 	tagValidationErrors: Please choose hobbies.
-	tagText1: movie
-	tagText2: book
-	tagText3: travel
-	ageText: age
+	tagText1: Movie
+	tagText2: Book
+	tagText3: Travel
+	ageText: Age
 	colorText: Favourite color
-	dateRangeText: Valid period of ID card
+	dateRangeText: Validity period
 	dateRangeValidationErrors: Please select the dateRange
 	isPublicText: Public information
 	agreeText: All permissions

@@ -18,7 +18,7 @@ group: 反馈
 | -------------- | ------------------------------------------------------ | ------ | -------- |
 | show           | 显示控制                                                   | bool   | `false`  |
 | float         | 是否脱离文档流，一般全局加载的时候设置为 `true`        | bool   | `false`   |
-| height       | float 为 false 时设置高度，如果包裹了组件，将会表现为组件高度，否则将会使用默认高度 | number | `160`    |
+| height       | `float` 为 `false` 时有效。如果包裹了组件，默认表现为组件高度；否则将使用默认高度 | number | `160`    |
 | zIndex         | 设置 z-index                                             | number | `9998`   |
 | className      | 自定义额外类名                                                | string | `''`     |
 | containerClass | 自定义额外类名，外部包裹的容器使用                                      | string | `''`     |

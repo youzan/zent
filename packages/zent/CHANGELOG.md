@@ -1,5 +1,58 @@
 ## Github Change Log
 
+## [zent@5.1.1](https://github.com/youzan/zent/tree/zent@5.1.1) (2018-04-19)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@5.1.0...zent@5.1.1)
+
+**Implemented enhancements:**
+
+- Lerna upgrade [\#801](https://github.com/youzan/zent/pull/801) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- fix: dialog close with no animation issue. [\#804](https://github.com/youzan/zent/pull/804) ([HyczZhu](https://github.com/HyczZhu))
+- \[bug fix\] Form: fix corner cases in scrollToFirstError [\#803](https://github.com/youzan/zent/pull/803) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Table : 修改cell的样式，防止出现宽度错误的问题 [\#800](https://github.com/youzan/zent/pull/800) ([linxixuan](https://github.com/linxixuan))
+
+## [zent@5.1.0](https://github.com/youzan/zent/tree/zent@5.1.0) (2018-04-17)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@5.0.1...zent@5.1.0)
+
+**Implemented enhancements:**
+
+- \[new feature\] previewImage: 支持图片缩放 [\#610](https://github.com/youzan/zent/issues/610)
+- \[new feature\] ErrorBoundary: Add ErrorBoundary component [\#794](https://github.com/youzan/zent/pull/794) ([cpylua](https://github.com/cpylua))
+- \[new feature\] previewImage: 支持预览图片的缩放 [\#790](https://github.com/youzan/zent/pull/790) ([ronghang](https://github.com/ronghang))
+- \[new feature\]: BlockHeader增加childAlign属性，控制子元素位置 [\#789](https://github.com/youzan/zent/pull/789) ([ArvinTung](https://github.com/ArvinTung))
+- \[new feature\] Portal/Dialog: PurePortal, LayeredPortal, and Dialog animation [\#787](https://github.com/youzan/zent/pull/787) ([HyczZhu](https://github.com/HyczZhu))
+- \[new feature\]: add new component SplitButton [\#783](https://github.com/youzan/zent/pull/783) ([ArvinTung](https://github.com/ArvinTung))
+- \[new feature\] Design: dnd upgrade [\#781](https://github.com/youzan/zent/pull/781) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- Umbrella: React 16 issues [\#513](https://github.com/youzan/zent/issues/513)
+- \[bug fix\] Loading: Fix height not applied [\#798](https://github.com/youzan/zent/pull/798) ([cpylua](https://github.com/cpylua))
+- fix: dialog close mouse position issue [\#797](https://github.com/youzan/zent/pull/797) ([HyczZhu](https://github.com/HyczZhu))
+- fix: dialog close mouse position issue [\#796](https://github.com/youzan/zent/pull/796) ([HyczZhu](https://github.com/HyczZhu))
+- \[bug fix\] BlockHeader: fix pop style [\#793](https://github.com/youzan/zent/pull/793) ([ronghang](https://github.com/ronghang))
+- \[bug fix\] Form: Fix asyncValidate return value in Form [\#791](https://github.com/youzan/zent/pull/791) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Pop: Fix incorrect position in popover [\#785](https://github.com/youzan/zent/pull/785) ([cpylua](https://github.com/cpylua))
+- fix\(datetimepicker\): yearpicker support date value for max and min [\#782](https://github.com/youzan/zent/pull/782) ([xuhong](https://github.com/xuhong))
+- \[bug fix\] Pagination：修复跳页功能的 border 被背景颜色覆盖的 bug [\#780](https://github.com/youzan/zent/pull/780) ([lama-pacos](https://github.com/lama-pacos))
+- Select: 去掉tag的滚动条 [\#778](https://github.com/youzan/zent/pull/778) ([huangsy](https://github.com/huangsy))
+- \[test\] Cascader: ReactWrapper api变更导致的单测不过问题，换种写法解决 [\#774](https://github.com/youzan/zent/pull/774) ([liaoyu](https://github.com/liaoyu))
+
+**Closed issues:**
+
+- 是否有design组件保存草稿方法 [\#786](https://github.com/youzan/zent/issues/786)
+- \[new feature\] 是否有计划支持字体大小的自定义 [\#784](https://github.com/youzan/zent/issues/784)
+- \[bug fix\]zan-design的cubeConf,navConf出现空白 [\#777](https://github.com/youzan/zent/issues/777)
+- \[bug fix\] YearPicker: value 支持 Date 类型 [\#776](https://github.com/youzan/zent/issues/776)
+- how to config my components to Design components [\#775](https://github.com/youzan/zent/issues/775)
+
+**Merged pull requests:**
+
+- \[doc\] 更新中英文文档截图 [\#799](https://github.com/youzan/zent/pull/799) ([cpylua](https://github.com/cpylua))
+- Package update [\#779](https://github.com/youzan/zent/pull/779) ([cpylua](https://github.com/cpylua))
+
 ## [zent@5.0.1](https://github.com/youzan/zent/tree/zent@5.0.1) (2018-03-20)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@5.0.0...zent@5.0.1)
 
@@ -562,7 +615,7 @@
 - \[bug fix\] design: preview区域右下角 action button 加 padding [\#522](https://github.com/youzan/zent/pull/522) ([ronghang](https://github.com/ronghang))
 
 ## [zent@3.9.0](https://github.com/youzan/zent/tree/zent@3.9.0) (2017-10-31)
-[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.9.0)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...zent@3.9.0)
 
 **Implemented enhancements:**
 
@@ -579,11 +632,11 @@
 - \[docs\] 更新文档网站样式 [\#517](https://github.com/youzan/zent/pull/517) ([cpylua](https://github.com/cpylua))
 - \[bug fix\]Form: 修复ControlGroup内对Control的ref绑定 [\#516](https://github.com/youzan/zent/pull/516) ([radicalviva](https://github.com/radicalviva))
 
-## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.1...babel-plugin-zent@1.1.0)
-
 ## [zent@3.8.1](https://github.com/youzan/zent/tree/zent@3.8.1) (2017-10-26)
-[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...zent@3.8.1)
+[Full Changelog](https://github.com/youzan/zent/compare/babel-plugin-zent@1.1.0...zent@3.8.1)
+
+## [babel-plugin-zent@1.1.0](https://github.com/youzan/zent/tree/babel-plugin-zent@1.1.0) (2017-10-26)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@3.8.0...babel-plugin-zent@1.1.0)
 
 **Implemented enhancements:**
 

@@ -8,7 +8,7 @@ Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一�
 
 ### 组件展示
 
-![zent-components](https://img.yzcdn.cn/zanui/react/zent-components.png)
+![zent-components](https://b.yzcdn.cn/public_files/2018/04/17/00778671b9657602387902b6de9d1693.png)
 
 ### 特性
 
@@ -59,7 +59,7 @@ import Button from 'zent/lib/button';
 
 <style>
 img[alt="zent-components"] {
-  width: 849px; 
-  height: 327px;
+  width: 492px;
+  height: 438px;
 }
 </style>
