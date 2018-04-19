@@ -54,6 +54,12 @@ packages/zent
 yarn dev
 ```
 
+我们另外提供了一个命令用来运行单个组件的测试用例，传入组件在 `__tests__` 下的目录名或者文件名即可。
+
+```bash
+yarn test-component button
+```
+
 ## 组件文档如何编写
 
 每个组件根目录下都有两个 README 文件，`README_zh-CN.md` (注意名称大写) 是中文文档，`README_en-US.md` 是英文文档。组件文档采用 Markdown 格式，具体书写规范请参考 [组件文档书写规范](markdown)。

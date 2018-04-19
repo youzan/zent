@@ -17,6 +17,7 @@ import SelectField from './form-components/SelectField';
 import NumberInputField from './form-components/NumberInputField';
 import ColorPickerField from './form-components/ColorPickerField';
 import DateRangePickerField from './form-components/DateRangePickerField';
+import DateRangeQuickPickerField from './form-components/DateRangeQuickPickerField';
 import SwitchField from './form-components/SwitchField';
 
 import {
@@ -24,6 +25,7 @@ import {
   FormCheckboxGroupField,
   FormColorPickerField,
   FormDateRangePickerField,
+  FormDateRangeQuickPickerField,
   FormInputField,
   FormNumberInputField,
   FormRadioGroupField,
@@ -48,12 +50,14 @@ export default assign(Form, {
   NumberInputField,
   ColorPickerField,
   DateRangePickerField,
+  DateRangeQuickPickerField,
   SwitchField,
   SubmissionError,
   FormCheckboxField,
   FormCheckboxGroupField,
   FormColorPickerField,
   FormDateRangePickerField,
+  FormDateRangeQuickPickerField,
   FormInputField,
   FormNumberInputField,
   FormRadioGroupField,

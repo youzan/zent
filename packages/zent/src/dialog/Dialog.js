@@ -73,13 +73,13 @@ export default class Dialog extends (PureComponent || Component) {
     const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
 
     return (
+      // Here use animatedClosable to unmount content after a timeout.
+      // Yet do not refClose here, call refClose in DialogEl instead.
       <PortalComponent
         open={visible}
         visible={visible}
         onClose={this.onClose}
         className={`${prefix}-dialog-r-anchor`}
-        refClose={this.props.refClose}
-        origin={this.props.origin}
         timeout={TIMEOUT} // animation timeout
       >
         <DialogEl

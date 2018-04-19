@@ -30,7 +30,7 @@ scatter: true
 The `Field` component is essentially an ancillary component that only manages information such as the life cycle of the field's value and the error of the field. It does not provide any style.
 
 - Property `name` is required when using `Field`;
-- The representation of `Field` is determined by the component passed in by proptery `component`. In addition, `Form` provides several common field components, such as `FormInputField`, `FormSelectField`, `FormRadioGroupField`, `FormCheckboxField`, `FormCheckboxGroupField`, `FormNumberInputField`, `FormSwitchField`, `FormColorPickerField` and `FormDateRangePickerField`. However, you can use custom field component packaged by yourself;
+- The representation of `Field` is determined by the component passed in by proptery `component`. In addition, `Form` provides several common field components, such as `FormInputField`, `FormSelectField`, `FormRadioGroupField`, `FormCheckboxField`, `FormCheckboxGroupField`, `FormNumberInputField`, `FormSwitchField`, `FormColorPickerField`, `FormDateRangePickerField` and `FormDateRangeQuickPickerField`. However, you can use custom field component packaged by yourself;
 - `Form` also provides the `getControlGroup` method for quickly packaging custom field component. See more details in the demos and the [`getControlGroup` API] (#form-getcontrolgroup).
 
 <!-- demo-slot-1 -->
