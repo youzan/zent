@@ -30,7 +30,7 @@ scatter: true
 `Field` 组件本质上是一个辅助性的组件，不提供任何样式，只负责管理表单元素 value 值的生命周期和表单元素的 error 等信息。
 
 - `Field` 必须要有 `name` 属性；
-- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，也可以使用单独封装的自定义表单元素组件；
+- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，`FormDateRangeQuickPickerField`，也可以使用单独封装的自定义表单元素组件；
 - `Form` 组件提供了 `getControlGroup` 方法，可以快速封装自定义表单元素组件，使用方法参考 demo 和 [`getControlGroup` API](#form-getcontrolgroup) 。
 
 <!-- demo-slot-1 -->
@@ -345,10 +345,10 @@ const component = field.getWrappedComponent().getControlInstance();
 | swap | 交换 `FieldArray` 中表单域数组的某两项 | func(indexA: Number, indexB: Number) |
 | unshift | 在 `FieldArray` 中表单域数组的头部添加一项 | func(value: Object/String) |
 
-⚠️注意：遍历的回调函数 callback 将接受五个参数: item（`FieldArray` 中当前项的名字），index（`FieldArray` 中当前项的次序），key（`FieldArray` 中当前项的唯一 key 值），value（`FieldArray` 中当前项的值）， fieldsValue（`FieldArray` 的所有值）。为了保证 `FieldArray` 在删除和添加时数据正确，遍历时一定要给 `component` 中的子节点设置正确的 `name` 和 `key`, 详见使用参考[FieldArray 基本使用](#fieldarray-zu-jian)
+⚠️注意：遍历的回调函数 callback 将接受五个参数: item（`FieldArray` 中当前项的名字），index（`FieldArray` 中当前项的次序），key（`FieldArray` 中当前项的唯一 key 值），value（`FieldArray` 中当前项的值）， fieldsValue（`FieldArray` 的所有值）。为了保证 `FieldArray` 在删除和添加时数据正确，遍历时一定要给 `component` 中的子节点设置正确的 `name` 和 `key`, 详见使用参考 [FieldArray 基本使用](#fieldarray-zu-jian)
 
 #### **内置 validation rules**
-可以直接在 `Field` 的 `validations` 属性中使用，使用方法参考[demo 常用表单校验](#biao-dan-xiao-yan-de-shi-yong)。内置规则如下：
+可以直接在 `Field` 的 `validations` 属性中使用，使用方法参考 [demo 常用表单校验](#biao-dan-xiao-yan-de-shi-yong)。内置规则如下：
 
 | 规则名 | 说明 | 可传参数 |
 |------|------|------|
