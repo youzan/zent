@@ -1,5 +1,18 @@
 ## Github Change Log
 
+## [zent@5.1.1](https://github.com/youzan/zent/tree/zent@5.1.1) (2018-04-19)
+[Full Changelog](https://github.com/youzan/zent/compare/zent@5.1.0...zent@5.1.1)
+
+**Implemented enhancements:**
+
+- Lerna upgrade [\#801](https://github.com/youzan/zent/pull/801) ([cpylua](https://github.com/cpylua))
+
+**Fixed bugs:**
+
+- fix: dialog close with no animation issue. [\#804](https://github.com/youzan/zent/pull/804) ([HyczZhu](https://github.com/HyczZhu))
+- \[bug fix\] Form: fix corner cases in scrollToFirstError [\#803](https://github.com/youzan/zent/pull/803) ([cpylua](https://github.com/cpylua))
+- \[bug fix\] Table : 修改cell的样式，防止出现宽度错误的问题 [\#800](https://github.com/youzan/zent/pull/800) ([linxixuan](https://github.com/linxixuan))
+
 ## [zent@5.1.0](https://github.com/youzan/zent/tree/zent@5.1.0) (2018-04-17)
 [Full Changelog](https://github.com/youzan/zent/compare/zent@5.0.1...zent@5.1.0)
 
