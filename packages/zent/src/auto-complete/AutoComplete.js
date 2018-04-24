@@ -74,13 +74,9 @@ export const caselessMatchFilterOption = (searchText, item) => {
   return false;
 };
 
-export default class AutoComplete extends Component {
+class MenuList extends Component {
   static propTypes = {
-    // auto complete props
-    value: PropTypes.any,
-    initialValue: PropTypes.any,
-    placeholder: PropTypes.string,
-    data: PropTypes.arrayOf(
+    items: PropTypes.arrayOf(
       PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
@@ -89,8 +85,9 @@ export default class AutoComplete extends Component {
           content: PropTypes.node,
           isGroup: PropTypes.bool,
           isDivider: PropTypes.bool,
+          onClick: PropTypes.func,
 
-          // the props below are preserved for future refacter
+          // the props below are preserved for future refactor
           searchContent: PropTypes.string,
           icon: PropTypes.string,
           disabled: PropTypes.bool,
@@ -98,60 +95,23 @@ export default class AutoComplete extends Component {
         }),
       ])
     ),
-    valueField: PropTypes.string,
-    contentField: PropTypes.string,
-    textField: PropTypes.string,
-    onChange: PropTypes.func, // function (value) => {} | callback when input value change or option is selected
-    onSearch: PropTypes.func, // function (searchText) => {} | callback during input
-    onSelect: PropTypes.func, // function (value, option) => {} | callback when select option
-    filterOption: PropTypes.func, // function (searchText, { value, content }) => bool
-    valueFromOptions: PropTypes.bool, // only change value to the ones in options
-
-    // view
-    className: PropTypes.string,
-    popupClassName: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
-
-  static defaultProps = {
-    prefix: 'zent',
-    filterOption: caselessMatchFilterOption,
-    valueFromOptions: false,
+    onRequestClose: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      open: false,
-      // anchorEl: null,
-      value: props.initialValue || props.value || null,
-
-      searchText: '', // combo specific
       focusIdx: null,
-
-      items: this.transformItems(props),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setControlled(nextProps, 'value');
-
-    // items transform
-    const { items, data } = nextProps;
-    if (
-      this.props.data !== data ||
-      this.props.items !== items ||
-      !!nextProps.children
-    ) {
-      this.setState({
-        items: this.transformItems(nextProps),
-      });
-    }
   }
 
   componentDidUpdate() {
-    const itemsLength = this.getPropsItems(this.props).length;
+    const itemsLength = (this.props.items || []).length;
     // Auto scroll logic
     if (
       itemsLength &&
@@ -187,37 +147,7 @@ export default class AutoComplete extends Component {
     }
   }
 
-  // callback for menu item click
-  onValueChange = (e, value, item) => {
-    this.blurHandlerPrevented = true; // ugly way to prevent blur handler
-    this.setState({
-      value,
-      selectedItem: item,
-    });
-    this.props.onSelect && this.props.onSelect(value);
-    this.props.onChange && this.props.onChange(value);
-  };
-
-  onSearchTextChange = e => {
-    const searchText = e.target.value;
-    const value = this.props.valueFromOptions
-      ? this.getSelectedValueFromSearchText(searchText)
-      : searchText; //
-    this.setState({
-      searchText,
-      value,
-      focusIdx: 0,
-    });
-
-    if (!this.state.open) {
-      this.open();
-    }
-
-    this.props.onSearch && this.props.onSearch(searchText);
-    this.props.onChange && this.props.onChange(value);
-  };
-
-  onSearchKeyDown = e => {
+  onKeyDown = e => {
     switch (keycode(e)) {
       case 'esc':
         this.close();
@@ -245,45 +175,7 @@ export default class AutoComplete extends Component {
     }
   };
 
-  onSearchBlur = () => {
-    if (this.props.valueFromOptions) {
-      setTimeout(() => {
-        if (!this.blurHandlerPrevented) {
-          // Try to match searchText to item value
-          const { searchText, value } = this.state;
-          let selectedValue = this.getSelectedValueFromSearchText(searchText);
-          if (selectedValue) {
-            if (selectedValue !== value) {
-              this.props.onSelect && this.props.onSelect(selectedValue);
-              this.props.onChange && this.props.onChange(selectedValue);
-            }
-          } else {
-            this.props.onSelect && this.props.onSelect(null);
-            this.props.onChange && this.props.onChange(null);
-          }
-        }
-        this.blurHandlerPrevented = false;
-      }, 100); // delay the blur event handler until the click handler is done
-    }
-  };
-
   /** Helpers */
-
-  getSelectedValueFromSearchText = searchText => {
-    let selectedValue = null;
-    (this.state.items || []).some(item => {
-      if (
-        item.searchContent === searchText ||
-        item.content === searchText ||
-        item.value === searchText
-      ) {
-        selectedValue = item.value;
-        return true;
-      }
-      return false;
-    });
-    return selectedValue;
-  };
 
   /**
    * Set the controlled props if needed.
@@ -298,189 +190,7 @@ export default class AutoComplete extends Component {
     }
   };
 
-  getPropsItems(props) {
-    return props.items || props.data || [];
-  }
-
-  /**
-   * Convert passed in data to item config list.
-   *
-   * @param props
-   * @returns {*}
-   * @private
-   */
-  getTransformedItemConfigs = props => {
-    let transformedItems = this.getPropsItems(props);
-
-    // handle items
-    transformedItems = transformedItems.map(item => {
-      if (typeof item === 'string' || typeof item === 'number') {
-        return {
-          value: item,
-          content: item,
-        };
-      } else if (typeof item === 'object') {
-        const {
-          valueField = 'value',
-          textField = 'text',
-          contentField = 'content',
-        } = props;
-        return {
-          ...item,
-          value: item[valueField],
-          content: item[contentField] || item[textField] || item[valueField],
-        };
-        /* eslint-disable no-else-return */
-      } else {
-        throw new Error('AutoComplete unresolvable option!', item);
-      }
-      /* eslint-enable no-else-return */
-    });
-
-    // handle option children
-    if (props.children) {
-      transformedItems = transformedItems.concat(
-        Children.map(props.children, item => {
-          let value = item.props.value;
-          value = typeof value === 'undefined' ? item : value;
-          return {
-            ...item.props,
-            value,
-            content: item.props.children,
-          };
-        })
-      );
-    }
-    return transformedItems;
-  };
-
-  /**
-   * Wrap items with value callback recursively.
-   *
-   * NOTE: this method should be called when needed
-   *
-   * @param items
-   * @private
-   */
-  wrapWithValueCallback = (items = []) =>
-    items.map(item => ({
-      ...{
-        active: value => value === (this.state && this.state.value),
-      },
-      ...item,
-      ...(item.value !== undefined
-        ? {
-            onClick: e => {
-              this.onValueChange(e, item.value, item);
-              item.onClick && item.onClick(e);
-            },
-          }
-        : {}),
-    }));
-
-  /**
-   * Transform the passed-in props.items to make it easier to use internally.
-   * @param props
-   * @private
-   */
-  transformItems = props => {
-    const { nullOption, nullOptionContent } = props;
-    let wrappedItems = this.getTransformedItemConfigs(props);
-    wrappedItems = wrapWithIdx(wrappedItems);
-    if (nullOption) {
-      wrappedItems = wrapWithNullOption(wrappedItems, nullOptionContent);
-    }
-    wrappedItems = this.wrapWithValueCallback(wrappedItems);
-    return wrappedItems;
-  };
-
-  /**
-   * Get the display text of selected value, since the value and content might be different, and content might be node.
-   *
-   * Use item.searchContent prior to item.content prior to item.value
-   *
-   * @returns {*}
-   * @private
-   */
-  getDisplayText = () => {
-    const { value } = this.state;
-    let displayValue = value || '';
-    const item = this.getItemByValue(value);
-    if (item) {
-      if (typeof item.searchContent === 'string') {
-        displayValue = item.searchContent;
-      } else if (typeof item.content === 'string') {
-        displayValue = item.content;
-      }
-    }
-    return displayValue;
-  };
-
-  // methods
-
-  open = () => {
-    const newState = {
-      open: true,
-      searchText: this.getDisplayText() || '',
-    };
-
-    this.setState(newState);
-  };
-
-  close = () => {
-    this.setState({
-      open: false,
-      // do not clear searchText so that it could be reused for other event handlers.
-    });
-  };
-
-  togglePopoverOpen = () => {
-    if (this.state.open) {
-      this.close();
-    } else {
-      this.open();
-    }
-  };
-
-  /**
-   * Iteration function to get the item whose value
-   * equals to the passed-in value, recursively.
-   *
-   * @param items
-   * @param value
-   * @returns {*}
-   * @private
-   */
-  iterateItems = (items, value) => {
-    let result = null;
-    (items || []).some(item => {
-      if (item && item.value === value) {
-        result = item;
-        return true;
-      }
-
-      // if (item.items && item.items.length) {
-      //   const innerResult = this.iterateItems(item.items, value)
-      //   if (innerResult != null) {
-      //     result = innerResult
-      //     return true
-      //   }
-      // }
-
-      return false;
-    });
-    return result;
-  };
-
-  /**
-   * Get the item whose value equals to the passed-in value, recursively.
-   *
-   * @param value
-   * @private
-   */
-  getItemByValue = value => this.iterateItems(this.state.items, value);
-
-  /** popup menu */
+  /** focus idx */
 
   setFocusIndex = (focusIdx, autoScroll = true) => {
     this.setState({
@@ -609,7 +319,7 @@ export default class AutoComplete extends Component {
             e.preventDefault();
             e.stopPropagation();
             // this._onRequestCloseAll('menu item finish', e) // Try to close all
-            this.close();
+            this.props.onRequestClose && this.props.onRequestClose();
           }
         }
       };
@@ -654,6 +364,432 @@ export default class AutoComplete extends Component {
   };
 
   render() {
+    const { items, filterOption, searchText } = this.props;
+
+    let filteredItems = items || [];
+    if (typeof filterOption === 'function') {
+      filteredItems = (items || []).filter(item => {
+        return filterOption(searchText, item);
+      });
+    }
+
+    this.filteredItems = filteredItems;
+
+    return (
+      <div
+        ref={el => (this.refMenuScrollContainer = el)}
+        className="zent-popup-menu"
+        tabIndex={0}
+        onKeyDown={this.onKeyDown}
+      >
+        {filteredItems && filteredItems.length ? (
+          <ul ref={el => (this.refMenuItemList = el)}>
+            {this.renderItems(filteredItems)}
+          </ul>
+        ) : null}
+      </div>
+    );
+  }
+}
+
+export default class AutoComplete extends Component {
+  static propTypes = {
+    // auto complete props
+    value: PropTypes.any,
+    initialValue: PropTypes.any,
+    placeholder: PropTypes.string,
+    data: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.shape({
+          value: PropTypes.any,
+          content: PropTypes.node,
+          isGroup: PropTypes.bool,
+          isDivider: PropTypes.bool,
+
+          // the props below are preserved for future refacter
+          searchContent: PropTypes.string,
+          icon: PropTypes.string,
+          disabled: PropTypes.bool,
+          active: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        }),
+      ])
+    ),
+    valueField: PropTypes.string,
+    contentField: PropTypes.string,
+    textField: PropTypes.string,
+    onChange: PropTypes.func, // function (value) => {} | callback when input value change or option is selected
+    onSearch: PropTypes.func, // function (searchText) => {} | callback during input
+    onSelect: PropTypes.func, // function (value, option) => {} | callback when select option
+    filterOption: PropTypes.func, // function (searchText, { value, content }) => bool
+    valueFromOptions: PropTypes.bool, // only change value to the ones in options
+
+    // view
+    className: PropTypes.string,
+    popupClassName: PropTypes.string,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  };
+
+  static defaultProps = {
+    prefix: 'zent',
+    filterOption: caselessMatchFilterOption,
+    valueFromOptions: false,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+      value: props.initialValue || props.value || null,
+      searchText: '', // combo specific
+
+      items: this.transformItems(props),
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setControlled(nextProps, 'value');
+
+    // items transform
+    const { items, data } = nextProps;
+    if (
+      this.props.data !== data ||
+      this.props.items !== items ||
+      !!nextProps.children
+    ) {
+      this.setState({
+        items: this.transformItems(nextProps),
+      });
+    }
+  }
+
+  onSearchTextChange = e => {
+    const searchText = e.target.value;
+    const value = this.props.valueFromOptions
+      ? this.getSelectedValueFromSearchText(searchText)
+      : searchText; //
+    this.setState({
+      searchText,
+      value,
+    });
+
+    if (!this.state.open) {
+      this.open();
+    }
+
+    this.props.onSearch && this.props.onSearch(searchText);
+    this.props.onChange && this.props.onChange(value);
+  };
+
+  onSearchKeyDown = e => {
+    switch (keycode(e)) {
+      case 'esc':
+        this.close();
+        break;
+      case 'down':
+        e.preventDefault();
+        if (this.state.open) {
+          this.moveFocusIndexDown();
+        }
+        break;
+      case 'up': {
+        e.preventDefault();
+        if (this.state.open) {
+          this.moveFocusIndexUp();
+        }
+        break;
+      }
+      case 'enter': {
+        if (this.state.open) {
+          this.selectCurrentFocusIndex(e);
+        }
+        break;
+      }
+      default:
+    }
+  };
+
+  onSearchBlur = () => {
+    if (this.props.valueFromOptions) {
+      setTimeout(() => {
+        if (!this.blurHandlerPrevented) {
+          // Try to match searchText to item value
+          const { searchText, value } = this.state;
+          let selectedValue = this.getSelectedValueFromSearchText(searchText);
+          if (selectedValue) {
+            if (selectedValue !== value) {
+              this.props.onSelect && this.props.onSelect(selectedValue);
+              this.props.onChange && this.props.onChange(selectedValue);
+            }
+          } else {
+            this.props.onSelect && this.props.onSelect(null);
+            this.props.onChange && this.props.onChange(null);
+          }
+        }
+        this.blurHandlerPrevented = false;
+      }, 100); // delay the blur event handler until the click handler is done
+    }
+  };
+
+  // callback for menu item click
+  onValueChange = (e, value, item) => {
+    this.blurHandlerPrevented = true; // ugly way to prevent blur handler
+    this.setState({
+      value,
+      selectedItem: item,
+    });
+    this.props.onSelect && this.props.onSelect(value);
+    this.props.onChange && this.props.onChange(value);
+  };
+
+  // onSelect = value => {
+  //   this.blurHandlerPrevented = true; // ugly way to prevent blur handler
+  //   this.setState({
+  //     value,
+  //   });
+  //
+  //   this.props.onSelect && this.props.onSelect(value);
+  //   this.props.onChange && this.props.onChange(value);
+  //
+  //   this.close();
+  // };
+
+  /** Helpers */
+
+  /**
+   * Set the controlled props if needed.
+   * @param nextProps
+   * @param k
+   */
+  setControlled = (nextProps, k) => {
+    if (nextProps[k] !== undefined) {
+      this.setState({
+        [k]: nextProps[k],
+      });
+    }
+  };
+
+  getPropsItems(props) {
+    return props.items || props.data || [];
+  }
+
+  /**
+   * Convert passed in data to item config list.
+   *
+   * @param props
+   * @returns {*}
+   * @private
+   */
+  getTransformedItemConfigs = (props = this.props) => {
+    let transformedItems = this.getPropsItems(props);
+
+    // handle items
+    transformedItems = transformedItems.map(item => {
+      if (typeof item === 'string' || typeof item === 'number') {
+        return {
+          value: item,
+          content: item,
+        };
+      } else if (typeof item === 'object') {
+        const {
+          valueField = 'value',
+          textField = 'text',
+          contentField = 'content',
+        } = props;
+        return {
+          ...item,
+          value: item[valueField],
+          content: item[contentField] || item[textField] || item[valueField],
+        };
+        /* eslint-disable no-else-return */
+      } else {
+        throw new Error('AutoComplete unresolvable option!', item);
+      }
+      /* eslint-enable no-else-return */
+    });
+
+    // handle option children
+    if (props.children) {
+      transformedItems = transformedItems.concat(
+        Children.map(props.children, item => {
+          let value = item.props.value;
+          value = typeof value === 'undefined' ? item : value;
+          return {
+            ...item.props,
+            value,
+            content: item.props.children,
+          };
+        })
+      );
+    }
+    return transformedItems;
+  };
+
+  /**
+   * Wrap items with value callback recursively.
+   *
+   * NOTE: this method should be called when needed
+   *
+   * @param items
+   * @private
+   */
+  wrapWithValueCallback = (items = []) =>
+    items.map(item => ({
+      ...{
+        active: value => value === this.state.value, // set default active calculator
+      },
+      ...item,
+      ...(item.value !== undefined
+        ? {
+            onClick: e => {
+              this.onValueChange(e, item.value, item);
+              item.onClick && item.onClick(e);
+            },
+          }
+        : {}),
+    }));
+
+  /**
+   * Transform the passed-in props.items to make it easier to use internally.
+   * @param props
+   * @private
+   */
+  transformItems = props => {
+    const { nullOption, nullOptionContent } = props;
+    let wrappedItems = this.getTransformedItemConfigs(props);
+    wrappedItems = wrapWithIdx(wrappedItems);
+    if (nullOption) {
+      wrappedItems = wrapWithNullOption(wrappedItems, nullOptionContent);
+    }
+    wrappedItems = this.wrapWithValueCallback(wrappedItems);
+    return wrappedItems;
+  };
+
+  /**
+   * Get the display text of selected value, since the value and content might be different, and content might be node.
+   *
+   * Use item.searchContent prior to item.content prior to item.value
+   *
+   * @returns {*}
+   * @private
+   */
+  getDisplayText = () => {
+    const { value } = this.state;
+    let displayValue = value || '';
+    const item = this.getItemByValue(value);
+    if (item) {
+      if (typeof item.searchContent === 'string') {
+        displayValue = item.searchContent;
+      } else if (typeof item.content === 'string') {
+        displayValue = item.content;
+      }
+    }
+    return displayValue;
+  };
+
+  /** methods */
+
+  open = () => {
+    const newState = {
+      open: true,
+      searchText: this.getDisplayText() || '',
+    };
+
+    this.setState(newState);
+  };
+
+  close = () => {
+    this.setState({
+      open: false,
+      // do not clear searchText so that it could be reused for other event handlers.
+    });
+  };
+
+  togglePopoverOpen = () => {
+    if (this.state.open) {
+      this.close();
+    } else {
+      this.open();
+    }
+  };
+
+  /** menu list delegates */
+
+  getSelectedValueFromSearchText = searchText => {
+    let selectedValue = null;
+    (this.state.items || []).some(item => {
+      if (
+        item.searchContent === searchText ||
+        item.content === searchText ||
+        item.value === searchText
+      ) {
+        selectedValue = item.value;
+        return true;
+      }
+      return false;
+    });
+    return selectedValue;
+  };
+
+  /**
+   * Iteration function to get the item whose value
+   * equals to the passed-in value, recursively.
+   *
+   * @param items
+   * @param value
+   * @returns {*}
+   * @private
+   */
+  iterateItems = (items, value) => {
+    let result = null;
+    (items || []).some(item => {
+      if (item && item.value === value) {
+        result = item;
+        return true;
+      }
+
+      // if (item.items && item.items.length) {
+      //   const innerResult = this.iterateItems(item.items, value)
+      //   if (innerResult != null) {
+      //     result = innerResult
+      //     return true
+      //   }
+      // }
+
+      return false;
+    });
+    return result;
+  };
+
+  /**
+   * Get the item whose value equals to the passed-in value, recursively.
+   *
+   * @param value
+   * @private
+   */
+  getItemByValue = value => this.iterateItems(this.state.items, value);
+
+  moveFocusIndexDown = () => {
+    if (this.refMenuItemList) {
+      return this.refMenuItemList.moveFocusIndexDown();
+    }
+  };
+
+  moveFocusIndexUp = () => {
+    if (this.refMenuItemList) {
+      return this.refMenuItemList.moveFocusIndexUp();
+    }
+  };
+
+  selectCurrentFocusIndex = e => {
+    if (this.refMenuItemList) {
+      return this.refMenuItemList.selectCurrentFocusIndex(e);
+    }
+  };
+
+  render() {
     const {
       width,
       placeholder,
@@ -687,9 +823,7 @@ export default class AutoComplete extends Component {
         onVisibleChange={this.togglePopoverOpen}
         width={width}
       >
-        <Popover.Trigger.Click
-          onTriggerRefChange={el => (this.refComboInput = el)}
-        >
+        <Popover.Trigger.Click>
           <Input
             className={cn('btn', {
               active: open,
@@ -703,16 +837,18 @@ export default class AutoComplete extends Component {
           />
         </Popover.Trigger.Click>
         <Popover.Content>
-          <div
-            ref={el => (this.refMenuScrollContainer = el)}
-            className="zent-popup-menu"
-          >
-            {filteredItems && filteredItems.length ? (
-              <ul ref={el => (this.refMenuItemList = el)}>
-                {this.renderItems(filteredItems)}
-              </ul>
-            ) : null}
-          </div>
+          <MenuList
+            ref={el => (this.refMenuItemList = el)}
+            items={items}
+            value={this.state.value}
+            searchText={this.state.searchText}
+            valueField={this.props.valueField}
+            contentField={this.props.contentField}
+            textField={this.props.textField}
+            onSelect={this.onSelect}
+            filterOption={this.props.filterOption}
+            onRequestClose={() => this.close()}
+          />
         </Popover.Content>
       </Popover>
     );
