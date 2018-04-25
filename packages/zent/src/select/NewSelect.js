@@ -227,7 +227,7 @@ export default class Select extends React.Component {
     } = this.props;
     const { popout, selected, options, popupWidth, activeIndex } = this.state;
 
-    const cn = bem({ block: `${prefix}-select` });
+    const cn = bem({ prefix, block: '-select' });
 
     return (
       <Popover
