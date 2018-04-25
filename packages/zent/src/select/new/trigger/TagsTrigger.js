@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Tag from '../Tag';
+import Tag from '../components/Tag';
 
 class TagsTrigger extends React.Component {
   state = {

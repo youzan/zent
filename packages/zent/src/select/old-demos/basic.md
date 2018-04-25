@@ -12,7 +12,11 @@ import { Select } from 'zent';
 const Option = Select.Option;
 
 ReactDOM.render(
-	<Select data={[1, 2, 3]} />,
+	<Select>
+    <Option value="1">Option 1</Option>
+    <Option value="2">Option 2</Option>
+    <Option value="3">Option 3</Option>
+	</Select>,
 	mountNode
 );
 ```

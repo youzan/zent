@@ -1,20 +1,39 @@
 /**
- * Index
+ * bypass wrapper of Select
+ * created and used before reconstruction finished
  */
 
-import Select from './Select';
+import * as React from 'react';
+
+/* old components */
+import OldSelect from './Select';
 import Option from './components/Option';
 import SelectTrigger from './trigger/BaseTrigger';
 import InputTrigger from './trigger/InputTrigger';
 import TagsTrigger from './trigger/TagsTrigger';
-import NewSelect from './NewSelect';
+/* end of old components */
 
-Select.Option = Option;
-Select.SelectTrigger = SelectTrigger;
-Select.InputTrigger = InputTrigger;
-Select.TagsTrigger = TagsTrigger;
-Select.Next = NewSelect;
+/* new components */
+import NewSelect from './new';
+/* end of new components */
 
-export { Option, SelectTrigger, InputTrigger, TagsTrigger, NewSelect };
+/**
+ * @description bypass wrapper
+ * @author fancy
+ * @param {Object} props the props for real Select
+ * @param {string} props.mode key to distinguish old and new
+ * @returns instance of real select
+ */
+function SelectBypass(props) {
+  if (props.mode) {
+    return <NewSelect {...props}>{props.children}</NewSelect>;
+  }
+  return <OldSelect {...props}>{props.children}</OldSelect>;
+}
 
-export default Select;
+SelectBypass.Option = Option;
+SelectBypass.SelectTrigger = SelectTrigger;
+SelectBypass.InputTrigger = InputTrigger;
+SelectBypass.TagsTrigger = TagsTrigger;
+
+export default SelectBypass;
