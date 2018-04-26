@@ -42,7 +42,9 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 5.0.0 (2018-03-16)
 
-> `React` 16 is now offfically supported.
+> ⚠️ `Upload` is broken in this version, do NOT use.
+
+> `React` 16 is now offically supported.
 
 - 🎉 Upgrade to `React` 16
 - `Button`
@@ -67,6 +69,8 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Fix `Upload` style issues
 
 ### 4.3.1 (2018-03-05)
+
+> ⚠️ `Loading` style is broken in this version, do NOT use.
 
 - 🦀️ Fix wrong placeholder indentation when using tag style in `Select`
 - 🦀️ Fix calling `adjustPosition` in `Popover` in some cases
@@ -96,13 +100,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 4.2.1 (2018-02-06)
 
-Do NOT use this version, use 4.2.1 instead.
+> ⚠️ Styles are broken due to a building problem in this version, do NOT use.
 
 - 🦀️ Fix `Upload` file type bug
 
 ### 4.2.0 (2018-02-05)
 
-Do NOT use this version, use 4.2.1 instead.
+> ⚠️ Styles are broken due to a building problem in this version, do NOT use.
 
 - 🎉 New component `Avatar`
 - 🎉 New component `Collapase`
