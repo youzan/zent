@@ -209,6 +209,8 @@ class YearPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
+        onBlur,
+        onFocus,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -238,6 +240,8 @@ class YearPicker extends (PureComponent || Component) {
                     name={name}
                     value={showPlaceholder ? placeholder || i18n.year : value}
                     onChange={noop}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     disabled={disabled}
                   />
                 )}

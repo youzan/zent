@@ -71,7 +71,7 @@ class Demo extends Component{
           className="zent-picker-demo"
           value={timeValue}
           onChange={this.onChangeTime}
-          minuteStep={5}
+					minuteStep={5}
         />
         <br />
         <TimeRangePicker
