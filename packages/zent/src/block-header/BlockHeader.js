@@ -49,7 +49,9 @@ export default class BlockHeader extends Component {
               centerArrow
               position={position}
               content={
-                <p className={`${prefix}-block-header__tooltip`}>{tooltip}</p>
+                <div className={`${prefix}-block-header__tooltip`}>
+                  {tooltip}
+                </div>
               }
               wrapperClassName={`${prefix}-block-header__tooltip-trigger`}
             >
