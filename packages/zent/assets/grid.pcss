@@ -155,9 +155,22 @@ $border-color: $theme-stroke-7;
 
   &-tr {
     display: table-row;
+    background-color: $theme-stroke-10;
 
     &:hover {
       background: $thead-background-color;
+    }
+
+    &__mouseover {
+      background: $thead-background-color;
+    }
+
+    &__expanded {
+      td {
+        padding: 16px 10px;
+        word-break: break-all;
+        background-color: $theme-stroke-9;
+      }
     }
   }
 
@@ -170,10 +183,6 @@ $border-color: $theme-stroke-7;
     vertical-align: middle;
   }
 
-  &-td {
-    background-color: $theme-stroke-10;
-  }
-
   &-th {
     padding: 11px 10px;
     background-color: $thead-background-color;
@@ -182,6 +191,28 @@ $border-color: $theme-stroke-7;
 
   &-td {
     padding: 16px 10px;
+
+    .expandable-btn {
+      cursor: pointer;
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      text-align: center;
+      line-height: 14px;
+      border: 1px solid $theme-stroke-7;
+      user-select: none;
+      background: $theme-stroke-10;
+
+      &.expand-btn::after {
+        content: "+";
+        box-sizing: border-box;
+      }
+
+      &.collapse-btn::after {
+        content: "-";
+        box-sizing: border-box;
+      }
+    }
   }
 
   &-tfoot {

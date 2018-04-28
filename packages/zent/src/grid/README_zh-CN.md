@@ -22,6 +22,7 @@ group: 导航
 | sortType | 排序方式                            | string  |     ''   |   否    |
 | emptyLabel | 列表为空时的提示文案                | string   | `'没有更多数据了'` | 否 |
 | selection  | 表格的选择功能配置                 | object     |         | 否    |
+| expandation     |  展开配置                | object        |     |         | 否    |
 | loading    | 表格是否处于loading状态           | bool          | `false` | 否  |
 | className  | 自定义额外类名                    | string        | `''`   | 否   |
 | rowClassName | 表格行的类名                    | string or func(data, index) |  ''   | 否   |
@@ -75,6 +76,12 @@ onChange会抛出一个对象，这个对象包含分页变化的参数：
 | pageSize | 每页个数   | number | 否    |
 | current | 当前页码 | number | 否 |
 
+### expandation
+
+| 参数              | 说明              | 类型    |  默认值 | 是否必须 |
+| --------------- | --------------- | ----- | ---- | ----- |
+| isExpanded | 是否展开当前行            | bool | `false` | 否    |
+| expandRender        | 展开行的补充内容render | func  |  | 否  
 
 <style>
   .switch {

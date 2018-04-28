@@ -21,6 +21,7 @@ The function of the component is similar to the function of [Table](table) compo
 | sortType | The way to sort                            | string  |     ''   |   No    |
 | emptyLabel | Text to be displayed when there's no data                | string   | `'No data'` | No |
 | selection  | the configuration for selection                | object     |         | No    |
+| expandation     |  Expand configuration                                      | object        |     |         | no    |
 | loading    | determines whether data is being loaded or not          | bool          | `false` | No  |
 | className  | extra custom class name                    | string        | `''`   | No   |
 | rowClassName | class name for row                  | string or func(data, index) |  ''   | No   |
@@ -74,6 +75,12 @@ onChange will throw an object, which includes parameters about the change part o
 | pageSize | Number of items to be displayed per page   | number | No    |
 | current | current page | number | No |
 
+### expandation
+
+| Props              | Description              | Type    |  Default | Required |
+| --------------- | --------------- | ----- | ---- | ----- |
+| isExpanded | Whether to expand the current row | bool | `false` | no    |
+| expandRender        | Render function of expanded row's additional content | func  |  | no  
 
 <style>
   .switch {
