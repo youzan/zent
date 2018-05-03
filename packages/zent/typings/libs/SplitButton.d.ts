@@ -16,5 +16,5 @@ declare module 'zent/lib/splitButton' {
     onSelect?: Function
   }
 
-  export default class Button extends React.Component<IButtonProps, any> { }
+  export default class Button extends React.Component<ISplitButtonProps, any> { }
 }
