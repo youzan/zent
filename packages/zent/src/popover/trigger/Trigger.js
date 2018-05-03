@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import isFunction from 'lodash/isFunction';
 import React, { Component, PureComponent, Children } from 'react';
 
 export const PopoverTriggerPropTypes = {
@@ -88,18 +89,27 @@ export default class PopoverTrigger extends (PureComponent || Component) {
     }
 
     const child = Children.only(this.props.children);
-    if (child.ref) {
-      throw new Error('ref is not allowed on Popover trigger');
+    if (child.ref && !isFunction(child.ref)) {
+      throw new Error('String ref is not allowed on Popover trigger');
     }
 
     return child;
   }
 
+  onRefChange = instance => {
+    this.props.onTriggerRefChange(instance);
+
+    const child = Children.only(this.props.children);
+    if (isFunction(child.ref)) {
+      child.ref(instance);
+    }
+  };
+
   render() {
     const child = this.validateChildren();
 
     return React.cloneElement(child, {
-      ref: this.props.onTriggerRefChange,
+      ref: this.onRefChange,
       ...this.getTriggerProps(child),
     });
   }

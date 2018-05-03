@@ -26,6 +26,7 @@ import InfiniteScroller from 'infinite-scroller';
 import Input from 'input';
 import Layout from 'layout';
 import Loading from 'loading';
+import Mention from 'mention';
 import Menu from 'menu';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
@@ -89,6 +90,7 @@ export {
   Input,
   Layout,
   Loading,
+  Mention,
   Menu,
   MonthPicker,
   Notify,
