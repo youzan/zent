@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
 import defer from 'lodash/defer';
+import findIndex from 'lodash/findIndex';
+import findLastIndex from 'lodash/findLastIndex';
 import isFunction from 'lodash/isFunction';
 import includes from 'lodash/includes';
 import isEqual from 'lodash/isEqual';
@@ -16,7 +18,6 @@ import isFirefox from 'utils/isFirefox';
 
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 
-const ONE_SPACE = ' ';
 const NAV_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const DEFAULT_STATE = {
   suggestionVisible: false,
@@ -33,8 +34,8 @@ export default class Mention extends Component {
     onChange: PropTypes.func.isRequired,
     multiLine: PropTypes.bool,
     position: PropTypes.oneOf(['top', 'bottom']),
-    suggestions: PropTypes.array,
     onSearchChange: PropTypes.func,
+    suggestions: PropTypes.array,
     suggestionNotFoundContent: PropTypes.node,
     triggerText: PropTypes.string,
     prefix: PropTypes.string,
@@ -56,7 +57,7 @@ export default class Mention extends Component {
   };
 
   render() {
-    const { multiLine, className, prefix } = this.props;
+    const { multiLine, className, prefix, position } = this.props;
     const inputType = multiLine ? 'textarea' : 'text';
     const passThroughProps = omit(this.props, [
       'multiLine',
@@ -81,7 +82,11 @@ export default class Mention extends Component {
       <Popover
         visible={suggestionVisible}
         onVisibleChange={this.onSuggestionVisibleChange}
-        position={this.getPopoverTopPosition}
+        position={
+          position === 'bottom'
+            ? this.getPopoverBottomPosition
+            : this.getPopoverTopPosition
+        }
         display="inline-block"
         wrapperClassName={cx(`${prefix}-mention`, className)}
       >
@@ -125,28 +130,84 @@ export default class Mention extends Component {
     }
   };
 
-  getPopoverTopPosition = Popover.Position.create(
+  getPopoverBottomPosition = Popover.Position.create(
     (anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
       return {
         getCSSStyle: () => {
-          const { left, top, right } = anchorBoundingBox;
+          const { left, top, right, bottom } = anchorBoundingBox;
+          // const contentHeight = contentDimension.height;
           const { position } = this.state;
-          let x = Math.round(left + position.left);
-          let y = Math.round(
-            top - contentDimension.height - options.cushion + position.top
-          );
+          let x = left + position.left;
+          let y = top + options.cushion + position.top + position.height;
+          const inputStyles = getComputedStyle(this.input);
+          const leftSpace =
+            parseInt(inputStyles.paddingLeft, 10) +
+            parseInt(inputStyles.borderLeftWidth, 10);
+          const rightSpace =
+            parseInt(inputStyles.paddingRight, 10) +
+            parseInt(inputStyles.borderRightWidth, 10);
 
-          if (x > right) {
-            x = right;
+          if (x > right - rightSpace) {
+            x = right - rightSpace;
           }
-          if (x < left) {
-            x = left;
+          if (x < left + leftSpace) {
+            x = left + leftSpace;
+          }
+
+          if (y < top) {
+            y = top;
+          }
+          if (y > bottom) {
+            y = bottom;
           }
 
           return {
             position: 'absolute',
-            left: `${x}px`,
-            top: `${y}px`,
+            left: `${Math.round(x)}px`,
+            top: `${Math.round(y)}px`,
+          };
+        },
+
+        name: 'position-mention-bottom-left',
+      };
+    }
+  );
+
+  getPopoverTopPosition = Popover.Position.create(
+    (anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
+      return {
+        getCSSStyle: () => {
+          const { left, top, right, bottom } = anchorBoundingBox;
+          const contentHeight = contentDimension.height;
+          const { position } = this.state;
+          let x = left + position.left;
+          let y = top - contentHeight - options.cushion + position.top;
+          const inputStyles = getComputedStyle(this.input);
+          const leftSpace =
+            parseInt(inputStyles.paddingLeft, 10) +
+            parseInt(inputStyles.borderLeftWidth, 10);
+          const rightSpace =
+            parseInt(inputStyles.paddingRight, 10) +
+            parseInt(inputStyles.borderRightWidth, 10);
+
+          if (x > right - rightSpace) {
+            x = right - rightSpace;
+          }
+          if (x < left + leftSpace) {
+            x = left + leftSpace;
+          }
+
+          if (y + contentHeight < top) {
+            y = top - contentHeight;
+          }
+          if (y + contentHeight > bottom) {
+            y = bottom - contentHeight;
+          }
+
+          return {
+            position: 'absolute',
+            left: `${Math.round(x)}px`,
+            top: `${Math.round(y)}px`,
           };
         },
 
@@ -247,7 +308,11 @@ export default class Mention extends Component {
     const { selectionEnd } = this.input;
 
     // Find the first space before caret
-    let mentionStartIndex = value.lastIndexOf(ONE_SPACE, selectionEnd - 1);
+    let mentionStartIndex = findLastIndex(
+      value,
+      isWhiteSpace,
+      selectionEnd - 1
+    );
 
     // Don't trigger suggestion if caret is right after the space
     if (mentionStartIndex + 1 === selectionEnd) {
@@ -256,7 +321,7 @@ export default class Mention extends Component {
     }
 
     // Find the next space after caret
-    let mentionEndIndex = value.indexOf(ONE_SPACE, selectionEnd);
+    let mentionEndIndex = findIndex(value, isWhiteSpace, selectionEnd);
 
     // Now try to match triggerText from mentionStartIndex
     let i =
@@ -297,12 +362,18 @@ export default class Mention extends Component {
   };
 
   setStateIfChange(state) {
+    const isSearchChanged = state.search !== this.state.search;
     if (
       state.suggestionVisible !== this.state.suggestionVisible ||
-      state.search !== this.state.search ||
+      isSearchChanged ||
       !isEqual(state.position, this.state.position)
     ) {
       console.log(this.state, state);
+
+      const { onSearchChange } = this.props;
+      if (isSearchChanged && isFunction(onSearchChange)) {
+        onSearchChange(state.search);
+      }
 
       this.setState(state);
     }
@@ -310,9 +381,14 @@ export default class Mention extends Component {
 
   getCaretCoordinates(start) {
     const position = getCaretCoordinates(this.input, start, { debug: true });
-    const { scrollLeft } = this.input;
+    const { scrollLeft, scrollTop } = this.input;
+
     if (scrollLeft) {
       position.left = position.left - scrollLeft;
+    }
+
+    if (scrollTop) {
+      position.top = position.top - scrollTop;
     }
 
     return position;
@@ -326,4 +402,8 @@ function substring(str, start, end) {
   }
 
   return '';
+}
+
+function isWhiteSpace(c) {
+  return /^\s$/.test(c);
 }

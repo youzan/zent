@@ -1,9 +1,9 @@
 ---
-order: 1
+order: 3
 zh-CN:
-	title: 基础用法
+	title: 弹层位置
 en-US:
-	title: Basic Usage
+	title: Popover position
 ---
 
 ```js
@@ -25,6 +25,7 @@ class MentionDemo extends React.Component {
 			<Mention
 				value={this.state.text}
 				onChange={this.onValueChange}
+				position="top"
 			/>
 		);
 	}

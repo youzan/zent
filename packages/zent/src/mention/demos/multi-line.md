@@ -1,9 +1,9 @@
 ---
-order: 1
+order: 2
 zh-CN:
-	title: 基础用法
+	title: 多行模式
 en-US:
-	title: Basic Usage
+	title: Multi-line mode
 ---
 
 ```js
@@ -25,6 +25,7 @@ class MentionDemo extends React.Component {
 			<Mention
 				value={this.state.text}
 				onChange={this.onValueChange}
+				multiLine
 			/>
 		);
 	}

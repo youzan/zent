@@ -72,14 +72,6 @@ function getCaretCoordinates(element, position, options) {
     ? window.getComputedStyle(element)
     : element.currentStyle; // currentStyle for IE < 9
   const isInput = element.nodeName === 'INPUT';
-  // const isBorderBox = computed.boxSizing === 'border-box';
-  // const contentWidth = isBorderBox
-  // ? parseInt(computed.width, 10)
-  // parseInt(computed.borderLeftWidth, 10) -
-  // parseInt(computed.borderRightWidth, 10) -
-  // parseInt(computed.paddingLeft, 10) -
-  // parseInt(computed.paddingRight, 10)
-  // : parseInt(computed.width, 10);
 
   // Default textarea styles
   if (!isInput) {
@@ -127,10 +119,17 @@ function getCaretCoordinates(element, position, options) {
 
   const rawOffsetLeft =
     span.offsetLeft + parseInt(computed.borderLeftWidth, 10);
+  const lineHeight = parseInt(computed.lineHeight, 10);
   const coordinates = {
     top: span.offsetTop + parseInt(computed.borderTopWidth, 10),
     left: rawOffsetLeft,
-    // height: parseInt(computed.lineHeight, 10),
+
+    // Chrome returns `normal` if you set line-height to `normal`
+    // In this case, we use font-size as a fallback
+    // The ratio is just a guess
+    height: isNaN(lineHeight)
+      ? parseInt(computed.fontSize, 10) * 1.5
+      : lineHeight,
   };
 
   if (debug) {
