@@ -8,6 +8,7 @@ import * as React from 'react';
 /* old components */
 import OldSelect from './Select';
 import Option from './components/Option';
+import NewOption from './new/components/Option';
 import SelectTrigger from './trigger/BaseTrigger';
 import InputTrigger from './trigger/InputTrigger';
 import TagsTrigger from './trigger/TagsTrigger';
@@ -32,6 +33,7 @@ function SelectBypass(props) {
 }
 
 SelectBypass.Option = Option;
+SelectBypass.NewOption = NewOption;
 SelectBypass.SelectTrigger = SelectTrigger;
 SelectBypass.InputTrigger = InputTrigger;
 SelectBypass.TagsTrigger = TagsTrigger;

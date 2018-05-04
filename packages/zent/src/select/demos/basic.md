@@ -9,10 +9,13 @@ en-US:
 ```js
 import { Select } from 'zent';
 
-const Option = Select.Option;
+const Option = Select.NewOption;
 
 ReactDOM.render(
-	<Select data={[1, 2, 3]} />,
+	<Select mode="tags">
+		<Option key="1" value="1111">1111</Option>
+		<Option key="2" value="2222">2222</Option>
+	</Select>,
 	mountNode
 );
 ```

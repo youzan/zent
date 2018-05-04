@@ -5,13 +5,27 @@ import noop from 'lodash/noop';
 
 import bem from 'utils/bem';
 
-import Trigger from './trigger'; // simple package for Popover.Trigger.Click
-import Popup from './components/Popup'; // simple package for Popover.Content
+import Trigger from './trigger'; // customized trigger based on Popover.Trigger.Click
+import Popup from './components/Popup'; // customized content based on Popover.Content
 
 import { stringOrNumber } from './utils';
 import { KEY_CODE, NONE_SELECTED } from './constants';
 
 export default class Select extends React.Component {
+  constructor(props) {
+    super(props);
+    const { initPopup, data, value, autoActive } = props;
+    const options = this.getUniformedOptions(data);
+    const selected = this.findSelected(value, options);
+    const activeIndex = autoActive ? 0 : -1;
+    this.state = {
+      selected,
+      popout: initPopup,
+      activeIndex,
+      keyword: '',
+    };
+  }
+
   static propTypes = {
     mode: PropTypes.oneOf(['base', 'search', 'tags']),
     value: PropTypes.oneOfType([
@@ -20,13 +34,13 @@ export default class Select extends React.Component {
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.arrayOf(PropTypes.number),
     ]),
-    popout: PropTypes.bool,
     prefix: PropTypes.string,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
     autoWidth: PropTypes.bool,
     className: PropTypes.string,
+    initPopup: PropTypes.bool,
     showReset: PropTypes.bool,
     autoActive: PropTypes.bool,
     optionText: PropTypes.string,
@@ -37,35 +51,80 @@ export default class Select extends React.Component {
   };
 
   static defaultProps = {
+    data: [],
     mode: 'base',
     value: NONE_SELECTED,
-    popout: false,
     prefix: 'zent',
     disabled: false,
     onChange: noop,
     autoFocus: false,
     className: '',
+    initPopup: false,
     showReset: false,
     autoActive: true,
+    optionText: 'text',
+    optionValue: 'value',
     placeholder: '',
     popupClassName: '',
   };
 
-  state = {
-    // popover visible
-    popout: false,
-    // selected options. its length assumed to be 1 for Single Select
-    selected: [],
-    // css width property of popover content
-    popupWidth: '0px',
-    // the active index of rendered options
-    activeIndex: -1,
-  };
+  componentDidMount() {
+    this.setPopupWidth(`${this.popover.getTriggerNode().clientWidth + 2}px`);
+  }
+
+  // return uniformed Object Array from data or children
+  getUniformedOptions() {
+    const { children, data, optionValue, optionText } = this.props;
+    const { keyword = '' } = this.state || {};
+    if (children) {
+      return (Array.isArray(children)
+        ? children.map(({ props }) => ({
+            ...props,
+            value: props[optionValue],
+            text: props.children,
+          }))
+        : [
+            {
+              ...children.props,
+              value: children.props[optionValue],
+              text: children.props.children,
+            },
+          ]
+      ).filter(option => option.text.includes(keyword));
+    }
+    return data
+      .map(option => {
+        if (stringOrNumber(option)) {
+          return { value: option, text: String(option) };
+        }
+        return {
+          value: option[optionValue],
+          text: option[optionText],
+          ...option,
+        };
+      })
+      .filter(option => option.text.includes(keyword));
+  }
+
+  findSelected(value, options) {
+    if (Array.isArray(value)) {
+      return options.filter(option => value.indexOf(option.value) > -1);
+    }
+    const maySelected = options.find(option => option.value === value);
+    return maySelected ? [maySelected] : [];
+  }
+
+  setPopupWidth(popupWidth) {
+    this.setState({
+      popupWidth,
+    });
+  }
 
   getTriggerNode = () => this.popover.triggerInstance;
 
   locateTailSelected = () => {
-    const { selected: selectedOptions, options } = this.state;
+    const { selected: selectedOptions } = this.state;
+    const options = this.getUniformedOptions();
     const reversedSelected = selectedOptions.slice().reverse();
     return reversedSelected.find(selected =>
       options.some(option => option.value === selected.value)
@@ -79,9 +138,10 @@ export default class Select extends React.Component {
   afterPopupToggle = () => {
     if (this.state.popout) {
       let activeIndex = this.props.autoActive ? 0 : -1;
-      const latestSelected = this.locateLatestSelected();
+      const latestSelected = this.locateTailSelected();
+      const options = this.getUniformedOptions();
       if (latestSelected) {
-        activeIndex = this.state.options.findIndex(
+        activeIndex = options.findIndex(
           option => option.value === latestSelected.value
         );
       }
@@ -128,18 +188,15 @@ export default class Select extends React.Component {
     if (this.props.onAsyncSearch) {
       return this.props.onAsyncSearch(keyword);
     }
-    const options = this.getUniformedOptions();
-    const nextOptions = options.filter(option =>
-      String(option.text).includes(keyword)
-    );
     this.setState({
-      options: nextOptions,
+      keyword,
     });
   };
 
   keyDownHandler = event => {
     const code = event.keyCode;
-    const { activeIndex, options } = this.state;
+    const { activeIndex } = this.state;
+    const options = this.getUniformedOptions();
     const maxIndex = options.length - 1;
     switch (code) {
       case KEY_CODE.DOWN:
@@ -160,47 +217,6 @@ export default class Select extends React.Component {
     }
   };
 
-  componentWillMount() {
-    const { value, datasets, popout, autoActive } = this.props;
-    const options = this.getUniformedOptions(datasets);
-    const selected = this.findSelected(value, options);
-    const activeIndex = autoActive ? 0 : -1;
-    this.setState({
-      options,
-      selected,
-      popout,
-      activeIndex,
-    });
-  }
-
-  componentDidMount() {
-    this.setPopupWidth(`${this.popover.getTriggerNode().clientWidth + 2}px`);
-  }
-
-  getUniformedOptions() {
-    const { datasets, optionValue, optionText } = this.props;
-    return datasets.map(data => {
-      if (stringOrNumber(data)) {
-        return { value: data, text: String(data) };
-      }
-      return { value: data[optionValue], text: data[optionText], ...data };
-    });
-  }
-
-  findSelected(value, options) {
-    if (Array.isArray(value)) {
-      return options.filter(option => value.indexOf(option.value) > -1);
-    }
-    const maySelected = options.find(option => option.value === value);
-    return maySelected ? [maySelected] : [];
-  }
-
-  setPopupWidth(popupWidth) {
-    this.setState({
-      popupWidth,
-    });
-  }
-
   render() {
     const {
       Content,
@@ -214,8 +230,9 @@ export default class Select extends React.Component {
       mode,
       placeholder,
     } = this.props;
-    const { popout, selected, options, popupWidth, activeIndex } = this.state;
 
+    const { popout, selected, popupWidth, activeIndex } = this.state;
+    const options = this.getUniformedOptions();
     const cn = bem({ prefix, block: '-select' });
 
     return (

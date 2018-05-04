@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 class Option extends React.Component {
-  defaultProps = {
+  static defaultProps = {
     disabled: false,
     active: false,
     selected: false,
