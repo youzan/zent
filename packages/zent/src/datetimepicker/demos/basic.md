@@ -72,8 +72,6 @@ class Demo extends Component{
           value={timeValue}
           onChange={this.onChangeTime}
 					minuteStep={5}
-					onBlur={() => { console.log('onBlur') }}
-					onFocus={() => { console.log('onFocus') }}
         />
         <br />
         <TimeRangePicker
@@ -88,8 +86,6 @@ class Demo extends Component{
           value={dateValue}
           max="2020-01-01"
 					onChange={this.onChangeDate}
-					onBlur={() => { console.log('onBlur') }}
-					onFocus={() => { console.log('onFocus') }}
         />
         <br />
         <WeekPicker
@@ -98,8 +94,6 @@ class Demo extends Component{
           className="zent-picker-demo"
           value={weekValue}
 					onChange={this.onChangeWeek}
-					onBlur={() => { console.log('onBlur') }}
-					onFocus={() => { console.log('onFocus') }}
         />
         <br />
 				<MonthPicker
@@ -107,8 +101,6 @@ class Demo extends Component{
           value={monthValue}
 					max={now}
 					onChange={this.onChangeMonth}
-					onBlur={() => { console.log('onBlur') }}
-					onFocus={() => { console.log('onFocus') }}
         />
         <br />
         <DateRangePicker
@@ -122,8 +114,6 @@ class Demo extends Component{
 					value={yearValue}
 					max={2020}
 					onChange={this.onChangeYear}
-					onBlur={() => { console.log('onBlur') }}
-					onFocus={() => { console.log('onFocus') }}
 				/>
 				<br />
 				<QuarterPicker
@@ -131,8 +121,6 @@ class Demo extends Component{
 					max={new Date()}
 					value={quarterValue}
 					onChange={this.onChangeQuarter}
-					onBlur={() => { console.log('onBlur') }}
-					onFocus={() => { console.log('onFocus') }}
 				/>
       </div>
     )
