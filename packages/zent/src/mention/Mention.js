@@ -5,7 +5,10 @@ import defer from 'lodash/defer';
 import findIndex from 'lodash/findIndex';
 import findLastIndex from 'lodash/findLastIndex';
 import isFunction from 'lodash/isFunction';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
 import includes from 'lodash/includes';
+import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import throttle from 'lodash/throttle';
@@ -15,6 +18,7 @@ import Input from 'input';
 import Popover from 'popover';
 import getCaretCoordinates from 'utils/dom/getCaretCoordinates';
 import isFirefox from 'utils/isFirefox';
+import MenuList from 'internal/SearchableSelectMenuList';
 
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 
@@ -35,7 +39,23 @@ export default class Mention extends Component {
     multiLine: PropTypes.bool,
     position: PropTypes.oneOf(['top', 'bottom']),
     onSearchChange: PropTypes.func,
-    suggestions: PropTypes.array,
+    suggestions: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.shape({
+          value: PropTypes.any,
+          content: PropTypes.node,
+          isGroup: PropTypes.bool,
+          isDivider: PropTypes.bool,
+
+          // the props below are preserved for future refactor
+          icon: PropTypes.string,
+          disabled: PropTypes.bool,
+          // active: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        }),
+      ])
+    ),
     suggestionNotFoundContent: PropTypes.node,
     triggerText: PropTypes.string,
     prefix: PropTypes.string,
@@ -47,6 +67,7 @@ export default class Mention extends Component {
     position: 'bottom',
     // FIXME: i18n support
     suggestionNotFoundContent: '无匹配结果，轻敲空格完成输入',
+    suggestions: [],
     triggerText: '@',
     prefix: 'zent',
   };
@@ -54,10 +75,18 @@ export default class Mention extends Component {
   state = {
     ...DEFAULT_STATE,
     position: undefined,
+    caret: null,
   };
 
   render() {
-    const { multiLine, className, prefix, position } = this.props;
+    const {
+      multiLine,
+      className,
+      prefix,
+      position,
+      suggestions,
+      suggestionNotFoundContent,
+    } = this.props;
     const inputType = multiLine ? 'textarea' : 'text';
     const passThroughProps = omit(this.props, [
       'multiLine',
@@ -71,6 +100,7 @@ export default class Mention extends Component {
       // 'onFocus',
       'onBlur',
       'onKeyUp',
+      'onKeyDown',
 
       // No custom input type allowed, cuz some input types don't support Selection API
       'type',
@@ -93,11 +123,12 @@ export default class Mention extends Component {
         <Popover.Trigger.Click>
           <Input
             type={inputType}
-            ref={this.saveRef}
+            ref={this.saveInputRef}
             onChange={this.onInputChange}
             // onFocus={this.onInputFocus}
             onBlur={this.onInputBlur}
             onKeyUp={this.onInputKeyUp}
+            onKeyDown={this.onInputKeyDown}
             onScroll={this.onInputScroll}
             onWheel={this.onInputScroll}
             onCompositionStart={this.onInputCompositionStart}
@@ -106,7 +137,15 @@ export default class Mention extends Component {
           />
         </Popover.Trigger.Click>
         <Popover.Content>
-          <div style={{ border: '1px solid red' }}>foobar</div>
+          <MenuList
+            ref={this.onSuggestionListRefChange}
+            items={this.getMenuListItems(
+              suggestions,
+              suggestionNotFoundContent
+            )}
+            onRequestClose={this.onCloseMenuList}
+            onSelect={this.onSelectSuggestion}
+          />
         </Popover.Content>
       </Popover>
     );
@@ -126,8 +165,31 @@ export default class Mention extends Component {
     // Don't open when click on trigger
     // Only open popover when text triggers mention
     if (!visible) {
-      this.setStateIfChange(DEFAULT_STATE);
+      this.setStateIfChange(this.getDefaultState());
     }
+  };
+
+  onCloseMenuList = () => {
+    this.onSuggestionVisibleChange(false);
+  };
+
+  onSelectSuggestion = val => {
+    this.onCloseMenuList();
+
+    const { value, onChange } = this.props;
+    const { caret } = this.state;
+    const newValue = replaceSubstring(value, caret.start, caret.end, val);
+
+    onChange(newValue.value);
+
+    // 设置光标到插入文字的后一个字符处
+    defer(() => {
+      if (this.input) {
+        this.input.setSelectionRange(newValue.caret, newValue.caret);
+        this.input.blur();
+        this.input.focus();
+      }
+    });
   };
 
   getPopoverBottomPosition = Popover.Position.create(
@@ -220,19 +282,17 @@ export default class Mention extends Component {
     this.props.onChange(evt.target.value);
   };
 
-  // Hide popup, it's tricky to update popup position correctly when scrolling
   onInputScroll = throttle(() => {
-    this.setSuggestionVisible();
-    // this.setStateIfChange(DEFAULT_STATE);
+    if (this.state.suggestionVisible) {
+      this.setSuggestionVisible();
+    }
   }, 16);
 
   onInputCompositionStart = () => {
-    console.log('onInputCompositionStart');
     this.__compositing = true;
   };
 
   onInputCompositionEnd = () => {
-    console.log('onInputCompositionEnd');
     this.__compositing = false;
   };
 
@@ -247,7 +307,10 @@ export default class Mention extends Component {
 
   onInputBlur = evt => {
     // console.log('blur');
-    this.setStateIfChange(DEFAULT_STATE);
+    if (!this.state.suggestionVisible) {
+      this.setStateIfChange(this.getDefaultState());
+    }
+
     this.triggerEventCallback('onBlur', evt);
   };
 
@@ -264,8 +327,27 @@ export default class Mention extends Component {
     this.triggerEventCallback('onKeyUp', evt);
   };
 
+  onInputKeyDown = evt => {
+    if (this.state.suggestionVisible && this.suggestionList) {
+      const { key } = evt;
+      if (key === 'ArrowUp') {
+        this.suggestionList.moveFocusIndexUp();
+        evt.preventDefault();
+      } else if (key === 'ArrowDown') {
+        this.suggestionList.moveFocusIndexDown();
+        evt.preventDefault();
+      } else if (key === 'Enter') {
+        this.suggestionList.selectCurrentFocusIndex(evt);
+        evt.preventDefault();
+      } else if (key === 'Escape') {
+        this.setStateIfChange(this.getDefaultState());
+      }
+    }
+
+    this.triggerEventCallback('onKeyDown', evt);
+  };
+
   onSelectionChange = () => {
-    // console.log('selection change');
     this.setSuggestionVisible(this.props.value);
   };
 
@@ -276,7 +358,7 @@ export default class Mention extends Component {
     }
   }
 
-  saveRef = instance => {
+  saveInputRef = instance => {
     if (this.input) {
       SelectionChangeEventHub.uninstall({
         node: this.input,
@@ -292,6 +374,10 @@ export default class Mention extends Component {
         callback: this.onSelectionChange,
       });
     }
+  };
+
+  onSuggestionListRefChange = instance => {
+    this.suggestionList = instance;
   };
 
   /**
@@ -316,7 +402,7 @@ export default class Mention extends Component {
 
     // Don't trigger suggestion if caret is right after the space
     if (mentionStartIndex + 1 === selectionEnd) {
-      this.setStateIfChange(DEFAULT_STATE);
+      this.setStateIfChange(this.getDefaultState());
       return;
     }
 
@@ -352,10 +438,12 @@ export default class Mention extends Component {
       search: null,
       suggestionVisible: foundTrigger,
       position: this.state.position,
+      caret: this.state.caret,
     };
     if (foundTrigger) {
       newState.search = substring(value, i, end + 1);
       newState.position = this.getCaretCoordinates(caretStart);
+      newState.caret = { start: caretStart + triggerText.length, end };
     }
 
     this.setStateIfChange(newState);
@@ -363,10 +451,14 @@ export default class Mention extends Component {
 
   setStateIfChange(state) {
     const isSearchChanged = state.search !== this.state.search;
+
+    // Do NOT use isEqual cuz a.keyNotExist === a.valueIsUndefined
     if (
-      state.suggestionVisible !== this.state.suggestionVisible ||
-      isSearchChanged ||
-      !isEqual(state.position, this.state.position)
+      // state.suggestionVisible !== this.state.suggestionVisible ||
+      // isSearchChanged ||
+      // !isEqual(state.position, this.state.position) ||
+      // !isEqual(state.caret, this.state.caret)
+      !isEqual(this.state, state)
     ) {
       console.log(this.state, state);
 
@@ -393,6 +485,37 @@ export default class Mention extends Component {
 
     return position;
   }
+
+  getMenuListItems(suggestions, notFoundContent) {
+    if (isEmpty(suggestions)) {
+      return [
+        {
+          content: notFoundContent,
+          value: '',
+          disabled: true,
+        },
+      ];
+    }
+
+    return suggestions.map(item => {
+      if (isString(item) || isNumber(item)) {
+        return {
+          content: item,
+          value: item,
+        };
+      }
+
+      // Otherwise, it's a config object
+      return item;
+    });
+  }
+
+  getDefaultState() {
+    return {
+      ...this.state,
+      ...DEFAULT_STATE,
+    };
+  }
 }
 
 // Return empty string when start is greater than end
@@ -402,6 +525,24 @@ function substring(str, start, end) {
   }
 
   return '';
+}
+
+function replaceSubstring(str, start, end, replacer) {
+  const prefix = str.substring(0, start);
+  let suffix = str.substring(end + 1);
+
+  // Ensure suffix starts with a SPACE,
+  // caret will be on the same line after replacing
+  if (suffix[0] !== ' ') {
+    suffix = ` ${suffix}`;
+  }
+
+  const prefixAndContent = `${prefix}${replacer}`;
+
+  return {
+    value: `${prefixAndContent}${suffix}`,
+    caret: prefixAndContent.length + 1,
+  };
 }
 
 function isWhiteSpace(c) {
