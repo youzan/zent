@@ -13,6 +13,7 @@ import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import throttle from 'lodash/throttle';
 import PropTypes from 'prop-types';
+import keycode from 'keycode';
 import cx from 'classnames';
 import Input from 'input';
 import Popover from 'popover';
@@ -22,7 +23,7 @@ import SelectMenu from 'select-menu';
 
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 
-const NAV_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+const NAV_KEYS = ['up', 'down', 'left', 'right'];
 const DEFAULT_STATE = {
   suggestionVisible: false,
   search: null,
@@ -319,7 +320,10 @@ export default class Mention extends Component {
     // Do NOT use keydown event, selection is not updated yet when setSuggestionVisible is called
     if (
       isFirefox &&
-      (evt.altKey || evt.ctrlKey || evt.metaKey || includes(NAV_KEYS, evt.key))
+      (evt.altKey ||
+        evt.ctrlKey ||
+        evt.metaKey ||
+        includes(NAV_KEYS, keycode(evt)))
     ) {
       defer(this.setSuggestionVisible, this.props.value);
     }
@@ -329,17 +333,17 @@ export default class Mention extends Component {
 
   onInputKeyDown = evt => {
     if (this.state.suggestionVisible && this.suggestionList) {
-      const { key } = evt;
-      if (key === 'ArrowUp') {
+      const key = keycode(evt);
+      if (key === 'up') {
         this.suggestionList.moveFocusIndexUp();
         evt.preventDefault();
-      } else if (key === 'ArrowDown') {
+      } else if (key === 'down') {
         this.suggestionList.moveFocusIndexDown();
         evt.preventDefault();
-      } else if (key === 'Enter') {
+      } else if (key === 'enter') {
         this.suggestionList.selectCurrentFocusIndex(evt);
         evt.preventDefault();
-      } else if (key === 'Escape') {
+      } else if (key === 'esc') {
         this.setStateIfChange(this.getDefaultState());
       }
     }
