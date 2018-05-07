@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import Portal from 'portal';
 import PropTypes from 'prop-types';
 
-import animatedClosable from '../internal/animatedClosable';
+import animatedClosable from 'utils/component/animatedClosable';
 import DialogEl from './DialogEl';
 
 const { withNonScrollable, withESCToClose } = Portal;

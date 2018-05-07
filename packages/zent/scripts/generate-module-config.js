@@ -9,12 +9,13 @@ const glob = require('glob');
 function main() {
   const cssConfig = generateCSSConfig();
   const dependencyGraph = generateComponentDependencyGraph();
-  const expandedDependencyGraph = Object.keys(
-    dependencyGraph
-  ).reduce((graph, comp) => {
-    graph[comp] = expandDenpendencies(comp, dependencyGraph);
-    return graph;
-  }, {});
+  const expandedDependencyGraph = Object.keys(dependencyGraph).reduce(
+    (graph, comp) => {
+      graph[comp] = expandDenpendencies(comp, dependencyGraph);
+      return graph;
+    },
+    {}
+  );
   const cssMapping = generateModuleCSSMapping(
     expandedDependencyGraph,
     cssConfig
@@ -44,7 +45,7 @@ function mergeJSAndCSS(js, css) {
   return jsKeys.reduce((config, component) => {
     config[component] = {
       js: js[component],
-      css: css[jsToCSSKeyMapping[component]]
+      css: css[jsToCSSKeyMapping[component]],
     };
     return config;
   }, {});
@@ -54,7 +55,7 @@ function generateModuleJSMapping() {
   const zentIndex = readFileFromZent('src/index.js');
   const ast = babylon.parse(zentIndex, {
     sourceType: 'module',
-    plugins: ['objectRestSpread', 'classProperties', 'exportExtensions']
+    plugins: ['objectRestSpread', 'classProperties', 'exportExtensions'],
   });
 
   return ast.program.body
@@ -88,7 +89,7 @@ function generateCSSConfig() {
     .filter(
       f =>
         fs.statSync(path.join(styleDir, f)).isFile() &&
-        f !== 'index.js' &&
+        f !== 'index.pcss' &&
         !f.startsWith('.')
     )
     .reduce((mapping, f) => {
@@ -101,12 +102,11 @@ function generateCSSConfig() {
 function findComponentDependencies(component, components) {
   const cwd = path.join(__dirname, '../src', component);
   const globPattern = `**/*.js`;
-
-  return uniq(
+  const dependencies = uniq(
     flatten(
       glob
         .sync(globPattern, {
-          cwd
+          cwd,
         })
         .map(filename => {
           const filepath = path.join(cwd, filename);
@@ -123,8 +123,8 @@ function findComponentDependencies(component, components) {
               'asyncGenerators',
               'functionBind',
               'functionSent',
-              'dynamicImport'
-            ]
+              'dynamicImport',
+            ],
           });
 
           return ast.program.body
@@ -135,6 +135,14 @@ function findComponentDependencies(component, components) {
         })
     )
   );
+
+  // Remove self from dependency list
+  const selfIndex = dependencies.indexOf(component);
+  if (selfIndex !== -1) {
+    dependencies.splice(selfIndex, 1);
+  }
+
+  return dependencies;
 }
 
 function generateComponentDependencyGraph() {
