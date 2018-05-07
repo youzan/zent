@@ -6,17 +6,21 @@
   &--tags {
     width: 100%;
     cursor: text;
+
+    .zent-select__placeholder {
+      margin-top: -12px;
+      margin-left: 5px;
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      right: 5px;
+      height: 24px;
+      z-index: 1;
+    }
   }
 
   &__placeholder {
-    margin-left: 5px;
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    right: 5px;
-    height: 24px;
-    margin-top: -12px;
-    z-index: 1;
+    font-size: 12px;
     color: $theme-stroke-4;
   }
 
@@ -44,6 +48,53 @@
     outline: 0;
     border-radius: 4px;
     line-height: 1;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+  }
+
+  &__base-trigger {
+    overflow: hidden;
+    padding: 5px 20px 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    box-sizing: border-box;
+    display: inline-block;
+    max-height: 76px;
+    min-height: 30px;
+    outline: none;
+    position: relative;
+    width: 100%;
+
+    &:focus {
+      border-color: $theme-primary-2;
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    }
+
+    &::after {
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAMAAAC38k/IAAAAM1BMVEUAAAAzMzMzMzMzMzMzMzMzMzM0NDQ0NDQ1NTU1NTU9PT1VVVU0NDQzMzMzMzM1NTUzMzOoQ7gOAAAAEHRSTlMA99vkxpd9STUhCgPOzGhlqqcGJgAAAEBJREFUCNdFy8kRwCAMwEDZ3JDD/VebCXhgf3qIR83pi9gmXCduyokCyVwCuvrfAarMuzLlPzLLiGZx4FoIDeADc4gEoYNfTDsAAAAASUVORK5CYII=) no-repeat;
+      background-size: 6px 5px;
+      content: '';
+      height: 5px;
+      margin-top: -3px;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transition: transform 0.25s;
+      width: 6px;
+    }
+
+    &--popout::after {
+      transform: rotate(180deg);
+    }
+
+    &--selected .zent-select__placeholder {
+      color: #333;
+    }
   }
 
   &__tags-trigger {
@@ -59,10 +110,46 @@
     min-height: 30px;
     max-height: 76px;
     outline: none;
-    transition: border-color 0.25s;
     width: 100%;
     background-color: #fff;
     position: relative;
+  }
+
+  &__base-trigger,
+  &__tags-trigger {
+    transition: border-color 0.25s;
+
+    &:hover {
+      border-color: $theme-primary-3;
+    }
+
+    &--selected:hover {
+      .zent-select__reset {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__reset {
+    display: none;
+
+    &::before {
+      content: '\E814';
+      font-family: "zenticon" !important;
+      position: absolute;
+      font-size: 6px;
+      height: 10px;
+      width: 10px;
+      top: 50%;
+      right: 8px;
+      margin-top: -5px;
+      z-index: 2;
+      color: #fff;
+      background-color: $theme-stroke-3;
+      border-radius: 10px;
+      text-align: center;
+      line-height: 10px;
+    }
   }
 
   &__popup {
@@ -104,6 +191,20 @@
   &__options {
     max-height: 224px;
     overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 0;
+      background-color: $theme-stroke-7;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+      background: $theme-primary-2;
+    }
   }
 
   &__option {
@@ -117,7 +218,7 @@
     font-size: 14px;
     line-height: 18px;
 
-    &:not(.zent-select__option--disable) {
+    &:not(.zent-select__option--disabled) {
       font-weight: normal;
       position: relative;
 
@@ -133,9 +234,9 @@
       }
     }
 
-    &.zent-select__option--disable {
+    &.zent-select__option--disabled {
       cursor: not-allowed;
-      background-color: $theme-stroke-4;
+      color: $theme-stroke-4;
 
       &:hover {
         background-color: $theme-stroke-10;
@@ -145,13 +246,13 @@
 
   &__tag {
     float: left;
-    line-height: 22px;
+    line-height: 20px;
     color: rgba(0, 0, 0, 0.85);
     background-color: #fafafa;
     border: 1px solid #e8e8e8;
     border-radius: 2px;
     cursor: default;
-    margin-right: 4px;
+    margin: 1px 4px 1px 0;
     max-width: 99%;
     position: relative;
     overflow: hidden;

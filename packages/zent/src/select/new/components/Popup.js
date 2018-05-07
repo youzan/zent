@@ -91,6 +91,7 @@ class Popup extends React.Component {
                 selected={selected.some(
                   sOption => sOption.value === option.value
                 )}
+                disabled={option.disabled}
                 onMouseEnter={this.fabricateOnMouseEnter(index)}
                 onClick={this.fabricateOnClick(option)}
                 prefix={prefix}

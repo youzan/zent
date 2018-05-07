@@ -17,7 +17,7 @@ export default class Select extends React.Component {
     const { initPopup, data, value, autoActive } = props;
     const options = this.getUniformedOptions(data);
     const selected = this.findSelected(value, options);
-    const activeIndex = autoActive ? 0 : -1;
+    const activeIndex = this.findInitialActive(options, autoActive);
     this.state = {
       selected,
       popout: initPopup,
@@ -42,6 +42,7 @@ export default class Select extends React.Component {
     className: PropTypes.string,
     initPopup: PropTypes.bool,
     showReset: PropTypes.bool,
+    allowReset: PropTypes.bool,
     autoActive: PropTypes.bool,
     optionText: PropTypes.string,
     optionValue: PropTypes.string,
@@ -61,6 +62,7 @@ export default class Select extends React.Component {
     className: '',
     initPopup: false,
     showReset: false,
+    allowReset: false,
     autoActive: true,
     optionText: 'text',
     optionValue: 'value',
@@ -120,6 +122,18 @@ export default class Select extends React.Component {
     });
   }
 
+  findInitialActive = (options, autoActive) => {
+    if (autoActive) {
+      if (options.every(option => option.disabled)) return -1;
+      let activeIndex = 0;
+      while (options[activeIndex].disabled) {
+        activeIndex++;
+      }
+      return activeIndex;
+    }
+    return -1;
+  };
+
   getTriggerNode = () => this.popover.triggerInstance;
 
   locateTailSelected = () => {
@@ -136,17 +150,19 @@ export default class Select extends React.Component {
   };
 
   afterPopupToggle = () => {
-    if (this.state.popout) {
-      let activeIndex = this.props.autoActive ? 0 : -1;
+    const { mode } = this.props;
+    const { popout } = this.state;
+    if (popout) {
       const latestSelected = this.locateTailSelected();
       const options = this.getUniformedOptions();
+      let activeIndex = this.findInitialActive(options, this.props.autoActive);
       if (latestSelected) {
         activeIndex = options.findIndex(
           option => option.value === latestSelected.value
         );
       }
       this.changeActiveIndex(activeIndex);
-    } else {
+    } else if (mode === 'tags') {
       this.getTriggerNode().setInputValue('');
     }
   };
@@ -161,17 +177,33 @@ export default class Select extends React.Component {
     const { mode, onChange } = this.props;
     const trigger = this.getTriggerNode();
 
+    if (option.disabled) {
+      return trigger.ref.focus();
+    }
+
     if (mode === 'tags') {
-      this.setState(
+      return this.setState(
         {
           selected: this.getTagsNextSelected(selected, option),
         },
         () => {
           onChange(selected, option);
           trigger.setInputValue('');
-          trigger.inputRef.focus();
+          trigger.ref.focus();
         }
       );
+    }
+
+    if (selected.value !== option.value) {
+      this.setState(
+        {
+          selected: [option],
+          popout: false,
+        },
+        () => onChange(option)
+      );
+    } else {
+      this.setState({ popout: false });
     }
   };
 
@@ -193,28 +225,67 @@ export default class Select extends React.Component {
     });
   };
 
+  activeDown = () => {
+    const options = this.getUniformedOptions();
+    if (options.every(option => option.disabled)) return -1;
+    const maxIndex = options.length - 1;
+    const { activeIndex } = this.state;
+    let nextActive = activeIndex === maxIndex ? 0 : activeIndex + 1;
+    while (options[nextActive].disabled) {
+      nextActive++;
+      if (nextActive > maxIndex) {
+        nextActive = 0;
+      }
+    }
+    return nextActive;
+  };
+
+  activeUp = () => {
+    const options = this.getUniformedOptions();
+    if (options.every(option => option.disabled)) return -1;
+    const { activeIndex } = this.state;
+    let nextActive = activeIndex === 0 ? options.length - 1 : activeIndex - 1;
+    while (options[nextActive].disabled) {
+      nextActive--;
+      if (nextActive < 0) {
+        nextActive = options.length - 1;
+      }
+    }
+    return nextActive;
+  };
+
   keyDownHandler = event => {
     const code = event.keyCode;
-    const { activeIndex } = this.state;
+    const { activeIndex, popout } = this.state;
     const options = this.getUniformedOptions();
-    const maxIndex = options.length - 1;
     switch (code) {
       case KEY_CODE.DOWN:
         event.preventDefault();
-        return this.changeActiveIndex(
-          activeIndex + 1 > maxIndex ? 0 : activeIndex + 1
-        );
+        return this.changeActiveIndex(this.activeDown());
       case KEY_CODE.UP:
         event.preventDefault();
-        return this.changeActiveIndex(
-          activeIndex === 0 ? maxIndex : activeIndex - 1
-        );
+        return this.changeActiveIndex(this.activeUp());
       case KEY_CODE.EN:
+        if (!popout) {
+          return this.setState({ popout: true }, this.afterPopupToggle);
+        }
         return this.changeSelected(options[activeIndex]);
       case KEY_CODE.ESC:
-        return this.setState({ popout: false });
+        return this.setState({ popout: false }, this.afterPopupToggle);
       default:
+        return null;
     }
+  };
+
+  resetSelected = event => {
+    event.stopPropagation();
+    this.setState(
+      {
+        selected: [],
+        popout: false,
+      },
+      () => this.props.onChange(NONE_SELECTED)
+    );
   };
 
   render() {
@@ -223,11 +294,12 @@ export default class Select extends React.Component {
       Position: { AutoBottomLeft },
     } = Popover;
     const {
-      prefix,
-      className,
-      popupClass,
-      disabled,
       mode,
+      prefix,
+      disabled,
+      className,
+      allowReset,
+      popupClass,
       placeholder,
     } = this.props;
 
@@ -237,6 +309,7 @@ export default class Select extends React.Component {
 
     return (
       <Popover
+        display="inline-block"
         ref={popover => (this.popover = popover)}
         position={AutoBottomLeft}
         visible={popout}
@@ -251,8 +324,10 @@ export default class Select extends React.Component {
         <Trigger
           _cn={cn}
           mode={mode}
+          reset={this.resetSelected}
           disabled={disabled}
           selected={selected}
+          allowReset={allowReset}
           placeholder={placeholder}
           onTagDelete={this.changeSelected}
           onSearch={this.filterOptions}

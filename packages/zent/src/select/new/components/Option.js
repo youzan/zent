@@ -1,4 +1,5 @@
 import * as React from 'react';
+import noop from 'lodash/noop';
 
 class Option extends React.Component {
   static defaultProps = {
@@ -22,11 +23,11 @@ class Option extends React.Component {
     } = this.props;
 
     return (
-      <li>
+      <li role="option" style={{ userSelect: 'none' }} unselectable="on">
         <span
           className={cn('option', { selected, disabled, active })}
           onClick={this.optionClickHandler}
-          onMouseEnter={onMouseEnter}
+          onMouseEnter={disabled ? noop : onMouseEnter}
         >
           {text}
         </span>

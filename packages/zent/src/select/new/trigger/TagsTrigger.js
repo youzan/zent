@@ -21,12 +21,10 @@ class TagsTrigger extends React.Component {
     if (!contentVisible && !disabled) {
       open();
     }
-    if (this.getInputDOMNode()) {
-      this.getInputDOMNode().focus();
-    }
+    this.ref.focus();
   };
 
-  getInputDOMNode = () => this.inputRef;
+  getInputDOMNode = () => this.ref;
 
   fabricateOnTagDelete = option => event => {
     event.preventDefault();
@@ -48,7 +46,7 @@ class TagsTrigger extends React.Component {
   componentDidMount() {
     const { autoFocus } = this.props;
     if (autoFocus) {
-      this.inputRef.focus();
+      this.ref.focus();
     }
   }
 
@@ -99,13 +97,15 @@ class TagsTrigger extends React.Component {
           <li className={cn('search')}>
             <div className={cn('field-wrapper')}>
               <input
+                tabIndex="0"
                 autoComplete="off"
-                ref={node => (this.inputRef = node)}
+                ref={node => (this.ref = node)}
                 className={cn('field')}
                 value={inputValue}
                 onChange={this.onInputChange}
                 onKeyDown={this.onKeyDown}
               />
+              <span>&nbsp;</span>
             </div>
           </li>
         </ul>

@@ -1,9 +1,9 @@
 ---
-order: 1
+order: 2
 zh-CN:
-	title: 基础用法
+	title: 多选标签
 en-US:
-	title: Basic Usage
+	title: Tags Mode
 ---
 
 ```js
@@ -12,7 +12,7 @@ import { Select } from 'zent';
 const Option = Select.NewOption;
 
 ReactDOM.render(
-	<Select mode="base" placeholder="请选择" allowReset>
+	<Select mode="tags" placeholder="请选择">
 		<Option key="0" value="0000" disabled>010101</Option>
 		<Option key="1" value="3333">1111</Option>
 		<Option key="2" value="2222">2222</Option>
