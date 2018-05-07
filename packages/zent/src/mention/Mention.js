@@ -20,6 +20,8 @@ import Popover from 'popover';
 import getCaretCoordinates from 'utils/dom/getCaretCoordinates';
 import isFirefox from 'utils/isFirefox';
 import SelectMenu from 'select-menu';
+import { I18nReceiver as Receiver } from 'i18n';
+import { Mention as I18nDefault } from 'i18n/default';
 
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 
@@ -29,10 +31,6 @@ const DEFAULT_STATE = {
   search: null,
 };
 
-/**
- * 中文输入法空格问题
- * 滚动时候弹层如何处理
- */
 export default class Mention extends Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
@@ -66,8 +64,7 @@ export default class Mention extends Component {
   static defaultProps = {
     multiLine: false,
     position: 'bottom',
-    // FIXME: i18n support
-    suggestionNotFoundContent: '无匹配结果，轻敲空格完成输入',
+    suggestionNotFoundContent: '',
     suggestions: [],
     triggerText: '@',
     prefix: 'zent',
@@ -80,14 +77,7 @@ export default class Mention extends Component {
   };
 
   render() {
-    const {
-      multiLine,
-      className,
-      prefix,
-      position,
-      suggestions,
-      suggestionNotFoundContent,
-    } = this.props;
+    const { multiLine, className, prefix, position, suggestions } = this.props;
     const inputType = multiLine ? 'textarea' : 'text';
     const passThroughProps = omit(this.props, [
       'multiLine',
@@ -110,45 +100,48 @@ export default class Mention extends Component {
     const { suggestionVisible } = this.state;
 
     return (
-      <Popover
-        visible={suggestionVisible}
-        onVisibleChange={this.onSuggestionVisibleChange}
-        position={
-          position === 'bottom'
-            ? this.getPopoverBottomPosition
-            : this.getPopoverTopPosition
-        }
-        display="inline-block"
-        wrapperClassName={cx(`${prefix}-mention`, className)}
-      >
-        <Popover.Trigger.Click>
-          <Input
-            type={inputType}
-            ref={this.saveInputRef}
-            onChange={this.onInputChange}
-            // onFocus={this.onInputFocus}
-            onBlur={this.onInputBlur}
-            onKeyUp={this.onInputKeyUp}
-            onKeyDown={this.onInputKeyDown}
-            onScroll={this.onInputScroll}
-            onWheel={this.onInputScroll}
-            onCompositionStart={this.onInputCompositionStart}
-            onCompositionEnd={this.onInputCompositionEnd}
-            {...passThroughProps}
-          />
-        </Popover.Trigger.Click>
-        <Popover.Content>
-          <SelectMenu
-            ref={this.onSuggestionListRefChange}
-            items={this.getMenuListItems(
-              suggestions,
-              suggestionNotFoundContent
-            )}
-            onRequestClose={this.onCloseMenuList}
-            onSelect={this.onSelectSuggestion}
-          />
-        </Popover.Content>
-      </Popover>
+      <Receiver defaultI18n={I18nDefault} componentName="Mention">
+        {i18n => {
+          return (
+            <Popover
+              visible={suggestionVisible}
+              onVisibleChange={this.onSuggestionVisibleChange}
+              position={
+                position === 'bottom'
+                  ? this.getPopoverBottomPosition
+                  : this.getPopoverTopPosition
+              }
+              display="inline-block"
+              wrapperClassName={cx(`${prefix}-mention`, className)}
+            >
+              <Popover.Trigger.Click>
+                <Input
+                  type={inputType}
+                  ref={this.saveInputRef}
+                  onChange={this.onInputChange}
+                  // onFocus={this.onInputFocus}
+                  onBlur={this.onInputBlur}
+                  onKeyUp={this.onInputKeyUp}
+                  onKeyDown={this.onInputKeyDown}
+                  onScroll={this.onInputScroll}
+                  onWheel={this.onInputScroll}
+                  onCompositionStart={this.onInputCompositionStart}
+                  onCompositionEnd={this.onInputCompositionEnd}
+                  {...passThroughProps}
+                />
+              </Popover.Trigger.Click>
+              <Popover.Content>
+                <SelectMenu
+                  ref={this.onSuggestionListRefChange}
+                  items={this.getMenuListItems(suggestions, i18n.noContent)}
+                  onRequestClose={this.onCloseMenuList}
+                  onSelect={this.onSelectSuggestion}
+                />
+              </Popover.Content>
+            </Popover>
+          );
+        }}
+      </Receiver>
     );
   }
 
