@@ -1,8 +1,8 @@
 /* Modified from https://github.com/component/textarea-caret-position/blob/master/index.js */
 
 import get from 'lodash/get';
-import isBrowser from 'utils/isBrowser';
-import isFirefox from 'utils/isFirefox';
+import isBrowser from '../isBrowser';
+import isFirefox from '../isFirefox';
 
 // We'll copy the properties below into the mirror div.
 // Note that some browsers, such as Firefox, do not concatenate properties

@@ -18,7 +18,7 @@ import Input from 'input';
 import Popover from 'popover';
 import getCaretCoordinates from 'utils/dom/getCaretCoordinates';
 import isFirefox from 'utils/isFirefox';
-import MenuList from 'internal/SearchableSelectMenuList';
+import SelectMenu from 'select-menu';
 
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
 
@@ -137,7 +137,7 @@ export default class Mention extends Component {
           />
         </Popover.Trigger.Click>
         <Popover.Content>
-          <MenuList
+          <SelectMenu
             ref={this.onSuggestionListRefChange}
             items={this.getMenuListItems(
               suggestions,

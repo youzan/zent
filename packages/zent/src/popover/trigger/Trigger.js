@@ -99,7 +99,7 @@ export default class PopoverTrigger extends (PureComponent || Component) {
   onRefChange = instance => {
     this.props.onTriggerRefChange(instance);
 
-    const child = Children.only(this.props.children);
+    const child = this.validateChildren();
     if (isFunction(child.ref)) {
       child.ref(instance);
     }

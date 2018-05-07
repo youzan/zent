@@ -43,6 +43,7 @@ import Radio from 'radio';
 import Rate from 'rate';
 import SearchInput from 'search-input';
 import Select from 'select';
+import SelectMenu from 'select-menu'; // eslint-disable-line
 import SKU from 'sku';
 import Slider from 'slider';
 import Sortable from 'sortable';
@@ -107,6 +108,7 @@ export {
   Rate,
   SearchInput,
   Select,
+  // SelectMenu,
   SKU,
   Slider,
   Sortable,

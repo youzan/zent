@@ -9,10 +9,9 @@ import keycode from 'keycode';
 
 import Input from 'input';
 import Popover from 'popover';
+import SelectMenu from 'select-menu';
 
-import SearchableSelectMenuList, {
-  caselessMatchFilterOption,
-} from '../internal/SearchableSelectMenuList';
+const { caselessMatchFilterOption } = SelectMenu;
 
 export default class AutoComplete extends Component {
   static propTypes = {
@@ -389,7 +388,7 @@ export default class AutoComplete extends Component {
           />
         </Popover.Trigger.Click>
         <Popover.Content>
-          <SearchableSelectMenuList
+          <SelectMenu
             ref={el => (this.refMenuItemList = el)}
             items={items}
             value={this.state.value}

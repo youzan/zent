@@ -1,5 +1,5 @@
 /**
- * SearchableSelectMenuList
+ * SelectMenu
  *
  * @author hyczzhu
  */
@@ -38,7 +38,7 @@ export const caselessMatchFilterOption = (searchText, item) => {
   return false;
 };
 
-export default class SearchableSelectMenuList extends Component {
+export class SelectMenu extends Component {
   static propTypes = {
     // auto complete props
     value: PropTypes.any,
