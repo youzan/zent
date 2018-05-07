@@ -24,6 +24,7 @@ import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
 /// <reference path="./libs/Dialog.d.ts" />
 /// <reference path="./libs/ErrorBoundary.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
+/// <reference path="./libs/Grid.d.ts" />
 /// <reference path="./libs/Icon.d.ts" />
 /// <reference path="./libs/InfiniteScroller.d.ts" />
 /// <reference path="./libs/Input.d.ts" />
@@ -79,6 +80,7 @@ declare module 'zent' {
   import Dialog from 'zent/lib/dialog';
   import ErrorBoundary from 'zent/lib/error-boundary';
   import Form from 'zent/lib/form';
+  import Grid from 'zent/lib/grid';
   import Layout from 'zent/lib/layout';
   import Loading from 'zent/lib/loading';
   import Icon from 'zent/lib/icon';
@@ -140,6 +142,7 @@ declare module 'zent' {
     Dialog,
     ErrorBoundary,
     Form,
+    Grid,
     Layout,
     Loading,
     Icon,
