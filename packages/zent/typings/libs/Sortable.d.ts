@@ -4,7 +4,7 @@ declare module 'zent/lib/sortable' {
   interface ISortableProps {
     className?: string
     prefix?: string
-    items?: Array
+    items?: any[]
     onChange?: Function
     tag?: string
     sort?: boolean
@@ -16,11 +16,11 @@ declare module 'zent/lib/sortable' {
     ghostClass?: string
     chosenClass?: string
     dragClass?: string
-    forceFallback?: bool
+    forceFallback?: boolean
     fallbackClass?: string
-    fallbackOnBody?: bool
+    fallbackOnBody?: boolean
     fallbackTolerance?: number
-    scroll?: bool
+    scroll?: boolean
     scrollFn?: Function
     scrollSensitivity?: number
     scrollSpeed?: number
