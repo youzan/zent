@@ -8,7 +8,7 @@ declare module 'zent/lib/avatar' {
     src?: string
     children?: string
     bordered?: boolean
-    style?: React.StyleHTMLAttributes
+    style?: React.CSSProperties
     className?: string
     prefix?: string
   }

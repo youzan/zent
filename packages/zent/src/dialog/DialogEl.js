@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import focusWithoutScroll from 'utils/dom/focusWithoutScroll';
-import animatedClosable from '../internal/animatedClosable';
+import animatedClosable from 'utils/component/animatedClosable';
 
 class DialogInnerEl extends (PureComponent || Component) {
   componentDidMount() {
@@ -141,14 +141,16 @@ const AnimatedClosableDialogElWrapper = animatedClosable(DialogElWrapper);
 // Compose all dialog components
 export default class DialogEl extends (PureComponent || Component) {
   render() {
+    const { prefix, visible, origin, refClose, timeout } = this.props;
+
     return (
       <AnimatedClosableDialogElWrapper
-        animationClassName="zoom"
-        timout={this.props.timeout || 300}
+        animationClassName={`${prefix}-zoom`}
+        timout={timeout || 300}
         {...this.props}
-        refClose={this.props.refClose}
-        origin={this.props.origin}
-        open={this.props.visible}
+        refClose={refClose}
+        origin={origin}
+        open={visible}
       >
         <DialogInnerEl {...this.props} />
       </AnimatedClosableDialogElWrapper>

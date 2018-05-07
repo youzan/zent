@@ -26,6 +26,7 @@ import InfiniteScroller from 'infinite-scroller';
 import Input from 'input';
 import Layout from 'layout';
 import Loading from 'loading';
+import Mention from 'mention';
 import Menu from 'menu';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
@@ -42,6 +43,7 @@ import Radio from 'radio';
 import Rate from 'rate';
 import SearchInput from 'search-input';
 import Select from 'select';
+import SelectMenu from 'select-menu'; // eslint-disable-line
 import SKU from 'sku';
 import Slider from 'slider';
 import Sortable from 'sortable';
@@ -89,6 +91,7 @@ export {
   Input,
   Layout,
   Loading,
+  Mention,
   Menu,
   MonthPicker,
   Notify,
@@ -105,6 +108,7 @@ export {
   Rate,
   SearchInput,
   Select,
+  // SelectMenu,
   SKU,
   Slider,
   Sortable,

@@ -225,6 +225,8 @@ class MonthPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
+        onFocus,
+        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -253,6 +255,8 @@ class MonthPicker extends (PureComponent || Component) {
                     name={name}
                     value={showPlaceholder ? placeholder || i18n.month : value}
                     onChange={noop}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />

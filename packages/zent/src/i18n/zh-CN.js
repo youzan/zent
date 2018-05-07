@@ -176,3 +176,7 @@ export const Upload = {
     extracting: '提取中...',
   },
 };
+
+export const Mention = {
+  noContent: '无匹配结果，轻敲空格完成输入',
+};

@@ -179,3 +179,7 @@ export const Upload = {
     extracting: 'Extracting...',
   },
 };
+
+export const Mention = {
+  noContent: 'No result found, press SPACE to finish typing',
+};
