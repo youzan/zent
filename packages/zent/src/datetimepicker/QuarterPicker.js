@@ -217,6 +217,8 @@ class QuarterPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
+        onFocus,
+        onBlur,
       },
       state: { openPanel, selected, showPlaceholder, value },
     } = this;
@@ -259,6 +261,8 @@ class QuarterPicker extends (PureComponent || Component) {
                       name={name}
                       value={showPlaceholder ? placeholderText : inputVal}
                       onChange={noop}
+                      onFocus={onFocus}
+                      onBlur={onBlur}
                       disabled={disabled}
                     />
                     <span className="zenticon zenticon-calendar-o" />

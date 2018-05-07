@@ -359,6 +359,8 @@ class DatePicker extends (PureComponent || Component) {
         name,
         placeholder,
         canClear,
+        onFocus,
+        onBlur,
       },
       state: { showPlaceholder, openPanel, value },
     } = this;
@@ -391,6 +393,8 @@ class DatePicker extends (PureComponent || Component) {
                     name={name}
                     value={showPlaceholder ? placeholder || i18n.date : value}
                     onChange={noop}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />

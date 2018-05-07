@@ -71,7 +71,7 @@ class Demo extends Component{
           className="zent-picker-demo"
           value={timeValue}
           onChange={this.onChangeTime}
-          minuteStep={5}
+					minuteStep={5}
         />
         <br />
         <TimeRangePicker
@@ -85,7 +85,7 @@ class Demo extends Component{
 					className="zent-picker-demo"
           value={dateValue}
           max="2020-01-01"
-          onChange={this.onChangeDate}
+					onChange={this.onChangeDate}
         />
         <br />
         <WeekPicker
@@ -93,14 +93,14 @@ class Demo extends Component{
           popPosition="right"
           className="zent-picker-demo"
           value={weekValue}
-          onChange={this.onChangeWeek}
+					onChange={this.onChangeWeek}
         />
         <br />
 				<MonthPicker
           className="zent-picker-demo"
           value={monthValue}
 					max={now}
-          onChange={this.onChangeMonth}
+					onChange={this.onChangeMonth}
         />
         <br />
         <DateRangePicker
