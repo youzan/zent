@@ -32,7 +32,12 @@ class Simple extends React.Component {
 				<br />
 				<BlockHeader
 					title="{i18n.content}"
-					tooltip={<span>test</span>}
+					tooltip={
+						<div>
+							<p>test1</p>
+							<p>test2</p>
+						</div>
+					}
 					content={<a href="/">content</a>}
 					position="top-center"
 					childAlign="right"
@@ -52,9 +57,5 @@ class Simple extends React.Component {
 	}
 }
 
-ReactDOM.render(
-	<Simple />
-	, mountNode
-);
-
+ReactDOM.render(<Simple />, mountNode);
 ```

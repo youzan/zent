@@ -326,6 +326,8 @@ class WeekPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
+        onFocus,
+        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -362,6 +364,8 @@ class WeekPicker extends (PureComponent || Component) {
                         : value.join(` ${i18n.to} `)
                     }
                     onChange={noop}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     disabled={disabled}
                   />
 

@@ -1,0 +1,37 @@
+@import './theme/default.pcss';
+@import './mixins/index.pcss';
+$c-light-border: $theme-stroke-7;
+$disablecolor: $theme-stroke-5;
+
+.zent-popup-menu {
+  @mixin popup;
+
+  .zent-popup-menu-item {
+    @mixin popup-menu-item;
+
+    &.disabled {
+      color: $disablecolor;
+      cursor: not-allowed;
+
+      &:hover {
+        background: none;
+        color: $disablecolor;
+      }
+    }
+  }
+}
+
+.zent-menu-item-group-header {
+  font-size: 11px;
+  background: none;
+  color: $theme-stroke-4;
+  cursor: default;
+  text-transform: uppercase;
+  padding: 5px 7px;
+  font-weight: bold;
+}
+
+.zent-divider-line {
+  border-top: 1px solid $c-light-border;
+  margin: 6px 0;
+}

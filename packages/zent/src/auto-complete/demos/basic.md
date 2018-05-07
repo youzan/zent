@@ -12,38 +12,34 @@ en-US:
 import { AutoComplete } from 'zent';
 
 class Complete extends Component {
-  state = {
-    data: []
-  }
-  
-  onSelect = (v) => console.log('onSelect', v)
-  onSearch = (v) => {
-      this.setState({
-        data: v ? [ 
-          v, 
-          v + v, 
-          v + v + v,
-        ] : [],
-      });
-    }
-  onChange = (v) => console.log('onChange', v)
-  
-  render() {
-    return (
-      <AutoComplete 
-        data={this.state.data} 
-        onSelect={this.onSelect} 
-        onSearch={this.onSearch} 
-        onChange={this.onChange}
-      />
-    );
-  }
+	state = {
+		data: [],
+	};
+
+	onSelect = v => console.log('onSelect', v);
+	onSearch = v => {
+		this.setState({
+			data: v ? [v, v + v, v + v + v] : [],
+		});
+	};
+	onChange = v => console.log('onChange', v);
+
+	render() {
+		return (
+			<AutoComplete
+				data={this.state.data}
+				onSelect={this.onSelect}
+				onSearch={this.onSearch}
+				onChange={this.onChange}
+			/>
+		);
+	}
 }
 
 ReactDOM.render(
-  <div>
-      <Complete />
-  </div>,
-  mountNode
+	<div>
+		<Complete />
+	</div>,
+	mountNode
 );
 ```
