@@ -13,11 +13,11 @@ class MentionDemo extends React.Component {
 	state = {
 		text: '',
 		suggestions: [
-			{ content: 1, value: 100 },
-			{ content: 2, value: 200 },
-			{ content: 3, value: 300 },
-			{ content: 4, value: 400 },
-			{ content: 5, value: 500 },
+			{ content: 'Item 1', value: 100 },
+			{ content: 'Item 2', value: 200 },
+			{ content: 'Item 3', value: 300 },
+			{ content: 'Item 4', value: 400 },
+			{ content: 'Item 5', value: 500 },
 		],
 	};
 

@@ -12,13 +12,7 @@ import { Mention } from 'zent';
 class MentionDemo extends React.Component {
 	state = {
 		text: '',
-		suggestions: [
-			{ content: 1, value: 100 },
-			{ content: 2, value: 200 },
-			{ content: 3, value: 300 },
-			{ content: 4, value: 400 },
-			{ content: 5, value: 500 },
-		],
+		suggestions: [],
 	};
 
 	onValueChange = val => {
@@ -27,11 +21,31 @@ class MentionDemo extends React.Component {
 		});
 	};
 
+	onSearchChange = search => {
+		const suggestions = [];
+
+		if (search) {
+			let v = search;
+			for (let i = 0; i < 4; i++) {
+				suggestions.push({
+					content: v,
+					value: i,
+				});
+				v = v + search;
+			}
+		}
+
+		this.setState({
+			suggestions,
+		});
+	};
+
 	render() {
 		return (
 			<Mention
 				value={this.state.text}
 				onChange={this.onValueChange}
+				onSearchChange={this.onSearchChange}
 				suggestions={this.state.suggestions}
 			/>
 		);
