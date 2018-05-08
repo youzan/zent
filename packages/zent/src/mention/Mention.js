@@ -43,7 +43,7 @@ export default class Mention extends Component {
         PropTypes.string,
         PropTypes.number,
         PropTypes.shape({
-          value: PropTypes.any,
+          value: PropTypes.any.isRequired,
           content: PropTypes.node,
           isGroup: PropTypes.bool,
           isDivider: PropTypes.bool,
