@@ -375,4 +375,36 @@ describe('Pagination', () => {
         .hasClass('pager--disabled')
     ).toBe(true);
   });
+
+  it('has onPageSizeChange callback', () => {
+    const onPageSizeChange = jest.fn();
+    const wrapper = mount(
+      <Pagination
+        totalItem={100}
+        pageSize={[10, 20]}
+        onPageSizeChange={onPageSizeChange}
+        current={1}
+        maxPageToshow={10}
+      />
+    );
+    wrapper.instance().setPageSize(20);
+    expect(onPageSizeChange.mock.calls.length).toBe(1);
+    expect(wrapper.state('currentPageSize')).toBe(20);
+  });
+
+  it('onPageSizeChange callback can stop page size change', () => {
+    const onPageSizeChange = jest.fn(() => false);
+    const wrapper = mount(
+      <Pagination
+        totalItem={100}
+        pageSize={[10, 20]}
+        onPageSizeChange={onPageSizeChange}
+        current={1}
+        maxPageToshow={10}
+      />
+    );
+    wrapper.instance().setPageSize(20);
+    expect(onPageSizeChange.mock.calls.length).toBe(1);
+    expect(wrapper.state('currentPageSize')).toBe(10);
+  });
 });
