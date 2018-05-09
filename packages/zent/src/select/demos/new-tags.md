@@ -1,5 +1,5 @@
 ---
-order: 16
+order: 13
 zh-CN:
 	title: 标签多选
 	reset: 重置
@@ -19,12 +19,10 @@ en-US:
 ```js
 import { Select, Button, Notify } from 'zent';
 
-const NewSelect = Select.Next;
-
 class TagsDemo extends Component {
 
 	state = {
-		selected: ['1'],
+		selected: ["1"],
 		data: [
 			{ value: '1', text: 'Option 1' },
 			{ value: '2', text: 'Option 2' },
@@ -49,16 +47,23 @@ class TagsDemo extends Component {
 		});
 	};
 
-	onChange = (newSelected, option) => {
-		const { selected } = this.state;
-		if (newSelected.length > selected.length) {
-			Notify.success(<span>{i18n.optionAdded} {option.value}</span>);
-		} else {
-			Notify.success(<span>{i18n.optionDeleted} {option.value}</span>);
-		}
+	increaseHandler = (event, item) => {
+		this.setState({
+			value: this.state.selected.push(item.value)
+		});
+		Notify.success(<span>{i18n.optionAdded} {item.value}</span>);
+	}
+
+	deleteHandler = (item) => {
+
+		// 可以使用效率更高或者更优雅的数组定点删除方法，比如 lodash.remove
+		const newSelected = this.state.selected.filter(value => {
+			return value !== item.value;
+		});
 		this.setState({
 			selected: newSelected
 		});
+		Notify.success(<span>{i18n.optionDeleted} {item.value}</span>);
 	}
 
 	render() {
@@ -67,10 +72,13 @@ class TagsDemo extends Component {
 				<span>{i18n.external}: {this.state.selected.join(',')}</span>
 					<br />
 					<br />
-				<NewSelect
-					datasets={this.state.data}
-					onChange={this.onChange}
-					mode="tags"
+				<Select
+					data={this.state.data}
+					onChange={this.increaseHandler}
+					onDelete={this.deleteHandler}
+					className="zent-custom-select"
+					tags
+    			filter={(item, keyword) => item.text.indexOf(keyword) > -1}
 					value={this.state.selected} />
 				<Button onClick={this.reset}>{i18n.reset}</Button>
 				<Button onClick={this.upgradeData}>{i18n.refill}</Button>
@@ -84,3 +92,9 @@ ReactDOM.render(
   , mountNode
 );
 ```
+
+<style>
+.zent-custom-select {
+	min-height: 30px;
+}
+</style>

@@ -24,9 +24,9 @@
       .zent-select__base-trigger,
       .zent-select__search-trigger,
       .zent-select__tags-trigger {
-        border-color: $theme-primary-2;
         outline: 0;
-        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        border: 1px solid $theme-primary-2;
+        box-shadow: 0 0 5px $theme-primary-4;
       }
 
       .zent-select__selected-text {
@@ -84,9 +84,9 @@
     }
 
     &:focus {
-      border-color: $theme-primary-2;
+      border: 1px solid $theme-primary-2;
+      box-shadow: 0 0 5px $theme-primary-4;
       outline: 0;
-      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
     }
   }
 
@@ -111,8 +111,8 @@
     padding: 5px 20px 5px 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: #fff;
-    border: 1px solid #bbb;
+    background-color: $theme-stroke-10;
+    border: 1px solid $theme-stroke-5;
     border-radius: 2px;
     box-sizing: border-box;
     display: inline-block;
@@ -123,7 +123,7 @@
     width: 100%;
 
     &--selected .zent-select__placeholder {
-      color: #333;
+      color: $theme-stroke-1;
     }
   }
 
@@ -132,8 +132,8 @@
     padding: 5px 20px 5px 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: #fff;
-    border: 1px solid #bbb;
+    background-color: $theme-stroke-10;
+    border: 1px solid $theme-stroke-5;
     border-radius: 2px;
     box-sizing: border-box;
     display: inline-block;
@@ -166,14 +166,14 @@
     margin-bottom: -5px;
     line-height: 24px;
     box-sizing: border-box;
-    border: 1px solid #bbb;
+    border: 1px solid $theme-stroke-5;
     border-radius: 2px;
     display: inline-block;
     min-height: 30px;
     max-height: 76px;
     outline: none;
     width: 100%;
-    background-color: #fff;
+    background-color: $theme-stroke-10;
     position: relative;
   }
 
@@ -231,7 +231,7 @@
       right: 8px;
       margin-top: -5px;
       z-index: 2;
-      color: #fff;
+      color: $theme-stroke-10;
       background-color: $theme-stroke-3;
       border-radius: 10px;
       text-align: center;
@@ -240,7 +240,7 @@
   }
 
   &__popup {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px $theme-mask-black-2;
     left: 0;
     outline: none;
     overflow-y: auto;
@@ -248,7 +248,7 @@
     width: 100%;
     z-index: 2000;
     margin-top: 2px;
-    background-color: #fff;
+    background-color: $theme-stroke-10;
     max-height: 224px;
 
     &--tags .zent-select__option:not(.zent-select__option--disabled) {
@@ -318,15 +318,23 @@
       &:hover,
       &.zent-select__option--active {
         background-color: $theme-primary-3;
-        color: #fff;
+        color: $theme-stroke-10;
       }
 
       &.zent-select__option--selected {
         font-weight: 600;
         color: $theme-primary-3;
 
+        &:hover {
+          color: $theme-stroke-8;
+        }
+
         &.zent-select__option--active {
           background-color: $theme-stroke-8;
+
+          &:hover {
+            color: $theme-primary-3;
+          }
         }
       }
     }
@@ -344,9 +352,9 @@
   &__tag {
     float: left;
     line-height: 20px;
-    color: rgba(0, 0, 0, 0.85);
-    background-color: #fafafa;
-    border: 1px solid #e8e8e8;
+    color: $theme-stroke-1;
+    background-color: $theme-stroke-9;
+    border: 1px solid $theme-stroke-7;
     border-radius: 2px;
     cursor: default;
     margin: 1px 4px 1px 0;
@@ -360,7 +368,7 @@
       vertical-align: baseline;
       text-align: center;
       line-height: 1;
-      color: rgba(0, 0, 0, 0.65);
+      color: $theme-stroke-2;
       cursor: pointer;
       display: inline-block;
       font-size: 8px;

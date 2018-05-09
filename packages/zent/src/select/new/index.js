@@ -273,12 +273,14 @@ export default class Select extends React.Component {
         keyword,
       },
       () => {
-        const options = this.getUniformedOptions();
-        const activeIndex = this.findInitialActive(
-          options,
-          this.props.autoActive
-        );
-        this.setState({ activeIndex });
+        if (this.props.mode !== 'tags') {
+          const options = this.getUniformedOptions();
+          const activeIndex = this.findInitialActive(
+            options,
+            this.props.autoActive
+          );
+          this.setState({ activeIndex });
+        }
       }
     );
   };

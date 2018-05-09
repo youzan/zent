@@ -42,7 +42,9 @@ export default class SelectTrigger extends Popover.Trigger.Click {
     if (this.props.disabled) return;
     this.setState({ focused: false });
     if (this.props.contentVisible) {
-      this.props.close();
+      // setTimeout(() => {
+      //   this.props.close();
+      // }, 1);
     }
     this.props.onBlur(e);
   };
