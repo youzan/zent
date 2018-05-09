@@ -16,7 +16,7 @@ export default class Select extends React.Component {
     super(props);
     const { initPopup, data, value, autoActive } = props;
     const options = this.getUniformedOptions(data);
-    const selected = this.findSelected(value, options);
+    const selected = this.findSelected(value, options, []);
     const activeIndex = this.findInitialActive(options, autoActive);
     this.state = {
       selected,
@@ -34,7 +34,9 @@ export default class Select extends React.Component {
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.arrayOf(PropTypes.number),
     ]),
+    onBlur: PropTypes.func,
     prefix: PropTypes.string,
+    onFocus: PropTypes.func,
     disabled: PropTypes.bool,
     onChange: PropTypes.func,
     autoFocus: PropTypes.bool,
@@ -55,7 +57,9 @@ export default class Select extends React.Component {
     data: [],
     mode: 'base',
     value: NONE_SELECTED,
+    onBlur: noop,
     prefix: 'zent',
+    onFocus: noop,
     disabled: false,
     onChange: noop,
     autoFocus: false,
@@ -74,20 +78,36 @@ export default class Select extends React.Component {
     this.setPopupWidth(`${this.popover.getTriggerNode().clientWidth + 2}px`);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { value } = nextProps;
+    const { value: oldValue } = this.props;
+    if (value === oldValue) return;
+    if (
+      Array.isArray(value) &&
+      value.every((v, index) => v === oldValue[index])
+    )
+      return;
+    const options = this.getUniformedOptions(nextProps.data);
+    const selected = this.findSelected(value, options);
+    this.setState({ selected });
+  }
+
   // return uniformed Object Array from data or children
   getUniformedOptions() {
     const { children, data, optionValue, optionText } = this.props;
     const { keyword = '' } = this.state || {};
     if (children) {
       return (Array.isArray(children)
-        ? children.map(({ props }) => ({
+        ? children.map(({ props, key }) => ({
             ...props,
+            key,
             value: props[optionValue],
             text: props.children,
           }))
         : [
             {
               ...children.props,
+              key: children.key,
               value: children.props[optionValue],
               text: children.props.children,
             },
@@ -108,11 +128,16 @@ export default class Select extends React.Component {
       .filter(option => option.text.includes(keyword));
   }
 
-  findSelected(value, options) {
+  findSelected(value, options, oldSelected = []) {
+    if (value === NONE_SELECTED) return [];
     if (Array.isArray(value)) {
-      return options.filter(option => value.indexOf(option.value) > -1);
+      return value.map(v =>
+        [...options, ...oldSelected].find(option => option.value === v)
+      );
     }
-    const maySelected = options.find(option => option.value === value);
+    const maySelected = [...options, ...oldSelected].find(
+      option => option.value === value
+    );
     return maySelected ? [maySelected] : [];
   }
 
@@ -122,7 +147,8 @@ export default class Select extends React.Component {
     });
   }
 
-  findInitialActive = (options, autoActive) => {
+  findInitialActive = (options = [], autoActive) => {
+    if (!options.length) return -1;
     if (autoActive) {
       if (options.every(option => option.disabled)) return -1;
       let activeIndex = 0;
@@ -162,6 +188,9 @@ export default class Select extends React.Component {
         );
       }
       this.changeActiveIndex(activeIndex);
+      if (mode === 'search') {
+        this.getTriggerNode().ref.focus();
+      }
     } else if (mode === 'tags') {
       this.getTriggerNode().setInputValue('');
     }
@@ -171,6 +200,12 @@ export default class Select extends React.Component {
     this.setState({
       activeIndex: index,
     });
+
+  resetInput = trigger => {
+    if (trigger.setInputValue) {
+      trigger.setInputValue('');
+    }
+  };
 
   changeSelected = option => {
     const { selected } = this.state;
@@ -187,8 +222,8 @@ export default class Select extends React.Component {
           selected: this.getTagsNextSelected(selected, option),
         },
         () => {
-          onChange(selected, option);
-          trigger.setInputValue('');
+          onChange(selected.map(s => s.value), selected, option.value, option);
+          this.resetInput(trigger);
           trigger.ref.focus();
         }
       );
@@ -200,10 +235,23 @@ export default class Select extends React.Component {
           selected: [option],
           popout: false,
         },
-        () => onChange(option)
+        () => {
+          onChange(option.value, option);
+          this.resetInput(trigger);
+          if (mode === 'search') {
+            trigger.ref.blur();
+            trigger.wrapper.focus();
+          }
+        }
       );
     } else {
-      this.setState({ popout: false });
+      this.setState({ popout: false }, () => {
+        this.resetInput(trigger);
+        if (mode === 'search') {
+          trigger.ref.blur();
+          trigger.wrapper.focus();
+        }
+      });
     }
   };
 
@@ -220,9 +268,19 @@ export default class Select extends React.Component {
     if (this.props.onAsyncSearch) {
       return this.props.onAsyncSearch(keyword);
     }
-    this.setState({
-      keyword,
-    });
+    this.setState(
+      {
+        keyword,
+      },
+      () => {
+        const options = this.getUniformedOptions();
+        const activeIndex = this.findInitialActive(
+          options,
+          this.props.autoActive
+        );
+        this.setState({ activeIndex });
+      }
+    );
   };
 
   activeDown = () => {
@@ -277,8 +335,8 @@ export default class Select extends React.Component {
     }
   };
 
-  resetSelected = event => {
-    event.stopPropagation();
+  reset = event => {
+    if (event) event.stopPropagation();
     this.setState(
       {
         selected: [],
@@ -295,7 +353,9 @@ export default class Select extends React.Component {
     } = Popover;
     const {
       mode,
+      onBlur,
       prefix,
+      onFocus,
       disabled,
       className,
       allowReset,
@@ -324,7 +384,9 @@ export default class Select extends React.Component {
         <Trigger
           _cn={cn}
           mode={mode}
-          reset={this.resetSelected}
+          reset={this.reset}
+          onBlur={onBlur}
+          onFocus={onFocus}
           disabled={disabled}
           selected={selected}
           allowReset={allowReset}

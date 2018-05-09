@@ -10,26 +10,22 @@ class BaseTrigger extends React.Component {
   }
 
   onTriggerClick = () => {
-    const { open, close, contentVisible, disabled } = this.props;
-    if (!contentVisible && !disabled) {
-      open();
-    }
-
-    if (contentVisible && !disabled) {
-      close();
-    }
-
-    if (!disabled) this.ref.focus();
+    if (this.props.disabled) return;
+    const { open, close, contentVisible } = this.props;
+    contentVisible ? close() : open();
+    this.ref.focus();
   };
 
   render() {
     const {
       _cn: cn,
+      reset,
+      onBlur,
+      onFocus,
       disabled,
       selected,
-      contentVisible,
       allowReset,
-      reset,
+      contentVisible,
     } = this.props;
     return (
       <div
@@ -40,6 +36,8 @@ class BaseTrigger extends React.Component {
           selected: selected.length,
           popout: contentVisible,
         })}
+        onBlur={onBlur}
+        onFocus={onFocus}
         onClick={this.onTriggerClick}
         onKeyDown={this.props.onKeyDown}
       >

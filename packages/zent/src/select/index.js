@@ -25,11 +25,19 @@ import NewSelect from './new';
  * @param {string} props.mode key to distinguish old and new
  * @returns instance of real select
  */
-function SelectBypass(props) {
-  if (props.mode) {
-    return <NewSelect {...props}>{props.children}</NewSelect>;
+class SelectBypass extends React.Component {
+  reset = () => this.select.reset();
+
+  render() {
+    if (this.props.mode) {
+      return (
+        <NewSelect ref={node => (this.select = node)} {...this.props}>
+          {this.props.children}
+        </NewSelect>
+      );
+    }
+    return <OldSelect {...this.props}>{this.props.children}</OldSelect>;
   }
-  return <OldSelect {...props}>{props.children}</OldSelect>;
 }
 
 SelectBypass.Option = Option;

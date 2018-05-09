@@ -17,8 +17,9 @@ class TagsTrigger extends React.Component {
   };
 
   onTriggerClick = () => {
-    const { open, contentVisible, disabled } = this.props;
-    if (!contentVisible && !disabled) {
+    if (this.props.disabled) return;
+    const { open, contentVisible } = this.props;
+    if (!contentVisible) {
       open();
     }
     this.ref.focus();
@@ -33,6 +34,7 @@ class TagsTrigger extends React.Component {
   };
 
   onKeyDown = event => {
+    if (this.props.disabled) return;
     const { selected, onTagDelete, onKeyDown } = this.props;
     const { inputValue } = this.state;
     const code = event.keyCode;
@@ -68,7 +70,14 @@ class TagsTrigger extends React.Component {
   }
 
   render() {
-    const { _cn: cn, disabled, selected, placeholder } = this.props;
+    const {
+      _cn: cn,
+      disabled,
+      selected,
+      placeholder,
+      onFocus,
+      onBlur,
+    } = this.props;
     const { inputValue } = this.state;
 
     return (
@@ -89,7 +98,7 @@ class TagsTrigger extends React.Component {
             <Tag
               _cn={cn}
               className={cn('tag')}
-              key={option.value}
+              key={`${typeof option.value}_${option.value}`}
               text={option.text}
               onDelete={this.fabricateOnTagDelete(option)}
             />
@@ -104,6 +113,8 @@ class TagsTrigger extends React.Component {
                 value={inputValue}
                 onChange={this.onInputChange}
                 onKeyDown={this.onKeyDown}
+                onFocus={onFocus}
+                onBlur={onBlur}
               />
               <span>&nbsp;</span>
             </div>

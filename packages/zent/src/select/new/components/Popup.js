@@ -81,7 +81,7 @@ class Popup extends React.Component {
             options.map((option, index) => (
               <Option
                 _cn={cn}
-                key={option.key || option.value}
+                key={option.key || `${typeof option.value}_${option.value}`}
                 ref={
                   index === activeIndex
                     ? activeItem => (this.activeItem = activeItem)
