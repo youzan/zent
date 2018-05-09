@@ -87,7 +87,7 @@ class SearchTrigger extends React.Component {
         <div className={cn('search')}>
           <div className={cn('field-wrapper')}>
             <input
-              tabIndex="0"
+              tabIndex={disabled ? '-1' : '0'}
               ref={node => (this.ref = node)}
               value={inputValue}
               onBlur={onBlur}

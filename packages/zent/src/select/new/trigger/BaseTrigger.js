@@ -16,6 +16,11 @@ class BaseTrigger extends React.Component {
     this.ref.focus();
   };
 
+  keyDownHandler = e => {
+    if (this.props.disabled) return;
+    this.props.onKeyDown(e);
+  };
+
   render() {
     const {
       _cn: cn,
@@ -29,7 +34,7 @@ class BaseTrigger extends React.Component {
     } = this.props;
     return (
       <div
-        tabIndex="0"
+        tabIndex={disabled ? '-1' : '0'}
         ref={node => (this.ref = node)}
         className={cn('base-trigger', {
           disabled,
@@ -39,7 +44,7 @@ class BaseTrigger extends React.Component {
         onBlur={onBlur}
         onFocus={onFocus}
         onClick={this.onTriggerClick}
-        onKeyDown={this.props.onKeyDown}
+        onKeyDown={this.keyDownHandler}
       >
         <div className={cn('placeholder')}>{this.renderPlaceholder()}</div>
         {allowReset && <span className={cn('reset')} onClick={reset} />}

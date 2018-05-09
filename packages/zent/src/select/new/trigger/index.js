@@ -41,6 +41,9 @@ export default class SelectTrigger extends Popover.Trigger.Click {
   blurHandler = e => {
     if (this.props.disabled) return;
     this.setState({ focused: false });
+    if (this.props.contentVisible) {
+      this.props.close();
+    }
     this.props.onBlur(e);
   };
 

@@ -106,7 +106,7 @@ class TagsTrigger extends React.Component {
           <li className={cn('search')}>
             <div className={cn('field-wrapper')}>
               <input
-                tabIndex="0"
+                tabIndex={disabled ? '-1' : '0'}
                 autoComplete="off"
                 ref={node => (this.ref = node)}
                 className={cn('field')}
