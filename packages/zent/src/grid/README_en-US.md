@@ -79,8 +79,8 @@ onChange will throw an object, which includes parameters about the change part o
 
 | Props              | Description              | Type    |  Default | Required |
 | --------------- | --------------- | ----- | ---- | ----- |
-| isExpanded | Whether to expand the current row | bool | `false` | no    |
-| expandRender        | Render function of expanded row's additional content | func  |  | no  
+| isExpanded | Whether to expand the current row | func(record, index) |  | no    |
+| expandRender        | Render function of expanded row's additional content | func(record)  |  | no  
 
 <style>
   .switch {

@@ -80,8 +80,8 @@ onChange会抛出一个对象，这个对象包含分页变化的参数：
 
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
-| isExpanded | 是否展开当前行            | bool | `false` | 否    |
-| expandRender        | 展开行的补充内容render | func  |  | 否  
+| isExpanded | 是否展开当前行            | func(record, index) |  | 否    |
+| expandRender        | 展开行的补充内容render | func(record)  |  | 否  
 
 <style>
   .switch {

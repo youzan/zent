@@ -57,9 +57,7 @@ class Body extends (PureComponent || Component) {
           row.push(
             <tr {...trProps}>
               <td />
-              <td colSpan={columns.length - 1}>
-                {fixed !== 'right' && expandRender(data)}
-              </td>
+              <td colSpan={columns.length - 1}>{expandRender(data)}</td>
             </tr>
           );
         } else {

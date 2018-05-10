@@ -240,12 +240,13 @@ class Grid extends (PureComponent || Component) {
   };
 
   getExpandBodyRender = expandRowKeys => (rowData, { row }) => {
+    const { prefix } = this.props;
     return (
       <span
         className={
           expandRowKeys[row]
-            ? 'expandable-btn collapse-btn'
-            : 'expandable-btn expand-btn'
+            ? `${prefix}-grid-expandable-btn ${prefix}-grid-collapse-btn`
+            : `${prefix}-grid-expandable-btn ${prefix}-grid-expand-btn`
         }
         onClick={this.handleExpandRow(row)}
       />
