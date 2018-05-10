@@ -24,6 +24,7 @@ import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
 /// <reference path="./libs/Dialog.d.ts" />
 /// <reference path="./libs/ErrorBoundary.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
+/// <reference path="./libs/Grid.d.ts" />
 /// <reference path="./libs/Icon.d.ts" />
 /// <reference path="./libs/InfiniteScroller.d.ts" />
 /// <reference path="./libs/Input.d.ts" />
@@ -79,12 +80,14 @@ declare module 'zent' {
   import Dialog from 'zent/lib/dialog';
   import ErrorBoundary from 'zent/lib/error-boundary';
   import Form from 'zent/lib/form';
+  import Grid from 'zent/lib/grid';
   import Layout from 'zent/lib/layout';
   import Loading from 'zent/lib/loading';
   import Icon from 'zent/lib/icon';
   import Input from 'zent/lib/input';
   import InfiniteScroller from 'zent/lib/infinite-scroller';
   import NumberInput from 'zent/lib/number-input';
+  import Mention from 'zent/lib/mention';
   import Menu from 'zent/lib/menu';
   import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
   import Notify from 'zent/lib/notify';
@@ -140,12 +143,14 @@ declare module 'zent' {
     Dialog,
     ErrorBoundary,
     Form,
+    Grid,
     Layout,
     Loading,
     Icon,
     Input,
     InfiniteScroller,
     NumberInput,
+    Mention,
     Menu,
     MonthPicker,
     Notify,

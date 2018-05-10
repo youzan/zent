@@ -39,6 +39,8 @@ export const commonProps = {
   onChange: noop,
   isFooterVisble: false,
   canClear: true,
+  onBlur: noop,
+  onFocus: noop,
 };
 
 export const commonPropTypes = {

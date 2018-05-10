@@ -17,17 +17,18 @@ group: 导航
 
 | 参数            | 说明      | 类型            | 默认值      | 是否必填 |
 | ---------------| --------- | -------------- | ---------- | ------- |
-| current       | 当前页数    | number        | `1`      | 是    |
-| totalItem     | 总个数     | number        |          | 是    |
-| pageSize      | 每页个数    | number, array | `10`     | 否    |
-| maxPageToShow | 最大可显示页数 | number        |          | 否    |
-| onChange      | 翻页回调    | function      |          | 否    |
-| className     | 自定义额外类名 | string        | `''`     | 否    |
-| prefix        | 自定义前缀   | string        | `'zent'` | 否    |
+| current       | 当前页数    | `number`        | `1`      | 是    |
+| totalItem     | 总个数     | `number`        |          | 是    |
+| pageSize      | 每页个数    | `number` \| `array` | `10`     | 否    |
+| onPageSizeChange | 分页大小改变时候的回调函数 | `(pageSize: number) => any` | | 否 |
+| maxPageToShow | 最大可显示页数 | `number`        |          | 否    |
+| onChange      | 翻页回调    | `func`      |          | 否    |
+| className     | 自定义额外类名 | `string`        | `''`     | 否    |
+| prefix        | 自定义前缀   | `string`        | `'zent'` | 否    |
 
 #### 关于 `pageSize` 属性
 
-pageSize 属性支持3种格式：
+`pageSize` 属性支持3种格式：
 
 - number: `30`
 
@@ -38,6 +39,8 @@ pageSize 属性支持3种格式：
 - `[10, 20, { value: 30, isCurrent: true }]`
 
 初始值为 30
+
+> ⚠️ 由于设计上的历史原因：当 `pageSize` 是数组时，切换分页大小时会触发 `onPageSizeChange` 回调。这种场景下请把 `pageSize` 当成一个初始值（不受控），当前选中的分页大小需要单独存储。如果 `onPageSizeChange` 返回 `false` 当前选中的分页大小不会改变。
 
 ### 组件原理
 
