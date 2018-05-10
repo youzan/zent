@@ -87,6 +87,7 @@ declare module 'zent' {
   import Input from 'zent/lib/input';
   import InfiniteScroller from 'zent/lib/infinite-scroller';
   import NumberInput from 'zent/lib/number-input';
+  import Mention from 'zent/lib/mention';
   import Menu from 'zent/lib/menu';
   import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
   import Notify from 'zent/lib/notify';
@@ -149,6 +150,7 @@ declare module 'zent' {
     Input,
     InfiniteScroller,
     NumberInput,
+    Mention,
     Menu,
     MonthPicker,
     Notify,

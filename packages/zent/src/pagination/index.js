@@ -1,11 +1,11 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
+import noop from 'lodash/noop';
+import isFunction from 'lodash/isFunction';
 
 import CorePagination from './modules/CorePagination';
 import Prefix from './modules/Prefix';
-
-// 17.12.14 修改所有报错信息为英文。
 
 const { number, func, string } = PropTypes;
 
@@ -14,6 +14,7 @@ export default class Pagination extends (PureComponent || Component) {
     className: string,
     prefix: string,
     current: number,
+    onChange: func,
     totalItem: number,
     maxPageToShow: number,
     pageSize(conf) {
@@ -40,13 +41,16 @@ export default class Pagination extends (PureComponent || Component) {
         return new Error('PageSize can only be numbers or arrays.');
       }
     },
-    onChange: func,
+
+    // Change callback when pageSize is an array
+    onPageSizeChange: func,
   };
 
   static defaultProps = {
     prefix: 'zent',
     pageSize: 10,
     className: '',
+    onChange: noop,
   };
 
   // 为了能本地动态修改每页个数，得自己缓存pageSize了
@@ -57,9 +61,20 @@ export default class Pagination extends (PureComponent || Component) {
   };
 
   setPageSize = num => {
-    this.setState({
-      currentPageSize: parseInt(num, 10),
-    });
+    const ps = parseInt(num, 10);
+
+    const { onPageSizeChange } = this.props;
+    let shouldChangePageSize = true;
+    if (isFunction(onPageSizeChange)) {
+      shouldChangePageSize = onPageSizeChange(ps);
+    }
+
+    // Don't change page size if onPageSizeChange returns `false`
+    if (shouldChangePageSize !== false) {
+      this.setState({
+        currentPageSize: ps,
+      });
+    }
   };
 
   /**
@@ -145,7 +160,7 @@ export default class Pagination extends (PureComponent || Component) {
             maxPageToShow={maxPageToShow}
             current={current}
             total={totalPage}
-            onChange={this.props.onChange || function() {}}
+            onChange={this.props.onChange}
           />
         )}
       </div>
