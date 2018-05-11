@@ -7,8 +7,9 @@ import unknownProps from '../unknownProps';
 
 class DateRangeQuickPickerWrap extends Component {
   render() {
+    const { wrappedFormat } = this.props;
     const passableProps = omit(this.props, unknownProps);
-    return <DateRangeQuickPicker {...passableProps} />;
+    return <DateRangeQuickPicker {...passableProps} format={wrappedFormat} />;
   }
 }
 

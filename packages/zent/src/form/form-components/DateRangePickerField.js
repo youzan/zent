@@ -7,8 +7,9 @@ import unknownProps from '../unknownProps';
 
 class DateRangePickerWrap extends Component {
   render() {
+    const { wrappedFormat } = this.props;
     const passableProps = omit(this.props, unknownProps);
-    return <DateRangePicker {...passableProps} />;
+    return <DateRangePicker {...passableProps} format={wrappedFormat} />;
   }
 }
 const DateRangePickerField = getControlGroup(DateRangePickerWrap);

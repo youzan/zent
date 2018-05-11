@@ -148,6 +148,7 @@ class FieldForm extends React.Component {
 					label="{i18n.dateRangeText}:"
 					type="split"
 					value={[]}
+					wrappedFormat="YYYY-MM-DD HH:mm:ss"
 					validations={{
 						required(values, value) {
 							return value.length !== 0
