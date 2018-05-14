@@ -133,8 +133,16 @@ function newInstance(props) {
   div.className = `${props.prefix}-loading-container ${props.containerClass}`;
   document.body.appendChild(div);
 
-  // FIXME: loading may be null in React 16
-  let loading = ReactDOM.render(<Loading {...props} />, div);
+  let loading;
+  ReactDOM.render(
+    <Loading
+      {...props}
+      ref={r => {
+        loading = r;
+      }}
+    />,
+    div
+  );
   return {
     show: loading && loading.show,
     container: div,
