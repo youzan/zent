@@ -25,6 +25,7 @@ declare module 'zent/lib/grid' {
     sortType?: 'desc' | 'asc'
     emptyLabel?: string
     selection?: { selectedRowKeys?: Array<string>, onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void, getCheckboxProps?: (data: object) => { disabled?: boolean }}
+    expandation?: { isExpanded?: (record: any, index: number) => boolean, expandRender?: (data: any) => React.ReactNode }
     loading?: boolean
     className?: string
     rowClassName?: string

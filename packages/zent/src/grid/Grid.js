@@ -13,6 +13,7 @@ import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 import size from 'lodash/size';
 import some from 'lodash/some';
+import map from 'lodash/map';
 import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import cloneDeep from 'lodash/cloneDeep';
@@ -47,6 +48,7 @@ class Grid extends (PureComponent || Component) {
     loading: PropTypes.bool,
     pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
     onChange: PropTypes.func,
+    expandation: PropTypes.object,
     selection: PropTypes.object,
     rowKey: PropTypes.string,
     scroll: PropTypes.object,
@@ -64,6 +66,7 @@ class Grid extends (PureComponent || Component) {
     loading: false,
     pageInfo: false,
     onChange: noop,
+    expandation: null,
     selection: null,
     rowKey: 'id',
     emptyLabel: '',
@@ -76,16 +79,38 @@ class Grid extends (PureComponent || Component) {
     super(props);
     this.checkboxPropsCache = {};
     this.store = new Store(props);
+    const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
-      columns: this.getColumns(props, props.columns),
+      columns: this.getColumns(props, props.columns, expandRowKeys),
       selectedRowKeys: get(props, 'selection.selectedRowKeys'),
     });
     this.setScrollPosition('left');
 
     this.state = {
+      mouseOverRowIndex: -1,
       fixedColumnsBodyRowsHeight: [],
       fixedColumnsHeadRowsHeight: [],
+      fixedColumnsBodyExpandRowsHeight: [],
+      expandRowKeys,
     };
+  }
+
+  getExpandRowKeys(props) {
+    const { expandation, datasets } = props;
+    if (expandation) {
+      const { isExpanded } = expandation;
+      const expandRowKeys = datasets.reduce((items, rowData, rowIndex) => {
+        if (typeof isExpanded === 'function') {
+          items[rowIndex] = isExpanded(rowData, rowIndex);
+        } else {
+          items[rowIndex] = false;
+        }
+
+        return items;
+      }, []);
+      return expandRowKeys;
+    }
+    return [];
   }
 
   syncFixedTableRowHeight = () => {
@@ -96,10 +121,15 @@ class Grid extends (PureComponent || Component) {
     }
 
     const { prefix, scroll } = this.props;
-
     const bodyRows =
       (this.bodyTable &&
         this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
+      [];
+    const expandRows =
+      (this.bodyTable &&
+        this.bodyTable.querySelectorAll(
+          `tbody .${prefix}-grid-tr__expanded`
+        )) ||
       [];
 
     let headRows =
@@ -122,12 +152,23 @@ class Grid extends (PureComponent || Component) {
       headRows,
       row => row.getBoundingClientRect().height || 'auto'
     );
+    const fixedColumnsBodyExpandRowsHeight = [].map.call(
+      expandRows,
+      row => row.getBoundingClientRect().height || 'auto'
+    );
     if (
       isEqual(
         this.state.fixedColumnsBodyRowsHeight,
         fixedColumnsBodyRowsHeight
       ) &&
-      isEqual(this.state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight)
+      isEqual(
+        this.state.fixedColumnsHeadRowsHeight,
+        fixedColumnsHeadRowsHeight
+      ) &&
+      isEqual(
+        this.state.fixedColumnsBodyExpandRowsHeight,
+        fixedColumnsBodyExpandRowsHeight
+      )
     ) {
       return;
     }
@@ -135,6 +176,7 @@ class Grid extends (PureComponent || Component) {
     this.setState({
       fixedColumnsBodyRowsHeight,
       fixedColumnsHeadRowsHeight,
+      fixedColumnsBodyExpandRowsHeight,
     });
   };
 
@@ -184,10 +226,42 @@ class Grid extends (PureComponent || Component) {
     );
   };
 
-  getColumns = (props, columns) => {
-    let { selection, datasets } = props || this.props;
-    columns = cloneDeep(columns || this.store.getState('columns'));
+  handleExpandRow = clickRow => () => {
+    const expandRowKeys = map(
+      this.state.expandRowKeys,
+      (row, index) => (index === clickRow ? !row : row)
+    );
+    this.store.setState({
+      columns: this.getColumns(this.props, this.props.columns, expandRowKeys),
+    });
+    this.setState({
+      expandRowKeys,
+    });
+  };
 
+  getExpandBodyRender = expandRowKeys => (rowData, { row }) => {
+    const { prefix } = this.props;
+    return (
+      <span
+        className={
+          expandRowKeys[row]
+            ? `${prefix}-grid-expandable-btn ${prefix}-grid-collapse-btn`
+            : `${prefix}-grid-expandable-btn ${prefix}-grid-expand-btn`
+        }
+        onClick={this.handleExpandRow(row)}
+      />
+    );
+  };
+
+  getColumns = (props, columns, expandRowKeys) => {
+    let { selection, datasets, expandation } = props || this.props;
+    columns = cloneDeep(columns || this.store.getState('columns'));
+    expandRowKeys = expandRowKeys || this.state.expandRowKeys;
+    const hasLeft = columns.some(
+      column => column.fixed === 'left' || column.fixed === true
+    );
+
+    // 判断是否有多选
     if (selection) {
       const data = filter(datasets, (item, index) => {
         const rowIndex = this.getDataKey(item, index);
@@ -219,9 +293,7 @@ class Grid extends (PureComponent || Component) {
         />
       );
 
-      if (
-        columns.some(column => column.fixed === 'left' || column.fixed === true)
-      ) {
+      if (hasLeft) {
         selectionColumn.fixed = 'left';
       }
 
@@ -230,6 +302,19 @@ class Grid extends (PureComponent || Component) {
       } else {
         columns.unshift(selectionColumn);
       }
+    }
+
+    // 判断是否展开
+    if (expandation) {
+      const expandColumn = {
+        key: 'expand-column',
+        width: '20px',
+        bodyRender: this.getExpandBodyRender(expandRowKeys),
+      };
+      if (hasLeft) {
+        expandColumn.fixed = 'left';
+      }
+      columns.unshift(expandColumn);
     }
 
     return columns;
@@ -322,6 +407,12 @@ class Grid extends (PureComponent || Component) {
     }
   };
 
+  onRowMoverOver = mouseOverRowIndex => {
+    this.setState({
+      mouseOverRowIndex,
+    });
+  };
+
   getTable = (options = {}) => {
     const {
       prefix,
@@ -332,9 +423,11 @@ class Grid extends (PureComponent || Component) {
       rowClassName,
       onRowClick,
       ellipsis,
+      expandation,
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
+    const { expandRowKeys } = this.state;
     let tableClassName = '';
     let bodyStyle = {};
     let tableStyle = {};
@@ -366,11 +459,18 @@ class Grid extends (PureComponent || Component) {
         prefix={prefix}
         columns={columns}
         datasets={datasets}
+        expandRowKeys={expandRowKeys}
+        mouseOverRowIndex={this.state.mouseOverRowIndex}
+        onRowMoverOver={this.onRowMoverOver}
         rowClassName={rowClassName}
         onRowClick={onRowClick}
         fixed={fixed}
         scroll={scroll}
+        expandRender={expandation && expandation.expandRender}
         fixedColumnsBodyRowsHeight={this.state.fixedColumnsBodyRowsHeight}
+        fixedColumnsBodyExpandRowsHeight={
+          this.state.fixedColumnsBodyExpandRowsHeight
+        }
       />
     );
     const { y, x } = scroll;

@@ -14,8 +14,14 @@ class Body extends (PureComponent || Component) {
       rowKey,
       rowClassName,
       onRowClick,
+      onRowMoverOver,
+      mouseOverRowIndex,
       fixed,
+      scroll,
+      expandRowKeys,
+      expandRender,
       fixedColumnsBodyRowsHeight,
+      fixedColumnsBodyExpandRowsHeight,
     } = this.props;
     const row = [];
 
@@ -29,20 +35,55 @@ class Body extends (PureComponent || Component) {
           prefix={prefix}
           key={rowKey ? get(data, rowKey) : index}
           rowClassName={rowClassName}
+          mouseOverRowIndex={mouseOverRowIndex}
           onRowClick={onRowClick}
+          onRowMoverOver={onRowMoverOver}
           fixed={fixed}
+          scroll={scroll}
           fixedColumnsBodyRowsHeight={fixedColumnsBodyRowsHeight}
         />
       );
+      if (expandRender && expandRowKeys.length > 0) {
+        const height =
+          fixed && fixedColumnsBodyExpandRowsHeight[index]
+            ? fixedColumnsBodyExpandRowsHeight[index]
+            : null;
+        const trProps = {
+          key: `${index}-expand`,
+          className: `${prefix}-grid-tr__expanded`,
+          style: { display: expandRowKeys[index] ? '' : 'none', height },
+        };
+        if (fixed !== 'right') {
+          row.push(
+            <tr {...trProps}>
+              <td />
+              <td colSpan={columns.length - 1}>{expandRender(data)}</td>
+            </tr>
+          );
+        } else {
+          row.push(
+            <tr {...trProps}>
+              <td colSpan={columns.length} />
+            </tr>
+          );
+        }
+      }
     });
 
     return row;
   }
 
   renderTbody() {
-    const { prefix } = this.props;
+    const { prefix, onRowMoverOver, scroll } = this.props;
 
-    return <tbody className={`${prefix}-grid-tbody`}>{this.getRows()}</tbody>;
+    return (
+      <tbody
+        onMouseLeave={() => scroll && scroll.x && onRowMoverOver(-1)}
+        className={`${prefix}-grid-tbody`}
+      >
+        {this.getRows()}
+      </tbody>
+    );
   }
 
   render() {
