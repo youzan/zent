@@ -74,7 +74,7 @@ class Grid extends (PureComponent || Component) {
     scroll: {},
     onRowClick: noop,
     ellipsis: false,
-    onExpand: null,
+    onExpand: noop,
   };
 
   constructor(props) {
