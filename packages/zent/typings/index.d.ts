@@ -1,5 +1,3 @@
-import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
-
 // TypeScript Version: 2.3
 
 /// <reference types="react" />
