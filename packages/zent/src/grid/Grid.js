@@ -74,7 +74,7 @@ class Grid extends (PureComponent || Component) {
     scroll: {},
     onRowClick: noop,
     ellipsis: false,
-    onExpand: null
+    onExpand: null,
   };
 
   constructor(props) {
@@ -228,8 +228,8 @@ class Grid extends (PureComponent || Component) {
     );
   };
 
-  handleExpandRow = (clickRow, rowData) => (e) => {
-    const { onExpand } = this.props
+  handleExpandRow = (clickRow, rowData) => e => {
+    const { onExpand } = this.props;
     const expandRowKeys = map(
       this.state.expandRowKeys,
       (row, index) => (index === clickRow ? !row : row)
@@ -241,7 +241,7 @@ class Grid extends (PureComponent || Component) {
       expandRowKeys,
     });
     if (onExpand && typeof onExpand === 'function') {
-      onExpand(expandRowKeys[clickRow], rowData, e, clickRow)
+      onExpand(expandRowKeys[clickRow], rowData, e, clickRow);
     }
   };
 
@@ -686,8 +686,8 @@ class Grid extends (PureComponent || Component) {
     ) {
       this.CheckboxPropsCache = {};
       this.setState({
-        expandRowKeys: this.getExpandRowKeys(nextProps)
-      })
+        expandRowKeys: this.getExpandRowKeys(nextProps),
+      });
     }
   }
 
