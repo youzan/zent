@@ -104,7 +104,7 @@ declare module 'zent' {
   import SKU from 'zent/lib/sku';
   import Slider from 'zent/lib/slider';
   import Sortable from 'zent/lib/sortable';
-  import SplitButton from 'zent/lib/split-button';
+  import SplitButton from 'zent/lib/splitButton';
   import Steps from 'zent/lib/steps';
   import Sweetalert from 'zent/lib/sweetalert';
   import Swiper from 'zent/lib/swiper';
