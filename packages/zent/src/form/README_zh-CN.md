@@ -30,7 +30,7 @@ scatter: true
 `Field` 组件本质上是一个辅助性的组件，不提供任何样式，只负责管理表单元素 value 值的生命周期和表单元素的 error 等信息。
 
 - `Field` 必须要有 `name` 属性；
-- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，`FormDateRangeQuickPickerField`，也可以使用单独封装的自定义表单元素组件。注： `FormDateRangePickerField` 与 `FormDateRangeQuickPickerField` 组件中的 `format` 属性名称变更为 `dateFormat` ，使用方法参考 demo ；
+- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，`FormDateRangeQuickPickerField`，也可以使用单独封装的自定义表单元素组件。注： `FormDateRangePickerField` 与 `FormDateRangeQuickPickerField` 组件中的 `format` 属性因为名称和 `Field` 上的属性冲突，变更为 `dateFormat` ，使用方法参考 demo；
 - `Form` 组件提供了 `getControlGroup` 方法，可以快速封装自定义表单元素组件，使用方法参考 demo 和 [`getControlGroup` API](#form-getcontrolgroup) 。
 
 <!-- demo-slot-1 -->
