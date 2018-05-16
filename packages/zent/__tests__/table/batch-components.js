@@ -1,7 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import BatchComponents from './comp/batch-components';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('BatchComponents', () => {
   let wrapper;

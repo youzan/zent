@@ -7,11 +7,7 @@ en-US:
 ---
 
 ```jsx
-import { CopyButton, Button } from 'zent';
+import { CopyButton } from 'zent';
 
-ReactDOM.render(
-	<div>
-		<CopyButton text="foobar quux" />
-	</div>
-	, mountNode);
+ReactDOM.render(<CopyButton text="basic usage" />, mountNode);
 ```

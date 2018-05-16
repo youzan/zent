@@ -51,7 +51,6 @@ export default class TimePicker extends (PureComponent || Component) {
     hourStep: PropTypes.number,
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
-
     onBeforeConfirm: PropTypes.func,
   };
 
@@ -396,6 +395,8 @@ export default class TimePicker extends (PureComponent || Component) {
         placeholder,
         value,
         canClear,
+        onFocus,
+        onBlur,
       },
       state: { isPanelOpen },
     } = this;
@@ -435,6 +436,8 @@ export default class TimePicker extends (PureComponent || Component) {
                     value={formattedValue}
                     placeholder={placeholder || i18n.time}
                     onChange={noop}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-clock-o" />

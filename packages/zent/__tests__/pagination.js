@@ -1,6 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Pagination from 'pagination';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Pagination', () => {
   it('Paginatio will render a default structure with some custom props', () => {
@@ -24,7 +27,6 @@ describe('Pagination', () => {
      *       input.pager__input
      *       span.pager__suffix
      */
-    expect(wrapper.children().length).toBe(2);
     expect(wrapper.find('.zent-pagination__info').length).toBe(1);
     expect(wrapper.find('.zent-pagination__info').children().length).toBe(1);
     expect(wrapper.find('.pagination-list').length).toBe(1);
@@ -191,7 +193,7 @@ describe('Pagination', () => {
         maxPageToshow={100}
       />
     );
-    expect(wrapper.find('.zent-select').length).toBe(1);
+    expect(wrapper.find('Select').length).toBe(1);
     expect(wrapper.find('.pager').length).toBe(8);
     expect(
       wrapper
@@ -241,7 +243,10 @@ describe('Pagination', () => {
     expect(wrapper.prop('current')).toBe(2);
     expect(wrapper.state('currentPageSize')).toBe(10);
 
-    wrapper.find('Prefix').node.changePageSize(null, { text: '20' });
+    wrapper
+      .find('Prefix')
+      .instance()
+      .changePageSize(null, { text: '20' });
     expect(wrapper.state('currentPageSize')).toBe(20);
   });
 
@@ -369,5 +374,37 @@ describe('Pagination', () => {
         .at(6)
         .hasClass('pager--disabled')
     ).toBe(true);
+  });
+
+  it('has onPageSizeChange callback', () => {
+    const onPageSizeChange = jest.fn();
+    const wrapper = mount(
+      <Pagination
+        totalItem={100}
+        pageSize={[10, 20]}
+        onPageSizeChange={onPageSizeChange}
+        current={1}
+        maxPageToshow={10}
+      />
+    );
+    wrapper.instance().setPageSize(20);
+    expect(onPageSizeChange.mock.calls.length).toBe(1);
+    expect(wrapper.state('currentPageSize')).toBe(20);
+  });
+
+  it('onPageSizeChange callback can stop page size change', () => {
+    const onPageSizeChange = jest.fn(() => false);
+    const wrapper = mount(
+      <Pagination
+        totalItem={100}
+        pageSize={[10, 20]}
+        onPageSizeChange={onPageSizeChange}
+        current={1}
+        maxPageToshow={10}
+      />
+    );
+    wrapper.instance().setPageSize(20);
+    expect(onPageSizeChange.mock.calls.length).toBe(1);
+    expect(wrapper.state('currentPageSize')).toBe(10);
   });
 });

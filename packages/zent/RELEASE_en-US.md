@@ -7,15 +7,70 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 5.1.1 (2018-04-19)
+
+- 🦀️ Fix missing `Dialog` close animation in some cases
+- 🦀️ Fix incorrect `Table` cell width
+- 🦀️ Allow non `ControlGroup` in `Form` when scrolling to first error
+- ✨ Upgrade `lerna` to latest version
+
+### 5.1.0 (2018-04-17)
+
+- 🎉 New component `ErrorBoundary`, requires `React` >= 16
+- 🎉 New component `SplitButton`
+- ✨ `previewImage` now supports image zoom
+- ✨ `BlockHeader` adds a new prop `childAlign` to control child position
+- ✨ Refactor `Portal`, add `PurePortal` and `LayeredPortal`
+- ✨ Upgrade DnD library in `Design`
+- ✨ Add open/close animation to `Dialog`
+- `YearPicker`
+  - ✨ Add  `max` and `min` support
+  - ✨ `value` supports `Date` type
+- 🦀️ Fix `Loading` `height` ignored in some cases
+- 🦀️ Fix `BlockHeader` style
+- 🦀️ Fix `Popover` wrong position in `React` 16
+- 🦀️ Fix `Form` `asyncValidate` not returning `Promise` in some cases
+- 🦀️ Fix `Pagination` style
+- 🦀️ `tag` mode in `Select` will not scroll when content overflows
+- 🦀️ Fix `Cascader` tests in `React` 16
+- 📚 Update screenshots in docs
+
+### 5.0.1 (2018-03-20)
+
+- 🦀️ Fix text overflow issues in `WeekPicker`
+- 🦀️ Fix some build issues
+
+### 5.0.0 (2018-03-16)
+
+> ⚠️ `Upload` is broken in this version, do NOT use.
+
+> `React` 16 is now offically supported.
+
+- 🎉 Upgrade to `React` 16
+- `Button`
+  - ✨ Add support for `Icons`
+  - ✨ New `Button.Group` component
+- ✨ `Steps` now has a new state: `process`, and default state value is changed to `process`
+- 🦀️ Fix height bug in `Loading`
+- 🦀️ Fix `BlockHeader` style
+- `Tree`
+  - 🦀️ Fix `expand` not working
+  - 📚 Add doc about `loadMore`
+- `Upload`
+  - ✨ Allow custom error messages through `errorMessages`
+  - 🦀️ Move CSS class name to `zent-upload` namespace
+
 ### 4.3.2 (2018-03-07)
 
 - 🦀️ Update `Loading` height logic
-- 🦀️ Fix text in `Paginatin`
+- 🦀️ Fix text in `Pagination`
 - 🦀️ Fix bugs when using nested `Radio` and `Checkbox`
 - 🦀️ `Radio` and `Checkbox` will ignore `readonly` and `disabled` settings on itself if it is within a group
 - 🦀️ Fix `Upload` style issues
 
 ### 4.3.1 (2018-03-05)
+
+> ⚠️ `Loading` style is broken in this version, do NOT use.
 
 - 🦀️ Fix wrong placeholder indentation when using tag style in `Select`
 - 🦀️ Fix calling `adjustPosition` in `Popover` in some cases
@@ -45,16 +100,16 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 4.2.1 (2018-02-06)
 
-Do NOT use this version, use 4.2.1 instead.
+> ⚠️ Styles are broken due to a building problem in this version, do NOT use.
 
 - 🦀️ Fix `Upload` file type bug
 
 ### 4.2.0 (2018-02-05)
 
-Do NOT use this version, use 4.2.1 instead.
+> ⚠️ Styles are broken due to a building problem in this version, do NOT use.
 
 - 🎉 New component `Avatar`
-- 🎉 New component `Collpase`
+- 🎉 New component `Collapase`
 - ✨ `Menu` adds inline style
 - ✨ `Cascader` adds menu style
 - ✨ `Input` adds `fromClearButton` in callback event

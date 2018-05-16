@@ -3,10 +3,7 @@
 #### Setup Environment
 
 ```bash
-yarn
-yarn run bootstrap
-
-cd site && yarn
+yarn bootstrap
 ```
 
 #### Code Structure
@@ -52,7 +49,13 @@ Remember to add TypeScript definitions in `packages/zent/typings` for your new c
 Beside the unit tests in `__tests__`, remember to update documentation whenever you make a change.
 
 ```bash
-cd site && yarn dev
+yarn dev
+```
+
+There's a separate command to run tests for only one component at a time.
+
+```bash
+yarn test-componet button
 ```
 
 ## How to Write Documentation

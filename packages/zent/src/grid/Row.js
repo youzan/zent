@@ -12,8 +12,11 @@ class Row extends (PureComponent || Component) {
       data,
       rowIndex,
       rowClassName,
+      mouseOverRowIndex,
       onRowClick,
+      onRowMoverOver,
       fixed,
+      scroll,
       fixedColumnsBodyRowsHeight,
     } = this.props;
 
@@ -48,8 +51,11 @@ class Row extends (PureComponent || Component) {
 
     return (
       <tr
-        className={classnames(`${prefix}-grid-tr`, className)}
+        className={classnames(`${prefix}-grid-tr`, className, {
+          [`${prefix}-grid-tr__mouseover`]: mouseOverRowIndex === rowIndex,
+        })}
         onClick={e => onRowClick(data, rowIndex, e)}
+        onMouseOver={() => scroll && scroll.x && onRowMoverOver(rowIndex)}
         style={{ height }}
       >
         {cells}

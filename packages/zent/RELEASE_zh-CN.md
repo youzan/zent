@@ -7,15 +7,70 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 5.1.1 (2018-04-19)
+
+- 🦀️ 修复 `Dialog` 某些情况下关闭的时候没有动画的问题
+- 🦀️ 修复 `Table` 单元格宽度超出设置值的问题
+- 🦀️ `Form` 滚动到第一个错误位置时允许非 `ControlGroup` 封装的 `Field`
+- ✨ 升级 `lerna` 到最新版
+
+### 5.1.0 (2018-04-17)
+
+- 🎉 新组件 `ErrorBoundary`，需要 `React` >= 16
+- 🎉 新组件 `SplitButton`
+- ✨ `previewImage` 支持图片缩放
+- ✨ `BlockHeader` 增加 `childAlign` 属性，支持子元素靠右侧显示
+- ✨ `Portal` 组件重构，新增 `PurePortal` 和 `LayeredPortal`
+- ✨ 升级 `Design` 组件的拖拽库
+- ✨ `Dialog` 增加打开/关闭动画
+- `YearPicker`
+  - ✨ 支持设置 `max` 和 `min`
+  - ✨ `value` 支持 `Date` 类型
+- 🦀️ 修复 `height` 在 `Loading` 不显示的时候被忽略的问题
+- 🦀️ 修复 `BlockHeader` 弹层样式
+- 🦀️ 修复 `Popover` 在 `React` 16 下位置计算不正确的问题
+- 🦀️ 修复 `Form` 组件 `asyncValidate` 的返回值在某些条件下不是 `Promise` 的问题
+- 🦀️ 修复 `Pagination` 样式问题
+- 🦀️ `Select` 的 `tag` 模式会撑大内容区域，而不是出现滚动条
+- 🦀️ `Cascader` 单测兼容 `React` 16
+- 📚 更新文档网站中英文截图
+
+### 5.0.1 (2018-03-20)
+
+- 🦀️ 修复 `WeekPicker` 文字溢出问题
+- 🦀️ 修复了一些打包问题
+
+### 5.0.0 (2018-03-16)
+
+> ⚠️ 这个版本 `Upload` 组件有问题，请不要使用。
+
+> 从这个版本开始正式支持 `React` 16，后续开发都将基于 16。
+
+- 🎉 升级 `React` 以及 `Enzyme` 到最新版本，正式支持 `React` 16
+- `Button`
+  - ✨ 添加对图标的支持
+  - ✨ 新增 `Button.Group` 容器
+- ✨ `Steps` 组件新增一个 `process` 状态，并且默认值也修改为 `process`
+- 🦀️ 修复 `Loading` 组件高度问题
+- 🦀️ 更新 `BlockHeader` 组件样式
+- `Tree`
+  - 🦀️ 修复节点 `expand` 不生效的问题
+  - 📚 补充 `loadMore` 的文档
+- `Upload`
+  - ✨ 允许通过 `errorMessages` 参数自定义错误提示文案
+  - 🦀️ 收敛 CSS 的类名，降低冲突风险
+
 ### 4.3.2 (2018-03-07)
 
 - 🦀️ 更新 `Loading` 组件高度设置逻辑
-- 🦀️ 修复 `Paginatin` 文案
+- 🦀️ 修复 `Pagination` 文案
 - 🦀️ 修复 `Radio` 和 `Checkbox` 组件嵌套使用时的问题
 - 🦀️ `Radio` 和 `Checkbox` 的分组组件只读或禁用时会忽略组件自身的设置
 - 🦀️ 修复 `Upload` 组件样式问题
 
 ### 4.3.1 (2018-03-05)
+
+> ⚠️ 这个版本 `Loading` 组件样式有问题，请不要使用。
 
 - 🦀️ 修复 `Select` 组件在标签样式下 placeholder 缩进不一致的问题
 - 🦀️ 修复 `Popover` 在特定情况下循环调用 `adjustPosition` 的问题
@@ -45,22 +100,22 @@
 
 ### 4.2.1 (2018-02-06)
 
-请不要使用这个版本，用 4.2.2。
+> ⚠️ 这个版本 CSS 打包有问题，请不要使用。
 
 - 🦀️ 修复 `Upload` 文件类型判断问题
 
 ### 4.2.0 (2018-02-05)
 
-请不要使用这个版本，用 4.2.2。
+> ⚠️ 这个版本 CSS 打包有问题，请不要使用。
 
 - 🎉 新组件 `Avatar`
-- 🎉 新组件 `Collpase`
+- 🎉 新组件 `Collapase`
 - ✨ `Menu` 增加内联模式
 - ✨ `Cascader` 支持菜单样式
 - ✨ `Input` 清空按钮的回调函数中加入判断来自按钮的参数
 - ✨ 补全各个时间选择器的 `TypeScript` 定义
 - ✨ `Badge` 组件支持自定义偏移量
-- ✨ `NumberInput` 支持回车确认输入 
+- ✨ `NumberInput` 支持回车确认输入
 - ✨ `Upload` 的 `onUpload` 回调支持返回一个 `Promise`
 - 🦀️ 修复 `Sortable` 中 `onMove`, `onEnd` 与 `onChange` 同时传入时的问题
 - 🦀️ 修复 `Form` 中的多行文本框无法换行的问题
@@ -88,7 +143,7 @@
 ### 4.0.0 (2018-01-23)
 
 - 💥 `DateRangePicker` 不再支持合并模式，`type` 参数废弃，升级请注意样式
-- `Upload` 
+- `Upload`
   - ✨ 支持分组功能
   - ✨ 国际化支持
 - ✨ `Menu` 支持图标展示

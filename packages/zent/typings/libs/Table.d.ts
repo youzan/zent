@@ -21,7 +21,7 @@ declare module 'zent/lib/table' {
     selection?: { selectedRowKeys?: Array<string>, onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void }
     loading?: boolean
     getRowConf?: (data: Object, index: number) => { canSelect: boolean, rowClass: string }
-    expandation?: { isExpanded?: boolean, expandRender?: (data: any) => React.ReactNode }
+    expandation?: { isExpanded?: (record: any, index: number) => boolean, expandRender?: (data: any) => React.ReactNode }
     autoStick?: boolean
     autoScroll?: boolean
     className?: string

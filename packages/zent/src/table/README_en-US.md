@@ -101,8 +101,8 @@ onChange will throw an object containing pagination and sorting parameters：
 
 | Props              | Description              | Type    |  Default | Required |
 | --------------- | --------------- | ----- | ---- | ----- |
-| isExpanded | Whether to expand the current row | bool | `false` | no    |
-| expandRender        | Render function of expanded row's additional content | func  |  | no  
+| isExpanded | Whether to expand the current row | func(record, index) |  | no    |
+| expandRender        | Render function of expanded row's additional content | func(record)  |  | no  
 
 <style>
   .row {

@@ -51,8 +51,7 @@ export default class Step extends (PureComponent || Component) {
 
     const classString = classNames({
       [`${prefix}-steps-item`]: true,
-      [`${prefix}-steps-status-finish`]: status === 'finish',
-      [`${prefix}-steps-status-error`]: status === 'error',
+      [`${prefix}-steps-status-${status}`]: true,
       'is-current': isCurrentStep,
       'is-last-finish': isLastFinishStep,
     });

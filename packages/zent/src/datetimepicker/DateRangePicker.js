@@ -29,7 +29,6 @@ class DateRangePicker extends (PureComponent || Component) {
     defaultTime: PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     ),
-    valueType: PropTypes.oneOf(['string', 'number', 'date']),
   };
 
   static defaultProps = {
@@ -127,7 +126,7 @@ class DateRangePicker extends (PureComponent || Component) {
 
   render() {
     const { prefix, className } = this.props;
-    const prefixCls = `${prefix}-datetime-picker ${className}`;
+    const prefixCls = cx(`${prefix}-datetime-picker`, className);
 
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }

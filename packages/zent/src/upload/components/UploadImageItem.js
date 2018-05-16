@@ -35,30 +35,35 @@ class UploadImageItem extends (PureComponent || Component) {
   };
 
   render() {
-    let { progress, src, index } = this.props;
+    let { progress, src, index, prefix } = this.props;
 
     let { hideDeleteIcon } = this.state;
 
     return (
       <li
-        className="upload-local-image-item"
+        className={`${prefix}-image-item`}
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
         data-id={index}
       >
         <div
-          className="image-box"
+          className={`${prefix}-image-item__box`}
           style={{
             backgroundImage: `url(${src})`,
           }}
         />
         {!hideDeleteIcon && (
-          <span className="close-modal small" onClick={this.handleRemove}>
+          <span
+            className={`${prefix}__close-modal`}
+            onClick={this.handleRemove}
+          >
             ×
           </span>
         )}
         {progress && (
-          <div className="image-progress">{`${progress.toFixed(1)}%`}</div>
+          <div
+            className={`${prefix}-image-item__progress`}
+          >{`${progress.toFixed(1)}%`}</div>
         )}
       </li>
     );

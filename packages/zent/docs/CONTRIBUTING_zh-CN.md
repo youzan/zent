@@ -3,10 +3,7 @@
 #### 初始化项目:
 
 ```bash
-yarn
-yarn run bootstrap
-
-cd site && yarn
+yarn bootstrap
 ```
 
 #### 代码目录结构
@@ -54,7 +51,13 @@ packages/zent
 我们的原则是：文档即代码。
 
 ```bash
-cd site && yarn dev
+yarn dev
+```
+
+我们另外提供了一个命令用来运行单个组件的测试用例，传入组件在 `__tests__` 下的目录名或者文件名即可。
+
+```bash
+yarn test-component button
 ```
 
 ## 组件文档如何编写

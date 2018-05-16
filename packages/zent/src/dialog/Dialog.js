@@ -2,11 +2,24 @@ import React, { Component, PureComponent } from 'react';
 import Portal from 'portal';
 import PropTypes from 'prop-types';
 
+import animatedClosable from 'utils/component/animatedClosable';
 import DialogEl from './DialogEl';
 
 const { withNonScrollable, withESCToClose } = Portal;
 const DialogPortal = withNonScrollable(Portal);
-const DialogPortalESCToClose = withESCToClose(DialogPortal);
+const DialogPortalESCToClose = animatedClosable(withESCToClose(DialogPortal));
+
+const TIMEOUT = 300; // ms
+
+let mousePosition = null;
+
+// Inspired by antd and rc-dialog
+document.documentElement.addEventListener('click', e => {
+  mousePosition = {
+    x: e.clientX,
+    y: e.clientY,
+  };
+});
 
 export default class Dialog extends (PureComponent || Component) {
   static propTypes = {
@@ -35,8 +48,10 @@ export default class Dialog extends (PureComponent || Component) {
     footer: null,
   };
 
+  lastMousePosition = null;
+
   onClose = e => {
-    this.props.onClose(e);
+    this.props.onClose && this.props.onClose(e);
   };
 
   render() {
@@ -48,16 +63,32 @@ export default class Dialog extends (PureComponent || Component) {
       ...style,
     };
 
+    if (visible) {
+      this.lastMousePosition = this.lastMousePosition || mousePosition;
+    } else {
+      this.lastMousePosition = null;
+    }
+
     // 有关闭按钮的时候同时具有ESC关闭的行为
     const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
 
     return (
+      // Here use animatedClosable to unmount content after a timeout.
+      // Yet do not refClose here, call refClose in DialogEl instead.
       <PortalComponent
+        open={visible}
         visible={visible}
         onClose={this.onClose}
         className={`${prefix}-dialog-r-anchor`}
+        timeout={TIMEOUT} // animation timeout
       >
-        <DialogEl {...this.props} onClose={this.onClose} style={elStyle}>
+        <DialogEl
+          {...this.props}
+          onClose={this.onClose}
+          style={elStyle}
+          timeout={TIMEOUT}
+          mousePosition={this.lastMousePosition}
+        >
           {this.props.children}
         </DialogEl>
       </PortalComponent>

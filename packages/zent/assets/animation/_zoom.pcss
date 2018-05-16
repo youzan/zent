@@ -1,0 +1,40 @@
+.zent-zoom-appear,
+.zent-zoom-exit {
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.zent-zoom-appear.zent-zoom-appear-active {
+  animation-play-state: running;
+  animation-name: zentZoomIn;
+  animation-duration: 0.3s;
+}
+
+.zent-zoom-exit.zent-zoom-exit-active {
+  animation-play-state: running;
+  animation-name: zentZoomOut;
+  animation-duration: 0.3s;
+}
+
+@keyframes zentZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zentZoomOut {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}

@@ -2,7 +2,7 @@
 
 set -e
 
-lerna clean --yes
-
-cd packages/zent && yarn && yarn build
-cd ../babel-plugin-zent && yarn && yarn build
+yarn
+pushd packages/zent && yarn && yarn build && popd
+pushd packages/babel-plugin-zent && yarn && yarn build && popd
+pushd site && yarn && popd

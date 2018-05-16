@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Rate from 'rate';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Rate', () => {
   it('can have custom wrapper classNames and prefix', () => {
@@ -31,6 +34,7 @@ describe('Rate', () => {
       wrapper
         .find('Rate')
         .at(0)
+        .children()
         .hasClass('zent-rate')
     ).toBe(true);
     expect(wrapper.find('.zent-rate-star').length).toBe(5);
@@ -60,6 +64,7 @@ describe('Rate', () => {
       wrapper
         .find('Star')
         .at(2)
+        .children()
         .hasClass('zent-rate-star-half')
     ).toBe(true);
   });

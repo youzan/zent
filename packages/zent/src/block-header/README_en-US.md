@@ -17,4 +17,5 @@ This is a block header.
 | title          | title               | string            |         |              |
 | tooltip        | content of the pop         | node             |          |             |
 | content        | custom content       | node             |            |           |
+| childAlign     | popsition of children | string | `'left'`  | `'left'、'right'` |
 | position       | pop position       | string           | 'top-right' |          |

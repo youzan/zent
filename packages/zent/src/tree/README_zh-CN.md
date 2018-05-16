@@ -36,6 +36,7 @@ group: 导航
 | autoExpandOnSelect  | 点击节点是否展开                                              | bool               | `true`      |                      |
 | onSelect            | 选择树的一个节点的回调函数                                      | func(data, target) |            |                      |
 | isRoot              | plain数据类型，判断节点是否为根节点的api                         | func(node)         |            |                      |
+| loadMore            | 返回Promise的函数，必须支持then的回调, 用于节点异步加载更多内容     | func(data)         |            |                      |
 
 #### data
 

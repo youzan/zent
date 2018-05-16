@@ -326,13 +326,14 @@ class WeekPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
+        onFocus,
+        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
 
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
-    const inputCls = cx({
-      'picker-input': true,
+    const inputCls = cx('picker-input', 'week-picker-input', {
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled,
     });
@@ -363,6 +364,8 @@ class WeekPicker extends (PureComponent || Component) {
                         : value.join(` ${i18n.to} `)
                     }
                     onChange={noop}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     disabled={disabled}
                   />
 

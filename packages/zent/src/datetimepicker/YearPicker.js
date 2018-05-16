@@ -18,6 +18,14 @@ import {
   commonPropTypes,
 } from './constants';
 
+function getYear(val) {
+  if (val instanceof Date) {
+    return val.getFullYear();
+  }
+
+  return val;
+}
+
 function extractStateFromProps(props) {
   let showPlaceholder;
   let selected;
@@ -86,7 +94,10 @@ class YearPicker extends (PureComponent || Component) {
 
   onSelectYear = val => {
     if (this.isDisabled(val)) return;
-    const { props: { isFooterVisble, onChange }, state: { actived } } = this;
+    const {
+      props: { isFooterVisble, onChange },
+      state: { actived },
+    } = this;
     const acp = new Date(actived);
     acp.setFullYear(val);
 
@@ -112,7 +123,10 @@ class YearPicker extends (PureComponent || Component) {
   };
 
   onConfirm = () => {
-    const { props: { format, onChange }, state: { selected } } = this;
+    const {
+      props: { format, onChange },
+      state: { selected },
+    } = this;
 
     let value = '';
     if (selected) {
@@ -128,11 +142,11 @@ class YearPicker extends (PureComponent || Component) {
   };
 
   isDisabled = val => {
-    const { disabledDate, min, max } = this.props;
+    let { disabledDate, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
-    if (min && +val < +min) return true;
-    if (max && +val > +max) return true;
+    if (min && +val < +getYear(min)) return true;
+    if (max && +val > +getYear(max)) return true;
 
     return false;
   };
@@ -195,6 +209,8 @@ class YearPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
+        onFocus,
+        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -224,6 +240,8 @@ class YearPicker extends (PureComponent || Component) {
                     name={name}
                     value={showPlaceholder ? placeholder || i18n.year : value}
                     onChange={noop}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                     disabled={disabled}
                   />
                 )}

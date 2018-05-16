@@ -1,5 +1,5 @@
 @import './theme/default.pcss';
-@import '_popup-menu.pcss';
+@import './mixins/index.pcss';
 $c-border: $theme-stroke-5;
 $c-light-border: $theme-stroke-7;
 $c-white: $theme-stroke-10;
@@ -101,7 +101,7 @@ $errorBorderColor: $theme-error-2;
 
 .zent-select-tags {
   padding: 2px 5px;
-  overflow-y: auto;
+  max-height: none;
   line-height: 24px;
 
   &::-webkit-scrollbar {

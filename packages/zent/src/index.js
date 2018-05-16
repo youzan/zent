@@ -1,7 +1,7 @@
 import Affix from 'affix';
 import Alert from 'alert';
-import Avatar from 'avatar';
 import AutoComplete from 'auto-complete';
+import Avatar from 'avatar';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
 import Breadcrumb from 'breadcrumb';
@@ -17,6 +17,7 @@ import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
 import Design from 'design';
 import Dialog from 'dialog';
+import ErrorBoundary from 'error-boundary';
 import Form from 'form';
 import Grid from 'grid';
 import I18nProvider from 'i18n';
@@ -25,6 +26,7 @@ import InfiniteScroller from 'infinite-scroller';
 import Input from 'input';
 import Layout from 'layout';
 import Loading from 'loading';
+import Mention from 'mention';
 import Menu from 'menu';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
@@ -41,9 +43,11 @@ import Radio from 'radio';
 import Rate from 'rate';
 import SearchInput from 'search-input';
 import Select from 'select';
+import SelectMenu from 'select-menu'; // eslint-disable-line
 import SKU from 'sku';
 import Slider from 'slider';
 import Sortable from 'sortable';
+import SplitButton from 'split-button';
 import Steps from 'steps';
 import Sweetalert from 'sweetalert';
 import Swiper from 'swiper';
@@ -61,8 +65,8 @@ import YearPicker from 'datetimepicker/YearPicker';
 export {
   Affix,
   Alert,
-  Avatar,
   AutoComplete,
+  Avatar,
   Badge,
   BlockHeader,
   Breadcrumb,
@@ -78,6 +82,7 @@ export {
   DateRangeQuickPicker,
   Design,
   Dialog,
+  ErrorBoundary,
   Form,
   Grid,
   I18nProvider,
@@ -86,6 +91,7 @@ export {
   Input,
   Layout,
   Loading,
+  Mention,
   Menu,
   MonthPicker,
   Notify,
@@ -102,9 +108,11 @@ export {
   Rate,
   SearchInput,
   Select,
+  // SelectMenu,
   SKU,
   Slider,
   Sortable,
+  SplitButton,
   Steps,
   Sweetalert,
   Swiper,

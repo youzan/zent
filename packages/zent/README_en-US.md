@@ -2,13 +2,13 @@
 
 Zent ( \ˈzent\ ) is a React component library developed and used at Youzan. Zent provides a collection of essential UI components and lots of useful domain specific components.
 
-We have more than 40 components for now and we're releasing more.
+We have more than 50 components for now and we're releasing more.
 
 Our goal is making React development faster and simpler.
 
 ### Showcase
 
-![zent-components](https://img.yzcdn.cn/zanui/react/zent-components.png)
+![zent-components](https://img.yzcdn.cn/public_files/2018/04/17/ab32128950146c5932c267cbc19f9363.png)
 
 ### Features
 
@@ -22,6 +22,7 @@ Our goal is making React development faster and simpler.
 
 ### Supported Environments
 
+* React >= 15.6
 * Modern browsers and IE >= 11
 * Supports server-side rendering(SSR)
 
@@ -60,7 +61,7 @@ You can find detailed instructions in its [documentation](babel-plugin-zent).
 
 <style>
 img[alt="zent-components"] {
-  width: 849px; 
-  height: 327px;
+  width: 523px;
+  height: 435px;
 }
 </style>
