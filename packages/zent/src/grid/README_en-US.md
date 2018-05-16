@@ -15,7 +15,7 @@ The function of the component is similar to the function of [Table](table) compo
 | columns      | columns                                                                                                    | array                                                |             | Yes      |
 | datasets     | data to be displayed                                                                                       | array                                                |             | Yes      |
 | rowKey       | key for each row                                                                                           | string                                               | `id`        | No       |
-| onChange     | callback fires when columns change, filtering and sorting included                                         | (conf: any) => void                                  | `noop`      | No       |
+| onChange     | callback fires when columns change, filtering and sorting included                                         | (conf: any) => any                                  | `noop`      | No       |
 | scroll       | can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body | { x?: number, y?: number }                           |             | No       |
 | sortBy       | the field which rows are sorted accoring to, should be one of keys for columns                             | string                                               | ''          | No       |
 | sortType     | The way to sort                                                                                            | string                                               | ''          | No       |
@@ -27,7 +27,7 @@ The function of the component is similar to the function of [Table](table) compo
 | rowClassName | class name for row                                                                                         | string \| (data: object, rowIndex: number) => string | ''          | No       |
 | prefix       | custom prefix                                                                                              | string                                               | `'zent'`    | No       |
 | pageInfo     | pagination information                                                                                     | object                                               | null        | No       |
-| onRowClick   | callback fires when a row is clicked                                                                       | (data: any, index: number, event: Event) => null     |             | No       |
+| onRowClick   | callback fires when a row is clicked                                                                       | (data: any, index: number, event: Event) => any     |             | No       |
 | ellipsis     | whether ellipsis should be displayed when content overflows (nowrap of columns needs to be set)            | bool                                                 | false       | No       |
 
 #### onChange function declaration
