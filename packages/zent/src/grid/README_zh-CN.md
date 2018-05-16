@@ -30,6 +30,7 @@ group: 导航
 | pageInfo   | table对应的分页信息               | object        | null   | 否  |
 | onRowClick | 点击行时触发                      | func(data, index, event) | | 否 |
 | ellipsis   | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool | false | 否 |
+| onExpand   | 点击展开图标时触发                 | func(expanded, data, event, index) | | 否 |
 
 #### onChange函数声明
 onChange会抛出一个对象，这个对象包含分页变化的参数：
