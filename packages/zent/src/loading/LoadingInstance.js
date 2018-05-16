@@ -133,20 +133,20 @@ function newInstance(props) {
   div.className = `${props.prefix}-loading-container ${props.containerClass}`;
   document.body.appendChild(div);
 
-  let loading;
+  let output = {
+    show: null,
+    container: div,
+  };
   ReactDOM.render(
     <Loading
       {...props}
       ref={r => {
-        loading = r;
+        output.show = r && r.show;
       }}
     />,
     div
   );
-  return {
-    show: loading && loading.show,
-    container: div,
-  };
+  return output;
 }
 
 // FIXME: remove support for props.static
