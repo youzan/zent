@@ -7,7 +7,7 @@ en-US:
 ---
 
 ```js
-import { Grid, Notify } from 'zent';
+import { Grid } from 'zent';
 
 const datasets = [{
   item_id: '5024217',
@@ -68,8 +68,8 @@ class RowClass extends React.Component {
     this.setState(conf);
   }
 
-  onExpand = (expanded, data, e, index) => {
-    Notify.success(`{expanded: ${expanded}, data: ${JSON.stringify(data)}, index: ${index}}`);
+  onExpand = (conf) => {
+    console.log(conf);
   }
   render() {
     return (

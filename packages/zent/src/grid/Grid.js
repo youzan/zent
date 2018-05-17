@@ -240,8 +240,13 @@ class Grid extends (PureComponent || Component) {
     this.setState({
       expandRowKeys,
     });
-    if (onExpand && typeof onExpand === 'function') {
-      onExpand(expandRowKeys[clickRow], rowData, e, clickRow);
+    if (isFunction(onExpand)) {
+      onExpand({
+        expanded: expandRowKeys[clickRow],
+        data: rowData,
+        event: e,
+        index: clickRow,
+      });
     }
   };
 
