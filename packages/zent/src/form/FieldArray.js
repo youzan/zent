@@ -144,84 +144,121 @@ class FieldArray extends Component {
   };
 
   moveFields = (fromPos, toPos) => {
-    const fieldArray = assign([], this.state.fieldArray);
-    const fieldLen = fieldArray.length;
-    if (fromPos >= fieldLen || toPos >= fieldLen) {
-      throw Error('The index for moveFields is invalid');
-    }
-    const fieldToMove = fieldArray.splice(fromPos, 1)[0];
-    fieldArray.splice(toPos, 0, fieldToMove);
-    this.setState({
-      fieldArray,
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+      const fieldLen = fieldArray.length;
+      if (fromPos >= fieldLen || toPos >= fieldLen) {
+        throw Error('The index for moveFields is invalid');
+      }
+      const fieldToMove = fieldArray.splice(fromPos, 1)[0];
+      fieldArray.splice(toPos, 0, fieldToMove);
+
+      return {
+        fieldArray,
+      };
     });
   };
 
   popFields = () => {
-    const fieldArray = assign([], this.state.fieldArray);
-    fieldArray.pop();
-    this.setState({
-      fieldArray,
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+      fieldArray.pop();
+
+      return {
+        fieldArray,
+      };
     });
   };
 
   pushFields = value => {
-    const fieldArray = assign([], this.state.fieldArray);
-    fieldArray.push({
-      _fieldInternalValue: value,
-      _fieldInternalKey: this._uniqueKey++,
-    });
-    this.setState({
-      fieldArray,
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+      fieldArray.push({
+        _fieldInternalValue: value,
+        _fieldInternalKey: this._uniqueKey++,
+      });
+      return {
+        fieldArray,
+      };
     });
   };
 
   removeFields = index => {
-    const fieldArray = assign([], this.state.fieldArray);
-    if (index >= fieldArray.length) {
-      throw Error('The index for removeFields is invalid');
-    }
-    fieldArray.splice(index, 1);
-    this.setState({
-      fieldArray,
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+      if (index >= fieldArray.length) {
+        throw Error('The index for removeFields is invalid');
+      }
+      fieldArray.splice(index, 1);
+      return {
+        fieldArray,
+      };
     });
   };
 
   removeAllFields = () => {
-    this.setState({
-      fieldArray: [],
+    this.setState(() => {
+      return {
+        fieldArray: [],
+      };
     });
   };
 
   shiftFields = () => {
-    const fieldArray = assign([], this.state.fieldArray);
-    fieldArray.shift();
-    this.setState({
-      fieldArray,
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+      fieldArray.shift();
+      return {
+        fieldArray,
+      };
     });
   };
 
   swapFields = (indexA, indexB) => {
-    const fieldArray = assign([], this.state.fieldArray);
-    const fieldLen = fieldArray.length;
-    if (indexA >= fieldLen || indexB >= fieldLen) {
-      throw Error('The index to swap in invalid');
-    }
-    const fieldA = assign({}, fieldArray[indexA]);
-    fieldArray[indexA] = fieldArray[indexB];
-    fieldArray[indexB] = fieldA;
-    this.setState({
-      fieldArray,
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+      const fieldLen = fieldArray.length;
+      if (indexA >= fieldLen || indexB >= fieldLen) {
+        throw Error('The index to swap in invalid');
+      }
+      const fieldA = assign({}, fieldArray[indexA]);
+      fieldArray[indexA] = fieldArray[indexB];
+      fieldArray[indexB] = fieldA;
+      return {
+        fieldArray,
+      };
     });
   };
 
   unshiftFields = value => {
-    const fieldArray = assign([], this.state.fieldArray);
-    fieldArray.unshift({
-      _fieldInternalValue: value,
-      _fieldInternalKey: this._uniqueKey++,
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+      fieldArray.unshift({
+        _fieldInternalValue: value,
+        _fieldInternalKey: this._uniqueKey++,
+      });
+      return {
+        fieldArray,
+      };
     });
-    this.setState({
-      fieldArray,
+  };
+
+  concatFields = values => {
+    this.setState(state => {
+      const fieldArray = assign([], state.fieldArray);
+
+      if (!Array.isArray(values)) {
+        values = [values];
+      }
+      fieldArray.concat(
+        values.map(v => ({
+          _fieldInternalValue: v,
+          _fieldInternalKey: this._uniqueKey++,
+        }))
+      );
+      return {
+        fieldArray,
+      };
     });
   };
 
@@ -247,6 +284,7 @@ class FieldArray extends Component {
         shift: this.shiftFields,
         swap: this.swapFields,
         unshift: this.unshiftFields,
+        concat: this.concatFields,
       },
     };
 
