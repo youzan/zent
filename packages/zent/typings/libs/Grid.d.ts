@@ -41,7 +41,7 @@ declare module 'zent/lib/grid' {
     }
     onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => any
     ellipsis?: boolean
-    onExpand?: (data: {expanded: boolean, data: any, event: React.MouseEvent<HTMLTableRowElement>, index: number}) => void
+    onExpand?: (data: {expanded: boolean, data: any, event: React.MouseEvent<HTMLTableRowElement>, index: number}) => any
   }
 
   export default class Grid extends React.Component<IGridProps, any> { }
