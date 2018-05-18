@@ -56,6 +56,7 @@ class Grid extends (PureComponent || Component) {
     sortType: PropTypes.string,
     onRowClick: PropTypes.func,
     ellipsis: PropTypes.bool,
+    onExpand: PropTypes.func,
   };
 
   static defaultProps = {
@@ -73,6 +74,7 @@ class Grid extends (PureComponent || Component) {
     scroll: {},
     onRowClick: noop,
     ellipsis: false,
+    onExpand: noop,
   };
 
   constructor(props) {
@@ -226,7 +228,8 @@ class Grid extends (PureComponent || Component) {
     );
   };
 
-  handleExpandRow = clickRow => () => {
+  handleExpandRow = (clickRow, rowData) => e => {
+    const { onExpand } = this.props;
     const expandRowKeys = map(
       this.state.expandRowKeys,
       (row, index) => (index === clickRow ? !row : row)
@@ -237,6 +240,14 @@ class Grid extends (PureComponent || Component) {
     this.setState({
       expandRowKeys,
     });
+    if (isFunction(onExpand)) {
+      onExpand({
+        expanded: expandRowKeys[clickRow],
+        data: rowData,
+        event: e,
+        index: clickRow,
+      });
+    }
   };
 
   getExpandBodyRender = expandRowKeys => (rowData, { row }) => {
@@ -248,7 +259,7 @@ class Grid extends (PureComponent || Component) {
             ? `${prefix}-grid-expandable-btn ${prefix}-grid-collapse-btn`
             : `${prefix}-grid-expandable-btn ${prefix}-grid-expand-btn`
         }
-        onClick={this.handleExpandRow(row)}
+        onClick={this.handleExpandRow(row, rowData)}
       />
     );
   };
@@ -679,6 +690,9 @@ class Grid extends (PureComponent || Component) {
       nextProps.datasets !== this.props.datasets
     ) {
       this.CheckboxPropsCache = {};
+      this.setState({
+        expandRowKeys: this.getExpandRowKeys(nextProps),
+      });
     }
   }
 

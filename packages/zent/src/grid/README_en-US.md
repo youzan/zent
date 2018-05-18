@@ -29,6 +29,7 @@ The function of the component is similar to the function of [Table](table) compo
 | pageInfo     | pagination information                                                                                     | object                                               | null        | No       |
 | onRowClick   | callback fires when a row is clicked                                                                       | (data: any, index: number, event: Event) => any     |             | No       |
 | ellipsis     | whether ellipsis should be displayed when content overflows (nowrap of columns needs to be set)            | bool                                                 | false       | No       |
+| onExpand     | callback fires when the row expand icon is clicked                                                         | (data: {expanded: boolean, data: any, event: Event, index: number}) => any | | No |
 
 #### onChange function declaration
 
