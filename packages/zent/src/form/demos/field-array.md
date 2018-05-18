@@ -70,10 +70,10 @@ class Hobbies extends React.Component {
 }
 
 class Members extends React.Component {
-    addOne = () => { this.props.fields.push({}); }
-    addTwo = () => {
-        this.props.fields.push({});
-        this.props.fields.push({});
+	addOne = () => { this.props.fields.push({}); }
+	addTwo = () => {
+		this.props.fields.push({});
+		this.props.fields.push({});
     }
 	render() {
 		const { fields } = this.props;

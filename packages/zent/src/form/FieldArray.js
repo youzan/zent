@@ -245,12 +245,12 @@ class FieldArray extends Component {
 
   concatFields = values => {
     this.setState(state => {
-      const fieldArray = assign([], state.fieldArray);
+      let fieldArray = assign([], state.fieldArray);
 
       if (!Array.isArray(values)) {
         values = [values];
       }
-      fieldArray.concat(
+      fieldArray = fieldArray.concat(
         values.map(v => ({
           _fieldInternalValue: v,
           _fieldInternalKey: this._uniqueKey++,
