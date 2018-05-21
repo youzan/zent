@@ -79,7 +79,7 @@ export default class PopEllipsisText extends Component {
       'text',
       'className',
       'style',
-      'conut',
+      'count',
       'line',
       'type',
     ];
