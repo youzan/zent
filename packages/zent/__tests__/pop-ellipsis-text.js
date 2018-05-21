@@ -22,7 +22,9 @@ describe('testing <PopEllipsisText >', () => {
 
   it('should render correctly when pass count larger then text length', () => {
     wrapper = mount(<PopEllipsisText count={10} text={firstSentence} />);
-    expect(wrapper.html()).toBe(`<div>${firstSentence}</div>`);
+    expect(wrapper.html()).toBe(
+      `<div class=\"zent-pop-ellipsis\">${firstSentence}</div>`
+    );
   });
 
   it('should render correctly when pass percentage to width', () => {
