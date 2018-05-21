@@ -25,8 +25,6 @@ export default class PopEllipsisText extends Component {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     style: PropTypes.object,
     count: PropTypes.number,
-    trigger: PropTypes.string,
-    position: PropTypes.string,
     className: PropTypes.string,
     popClassName: PropTypes.string,
     text: PropTypes.node.isRequired,
