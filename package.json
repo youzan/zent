@@ -87,6 +87,7 @@
     "gulp-rename": "^1.2.2",
     "husky": "^0.13.3",
     "jest": "22.0.4",
+    "jest-canvas-mock": "^1.0.2",
     "lerna": "2.10.2",
     "lint-staged": "^3.4.0",
     "postcss-calc": "^6.0.1",

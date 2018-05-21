@@ -1,0 +1,19 @@
+.zent-pop-ellipsis {
+  font-size: 12px;
+
+  &-common {
+    overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+  }
+
+  &-single {
+    white-space: nowrap;
+  }
+
+  &-multi {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+}

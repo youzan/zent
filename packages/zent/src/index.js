@@ -34,6 +34,7 @@ import NumberInput from 'number-input';
 import Pagination from 'pagination';
 import Placeholder from 'placeholder';
 import Pop from 'pop';
+import PopEllipsisText from 'pop-ellipsis-text';
 import Popover from 'popover';
 import Portal from 'portal';
 import previewImage from 'preview-image';
@@ -99,6 +100,7 @@ export {
   Pagination,
   Placeholder,
   Pop,
+  PopEllipsisText,
   Popover,
   Portal,
   previewImage,
