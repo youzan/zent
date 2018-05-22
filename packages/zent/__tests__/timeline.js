@@ -16,14 +16,14 @@ describe('Timeline', () => {
       <Timeline.Legend color={color1}>Sample</Timeline.Legend>
     );
     expect(wrapper.type()).toBe('div');
-    expect(wrapper.hasClass('zent-timeline-sample'));
-    expect(wrapper.find('.zent-timeline-sample-label').text()).toBe('Sample');
+    expect(wrapper.hasClass('zent-timeline-legend'));
+    expect(wrapper.find('.zent-timeline-legend-label').text()).toBe('Sample');
     expect(
-      wrapper.find('.zent-timeline-sample-line').prop('style').backgroundColor
+      wrapper.find('.zent-timeline-legend-line').prop('style').backgroundColor
     ).toBe(color1);
     expect(
       wrapper
-        .find('.zent-timeline-sample-line')
+        .find('.zent-timeline-legend-line')
         .find(Timeline.Dot)
         .props().color
     ).toBe(color1);
