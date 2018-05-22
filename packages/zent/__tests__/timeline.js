@@ -3,6 +3,7 @@ import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Timeline from 'timeline';
+import { TimelineDot } from 'timeline/Dot';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -24,7 +25,7 @@ describe('Timeline', () => {
     expect(
       wrapper
         .find('.zent-timeline-legend-line')
-        .find(Timeline.Dot)
+        .find(TimelineDot)
         .props().color
     ).toBe(color1);
   });
