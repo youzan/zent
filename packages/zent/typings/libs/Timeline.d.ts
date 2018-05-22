@@ -1,25 +1,20 @@
 import {
-  StatelessComponent,
   ReactNode,
   CSSProperties,
   Component,
 } from 'react';
 
 declare module 'zent/lib/timeline' {
-  interface ITimelineDotProps {
-    color?: string;
-    prefix?: string;
-  }
 
-  export const TimelineDot: StatelessComponent<ITimelineDotProps>;
-
-  interface ITimelineSampleProps {
+  interface ITimelineLegendProps {
     color?: string;
     children?: ReactNode;
     prefix?: string;
+    className?: string;
+    style?: CSSProperties;
   }
 
-  export const TimelineSample: StatelessComponent<ITimelineSampleProps>;
+  export class TimelineLegend extends Component<ITimelineLegendProps, any> {}
 
   interface ITimelineItemProps {
     size?: number;
@@ -36,7 +31,7 @@ declare module 'zent/lib/timeline' {
     type?: 'vertical' | 'horizontal';
   }
 
-  export const TimelineItem: StatelessComponent<ITimelineItemProps>;
+  export class TimelineItem extends Component<ITimelineItemProps> {}
 
   interface ITimelineArrayItem extends ITimelineItemProps {
     id?: string;
@@ -52,7 +47,7 @@ declare module 'zent/lib/timeline' {
   }
 
   export class Timeline extends Component<ITimelineProps, any> {
-    static Legent: typeof TimelineSample;
+    static Legend: typeof TimelineLegend;
     static Item: typeof TimelineItem;
   }
 
