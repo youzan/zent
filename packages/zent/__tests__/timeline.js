@@ -11,13 +11,6 @@ const color2 = 'red';
 const color3 = 'green';
 
 describe('Timeline', () => {
-  it('Timeline Dot', () => {
-    const wrapper = shallow(<Timeline.Dot color={color1} />);
-    expect(wrapper.find('.zent-timeline-dot').prop('style').borderColor).toBe(
-      color1
-    );
-  });
-
   it('Timeline Sample', () => {
     const wrapper = shallow(
       <Timeline.Sample color={color1}>Sample</Timeline.Sample>
