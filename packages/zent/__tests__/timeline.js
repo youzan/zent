@@ -11,9 +11,9 @@ const color2 = 'red';
 const color3 = 'green';
 
 describe('Timeline', () => {
-  it('Timeline Sample', () => {
+  it('Timeline Legend', () => {
     const wrapper = shallow(
-      <Timeline.Sample color={color1}>Sample</Timeline.Sample>
+      <Timeline.Legend color={color1}>Sample</Timeline.Legend>
     );
     expect(wrapper.type()).toBe('div');
     expect(wrapper.hasClass('zent-timeline-sample'));
