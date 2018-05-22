@@ -9,7 +9,7 @@
     height: 10px;
     background-color: $theme-stroke-10;
     border-radius: 50%;
-    border: 2px solid $theme-success-7;
+    border: 2px solid $theme-success-2;
     box-sizing: border-box;
   }
 
@@ -17,7 +17,7 @@
     position: absolute;
   }
 
-  &-sample {
+  &-legend {
     height: 20px;
     line-height: 20px;
 
@@ -26,7 +26,7 @@
       display: inline-block;
       width: 18px;
       height: 2px;
-      background-color: $theme-success-7;
+      background-color: $theme-success-2;
       vertical-align: middle;
 
       .zent-timeline-dot {
@@ -55,7 +55,7 @@
 
     &-line {
       position: relative;
-      background-color: $theme-stroke-4;
+      background-color: $theme-stroke-5;
 
       .zent-timeline-dot {
         position: absolute;
@@ -72,7 +72,7 @@
         width: 100%;
         position: absolute;
         display: block;
-        background: $theme-stroke-4;
+        background: $theme-stroke-5;
         margin: 10px 0;
       }
     }
@@ -133,6 +133,11 @@
       position: relative;
       display: block;
       line-height: 12px;
+
+      &-hover {
+        display: inline-block;
+        vertical-align: top;
+      }
 
       &-line {
         margin: 0 10px;

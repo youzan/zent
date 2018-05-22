@@ -2,7 +2,7 @@ import {
   StatelessComponent,
   ReactNode,
   CSSProperties,
-  PureComponent,
+  Component,
 } from 'react';
 
 declare module 'zent/lib/timeline' {
@@ -25,9 +25,9 @@ declare module 'zent/lib/timeline' {
     size?: number;
     showLabel?: boolean;
     showDot?: boolean;
-    color?: boolean;
-    lineColor?: boolean;
-    dotColor?: boolean;
+    color?: string;
+    lineColor?: string;
+    dotColor?: string;
     label?: ReactNode;
     tip?: ReactNode;
     prefix?: string;
@@ -40,7 +40,6 @@ declare module 'zent/lib/timeline' {
 
   interface ITimelineArrayItem extends ITimelineItemProps {
     id?: string;
-    color?: string;
     percent?: number;
   }
 
@@ -52,12 +51,9 @@ declare module 'zent/lib/timeline' {
     style?: CSSProperties;
   }
 
-  export class Timeline extends PureComponent<ITimelineProps, any> {}
-
-  export namespace Timeline {
-    const Sample = TimelineSample;
-    const Dot = TimelineDot;
-    const Item = TimelineItem;
+  export class Timeline extends Component<ITimelineProps, any> {
+    static Legent: typeof TimelineSample;
+    static Item: typeof TimelineItem;
   }
 
   export default Timeline;

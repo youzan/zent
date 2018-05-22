@@ -26,18 +26,18 @@ import { Timeline } from 'zent';
 ReactDOM.render(
 	<div>
 		<h3>{i18n.horizontal}</h3>
-		<Timeline.Sample>{i18n.sample}</Timeline.Sample>
+		<Timeline.Legend>{i18n.sample}</Timeline.Legend>
 		<Timeline type="horizontal">
 			<Timeline.Item label="Time 1" />
-			<Timeline.Item label="Time 2" />
+			<Timeline.Item label="Time 2" tip="hello" />
 			<Timeline.Item label="Time 3" />
 			<Timeline.Item size={0} label="{i18n.length}" />
 		</Timeline>
 		<h3>{i18n.vertical}</h3>
-		<Timeline.Sample>{i18n.sample}</Timeline.Sample>
+		<Timeline.Legend>{i18n.sample}</Timeline.Legend>
 		<Timeline type="vertical">
 			<Timeline.Item label="Time 1" />
-			<Timeline.Item label="Time 2" />
+			<Timeline.Item label="Time 2" tip="hello" />
 			<Timeline.Item label="Time 3" />
 			<Timeline.Item label="{i18n.noDot}" showDot={false} lineColor="red" />
 			<Timeline.Item label="{i18n.noLabel}" showLabel={false} />

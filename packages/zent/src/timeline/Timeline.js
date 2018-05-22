@@ -1,18 +1,20 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import isString from 'lodash/isString';
+import { validateProps } from './validateProps';
 
 import { TimelineItem } from './Item';
-import { TimelineSample, TimelineDot } from './Dot';
+import { TimelineLegend } from './Dot';
 
-export class Timeline extends PureComponent {
+export class Timeline extends (PureComponent || Component) {
   static propTypes = {
     size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    timeline: PropTypes.array,
+    timeline: validateProps,
     type: PropTypes.oneOf(['vertical', 'horizontal']),
     className: PropTypes.string,
     style: PropTypes.object,
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
@@ -23,8 +25,7 @@ export class Timeline extends PureComponent {
   };
 
   static Item = TimelineItem;
-  static Sample = TimelineSample;
-  static Dot = TimelineDot;
+  static Legend = TimelineLegend;
 
   normalize = () => {
     const { timeline, size } = this.props;
