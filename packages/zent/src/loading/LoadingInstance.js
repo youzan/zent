@@ -96,7 +96,7 @@ function newInstance(props) {
         ref={loading => {
           if (loading) {
             resolve({
-              show: loading && loading.show,
+              show: loading.show,
               container: div,
             });
           }
