@@ -20,46 +20,6 @@ beforeAll(() => {
 /* eslint-enable */
 
 describe('Loading', () => {
-  it('Hack of global model', () => {
-    const wrapper = mount(
-      <div>
-        <button
-          onClick={() => {
-            Loading.on();
-          }}
-        />
-        <button
-          onClick={() => {
-            Loading.off();
-          }}
-        />
-      </div>
-    );
-    wrapper
-      .find('button')
-      .at(0)
-      .simulate('click');
-    jest.runOnlyPendingTimers();
-
-    wrapper
-      .find('button')
-      .at(1)
-      .simulate('click');
-    jest.runOnlyPendingTimers();
-
-    wrapper
-      .find('button')
-      .at(0)
-      .simulate('click');
-    jest.runOnlyPendingTimers();
-
-    wrapper
-      .find('button')
-      .at(1)
-      .simulate('click');
-    jest.runOnlyPendingTimers();
-  });
-
   it('Loading has static model, support containerClass and prefix...props', () => {
     const wrapper = mount(<Loading show={false} containerClass="foo" />);
     expect(wrapper.prop('height')).toBeUndefined();
@@ -115,5 +75,14 @@ describe('Loading', () => {
     };
     expect(getElementLeft(tree)).toBe(6);
     expect(getElementTop(tree)).toBe(60);
+  });
+
+  it('can have children', () => {
+    let wrapper = mount(
+      <Loading show>
+        <span>foobar</span>
+      </Loading>
+    );
+    expect(wrapper.find('.zent-loading-container').length).toBe(1);
   });
 });
