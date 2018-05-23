@@ -69,7 +69,6 @@
     "^icon(.*)$": "<rootDir>/src/icon$1",
     "^infinite-scroller(.*)$": "<rootDir>/src/infinite-scroller$1",
     "^input(.*)$": "<rootDir>/src/input$1",
-    "^internal(.*)$": "<rootDir>/src/internal$1",
     "^layout(.*)$": "<rootDir>/src/layout$1",
     "^loading(.*)$": "<rootDir>/src/loading$1",
     "^mention(.*)$": "<rootDir>/src/mention$1",
@@ -87,6 +86,7 @@
     "^rate(.*)$": "<rootDir>/src/rate$1",
     "^search-input(.*)$": "<rootDir>/src/search-input$1",
     "^select(.*)$": "<rootDir>/src/select$1",
+    "^select-menu(.*)$": "<rootDir>/src/select-menu$1",
     "^sku(.*)$": "<rootDir>/src/sku$1",
     "^slider(.*)$": "<rootDir>/src/slider$1",
     "^sortable(.*)$": "<rootDir>/src/sortable$1",
@@ -98,6 +98,7 @@
     "^table(.*)$": "<rootDir>/src/table$1",
     "^tabs(.*)$": "<rootDir>/src/tabs$1",
     "^tag(.*)$": "<rootDir>/src/tag$1",
+    "^timeline(.*)$": "<rootDir>/src/timeline$1",
     "^tree(.*)$": "<rootDir>/src/tree$1",
     "^upload(.*)$": "<rootDir>/src/upload$1",
     "^utils(.*)$": "<rootDir>/src/utils$1"
