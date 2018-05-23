@@ -6,9 +6,6 @@ import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 
-// Global loading instance
-let loadingInstance;
-
 export default class Instance extends (PureComponent || Component) {
   static propTypes = {
     prefix: PropTypes.string,
@@ -83,48 +80,6 @@ export default class Instance extends (PureComponent || Component) {
     // Return null to make React happy if Loading has no children
     return this.props.children || null;
   }
-}
-
-// Just a workaround
-// These methods should be considered deprecated, don't use them.
-Instance.on = on;
-Instance.off = off;
-Instance.newInstance = newInstance;
-
-function on({
-  prefix = 'zent',
-  className = '',
-  containerClass = '',
-  zIndex = 9998,
-} = {}) {
-  if (!isBrowser) return;
-
-  if (!loadingInstance) {
-    loadingInstance = newInstance({
-      show: true,
-      prefix,
-      className,
-      containerClass,
-      zIndex,
-      float: true,
-    });
-
-    return;
-  }
-
-  loadingInstance.then(({ show }) => {
-    show && show({ show: true });
-  });
-}
-
-function off() {
-  if (!isBrowser) return;
-
-  if (!loadingInstance) return;
-
-  loadingInstance.then(({ show }) => {
-    show && show({ show: false });
-  });
 }
 
 function newInstance(props) {
