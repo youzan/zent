@@ -240,10 +240,13 @@ export default class Popover extends (PureComponent || Component) {
     return document.querySelector(`.${this.id}`);
   };
 
-  onTriggerRefChange = triggerInstance => {
-    this.triggerNode = triggerInstance
+  onTriggerRefChange = (triggerInstance, nodeFilter) => {
+    const node = triggerInstance
       ? ReactDOM.findDOMNode(triggerInstance)
       : undefined;
+
+    this.triggerNode = isFunction(nodeFilter) ? nodeFilter(node) : node;
+
     this.triggerInstance = triggerInstance;
   };
 
