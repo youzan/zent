@@ -6,7 +6,8 @@ zh-CN:
 	delHobby: 删除该爱好
 	hobby: 兴趣爱好
 	hobbyValidation: 请填写兴趣爱好
-	addMember: 添加成员
+	addMember: 添加一个成员
+	addTwoMembers: 添加两个成员
 	delMember: 删除该成员
 	member: 成员
 	name: 名字
@@ -24,7 +25,8 @@ en-US:
 	delHobby: Delete hobby
 	hobby: Hobby
 	hobbyValidation: Please enter the hobby.
-	addMember: Add member
+	addMember: Add one member
+	addTwoMembers: Add two members
 	delMember: Delete member
 	member: Member
 	name: Name
@@ -55,7 +57,7 @@ class Hobbies extends React.Component {
 								name={`${hobby}`}
 								type="text"
 								label={`{i18n.hobby}${index+1}:`}
-								validations={{ required: true }} 
+								validations={{ required: true }}
 								validationErrors={{ required: '{i18n.hobbyValidation}' }}
 							/>
 							<span className="del-btn" onClick={() => fields.remove(index)}>{i18n.delHobby}</span>
@@ -68,18 +70,24 @@ class Hobbies extends React.Component {
 }
 
 class Members extends React.Component {
+	addOne = () => { this.props.fields.push({}); }
+	addTwo = () => {
+		this.props.fields.push({});
+		this.props.fields.push({});
+    }
 	render() {
 		const { fields } = this.props;
 		return (
 			<ul>
-				{fields.length < 3 && (<Button onClick={() => fields.push({})} className="add-btn">{i18n.addMember}</Button>)}
+				{fields.length < 3 && (<Button onClick={this.addOne} className="add-btn">{i18n.addMember}</Button>)}
+				{fields.length < 2 && (<Button onClick={this.addTwo} className="add-btn">{i18n.addTwoMembers}</Button>)}
 				{fields.map((member, index, key) => {
 					return (
 						<li className="members" key={`member${key}`}>
 							<div className="member-title">
 								<span>{i18n.member}{index + 1}</span>
 								<Pop centerArrow trigger="hover" content="{i18n.delMember}">
-									<Icon className="del-btn" type="close-circle" onClick={() => fields.remove(index)} 
+									<Icon className="del-btn" type="close-circle" onClick={() => fields.remove(index)}
 									/>
 								</Pop>
 							</div>
@@ -95,12 +103,12 @@ class Members extends React.Component {
 								name={`${member}.sex`}
 								label="{i18n.sex}:"
 								required
-								validations={{ 
+								validations={{
 									required(values, value) {
 										return value !== ''
 									}
-								}} 
-								validationErrors={{ 
+								}}
+								validationErrors={{
 									required: '{i18n.sexValidationError}'
 								}}
 							>

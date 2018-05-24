@@ -77,17 +77,17 @@ All trigger's base class,  implement custom trigger need to inherit this class, 
 
 | Property                 | Description                                               | Type                     |
 | ------------------ | ------------------------------------------------ | ---------------------- |
-| getTriggerNode     | get trigger's DOM node                               | func: () => node       |
-| getContentNode     | get pop's DOM node                                    | func: () => node       |
-| open               | open pop                                             | func                   |
-| close              | close pop                                             | func                   |
-| contentVisible     | whether ccurent pop is opened or not                                          | bool                   |
-| onTriggerRefChange | when ref changes, callback is executed. and it is only needs when you rewrite render function | func:(instance) |
+| getTriggerNode     | Get trigger's DOM node                               | func: () => node       |
+| getContentNode     | Get pop's DOM node                                    | func: () => node       |
+| open               | Open pop                                             | func                   |
+| close              | Close pop                                             | func                   |
+| contentVisible     | Is popover content visible          | bool                   |
+| onTriggerRefChange | Callback when ref changes. It is only needed when you rewrite render function | func:(instance) |
+| getNodeForTriggerRefChange | Callback to get the actual trigger DOM node when ref changes | (HTMLElement) => HTMLELement |
 
 ### Position API
 
-Position is used to position layer. there is 12 kinds of basic positions. and you can add custom position algorithm. the `cushion` on Popover affect position. it usually provides offset.
-
+Position is used to position layer. there are 12 kinds of basic positions. You can add custom position algorithms. The `cushion` on Popover affect position. It usually acts as an offset.
 
 ```
 // Basic positions

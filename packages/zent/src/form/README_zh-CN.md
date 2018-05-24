@@ -30,7 +30,7 @@ scatter: true
 `Field` 组件本质上是一个辅助性的组件，不提供任何样式，只负责管理表单元素 value 值的生命周期和表单元素的 error 等信息。
 
 - `Field` 必须要有 `name` 属性；
-- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，`FormDateRangeQuickPickerField`，也可以使用单独封装的自定义表单元素组件；
+- `Field` 的展现形式由 `component` 属性传入的组件决定，`Form` 组件中内置了常用的表单元素组件 `FormInputField`，`FormSelectField`，`FormRadioGroupField`，`FormCheckboxField`，`FormCheckboxGroupField`，`FormNumberInputField`，`FormSwitchField`，`FormColorPickerField`，`FormDateRangePickerField`，`FormDateRangeQuickPickerField`，也可以使用单独封装的自定义表单元素组件。注： `FormDateRangePickerField` 与 `FormDateRangeQuickPickerField` 组件中的 `format` 属性因为名称和 `Field` 上的属性冲突，变更为 `dateFormat` ，使用方法参考 demo；
 - `Form` 组件提供了 `getControlGroup` 方法，可以快速封装自定义表单元素组件，使用方法参考 demo 和 [`getControlGroup` API](#form-getcontrolgroup) 。
 
 <!-- demo-slot-1 -->
@@ -205,9 +205,9 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 | getFieldError | 获取某个 Field 的错误信息, 没有报错信息返回空 | func(name: String) |
 | setFormDirty | 设置所有 Field 的状态为非原始状态, 用于在提交表单时让 Field 把没有显示出来的错误显示出来 | func(isDirty: Boolean) |
 | setFieldExternalErrors | 设置外部传入的错误信息（比如服务端校验错误）， errors 的 key 为 Field 的 name ， value 为错误文案 | func(errors: Object) |
-| setFieldsValue | 设置表单 Field 的值为指定值 | func(data: Object) | 
+| setFieldsValue | 设置表单 Field 的值为指定值 | func(data: Object) |
 | resetFieldsValue | 把所有 Field 的值恢复到指定值或初始状态 | func(data: Object) |
-| initialize | 设置表单 Field 初始值 | func(data: Object) | 
+| initialize | 设置表单 Field 初始值 | func(data: Object) |
 | isValid | 表单的所有 Field 是否都通过了校验 | func |
 | isSubmitting | 表单是否正在提交 | func |
 | isValidating | 表单是否有 Field 在异步校验 | func |
@@ -267,11 +267,11 @@ onSubmissionFail(submissionError) {
 
 除了上述参数之外， `Field` 组件会隐含地向被包裹的表单元素组件中传入以下 props ：
 
-| 参数 | 说明 | 类型 | 
+| 参数 | 说明 | 类型 |
 |------|------|------|
 | isDirty | 表单元素值被改变过 | boolean |
-| isActive | 表单元素为input且获得了焦点 | boolean | 
-| error | 第一个校验错误文本信息（没有报错时为 null ） | string / Null | 
+| isActive | 表单元素为input且获得了焦点 | boolean |
+| error | 第一个校验错误文本信息（没有报错时为 null ） | string / Null |
 | errors | 校验错误文本信息数组（没有错误时为空数组） | array |
 
 ##### **获取 `Field` 对应 `component` 的实例**
@@ -288,7 +288,7 @@ const component = field.getWrappedComponent();
 ```
 
 #### **`Form.getControlGroup`**
-`getControlGroup` 是一个用来快速封装自定义组件的函数，它返回一个满足通用布局与样式要求（左侧标签 、右侧表单元素）的stateless functional component 。同时支持将 `Field` 中的 错误提示信息展示出来。 
+`getControlGroup` 是一个用来快速封装自定义组件的函数，它返回一个满足通用布局与样式要求（左侧标签 、右侧表单元素）的stateless functional component 。同时支持将 `Field` 中的 错误提示信息展示出来。
 
 封装过的组件支持在 `Field` 上额外传入以下参数：
 
@@ -344,6 +344,7 @@ const component = field.getWrappedComponent().getControlInstance();
 | shift | 删除 `FieldArray` 中表单域数组的第一项 | func |
 | swap | 交换 `FieldArray` 中表单域数组的某两项 | func(indexA: Number, indexB: Number) |
 | unshift | 在 `FieldArray` 中表单域数组的头部添加一项 | func(value: Object/String) |
+| concat | 在 `FieldArray` 中表单域数组末尾连接一个数组, 如果传入的不是数组，则会被添加到末尾 | func(value: Object/String/Array) |
 
 ⚠️注意：遍历的回调函数 callback 将接受五个参数: item（`FieldArray` 中当前项的名字），index（`FieldArray` 中当前项的次序），key（`FieldArray` 中当前项的唯一 key 值），value（`FieldArray` 中当前项的值）， fieldsValue（`FieldArray` 的所有值）。为了保证 `FieldArray` 在删除和添加时数据正确，遍历时一定要给 `component` 中的子节点设置正确的 `name` 和 `key`, 详见使用参考 [FieldArray 基本使用](#fieldarray-zu-jian)
 

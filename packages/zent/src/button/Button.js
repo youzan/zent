@@ -75,7 +75,7 @@ export default class Button extends (PureComponent || Component) {
   }
 
   // render a 标签
-  renderLink(classNames, iconNode, wrapedChildren) {
+  renderLink(classNames, iconNode, wrappedChildren) {
     const { component, disabled, loading, href = '', target } = this.props;
     const Node = component || 'a';
     const nodeProps = omit(this.props, A_BLACK_LIST);
@@ -88,13 +88,13 @@ export default class Button extends (PureComponent || Component) {
         onClick={this.handleClick}
       >
         {iconNode}
-        {wrapedChildren}
+        {wrappedChildren}
       </Node>
     );
   }
 
   // render button 标签
-  renderButton(classNames, iconNode, wrapedChildren) {
+  renderButton(classNames, iconNode, wrappedChildren) {
     const { component, disabled, loading, htmlType } = this.props;
     const Node = component || 'button';
     const nodeProps = omit(this.props, BTN_BLACK_LIST);
@@ -108,7 +108,7 @@ export default class Button extends (PureComponent || Component) {
         onClick={this.handleClick}
       >
         {iconNode}
-        {wrapedChildren}
+        {wrappedChildren}
       </Node>
     );
   }
@@ -144,8 +144,8 @@ export default class Button extends (PureComponent || Component) {
       className
     );
     const iconNode = icon ? <Icon type={icon} /> : null;
-    const wrapedChildren = wrapTextWithSpanTag(children);
+    const wrappedChildren = wrapTextWithSpanTag(children);
 
-    return this[renderer](classNames, iconNode, wrapedChildren);
+    return this[renderer](classNames, iconNode, wrappedChildren);
   }
 }

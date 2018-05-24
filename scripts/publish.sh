@@ -32,8 +32,11 @@ $basepath/../lerna publish --exact "$@"
 
 # 生成 change log, 测试版的时候不生成
 if [[ $@ != *"--npm-tag"* ]]; then
+  # requires github_changelog_generator >= 1.15.0
   github_changelog_generator \
-    --exclude-tags-regex "(zent-.+|beta|alpha)" \
+    --user youzan \
+    --project zent \
+    --exclude-tags-regex "zent-.+" \
     --header-label "## Github Change Log" \
     --no-unreleased \
     -o $basepath/../packages/zent/CHANGELOG.md

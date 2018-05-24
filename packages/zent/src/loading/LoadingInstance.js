@@ -1,14 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import isBrowser from 'utils/isBrowser';
-import defer from 'lodash/defer';
 
 import PropTypes from 'prop-types';
 
 import Loading from './Loading';
-
-// Global loading instance
-let loadingInstance;
 
 export default class Instance extends (PureComponent || Component) {
   static propTypes = {
@@ -41,9 +37,10 @@ export default class Instance extends (PureComponent || Component) {
 
   componentWillUnmount() {
     if (this.instance) {
-      let loadingContainer = this.instance.container;
-      ReactDOM.unmountComponentAtNode(this.instance.container);
-      loadingContainer.parentNode.removeChild(loadingContainer);
+      this.instance.then(({ container }) => {
+        ReactDOM.unmountComponentAtNode(container);
+        container.parentNode.removeChild(container);
+      });
     }
   }
 
@@ -62,8 +59,10 @@ export default class Instance extends (PureComponent || Component) {
         ...this.props,
         target,
       });
-    } else if (this.instance.show) {
-      this.instance.show(this.props);
+    } else if (this.instance) {
+      this.instance.then(({ show }) => {
+        show && show(this.props);
+      });
     }
   }
 
@@ -83,49 +82,6 @@ export default class Instance extends (PureComponent || Component) {
   }
 }
 
-// ReactDOM.render returns null when called inside lifecycle methods
-// Just a workaround
-// These methods should be considered deprecated, don't use them.
-Instance.on = options => defer(on, options);
-Instance.off = options => defer(off, options);
-Instance.newInstance = props => defer(newInstance, props);
-
-function on({
-  prefix = 'zent',
-  className = '',
-  containerClass = '',
-  zIndex = 9998,
-} = {}) {
-  if (!isBrowser) return;
-
-  if (!loadingInstance) {
-    loadingInstance = newInstance({
-      show: true,
-      prefix,
-      className,
-      containerClass,
-      zIndex,
-      float: true,
-    });
-
-    return;
-  }
-
-  loadingInstance.show({
-    show: true,
-  });
-}
-
-function off() {
-  if (!isBrowser) return;
-
-  if (!loadingInstance) return;
-
-  loadingInstance.show({
-    show: false,
-  });
-}
-
 function newInstance(props) {
   if (!isBrowser) return;
 
@@ -133,12 +89,22 @@ function newInstance(props) {
   div.className = `${props.prefix}-loading-container ${props.containerClass}`;
   document.body.appendChild(div);
 
-  // FIXME: loading may be null in React 16
-  let loading = ReactDOM.render(<Loading {...props} />, div);
-  return {
-    show: loading && loading.show,
-    container: div,
-  };
+  return new Promise(resolve => {
+    ReactDOM.render(
+      <Loading
+        {...props}
+        ref={loading => {
+          if (loading) {
+            resolve({
+              show: loading.show,
+              container: div,
+            });
+          }
+        }}
+      />,
+      div
+    );
+  });
 }
 
 // FIXME: remove support for props.static
