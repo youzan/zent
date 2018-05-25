@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import camelCase from 'lodash/camelCase';
+import upperFirst from 'lodash/upperFirst';
 import capitalize from 'lodash/capitalize';
 import Button from 'button';
 import Popover from 'popover';
@@ -19,6 +21,26 @@ export default class SplitButton extends (PureComponent || Component) {
     dropdownData: PropTypes.array,
     dropdownValue: PropTypes.string,
     dropdownText: PropTypes.string,
+    dropdownPosition: PropTypes.oneOf([
+      'left-top',
+      'left-center',
+      'left-bottom',
+      'right-top',
+      'right-center',
+      'right-bottom',
+      'top-left',
+      'top-center',
+      'top-right',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right',
+      'auto-bottom-center',
+      'auto-bottom-left',
+      'auto-bottom-right',
+      'auto-top-center',
+      'auto-top-left',
+      'auto-top-right',
+    ]),
     className: PropTypes.string,
     prefix: PropTypes.string,
     onClick: PropTypes.func,
@@ -34,6 +56,7 @@ export default class SplitButton extends (PureComponent || Component) {
     dropdownData: [],
     dropdownValue: 'value',
     dropdownText: 'text',
+    dropdownPosition: 'auto-bottom-left',
     className: '',
     prefix: 'zent',
   };
@@ -61,6 +84,7 @@ export default class SplitButton extends (PureComponent || Component) {
       dropdownData,
       dropdownValue,
       dropdownText,
+      dropdownPosition,
       className,
       prefix,
       children,
@@ -73,6 +97,8 @@ export default class SplitButton extends (PureComponent || Component) {
 
     const Trigger =
       disabled || loading ? Popover.Trigger.Base : Popover.Trigger[trigger];
+
+    const position = upperFirst(camelCase(dropdownPosition));
 
     return (
       <div className={classString}>
@@ -89,7 +115,7 @@ export default class SplitButton extends (PureComponent || Component) {
         <Popover
           visible={this.state.isShowDropdown}
           onVisibleChange={isShow => this.toggleDropdown(isShow)}
-          position={Popover.Position.AutoBottomLeft}
+          position={Popover.Position[position]}
           display="inline"
           cushion={5}
         >
