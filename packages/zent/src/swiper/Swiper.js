@@ -218,7 +218,6 @@ export default class Swiper extends (PureComponent || Component) {
   componentWillReceiveProps(nextProps) {
     const { children } = this.props;
     const { children: newChildren } = nextProps;
-    console.log(this.state.currentIndex);
 
     if (Children.count(children) !== Children.count(newChildren)) {
       this.setState({
