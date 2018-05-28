@@ -32,7 +32,7 @@ group: 数据
 | bordered  | 边框透明控制                      | bool   | `true`      |                                    |
 | 其他参数      |                             |        |             |                                    |
 | component | 自定义组件标签类型                   | string\|func |             |                                    |
-| href      | 可选，如果设置的话会用a标签而不是button     | string |             |                           |
+| href      | 可选，如果设置的话会用a标签而不是button     | string |    `''`     |                           |
 | target    | 可选，和href一起使用，就是a标签的target属性 | string | `''`        | `'_blank'`                  |
 | className | 自定义类名                       | string |             |                                    |
 | style     | 自定style                      | object |             |                                    |

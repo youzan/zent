@@ -17,6 +17,7 @@ const BLACK_LIST = [
   'icon',
   'className',
   'prefix',
+  'children',
 ];
 
 const BTN_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
@@ -45,6 +46,8 @@ export default class Button extends (PureComponent || Component) {
     outline: PropTypes.bool,
     bordered: PropTypes.bool,
     prefix: PropTypes.string,
+    href: PropTypes.string,
+    target: PropTypes.string,
   };
 
   static defaultProps = {
@@ -58,6 +61,8 @@ export default class Button extends (PureComponent || Component) {
     outline: false,
     bordered: true,
     prefix: 'zent',
+    target: '',
+    href: '',
   };
 
   constructor(props) {

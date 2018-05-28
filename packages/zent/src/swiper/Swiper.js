@@ -220,12 +220,9 @@ export default class Swiper extends (PureComponent || Component) {
     const { children: newChildren } = nextProps;
 
     if (Children.count(children) !== Children.count(newChildren)) {
-      this.setState(
-        {
-          currentIndex: 0,
-        },
-        () => this.init()
-      );
+      this.setState({
+        currentIndex: 0,
+      });
     }
   }
 
@@ -241,6 +238,19 @@ export default class Swiper extends (PureComponent || Component) {
     const prevIndex = prevState.currentIndex;
     // isSilent表示静默地做一次位移动画，在用户无感知的情况下从复制元素translate到真实元素
     const isSilent = prevIndex > length - 1 || prevIndex < 0;
+    if (
+      Children.count(this.props.children) !== Children.count(prevProps.children)
+    ) {
+      this.init();
+    }
+
+    if (Children.count(this.props.children) === 1) {
+      setStyle(this.swiperContainer, {
+        transform: null,
+        'transition-duration': null,
+      });
+      return;
+    }
 
     if (prevIndex === currentIndex) {
       return;
