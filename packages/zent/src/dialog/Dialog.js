@@ -3,6 +3,7 @@ import Portal from 'portal';
 import PropTypes from 'prop-types';
 
 import animatedClosable from 'utils/component/animatedClosable';
+import isBrowser from 'utils/isBrowser';
 import DialogEl from './DialogEl';
 
 const { withNonScrollable, withESCToClose } = Portal;
@@ -14,12 +15,14 @@ const TIMEOUT = 300; // ms
 let mousePosition = null;
 
 // Inspired by antd and rc-dialog
-document.documentElement.addEventListener('click', e => {
-  mousePosition = {
-    x: e.clientX,
-    y: e.clientY,
-  };
-});
+if (isBrowser) {
+  document.documentElement.addEventListener('click', e => {
+    mousePosition = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+  });
+}
 
 export default class Dialog extends (PureComponent || Component) {
   static propTypes = {
