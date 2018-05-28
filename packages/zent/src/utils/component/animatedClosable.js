@@ -41,6 +41,10 @@ export default function animatedClosable(Origin) {
       }
     }
 
+    componentWillUnmount() {
+      clearTimeout(this.timeoutNum);
+    }
+
     open = () => {
       if (this.timeoutNum) {
         clearTimeout(this.timeoutNum);
