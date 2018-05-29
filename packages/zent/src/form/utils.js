@@ -1,6 +1,7 @@
 import isPlainObject from 'lodash/isPlainObject';
 import assign from 'lodash/assign';
 import scroll from 'utils/scroll';
+import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import { findDOMNode } from 'react-dom';
 
@@ -124,4 +125,18 @@ export function scrollToFirstError(fields) {
   }
 
   return false;
+}
+
+export function updateFieldArray(fieldArrays, data, options) {
+  const shouldRemove = get(options, 'removeIfNotExists', false);
+
+  fieldArrays.forEach(fc => {
+    const name = fc.getName();
+    const value = get(data, name);
+    if (value !== undefined) {
+      fc.replaceAllFields(value);
+    } else if (shouldRemove) {
+      fc.removeAllFields();
+    }
+  });
 }

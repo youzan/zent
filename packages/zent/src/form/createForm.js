@@ -9,6 +9,7 @@ import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
 import get from 'lodash/get';
 import map from 'lodash/map';
+import startsWith from 'lodash/startsWith';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
@@ -17,6 +18,7 @@ import {
   silenceEvent,
   silenceEvents,
   scrollToFirstError,
+  updateFieldArray,
 } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
@@ -51,6 +53,10 @@ const createForm = (config = {}) => {
           submitSuccess: false,
         };
         this.fields = [];
+
+        // 保存FieldArray, FormSection
+        this.fieldArrays = [];
+
         this._isMounted = false;
       }
 
@@ -97,6 +103,7 @@ const createForm = (config = {}) => {
             resetFieldsValue: this.resetFieldsValue,
             setFormDirty: this.setFormDirty,
             setFormPristine: this.setFormPristine,
+            setFieldArrayMembers: this.setFieldArrayMembers,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting,
             validateForm: this.validateForm,
@@ -237,6 +244,8 @@ const createForm = (config = {}) => {
       };
 
       initialize = data => {
+        updateFieldArray(this.fieldArrays, data, { removeIfNotExists: true });
+
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
@@ -249,6 +258,8 @@ const createForm = (config = {}) => {
       };
 
       resetFieldsValue = data => {
+        updateFieldArray(this.fieldArrays, data, { removeIfNotExists: true });
+
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
@@ -261,6 +272,8 @@ const createForm = (config = {}) => {
       };
 
       setFieldsValue = data => {
+        updateFieldArray(this.fieldArrays, data, { removeIfNotExists: false });
+
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
@@ -268,6 +281,43 @@ const createForm = (config = {}) => {
             field.setValue(value);
           }
         });
+      };
+
+      setFieldArrayMembers = (fieldArrayName, value) => {
+        let faExists = false;
+        this.fieldArrays.forEach(fa => {
+          const faName = fa.getName();
+          if (faName === fieldArrayName) {
+            faExists = true;
+          } else if (startsWith(faName, fieldArrayName)) {
+            const faNamePath = faName.substring(fieldArrayName.length);
+            const faValue = get(value, faNamePath);
+
+            // console.log(faName, ' -> ', faNamePath);
+
+            if (faValue !== undefined) {
+              fa.replaceAllFields(faValue);
+            } else {
+              fa.removeAllFields();
+            }
+          }
+        });
+
+        if (faExists) {
+          this.fields.forEach(f => {
+            const name = f.getName();
+            if (name !== fieldArrayName && startsWith(name, fieldArrayName)) {
+              const fieldNamePath = name.substring(fieldArrayName.length);
+              const fieldValue = get(value, fieldNamePath);
+
+              // console.log(name, ' -> ', fieldNamePath);
+
+              if (fieldValue !== undefined) {
+                f.setValue(fieldValue);
+              }
+            }
+          });
+        }
       };
 
       reset = data => {
@@ -618,20 +668,31 @@ const createForm = (config = {}) => {
         });
       };
 
-      attachToForm = field => {
-        if (this.fields.indexOf(field) < 0) {
-          this.fields.push(field);
+      attachToForm = (field, options) => {
+        if (get(options, 'isFieldContainer', false)) {
+          this.fieldArrays.push(field);
+        } else {
+          if (this.fields.indexOf(field) < 0) {
+            this.fields.push(field);
+          }
+          // form初始化时不校验，后续动态添加的元素再校验
+          this._isMounted && this.validate(field);
         }
-        // form初始化时不校验，后续动态添加的元素再校验
-        this._isMounted && this.validate(field);
       };
 
-      detachFromForm = field => {
-        const fieldPos = this.fields.indexOf(field);
-        if (fieldPos >= 0) {
-          this.fields.splice(fieldPos, 1);
+      detachFromForm = (field, options) => {
+        if (get(options, 'isFieldContainer', false)) {
+          const idx = this.fieldArrays.indexOf(field);
+          if (idx !== -1) {
+            this.fieldArrays.splice(idx, 1);
+          }
+        } else {
+          const fieldPos = this.fields.indexOf(field);
+          if (fieldPos >= 0) {
+            this.fields.splice(fieldPos, 1);
+          }
+          this.validateForm();
         }
-        this.validateForm();
       };
 
       getWrappedForm = () => {

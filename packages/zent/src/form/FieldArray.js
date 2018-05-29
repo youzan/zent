@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 import map from 'lodash/map';
 import set from 'lodash/set';
-import get from 'lodash/get';
+import isArray from 'lodash/isArray';
 import PropTypes from 'prop-types';
 
 import { prefixName } from './utils';
@@ -15,11 +15,10 @@ import unknownProps from './unknownProps';
 class FieldArray extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
+    value: PropTypes.array,
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
       .isRequired,
   };
-
-  static defaultProps = {};
 
   static contextTypes = {
     zentForm: PropTypes.object,
@@ -47,7 +46,7 @@ class FieldArray extends Component {
     }
 
     this.state = {
-      fieldArray: [],
+      fieldArray: (props.value || []).map(this.createInternalFieldValue),
     };
     this._name = prefixName(context.zentForm, props.name);
     this._uniqueKey = 0;
@@ -66,6 +65,19 @@ class FieldArray extends Component {
   componentWillReceiveProps(nextProps) {
     if ('name' in nextProps) {
       this._name = prefixName(this.context.zentForm, nextProps.name);
+    }
+
+    if (nextProps.value !== this.props.value) {
+      this.setState(nextProps.value.map(this.createInternalFieldValue));
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.fieldArray !== this.state.prevState) {
+      this.context.zentForm.setFieldArrayMembers(
+        this._name,
+        this.getFieldArrayValues()
+      );
     }
   }
 
@@ -87,11 +99,7 @@ class FieldArray extends Component {
 
   forEachFields = callback => {
     const { fieldArray } = this.state;
-    const fieldArrayValues = get(
-      this.context.zentForm.getFormValues(),
-      this._name,
-      []
-    );
+    const fieldArrayValues = this.getFieldArrayValues();
     fieldArray.forEach((item, index) => {
       callback(
         `[${index}]`,
@@ -108,30 +116,18 @@ class FieldArray extends Component {
     if (index >= fieldArray.length) {
       throw Error('The index for getField is invalid');
     }
-    const fieldArrayValues = get(
-      this.context.zentForm.getFormValues(),
-      this._name,
-      []
-    );
+    const fieldArrayValues = this.getFieldArrayValues();
     return fieldArrayValues[index];
   };
 
   getAllFields = () => {
-    const fieldArrayValues = get(
-      this.context.zentForm.getFormValues(),
-      this._name,
-      []
-    );
+    const fieldArrayValues = this.getFieldArrayValues();
     return fieldArrayValues;
   };
 
   mapFields = callback => {
     const { fieldArray } = this.state;
-    const fieldArrayValues = get(
-      this.context.zentForm.getFormValues(),
-      this._name,
-      []
-    );
+    const fieldArrayValues = this.getFieldArrayValues();
     return map(fieldArray, (item, index) => {
       return callback(
         `[${index}]`,
@@ -173,10 +169,7 @@ class FieldArray extends Component {
   pushFields = value => {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
-      fieldArray.push({
-        _fieldInternalValue: value,
-        _fieldInternalKey: this._uniqueKey++,
-      });
+      fieldArray.push(this.createInternalFieldValue(value));
       return {
         fieldArray,
       };
@@ -233,10 +226,7 @@ class FieldArray extends Component {
   unshiftFields = value => {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
-      fieldArray.unshift({
-        _fieldInternalValue: value,
-        _fieldInternalKey: this._uniqueKey++,
-      });
+      fieldArray.unshift(this.createInternalFieldValue(value));
       return {
         fieldArray,
       };
@@ -247,20 +237,54 @@ class FieldArray extends Component {
     this.setState(state => {
       let fieldArray = assign([], state.fieldArray);
 
-      if (!Array.isArray(values)) {
+      if (!isArray(values)) {
         values = [values];
       }
-      fieldArray = fieldArray.concat(
-        values.map(v => ({
-          _fieldInternalValue: v,
-          _fieldInternalKey: this._uniqueKey++,
-        }))
-      );
+      fieldArray = fieldArray.concat(values.map(this.createInternalFieldValue));
       return {
         fieldArray,
       };
     });
   };
+
+  replaceAllFields = values => {
+    this.setState(() => {
+      if (!isArray(values)) {
+        values = [values];
+      }
+
+      return {
+        fieldArray: values.map(this.createInternalFieldValue),
+      };
+    });
+  };
+
+  getName() {
+    return this._name;
+  }
+
+  createInternalFieldValue = value => {
+    return {
+      _fieldInternalValue: value,
+      _fieldInternalKey: this._uniqueKey++,
+    };
+  };
+
+  getFieldArrayValues() {
+    const { fieldArray } = this.state;
+
+    return (fieldArray || []).map(f => f._fieldInternalValue);
+  }
+
+  componentDidMount() {
+    const { zentForm } = this.context;
+    zentForm.attachToForm(this, { isFieldContainer: true });
+  }
+
+  componentWillUnmount() {
+    const { zentForm } = this.context;
+    zentForm.detachFromForm(this, { isFieldContainer: true });
+  }
 
   render() {
     const { component, ...rest } = this.props;
@@ -285,6 +309,7 @@ class FieldArray extends Component {
         swap: this.swapFields,
         unshift: this.unshiftFields,
         concat: this.concatFields,
+        replaceAll: this.replaceAllFields,
       },
     };
 

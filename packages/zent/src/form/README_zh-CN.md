@@ -324,6 +324,7 @@ const component = field.getWrappedComponent().getControlInstance();
 | 参数 | 说明 | 类型 | 是否必填 |
 |------|------|------|-----|------|
 | name | `FieldArray` 的名字 | string | 是 |
+| value | 组件的值 | array | 否 |
 | component | `FieldArray` 中展示的表单元素组件，可以是字符串(标准 html 元素名), 或者 React 组件 | string / React.Component | 是 |
 
 `FieldArray` 会为其 `component` 注入 `fields` 属性并提供表单域数组的遍历、增加、删除等功能，其 API 如下所示：
@@ -332,19 +333,20 @@ const component = field.getWrappedComponent().getControlInstance();
 |------|------|------|
 | name | `FieldArray` 的名字 | string |
 | length | `FieldArray` 中表单域数组的长度 | number |
-| forEach | 遍历 `FieldArray` 中表单域数组 | func(callback: Function) |
-| get | 获取 `FieldArray` 中表单域数组中某一项的值 | func(index: Number) |
+| forEach | 遍历 `FieldArray` 中表单域数组 | (callback: Function) => any |
+| get | 获取 `FieldArray` 中表单域数组中某一项的值 | (index: Number) => any |
 | getAll | 获取 `FieldArray` 中表单域数组的所有值 | func |
-| map | 遍历 `FieldArray` 中表单域数组 | func(callback: Function) |
-| move | 移动 `FieldArray` 中表单域数组的某一项 | func(fromPos: Number, toPos: Number) |
+| map | 遍历 `FieldArray` 中表单域数组 | (callback: Function) => any|
+| move | 移动 `FieldArray` 中表单域数组的某一项 | (fromPos: Number, toPos: Number) => any |
 | pop | 删除 `FieldArray` 中表单域数组的最后一项 | func |
-| push | 在 `FieldArray` 中表单域数组末尾添加一项 | func(value: Object/String) |
-| remove | 删除 `FieldArray` 中表单域数组中的某一项 | func(index: Number) |
+| push | 在 `FieldArray` 中表单域数组末尾添加一项 | (value: Object/String) => any |
+| remove | 删除 `FieldArray` 中表单域数组中的某一项 | (index: Number) => any |
 | removeAll | 删除 `FieldArray` 中整个表单域数组 | func |
 | shift | 删除 `FieldArray` 中表单域数组的第一项 | func |
-| swap | 交换 `FieldArray` 中表单域数组的某两项 | func(indexA: Number, indexB: Number) |
-| unshift | 在 `FieldArray` 中表单域数组的头部添加一项 | func(value: Object/String) |
-| concat | 在 `FieldArray` 中表单域数组末尾连接一个数组, 如果传入的不是数组，则会被添加到末尾 | func(value: Object/String/Array) |
+| swap | 交换 `FieldArray` 中表单域数组的某两项 | (indexA: Number, indexB: Number) => any |
+| unshift | 在 `FieldArray` 中表单域数组的头部添加一项 | (value: Object/String) => any |
+| concat | 在 `FieldArray` 中表单域数组末尾连接一个数组, 如果传入的不是数组，则会被添加到末尾 | (value: Object/String/Array) => any |
+| replaceAll | 将 `FieldArray` 中表单域数组全部替换为传入的参数 | (value: Array) => any |
 
 ⚠️注意：遍历的回调函数 callback 将接受五个参数: item（`FieldArray` 中当前项的名字），index（`FieldArray` 中当前项的次序），key（`FieldArray` 中当前项的唯一 key 值），value（`FieldArray` 中当前项的值）， fieldsValue（`FieldArray` 的所有值）。为了保证 `FieldArray` 在删除和添加时数据正确，遍历时一定要给 `component` 中的子节点设置正确的 `name` 和 `key`, 详见使用参考 [FieldArray 基本使用](#fieldarray-zu-jian)
 
