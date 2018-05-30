@@ -470,6 +470,38 @@ describe('CreateForm and FieldArray', () => {
     expect(fields[2]._fieldInternalValue.name).toBe('test');
   });
 
+  it('FieldArray has replaceAll method', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+    const replaceAll = wrapper.find(FieldArray).instance().replaceAllFields;
+
+    replaceAll([{ name: 'foobar' }]);
+    wrapper.update();
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
+    expect(fields.length).toBe(1);
+    expect(fields[0]._fieldInternalValue.name).toBe('foobar');
+  });
+
+  it('FieldArray has value prop', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray
+          name="members"
+          component={fieldComponent}
+          value={[{ name: 'zent' }]}
+        />
+      </FormCreated>
+    );
+    const fa = wrapper.find(FieldArray).instance();
+
+    let fields = fa.state.fieldArray;
+    expect(fields.length).toBe(1);
+    expect(fields[0]._fieldInternalValue.name).toBe('zent');
+  });
+
   it('FieldArray has an unused getWrappedComponent method(not metioned in docs)', () => {
     const wrapper = mount(
       <FieldArray name="members" component={fieldComponent} />,
