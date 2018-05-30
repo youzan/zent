@@ -1,131 +1,64 @@
-import Affix from 'affix';
-import Alert from 'alert';
-import AutoComplete from 'auto-complete';
-import Avatar from 'avatar';
-import Badge from 'badge';
-import BlockHeader from 'block-header';
-import Breadcrumb from 'breadcrumb';
-import Button from 'button';
-import Card from 'card';
-import Cascader from 'cascader';
-import Checkbox from 'checkbox';
-import Collapse from 'collapse';
-import ColorPicker from 'colorpicker';
-import CopyButton from 'copy-button';
-import DatePicker from 'datetimepicker/DatePicker';
-import DateRangePicker from 'datetimepicker/DateRangePicker';
-import DateRangeQuickPicker from 'date-range-quick-picker';
-import Design from 'design';
-import Dialog from 'dialog';
-import ErrorBoundary from 'error-boundary';
-import Form from 'form';
-import Grid from 'grid';
-import I18nProvider from 'i18n';
-import Icon from 'icon';
-import InfiniteScroller from 'infinite-scroller';
-import Input from 'input';
-import Layout from 'layout';
-import Loading from 'loading';
-import Mention from 'mention';
-import Menu from 'menu';
-import MonthPicker from 'datetimepicker/MonthPicker';
-import Notify from 'notify';
-import NumberInput from 'number-input';
-import Pagination from 'pagination';
-import Placeholder from 'placeholder';
-import Pop from 'pop';
-import Popover from 'popover';
-import Portal from 'portal';
-import previewImage from 'preview-image';
-import Progress from 'progress';
-import QuarterPicker from 'datetimepicker/QuarterPicker';
-import Radio from 'radio';
-import Rate from 'rate';
-import SearchInput from 'search-input';
-import Select from 'select';
-import SelectMenu from 'select-menu'; // eslint-disable-line
-import SKU from 'sku';
-import Slider from 'slider';
-import Sortable from 'sortable';
-import SplitButton from 'split-button';
-import Steps from 'steps';
-import Sweetalert from 'sweetalert';
-import Swiper from 'swiper';
-import Switch from 'switch';
-import Table from 'table';
-import Tabs from 'tabs';
-import Tag from 'tag';
-import Timeline from 'timeline';
-import TimePicker from 'datetimepicker/TimePicker';
-import TimeRangePicker from 'datetimepicker/TimeRangePicker';
-import Tree from 'tree';
-import Upload from 'upload';
-import WeekPicker from 'datetimepicker/WeekPicker';
-import YearPicker from 'datetimepicker/YearPicker';
-
-export {
-  Affix,
-  Alert,
-  AutoComplete,
-  Avatar,
-  Badge,
-  BlockHeader,
-  Breadcrumb,
-  Button,
-  Card,
-  Cascader,
-  Checkbox,
-  Collapse,
-  ColorPicker,
-  CopyButton,
-  DatePicker,
-  DateRangePicker,
-  DateRangeQuickPicker,
-  Design,
-  Dialog,
-  ErrorBoundary,
-  Form,
-  Grid,
-  I18nProvider,
-  Icon,
-  InfiniteScroller,
-  Input,
-  Layout,
-  Loading,
-  Mention,
-  Menu,
-  MonthPicker,
-  Notify,
-  NumberInput,
-  Pagination,
-  Placeholder,
-  Pop,
-  Popover,
-  Portal,
-  previewImage,
-  Progress,
-  QuarterPicker,
-  Radio,
-  Rate,
-  SearchInput,
-  Select,
-  // SelectMenu,
-  SKU,
-  Slider,
-  Sortable,
-  SplitButton,
-  Steps,
-  Sweetalert,
-  Swiper,
-  Switch,
-  Table,
-  Tabs,
-  Tag,
-  Timeline,
-  TimePicker,
-  TimeRangePicker,
-  Tree,
-  Upload,
-  WeekPicker,
-  YearPicker,
-};
+export { default as Affix } from 'affix';
+export { default as Alert } from 'alert';
+export { default as AutoComplete } from 'auto-complete';
+export { default as Avatar } from 'avatar';
+export { default as Badge } from 'badge';
+export { default as BlockHeader } from 'block-header';
+export { default as Breadcrumb } from 'breadcrumb';
+export { default as Button } from 'button';
+export { default as Card } from 'card';
+export { default as Cascader } from 'cascader';
+export { default as Checkbox } from 'checkbox';
+export { default as Collapse } from 'collapse';
+export { default as ColorPicker } from 'colorpicker';
+export { default as CopyButton } from 'copy-button';
+export { default as DatePicker } from 'datetimepicker/DatePicker';
+export { default as DateRangePicker } from 'datetimepicker/DateRangePicker';
+export { default as DateRangeQuickPicker } from 'date-range-quick-picker';
+export { default as Design } from 'design';
+export { default as Dialog } from 'dialog';
+export { default as ErrorBoundary } from 'error-boundary';
+export { default as Form } from 'form';
+export { default as Grid } from 'grid';
+export { default as I18nProvider } from 'i18n';
+export { default as Icon } from 'icon';
+export { default as InfiniteScroller } from 'infinite-scroller';
+export { default as Input } from 'input';
+export { default as Layout } from 'layout';
+export { default as Loading } from 'loading';
+export { default as Mention } from 'mention';
+export { default as Menu } from 'menu';
+export { default as MonthPicker } from 'datetimepicker/MonthPicker';
+export { default as Notify } from 'notify';
+export { default as NumberInput } from 'number-input';
+export { default as Pagination } from 'pagination';
+export { default as Placeholder } from 'placeholder';
+export { default as Pop } from 'pop';
+export { default as Popover } from 'popover';
+export { default as Portal } from 'portal';
+export { default as previewImage } from 'preview-image';
+export { default as Progress } from 'progress';
+export { default as QuarterPicker } from 'datetimepicker/QuarterPicker';
+export { default as Radio } from 'radio';
+export { default as Rate } from 'rate';
+export { default as SearchInput } from 'search-input';
+export { default as Select } from 'select';
+// export {default as SelectMenu} from 'select-menu'; // eslint-disable-line
+export { default as SKU } from 'sku';
+export { default as Slider } from 'slider';
+export { default as Sortable } from 'sortable';
+export { default as SplitButton } from 'split-button';
+export { default as Steps } from 'steps';
+export { default as Sweetalert } from 'sweetalert';
+export { default as Swiper } from 'swiper';
+export { default as Switch } from 'switch';
+export { default as Table } from 'table';
+export { default as Tabs } from 'tabs';
+export { default as Tag } from 'tag';
+export { default as Timeline } from 'timeline';
+export { default as TimePicker } from 'datetimepicker/TimePicker';
+export { default as TimeRangePicker } from 'datetimepicker/TimeRangePicker';
+export { default as Tree } from 'tree';
+export { default as Upload } from 'upload';
+export { default as WeekPicker } from 'datetimepicker/WeekPicker';
+export { default as YearPicker } from 'datetimepicker/YearPicker';
