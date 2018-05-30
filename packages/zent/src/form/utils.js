@@ -4,6 +4,7 @@ import scroll from 'utils/scroll';
 import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import { findDOMNode } from 'react-dom';
+import { FieldArrayMutatorAction } from './constants';
 
 const getSelectedValues = options => {
   const result = [];
@@ -138,5 +139,9 @@ export function updateFieldArray(fieldArrays, data, options) {
     } else if (shouldRemove) {
       fc.removeAllFields();
     }
+
+    fc.setMutatorAction(
+      get(options, 'mutatorAction', FieldArrayMutatorAction.Set)
+    );
   });
 }

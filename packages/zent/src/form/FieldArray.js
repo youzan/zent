@@ -7,10 +7,12 @@ import assign from 'lodash/assign';
 import map from 'lodash/map';
 import set from 'lodash/set';
 import isArray from 'lodash/isArray';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 
 import { prefixName } from './utils';
 import unknownProps from './unknownProps';
+import { FieldArrayMutatorAction } from './constants';
 
 class FieldArray extends Component {
   static propTypes = {
@@ -50,6 +52,9 @@ class FieldArray extends Component {
     };
     this._name = prefixName(context.zentForm, props.name);
     this._uniqueKey = 0;
+
+    // 标记触发 FieldArray 值改变的操作是什么类型
+    this._mutatorAction = FieldArrayMutatorAction.Initialize;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -72,12 +77,26 @@ class FieldArray extends Component {
     }
   }
 
+  componentDidMount() {
+    const { zentForm } = this.context;
+    zentForm.attachToForm(this, { isFieldContainer: true });
+
+    if (!isEmpty(this.state.fieldArray)) {
+      this.context.zentForm.setFieldArrayMembers(
+        this._name,
+        this.getFieldArrayValues()
+      );
+      this.setMutatorAction(FieldArrayMutatorAction.Unknown);
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.fieldArray !== this.state.prevState) {
       this.context.zentForm.setFieldArrayMembers(
         this._name,
         this.getFieldArrayValues()
       );
+      this.setMutatorAction(FieldArrayMutatorAction.Unknown);
     }
   }
 
@@ -170,6 +189,7 @@ class FieldArray extends Component {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
       fieldArray.push(this.createInternalFieldValue(value));
+
       return {
         fieldArray,
       };
@@ -183,6 +203,7 @@ class FieldArray extends Component {
         throw Error('The index for removeFields is invalid');
       }
       fieldArray.splice(index, 1);
+
       return {
         fieldArray,
       };
@@ -201,6 +222,7 @@ class FieldArray extends Component {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
       fieldArray.shift();
+
       return {
         fieldArray,
       };
@@ -217,6 +239,7 @@ class FieldArray extends Component {
       const fieldA = assign({}, fieldArray[indexA]);
       fieldArray[indexA] = fieldArray[indexB];
       fieldArray[indexB] = fieldA;
+
       return {
         fieldArray,
       };
@@ -227,6 +250,7 @@ class FieldArray extends Component {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
       fieldArray.unshift(this.createInternalFieldValue(value));
+
       return {
         fieldArray,
       };
@@ -241,6 +265,7 @@ class FieldArray extends Component {
         values = [values];
       }
       fieldArray = fieldArray.concat(values.map(this.createInternalFieldValue));
+
       return {
         fieldArray,
       };
@@ -263,6 +288,14 @@ class FieldArray extends Component {
     return this._name;
   }
 
+  setMutatorAction(action = FieldArrayMutatorAction.Unknown) {
+    this._mutatorAction = action;
+  }
+
+  getMutatorAction() {
+    return this._mutatorAction;
+  }
+
   createInternalFieldValue = value => {
     return {
       _fieldInternalValue: value,
@@ -274,11 +307,6 @@ class FieldArray extends Component {
     const { fieldArray } = this.state;
 
     return (fieldArray || []).map(f => f._fieldInternalValue);
-  }
-
-  componentDidMount() {
-    const { zentForm } = this.context;
-    zentForm.attachToForm(this, { isFieldContainer: true });
   }
 
   componentWillUnmount() {

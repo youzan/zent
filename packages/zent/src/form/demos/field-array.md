@@ -180,7 +180,7 @@ class FieldForm extends React.Component {
 					hobbies: ['HH2'],
 				},
 				{},
-			],
+			]
 		});
 	}
 
@@ -217,7 +217,10 @@ class FieldForm extends React.Component {
 					validations={{ required: true }}
 					validationErrors={{ required: '{i18n.totalNumberError}' }}
 				/>
-				<FieldArray name="members" component={Members} />
+				<FieldArray
+					name="members"
+					component={Members}
+				/>
 				<div className="zent-form__form-actions">
 					<Button type="primary" htmlType="submit">
 						{i18n.submit}

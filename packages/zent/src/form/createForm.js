@@ -22,6 +22,7 @@ import {
 } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
+import { FieldArrayMutatorAction } from './constants';
 
 const emptyArray = [];
 const checkSubmit = submit => {
@@ -244,35 +245,36 @@ const createForm = (config = {}) => {
       };
 
       initialize = data => {
-        updateFieldArray(this.fieldArrays, data, { removeIfNotExists: true });
+        updateFieldArray(this.fieldArrays, data, {
+          removeIfNotExists: true,
+          mutatorAction: FieldArrayMutatorAction.Initialize,
+        });
 
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value !== undefined) {
-            field.setInitialValue(value);
-          } else {
-            field.setInitialValue();
-          }
+          field.setInitialValue(value);
         });
       };
 
       resetFieldsValue = data => {
-        updateFieldArray(this.fieldArrays, data, { removeIfNotExists: true });
+        updateFieldArray(this.fieldArrays, data, {
+          removeIfNotExists: true,
+          mutatorAction: FieldArrayMutatorAction.Reset,
+        });
 
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value !== undefined) {
-            field.setValue(value);
-          } else {
-            field.resetValue();
-          }
+          field.resetValue(value);
         });
       };
 
       setFieldsValue = data => {
-        updateFieldArray(this.fieldArrays, data, { removeIfNotExists: false });
+        updateFieldArray(this.fieldArrays, data, {
+          removeIfNotExists: false,
+          mutatorAction: FieldArrayMutatorAction.Set,
+        });
 
         this.fields.forEach(field => {
           const name = field.getName();
@@ -284,36 +286,57 @@ const createForm = (config = {}) => {
       };
 
       setFieldArrayMembers = (fieldArrayName, value) => {
-        let faExists = false;
+        let matchedFa;
+        let matchedFaChildren = [];
         this.fieldArrays.forEach(fa => {
           const faName = fa.getName();
           if (faName === fieldArrayName) {
-            faExists = true;
+            matchedFa = fa;
           } else if (startsWith(faName, fieldArrayName)) {
-            const faNamePath = faName.substring(fieldArrayName.length);
-            const faValue = get(value, faNamePath);
-
-            // console.log(faName, ' -> ', faNamePath);
-
-            if (faValue !== undefined) {
-              fa.replaceAllFields(faValue);
-            } else {
-              fa.removeAllFields();
-            }
+            matchedFaChildren.push(fa);
           }
         });
 
-        if (faExists) {
+        // Ensure nested field arary are correctly handled
+        matchedFaChildren.sort();
+        matchedFaChildren.forEach(fa => {
+          const faName = fa.getName();
+          const faNamePath = faName.substring(fieldArrayName.length);
+          const faValue = get(value, faNamePath);
+
+          // console.log(faName, ' -> ', faNamePath);
+
+          if (faValue !== undefined) {
+            fa.replaceAllFields(faValue);
+          } else {
+            fa.removeAllFields();
+          }
+
+          fa.setMutatorAction(matchedFa.getMutatorAction());
+        });
+
+        // Update each member in field array
+        if (matchedFa) {
           this.fields.forEach(f => {
             const name = f.getName();
             if (name !== fieldArrayName && startsWith(name, fieldArrayName)) {
               const fieldNamePath = name.substring(fieldArrayName.length);
               const fieldValue = get(value, fieldNamePath);
+              const mutatorAction = matchedFa.getMutatorAction();
 
               // console.log(name, ' -> ', fieldNamePath);
 
-              if (fieldValue !== undefined) {
-                f.setValue(fieldValue);
+              if (mutatorAction === FieldArrayMutatorAction.Initialize) {
+                f.setInitialValue(fieldValue);
+              } else if (
+                mutatorAction === FieldArrayMutatorAction.Set ||
+                mutatorAction === FieldArrayMutatorAction.Unknown
+              ) {
+                if (fieldValue !== undefined) {
+                  f.setValue(fieldValue);
+                }
+              } else if (mutatorAction === FieldArrayMutatorAction.Reset) {
+                f.resetValue(fieldValue);
               }
             }
           });
