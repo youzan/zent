@@ -130,9 +130,11 @@ class Field extends Component {
 
   setValue = (value, needValidate = true) => {
     this.setState(
-      {
-        _value: value,
-        _isDirty: true,
+      () => {
+        return {
+          _value: value,
+          _isDirty: true,
+        };
       },
       () => {
         needValidate && this.context.zentForm.validate(this);
@@ -140,11 +142,15 @@ class Field extends Component {
     );
   };
 
-  resetValue = () => {
+  resetValue = value => {
     this.setState(
-      {
-        _value: this.state._initialValue,
-        _isDirty: false,
+      state => {
+        const newValue = value !== undefined ? value : state._initialValue;
+
+        return {
+          _value: newValue,
+          _isDirty: false,
+        };
       },
       () => {
         this.context.zentForm.validate(this);
