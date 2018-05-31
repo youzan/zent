@@ -523,4 +523,55 @@ describe('CreateForm and FieldArray', () => {
     const inputField = nestedWrapper.find(FieldArray);
     expect(inputField.length).toBe(1);
   });
+
+  it('Initialize FieldArray', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+
+    wrapper.instance().initialize({ members: ['1', '2'] });
+    wrapper.update();
+    const fa = wrapper.find(FieldArray).instance();
+    expect(fa.state.fieldArray.length).toBe(2);
+    expect(fa.state.fieldArray[0]._fieldInternalValue).toBe('1');
+    expect(fa.state.fieldArray[1]._fieldInternalValue).toBe('2');
+  });
+
+  it('Set FieldArray values', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+
+    wrapper.instance().setFieldsValue({ members: ['1', '2'] });
+    wrapper.update();
+    wrapper.update();
+    const fa = wrapper.find(FieldArray).instance();
+    expect(fa.state.fieldArray.length).toBe(2);
+    expect(fa.state.fieldArray[0]._fieldInternalValue).toBe('1');
+    expect(fa.state.fieldArray[1]._fieldInternalValue).toBe('2');
+  });
+
+  it('Reset FieldArray values', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+
+    wrapper.instance().setFieldsValue({ members: ['1', '2'] });
+    wrapper.update();
+    wrapper.update();
+    const fa = wrapper.find(FieldArray).instance();
+    expect(fa.state.fieldArray.length).toBe(2);
+    expect(fa.state.fieldArray[0]._fieldInternalValue).toBe('1');
+    expect(fa.state.fieldArray[1]._fieldInternalValue).toBe('2');
+
+    wrapper.instance().resetFieldsValue({});
+    wrapper.update();
+    expect(wrapper.find(FieldArray).instance().state.fieldArray.length).toBe(0);
+  });
 });

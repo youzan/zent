@@ -91,7 +91,7 @@ class FieldArray extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.fieldArray !== this.state.prevState) {
+    if (prevState.fieldArray !== this.state.fieldArray) {
       this.context.zentForm.setFieldArrayMembers(
         this._name,
         this.getFieldArrayValues()

@@ -9,6 +9,7 @@ describe('Form-Utilities', () => {
     silenceEvents,
     getCurrentValue,
     prefixName,
+    scrollToFirstError,
   } = Utils;
 
   it('getValue', () => {
@@ -197,5 +198,32 @@ describe('Form-Utilities', () => {
     expect(prefixName(zentForm1, 'foo')).toBe('foo');
     expect(prefixName(zentForm2, 'foo')).toBe('boo.foo');
     expect(prefixName(zentForm3, 'foo')).toBe('boo[1].foo');
+  });
+
+  it('scrollToFirstError', () => {
+    const mockField = options => ({
+      isValid() {
+        return options.isValid;
+      },
+      getWrappedComponent() {
+        if (options.nested) {
+          return {
+            getControlInstance() {
+              return document.createElement('div');
+            },
+          };
+        }
+        return document.createElement('div');
+      },
+    });
+
+    scrollToFirstError([]);
+
+    scrollToFirstError([
+      mockField({ isValid: false }),
+      mockField({ isValid: true }),
+    ]);
+
+    scrollToFirstError([mockField({ isValid: true, nested: true })]);
   });
 });
