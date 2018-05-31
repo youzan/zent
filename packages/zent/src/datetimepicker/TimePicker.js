@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -43,7 +43,7 @@ function getFormat(props) {
   return format === DEFAULT_FORMAT ? defaultFormat : format;
 }
 
-export default class TimePicker extends (PureComponent || Component) {
+export default class TimePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     valueType: PropTypes.oneOf(['string', 'number', 'date']),

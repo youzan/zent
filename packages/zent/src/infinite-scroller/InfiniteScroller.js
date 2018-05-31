@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Loading from 'loading';
 
-export default class InfiniteScroller extends (PureComponent || Component) {
+export default class InfiniteScroller extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

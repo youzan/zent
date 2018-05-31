@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import map from 'lodash/map';
@@ -7,7 +7,7 @@ import filter from 'lodash/filter';
 
 import ColGroup from './ColGroup';
 
-class Header extends (PureComponent || Component) {
+class Header extends PureComponent {
   constructor(props) {
     super(props);
 

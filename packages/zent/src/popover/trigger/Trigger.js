@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
-import React, { Component, PureComponent, Children } from 'react';
+import React, { PureComponent, Children } from 'react';
 
 export const PopoverTriggerPropTypes = {
   children: PropTypes.node,
@@ -21,7 +21,7 @@ export const PopoverTriggerPropTypes = {
   injectIsOutsideSelf: PropTypes.func,
 };
 
-export default class PopoverTrigger extends (PureComponent || Component) {
+export default class PopoverTrigger extends PureComponent {
   static propTypes = {
     ...PopoverTriggerPropTypes,
   };

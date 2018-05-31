@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import noop from 'lodash/noop';
 
-class TabPanel extends (PureComponent || Component) {
+class TabPanel extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import assign from 'lodash/assign';
 import PropTypes from 'prop-types';
 import LazyMount from 'utils/component/LazyMount';
@@ -7,7 +7,7 @@ import TabPanel from './components/TabPanel';
 import Nav from './components/Nav';
 import tabUtil from './tabUtil';
 
-export default class Tabs extends (PureComponent || Component) {
+export default class Tabs extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

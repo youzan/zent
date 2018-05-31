@@ -1,10 +1,10 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Base from './Base';
 
-export default class Circle extends (PureComponent || Component) {
+export default class Circle extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,

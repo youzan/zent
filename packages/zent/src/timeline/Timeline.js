@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import isString from 'lodash/isString';
@@ -7,7 +7,7 @@ import { validateProps } from './validateProps';
 import { TimelineItem } from './Item';
 import { TimelineLegend } from './Dot';
 
-export class Timeline extends (PureComponent || Component) {
+export class Timeline extends PureComponent {
   static propTypes = {
     size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     timeline: validateProps,

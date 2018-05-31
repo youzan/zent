@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import assign from 'lodash/assign';
 import clone from 'lodash/clone';
@@ -57,7 +57,7 @@ const toggleSlide = (el, isClose) => {
   window.requestAnimationFrame(animate);
 };
 
-export default class Tree extends (PureComponent || Component) {
+export default class Tree extends PureComponent {
   isInitial = true;
   isDataUpdate = false;
 

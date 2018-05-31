@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import isArray from 'lodash/isArray';
 import getQuarter from 'date-fns/get_quarter';
@@ -75,7 +75,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class QuarterPicker extends (PureComponent || Component) {
+class QuarterPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
   };

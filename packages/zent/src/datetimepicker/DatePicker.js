@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import assign from 'lodash/assign';
@@ -85,7 +85,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class DatePicker extends (PureComponent || Component) {
+class DatePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,

@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import setClass from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
@@ -32,7 +32,7 @@ const wrapTextWithSpanTag = children => {
   });
 };
 
-export default class Button extends (PureComponent || Component) {
+export default class Button extends PureComponent {
   static propTypes = {
     type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
     size: PropTypes.oneOf(['large', 'medium', 'small']),

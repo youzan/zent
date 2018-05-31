@@ -1,11 +1,11 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import size from 'lodash/size';
 import every from 'lodash/every';
 import some from 'lodash/some';
 import includes from 'lodash/includes';
 
-class SelectionCheckboxAll extends (PureComponent || Component) {
+class SelectionCheckboxAll extends PureComponent {
   constructor(props) {
     super(props);
 

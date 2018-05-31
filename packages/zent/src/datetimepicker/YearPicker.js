@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
 import Input from 'input';
@@ -60,7 +60,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class YearPicker extends (PureComponent || Component) {
+class YearPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
   };

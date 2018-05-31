@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import calssNames from 'classnames';
 
 import { getLeft } from './common';
 
-export default class Track extends (PureComponent || Component) {
+export default class Track extends PureComponent {
   getLeft = () => {
     const { range, value, max, min } = this.props;
     return range ? getLeft(value[0], max, min) : 0;

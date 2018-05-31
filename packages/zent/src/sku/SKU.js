@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -13,7 +13,7 @@ const noop = res => res;
 
 const noopPromise = () => new Promise(noop);
 
-class SKU extends (PureComponent || Component) {
+class SKU extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

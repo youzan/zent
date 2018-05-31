@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import isArray from 'lodash/isArray';
@@ -92,7 +92,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class WeekPicker extends (PureComponent || Component) {
+class WeekPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     startDay: PropTypes.number,

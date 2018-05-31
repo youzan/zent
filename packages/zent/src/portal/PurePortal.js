@@ -1,4 +1,4 @@
-import { Component, PureComponent, Children } from 'react';
+import { PureComponent, Children } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import isFunction from 'lodash/isFunction';
@@ -42,7 +42,7 @@ export function unstable_renderPortal(child, containerNode, onMount) {
 /**
  * Pure portal, render the content (from render prop or from the only children) into the container
  */
-export default class PurePortal extends (PureComponent || Component) {
+export default class PurePortal extends PureComponent {
   static propTypes = {
     onMount: PropTypes.func,
     onUnmount: PropTypes.func,

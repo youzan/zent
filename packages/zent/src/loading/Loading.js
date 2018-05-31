@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import has from 'lodash/has';
 
 import { getElementLeft, getElementTop } from './getPosition';
 
-export default class Loading extends (PureComponent || Component) {
+export default class Loading extends PureComponent {
   state = {
     show: this.props.show,
   };

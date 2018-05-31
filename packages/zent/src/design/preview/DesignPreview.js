@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
@@ -22,7 +22,7 @@ import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
  *
  * 这个组件里的一些 props 是需要 config 组件提供的
  */
-class DesignPreview extends (PureComponent || Component) {
+class DesignPreview extends PureComponent {
   // All props in this component are injected by Design
   static propTypes = {
     className: PropTypes.string,

@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import camelCase from 'lodash/camelCase';
@@ -11,7 +11,7 @@ import Icon from 'icon';
 
 const { MenuItem } = Menu;
 
-export default class SplitButton extends (PureComponent || Component) {
+export default class SplitButton extends PureComponent {
   static propTypes = {
     type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
     disabled: PropTypes.bool,

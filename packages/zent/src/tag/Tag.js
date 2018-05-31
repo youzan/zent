@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import isFunction from 'lodash/isFunction';
 // 支持的color style
 const colorTypes = ['red', 'green', 'yellow', 'blue', 'darkgreen'];
 
-export default class Tag extends (PureComponent || Component) {
+export default class Tag extends PureComponent {
   static propTypes = {
     color: PropTypes.string,
     outline: PropTypes.bool,

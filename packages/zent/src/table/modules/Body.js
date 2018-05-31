@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import assign from 'lodash/assign';
 import includes from 'lodash/includes';
 import Td from './Td';
 
 // 需要传入一个组件模板
-export default class Body extends (PureComponent || Component) {
+export default class Body extends PureComponent {
   constructor(props) {
     super(props);
 
