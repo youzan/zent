@@ -1,8 +1,8 @@
-import { PureComponent, Component, createElement } from 'react';
+import { PureComponent, createElement } from 'react';
 import PropTypes from 'prop-types';
 import { prefixName } from './utils';
 
-class FormSection extends (PureComponent || Component) {
+class FormSection extends PureComponent {
   static propTypes = {
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),

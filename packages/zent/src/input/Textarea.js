@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import omit from 'lodash/omit';
 import cx from 'classnames';
 import autosize from 'autosize';
 
-export default class Textarea extends (PureComponent || Component) {
+export default class Textarea extends PureComponent {
   componentDidMount() {
     const { autoSize } = this.props.inputProps;
     autoSize && autosize(this.textarea);

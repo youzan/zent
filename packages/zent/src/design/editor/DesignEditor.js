@@ -192,7 +192,7 @@ export class DesignEditor extends Component {
 /**
  * 表单每个域的基础样式
  */
-export class ControlGroup extends (PureComponent || Component) {
+export class ControlGroup extends PureComponent {
   static propTypes = {
     showError: PropTypes.bool,
     error: PropTypes.node,

@@ -1,11 +1,11 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import Radio from 'radio';
 import cx from 'classnames';
 
 import helper from '../helper';
 
-export default class Td extends (PureComponent || Component) {
+export default class Td extends PureComponent {
   renderContent() {
     const { column, data, pos } = this.props;
     const { name, bodyRender = data[name] } = column;

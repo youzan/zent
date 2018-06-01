@@ -1,10 +1,10 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import forEach from 'lodash/forEach';
 import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import Cell from './Cell';
 
-class Row extends (PureComponent || Component) {
+class Row extends PureComponent {
   render() {
     const {
       prefix,

@@ -1,7 +1,7 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class ConfigPreview extends (PureComponent || Component) {
+export default class ConfigPreview extends PureComponent {
   static propTypes = {
     value: PropTypes.object,
 

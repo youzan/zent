@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Icon from 'icon';
@@ -11,7 +11,7 @@ const HIDDEN_STYLE = {
   opacity: 0,
 };
 
-export default class Avatar extends (PureComponent || Component) {
+export default class Avatar extends PureComponent {
   static propTypes = {
     shape: PropTypes.oneOf(['circle', 'square']),
     size(props, propName, componentName) {

@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Popover from 'popover';
@@ -30,7 +30,7 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
   }
 }
 
-class Cascader extends (PureComponent || Component) {
+class Cascader extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

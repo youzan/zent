@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class Step extends (PureComponent || Component) {
+export default class Step extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     style: PropTypes.object,

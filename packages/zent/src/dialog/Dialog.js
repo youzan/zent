@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Portal from 'portal';
 import PropTypes from 'prop-types';
 
@@ -24,7 +24,7 @@ if (isBrowser) {
   });
 }
 
-export default class Dialog extends (PureComponent || Component) {
+export default class Dialog extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     onClose: PropTypes.func,

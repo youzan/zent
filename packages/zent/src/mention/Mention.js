@@ -350,7 +350,7 @@ export default class Mention extends Component {
   }
 
   getCaretCoordinates(start) {
-    const position = getCaretCoordinates(this.input, start, { debug: true });
+    const position = getCaretCoordinates(this.input, start, { debug: false });
     const { scrollLeft, scrollTop } = this.input;
 
     if (scrollLeft) {

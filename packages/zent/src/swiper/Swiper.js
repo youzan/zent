@@ -1,4 +1,4 @@
-import React, { PureComponent, Component, Children, cloneElement } from 'react';
+import React, { PureComponent, Children, cloneElement } from 'react';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
@@ -17,7 +17,7 @@ function setStyle(target, styles) {
   });
 }
 
-export default class Swiper extends (PureComponent || Component) {
+export default class Swiper extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

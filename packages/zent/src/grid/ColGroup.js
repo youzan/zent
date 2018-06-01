@@ -1,8 +1,8 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import map from 'lodash/map';
 
-class ColGroup extends (PureComponent || Component) {
+class ColGroup extends PureComponent {
   render() {
     const { columns } = this.props;
 

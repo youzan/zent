@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { padLeft, isSameDate } from '../utils';
@@ -18,7 +18,7 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-export default class TimePanel extends (PureComponent || Component) {
+export default class TimePanel extends PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
     actived: PropTypes.instanceOf(Date),

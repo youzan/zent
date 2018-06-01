@@ -1,11 +1,11 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import TextRow from '../shapes/TextRow';
 import TextRowDashed, { DEFAULT_SEGMENTS } from '../shapes/TextRowDashed';
 
-export default class TextBlock extends (PureComponent || Component) {
+export default class TextBlock extends PureComponent {
   static propTypes = {
     rows: PropTypes.number.isRequired,
     lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

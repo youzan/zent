@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'icon';
 import classnames from 'classnames';
@@ -6,7 +6,7 @@ import Popover from 'popover';
 
 const withPopover = Popover.withPopover;
 
-class MenuContent extends (PureComponent || Component) {
+class MenuContent extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

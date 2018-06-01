@@ -3,7 +3,7 @@
  *
  * @author hyczzhu
  */
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import isString from 'lodash/isString';
@@ -26,7 +26,7 @@ function compatibleInterface(prop) {
   return isString(prop) || isDate(prop) ? [prop, prop] : prop;
 }
 
-export default class TimeRangePicker extends (PureComponent || Component) {
+export default class TimeRangePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     placeholder: PropTypes.array,

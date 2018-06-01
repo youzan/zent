@@ -1,8 +1,8 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import copy from './CopyToClipboard';
 
-export default class CopyToClipboard extends (PureComponent || Component) {
+export default class CopyToClipboard extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,

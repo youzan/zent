@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Loading from 'loading';
 import classnames from 'classnames';
@@ -38,7 +38,7 @@ function stopPropagation(e) {
   }
 }
 
-class Grid extends (PureComponent || Component) {
+class Grid extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),

@@ -1,11 +1,7 @@
-/**
- * 上传图片弹框
- */
-
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class UploadImageItem extends (PureComponent || Component) {
+class UploadImageItem extends PureComponent {
   static propTypes = {
     // 组件所在位置的下标
     index: PropTypes.number.isRequired,

@@ -1,11 +1,11 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
 const defaultTimeout = 300; // ms
 
 export default function animatedClosable(Origin) {
-  return class Animated extends (PureComponent || Component) {
+  return class Animated extends PureComponent {
     static propTypes = {
       open: PropTypes.bool,
       timeout: PropTypes.number,

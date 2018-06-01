@@ -1,7 +1,7 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Star extends (PureComponent || Component) {
+export default class Star extends PureComponent {
   static propTypes = {
     value: PropTypes.number,
     index: PropTypes.number,

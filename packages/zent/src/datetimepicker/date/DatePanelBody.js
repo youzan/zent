@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
 
@@ -15,7 +15,7 @@ import PanelCell from '../common/PanelCell';
 const ROW = 6;
 const COL = 7;
 
-export default class DatePanelBody extends (PureComponent || Component) {
+export default class DatePanelBody extends PureComponent {
   isSelected(val) {
     const { selected } = this.props;
     if (!selected) return false;

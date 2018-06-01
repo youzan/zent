@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'select';
 
@@ -8,7 +8,7 @@ import { Pagination as I18nDefault } from 'i18n/default';
 const { number, array, oneOfType, func } = PropTypes;
 const { Option } = Select;
 
-export default class Prefix extends (PureComponent || Component) {
+export default class Prefix extends PureComponent {
   static propTypes = {
     totalItem: number,
     pageSize: oneOfType([number, array]),

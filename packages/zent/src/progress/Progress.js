@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
-export default class Progress extends (PureComponent || Component) {
+export default class Progress extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
