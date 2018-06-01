@@ -30,8 +30,27 @@ scatter: true
 The `Field` component is essentially an ancillary component that only manages information such as the life cycle of the field's value and the error of the field. It does not provide any style.
 
 - Property `name` is required when using `Field`;
-- The representation of `Field` is determined by the component passed in by proptery `component`. In addition, `Form` provides several common field components, such as `FormInputField`, `FormSelectField`, `FormRadioGroupField`, `FormCheckboxField`, `FormCheckboxGroupField`, `FormNumberInputField`, `FormSwitchField`, `FormColorPickerField`, `FormDateRangePickerField` and `FormDateRangeQuickPickerField`. However, you can use custom field component packaged by yourself. Note: The name of the `format` prop in `FormDateRangePickerField` and `FormDateRangeQuickPickerField` components is changed `dateFormat` because it conflicts with the `format` prop in `Field`, see demo for usage;
+- The representation of `Field` is determined by the component passed in by proptery `component`. In addition, `Form` provides several common field components. You can use custom field component packaged by yourself.
+  * `FormInputField`
+  * `FormSelectField`
+  * `FormRadioGroupField`
+  * `FormCheckboxField`
+  * `FormCheckboxGroupField`
+  * `FormNumberInputField`
+  * `FormSwitchField`
+  * `FormColorPickerField`
+  * `FormDatePickerField`
+  * `FormWeekPickerField`
+  * `FormMonthPickerField`
+  * `FormQuarterPickerField`
+  * `FormYearPickerField`
+  * `FormTimePickerField`
+  * `FormTimeRangePickerField`
+  * `FormDateRangePickerField`
+  * `FormDateRangeQuickPickerField`
 - `Form` also provides the `getControlGroup` method for quickly packaging custom field component. See more details in the demos and the [`getControlGroup` API] (#form-getcontrolgroup).
+
+Note: The name of the `format` prop in date related picker components is changed to `dateFormat` because it conflicts with the `format` prop in `Field`. And `format` in `FormTimePickerField` and `FormTimeRangePickerField` is changed to `timeFormat`.
 
 <!-- demo-slot-1 -->
 <!-- demo-slot-2 -->

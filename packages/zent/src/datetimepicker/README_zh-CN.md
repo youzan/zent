@@ -11,8 +11,8 @@ group: 数据
 
 ### 使用指南
 
-- 包含四个组件：`DatePicker`、`MonthPicker`、`WeekPicker` 和 `RangePicker`。
-- `DatePicker` 和 `RangePicker` 可以通过 `showTime` 属性来支持时间的选择。
+- 包含四个组件：`DatePicker`、`QuarterPicker`、`MonthPicker`、`WeekPicker`、`DateRangePicker`、`TimePicker`、`TimeRangePicker`。
+- `DatePicker` 和 `DateRangePicker` 可以通过 `showTime` 属性来支持时间的选择。
 - 通过 `format` 属性自定义日期字符串的格式，`format` 的详细说明见页面最后的表格。
 
 ### API

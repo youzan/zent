@@ -3,6 +3,13 @@ import React, { Component } from 'react';
 import CheckboxField from './CheckboxField';
 import CheckboxGroupField from './CheckboxGroupField';
 import ColorPickerField from './ColorPickerField';
+import DatePickerField from './DatePickerField';
+import WeekPickerField from './WeekPickerField';
+import MonthPickerField from './MonthPickerField';
+import QuarterPickerField from './QuarterPickerField';
+import YearPickerField from './YearPickerField';
+import TimePickerField from './TimePickerField';
+import TimeRangePickerField from './TimeRangePickerField';
 import DateRangePickerField from './DateRangePickerField';
 import DateRangeQuickPickerField from './DateRangeQuickPickerField';
 import InputField from './InputField';
@@ -27,6 +34,48 @@ export class FormCheckboxGroupField extends Component {
 export class FormColorPickerField extends Component {
   render() {
     return <Field {...this.props} component={ColorPickerField} />;
+  }
+}
+
+export class FormDatePickerField extends Component {
+  render() {
+    return <Field {...this.props} component={DatePickerField} />;
+  }
+}
+
+export class FormWeekPickerField extends Component {
+  render() {
+    return <Field {...this.props} component={WeekPickerField} />;
+  }
+}
+
+export class FormMonthPickerField extends Component {
+  render() {
+    return <Field {...this.props} component={MonthPickerField} />;
+  }
+}
+
+export class FormQuarterPickerField extends Component {
+  render() {
+    return <Field {...this.props} component={QuarterPickerField} />;
+  }
+}
+
+export class FormYearPickerField extends Component {
+  render() {
+    return <Field {...this.props} component={YearPickerField} />;
+  }
+}
+
+export class FormTimePickerField extends Component {
+  render() {
+    return <Field {...this.props} component={TimePickerField} />;
+  }
+}
+
+export class FormTimeRangePickerField extends Component {
+  render() {
+    return <Field {...this.props} component={TimeRangePickerField} />;
   }
 }
 
