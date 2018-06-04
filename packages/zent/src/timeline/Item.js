@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Popover from 'popover';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
 import { TimelineDot } from './Dot';
 
-const position = Popover.Position.create(
-  (anchorBoundingBox, containerBoundingBox, contentDimension, options) => {
-    const x = anchorBoundingBox.left + options.cushion;
-    const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
-    const y = middle - contentDimension.height / 2;
-
-    return {
-      getCSSStyle() {
-        return {
-          position: 'absolute',
-          left: `${Math.round(x)}px`,
-          top: `${Math.round(y)}px`,
-        };
-      },
-
-      name: 'timeline-tip-position',
-    };
-  }
-);
-
-const TimelineItemOptionalPop = ({ children, tip, display, prefix }) => {
+const TimelineItemOptionalPop = ({
+  children,
+  tip,
+  display,
+  prefix,
+  position,
+  popoverRef,
+}) => {
   if (tip) {
     return (
       <Popover
+        ref={popoverRef}
         className={`${prefix}-timeline-tip`}
         wrapperClassName={`${prefix}-timeline-item-wrapper`}
         display={display}
@@ -44,7 +32,7 @@ const TimelineItemOptionalPop = ({ children, tip, display, prefix }) => {
   return children;
 };
 
-export class TimelineItem extends Component {
+export class TimelineItem extends PureComponent {
   static propTypes = {
     size: PropTypes.number,
     color: PropTypes.string,
@@ -68,6 +56,46 @@ export class TimelineItem extends Component {
     dotColor: '#4b0',
   };
 
+  mousePosition = {
+    x: 0,
+    y: 0,
+  };
+
+  onMouseMove = e => {
+    this.mousePosition.x = e.clientX;
+    this.mousePosition.y = e.clientY;
+    this.popover && this.popover.adjustPosition();
+  };
+
+  position = Popover.Position.create(
+    (anchorBoundingBox, containerBoundingBox, contentDimension) => {
+      const x = anchorBoundingBox.left;
+      const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
+      const y = middle - contentDimension.height / 2;
+
+      return {
+        getCSSStyle: () => {
+          if (this.props.type === 'horizontal') {
+            return {
+              position: 'absolute',
+              left: `${Math.round(this.mousePosition.x)}px`,
+              top: `${Math.round(y - 40)}px`,
+            };
+          }
+          return {
+            position: 'absolute',
+            left: `${Math.round(x + 20)}px`,
+            top: `${Math.round(this.mousePosition.y)}px`,
+          };
+        },
+
+        name: 'timeline-tip-position',
+      };
+    }
+  );
+
+  popoverRef = el => (this.popover = el);
+
   render() {
     const {
       size,
@@ -87,8 +115,18 @@ export class TimelineItem extends Component {
     const key = type === 'vertical' ? 'height' : 'width';
 
     return (
-      <li className={cx(`${prefix}-timeline-item`, className)} style={style}>
-        <TimelineItemOptionalPop display={display} tip={tip} prefix={prefix}>
+      <li
+        className={cx(`${prefix}-timeline-item`, className)}
+        style={style}
+        onMouseMove={this.onMouseMove}
+      >
+        <TimelineItemOptionalPop
+          display={display}
+          tip={tip}
+          prefix={prefix}
+          position={this.position}
+          popoverRef={this.popoverRef}
+        >
           <div className={`${prefix}-timeline-item-hover`}>
             <div
               className={`${prefix}-timeline-item-line`}
