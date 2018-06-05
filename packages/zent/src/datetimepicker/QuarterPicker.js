@@ -259,7 +259,8 @@ class QuarterPicker extends PureComponent {
                   <div style={widthStyle} className={inputCls}>
                     <Input
                       name={name}
-                      value={showPlaceholder ? placeholderText : inputVal}
+                      placeholder={placeholderText}
+                      value={inputVal}
                       onChange={noop}
                       onFocus={onFocus}
                       onBlur={onBlur}
