@@ -198,6 +198,11 @@ class WeekPicker extends PureComponent {
     return formatDate(date, format);
   };
 
+  setEventValue = evt => {
+    const { value } = this.state;
+    return { ...evt, target: { value: value || '' } };
+  };
+
   onConfirm = () => {
     const { selected } = this.state;
     const { format, onClose, onChange } = this.props;
@@ -341,8 +346,8 @@ class WeekPicker extends PureComponent {
                     placeholder={placeholder || i18n.week}
                     value={value ? value.join(` ${i18n.to} `) : ''}
                     onChange={noop}
-                    onFocus={() => onFocus(value)}
-                    onBlur={() => onBlur(value)}
+                    onFocus={evt => onFocus(this.setEventValue(evt))}
+                    onBlur={evt => onBlur(this.setEventValue(evt))}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />{' '}

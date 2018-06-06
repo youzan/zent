@@ -55,6 +55,11 @@ class DateRangePicker extends PureComponent {
     };
   };
 
+  setEventValue = evt => {
+    const { value } = this.props;
+    return { ...evt, target: { value: value || [] } };
+  };
+
   renderPicker() {
     const {
       className,
@@ -68,6 +73,8 @@ class DateRangePicker extends PureComponent {
       openPanel,
       placeholder,
       value,
+      onBlur,
+      onFocus,
       ...pickerProps
     } = this.props;
     let rangePicker;
@@ -87,6 +94,8 @@ class DateRangePicker extends PureComponent {
               defaultValue={defaultValueArr[0]}
               defaultTime={timeArr[0]}
               value={value[0]}
+              onFocus={evt => onFocus(this.setEventValue(evt))}
+              onBlur={evt => onBlur(this.setEventValue(evt))}
               onClick={val => onClick && onClick(val, START)}
               onOpen={() => onOpen && onOpen(START)}
               onClose={() => onClose && onClose(START)}
@@ -110,6 +119,8 @@ class DateRangePicker extends PureComponent {
               defaultValue={defaultValueArr[1]}
               defaultTime={timeArr[1]}
               value={value[1]}
+              onFocus={evt => onFocus(this.setEventValue(evt))}
+              onBlur={evt => onBlur(this.setEventValue(evt))}
               onClick={val => onClick && onClick(val, END)}
               onOpen={() => onOpen && onOpen(END)}
               onClose={() => onClose && onClose(END)}

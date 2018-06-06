@@ -119,6 +119,11 @@ class QuarterPicker extends PureComponent {
     return formatDate(date, format);
   };
 
+  setEventValue = evt => {
+    const { value } = this.state;
+    return { ...evt, target: { value: value || '' } };
+  };
+
   onChangeQuarter = val => {
     this.setState({
       actived: val,
@@ -262,8 +267,8 @@ class QuarterPicker extends PureComponent {
                       placeholder={placeholderText}
                       value={inputVal}
                       onChange={noop}
-                      onFocus={onFocus}
-                      onBlur={onBlur}
+                      onFocus={evt => onFocus(this.setEventValue(evt))}
+                      onBlur={evt => onBlur(this.setEventValue(evt))}
                       disabled={disabled}
                     />
                     <span className="zenticon zenticon-calendar-o" />

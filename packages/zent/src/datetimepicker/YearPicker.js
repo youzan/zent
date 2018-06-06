@@ -239,7 +239,7 @@ class YearPicker extends PureComponent {
                   <Input
                     name={name}
                     placeholder={placeholder || i18n.year}
-                    value={value}
+                    value={value || ''}
                     onChange={noop}
                     onFocus={onFocus}
                     onBlur={onBlur}

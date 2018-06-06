@@ -392,7 +392,7 @@ class DatePicker extends PureComponent {
                   <Input
                     name={name}
                     placeholder={placeholder || i18n.date}
-                    value={value}
+                    value={value || ''}
                     onChange={noop}
                     onFocus={onFocus}
                     onBlur={onBlur}

@@ -254,7 +254,7 @@ class MonthPicker extends PureComponent {
                   <Input
                     name={name}
                     placeholder={placeholder || i18n.month}
-                    value={value}
+                    value={value || ''}
                     onChange={noop}
                     onFocus={onFocus}
                     onBlur={onBlur}
