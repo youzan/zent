@@ -2,15 +2,29 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import isString from 'lodash/isString';
-import { validateProps } from './validateProps';
 
 import { TimelineItem } from './Item';
 import { TimelineLegend } from './Dot';
 
+function normalize(timeline, size) {
+  return timeline.map((item, index) => {
+    if (isString(item)) {
+      return {
+        key: item,
+        label: item,
+      };
+    }
+    const { id, percent, ...others } = item;
+    return {
+      key: id || index,
+      size: percent && percent * size,
+      ...others,
+    };
+  });
+}
+
 export class Timeline extends PureComponent {
   static propTypes = {
-    size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    timeline: validateProps,
     type: PropTypes.oneOf(['vertical', 'horizontal']),
     className: PropTypes.string,
     style: PropTypes.object,
@@ -27,28 +41,10 @@ export class Timeline extends PureComponent {
   static Item = TimelineItem;
   static Legend = TimelineLegend;
 
-  normalize = () => {
-    const { timeline, size } = this.props;
-    return timeline.map((item, index) => {
-      if (isString(item)) {
-        return {
-          key: item,
-          label: item,
-        };
-      }
-      const { id, percent, ...others } = item;
-      return {
-        key: id || index,
-        size: percent && percent * size,
-        ...others,
-      };
-    });
-  };
-
   renderChildren() {
-    const { children, timeline, type } = this.props;
+    const { children, timeline, type, size } = this.props;
     if (timeline && timeline.length) {
-      return this.normalize(timeline).reduce((ret, item) => {
+      return normalize(timeline, size).reduce((ret, item) => {
         ret.push(<TimelineItem {...item} type={type} />);
         return ret;
       }, []);
