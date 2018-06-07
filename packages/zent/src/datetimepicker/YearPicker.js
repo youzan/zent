@@ -235,8 +235,8 @@ class YearPicker extends PureComponent {
                     placeholder={placeholder || i18n.year}
                     value={value || ''}
                     onChange={noop}
-                    onFocus={evt => onFocus(evt, { value })}
-                    onBlur={evt => onBlur(evt, { value })}
+                    onFocus={evt => onFocus && onFocus(evt, { value })}
+                    onBlur={evt => onBlur && onBlur(evt, { value })}
                     disabled={disabled}
                   />
                 )}
