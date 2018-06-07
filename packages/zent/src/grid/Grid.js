@@ -16,7 +16,6 @@ import some from 'lodash/some';
 import map from 'lodash/map';
 import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
-import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
 import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
@@ -266,7 +265,7 @@ class Grid extends PureComponent {
 
   getColumns = (props, columns, expandRowKeys) => {
     let { selection, datasets, expandation } = props || this.props;
-    columns = cloneDeep(columns || this.store.getState('columns'));
+    columns = (columns || this.store.getState('columns')).slice();
     expandRowKeys = expandRowKeys || this.state.expandRowKeys;
     const hasLeft = columns.some(
       column => column.fixed === 'left' || column.fixed === true
@@ -601,7 +600,7 @@ class Grid extends PureComponent {
   };
 
   handleBatchSelect = (type, data) => {
-    let selectedRowKeys = cloneDeep(this.store.getState('selectedRowKeys'));
+    let selectedRowKeys = this.store.getState('selectedRowKeys').slice();
 
     let changeRowKeys = [];
 
