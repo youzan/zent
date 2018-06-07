@@ -20,7 +20,7 @@ Time pickers, provides basic time choosing functionality.
 
 | Property     | Description              | Type      | Default       | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
-| onChange     | Callback when value changes  | func   | `noop`   | 是    |
+| onChange     | Callback when value changes  | func   | `noop`   |  Yes    |
 | value        | Selected value             | string \| Date    |     | Yes   |
 | defaultValue | Default value              | string \| Date    |     | No   |
 | onClick      | Callback when click on a value | func |   |   No|
