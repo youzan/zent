@@ -21,8 +21,7 @@ describe('Form-Utilities', () => {
       stopPropagation: () => {},
     };
 
-    // return arg[0]
-    expect(getValue(0, 1)).toBe(0);
+    expect(getValue(0, 1)).toBe(1);
     expect(getValue(emptyObj)).toBe(emptyObj);
 
     // arg[0] && arg[0].value return arg[0].value
