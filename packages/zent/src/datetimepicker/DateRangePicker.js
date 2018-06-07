@@ -57,7 +57,15 @@ class DateRangePicker extends PureComponent {
 
   setEventValue = evt => {
     const { value } = this.props;
-    return { ...evt, target: { value: value || [] } };
+    const { target } = evt;
+
+    return {
+      ...evt,
+      target: {
+        ...target,
+        value: value || [],
+      },
+    };
   };
 
   renderPicker() {

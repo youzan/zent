@@ -200,7 +200,15 @@ class WeekPicker extends PureComponent {
 
   setEventValue = evt => {
     const { value } = this.state;
-    return { ...evt, target: { value: value || '' } };
+    const { target } = evt;
+
+    return {
+      ...evt,
+      target: {
+        ...target,
+        value: value || '',
+      },
+    };
   };
 
   onConfirm = () => {

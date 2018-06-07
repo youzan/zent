@@ -120,14 +120,20 @@ class QuarterPicker extends PureComponent {
   };
 
   setEventValue = evt => {
-    const { value } = this.state;
-    return { ...evt, target: { value: value || '' } };
+    const { quarterValue } = this.state;
+    const { target } = evt;
+
+    return {
+      ...evt,
+      target: {
+        ...target,
+        value: quarterValue || [],
+      },
+    };
   };
 
   onChangeQuarter = val => {
-    this.setState({
-      actived: val,
-    });
+    this.setState({ actived: val });
   };
 
   onSelectQuarter = quarter => {
@@ -143,6 +149,7 @@ class QuarterPicker extends PureComponent {
     const ret = [dayStart(begin), dayEnd(end)];
 
     this.setState({
+      quarterValue: ret,
       value: quarter,
       selected: begin,
       actived: begin,
@@ -206,9 +213,7 @@ class QuarterPicker extends PureComponent {
 
     if (disabled) return;
 
-    this.setState({
-      openPanel,
-    });
+    this.setState({ openPanel });
   };
 
   render() {
@@ -265,13 +270,13 @@ class QuarterPicker extends PureComponent {
                     <Input
                       name={name}
                       placeholder={placeholderText}
-                      value={inputVal}
+                      value={inputVal || ''}
                       onChange={noop}
                       onFocus={evt => onFocus(this.setEventValue(evt))}
                       onBlur={evt => onBlur(this.setEventValue(evt))}
                       disabled={disabled}
                     />
-                    <span className="zenticon zenticon-calendar-o" />
+                    <span className="zenticon zenticon-calendar-o" />{' '}
                     {canClear && (
                       <span
                         onClick={this.onClearInput}
