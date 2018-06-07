@@ -20,10 +20,12 @@ declare module 'zent/lib/tree' {
   interface ITreeProps {
     dataType?: 'tree' | 'plain'
     data: Array<ITreeData>
+    props?: object
     render?: (data: ITreeData) => React.ReactNode
     operations?: Array<ITreeOperation>
     foldable?: boolean
     checkable?: boolean
+    controlled?: boolean
     onCheck?: (data: Array<number | string>) => void
     defaultCheckedKeys?: Array<number | string>
     disabledCheckedKeys?: Array<number | string>

@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import AnimateHeight from 'utils/component/AnimateHeight';
 
-import Loading from './components/Loading';
+import Loading from '../components/Loading';
 
 const PROP_KEY = {
   id: 'id',
@@ -53,9 +53,14 @@ export default class Tree extends (PureComponent || Component) {
   constructor(props) {
     super(props);
     const {
-      tree, treeMap, checkMap,
-      expandNode, checkedNode, disabledNode, halfCheckNode,
-     } = this.formatDataByProp(props);
+      tree,
+      treeMap,
+      checkMap,
+      expandNode,
+      checkedNode,
+      disabledNode,
+      halfCheckNode,
+    } = this.formatDataByProp(props);
 
     this.state = {
       treeMap,
@@ -100,29 +105,24 @@ export default class Tree extends (PureComponent || Component) {
     }
 
     if (
-      nextProps.checkable
-      && (
-        (
-          !isEqual(this.props.defaultCheckedKeys, nextProps.defaultCheckedKeys)
-          || !isEqual(this.props.disabledCheckedKeys, nextProps.disabledCheckedKeys)
-        )
-        || (
-          this.props.controlled !== nextProps.controlled
-        )
-      )
+      nextProps.checkable &&
+      (!isEqual(this.props.defaultCheckedKeys, nextProps.defaultCheckedKeys) ||
+        !isEqual(
+          this.props.disabledCheckedKeys,
+          nextProps.disabledCheckedKeys
+        ) ||
+        this.props.controlled !== nextProps.controlled)
     ) {
-      const {
-        checkedNode,
-        disabledNode,
-        halfCheckNode,
-      } = this.formatCheckInfo({
-        defaultCheckedKeys: nextProps.defaultCheckedKeys,
-        disabledCheckedKeys: nextProps.disabledCheckedKeys,
-        checkMap: this.state.checkMap,
-        tree: this.state.tree,
-        checkable: nextProps.checkable,
-        controlled: nextProps.controlled,
-      });
+      const { checkedNode, disabledNode, halfCheckNode } = this.formatCheckInfo(
+        {
+          defaultCheckedKeys: nextProps.defaultCheckedKeys,
+          disabledCheckedKeys: nextProps.disabledCheckedKeys,
+          checkMap: this.state.checkMap,
+          tree: this.state.tree,
+          checkable: nextProps.checkable,
+          controlled: nextProps.controlled,
+        }
+      );
 
       this.setState({
         checkedNode,
@@ -144,7 +144,7 @@ export default class Tree extends (PureComponent || Component) {
     disabledCheckedKeys = [],
     defaultCheckedKeys = [],
   }) {
-    this.propKey = Object.assign({}, PROP_KEY ,props);
+    this.propKey = Object.assign({}, PROP_KEY, props);
     const { children, parentId, id } = this.propKey;
     const treeMap = {};
     const expandNode = [];
@@ -209,16 +209,12 @@ export default class Tree extends (PureComponent || Component) {
 
         if (pId !== undefined) {
           checkMap[pId] = checkMap[pId] || [];
-          checkMap[pId].push(...checkMap[cId])
+          checkMap[pId].push(...checkMap[cId]);
         }
       },
     });
 
-    const {
-      checkedNode,
-      disabledNode,
-      halfCheckNode,
-    } = this.formatCheckInfo({
+    const { checkedNode, disabledNode, halfCheckNode } = this.formatCheckInfo({
       tree: roots,
       checkMap,
       checkable,
@@ -257,14 +253,14 @@ export default class Tree extends (PureComponent || Component) {
             defaultCheckedKeys.reduce((total, rootId) => {
               return total.concat(checkMap[rootId]);
             }, [])
-          )
+          ),
         ];
         const realDisabled = [
           ...new Set(
             disabledCheckedKeys.reduce((total, rootId) => {
               return total.concat(checkMap[rootId]);
             }, [])
-          )
+          ),
         ];
 
         const correntCheck = this.correctCheckInfo({
@@ -288,7 +284,7 @@ export default class Tree extends (PureComponent || Component) {
       checkedNode,
       disabledNode,
       halfCheckNode,
-    }
+    };
   }
 
   collector({
@@ -308,8 +304,8 @@ export default class Tree extends (PureComponent || Component) {
       mapCb(item[id], currentPath);
 
       if (
-        this.isParentNode(item, loadMore)
-        && (item.expand || (item.expand === undefined && isExpandAll))
+        this.isParentNode(item, loadMore) &&
+        (item.expand || (item.expand === undefined && isExpandAll))
       ) {
         exPandCb(item[id]);
       }
@@ -335,7 +331,7 @@ export default class Tree extends (PureComponent || Component) {
     const { tree: cTree, expandNode: cExpandNode } = current;
     const { tree: nTree, treeMap: nTreeMap, expandNode: nExpandNode } = next;
 
-    Object.values(nTreeMap).forEach((path) => {
+    Object.values(nTreeMap).forEach(path => {
       const nPath = path.join(`.${children}.`);
       const cItem = get(cTree, nPath);
       const nItem = get(nTree, nPath);
@@ -344,10 +340,10 @@ export default class Tree extends (PureComponent || Component) {
       // 如果是续费成员 cItem[id] === nId
       // 当前打开存在，下个打开不存在
       if (
-        cItem
-        && cItem[id] === nId
-        && cExpandNode.indexOf(nId) > -1
-        && nExpandNode.indexOf(nId) === -1
+        cItem &&
+        cItem[id] === nId &&
+        cExpandNode.indexOf(nId) > -1 &&
+        nExpandNode.indexOf(nId) === -1
       ) {
         nExpandNode.push(nId);
       }
@@ -380,19 +376,16 @@ export default class Tree extends (PureComponent || Component) {
       const rootChildren = root[children];
 
       if (
-        (
-          isInital
-          || tempChecked.indexOf(rootId) === -1
-        )
-        && rootChildren
-        && rootChildren.length
+        (isInital || tempChecked.indexOf(rootId) === -1) &&
+        rootChildren &&
+        rootChildren.length
       ) {
         const childLength = rootChildren.length;
-        const rootCount = tempParentCheckdMap[rootId] = {
+        const rootCount = (tempParentCheckdMap[rootId] = {
           checkedCount: 0,
           disabledCount: 0,
           validCheckedCount: 0,
-        }
+        });
 
         rootChildren.forEach(child => {
           shouldNodeCheck(child, rootId);
@@ -412,8 +405,8 @@ export default class Tree extends (PureComponent || Component) {
         }
 
         if (
-          rootCount.disabledCount === childLength
-          && tempDisabled.indexOf(rootId) === -1
+          rootCount.disabledCount === childLength &&
+          tempDisabled.indexOf(rootId) === -1
         ) {
           tempDisabled.push(rootId);
         }
@@ -438,15 +431,19 @@ export default class Tree extends (PureComponent || Component) {
       checkedNode: tempChecked,
       disabledNode: tempDisabled,
       halfCheckNode: tempHalfCheck,
-    }
+    };
   }
 
   handleExpandClick(root, e) {
     const { id } = this.propKey;
     const { loadMore, foldable } = this.props;
+    if (!foldable) {
+      return;
+    }
+
     const { loadingNode } = this.state;
     const isSwitcher = e.currentTarget.classList[0] === 'switcher';
-    if (!isSwitcher && !foldable) { return; }
+
     if (loadMore) {
       if (!root.children || root.children.length === 0) {
         e.persist();
@@ -457,7 +454,7 @@ export default class Tree extends (PureComponent || Component) {
             this.setState({
               loadingNode: nextLoadingNode.filter(x => x !== root[id]),
             });
-            this.handleExpand(root);
+            this.handleExpand(root, isSwitcher);
           })
           .catch(() => {
             this.setState({
@@ -467,14 +464,16 @@ export default class Tree extends (PureComponent || Component) {
         return;
       }
     }
-    this.handleExpand(root);
+    this.handleExpand(root, isSwitcher);
   }
 
-  handleExpand(root) {
+  handleExpand(root, isSwitcher) {
     const { onExpand, autoExpandOnSelect } = this.props;
     const { expandNode } = this.state;
 
-    if (!autoExpandOnSelect) { return; }
+    if (!isSwitcher && !autoExpandOnSelect) {
+      return;
+    }
 
     const { id } = this.propKey;
     const activeId = root[id];
@@ -507,28 +506,28 @@ export default class Tree extends (PureComponent || Component) {
     // 受控模式
     if (controlled) {
       if (checkedNode.indexOf(rootId) > -1) {
-        checkedNode =  checkedNode.filter((id) => id !== rootId);
+        checkedNode = checkedNode.filter(id => id !== rootId);
       } else {
         checkedNode = checkedNode.concat(rootId);
       }
       onCheck && onCheck([...checkedNode]);
 
-    // zent 模式
+      // zent 模式
     } else {
       if (checkedNode.indexOf(rootId) > -1) {
-        checkedNode = checkedNode.filter((id) => {
-         return disabledNode.indexOf(id) > -1
-          || checkMap[id].indexOf(rootId) === -1
-          && checkMap[rootId].indexOf(id) === -1;
+        checkedNode = checkedNode.filter(id => {
+          return (
+            disabledNode.indexOf(id) > -1 ||
+            (checkMap[id].indexOf(rootId) === -1 &&
+              checkMap[rootId].indexOf(id) === -1)
+          );
         });
       } else {
         checkedNode = [
-          ...new Set(
-            [
-              ...checkedNode,
-              ...checkMap[rootId].filter((id) => disabledNode.indexOf(id) === -1),
-            ]
-          )
+          ...new Set([
+            ...checkedNode,
+            ...checkMap[rootId].filter(id => disabledNode.indexOf(id) === -1),
+          ]),
         ];
       }
 
