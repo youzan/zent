@@ -230,7 +230,11 @@ class MonthPicker extends PureComponent {
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-month-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,

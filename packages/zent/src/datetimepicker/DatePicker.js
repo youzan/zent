@@ -364,7 +364,11 @@ class DatePicker extends PureComponent {
       },
       state: { showPlaceholder, openPanel, value },
     } = this;
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-date-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
