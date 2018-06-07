@@ -22,7 +22,11 @@ const getSelectedValues = options => {
 const isEvent = candidate =>
   !!(candidate && candidate.stopPropagation && candidate.preventDefault);
 
-export function getValue(event) {
+export function getValue(event, realValue) {
+  if (arguments.length >= 2) {
+    return realValue;
+  }
+
   // 简单判断是否是一个原生事件对象
   if (isEvent(event)) {
     const {

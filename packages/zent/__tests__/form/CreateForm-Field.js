@@ -873,7 +873,14 @@ describe('CreateForm and Field', () => {
         const newValue = {
           country: e.target.value,
         };
-        this.props.onChange(newValue, { merge });
+        this.props.onChange(newValue, { merge, value: newValue });
+      };
+
+      onCountryBlur = e => {
+        this.props.onBlur(e, {
+          merge: this.props.merge,
+          value: e.target.value,
+        });
       };
 
       onPhoneChange = e => {
@@ -882,6 +889,12 @@ describe('CreateForm and Field', () => {
           mobile: e.target.value,
         };
         this.props.onChange(newValue, { merge });
+      };
+
+      onPhoneBlur = e => {
+        this.props.onBlur(e, {
+          merge: this.props.merge,
+        });
       };
 
       filterHandler = (item, keyword) => {
@@ -906,6 +919,7 @@ describe('CreateForm and Field', () => {
               placeholder="{i18n.phonePlaceholder}"
               value={value.country}
               onChange={this.onCountryChange}
+              onBlur={this.onCountryBlur}
             />
             <input
               className="mobile"
@@ -913,6 +927,7 @@ describe('CreateForm and Field', () => {
               placeholder="{i18n.phonePlaceholder}"
               value={value.mobile}
               onChange={this.onPhoneChange}
+              onBlur={this.onPhoneBlur}
             />
           </div>
         );
@@ -934,9 +949,16 @@ describe('CreateForm and Field', () => {
       }
     );
 
-    let mobileInput = wrapper.find('input.mobile');
+    const mobileInput = wrapper.find('input.mobile');
+    const countryInput = wrapper.find('input.country');
     mobileInput.simulate('change', { target: { value: '2' } });
     expect(wrapper.state('_value').country).toBe('1');
     expect(wrapper.state('_value').mobile).toBe('2');
+
+    countryInput.simulate('change', { target: { value: '3' } });
+    expect(wrapper.state('_value').country).toBe('3');
+
+    mobileInput.simulate('blur', { target: { value: '3' } });
+    countryInput.simulate('blur', { target: { value: '3' } });
   });
 });
