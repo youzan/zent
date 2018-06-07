@@ -10,7 +10,7 @@ Time pickers, provides basic time choosing functionality.
 
 ## Guides
 
-- Pickers：`DatePicker`, `YearPicker`, `QuarterPicker`, `MonthPicker`, `WeekPicker`, `DateRangePicker`, `TimePicker` and `TimeRangePicker`.
+- Included pickers：`DatePicker`, `YearPicker`, `QuarterPicker`, `MonthPicker`, `WeekPicker`, `DateRangePicker`, `TimePicker` and `TimeRangePicker`.
 - `DatePicker` and `DateRangePicker` can use `showTime` to allow time selection.
 - Date formats can be customized using `format`, you can find formating details at the end of this page.
 
