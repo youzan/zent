@@ -97,9 +97,7 @@ class MonthPicker extends PureComponent {
   };
 
   onChangeMonth = val => {
-    this.setState({
-      actived: val,
-    });
+    this.setState({ actived: val });
   };
 
   onSelectMonth = (val, isYear = false) => {
@@ -144,11 +142,7 @@ class MonthPicker extends PureComponent {
       value = formatDate(selected, format);
     }
 
-    this.setState({
-      value,
-      openPanel: false,
-      showPlaceholder: false,
-    });
+    this.setState({ value, openPanel: false, showPlaceholder: false });
     onChange(this.getReturnValue(selected));
   };
 
@@ -185,7 +179,7 @@ class MonthPicker extends PureComponent {
             onSelect={this.onSelectMonth}
             disabledDate={this.isDisabled}
             i18n={i18n}
-          />
+          />{' '}
           {isFooterVisble ? (
             <PanelFooter
               buttonText={confirmText || i18n.confirm}
@@ -246,7 +240,7 @@ class MonthPicker extends PureComponent {
               cushion={5}
               visible={openPanel}
               onVisibleChange={this.togglePicker}
-              className={`${prefix}-datetime-picker-popover ${className}    -popover`}
+              className={`${prefix}-datetime-picker-popover ${className} -popover`}
               position={popPositionMap[popPosition.toLowerCase()]}
             >
               <Popover.Trigger.Click>
@@ -256,11 +250,11 @@ class MonthPicker extends PureComponent {
                     placeholder={placeholder || i18n.month}
                     value={value || ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
+                    onFocus={evt => onFocus && onFocus(evt, { value })}
+                    onBlur={evt => onBlur && onBlur(evt, { value })}
                     disabled={disabled}
                   />
-                  <span className="zenticon zenticon-calendar-o" />
+                  <span className="zenticon zenticon-calendar-o" />{' '}
                   {canClear && (
                     <span
                       onClick={this.onClearInput}

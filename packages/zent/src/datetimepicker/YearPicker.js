@@ -87,9 +87,7 @@ class YearPicker extends PureComponent {
     const acp = new Date(actived);
     acp.setFullYear(val);
 
-    this.setState({
-      actived: acp,
-    });
+    this.setState({ actived: acp });
   };
 
   onSelectYear = val => {
@@ -133,11 +131,7 @@ class YearPicker extends PureComponent {
       value = formatDate(selected, format);
     }
 
-    this.setState({
-      value,
-      openPanel: false,
-      showPlaceholder: false,
-    });
+    this.setState({ value, openPanel: false, showPlaceholder: false });
     onChange(value);
   };
 
@@ -167,7 +161,7 @@ class YearPicker extends PureComponent {
                 onSelect={this.onSelectYear}
                 disabledDate={this.isDisabled}
                 i18n={i18n}
-              />
+              />{' '}
               {props.needConfirm && (
                 <PanelFooter
                   buttonText={props.confirmText || i18n.confirm}
@@ -241,14 +235,13 @@ class YearPicker extends PureComponent {
                     placeholder={placeholder || i18n.year}
                     value={value || ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
+                    onFocus={evt => onFocus(evt, { value })}
+                    onBlur={evt => onBlur(evt, { value })}
                     disabled={disabled}
                   />
                 )}
               </Receiver>
-
-              <span className="zenticon zenticon-calendar-o" />
+              <span className="zenticon zenticon-calendar-o" />{' '}
               {canClear && (
                 <span
                   onClick={this.onClearInput}

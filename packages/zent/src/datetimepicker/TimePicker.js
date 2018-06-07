@@ -123,10 +123,7 @@ export default class TimePicker extends PureComponent {
       default:
     }
 
-    this.setState({
-      value: tmp,
-      tabKey: nextTabKey,
-    });
+    this.setState({ value: tmp, tabKey: nextTabKey });
   };
 
   onClearInput = evt => {
@@ -185,10 +182,7 @@ export default class TimePicker extends PureComponent {
       }
     }
 
-    this.setState({
-      value: tmp,
-      isPanelOpen: false,
-    });
+    this.setState({ value: tmp, isPanelOpen: false });
 
     const ret = this.getReturnValue(tmp);
     onChange(ret);
@@ -249,9 +243,7 @@ export default class TimePicker extends PureComponent {
   };
 
   switchTab = tabKey => {
-    this.setState({
-      tabKey,
-    });
+    this.setState({ tabKey });
   };
 
   resetTime = () => {
@@ -312,9 +304,7 @@ export default class TimePicker extends PureComponent {
 
     // 打开面板的时候才渲染
     if (isPanelOpen) {
-      const linkCls = cx({
-        'link--current': true,
-      });
+      const linkCls = cx({ 'link--current': true });
 
       const radioButtonGroup = [
         {
@@ -436,11 +426,11 @@ export default class TimePicker extends PureComponent {
                     value={formattedValue}
                     placeholder={placeholder || i18n.time}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
+                    onFocus={evt => onFocus && onFocus(evt, { value })}
+                    onBlur={evt => onBlur && onBlur(evt, { value })}
                     disabled={disabled}
                   />
-                  <span className="zenticon zenticon-clock-o" />
+                  <span className="zenticon zenticon-clock-o" />{' '}
                   {canClear && (
                     <span
                       onClick={this.onClearInput}

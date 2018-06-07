@@ -119,19 +119,6 @@ class QuarterPicker extends PureComponent {
     return formatDate(date, format);
   };
 
-  setEventValue = evt => {
-    const { quarterValue } = this.state;
-    const { target } = evt;
-
-    return {
-      ...evt,
-      target: {
-        ...target,
-        value: quarterValue || [],
-      },
-    };
-  };
-
   onChangeQuarter = val => {
     this.setState({ actived: val });
   };
@@ -230,7 +217,7 @@ class QuarterPicker extends PureComponent {
         onFocus,
         onBlur,
       },
-      state: { openPanel, selected, showPlaceholder, value },
+      state: { openPanel, selected, showPlaceholder, value, quarterValue = [] },
     } = this;
     const wrapperCls = cx(`${prefix}-datetime-picker`, className);
     const inputCls = cx({
@@ -272,8 +259,12 @@ class QuarterPicker extends PureComponent {
                       placeholder={placeholderText}
                       value={inputVal || ''}
                       onChange={noop}
-                      onFocus={evt => onFocus(this.setEventValue(evt))}
-                      onBlur={evt => onBlur(this.setEventValue(evt))}
+                      onFocus={evt =>
+                        onFocus && onFocus(evt, { value: quarterValue })
+                      }
+                      onBlur={evt =>
+                        onBlur && onBlur(evt, { value: quarterValue })
+                      }
                       disabled={disabled}
                     />
                     <span className="zenticon zenticon-calendar-o" />{' '}
