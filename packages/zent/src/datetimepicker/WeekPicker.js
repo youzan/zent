@@ -332,7 +332,11 @@ class WeekPicker extends PureComponent {
       state: { openPanel, showPlaceholder, value },
     } = this;
 
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-week-picker`,
+      className
+    );
     const inputCls = cx('picker-input', 'week-picker-input', {
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled,

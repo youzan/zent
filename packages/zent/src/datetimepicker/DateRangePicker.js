@@ -126,7 +126,11 @@ class DateRangePicker extends PureComponent {
 
   render() {
     const { prefix, className } = this.props;
-    const prefixCls = cx(`${prefix}-datetime-picker`, className);
+    const prefixCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-daterange-picker`,
+      className
+    );
 
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }

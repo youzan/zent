@@ -10,8 +10,8 @@ Time pickers, provides basic time choosing functionality.
 
 ## Guides
 
-- Four pickers：`DatePicker`, `MonthPicker`, `WeekPicker` and `RangePicker`.
-- `DatePicker` and `RangePicker` can use `showTime` to allow time selection.
+- Included pickers：`DatePicker`, `YearPicker`, `QuarterPicker`, `MonthPicker`, `WeekPicker`, `DateRangePicker`, `TimePicker` and `TimeRangePicker`.
+- `DatePicker` and `DateRangePicker` can use `showTime` to allow time selection.
 - Date formats can be customized using `format`, you can find formating details at the end of this page.
 
 ## API
@@ -20,7 +20,7 @@ Time pickers, provides basic time choosing functionality.
 
 | Property     | Description              | Type      | Default       | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
-| onChange     | Callback when value changes  | func   | `noop`   | 是    |
+| onChange     | Callback when value changes  | func   | `noop`   |  Yes    |
 | value        | Selected value             | string \| Date    |     | Yes   |
 | defaultValue | Default value              | string \| Date    |     | No   |
 | onClick      | Callback when click on a value | func |   |   No|

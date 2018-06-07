@@ -222,7 +222,11 @@ class QuarterPicker extends PureComponent {
       },
       state: { openPanel, selected, showPlaceholder, value },
     } = this;
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-quarter-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,

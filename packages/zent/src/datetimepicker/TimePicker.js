@@ -405,7 +405,11 @@ export default class TimePicker extends PureComponent {
     const formattedValue =
       (value && formatDate(parseDate(value, format), format)) || '';
 
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-time-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !!formattedValue,
