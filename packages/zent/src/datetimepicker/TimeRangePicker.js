@@ -74,6 +74,8 @@ export default class TimeRangePicker extends PureComponent {
       defaultValue,
       onClose,
       onOpen,
+      onFocus,
+      onBlur,
       placeholder,
       value,
       ...pickerProps
@@ -94,6 +96,8 @@ export default class TimeRangePicker extends PureComponent {
               value={value[0]}
               onOpen={() => onOpen && onOpen(START)}
               onClose={() => onClose && onClose(START)}
+              onBlur={evt => onBlur && onBlur(evt, { value })}
+              onFocus={evt => onFocus && onFocus(evt, { value })}
               onChange={this.onChange(START)}
             />
           )}
@@ -113,6 +117,8 @@ export default class TimeRangePicker extends PureComponent {
               value={value[1]}
               onOpen={() => onOpen && onOpen(END)}
               onClose={() => onClose && onClose(END)}
+              onBlur={evt => onBlur && onBlur(evt, { value })}
+              onFocus={evt => onFocus && onFocus(evt, { value })}
               onChange={this.onChange(END)}
             />
           )}

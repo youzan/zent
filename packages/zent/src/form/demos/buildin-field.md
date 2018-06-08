@@ -154,6 +154,7 @@ class FieldForm extends React.Component {
 							return value.length !== 0
 						}
 					}}
+					onBlur={(evt) => console.log(evt)}
 					validationErrors={{
 						required: '{i18n.dateRangeValidationErrors}'
 					}}

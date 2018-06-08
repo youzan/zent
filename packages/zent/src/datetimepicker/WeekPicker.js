@@ -32,12 +32,8 @@ import {
 
 function getSelectedWeek(val, start = 1) {
   return [
-    startOfWeek(val, {
-      weekStartsOn: start,
-    }),
-    endOfWeek(val, {
-      weekStartsOn: start,
-    }),
+    startOfWeek(val, { weekStartsOn: start }),
+    endOfWeek(val, { weekStartsOn: start }),
   ];
 }
 
@@ -83,13 +79,7 @@ function extractStateFromProps(props) {
   if (selected) {
     ret = selected.map(item => formatDate(item, format));
   }
-  return {
-    value: ret,
-    actived,
-    selected,
-    openPanel,
-    showPlaceholder,
-  };
+  return { value: ret, actived, selected, openPanel, showPlaceholder };
 }
 
 class WeekPicker extends PureComponent {
@@ -128,9 +118,7 @@ class WeekPicker extends PureComponent {
   }
 
   onChangeDate = val => {
-    this.setState({
-      actived: val,
-    });
+    this.setState({ actived: val });
   };
 
   onHover = val => {
@@ -141,9 +129,7 @@ class WeekPicker extends PureComponent {
       goDays(val, 7 + startDay - offset),
     ];
 
-    this.setState({
-      range: week,
-    });
+    this.setState({ range: week });
   };
 
   onSelectDate = val => {
@@ -174,9 +160,7 @@ class WeekPicker extends PureComponent {
       const { actived } = this.state;
       const acp = goMonths(actived, typeMap[type]);
 
-      this.setState({
-        actived: acp,
-      });
+      this.setState({ actived: acp });
     };
   };
 
@@ -192,9 +176,7 @@ class WeekPicker extends PureComponent {
 
   onMouseOut = evt => {
     evt.stopPropagation();
-    this.setState({
-      range: [],
-    });
+    this.setState({ range: [] });
   };
 
   /**
@@ -310,9 +292,7 @@ class WeekPicker extends PureComponent {
     if (disabled) return;
 
     openPanel ? onOpen && onOpen() : onClose && onClose();
-    this.setState({
-      openPanel,
-    });
+    this.setState({ openPanel });
   };
 
   render() {
@@ -362,18 +342,14 @@ class WeekPicker extends PureComponent {
                 >
                   <Input
                     name={name}
-                    value={
-                      showPlaceholder
-                        ? placeholder || i18n.week
-                        : value.join(` ${i18n.to} `)
-                    }
+                    placeholder={placeholder || i18n.week}
+                    value={value ? value.join(` ${i18n.to} `) : ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
+                    onFocus={evt => onFocus(evt, { value })}
+                    onBlur={evt => onBlur(evt, { value })}
                     disabled={disabled}
                   />
-
-                  <span className="zenticon zenticon-calendar-o" />
+                  <span className="zenticon zenticon-calendar-o" />{' '}
                   {canClear && (
                     <span
                       onClick={this.onClearInput}

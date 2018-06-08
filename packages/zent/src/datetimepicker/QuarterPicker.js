@@ -120,9 +120,7 @@ class QuarterPicker extends PureComponent {
   };
 
   onChangeQuarter = val => {
-    this.setState({
-      actived: val,
-    });
+    this.setState({ actived: val });
   };
 
   onSelectQuarter = quarter => {
@@ -138,6 +136,7 @@ class QuarterPicker extends PureComponent {
     const ret = [dayStart(begin), dayEnd(end)];
 
     this.setState({
+      quarterValue: ret,
       value: quarter,
       selected: begin,
       actived: begin,
@@ -201,9 +200,7 @@ class QuarterPicker extends PureComponent {
 
     if (disabled) return;
 
-    this.setState({
-      openPanel,
-    });
+    this.setState({ openPanel });
   };
 
   render() {
@@ -220,7 +217,7 @@ class QuarterPicker extends PureComponent {
         onFocus,
         onBlur,
       },
-      state: { openPanel, selected, showPlaceholder, value },
+      state: { openPanel, selected, showPlaceholder, value, quarterValue = [] },
     } = this;
     const wrapperCls = cx(
       `${prefix}-datetime-picker`,
@@ -263,13 +260,18 @@ class QuarterPicker extends PureComponent {
                   <div style={widthStyle} className={inputCls}>
                     <Input
                       name={name}
-                      value={showPlaceholder ? placeholderText : inputVal}
+                      placeholder={placeholderText}
+                      value={inputVal || ''}
                       onChange={noop}
-                      onFocus={onFocus}
-                      onBlur={onBlur}
+                      onFocus={evt =>
+                        onFocus && onFocus(evt, { value: quarterValue })
+                      }
+                      onBlur={evt =>
+                        onBlur && onBlur(evt, { value: quarterValue })
+                      }
                       disabled={disabled}
                     />
-                    <span className="zenticon zenticon-calendar-o" />
+                    <span className="zenticon zenticon-calendar-o" />{' '}
                     {canClear && (
                       <span
                         onClick={this.onClearInput}

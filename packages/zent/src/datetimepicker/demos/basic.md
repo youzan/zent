@@ -7,108 +7,125 @@ en-US:
 ---
 
 ```jsx
-import { TimePicker, TimeRangePicker, DatePicker, MonthPicker, QuarterPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
+import {
+	TimePicker,
+	TimeRangePicker,
+	DatePicker,
+	MonthPicker,
+	QuarterPicker,
+	DateRangePicker,
+	WeekPicker,
+	YearPicker,
+} from 'zent';
 
-class Demo extends Component{
-  state = {
-  };
-	
-  onChangeTime = (val) => {
-    this.setState({
-      timeValue: val
-    })
-  }
-      
-  onChangeTimeRange = (val) => {
-    this.setState({
-      timeRangeValue: val
-    })
-  }
+class Demo extends Component {
+	state = {};
 
-	onChangeQuarter = (val) => {
+	onChangeTime = val => {
 		this.setState({
-			quarterValue: val
-		})
-	}
+			timeValue: val,
+		});
+	};
 
-  onChangeDate = (val) => {
-    this.setState({
-      dateValue: val
-    })
-  }
-
-	onChangeWeek = (val) => {
+	onChangeTimeRange = val => {
 		this.setState({
-			weekValue: val
-		})
-	}
+			timeRangeValue: val,
+		});
+	};
 
-  onChangeMonth = (val) => {
-    this.setState({
-      monthValue: val
-    })
-  }
-
-  onChangeRange = (val) => {
-    this.setState({
-      rangeValue: val
-    })
-  }
-
-	onChangeYear = (val) => {
+	onChangeQuarter = val => {
 		this.setState({
-			yearValue: val
-		})
-	}
+			quarterValue: val,
+		});
+	};
 
-  render(){
-    const { timeValue, timeRangeValue, dateValue, monthValue, rangeValue, weekValue, yearValue, quarterValue } = this.state;
-    const now = new Date();
+	onChangeDate = val => {
+		this.setState({
+			dateValue: val,
+		});
+	};
 
-    return (
+	onChangeWeek = val => {
+		this.setState({
+			weekValue: val,
+		});
+	};
+
+	onChangeMonth = val => {
+		this.setState({
+			monthValue: val,
+		});
+	};
+
+	onChangeRange = val => {
+		this.setState({
+			rangeValue: val,
+		});
+	};
+
+	onChangeYear = val => {
+		this.setState({
+			yearValue: val,
+		});
+	};
+
+	render() {
+		const {
+			timeValue,
+			timeRangeValue,
+			dateValue,
+			monthValue,
+			rangeValue,
+			weekValue,
+			yearValue,
+			quarterValue,
+		} = this.state;
+		const now = new Date();
+
+		return (
 			<div>
-        <TimePicker 
-          className="zent-picker-demo"
-          value={timeValue}
-          onChange={this.onChangeTime}
-					minuteStep={5}
-        />
-        <br />
-        <TimeRangePicker
-          className="zent-picker-demo"
-          value={timeRangeValue}
-          onChange={this.onChangeTimeRange}
-          showSecond
-        />
-        <br />
-        <DatePicker
+				<TimePicker
 					className="zent-picker-demo"
-          value={dateValue}
-          max="2020-01-01"
+					value={timeValue}
+					onChange={this.onChangeTime}
+					minuteStep={5}
+				/>
+				<br />
+				<TimeRangePicker
+					className="zent-picker-demo"
+					value={timeRangeValue}
+					onChange={this.onChangeTimeRange}
+					showSecond
+				/>
+				<br />
+				<DatePicker
+					className="zent-picker-demo"
+					value={dateValue}
+					max="2020-01-01"
 					onChange={this.onChangeDate}
-        />
-        <br />
-        <WeekPicker
-          startDay={1}
-          popPosition="right"
-          className="zent-picker-demo"
-          value={weekValue}
+				/>
+				<br />
+				<WeekPicker
+					startDay={1}
+					popPosition="right"
+					className="zent-picker-demo"
+					value={weekValue}
 					onChange={this.onChangeWeek}
-        />
-        <br />
+				/>
+				<br />
 				<MonthPicker
-          className="zent-picker-demo"
-          value={monthValue}
+					className="zent-picker-demo"
+					value={monthValue}
 					max={now}
 					onChange={this.onChangeMonth}
-        />
-        <br />
-        <DateRangePicker
-          className="zent-picker-demo"
-          value={rangeValue}
-          onChange={this.onChangeRange}
-          />
-				<br/>
+				/>
+				<br />
+				<DateRangePicker
+					className="zent-picker-demo"
+					value={rangeValue}
+					onChange={this.onChangeRange}
+				/>
+				<br />
 				<YearPicker
 					className="zent-picker-demo"
 					value={yearValue}
@@ -122,13 +139,10 @@ class Demo extends Component{
 					value={quarterValue}
 					onChange={this.onChangeQuarter}
 				/>
-      </div>
-    )
-  }
+			</div>
+		);
+	}
 }
 
-ReactDOM.render(
-  <Demo />,
-  mountNode
-)
+ReactDOM.render(<Demo />, mountNode);
 ```
