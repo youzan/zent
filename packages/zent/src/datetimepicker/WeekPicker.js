@@ -326,8 +326,6 @@ class WeekPicker extends PureComponent {
         prefix,
         width,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -362,14 +360,9 @@ class WeekPicker extends PureComponent {
                 >
                   <Input
                     name={name}
-                    value={
-                      showPlaceholder
-                        ? placeholder || i18n.week
-                        : value.join(` ${i18n.to} `)
-                    }
+                    placeholder={placeholder || i18n.week}
+                    value={value ? value.join(` ${i18n.to} `) : ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
 

@@ -395,8 +395,6 @@ export default class TimePicker extends PureComponent {
         placeholder,
         value,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { isPanelOpen },
     } = this;
@@ -440,8 +438,6 @@ export default class TimePicker extends PureComponent {
                     value={formattedValue}
                     placeholder={placeholder || i18n.time}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-clock-o" />
