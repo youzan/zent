@@ -225,8 +225,6 @@ class MonthPicker extends PureComponent {
         prefix,
         width,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -250,17 +248,16 @@ class MonthPicker extends PureComponent {
               cushion={5}
               visible={openPanel}
               onVisibleChange={this.togglePicker}
-              className={`${prefix}-datetime-picker-popover ${className}    -popover`}
+              className={cx(`${prefix}-datetime-picker-popover`, className)}
               position={popPositionMap[popPosition.toLowerCase()]}
             >
               <Popover.Trigger.Click>
                 <div style={widthStyle} className={inputCls}>
                   <Input
                     name={name}
-                    value={showPlaceholder ? placeholder || i18n.month : value}
+                    placeholder={placeholder || i18n.month}
+                    value={value || ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />
