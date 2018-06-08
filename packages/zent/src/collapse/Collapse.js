@@ -14,7 +14,7 @@ export default class Collapse extends PureComponent {
     activeKey: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string),
-    ]).isRequired,
+    ]),
     onChange: PropTypes.func.isRequired,
     accordion: PropTypes.bool,
     bordered: PropTypes.bool,
