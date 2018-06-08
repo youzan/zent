@@ -331,8 +331,10 @@ export default class Tree extends (PureComponent || Component) {
     const { tree: cTree, expandNode: cExpandNode } = current;
     const { tree: nTree, treeMap: nTreeMap, expandNode: nExpandNode } = next;
 
-    Object.values(nTreeMap).forEach(path => {
-      const nPath = path.join(`.${children}.`);
+    // use .values will add a polyfill, just for jest
+    // Object.values(nTreeMap).forEach(path => {
+    Object.keys(nTreeMap).forEach(pathKey => {
+      const nPath = nTreeMap[pathKey].join(`.${children}.`);
       const cItem = get(cTree, nPath);
       const nItem = get(nTree, nPath);
       const nId = nItem[id];
