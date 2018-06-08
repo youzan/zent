@@ -15,3 +15,7 @@ npm run dev
 `yarn run deploy`
 
 默认情况下生成的静态文件会部署到当前仓库的 `gh-pages` 分支上， 可以设置 `ZENT_DEPLOY_DOC_GIT_REPO` 环境变量来修改仓库。
+
+## Notes
+
+Github doesn't support SPAs, the `404.html` is a workaround. Do NOT remove it.
