@@ -54,7 +54,7 @@ const treeData = [{
 }];
 
 ReactDOM.render(
-	<Tree dataType="plain" data={treeData} />
+	<Tree useNew dataType="plain" data={treeData} />
 	, mountNode
 )
 ```

@@ -23,7 +23,7 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 | ------------------- | --------------------------------------------------------------------------------------------------  | ------------------ | ---------- | -------------------- |
 | dataType            | data structure, default is tree                                                                     | string             | `'tree'`   | `'plain'`            |
 | data                | required, input data, identified by dataType                                                        | array              |            |                      |
-| props               | you can set the default render key, see the following table                                         | object             |            |                      |
+| renderKey           | the key map for render node, see the following table                                                | object             |            |                      |
 | render              | you can customize function to render tree , the parameter is node data (includings children tree)   | func(data)         |            |                      |
 | operations          | custom operate, includings `name`, `icon`, `action`, `shouldRender` attributes                      | array[object]      |            |                      |
 | foldable            | whether to support item show and hide                                                               |  bool              | `true`     |                      |
@@ -40,7 +40,7 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 | isRoot              | plain data, to determine whether the node is the api of the root node                               | func(node)         |            |                      |
 | loadMore            | return Promise func, support thenable callback, be used to asynchronously load more content         | func(data)         |            |                      |
 
-#### props
+#### renderKey
 
 | Property | Description                                                | Type   | Default      |
 | -------- | ---------------------------------------------------------- | ------ | ------------ |
@@ -54,14 +54,14 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 
 Except for key-value below, you can add attributes on anynode,  the callback will get entire data that user input
 
-| Property           | Description                                                           | Type          | Default |
-| ------------------ | --------------------------------------------------------------------- | ------------- | ------- |
-| `[props.id]`       | required, uniuqe key                                                  | number/string |         |
-| `[props.title]`    | required, show title                                                  | string        |         |
-| `[props.children]` | children tree (`dataType="tree"` it works)                            | array[object] |         |
-| `[props.parentId]` | parent Id (`dataType="plain"` it works), roort node is 0 or undefined | number/string |         |
-| expand             | whether to expand or not                                              | bool          | `false` |
-| isLeaf             | whether is leaf node or not                                           | bool          | `false` |
+| Property               | Description                                                           | Type          | Default |
+| ---------------------- | --------------------------------------------------------------------- | ------------- | ------- |
+| `[renderKey.id]`       | required, uniuqe key                                                  | number/string |         |
+| `[renderKey.title]`    | required, show title                                                  | string        |         |
+| `[renderKey.children]` | children tree (`dataType="tree"` it works)                            | array[object] |         |
+| `[renderKey.parentId]` | parent Id (`dataType="plain"` it works), roort node is 0 or undefined | number/string |         |
+| expand                 | whether to expand or not                                              | bool          | `false` |
+| isLeaf                 | whether is leaf node or not                                           | bool          | `false` |
 
 #### operations
 

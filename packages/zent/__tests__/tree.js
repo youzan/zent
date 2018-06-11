@@ -907,7 +907,7 @@ describe('new Tree', () => {
       },
     ];
 
-    const props = {
+    const renderKey = {
       id: 'uId',
       title: 'name',
       parentId: 'leaderId',
@@ -915,7 +915,7 @@ describe('new Tree', () => {
     };
 
     const wrapper = mount(
-      <NewTree dataType="plain" props={props} data={data} />
+      <NewTree dataType="plain" renderKey={renderKey} data={data} />
     );
     const state = wrapper.state();
     expect(
@@ -929,14 +929,14 @@ describe('new Tree', () => {
     expect(state.tree[0].group.length).toBe(2);
     expect(state.tree[0].group[0].leaderId).toBe(1);
 
-    const props2 = {
+    const renderKey2 = {
       id: 'uId',
       title: 'name',
       parentId: 'leaderId',
       // children use defaulft 'children'
     };
     const wrapper2 = mount(
-      <NewTree dataType="plain" props={props2} data={data} />
+      <NewTree dataType="plain" renderKey={renderKey2} data={data} />
     );
     expect(wrapper2.state().tree[0].children.length).toBe(2);
   });

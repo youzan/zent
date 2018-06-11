@@ -22,7 +22,7 @@ group: 导航
 | ------------------- | ----------------------------------------------------------- | ------------------ | ---------- | -------------------- |
 | dataType            | 数据类型, 默认为tree类型                                       | string             | `'tree'`   | `'plain'`            |
 | data                | 必填, 实际传入的数据, 根据dataType进行识别                       | array              |            |                      |
-| props               | 默认渲染节点的相应的key集合                                     | object             |            |                      |
+| renderKey           | 渲染节点所用到的key集合, 具体看下表                              | object             |            |                      |
 | render              | 自定义树条目渲染方法, 传入参数为该节点数据 (包含子树)               | func(data)         |            |                      |
 | operations          | 自定义操作, 包含 `name`, `icon`, `action`, `shouldRender` 属性 | array[object]      |            |                      |
 | foldable            | 是否支持点击条目时展开与收起动作                                 | bool               | `true`     |                      |
@@ -39,7 +39,7 @@ group: 导航
 | isRoot              | plain数据类型，判断节点是否为根节点的api                          | func(node)         |            |                      |
 | loadMore            | 返回Promise的函数，必须支持then的回调, 用于节点异步加载更多内容      |  func(data)        |            |                      |
 
-#### props
+#### renderKey
 
 | 参数      | 说明                                         | Type   | Default      |
 | -------- | -------------------------------------------- | ------ | ------------ |
@@ -52,14 +52,14 @@ group: 导航
 
 可在每个节点任意添加初下列属性之外的key-value，回调函数中会拿到用户传入的完整数据。
 
-| 参数                | 说明                                                | 类型           | 默认值   | 备选值 |
-| ------------------ | --------------------------------------------------- | ------------- | ------- |--------|
-| `[props.id]`       | 必填, 数据的唯一标识                                   | number/string |         |       |
-| `[props.title]`    | 必填, 显示内容                                        | string        |         |       |
-| `[props.children]` | 子树 (`dataType="tree"` 时生效)                       | array[object] |         |       |
-| `[props.parentId]` | 父节点Id (`dataType="plain"` 时生效), 根节点为0或不定义  | number/string |         |       |
-| expand             | 是否展开                                              | bool          | `false` |       |
-| isLeaf             | 是否叶子节点                                           | bool          | `false` |       |
+| 参数                    | 说明                                                | 类型           | 默认值   | 备选值 |
+| ---------------------- | --------------------------------------------------- | ------------- | ------- |--------|
+| `[renderKey.id]`       | 必填, 数据的唯一标识                                   | number/string |         |       |
+| `[renderKey.title]`    | 必填, 显示内容                                        | string        |         |       |
+| `[renderKey.children]` | 子树 (`dataType="tree"` 时生效)                       | array[object] |         |       |
+| `[renderKey.parentId]` | 父节点Id (`dataType="plain"` 时生效), 根节点为0或不定义  | number/string |         |       |
+| expand                 | 是否展开                                              | bool          | `false` |       |
+| isLeaf                 | 是否叶子节点                                           | bool          | `false` |       |
 
 #### operations
 

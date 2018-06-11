@@ -2,13 +2,15 @@ import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import isEqual from 'lodash/isEqual';
 import get from 'lodash/get';
+import forEach from 'lodash/forEach';
+import uniq from 'lodash/uniq';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import AnimateHeight from 'utils/component/AnimateHeight';
 
 import Loading from '../components/Loading';
 
-const PROP_KEY = {
+const DEFAULT_REANDER_KEY = {
   id: 'id',
   title: 'title',
   children: 'children',
@@ -16,7 +18,7 @@ const PROP_KEY = {
 };
 
 export default class Tree extends (PureComponent || Component) {
-  propKey = PROP_KEY;
+  renderKeyMap = DEFAULT_REANDER_KEY;
 
   static propTypes = {
     dataType: PropTypes.oneOf(['plain', 'tree']),
@@ -36,7 +38,7 @@ export default class Tree extends (PureComponent || Component) {
     operations: PropTypes.arrayOf(PropTypes.object),
     render: PropTypes.func,
     prefix: PropTypes.string,
-    props: PropTypes.object,
+    renderKey: PropTypes.object,
   };
 
   static defaultProps = {
@@ -47,7 +49,7 @@ export default class Tree extends (PureComponent || Component) {
     controlled: false,
     size: 'medium',
     prefix: 'zent',
-    props: PROP_KEY,
+    renderKey: DEFAULT_REANDER_KEY,
   };
 
   constructor(props) {
@@ -135,7 +137,7 @@ export default class Tree extends (PureComponent || Component) {
   formatDataByProp({
     data,
     isRoot,
-    props,
+    renderKey,
     dataType,
     isExpandAll,
     loadMore,
@@ -144,8 +146,8 @@ export default class Tree extends (PureComponent || Component) {
     disabledCheckedKeys = [],
     defaultCheckedKeys = [],
   }) {
-    this.propKey = Object.assign({}, PROP_KEY, props);
-    const { children, parentId, id } = this.propKey;
+    this.renderKeyMap = Object.assign({}, DEFAULT_REANDER_KEY, renderKey);
+    const { children, parentId, id } = this.renderKeyMap;
     const treeMap = {};
     const expandNode = [];
     const checkMap = {};
@@ -181,8 +183,6 @@ export default class Tree extends (PureComponent || Component) {
       });
     } else if (dataType === 'tree') {
       roots = data;
-    } else {
-      // console.error(`The dataType should be declared as plain/tree, but your dataType is ${dataType}, Please check your config.`)
     }
 
     this.collector({
@@ -209,7 +209,7 @@ export default class Tree extends (PureComponent || Component) {
 
         if (pId !== undefined) {
           checkMap[pId] = checkMap[pId] || [];
-          checkMap[pId].push(...checkMap[cId]);
+          checkMap[pId] = checkMap[pId].concat(checkMap[cId]);
         }
       },
     });
@@ -248,20 +248,16 @@ export default class Tree extends (PureComponent || Component) {
 
     if (checkable) {
       if (!controlled) {
-        const realChecked = [
-          ...new Set(
-            defaultCheckedKeys.reduce((total, rootId) => {
-              return total.concat(checkMap[rootId]);
-            }, [])
-          ),
-        ];
-        const realDisabled = [
-          ...new Set(
-            disabledCheckedKeys.reduce((total, rootId) => {
-              return total.concat(checkMap[rootId]);
-            }, [])
-          ),
-        ];
+        const realChecked = uniq(
+          defaultCheckedKeys.reduce((total, rootId) => {
+            return total.concat(checkMap[rootId]);
+          }, [])
+        );
+        const realDisabled = uniq(
+          disabledCheckedKeys.reduce((total, rootId) => {
+            return total.concat(checkMap[rootId]);
+          }, [])
+        );
 
         const correntCheck = this.correctCheckInfo({
           checkMap,
@@ -297,7 +293,7 @@ export default class Tree extends (PureComponent || Component) {
     checkCb,
     parentId,
   }) {
-    const { children, id } = this.propKey;
+    const { children, id } = this.renderKeyMap;
 
     tree.forEach((item, index) => {
       let currentPath = parentPath.concat(index);
@@ -327,14 +323,14 @@ export default class Tree extends (PureComponent || Component) {
   }
 
   filterExpandNode(current, next) {
-    const { id, children } = this.propKey;
+    const { id, children } = this.renderKeyMap;
     const { tree: cTree, expandNode: cExpandNode } = current;
     const { tree: nTree, treeMap: nTreeMap, expandNode: nExpandNode } = next;
 
     // use .values will add a polyfill, just for jest
     // Object.values(nTreeMap).forEach(path => {
-    Object.keys(nTreeMap).forEach(pathKey => {
-      const nPath = nTreeMap[pathKey].join(`.${children}.`);
+    forEach(nTreeMap, pathKey => {
+      const nPath = pathKey.join(`.${children}.`);
       const cItem = get(cTree, nPath);
       const nItem = get(nTree, nPath);
       const nId = nItem[id];
@@ -350,12 +346,12 @@ export default class Tree extends (PureComponent || Component) {
         nExpandNode.push(nId);
       }
     });
-    return [...nExpandNode];
+    return nExpandNode;
   }
 
   isParentNode(root, loadMore) {
     // loadMore 的 parent children 边界有点模糊
-    const { children } = this.propKey;
+    const { children } = this.renderKeyMap;
     return !!(
       !root.isLeaf &&
       (loadMore || (root[children] && root[children].length > 0))
@@ -363,7 +359,7 @@ export default class Tree extends (PureComponent || Component) {
   }
 
   correctCheckInfo({ checkedNode, disabledNode, tree, isInital }) {
-    const { id, children } = this.propKey;
+    const { id, children } = this.renderKeyMap;
     const tempParentCheckdMap = {};
     const tempDisabled = disabledNode;
     const tempHalfCheck = [];
@@ -437,7 +433,7 @@ export default class Tree extends (PureComponent || Component) {
   }
 
   handleExpandClick(root, e) {
-    const { id } = this.propKey;
+    const { id } = this.renderKeyMap;
     const { loadMore, foldable } = this.props;
     if (!foldable) {
       return;
@@ -449,7 +445,7 @@ export default class Tree extends (PureComponent || Component) {
     if (loadMore) {
       if (!root.children || root.children.length === 0) {
         e.persist();
-        const nextLoadingNode = [root[id], ...loadingNode];
+        const nextLoadingNode = loadingNode.concat(root[id]);
         this.setState({ loadingNode: nextLoadingNode });
         loadMore(root)
           .then(() => {
@@ -477,9 +473,9 @@ export default class Tree extends (PureComponent || Component) {
       return;
     }
 
-    const { id } = this.propKey;
+    const { id } = this.renderKeyMap;
     const activeId = root[id];
-    let newExpandNode = expandNode;
+    let newExpandNode = expandNode.slice();
     let isClose = true;
 
     if (expandNode.indexOf(activeId) > -1) {
@@ -490,7 +486,7 @@ export default class Tree extends (PureComponent || Component) {
     }
 
     this.setState({
-      expandNode: [...newExpandNode],
+      expandNode: newExpandNode,
     });
 
     if (onExpand) {
@@ -502,7 +498,7 @@ export default class Tree extends (PureComponent || Component) {
 
   handleCheckboxClick(root) {
     const { onCheck, controlled } = this.props;
-    const rootId = root[this.propKey.id];
+    const rootId = root[this.renderKeyMap.id];
     let { checkedNode, disabledNode, tree, checkMap } = this.state;
 
     // 受控模式
@@ -512,7 +508,7 @@ export default class Tree extends (PureComponent || Component) {
       } else {
         checkedNode = checkedNode.concat(rootId);
       }
-      onCheck && onCheck([...checkedNode]);
+      onCheck && onCheck(checkedNode.slice());
 
       // zent 模式
     } else {
@@ -525,12 +521,11 @@ export default class Tree extends (PureComponent || Component) {
           );
         });
       } else {
-        checkedNode = [
-          ...new Set([
-            ...checkedNode,
-            ...checkMap[rootId].filter(id => disabledNode.indexOf(id) === -1),
-          ]),
-        ];
+        checkedNode = uniq(
+          checkedNode.concat(
+            checkMap[rootId].filter(id => disabledNode.indexOf(id) === -1)
+          )
+        );
       }
 
       const checkInfo = this.correctCheckInfo({
@@ -540,11 +535,9 @@ export default class Tree extends (PureComponent || Component) {
         checkMap,
       });
 
-      this.setState({
-        ...checkInfo,
-      });
+      this.setState(checkInfo);
 
-      onCheck && onCheck([...checkInfo.checkedNode]);
+      onCheck && onCheck(checkInfo.checkedNode.slice());
     }
   }
 
@@ -564,7 +557,7 @@ export default class Tree extends (PureComponent || Component) {
   }
 
   renderContent(root, isParent, isExpanded) {
-    const { title } = this.propKey;
+    const { title } = this.renderKeyMap;
     const { render, onSelect } = this.props;
     return (
       <span
@@ -590,7 +583,7 @@ export default class Tree extends (PureComponent || Component) {
       return null;
     }
 
-    const rootId = root[this.propKey.id];
+    const rootId = root[this.renderKeyMap.id];
 
     return (
       <Checkbox
@@ -603,7 +596,7 @@ export default class Tree extends (PureComponent || Component) {
   }
 
   renderOperations(root, isExpanded) {
-    const { id } = this.propKey;
+    const { id } = this.renderKeyMap;
     const opts = this.props.operations;
     if (opts) {
       const optNodes = opts.map(opt => {
@@ -630,7 +623,7 @@ export default class Tree extends (PureComponent || Component) {
   }
 
   renderTreeNodes(roots) {
-    const { id, children } = this.propKey;
+    const { id, children } = this.renderKeyMap;
     const { expandNode, loadingNode } = this.state;
     const { loadMore, prefix } = this.props;
     if (roots && roots.length > 0) {

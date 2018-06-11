@@ -65,7 +65,7 @@ const customRender = (data) => (
 );
 
 ReactDOM.render(
-	<Tree data={treeData} render={customRender} />
+	<Tree useNew data={treeData} render={customRender} />
 	, mountNode
 )
 ```

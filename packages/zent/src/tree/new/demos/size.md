@@ -50,9 +50,9 @@ const treeData = [{
 
 ReactDOM.render(
 	<div>
-		<Tree data={treeData} size="small" />
-		<Tree data={treeData} />
-		<Tree data={treeData} size="large" />
+		<Tree useNew data={treeData} size="small" />
+		<Tree useNew data={treeData} />
+		<Tree useNew data={treeData} size="large" />
 	</div>
 	, mountNode
 );

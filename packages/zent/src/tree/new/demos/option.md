@@ -122,6 +122,7 @@ class TreeExample extends React.Component {
 				</RadioGroup>
 				<hr/>
 				<Tree
+					useNew
 					checkable
 					controlled={controlled}
 					size="small"

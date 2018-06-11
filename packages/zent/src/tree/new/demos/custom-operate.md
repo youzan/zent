@@ -118,7 +118,7 @@ class TreeExample extends React.Component {
 					<Radio value="deep">{i18n.radio2}</Radio>
 				</RadioGroup>
 				<hr/>
-				<Tree data={treeData} dataType="plain" operations={operations} />
+				<Tree useNew data={treeData} dataType="plain" operations={operations} />
 			</div>
 		);
 	}
