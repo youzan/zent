@@ -340,7 +340,9 @@ class Select extends React.Component {
         ref={ref => (this.popover = ref)}
         position={Popover.Position.AutoBottomLeft}
         visible={open}
-        className={`${prefixCls} ${popupClassName}`}
+        className={`${popupClassName} ${prefixCls}__popover ${
+          autoWidth ? 'auto-width' : ''
+        }`}
         wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
         onVisibleChange={this.handlePopoverVisibleChange}
         width={width}
