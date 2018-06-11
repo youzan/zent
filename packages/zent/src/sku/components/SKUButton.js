@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'button';
 import Pop from 'pop';
 
-class SKUButton extends (PureComponent || Component) {
+class SKUButton extends PureComponent {
   render() {
     const prefix = `${this.context.prefix}-group`;
     let { disabled, i18n } = this.props;

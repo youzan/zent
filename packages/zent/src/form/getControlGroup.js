@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
 import { isFunctional } from './utils';
 
 export default Control => {
-  return class ControlGroup extends (PureComponent || Component) {
+  return class ControlGroup extends PureComponent {
     getControlInstance = () => {
       return this.control;
     };

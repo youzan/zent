@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -6,7 +6,7 @@ import Circle from '../shapes/Circle';
 import Rectangle from '../shapes/Rectangle';
 import TextBlock from './TextBlock';
 
-export default class RichTextBlock extends (PureComponent || Component) {
+export default class RichTextBlock extends PureComponent {
   static propTypes = {
     rows: PropTypes.number.isRequired,
     shape: PropTypes.oneOf(['circle', 'rect']),

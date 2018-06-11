@@ -20,8 +20,8 @@ group: 展示
 
 | 参数         |   说明         | 类型     | 是否必须    | 默认值      | 备选值            |
 | ------------ | ------------- | -------- | ---------- | ---------- | ----------------- |
-| activeKey    | 当前打开的面板 id   |  `string`   |  是   |     |  |
 | onChange     | 切换面板的回调函数  | `func`    | 是 | | |
+| activeKey    | 当前打开的面板 id   |  `string`   |  否   |     |  |
 | accordion    | 手风琴模式，一次只能有一个 active 的面板 | `bool` | 否 | `false` | `true` |
 | bordered     | 是否有外边框    | `bool` | 否 | `true` | `false` |
 | className    | 额外类名      | `string` | 否 | | |

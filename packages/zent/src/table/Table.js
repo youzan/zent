@@ -1,5 +1,5 @@
 /* eslint-disable no-lonely-if */
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Loading from 'loading';
 import PropTypes from 'prop-types';
@@ -21,7 +21,7 @@ import helper from './helper';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 
-export default class Table extends (PureComponent || Component) {
+export default class Table extends PureComponent {
   static propTypes = {
     className: string,
     prefix: string,

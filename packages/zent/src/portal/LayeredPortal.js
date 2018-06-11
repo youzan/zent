@@ -1,4 +1,4 @@
-import { Component, PureComponent, Children } from 'react';
+import { PureComponent, Children } from 'react';
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
 
@@ -14,7 +14,7 @@ import {
 /*
   Portal的核心，只负责管理child。index.js实际export的不是这个component.
 */
-export default class LayeredPortal extends (PureComponent || Component) {
+export default class LayeredPortal extends PureComponent {
   static propTypes = {
     // visible
     visible: PropTypes.bool,

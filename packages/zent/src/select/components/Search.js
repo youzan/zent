@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
-class Search extends (PureComponent || Component) {
+class Search extends PureComponent {
   constructor(props) {
     super(props);
     this.changeHandler = this.changeHandler.bind(this);

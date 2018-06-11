@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import NumberInput from 'number-input';
 import pick from 'lodash/pick';
 
 import { getDecimal } from './common';
 
-export default class InputField extends (PureComponent || Component) {
+export default class InputField extends PureComponent {
   onChange = (type, e) => {
     const { onChange, value } = this.props;
     let newValue = Number(e.target.value);

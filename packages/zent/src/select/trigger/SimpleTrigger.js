@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
 
-class SimpleTrigger extends (PureComponent || Component) {
+class SimpleTrigger extends PureComponent {
   render() {
     const { prefixCls, onClick } = this.props;
 

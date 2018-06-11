@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import focusWithoutScroll from 'utils/dom/focusWithoutScroll';
 import animatedClosable from 'utils/component/animatedClosable';
 
-class DialogInnerEl extends (PureComponent || Component) {
+class DialogInnerEl extends PureComponent {
   componentDidMount() {
     this.resetTransformOrigin();
   }
@@ -93,7 +93,7 @@ class DialogInnerEl extends (PureComponent || Component) {
   }
 }
 
-class DialogElWrapper extends (PureComponent || Component) {
+class DialogElWrapper extends PureComponent {
   componentDidMount() {
     // Set focus to dialog iff focus is outside of dialog itself
     const activeElement = document.activeElement;
@@ -139,7 +139,7 @@ class DialogElWrapper extends (PureComponent || Component) {
 const AnimatedClosableDialogElWrapper = animatedClosable(DialogElWrapper);
 
 // Compose all dialog components
-export default class DialogEl extends (PureComponent || Component) {
+export default class DialogEl extends PureComponent {
   render() {
     const { prefix, visible, origin, refClose, timeout } = this.props;
 

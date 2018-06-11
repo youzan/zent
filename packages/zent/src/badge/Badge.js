@@ -1,11 +1,11 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 
 const NO_STYLE = {};
 
-export default class Badge extends (PureComponent || Component) {
+export default class Badge extends PureComponent {
   static propTypes = {
     count: PropTypes.number,
     maxCount: PropTypes.number,

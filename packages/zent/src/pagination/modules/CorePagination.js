@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import parser from '../data/parser';
@@ -7,7 +7,7 @@ import Jump from './Jump';
 
 const { number, func } = PropTypes;
 
-export default class CorePagination extends (PureComponent || Component) {
+export default class CorePagination extends PureComponent {
   static propTypes = {
     current: number,
     total: number,

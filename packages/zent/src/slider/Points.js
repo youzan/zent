@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import WindowEventHandler from 'utils/component/WindowEventHandler';
 import keys from 'lodash/keys';
 import map from 'lodash/map';
@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { getLeft, toFixed, checkValueInRange } from './common';
 import ToolTips from './ToolTips';
 
-export default class Points extends (PureComponent || Component) {
+export default class Points extends PureComponent {
   constructor(props) {
     super(props);
     const { range, value } = props;

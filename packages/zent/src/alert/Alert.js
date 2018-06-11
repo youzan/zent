@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
@@ -19,7 +19,7 @@ const sizeClassMap = {
   large: 'alert-size-large',
 };
 
-export default class Alert extends (PureComponent || Component) {
+export default class Alert extends PureComponent {
   static propTypes = {
     type: PropTypes.oneOf(['info', 'warning', 'danger', 'error']).isRequired,
     size: PropTypes.oneOf(['large', 'normal']),

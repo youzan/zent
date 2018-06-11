@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import setClass from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
@@ -32,7 +32,7 @@ const wrapTextWithSpanTag = children => {
   });
 };
 
-export default class Button extends (PureComponent || Component) {
+export default class Button extends PureComponent {
   static propTypes = {
     type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
     size: PropTypes.oneOf(['large', 'medium', 'small']),
@@ -75,7 +75,7 @@ export default class Button extends (PureComponent || Component) {
   }
 
   // render a 标签
-  renderLink(classNames, iconNode, wrapedChildren) {
+  renderLink(classNames, iconNode, wrappedChildren) {
     const { component, disabled, loading, href = '', target } = this.props;
     const Node = component || 'a';
     const nodeProps = omit(this.props, A_BLACK_LIST);
@@ -88,13 +88,13 @@ export default class Button extends (PureComponent || Component) {
         onClick={this.handleClick}
       >
         {iconNode}
-        {wrapedChildren}
+        {wrappedChildren}
       </Node>
     );
   }
 
   // render button 标签
-  renderButton(classNames, iconNode, wrapedChildren) {
+  renderButton(classNames, iconNode, wrappedChildren) {
     const { component, disabled, loading, htmlType } = this.props;
     const Node = component || 'button';
     const nodeProps = omit(this.props, BTN_BLACK_LIST);
@@ -108,7 +108,7 @@ export default class Button extends (PureComponent || Component) {
         onClick={this.handleClick}
       >
         {iconNode}
-        {wrapedChildren}
+        {wrappedChildren}
       </Node>
     );
   }
@@ -144,8 +144,8 @@ export default class Button extends (PureComponent || Component) {
       className
     );
     const iconNode = icon ? <Icon type={icon} /> : null;
-    const wrapedChildren = wrapTextWithSpanTag(children);
+    const wrappedChildren = wrapTextWithSpanTag(children);
 
-    return this[renderer](classNames, iconNode, wrapedChildren);
+    return this[renderer](classNames, iconNode, wrappedChildren);
   }
 }

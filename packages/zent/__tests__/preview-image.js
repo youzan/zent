@@ -1,5 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
+import { Simulate } from 'react-dom/test-utils';
 import Adapter from 'enzyme-adapter-react-16';
 import previewImage from 'preview-image';
 import Image from 'preview-image/Image';
@@ -7,14 +8,14 @@ import previewImageFunc from 'preview-image/previewImage';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const imgArr = [
+  'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
+  'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
+  'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
+];
+
 describe('previewImage render', () => {
   it('should open a portal when called', () => {
-    const imgArr = [
-      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
-      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
-    ];
-
     previewImage({
       images: imgArr,
       showRotateBtn: true,
@@ -24,20 +25,15 @@ describe('previewImage render', () => {
     expect(document.querySelectorAll('.zent-image-p-anchor').length).toBe(1);
     expect(document.querySelectorAll('.zent-show-image').length).toBe(1);
 
-    document
-      .querySelector('.zent-image-p-close')
-      .dispatchEvent(new MouseEvent('click'));
-    // jest.runAllTimers();
-    // expect(document.querySelectorAll('.zent-portal').length).toBe(0);
+    Simulate.click(document.querySelector('.zent-image-p-close'));
+
+    // Simulate a quick "double" click to trigger onClose twice for code coverage
+    Simulate.click(document.querySelector('.zent-image-p-close'));
+    jest.runAllTimers();
+    expect(document.querySelectorAll('.zent-portal').length).toBe(0);
   });
 
   it('test Image component event', () => {
-    const imgArr = [
-      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
-      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
-    ];
-
     const wrapper = mount(
       <Image images={imgArr} showRotateBtn index={0} onClose={() => {}} />
     );
@@ -62,12 +58,6 @@ describe('previewImage render', () => {
   });
 
   it('check Image branch', () => {
-    const imgArr = [
-      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
-      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
-    ];
-
     const wrapper = mount(
       <Image
         images={imgArr}
@@ -76,6 +66,7 @@ describe('previewImage render', () => {
         onClose={() => {}}
       />
     );
+    wrapper.instance().handleScale();
 
     const ImageDom = wrapper.find('Image');
 
@@ -109,16 +100,30 @@ describe('previewImage render', () => {
   });
 
   it('check class ImagePreview', () => {
-    const imgArr = [
-      'https://img.yzcdn.cn/public_files/2016/11/18/fcb387f397b06e1aa5b2612ed8219f66.jpg',
-      'https://img.yzcdn.cn/public_files/2016/11/18/2b17c476d42610fb8574dae6a04b4c19.jpeg',
-      'https://img.yzcdn.cn/public_files/2016/11/15/b7b6192acffa551d4d0185ce3c9589ab.jpeg',
-    ];
-
     previewImageFunc({
       images: imgArr,
       showRotateBtn: true,
       index: 0,
     });
+  });
+
+  it('throws if scaleRatio is less than 1', () => {
+    /* eslint-disable no-console */
+    const oldFn = console.error;
+    console.error = err => {
+      throw err;
+    };
+    expect(() => {
+      mount(
+        <Image
+          images={imgArr}
+          showRotateBtn={false}
+          index={0}
+          scaleRatio={0.5}
+        />
+      );
+    }).toThrow();
+    console.error = oldFn;
+    /* eslint-enable no-console */
   });
 });

@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Icon from 'icon';
@@ -8,7 +8,7 @@ import isNumber from 'lodash/isNumber';
 import getWidth from 'utils/getWidth';
 import Textarea from './Textarea';
 
-export default class Input extends (PureComponent || Component) {
+export default class Input extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

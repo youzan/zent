@@ -1,6 +1,6 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class LinePreview extends (PureComponent || Component) {
+export default class LinePreview extends PureComponent {
   render() {
     const { value, prefix } = this.props;
 

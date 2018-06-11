@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import isArray from 'lodash/isArray';
@@ -92,7 +92,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class WeekPicker extends (PureComponent || Component) {
+class WeekPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     startDay: PropTypes.number,
@@ -326,13 +326,15 @@ class WeekPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
 
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-week-picker`,
+      className
+    );
     const inputCls = cx('picker-input', 'week-picker-input', {
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled,
@@ -358,14 +360,9 @@ class WeekPicker extends (PureComponent || Component) {
                 >
                   <Input
                     name={name}
-                    value={
-                      showPlaceholder
-                        ? placeholder || i18n.week
-                        : value.join(` ${i18n.to} `)
-                    }
+                    placeholder={placeholder || i18n.week}
+                    value={value ? value.join(` ${i18n.to} `) : ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
 

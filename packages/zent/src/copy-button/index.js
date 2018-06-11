@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'button';
 import Notify from 'notify';
@@ -8,7 +8,7 @@ import { CopyButton as I18nDefault } from 'i18n/default';
 
 import CopyToClipboard from './ReactCopyToClipboard';
 
-export default class Copy extends (PureComponent || Component) {
+export default class Copy extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     onCopySuccess: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),

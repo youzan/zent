@@ -1,9 +1,9 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
 const buildInDotsColors = ['black', 'blue', 'red', 'green'];
 
-export default class SwiperDots extends (PureComponent || Component) {
+export default class SwiperDots extends PureComponent {
   isDotActive = (index, currentIndex, length) => {
     return (
       index === currentIndex ||

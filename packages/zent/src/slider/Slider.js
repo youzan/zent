@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isArray from 'lodash/isArray';
@@ -39,7 +39,7 @@ function checkProps(props) {
   }
 }
 
-export default class Slider extends (PureComponent || Component) {
+export default class Slider extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

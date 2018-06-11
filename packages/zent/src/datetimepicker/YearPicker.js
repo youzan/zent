@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
 import Input from 'input';
@@ -60,7 +60,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class YearPicker extends (PureComponent || Component) {
+class YearPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
   };
@@ -209,13 +209,15 @@ class YearPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
 
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-year-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
@@ -238,10 +240,9 @@ class YearPicker extends (PureComponent || Component) {
                 {i18n => (
                   <Input
                     name={name}
-                    value={showPlaceholder ? placeholder || i18n.year : value}
+                    placeholder={placeholder || i18n.year}
+                    value={value || ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
                 )}

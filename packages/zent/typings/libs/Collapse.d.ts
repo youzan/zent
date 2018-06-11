@@ -2,7 +2,7 @@
 
 declare module 'zent/lib/collapse' {
   interface ICollapseProps {
-    activeKey: string | string[]
+    activeKey?: string | string[]
     onChange: (value: string|string[]) => any
     accordion?: boolean
     bordered?: boolean

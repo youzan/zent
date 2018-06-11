@@ -308,6 +308,18 @@ describe('GetControlGroup and Component_Fields', () => {
     expect(wrapper.find('.zent-color-picker').length).toBe(1);
   });
 
+  it('FormDatePickerField', () => {
+    const { FormDatePickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormDatePickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-date-picker').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
+  });
+
   it('FormDateRangePickerField', () => {
     const { FormDateRangePickerField } = ZentForm;
     const wrapper = mount(
@@ -315,8 +327,80 @@ describe('GetControlGroup and Component_Fields', () => {
         <FormDateRangePickerField name="foo" type="split" />
       </FormCreated>
     );
-    expect(wrapper.find('.zent-datetime-picker').length).toBe(3);
+    expect(wrapper.find('.zent-daterange-picker').length).toBe(1);
     expect(wrapper.find('input').length).toBe(2);
+  });
+
+  it('FormWeekPickerField', () => {
+    const { FormWeekPickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormWeekPickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-week-picker').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
+  });
+
+  it('FormTimePickerField', () => {
+    const { FormTimePickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormTimePickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-time-picker').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
+  });
+
+  it('FormTimeRangePickerField', () => {
+    const { FormTimeRangePickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormTimeRangePickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-timerange-picker').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(2);
+  });
+
+  it('FormQuarterPickerField', () => {
+    const { FormQuarterPickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormQuarterPickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-quarter-picker').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
+  });
+
+  it('FormYearPickerField', () => {
+    const { FormYearPickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormYearPickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-year-picker').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
+  });
+
+  it('FormMonthPickerField', () => {
+    const { FormMonthPickerField } = ZentForm;
+    const wrapper = mount(
+      <FormCreated>
+        <FormMonthPickerField name="foo" />
+      </FormCreated>
+    );
+
+    expect(wrapper.find('.zent-month-picker').length).toBe(1);
+    expect(wrapper.find('input').length).toBe(1);
   });
 
   it('FormDateRangeQuickPickerField', () => {
