@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 zh-CN:
 	title: 动态加载数据 (menu)
 	placeholder: 请选择
