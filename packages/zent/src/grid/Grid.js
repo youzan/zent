@@ -691,7 +691,7 @@ class Grid extends PureComponent {
       this.CheckboxPropsCache = {};
       let expandRowKeys = this.getExpandRowKeys(nextProps);
       this.store.setState({
-        columns: this.getColumns(this.props, this.props.columns, expandRowKeys),
+        columns: this.getColumns(nextProps, nextProps.columns, expandRowKeys),
       });
       this.setState({
         expandRowKeys,
