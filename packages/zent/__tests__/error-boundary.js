@@ -68,4 +68,24 @@ describe('ErrorBoundary', () => {
     expect(onError.mock.calls.length).toBe(1);
     expect(wrapper.find('.custom-fallback-component').length).toBe(1);
   });
+
+  it('has an HOC catchError', () => {
+    const onError = jest.fn();
+
+    const HOC = ErrorBoundary.catchError({
+      FallbackComponent: CustomFallback,
+      onError,
+    })(ErrorComponent);
+    let wrapper = mount(<HOC />);
+    expect(onError.mock.calls.length).toBe(1);
+    expect(wrapper.find('.custom-fallback-component').length).toBe(1);
+
+    const HOCWithDefaultOptions = ErrorBoundary.catchError()(ErrorComponent);
+    wrapper = mount(<HOCWithDefaultOptions />);
+    expect(onError.mock.calls.length).toBe(1);
+    expect(wrapper.find('.custom-fallback-component').length).toBe(0);
+    expect(wrapper.find('.zent-error-boundary-fallback-component').length).toBe(
+      1
+    );
+  });
 });

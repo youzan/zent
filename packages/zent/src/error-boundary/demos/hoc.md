@@ -1,12 +1,12 @@
 ---
 order: 3
 zh-CN:
-	title: withErrorBoundary 高阶组件
+	title: withErrorBoundary 以及 catchError 高阶组件
 	triggerBtn: 触发错误
 	fine: 成功渲染
 	notAffected: 这里不受影响	
 en-US:
-	title: withErrorBoundary HOC
+	title: withErrorBoundary and catchError HOC
 	triggerBtn: Trigger error
 	fine: Render OK
 	notAffected: Not affected here
@@ -43,10 +43,12 @@ class ErrorComponent extends React.Component {
 const GuardedErrorComponent = ErrorBoundary.withErrorBoundary({
 	Component: ErrorComponent,
 });
+const GuardedErrorComponent2 = ErrorBoundary.catchError()(ErrorComponent)
 
 ReactDOM.render(
 	<div>
 		<GuardedErrorComponent />
+		<GuardedErrorComponent2 />
 		<div style={{ marginTop: 10 }}>{i18n.notAffected}</div>
 	</div>,
 	mountNode
