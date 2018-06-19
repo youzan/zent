@@ -18,6 +18,7 @@ declare module 'zent/lib/tree' {
   }
 
   interface ITreeProps {
+    useNew?: boolean
     dataType?: 'tree' | 'plain'
     data: Array<ITreeData>
     props?: object
