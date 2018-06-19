@@ -434,6 +434,7 @@ class Grid extends PureComponent {
       onRowClick,
       ellipsis,
       expandation,
+      rowKey,
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -467,6 +468,7 @@ class Grid extends PureComponent {
     const body = (
       <Body
         prefix={prefix}
+        rowKey={rowKey}
         columns={columns}
         datasets={datasets}
         expandRowKeys={expandRowKeys}
