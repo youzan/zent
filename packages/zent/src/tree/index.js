@@ -9,7 +9,7 @@ export default class Tree extends PureComponent {
   };
 
   static defaultProps = {
-    useNew: false,
+    useNew: true,
   };
 
   render() {
