@@ -21,7 +21,7 @@ Tree widget is used to build and manipulate trees. such as files, organization s
 
 | Property            | Description                                                                                         | Type               | Default    | Alternative          |
 | ------------------- | --------------------------------------------------------------------------------------------------  | ------------------ | ---------- | -------------------- |
-| useNew              | whether to use new version Tree                                                                     | bool               | `true`     |                      |
+| useNew              | whether to use new version Tree                                                                     | bool               | `false`     |                      |
 | dataType            | data structure, default is tree                                                                     | string             | `'tree'`   | `'plain'`            |
 | data                | required, input data, identified by dataType                                                        | array              |            |                      |
 | renderKey           | (userNew)the key map for render node, see the following table                                       | object             |            |                      |
