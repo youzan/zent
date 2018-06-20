@@ -45,7 +45,7 @@ ReactDOM.render(<Button />, mountNode);
 
 ### Import as Necessary
 
-[bable-plugin-zent](babel-plugin-zent) is a babel plugin that can help reduce bundle size, it does code transformations like this:
+[babel-plugin-zent](babel-plugin-zent) is a babel plugin that can help reduce bundle size, it does code transformations like this:
 
 ```js
 import { Button } from 'zent';
