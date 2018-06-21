@@ -41,6 +41,6 @@
     "tinycolor2": "^1.4.1",
     "uuid": "^3.1.0",
     "zan-utils": "^1.1.8",
-    "zenticons": "^1.1.0"
+    "zenticons": "1.2.0"
   }
 }
