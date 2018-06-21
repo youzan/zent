@@ -357,6 +357,22 @@ class IconGrid extends Component {
           <Icon type="assess" />
           <span className="zi-grid-item-name">assess(0xe851)</span>
         </div>
+        <div className="zi-grid-item" data-index="upload0xe852uploadfilled">
+          <Icon type="upload" />
+          <span className="zi-grid-item-name">upload(0xe852)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hr-o0xe853human resourceoutline">
+          <Icon type="hr-o" />
+          <span className="zi-grid-item-name">hr-o(0xe853)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hr0xe854human resourcefilled">
+          <Icon type="hr" />
+          <span className="zi-grid-item-name">hr(0xe854)</span>
+        </div>
+        <div className="zi-grid-item" data-index="export0xe855exportfilled">
+          <Icon type="export" />
+          <span className="zi-grid-item-name">export(0xe855)</span>
+        </div>
       </div>
     );
   }
