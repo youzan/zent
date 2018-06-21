@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:6.10.0
+      - image: circleci/node:8-stretch-browsers
     working_directory: ~/youzan/zent
     steps:
       - checkout
