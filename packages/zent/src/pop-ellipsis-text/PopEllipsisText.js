@@ -56,8 +56,35 @@ export default class PopEllipsisText extends Component {
     return metrics.width;
   }
 
+  getWidth() {
+    const { width, line } = this.props;
+    if (isNumber(line) && this.isPercent(width)) {
+      const { clientWidth } = this.textWrapper
+        ? this.textWrapper.parentNode
+        : {};
+      this.setState({
+        width: this.calPercentValue(clientWidth, width),
+      });
+    }
+  }
+
+  renderPureText(clz) {
+    const { text, style } = this.props;
+
+    return (
+      <div
+        style={style}
+        className={clz}
+        ref={textWrapper => (this.textWrapper = textWrapper)}
+      >
+        {text}
+      </div>
+    );
+  }
+
   componentDidMount() {
     const { count, line } = this.props;
+    this.getWidth();
     isNumber(count) ||
       clamp(
         this.multiLineComp ||
@@ -178,6 +205,6 @@ export default class PopEllipsisText extends Component {
       return this.renderFixedCount(clz);
     }
 
-    return <div className={clz}>{text}</div>;
+    return this.renderPureText(clz);
   }
 }
