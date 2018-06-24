@@ -27,24 +27,9 @@ describe('testing <PopEllipsisText >', () => {
     );
   });
 
-  it('should render correctly when pass percentage to width', () => {
-    wrapper = mount(
-      <div style={{ width: 100 }}>
-        <PopEllipsisText
-          type="line"
-          line={2}
-          width="100%"
-          text={firstSentence}
-        />
-      </div>
-    );
-    expect(wrapper.find(PopEllipsisText).length).toBe(1);
-  });
-
   it('should render correctly when pass html to props.text and pass digital to props.width', () => {
     wrapper = mount(
       <PopEllipsisText
-        type="line"
         line={2}
         width={100}
         text={forthSentence}

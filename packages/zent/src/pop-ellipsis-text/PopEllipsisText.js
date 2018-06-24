@@ -1,5 +1,4 @@
 import React, { isValidElement, Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Pop from 'pop';
 import cx from 'classnames';
@@ -8,6 +7,7 @@ import isString from 'lodash/isString';
 import map from 'lodash/map';
 import omit from 'lodash/omit';
 import getWidth from 'utils/getWidth';
+import clamp from 'ellip-clamp';
 
 export default class PopEllipsisText extends Component {
   state = {
@@ -59,7 +59,7 @@ export default class PopEllipsisText extends Component {
   getWidth() {
     const { width, line } = this.props;
     if (isNumber(line) && this.isPercent(width)) {
-      const { clientWidth } = ReactDOM.findDOMNode(this.textWrapper).parentNode;
+      const { clientWidth } = this.textWrapper.parentNode;
       this.setState({
         width: this.calPercentValue(clientWidth, width),
       });
@@ -67,7 +67,13 @@ export default class PopEllipsisText extends Component {
   }
 
   componentDidMount() {
+    const { count, line } = this.props;
     this.getWidth();
+    isNumber(count) ||
+      clamp(isNumber(line) ? this.multiLineComp : this.singleLineComp, {
+        clamp: isNumber(line) ? line : 1,
+        useNativeClamp: false,
+      });
   }
 
   getPopContent(children) {
@@ -120,20 +126,29 @@ export default class PopEllipsisText extends Component {
     const { width } = this.state;
 
     return this.getPopContent(
-      <div className={clz} style={{ ...style, ...getWidth(width) }}>
+      <div
+        ref={el => {
+          this.singleLineComp = el;
+        }}
+        className={clz}
+        style={{ ...style, ...getWidth(width) }}
+      >
         {text}
       </div>
     );
   }
 
   renderMutilLine(clz) {
-    const { line, text, style } = this.props;
+    const { text, style } = this.props;
     const { width } = this.state;
 
     return this.getPopContent(
       <div
+        ref={el => {
+          this.multiLineComp = el;
+        }}
         className={clz}
-        style={{ WebkitLineClamp: line, ...style, ...getWidth(width) }}
+        style={{ ...style, ...getWidth(width) }}
       >
         {text}
       </div>
@@ -173,17 +188,13 @@ export default class PopEllipsisText extends Component {
     const textWidth = this.calcWidth(pureText, this.getFont(style));
 
     const clz = cx(`${prefix}-pop-ellipsis`, className);
-    const clzEllipsis = cx(clz, `${prefix}-pop-ellipsis-common`, {
-      [`${prefix}-pop-ellipsis-multi`]: isNumber(line),
-      [`${prefix}-pop-ellipsis-single`]: !isNumber(line),
-    });
 
     if (isNumber(line) && isNumber(width) && line * width < textWidth) {
-      return this.renderMutilLine(clzEllipsis);
+      return this.renderMutilLine(clz);
     }
 
     if (isNumber(width) && width < textWidth) {
-      return this.renderSingleLine(clzEllipsis);
+      return this.renderSingleLine(clz);
     }
 
     if (isNumber(count) && count < text.length) {
