@@ -373,6 +373,10 @@ class IconGrid extends Component {
           <Icon type="export" />
           <span className="zi-grid-item-name">export(0xe855)</span>
         </div>
+        <div className="zi-grid-item" data-index="suggestions0xe856suggestionsoutline">
+          <Icon type="suggestions" />
+          <span className="zi-grid-item-name">suggestions(0xe856)</span>
+        </div>
       </div>
     );
   }
