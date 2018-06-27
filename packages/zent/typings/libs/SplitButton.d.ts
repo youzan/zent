@@ -1,6 +1,6 @@
 /// <reference types="react" />
 
-declare module 'zent/lib/splitButton' {
+declare module 'zent/lib/split-button' {
   interface ISplitButtonProps {
     type?: 'default' | 'primary' | 'danger' | 'success'
     size?: 'medium' | 'large' | 'small'
@@ -17,5 +17,5 @@ declare module 'zent/lib/splitButton' {
     onSelect?: Function
   }
 
-  export default class Button extends React.Component<ISplitButtonProps, any> { }
+  export default class SplitButton extends React.Component<ISplitButtonProps, any> { }
 }
