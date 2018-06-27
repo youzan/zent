@@ -1,20 +1,16 @@
-import {
-  ReactNode,
-  CSSProperties,
-  Component,
-} from 'react';
+/// <reference types="react" />
 
 declare module 'zent/lib/timeline' {
 
   interface ITimelineLegendProps {
     color?: string;
-    children?: ReactNode;
+    children?: React.ReactNode;
     prefix?: string;
     className?: string;
-    style?: CSSProperties;
+    style?: React.CSSProperties;
   }
 
-  export class TimelineLegend extends Component<ITimelineLegendProps, any> {}
+  export class TimelineLegend extends React.Component<ITimelineLegendProps, any> {}
 
   interface ITimelineItemProps {
     size?: number;
@@ -23,15 +19,15 @@ declare module 'zent/lib/timeline' {
     color?: string;
     lineColor?: string;
     dotColor?: string;
-    label?: ReactNode;
-    tip?: ReactNode;
+    label?: React.ReactNode;
+    tip?: React.ReactNode;
     prefix?: string;
     className?: string;
-    style?: CSSProperties;
+    style?: React.CSSProperties;
     type?: 'vertical' | 'horizontal';
   }
 
-  export class TimelineItem extends Component<ITimelineItemProps> {}
+  export class TimelineItem extends React.Component<ITimelineItemProps> {}
 
   interface ITimelineArrayItem extends ITimelineItemProps {
     id?: string;
@@ -43,10 +39,10 @@ declare module 'zent/lib/timeline' {
     timeline?: ITimelineArrayItem[];
     type?: 'vertical' | 'horizontal';
     className?: string;
-    style?: CSSProperties;
+    style?: React.CSSProperties;
   }
 
-  export class Timeline extends Component<ITimelineProps, any> {
+  export class Timeline extends React.Component<ITimelineProps, any> {
     static Legend: typeof TimelineLegend;
     static Item: typeof TimelineItem;
   }
