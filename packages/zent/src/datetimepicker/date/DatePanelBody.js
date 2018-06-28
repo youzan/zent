@@ -85,7 +85,7 @@ export default class DatePanelBody extends PureComponent {
           'panel__cell--current': !isDisabled && isCurrent,
           'panel__cell--disabled': isDisabled,
           'panel__cell--selected': isSelected,
-          'panel__cell--in-range': isInRange,
+          'panel__cell--in-range': isInRange && !isDisabled,
           'panel__cell--in-selected': isInSelect,
         });
         days[rowIndex][colIndex] = {
