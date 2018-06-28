@@ -187,6 +187,12 @@ class Grid extends PureComponent {
     this.props.onChange(params);
   };
 
+  onPageSizeChange = pageSize => {
+    this.props.onChange({
+      pageSize,
+    });
+  };
+
   getDataKey = (data, rowIndex) => {
     const { rowKey } = this.props;
     return rowKey ? get(data, rowKey) : rowIndex;
@@ -737,6 +743,7 @@ class Grid extends PureComponent {
               prefix={prefix}
               pageInfo={pageInfo}
               onChange={this.onChange}
+              onPageSizeChange={this.onPageSizeChange}
             />,
           ];
 

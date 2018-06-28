@@ -40,6 +40,7 @@ onChange will throw an object, which includes parameters about the change part o
 	current, // {Number} the current page
 	sortBy, // {String} the key which rows are sorted according to
 	sortType, // {String} ['asc', 'desc', ''] the way to sort
+	pageSize, // {Number} page size
 }
 ```
 
