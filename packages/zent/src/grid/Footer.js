@@ -43,12 +43,16 @@ class Footer extends PureComponent {
   };
 
   renderPage = () => {
-    const { prefix } = this.props;
+    const { prefix, onPageSizeChange } = this.props;
     const { pageInfo } = this.state;
 
     return pageInfo ? (
       <div className={classnames(`${prefix}-grid-tfoot-page`)}>
-        <Pagination {...pageInfo} onChange={this.handlePageChange} />
+        <Pagination
+          {...pageInfo}
+          onChange={this.handlePageChange}
+          onPageSizeChange={onPageSizeChange}
+        />
       </div>
     ) : null;
   };

@@ -188,6 +188,12 @@ export default class Table extends PureComponent {
     }
   };
 
+  onPageSizeChange = pageSize => {
+    this.wrapPropsOnChange({
+      pageSize,
+    });
+  };
+
   /**
    * 设置内部属性，cached选中结果
    */
@@ -490,6 +496,7 @@ export default class Table extends PureComponent {
                     }}
                     current={this.state.current}
                     onPageChange={this.onPageChange}
+                    onPageSizeChange={this.onPageSizeChange}
                   />
                 </div>
               )}

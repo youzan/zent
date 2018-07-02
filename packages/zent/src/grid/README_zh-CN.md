@@ -40,6 +40,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 	current, // {Number} 表示当前第几页
 	sortBy, // {String} 表示基于什么key进行排序
 	sortType, // {String} ['asc', 'desc', ''] 排序的方式
+	pageSize, // {Number} 表示每页数量
 }
 ```
 
