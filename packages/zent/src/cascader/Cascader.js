@@ -37,6 +37,7 @@ class Cascader extends PureComponent {
     onChange: PropTypes.func,
     loadMore: PropTypes.func,
     value: PropTypes.array,
+    displayText: PropTypes.func,
     options: PropTypes.array,
     placeholder: PropTypes.string,
     changeOnSelect: PropTypes.bool,
@@ -255,10 +256,14 @@ class Cascader extends PureComponent {
           let hasValue = false;
           if (activeValue && activeValue.length > 0) {
             hasValue = true;
-            cascaderValue = activeValue.map(valueItem => {
-              return valueItem.title;
-            });
-            cascaderValue = cascaderValue.join(' / ');
+            if (this.props.displayText) {
+              cascaderValue = this.props.displayText(activeValue);
+            } else {
+              cascaderValue = activeValue.map(valueItem => {
+                return valueItem.title;
+              });
+              cascaderValue = cascaderValue.join(' / ');
+            }
           }
 
           let cascaderCls = classnames({

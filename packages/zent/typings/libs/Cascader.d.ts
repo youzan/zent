@@ -13,6 +13,7 @@ declare module 'zent/lib/cascader' {
     prefix?: string
     className?: string
     popClassName?: string
+    displayText?: Function
   }
 
   export default class Cascader extends React.Component<ICascaderProps, any> {}
