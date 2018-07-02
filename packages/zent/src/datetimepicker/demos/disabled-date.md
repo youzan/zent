@@ -42,7 +42,10 @@ class Demo extends Component {
 	}
 
 	disabledWeek(val) {
-		return val.getTime() > Date.now();
+		const today = new Date();
+		const start = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate() - 2);
+		const end = new Date(today.getFullYear(), today.getMonth() + 1, 3, 23, 59, 59, 999);
+		return val < start || val > end;
 	}
 
 	disabledRangeTime(type) {

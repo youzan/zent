@@ -47,6 +47,7 @@ export default class DatePanel extends PureComponent {
         showNext,
         showPrev,
         showTime,
+        disableSelectedHighlight,
       },
       state: { showMonth },
     } = this;
@@ -79,6 +80,7 @@ export default class DatePanel extends PureComponent {
           showNext={showNext}
         />
         <DatePanelBody
+          disableSelectedHighlight={disableSelectedHighlight}
           actived={actived}
           range={range}
           selected={selected}
