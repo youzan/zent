@@ -2,6 +2,8 @@
 
 set -e
 
+basepath=$(dirname $0)
+
 # 安装依赖，以防有人修改依赖
 yarn
 
