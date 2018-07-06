@@ -13,10 +13,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 > Documentation site is now on [github pages](https://youzan.github.io/zent)
 
-- `Loading`
-  - 💥 [breaking change] Remove `on`, `off` and `newInstance` static methods
-  - 🦀️ Fix error when closing in React 16
+- 💥 [breaking change] Remove `on`, `off` and `newInstance` static methods in `Loadign`
 - 💥 [breaking change] Fix `WeekPicker` disable and selection logic
+- 💥 [breaking change] `Table` cell now uses `border-box`
+- 💥 [breaking change] Remove `zent-select` from `Select` popover, this class should only be on the trigger
 - 🎉 New component `Mention`
 - 🎉 New component `Timeline`
 - 🎉 Rewrite `Tree`, add `useNew` prop to use this new version. APIs are compatible with the old one, and a controlled mode is added in this new version.
@@ -43,6 +43,7 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - ✨ `SplitButton` supports dropdown position configuration
 - ✨ `Table` now passes page size in its `onChange` callback
 - ✨ `Pagination` now triggers `onPageSizeChange` callback when page size changes
+- ✨ The `onChange` callback now supports page size in `Table`
 - 🦀️ Fix `BlockHeader` HTML tag nesting bug(a `div` cannot be inside a `p`)
 - 🦀️ Fix `Avatar`'s `TypeScript` definition
 - 🦀️ Fix `Sortable`'s `TypeScript` definition
@@ -51,21 +52,22 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Add a few more icons
 - 🦀️ Fix `addonBefore` and `addonAfter` style in `Input`
 - 🦀️ Fix a bug in `Swiper` when removing the second last element
+- 🦀️ Fix error when closing `Loading` in React 16
 - `Dialog`
   - 🦀️ Fix a bug when closing dialog
   - 🦀️ Fix a bug when used in SSR
 - 🦀️ Fix some typo in `Button`
 - 🦀️ Fix `Collapse` prop type
 - 🦀️ Fix `DatePicker` time disable logic
-- `Select`
-  - 🦀️ Fix a style issue
-  - 🦀️ Fix a bug when calling `focus`
+- 🦀️ Fix a bug when calling `focus` in `Select`
 - 🦀️ Remove some unused style in `Card`
 - 📚 Fix typo `babel`
 
 #### Breaking change workaronds
 
 > `Loading` `on`, `off`, `newInstance` workaround：
+
+Replace `Loading.on` and `Loading.off` with a `Loading` instance, and controll it using component state.
 
 ```js
 <Loading float show={this.state.loading} />
@@ -79,6 +81,14 @@ If you use `newInstance`, just render multile `<Loading>` instances.
 - `WeekPicker` now returns only the dates can be selected, but in old versions it will return the whole week including those disabled dates.
 - The `[start, end]` value in `disabledDate` has some change in time part. The `start` has time set to `00:00:00:000` while the `end` has time set to `23:59:59:999`.
 - If your code relies on the time part when comparing two `Date` objects, you are likely in trouble with this new bahavior. Either ajust your logic to get the time part correct, or don't rely on time part when comparing two `Date` objects.
+
+> `Table` cell style workaround:
+
+`Table`'s cell `box-sizing` has changed to `border-box`, so you may have to adjust your column width.
+
+> `Select` `zent-select` workaround:
+
+If you rely on `zent-select` when overwriting `Select` popover style, use `zent-select__popover` instead.
 
 ### 5.1.1 (2018-04-19)
 
