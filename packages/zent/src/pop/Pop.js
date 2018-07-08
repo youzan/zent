@@ -327,6 +327,7 @@ class Pop extends PureComponent {
       onBeforeShow,
       onPositionUpdated,
       onPositionReady,
+      containerSelector,
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -352,6 +353,7 @@ class Pop extends PureComponent {
         onBeforeShow={onBeforeShow}
         onPositionUpdated={onPositionUpdated}
         onPositionReady={onPositionReady}
+        containerSelector={containerSelector}
         ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}
