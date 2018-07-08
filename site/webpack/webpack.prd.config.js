@@ -1,4 +1,3 @@
-const { resolve } = require('path');
 const webpack = require('webpack');
 const HappyPack = require('happypack');
 const vendorEntry = require('./vendor-entry');
@@ -7,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const happyThreadPool = require('./happypack-thread-pool');
 
-const prefix = 'https://b.yzcdn.cn/zanui/zent/';
+const prefix = '/zent/';
 
 module.exports = Object.assign({}, base, {
   entry: {
@@ -29,22 +28,10 @@ module.exports = Object.assign({}, base, {
     }),
   }),
 
-  // module: Object.assign({}, base.module, {
-  //   rules: base.module.rules.concat(getRules(babelLoader), [
-  //     {
-  //       test: /\.p?css$/,
-  //       use: ExtractTextPlugin.extract({
-  //         fallback: 'style-loader',
-  //         use: ['css-loader', 'postcss-loader']
-  //       })
-  //     }
-  //   ])
-  // }),
-
   plugins: base.plugins.concat([
     new FaviconsWebpackPlugin({
       // Your source logo
-      logo: './assets/ZanUIlogo256x256.png',
+      logo: './assets/zanui-logo.png',
       // The prefix for all image files (might be a folder or a name)
       prefix: 'favico-[hash]-',
       // Emit all stats of the generated icons
@@ -53,7 +40,7 @@ module.exports = Object.assign({}, base, {
       // statsFilename: 'iconstats-[hash].json',
       // Generate a cache file with control hashes and
       // don't rebuild the favicons until those hashes change
-      persistentCache: false,
+      persistentCache: true,
       // Inject the html into the html-webpack-plugin
       inject: true,
       // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
@@ -109,8 +96,4 @@ module.exports = Object.assign({}, base, {
       allChunks: true,
     }),
   ]),
-  devServer: {
-    contentBase: resolve(__dirname, 'dist'),
-    publicPath: prefix,
-  },
 });

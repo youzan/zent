@@ -99,6 +99,54 @@ describe('Cascader', () => {
     wrapper.unmount();
   });
 
+  it('can customize display text', () => {
+    const value = [1, 4, 5];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const title = ['省份', '城市', '县区'];
+    const textFn = val =>
+      val && val.length > 0 ? val[val.length - 1].title : '';
+
+    const wrapper = mount(
+      <Cascader
+        value={value}
+        options={options}
+        title={title}
+        displayText={textFn}
+      />
+    );
+
+    expect(wrapper.find('.zent-cascader__select-text-content').text()).toBe(
+      'anotherGrandSon'
+    );
+  });
+
   it('has default value and options', () => {
     const value = [1, 4, 5];
     const options = [

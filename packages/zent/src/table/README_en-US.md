@@ -62,6 +62,7 @@ onChange will throw an object containing pagination and sorting parameters：
 	sortBy, // {String} based on what to sort
 	sortType, // {String} ['asc', 'desc'] sort way
 	current, // {Number} current page
+	pageSize, // {Number} page size
 }
 ```
 
@@ -93,7 +94,7 @@ onChange will throw an object containing pagination and sorting parameters：
 | totalItem | Total number of entries            | number | `0` | no    |
 | pageSize | Number per page   | number |  | no    |
 | current | Current page number | number | | |
-| maxPageToShow    | Maximum items to display | number  |  | no  
+| maxPageToShow    | Maximum items to display | number  |  | no
 | total | Total number of entries**[deprecated]**   | number | `0` | no    |
 | limit | Number per page**[deprecated]**   | number |  | no    |
 
@@ -101,8 +102,8 @@ onChange will throw an object containing pagination and sorting parameters：
 
 | Props              | Description              | Type    |  Default | Required |
 | --------------- | --------------- | ----- | ---- | ----- |
-| isExpanded | Whether to expand the current row | bool | `false` | no    |
-| expandRender        | Render function of expanded row's additional content | func  |  | no  
+| isExpanded | Whether to expand the current row | func(record, index) |  | no    |
+| expandRender        | Render function of expanded row's additional content | func(record)  |  | no
 
 <style>
   .row {

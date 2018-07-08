@@ -285,6 +285,98 @@ class IconGrid extends Component {
           <Icon type="forbidden-circle" />
           <span className="zi-grid-item-name">forbidden-circle(0xe83f)</span>
         </div>
+        <div className="zi-grid-item" data-index="business-o0xe840businessoutline">
+          <Icon type="business-o" />
+          <span className="zi-grid-item-name">business-o(0xe840)</span>
+        </div>
+        <div className="zi-grid-item" data-index="business0xe841businessfilled">
+          <Icon type="business" />
+          <span className="zi-grid-item-name">business(0xe841)</span>
+        </div>
+        <div className="zi-grid-item" data-index="approval-o0xe842approvaloutline">
+          <Icon type="approval-o" />
+          <span className="zi-grid-item-name">approval-o(0xe842)</span>
+        </div>
+        <div className="zi-grid-item" data-index="approval0xe843approvalfilled">
+          <Icon type="approval" />
+          <span className="zi-grid-item-name">approval(0xe843)</span>
+        </div>
+        <div className="zi-grid-item" data-index="ticket-o0xe844ticketoutline">
+          <Icon type="ticket-o" />
+          <span className="zi-grid-item-name">ticket-o(0xe844)</span>
+        </div>
+        <div className="zi-grid-item" data-index="ticket0xe845ticketfilled">
+          <Icon type="ticket" />
+          <span className="zi-grid-item-name">ticket(0xe845)</span>
+        </div>
+        <div className="zi-grid-item" data-index="report-o0xe846reportoutline">
+          <Icon type="report-o" />
+          <span className="zi-grid-item-name">report-o(0xe846)</span>
+        </div>
+        <div className="zi-grid-item" data-index="report0xe847reportfilled">
+          <Icon type="report" />
+          <span className="zi-grid-item-name">report(0xe847)</span>
+        </div>
+        <div className="zi-grid-item" data-index="expand-customer-o0xe848expandcustomeroutline">
+          <Icon type="expand-customer-o" />
+          <span className="zi-grid-item-name">expand-customer-o(0xe848)</span>
+        </div>
+        <div className="zi-grid-item" data-index="expand-customer0xe849expandcustomerfilled">
+          <Icon type="expand-customer" />
+          <span className="zi-grid-item-name">expand-customer(0xe849)</span>
+        </div>
+        <div className="zi-grid-item" data-index="checkin-o0xe84acheckinoutline">
+          <Icon type="checkin-o" />
+          <span className="zi-grid-item-name">checkin-o(0xe84a)</span>
+        </div>
+        <div className="zi-grid-item" data-index="checkin0xe84bcheckinfilled">
+          <Icon type="checkin" />
+          <span className="zi-grid-item-name">checkin(0xe84b)</span>
+        </div>
+        <div className="zi-grid-item" data-index="plus-circle-o0xe84caddpluscircleoutline">
+          <Icon type="plus-circle-o" />
+          <span className="zi-grid-item-name">plus-circle-o(0xe84c)</span>
+        </div>
+        <div className="zi-grid-item" data-index="subtract-circle-o0xe84dminussubtract circleoutline">
+          <Icon type="subtract-circle-o" />
+          <span className="zi-grid-item-name">subtract-circle-o(0xe84d)</span>
+        </div>
+        <div className="zi-grid-item" data-index="remove-o0xe84edeleteremoveoutline">
+          <Icon type="remove-o" />
+          <span className="zi-grid-item-name">remove-o(0xe84e)</span>
+        </div>
+        <div className="zi-grid-item" data-index="edit-o0xe84feditoutline">
+          <Icon type="edit-o" />
+          <span className="zi-grid-item-name">edit-o(0xe84f)</span>
+        </div>
+        <div className="zi-grid-item" data-index="assess-o0xe850assessoutline">
+          <Icon type="assess-o" />
+          <span className="zi-grid-item-name">assess-o(0xe850)</span>
+        </div>
+        <div className="zi-grid-item" data-index="assess0xe851assessfilled">
+          <Icon type="assess" />
+          <span className="zi-grid-item-name">assess(0xe851)</span>
+        </div>
+        <div className="zi-grid-item" data-index="upload0xe852uploadfilled">
+          <Icon type="upload" />
+          <span className="zi-grid-item-name">upload(0xe852)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hr-o0xe853human resourceoutline">
+          <Icon type="hr-o" />
+          <span className="zi-grid-item-name">hr-o(0xe853)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hr0xe854human resourcefilled">
+          <Icon type="hr" />
+          <span className="zi-grid-item-name">hr(0xe854)</span>
+        </div>
+        <div className="zi-grid-item" data-index="export0xe855exportfilled">
+          <Icon type="export" />
+          <span className="zi-grid-item-name">export(0xe855)</span>
+        </div>
+        <div className="zi-grid-item" data-index="suggestions0xe856suggestionsoutline">
+          <Icon type="suggestions" />
+          <span className="zi-grid-item-name">suggestions(0xe856)</span>
+        </div>
       </div>
     );
   }

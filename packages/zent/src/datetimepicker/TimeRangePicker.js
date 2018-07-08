@@ -3,7 +3,7 @@
  *
  * @author hyczzhu
  */
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import isString from 'lodash/isString';
@@ -26,7 +26,7 @@ function compatibleInterface(prop) {
   return isString(prop) || isDate(prop) ? [prop, prop] : prop;
 }
 
-export default class TimeRangePicker extends (PureComponent || Component) {
+export default class TimeRangePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     placeholder: PropTypes.array,
@@ -125,7 +125,11 @@ export default class TimeRangePicker extends (PureComponent || Component) {
 
   render() {
     const { prefix, className } = this.props;
-    const prefixCls = `${prefix}-datetime-picker ${className}`;
+    const prefixCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-timerange-picker`,
+      className
+    );
 
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }

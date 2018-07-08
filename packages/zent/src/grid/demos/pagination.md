@@ -68,9 +68,10 @@ class PageInfo extends React.Component {
 		datasets
 	}
 
-	onChange = ({ current }) => {
+	onChange = ({ current, pageSize }) => {
 		this.setState({
-			current: current
+			current,
+			pageSize,
 		})
 	}
 
@@ -83,7 +84,8 @@ class PageInfo extends React.Component {
 				pageInfo={{
 					current: current,
 					pageSize: pageSize,
-					totalItem: totalItem
+					totalItem: totalItem,
+					pageSize: [ {value: 5, isCurrent: true}, 10 ]
 				}}
 				onChange={this.onChange}
 				ellipsis

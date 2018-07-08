@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 import { formatDate } from '../utils';
 import DatePanelBody from './DatePanelBody';
@@ -6,7 +6,7 @@ import MonthPanel from '../month/MonthPanel';
 import TimePanel from '../time/TimePanel';
 import PanelHeader from '../common/PanelHeader';
 
-export default class DatePanel extends (PureComponent || Component) {
+export default class DatePanel extends PureComponent {
   static defaultProps = {
     showPrev: true,
     showNext: true,
@@ -47,6 +47,7 @@ export default class DatePanel extends (PureComponent || Component) {
         showNext,
         showPrev,
         showTime,
+        disableSelectedHighlight,
       },
       state: { showMonth },
     } = this;
@@ -79,6 +80,7 @@ export default class DatePanel extends (PureComponent || Component) {
           showNext={showNext}
         />
         <DatePanelBody
+          disableSelectedHighlight={disableSelectedHighlight}
           actived={actived}
           range={range}
           selected={selected}

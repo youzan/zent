@@ -1,7 +1,7 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { getKeyFromChildrenIndex } from './utils';
 
-export default class CommonMenu extends (PureComponent || Component) {
+export default class CommonMenu extends PureComponent {
   renderCommonMenuItem(component, index, subPrefix, extraProps) {
     const newChildProps = {
       specKey: getKeyFromChildrenIndex(component, index, subPrefix),

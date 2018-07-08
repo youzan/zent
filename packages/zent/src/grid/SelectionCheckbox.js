@@ -1,8 +1,8 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import includes from 'lodash/includes';
 
-class SelectionCheckbox extends (PureComponent || Component) {
+class SelectionCheckbox extends PureComponent {
   constructor(props) {
     super(props);
 

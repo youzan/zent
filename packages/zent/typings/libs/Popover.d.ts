@@ -35,6 +35,7 @@ declare module 'zent/lib/popover' {
         close?: () => void
         contentVisible?: boolean
         onTriggerRefChange?: () => React.ReactInstance
+        getNodeForTriggerRefChange?: (HTMLElement) => HTMLElement
       }
 
       interface IClickProps extends IBaseProps {

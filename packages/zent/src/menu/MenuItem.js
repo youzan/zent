@@ -1,9 +1,9 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { getExtraStyle } from './utils';
 
-export default class MenuItem extends (PureComponent || Component) {
+export default class MenuItem extends PureComponent {
   static propTypes = {
     disabled: PropTypes.bool,
     prefix: PropTypes.string,

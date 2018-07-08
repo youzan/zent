@@ -10,7 +10,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import omit from 'lodash/omit';
@@ -32,7 +32,7 @@ const ANIMATION_STATE_CLASSES = {
   staticHeightSpecific: 'rah-static--height-specific',
 };
 
-export class AnimateHeightNoAppear extends (PureComponent || Component) {
+export class AnimateHeightNoAppear extends PureComponent {
   static propTypes = {
     animationStateClasses: PropTypes.object,
     applyInlineTransitions: PropTypes.bool,
@@ -323,7 +323,7 @@ export class AnimateHeightNoAppear extends (PureComponent || Component) {
   };
 }
 
-export class AnimateHeightAppear extends (PureComponent || Component) {
+export class AnimateHeightAppear extends PureComponent {
   state = {
     mounted: false,
   };
@@ -342,7 +342,7 @@ export class AnimateHeightAppear extends (PureComponent || Component) {
   }
 }
 
-export default class AnimateHeight extends (PureComponent || Component) {
+export default class AnimateHeight extends PureComponent {
   render() {
     const { appear, ...props } = this.props;
     const Animate = appear ? AnimateHeightAppear : AnimateHeightNoAppear;

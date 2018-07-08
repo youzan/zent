@@ -1,9 +1,9 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
-export default class DesignEditorItem extends (PureComponent || Component) {
+export default class DesignEditorItem extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
 

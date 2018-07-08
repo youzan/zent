@@ -27,5 +27,5 @@ export default function previewImage(options = {}) {
     ? partial(ReactDOM.unstable_renderSubtreeIntoContainer, parentComponent)
     : ReactDOM.render;
 
-  render(React.createElement(Image, props), container);
+  render(<Image {...props} />, container);
 }

@@ -772,4 +772,26 @@ describe('Popover', () => {
 
     expect(() => wrapper.instance().adjustPosition()).not.toThrow();
   });
+
+  it('trigger can customize trigger node', () => {
+    const getNodeForTriggerRefChange = jest.fn();
+    const onRefChange = jest.fn();
+    const wrapper = mount(
+      <Popover position={Popover.Position.BottomLeft} display="inline">
+        <PopoverClickTrigger
+          getNodeForTriggerRefChange={getNodeForTriggerRefChange}
+        >
+          <span ref={onRefChange}>abc</span>
+        </PopoverClickTrigger>
+        <PopoverContent>
+          <div>popover content</div>
+        </PopoverContent>
+      </Popover>
+    );
+
+    expect(getNodeForTriggerRefChange.mock.calls.length).toBe(1);
+    expect(onRefChange.mock.calls.length).toBe(1);
+
+    wrapper.unmount();
+  });
 });

@@ -1,8 +1,8 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-export default class Base extends (PureComponent || Component) {
+export default class Base extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,

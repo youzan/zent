@@ -1,8 +1,8 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import setClass from 'classnames';
 import PropTypes from 'prop-types';
 
-export default class Group extends (PureComponent || Component) {
+export default class Group extends PureComponent {
   static propTypes = {
     style: PropTypes.object,
     className: PropTypes.string,

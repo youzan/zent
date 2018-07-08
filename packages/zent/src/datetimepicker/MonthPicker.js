@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
 import Input from 'input';
@@ -52,7 +52,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class MonthPicker extends (PureComponent || Component) {
+class MonthPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
   };
@@ -225,12 +225,14 @@ class MonthPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-month-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
@@ -246,17 +248,16 @@ class MonthPicker extends (PureComponent || Component) {
               cushion={5}
               visible={openPanel}
               onVisibleChange={this.togglePicker}
-              className={`${prefix}-datetime-picker-popover ${className}    -popover`}
+              className={cx(`${prefix}-datetime-picker-popover`, className)}
               position={popPositionMap[popPosition.toLowerCase()]}
             >
               <Popover.Trigger.Click>
                 <div style={widthStyle} className={inputCls}>
                   <Input
                     name={name}
-                    value={showPlaceholder ? placeholder || i18n.month : value}
+                    placeholder={placeholder || i18n.month}
+                    value={value || ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />

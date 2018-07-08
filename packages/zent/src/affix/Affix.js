@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import WindowEventHandler from 'utils/component/WindowEventHandler';
 import getViewportSize from 'utils/dom/getViewportSize';
 import throttle from 'lodash/throttle';
 
-class Affix extends (PureComponent || Component) {
+class Affix extends PureComponent {
   static propTypes = {
     placeHoldClassName: PropTypes.string,
     className: PropTypes.string,
