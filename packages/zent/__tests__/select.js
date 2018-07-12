@@ -16,14 +16,6 @@ describe('<Select />', () => {
     expect(pop.find('Option').length).toBe(3);
   });
 
-  test('测试data传参能否过滤null或undefined类型数据', () => {
-    const wrapper = mount(<Select data={[null, undefined, 1]} />);
-    expect(wrapper.find('Select').length).toBe(1);
-    wrapper.find('SelectTrigger').simulate('click');
-    const pop = new ReactWrapper(wrapper.instance().popup, true);
-    expect(pop.find('Option').length).toBe(1);
-  });
-
   test('Option的传参方式有效', () => {
     let wrapper = mount(
       <Select>
@@ -42,15 +34,6 @@ describe('<Select />', () => {
         <Option>选项一</Option>
       </Select>
     );
-  });
-
-  test('测试Option传参能否过滤null或undefined类型数据', () => {
-    const children = [null, undefined, <Option value="1">选项一</Option>];
-    const wrapper = mount(<Select>{children}</Select>);
-    expect(wrapper.find('Select').length).toBe(1);
-    wrapper.find('SelectTrigger').simulate('click');
-    const pop = new ReactWrapper(wrapper.instance().popup, true);
-    expect(pop.find('Option').length).toBe(1);
   });
 
   test('测试默认属性', () => {
