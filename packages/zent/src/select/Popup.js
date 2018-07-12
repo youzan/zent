@@ -70,7 +70,7 @@ class Popup extends Component {
       !nextProps.onAsyncFilter
     ) {
       setTimeout(() => {
-        this.popup.focus();
+        this.popup && this.popup.focus();
       }, 150);
       this.focused = true;
     }

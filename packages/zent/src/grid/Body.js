@@ -1,11 +1,11 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import forEach from 'lodash/forEach';
 import Row from './Row';
 import ColGroup from './ColGroup';
 
-class Body extends (PureComponent || Component) {
+class Body extends PureComponent {
   getRows() {
     const {
       prefix,

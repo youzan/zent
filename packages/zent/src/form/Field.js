@@ -4,6 +4,7 @@ import { Component, createElement } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
+import has from 'lodash/has';
 import PropTypes from 'prop-types';
 
 import { getValue, getCurrentValue, prefixName } from './utils';
@@ -130,9 +131,11 @@ class Field extends Component {
 
   setValue = (value, needValidate = true) => {
     this.setState(
-      {
-        _value: value,
-        _isDirty: true,
+      () => {
+        return {
+          _value: value,
+          _isDirty: true,
+        };
       },
       () => {
         needValidate && this.context.zentForm.validate(this);
@@ -140,11 +143,15 @@ class Field extends Component {
     );
   };
 
-  resetValue = () => {
+  resetValue = value => {
     this.setState(
-      {
-        _value: this.state._initialValue,
-        _isDirty: false,
+      state => {
+        const newValue = value !== undefined ? value : state._initialValue;
+
+        return {
+          _value: newValue,
+          _isDirty: false,
+        };
       },
       () => {
         this.context.zentForm.validate(this);
@@ -206,9 +213,12 @@ class Field extends Component {
   handleChange = (event, options = { merge: false }) => {
     const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
-    const currentValue = options.merge
-      ? getCurrentValue(getValue(event), previousValue)
+    const val = has(options, 'value')
+      ? getValue(event, options.value)
       : getValue(event);
+    const currentValue = options.merge
+      ? getCurrentValue(val, previousValue)
+      : val;
     const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 
@@ -248,9 +258,12 @@ class Field extends Component {
   handleBlur = (event, options = { merge: false }) => {
     const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();
-    const currentValue = options.merge
-      ? getCurrentValue(getValue(event), previousValue)
+    const val = has(options, 'value')
+      ? getValue(event, options.value)
       : getValue(event);
+    const currentValue = options.merge
+      ? getCurrentValue(val, previousValue)
+      : val;
     const newValue = this.normalize(currentValue);
     let preventSetValue = false;
 

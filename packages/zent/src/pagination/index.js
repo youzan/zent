@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import noop from 'lodash/noop';
@@ -9,7 +9,7 @@ import Prefix from './modules/Prefix';
 
 const { number, func, string } = PropTypes;
 
-export default class Pagination extends (PureComponent || Component) {
+export default class Pagination extends PureComponent {
   static propTypes = {
     className: string,
     prefix: string,

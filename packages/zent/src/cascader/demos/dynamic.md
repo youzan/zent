@@ -1,7 +1,7 @@
 ---
 order: 4
 zh-CN:
-	title: 动态加载数据
+	title: 动态加载数据 (tabs)
 	placeholder: 请选择
 	zj: 浙江省
 	xj: 新疆维吾尔自治区
@@ -9,7 +9,7 @@ zh-CN:
 	city: 市
 	dis: 区
 en-US:
-	title: Dynamic Loading
+	title: Dynamic Loading (tabs)
 	placeholder: Please choose
 	zj: Zhejiang
 	xj: Xinjiang
@@ -66,7 +66,7 @@ class Simple extends React.Component {
 				onChange={this.onChange}
 				loadMore={this.loadMore}
 				placeholder="{i18n.placeholder}"
-				type="menu"
+				type="tabs"
 				title={[
 					'{i18n.pro}',
 					'{i18n.city}',

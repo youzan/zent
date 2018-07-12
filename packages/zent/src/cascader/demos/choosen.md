@@ -68,22 +68,40 @@ class Simple extends React.Component {
 	}
 
 	onChange = (data) => {
+	    this.setState({
+	        value: data.map(item => item.id),
+	    });
 		Notify.success(JSON.stringify(data));
 	}
 
 	render() {
 		return (
-			<Cascader
-				value={this.state.value}
-				options={this.state.options}
-				onChange={this.onChange}
-				changeOnSelect
-				title={[
-					'{i18n.pro}',
-					'{i18n.city}',
-					'{i18n.dis}'
-				]}
-			/>
+		    <div>
+                <Cascader
+                    value={this.state.value}
+                    options={this.state.options}
+                    onChange={this.onChange}
+                    changeOnSelect
+                    title={[
+                        '{i18n.pro}',
+                        '{i18n.city}',
+                        '{i18n.dis}'
+                    ]}
+                />
+                <br /><br />
+                <Cascader
+                    value={this.state.value}
+                    displayText={value => (value && value.length > 0 ? value[value.length - 1].title : '')}
+                    options={this.state.options}
+                    onChange={this.onChange}
+                    changeOnSelect
+                    title={[
+                        '{i18n.pro}',
+                        '{i18n.city}',
+                        '{i18n.dis}'
+                    ]}
+                />
+            </div>
 		);
 	}
 }

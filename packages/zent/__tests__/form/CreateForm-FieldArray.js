@@ -252,13 +252,14 @@ describe('CreateForm and FieldArray', () => {
       .at(2)
       .simulate('change', { target: { value: 'test' } });
     const moveFields = wrapper.find(FieldArray).instance().moveFields;
-    expect(() => moveFields(0, 4)).toThrow();
     moveFields(0, 2);
+    wrapper.update();
     const fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(3);
     expect(fields[0]._fieldInternalValue.name).toBe('bar');
     expect(fields[1]._fieldInternalValue.name).toBe('test');
     expect(fields[2]._fieldInternalValue.name).toBe('foo');
+    expect(() => moveFields(0, 4)).toThrow();
   });
 
   it('FieldArray has popFields and pushFields method', () => {
@@ -422,15 +423,83 @@ describe('CreateForm and FieldArray', () => {
       .at(2)
       .simulate('change', { target: { value: 'test' } });
     const swapFields = wrapper.find(FieldArray).instance().swapFields;
-    expect(() => {
-      swapFields(2, 10);
-    }).toThrow();
     swapFields(0, 2);
+    wrapper.update();
     let fields = wrapper.find(FieldArray).instance().state.fieldArray;
     expect(fields.length).toBe(3);
     expect(fields[0]._fieldInternalValue.name).toBe('test');
     expect(fields[1]._fieldInternalValue.name).toBe('bar');
     expect(fields[2]._fieldInternalValue.name).toBe('foo');
+    expect(() => {
+      swapFields(2, 10);
+    }).toThrow();
+  });
+
+  it('FieldArray has concat method', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+    const concat = wrapper.find(FieldArray).instance().concatFields;
+
+    concat({});
+    wrapper.update();
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', { target: { value: 'foo' } });
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
+    expect(fields.length).toBe(1);
+    expect(fields[0]._fieldInternalValue.name).toBe('foo');
+
+    concat([{}, {}]);
+    wrapper.update();
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', { target: { value: 'bar' } });
+    wrapper
+      .find('input')
+      .at(2)
+      .simulate('change', { target: { value: 'test' } });
+    fields = wrapper.find(FieldArray).instance().state.fieldArray;
+    expect(fields.length).toBe(3);
+    expect(fields[0]._fieldInternalValue.name).toBe('foo');
+    expect(fields[1]._fieldInternalValue.name).toBe('bar');
+    expect(fields[2]._fieldInternalValue.name).toBe('test');
+  });
+
+  it('FieldArray has replaceAll method', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+    const replaceAll = wrapper.find(FieldArray).instance().replaceAllFields;
+
+    replaceAll([{ name: 'foobar' }]);
+    wrapper.update();
+    let fields = wrapper.find(FieldArray).instance().state.fieldArray;
+    expect(fields.length).toBe(1);
+    expect(fields[0]._fieldInternalValue.name).toBe('foobar');
+  });
+
+  it('FieldArray has value prop', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray
+          name="members"
+          component={fieldComponent}
+          value={[{ name: 'zent' }]}
+        />
+      </FormCreated>
+    );
+    const fa = wrapper.find(FieldArray).instance();
+
+    let fields = fa.state.fieldArray;
+    expect(fields.length).toBe(1);
+    expect(fields[0]._fieldInternalValue.name).toBe('zent');
   });
 
   it('FieldArray has an unused getWrappedComponent method(not metioned in docs)', () => {
@@ -453,5 +522,56 @@ describe('CreateForm and FieldArray', () => {
     );
     const inputField = nestedWrapper.find(FieldArray);
     expect(inputField.length).toBe(1);
+  });
+
+  it('Initialize FieldArray', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+
+    wrapper.instance().initialize({ members: ['1', '2'] });
+    wrapper.update();
+    const fa = wrapper.find(FieldArray).instance();
+    expect(fa.state.fieldArray.length).toBe(2);
+    expect(fa.state.fieldArray[0]._fieldInternalValue).toBe('1');
+    expect(fa.state.fieldArray[1]._fieldInternalValue).toBe('2');
+  });
+
+  it('Set FieldArray values', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+
+    wrapper.instance().setFieldsValue({ members: ['1', '2'] });
+    wrapper.update();
+    wrapper.update();
+    const fa = wrapper.find(FieldArray).instance();
+    expect(fa.state.fieldArray.length).toBe(2);
+    expect(fa.state.fieldArray[0]._fieldInternalValue).toBe('1');
+    expect(fa.state.fieldArray[1]._fieldInternalValue).toBe('2');
+  });
+
+  it('Reset FieldArray values', () => {
+    const wrapper = mount(
+      <FormCreated>
+        <FieldArray name="members" component={fieldComponent} />
+      </FormCreated>
+    );
+
+    wrapper.instance().setFieldsValue({ members: ['1', '2'] });
+    wrapper.update();
+    wrapper.update();
+    const fa = wrapper.find(FieldArray).instance();
+    expect(fa.state.fieldArray.length).toBe(2);
+    expect(fa.state.fieldArray[0]._fieldInternalValue).toBe('1');
+    expect(fa.state.fieldArray[1]._fieldInternalValue).toBe('2');
+
+    wrapper.instance().resetFieldsValue({});
+    wrapper.update();
+    expect(wrapper.find(FieldArray).instance().state.fieldArray.length).toBe(0);
   });
 });

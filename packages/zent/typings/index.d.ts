@@ -1,5 +1,3 @@
-import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
-
 // TypeScript Version: 2.3
 
 /// <reference types="react" />
@@ -31,6 +29,7 @@ import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
 /// <reference path="./libs/Layout.d.ts" />
 /// <reference path="./libs/Loading.d.ts" />
 /// <reference path="./libs/Menu.d.ts" />
+/// <reference path="./libs/Mention.d.ts" />
 /// <reference path="./libs/Notify.d.ts" />
 /// <reference path="./libs/NumberInput.d.ts" />
 /// <reference path="./libs/Pagination.d.ts" />
@@ -55,6 +54,7 @@ import ErrorBoundary from '../src/error-boundary/ErrorBoundary';
 /// <reference path="./libs/Table.d.ts" />
 /// <reference path="./libs/Tabs.d.ts" />
 /// <reference path="./libs/Tag.d.ts" />
+/// <reference path="./libs/Timeline.d.ts" />
 /// <reference path="./libs/Tree.d.ts" />
 /// <reference path="./libs/Upload.d.ts" />
 
@@ -115,6 +115,7 @@ declare module 'zent' {
   import Tabs from 'zent/lib/tabs';
   import Tag from 'zent/lib/tag';
   import Tree from 'zent/lib/tree';
+  import Timeline from 'zent/lib/timeline';
   import TimePicker from 'zent/lib/datetimepicker/TimePicker';
   import TimeRangePicker from 'zent/lib/datetimepicker/TimeRangePicker';
   import Upload from 'zent/lib/upload';
@@ -177,6 +178,7 @@ declare module 'zent' {
     Tabs,
     Tag,
     Tree,
+    Timeline,
     TimePicker,
     TimeRangePicker,
     Switch,

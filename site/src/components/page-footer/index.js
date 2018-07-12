@@ -51,7 +51,7 @@ export default class PageFooter extends Component {
           </li>
           <li className="page-footer__item">
             <a
-              href="//www.youzanyun.com/zanui/vant"
+              href="https://youzan.github.io/vant"
               className="page-footer__link"
             >
               {TEXT[i18n].vant}

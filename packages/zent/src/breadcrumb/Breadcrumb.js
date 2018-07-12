@@ -1,11 +1,11 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
 import PropTypes from 'prop-types';
 
 import Item from './Item';
 
-export default class Breadcrumb extends (PureComponent || Component) {
+export default class Breadcrumb extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
-class Tag extends (PureComponent || Component) {
+class Tag extends PureComponent {
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);

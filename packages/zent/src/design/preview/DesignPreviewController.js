@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop from 'pop';
@@ -8,7 +8,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { DND_PREVIEW_CONTROLLER, DEFAULT_BACKGROUND } from './constants';
 import { ADD_COMPONENT_OVERLAY_POSITION } from '../constants';
 
-class DesignPreviewController extends (PureComponent || Component) {
+class DesignPreviewController extends PureComponent {
   static propTypes = {
     // 这个组件的唯一标示，不随位置变化而变化
     id: PropTypes.string.isRequired,
@@ -321,7 +321,7 @@ function IconAdd({ prefix }) {
   );
 }
 
-class IconDelete extends (PureComponent || Component) {
+class IconDelete extends PureComponent {
   render() {
     const { prefix, onClick } = this.props;
     return (

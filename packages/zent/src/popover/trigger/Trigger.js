@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
-import React, { Component, PureComponent, Children } from 'react';
+import React, { PureComponent, Children } from 'react';
 
 export const PopoverTriggerPropTypes = {
   children: PropTypes.node,
 
   onTriggerRefChange: PropTypes.func,
+
+  // 获取实际的 trigger 节点, 例如在这里 <div><a></a></div>，<a> 才是实际的 trigger
+  getNodeForTriggerRefChange: PropTypes.func,
 
   getTriggerNode: PropTypes.func,
   getContentNode: PropTypes.func,
@@ -18,7 +21,7 @@ export const PopoverTriggerPropTypes = {
   injectIsOutsideSelf: PropTypes.func,
 };
 
-export default class PopoverTrigger extends (PureComponent || Component) {
+export default class PopoverTrigger extends PureComponent {
   static propTypes = {
     ...PopoverTriggerPropTypes,
   };
@@ -97,7 +100,9 @@ export default class PopoverTrigger extends (PureComponent || Component) {
   }
 
   onRefChange = instance => {
-    this.props.onTriggerRefChange(instance);
+    const { onTriggerRefChange, getNodeForTriggerRefChange } = this.props;
+
+    onTriggerRefChange(instance, getNodeForTriggerRefChange);
 
     const child = this.validateChildren();
     if (isFunction(child.ref)) {

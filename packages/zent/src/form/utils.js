@@ -1,8 +1,10 @@
 import isPlainObject from 'lodash/isPlainObject';
 import assign from 'lodash/assign';
 import scroll from 'utils/scroll';
+import get from 'lodash/get';
 import isFunction from 'lodash/isFunction';
 import { findDOMNode } from 'react-dom';
+import { FieldArrayMutatorAction } from './constants';
 
 const getSelectedValues = options => {
   const result = [];
@@ -20,7 +22,11 @@ const getSelectedValues = options => {
 const isEvent = candidate =>
   !!(candidate && candidate.stopPropagation && candidate.preventDefault);
 
-export function getValue(event) {
+export function getValue(event, realValue) {
+  if (arguments.length >= 2) {
+    return realValue;
+  }
+
   // 简单判断是否是一个原生事件对象
   if (isEvent(event)) {
     const {
@@ -124,4 +130,22 @@ export function scrollToFirstError(fields) {
   }
 
   return false;
+}
+
+export function updateFieldArray(fieldArrays, data, options) {
+  const shouldRemove = get(options, 'removeIfNotExists', false);
+
+  fieldArrays.forEach(fc => {
+    const name = fc.getName();
+    const value = get(data, name);
+    if (value !== undefined) {
+      fc.replaceAllFields(value);
+    } else if (shouldRemove) {
+      fc.removeAllFields();
+    }
+
+    fc.setMutatorAction(
+      get(options, 'mutatorAction', FieldArrayMutatorAction.Set)
+    );
+  });
 }

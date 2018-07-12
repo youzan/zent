@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
@@ -17,7 +17,7 @@ function scrollNodeToTop(node, offsets) {
   scroll(document.body, left, top);
 }
 
-export default class DesignPreviewItem extends (PureComponent || Component) {
+export default class DesignPreviewItem extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
     prefix: PropTypes.string,

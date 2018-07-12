@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Pagination from 'pagination';
 import Checkbox from 'checkbox';
@@ -6,7 +6,7 @@ import isNil from 'lodash/isNil';
 
 import helper from '../helper.js';
 
-export default class Foot extends (PureComponent || Component) {
+export default class Foot extends PureComponent {
   // 拿到所有的选中的item
   renderBatchComps(selectedRows, batchComponents) {
     return batchComponents.map((comp, index) => {
@@ -48,7 +48,13 @@ export default class Foot extends (PureComponent || Component) {
   };
 
   render() {
-    const { onPageChange, batchComponents, selection, current } = this.props;
+    const {
+      onPageSizeChange,
+      onPageChange,
+      batchComponents,
+      selection,
+      current,
+    } = this.props;
 
     let pageInfo = this.props.pageInfo || {};
     let { totalItem, pageSize, total, limit, maxPageToShow } = pageInfo;
@@ -93,6 +99,7 @@ export default class Foot extends (PureComponent || Component) {
                 pageSize={isNil(pageSize) ? limit : pageSize}
                 maxPageToShow={maxPageToShow}
                 onChange={onPageChange}
+                onPageSizeChange={onPageSizeChange}
               />
             )}
           </div>

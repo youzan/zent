@@ -1,4 +1,4 @@
-# Zent 
+# Zent
 
 Zent ( \ˈzent\ ) 是有赞 PC 端 WebUI 规范的 React 实现，提供了一整套基础的 UI 组件以及一些常用的业务组件。
 
@@ -45,7 +45,7 @@ ReactDOM.render(<Button />, mountNode);
 
 ### 按需加载
 
-[bable-plugin-zent](babel-plugin-zent) 这个 babel 插件可以帮助减小打包文件的大小，原理是自动做了类似下面的代码变换。
+[babel-plugin-zent](babel-plugin-zent) 这个 babel 插件可以帮助减小打包文件的大小，原理是自动做了类似下面的代码变换。
 
 ```js
 import { Button } from 'zent';

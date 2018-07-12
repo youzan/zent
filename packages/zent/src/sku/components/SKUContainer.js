@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Input from 'input';
@@ -8,7 +8,7 @@ import find from 'lodash/find';
 import fullfillImage from 'zan-utils/fullfillImage';
 import Upload from 'upload';
 
-class SKUContainer extends (PureComponent || Component) {
+class SKUContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -68,6 +68,9 @@ class RowClass extends React.Component {
     this.setState(conf);
   }
 
+  onExpand = (conf) => {
+    console.log(conf);
+  }
   render() {
     return (
       <Grid
@@ -89,6 +92,7 @@ class RowClass extends React.Component {
             );
           }
         }}
+        onExpand={this.onExpand}
       />
     );
   }

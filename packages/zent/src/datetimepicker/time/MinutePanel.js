@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 
 import PanelHeader from '../common/PanelHeader';
@@ -9,7 +9,7 @@ import { CURRENT } from '../constants';
 const ROW = 9;
 const COL = 7;
 
-export default class MinutePanel extends (PureComponent || Component) {
+export default class MinutePanel extends PureComponent {
   isSelected(val) {
     const { selected } = this.props;
     return selected.getMinutes() === val;

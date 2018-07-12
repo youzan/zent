@@ -145,13 +145,16 @@ export default class Image extends Component {
         className={cx(`${prefix}-image-p-anchor`, className)}
       >
         <div className={`${prefix}-image-p-backdrop`}>
-          <div className={`${prefix}-image-p-wrap`} onClick={this.onMaskClick}>
+          <div className={`${prefix}-image-p-wrap`}>
             <div className={`${prefix}-image-p-close`} onClick={this.onClose}>
               <Icon type="close" />
             </div>
             <Receiver defaultI18n={I18nDefault} componentName="PreviewImage">
               {i18n => (
-                <div className={`${prefix}-image-p-body`}>
+                <div
+                  className={`${prefix}-image-p-body`}
+                  onClick={this.onMaskClick}
+                >
                   {images.map((image, index) => {
                     if (index === imageIndex) {
                       return (

@@ -1,11 +1,11 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 import PanelHeader from '../common/PanelHeader';
 import MonthPanelBody from './MonthPanelBody';
 import YearPanel from '../year/YearPanel';
 import { goYears, monthStart } from '../utils';
 
-export default class MonthPanel extends (PureComponent || Component) {
+export default class MonthPanel extends PureComponent {
   state = {
     showYear: false,
   };

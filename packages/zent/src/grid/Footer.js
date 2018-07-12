@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import Pagination from 'pagination';
 import classnames from 'classnames';
 import size from 'lodash/size';
@@ -10,7 +10,7 @@ const defaultPageInfo = {
   pageSize: 10,
 };
 
-class Footer extends (PureComponent || Component) {
+class Footer extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -43,12 +43,16 @@ class Footer extends (PureComponent || Component) {
   };
 
   renderPage = () => {
-    const { prefix } = this.props;
+    const { prefix, onPageSizeChange } = this.props;
     const { pageInfo } = this.state;
 
     return pageInfo ? (
       <div className={classnames(`${prefix}-grid-tfoot-page`)}>
-        <Pagination {...pageInfo} onChange={this.handlePageChange} />
+        <Pagination
+          {...pageInfo}
+          onChange={this.handlePageChange}
+          onPageSizeChange={onPageSizeChange}
+        />
       </div>
     ) : null;
   };

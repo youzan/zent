@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import Icon from 'icon';
 import Input from 'input';
 import cx from 'classnames';
@@ -6,7 +6,7 @@ import omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import getWidth from 'utils/getWidth';
 
-export default class SearchInput extends (PureComponent || Component) {
+export default class SearchInput extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

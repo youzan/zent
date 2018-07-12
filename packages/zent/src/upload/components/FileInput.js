@@ -1,8 +1,4 @@
-/**
- * 上传图片输入框
- */
-
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Notify from 'notify';
 import toArray from 'lodash/toArray';
@@ -22,7 +18,7 @@ import { UID_KEY, DEFAULT_ACCEPT } from '../constants';
 
 const noop = res => res;
 
-export default class FileInput extends (PureComponent || Component) {
+export default class FileInput extends PureComponent {
   static defaultProps = {
     initIndex: 0,
     maxAmount: 0,

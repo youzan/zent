@@ -1,11 +1,11 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import sortableJS from 'sortablejs';
 import isFunction from 'lodash/isFunction';
 import reorder from 'utils/reorder';
 
-export default class Sortable extends (PureComponent || Component) {
+export default class Sortable extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

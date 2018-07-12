@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -6,7 +6,7 @@ import Icon from 'icon';
 
 import Star from './Star';
 
-export default class Rate extends (PureComponent || Component) {
+export default class Rate extends PureComponent {
   static propTypes = {
     disabled: PropTypes.bool,
     value: PropTypes.number,
