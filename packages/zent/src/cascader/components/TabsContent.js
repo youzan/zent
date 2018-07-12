@@ -22,7 +22,7 @@ class TabsContent extends PureComponent {
   };
 
   renderCascaderItems(items, stage, popover) {
-    let { prefix, value, clickHandler, expandTrigger } = this.props;
+    let { prefix, value, clickHandler } = this.props;
 
     let cascaderItems = items.map(item => {
       let cascaderItemCls = classnames({
@@ -36,9 +36,6 @@ class TabsContent extends PureComponent {
             className={cascaderItemCls}
             title={item.title}
             onClick={() => clickHandler(item, stage, popover)}
-            onMouseEnter={() =>
-              expandTrigger === 'hover' && clickHandler(item, stage, popover)
-            }
           >
             {item.title}
           </span>

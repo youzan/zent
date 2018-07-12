@@ -159,7 +159,7 @@ class Cascader extends PureComponent {
     });
   };
 
-  clickHandler = (item, stage, popover) => {
+  clickHandler = (item, stage, popover, triggerType = 'click') => {
     let { loadMore } = this.props;
     let { options } = this.state;
     let needLoading =
@@ -167,7 +167,7 @@ class Cascader extends PureComponent {
       loadMore &&
       (!item.children || item.children.length === 0);
 
-    this.expandHandler(item, stage, popover, needLoading);
+    this.expandHandler(item, stage, popover, needLoading, triggerType);
 
     if (needLoading) {
       this.setState({
@@ -185,7 +185,7 @@ class Cascader extends PureComponent {
     }
   };
 
-  expandHandler = (item, stage, popover, willLoading) => {
+  expandHandler = (item, stage, popover, willLoading, triggerType) => {
     let { value } = this.state;
     let { changeOnSelect } = this.props;
     let hasClose = false;
@@ -201,12 +201,13 @@ class Cascader extends PureComponent {
       if (!willLoading) {
         obj.activeId = ++stage;
       }
-    } else {
+    } else if (triggerType === 'click') {
+      // 只有click的时候才关闭
       hasClose = true;
       popover.close();
     }
-
-    if (hasClose || changeOnSelect) {
+    // 选择即改变只针对click
+    if (hasClose || (changeOnSelect && triggerType === 'click')) {
       this.resetCascaderValue(value);
     }
 
