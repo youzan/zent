@@ -22,6 +22,7 @@ group: 数据
 | onChange | 数据变化时的回调 | func | noop | '' |
 | loadMore | 动态加载级联的数据，返回值需为 Promise | func | - | '' |
 | changeOnSelect | 是否选择即触发改变 | boolean | false | '' |
+| expandTrigger | 次级菜单的展开方式，可选 'click' 和 'hover'， 只针对type='menu' | string | 'click' | 'hover' |
 | placeholder | 输入框占位文本 | string | '请选择' | '' |
 | prefix | 自定义前缀 | string | 'zent' | '' |
 | className | 自定义额外类名 | string | '' | '' |

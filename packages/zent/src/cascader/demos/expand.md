@@ -1,7 +1,7 @@
 ---
 order: 6
 zh-CN:
-	title: 展开类型
+	title: 展开触发类型
 	zj: 浙江省
 	hz: 杭州市
 	xh: 西湖区
@@ -14,7 +14,7 @@ zh-CN:
 	city: 市
 	dis: 区
 en-US:
-	title: expand type
+	title: expand trigger type
 	zj: Zhejiang
 	hz: Hangzhou
 	xh: Xihu
@@ -96,7 +96,7 @@ class Simple extends React.Component {
 				options={this.state.options}
 				onChange={this.onChange}
 				type='menu'
-				expandTrigger={'hover'}}
+				expandTrigger={'hover'}
 				title={[
 					'{i18n.pro}',
 					'{i18n.city}',
