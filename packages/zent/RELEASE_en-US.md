@@ -145,6 +145,8 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 
 ### 4.3.2 (2018-03-07)
 
+> ⚠️ `Loading` style is broken in this version, do NOT use.
+
 - 🦀️ Update `Loading` height logic
 - 🦀️ Fix text in `Pagination`
 - 🦀️ Fix bugs when using nested `Radio` and `Checkbox`
@@ -152,8 +154,6 @@ If you rely on `zent-select` when overwriting `Select` popover style, use `zent-
 - 🦀️ Fix `Upload` style issues
 
 ### 4.3.1 (2018-03-05)
-
-> ⚠️ `Loading` style is broken in this version, do NOT use.
 
 - 🦀️ Fix wrong placeholder indentation when using tag style in `Select`
 - 🦀️ Fix calling `adjustPosition` in `Popover` in some cases
