@@ -43,6 +43,7 @@ class Cascader extends PureComponent {
     changeOnSelect: PropTypes.bool,
     title: PropTypes.array,
     type: PropTypes.oneOf(['tabs', 'menu']),
+    expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
   static defaultProps = {
@@ -56,6 +57,7 @@ class Cascader extends PureComponent {
     changeOnSelect: false,
     title: [],
     type: 'tabs',
+    expandTrigger: 'click',
   };
 
   constructor(props) {
@@ -212,7 +214,7 @@ class Cascader extends PureComponent {
   };
 
   getPopoverContent(i18n) {
-    const { type, prefix, title, options } = this.props;
+    const { type, prefix, title, options, expandTrigger } = this.props;
     let { activeId, value, isLoading, loadingStage } = this.state;
     let PopoverContentType;
     if (type === 'tabs') {
@@ -239,6 +241,7 @@ class Cascader extends PureComponent {
           title={title}
           recursiveNextOptions={this.recursiveNextOptions}
           options={options}
+          expandTrigger={expandTrigger}
           ref={ref => (this.cascader = ref)}
         />
       </PopoverContent>
