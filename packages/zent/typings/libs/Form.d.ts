@@ -74,7 +74,21 @@ declare module 'zent/lib/form' {
       value: any
     }
 
+    interface IFormSectionProps {
+      name: string
+      component?: string|React.ReactNode,
+    }
+
+    interface IFieldArrayProps {
+      name: string
+      component: string|React.ReactNode,
+    }
+
     class Field extends React.Component<IFieldProps, any> {}
+
+    class FormSection extends React.PureComponent<IFormSectionProps, any> {}
+
+    class FieldArray extends React.Component<IFieldArrayProps, any> {}
 
     interface IContolGroupProps {
       label?: string

@@ -1,22 +1,34 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/upload' {
+
+  interface ErrorMessage {
+    overMaxSize?: string | Function
+    overMaxAmount?: string | Function
+    wrongMimeType?: string | Function
+  }
+
   interface IUploadProps {
     prefix?: string
     className?: string
+    type?: 'image' | 'video'
     triggerClassName?: string
     maxSize?: number
     maxAmount?: number
-    accept?: string
+    accept?: 'image/gif' | 'image/jpeg' | 'image/png' | 'image/bmp'
     tips?: string
     localOnly?: boolean
     auto?: boolean
-    fetchUrl?: string
-    tokenUrl?: string
-    uploadUrl?: string
     filterFiles?: Function
     onFetch?: Function
     onUpload?: Function
+    onProgress?: Function
+    categoryList?: Array<{
+      value: any,
+      text: string|number
+    }>
+    categoryId?: number
+    errorMessages?: ErrorMessage
     triggerInline?: boolean
     silent?: boolean
     withoutPopup?: boolean

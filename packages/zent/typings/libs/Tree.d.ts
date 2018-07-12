@@ -18,10 +18,8 @@ declare module 'zent/lib/tree' {
   }
 
   interface ITreeProps {
-    useNew?: boolean
     dataType?: 'tree' | 'plain'
     data: Array<ITreeData>
-    props?: object
     render?: (data: ITreeData) => React.ReactNode
     operations?: Array<ITreeOperation>
     foldable?: boolean
@@ -37,6 +35,13 @@ declare module 'zent/lib/tree' {
     autoExpandOnSelect?: boolean
     onSelect?: (data: ITreeData, target: HTMLSpanElement) => void
     isRoot?: (data: ITreeData) => boolean
+    loadMore?: (data: ITreeData) => Promise<any>
+    renderKey?: {
+      id: string
+      title: string
+      children: string
+      parentId: string
+    }
   }
 
   export default class Tree extends React.Component<ITreeProps, any> { }

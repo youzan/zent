@@ -46,8 +46,15 @@ declare module 'zent/lib/design' {
     highlightWhenSelect?: boolean
   }
 
+  interface IGroupComponent {
+    type: string
+    editor: Function
+    preview: Function
+    name: string
+  }
+
   interface IDesignProps {
-    components: Array<IDesignComponent>
+    components: Array<IDesignComponent | IGroupComponent>
 
     value?: Array<Object>
 
@@ -96,5 +103,14 @@ declare module 'zent/lib/design' {
     prefix?: string
   }
 
-  export default class Design extends React.Component<IDesignProps, any> {}
+  class Design extends React.Component<IDesignProps, any> {
+    static stripUUID: (value: any) => any
+    static group: (name: string) => IGroupComponent
+  }
+
+  module Design {
+    class DesignWithoutDnd extends React.PureComponent<IDesignProps, any> {}
+  }
+
+  export default Design
 }
