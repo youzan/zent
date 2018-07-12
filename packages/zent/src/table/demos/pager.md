@@ -57,14 +57,18 @@ class Pagination extends React.Component {
       current: 0,
       total: 101,
       maxPageToShow: 8,
+      pageSize: 20,
     };
   }
 
-  onChange(data) {
+  onChange (data) {
+    console.log(data);
     this.setState({
-      current: data.current
+      current: data.current,
+      pageSize: data.pageSize,
     });
   }
+
 
   render() {
     return (
@@ -77,7 +81,8 @@ class Pagination extends React.Component {
           limit: this.state.limit,
           current: this.state.current,
           maxPageToShow: this.state.maxPageToShow,
-          total: this.state.total
+          total: this.state.total,
+          pageSize: [20, { value: 30, isCurrent: true }],
         }}
       />
     );

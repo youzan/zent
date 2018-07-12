@@ -7,6 +7,86 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.0.0 (2018-07-04)
+
+> 这个版本移除了对 React 15.3 以下版本的支持。
+
+> 文档网站从这个版本开始将放到 [github pages](https://youzan.github.io/zent) 上维护。
+
+- 💥 [breaking change] 删除 `Loading` 组件的 `on`, `off` 以及 `newInstance` 方法
+- 💥 [breaking change] 修复 `WeekPicker` 的禁用和选中逻辑
+- 💥 [breaking change] `Table` 单元格的 `box-sizing` 变为 `border-box`
+- 💥 [breaking change] 删除 `Select` 弹层上的 `zent-select` 类名，这个类名只应该存在于 trigger 上面
+- 🎉 新组件 `Mention`
+- 🎉 新组件 `Timeline`
+- 🎉 `Tree` 重写了一个新版，兼容老的 API，通过 `useNew` 启用；新版加入了受控模式支持
+- `Form`
+  - ✨ `FieldArray` 支持串行调用多次操作函数，如 `push` 等
+  - ✨ `DateRangePickerField` 以及 `DateRangeQuickPickerField` 支持通过 `dateFormat` 来透传依赖组件的 `format` prop
+  - ✨ 补全 `DatePicker` 相关的 `Field` 类型，比如 `FormWeekPickerField` 等
+  - ✨ `FieldArray` 支持通过 `setFieldsValue` 以及 `initialize` 修改值
+- `Grid`
+  - ✨ 增加 `TypeScript` 类型定义
+  - ✨ 支持 `expandation` 行展开配置
+  - ✨ 增加行展开时的 `onExpand` 回调函数
+  - ✨ `onChange` 回调支持传递分页大小
+  - 🦀️ 移除 `cloneDeep` 的使用，React 16 下复制 jsx 会报错
+  - 🦀️ 修复 `rowKey` 无效的问题
+  - 📚 文档优化
+- `ErrorBoundary`
+  - ✨ 增加 `catchError` HOC，适合使用 decorator 的场景
+  - 📚 修复文档中 `withErrorBoundary` 的描述
+- `Cascader`
+  - ✨ 增加 `displayText` 回调自定义选中值的展示
+  - 🦀️ 修复 `value` 值不存在时报错的问题
+- ✨ `Table` 组件的 `onChange` 回调支持传递分页大小
+- ✨ `AutoComplete` 增加 `TAB` 按键处理
+- ✨ `SplitButton` 支持下拉菜单位置配置
+- ✨ `Pagination` 支持在分页大小改变时触发 `onPageSizeChange` 回调函数
+- 🦀️ 修复 `BlockHeader` 标签类型限制的问题(`p` 不能嵌套 `div`)
+- 🦀️ 修复 `Avatar` 的 `TypeScript` 类型定义
+- 🦀️ 修复 `Sortable` 的 `TypeScript` 类型定义
+- 🦀️ 修复 `SplitButton` 的 `TypeScript` 类型定义
+- 🦀️ 修复 `Tabs` 的 `TypeScript` 类型定义
+- 🦀️ 添加了几个新的图标
+- 🦀️ 修复 `Input` 组件的 `addonBefore` 和 `addonAfter` 样式
+- 🦀️ 修复 `Swiper` 组件只有两个元素时删除其中一个元素时位置错位的问题
+- `Dialog`
+  - 🦀️ 修复关闭时报错的问题
+  - 🦀️ 修复 SSR 报错
+- 🦀️ 修复 `Button` 组件代码里的一些拼写错误，不影响功能
+- 🦀️ 修复 `Collapse` 组件的 props 类型申明
+- 🦀️ 修复 `DatePicker` 时间禁用逻辑
+- 🦀️ 修复 `Select` 某些情况下 `focus` 报错的问题
+- 🦀️ 修复 `Loading` 组件在 React 16 下关闭报错的问题
+- 🦀️ 删除了 `Card` 中的一些无用样式
+- 📚 修复文档的 `babel` 拼写错误
+
+#### Breaking change 迁移方案
+
+> `Loading` `on`, `off`, `newInstance` 的迁移方案：
+
+将 `Loading.on` 以及 `Loading.off` 替换为组件形式，并通过 `state` 上的开关控制。
+
+```js
+<Loading float show={this.state.loading} />
+```
+
+如果使用了 `newInstance` 方法，渲染多个 `Loading` 实例即可。
+
+> `WeekPicker` 迁移方案:
+
+- 涉及到自定义了 `diabledDate` 的场景，新版中返回的日期区间将只包含可选的日期，老版本会返回整个完整的周，包括那些不可选的日期。这个代码里自行处理下，多数情况应该没有影响。
+- 内部维护的周日期区间 `[start, end]` 两个值的时间部分有变化，新版 `start` 时间部分是 `00:00:00:000`, `end` 时间部分是 `23:59:59:999`。所以在 `disabledDate` 的回调函数里判断日期是否禁用的时候需要注意时间部分的差，原则上日期比较是不应该关注时间部分的，但是很多写得不好的代码是直接 `a.getTime() < b.getTime()` 这样比较的，这种用法很大概率上会出问题。
+
+> `Table` 单元格样式迁移方案:
+
+之前是 `content-box`，这次更新之后变为 `border-box`，有些情况下可能会出现单元格变窄的情况，需要在使用的地方适当将受影响的单元格加宽。
+
+> `Select` 弹层的 `zent-select` 类名迁移方案：
+
+首先把这个类名删除是正确的，trigger 和 弹层是不应该公用一个类名的。之前依赖弹层上的 `zent-select` 类名的地方改为 `zent-select__popover` 就行了。
+
 ### 5.1.1 (2018-04-19)
 
 - 🦀️ 修复 `Dialog` 某些情况下关闭的时候没有动画的问题

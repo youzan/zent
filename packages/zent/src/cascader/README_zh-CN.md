@@ -26,6 +26,7 @@ group: 数据
 | prefix | 自定义前缀 | string | 'zent' | '' |
 | className | 自定义额外类名 | string | '' | '' |
 | popClassName | popover自定义类名 | string | ''zent-cascader__popup'' | '' |
+| displayText | 用于自定义选中展示文字的函数, selectedOptionArray => text | func | - | |
 
 -   级联数据可以通过初始时传入全量 `options	` ，也可以通过 `loadMore` 动态加载
 -   通过 `loadMore` 加载数据时，参数 `root` 表示当前点击元素的数据对象，`stage` 表示当前是第几层级
