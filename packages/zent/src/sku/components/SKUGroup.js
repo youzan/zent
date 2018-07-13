@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'select';
 import Checkbox from 'checkbox';
@@ -6,7 +6,7 @@ import SKUContainer from './SKUContainer';
 
 const noop = res => res;
 
-class SKUGroup extends (PureComponent || Component) {
+class SKUGroup extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

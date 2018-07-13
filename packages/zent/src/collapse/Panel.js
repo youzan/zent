@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import AnimateHeight from 'utils/component/AnimateHeight';
@@ -12,7 +12,7 @@ const NO_BOTTOM_BORDER = {
 };
 const NO_STYLE = {};
 
-export default class Panel extends (PureComponent || Component) {
+export default class Panel extends PureComponent {
   static propTypes = {
     title: PropTypes.node.isRequired,
     disabled: PropTypes.bool,

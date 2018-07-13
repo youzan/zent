@@ -1,7 +1,7 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 
-export default class NumberSteps extends (PureComponent || Component) {
+export default class NumberSteps extends PureComponent {
   render() {
     const props = this.props;
     const {

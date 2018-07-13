@@ -1,9 +1,12 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import isArray from 'lodash/isArray';
 import startOfWeek from 'date-fns/start_of_week';
 import endOfWeek from 'date-fns/end_of_week';
+import addDays from 'date-fns/add_days';
+import subDays from 'date-fns/sub_days';
+import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 
 import Input from 'input';
 import Popover from 'popover';
@@ -15,12 +18,12 @@ import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
 import {
   goMonths,
-  goDays,
   formatDate,
   parseDate,
   dayStart,
   dayEnd,
   setTime,
+  isSameDate,
 } from './utils';
 import {
   CURRENT_DAY,
@@ -30,69 +33,36 @@ import {
   commonPropTypes,
 } from './constants';
 
-function getSelectedWeek(val, start = 1) {
-  return [
-    startOfWeek(val, {
-      weekStartsOn: start,
-    }),
-    endOfWeek(val, {
-      weekStartsOn: start,
-    }),
-  ];
-}
+function getSelectedWeek(val, start = 1, isDisabled) {
+  let weekStart = startOfWeek(val, {
+    weekStartsOn: start,
+  });
+  let weekEnd = endOfWeek(val, {
+    weekStartsOn: start,
+  });
 
-function extractStateFromProps(props) {
-  let selected;
-  let actived;
-  let showPlaceholder;
-  const { openPanel, value, format, defaultValue, startDay } = props;
-
-  // 如果 value 是数组就取数组第一个值，否则就取 value
-  const hasValue = isArray(value) ? value[0] : value;
-
-  if (hasValue) {
-    const tmp = parseDate(hasValue, format);
-
-    if (tmp) {
-      showPlaceholder = false;
-      selected = getSelectedWeek(tmp, startDay);
-      actived = setTime(tmp);
-    } else {
-      console.warn("date and format don't match."); // eslint-disable-line
-      showPlaceholder = true;
-      actived = dayStart();
-    }
-  } else {
-    showPlaceholder = true;
-
-    if (defaultValue) {
-      actived = parseDate(defaultValue, format);
-    } else {
-      actived = dayStart();
-    }
-
-    actived = parseDate(actived, format);
+  while (
+    isDisabled(weekStart) &&
+    (weekStart <= weekEnd || isSameDate(weekStart, weekEnd))
+  ) {
+    weekStart = addDays(weekStart, 1);
   }
 
-  /**
-   * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
-   * selected 用来存放用户选择的日期，点击日期时会设置 selected 的值
-   */
-
-  let ret;
-  if (selected) {
-    ret = selected.map(item => formatDate(item, format));
+  while (
+    isDisabled(weekEnd) &&
+    (weekEnd >= weekStart || isSameDate(weekEnd, weekStart))
+  ) {
+    weekEnd = subDays(weekEnd, 1);
   }
-  return {
-    value: ret,
-    actived,
-    selected,
-    openPanel,
-    showPlaceholder,
-  };
+
+  if (differenceInCalendarDays(weekEnd, weekStart) < 0) {
+    return [];
+  }
+
+  return [weekStart, weekEnd];
 }
 
-class WeekPicker extends (PureComponent || Component) {
+class WeekPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     startDay: PropTypes.number,
@@ -117,13 +87,66 @@ class WeekPicker extends (PureComponent || Component) {
       if (value instanceof Date) this.retType = 'date';
     }
 
-    this.state = extractStateFromProps(props);
+    this.state = this.extractStateFromProps(props);
     // 没有footer的逻辑
     this.isfooterShow = showTime || isFooterVisble;
   }
 
+  extractStateFromProps(props) {
+    let selected;
+    let actived;
+    let showPlaceholder;
+    const { openPanel, value, format, defaultValue, startDay } = props;
+
+    // 如果 value 是数组就取数组第一个值，否则就取 value
+    const hasValue = isArray(value) ? value[0] : value;
+
+    if (hasValue) {
+      const tmp = parseDate(hasValue, format);
+
+      if (tmp) {
+        showPlaceholder = false;
+        selected = getSelectedWeek(tmp, startDay, val =>
+          this.isDisabled(val, props)
+        );
+        actived = setTime(tmp);
+      } else {
+        console.warn("date and format don't match."); // eslint-disable-line
+        showPlaceholder = true;
+        actived = dayStart();
+      }
+    } else {
+      showPlaceholder = true;
+
+      if (defaultValue) {
+        actived = parseDate(defaultValue, format);
+      } else {
+        actived = dayStart();
+      }
+
+      actived = parseDate(actived, format);
+    }
+
+    /**
+     * actived 用来临时存放日期，改变年份和月份的时候只会改动 actived 的值
+     * selected 用来存放用户选择的日期，点击日期时会设置 selected 的值
+     */
+
+    let ret;
+    if (selected) {
+      ret = selected.map(item => formatDate(item, format));
+    }
+    return {
+      value: ret,
+      actived,
+      selected,
+      openPanel,
+      showPlaceholder,
+    };
+  }
+
   componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
+    const state = this.extractStateFromProps(next);
     this.setState(state);
   }
 
@@ -135,10 +158,13 @@ class WeekPicker extends (PureComponent || Component) {
 
   onHover = val => {
     const { startDay } = this.props;
-    const offset = val.getDay();
     const week = [
-      goDays(val, -offset + startDay - 1),
-      goDays(val, 7 + startDay - offset),
+      startOfWeek(val, {
+        weekStartsOn: startDay,
+      }),
+      endOfWeek(val, {
+        weekStartsOn: startDay,
+      }),
     ];
 
     this.setState({
@@ -148,7 +174,7 @@ class WeekPicker extends (PureComponent || Component) {
 
   onSelectDate = val => {
     const { onClick, startDay } = this.props;
-    const week = getSelectedWeek(val, startDay);
+    const week = getSelectedWeek(val, startDay, this.isDisabled);
 
     this.setState(
       {
@@ -241,8 +267,8 @@ class WeekPicker extends (PureComponent || Component) {
     onClose && onClose();
   };
 
-  isDisabled = val => {
-    const { disabledDate, min, max, format } = this.props;
+  isDisabled = (val, props) => {
+    const { disabledDate, min, max, format } = props || this.props;
 
     if (disabledDate && disabledDate(val)) return true;
     if (min && dayEnd(val) < parseDate(min, format)) return true;
@@ -284,6 +310,7 @@ class WeekPicker extends (PureComponent || Component) {
               onChange={this.onChangeDate}
               onPrev={this.onChangeMonth('prev')}
               onNext={this.onChangeMonth('next')}
+              disableSelectedHighlight
               i18n={i18n}
             />
           </div>
@@ -326,13 +353,15 @@ class WeekPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
 
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-week-picker`,
+      className
+    );
     const inputCls = cx('picker-input', 'week-picker-input', {
       'picker-input--filled': !showPlaceholder,
       'picker-input--disabled': disabled,
@@ -358,14 +387,9 @@ class WeekPicker extends (PureComponent || Component) {
                 >
                   <Input
                     name={name}
-                    value={
-                      showPlaceholder
-                        ? placeholder || i18n.week
-                        : value.join(` ${i18n.to} `)
-                    }
+                    placeholder={placeholder || i18n.week}
+                    value={value ? value.join(` ${i18n.to} `) : ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
 

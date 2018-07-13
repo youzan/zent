@@ -4,7 +4,7 @@
  *
  * It's a modified Sketch color picker.
  */
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Popover from 'popover';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -12,7 +12,7 @@ import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
 import PopoverClickTrigger from './PopoverClickTrigger';
 
-class ColorPicker extends (PureComponent || Component) {
+class ColorPicker extends PureComponent {
   state = {
     popVisible: false,
   };

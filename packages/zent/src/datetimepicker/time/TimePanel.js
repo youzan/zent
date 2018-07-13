@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { padLeft, isSameDate } from '../utils';
@@ -18,7 +18,7 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-export default class TimePanel extends (PureComponent || Component) {
+export default class TimePanel extends PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
     actived: PropTypes.instanceOf(Date),
@@ -40,18 +40,14 @@ export default class TimePanel extends (PureComponent || Component) {
   openPanel = type => {
     return () => {
       const key = stateMap[type];
-      this.setState({
-        [key]: true,
-      });
+      this.setState({ [key]: true });
     };
   };
 
   hidePanel = type => {
     return () => {
       const key = stateMap[type];
-      this.setState({
-        [key]: false,
-      });
+      this.setState({ [key]: false });
     };
   };
 
@@ -60,7 +56,26 @@ export default class TimePanel extends (PureComponent || Component) {
     let fns;
     if (disabledTime) {
       return disabledTime[disabledMap[type]];
-    } else if (min && isSameDate(min, actived)) {
+    }
+
+    if (min && max && isSameDate(min, actived) && isSameDate(max, actived)) {
+      fns = {
+        hour: val => val < min.getHours() || val > max.getHours(),
+        minute: val =>
+          (actived.getHours() === min.getHours() && val < min.getMinutes()) ||
+          (actived.getHours() === max.getHours() && val > max.getMinutes()),
+        second: val =>
+          (actived.getHours() === min.getHours() &&
+            actived.getMinutes() === min.getMinutes() &&
+            val < min.getSeconds()) ||
+          (actived.getHours() === max.getHours() &&
+            actived.getMinutes() === max.getMinutes() &&
+            val > max.getSeconds()),
+      };
+      return fns[type];
+    }
+
+    if (min && isSameDate(min, actived)) {
       fns = {
         hour: val => val < min.getHours(),
         minute: val =>
@@ -71,7 +86,9 @@ export default class TimePanel extends (PureComponent || Component) {
           val < min.getSeconds(),
       };
       return fns[type];
-    } else if (max && isSameDate(max, actived)) {
+    }
+
+    if (max && isSameDate(max, actived)) {
       fns = {
         hour: val => val > max.getHours(),
         minute: val => val > max.getMinutes(),
@@ -122,13 +139,16 @@ export default class TimePanel extends (PureComponent || Component) {
 
         <div className="time-panel__preview">
           <span className="time__number" onClick={this.openPanel('hour')}>
-            {padLeft(actived.getHours())} {i18n.panel.hour}
+            {padLeft(actived.getHours())}
+            {i18n.panel.hour}
           </span>
           <span className="time__number" onClick={this.openPanel('minute')}>
-            {padLeft(actived.getMinutes())} {i18n.panel.minute}
+            {padLeft(actived.getMinutes())}
+            {i18n.panel.minute}
           </span>
           <span className="time__number" onClick={this.openPanel('second')}>
-            {padLeft(actived.getSeconds())} {i18n.panel.second}
+            {padLeft(actived.getSeconds())}
+            {i18n.panel.second}
           </span>
         </div>
       </div>

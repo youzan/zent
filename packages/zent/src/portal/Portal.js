@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 
 import LayeredPortal from './LayeredPortal';
 
-export default class Portal extends (PureComponent || Component) {
+export default class Portal extends PureComponent {
   static propTypes = {
     // visible
     visible: PropTypes.bool,

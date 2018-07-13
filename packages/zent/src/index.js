@@ -55,6 +55,7 @@ import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
 import Tag from 'tag';
+import Timeline from 'timeline';
 import TimePicker from 'datetimepicker/TimePicker';
 import TimeRangePicker from 'datetimepicker/TimeRangePicker';
 import Tree from 'tree';
@@ -120,6 +121,7 @@ export {
   Table,
   Tabs,
   Tag,
+  Timeline,
   TimePicker,
   TimeRangePicker,
   Tree,

@@ -5,6 +5,7 @@
 // import React, { Component, Children } from 'react';
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
@@ -340,8 +341,10 @@ class Select extends React.Component {
         ref={ref => (this.popover = ref)}
         position={Popover.Position.AutoBottomLeft}
         visible={open}
-        className={`${prefixCls} ${popupClassName}`}
-        wrapperClassName={`${prefixCls} ${className} ${disabledCls}`}
+        className={cx(`${prefixCls}__popover`, popupClassName, {
+          'auto-width': autoWidth,
+        })}
+        wrapperClassName={cx(prefixCls, className, disabledCls)}
         onVisibleChange={this.handlePopoverVisibleChange}
         width={width}
         onPositionReady={() => {

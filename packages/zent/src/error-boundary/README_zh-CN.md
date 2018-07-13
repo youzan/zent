@@ -35,10 +35,21 @@ group: 基础
 
 这个高阶组件可以用来装饰组件，装饰后的组件会自动隔离自身以及子组件的错误。函数原型：
 
-```js
-withErrorBoundary(
+```ts
+withErrorBoundary({
 	BaseComponent: React.Component,
-	onError: (error: Error, stackTrace: string): void,
-	FallbackComponent: React.Component
-): React.Component
+	onError?: (error: Error, stackTrace: string): void,
+	FallbackComponent?: React.Component
+}): React.Component
+```
+
+#### catchError
+
+这个高阶组件更适合用在使用 decorator 的场景，功能和 withErrorBoundary 一致。函数原型：
+
+```ts
+catchError({
+	onError?: (error: Error, stackTrace: string): void,
+	FallbackComponent?: React.Component
+}): ((BaseComponent: React.Component): React.Component)
 ```

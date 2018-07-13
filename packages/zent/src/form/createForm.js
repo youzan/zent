@@ -9,6 +9,7 @@ import isEqual from 'lodash/isEqual';
 import some from 'lodash/some';
 import get from 'lodash/get';
 import map from 'lodash/map';
+import startsWith from 'lodash/startsWith';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 
@@ -17,9 +18,11 @@ import {
   silenceEvent,
   silenceEvents,
   scrollToFirstError,
+  updateFieldArray,
 } from './utils';
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
+import { FieldArrayMutatorAction } from './constants';
 
 const emptyArray = [];
 const checkSubmit = submit => {
@@ -51,6 +54,10 @@ const createForm = (config = {}) => {
           submitSuccess: false,
         };
         this.fields = [];
+
+        // 保存FieldArray, FormSection
+        this.fieldArrays = [];
+
         this._isMounted = false;
       }
 
@@ -97,6 +104,7 @@ const createForm = (config = {}) => {
             resetFieldsValue: this.resetFieldsValue,
             setFormDirty: this.setFormDirty,
             setFormPristine: this.setFormPristine,
+            setFieldArrayMembers: this.setFieldArrayMembers,
             isValid: this.isValid,
             isSubmitting: this.isSubmitting,
             validateForm: this.validateForm,
@@ -237,30 +245,37 @@ const createForm = (config = {}) => {
       };
 
       initialize = data => {
+        updateFieldArray(this.fieldArrays, data, {
+          removeIfNotExists: true,
+          mutatorAction: FieldArrayMutatorAction.Initialize,
+        });
+
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value !== undefined) {
-            field.setInitialValue(value);
-          } else {
-            field.setInitialValue();
-          }
+          field.setInitialValue(value);
         });
       };
 
       resetFieldsValue = data => {
+        updateFieldArray(this.fieldArrays, data, {
+          removeIfNotExists: true,
+          mutatorAction: FieldArrayMutatorAction.Reset,
+        });
+
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
-          if (value !== undefined) {
-            field.setValue(value);
-          } else {
-            field.resetValue();
-          }
+          field.resetValue(value);
         });
       };
 
       setFieldsValue = data => {
+        updateFieldArray(this.fieldArrays, data, {
+          removeIfNotExists: false,
+          mutatorAction: FieldArrayMutatorAction.Set,
+        });
+
         this.fields.forEach(field => {
           const name = field.getName();
           const value = get(data, name);
@@ -268,6 +283,64 @@ const createForm = (config = {}) => {
             field.setValue(value);
           }
         });
+      };
+
+      setFieldArrayMembers = (fieldArrayName, value) => {
+        let matchedFa;
+        let matchedFaChildren = [];
+        this.fieldArrays.forEach(fa => {
+          const faName = fa.getName();
+          if (faName === fieldArrayName) {
+            matchedFa = fa;
+          } else if (startsWith(faName, fieldArrayName)) {
+            matchedFaChildren.push(fa);
+          }
+        });
+
+        // Ensure nested field arary are correctly handled
+        matchedFaChildren.sort();
+        matchedFaChildren.forEach(fa => {
+          const faName = fa.getName();
+          const faNamePath = faName.substring(fieldArrayName.length);
+          const faValue = get(value, faNamePath);
+
+          // console.log(faName, ' -> ', faNamePath);
+
+          if (faValue !== undefined) {
+            fa.replaceAllFields(faValue);
+          } else {
+            fa.removeAllFields();
+          }
+
+          fa.setMutatorAction(matchedFa.getMutatorAction());
+        });
+
+        // Update each member in field array
+        if (matchedFa) {
+          this.fields.forEach(f => {
+            const name = f.getName();
+            if (name !== fieldArrayName && startsWith(name, fieldArrayName)) {
+              const fieldNamePath = name.substring(fieldArrayName.length);
+              const fieldValue = get(value, fieldNamePath);
+              const mutatorAction = matchedFa.getMutatorAction();
+
+              // console.log(name, ' -> ', fieldNamePath);
+
+              if (mutatorAction === FieldArrayMutatorAction.Initialize) {
+                f.setInitialValue(fieldValue);
+              } else if (
+                mutatorAction === FieldArrayMutatorAction.Set ||
+                mutatorAction === FieldArrayMutatorAction.Unknown
+              ) {
+                if (fieldValue !== undefined) {
+                  f.setValue(fieldValue);
+                }
+              } else if (mutatorAction === FieldArrayMutatorAction.Reset) {
+                f.resetValue(fieldValue);
+              }
+            }
+          });
+        }
       };
 
       reset = data => {
@@ -618,20 +691,31 @@ const createForm = (config = {}) => {
         });
       };
 
-      attachToForm = field => {
-        if (this.fields.indexOf(field) < 0) {
-          this.fields.push(field);
+      attachToForm = (field, options) => {
+        if (get(options, 'isFieldContainer', false)) {
+          this.fieldArrays.push(field);
+        } else {
+          if (this.fields.indexOf(field) < 0) {
+            this.fields.push(field);
+          }
+          // form初始化时不校验，后续动态添加的元素再校验
+          this._isMounted && this.validate(field);
         }
-        // form初始化时不校验，后续动态添加的元素再校验
-        this._isMounted && this.validate(field);
       };
 
-      detachFromForm = field => {
-        const fieldPos = this.fields.indexOf(field);
-        if (fieldPos >= 0) {
-          this.fields.splice(fieldPos, 1);
+      detachFromForm = (field, options) => {
+        if (get(options, 'isFieldContainer', false)) {
+          const idx = this.fieldArrays.indexOf(field);
+          if (idx !== -1) {
+            this.fieldArrays.splice(idx, 1);
+          }
+        } else {
+          const fieldPos = this.fields.indexOf(field);
+          if (fieldPos >= 0) {
+            this.fields.splice(fieldPos, 1);
+          }
+          this.validateForm();
         }
-        this.validateForm();
       };
 
       getWrappedForm = () => {

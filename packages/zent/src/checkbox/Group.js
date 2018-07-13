@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import findIndex from './findIndex';
 
-export default class Group extends (PureComponent || Component) {
+export default class Group extends PureComponent {
   static propTypes = {
     value: PropTypes.array,
     isValueEqual: PropTypes.func,

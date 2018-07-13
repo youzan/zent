@@ -1,9 +1,9 @@
-import { Component, PureComponent, Children } from 'react';
+import { PureComponent, Children } from 'react';
 import PropTypes from 'prop-types';
 
 import * as defaultI18n from './default';
 
-export default class I18nProvider extends (PureComponent || Component) {
+export default class I18nProvider extends PureComponent {
   static propTypes = {
     i18n: PropTypes.object,
   };

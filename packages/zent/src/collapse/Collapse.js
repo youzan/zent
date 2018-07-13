@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import kindOf from 'utils/kindOf';
@@ -9,12 +9,12 @@ import indexOf from 'lodash/indexOf';
 
 import Panel from './Panel';
 
-export default class Collapse extends (PureComponent || Component) {
+export default class Collapse extends PureComponent {
   static propTypes = {
     activeKey: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string),
-    ]).isRequired,
+    ]),
     onChange: PropTypes.func.isRequired,
     accordion: PropTypes.bool,
     bordered: PropTypes.bool,

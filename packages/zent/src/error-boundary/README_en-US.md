@@ -34,12 +34,23 @@ Note：
 
 This is a high order component, it provides the same functionality as `ErrorBoundary`.
 
-```js
-withErrorBoundary(
+```ts
+withErrorBoundary({
 	BaseComponent: React.Component,
-	onError: (error: Error, stackTrace: string): void,
-	FallbackComponent: React.Component
-): React.Component
+	onError?: (error: Error, stackTrace: string): void,
+	FallbackComponent?: React.Component
+}): React.Component
+```
+
+#### catchError
+
+This HOC is the same as `withErrorBoundary`, but more decorator friendly.
+
+```ts
+catchError({
+	onError?: (error: Error, stackTrace: string): void,
+	FallbackComponent?: React.Component
+}): ((BaseComponent: React.Component): React.Component)
 ```
 
 

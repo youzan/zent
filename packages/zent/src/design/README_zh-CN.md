@@ -169,9 +169,9 @@ Editor 内部支持使用 [`react-beautiful-dnd`](https://github.com/atlassian/r
 
 ```js
 // Preview
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class NoticePreview extends (PureComponent || Component) {
+export default class NoticePreview extends PureComponent {
   render() {
     const { value } = this.props;
 

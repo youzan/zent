@@ -1,4 +1,4 @@
-import React, { PureComponent, Component, Children, cloneElement } from 'react';
+import React, { PureComponent, Children, cloneElement } from 'react';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import Icon from 'icon';
 import PropTypes from 'prop-types';
@@ -17,7 +17,7 @@ function setStyle(target, styles) {
   });
 }
 
-export default class Swiper extends (PureComponent || Component) {
+export default class Swiper extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -49,7 +49,7 @@ export default class Swiper extends (PureComponent || Component) {
     currentIndex: 0,
   };
 
-  init = () => {
+  init = isResetToOrigin => {
     const { autoplay, children } = this.props;
     const { currentIndex } = this.state;
     const childrenCount = Children.count(children);
@@ -66,6 +66,8 @@ export default class Swiper extends (PureComponent || Component) {
         width: `${100 / innerElements.length}%`,
       });
     });
+
+    isResetToOrigin && this.translate(-1, null, true);
 
     if (childrenCount > 1) {
       autoplay && this.startAutoplay();
@@ -92,10 +94,14 @@ export default class Swiper extends (PureComponent || Component) {
 
   clearAutoplay = () => {
     clearInterval(this.autoplayTimer);
+    this.autoplayTimer = null;
   };
 
   next = () => {
     const { currentIndex } = this.state;
+    if (Children.count(this.props.children) === 1) {
+      return;
+    }
     this.swipeTo(currentIndex + 1);
   };
 
@@ -224,7 +230,12 @@ export default class Swiper extends (PureComponent || Component) {
         {
           currentIndex: 0,
         },
-        () => this.init()
+        () => {
+          // 当从两个子元素删除到一个时特殊处理位移动画
+          const isTwoToOneCase =
+            Children.count(children) === 2 && Children.count(newChildren) === 1;
+          this.init(isTwoToOneCase);
+        }
       );
     }
   }
@@ -245,7 +256,6 @@ export default class Swiper extends (PureComponent || Component) {
     if (prevIndex === currentIndex) {
       return;
     }
-
     this.translate(currentIndex, prevIndex, isSilent);
   }
 

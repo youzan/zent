@@ -1,7 +1,7 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
-export default class BreadcrumbSteps extends (PureComponent || Component) {
+export default class BreadcrumbSteps extends PureComponent {
   onStepChange = id => {
     let { onStepChange } = this.props;
     onStepChange && onStepChange(id);

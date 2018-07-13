@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from 'button';
 import isPromise from 'utils/isPromise';
 
-export default class ActionButton extends (PureComponent || Component) {
+export default class ActionButton extends PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
     text: PropTypes.node.isRequired,

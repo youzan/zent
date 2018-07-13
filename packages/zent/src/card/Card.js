@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import isNil from 'lodash/isNil';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Placeholder from 'placeholder';
 
-export default class Card extends (PureComponent || Component) {
+export default class Card extends PureComponent {
   static propTypes = {
     title: PropTypes.node,
     action: PropTypes.node,

@@ -27,7 +27,7 @@
  * 在子类里面可以直接使用。
  */
 
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import Alert from 'alert';
 import PropTypes from 'prop-types';
@@ -56,7 +56,7 @@ const CACHE_KEY = '__zent-design-cache-storage__';
 
 const hasValidateError = v => !isEmpty(v[Object.keys(v)[0]]);
 
-export default class Design extends (PureComponent || Component) {
+export default class Design extends PureComponent {
   static propTypes = {
     components: PropTypes.arrayOf(
       PropTypes.shape({

@@ -1,8 +1,8 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-export default class Icon extends (PureComponent || Component) {
+export default class Icon extends PureComponent {
   static propTypes = {
     type: PropTypes.string.isRequired,
     className: PropTypes.string,

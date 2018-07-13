@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 
@@ -8,7 +8,7 @@ import omit from 'lodash/omit';
   Provides an HOC component for ESC to close functionality, useful in some cases.
 */
 export default function withESCToClose(Closable) {
-  return class ESCToCloseWrapper extends (PureComponent || Component) {
+  return class ESCToCloseWrapper extends PureComponent {
     static propTypes = {
       visible: PropTypes.bool.isRequired,
       onClose: PropTypes.func.isRequired,

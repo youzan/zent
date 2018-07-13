@@ -11,7 +11,7 @@ declare module 'zent/lib/grid' {
     needSort?: boolean
     colSpan?: number
     fixed?: 'left' | 'right' | true
-    onCellClick?: (data: any, event: React.MouseEvent<HTMLTableDataCellElement>) => null
+    onCellClick?: (data: any, event: React.MouseEvent<HTMLTableDataCellElement>) => any
     nowrap?: boolean
   }
 
@@ -19,12 +19,13 @@ declare module 'zent/lib/grid' {
     columns: Array<IGridColumn>
     datasets: Array<Object>
     rowKey?: string
-    onChange?: (conf: any) => void
+    onChange?: (conf: any) => any
     scroll?: { x?: number, y?: number }
     sortBy?: string
     sortType?: 'desc' | 'asc'
     emptyLabel?: string
-    selection?: { selectedRowKeys?: Array<string>, onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void, getCheckboxProps?: (data: object) => { disabled?: boolean }}
+    selection?: { selectedRowKeys?: Array<string>, onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => any, getCheckboxProps?: (data: object) => { disabled?: boolean }}
+    expandation?: { isExpanded?: (record: any, index: number) => boolean, expandRender?: (data: any) => React.ReactNode }
     loading?: boolean
     className?: string
     rowClassName?: string
@@ -34,12 +35,13 @@ declare module 'zent/lib/grid' {
       totalItem: number
       pageSize?: number
       maxPageToShow?: number
-      onChange?: (value: number) => void
+      onChange?: (value: number) => any
       className?: string
       prefix?: string
     }
-    onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => null
+    onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => any
     ellipsis?: boolean
+    onExpand?: (data: {expanded: boolean, data: any, event: React.MouseEvent<HTMLTableRowElement>, index: number}) => any
   }
 
   export default class Grid extends React.Component<IGridProps, any> { }

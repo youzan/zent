@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import assign from 'lodash/assign';
@@ -85,7 +85,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class DatePicker extends (PureComponent || Component) {
+class DatePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
@@ -359,12 +359,14 @@ class DatePicker extends (PureComponent || Component) {
         name,
         placeholder,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { showPlaceholder, openPanel, value },
     } = this;
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-date-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
@@ -391,10 +393,9 @@ class DatePicker extends (PureComponent || Component) {
                 >
                   <Input
                     name={name}
-                    value={showPlaceholder ? placeholder || i18n.date : value}
+                    placeholder={placeholder || i18n.date}
+                    value={value || ''}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-calendar-o" />
