@@ -7,6 +7,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.0.1 (2018-07-13)
+
+> ⚠️ `Icon`'s ttf file may be broken on Windows in previous versions, use this version if Windows means a lot to you.
+
+- 🦀️ Fix broken `Icon`s in Windows
+
 ### 6.0.0 (2018-07-04)
 
 > React <= 15.3 is no longer supported
