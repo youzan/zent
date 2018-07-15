@@ -6,11 +6,12 @@ declare module 'zent/lib/sweetalert' {
       content: React.ReactNode
       type: 'info' | 'success' | 'error' | 'warning'
       title?: React.ReactNode
-      onConfirm?: () => void | Promise<any>
+      onConfirm?: ((close: Function) => void) | (() => Promise<any> | boolean)
       confirmText?: string
       confirmType?: 'default' | 'primary' | 'danger' | 'success'
       closeBtn?: boolean
       maskClosable?: boolean
+      parentComponent?: React.ReactInstance
       className?: string
       prefix?: string
     }

@@ -12,20 +12,27 @@ declare module 'zent/lib/tree' {
 
   interface ITreeOperation {
     name: string
-    icon?: string | React.ReactElement<any>
+    icon?: string | React.ReactNode
     action: (data: ITreeData) => void
     shouldRender?: (data: ITreeData) => boolean
   }
 
   interface ITreeProps {
+    useNew?: boolean
     dataType?: 'tree' | 'plain'
     data: Array<ITreeData>
+    renderKey?: {
+      id?: string
+      title?: string
+      children?: string
+      parentId?: string
+    }
     render?: (data: ITreeData) => React.ReactNode
     operations?: Array<ITreeOperation>
     foldable?: boolean
+    onCheck?: (data: Array<number | string>) => void
     checkable?: boolean
     controlled?: boolean
-    onCheck?: (data: Array<number | string>) => void
     defaultCheckedKeys?: Array<number | string>
     disabledCheckedKeys?: Array<number | string>
     size?: 'medium' | 'small' | 'large'
@@ -36,12 +43,6 @@ declare module 'zent/lib/tree' {
     onSelect?: (data: ITreeData, target: HTMLSpanElement) => void
     isRoot?: (data: ITreeData) => boolean
     loadMore?: (data: ITreeData) => Promise<any>
-    renderKey?: {
-      id: string
-      title: string
-      children: string
-      parentId: string
-    }
   }
 
   export default class Tree extends React.Component<ITreeProps, any> { }

@@ -1,12 +1,15 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/popover' {
+
+  type Position = { getCSSStyle: () => React.CSSProperties, name: string }
+
   type PositionFunction = (
     anchorBoundingBox: ClientRect,
     containerBoundingBox: ClientRect,
     contentDimension: {width: number, height: number },
     options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }
-  ) => { getCSSStyle: () => React.CSSProperties, name: string }
+  ) => Position
 
   interface IPopoverProps {
     position: PositionFunction
@@ -14,17 +17,22 @@ declare module 'zent/lib/popover' {
     display?: string
     onShow?: Function
     onClose?: Function
-    onBeforeShow?: Function
-    onBeforeClose?: Function
+    onBeforeShow?: ((callback: Function, escape: Function) => void) | (() => Promise<any>)
+    onBeforeClose?: ((callback: Function, escape: Function) => void) | (() => Promise<any>)
     containerSelector?: string
     visible?: boolean
     onVisibleChange?: Function
+    onPositionUpdated?: Function
+    onPositionReady?: Function
     className?: string
     wrapperClassName?: string
+    width?: number | string
     prefix?: string
   }
 
-  class Popover extends React.Component<IPopoverProps, any> {}
+  class Popover extends React.Component<IPopoverProps, any> {
+    adjustPosition(): void
+  }
 
   namespace Popover {
     namespace Trigger {
@@ -34,8 +42,8 @@ declare module 'zent/lib/popover' {
         open?: () => void
         close?: () => void
         contentVisible?: boolean
-        onTriggerRefChange?: () => React.ReactInstance
-        getNodeForTriggerRefChange?: (HTMLElement) => HTMLElement
+        onTriggerRefChange?: (instance: React.ReactInstance, getNodeForTriggerRefChange: (el: HTMLElement) => HTMLElement) => void
+        getNodeForTriggerRefChange?: (el: HTMLElement) => HTMLElement
       }
 
       interface IClickProps extends IBaseProps {
@@ -49,6 +57,7 @@ declare module 'zent/lib/popover' {
         showDelay?: number
         hideDelay?: number
         isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
+        quirk?: boolean
       }
 
       class Hover extends React.Component<IHoverProps, any> {}
@@ -57,6 +66,19 @@ declare module 'zent/lib/popover' {
 
       class Focus extends React.Component<IFocusProps, any> {}
     }
+
+    namespace Position {
+      function create(fn: PositionFunction): Position
+    }
+
+    interface IHocPopoverProps {
+      getTriggerNode: () => HTMLElement
+      getContentNode: () => HTMLElement
+      open: Function
+      close: Function
+    }
+
+    function withPopover(component: React.Component<any, any>): React.Component<IHocPopoverProps, any>
   }
 
   export default Popover

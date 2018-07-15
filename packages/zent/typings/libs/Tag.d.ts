@@ -5,12 +5,13 @@ declare module 'zent/lib/tag' {
     color?: string
     outline?: boolean
     rounded?: boolean
+    closable?: boolean
+    onClose?: Function
+    visible?: boolean
+    onVisibleChange?: Function
     borderColor?: string
     bgColor?: string
     fontColor?: string
-    closable?: boolean
-    onClose?: Function
-    children?: React.ReactChild
     style?: React.CSSProperties
     className?: string
     prefix?: string

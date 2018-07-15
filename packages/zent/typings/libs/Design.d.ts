@@ -108,7 +108,7 @@ declare module 'zent/lib/design' {
     static group: (name: string) => IGroupComponent
   }
 
-  module Design {
+  namespace Design {
     class DesignWithoutDnd extends React.PureComponent<IDesignProps, any> {}
   }
 

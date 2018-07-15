@@ -1,10 +1,10 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/input' {
-  interface IInputProps {
+  interface IInputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     className?: string
     prefix?: string
-    width?: number
+    width?: number | string
     type?: 'text' | 'number' | 'password' | 'textarea'
     defaultValue?: string
     value?: string
@@ -20,10 +20,15 @@ declare module 'zent/lib/input' {
     initSelectionEnd?: number
     onChange?: React.ChangeEventHandler<HTMLInputElement>
     onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>
+
+    // textarea
+    maxLength?: number
+    showCount?: boolean
+    autoSize?: boolean
   }
 
   export default class Input extends React.Component<IInputProps, any> {
-    focus()
-    select(selectionStart?: number, selectionEnd?: number)
+    focus(): void
+    select(selectionStart?: number, selectionEnd?: number): void
   }
 }

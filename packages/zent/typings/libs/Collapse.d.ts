@@ -21,7 +21,7 @@ declare module 'zent/lib/collapse' {
 
   class Collapse extends React.Component<ICollapseProps, any> {}
 
-  module Collapse {
+  namespace Collapse {
     class Panel extends React.PureComponent<ICollapsePanelProps, any> {}
   }
 

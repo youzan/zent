@@ -3,8 +3,11 @@
 declare module 'zent/lib/steps' {
   interface IStepsProps {
     type?: 'number' | 'card' | 'breadcrumb'
+    direction?: 'horizontal' | 'vertical'
     current?: number
-    status?: 'finish' | 'error' | 'wait'
+    status?: 'process' | 'finish' | 'error' | 'wait'
+    sequence?: boolean
+    onStepChange?: (stepIndex: number) => void
     className?: string
     prefix?: string
   }

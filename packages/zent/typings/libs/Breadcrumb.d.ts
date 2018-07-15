@@ -15,7 +15,7 @@ declare module 'zent/lib/breadcrumb' {
 
   class Breadcrumb extends React.Component<IBreadcrumbProps, any> { }
 
-  module Breadcrumb {
+  namespace Breadcrumb {
     class Item extends React.PureComponent<IBreadcrumbItemProps, any> {}
   }
 

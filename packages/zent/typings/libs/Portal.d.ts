@@ -4,9 +4,11 @@ declare module 'zent/lib/portal' {
   interface IPortalProps {
     // visible
     visible?: boolean
+    onMount?: Function
+    onUnmount?: Function
 
     // children
-    children: React.ReactChild
+    children?: React.ReactChild
     render?: Function
 
     // parent node
@@ -37,6 +39,16 @@ declare module 'zent/lib/portal' {
     type INonScrollablePortalProps = IPortalProps
 
     function withNonScrollable(component: Portal): React.Component<INonScrollablePortalProps, any>
+
+    interface IPurePortalProps {
+      children?: React.ReactChild
+      render?: Function
+      selector: string | HTMLElement
+      onMount?: Function
+      onUnmount?: Function
+    }
+
+    class PurePortal extends React.Component<IPurePortalProps, any> {}
   }
 
   export default Portal

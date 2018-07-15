@@ -14,6 +14,7 @@ declare module 'zent/lib/button' {
     href?: string
     target?: string
     className?: string
+    style?: React.CSSProperties
     prefix?: string
     onClick?: React.UIEventHandler<HTMLButtonElement>
   }
@@ -26,7 +27,7 @@ declare module 'zent/lib/button' {
 
   class Button extends React.Component<IButtonProps, any> { }
 
-  module Button {
+  namespace Button {
     class Group extends React.PureComponent<IButtonGroupProps, any> {}
   }
 
