@@ -6,7 +6,7 @@ declare module 'zent/lib/colorpicker' {
     showAlpha?: boolean
     type?: 'default'|'simple'
     presetColors?: Array<string>
-    onChange?: (string) => any
+    onChange?: (string: string) => any
     className?: string
     wrapperClassName?: string
     prefix?: string
@@ -18,7 +18,7 @@ declare module 'zent/lib/colorpicker' {
     interface IColorBoardProps {
       color: string
       showAlpha?: boolean
-      onChange?: (string) => any
+      onChange?: (string: string) => any
       className?: string
       prefix?: string
     }

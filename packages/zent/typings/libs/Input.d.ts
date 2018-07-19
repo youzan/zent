@@ -18,6 +18,6 @@ declare module 'zent/lib/input' {
   }
 
   export default class Input extends React.Component<IInputProps, any> {
-    focus()
+    focus(): void
   }
 }
