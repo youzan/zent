@@ -348,7 +348,7 @@ describe('Cascader', () => {
         type="menu"
         value={value}
         options={options}
-        expandTrigger={'hover'}
+        expandTrigger="hover"
       />
     );
 
