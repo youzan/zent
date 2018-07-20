@@ -173,6 +173,7 @@ class Pop extends PureComponent {
 
     // 只有trigger为click时才有效
     closeOnClickOutside: PropTypes.bool,
+
     isOutside: PropTypes.func,
 
     // 在 popover-content 进入屏幕内时触发, 生命周期内仅触发一次
