@@ -96,5 +96,7 @@ declare module 'zent/lib/design' {
     prefix?: string
   }
 
-  export default class Design extends React.Component<IDesignProps, any> {}
+  export default class Design extends React.Component<IDesignProps, any> {
+      static group: (name: string) => any
+  }
 }

@@ -6,6 +6,7 @@ declare module 'zent/lib/icon' {
   interface IIconProps {
     type: TIconType
     className?: string
+    [propName: string]: any
   }
 
   export default class Icon extends React.Component<IIconProps, any> { }

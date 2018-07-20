@@ -4,7 +4,7 @@ declare module 'zent/lib/grid' {
   interface IGridColumn {
     title: string
     name?: string
-    width?: number
+    width?: string | number
     textAign?: 'left' | 'right' | 'center'
     bodyRender?: ((data: any, pos: number, name: string) => React.ReactNode) | React.ReactNode
     className?: string
