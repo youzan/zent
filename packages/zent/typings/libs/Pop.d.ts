@@ -11,19 +11,19 @@ declare module 'zent/lib/pop' {
     centerArrow?: boolean
     header?: React.ReactNode
     block?: boolean
-    onShow?: Function
-    onClose?: Function
-    onBeforeShow?: Function
-    onBeforeClose?: Function
-    onConfirm?: ((close: Function) => void) | (() => Promise<any>)
-    onCancel?: ((close: Function) => void) | (() => Promise<any>)
+    onShow?: () => void
+    onClose?: () => void
+    onBeforeShow?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
+    onBeforeClose?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
+    onConfirm?: ((close: () => void) => void) | (() => Promise<any>)
+    onCancel?: ((close: () => void) => void) | (() => Promise<any>)
     confirmText?: string
     cancelText?: string
     type?: 'primary' | 'default' | 'danger' | 'success'
     visible?: boolean
-    onVisibleChange?: Function
-    onPositionUpdated?: Function
-    onPositionReady?: Function
+    onVisibleChange?: (visible: boolean) => void
+    onPositionUpdated?: () => void
+    onPositionReady?: () => void
     className?: string
     wrapperClassName?: string
     prefix?: string

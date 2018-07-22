@@ -2,6 +2,8 @@
 
 declare module 'zent/lib/date-range-quick-picker' {
 
+  type DateRangeQuickPickerValue = number | string
+
   interface IDateRangeQuickPickerPreset {
     text: string
     value: number
@@ -10,8 +12,8 @@ declare module 'zent/lib/date-range-quick-picker' {
   interface IDateRangeQuickPickerProps {
     prefix?: string
     className?: string
-    onChange: Function
-    value?: Array<number|string>
+    onChange: (value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue], choosePresetValue?: number) => void
+    value?: Array<DateRangeQuickPickerValue>
     valueType?: 'string' | 'number'
     format?: string
     chooseDays?: number

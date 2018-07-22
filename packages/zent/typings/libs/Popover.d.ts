@@ -15,15 +15,15 @@ declare module 'zent/lib/popover' {
     position: PositionFunction
     cushion?: number
     display?: string
-    onShow?: Function
-    onClose?: Function
-    onBeforeShow?: ((callback: Function, escape: Function) => void) | (() => Promise<any>)
-    onBeforeClose?: ((callback: Function, escape: Function) => void) | (() => Promise<any>)
+    onShow?: () => void
+    onClose?: () => void
+    onBeforeShow?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
+    onBeforeClose?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
     containerSelector?: string
     visible?: boolean
-    onVisibleChange?: Function
-    onPositionUpdated?: Function
-    onPositionReady?: Function
+    onVisibleChange?: (visible: boolean) => void
+    onPositionUpdated?: () => void
+    onPositionReady?: () => void
     className?: string
     wrapperClassName?: string
     width?: number | string
@@ -74,8 +74,8 @@ declare module 'zent/lib/popover' {
     interface IHocPopoverProps {
       getTriggerNode: () => HTMLElement
       getContentNode: () => HTMLElement
-      open: Function
-      close: Function
+      open: () => void
+      close: () => void
     }
 
     function withPopover(component: React.Component<any, any>): React.Component<IHocPopoverProps, any>

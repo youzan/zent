@@ -23,8 +23,8 @@ declare module 'zent/lib/number-input' {
 
   interface INumberInputChangeEvent {
     target: INumberInputTarget
-    preventDefault: Function
-    stopPropagation: Function
+    preventDefault: () => void
+    stopPropagation: () => void
   }
 
   export default class NumberInput extends React.Component<INumberInputProps, any> {}

@@ -9,6 +9,13 @@ declare module 'zent/lib/sortable' {
     revertClone: boolean
   } | string
 
+  interface IMobileScrollOriginalEvent {
+    clientX: number
+    clientY: number
+    rootEl: HTMLDivElement
+    target: HTMLElement
+  }
+
   interface ISortableProps {
     // base api
     className?: string
@@ -20,7 +27,7 @@ declare module 'zent/lib/sortable' {
 
     // advance api
     sort?: boolean
-    group?: Object | string
+    group?: string | SortableGroup
     delay?: number
     animation?: number
     handle?: string
@@ -32,19 +39,19 @@ declare module 'zent/lib/sortable' {
     fallbackOnBody?: boolean
     fallbackTolerance?: number
     scroll?: boolean
-    scrollFn?: Function
+    scrollFn?: (offsetX: number, offsetY: number, originalEvent: DragEvent | IMobileScrollOriginalEvent) => any
     scrollSensitivity?: number
     scrollSpeed?: number
-    setData?: (dataTransfer: object, dragEl: HTMLElement) => any
-    onStart?: (event: any) => any
-    onEnd?: (event: any) => any
-    onAdd?: (event: any) => any
-    onUpdate?: (event: any) => any
-    onSort?: (event: any) => any
-    onRemove?: (event: any) => any
-    onFilter?: (event: any) => any
-    onMove?: (event: any) => boolean
-    onClone?: (event: any) => boolean
+    setData?: (dataTransfer: DataTransfer, dragEl: HTMLElement) => any
+    onStart?: (event: Event) => any
+    onEnd?: (event: Event) => any
+    onAdd?: (event: Event) => any
+    onUpdate?: (event: Event) => any
+    onSort?: (event: Event) => any
+    onRemove?: (event: Event) => any
+    onFilter?: (event: Event) => any
+    onMove?: (event: Event) => boolean
+    onClone?: (event: Event) => boolean
   }
 
   export default class Sortable extends React.Component<ISortableProps, any> {}

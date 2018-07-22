@@ -7,7 +7,7 @@ declare module 'zent/lib/form' {
     vertical?: boolean
     horizontal?: boolean
     inline?: boolean
-    onSubmit?: Function
+    onSubmit?: React.FormEventHandler<HTMLFormElement>
     style?: React.CSSProperties
     disableEnterSubmit?: boolean
   }

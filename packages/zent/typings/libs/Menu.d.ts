@@ -2,7 +2,7 @@
 
 declare module 'zent/lib/menu' {
   interface IMenuProps {
-    onClick?: React.UIEventHandler<HTMLDivElement|HTMLLIElement>
+    onClick?: (e: React.MouseEvent<HTMLDivElement|HTMLLIElement>, key: string) => void
     style?: React.CSSProperties
     mode?: 'pop' | 'inline'
     defautExpandKeys?: Array<string>

@@ -16,7 +16,7 @@ declare module 'zent/lib/button' {
     className?: string
     style?: React.CSSProperties
     prefix?: string
-    onClick?: React.UIEventHandler<HTMLButtonElement>
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
   }
 
   interface IButtonGroupProps {

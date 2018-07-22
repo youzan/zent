@@ -4,12 +4,12 @@ declare module 'zent/lib/portal' {
   interface IPortalProps {
     // visible
     visible?: boolean
-    onMount?: Function
-    onUnmount?: Function
+    onMount?: () => void
+    onUnmount?: () => void
 
     // children
-    children?: React.ReactChild
-    render?: Function
+    children?: React.ReactNode
+    render?: () => React.ReactNode
 
     // parent node
     selector?: string | HTMLElement
@@ -17,8 +17,8 @@ declare module 'zent/lib/portal' {
     // layer
     layer?: string
     useLayerForClickAway?: boolean
-    onClickAway?: Function
-    onLayerReady?: Function
+    onClickAway?: React.MouseEventHandler<HTMLElement> | React.TouchEventHandler<HTMLElement>
+    onLayerReady?: (el: HTMLElement) => void
 
     // layer style
     className?: string
@@ -42,10 +42,10 @@ declare module 'zent/lib/portal' {
 
     interface IPurePortalProps {
       children?: React.ReactChild
-      render?: Function
+      render?: () => React.ReactNode
       selector: string | HTMLElement
-      onMount?: Function
-      onUnmount?: Function
+      onMount?: () => void
+      onUnmount?: () => void
     }
 
     class PurePortal extends React.Component<IPurePortalProps, any> {}

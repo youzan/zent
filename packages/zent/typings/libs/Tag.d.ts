@@ -6,9 +6,9 @@ declare module 'zent/lib/tag' {
     outline?: boolean
     rounded?: boolean
     closable?: boolean
-    onClose?: Function
+    onClose?: React.MouseEventHandler<HTMLElement>
     visible?: boolean
-    onVisibleChange?: Function
+    onVisibleChange?: (visible: boolean) => void
     borderColor?: string
     bgColor?: string
     fontColor?: string
