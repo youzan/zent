@@ -22,7 +22,6 @@ File uploader. Supports images and audios.
 | triggerInline | Make trigger node's display inline | boolean | `false` | No |
 | onFetch | Callback to fetch remote image | function | `noop` | No |
 | onUpload | Callback to upload local image | function | `noop` | No |
-| onProgress | Progress callback when uploading local image  | function | `noop` | No |
 | filterFiles | Filter local files, supports Promise as return value | function | `noop` | No |
 | categoryList | Group data | array | [] | No |
 | categoryId | Group id | number | [] | No |

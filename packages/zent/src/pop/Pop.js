@@ -173,13 +173,17 @@ class Pop extends PureComponent {
 
     // 只有trigger为click时才有效
     closeOnClickOutside: PropTypes.bool,
-    isClickOutside: PropTypes.func,
+
+    isOutside: PropTypes.func,
 
     // 在 popover-content 进入屏幕内时触发, 生命周期内仅触发一次
     onPositionReady: PropTypes.func,
 
     // 在 popover-content 新位置计算完成时触发
     onPositionUpdated: PropTypes.func,
+
+    // defaults to body
+    containerSelector: PropTypes.string,
 
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -201,6 +205,7 @@ class Pop extends PureComponent {
     onPositionReady: noop,
     className: '',
     wrapperClassName: '',
+    containerSelector: 'body',
     prefix: 'zent',
     quirk: true,
   };
@@ -327,6 +332,7 @@ class Pop extends PureComponent {
       onBeforeShow,
       onPositionUpdated,
       onPositionReady,
+      containerSelector,
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -352,6 +358,7 @@ class Pop extends PureComponent {
         onBeforeShow={onBeforeShow}
         onPositionUpdated={onPositionUpdated}
         onPositionReady={onPositionReady}
+        containerSelector={containerSelector}
         ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}

@@ -3,7 +3,7 @@
 declare module 'zent/lib/loading' {
   interface ILoadingProps {
     show?: boolean
-    static?: boolean
+    float?: boolean
     height?: number
     zIndex?: number
     className?: string
@@ -11,8 +11,5 @@ declare module 'zent/lib/loading' {
     prefix?: string
   }
 
-  export default class Loading extends React.Component<ILoadingProps, any> {
-    static on(): void
-    static off(): void
-  }
+  export default class Loading extends React.Component<ILoadingProps, any> { }
 }

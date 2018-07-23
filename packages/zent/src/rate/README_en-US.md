@@ -21,3 +21,4 @@ Rate component.
 | count      | star count                              | `number`                  | No       | 5                      |             |
 | disabled   | read only, unable to interact           | `boolean`                 | No       | `false`                |             |
 | style      | custom style object of rate             | `object`                  | No       | -                      |             |
+| prefix     | custom prefix                           | `string`         				 | No       | `'zent'`               |             |

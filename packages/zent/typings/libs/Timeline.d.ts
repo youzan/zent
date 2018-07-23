@@ -39,6 +39,7 @@ declare module 'zent/lib/timeline' {
     timeline?: ITimelineArrayItem[];
     type?: 'vertical' | 'horizontal';
     className?: string;
+    prefix?: string
     style?: React.CSSProperties;
   }
 

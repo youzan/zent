@@ -15,6 +15,7 @@ class MenuContent extends PureComponent {
     options: PropTypes.array,
     isLoading: PropTypes.bool,
     recursiveNextOptions: PropTypes.func,
+    expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
   getMenuItemIcon(item, isShowLoading, isActive) {
@@ -35,7 +36,14 @@ class MenuContent extends PureComponent {
   }
 
   renderCascaderItems(items, stage, popover) {
-    let { prefix, value, clickHandler, isLoading, loadingStage } = this.props;
+    let {
+      prefix,
+      value,
+      clickHandler,
+      isLoading,
+      loadingStage,
+      expandTrigger,
+    } = this.props;
 
     const isShowLoading = isLoading && stage === loadingStage;
 
@@ -50,7 +58,11 @@ class MenuContent extends PureComponent {
         <li
           className={cascaderItemCls}
           title={item.title}
-          onClick={() => clickHandler(item, stage, popover)}
+          onClick={() => clickHandler(item, stage, popover, 'click')}
+          onMouseEnter={() =>
+            expandTrigger === 'hover' &&
+            clickHandler(item, stage, popover, 'hover')
+          }
           key={item.id}
         >
           {item.title}

@@ -5,7 +5,7 @@ declare module 'zent/lib/pagination' {
     current: number
     totalItem: number
     pageSize?: number
-    onPageSizeChange?: (number) => any
+    onPageSizeChange?: (pageSize: number) => any
     maxPageToShow?: number
     onChange?: (value: number) => void
     className?: string
