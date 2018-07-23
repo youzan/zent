@@ -3,7 +3,7 @@
 declare module 'zent/lib/mention' {
   interface ICompoundMentionSuggestion {
     value: any
-    content?: node
+    content?: any
     isGroup?: boolean
     isDivider?: boolean
     icon?: string
@@ -12,10 +12,10 @@ declare module 'zent/lib/mention' {
 
   interface IMentionProps {
     value: string;
-    onChange: (string) => any;
+    onChange: (string: string) => any;
     multiLine?: boolean;
     position?: 'top' | 'bottom';
-    onSearchChange?: (string) => any;
+    onSearchChange?: (string: string) => any;
     suggestions: string | number | ICompoundMentionSuggestion;
     suggestionNotFoundContent?: React.ReactNode;
     triggerText?: string;

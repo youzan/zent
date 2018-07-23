@@ -47,7 +47,7 @@ declare module 'zent/lib/datetimepicker/MonthPicker' {
 declare module 'zent/lib/datetimepicker/DateRangePicker' {
   interface IDateRangePickerProps extends IDateCommonProps {
     showTime: boolean
-    value?: Array,
+    value?: Array<Date | number | string>,
     disabledTime?: Function,
   }
 
