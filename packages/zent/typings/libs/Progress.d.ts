@@ -7,10 +7,14 @@ declare module 'zent/lib/progress' {
     type?: 'ling'|'circle'
     percent?: number
     showInfo?: boolean
-    status?: string
-    format?: Function
+    status?: 'success' | 'exception'
+    format?: (precent: number) => React.ReactNode
     strokeWidth?: number
     width?: number
+    bgColor?: string
+    normalColor?: string
+    successColor?: string
+    exceptionColor?: string
     style?: React.CSSProperties
   }
 

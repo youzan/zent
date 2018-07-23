@@ -4,9 +4,9 @@ declare module 'zent/lib/affix' {
   interface IAffixProps {
     offsetTop?: number
     offsetBottom?: number
-    onPin?: Function
-    onUnpin?: Function
-    zindex?: number
+    onPin?: () => void
+    onUnpin?: () => void
+    zIndex?: number
     className?: string
     placeHoldClassName?: string
     prefix?: string

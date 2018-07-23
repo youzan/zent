@@ -5,7 +5,7 @@ declare module 'zent/lib/infinite-scroller' {
     className?: string
     prefix?: string
     hasMore?: boolean
-    loadMore?: Function
+    loadMore?: (() => Promise<any>) | ((stopLoading: () => void) => void)
     offset?: number
     initialLoad?: boolean
     useWindow?: boolean
