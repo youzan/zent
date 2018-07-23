@@ -38,6 +38,7 @@ A floating card opened by clicking, hovering or focusing.
 | onVisibleChange | Must be used with `visible` | func | No | | |
 | onPositionUpdated | callback after position updates, a position update does not imply a position change | func | No | `noop` | |
 | onPositionReady | callback after content enter viewport, only called once within the life cycle | func | No | `noop` | |
+| containerSelector | pop's parent node CSS selector | string | No | `'body'` | all legal CSS selector | |
 | className | Custom class name | string | No | `''` |  |
 | wrapperClassName | Custom trigger wrapper class name | string | No | `''` |  |
 | prefix | Custom class name prefix | string | No | `'zent'` |  |

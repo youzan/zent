@@ -21,6 +21,7 @@ declare module 'zent/lib/pop' {
     onVisibleChange?: Function
     className?: string
     wrapperClassName?: string
+    containerSelector?: string
     prefix?: string
     closeOnClickOutside?: boolean
     isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
