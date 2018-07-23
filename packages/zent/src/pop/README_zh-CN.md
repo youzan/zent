@@ -39,6 +39,7 @@ group: 反馈
 | onVisibleChange | 和 `visible` 一起使用 | func | 否 | | |
 | onPositionUpdated | 位置更新时的回调，不保证调用这个函数时位置一定变化 | func | 否 | `noop` | |
 | onPositionReady | 位置进入窗口时的回调，生命周期内只调用一次 | func | 否 | `noop` | |
+| containerSelector | 弹层的父节点CSS selector | string | 否 | `'body'` | 所有合法的CSS selector | |
 | className | 自定义类名 | string | 否 | `''` |  |
 | wrapperClassName | 自定义trigger包裹节点的类名 | string | 否 | `''` |  |
 | prefix | 自定义前缀 | string | 否 | `'zent'` |  |

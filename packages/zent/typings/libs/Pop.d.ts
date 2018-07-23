@@ -26,6 +26,7 @@ declare module 'zent/lib/pop' {
     onPositionReady?: () => void
     className?: string
     wrapperClassName?: string
+    containerSelector?: string
     prefix?: string
     isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
 

@@ -182,6 +182,9 @@ class Pop extends PureComponent {
     // 在 popover-content 新位置计算完成时触发
     onPositionUpdated: PropTypes.func,
 
+    // defaults to body
+    containerSelector: PropTypes.string,
+
     prefix: PropTypes.string,
     className: PropTypes.string,
     wrapperClassName: PropTypes.string,
@@ -202,6 +205,7 @@ class Pop extends PureComponent {
     onPositionReady: noop,
     className: '',
     wrapperClassName: '',
+    containerSelector: 'body',
     prefix: 'zent',
     quirk: true,
   };
@@ -328,6 +332,7 @@ class Pop extends PureComponent {
       onBeforeShow,
       onPositionUpdated,
       onPositionReady,
+      containerSelector,
     } = this.props;
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -353,6 +358,7 @@ class Pop extends PureComponent {
         onBeforeShow={onBeforeShow}
         onPositionUpdated={onPositionUpdated}
         onPositionReady={onPositionReady}
+        containerSelector={containerSelector}
         ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}

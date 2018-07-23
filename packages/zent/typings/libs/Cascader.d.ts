@@ -28,6 +28,7 @@ declare module 'zent/lib/cascader' {
     className?: string
     popClassName?: string
     displayText?: (value: Array<ICascaderItem>) => React.ReactNode
+    expandTrigger?: 'click' | 'hover'
   }
 
   export default class Cascader extends React.Component<ICascaderProps, any> {}
