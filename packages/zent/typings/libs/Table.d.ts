@@ -26,6 +26,11 @@ declare module 'zent/lib/table' {
     autoScroll?: boolean
     className?: string
     prefix?: string
+    pageInfo?: {
+      totalItem: number
+      current: number
+      pageSize: number
+    }
   }
 
   export default class Table extends React.Component<ITableProps, any> { }

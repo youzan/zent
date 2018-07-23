@@ -30,6 +30,7 @@ declare module 'zent/lib/tabs' {
     tabs?: Array<ITab>
     className?: string
     prefix?: string
+    onChange: (id: string | number) => any
   }
 
   class Tabs extends React.Component<ITabsProps, any> { }

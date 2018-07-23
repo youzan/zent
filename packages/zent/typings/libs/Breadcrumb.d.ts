@@ -7,5 +7,15 @@ declare module 'zent/lib/breadcrumb' {
     prefix?: string
   }
 
-  export default class Breadcrumb extends React.Component<IBreadcrumbProps, any> { }
+  interface IBreadcrumbItemProps {
+    className?: string
+    name?: any
+    href?: string
+  }
+
+  class BreadcrumbItem extends React.Component<IBreadcrumbItemProps, any> {}
+
+  export default class Breadcrumb extends React.Component<IBreadcrumbProps, any> {
+      static Item: BreadcrumbItem
+   }
 }
