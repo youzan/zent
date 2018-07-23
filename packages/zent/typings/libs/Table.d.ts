@@ -2,9 +2,9 @@
 
 declare module 'zent/lib/table' {
   interface ITableColumn {
-    title: string
-    name: string
-    width?: number
+    title?: string
+    name?: string
+    width?: number | string
     isMoney?: boolean
     needSort?: boolean
     bodyRender?: (data: any) => React.ReactNode
