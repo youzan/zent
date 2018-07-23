@@ -18,6 +18,7 @@ class TabsContent extends PureComponent {
     title: PropTypes.array,
     isLoading: PropTypes.bool,
     recursiveNextOptions: PropTypes.func,
+    expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
   renderCascaderItems(items, stage, popover) {

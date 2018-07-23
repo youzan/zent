@@ -312,6 +312,66 @@ describe('Cascader', () => {
     wrapper.unmount();
   });
 
+  it('can hover to expand', () => {
+    const value = [];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const wrapper = mount(
+      <Cascader
+        type="menu"
+        value={value}
+        options={options}
+        expandTrigger="hover"
+      />
+    );
+
+    wrapper.find('.zent-cascader__select').simulate('click');
+    jest.runAllTimers();
+
+    const pop = document.querySelector('.zent-popover-content');
+
+    expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(1);
+    expect(
+      pop.querySelectorAll('.zent-cascader__menu-item')[0].textContent
+    ).toBe('root');
+
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      'mouseEnter'
+    );
+
+    expect(pop.querySelectorAll('.zent-cascader__menu').length).toBe(2);
+
+    wrapper.unmount();
+  });
+
   it('changeOnSelect when click item', () => {
     const value = [];
     const options = [
