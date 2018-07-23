@@ -8,6 +8,9 @@
     "lcov",
     "html"
   ],
+  "setupFiles": [
+    "jest-canvas-mock"
+  ],
   "coverageThreshold": {
     "global": {
       "statements": 96,

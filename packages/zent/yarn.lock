@@ -53,6 +53,10 @@ dom-helpers@^3.2.0:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.3.1.tgz#fc1a4e15ffdf60ddde03a480a9c0fece821dd4a6"
 
+ellip-clamp@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/ellip-clamp/-/ellip-clamp-1.0.1.tgz#c844bda5c778c06584ed31b8715a08b3dbf40321"
+
 encoding@^0.1.11:
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/encoding/-/encoding-0.1.12.tgz#538b66f3ee62cd1ab51ec323829d1f9480c74beb"

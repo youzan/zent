@@ -35,6 +35,7 @@
 /// <reference path="./libs/Pagination.d.ts" />
 /// <reference path="./libs/Placeholder.d.ts" />
 /// <reference path="./libs/Pop.d.ts" />
+/// <reference path="./libs/PopEllipsisText.d.ts" />
 /// <reference path="./libs/Popover.d.ts" />
 /// <reference path="./libs/Portal.d.ts" />
 /// <reference path="./libs/previewImage.d.ts" />
@@ -94,6 +95,7 @@ declare module 'zent' {
   import Pagination from 'zent/lib/pagination';
   import Placeholder from 'zent/lib/placeholder';
   import Pop from 'zent/lib/pop';
+  import PopEllipsisText from 'zent/lib/pop-ellipsis-text';
   import Popover from 'zent/lib/popover';
   import Portal from 'zent/lib/portal';
   import previewImage from 'zent/lib/preview-image';
