@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Pop from 'pop';
-import _debounce from 'lodash/debounce';
-import _identity from 'lodash/identity';
+import cx from 'classnames';
+import isSsr from 'zan-utils/browser/isSsr';
+import debounce from 'lodash/debounce';
+import identity from 'lodash/identity';
+import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 
 class ClampLines extends Component {
   static propTypes = {
@@ -12,21 +15,24 @@ class ClampLines extends Component {
     ellipsis: PropTypes.string,
     showPop: PropTypes.bool,
     popWidth: PropTypes.number,
-    trigger: PropTypes.string,
+    trigger: PropTypes.oneOf(['click', 'hover', 'focus']),
     renderPop: PropTypes.func,
     resizable: PropTypes.bool,
     extra: PropTypes.element,
+    className: PropTypes.string,
+    prefix: PropTypes.string,
   };
 
   static defaultProps = {
+    className: '',
+    prefix: 'zent',
     lines: 2,
-    text: '',
     delay: 300,
     ellipsis: '...',
     showPop: true,
     popWidth: 250,
     trigger: 'hover',
-    renderPop: _identity,
+    renderPop: identity,
     resizable: false,
     extra: null,
   };
@@ -47,10 +53,10 @@ class ClampLines extends Component {
     };
 
     // check if in nodejs env or not
-    this.ssr = typeof window === 'undefined';
+    this.ssr = isSsr();
 
     if (!this.ssr && props.resizable) {
-      this.handleResize = _debounce(() => {
+      this.handleResize = debounce(() => {
         this.setState({ noClamp: false });
         this.clampLines();
       }, props.delay);
@@ -58,20 +64,10 @@ class ClampLines extends Component {
   }
 
   componentDidMount() {
-    const { text, resizable } = this.props;
+    const { text } = this.props;
     if (text && !this.ssr) {
       this.lineHeight = this.element.clientHeight + 1;
       this.clampLines();
-
-      if (resizable) {
-        window.addEventListener('resize', this.handleResize);
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    if (!this.ssr && this.props.resizable) {
-      window.removeEventListener('resize', this.handleResize);
     }
   }
 
@@ -119,21 +115,29 @@ class ClampLines extends Component {
     return !this.state.noClamp ? this.props.ellipsis : '';
   }
 
-  getClassName() {
-    let className = this.props.className || '';
-    return `clamp-lines ${className}`;
+  renderResizable() {
+    if (this.props.resizable) {
+      return <WindowResizeHandler onResize={() => this.handleResize()} />;
+    }
+    return null;
   }
 
   renderClampedText() {
+    const { className, prefix } = this.props;
+    const classString = cx({
+      [className]: className,
+      [`${prefix}-clamp-lines`]: true,
+    });
     return (
       <div
-        className={this.getClassName()}
+        className={classString}
         style={{ maxHeight: this.maxHeight, overflowY: 'hidden' }}
       >
         <div ref={e => (this.element = e)}>
           <span ref={e => (this.innerElement = e)}>{this.state.text}</span>
           {this.props.extra}
         </div>
+        {this.renderResizable()}
       </div>
     );
   }
@@ -153,7 +157,12 @@ class ClampLines extends Component {
     }
 
     if (this.state.noClamp) {
-      return <div className={className}>{text}</div>;
+      return (
+        <div className={className}>
+          {text}
+          {this.renderResizable()}
+        </div>
+      );
     }
 
     if (showPop) {

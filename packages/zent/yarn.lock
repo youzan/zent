@@ -308,9 +308,9 @@ zan-jquery@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/zan-jquery/-/zan-jquery-1.0.2.tgz#d9a45088d0d152cfe41729aca70b6682e30ce5cf"
 
-zan-utils@^1.1.8:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/zan-utils/-/zan-utils-1.2.3.tgz#0e85427c5053442c88a730d491f833a111470c93"
+zan-utils@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/zan-utils/-/zan-utils-1.2.8.tgz#9678670d3f251c9c5fddb137e1e63676a7e4b155"
   dependencies:
     big.js "^3.1.3"
     compare-versions "^3.1.0"
