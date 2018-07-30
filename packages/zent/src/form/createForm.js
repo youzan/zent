@@ -324,7 +324,7 @@ const createForm = (config = {}) => {
               const fieldValue = get(value, fieldNamePath);
               const mutatorAction = matchedFa.getMutatorAction();
 
-              // console.log(name, ' -> ', fieldNamePath);
+              // console.log(name, ' -> ', fieldNamePath, fieldValue, value);
 
               if (mutatorAction === FieldArrayMutatorAction.Initialize) {
                 f.setInitialValue(fieldValue);
