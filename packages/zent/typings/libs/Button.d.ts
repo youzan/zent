@@ -14,9 +14,22 @@ declare module 'zent/lib/button' {
     href?: string
     target?: string
     className?: string
+    style?: React.CSSProperties
     prefix?: string
-    onClick?: React.UIEventHandler<HTMLButtonElement>
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
   }
 
-  export default class Button extends React.Component<IButtonProps, any> { }
+  interface IButtonGroupProps {
+    className?: string
+    prefix?: string
+    style?: React.CSSProperties
+  }
+
+  class Button extends React.Component<IButtonProps, any> { }
+
+  namespace Button {
+    class Group extends React.PureComponent<IButtonGroupProps, any> {}
+  }
+
+  export default Button
 }

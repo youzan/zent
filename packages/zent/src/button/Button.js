@@ -23,9 +23,15 @@ const BTN_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
 const A_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
-const wrapTextWithSpanTag = children => {
+const TWO_CN_CHAR_REG = /^[\u4e00-\u9fa5]{2}$/;
+
+const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
   return React.Children.map(children, child => {
     if (typeof child === 'string') {
+      if (isNeedInsertSpace && TWO_CN_CHAR_REG.test(child)) {
+        // 按钮文字为两个中文文字的时候，中间空出一个空格空间
+        return <span>{child.split('').join(' ')}</span>;
+      }
       return <span>{child}</span>;
     }
     return child;
@@ -72,6 +78,11 @@ export default class Button extends PureComponent {
     if (this.props.onClick) {
       this.props.onClick(event);
     }
+  }
+
+  isNeedInsertSpace() {
+    const { icon, children } = this.props;
+    return React.Children.count(children) === 1 && !icon;
   }
 
   // render a 标签
@@ -144,7 +155,10 @@ export default class Button extends PureComponent {
       className
     );
     const iconNode = icon ? <Icon type={icon} /> : null;
-    const wrappedChildren = wrapTextWithSpanTag(children);
+    const wrappedChildren = wrapTextWithSpanTag(
+      children,
+      this.isNeedInsertSpace()
+    );
 
     return this[renderer](classNames, iconNode, wrappedChildren);
   }

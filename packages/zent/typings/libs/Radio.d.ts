@@ -3,8 +3,9 @@
 declare module 'zent/lib/radio' {
   interface IRadioProps {
     value: any
-    disabled?: boolean,
-    readOnly?: boolean,
+    disabled?: boolean
+    readOnly?: boolean
+    width?: number | string
     className?: string
     prefix?: string
   }
@@ -14,8 +15,8 @@ declare module 'zent/lib/radio' {
   namespace Radio {
     interface IGroupProps {
       value: any
-      disabled?: boolean,
-      readOnly?: boolean,
+      disabled?: boolean
+      readOnly?: boolean
       onChange: React.ChangeEventHandler<HTMLInputElement>
       isValueEqual?: (value1: any, value2: any) => boolean
       className?: string

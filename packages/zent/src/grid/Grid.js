@@ -682,7 +682,7 @@ class Grid extends PureComponent {
         selection &&
         nextProps.selection.getCheckboxProps !== selection.getCheckboxProps
       ) {
-        this.CheckboxPropsCache = {};
+        this.checkboxPropsCache = {};
       }
     }
 
@@ -696,7 +696,7 @@ class Grid extends PureComponent {
       has(nextProps, 'datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
-      this.CheckboxPropsCache = {};
+      this.checkboxPropsCache = {};
       let expandRowKeys = this.getExpandRowKeys(nextProps);
       this.store.setState({
         columns: this.getColumns(nextProps, nextProps.columns, expandRowKeys),
