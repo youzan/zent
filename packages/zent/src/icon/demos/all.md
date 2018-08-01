@@ -385,9 +385,9 @@ class IconGrid extends Component {
           <Icon type="text-guide" />
           <span className="zi-grid-item-name">text-guide(0xe858)</span>
         </div>
-        <div className="zi-grid-item" data-index="hc-manag-o0xe859hc-manageoutline">
-          <Icon type="hc-manag-o" />
-          <span className="zi-grid-item-name">hc-manag-o(0xe859)</span>
+        <div className="zi-grid-item" data-index="hc-manage-o0xe859hc-manageoutline">
+          <Icon type="hc-manage-o" />
+          <span className="zi-grid-item-name">hc-manage-o(0xe859)</span>
         </div>
         <div className="zi-grid-item" data-index="hc-manage0xe85ahc-managefilled">
           <Icon type="hc-manage" />
