@@ -377,6 +377,22 @@ class IconGrid extends Component {
           <Icon type="suggestions" />
           <span className="zi-grid-item-name">suggestions(0xe856)</span>
         </div>
+        <div className="zi-grid-item" data-index="video-guide0xe857video-guideoutlineguide">
+          <Icon type="video-guide" />
+          <span className="zi-grid-item-name">video-guide(0xe857)</span>
+        </div>
+        <div className="zi-grid-item" data-index="text-guide0xe858text-guideoutlineguide">
+          <Icon type="text-guide" />
+          <span className="zi-grid-item-name">text-guide(0xe858)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hc-manag-o0xe859hc-manageoutline">
+          <Icon type="hc-manag-o" />
+          <span className="zi-grid-item-name">hc-manag-o(0xe859)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hc-manage0xe85ahc-managefilled">
+          <Icon type="hc-manage" />
+          <span className="zi-grid-item-name">hc-manage(0xe85a)</span>
+        </div>
       </div>
     );
   }
