@@ -322,6 +322,6 @@ zan-utils@^1.1.8:
     url-parse "^1.1.9"
     zan-jquery "^1.0.2"
 
-zenticons@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-1.3.1.tgz#1ba1c0dddf2e8496e50d2feadfa59c7b90222f68"
+zenticons@1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/zenticons/-/zenticons-1.3.4.tgz#eb03412f22994948ba0e142668ebe378167e95f8"

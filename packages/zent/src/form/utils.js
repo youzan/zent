@@ -2,6 +2,7 @@ import isPlainObject from 'lodash/isPlainObject';
 import assign from 'lodash/assign';
 import scroll from 'utils/scroll';
 import get from 'lodash/get';
+import has from 'lodash/has';
 import isFunction from 'lodash/isFunction';
 import { findDOMNode } from 'react-dom';
 import { FieldArrayMutatorAction } from './constants';
@@ -148,4 +149,16 @@ export function updateFieldArray(fieldArrays, data, options) {
       get(options, 'mutatorAction', FieldArrayMutatorAction.Set)
     );
   });
+}
+
+export function isFieldArrayValue(value) {
+  return has(value, '_fieldInternalValue') && has(value, '_fieldInternalKey');
+}
+
+export function unliftFieldArrayValue(value) {
+  while (isFieldArrayValue(value)) {
+    value = get(value, '_fieldInternalValue');
+  }
+
+  return value;
 }
