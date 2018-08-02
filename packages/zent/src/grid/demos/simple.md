@@ -26,8 +26,9 @@ const columns = [
 		title: '{i18n.uv}',
 		name: 'uv'
 	}, {
-		title: '{i18n.stock}',
-		name: 'stock'
+		title: <span>库存</span>,
+		name: 'stock',
+		defaultText: 0
 	}
 ];
 
@@ -38,7 +39,7 @@ for (let i = 0; i < 3; i++) {
 		id: `id-${i}`,
 		name: `{i18n.product} ${i}`,
 		uv: 20,
-		stock: 5
+		stock: i > 1 ? 5 : null
 	})
 }
 
