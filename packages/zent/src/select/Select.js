@@ -11,7 +11,6 @@ import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import cloneDeep from 'lodash/cloneDeep';
-import isNil from 'lodash/isNil';
 
 import Popover from 'popover';
 
@@ -85,9 +84,8 @@ class Select extends React.Component {
 
     // data-prop 高优先级, 格式化 optionValue、optionText
     if (data) {
-      const notNilData = data.filter(option => !isNil(option));
       uniformedData = uniformedData.concat(
-        notNilData.map((option, index) => {
+        data.map((option, index) => {
           // 处理字符串数组
           if (typeof option !== 'object') {
             return { text: option, value: option, cid: `${index}` };
@@ -111,11 +109,8 @@ class Select extends React.Component {
 
     // 格式化 child-element
     if (children) {
-      const notNilChildren = isArray(children)
-        ? children.filter(child => !isNil(child))
-        : children;
       uniformedData = uniformedData.concat(
-        React.Children.map(notNilChildren, (item, index) => {
+        React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
           return Object.assign({}, item.props, {
