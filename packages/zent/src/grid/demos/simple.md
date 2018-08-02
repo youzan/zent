@@ -26,7 +26,7 @@ const columns = [
 		title: '{i18n.uv}',
 		name: 'uv'
 	}, {
-		title: <span>库存</span>,
+		title: '{i18n.stock}',
 		name: 'stock',
 		defaultText: 0
 	}
