@@ -1,13 +1,23 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/checkbox' {
+
+  type CheckBoxOnChangeEvent = {
+    target: ICheckBoxProps & {
+      type: 'checkbox';
+      checked: boolean;
+    };
+    preventDefault: () => void;
+    stopPropagation: () => void;
+  }
+
   interface ICheckBoxProps {
     checked?: boolean
     value?: any
     disabled?: boolean
     readOnly?: boolean
     indeterminate?: boolean
-    onChange?: React.ChangeEventHandler<HTMLInputElement>
+    onChange?: (e: CheckBoxOnChangeEvent) => void;
     className?: string
     prefix?: string
   }
