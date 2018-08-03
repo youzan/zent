@@ -30,6 +30,8 @@ group: 数据
 | width    | 宽度        | string or number        |      |     | 否    |
 | prefix       | 自定义类前缀         | string        | `'zent'` |     | 否    |
 
+- max、min、disabled、value、decimal的改变会触发onChange事件,onChange事件的target.changedProps（数组）会告知什么属性导致了onChange。
+
 <style>
 .zent-number-input-wrapper {
   width: 200px;

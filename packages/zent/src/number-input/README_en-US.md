@@ -29,6 +29,7 @@ A input widget for entering number through mouse or keyboard
 | width    | width    | string or number        |      |      |  No   |
 | prefix       | custom class prefix         | string        | `'zent'` |      |  No    |
 
+- changing max min disabled value decimal will trigger onChange,you can get target.changedProps(Array) of event to know what triggered onChange.
 <style>
 .zent-number-input-wrapper {
   width: 200px;

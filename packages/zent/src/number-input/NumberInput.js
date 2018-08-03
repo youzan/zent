@@ -51,16 +51,17 @@ export default class NumberInput extends PureComponent {
     };
   }
 
+  checkChangeType(props, nextProps) {
+    const onChangeAttrs = ['decimal', 'disabled', 'value', 'max', 'min'];
+    return onChangeAttrs.filter(attr => {
+      return nextProps[attr] !== props[attr];
+    });
+  }
   componentWillReceiveProps(nextProps) {
     this.validateStatus(nextProps);
     let props = this.props;
-    if (
-      nextProps.decimal !== props.decimal ||
-      nextProps.disabled !== props.disabled ||
-      nextProps.value !== props.value ||
-      nextProps.max !== props.max ||
-      nextProps.min !== props.min
-    ) {
+    const changedProps = this.checkChangeType(props, nextProps);
+    if (changedProps.length > 0) {
       const { value, min, max, decimal } = nextProps;
       let { num, upArrow, downArrow } = this.adjustFixed(
         value,
@@ -74,7 +75,7 @@ export default class NumberInput extends PureComponent {
         upArrow,
         downArrow,
       });
-      this.onPropChange(num);
+      this.onPropChange(num, changedProps);
     }
   }
 
@@ -203,7 +204,7 @@ export default class NumberInput extends PureComponent {
     this.onArrow(downArrowState, -1);
   };
 
-  popData(result) {
+  popData(result, changedProps) {
     result = result === '' ? '' : parseFloat(result);
     const props = this.props;
     return {
@@ -211,14 +212,15 @@ export default class NumberInput extends PureComponent {
         ...props,
         type: 'number',
         value: result,
+        changedProps,
       },
       preventDefault: noop,
       stopPropagation: noop,
     };
   }
 
-  onPropChange(result) {
-    const data = this.popData(result);
+  onPropChange(result, changedProps) {
+    const data = this.popData(result, changedProps);
     this.props.onChange(data);
   }
 
