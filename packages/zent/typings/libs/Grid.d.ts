@@ -2,7 +2,7 @@
 
 declare module 'zent/lib/grid' {
   interface IGridColumn {
-    title: string
+    title: React.ReactNode
     name?: string
     width?: number | string
     bodyRender?: ((data: any, pos: number, name: string) => React.ReactNode) | React.ReactNode
@@ -13,6 +13,7 @@ declare module 'zent/lib/grid' {
     onCellClick?: (data: any, event: React.MouseEvent<HTMLTableDataCellElement>) => any
     textAign?: 'left' | 'right' | 'center'
     nowrap?: boolean
+    defaultText?: React.ReactNode
   }
 
   interface IGridOnChangeConfig {
