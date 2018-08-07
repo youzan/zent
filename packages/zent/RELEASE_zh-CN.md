@@ -7,6 +7,22 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.1.0 (2018-08-03)
+
+- `Grid` 
+  - ✨ 支持给每一列设置一个默认的展示文案
+  - 🦀️ 修复 `selection.getCheckboxProps` 没有实时更新的问题
+- ✨ 新增几个 `Icon`
+- ✨ `Cascader` 支持通过 `expandTrigger` 设置子菜单的触发方式
+- ✨ `Pop` 增加 `containerSelector` 支持
+- `Button`
+  - ✨ 样式更新
+  - ✨ 当按钮文案为两个中文字符时，会在两个字符中间插入一个空格
+- 🦀️ 修复了 `NumberInput` 处理 `.xy` 形式的浮点数的问题
+- 🦀️ `Table` 选择模式下支持将行设置为选中同时是禁用的状态
+- 🦀️ 修复 `Form` 中 `FieldArray` 没有正确更新的问题
+- 🦀️ 修复了非常多的 `TypeScript` 定义问题
+
 ### 6.0.1 (2018-07-13)
 
 > ⚠️ 之前的版本 `Icon` 字体文件可能在 Windows 下展示会有问题，如果 Window 环境对你很重要建议使用这个版本。
