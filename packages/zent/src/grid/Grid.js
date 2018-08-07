@@ -441,6 +441,8 @@ class Grid extends PureComponent {
       ellipsis,
       expandation,
       rowKey,
+      components,
+      rowProps,
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -489,6 +491,8 @@ class Grid extends PureComponent {
         fixedColumnsBodyExpandRowsHeight={
           this.state.fixedColumnsBodyExpandRowsHeight
         }
+        components={components}
+        rowProps={rowProps}
       />
     );
     const { y, x } = scroll;
@@ -754,7 +758,13 @@ class Grid extends PureComponent {
           );
 
           return (
-            <div className={className} ref={node => (this.tableNode = node)}>
+            <div
+              className={className}
+              ref={node => {
+                this.tableNode = node;
+                return node;
+              }}
+            >
               <Loading show={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
