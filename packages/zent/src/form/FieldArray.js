@@ -10,9 +10,23 @@ import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 
-import { prefixName } from './utils';
+import { prefixName, unliftFieldArrayValue } from './utils';
 import unknownProps from './unknownProps';
 import { FieldArrayMutatorAction } from './constants';
+
+function fieldValueReader(callback, fieldArrayValues, item, index) {
+  const name = `[${index}]`;
+  return callback(
+    name,
+    index,
+
+    // make sure key changes when its name changes
+    `${name}-${item._fieldInternalKey}`,
+
+    fieldArrayValues[index],
+    fieldArrayValues
+  );
+}
 
 class FieldArray extends Component {
   static propTypes = {
@@ -116,19 +130,11 @@ class FieldArray extends Component {
     return this.wrappedComponent;
   };
 
-  forEachFields = callback => {
-    const { fieldArray } = this.state;
-    const fieldArrayValues = this.getFieldArrayValues();
-    fieldArray.forEach((item, index) => {
-      callback(
-        `[${index}]`,
-        index,
-        item._fieldInternalKey,
-        fieldArrayValues[index],
-        fieldArrayValues
-      );
-    });
-  };
+  // Propagate field array change to containing field array
+  guardFieldArrayChange(fieldArray) {
+    this.context.zentForm.onChangeFieldArray &&
+      this.context.zentForm.onChangeFieldArray(this._name, fieldArray);
+  }
 
   getField = index => {
     const { fieldArray } = this.state;
@@ -144,17 +150,19 @@ class FieldArray extends Component {
     return fieldArrayValues;
   };
 
+  forEachFields = callback => {
+    const { fieldArray } = this.state;
+    const fieldArrayValues = this.getFieldArrayValues();
+    fieldArray.forEach((item, index) => {
+      return fieldValueReader(callback, fieldArrayValues, item, index);
+    });
+  };
+
   mapFields = callback => {
     const { fieldArray } = this.state;
     const fieldArrayValues = this.getFieldArrayValues();
     return map(fieldArray, (item, index) => {
-      return callback(
-        `[${index}]`,
-        index,
-        item._fieldInternalKey,
-        fieldArrayValues[index],
-        fieldArrayValues
-      );
+      return fieldValueReader(callback, fieldArrayValues, item, index);
     });
   };
 
@@ -168,6 +176,8 @@ class FieldArray extends Component {
       const fieldToMove = fieldArray.splice(fromPos, 1)[0];
       fieldArray.splice(toPos, 0, fieldToMove);
 
+      this.guardFieldArrayChange(fieldArray);
+
       return {
         fieldArray,
       };
@@ -179,6 +189,8 @@ class FieldArray extends Component {
       const fieldArray = assign([], state.fieldArray);
       fieldArray.pop();
 
+      this.guardFieldArrayChange(fieldArray);
+
       return {
         fieldArray,
       };
@@ -189,6 +201,8 @@ class FieldArray extends Component {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
       fieldArray.push(this.createInternalFieldValue(value));
+
+      this.guardFieldArrayChange(fieldArray);
 
       return {
         fieldArray,
@@ -204,6 +218,8 @@ class FieldArray extends Component {
       }
       fieldArray.splice(index, 1);
 
+      this.guardFieldArrayChange(fieldArray);
+
       return {
         fieldArray,
       };
@@ -212,8 +228,11 @@ class FieldArray extends Component {
 
   removeAllFields = () => {
     this.setState(() => {
+      const fieldArray = [];
+      this.guardFieldArrayChange(fieldArray);
+
       return {
-        fieldArray: [],
+        fieldArray,
       };
     });
   };
@@ -222,6 +241,8 @@ class FieldArray extends Component {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
       fieldArray.shift();
+
+      this.guardFieldArrayChange(fieldArray);
 
       return {
         fieldArray,
@@ -240,6 +261,8 @@ class FieldArray extends Component {
       fieldArray[indexA] = fieldArray[indexB];
       fieldArray[indexB] = fieldA;
 
+      this.guardFieldArrayChange(fieldArray);
+
       return {
         fieldArray,
       };
@@ -250,6 +273,8 @@ class FieldArray extends Component {
     this.setState(state => {
       const fieldArray = assign([], state.fieldArray);
       fieldArray.unshift(this.createInternalFieldValue(value));
+
+      this.guardFieldArrayChange(fieldArray);
 
       return {
         fieldArray,
@@ -266,6 +291,8 @@ class FieldArray extends Component {
       }
       fieldArray = fieldArray.concat(values.map(this.createInternalFieldValue));
 
+      this.guardFieldArrayChange(fieldArray);
+
       return {
         fieldArray,
       };
@@ -278,8 +305,12 @@ class FieldArray extends Component {
         values = [values];
       }
 
+      const fieldArray = values.map(this.createInternalFieldValue);
+
+      this.guardFieldArrayChange(fieldArray);
+
       return {
-        fieldArray: values.map(this.createInternalFieldValue),
+        fieldArray,
       };
     });
   };
@@ -306,7 +337,7 @@ class FieldArray extends Component {
   getFieldArrayValues() {
     const { fieldArray } = this.state;
 
-    return (fieldArray || []).map(f => f._fieldInternalValue);
+    return (fieldArray || []).map(unliftFieldArrayValue);
   }
 
   componentWillUnmount() {

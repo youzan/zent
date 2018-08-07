@@ -12,8 +12,12 @@ declare module 'zent/lib/swiper' {
     dotsSize?: 'normal'|'small'|'large'
     arrows?: boolean
     arrowsType?: 'dark'|'light'
-    onChange?: Function
+    onChange?: (current: number, prev: number) => void
   }
 
-  export default class Swiper extends React.Component<ISwiperProps, any> {}
+  export default class Swiper extends React.Component<ISwiperProps, any> {
+    swiperTo(index: number): void
+    prev(): void
+    next(): void
+  }
 }

@@ -2,8 +2,8 @@
 
 declare module 'zent/lib/tabs' {
   interface ITab {
-    tab: string | number
-    id: string | number
+    key: string | number
+    title: string | number
     disabled?: boolean
   }
 
@@ -12,7 +12,7 @@ declare module 'zent/lib/tabs' {
     prefix?: string
     actived?: boolean
     tab: React.ReactNode
-    id?: string | number,
+    id: string | number,
     onPanelReady?: (id: string | number) => void
     uniqueId?: number
   }
@@ -22,9 +22,9 @@ declare module 'zent/lib/tabs' {
     type?: 'normal' | 'card' | 'slider'
     size?: 'normal' | 'huge'
     align?: 'left' | 'right' | 'center'
-    onTabChange?: (id: string) => void
-    onTabDel?: (id: string) => void
-    onTabAdd?: () => void
+    onChange?: (id: string | number) => void
+    onDelete?: (id: string | number) => void
+    onAdd?: () => void
     candel?: boolean
     canadd?: boolean
     tabs?: Array<ITab>

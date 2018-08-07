@@ -27,7 +27,7 @@ group: 反馈
 
 | 参数         |   说明         | 类型     | 是否必须    | 默认值      | 备选值            |
 | ------------ | ------------- | -------- | ---------- | ---------- | ----------------- |
-| rows         | 文本块行数     | `number` | 否          |           |         |
+| rows         | 文本块行数     | `number` | 是          |           |         |
 | widths       | 文本块宽度池，文本行宽度是从这个数组里循环取的。每个宽度都是百分比 | `number[]` | 否 | 略 | |
 | dashed       | 文本行是否分段  | `bool`  | 否          | `true`    | `false` |
 | dashSegments | 文本行分段配置池，每段都是百分比或者固定宽度 | `(number | string)[][]` | 否 |略 | |
@@ -35,7 +35,7 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |   
+| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### RichTextBlock
 
@@ -56,7 +56,7 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |   
+| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### TextRowDashed
 
@@ -69,7 +69,7 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |   
+| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### Circle
 
@@ -81,7 +81,7 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |   
+| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |
 
 ### Rectangle
 
@@ -94,4 +94,4 @@ group: 反馈
 | style        | 额外样式       | `object`  |  否       | `{}`       |  |
 | animate      | 是否开启动画   | `bool`    | 否         |  `true`   | `false`  |
 | className    | 额外类名       | `string`  | 否         |  `''`     |   |
-| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |   
+| prefix       | 自定义类名前缀  | `string`  | 否         | `'zent'`  |   |

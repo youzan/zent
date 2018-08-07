@@ -1,9 +1,11 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/slider' {
+
+  type SliderValueType = number | [number, number]
   interface ISliderProps {
-    value: [number, number]
-    onChange?: (value: number) => void
+    value: SliderValueType
+    onChange?: (value: SliderValueType) => void
     range?: boolean
     min?: number
     max?: number
@@ -13,6 +15,7 @@ declare module 'zent/lib/slider' {
     marks?: Object
     disabled?: boolean
     className?: string
+    width?: number | string
     prefix?: string
   }
 

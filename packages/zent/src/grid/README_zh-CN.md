@@ -59,6 +59,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | onCellClick | 点击单元格回调                                                    | (data: any, event: Event) => any                                  | 否       |
 | textAlign   | 文本对齐方式                                                      | string                                                             | 否       |
 | nowrap      | 是否换行 默认换行                                                 | bool                                                               | 否       |
+| defaultText | 默认显示文字                                                 | ReactNode                                                               | 否       |
 
 #### selection
 

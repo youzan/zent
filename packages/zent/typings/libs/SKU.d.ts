@@ -16,13 +16,20 @@ declare module 'zent/lib/sku' {
     skuTree?: Array<ISKUItem>
     optionValue?: string
     optionText?: string
-    onFetchGroup?: Function
-    onFetchSKU?: Function
-    onCreateGroup?: Function
-    onCreateSKU?: Function
+    onFetchGroup?: () => Promise<any>
+    onFetchSKU?: () => Promise<any>
+    onCreateGroup?: () => Promise<any>
+    onCreateSKU?: () => Promise<any>
     onChange?: Function
     prefix?: string
   }
 
-  export default class SKU extends React.Component<ISKUProps, any> {}
+  class SKU extends React.Component<ISKUProps, any> {
+    static flatten(sku: Array<any>, items: Array<any>, options: {
+      optionValue: string
+      optionText: string
+    }): Array<any>
+  }
+
+  export default SKU
 }

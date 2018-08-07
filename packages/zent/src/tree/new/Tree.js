@@ -39,6 +39,7 @@ export default class Tree extends (PureComponent || Component) {
     render: PropTypes.func,
     prefix: PropTypes.string,
     renderKey: PropTypes.object,
+    commonStyle: PropTypes.object,
   };
 
   static defaultProps = {

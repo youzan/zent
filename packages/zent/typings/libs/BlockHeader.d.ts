@@ -1,4 +1,5 @@
 /// <reference types="react" />
+/// <reference path="./Pop.d.ts" />
 
 declare module 'zent/lib/block-header' {
   interface IBlockHeaderProps {
@@ -6,7 +7,7 @@ declare module 'zent/lib/block-header' {
     title: string
     tooltip?: React.ReactNode
     content?: React.ReactNode,
-    childAlign?: string,
+    childAlign?: 'left' | 'right',
     position?: string,
     prefix?: string
   }
