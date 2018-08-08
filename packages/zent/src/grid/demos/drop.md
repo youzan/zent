@@ -32,26 +32,10 @@ for (let i = 0; i < 5; i++) {
 	})
 }
 
-const portal = document.createElement('div');
-
-document.body.appendChild(portal);
-
-// const portal: HTMLElement = document.createElement('div');
-// portal.classList.add('my-super-cool-portal');
-
-// if (!document.body) {
-//   throw new Error('body not ready for portal creation!');
-// }
-
-// document.body.appendChild(portal);
-
 class BodyRow extends React.Component {
-	// {...provided.draggableProps.style, height: '51px', display: 'table'}
 	getItemStyle(isDragging, draggableStyle) {
 		const style = {
 			height: '51px',
-			// position: 'relative',
-			// styles we need to apply on draggables
 			...draggableStyle
 		}
 
@@ -61,25 +45,16 @@ class BodyRow extends React.Component {
   render() {
 		return (<Draggable key={this.props.id} draggableId={this.props.id}>
 			{(provided, snapshot) => {
-				const usePortal = snapshot.isDragging;
-
-				const child = (<tr
+				return (<tr
 					{...this.props}
 					ref={provided.innerRef}
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}
-					// style={this.getItemStyle(
-					// 	snapshot.isDragging,
-					// 	provided.draggableProps.style
-					// )}
+					style={this.getItemStyle(
+						snapshot.isDragging,
+						provided.draggableProps.style
+					)}
 				/>);
-
-				if (!usePortal) {
-					return child;
-				}
-
-    		// if dragging - put the item in a portal
-    		return ReactDOM.createPortal(child, portal);
 			}}
 		</Draggable>)
   }
@@ -134,55 +109,11 @@ class Drap extends React.Component {
 							/>
 							{provided.placeholder}
 						</div>
-						// <div
-						// 	ref={provided.innerRef}
-						// >
-						// 	{this.state.datasets.map((item, index) => {
-						// 		return (<Draggable key={index} draggableId={index} index={index}>
-						// 			{(provided, snapshot) => {
-						// 				console.log(provided.draggableProps,'provided.draggableProps');
-						// 				console.log(provided.dragHandleProps,'provided.draggableProps');
-						// 				return (<li
-						// 					ref={provided.innerRef}
-						// 					{...provided.draggableProps}
-            //           {...provided.dragHandleProps}
-						// 				>
-						// 					{index}
-						// 				</li>
-						// 			);
-						// 			}}
-						// 		</Draggable>)
-						// 	})}
-						// </div>
 					)}
 				</Droppable>
 			</DragDropContext>
 		)
 	}
-
-  // render() {
-  //   return (
-	// 		<DragDropContext onDragEnd={this.onDragEnd}>
-	// 			<Droppable droppableId="droppable">
-	// 				{(provided, snapshot) => (
-	// 					<Grid
-	// 						ref={provided.innerRef}
-	// 						columns={this.columns}
-	// 						datasets={this.state.datasets}
-	// 						components={this.components}
-	// 						rowClassName={(data, index) => `${data.id}-${index}`}
-	// 						onRowClick={(data, index, event) => { console.log(data, index, event.target, 'simple onRowClick') }}
-	// 						rowProps={(data, index) => ({
-	// 							index,
-	// 							key: data.id,
-	// 							id: data.id
-	// 						})}
-	// 					/>
-	// 				)}
-	// 			</Droppable>
-	// 		</DragDropContext>
-  //   );
-  // }
 };
 
 ReactDOM.render(
