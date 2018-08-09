@@ -164,15 +164,16 @@ describe('Menu component', () => {
     let wrapper = mount(
       <Menu mode="inline" onSubMenuClick={subMenuClick}>
         <MenuItem key="1-1">食品分类</MenuItem>
-        <SubMenu key="333" title="美妆分类" className="submenu">
+        <SubMenu key="333" title="美妆分类" className="abc">
           <MenuItem key="3-1">眼影</MenuItem>
         </SubMenu>
       </Menu>
     );
     wrapper
-      .find('submenu')
+      .find('.abc > div')
       .at(0)
       .simulate('click');
+
     expect(subMenuClick.mock.calls[0][0]).toBe('333');
   });
 
@@ -194,16 +195,15 @@ describe('Menu component', () => {
       </Menu>
     );
     wrapper
-      .find('submenu')
+      .find('.submenu > div')
       .at(0)
       .simulate('click');
     expect(onExpandCallback.mock.calls[0][0]).toEqual(['444']);
 
     wrapper
-      .find('submenu')
+      .find('.submenu > div')
       .at(0)
       .simulate('click');
-
-    expect(onExpandCallback.mock.calls[0][0]).toEqual(['333', '444']);
+    expect(onExpandCallback.mock.calls[1][0]).toEqual(['333', '444']);
   });
 });
