@@ -59,6 +59,7 @@ onChange will throw an object, which includes parameters about the change part o
 | onCellClick | callback fires when a cell is clicked                                                               | (data: any, event: Event) => any                                  | No       |
 | textAlign   | Text alignment                                                                                      | string                                                             | No       |
 | nowrap      | whether to wrap, true by default                                                                    | bool                                                               | No       |
+| defaultText | default display text                                                 | ReactNode                                                               | No       |
 
 #### selection
 

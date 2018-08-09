@@ -37,10 +37,7 @@ export default class Td extends PureComponent {
         return (
           <Radio
             className="select-check"
-            checked={
-              canSelect &&
-              selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
-            }
+            checked={selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
             disabled={!canSelect}
             onChange={this.onSelect}
           />
@@ -50,9 +47,7 @@ export default class Td extends PureComponent {
       return (
         <Checkbox
           className="select-check"
-          checked={
-            canSelect && selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
-          }
+          checked={selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
           disabled={!canSelect}
           onChange={this.onSelect}
         />
