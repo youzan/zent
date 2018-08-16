@@ -758,13 +758,7 @@ class Grid extends PureComponent {
           );
 
           return (
-            <div
-              className={className}
-              ref={node => {
-                this.tableNode = node;
-                return node;
-              }}
-            >
+            <div className={className} ref={node => (this.tableNode = node)}>
               <Loading show={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
