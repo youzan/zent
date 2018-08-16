@@ -158,4 +158,52 @@ describe('Menu component', () => {
     wrapper.find('SubMenu MenuItem').simulate('click');
     expect(wrapper.find('.zent-menu__inline-item-selected').length).toBe(1);
   });
+
+  it('can get subMenu id when subMenu is clicked', () => {
+    const subMenuClick = jest.fn();
+    let wrapper = mount(
+      <Menu mode="inline" onSubMenuClick={subMenuClick}>
+        <MenuItem key="1-1">食品分类</MenuItem>
+        <SubMenu key="333" title="美妆分类" className="abc">
+          <MenuItem key="3-1">眼影</MenuItem>
+        </SubMenu>
+      </Menu>
+    );
+    wrapper
+      .find('.abc > div')
+      .at(0)
+      .simulate('click');
+
+    expect(subMenuClick.mock.calls[0][0]).toBe('333');
+  });
+
+  it('can emit the expanded ids when toggle expand', () => {
+    const onExpandCallback = jest.fn();
+    let wrapper = mount(
+      <Menu
+        mode="inline"
+        onExpandChange={onExpandCallback}
+        defaultExpandKeys={['333', '444']}
+      >
+        <MenuItem key="1-1">食品分类</MenuItem>
+        <SubMenu key="333" title="美妆分类" className="submenu">
+          <MenuItem key="3-1">眼影</MenuItem>
+        </SubMenu>
+        <SubMenu key="444" title="水果分类" className="submenu">
+          <MenuItem key="3-1">西红柿</MenuItem>
+        </SubMenu>
+      </Menu>
+    );
+    wrapper
+      .find('.submenu > div')
+      .at(0)
+      .simulate('click');
+    expect(onExpandCallback.mock.calls[0][0]).toEqual(['444']);
+
+    wrapper
+      .find('.submenu > div')
+      .at(0)
+      .simulate('click');
+    expect(onExpandCallback.mock.calls[1][0]).toEqual(['333', '444']);
+  });
 });
