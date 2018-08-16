@@ -32,18 +32,29 @@ for (let i = 0; i < 5; i++) {
 	})
 }
 
+const reorder = (list, startIndex, endIndex) => {
+	const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 class BodyRow extends React.Component {
 	getItemStyle(isDragging, draggableStyle) {
 		const style = {
-			height: '51px',
 			...draggableStyle
+		}
+
+		if(isDragging) {
+			style.display  = 'table';
 		}
 
 		return style;
 	}
 
   render() {
-		return (<Draggable key={this.props.id} draggableId={this.props.id}>
+		return (<Draggable key={this.props.id} draggableId={this.props.id} index={this.props.index}>
 			{(provided, snapshot) => {
 				return (<tr
 					{...this.props}
@@ -88,7 +99,21 @@ class Drap extends React.Component {
 	}
 
 	onDragEnd = (result) => {
-		console.log(result, 'ressssss');
+    if (!result.destination) {
+      return;
+    }
+
+    const datasets = reorder(
+      this.state.datasets,
+      result.source.index,
+      result.destination.index
+		);
+		
+		console.log(datasets, this.state.datasets, '-------');
+
+    this.setState({
+      datasets,
+    });
 	}
 
 	render() {
@@ -101,13 +126,12 @@ class Drap extends React.Component {
 								columns={this.columns}
 								datasets={this.state.datasets}
 								components={this.components}
-								rowClassName={(data, index) => `${data.id}-${index}`}
-								onRowClick={(data, index, event) => { console.log(data, index, event.target, 'simple onRowClick') }}
-								rowProps={(data) => ({
-									id: data.id
+								className="drop-grid"
+								rowProps={(data, index) => ({
+									id: data.id,
+									index
 								})}
 							/>
-							{provided.placeholder}
 						</div>
 					)}
 				</Droppable>
@@ -121,3 +145,9 @@ ReactDOM.render(
 	, mountNode
 );
 ```
+
+<style>
+.drop-grid {
+  overflow: visible;
+}
+</style>
