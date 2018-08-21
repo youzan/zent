@@ -40,6 +40,7 @@ const datasets = [];
 
 for (let i = 0; i < 3; i++) {
 	datasets.push({
+		id: i,
 		name: `{i18n.product} ${i}`,
 		uv: 20,
 		stock: 5
