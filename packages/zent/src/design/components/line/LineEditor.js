@@ -15,8 +15,8 @@ export default class LineEditor extends DesignEditor {
       <div className={`${prefix}-design-component-line-editor`}>
         <ControlGroup
           label="颜色:"
-          showError={showError || this.getMetaProperty('content', 'touched')}
-          error={validation.content}
+          showError={showError || this.getMetaProperty('color', 'touched')}
+          error={validation.color}
         >
           <ColorPicker
             className={`${prefix}-design-component-line-editor_color-select`}
@@ -32,8 +32,8 @@ export default class LineEditor extends DesignEditor {
         </ControlGroup>
         <ControlGroup
           label="边距:"
-          showError={showError || this.getMetaProperty('content', 'touched')}
-          error={validation.content}
+          showError={showError || this.getMetaProperty('hasPadding', 'touched')}
+          error={validation.hasPadding}
         >
           <RadioGroup value={value.hasPadding} onChange={this.onInputChange}>
             <Radio name="hasPadding" value={false}>
@@ -46,8 +46,8 @@ export default class LineEditor extends DesignEditor {
         </ControlGroup>
         <ControlGroup
           label="样式:"
-          showError={showError || this.getMetaProperty('content', 'touched')}
-          error={validation.content}
+          showError={showError || this.getMetaProperty('lineType', 'touched')}
+          error={validation.lineType}
         >
           <RadioGroup value={value.lineType} onChange={this.onInputChange}>
             <Radio name="lineType" value="solid">
