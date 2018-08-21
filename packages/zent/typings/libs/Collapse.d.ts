@@ -10,5 +10,20 @@ declare module 'zent/lib/collapse' {
     prefix?: string
   }
 
-  export default class Collapse extends React.Component<ICollapseProps, any> {}
+  interface ICollapsePanelProps {
+    title: React.ReactNode
+    disabled?: boolean
+    showArrow?: boolean
+    style?: React.CSSProperties
+    className?: string
+    prefix?: string
+  }
+
+  class Collapse extends React.Component<ICollapseProps, any> {}
+
+  namespace Collapse {
+    class Panel extends React.PureComponent<ICollapsePanelProps, any> {}
+  }
+
+  export default Collapse
 }

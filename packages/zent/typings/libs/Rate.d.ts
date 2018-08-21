@@ -2,16 +2,16 @@
 
 declare module 'zent/lib/rate' {
   interface IRateProps {
-    disabled?: boolean,
-    value?: number,
-    count?: number,
-    allowHalf?: boolean,
-    allowClear?: boolean,
-    style?: React.CSSProperties,
-    prefix?: string,
-    onChange?: (value: number) => void,
-    className?: string,
+    onChange?: (value: number) => void
+    value?: number
+    allowClear?: boolean
+    allowHalf?: boolean
     character?: React.ReactNode
+    className?: string
+    count?: number
+    disabled?: boolean
+    style?: React.CSSProperties
+    prefix?: string
   }
 
   export default class Rate extends React.Component<IRateProps, any> {}

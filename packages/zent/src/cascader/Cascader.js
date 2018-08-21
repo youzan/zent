@@ -43,6 +43,7 @@ class Cascader extends PureComponent {
     changeOnSelect: PropTypes.bool,
     title: PropTypes.array,
     type: PropTypes.oneOf(['tabs', 'menu']),
+    expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
   static defaultProps = {
@@ -56,6 +57,7 @@ class Cascader extends PureComponent {
     changeOnSelect: false,
     title: [],
     type: 'tabs',
+    expandTrigger: 'click',
   };
 
   constructor(props) {
@@ -157,7 +159,7 @@ class Cascader extends PureComponent {
     });
   };
 
-  clickHandler = (item, stage, popover) => {
+  clickHandler = (item, stage, popover, triggerType = 'click') => {
     let { loadMore } = this.props;
     let { options } = this.state;
     let needLoading =
@@ -165,7 +167,7 @@ class Cascader extends PureComponent {
       loadMore &&
       (!item.children || item.children.length === 0);
 
-    this.expandHandler(item, stage, popover, needLoading);
+    this.expandHandler(item, stage, popover, needLoading, triggerType);
 
     if (needLoading) {
       this.setState({
@@ -183,7 +185,7 @@ class Cascader extends PureComponent {
     }
   };
 
-  expandHandler = (item, stage, popover, willLoading) => {
+  expandHandler = (item, stage, popover, willLoading, triggerType) => {
     let { value } = this.state;
     let { changeOnSelect } = this.props;
     let hasClose = false;
@@ -199,12 +201,13 @@ class Cascader extends PureComponent {
       if (!willLoading) {
         obj.activeId = ++stage;
       }
-    } else {
+    } else if (triggerType === 'click') {
+      // 只有click的时候才关闭
       hasClose = true;
       popover.close();
     }
-
-    if (hasClose || changeOnSelect) {
+    // 选择即改变只针对click
+    if (hasClose || (changeOnSelect && triggerType === 'click')) {
       this.resetCascaderValue(value);
     }
 
@@ -212,7 +215,7 @@ class Cascader extends PureComponent {
   };
 
   getPopoverContent(i18n) {
-    const { type, prefix, title, options } = this.props;
+    const { type, prefix, title, options, expandTrigger } = this.props;
     let { activeId, value, isLoading, loadingStage } = this.state;
     let PopoverContentType;
     if (type === 'tabs') {
@@ -239,6 +242,7 @@ class Cascader extends PureComponent {
           title={title}
           recursiveNextOptions={this.recursiveNextOptions}
           options={options}
+          expandTrigger={expandTrigger}
           ref={ref => (this.cascader = ref)}
         />
       </PopoverContent>

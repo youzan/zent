@@ -6,6 +6,8 @@ declare module 'zent/lib/badge' {
     maxCount?: number
     dot?: boolean
     showZero?: boolean
+    offset?: [number, number]
+    style?: React.CSSProperties
     className?: string
     prefix?: string
   }

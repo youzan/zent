@@ -2,12 +2,13 @@
 
 declare module 'zent/lib/card' {
   interface ICardProps {
-    title?: React.ReactNode,
-    action?: React.ReactNode,
-    style?: React.CSSProperties,
-    bodyStyle?: React.CSSProperties,
+    type?: 'normal' | 'nested'
+    title?: React.ReactNode
+    action?: React.ReactNode
+    style?: React.CSSProperties
+    bodyStyle?: React.CSSProperties
     loading?: boolean
-    className?: string,
+    className?: string
     prefix?: string
   }
 

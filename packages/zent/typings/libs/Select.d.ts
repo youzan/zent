@@ -20,11 +20,17 @@ declare module 'zent/lib/select' {
     optionValue?: string
     onChange?: (event: { target: { type: any, value: any }, preventDefault: () => void, stopPropagation: () => void }, value: any) => void
     onDelete?: (date: any) => void
-    filter?: (item: any) => boolean
+    filter?: (item: any, keyword?: string) => boolean
+    maxToShow?: number
     onAsyncFilter?: (keyword: string, callback: (data: any) => void) => void
     onEmptySelected?: (event: React.SyntheticEvent<HTMLSpanElement>, value: any) => void
     onOpen?: () => void
     className?: string
+    popupClassName?: string
+    autoWidth?: boolean
+    resetOption?: boolean
+    resetText?: string
+    width?: number | string
     prefix?: string
   }
 

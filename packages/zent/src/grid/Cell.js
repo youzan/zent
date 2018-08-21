@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import get from 'lodash/get';
 import has from 'lodash/has';
+import isNil from 'lodash/isNil';
 import classnames from 'classnames';
 
 class Cell extends Component {
@@ -38,9 +39,18 @@ class Cell extends Component {
 
   render() {
     const { prefix, column, data, pos } = this.props;
-    const { name, bodyRender, textAlign, nowrap, className } = column;
-
-    let text = get(data, name, null);
+    const {
+      name,
+      bodyRender,
+      textAlign,
+      nowrap,
+      className,
+      defaultText,
+    } = column;
+    let text = get(data, name);
+    if (isNil(text) && defaultText) {
+      text = defaultText;
+    }
     let tdProps;
     let colSpan;
     let rowSpan;
