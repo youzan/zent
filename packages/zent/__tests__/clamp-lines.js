@@ -23,9 +23,47 @@ describe('ClampLines', () => {
       textContent: '',
     };
     instance.clampLines();
-
+    instance.state.noClamp = false;
+    instance.render();
     expect(props.prefix).toBe('zent');
-    expect(wrapper.state().noClamp).toBe(true);
+    expect(wrapper.state().noClamp).toBe(false);
     expect(instance.innerElement.textContent).toBe(content);
+  });
+
+  it('do not show pop', () => {
+    const wrapper = mount(
+      <ClampLines lines={2} popWidth={400} text={content} showPop={false} />
+    );
+    const instance = wrapper.find(ClampLines).instance();
+    instance.innerElement = {
+      textContent: '',
+    };
+    instance.state.noClamp = false;
+    const spy = jest.spyOn(instance, 'renderClampedText');
+    instance.render();
+    expect(spy).toBeCalled();
+  });
+
+  it('empty text', () => {
+    const wrapper = mount(<ClampLines lines={2} popWidth={400} text="" />);
+    const instance = wrapper.find(ClampLines).instance();
+    expect(instance.innerElement).toBe(null);
+  });
+
+  it('resizable', () => {
+    const wrapper = mount(
+      <ClampLines lines={2} popWidth={400} resizable text="" />
+    );
+    const instance = wrapper.find(ClampLines).instance();
+    instance.element = {
+      clientHeight: 20,
+    };
+    instance.innerElement = {
+      textContent: '',
+    };
+    const spy = jest.spyOn(instance, 'clampLines');
+    instance.handleResize();
+    jest.runAllTimers();
+    expect(spy).toBeCalled();
   });
 });

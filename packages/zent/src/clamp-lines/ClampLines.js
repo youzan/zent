@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Pop from 'pop';
 import cx from 'classnames';
-import isSsr from 'zan-utils/browser/isSsr';
 import debounce from 'lodash/debounce';
 import identity from 'lodash/identity';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
@@ -44,23 +43,11 @@ class ClampLines extends Component {
     this.innerElement = null;
     this.original = props.text;
     this.lineHeight = 0;
-    this.start = 0;
-    this.middle = 0;
-    this.end = 0;
+
     this.state = {
       noClamp: false,
       text: '.',
     };
-
-    // check if in nodejs env or not
-    this.ssr = isSsr();
-
-    if (!this.ssr && props.resizable) {
-      this.handleResize = debounce(() => {
-        this.setState({ noClamp: false });
-        this.clampLines();
-      }, props.delay);
-    }
   }
 
   componentDidMount() {
@@ -71,20 +58,25 @@ class ClampLines extends Component {
     }
   }
 
+  handleResize = debounce(() => {
+    this.setState({ noClamp: false });
+    this.clampLines();
+  }, this.props.delay);
+
   clampLines() {
     this.setState({ text: '' });
 
     let maxHeight = this.lineHeight * this.props.lines + 1;
     this.maxHeight = maxHeight;
-    this.start = 0;
-    this.middle = 0;
-    this.end = this.original.length;
+    let start = 0;
+    let middle = 0;
+    let end = this.original.length;
 
-    while (this.start <= this.end) {
-      this.middle = Math.floor((this.start + this.end) / 2);
+    while (start <= end) {
+      middle = Math.floor((start + end) / 2);
       this.innerElement.textContent =
-        this.original.slice(0, this.middle) + this.getEllipsis();
-      if (this.middle === this.original.length) {
+        this.original.slice(0, middle) + this.getEllipsis();
+      if (middle === this.original.length) {
         this.setState({
           text: this.original,
           noClamp: true,
@@ -92,23 +84,18 @@ class ClampLines extends Component {
         return;
       }
 
-      this.moveMarkers(maxHeight);
+      if (this.element.clientHeight <= maxHeight) {
+        start = middle + 1;
+      } else {
+        end = middle - 1;
+      }
     }
 
     this.innerElement.textContent =
-      this.original.slice(0, this.middle - 1) + this.getEllipsis();
+      this.original.slice(0, middle - 1) + this.getEllipsis();
     this.setState({
-      text: this.original.slice(0, this.middle - 1) + this.getEllipsis(),
+      text: this.original.slice(0, middle - 1) + this.getEllipsis(),
     });
-  }
-
-  // binary search divider
-  moveMarkers(maxHeight) {
-    if (this.element.clientHeight <= maxHeight) {
-      this.start = this.middle + 1;
-    } else {
-      this.end = this.middle - 1;
-    }
   }
 
   getEllipsis() {
