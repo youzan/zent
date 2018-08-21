@@ -19,7 +19,7 @@ en-US:
 ```jsx
 import { Grid } from 'zent';
 import ReactDOM from 'react-dom';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'; // 建议此库的版本大于 9.0.0
 
 const datasets = [];
 

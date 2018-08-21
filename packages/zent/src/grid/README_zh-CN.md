@@ -31,6 +31,8 @@ group: 导航
 | onRowClick   | 点击行时触发                                                  | (data: any, index: number, event: Event) => any     |                    | 否       |
 | ellipsis     | 是否需要文字超出宽度后省略号显示 (需配置 columns 中的 nowrap) | bool                                                 | false              | 否       |
 | onExpand     | 点击展开图标时触发                                             | (data: {expanded: boolean, data: any, event: Event, index: number}) => any | | 否 |
+| components  | 自定义 table 内的组件                                             | object                                                             | 否       |
+
 #### onChange 函数声明
 
 onChange 会抛出一个对象，这个对象包含分页变化的参数：
