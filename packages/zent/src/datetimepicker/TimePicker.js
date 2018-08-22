@@ -395,6 +395,7 @@ export default class TimePicker extends PureComponent {
         placeholder,
         value,
         canClear,
+        autoComplete,
       },
       state: { isPanelOpen },
     } = this;
@@ -439,6 +440,7 @@ export default class TimePicker extends PureComponent {
                     placeholder={placeholder || i18n.time}
                     onChange={noop}
                     disabled={disabled}
+                    autoComplete={autoComplete}
                   />
                   <span className="zenticon zenticon-clock-o" />
                   {canClear && (

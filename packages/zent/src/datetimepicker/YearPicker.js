@@ -209,6 +209,7 @@ class YearPicker extends PureComponent {
         prefix,
         width,
         canClear,
+        autoComplete,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -244,6 +245,7 @@ class YearPicker extends PureComponent {
                     value={value || ''}
                     onChange={noop}
                     disabled={disabled}
+                    autoComplete={autoComplete}
                   />
                 )}
               </Receiver>
