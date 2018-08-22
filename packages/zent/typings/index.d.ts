@@ -13,6 +13,7 @@
 /// <reference path="./libs/Card.d.ts" />
 /// <reference path="./libs/Cascader.d.ts" />
 /// <reference path="./libs/CheckBox.d.ts" />
+/// <reference path="./libs/ClampLines.d.ts" />
 /// <reference path="./libs/Collapse.d.ts" />
 /// <reference path="./libs/ColorPicker.d.ts" />
 /// <reference path="./libs/CopyButton.d.ts" />
@@ -70,6 +71,7 @@ declare module 'zent' {
   import Cascader from 'zent/lib/cascader';
   import Card from 'zent/lib/card';
   import Checkbox from 'zent/lib/checkbox';
+  import ClampLines from 'zent/lib/clamp-lines';
   import ColorPicker from 'zent/lib/colorpicker';
   import Collapse from 'zent/lib/collapse';
   import CopyButton from 'zent/lib/copy-button';
