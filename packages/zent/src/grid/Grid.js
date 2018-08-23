@@ -56,6 +56,8 @@ class Grid extends PureComponent {
     onRowClick: PropTypes.func,
     ellipsis: PropTypes.bool,
     onExpand: PropTypes.func,
+    components: PropTypes.object,
+    rowProps: PropTypes.func,
   };
 
   static defaultProps = {
@@ -441,6 +443,8 @@ class Grid extends PureComponent {
       ellipsis,
       expandation,
       rowKey,
+      components,
+      rowProps,
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -489,6 +493,8 @@ class Grid extends PureComponent {
         fixedColumnsBodyExpandRowsHeight={
           this.state.fixedColumnsBodyExpandRowsHeight
         }
+        components={components}
+        rowProps={rowProps}
       />
     );
     const { y, x } = scroll;

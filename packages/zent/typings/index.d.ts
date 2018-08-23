@@ -220,6 +220,22 @@ declare namespace zent {
     class Group extends React.Component<ICheckBoxGroupProps, any> { }
   }
 
+  interface IClampLinesProps {
+    text: string,
+    lines?: number,
+    delay?: number,
+    ellipsis?: string,
+    showPop?: boolean,
+    popWidth?: number,
+    trigger?: 'click' | 'hover' | 'focus',
+    renderPop?: (text: string) => React.ReactNode,
+    resizable?: boolean,
+    extra?: React.ReactNode,
+    className?: string,
+    prefix?: string,
+  }
+
+  class ClampLines extends React.Component<IClampLinesProps, any> { }
 
   interface ICollapseProps {
     activeKey: string | string[]
@@ -756,7 +772,7 @@ declare namespace zent {
     }
     expandation?: {
       isExpanded?: (record: any, index: number) => boolean,
-      expandRender?: (data: Object) => React.ReactNode
+      expandRender?: (data: any) => React.ReactNode
     }
     loading?: boolean
     className?: string
@@ -774,6 +790,10 @@ declare namespace zent {
     onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => void
     ellipsis?: boolean
     onExpand?: (data: {expanded: boolean, data: any, event: React.MouseEvent<HTMLTableRowElement>, index: number}) => void
+    components?: {
+      row?: React.ReactNode
+    },
+    rowProps?: (data: any, index: number) => any
   }
 
   class Grid extends React.Component<IGridProps, any> { }

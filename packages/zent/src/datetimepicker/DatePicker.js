@@ -359,6 +359,7 @@ class DatePicker extends PureComponent {
         name,
         placeholder,
         canClear,
+        autoComplete,
       },
       state: { showPlaceholder, openPanel, value },
     } = this;
@@ -397,6 +398,7 @@ class DatePicker extends PureComponent {
                     value={value || ''}
                     onChange={noop}
                     disabled={disabled}
+                    autoComplete={autoComplete}
                   />
                   <span className="zenticon zenticon-calendar-o" />
                   {canClear && (
