@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
 import { noop } from '../constants';
 
 export default class TimeCell extends PureComponent {
   static propTypes = {
     onSelect: PropTypes.func,
+    cells: PropTypes.array,
   };
 
   static defaultProps = {
