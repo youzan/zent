@@ -52,7 +52,7 @@ describe('ClampLines', () => {
 
   it('resizable', () => {
     const wrapper = mount(
-      <ClampLines lines={2} popWidth={400} resizable text="" />
+      <ClampLines delay={0} lines={2} popWidth={400} resizable text="" />
     );
     const instance = wrapper.find(ClampLines).instance();
     instance.element = {
@@ -63,7 +63,7 @@ describe('ClampLines', () => {
     };
     const spy = jest.spyOn(instance, 'clampLines');
     instance.handleResize();
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     expect(spy).toBeCalled();
   });
 });
