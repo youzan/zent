@@ -1,11 +1,11 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Checkbox from 'checkbox';
 import Radio from 'radio';
 import cx from 'classnames';
 
 import helper from '../helper';
 
-export default class Td extends (PureComponent || Component) {
+export default class Td extends PureComponent {
   renderContent() {
     const { column, data, pos } = this.props;
     const { name, bodyRender = data[name] } = column;
@@ -37,10 +37,7 @@ export default class Td extends (PureComponent || Component) {
         return (
           <Radio
             className="select-check"
-            checked={
-              canSelect &&
-              selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
-            }
+            checked={selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
             disabled={!canSelect}
             onChange={this.onSelect}
           />
@@ -50,9 +47,7 @@ export default class Td extends (PureComponent || Component) {
       return (
         <Checkbox
           className="select-check"
-          checked={
-            canSelect && selection.selectedRowKeys.indexOf(data[rowKey]) !== -1
-          }
+          checked={selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
           disabled={!canSelect}
           onChange={this.onSelect}
         />

@@ -73,17 +73,17 @@ isOutside 的 `data` 包含两个属性：`contentNode` 和 `triggerNode`。
 
 #### Trigger.Base
 
-所有trigger的基类, 实现自定义 trigger 需继承这个类, 继承时一般需要重写 `getTriggerProps` 方法给 trigger 添加事件, 然后在事件
-处理函数控制弹层的开/闭.
+所有trigger的基类, 实现自定义 trigger 需继承这个类, 继承时一般需要重写 `getTriggerProps` 方法给 trigger 添加事件, 然后在事件处理函数控制弹层的开/闭。
 
 | 参数                 | 说明                                               | 类型                     |
 | ------------------ | ------------------------------------------------ | ---------------------- |
-| getTriggerNode     | 获取trigger的DOM node                               | func: () => node       |
-| getContentNode     | 获取弹层的DOM node                                    | func: () => node       |
-| open               | 打开弹层                                             | func                   |
-| close              | 关闭弹层                                             | func                   |
-| contentVisible     | 弹层当前是否打开                                         | bool                   |
+| getTriggerNode     | 获取 trigger 的 DOM node                               | func: () => node       |
+| getContentNode     | 获取弹层的 DOM node         | func: () => node       |
+| open               | 打开弹层                             | func                   |
+| close              | 关闭弹层                         | func                   |
+| contentVisible     | 弹层当前是否打开                          | bool                   |
 | onTriggerRefChange | trigger的ref改变的时候需要调用的回掉函数, 只有在重写 render 函数的时候需要这个函数 | func:(instance) |
+| getNodeForTriggerRefChange | 当 ref 改变时获取实际 trigger DOM 节点的回调函数 | (HTMLElement) => HTMLELement |
 
 ### Position API
 

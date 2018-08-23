@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import NumberSteps from './components/NumberSteps';
 import BreadcrumbSteps from './components/BreadcrumbSteps';
 
-export default class Steps extends (PureComponent || Component) {
+export default class Steps extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,

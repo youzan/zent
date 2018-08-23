@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'icon';
 import classnames from 'classnames';
@@ -6,7 +6,7 @@ import Popover from 'popover';
 
 const withPopover = Popover.withPopover;
 
-class MenuContent extends (PureComponent || Component) {
+class MenuContent extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -15,6 +15,7 @@ class MenuContent extends (PureComponent || Component) {
     options: PropTypes.array,
     isLoading: PropTypes.bool,
     recursiveNextOptions: PropTypes.func,
+    expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
   getMenuItemIcon(item, isShowLoading, isActive) {
@@ -35,7 +36,14 @@ class MenuContent extends (PureComponent || Component) {
   }
 
   renderCascaderItems(items, stage, popover) {
-    let { prefix, value, clickHandler, isLoading, loadingStage } = this.props;
+    let {
+      prefix,
+      value,
+      clickHandler,
+      isLoading,
+      loadingStage,
+      expandTrigger,
+    } = this.props;
 
     const isShowLoading = isLoading && stage === loadingStage;
 
@@ -50,7 +58,11 @@ class MenuContent extends (PureComponent || Component) {
         <li
           className={cascaderItemCls}
           title={item.title}
-          onClick={() => clickHandler(item, stage, popover)}
+          onClick={() => clickHandler(item, stage, popover, 'click')}
+          onMouseEnter={() =>
+            expandTrigger === 'hover' &&
+            clickHandler(item, stage, popover, 'hover')
+          }
           key={item.id}
         >
           {item.title}

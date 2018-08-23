@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Loading from 'loading';
 import classnames from 'classnames';
@@ -16,7 +16,6 @@ import some from 'lodash/some';
 import map from 'lodash/map';
 import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
-import cloneDeep from 'lodash/cloneDeep';
 import includes from 'lodash/includes';
 import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
@@ -38,7 +37,7 @@ function stopPropagation(e) {
   }
 }
 
-class Grid extends (PureComponent || Component) {
+class Grid extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -56,6 +55,7 @@ class Grid extends (PureComponent || Component) {
     sortType: PropTypes.string,
     onRowClick: PropTypes.func,
     ellipsis: PropTypes.bool,
+    onExpand: PropTypes.func,
   };
 
   static defaultProps = {
@@ -73,6 +73,7 @@ class Grid extends (PureComponent || Component) {
     scroll: {},
     onRowClick: noop,
     ellipsis: false,
+    onExpand: noop,
   };
 
   constructor(props) {
@@ -186,6 +187,12 @@ class Grid extends (PureComponent || Component) {
     this.props.onChange(params);
   };
 
+  onPageSizeChange = pageSize => {
+    this.props.onChange({
+      pageSize,
+    });
+  };
+
   getDataKey = (data, rowIndex) => {
     const { rowKey } = this.props;
     return rowKey ? get(data, rowKey) : rowIndex;
@@ -226,7 +233,8 @@ class Grid extends (PureComponent || Component) {
     );
   };
 
-  handleExpandRow = clickRow => () => {
+  handleExpandRow = (clickRow, rowData) => e => {
+    const { onExpand } = this.props;
     const expandRowKeys = map(
       this.state.expandRowKeys,
       (row, index) => (index === clickRow ? !row : row)
@@ -237,6 +245,14 @@ class Grid extends (PureComponent || Component) {
     this.setState({
       expandRowKeys,
     });
+    if (isFunction(onExpand)) {
+      onExpand({
+        expanded: expandRowKeys[clickRow],
+        data: rowData,
+        event: e,
+        index: clickRow,
+      });
+    }
   };
 
   getExpandBodyRender = expandRowKeys => (rowData, { row }) => {
@@ -248,14 +264,14 @@ class Grid extends (PureComponent || Component) {
             ? `${prefix}-grid-expandable-btn ${prefix}-grid-collapse-btn`
             : `${prefix}-grid-expandable-btn ${prefix}-grid-expand-btn`
         }
-        onClick={this.handleExpandRow(row)}
+        onClick={this.handleExpandRow(row, rowData)}
       />
     );
   };
 
   getColumns = (props, columns, expandRowKeys) => {
     let { selection, datasets, expandation } = props || this.props;
-    columns = cloneDeep(columns || this.store.getState('columns'));
+    columns = (columns || this.store.getState('columns')).slice();
     expandRowKeys = expandRowKeys || this.state.expandRowKeys;
     const hasLeft = columns.some(
       column => column.fixed === 'left' || column.fixed === true
@@ -424,6 +440,7 @@ class Grid extends (PureComponent || Component) {
       onRowClick,
       ellipsis,
       expandation,
+      rowKey,
     } = this.props;
     const { fixed } = options;
     const columns = options.columns || this.store.getState('columns');
@@ -457,6 +474,7 @@ class Grid extends (PureComponent || Component) {
     const body = (
       <Body
         prefix={prefix}
+        rowKey={rowKey}
         columns={columns}
         datasets={datasets}
         expandRowKeys={expandRowKeys}
@@ -590,7 +608,7 @@ class Grid extends (PureComponent || Component) {
   };
 
   handleBatchSelect = (type, data) => {
-    let selectedRowKeys = cloneDeep(this.store.getState('selectedRowKeys'));
+    let selectedRowKeys = this.store.getState('selectedRowKeys').slice();
 
     let changeRowKeys = [];
 
@@ -664,7 +682,7 @@ class Grid extends (PureComponent || Component) {
         selection &&
         nextProps.selection.getCheckboxProps !== selection.getCheckboxProps
       ) {
-        this.CheckboxPropsCache = {};
+        this.checkboxPropsCache = {};
       }
     }
 
@@ -678,7 +696,14 @@ class Grid extends (PureComponent || Component) {
       has(nextProps, 'datasets') &&
       nextProps.datasets !== this.props.datasets
     ) {
-      this.CheckboxPropsCache = {};
+      this.checkboxPropsCache = {};
+      let expandRowKeys = this.getExpandRowKeys(nextProps);
+      this.store.setState({
+        columns: this.getColumns(nextProps, nextProps.columns, expandRowKeys),
+      });
+      this.setState({
+        expandRowKeys,
+      });
     }
   }
 
@@ -718,6 +743,7 @@ class Grid extends (PureComponent || Component) {
               prefix={prefix}
               pageInfo={pageInfo}
               onChange={this.onChange}
+              onPageSizeChange={this.onPageSizeChange}
             />,
           ];
 

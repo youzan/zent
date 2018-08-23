@@ -99,6 +99,54 @@ describe('Cascader', () => {
     wrapper.unmount();
   });
 
+  it('can customize display text', () => {
+    const value = [1, 4, 5];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const title = ['省份', '城市', '县区'];
+    const textFn = val =>
+      val && val.length > 0 ? val[val.length - 1].title : '';
+
+    const wrapper = mount(
+      <Cascader
+        value={value}
+        options={options}
+        title={title}
+        displayText={textFn}
+      />
+    );
+
+    expect(wrapper.find('.zent-cascader__select-text-content').text()).toBe(
+      'anotherGrandSon'
+    );
+  });
+
   it('has default value and options', () => {
     const value = [1, 4, 5];
     const options = [
@@ -260,6 +308,66 @@ describe('Cascader', () => {
       pop.querySelectorAll('.zent-cascader__menu-item')[0],
       'click'
     );
+
+    wrapper.unmount();
+  });
+
+  it('can hover to expand', () => {
+    const value = [];
+    const options = [
+      {
+        id: 1,
+        title: 'root',
+        children: [
+          {
+            id: 2,
+            title: 'son',
+            children: [
+              {
+                id: 3,
+                title: 'grandSon',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'anotherSon',
+            children: [
+              {
+                id: 5,
+                title: 'anotherGrandSon',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const wrapper = mount(
+      <Cascader
+        type="menu"
+        value={value}
+        options={options}
+        expandTrigger="hover"
+      />
+    );
+
+    wrapper.find('.zent-cascader__select').simulate('click');
+    jest.runAllTimers();
+
+    const pop = document.querySelector('.zent-popover-content');
+
+    expect(pop.querySelectorAll('.zent-cascader__menu-item').length).toBe(1);
+    expect(
+      pop.querySelectorAll('.zent-cascader__menu-item')[0].textContent
+    ).toBe('root');
+
+    simulateRawWithTimers(
+      pop.querySelectorAll('.zent-cascader__menu-item')[0],
+      'mouseEnter'
+    );
+
+    expect(pop.querySelectorAll('.zent-cascader__menu').length).toBe(2);
 
     wrapper.unmount();
   });

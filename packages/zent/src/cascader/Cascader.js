@@ -1,9 +1,8 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Popover from 'popover';
 import Icon from 'icon';
-import forEach from 'lodash/forEach';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
 import isArray from 'lodash/isArray';
@@ -30,7 +29,7 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
   }
 }
 
-class Cascader extends (PureComponent || Component) {
+class Cascader extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -38,11 +37,13 @@ class Cascader extends (PureComponent || Component) {
     onChange: PropTypes.func,
     loadMore: PropTypes.func,
     value: PropTypes.array,
+    displayText: PropTypes.func,
     options: PropTypes.array,
     placeholder: PropTypes.string,
     changeOnSelect: PropTypes.bool,
     title: PropTypes.array,
     type: PropTypes.oneOf(['tabs', 'menu']),
+    expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
   static defaultProps = {
@@ -56,6 +57,7 @@ class Cascader extends (PureComponent || Component) {
     changeOnSelect: false,
     title: [],
     type: 'tabs',
+    expandTrigger: 'click',
   };
 
   constructor(props) {
@@ -112,15 +114,18 @@ class Cascader extends (PureComponent || Component) {
 
     if (options && options.length > 0 && value && value.length > 0) {
       activeId = 0;
-      forEach(value, id => {
+      for (let i = 0; i < value.length; i++) {
+        let id = value[i];
         let nextOption = find(options, { id });
         activeId++;
+        if (!nextOption) break;
+
         options = nextOption.children;
         activeValue.push({
           id: nextOption.id,
           title: nextOption.title,
         });
-      });
+      }
     }
 
     if (isTriggerChange) {
@@ -154,24 +159,24 @@ class Cascader extends (PureComponent || Component) {
     });
   };
 
-  clickHandler = (item, stage, popover) => {
+  clickHandler = (item, stage, popover, triggerType = 'click') => {
     let { loadMore } = this.props;
     let { options } = this.state;
-
-    this.expandHandler(item, stage, popover);
-
-    if (
+    let needLoading =
       !item.isLeaf &&
       loadMore &&
-      (!item.children || item.children.length === 0)
-    ) {
+      (!item.children || item.children.length === 0);
+
+    this.expandHandler(item, stage, popover, needLoading, triggerType);
+
+    if (needLoading) {
       this.setState({
         isLoading: true,
         loadingStage: stage,
       });
       loadMore(item, stage).then(children => {
         item.children = children;
-        this.expandHandler(item, stage, popover);
+        this.expandHandler(item, stage, popover, false);
         this.setState({
           options,
           isLoading: false,
@@ -180,7 +185,7 @@ class Cascader extends (PureComponent || Component) {
     }
   };
 
-  expandHandler = (item, stage, popover) => {
+  expandHandler = (item, stage, popover, willLoading, triggerType) => {
     let { value } = this.state;
     let { changeOnSelect } = this.props;
     let hasClose = false;
@@ -193,13 +198,16 @@ class Cascader extends (PureComponent || Component) {
     };
 
     if (item.children || item.isLeaf === false) {
-      obj.activeId = ++stage;
-    } else {
+      if (!willLoading) {
+        obj.activeId = ++stage;
+      }
+    } else if (triggerType === 'click') {
+      // 只有click的时候才关闭
       hasClose = true;
       popover.close();
     }
-
-    if (hasClose || changeOnSelect) {
+    // 选择即改变只针对click
+    if (hasClose || (changeOnSelect && triggerType === 'click')) {
       this.resetCascaderValue(value);
     }
 
@@ -207,7 +215,7 @@ class Cascader extends (PureComponent || Component) {
   };
 
   getPopoverContent(i18n) {
-    const { type, prefix, title, options } = this.props;
+    const { type, prefix, title, options, expandTrigger } = this.props;
     let { activeId, value, isLoading, loadingStage } = this.state;
     let PopoverContentType;
     if (type === 'tabs') {
@@ -234,6 +242,7 @@ class Cascader extends (PureComponent || Component) {
           title={title}
           recursiveNextOptions={this.recursiveNextOptions}
           options={options}
+          expandTrigger={expandTrigger}
           ref={ref => (this.cascader = ref)}
         />
       </PopoverContent>
@@ -251,10 +260,14 @@ class Cascader extends (PureComponent || Component) {
           let hasValue = false;
           if (activeValue && activeValue.length > 0) {
             hasValue = true;
-            cascaderValue = activeValue.map(valueItem => {
-              return valueItem.title;
-            });
-            cascaderValue = cascaderValue.join(' / ');
+            if (this.props.displayText) {
+              cascaderValue = this.props.displayText(activeValue);
+            } else {
+              cascaderValue = activeValue.map(valueItem => {
+                return valueItem.title;
+              });
+              cascaderValue = cascaderValue.join(' / ');
+            }
           }
 
           let cascaderCls = classnames({

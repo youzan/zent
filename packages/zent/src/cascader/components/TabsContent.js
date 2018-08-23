@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'tabs';
 import isArray from 'lodash/isArray';
@@ -8,7 +8,7 @@ import Popover from 'popover';
 const TabPanel = Tabs.TabPanel;
 const withPopover = Popover.withPopover;
 
-class TabsContent extends (PureComponent || Component) {
+class TabsContent extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -18,6 +18,7 @@ class TabsContent extends (PureComponent || Component) {
     title: PropTypes.array,
     isLoading: PropTypes.bool,
     recursiveNextOptions: PropTypes.func,
+    expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
   renderCascaderItems(items, stage, popover) {

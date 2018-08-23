@@ -73,8 +73,15 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      chunks: ['vendor', 'docs', 'markdown'],
+      chunks: ['vendor', 'docs'],
       inject: 'body',
+    }),
+
+    new HtmlWebpackPlugin({
+      template: 'src/404.html',
+      filename: '404.html',
+      chunks: [],
+      inject: false,
     }),
 
     new HappyPack({

@@ -262,6 +262,12 @@ describe('<Button />', () => {
     expect(wrapper.contains(<Icon type="check" />)).toBe(true);
     expect(wrapper.contains(<span>Check</span>)).toBe(true);
   });
+
+  // 按钮文字为两个中文文字的时候，中间空出一个空格空间
+  test('two chinese char button', () => {
+    const wrapper = shallow(<Button>中文</Button>);
+    expect(wrapper.contains(<span>中 文</span>)).toBe(true);
+  });
 });
 
 describe('<Button.Group />', () => {

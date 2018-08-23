@@ -22,3 +22,4 @@ group: 数据
 | count      | `star` 总数            | `number`                  | 否       | 5                      |        |
 | disabled   | 只读，无法进行交互     | `boolean`                 | 否       | `false`                |        |
 | style      | 自定义样式对象         | `object`                  | 否       | -                      |        |
+| prefix     | 自定义前缀            | `string`                  | 否       | `'zent'`               |        |

@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import setClass from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
@@ -23,16 +23,22 @@ const BTN_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
 const A_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
-const wrapTextWithSpanTag = children => {
+const TWO_CN_CHAR_REG = /^[\u4e00-\u9fa5]{2}$/;
+
+const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
   return React.Children.map(children, child => {
     if (typeof child === 'string') {
+      if (isNeedInsertSpace && TWO_CN_CHAR_REG.test(child)) {
+        // 按钮文字为两个中文文字的时候，中间空出一个空格空间
+        return <span>{child.split('').join(' ')}</span>;
+      }
       return <span>{child}</span>;
     }
     return child;
   });
 };
 
-export default class Button extends (PureComponent || Component) {
+export default class Button extends PureComponent {
   static propTypes = {
     type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
     size: PropTypes.oneOf(['large', 'medium', 'small']),
@@ -74,8 +80,13 @@ export default class Button extends (PureComponent || Component) {
     }
   }
 
+  isNeedInsertSpace() {
+    const { icon, children } = this.props;
+    return React.Children.count(children) === 1 && !icon;
+  }
+
   // render a 标签
-  renderLink(classNames, iconNode, wrapedChildren) {
+  renderLink(classNames, iconNode, wrappedChildren) {
     const { component, disabled, loading, href = '', target } = this.props;
     const Node = component || 'a';
     const nodeProps = omit(this.props, A_BLACK_LIST);
@@ -88,13 +99,13 @@ export default class Button extends (PureComponent || Component) {
         onClick={this.handleClick}
       >
         {iconNode}
-        {wrapedChildren}
+        {wrappedChildren}
       </Node>
     );
   }
 
   // render button 标签
-  renderButton(classNames, iconNode, wrapedChildren) {
+  renderButton(classNames, iconNode, wrappedChildren) {
     const { component, disabled, loading, htmlType } = this.props;
     const Node = component || 'button';
     const nodeProps = omit(this.props, BTN_BLACK_LIST);
@@ -108,7 +119,7 @@ export default class Button extends (PureComponent || Component) {
         onClick={this.handleClick}
       >
         {iconNode}
-        {wrapedChildren}
+        {wrappedChildren}
       </Node>
     );
   }
@@ -144,8 +155,11 @@ export default class Button extends (PureComponent || Component) {
       className
     );
     const iconNode = icon ? <Icon type={icon} /> : null;
-    const wrapedChildren = wrapTextWithSpanTag(children);
+    const wrappedChildren = wrapTextWithSpanTag(
+      children,
+      this.isNeedInsertSpace()
+    );
 
-    return this[renderer](classNames, iconNode, wrapedChildren);
+    return this[renderer](classNames, iconNode, wrappedChildren);
   }
 }

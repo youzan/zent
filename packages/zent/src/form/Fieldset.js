@@ -1,6 +1,6 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class Fieldset extends (PureComponent || Component) {
+export default class Fieldset extends PureComponent {
   render() {
     const { legend, children } = this.props;
 

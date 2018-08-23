@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -43,7 +43,7 @@ function getFormat(props) {
   return format === DEFAULT_FORMAT ? defaultFormat : format;
 }
 
-export default class TimePicker extends (PureComponent || Component) {
+export default class TimePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     valueType: PropTypes.oneOf(['string', 'number', 'date']),
@@ -395,8 +395,6 @@ export default class TimePicker extends (PureComponent || Component) {
         placeholder,
         value,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { isPanelOpen },
     } = this;
@@ -405,7 +403,11 @@ export default class TimePicker extends (PureComponent || Component) {
     const formattedValue =
       (value && formatDate(parseDate(value, format), format)) || '';
 
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-time-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !!formattedValue,
@@ -436,8 +438,6 @@ export default class TimePicker extends (PureComponent || Component) {
                     value={formattedValue}
                     placeholder={placeholder || i18n.time}
                     onChange={noop}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
                     disabled={disabled}
                   />
                   <span className="zenticon zenticon-clock-o" />

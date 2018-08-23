@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
@@ -8,7 +8,7 @@ import Input from 'input';
 import Icon from 'icon';
 import getWidth from 'utils/getWidth';
 
-export default class NumberInput extends (PureComponent || Component) {
+export default class NumberInput extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -125,7 +125,8 @@ export default class NumberInput extends (PureComponent || Component) {
       /^(\-|\+)?\d+(\.)?$/g.test(value) ||
       /^(\-|\+)?\d+(\.\d+)?$/g.test(value) ||
       /^\d+\.$/g.test(value) ||
-      /^(\-|\+)?$/g.test(value)
+      /^(\-|\+)?$/g.test(value) ||
+      /^\.\d+$/g.test(value)
     ) {
       this.setState({ value });
     }

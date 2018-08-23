@@ -166,9 +166,9 @@ You can use [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful
 
 ```jsx
 // Preview
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class NoticePreview extends (PureComponent || Component) {
+export default class NoticePreview extends PureComponent {
   render() {
     const { value } = this.props;
 

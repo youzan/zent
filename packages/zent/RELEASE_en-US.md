@@ -7,6 +7,111 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.1.0 (2018-08-03)
+
+- `Grid` 
+  - ✨ Support a default text for each column
+  - 🦀️ Fix `selection.getCheckboxProps` not updated
+- ✨ Add some new `Icon`s
+- ✨ `Cascader` menu trigger can be controlled by `expandTrigger`
+- ✨ Add `containerSelector` support for `Pop`
+- `Button`
+  - ✨ Style update
+  - ✨ Add a space between button text iff button text consists of two Chinese characters
+- 🦀️ Fix a floating point number parsing issue in `NumberInput`
+- 🦀️ Rows in `Table` now can be configured as selected and disabled
+- 🦀️ Fix `FieldArray` not updating in `Form`
+- 🦀️ Fix lots of `TypeScript` definition issues
+
+### 6.0.1 (2018-07-13)
+
+> ⚠️ `Icon`'s ttf file may be broken on Windows in previous versions, use this version if Windows means a lot to you.
+
+- 🦀️ Fix broken `Icon`s in Windows
+
+### 6.0.0 (2018-07-04)
+
+> React <= 15.3 is no longer supported
+
+> Documentation site is now on [github pages](https://youzan.github.io/zent)
+
+- 💥 [breaking change] Remove `on`, `off` and `newInstance` static methods in `Loadign`
+- 💥 [breaking change] Fix `WeekPicker` disable and selection logic
+- 💥 [breaking change] `Table` cell now uses `border-box`
+- 💥 [breaking change] Remove `zent-select` from `Select` popover, this class should only be on the trigger
+- 🎉 New component `Mention`
+- 🎉 New component `Timeline`
+- 🎉 Rewrite `Tree`, add `useNew` prop to use this new version. APIs are compatible with the old one, and a controlled mode is added in this new version.
+- `Form`
+  - ✨ `FieldArray` supports calling calling date date manipulation funcitons in a chain, e.g. `push`, `shift`
+  - ✨ `DateRangePickerField` and `DateRangeQuickPickerField` supports passing `format` prop to the underlying componets using `dateFormat`
+  - ✨ Add missing `DatePicker` related `Field`s，e.g. `FormWeekPickerField`
+  - ✨ `FieldArray` supports initialization using `setFieldsValue` and `initialize`
+- `Grid`
+  - ✨ Add missing `TypeScript` definition
+  - ✨ Add support for row expansion using the same `expandation` prop as `Table`
+  - ✨ Add a new `onExpand` callback when a row is expanded
+  - ✨ Support page size in `onChange` 
+  - 🦀️ Remove `cloneDeep` usage，cloning a react element in React 16 results an error
+  - 🦀️ Fix `rowKey` not working
+  - 📚 Update documentation
+- `ErrorBoundary`
+  - ✨ Add a new `catchError` HOC，useful when using decorator
+  - 📚 Fix `withErrorBoundary` documentation
+- `Cascader`
+  - ✨ Add `displayText` to customize value display
+  - 🦀️ Fix a bug if `value` does not exist
+- ✨ `AutoComplete` now handles `TAB`
+- ✨ `SplitButton` supports dropdown position configuration
+- ✨ `Table` now passes page size in its `onChange` callback
+- ✨ `Pagination` now triggers `onPageSizeChange` callback when page size changes
+- ✨ The `onChange` callback now supports page size in `Table`
+- 🦀️ Fix `BlockHeader` HTML tag nesting bug(a `div` cannot be inside a `p`)
+- 🦀️ Fix `Avatar`'s `TypeScript` definition
+- 🦀️ Fix `Sortable`'s `TypeScript` definition
+- 🦀️ Fix `SplitButton`'s `TypeScript` definition
+- 🦀️ Fix `Tabs`'s `TypeScript` definition
+- 🦀️ Add a few more icons
+- 🦀️ Fix `addonBefore` and `addonAfter` style in `Input`
+- 🦀️ Fix a bug in `Swiper` when removing the second last element
+- 🦀️ Fix error when closing `Loading` in React 16
+- `Dialog`
+  - 🦀️ Fix a bug when closing dialog
+  - 🦀️ Fix a bug when used in SSR
+- 🦀️ Fix some typo in `Button`
+- 🦀️ Fix `Collapse` prop type
+- 🦀️ Fix `DatePicker` time disable logic
+- 🦀️ Fix a bug when calling `focus` in `Select`
+- 🦀️ Remove some unused style in `Card`
+- 📚 Fix typo `babel`
+
+#### Breaking change workaronds
+
+> `Loading` `on`, `off`, `newInstance` workaround：
+
+Replace `Loading.on` and `Loading.off` with a `Loading` instance, and controll it using component state.
+
+```js
+<Loading float show={this.state.loading} />
+```
+
+If you use `newInstance`, just render multile `<Loading>` instances.
+
+> `WeekPicker` workaround:
+
+- If you are not using `disabledDate`, then you're mostly fine.
+- `WeekPicker` now returns only the dates can be selected, but in old versions it will return the whole week including those disabled dates.
+- The `[start, end]` value in `disabledDate` has some change in time part. The `start` has time set to `00:00:00:000` while the `end` has time set to `23:59:59:999`.
+- If your code relies on the time part when comparing two `Date` objects, you are likely in trouble with this new bahavior. Either ajust your logic to get the time part correct, or don't rely on time part when comparing two `Date` objects.
+
+> `Table` cell style workaround:
+
+`Table`'s cell `box-sizing` has changed to `border-box`, so you may have to adjust your column width.
+
+> `Select` `zent-select` workaround:
+
+If you rely on `zent-select` when overwriting `Select` popover style, use `zent-select__popover` instead.
+
 ### 5.1.1 (2018-04-19)
 
 - 🦀️ Fix missing `Dialog` close animation in some cases
@@ -62,6 +167,8 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 4.3.2 (2018-03-07)
 
+> ⚠️ `Loading` style is broken in this version, do NOT use.
+
 - 🦀️ Update `Loading` height logic
 - 🦀️ Fix text in `Pagination`
 - 🦀️ Fix bugs when using nested `Radio` and `Checkbox`
@@ -69,8 +176,6 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - 🦀️ Fix `Upload` style issues
 
 ### 4.3.1 (2018-03-05)
-
-> ⚠️ `Loading` style is broken in this version, do NOT use.
 
 - 🦀️ Fix wrong placeholder indentation when using tag style in `Select`
 - 🦀️ Fix calling `adjustPosition` in `Popover` in some cases

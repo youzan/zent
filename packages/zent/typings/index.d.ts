@@ -1,4 +1,4 @@
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="react" />
 
@@ -12,8 +12,8 @@ declare namespace zent {
   interface IAffixProps {
     offsetTop?: number
     offsetBottom?: number
-    onPin?: Function
-    onUnpin?: Function
+    onPin?: () => void
+    onUnpin?: () => void
     zindex?: number
     className?: string
     placeHoldClassName?: string
@@ -36,27 +36,27 @@ declare namespace zent {
 
 
   interface _IMenuItem {
-    value: string,
-    content?: any,
-    isGroup?: boolean,
-    isDivider?: boolean,
+    value: string
+    content?: React.ReactNode
+    isGroup?: boolean
+    isDivider?: boolean
   }
 
   type IMenuItem = _IMenuItem | string;
 
   interface IAutoCompleteProps {
-    value?: any,
-    initialValue?: any,
-    placeholder?: string,
-    data?: Array<IMenuItem>,
-    onChange?: (value: string) => void,
-    onSelect?: (value: string) => void,
-    onSearch?: (searchText: string) => void,
-    filterOption?: (searchText: string, menuItem: IMenuItem) => boolean,
-    valueFromOptions?: boolean,
-    className?: string,
-    popupClassName?: string,
-    width?: number | string,
+    value?: any
+    initialValue?: any
+    placeholder?: string
+    data?: Array<IMenuItem>
+    onChange?: (value: string) => void
+    onSelect?: (value: string) => void
+    onSearch?: (searchText: string) => void
+    filterOption?: (searchText: string, menuItem: IMenuItem) => boolean
+    valueFromOptions?: boolean
+    className?: string
+    popupClassName?: string
+    width?: number | string
   }
 
   class AutoComplete extends React.Component<IAutoCompleteProps, any> { }
@@ -82,6 +82,8 @@ declare namespace zent {
     showZero?: boolean
     className?: string
     prefix?: string
+    offset?: [number, number]
+    style?: React.CSSProperties
   }
 
   class Badge extends React.Component<IBadgeProps, any> {}
@@ -91,7 +93,7 @@ declare namespace zent {
     title: string
     tooltip?: React.ReactNode
     content?: React.ReactNode,
-    childAlign?: string,
+    childAlign?: 'left' | 'right',
     position?: string,
     prefix?: string
   }
@@ -115,9 +117,12 @@ declare namespace zent {
     class Item extends React.Component<Bread, any> { }
   }
 
+  type ButtonType = 'default' | 'primary' | 'danger' | 'success'
+  type ButtonSize = 'medium' | 'large' | 'small'
+
   interface IButtonProps {
-    type?: 'default' | 'primary' | 'danger' | 'success'
-    size?: 'medium' | 'large' | 'small'
+    type?: ButtonType
+    size?: ButtonSize
     htmlType?: 'button' | 'submit' | 'reset'
     icon?: TIconType
     block?: boolean
@@ -130,7 +135,7 @@ declare namespace zent {
     target?: string
     className?: string
     prefix?: string
-    onClick?: React.UIEventHandler<HTMLButtonElement>
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
   }
 
   class Button extends React.Component<IButtonProps, null> { }
@@ -157,18 +162,33 @@ declare namespace zent {
 
   class Card extends React.Component<ICardProps, any> {}
 
+  interface ICascaderItem {
+    id: any;
+    title: any;
+  }
+
+  interface ICascaderOption extends ICascaderItem {
+    children?: ICascaderOption[]
+  }
+
+  interface ICascaderLoadMoreResolvedItem extends ICascaderItem {
+    isLeaf: boolean
+  }
+
   interface ICascaderProps {
     type?: 'tabs' | 'menu'
     value?: Array<any>
-    options?: Array<any>
+    options?: Array<ICascaderOption>
     title?: Array<any>
-    onChange?: Function
-    loadMore?: (item: any, stage: number) => Promise<any>
+    onChange?: (value: Array<ICascaderItem>) => void
+    loadMore?: (item: any, stage: number) => Promise<ICascaderLoadMoreResolvedItem[]>
     changeOnSelect?: boolean
     placeholder?: string
     prefix?: string
     className?: string
     popClassName?: string
+    displayText?: (value: Array<ICascaderItem>) => React.ReactNode
+    expandTrigger?: 'click' | 'hover'
   }
 
   class Cascader extends React.Component<ICascaderProps, any> {}
@@ -203,7 +223,7 @@ declare namespace zent {
 
   interface ICollapseProps {
     activeKey: string | string[]
-    onChange: (value: string|string[]) => any
+    onChange: (value: string|string[]) => void
     accordion?: boolean
     bordered?: boolean
     className?: string
@@ -211,17 +231,6 @@ declare namespace zent {
   }
 
   class Collapse extends React.Component<ICollapseProps, any> {}
-
-  interface IColorPickerProps {
-    color: string
-    showAlpha?: boolean
-    type?: 'default'|'simple'
-    presetColors?: Array<string>
-    onChange?: (value: string) => any
-    className?: string
-    wrapperClassName?: string
-    prefix?: string
-  }
 
   namespace Collapse {
     interface IPanelProps {
@@ -236,13 +245,24 @@ declare namespace zent {
     class Panel extends React.Component<IPanelProps, null> {}
   }
 
+  interface IColorPickerProps {
+    color: string
+    showAlpha?: boolean
+    type?: 'default'|'simple'
+    presetColors?: Array<string>
+    onChange?: (value: string) => void
+    className?: string
+    wrapperClassName?: string
+    prefix?: string
+  }
+
   class ColorPicker extends React.Component<IColorPickerProps, any> {}
 
   namespace ColorPicker {
     interface IColorBoardProps {
       color: string
       showAlpha?: boolean
-      onChange?: (value: string) => any
+      onChange?: (value: string) => void
       className?: string
       prefix?: string
     }
@@ -252,71 +272,87 @@ declare namespace zent {
 
   interface ICopyButtonProps {
     text: string
-    onCopySuccess?: Function | string
-    onCopyError?: Function | string
+    onCopySuccess?: (() => void) | string
+    onCopyError?: (() => void) | string
   }
 
   class CopyButton extends React.Component<ICopyButtonProps, any> {}
 
+  type DateRangeQuickPickerValue = [string, string] | [number, number]
+
+  interface IDateRangeQuickPickerPreset {
+    text: string
+    value: number
+  }
+
   interface IDateRangeQuickPickerProps {
     prefix?: string
     className?: string
-    onChange: Function
-    value?: [string, string] | [number, number]
+    onChange: (value: DateRangeQuickPickerValue, choosePresetValue?: number) => void
+    value?: DateRangeQuickPickerValue
     valueType?: 'string' | 'number'
     format?: string
     chooseDays?: number
-    preset?: Array<any>
+    preset?: Array<IDateRangeQuickPickerPreset>
     min?: string|number|Date
     max?: string|number|Date
   }
 
   class DateRangeQuickPicker extends React.Component<IDateRangeQuickPickerProps, any> {}
 
+  type FormattableDateValue = string | number | Date
+  type RangeType = 'START' | 'END'
+  
+  interface IDisabledTime {
+    disabledHour: (val: number) => boolean
+    disabledMinute: (val: number) => boolean
+    disabledSecond: (val: number) => boolean
+  }
+
   interface IDateCommonProps {
-    prefix?: string,
-    name?: string,
-    className?: string,
-    placeholder?: string,
-    confirmText?: string,
-    width?: string | number,
-    format?: string,
-    openPanel?: boolean,
-    defaultTime?: string,
+    prefix?: string
+    name?: string
+    className?: string
+    placeholder?: string
+    confirmText?: string
+    width?: string | number
+    format?: string
+    openPanel?: boolean
+    defaultTime?: string
     // onChange 返回值类型, date | number | string， 默认 string
-    valueType?: 'date'|'number'|'string',
-    popPosition?: 'left'|'right',
+    valueType?: 'date' | 'number' | 'string'
+    popPosition?: 'left' | 'right'
     // min 和 max 可以传入和 format 一致的字符串或者 Date 实例
-    min?: string|number|Date,
-    max?: string|number|Date,
-    disabledDate?: Function,
-    onChange?: Function,
-    onClick?: Function,
-    onOpen?: Function,
-    onClose?: Function,
+    min?: FormattableDateValue
+    max?: FormattableDateValue
+    disabledDate?: (val: Date) => boolean
+    onChange?: (val: FormattableDateValue) => void
+    onClick?: (val: FormattableDateValue, type?: RangeType) => void
+    onOpen?: (type?: RangeType) => void
+    onClose?: (type?: RangeType) => void
     canClear?: boolean
   }
 
   interface IDatePickerProps extends IDateCommonProps {
     showTime?: boolean,
-    disabledTime?: Function,
-    onBeforeConfirm?: Function,
-    onBeforeClear?: Function,
+    disabledTime?: () => IDisabledTime
+    onBeforeConfirm?: () => boolean
+    onBeforeClear?: () => boolean
   }
 
   class DatePicker extends React.Component<IDatePickerProps, any> {}
 
   interface IMonthPickerProps extends IDateCommonProps {
-    value?: string|Date,
-    disabled?: boolean,
+    value?: string|Date
+    disabled?: boolean
   }
 
   class MonthPicker extends React.Component<IMonthPickerProps, any> {}
 
   interface IDateRangePickerProps extends IDateCommonProps {
     showTime: boolean
-    value?: [string, string],
-    disabledTime?: Function,
+    value?: [FormattableDateValue, FormattableDateValue]
+    disabledTime?: (type: RangeType) => IDisabledTime
   }
 
   class DateRangePicker extends React.Component<IDateRangePickerProps, any> {}
@@ -334,13 +370,13 @@ declare namespace zent {
   class YearPicker extends React.Component<IYearPickerProps, any> {}
 
   interface ITimePickerProps extends IDateCommonProps {
-    isFooterVisble?: boolean,
-    showSecond?: boolean,
-    hourStep?: number,
-    minuteStep?: number,
-    secondStep?: number,
-    onBeforeConfirm?: Function,
-    onBeforeClear?: Function,
+    isFooterVisble?: boolean
+    showSecond?: boolean
+    hourStep?: number
+    minuteStep?: number
+    secondStep?: number
+    onBeforeConfirm?: () => boolean
+    onBeforeClear?: () => boolean
   }
 
   class TimePicker extends React.Component<ITimePickerProps, any> {}
@@ -405,8 +441,15 @@ declare namespace zent {
     highlightWhenSelect?: boolean
   }
 
+  interface IGroupComponent {
+    type: string
+    editor: Function
+    preview: Function
+    name: string
+  }
+
   interface IDesignProps {
-    components: Array<IDesignComponent>
+    components: Array<IDesignComponent | IGroupComponent>
 
     value?: Array<Object>
 
@@ -455,7 +498,14 @@ declare namespace zent {
     prefix?: string
   }
 
-  class Design extends React.Component<IDesignProps, any> {}
+  class Design extends React.Component<IDesignProps, any> {
+    static stripUUID: (value: any) => any
+    static group: (name: string) => IGroupComponent
+  }
+
+  namespace Design {
+    class DesignWithoutDnd extends React.PureComponent<IDesignProps, any> {}
+  }
 
   interface IDialogProps {
     title?: React.ReactNode
@@ -485,43 +535,44 @@ declare namespace zent {
   }
 
   interface IErrorBoundaryFallbackComponentProps {
-    error: Error;
-    stackTrace: string;
+    error: Error
+    stackTrace: string
   }
 
   interface IOnErrorCallback {
-    (error: Error, stackTrace: string): void;
+    (error: Error, stackTrace: string): void
   }
 
   interface IErrorBoundaryProps {
-    children?: React.ReactChild;
-    onError?: IOnErrorCallback;
-    FallbackComponent?: React.Component<
-      IErrorBoundaryFallbackComponentProps,
-      any
-    >;
+    children?: React.ReactChild
+    onError?: IOnErrorCallback
+    FallbackComponent?: React.Component<IErrorBoundaryFallbackComponentProps, any>
   }
 
   class ErrorBoundary extends React.Component<IErrorBoundaryProps, any> {}
 
   namespace ErrorBoundary {
     function withErrorBoundary(spec: {
-      Component: React.Component<any, any>;
-      FallbackComponent?: React.Component<
-        IErrorBoundaryFallbackComponentProps,
-        any
-      >;
-      onError?: IOnErrorCallback;
-    }): React.Component<any, any>;
+      Component: React.Component<any, any>
+      FallbackComponent?: React.Component<IErrorBoundaryFallbackComponentProps, any>
+      onError?: IOnErrorCallback
+    }): React.Component<any, any>
+
+    function catchError(spec: {
+      onError?: IOnErrorCallback
+      FallbackComponent?: React.ReactElement<IErrorBoundaryFallbackComponentProps>
+    }): (baseComponent: React.Component) => React.Component
   }
 
   interface IFormProps {
     className?: string
     prefix?: string
+    vertical?: boolean
     horizontal?: boolean
     inline?: boolean
-    onSubmit?: Function
+    onSubmit?: React.FormEventHandler<HTMLFormElement>
     style?: React.CSSProperties
+    disableEnterSubmit?: boolean
   }
 
   class Form extends React.Component<IFormProps, any> {}
@@ -531,19 +582,30 @@ declare namespace zent {
       onChange?: (value: any) => void
       onSubmitSuccess?: (result: any) => void
       onSubmitFail?: (error?: any) => void
+      scrollToError?: boolean
     }
 
     interface IZentForm {
       getFormValues: () => any
       getFieldError: (name: string) => any
-      setFormPristine: (value: boolean) => void
+      setFormDirty: (isDirty: boolean) => any
       setFieldExternalErrors: (error: { key: string, value: string }) => void
-      resetFieldsValue: (data: any) => void
+      setFieldsValue: (data: any) => any
+      resetFieldsValue: (data?: any) => void
+      initialize: (data: any) => void
       isValid: () => boolean
       isSubmitting: () => boolean
       isValidating: () => boolean
+      isFieldDirty: (name: string) => boolean
+      isFormAsyncValidated: () => boolean
+      validateForm: (forceValidate: boolean, callback: Function, relatedFields: Array<any>) => any
+      asyncValidateForm: (resolve: Function, reject: Function) => any
+      setFormPristine: (value: boolean) => void
+      isFormSubmitFail: () => boolean
+      isFormSubmitSuccess: () => boolean
       isFieldTouched: (name: string) => boolean
       isFieldValidating: (name: string) => boolean
+      updateFormSubmitStatus: (submitSuccess: boolean) => any
     }
 
     interface IWrappedComponentProps {
@@ -551,7 +613,12 @@ declare namespace zent {
       handleSubmit: (submit: (values: any, zentForm: IZentForm) => any) => any
     }
 
-    function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps|any ,any>) => React.Component<IConnectedFormProps, any>
+    /**
+     * 
+     * @param config
+     * @todo 检查createForm返回值是否符合预期
+     */
+    function createForm<C>(config?: { formValidations?: any }): (component: C) => React.Component<IConnectedFormProps, any>
 
     interface IValidation {
       required?: boolean
@@ -573,10 +640,11 @@ declare namespace zent {
       minLength?: number
     }
 
-    interface IFieldProps {
-      ref?: (ref: any) => void
+    interface IFieldProps<T> {
+      ref?: React.Ref<T>
       name: string
       component: string|React.Component<any, any>
+      value: any
       normalize?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
       format?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
       onChange?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
@@ -584,11 +652,29 @@ declare namespace zent {
       onFocus?: React.FocusEventHandler<any>
       validations?: IValidation
       validationErrors?: any
+      validateOnChange?: boolean
+      validateOnBlur?: boolean
       asyncValidation?: (values: Object, value: any) => Promise<any>
-      value: any
+      displayError?: boolean
+      relatedFields?: Array<any>
+    }
+  
+    interface IFormSectionProps {
+      name: string
+      component?: React.ReactNode,
     }
 
-    class Field extends React.Component<IFieldProps, any> {}
+    interface IFieldArrayProps {
+      name: string
+      value?: Array<any>
+      component: React.ReactNode,
+    }
+
+    class Field<T extends Element> extends React.Component<IFieldProps<T>, any> {}
+
+    class FormSection extends React.PureComponent<IFormSectionProps, any> {}
+
+    class FieldArray extends React.Component<IFieldArrayProps, any> {}
 
     interface IContolGroupProps {
       label?: string
@@ -598,37 +684,83 @@ declare namespace zent {
     }
 
     function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
+
+    class InputField extends React.Component<any, any> { }
+    class CheckboxField extends React.Component<any, any> { }
+    class CheckboxGroupField extends React.Component<any, any> { }
+    class RadioGroupField extends React.Component<any, any> { }
+    class SelectField extends React.Component<any, any> { }
+    class NumberInputField extends React.Component<any, any> { }
+    class ColorPickerField extends React.Component<any, any> { }
+    class DateRangePickerField extends React.Component<any, any> { }
+    class DateRangeQuickPickerField extends React.Component<any, any> { }
+    class SwitchField extends React.Component<any, any> { }
+    class SubmissionError extends React.Component<any, any> { }
+    class FormCheckboxField extends React.Component<any, any> { }
+    class FormCheckboxGroupField extends React.Component<any, any> { }
+    class FormColorPickerField extends React.Component<any, any> { }
+    class FormDatePickerField extends React.Component<any, any> { }
+    class FormWeekPickerField extends React.Component<any, any> { }
+    class FormMonthPickerField extends React.Component<any, any> { }
+    class FormQuarterPickerField extends React.Component<any, any> { }
+    class FormYearPickerField extends React.Component<any, any> { }
+    class FormTimePickerField extends React.Component<any, any> { }
+    class FormTimeRangePickerField extends React.Component<any, any> { }
+    class FormDateRangePickerField extends React.Component<any, any> { }
+    class FormDateRangeQuickPickerField extends React.Component<any, any> { }
+    class FormInputField extends React.Component<any, any> { }
+    class FormNumberInputField extends React.Component<any, any> { }
+    class FormRadioGroupField extends React.Component<any, any> { }
+    class FormSelectField extends React.Component<any, any> { }
+    class FormSwitchField extends React.Component<any, any> { }
   }
 
-
   interface IGridColumn {
-    title: string
+    title: React.ReactNode
     name?: string
-    width?: number
-    textAign?: 'left' | 'right' | 'center'
+    width?: number | string
     bodyRender?: ((data: any, pos: number, name: string) => React.ReactNode) | React.ReactNode
     className?: string
     needSort?: boolean
     colSpan?: number
     fixed?: 'left' | 'right' | true
-    onCellClick?: (data: any, event: React.MouseEvent<HTMLTableDataCellElement>) => null
+    onCellClick?: (data: any, event: React.MouseEvent<HTMLTableDataCellElement>) => any
+    textAign?: 'left' | 'right' | 'center'
     nowrap?: boolean
+    defaultText?: React.ReactNode
+  }
+
+  interface IGridOnChangeConfig {
+    current: number
+    sortBy: string
+    sortType: 'asc' | 'desc' | ''
+    pageSize: number
   }
 
   interface IGridProps {
     columns: Array<IGridColumn>
     datasets: Array<Object>
     rowKey?: string
-    onChange?: (conf: any) => void
-    scroll?: { x?: number, y?: number }
+    onChange?: (conf: IGridOnChangeConfig) => any
+    scroll?: {
+      x?: number,
+      y?: number
+    }
     sortBy?: string
     sortType?: 'desc' | 'asc'
     emptyLabel?: string
-    selection?: { selectedRowKeys?: Array<string>, onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void, getCheckboxProps?: (data: object) => { disabled?: boolean }}
-    expandation?: { isExpanded?: (record: any, index: number) => boolean, expandRender?: (data: any) => React.ReactNode }
+    selection?: {
+      selectedRowKeys?: Array<string>,
+      onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void,
+      getCheckboxProps?: (data: Object) => { disabled?: boolean }
+    }
+    expandation?: {
+      isExpanded?: (record: any, index: number) => boolean,
+      expandRender?: (data: Object) => React.ReactNode
+    }
     loading?: boolean
     className?: string
-    rowClassName?: string
+    rowClassName?: string | ((data: object, rowIndex: number) => string)
     prefix?: string
     pageInfo?: {
       current: number
@@ -639,14 +771,17 @@ declare namespace zent {
       className?: string
       prefix?: string
     }
-    onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => null
+    onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => void
     ellipsis?: boolean
+    onExpand?: (data: {expanded: boolean, data: any, event: React.MouseEvent<HTMLTableRowElement>, index: number}) => void
   }
 
   class Grid extends React.Component<IGridProps, any> { }
 
 
-  type TIconType = 'summary-o' | 'summary' | 'shop-o' | 'shop' | 'goods-o' | 'goods' | 'order-o' | 'order' | 'customer-o' | 'customer' | 'chart-o' | 'chart' | 'capital-o' | 'capital' | 'casher' | 'marketing' | 'settings-o' | 'settings' | 'youzan-o' | 'youzan' | 'close' | 'close-circle-o' | 'close-circle' | 'message' | 'message-o' | 'bell' | 'bell-o' | 'calendar' | 'calendar-o' | 'search' | 'customer-service' | 'feedback' | 'error-circle-o' | 'error-circle' | 'check-circle-o' | 'check-circle' | 'help-circle-o' | 'help-circle' | 'clock-o' | 'clock' | 'countdown' | 'download' | 'share' | 'shop-decorate' | 'shop-template' | 'gift' | 'caret-up' | 'caret-down' | 'arrow-up' | 'arrow-down' | 'right' | 'plus' | 'star-o' | 'star' | 'check' | 'info-circle-o' | 'info-circle' | 'warning-o' | 'warning' | 'lock' | 'unlock'
+  // grep type all.md | awk -F '"' '{print $2}' | sort | uniq | xargs | sed "s/[a-z-]*/'\0'/g" | sed "s/ / | /g"
+
+  type TIconType = 'approval' | 'approval-o' | 'arrow-down' | 'arrow-up' | 'assess' | 'assess-o' | 'bell' | 'bell-o' | 'business' | 'business-o' | 'calendar' | 'calendar-o' | 'capital' | 'capital-o' | 'caret-down' | 'caret-up' | 'casher' | 'chart' | 'chart-o' | 'check' | 'check-circle' | 'check-circle-o' | 'checkin' | 'checkin-o' | 'clock' | 'clock-o' | 'close' | 'close-circle' | 'close-circle-o' | 'countdown' | 'customer' | 'customer-o' | 'customer-service' | 'download' | 'edit-o' | 'error-circle' | 'error-circle-o' | 'expand-customer' | 'expand-customer-o' | 'export' | 'feedback' | 'forbidden-circle' | 'gift' | 'goods' | 'goods-o' | 'hc-manage' | 'hc-manage-o' | 'help-circle' | 'help-circle-o' | 'hr' | 'hr-o' | 'info-circle' | 'info-circle-o' | 'lock' | 'marketing' | 'message' | 'message-o' | 'order' | 'order-o' | 'pending-circle' | 'plus' | 'plus-circle-o' | 'remove-o' | 'report' | 'report-o' | 'right' | 'right-circle' | 'search' | 'settings' | 'settings-o' | 'share' | 'shop' | 'shop-decorate' | 'shop-o' | 'shop-template' | 'star' | 'star-o' | 'subtract-circle-o' | 'suggestions' | 'summary' | 'summary-o' | 'text-guide' | 'ticket' | 'ticket-o' | 'unlock' | 'upload' | 'video-guide' | 'warning' | 'warning-o' | 'youzan' | 'youzan-o'
 
   interface IIconProps {
     type: TIconType
@@ -659,7 +794,7 @@ declare namespace zent {
     className?: string
     prefix?: string
     hasMore?: boolean
-    loadMore?: Function
+    loadMore?: Promise<any> | ((stopLoading: () => void) => void)
     offset?: number
     initialLoad?: boolean
     useWindow?: boolean
@@ -669,24 +804,35 @@ declare namespace zent {
 
   class InfiniteScroller extends React.Component<IInfiniteScrollerProps, any> {}
 
-  interface IInputProps {
+  interface IInputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     className?: string
     prefix?: string
+    width?: number | string
     type?: 'text' | 'number' | 'password' | 'textarea'
     defaultValue?: string
     value?: string
     readOnly?: boolean
     disabled?: boolean
     placeholder?: string
+    showClear?: boolean
     addonBefore?: React.ReactNode
     addonAfter?: React.ReactNode
     autoFocus?: boolean
-    onChange?: React.ChangeEventHandler<HTMLInputElement>
-    onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>
+    autoSelect?: boolean
+    initSelectionStart?: number
+    initSelectionEnd?: number
+    // onChange?: React.ChangeEventHandler<HTMLInputElement>
+    // onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>
+
+    // textarea
+    maxLength?: number
+    showCount?: boolean
+    autoSize?: boolean
   }
 
   class Input extends React.Component<IInputProps, any> {
-    focus: () => void;
+    focus(): void
+    select(selectionStart?: number, selectionEnd?: number): void
   }
 
   namespace Layout {
@@ -708,7 +854,7 @@ declare namespace zent {
 
   interface ILoadingProps {
     show?: boolean
-    static?: boolean
+    float?: boolean
     height?: number
     zIndex?: number
     className?: string
@@ -732,10 +878,10 @@ declare namespace zent {
 
   interface IMentionProps {
     value: string;
-    onChange: (value: string) => any;
+    onChange: (val: string) => any;
+    onSearchChange?: (search: string) => any;
     multiLine?: boolean;
     position?: 'top' | 'bottom';
-    onSearchChange?: (value: string) => any;
     suggestions: string | number | ICompoundMentionSuggestion;
     suggestionNotFoundContent?: React.ReactNode;
     triggerText?: string;
@@ -746,10 +892,12 @@ declare namespace zent {
   class Mention extends React.Component<IMentionProps, any> {}
 
   interface IMenuProps {
-    onClick?: React.UIEventHandler<HTMLDivElement|HTMLLIElement>
+    onClick?: (e: React.MouseEvent<HTMLDivElement|HTMLLIElement>, key: string) => void
+    onSubMenuClick?: (id?: string | number) => void
+    onExpandChange?: (expanded?: string[]) => void
     style?: React.CSSProperties
     mode?: 'pop' | 'inline'
-    defautExpandKeys?: Array<string>
+    defaultExpandKeys?: Array<string>
     defaultSelectedKey?: string
     inlineIndent?: number
     className?: string
@@ -787,8 +935,9 @@ declare namespace zent {
   }
 
   class Notify extends React.Component<INotifyProps, any> {
-    static success(text: React.ReactNode, duration?: number, callback?: Function): number
-    static error(text: React.ReactNode, duration?: number, callback?: Function): number
+    static success(text: React.ReactNode, duration?: number, callback?: () => void): number
+    static error(text: React.ReactNode, duration?: number, callback?: () => void): number
+    static config(options: { duration: number }): void
     static clear(id: number): void
   }
 
@@ -796,12 +945,14 @@ declare namespace zent {
     value?: number
     onChange?: (e: INumberInputChangeEvent) => any
     showStepper?: boolean
+    showCounter?: boolean
     decimal?: number
     min?: number
     max?: number
     placeholder?: string
     disabled?: boolean
     className?: string
+    width?: number | string
     prefix?: string
   }
 
@@ -812,8 +963,8 @@ declare namespace zent {
 
   interface INumberInputChangeEvent {
     target: INumberInputTarget
-    preventDefault: Function
-    stopPropagation: Function
+    preventDefault: () => void
+    stopPropagation: () => void
   }
 
   class NumberInput extends React.Component<INumberInputProps, any> {}
@@ -877,55 +1028,81 @@ declare namespace zent {
     class Rectangle extends React.Component<IRectangleProps, any> {}
   }
 
+  type PopPositions = 'left-top' | 'left-center' | 'left-bottom' | 'right-top' | 'right-center' | 'right-bottom' | 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'auto-bottom-center' | 'auto-bottom-left' | 'auto-bottom-right' | 'auto-top-center' | 'auto-top-left' | 'auto-top-right'
+
   interface IPopProps {
-    content?: React.ReactNode
+    content: React.ReactNode
     trigger?: 'none' | 'click' | 'hover' | 'focus'
-    position?: string
+    position?: PopPositions
     centerArrow?: boolean
     header?: React.ReactNode
     block?: boolean
-    onShow?: Function
-    onClose?: Function
-    onBeforeShow?: Function
-    onBeforeClose?: Function
-    onConfirm?: Function
-    onCancel?: Function
+    onShow?: () => void
+    onClose?: () => void
+    onBeforeShow?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
+    onBeforeClose?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
+    onConfirm?: ((close: () => void) => void) | (() => Promise<any>)
+    onCancel?: ((close: () => void) => void) | (() => Promise<any>)
     confirmText?: string
     cancelText?: string
     type?: 'primary' | 'default' | 'danger' | 'success'
     visible?: boolean
-    onVisibleChange?: Function
+    onVisibleChange?: (visible: boolean) => void
+    onPositionUpdated?: () => void
+    onPositionReady?: () => void
     className?: string
     wrapperClassName?: string
+    containerSelector?: string
     prefix?: string
-    closeOnClickOutside?: boolean
     isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
+
+    // trigger: click
+    closeOnClickOutside?: boolean
+
+    // trigger: hover
+    quirk?: boolean
     mouseEnterDelay?: number
     mouseLeaveDelay?: number
+
   }
 
-  class Pop extends React.Component<IPopProps, any> { }
+  class HocPopComponent extends React.Component<any, any> {
+    open: () => void
+    close: () => void
+  }
+
+  class Pop extends React.Component<IPopProps, any> {
+    static withPop(component: React.Component<any, any>): HocPopComponent
+    adjustPosition(): void
+    getWrappedPopover(): React.Component<any, any>
+  }
+
+
+  type Position = { getCSSStyle: () => React.CSSProperties, name: string }
 
   type PositionFunction = (
     anchorBoundingBox: ClientRect,
     containerBoundingBox: ClientRect,
     contentDimension: {width: number, height: number },
     options: { cushion: number, anchor: HTMLElement, container: HTMLElement, anchorBoundingBoxViewport: any, containerBoundingBoxViewport: any }
-  ) => { getCSSStyle: () => React.CSSProperties, name: string }
+  ) => Position
 
   interface IPopoverProps {
     position: PositionFunction
     cushion?: number
     display?: string
-    onShow?: Function
-    onClose?: Function
-    onBeforeShow?: Function
-    onBeforeClose?: Function
+    onShow?: () => void
+    onClose?: () => void
+    onBeforeShow?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
+    onBeforeClose?: ((callback: () => void, escape: () => void) => void) | (() => Promise<any>)
     containerSelector?: string
     visible?: boolean
-    onVisibleChange?: Function
+    onVisibleChange?: (visible: boolean) => void
+    onPositionUpdated?: () => void
+    onPositionReady?: () => void
     className?: string
     wrapperClassName?: string
+    width?: number | string
     prefix?: string
   }
 
@@ -939,7 +1116,8 @@ declare namespace zent {
         open?: () => void
         close?: () => void
         contentVisible?: boolean
-        onTriggerRefChange?: () => React.ReactInstance
+        onTriggerRefChange?: (instance: React.ReactInstance, getNodeForTriggerRefChange: (el: HTMLElement) => HTMLElement) => void
+        getNodeForTriggerRefChange?: (el: HTMLElement) => HTMLElement
       }
 
       interface IClickProps extends IBaseProps {
@@ -953,6 +1131,7 @@ declare namespace zent {
         showDelay?: number
         hideDelay?: number
         isOutside?: (target: HTMLElement, node: { contentNode: HTMLElement, triggerNode: HTMLElement }) => boolean
+        quirk?: boolean
       }
 
       class Hover extends React.Component<IHoverProps, any> {}
@@ -961,15 +1140,48 @@ declare namespace zent {
 
       class Focus extends React.Component<IFocusProps, any> {}
     }
+
+    namespace Position {
+      function create(fn: PositionFunction): Position
+      const BottomLeft: Position
+      const BottomCenter: Position
+      const BottomRight: Position
+      const LeftTop: Position
+      const LeftCenter: Position
+      const LeftBottom: Position
+      const RightTop: Position
+      const RightCenter: Position
+      const RightBottom: Position
+      const TopLeft: Position
+      const TopCenter: Position
+      const TopRight: Position
+      const AutoBottomLeft: Position
+      const AutoBottomRight: Position
+      const AutoBottomCenter: Position
+      const AutoTopLeft: Position
+      const AutoTopRight: Position
+      const AutoTopCenter: Position
+    }
+
+    interface IHocPopoverProps {
+      getTriggerNode: () => HTMLElement
+      getContentNode: () => HTMLElement
+      open: () => void
+      close: () => void
+    }
+
+    function withPopover(component: React.Component<any, any>): React.Component<IHocPopoverProps, any>
   }
 
   interface IPortalProps {
     // visible
     visible?: boolean
+    onMount?: () => void
+    onUnmount?: () => void
 
     // children
     children: React.ReactChild
-    render?: Function
+    render?: () => React.ReactNode
 
     // parent node
     selector?: string | HTMLElement
@@ -977,8 +1189,8 @@ declare namespace zent {
     // layer
     layer?: string
     useLayerForClickAway?: boolean
-    onClickAway?: Function
-    onLayerReady?: Function
+    onClickAway?: React.MouseEventHandler<HTMLElement> | React.TouchEventHandler<HTMLElement>
+    onLayerReady?: (el: HTMLElement) => void
 
     // layer style
     className?: string
@@ -999,7 +1211,29 @@ declare namespace zent {
     type INonScrollablePortalProps = IPortalProps
 
     function withNonScrollable(component: Portal): React.Component<INonScrollablePortalProps, any>
+
+    interface IPurePortalProps {
+      children?: React.ReactChild
+      render?: () => React.ReactNode
+      selector: string | HTMLElement
+      onMount?: () => void
+      onUnmount?: () => void
+    }
+
+    class PurePortal extends React.Component<IPurePortalProps, any> {}
   }
+
+  interface IPreviewImageConfig {
+    images: Array<string>
+    index?: number
+    showRotateBtn?: boolean
+    scaleRatio?: number
+    parentComponent?: React.ReactInstance
+    className?: string
+    prefix?: string
+  }
+
+  function previewImage(config: IPreviewImageConfig): void
 
   interface IProgressProps {
     className?: string
@@ -1007,10 +1241,14 @@ declare namespace zent {
     type?: 'ling'|'circle'
     percent?: number
     showInfo?: boolean
-    status?: string
-    format?: Function
+    status?: 'success' | 'exception'
+    format?: (precent: number) => React.ReactNode
     strokeWidth?: number
     width?: number
+    bgColor?: string
+    normalColor?: string
+    successColor?: string
+    exceptionColor?: string
     style?: React.CSSProperties
   }
 
@@ -1018,8 +1256,9 @@ declare namespace zent {
 
   interface IRadioProps {
     value: any
-    disabled?: boolean,
-    readOnly?: boolean,
+    disabled?: boolean
+    readOnly?: boolean
+    width?: number | string
     className?: string
     prefix?: string
   }
@@ -1041,58 +1280,38 @@ declare namespace zent {
   }
 
   interface IRateProps {
-    disabled?: boolean,
-    value?: number,
-    count?: number,
-    allowHalf?: boolean,
-    allowClear?: boolean,
-    style?: React.CSSProperties,
-    prefix?: string,
-    onChange?: (value: number) => void,
-    className?: string,
+    onChange?: (value: number) => void
+    value?: number
+    allowClear?: boolean
+    allowHalf?: boolean
     character?: React.ReactNode
+    className?: string
+    count?: number
+    disabled?: boolean
+    style?: React.CSSProperties
+    prefix?: string
   }
 
   class Rate extends React.Component<IRateProps, any> {}
 
-  interface ISKUItem {
-    id: number
-    text: string
-  }
-
-  interface ISKUProps {
-    className?: string
-    value?: Array<ISKUItem>
-    disabled?: string|boolean
-    maxSize?: number
-    maxSKUTextLength?: number
-    maxLeafTextLength?: number
-    skuTree?: Array<ISKUItem>
-    optionValue?: string
-    optionText?: string
-    onFetchGroup?: Function
-    onFetchSKU?: Function
-    onCreateGroup?: Function
-    onCreateSKU?: Function
-    onChange?: Function
-    prefix?: string
-  }
-
-  class SKU extends React.Component<ISKUProps, any> {}
-
-  interface ISearchInputProps {
+  interface ISearchInputProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     className?: string
     prefix?: string
+    width?: number | string
     defaultValue?: string
     value?: string
     readOnly?: boolean
     disabled?: boolean
     placeholder?: string
+    showClear?: boolean
     addonBefore?: React.ReactNode
     addonAfter?: React.ReactNode
     autoFocus?: boolean
+    autoSelect?: boolean
+    initSelectionStart?: number
+    initSelectionEnd?: number
     onChange?: React.ChangeEventHandler<HTMLInputElement>
-    onPressEnter?: React.KeyboardEvent<HTMLInputElement>
+    onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>
   }
 
   class SearchInput extends React.Component<ISearchInputProps, any> {}
@@ -1116,19 +1335,57 @@ declare namespace zent {
     optionValue?: string
     onChange?: (event: { target: { type: any, value: any }, preventDefault: () => void, stopPropagation: () => void }, value: any) => void
     onDelete?: (date: any) => void
-    filter?: (item: any) => boolean
+    filter?: (item: any, keyword?: string) => boolean
+    maxToShow?: number
     onAsyncFilter?: (keyword: string, callback: (data: any) => void) => void
     onEmptySelected?: (event: React.SyntheticEvent<HTMLSpanElement>, value: any) => void
     onOpen?: () => void
     className?: string
+    popupClassName?: string
+    autoWidth?: boolean
+    resetOption?: boolean
+    resetText?: string
+    width?: number | string
     prefix?: string
   }
 
   class Select extends React.Component<ISelectProps, any> { }
 
+  interface ISKUItem {
+    id: number
+    text: string
+  }
+
+  interface ISKUProps {
+    className?: string
+    value?: Array<ISKUItem>
+    disabled?: string|boolean
+    maxSize?: number
+    maxSKUTextLength?: number
+    maxLeafTextLength?: number
+    skuTree?: Array<ISKUItem>
+    optionValue?: string
+    optionText?: string
+    onFetchGroup?: () => Promise<any>
+    onFetchSKU?: () => Promise<any>
+    onCreateGroup?: () => Promise<any>
+    onCreateSKU?: () => Promise<any>
+    onChange?: Function
+    prefix?: string
+  }
+
+  class SKU extends React.Component<ISKUProps, any> {
+    static flatten(sku: Array<any>, items: Array<any>, options: {
+      optionValue: string
+      optionText: string
+    }): Array<any>
+  }
+
+  type SliderValueType = number | [number, number]
+
   interface ISliderProps {
-    value: [number, number]
-    onChange?: (value: number) => void
+    value: SliderValueType
+    onChange?: (value: SliderValueType) => void
     range?: boolean
     min?: number
     max?: number
@@ -1138,20 +1395,38 @@ declare namespace zent {
     marks?: Object
     disabled?: boolean
     className?: string
+    width?: number | string
     prefix?: string
   }
 
   class Slider extends React.Component<ISliderProps, any> { }
 
+  type SortableGroup = {
+    name: string
+    pull: boolean | 'clone' | Function
+    put: boolean | Array<string> | Function
+    revertClone: boolean
+  } | string
+
+  interface IMobileScrollOriginalEvent {
+    clientX: number
+    clientY: number
+    rootEl: HTMLDivElement
+    target: HTMLElement
+  }
+
   interface ISortableProps {
+    // base api
     className?: string
     prefix?: string
-    items?: any[]
-    onChange?: Function
     tag?: string
-    sort?: boolean
+    items?: Array<any>
+    onChange?: (newItems: Array<any>) => void
     filterClass?: string
-    group?: Object | string
+  
+    // advance api
+    sort?: boolean
+    group?: string | SortableGroup
     delay?: number
     animation?: number
     handle?: string
@@ -1163,44 +1438,47 @@ declare namespace zent {
     fallbackOnBody?: boolean
     fallbackTolerance?: number
     scroll?: boolean
-    scrollFn?: Function
+    scrollFn?: (offsetX: number, offsetY: number, originalEvent: DragEvent | IMobileScrollOriginalEvent) => any
     scrollSensitivity?: number
     scrollSpeed?: number
-    setData?: Function
-    onStart?: Function
-    onEnd?: Function
-    onAdd?: Function
-    onUpdate?: Function
-    onSort?: Function
-    onRemove?: Function
-    onFilter?: Function
-    onMove?: Function
-    onClone?: Function
+    setData?: (dataTransfer: DataTransfer, dragEl: HTMLElement) => any
+    onStart?: (event: Event) => any
+    onEnd?: (event: Event) => any
+    onAdd?: (event: Event) => any
+    onUpdate?: (event: Event) => any
+    onSort?: (event: Event) => any
+    onRemove?: (event: Event) => any
+    onFilter?: (event: Event) => any
+    onMove?: (event: Event) => boolean
+    onClone?: (event: Event) => boolean
   }
 
   class Sortable extends React.Component<ISortableProps, any> {}
-
   interface ISplitButtonProps {
-    type?: 'default' | 'primary' | 'danger' | 'success'
-    size?: 'medium' | 'large' | 'small'
+    type?: ButtonType
+    size?: ButtonSize
     disabled?: boolean
     loading?: boolean
     dropdownData?: Array<any>
     dropdownTrigger?: 'click' | 'hover'
     dropdownText?: string
     dropdownValue?: string
+    droopdownPosition?: PopPositions
     className?: string
     prefix?: string
-    onClick?: React.UIEventHandler<HTMLButtonElement>
-    onSelect?: Function
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
+    onSelect?: (key: string) => void
   }
 
   class SplitButton extends React.Component<ISplitButtonProps, any> { }
 
   interface IStepsProps {
     type?: 'number' | 'card' | 'breadcrumb'
+    direction?: 'horizontal' | 'vertical'
     current?: number
-    status?: 'finish' | 'error' | 'wait'
+    status?: 'process' | 'finish' | 'error' | 'wait'
+    sequence?: boolean
+    onStepChange?: (stepIndex: number) => void
     className?: string
     prefix?: string
   }
@@ -1221,11 +1499,12 @@ declare namespace zent {
       content: React.ReactNode
       type?: 'info' | 'success' | 'error' | 'warning'
       title?: React.ReactNode
-      onConfirm?: () => void | Promise<any>
+      onConfirm?: ((close: () => void) => void) | (() => Promise<any> | boolean)
       confirmText?: string
-      confirmType?: 'default' | 'primary' | 'danger' | 'success'
+      confirmType?: ButtonType
       closeBtn?: boolean
       maskClosable?: boolean
+      parentComponent?: React.ReactInstance
       className?: string
       prefix?: string
     }
@@ -1250,10 +1529,15 @@ declare namespace zent {
     dotsSize?: 'normal'|'small'|'large'
     arrows?: boolean
     arrowsType?: 'dark'|'light'
-    onChange?: Function
+    onChange?: (current: number, prev: number) => void
+    
   }
 
-  class Swiper extends React.Component<ISwiperProps, any> {}
+  class Swiper extends React.Component<ISwiperProps, any> {
+    swiperTo(index: number): void
+    prev(): void
+    next(): void
+  }
 
   interface ISwitchProps {
     checked?: boolean
@@ -1273,9 +1557,17 @@ declare namespace zent {
     title: string
     name: string
     width?: number
-    textAign?: 'left' | 'right' | 'center'
     isMoney?: boolean
+    needSort?: boolean
     bodyRender?: (data: any) => React.ReactNode
+    textAign?: 'left' | 'right' | 'center'
+  }
+
+  type TableChangeConfig = {
+    sortBy: string
+    sortType: 'asc' | 'desc'
+    current: number
+    pageSize: number
   }
 
   interface ITableProps {
@@ -1284,23 +1576,39 @@ declare namespace zent {
     rowKey?: string
     sortBy?: string
     sortType?: 'desc' | 'asc'
-    onChange?: (conf: any) => void
+    onChange?: (conf: TableChangeConfig) => void
     emptyLabel?: string
-    selection?: { selectedRowKeys?: Array<string>, onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void }
+    selection?: {
+      selectedRowKeys?: Array<string>
+      isSingleSelection?: boolean
+      needCrossPage?: boolean
+      onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void
+    }
     loading?: boolean
     getRowConf?: (data: Object, index: number) => { canSelect: boolean, rowClass: string }
-    expandation?: { isExpanded?: (record: any, index: number) => boolean, expandRender?: (data: any) => React.ReactNode }
+    expandation?: {
+      isExpanded?: (record: any, index: number) => boolean
+      expandRender?: (data: any) => React.ReactNode
+    }
+    batchComponents?: Array<any>
+    batchComponentsAutoFixed?: boolean
     autoStick?: boolean
     autoScroll?: boolean
     className?: string
     prefix?: string
+    pageInfo?: {
+      current?: number
+      totalItem?: number
+      pageSize?: number
+      maxPageToShow?: number
+    }
   }
 
   class Table extends React.Component<ITableProps, any> { }
 
   interface ITab {
-    tab: string | number
-    id: string | number
+    key: string | number
+    title: string | number
     disabled?: boolean
   }
 
@@ -1309,7 +1617,7 @@ declare namespace zent {
     prefix?: string
     actived?: boolean
     tab: React.ReactNode
-    id?: string | number,
+    id: string | number,
     onPanelReady?: (id: string | number) => void
     uniqueId?: number
   }
@@ -1319,9 +1627,9 @@ declare namespace zent {
     type?: 'normal' | 'card' | 'slider'
     size?: 'normal' | 'huge'
     align?: 'left' | 'right' | 'center'
-    onTabChange?: (id: string) => void
-    onTabDel?: (id: string) => void
-    onTabAdd?: () => void
+    onChange?: (id: string | number) => void
+    onDelete?: (id: string | number) => void
+    onAdd?: () => void
     candel?: boolean
     canadd?: boolean
     tabs?: Array<ITab>
@@ -1339,18 +1647,65 @@ declare namespace zent {
     color?: string
     outline?: boolean
     rounded?: boolean
+    closable?: boolean
+    onClose?: React.MouseEventHandler<HTMLElement>
+    visible?: boolean
+    onVisibleChange?: (visible: boolean) => void
     borderColor?: string
     bgColor?: string
     fontColor?: string
-    closable?: boolean
-    onClose?: Function
-    children?: React.ReactChild
     style?: React.CSSProperties
     className?: string
     prefix?: string
   }
 
   class Tag extends React.Component<ITagProps, any> {}
+
+  interface ITimelineLegendProps {
+    color?: string;
+    children?: React.ReactNode;
+    prefix?: string;
+    className?: string;
+    style?: React.CSSProperties;
+  }
+
+  class TimelineLegend extends React.Component<ITimelineLegendProps, any> {}
+
+  interface ITimelineItemProps {
+    size?: number;
+    showLabel?: boolean;
+    showDot?: boolean;
+    color?: string;
+    lineColor?: string;
+    dotColor?: string;
+    label?: React.ReactNode;
+    tip?: React.ReactNode;
+    prefix?: string;
+    className?: string;
+    style?: React.CSSProperties;
+    type?: 'vertical' | 'horizontal';
+  }
+
+  class TimelineItem extends React.Component<ITimelineItemProps> {}
+
+  interface ITimelineArrayItem extends ITimelineItemProps {
+    id?: string;
+    percent?: number;
+  }
+
+  interface ITimelineProps {
+    size?: number | string;
+    timeline?: ITimelineArrayItem[];
+    type?: 'vertical' | 'horizontal';
+    className?: string;
+    prefix?: string
+    style?: React.CSSProperties;
+  }
+
+  class Timeline extends React.Component<ITimelineProps, any> {
+    static Legend: typeof TimelineLegend;
+    static Item: typeof TimelineItem;
+  }
 
   interface ITreeData {
     id: number | string
@@ -1363,19 +1718,27 @@ declare namespace zent {
 
   interface ITreeOperation {
     name: string
-    icon?: string | React.ReactElement<any>
+    icon?: string | React.ReactNode
     action: (data: ITreeData) => void
     shouldRender?: (data: ITreeData) => boolean
   }
 
   interface ITreeProps {
+    useNew?: boolean
     dataType?: 'tree' | 'plain'
     data: Array<ITreeData>
+    renderKey?: {
+      id?: string
+      title?: string
+      children?: string
+      parentId?: string
+    }
     render?: (data: ITreeData) => React.ReactNode
     operations?: Array<ITreeOperation>
     foldable?: boolean
-    checkable?: boolean
     onCheck?: (data: Array<number | string>) => void
+    checkable?: boolean
+    controlled?: boolean
     defaultCheckedKeys?: Array<number | string>
     disabledCheckedKeys?: Array<number | string>
     size?: 'medium' | 'small' | 'large'
@@ -1385,13 +1748,34 @@ declare namespace zent {
     autoExpandOnSelect?: boolean
     onSelect?: (data: ITreeData, target: HTMLSpanElement) => void
     isRoot?: (data: ITreeData) => boolean
+    loadMore?: (data: ITreeData) => Promise<any>
   }
 
   class Tree extends React.Component<ITreeProps, any> { }
 
+
+  interface IErrorMessage {
+    overMaxSize?: string | ((data: { maxSize: string, type: string }) => string)
+    overMaxAmount?: string | ((data: { maxAmount: number, type: string }) => string)
+    wrongMimeType?: string | ((data: { type: string }) => string)
+  }
+
+  interface ILocalFile {
+    file: File
+    src: string
+    __uid: number
+  }
+
+  interface IUploadConfig {
+    categoryId: number
+    localFiles: ILocalFile[]
+    onProgress: (progress: number, index: number) => void
+  }
+
   interface IUploadProps {
     prefix?: string
     className?: string
+    type?: 'image' | 'video'
     triggerClassName?: string
     maxSize?: number
     maxAmount?: number
@@ -1399,12 +1783,15 @@ declare namespace zent {
     tips?: string
     localOnly?: boolean
     auto?: boolean
-    fetchUrl?: string
-    tokenUrl?: string
-    uploadUrl?: string
-    filterFiles?: Function
-    onFetch?: Function
-    onUpload?: Function
+    filterFiles?: (files: File[]) => File[] | Promise<File[]>
+    onFetch?: (networkUrl: string, categoryId: number) => Promise<any>
+    onUpload?: (localFiles: ILocalFile[], uploadConfig: IUploadConfig) => void | Promise<any>
+    categoryList?: Array<{
+      value: any,
+      text: string|number
+    }>
+    categoryId?: number
+    errorMessages?: IErrorMessage
     triggerInline?: boolean
     silent?: boolean
     withoutPopup?: boolean

@@ -109,6 +109,9 @@ export default class AutoComplete extends Component {
       case 'esc':
         this.close();
         break;
+      case 'tab':
+        this.close();
+        break;
       case 'down':
         e.preventDefault();
         if (this.state.open) {

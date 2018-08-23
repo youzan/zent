@@ -357,6 +357,42 @@ class IconGrid extends Component {
           <Icon type="assess" />
           <span className="zi-grid-item-name">assess(0xe851)</span>
         </div>
+        <div className="zi-grid-item" data-index="upload0xe852uploadfilled">
+          <Icon type="upload" />
+          <span className="zi-grid-item-name">upload(0xe852)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hr-o0xe853human resourceoutline">
+          <Icon type="hr-o" />
+          <span className="zi-grid-item-name">hr-o(0xe853)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hr0xe854human resourcefilled">
+          <Icon type="hr" />
+          <span className="zi-grid-item-name">hr(0xe854)</span>
+        </div>
+        <div className="zi-grid-item" data-index="export0xe855exportfilled">
+          <Icon type="export" />
+          <span className="zi-grid-item-name">export(0xe855)</span>
+        </div>
+        <div className="zi-grid-item" data-index="suggestions0xe856suggestionsoutline">
+          <Icon type="suggestions" />
+          <span className="zi-grid-item-name">suggestions(0xe856)</span>
+        </div>
+        <div className="zi-grid-item" data-index="video-guide0xe857video-guideoutlineguide">
+          <Icon type="video-guide" />
+          <span className="zi-grid-item-name">video-guide(0xe857)</span>
+        </div>
+        <div className="zi-grid-item" data-index="text-guide0xe858text-guideoutlineguide">
+          <Icon type="text-guide" />
+          <span className="zi-grid-item-name">text-guide(0xe858)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hc-manage-o0xe859hc-manageoutline">
+          <Icon type="hc-manage-o" />
+          <span className="zi-grid-item-name">hc-manage-o(0xe859)</span>
+        </div>
+        <div className="zi-grid-item" data-index="hc-manage0xe85ahc-managefilled">
+          <Icon type="hc-manage" />
+          <span className="zi-grid-item-name">hc-manage(0xe85a)</span>
+        </div>
       </div>
     );
   }

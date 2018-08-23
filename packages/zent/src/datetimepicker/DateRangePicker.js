@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import isString from 'lodash/isString';
@@ -21,7 +21,7 @@ function compatibleInterface(prop) {
   return isString(prop) || isDate(prop) ? [prop, prop] : prop;
 }
 
-class DateRangePicker extends (PureComponent || Component) {
+class DateRangePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
@@ -126,7 +126,11 @@ class DateRangePicker extends (PureComponent || Component) {
 
   render() {
     const { prefix, className } = this.props;
-    const prefixCls = cx(`${prefix}-datetime-picker`, className);
+    const prefixCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-daterange-picker`,
+      className
+    );
 
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }

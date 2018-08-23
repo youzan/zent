@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 
 import PanelCell from '../common/PanelCell';
@@ -7,7 +7,7 @@ import { CURRENT_MONTH, CURRENT_YEAR } from '../constants';
 const ROW = 4;
 const COL = 3;
 
-export default class MonthPanelBody extends (PureComponent || Component) {
+export default class MonthPanelBody extends PureComponent {
   isSelected(val) {
     const { selected, year } = this.props;
 

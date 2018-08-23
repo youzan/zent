@@ -1,9 +1,17 @@
-import React, { Component, PureComponent } from 'react';
+/**
+ * The design of this component is broken. Data flow becomes more and more complex
+ * when supporting advanced features like FieldArray.
+ * It will eventually become unmaintainable.
+ *
+ * A real-life case for 'premature optimization is the root of all evil'.
+ */
+
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-class Form extends (PureComponent || Component) {
+class Form extends PureComponent {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

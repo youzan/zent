@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 import cx from 'classnames';
@@ -8,7 +8,7 @@ import { Select as I18nDefault } from 'i18n/default';
 
 import Tag from '../components/Tag';
 
-class TagsTrigger extends (PureComponent || Component) {
+class TagsTrigger extends PureComponent {
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);

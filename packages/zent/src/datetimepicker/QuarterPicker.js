@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import isArray from 'lodash/isArray';
 import getQuarter from 'date-fns/get_quarter';
@@ -75,7 +75,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class QuarterPicker extends (PureComponent || Component) {
+class QuarterPicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
   };
@@ -217,12 +217,14 @@ class QuarterPicker extends (PureComponent || Component) {
         prefix,
         width,
         canClear,
-        onFocus,
-        onBlur,
       },
       state: { openPanel, selected, showPlaceholder, value },
     } = this;
-    const wrapperCls = cx(`${prefix}-datetime-picker`, className);
+    const wrapperCls = cx(
+      `${prefix}-datetime-picker`,
+      `${prefix}-quarter-picker`,
+      className
+    );
     const inputCls = cx({
       'picker-input': true,
       'picker-input--filled': !showPlaceholder,
@@ -259,10 +261,9 @@ class QuarterPicker extends (PureComponent || Component) {
                   <div style={widthStyle} className={inputCls}>
                     <Input
                       name={name}
-                      value={showPlaceholder ? placeholderText : inputVal}
+                      placeholder={placeholderText}
+                      value={inputVal}
                       onChange={noop}
-                      onFocus={onFocus}
-                      onBlur={onBlur}
                       disabled={disabled}
                     />
                     <span className="zenticon zenticon-calendar-o" />

@@ -19,8 +19,8 @@ Collapse/expand contents.
 
 | Property     |   Description  | Type     |  Required  |   Default  | Alternative       |
 | ------------ | ------------- | -------- | ---------- | ---------- | ----------------- |
-| activeKey    | Active panel id   |  `string`   |  Yes   |     |  |
 | onChange     | Callback when active panel changes  | `func`    | Yes | | |
+| activeKey    | Active panel id   |  `string`   |  No   |     |  |
 | accordion    | Accodion mode, one active panel at a time | `bool` | No | `false` | `true` |
 | bordered     | Bordered    | `bool` | No | `true` | `false` |
 | className    | Custom class names    | `string` | No | | |

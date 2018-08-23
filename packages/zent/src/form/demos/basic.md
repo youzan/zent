@@ -17,7 +17,7 @@ en-US:
 	password: Password
 	pwHelpDesc: The password consists of 6-20 letters or numbers.
 	link: Watch more.
-	notice: Notice that user name and password cannot be modified after submitting. Please submit carefully. 
+	notice: Notice that user name and password cannot be modified after submitting. Please submit carefully.
 ---
 
 ```jsx
@@ -32,7 +32,8 @@ class FieldForm extends React.Component {
 					name="name"
 					type="text"
 					label={
-						<span>{i18n.name}&nbsp;
+						<span>
+							{i18n.name}&nbsp;
 							<Pop trigger="hover" content="{i18n.nameTip}" centerArrow>
 								<Icon type="error-circle-o" />
 							</Pop>:
@@ -45,7 +46,14 @@ class FieldForm extends React.Component {
 					name="password"
 					type="password"
 					label="{i18n.password}:"
-					helpDesc={<span>{i18n.pwHelpDesc}<a href="https://youzan.com" target="_blank">{i18n.link}</a></span>}
+					helpDesc={
+						<span>
+							{i18n.pwHelpDesc}
+							<a href="https://youzan.com" target="_blank">
+								{i18n.link}
+							</a>
+						</span>
+					}
 					notice="{i18n.notice}"
 					required
 				/>
@@ -56,8 +64,5 @@ class FieldForm extends React.Component {
 
 const WrappedForm = createForm()(FieldForm);
 
-ReactDOM.render(
-	<WrappedForm />
-	, mountNode
-)
+ReactDOM.render(<WrappedForm />, mountNode);
 ```

@@ -2,18 +2,18 @@ import * as React from 'react';
 import { DateRangeQuickPicker } from '../';
 
 interface State {
-  value: string;
-  chooseDays: string;
-  value1: string;
-  chooseDays1: string;
+  value: zent.DateRangeQuickPickerValue;
+  chooseDays: number;
+  value1: zent.DateRangeQuickPickerValue;
+  chooseDays1: number;
 }
 
 class App extends React.PureComponent<null, State> {
   state = {
-    value: '',
-    chooseDays: '',
-    value1: '',
-    chooseDays1: '', 
+    value: [0, 0] as zent.DateRangeQuickPickerValue,
+    chooseDays: 0,
+    value1: ['', ''] as zent.DateRangeQuickPickerValue,
+    chooseDays1: 0, 
   };
 
   handleChange = (value, chooseDays) => {

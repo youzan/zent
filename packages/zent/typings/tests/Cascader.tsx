@@ -59,7 +59,7 @@ class App extends React.Component {
     });
   }
 
-  loadMore = (root, stage) => new Promise((resolve, reject) => {
+  loadMore = (root, stage) => new Promise<zent.ICascaderLoadMoreResolvedItem[]>((resolve, reject) => {
     setTimeout(() => {
       let isLeaf = stage >= 2;
       let children = [{

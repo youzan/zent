@@ -33,8 +33,8 @@ class EventTest extends React.Component {
   render() {
     return (
       <div>
-        <Input onPressEnter={this.onPressEnter} placeholder="press enter"/>
-        <Input onKeyDown={this.onKeyDown} placeholder="key down"/>
+        <Input onPressEnter={this.onPressEnter} placeholder="Press Enter"/>
+        <Input onKeyDown={this.onKeyDown} placeholder="Key down"/>
         <div>{this.state.logs.map((log, index) => <p key={index}>{log}</p>)}</div>
       </div>
     );

@@ -1,9 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import noop from 'lodash/noop';
 
 import { getValue, toFixed, getClosest } from './common';
 
-export default class Container extends (PureComponent || Component) {
+export default class Container extends PureComponent {
   handleClick = e => {
     const {
       getClientWidth,

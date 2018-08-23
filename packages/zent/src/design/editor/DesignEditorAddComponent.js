@@ -1,4 +1,4 @@
-import React, { PureComponent, Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop from 'pop';
@@ -10,8 +10,7 @@ import LazyMap from '../utils/LazyMap';
 import { serializeDesignType } from '../utils/design-type';
 import { splitGroup, isGrouped } from '../utils/component-group';
 
-export default class DesignEditorAddComponent extends (PureComponent ||
-  Component) {
+export default class DesignEditorAddComponent extends PureComponent {
   static propTypes = {
     components: PropTypes.array,
 

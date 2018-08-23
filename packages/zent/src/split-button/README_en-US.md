@@ -20,6 +20,7 @@ SplitButton a button with a dropdown menu
 | dropdownData | data for dropdown menu | array | [] | |
 | dropdownValue | custom options value's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `optionValue="id"` | string | `'value'` | |
 | dropdownText | custom options display text's corresponding key, e.g. `{ id: 1, name: 'Doc' }` needs `dropdownText="name"` | string | `'text'` | |
+| dropdownPosition | the position of dropodown menu | string | `'auto-bottom-left'` | same as position in Pop |
 | onClick | the click callback for left button | func | | |
 | onSelect | the select callback for the right dropdown menu | func | | |
 | className          | custom classname                  | string              | `''`						 |                                               |

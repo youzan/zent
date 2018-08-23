@@ -1,0 +1,169 @@
+@import './theme/default.pcss';
+
+.zent-timeline {
+  padding: 10px 0;
+  position: relative;
+
+  &-dot {
+    width: 10px;
+    height: 10px;
+    background-color: $theme-stroke-10;
+    border-radius: 50%;
+    border: 2px solid $theme-success-2;
+    box-sizing: border-box;
+  }
+
+  &-line {
+    position: absolute;
+  }
+
+  &-legend {
+    height: 20px;
+    line-height: 20px;
+
+    &-line {
+      position: relative;
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background-color: $theme-success-2;
+      vertical-align: middle;
+
+      .zent-timeline-dot {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
+    }
+
+    &-label {
+      vertical-align: middle;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+  }
+
+  &-item-wrapper {
+    vertical-align: top;
+  }
+
+  &-item {
+    position: relative;
+
+    &-line {
+      position: relative;
+      background-color: $theme-stroke-5;
+
+      .zent-timeline-dot {
+        position: absolute;
+        margin: auto;
+      }
+    }
+  }
+
+  &-horizontal {
+    &.zent-timeline-dynamic {
+      &::before {
+        content: ' ';
+        height: 2px;
+        width: 100%;
+        position: absolute;
+        display: block;
+        background: $theme-stroke-5;
+        margin: 10px 0;
+      }
+    }
+
+    .zent-timeline-item {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+
+      &-hover {
+        padding: 10px 0 40px;
+      }
+
+      &-line {
+        height: 2px;
+        width: 80px;
+      }
+
+      &-label {
+        left: 0;
+        top: 25px;
+        position: absolute;
+        bottom: 0;
+      }
+
+      .zent-timeline-dot {
+        top: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .zent-timeline-start {
+      top: -25px;
+      left: 0;
+    }
+
+    .zent-timeline-end {
+      right: 0;
+      top: 25px;
+    }
+
+    .zent-timeline-pad {
+      display: inline-block;
+    }
+  }
+
+  &-start {
+    position: absolute;
+  }
+
+  &-end {
+    position: absolute;
+  }
+
+  &-vertical {
+    .zent-timeline-item {
+      position: relative;
+      display: block;
+      line-height: 12px;
+
+      &-hover {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      &-line {
+        margin: 0 10px;
+        width: 2px;
+        vertical-align: top;
+        height: 50px;
+
+        .zent-timeline-dot {
+          top: 0;
+          left: -4px;
+        }
+      }
+
+      &-label {
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+.zent-timeline-tip {
+  background-color: $theme-mask-black-5;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  z-index: 5000;
+  font-size: 12px;
+}
