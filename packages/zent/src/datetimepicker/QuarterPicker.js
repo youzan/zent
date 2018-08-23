@@ -217,6 +217,7 @@ class QuarterPicker extends PureComponent {
         prefix,
         width,
         canClear,
+        autoComplete,
       },
       state: { openPanel, selected, showPlaceholder, value },
     } = this;
@@ -265,6 +266,7 @@ class QuarterPicker extends PureComponent {
                       value={inputVal}
                       onChange={noop}
                       disabled={disabled}
+                      autoComplete={autoComplete}
                     />
                     <span className="zenticon zenticon-calendar-o" />
                     {canClear && (

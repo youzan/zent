@@ -353,6 +353,7 @@ class WeekPicker extends PureComponent {
         prefix,
         width,
         canClear,
+        autoComplete,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -391,6 +392,7 @@ class WeekPicker extends PureComponent {
                     value={value ? value.join(` ${i18n.to} `) : ''}
                     onChange={noop}
                     disabled={disabled}
+                    autoComplete={autoComplete}
                   />
 
                   <span className="zenticon zenticon-calendar-o" />

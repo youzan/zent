@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import forEach from 'lodash/forEach';
 import isFunction from 'lodash/isFunction';
+import noop from 'lodash/noop';
 import classnames from 'classnames';
 import Cell from './Cell';
 
@@ -18,7 +19,11 @@ class Row extends PureComponent {
       fixed,
       scroll,
       fixedColumnsBodyRowsHeight,
+      row,
+      rowProps = noop,
     } = this.props;
+
+    const BodyRow = row || 'tr';
 
     const cells = [];
 
@@ -50,16 +55,17 @@ class Row extends PureComponent {
     });
 
     return (
-      <tr
+      <BodyRow
         className={classnames(`${prefix}-grid-tr`, className, {
           [`${prefix}-grid-tr__mouseover`]: mouseOverRowIndex === rowIndex,
         })}
         onClick={e => onRowClick(data, rowIndex, e)}
         onMouseOver={() => scroll && scroll.x && onRowMoverOver(rowIndex)}
         style={{ height }}
+        {...rowProps(data, rowIndex)}
       >
         {cells}
-      </tr>
+      </BodyRow>
     );
   }
 }

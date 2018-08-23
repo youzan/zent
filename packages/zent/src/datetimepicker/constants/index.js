@@ -39,6 +39,7 @@ export const commonProps = {
   onChange: noop,
   isFooterVisble: false,
   canClear: true,
+  autoComplete: 'off',
 };
 
 export const commonPropTypes = {
@@ -69,4 +70,5 @@ export const commonPropTypes = {
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
   canClear: PropTypes.bool,
+  autoComplete: PropTypes.string,
 };
