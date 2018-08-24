@@ -61,14 +61,15 @@ class FieldArray extends Component {
       throw new Error('FieldArray must be in zent-form');
     }
 
-    this.state = {
-      fieldArray: (props.value || []).map(this.createInternalFieldValue),
-    };
-    this._name = prefixName(context.zentForm, props.name);
     this._uniqueKey = 0;
+    this._name = prefixName(context.zentForm, props.name);
 
     // 标记触发 FieldArray 值改变的操作是什么类型
     this._mutatorAction = FieldArrayMutatorAction.Initialize;
+
+    this.state = {
+      fieldArray: (props.value || []).map(this.createInternalFieldValue),
+    };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
