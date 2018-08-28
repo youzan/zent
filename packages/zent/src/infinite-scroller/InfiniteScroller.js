@@ -32,6 +32,7 @@ export default class InfiniteScroller extends PureComponent {
 
   stopLoading = () => {
     this.setState({ isLoadingShow: false });
+    this.isLoading = false;
   };
 
   calculateTopPosition = el => {
@@ -69,10 +70,10 @@ export default class InfiniteScroller extends PureComponent {
 
   handleScroll = () => {
     const { hasMore, loadMore } = this.props;
-    if (!hasMore || !this.isScrollAtBottom()) {
+    if (!hasMore || !this.isScrollAtBottom() || this.isLoading) {
       return;
     }
-
+    this.isLoading = true;
     this.setState({
       isLoadingShow: true,
     });
@@ -83,9 +84,11 @@ export default class InfiniteScroller extends PureComponent {
       loadMore()
         .then(() => {
           this.setState({ isLoadingShow: false });
+          this.isLoading = false;
         })
         .catch(() => {
           this.setState({ isLoadingShow: false });
+          this.isLoading = false;
         });
     }
   };

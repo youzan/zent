@@ -18,7 +18,7 @@ Infinite scrolling widget
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
 | hasMore            | if pass true, it will call loadMore function        | bool                | `true`           | `false`, `true`                               |
 | loadMore      		 | loadMore function, first argument is a callback to stop loading animation effect| func(stopLoading)   |                  |  							  |
-| initialLoad        | whether it should be call loadMore function when it initialize    | bool                |  `false`         | `false`, `true`                               |
+| initialLoad        | whether it should be call loadMore function when it initialize    | bool                |  `true`         | `false`, `true`                               |
 | useWindow          | if pass true, it will listens window scroll event, or it will listens it's DOM element scroll event | bool | `true` | `false`, `true`                        |
 | useCapture         | whether to capture event when scroll event triggers  | bool                | `false`          | `false`, `true`                               |
 | loader             | showing content when it is loaded                | node                | zent's Loading    |                                               |  
