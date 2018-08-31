@@ -22,6 +22,8 @@ class Body extends PureComponent {
       expandRender,
       fixedColumnsBodyRowsHeight,
       fixedColumnsBodyExpandRowsHeight,
+      components,
+      rowProps,
     } = this.props;
     const row = [];
 
@@ -41,6 +43,8 @@ class Body extends PureComponent {
           fixed={fixed}
           scroll={scroll}
           fixedColumnsBodyRowsHeight={fixedColumnsBodyRowsHeight}
+          row={components && components.row}
+          rowProps={rowProps}
         />
       );
       if (expandRender && expandRowKeys.length > 0) {

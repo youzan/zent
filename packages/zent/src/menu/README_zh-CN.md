@@ -16,6 +16,8 @@ group: 导航
 | 参数 | 说明 | 类型 | 默认值 | 可选值 |
 |------|------|------|--------|-----|
 | onClick | 点击菜单节点回调 | func |  | |
+| onSubMenuClick | 点击子菜单(非叶子节点)的回调, 入参为子菜单 ID | func |  | |
+| onExpandChange | 菜单展开/折叠时的回调, 入参为此时处于展开状态的 SubMenu id 数组 | func |  | |
 | style | 自定义内联样式 | object |  | |
 | mode | 模式 | string | 'pop' | 'pop', 'inline' |
 | defaultExpandKeys | 默认展开的SubMenu的keys | array | | |
@@ -52,7 +54,7 @@ group: 导航
 - 菜单组件使用统一代理的点击事件回调函数, 其参数为 event 和 key(实际上是节点的 index 属性值)。
 - 当 MenuItem 不设置 `key` 属性时的会按顺序和层级自动生成节点的唯一标识(从0开始)并保存在 `speckey` 属性上, 作为 `onClick` 函数的第二个参数。
   如果手动设置了 `key` 属性则会被复制到 `speckey` 属性, 覆盖自动生成的标识。建议在Menu不复杂的情况下手动为 MenuItem 设置格式合理的 `key` 属性。
-  
+
   ```
 	<Menu>
 		<MenuItem />   -------- 'item_0'
