@@ -53,6 +53,7 @@ declare module 'zent/lib/form' {
     function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps|any ,any>) => React.Component<IConnectedFormProps, any>
 
     interface IValidation {
+      [validation: string]: (values: any, value: any) => string | boolean;  // 自定义验证
       required?: boolean
       isExisty?: boolean
       matchRegex?: RegExp
@@ -77,16 +78,16 @@ declare module 'zent/lib/form' {
       name: string
       component: string|React.Component<any, any>
       value: any
-      normalize?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-      format?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-      onChange?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-      onBlur?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
+      normalize?: (value?: any, previousValue?: any, nextValues?: any, previousValues?: any) => void
+      format?: (value?: any, previousValue?: any, nextValues?: any, previousValues?: any) => void
+      onChange?: (event?: any, newValue?: any, previousValue?: any, preventSetValue?: () => void) => void
+      onBlur?: (event?: any, newValue?: any, previousValue?: any, preventSetValue?: () => void) => void
       onFocus?: React.FocusEventHandler<any>
       validations?: IValidation
       validationErrors?: any
       validateOnChange?: boolean
       validateOnBlur?: boolean
-      asyncValidation?: (values: Object, value: any) => Promise<any>
+      asyncValidation?: (values: any, value: any) => Promise<any>
       displayError?: boolean
       relatedFields?: Array<any>
     }
