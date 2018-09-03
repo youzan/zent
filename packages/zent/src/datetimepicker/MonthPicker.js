@@ -236,7 +236,7 @@ class MonthPicker extends PureComponent {
     );
     const inputCls = cx({
       'picker-input': true,
-      'picker-input--filled': !showPlaceholder,
+      'picker-input--show-clear-icon': canClear && !showPlaceholder,
       'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);

@@ -43,6 +43,12 @@ function getFormat(props) {
   return format === DEFAULT_FORMAT ? defaultFormat : format;
 }
 
+const disabledMap = {
+  hour: 'disabledHour',
+  minute: 'disabledMinute',
+  second: 'disabledSecond',
+};
+
 export default class TimePicker extends PureComponent {
   static propTypes = {
     ...commonPropTypes,
@@ -52,6 +58,7 @@ export default class TimePicker extends PureComponent {
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
     onBeforeConfirm: PropTypes.func,
+    disabledTime: PropTypes.func,
   };
 
   static defaultProps = {
@@ -62,6 +69,7 @@ export default class TimePicker extends PureComponent {
     hourStep: 1,
     minuteStep: 1,
     secondStep: 1,
+    disabledTime: () => {},
   };
 
   retType = 'string';
@@ -81,6 +89,7 @@ export default class TimePicker extends PureComponent {
 
     this.state = this.extractStateFromProps(props);
     this.state.tabKey = TIME_KEY.HOUR;
+    this.disabledTime = props.disabledTime() || {};
   }
 
   componentWillReceiveProps(next) {
@@ -221,7 +230,7 @@ export default class TimePicker extends PureComponent {
       maxSecond = maxDate.getSeconds();
     }
 
-    return {
+    const defaultHandlers = {
       [TIME_KEY.HOUR]: h => h < minHour || h > maxHour,
       [TIME_KEY.MINUTE]: m =>
         (value.getHours() === minHour && m < minMinute) ||
@@ -233,7 +242,9 @@ export default class TimePicker extends PureComponent {
         (value.getHours() === maxHour &&
           value.getMinutes() === maxMinute &&
           s > maxSecond),
-    }[type];
+    };
+
+    return this.disabledTime[disabledMap[type]] || defaultHandlers[type];
   };
 
   togglePicker = () => {
@@ -308,8 +319,6 @@ export default class TimePicker extends PureComponent {
       state: { value, isPanelOpen },
     } = this;
 
-    let datePicker;
-
     // 打开面板的时候才渲染
     if (isPanelOpen) {
       const linkCls = cx({
@@ -350,7 +359,7 @@ export default class TimePicker extends PureComponent {
           );
         });
 
-      datePicker = (
+      return (
         <div className="time-picker time-panel time-picker-panel">
           <div className="panel__header time-picker-panel__header">
             <div
@@ -380,7 +389,7 @@ export default class TimePicker extends PureComponent {
       );
     }
 
-    return datePicker;
+    return null;
   };
 
   render() {
@@ -411,7 +420,7 @@ export default class TimePicker extends PureComponent {
     );
     const inputCls = cx({
       'picker-input': true,
-      'picker-input--filled': !!formattedValue,
+      'picker-input--show-clear-icon': canClear && !!formattedValue,
       'picker-input--disabled': disabled,
       'time-picker-input': true,
     });

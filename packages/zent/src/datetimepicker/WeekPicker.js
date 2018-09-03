@@ -364,7 +364,7 @@ class WeekPicker extends PureComponent {
       className
     );
     const inputCls = cx('picker-input', 'week-picker-input', {
-      'picker-input--filled': !showPlaceholder,
+      'picker-input--show-clear-icon': canClear && !showPlaceholder,
       'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
