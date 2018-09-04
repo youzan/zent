@@ -91,8 +91,12 @@ export default class TimePanel extends PureComponent {
     if (max && isSameDate(max, actived)) {
       fns = {
         hour: val => val > max.getHours(),
-        minute: val => val > max.getMinutes(),
-        second: val => val > max.getSeconds(),
+        minute: val =>
+          actived.getHours() === max.getHours() && val > max.getMinutes(),
+        second: val =>
+          actived.getHours() === max.getHours() &&
+          actived.getMinutes() === max.getMinutes() &&
+          val > max.getSeconds(),
       };
       return fns[type];
     }
