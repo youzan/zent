@@ -83,8 +83,6 @@ describe('NumberInput', () => {
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
     expect(wrapper.state('value')).toBe('2');
 
-    wrapper.find('input').simulate('change');
-    expect(onChangeMock.mock.calls.length).toBe(2);
     wrapper.find('input').simulate('blur');
     expect(onBlurMock.mock.calls.length).toBe(1);
     wrapper.find('input').simulate('keyDown', { keyCode: 13 });
@@ -96,17 +94,65 @@ describe('NumberInput', () => {
     expect(wrapper.state('value')).toBe('0');
   });
 
-  it('NumberInput onchange value', () => {
-    const handleChange = e => {
-      expect(e.target.value).toBe('1');
-    };
+  it('NumberInput onChange value', () => {
+    const mockHandleChange = jest.fn(e => e.target.value);
 
-    const wrapper = mount(<NumberInput onChange={handleChange} value={1} />);
+    const wrapper = mount(
+      <NumberInput onChange={mockHandleChange} value={1} />
+    );
     wrapper.find('input').simulate('change', {
       target: {
-        value: '',
+        value: 2,
       },
     });
-    expect(wrapper.state('value')).toBe('');
+
+    expect(wrapper.state('value')).toBe(2);
+    expect(mockHandleChange.mock.calls[0][0].target.value).toBe(2);
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 3,
+      },
+    });
+
+    expect(wrapper.state('value')).toBe(3);
+    expect(mockHandleChange.mock.calls[1][0].target.value).toBe(3);
+  });
+
+  it('NumberInput only call onChange when number realy changed', () => {
+    const mockHandleChange = jest.fn();
+    const wrapper = mount(<NumberInput onChange={mockHandleChange} />);
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 1,
+      },
+    });
+
+    expect(mockHandleChange.mock.calls.length).toBe(1);
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 1,
+      },
+    });
+
+    expect(mockHandleChange.mock.calls.length).toBe(1);
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '1a',
+      },
+    });
+
+    expect(mockHandleChange.mock.calls.length).toBe(1);
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '11',
+      },
+    });
+
+    expect(mockHandleChange.mock.calls.length).toBe(2);
   });
 });

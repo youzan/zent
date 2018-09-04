@@ -8,6 +8,16 @@ import Input from 'input';
 import Icon from 'icon';
 import getWidth from 'utils/getWidth';
 
+const checkValidNumber = value => {
+  return (
+    /^(\-|\+)?\d+(\.)?$/g.test(value) ||
+    /^(\-|\+)?\d+(\.\d+)?$/g.test(value) ||
+    /^\d+\.$/g.test(value) ||
+    /^(\-|\+)?$/g.test(value) ||
+    /^\.\d+$/g.test(value)
+  );
+};
+
 export default class NumberInput extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
@@ -74,7 +84,6 @@ export default class NumberInput extends PureComponent {
         upArrow,
         downArrow,
       });
-      this.onPropChange(num);
     }
   }
 
@@ -119,16 +128,12 @@ export default class NumberInput extends PureComponent {
 
   onChange = ev => {
     let value = ev.target.value;
-    if (!value) {
-      this.setState({ value });
-    } else if (
-      /^(\-|\+)?\d+(\.)?$/g.test(value) ||
-      /^(\-|\+)?\d+(\.\d+)?$/g.test(value) ||
-      /^\d+\.$/g.test(value) ||
-      /^(\-|\+)?$/g.test(value) ||
-      /^\.\d+$/g.test(value)
-    ) {
-      this.setState({ value });
+    if (!value || checkValidNumber(value)) {
+      const prevValue = this.state.value;
+      if (prevValue !== value) {
+        this.setState({ value });
+        this.onPropChange(value);
+      }
     }
   };
 
@@ -151,7 +156,6 @@ export default class NumberInput extends PureComponent {
       upArrow,
       downArrow,
     });
-    this.onPropChange(num);
     return num;
   }
 
@@ -185,7 +189,6 @@ export default class NumberInput extends PureComponent {
       upArrow,
       downArrow,
     });
-    this.onPropChange(num);
   }
 
   inc = () => {
