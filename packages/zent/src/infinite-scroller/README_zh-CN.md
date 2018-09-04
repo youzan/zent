@@ -19,7 +19,7 @@ group: 展示
 | ------------------ | ---------------------------- | ------------------- | ---------------- | --------------------------------------------  |
 | hasMore            | 是否可以调用loadMore回调        | bool                | `true`           | `false`, `true`                               |
 | loadMore      		 | 加载更多的回调函数，如果函数接收参数则会传入一个停止loading效果的回调| func(stopLoading)   |                  |  							  |
-| initialLoad        | 初始化时是否调用loadMore回调    | bool                |  `false`         | `false`, `true`                               |
+| initialLoad        | 初始化时是否调用loadMore回调    | bool                |  `true`         | `false`, `true`                               |
 | useWindow          | 是否监听window上的滚动事件，如果传入false，则监听该DOM元素上的滚动事件| bool | `true` | `false`, `true`                        |
 | useCapture         | 滚动事件是否在事件捕获阶段接收    | bool                | `false`          | `false`, `true`                               |
 | loader             | 加载时显示的内容                | node                | zent的Loading    |                                               |  
