@@ -28,6 +28,7 @@ node_modules
 
 dist/
 lib/
+es/
 npm-debug.log
 .tmp/
 .DS_Store

@@ -17,6 +17,7 @@ postcss assets/*.pcss -d css --ext css
 
 # transpile using babel
 cross-env BABEL_ENV=transpile babel src --out-dir lib
+cross-env BABEL_ENV=es babel src --out-dir es
 
 # build umd output
 cross-env NODE_ENV=production webpack --progress
