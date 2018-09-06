@@ -24,6 +24,7 @@ cp -fp .es-babelrc .babelrc
 cross-env BABEL_ENV=es babel src --out-dir es
 cp -fp .babelrc .es-babelrc
 cp -fp .babelrc.bak .babelrc
+rm -rf .babelrc.bak
 
 # build umd output
 cross-env NODE_ENV=production webpack --progress

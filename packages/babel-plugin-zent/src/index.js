@@ -70,7 +70,12 @@ module.exports = function(babel) {
             throw path.buildCodeFrameError('Unexpected import type');
           }, []);
 
-          path.replaceWithMultiple(replacement);
+          const { opts: options } = state;
+          if (options.noModuleRewrite) {
+            path.insertAfter(replacement);
+          } else {
+            path.replaceWithMultiple(replacement);
+          }
         }
       },
     },
@@ -91,12 +96,14 @@ function buildImportReplacement(specifier, types, state, originalPath) {
     const rule = data.MODULE_MAPPING[importedName];
 
     // js
-    replacement.push(
-      types.importDeclaration(
-        [types.importDefaultSpecifier(types.identifier(localName))],
-        types.stringLiteral(rule.js)
-      )
-    );
+    if (!options.noModuleRewrite) {
+      replacement.push(
+        types.importDeclaration(
+          [types.importDefaultSpecifier(types.identifier(localName))],
+          types.stringLiteral(rule.js)
+        )
+      );
+    }
 
     // style
     if (options.automaticStyleImport) {
