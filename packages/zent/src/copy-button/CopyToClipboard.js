@@ -64,4 +64,4 @@ function copy(text) {
   return success;
 }
 
-module.exports = copy;
+export default copy;
