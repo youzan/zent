@@ -14,11 +14,11 @@ fail () {
 
 pushd $basepath/.. >/dev/null 2>&1
 yarn prettify
-changes=$(git diff-index --quiet HEAD -- | grep -v babelrc)
-change_count=$(echo $changes | sed '/^\s*$/d' | wc -l)
+changes=$(git diff-index HEAD | grep -v babelrc)
+change_count=$(echo "$changes" | sed '/^\s*$/d' | wc -l)
 popd >/dev/null 2>&1
 
 if [ "$change_count" -gt 0 ]; then
-  echo $changes
+  echo "$changes"
   fail 'Git hooks not installed. Follow these instructions on your local machine:\n1. yarn install\n2. yarn prettify\n3. Commit your changes and push.'
 fi
