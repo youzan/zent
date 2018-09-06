@@ -19,11 +19,11 @@ postcss assets/*.pcss -d css --ext css
 cross-env BABEL_ENV=transpile babel src --out-dir lib
 
 # babel 6 doesn't support env specific preset option
-mv .babelrc .babelrc.bak
-mv .es-babelrc .babelrc
+cp -pf .babelrc .babelrc.bak
+cp -pf .es-babelrc .babelrc
 cross-env BABEL_ENV=es babel src --out-dir es
-mv .babelrc .es-babelrc
-mv .babelrc.bak .babelrc
+cp -pf .babelrc .es-babelrc
+cp -pf .babelrc.bak .babelrc
 
 # build umd output
 cross-env NODE_ENV=production webpack --progress
