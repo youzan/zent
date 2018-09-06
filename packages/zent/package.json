@@ -8,6 +8,11 @@
     "url": "git@github.com:youzan/zent.git"
   },
   "main": "./lib/index.js",
+  "module": "./es/index.js",
+  "sideEffects": [
+    "./css/**/*.css",
+    "./assets/**/*.pcss"
+  ],
   "scripts": {
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
@@ -21,6 +26,7 @@
     "src/",
     "assets/",
     "lib/",
+    "es/",
     "css/",
     "typings/"
   ],
