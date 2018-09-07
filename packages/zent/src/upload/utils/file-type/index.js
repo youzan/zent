@@ -11,7 +11,7 @@ const xpiZipFilename = toBytes('META-INF/mozilla.rsa');
 const oxmlContentTypes = toBytes('[Content_Types].xml');
 const oxmlRels = toBytes('_rels/.rels');
 
-module.exports = input => {
+const getFileType = input => {
   const buf = input instanceof Uint8Array ? input : new Uint8Array(input);
 
   if (!(buf && buf.length > 1)) {
@@ -939,3 +939,5 @@ module.exports = input => {
 
   return null;
 };
+
+export default getFileType;
