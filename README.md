@@ -59,7 +59,7 @@ Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https:/
 
 - [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
 - [Discord](https://discord.gg/Nf6wVd2)
-- Wechat
+- Wechat(请备注 Zent)
   
 	<img src="https://img.yzcdn.cn/public_files/2018/06/06/1fbe772102f91fae8eb3fa1767dd9b26.png" width="240px"/>
 
