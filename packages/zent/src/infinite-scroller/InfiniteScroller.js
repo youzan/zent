@@ -27,11 +27,11 @@ export default class InfiniteScroller extends PureComponent {
   };
 
   state = {
-    isLoadingShow: false,
+    isLoading: false,
   };
 
   stopLoading = () => {
-    this.setState({ isLoadingShow: false });
+    this.setState({ isLoading: false });
   };
 
   calculateTopPosition = el => {
@@ -69,24 +69,21 @@ export default class InfiniteScroller extends PureComponent {
 
   handleScroll = () => {
     const { hasMore, loadMore } = this.props;
-    if (!hasMore || !this.isScrollAtBottom()) {
+    const { isLoading } = this.state;
+    if (!hasMore || !this.isScrollAtBottom() || isLoading) {
       return;
     }
 
     this.setState({
-      isLoadingShow: true,
+      isLoading: true,
     });
 
     if (loadMore.length > 0) {
       loadMore(this.stopLoading);
     } else {
       loadMore()
-        .then(() => {
-          this.setState({ isLoadingShow: false });
-        })
-        .catch(() => {
-          this.setState({ isLoadingShow: false });
-        });
+        .then(this.stopLoading)
+        .catch(this.stopLoading);
     }
   };
 
@@ -137,14 +134,14 @@ export default class InfiniteScroller extends PureComponent {
       loader,
       useWindow,
     } = this.props;
-    const { isLoadingShow } = this.state;
+    const { isLoading } = this.state;
     const classString = cx(`${prefix}-infinite-scroller`, className, {
       [`${prefix}-infinite-scroller-y`]: !useWindow,
     });
     return (
       <div ref={scroller => (this.scroller = scroller)} className={classString}>
         {children}
-        {hasMore && isLoadingShow && loader}
+        {hasMore && isLoading && loader}
       </div>
     );
   }

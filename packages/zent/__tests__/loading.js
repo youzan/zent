@@ -79,10 +79,29 @@ describe('Loading', () => {
 
   it('can have children', () => {
     let wrapper = mount(
-      <Loading show>
+      <Loading show={false}>
         <span>foobar</span>
       </Loading>
     );
-    expect(wrapper.find('.zent-loading-container').length).toBe(1);
+    expect(wrapper.find('.zent-page-loading').length).toBe(0);
+    wrapper.setProps({
+      show: true,
+    });
+    expect(wrapper.find('.zent-page-loading').length).toBe(1);
+    wrapper.setProps({
+      show: true,
+    });
+    expect(wrapper.find('.zent-page-loading').length).toBe(1);
+  });
+
+  it('show delay', () => {
+    let wrapper = mount(
+      <Loading show showDelay={1}>
+        <span>foobar</span>
+      </Loading>
+    );
+    jest.runOnlyPendingTimers();
+    wrapper.update();
+    expect(wrapper.find('.zent-page-loading').length).toBe(1);
   });
 });

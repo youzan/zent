@@ -38,6 +38,7 @@ export default class TimeRangePicker extends PureComponent {
     minuteStep: PropTypes.number,
     secondStep: PropTypes.number,
     showSecond: PropTypes.bool,
+    disabledTime: PropTypes.func,
   };
 
   static defaultProps = {
@@ -52,6 +53,7 @@ export default class TimeRangePicker extends PureComponent {
     value: [],
     openPanel: [],
     showSecond: false,
+    disabledTime: () => {},
   };
 
   onChange = type => {
@@ -76,6 +78,7 @@ export default class TimeRangePicker extends PureComponent {
       onOpen,
       placeholder,
       value,
+      disabledTime,
       ...pickerProps
     } = this.props;
     let rangePicker;
@@ -95,6 +98,7 @@ export default class TimeRangePicker extends PureComponent {
               onOpen={() => onOpen && onOpen(START)}
               onClose={() => onClose && onClose(START)}
               onChange={this.onChange(START)}
+              disabledTime={() => disabledTime(START)}
             />
           )}
         </Receiver>
@@ -114,6 +118,7 @@ export default class TimeRangePicker extends PureComponent {
               onOpen={() => onOpen && onOpen(END)}
               onClose={() => onClose && onClose(END)}
               onChange={this.onChange(END)}
+              disabledTime={() => disabledTime(END)}
             />
           )}
         </Receiver>

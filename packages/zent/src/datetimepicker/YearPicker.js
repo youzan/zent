@@ -209,6 +209,7 @@ class YearPicker extends PureComponent {
         prefix,
         width,
         canClear,
+        autoComplete,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -220,7 +221,7 @@ class YearPicker extends PureComponent {
     );
     const inputCls = cx({
       'picker-input': true,
-      'picker-input--filled': !showPlaceholder,
+      'picker-input--show-clear-icon': canClear && !showPlaceholder,
       'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
@@ -244,6 +245,7 @@ class YearPicker extends PureComponent {
                     value={value || ''}
                     onChange={noop}
                     disabled={disabled}
+                    autoComplete={autoComplete}
                   />
                 )}
               </Receiver>

@@ -9,6 +9,7 @@
 <p align="center">
   Zent <small><font color="grey">( &#92;ˈzent&#92; )</font></small>, a collection of essential UI components written with React.
 </p>
+<p align="center"><a href="./README-zh_CN.md">🇨🇳 访问中文版</a></p>
 
 [![Build Status](https://travis-ci.org/youzan/zent.svg?branch=master)](https://travis-ci.org/youzan/zent) [![CircleCI](https://circleci.com/gh/youzan/zent.svg?style=svg)](https://circleci.com/gh/youzan/zent) [![Coverage Status](https://img.shields.io/coveralls/youzan/zent/master.svg?style=flat)](https://coveralls.io/github/youzan/zent?branch=master) [![npm version](https://img.shields.io/npm/v/zent.svg?style=flat)](https://www.npmjs.com/package/zent) [![downloads](https://img.shields.io/npm/dt/zent.svg)](https://www.npmjs.com/package/zent) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](packages/zent/docs/CONTRIBUTING_en-US.md)
 
@@ -46,7 +47,7 @@ npm install zent --save
 
 ## Documentation
 
-[https://www.youzanyun.com/zanui/zent/en/guides/install](https://www.youzanyun.com/zanui/zent/en/guides/install)
+[https://youzan.github.io/zent/en/guides/install](https://youzan.github.io/zent/en/guides/install)
 
 ## Contribution
 
@@ -58,7 +59,7 @@ Send [issues](https://github.com/youzan/zent/issues) and [pull requests](https:/
 
 - [Slack](https://join.slack.com/t/zentjs/shared_invite/enQtMjcwNzM3NzE2OTMyLTc4MTg4MDkzZTVhNTQ5MmI4ZmVhOGQ2MzZhOTk2OGIyNmZjM2NhMzU3YjM4MzI3YTkxYWNjMDBhMzRiZTliNTE)
 - [Discord](https://discord.gg/Nf6wVd2)
-- Wechat
+- Wechat(请备注 Zent)
   
 	<img src="https://img.yzcdn.cn/public_files/2018/06/06/1fbe772102f91fae8eb3fa1767dd9b26.png" width="240px"/>
 
