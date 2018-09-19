@@ -12,7 +12,11 @@ class SimpleTrigger extends PureComponent {
       <Receiver componentName="Select" defaultI18n={I18nDefault}>
         {i18n => (
           <div className={`${prefixCls}-simple`} onClick={onClick}>
-            {this.props.text || this.props.placeholder || i18n.input}
+            {this.props.text || (
+              <span className={`${prefixCls}-placeholder`}>
+                {this.props.placeholder || i18n.input}
+              </span>
+            )}
           </div>
         )}
       </Receiver>
