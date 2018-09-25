@@ -73,19 +73,23 @@ class TagsTrigger extends PureComponent {
             })}
             onClick={onClick}
           >
-            {selectedItems.length > 0
-              ? selectedItems.map((item, index) => {
-                  return (
-                    <Tag
-                      {...this.props}
-                      key={index}
-                      cid={item.cid}
-                      {...item}
-                      onDelete={this.deleteTagHandler}
-                    />
-                  );
-                })
-              : placeholder || i18n.input}
+            {selectedItems.length > 0 ? (
+              selectedItems.map((item, index) => {
+                return (
+                  <Tag
+                    {...this.props}
+                    key={index}
+                    cid={item.cid}
+                    {...item}
+                    onDelete={this.deleteTagHandler}
+                  />
+                );
+              })
+            ) : (
+              <span className={`${prefixCls}-placeholder`}>
+                {placeholder || i18n.input}
+              </span>
+            )}
           </div>
         )}
       </Receiver>

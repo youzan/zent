@@ -225,6 +225,7 @@ class MonthPicker extends PureComponent {
         prefix,
         width,
         canClear,
+        autoComplete,
       },
       state: { openPanel, showPlaceholder, value },
     } = this;
@@ -235,7 +236,7 @@ class MonthPicker extends PureComponent {
     );
     const inputCls = cx({
       'picker-input': true,
-      'picker-input--filled': !showPlaceholder,
+      'picker-input--show-clear-icon': canClear && !showPlaceholder,
       'picker-input--disabled': disabled,
     });
     const widthStyle = getWidth(width);
@@ -259,6 +260,7 @@ class MonthPicker extends PureComponent {
                     value={value || ''}
                     onChange={noop}
                     disabled={disabled}
+                    autoComplete={autoComplete}
                   />
                   <span className="zenticon zenticon-calendar-o" />
                   {canClear && (

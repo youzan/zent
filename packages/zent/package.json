@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "6.1.0-beta3",
+  "version": "6.4.0-beta1",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -8,6 +8,11 @@
     "url": "git@github.com:youzan/zent.git"
   },
   "main": "./lib/index.js",
+  "module": "./es/index.js",
+  "sideEffects": [
+    "./css/**/*.css",
+    "./assets/**/*.pcss"
+  ],
   "scripts": {
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
@@ -21,6 +26,7 @@
     "src/",
     "assets/",
     "lib/",
+    "es/",
     "css/",
     "typings/"
   ],
@@ -40,7 +46,7 @@
     "sortablejs": "^1.7.0",
     "tinycolor2": "^1.4.1",
     "uuid": "^3.1.0",
-    "zan-utils": "^1.1.8",
+    "zan-utils": "^1.2.8",
     "zenticons": "1.3.4"
   }
 }

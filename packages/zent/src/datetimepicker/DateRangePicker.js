@@ -29,6 +29,7 @@ class DateRangePicker extends PureComponent {
     defaultTime: PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     ),
+    disabledTime: PropTypes.func,
   };
 
   static defaultProps = {
@@ -39,6 +40,7 @@ class DateRangePicker extends PureComponent {
     value: [],
     openPanel: [],
     defaultTime: [TIME_BEGIN, TIME_BEGIN],
+    disabledTime: () => undefined,
   };
 
   onChange = type => {
@@ -68,6 +70,7 @@ class DateRangePicker extends PureComponent {
       openPanel,
       placeholder,
       value,
+      disabledTime,
       ...pickerProps
     } = this.props;
     let rangePicker;
@@ -92,6 +95,7 @@ class DateRangePicker extends PureComponent {
               onClose={() => onClose && onClose(START)}
               onChange={this.onChange(START)}
               disabledDate={val => disabledDate(val, START)}
+              disabledTime={() => disabledTime(START)}
             />
           )}
         </Receiver>
@@ -115,6 +119,7 @@ class DateRangePicker extends PureComponent {
               onClose={() => onClose && onClose(END)}
               onChange={this.onChange(END)}
               disabledDate={val => disabledDate(val, END)}
+              disabledTime={() => disabledTime(END)}
             />
           )}
         </Receiver>

@@ -9,6 +9,7 @@ import Button from 'button';
 import Card from 'card';
 import Cascader from 'cascader';
 import Checkbox from 'checkbox';
+import ClampLines from 'clamp-lines';
 import Collapse from 'collapse';
 import ColorPicker from 'colorpicker';
 import CopyButton from 'copy-button';
@@ -64,6 +65,7 @@ import WeekPicker from 'datetimepicker/WeekPicker';
 import YearPicker from 'datetimepicker/YearPicker';
 
 export {
+  // SelectMenu,
   Affix,
   Alert,
   AutoComplete,
@@ -75,6 +77,7 @@ export {
   Card,
   Cascader,
   Checkbox,
+  ClampLines,
   Collapse,
   ColorPicker,
   CopyButton,
@@ -109,7 +112,6 @@ export {
   Rate,
   SearchInput,
   Select,
-  // SelectMenu,
   SKU,
   Slider,
   Sortable,

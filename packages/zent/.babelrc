@@ -3,18 +3,18 @@
   "plugins": [
     "transform-es3-member-expression-literals",
     "transform-es3-property-literals",
-    ["transform-runtime", {
-      "polyfill": false,
-      "regenerator": false
-    }]
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "regenerator": false
+      }
+    ]
   ],
 
   "env": {
     "production": {
-      "plugins": [
-        "transform-remove-console",
-        "transform-remove-debugger"
-      ]
+      "plugins": ["transform-remove-console", "transform-remove-debugger"]
     },
 
     "transpile": {

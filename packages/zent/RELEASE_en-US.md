@@ -7,6 +7,40 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.3.0 (2018-09-07)
+
+- ✨ `TimePicker` add `disabledTime` support
+- ✨ `Loading` supports show delay
+- ✨ Add ES module output
+- ✨ `babel-plugin-zent@1.2.1` now has an option to only transform styles imports, use with ES module to support tree shaking(requires bundle tool support)
+- `InfiniteScroller`
+  - 🦀️ Fix `loadMore` repeatedly get called
+  - 🦀️ Fix documentation
+
+### 6.2.0 (2018-08-24)
+
+- 🎉 Add `ClampLines` component
+- ✨ `Grid` suppports DnD
+- ✨ `Menu` add sub menu click and expand/collapse callback
+- 🦀️ Disable input auto complete in `DatePicker`
+- 🦀️ Fix bug when initializing `FieldArray`
+
+### 6.1.0 (2018-08-03)
+
+- `Grid` 
+  - ✨ Support a default text for each column
+  - 🦀️ Fix `selection.getCheckboxProps` not updated
+- ✨ Add some new `Icon`s
+- ✨ `Cascader` menu trigger can be controlled by `expandTrigger`
+- ✨ Add `containerSelector` support for `Pop`
+- `Button`
+  - ✨ Style update
+  - ✨ Add a space between button text iff button text consists of two Chinese characters
+- 🦀️ Fix a floating point number parsing issue in `NumberInput`
+- 🦀️ Rows in `Table` now can be configured as selected and disabled
+- 🦀️ Fix `FieldArray` not updating in `Form`
+- 🦀️ Fix lots of `TypeScript` definition issues
+
 ### 6.0.1 (2018-07-13)
 
 > ⚠️ `Icon`'s ttf file may be broken on Windows in previous versions, use this version if Windows means a lot to you.

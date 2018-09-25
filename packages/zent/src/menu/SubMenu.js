@@ -16,6 +16,7 @@ export default class SubMenu extends CommonMenu {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     isInline: PropTypes.bool,
+    onSubMenuClick: PropTypes.func,
 
     // inline模式独有props
     depth: PropTypes.number,
@@ -57,6 +58,7 @@ export default class SubMenu extends CommonMenu {
 
   titleClickHandler = e => {
     const { isInline, specKey, toggleExpand } = this.props;
+    this.props.onSubMenuClick(specKey);
     if (isInline) {
       toggleExpand(specKey);
     }
@@ -102,6 +104,7 @@ export default class SubMenu extends CommonMenu {
       expandKeys,
       handleSelect,
       toggleExpand,
+      onSubMenuClick: this.props.onSubMenuClick,
     });
   };
 
@@ -124,6 +127,7 @@ export default class SubMenu extends CommonMenu {
           onClick={this.handleClick}
           specKey={specKey}
           overlayCx={overlayClassName}
+          onSubMenuClick={this.props.onSubMenuClick}
         >
           {children}
         </SubPopupMenu>

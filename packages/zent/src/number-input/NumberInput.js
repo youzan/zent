@@ -125,7 +125,8 @@ export default class NumberInput extends PureComponent {
       /^(\-|\+)?\d+(\.)?$/g.test(value) ||
       /^(\-|\+)?\d+(\.\d+)?$/g.test(value) ||
       /^\d+\.$/g.test(value) ||
-      /^(\-|\+)?$/g.test(value)
+      /^(\-|\+)?$/g.test(value) ||
+      /^\.\d+$/g.test(value)
     ) {
       this.setState({ value });
     }

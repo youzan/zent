@@ -17,6 +17,7 @@ Loading is used for indicate loading state of section.
 | Props          | Description                          | Type     | Default |
 | -------------- | ---------------------------------------- | ------ | -------- |
 | show           | Show loading                    | bool   | `false`  |
+| showDelay      | Show delay in milliseconds     | number | 0 |
 | float          | Remove from the normal document flow     | bool   | `false`   |
 | height         | Available only when `float` is `false` | number | `160`    |
 | zIndex         | `z-index` of loading            | number | `9998`   |

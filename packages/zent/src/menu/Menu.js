@@ -17,6 +17,8 @@ export default class Menu extends CommonMenu {
     mode: PropTypes.string,
     className: PropTypes.string,
     prefix: PropTypes.string,
+    onSubMenuClick: PropTypes.func,
+    onExpandChange: PropTypes.func,
 
     // inline模式独有props
     defaultExpandKeys: PropTypes.array,
@@ -30,6 +32,8 @@ export default class Menu extends CommonMenu {
     mode: 'pop',
     inlineIndent: 24,
     defaultExpandKeys: [],
+    onSubMenuClick: noop,
+    onExpandChange: noop,
   };
 
   state = {
@@ -47,6 +51,7 @@ export default class Menu extends CommonMenu {
     this.setState({
       expandKeys: newExpandKeys,
     });
+    this.props.onExpandChange(newExpandKeys);
   };
 
   handleSelect = key => {
@@ -73,6 +78,7 @@ export default class Menu extends CommonMenu {
       expandKeys: this.state.expandKeys,
       handleSelect: this.handleSelect,
       toggleExpand: this.toggleExpand,
+      onSubMenuClick: this.props.onSubMenuClick,
     });
   };
 
