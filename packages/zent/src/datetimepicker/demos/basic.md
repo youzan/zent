@@ -12,13 +12,13 @@ import { TimePicker, TimeRangePicker, DatePicker, MonthPicker, QuarterPicker, Da
 class Demo extends Component{
   state = {
   };
-	
+
   onChangeTime = (val) => {
     this.setState({
       timeValue: val
     })
   }
-      
+
   onChangeTimeRange = (val) => {
     this.setState({
       timeRangeValue: val
@@ -67,7 +67,7 @@ class Demo extends Component{
 
     return (
 			<div>
-        <TimePicker 
+        <TimePicker
           className="zent-picker-demo"
           value={timeValue}
           onChange={this.onChangeTime}

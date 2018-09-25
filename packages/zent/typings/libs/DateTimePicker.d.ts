@@ -88,6 +88,7 @@ declare module 'zent/lib/datetimepicker/TimePicker' {
     secondStep?: number,
     onBeforeConfirm?: () => boolean,
     onBeforeClear?: () => boolean,
+    disabledTime?: () => IDisabledTime
   }
 
   export default class TimePicker extends React.Component<ITimePickerProps, any> {}
@@ -100,6 +101,7 @@ declare module 'zent/lib/datetimepicker/TimeRangePicker' {
     hourStep?: number,
     minuteStep?: number,
     secondStep?: number,
+    disabledTime?: () => IDisabledTime
   }
 
   export default class TimeRangePicker extends React.Component<ITimeRangePickerProps, any> {}

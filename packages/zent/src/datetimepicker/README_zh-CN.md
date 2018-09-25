@@ -7,7 +7,7 @@ group: 数据
 
 ## DatePicker 时间选择
 
-时间选择组件, 提供基础的时间、日期筛选功能.
+时间选择组件, 提供基础的时间、日期筛选功能。
 
 ### 使用指南
 
@@ -63,7 +63,6 @@ group: 数据
 
 更详细用法请看示例。
 
-
 #### WeekPicker
 
 | 参数           | 说明                       | 类型             | 默认值             | 是否必须 |
@@ -102,7 +101,6 @@ group: 数据
 | valueType | 设置 onChange 的返回值，可选值为 `string`/`number`/`date`  | `string`     | '' | 否    |
 | placeholder  | 提示文案          | arrayOf(string)    | `['开始日期','结束日期']`   | 否    |
 | defaultTime   | 自定义时间的默认值         | arrayOf(string/Date)    | `['00:00:00', '00:00:00']`   | 否    |
-
 
 **注意：**
 - `showTime` 的时候，传入的 `min` 或 `max` 如果为字符串，必须有 time 部分，即 `2017-01-01 11:11:11` 种格式。
@@ -159,14 +157,14 @@ group: 数据
 |           | ddd   | 周日, 周一 ... 周五, 周六 |
 |           | dddd  | 星期日, 星期一 ... 星期五, 星期六 |
 
-  <style>
-    .zent-picker-demo{
-      margin-bottom: 10px;
-      margin-right: 10px;
-    }
-    .demo-subtitle{
-      margin-bottom: 5px;
-      font-size: 12px;
-      color: #666;
-    }
-  </style>
+<style>
+	.zent-picker-demo{
+		margin-bottom: 10px;
+		margin-right: 10px;
+	}
+	.demo-subtitle{
+		margin-bottom: 5px;
+		font-size: 12px;
+		color: #666;
+	}
+</style>

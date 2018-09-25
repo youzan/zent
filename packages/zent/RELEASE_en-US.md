@@ -7,6 +7,24 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.3.0 (2018-09-07)
+
+- ✨ `TimePicker` add `disabledTime` support
+- ✨ `Loading` supports show delay
+- ✨ Add ES module output
+- ✨ `babel-plugin-zent@1.2.1` now has an option to only transform styles imports, use with ES module to support tree shaking(requires bundle tool support)
+- `InfiniteScroller`
+  - 🦀️ Fix `loadMore` repeatedly get called
+  - 🦀️ Fix documentation
+
+### 6.2.0 (2018-08-24)
+
+- 🎉 Add `ClampLines` component
+- ✨ `Grid` suppports DnD
+- ✨ `Menu` add sub menu click and expand/collapse callback
+- 🦀️ Disable input auto complete in `DatePicker`
+- 🦀️ Fix bug when initializing `FieldArray`
+
 ### 6.1.0 (2018-08-03)
 
 - `Grid` 

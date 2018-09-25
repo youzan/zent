@@ -12,6 +12,7 @@ export default class Instance extends PureComponent {
     className: PropTypes.string,
     float: PropTypes.bool,
     show: PropTypes.bool,
+    showDelay: PropTypes.number,
     zIndex: PropTypes.number,
     containerClass: PropTypes.string,
   };
@@ -22,6 +23,7 @@ export default class Instance extends PureComponent {
     // FIXME: use defaultProps when we drop support for static
     // float: false,
     show: false,
+    showDelay: 0,
     zIndex: 9998,
     containerClass: '',
   };

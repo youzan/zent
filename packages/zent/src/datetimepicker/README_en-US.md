@@ -106,6 +106,7 @@ Time pickers, provides basic time choosing functionality.
 
 | Property      | Description         | Type      | Default      | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
+| disabledTime | Callback to check if specific time is disabled | func | `noop` | No    |
 | showSecond       | Whether to show second selector to not.          | boolean         | false  | No    |
 | format       | Time formatting string        | string         | `HH:mm:ss`  | No    |
 | min        | The minimum selectable time           | string/Date    |     | No    |
@@ -124,6 +125,7 @@ Time pickers, provides basic time choosing functionality.
 
 | Property      | Description         | Type      | Default      | Required |
 | ------------ | ------------------------ | -------------- | --------------- | ---- |
+| disabledTime | Callback to check if specific time is disabled | func | `noop` | No    |
 | showSecond       | Whether to show second selector to not.          | boolean         | false  | No    |
 | format       | Time formatting string        | string         | `HH:mm:ss`  | No    |
 | value        | Selected value   | array  | `[]`           | No    |

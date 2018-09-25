@@ -5,9 +5,26 @@ import has from 'lodash/has';
 import { getElementLeft, getElementTop } from './getPosition';
 
 export default class Loading extends PureComponent {
-  state = {
-    show: this.props.show,
-  };
+  constructor(props) {
+    super(props);
+
+    this.showDelayTimer = null;
+    this.ifMounted = false;
+    this.state = {
+      show: false,
+    };
+
+    const { showDelay, show } = props;
+    this.applyShowDelay(show, showDelay, (s, async) => {
+      if (async) {
+        this.safeSetState({
+          show: s,
+        });
+      } else {
+        this.state.show = s;
+      }
+    });
+  }
 
   show = info => {
     // Do not add this optimization, setState is an async operation
@@ -19,22 +36,35 @@ export default class Loading extends PureComponent {
     //   return;
     // }
 
-    if (info.show) {
-      let target = this.props.target;
-      if (target) {
-        this.style = {
-          left: getElementLeft(target),
-          top: getElementTop(target),
-          width: target.offsetWidth,
-          height: target.offsetHeight,
-        };
+    this.applyShowDelay(info.show, info.showDelay, show => {
+      if (show) {
+        let target = this.props.target;
+        if (target) {
+          this.style = {
+            left: getElementLeft(target),
+            top: getElementTop(target),
+            width: target.offsetWidth,
+            height: target.offsetHeight,
+          };
+        }
       }
-    }
 
-    this.setState({
-      show: info.show,
+      this.safeSetState({
+        show,
+      });
     });
   };
+
+  applyShowDelay(show, showDelay, callback) {
+    if (!show || !showDelay) {
+      return callback(show, false);
+    }
+
+    clearTimeout(this.showDelayTimer);
+    this.showDelayTimer = setTimeout(() => {
+      callback(show, true);
+    }, showDelay);
+  }
 
   setPosition = () => {
     if (!this.wrapper) {
@@ -58,6 +88,7 @@ export default class Loading extends PureComponent {
   };
 
   componentDidMount() {
+    this.ifMounted = true;
     this.setPosition();
   }
 
@@ -65,10 +96,28 @@ export default class Loading extends PureComponent {
     this.setPosition();
   }
 
+  componentWillUnmount() {
+    this.ifMounted = false;
+    clearTimeout(this.showDelayTimer);
+    this.showDelayTimer = null;
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      show: nextProps.show,
-    });
+    const { show, showDelay } = nextProps;
+
+    if (this.props.show !== show) {
+      this.applyShowDelay(show, showDelay, s => {
+        this.safeSetState({
+          show: s,
+        });
+      });
+    }
+  }
+
+  safeSetState(state, cb) {
+    if (this.ifMounted) {
+      return this.setState(state, cb);
+    }
   }
 
   render() {

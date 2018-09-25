@@ -7,6 +7,24 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.3.0 (2018-09-07)
+
+- ✨ `TimePicker` 组件增加 `disabledTime` 时间禁用函数属性
+- ✨ `Loading` 支持延迟显示
+- ✨ 打包支持 ES module 输出形式
+- ✨ `babel-plugin-zent@1.2.1` 支持只处理样式引入，配合 ES module 实现 tree shaking（需要打包工具支持）
+- `InfiniteScroller`
+  - 🦀️ 修复反复触发 `loadMore` 回调的问题
+  - 🦀️ 修复文档问题
+
+### 6.2.0 (2018-08-24)
+
+- 🎉 新增多文本缩略显示 `ClampLines` 组件
+- ✨ `Grid` 支持拖拽操作
+- ✨ `Menu` 添加子菜单折叠/展开以及点击的回调函数
+- 🦀️ `DatePicker` 关闭浏览器自动填充输入框的行为
+- 🦀️ 修复 `Form` 初始化 `FieldArray` 时的问题
+
 ### 6.1.0 (2018-08-03)
 
 - `Grid` 
