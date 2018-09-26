@@ -7,6 +7,12 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.4.0 (2018-09-26)
+
+- ✨ Support `tags` mode in `FormSelectField`
+- 🦀️ Fix `Select` placeholder color
+- 🦀️ Fix `Upload` broken style when uploading multiple audio files
+
 ### 6.3.0 (2018-09-07)
 
 - ✨ `TimePicker` add `disabledTime` support
