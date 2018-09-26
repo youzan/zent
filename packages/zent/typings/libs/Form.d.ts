@@ -164,7 +164,7 @@ declare module 'zent/lib/form' {
     class FormInputField extends React.Component<IFormInputFieldProps, any> { }
     class FormSelectField extends React.Component<IFormSelectFieldProps, any> { }
 
-    interface IFormProps {
+    interface IProps {
       className?: string
       prefix?: string
       vertical?: boolean
@@ -176,7 +176,7 @@ declare module 'zent/lib/form' {
     }
   }
 
-  class Form extends React.Component<Form.IFormProps, any> { }
+  class Form extends React.Component<Form.IProps, any> { }
 
   export default Form
 }
