@@ -45,30 +45,30 @@ declare module 'zent/lib/table' {
       expandRender?: (data: any) => React.ReactNode
     }
 
+    interface IProps {
+      columns: Table.IColumn[]
+      datasets: any[]
+      rowKey?: string
+      sortBy?: string
+      sortType?: 'desc' | 'asc'
+      onChange?: (conf: Table.IChangeConfig) => void
+      emptyLabel?: string
+      selection?: Table.ISelection
+      loading?: boolean
+      getRowConf?: (data: any, index: number) => Table.IRowConf
+      expandation?: Table.IExpandation
+      batchComponents?: any[]
+      batchComponentsAutoFixed?: boolean
+      autoStick?: boolean
+      autoScroll?: boolean
+      className?: string
+      prefix?: string
+      pageInfo?: Table.IPageInfo
+    }
+
   }
 
-  interface ITableProps {
-    columns: Table.IColumn[]
-    datasets: any[]
-    rowKey?: string
-    sortBy?: string
-    sortType?: 'desc' | 'asc'
-    onChange?: (conf: Table.IChangeConfig) => void
-    emptyLabel?: string
-    selection?: Table.ISelection
-    loading?: boolean
-    getRowConf?: (data: any, index: number) => Table.IRowConf
-    expandation?: Table.IExpandation
-    batchComponents?: any[]
-    batchComponentsAutoFixed?: boolean
-    autoStick?: boolean
-    autoScroll?: boolean
-    className?: string
-    prefix?: string
-    pageInfo?: Table.IPageInfo
-  }
-
-  class Table extends React.Component<ITableProps, any> { }
+  class Table extends React.Component<Table.IProps, any> { }
 
   export default Table;
 }
