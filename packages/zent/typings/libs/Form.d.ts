@@ -1,18 +1,11 @@
 /// <reference types="react" />
+/// <reference path="./Input.d.ts" />
+/// <reference path="./Select.d.ts" />
 
 declare module 'zent/lib/form' {
-  interface IFormProps {
-    className?: string
-    prefix?: string
-    vertical?: boolean
-    horizontal?: boolean
-    inline?: boolean
-    onSubmit?: React.FormEventHandler<HTMLFormElement>
-    style?: React.CSSProperties
-    disableEnterSubmit?: boolean
-  }
 
-  class Form extends React.Component<IFormProps, any> {}
+  import Input from 'zent/lib/input';
+  import Select from 'zent/lib/select';
 
   namespace Form {
     interface IConnectedFormProps {
@@ -50,7 +43,7 @@ declare module 'zent/lib/form' {
       handleSubmit: (submit: (values: any, zentForm: IZentForm) => any) => any
     }
 
-    function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps|any ,any>) => React.Component<IConnectedFormProps, any>
+    function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps | any, any>) => React.Component<IConnectedFormProps, any>
 
     interface IValidation {
       required?: boolean
@@ -72,10 +65,22 @@ declare module 'zent/lib/form' {
       minLength?: number
     }
 
-    interface IFieldProps {
+    // 类型覆盖时使用
+    interface INativeAttributesBlock {
+      onBlur: any;
+      onChange: any;
+      onFocus: any;
+      name: any;
+      value: any;
+    }
+
+    type ReplaceBlockList<SOURCE> = {
+      [key in keyof SOURCE]: key extends (keyof INativeAttributesBlock) ? IFieldPropsBase[key] : SOURCE[key]
+    } & IFieldPropsBase;
+
+    interface IFieldPropsBase {
       ref?: (ref: any) => void
       name: string
-      component: string|React.Component<any, any>
       value: any
       normalize?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
       format?: (value: any, previousValue: any, nextValues: any, previousValues: any) => void
@@ -91,6 +96,10 @@ declare module 'zent/lib/form' {
       relatedFields?: Array<any>
     }
 
+    interface IFieldProps extends IFieldPropsBase {
+      component: string | React.Component<any, any>
+    }
+
     interface IFormSectionProps {
       name: string
       component?: React.ReactNode,
@@ -102,11 +111,11 @@ declare module 'zent/lib/form' {
       component: React.ReactNode,
     }
 
-    class Field extends React.Component<IFieldProps, any> {}
+    class Field extends React.Component<IFieldProps, any> { }
 
-    class FormSection extends React.PureComponent<IFormSectionProps, any> {}
+    class FormSection extends React.PureComponent<IFormSectionProps, any> { }
 
-    class FieldArray extends React.Component<IFieldArrayProps, any> {}
+    class FieldArray extends React.Component<IFieldArrayProps, any> { }
 
     interface IContolGroupProps {
       label?: string
@@ -116,7 +125,29 @@ declare module 'zent/lib/form' {
     }
 
     function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
+
+    class InputField extends React.Component<Input.IProps, any> { }
+    class SelectField extends React.Component<Select.IProps, any> { }
+
+    interface IFormInputFieldProps extends ReplaceBlockList<Input.IProps>, IContolGroupProps { }
+    interface IFormSelectFieldProps extends ReplaceBlockList<Select.IProps>, IContolGroupProps { }
+
+    class FormInputField extends React.Component<IFormInputFieldProps, any> { }
+    class FormSelectField extends React.Component<IFormSelectFieldProps, any> { }
+
+    interface IFormProps {
+      className?: string
+      prefix?: string
+      vertical?: boolean
+      horizontal?: boolean
+      inline?: boolean
+      onSubmit?: React.FormEventHandler<HTMLFormElement>
+      style?: React.CSSProperties
+      disableEnterSubmit?: boolean
+    }
   }
+
+  class Form extends React.Component<Form.IFormProps, any> { }
 
   export default Form
 }
