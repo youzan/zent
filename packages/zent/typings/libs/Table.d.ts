@@ -31,44 +31,44 @@ declare module 'zent/lib/table' {
       maxPageToShow: number
     }
 
-    interface ISingleSelection {
-      selectedRowKeys: string[]
+    interface ISingleSelection<TKey = any> {
+      selectedRowKeys: TKey[]
       isSingleSelection: true
       needCrossPage: boolean
-      onSelect: (selectedkeys: any[], selectedRows: any[], currentRow: number) => void
+      onSelect(selectedkeys: TKey, selectedRows: any[], currentRow: number): void
     }
 
-    interface IMultipleSelection {
-      selectedRowKeys: string[]
+    interface IMultipleSelection<TKey = any> {
+      selectedRowKeys: TKey[]
       isSingleSelection: false
       needCrossPage: boolean
-      onSelect: (selectedkeys: any[], selectedRows: any[], currentRow: number) => void
+      onSelect(selectedkeys: TKey[], selectedRows: any[], currentRow: number): void
     }
 
-    type ISelection = ISingleSelection | IMultipleSelection;
+    type ISelection<TKey = any> = ISingleSelection<TKey> | IMultipleSelection<TKey>;
 
     interface IRowConf {
       canSelect: boolean
       rowClass: string
     }
 
-    interface IExpandation {
+    interface IExpandation<T = any> {
       isExpanded: (record: any, index: number) => boolean
-      expandRender: (data: any) => React.ReactNode
+      expandRender: (data: T) => React.ReactNode
     }
 
-    interface IProps {
-      columns: Table.IColumn[]
-      datasets: any[]
+    interface IProps<T = any, TKey = string> {
+      columns: Table.IColumn<T>[]
+      datasets: T[]
       rowKey?: string
       sortBy?: string
       sortType?: 'desc' | 'asc'
       onChange?: (conf: Table.IChangeConfig) => void
       emptyLabel?: string
-      selection?: Partial<Table.ISelection>
+      selection?: Partial<Table.ISelection<TKey>>
       loading?: boolean
-      getRowConf?: (data: any, index: number) => Table.IRowConf
-      expandation?: Partial<Table.IExpandation>
+      getRowConf?: (data: T, index: number) => Table.IRowConf
+      expandation?: Partial<Table.IExpandation<T>>
       batchComponents?: any[]
       batchComponentsAutoFixed?: boolean
       autoStick?: boolean
@@ -80,7 +80,7 @@ declare module 'zent/lib/table' {
 
   }
 
-  class Table extends React.Component<Table.IProps, any> { }
+  class Table<T = any, TKey = string> extends React.Component<Table.IProps<T, TKey>, any> { }
 
   export default Table;
 }
