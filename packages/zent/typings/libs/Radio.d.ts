@@ -1,19 +1,10 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/radio' {
-  interface IRadioProps {
-    value: any
-    disabled?: boolean
-    readOnly?: boolean
-    width?: number | string
-    className?: string
-    prefix?: string
-  }
 
-  class Radio extends React.Component<IRadioProps, any> { }
+  namespace RadioGroup {
 
-  namespace Radio {
-    interface IGroupProps {
+    interface IProps {
       value: any
       disabled?: boolean
       readOnly?: boolean
@@ -23,8 +14,30 @@ declare module 'zent/lib/radio' {
       prefix?: string
     }
 
-    class Group extends React.Component<IGroupProps, any> { }
   }
 
-  export default Radio
+  namespace Radio {
+
+    import Group = RadioGroup;
+
+    export interface IProps {
+      value: any
+      disabled?: boolean
+      readOnly?: boolean
+      width?: number | string
+      className?: string
+      prefix?: string
+    }
+
+    export {
+      Group
+    }
+
+  }
+
+  class Radio extends React.Component<Radio.IProps, any> { }
+
+  class RadioGroup extends React.Component<RadioGroup.IProps, any> { }
+
+  export default Radio;
 }
