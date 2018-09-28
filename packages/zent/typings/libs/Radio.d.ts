@@ -4,7 +4,7 @@ declare module 'zent/lib/radio' {
 
   namespace RadioGroup {
 
-    interface IProps {
+    export interface IProps {
       value: any
       disabled?: boolean
       readOnly?: boolean

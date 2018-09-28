@@ -8,14 +8,14 @@ declare module 'zent/lib/form' {
   import Select from 'zent/lib/select';
 
   namespace Form {
-    interface IConnectedFormProps {
+    export interface IConnectedFormProps {
       onChange?: (value: any) => void
       onSubmitSuccess?: (result: any) => void
       onSubmitFail?: (error?: any) => void
       scrollToError?: boolean
     }
 
-    interface IZentForm {
+    export interface IZentForm {
       getFormValues: () => any
       getFieldError: (name: string) => any
       setFormDirty: (isDirty: boolean) => any
@@ -38,7 +38,7 @@ declare module 'zent/lib/form' {
       updateFormSubmitStatus: (submitSuccess: boolean) => any
     }
 
-    interface IWrappedComponentProps {
+    export interface IWrappedComponentProps {
       zentForm: IZentForm
       handleSubmit: (submit: (values: any, zentForm: IZentForm) => any) => any
     }
@@ -47,9 +47,9 @@ declare module 'zent/lib/form' {
       new(...args: any[]): T;
     }
 
-    function createForm(config?: { formValidations?: any }): (component: Constructor<React.Component<IWrappedComponentProps | any, any>>) => React.Component<IConnectedFormProps, any>
+    export function createForm(config?: { formValidations?: any }): (component: Constructor<React.Component<IWrappedComponentProps | any, any>>) => React.Component<IConnectedFormProps, any>
 
-    interface IValidation {
+    export interface IValidation {
       required?: boolean
       isExisty?: boolean
       matchRegex?: RegExp
@@ -69,7 +69,7 @@ declare module 'zent/lib/form' {
       minLength?: number
     }
 
-    type TransformInvoke = (value: any, previousValue: any, nextValues: any, previousValues: any) => void
+    export type TransformInvoke = (value: any, previousValue: any, nextValues: any, previousValues: any) => void
 
     // 类型覆盖时使用
     interface INativeAttributesBlock {
@@ -108,7 +108,7 @@ declare module 'zent/lib/form' {
       [key in keyof SOURCE]: key extends (keyof INativeAttributesBlock) ? IFieldPropsBase[key] : SOURCE[key]
     } & IFieldPropsBase
 
-    interface IFieldPropsBase {
+    export interface IFieldPropsBase {
       ref?: (ref: any) => void
       name: string
       value: any
@@ -126,49 +126,49 @@ declare module 'zent/lib/form' {
       relatedFields?: Array<any>
     }
 
-    interface IFieldProps extends IFieldPropsBase {
+    export interface IFieldProps extends IFieldPropsBase {
       component: string | React.Component<any, any>
     }
 
-    interface IFormSectionProps {
+    export interface IFormSectionProps {
       name: string
       component?: React.ReactNode
     }
 
-    interface IFieldArrayProps {
+    export interface IFieldArrayProps {
       name: string
       value?: Array<any>
       component: React.ReactNode
     }
 
-    class Field extends React.Component<IFieldProps, any> { }
+    export class Field extends React.Component<IFieldProps, any> { }
 
-    class FormSection extends React.PureComponent<IFormSectionProps, any> { }
+    export class FormSection extends React.PureComponent<IFormSectionProps, any> { }
 
-    class FieldArray extends React.Component<IFieldArrayProps, any> { }
+    export class FieldArray extends React.Component<IFieldArrayProps, any> { }
 
-    interface IContolGroupProps {
+    export interface IContolGroupProps {
       label?: string
       className?: string
       helpDesc?: string
       required?: boolean
     }
 
-    function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
+    export function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
 
-    interface IInputFieldProps extends Partial<UnknownProps>, Input.IProps { }
-    interface ISelectFieldProps extends Partial<UnknownProps>, Select.IProps { }
+    export interface IInputFieldProps extends Partial<UnknownProps>, Input.IProps { }
+    export interface ISelectFieldProps extends Partial<UnknownProps>, Select.IProps { }
 
-    class InputField extends React.Component<IInputFieldProps, any> { }
-    class SelectField extends React.Component<ISelectFieldProps, any> { }
+    export class InputField extends React.Component<IInputFieldProps, any> { }
+    export class SelectField extends React.Component<ISelectFieldProps, any> { }
 
-    interface IFormInputFieldProps extends ReplaceBlockList<Input.IProps>, IContolGroupProps { }
-    interface IFormSelectFieldProps extends ReplaceBlockList<Select.IProps>, IContolGroupProps { }
+    export interface IFormInputFieldProps extends ReplaceBlockList<Input.IProps>, IContolGroupProps { }
+    export interface IFormSelectFieldProps extends ReplaceBlockList<Select.IProps>, IContolGroupProps { }
 
-    class FormInputField extends React.Component<IFormInputFieldProps, any> { }
-    class FormSelectField extends React.Component<IFormSelectFieldProps, any> { }
+    export class FormInputField extends React.Component<IFormInputFieldProps, any> { }
+    export class FormSelectField extends React.Component<IFormSelectFieldProps, any> { }
 
-    interface IProps {
+    export interface IProps {
       className?: string
       prefix?: string
       vertical?: boolean

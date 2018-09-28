@@ -3,7 +3,7 @@
 declare module 'zent/lib/input' {
 
   namespace Input {
-    interface IProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+    export interface IProps extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
       className?: string
       prefix?: string
       width?: number | string

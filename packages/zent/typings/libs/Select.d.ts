@@ -2,13 +2,13 @@
 
 declare module 'zent/lib/select' {
   namespace Select {
-    interface ITrigger {
+    export interface ITrigger {
       selectedItems?: Array<any>
       extraFilter?: boolean
       open?: boolean
     }
 
-    interface IProps {
+    export interface IProps {
       data: Array<any>
       value?: any
       index?: any
