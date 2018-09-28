@@ -7,7 +7,102 @@ declare module 'zent/lib/form' {
   import Input from 'zent/lib/input';
   import Select from 'zent/lib/select';
 
+  namespace FieldFeatureBase {
+    // 类型覆盖时使用
+    export interface INativeAttributesBlock {
+      onBlur
+      onChange
+      onFocus
+      name
+      value
+    }
+
+    export interface UnknownProps {
+      isDirty
+      isTouched
+      isPristine
+      isValid
+      isActive
+      isAsyncValidated
+      error
+      errors
+      validationError
+      validationErrors
+      validations
+      validateOnChange
+      validateOnBlur
+      clearErrorOnFocus
+      asyncValidation
+      normalize
+      format
+      fields
+      relatedFields
+      submitFailed
+      submitSuccess
+    }
+
+    export type ReplaceBlockList<SOURCE> = {
+      [key in keyof SOURCE]: key extends (keyof INativeAttributesBlock) ? IFieldPropsBase[key] : SOURCE[key]
+    } & IFieldPropsBase
+
+    export interface IValidation {
+      required?: boolean
+      isExisty?: boolean
+      matchRegex?: RegExp
+      isUndefined?: boolean
+      isEmptyString?: boolean
+      isEmail?: boolean
+      isUrl?: boolean
+      isTrue?: boolean
+      isFalse?: boolean
+      isNumeric?: boolean
+      isInt?: boolean
+      isFloat?: boolean
+      isLength?: boolean
+      equals?: any
+      equalsField?: string
+      maxLength?: number
+      minLength?: number
+    }
+
+    export type TransformInvoke = (value: any, previousValue: any, nextValues: any, previousValues: any) => void
+
+    export interface IFieldPropsBase {
+      ref?: (ref: any) => void
+      name: string
+      value: any
+      normalize?: TransformInvoke
+      format?: TransformInvoke
+      onChange?: TransformInvoke
+      onBlur?: TransformInvoke
+      onFocus?: React.FocusEventHandler<any>
+      validations?: IValidation
+      validationErrors?: any
+      validateOnChange?: boolean
+      validateOnBlur?: boolean
+      asyncValidation?: (values: Object, value: any) => Promise<any>
+      displayError?: boolean
+      relatedFields?: Array<any>
+    }
+
+  }
+
+  namespace FieldNS {
+    import base = FieldFeatureBase;
+
+    export interface Base extends base.IFieldPropsBase {
+      component: string | React.Component<any, any>
+    }
+
+    export interface Input extends Partial<base.UnknownProps>, Input.IProps { }
+    export interface Select extends Partial<base.UnknownProps>, Select.IProps { }
+  }
+
   namespace Form {
+
+    import base = FieldFeatureBase;
+    import FieldProps = FieldNS;
+
     export interface IConnectedFormProps {
       onChange?: (value: any) => void
       onSubmitSuccess?: (result: any) => void
@@ -49,86 +144,14 @@ declare module 'zent/lib/form' {
 
     export function createForm(config?: { formValidations?: any }): (component: Constructor<React.Component<IWrappedComponentProps | any, any>>) => React.Component<IConnectedFormProps, any>
 
-    export interface IValidation {
+    export interface IContolGroupProps {
+      label?: string
+      className?: string
+      helpDesc?: string
       required?: boolean
-      isExisty?: boolean
-      matchRegex?: RegExp
-      isUndefined?: boolean
-      isEmptyString?: boolean
-      isEmail?: boolean
-      isUrl?: boolean
-      isTrue?: boolean
-      isFalse?: boolean
-      isNumeric?: boolean
-      isInt?: boolean
-      isFloat?: boolean
-      isLength?: boolean
-      equals?: any
-      equalsField?: string
-      maxLength?: number
-      minLength?: number
     }
 
-    export type TransformInvoke = (value: any, previousValue: any, nextValues: any, previousValues: any) => void
-
-    // 类型覆盖时使用
-    interface INativeAttributesBlock {
-      onBlur
-      onChange
-      onFocus
-      name
-      value
-    }
-
-    interface UnknownProps {
-      isDirty
-      isTouched
-      isPristine
-      isValid
-      isActive
-      isAsyncValidated
-      error
-      errors
-      validationError
-      validationErrors
-      validations
-      validateOnChange
-      validateOnBlur
-      clearErrorOnFocus
-      asyncValidation
-      normalize
-      format
-      fields
-      relatedFields
-      submitFailed
-      submitSuccess
-    }
-
-    type ReplaceBlockList<SOURCE> = {
-      [key in keyof SOURCE]: key extends (keyof INativeAttributesBlock) ? IFieldPropsBase[key] : SOURCE[key]
-    } & IFieldPropsBase
-
-    export interface IFieldPropsBase {
-      ref?: (ref: any) => void
-      name: string
-      value: any
-      normalize?: TransformInvoke
-      format?: TransformInvoke
-      onChange?: TransformInvoke
-      onBlur?: TransformInvoke
-      onFocus?: React.FocusEventHandler<any>
-      validations?: IValidation
-      validationErrors?: any
-      validateOnChange?: boolean
-      validateOnBlur?: boolean
-      asyncValidation?: (values: Object, value: any) => Promise<any>
-      displayError?: boolean
-      relatedFields?: Array<any>
-    }
-
-    export interface IFieldProps extends IFieldPropsBase {
-      component: string | React.Component<any, any>
-    }
+    export function getControlGroup(component: Constructor<React.Component<any, any>>): React.Component<any, any>
 
     export interface IFormSectionProps {
       name: string
@@ -141,29 +164,17 @@ declare module 'zent/lib/form' {
       component: React.ReactNode
     }
 
-    export class Field extends React.Component<IFieldProps, any> { }
+    export class Field extends React.Component<FieldProps.Base, any> { }
 
     export class FormSection extends React.PureComponent<IFormSectionProps, any> { }
 
     export class FieldArray extends React.Component<IFieldArrayProps, any> { }
 
-    export interface IContolGroupProps {
-      label?: string
-      className?: string
-      helpDesc?: string
-      required?: boolean
-    }
+    export class InputField extends React.Component<FieldProps.Input, any> { }
+    export class SelectField extends React.Component<FieldProps.Select, any> { }
 
-    export function getControlGroup(component: React.Component<any, any>): React.Component<any, any>
-
-    export interface IInputFieldProps extends Partial<UnknownProps>, Input.IProps { }
-    export interface ISelectFieldProps extends Partial<UnknownProps>, Select.IProps { }
-
-    export class InputField extends React.Component<IInputFieldProps, any> { }
-    export class SelectField extends React.Component<ISelectFieldProps, any> { }
-
-    export interface IFormInputFieldProps extends ReplaceBlockList<Input.IProps>, IContolGroupProps { }
-    export interface IFormSelectFieldProps extends ReplaceBlockList<Select.IProps>, IContolGroupProps { }
+    export interface IFormInputFieldProps extends base.ReplaceBlockList<Input.IProps>, IContolGroupProps { }
+    export interface IFormSelectFieldProps extends base.ReplaceBlockList<Select.IProps>, IContolGroupProps { }
 
     export class FormInputField extends React.Component<IFormInputFieldProps, any> { }
     export class FormSelectField extends React.Component<IFormSelectFieldProps, any> { }
@@ -178,6 +189,11 @@ declare module 'zent/lib/form' {
       style?: React.CSSProperties
       disableEnterSubmit?: boolean
     }
+
+    export {
+      FieldProps
+    }
+
   }
 
   class Form extends React.Component<Form.IProps, any> { }
