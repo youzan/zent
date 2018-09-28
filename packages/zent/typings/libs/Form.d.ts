@@ -102,6 +102,7 @@ declare module 'zent/lib/form' {
 
     import base = FieldFeatureBase;
     import FieldProps = FieldNS;
+    import IFieldProps = FieldNS.Base;
 
     export interface IConnectedFormProps {
       onChange?: (value: any) => void
@@ -164,7 +165,7 @@ declare module 'zent/lib/form' {
       component: React.ReactNode
     }
 
-    export class Field extends React.Component<FieldProps.Base, any> { }
+    export class Field extends React.Component<IFieldProps, any> { }
 
     export class FormSection extends React.PureComponent<IFormSectionProps, any> { }
 
@@ -191,7 +192,8 @@ declare module 'zent/lib/form' {
     }
 
     export {
-      FieldProps
+      FieldProps,
+      IFieldProps
     }
 
   }
