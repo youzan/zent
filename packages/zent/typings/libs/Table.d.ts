@@ -4,14 +4,17 @@ declare module 'zent/lib/table' {
 
   namespace Table {
 
-    interface IColumn {
+    interface IPartialColumn<T = any> {
+      name: string
+      width: number | string
+      isMoney: boolean
+      needSort: boolean
+      bodyRender: (data: T) => React.ReactNode
+      textAign: 'left' | 'right' | 'center'
+    }
+
+    interface IColumn<T = any> extends Partial<IPartialColumn<T>> {
       title: string
-      name?: string
-      width?: number | string
-      isMoney?: boolean
-      needSort?: boolean
-      bodyRender?: (data: any) => React.ReactNode
-      textAign?: 'left' | 'right' | 'center'
     }
 
     interface IChangeConfig {
@@ -22,18 +25,27 @@ declare module 'zent/lib/table' {
     }
 
     interface IPageInfo {
-      current?: number
-      totalItem?: number
-      pageSize?: number
-      maxPageToShow?: number
+      current: number
+      totalItem: number
+      pageSize: number
+      maxPageToShow: number
     }
 
-    interface ISelection {
-      selectedRowKeys?: string[]
-      isSingleSelection?: boolean
-      needCrossPage?: boolean
-      onSelect?: (selectedkeys: any[], selectedRows: any[], currentRow: number) => void
+    interface ISingleSelection {
+      selectedRowKeys: string[]
+      isSingleSelection: true
+      needCrossPage: boolean
+      onSelect: (selectedkeys: any[], selectedRows: any[], currentRow: number) => void
     }
+
+    interface IMultipleSelection {
+      selectedRowKeys: string[]
+      isSingleSelection: false
+      needCrossPage: boolean
+      onSelect: (selectedkeys: any[], selectedRows: any[], currentRow: number) => void
+    }
+
+    type ISelection = ISingleSelection | IMultipleSelection;
 
     interface IRowConf {
       canSelect: boolean
@@ -41,8 +53,8 @@ declare module 'zent/lib/table' {
     }
 
     interface IExpandation {
-      isExpanded?: (record: any, index: number) => boolean
-      expandRender?: (data: any) => React.ReactNode
+      isExpanded: (record: any, index: number) => boolean
+      expandRender: (data: any) => React.ReactNode
     }
 
     interface IProps {
@@ -53,17 +65,17 @@ declare module 'zent/lib/table' {
       sortType?: 'desc' | 'asc'
       onChange?: (conf: Table.IChangeConfig) => void
       emptyLabel?: string
-      selection?: Table.ISelection
+      selection?: Partial<Table.ISelection>
       loading?: boolean
       getRowConf?: (data: any, index: number) => Table.IRowConf
-      expandation?: Table.IExpandation
+      expandation?: Partial<Table.IExpandation>
       batchComponents?: any[]
       batchComponentsAutoFixed?: boolean
       autoStick?: boolean
       autoScroll?: boolean
       className?: string
       prefix?: string
-      pageInfo?: Table.IPageInfo
+      pageInfo?: Partial<Table.IPageInfo>
     }
 
   }
