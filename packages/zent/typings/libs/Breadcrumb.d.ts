@@ -1,23 +1,37 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/breadcrumb' {
-  interface IBreadcrumbProps {
-    breads?: Array<React.ReactNode>
-    className?: string
-    prefix?: string
+
+  namespace BreadcrumbItem {
+
+    export interface IProps {
+      className?: string
+      name: React.ReactNode
+      href?: string,
+    }
+
   }
 
-  interface IBreadcrumbItemProps {
-    className?: string
-    name: React.ReactNode
-    href?: string,
-  }
-
-  class Breadcrumb extends React.Component<IBreadcrumbProps, any> { }
 
   namespace Breadcrumb {
-    class Item extends React.PureComponent<IBreadcrumbItemProps, any> {}
+
+    import Item = BreadcrumbItem;
+
+    export interface IProps {
+      breads?: Array<React.ReactNode>
+      className?: string
+      prefix?: string
+    }
+
+    export {
+      Item
+    }
+
   }
 
-  export default Breadcrumb
+  class Breadcrumb extends React.Component<Breadcrumb.IProps, any> { }
+
+  class BreadcrumbItem extends React.PureComponent<BreadcrumbItem.IProps, any> { }
+
+  export default Breadcrumb;
 }

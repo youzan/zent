@@ -42,7 +42,7 @@ declare module 'zent/lib/button' {
 
   class Button extends React.Component<Button.IProps, any> { }
 
-  class Group extends React.PureComponent<ButtonGroup.IProps, any> { }
+  class ButtonGroup extends React.PureComponent<ButtonGroup.IProps, any> { }
 
   export default Button;
 }

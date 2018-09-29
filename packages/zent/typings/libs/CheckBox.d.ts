@@ -39,7 +39,7 @@ declare module 'zent/lib/checkbox' {
 
   class CheckBox<T = any> extends React.Component<CheckBox.IProps<T>, any> { }
 
-  class Group<T = any> extends React.Component<CheckBoxGroup.IProps<T>, any> { }
+  class CheckBoxGroup<T = any> extends React.Component<CheckBoxGroup.IProps<T>, any> { }
 
   export default CheckBox
 }
