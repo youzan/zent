@@ -143,7 +143,9 @@ declare module 'zent/lib/form' {
       new(...args: any[]): T;
     }
 
-    export function createForm(config?: { formValidations?: any }): (component: Constructor<React.Component<IWrappedComponentProps | any, any>>) => React.Component<IConnectedFormProps, any>
+    type IWrappedComponentGenerator = <T = any, S = any>(component: Constructor<React.Component<T, S>>) => Constructor<React.Component<IConnectedFormProps & T, S>>;
+
+    export function createForm(config?: { formValidations?: any }): IWrappedComponentGenerator;
 
     export interface IContolGroupProps {
       label?: string
