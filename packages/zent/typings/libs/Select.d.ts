@@ -2,14 +2,20 @@
 
 declare module 'zent/lib/select' {
   namespace Select {
-    export interface ITrigger {
-      selectedItems?: Array<any>
+    export interface ITrigger<T = any> {
+      selectedItems?: Array<T>
       extraFilter?: boolean
       open?: boolean
     }
 
-    export interface IProps {
-      data: Array<any>
+    export interface IDefaultOption {
+      value: string, text: string
+    }
+
+    export type IOption<T = {}> = IDefaultOption & T;
+
+    export interface IProps<T = IDefaultOption> {
+      data: Array<T>
       value?: any
       index?: any
       disabled?: boolean
@@ -19,7 +25,7 @@ declare module 'zent/lib/select' {
       trigger?: React.Component<ITrigger, any>
       optionText?: string
       optionValue?: string
-      onChange?: (event: { target: { type: any, value: any }, preventDefault: () => void, stopPropagation: () => void }, value: any) => void
+      onChange?: (event: { target: { type: any, value: any }, preventDefault: () => void, stopPropagation: () => void }, value: T & IDefaultOption) => void
       onDelete?: (date: any) => void
       filter?: (item: any, keyword?: string) => boolean
       maxToShow?: number
@@ -36,7 +42,7 @@ declare module 'zent/lib/select' {
     }
   }
 
-  class Select extends React.Component<Select.IProps, any> { }
+  class Select<T = Select.IDefaultOption> extends React.Component<Select.IProps<T>, any> { }
 
   export default Select;
 }

@@ -4,7 +4,7 @@ declare module 'zent/lib/pagination' {
 
   namespace Pagination {
 
-    interface IProps {
+    export interface IProps {
       current: number
       totalItem: number
       pageSize?: number
