@@ -4,12 +4,12 @@ declare module 'zent/lib/radio' {
 
   namespace RadioGroup {
 
-    export interface IProps {
-      value: any
+    export interface IProps<T = any> {
+      value: T
       disabled?: boolean
       readOnly?: boolean
       onChange: React.ChangeEventHandler<HTMLInputElement>
-      isValueEqual?: (value1: any, value2: any) => boolean
+      isValueEqual?: (value1: T, value2: T) => boolean
       className?: string
       prefix?: string
     }
@@ -20,8 +20,8 @@ declare module 'zent/lib/radio' {
 
     import Group = RadioGroup;
 
-    export interface IProps {
-      value: any
+    export interface IProps<T = any> {
+      value: T
       disabled?: boolean
       readOnly?: boolean
       width?: number | string
@@ -35,9 +35,9 @@ declare module 'zent/lib/radio' {
 
   }
 
-  class Radio extends React.Component<Radio.IProps, any> { }
+  class Radio<T = any> extends React.Component<Radio.IProps<T>, any> { }
 
-  class RadioGroup extends React.Component<RadioGroup.IProps, any> { }
+  class RadioGroup<T = any> extends React.Component<RadioGroup.IProps<T>, any> { }
 
   export default Radio;
 }
