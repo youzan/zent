@@ -1,32 +1,45 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/checkbox' {
-  interface ICheckBoxProps {
-    checked?: boolean
-    value?: any
-    disabled?: boolean
-    readOnly?: boolean
-    indeterminate?: boolean
-    onChange?: React.ChangeEventHandler<HTMLInputElement>
-    className?: string
-    prefix?: string
-  }
 
-  interface ICheckBoxGroupProps {
-    value: Array<any>
-    isValueEqual?: (value1: any, value2: any) => boolean
-    disabled?: boolean
-    readOnly?: boolean
-    onChange?: (values: Array<any>) => void
-    className?: string
-    prefix?: string
-  }
+  namespace CheckBoxGroup {
 
-  class CheckBox extends React.Component<ICheckBoxProps, any> { }
+    export interface IProps<T = any> {
+      value: T[]
+      isValueEqual?: (value1: T, value2: T) => boolean
+      disabled?: boolean
+      readOnly?: boolean
+      onChange?: (values: T[]) => void
+      className?: string
+      prefix?: string
+    }
+
+  }
 
   namespace CheckBox {
-    class Group extends React.Component<ICheckBoxGroupProps, any> { }
+
+    import Group = CheckBoxGroup;
+
+    export interface IProps<T = any> {
+      checked?: boolean
+      value?: T
+      disabled?: boolean
+      readOnly?: boolean
+      indeterminate?: boolean
+      onChange?: React.ChangeEventHandler<HTMLInputElement>
+      className?: string
+      prefix?: string
+    }
+
+    export {
+      Group
+    }
+
   }
+
+  class CheckBox<T = any> extends React.Component<CheckBox.IProps<T>, any> { }
+
+  class Group<T = any> extends React.Component<CheckBoxGroup.IProps<T>, any> { }
 
   export default CheckBox
 }
