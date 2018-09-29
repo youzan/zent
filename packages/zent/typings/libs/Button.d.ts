@@ -1,35 +1,48 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/button' {
-  interface IButtonProps {
-    type?: 'default' | 'primary' | 'danger' | 'success'
-    size?: 'medium' | 'large' | 'small'
-    htmlType?: 'button' | 'submit' | 'reset'
-    block?: boolean
-    disabled?: boolean
-    loading?: boolean
-    outline?: boolean
-    bordered?: boolean
-    component?: (() => string) | string
-    href?: string
-    target?: string
-    className?: string
-    style?: React.CSSProperties
-    prefix?: string
-    onClick?: React.MouseEventHandler<HTMLButtonElement>
-  }
 
-  interface IButtonGroupProps {
-    className?: string
-    prefix?: string
-    style?: React.CSSProperties
-  }
+  namespace ButtonGroup {
 
-  class Button extends React.Component<IButtonProps, any> { }
+    export interface IProps {
+      className?: string
+      prefix?: string
+      style?: React.CSSProperties
+    }
+
+  }
 
   namespace Button {
-    class Group extends React.PureComponent<IButtonGroupProps, any> {}
+
+    import Group = ButtonGroup;
+
+    export interface IProps {
+      type?: 'default' | 'primary' | 'danger' | 'success'
+      size?: 'medium' | 'large' | 'small'
+      htmlType?: 'button' | 'submit' | 'reset'
+      block?: boolean
+      disabled?: boolean
+      loading?: boolean
+      outline?: boolean
+      bordered?: boolean
+      component?: (() => string) | string
+      href?: string
+      target?: string
+      className?: string
+      style?: React.CSSProperties
+      prefix?: string
+      onClick?: React.MouseEventHandler<HTMLButtonElement>
+    }
+
+    export {
+      Group
+    }
+
   }
 
-  export default Button
+  class Button extends React.Component<Button.IProps, any> { }
+
+  class Group extends React.PureComponent<ButtonGroup.IProps, any> { }
+
+  export default Button;
 }
