@@ -1,30 +1,38 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/dialog' {
-  interface IDialogProps {
-    title?: React.ReactNode
-    children?: React.ReactNode
-    footer?: React.ReactNode
-    visible?: boolean
-    closeBtn?: boolean
-    onClose?: () => void
-    mask?: boolean
-    maskClosable?: boolean
-    className?: string
-    prefix?: string
-    style?: React.CSSProperties
+
+  namespace Dialog {
+
+    export interface IProps {
+      title?: React.ReactNode
+      children?: React.ReactNode
+      footer?: React.ReactNode
+      visible?: boolean
+      closeBtn?: boolean
+      onClose?: () => void
+      mask?: boolean
+      maskClosable?: boolean
+      className?: string
+      prefix?: string
+      style?: React.CSSProperties
+    }
+
+    export interface IOpenOption extends IProps {
+      dialogId: string
+    }
+
+    export interface ICloseOption {
+      triggerOnClose: boolean
+    }
+
+    export function openDialog(option: Dialog.IOpenOption): (close: boolean) => void;
+
+    export function closeDialog(dialogId: string, option?: Dialog.ICloseOption): void;
+
   }
 
-  interface IOpenDialogOption extends IDialogProps {
-    dialogId: string
-  }
+  class Dialog extends React.Component<Dialog.IProps, any> { }
 
-  interface ICloseDialogOption {
-    triggerOnClose: boolean
-  }
-
-  export default class Dialog extends React.Component<IDialogProps, any> {
-    static openDialog(option: IOpenDialogOption): (close: boolean) => void
-    static closeDialog(dialogId: string, option: ICloseDialogOption): void
-  }
+  export default Dialog;
 }
