@@ -67,7 +67,7 @@ declare module 'zent/lib/table' {
       emptyLabel?: string
       selection?: Partial<Table.ISelection<TKey>>
       loading?: boolean
-      getRowConf?: (data: T, index: number) => Table.IRowConf
+      getRowConf?: (data: T, index: number) => Partial<Table.IRowConf>
       expandation?: Partial<Table.IExpandation<T>>
       batchComponents?: any[]
       batchComponentsAutoFixed?: boolean
