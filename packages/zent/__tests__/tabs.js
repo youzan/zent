@@ -231,4 +231,15 @@ describe('Tabs', () => {
       mount(<Tabs activeId="1" className="foobar-cls" prefix="quux" />)
     ).not.toThrow();
   });
+
+  it('navExtraContent', () => {
+    const wrapper = mount(
+      <Tabs activeId="foobar" navExtraContent="当前网点：文三路店">
+        <TabPanel id="foobar" tab="foobar-tab">
+          foobar
+        </TabPanel>
+      </Tabs>
+    );
+    expect(wrapper.find('.zent-tabs-nav-extra-content')).to.have.lengthOf(1);
+  });
 });
