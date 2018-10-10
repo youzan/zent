@@ -234,12 +234,12 @@ describe('Tabs', () => {
 
   it('navExtraContent', () => {
     const wrapper = mount(
-      <Tabs activeId="foobar" navExtraContent="当前网点：文三路店">
+      <Tabs activeId="foobar" navExtraContent={<span>当前网点：文三路店</span>}>
         <TabPanel id="foobar" tab="foobar-tab">
           foobar
         </TabPanel>
       </Tabs>
     );
-    expect(wrapper.find('.zent-tabs-nav-extra-content')).to.have.lengthOf(1);
+    expect(wrapper.find('.zent-tabs-nav-extra-content').length).toBe(1);
   });
 });
