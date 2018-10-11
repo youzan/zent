@@ -30,7 +30,7 @@ declare module 'zent/lib/tabs' {
     tabs?: Array<ITab>
     className?: string
     prefix?: string
-    navExtraContent?: string
+    navExtraContent?: React.ReactNode
   }
 
   class Tabs extends React.Component<ITabsProps, any> { }

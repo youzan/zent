@@ -117,7 +117,7 @@ class Nav extends PureComponent {
     if (type === 'slider' && size === 'normal') {
       classes += ` ${prefix}-tabs-third-level`;
     }
-    let addOperation = '';
+    let addOperation = null;
     if (canadd && align !== 'center') {
       addOperation = (
         <div className={`${prefix}-tabs-nav-add`} onClick={this.onTabAdd}>
@@ -126,7 +126,7 @@ class Nav extends PureComponent {
       );
     }
 
-    let addNavCustomComponent = '';
+    let addNavCustomComponent = null;
     if (navExtraContent && align !== 'center') {
       addNavCustomComponent = (
         <div className={`${prefix}-tabs-nav-extra-content`}>
