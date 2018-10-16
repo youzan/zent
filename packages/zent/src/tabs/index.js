@@ -39,6 +39,7 @@ export default class Tabs extends PureComponent {
         disabled: PropTypes.bool,
       })
     ),
+    navExtraContent: PropTypes.node,
   };
 
   static defaultProps = {
@@ -93,7 +94,15 @@ export default class Tabs extends PureComponent {
   };
 
   renderNav(tabListData) {
-    let { type, align, canadd, candel, prefix, size } = this.props;
+    let {
+      type,
+      align,
+      canadd,
+      candel,
+      prefix,
+      size,
+      navExtraContent,
+    } = this.props;
     if (tabListData && tabListData.length) {
       return (
         <Nav
@@ -107,6 +116,7 @@ export default class Tabs extends PureComponent {
           canadd={canadd}
           candel={candel}
           prefix={prefix}
+          navExtraContent={navExtraContent}
           uniqueId={Tabs.uniqueId}
         />
       );

@@ -26,6 +26,7 @@ Tabs is used to switch different view in one page.
 | tabs | The config of tabs when not using Panel. | Array | `null` | | no |
 | className   | The custom classname   | string   | `''`   |  | no   |
 | prefix      | The custom prefix | string   | `'zent'` |   | no   |
+| navExtraContent      | Nav add extra content     | node   | null   |                       | no   |
 
 Paramerter type of `tabs`：
 ```ts
