@@ -15,7 +15,7 @@ en-US:
 	tabText: Tab
 	tabOneCont: The content of tab1.
 	tabTwoCont: The content of tab2.
-	shopCont: current shop 
+	shopCont: Current shop 
 ---
 
 ```jsx
