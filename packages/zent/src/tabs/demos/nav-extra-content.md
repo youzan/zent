@@ -7,6 +7,7 @@ zh-CN:
 	tabText: 选项
 	tabOneCont: 选项1的内容
 	tabTwoCont: 选项2的内容
+	shopCont: 当前网店：文三路网店
 en-US:
 	title: Nav add extra content
 	tabOne: Tab1
@@ -14,6 +15,7 @@ en-US:
 	tabText: Tab
 	tabOneCont: The content of tab1.
 	tabTwoCont: The content of tab2.
+	shopCont: current shop 
 ---
 
 ```jsx
@@ -90,7 +92,7 @@ class Simple extends React.Component {
 				onChange={this.onTabChange.bind(this)}
 				onDelete={this.onTabDel.bind(this)}
         onAdd={this.onTabAdd.bind(this)}
-        navExtraContent={<span style={{lineHeight: "35px"}}>当前网店：文三路网店</span>}
+        navExtraContent={<span style={{lineHeight: "35px", padding: "0 5px"}}>{`{i18n.shopCont}`}</span>}
 			>
 				{this.renderPanels()}
 			</Tabs>
