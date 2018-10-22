@@ -65,7 +65,9 @@ class SKUContainer extends PureComponent {
     this.props.onSKULeafChange(sku.leaf);
   };
 
-  removeSKULeaf(idx) {
+  removeSKULeaf(idx, evt) {
+    evt && evt.stopPropagation && evt.stopPropagation();
+
     let { sku } = this.props;
     sku.leaf.splice(idx, 1);
     this.props.onSKULeafChange(sku.leaf);
@@ -227,80 +229,90 @@ class SKUContainer extends PureComponent {
         <div className="sku-list">
           {sku.leaf.map((item, index) => {
             return (
-              <Pop
+              <div
                 key={index}
-                trigger="click"
-                position="bottom-center"
-                content={
-                  <Input
-                    defaultValue={item[optionText]}
-                    onChange={evt => (this.renameText = evt.target.value)}
-                  />
-                }
-                wrapperClassName={cx(`${this.context.prefix}-item`, {
+                className={cx(`${prefix}-item`, {
                   active: hasSKUImage,
                 })}
-                onConfirm={this.handleRenameSKULeaf.bind(this, index)}
               >
-                <div>
-                  <span>{item[optionText]}</span>
-                  <span
-                    className="item-remove"
-                    onClick={this.removeSKULeaf.bind(this, index)}
+                <Pop
+                  trigger="click"
+                  position="bottom-center"
+                  content={
+                    <Input
+                      defaultValue={item[optionText]}
+                      onChange={evt => (this.renameText = evt.target.value)}
+                    />
+                  }
+                  onConfirm={this.handleRenameSKULeaf.bind(this, index)}
+                >
+                  <div>
+                    <span className={cx(`${prefix}-item__text`)}>
+                      {item[optionText]}
+                    </span>
+                    <span
+                      className="item-remove"
+                      onClick={this.removeSKULeaf.bind(this, index)}
+                    >
+                      ×
+                    </span>
+                  </div>
+                </Pop>
+                {hasSKUImage && (
+                  <div
+                    className={cx(
+                      'upload-img-wrap',
+                      `${prefix}-item__pop-ignore-click`
+                    )}
                   >
-                    x
-                  </span>
-                  {hasSKUImage ? (
-                    <div className="upload-img-wrap">
-                      <div className="arrow" />
-                      {item.img_url ? (
-                        <div className="upload-img">
-                          <span
-                            className="item-remove small"
-                            title={i18n.container.del}
-                            onClick={this.removeImg.bind(
-                              this,
-                              item[optionValue]
-                            )}
-                          >
-                            ×
-                          </span>
-                          <img
-                            src={item.img_url}
-                            role="presentation"
-                            alt=""
-                            data-src={item.img_url}
-                          />
-                          <Upload
-                            triggerClassName="img-edit"
-                            materials
-                            maxAmount="1"
-                            onUpload={this.uploadSuccess.bind(
-                              this,
-                              item[optionValue]
-                            )}
-                          >
-                            <span>{i18n.container.replace}</span>
-                          </Upload>
-                        </div>
-                      ) : (
+                    <div className="arrow" />
+                    {item.img_url ? (
+                      <div className="upload-img">
+                        <span
+                          className="item-remove"
+                          title={i18n.container.del}
+                          onClick={this.removeImg.bind(this, item[optionValue])}
+                        >
+                          ×
+                        </span>
+                        <img
+                          src={item.img_url}
+                          role="presentation"
+                          alt=""
+                          data-src={item.img_url}
+                        />
                         <Upload
+                          triggerClassName={cx(
+                            'img-edit',
+                            `${prefix}-item__pop-ignore-click`
+                          )}
                           materials
-                          maxAmount="1"
+                          maxAmount={1}
                           onUpload={this.uploadSuccess.bind(
                             this,
                             item[optionValue]
                           )}
                         >
-                          <i>+</i>
+                          <span className={cx(`${prefix}-item__text`)}>
+                            {i18n.container.replace}
+                          </span>
                         </Upload>
-                      )}
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                </div>
-              </Pop>
+                      </div>
+                    ) : (
+                      <Upload
+                        materials
+                        maxAmount={1}
+                        onUpload={this.uploadSuccess.bind(
+                          this,
+                          item[optionValue]
+                        )}
+                      >
+                        <span>+</span>
+                      </Upload>
+                    )}
+                  </div>
+                )}
+              </div>
             );
           })}
           {sku[optionValue] > 0 ? (

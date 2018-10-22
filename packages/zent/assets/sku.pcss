@@ -48,6 +48,7 @@ $c-gray-darker: $theme-stroke-3 !default;
     .sku-group-cont {
       padding: 0 10px;
       margin-bottom: 10px;
+      color: $theme-stroke-4;
 
       .help-block {
         line-height: 14px;
@@ -84,8 +85,7 @@ $c-gray-darker: $theme-stroke-3 !default;
 
     .group-container {
       color: $c-gray-darker;
-      padding: 10px;
-      margin-bottom: 10px;
+      padding: 10px 10px 0;
 
       .zent-sku-pop {
         margin: 0;
@@ -146,34 +146,28 @@ $c-gray-darker: $theme-stroke-3 !default;
       white-space: nowrap;
     }
 
+    &__text {
+      font-size: 12px;
+    }
+
     .item-remove {
       position: absolute;
       z-index: 2;
-      top: -9px;
-      right: -9px;
-      width: 20px;
-      height: 20px;
-      font-size: 16px;
-      line-height: 18px;
+      top: -8px;
+      right: -8px;
+      width: 18px;
+      height: 18px;
+      font-size: 14px;
+      line-height: 16px;
       color: $theme-stroke-10;
       text-align: center;
       cursor: pointer;
-      background: $theme-mask-white-6;
-      border-radius: 10px;
+      background: $theme-mask-black-3;
+      border-radius: 50%;
 
       &:hover {
         color: $theme-stroke-10;
         background: $theme-stroke-1;
-      }
-
-      &.small {
-        top: -8px;
-        right: -8px;
-        width: 18px;
-        height: 18px;
-        font-size: 14px;
-        line-height: 16px;
-        border-radius: 9px;
       }
     }
 
