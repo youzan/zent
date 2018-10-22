@@ -5,6 +5,7 @@ declare module 'zent/lib/table' {
   namespace Table {
 
     interface IPartialColumn<T = any> {
+      title: React.ReactNode
       name: string
       width: number | string
       isMoney: boolean
@@ -14,7 +15,7 @@ declare module 'zent/lib/table' {
     }
 
     export interface IColumn<T = any> extends Partial<IPartialColumn<T>> {
-      title: string
+      title: React.ReactNode
     }
 
     export interface IChangeConfig {
