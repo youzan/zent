@@ -4,7 +4,7 @@ declare module 'zent/lib/sweetalert' {
   namespace Sweetalert {
     interface IAlertOption {
       content: React.ReactNode
-      type: 'info' | 'success' | 'error' | 'warning'
+      type?: 'info' | 'success' | 'error' | 'warning'
       title?: React.ReactNode
       onConfirm?: ((close: () => void) => void) | (() => Promise<any> | boolean)
       confirmText?: string

@@ -36,8 +36,8 @@ declare module 'zent/lib/grid' {
     sortType?: 'desc' | 'asc'
     emptyLabel?: string
     selection?: {
-      selectedRowKeys?: Array<string>,
-      onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => any,
+      selectedRowKeys?: Array<any>,
+      onSelect?: (selectedkeys: Array<any>, selectedRows: Array<any>, currentRow: any) => any,
       getCheckboxProps?: (data: object) => { disabled?: boolean }
     }
     expandation?: {
