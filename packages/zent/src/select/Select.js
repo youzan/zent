@@ -11,6 +11,7 @@ import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import cloneDeep from 'lodash/cloneDeep';
+import assign from 'lodash/assign';
 
 import Popover from 'popover';
 
@@ -23,7 +24,7 @@ class Select extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign(
+    this.state = assign(
       {
         selectedItems: [],
         selectedItem: {
@@ -113,7 +114,7 @@ class Select extends React.Component {
         React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
-          return Object.assign({}, item.props, {
+          return assign({}, item.props, {
             value,
             cid: `${index}`,
             text: item.props.children,
