@@ -8,4 +8,8 @@ class SubmissionError extends ExtendableError {
   }
 }
 
+export function isSubmissionError(val) {
+  return val instanceof SubmissionError;
+}
+
 export default SubmissionError;
