@@ -20,13 +20,22 @@ declare module 'zent/lib/checkbox' {
 
     import Group = CheckBoxGroup;
 
+    export type CheckBoxOnChangeEvent<T> = {
+      target: IProps<T> & {
+        type: 'checkbox';
+        checked: boolean;
+      };
+      preventDefault: () => void;
+      stopPropagation: () => void;
+    }
+
     export interface IProps<T = any> {
       checked?: boolean
       value?: T
       disabled?: boolean
       readOnly?: boolean
       indeterminate?: boolean
-      onChange?: React.ChangeEventHandler<HTMLInputElement>
+      onChange?: (e: CheckBoxOnChangeEvent<T>) => any;
       className?: string
       prefix?: string
     }

@@ -1,67 +1,91 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/grid' {
-  interface IGridColumn {
-    title: React.ReactNode
-    name?: string
-    width?: number | string
-    bodyRender?: ((data: any, pos: number, name: string) => React.ReactNode) | React.ReactNode
-    className?: string
-    needSort?: boolean
-    colSpan?: number
-    fixed?: 'left' | 'right' | true
-    onCellClick?: (data: any, event: React.MouseEvent<HTMLTableDataCellElement>) => any
-    textAign?: 'left' | 'right' | 'center'
-    nowrap?: boolean
-    defaultText?: React.ReactNode
-  }
 
-  interface IGridOnChangeConfig {
-    current: number
-    sortBy: string
-    sortType: 'asc' | 'desc' | ''
-    pageSize: number
-  }
+  namespace Grid {
 
-  interface IGridProps {
-    columns: Array<IGridColumn>
-    datasets: Array<Object>
-    rowKey?: string
-    onChange?: (conf: IGridOnChangeConfig) => any
-    scroll?: {
-      x?: number,
-      y?: number
+    interface IPartialColumn<T = any> {
+      title: React.ReactNode
+      name: string
+      width: number | string
+      bodyRender: ((data: T, pos: number, name: string) => React.ReactNode) | React.ReactNode
+      className: string
+      needSort: boolean
+      colSpan: number
+      fixed: 'left' | 'right' | true
+      onCellClick: (data: T, event: React.MouseEvent<HTMLTableDataCellElement>) => any
+      textAign: 'left' | 'right' | 'center'
+      nowrap: boolean
+      defaultText: React.ReactNode
     }
-    sortBy?: string
-    sortType?: 'desc' | 'asc'
-    emptyLabel?: string
-    selection?: {
-      selectedRowKeys?: Array<string>,
-      onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => any,
+
+    export interface IColumn<T = any> extends Partial<IPartialColumn<T>> {
+      title: React.ReactNode
+    }
+
+    export interface IChangeConfig {
+      current: number
+      sortBy: string
+      sortType: 'asc' | 'desc' | ''
+      pageSize: number
+    }
+
+    export interface IPageInfo {
+      current: number
+      totalItem: number
+      pageSize: number
+    }
+
+    export interface IScroll {
+      x: number
+      y: number
+    }
+
+    export interface ISelection<TKey = any, T = any> {
+      selectedRowKeys?: TKey[],
+      onSelect?: (selectedkeys: TKey[], selectedRows: T[], currentRow: T) => any,
       getCheckboxProps?: (data: object) => { disabled?: boolean }
     }
-    expandation?: {
-      isExpanded?: (record: any, index: number) => boolean,
-      expandRender?: (data: any) => React.ReactNode
+
+    export interface IExpandation<T = any> {
+      isExpanded?: (record: T, index: number) => boolean,
+      expandRender?: (data: T) => React.ReactNode
     }
-    loading?: boolean
-    className?: string
-    rowClassName?: string | ((data: object, rowIndex: number) => string)
-    prefix?: string
-    pageInfo?: {
-      current?: number
-      totalItem?: number
-      pageSize?: number
+
+    export interface IOnExpandData<T = any> {
+      expanded: boolean
+      data: T
+      event: React.MouseEvent<HTMLTableRowElement>
+      index: number
     }
-    onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => any
-    ellipsis?: boolean
-    onExpand?: (data: {expanded: boolean, data: any, event: React.MouseEvent<HTMLTableRowElement>, index: number}) => any
-    components?: {
-      row?: React.ReactNode
-    },
-    rowProps?: (data: any, index: number) => any
+
+    export interface IProps<T = any, TKey = string> {
+      columns: Grid.IColumn<T>[]
+      datasets: T[]
+      rowKey?: string
+      onChange?: (conf: Grid.IChangeConfig) => void
+      scroll?: Partial<Grid.IScroll>
+      sortBy?: string
+      sortType?: 'desc' | 'asc'
+      emptyLabel?: string
+      selection?: Partial<Grid.ISelection<TKey, T>>
+      expandation?: Grid.IExpandation<T>
+      loading?: boolean
+      className?: string
+      rowClassName?: string | ((data: T, rowIndex: number) => string)
+      prefix?: string
+      pageInfo?: Partial<Grid.IPageInfo>;
+      onRowClick?: (data: T, index: number, event: React.MouseEvent<HTMLTableRowElement>) => any
+      ellipsis?: boolean
+      onExpand?: (data: IOnExpandData<T>) => any
+      components?: {
+        row?: React.ReactNode
+      },
+      rowProps?: (data: T, index: number) => any
+    }
   }
 
-  export default class Grid extends React.Component<IGridProps, any> { }
-}
+  class Grid<T = any, TKey = string> extends React.Component<Grid.IProps<T, TKey>, any> { }
 
+  export default Grid;
+}

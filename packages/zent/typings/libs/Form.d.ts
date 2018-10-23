@@ -117,7 +117,7 @@ declare module 'zent/lib/form' {
       setFormDirty: (isDirty: boolean) => any
       setFieldExternalErrors: (error: { key: string, value: string }) => void
       setFieldsValue: (data: any) => any
-      resetFieldsValue: (data: any) => void
+      resetFieldsValue: (data?: any) => void
       initialize: (data: any) => void
       isValid: () => boolean
       isSubmitting: () => boolean
