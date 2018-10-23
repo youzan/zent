@@ -16,7 +16,7 @@ class TagsTrigger extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { selectedItems } = this.props;
-    const { cid, text, value } = nextProps;
+    const { cid } = nextProps;
 
     if (this.isDelete || this.isAdded) {
       this.isDelete = false;
@@ -27,17 +27,10 @@ class TagsTrigger extends PureComponent {
     const isExist = selectedItems.filter(item => item.cid === cid).length > 0;
 
     if (typeof cid !== 'undefined' && !isExist) {
-      selectedItems.push({
-        cid,
-        text,
-        value,
-      });
       this.props.onChange({
-        selectedItems,
         selectedItem: {
           value: '',
         },
-        open: false,
       });
     } else if (isExist) {
       this.isAdded = true;
