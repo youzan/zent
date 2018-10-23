@@ -209,7 +209,7 @@ The `createForm` method builds a higher-order component that defines some additi
 |------|------|------|------|------|
 | onChange | The callback function that is triggered when any fields in the form. The parameter of this function is the object of all the values of fields. | func(values: Object) | noop | no |
 | onSubmitSuccess | The callback function that is triggered when the form submission is successful. The parameter of this function is the return result of the promise in submit function. | func(submitResult: any) | noop | no |
-| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or `undefined`. | func(submitError: SubmissionError) | noop | no |
+| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or any error thrown during submit. | func(submitError: SubmissionError | Error) | noop | no |
 | scrollToError | The form automatically scrolls to the first field with error when the form is submitting or extra error is setting. | boolean | `false` | no |
 
 ⚠️Ps:
