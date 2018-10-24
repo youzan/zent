@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
 import noop from 'lodash/noop';
+import cx from 'classnames';
 
 import Popover from 'popover';
 import { I18nReceiver as Receiver } from 'i18n';
@@ -13,7 +14,7 @@ import { Select as I18nDefault } from 'i18n/default';
 
 import Search from './components/Search';
 import Option from './components/Option';
-import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
+import { KEY_ENTER, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
 
 class Popup extends Component {
   constructor(props) {
@@ -92,21 +93,25 @@ class Popup extends Component {
     }
   }
 
-  optionChangedHandler = (ev, cid) => {
-    const { filter, data } = this.props;
+  optionChangedHandler = (ev, cid, isActive) => {
+    const { filter, data, popover } = this.props;
     const { keyword } = this.state;
+
     this.setState({
       keyword: '',
     });
-    this.props.popover.close();
-    this.props.onChange(
-      ev,
-      data.filter(
-        item =>
-          (!keyword || !filter || filter(item, `${keyword}`)) &&
-          item.cid === cid
-      )[0]
-    );
+    popover && popover.close();
+
+    if (!isActive) {
+      this.props.onChange(
+        ev,
+        data.filter(
+          item =>
+            (!keyword || !filter || filter(item, `${keyword}`)) &&
+            item.cid === cid
+        )[0]
+      );
+    }
   };
 
   searchFilterHandler = keyword => {
@@ -142,11 +147,14 @@ class Popup extends Component {
   keydownHandler = ev => {
     const code = ev.keyCode;
     const itemIds = this.itemIds;
+    const { selectedItems, cid } = this.props;
     let { currentId, keyword } = this.state;
     const index = itemIds.indexOf(currentId);
     const popupHeight = this.popup.clientHeight;
     const scrollHeight = this.popup.scrollHeight;
     const currentNode = this.popup.getElementsByClassName('current')[0];
+    let isActive = false;
+
     switch (code) {
       case KEY_ESC:
         this.props.popover.close();
@@ -180,9 +188,12 @@ class Popup extends Component {
           this.popup.scrollTop = scrollHeight;
         }
         break;
-      case KEY_EN:
+      case KEY_ENTER:
         ev.preventDefault();
-        this.optionChangedHandler(keyword, currentId);
+        isActive =
+          selectedItems.filter(o => o.cid === currentId).length > 0 ||
+          currentId === cid;
+        this.optionChangedHandler(keyword, currentId, isActive);
         this.currentIdUpdated = false;
         break;
       default:
@@ -251,17 +262,20 @@ class Popup extends Component {
           ''
         )}
         {filterData.map((item, index) => {
-          const currentCls = item.cid === currentId ? 'current' : '';
-          const activeCls =
+          const isCurrent = item.cid === currentId;
+          const isActive =
             selectedItems.filter(o => o.cid === item.cid).length > 0 ||
-            item.cid === cid
-              ? 'active'
-              : '';
+            item.cid === cid;
+
           return (
             <Option
               key={index}
-              className={`${prefixCls}-option ${activeCls} ${currentCls}`}
+              className={cx(`${prefixCls}-option`, {
+                active: isActive,
+                current: isCurrent,
+              })}
               {...item}
+              isActive={isActive}
               onClick={this.optionChangedHandler}
               onMouseEnter={this.updateCurrentId.bind(this, item.cid)}
             />

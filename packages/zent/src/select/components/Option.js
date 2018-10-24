@@ -2,14 +2,24 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 
 class Option extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.optionClickHandler = this.optionClickHandler.bind(this);
-  }
+  static propTypes = {
+    prefixCls: PropTypes.string,
+    cid: PropTypes.string,
+    value: PropTypes.any,
+    text: PropTypes.any,
+    isActive: PropTypes.bool,
+    placeholder: PropTypes.string,
+    onMouseEnter: PropTypes.func,
+  };
 
-  optionClickHandler(ev) {
-    this.props.onClick(ev, this.props.cid);
-  }
+  static defaultProps = {
+    isActive: false,
+  };
+
+  optionClickHandler = ev => {
+    const { onClick, cid, isActive } = this.props;
+    onClick && onClick(ev, cid, isActive);
+  };
 
   render() {
     const { className, text, value } = this.props;
@@ -25,14 +35,5 @@ class Option extends PureComponent {
     );
   }
 }
-
-Option.propTypes = {
-  prefixCls: PropTypes.string,
-  cid: PropTypes.string,
-  value: PropTypes.any,
-  text: PropTypes.any,
-  placeholder: PropTypes.string,
-  onMouseEnter: PropTypes.func,
-};
 
 export default Option;
