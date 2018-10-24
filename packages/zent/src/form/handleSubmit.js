@@ -36,6 +36,8 @@ const handleSubmit = (submit, zentForm) => {
     if (!isSubmissionError(submitError) && !onSubmitFail) {
       throw submitError;
     }
+
+    return submitError;
   };
 
   const doSubmit = () => {
@@ -44,7 +46,7 @@ const handleSubmit = (submit, zentForm) => {
       // 传入zentForm是为了使用服务端校验时可以调用setFieldExternalErrors方法
       result = submit(values, zentForm);
     } catch (submitError) {
-      handleSubmitError(submitError);
+      return handleSubmitError(submitError);
     }
 
     if (isPromise(result)) {
@@ -64,7 +66,7 @@ const handleSubmit = (submit, zentForm) => {
           zentForm.setState({
             isSubmitting: false,
           });
-          handleSubmitError(submitError);
+          return handleSubmitError(submitError);
         }
       );
     }
