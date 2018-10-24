@@ -20,7 +20,7 @@ group: 导航
 | columns    | 每一列需要的所有数据                                 | array[object] |             |         | 是    |
 | datasets   | 每一行需要展示的数据                                 | array[object] |             |         | 是    |
 | rowKey     | 每一行的key, 让react提升性能, 并防止出现一系列的问题           | string        | `id`        |         | 否    |
-| sortBy     | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段       | string        |             |         | 否    |
+| sortBy     | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段，注意，组件内部不做排序，需要自己实现。       | string        |             |         | 否    |
 | sortType   | 排序方式                                       | string        | `'desc'`    | `'asc'` | 否    |
 | onChange   | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func          |             |         | 否    |
 | emptyLabel | 列表为空时的提示文案                                 | node        | `'没有更多数据了'` |         | 否    |
