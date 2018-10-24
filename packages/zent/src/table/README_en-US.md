@@ -17,7 +17,7 @@ group: Navigation
 | columns    | All data needed of each column                                 | array[object] |             |         | yes    |
 | datasets   | Data need to display of each row                               | array[object] |             |         | yes    |
 | rowKey     | Key of each row           | string        | `id`        |         | no    |
-| sortBy     | Field which used to sort, should be one element's key of columns       | string        |             |         | no    |
+| sortBy     | Field which used to sort, should be one element's key of columns. Note: you have to sort data by yourself.       | string        |             |         | no    |
 | sortType   | Sort order                                       | string        | `'desc'`    | `'asc'` | no    |
 | onChange   | Change callback  | func          |             |         | no    |
 | emptyLabel | Prompt text when list is empty                                | node        | `'No data'` |         | no    |
