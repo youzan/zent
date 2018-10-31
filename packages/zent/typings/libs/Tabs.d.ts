@@ -18,7 +18,7 @@ declare module 'zent/lib/tabs' {
   }
 
   interface ITabsProps {
-    activeId: string
+    activeId: string | number;
     type?: 'normal' | 'card' | 'slider'
     size?: 'normal' | 'huge'
     align?: 'left' | 'right' | 'center'

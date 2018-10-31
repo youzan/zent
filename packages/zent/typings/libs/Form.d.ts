@@ -125,7 +125,7 @@ declare module 'zent/lib/form' {
       isFieldDirty: (name: string) => boolean
       isFormAsyncValidated: () => boolean
       validateForm: (forceValidate: boolean, callback: Function, relatedFields: Array<any>) => any
-      asyncValidateForm: (resolve: Function, reject: Function) => any
+      asyncValidateForm: (resolve?: Function, reject?: Function) => any
       setFormPristine: (value: boolean) => void
       isFormSubmitFail: () => boolean
       isFormSubmitSuccess: () => boolean
