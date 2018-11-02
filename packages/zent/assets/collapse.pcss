@@ -1,5 +1,5 @@
 @import './theme/default.pcss';
-$border-style: 1px solid $theme-stroke-7;
+$border-style: 1px solid $theme-stroke-6;
 $content-padding: 15px;
 
 .zent-collapse {
@@ -11,12 +11,12 @@ $content-padding: 15px;
     border-radius: 4px;
 
     .zent-collapse-panel__title {
-      background: $theme-stroke-9;
+      background: $theme-stroke-8;
     }
   }
 
   &--no-border {
-    background: $theme-stroke-10;
+    background: $theme-stroke-9;
   }
 }
 
@@ -38,18 +38,18 @@ $content-padding: 15px;
   &__content-box {
     padding: 0 $content-padding;
     border-bottom: $border-style;
-    background: $theme-stroke-10;
+    background: $theme-stroke-9;
     overflow: hidden;
     box-sizing: border-box;
   }
 
   &__content {
     padding: $content-padding 0;
-    color: $theme-stroke-3;
+    color: $theme-stroke-2;
   }
 
   &__arrow {
-    fill: $theme-stroke-3;
+    fill: $theme-stroke-2;
     margin-right: 10px;
     transition: transform 200ms ease;
   }
@@ -62,11 +62,11 @@ $content-padding: 15px;
 
   &--disabled {
     .zent-collapse-panel__arrow {
-      fill: $theme-stroke-5;
+      fill: $theme-stroke-4;
     }
 
     .zent-collapse-panel__title {
-      color: $theme-stroke-5;
+      color: $theme-stroke-4;
       cursor: not-allowed;
     }
   }

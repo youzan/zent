@@ -1,11 +1,11 @@
 @import './theme/default.pcss';
 @import './mixins/index.pcss';
-$c-border: $theme-stroke-5;
-$c-light-border: $theme-stroke-7;
-$c-white: $theme-stroke-10;
+$c-border: $theme-stroke-4;
+$c-light-border: $theme-stroke-6;
+$c-white: $theme-stroke-9;
 $c-blue: $theme-primary-2;
-$c-light-gray: $theme-stroke-4;
-$c-bg-gray: $theme-stroke-9;
+$c-light-gray: $theme-stroke-3;
+$c-bg-gray: $theme-stroke-8;
 $c-light-blue: $theme-primary-4;
 $c-half-black: $theme-mask-black-2;
 $errorBorderColor: $theme-error-2;
@@ -24,13 +24,13 @@ $errorBorderColor: $theme-error-2;
   vertical-align: middle;
 
   &.disabled {
-    color: $theme-stroke-6;
+    color: $theme-stroke-5;
     cursor: not-allowed;
 
     .zent-select-input,
     .zent-select-text,
     .zent-select-tags {
-      border-color: $theme-stroke-7;
+      border-color: $theme-stroke-6;
       background-color: $c-bg-gray;
 
       &::after {
@@ -72,7 +72,7 @@ $errorBorderColor: $theme-error-2;
   padding: 5px 10px;
   transition: border-color 0.25s;
   width: 100%;
-  background-color: $theme-stroke-10;
+  background-color: $theme-stroke-9;
   position: relative;
 }
 

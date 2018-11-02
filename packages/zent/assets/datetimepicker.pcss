@@ -1,10 +1,10 @@
 @import './theme/default.pcss';
 $active_color: $theme-primary-2;
 $light_blue: $theme-primary-4;
-$disable_color: $theme-stroke-4;
-$light_grey: $theme-stroke-6;
-$lighter_grey: $theme-stroke-7;
-$lightest_grey: $theme-stroke-9;
+$disable_color: $theme-stroke-3;
+$light_grey: $theme-stroke-5;
+$lighter_grey: $theme-stroke-6;
+$lightest_grey: $theme-stroke-8;
 $error_color: $theme-error-2;
 $default_width: 240px;
 $double_default_width: 480px;
@@ -18,28 +18,28 @@ $input_width: 183px;
 
   .picker-seperator {
     font-size: 12px;
-    color: $theme-stroke-3;
+    color: $theme-stroke-2;
     padding: 0 10px;
   }
 
   .picker-input {
-    color: $theme-stroke-4;
+    color: $theme-stroke-3;
     position: relative;
     box-sizing: border-box;
     width: $input_width;
     height: 30px;
     line-height: 30px;
     font-size: 12px;
-    background: $theme-stroke-10;
+    background: $theme-stroke-9;
     border-radius: 2px;
 
     &--combine {
-      border: 1px solid $theme-stroke-5;
+      border: 1px solid $theme-stroke-4;
       padding: 0 10px;
     }
 
     &--combine.picker-input--disabled {
-      border-color: $theme-stroke-7;
+      border-color: $theme-stroke-6;
     }
 
     .zent-input {
@@ -51,7 +51,7 @@ $input_width: 183px;
       position: absolute;
       right: 10px;
       top: 0;
-      color: $theme-stroke-5;
+      color: $theme-stroke-4;
     }
 
     .zenticon-calendar-o {
@@ -124,7 +124,7 @@ $input_width: 183px;
     .week-picker,
     .year-picker,
     .quarter-picker {
-      background: $theme-stroke-10;
+      background: $theme-stroke-9;
       width: $default_width;
       font-size: 12px;
       border-radius: 2px;
@@ -212,7 +212,7 @@ $input_width: 183px;
     .year-panel {
       position: relative;
       width: $default_width;
-      background: $theme-stroke-10;
+      background: $theme-stroke-9;
       color: $theme-stroke-1;
     }
 
@@ -499,7 +499,7 @@ $input_width: 183px;
           background: transparent;
 
           &:hover {
-            background: $theme-stroke-10;
+            background: $theme-stroke-9;
           }
 
           &:before,
@@ -510,7 +510,7 @@ $input_width: 183px;
 
         &--selected {
           background: $active_color;
-          color: $theme-stroke-10;
+          color: $theme-stroke-9;
 
           &:hover {
             background: $active_color;
@@ -568,14 +568,14 @@ $input_width: 183px;
         left: 0;
         height: 327px;
         width: $default_width;
-        background: $theme-stroke-10;
+        background: $theme-stroke-9;
       }
 
       &__preview {
         margin: 12px 10px;
         height: 31px;
         line-height: 31px;
-        border: 1px solid $theme-stroke-5;
+        border: 1px solid $theme-stroke-4;
         border-radius: 2px;
         text-align: center;
         display: flex;
@@ -583,7 +583,7 @@ $input_width: 183px;
         .time__number {
           flex: 1;
           cursor: pointer;
-          border-right: 1px solid $theme-stroke-5;
+          border-right: 1px solid $theme-stroke-4;
 
           &:last-child {
             border-right: none;
@@ -614,7 +614,7 @@ $input_width: 183px;
         .time__number {
           flex: 1;
           cursor: pointer;
-          border: 1px solid $theme-stroke-5;
+          border: 1px solid $theme-stroke-4;
           border-right-width: 0;
           user-select: none;
 

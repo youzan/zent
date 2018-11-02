@@ -1,5 +1,5 @@
 @import './theme/default.pcss';
-$c-border: $theme-stroke-5;
+$c-border: $theme-stroke-4;
 $c-blue: $theme-primary-1;
 $c-light-blue: $theme-primary-4;
 $c-blue-hover: $theme-primary-6;
@@ -10,7 +10,7 @@ $c-blue-hover: $theme-primary-6;
   &.open {
     .zent-cascader__select-text {
       border-color: $c-blue;
-      box-shadow: 0 1px 1px $c-light-blue;
+      box-shadow: 0 0 1px $c-light-blue;
 
       .zenticon {
         transform: rotate(180deg) scale(0.5);
@@ -39,7 +39,7 @@ $c-blue-hover: $theme-primary-6;
       padding: 5px 30px 5px 10px;
       transition: border-color 0.25s;
       width: 100%;
-      background-color: $theme-stroke-10;
+      background-color: $theme-stroke-9;
       position: relative;
       white-space: nowrap;
       overflow: hidden;
@@ -51,7 +51,7 @@ $c-blue-hover: $theme-primary-6;
       }
 
       &.is-placeholder {
-        color: $theme-stroke-4;
+        color: $theme-stroke-3;
       }
 
       .zenticon {
@@ -74,7 +74,7 @@ $c-blue-hover: $theme-primary-6;
     list-style: none;
     margin: 0;
     padding: 0;
-    border-right: 1px solid $theme-stroke-7;
+    border-right: 1px solid $theme-stroke-6;
     overflow: auto;
 
     &-item {
@@ -86,7 +86,7 @@ $c-blue-hover: $theme-primary-6;
       height: 30px;
       line-height: 30px;
       text-align: left;
-      color: $theme-stroke-3;
+      color: $theme-stroke-2;
       padding-left: 10px;
       padding-right: 30px;
       box-sizing: border-box;
@@ -96,7 +96,7 @@ $c-blue-hover: $theme-primary-6;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
-        color: $theme-stroke-5;
+        color: $theme-stroke-4;
         font-size: 8px;
       }
 
@@ -107,7 +107,7 @@ $c-blue-hover: $theme-primary-6;
         position: absolute;
         display: inline-block;
         animation: rotate 1s infinite linear;
-        border: 1px solid $theme-stroke-5;
+        border: 1px solid $theme-stroke-4;
         border-radius: 50%;
         right: 10px;
         top: 50%;
@@ -120,7 +120,7 @@ $c-blue-hover: $theme-primary-6;
       }
 
       &.active {
-        background: $theme-stroke-9;
+        background: $theme-stroke-8;
         font-weight: 600;
       }
     }
@@ -158,7 +158,7 @@ $c-blue-hover: $theme-primary-6;
       &.active {
         background: $c-blue;
         border-radius: 2px;
-        color: $theme-stroke-10;
+        color: $theme-stroke-9;
       }
     }
   }
@@ -194,7 +194,7 @@ $c-blue-hover: $theme-primary-6;
     z-index: 2000;
 
     &-inner {
-      background: $theme-stroke-10;
+      background: $theme-stroke-9;
       width: 440px;
       box-shadow: 0 1px 4px $theme-mask-black-2;
       box-sizing: border-box;

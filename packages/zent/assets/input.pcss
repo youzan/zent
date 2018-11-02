@@ -1,5 +1,5 @@
 @import './theme/default.pcss';
-$defaultBorderColor: $theme-stroke-5;
+$defaultBorderColor: $theme-stroke-4;
 $errorBorderColor: $theme-error-2;
 $borderRadius: 2px;
 
@@ -12,9 +12,9 @@ $borderRadius: 2px;
   &__not-editable {
     .zent-input-addon-before,
     .zent-input-addon-after {
-      border-color: $theme-stroke-7;
-      color: $theme-stroke-6;
-      background: $theme-stroke-8;
+      border-color: $theme-stroke-6;
+      color: $theme-stroke-5;
+      background: $theme-stroke-7;
     }
   }
 
@@ -84,13 +84,13 @@ $borderRadius: 2px;
 .zent-textarea[readonly],
 .zent-input[disabled],
 .zent-input[readonly] {
-  border-color: $theme-stroke-7;
-  background-color: $theme-stroke-9;
+  border-color: $theme-stroke-6;
+  background-color: $theme-stroke-8;
   cursor: not-allowed;
-  color: $theme-stroke-6;
+  color: $theme-stroke-5;
 
   &:focus {
-    border-color: $theme-stroke-7;
+    border-color: $theme-stroke-6;
     box-shadow: none;
   }
 }
@@ -103,7 +103,7 @@ $borderRadius: 2px;
   border: 1px solid $defaultBorderColor;
   box-sizing: border-box;
   vertical-align: middle;
-  background-color: $theme-stroke-7;
+  background-color: $theme-stroke-6;
   font-size: 12px;
   line-height: 28px;
   color: $theme-stroke-1;
@@ -132,7 +132,7 @@ $borderRadius: 2px;
   }
 
   & > .zent-input[disabled]:first-child {
-    border-right: 1px solid $theme-stroke-7;
+    border-right: 1px solid $theme-stroke-6;
   }
 
   & > .zent-input:last-child {
@@ -141,7 +141,7 @@ $borderRadius: 2px;
   }
 
   & > .zent-input[disabled]:last-child {
-    border-left: 1px solid $theme-stroke-7;
+    border-left: 1px solid $theme-stroke-6;
   }
 }
 
@@ -161,12 +161,12 @@ $borderRadius: 2px;
     bottom: 0;
     right: 15px;
     font-size: 10px;
-    color: $theme-stroke-4;
+    color: $theme-stroke-3;
   }
 }
 
 /** placeholder **/
-$placeholderColor: $theme-stroke-4;
+$placeholderColor: $theme-stroke-3;
 
 .zent-input::-webkit-input-placeholder { /* WebKit browsers */
   color: $placeholderColor;
