@@ -2,7 +2,7 @@
 
 declare module 'zent/lib/button' {
   interface IButtonProps {
-    type?: 'default' | 'primary' | 'danger' | 'success'
+    type?: 'default' | 'primary' | 'danger' | 'success' | 'secondary'
     size?: 'medium' | 'large' | 'small'
     htmlType?: 'button' | 'submit' | 'reset'
     block?: boolean

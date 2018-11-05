@@ -1,0 +1,27 @@
+@import './_zent-button-variable.pcss';
+
+.zent-link {
+  text-decoration: none;
+  color: $btn-primary;
+
+  &:link,
+  &:visited,
+  &:focus {
+    color: $btn-primary;
+  }
+
+  &:hover {
+    color: $btn-primary-hover;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $btn-primary-active;
+  }
+
+  &.zent-link__disabled {
+    color: $btn-gray;
+    text-decoration: none;
+    cursor: not-allowed;
+  }
+}

@@ -29,7 +29,7 @@
     }
 
     &::after {
-      border-color: $btn-white transparent transparent transparent;
+      border-color: $btn-white $btn-white $btn-primary-active $btn-primary-active;
     }
   }
 }
@@ -51,9 +51,9 @@
   }
 
   &:active {
-    color: $btn-primary-active;
-    background: $btn-light-gray;
-    border-color: $btn-primary-active;
+    color: $theme-stroke-1;
+    background: $theme-stroke-10;
+    border-color: $theme-stroke-5;
   }
 
   &.zent-btn-loading {
@@ -64,7 +64,44 @@
     }
 
     &::after {
-      border-color: $btn-primary transparent transparent transparent;
+      border-color: $btn-primary $btn-primary $theme-primary-6 $theme-primary-6;
+    }
+  }
+}
+
+/* This style has no outline mode */
+.zent-btn-secondary {
+  color: $theme-stroke-1;
+  background: $theme-stroke-9;
+  border-color: $theme-stroke-5;
+
+  &:link,
+  &:visited,
+  &:focus {
+    color: $theme-stroke-1;
+  }
+
+  &:hover {
+    color: $theme-stroke-1;
+    background: $theme-stroke-11;
+    border-color: $theme-stroke-5;
+  }
+
+  &:active {
+    color: $theme-stroke-1;
+    background: $theme-stroke-10;
+    border-color: $theme-stroke-5;
+  }
+
+  &.zent-btn-loading {
+    &:hover,
+    &:active {
+      background: $btn-white;
+      border-color: $theme-stroke-5;
+    }
+
+    &::after {
+      border-color: $btn-primary $btn-primary $theme-primary-6 $theme-primary-6;
     }
   }
 }
@@ -100,7 +137,7 @@
     }
 
     &::after {
-      border-color: $btn-white transparent transparent transparent;
+      border-color: $btn-white $btn-white $btn-danger-active $btn-danger-active;
     }
   }
 }
@@ -122,9 +159,9 @@
   }
 
   &:active {
-    color: $btn-danger-active;
-    background: $btn-light-gray;
-    border-color: $btn-danger-active;
+    color: $theme-stroke-1;
+    background: $theme-stroke-10;
+    border-color: $theme-stroke-5;
   }
 
   &.zent-btn-loading {
@@ -135,7 +172,7 @@
     }
 
     &::after {
-      border-color: $btn-danger transparent transparent transparent;
+      border-color: $btn-danger $btn-danger $theme-primary-6 $theme-primary-6;
     }
   }
 }
@@ -171,7 +208,7 @@
     }
 
     &::after {
-      border-color: $btn-white transparent transparent transparent;
+      border-color: $btn-white $btn-white $btn-success-active $btn-success-active;
     }
   }
 }
@@ -193,9 +230,9 @@
   }
 
   &:active {
-    color: $btn-success-active;
-    background: $btn-light-gray;
-    border-color: $btn-success-active;
+    color: $theme-stroke-1;
+    background: $theme-stroke-10;
+    border-color: $theme-stroke-5;
   }
 
   &.zent-btn-loading {
@@ -206,7 +243,7 @@
     }
 
     &::after {
-      border-color: $btn-success transparent transparent transparent;
+      border-color: $btn-success $btn-success $theme-primary-6 $theme-primary-6;
     }
   }
 }

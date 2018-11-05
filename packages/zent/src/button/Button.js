@@ -40,7 +40,13 @@ const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
 
 export default class Button extends PureComponent {
   static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
+    type: PropTypes.oneOf([
+      'default',
+      'primary',
+      'success',
+      'danger',
+      'secondary',
+    ]),
     size: PropTypes.oneOf(['large', 'medium', 'small']),
     htmlType: PropTypes.oneOf(['button', 'submit', 'reset']),
     className: PropTypes.string,
@@ -143,7 +149,9 @@ export default class Button extends PureComponent {
     let { className } = this.props;
     let classNames = setClass(
       {
-        [`${prefix}-btn-${type}${outline ? '-outline' : ''}`]:
+        [`${prefix}-btn-${type}${
+          outline && type !== 'secondary' ? '-outline' : ''
+        }`]:
           type !== 'default',
         [`${prefix}-btn-${size}`]: size !== 'medium',
         [`${prefix}-btn-block`]: block,
