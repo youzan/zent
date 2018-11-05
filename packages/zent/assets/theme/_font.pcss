@@ -2,41 +2,51 @@ $font-family: -apple-system, BlinkMacSystemFont, “Helvetica Neue”, Helvetica
   Roboto, “Arial”, “PingFang SC”, “Hiragino Sans GB”, “Microsoft Yahei”, SimSun,
   sans-serif;
 
+/* font weight */
 $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 600;
 
+/* font size */
+$font-size-normal: 14px;
+$font-size-small: 12px;
+$font-size-large: 16px;
+$font-size-h1: 44px;
+$font-size-h2: 34px;
+$font-size-h3: 26px;
+$font-size-h4: 20px;
+
 @define-mixin font-normal {
-  font-size: 14px;
+  font-size: $font-size-normal;
   line-height: 20px;
 }
 
 @define-mixin font-small {
-  font-size: 12px;
+  font-size: $font-size-small;
   line-height: 18px;
 }
 
 @define-mixin font-large {
-  font-size: 16px;
+  font-size: $font-size-large;
   line-height: 24px;
 }
 
 @define-mixin font-h1 {
-  font-size: 44px;
+  font-size: $font-size-h1;
   line-height: 52px;
 }
 
 @define-mixin font-h2 {
-  font-size: 34px;
+  font-size: $font-size-h2;
   line-height: 44px;
 }
 
 @define-mixin font-h3 {
-  font-size: 26px;
+  font-size: $font-size-h3;
   line-height: 36px;
 }
 
 @define-mixin font-h4 {
-  font-size: 20px;
+  font-size: $font-size-h4;
   line-height: 28px;
 }
