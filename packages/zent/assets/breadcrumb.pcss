@@ -1,7 +1,4 @@
 @import './theme/default.pcss';
-$zent-breadcrumb-link-color: $theme-primary-2;
-$zent-breadcrumb-nav-link-color: $theme-stroke-2;
-$zent-breadcrumb-text-color: $theme-stroke-1;
 
 /**
  * zent-breadcrumb:
@@ -16,7 +13,7 @@ $zent-breadcrumb-text-color: $theme-stroke-1;
  */
 
 .zent-breadcrumb {
-  color: $zent-breadcrumb-text-color;
+  color: $theme-stroke-3;
   font-size: 0;
   line-height: 0;
   padding: 15px 0;
@@ -30,12 +27,11 @@ $zent-breadcrumb-text-color: $theme-stroke-1;
     text-decoration: none;
 
     &::after {
-      content: "/";
+      content: '/';
       display: inline-block;
       vertical-align: middle;
-      color: $theme-stroke-4;
-      margin-left: 5px;
-      margin-right: 5px;
+      color: $theme-stroke-3;
+      margin: 0 8px;
     }
   }
 
@@ -43,18 +39,23 @@ $zent-breadcrumb-text-color: $theme-stroke-1;
   a {
     &:last-child {
       &::after {
-        content: "";
+        content: '';
         display: none;
       }
     }
   }
 
   span {
-    color: $zent-breadcrumb-text-color;
+    color: $theme-stroke-1;
+    cursor: default;
   }
 
   a {
-    color: $zent-breadcrumb-link-color;
+    color: $theme-stroke-3;
+
+    &:hover {
+      color: $theme-primary-2;
+    }
   }
 
   &.zent-breadcrumb-nav {
@@ -69,9 +70,13 @@ $zent-breadcrumb-text-color: $theme-stroke-1;
       border: none;
       background: transparent;
       font-size: 14px;
-      color: $zent-breadcrumb-nav-link-color;
+      color: $theme-stroke-3;
       text-align: center;
       box-sizing: border-box;
+
+      &:hover {
+        color: $theme-primary-2;
+      }
 
       &:after {
         display: none;
@@ -82,7 +87,7 @@ $zent-breadcrumb-text-color: $theme-stroke-1;
       &:after {
         display: block;
         color: $zent-breadcrumb-text-color;
-        border-bottom: 2px solid $zent-breadcrumb-link-color;
+        border-bottom: 2px solid $theme-primary-2;
         content: '';
         margin: 0;
       }
