@@ -397,6 +397,7 @@ export default class Table extends PureComponent {
       isSingleSelection = selection.isSingleSelection || false;
     }
     let selectedRowKeys = [];
+    let indeterminatedRowKeys = [];
 
     let canSelectAll = false;
     let isSelectAll = false;
@@ -422,6 +423,7 @@ export default class Table extends PureComponent {
       });
 
       selectedRowKeys = selection.selectedRowKeys || [];
+      indeterminatedRowKeys = selection.indeterminatedRowKeys || [];
       canSelectAll = canSelectRowKeysArr.length > 0;
       canRowSelect = selection.canRowSelect;
       isSelectAll =
@@ -473,6 +475,7 @@ export default class Table extends PureComponent {
                     selection={{
                       needSelect,
                       selectedRowKeys,
+                      indeterminatedRowKeys,
                       isSingleSelection,
                       onSelect: this.onSelectOneRow,
                       canRowSelect,

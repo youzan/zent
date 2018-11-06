@@ -104,6 +104,7 @@ export default class Body extends PureComponent {
               isSingleSelection: selection.isSingleSelection,
               canSelect,
               selectedRowKeys: selection.selectedRowKeys,
+              indeterminatedRowKeys: selection.indeterminatedRowKeys,
               onSelect: selection.onSelect,
             }}
           />
