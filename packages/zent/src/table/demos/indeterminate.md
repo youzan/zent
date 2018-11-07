@@ -58,7 +58,7 @@ class Indeterminate extends React.Component {
 		},
 		datasets,
 		selectedRowKeys: ['5024217'],
-		indeterminatedRowKeys: ['5024277'],
+		indeterminateRowKeys: ['5024277'],
 	};
 
 	onSelect = (selectedRowKeys) => {
@@ -77,7 +77,7 @@ class Indeterminate extends React.Component {
 				pageInfo={this.state.page}
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
-					indeterminatedRowKeys: this.state.indeterminatedRowKeys,
+					indeterminateRowKeys: this.state.indeterminateRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
 						this.onSelect(selectedRowKeys, selectedRows, currentRow);
 					}

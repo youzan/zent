@@ -49,7 +49,7 @@ export default class Td extends PureComponent {
           className="select-check"
           checked={selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
           indeterminate={
-            selection.indeterminatedRowKeys.indexOf(data[rowKey]) !== -1
+            selection.indeterminateRowKeys.indexOf(data[rowKey]) !== -1
           }
           disabled={!canSelect}
           onChange={this.onSelect}
