@@ -45,6 +45,7 @@ class SKU extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.value === this.props.value) return;
     this.setState({
       data: nextProps.value,
     });
