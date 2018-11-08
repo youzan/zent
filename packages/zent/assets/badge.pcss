@@ -1,4 +1,6 @@
 @import './theme/default.pcss';
+@import './theme/_font.pcss';
+
 $count-height: 16px;
 $count-color: $theme-stroke-9;
 $count-bgcolor: $theme-error-2;
@@ -11,16 +13,15 @@ $dot-diameter: 8px;
 
   .zent-badge-count {
     display: inline-block;
-    height: $count-height;
-    line-height: calc($count-height - 2px);
     background: $count-bgcolor;
     color: $count-color;
     box-sizing: border-box;
-    font-size: 10px;
     border: 1px solid $theme-stroke-9;
-    border-radius: $count-height;
+    border-radius: 40px;
     text-align: center;
     padding: 0 4px;
+    font-size: $font-size-small;
+    line-height: calc($count-height - 2px);
   }
 
   .zent-badge-dot {
@@ -28,6 +29,7 @@ $dot-diameter: 8px;
     height: $dot-diameter;
     width: $dot-diameter;
     border-radius: 50%;
+    border: 1px solid $theme-stroke-9;
     background: $count-bgcolor;
     font-size: 0;
   }
@@ -35,23 +37,29 @@ $dot-diameter: 8px;
   &.zent-badge--no-content {
     font-size: 0;
 
+    .zent-badge-count {
+      padding-top: 1px;
+      padding-bottom: 1px;
+    }
+
     .zent-badge-count,
     .zent-badge-dot {
       margin: 0 5px;
+      border: 0;
     }
   }
 
   &.zent-badge--has-content {
     .zent-badge-count {
       position: absolute;
-      top: -3px;
-      right: -3px;
+      top: -5px;
+      right: -5px;
     }
 
     .zent-badge-dot {
       position: absolute;
-      top: 2px;
-      right: 2px;
+      top: 1px;
+      right: 1px;
     }
   }
 }

@@ -18,7 +18,7 @@ Tag is suitable for marking and sorting。
 
 | Property     |  Description  | Type     | Default  | Alternative |
 | ------- | -------------  | ------  | -------------|----------------- |
-| color   | The color of tag | string  | `'red'`      | `'red'` \| `'green'` \| `'yellow'` \| `'blue'` \| `'darkgreen'` |
+| color   | The color of tag | string  | `'red'`      | `'red'` \| `'green'` \| `'yellow'` \| `'blue'` \| `'darkgreen'` \| `'grey'` |
 | outline | The style with colorful border and transparent backgound. | bool    | `'false'`    |`true` \| `false`    |
 | rounded | Whether the tag is rounded or not | bool | `true` | `true` \| `false` |
 | closable| Whether the tag can be closed | bool    | `false`      | `true` \| `false`   |
@@ -28,6 +28,7 @@ Tag is suitable for marking and sorting。
 | borderColor | The color of tag's border | string | | |
 | bgColor | The color of tag's background | string | | |
 | fontColor | The color of tag's content | string | | |
+| closeButtonFontColor | Color of close button | string | | |
 | className| The custom classname | string   | `''`  |  |
 | prefix  | The custom prefix  | string   | `'zent'` |  |
 

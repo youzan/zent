@@ -12,6 +12,7 @@ declare module 'zent/lib/tag' {
     borderColor?: string
     bgColor?: string
     fontColor?: string
+    closeButtonFontColor?: string
     style?: React.CSSProperties
     className?: string
     prefix?: string
