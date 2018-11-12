@@ -6,6 +6,7 @@ declare module 'zent/lib/input' {
     prefix?: string
     width?: number | string
     type?: 'text' | 'number' | 'password' | 'textarea'
+    size?: 'large' | 'normal' | 'small'
     defaultValue?: string
     value?: string
     readOnly?: boolean
