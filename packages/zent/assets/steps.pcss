@@ -1,11 +1,11 @@
 @import './theme/default.pcss';
-$normal-color: $theme-stroke-1;
+$normal-color: $theme-stroke-2;
 $cart-color: $theme-stroke-2;
-$wait-color: $theme-stroke-3;
+$wait-color: $theme-stroke-4;
 $error-color: $theme-error-2;
 $bg-color: $theme-stroke-8;
 $current-bg-color: $theme-primary-2;
-$icon-color: $theme-stroke-5;
+$icon-color: $theme-stroke-4;
 
 .zent-steps {
   width: 100%;
@@ -19,7 +19,7 @@ $icon-color: $theme-stroke-5;
   position: absolute;
   width: 100%;
   left: 0;
-  top: 10px;
+  top: 13px;
   box-sizing: border-box;
   margin-left: 55px;
 
@@ -28,16 +28,16 @@ $icon-color: $theme-stroke-5;
     position: relative;
     width: 100%;
     border-radius: 1px;
-    height: 3px;
+    height: 2px;
     vertical-align: top;
-    background: $icon-color;
+    background: $theme-stroke-7;
 
     &::after {
       content: '';
       position: absolute;
       top: 0;
       width: 0;
-      background: $wait-color;
+      background: $theme-stroke-7;
       height: 100%;
       opacity: 0;
     }
@@ -52,7 +52,7 @@ $icon-color: $theme-stroke-5;
     display: inline-block;
     vertical-align: top;
     background: $theme-stroke-9;
-    margin-left: 45px;
+    margin-left: 40px;
     box-sizing: border-box;
   }
 
@@ -60,7 +60,7 @@ $icon-color: $theme-stroke-5;
     position: relative;
     vertical-align: top;
     width: 120px;
-    color: $theme-stroke-3;
+    color: $wait-color;
     text-align: center;
 
     .zent-step-title {
@@ -74,9 +74,9 @@ $icon-color: $theme-stroke-5;
 
     .zent-step-description {
       max-width: 120px;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 16px;
-      margin-top: 5px;
+      margin-top: 12px;
       word-wrap: break-word;
       word-break: break-all;
     }
@@ -84,22 +84,22 @@ $icon-color: $theme-stroke-5;
 }
 
 .zent-step-head-inner {
-  margin: 0 5px;
-  font-size: 20px;
+  margin: 0 8px;
+  font-size: 24px;
   color: $icon-color;
-  line-height: 20px;
+  line-height: 24px;
 
   .zent-icon {
     display: inline-block;
     vertical-align: middle;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
     border-radius: 50%;
     text-align: center;
     background: $icon-color;
     color: $theme-stroke-9;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .zenticon {
@@ -129,6 +129,7 @@ $icon-color: $theme-stroke-5;
       .zent-steps-tail {
         i {
           &::after {
+            background-color: $error-color;
             width: 100%;
           }
         }
@@ -179,6 +180,12 @@ $icon-color: $theme-stroke-5;
         background: $current-bg-color;
       }
     }
+
+    .zent-step-main {
+      .zent-step-title {
+        color: $theme-stroke-1;
+      }
+    }
   }
 
   &:last-child {
@@ -227,13 +234,21 @@ $icon-color: $theme-stroke-5;
         }
       }
     }
+
+    &:last-child {
+      .zent-steps-step {
+        .zent-step-main {
+          min-height: auto;
+        }
+      }
+    }
   }
 
   .zent-steps-tail {
     position: absolute;
     margin-left: 0;
     width: 2px;
-    left: 14px;
+    left: 18px;
     top: 0;
     height: 100%;
     padding: 30px 0 4px;
@@ -257,17 +272,19 @@ $icon-color: $theme-stroke-5;
     .zent-step-main {
       display: block;
       overflow: hidden;
-      min-height: 48px;
+      min-height: 120px;
       text-align: left;
       width: inherit;
+      padding-left: 5px;
 
       .zent-step-title {
-        margin-top: 0;
+        margin-top: 2px;
         line-height: 22px;
         max-width: initial;
       }
 
       .zent-step-description {
+        margin-top: 8px;
         padding-bottom: 15px;
         max-width: initial;
       }
@@ -310,6 +327,18 @@ $icon-color: $theme-stroke-5;
     }
 
     &.is-current {
+      &:hover {
+        .zent-steps-step {
+          background: $theme-primary-3;
+        }
+      }
+
+      &:active {
+        .zent-steps-step {
+          background: $theme-primary-1;
+        }
+      }
+
       .zent-steps-step {
         background: $current-bg-color;
         color: $theme-stroke-9;
@@ -350,8 +379,8 @@ $icon-color: $theme-stroke-5;
     }
 
     .zent-steps-step {
-      height: 44px;
-      line-height: 44px;
+      height: 48px;
+      line-height: 48px;
       font-size: 14px;
       background: $bg-color;
       color: $cart-color;
@@ -363,12 +392,12 @@ $icon-color: $theme-stroke-5;
         display: block;
         width: 0;
         height: 0;
-        border-top: 22px solid transparent;
-        border-bottom: 22px solid transparent;
+        border-top: 24px solid transparent;
+        border-bottom: 24px solid transparent;
         border-left: 12px solid $bg-color;
         position: absolute;
         top: 50%;
-        margin-top: -22px;
+        margin-top: -24px;
         right: -12px;
       }
 
@@ -377,17 +406,47 @@ $icon-color: $theme-stroke-5;
         display: block;
         width: 0;
         height: 0;
-        border-top: 22px solid $bg-color;
-        border-bottom: 22px solid $bg-color;
+        border-top: 24px solid $bg-color;
+        border-bottom: 24px solid $bg-color;
         border-left: 12px solid transparent;
         position: absolute;
         top: 50%;
-        margin-top: -22px;
+        margin-top: -24px;
         left: -12px;
       }
     }
 
     &.is-finish {
+      &:hover {
+        .zent-steps-step {
+          background: $theme-primary-3;
+
+          &::after {
+            border-left-color: $theme-primary-3;
+          }
+
+          &::before {
+            border-top-color: $theme-primary-3;
+            border-bottom-color: $theme-primary-3;
+          }
+        }
+      }
+
+      &:active {
+        .zent-steps-step {
+          background: $theme-primary-1;
+
+          &::after {
+            border-left-color: $theme-primary-1;
+          }
+
+          &::before {
+            border-top-color: $theme-primary-1;
+            border-bottom-color: $theme-primary-1;
+          }
+        }
+      }
+
       .zent-steps-step {
         background: $current-bg-color;
         color: $theme-stroke-9;

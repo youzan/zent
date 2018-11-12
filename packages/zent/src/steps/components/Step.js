@@ -40,7 +40,7 @@ export default class Step extends PureComponent {
     let iconNode;
 
     if (status === 'finish') {
-      iconNode = <Icon type="check-circle" />;
+      iconNode = <Icon type="check-circle-o" />;
     } else if (status === 'error') {
       iconNode = <Icon type="error-circle" />;
     } else {
