@@ -28,6 +28,7 @@ declare module 'zent/lib/table' {
     emptyLabel?: string
     selection?: {
       selectedRowKeys?: Array<string>
+      indeterminateRowKeys?: Array<string>
       isSingleSelection?: boolean
       needCrossPage?: boolean
       onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => void
