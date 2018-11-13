@@ -74,9 +74,9 @@ $icon-color: $theme-stroke-4;
 
     .zent-step-description {
       max-width: 120px;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 16px;
-      margin-top: 12px;
+      margin-top: 8px;
       word-wrap: break-word;
       word-break: break-all;
     }
@@ -284,7 +284,7 @@ $icon-color: $theme-stroke-4;
       }
 
       .zent-step-description {
-        margin-top: 8px;
+        margin-top: 2px;
         padding-bottom: 15px;
         max-width: initial;
       }
@@ -459,6 +459,55 @@ $icon-color: $theme-stroke-4;
           border-top-color: $current-bg-color;
           border-bottom-color: $current-bg-color;
         }
+      }
+    }
+  }
+}
+
+.zent-steps-tabs {
+  position: relative;
+
+  .zent-steps-item {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    background: $theme-stroke-8;
+    color: $theme-stroke-1;
+    border-right: 1px solid $theme-stroke-5;
+    border-top: 1px solid $theme-stroke-5;
+    border-bottom: 1px solid $theme-stroke-5;
+
+    &.is-clicked {
+      cursor: pointer;
+    }
+
+    &:first-child {
+      border-left: 1px solid $theme-stroke-5;
+    }
+
+    .zent-steps-step {
+      height: 46px;
+      line-height: 46px;
+      font-size: 14px;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0 10px;
+    }
+
+    &.is-current {
+      background: $theme-stroke-9;
+      border-bottom-color: transparent;
+    }
+
+    &:not(.is-current) {
+      &:hover {
+        background: $theme-stroke-11;
+      }
+
+      &:active {
+        background: $theme-stroke-10;
       }
     }
   }

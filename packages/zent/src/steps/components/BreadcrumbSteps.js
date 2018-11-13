@@ -21,10 +21,12 @@ export default class BreadcrumbSteps extends PureComponent {
     const stepWidth = `${100 / children.length}%`;
     const isBreadcrumb = type === 'breadcrumb';
     const isCard = type === 'card';
+    const isTabs = type === 'tabs';
     const stepsCls = cx({
       [`${prefix}-steps`]: true,
       [`${prefix}-steps-breadcrumb`]: isBreadcrumb,
       [`${prefix}-steps-card`]: isCard,
+      [`${prefix}-steps-tabs`]: isTabs,
       [`${className}`]: true,
     });
 
@@ -34,7 +36,7 @@ export default class BreadcrumbSteps extends PureComponent {
           const stepClassName = cx({
             [`${prefix}-steps-item`]: true,
             'is-finish': isBreadcrumb && index <= current - 1,
-            'is-current': isCard && index === current - 1,
+            'is-current': (isCard || isTabs) && index === current - 1,
             'is-clicked': Boolean(onStepChange),
           });
           let itemTitle = item.props.title;

@@ -25,7 +25,7 @@ import { Steps, Button } from 'zent';
 
 class StepsExample extends Component {
 	state = {
-		current: 1,
+		current: 2,
 		status: 'process'
 	}
 
