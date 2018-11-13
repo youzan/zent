@@ -1,23 +1,30 @@
 @import './theme/default.pcss';
+@import './theme/_font.pcss';
 
-/* FIXME: these two values couples with ARROW_OFFSET in postion.js */
-$arrow-offset: 14px;
+/* FIXME: these values and ARROW_OFFSET_* in postion.js are interrelated */
+$arrow-offset-h: 12px;
+$arrow-offset-v: 6px;
 $arrow-size: 6px;
 $arrow-cover-size: 11px;
 
 .zent-pop {
   border-radius: 2px;
-  box-shadow: 0 1px 6px $theme-mask-black-2;
+  box-shadow: 0 2px $shadow-spec;
   background-color: $theme-stroke-9;
   z-index: 2000;
-  font-size: 12px;
+
+  @mixin font-normal;
+
+  .zent-popover-content {
+    min-width: 200px;
+  }
 
   .zent-pop-inner,
   .zent-pop-header {
     position: relative;
     background: $theme-stroke-9;
     border-radius: 2px;
-    padding: 10px 20px;
+    padding: 13px 12px;
     z-index: 2;
     color: $theme-stroke-1;
   }
@@ -25,17 +32,14 @@ $arrow-cover-size: 11px;
   .zent-pop-header {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-  }
+    padding-bottom: 0;
+    font-weight: $font-weight-bold;
 
-  .zent-pop-header {
-    border-bottom: 1px solid $theme-stroke-6;
+    @mixin font-large;
   }
 
   .zent-pop-buttons {
-    min-width: 160px;
     text-align: right;
-    margin-right: 0;
-    margin-top: 10px;
   }
 
   .zent-pop-arrow {
@@ -44,7 +48,7 @@ $arrow-cover-size: 11px;
     width: $arrow-size;
     height: $arrow-size;
     background: $theme-stroke-9;
-    box-shadow: 0 1px 4px $theme-mask-black-2;
+    box-shadow: 0 2px $shadow-spec;
     overflow: hidden;
   }
 
@@ -54,6 +58,19 @@ $arrow-cover-size: 11px;
     position: absolute;
     width: $arrow-cover-size;
     height: $arrow-cover-size;
+  }
+
+  &--no-header {
+    .zent-pop-buttons {
+      display: inline-block;
+      margin-left: 24px;
+    }
+  }
+
+  &--has-header {
+    .zent-pop-buttons {
+      margin-top: 16px;
+    }
   }
 
   &.zent-popover-position {
@@ -75,7 +92,7 @@ $arrow-cover-size: 11px;
     &-bottom-left {
       .zent-pop-arrow {
         transform: translateY(-50%) rotate(45deg);
-        left: $arrow-offset;
+        left: $arrow-offset-h;
       }
     }
 
@@ -89,7 +106,7 @@ $arrow-cover-size: 11px;
     &-bottom-right {
       .zent-pop-arrow {
         transform: translateY(-50%) rotate(45deg);
-        right: $arrow-offset;
+        right: $arrow-offset-h;
       }
     }
 
@@ -111,7 +128,7 @@ $arrow-cover-size: 11px;
     &-top-left {
       .zent-pop-arrow {
         transform: translateY(50%) rotate(45deg);
-        left: $arrow-offset;
+        left: $arrow-offset-h;
       }
     }
 
@@ -125,7 +142,7 @@ $arrow-cover-size: 11px;
     &-top-right {
       .zent-pop-arrow {
         transform: translateY(50%) rotate(45deg);
-        right: $arrow-offset;
+        right: $arrow-offset-h;
       }
     }
 
@@ -147,7 +164,7 @@ $arrow-cover-size: 11px;
     &-left-top {
       .zent-pop-arrow {
         transform: translateX(50%) rotate(45deg);
-        top: $arrow-offset;
+        top: $arrow-offset-v;
       }
     }
 
@@ -161,7 +178,7 @@ $arrow-cover-size: 11px;
     &-left-bottom {
       .zent-pop-arrow {
         transform: translateX(50%) rotate(45deg);
-        bottom: $arrow-offset;
+        bottom: $arrow-offset-v;
       }
     }
 
@@ -183,7 +200,7 @@ $arrow-cover-size: 11px;
     &-right-top {
       .zent-pop-arrow {
         transform: translateX(-50%) rotate(45deg);
-        top: $arrow-offset;
+        top: $arrow-offset-v;
       }
     }
 
@@ -197,7 +214,7 @@ $arrow-cover-size: 11px;
     &-right-bottom {
       .zent-pop-arrow {
         transform: translateX(-50%) rotate(45deg);
-        bottom: $arrow-offset;
+        bottom: $arrow-offset-v;
       }
     }
   }
