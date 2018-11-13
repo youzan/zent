@@ -127,7 +127,7 @@ describe('Pop', () => {
     expect(btn.length).toBe(2);
     // expect(btn[0].textContent).toBe('确定');
     // expect(btn[1].textContent).toBe('取消');
-    Simulate.click(btn[0]);
+    Simulate.click(btn[1]);
     jest.runAllTimers();
     expect(confirmMock.mock.calls.length).toBe(1);
     expect(findContent().length).toBe(0);
@@ -147,7 +147,7 @@ describe('Pop', () => {
     expect(findContent().length).toBe(1);
     btn = document.querySelectorAll('.zent-pop-buttons button');
     expect(btn.length).toBe(2);
-    Simulate.click(btn[1]);
+    Simulate.click(btn[0]);
     jest.runAllTimers();
     expect(cancelMock.mock.calls.length).toBe(1);
     expect(findContent().length).toBe(0);
@@ -270,7 +270,7 @@ describe('Pop', () => {
     });
     jest.runAllTimers();
 
-    Simulate.click(document.querySelector('.zent-btn-primary').nextSibling);
+    Simulate.click(document.querySelector('.zent-btn-primary').previousSibling);
     jest.runAllTimers();
     expect(b).toBe(2);
   });
