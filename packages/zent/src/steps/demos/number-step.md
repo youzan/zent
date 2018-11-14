@@ -56,7 +56,7 @@ class StepsExample extends Component {
 					<Steps.Step title="{i18n.stepTwo}" description="{i18n.stepTwoText}" />
 					<Steps.Step title="{i18n.stepThree}" description="{i18n.stepThreeText}" />
 				</Steps>
-				<Button style={{ margin: '10px 0 0 30px' }} onClick={this.nextStep}>{i18n.next}</Button>
+				<Button style={{ margin: '10px 0 0 50px' }} onClick={this.nextStep}>{i18n.next}</Button>
 			</div>
 		);
 	}
