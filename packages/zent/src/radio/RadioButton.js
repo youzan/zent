@@ -2,11 +2,16 @@ import React from 'react';
 import cx from 'classnames';
 import assign from 'lodash/assign';
 import getWidth from 'utils/getWidth';
+import get from 'lodash/get';
 
 import Radio from './Radio';
 
 export default class RadioButton extends Radio {
   render() {
+    if (!get(this, 'context.radioGroup')) {
+      throw new Error('Radio.Button must be nested within Radio.Group');
+    }
+
     const {
       className,
       style,

@@ -1,5 +1,6 @@
 @import './theme/default.pcss';
 @import './theme/_font.pcss';
+@import './theme/_timing-functions.pcss';
 $outer-circle-size: 16px;
 $inner-circle-size: 8px;
 $inner-circle-offset: calc(
@@ -132,5 +133,54 @@ $inner-circle-offset: calc(
     & .zent-radio + span {
       color: $theme-stroke-4;
     }
+  }
+}
+
+.zent-radio-button {
+  color: $theme-stroke-3;
+  border: 1px solid $theme-stroke-5;
+  position: relative;
+  box-sizing: border-box;
+  padding: 4px 10px;
+  transition: border-color 100ms $timing-fn-ease-in, color 100ms $timing-fn-ease-in;
+
+  @mixin font-normal;
+
+  &:not(:first-child) {
+    margin-left: -1px;
+  }
+
+  &:first-child {
+    border-radius: 2px 0 0 2px;
+  }
+
+  &:last-child {
+    border-radius: 0 2px 2px 0;
+  }
+
+  &:hover {
+    color: $theme-primary-2;
+  }
+
+  &--checked {
+    color: $theme-primary-2;
+    border-color: $theme-primary-2;
+    z-index: 1;
+  }
+
+  > input[type='radio'] {
+    appearance: none;
+    outline: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: block;
+    cursor: pointer;
   }
 }
