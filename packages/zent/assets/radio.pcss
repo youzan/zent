@@ -1,100 +1,136 @@
 @import './theme/default.pcss';
 @import './theme/_font.pcss';
-$color-red: $theme-error-2;
-$color-green: $theme-success-2;
-$color-yellow: $theme-warn-1;
-$color-blue: $theme-primary-2;
-$color-darkgreen: $theme-success-1;
-$color-grey: $theme-stroke-5;
-$color-text: $theme-stroke-9;
+$outer-circle-size: 16px;
+$inner-circle-size: 8px;
+$inner-circle-offset: calc(
+  calc($outer-circle-size - $inner-circle-size - 2px) / 2
+);
 
-.zent-tag {
+.zent-radio-group {
   display: inline-block;
-  font-size: $font-size-small;
-  color: $color-text;
-  line-height: 1;
-  padding: 2px 4px;
-  border: 1px solid $color-text;
-  box-sizing: border-box;
 
-  &.zent-tag-rounded {
-    border-radius: 2px;
+  @mixin font-normal;
+}
+
+.zent-radio-wrap {
+  display: inline-block;
+  cursor: pointer;
+  font-weight: $font-weight-normal;
+  margin: 0;
+  padding: 0;
+  margin-right: 15px;
+  vertical-align: middle;
+
+  @mixin font-normal;
+
+  &.zent-radio-disabled {
+    cursor: not-allowed;
   }
 
-  &.zent-tag-closable {
-    .zent-tag-content {
-      display: inline-block;
-      margin-right: 4px;
-    }
+  &:last-child {
+    margin-right: 0;
+  }
 
-    .zent-tag-close-btn {
+  .zent-radio {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    outline: none;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+
+    & > input {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0;
       cursor: pointer;
-      transform: scale(0.6) translate(2px, 0);
+    }
+
+    & + span {
+      margin-left: 8px;
+      vertical-align: middle;
     }
   }
 
-  &.zent-tag-style-red {
-    background: $color-red;
-    border-color: $color-red;
+  .zent-radio-inner {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: $outer-circle-size;
+    height: $outer-circle-size;
+    border-radius: 50%;
+    border: 1px solid $theme-stroke-5;
+    background: $theme-stroke-9;
+    box-sizing: border-box;
+    vertical-align: middle;
+    transition: all 0.1s;
+
+    &::after {
+      position: absolute;
+      display: block;
+      content: ' ';
+      top: $inner-circle-offset;
+      left: $inner-circle-offset;
+      width: $inner-circle-size;
+      height: $inner-circle-size;
+      border-radius: 50%;
+      background: $theme-stroke-9;
+      transform: scale(0);
+      transition: all 0.1s ease-in-out;
+    }
   }
 
-  &.zent-tag-style-red-outline {
-    color: $color-red;
-    border-color: $theme-error-4;
+  &.zent-radio-checked {
+    & > .zent-radio {
+      & > .zent-radio-inner {
+        border-color: $theme-primary-2;
+
+        &::after {
+          transform: scale(1);
+          background: $theme-primary-2;
+        }
+      }
+    }
   }
 
-  &.zent-tag-style-green {
-    background: $color-green;
-    border-color: $color-green;
-  }
+  &.zent-radio-disabled {
+    & > .zent-radio {
+      & > .zent-radio-inner {
+        background-color: $theme-stroke-8;
 
-  &.zent-tag-style-green-outline {
-    color: $color-green;
-    border-color: $theme-success-4;
-  }
+        &::after {
+          background: $theme-stroke-8;
+        }
+      }
 
-  &.zent-tag-style-yellow {
-    background: $color-yellow;
-    border-color: $color-yellow;
-  }
+      & > input[type='radio'] {
+        cursor: not-allowed;
+      }
+    }
 
-  &.zent-tag-style-yellow-outline {
-    color: $color-yellow;
-    border-color: $theme-warn-2;
-  }
+    &.zent-radio-checked > .zent-radio {
+      & > .zent-radio-inner {
+        border-color: $theme-stroke-5;
 
-  &.zent-tag-style-blue {
-    background: $color-blue;
-    border-color: $color-blue;
-  }
+        &::after {
+          background: $theme-stroke-5;
+        }
+      }
+    }
 
-  &.zent-tag-style-blue-outline {
-    color: $color-blue;
-    border-color: $theme-primary-4;
-  }
-
-  &.zent-tag-style-darkgreen {
-    background: $color-darkgreen;
-    border-color: $color-darkgreen;
-  }
-
-  &.zent-tag-style-darkgreen-outline {
-    color: $color-darkgreen;
-    border-color: $theme-success-3;
-  }
-
-  &.zent-tag-style-grey {
-    color: $theme-stroke-1;
-    border-color: $color-grey;
-    background: $color-grey;
-  }
-
-  &.zent-tag-style-grey-outline {
-    color: $theme-stroke-1;
-    border-color: $color-grey;
-  }
-
-  a {
-    color: inherit;
+    & .zent-radio + span {
+      color: $theme-stroke-4;
+    }
   }
 }

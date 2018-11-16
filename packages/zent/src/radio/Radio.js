@@ -58,23 +58,9 @@ export default class Radio extends Component {
     }
   };
 
-  render() {
-    const { props, context } = this;
-    let {
-      checked,
-      className,
-      style,
-      prefix,
-      disabled,
-      readOnly,
-      children,
-
-      // value不要放到input上去
-      value,
-      width,
-      ...others
-    } = props;
-    const { radioGroup } = context;
+  getRadioState() {
+    let { checked, disabled, readOnly, value } = this.props;
+    const { radioGroup } = this.context;
 
     if (radioGroup) {
       checked = radioGroup.isValueEqual(radioGroup.value, value);
@@ -82,14 +68,35 @@ export default class Radio extends Component {
       readOnly = radioGroup.readOnly || readOnly;
     }
 
-    const classString = classNames({
-      [className]: !!className,
-      [`${prefix}-radio-wrap`]: true,
+    return {
+      checked,
+      disabled,
+      readOnly,
+    };
+  }
+
+  render() {
+    const {
+      className,
+      style,
+      prefix,
+      children,
+
+      // value不要放到input上去
+      value,
+      width,
+      ...others
+    } = this.props;
+    const { checked, disabled, readOnly } = this.getRadioState();
+
+    const classString = classNames(className, `${prefix}-radio-wrap`, {
       [`${prefix}-radio-checked`]: !!checked,
       [`${prefix}-radio-disabled`]: disabled || readOnly,
     });
+
     const widthStyle = getWidth(width);
     const wrapStyle = assign({}, style, widthStyle);
+
     return (
       <label className={classString} style={wrapStyle}>
         <span className={`${prefix}-radio`}>

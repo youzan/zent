@@ -8,7 +8,7 @@ const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,
   borderBottomColor: 'rgba(255, 255, 255, 0)',
   transition:
-    'border-bottom-width 200ms ease-out, border-bottom-color 200ms ease-out',
+    'border-bottom-width 160ms ease-out, border-bottom-color 160ms ease-out',
 };
 const NO_STYLE = {};
 
@@ -86,7 +86,7 @@ export default class Panel extends PureComponent {
         <LazyMount mount={active}>
           <AnimateHeight
             appear={animateAppear}
-            duration={200}
+            duration={160}
             height={active ? 'auto' : 0}
             className={`${prefix}-collapse-panel__content-box`}
             style={contentBoxStyle}
