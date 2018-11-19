@@ -32,7 +32,7 @@ class App extends Component {
 			<RadioGroup onChange={this.onChange} value={this.state.value}>
 				<RadioButton value="apple">{i18n.apple}</RadioButton>
 				<RadioButton value="banana">{i18n.banana}</RadioButton>
-				<RadioButton value="pear">{i18n.pear}</RadioButton>
+				<RadioButton value="pear" disabled>{i18n.pear}</RadioButton>
 			</RadioGroup>
 		);
 	}

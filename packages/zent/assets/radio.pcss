@@ -146,28 +146,6 @@ $inner-circle-offset: calc(
 
   @mixin font-normal;
 
-  &:not(:first-child) {
-    margin-left: -1px;
-  }
-
-  &:first-child {
-    border-radius: 2px 0 0 2px;
-  }
-
-  &:last-child {
-    border-radius: 0 2px 2px 0;
-  }
-
-  &:hover {
-    color: $theme-primary-2;
-  }
-
-  &--checked {
-    color: $theme-primary-2;
-    border-color: $theme-primary-2;
-    z-index: 1;
-  }
-
   > input[type='radio'] {
     appearance: none;
     outline: none;
@@ -182,5 +160,36 @@ $inner-circle-offset: calc(
     z-index: 1;
     display: block;
     cursor: pointer;
+  }
+
+  &:not(:first-child) {
+    margin-left: -1px;
+  }
+
+  &:first-child {
+    border-radius: 2px 0 0 2px;
+  }
+
+  &:last-child {
+    border-radius: 0 2px 2px 0;
+  }
+
+  &:hover:not(&--disabled) {
+    color: $theme-primary-2;
+  }
+
+  &--checked {
+    color: $theme-primary-2;
+    border-color: $theme-primary-2;
+    z-index: 1;
+  }
+
+  &--disabled {
+    color: $theme-stroke-4;
+    background: $theme-stroke-8;
+
+    > input[type='radio'] {
+      cursor: not-allowed;
+    }
   }
 }
