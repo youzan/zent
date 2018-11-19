@@ -142,7 +142,7 @@ $inner-circle-offset: calc(
   position: relative;
   box-sizing: border-box;
   padding: 4px 10px;
-  transition: border-color 100ms $timing-fn-ease-in, color 100ms $timing-fn-ease-in;
+  transition: all 100ms $timing-fn-ease-in;
 
   @mixin font-normal;
 
@@ -186,10 +186,15 @@ $inner-circle-offset: calc(
 
   &--disabled {
     color: $theme-stroke-4;
-    background: $theme-stroke-8;
+    background-color: $theme-stroke-8;
 
     > input[type='radio'] {
       cursor: not-allowed;
     }
+  }
+
+  &--checked&--disabled {
+    background-color: $theme-stroke-10;
+    border-color: $theme-stroke-5;
   }
 }

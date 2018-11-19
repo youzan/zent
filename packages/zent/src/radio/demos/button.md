@@ -5,11 +5,13 @@ zh-CN:
 	apple: 苹果
 	banana: 香蕉
 	pear: 梨
+	tomato: 西红柿
 en-US:
 	title: Button style
 	apple: Apple
 	banana: Banana
 	pear: Pear
+	tomato: Tomato
 ---
 
 ```js
@@ -30,9 +32,10 @@ class App extends Component {
 	render() {
 		return (
 			<RadioGroup onChange={this.onChange} value={this.state.value}>
-				<RadioButton value="apple">{i18n.apple}</RadioButton>
-				<RadioButton value="banana">{i18n.banana}</RadioButton>
+				<RadioButton value="apple" disabled>{i18n.apple}</RadioButton>
 				<RadioButton value="pear" disabled>{i18n.pear}</RadioButton>
+				<RadioButton value="banana">{i18n.banana}</RadioButton>
+				<RadioButton value="tomato">{i18n.tomato}</RadioButton>
 			</RadioGroup>
 		);
 	}
