@@ -1,12 +1,10 @@
 @import '../theme/default.pcss';
-$c-white: $theme-stroke-9;
-$c-blue: $theme-primary-2;
 
 @mixin popup-menu-item-common {
   background-color: $c-white;
   display: block;
   outline: none;
-  padding: 5px 10px;
+  padding: 7px 10px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -16,18 +14,18 @@ $c-blue: $theme-primary-2;
   &.current,
   &.hover,
   &:hover {
-    background-color: $c-blue;
-    color: $c-white;
+    background-color: $theme-primary-6;
   }
 
   &.active {
-    color: $c-blue;
+    font-weight: 500;
+    background-color: $theme-stroke-8;
   }
 
   &.active:hover,
   &.active.hover,
   &.active.current {
-    color: $c-white;
+    background-color: $theme-stroke-8;
   }
 }
 
