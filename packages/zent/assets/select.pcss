@@ -1,14 +1,5 @@
 @import './theme/default.pcss';
 @import './mixins/index.pcss';
-$c-border: $theme-stroke-4;
-$c-light-border: $theme-stroke-6;
-$c-white: $theme-stroke-9;
-$c-blue: $theme-primary-2;
-$c-light-gray: $theme-stroke-3;
-$c-bg-gray: $theme-stroke-8;
-$c-light-blue: $theme-primary-4;
-$c-half-black: $theme-mask-black-2;
-$errorBorderColor: $theme-error-2;
 
 .zent-select {
   cursor: pointer;
@@ -31,7 +22,7 @@ $errorBorderColor: $theme-error-2;
     .zent-select-text,
     .zent-select-tags {
       border-color: $theme-stroke-6;
-      background-color: $c-bg-gray;
+      background-color: $theme-stroke-8;
 
       &::after {
         opacity: 0.25;
@@ -63,7 +54,7 @@ $errorBorderColor: $theme-error-2;
 .zent-select-text,
 .zent-select-tags {
   box-sizing: border-box;
-  border: 1px solid $c-border;
+  border: 1px solid $theme-stroke-5;
   border-radius: 2px;
   display: inline-block;
   min-height: 30px;
@@ -74,19 +65,40 @@ $errorBorderColor: $theme-error-2;
   width: 100%;
   background-color: $theme-stroke-9;
   position: relative;
+
+  &::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAMAAAAhxq8pAAAAP1BMVEUAAAAzMzMyMjRAQEAyMjQyMjQ0NDQ2NjYyMjMzMzMyMjMyMjMzMzQyMjQ4ODgzMzNGRkYzMzMyMjUzMzMyMjNbbAmOAAAAFHRSTlMAqr0Grn1SLvTr39GXiSAUC2hbMlOyMCEAAABbSURBVBjTfc5JEoAgDETRlnkGlfufVSkLxWD5ln+RDj7xdSEkR6yTCDZHgW2OCgi0hbZEDjCOU3ZjcxlotHma0cBFjSM32ZvEQPQPR8W35gtekq3VJhA7Yxp/Dk7RDBdwecf8AAAAAElFTkSuQmCC') no-repeat;
+    background-size: 10px 8px;
+    background-position: center;
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    content: '';
+    height: 16px;
+    position: absolute;
+    transition: transform 0.25s;
+  }
+
+  &.visible {
+    border-color: $theme-primary-2;
+
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
 }
 
 .zent-select-placeholder {
-  color: $c-light-gray;
+  color: $theme-stroke-3;
 }
 
 .zent-select-simple {
-  color: $c-blue;
+  color: $theme-primary-2;
 
   &::after {
     content: '';
     border-left: 4px solid transparent;
-    border-top: 6px solid $c-blue;
+    border-top: 6px solid $theme-primary-2;
     border-right: 4px solid transparent;
     display: inline-block;
     margin-left: 5px;
@@ -99,24 +111,12 @@ $errorBorderColor: $theme-error-2;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  padding: 5px 20px 5px 10px;
-
-  &::after {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAMAAAC38k/IAAAAM1BMVEUAAAAzMzMzMzMzMzMzMzMzMzM0NDQ0NDQ1NTU1NTU9PT1VVVU0NDQzMzMzMzM1NTUzMzOoQ7gOAAAAEHRSTlMA99vkxpd9STUhCgPOzGhlqqcGJgAAAEBJREFUCNdFy8kRwCAMwEDZ3JDD/VebCXhgf3qIR83pi9gmXCduyokCyVwCuvrfAarMuzLlPzLLiGZx4FoIDeADc4gEoYNfTDsAAAAASUVORK5CYII=) no-repeat;
-    background-size: 6px 5px;
-    content: '';
-    height: 5px;
-    margin-top: -3px;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transition: transform 0.25s;
-    width: 6px;
-  }
+  padding: 6px 20px;
+  padding-left: 10px;
 }
 
 .zent-select-tags {
-  padding: 2px 5px;
+  padding: 3px 5px;
   max-height: none;
   line-height: 24px;
 
@@ -125,7 +125,8 @@ $errorBorderColor: $theme-error-2;
   }
 
   &.tags__empty {
-    padding: 5px 20px 5px 10px;
+    padding: 6px 20px;
+    padding-left: 10px;
     line-height: 18px;
   }
 
@@ -136,14 +137,14 @@ $errorBorderColor: $theme-error-2;
   }
 
   .zent-select-tag {
-    background-color: $c-bg-gray;
-    border: 1px solid $c-border;
+    background-color: $theme-stroke-8;
+    border: 1px solid $theme-stroke-5;
     border-radius: 2px;
     display: inline-block;
     margin: 2px 0;
-    margin-right: 2px;
+    margin-right: 4px;
     padding: 0 4px;
-    line-height: 18px;
+    line-height: 16px;
   }
 
   .zent-select-delete {
@@ -182,7 +183,7 @@ $errorBorderColor: $theme-error-2;
   }
 
   .zent-select-filter {
-    border-color: $c-light-border;
+    border-color: $theme-stroke-6;
     border-style: solid;
     border-width: 0 0 1px;
     padding-left: 30px;
@@ -196,7 +197,7 @@ $errorBorderColor: $theme-error-2;
   }
 
   .zent-select-empty {
-    color: $c-light-gray;
+    color: $theme-stroke-3;
   }
 }
 
@@ -205,7 +206,7 @@ $errorBorderColor: $theme-error-2;
     & > .zent-select-input,
     & > .zent-select-text,
     & > .zent-select-tags {
-      border: 1px solid $errorBorderColor;
+      border: 1px solid $theme-error-2;
       color: $theme-error-2;
     }
   }

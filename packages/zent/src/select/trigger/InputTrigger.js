@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
 import { Select as I18nDefault } from 'i18n/default';
@@ -32,14 +33,16 @@ class InputTrigger extends Component {
   };
 
   render() {
-    const { prefixCls, placeholder, keyword, text } = this.props;
+    const { prefixCls, placeholder, keyword, text, visible } = this.props;
+
+    const rootClass = cx(`${prefixCls}-input`, { visible });
 
     return (
       <Receiver componentName="Select" defaultI18n={I18nDefault}>
         {i18n => (
           <input
             ref={input => (this.input = input)}
-            className={`${prefixCls}-input`}
+            className={rootClass}
             placeholder={placeholder || i18n.input}
             type="text"
             value={keyword === null ? text : keyword}
