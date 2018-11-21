@@ -4,6 +4,7 @@
   "parser": "babel-eslint",
   "plugins": ["lean-imports"],
   "rules": {
+    "no-console": 0,
     "one-var": 0,
     "no-var": 2,
     "max-len": 0,

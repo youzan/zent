@@ -110,7 +110,9 @@ export default class DatePanelBody extends PureComponent {
     return (
       <div className="date-table panel-table">
         <ul className="panel-table__row panel-table__head">
-          {i18n.panel.dayNames.map((item, i) => <li key={i}>{item}</li>)}
+          {i18n.panel.dayNames.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
         </ul>
         <PanelCell onSelect={onSelect} onHover={onHover} cells={days} />
       </div>

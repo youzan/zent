@@ -1,7 +1,7 @@
 /*
-   * Utility to reorder list
-   * Scans the list only once.
-  */
+ * Utility to reorder list
+ * Scans the list only once.
+ */
 export default function reorder(array, fromIndex, toIndex) {
   const lastIndex = array.length - 1;
   const firstIndex = 0;

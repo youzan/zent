@@ -255,7 +255,8 @@ describe('<Button />', () => {
   test('placing an Icon component within the Button', () => {
     const wrapper = shallow(
       <Button>
-        <Icon type="check" />Check
+        <Icon type="check" />
+        Check
       </Button>
     );
 

@@ -6,9 +6,12 @@ $bordercolor: $theme-stroke-5;
 $z-index: 1050;
 
 /*
-  WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog, it makes content blurry.
+  WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog,
+  it makes content blurry.
 
-  With GPU rendering elements we are translating, their sizes must be even numbers.
+  With GPU rendering elements we are translating, their sizes must be
+  even numbers.
+
   The bad news is that we cannot control the size of dialogs.
 
   http://stackoverflow.com/questions/6411361/webkit-based-blurry-distorted-text-post-animation-via-translate3d

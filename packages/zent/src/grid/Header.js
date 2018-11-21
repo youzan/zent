@@ -145,7 +145,9 @@ class Header extends PureComponent {
                 height,
               }}
             >
-              {row.map(props => <th {...props} />)}
+              {row.map(props => (
+                <th {...props} />
+              ))}
             </tr>
           );
         })}

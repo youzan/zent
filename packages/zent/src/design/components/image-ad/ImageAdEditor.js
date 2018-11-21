@@ -86,22 +86,20 @@ export default class ImageAdEditor extends DesignEditor {
                           onClick={this.removeImageEntry(imageId)}
                         />
                       )}
-                      {!snapshot.isDraggingOver &&
-                        allowAddImage && (
-                          <Icon
-                            type="plus"
-                            className={`${prefix}-design-component-image-ad-editor__entry-prepend-btn`}
-                            onClick={this.prependImageEntry(imageId)}
-                          />
-                        )}
-                      {!snapshot.isDraggingOver &&
-                        allowAddImage && (
-                          <Icon
-                            type="plus"
-                            className={`${prefix}-design-component-image-ad-editor__entry-append-btn`}
-                            onClick={this.appendImageEntry(imageId)}
-                          />
-                        )}
+                      {!snapshot.isDraggingOver && allowAddImage && (
+                        <Icon
+                          type="plus"
+                          className={`${prefix}-design-component-image-ad-editor__entry-prepend-btn`}
+                          onClick={this.prependImageEntry(imageId)}
+                        />
+                      )}
+                      {!snapshot.isDraggingOver && allowAddImage && (
+                        <Icon
+                          type="plus"
+                          className={`${prefix}-design-component-image-ad-editor__entry-append-btn`}
+                          onClick={this.appendImageEntry(imageId)}
+                        />
+                      )}
                     </li>
                   );
                 })}
@@ -237,7 +235,9 @@ export default class ImageAdEditor extends DesignEditor {
   static designType = 'image-ad';
   static designDescription = (
     <span>
-      图片<br />广告
+      图片
+      <br />
+      广告
     </span>
   );
 
