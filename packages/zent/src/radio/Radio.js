@@ -110,7 +110,7 @@ export default class Radio extends Component {
             onChange={this.handleChange}
           />
         </span>
-        {children !== undefined ? <span>{children}</span> : null}
+        {children !== undefined && <span>{children}</span>}
       </label>
     );
   }

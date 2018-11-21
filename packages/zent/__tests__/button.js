@@ -112,7 +112,7 @@ describe('<Button />', () => {
     mount(<Button target="_blank" />);
 
     expect(buttonNode.tagName.toLowerCase()).toBe('a');
-    expect(buttonNode.href).toBe('');
+    expect(buttonNode.href).toBe(window.location.href);
     expect(buttonNode.target).toBe('_blank');
   });
 
@@ -235,7 +235,7 @@ describe('<Button />', () => {
     }
     mount(<Button to="/path" component={Link} />);
 
-    expect(buttonNode.href).toBe('/#/path');
+    expect(buttonNode.href).toBe(`${window.location.origin}/#/path`);
     expect(buttonNode.classList.contains('zent-btn')).toBe(true);
     expect(buttonNode.tagName.toLowerCase()).toBe('a');
   });

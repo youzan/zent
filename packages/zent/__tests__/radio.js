@@ -25,7 +25,7 @@ describe('Radio Section', () => {
     expect(wrapper.hasClass('zent-radio-wrap')).toBe(true);
     expect(wrapper.childAt(0).type()).toBe('span');
     expect(wrapper.childAt(0).hasClass('zent-radio')).toBe(true);
-    expect(wrapper.childAt(1).type()).toBe(null);
+    expect(wrapper.children().length).toBe(1);
     expect(
       wrapper
         .find('.zent-radio')
