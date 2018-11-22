@@ -13,12 +13,10 @@ $arrow-cover-size: 11px;
   background-color: $theme-stroke-9;
   z-index: 2000;
 
-  @mixin font-normal;
+  @include font-normal;
 
   .zent-popover-content {
     min-width: 200px;
-
-    @mixin font-normal;
   }
 
   .zent-pop-inner,
@@ -37,7 +35,7 @@ $arrow-cover-size: 11px;
     padding-bottom: 0;
     font-weight: $font-weight-bold;
 
-    @mixin font-large;
+    @include font-large;
   }
 
   .zent-pop-buttons {

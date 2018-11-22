@@ -10,7 +10,7 @@ $inner-circle-offset: calc(
 .zent-radio-group {
   display: inline-block;
 
-  @mixin font-normal;
+  @include font-normal;
 }
 
 .zent-radio-wrap {
@@ -22,7 +22,7 @@ $inner-circle-offset: calc(
   margin-right: 15px;
   vertical-align: middle;
 
-  @mixin font-normal;
+  @include font-normal;
 
   &.zent-radio-disabled {
     cursor: not-allowed;
@@ -144,7 +144,7 @@ $inner-circle-offset: calc(
   padding: 4px 10px;
   transition: all 100ms $timing-fn-ease-in;
 
-  @mixin font-normal;
+  @include font-normal;
 
   > input[type='radio'] {
     appearance: none;

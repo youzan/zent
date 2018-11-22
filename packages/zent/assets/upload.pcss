@@ -1,6 +1,6 @@
 @import './theme/default.pcss';
 
-@define-mixin ellipsis {
+@mixin ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -222,7 +222,7 @@
         top: 10px;
         left: 60px;
 
-        @mixin ellipsis;
+        @include ellipsis;
       }
 
       &__createtime {

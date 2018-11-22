@@ -3,6 +3,7 @@ const HappyPack = require('happypack');
 const { join, resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const createAlias = require('../../packages/zent/createAlias');
 const happyThreadPool = require('./happypack-thread-pool');
@@ -73,6 +74,8 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
     }),
+
+    new ProgressBarPlugin(),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',

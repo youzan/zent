@@ -159,12 +159,12 @@ $errorBorderColor: $theme-error-2;
 }
 
 .zent-select-popup {
-  @mixin popup;
+  @include popup;
 
   .zent-select-option,
   .zent-select-filter,
   .zent-select-empty {
-    @mixin popup-menu-item-common;
+    @include popup-menu-item-common;
   }
 
   .zent-select-search {
@@ -195,7 +195,7 @@ $errorBorderColor: $theme-error-2;
   }
 
   .zent-select-option {
-    @mixin popup-menu-item-specific;
+    @include popup-menu-item-specific;
   }
 
   .zent-select-empty {
