@@ -105,5 +105,8 @@
     "uglify-js": "^3.4.9",
     "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "react-hot-loader": "^4.3.12"
   }
 }
