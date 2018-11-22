@@ -1,13 +1,9 @@
-@import '../theme/default.pcss';
-
 .zent-switch {
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-  width: 70px;
-  height: 40px;
-  line-height: 20px;
-  vertical-align: middle;
+  width: 44px;
+  height: 22px;
   border-radius: 20px;
   border: 1px solid $switch-off;
   background-color: $switch-off;
@@ -16,10 +12,10 @@
 
   &:after {
     position: absolute;
-    width: 34px;
-    height: 34px;
-    left: 2px;
-    top: 2px;
+    width: 18px;
+    height: 18px;
+    left: 1px;
+    top: 1px;
     border-radius: 100%;
     background-color: $theme-stroke-9;
     content: ' ';
@@ -33,15 +29,5 @@
 
   &:focus:hover {
     box-shadow: none;
-  }
-
-  .zent-switch-inner {
-    color: $theme-stroke-9;
-    font-size: 12px;
-    position: absolute;
-    left: 39px;
-    top: 9px;
-    transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-    user-select: none;
   }
 }
