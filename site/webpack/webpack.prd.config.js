@@ -1,9 +1,10 @@
 const webpack = require('webpack');
 const HappyPack = require('happypack');
-const vendorEntry = require('./vendor-entry');
-const base = require('./webpack.config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+
+const vendorEntry = require('./vendor-entry');
+const base = require('./webpack.config');
 const happyThreadPool = require('./happypack-thread-pool');
 
 const prefix = '/zent/';

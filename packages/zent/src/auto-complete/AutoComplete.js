@@ -47,6 +47,7 @@ export default class AutoComplete extends Component {
     valueFromOptions: PropTypes.bool, // only change value to the ones in options
 
     // view
+    prefix: PropTypes.string,
     className: PropTypes.string,
     popupClassName: PropTypes.string,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -221,22 +222,24 @@ export default class AutoComplete extends Component {
           value: item,
           content: item,
         };
-      } else if (typeof item === 'object') {
+      }
+
+      if (typeof item === 'object') {
         const {
           valueField = 'value',
           textField = 'text',
           contentField = 'content',
         } = props;
+
         return {
           ...item,
           value: item[valueField],
           content: item[contentField] || item[textField] || item[valueField],
         };
         /* eslint-disable no-else-return */
-      } else {
-        throw new Error('AutoComplete unresolvable option!', item);
       }
-      /* eslint-enable no-else-return */
+
+      throw new Error('AutoComplete unresolvable option!', item);
     });
 
     // handle option children

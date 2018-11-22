@@ -79,8 +79,8 @@ describe('GetControlGroup and Component_Fields', () => {
         name="foo"
         component={addtionInput}
         required
-        helpDesc={'foo'}
-        notice={'bar'}
+        helpDesc="foo"
+        notice="bar"
         validations={{ isEmail: true }}
         validationErrors={{ isEmail: '必须输入有效的Email地址' }}
       />,

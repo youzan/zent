@@ -16,6 +16,7 @@ export default function animatedClosable(Origin) {
     static defaultProps = {
       animated: true,
     };
+
     constructor(props, context) {
       super(props, context);
 

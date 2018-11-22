@@ -50,7 +50,7 @@ export default class Slider extends PureComponent {
     value: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.arrayOf(PropTypes.number),
-    ]).isRequired,
+    ]),
     disabled: PropTypes.bool,
     range: PropTypes.bool,
     step: PropTypes.number,

@@ -192,7 +192,7 @@ export default class Design extends PureComponent {
     defaultSelectedIndex: -1,
     globalConfig: {},
     confirmUnsavedLeave: true,
-    cacheToLocalStorage: false,
+    cache: false,
     cacheRestoreMessage:
       '提示：在浏览器中发现未提交的内容，是否使用该内容替换当前内容？',
     scrollTopOffset: -10,
@@ -678,7 +678,6 @@ export default class Design extends PureComponent {
               this.setState({
                 selectedUUID: id,
                 showAddComponentOverlay: false,
-                onShowEditComponentOverlay: true,
               });
             }
 

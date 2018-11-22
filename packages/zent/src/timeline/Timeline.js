@@ -27,6 +27,7 @@ export class Timeline extends PureComponent {
   static propTypes = {
     type: PropTypes.oneOf(['vertical', 'horizontal']),
     className: PropTypes.string,
+    size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     style: PropTypes.object,
     prefix: PropTypes.string,
   };
@@ -39,6 +40,7 @@ export class Timeline extends PureComponent {
   };
 
   static Item = TimelineItem;
+
   static Legend = TimelineLegend;
 
   renderChildren() {

@@ -177,7 +177,7 @@ describe('RadioGroup Section', () => {
       return typeof a === typeof b;
     };
     const wrapper = mount(
-      <Group value={'foo'} isValueEqual={customISValueEqual}>
+      <Group value="foo" isValueEqual={customISValueEqual}>
         <Radio value={radioValues[0]} />
         <Radio value={radioValues[1]} />
         <Radio value={radioValues[2]} />

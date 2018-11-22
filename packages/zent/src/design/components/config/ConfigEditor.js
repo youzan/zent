@@ -88,6 +88,7 @@ export default class ConfigEditor extends DesignEditor {
   filterTag = (item, keyword) => item.text.indexOf(keyword) > -1;
 
   static designType = 'config';
+
   static designDescription = '页面配置';
 
   static getInitialValue() {

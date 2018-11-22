@@ -9,7 +9,7 @@ import {
   isBeforeMonth,
   isAfterMonth,
   formatDate,
-} from '../utils/';
+} from '../utils';
 import { CURRENT } from '../constants';
 import PanelCell from '../common/PanelCell';
 

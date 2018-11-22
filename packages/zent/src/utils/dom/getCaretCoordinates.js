@@ -1,6 +1,8 @@
 /* Modified from https://github.com/component/textarea-caret-position/blob/master/index.js */
 
 import get from 'lodash/get';
+import isNaN from 'lodash/isNaN';
+
 import isBrowser from '../isBrowser';
 import isFirefox from '../isFirefox';
 

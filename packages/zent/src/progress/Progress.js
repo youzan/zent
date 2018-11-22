@@ -131,7 +131,9 @@ function ProgressInfo(props) {
 
   if (state === STATE.SUCCESS) {
     return <Icon type={type === 'circle' ? 'check' : 'check-circle'} />;
-  } else if (state === STATE.EXCEPTION) {
+  }
+
+  if (state === STATE.EXCEPTION) {
     return <Icon type={type === 'circle' ? 'close' : 'close-circle'} />;
   }
 

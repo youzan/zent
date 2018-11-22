@@ -27,8 +27,7 @@ export default class LayeredPortal extends PureComponent {
     render: PropTypes.func,
 
     // parent node
-    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-      .isRequired,
+    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     // layer
     layer: PropTypes.string, // the layer tag

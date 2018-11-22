@@ -12,16 +12,6 @@ export default class Pager extends PureComponent {
     target: number,
   };
 
-  state = {
-    pageLabel: this.props.content,
-  };
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      pageLabel: nextProps.content,
-    });
-  }
-
   onClick = () => {
     const { target, current, onChange } = this.props;
 

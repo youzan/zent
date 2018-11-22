@@ -10,7 +10,9 @@ export default function reorder(array, fromIndex, toIndex) {
 
   if (fromIndex === toIndex) {
     return array;
-  } else if (fromIndex < toIndex) {
+  }
+
+  if (fromIndex < toIndex) {
     for (let i = firstIndex; i <= lastIndex; i++) {
       if (i === fromIndex) {
         tmp = array[i];
