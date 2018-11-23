@@ -58,6 +58,7 @@ class Grid extends PureComponent {
     onExpand: PropTypes.func,
     components: PropTypes.object,
     rowProps: PropTypes.func,
+    emptyLabel: PropTypes.node,
   };
 
   static defaultProps = {

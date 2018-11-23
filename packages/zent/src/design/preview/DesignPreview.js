@@ -82,7 +82,9 @@ class DesignPreview extends PureComponent {
   };
 
   previewItems = {};
+
   editorItems = {};
+
   editors = {};
 
   render() {

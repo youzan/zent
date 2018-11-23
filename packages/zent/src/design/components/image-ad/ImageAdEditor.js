@@ -233,6 +233,7 @@ export default class ImageAdEditor extends DesignEditor {
   }
 
   static designType = 'image-ad';
+
   static designDescription = (
     <span>
       图片

@@ -277,7 +277,6 @@ class SKUContainer extends PureComponent {
                         </span>
                         <img
                           src={item.img_url}
-                          role="presentation"
                           alt=""
                           data-src={item.img_url}
                         />

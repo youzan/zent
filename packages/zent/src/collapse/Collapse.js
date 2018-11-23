@@ -88,7 +88,9 @@ export default class Collapse extends PureComponent {
 function isPanelActive(activeKey, key) {
   if (isString(activeKey)) {
     return activeKey === key;
-  } else if (isArray(activeKey)) {
+  }
+
+  if (isArray(activeKey)) {
     return includes(activeKey, key);
   }
 

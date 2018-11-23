@@ -180,7 +180,9 @@ export default class Swiper extends PureComponent {
 
     if (index > length - 1) {
       return length - 1;
-    } else if (index < 0) {
+    }
+
+    if (index < 0) {
       return 0;
     }
 

@@ -21,7 +21,7 @@ const sizeClassMap = {
 
 export default class Alert extends PureComponent {
   static propTypes = {
-    type: PropTypes.oneOf(['info', 'warning', 'danger', 'error']).isRequired,
+    type: PropTypes.oneOf(['info', 'warning', 'danger', 'error']),
     size: PropTypes.oneOf(['large', 'normal']),
     rounded: PropTypes.bool,
     closable: PropTypes.bool,

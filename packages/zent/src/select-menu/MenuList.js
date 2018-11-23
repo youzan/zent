@@ -7,6 +7,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import keycode from 'keycode';
+import isNaN from 'lodash/isNaN';
+import isNumber from 'lodash/isNumber';
 
 const menuListPaddingTop = 0;
 
@@ -149,9 +151,9 @@ export default class MenuList extends Component {
     const { items } = this.props;
     if (
       !(items && items.length) ||
-      !items.some(item => !(item.isDivider && item.isGroup)) ||
-      isNaN(idx) ||
-      idx == null
+      items.every(item => item.isDivider && item.isGroup) ||
+      !isNumber(idx) ||
+      isNaN(idx)
     ) {
       return null;
     }

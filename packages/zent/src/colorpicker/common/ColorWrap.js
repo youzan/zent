@@ -16,10 +16,10 @@ export const ColorWrap = Picker => {
     }
 
     componentWillReceiveProps(nextProps) {
-      this.setState({
-        ...color.toState(nextProps.color, this.state.oldHue),
+      this.setState(state => ({
+        ...color.toState(nextProps.color, state.oldHue),
         visible: nextProps.display,
-      });
+      }));
     }
 
     handleChange = (data, event) => {

@@ -76,6 +76,7 @@ export default class Mention extends Component {
   };
 
   BottomPosition = getPopoverBottomPosition(this);
+
   TopPosition = getPopoverTopPosition(this);
 
   render() {

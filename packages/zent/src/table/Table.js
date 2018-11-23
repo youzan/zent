@@ -39,6 +39,8 @@ export default class Table extends PureComponent {
     expandation: object,
     batchComponentsAutoFixed: bool,
     batchComponents: array,
+    pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
+    emptyLabel: PropTypes.node,
   };
 
   static defaultProps = {
@@ -73,6 +75,7 @@ export default class Table extends PureComponent {
 
   // 一个global的selectedRowKeys用于保存所有选中的选项
   selectedRowKeys = [];
+
   selectedRows = [];
 
   componentWillReceiveProps(nextProps) {

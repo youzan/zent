@@ -28,7 +28,7 @@ class DialogInnerEl extends PureComponent {
       ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {
         style[`${prefix}TransformOrigin`] = origin;
       });
-      style[`transformOrigin`] = origin;
+      style.transformOrigin = origin;
     }
   };
 

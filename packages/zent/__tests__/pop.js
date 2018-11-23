@@ -62,7 +62,7 @@ describe('Pop', () => {
     let wrapper;
     expect(() => {
       wrapper = mount(
-        <Pop content={content()} trigger={'click'}>
+        <Pop content={content()} trigger="click">
           <Button onClick={addClick}>click</Button>
         </Pop>
       );
@@ -74,7 +74,7 @@ describe('Pop', () => {
     const wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         prefix="foo"
         className="quux"
         wrapperClassName="bar"
@@ -97,7 +97,7 @@ describe('Pop', () => {
     let wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         className="bar11"
         block
         header={header()}
@@ -112,7 +112,7 @@ describe('Pop', () => {
     const cancelMock = jest.fn();
     wrapper = mount(
       <Pop
-        trigger={'click'}
+        trigger="click"
         block
         onConfirm={confirmMock}
         onCancel={cancelMock}
@@ -134,7 +134,7 @@ describe('Pop', () => {
 
     wrapper = mount(
       <Pop
-        trigger={'click'}
+        trigger="click"
         block
         onConfirm={confirmMock}
         onCancel={cancelMock}
@@ -211,7 +211,7 @@ describe('Pop', () => {
         <Pop
           content={content()}
           position={position}
-          trigger={'click'}
+          trigger="click"
           centerArrow
         >
           <Button>click</Button>
@@ -316,7 +316,7 @@ describe('Pop', () => {
     let wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         className="bar11"
         block
         header={header()}
@@ -333,7 +333,7 @@ describe('Pop', () => {
     let wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         className="bar11"
         block
         header={header()}

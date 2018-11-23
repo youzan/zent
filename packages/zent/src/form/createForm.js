@@ -62,6 +62,7 @@ const createForm = (config = {}) => {
       }
 
       static displayName = `Form(${getDisplayName(WrappedForm)})`;
+
       static WrappedForm = WrappedForm;
 
       static propTypes = {

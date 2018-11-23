@@ -181,7 +181,6 @@ SKUGroup.propTypes = {
 
 SKUGroup.defaultProps = {
   index: 0,
-  data: {},
   onSKUDelete: noop,
   onSKUChange: noop,
 };
