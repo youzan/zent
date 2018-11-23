@@ -23,7 +23,7 @@ export default class Switch extends PureComponent {
     onChange() {},
   };
 
-  // 处理点击时间，直接执行外部onChange方法
+  // 处理点击事件，直接执行外部onChange方法
   toggle = () => {
     const { onChange, checked } = this.props;
     onChange(!checked);
