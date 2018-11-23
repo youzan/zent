@@ -35,7 +35,7 @@ export default class Switch extends PureComponent {
     const classNames = setClass(
       {
         [`${prefix}-switch-${size}`]: size !== 'default',
-        [`${prefix}-switch-disabled`]: disabled,
+        [`${prefix}-switch-disabled`]: switchDisabled,
         [`${prefix}-switch-loading`]: loading,
         [`${prefix}-switch-checked`]: checked,
       },
