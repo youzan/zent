@@ -44,7 +44,7 @@ export default class Switch extends PureComponent {
     );
 
     return (
-      <span
+      <div
         className={classNames}
         onClick={switchDisabled ? null : this.toggle}
       />
