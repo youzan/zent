@@ -1,4 +1,6 @@
 @import './theme/default.pcss';
+@import './theme/_font.pcss';
+
 $active_color: $theme-primary-2;
 $light_blue: $theme-primary-4;
 $disable_color: $theme-stroke-3;
@@ -8,7 +10,7 @@ $lightest_grey: $theme-stroke-8;
 $error_color: $theme-error-2;
 $default_width: 240px;
 $double_default_width: 480px;
-$input_width: 183px;
+$input_width: 190px;
 
 .zent-datetime-picker {
   box-sizing: border-box;
@@ -17,7 +19,7 @@ $input_width: 183px;
   position: relative;
 
   .picker-seperator {
-    font-size: 12px;
+    font-size: $font-size-normal;
     color: $theme-stroke-2;
     padding: 0 10px;
   }
@@ -27,9 +29,7 @@ $input_width: 183px;
     position: relative;
     box-sizing: border-box;
     width: $input_width;
-    height: 30px;
-    line-height: 30px;
-    font-size: 12px;
+    font-size: $font-size-normal;
     background: $theme-stroke-9;
     border-radius: 2px;
 
@@ -47,7 +47,7 @@ $input_width: 183px;
     }
 
     .zenticon {
-      line-height: 30px;
+      line-height: 32px;
       position: absolute;
       right: 10px;
       top: 0;
@@ -126,7 +126,7 @@ $input_width: 183px;
     .quarter-picker {
       background: $theme-stroke-9;
       width: $default_width;
-      font-size: 12px;
+      font-size: $font-size-normal;
       border-radius: 2px;
       box-shadow: 0 1px 4px $theme-mask-black-2;
       z-index: 10;
@@ -381,7 +381,7 @@ $input_width: 183px;
 
       .error-tips {
         color: $error_color;
-        font-size: 12px;
+        font-size: $font-size-normal;
       }
     }
 
@@ -410,7 +410,6 @@ $input_width: 183px;
 
       .panel__cell {
         display: inline-block;
-        box-sizing: border-box;
         text-align: center;
         vertical-align: middle;
         border-radius: 2px;
@@ -659,10 +658,10 @@ $input_width: 183px;
   }
 
   .time-picker-input {
-    width: 100px;
+    width: 120px;
   }
 
   .week-picker-input {
-    width: 195px;
+    width: 228px;
   }
 }
