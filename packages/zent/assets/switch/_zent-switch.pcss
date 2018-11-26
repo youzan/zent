@@ -1,4 +1,5 @@
 @import '../theme/default.pcss';
+@import '../theme/timing-functions.pcss';
 
 .zent-switch {
   position: relative;
@@ -11,7 +12,7 @@
   border: 1px solid $switch-off;
   background-color: $switch-off;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.16s $timing-fn-ease-in-out;
 
   &:after {
     position: absolute;
@@ -23,7 +24,7 @@
     background-color: $theme-stroke-9;
     content: ' ';
     cursor: pointer;
-    transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    transition: left 0.16s $timing-fn-ease-in-out;
   }
 
   &:focus {
