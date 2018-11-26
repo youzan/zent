@@ -1,4 +1,5 @@
 @import '../theme/default.pcss';
+@import '../theme/timing-functions.pcss';
 
 .zent-switch-checked {
   border-color: $switch-on;
@@ -47,7 +48,7 @@
     border-radius: 100%;
     box-sizing: border-box;
     border-color: $theme-stroke-5 transparent transparent;
-    animation: switch-spin 1s linear;
+    animation: switch-spin 1s $timing-fn-linear;
     animation-iteration-count: infinite;
   }
 
