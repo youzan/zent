@@ -85,6 +85,7 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
+| indeterminateRowKeys | 半选状态的行 | array | 否 |
 | isSingleSelection | 是否是单选            | bool | `false` | 否    |
 | needCrossPage |   是否需要跨页的时候多选            | bool | `false` | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |

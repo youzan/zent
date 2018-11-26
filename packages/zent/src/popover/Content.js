@@ -34,6 +34,8 @@ export default class PopoverContent extends PureComponent {
 
     prefix: PropTypes.string,
 
+    className: PropTypes.string,
+
     id: PropTypes.string,
 
     getContentNode: PropTypes.func,

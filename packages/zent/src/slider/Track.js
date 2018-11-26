@@ -12,7 +12,7 @@ export default class Track extends PureComponent {
   getWidth = () => {
     const { max, min, range, value } = this.props;
     return range
-      ? (value[1] - value[0]) * 100 / (max - min)
+      ? ((value[1] - value[0]) * 100) / (max - min)
       : getLeft(value, max, min);
   };
 

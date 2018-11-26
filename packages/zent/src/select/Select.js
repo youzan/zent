@@ -1,5 +1,5 @@
 /**
- * Select
+ * Select 垃圾代码，需要清理
  */
 
 // import React, { Component, Children } from 'react';
@@ -414,6 +414,7 @@ Select.propTypes = {
     value: PropTypes.any,
     text: PropTypes.string,
   }),
+  selectedItems: PropTypes.array,
   trigger: PropTypes.func,
   optionValue: PropTypes.string,
   optionText: PropTypes.string,
@@ -433,6 +434,14 @@ Select.propTypes = {
 
   // 重置选项展示文本
   resetText: PropTypes.string,
+
+  value: PropTypes.any,
+
+  index: PropTypes.number,
+
+  initialValue: PropTypes.any,
+
+  initialIndex: PropTypes.number,
 };
 
 Select.defaultProps = {

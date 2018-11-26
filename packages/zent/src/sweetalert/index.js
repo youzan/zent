@@ -60,6 +60,16 @@ function sweet(config, sweetType) {
     const isAlert = sweetType === 'alert';
     return (
       <div className={`sweet-${sweetType}-actions`}>
+        {!isAlert && (
+          <ActionButton
+            key="sweetalert-cancel"
+            type="secondary"
+            className={`${prefix}-sweetalert-${sweetType}-btn-cancel`}
+            getClose={() => close}
+            onClick={onCancel}
+            text={cancelText || i18n.cancel}
+          />
+        )}
         <ActionButton
           key="sweetalert-confirm"
           type={confirmType}
@@ -68,16 +78,6 @@ function sweet(config, sweetType) {
           onClick={onConfirm}
           text={confirmText || (isAlert ? i18n.ok : i18n.confirm)}
         />
-        {!isAlert && (
-          <ActionButton
-            key="sweetalert-cancel"
-            type="default"
-            className={`${prefix}-sweetalert-${sweetType}-btn-cancel`}
-            getClose={() => close}
-            onClick={onCancel}
-            text={cancelText || i18n.cancel}
-          />
-        )}
       </div>
     );
   };

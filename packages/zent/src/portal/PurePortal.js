@@ -5,6 +5,7 @@ import isFunction from 'lodash/isFunction';
 
 import { getNodeFromSelector } from './util';
 
+// eslint-disable-next-line
 export function unstable_unrenderPortal(containerNode, callback, onUnmount) {
   if (containerNode) {
     // React不支持在event handler中unmount组件，会引起问题。Portal的使用场景很容易出现
@@ -24,6 +25,7 @@ export function unstable_unrenderPortal(containerNode, callback, onUnmount) {
   }
 }
 
+// eslint-disable-next-line
 export function unstable_renderPortal(child, containerNode, onMount) {
   if (!containerNode) {
     return;

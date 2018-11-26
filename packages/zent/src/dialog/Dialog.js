@@ -62,7 +62,7 @@ export default class Dialog extends PureComponent {
 
     // load default max/min-width value when width is not specified in style prop
     const elStyle = {
-      ...(style.width ? {} : { minWidth: '450px', maxWidth: '75%' }),
+      ...(style.width ? {} : { minWidth: '560px', maxWidth: '75%' }),
       ...style,
     };
 

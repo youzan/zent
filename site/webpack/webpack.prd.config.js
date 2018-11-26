@@ -1,34 +1,14 @@
-const webpack = require('webpack');
-const HappyPack = require('happypack');
-const vendorEntry = require('./vendor-entry');
-const base = require('./webpack.config');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const merge = require('webpack-merge');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const happyThreadPool = require('./happypack-thread-pool');
 
-const prefix = '/zent/';
+const base = require('./webpack.config');
 
-module.exports = Object.assign({}, base, {
+module.exports = merge.smart(base, {
   entry: {
     docs: './src/index.js',
-    vendor: vendorEntry,
   },
 
-  output: Object.assign({}, base.output, {
-    publicPath: prefix,
-  }),
-
-  module: Object.assign({}, base.module, {
-    rules: base.module.rules.concat({
-      test: /\.p?css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: 'happypack/loader?id=styles',
-      }),
-    }),
-  }),
-
-  plugins: base.plugins.concat([
+  plugins: [
     new FaviconsWebpackPlugin({
       // Your source logo
       logo: './assets/zanui-logo.png',
@@ -62,38 +42,5 @@ module.exports = Object.assign({}, base, {
         windows: false,
       },
     }),
-
-    new HappyPack({
-      id: 'styles',
-      threadPool: happyThreadPool,
-      loaders: [
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-          },
-        },
-        'postcss-loader',
-      ],
-    }),
-
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-      output: {
-        comments: false,
-      },
-      sourceMap: false,
-    }),
-
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-    }),
-
-    new ExtractTextPlugin({
-      filename: '[name]-[contenthash].css',
-      allChunks: true,
-    }),
-  ]),
+  ],
 });

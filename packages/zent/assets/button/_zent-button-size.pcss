@@ -1,14 +1,17 @@
+@import '../theme/_font.pcss';
+@import './_zent-button-variable.pcss';
+
 .zent-btn-large {
-  height: 40px;
-  line-height: 40px;
-  padding: 0 23px;
-  font-size: 14px;
+  padding: 0 24px;
+  height: $btn-height-large;
+  line-height: calc($btn-height-large - 2px);
+  font-size: $font-size-large;
 }
 
 .zent-btn-small {
-  height: 24px;
-  line-height: 24px;
-  padding: 0 7px;
+  height: $btn-height-small;
+  line-height: calc($btn-height-small - 2px);
+  padding: 0 8px;
 }
 
 .zent-btn-block {

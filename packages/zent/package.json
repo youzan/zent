@@ -31,8 +31,8 @@
     "typings/"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.1.5",
     "autosize": "^4.0.0",
-    "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
     "date-fns": "^1.29.0",
     "es6-error": "4.0.x",

@@ -11,7 +11,7 @@ declare module 'zent/lib/split-button' {
     dropdownTrigger?: 'click' | 'hover'
     dropdownText?: string
     dropdownValue?: string
-    droopdownPosition?: 'left-top' | 'left-center' | 'left-bottom' | 'right-top' | 'right-center' | 'right-bottom' | 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'auto-bottom-center' | 'auto-bottom-left' | 'auto-bottom-right' | 'auto-top-center' | 'auto-top-left' | 'auto-top-right'
+    dropdownPosition?: 'left-top' | 'left-center' | 'left-bottom' | 'right-top' | 'right-center' | 'right-bottom' | 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'auto-bottom-center' | 'auto-bottom-left' | 'auto-bottom-right' | 'auto-top-center' | 'auto-top-left' | 'auto-top-right'
     className?: string
     prefix?: string
     onClick?: React.MouseEventHandler<HTMLButtonElement>

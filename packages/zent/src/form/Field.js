@@ -12,6 +12,7 @@ import unknownProps from './unknownProps';
 
 class Field extends Component {
   static propTypes = {
+    value: PropTypes.any,
     name: PropTypes.string.isRequired,
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
       .isRequired,

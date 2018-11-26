@@ -18,7 +18,7 @@ describe('CreatedForm and HandleSubmit', () => {
               name="foo"
               component={() => <div />}
               validations={{ required: true }}
-              value={'占位'}
+              value="占位"
             >
               <span />
             </Field>
@@ -30,7 +30,7 @@ describe('CreatedForm and HandleSubmit', () => {
     let wrapper;
 
     // HACK: console.error
-    //  = mount(<CreatedForm onSubmit={'string type'} />);
+    //  = mount(<CreatedForm onSubmit="string type" />);
     // expect(() => { wrapper.simulate('submit') }).toThrow();
     const onSubmitMock = jest.fn().mockImplementation(() => 'foobar');
     const onSubmitSuccessMock = jest.fn();
@@ -86,7 +86,7 @@ describe('CreatedForm and HandleSubmit', () => {
               name="foo"
               component={() => <div />}
               validations={{ required: true }}
-              value={'非空'}
+              value="非空"
             >
               <span />
             </Field>
@@ -130,7 +130,7 @@ describe('CreatedForm and HandleSubmit', () => {
               name="foo"
               component={() => <div />}
               validations={{ required: true }}
-              value={'非空'}
+              value="非空"
             >
               <span />
             </Field>
@@ -187,7 +187,7 @@ describe('CreatedForm and HandleSubmit', () => {
               name="foo"
               component={() => <div />}
               validations={{ required: true }}
-              value={'占位'}
+              value="占位"
             >
               <span />
             </Field>
@@ -221,7 +221,7 @@ describe('CreatedForm and HandleSubmit', () => {
               name="foo"
               component={() => <div />}
               validations={{ required: true }}
-              value={'占位'}
+              value="占位"
             >
               <span />
             </Field>
@@ -254,7 +254,7 @@ describe('CreatedForm and HandleSubmit', () => {
               name="foo"
               component={() => <div />}
               validations={{ required: true }}
-              value={''}
+              value=""
             >
               <span />
             </Field>

@@ -50,7 +50,7 @@ describe('<Select />', () => {
   });
 
   test('怪癖模式', () => {
-    const wrapper = mount(<Select data={['1', '2', '3']} initialValue={'1'} />);
+    const wrapper = mount(<Select data={['1', '2', '3']} initialValue="1" />);
     expect(wrapper.state('selectedItem').value).toBe('1');
   });
 

@@ -2,6 +2,7 @@ import { PureComponent, Children } from 'react';
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
 
+// eslint-disable-next-line
 import { unstable_renderPortal, unstable_unrenderPortal } from './PurePortal';
 
 import {
@@ -26,8 +27,7 @@ export default class LayeredPortal extends PureComponent {
     render: PropTypes.func,
 
     // parent node
-    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-      .isRequired,
+    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     // layer
     layer: PropTypes.string, // the layer tag

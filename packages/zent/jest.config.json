@@ -1,4 +1,5 @@
 {
+  "testURL": "https://youzan.github.io/zent",
   "verbose": true,
   "automock": false,
   "collectCoverage": true,

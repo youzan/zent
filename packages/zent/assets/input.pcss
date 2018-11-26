@@ -1,11 +1,10 @@
 @import './theme/default.pcss';
 @import './theme/_font.pcss';
-
 $defaultBorderColor: $theme-stroke-5;
 $errorBorderColor: $theme-error-4;
 $borderRadius: 2px;
 $border-default: 1px solid $defaultBorderColor;
-$focus-box-shadow: 0 0 3px 0 $defaultBorderColor;
+$focus-box-shadow: 0 0 $shadow-spec;
 $border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 $normal-size: 32px;
 $small-size: 24px;
@@ -14,6 +13,7 @@ $large-size: 40px;
 .zent-input-wrapper {
   display: flex;
   position: relative;
+  box-sizing: border-box;
   border: $border-default;
   border-radius: $borderRadius;
   transition: $border-transition;
@@ -65,7 +65,7 @@ $large-size: 40px;
     z-index: 1;
     top: 50%;
     transform: translate(0, -50%);
-    color: $theme-stroke-4;
+    color: $theme-stroke-5;
 
     &-close-circle {
       font-size: 12px;
@@ -74,7 +74,7 @@ $large-size: 40px;
       padding: 4px 0;
 
       &:hover {
-        color: $theme-stroke-3;
+        color: $theme-stroke-4;
       }
     }
   }

@@ -108,7 +108,7 @@ export default class SubMenu extends CommonMenu {
     });
   };
 
-  renderContent = () => {
+  renderContent() {
     const {
       prefix,
       children,
@@ -141,7 +141,7 @@ export default class SubMenu extends CommonMenu {
         </ul>
       </AnimateHeight>
     );
-  };
+  }
 
   componentWillReceiveProps({ expandKeys: nextExpandKeys }) {
     const { specKey, expandKeys } = this.props;

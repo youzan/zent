@@ -46,6 +46,7 @@ describe('Rate', () => {
       state = {
         value: 2.5,
       };
+
       onChange = value => {
         this.setState({ value });
       };
@@ -79,6 +80,7 @@ describe('Rate', () => {
       state = {
         value: 2,
       };
+
       onChange = value => {
         this.setState({ value });
       };

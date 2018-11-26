@@ -646,18 +646,17 @@ export default class Tree extends (PureComponent || Component) {
                 {this.renderOperations(root, isShowChildren)}
               </div>
             </div>
-            {root[children] &&
-              root[children].length > 0 && (
-                <AnimateHeight
-                  appear
-                  duration={200}
-                  height={isShowChildren ? 'auto' : 0}
-                >
-                  <ul key={`ul-${root[id]}`} className={`${prefix}-tree-child`}>
-                    {this.renderTreeNodes(root[children])}
-                  </ul>
-                </AnimateHeight>
-              )}
+            {root[children] && root[children].length > 0 && (
+              <AnimateHeight
+                appear
+                duration={200}
+                height={isShowChildren ? 'auto' : 0}
+              >
+                <ul key={`ul-${root[id]}`} className={`${prefix}-tree-child`}>
+                  {this.renderTreeNodes(root[children])}
+                </ul>
+              </AnimateHeight>
+            )}
           </li>
         );
       });

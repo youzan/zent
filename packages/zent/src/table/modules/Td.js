@@ -48,6 +48,9 @@ export default class Td extends PureComponent {
         <Checkbox
           className="select-check"
           checked={selection.selectedRowKeys.indexOf(data[rowKey]) !== -1}
+          indeterminate={
+            selection.indeterminateRowKeys.indexOf(data[rowKey]) !== -1
+          }
           disabled={!canSelect}
           onChange={this.onSelect}
         />

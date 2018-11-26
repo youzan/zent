@@ -34,7 +34,7 @@ export default class NotifyContent extends PureComponent {
           in={isIn}
           onExited={this.onExited}
         >
-          <div className={`zent-notify`}>
+          <div className="zent-notify">
             <div
               className={`zent-notify-content zent-notify-content-${status}`}
             >
