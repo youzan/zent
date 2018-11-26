@@ -83,6 +83,7 @@ onChange will throw an object containing pagination and sorting parameters：
 | Props              | Description              | Type    |  Default | Required |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | Selected by default            | array |  | no    |
+| indeterminateRowKeys | indeterminate rows | array | no |
 | isSingleSelection | Radio or not           | bool | `false` | no    |
 | needCrossPage |   Cross-page multiple choice or not | bool | `false` | no    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow) | Check callback | func  |  | no    |
