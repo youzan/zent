@@ -176,7 +176,7 @@ export class DesignEditor extends Component {
   /*
    * Utility to reorder list for react-beautiful-dnd
    * Scans the list only once.
-  */
+   */
   reorder(array, fromIndex, toIndex) {
     return reorder(array, fromIndex, toIndex);
   }

@@ -18,11 +18,16 @@ export function formatFileSize(size, toFixed) {
 
   if (size >= oneGB) {
     return `${(size / oneGB).toFixed(toFixed)} GB`;
-  } else if (size >= oneMB) {
+  }
+
+  if (size >= oneMB) {
     return `${(size / oneMB).toFixed(toFixed)} MB`;
-  } else if (size >= 1024) {
+  }
+
+  if (size >= 1024) {
     return `${(size / 1024).toFixed(toFixed)} KB`;
   }
+
   return `${size.toFixed(toFixed)} B`;
 }
 

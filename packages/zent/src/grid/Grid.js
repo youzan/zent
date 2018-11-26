@@ -58,6 +58,7 @@ class Grid extends PureComponent {
     onExpand: PropTypes.func,
     components: PropTypes.object,
     rowProps: PropTypes.func,
+    emptyLabel: PropTypes.node,
   };
 
   static defaultProps = {
@@ -237,9 +238,8 @@ class Grid extends PureComponent {
 
   handleExpandRow = (clickRow, rowData) => e => {
     const { onExpand } = this.props;
-    const expandRowKeys = map(
-      this.state.expandRowKeys,
-      (row, index) => (index === clickRow ? !row : row)
+    const expandRowKeys = map(this.state.expandRowKeys, (row, index) =>
+      index === clickRow ? !row : row
     );
     this.store.setState({
       columns: this.getColumns(this.props, this.props.columns, expandRowKeys),

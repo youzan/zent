@@ -13,7 +13,7 @@ export const toFixed = (value, step) => {
 };
 
 export const getLeft = (value, max, min) => {
-  return (value - min) * 100 / (max - min);
+  return ((value - min) * 100) / (max - min);
 };
 
 export const getClosest = (value, pointValue) => {

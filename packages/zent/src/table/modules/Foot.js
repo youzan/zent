@@ -77,16 +77,14 @@ export default class Foot extends PureComponent {
       shouldRenderFoot && (
         <div className="tfoot clearfix" style={this.footStyleFixed}>
           <div className={batchClassName} ref={c => (this.batch = c)}>
-            {needSelect &&
-              batchComponents &&
-              batchComponents.length > 0 && (
-                <Checkbox
-                  className="select-check"
-                  onChange={this.onSelect}
-                  checked={selection.isSelectAll}
-                  indeterminate={selection.isSelectPart}
-                />
-              )}
+            {needSelect && batchComponents && batchComponents.length > 0 && (
+              <Checkbox
+                className="select-check"
+                onChange={this.onSelect}
+                checked={selection.isSelectAll}
+                indeterminate={selection.isSelectPart}
+              />
+            )}
             {batchComponents &&
               batchComponents.length > 0 &&
               this.renderBatchComps(selectedRows, batchComponents)}

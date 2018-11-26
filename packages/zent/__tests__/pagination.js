@@ -55,7 +55,7 @@ describe('Pagination', () => {
       mount(
         <Pagination
           totalItem={1000}
-          pageSize={'foo'}
+          pageSize="foo"
           current={1}
           maxPageToshow={100}
         />

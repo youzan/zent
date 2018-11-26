@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import AnimateHeight from 'utils/component/AnimateHeight';
 import LazyMount from 'utils/component/LazyMount';
+import { EASE_IN_OUT } from 'utils/timingFunctions';
 
 const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,
   borderBottomColor: 'rgba(255, 255, 255, 0)',
-  transition:
-    'border-bottom-width 200ms ease-out, border-bottom-color 200ms ease-out',
+  transition: `border-bottom-width 160ms ${EASE_IN_OUT}, border-bottom-color 160ms ${EASE_IN_OUT}`,
 };
 const NO_STYLE = {};
 
@@ -26,6 +26,7 @@ export default class Panel extends PureComponent {
     active: PropTypes.bool,
     onChange: PropTypes.func,
     panelKey: PropTypes.string,
+    panelTitleBackground: PropTypes.string,
     isLast: PropTypes.bool,
     bordered: PropTypes.bool,
   };
@@ -56,6 +57,7 @@ export default class Panel extends PureComponent {
       className,
       isLast,
       bordered,
+      panelTitleBackground,
     } = this.props;
     const { animateAppear } = this.state;
     const isBorderedLast = bordered && isLast;
@@ -76,7 +78,12 @@ export default class Panel extends PureComponent {
         style={style}
       >
         <div
-          className={`${prefix}-collapse-panel__title`}
+          className={cx(`${prefix}-collapse-panel__title`, {
+            [`${prefix}-collapse-panel__title--bg-none`]:
+              panelTitleBackground === 'none',
+            [`${prefix}-collapse-panel__title--bg-default`]:
+              panelTitleBackground === 'default',
+          })}
           style={titleStyle}
           onClick={this.toggle}
         >
@@ -86,8 +93,9 @@ export default class Panel extends PureComponent {
         <LazyMount mount={active}>
           <AnimateHeight
             appear={animateAppear}
-            duration={200}
+            duration={160}
             height={active ? 'auto' : 0}
+            easing={EASE_IN_OUT}
             className={`${prefix}-collapse-panel__content-box`}
             style={contentBoxStyle}
           >
@@ -112,15 +120,14 @@ export default class Panel extends PureComponent {
 function Arrow({ className }) {
   return (
     <svg
-      width="10"
-      height="5"
-      viewBox="0 0 10 5"
+      width="16"
+      height="10"
       className={className}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M.01.268a.26.26 0 0 0 .077.189l4.329 4.325a.754.754 0 0 0 1.043.013L9.912.461A.26.26 0 0 0 9.91.085a.283.283 0 0 0-.39.001L5.07 4.418a.186.186 0 0 1-.129.049.186.186 0 0 1-.129-.054L.483.087a.283.283 0 0 0-.39-.006.26.26 0 0 0-.083.187z"
-        fillRule="nonzero"
+        d="M8 6.77L14.37.403l1.413 1.414-6.369 6.37h.002L8 9.601.223 1.822 1.637.408 8 6.771z"
+        fillRule="evenodd"
       />
     </svg>
   );

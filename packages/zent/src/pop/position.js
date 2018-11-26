@@ -3,8 +3,9 @@ import capitalize from 'lodash/capitalize';
 
 const { Position } = Popover;
 
-// FIXME: this value couples with CSS style
-const ARROW_OFFSET = 17;
+// FIXME: these values and css variables in pop.pcss are interrelated
+const ARROW_OFFSET_H = 15;
+const ARROW_OFFSET_V = 9;
 
 const createPosition = (x, y, side) => {
   return {
@@ -40,10 +41,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      TopLeft: make(middle => middle - ARROW_OFFSET, 'left'),
+      TopLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
       TopRight: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.width - ARROW_OFFSET),
+          middle - (contentDimension.width - ARROW_OFFSET_H),
         'right'
       ),
     };
@@ -68,10 +69,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      BottomLeft: make(middle => middle - ARROW_OFFSET, 'left'),
+      BottomLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
       BottomRight: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.width - ARROW_OFFSET),
+          middle - (contentDimension.width - ARROW_OFFSET_H),
         'right'
       ),
     };
@@ -96,10 +97,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      LeftTop: make(middle => middle - ARROW_OFFSET, 'top'),
+      LeftTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
       LeftBottom: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.height - ARROW_OFFSET),
+          middle - (contentDimension.height - ARROW_OFFSET_V),
         'bottom'
       ),
     };
@@ -124,10 +125,10 @@ const CenterArrowPosition = {
       );
 
     return {
-      RightTop: make(middle => middle - ARROW_OFFSET, 'top'),
+      RightTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
       RightBottom: make(
         (middle, contentDimension) =>
-          middle - (contentDimension.height - ARROW_OFFSET),
+          middle - (contentDimension.height - ARROW_OFFSET_V),
         'bottom'
       ),
     };

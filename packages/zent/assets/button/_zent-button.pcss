@@ -1,12 +1,14 @@
 @import '../theme/default.pcss';
+@import '../theme/_font.pcss';
+@import './_zent-button-variable.pcss';
 
 .zent-btn {
   display: inline-block;
-  height: 32px;
-  line-height: 32px;
-  padding: 0 15px;
+  height: $btn-height-normal;
+  line-height: calc($btn-height-normal - 2px);
+  font-size: $font-size-normal;
+  padding: 0 16px;
   border-radius: 2px;
-  font-size: 12px;
   font-family: inherit;
   color: $theme-stroke-1;
   background: $btn-white;
@@ -49,9 +51,9 @@
     }
   }
 
-  &[type="button"],
-  &[type="reset"],
-  &[type="submit"] {
+  &[type='button'],
+  &[type='reset'],
+  &[type='submit'] {
     -webkit-appearance: none;
   }
 }

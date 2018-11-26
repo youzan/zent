@@ -151,8 +151,7 @@ export default class Button extends PureComponent {
       {
         [`${prefix}-btn-${type}${
           outline && type !== 'secondary' ? '-outline' : ''
-        }`]:
-          type !== 'default',
+        }`]: type !== 'default',
         [`${prefix}-btn-${size}`]: size !== 'medium',
         [`${prefix}-btn-block`]: block,
         [`${prefix}-btn-loading`]: loading,

@@ -11,3 +11,4 @@ packages/*/coverage
 .felintrc
 .idea/
 logs/
+.history/

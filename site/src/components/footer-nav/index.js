@@ -33,30 +33,28 @@ class FooterNav extends Component {
     const { nav } = this.state;
     return (
       <div className="footer-nav">
-        {nav &&
-          nav.prev && (
-            <a
-              className="footer-nav__link footer-nav__left"
-              onClick={() => {
-                this.handleNavClick(nav.prev.pathname);
-              }}
-            >
-              <i className="zenticon zenticon-right" />
-              {nav.prev.title}
-            </a>
-          )}
-        {nav &&
-          nav.next && (
-            <a
-              className="footer-nav__link footer-nav__right"
-              onClick={() => {
-                this.handleNavClick(nav.next.pathname);
-              }}
-            >
-              <i className="zenticon zenticon-right" />
-              {nav.next.title}
-            </a>
-          )}
+        {nav && nav.prev && (
+          <a
+            className="footer-nav__link footer-nav__left"
+            onClick={() => {
+              this.handleNavClick(nav.prev.pathname);
+            }}
+          >
+            <i className="zenticon zenticon-right" />
+            {nav.prev.title}
+          </a>
+        )}
+        {nav && nav.next && (
+          <a
+            className="footer-nav__link footer-nav__right"
+            onClick={() => {
+              this.handleNavClick(nav.next.pathname);
+            }}
+          >
+            <i className="zenticon zenticon-right" />
+            {nav.next.title}
+          </a>
+        )}
       </div>
     );
   }

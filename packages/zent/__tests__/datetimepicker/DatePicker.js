@@ -257,7 +257,7 @@ describe('DateTimePicker', () => {
 
   // HACK: branch description is not clear
   it('DatePicker will set actived to Date.now() when value prop is unable to parse', () => {
-    let wrapper = mount(<DatePicker value={'2001年9月11日'} isFooterVisble />);
+    let wrapper = mount(<DatePicker value="2001年9月11日" isFooterVisble />);
     expect(
       wrapper.find('DatePicker').getNode().state.actived instanceof Date
     ).toBe(true);

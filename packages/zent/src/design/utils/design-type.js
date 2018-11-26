@@ -16,7 +16,9 @@ export function getDesignType(editor, defaultType) {
   if (isArray(designType) && designType.length > 0) {
     if (isNumber(defaultType)) {
       return designType[defaultType || 0];
-    } else if (isFunction(defaultType)) {
+    }
+
+    if (isFunction(defaultType)) {
       return defaultType(designType);
     }
 

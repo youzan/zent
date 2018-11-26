@@ -132,8 +132,8 @@ class Selection extends React.Component {
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
 					needCrossPage: true,
-					onSelect: (selectedRowkeys, selectedRows, currentRow) => {
-						self.onSelect(selectedRowkeys, selectedRows, currentRow);
+					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
+						self.onSelect(selectedRowKeys, selectedRows, currentRow);
 					},
 				}}
 			/>

@@ -1,13 +1,9 @@
 {
+  "testURL": "https://youzan.github.io/zent",
   "verbose": true,
   "automock": false,
   "collectCoverage": true,
-  "coverageReporters": [
-    "text",
-    "text-summary",
-    "lcov",
-    "html"
-  ],
+  "coverageReporters": ["text", "text-summary", "lcov", "html"],
   "coverageThreshold": {
     "global": {
       "statements": 90,

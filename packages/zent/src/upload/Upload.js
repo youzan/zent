@@ -101,10 +101,9 @@ class Upload extends Component {
                 onClick={this.showUpload.bind(this, true)}
               >
                 {children || (Node && <Node />) || <span>+</span>}
-                {uploadOptions.localOnly &&
-                  uploadOptions.maxAmount === 1 && (
-                    <FileInput {...uploadOptions} i18n={i18n} />
-                  )}
+                {uploadOptions.localOnly && uploadOptions.maxAmount === 1 && (
+                  <FileInput {...uploadOptions} i18n={i18n} />
+                )}
               </span>
               <p className={`${prefix}-upload-tips`}>{tips}</p>
               <Dialog

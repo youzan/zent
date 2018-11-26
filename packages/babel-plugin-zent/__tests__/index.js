@@ -7,10 +7,10 @@ function compile(code, options) {
     babelrc: false,
     presets: [
       [
-        'env',
+        '@babel/preset-env',
         {
           targets: {
-            node: 4,
+            node: 6,
           },
           modules: false,
         },
@@ -66,7 +66,7 @@ describe('babel-plugin-zent', () => {
       const src = `import { ${component} } from 'zent'`;
       expect(
         compile(src).indexOf(
-          `import ${component} from '${rules[component].js}'`
+          `import ${component} from \"${rules[component].js}\"`
         )
       ).not.toBe(-1);
     });
@@ -80,17 +80,17 @@ describe('babel-plugin-zent', () => {
   it('can add css imports', () => {
     expect(
       compile("import { Button } from 'zent'", { automaticStyleImport: true })
-    ).toMatch("import 'zent/css/button.css'");
+    ).toMatch('import "zent/css/button.css"');
 
     expect(
       compile("import { Portal } from 'zent'", { automaticStyleImport: true })
-    ).toMatch("import 'zent/css/base.css'");
+    ).toMatch('import "zent/css/base.css"');
 
     const transformedCode = compile("import { Pop, Button } from 'zent'", {
       automaticStyleImport: true,
     });
-    expect(transformedCode).toMatch("import 'zent/css/button.css'");
-    expect(transformedCode).toMatch("import 'zent/css/pop.css'");
+    expect(transformedCode).toMatch('import "zent/css/button.css"');
+    expect(transformedCode).toMatch('import "zent/css/pop.css"');
   });
 
   it('can add postcss imports', () => {
@@ -99,21 +99,21 @@ describe('babel-plugin-zent', () => {
         automaticStyleImport: true,
         useRawStyle: true,
       })
-    ).toMatch("import 'zent/assets/button.pcss'");
+    ).toMatch('import "zent/assets/button.pcss"');
 
     expect(
       compile("import { Portal } from 'zent'", {
         automaticStyleImport: true,
         useRawStyle: true,
       })
-    ).toMatch("import 'zent/assets/base.pcss'");
+    ).toMatch('import "zent/assets/base.pcss"');
 
     const transformedCode = compile("import { Pop, Button } from 'zent'", {
       automaticStyleImport: true,
       useRawStyle: true,
     });
-    expect(transformedCode).toMatch("import 'zent/assets/button.pcss'");
-    expect(transformedCode).toMatch("import 'zent/assets/pop.pcss'");
+    expect(transformedCode).toMatch('import "zent/assets/button.pcss"');
+    expect(transformedCode).toMatch('import "zent/assets/pop.pcss"');
   });
 
   it('can disable javascript module rewrite', () => {
@@ -129,8 +129,8 @@ describe('babel-plugin-zent', () => {
       automaticStyleImport: true,
     });
     expect(transformedCode).toMatch(code);
-    expect(transformedCode).toMatch("import 'zent/css/button.css'");
-    expect(transformedCode).toMatch("import 'zent/css/alert.css'");
+    expect(transformedCode).toMatch('import "zent/css/button.css"');
+    expect(transformedCode).toMatch('import "zent/css/alert.css"');
 
     transformedCode = compile(code, {
       noModuleRewrite: true,
@@ -138,7 +138,7 @@ describe('babel-plugin-zent', () => {
       useRawStyle: true,
     });
     expect(transformedCode).toMatch(code);
-    expect(transformedCode).toMatch("import 'zent/assets/button.pcss'");
-    expect(transformedCode).toMatch("import 'zent/assets/alert.pcss'");
+    expect(transformedCode).toMatch('import "zent/assets/button.pcss"');
+    expect(transformedCode).toMatch('import "zent/assets/alert.pcss"');
   });
 });

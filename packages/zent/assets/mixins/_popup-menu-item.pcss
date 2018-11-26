@@ -2,7 +2,7 @@
 $c-white: $theme-stroke-9;
 $c-blue: $theme-primary-2;
 
-@define-mixin popup-menu-item-common {
+@mixin popup-menu-item-common {
   background-color: $c-white;
   display: block;
   outline: none;
@@ -12,7 +12,7 @@ $c-blue: $theme-primary-2;
   white-space: nowrap;
 }
 
-@define-mixin popup-menu-item-specific {
+@mixin popup-menu-item-specific {
   &.current,
   &.hover,
   &:hover {
@@ -31,7 +31,7 @@ $c-blue: $theme-primary-2;
   }
 }
 
-@define-mixin popup-menu-item {
-  @mixin popup-menu-item-common;
-  @mixin popup-menu-item-specific;
+@mixin popup-menu-item {
+  @include popup-menu-item-common;
+  @include popup-menu-item-specific;
 }

@@ -202,15 +202,13 @@ export default class Input extends PureComponent {
           onFocus={this.handleOnFocus}
           onBlur={this.handleOnBlur}
         />
-        {isFunction(onChange) &&
-          showClear &&
-          value && (
-            <Icon
-              type="close-circle"
-              onClick={this.clearInput}
-              onMouseDown={this.retainInputFocus}
-            />
-          )}
+        {isFunction(onChange) && showClear && value && (
+          <Icon
+            type="close-circle"
+            onClick={this.clearInput}
+            onMouseDown={this.retainInputFocus}
+          />
+        )}
         {addonAfter && (
           <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>
         )}

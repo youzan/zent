@@ -30,10 +30,9 @@ describe('GetControlGroup and Component_Fields', () => {
       }
     }
     const addtionInput = getControlGroup(Input);
-    const wrapper = mount(
-      <Field name="foo" ref="field" component={addtionInput} />,
-      { context }
-    );
+    const wrapper = mount(<Field name="foo" component={addtionInput} />, {
+      context,
+    });
     /**
      * .zent-form__control-group
      *   label.zent-form__control-label
@@ -58,10 +57,9 @@ describe('GetControlGroup and Component_Fields', () => {
       return <input {...passableProps} />;
     }
     const addtionInput = getControlGroup(Input);
-    const wrapper = mount(
-      <Field name="foo" ref="field" component={addtionInput} />,
-      { context }
-    );
+    const wrapper = mount(<Field name="foo" component={addtionInput} />, {
+      context,
+    });
     expect(
       wrapper
         .instance()
@@ -81,8 +79,8 @@ describe('GetControlGroup and Component_Fields', () => {
         name="foo"
         component={addtionInput}
         required
-        helpDesc={'foo'}
-        notice={'bar'}
+        helpDesc="foo"
+        notice="bar"
         validations={{ isEmail: true }}
         validationErrors={{ isEmail: '必须输入有效的Email地址' }}
       />,
