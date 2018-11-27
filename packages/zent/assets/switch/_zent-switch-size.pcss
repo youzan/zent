@@ -1,3 +1,4 @@
+/* large switch not use */
 .zent-switch-large {
   height: 50px;
   line-height: 12px;
@@ -11,42 +12,26 @@
     left: 2px;
   }
 
-  .zent-switch-inner {
-    font-size: 14px;
-    left: 50px;
-    top: 18px;
-  }
-
   &.zent-switch-checked {
     &:after {
       left: 42px;
     }
-
-    .zent-switch-inner {
-      font-size: 14px;
-      left: 10px;
-      top: 18px;
-    }
   }
 }
 
+/* small switch */
 .zent-switch-small {
-  width: 35px;
-  height: 20px;
-  line-height: 10px;
+  width: 28px;
+  height: 16px;
 
   &:after {
-    width: 16px;
-    height: 16px;
-    top: 1px;
+    width: 12px;
+    height: 12px;
     left: 1px;
-  }
-
-  .zent-switch-inner {
-    display: none;
+    top: 1px;
   }
 
   &.zent-switch-checked:after {
-    left: 16px;
+    left: 13px;
   }
 }
