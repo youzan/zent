@@ -355,6 +355,7 @@ class Select extends React.Component {
         }}
       >
         <Trigger
+          visible={open}
           disabled={disabled}
           prefixCls={prefixCls}
           placeholder={placeholder}

@@ -62,17 +62,22 @@ class TagsTrigger extends PureComponent {
   }
 
   render() {
-    const { prefixCls, placeholder, onClick, selectedItems } = this.props;
+    const {
+      prefixCls,
+      placeholder,
+      onClick,
+      selectedItems,
+      visible,
+    } = this.props;
+    const rootClass = cx(`${prefixCls}-tags`, {
+      tags__empty: !selectedItems.length,
+      visible,
+    });
 
     return (
       <Receiver componentName="Select" defaultI18n={I18nDefault}>
         {i18n => (
-          <div
-            className={cx(`${prefixCls}-tags`, {
-              tags__empty: !selectedItems.length,
-            })}
-            onClick={onClick}
-          >
+          <div className={rootClass} onClick={onClick}>
             {selectedItems.length > 0 ? (
               selectedItems.map((item, index) => {
                 return (
