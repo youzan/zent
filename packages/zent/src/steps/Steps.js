@@ -36,6 +36,7 @@ export default class Steps extends PureComponent {
       number: NumberSteps,
       card: BreadcrumbSteps,
       breadcrumb: BreadcrumbSteps,
+      tabs: BreadcrumbSteps,
     };
 
     const StepsComponent = typeComponentMapping[type];
