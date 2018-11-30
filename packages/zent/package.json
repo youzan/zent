@@ -42,6 +42,7 @@
     "prop-types": "^15.6.1",
     "raf": "^3.3.2",
     "react-beautiful-dnd": "6.0.1",
+    "react-is": "^16.6.3",
     "react-transition-group": "^2.2.1",
     "sortablejs": "^1.7.0",
     "tinycolor2": "^1.4.1",

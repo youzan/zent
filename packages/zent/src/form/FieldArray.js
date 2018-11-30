@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { prefixName, unliftFieldArrayValue } from './utils';
 import unknownProps from './unknownProps';
 import { FieldArrayMutatorAction } from './constants';
+import { validElementType } from '../utils/prop-types';
 
 function fieldValueReader(callback, fieldArrayValues, item, index) {
   const name = `[${index}]`;
@@ -32,8 +33,7 @@ class FieldArray extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.array,
-    component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-      .isRequired,
+    component: validElementType,
   };
 
   static contextTypes = {
