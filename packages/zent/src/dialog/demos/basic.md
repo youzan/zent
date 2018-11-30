@@ -34,13 +34,13 @@ class Example extends React.Component {
 					{i18n.show}
 				</Button>
 				<Dialog
-                    visible={this.state.visible}
-                    onClose={() => this.triggerDialog(false)}
-                    title="{i18n.title1}"
-                >
-                    <p>{i18n.content}</p>
-                    <p>{i18n.content1}</p>
-                </Dialog>
+					visible={this.state.visible}
+					onClose={() => this.triggerDialog(false)}
+					title="{i18n.title1}"
+				>	
+					<p>{i18n.content}</p>
+					<p>{i18n.content1}</p>
+			</Dialog>
 			</div>
 		);
 	}

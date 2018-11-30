@@ -27,6 +27,7 @@ group: 导航
 | tabs | 不使用Panel时的标签列表 | Array | `null` | | 否 |
 | className   | 自定义额外类名   | string   | `''`       |                       | 否    |
 | prefix      | 自定义前缀     | string   | `'zent'`   |                       | 否    |
+| navExtraContent      | 导航添加额外内容     | node   | null   |                       | 否    |
 
 tabs参数类型：
 ```ts

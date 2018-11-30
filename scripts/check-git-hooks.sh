@@ -14,7 +14,7 @@ fail () {
 
 pushd $basepath/.. >/dev/null 2>&1
 yarn prettify
-changes=$(git diff-index HEAD | grep -v babelrc)
+changes=$(git diff-index HEAD | grep -v babelrc | grep -v 'yarn.lock')
 change_count=$(echo "$changes" | sed '/^\s*$/d' | wc -l)
 popd >/dev/null 2>&1
 

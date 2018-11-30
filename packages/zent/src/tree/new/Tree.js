@@ -4,6 +4,7 @@ import isEqual from 'lodash/isEqual';
 import get from 'lodash/get';
 import forEach from 'lodash/forEach';
 import uniq from 'lodash/uniq';
+import assign from 'lodash/assign';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import AnimateHeight from 'utils/component/AnimateHeight';
@@ -147,7 +148,7 @@ export default class Tree extends (PureComponent || Component) {
     disabledCheckedKeys = [],
     defaultCheckedKeys = [],
   }) {
-    this.renderKeyMap = Object.assign({}, DEFAULT_REANDER_KEY, renderKey);
+    this.renderKeyMap = assign({}, DEFAULT_REANDER_KEY, renderKey);
     const { children, parentId, id } = this.renderKeyMap;
     const treeMap = {};
     const expandNode = [];

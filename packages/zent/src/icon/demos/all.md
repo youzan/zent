@@ -393,6 +393,46 @@ class IconGrid extends Component {
           <Icon type="hc-manage" />
           <span className="zi-grid-item-name">hc-manage(0xe85a)</span>
         </div>
+        <div className="zi-grid-item" data-index="hotline-o0xe85bhotlineoutline">
+          <Icon type="hotline-o" />
+          <span className="zi-grid-item-name">hotline-o(0xe85b)</span>
+        </div>
+        <div className="zi-grid-item" data-index="visit-o0xe85cvisitoutline">
+          <Icon type="visit-o" />
+          <span className="zi-grid-item-name">visit-o(0xe85c)</span>
+        </div>
+        <div className="zi-grid-item" data-index="im-o0xe85dimoutline">
+          <Icon type="im-o" />
+          <span className="zi-grid-item-name">im-o(0xe85d)</span>
+        </div>
+        <div className="zi-grid-item" data-index="tools-o0xe85etoolsoutline">
+          <Icon type="tools-o" />
+          <span className="zi-grid-item-name">tools-o(0xe85e)</span>
+        </div>
+        <div className="zi-grid-item" data-index="knowledge-o0xe85fknowledgeoutline">
+          <Icon type="knowledge-o" />
+          <span className="zi-grid-item-name">knowledge-o(0xe85f)</span>
+        </div>
+        <div className="zi-grid-item" data-index="flow-o0xe860resourceflowoutline">
+          <Icon type="flow-o" />
+          <span className="zi-grid-item-name">flow-o(0xe860)</span>
+        </div>
+        <div className="zi-grid-item" data-index="strategy-o0xe861strategyoutline">
+          <Icon type="strategy-o" />
+          <span className="zi-grid-item-name">strategy-o(0xe861)</span>
+        </div>
+        <div className="zi-grid-item" data-index="contract-o0xe862contractoutline">
+          <Icon type="contract-o" />
+          <span className="zi-grid-item-name">contract-o(0xe862)</span>
+        </div>
+        <div className="zi-grid-item" data-index="channel-o0xe863channeloutline">
+          <Icon type="channel-o" />
+          <span className="zi-grid-item-name">channel-o(0xe863)</span>
+        </div>
+        <div className="zi-grid-item" data-index="qa-o0xe864qualityassuranceoutline">
+          <Icon type="qa-o" />
+          <span className="zi-grid-item-name">qa-o(0xe864)</span>
+        </div>
       </div>
     );
   }

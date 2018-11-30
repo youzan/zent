@@ -20,7 +20,7 @@ group: 导航
 | columns    | 每一列需要的所有数据                                 | array[object] |             |         | 是    |
 | datasets   | 每一行需要展示的数据                                 | array[object] |             |         | 是    |
 | rowKey     | 每一行的key, 让react提升性能, 并防止出现一系列的问题           | string        | `id`        |         | 否    |
-| sortBy     | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段       | string        |             |         | 否    |
+| sortBy     | 根据哪一个字段排序, 应该等于columns中某一个元素的`key`字段，注意，组件内部不做排序，需要自己实现。       | string        |             |         | 否    |
 | sortType   | 排序方式                                       | string        | `'desc'`    | `'asc'` | 否    |
 | onChange   | 列表发生变化时自动触发的函数，页面筛选、排序均会触发  | func          |             |         | 否    |
 | emptyLabel | 列表为空时的提示文案                                 | node        | `'没有更多数据了'` |         | 否    |
@@ -85,6 +85,7 @@ onChange会抛出一个对象，这个对象包含分页变化和排序的的参
 | 参数              | 说明              | 类型    |  默认值 | 是否必须 |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | 默认选中            | array |  | 否    |
+| indeterminateRowKeys | 半选状态的行 | array | 否 |
 | isSingleSelection | 是否是单选            | bool | `false` | 否    |
 | needCrossPage |   是否需要跨页的时候多选            | bool | `false` | 否    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow)        | 每次check的时候触发的函数 | func  |  | 否    |

@@ -151,7 +151,7 @@ class FieldForm extends React.Component {
 					dateFormat="YYYY-MM-DD HH:mm:ss"
 					validations={{
 						required(values, value) {
-							return value.length !== 0
+							return !!value[0] && !!value[1];
 						}
 					}}
 					validationErrors={{

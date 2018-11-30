@@ -19,6 +19,7 @@ class Nav extends PureComponent {
     candel: PropTypes.bool,
     canadd: PropTypes.bool,
     uniqueId: PropTypes.number,
+    navExtraContent: PropTypes.node,
   };
 
   static defaultProps = {
@@ -111,16 +112,25 @@ class Nav extends PureComponent {
   };
 
   render() {
-    let { prefix, align, canadd, size, type } = this.props;
+    let { prefix, align, canadd, size, type, navExtraContent } = this.props;
     let classes = `${prefix}-tabs-size-${size} ${prefix}-tabs-type-${type} ${prefix}-tabs-align-${align}`;
     if (type === 'slider' && size === 'normal') {
       classes += ` ${prefix}-tabs-third-level`;
     }
-    let addOperation = '';
+    let addOperation = null;
     if (canadd && align !== 'center') {
       addOperation = (
         <div className={`${prefix}-tabs-nav-add`} onClick={this.onTabAdd}>
           <span>+</span>
+        </div>
+      );
+    }
+
+    let addNavCustomComponent = null;
+    if (navExtraContent && align !== 'center') {
+      addNavCustomComponent = (
+        <div className={`${prefix}-tabs-nav-extra-content`}>
+          {navExtraContent}
         </div>
       );
     }
@@ -134,6 +144,7 @@ class Nav extends PureComponent {
           }}
         >
           {addOperation}
+          {addNavCustomComponent}
           <div className={`${prefix}-tabs-scroll`}>
             <div
               className={`${prefix}-tabs-tabwrap`}

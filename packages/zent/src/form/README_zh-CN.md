@@ -207,7 +207,7 @@ Field 中传入 value ---> 使用 format() 格式化 value ---> format 过的 va
 |------|------|------|------|------|
 | onChange | 任意表单元素修改后触发的回调，参数为所有表单元素值的对象 | func(values: Object) | noop | 否 |
 | onSubmitSuccess | 提交成功后的回调，参数是 submit 函数中 promise 的返回值 | func(submitResult: any) |noop | 否 |
-| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是 undefined | func(submitError: SubmissionError) |noop | 否 |
+| onSubmitFail | 提交失败后的回调，参数要么是 SubmissionError 的一个实例，要么是提交过程中发生的错误对象 | func(submitError: SubmissionError | Error) | noop | 否 |
 | scrollToError | 表单提交时或者设置外部错误时，表单自动滚动至第一个报错表单域 | boolean | `false` | 否 |
 
 ⚠️注意：
