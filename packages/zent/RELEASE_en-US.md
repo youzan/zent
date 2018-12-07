@@ -7,6 +7,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.5.1 (2018-12-07)
+
+- ✨ Add a new icon
+- `Table`
+  - ✨ Support indeterminate state for row selection checkbox
+  - 🦀️ Fix right align not working
+- 🦀️ Fix `Form` component validation in propTypes definition
+- 🦀️ Fix some TypeScript definition bugs
+
 ### 6.5.0 (2018-10-29)
 
 ⚠️ `Form`'s change may reveal bugs in working code, you can handle these unhandled exceptions in `onSubmitFail`.
