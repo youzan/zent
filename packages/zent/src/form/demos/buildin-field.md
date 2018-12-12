@@ -56,16 +56,28 @@ en-US:
 
 ```jsx
 import { Form, Radio, Checkbox, Button, Notify } from 'zent';
-const { Field, FormInputField, FormSelectField, FormRadioGroupField, FormCheckboxField, FormCheckboxGroupField, FormColorPickerField, FormDateRangePickerField, FormNumberInputField, FormSwitchField, createForm } = Form;
+const {
+	Field,
+	FormInputField,
+	FormSelectField,
+	FormRadioGroupField,
+	FormCheckboxField,
+	FormCheckboxGroupField,
+	FormColorPickerField,
+	FormDateRangePickerField,
+	FormNumberInputField,
+	FormSwitchField,
+	createForm,
+} = Form;
 
 class FieldForm extends React.Component {
 	state = {
-		checkedList: []
-	}
+		checkedList: [],
+	};
 
-	onCheckboxChange = (checkedList) => {
+	onCheckboxChange = checkedList => {
 		this.setState({ checkedList });
-	}
+	};
 
 	submit = (values, zentForm) => {
 		Notify.success(JSON.stringify(values));
@@ -73,43 +85,43 @@ class FieldForm extends React.Component {
 
 	resetForm = () => {
 		this.props.zentForm.resetFieldsValue();
-	}
+	};
 
 	render() {
 		const { handleSubmit } = this.props;
 		return (
-			<Form horizontal onSubmit={handleSubmit(this.submit)} >
+			<Form horizontal onSubmit={handleSubmit(this.submit)}>
 				<FormInputField
 					name="name"
 					type="text"
 					label="{i18n.name}:"
 					required
 					spellCheck={false}
-					validations={{ required: true }} 
-					validationErrors={{ required: '{i18n.nameValidationError}' }} 
+					validations={{ required: true }}
+					validationErrors={{ required: '{i18n.nameValidationError}' }}
 				/>
 				<FormSelectField
 					name="type"
 					label="{i18n.type}:"
-					data = {[
+					data={[
 						{ value: 1, text: '{i18n.typeText1}' },
-						{ value: 2, text: '{i18n.typeText2}' }
+						{ value: 2, text: '{i18n.typeText2}' },
 					]}
 					required
-					validations={{ required: true }} 
-					validationErrors={{ required: '{i18n.typeValidationErrors}' }} 
+					validations={{ required: true }}
+					validationErrors={{ required: '{i18n.typeValidationErrors}' }}
 				/>
 				<FormRadioGroupField
 					name="sex"
 					label="{i18n.sex}:"
 					required
-					validations={{ 
+					validations={{
 						required(values, value) {
-							return value !== ''
-						}
-					}} 
-					validationErrors={{ 
-						required: '{i18n.sexValidationErrors}'
+							return value !== '';
+						},
+					}}
+					validationErrors={{
+						required: '{i18n.sexValidationErrors}',
 					}}
 				>
 					<Radio value="1">{i18n.sexText1}</Radio>
@@ -121,11 +133,11 @@ class FieldForm extends React.Component {
 					value={this.state.checkedList}
 					onChange={this.onCheckboxChange}
 					required
-					validations={{ 
-						minLength: 1
-					}} 
-					validationErrors={{ 
-						minLength: '{i18n.tagValidationErrors}'
+					validations={{
+						minLength: 1,
+					}}
+					validationErrors={{
+						minLength: '{i18n.tagValidationErrors}',
 					}}
 				>
 					<Checkbox value="movie">{i18n.tagText1}</Checkbox>
@@ -151,11 +163,11 @@ class FieldForm extends React.Component {
 					dateFormat="YYYY-MM-DD HH:mm:ss"
 					validations={{
 						required(values, value) {
-							return value.length !== 0
-						}
+							return !!value[0] && !!value[1];
+						},
 					}}
 					validationErrors={{
-						required: '{i18n.dateRangeValidationErrors}'
+						required: '{i18n.dateRangeValidationErrors}',
 					}}
 				/>
 				<FormSwitchField
@@ -163,26 +175,24 @@ class FieldForm extends React.Component {
 					label="{i18n.isPublicText}:"
 					value={false}
 				/>
-				<FormCheckboxField
-					name="agree"
-					label="{i18n.agreeText}:"
-				>
+				<FormCheckboxField name="agree" label="{i18n.agreeText}:">
 					{i18n.agreeCont}
 				</FormCheckboxField>
 				<div className="zent-form__form-actions">
-					<Button type="primary" htmlType="submit">{i18n.submit}</Button>
-					<Button type="primary" outline onClick={this.resetForm}>{i18n.reset}</Button>
+					<Button type="primary" htmlType="submit">
+						{i18n.submit}
+					</Button>
+					<Button type="primary" outline onClick={this.resetForm}>
+						{i18n.reset}
+					</Button>
 				</div>
 			</Form>
 		);
 	}
-};
-const WrappedForm = createForm({scrollToError: true})(FieldForm);
+}
+const WrappedForm = createForm({ scrollToError: true })(FieldForm);
 
-ReactDOM.render(
-	<WrappedForm />
-	, mountNode
-)
+ReactDOM.render(<WrappedForm />, mountNode);
 ```
 
 <style>
