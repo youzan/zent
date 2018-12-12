@@ -20,7 +20,7 @@ en-US:
 
 ```jsx
 
-import { Grid } from 'zent';
+import { Grid, Notify } from 'zent';
 
 const columns = [
 	{
@@ -58,7 +58,7 @@ for (let i = 0; i < 5; i++) {
 
 class Selection extends React.Component {
 	state = {
-		selectedRowKeys: [ 0, 10 ],
+		selectedRowKeys: [ 'f-0' ],
 		datasets,
 		current: 1
 	}
@@ -83,10 +83,16 @@ class Selection extends React.Component {
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-						console.log(selectedRows, currentRow);
-						this.setState({
-							selectedRowKeys
-						})
+            if (selectedRowKeys.length > 2) {
+              Notify.error('你最多选择两个')
+              this.setState({
+                selectedRowKeys: [].concat(this.state.selectedRowKeys)
+              })
+            } else {
+              this.setState({
+                selectedRowKeys
+              });
+            }
 					},
 					getCheckboxProps: (data) => ({
 							disabled: data.name === '{i18n.babyProducts} 1'

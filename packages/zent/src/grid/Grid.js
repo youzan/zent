@@ -17,6 +17,7 @@ import map from 'lodash/map';
 import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
+import cloneDeep from 'lodash/cloneDeep';
 import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import { I18nReceiver as Receiver } from 'i18n';
@@ -85,7 +86,7 @@ class Grid extends PureComponent {
     const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns, expandRowKeys),
-      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
+      selectedRowKeys: cloneDeep(get(props, 'selection.selectedRowKeys')),
     });
     this.setScrollPosition('left');
 
@@ -610,7 +611,7 @@ class Grid extends PureComponent {
 
     this.store.setState({ selectedRowKeys });
 
-    this.onSelectChange(selectedRowKeys, data);
+    this.onSelectChange(cloneDeep(selectedRowKeys), data);
   };
 
   handleBatchSelect = (type, data) => {
@@ -647,7 +648,7 @@ class Grid extends PureComponent {
       includes(changeRowKeys, this.getDataKey(row, i))
     );
 
-    this.onSelectChange(selectedRowKeys, changeRow);
+    this.onSelectChange(cloneDeep(selectedRowKeys), changeRow);
   };
 
   renderSelectionCheckbox = () => {
@@ -679,7 +680,7 @@ class Grid extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
       this.store.setState({
-        selectedRowKeys: nextProps.selection.selectedRowKeys || [],
+        selectedRowKeys: cloneDeep(nextProps.selection.selectedRowKeys) || [],
         columns: this.getColumns(nextProps),
       });
 
