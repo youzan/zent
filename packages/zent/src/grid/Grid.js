@@ -237,9 +237,8 @@ class Grid extends PureComponent {
 
   handleExpandRow = (clickRow, rowData) => e => {
     const { onExpand } = this.props;
-    const expandRowKeys = map(
-      this.state.expandRowKeys,
-      (row, index) => (index === clickRow ? !row : row)
+    const expandRowKeys = map(this.state.expandRowKeys, (row, index) =>
+      index === clickRow ? !row : row
     );
     this.store.setState({
       columns: this.getColumns(this.props, this.props.columns, expandRowKeys),

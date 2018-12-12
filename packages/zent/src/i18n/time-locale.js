@@ -51,7 +51,9 @@ export const enUS = {
   DoFn: function DoFn(D) {
     return (
       D +
-      ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : ((D - D % 10 !== 10) * D) % 10]
+      ['th', 'st', 'nd', 'rd'][
+        D % 10 > 3 ? 0 : ((D - (D % 10) !== 10) * D) % 10
+      ]
     );
   },
 };
@@ -99,7 +101,9 @@ export const zhCN = {
   DoFn: function DoFn(D) {
     return (
       D +
-      ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : ((D - D % 10 !== 10) * D) % 10]
+      ['th', 'st', 'nd', 'rd'][
+        D % 10 > 3 ? 0 : ((D - (D % 10) !== 10) * D) % 10
+      ]
     );
   },
 };

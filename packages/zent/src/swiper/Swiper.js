@@ -289,30 +289,28 @@ export default class Swiper extends PureComponent {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        {arrows &&
-          childrenCount > 1 && (
-            <div
-              className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
-              onClick={this.prev}
-            >
-              <Icon
-                type="right-circle"
-                className={`${prefix}-swiper__arrow-icon`}
-              />
-            </div>
-          )}
-        {arrows &&
-          childrenCount > 1 && (
-            <div
-              className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
-              onClick={this.next}
-            >
-              <Icon
-                type="right-circle"
-                className={`${prefix}-swiper__arrow-icon`}
-              />
-            </div>
-          )}
+        {arrows && childrenCount > 1 && (
+          <div
+            className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-left`}
+            onClick={this.prev}
+          >
+            <Icon
+              type="right-circle"
+              className={`${prefix}-swiper__arrow-icon`}
+            />
+          </div>
+        )}
+        {arrows && childrenCount > 1 && (
+          <div
+            className={`${prefix}-swiper__arrow ${prefix}-swiper__arrow-right`}
+            onClick={this.next}
+          >
+            <Icon
+              type="right-circle"
+              className={`${prefix}-swiper__arrow-icon`}
+            />
+          </div>
+        )}
         <div
           ref={this.getSwiperContainer}
           className={`${prefix}-swiper__container`}
@@ -324,17 +322,16 @@ export default class Swiper extends PureComponent {
             });
           })}
         </div>
-        {dots &&
-          childrenCount > 1 && (
-            <SwiperDots
-              prefix={prefix}
-              dotsColor={dotsColor}
-              dotsSize={dotsSize}
-              items={children}
-              currentIndex={currentIndex}
-              onDotsClick={this.handleDotsClick}
-            />
-          )}
+        {dots && childrenCount > 1 && (
+          <SwiperDots
+            prefix={prefix}
+            dotsColor={dotsColor}
+            dotsSize={dotsSize}
+            items={children}
+            currentIndex={currentIndex}
+            onDotsClick={this.handleDotsClick}
+          />
+        )}
         <WindowResizeHandler onResize={throttle(this.init, 1000 / 60)} />
       </div>
     );

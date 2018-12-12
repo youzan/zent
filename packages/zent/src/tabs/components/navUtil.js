@@ -43,8 +43,8 @@ const navUtil = {
       let width = '';
       let lastWidth = '';
       let childCount = tabListData.length;
-      width = `${1 / childCount * 100}%`;
-      lastWidth = `${(1 - 1 / childCount * (childCount - 1)) * 100}%`;
+      width = `${(1 / childCount) * 100}%`;
+      lastWidth = `${(1 - (1 / childCount) * (childCount - 1)) * 100}%`;
       return {
         width,
         lastWidth,

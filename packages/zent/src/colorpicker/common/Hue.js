@@ -48,7 +48,7 @@ export default class Hue extends Component {
           },
           pointer: {
             position: 'absolute',
-            left: `${this.props.hsl.h * 100 / 360}%`,
+            left: `${(this.props.hsl.h * 100) / 360}%`,
           },
           slider: {
             marginTop: '1px',
@@ -67,7 +67,7 @@ export default class Hue extends Component {
           },
           pointer: {
             left: '0px',
-            top: `${-(this.props.hsl.h * 100 / 360) + 100}%`,
+            top: `${-((this.props.hsl.h * 100) / 360) + 100}%`,
           },
         },
       },

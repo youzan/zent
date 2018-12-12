@@ -448,16 +448,15 @@ export default class Tree extends PureComponent {
                 {this.renderOperations(root)}
               </div>
             </div>
-            {root.children &&
-              root.children.length > 0 && (
-                <ul
-                  key={`ul-${root.id}`}
-                  className={`${prefix}-tree-child`}
-                  style={isShowChildren ? {} : { display: 'none' }}
-                >
-                  {this.renderTreeNodes(root.children)}
-                </ul>
-              )}
+            {root.children && root.children.length > 0 && (
+              <ul
+                key={`ul-${root.id}`}
+                className={`${prefix}-tree-child`}
+                style={isShowChildren ? {} : { display: 'none' }}
+              >
+                {this.renderTreeNodes(root.children)}
+              </ul>
+            )}
           </li>
         );
       });

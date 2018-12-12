@@ -38,9 +38,8 @@ export default function ColorsCN() {
       desc={
         <p>
           Zent
-          使用了一套调色板来统一整个组件库的视觉样式，除了默认的色彩之外，可以通过<a href="theme">
-            定制主题
-          </a>的方式实现自定义配色。
+          使用了一套调色板来统一整个组件库的视觉样式，除了默认的色彩之外，可以通过
+          <a href="theme">定制主题</a>的方式实现自定义配色。
         </p>
       }
       palettes={palettes}

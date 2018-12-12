@@ -148,13 +148,11 @@ const VideoForm = createForm({})(
           onSubmit={this.props.handleSubmit(this.saveVideo)}
         >
           <strong>
-            为了在微信中有更好的体验，推荐使用<a
-              href="http://v.qq.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            为了在微信中有更好的体验，推荐使用
+            <a href="http://v.qq.com" target="_blank" rel="noopener noreferrer">
               腾讯视频
-            </a>。
+            </a>
+            。
           </strong>
           <Field
             name="videoUrl"

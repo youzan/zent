@@ -122,9 +122,9 @@ class DialogElWrapper extends PureComponent {
 
     return (
       <div tabIndex={-1} className={`${prefix}-dialog-r-root`}>
-        {visible &&
-          !closing &&
-          mask && <div className={`${prefix}-dialog-r-backdrop`} />}
+        {visible && !closing && mask && (
+          <div className={`${prefix}-dialog-r-backdrop`} />
+        )}
         <div className={`${prefix}-dialog-r-wrap`} onClick={this.onMaskClick}>
           {children}
         </div>

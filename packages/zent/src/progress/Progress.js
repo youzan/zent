@@ -135,9 +135,9 @@ export default class Progress extends PureComponent {
                     strokeWidth,
                     strokeDasharray: Math.PI * (progressWidth - strokeWidth),
                     strokeDashoffset:
-                      Math.PI *
-                      (progressWidth - strokeWidth) *
-                      (100 - percent) /
+                      (Math.PI *
+                        (progressWidth - strokeWidth) *
+                        (100 - percent)) /
                       100,
                   }}
                 />
