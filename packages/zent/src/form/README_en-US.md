@@ -72,9 +72,16 @@ When a `Field` needs to contains multiple elements, it is recommended to assembl
 #### The usage of form validations
 
 - The `Field` component supports passing `validations` and `validationErrors` to specify the validation rules and validation prompts;
-- `validations` provides several internal validation rules(See more detail in section [Built-in validation rules](#built-in-validation-rules). It also supports custom validation function. When the validation function returns `true`, it is indicates that the validation is passed;
+- `validations` provides several internal validation rules(See more detail in section [Built-in validation rules](#built-in-validation-rules). It also supports custom validation function. See details below.
 - Internal validation rules can be extended through using `Form.createForm`, which is explained in [`Form.createForm` API](#form-createform) 。
 - When any field is validated, all of the other fields will be validated. If you want to change this default behavior, you can set the `relatedFields` property of `Field` as an array of fields' names so that when the current field is validated, only those specified fields will be valiated.
+
+Custom form validation function:
+
+`function validate(formValues, fieldValue): string | boolean`
+
+- If validate returns `boolean`, `true` means validation is passed; `false` means validation is failed, in this case it must be used together with a corresponding key in `validationErrors`.
+- Or the validate function may return a `string` directly, in this case, `validationErrors` is not used.
 
 <!-- demo-slot-5 -->
 
