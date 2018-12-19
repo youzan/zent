@@ -8,7 +8,6 @@ import every from 'lodash/every';
 import assign from 'lodash/assign';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 import size from 'lodash/size';
@@ -17,7 +16,6 @@ import map from 'lodash/map';
 import isFunction from 'lodash/isFunction';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
-import cloneDeep from 'lodash/cloneDeep';
 import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import { I18nReceiver as Receiver } from 'i18n';
@@ -86,7 +84,7 @@ class Grid extends PureComponent {
     const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns, expandRowKeys),
-      selectedRowKeys: cloneDeep(get(props, 'selection.selectedRowKeys')),
+      selectedRowKeys: get(props, 'selection.selectedRowKeys'),
     });
     this.setScrollPosition('left');
 
@@ -604,14 +602,14 @@ class Grid extends PureComponent {
     let selectedRowKeys = this.store.getState('selectedRowKeys');
 
     if (checked) {
-      selectedRowKeys.push(rowIndex);
+      selectedRowKeys = selectedRowKeys.concat(rowIndex);
     } else {
       selectedRowKeys = filter(selectedRowKeys, i => rowIndex !== i);
     }
 
     this.store.setState({ selectedRowKeys });
 
-    this.onSelectChange(cloneDeep(selectedRowKeys), data);
+    this.onSelectChange(selectedRowKeys, data);
   };
 
   handleBatchSelect = (type, data) => {
@@ -624,18 +622,20 @@ class Grid extends PureComponent {
         forEach(data, (key, index) => {
           const rowIndex = this.getDataKey(key, index);
           if (!includes(selectedRowKeys, rowIndex)) {
-            selectedRowKeys.push(rowIndex);
+            selectedRowKeys = selectedRowKeys.concat(rowIndex);
             changeRowKeys.push(rowIndex);
           }
         });
         break;
       case 'removeAll':
-        forEach(data, (key, index) => {
+        selectedRowKeys = (data || []).filter((key, index) => {
           const rowIndex = this.getDataKey(key, index);
+          let rlt = true;
           if (includes(selectedRowKeys, rowIndex)) {
-            selectedRowKeys.splice(indexOf(selectedRowKeys, rowIndex), 1);
+            rlt = false;
             changeRowKeys.push(key);
           }
+          return rlt;
         });
         break;
       default:
@@ -648,7 +648,7 @@ class Grid extends PureComponent {
       includes(changeRowKeys, this.getDataKey(row, i))
     );
 
-    this.onSelectChange(cloneDeep(selectedRowKeys), changeRow);
+    this.onSelectChange(selectedRowKeys, changeRow);
   };
 
   renderSelectionCheckbox = () => {
@@ -680,7 +680,7 @@ class Grid extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selection && has(nextProps.selection, 'selectedRowKeys')) {
       this.store.setState({
-        selectedRowKeys: cloneDeep(nextProps.selection.selectedRowKeys) || [],
+        selectedRowKeys: nextProps.selection.selectedRowKeys || [],
         columns: this.getColumns(nextProps),
       });
 
