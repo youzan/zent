@@ -1,16 +1,24 @@
 import getViewportSize from 'utils/dom/getViewportSize';
 
 import createPlacement from './create';
-import BottomLeft from './bottom-left';
-import TopLeft from './top-left';
 import RightTop from './right-top';
+import RightBottom from './right-bottom';
 import LeftTop from './left-top';
+import LeftBottom from './left-bottom';
+import BottomLeft from './bottom-left';
+import BottomRight from './bottom-right';
+import TopLeft from './top-left';
+import TopRight from './top-right';
 
 const positionMap = {
-  BottomLeft,
-  TopLeft,
   RightTop,
+  RightBottom,
   LeftTop,
+  LeftBottom,
+  TopLeft,
+  TopRight,
+  BottomLeft,
+  BottomRight,
 };
 
 function locate(
@@ -22,33 +30,70 @@ function locate(
   const viewport = getViewportSize();
   const { anchorBoundingBoxViewport, cushion } = options;
 
-  const getPositionKey = () => {
-    // 如果右边放得下，则优先放到右边
+  const getAutoBottomLeftPosition = () => {
+    let horizontal;
+    let vertical;
+
+    // 只有当左边放不下，并且右边能够放下的时候才移动到右边
     if (
-      anchorBoundingBoxViewport.right + cushion + contentDimension.width <
+      anchorBoundingBoxViewport.left + contentDimension.width >
         viewport.width &&
-      anchorBoundingBoxViewport.top + contentDimension.height < viewport.height
+      anchorBoundingBoxViewport.right - contentDimension.width > 0
     ) {
-      return 'RightTop';
-    } else if (
-      anchorBoundingBoxViewport.left - cushion - contentDimension.width > 0 &&
-      anchorBoundingBoxViewport.top + contentDimension.height < viewport.height
-    ) {
-      return 'LeftTop';
+      horizontal = 'Right';
+    } else {
+      horizontal = 'Left';
     }
 
-    // 如果左右都放不下，再考虑放到下面或上面
+    // 只有当下面放不下，并且上面能够放下时才移动到上面
     if (
-      anchorBoundingBoxViewport.top - cushion - contentDimension.height < 0 &&
-      anchorBoundingBoxViewport.bottom + cushion + contentDimension.height <
-        viewport.height
+      anchorBoundingBoxViewport.bottom + cushion + contentDimension.height >
+        viewport.height &&
+      anchorBoundingBoxViewport.top - cushion - contentDimension.height > 0
     ) {
-      return 'BottomLeft';
+      vertical = 'Top';
+    } else {
+      vertical = 'Bottom';
     }
-    return 'TopLeft';
+
+    return `${vertical}${horizontal}`;
   };
 
-  return positionMap[getPositionKey()].locate(
+  const getAutoRightTopPosition = () => {
+    let horizontal;
+    let vertical;
+
+    // 只有当右边放不下，并且左边能够放下的时候才移动到左边
+    if (
+      anchorBoundingBoxViewport.left - cushion - contentDimension.width > 0 &&
+      anchorBoundingBoxViewport.right + cushion + contentDimension.width >
+        viewport.width
+    ) {
+      horizontal = 'Left';
+    } else {
+      horizontal = 'Right';
+    }
+
+    // 只有当上面放不下，并且下面能够放下时才移动到下面
+    if (
+      anchorBoundingBoxViewport.top + contentDimension.height >
+      viewport.height
+    ) {
+      vertical = 'Bottom';
+    } else {
+      vertical = 'Top';
+    }
+
+    return `${horizontal}${vertical}`;
+  };
+
+  const key =
+    anchorBoundingBoxViewport.top < 0 ||
+    anchorBoundingBoxViewport.bottom > viewport.height
+      ? getAutoBottomLeftPosition()
+      : getAutoRightTopPosition();
+
+  return positionMap[key].locate(
     anchorBoundingBox,
     containerBoundingBox,
     contentDimension,

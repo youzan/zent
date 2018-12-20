@@ -245,6 +245,7 @@ describe('Popover', () => {
       AutoTopLeft,
       AutoTopCenter,
       AutoTopRight,
+      AutoRightTop,
     } = Popover.Position;
     const positionArr = [
       BottomLeft,
@@ -265,6 +266,7 @@ describe('Popover', () => {
       AutoTopLeft,
       AutoTopCenter,
       AutoTopRight,
+      AutoRightTop,
     ];
 
     positionArr.forEach(pos => {
@@ -600,6 +602,7 @@ describe('Popover', () => {
       AutoTopLeft,
       AutoTopRight,
       AutoTopCenter,
+      AutoRightTop,
     } = Popover.Position;
     let viewport = {
       left: 0,
@@ -673,6 +676,20 @@ describe('Popover', () => {
     anchor.right = 2;
     expect(AutoTopCenter.locate(anchor, container, content, options).name).toBe(
       'position-bottom-left'
+    );
+
+    anchor.left = 1020;
+    anchor.top = 760;
+    anchor.right = 1021;
+    anchor.bottom = 761;
+    expect(AutoRightTop.locate(anchor, container, content, options).name).toBe(
+      'position-left-bottom'
+    );
+
+    anchor.top = -1;
+    anchor.bottom = 0;
+    expect(AutoRightTop.locate(anchor, container, content, options).name).toBe(
+      'position-bottom-right'
     );
   });
 
