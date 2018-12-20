@@ -135,6 +135,7 @@ class Pop extends PureComponent {
       'auto-top-center',
       'auto-top-left',
       'auto-top-right',
+      'auto-right-top',
     ]),
 
     // 是否按小箭头居中对齐trigger来定位

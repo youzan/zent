@@ -19,6 +19,7 @@ import AutoBottomCenter from './auto-bottom-center';
 import AutoTopLeft from './auto-top-left';
 import AutoTopRight from './auto-top-right';
 import AutoTopCenter from './auto-top-center';
+import AutoRightTop from './auto-right-top';
 
 export default {
   create,
@@ -40,4 +41,5 @@ export default {
   AutoTopLeft,
   AutoTopRight,
   AutoTopCenter,
+  AutoRightTop,
 };

@@ -40,6 +40,7 @@ export default class SplitButton extends PureComponent {
       'auto-top-center',
       'auto-top-left',
       'auto-top-right',
+      'auto-right-top',
     ]),
     className: PropTypes.string,
     prefix: PropTypes.string,
