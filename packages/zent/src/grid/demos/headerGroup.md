@@ -15,7 +15,7 @@ en-US:
 	title: Header Group
 	product: Product
 	productName: Product Name
-	productInfo: product Info
+	productInfo: Product Info
 	type: Type
 	supplier: Supplier
 	company: Company
