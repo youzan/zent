@@ -21,6 +21,7 @@ import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import { I18nReceiver as Receiver } from 'i18n';
 import { Grid as I18nDefault } from 'i18n/default';
+import { groupedColumns, getLeafColumns } from './utils';
 
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -40,6 +41,7 @@ function stopPropagation(e) {
 class Grid extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    bordered: PropTypes.bool,
     rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     prefix: PropTypes.string,
     datasets: PropTypes.array,
@@ -62,6 +64,7 @@ class Grid extends PureComponent {
 
   static defaultProps = {
     className: '',
+    bordered: false,
     prefix: 'zent',
     datasets: [],
     columns: [],
@@ -123,7 +126,7 @@ class Grid extends PureComponent {
       return;
     }
 
-    const { prefix, scroll } = this.props;
+    const { prefix } = this.props;
     const bodyRows =
       (this.bodyTable &&
         this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
@@ -135,17 +138,9 @@ class Grid extends PureComponent {
         )) ||
       [];
 
-    let headRows =
-      (this.scrollHeader &&
-        this.scrollHeader.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
-      [];
-
-    if (!scroll.y && scroll.x) {
-      headRows =
-        (this.bodyTable &&
-          this.bodyTable.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
-        [];
-    }
+    let headRows = this.scrollHeader
+      ? this.scrollHeader.querySelectorAll('thead')
+      : this.bodyTable.querySelectorAll('thead');
 
     const fixedColumnsBodyRowsHeight = [].map.call(
       bodyRows,
@@ -334,6 +329,9 @@ class Grid extends PureComponent {
       columns.unshift(expandColumn);
     }
 
+    // 处理分组信息
+    columns = groupedColumns(columns);
+
     return columns;
   };
 
@@ -474,11 +472,13 @@ class Grid extends PureComponent {
       />
     );
 
+    const leafColumns = getLeafColumns(columns);
+
     const body = (
       <Body
         prefix={prefix}
         rowKey={rowKey}
-        columns={columns}
+        columns={leafColumns}
         datasets={datasets}
         expandRowKeys={expandRowKeys}
         mouseOverRowIndex={this.state.mouseOverRowIndex}
@@ -719,9 +719,10 @@ class Grid extends PureComponent {
   }
 
   render() {
-    const { prefix, loading, pageInfo } = this.props;
+    const { prefix, loading, pageInfo, bordered } = this.props;
     let className = `${prefix}-grid`;
-    className = classnames(className, this.props.className);
+    let borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
+    className = classnames(className, this.props.className, borderedClassName);
 
     if (this.scrollPosition === 'both') {
       className = classnames(

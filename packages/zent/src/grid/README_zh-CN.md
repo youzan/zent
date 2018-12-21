@@ -33,6 +33,7 @@ group: 导航
 | onExpand     | 点击展开图标时触发                                             | (data: {expanded: boolean, data: any, event: Event, index: number}) => any | | 否 |
 | components  | 自定义 table 内的组件               | object { row?: ReactNode }    |        |   否|
 | rowProps  | 自定义传入 row 的属性        | (data: any, index: number) => object   |   |   否  |
+| bordered      | 是否展示外边框和列边框                                     | bool                                                 | `false`            | 否       |
 
 #### onChange 函数声明
 

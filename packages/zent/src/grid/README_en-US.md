@@ -32,6 +32,7 @@ The function of the component is similar to the function of [Table](table) compo
 | onExpand     | callback fires when the row expand icon is clicked                                                         | (data: {expanded: boolean, data: any, event: Event, index: number}) => any | | No |
 | components  | custom table element               | object { row?: ReactNode }    |        |   否|
 | rowProps  | custom row props        | (data: any, index: number) => object   |   |   否  |
+| bordered      | whether to display the outer border and column border                                     | bool                                                 | `false`            | No       |
 
 #### onChange function declaration
 

@@ -45,6 +45,7 @@ declare module 'zent/lib/grid' {
       expandRender?: (data: any) => React.ReactNode
     }
     loading?: boolean
+    bordered?: boolean
     className?: string
     rowClassName?: string | ((data: object, rowIndex: number) => string)
     prefix?: string
