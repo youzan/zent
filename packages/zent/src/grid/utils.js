@@ -24,6 +24,9 @@ export function groupedColumns(
     rows[currentRow].push(newColumn);
     parentColumn.colSpan = parentColumn.colSpan || 0;
     if (newColumn.children && newColumn.children.length > 0) {
+      if (newColumn.needSort) {
+        newColumn.needSort = false;
+      }
       newColumn.children = groupedColumns(
         newColumn.children,
         currentRow + 1,
