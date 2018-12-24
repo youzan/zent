@@ -63,6 +63,7 @@ onChange will throw an object, which includes parameters about the change part o
 | textAlign   | Text alignment                                                                                      | string                                                             | No       |
 | nowrap      | whether to wrap, true by default                                                                    | bool                                                               | No       |
 | defaultText | default display text                                                 | ReactNode                                                               | No       |
+| children | render grouping table headers                   | array       | No       |
 
 #### selection
 

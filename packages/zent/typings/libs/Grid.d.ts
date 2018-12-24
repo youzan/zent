@@ -14,6 +14,7 @@ declare module 'zent/lib/grid' {
     textAign?: 'left' | 'right' | 'center'
     nowrap?: boolean
     defaultText?: React.ReactNode
+    children?: Array<IGridColumn>
   }
 
   interface IGridOnChangeConfig {
