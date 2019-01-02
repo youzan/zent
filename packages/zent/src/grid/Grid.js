@@ -8,7 +8,6 @@ import every from 'lodash/every';
 import assign from 'lodash/assign';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 import size from 'lodash/size';
@@ -602,7 +601,7 @@ class Grid extends PureComponent {
     let selectedRowKeys = this.store.getState('selectedRowKeys');
 
     if (checked) {
-      selectedRowKeys.push(rowIndex);
+      selectedRowKeys = selectedRowKeys.concat(rowIndex);
     } else {
       selectedRowKeys = filter(selectedRowKeys, i => rowIndex !== i);
     }
@@ -622,18 +621,20 @@ class Grid extends PureComponent {
         forEach(data, (key, index) => {
           const rowIndex = this.getDataKey(key, index);
           if (!includes(selectedRowKeys, rowIndex)) {
-            selectedRowKeys.push(rowIndex);
+            selectedRowKeys = selectedRowKeys.concat(rowIndex);
             changeRowKeys.push(rowIndex);
           }
         });
         break;
       case 'removeAll':
-        forEach(data, (key, index) => {
+        selectedRowKeys = (data || []).filter((key, index) => {
           const rowIndex = this.getDataKey(key, index);
+          let rlt = true;
           if (includes(selectedRowKeys, rowIndex)) {
-            selectedRowKeys.splice(indexOf(selectedRowKeys, rowIndex), 1);
+            rlt = false;
             changeRowKeys.push(key);
           }
+          return rlt;
         });
         break;
       default:
