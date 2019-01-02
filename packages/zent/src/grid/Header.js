@@ -149,15 +149,13 @@ class Header extends PureComponent {
   renderThead() {
     const { prefix, fixed, fixedColumnsHeadRowsHeight } = this.props;
     const { rows } = this.state;
+    const headerHeight = fixedColumnsHeadRowsHeight[0];
     const rowsLen = rows.length;
 
     return (
       <thead className={`${prefix}-grid-thead`}>
         {map(rows, (row, index) => {
-          const height =
-            fixed && fixedColumnsHeadRowsHeight[index]
-              ? fixedColumnsHeadRowsHeight[index] / rowsLen
-              : null;
+          const height = fixed && headerHeight ? headerHeight / rowsLen : null;
           return (
             <tr
               key={index}

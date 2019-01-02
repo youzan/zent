@@ -137,7 +137,6 @@ class Grid extends PureComponent {
           `tbody .${prefix}-grid-tr__expanded`
         )) ||
       [];
-
     let headRows = this.scrollHeader
       ? this.scrollHeader.querySelectorAll('thead')
       : this.bodyTable.querySelectorAll('thead');
