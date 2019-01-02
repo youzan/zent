@@ -1,5 +1,5 @@
 @import './theme/default.pcss';
-$defaultBorderColor: $theme-stroke-4;
+$defaultBorderColor: $theme-stroke-5;
 
 .zent-number-input-wrapper {
   position: relative;
@@ -32,8 +32,8 @@ $defaultBorderColor: $theme-stroke-4;
 .zent-number-input-arrow {
   right: 1px;
   width: 20px;
-  height: 50%;
-  line-height: 50%;
+  height: 15px;
+  line-height: 15px;
 
   i {
     cursor: pointer;
@@ -56,7 +56,7 @@ $defaultBorderColor: $theme-stroke-4;
   width: 34px;
   top: 1px;
   color: $theme-stroke-1;
-  line-height: 28px;
+  line-height: 30px;
 
   &:hover {
     color: $theme-primary-2;
@@ -89,17 +89,17 @@ $defaultBorderColor: $theme-stroke-4;
   border-left: 1px solid $defaultBorderColor;
 
   &.zent-number-input-count-disable {
-    border-left-color: $theme-stroke-6;
+    border-left-color: $defaultBorderColor;
   }
 }
 
 .zent-number-input-arrowup {
   top: 1px;
-  border-left: 1px solid $theme-stroke-6;
-  border-bottom: 1px solid $theme-stroke-6;
+  border-left: 1px solid $defaultBorderColor;
+  border-bottom: 1px solid $defaultBorderColor;
 
   i {
-    transform: rotate(-90deg) scale(0.4);
+    transform: rotate(-90deg) scale(0.4) translateX(3px);
   }
 }
 
@@ -108,13 +108,13 @@ $defaultBorderColor: $theme-stroke-4;
   border-right: 1px solid $defaultBorderColor;
 
   &.zent-number-input-count-disable {
-    border-right-color: $theme-stroke-6;
+    border-right-color: $defaultBorderColor;
   }
 }
 
 .zent-number-input-arrowdown {
   bottom: 1px;
-  border-left: 1px solid $theme-stroke-6;
+  border-left: 1px solid $defaultBorderColor;
 
   i {
     transform: rotate(90deg) scale(0.4);

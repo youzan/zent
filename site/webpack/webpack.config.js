@@ -7,6 +7,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const createAlias = require('../../packages/zent/createAlias');
 const happyThreadPool = require('./happypack-thread-pool');
+const constants = require('../src/constants');
 
 const {
   getBabelLoaderOptions,
@@ -14,8 +15,6 @@ const {
 } = require('./loader.config');
 
 const DEV = process.env.NODE_ENV !== 'production';
-
-const PREFIX = DEV ? '/' : '/zent/';
 
 const babelLoader = {
   loader: 'babel-loader',
@@ -28,7 +27,7 @@ module.exports = {
   output: {
     path: join(__dirname, '../dist'),
     filename: '[name]-[hash].js',
-    publicPath: PREFIX,
+    publicPath: constants.prefix,
   },
 
   resolve: {
@@ -73,6 +72,7 @@ module.exports = {
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      VERSION: 'release',
     }),
 
     new ProgressBarPlugin(),

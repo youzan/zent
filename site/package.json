@@ -11,8 +11,13 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development node scripts/start.js",
     "dev": "node scripts/gather.js && cross-env NODE_ENV=development node scripts/dev.js",
-    "build": "rm -rf dist && node scripts/gather.js && cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack/webpack.prd.config.js",
-    "deploy": "yarn run build && ./scripts/deploy.sh"
+    "prepare-build": "rm -rf dist && node scripts/gather.js",
+    "webpack": "cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack/webpack.prd.config.js",
+    "build": "yarn prepare-build && yarn webpack",
+    "deploy": "yarn build && ./scripts/deploy.sh",
+    "webpack-beta": "cross-env NODE_ENV=production VERSION=beta webpack --progress --hide-modules --config webpack/webpack.prd.config.js",
+    "build-beta": "yarn prepare-build && yarn webpack-beta",
+    "deploy-beta": "yarn build-beta && ./scripts/deploy-beta.sh"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
