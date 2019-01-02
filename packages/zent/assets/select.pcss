@@ -11,7 +11,7 @@
   position: relative;
   text-align: left;
   user-select: none;
-  width: 160px;
+  width: 240px;
   vertical-align: middle;
 
   &.disabled {
@@ -38,7 +38,7 @@
   }
 
   &__popover {
-    width: 160px;
+    width: 240px;
     line-height: 1.5;
     cursor: pointer;
     text-align: left;
@@ -83,6 +83,7 @@
 
   &.visible {
     border-color: $theme-primary-2;
+    box-shadow: 0 0 3px $theme-stroke-5;
 
     &::after {
       transform: rotate(180deg) translateY(50%);
@@ -114,7 +115,7 @@
   white-space: nowrap;
   overflow: hidden;
   padding: 6px 25px;
-  padding-left: 10px;
+  padding-left: 16px;
 }
 
 .zent-select-tags {
@@ -129,7 +130,7 @@
 
   &.tags__empty {
     padding: 6px 25px;
-    padding-left: 10px;
+    padding-left: 16px;
     line-height: 18px;
   }
 
@@ -140,24 +141,27 @@
   }
 
   .zent-select-tag {
-    background-color: $theme-stroke-8;
-    border: 1px solid $theme-stroke-5;
+    border: 1px solid $theme-stroke-4;
     border-radius: 2px;
     display: inline-block;
     margin: 2px 0;
     margin-right: 4px;
     padding: 0 4px;
+    padding-right: 18px;
     line-height: 16px;
+    position: relative;
   }
 
   .zent-select-delete {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAACampqbm5uZmZn/DnGVAAAAA3RSTlMAnUqokJgHAAAAPklEQVQI12PQYACivQwMdQz7HRj/MchfYP/CwP5F/gID4996BwaG+r8MDAzyXyAEmAuWACsBKwZrAxsANgoAoL4XU6vB5h4AAAAASUVORK5CYII=)
-      no-repeat;
-    background-size: 8px;
-    display: inline-block;
-    height: 8px;
-    margin-left: 2px;
-    width: 8px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAACXmJqbm5uWl5mWl5kT7YGiAAAABHRSTlMAqSnx68ZdFAAAADpJREFUCNdjQAAFEMEERIYghjCQKyLAwMDoyAAiIBwQCWKDhUACYCGgAIyBkIIrRmiHGYiwAm4pHAAAYawE68cLV4IAAAAASUVORK5CYII=');
+    display: block;
+    background-size: cover;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
