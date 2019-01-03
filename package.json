@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "description": "一套前端设计语言和基于React的实现",
+  "workspaces": [
+    "demo",
+    "site",
+    "packages/babel-plugin-zent",
+    "packages/zent"
+  ],
   "scripts": {
     "test": "./scripts/test.sh",
     "test-component": "./scripts/test-component.sh",
