@@ -1,7 +1,14 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Component } from 'react';
 
-export default class Item extends PureComponent {
+export interface IBreadcrumbItemProps {
+  className?: string
+  name: React.ReactNode
+  href?: string,
+}
+
+export class BreadcrumbItem extends Component<IBreadcrumbItemProps> {
   static propTypes = {
     href: PropTypes.string,
   };
@@ -20,3 +27,5 @@ export default class Item extends PureComponent {
     );
   }
 }
+
+export default BreadcrumbItem;
