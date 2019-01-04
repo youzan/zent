@@ -43,7 +43,6 @@ for (let i = 0; i < 19; i++) {
 
 class HeaderGroup extends React.Component {
 	state = {
-		selectedRowKeys: [0, 10],
 		datasets
 	}
 
@@ -116,18 +115,6 @@ class HeaderGroup extends React.Component {
 				scroll={{ x: 1400, y: 400 }}
 				sortBy={sortBy}
 				sortType={sortType}
-				selection={{
-					selectedRowKeys: this.state.selectedRowKeys,
-					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-						console.log(selectedRows, currentRow);
-						this.setState({
-							selectedRowKeys
-						});
-					},
-					getCheckboxProps: data => ({
-						disabled: data.name === '{i18n.product} 1'
-					})
-				}}
 				rowKey="id"
 				onChange={this.onChange}
 			/>
