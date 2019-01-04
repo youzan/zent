@@ -1,10 +1,21 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component, ReactNode } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop from 'pop';
 import Icon from 'icon';
 
-export default class BlockHeader extends Component {
+export interface IBlockHeaderProps {
+  className?: string
+  title: string
+  tooltip?: ReactNode
+  content?: ReactNode,
+  childAlign?: 'left' | 'right',
+  position?: string,
+  prefix?: string
+}
+
+export class BlockHeader extends Component<IBlockHeaderProps> {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -71,3 +82,5 @@ export default class BlockHeader extends Component {
     );
   }
 }
+
+export default BlockHeader;
