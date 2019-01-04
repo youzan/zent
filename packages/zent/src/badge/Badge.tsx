@@ -1,11 +1,23 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 
 const NO_STYLE = {};
 
-export default class Badge extends PureComponent {
+export interface IBadgeProps {
+  count?: number
+  maxCount?: number
+  dot?: boolean
+  showZero?: boolean
+  offset?: [number, number]
+  style?: React.CSSProperties
+  className?: string
+  prefix?: string
+}
+
+export class Badge extends PureComponent<IBadgeProps> {
   static propTypes = {
     count: PropTypes.number,
     maxCount: PropTypes.number,
@@ -83,3 +95,5 @@ export default class Badge extends PureComponent {
     );
   }
 }
+
+export default Badge;
