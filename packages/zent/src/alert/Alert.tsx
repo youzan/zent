@@ -1,7 +1,18 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
+
+export interface IAlertProps {
+  type: 'info' | 'warning' | 'danger'
+  size?: 'normal' | 'large'
+  rounded?: boolean
+  closable?: boolean
+  onClose?: () => void
+  className?: string
+  prefix?: string
+}
 
 // 忽略不支持的style
 const styleClassMap = {
@@ -19,7 +30,7 @@ const sizeClassMap = {
   large: 'alert-size-large',
 };
 
-export default class Alert extends PureComponent {
+export default class Alert extends Component<IAlertProps> {
   static propTypes = {
     type: PropTypes.oneOf(['info', 'warning', 'danger', 'error']),
     size: PropTypes.oneOf(['large', 'normal']),
