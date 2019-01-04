@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import Icon from 'icon';
 import isString from 'lodash/isString';
@@ -11,7 +12,19 @@ const HIDDEN_STYLE = {
   opacity: 0,
 };
 
-export default class Avatar extends PureComponent {
+export interface IAvatarProps {
+  shape?: 'circle' | 'square'
+  size?: 'small' | 'default' | 'large' | number
+  icon?: string
+  src?: string
+  children?: string
+  bordered?: boolean
+  style?: React.CSSProperties
+  className?: string
+  prefix?: string
+}
+
+export class Avatar extends Component<IAvatarProps> {
   static propTypes = {
     shape: PropTypes.oneOf(['circle', 'square']),
     size(props, propName, componentName) {
@@ -41,6 +54,9 @@ export default class Avatar extends PureComponent {
     bordered: false,
     prefix: 'zent',
   };
+
+  textNode: HTMLSpanElement | null;
+  avatarNode: HTMLSpanElement | null;
 
   state = {
     textScale: 1,
@@ -191,3 +207,5 @@ function fitText(containerNode, textNode) {
 
   return visualWidth / textWidth;
 }
+
+export default Avatar;
