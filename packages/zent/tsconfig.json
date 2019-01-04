@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "outDir": "es",
+    "baseUrl": "src",
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2017"
+    ]
+  },
+  "exclude": [
+    "lib",
+    "es",
+    "typings"
+  ],
+  "include": [
+    "src"
+  ]
+}
