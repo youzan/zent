@@ -1,8 +1,10 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component, MouseEventHandler, CSSProperties, Children } from 'react';
 import setClass from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import Icon from 'icon';
+import Group from './Group';
 
 const BLACK_LIST = [
   'type',
@@ -27,11 +29,11 @@ const A_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 const TWO_CN_CHAR_REG = /^[\u4e00-\u9fa5]{2}$/;
 
 const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
-  return React.Children.map(children, child => {
+  return Children.map(children, child => {
     if (typeof child === 'string') {
       if (isNeedInsertSpace && TWO_CN_CHAR_REG.test(child)) {
         // 按钮文字为两个中文文字的时候，中间空出一个空格空间
-        return <span>{child.split('').join(' ')}</span>;
+        return <span>{(child as string).split('').join(' ')}</span>;
       }
       return <span>{child}</span>;
     }
@@ -39,7 +41,26 @@ const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
   });
 };
 
-export default class Button extends PureComponent {
+export interface IButtonProps {
+  type?: 'default' | 'primary' | 'danger' | 'success';
+  size?: 'medium' | 'large' | 'small';
+  htmlType?: 'button' | 'submit' | 'reset';
+  block?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  outline?: boolean;
+  bordered?: boolean;
+  component?: (() => string) | string;
+  href?: string;
+  target?: string;
+  className?: string;
+  style?: CSSProperties;
+  prefix?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  icon?: string;
+}
+
+export class Button extends Component<IButtonProps> {
   static propTypes = {
     type: PropTypes.oneOf([
       'default',
@@ -74,6 +95,8 @@ export default class Button extends PureComponent {
     insertSpace: false,
     prefix: 'zent',
   };
+
+  static Group = Group;
 
   constructor(props) {
     super(props);
@@ -173,3 +196,5 @@ export default class Button extends PureComponent {
     return this[renderer](classNames, iconNode, wrappedChildren);
   }
 }
+
+export default Button;

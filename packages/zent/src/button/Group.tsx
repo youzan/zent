@@ -1,8 +1,15 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import setClass from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
-export default class Group extends PureComponent {
+export interface IButtonGroupProps {
+  className?: string
+  prefix?: string
+  style?: React.CSSProperties
+}
+
+export class ButtonGroup extends Component<IButtonGroupProps> {
   static propTypes = {
     style: PropTypes.object,
     className: PropTypes.string,
@@ -26,3 +33,5 @@ export default class Group extends PureComponent {
     );
   }
 }
+
+export default ButtonGroup;
