@@ -1,11 +1,18 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
 
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
-import Item from './Item';
+import Item, { IBreadcrumbItemProps } from './Item';
 
-export default class Breadcrumb extends PureComponent {
+export interface IBreadcrumbProps {
+  breads?: IBreadcrumbItemProps[];
+  className?: string;
+  prefix?: string;
+}
+
+export class Breadcrumb extends Component<IBreadcrumbProps> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -17,6 +24,8 @@ export default class Breadcrumb extends PureComponent {
     className: '',
     breads: [],
   };
+
+  static Item = Item;
 
   render() {
     const { prefix, className, children = null, breads } = this.props;
@@ -34,4 +43,4 @@ export default class Breadcrumb extends PureComponent {
   }
 }
 
-Breadcrumb.Item = Item;
+export default Breadcrumb;
