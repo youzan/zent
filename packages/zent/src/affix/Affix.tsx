@@ -1,12 +1,30 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component, CSSProperties } from 'react';
 import cx from 'classnames';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import WindowEventHandler from 'utils/component/WindowEventHandler';
 import getViewportSize from 'utils/dom/getViewportSize';
 import throttle from 'lodash/throttle';
 
-class Affix extends PureComponent {
+export interface IAffixProps {
+  offsetTop?: number;
+  offsetBottom?: number;
+  onPin?: () => void;
+  onUnpin?: () => void;
+  zIndex?: number;
+  className?: string;
+  placeHoldClassName?: string;
+  prefix?: string;
+}
+
+export interface IAffixState {
+  position: 'static' | 'fixed';
+  width: number | null;
+  placeHoldStyle: CSSProperties;
+}
+
+export class Affix extends Component<IAffixProps, IAffixState> {
   static propTypes = {
     placeHoldClassName: PropTypes.string,
     className: PropTypes.string,
@@ -24,7 +42,7 @@ class Affix extends PureComponent {
     zIndex: 10,
   };
 
-  state = {
+  state: IAffixState = {
     position: 'static',
     width: null,
     placeHoldStyle: {},
@@ -54,7 +72,7 @@ class Affix extends PureComponent {
   }
 
   setWidth() {
-    const element = ReactDOM.findDOMNode(this);
+    const element = ReactDOM.findDOMNode(this) as HTMLElement;
 
     this.setState({
       width: element.offsetWidth,
@@ -68,7 +86,7 @@ class Affix extends PureComponent {
   updatePin() {
     const affix = this.affix;
     const props = this.props;
-    const element = ReactDOM.findDOMNode(this);
+    const element = ReactDOM.findDOMNode(this) as HTMLElement;
     let reallyNum, propsNum;
 
     if (props.offsetBottom !== undefined) {
@@ -100,7 +118,7 @@ class Affix extends PureComponent {
   getStyleObj() {
     const { zIndex, offsetBottom, offsetTop } = this.props;
     const { position, width } = this.state;
-    let styleObj = {};
+    let styleObj: CSSProperties = {};
 
     if (position === 'fixed') {
       styleObj = { position, zIndex, width };
@@ -119,13 +137,13 @@ class Affix extends PureComponent {
   }
 
   render() {
-    const { prefix, className, placeHoldClassName } = this.props;
+    const { prefix, className, placeHoldClassName, children } = this.props;
     const wrapClass = cx(`${prefix}-affix`, className);
 
     return (
       <div className={placeHoldClassName} style={this.state.placeHoldStyle}>
         <div className={wrapClass} style={{ ...this.getStyleObj() }}>
-          {this.props.children}
+          {children}
         </div>
         <WindowEventHandler eventName="scroll" callback={this.handleScroll} />
         <WindowEventHandler eventName="resize" callback={this.handleResize} />
