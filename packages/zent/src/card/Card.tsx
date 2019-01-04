@@ -1,10 +1,22 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import isNil from 'lodash/isNil';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import Placeholder from 'placeholder';
 
-export default class Card extends PureComponent {
+export interface ICardProps {
+  type?: 'normal' | 'nested'
+  title?: React.ReactNode
+  action?: React.ReactNode
+  style?: React.CSSProperties
+  bodyStyle?: React.CSSProperties
+  loading?: boolean
+  className?: string
+  prefix?: string
+}
+
+export class Card extends Component<ICardProps> {
   static propTypes = {
     title: PropTypes.node,
     action: PropTypes.node,
@@ -66,3 +78,5 @@ export default class Card extends PureComponent {
     );
   }
 }
+
+export default Card;
