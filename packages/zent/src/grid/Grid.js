@@ -79,6 +79,8 @@ class Grid extends PureComponent {
 
   constructor(props) {
     super(props);
+
+    this.mounted = false;
     this.checkboxPropsCache = {};
     this.store = new Store(props);
     const expandRowKeys = this.getExpandRowKeys(props);
@@ -116,6 +118,10 @@ class Grid extends PureComponent {
   }
 
   syncFixedTableRowHeight = () => {
+    if (!this.mounted) {
+      return;
+    }
+
     const tableRect = this.tableNode.getBoundingClientRect();
 
     if (tableRect.height !== undefined && tableRect.height <= 0) {
@@ -393,6 +399,10 @@ class Grid extends PureComponent {
   }
 
   handleBodyScroll = e => {
+    if (!this.mounted) {
+      return;
+    }
+
     if (e.currentTarget !== e.target) {
       return;
     }
@@ -422,6 +432,8 @@ class Grid extends PureComponent {
       this.lastScrollTop = target.scrollTop;
     }
   };
+
+  onResize = debounce(this.syncFixedTableRowHeight, 500);
 
   onRowMoverOver = mouseOverRowIndex => {
     this.setState({
@@ -671,9 +683,15 @@ class Grid extends PureComponent {
   };
 
   componentDidMount() {
+    this.mounted = true;
+
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -774,9 +792,7 @@ class Grid extends PureComponent {
                   </div>
                 )}
               </Loading>
-              <WindowResizeHandler
-                onResize={debounce(this.syncFixedTableRowHeight, 500)}
-              />
+              <WindowResizeHandler onResize={this.onResize} />
             </div>
           );
         }}
