@@ -8,12 +8,12 @@ const config = {
       prefix: '_',
       extensions: ['pcss', 'css'],
     }),
+    require('precss')(),
     require('postcss-color-hex-alpha')({
       preserve: false,
     }),
     require('postcss-color-function')(),
     require('autoprefixer')(),
-    require('precss')(),
   ],
 };
 
