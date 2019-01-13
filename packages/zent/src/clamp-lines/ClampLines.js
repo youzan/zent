@@ -47,6 +47,7 @@ class ClampLines extends Component {
     this.state = {
       noClamp: false,
       text: '.',
+      original: props.text,
     };
   }
 
@@ -58,27 +59,51 @@ class ClampLines extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.state.original !== nextProps.text) {
+      this.setState(
+        {
+          original: nextProps.text,
+          noClamp: false,
+        },
+        () => {
+          if (nextProps.text) {
+            this.clampLines();
+          }
+        }
+      );
+    }
+  }
+
   handleResize = debounce(() => {
     this.setState({ noClamp: false });
     this.clampLines();
   }, this.props.delay);
 
   clampLines() {
-    this.setState({ text: '' });
-
+    const original = this.state.original;
     let maxHeight = this.lineHeight * this.props.lines + 1;
-    this.maxHeight = maxHeight;
     let start = 0;
     let middle = 0;
-    let end = this.original.length;
+    let end = original.length;
 
+    this.maxHeight = maxHeight;
+
+    // WindowResizeHandler will exec a later call on unmounted element
+    if (!this.innerElement) {
+      return;
+    }
+
+    this.setState({ text: '' });
+
+    // binary search to find suitable text size
     while (start <= end) {
       middle = Math.floor((start + end) / 2);
       this.innerElement.textContent =
-        this.original.slice(0, middle) + this.getEllipsis();
-      if (middle === this.original.length) {
+        original.slice(0, middle) + this.getEllipsis();
+      if (middle === original.length) {
         this.setState({
-          text: this.original,
+          text: original,
           noClamp: true,
         });
         return;
@@ -92,9 +117,9 @@ class ClampLines extends Component {
     }
 
     this.innerElement.textContent =
-      this.original.slice(0, middle - 1) + this.getEllipsis();
+      original.slice(0, middle - 1) + this.getEllipsis();
     this.setState({
-      text: this.original.slice(0, middle - 1) + this.getEllipsis(),
+      text: original.slice(0, middle - 1) + this.getEllipsis(),
     });
   }
 
