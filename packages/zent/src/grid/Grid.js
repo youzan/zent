@@ -190,9 +190,10 @@ class Grid extends PureComponent {
     this.props.onChange(params);
   };
 
-  onPageSizeChange = pageSize => {
+  onPaginationChange = (pageSize, current) => {
     this.props.onChange({
       pageSize,
+      current,
     });
   };
 
@@ -733,7 +734,6 @@ class Grid extends PureComponent {
     } else {
       className = classnames(
         className,
-        `${prefix}-grid-scroll-position-left`,
         `${prefix}-grid-scroll-position-${this.scrollPosition}`
       );
     }
@@ -749,7 +749,7 @@ class Grid extends PureComponent {
               prefix={prefix}
               pageInfo={pageInfo}
               onChange={this.onChange}
-              onPageSizeChange={this.onPageSizeChange}
+              onPaginationChange={this.onPaginationChange}
             />,
           ];
 
