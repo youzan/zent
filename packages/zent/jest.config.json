@@ -38,6 +38,7 @@
     "<rootDir>/src/utils/component/AnimateHeight.js",
     "<rootDir>/scr/utils/component/LazyMount.js",
     "<rootDir>/src/i18n",
+    "<rootDir>/src/pagination",
     "<rootDir>/src/placeholder",
     "<rootDir>/src/collapse",
     "<rootDir>/src/select",
