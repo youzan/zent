@@ -36,13 +36,15 @@ export default class BasePagination extends Component {
 
   onPageSizeChange = pageSize => {
     const { total, current } = this.props;
-    const maxPageNumber = this.getTotalPages(total, pageSize);
-    const options = {
-      pageSize,
-      current: Math.min(current, maxPageNumber),
-    };
+    if (this.props.pageSize !== pageSize) {
+      const maxPageNumber = this.getTotalPages(total, pageSize);
+      const options = {
+        pageSize,
+        current: Math.min(current, maxPageNumber),
+      };
 
-    this.props.onChange(options);
+      this.props.onChange(options);
+    }
   };
 
   getTotalPages(total, pageSize) {
