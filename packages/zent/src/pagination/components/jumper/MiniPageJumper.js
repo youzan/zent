@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'zent';
+import Input from 'input';
 import PropTypes from 'prop-types';
 
 import BasePageJumper from './BasePageJumper';
