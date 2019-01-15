@@ -92,7 +92,7 @@
     "^select-menu(.*)$": "<rootDir>/src/select-menu$1",
     "^sku(.*)$": "<rootDir>/src/sku$1",
     "^slider(.*)$": "<rootDir>/src/slider$1",
-    "^sortable(.*)$": "<rootDir>/src/sortable$1",
+    "/^sortable(\/[a-z|\/]+)?$/": "<rootDir>/src/sortable$1",
     "^split-button(.*)$": "<rootDir>/src/split-button$1",
     "^steps(.*)$": "<rootDir>/src/steps$1",
     "^sweetalert(.*)$": "<rootDir>/src/sweetalert$1",
