@@ -40,6 +40,21 @@ $border-color: $theme-stroke-7;
     }
   }
 
+  &-bordered {
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid $border-color;
+    }
+
+    .zent-grid-header th {
+      border-bottom: none;
+    }
+  }
+
   &-text-align-left {
     text-align: left;
   }
@@ -76,6 +91,12 @@ $border-color: $theme-stroke-7;
     }
   }
 
+  &-thead > tr > th {
+    &[colspan] {
+      text-align: center;
+    }
+  }
+
   &-fixed {
     width: auto;
   }
@@ -105,6 +126,10 @@ $border-color: $theme-stroke-7;
       box-sizing: border-box;
       margin-bottom: -15px;
       overflow: scroll;
+    }
+
+    table {
+      width: auto;
     }
   }
 
