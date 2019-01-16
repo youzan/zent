@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import Pagination from 'pagination';
 import classnames from 'classnames';
 import size from 'lodash/size';
-import get from 'lodash/get';
-import has from 'lodash/has';
 
 const defaultPageInfo = {
   current: 1,
@@ -11,21 +9,13 @@ const defaultPageInfo = {
 };
 
 class Footer extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      pageInfo: this.getDefaultPagination(props),
-    };
-  }
-
   hasPagination(props) {
     const { pageInfo } = props || this.props;
     return pageInfo && size(pageInfo);
   }
 
   getDefaultPagination(props) {
-    const { pageInfo } = props;
+    const { pageInfo } = props || this.props;
 
     return this.hasPagination(props)
       ? {
@@ -36,52 +26,23 @@ class Footer extends PureComponent {
       : null;
   }
 
-  handlePageChange = current => {
-    if (get(this.state, 'pageInfo.current', 1) !== current) {
-      this.props.onChange({ current });
-    }
+  handlePageChange = ({ pageSize, current }) => {
+    const { onPaginationChange } = this.props;
+    onPaginationChange && onPaginationChange(pageSize, current);
   };
-
-  renderPage = () => {
-    const { prefix, onPageSizeChange } = this.props;
-    const { pageInfo } = this.state;
-
-    return pageInfo ? (
-      <div className={classnames(`${prefix}-grid-tfoot-page`)}>
-        <Pagination
-          {...pageInfo}
-          onChange={this.handlePageChange}
-          onPageSizeChange={onPageSizeChange}
-        />
-      </div>
-    ) : null;
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (has(nextProps, 'pageInfo') || has(this.props, 'pageInfo')) {
-      this.setState(previousState => {
-        const newPagination = {
-          ...previousState.pageInfo,
-          ...nextProps.pageInfo,
-        };
-
-        newPagination.current =
-          newPagination.current || defaultPageInfo.current;
-        newPagination.pageSize =
-          newPagination.pageSize || defaultPageInfo.pageSize;
-
-        return {
-          pageInfo: this.hasPagination(nextProps) ? newPagination : null,
-        };
-      });
-    }
-  }
 
   render() {
     const { prefix } = this.props;
+    const curPageInfo = this.getDefaultPagination();
 
-    if (this.state.pageInfo) {
-      return <div className={`${prefix}-grid-tfoot`}>{this.renderPage()}</div>;
+    if (curPageInfo) {
+      return (
+        <div className={`${prefix}-grid-tfoot`}>
+          <div className={classnames(`${prefix}-grid-tfoot-page`)}>
+            <Pagination {...curPageInfo} onChange={this.handlePageChange} />
+          </div>
+        </div>
+      );
     }
     return null;
   }
