@@ -35,15 +35,24 @@ describe('Combine', () => {
   });
 
   it('header sort change', () => {
-    expect(wrapper.find('Head a .desc').length).toBe(1);
+    expect(wrapper.find('Head .sort-col .zenticon').length).toBe(4);
+    expect(wrapper.find('Head .sort-col--active .zenticon').length).toBe(2);
 
-    wrapper.find('Head .desc').simulate('click');
+    wrapper.find('Head .sort-col--active .zenticon-caret-up').simulate('click');
+    expect(
+      wrapper
+        .find('Head .sort-col--active .zenticon-caret-up')
+        .hasClass('sort-active')
+    ).toBe(true);
 
-    expect(wrapper.find('Head a .desc').length).toBe(0);
-    expect(wrapper.find('Head a .asc').length).toBe(1);
-    wrapper.find('Head a .asc').simulate('click');
-    expect(wrapper.find('Head a .desc').length).toBe(1);
-    expect(wrapper.find('Head a .asc').length).toBe(0);
+    wrapper
+      .find('Head .sort-col--active .zenticon-caret-down')
+      .simulate('click');
+    expect(
+      wrapper
+        .find('Head .sort-col--active .zenticon-caret-down')
+        .hasClass('sort-active')
+    ).toBe(true);
   });
 
   it('pagination click change', () => {
