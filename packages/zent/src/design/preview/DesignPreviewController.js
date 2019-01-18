@@ -149,26 +149,23 @@ class DesignPreviewController extends PureComponent {
               </div>
               {provided.placeholder}
 
-              {showButtons &&
-                canDelete && (
-                  <DeleteButton prefix={prefix} onDelete={this.onDelete} />
-                )}
-              {showButtons &&
-                canInsert && (
-                  <AddButton
-                    prefix={prefix}
-                    onAdd={this.onPrepend}
-                    className={`${prefix}-design-preview-controller__prepend`}
-                  />
-                )}
-              {showButtons &&
-                canInsert && (
-                  <AddButton
-                    prefix={prefix}
-                    onAdd={this.onAppend}
-                    className={`${prefix}-design-preview-controller__append`}
-                  />
-                )}
+              {showButtons && canDelete && (
+                <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+              )}
+              {showButtons && canInsert && (
+                <AddButton
+                  prefix={prefix}
+                  onAdd={this.onPrepend}
+                  className={`${prefix}-design-preview-controller__prepend`}
+                />
+              )}
+              {showButtons && canInsert && (
+                <AddButton
+                  prefix={prefix}
+                  onAdd={this.onAppend}
+                  className={`${prefix}-design-preview-controller__append`}
+                />
+              )}
             </div>
           );
         }}
@@ -187,26 +184,23 @@ class DesignPreviewController extends PureComponent {
           <PreviewComponent prefix={prefix} {...previewProps} {...props} />
         </div>
 
-        {configurable &&
-          canDelete && (
-            <DeleteButton prefix={prefix} onDelete={this.onDelete} />
-          )}
-        {configurable &&
-          canInsert && (
-            <AddButton
-              prefix={prefix}
-              onAdd={this.onPrepend}
-              className={`${prefix}-design-preview-controller__prepend`}
-            />
-          )}
-        {configurable &&
-          canInsert && (
-            <AddButton
-              prefix={prefix}
-              onAdd={this.onAppend}
-              className={`${prefix}-design-preview-controller__append`}
-            />
-          )}
+        {configurable && canDelete && (
+          <DeleteButton prefix={prefix} onDelete={this.onDelete} />
+        )}
+        {configurable && canInsert && (
+          <AddButton
+            prefix={prefix}
+            onAdd={this.onPrepend}
+            className={`${prefix}-design-preview-controller__prepend`}
+          />
+        )}
+        {configurable && canInsert && (
+          <AddButton
+            prefix={prefix}
+            onAdd={this.onAppend}
+            className={`${prefix}-design-preview-controller__append`}
+          />
+        )}
       </div>
     );
 

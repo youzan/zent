@@ -39,6 +39,8 @@ export default class Table extends PureComponent {
     expandation: object,
     batchComponentsAutoFixed: bool,
     batchComponents: array,
+    pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
+    emptyLabel: PropTypes.node,
   };
 
   static defaultProps = {
@@ -73,6 +75,7 @@ export default class Table extends PureComponent {
 
   // 一个global的selectedRowKeys用于保存所有选中的选项
   selectedRowKeys = [];
+
   selectedRows = [];
 
   componentWillReceiveProps(nextProps) {
@@ -397,6 +400,7 @@ export default class Table extends PureComponent {
       isSingleSelection = selection.isSingleSelection || false;
     }
     let selectedRowKeys = [];
+    let indeterminateRowKeys = [];
 
     let canSelectAll = false;
     let isSelectAll = false;
@@ -422,6 +426,7 @@ export default class Table extends PureComponent {
       });
 
       selectedRowKeys = selection.selectedRowKeys || [];
+      indeterminateRowKeys = selection.indeterminateRowKeys || [];
       canSelectAll = canSelectRowKeysArr.length > 0;
       canRowSelect = selection.canRowSelect;
       isSelectAll =
@@ -473,6 +478,7 @@ export default class Table extends PureComponent {
                     selection={{
                       needSelect,
                       selectedRowKeys,
+                      indeterminateRowKeys,
                       isSingleSelection,
                       onSelect: this.onSelectOneRow,
                       canRowSelect,

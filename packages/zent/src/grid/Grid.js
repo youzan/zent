@@ -58,6 +58,7 @@ class Grid extends PureComponent {
     onExpand: PropTypes.func,
     components: PropTypes.object,
     rowProps: PropTypes.func,
+    emptyLabel: PropTypes.node,
   };
 
   static defaultProps = {
@@ -189,9 +190,10 @@ class Grid extends PureComponent {
     this.props.onChange(params);
   };
 
-  onPageSizeChange = pageSize => {
+  onPaginationChange = (pageSize, current) => {
     this.props.onChange({
       pageSize,
+      current,
     });
   };
 
@@ -237,9 +239,8 @@ class Grid extends PureComponent {
 
   handleExpandRow = (clickRow, rowData) => e => {
     const { onExpand } = this.props;
-    const expandRowKeys = map(
-      this.state.expandRowKeys,
-      (row, index) => (index === clickRow ? !row : row)
+    const expandRowKeys = map(this.state.expandRowKeys, (row, index) =>
+      index === clickRow ? !row : row
     );
     this.store.setState({
       columns: this.getColumns(this.props, this.props.columns, expandRowKeys),
@@ -733,7 +734,6 @@ class Grid extends PureComponent {
     } else {
       className = classnames(
         className,
-        `${prefix}-grid-scroll-position-left`,
         `${prefix}-grid-scroll-position-${this.scrollPosition}`
       );
     }
@@ -749,7 +749,7 @@ class Grid extends PureComponent {
               prefix={prefix}
               pageInfo={pageInfo}
               onChange={this.onChange}
-              onPageSizeChange={this.onPageSizeChange}
+              onPaginationChange={this.onPaginationChange}
             />,
           ];
 

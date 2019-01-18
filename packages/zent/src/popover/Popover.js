@@ -38,7 +38,9 @@ function handleBeforeHook(beforeFn, arity, continuation, escape) {
   // escapse 用来终止 onChange 操作
   if (arity === 1) {
     return beforeFn(continuation);
-  } else if (arity >= 2) {
+  }
+
+  if (arity >= 2) {
     return beforeFn(continuation, escape);
   }
 
@@ -159,6 +161,7 @@ export default class Popover extends PureComponent {
 
     if (!this.isVisibilityControlled(props)) {
       this.state = {
+        // eslint-disable-next-line
         visible: false,
       };
     }

@@ -1,6 +1,6 @@
 @import './theme/default.pcss';
 
-@define-mixin vertical-center {
+@mixin vertical-center {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
@@ -40,7 +40,7 @@ $close-icon-size: 14px;
     .zent-alert-close-btn {
       width: $close-icon-size;
 
-      @mixin vertical-center;
+      @include vertical-center;
 
       font-family: sans-serif;
       font-size: 18px;

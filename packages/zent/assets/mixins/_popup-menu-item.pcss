@@ -1,37 +1,35 @@
 @import '../theme/default.pcss';
-$c-white: $theme-stroke-9;
-$c-blue: $theme-primary-2;
 
-@define-mixin popup-menu-item-common {
-  background-color: $c-white;
+@mixin popup-menu-item-common {
+  background-color: $theme-stroke-9;
   display: block;
   outline: none;
-  padding: 5px 10px;
+  padding: 7px 16px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
-@define-mixin popup-menu-item-specific {
+@mixin popup-menu-item-specific {
   &.current,
   &.hover,
   &:hover {
-    background-color: $c-blue;
-    color: $c-white;
+    background-color: $theme-primary-6;
   }
 
   &.active {
-    color: $c-blue;
+    font-weight: 500;
+    background-color: $theme-stroke-8;
   }
 
   &.active:hover,
   &.active.hover,
   &.active.current {
-    color: $c-white;
+    background-color: $theme-stroke-8;
   }
 }
 
-@define-mixin popup-menu-item {
-  @mixin popup-menu-item-common;
-  @mixin popup-menu-item-specific;
+@mixin popup-menu-item {
+  @include popup-menu-item-common;
+  @include popup-menu-item-specific;
 }

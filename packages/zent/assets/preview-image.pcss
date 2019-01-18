@@ -1,7 +1,6 @@
 @import './theme/default.pcss';
 $graycolor: $theme-stroke-3;
-$theme-stroke-9color: $theme-stroke-9;
-$rgbamaskbgcolor: $theme-mask-black-6;
+$rgbamaskbgcolor: color(black a(60%));
 
 .zent-image-p-body {
   display: flex;
@@ -27,8 +26,8 @@ $rgbamaskbgcolor: $theme-mask-black-6;
   position: fixed;
   text-align: center;
   border-radius: 40px;
-  background: $theme-mask-white-6;
-  box-shadow: 0 0 8px $theme-mask-black-6;
+  background: color(white a(60%));
+  box-shadow: 0 0 8px color(black a(60%));
   right: 20px;
   top: 20px;
   width: 40px;
@@ -37,7 +36,7 @@ $rgbamaskbgcolor: $theme-mask-black-6;
   z-index: 2;
 
   &:hover {
-    background: $theme-stroke-9color;
+    background: $theme-stroke-9;
   }
 
   i {
@@ -51,8 +50,8 @@ $rgbamaskbgcolor: $theme-mask-black-6;
 .zent-image-p-footer {
   position: fixed;
   border-radius: 40px;
-  background: $theme-mask-white-6;
-  box-shadow: 0 0 8px $theme-mask-black-6;
+  background: color(white a(60%));
+  box-shadow: 0 0 8px color(black a(60%));
   bottom: 20px;
   left: 50%;
   transform: translate(-50%);

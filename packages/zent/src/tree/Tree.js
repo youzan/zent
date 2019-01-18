@@ -22,9 +22,12 @@ const deepClone = arr => {
       copy[i] = deepClone(copy[i]);
     }
     return copy;
-  } else if (typeof arr === 'object') {
+  }
+
+  if (typeof arr === 'object') {
     return assign({}, arr);
   }
+
   return arr;
 };
 
@@ -59,6 +62,7 @@ const toggleSlide = (el, isClose) => {
 
 export default class Tree extends PureComponent {
   isInitial = true;
+
   isDataUpdate = false;
 
   state = {
@@ -448,16 +452,15 @@ export default class Tree extends PureComponent {
                 {this.renderOperations(root)}
               </div>
             </div>
-            {root.children &&
-              root.children.length > 0 && (
-                <ul
-                  key={`ul-${root.id}`}
-                  className={`${prefix}-tree-child`}
-                  style={isShowChildren ? {} : { display: 'none' }}
-                >
-                  {this.renderTreeNodes(root.children)}
-                </ul>
-              )}
+            {root.children && root.children.length > 0 && (
+              <ul
+                key={`ul-${root.id}`}
+                className={`${prefix}-tree-child`}
+                style={isShowChildren ? {} : { display: 'none' }}
+              >
+                {this.renderTreeNodes(root.children)}
+              </ul>
+            )}
           </li>
         );
       });

@@ -82,7 +82,9 @@ class DesignPreview extends PureComponent {
   };
 
   previewItems = {};
+
   editorItems = {};
+
   editors = {};
 
   render() {
@@ -198,57 +200,55 @@ class DesignPreview extends PureComponent {
                           )}
                         />
 
-                        {selected &&
-                          !showAddComponentOverlay && (
-                            <EditorItem
+                        {selected && !showAddComponentOverlay && (
+                          <EditorItem
+                            prefix={prefix}
+                            disabled={disabled}
+                            ref={this.saveEditorItem(id)}
+                          >
+                            <comp.editor
+                              {...getAdditionalProps(comp.editorProps, v)}
+                              ref={this.saveEditor(id)}
+                              value={v}
+                              onChange={onComponentValueChange(v)}
+                              settings={settings}
+                              onSettingsChange={onSettingsChange}
+                              globalConfig={globalConfig}
+                              design={design}
+                              validation={validations[id] || {}}
+                              showError={showError}
                               prefix={prefix}
-                              disabled={disabled}
-                              ref={this.saveEditorItem(id)}
-                            >
-                              <comp.editor
-                                {...getAdditionalProps(comp.editorProps, v)}
-                                ref={this.saveEditor(id)}
-                                value={v}
-                                onChange={onComponentValueChange(v)}
-                                settings={settings}
-                                onSettingsChange={onSettingsChange}
-                                globalConfig={globalConfig}
-                                design={design}
-                                validation={validations[id] || {}}
-                                showError={showError}
-                                prefix={prefix}
-                              />
-                            </EditorItem>
-                          )}
+                            />
+                          </EditorItem>
+                        )}
 
-                        {selected &&
-                          showAddComponentOverlay && (
-                            <DesignEditorItem
-                              ref={this.saveEditorItem(id)}
+                        {selected && showAddComponentOverlay && (
+                          <DesignEditorItem
+                            ref={this.saveEditorItem(id)}
+                            prefix={prefix}
+                            className={cx(
+                              `${prefix}-design-add-component-overlay`,
+                              {
+                                [`${prefix}-design-add-component-overlay--top`]:
+                                  addComponentOverlayPosition ===
+                                  ADD_COMPONENT_OVERLAY_POSITION.TOP,
+                                [`${prefix}-design-add-component-overlay--bottom`]:
+                                  addComponentOverlayPosition ===
+                                  ADD_COMPONENT_OVERLAY_POSITION.BOTTOM,
+                                [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
+                                [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped,
+                              }
+                            )}
+                          >
+                            <DesignEditorAddComponent
                               prefix={prefix}
-                              className={cx(
-                                `${prefix}-design-add-component-overlay`,
-                                {
-                                  [`${prefix}-design-add-component-overlay--top`]:
-                                    addComponentOverlayPosition ===
-                                    ADD_COMPONENT_OVERLAY_POSITION.TOP,
-                                  [`${prefix}-design-add-component-overlay--bottom`]:
-                                    addComponentOverlayPosition ===
-                                    ADD_COMPONENT_OVERLAY_POSITION.BOTTOM,
-                                  [`${prefix}-design-add-component-overlay--grouped`]: isComponentsGrouped,
-                                  [`${prefix}-design-add-component-overlay--mixed`]: !isComponentsGrouped,
-                                }
-                              )}
-                            >
-                              <DesignEditorAddComponent
-                                prefix={prefix}
-                                fromSelected
-                                componentInstanceCount={componentInstanceCount}
-                                components={appendableComponents}
-                                onAddComponent={onAddComponent}
-                              />
-                            </DesignEditorItem>
-                          )}
+                              fromSelected
+                              componentInstanceCount={componentInstanceCount}
+                              components={appendableComponents}
+                              onAddComponent={onAddComponent}
+                            />
+                          </DesignEditorItem>
+                        )}
                       </PreviewItem>
                     );
                   })}

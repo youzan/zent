@@ -1,6 +1,6 @@
 @import './theme/default.pcss';
 
-@define-mixin ellipsis {
+@mixin ellipsis {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -160,7 +160,7 @@
         left: 0;
         bottom: 0;
         right: 0;
-        background: $theme-mask-black-6;
+        background: color(black a(60%));
         color: $theme-stroke-9;
         text-align: center;
         line-height: 80px;
@@ -173,7 +173,7 @@
     height: auto;
 
     &::after {
-      content: ".";
+      content: '.';
       display: block;
       height: 0;
       clear: both;
@@ -222,7 +222,7 @@
         top: 10px;
         left: 60px;
 
-        @mixin ellipsis;
+        @include ellipsis;
       }
 
       &__createtime {
@@ -245,7 +245,7 @@
         left: 0;
         bottom: 0;
         right: 0;
-        background: $theme-mask-black-6;
+        background: color(black a(60%));
         color: $theme-stroke-9;
         text-align: center;
         line-height: 60px;
@@ -269,7 +269,7 @@
   color: $theme-stroke-9;
   text-align: center;
   cursor: pointer;
-  background: $theme-mask-black-3;
+  background: color(black a(30%));
   top: -8px;
   right: -8px;
   width: 18px;
@@ -310,7 +310,7 @@
 .zent-upload-trigger {
   position: relative;
 
-  input[type=file] {
+  input[type='file'] {
     position: absolute;
     top: 0;
     left: 0;

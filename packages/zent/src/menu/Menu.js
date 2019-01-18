@@ -9,6 +9,7 @@ import SubMenu from './SubMenu';
 
 export default class Menu extends CommonMenu {
   static MenuItem = MenuItem;
+
   static SubMenu = SubMenu;
 
   static propTypes = {

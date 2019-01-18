@@ -1,94 +1,149 @@
 @import './theme/default.pcss';
+@import './theme/_font.pcss';
 
 .zent-pagination {
-  font-size: 12px;
-  line-height: 16px;
-  text-align: right;
+  display: flex;
 
-  .pagination-list {
-    display: inline-block;
+  &-page-list--normal,
+  &-page-list--mini,
+  &-page-list--lite {
+    .zent-btn + .zent-btn {
+      margin-left: 4px;
+    }
+  }
 
-    .pager {
-      position: relative;
-      display: inline-block;
-      box-sizing: border-box;
-      margin: 0 0 0 5px;
-      border: 1px solid $theme-stroke-4;
-      border-radius: 2px;
-      padding: 6px 8px;
-      min-width: 30px;
-      text-align: center;
-      background: $theme-stroke-9;
-      cursor: pointer;
-      user-select: none;
+  &-page-list--mini {
+    display: flex;
+    margin: 0 8px;
+  }
+
+  &-arrow {
+    stroke: $theme-stroke-1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &-page-number-button,
+  &-arrow-button {
+    padding: 0 8px;
+    min-width: 32px;
+    position: relative;
+    transition: none;
+
+    &[disabled] {
+      .zent-pagination-arrow {
+        stroke: $theme-stroke-4;
+      }
+    }
+  }
+
+  &-page-button--no-border:not(.zent-btn-primary) {
+    border-color: transparent;
+
+    &:hover,
+    &:active {
+      background: white;
+      border-color: transparent;
     }
 
-    .pager--current {
-      color: $theme-stroke-9;
-      background: $theme-primary-2;
-      border-color: $theme-primary-2;
-      cursor: default;
+    &:active {
+      color: $theme-primary-1;
     }
 
-    .pager--disabled {
-      border-color: $theme-stroke-6;
-      cursor: not-allowed;
-      color: $theme-stroke-6;
-    }
+    &.zent-pagination-arrow-button[disabled] {
+      background: white;
 
-    .pager--jump {
-      margin-left: 15px;
-      padding: 0;
-      cursor: default;
-      background-color: $theme-stroke-6;
-    }
-
-    .pager--omni {
-      margin-left: 0;
-      margin-right: -5px;
-      border: none;
-      cursor: default;
-    }
-
-    .pager__input {
-      box-sizing: border-box;
-      margin: -1px;
-      margin-right: 0;
-      border: 1px solid $theme-stroke-4;
-      border-right-color: $theme-stroke-4;
-      padding: 6px 2px;
-      min-width: 21px;
-      max-width: 40px;
-      height: 30px;
-      text-align: center;
-      font-weight: normal;
-      outline: none;
-      border-top-left-radius: 2px;
-      border-bottom-left-radius: 2px;
-      background-color: $theme-stroke-9;
-
-      &:focus {
-        border-color: $theme-primary-2;
-        box-shadow: 0 0 1px $theme-primary-4;
+      .zent-pagination-arrow {
+        stroke: $theme-stroke-6;
       }
     }
 
-    .pager__suffix {
-      padding: 7px 5px;
+    &.zent-pagination-arrow-button:not([disabled]) {
+      &:hover {
+        .zent-pagination-arrow {
+          stroke: $theme-primary-2;
+        }
+      }
+
+      &:active {
+        .zent-pagination-arrow {
+          stroke: $theme-primary-1;
+        }
+      }
     }
   }
-}
 
-.zent-pagination__info {
-  display: inline-block;
+  &-arrow-button--double {
+    &:hover,
+    &:active,
+    &-active {
+      border-color: transparent;
+    }
 
-  .zent-select {
-    width: 60px;
+    &:hover {
+      .zent-pagination-arrow {
+        stroke: $theme-primary-2;
+      }
+    }
+
+    &:active,
+    &-active {
+      .zent-pagination-arrow {
+        stroke: $theme-primary-1;
+      }
+    }
   }
 
-  .total {
+  &-page-jumper,
+  &-mini-page-jumper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .zent-input-wrapper {
+      .zent-input {
+        min-width: unset;
+        width: 100%;
+        padding: 0 12px;
+      }
+    }
+  }
+
+  &-page-jumper {
+    margin-left: 8px;
+
+    .zent-input-wrapper {
+      margin: 0 8px;
+    }
+  }
+
+  &-mini-page-jumper {
+    @include font-large;
+
+    &__sep {
+      margin: 0 24px;
+    }
+  }
+
+  &-page-size-changer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+
     .zent-select {
+      margin-left: 4px;
       margin-right: 0;
+    }
+  }
+
+  &-count {
+    margin: 0 4px;
+
+    &--left {
+      margin-left: 4px;
     }
   }
 }

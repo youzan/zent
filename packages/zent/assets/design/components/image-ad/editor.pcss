@@ -1,6 +1,6 @@
 @import '../../../theme/default.pcss';
 
-@define-mixin hidden-input {
+@mixin hidden-input {
   position: absolute;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   cursor: pointer;
 }
 
-@define-mixin add-icon {
+@mixin add-icon {
   font-size: 20px;
   margin-right: 5px;
 }
@@ -53,7 +53,7 @@
       align-items: center;
 
       input {
-        @mixin hidden-input;
+        @include hidden-input;
       }
 
       &--has-image {
@@ -61,7 +61,7 @@
         left: 0;
         width: 100%;
         height: 30px;
-        background: $theme-mask-black-6;
+        background: color(black a(60%));
         color: $theme-stroke-9;
       }
 
@@ -72,7 +72,7 @@
         height: 100%;
 
         b {
-          @mixin add-icon;
+          @include add-icon;
         }
       }
     }
@@ -120,11 +120,11 @@
     position: relative;
 
     input {
-      @mixin hidden-input;
+      @include hidden-input;
     }
 
     b {
-      @mixin add-icon;
+      @include add-icon;
 
       margin-top: -2px;
     }

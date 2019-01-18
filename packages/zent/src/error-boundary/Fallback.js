@@ -11,8 +11,8 @@ export default function ErrorBoundaryFallbackComponent({
   error,
 }) {
   return (
-    <div className={`zent-error-boundary-fallback-component`}>
-      <div className={`zent-error-boundary-fallback-component__error`}>
+    <div className="zent-error-boundary-fallback-component">
+      <div className="zent-error-boundary-fallback-component__error">
         <Pop
           trigger="hover"
           position="auto-bottom-center"

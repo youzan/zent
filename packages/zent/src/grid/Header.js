@@ -16,25 +16,21 @@ class Header extends PureComponent {
     };
   }
 
-  onSort = (column, props) => {
+  onSort = (column, props, newSortType) => {
     const { sortBy } = props;
     let name = column.name;
     let sortType = '';
 
     if (name === sortBy) {
-      if (this.props.sortType === '') {
-        sortType = 'desc';
-      }
-      if (this.props.sortType === 'desc') {
-        sortType = 'asc';
-      }
-      if (this.props.sortType === 'asc') {
+      if (newSortType === this.props.sortType) {
         sortType = '';
+      } else {
+        sortType = newSortType;
       }
     }
 
     if (name !== sortBy) {
-      sortType = 'desc';
+      sortType = newSortType;
     }
 
     this.props.onChange({
@@ -45,24 +41,21 @@ class Header extends PureComponent {
 
   getChildren = (column, props) => {
     const { prefix, sortBy, sortType } = props;
+    const cn = classnames(`${prefix}-grid-thead-sort`, {
+      [`${prefix}-grid-thead-sort-${sortType}`]: sortType && (column.name === sortBy)
+    });
 
     if (column.needSort) {
       return (
-        <a
-          onClick={() => this.onSort(column, props)}
+        <div
           className={`${prefix}-grid-thead-sort-btn`}
         >
           {column.title}
-          {column.name === sortBy && (
-            <span
-              className={
-                sortType
-                  ? `${prefix}-grid-thead-sort-${sortType}`
-                  : `${prefix}-grid-thead-sort`
-              }
-            />
-          )}
-        </a>
+          <span className={cn}>
+            <span onClick={() => this.onSort(column, props, 'asc')} className="caret-up" />
+            <span onClick={() => this.onSort(column, props, 'desc')} className="caret-down" />
+          </span>
+        </div>
       );
     }
     return column.title;
@@ -145,7 +138,9 @@ class Header extends PureComponent {
                 height,
               }}
             >
-              {row.map(props => <th {...props} />)}
+              {row.map(props => (
+                <th {...props} />
+              ))}
             </tr>
           );
         })}

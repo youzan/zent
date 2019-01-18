@@ -62,7 +62,7 @@ describe('Pop', () => {
     let wrapper;
     expect(() => {
       wrapper = mount(
-        <Pop content={content()} trigger={'click'}>
+        <Pop content={content()} trigger="click">
           <Button onClick={addClick}>click</Button>
         </Pop>
       );
@@ -74,7 +74,7 @@ describe('Pop', () => {
     const wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         prefix="foo"
         className="quux"
         wrapperClassName="bar"
@@ -97,7 +97,7 @@ describe('Pop', () => {
     let wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         className="bar11"
         block
         header={header()}
@@ -112,7 +112,7 @@ describe('Pop', () => {
     const cancelMock = jest.fn();
     wrapper = mount(
       <Pop
-        trigger={'click'}
+        trigger="click"
         block
         onConfirm={confirmMock}
         onCancel={cancelMock}
@@ -127,14 +127,14 @@ describe('Pop', () => {
     expect(btn.length).toBe(2);
     // expect(btn[0].textContent).toBe('确定');
     // expect(btn[1].textContent).toBe('取消');
-    Simulate.click(btn[0]);
+    Simulate.click(btn[1]);
     jest.runAllTimers();
     expect(confirmMock.mock.calls.length).toBe(1);
     expect(findContent().length).toBe(0);
 
     wrapper = mount(
       <Pop
-        trigger={'click'}
+        trigger="click"
         block
         onConfirm={confirmMock}
         onCancel={cancelMock}
@@ -147,7 +147,7 @@ describe('Pop', () => {
     expect(findContent().length).toBe(1);
     btn = document.querySelectorAll('.zent-pop-buttons button');
     expect(btn.length).toBe(2);
-    Simulate.click(btn[1]);
+    Simulate.click(btn[0]);
     jest.runAllTimers();
     expect(cancelMock.mock.calls.length).toBe(1);
     expect(findContent().length).toBe(0);
@@ -211,7 +211,7 @@ describe('Pop', () => {
         <Pop
           content={content()}
           position={position}
-          trigger={'click'}
+          trigger="click"
           centerArrow
         >
           <Button>click</Button>
@@ -270,7 +270,7 @@ describe('Pop', () => {
     });
     jest.runAllTimers();
 
-    Simulate.click(document.querySelector('.zent-btn-primary').nextSibling);
+    Simulate.click(document.querySelector('.zent-btn-primary').previousSibling);
     jest.runAllTimers();
     expect(b).toBe(2);
   });
@@ -316,7 +316,7 @@ describe('Pop', () => {
     let wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         className="bar11"
         block
         header={header()}
@@ -333,7 +333,7 @@ describe('Pop', () => {
     let wrapper = mount(
       <Pop
         content={content()}
-        trigger={'click'}
+        trigger="click"
         className="bar11"
         block
         header={header()}

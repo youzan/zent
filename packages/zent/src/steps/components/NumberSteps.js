@@ -14,11 +14,11 @@ export default class NumberSteps extends PureComponent {
       sequence,
     } = props;
     const lastIndex = children.length - 1;
-    const classString = classNames({
-      [`${prefix}-steps`]: true,
-      [`${className}`]: true,
-      [`${prefix}-steps__${direction}`]: true,
-    });
+    const classString = classNames(
+      className,
+      `${prefix}-steps`,
+      `${prefix}-steps__${direction}`
+    );
 
     return (
       <div className={classString}>

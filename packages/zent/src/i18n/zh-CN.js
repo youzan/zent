@@ -17,8 +17,13 @@ export const CopyButton = {
 };
 
 export const Pagination = {
+  // total: '共',
+  // pages: '页',
+  // items: '条',
+  // perPage: '每页',
+  page: '页',
+  jump: '跳至',
   total: '共',
-  pages: '页',
   items: '条',
   perPage: '每页',
   comma: common.comma,

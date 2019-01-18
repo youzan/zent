@@ -70,16 +70,13 @@
     border-radius: 50%;
     border: 2px solid $theme-primary-4;
     background-color: $theme-stroke-9;
-    transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    transition: border-color 0.3s ease,
+      transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
     &:hover {
       border-color: $theme-primary-2;
       transform: scale(1.2);
       transform-origin: center center;
-    }
-
-    &:active {
-      box-shadow: 0 0 0 2px $slider-point-active-shadow-color;
     }
 
     &-disabled {
@@ -90,10 +87,6 @@
         border-color: $theme-stroke-5;
         transform: scale(1.2);
         transform-origin: center center;
-      }
-
-      &:active {
-        box-shadow: 0 0 0 2px $theme-mask-black-2;
       }
     }
   }
@@ -119,7 +112,7 @@
 
       .toolTips-inner {
         padding: 4px 5px;
-        background-color: $theme-stroke-2;
+        background-color: $theme-stroke-1;
         border-radius: 2px;
         font-size: 12px;
         color: $theme-stroke-9;
@@ -130,7 +123,7 @@
       }
 
       .toolTips-arrow {
-        background: $theme-stroke-2;
+        background: $theme-stroke-1;
         transform: translate(-50%, 50%) rotate(45deg);
         left: 50%;
         position: absolute;
@@ -138,7 +131,6 @@
         top: 13px;
         width: 6px;
         height: 6px;
-        box-shadow: 0 1px 4px $theme-mask-black-6;
         overflow: hidden;
       }
     }

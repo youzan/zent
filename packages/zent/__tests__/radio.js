@@ -25,7 +25,7 @@ describe('Radio Section', () => {
     expect(wrapper.hasClass('zent-radio-wrap')).toBe(true);
     expect(wrapper.childAt(0).type()).toBe('span');
     expect(wrapper.childAt(0).hasClass('zent-radio')).toBe(true);
-    expect(wrapper.childAt(1).type()).toBe(null);
+    expect(wrapper.children().length).toBe(1);
     expect(
       wrapper
         .find('.zent-radio')
@@ -177,7 +177,7 @@ describe('RadioGroup Section', () => {
       return typeof a === typeof b;
     };
     const wrapper = mount(
-      <Group value={'foo'} isValueEqual={customISValueEqual}>
+      <Group value="foo" isValueEqual={customISValueEqual}>
         <Radio value={radioValues[0]} />
         <Radio value={radioValues[1]} />
         <Radio value={radioValues[2]} />

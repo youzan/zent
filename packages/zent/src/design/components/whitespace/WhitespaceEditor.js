@@ -34,7 +34,9 @@ export default class WhitespaceEditor extends DesignEditor {
   // 组件的描述
   static designDescription = (
     <span>
-      辅助<br />空白
+      辅助
+      <br />
+      空白
     </span>
   );
 

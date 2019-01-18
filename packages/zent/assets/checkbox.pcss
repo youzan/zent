@@ -1,20 +1,23 @@
 @import './theme/default.pcss';
+@import './theme/_font.pcss';
+$size: 16px;
 
 .zent-checkbox-group {
   display: inline-block;
-  font-size: 12px;
+
+  @include font-normal;
 }
 
 .zent-checkbox-wrap {
   display: inline-block;
   cursor: pointer;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
+  font-weight: $font-weight-normal;
   margin: 0;
   padding: 0;
   margin-right: 15px;
   vertical-align: middle;
+
+  @include font-normal;
 
   &.zent-checkbox-disabled {
     cursor: not-allowed;
@@ -28,8 +31,8 @@
 .zent-checkbox {
   position: relative;
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: $size;
+  height: $size;
   white-space: nowrap;
   outline: none;
   vertical-align: middle;
@@ -53,10 +56,8 @@
   }
 
   & + span {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 8px;
     vertical-align: middle;
-    line-height: 16px;
   }
 }
 
@@ -65,8 +66,8 @@
   top: 0;
   left: 0;
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: $size;
+  height: $size;
   border-radius: 2px;
   border: 1px solid $theme-stroke-4;
   background: $theme-stroke-9;
@@ -81,13 +82,10 @@
     font-size: 0;
     top: 3px;
     left: 2px;
-    width: 6px;
-    height: 3px;
-    border: 2px solid $theme-stroke-9;
-    background: transparent;
-    border-top: none;
-    border-right: none;
-    transform: rotate(-45deg) scale(0);
+    width: 10px;
+    height: 8px;
+    background-size: contain;
+    transform: scale(0);
     transition: all 0.12s ease-in-out;
   }
 }
@@ -95,11 +93,12 @@
 .zent-checkbox-checked {
   & > .zent-checkbox {
     & > .zent-checkbox-inner {
-      border-color: $theme-primary-1;
+      border-color: $theme-primary-2;
       background: $theme-primary-2;
 
       &::after {
-        transform: rotate(-45deg) scale(1);
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAABGdBTUEAALGPC/xhBQAAASxJREFUOBGlkr9LQlEUx01Di1pCCKQhkAZxaMs/oFnwD3Bwqcmh0cnB0ak5HBwdHNyT5sDFIUIQxMXBQWgIIjB7fa7c+zjvvnfR9MCH8+t7vtOJxfYMz/OyMIIniB/u44dBhvs+ZCEHX7BbYHYGbyBjtpMbDifwKp2ol1D8tyFHSXgGGb805YAZg+PAIKJBE4cu2FH15WyOoA8fUPAXEQX7FthRD0jZdoRiQZ0PCHTDvCl0pnwMadlMzFbnGflSCulrlka1bTiQunXN8AY+QcaY5lwJyPdyoeseOREyMwOWt/CtxSYNKe5gZQY6v5BT5taZEZXgRx+50oDFqdPEXiCugPqpqHhnmLZvNvYcPUS4TZldbDx2CThuCNM59ZVLu/UcE/V36qWutz5C+AfE+OIwPOZePgAAAABJRU5ErkJggg==');
+        transform: scale(1);
       }
     }
   }
@@ -112,9 +111,9 @@
       background: $theme-stroke-9;
 
       &::after {
-        top: 5px;
-        left: 3px;
-        width: 6px;
+        top: 6px;
+        left: 2px;
+        width: 10px;
         height: 2px;
         border: none;
         background: $theme-primary-2;
@@ -125,31 +124,33 @@
 }
 
 .zent-checkbox-disabled {
+  & > span {
+    color: $theme-stroke-4;
+  }
+
   & > .zent-checkbox {
     & > .zent-checkbox-inner {
       background-color: $theme-stroke-8;
-      border-color: $theme-stroke-6;
+      border-color: $theme-stroke-5;
     }
 
-    & > input[type="checkbox"] {
+    & > input[type='checkbox'] {
       cursor: not-allowed;
     }
   }
 
   &.zent-checkbox-checked > .zent-checkbox {
     & > .zent-checkbox-inner {
-      background-color: $theme-stroke-6;
-      border-color: $theme-stroke-6;
+      &:after {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAABGdBTUEAALGPC/xhBQAAAeJJREFUOBGlkz9I5FAQxmcSWU9UEIU9xDXJZg+EKywsDmt1GxubK2wEEbG7QkSwsRAEDxu5QrirlANLUUEEFexsrKy8xuTlDyxrcd15orubcd5Ckqeo6BpI5sv3vvzI5E0A3nkEQVBwhPfnUvi/iEjD9/A8z+uuEZ4yKC85iLCmNwoMw7CzWoMTAupLGdjbELBcLrfe3FUOGTSgwKqow4SWGq9T3F7m+v/tDhAMxk8gIqFGkwXT3E+A3EJLHHiuMkx3RbDFbRbVDPO+FSxrS3qaEPTBcf3ju2qt5IbhFzX4WDsi+Mmwr4/8Rduy1mNPi8Df4NAIEXRE1ejA9/3P8aJaXc9fBaBp1ZO7+sm2llVPI8D0rYi6KhEcuW7JVEOO8BeiiOZVj7/bpm2Zc6ontYY6jvME/UsWiHoIKsfu1dVH6fHAzvC3W0nWpUDYtS1jWm7GA7++xJdLzxuCCA5YNscBbuecz3UirP8BqY8nDBtl2G3sqTX5U4QIxiKgbbmTakDVCHjW3tYynM1m047UAOtkbPJ5Y48bmHqqjfoziBfNGX30JZjMJUB5Y9vmby6zUqsHt+5ldCzmcrm/qv+UfgCUgULe/MFvuRSHGVbONOlFwzBKsddQ5VH5zjvs8LD3vwVwD3vnuDdo0l19AAAAAElFTkSuQmCC');
+      }
     }
   }
 
   &.zent-checkbox-indeterminate > .zent-checkbox {
     & > .zent-checkbox-inner {
-      background-color: $theme-stroke-6;
-      border-color: $theme-stroke-6;
-
       &::after {
-        background: $theme-stroke-9;
+        background: $theme-stroke-5;
       }
     }
   }

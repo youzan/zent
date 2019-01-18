@@ -1,32 +1,36 @@
 @import './theme/default.pcss';
+@import './theme/_font.pcss';
 $color-red: $theme-error-2;
 $color-green: $theme-success-2;
 $color-yellow: $theme-warn-1;
 $color-blue: $theme-primary-2;
-$color-darkgreen: $theme-success-5;
+$color-darkgreen: $theme-success-1;
+$color-grey: $theme-stroke-7;
+$color-grey-outline: $theme-stroke-4;
 $color-text: $theme-stroke-9;
 
 .zent-tag {
   display: inline-block;
-  font-size: 12px;
+  font-size: $font-size-small;
   color: $color-text;
   line-height: 1;
-  padding: 0.084em 0.417em;
+  padding: 2px 4px;
   border: 1px solid $color-text;
+  box-sizing: border-box;
 
   &.zent-tag-rounded {
-    border-radius: 0.167em;
+    border-radius: 2px;
   }
 
   &.zent-tag-closable {
     .zent-tag-content {
       display: inline-block;
-      margin-right: 0.417em;
+      margin-right: 4px;
     }
 
     .zent-tag-close-btn {
       cursor: pointer;
-      transform: scale(0.6);
+      transform: scale(0.6) translate(2px, 0);
     }
   }
 
@@ -37,7 +41,7 @@ $color-text: $theme-stroke-9;
 
   &.zent-tag-style-red-outline {
     color: $color-red;
-    border-color: $color-red;
+    border-color: $theme-error-4;
   }
 
   &.zent-tag-style-green {
@@ -47,7 +51,7 @@ $color-text: $theme-stroke-9;
 
   &.zent-tag-style-green-outline {
     color: $color-green;
-    border-color: $color-green;
+    border-color: $theme-success-4;
   }
 
   &.zent-tag-style-yellow {
@@ -57,7 +61,7 @@ $color-text: $theme-stroke-9;
 
   &.zent-tag-style-yellow-outline {
     color: $color-yellow;
-    border-color: $color-yellow;
+    border-color: $theme-warn-2;
   }
 
   &.zent-tag-style-blue {
@@ -67,7 +71,7 @@ $color-text: $theme-stroke-9;
 
   &.zent-tag-style-blue-outline {
     color: $color-blue;
-    border-color: $color-blue;
+    border-color: $theme-primary-4;
   }
 
   &.zent-tag-style-darkgreen {
@@ -77,7 +81,18 @@ $color-text: $theme-stroke-9;
 
   &.zent-tag-style-darkgreen-outline {
     color: $color-darkgreen;
-    border-color: $color-darkgreen;
+    border-color: $theme-success-3;
+  }
+
+  &.zent-tag-style-grey {
+    color: $theme-stroke-1;
+    border-color: $color-grey;
+    background: $color-grey;
+  }
+
+  &.zent-tag-style-grey-outline {
+    color: $theme-stroke-1;
+    border-color: $color-grey-outline;
   }
 
   a {

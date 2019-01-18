@@ -13,12 +13,11 @@ export default class Step extends PureComponent {
     isLastFinishStep: PropTypes.bool,
     stepNumber: PropTypes.string,
     status: PropTypes.string,
-    title: PropTypes.node.isRequired,
+    title: PropTypes.node,
     description: PropTypes.node,
   };
 
   static defaultProps = {
-    title: '',
     description: '',
   };
 
@@ -40,7 +39,7 @@ export default class Step extends PureComponent {
     let iconNode;
 
     if (status === 'finish') {
-      iconNode = <Icon type="check-circle" />;
+      iconNode = <Icon type="check-circle-o" />;
     } else if (status === 'error') {
       iconNode = <Icon type="error-circle" />;
     } else {
@@ -49,12 +48,14 @@ export default class Step extends PureComponent {
       );
     }
 
-    const classString = classNames({
-      [`${prefix}-steps-item`]: true,
-      [`${prefix}-steps-status-${status}`]: true,
-      'is-current': isCurrentStep,
-      'is-last-finish': isLastFinishStep,
-    });
+    const classString = classNames(
+      `${prefix}-steps-item`,
+      `${prefix}-steps-status-${status}`,
+      {
+        'is-current': isCurrentStep,
+        'is-last-finish': isLastFinishStep,
+      }
+    );
 
     return (
       <div className={classString}>

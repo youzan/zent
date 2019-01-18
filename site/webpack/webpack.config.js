@@ -2,31 +2,38 @@ const webpack = require('webpack');
 const HappyPack = require('happypack');
 const { join, resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+
 const createAlias = require('../../packages/zent/createAlias');
 const happyThreadPool = require('./happypack-thread-pool');
+const constants = require('../src/constants');
 
 const {
   getBabelLoaderOptions,
   getMarkdownLoaders,
 } = require('./loader.config');
 
+const DEV = process.env.NODE_ENV !== 'production';
+
 const babelLoader = {
   loader: 'babel-loader',
-  options: getBabelLoaderOptions({ dev: true }),
+  options: getBabelLoaderOptions({ dev: DEV }),
 };
 
 module.exports = {
+  mode: process.env.NODE_ENV,
+
   output: {
     path: join(__dirname, '../dist'),
     filename: '[name]-[hash].js',
+    publicPath: constants.prefix,
   },
 
   resolve: {
     extensions: ['.js', '.pcss', '.md'],
-    mainFields: ['jsnext:main', 'main'],
     alias: Object.assign(
       {
-        // components: join(__dirname, '../src/components'),
         zent$: join(__dirname, '../zent'),
       },
       createAlias(resolve(__dirname, '../../packages/zent/src'))
@@ -40,12 +47,15 @@ module.exports = {
         use: 'url-loader',
       },
       {
-        test: /\.json$/,
-        use: 'json-loader',
-      },
-      {
         test: /\.html$/,
         use: 'html-loader',
+      },
+      {
+        test: /\.p?css$/,
+        use: [
+          DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'happypack/loader?id=styles',
+        ],
       },
       {
         test: /\.jsx?$/,
@@ -60,16 +70,12 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      VERSION: 'release',
     }),
 
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-    }),
+    new ProgressBarPlugin(),
 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
@@ -84,6 +90,11 @@ module.exports = {
       inject: false,
     }),
 
+    new MiniCssExtractPlugin({
+      filename: DEV ? '[name].css' : '[name]-[contenthash].css',
+      chunkFilename: DEV ? '[id].css' : '[id].[contenthash].css',
+    }),
+
     new HappyPack({
       id: 'js',
       threadPool: happyThreadPool,
@@ -95,7 +106,39 @@ module.exports = {
       threadPool: happyThreadPool,
       loaders: getMarkdownLoaders(babelLoader),
     }),
+
+    new HappyPack({
+      id: 'styles',
+      threadPool: happyThreadPool,
+      loaders: [
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            sourceMap: DEV,
+          },
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: DEV,
+          },
+        },
+      ],
+    }),
   ],
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
+  },
 
   node: {
     fs: 'empty',

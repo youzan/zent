@@ -74,6 +74,7 @@ export default class RichtextEditor extends DesignEditor {
   }
 
   static designType = 'rich_text';
+
   static designDescription = '富文本';
 
   static getInitialValue() {

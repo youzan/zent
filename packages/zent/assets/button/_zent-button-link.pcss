@@ -1,8 +1,15 @@
 @import './_zent-button-variable.pcss';
+@import '../theme/_font.pcss';
+@import '../theme/default.pcss';
 
 .zent-link {
   text-decoration: none;
   color: $btn-primary;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+
+  @include font-normal;
 
   &:link,
   &:visited,
@@ -12,16 +19,17 @@
 
   &:hover {
     color: $btn-primary-hover;
-    text-decoration: underline;
+    background: $theme-stroke-7;
   }
 
   &:active {
     color: $btn-primary-active;
+    background: $theme-stroke-7;
   }
 
   &.zent-link__disabled {
     color: $btn-gray;
-    text-decoration: none;
     cursor: not-allowed;
+    background: transparent;
   }
 }

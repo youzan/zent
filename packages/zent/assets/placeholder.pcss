@@ -5,7 +5,12 @@
 
   &--animate {
     animation: zent-placeholder 2s linear infinite;
-    background: linear-gradient(to right, $placeholder-animate-stop-1, $placeholder-animate-stop-2, $placeholder-animate-stop-3);
+    background: linear-gradient(
+      to right,
+      color($theme-stroke-7 a(70%)),
+      $theme-stroke-7,
+      $theme-stroke-8
+    );
     background-size: 300% 300%;
   }
 }

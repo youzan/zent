@@ -13,6 +13,7 @@ export default class Input extends PureComponent {
     className: PropTypes.string,
     prefix: PropTypes.string,
     type: PropTypes.string,
+    size: PropTypes.oneOf(['large', 'normal', 'small']),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
@@ -37,9 +38,14 @@ export default class Input extends PureComponent {
     readOnly: false,
     prefix: 'zent',
     type: 'text',
+    size: 'normal',
     autoFocus: false,
     autoSelect: false,
     showClear: false,
+  };
+
+  state = {
+    hasFocus: false,
   };
 
   componentDidMount() {
@@ -79,6 +85,24 @@ export default class Input extends PureComponent {
     if (onKeyDown) onKeyDown(evt);
   };
 
+  handleOnFocus = evt => {
+    this.setState({
+      hasFocus: true,
+    });
+
+    const { onFocus } = this.props;
+    onFocus && onFocus(evt);
+  };
+
+  handleOnBlur = evt => {
+    this.setState({
+      hasFocus: false,
+    });
+
+    const { onBlur } = this.props;
+    onBlur && onBlur(evt);
+  };
+
   clearInput = evt => {
     const { onChange } = this.props;
 
@@ -107,6 +131,7 @@ export default class Input extends PureComponent {
       prefix,
       className,
       type,
+      size,
       onChange,
       value,
       showClear,
@@ -114,6 +139,7 @@ export default class Input extends PureComponent {
       disabled,
       readOnly,
     } = this.props;
+    const { hasFocus } = this.state;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
     const editable = !(disabled || readOnly);
@@ -124,6 +150,8 @@ export default class Input extends PureComponent {
         [`${prefix}-input-wrapper__not-editable`]: !editable,
         [`${prefix}-textarea-wrapper`]: isTextarea,
         [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore),
+        [`${prefix}-input--size-${size}`]: true,
+        [`${prefix}-input--has-focus`]: hasFocus,
       },
       className
     );
@@ -143,6 +171,9 @@ export default class Input extends PureComponent {
     ]);
 
     if (isTextarea) {
+      inputProps.onBlur = this.handleOnBlur;
+      inputProps.onFocus = this.handleOnFocus;
+
       return (
         <Textarea
           wrapClass={wrapClass}
@@ -168,16 +199,16 @@ export default class Input extends PureComponent {
           {...inputProps}
           value={value}
           onKeyDown={this.handleKeyDown}
+          onFocus={this.handleOnFocus}
+          onBlur={this.handleOnBlur}
         />
-        {isFunction(onChange) &&
-          showClear &&
-          value && (
-            <Icon
-              type="close-circle"
-              onClick={this.clearInput}
-              onMouseDown={this.retainInputFocus}
-            />
-          )}
+        {isFunction(onChange) && showClear && value && (
+          <Icon
+            type="close-circle"
+            onClick={this.clearInput}
+            onMouseDown={this.retainInputFocus}
+          />
+        )}
         {addonAfter && (
           <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>
         )}

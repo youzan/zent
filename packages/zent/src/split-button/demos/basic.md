@@ -37,6 +37,14 @@ class Simple extends React.Component {
 		return (
 			<div>
 				<SplitButton
+					type="secondary"
+					dropdownData={list}
+					onClick={this.handleClick}
+					onSelect={this.handleSelect}
+				>
+					normal
+				</SplitButton>
+				<SplitButton
 					type="primary"
 					dropdownData={list}
 					onClick={this.handleClick}

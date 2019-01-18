@@ -129,20 +129,22 @@ describe('Tabs', () => {
       );
 
       onDelete = jest.fn().mockImplementationOnce(id => {
+        const { tabs } = this.state;
+
         this.setState({
-          tabs: this.state.tabs.reduce((tabs, t) => {
+          tabs: tabs.reduce((tbs, t) => {
             if (t !== id) {
-              tabs.push(t);
+              tbs.push(t);
             }
-            return tabs;
+            return tbs;
           }, []),
         });
       });
 
       onAdd = jest.fn().mockImplementationOnce(() =>
-        this.setState({
-          tabs: this.state.tabs.concat('bar'),
-        })
+        this.setState(state => ({
+          tabs: state.tabs.concat('bar'),
+        }))
       );
 
       render() {
