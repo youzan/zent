@@ -42,18 +42,23 @@ class Header extends PureComponent {
   getChildren = (column, props) => {
     const { prefix, sortBy, sortType } = props;
     const cn = classnames(`${prefix}-grid-thead-sort`, {
-      [`${prefix}-grid-thead-sort-${sortType}`]: sortType && (column.name === sortBy)
+      [`${prefix}-grid-thead-sort-${sortType}`]:
+        sortType && column.name === sortBy,
     });
 
     if (column.needSort) {
       return (
-        <div
-          className={`${prefix}-grid-thead-sort-btn`}
-        >
+        <div className={`${prefix}-grid-thead-sort-btn`}>
           {column.title}
           <span className={cn}>
-            <span onClick={() => this.onSort(column, props, 'asc')} className="caret-up" />
-            <span onClick={() => this.onSort(column, props, 'desc')} className="caret-down" />
+            <span
+              onClick={() => this.onSort(column, props, 'asc')}
+              className="caret-up"
+            />
+            <span
+              onClick={() => this.onSort(column, props, 'desc')}
+              className="caret-down"
+            />
           </span>
         </div>
       );

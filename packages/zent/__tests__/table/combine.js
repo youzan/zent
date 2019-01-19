@@ -19,18 +19,24 @@ describe('Combine', () => {
 
   it('pagination render', () => {
     expect(wrapper.find('.zent-pagination').length).toBe(1);
-    expect(wrapper.find('.zent-pagination .pagination-list').length).toBe(1);
+    expect(
+      wrapper.find('.zent-pagination .zent-pagination-page-list--normal').length
+    ).toBe(1);
     expect(
       wrapper
-        .find('.zent-pagination .pagination-list .pager')
+        .find(
+          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-arrow-button'
+        )
         .first()
-        .hasClass('pager--disabled')
+        .hasClass('zent-btn-disabled')
     ).toBeTruthy();
     expect(
       wrapper
-        .find('.zent-pagination .pagination-list .pager')
-        .at(1)
-        .hasClass('pager--current')
+        .find(
+          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
+        )
+        .first()
+        .hasClass('zent-btn-primary')
     ).toBeTruthy();
   });
 
@@ -56,39 +62,44 @@ describe('Combine', () => {
   });
 
   it('pagination click change', () => {
-    expect(wrapper.find('.pager__input').prop('value')).toBe('1');
-
     wrapper
-      .find('.zent-pagination .pagination-list .pager')
+      .find(
+        '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
+      )
       .at(2)
       .simulate('click');
 
     expect(
       wrapper
-        .find('.zent-pagination .pagination-list .pager')
+        .find(
+          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
+        )
         .at(2)
-        .hasClass('pager--current')
+        .hasClass('zent-btn-primary')
     ).toBeTruthy();
-    expect(wrapper.find('.pager__input').prop('value')).toBe('2');
   });
 
   it('pagination current change', () => {
-    expect(wrapper.find('.pager__input').prop('value')).toBe('1');
-
     wrapper.setState({ current: 3 });
 
-    expect(wrapper.find('.pager__input').prop('value')).toBe('3');
     expect(
       wrapper
-        .find('.zent-pagination .pagination-list .pager')
-        .at(3)
-        .hasClass('pager--current')
+        .find(
+          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
+        )
+        .at(2)
+        .hasClass('zent-btn-primary')
     ).toBeTruthy();
   });
 
   it('pagination total info', () => {
     wrapper.setState({ total: 1000 });
-    expect(wrapper.find('.total').text()).toContain('1000');
+    expect(
+      wrapper
+        .find('.zent-pagination-count')
+        .at(0)
+        .text()
+    ).toContain('1000');
   });
 
   it('selectRows', () => {
