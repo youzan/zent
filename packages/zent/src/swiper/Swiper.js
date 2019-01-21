@@ -223,6 +223,8 @@ export default class Swiper extends PureComponent {
     this.setState({ currentIndex: index });
   };
 
+  handleResize = throttle(this.init, 1000 / 60);
+
   componentWillReceiveProps(nextProps) {
     const { children } = this.props;
     const { children: newChildren } = nextProps;
@@ -334,7 +336,7 @@ export default class Swiper extends PureComponent {
             onDotsClick={this.handleDotsClick}
           />
         )}
-        <WindowResizeHandler onResize={throttle(this.init, 1000 / 60)} />
+        <WindowResizeHandler onResize={this.handleResize} />
       </div>
     );
   }
