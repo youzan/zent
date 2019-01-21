@@ -50,7 +50,7 @@ declare module 'zent/lib/grid' {
     prefix?: string
     pageInfo?: {
       current?: number
-      totalItem?: number
+      total?: number
       pageSize?: number
     }
     onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => any
