@@ -1,5 +1,5 @@
-import Row from './Row';
-import Col from './Col';
+import Row from './components/Row';
+import Col from './components/Col';
 
 const Layout = {
   Row,

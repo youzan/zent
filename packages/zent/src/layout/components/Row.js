@@ -4,6 +4,7 @@ import cx from 'classnames';
 
 export default class Row extends PureComponent {
   static propTypes = {
+    gutter: PropTypes.number,
     className: PropTypes.string,
     prefix: PropTypes.string,
   };
