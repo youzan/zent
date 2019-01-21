@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-
+import Button from 'button';
 import Combine from './comp/combine';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -28,6 +28,7 @@ describe('Combine', () => {
           '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-arrow-button'
         )
         .first()
+        .childAt(0)
         .hasClass('zent-btn-disabled')
     ).toBeTruthy();
     expect(
@@ -36,6 +37,7 @@ describe('Combine', () => {
           '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
         )
         .first()
+        .childAt(0)
         .hasClass('zent-btn-primary')
     ).toBeTruthy();
   });
@@ -75,6 +77,7 @@ describe('Combine', () => {
           '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
         )
         .at(2)
+        .childAt(0)
         .hasClass('zent-btn-primary')
     ).toBeTruthy();
   });
@@ -87,7 +90,9 @@ describe('Combine', () => {
         .find(
           '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
         )
+        .find(Button)
         .at(2)
+        .childAt(0)
         .hasClass('zent-btn-primary')
     ).toBeTruthy();
   });
