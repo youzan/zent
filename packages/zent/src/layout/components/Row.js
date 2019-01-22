@@ -2,29 +2,70 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
+import ConfigContext from './ConfigContext';
+
 export default class Row extends PureComponent {
   static propTypes = {
-    gutter: PropTypes.number,
+    justify: PropTypes.oneOf([
+      'start',
+      'end',
+      'center',
+      'space-around',
+      'space-between',
+      'space-evenly',
+    ]),
+    align: PropTypes.oneOf(['start', 'center', 'end']),
     className: PropTypes.string,
-    prefix: PropTypes.string,
   };
 
   static defaultProps = {
-    prefix: 'zent',
+    justify: 'start',
+    align: 'start',
   };
 
   render() {
-    const { className, prefix, ...others } = this.props;
+    const { className, style, justify, align, ...others } = this.props;
 
-    const classes = cx({
-      [`${prefix}-row`]: true,
-      [className]: className,
-    });
+    const classes = cx(
+      {
+        'zent-row': true,
+      },
+      `zent-row-justify-${justify}`,
+      `zent-row-align-${align}`,
+      className
+    );
 
     return (
-      <div {...others} className={classes}>
-        {this.props.children}
-      </div>
+      <ConfigContext.Consumer>
+        {config => {
+          const { colGutter, rowGutter } = config;
+          let rowStyles = style;
+
+          if (colGutter > 0) {
+            const width = -(colGutter / 2);
+            rowStyles = {
+              ...rowStyles,
+              marginLeft: width,
+              marginRight: width,
+            };
+          }
+
+          if (rowGutter > 0) {
+            const height = rowGutter / 2;
+            rowStyles = {
+              ...rowStyles,
+              paddingTop: height,
+              paddingBottom: height,
+            };
+          }
+
+          return (
+            <div {...others} className={classes} style={rowStyles}>
+              {this.props.children}
+            </div>
+          );
+        }}
+      </ConfigContext.Consumer>
     );
   }
 }
