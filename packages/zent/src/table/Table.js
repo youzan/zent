@@ -182,19 +182,11 @@ export default class Table extends PureComponent {
     this.wrapPropsOnChange(conf);
   };
 
-  onPageChange = current => {
-    this.wrapPropsOnChange({
-      current,
-    });
+  onPageChange = data => {
+    this.wrapPropsOnChange(data);
     if (this.props.autoScroll) {
       this.scrollToTop(400);
     }
-  };
-
-  onPageSizeChange = pageSize => {
-    this.wrapPropsOnChange({
-      pageSize,
-    });
   };
 
   /**

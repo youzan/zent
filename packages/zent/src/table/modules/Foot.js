@@ -48,13 +48,7 @@ export default class Foot extends PureComponent {
   };
 
   render() {
-    const {
-      onPageSizeChange,
-      onPageChange,
-      batchComponents,
-      selection,
-      current,
-    } = this.props;
+    const { onPageChange, batchComponents, selection, current } = this.props;
 
     let pageInfo = this.props.pageInfo || {};
     let { totalItem, pageSize, total, limit, maxPageToShow } = pageInfo;
@@ -97,7 +91,6 @@ export default class Foot extends PureComponent {
                 pageSize={isNil(pageSize) ? limit : pageSize}
                 maxPageToShow={maxPageToShow}
                 onChange={onPageChange}
-                onPageSizeChange={onPageSizeChange}
               />
             )}
           </div>

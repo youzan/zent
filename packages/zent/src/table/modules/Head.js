@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import Checkbox from 'checkbox';
-
+import Icon from 'icon';
+import cx from 'classnames';
 import helper from '../helper';
 
 let rect;
@@ -71,34 +72,44 @@ export default class Head extends PureComponent {
     }
   };
 
-  getChild(item) {
+  renderTitle(item) {
+    const { sortType, sortBy } = this.props;
+
     if (item.needSort) {
+      const isActiveCol = sortBy === item.name;
       return (
-        <a onClick={this.sort.bind(this, item)}>
-          {item.title}
-          {item.name === this.props.sortBy && (
-            <span className={this.props.sortType} />
-          )}
-        </a>
+        <div className={cx('sort-col', { 'sort-col--active': isActiveCol })}>
+          <span className="sort-col-title">{item.title}</span>
+          <span className="sort-col-icon">
+            <Icon
+              type="caret-up"
+              className={cx({
+                'sort-active': isActiveCol && sortType === 'asc',
+              })}
+              onClick={() => this.sort(item, 'asc')}
+            />
+            <Icon
+              type="caret-down"
+              className={cx({
+                'sort-active': isActiveCol && sortType === 'desc',
+              })}
+              onClick={() => this.sort(item, 'desc')}
+            />
+          </span>
+        </div>
       );
     }
     return item.title;
   }
 
-  sort(item) {
-    let sortType;
+  sort = (item, sortType) => {
     let name = item.name;
-
-    sortType = 'desc'; // desc sort by default
-    if (name === this.props.sortBy) {
-      sortType = this.props.sortType === 'desc' ? 'asc' : 'desc'; // toggble current sortType
-    }
 
     this.props.onSort({
       sortBy: name,
       sortType,
     });
-  }
+  };
 
   onSelect = e => {
     let isChecked = false;
@@ -167,7 +178,7 @@ export default class Head extends PureComponent {
         <div key={index} className={cellClass} style={styleObj}>
           <div className="cell__child-container">
             {this.renderCheckBox(index, selection)}
-            {this.getChild(item)}
+            {this.renderTitle(item)}
           </div>
         </div>
       );

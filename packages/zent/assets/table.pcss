@@ -47,6 +47,50 @@ $orange: $theme-error-3;
       border-top: none;
       border-bottom: 1px solid $theme-stroke-6;
       background: $theme-stroke-7;
+
+      .cell {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+
+    .sort-col {
+      .sort-col-icon {
+        width: 16px;
+        height: 24px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 4px;
+        transform: scale(0.75);
+
+        .zenticon {
+          display: none;
+          font-size: 12px;
+          color: $theme-stroke-3;
+          cursor: pointer;
+
+          &:last-child {
+            margin-top: 4px;
+          }
+
+          &.sort-active {
+            color: $theme-primary-2;
+          }
+        }
+      }
+
+      &:hover {
+        .sort-col-icon .zenticon {
+          display: block;
+          opacity: 0.8;
+        }
+      }
+
+      &--active {
+        .sort-col-icon .zenticon {
+          display: block;
+        }
+      }
     }
   }
 
@@ -95,7 +139,7 @@ $orange: $theme-error-3;
     }
 
     .cell {
-      min-height: 50px;
+      min-height: 56px;
     }
   }
 
@@ -136,9 +180,9 @@ $orange: $theme-error-3;
     flex: auto;
     flex-basis: 0;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 8px 10px;
     padding-left: 0;
-    min-height: 40px;
+    min-height: 56px;
     align-items: center;
     text-align: left;
     font-size: 12px;
