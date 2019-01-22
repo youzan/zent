@@ -54,7 +54,7 @@ class Pagination extends React.Component {
     super(props);
     this.state = {
       limit: 10,
-      current: 0,
+      current: 1,
       total: 101,
       maxPageToShow: 8,
       pageSize: 20,
@@ -82,7 +82,8 @@ class Pagination extends React.Component {
           current: this.state.current,
           maxPageToShow: this.state.maxPageToShow,
           total: this.state.total,
-          pageSize: [20, { value: 30, isCurrent: true }],
+					pageSize: 20,
+					pageSizeOptions: [20, 30]
         }}
       />
     );

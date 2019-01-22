@@ -87,9 +87,9 @@ describe('Head in Table', () => {
     );
 
     // BUG: unused branch Head.js line 82
-    expect(wrapper.find('Head a .desc').length).toBe(1);
+    expect(wrapper.find('Head .sort-col--active').length).toBe(1);
     wrapper.setProps({ sortBy: 'foo' });
-    expect(wrapper.find('Head a .desc').length).toBe(0);
+    expect(wrapper.find('Head .sort-col--active').length).toBe(0);
     // wrapper.find('Head a .desc').simulate('click');
   });
 });
