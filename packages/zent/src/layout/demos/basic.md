@@ -9,52 +9,69 @@ en-US:
 ```js
 import { Layout } from 'zent';
 
-const { Row, Col, Grid, ConfigProvider } = Layout;
+const { Row, Col, Grid } = Layout;
 
 ReactDOM.render(
-	<ConfigProvider value={{ rowGutter: 16, colGutter: 0 }}>
-		<Grid className="layout-demo-basic">
-			<Row>
-				<Col span={24}>col-24</Col>
-			</Row>
+	<Grid className="layout-demo-basic">
+		<Row>
+			<Col span={24}>
+				<div className="layout-demo-cell">col-24</div>
+			</Col>
+		</Row>
 
-			<Row>
-				<Col span={8}>col-8</Col>
-				<Col span={8}>col-8</Col>
-				<Col span={8}>col-8</Col>
-			</Row>
+		<Row>
+			<Col span={8}>
+				<div className="layout-demo-cell">col-8</div>
+			</Col>
+			<Col span={8}>
+				<div className="layout-demo-cell">col-8</div>
+			</Col>
+			<Col span={8}>
+				<div className="layout-demo-cell">col-8</div>
+			</Col>
+		</Row>
 
-			<Row>
-				<Col span={8} order={3}>col-8 order-3</Col>
-				<Col span={8} order={2}>col-8 order-2</Col>
-				<Col span={8} order={1}>col-8 order-1</Col>
-			</Row>
+		<Row>
+			<Col span={8} order={3}>
+				<div className="layout-demo-cell">col-8 order-3</div>
+			</Col>
+			<Col span={8} order={2}>
+				<div className="layout-demo-cell">col-8 order-2</div>
+			</Col>
+			<Col span={8} order={1}>
+				<div className="layout-demo-cell">col-8 order-1</div>
+			</Col>
+		</Row>
 
-			<Row>
-				<Col span={8}>col-8</Col>
-				<Col span={8} offset={8}>
-					col-8 offset-8
-				</Col>
-			</Row>
+		<Row>
+			<Col span={8}>
+				<div className="layout-demo-cell">col-8</div>
+			</Col>
+			<Col span={8} offset={8}>
+				<div className="layout-demo-cell">col-8 offset-8</div>
+			</Col>
+		</Row>
 
-			<Row justify="center">
-				<Col span={4}>col-4</Col>
-				<Col span={4} offset={4}>
-					col-4 offset-4
-				</Col>
-				<Col span={4} offset={4}>
-					col-4 offset-4
-				</Col>
-			</Row>
-		</Grid>
-	</ConfigProvider>,
+		<Row justify="center">
+			<Col span={4}>
+				<div className="layout-demo-cell">col-4</div>
+			</Col>
+			<Col span={4} offset={4}>
+				<div className="layout-demo-cell">col-4 offset-4</div>
+			</Col>
+			<Col span={4} offset={4}>
+				<div className="layout-demo-cell">col-4 offset-4</div>
+			</Col>
+		</Row>
+	</Grid>,
 	mountNode
 );
 ```
 
 <style type="text/css">
-	.layout-demo-basic .zent-col {
-	    background: rgba(0, 0, 222, 0.5);
+	.layout-demo-cell {
+	    background: #155bd4;
+			opacity: 0.8;
 	    color: #fff;
 	    text-align: center;
 			line-height: 64px;

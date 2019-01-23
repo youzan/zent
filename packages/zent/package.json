@@ -35,6 +35,7 @@
     "autosize": "^4.0.0",
     "classnames": "^2.2.5",
     "date-fns": "^1.29.0",
+    "enquire.js": "^2.1.6",
     "es6-error": "4.0.x",
     "fecha": "2.3.x",
     "keycode": "^2.1.9",

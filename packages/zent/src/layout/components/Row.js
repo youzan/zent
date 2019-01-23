@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
+import BreakpointContext from './BreakpointContext';
+import { getValueForBreakpoint } from './screen-breakpoints';
 
 export default class Row extends PureComponent {
   static propTypes = {
@@ -36,36 +38,47 @@ export default class Row extends PureComponent {
     );
 
     return (
-      <ConfigContext.Consumer>
-        {config => {
-          const { colGutter, rowGutter } = config;
-          let rowStyles = style;
+      <BreakpointContext.Consumer>
+        {breakpoints => (
+          <ConfigContext.Consumer>
+            {config => {
+              const colGutter = getValueForBreakpoint(
+                breakpoints,
+                config.colGutter
+              );
+              const rowGutter = getValueForBreakpoint(
+                breakpoints,
+                config.rowGutter
+              );
+              let rowStyles = style;
 
-          if (colGutter > 0) {
-            const width = -(colGutter / 2);
-            rowStyles = {
-              ...rowStyles,
-              marginLeft: width,
-              marginRight: width,
-            };
-          }
+              if (colGutter && colGutter > 0) {
+                const width = -(colGutter / 2);
+                rowStyles = {
+                  ...rowStyles,
+                  marginLeft: width,
+                  marginRight: width,
+                };
+              }
 
-          if (rowGutter > 0) {
-            const height = rowGutter / 2;
-            rowStyles = {
-              ...rowStyles,
-              paddingTop: height,
-              paddingBottom: height,
-            };
-          }
+              if (rowGutter && rowGutter > 0) {
+                const height = rowGutter / 2;
+                rowStyles = {
+                  ...rowStyles,
+                  paddingTop: height,
+                  paddingBottom: height,
+                };
+              }
 
-          return (
-            <div {...others} className={classes} style={rowStyles}>
-              {this.props.children}
-            </div>
-          );
-        }}
-      </ConfigContext.Consumer>
+              return (
+                <div {...others} className={classes} style={rowStyles}>
+                  {this.props.children}
+                </div>
+              );
+            }}
+          </ConfigContext.Consumer>
+        )}
+      </BreakpointContext.Consumer>
     );
   }
 }

@@ -3,12 +3,7 @@
   "verbose": true,
   "automock": false,
   "collectCoverage": true,
-  "coverageReporters": [
-    "text",
-    "text-summary",
-    "lcov",
-    "html"
-  ],
+  "coverageReporters": ["text", "text-summary", "lcov", "html"],
   "coverageThreshold": {
     "global": {
       "statements": 96,
@@ -42,7 +37,8 @@
     "<rootDir>/src/placeholder",
     "<rootDir>/src/collapse",
     "<rootDir>/src/select",
-    "<rootDir>/src/datetimepicker"
+    "<rootDir>/src/datetimepicker",
+    "<rootDir>/src/layout"
   ],
   "moduleNameMapper": {
     "^affix$": "<rootDir>/src/affix",

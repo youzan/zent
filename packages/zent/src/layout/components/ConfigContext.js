@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LayoutConfigContext = React.createContext({
-  rowGutter: 8,
+  rowGutter: 0,
   colGutter: 0,
 });
 

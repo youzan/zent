@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import omitBy from 'lodash/omitBy';
 
 import ConfigContext from './ConfigContext';
+import Breakpoint from './Breakpoint';
+import BreakpointContext from './BreakpointContext';
+import { BREAKPOINTS } from './screen-breakpoints';
 
-export default class Layout extends Component {
+export default class Grid extends Component {
   static propTypes = {
     className: PropTypes.string,
+  };
+
+  state = {
+    breakpoints: [],
   };
 
   render() {
@@ -30,14 +38,33 @@ export default class Layout extends Component {
           return (
             <div
               {...others}
-              className={cx('zent-layout', className)}
+              className={cx('zent-layout-grid', className)}
               style={layoutStyles}
             >
-              {this.props.children}
+              <BreakpointContext.Provider value={this.state.breakpoints}>
+                {this.props.children}
+              </BreakpointContext.Provider>
+              <Breakpoint
+                breakpoints={BREAKPOINTS}
+                onChange={this.onBreakpointChange}
+              />
             </div>
           );
         }}
       </ConfigContext.Consumer>
     );
   }
+
+  onBreakpointChange = delta => {
+    this.setState(prevState => {
+      const { breakpoints } = prevState;
+
+      return {
+        breakpoints: omitBy(
+          { ...breakpoints, ...delta },
+          (matched, brk) => !matched || delta[brk] === false
+        ),
+      };
+    });
+  };
 }
