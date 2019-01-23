@@ -1,5 +1,3 @@
-console.log(process.env.VERSION);
-
 exports.prefix = getPrefix();
 
 function getPrefix() {
