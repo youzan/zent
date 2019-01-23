@@ -38,10 +38,9 @@ $close-icon-size: 14px;
     }
 
     .zent-alert-close-btn {
-      width: $close-icon-size;
-
       @include vertical-center;
 
+      width: $close-icon-size;
       font-family: sans-serif;
       font-size: 18px;
       text-align: center;

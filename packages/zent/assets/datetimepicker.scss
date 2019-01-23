@@ -1,5 +1,5 @@
 @import './theme/default';
-@import './theme/_font';
+@import './theme/font';
 
 $active_color: $theme-primary-2;
 $light_blue: $theme-primary-4;
@@ -437,7 +437,7 @@ $input_width: 190px;
 
         &--in-range {
           background: $light_blue;
-          border: none;
+          border: 0;
           border-radius: 0;
 
           &:before {
@@ -465,7 +465,7 @@ $input_width: 190px;
 
         &--in-selected {
           background: $light_blue;
-          border: none;
+          border: 0;
           border-radius: 0;
 
           &:before {
@@ -585,7 +585,7 @@ $input_width: 190px;
           border-right: 1px solid $theme-stroke-4;
 
           &:last-child {
-            border-right: none;
+            border-right: 0;
           }
         }
       }
@@ -651,7 +651,7 @@ $input_width: 190px;
 
       &__footer {
         .panel__footer {
-          border-top: none;
+          border-top: 0;
         }
       }
     }

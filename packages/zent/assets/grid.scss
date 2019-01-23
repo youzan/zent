@@ -110,8 +110,8 @@ $border-color: $theme-stroke-6;
     overflow: hidden;
 
     .zent-grid-fixed {
-      border-left: none;
-      border-right: none;
+      border-left: 0;
+      border-right: 0;
     }
   }
 
@@ -120,7 +120,7 @@ $border-color: $theme-stroke-6;
     box-shadow: 4px 0 4px rgba(black, 0.2);
 
     .zent-grid-header .zent-grid-table {
-      border-right: none;
+      border-right: 0;
     }
 
     .zent-grid-body {
@@ -136,11 +136,11 @@ $border-color: $theme-stroke-6;
     box-shadow: -4px 0 4px rgba(black, 0.2);
 
     .zent-grid-header .zent-grid-table {
-      border-left: none;
+      border-left: 0;
     }
 
     .zent-grid-body .zent-grid-table {
-      border-left: none;
+      border-left: 0;
     }
 
     .zent-grid-body {

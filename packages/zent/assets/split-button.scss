@@ -10,7 +10,7 @@
   &__main {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-right: none;
+    border-right: 0;
   }
 
   &__dropdown {
@@ -47,7 +47,7 @@
   .zent-btn-loading {
     &:hover,
     &:active {
-      border-right: none;
+      border-right: 0;
     }
   }
 

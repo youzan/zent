@@ -1,4 +1,4 @@
-@import '../../_constants.scss';
+@import '../../constants';
 
 .zandoc-react-search-box {
   &-popover-wrapper {
@@ -48,7 +48,7 @@
       background: #59f;
 
       .zandoc-react-search-box-result-item__title {
-        color: white;
+        color: #fff;
       }
 
       .zandoc-react-search-box-result-item__subtitle {

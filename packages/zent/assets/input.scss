@@ -1,5 +1,5 @@
 @import './theme/default';
-@import './theme/_font';
+@import './theme/font';
 $defaultBorderColor: $theme-stroke-5;
 $errorBorderColor: $theme-error-4;
 $borderRadius: 2px;
@@ -182,6 +182,7 @@ $large-size: 40px;
 
 $placeholderColor: $theme-stroke-4;
 
+// sass-lint:disable no-vendor-prefixes
 .zent-input::-webkit-input-placeholder {
   // WebKit browsers
   color: $placeholderColor;
@@ -221,3 +222,4 @@ $placeholderColor: $theme-stroke-4;
   // Internet Explorer 10+
   color: $placeholderColor;
 }
+// sass-lint:enable no-vendor-prefixes

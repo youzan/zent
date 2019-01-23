@@ -1,14 +1,16 @@
 @import './theme/default';
-@import './theme/_font';
+@import './theme/font';
 $size: 16px;
 
 .zent-checkbox-group {
-  display: inline-block;
-
   @include font-normal;
+
+  display: inline-block;
 }
 
 .zent-checkbox-wrap {
+  @include font-normal;
+
   display: inline-block;
   cursor: pointer;
   font-weight: $font-weight-normal;
@@ -16,8 +18,6 @@ $size: 16px;
   padding: 0;
   margin-right: 15px;
   vertical-align: middle;
-
-  @include font-normal;
 
   &.zent-checkbox-disabled {
     cursor: not-allowed;
@@ -115,7 +115,7 @@ $size: 16px;
         left: 2px;
         width: 10px;
         height: 2px;
-        border: none;
+        border: 0;
         background: $theme-primary-2;
         transform: rotate(0deg);
       }

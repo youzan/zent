@@ -79,7 +79,7 @@
   }
 
   &:empty {
-    margin-top: 0 !important;
+    margin-top: 0;
   }
 }
 
@@ -114,7 +114,7 @@
     padding: 0 0 0 130px;
     margin: 25px 0 10px;
     background: none;
-    border: none;
+    border: 0;
   }
 
   .zent-form__checkbox-group {

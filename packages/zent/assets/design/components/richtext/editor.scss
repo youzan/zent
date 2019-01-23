@@ -48,6 +48,7 @@
       width: auto;
     }
 
+    // sass-lint:disable no-ids
     #preview {
       min-height: 280px;
       background-color: $theme-stroke-5;
@@ -59,6 +60,7 @@
         padding-top: 120px;
       }
     }
+    // sass-lint:enable no-ids
   }
 
   .btn-primary {
@@ -134,8 +136,8 @@
     }
 
     span.pp {
-      width: 24px !important;
-      height: 24px !important;
+      width: 24px;
+      height: 24px;
       background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/fface.gif?v=1.1');
       background-repeat: no-repeat;
     }
@@ -146,8 +148,8 @@
     }
 
     span.qq {
-      width: 24px !important;
-      height: 24px !important;
+      width: 24px;
+      height: 24px;
       background: url('https://b.yzcdn.cn/v2/image/ueditor_emotion/qq.gif?v=1.1');
       background-repeat: no-repeat;
     }

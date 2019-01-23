@@ -1,6 +1,6 @@
 @import './theme/default';
-@import './theme/_font';
-@import './theme/_timing-functions';
+@import './theme/font';
+@import './theme/timing-functions';
 
 $border-style: 1px solid $theme-stroke-6;
 $content-padding-h: 36px;
@@ -48,13 +48,13 @@ $content-padding-h: 36px;
   }
 
   &__content-box {
+    @include font-normal;
+
     padding: 0 $content-padding-h;
     border-bottom: $border-style;
     background: $theme-stroke-9;
     overflow: hidden;
     box-sizing: border-box;
-
-    @include font-normal;
   }
 
   &__content {

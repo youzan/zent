@@ -1,5 +1,5 @@
 @import './theme/default';
-@import './theme/_font';
+@import './theme/font';
 
 // FIXME: these values and ARROW_OFFSET_* in postion.js are interrelated
 $arrow-offset-h: 12px;
@@ -8,12 +8,12 @@ $arrow-size: 6px;
 $arrow-cover-size: 11px;
 
 .zent-pop {
+  @include font-normal;
+
   border-radius: 2px;
   box-shadow: $shadow-spec-layer;
   background-color: $theme-stroke-9;
   z-index: 2000;
-
-  @include font-normal;
 
   .zent-popover-content {
     min-width: 200px;
@@ -30,12 +30,12 @@ $arrow-cover-size: 11px;
   }
 
   .zent-pop-header {
+    @include font-large;
+
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     padding-bottom: 0;
     font-weight: $font-weight-bold;
-
-    @include font-large;
   }
 
   .zent-pop-buttons {

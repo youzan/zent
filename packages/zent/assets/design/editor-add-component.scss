@@ -1,4 +1,4 @@
-@import './_fn';
+@import './fn';
 @import '../theme/default';
 
 .zent-design-editor-add-component {
@@ -41,7 +41,6 @@
       border-radius: 0;
       height: 100%;
       width: 100%;
-      display: inline-block;
       display: flex;
       justify-content: center;
       align-items: center;

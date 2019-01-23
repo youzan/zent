@@ -1,11 +1,10 @@
-@import './_constants.scss';
+@import './constants';
 
 body {
   background-color: #fff;
   text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  font-smoothing: antialiased; /* stylelint-disable-line */
-  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; // sass-lint:disable-line no-vendor-prefixes
+  -webkit-font-smoothing: antialiased; // sass-lint:disable-line no-vendor-prefixes
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
 }
@@ -79,8 +78,7 @@ code[class*='language-'] {
       position: relative;
       margin: 20px 0 10px;
       color: rgba(51, 51, 51, 0.9);
-      font-family: Dosis, Source Sans Pro, PingFang SC, Helvetica Neue, Arial,
-        sans-serif;
+      font-family: $code-font-family;
 
       &:hover a:first-child {
         opacity: 0.4;

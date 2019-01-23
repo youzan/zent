@@ -26,13 +26,6 @@
   color: #e33;
 }
 
-.zandoc-react-loading-ripple {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-}
-
 .zandoc-react-loading-ripple div {
   box-sizing: content-box;
   position: absolute;
@@ -54,7 +47,9 @@
 }
 
 .zandoc-react-loading-ripple {
-  width: 200px !important;
-  height: 200px !important;
+  position: relative;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
   transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
 }

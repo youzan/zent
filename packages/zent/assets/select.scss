@@ -124,9 +124,11 @@
   max-height: none;
   line-height: 24px;
 
+  // sass-lint:disable no-vendor-prefixes
   &::-webkit-scrollbar {
     display: none;
   }
+  // sass-lint:enable no-vendor-prefixes
 
   &.tags__empty {
     padding: 6px 25px;

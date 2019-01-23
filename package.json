@@ -8,7 +8,7 @@
     "test-component": "./scripts/test-component.sh",
     "lint": "yarn lint-js && yarn lint-style",
     "lint-js": "eslint packages/*/src packages/*/__tests__ site/src/ site/webpack site/zent site/scripts",
-    "lint-style": "stylelint 'site/src/**/*.scss' 'packages/zent/assets/**/*.scss'",
+    "lint-style": "sass-lint -vq",
     "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
     "bootstrap": "./scripts/bootstrap.sh",
     "format": "prettier --write",
@@ -39,7 +39,7 @@
     ],
     "*.scss": [
       "yarn format",
-      "stylelint",
+      "sass-lint -vq",
       "git add"
     ]
   },
@@ -96,7 +96,6 @@
     "prettier": "^1.15.2",
     "react": "16.7.x",
     "react-dom": "16.7.x",
-    "stylelint": "^7.10.1",
-    "stylelint-config-standard": "^16.0.0"
+    "sass-lint": "^1.12.1"
   }
 }

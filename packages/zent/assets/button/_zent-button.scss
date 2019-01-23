@@ -1,6 +1,6 @@
 @import '../theme/default';
-@import '../theme/_font';
-@import './_zent-button-variable';
+@import '../theme/font';
+@import './zent-button-variable';
 
 .zent-btn {
   display: inline-block;
@@ -54,7 +54,7 @@
   &[type='button'],
   &[type='reset'],
   &[type='submit'] {
-    -webkit-appearance: none;
+    appearance: none;
   }
 }
 

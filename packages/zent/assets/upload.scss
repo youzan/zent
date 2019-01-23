@@ -11,8 +11,8 @@
     display: inline;
   }
 
-  .zent-dialog-r {
-    min-width: 760px !important;
+  &.zent-dialog-r {
+    min-width: 760px !important; // sass-lint:disable-line no-important
 
     &-footer {
       margin-top: 0;
@@ -40,6 +40,10 @@
   position: relative;
   padding: 0;
   overflow-y: auto;
+  width: 760px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
 
   ul,
   li {
@@ -47,13 +51,6 @@
     margin: 0;
     padding: 0;
   }
-}
-
-.zent-upload-container {
-  width: 760px;
-  height: 480px;
-  display: flex;
-  flex-direction: column;
 }
 
 .zent-upload-network-image-region,
@@ -215,14 +212,14 @@
       }
 
       &__name {
+        @include ellipsis;
+
         position: absolute;
         width: 200px;
         height: 18px;
         line-height: 18px;
         top: 10px;
         left: 60px;
-
-        @include ellipsis;
       }
 
       &__createtime {

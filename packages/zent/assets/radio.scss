@@ -1,17 +1,20 @@
 @import './theme/default';
-@import './theme/_font';
-@import './theme/_timing-functions';
+@import './theme/font';
+@import './theme/timing-functions';
+
 $outer-circle-size: 16px;
 $inner-circle-size: 8px;
 $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 
 .zent-radio-group {
-  display: inline-block;
-
   @include font-normal;
+
+  display: inline-block;
 }
 
 .zent-radio-wrap {
+  @include font-normal;
+
   display: inline-block;
   cursor: pointer;
   font-weight: $font-weight-normal;
@@ -19,12 +22,6 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   padding: 0;
   margin-right: 15px;
   vertical-align: middle;
-
-  @include font-normal;
-
-  &.zent-radio-disabled {
-    cursor: not-allowed;
-  }
 
   &:last-child {
     margin-right: 0;
@@ -104,6 +101,8 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   }
 
   &.zent-radio-disabled {
+    cursor: not-allowed;
+
     & > .zent-radio {
       & > .zent-radio-inner {
         background-color: $theme-stroke-8;
@@ -135,6 +134,8 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
 }
 
 .zent-radio-button {
+  @include font-normal;
+
   color: $theme-stroke-3;
   border: 1px solid $theme-stroke-5;
   position: relative;
@@ -142,8 +143,6 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   display: inline-block;
   padding: 5px 10px;
   transition: all 100ms $timing-fn-ease-in;
-
-  @include font-normal;
 
   > input[type='radio'] {
     appearance: none;

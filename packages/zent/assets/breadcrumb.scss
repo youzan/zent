@@ -17,14 +17,10 @@
     &::after {
       content: '/';
       display: inline-block;
-      vertical-align: middle;
       color: $theme-stroke-3;
       margin: 0 8px;
     }
-  }
 
-  span,
-  a {
     &:last-child {
       &::after {
         content: '';
@@ -55,7 +51,7 @@
       line-height: 48px;
       padding: 0 20px;
       min-width: 0;
-      border: none;
+      border: 0;
       background: transparent;
       font-size: 14px;
       color: $theme-stroke-3;

@@ -1,4 +1,5 @@
 @import './theme/default';
+
 $c-border: $theme-stroke-4;
 $c-blue: $theme-primary-1;
 $c-light-blue: $theme-primary-4;
@@ -175,12 +176,12 @@ $c-blue-hover: $theme-primary-6;
 
       &-tab {
         border-radius: 0;
-        border-top: none;
+        border-top: 0;
         width: 80px;
 
         &:first-child {
-          border-left: none;
-          border-top: none;
+          border-left: 0;
+          border-top: 0;
         }
       }
 

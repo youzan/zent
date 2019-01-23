@@ -1,15 +1,15 @@
-@import './_zent-button-variable';
-@import '../theme/_font';
+@import './zent-button-variable';
+@import '../theme/font';
 @import '../theme/default';
 
 .zent-link {
+  @include font-normal;
+
   text-decoration: none;
   color: $btn-primary;
   display: inline-block;
   padding: 2px 8px;
   border-radius: 2px;
-
-  @include font-normal;
 
   &:link,
   &:visited,
