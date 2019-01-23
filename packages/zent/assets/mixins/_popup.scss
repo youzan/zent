@@ -1,0 +1,16 @@
+@import '../theme/default';
+
+@mixin popup {
+  box-shadow: $shadow-spec-layer;
+  left: 0;
+  outline: none;
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
+  z-index: 2000;
+  margin-top: 2px;
+  background-color: $theme-stroke-9;
+  max-height: 224px;
+  border-radius: 3px;
+  font-size: 12px;
+}

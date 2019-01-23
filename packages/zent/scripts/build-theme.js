@@ -1,5 +1,7 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 
+// DEPRECATED
+
 const gulp = require('gulp');
 const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
@@ -18,7 +20,7 @@ gulp
   .pipe(postcss(plugins))
   .pipe(
     rename({
-      extname: '.css'
+      extname: '.css',
     })
   )
   .pipe(gulp.dest('./css'));

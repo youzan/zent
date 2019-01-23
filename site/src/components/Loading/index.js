@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './style.pcss';
+import './style.scss';
 
 export default function DocLoading({ error, timedOut, pastDelay }) {
   if (error) {

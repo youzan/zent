@@ -51,7 +51,7 @@ module.exports = {
         use: 'html-loader',
       },
       {
-        test: /\.p?css$/,
+        test: /\.s?css$/,
         use: [
           DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
           'happypack/loader?id=styles',
@@ -120,6 +120,12 @@ module.exports = {
         },
         {
           loader: 'postcss-loader',
+          options: {
+            sourceMap: DEV,
+          },
+        },
+        {
+          loader: 'sass-loader',
           options: {
             sourceMap: DEV,
           },

@@ -9,7 +9,7 @@ import ResultList from './ResultList';
 import makeSearcher from './search';
 import { SKIP_SCROLL } from './constants';
 
-import './style.pcss';
+import './style.scss';
 
 const i18n = {
   'zh-CN': {
