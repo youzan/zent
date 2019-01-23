@@ -12,6 +12,7 @@ export default class NotifyContent extends PureComponent {
   static propTypes = {
     text: PropTypes.any,
     status: PropTypes.string,
+    className: PropTypes.string,
   };
 
   static defaultProps = {

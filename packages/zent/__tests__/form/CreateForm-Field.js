@@ -296,7 +296,7 @@ describe('CreateForm and Field', () => {
   it('CreatedForm will revalidate when names of fields change, and it has reset method which will be excuted with another revalidate', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired,
+        fieldName: PropTypes.string,
       };
 
       static defaultProps = {
@@ -447,7 +447,7 @@ describe('CreateForm and Field', () => {
   it('CreatedForm have isValid and getFieldError methods', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired,
+        fieldName: PropTypes.string,
       };
 
       static defaultProps = {
@@ -481,7 +481,7 @@ describe('CreateForm and Field', () => {
   it('Field can clear the error or not by setting clearErrorOnFocus', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired,
+        fieldName: PropTypes.string,
       };
 
       static defaultProps = {
@@ -516,7 +516,7 @@ describe('CreateForm and Field', () => {
 
     class FormForTest2 extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired,
+        fieldName: PropTypes.string,
       };
 
       static defaultProps = {
@@ -555,7 +555,7 @@ describe('CreateForm and Field', () => {
   it('CreatedForm have an unused function "isValidValue"', () => {
     class FormForTest extends React.Component {
       static propTypes = {
-        fieldName: PropTypes.string.isRequired,
+        fieldName: PropTypes.string,
       };
 
       static defaultProps = {
@@ -590,8 +590,8 @@ describe('CreateForm and Field', () => {
     // NOTE: each of them has an unreachable else branch
     class FormForTest extends React.Component {
       static propTypes = {
-        foo: PropTypes.bool.isRequired,
-        bar: PropTypes.bool.isRequired,
+        foo: PropTypes.bool,
+        bar: PropTypes.bool,
       };
 
       static defaultProps = {
