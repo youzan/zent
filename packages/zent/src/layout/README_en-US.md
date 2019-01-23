@@ -14,7 +14,7 @@ group: Basics
 ### Dependencies
 
 ⚠️ Note: The responsive ability relies on [`matchMedia`](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) and `matchMedia.addListener`. It is user's responsibility to make sure these functions
-are available, especially for old browsers. Polyfills to consider:
+are available, especially for legacy browsers. Polyfills to consider:
 
 - [Paul Irish/Scott Jehl's matchMedia polyfill](https://github.com/paulirish/matchMedia.js)
 - [David Knight's media-match polyfill](https://github.com/weblinc/media-match)
