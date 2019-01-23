@@ -53,5 +53,10 @@
   "peerDependencies": {
     "react": ">=16.7.0 < 17.0.0",
     "react-dom": ">=16.7.0 < 17.0.0"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^4.2.1",
+    "node-sass-magic-importer": "^5.3.0",
+    "postcss-cli": "^6.1.1"
   }
 }

@@ -108,13 +108,13 @@ function buildImportReplacement(specifier, types, state, originalPath) {
     // style
     if (options.automaticStyleImport) {
       if (options.useRawStyle) {
-        if (!rule.postcss) {
+        if (!rule.style) {
           throw originalPath.buildCodeFrameError(
             '`useRawStyle` is not compatible with old versions of zent, please upgrade zent to >= zent@3.8.1'
           );
         }
 
-        rule.postcss.forEach(path => {
+        rule.style.forEach(path => {
           if (data.STYLE_IMPORT_MAPPING[path] === undefined) {
             replacement.push(
               types.importDeclaration([], types.stringLiteral(path))
@@ -153,7 +153,7 @@ function initModuleMapppingAsNecessary(state) {
     // eslint-disable-next-line
     data.MODULE_MAPPING = require(moduleMappingFile);
 
-    // STYLE_IMPORT_MAPPING 是 css 和 postcss 公用的，因为两者只可能使用一种
+    // STYLE_IMPORT_MAPPING 是 css 和 style 公用的，因为两者只可能使用一种
     if (options.automaticStyleImport) {
       data.STYLE_IMPORT_MAPPING = {};
     }

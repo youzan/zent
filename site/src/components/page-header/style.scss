@@ -1,0 +1,104 @@
+@import '../../constants';
+
+.page {
+  &-header {
+    border-bottom: 1px solid $border-color;
+
+    &__top {
+      padding: 0 40px;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      height: $top-nav-height;
+      background-color: #fff;
+
+      @media (min-width: 1440px) {
+        width: 1440px;
+        margin: 0 auto;
+      }
+    }
+
+    &__logo {
+      float: left;
+      font-size: 0;
+      line-height: 60px;
+
+      span,
+      img {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      img {
+        width: 24px;
+        margin-right: 10px;
+      }
+
+      span {
+        color: #333;
+        font-size: 20px;
+        font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+      }
+    }
+
+    &__search-sep {
+      display: inline-block;
+      height: 20px;
+      width: 1px;
+      background: #bbb;
+      margin-top: 20px;
+      margin-left: 20px;
+    }
+
+    &__github {
+      margin-top: 16px;
+    }
+
+    &__navs {
+      float: right;
+    }
+
+    &__item {
+      float: left;
+      height: 100%;
+    }
+
+    &__link {
+      display: block;
+      line-height: $top-nav-height;
+      color: #333;
+      font-size: 16px;
+      margin: 0 20px;
+
+      &:hover {
+        color: $link-color;
+      }
+
+      &--active {
+        color: $link-color;
+      }
+    }
+
+    &__i18n-switcher {
+      top: 18px;
+      right: 85px;
+      color: #455a64;
+      padding: 0 7px;
+      font-size: 14px;
+      line-height: 24px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      position: absolute;
+      display: inline-block;
+      transition: 0.3s ease-in-out;
+      border: 1px solid currentColor;
+      font-family: Helvetica Neue, Arial, sans-serif;
+
+      &:hover {
+        color: $link-color;
+        border-color: $link-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@import './design/variable';
+@import './design/preview';
+@import './design/preview-item';
+@import './design/editor-item';
+@import './design/preview-controller';
+@import './design/editor-add-component';
+@import './design/editor';
+
+.zent-design {
+  width: 760px;
+  text-rendering: optimizelegibility;
+  font-family: inherit;
+
+  &__restore-cache-alert {
+    margin-bottom: 10px;
+
+    &-use {
+      text-decoration: none;
+    }
+  }
+
+  &__item-list {
+    min-height: 304px;
+    padding-bottom: 9px;
+
+    &--full-height {
+      min-height: $preview-height;
+      padding-bottom: 0;
+    }
+  }
+
+  &__add {
+    padding-bottom: 5px;
+    position: relative;
+    border-top: 1px solid $theme-stroke-6;
+
+    &--mixed {
+      background: $theme-stroke-8;
+
+      &:after {
+        border-bottom-color: $theme-stroke-8;
+      }
+    }
+
+    &--grouped {
+      background: $theme-stroke-9;
+
+      &:after {
+        border-bottom-color: $theme-stroke-9;
+      }
+    }
+  }
+
+  &__disabled-mask {
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(black, 0.2);
+    height: 100%;
+    width: 100%;
+    cursor: not-allowed;
+    top: 0;
+    left: 0;
+  }
+}
