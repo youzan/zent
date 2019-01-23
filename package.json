@@ -8,11 +8,11 @@
     "test-component": "./scripts/test-component.sh",
     "lint": "yarn lint-js && yarn lint-style",
     "lint-js": "eslint packages/*/src packages/*/__tests__ site/src/ site/webpack site/zent site/scripts",
-    "lint-style": "stylelint 'site/src/**/*.pcss' 'packages/zent/assets/**/*.pcss'",
+    "lint-style": "stylelint 'site/src/**/*.scss' 'packages/zent/assets/**/*.scss'",
     "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
     "bootstrap": "./scripts/bootstrap.sh",
     "format": "prettier --write",
-    "prettify-style": "prettier --write -- \"packages/zent/assets/**/*.pcss\" \"site/src/**/*.pcss\"",
+    "prettify-style": "prettier --write -- \"packages/zent/assets/**/*.scss\" \"site/src/**/*.scss\"",
     "prettify-js": "prettier --write -- \"packages/*/{src,__tests__}/**/*.js\" \"site/{src,scripts,webpack,zent}/**/*.js\"",
     "prettify": "yarn prettify-js && yarn prettify-style",
     "build": "lerna run build",
@@ -37,7 +37,7 @@
       "eslint",
       "git add"
     ],
-    "*.pcss": [
+    "*.scss": [
       "yarn format",
       "stylelint",
       "git add"
