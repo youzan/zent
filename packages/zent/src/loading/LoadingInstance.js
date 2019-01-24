@@ -109,7 +109,7 @@ function newInstance(props) {
   });
 }
 
-// FIXME: remove support for props.static
+// Backward compatible with `static`
 function isFloat(props) {
   const hasStatic = props.hasOwnProperty('static');
   const hasFloat = props.hasOwnProperty('float');
