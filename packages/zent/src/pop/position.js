@@ -1,5 +1,6 @@
 import Popover from 'popover';
 import capitalize from 'lodash/capitalize';
+import isFunction from 'lodash/isFunction';
 
 const { Position } = Popover;
 
@@ -136,6 +137,10 @@ const CenterArrowPosition = {
 };
 
 export default function getPosition(position, centerArrow) {
+  if (isFunction(position)) {
+    return position;
+  }
+
   let positionName = position
     .split('-')
     .map(s => capitalize(s))

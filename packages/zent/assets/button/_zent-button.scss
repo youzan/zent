@@ -12,7 +12,7 @@
   font-family: inherit;
   color: $theme-stroke-1;
   background: $btn-white;
-  border: 1px solid $btn-gray;
+  border: 1px solid $theme-stroke-5;
   text-align: center;
   vertical-align: middle;
   box-sizing: border-box;
@@ -39,7 +39,7 @@
   &:active {
     color: $theme-stroke-1;
     background: $btn-light-gray;
-    border-color: $btn-gray;
+    border-color: $theme-stroke-5;
     text-decoration: none;
   }
 
@@ -47,7 +47,7 @@
     &:hover,
     &:active {
       background: $btn-white;
-      border: 1px solid $btn-gray;
+      border: 1px solid $theme-stroke-5;
     }
   }
 

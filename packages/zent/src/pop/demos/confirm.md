@@ -19,15 +19,25 @@ class Wrapper extends React.Component {
 	confirmHandler = () => {
 		Sweetalert.alert({
 			content: '{i18n.content}',
-			parentComponent: this
+			parentComponent: this,
 		});
-	}
+	};
 
 	render() {
 		return (
 			<Pop
 				trigger="click"
-				content="{i18n.popContent}"
+				content={
+					<span
+						style={{
+							maxWidth: 100,
+							wordBreak: 'break-all',
+							display: 'inline-block',
+						}}
+					>
+						1111d kdsalkdsa kdsklda kdslkda kdanmcmdj 9209 kjfslk kdslkd
+					</span>
+				}
 				onConfirm={this.confirmHandler}
 			>
 				<Button type="primary">{i18n.btnText}</Button>
@@ -36,8 +46,5 @@ class Wrapper extends React.Component {
 	}
 }
 
-ReactDOM.render(
-	<Wrapper />
-	, mountNode
-);
+ReactDOM.render(<Wrapper />, mountNode);
 ```

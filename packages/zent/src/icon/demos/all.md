@@ -433,6 +433,10 @@ class IconGrid extends Component {
           <Icon type="qa-o" />
           <span className="zi-grid-item-name">qa-o(0xe864)</span>
         </div>
+        <div className="zi-grid-item" data-index="rights-list-o0xe865rights-listoutline">
+          <Icon type="rights-list-o" />
+          <span className="zi-grid-item-name">rights-list-o(0xe865)</span>
+        </div>
       </div>
     );
   }

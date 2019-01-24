@@ -7,7 +7,33 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.5.3 (2019-01-13)
+
+- `Form`
+  - 增加了自定义校验函数的文档
+  - 修复了使用 `Fragment` 时滚动报错的问题
+- `Pop` 支持函数形式的 `position` 参数，参考 `Popover.Position.create`
+- 修复 `ClampLines` 组件修改 `text` 后不更新的问题
+- 修复了几个组件中 unmount 之后部分代码报错的问题，包括 `Table`, `Select`, `Grid`, `ClampLines`
+
+### 6.5.2 (2018-12-12)
+
+- ⚠️ 回滚了之前 `6.4.0` 版本引入的一个 `FormSelectField` 在 `tags` 模式下的不兼容改动，不影响 `Select` 组件本身，且这个问题只在使用了 `FormSelectField` 的 `tags` 模式才会出现。
+
+### 6.5.1 (2018-12-07)
+
+⚠️ `6.4.0` 版本引入了一个 `FormSelectField` 在 `tags` 模式下的不兼容改动，`6.5.2` 已经回滚这个改动。
+
+- ✨ 增加维权图标
+- `Table`
+  - ✨ 支持在行内渲染半选中状态的复选框
+  - 🦀️ 修复右对齐无效的问题
+- 🦀️ 修复 `Form` 对组件类型的检查
+- 🦀️ 修复了一些 TypeScript 的类型定义问题
+
 ### 6.5.0 (2018-10-29)
+
+⚠️ `6.4.0` 版本引入了一个 `FormSelectField` 在 `tags` 模式下的不兼容改动，`6.5.2` 已经回滚这个改动。
 
 ⚠️ `Form` 的改动可能会导致之前写的有问题代码暴露出问题来，如果遇到这个问题请在 `onSubmitFail` 里处理这些异常。
 
@@ -19,11 +45,15 @@
 
 ### 6.4.1 (2018-10-16)
 
+⚠️ `6.4.0` 版本引入了一个 `FormSelectField` 在 `tags` 模式下的不兼容改动，`6.5.2` 已经回滚这个改动。
+
 - ✨ `Tabs` 通过 `navExtraContent` 增加导航栏自定义额外内容的能力
 
 ### 6.4.0 (2018-09-26)
 
-- ✨ `FormSelectField` 支持 `tags` 模式
+⚠️ 这个版本引入了一个 `FormSelectField` 在 `tags` 模式下的不兼容改动，`6.5.2` 已经回滚这个改动。
+
+- ✨ `FormSelectField` 支持 `tags` 模式 (*已回滚*)
 - 🦀️ 修复 `Select` 组件 placeholder 颜色不对的问题
 - 🦀️ 修复 `Upload` 上传多个音频时的样式问题
 
