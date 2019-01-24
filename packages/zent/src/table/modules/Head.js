@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import Checkbox from 'checkbox';
-import Icon from 'icon';
 import cx from 'classnames';
 import helper from '../helper';
 
@@ -81,16 +80,14 @@ export default class Head extends PureComponent {
         <div className={cx('sort-col', { 'sort-col--active': isActiveCol })}>
           <span className="sort-col-title">{item.title}</span>
           <span className="sort-col-icon">
-            <Icon
-              type="caret-up"
-              className={cx({
+            <span
+              className={cx('caret-up', {
                 'sort-active': isActiveCol && sortType === 'asc',
               })}
               onClick={() => this.sort(item, 'asc')}
             />
-            <Icon
-              type="caret-down"
-              className={cx({
+            <span
+              className={cx('caret-down', {
                 'sort-active': isActiveCol && sortType === 'desc',
               })}
               onClick={() => this.sort(item, 'desc')}
@@ -102,12 +99,15 @@ export default class Head extends PureComponent {
     return item.title;
   }
 
-  sort = (item, sortType) => {
+  sort = (item, nextSortType) => {
     let name = item.name;
-
+    let { sortType } = this.props;
+    if (sortType === nextSortType) {
+      nextSortType = '';
+    }
     this.props.onSort({
       sortBy: name,
-      sortType,
+      sortType: nextSortType,
     });
   };
 
