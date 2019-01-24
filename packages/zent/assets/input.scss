@@ -1,0 +1,225 @@
+@import './theme/default';
+@import './theme/font';
+$defaultBorderColor: $theme-stroke-5;
+$errorBorderColor: $theme-error-4;
+$borderRadius: 2px;
+$border-default: 1px solid $defaultBorderColor;
+$focus-box-shadow: $shadow-spec-focus;
+$border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+$normal-size: 32px;
+$small-size: 24px;
+$large-size: 40px;
+
+.zent-input-wrapper {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  border: $border-default;
+  border-radius: $borderRadius;
+  transition: $border-transition;
+  overflow: hidden;
+
+  &.zent-input--size-small {
+    height: $small-size;
+
+    .zent-input-addon-before,
+    .zent-input-addon-after {
+      line-height: $small-size - 2px;
+    }
+  }
+
+  &.zent-input--size-normal {
+    height: $normal-size;
+
+    .zent-input-addon-before,
+    .zent-input-addon-after {
+      line-height: $normal-size - 2px;
+    }
+  }
+
+  &.zent-input--size-large {
+    height: $large-size;
+
+    .zent-input-addon-before,
+    .zent-input-addon-after {
+      line-height: $large-size - 2px;
+    }
+  }
+
+  &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
+    border-color: $theme-primary-2;
+    box-shadow: $focus-box-shadow;
+  }
+
+  &__not-editable {
+    .zent-input-addon-before,
+    .zent-input-addon-after {
+      border-color: $theme-stroke-5;
+      color: $theme-stroke-4;
+      background: $theme-stroke-8;
+    }
+  }
+
+  .zenticon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translate(0, -50%);
+    color: $theme-stroke-5;
+
+    &-close-circle {
+      font-size: 12px;
+      right: 10px;
+      cursor: pointer;
+      padding: 4px 0;
+
+      &:hover {
+        color: $theme-stroke-4;
+      }
+    }
+  }
+}
+
+.zent-textarea-wrapper.zent-input-wrapper {
+  height: auto;
+  max-height: none;
+}
+
+.zent-input,
+.zent-input[type='text'],
+.zent-input[type='password'],
+.zent-input[type='datetime'],
+.zent-input[type='date'],
+.zent-input[type='month'],
+.zent-input[type='time'],
+.zent-input[type='week'],
+.zent-input[type='number'],
+.zent-input[type='email'],
+.zent-input[type='url'],
+.zent-input[type='tel'],
+.zent-input[type='color'],
+.zent-input[type='search'],
+.zent-textarea {
+  display: inline-block;
+  flex: 1;
+  min-width: 80px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 16px;
+  margin: 0;
+  color: $theme-stroke-1;
+  font-size: $font-size-normal;
+  box-shadow: none;
+  appearance: none;
+  outline: none;
+  border: 0;
+}
+
+.zent-textarea[disabled],
+.zent-textarea[readonly],
+.zent-input[disabled],
+.zent-input[readonly] {
+  background-color: $theme-stroke-8;
+  color: $theme-stroke-4;
+  cursor: not-allowed;
+}
+
+.zent-input-addon-before,
+.zent-input-addon-after {
+  display: inline-block;
+  height: 100%;
+  padding: 0 9px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  background-color: $theme-stroke-8;
+  font-size: $font-size-normal;
+  color: $theme-stroke-2;
+}
+
+.zent-input-addon-before {
+  border-right: $border-default;
+}
+
+.zent-input-addon-after {
+  border-left: $border-default;
+}
+
+.zent-textarea {
+  height: 54px;
+  padding: 5px 10px;
+  appearance: none;
+  line-height: 1.5;
+
+  &-with-count {
+    padding-bottom: 21px;
+  }
+
+  &-count {
+    display: inline-block;
+    position: absolute;
+    bottom: 2px;
+    right: 15px;
+    font-size: 10px;
+    color: $theme-stroke-3;
+  }
+}
+
+.has-error {
+  .zent-input-wrapper {
+    border: 1px solid $errorBorderColor;
+    color: $theme-error-2;
+
+    &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
+      border-color: $errorBorderColor;
+      box-shadow: none;
+    }
+
+    &__not-editable {
+      border-color: $defaultBorderColor;
+    }
+  }
+}
+
+$placeholderColor: $theme-stroke-4;
+
+// sass-lint:disable no-vendor-prefixes
+.zent-input::-webkit-input-placeholder {
+  // WebKit browsers
+  color: $placeholderColor;
+}
+
+.zent-input:-moz-placeholder {
+  // Mozilla Firefox 4 to 18
+  color: $placeholderColor;
+}
+
+.zent-input::-moz-placeholder {
+  // Mozilla Firefox 19+
+  color: $placeholderColor;
+}
+
+.zent-input:-ms-input-placeholder {
+  // Internet Explorer 10+
+  color: $placeholderColor;
+}
+
+.zent-textarea::-webkit-input-placeholder {
+  // WebKit browsers
+  color: $placeholderColor;
+}
+
+.zent-textarea:-moz-placeholder {
+  // Mozilla Firefox 4 to 18
+  color: $placeholderColor;
+}
+
+.zent-textarea::-moz-placeholder {
+  // Mozilla Firefox 19+
+  color: $placeholderColor;
+}
+
+.zent-textarea:-ms-input-placeholder {
+  // Internet Explorer 10+
+  color: $placeholderColor;
+}
+// sass-lint:enable no-vendor-prefixes

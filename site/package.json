@@ -50,9 +50,13 @@
     "postcss-loader": "^3.0.0",
     "progress-bar-webpack-plugin": "^1.11.0",
     "ramda": "^0.25.0",
+    "react-hot-loader": "^4.6.3",
     "react-markdown-doc-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.4"
   }

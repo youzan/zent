@@ -1,0 +1,34 @@
+@import '../../constants';
+
+.page {
+  &-footer {
+    background-color: #34383b;
+    display: flex;
+    justify-content: center;
+    height: $footer-height;
+    font-size: 13px;
+
+    &__github-link {
+      svg {
+        position: relative;
+        top: 3px;
+        right: 5px;
+      }
+    }
+
+    &__item {
+      float: left;
+      margin: 0 20px;
+    }
+
+    &__link {
+      display: block;
+      color: #bbb;
+      line-height: $footer-height;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}

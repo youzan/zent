@@ -97,11 +97,11 @@ function generateCSSConfig() {
     .filter(
       f =>
         fs.statSync(path.join(styleDir, f)).isFile() &&
-        f !== 'index.pcss' &&
+        f !== 'index.scss' &&
         !f.startsWith('.')
     )
     .reduce((mapping, f) => {
-      const comp = path.basename(f, '.pcss');
+      const comp = path.basename(f, '.scss');
       mapping[comp] = `zent/css/${comp}.css`;
       return mapping;
     }, {});
@@ -174,8 +174,8 @@ function appendPostcssToMapping(mapping) {
     const config = mapping[componentName];
     const { css } = config;
 
-    config.postcss = css.map(cssPath =>
-      cssPath.replace(/\/css\/(.+)\.css$/, '/assets/$1.pcss')
+    config.style = css.map(cssPath =>
+      cssPath.replace(/\/css\/(.+)\.css$/, '/assets/$1.scss')
     );
   });
 

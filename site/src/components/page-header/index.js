@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import SearchBox from '../search-box';
 import RouterContext from '../router-context-type';
-import './style.pcss';
+import './style.scss';
 
 const CONTROLLS = {
   'zh-CN': 'EN',

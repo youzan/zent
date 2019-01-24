@@ -1,0 +1,15 @@
+@mixin clearfix {
+  overflow: hidden;
+  zoom: 1;
+}
+
+// sass-lint:disable no-vendor-prefixes
+@mixin retina {
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (min--moz-device-pixel-ratio: 1.5),
+    only screen and (-o-min-device-pixel-ratio: 3 / 2),
+    only screen and (min-device-pixel-ratio: 1.5) {
+    @content;
+  }
+}
+// sass-lint:enable no-vendor-prefixes
