@@ -104,6 +104,12 @@ export function isFunctional(Component) {
 
 export function scrollToNode(node) {
   const element = findDOMNode(node);
+
+  // Skip if element is not a DOM node or text node
+  if (!element || !isFunction(element.getBoundingClientRect)) {
+    return;
+  }
+
   const elementBound = element.getBoundingClientRect();
   const y = elementBound.top + window.pageYOffset;
   const x = elementBound.left + window.pageXOffset;

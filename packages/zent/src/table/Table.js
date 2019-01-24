@@ -71,6 +71,7 @@ export default class Table extends PureComponent {
     };
     this.tableRect = null;
     this.relativeTop = 0;
+    this.mounted = false;
   }
 
   // 一个global的selectedRowKeys用于保存所有选中的选项
@@ -87,10 +88,12 @@ export default class Table extends PureComponent {
   }
 
   componentDidMount() {
+    this.mounted = true;
     this.addEventListener(this.props);
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.removeEventListener(this.props);
   }
 
@@ -141,10 +144,18 @@ export default class Table extends PureComponent {
   }
 
   setRectParam() {
-    this.tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
-    this.tableRectHeight = ReactDOM.findDOMNode(
-      this
-    ).getBoundingClientRect().height;
+    if (!this.mounted) {
+      return;
+    }
+
+    const node = ReactDOM.findDOMNode(this);
+    if (!node) {
+      return;
+    }
+
+    const rect = node.getBoundingClientRect();
+    this.tableRectTop = rect.top;
+    this.tableRectHeight = rect.height;
     this.relativeTop =
       this.tableRectTop - document.documentElement.getBoundingClientRect().top;
   }

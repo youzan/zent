@@ -6,7 +6,6 @@ import Icon from 'icon';
 import cx from 'classnames';
 import helper from '../helper';
 
-let rect;
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';
 
@@ -18,9 +17,13 @@ export default class Head extends PureComponent {
       isShowFixRow: false,
     };
     this.relativeTop = 0;
+    this.mounted = false;
+    this.rect = {};
   }
 
   componentDidMount() {
+    this.mounted = true;
+
     if (this.props.autoStick) {
       this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, {
         leading: true,
@@ -32,6 +35,8 @@ export default class Head extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
+
     if (this.props.autoStick) {
       window.removeEventListener('scroll', this.throttleSetHeadStyle, true);
       window.removeEventListener('resize', this.throttleSetHeadStyle, true);
@@ -40,17 +45,26 @@ export default class Head extends PureComponent {
 
   getRect() {
     // clientrect can't be clone
-    let tmpRect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-    rect = {
+    const node = ReactDOM.findDOMNode(this);
+    if (!node) {
+      return;
+    }
+
+    let tmpRect = node.getBoundingClientRect();
+    this.rect = {
       top: tmpRect.top,
       height: tmpRect.height - 1,
       width: tmpRect.width,
     };
     this.relativeTop =
-      rect.top - document.documentElement.getBoundingClientRect().top;
+      this.rect.top - document.documentElement.getBoundingClientRect().top;
   }
 
   setHeadStyle = () => {
+    if (!this.mounted) {
+      return;
+    }
+
     this.getRect();
     if (window.scrollY > this.relativeTop) {
       this.setState({
@@ -58,9 +72,9 @@ export default class Head extends PureComponent {
         fixStyle: {
           position: 'fixed',
           top: 0,
-          left: `${rect.left}px`,
-          height: `${rect.height}px`,
-          width: `${rect.width}px`,
+          left: `${this.rect.left}px`,
+          height: `${this.rect.height}px`,
+          width: `${this.rect.width}px`,
           zIndex: 1000,
         },
       });

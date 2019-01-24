@@ -8,7 +8,6 @@ import every from 'lodash/every';
 import assign from 'lodash/assign';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import indexOf from 'lodash/indexOf';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 import size from 'lodash/size';
@@ -21,6 +20,7 @@ import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import { I18nReceiver as Receiver } from 'i18n';
 import { Grid as I18nDefault } from 'i18n/default';
+import { groupedColumns, getLeafColumns } from './utils';
 
 import Store from './Store';
 import ColGroup from './ColGroup';
@@ -40,6 +40,7 @@ function stopPropagation(e) {
 class Grid extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    bordered: PropTypes.bool,
     rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     prefix: PropTypes.string,
     datasets: PropTypes.array,
@@ -63,6 +64,7 @@ class Grid extends PureComponent {
 
   static defaultProps = {
     className: '',
+    bordered: false,
     prefix: 'zent',
     datasets: [],
     columns: [],
@@ -81,6 +83,8 @@ class Grid extends PureComponent {
 
   constructor(props) {
     super(props);
+
+    this.mounted = false;
     this.checkboxPropsCache = {};
     this.store = new Store(props);
     const expandRowKeys = this.getExpandRowKeys(props);
@@ -118,13 +122,17 @@ class Grid extends PureComponent {
   }
 
   syncFixedTableRowHeight = () => {
+    if (!this.mounted) {
+      return;
+    }
+
     const tableRect = this.tableNode.getBoundingClientRect();
 
     if (tableRect.height !== undefined && tableRect.height <= 0) {
       return;
     }
 
-    const { prefix, scroll } = this.props;
+    const { prefix } = this.props;
     const bodyRows =
       (this.bodyTable &&
         this.bodyTable.querySelectorAll(`tbody .${prefix}-grid-tr`)) ||
@@ -135,18 +143,9 @@ class Grid extends PureComponent {
           `tbody .${prefix}-grid-tr__expanded`
         )) ||
       [];
-
-    let headRows =
-      (this.scrollHeader &&
-        this.scrollHeader.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
-      [];
-
-    if (!scroll.y && scroll.x) {
-      headRows =
-        (this.bodyTable &&
-          this.bodyTable.querySelectorAll(`thead .${prefix}-grid-tr`)) ||
-        [];
-    }
+    let headRows = this.scrollHeader
+      ? this.scrollHeader.querySelectorAll('thead')
+      : this.bodyTable.querySelectorAll('thead');
 
     const fixedColumnsBodyRowsHeight = [].map.call(
       bodyRows,
@@ -274,6 +273,7 @@ class Grid extends PureComponent {
 
   getColumns = (props, columns, expandRowKeys) => {
     let { selection, datasets, expandation } = props || this.props;
+    const isStoreColumns = !columns;
     columns = (columns || this.store.getState('columns')).slice();
     expandRowKeys = expandRowKeys || this.state.expandRowKeys;
     const hasLeft = columns.some(
@@ -317,7 +317,7 @@ class Grid extends PureComponent {
       }
 
       if (columns[0] && columns[0].key === 'selection-column') {
-        columns[0] = selectionColumn;
+        columns[0] = { ...columns[0], ...selectionColumn };
       } else {
         columns.unshift(selectionColumn);
       }
@@ -334,6 +334,11 @@ class Grid extends PureComponent {
         expandColumn.fixed = 'left';
       }
       columns.unshift(expandColumn);
+    }
+
+    if (!isStoreColumns) {
+      // 处理分组信息
+      columns = groupedColumns(columns);
     }
 
     return columns;
@@ -396,6 +401,10 @@ class Grid extends PureComponent {
   }
 
   handleBodyScroll = e => {
+    if (!this.mounted) {
+      return;
+    }
+
     if (e.currentTarget !== e.target) {
       return;
     }
@@ -425,6 +434,8 @@ class Grid extends PureComponent {
       this.lastScrollTop = target.scrollTop;
     }
   };
+
+  onResize = debounce(this.syncFixedTableRowHeight, 500);
 
   onRowMoverOver = mouseOverRowIndex => {
     this.setState({
@@ -476,11 +487,13 @@ class Grid extends PureComponent {
       />
     );
 
+    const leafColumns = getLeafColumns(columns);
+
     const body = (
       <Body
         prefix={prefix}
         rowKey={rowKey}
-        columns={columns}
+        columns={leafColumns}
         datasets={datasets}
         expandRowKeys={expandRowKeys}
         mouseOverRowIndex={this.state.mouseOverRowIndex}
@@ -523,17 +536,19 @@ class Grid extends PureComponent {
         >
           {header}
         </div>,
-        <div
-          key="body"
-          className={`${prefix}-grid-body`}
-          style={scrollBodyStyle}
-          ref={ref => {
-            this[`${fixed || 'scroll'}Body`] = ref;
-            if (!fixed) this.bodyTable = ref;
-          }}
-          onScroll={this.handleBodyScroll}
-        >
-          {body}
+        <div key="body-outer" className={`${prefix}-grid-body-outer`}>
+          <div
+            key="body"
+            className={`${prefix}-grid-body`}
+            style={scrollBodyStyle}
+            ref={ref => {
+              this[`${fixed || 'scroll'}Body`] = ref;
+              if (!fixed) this.bodyTable = ref;
+            }}
+            onScroll={this.handleBodyScroll}
+          >
+            {body}
+          </div>
         </div>,
       ];
     }
@@ -604,7 +619,7 @@ class Grid extends PureComponent {
     let selectedRowKeys = this.store.getState('selectedRowKeys');
 
     if (checked) {
-      selectedRowKeys.push(rowIndex);
+      selectedRowKeys = selectedRowKeys.concat(rowIndex);
     } else {
       selectedRowKeys = filter(selectedRowKeys, i => rowIndex !== i);
     }
@@ -624,18 +639,20 @@ class Grid extends PureComponent {
         forEach(data, (key, index) => {
           const rowIndex = this.getDataKey(key, index);
           if (!includes(selectedRowKeys, rowIndex)) {
-            selectedRowKeys.push(rowIndex);
+            selectedRowKeys = selectedRowKeys.concat(rowIndex);
             changeRowKeys.push(rowIndex);
           }
         });
         break;
       case 'removeAll':
-        forEach(data, (key, index) => {
+        selectedRowKeys = (data || []).filter((key, index) => {
           const rowIndex = this.getDataKey(key, index);
+          let rlt = true;
           if (includes(selectedRowKeys, rowIndex)) {
-            selectedRowKeys.splice(indexOf(selectedRowKeys, rowIndex), 1);
+            rlt = false;
             changeRowKeys.push(key);
           }
+          return rlt;
         });
         break;
       default:
@@ -672,9 +689,15 @@ class Grid extends PureComponent {
   };
 
   componentDidMount() {
+    this.mounted = true;
+
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -721,9 +744,10 @@ class Grid extends PureComponent {
   }
 
   render() {
-    const { prefix, loading, pageInfo } = this.props;
+    const { prefix, loading, pageInfo, bordered } = this.props;
     let className = `${prefix}-grid`;
-    className = classnames(className, this.props.className);
+    let borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
+    className = classnames(className, this.props.className, borderedClassName);
 
     if (this.scrollPosition === 'both') {
       className = classnames(
@@ -774,9 +798,7 @@ class Grid extends PureComponent {
                   </div>
                 )}
               </Loading>
-              <WindowResizeHandler
-                onResize={debounce(this.syncFixedTableRowHeight, 500)}
-              />
+              <WindowResizeHandler onResize={this.onResize} />
             </div>
           );
         }}
