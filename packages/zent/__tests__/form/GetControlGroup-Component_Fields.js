@@ -138,18 +138,17 @@ describe('GetControlGroup and Component_Fields', () => {
 
   it('SelectField', () => {
     const { SelectField } = ZentForm;
-    const options = [
-      { value: '1', text: '选项一' },
-      { value: '2', text: '选项二' },
-      { value: '3', text: '选项三' },
-    ];
     const wrapper = mount(
       <Field name="foo" component={SelectField}>
-        {options.map(({ value, text }) => (
-          <Option className="zent-select-option" key={value} value={value}>
-            {text}
-          </Option>
-        ))}
+        <Option className="zent-select-option" value="1">
+          选项一
+        </Option>
+        <Option className="zent-select-option" value="2">
+          选项二
+        </Option>
+        <Option className="zent-select-option" value="3">
+          选项三
+        </Option>
       </Field>,
       { context }
     );
@@ -161,44 +160,6 @@ describe('GetControlGroup and Component_Fields', () => {
       { target: { value: 'foo' } },
       { value: '选项hack' }
     );
-
-    wrapper.unmount();
-
-    const tagsWrapper = mount(
-      <Field tags name="foo" component={SelectField}>
-        {options.map(({ value, text }) => (
-          <Option className="zent-select-option" key={value} value={value}>
-            {text}
-          </Option>
-        ))}
-      </Field>,
-      { context }
-    );
-
-    expect(tagsWrapper.find('.zent-select-tags').length).toBe(1);
-
-    const Select = tagsWrapper.find('Select');
-
-    Select.prop('onChange')({ target: { value: 'foo' } }, options[0]);
-    expect(tagsWrapper.state('_value')).toEqual([options[0].value]);
-
-    Select.prop('onChange')({ target: { value: 'foo' } }, options[0]);
-    expect(tagsWrapper.state('_value')).toEqual([options[0].value]);
-
-    Select.prop('onChange')({ target: { value: 'foo' } }, options[1]);
-    expect(tagsWrapper.state('_value')).toEqual([
-      options[0].value,
-      options[1].value,
-    ]);
-
-    Select.prop('onDelete')(options[0]);
-    expect(tagsWrapper.state('_value')).toEqual([options[1].value]);
-
-    Select.prop('onDelete')(options[0]);
-    expect(tagsWrapper.state('_value')).toEqual([options[1].value]);
-
-    Select.prop('onDelete')(options[1]);
-    expect(tagsWrapper.state('_value')).toEqual([]);
   });
 
   it('NumberInputField', () => {
@@ -298,19 +259,18 @@ describe('GetControlGroup and Component_Fields', () => {
 
   it('FormSelectField', () => {
     const { FormSelectField } = ZentForm;
-    const options = [
-      { value: '1', text: '选项一' },
-      { value: '2', text: '选项二' },
-      { value: '3', text: '选项三' },
-    ];
     const wrapper = mount(
       <FormCreated>
         <FormSelectField name="foo">
-          {options.map(({ value, text }) => (
-            <Option className="zent-select-option" key={value} value={value}>
-              {text}
-            </Option>
-          ))}
+          <Option className="zent-select-option" value="1">
+            选项一
+          </Option>
+          <Option className="zent-select-option" value="2">
+            选项二
+          </Option>
+          <Option className="zent-select-option" value="3">
+            选项三
+          </Option>
         </FormSelectField>
       </FormCreated>
     );
@@ -322,52 +282,6 @@ describe('GetControlGroup and Component_Fields', () => {
       { target: { value: 'foo' } },
       { value: '选项hack' }
     );
-
-    wrapper.unmount();
-
-    const tagsWrapper = mount(
-      <FormCreated>
-        <FormSelectField tags name="foos">
-          {options.map(({ value, text }) => (
-            <Option className="zent-select-option" key={value} value={value}>
-              {text}
-            </Option>
-          ))}
-        </FormSelectField>
-      </FormCreated>
-    );
-    expect(tagsWrapper.find('.zent-select-tags').length).toBe(1);
-
-    const Select = tagsWrapper.find('Select');
-
-    Select.prop('onChange')({ target: { value: 'foos' } }, options[0]);
-    expect(tagsWrapper.instance().getFormValues().foos).toEqual([
-      options[0].value,
-    ]);
-
-    Select.prop('onChange')({ target: { value: 'foo' } }, options[0]);
-    expect(tagsWrapper.instance().getFormValues().foos).toEqual([
-      options[0].value,
-    ]);
-
-    Select.prop('onChange')({ target: { value: 'foo' } }, options[1]);
-    expect(tagsWrapper.instance().getFormValues().foos).toEqual([
-      options[0].value,
-      options[1].value,
-    ]);
-
-    Select.prop('onDelete')(options[0]);
-    expect(tagsWrapper.instance().getFormValues().foos).toEqual([
-      options[1].value,
-    ]);
-
-    Select.prop('onDelete')(options[0]);
-    expect(tagsWrapper.instance().getFormValues().foos).toEqual([
-      options[1].value,
-    ]);
-
-    Select.prop('onDelete')(options[1]);
-    expect(tagsWrapper.instance().getFormValues().foos).toEqual([]);
   });
 
   it('FormNumberInputField', () => {

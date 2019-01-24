@@ -19,6 +19,7 @@ declare module 'zent/lib/grid' {
     textAign?: 'left' | 'right' | 'center';
     nowrap?: boolean;
     defaultText?: React.ReactNode;
+    children?: Array<IGridColumn>;
   }
 
   interface IGridOnChangeConfig {
@@ -54,6 +55,7 @@ declare module 'zent/lib/grid' {
       expandRender?: (data: any) => React.ReactNode;
     };
     loading?: boolean;
+    bordered?: boolean;
     className?: string;
     rowClassName?: string | ((data: object, rowIndex: number) => string);
     prefix?: string;

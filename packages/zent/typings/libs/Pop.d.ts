@@ -1,6 +1,21 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/pop' {
+  type Position = { getCSSStyle: () => React.CSSProperties; name: string };
+
+  type PositionFunction = (
+    anchorBoundingBox: ClientRect,
+    containerBoundingBox: ClientRect,
+    contentDimension: { width: number; height: number },
+    options: {
+      cushion: number;
+      anchor: HTMLElement;
+      container: HTMLElement;
+      anchorBoundingBoxViewport: any;
+      containerBoundingBoxViewport: any;
+    }
+  ) => Position;
+
   type PopPositions =
     | 'left-top'
     | 'left-center'
@@ -24,7 +39,7 @@ declare module 'zent/lib/pop' {
   interface IPopProps {
     content: React.ReactNode;
     trigger?: 'none' | 'click' | 'hover' | 'focus';
-    position?: PopPositions;
+    position?: PopPositions | PositionFunction;
     centerArrow?: boolean;
     header?: React.ReactNode;
     block?: boolean;

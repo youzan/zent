@@ -33,6 +33,7 @@ group: 导航
 | onExpand     | 点击展开图标时触发                                             | (data: {expanded: boolean, data: any, event: Event, index: number}) => any | | 否 |
 | components  | 自定义 table 内的组件               | object { row?: ReactNode }    |        |   否|
 | rowProps  | 自定义传入 row 的属性        | (data: any, index: number) => object   |   |   否  |
+| bordered      | 是否展示外边框和列边框                                     | bool                                                 | `false`            | 否       |
 
 #### onChange 函数声明
 
@@ -63,6 +64,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | textAlign   | 文本对齐方式                                                      | string                                                             | 否       |
 | nowrap      | 是否换行 默认换行                                                 | bool                                                               | 否       |
 | defaultText | 默认显示文字                                                 | ReactNode                                                               | 否       |
+| children | 渲染分组表头                    | array       | 否       |
 
 #### selection
 

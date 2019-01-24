@@ -8,14 +8,14 @@ import has from 'lodash/has';
 import PropTypes from 'prop-types';
 
 import { getValue, getCurrentValue, prefixName } from './utils';
+import { validElementType } from '../utils/prop-types';
 import unknownProps from './unknownProps';
 
 class Field extends Component {
   static propTypes = {
     value: PropTypes.any,
     name: PropTypes.string.isRequired,
-    component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-      .isRequired,
+    component: validElementType,
     normalize: PropTypes.func,
     format: PropTypes.func,
     validationError: PropTypes.string,
