@@ -7,7 +7,7 @@ basepath=$(dirname $0)
 if [[ -z "${CI}" ]]; then
   jest -c $basepath/../jest.config.json "$@"
 else
-  jest -c j$basepath/../est.config.json --runInBand "$@"
+  jest -c $basepath/../jest.config.json --runInBand "$@"
 fi
 
 # Only upload if we're on travis
