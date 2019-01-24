@@ -51,45 +51,67 @@ $orange: $theme-error-3;
 
       .cell {
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 500;
       }
     }
 
     .sort-col {
+      .sort-col-title {
+        vertical-align: middle;
+      }
+
       .sort-col-icon {
-        width: 16px;
-        height: 24px;
+        position: relative;
+        width: 10px;
+        height: 17px;
         display: inline-block;
+        visibility: hidden;
         vertical-align: middle;
         margin-left: 4px;
-        transform: scale(0.75);
+      }
 
-        .zenticon {
-          display: none;
-          font-size: 12px;
-          color: $theme-stroke-3;
-          cursor: pointer;
+      .caret-up {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 7.5px solid $theme-stroke-3;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+      }
 
-          &:last-child {
-            margin-top: 4px;
-          }
+      .caret-down {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 7.5px solid $theme-stroke-3;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        cursor: pointer;
+      }
 
-          &.sort-active {
-            color: $theme-primary-2;
-          }
-        }
+      .caret-up.sort-active {
+        border-bottom-color: $theme-primary-2;
+      }
+
+      .caret-down.sort-active {
+        border-top-color: $theme-primary-2;
       }
 
       &:hover {
-        .sort-col-icon .zenticon {
-          display: block;
+        .sort-col-icon {
+          visibility: visible;
           opacity: 0.8;
         }
       }
 
       &--active {
-        .sort-col-icon .zenticon {
-          display: block;
+        .sort-col-icon {
+          visibility: visible;
         }
       }
     }
@@ -141,6 +163,7 @@ $orange: $theme-error-3;
 
     .cell {
       min-height: 56px;
+      font-size: 14px;
     }
   }
 

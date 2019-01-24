@@ -43,23 +43,17 @@ describe('Combine', () => {
   });
 
   it('header sort change', () => {
-    expect(wrapper.find('Head .sort-col .zenticon').length).toBe(4);
-    expect(wrapper.find('Head .sort-col--active .zenticon').length).toBe(2);
+    expect(wrapper.find('Head .sort-col--active .caret-up').length).toBe(1);
+    expect(wrapper.find('Head .sort-col--active .caret-down').length).toBe(1);
 
-    wrapper.find('Head .sort-col--active .zenticon-caret-up').simulate('click');
+    wrapper.find('Head .sort-col--active .caret-up').simulate('click');
     expect(
-      wrapper
-        .find('Head .sort-col--active .zenticon-caret-up')
-        .hasClass('sort-active')
+      wrapper.find('Head .sort-col--active .caret-up').hasClass('sort-active')
     ).toBe(true);
 
-    wrapper
-      .find('Head .sort-col--active .zenticon-caret-down')
-      .simulate('click');
+    wrapper.find('Head .sort-col--active .caret-down').simulate('click');
     expect(
-      wrapper
-        .find('Head .sort-col--active .zenticon-caret-down')
-        .hasClass('sort-active')
+      wrapper.find('Head .sort-col--active .caret-down').hasClass('sort-active')
     ).toBe(true);
   });
 

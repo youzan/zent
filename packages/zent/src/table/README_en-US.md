@@ -4,7 +4,7 @@ path: component/table
 group: Navigation
 ---
 
-## Table
+## Table(⚠️ Deprecated, use `Grid` instead)
 
 ### Guides
 

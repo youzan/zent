@@ -43,7 +43,7 @@ $dot-diameter: 8px;
 
     .zent-badge-count,
     .zent-badge-dot {
-      margin: 0 5px;
+      margin: 0 8px;
       border: 0;
     }
   }
@@ -51,14 +51,14 @@ $dot-diameter: 8px;
   &.zent-badge--has-content {
     .zent-badge-count {
       position: absolute;
-      top: -5px;
-      right: -5px;
+      top: -4px;
+      right: -6px;
     }
 
     .zent-badge-dot {
       position: absolute;
-      top: 1px;
-      right: 1px;
+      top: 0;
+      right: 0;
     }
   }
 }

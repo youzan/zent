@@ -2,41 +2,44 @@
 
 declare module 'zent/lib/menu' {
   interface IMenuProps {
-    onClick?: (e: React.MouseEvent<HTMLDivElement|HTMLLIElement>, key: string) => void
-    onSubMenuClick?: (id?: string | number) => void
-    onExpandChange?: (expanded?: string[]) => void
-    style?: React.CSSProperties
-    mode?: 'pop' | 'inline'
-    defaultExpandKeys?: Array<string>
-    defaultSelectedKey?: string
-    inlineIndent?: number
-    className?: string
-    prefix?: string
+    onClick?: (
+      e: React.MouseEvent<HTMLDivElement | HTMLLIElement>,
+      key: string
+    ) => void;
+    onSubMenuClick?: (id?: string | number) => void;
+    onExpandChange?: (expanded?: string[]) => void;
+    style?: React.CSSProperties;
+    mode?: 'pop' | 'inline';
+    defaultExpandKeys?: Array<string>;
+    defaultSelectedKey?: string;
+    inlineIndent?: number;
+    className?: string;
+    prefix?: string;
   }
 
-  class Menu extends React.Component<IMenuProps, any> { }
+  class Menu extends React.Component<IMenuProps, any> {}
 
   namespace Menu {
     interface IMenuItemProps {
-      key?: string
-      disabled?: boolean
-      className?: string
-      prefix?: string
+      key?: string;
+      disabled?: boolean;
+      className?: string;
+      prefix?: string;
     }
 
-    class MenuItem extends React.Component<IMenuItemProps, any> { }
+    class MenuItem extends React.Component<IMenuItemProps, any> {}
 
     interface ISubMenuProps {
-      key?: string
-      title: React.ReactNode
-      disabled?: boolean
-      overlayClassName?: string
-      className?: string
-      prefix?: string
+      key?: string;
+      title: React.ReactNode;
+      disabled?: boolean;
+      overlayClassName?: string;
+      className?: string;
+      prefix?: string;
     }
 
-    class SubMenu extends React.Component<ISubMenuProps, any> { }
+    class SubMenu extends React.Component<ISubMenuProps, any> {}
   }
 
-  export default Menu
+  export default Menu;
 }

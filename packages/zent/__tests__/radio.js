@@ -6,6 +6,7 @@ import Radio from 'radio';
 Enzyme.configure({ adapter: new Adapter() });
 
 const Group = Radio.Group;
+const RadioButton = Radio.Button;
 
 /**
  * Radio Section, 相对简单，而且很多prop会被复写，行为要和Group组合使用才能测试
@@ -277,5 +278,29 @@ describe('RadioGroup Section', () => {
         .children()
         .hasClass('zent-radio-checked')
     ).toBe(false);
+  });
+
+  it('Have button style', () => {
+    const onChange = jest.fn();
+    const wrapper = mount(
+      <Group onChange={onChange} value="apple">
+        <RadioButton value="apple" disabled>
+          apple
+        </RadioButton>
+        <RadioButton value="pear" disabled>
+          pear
+        </RadioButton>
+        <RadioButton value="banana">banana</RadioButton>
+        <RadioButton value="tomato">tomato</RadioButton>
+      </Group>
+    );
+
+    expect(wrapper.find(RadioButton).length).toBe(4);
+  });
+
+  it('Radio.Button cannot be used outside a Radio.Group', () => {
+    expect(() => {
+      mount(<RadioButton>1</RadioButton>);
+    }).toThrow();
   });
 });
