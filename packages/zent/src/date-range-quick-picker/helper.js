@@ -1,4 +1,4 @@
-import formatDate from 'zan-utils/date/formatDate';
+import formatDate from 'utils/date/formatDate';
 import { NOW, TOMORROW, ONE_DAY, NOWDATE } from './constants';
 
 export function calculateTime(format, chooseDays, valueType) {

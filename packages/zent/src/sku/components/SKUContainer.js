@@ -5,7 +5,6 @@ import Input from 'input';
 import Select from 'select';
 import Pop from 'pop';
 import find from 'lodash/find';
-import fullfillImage from 'zan-utils/fullfillImage';
 import Upload from 'upload';
 
 class SKUContainer extends PureComponent {
@@ -213,7 +212,7 @@ class SKUContainer extends PureComponent {
     let { optionValue } = this.context;
     sku.leaf.forEach(item => {
       if (item[optionValue] === id) {
-        item.img_url = fullfillImage(imageUrl[0].src, '!100x100.jpg');
+        item.img_url = imageUrl[0].src;
       }
     });
     this.props.onSKULeafChange(sku.leaf);
