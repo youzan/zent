@@ -1,17 +1,52 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
 import capitalize from 'lodash/capitalize';
-import Button from 'button';
-import Popover from 'popover';
-import Menu from 'menu';
-import Icon from 'icon';
+import Button from '../button';
+import Popover from '../popover';
+import Menu from '../menu';
+import Icon from '../icon';
 
 const { MenuItem } = Menu;
 
-export default class SplitButton extends PureComponent {
+export interface ISplitButtonProps {
+  type?: 'default' | 'primary' | 'danger' | 'success';
+  size?: 'medium' | 'large' | 'small';
+  disabled?: boolean;
+  loading?: boolean;
+  dropdownData?: Array<any>;
+  dropdownTrigger?: 'click' | 'hover';
+  dropdownText?: string;
+  dropdownValue?: string;
+  dropdownPosition?:
+    | 'left-top'
+    | 'left-center'
+    | 'left-bottom'
+    | 'right-top'
+    | 'right-center'
+    | 'right-bottom'
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+    | 'auto-bottom-center'
+    | 'auto-bottom-left'
+    | 'auto-bottom-right'
+    | 'auto-top-center'
+    | 'auto-top-left'
+    | 'auto-top-right';
+  className?: string;
+  prefix?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onSelect?: (key: string) => void;
+}
+
+export class SplitButton extends Component<ISplitButtonProps> {
   static propTypes = {
     type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
     disabled: PropTypes.bool,
@@ -151,3 +186,5 @@ export default class SplitButton extends PureComponent {
     );
   }
 }
+
+export default SplitButton;
