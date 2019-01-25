@@ -1,6 +1,6 @@
 import Collapse from './Collapse.js';
-import Panel from './Panel';
 
-Collapse.Panel = Panel;
+export * from './Collapse';
+export * from './Panel';
 
 export default Collapse;
