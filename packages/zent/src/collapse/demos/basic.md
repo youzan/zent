@@ -2,7 +2,7 @@
 order: 1
 zh-CN:
 	title: 基础用法
-	showBg: 背景
+	showBg: 底色
 	panelOneTitle: 南歌子（暮春）
 	panelOneContent: "紫陌寻春去，红尘拂面来。无人不道看花回。惟见石榴新蕊、一枝开。
 	冰簟堆云髻，金尊滟玉醅。绿阴青子相催。留取红巾千点、照池台。"

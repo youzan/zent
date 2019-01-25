@@ -4,7 +4,6 @@ import cx from 'classnames';
 
 import Notify from 'notify';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Sku as I18nDefault } from 'i18n/default';
 
 import SKUGroup from './components/SKUGroup';
 import SKUButton from './components/SKUButton';
@@ -101,7 +100,7 @@ class SKU extends PureComponent {
     const { skuTree, data } = this.state;
 
     return (
-      <Receiver componentName="Sku" defaultI18n={I18nDefault}>
+      <Receiver componentName="Sku">
         {i18n => (
           <div className={cx(`${prefix}-sku`, className)}>
             {data.map((item, index) => (

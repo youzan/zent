@@ -9,7 +9,6 @@ import Button from 'button';
 import isPromise from 'utils/isPromise';
 import { exposePopover } from 'popover/withPopover';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Pop as I18nDefault } from 'i18n/default';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
@@ -81,7 +80,7 @@ class PopAction extends PureComponent {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
+        <Receiver componentName="Pop">
           {i18n => (
             <Button
               loading={cancelPending}
@@ -94,7 +93,7 @@ class PopAction extends PureComponent {
             </Button>
           )}
         </Receiver>
-        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
+        <Receiver componentName="Pop">
           {i18n => (
             <Button
               loading={confirmPending}

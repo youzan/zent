@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import omit from 'lodash/omit';
 import find from 'lodash/find';
 import noop from 'lodash/noop';
@@ -12,6 +12,7 @@ import map from 'lodash/map';
 import startsWith from 'lodash/startsWith';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
+import memoize from 'memoize-one';
 
 import {
   getDisplayName,
@@ -23,6 +24,9 @@ import {
 import rules from './validationRules';
 import handleSubmit from './handleSubmit';
 import { FieldArrayMutatorAction } from './constants';
+import FormContext from './FormContext';
+
+const FormContextProvider = FormContext.Provider;
 
 const emptyArray = [];
 const checkSubmit = submit => {
@@ -87,11 +91,30 @@ const createForm = (config = {}) => {
         scrollToError: scrollToError || false,
       };
 
-      static childContextTypes = {
-        zentForm: PropTypes.object,
-      };
+      getFormProp = memoize(() => ({
+        getFormValues: this.getFormValues,
+        getFieldError: this.getFieldError,
+        setFieldExternalErrors: this.setFieldExternalErrors,
+        resetFieldsValue: this.resetFieldsValue,
+        setFieldsValue: this.setFieldsValue,
+        setFormDirty: this.setFormDirty,
+        setFormPristine: this.setFormPristine,
+        initialize: this.initialize,
+        isFieldDirty: this.isFieldDirty,
+        isFieldTouched: this.isFieldDirty,
+        isFieldValidating: this.isFieldValidating,
+        isValid: this.isValid,
+        isValidating: this.isValidating,
+        isSubmitting: this.isSubmitting,
+        isFormAsyncValidated: this.isFormAsyncValidated,
+        validateForm: this.validateForm,
+        asyncValidateForm: this.asyncValidateForm,
+        isFormSubmitFail: this.isFormSubmitFail,
+        isFormSubmitSuccess: this.isFormSubmitSuccess,
+        updateFormSubmitStatus: this.updateFormSubmitStatus,
+      }));
 
-      getChildContext() {
+      getFormContext = memoize(() => {
         return {
           zentForm: {
             attachToForm: this.attachToForm,
@@ -115,7 +138,7 @@ const createForm = (config = {}) => {
             updateFormSubmitStatus: this.updateFormSubmitStatus,
           },
         };
-      }
+      });
 
       componentDidMount() {
         this.validateForm();
@@ -723,6 +746,10 @@ const createForm = (config = {}) => {
         return this.wrappedForm;
       };
 
+      saveWrappedFormRef = ref => {
+        this.wrappedForm = ref;
+      };
+
       render() {
         const passableProps = omit(this.props, [
           'validationErrors',
@@ -730,35 +757,16 @@ const createForm = (config = {}) => {
           'onChange',
         ]);
 
-        return createElement(WrappedForm, {
-          ...passableProps,
-          ref: ref => {
-            this.wrappedForm = ref;
-          },
-          handleSubmit: this.submit,
-          zentForm: {
-            getFormValues: this.getFormValues,
-            getFieldError: this.getFieldError,
-            setFieldExternalErrors: this.setFieldExternalErrors,
-            resetFieldsValue: this.resetFieldsValue,
-            setFieldsValue: this.setFieldsValue,
-            setFormDirty: this.setFormDirty,
-            setFormPristine: this.setFormPristine,
-            initialize: this.initialize,
-            isFieldDirty: this.isFieldDirty,
-            isFieldTouched: this.isFieldDirty,
-            isFieldValidating: this.isFieldValidating,
-            isValid: this.isValid,
-            isValidating: this.isValidating,
-            isSubmitting: this.isSubmitting,
-            isFormAsyncValidated: this.isFormAsyncValidated,
-            validateForm: this.validateForm,
-            asyncValidateForm: this.asyncValidateForm,
-            isFormSubmitFail: this.isFormSubmitFail,
-            isFormSubmitSuccess: this.isFormSubmitSuccess,
-            updateFormSubmitStatus: this.updateFormSubmitStatus,
-          },
-        });
+        return (
+          <FormContextProvider value={this.getFormContext()}>
+            <WrappedForm
+              {...passableProps}
+              ref={this.saveWrappedFormRef}
+              handleSubmit={this.submit}
+              zentForm={this.getFormProp()}
+            />
+          </FormContextProvider>
+        );
       }
     };
   };

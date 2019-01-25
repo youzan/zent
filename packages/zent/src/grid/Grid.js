@@ -19,7 +19,6 @@ import includes from 'lodash/includes';
 import measureScrollbar from 'utils/dom/measureScrollbar';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Grid as I18nDefault } from 'i18n/default';
 import { groupedColumns, getLeafColumns } from './utils';
 
 import Store from './Store';
@@ -763,7 +762,7 @@ class Grid extends PureComponent {
     }
 
     return (
-      <Receiver defaultI18n={I18nDefault} componentName="Grid">
+      <Receiver componentName="Grid">
         {i18n => {
           const content = [
             this.getTable(),

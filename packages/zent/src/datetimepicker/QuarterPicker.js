@@ -7,7 +7,6 @@ import Input from 'input';
 import Popover from 'popover';
 import getWidth from 'utils/getWidth';
 import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
 
 import QuarterPanel from './quarter/QuarterPanel';
 import { dayStart, dayEnd, formatDate, parseDate } from './utils';
@@ -235,7 +234,7 @@ class QuarterPicker extends PureComponent {
 
     return (
       <div style={widthStyle} className={wrapperCls}>
-        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker">
           {i18n => {
             let inputVal;
             if (selected) {

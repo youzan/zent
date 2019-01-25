@@ -7,7 +7,6 @@ import find from 'lodash/find';
 import noop from 'lodash/noop';
 import isArray from 'lodash/isArray';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Cascader as I18nDefault } from 'i18n/default';
 
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
@@ -251,7 +250,7 @@ class Cascader extends PureComponent {
 
   render() {
     return (
-      <Receiver defaultI18n={I18nDefault} componentName="Cascader">
+      <Receiver componentName="Cascader">
         {i18n => {
           let { prefix, className, popClassName, placeholder } = this.props;
           let { activeValue, open } = this.state;

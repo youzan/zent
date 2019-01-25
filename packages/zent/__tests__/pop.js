@@ -178,7 +178,7 @@ describe('Pop', () => {
       </Pop>
     );
     wrapper.find('button').simulate('click');
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
     expect(document.querySelectorAll('.zent-pop-inner-button').length).toBe(1);
     Simulate.click(document.querySelector('.zent-pop-inner-button'));
     jest.runAllTimers();

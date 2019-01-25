@@ -27,9 +27,11 @@ import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
 import kindOf from 'utils/kindOf';
 import getWidth from 'utils/getWidth';
+import memoize from 'memoize-one';
 
 import PopoverContent from './Content';
 import PopoverTrigger from './trigger/Trigger';
+import PopoverContext from './PopoverContext';
 
 const SKIPPED = () => {};
 
@@ -53,19 +55,6 @@ function handleBeforeHook(beforeFn, arity, continuation, escape) {
 
   mayBePromise.then(continuation, escape);
 }
-
-export const PopoverContextType = {
-  _zentPopover: PropTypes.shape({
-    close: PropTypes.func.isRequired,
-    open: PropTypes.func.isRequired,
-    getContentNode: PropTypes.func.isRequired,
-    getTriggerNode: PropTypes.func.isRequired,
-
-    // 用于维护 Popover 栈，处理嵌套的问题
-    registerDescendant: PropTypes.func,
-    unregisterDescendant: PropTypes.func,
-  }),
-};
 
 export default class Popover extends PureComponent {
   static propTypes = {
@@ -123,11 +112,9 @@ export default class Popover extends PureComponent {
     onPositionReady: noop,
   };
 
-  static contextTypes = PopoverContextType;
+  static contextType = PopoverContext;
 
-  static childContextTypes = PopoverContextType;
-
-  getChildContext() {
+  getPopoverContext = memoize(() => {
     return {
       _zentPopover: {
         close: this.close,
@@ -139,7 +126,7 @@ export default class Popover extends PureComponent {
         unregisterDescendant: this.unregisterDescendant,
       },
     };
-  }
+  });
 
   registerDescendant = popover => {
     this.descendants.push(popover);
@@ -385,31 +372,33 @@ export default class Popover extends PureComponent {
         style={{ display, ...getWidth(width) }}
         className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}
       >
-        {React.cloneElement(trigger, {
-          prefix,
-          contentVisible: visible,
-          onTriggerRefChange: this.onTriggerRefChange,
-          getTriggerNode: this.getTriggerNode,
-          getContentNode: this.getPopoverNode,
-          open: this.open,
-          close: this.close,
-          isOutsideStacked: this.isOutsideStacked,
-          injectIsOutsideSelf: this.injectIsOutsideSelf,
-        })}
-        {React.cloneElement(content, {
-          prefix,
-          className,
-          id: this.id,
-          getContentNode: this.getPopoverNode,
-          getAnchor: this.getTriggerNode,
-          ref: this.onContentRefChange,
-          visible,
-          cushion,
-          containerSelector,
-          placement: position,
-          onPositionUpdated,
-          onPositionReady,
-        })}
+        <PopoverContext.Provider value={this.getPopoverContext()}>
+          {React.cloneElement(trigger, {
+            prefix,
+            contentVisible: visible,
+            onTriggerRefChange: this.onTriggerRefChange,
+            getTriggerNode: this.getTriggerNode,
+            getContentNode: this.getPopoverNode,
+            open: this.open,
+            close: this.close,
+            isOutsideStacked: this.isOutsideStacked,
+            injectIsOutsideSelf: this.injectIsOutsideSelf,
+          })}
+          {React.cloneElement(content, {
+            prefix,
+            className,
+            id: this.id,
+            getContentNode: this.getPopoverNode,
+            getAnchor: this.getTriggerNode,
+            ref: this.onContentRefChange,
+            visible,
+            cushion,
+            containerSelector,
+            placement: position,
+            onPositionUpdated,
+            onPositionReady,
+          })}
+        </PopoverContext.Provider>
       </div>
     );
   }

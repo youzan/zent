@@ -8,7 +8,7 @@ import Radio from './Radio';
 
 export default class RadioButton extends Radio {
   render() {
-    if (!get(this, 'context.radioGroup')) {
+    if (!get(this, 'context.onRadioChange')) {
       throw new Error('Radio.Button must be nested within Radio.Group');
     }
 
@@ -18,7 +18,7 @@ export default class RadioButton extends Radio {
       prefix,
       children,
 
-      // value不要放到input上去
+      // value 不要放到 input 上去
       value,
       width,
       ...others

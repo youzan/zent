@@ -4,7 +4,6 @@ import Button from 'button';
 import Notify from 'notify';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { CopyButton as I18nDefault } from 'i18n/default';
 
 import CopyToClipboard from './ReactCopyToClipboard';
 
@@ -42,7 +41,7 @@ export default class Copy extends PureComponent {
     const { text, children } = this.props;
 
     return (
-      <Receiver defaultI18n={I18nDefault} componentName="CopyButton">
+      <Receiver componentName="CopyButton">
         {(i18n, { onClick = null }) => (
           <CopyToClipboard text={text} onCopy={this.onCopy(i18n)}>
             {children ? (

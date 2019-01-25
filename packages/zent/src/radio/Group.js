@@ -1,6 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import memoize from 'memoize-one';
+import noop from 'lodash/noop';
+
+import GroupContext from './GroupContext';
+
+const GroupContextProvider = GroupContext.Provider;
 
 export default class Group extends PureComponent {
   static propTypes = {
@@ -23,32 +29,32 @@ export default class Group extends PureComponent {
     isValueEqual(a, b) {
       return a === b;
     },
-    onChange() {},
+    onChange: noop,
   };
 
-  static childContextTypes = {
-    radioGroup: PropTypes.any,
-  };
-
-  getChildContext() {
-    const { value, isValueEqual, disabled, readOnly } = this.props;
-    return {
-      radioGroup: {
-        value,
-        disabled,
-        readOnly,
-        isValueEqual,
-        onRadioChange: this.onRadioChange,
-      },
-    };
-  }
+  getGroupContext = memoize((value, disabled, readOnly, isValueEqual) => ({
+    value,
+    disabled,
+    readOnly,
+    isValueEqual,
+    onRadioChange: this.onRadioChange,
+  }));
 
   onRadioChange = e => {
     this.props.onChange(e);
   };
 
   render() {
-    const { className, prefix, style, children } = this.props;
+    const {
+      value,
+      disabled,
+      readOnly,
+      isValueEqual,
+      className,
+      prefix,
+      style,
+      children,
+    } = this.props;
 
     const classString = classNames({
       [`${prefix}-radio-group`]: true,
@@ -56,9 +62,13 @@ export default class Group extends PureComponent {
     });
 
     return (
-      <div className={classString} style={style}>
-        {children}
-      </div>
+      <GroupContextProvider
+        value={this.getGroupContext(value, disabled, readOnly, isValueEqual)}
+      >
+        <div className={classString} style={style}>
+          {children}
+        </div>
+      </GroupContextProvider>
     );
   }
 }

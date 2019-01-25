@@ -2,7 +2,6 @@ import React from 'react';
 import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { Sweetalert as i18nDefault } from 'i18n/default';
 import Dialog from 'dialog';
 import Icon from 'icon';
 
@@ -89,17 +88,9 @@ function sweet(config, sweetType) {
     className: cx(`${prefix}-sweetalert-${sweetType}`, {
       [className]: !!className,
     }),
-    title: (
-      <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
-        {renderTitle}
-      </Receiver>
-    ),
+    title: <Receiver componentName="Sweetalert">{renderTitle}</Receiver>,
     children: content,
-    footer: (
-      <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
-        {renderButtons}
-      </Receiver>
-    ),
+    footer: <Receiver componentName="Sweetalert">{renderButtons}</Receiver>,
     parentComponent,
   });
 

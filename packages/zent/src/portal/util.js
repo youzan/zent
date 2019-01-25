@@ -26,3 +26,9 @@ export function isDescendant(parent, child) {
 
   return false;
 }
+
+export function removeAllChildren(node) {
+  while (node && node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import Input from 'input';
 import PropTypes from 'prop-types';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Pagination as I18nDefault } from 'i18n/default';
 
 import BasePageJumper from './BasePageJumper';
 
@@ -26,7 +25,7 @@ export default class PageJumper extends BasePageJumper {
     );
 
     return (
-      <Receiver componentName="Pagination" defaultI18n={I18nDefault}>
+      <Receiver componentName="Pagination">
         {i18n => {
           if (i18n.mark === 'zh-CN') {
             return (
