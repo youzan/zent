@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import AnimateHeight from 'utils/component/AnimateHeight';
 import LazyMount from 'utils/component/LazyMount';
@@ -12,7 +13,22 @@ const NO_BOTTOM_BORDER = {
 };
 const NO_STYLE = {};
 
-export default class Panel extends PureComponent {
+export interface ICollapsePanelProps {
+  title: React.ReactNode;
+  disabled?: boolean;
+  showArrow?: boolean;
+  style?: React.CSSProperties;
+  className?: string;
+  prefix?: string;
+  active?: boolean;
+  onChange(key: string, active: boolean): void;
+  panelKey: string;
+  panelTitleBackground?: string;
+  isLast?: boolean;
+  bordered?: boolean;
+}
+
+export class CollapsePanel extends Component<ICollapsePanelProps> {
   static propTypes = {
     title: PropTypes.node.isRequired,
     disabled: PropTypes.bool,
@@ -37,13 +53,9 @@ export default class Panel extends PureComponent {
     prefix: 'zent',
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      animateAppear: !props.active,
-    };
-  }
+  state = {
+    animateAppear: !this.props.active,
+  };
 
   render() {
     const {
@@ -132,3 +144,5 @@ function Arrow({ className }) {
     </svg>
   );
 }
+
+export default CollapsePanel;

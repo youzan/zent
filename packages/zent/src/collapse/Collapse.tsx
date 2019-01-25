@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import kindOf from 'utils/kindOf';
 import isString from 'lodash/isString';
@@ -9,7 +10,17 @@ import indexOf from 'lodash/indexOf';
 
 import Panel from './Panel';
 
-export default class Collapse extends PureComponent {
+interface ICollapseProps {
+  activeKey?: string | string[];
+  onChange: (value: string | string[]) => any;
+  accordion?: boolean;
+  bordered?: boolean;
+  panelTitleBackground?: string;
+  className?: string;
+  prefix?: string;
+}
+
+export class Collapse extends Component<ICollapseProps> {
   static propTypes = {
     activeKey: PropTypes.oneOfType([
       PropTypes.string,
@@ -23,7 +34,11 @@ export default class Collapse extends PureComponent {
       const propValue = props[propName];
 
       React.Children.forEach(propValue, c => {
-        if (!kindOf(c.type, Panel)) {
+        if (
+          typeof c === 'string' ||
+          typeof c === 'number' ||
+          !kindOf(c.type, Panel)
+        ) {
           throw new Error(
             `Invalid prop ${propName} supplied to ${componentName}. Each child should be a Panel.`
           );
@@ -40,6 +55,8 @@ export default class Collapse extends PureComponent {
     accordion: false,
     prefix: 'zent',
   };
+
+  static Panel = Panel;
 
   render() {
     const {
@@ -58,7 +75,7 @@ export default class Collapse extends PureComponent {
           [`${prefix}-collpase--no-border`]: !bordered,
         })}
       >
-        {React.Children.map(children, (c, idx) =>
+        {React.Children.map(children, (c: any, idx) =>
           React.cloneElement(c, {
             onChange: this.onChange,
             active: isPanelActive(activeKey, c.key),
@@ -106,3 +123,5 @@ function isPanelActive(activeKey, key) {
 
   return false;
 }
+
+export default Collapse;
