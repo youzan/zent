@@ -16,7 +16,6 @@ import getCaretCoordinates from 'utils/dom/getCaretCoordinates';
 import isFirefox from 'utils/isFirefox';
 import SelectMenu from 'select-menu';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Mention as I18nDefault } from 'i18n/default';
 
 import { findMentionAtCaretPosition } from './findMentionAtCaretPosition';
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
@@ -103,7 +102,7 @@ export default class Mention extends Component {
     const { suggestionVisible } = this.state;
 
     return (
-      <Receiver defaultI18n={I18nDefault} componentName="Mention">
+      <Receiver componentName="Mention">
         {i18n => {
           return (
             <Popover

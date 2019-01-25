@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { Select as I18nDefault } from 'i18n/default';
 
 class SelectTrigger extends PureComponent {
   render() {
@@ -11,7 +10,7 @@ class SelectTrigger extends PureComponent {
     const rootClass = cx(`${prefixCls}-text`, { visible });
 
     return (
-      <Receiver componentName="Select" defaultI18n={I18nDefault}>
+      <Receiver componentName="Select">
         {i18n => (
           <div className={rootClass} onClick={onClick}>
             {this.props.text || (

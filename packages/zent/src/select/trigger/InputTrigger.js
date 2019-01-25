@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { Select as I18nDefault } from 'i18n/default';
 
 class InputTrigger extends Component {
   state = {
@@ -38,7 +37,7 @@ class InputTrigger extends Component {
     const rootClass = cx(`${prefixCls}-input`, { visible });
 
     return (
-      <Receiver componentName="Select" defaultI18n={I18nDefault}>
+      <Receiver componentName="Select">
         {i18n => (
           <input
             ref={input => (this.input = input)}

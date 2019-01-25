@@ -4,7 +4,6 @@ import noop from 'lodash/noop';
 import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { Select as I18nDefault } from 'i18n/default';
 
 import Tag from '../components/Tag';
 
@@ -75,7 +74,7 @@ class TagsTrigger extends PureComponent {
     });
 
     return (
-      <Receiver componentName="Select" defaultI18n={I18nDefault}>
+      <Receiver componentName="Select">
         {i18n => (
           <div className={rootClass} onClick={onClick}>
             {selectedItems.length > 0 ? (

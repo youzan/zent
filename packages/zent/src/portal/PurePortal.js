@@ -1,7 +1,8 @@
-import { PureComponent, Children } from 'react';
+import { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import isFunction from 'lodash/isFunction';
+import memoize from 'memoize-one';
 
 import { getNodeFromSelector } from './util';
 
@@ -44,7 +45,7 @@ export function unstable_renderPortal(child, containerNode, onMount) {
 /**
  * Pure portal, render the content (from render prop or from the only children) into the container
  */
-export default class PurePortal extends PureComponent {
+export default class PurePortal extends Component {
   static propTypes = {
     onMount: PropTypes.func,
     onUnmount: PropTypes.func,
@@ -58,77 +59,27 @@ export default class PurePortal extends PureComponent {
       .isRequired,
   };
 
-  static contextTypes = {
-    zentI18n: PropTypes.object,
-  };
-
   componentDidMount() {
-    this.renderPortal();
-  }
+    const { onMount } = this.props;
 
-  componentWillReceiveProps(nextProps) {
-    // 如果container变了的话，删除再重新打开
-    const { selector: container } = this.props;
-    if (container !== nextProps.container) {
-      this.pendingDestroy = true; // flag to trigger re-render in componentDidUpdate
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.pendingDestroy) {
-      // unrenderPortal是异步的（原因看unstable_unrenderPortal的代码），所以用callback的形式调用renderPortal
-      this.unrenderPortal(() => {
-        this.pendingDestroy = false;
-        this.renderPortal();
-      });
-    } else {
-      this.renderPortal();
-    }
+    onMount && onMount();
   }
 
   componentWillUnmount() {
-    this.unrenderPortal();
+    const { onUnmount } = this.props;
+
+    onUnmount && onUnmount();
   }
 
-  unrenderPortal = callback => {
-    const containerNode = this.containerNode;
-
-    unstable_unrenderPortal.call(
-      this,
-      containerNode,
-      () => {
-        this.containerNode = null;
-        isFunction(callback) && callback();
-      },
-      this.props.onUnmount
-    );
-  };
-
-  renderPortal = (props = this.props) => {
-    const { selector: container } = props;
-
-    if (!container) {
-      return;
-    }
-
-    // Cache the containerNode
-    if (!this.containerNode) {
-      this.containerNode = getNodeFromSelector(container);
-    }
-
-    // Render the portal content to container node or parent node
-    const { children, render } = props;
-    const content = render ? render() : Children.only(children);
-
-    unstable_renderPortal.call(
-      this,
-      content,
-      this.containerNode,
-      this.props.onMount
-    );
-  };
+  getContainer = memoize(getNodeFromSelector);
 
   render() {
-    return null;
+    const { selector: container } = this.props;
+
+    // Render the portal content to container node or parent node
+    const { children, render } = this.props;
+    const content = render ? render() : Children.only(children);
+
+    return ReactDOM.createPortal(content, this.getContainer(container));
   }
 }

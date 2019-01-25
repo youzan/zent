@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { getValue, getCurrentValue, prefixName } from './utils';
 import { validElementType } from '../utils/prop-types';
 import unknownProps from './unknownProps';
+import FormContext from './FormContext';
 
 class Field extends Component {
   static propTypes = {
@@ -37,9 +38,7 @@ class Field extends Component {
     clearErrorOnFocus: true,
   };
 
-  static contextTypes = {
-    zentForm: PropTypes.object,
-  };
+  static contextType = FormContext;
 
   constructor(props, context) {
     super(props, context);

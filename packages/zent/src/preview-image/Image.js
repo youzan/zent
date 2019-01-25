@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { PreviewImage as I18nDefault } from 'i18n/default';
 
 // 有关闭按钮的时候同时具有ESC关闭的行为
 const { withNonScrollable, withESCToClose } = Portal;
@@ -43,10 +42,6 @@ export default class Image extends Component {
     images: [],
     index: 0,
     scaleRatio: 1.5,
-  };
-
-  static contextTypes = {
-    zentI18n: PropTypes.object,
   };
 
   onMaskClick = e => {
@@ -149,7 +144,7 @@ export default class Image extends Component {
             <div className={`${prefix}-image-p-close`} onClick={this.onClose}>
               <Icon type="close" />
             </div>
-            <Receiver defaultI18n={I18nDefault} componentName="PreviewImage">
+            <Receiver componentName="PreviewImage">
               {i18n => (
                 <div
                   className={`${prefix}-image-p-body`}
@@ -173,7 +168,7 @@ export default class Image extends Component {
                 </div>
               )}
             </Receiver>
-            <Receiver defaultI18n={I18nDefault} componentName="PreviewImage">
+            <Receiver componentName="PreviewImage">
               {i18n => {
                 const needPager = images.length > 1;
                 const footerCxs = cx(`${prefix}-image-p-footer`, {

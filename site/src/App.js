@@ -72,7 +72,7 @@ export default class App extends Component {
             <Route
               path="/en"
               render={() => (
-                <I18nProvider i18n={i18nEN}>
+                <I18nProvider value={i18nEN}>
                   <USWrapper pass={passthrough('en-US')}>
                     <Switch>{routeData['en-US'].map(renderRouter)}</Switch>
                   </USWrapper>

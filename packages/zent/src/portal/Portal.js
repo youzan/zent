@@ -36,10 +36,6 @@ export default class Portal extends PureComponent {
     visible: true,
   };
 
-  static contextTypes = {
-    zentI18n: PropTypes.object,
-  };
-
   render() {
     const { prefix, className, ...other } = this.props;
     return (

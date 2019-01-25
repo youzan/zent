@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash/assign';
 import getWidth from 'utils/getWidth';
+import noop from 'lodash/noop';
+
+import GroupContext from './GroupContext';
 
 export default class Radio extends Component {
   static propTypes = {
@@ -23,18 +26,15 @@ export default class Radio extends Component {
     style: {},
     disabled: false,
     readOnly: false,
-    onChange() {},
+    onChange: noop,
   };
 
-  static contextTypes = {
-    radioGroup: PropTypes.any,
-  };
+  static contextType = GroupContext;
 
   // event liftup
   // link: https://facebook.github.io/react/docs/lifting-state-up.html
   handleChange = evt => {
     const { props, context } = this;
-    const { radioGroup } = context;
     const e = {
       target: {
         ...props,
@@ -51,8 +51,8 @@ export default class Radio extends Component {
       },
     };
 
-    if (radioGroup) {
-      radioGroup.onRadioChange(e);
+    if (context.onRadioChange) {
+      context.onRadioChange(e);
     } else {
       props.onChange(e);
     }
@@ -60,12 +60,12 @@ export default class Radio extends Component {
 
   getRadioState() {
     let { checked, disabled, readOnly, value } = this.props;
-    const { radioGroup } = this.context;
+    const { context } = this;
 
-    if (radioGroup) {
-      checked = radioGroup.isValueEqual(radioGroup.value, value);
-      disabled = radioGroup.disabled || disabled;
-      readOnly = radioGroup.readOnly || readOnly;
+    if (context.onRadioChange) {
+      checked = context.isValueEqual(context.value, value);
+      disabled = context.disabled || disabled;
+      readOnly = context.readOnly || readOnly;
     }
 
     return {
@@ -82,7 +82,7 @@ export default class Radio extends Component {
       prefix,
       children,
 
-      // value不要放到input上去
+      // value 不要放到 input 上去
       value,
       width,
       ...others

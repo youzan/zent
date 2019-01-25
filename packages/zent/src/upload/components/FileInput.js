@@ -5,7 +5,6 @@ import toArray from 'lodash/toArray';
 import forEach from 'lodash/forEach';
 import isPromise from 'utils/isPromise';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Upload as I18nDefault } from 'i18n/default';
 
 import {
   formatFileSize,
@@ -168,7 +167,7 @@ export default class FileInput extends PureComponent {
     let { accept } = this.state;
 
     return (
-      <Receiver componentName="Upload" defaultI18n={I18nDefault}>
+      <Receiver componentName="Upload">
         {i18n => (
           <input
             ref={this.autoShowInput}

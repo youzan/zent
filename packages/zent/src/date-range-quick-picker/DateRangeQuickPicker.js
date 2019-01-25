@@ -5,7 +5,6 @@ import map from 'lodash/map';
 
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from 'i18n';
-import { RangePicker as I18nDefault } from 'i18n/default';
 
 import * as Helper from './helper';
 
@@ -83,11 +82,7 @@ export default class DateRangeQuickPicker extends Component {
         />
         <div className={`${prefix}-date-range-picker__filter`}>
           {map(preset, (item, index) => (
-            <Receiver
-              key={index}
-              componentName="RangePicker"
-              defaultI18n={I18nDefault}
-            >
+            <Receiver key={index} componentName="RangePicker">
               {i18n => (
                 <span
                   key={index}

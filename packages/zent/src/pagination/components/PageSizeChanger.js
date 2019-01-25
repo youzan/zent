@@ -4,7 +4,6 @@ import isEmpty from 'lodash/isEmpty';
 import isNumber from 'lodash/isNumber';
 import Select from 'select';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Pagination as I18nDefault } from 'i18n/default';
 
 export default class PageSizeChanger extends Component {
   static propTypes = {
@@ -22,7 +21,7 @@ export default class PageSizeChanger extends Component {
     }
 
     return (
-      <Receiver componentName="Pagination" defaultI18n={I18nDefault}>
+      <Receiver componentName="Pagination">
         {i18n => {
           const select = (
             <PageSizeSelect
@@ -126,7 +125,7 @@ class StaticPageSize extends Component {
     const { total, pageSize } = this.props;
 
     return (
-      <Receiver componentName="Pagination" defaultI18n={I18nDefault}>
+      <Receiver componentName="Pagination">
         {i18n => {
           if (i18n.mark === 'zh-CN') {
             return (
