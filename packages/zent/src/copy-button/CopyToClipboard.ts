@@ -41,7 +41,7 @@ function copy(text) {
     success = true;
   } catch (err) {
     try {
-      window.clipboardData.setData('text', text);
+      (window as any).clipboardData.setData('text', text);
       success = true;
     } catch (e) {
       console.log(e); // eslint-disable-line

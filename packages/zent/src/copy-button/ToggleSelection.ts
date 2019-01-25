@@ -19,7 +19,7 @@ export default function() {
   ) {
     case 'INPUT':
     case 'TEXTAREA':
-      active.blur();
+      (active as HTMLElement).blur();
       break;
 
     default:
@@ -37,6 +37,6 @@ export default function() {
       });
     }
 
-    active && active.focus();
+    active && (active as HTMLElement).focus();
   };
 }
