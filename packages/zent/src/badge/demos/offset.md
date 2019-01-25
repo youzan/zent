@@ -11,7 +11,7 @@ import { Badge } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Badge count={5} offset={[-6, -8]}>
+		<Badge count={5} offset={[-8, -6]}>
 			<div className="zent-badge-demo-square" />
 		</Badge>
 		<Badge dot offset={[-2, -2]}>

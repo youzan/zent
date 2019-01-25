@@ -1,4 +1,4 @@
-import { parse } from 'fecha';
+import fecha from 'fecha';
 
 import i18n from './i18n';
 
@@ -30,7 +30,7 @@ export default function parseDate(date, mask = 'default', locale = 'zh') {
 
   mask = mask || 'default';
 
-  const ret = parse(
+  const ret = fecha.parse(
     date,
     mask,
     typeof locale === 'string' ? i18n[locale] : locale
