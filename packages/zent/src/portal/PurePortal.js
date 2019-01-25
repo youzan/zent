@@ -2,8 +2,9 @@ import { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import isFunction from 'lodash/isFunction';
+import memoize from 'memoize-one';
 
-import { getDOMNode } from './util';
+import { getNodeFromSelector } from './util';
 
 // eslint-disable-next-line
 export function unstable_unrenderPortal(containerNode, callback, onUnmount) {
@@ -54,7 +55,8 @@ export default class PurePortal extends Component {
     render: PropTypes.func, // prior to children
 
     // parent node
-    container: PropTypes.object.isRequired,
+    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+      .isRequired,
   };
 
   componentDidMount() {
@@ -69,13 +71,15 @@ export default class PurePortal extends Component {
     onUnmount && onUnmount();
   }
 
+  getContainer = memoize(getNodeFromSelector);
+
   render() {
-    const { container, selector } = this.props;
+    const { selector: container } = this.props;
 
     // Render the portal content to container node or parent node
     const { children, render } = this.props;
     const content = render ? render() : Children.only(children);
 
-    return ReactDOM.createPortal(content, getDOMNode(container, selector));
+    return ReactDOM.createPortal(content, this.getContainer(container));
   }
 }

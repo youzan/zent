@@ -1,26 +1,7 @@
-import isString from 'lodash/isString';
-
 export function getNodeFromSelector(selector) {
   const node =
     typeof selector === 'string' ? document.querySelector(selector) : selector;
   return node || document.body;
-}
-
-export function getDOMNode(container, selector) {
-  if (container) {
-    return container;
-  }
-
-  // selector 是老的 API，不再支持字符串形式的 selector
-  if (isString(selector)) {
-    return document.body;
-  }
-
-  if (selector) {
-    return selector;
-  }
-
-  return document.body;
 }
 
 export function createContainerNode(parent, tag = 'div') {
