@@ -42,7 +42,7 @@ const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
 };
 
 export interface IButtonProps {
-  type?: 'default' | 'primary' | 'danger' | 'success';
+  type?: 'default' | 'primary' | 'secondary' | 'danger' | 'success';
   size?: 'medium' | 'large' | 'small';
   htmlType?: 'button' | 'submit' | 'reset';
   block?: boolean;
@@ -58,6 +58,7 @@ export interface IButtonProps {
   prefix?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   icon?: string;
+  insertSpace?: boolean;
 }
 
 export class Button extends Component<IButtonProps> {
