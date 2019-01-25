@@ -1,7 +1,8 @@
-import React, { PureComponent, Children, cloneElement } from 'react';
+import * as React from 'react';
+import { Component, Children, cloneElement } from 'react';
 import WindowResizeHandler from 'utils/component/WindowResizeHandler';
 import Icon from 'icon';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import forEach from 'lodash/forEach';
@@ -17,7 +18,21 @@ function setStyle(target, styles) {
   });
 }
 
-export default class Swiper extends PureComponent {
+export interface ISwiperProps {
+  className?: string;
+  prefix?: string;
+  transitionDuration?: number;
+  autoplay?: boolean;
+  autoplayInterval?: number;
+  dots?: boolean;
+  dotsColor?: string;
+  dotsSize?: 'normal' | 'small' | 'large';
+  arrows?: boolean;
+  arrowsType?: 'dark' | 'light';
+  onChange?: (current: number, prev: number) => void;
+}
+
+export class Swiper extends Component<ISwiperProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -45,11 +60,17 @@ export default class Swiper extends PureComponent {
     arrowsType: 'dark',
   };
 
+  swiper: HTMLDivElement;
+  swiperContainer: HTMLDivElement;
+  swiperWidth: number;
+  autoplayTimer: number;
+  isSwiping: boolean;
+
   state = {
     currentIndex: 0,
   };
 
-  init = isResetToOrigin => {
+  init = (isResetToOrigin = false) => {
     const { autoplay, children } = this.props;
     const { currentIndex } = this.state;
     const childrenCount = Children.count(children);
@@ -89,7 +110,10 @@ export default class Swiper extends PureComponent {
 
   startAutoplay = () => {
     const { autoplayInterval } = this.props;
-    this.autoplayTimer = setInterval(this.next, Number(autoplayInterval));
+    this.autoplayTimer = setInterval(
+      this.next,
+      Number(autoplayInterval)
+    ) as any;
   };
 
   clearAutoplay = () => {
@@ -120,11 +144,8 @@ export default class Swiper extends PureComponent {
   };
 
   translate = (currentIndex, prevIndex, isSilent) => {
-    const {
-      transitionDuration,
-      children: { length },
-      onChange,
-    } = this.props;
+    const { transitionDuration, onChange } = this.props;
+    const { length } = this.props.children as any;
     const initIndex = -1;
     const itemWidth = this.swiperWidth;
     const translateDistance = itemWidth * (initIndex - currentIndex);
@@ -149,10 +170,8 @@ export default class Swiper extends PureComponent {
   };
 
   resetPosition = currentIndex => {
-    const {
-      transitionDuration,
-      children: { length },
-    } = this.props;
+    const { transitionDuration } = this.props;
+    const { length } = this.props.children as any;
 
     if (currentIndex < 0) {
       setTimeout(
@@ -174,9 +193,7 @@ export default class Swiper extends PureComponent {
   };
 
   getRealPrevIndex = index => {
-    const {
-      children: { length },
-    } = this.props;
+    const { length } = this.props.children as any;
 
     if (index > length - 1) {
       return length - 1;
@@ -249,9 +266,7 @@ export default class Swiper extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {
-      children: { length },
-    } = this.props;
+    const { length } = this.props.children as any;
     const { currentIndex } = this.state;
     const prevIndex = prevState.currentIndex;
     // isSilent表示静默地做一次位移动画，在用户无感知的情况下从复制元素translate到真实元素
@@ -341,3 +356,5 @@ export default class Swiper extends PureComponent {
     );
   }
 }
+
+export default Swiper;
