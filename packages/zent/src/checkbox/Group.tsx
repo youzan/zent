@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import findIndex from 'lodash/findIndex';
 import memoize from 'memoize-one';
@@ -8,7 +9,18 @@ import GroupContext from './GroupContext';
 
 const GroupContextProvider = GroupContext.Provider;
 
-export default class Group extends PureComponent {
+export interface ICheckboxGroupProps {
+  value: Array<any>;
+  isValueEqual?: (value1: any, value2: any) => boolean;
+  disabled?: boolean;
+  readOnly?: boolean;
+  onChange?: (values: Array<any>) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  prefix?: string;
+}
+
+export class CheckboxGroup extends Component<ICheckboxGroupProps> {
   static propTypes = {
     value: PropTypes.array,
     isValueEqual: PropTypes.func,
@@ -84,3 +96,5 @@ export default class Group extends PureComponent {
     );
   }
 }
+
+export default CheckboxGroup;
