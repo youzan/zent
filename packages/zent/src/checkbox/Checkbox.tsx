@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash/assign';
 import findIndex from 'lodash/findIndex';
@@ -7,7 +8,31 @@ import getWidth from 'utils/getWidth';
 
 import GroupContext from './GroupContext';
 
-export default class Checkbox extends Component {
+export interface ICheckboxEventTarget extends ICheckboxProps {
+  type: 'checkbox';
+  checked: boolean;
+}
+
+export interface ICheckboxEvent {
+  target: ICheckboxEventTarget;
+  preventDefault(): void;
+  stopPropagation(): void;
+}
+
+export interface ICheckboxProps {
+  checked?: boolean;
+  value?: any;
+  disabled?: boolean;
+  readOnly?: boolean;
+  indeterminate?: boolean;
+  onChange?: (e: ICheckboxEvent) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  width?: number;
+  prefix?: string;
+}
+
+export class Checkbox extends Component<ICheckboxProps> {
   static propTypes = {
     checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     disabled: PropTypes.bool,
@@ -33,7 +58,7 @@ export default class Checkbox extends Component {
 
   onChange = evt => {
     const { props, context } = this;
-    const e = {
+    const e: ICheckboxEvent = {
       target: {
         ...props,
         type: 'checkbox',
@@ -110,3 +135,5 @@ export default class Checkbox extends Component {
     );
   }
 }
+
+export default Checkbox;
