@@ -100,14 +100,13 @@ export default class LayeredPortal extends PureComponent {
 
     // 1, Customize the className and style for layer node.
     layerNode.className = className || '';
-    let cssKeys = Object.keys(css || {});
-    if (css && cssKeys.length) {
-      // Setting css is only for compatibility
-      layerNode.style.cssText = cssKeys.map(k => `${k}: ${css[k]}`).join('; ');
+    const cssMap = style || css || {};
+    const cssKeys = Object.keys(cssMap);
+    if (cssMap && cssKeys.length) {
+      layerNode.style.cssText = cssKeys
+        .map(k => `${k}: ${cssMap[k]}`)
+        .join('; ');
     }
-    Object.keys(style || {}).forEach(k => {
-      layerNode.style[k] = style[k];
-    });
 
     // 2, Predefined layer decorations
     if (this.props.useLayerForClickAway) {
