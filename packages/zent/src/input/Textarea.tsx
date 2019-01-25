@@ -1,16 +1,32 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import omit from 'lodash/omit';
 import cx from 'classnames';
 import autosize from 'autosize';
 
-export default class Textarea extends PureComponent {
+import { Input, IInputProps } from './Input';
+
+export interface ITextAreaProps {
+  wrapClass?: string;
+  widthStyle?: React.CSSProperties;
+  prefix?: string;
+  handleKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement>;
+  inputRef: Input;
+  inputProps: React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  autoSize?: boolean;
+  showCount?: boolean;
+}
+
+export default class Textarea extends Component<ITextAreaProps> {
+  textarea: HTMLTextAreaElement;
+
   componentDidMount() {
-    const { autoSize } = this.props.inputProps;
+    const { autoSize } = this.props;
     autoSize && autosize(this.textarea);
   }
 
   componentWillUnmount() {
-    const { autoSize } = this.props.inputProps;
+    const { autoSize } = this.props;
     autoSize && autosize.destroy(this.textarea);
   }
 
@@ -21,11 +37,12 @@ export default class Textarea extends PureComponent {
       prefix,
       handleKeyDown,
       inputRef,
+      showCount
     } = this.props;
     let { inputProps } = this.props;
-    const { showCount, value = '', maxLength } = inputProps;
+    const { value = '', maxLength } = inputProps;
     inputProps = omit(inputProps, ['type', 'showCount', 'autoSize']);
-    let currentCount = value.length;
+    let currentCount = (value as string).length;
     currentCount = currentCount > maxLength ? maxLength : currentCount;
 
     return (
