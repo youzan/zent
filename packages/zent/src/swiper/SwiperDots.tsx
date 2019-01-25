@@ -1,9 +1,19 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent, Children } from 'react';
 import cx from 'classnames';
 
 const buildInDotsColors = ['black', 'blue', 'red', 'green'];
 
-export default class SwiperDots extends PureComponent {
+export interface ISwiperDotsProps {
+  prefix?: string;
+  dotsColor: string;
+  dotsSize?: 'normal' | 'small' | 'large';
+  items: React.ReactNode;
+  currentIndex: number;
+  onDotsClick(index: number): void;
+}
+
+export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
   isDotActive = (index, currentIndex, length) => {
     return (
       index === currentIndex ||
@@ -35,8 +45,8 @@ export default class SwiperDots extends PureComponent {
 
     return (
       <ul className={classString}>
-        {items.map((item, index) => {
-          const isActive = this.isDotActive(index, currentIndex, items.length);
+        {Children.map(items, (item, index) => {
+          const isActive = this.isDotActive(index, currentIndex, (items as any).length);
           if (isActive && !this.isBuildInColor(dotsColor)) {
             return (
               <li
