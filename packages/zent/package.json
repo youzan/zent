@@ -48,6 +48,7 @@
     "react-transition-group": "^2.2.1",
     "sortablejs": "^1.7.0",
     "tinycolor2": "^1.4.1",
+    "utility-types": "^3.4.1",
     "uuid": "^3.1.0",
     "zenticons": "1.4.1"
   },
