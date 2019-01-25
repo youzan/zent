@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash/assign';
+import findIndex from 'lodash/findIndex';
 import getWidth from 'utils/getWidth';
-import findIndex from './findIndex';
+
+import GroupContext from './GroupContext';
 
 export default class Checkbox extends Component {
   static propTypes = {
@@ -27,9 +29,7 @@ export default class Checkbox extends Component {
     onChange() {},
   };
 
-  static contextTypes = {
-    checkboxGroup: PropTypes.any,
-  };
+  static contextType = GroupContext;
 
   onChange = evt => {
     const { props, context } = this;
@@ -49,8 +49,8 @@ export default class Checkbox extends Component {
       },
     };
 
-    if (context.checkboxGroup) {
-      context.checkboxGroup.onCheckboxChange(e);
+    if (context.onCheckboxChange) {
+      context.onCheckboxChange(e);
     } else {
       props.onChange(e);
     }
@@ -72,15 +72,13 @@ export default class Checkbox extends Component {
       value,
       ...others
     } = props;
-    const { checkboxGroup } = context;
 
-    if (checkboxGroup) {
+    if (context.onCheckboxChange) {
       checked =
-        findIndex(checkboxGroup.value, val =>
-          checkboxGroup.isValueEqual(val, value)
-        ) !== -1;
-      disabled = checkboxGroup.disabled || disabled;
-      readOnly = checkboxGroup.readOnly || readOnly;
+        findIndex(context.value, val => context.isValueEqual(val, value)) !==
+        -1;
+      disabled = context.disabled || disabled;
+      readOnly = context.readOnly || readOnly;
     }
 
     const classString = classNames({

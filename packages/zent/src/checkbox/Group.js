@@ -1,7 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import findIndex from './findIndex';
+import findIndex from 'lodash/findIndex';
+import memoize from 'memoize-one';
+
+import GroupContext from './GroupContext';
+
+const GroupContextProvider = GroupContext.Provider;
 
 export default class Group extends PureComponent {
   static propTypes = {
@@ -28,22 +33,13 @@ export default class Group extends PureComponent {
     },
   };
 
-  static childContextTypes = {
-    checkboxGroup: PropTypes.any,
-  };
-
-  getChildContext() {
-    const { value, disabled, readOnly, isValueEqual } = this.props;
-    return {
-      checkboxGroup: {
-        value,
-        disabled,
-        readOnly,
-        isValueEqual,
-        onCheckboxChange: this.onCheckboxChange,
-      },
-    };
-  }
+  getGroupContext = memoize((value, disabled, readOnly, isValueEqual) => ({
+    value,
+    disabled,
+    readOnly,
+    isValueEqual,
+    onCheckboxChange: this.onCheckboxChange,
+  }));
 
   onCheckboxChange = e => {
     const changedValue = e.target.value;
@@ -61,7 +57,16 @@ export default class Group extends PureComponent {
   };
 
   render() {
-    const { className, prefix, style, children } = this.props;
+    const {
+      className,
+      prefix,
+      style,
+      children,
+      value,
+      disabled,
+      readOnly,
+      isValueEqual,
+    } = this.props;
 
     const classString = classNames({
       [`${prefix}-checkbox-group`]: true,
@@ -69,9 +74,13 @@ export default class Group extends PureComponent {
     });
 
     return (
-      <div className={classString} style={style}>
-        {children}
-      </div>
+      <GroupContextProvider
+        value={this.getGroupContext(value, disabled, readOnly, isValueEqual)}
+      >
+        <div className={classString} style={style}>
+          {children}
+        </div>
+      </GroupContextProvider>
     );
   }
 }

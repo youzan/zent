@@ -1,4 +1,4 @@
-import { format } from 'fecha';
+import fecha from 'fecha';
 
 import i18n from './i18n';
 import { getValidDate } from './helpers';
@@ -23,5 +23,9 @@ import { getValidDate } from './helpers';
  */
 export default function formatDate(date, mask = 'default', locale = 'zh') {
   date = getValidDate(date);
-  return format(date, mask, typeof locale === 'string' ? i18n[locale] : locale);
+  return fecha.format(
+    date,
+    mask,
+    typeof locale === 'string' ? i18n[locale] : locale
+  );
 }
