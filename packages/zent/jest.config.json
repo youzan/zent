@@ -16,7 +16,11 @@
   "testPathIgnorePatterns": [
     "<rootDir>/__tests__/table/comp",
     "<rootDir>/__tests__/select.js",
-    "<rootDir>/__tests__/datetimepicker"
+    "<rootDir>/__tests__/datetimepicker",
+    "<rootDir>/__tests__/form/CreateForm-Field.js",
+    "<rootDir>/__tests__/form/CreateForm-FieldArray.js",
+    "<rootDir>/__tests__/form/GetControlGroup-Component_Fields.js",
+    "<rootDir>/__tests__/portal/.+"
   ],
   "coveragePathIgnorePatterns": [
     "<rootDir>/src/slider/common.js",
@@ -39,7 +43,9 @@
     "<rootDir>/src/collapse",
     "<rootDir>/src/select",
     "<rootDir>/src/datetimepicker",
-    "<rootDir>/src/layout"
+    "<rootDir>/src/layout",
+    "<rootDir>/src/form/.+",
+    "<rootDir>/src/portal/.+"
   ],
   "moduleNameMapper": {
     "^affix$": "<rootDir>/src/affix",

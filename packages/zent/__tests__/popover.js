@@ -60,9 +60,9 @@ describe('Popover', () => {
         </PopoverContent>
       </Popover>
     );
-    expect(wrapper.find('Portal').length).toBe(0);
+    expect(wrapper.find('PurePortal').length).toBe(0);
     simulateWithTimers(wrapper.find('button'), 'click');
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
     expect(document.querySelectorAll('.zent-popover-content div').length).toBe(
       2
     );
@@ -93,7 +93,7 @@ describe('Popover', () => {
       );
 
     simulateWithTimers(wrapper.find('button'), 'click');
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
 
     wrapper.instance().close();
     jest.runAllTimers();
@@ -116,18 +116,18 @@ describe('Popover', () => {
       </Popover>
     );
 
-    expect(wrapper.find('Portal').length).toBe(0);
+    expect(wrapper.find('PurePortal').length).toBe(0);
 
     // 快速进入又快速离开
     wrapper.find('button').simulate('mouseenter');
-    expect(wrapper.find('Portal').length).toBe(0);
+    expect(wrapper.find('PurePortal').length).toBe(0);
     wrapper.find('button').simulate('mouseleave');
-    expect(wrapper.find('Portal').length).toBe(0);
+    expect(wrapper.find('PurePortal').length).toBe(0);
 
     // hover 直到popup，然后window监听mousemove，判断是否离开。
     simulateWithTimers(wrapper.find('button'), 'mouseenter');
     wrapper.update();
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
     const fakeEvent = new MouseEvent('mousemove');
     dispatchWithTimers(document.body, fakeEvent);
     wrapper.unmount();
@@ -150,7 +150,7 @@ describe('Popover', () => {
 
     wrapper.find('input').simulate('focus');
     wrapper.find('input').simulate('focus');
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
     wrapper.find('input').simulate('blur');
     jest.runAllTimers();
   });
@@ -213,7 +213,7 @@ describe('Popover', () => {
     simulateWithTimers(wrapper.find('button'), 'click');
 
     // popover portal still in root tail of body..
-    expect(wrapper.find('button').length).toBe(1);
+    expect(wrapper.find(PopoverClickTrigger).find('button').length).toBe(1);
 
     wrapper.unmount();
 
@@ -283,10 +283,10 @@ describe('Popover', () => {
         .find('PopoverClickTrigger')
         .instance()
         .onClickOutside({ target: document.createElement('div') });
-      expect(wrapper.find('Portal').length).toBe(0);
+      expect(wrapper.find('PurePortal').length).toBe(0);
 
       simulateWithTimers(wrapper.find('button'), 'click');
-      expect(wrapper.find('Portal').length).toBe(1);
+      expect(wrapper.find('PurePortal').length).toBe(1);
 
       wrapper
         .find('PopoverClickTrigger')
@@ -489,12 +489,12 @@ describe('Popover', () => {
 
     simulateWithTimers(wrapper.find('button'), 'mouseenter');
     wrapper.update();
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
 
     // wont' close if target is not window
     let fakeEvent = new FocusEvent('blur');
     dispatchWithTimers(window, fakeEvent);
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
 
     // it's tricky to set target manually
     fakeEvent = new FocusEvent('blur');
@@ -528,15 +528,15 @@ describe('Popover', () => {
       </Popover>
     );
     simulateWithTimers(wrapper.find('button'), 'click');
-    expect(wrapper.find('Portal').length).toBe(1);
+    expect(wrapper.find('PurePortal').length).toBe(1);
 
     dispatchWithTimers(document.body, new MouseEvent('click'));
     expect(document.querySelectorAll('.zent-popover-content').length).toBe(1);
 
     wrapper.unmount();
 
-    const popover = document.querySelector('.zent-popover');
-    popover.parentNode.removeChild(popover);
+    // const popover = document.querySelector('.zent-popover');
+    // popover.parentNode.removeChild(popover);
     expect(document.querySelectorAll('.zent-popover-content').length).toBe(0);
   });
 

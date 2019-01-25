@@ -145,9 +145,10 @@ describe('RadioGroup Section', () => {
     const wrapper = shallow(
       <Group className="foo" prefix="bar" style={styleObj} />
     );
-    expect(wrapper.hasClass('bar-radio-group')).toBe(true);
-    expect(wrapper.hasClass('foo')).toBe(true);
-    expect(wrapper.props().style).toBe(styleObj);
+    expect(wrapper.find('.bar-radio-group').length).toBe(1);
+    const group = wrapper.find('.bar-radio-group');
+    expect(group.hasClass('foo')).toBe(true);
+    expect(group.props().style).toBe(styleObj);
   });
 
   it('Group have custom child', () => {
