@@ -4,8 +4,8 @@
  * @author hyczzhu
  */
 
-let documentClientHeight = null;
-let documentClientWidth = null;
+let documentClientHeight: number | null = null;
+let documentClientWidth: number | null = null;
 if (process.env.BROWSER) {
   documentClientHeight = document.documentElement.clientHeight;
   documentClientWidth = document.documentElement.clientWidth;

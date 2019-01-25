@@ -1,8 +1,5 @@
 /* Modified from https://github.com/component/textarea-caret-position/blob/master/index.js */
 
-import get from 'lodash/get';
-import isNaN from 'lodash/isNaN';
-
 import isBrowser from '../isBrowser';
 import isFirefox from '../isFirefox';
 
@@ -53,12 +50,15 @@ const properties = [
 
 const MIRROR_DIV_ID = 'zent-input-textarea-caret-coordinates-mirror-div';
 
-function getCaretCoordinates(element, position, options) {
+export interface IGetCaretCoordinatesOption {
+  debug?: boolean;
+}
+
+function getCaretCoordinates(element: HTMLTextAreaElement, position: number, { debug }: IGetCaretCoordinatesOption) {
   if (!isBrowser) {
     throw new Error('getCaretCoordinates should only be called in a browser');
   }
 
-  const debug = get(options, 'debug', false);
   if (debug) {
     const el = document.getElementById(MIRROR_DIV_ID);
     if (el) el.parentNode.removeChild(el);
@@ -72,7 +72,7 @@ function getCaretCoordinates(element, position, options) {
   const style = div.style;
   const computed = window.getComputedStyle
     ? window.getComputedStyle(element)
-    : element.currentStyle; // currentStyle for IE < 9
+    : (element as any).currentStyle; // currentStyle for IE < 9
   const isInput = element.nodeName === 'INPUT';
 
   // Default textarea styles
@@ -129,7 +129,7 @@ function getCaretCoordinates(element, position, options) {
     // Chrome returns `normal` if you set line-height to `normal`
     // In this case, we use font-size as a fallback
     // The ratio is just a guess
-    height: isNaN(lineHeight)
+    height: Number.isNaN(lineHeight)
       ? parseInt(computed.fontSize, 10) * 1.5
       : lineHeight,
   };

@@ -10,14 +10,13 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import omit from 'lodash/omit';
-import isFinite from 'lodash/isFinite';
-import isFunction from 'lodash/isFunction';
-import isString from 'lodash/isString';
-import raf from 'raf';
+import isFunction from 'lodash-es/isFunction';
+import isString from 'lodash-es/isString';
+import * as raf from 'raf';
 
 const ANIMATION_STATE_CLASSES = {
   animating: 'rah-animating',
@@ -32,7 +31,42 @@ const ANIMATION_STATE_CLASSES = {
   staticHeightSpecific: 'rah-static--height-specific',
 };
 
-export class AnimateHeightNoAppear extends PureComponent {
+export interface IAnimateHeightNoAppearProps {
+  appear?: boolean;
+  className: string;
+  contentClassName: string;
+  duration: number;
+  easing: string;
+  height: string | number;
+  style: React.CSSProperties;
+  applyInlineTransitions?: boolean;
+  animationStateClasses: typeof ANIMATION_STATE_CLASSES;
+}
+
+export interface IAnimateHeightNoAppearState {
+  animationStateClasses: string;
+  height: string | number;
+  overflow: string;
+  shouldUseTransitions?: boolean;
+}
+
+function omitProps(props: IAnimateHeightNoAppearProps) {
+  const {
+    height,
+    duration,
+    easing,
+    contentClassName,
+    animationStateClasses,
+    applyInlineTransitions,
+    ...otherProps
+  } = props;
+  return otherProps;
+}
+
+export class AnimateHeightNoAppear extends PureComponent<
+  IAnimateHeightNoAppearProps,
+  IAnimateHeightNoAppearState
+> {
   static propTypes = {
     animationStateClasses: PropTypes.object,
     applyInlineTransitions: PropTypes.bool,
@@ -55,10 +89,15 @@ export class AnimateHeightNoAppear extends PureComponent {
     applyInlineTransitions: true,
   };
 
-  constructor(props) {
+  animationStateClasses: typeof ANIMATION_STATE_CLASSES;
+  contentElement: HTMLDivElement | null = null;
+  timeoutID: number;
+  animationClassesTimeoutID: number;
+
+  constructor(props: IAnimateHeightNoAppearProps) {
     super(props);
 
-    let height = 'auto';
+    let height: string | number = 'auto';
     let overflow = 'visible';
 
     if (isNumber(props.height)) {
@@ -115,7 +154,7 @@ export class AnimateHeightNoAppear extends PureComponent {
       componentStyle.WebkitTransition = transitionString;
       componentStyle.MozTransition = transitionString;
       componentStyle.OTransition = transitionString;
-      componentStyle.msTransition = transitionString;
+      (componentStyle as any).msTransition = transitionString;
       componentStyle.transition = transitionString;
     }
 
@@ -124,18 +163,9 @@ export class AnimateHeightNoAppear extends PureComponent {
       [className]: className,
     });
 
-    const propsToOmit = [
-      'height',
-      'duration',
-      'easing',
-      'contentClassName',
-      'animationStateClasses',
-      'applyInlineTransitions',
-    ];
-
     return (
       <div
-        {...omit(this.props, ...propsToOmit)}
+        {...omitProps(this.props)}
         aria-hidden={height === 0}
         className={componentClasses}
         style={componentStyle}
@@ -173,9 +203,15 @@ export class AnimateHeightNoAppear extends PureComponent {
       this.contentElement.style.overflow = '';
 
       let newHeight = null;
-      const timeoutState = {
+      const timeoutState: {
+        height: null | number | string;
+        overflow: string;
+        shouldUseTransitions?: boolean;
+        animationStateClasses: string;
+      } = {
         height: null, // it will be always set to either 'auto' or specific number
         overflow: 'hidden',
+        animationStateClasses: '',
       };
       const isCurrentHeightAuto = this.state.height === 'auto';
 
@@ -250,7 +286,7 @@ export class AnimateHeightNoAppear extends PureComponent {
         });
 
         // Set static classes and remove transitions when animation ends
-        this.animationClassesTimeoutID = setTimeout(() => {
+        this.animationClassesTimeoutID = (setTimeout(() => {
           this.setState({
             animationStateClasses: timeoutAnimationStateClasses,
             shouldUseTransitions: false,
@@ -261,13 +297,13 @@ export class AnimateHeightNoAppear extends PureComponent {
           this.hideContent(timeoutState.height);
           // Run a callback if it exists
           this.runCallback(nextProps.onAnimationEnd);
-        }, nextProps.duration);
+        }, nextProps.duration) as unknown) as number;
       } else {
         // ANIMATION STARTS, run a callback if it exists
         this.runCallback(nextProps.onAnimationStart);
 
         // Set end height, classes and remove transitions when animation is complete
-        this.timeoutID = setTimeout(() => {
+        this.timeoutID = (setTimeout(() => {
           timeoutState.animationStateClasses = timeoutAnimationStateClasses;
           timeoutState.shouldUseTransitions = false;
 
@@ -278,7 +314,7 @@ export class AnimateHeightNoAppear extends PureComponent {
           this.hideContent(newHeight);
           // Run a callback if it exists
           this.runCallback(nextProps.onAnimationEnd);
-        }, nextProps.duration);
+        }, nextProps.duration) as unknown) as number;
       }
     }
   }
@@ -323,7 +359,9 @@ export class AnimateHeightNoAppear extends PureComponent {
   };
 }
 
-export class AnimateHeightAppear extends PureComponent {
+export class AnimateHeightAppear extends PureComponent<
+  IAnimateHeightNoAppearProps
+> {
   state = {
     mounted: false,
   };
@@ -342,7 +380,9 @@ export class AnimateHeightAppear extends PureComponent {
   }
 }
 
-export default class AnimateHeight extends PureComponent {
+export default class AnimateHeight extends PureComponent<
+  IAnimateHeightNoAppearProps
+> {
   render() {
     const { appear, ...props } = this.props;
     const Animate = appear ? AnimateHeightAppear : AnimateHeightNoAppear;

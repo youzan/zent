@@ -3,7 +3,7 @@ import getScrollPosition from './getScollPosition';
 /**
  * Set focus to `node` without scroll
  */
-export default function focusWithoutScroll(node) {
+export default function focusWithoutScroll(node: HTMLElement) {
   if (node) {
     const lastScrollPos = getScrollPosition();
     node.focus();

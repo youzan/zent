@@ -1,6 +1,6 @@
 export const NOT_FOUND = () => {};
 
-export function read(namespace, key) {
+export function read(namespace: string, key: string) {
   const ns = readNamespace(namespace);
   if (ns !== NOT_FOUND && ns && ns.hasOwnProperty(key)) {
     return ns[key];
@@ -17,7 +17,7 @@ export function read(namespace, key) {
  * @param {any} value
  * @return {bool} true 表示成功，false 写入失败
  */
-export function write(namespace, key, value) {
+export function write(namespace: string, key: string, value?: unknown): boolean {
   let ns = readNamespace(namespace);
   const isRemove = value === undefined;
 
@@ -43,11 +43,11 @@ export function write(namespace, key, value) {
   return writeNamespace(namespace, ns);
 }
 
-export function remove(namespace, key) {
+export function remove(namespace: string, key: string) {
   return write(namespace, key, undefined);
 }
 
-function readNamespace(namespace) {
+function readNamespace(namespace: string) {
   const ns = localStorage.getItem(namespace);
   if (!ns) {
     return NOT_FOUND;
@@ -60,7 +60,7 @@ function readNamespace(namespace) {
   }
 }
 
-function writeNamespace(namespace, value) {
+function writeNamespace<T extends {}>(namespace: string, value: T) {
   try {
     if (Object.keys(value).length === 0) {
       localStorage.removeItem(namespace);

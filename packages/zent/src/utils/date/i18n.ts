@@ -39,11 +39,11 @@ export default {
       '十二月',
     ],
     amPm: ['am', 'pm'],
-    DoFn: function DoFn(D) {
+    DoFn: function DoFn(D: number) {
       return (
         D +
         ['th', 'st', 'nd', 'rd'][
-          D % 10 > 3 ? 0 : ((D - (D % 10) !== 10) * D) % 10
+          D % 10 > 3 ? 0 : (+(D - (D % 10) !== 10) * D) % 10
         ]
       );
     },
@@ -92,7 +92,7 @@ export default {
       return (
         D +
         ['th', 'st', 'nd', 'rd'][
-          D % 10 > 3 ? 0 : ((D - (D % 10) !== 10) * D) % 10
+          D % 10 > 3 ? 0 : (+(D - (D % 10) !== 10) * D) % 10
         ]
       );
     },

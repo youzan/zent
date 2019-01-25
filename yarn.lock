@@ -800,6 +800,18 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@types/lodash-es@^4.17.1":
+  version "4.17.1"
+  resolved "http://registry.npm.taobao.org/@types/lodash-es/download/@types/lodash-es-4.17.1.tgz#56745e5411558362aeca31def918f88f725dd29d"
+  integrity sha1-VnReVBFVg2KuyjHe+Rj4j3Jd0p0=
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.120"
+  resolved "http://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.120.tgz#cf265d06f6c7a710db087ed07523ab8c1a24047b"
+  integrity sha1-zyZdBvbHpxDbCH7QdSOrjBokBHs=
+
 "@types/node@*":
   version "10.12.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.12.tgz#e15a9d034d9210f00320ef718a50c4a799417c47"
@@ -810,13 +822,39 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
   integrity sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==
 
-"@types/react@^16.7.6":
+"@types/raf@^3.4.0":
+  version "3.4.0"
+  resolved "http://registry.npm.taobao.org/@types/raf/download/@types/raf-3.4.0.tgz#2b72cbd55405e071f1c4d29992638e022b20acc2"
+  integrity sha1-K3LL1VQF4HHxxNKZkmOOAisgrMI=
+
+"@types/react-is@^16.7.0":
+  version "16.7.0"
+  resolved "http://registry.npm.taobao.org/@types/react-is/download/@types/react-is-16.7.0.tgz#27996153237c8aa4034981844479a3c456a6e04c"
+  integrity sha1-J5lhUyN8iqQDSYGERHmjxFam4Ew=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-transition-group@^2.0.15":
+  version "2.0.15"
+  resolved "http://registry.npm.taobao.org/@types/react-transition-group/download/@types/react-transition-group-2.0.15.tgz#e5ee3fe558832e141cc6041bdd54caea7b787af8"
+  integrity sha1-5e4/5ViDLhQcxgQb3VTK6nt4evg=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^16.7.6":
   version "16.7.20"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.20.tgz#13ae752c012710d0fa800985ca809814b51d3b58"
   integrity sha512-Qd5RWkwl6SL7R2XzLk/cicjVQm1Mhc6HqXY5Ei4pWd1Vi8Fkbd5O0sA398x8fRSTPAuHdDYD9nrWmJMYTJI0vQ==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/uuid@^3.4.4":
+  version "3.4.4"
+  resolved "http://registry.npm.taobao.org/@types/uuid/download/@types/uuid-3.4.4.tgz#7af69360fa65ef0decb41fd150bf4ca5c0cefdf5"
+  integrity sha1-evaTYPpl7w3stB/RUL9MpcDO/fU=
+  dependencies:
+    "@types/node" "*"
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
@@ -7384,10 +7422,10 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash-es@^4.2.1:
+lodash-es@^4.17.11, lodash-es@^4.2.1:
   version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
-  integrity sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q==
+  resolved "http://registry.npm.taobao.org/lodash-es/download/lodash-es-4.17.11.tgz#145ab4a7ac5c5e52a3531fb4f310255a152b4be0"
+  integrity sha1-FFq0p6xcXlKjUx+08xAlWhUrS+A=
 
 lodash._reinterpolate@~3.0.0:
   version "3.0.0"

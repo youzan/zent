@@ -1,4 +1,4 @@
-import uuidV4 from 'uuid/v4';
+import * as uuidV4 from 'uuid/v4';
 
 // Ignore all arguments
 export default function uuid() {

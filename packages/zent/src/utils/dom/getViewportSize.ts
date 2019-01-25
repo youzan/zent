@@ -1,7 +1,7 @@
 /**
  * 获取viewport的宽高
  */
-export default function getViewportSize() {
+export function getViewportSize() {
   // http://stackoverflow.com/questions/1248081/get-the-browser-viewport-dimensions-with-javascript
   const doc = document.documentElement;
   return {
@@ -9,3 +9,5 @@ export default function getViewportSize() {
     height: Math.max(doc.clientHeight, window.innerHeight || 0),
   };
 }
+
+export default getViewportSize;

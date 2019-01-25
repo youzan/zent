@@ -4,8 +4,8 @@
  * These are rarely needed in React, it provides basic DOM manipulation functionalities without resort to jQuery/Zepto.
  */
 
-export { default as findPositionedParent } from './findPositionedParent';
-export { default as getViewportSize } from './getViewportSize';
+export * from './findPositionedParent';
+export * from './getViewportSize';
 /**
  * 下面这些有需要的话可以按每个函数一个文件放到当前目录下，在index.js里重新导出即可。
  *
