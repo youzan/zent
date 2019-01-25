@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import Button from 'button';
 import Notify from 'notify';
 
@@ -7,7 +8,13 @@ import { I18nReceiver as Receiver } from 'i18n';
 
 import CopyToClipboard from './ReactCopyToClipboard';
 
-export default class Copy extends PureComponent {
+export interface ICopyButtonProps {
+  text: string;
+  onCopySuccess?: () => void | string;
+  onCopyError?: () => void | string;
+}
+
+export class CopyButton extends Component<ICopyButtonProps> {
   static propTypes = {
     text: PropTypes.string.isRequired,
     onCopySuccess: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -57,3 +64,5 @@ export default class Copy extends PureComponent {
     );
   }
 }
+
+export default CopyButton;

@@ -1,8 +1,14 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import copy from './CopyToClipboard';
 
-export default class CopyToClipboard extends PureComponent {
+export interface CopyToClipboardProps {
+  text: string;
+  onCopy?: (text: string, result: boolean) => void;
+}
+
+export class CopyToClipboard extends Component<CopyToClipboardProps> {
   static propTypes = {
     text: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,
@@ -27,15 +33,11 @@ export default class CopyToClipboard extends PureComponent {
   };
 
   render() {
-    const {
-      text: _text,
-      onCopy: _onCopy,
-      options: _options,
-      children,
-      ...props
-    } = this.props;
+    const { text: _text, onCopy: _onCopy, children, ...props } = this.props;
     const elem = React.Children.only(children);
 
     return React.cloneElement(elem, { ...props, onClick: this.onClick });
   }
 }
+
+export default CopyToClipboard;
