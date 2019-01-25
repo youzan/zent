@@ -5,9 +5,11 @@ path: component/table
 group: 导航
 ---
 
-## Table 表格（列表）
+## Table 表格（⚠️已废弃，请使用 `Grid` 替代）
 
 表格组件
+
+该组件已停止维护，请使用 `Grid`。
 
 ### 使用指南
 

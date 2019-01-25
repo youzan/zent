@@ -50,12 +50,10 @@ class SelectionCheckboxAll extends PureComponent {
     const checked = this.getCheckState(props);
     const indeterminate = this.getIndeterminateState(props);
 
-    if (checked !== this.state.checked) {
-      this.setState({ checked });
-    }
-    if (indeterminate !== this.state.indeterminate) {
-      this.setState({ indeterminate });
-    }
+    this.setState({
+      checked,
+      indeterminate,
+    });
   };
 
   onChange = e => {

@@ -1,11 +1,12 @@
 import { PureComponent, createElement } from 'react';
 import PropTypes from 'prop-types';
 import { prefixName } from './utils';
+import { validElementType } from '../utils/prop-types';
 
 class FormSection extends PureComponent {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    component: validElementType,
     children: PropTypes.any,
   };
 

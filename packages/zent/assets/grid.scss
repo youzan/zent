@@ -1,4 +1,5 @@
 @import './theme/default';
+
 $thead-background-color: $theme-stroke-7;
 $border-color: $theme-stroke-6;
 
@@ -44,6 +45,21 @@ $border-color: $theme-stroke-6;
       &:first-of-type {
         box-shadow: inset 0 -1px 0 0 $theme-stroke-6;
       }
+    }
+  }
+
+  &-bordered {
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid $border-color;
+    }
+
+    .zent-grid-header th {
+      border-bottom: 0;
     }
   }
 
@@ -109,6 +125,12 @@ $border-color: $theme-stroke-6;
     }
   }
 
+  &-thead > tr > th {
+    &[colspan] {
+      text-align: center;
+    }
+  }
+
   &-fixed {
     width: auto;
   }
@@ -138,6 +160,10 @@ $border-color: $theme-stroke-6;
       box-sizing: border-box;
       margin-bottom: -15px;
       overflow: scroll;
+    }
+
+    table {
+      width: auto;
     }
   }
 

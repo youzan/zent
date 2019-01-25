@@ -2,11 +2,9 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import throttle from 'lodash/throttle';
 import Checkbox from 'checkbox';
-import Icon from 'icon';
 import cx from 'classnames';
 import helper from '../helper';
 
-let rect;
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';
 
@@ -18,9 +16,13 @@ export default class Head extends PureComponent {
       isShowFixRow: false,
     };
     this.relativeTop = 0;
+    this.mounted = false;
+    this.rect = {};
   }
 
   componentDidMount() {
+    this.mounted = true;
+
     if (this.props.autoStick) {
       this.throttleSetHeadStyle = throttle(this.setHeadStyle, 100, {
         leading: true,
@@ -32,6 +34,8 @@ export default class Head extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
+
     if (this.props.autoStick) {
       window.removeEventListener('scroll', this.throttleSetHeadStyle, true);
       window.removeEventListener('resize', this.throttleSetHeadStyle, true);
@@ -40,17 +44,26 @@ export default class Head extends PureComponent {
 
   getRect() {
     // clientrect can't be clone
-    let tmpRect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-    rect = {
+    const node = ReactDOM.findDOMNode(this);
+    if (!node) {
+      return;
+    }
+
+    let tmpRect = node.getBoundingClientRect();
+    this.rect = {
       top: tmpRect.top,
       height: tmpRect.height - 1,
       width: tmpRect.width,
     };
     this.relativeTop =
-      rect.top - document.documentElement.getBoundingClientRect().top;
+      this.rect.top - document.documentElement.getBoundingClientRect().top;
   }
 
   setHeadStyle = () => {
+    if (!this.mounted) {
+      return;
+    }
+
     this.getRect();
     if (window.scrollY > this.relativeTop) {
       this.setState({
@@ -58,9 +71,9 @@ export default class Head extends PureComponent {
         fixStyle: {
           position: 'fixed',
           top: 0,
-          left: `${rect.left}px`,
-          height: `${rect.height}px`,
-          width: `${rect.width}px`,
+          left: `${this.rect.left}px`,
+          height: `${this.rect.height}px`,
+          width: `${this.rect.width}px`,
           zIndex: 1000,
         },
       });
@@ -81,16 +94,14 @@ export default class Head extends PureComponent {
         <div className={cx('sort-col', { 'sort-col--active': isActiveCol })}>
           <span className="sort-col-title">{item.title}</span>
           <span className="sort-col-icon">
-            <Icon
-              type="caret-up"
-              className={cx({
+            <span
+              className={cx('caret-up', {
                 'sort-active': isActiveCol && sortType === 'asc',
               })}
               onClick={() => this.sort(item, 'asc')}
             />
-            <Icon
-              type="caret-down"
-              className={cx({
+            <span
+              className={cx('caret-down', {
                 'sort-active': isActiveCol && sortType === 'desc',
               })}
               onClick={() => this.sort(item, 'desc')}
@@ -102,12 +113,15 @@ export default class Head extends PureComponent {
     return item.title;
   }
 
-  sort = (item, sortType) => {
+  sort = (item, nextSortType) => {
     let name = item.name;
-
+    let { sortType } = this.props;
+    if (sortType === nextSortType) {
+      nextSortType = '';
+    }
     this.props.onSort({
       sortBy: name,
-      sortType,
+      sortType: nextSortType,
     });
   };
 
