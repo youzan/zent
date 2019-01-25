@@ -1,14 +1,56 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import Icon from 'icon';
+import * as PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
 import omit from 'lodash/omit';
 import isNumber from 'lodash/isNumber';
-import getWidth from 'utils/getWidth';
+import { Omit } from 'utility-types';
+import Icon from '../icon';
+import getWidth from '../utils/getWidth';
 import Textarea from './Textarea';
 
-export default class Input extends PureComponent {
+export interface IInputChangeEvent {
+  target: IInputProps;
+  preventDefault(): void;
+  stopPropagation(): void;
+  fromClearButton: boolean;
+}
+
+export interface IInputProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'size' | 'onChange'
+  > {
+  className?: string;
+  prefix?: string;
+  width?: number | string;
+  type?: 'text' | 'number' | 'password' | 'textarea';
+  size?: 'large' | 'normal' | 'small';
+  defaultValue?: string;
+  value?: string;
+  readOnly?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+  showClear?: boolean;
+  addonBefore?: React.ReactNode;
+  addonAfter?: React.ReactNode;
+  autoFocus?: boolean;
+  autoSelect?: boolean;
+  initSelectionStart?: number;
+  initSelectionEnd?: number;
+  onChange?: (
+    e: IInputChangeEvent | React.ChangeEvent<HTMLInputElement>
+  ) => void;
+  onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
+
+  // textarea
+  maxLength?: number;
+  showCount?: boolean;
+  autoSize?: boolean;
+}
+
+export class Input extends PureComponent<IInputProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -43,6 +85,8 @@ export default class Input extends PureComponent {
     autoSelect: false,
     showClear: false,
   };
+
+  input: HTMLInputElement | HTMLTextAreaElement;
 
   state = {
     hasFocus: false,
@@ -138,6 +182,8 @@ export default class Input extends PureComponent {
       width,
       disabled,
       readOnly,
+      showCount,
+      autoSize,
     } = this.props;
     const { hasFocus } = this.state;
     const widthStyle = getWidth(width);
@@ -182,6 +228,8 @@ export default class Input extends PureComponent {
           handleKeyDown={this.handleKeyDown}
           inputProps={inputProps}
           inputRef={this}
+          showCount={showCount}
+          autoSize={autoSize}
         />
       );
     }
@@ -216,3 +264,5 @@ export default class Input extends PureComponent {
     );
   }
 }
+
+export default Input;
