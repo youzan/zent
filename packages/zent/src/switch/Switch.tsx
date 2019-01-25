@@ -1,8 +1,21 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import setClass from 'classnames';
 
-export default class Switch extends PureComponent {
+export interface ISwitchProps {
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
+  disabled?: boolean;
+  checkedText?: string;
+  uncheckedText?: string;
+  loading?: boolean;
+  size?: 'default' | 'small';
+  className?: string;
+  prefix?: string;
+}
+
+export class Switch extends Component<ISwitchProps> {
   static propTypes = {
     size: PropTypes.oneOf(['default', 'small']),
     prefix: PropTypes.string,
@@ -51,3 +64,5 @@ export default class Switch extends PureComponent {
     );
   }
 }
+
+export default Switch;
