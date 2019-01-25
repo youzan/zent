@@ -1,10 +1,11 @@
-import { Component, Children } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import isFunction from 'lodash/isFunction';
 import memoize from 'memoize-one';
 
-import { getNodeFromSelector } from './util';
+import { getNodeFromSelector, removeAllChildren } from './util';
+import PortalContent from './PortalContent';
 
 // eslint-disable-next-line
 export function unstable_unrenderPortal(containerNode, callback, onUnmount) {
@@ -57,29 +58,41 @@ export default class PurePortal extends Component {
     // parent node
     selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
       .isRequired,
+
+    // append portal content to selector
+    append: PropTypes.bool,
   };
 
-  componentDidMount() {
-    const { onMount } = this.props;
+  static defaultProps = {
+    append: false,
+  };
 
-    onMount && onMount();
-  }
+  getContainer = memoize(selector => {
+    const node = getNodeFromSelector(selector);
+    if (!this.props.append) {
+      removeAllChildren(node);
+    }
 
-  componentWillUnmount() {
-    const { onUnmount } = this.props;
-
-    onUnmount && onUnmount();
-  }
-
-  getContainer = memoize(getNodeFromSelector);
+    return node;
+  });
 
   render() {
-    const { selector: container } = this.props;
+    const { selector: container, onMount, onUnmount } = this.props;
 
     // Render the portal content to container node or parent node
     const { children, render } = this.props;
-    const content = render ? render() : Children.only(children);
+    const content = render ? render() : children;
+    const domNode = this.getContainer(container);
 
-    return ReactDOM.createPortal(content, this.getContainer(container));
+    if (domNode) {
+      return null;
+    }
+
+    return ReactDOM.createPortal(
+      <PortalContent onMount={onMount} onUnmount={onUnmount}>
+        {content}
+      </PortalContent>,
+      domNode
+    );
   }
 }
