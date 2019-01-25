@@ -1,7 +1,15 @@
-import PropTypes from 'prop-types';
-import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
+import { Component } from 'react';
 
-export default class WindowEventHandler extends PureComponent {
+export interface IWindowEventHandlerProps<K extends keyof WindowEventMap> {
+  eventName: K;
+  callback(ev: WindowEventMap[K]): void;
+  useCapture?: boolean;
+}
+
+export default class WindowEventHandler<
+  K extends keyof WindowEventMap
+> extends Component<IWindowEventHandlerProps<K>> {
   static propTypes = {
     eventName: PropTypes.string.isRequired,
     callback: PropTypes.func.isRequired,

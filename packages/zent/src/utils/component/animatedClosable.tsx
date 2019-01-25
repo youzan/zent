@@ -1,11 +1,25 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
+import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
 const defaultTimeout = 300; // ms
 
-export default function animatedClosable(Origin) {
-  return class Animated extends PureComponent {
+export interface IAnimatedProps {
+  timeout?: number;
+  animated?: boolean;
+  animation?: React.ComponentType<CSSTransitionProps>;
+  animationClassName?: string;
+}
+
+export interface IAnimatedState {
+  open: boolean;
+  closing: boolean;
+}
+
+export default function animatedClosable<P extends {}>(Origin: React.ComponentType<P>) {
+  return class Animated extends Component<IAnimatedProps & P, IAnimatedState> {
     static propTypes = {
       open: PropTypes.bool,
       timeout: PropTypes.number,
@@ -16,6 +30,8 @@ export default function animatedClosable(Origin) {
     static defaultProps = {
       animated: true,
     };
+
+    timeoutNum: number | null = null;
 
     constructor(props, context) {
       super(props, context);
@@ -28,8 +44,6 @@ export default function animatedClosable(Origin) {
         open: !!props.open,
         closing: false,
       };
-
-      this.timeoutNum = null;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -64,7 +78,7 @@ export default function animatedClosable(Origin) {
      *  close(timeout, callback)
      *  close(callback) // with default timeout
      */
-    close = (arg0, arg1) => {
+    close = (arg0?: number, arg1?: () => void) => {
       let callback;
       let timeout = this.props.timeout || defaultTimeout;
       if (typeof arg0 === 'function') {
@@ -79,7 +93,7 @@ export default function animatedClosable(Origin) {
         closing: true,
       });
 
-      this.timeoutNum = setTimeout(() => {
+      this.timeoutNum = (setTimeout(() => {
         this.setState(
           {
             open: false,
@@ -89,7 +103,7 @@ export default function animatedClosable(Origin) {
             callback && callback();
           }
         );
-      }, timeout);
+      }, timeout) as unknown) as number;
     };
 
     renderWrapper() {

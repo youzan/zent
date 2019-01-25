@@ -1,7 +1,5 @@
-import isNaN from 'lodash/isNaN';
-
-function isValidDate(value) {
-  return !isNaN(+new Date(value));
+function isValidDate(value: number | string) {
+  return !Number.isNaN(+new Date(value));
 }
 
 /**
@@ -15,7 +13,7 @@ function isValidDate(value) {
  * date = getValidDate(1496800160058);
  * date instanceof Date;// true
  */
-export function getValidDate(date) {
+export function getValidDate(date: unknown): Date {
   if (typeof date === 'undefined') {
     throw new Error('expects a date');
   }
@@ -34,10 +32,10 @@ export function getValidDate(date) {
       date = date.replace(/-/g, '/');
     }
 
-    if (isValidDate(date)) {
-      date = new Date(date);
+    if (isValidDate(date as string)) {
+      date = new Date(date as string);
     }
   }
 
-  return date;
+  return date as Date;
 }

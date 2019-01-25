@@ -1,10 +1,19 @@
 /* eslint-disable no-underscore-dangle */
-
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 
 import getViewportSize from '../dom/getViewportSize';
 import WindowEventHandler from './WindowEventHandler';
+
+export interface IWindowResizeHandlerDelta {
+  deltaX: number;
+  deltaY: number;
+}
+
+export interface IWindowResizeHandlerProps {
+  onResize(e: UIEvent, delta: IWindowResizeHandlerDelta): void;
+}
 
 /**
  * Handles window.resize event.
@@ -12,12 +21,19 @@ import WindowEventHandler from './WindowEventHandler';
  * The event handler got a second parameter: {deltaX, deltaY}.
  * The resize event handler should be throttled since resize events can fire at a high rate.
  */
-export default class WindowResizeHandler extends PureComponent {
+export default class WindowResizeHandler extends Component<
+  IWindowResizeHandlerProps
+> {
   static propTypes = {
     onResize: PropTypes.func.isRequired,
   };
 
-  onResize = evt => {
+  _prevViewportSize: {
+    width: number;
+    height: number;
+  };
+
+  onResize = (evt: UIEvent) => {
     const viewportSize = getViewportSize();
 
     if (!this._prevViewportSize) {

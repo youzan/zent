@@ -6,10 +6,10 @@ import { getValidDate } from './helpers';
 /**
  * 格式化一个 date 对象
  * @memberof module:date
- * @param {string|Date|number} date Date 的实例
- * @param {string} mask 解析的格式，默认为 'default'
- * @param {string} locale i18n 的设置，默认为 'zh'
- * @returns {string} date 对象
+ * @param date Date 的实例
+ * @param mask 解析的格式，默认为 'default'
+ * @param locale i18n 的设置，默认为 'zh'
+ * @returns date 对象
  * @example
  * const formatDate = require('zan-utils/date/formatDate');
  * formatDate('2017-06-06T09:37:16.437Z');
@@ -21,7 +21,11 @@ import { getValidDate } from './helpers';
  * formatDate(1496800160058, 'YYYY-MM-DD');
  * // '2017-06-07'
  */
-export default function formatDate(date, mask = 'default', locale = 'zh') {
+export default function formatDate(
+  date: string | Date | number,
+  mask = 'default',
+  locale = 'zh'
+): string {
   date = getValidDate(date);
   return fecha.format(
     date,

@@ -3,7 +3,7 @@
  * @param {Function} MaybeDerive Class to test
  * @param {Function} Base Base class to test against
  */
-export default function kindOf(MaybeDerive, Base) {
+export default function kindOf(MaybeDerive: Function, Base: Function) {
   return (
     MaybeDerive === Base ||
     (MaybeDerive && MaybeDerive.prototype instanceof Base)

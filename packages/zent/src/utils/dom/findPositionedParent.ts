@@ -1,13 +1,16 @@
 /**
  * Find the first positioned ancestor up in the DOM tree.
  *
- * @param {Node} elem   dom element to search from
- * @param {boolean} inclusive   true if elem is considered an ancestor of itself
+ * @param elem   dom element to search from
+ * @param inclusive   true if elem is considered an ancestor of itself
  *
- * @return {Node} the first positioned ancestor node
+ * @return the first positioned ancestor node
  */
-export default function findPositionedParent(elem, inclusive = false) {
-  function isPositioned(node) {
+export function findPositionedParent(
+  elem: HTMLElement,
+  inclusive = false
+): HTMLElement | null {
+  function isPositioned(node: HTMLElement) {
     const cs = getComputedStyle(node);
     const pos = cs.getPropertyValue('position');
     return pos && pos !== 'static';
@@ -33,3 +36,5 @@ export default function findPositionedParent(elem, inclusive = false) {
 
   return document.documentElement;
 }
+
+export default findPositionedParent;
