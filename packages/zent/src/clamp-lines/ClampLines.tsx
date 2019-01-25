@@ -1,12 +1,34 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import Pop from 'pop';
 import cx from 'classnames';
 import debounce from 'lodash/debounce';
 import identity from 'lodash/identity';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 
-class ClampLines extends Component {
+export interface IClampLinesProps {
+  text: string;
+  lines?: number;
+  delay?: number;
+  ellipsis?: string;
+  showPop?: boolean;
+  popWidth?: number;
+  trigger?: 'click' | 'hover' | 'focus';
+  renderPop?: (text: string) => React.ReactNode;
+  resizable?: boolean;
+  extra?: React.ReactNode;
+  className?: string;
+  prefix?: string;
+}
+
+export interface IClampLinesState {
+  noClamp: boolean;
+  text: string;
+  original: string;
+}
+
+export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
   static propTypes = {
     text: PropTypes.string.isRequired,
     lines: PropTypes.number,
@@ -35,6 +57,13 @@ class ClampLines extends Component {
     resizable: false,
     extra: null,
   };
+
+  element: HTMLDivElement;
+  innerElement: HTMLSpanElement;
+  original: string
+  lineHeight: number;
+  maxHeight: number;
+  ssr: boolean;
 
   constructor(props) {
     super(props);
