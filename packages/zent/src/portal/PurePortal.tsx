@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
+import { createPortal } from 'react-dom';
 import memoize from 'memoize-one';
 
 import { getNodeFromSelector, removeAllChildren } from './util';
-import PortalContent from './PortalContent';
+import PortalContent, { IPortalContentProps } from './PortalContent';
+
+export interface IPurePoralProps extends IPortalContentProps {
+  render?: () => React.ReactNode;
+  selector: string | HTMLElement;
+  append?: boolean;
+}
 
 /**
  * Pure portal, render the content (from render prop or from the only children) into the container
  */
-export default class PurePortal extends Component {
+export class PurePortal extends Component<IPurePoralProps> {
   static propTypes = {
     onMount: PropTypes.func,
     onUnmount: PropTypes.func,
@@ -30,7 +37,7 @@ export default class PurePortal extends Component {
     append: false,
   };
 
-  getContainer = memoize(selector => {
+  getContainer = memoize((selector: string | HTMLElement): Element => {
     const node = getNodeFromSelector(selector);
     if (!this.props.append) {
       removeAllChildren(node);
@@ -51,7 +58,7 @@ export default class PurePortal extends Component {
       return null;
     }
 
-    return ReactDOM.createPortal(
+    return createPortal(
       <PortalContent onMount={onMount} onUnmount={onUnmount}>
         {content}
       </PortalContent>,
@@ -59,3 +66,5 @@ export default class PurePortal extends Component {
     );
   }
 }
+
+export default PurePortal;

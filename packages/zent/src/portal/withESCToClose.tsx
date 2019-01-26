@@ -1,20 +1,29 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import omit from 'lodash/omit';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
+
+export interface IESCToCloseWrapperProps {
+  onClose(): void;
+  visible?: boolean;
+}
 
 /*
   Not exported in index.js.
 
   Provides an HOC component for ESC to close functionality, useful in some cases.
 */
-export default function withESCToClose(Closable) {
-  return class ESCToCloseWrapper extends PureComponent {
+export default function withESCToClose<P extends { visible?: boolean }>(
+  Closable: React.ComponentType<P>
+) {
+  return class ESCToCloseWrapper extends Component<
+    IESCToCloseWrapperProps & P
+  > {
     static propTypes = {
       visible: PropTypes.bool.isRequired,
       onClose: PropTypes.func.isRequired,
     };
 
-    onKeyUp = evt => {
+    onKeyUp = (evt: KeyboardEvent) => {
       if (evt.keyCode === 27) {
         this.props.onClose();
       }
@@ -51,8 +60,8 @@ export default function withESCToClose(Closable) {
     }
 
     render() {
-      const props = omit(this.props, ['onClose']);
-      return <Closable {...props} />;
+      const { onClose, ...props } = this.props;
+      return <Closable {...props as P} />;
     }
   };
 }

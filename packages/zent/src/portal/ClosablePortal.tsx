@@ -1,11 +1,14 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-import Portal from './Portal';
+import Portal, { IPortalProps } from './Portal';
+
+export interface IClosablePortalProps extends IPortalProps {}
 
 // visible的逻辑放在Portal里实现会比较烦，因为没法利用React的update机制。
-export default class ClosablePortal extends PureComponent {
+export class ClosablePortal extends Component<IClosablePortalProps> {
   static propTypes = {
     visible: PropTypes.bool,
   };
@@ -19,3 +22,5 @@ export default class ClosablePortal extends PureComponent {
     return visible && <Portal {...portalProps} />;
   }
 }
+
+export default ClosablePortal;
