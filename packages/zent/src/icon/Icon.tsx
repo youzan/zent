@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
+import { Omit } from 'utility-types';
 
 export type EIconType =
   | 'summary-o'
@@ -69,7 +70,7 @@ export type EIconType =
   | 'pending-circle'
   | 'pending-circle';
 
-export interface IIconProps {
+export interface IIconProps extends React.HTMLAttributes<HTMLElement> {
   type: EIconType;
   className?: string;
   spin?: boolean;
