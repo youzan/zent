@@ -1,13 +1,31 @@
-import React, { PureComponent } from 'react';
-import Icon from 'icon';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
-import isFunction from 'lodash/isFunction';
+import * as PropTypes from 'prop-types';
+import isFunction from 'lodash-es/isFunction';
+import Icon from '../icon';
 
 // 支持的color style
 const colorTypes = ['red', 'green', 'yellow', 'blue', 'darkgreen', 'grey'];
 
-export default class Tag extends PureComponent {
+export interface ITagProps {
+  color?: string;
+  outline?: boolean;
+  rounded?: boolean;
+  closable?: boolean;
+  onClose?: React.MouseEventHandler<HTMLElement>;
+  visible?: boolean;
+  onVisibleChange?: (visible: boolean) => void;
+  borderColor?: string;
+  bgColor?: string;
+  fontColor?: string;
+  closeButtonFontColor?: string;
+  style?: React.CSSProperties;
+  className?: string;
+  prefix?: string;
+}
+
+export class Tag extends Component<ITagProps> {
   static propTypes = {
     color: PropTypes.string,
     outline: PropTypes.bool,
@@ -98,11 +116,11 @@ export default class Tag extends PureComponent {
       prefix,
       style,
     } = this.props;
+    const colorPart = colorTypes.indexOf(color) >= 0 ? `-${color}` : '';
+    const outlinePart = outline ? '-outline' : '';
     const containerCls = cx(
       `${prefix}-tag`,
-      `${prefix}-tag-style${colorTypes.indexOf(color) >= 0 ? `-${color}` : ''}${
-        outline ? '-outline' : ''
-      }`,
+      `${prefix}-tag-style${colorPart}${outlinePart}`,
       {
         [className]: !!className,
         [`${prefix}-tag-rounded`]: rounded,
@@ -139,3 +157,5 @@ export default class Tag extends PureComponent {
     );
   }
 }
+
+export default Tag;
