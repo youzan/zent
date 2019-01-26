@@ -1,16 +1,27 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import { getNodeFromSelector } from './util';
+import { IPurePoralProps } from './PurePortal';
+
+export interface INonScrollableWrapperProps {
+  selector: string | Element;
+  visible?: boolean;
+}
 
 /*
   Provides an HOC component for ensuring container is non-scrollable during component
   lifecycle.
 */
-export default function withNonScrollable(Portal) {
+export default function withNonScrollable<P extends IPurePoralProps>(
+  Portal: React.ComponentType<P>
+) {
   let portalVisibleCount = 0;
   let originalOverflow;
 
-  return class NonScrollableWrapper extends PureComponent {
+  return class NonScrollableWrapper extends Component<
+    P & INonScrollableWrapperProps
+  > {
     static propTypes = {
       selector: PropTypes.string,
     };
@@ -24,7 +35,9 @@ export default function withNonScrollable(Portal) {
 
       if (portalVisibleCount <= 0) {
         const node = getNodeFromSelector(this.props.selector);
-        node.style.overflow = originalOverflow;
+        if (node instanceof HTMLElement) {
+          node.style.overflow = originalOverflow;
+        }
       }
     }
 
@@ -33,9 +46,11 @@ export default function withNonScrollable(Portal) {
 
       if (portalVisibleCount === 1) {
         const node = getNodeFromSelector(this.props.selector);
-        const { style } = node;
-        originalOverflow = style.overflow;
-        style.overflow = 'hidden';
+        if (node instanceof HTMLElement) {
+          const { style } = node;
+          originalOverflow = style.overflow;
+          style.overflow = 'hidden';
+        }
       }
     }
 

@@ -1,10 +1,23 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
-import LayeredPortal from './LayeredPortal';
+import LayeredPortal, { ILayeredPortalProps } from './LayeredPortal';
+import withESCToClose from './withESCToClose';
+import withNonScrollable from './withNonScrollable';
+import PurePortal from './PurePortal';
 
-export default class Portal extends PureComponent {
+export interface IPortalProps extends ILayeredPortalProps {
+  prefix?: string;
+}
+
+// Portal.withESCToClose = withESCToClose;
+// Portal.withNonScrollable = withNonScrollable;
+// Portal.PurePortal = PurePortal;
+// Portal.LayeredPortal = LayeredPortal;
+
+export class Portal extends Component<IPortalProps> {
   static propTypes = {
     // visible
     visible: PropTypes.bool,
@@ -36,6 +49,11 @@ export default class Portal extends PureComponent {
     visible: true,
   };
 
+  static withESCToClose = withESCToClose;
+  static withNonScrollable = withNonScrollable;
+  static PurePortal = PurePortal
+  static LayeredPortal = LayeredPortal;
+
   render() {
     const { prefix, className, ...other } = this.props;
     return (
@@ -43,3 +61,5 @@ export default class Portal extends PureComponent {
     );
   }
 }
+
+export default Portal;

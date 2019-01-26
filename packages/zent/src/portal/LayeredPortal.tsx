@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import isFunction from 'lodash/isFunction';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
+import isFunction from 'lodash-es/isFunction';
 
-import PurePortal from './PurePortal';
+import PurePortal, { IPurePoralProps } from './PurePortal';
 import {
   getNodeFromSelector,
   createContainerNode,
@@ -10,10 +11,20 @@ import {
   isDescendant,
 } from './util';
 
+export interface ILayeredPortalProps extends IPurePoralProps {
+  visible?: boolean;
+  layer?: string;
+  useLayerForClickAway?: boolean;
+  onClickAway?: (e: TouchEvent | MouseEvent) => void;
+  onLayerReady?: (node: HTMLElement) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
 /*
   Portal的核心，只负责管理child。index.js实际export的不是这个component.
 */
-export default class LayeredPortal extends PureComponent {
+export class LayeredPortal extends Component<ILayeredPortalProps> {
   static propTypes = {
     // visible
     visible: PropTypes.bool,
@@ -47,10 +58,10 @@ export default class LayeredPortal extends PureComponent {
   };
 
   // DOM node, the container of the portal content
-  layerNode = null;
+  layerNode: HTMLElement | null = null;
 
   // DOM node, the parent node of portal content
-  parentNode = null;
+  parentNode: Element | null = null;
 
   onUnmount = () => {
     this.unrenderLayer();
@@ -95,12 +106,12 @@ export default class LayeredPortal extends PureComponent {
     }
   };
 
-  decorateLayer = (layerNode, props = this.props) => {
-    const { onLayerReady, className, css, style } = props;
+  decorateLayer = (layerNode: HTMLElement, props = this.props) => {
+    const { onLayerReady, className, style } = props;
 
     // 1, Customize the className and style for layer node.
     layerNode.className = className || '';
-    const cssMap = style || css || {};
+    const cssMap = style || (props as any).css || {};
     const cssKeys = Object.keys(cssMap);
     if (cssMap && cssKeys.length) {
       layerNode.style.cssText = cssKeys
@@ -114,10 +125,10 @@ export default class LayeredPortal extends PureComponent {
       layerNode.addEventListener('click', this.onClickAway);
       layerNode.style.position =
         this.parentNode === document.body ? 'fixed' : 'absolute';
-      layerNode.style.top = 0;
-      layerNode.style.bottom = 0;
-      layerNode.style.left = 0;
-      layerNode.style.right = 0;
+      layerNode.style.top = '0';
+      layerNode.style.bottom = '0';
+      layerNode.style.left = '0';
+      layerNode.style.right = '0';
     } else if (this.props.onClickAway) {
       setTimeout(() => {
         window.addEventListener('touchstart', this.onClickAway);
@@ -182,3 +193,5 @@ export default class LayeredPortal extends PureComponent {
     ) : null;
   }
 }
+
+export default LayeredPortal;

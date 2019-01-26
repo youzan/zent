@@ -1,22 +1,22 @@
-export function getNodeFromSelector(selector) {
+export function getNodeFromSelector(selector: string | Element): Element {
   const node =
     typeof selector === 'string' ? document.querySelector(selector) : selector;
   return node || document.body;
 }
 
-export function createContainerNode(parent, tag = 'div') {
+export function createContainerNode(parent: Node, tag = 'div') {
   const div = document.createElement(tag);
   return parent.appendChild(div);
 }
 
-export function removeNodeFromDOMTree(node) {
+export function removeNodeFromDOMTree(node: Node) {
   const { parentNode } = node;
   if (parentNode) {
     parentNode.removeChild(node);
   }
 }
 
-export function isDescendant(parent, child) {
+export function isDescendant(parent: Node, child: Node) {
   let node = child.parentNode;
 
   while (node !== null) {
@@ -27,7 +27,7 @@ export function isDescendant(parent, child) {
   return false;
 }
 
-export function removeAllChildren(node) {
+export function removeAllChildren(node: Node) {
   while (node && node.firstChild) {
     node.removeChild(node.firstChild);
   }
