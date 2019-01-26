@@ -207,11 +207,10 @@ export class AnimateHeightNoAppear extends PureComponent<
         height: null | number | string;
         overflow: string;
         shouldUseTransitions?: boolean;
-        animationStateClasses: string;
+        animationStateClasses?: string;
       } = {
         height: null, // it will be always set to either 'auto' or specific number
         overflow: 'hidden',
-        animationStateClasses: '',
       };
       const isCurrentHeightAuto = this.state.height === 'auto';
 
@@ -279,7 +278,7 @@ export class AnimateHeightNoAppear extends PureComponent<
         timeoutState.shouldUseTransitions = true;
 
         startAnimationHelper(() => {
-          this.setState(timeoutState);
+          this.setState(timeoutState as any);
 
           // ANIMATION STARTS, run a callback if it exists
           this.runCallback(nextProps.onAnimationStart);
@@ -307,7 +306,7 @@ export class AnimateHeightNoAppear extends PureComponent<
           timeoutState.animationStateClasses = timeoutAnimationStateClasses;
           timeoutState.shouldUseTransitions = false;
 
-          this.setState(timeoutState);
+          this.setState(timeoutState as any);
 
           // ANIMATION ENDS
           // Hide content if height is 0 (to prevent tabbing into it)
