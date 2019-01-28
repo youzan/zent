@@ -45,10 +45,10 @@
     width: 14px;
     height: 14px;
     margin: -6px 0 0 -13px;
-    border: 1px solid rgba(black, 0.2);
+    border: 2px solid rgba(black, 0.2);
     border-radius: 100%;
     box-sizing: border-box;
-    border-color: $theme-stroke-5 transparent transparent;
+    border-color: transparent transparent $theme-primary-2 $theme-primary-2;
     animation: switch-spin 1s $timing-fn-linear;
     animation-iteration-count: infinite;
   }
@@ -65,6 +65,7 @@
       width: 8px;
       height: 8px;
       margin: -3px 0 0 -7px;
+      border-width: 1px;
     }
 
     &.zent-switch-checked {
