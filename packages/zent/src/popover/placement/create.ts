@@ -1,11 +1,13 @@
+import { PositionFunction, PositionFunctionImpl } from "../position-function";
+
 /**
  * Create a new placement.
  *
  * @param {function} locate (anchorBoundingBox, containerBoundingBox, contentDimension, options) => { name, getCSSStyle }
  * @return {function}
  */
-export default function createPlacement(locate) {
-  const pos = (prefix, ...args) => {
+export default function createPlacement(locate: PositionFunctionImpl): PositionFunction {
+  const pos: PositionFunction = (prefix, ...args) => {
     const placement = locate(...args);
 
     if (!placement || !placement.name || !placement.getCSSStyle) {
@@ -21,6 +23,6 @@ export default function createPlacement(locate) {
       },
     };
   };
-  pos.locate = locate;
+  (pos as any).locate = locate;
   return pos;
 }

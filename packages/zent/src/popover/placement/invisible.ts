@@ -1,9 +1,10 @@
 import createPlacement from './create';
+import { PositionFunctionImpl } from '../position-function';
 
 /**
  * 不可见定位
  */
-function locate() {
+const locate: PositionFunctionImpl = () => {
   const x = -100000;
   const y = -100000;
 

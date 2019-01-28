@@ -1,12 +1,15 @@
 import 'react';
-import capitalize from 'lodash/capitalize';
-import throttle from 'lodash/throttle';
-import uniq from 'lodash/uniq';
-import isBrowser from 'utils/isBrowser';
+import capitalize from 'lodash-es/capitalize';
+import throttle from 'lodash-es/throttle';
+import uniq from 'lodash-es/uniq';
+import * as PropTypes from 'prop-types';
 
-import PropTypes from 'prop-types';
+import isBrowser from '../../utils/isBrowser';
 
-import Trigger, { PopoverTriggerPropTypes } from './Trigger';
+import Trigger, {
+  PopoverTriggerPropTypes,
+  IPopoverTriggerProps,
+} from './Trigger';
 
 const MOUSE_EVENT_WHITE_LIST = [
   'down',
@@ -219,7 +222,16 @@ function destroyRecognizer(recognizer) {
   }
 }
 
-export default class PopoverHoverTrigger extends Trigger {
+export interface IPopoverHoverTriggerProps extends IPopoverTriggerProps {
+  isOutsideStacked(target: Element): boolean;
+  hideDelay: number;
+  quirk?: boolean;
+  showDelay: number;
+}
+
+export default class PopoverHoverTrigger extends Trigger<
+  IPopoverHoverTriggerProps
+> {
   static propTypes = {
     ...PopoverTriggerPropTypes,
 
@@ -251,12 +263,11 @@ export default class PopoverHoverTrigger extends Trigger {
   };
 
   makeEnterRecognizer() {
-    const { showDelay, quirk } = this.props;
+    const { showDelay } = this.props;
 
     return makeHoverEnterRecognizer({
       enterDelay: showDelay,
       onEnter: this.open,
-      quirk,
     });
   }
 
@@ -300,7 +311,7 @@ export default class PopoverHoverTrigger extends Trigger {
     destroyRecognizer(this.state.leaveRecognizer);
   }
 
-  initRecognizers(props) {
+  initRecognizers(props?: IPopoverHoverTriggerProps) {
     props = props || this.props;
     const { contentVisible } = props;
 

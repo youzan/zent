@@ -16,22 +16,25 @@
  *
  */
 
-import React, { PureComponent, Children } from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import { Component, Children } from 'react';
+import * as ReactDOM from 'react-dom';
 import cx from 'classnames';
-import noop from 'lodash/noop';
-import uniqueId from 'lodash/uniqueId';
-import isFunction from 'lodash/isFunction';
-import isBoolean from 'lodash/isBoolean';
-import isPromise from 'utils/isPromise';
-import PropTypes from 'prop-types';
-import kindOf from 'utils/kindOf';
-import getWidth from 'utils/getWidth';
+import noop from 'lodash-es/noop';
+import uniqueId from 'lodash-es/uniqueId';
+import isFunction from 'lodash-es/isFunction';
+import isBoolean from 'lodash-es/isBoolean';
+import isPromise from '../utils/isPromise';
+import * as PropTypes from 'prop-types';
+import kindOf from '../utils/kindOf';
+import getWidth from '../utils/getWidth';
 import memoize from 'memoize-one';
 
 import PopoverContent from './Content';
-import PopoverTrigger from './trigger/Trigger';
-import PopoverContext from './PopoverContext';
+import PopoverTrigger, { IPopoverTriggerProps } from './trigger/Trigger';
+import PopoverContext, { IPopoverContext } from './PopoverContext';
+import { PositionFunction } from './position-function';
+import withPopover from './withPopover';
 
 const SKIPPED = () => {};
 
@@ -56,7 +59,30 @@ function handleBeforeHook(beforeFn, arity, continuation, escape) {
   mayBePromise.then(continuation, escape);
 }
 
-export default class Popover extends PureComponent {
+export interface IPopoverProps {
+  position: PositionFunction;
+  cushion?: number;
+  display?: string;
+  onShow?: () => void;
+  onClose?: () => void;
+  onBeforeShow?: (callback?: () => void, escape?: () => void) => void;
+  onBeforeClose?: (callback?: () => void, escape?: () => void) => void;
+  containerSelector?: string;
+  visible?: boolean;
+  onVisibleChange?: (visible: boolean) => void;
+  onPositionUpdated?: () => void;
+  onPositionReady?: () => void;
+  className?: string;
+  wrapperClassName?: string;
+  width?: number | string;
+  prefix?: string;
+}
+
+export interface IPopoverState {
+  visible?: boolean;
+}
+
+export class Popover<T extends IPopoverTriggerProps = IPopoverTriggerProps> extends Component<IPopoverProps, IPopoverState> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -114,7 +140,12 @@ export default class Popover extends PureComponent {
 
   static contextType = PopoverContext;
 
-  getPopoverContext = memoize(() => {
+  static Content = PopoverContent;
+  static Trigger = PopoverTrigger;
+  // static Position = Position;
+  static withPopover = withPopover;
+
+  getPopoverContext = memoize((): IPopoverContext => {
     return {
       _zentPopover: {
         close: this.close,
@@ -128,14 +159,24 @@ export default class Popover extends PureComponent {
     };
   });
 
-  registerDescendant = popover => {
+  registerDescendant = (popover: Popover) => {
     this.descendants.push(popover);
   };
 
-  unregisterDescendant = popover => {
+  unregisterDescendant = (popover: Popover) => {
     const idx = this.descendants.indexOf(popover);
     this.descendants.splice(idx, 1);
   };
+
+  context!: IPopoverContext;
+  id: string;
+  isUnmounted: boolean;
+  descendants: Popover[];
+  pendingOnBeforeHook: boolean;
+  triggerNode: HTMLElement | null;
+  triggerInstance: PopoverTrigger<T>;
+  contentInstance: PopoverContent;
+  isOutsideSelf: (el: HTMLElement) => boolean  | null;
 
   constructor(props) {
     super(props);
@@ -156,7 +197,7 @@ export default class Popover extends PureComponent {
     this.isUnmounted = false;
   }
 
-  isVisibilityControlled(props) {
+  isVisibilityControlled(props?: IPopoverProps) {
     const { visible, onVisibleChange } = props || this.props;
     const hasOnChange = isFunction(onVisibleChange);
     const hasVisible = isBoolean(visible);
@@ -168,7 +209,7 @@ export default class Popover extends PureComponent {
     return hasVisible && hasOnChange;
   }
 
-  getVisible = (props, state) => {
+  getVisible = (props?: IPopoverProps, state?: IPopoverState) => {
     if (this.isVisibilityControlled(props)) {
       props = props || this.props;
       return props.visible;
@@ -178,7 +219,7 @@ export default class Popover extends PureComponent {
     return state.visible;
   };
 
-  setVisible = (visible, props, state) => {
+  setVisible = (visible: boolean, props?: IPopoverProps, state?: IPopoverState) => {
     props = props || this.props;
     state = state || this.state;
     const beforeHook = visible ? props.onBeforeShow : props.onBeforeClose;
@@ -294,7 +335,7 @@ export default class Popover extends PureComponent {
     }
 
     const { trigger, content } = childArray.reduce(
-      (state, c) => {
+      (state, c: React.ReactElement<unknown>) => {
         const type = c.type;
         if (kindOf(type, PopoverTrigger)) {
           state.trigger = c;
@@ -317,14 +358,14 @@ export default class Popover extends PureComponent {
     return { trigger, content };
   }
 
-  safeSetState(updater, callback) {
+  safeSetState(updater, callback?: () => void) {
     if (!this.isUnmounted) {
       return this.setState(updater, callback);
     }
   }
 
   componentDidMount() {
-    const { _zentPopover: popover } = this.context || {};
+    const { _zentPopover: popover } = this.context || {} as IPopoverContext;
     if (popover && popover.registerDescendant) {
       popover.registerDescendant(this);
     }
@@ -343,7 +384,7 @@ export default class Popover extends PureComponent {
   }
 
   componentWillUnmount() {
-    const { _zentPopover: popover } = this.context || {};
+    const { _zentPopover: popover } = this.context || {} as IPopoverContext;
     if (popover && popover.unregisterDescendant) {
       popover.unregisterDescendant(this);
     }
@@ -403,3 +444,5 @@ export default class Popover extends PureComponent {
     );
   }
 }
+
+export default Popover;

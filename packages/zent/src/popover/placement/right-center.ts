@@ -1,4 +1,5 @@
 import createPlacement from './create';
+import { PositionFunctionImpl } from '../position-function';
 
 /**
  * ----------------------
@@ -7,12 +8,12 @@ import createPlacement from './create';
  * |                    |---------
  * |--------------------|
  */
-function locate(
+const locate: PositionFunctionImpl = (
   anchorBoundingBox,
   containerBoundingBox,
   contentDimension,
   options
-) {
+) => {
   const { right, top, bottom } = anchorBoundingBox;
   const x = right + options.cushion;
   const middle = (top + bottom) / 2;
@@ -29,7 +30,7 @@ function locate(
 
     name: 'position-right-center',
   };
-}
+};
 
 const RightCenter = createPlacement(locate);
 
