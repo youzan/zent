@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import get from 'lodash/get';
 import forEach from 'lodash/forEach';
 import Row from './Row';
@@ -78,12 +79,17 @@ class Body extends PureComponent {
   }
 
   renderTbody() {
-    const { prefix, onRowMoverOver, scroll } = this.props;
+    const { prefix, onRowMoverOver, scroll, columns } = this.props;
+    const tbodyClass = classnames(`${prefix}-grid-tbody`, {
+      [`${prefix}-grid-tbody-span`]: columns.some(
+        item => item.colSpan || item.rowSpan
+      ),
+    });
 
     return (
       <tbody
         onMouseLeave={() => scroll && scroll.x && onRowMoverOver(-1)}
-        className={`${prefix}-grid-tbody`}
+        className={tbodyClass}
       >
         {this.getRows()}
       </tbody>

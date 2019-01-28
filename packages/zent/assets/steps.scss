@@ -1,6 +1,5 @@
 @import './theme/default';
-$normal-color: $theme-stroke-2;
-$cart-color: $theme-stroke-2;
+$cart-color: $theme-stroke-1;
 $wait-color: $theme-stroke-4;
 $error-color: $theme-error-2;
 $bg-color: $theme-stroke-8;
@@ -60,7 +59,7 @@ $icon-color: $theme-stroke-4;
     position: relative;
     vertical-align: top;
     width: 160px;
-    color: $wait-color;
+    color: $theme-stroke-3;
     text-align: center;
 
     .zent-step-title {
@@ -146,7 +145,7 @@ $icon-color: $theme-stroke-4;
 
     .zent-step-main {
       .zent-step-title {
-        color: $normal-color;
+        color: $theme-stroke-1;
       }
     }
 

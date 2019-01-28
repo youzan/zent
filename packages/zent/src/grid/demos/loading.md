@@ -31,8 +31,7 @@ const columns = [
 		width: 300
 	}, {
 		title: '{i18n.bigStock}',
-		name: 'stock',
-		className: 'big-size'
+		name: 'stock'
 	}
 ];
 
