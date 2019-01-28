@@ -1,9 +1,28 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Component, ReactNode } from 'react';
+import * as PropTypes from 'prop-types';
 
 import I18nContext from './I18nContext';
 
-export default class I18nReceiver extends Component {
+export interface II18nReceiverProps<P> {
+  componentName: string;
+  defaultI18n?: () => {
+    [key: string]: {
+      [key: string]: string;
+    };
+  };
+  children(
+    map: {
+      [key: string]: {
+        [key: string]: string;
+      };
+    },
+    props: P
+  ): ReactNode;
+}
+
+export default class I18nReceiver<P extends {}> extends Component<
+  II18nReceiverProps<P> & P
+> {
   static propTypes = {
     componentName: PropTypes.string.isRequired,
     defaultI18n: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
@@ -26,6 +45,6 @@ export default class I18nReceiver extends Component {
   render() {
     const { children, componentName, defaultI18n, ...bypass } = this.props;
 
-    return children(this.receive(), bypass);
+    return children(this.receive(), (bypass as unknown) as P);
   }
 }
