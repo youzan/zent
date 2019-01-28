@@ -1,15 +1,16 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
-import Portal from 'portal';
-import WindowResizeHandler from 'utils/component/WindowResizeHandler';
-import WindowEventHandler from 'utils/component/WindowEventHandler';
-import findPositionedParent from 'utils/dom/findPositionedParent';
-import throttle from 'lodash/throttle';
+import throttle from 'lodash-es/throttle';
+import * as PropTypes from 'prop-types';
 
-import PropTypes from 'prop-types';
-
+import Portal from '../portal';
+import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import WindowEventHandler from '../utils/component/WindowEventHandler';
+import findPositionedParent from '../utils/dom/findPositionedParent';
 import isEqualPlacement from './placement/isEqual';
 import invisiblePlacement from './placement/invisible';
+import { PositionFunction, IPopoverPosition } from './position-function';
 
 function translateToContainerCoordinates(containerBB, bb) {
   const { left, top } = containerBB;
@@ -23,12 +24,35 @@ function translateToContainerCoordinates(containerBB, bb) {
   };
 }
 
+export interface IPopoverContentProps {
+  prefix?: string;
+  visible?: boolean;
+  getAnchor(): Element;
+  containerSelector: string;
+  getContentNode(): Element;
+  placement: PositionFunction;
+  onPositionUpdated(): void;
+  onPositionReady(): void;
+  id: string;
+  className?: string;
+  cushion: number;
+  anchor: HTMLElement;
+  container: HTMLElement;
+}
+
+export interface IPopoverContentState {
+  position: IPopoverPosition;
+}
+
 /**
  * Like triggers, content can be replaced with your own implementation, all you have to do is extend this base class.
  *
  * The props on this class are all private.
  */
-export default class PopoverContent extends PureComponent {
+export default class PopoverContent extends Component<
+  IPopoverContentProps,
+  IPopoverContentState
+> {
   static propTypes = {
     children: PropTypes.node,
 
@@ -58,6 +82,9 @@ export default class PopoverContent extends PureComponent {
 
     onPositionReady: PropTypes.func,
   };
+
+  positionReady: boolean;
+  positionedParent: Element | null;
 
   constructor(props) {
     super(props);
@@ -96,7 +123,7 @@ export default class PopoverContent extends PureComponent {
     // 可能还未渲染出来，先放到一个不可见的位置
     if (!content) {
       this.setState({
-        position: invisiblePlacement(this.props.prefix),
+        position: (invisiblePlacement as any)(this.props.prefix),
       });
       setTimeout(this.adjustPosition, 0);
       return;

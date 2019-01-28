@@ -5,7 +5,6 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": false,
     "outDir": "es",
-    "baseUrl": "src",
     "jsx": "react",
     "lib": [
       "dom",

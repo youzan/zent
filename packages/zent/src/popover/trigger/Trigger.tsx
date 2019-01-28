@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
-import isFunction from 'lodash/isFunction';
-import React, { PureComponent, Children } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import isFunction from 'lodash-es/isFunction';
+import { Component, Children } from 'react';
 
 export const PopoverTriggerPropTypes = {
   children: PropTypes.node,
@@ -21,7 +22,28 @@ export const PopoverTriggerPropTypes = {
   injectIsOutsideSelf: PropTypes.func,
 };
 
-export default class PopoverTrigger extends PureComponent {
+export interface IPopoverTriggerProps {
+  getTriggerNode?: () => HTMLElement;
+  getContentNode?: () => HTMLElement;
+  open?: () => void;
+  close?: () => void;
+  contentVisible?: boolean;
+  onTriggerRefChange?: (
+    instance: React.ReactInstance,
+    getNodeForTriggerRefChange: (el: HTMLElement) => HTMLElement
+  ) => void;
+  getNodeForTriggerRefChange?: (el: HTMLElement) => HTMLElement;
+  children: React.ReactElement<unknown>;
+  isOutside?: (
+    el: Element,
+    options: {
+      contentNode: HTMLElement;
+      triggerNode: HTMLElement;
+    }
+  ) => void;
+}
+
+export class PopoverTrigger<T extends IPopoverTriggerProps> extends Component<T> {
   static propTypes = {
     ...PopoverTriggerPropTypes,
   };
@@ -59,7 +81,7 @@ export default class PopoverTrigger extends PureComponent {
   };
 
   // Override this function to add custom event handlers
-  getTriggerProps() {
+  getTriggerProps(child?: JSX.Element) {
     return {};
   }
 
@@ -92,7 +114,7 @@ export default class PopoverTrigger extends PureComponent {
     }
 
     const child = Children.only(this.props.children);
-    if (child.ref && !isFunction(child.ref)) {
+    if ((child as any).ref && !isFunction((child as any).ref)) {
       throw new Error('String ref is not allowed on Popover trigger');
     }
 
@@ -105,8 +127,8 @@ export default class PopoverTrigger extends PureComponent {
     onTriggerRefChange(instance, getNodeForTriggerRefChange);
 
     const child = this.validateChildren();
-    if (isFunction(child.ref)) {
-      child.ref(instance);
+    if (isFunction((child as any).ref)) {
+      (child as any).ref(instance);
     }
   };
 
@@ -119,3 +141,5 @@ export default class PopoverTrigger extends PureComponent {
     });
   }
 }
+
+export default PopoverTrigger;

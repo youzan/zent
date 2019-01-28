@@ -7,10 +7,10 @@
  * @return the first positioned ancestor node
  */
 export function findPositionedParent(
-  elem: HTMLElement,
+  elem: Element,
   inclusive = false
-): HTMLElement | null {
-  function isPositioned(node: HTMLElement) {
+): Element | null {
+  function isPositioned(node: Element) {
     const cs = getComputedStyle(node);
     const pos = cs.getPropertyValue('position');
     return pos && pos !== 'static';

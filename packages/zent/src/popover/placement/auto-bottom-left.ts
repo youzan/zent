@@ -1,10 +1,11 @@
-import getViewportSize from 'utils/dom/getViewportSize';
+import getViewportSize from '../../utils/dom/getViewportSize';
 
 import createPlacement from './create';
 import BottomLeft from './bottom-left';
 import BottomRight from './bottom-right';
 import TopLeft from './top-left';
 import TopRight from './top-right';
+import { PositionFunctionImpl } from '../position-function';
 
 const positionMap = {
   BottomLeft,
@@ -13,12 +14,12 @@ const positionMap = {
   TopRight,
 };
 
-function locate(
+const locate: PositionFunctionImpl = (
   anchorBoundingBox,
   containerBoundingBox,
   contentDimension,
   options
-) {
+) => {
   const viewport = getViewportSize();
   const { anchorBoundingBoxViewport, cushion } = options;
 
@@ -54,7 +55,7 @@ function locate(
     contentDimension,
     options
   );
-}
+};
 
 const AutoBottomLeft = createPlacement(locate);
 

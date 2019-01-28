@@ -1,4 +1,5 @@
 import createPlacement from './create';
+import { PositionFunctionImpl } from '../position-function';
 
 /**
  *           |--------------------|
@@ -6,12 +7,12 @@ import createPlacement from './create';
  * | popover |   anchor           |
  * |---------|--------------------|
  */
-function locate(
+const locate: PositionFunctionImpl = (
   anchorBoundingBox,
   containerBoundingBox,
   contentDimension,
   options
-) {
+) => {
   const x = anchorBoundingBox.left - contentDimension.width - options.cushion;
   const y = anchorBoundingBox.bottom - contentDimension.height;
 
@@ -26,7 +27,7 @@ function locate(
 
     name: 'position-left-bottom',
   };
-}
+};
 
 const LeftBottom = createPlacement(locate);
 

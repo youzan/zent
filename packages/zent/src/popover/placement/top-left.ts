@@ -1,4 +1,5 @@
 import createPlacement from './create';
+import { PositionFunctionImpl } from '../position-function';
 
 /**
  * ---------
@@ -8,12 +9,12 @@ import createPlacement from './create';
  * |              |
  * ----------------
  */
-function locate(
+const locate: PositionFunctionImpl = (
   anchorBoundingBox,
   containerBoundingBox,
   contentDimension,
   options
-) {
+) => {
   const { left, top } = anchorBoundingBox;
   const x = left;
   const y = top - contentDimension.height - options.cushion;
@@ -29,7 +30,7 @@ function locate(
 
     name: 'position-top-left',
   };
-}
+};
 
 const TopLeft = createPlacement(locate);
 

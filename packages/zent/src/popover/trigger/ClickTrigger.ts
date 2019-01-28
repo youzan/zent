@@ -1,10 +1,18 @@
-import 'react';
+import * as PropTypes from 'prop-types';
 
-import PropTypes from 'prop-types';
+import Trigger, {
+  PopoverTriggerPropTypes,
+  IPopoverTriggerProps,
+} from './Trigger';
 
-import Trigger, { PopoverTriggerPropTypes } from './Trigger';
+export interface IPopoverClickTriggerProps extends IPopoverTriggerProps {
+  isOutsideStacked(target: Element): boolean;
+  autoClose?: boolean;
+}
 
-export default class PopoverClickTrigger extends Trigger {
+export default class PopoverClickTrigger extends Trigger<
+  IPopoverClickTriggerProps
+> {
   static propTypes = {
     ...PopoverTriggerPropTypes,
 
@@ -43,7 +51,7 @@ export default class PopoverClickTrigger extends Trigger {
     };
   }
 
-  bindEventHandler(props) {
+  bindEventHandler(props?: IPopoverClickTriggerProps) {
     const { contentVisible, autoClose } = props || this.props;
 
     // bind global events only when popover is visible

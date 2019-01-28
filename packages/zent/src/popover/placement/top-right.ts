@@ -1,22 +1,22 @@
 import createPlacement from './create';
+import { PositionFunctionImpl } from '../position-function';
 
 /**
- *    ---------
- *    |popover|
+ *        ---------
+ *        |popover|
  * ----------------
  * |   anchor     |
  * |              |
  * ----------------
  */
-function locate(
+const locate: PositionFunctionImpl = (
   anchorBoundingBox,
   containerBoundingBox,
   contentDimension,
   options
-) {
-  const { right, left, top } = anchorBoundingBox;
-  const middle = (left + right) / 2;
-  const x = middle - contentDimension.width / 2;
+) => {
+  const { right, top } = anchorBoundingBox;
+  const x = right - contentDimension.width;
   const y = top - contentDimension.height - options.cushion;
 
   return {
@@ -28,10 +28,10 @@ function locate(
       };
     },
 
-    name: 'position-top-center',
+    name: 'position-top-right',
   };
-}
+};
 
-const TopCenter = createPlacement(locate);
+const TopRight = createPlacement(locate);
 
-export default TopCenter;
+export default TopRight;

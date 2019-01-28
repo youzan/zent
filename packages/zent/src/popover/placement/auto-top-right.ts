@@ -1,10 +1,11 @@
-import getViewportSize from 'utils/dom/getViewportSize';
+import getViewportSize from '../../utils/dom/getViewportSize';
 
 import createPlacement from './create';
 import BottomLeft from './bottom-left';
 import BottomRight from './bottom-right';
 import TopLeft from './top-left';
 import TopRight from './top-right';
+import { PositionFunctionImpl } from '../position-function';
 
 const positionMap = {
   BottomLeft,
@@ -13,26 +14,26 @@ const positionMap = {
   TopRight,
 };
 
-function locate(
+const locate: PositionFunctionImpl = (
   anchorBoundingBox,
   containerBoundingBox,
   contentDimension,
   options
-) {
+) => {
   const viewport = getViewportSize();
   const { anchorBoundingBoxViewport, cushion } = options;
 
   let horizontal;
   let vertical;
 
-  // 只有当左边放不下，并且右边能够放下的时候才移动到右边
+  // 只有当右边放不下，并且左边能够放下的时候才移动到左边
   if (
-    anchorBoundingBoxViewport.left + contentDimension.width > viewport.width &&
-    anchorBoundingBoxViewport.right - contentDimension.width > 0
+    anchorBoundingBoxViewport.right - contentDimension.width < 0 &&
+    anchorBoundingBoxViewport.left + contentDimension.width < viewport.width
   ) {
-    horizontal = 'Right';
-  } else {
     horizontal = 'Left';
+  } else {
+    horizontal = 'Right';
   }
 
   // 只有当上面放不下，并且下面能够放下时才移动到下面
@@ -54,8 +55,8 @@ function locate(
     contentDimension,
     options
   );
-}
+};
 
-const AutoTopLeft = createPlacement(locate);
+const AutoTopRight = createPlacement(locate);
 
-export default AutoTopLeft;
+export default AutoTopRight;
