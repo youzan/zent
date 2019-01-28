@@ -179,6 +179,7 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   &--checked {
     color: $theme-primary-2;
     border-color: $theme-primary-2;
+    background: $theme-primary-6;
     z-index: 1;
   }
 
@@ -190,9 +191,10 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
       cursor: not-allowed;
     }
 
-    &--checked {
+    &.zent-radio-button--checked {
       background-color: $theme-stroke-10;
       border-color: $theme-stroke-5;
+      color: $theme-stroke-4;
     }
   }
 }
