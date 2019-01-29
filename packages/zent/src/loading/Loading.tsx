@@ -1,29 +1,52 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
-import has from 'lodash/has';
+import has from 'lodash-es/has';
 
 import { getElementLeft, getElementTop } from './getPosition';
 
-export default class Loading extends PureComponent {
+export interface ILoadingProps {
+  show?: boolean;
+  showDelay?: number;
+  float?: boolean;
+  height?: number | string;
+  zIndex?: string;
+  className?: string;
+  containerClass?: string;
+  prefix?: string;
+  target?: HTMLElement;
+}
+
+export interface ILoadingState {
+  show: boolean;
+}
+
+export class Loading extends Component<ILoadingProps, ILoadingState> {
+  ifMounted: boolean;
+  showDelayTimer: number | null;
+  wrapper: HTMLDivElement | null = null;
+  style: React.CSSProperties | null = null;
+
   constructor(props) {
     super(props);
 
     this.showDelayTimer = null;
     this.ifMounted = false;
-    this.state = {
+    const state: ILoadingState = {
       show: false,
     };
 
     const { showDelay, show } = props;
-    this.applyShowDelay(show, showDelay, (s, async) => {
+    this.applyShowDelay(show, showDelay, (s, async: boolean) => {
       if (async) {
         this.safeSetState({
           show: s,
         });
       } else {
-        this.state.show = s;
+        state.show = s;
       }
     });
+    this.state = state;
   }
 
   show = info => {
@@ -63,7 +86,7 @@ export default class Loading extends PureComponent {
     clearTimeout(this.showDelayTimer);
     this.showDelayTimer = setTimeout(() => {
       callback(show, true);
-    }, showDelay);
+    }, showDelay) as unknown as number;
   }
 
   setPosition = () => {
@@ -114,9 +137,9 @@ export default class Loading extends PureComponent {
     }
   }
 
-  safeSetState(state, cb) {
+  safeSetState(state: Partial<ILoadingState>, cb?: () => void) {
     if (this.ifMounted) {
-      return this.setState(state, cb);
+      return this.setState(state as ILoadingState, cb);
     }
   }
 
@@ -167,3 +190,5 @@ export default class Loading extends PureComponent {
     );
   }
 }
+
+export default Loading;

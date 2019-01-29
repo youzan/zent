@@ -1,19 +1,27 @@
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import isBrowser from 'utils/isBrowser';
+import * as React from 'react';
+import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 
-import PropTypes from 'prop-types';
+import isBrowser from '../utils/isBrowser';
 
-import Loading from './Loading';
+import Loading, { ILoadingProps } from './Loading';
 
-export default class Instance extends PureComponent {
+export interface IInstance {
+  show(props: ILoadingProps): void;
+  container: HTMLDivElement;
+}
+
+export { ILoadingProps };
+
+export default class Instance extends Component<ILoadingProps> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
     float: PropTypes.bool,
     show: PropTypes.bool,
     showDelay: PropTypes.number,
-    zIndex: PropTypes.number,
+    zIndex: PropTypes.string,
     containerClass: PropTypes.string,
   };
 
@@ -27,6 +35,8 @@ export default class Instance extends PureComponent {
     zIndex: 9998,
     containerClass: '',
   };
+
+  instance: Promise<IInstance> | null = null;
 
   componentDidMount() {
     this.renderLoading();
@@ -47,7 +57,7 @@ export default class Instance extends PureComponent {
   }
 
   // 通过以下函数与组件通信
-  renderLoading(target) {
+  renderLoading(target?: Element) {
     // static 方式，loading 将存在于文档流中
     if (!isFloat(this.props)) {
       return;
@@ -55,7 +65,7 @@ export default class Instance extends PureComponent {
 
     if (!this.instance) {
       if (!target) {
-        target = ReactDOM.findDOMNode(this);
+        target = ReactDOM.findDOMNode(this) as Element;
       }
       this.instance = newInstance({
         ...this.props,
@@ -91,7 +101,7 @@ function newInstance(props) {
   div.className = `${props.prefix}-loading-container ${props.containerClass}`;
   document.body.appendChild(div);
 
-  return new Promise(resolve => {
+  return new Promise<IInstance>(resolve => {
     ReactDOM.render(
       <Loading
         {...props}
@@ -110,7 +120,7 @@ function newInstance(props) {
 }
 
 // Backward compatible with `static`
-function isFloat(props) {
+function isFloat(props): boolean {
   const hasStatic = props.hasOwnProperty('static');
   const hasFloat = props.hasOwnProperty('float');
 
