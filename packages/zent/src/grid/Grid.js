@@ -121,7 +121,7 @@ class Grid extends PureComponent {
   }
 
   syncFixedTableRowHeight = () => {
-    if (!this.mounted) {
+    if (!this.mounted || !this.tableNode) {
       return;
     }
 
