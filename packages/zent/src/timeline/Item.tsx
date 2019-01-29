@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import Popover from 'popover';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
+import Popover from '../popover';
 import { TimelineDot } from './Dot';
 
 const TimelineItemOptionalPop = ({
@@ -32,7 +33,22 @@ const TimelineItemOptionalPop = ({
   return children;
 };
 
-export class TimelineItem extends PureComponent {
+export interface ITimelineItemProps {
+  size?: number;
+  showLabel?: boolean;
+  showDot?: boolean;
+  color?: string;
+  lineColor?: string;
+  dotColor?: string;
+  label?: React.ReactNode;
+  tip?: React.ReactNode;
+  prefix?: string;
+  className?: string;
+  style?: React.CSSProperties;
+  type?: 'vertical' | 'horizontal';
+}
+
+export class TimelineItem extends PureComponent<ITimelineItemProps> {
   static propTypes = {
     size: PropTypes.number,
     color: PropTypes.string,
@@ -55,6 +71,8 @@ export class TimelineItem extends PureComponent {
     lineColor: '#f2f3f5',
     dotColor: '#155BD4',
   };
+
+  popover: Popover | null = null;
 
   mousePosition = {
     x: 0,
