@@ -33,14 +33,14 @@ const ANIMATION_STATE_CLASSES = {
 
 export interface IAnimateHeightNoAppearProps {
   appear?: boolean;
-  className: string;
-  contentClassName: string;
-  duration: number;
-  easing: string;
-  height: string | number;
-  style: React.CSSProperties;
+  className?: string;
+  contentClassName?: string;
+  duration?: number;
+  easing?: string;
+  height?: string | number;
+  style?: React.CSSProperties;
   applyInlineTransitions?: boolean;
-  animationStateClasses: typeof ANIMATION_STATE_CLASSES;
+  animationStateClasses?: typeof ANIMATION_STATE_CLASSES;
 }
 
 export interface IAnimateHeightNoAppearState {

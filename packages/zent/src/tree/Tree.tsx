@@ -1,14 +1,15 @@
-import React, { Component, PureComponent } from 'react';
-import Checkbox from 'checkbox';
-import isEqual from 'lodash/isEqual';
-import get from 'lodash/get';
-import forEach from 'lodash/forEach';
-import uniq from 'lodash/uniq';
-import assign from 'lodash/assign';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import isEqual from 'lodash-es/isEqual';
+import get from 'lodash-es/get';
+import forEach from 'lodash-es/forEach';
+import uniq from 'lodash-es/uniq';
+import assign from 'lodash-es/assign';
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import AnimateHeight from 'utils/component/AnimateHeight';
+import * as PropTypes from 'prop-types';
 
+import AnimateHeight from '../utils/component/AnimateHeight';
+import Checkbox from '../checkbox';
 import Loading from './components/Loading';
 
 const DEFAULT_REANDER_KEY = {
@@ -18,7 +19,52 @@ const DEFAULT_REANDER_KEY = {
   parentId: 'parentId',
 };
 
-export default class Tree extends (PureComponent || Component) {
+interface ITreeData {
+  id: number | string;
+  title: number | string;
+  children?: Array<ITreeData>;
+  parendId?: string | number;
+  expand?: boolean;
+  isLeaf?: boolean;
+}
+
+interface ITreeOperation {
+  name: string;
+  icon?: string | React.ReactNode;
+  action: (data: ITreeData) => void;
+  shouldRender?: (data: ITreeData) => boolean;
+}
+
+interface ITreeProps {
+  useNew?: boolean;
+  dataType?: 'tree' | 'plain';
+  data: Array<ITreeData>;
+  renderKey?: {
+    id?: string;
+    title?: string;
+    children?: string;
+    parentId?: string;
+  };
+  render?: (data: ITreeData, isExpanded?: boolean) => React.ReactNode;
+  operations?: Array<ITreeOperation>;
+  foldable?: boolean;
+  onCheck?: (data: Array<number | string>) => void;
+  checkable?: boolean;
+  controlled?: boolean;
+  defaultCheckedKeys?: Array<number | string>;
+  disabledCheckedKeys?: Array<number | string>;
+  size?: 'medium' | 'small' | 'large';
+  commonStyle?: React.CSSProperties;
+  expandAll?: boolean;
+  onExpand?: (data: ITreeData, config: { isExpanded: boolean }) => void;
+  autoExpandOnSelect?: boolean;
+  onSelect?: (data: ITreeData, target: HTMLSpanElement) => void;
+  isRoot?: (data: ITreeData) => boolean;
+  loadMore?: (data: ITreeData) => Promise<any>;
+  prefix?: string;
+}
+
+export default class Tree extends PureComponent<ITreeProps, any> {
   renderKeyMap = DEFAULT_REANDER_KEY;
 
   static propTypes = {
@@ -294,7 +340,7 @@ export default class Tree extends (PureComponent || Component) {
     mapCb,
     checkCb,
     parentId,
-  }) {
+  }: any) {
     const { children, id } = this.renderKeyMap;
 
     tree.forEach((item, index) => {
@@ -360,7 +406,7 @@ export default class Tree extends (PureComponent || Component) {
     );
   }
 
-  correctCheckInfo({ checkedNode, disabledNode, tree, isInital }) {
+  correctCheckInfo({ checkedNode, disabledNode, tree, isInital }: any) {
     const { id, children } = this.renderKeyMap;
     const tempParentCheckdMap = {};
     const tempDisabled = disabledNode;
@@ -371,7 +417,7 @@ export default class Tree extends (PureComponent || Component) {
       shouldNodeCheck(item);
     });
 
-    function shouldNodeCheck(root, pId) {
+    function shouldNodeCheck(root, pId?: any) {
       const rootId = root[id];
       const rootChildren = root[children];
 
