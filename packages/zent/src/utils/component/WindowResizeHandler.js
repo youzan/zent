@@ -19,6 +19,11 @@ export default class WindowResizeHandler extends PureComponent {
 
   onResize = evt => {
     const viewportSize = getViewportSize();
+
+    if (!this._prevViewportSize) {
+      this._prevViewportSize = viewportSize;
+    }
+
     const prevViewportSize = this._prevViewportSize;
     const delta = {
       deltaX: viewportSize.width - prevViewportSize.width,
