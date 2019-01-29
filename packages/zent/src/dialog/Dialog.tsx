@@ -1,13 +1,17 @@
-import React, { PureComponent } from 'react';
-import Portal from 'portal';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 
-import animatedClosable from 'utils/component/animatedClosable';
-import isBrowser from 'utils/isBrowser';
+import Portal, { IPortalProps } from '../portal';
+import animatedClosable from '../utils/component/animatedClosable';
+import isBrowser from '../utils/isBrowser';
 import DialogEl from './DialogEl';
+import { openDialog, closeDialog } from './open';
 
 const { withNonScrollable, withESCToClose } = Portal;
-const DialogPortal = withNonScrollable(Portal);
+const DialogPortal = withNonScrollable(Portal as React.ComponentType<
+  IPortalProps
+>);
 const DialogPortalESCToClose = animatedClosable(withESCToClose(DialogPortal));
 
 const TIMEOUT = 300; // ms
@@ -24,7 +28,21 @@ if (isBrowser) {
   });
 }
 
-export default class Dialog extends PureComponent {
+export interface IDialogProps {
+  title?: React.ReactNode;
+  children?: React.ReactNode;
+  footer?: React.ReactNode;
+  visible?: boolean;
+  closeBtn?: boolean;
+  onClose?: (e: any) => void;
+  mask?: boolean;
+  maskClosable?: boolean;
+  className?: string;
+  prefix?: string;
+  style?: React.CSSProperties;
+}
+
+export class Dialog extends Component<IDialogProps> {
   static propTypes = {
     prefix: PropTypes.string,
     onClose: PropTypes.func,
@@ -51,6 +69,9 @@ export default class Dialog extends PureComponent {
     footer: null,
   };
 
+  static openDialog = openDialog;
+  static closeDialog = closeDialog;
+
   lastMousePosition = null;
 
   onClose = e => {
@@ -73,7 +94,9 @@ export default class Dialog extends PureComponent {
     }
 
     // 有关闭按钮的时候同时具有ESC关闭的行为
-    const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
+    const PortalComponent: React.ComponentType<any> = closeBtn
+      ? DialogPortalESCToClose
+      : DialogPortal;
 
     return (
       // Here use animatedClosable to unmount content after a timeout.
@@ -98,3 +121,5 @@ export default class Dialog extends PureComponent {
     );
   }
 }
+
+export default Dialog;

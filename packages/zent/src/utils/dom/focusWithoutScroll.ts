@@ -6,7 +6,7 @@ import getScrollPosition from './getScollPosition';
 export default function focusWithoutScroll(node: HTMLElement) {
   if (node) {
     const lastScrollPos = getScrollPosition();
-    node.focus();
+    node.focus()
     window.scroll(lastScrollPos.x, lastScrollPos.y);
   }
 }

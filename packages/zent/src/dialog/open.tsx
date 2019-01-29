@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import noop from 'lodash/noop';
-import partial from 'lodash/partial';
-import isBrowser from 'utils/isBrowser';
-import uniqueId from 'lodash/uniqueId';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import noop from 'lodash-es/noop';
+import partial from 'lodash-es/partial';
+import uniqueId from 'lodash-es/uniqueId';
 
-import Dialog from './Dialog';
+import isBrowser from '../utils/isBrowser';
+import Dialog, { IDialogProps } from './Dialog';
 
 const dialogInstanceMap = {};
 
@@ -19,7 +19,11 @@ function addDialogInstance(dialogId, dialog) {
   dialogInstanceMap[dialogId] = dialog;
 }
 
-export function closeDialog(dialogId, options = {}) {
+export interface ICloseDialogOption {
+  triggerOnClose?: boolean;
+}
+
+export function closeDialog(dialogId: string, options: ICloseDialogOption = {}) {
   const dialog = dialogInstanceMap[dialogId];
 
   if (!dialog) {
@@ -50,10 +54,16 @@ export function closeDialog(dialogId, options = {}) {
   }
 }
 
+export interface IOpenDialogOption extends IDialogProps {
+  dialogId?: string;
+  ref?: (el: any) => void;
+  parentComponent?: any;
+}
+
 /*
   打开一个dialog，返回值是一个用来关闭dialog的函数。
 */
-export default function openDialog(options = {}) {
+export function openDialog(options: IOpenDialogOption = {}) {
   if (!isBrowser) return noop;
 
   const {

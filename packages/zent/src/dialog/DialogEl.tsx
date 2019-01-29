@@ -1,10 +1,27 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component, createRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
-import focusWithoutScroll from 'utils/dom/focusWithoutScroll';
-import animatedClosable from 'utils/component/animatedClosable';
+import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
+import animatedClosable from '../utils/component/animatedClosable';
 
-class DialogInnerEl extends PureComponent {
+export interface IDialogInnerElProps {
+  prefix?: string;
+  title?: React.ReactNode;
+  onClose?: (e: any) => void;
+  className?: string;
+  closeBtn?: boolean;
+  style?: React.CSSProperties;
+  footer?: React.ReactNode;
+  mousePosition?: {
+    x: number;
+    y: number;
+  } | null;
+}
+
+class DialogInnerEl extends Component<IDialogInnerElProps> {
+  dialogEl: HTMLDivElement | null = null;
+
   componentDidMount() {
     this.resetTransformOrigin();
   }
@@ -93,11 +110,22 @@ class DialogInnerEl extends PureComponent {
   }
 }
 
-class DialogElWrapper extends PureComponent {
+export interface IDialogElWrapper {
+  prefix?: string;
+  mask?: boolean;
+  maskClosable?: boolean;
+  visible?: boolean;
+  closing?: boolean;
+  onClose(e: any): void;
+}
+
+class DialogElWrapper extends Component<IDialogElWrapper> {
+  rootRef = createRef<HTMLDivElement>();
+
   componentDidMount() {
     // Set focus to dialog iff focus is outside of dialog itself
     const activeElement = document.activeElement;
-    const dialogNode = findDOMNode(this);
+    const dialogNode = this.rootRef.current;
     if (
       dialogNode !== activeElement &&
       dialogNode &&
@@ -121,7 +149,7 @@ class DialogElWrapper extends PureComponent {
     let { prefix, mask, visible, closing, children } = this.props;
 
     return (
-      <div tabIndex={-1} className={`${prefix}-dialog-r-root`}>
+      <div ref={this.rootRef} tabIndex={-1} className={`${prefix}-dialog-r-root`}>
         {visible && !closing && mask && (
           <div className={`${prefix}-dialog-r-backdrop`} />
         )}
@@ -136,10 +164,12 @@ class DialogElWrapper extends PureComponent {
 // Make DialogWrapper a animated closable wrapper,
 // so that its children have css transition classes during closing
 // and the wrapper itself unmount after a timeout.
-const AnimatedClosableDialogElWrapper = animatedClosable(DialogElWrapper);
+const AnimatedClosableDialogElWrapper: React.ComponentType<
+  any
+> = animatedClosable(DialogElWrapper);
 
 // Compose all dialog components
-export default class DialogEl extends PureComponent {
+export default class DialogEl extends Component<any> {
   render() {
     const { prefix, visible, origin, refClose, timeout } = this.props;
 
