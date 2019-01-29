@@ -1,10 +1,18 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import Base from './Base';
+import Base, { IPlaceholderBaseShapeProps } from './Base';
 
-export default class Rectangle extends PureComponent {
+export interface IPlaceholderRectangleProps extends IPlaceholderBaseShapeProps {
+  width?: number;
+  height?: number;
+}
+
+export default class Rectangle extends PureComponent<
+  IPlaceholderRectangleProps
+> {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,

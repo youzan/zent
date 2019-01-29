@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import sample from 'lodash/sample';
-import isArray from 'lodash/isArray';
+import sample from 'lodash-es/sample';
+import isArray from 'lodash-es/isArray';
 
 export const DEFAULT_SEGMENTS = [
   [61.8, 38],
@@ -15,7 +16,23 @@ export const DEFAULT_SEGMENTS = [
   [14, 47, 37],
 ];
 
-export default class TextRowDashed extends PureComponent {
+export interface IPlaceholderTextRowDashedProps {
+  className?: string;
+  prefix?: string;
+  style?: React.CSSProperties;
+  lineSpacing?: number | string;
+  animate?: boolean;
+  segments?: (number | string)[];
+}
+
+export interface IPlaceholderTextRowDashedState {
+  segments: number[];
+}
+
+export default class TextRowDashed extends PureComponent<
+  IPlaceholderTextRowDashedProps,
+  IPlaceholderTextRowDashedState
+> {
   static propTypes = {
     style: PropTypes.object,
     lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

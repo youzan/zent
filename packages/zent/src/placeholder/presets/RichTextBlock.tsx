@@ -1,12 +1,27 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Circle from '../shapes/Circle';
 import Rectangle from '../shapes/Rectangle';
 import TextBlock from './TextBlock';
 
-export default class RichTextBlock extends PureComponent {
+export interface IPlaceholderRichTextBlock {
+  className?: string;
+  style?: React.CSSProperties;
+  rows?: number;
+  shape?: string,
+  prefix?: string,
+  size?: number,
+  animate?: boolean,
+  dashed?: boolean,
+  widths,
+  dashSegments,
+  lineSpacing,
+}
+
+export default class RichTextBlock extends PureComponent<IPlaceholderRichTextBlock> {
   static propTypes = {
     rows: PropTypes.number.isRequired,
     shape: PropTypes.oneOf(['circle', 'rect']),
