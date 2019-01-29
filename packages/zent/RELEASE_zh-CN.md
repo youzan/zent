@@ -7,6 +7,11 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.6.0 (2019-01-29)
+
+- `Grid` 支持表头分组
+- 修复了 `Table`, `Grid`, `WindowResizeHandler` 的 `undefined` 报错问题
+
 ### 6.5.3 (2019-01-13)
 
 - `Form`
