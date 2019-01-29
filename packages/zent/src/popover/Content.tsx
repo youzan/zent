@@ -49,10 +49,7 @@ export interface IPopoverContentState {
  *
  * The props on this class are all private.
  */
-export default class PopoverContent extends Component<
-  IPopoverContentProps,
-  IPopoverContentState
-> {
+export default class PopoverContent extends Component<any, any> {
   static propTypes = {
     children: PropTypes.node,
 

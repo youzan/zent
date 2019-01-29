@@ -223,15 +223,12 @@ function destroyRecognizer(recognizer) {
 }
 
 export interface IPopoverHoverTriggerProps extends IPopoverTriggerProps {
-  isOutsideStacked(target: Element): boolean;
   hideDelay: number;
   quirk?: boolean;
   showDelay: number;
 }
 
-export default class PopoverHoverTrigger extends Trigger<
-  IPopoverHoverTriggerProps
-> {
+export default class PopoverHoverTrigger extends Trigger {
   static propTypes = {
     ...PopoverTriggerPropTypes,
 
@@ -311,7 +308,7 @@ export default class PopoverHoverTrigger extends Trigger<
     destroyRecognizer(this.state.leaveRecognizer);
   }
 
-  initRecognizers(props?: IPopoverHoverTriggerProps) {
+  initRecognizers(props?: any) {
     props = props || this.props;
     const { contentVisible } = props;
 

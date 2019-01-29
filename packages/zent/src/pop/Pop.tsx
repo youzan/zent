@@ -1,14 +1,15 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import noop from 'lodash/noop';
-import isFunction from 'lodash/isFunction';
+import noop from 'lodash-es/noop';
+import isFunction from 'lodash-es/isFunction';
 
-import Popover from 'popover';
-import Button from 'button';
-import isPromise from 'utils/isPromise';
-import { exposePopover } from 'popover/withPopover';
-import { I18nReceiver as Receiver } from 'i18n';
+import Popover, { PositionFunction } from '../popover';
+import Button from '../button';
+import isPromise from '../utils/isPromise';
+import { exposePopover } from '../popover/withPopover';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
@@ -19,7 +20,65 @@ const stateMap = {
   onCancel: 'cancelPending',
 };
 
-class PopAction extends PureComponent {
+export type PopPositions =
+  | 'left-top'
+  | 'left-center'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right-center'
+  | 'right-bottom'
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'auto-bottom-center'
+  | 'auto-bottom-left'
+  | 'auto-bottom-right'
+  | 'auto-top-center'
+  | 'auto-top-left'
+  | 'auto-top-right';
+
+export interface IPopProps {
+  content: React.ReactNode;
+  trigger?: 'none' | 'click' | 'hover' | 'focus';
+  position?: PopPositions | PositionFunction;
+  centerArrow?: boolean;
+  header?: React.ReactNode;
+  block?: boolean;
+  onShow?: () => void;
+  onClose?: () => void;
+  onBeforeShow?: (callback?: () => void, escape?: () => void) => void;
+  onBeforeClose?: (callback?: () => void, escape?: () => void) => void;
+  onConfirm?: ((close: () => void) => void) | (() => Promise<any>);
+  onCancel?: ((close: () => void) => void) | (() => Promise<any>);
+  confirmText?: string;
+  cancelText?: string;
+  type?: 'primary' | 'default' | 'danger' | 'success';
+  visible?: boolean;
+  onVisibleChange?: (visible: boolean) => void;
+  onPositionUpdated?: () => void;
+  onPositionReady?: () => void;
+  className?: string;
+  wrapperClassName?: string;
+  containerSelector?: string;
+  prefix?: string;
+  isOutside?: (
+    target: HTMLElement,
+    node: { contentNode: HTMLElement; triggerNode: HTMLElement }
+  ) => boolean;
+
+  // trigger: click
+  closeOnClickOutside?: boolean;
+
+  // trigger: hover
+  quirk?: boolean;
+  mouseEnterDelay?: number;
+  mouseLeaveDelay?: number;
+}
+
+class PopAction extends Component<any> {
   // 支持异步的回调函数
   // onConfirm/onCancel异步等待的时候要禁用用户关闭
   handleClick(callbackName) {
@@ -111,9 +170,9 @@ class PopAction extends PureComponent {
   }
 }
 
-const BoundPopAction = withPopover(PopAction);
+const BoundPopAction = withPopover(PopAction) as React.ComponentType<any>;
 
-class Pop extends PureComponent {
+export class Pop extends Component<IPopProps> {
   static propTypes = {
     trigger: PropTypes.oneOf(['click', 'hover', 'focus', 'none']),
     position: PropTypes.oneOfType([
@@ -212,6 +271,11 @@ class Pop extends PureComponent {
     prefix: 'zent',
     quirk: true,
   };
+
+  static withPop = exposePopover('pop');
+
+  popover: Popover;
+  isUnmounted = false;
 
   state = {
     confirmPending: false,
@@ -393,7 +457,5 @@ class Pop extends PureComponent {
     return this.popover;
   }
 }
-
-Pop.withPop = exposePopover('pop');
 
 export default Pop;

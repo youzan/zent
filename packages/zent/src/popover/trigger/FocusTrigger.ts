@@ -2,7 +2,7 @@ import Trigger, { IPopoverTriggerProps } from './Trigger';
 
 export interface IFocusTriggerProps extends IPopoverTriggerProps {}
 
-export default class FocusTrigger extends Trigger<IFocusTriggerProps> {
+export default class FocusTrigger extends Trigger {
   getTriggerProps(child) {
     return {
       onFocus: evt => {
