@@ -47,10 +47,6 @@
     &.auto-width {
       width: auto;
     }
-
-    .zent-popover-content {
-      padding: 4px 0;
-    }
   }
 }
 
@@ -173,8 +169,6 @@
 
 .zent-select-popup {
   @include popup;
-  // 因为边距的特殊要求, 暂时覆写公共的 popup mixin
-  margin-top: 0;
 
   .zent-select-option,
   .zent-select-filter,

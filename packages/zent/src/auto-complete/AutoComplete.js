@@ -379,6 +379,7 @@ export default class AutoComplete extends Component {
         wrapperClassName={cn(prefixCls, className, { disabled })}
         onVisibleChange={this.togglePopoverOpen}
         width={width}
+        cushion={4}
       >
         <Popover.Trigger.Click>
           <Input

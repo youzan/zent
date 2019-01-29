@@ -339,6 +339,7 @@ class Select extends React.Component {
     return (
       <Popover
         display="inline-block"
+        cushion={4}
         ref={ref => (this.popover = ref)}
         position={Popover.Position.AutoBottomLeft}
         visible={open}
