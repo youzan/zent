@@ -31,10 +31,12 @@ import getWidth from '../utils/getWidth';
 import memoize from 'memoize-one';
 
 import PopoverContent from './Content';
+import Trigger from './trigger';
 import PopoverTrigger, { IPopoverTriggerProps } from './trigger/Trigger';
 import PopoverContext, { IPopoverContext } from './PopoverContext';
 import { PositionFunction } from './position-function';
 import withPopover from './withPopover';
+import Position from './placement';
 
 const SKIPPED = () => {};
 
@@ -141,8 +143,8 @@ export class Popover<T extends IPopoverTriggerProps = IPopoverTriggerProps> exte
   static contextType = PopoverContext;
 
   static Content = PopoverContent;
-  static Trigger = PopoverTrigger;
-  // static Position = Position;
+  static Trigger = Trigger;
+  static Position = Position;
   static withPopover = withPopover;
 
   getPopoverContext = memoize((): IPopoverContext => {
@@ -174,7 +176,7 @@ export class Popover<T extends IPopoverTriggerProps = IPopoverTriggerProps> exte
   descendants: Popover[];
   pendingOnBeforeHook: boolean;
   triggerNode: HTMLElement | null;
-  triggerInstance: PopoverTrigger<T>;
+  triggerInstance: PopoverTrigger;
   contentInstance: PopoverContent;
   isOutsideSelf: (el: HTMLElement) => boolean  | null;
 

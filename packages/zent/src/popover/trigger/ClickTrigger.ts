@@ -6,13 +6,10 @@ import Trigger, {
 } from './Trigger';
 
 export interface IPopoverClickTriggerProps extends IPopoverTriggerProps {
-  isOutsideStacked(target: Element): boolean;
   autoClose?: boolean;
 }
 
-export default class PopoverClickTrigger extends Trigger<
-  IPopoverClickTriggerProps
-> {
+export default class PopoverClickTrigger extends Trigger {
   static propTypes = {
     ...PopoverTriggerPropTypes,
 

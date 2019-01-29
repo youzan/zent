@@ -41,9 +41,10 @@ export interface IPopoverTriggerProps {
       triggerNode: HTMLElement;
     }
   ) => void;
+  isOutsideStacked?: (target: Element) => boolean;
 }
 
-export class PopoverTrigger<T extends IPopoverTriggerProps> extends Component<T> {
+export class PopoverTrigger extends Component<any> {
   static propTypes = {
     ...PopoverTriggerPropTypes,
   };
