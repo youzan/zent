@@ -158,6 +158,10 @@ export default class Table extends PureComponent {
   }
 
   toggleBatchComponents() {
+    if (!this.mounted) {
+      return;
+    }
+
     const needFixedBatchComps = helper.needFixBatchComps(
       this.isTableInView(),
       this.isFootInView(),
