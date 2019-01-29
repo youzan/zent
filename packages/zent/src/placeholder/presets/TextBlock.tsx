@@ -1,17 +1,37 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import TextRow from '../shapes/TextRow';
-import TextRowDashed, { DEFAULT_SEGMENTS } from '../shapes/TextRowDashed';
+import TextRow, { IPlaceholderTextRowProps } from '../shapes/TextRow';
+import TextRowDashed, {
+  DEFAULT_SEGMENTS,
+  IPlaceholderTextRowDashedProps,
+} from '../shapes/TextRowDashed';
 
-export default class TextBlock extends PureComponent {
+export interface IPlaceholderTextBlockProps {
+  rows: number;
+  lineSpacing?: string | number;
+  widths?: number[];
+  dashSegments?: (string | number)[][];
+  animate?: boolean;
+  dashed?: boolean;
+  style?: React.CSSProperties;
+  className?: string;
+  prefix?: string;
+}
+
+export default class TextBlock extends PureComponent<
+  IPlaceholderTextBlockProps
+> {
   static propTypes = {
     rows: PropTypes.number.isRequired,
     lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     widths: PropTypes.arrayOf(PropTypes.number),
     dashSegments: PropTypes.arrayOf(
-      PropTypes.arrayOf(PropTypes.number, PropTypes.string)
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
     ),
     dashed: PropTypes.bool,
     animate: PropTypes.bool,
@@ -50,18 +70,17 @@ export default class TextBlock extends PureComponent {
 
     for (let i = 0; i < rows; i++) {
       const Comp = dashed ? TextRowDashed : TextRow;
-      const props = {
+      const props: IPlaceholderTextRowDashedProps & IPlaceholderTextRowProps = {
         style: this.getRowStyle(i),
         lineSpacing: i ? lineSpacing : 0,
         prefix,
         animate,
-        key: i,
       };
       if (dashed) {
         props.segments = dashSegments[i % dashSegments.length];
       }
 
-      textRows.push(<Comp {...props} />);
+      textRows.push(<Comp key={i} {...props} />);
     }
 
     return textRows;

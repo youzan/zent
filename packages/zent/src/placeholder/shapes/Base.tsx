@@ -1,8 +1,16 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
-export default class Base extends PureComponent {
+export interface IPlaceholderBaseShapeProps {
+  className?: string;
+  style?: React.CSSProperties;
+  prefix?: string;
+  animate?: boolean;
+}
+
+export default class Base extends PureComponent<IPlaceholderBaseShapeProps> {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
