@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import isString from 'lodash/isString';
+import isString from 'lodash-es/isString';
 
-import { TimelineItem } from './Item';
+import { TimelineItem, ITimelineItemProps } from './Item';
 import { TimelineLegend } from './Dot';
 
 function normalize(timeline, size) {
@@ -23,7 +24,21 @@ function normalize(timeline, size) {
   });
 }
 
-export class Timeline extends PureComponent {
+export interface ITimelineArrayItem extends ITimelineItemProps {
+  id?: string;
+  percent?: number;
+}
+
+export interface ITimelineProps {
+  size?: number | string;
+  timeline?: ITimelineArrayItem[];
+  type?: 'vertical' | 'horizontal';
+  className?: string;
+  prefix?: string;
+  style?: React.CSSProperties;
+}
+
+export class Timeline extends PureComponent<ITimelineProps> {
   static propTypes = {
     type: PropTypes.oneOf(['vertical', 'horizontal']),
     className: PropTypes.string,
@@ -51,11 +66,14 @@ export class Timeline extends PureComponent {
         return ret;
       }, []);
     }
-    return React.Children.map(children, child =>
+    return React.Children.map(children, child => {
+      if (typeof child === 'string' || typeof child === 'number') {
+        return null;
+      }
       React.cloneElement(child, {
         type,
-      })
-    );
+      });
+    });
   }
 
   render() {
