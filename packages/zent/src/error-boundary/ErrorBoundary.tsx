@@ -1,14 +1,31 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import isFunction from 'lodash/isFunction';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
+import isFunction from 'lodash-es/isFunction';
 
 import ErrorBoundaryFallbackComponent from './Fallback';
+import catchError from './catchError';
+import withErrorBoundary from './withErrorBoundary';
 
 function getComponentStack(info) {
   return info ? info.componentStack : '';
 }
 
-class ErrorBoundary extends Component {
+export interface IOnErrorCallback {
+  (error: Error, componentStack: string): void;
+}
+
+export interface IErrorBoundaryFallbackComponentProps {
+  error: Error;
+  componentStack: string;
+}
+
+export interface IErrorBoundaryProps {
+  onError?: IOnErrorCallback;
+  FallbackComponent?: React.ComponentType<IErrorBoundaryFallbackComponentProps>;
+}
+
+class ErrorBoundary extends Component<IErrorBoundaryProps> {
   static propTypes = {
     children: PropTypes.node.isRequired,
     onError: PropTypes.func,
@@ -18,6 +35,9 @@ class ErrorBoundary extends Component {
   static defaultProps = {
     FallbackComponent: ErrorBoundaryFallbackComponent,
   };
+
+  static withErrorBoundary = withErrorBoundary;
+  static catchError = catchError;
 
   state = {
     error: null,

@@ -1,8 +1,8 @@
-import React from 'react';
-import Icon from 'icon';
-import Pop from 'pop';
+import * as React from 'react';
+import Icon from '../icon';
+import Pop from '../pop';
 
-const stackTraceStyle = {
+const stackTraceStyle: React.CSSProperties = {
   whiteSpace: 'pre',
 };
 
@@ -16,7 +16,7 @@ export default function ErrorBoundaryFallbackComponent({
         <Pop
           trigger="hover"
           position="auto-bottom-center"
-          display="inline-block"
+          block={false}
           centerArrow
           content={<div style={stackTraceStyle}>{componentStack}</div>}
         >
