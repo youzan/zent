@@ -1,9 +1,22 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import Loading from 'loading';
+import Loading from '../loading';
 
-export default class InfiniteScroller extends PureComponent {
+export interface IInfiniteScrollerProps {
+  className?: string;
+  prefix?: string;
+  hasMore?: boolean;
+  loadMore?: (() => Promise<unknown>) | ((stopLoading?: () => void) => void);
+  offset?: number;
+  initialLoad?: boolean;
+  useWindow?: boolean;
+  useCapture?: boolean;
+  loader?: React.ReactNode;
+}
+
+export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -26,6 +39,8 @@ export default class InfiniteScroller extends PureComponent {
     loader: <Loading height={60} show />,
   };
 
+  scroller: HTMLDivElement | null = null;
+
   state = {
     isLoading: false,
   };
@@ -44,7 +59,7 @@ export default class InfiniteScroller extends PureComponent {
   getWindowScrollTop = () => {
     return window.pageYOffset !== undefined
       ? window.pageYOffset
-      : (document.documentElement || document.body.parentNode || document.body)
+      : (document.documentElement || (document.body.parentNode as HTMLHtmlElement) || document.body)
           .scrollTop;
   };
 
@@ -81,7 +96,7 @@ export default class InfiniteScroller extends PureComponent {
     if (loadMore.length > 0) {
       loadMore(this.stopLoading);
     } else {
-      loadMore()
+      (loadMore() as Promise<unknown>)
         .then(this.stopLoading)
         .catch(this.stopLoading);
     }
@@ -90,7 +105,7 @@ export default class InfiniteScroller extends PureComponent {
   addScrollListener = () => {
     const { useWindow, useCapture } = this.props;
 
-    let scrollEl = window;
+    let scrollEl: Window | HTMLDivElement = window;
     if (!useWindow) {
       scrollEl = this.scroller;
     }
@@ -102,7 +117,7 @@ export default class InfiniteScroller extends PureComponent {
   removeScrollListener = () => {
     const { useWindow, useCapture } = this.props;
 
-    let scrollEl = window;
+    let scrollEl: Window | HTMLDivElement = window;
     if (!useWindow) {
       scrollEl = this.scroller;
     }
@@ -146,3 +161,5 @@ export default class InfiniteScroller extends PureComponent {
     );
   }
 }
+
+export default InfiniteScroller;
