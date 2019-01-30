@@ -1,19 +1,69 @@
 /**
  * AutoComplete
  */
-
-import React, { Component, Children } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component, Children } from 'react';
+import * as PropTypes from 'prop-types';
 import cn from 'classnames';
-import keycode from 'keycode';
+import * as keycode from 'keycode';
 
-import Input from 'input';
-import Popover from 'popover';
-import SelectMenu from 'select-menu';
+import Input from '../input';
+import Popover from '../popover';
+import SelectMenu from '../select-menu';
 
 const { caselessMatchFilterOption } = SelectMenu;
 
-export default class AutoComplete extends Component {
+export interface IAutoCompleteMenuObjectItem {
+  value: string;
+  content?: React.ReactNode;
+  isGroup?: boolean;
+  isDivider?: boolean;
+  valueField?: string;
+  textField?: string;
+  contentField?: string;
+  searchContent?: string;
+}
+
+export type IAutoCompleteMenuItem =
+  | string
+  | number
+  | IAutoCompleteMenuObjectItem;
+
+export interface IAutoCompleteProps {
+  value?: unknown;
+  initialValue?: any;
+  placeholder?: string;
+  data?: IAutoCompleteMenuItem[];
+  items?: IAutoCompleteMenuItem[];
+  onChange?: (value: string) => void;
+  onSelect?: (value: string) => void;
+  onSearch?: (searchText: string) => void;
+  filterOption?: (
+    searchText: string,
+    menuItem: IAutoCompleteMenuItem
+  ) => boolean;
+  valueFromOption?: boolean;
+  className?: string;
+  popupClassName?: string;
+  width?: number | string;
+  valueFromOptions?: boolean;
+  valueField?: string;
+  contentField?: string;
+  textField?: string;
+  disabled?: boolean;
+}
+
+export interface IAutoCompleteState {
+  open: boolean;
+  value: unknown;
+  searchText: string;
+  items: IAutoCompleteMenuObjectItem[];
+}
+
+export class AutoComplete extends Component<
+  IAutoCompleteProps,
+  IAutoCompleteState
+> {
   static propTypes = {
     // auto complete props
     value: PropTypes.any,
@@ -58,6 +108,9 @@ export default class AutoComplete extends Component {
     filterOption: caselessMatchFilterOption,
     valueFromOptions: false,
   };
+
+  blurHandlerPrevented: boolean = false
+  refMenuItemList: SelectMenu | null = null;
 
   constructor(props) {
     super(props);
@@ -197,7 +250,7 @@ export default class AutoComplete extends Component {
     if (nextProps[k] !== undefined) {
       this.setState({
         [k]: nextProps[k],
-      });
+      } as any);
     }
   };
 
@@ -239,13 +292,13 @@ export default class AutoComplete extends Component {
         /* eslint-disable no-else-return */
       }
 
-      throw new Error('AutoComplete unresolvable option!', item);
+      throw new Error('AutoComplete unresolvable option!');
     });
 
     // handle option children
     if (props.children) {
       transformedItems = transformedItems.concat(
-        Children.map(props.children, item => {
+        Children.map(props.children, (item: any) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
           return {
@@ -267,7 +320,7 @@ export default class AutoComplete extends Component {
    * @returns {*}
    * @private
    */
-  getDisplayText = () => {
+  getDisplayText = (): string => {
     const { value } = this.state;
     let displayValue = value || '';
     const item = this.getItemByValue(value);
@@ -278,7 +331,7 @@ export default class AutoComplete extends Component {
         displayValue = item.content;
       }
     }
-    return displayValue;
+    return displayValue as string;
   };
 
   /** methods */
@@ -409,3 +462,5 @@ export default class AutoComplete extends Component {
     );
   }
 }
+
+export default AutoComplete;

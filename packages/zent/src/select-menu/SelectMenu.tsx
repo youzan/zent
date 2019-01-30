@@ -3,10 +3,11 @@
  *
  * @author hyczzhu
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 
-import MenuList from './MenuList';
+import MenuList, { IMenuListObjectItem, IMenuListItem } from './MenuList';
 
 export const caselessMatchFilterOption = (searchText, item) => {
   if (!searchText) {
@@ -38,7 +39,25 @@ export const caselessMatchFilterOption = (searchText, item) => {
   return false;
 };
 
-export class SelectMenu extends Component {
+export interface ISelectMenuProps {
+  value?: unknown;
+  searchText?: string;
+  items?: IMenuListItem[];
+  onSelect?: (
+    value: unknown,
+    item: string | number | IMenuListObjectItem
+  ) => void;
+  filterOption?: (searchText: string, item: IMenuListItem) => void;
+  nullOptionContent?: React.ReactNode;
+  onRequestClose?: () => void;
+  nullOption?: boolean;
+}
+
+export interface ISelectMenuState {
+  items: IMenuListItem[];
+}
+
+export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
   static propTypes = {
     // auto complete props
     value: PropTypes.any,
@@ -64,6 +83,9 @@ export class SelectMenu extends Component {
   static defaultProps = {
     filterOption: caselessMatchFilterOption,
   };
+
+  static caselessMatchFilterOption = caselessMatchFilterOption;
+  refMenuItemList: MenuList | null = null;
 
   constructor(props) {
     super(props);
@@ -105,7 +127,10 @@ export class SelectMenu extends Component {
    * @param nullOptionContent
    * @private
    */
-  wrapWithNullOption = (items = [] /* , nullOptionContent */) =>
+  wrapWithNullOption = (
+    items: IMenuListItem[] = [],
+    nullOptionContent?: React.ReactNode
+  ) =>
     // TODO null option
     items;
   // [ {
@@ -144,7 +169,7 @@ export class SelectMenu extends Component {
    * @param props
    * @private
    */
-  transformItems = props => {
+  transformItems = (props: ISelectMenuProps) => {
     const { items = [], nullOption, nullOptionContent } = props;
     let wrappedItems = items;
     wrappedItems = this.wrapWithIdx(wrappedItems);
@@ -186,7 +211,7 @@ export class SelectMenu extends Component {
       });
     }
 
-    this.filteredItems = filteredItems;
+    // this.filteredItems = filteredItems;
 
     return (
       <MenuList

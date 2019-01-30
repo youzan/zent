@@ -3,17 +3,46 @@
  *
  * @author hyczzhu
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cn from 'classnames';
-import keycode from 'keycode';
-import isNaN from 'lodash/isNaN';
-import isNumber from 'lodash/isNumber';
+import * as keycode from 'keycode';
+// import isNaN from 'lodash/isNaN';
+import isNumber from 'lodash-es/isNumber';
 
 const menuListPaddingTop = 0;
 
+export interface IMenuListObjectItem {
+  value?: unknown;
+  content?: React.ReactNode;
+  isGroup?: boolean;
+  isDivider?: boolean;
+  onClick?: () => void;
+  searchContent?: string;
+  icon?: string;
+  disables?: string;
+  active?: boolean;
+}
+
+export type IMenuListItem = string | number | IMenuListObjectItem;
+
+export interface IMenuListProps {
+  items?: IMenuListItem[];
+  onRequestClose?: () => void;
+}
+
+export interface IMenuListState {
+  focusIdx: number | null;
+  autoScrollFocusIdx?: number;
+  open?: boolean;
+}
+
 // css file: _popup-menu.pcss
-export default class MenuList extends Component {
+export default class MenuList extends Component<
+  IMenuListProps,
+  IMenuListState
+> {
   static propTypes = {
     items: PropTypes.arrayOf(
       PropTypes.oneOfType([
@@ -36,6 +65,9 @@ export default class MenuList extends Component {
     ),
     onRequestClose: PropTypes.func,
   };
+
+  refMenuScrollContainer: HTMLDivElement | null = null;
+  refMenuItemList: HTMLUListElement | null = null;
 
   constructor(props) {
     super(props);
@@ -61,7 +93,7 @@ export default class MenuList extends Component {
     ) {
       const focusedItemNode = this.refMenuItemList.childNodes[
         this.state.focusIdx
-      ];
+      ] as HTMLElement;
       const scrollContainer = this.refMenuScrollContainer;
 
       const itemOffsetTop = focusedItemNode.offsetTop;
@@ -125,7 +157,7 @@ export default class MenuList extends Component {
     if (nextProps[k] !== undefined) {
       this.setState({
         [k]: nextProps[k],
-      });
+      } as any);
     }
   };
 
@@ -151,7 +183,7 @@ export default class MenuList extends Component {
     const { items } = this.props;
     if (
       !(items && items.length) ||
-      items.every(item => item.isDivider && item.isGroup) ||
+      items.every((item: any) => item.isDivider && item.isGroup) ||
       !isNumber(idx) ||
       isNaN(idx)
     ) {
@@ -159,7 +191,7 @@ export default class MenuList extends Component {
     }
 
     let targetIdx = this.getItemIdxInItems(idx);
-    let item = items[targetIdx];
+    let item: any = items[targetIdx];
 
     // try to ignore: divider/group/disabled
     if (!item || (item.isDivider || item.isGroup) || item.disabled) {
@@ -220,6 +252,14 @@ export default class MenuList extends Component {
       const callbackKey = `${focusIdx}_callback`;
       ins[callbackKey] && ins[callbackKey](e);
     }
+  };
+
+  close = () => {
+    this.setState({
+      open: false,
+      // anchorEl: null,
+      // searchText: '',
+    });
   };
 
   renderItems = (items = []) => {
