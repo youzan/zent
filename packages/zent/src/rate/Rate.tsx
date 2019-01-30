@@ -1,12 +1,31 @@
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from 'icon';
+import Icon from '../icon';
 
 import Star from './Star';
 
-export default class Rate extends PureComponent {
+export interface IRateProps {
+  onChange?: (value: number) => void;
+  value?: number;
+  allowClear?: boolean;
+  allowHalf?: boolean;
+  character?: React.ReactNode;
+  className?: string;
+  count?: number;
+  disabled?: boolean;
+  style?: React.CSSProperties;
+  prefix?: string;
+}
+
+export interface IRateState {
+  cleanedValue: number | null;
+  hoverValue?: number;
+}
+
+export class Rate extends PureComponent<IRateProps, IRateState> {
   static propTypes = {
     disabled: PropTypes.bool,
     value: PropTypes.number,
@@ -28,6 +47,11 @@ export default class Rate extends PureComponent {
     style: {},
     prefix: 'zent',
     character: <Icon type="star" />,
+  };
+
+  rate: HTMLUListElement | null = null;
+  stars: {
+    [key: number]: Star;
   };
 
   constructor(props) {
@@ -63,7 +87,7 @@ export default class Rate extends PureComponent {
     if (this.props.allowClear) {
       isReset = value === this.props.value;
     }
-    this.onMouseLeave(true);
+    this.onMouseLeave();
     this.props.onChange(isReset ? 0 : value);
     this.setState({
       cleanedValue: isReset ? value : null,
@@ -77,7 +101,7 @@ export default class Rate extends PureComponent {
   getStarValue(index, x) {
     let value = index + 1;
     if (this.props.allowHalf) {
-      const starEle = this.getStarDOM(index);
+      const starEle = this.getStarDOM(index) as HTMLLIElement;
       const leftDis = starEle.getBoundingClientRect().left;
       const width = starEle.clientWidth;
       if (x - leftDis < width / 2) {
@@ -138,3 +162,5 @@ export default class Rate extends PureComponent {
     );
   }
 }
+
+export default Rate;

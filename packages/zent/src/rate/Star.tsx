@@ -1,7 +1,19 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 
-export default class Star extends PureComponent {
+export interface IRateStarProps {
+  prefix?: string;
+  value: number;
+  allowHalf?: boolean;
+  disabled?: boolean;
+  character?: React.ReactNode;
+  onHover(e: React.MouseEvent<HTMLLIElement>, index: number): void;
+  onClick(e: React.MouseEvent<HTMLLIElement>, index: number): void;
+  index: number;
+}
+
+export default class Star extends PureComponent<IRateStarProps> {
   static propTypes = {
     value: PropTypes.number,
     index: PropTypes.number,
@@ -13,12 +25,12 @@ export default class Star extends PureComponent {
     character: PropTypes.node,
   };
 
-  onHover = e => {
+  onHover = (e: React.MouseEvent<HTMLLIElement>) => {
     const { onHover, index } = this.props;
     onHover(e, index);
   };
 
-  onClick = e => {
+  onClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { onClick, index } = this.props;
     onClick(e, index);
   };
