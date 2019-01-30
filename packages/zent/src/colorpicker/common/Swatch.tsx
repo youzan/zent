@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import reactCSS from '../helpers/reactcss';
 
 export const Swatch = ({ color, style, onClick, title = color }) => {
-  const styles = reactCSS(
+  const styles: any = reactCSS(
     {
       default: {
         swatch: {

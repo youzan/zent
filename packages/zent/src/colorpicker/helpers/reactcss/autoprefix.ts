@@ -1,4 +1,4 @@
-import forOwn from 'lodash/forOwn';
+import forOwn from 'lodash-es/forOwn';
 
 const transforms = {
   borderRadius: value => {

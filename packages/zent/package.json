@@ -41,6 +41,7 @@
     "@types/react-is": "^16.7.0",
     "@types/react-transition-group": "^2.0.15",
     "@types/sortablejs": "^1.7.2",
+    "@types/tinycolor2": "^1.4.1",
     "@types/uuid": "^3.4.4",
     "autosize": "^4.0.0",
     "classnames": "^2.2.6",

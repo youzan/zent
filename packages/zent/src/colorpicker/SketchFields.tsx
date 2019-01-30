@@ -1,15 +1,16 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import reactCSS from './helpers/reactcss';
 import color from './helpers/color';
 
 import { EditableInput } from './common';
 
-export default class SketchFileds extends PureComponent {
+export default class SketchFileds extends PureComponent<any> {
   state = {
     hexColor: this.props.hex.replace('#', ''),
   };
 
-  get styles() {
+  get styles(): any {
     const { showAlpha } = this.props;
 
     return reactCSS(

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import cx from 'classnames';
 import reactCSS from './helpers/reactcss';
 import { ColorWrap, Saturation, Hue, Alpha, Checkboard } from './common';
@@ -19,7 +19,7 @@ const Sketch = ({
   className,
   type,
 }) => {
-  const styles = reactCSS(
+  const styles: any = reactCSS(
     {
       default: {
         picker: {

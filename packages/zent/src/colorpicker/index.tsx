@@ -4,15 +4,27 @@
  *
  * It's a modified Sketch color picker.
  */
-import React, { PureComponent } from 'react';
-import Popover from 'popover';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
 import PopoverClickTrigger from './PopoverClickTrigger';
+import Popover from '../popover';
 
-class ColorPicker extends PureComponent {
+export interface IColorPickerProps {
+  color: string;
+  showAlpha?: boolean;
+  type?: 'default' | 'simple';
+  presetColors?: Array<string>;
+  onChange?: (color: string) => any;
+  className?: string;
+  wrapperClassName?: string;
+  prefix?: string;
+}
+
+class ColorPicker extends PureComponent<IColorPickerProps> {
   state = {
     popVisible: false,
   };

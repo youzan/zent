@@ -1,4 +1,4 @@
-import Popover from 'popover';
+import Popover from '../popover';
 
 export default class PopoverClickTrigger extends Popover.Trigger.Click {
   getTriggerProps(child) {

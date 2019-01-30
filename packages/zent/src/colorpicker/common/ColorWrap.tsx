@@ -1,18 +1,29 @@
-import React, { Component } from 'react';
-import debounce from 'lodash/debounce';
+import * as React from 'react';
+import { Component } from 'react';
+import debounce from 'lodash-es/debounce';
 import color from '../helpers/color';
 
 export const ColorWrap = Picker => {
-  class ColorPicker extends Component {
+  class ColorPicker extends Component<any, any> {
+    static defaultProps = {
+      color: {
+        h: 250,
+        s: 0.5,
+        l: 0.2,
+        a: 1,
+      },
+    };
+
+    debounce = debounce((fn, data, event) => {
+      fn(data, event);
+    }, 100);
+
     constructor(props) {
       super(props);
       this.state = {
         ...color.toState(props.color, 0),
         visible: props.display,
       };
-      this.debounce = debounce((fn, data, event) => {
-        fn(data, event);
-      }, 100);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -41,15 +52,6 @@ export const ColorWrap = Picker => {
       );
     }
   }
-
-  ColorPicker.defaultProps = {
-    color: {
-      h: 250,
-      s: 0.5,
-      l: 0.2,
-      a: 1,
-    },
-  };
 
   return ColorPicker;
 };
