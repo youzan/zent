@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import Popover from 'popover';
-import Icon from 'icon';
-import find from 'lodash/find';
-import noop from 'lodash/noop';
-import isArray from 'lodash/isArray';
-import { I18nReceiver as Receiver } from 'i18n';
+import * as PropTypes from 'prop-types';
+import noop from 'lodash-es/noop';
 
+import Popover from '../popover';
+import Icon from '../icon';
+import { I18nReceiver as Receiver } from '../i18n';
+import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
 
@@ -28,7 +28,33 @@ class PopoverClickTrigger extends Popover.Trigger.Click {
   }
 }
 
-class Cascader extends PureComponent {
+export interface ICascaderProps {
+  type?: 'tabs' | 'menu';
+  value?: CascaderValue[];
+  options?: ICascaderItem[];
+  title?: React.ReactNode;
+  onChange?: (value: ICascaderItem[]) => void;
+  loadMore?: (item: ICascaderItem, stage: number) => Promise<ICascaderItem[]>;
+  changeOnSelect?: boolean;
+  placeholder?: string;
+  prefix?: string;
+  className?: string;
+  popClassName?: string;
+  displayText?: (value: ICascaderItem[]) => React.ReactNode;
+  expandTrigger?: 'click' | 'hover';
+}
+
+export interface ICascaderState {
+  value: CascaderValue[];
+  options: ICascaderItem[];
+  activeValue: ICascaderItem[];
+  activeId: number;
+  open: boolean;
+  isLoading?: boolean;
+  loadingStage?: number;
+}
+
+class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -63,13 +89,15 @@ class Cascader extends PureComponent {
     super(props);
 
     this.state = {
-      value: isArray(props.value) ? props.value : [],
-      options: isArray(props.options) ? props.options : [],
+      value: Array.isArray(props.value) ? props.value : [],
+      options: Array.isArray(props.options) ? props.options : [],
       activeValue: [],
       activeId: 1,
       open: false,
     };
   }
+
+  cascader: any | null = null;
 
   componentWillMount() {
     this.resetCascaderValue(null, null, false);
@@ -79,7 +107,7 @@ class Cascader extends PureComponent {
     let { loadMore } = this.props;
 
     if (nextProps.hasOwnProperty('value')) {
-      let nextValue = isArray(nextProps.value) ? nextProps.value : [];
+      let nextValue = Array.isArray(nextProps.value) ? nextProps.value : [];
       if (!loadMore) {
         this.setState({
           value: nextValue,
@@ -89,21 +117,25 @@ class Cascader extends PureComponent {
     }
     if (this.props.options !== nextProps.options) {
       this.setState({
-        options: isArray(nextProps.options) ? nextProps.options : [],
+        options: Array.isArray(nextProps.options) ? nextProps.options : [],
       });
     }
   }
 
-  recursiveNextOptions(options, id) {
+  recursiveNextOptions(options: ICascaderItem[], id: unknown) {
     if (options && options.length > 0) {
-      let currOptions = find(options, { id });
+      let currOptions = options.find(it => it.id === id);
       if (currOptions && currOptions.children) {
         return currOptions.children;
       }
     }
   }
 
-  resetCascaderValue(value, options, isTriggerChange = true) {
+  resetCascaderValue(
+    value: unknown[],
+    options?: ICascaderItem[],
+    isTriggerChange = true
+  ) {
     let activeValue = [];
     let activeId = 1;
     let { onChange } = this.props;
@@ -115,7 +147,7 @@ class Cascader extends PureComponent {
       activeId = 0;
       for (let i = 0; i < value.length; i++) {
         let id = value[i];
-        let nextOption = find(options, { id });
+        let nextOption = options.find(it => it.id === id);
         activeId++;
         if (!nextOption) break;
 
@@ -147,7 +179,7 @@ class Cascader extends PureComponent {
     const { value } = this.props;
     this.setState({
       open: false,
-      value: isArray(value) ? value : [],
+      value: Array.isArray(value) ? value : [],
       activeId: 1,
     });
   };
@@ -158,7 +190,12 @@ class Cascader extends PureComponent {
     });
   };
 
-  clickHandler = (item, stage, popover, triggerType = 'click') => {
+  clickHandler: CascaderHandler = (
+    item,
+    stage,
+    popover,
+    triggerType = 'click'
+  ) => {
     let { loadMore } = this.props;
     let { options } = this.state;
     let needLoading =
@@ -184,7 +221,13 @@ class Cascader extends PureComponent {
     }
   };
 
-  expandHandler = (item, stage, popover, willLoading, triggerType) => {
+  expandHandler = (
+    item: ICascaderItem,
+    stage: number,
+    popover: Popover,
+    willLoading: boolean,
+    triggerType?: 'click' | 'hover'
+  ) => {
     let { value } = this.state;
     let { changeOnSelect } = this.props;
     let hasClose = false;
@@ -192,7 +235,7 @@ class Cascader extends PureComponent {
     value = value.slice(0, stage - 1);
     value.push(item.id);
 
-    let obj = {
+    let obj: Partial<ICascaderState> = {
       value,
     };
 
@@ -210,13 +253,13 @@ class Cascader extends PureComponent {
       this.resetCascaderValue(value);
     }
 
-    this.setState(obj);
+    this.setState(obj as any);
   };
 
   getPopoverContent(i18n) {
     const { type, prefix, title, options, expandTrigger } = this.props;
     let { activeId, value, isLoading, loadingStage } = this.state;
-    let PopoverContentType;
+    let PopoverContentType: React.ComponentType<any>;
     if (type === 'tabs') {
       PopoverContentType = TabsPopoverContent;
     } else if (type === 'menu') {
@@ -255,7 +298,7 @@ class Cascader extends PureComponent {
           let { prefix, className, popClassName, placeholder } = this.props;
           let { activeValue, open } = this.state;
 
-          let cascaderValue = placeholder || i18n.placeholder;
+          let cascaderValue: React.ReactNode = placeholder || i18n.placeholder;
           let hasValue = false;
           if (activeValue && activeValue.length > 0) {
             hasValue = true;
@@ -265,7 +308,7 @@ class Cascader extends PureComponent {
               cascaderValue = activeValue.map(valueItem => {
                 return valueItem.title;
               });
-              cascaderValue = cascaderValue.join(' / ');
+              cascaderValue = (cascaderValue as string[]).join(' / ');
             }
           }
 

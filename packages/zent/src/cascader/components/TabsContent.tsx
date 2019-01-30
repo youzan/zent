@@ -1,14 +1,38 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Tabs from 'tabs';
-import isArray from 'lodash/isArray';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
+// import isArray from 'lodash/isArray';
 import classnames from 'classnames';
-import Popover from 'popover';
+import Popover from '../../popover';
+import Tabs from '../../tabs';
+import { CascaderHandler, CascaderValue, ICascaderItem } from '../types';
 
 const TabPanel = Tabs.TabPanel;
 const withPopover = Popover.withPopover;
 
-class TabsContent extends PureComponent {
+export interface ItabsContentProps {
+  prefix?: string;
+  className?: string;
+  clickHandler: CascaderHandler;
+  value: CascaderValue[];
+  options: ICascaderItem[];
+  isLoading?: boolean;
+  recursiveNextOptions(
+    options: ICascaderItem[],
+    value: CascaderValue
+  ): ICascaderItem[];
+  expandTrigger?: 'click' | 'hover';
+  loadingStage: number;
+  popover: Popover;
+  activeId: number | string;
+  onTabChange: (id: string | number) => void;
+  title: React.ReactNode[];
+  i18n: {
+    title: string;
+  };
+}
+
+class TabsContent extends PureComponent<ItabsContentProps> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -46,7 +70,7 @@ class TabsContent extends PureComponent {
     return <div className={`${prefix}-cascader__list`}>{cascaderItems}</div>;
   }
 
-  renderTabTitle(title, stage) {
+  renderTabTitle(title: React.ReactNode, stage: number) {
     let { prefix, isLoading, loadingStage } = this.props;
 
     if (isLoading && stage === loadingStage) {
@@ -68,7 +92,7 @@ class TabsContent extends PureComponent {
 
     let tabTitle = i18n.title;
 
-    title = isArray(title) ? title : [];
+    title = Array.isArray(title) ? title : [];
     if (title.length > 0) {
       tabTitle = title[0];
     }
@@ -125,4 +149,4 @@ class TabsContent extends PureComponent {
   }
 }
 
-export default withPopover(TabsContent);
+export default withPopover(TabsContent as any) as typeof TabsContent;

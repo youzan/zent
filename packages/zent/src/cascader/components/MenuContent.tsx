@@ -1,12 +1,31 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Icon from 'icon';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Popover from 'popover';
+
+import Popover from '../../popover';
+import Icon from '../../icon';
+import { CascaderHandler, ICascaderItem, CascaderValue } from '../types';
 
 const withPopover = Popover.withPopover;
 
-class MenuContent extends PureComponent {
+export interface IMenuContentProps {
+  prefix?: string;
+  className?: string;
+  clickHandler: CascaderHandler,
+  value: CascaderValue[];
+  options: ICascaderItem[];
+  isLoading?: boolean;
+  recursiveNextOptions(
+    options: ICascaderItem[],
+    value: CascaderValue
+  ): ICascaderItem[];
+  expandTrigger?: 'click' | 'hover';
+  loadingStage: number;
+  popover: Popover;
+}
+
+class MenuContent extends PureComponent<IMenuContentProps> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -35,7 +54,7 @@ class MenuContent extends PureComponent {
     return null;
   }
 
-  renderCascaderItems(items, stage, popover) {
+  renderCascaderItems(items: ICascaderItem[], stage: number, popover) {
     let {
       prefix,
       value,
@@ -112,4 +131,4 @@ class MenuContent extends PureComponent {
   }
 }
 
-export default withPopover(MenuContent);
+export default withPopover(MenuContent as any) as typeof MenuContent;
