@@ -1,15 +1,26 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
-import noop from 'lodash/noop';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Component } from 'react';
+import noop from 'lodash-es/noop';
 
-class TabPanel extends PureComponent {
+export interface ITabPanelProps {
+  className?: string;
+  prefix?: string;
+  actived?: boolean;
+  tab: React.ReactNode;
+  id: string | number;
+  onTabReady?: (id: string | number) => void;
+  uniqueId?: number;
+}
+
+class TabPanel extends Component<ITabPanelProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
     actived: PropTypes.bool,
     tab: PropTypes.any.isRequired,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onPanelReady: PropTypes.func,
+    onTabReady: PropTypes.func,
     uniqueId: PropTypes.number,
   };
 
@@ -17,7 +28,7 @@ class TabPanel extends PureComponent {
     prefix: 'zent',
     className: '',
     actived: false,
-    onPanelReady: noop,
+    onTabReady: noop,
     uniqueId: 0,
   };
 
@@ -26,15 +37,15 @@ class TabPanel extends PureComponent {
   }
 
   componentDidUpdate() {
-    let { onPanelReady, id } = this.props;
+    let { onTabReady, id } = this.props;
     // Dom ready后的回调
-    onPanelReady(id);
+    onTabReady(id);
   }
 
   render() {
     let props = this.props;
     let actived = props.actived;
-    let hiddenStyle = {};
+    let hiddenStyle: React.CSSProperties = {};
     if (!actived) {
       hiddenStyle.display = 'none';
     }

@@ -1,12 +1,13 @@
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
+import * as React from 'react';
+import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
+import noop from 'lodash-es/noop';
 
 import Tab from './Tab';
 import navUtil from './navUtil';
 
-class Nav extends PureComponent {
+class Nav extends Component<any> {
   static propTypes = {
     prefix: PropTypes.string,
     tabListData: PropTypes.array,
@@ -36,6 +37,11 @@ class Nav extends PureComponent {
     uniqueId: 0,
   };
 
+  inkBarDom: HTMLSpanElement | null = null;
+  activeTab: Tab | null = null
+  navContentDom: HTMLDivElement | null = null;
+  tabwrapDom: HTMLDivElement | null = null;
+
   componentDidMount() {
     this.componentDidUpdate();
   }
@@ -50,7 +56,7 @@ class Nav extends PureComponent {
     if (type === 'slider') {
       let activeTabDom = ReactDOM.findDOMNode(this.activeTab);
       if (activeTabDom) {
-        let activeTabInner = activeTabDom.children[0];
+        let activeTabInner = (activeTabDom as any).children[0];
         let activeTabInnerContentDom = activeTabInner.children[0];
         let targetDom = activeTabInnerContentDom || activeTabInner;
         let tWidth = navUtil.getOffsetWH(targetDom);
@@ -58,8 +64,8 @@ class Nav extends PureComponent {
         let wrapLeft = navUtil.getOffsetLT(this.tabwrapDom);
         if (!activeTabInnerContentDom) {
           let cssStyle = window.getComputedStyle(activeTabInner);
-          let paddingLeft = window.parseInt(cssStyle.paddingLeft);
-          let paddingRight = window.parseInt(cssStyle.paddingRight);
+          let paddingLeft = parseInt(cssStyle.paddingLeft);
+          let paddingRight = parseInt(cssStyle.paddingRight);
           tWidth = tWidth - paddingLeft - paddingRight;
           wrapLeft -= paddingLeft;
         }
@@ -75,7 +81,7 @@ class Nav extends PureComponent {
     renderData.forEach(renderDataItem => {
       let refParam = {};
       if (renderDataItem.actived) {
-        refParam.ref = c => {
+        (refParam as any).ref = c => {
           this.activeTab = c;
         };
       }
@@ -140,7 +146,7 @@ class Nav extends PureComponent {
         <div
           className={`${prefix}-tabs-nav-content`}
           ref={r => {
-            this.navContentDom = ReactDOM.findDOMNode(r);
+            this.navContentDom = ReactDOM.findDOMNode(r) as HTMLDivElement;
           }}
         >
           {addOperation}

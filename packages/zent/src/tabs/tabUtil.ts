@@ -1,5 +1,5 @@
-import React from 'react';
-import kindOf from 'utils/kindOf';
+import * as React from 'react';
+import kindOf from '../utils/kindOf';
 
 import TabPanel from './components/TabPanel';
 
@@ -31,7 +31,7 @@ const tabUtil = {
           onTabReady,
           panelClassName,
           tabClassName,
-        } = child.props;
+        } = (child as any).props;
         listData.push({
           title: tab || '',
           disabled: !!disabled,
