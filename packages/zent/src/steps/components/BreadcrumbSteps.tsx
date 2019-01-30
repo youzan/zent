@@ -1,7 +1,10 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
 
-export default class BreadcrumbSteps extends PureComponent {
+import { IStepsProps } from '../Steps';
+
+export default class BreadcrumbSteps extends Component<IStepsProps> {
   onStepChange = id => {
     let { onStepChange } = this.props;
     onStepChange && onStepChange(id);
@@ -18,7 +21,7 @@ export default class BreadcrumbSteps extends PureComponent {
       onStepChange,
       type,
     } = props;
-    const stepWidth = `${100 / children.length}%`;
+    const stepWidth = `${100 / React.Children.count(children)}%`;
     const isBreadcrumb = type === 'breadcrumb';
     const isCard = type === 'card';
     const isTabs = type === 'tabs';
@@ -36,6 +39,10 @@ export default class BreadcrumbSteps extends PureComponent {
             'is-current': (isCard || isTabs) && index === current - 1,
             'is-clicked': Boolean(onStepChange),
           });
+          if (typeof item === 'number' || typeof item === 'string') {
+            return null;
+          }
+
           let itemTitle = item.props.title;
 
           return (
