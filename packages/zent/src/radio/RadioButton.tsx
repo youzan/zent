@@ -1,13 +1,11 @@
 import * as React from 'react';
 import cx from 'classnames';
-// import assign from 'lodash/assign';
-// import get from 'lodash/get';
 
 import getWidth from '../utils/getWidth';
 
 import Radio from './Radio';
 
-export default class RadioButton extends Radio {
+export class RadioButton extends Radio {
   render() {
     const { onRadioChange } = this.context;
     if (!onRadioChange) {
@@ -53,3 +51,5 @@ export default class RadioButton extends Radio {
     );
   }
 }
+
+export default RadioButton;

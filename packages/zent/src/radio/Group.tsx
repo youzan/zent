@@ -20,7 +20,7 @@ export interface IGroupProps {
   style?: React.CSSProperties;
 }
 
-export default class Group extends Component<IGroupProps> {
+export class RadioGroup extends Component<IGroupProps> {
   static propTypes = {
     value: PropTypes.any,
     disabled: PropTypes.bool,
@@ -84,3 +84,5 @@ export default class Group extends Component<IGroupProps> {
     );
   }
 }
+
+export default RadioGroup;
