@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import reactCSS from '../helpers/reactcss';
 import * as checkboard from '../helpers/checkboard';
 
 const Checkboard = ({ white, grey, size, renderers }) => {
-  const styles = reactCSS({
+  const styles: any = reactCSS({
     default: {
       grid: {
         absolute: '0px 0px 0px 0px',

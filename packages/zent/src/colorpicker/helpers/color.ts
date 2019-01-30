@@ -1,7 +1,7 @@
-import each from 'lodash/each';
-import isNaN from 'lodash/isNaN';
-import isNumber from 'lodash/isNumber';
-import tinycolor from 'tinycolor2';
+import each from 'lodash-es/each';
+// import isNaN from 'lodash/isNaN';
+import isNumber from 'lodash-es/isNumber';
+import * as tinycolor from 'tinycolor2';
 
 export default {
   simpleCheckForValidColor(data) {
@@ -14,7 +14,7 @@ export default {
 
       if (v) {
         checked += 1;
-        if (isNumber(v) && !isNaN(v)) {
+        if (isNumber(v) && !Number.isNaN(v)) {
           passed += 1;
         }
       }

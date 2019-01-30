@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import isNaN from 'lodash/isNaN';
+import * as React from 'react';
+import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
 
-export default class EditableInput extends Component {
+export default class EditableInput extends Component<any, any> {
+  inputRef = createRef<HTMLInputElement>();
+
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
       value: String(props.value).toUpperCase(),
@@ -13,9 +15,9 @@ export default class EditableInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const InputRefs = this.refs;
+    const input = this.inputRef.current;
     if (nextProps.value !== this.state.value) {
-      if (InputRefs.input === document.activeElement) {
+      if (input === document.activeElement) {
         this.setState({ blurValue: String(nextProps.value).toUpperCase() });
       } else {
         this.setState({ value: String(nextProps.value).toUpperCase() });
@@ -112,7 +114,7 @@ export default class EditableInput extends Component {
   };
 
   render() {
-    const styles = reactCSS(
+    const styles: any = reactCSS(
       {
         default: {
           wrap: {
@@ -150,7 +152,7 @@ export default class EditableInput extends Component {
         <input
           prefix="colorpicker-rgb"
           style={styles.input}
-          ref={ref => (this.refs = ref)}
+          ref={this.inputRef}
           value={this.state.value}
           onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}

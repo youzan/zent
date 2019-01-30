@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component, createRef } from 'react';
 import reactCSS from '../helpers/reactcss';
-import * as alpha from '../helpers/alpha';
-import Checkboard from './Checkboard';
+import * as hue from '../helpers/hue';
 
 /**
- * 透明度
+ * 色度条
  */
-export class Alpha extends Component {
+export default class Hue extends Component<any, any> {
+  containerRef = createRef<HTMLDivElement>();
+
   componentWillUnmount() {
     this.unbindEventListeners();
   }
 
-  handleChange = (e, skip) => {
-    const change = alpha.calculateChange(e, skip, this.props, this.refs);
+  handleChange = (e, skip?: boolean) => {
+    const change = hue.calculateChange(e, skip, this.props, this.containerRef.current);
     change && this.props.onChange(change, e);
   };
 
@@ -26,84 +28,61 @@ export class Alpha extends Component {
     this.unbindEventListeners();
   };
 
-  unbindEventListeners = () => {
+  unbindEventListeners() {
     window.removeEventListener('mousemove', this.handleChange);
     window.removeEventListener('mouseup', this.handleMouseUp);
-  };
+  }
 
   render() {
-    const rgb = this.props.rgb;
-    const styles = reactCSS(
+    const styles: any = reactCSS(
       {
         default: {
-          alpha: {
+          hue: {
             absolute: '0px 0px 0px 0px',
+            background: `linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%,
+            #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)`,
             borderRadius: this.props.radius,
-          },
-          checkboard: {
-            absolute: '0px 0px 0px 0px',
-            overflow: 'hidden',
-          },
-          gradient: {
-            absolute: '0px 0px 0px 0px',
-            background: `linear-gradient(to right, rgba(${rgb.r},${rgb.g},${
-              rgb.b
-            }, 0) 0%,
-           rgba(${rgb.r},${rgb.g},${rgb.b}, 1) 100%)`,
             boxShadow: this.props.shadow,
-            borderRadius: this.props.radius,
           },
           container: {
+            margin: '0 2px',
             position: 'relative',
             height: '100%',
-            margin: '0 3px',
           },
           pointer: {
             position: 'absolute',
-            left: `${rgb.a * 100}%`,
+            left: `${(this.props.hsl.h * 100) / 360}%`,
           },
           slider: {
+            marginTop: '1px',
             width: '4px',
             borderRadius: '1px',
             height: '8px',
             boxShadow: '0 0 2px rgba(0, 0, 0, .6)',
             background: '#fff',
-            marginTop: '1px',
             transform: 'translateX(-2px)',
           },
         },
         vertical: {
-          gradient: {
-            background: `linear-gradient(to bottom, rgba(${rgb.r},${rgb.g},${
-              rgb.b
-            }, 0) 0%,
-           rgba(${rgb.r},${rgb.g},${rgb.b}, 1) 100%)`,
+          hue: {
+            background: `linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%,
+            #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)`,
           },
           pointer: {
-            left: 0,
-            top: `${rgb.a * 100}%`,
+            left: '0px',
+            top: `${-((this.props.hsl.h * 100) / 360) + 100}%`,
           },
         },
-        overwrite: {
-          ...this.props.style,
-        },
       },
-      {
-        vertical: this.props.direction === 'vertical',
-        overwrite: true,
-      }
+      { vertical: this.props.direction === 'vertical' }
     );
 
     return (
-      <div style={styles.alpha}>
-        <div style={styles.checkboard}>
-          <Checkboard renderers={this.props.renderers} />
-        </div>
-        <div style={styles.gradient} />
+      <div style={styles.hue} className="hue-area">
         <div
-          className="alpha-bar"
+          className="hue-bar"
           style={styles.container}
-          ref={ref => (this.refs = ref)}
+          ref={this.containerRef}
           onMouseDown={this.handleMouseDown}
           onTouchMove={this.handleChange}
           onTouchStart={this.handleChange}
@@ -120,5 +99,3 @@ export class Alpha extends Component {
     );
   }
 }
-
-export default Alpha;

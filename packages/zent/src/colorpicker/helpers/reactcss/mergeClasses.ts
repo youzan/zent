@@ -1,5 +1,5 @@
-import forOwn from 'lodash/forOwn';
-import cloneDeep from 'lodash/cloneDeep';
+import forOwn from 'lodash-es/forOwn';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 const mergeClasses = (classes, activeNames = []) => {
   const styles = (classes.default && cloneDeep(classes.default)) || {};

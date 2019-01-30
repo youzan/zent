@@ -1,27 +1,26 @@
-import React, { Component } from 'react';
-import throttle from 'lodash/throttle';
+import * as React from 'react';
+import { Component, createRef } from 'react';
+import throttle from 'lodash-es/throttle';
 import reactCSS from '../helpers/reactcss';
 import * as saturation from '../helpers/saturation';
 
 /**
  * 调色盘
  */
-export default class Saturation extends Component {
-  constructor(props) {
-    super(props);
-    this.throttle = throttle((fn, data, e) => {
-      fn(data, e);
-    }, 50);
-  }
+export default class Saturation extends Component<any, any> {
+  containerRef = createRef<HTMLDivElement>();
+  throttle = throttle((fn, data, e) => {
+    fn(data, e);
+  }, 50);
 
   componentWillUnmount() {
     this.unbindEventListeners();
   }
 
-  handleChange = (e, skip) => {
+  handleChange = (e, skip?: boolean) => {
     this.throttle(
       this.props.onChange,
-      saturation.calculateChange(e, skip, this.props, this.refs),
+      saturation.calculateChange(e, skip, this.props, this.containerRef.current),
       e
     );
   };
@@ -42,8 +41,8 @@ export default class Saturation extends Component {
   }
 
   render() {
-    const { color, white, black, pointer, circle } = this.props.style || {};
-    const styles = reactCSS(
+    const { color, white, black, pointer, circle } = this.props.style || {} as any;
+    const styles: any = reactCSS(
       {
         default: {
           color: {
@@ -90,7 +89,7 @@ export default class Saturation extends Component {
     return (
       <div
         style={styles.color}
-        ref={ref => (this.refs = ref)}
+        ref={this.containerRef}
         onMouseDown={this.handleMouseDown}
         onTouchMove={this.handleChange}
         onTouchStart={this.handleChange}
