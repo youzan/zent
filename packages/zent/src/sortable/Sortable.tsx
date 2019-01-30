@@ -22,13 +22,6 @@ export type SortableGroup =
     }
   | string;
 
-interface IMobileScrollOriginalEvent {
-  clientX: number;
-  clientY: number;
-  rootEl: HTMLDivElement;
-  target: HTMLElement;
-}
-
 export interface ISortableProps {
   // base api
   className?: string;
