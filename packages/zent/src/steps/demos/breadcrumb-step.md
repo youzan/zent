@@ -2,7 +2,7 @@
 order: 4
 zh-CN:
 	title: 类型为 breadcrumb 的步骤条
-	stepOneText: 登录有赞账号
+	stepOneText: 登录有赞帐号
 	stepTwoText: 选择门店
 	stepThreeText: 绑定门店
 	stepFourText: 完成
