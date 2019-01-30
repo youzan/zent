@@ -1,11 +1,77 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import sortableJS from 'sortablejs';
-import isFunction from 'lodash/isFunction';
-import reorder from 'utils/reorder';
+import * as sortableJS from 'sortablejs';
+import isFunction from 'lodash-es/isFunction';
+import reorder from '../utils/reorder';
 
-export default class Sortable extends PureComponent {
+export type SortableGroup =
+  | {
+      name: string;
+      pull:
+        | boolean
+        | 'clone'
+        | ((to: sortableJS, from: sortableJS) => string | boolean);
+      put:
+        | string
+        | boolean
+        | ReadonlyArray<string>
+        | ((to: sortableJS) => boolean);
+      revertClone: boolean;
+    }
+  | string;
+
+interface IMobileScrollOriginalEvent {
+  clientX: number;
+  clientY: number;
+  rootEl: HTMLDivElement;
+  target: HTMLElement;
+}
+
+export interface ISortableProps {
+  // base api
+  className?: string;
+  prefix?: string;
+  tag?: string;
+  items?: Array<any>;
+  onChange?: (newItems: Array<any>) => void;
+  filterClass?: string;
+
+  // advance api
+  sort?: boolean;
+  group?: string | SortableGroup;
+  delay?: number;
+  animation?: number;
+  handle?: string;
+  ghostClass?: string;
+  chosenClass?: string;
+  dragClass?: string;
+  forceFallback?: boolean;
+  fallbackClass?: string;
+  fallbackOnBody?: boolean;
+  fallbackTolerance?: number;
+  scroll?: boolean;
+  scrollFn?: (
+    offsetX: number,
+    offsetY: number,
+    originalEvent: MouseEvent
+  ) => any;
+  scrollSensitivity?: number;
+  scrollSpeed?: number;
+  setData?: (dataTransfer: DataTransfer, dragEl: HTMLElement) => any;
+  onStart?: (event: Event) => any;
+  onEnd?: (event: Event) => any;
+  onAdd?: (event: Event) => any;
+  onUpdate?: (event: Event) => any;
+  onSort?: (event: Event) => any;
+  onRemove?: (event: Event) => any;
+  onFilter?: (event: Event) => any;
+  onMove?: (event: Event) => boolean;
+  onClone?: (event: Event) => boolean;
+}
+
+export default class Sortable extends Component<ISortableProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -60,10 +126,11 @@ export default class Sortable extends PureComponent {
     tag: 'div',
   };
 
-  initSortable = instance => {
+  sortable: sortableJS;
+
+  initSortable = (instance: HTMLElement) => {
     const {
       prefix,
-      options,
       onMove,
       onEnd,
       onChange,
@@ -76,7 +143,7 @@ export default class Sortable extends PureComponent {
       return;
     }
 
-    const sortableOptions = {
+    const sortableOptions: sortableJS.Options = {
       filter: filterClass ? `.${filterClass}` : '',
       ghostClass: `${prefix}-ghost`,
       chosenClass: `${prefix}-chosen`,
@@ -117,9 +184,9 @@ export default class Sortable extends PureComponent {
   }
 
   render() {
-    const { prefix, className, children, tag: Com } = this.props;
+    const { prefix, className, children, tag } = this.props;
     const classString = cx(`${prefix}-sortable`, className);
-
+    const Com: any = tag;
     return (
       <Com
         ref={instance => this.initSortable(instance)}

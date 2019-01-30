@@ -858,7 +858,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.7.6":
+"@types/react@*", "@types/react@^16.7.20", "@types/react@^16.7.6":
   version "16.7.20"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.20.tgz#13ae752c012710d0fa800985ca809814b51d3b58"
   integrity sha512-Qd5RWkwl6SL7R2XzLk/cicjVQm1Mhc6HqXY5Ei4pWd1Vi8Fkbd5O0sA398x8fRSTPAuHdDYD9nrWmJMYTJI0vQ==
@@ -866,13 +866,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@^16.7.20":
-  version "16.7.20"
-  resolved "http://registry.npm.taobao.org/@types/react/download/@types/react-16.7.20.tgz#13ae752c012710d0fa800985ca809814b51d3b58"
-  integrity sha1-E651LAEnEND6gAmFyoCYFLUdO1g=
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^2.2.0"
+"@types/sortablejs@^1.7.2":
+  version "1.7.2"
+  resolved "http://registry.npm.taobao.org/@types/sortablejs/download/@types/sortablejs-1.7.2.tgz#1e75a84ff3c60e6d44c43641f717a131b785982c"
+  integrity sha1-HnWoT/PGDm1ExDZB9xehMbeFmCw=
 
 "@types/uuid@^3.4.4":
   version "3.4.4"
