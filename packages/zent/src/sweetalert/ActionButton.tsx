@@ -1,10 +1,19 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 
-import Button from 'button';
-import isPromise from 'utils/isPromise';
+import Button from '../button';
+import isPromise from '../utils/isPromise';
 
-export default class ActionButton extends PureComponent {
+export interface IActionButtonProps {
+  type: 'default' | 'primary' | 'success' | 'danger' | 'secondary';
+  text: string;
+  className: string;
+  getClose: () => () => void;
+  onClick?: (e?: () => void) => Promise<unknown> | boolean;
+}
+
+export default class ActionButton extends Component<IActionButtonProps> {
   static propTypes = {
     type: PropTypes.string.isRequired,
     text: PropTypes.node.isRequired,

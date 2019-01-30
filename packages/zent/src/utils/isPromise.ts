@@ -5,7 +5,7 @@
  * @param {any} obj
  * @returns {bool}
  */
-export default function isPromise<T extends { then?: unknown }>(obj: T): boolean {
+export default function isPromise(obj: any): obj is Promise<unknown> {
   return (
     !!obj &&
     (typeof obj === 'object' || typeof obj === 'function') &&
