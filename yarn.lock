@@ -882,6 +882,11 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/sortablejs@^1.7.2":
+  version "1.7.2"
+  resolved "http://registry.npm.taobao.org/@types/sortablejs/download/@types/sortablejs-1.7.2.tgz#1e75a84ff3c60e6d44c43641f717a131b785982c"
+  integrity sha1-HnWoT/PGDm1ExDZB9xehMbeFmCw=
+
 "@types/uuid@^3.4.4":
   version "3.4.4"
   resolved "http://registry.npm.taobao.org/@types/uuid/download/@types/uuid-3.4.4.tgz#7af69360fa65ef0decb41fd150bf4ca5c0cefdf5"
