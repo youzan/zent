@@ -7,6 +7,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.6.1 (2019-01-30)
+
+- 🦀️ Fix bug in `Grid` header scroll
+
 ### 6.6.0 (2019-01-29)
 
 - ✨ `Grid` supports head groups
