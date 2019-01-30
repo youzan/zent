@@ -1,9 +1,23 @@
-import React, { PureComponent } from 'react';
-import Icon from 'icon';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class Step extends PureComponent {
+import Icon from '../../icon';
+
+export interface IStepProps {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  prefix?: string;
+  status?: 'wait' | 'finish' | 'error';
+  isCurrentStep?: boolean;
+  isLastFinishStep?: boolean;
+  stepLast?: boolean;
+  stepNumber?: string;
+  sequence?: boolean;
+}
+
+export default class Step extends Component<IStepProps> {
   static propTypes = {
     prefix: PropTypes.string,
     style: PropTypes.object,

@@ -1,10 +1,22 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 
 import NumberSteps from './components/NumberSteps';
 import BreadcrumbSteps from './components/BreadcrumbSteps';
 
-export default class Steps extends PureComponent {
+export interface IStepsProps {
+  type?: 'number' | 'card' | 'breadcrumb' | 'tabs';
+  direction?: 'horizontal' | 'vertical';
+  current?: number;
+  status?: 'process' | 'finish' | 'error' | 'wait';
+  sequence?: boolean;
+  onStepChange?: (stepIndex: number) => void;
+  className?: string;
+  prefix?: string;
+}
+
+export default class Steps extends Component<IStepsProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
