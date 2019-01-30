@@ -121,7 +121,7 @@ class Grid extends PureComponent {
   }
 
   syncFixedTableRowHeight = () => {
-    if (!this.mounted) {
+    if (!this.mounted || !this.tableNode) {
       return;
     }
 
@@ -416,6 +416,9 @@ class Grid extends PureComponent {
       if (this.scrollHeader && target === scrollBody) {
         this.scrollHeader.scrollLeft = target.scrollLeft;
       }
+      if (this.scrollHeader && target === this.scrollHeader) {
+        this.scrollBody.scrollLeft = target.scrollLeft;
+      }
       this.setScrollPositionClassName();
     }
     this.lastScrollLeft = target.scrollLeft;
@@ -532,6 +535,7 @@ class Grid extends PureComponent {
           ref={ref => {
             if (!fixed) this.scrollHeader = ref;
           }}
+          onScroll={this.handleBodyScroll}
         >
           {header}
         </div>,

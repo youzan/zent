@@ -7,14 +7,19 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.6.0 (2019-01-29)
+
+- ✨ `Grid` 支持表头分组
+- 🦀️ 修复了 `Table`, `Grid`, `WindowResizeHandler` 的 `undefined` 报错问题
+
 ### 6.5.3 (2019-01-13)
 
+- ✨ `Pop` 支持函数形式的 `position` 参数，参考 `Popover.Position.create`
 - `Form`
-  - 增加了自定义校验函数的文档
-  - 修复了使用 `Fragment` 时滚动报错的问题
-- `Pop` 支持函数形式的 `position` 参数，参考 `Popover.Position.create`
-- 修复 `ClampLines` 组件修改 `text` 后不更新的问题
-- 修复了几个组件中 unmount 之后部分代码报错的问题，包括 `Table`, `Select`, `Grid`, `ClampLines`
+  - 📚 增加了自定义校验函数的文档
+  - 🦀️ 修复了使用 `Fragment` 时滚动报错的问题
+- 🦀️ 修复 `ClampLines` 组件修改 `text` 后不更新的问题
+- 🦀️ 修复了几个组件中 unmount 之后部分代码报错的问题，包括 `Table`, `Select`, `Grid`, `ClampLines`
 
 ### 6.5.2 (2018-12-12)
 

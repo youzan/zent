@@ -7,14 +7,19 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.6.0 (2019-01-29)
+
+- ✨ `Grid` supports head groups
+- 🦀️ Fix `undefined` error in `Table`, `Grid` and `WindowResizeHandler`
+
 ### 6.5.3 (2019-01-13)
 
+- ✨ `Pop` `position` now supports function value, same as `Popover.Position.create`
 - `Form`
-  - Add docs about custom validation function
-  - Fix form scroll when using `Fragment`
-- `Pop` `position` now supports function value, same as `Popover.Position.create`
-- Fix `ClampLines` not updating when changing `text`
-- Fix use after unmount bug in some components, e.g. `Table`, `Select`, `Grid` and `ClampLines`
+  - 📚 Add docs about custom validation function
+  - 🦀️ Fix form scroll when using `Fragment`
+- 🦀️ Fix `ClampLines` not updating when changing `text`
+- 🦀️ Fix use after unmount bug in some components, e.g. `Table`, `Select`, `Grid` and `ClampLines`
 
 ### 6.5.2 (2018-12-12)
 
