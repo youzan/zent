@@ -1,14 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import cx from 'classnames';
-import assign from 'lodash/assign';
-import getWidth from 'utils/getWidth';
-import get from 'lodash/get';
+// import assign from 'lodash/assign';
+// import get from 'lodash/get';
+
+import getWidth from '../utils/getWidth';
 
 import Radio from './Radio';
 
 export default class RadioButton extends Radio {
   render() {
-    if (!get(this, 'context.onRadioChange')) {
+    const { onRadioChange } = this.context;
+    if (!onRadioChange) {
       throw new Error('Radio.Button must be nested within Radio.Group');
     }
 
@@ -31,7 +33,10 @@ export default class RadioButton extends Radio {
     });
 
     const widthStyle = getWidth(width);
-    const wrapStyle = assign({}, style, widthStyle);
+    const wrapStyle = {
+      ...style,
+      ...widthStyle,
+    };
 
     return (
       <label className={classString} style={wrapStyle}>

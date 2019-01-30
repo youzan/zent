@@ -1,13 +1,36 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import assign from 'lodash/assign';
-import getWidth from 'utils/getWidth';
-import noop from 'lodash/noop';
+import noop from 'lodash-es/noop';
 
-import GroupContext from './GroupContext';
+import getWidth from '../utils/getWidth';
+import Group from './Group';
+import Button from './RadioButton';
+import GroupContext, { IRadioContext } from './GroupContext';
 
-export default class Radio extends Component {
+export interface IRadioEvent {
+  target: {
+    type: 'radio';
+    checked: boolean;
+  } & IRadioProps;
+  preventDefault(): void;
+  stopPropagation(): void;
+}
+
+export interface IRadioProps {
+  value: any;
+  disabled?: boolean;
+  readOnly?: boolean;
+  width?: number | string;
+  className?: string;
+  prefix?: string;
+  checked?: boolean;
+  onChange?: (e: IRadioEvent) => void;
+  style?: React.CSSProperties;
+}
+
+export class Radio extends Component<IRadioProps> {
   static propTypes = {
     checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     value: PropTypes.any,
@@ -29,13 +52,17 @@ export default class Radio extends Component {
     onChange: noop,
   };
 
+  static Button: typeof Button;
+  static Group: typeof Group;
+
   static contextType = GroupContext;
+  context!: IRadioContext;
 
   // event liftup
   // link: https://facebook.github.io/react/docs/lifting-state-up.html
   handleChange = evt => {
     const { props, context } = this;
-    const e = {
+    const e: IRadioEvent = {
       target: {
         ...props,
         type: 'radio',
@@ -95,7 +122,10 @@ export default class Radio extends Component {
     });
 
     const widthStyle = getWidth(width);
-    const wrapStyle = assign({}, style, widthStyle);
+    const wrapStyle = {
+      ...style,
+      ...widthStyle,
+    };
 
     return (
       <label className={classString} style={wrapStyle}>
@@ -115,3 +145,5 @@ export default class Radio extends Component {
     );
   }
 }
+
+export default Radio;

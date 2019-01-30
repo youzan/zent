@@ -1,14 +1,26 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import memoize from 'memoize-one';
-import noop from 'lodash/noop';
+import noop from 'lodash-es/noop';
 
 import GroupContext from './GroupContext';
 
 const GroupContextProvider = GroupContext.Provider;
 
-export default class Group extends PureComponent {
+export interface IGroupProps {
+  value: any;
+  disabled?: boolean;
+  readOnly?: boolean;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  isValueEqual?: (value1: any, value2: any) => boolean;
+  className?: string;
+  prefix?: string;
+  style?: React.CSSProperties;
+}
+
+export default class Group extends Component<IGroupProps> {
   static propTypes = {
     value: PropTypes.any,
     disabled: PropTypes.bool,
