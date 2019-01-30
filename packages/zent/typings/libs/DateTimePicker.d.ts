@@ -19,6 +19,7 @@ interface IDateCommonProps {
   format?: string,
   openPanel?: boolean,
   defaultTime?: string,
+  value?: string|Date,
   // onChange 返回值类型, date | number | string， 默认 string
   valueType?: 'date' | 'number' | 'string',
   popPosition?: 'left' | 'right',
