@@ -1,8 +1,21 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
-import noop from 'lodash/noop';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Component } from 'react';
+import noop from 'lodash-es/noop';
 
-class Tab extends PureComponent {
+export interface ITabProps {
+  prefix?: string;
+  actived?: boolean;
+  disabled?: boolean;
+  id?: string | number;
+  minWidth?: string;
+  onSelected(id: string | number): void;
+  onDelete(id: string | number): void;
+  candel?: boolean;
+  uniqueId?: number;
+}
+
+class Tab extends Component<ITabProps> {
   static propTypes = {
     prefix: PropTypes.string,
     actived: PropTypes.bool,
@@ -64,7 +77,7 @@ class Tab extends PureComponent {
     if (props.disabled) {
       classes += ` ${prefix}-tabs-disabled`;
     }
-    let style = {};
+    let style: React.CSSProperties = {};
     if (minWidth) {
       style.minWidth = minWidth;
     }

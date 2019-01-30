@@ -1,13 +1,40 @@
-import React, { PureComponent } from 'react';
-import assign from 'lodash/assign';
-import PropTypes from 'prop-types';
-import LazyMount from 'utils/component/LazyMount';
+import * as React from 'react';
+import { Component } from 'react';
+// import ssign from 'lodash/assign';
+import * as PropTypes from 'prop-types';
+import LazyMount from '../utils/component/LazyMount';
 
 import TabPanel from './components/TabPanel';
 import Nav from './components/Nav';
 import tabUtil from './tabUtil';
 
-export default class Tabs extends PureComponent {
+export interface ITab {
+  key: string | number;
+  title: string | number;
+  disabled?: boolean;
+}
+
+export interface ITabsProps {
+  activeId?: string | number;
+  activeKey?: string | number;
+  type?: 'normal' | 'card' | 'slider';
+  size?: 'normal' | 'huge';
+  align?: 'left' | 'right' | 'center';
+  onChange?: (id: string | number) => void;
+  onTabChange?: (id: string | number) => void;
+  onDelete?: (id: string | number) => void;
+  onTabDel?: (id: string | number) => void;
+  onAdd?: () => void;
+  onTabAdd?: () => void;
+  candel?: boolean;
+  canadd?: boolean;
+  tabs?: ITab[];
+  className?: string;
+  prefix?: string;
+  navExtraContent?: React.ReactNode;
+}
+
+export class Tabs extends Component<ITabsProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -171,7 +198,10 @@ export default class Tabs extends PureComponent {
     return (
       <div className={`${prefix}-tabs ${className}`}>
         {this.renderNav(
-          tabs.map(tab => assign({}, tab, { actived: tab.key === activeId }))
+          tabs.map(tab => ({
+            ...tab,
+            actived: tab.key === activeId
+          }))
         )}
       </div>
     );
@@ -185,3 +215,5 @@ export default class Tabs extends PureComponent {
     return this.renderWithPanel();
   }
 }
+
+export default Tabs;
