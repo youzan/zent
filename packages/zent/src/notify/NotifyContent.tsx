@@ -1,14 +1,24 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import PropTypes from 'prop-types';
-import Portal from 'portal';
+import * as PropTypes from 'prop-types';
+import Portal from '../portal';
 
 const NotifyTransition = ({ children, ...props }) => (
   <CSSTransition {...props} timeout={800} classNames="notify">
     {children}
   </CSSTransition>
 );
-export default class NotifyContent extends PureComponent {
+
+export interface INotifyContentProps {
+  text?: React.ReactNode;
+  close(): void;
+  selector: string | HTMLElement;
+  status: string;
+  isIn?: boolean;
+}
+
+export default class NotifyContent extends Component<INotifyContentProps> {
   static propTypes = {
     text: PropTypes.any,
     status: PropTypes.string,
