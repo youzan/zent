@@ -1,14 +1,40 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import omit from 'lodash/omit';
-import isFunction from 'lodash/isFunction';
-import noop from 'lodash/noop';
-import Input from 'input';
-import Icon from 'icon';
-import getWidth from 'utils/getWidth';
+import * as PropTypes from 'prop-types';
+// import omit from 'lodash/omit';
+import isFunction from 'lodash-es/isFunction';
+import noop from 'lodash-es/noop';
+import { Omit } from 'utility-types';
+import Input, { IInputProps } from '../input';
+import Icon from '../icon';
+import getWidth from '../utils/getWidth';
 
-export default class NumberInput extends PureComponent {
+export interface INumberInputTarget extends INumberInputProps {
+  type: 'number';
+  value: number;
+}
+
+export interface INumberInputChangeEvent {
+  target: INumberInputTarget;
+  preventDefault: () => void;
+  stopPropagation: () => void;
+}
+
+export interface INumberInputProps
+  extends Omit<IInputProps, 'value' | 'onChange'> {
+  value?: number;
+  onChange?: (e: INumberInputChangeEvent) => any;
+  showStepper?: boolean;
+  showCounter?: boolean;
+  decimal?: number;
+  min?: number;
+  max?: number;
+  placeholder?: string;
+  disabled?: boolean;
+}
+
+export class NumberInput extends PureComponent<INumberInputProps, any> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -204,7 +230,7 @@ export default class NumberInput extends PureComponent {
     this.onArrow(downArrowState, -1);
   };
 
-  popData(result) {
+  popData(result): INumberInputChangeEvent {
     result = result === '' ? '' : parseFloat(result);
     const props = this.props;
     return {
@@ -227,11 +253,21 @@ export default class NumberInput extends PureComponent {
     const {
       prefix,
       className,
-      showStepper,
-      showCounter,
       disabled,
       readOnly,
+
+      type,
+
+      onChange,
       width,
+
+      showStepper,
+      showCounter,
+      min,
+      max,
+      decimal,
+
+      ...inputProps
     } = this.props;
     const widthStyle = getWidth(width);
     const { value, upArrow, downArrow } = this.state;
@@ -278,22 +314,6 @@ export default class NumberInput extends PureComponent {
       [`${prefix}-number-input-count-disable`]: addState,
     });
 
-    // 不可传入Input组件的属性
-    let inputProps = omit(this.props, [
-      // 这几个 Input 的 props 不要透传
-      'type',
-      // 'addonBefore',
-      // 'addonAfter',
-      'onChange',
-      'width',
-
-      // 这些是 NumberInput 特有的 props
-      'showStepper',
-      'showCounter',
-      'min',
-      'max',
-      'decimal',
-    ]);
     return (
       <div className={wrapClass} style={widthStyle}>
         {showStepper && (
@@ -312,6 +332,10 @@ export default class NumberInput extends PureComponent {
           onChange={this.onChange}
           onBlur={this.onBlur}
           onPressEnter={this.onPressEnter}
+          prefix={prefix}
+          className={className}
+          disabled={disabled}
+          readOnly={readOnly}
         />
         {showCounter && (
           <span className={addCountClass} onClick={this.inc}>
@@ -327,3 +351,5 @@ export default class NumberInput extends PureComponent {
     );
   }
 }
+
+export default NumberInput;
