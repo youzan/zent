@@ -2,9 +2,9 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
 import * as PropTypes from 'prop-types';
-import isFunction from 'lodash/isFunction';
-import omit from 'lodash/omit';
-import isNumber from 'lodash/isNumber';
+import isFunction from 'lodash-es/isFunction';
+import omit from 'lodash-es/omit';
+import isNumber from 'lodash-es/isNumber';
 import { Omit } from 'utility-types';
 import Icon from '../icon';
 import getWidth from '../utils/getWidth';
@@ -203,7 +203,7 @@ export class Input extends PureComponent<IInputProps> {
     );
 
     // 黑名单，下面这些props不应该带入到Input上
-    let inputProps = omit(this.props, [
+    let inputProps: any = omit(this.props, [
       'className',
       'prefix',
       'addonBefore',
