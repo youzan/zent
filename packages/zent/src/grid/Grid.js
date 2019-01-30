@@ -415,6 +415,9 @@ class Grid extends PureComponent {
       if (this.scrollHeader && target === scrollBody) {
         this.scrollHeader.scrollLeft = target.scrollLeft;
       }
+      if (this.scrollHeader && target === this.scrollHeader) {
+        this.scrollBody.scrollLeft = target.scrollLeft;
+      }
       this.setScrollPositionClassName();
     }
     this.lastScrollLeft = target.scrollLeft;
@@ -531,6 +534,7 @@ class Grid extends PureComponent {
           ref={ref => {
             if (!fixed) this.scrollHeader = ref;
           }}
+          onScroll={this.handleBodyScroll}
         >
           {header}
         </div>,
@@ -756,7 +760,6 @@ class Grid extends PureComponent {
     } else {
       className = classnames(
         className,
-        `${prefix}-grid-scroll-position-left`,
         `${prefix}-grid-scroll-position-${this.scrollPosition}`
       );
     }
