@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
+import uniqueId from 'lodash-es/uniqueId';
 
 const GRADIENT_ID = uniqueId('zentAnimatedArcStrokeGradient');
 const STROKE_OFFSET_RATIO = 0.2;
@@ -17,10 +18,17 @@ const NO_TRANSITION = {
   transition: 'none',
 };
 
+export interface IAnimatedArcProps {
+  className?: string;
+  radius?: number;
+  arcLength?: number;
+  strokeWidth?: number;
+}
+
 /**
  * Draw an arc then rotate it along the path
  */
-export default class AnimatedArc extends PureComponent {
+export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
   static propTypes = {
     className: PropTypes.string,
 
@@ -33,6 +41,9 @@ export default class AnimatedArc extends PureComponent {
     // 描边宽度
     strokeWidth: PropTypes.number,
   };
+
+  animationDelayTimerId: number;
+  transitionEndTimerId: number;
 
   state = {
     opacity: 0,
@@ -145,16 +156,16 @@ export default class AnimatedArc extends PureComponent {
       opacity: 0,
     });
 
-    this.animationDelayTimerId = setTimeout(
+    this.animationDelayTimerId = (setTimeout(
       this.startAnimation,
       ANIMATION_DELAY
-    );
+    ) as unknown) as number;
   };
 
   queueAnimationEnd = () => {
-    this.transitionEndTimerId = setTimeout(
+    this.transitionEndTimerId = (setTimeout(
       this.finishAnimation,
       ANIMATION_DURATION
-    );
+    ) as unknown) as number;
   };
 }

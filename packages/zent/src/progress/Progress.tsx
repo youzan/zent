@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import Icon from 'icon';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import AnimatedArc from './AnimatedArc';
+import Icon from '../icon';
 
 const STATE = {
   EXCEPTION: 1,
@@ -15,7 +16,24 @@ const DEFAULT_WIDTH = {
   LINE: 580,
 };
 
-export default class Progress extends PureComponent {
+export interface IProgressProps {
+  className?: string;
+  prefix?: string;
+  type?: 'line' | 'circle';
+  percent?: number;
+  showInfo?: boolean;
+  status?: 'success' | 'exception';
+  format?: (precent: number) => React.ReactNode;
+  strokeWidth?: number;
+  width?: number;
+  bgColor?: string;
+  normalColor?: string;
+  successColor?: string;
+  exceptionColor?: string;
+  style?: React.CSSProperties;
+}
+
+export class Progress extends PureComponent<IProgressProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -269,3 +287,5 @@ function CircleProgress(props) {
     </div>
   );
 }
+
+export default Progress;
