@@ -1,12 +1,33 @@
-import React from 'react';
+import * as React from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from 'i18n';
-import Dialog from 'dialog';
-import Icon from 'icon';
+import { I18nReceiver as Receiver } from '../i18n';
+import Dialog from '../dialog';
+import Icon from '../icon';
 
 import ActionButton from './ActionButton';
 import { TitleIconMap } from './constants';
+
+export namespace Sweetalert {
+  export interface IAlertOption {
+    content?: React.ReactNode;
+    type?: 'info' | 'success' | 'error' | 'warning';
+    title?: React.ReactNode;
+    onConfirm?: ((close: () => void) => void) | (() => Promise<any> | boolean);
+    confirmText?: string;
+    confirmType?: 'default' | 'primary' | 'danger' | 'success';
+    closeBtn?: boolean;
+    maskClosable?: boolean;
+    parentComponent?: any;
+    className?: string;
+    prefix?: string;
+  }
+
+  export interface IConfirmOption extends IAlertOption {
+    onCancel?: () => void;
+    cancelText?: string;
+  }
+}
 
 /**
  * 17.12.13 从相似的 alert 与 confirm 函数中提取公共逻辑，方便 i18n 注入
@@ -97,13 +118,13 @@ function sweet(config, sweetType) {
   return close;
 }
 
-export function alert(config = {}) {
+export function alert(config: Sweetalert.IAlertOption = {}) {
   return sweet(config, 'alert');
 }
 
 export const info = alert;
 
-export function confirm(config = {}) {
+export function confirm(config: Sweetalert.IConfirmOption = {}) {
   return sweet(config, 'confirm');
 }
 
