@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import isBrowser from 'utils/isBrowser';
-import NotifyContent from './NotifyContent';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import isBrowser from '../utils/isBrowser';
+import NotifyContent, { INotifyContentProps } from './NotifyContent';
 
 let index = 0;
 let durationDefault = 2000;
@@ -53,8 +53,8 @@ const closeAllNotify = () => {
 /**
  * 创建承载notify portal的容器
  */
-const createNotifyContainerNode = () => {
-  let notifyContainerNode = document.querySelector('.zent-notify-container');
+const createNotifyContainerNode = (): HTMLElement => {
+  let notifyContainerNode = document.querySelector('.zent-notify-container') as HTMLElement | null;
 
   if (!notifyContainerNode) {
     const bodyNode = document.body;
@@ -78,10 +78,10 @@ const show = (text, duration, status, callback) => {
 
   let container = document.createElement('div');
   const notifyContainerNode = createNotifyContainerNode();
-  const props = {
+  const props: any = {
     text,
-    duration,
     status,
+    duration,
     isIn: true,
     selector: notifyContainerNode,
   };
