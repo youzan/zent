@@ -2,7 +2,7 @@
 @import './theme/font';
 
 $active_color: $theme-primary-2;
-$light_blue: $theme-primary-4;
+$light_blue: $theme-primary-6;
 $disable_color: $theme-stroke-3;
 $light_grey: $theme-stroke-5;
 $lighter_grey: $theme-stroke-6;
@@ -415,6 +415,7 @@ $input_width: 190px;
         border-radius: 2px;
         cursor: pointer;
         position: relative;
+        box-sizing: border-box;
 
         &:hover {
           background: $light_blue;
@@ -520,24 +521,40 @@ $input_width: 190px;
           width: 20px;
           height: 20px;
           line-height: 20px;
+
+          &.panel__cell--current:not(.panel__cell--in-range) {
+            line-height: 18px;
+          }
         }
 
         &.month-panel__cell {
           width: 32px;
           height: 32px;
           line-height: 32px;
+
+          &.panel__cell--current {
+            line-height: 30px;
+          }
         }
 
         &.year-panel__cell {
           width: 50px;
           height: 30px;
           line-height: 30px;
+
+          &.panel__cell--current {
+            line-height: 28px;
+          }
         }
 
         &.quarter-panel__cell {
           height: 32px;
           line-height: 32px;
           width: 100%;
+
+          &.panel__cell--current {
+            line-height: 30px;
+          }
         }
       }
     }
