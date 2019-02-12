@@ -31,7 +31,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.pcss', '.md'],
+    extensions: ['.tsx', '.ts', '.js', '.pcss', '.md'],
     alias: Object.assign(
       {
         zent$: join(__dirname, '../zent'),
@@ -65,6 +65,10 @@ module.exports = {
       {
         test: /\.md$/,
         use: 'happypack/loader?id=md',
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
       },
     ],
   },

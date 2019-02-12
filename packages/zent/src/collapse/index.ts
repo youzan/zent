@@ -1,4 +1,4 @@
-import Collapse from './Collapse.js';
+import Collapse from './Collapse';
 
 export * from './Collapse';
 export * from './Panel';

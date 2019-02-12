@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": false,
+    "outDir": "dist",
+    "jsx": "react",
+    "allowJs": true,
+    "lib": [
+      "dom",
+      "es2017"
+    ]
+  },
+  "exclude": [
+    "lib",
+    "es",
+    "../packages/zent/typings",
+    "../node_modules/zent/typings/libs/Input.d.ts"
+  ],
+  "include": [
+    "src",
+    "../packages/zent/src",
+  ]
+}
