@@ -800,6 +800,13 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@types/autosize@^3.0.6":
+  version "3.0.6"
+  resolved "http://registry.npm.taobao.org/@types/autosize/download/@types/autosize-3.0.6.tgz#9022e6a783ec5a4d5e570013701dbc0bfe7667fa"
+  integrity sha1-kCLmp4PsWk1eVwATcB28C/52Z/o=
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/classnames@^2.2.7":
   version "2.2.7"
   resolved "http://registry.npm.taobao.org/@types/classnames/download/@types/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
@@ -809,6 +816,13 @@
   version "2.1.1"
   resolved "http://registry.npm.taobao.org/@types/enquire.js/download/@types/enquire.js-2.1.1.tgz#2622a886db1f304788858b411d175dd17649bcba"
   integrity sha1-JiKohtsfMEeIhYtBHRdd0XZJvLo=
+
+"@types/jquery@*":
+  version "3.3.29"
+  resolved "http://registry.npm.taobao.org/@types/jquery/download/@types/jquery-3.3.29.tgz#680a2219ce3c9250483722fccf5570d1e2d08abd"
+  integrity sha1-aAoiGc48klBINyL8z1Vw0eLQir0=
+  dependencies:
+    "@types/sizzle" "*"
 
 "@types/lodash-es@^4.17.1":
   version "4.17.1"
@@ -870,6 +884,11 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "http://registry.npm.taobao.org/@types/sizzle/download/@types/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+  integrity sha1-qBG4wY4rq6t9VCszZYh64uTZ3kc=
 
 "@types/sortablejs@^1.7.2":
   version "1.7.2"

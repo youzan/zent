@@ -32,6 +32,7 @@ export interface IPaginationProps {
   buttonBordered?: boolean;
   className?: string;
   totalItem?: number;
+  maxPageToShow?: number;
 }
 
 export default class Pagination extends Component<IPaginationProps> {

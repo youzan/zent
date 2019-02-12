@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import map from 'lodash/map';
+import map from 'lodash-es/map';
 import { getLeft } from './common';
 
 export default class Marks extends PureComponent<any> {

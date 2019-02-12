@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
-import Pop from 'pop';
 import cx from 'classnames';
-import debounce from 'lodash/debounce';
-import identity from 'lodash/identity';
+import debounce from 'lodash-es/debounce';
+import identity from 'lodash-es/identity';
+import Pop from '../pop';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 
 export interface IClampLinesProps {

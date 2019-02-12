@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import AnimateHeight from 'utils/component/AnimateHeight';
-import LazyMount from 'utils/component/LazyMount';
-import { EASE_IN_OUT } from 'utils/timingFunctions';
+import AnimateHeight from '../utils/component/AnimateHeight';
+import LazyMount from '../utils/component/LazyMount';
+import { EASE_IN_OUT } from '../utils/timingFunctions';
 
 const NO_BOTTOM_BORDER = {
   borderBottomWidth: 0,

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
-import omit from 'lodash/omit';
+import omit from 'lodash-es/omit';
 import cx from 'classnames';
-import autosize from 'autosize';
+import * as autosize from 'autosize';
 
 import { Input, IInputProps } from './Input';
 

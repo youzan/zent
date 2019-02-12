@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import * as PropTypes from 'prop-types';
-import isArray from 'lodash/isArray';
+import isArray from 'lodash-es/isArray';
 
 const NO_STYLE = {};
 

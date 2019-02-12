@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import Icon from 'icon';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
-import includes from 'lodash/includes';
+import isString from 'lodash-es/isString';
+import isNumber from 'lodash-es/isNumber';
+import includes from 'lodash-es/includes';
+import Icon from '../icon';
 
 const NO_STYLE = {};
 const HIDDEN_STYLE = {

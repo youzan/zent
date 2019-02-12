@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Component } from 'react';
-import isNil from 'lodash/isNil';
+import isNil from 'lodash-es/isNil';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import Placeholder from 'placeholder';
+import Placeholder from '../placeholder';
 
 export interface ICardProps {
   type?: 'normal' | 'nested'

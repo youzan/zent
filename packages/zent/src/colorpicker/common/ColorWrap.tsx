@@ -53,7 +53,7 @@ export const ColorWrap = Picker => {
     }
   }
 
-  return ColorPicker;
+  return ColorPicker as React.ComponentClass<any, any>;
 };
 
 export default ColorWrap;

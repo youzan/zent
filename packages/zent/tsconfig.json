@@ -6,6 +6,7 @@
     "allowSyntheticDefaultImports": false,
     "outDir": "es",
     "jsx": "react",
+    "declaration": true,
     "lib": [
       "dom",
       "es2017"
