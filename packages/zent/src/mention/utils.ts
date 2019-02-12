@@ -1,6 +1,6 @@
-import isEmpty from 'lodash/isEmpty';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
+import isEmpty from 'lodash-es/isEmpty';
+import isString from 'lodash-es/isString';
+import isNumber from 'lodash-es/isNumber';
 
 // Return empty string when start is greater than end
 export function substring(str, start, end) {

@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import get from 'lodash/get';
-import omit from 'lodash/omit';
-import defer from 'lodash/defer';
-import isFunction from 'lodash/isFunction';
-import includes from 'lodash/includes';
-import isEqual from 'lodash/isEqual';
-import isUndefined from 'lodash/isUndefined';
-import throttle from 'lodash/throttle';
-import PropTypes from 'prop-types';
-import keycode from 'keycode';
+import * as React from 'react';
+import { Component } from 'react';
+import get from 'lodash-es/get';
+import omit from 'lodash-es/omit';
+import defer from 'lodash-es/defer';
+import isFunction from 'lodash-es/isFunction';
+import includes from 'lodash-es/includes';
+import isEqual from 'lodash-es/isEqual';
+import isUndefined from 'lodash-es/isUndefined';
+import throttle from 'lodash-es/throttle';
+import * as PropTypes from 'prop-types';
+import * as keycode from 'keycode';
 import cx from 'classnames';
-import Input from 'input';
-import Popover from 'popover';
-import getCaretCoordinates from 'utils/dom/getCaretCoordinates';
-import isFirefox from 'utils/isFirefox';
-import SelectMenu from 'select-menu';
-import { I18nReceiver as Receiver } from 'i18n';
+import Input, { IInputChangeEvent } from '../input';
+import Popover from '../popover';
+import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
+import isFirefox from '../utils/isFirefox';
+import SelectMenu from '../select-menu';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import { findMentionAtCaretPosition } from './findMentionAtCaretPosition';
 import * as SelectionChangeEventHub from './SelectionChangeEventHub';
@@ -29,7 +30,34 @@ const DEFAULT_STATE = {
   search: null,
 };
 
-export default class Mention extends Component {
+export interface ICompoundMentionSuggestion {
+  value: unknown;
+  content?: React.ReactNode;
+  isGroup?: boolean;
+  isDivider?: boolean;
+  icon?: string;
+  disabled?: boolean;
+}
+
+export interface IMentionProps {
+  value: string;
+  onChange: (val: string) => void;
+  onSearchChange?: (search: string) => void;
+  multiLine?: boolean;
+  position?: 'top' | 'bottom';
+  suggestions: string | number | ICompoundMentionSuggestion;
+  suggestionNotFoundContent?: React.ReactNode;
+  triggerText?: string;
+  className?: string;
+  prefix?: string;
+  loading?: boolean;
+  type?: string;
+  onBlur?: React.FocusEventHandler;
+  onKeyUp?: React.FocusEventHandler;
+  onKeyDown?: React.KeyboardEventHandler;
+}
+
+export class Mention extends Component<IMentionProps> {
   static propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -68,6 +96,10 @@ export default class Mention extends Component {
     prefix: 'zent',
   };
 
+  __compositing: boolean;
+  input: HTMLInputElement | null = null;
+  suggestionList: SelectMenu | null = null;
+
   state = {
     ...DEFAULT_STATE,
     position: undefined,
@@ -79,25 +111,27 @@ export default class Mention extends Component {
   TopPosition = getPopoverTopPosition(this);
 
   render() {
-    const { multiLine, className, prefix, position, suggestions } = this.props;
-    const inputType = multiLine ? 'textarea' : 'text';
-    const passThroughProps = omit(this.props, [
-      'multiLine',
-      'position',
-      'suggestions',
-      'onSearchChange',
-      'suggestionNotFoundContent',
-      'loading',
-      'triggerText',
-      'onChange',
-      // 'onFocus',
-      'onBlur',
-      'onKeyUp',
-      'onKeyDown',
+    const {
+      multiLine,
+      position,
+      suggestions,
+      onSearchChange,
+      suggestionNotFoundContent,
+      loading,
+      triggerText,
+      onChange,
+      onBlur,
+      onKeyUp,
+      onKeyDown,
 
       // No custom input type allowed, cuz some input types don't support Selection API
-      'type',
-    ]);
+      type,
+
+      className,
+      prefix,
+      ...passThroughProps
+    } = this.props;
+    const inputType = multiLine ? 'textarea' : 'text';
 
     const { suggestionVisible } = this.state;
 
@@ -193,7 +227,9 @@ export default class Mention extends Component {
     });
   };
 
-  onInputChange = evt => {
+  onInputChange = (
+    evt: IInputChangeEvent | React.ChangeEvent<HTMLInputElement>
+  ) => {
     this.props.onChange(evt.target.value);
   };
 
@@ -302,7 +338,7 @@ export default class Mention extends Component {
    * A mention is surrounded by spaces
    * @param {string} value
    */
-  setSuggestionVisible = value => {
+  setSuggestionVisible = (value?: unknown) => {
     if (!this.input || this.__compositing) {
       return;
     }
@@ -338,8 +374,6 @@ export default class Mention extends Component {
     const isSearchChanged = state.search !== this.state.search;
 
     if (!isEqual(this.state, state)) {
-      console.log(this.state, state);
-
       const { onSearchChange } = this.props;
       if (isSearchChanged && isFunction(onSearchChange)) {
         onSearchChange(state.search);
@@ -371,3 +405,5 @@ export default class Mention extends Component {
     };
   }
 }
+
+export default Mention;

@@ -1,14 +1,33 @@
-import findLastIndex from 'lodash/findLastIndex';
-import findIndex from 'lodash/findIndex';
+import findLastIndex from 'lodash-es/findLastIndex';
+import findIndex from 'lodash-es/findIndex';
 
 import { isWhiteSpace } from './utils';
 import { MENTION_NOT_FOUND, MENTION_FOUND } from './constants';
 
-const NOT_FOUND = {
+export type FindMentionAtCaretPositionReturn =
+  | {
+      code: 1;
+    }
+  | {
+      code: 2;
+
+      // where to start measure caret screen position
+      caretMeasureStart: number;
+
+      // search keyword is at range: [searchStart, searchEnd]
+      searchStart: number;
+      searchEnd: number;
+
+      // mention placeholder is at range [placeholderStart, placeholderEnd]
+      placeholderStart: number;
+      placeholderEnd: number;
+    };
+
+const NOT_FOUND: FindMentionAtCaretPositionReturn = {
   code: MENTION_NOT_FOUND,
 };
 
-export function findMentionAtCaretPosition({ input, value, triggerText }) {
+export function findMentionAtCaretPosition({ input, value, triggerText }): FindMentionAtCaretPositionReturn {
   const { selectionEnd } = input;
 
   // Find the first space before caret

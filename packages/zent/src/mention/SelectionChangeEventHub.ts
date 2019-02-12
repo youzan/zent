@@ -2,9 +2,9 @@
  * selectionchange event is really wired on Firefox(testing on v59), we use click instead.
  */
 
-import findIndex from 'lodash/findIndex';
-import isEmpty from 'lodash/isEmpty';
-import isFirefox from 'utils/isFirefox';
+import findIndex from 'lodash-es/findIndex';
+import isEmpty from 'lodash-es/isEmpty';
+import isFirefox from '../utils/isFirefox';
 
 let gEventRegistered = false;
 let subscriberList = [];
@@ -44,7 +44,7 @@ function onDocumentSelectionChange(evt) {
   const { activeElement } = document;
   const matchedSubscriberIndex = findIndex(subscriberList, {
     node: activeElement,
-  });
+  } as any);
   if (matchedSubscriberIndex !== -1) {
     subscriberList[matchedSubscriberIndex].callback(evt);
   }
