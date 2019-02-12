@@ -1,16 +1,23 @@
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import throttle from 'lodash/throttle';
-import Checkbox from 'checkbox';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as ReactDOM from 'react-dom';
+import throttle from 'lodash-es/throttle';
 import cx from 'classnames';
+
 import helper from '../helper';
+import Checkbox from '../../checkbox';
 
 const stickRowClass = 'stickrow';
 const fixRowClass = 'fixrow';
 
-export default class Head extends PureComponent {
-  constructor() {
-    super();
+export default class Head extends PureComponent<any, any> {
+  relativeTop: number;
+  mounted: boolean;
+  rect: any;
+  throttleSetHeadStyle: any;
+
+  constructor(props) {
+    super(props);
 
     this.state = {
       isShowFixRow: false,
@@ -44,7 +51,7 @@ export default class Head extends PureComponent {
 
   getRect() {
     // clientrect can't be clone
-    const node = ReactDOM.findDOMNode(this);
+    const node = ReactDOM.findDOMNode(this) as Element | null;
     if (!node) {
       return;
     }
