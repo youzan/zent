@@ -1,8 +1,9 @@
 import { getPageRange } from './getPageRange';
+import { PaginationLayout } from './type';
 
 const MAX_PAGES_TO_EXPAND = 5;
 
-export default function normalLayout(options) {
+export default function normalLayout(options): PaginationLayout[] {
   const { pageSize, total, current } = options;
   const totalPages = Math.ceil(total / pageSize);
 
@@ -32,7 +33,7 @@ export default function normalLayout(options) {
   }
 
   // 页码需要折叠起来，第一页和最后一页一直显示
-  const layout = [
+  const layout: PaginationLayout[] = [
     {
       type: 'left-arrow',
       disabled: current === 1,

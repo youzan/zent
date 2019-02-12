@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import Button from 'button';
+
+import Button from '../../../button';
 
 const XML_NS = 'http://www.w3.org/2000/svg';
 
-export default class ArrowButton extends Component {
+export default class ArrowButton extends Component<any, any> {
   static propTypes = {
     direction: PropTypes.oneOf(['left', 'right']).isRequired,
     double: PropTypes.bool,
@@ -54,7 +56,7 @@ export default class ArrowButton extends Component {
   }
 }
 
-class DoubleArrowButton extends Component {
+class DoubleArrowButton extends Component<any, any> {
   state = {
     showArrow: false,
   };

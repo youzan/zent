@@ -12,9 +12,7 @@ export interface II18nReceiverProps<P> {
   };
   children(
     map: {
-      [key: string]: {
-        [key: string]: string;
-      };
+      [key: string]: string;
     },
     props: P
   ): ReactNode;

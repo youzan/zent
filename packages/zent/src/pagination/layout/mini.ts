@@ -1,4 +1,6 @@
-export default function miniLayout(options) {
+import { PaginationLayout } from "./type";
+
+export default function miniLayout(options): PaginationLayout[] {
   const { current, pageSize, total } = options;
   const totalPages = Math.ceil(total / pageSize);
 

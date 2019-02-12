@@ -1,7 +1,7 @@
-import React from 'react';
-import Input from 'input';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
+import Input from '../../../input';
 import BasePageJumper from './BasePageJumper';
 
 const INPUT_WIDTH = 56;
@@ -12,6 +12,8 @@ export default class MiniPageJumper extends BasePageJumper {
     totalPages: PropTypes.number,
     onJump: PropTypes.func,
   };
+
+  reset: boolean;
 
   constructor(props) {
     super(props);

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-export default class BasePagination extends Component {
+export default class BasePagination extends Component<any, any> {
   shouldUpdateLayout(props, nextProps) {
     const { current, total, pageSize } = nextProps;
 

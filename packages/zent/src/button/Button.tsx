@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Component, MouseEventHandler, CSSProperties, Children } from 'react';
 import setClass from 'classnames';
 import * as PropTypes from 'prop-types';
-import omit from 'lodash/omit';
-import Icon from 'icon';
+import { Omit } from 'utility-types';
+import omit from 'lodash-es/omit';
+import Icon from '../icon';
 import Group from './Group';
 
 const BLACK_LIST = [
@@ -41,7 +42,8 @@ const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
   });
 };
 
-export interface IButtonProps {
+export interface IButtonProps
+  extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
   type?: 'default' | 'primary' | 'secondary' | 'danger' | 'success';
   size?: 'medium' | 'large' | 'small';
   htmlType?: 'button' | 'submit' | 'reset';
@@ -50,7 +52,7 @@ export interface IButtonProps {
   loading?: boolean;
   outline?: boolean;
   bordered?: boolean;
-  component?: (() => string) | string;
+  component?: React.ComponentType<any> | string;
   href?: string;
   target?: string;
   className?: string;

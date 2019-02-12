@@ -13,6 +13,8 @@ export default class MiniPageList extends BasePageList {
     onPageChange: PropTypes.func,
   };
 
+  resetActiveDoubleArrowButton() {}
+
   render() {
     const { layout, buttonBordered, current, onPageChange } = this.props;
 

@@ -1,13 +1,40 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import isUndefined from 'lodash/isUndefined';
-import omit from 'lodash/omit';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
+import isUndefined from 'lodash-es/isUndefined';
+import omit from 'lodash-es/omit';
 
 import NormalPagination from './impl/NormalPagination';
 import LitePagination from './impl/LitePagination';
 import MiniPagination from './impl/MiniPagination';
 
-export default class Pagination extends Component {
+export interface CompoundPageSizeOption {
+  text: string;
+  value: number;
+}
+
+export type PageSizeOption = number | CompoundPageSizeOption;
+
+export interface PaginationOnChangeParameter {
+  current: number;
+  pageSize: number;
+}
+
+export interface IPaginationProps {
+  type?: 'normal' | 'lite' | 'mini';
+  current?: number;
+  total?: number;
+  pageSize?: number;
+  pageSizeOptions?: PageSizeOption[];
+  onChange: (arg: PaginationOnChangeParameter) => any;
+  showQuickJumper?: boolean;
+  showSizeChanger?: boolean;
+  buttonBordered?: boolean;
+  className?: string;
+  totalItem?: number;
+}
+
+export default class Pagination extends Component<IPaginationProps> {
   static propTypes = {
     type: PropTypes.oneOf(['normal', 'lite', 'mini']),
     current: PropTypes.number,
