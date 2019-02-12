@@ -1,9 +1,24 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import { getExtraStyle } from './utils';
 
-export default class MenuItem extends PureComponent {
+export interface IMenuItemProps {
+  key?: string;
+  disabled?: boolean;
+  className?: string;
+  prefix?: string;
+  specKey?: unknown;
+  onClick?: (e: React.MouseEvent, index: unknown) => void;
+  isInline?: boolean;
+  handleSelect?: (specKey: unknown) => void;
+  selectedKey?: unknown[];
+  depth?: number;
+  inlineIndent?: boolean;
+}
+
+export class MenuItem extends Component<IMenuItemProps> {
   static propTypes = {
     disabled: PropTypes.bool,
     prefix: PropTypes.string,
@@ -21,7 +36,7 @@ export default class MenuItem extends PureComponent {
     prefix: 'zent',
   };
 
-  handleClick = e => {
+  handleClick = (e: React.MouseEvent) => {
     const { specKey, onClick, disabled, isInline, handleSelect } = this.props;
 
     if (disabled) return;
@@ -67,3 +82,5 @@ export default class MenuItem extends PureComponent {
     );
   }
 }
+
+export default MenuItem;
