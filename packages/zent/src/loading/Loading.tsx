@@ -15,6 +15,7 @@ export interface ILoadingProps {
   containerClass?: string;
   prefix?: string;
   target?: HTMLElement;
+  static?: boolean;
 }
 
 export interface ILoadingState {

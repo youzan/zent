@@ -1,17 +1,19 @@
 /* eslint-disable no-lonely-if */
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import Loading from 'loading';
-import PropTypes from 'prop-types';
-import isBrowser from 'utils/isBrowser';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 
-import throttle from 'lodash/throttle';
-import intersection from 'lodash/intersection';
-import uniq from 'lodash/uniq';
-import uniqBy from 'lodash/uniqBy';
-import pullAll from 'lodash/pullAll';
-import pullAllBy from 'lodash/pullAllBy';
-import { I18nReceiver as Receiver } from 'i18n';
+import throttle from 'lodash-es/throttle';
+import intersection from 'lodash-es/intersection';
+import uniq from 'lodash-es/uniq';
+import uniqBy from 'lodash-es/uniqBy';
+import pullAll from 'lodash-es/pullAll';
+import pullAllBy from 'lodash-es/pullAllBy';
+
+import { I18nReceiver as Receiver } from '../i18n';
+import isBrowser from '../utils/isBrowser';
+import Loading from '../loading';
 
 import Head from './modules/Head';
 import Body from './modules/Body';
@@ -20,7 +22,67 @@ import helper from './helper';
 
 const { func, bool, string, array, oneOf, object } = PropTypes;
 
-export default class Table extends PureComponent {
+export interface ITableColumn {
+  title: string;
+  name: string;
+  width?: number;
+  isMoney?: boolean;
+  needSort?: boolean;
+  bodyRender?: (data: any) => React.ReactNode;
+  textAign?: 'left' | 'right' | 'center';
+}
+
+export type TableChangeConfig = {
+  sortBy: string;
+  sortType: 'asc' | 'desc';
+  current: number;
+  pageSize: number;
+};
+
+export interface ITableProps {
+  columns: Array<ITableColumn>;
+  datasets: Array<Object>;
+  rowKey?: string;
+  sortBy?: string;
+  sortType?: 'desc' | 'asc';
+  onChange?: (conf: TableChangeConfig) => void;
+  emptyLabel?: string;
+  selection?: {
+    selectedRowKeys?: Array<string>;
+    indeterminateRowKeys?: Array<string>;
+    isSingleSelection?: boolean;
+    needCrossPage?: boolean;
+    onSelect?: (
+      selectedkeys: string[],
+      selectedRows: Array<any>,
+      currentRow: number
+    ) => void;
+    canRowSelect?: boolean;
+  };
+  loading?: boolean;
+  getRowConf?: (
+    data: Object,
+    index: number
+  ) => { canSelect: boolean; rowClass: string };
+  expandation?: {
+    isExpanded?: (record: any, index: number) => boolean;
+    expandRender?: (data: any) => React.ReactNode;
+  };
+  batchComponents?: Array<any>;
+  batchComponentsAutoFixed?: boolean;
+  autoStick?: boolean;
+  autoScroll?: boolean;
+  className?: string;
+  prefix?: string;
+  pageInfo?: {
+    current?: number;
+    totalItem?: number;
+    pageSize?: number;
+    maxPageToShow?: number;
+  };
+}
+
+export class Table extends PureComponent<ITableProps, any> {
   static propTypes = {
     className: string,
     prefix: string,
@@ -59,6 +121,14 @@ export default class Table extends PureComponent {
     batchComponents: null,
   };
 
+  tableRect: any;
+  relativeTop: number;
+  mounted: boolean;
+  tableRectTop: number;
+  tableRectHeight: number;
+  foot: Foot | null = null;
+  throttleSetBatchComponents: any;
+
   constructor(props) {
     super(props);
 
@@ -74,9 +144,11 @@ export default class Table extends PureComponent {
   }
 
   // 一个global的selectedRowKeys用于保存所有选中的选项
-  selectedRowKeys = [];
+  selectedRowKeys: string[] = [];
 
   selectedRows = [];
+
+  head: Head | null = null;
 
   componentWillReceiveProps(nextProps) {
     const toggleListener = helper.toggleEventListener(this.props, nextProps);
@@ -147,7 +219,7 @@ export default class Table extends PureComponent {
       return;
     }
 
-    const node = ReactDOM.findDOMNode(this);
+    const node = ReactDOM.findDOMNode(this) as Element | null;
     if (!node) {
       return;
     }
@@ -327,7 +399,7 @@ export default class Table extends PureComponent {
   }
 
   isFootInView() {
-    const footRect = ReactDOM.findDOMNode(this.foot).getBoundingClientRect();
+    const footRect = (ReactDOM.findDOMNode(this.foot) as Element).getBoundingClientRect();
     const footY =
       footRect.top - document.documentElement.getBoundingClientRect().top;
     return (
@@ -454,7 +526,8 @@ export default class Table extends PureComponent {
                 <div className={`${prefix}-table ${className}`}>
                   {this.state.placeHolderHeight && (
                     <div className="thead place-holder">
-                      <div className="tr">{this.cloneHeaderContent()}</div>
+                      {/* WTF */}
+                      {/* <div className="tr">{this.cloneHeaderContent()}</div> */}
                     </div>
                   )}
                   <Head
@@ -508,7 +581,8 @@ export default class Table extends PureComponent {
                     }}
                     current={this.state.current}
                     onPageChange={this.onPageChange}
-                    onPageSizeChange={this.onPageSizeChange}
+                    // WTF
+                    // onPageSizeChange={this.onPageSizeChange}
                   />
                 </div>
               )}
@@ -519,3 +593,5 @@ export default class Table extends PureComponent {
     );
   }
 }
+
+export default Table;

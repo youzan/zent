@@ -19,7 +19,7 @@ export interface IRadioEvent {
 }
 
 export interface IRadioProps {
-  value: any;
+  value?: any;
   disabled?: boolean;
   readOnly?: boolean;
   width?: number | string;

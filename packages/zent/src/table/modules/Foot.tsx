@@ -1,12 +1,17 @@
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import Pagination from 'pagination';
-import Checkbox from 'checkbox';
-import isNil from 'lodash/isNil';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as ReactDOM from 'react-dom';
+
+import isNil from 'lodash-es/isNil';
 
 import helper from '../helper.js';
+import Pagination from '../../pagination';
+import Checkbox from '../../checkbox';
 
-export default class Foot extends PureComponent {
+export default class Foot extends PureComponent<any, any> {
+  footStyleFixed: React.CSSProperties;
+  batch: HTMLDivElement | null = null;
+
   // 拿到所有的选中的item
   renderBatchComps(selectedRows, batchComponents) {
     return batchComponents.map((comp, index) => {
@@ -31,7 +36,7 @@ export default class Foot extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps.batchComponentsFixed) {
       this.footStyleFixed = {
-        height: ReactDOM.findDOMNode(this.batch).getBoundingClientRect().height,
+        height: (ReactDOM.findDOMNode(this.batch) as Element).getBoundingClientRect().height,
       };
     } else {
       this.footStyleFixed = {};
