@@ -1,14 +1,16 @@
-import React, { PureComponent } from 'react';
-import WindowEventHandler from 'utils/component/WindowEventHandler';
-import keys from 'lodash/keys';
-import map from 'lodash/map';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import keys from 'lodash-es/keys';
+import map from 'lodash-es/map';
 import noop from 'lodash/noop';
 import classNames from 'classnames';
 
+import WindowEventHandler from '../utils/component/WindowEventHandler';
 import { getLeft, toFixed, checkValueInRange } from './common';
 import ToolTips from './ToolTips';
+import { SliderValueType } from './Slider';
 
-export default class Points extends PureComponent {
+export default class Points extends PureComponent<any, any> {
   constructor(props) {
     super(props);
     const { range, value } = props;
@@ -17,6 +19,8 @@ export default class Points extends PureComponent {
       conf: range ? { start: value[0], end: value[1] } : { simple: value },
     };
   }
+
+  value: SliderValueType;
 
   getLeft = point => {
     const { max, min } = this.props;

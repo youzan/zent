@@ -1,13 +1,15 @@
-import React, { PureComponent } from 'react';
-import NumberInput from 'number-input';
-import pick from 'lodash/pick';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import pick from 'lodash-es/pick';
+import NumberInput from '../number-input';
 
 import { getDecimal } from './common';
+import { SliderValueType } from './Slider';
 
-export default class InputField extends PureComponent {
+export default class InputField extends PureComponent<any> {
   onChange = (type, e) => {
     const { onChange, value } = this.props;
-    let newValue = Number(e.target.value);
+    let newValue: SliderValueType = Number(e.target.value);
     if (type === 'start') {
       newValue = [newValue, value[1]];
     } else if (type === 'end') {
@@ -17,7 +19,16 @@ export default class InputField extends PureComponent {
   };
 
   render() {
-    const { range, value, prefix, ...restProps } = this.props;
+    const {
+      range,
+      value,
+      prefix,
+      min,
+      max,
+      disabled,
+      className,
+      ...restProps
+    } = this.props;
     const numberInputProps = pick(restProps, [
       'max',
       'min',
@@ -38,7 +49,9 @@ export default class InputField extends PureComponent {
             />
             <span className="slider-input-line">-</span>
             <NumberInput
-              {...numberInputProps}
+              max={max}
+              disabled={disabled}
+              prefix={prefix}
               min={value[0]}
               decimal={getDecimal(restProps.step)}
               onChange={this.onChange.bind(null, 'end')}
