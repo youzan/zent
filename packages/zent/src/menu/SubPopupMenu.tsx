@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import CommonMenu from './CommonMenu';
 
-export default class PopupMenu extends CommonMenu {
+export default class PopupMenu extends CommonMenu<any, any> {
   static propTypes = {
     prefix: PropTypes.string,
     visible: PropTypes.bool,

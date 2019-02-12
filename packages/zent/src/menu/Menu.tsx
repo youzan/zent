@@ -1,13 +1,29 @@
-import React from 'react';
+import * as React from 'react';
 import cx from 'classnames';
-import noop from 'lodash/noop';
-import PropTypes from 'prop-types';
+import noop from 'lodash-es/noop';
+import * as PropTypes from 'prop-types';
 
 import CommonMenu from './CommonMenu';
 import MenuItem from './MenuItem';
 import SubMenu from './SubMenu';
 
-export default class Menu extends CommonMenu {
+export interface IMenuProps {
+  onClick?: (
+    e: React.MouseEvent<HTMLDivElement | HTMLLIElement>,
+    key: string
+  ) => void;
+  onSubMenuClick?: (id?: string | number) => void;
+  onExpandChange?: (expanded?: string[]) => void;
+  style?: React.CSSProperties;
+  mode?: 'pop' | 'inline';
+  defaultExpandKeys?: Array<string>;
+  defaultSelectedKey?: string;
+  inlineIndent?: number;
+  className?: string;
+  prefix?: string;
+}
+
+export class Menu extends CommonMenu<IMenuProps, any> {
   static MenuItem = MenuItem;
 
   static SubMenu = SubMenu;
@@ -97,3 +113,5 @@ export default class Menu extends CommonMenu {
     );
   }
 }
+
+export default Menu;

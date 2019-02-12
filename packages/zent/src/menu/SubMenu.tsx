@@ -1,13 +1,32 @@
-import React from 'react';
-import Icon from 'icon';
+import * as React from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
-import AnimateHeight from 'utils/component/AnimateHeight';
+import * as PropTypes from 'prop-types';
+import Icon from '../icon';
+import AnimateHeight from '../utils/component/AnimateHeight';
 import CommonMenu from './CommonMenu';
 import SubPopupMenu from './SubPopupMenu';
 import { getExtraStyle } from './utils';
 
-export default class SubMenu extends CommonMenu {
+export interface ISubMenuProps {
+  key?: string;
+  title: React.ReactNode;
+  disabled?: boolean;
+  overlayClassName?: string;
+  className?: string;
+  prefix?: string;
+  isInline?: boolean;
+  onClick?: (e: React.MouseEvent, index: unknown) => void;
+  specKey?: unknown;
+  onSubMenuClick?: (index: unknown) => void;
+  toggleExpand?: (index: unknown) => void;
+  depth?: number;
+  expandKeys?: unknown[];
+  inlineIndent?: number;
+  selectedKey?: unknown;
+  handleSelect?: (specKey: unknown) => void;
+}
+
+export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
   static propTypes = {
     title: PropTypes.node,
     prefix: PropTypes.string,
@@ -29,6 +48,9 @@ export default class SubMenu extends CommonMenu {
     className: '',
     prefix: 'zent',
   };
+
+  leaveTimer: number;
+  enterTimer: number;
 
   state = {
     isExpand:
@@ -70,18 +92,18 @@ export default class SubMenu extends CommonMenu {
     if (this.leaveTimer) {
       clearTimeout(this.leaveTimer);
     }
-    this.enterTimer = setTimeout(() => {
+    this.enterTimer = (setTimeout(() => {
       this.setState({ subMenuVisible: true });
-    }, 200);
+    }, 200) as unknown) as number;
   };
 
   onMouseLeave = () => {
     if (this.enterTimer) {
       clearTimeout(this.enterTimer);
     }
-    this.leaveTimer = setTimeout(() => {
+    this.leaveTimer = (setTimeout(() => {
       this.setState({ subMenuVisible: false });
-    }, 200);
+    }, 200) as unknown) as number;
   };
 
   renderInlineChild = (component, index) => {
@@ -143,7 +165,7 @@ export default class SubMenu extends CommonMenu {
     );
   }
 
-  componentWillReceiveProps({ expandKeys: nextExpandKeys }) {
+  componentWillReceiveProps({ expandKeys: nextExpandKeys }: ISubMenuProps) {
     const { specKey, expandKeys } = this.props;
 
     // 一次只能展开一个subMenu，因此可以只通过length判断是否改变
