@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 
 import isNil from 'lodash-es/isNil';
 
-import helper from '../helper.js';
+import helper from '../helper';
 import Pagination from '../../pagination';
 import Checkbox from '../../checkbox';
 

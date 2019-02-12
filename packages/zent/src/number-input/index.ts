@@ -1,3 +1,3 @@
 import NumberInput from './NumberInput';
-export * from './NumberInput.js';
+export * from './NumberInput';
 export default NumberInput;
