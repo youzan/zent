@@ -1,20 +1,49 @@
 /**
  * Popup
  */
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
+import take from 'lodash-es/take';
+import noop from 'lodash-es/noop';
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import take from 'lodash/take';
-import noop from 'lodash/noop';
-
-import Popover from 'popover';
-import { I18nReceiver as Receiver } from 'i18n';
+import Popover from '../popover';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
 
-class Popup extends Component {
+class Popup extends Component<any, any> {
+  static propTypes = {
+    adjustPosition: PropTypes.func,
+    cid: PropTypes.string,
+    keyword: PropTypes.any,
+    selectedItems: PropTypes.array,
+    searchPlaceholder: PropTypes.string,
+    emptyText: PropTypes.any,
+    prefixCls: PropTypes.string,
+    extraFilter: PropTypes.bool,
+    filter: PropTypes.func,
+    onAsyncFilter: PropTypes.func,
+  };
+
+  static defaultProps = {
+    adjustPosition: noop,
+    cid: -1,
+    keyword: '',
+    selectedItems: [],
+    emptyText: '',
+    prefixCls: '',
+    extraFilter: false,
+    searchPlaceholder: '',
+  };
+
+  focused: boolean;
+  popup: HTMLDivElement | null = null;
+  itemIds: string[];
+  currentIdUpdated: boolean;
+
   constructor(props) {
     super(props);
 
@@ -145,7 +174,9 @@ class Popup extends Component {
     const index = itemIds.indexOf(currentId);
     const popupHeight = this.popup.clientHeight;
     const scrollHeight = this.popup.scrollHeight;
-    const currentNode = this.popup.getElementsByClassName('current')[0];
+    const currentNode = this.popup.getElementsByClassName(
+      'current'
+    )[0] as HTMLElement;
     switch (code) {
       case KEY_ESC:
         this.props.popover.close();
@@ -232,7 +263,7 @@ class Popup extends Component {
         ref={popup => (this.popup = popup)}
         className={`${prefixCls}-popup`}
         onKeyDown={this.keydownHandler}
-        tabIndex="0"
+        tabIndex={0}
         style={autoWidth ? this.state.style : null}
         onFocus={event => {
           event.preventDefault();
@@ -282,28 +313,4 @@ class Popup extends Component {
   }
 }
 
-Popup.propTypes = {
-  adjustPosition: PropTypes.func,
-  cid: PropTypes.string,
-  keyword: PropTypes.any,
-  selectedItems: PropTypes.array,
-  searchPlaceholder: PropTypes.string,
-  emptyText: PropTypes.any,
-  prefixCls: PropTypes.string,
-  extraFilter: PropTypes.bool,
-  filter: PropTypes.func,
-  onAsyncFilter: PropTypes.func,
-};
-
-Popup.defaultProps = {
-  adjustPosition: noop,
-  cid: -1,
-  keyword: '',
-  selectedItems: [],
-  emptyText: '',
-  prefixCls: '',
-  extraFilter: false,
-  searchPlaceholder: '',
-};
-
-export default Popover.withPopover(Popup);
+export default Popover.withPopover(Popup) as React.ComponentType<any>;

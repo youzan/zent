@@ -1,7 +1,16 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { PureComponent } from 'react';
 
-class Tag extends PureComponent {
+class Tag extends PureComponent<any, any> {
+  static propTypes = {
+    prefixCls: PropTypes.string,
+    cid: PropTypes.string,
+    value: PropTypes.any,
+    text: PropTypes.any,
+    onFocus: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);
@@ -33,13 +42,5 @@ class Tag extends PureComponent {
     );
   }
 }
-
-Tag.propTypes = {
-  prefixCls: PropTypes.string,
-  cid: PropTypes.string,
-  value: PropTypes.any,
-  text: PropTypes.any,
-  onFocus: PropTypes.func,
-};
 
 export default Tag;

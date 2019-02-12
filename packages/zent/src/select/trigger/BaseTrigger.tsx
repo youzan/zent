@@ -1,10 +1,26 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { PureComponent } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from 'i18n';
+import { I18nReceiver as Receiver } from '../../i18n';
 
-class SelectTrigger extends PureComponent {
+export interface ISelectTriggerProps {
+  prefixCls?: string;
+  onClick?: React.MouseEventHandler;
+  visible?: boolean;
+  text?: string;
+  placeholder?: string;
+}
+
+class SelectTrigger extends PureComponent<ISelectTriggerProps> {
+  static propTypes = {
+    prefixCls: PropTypes.string,
+    value: PropTypes.any,
+    text: PropTypes.any,
+    placeholder: PropTypes.string,
+  };
+
   render() {
     const { prefixCls, onClick, visible } = this.props;
     const rootClass = cx(`${prefixCls}-text`, { visible });
@@ -24,12 +40,5 @@ class SelectTrigger extends PureComponent {
     );
   }
 }
-
-SelectTrigger.propTypes = {
-  prefixCls: PropTypes.string,
-  value: PropTypes.any,
-  text: PropTypes.any,
-  placeholder: PropTypes.string,
-};
 
 export default SelectTrigger;

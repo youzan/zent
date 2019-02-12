@@ -1,17 +1,35 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
+import noop from 'lodash-es/noop';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from 'i18n';
+import { I18nReceiver as Receiver } from '../../i18n';
 
 import Tag from '../components/Tag';
 
-class TagsTrigger extends PureComponent {
+class TagsTrigger extends PureComponent<any, any> {
+  static propTypes = {
+    prefixCls: PropTypes.string,
+    selectedItems: PropTypes.array,
+    selectedItem: PropTypes.object,
+    placeholder: PropTypes.string,
+    value: PropTypes.any,
+    onDelete: PropTypes.func,
+  };
+
+  static defaultProps = {
+    selectedItems: [],
+    onDelete: noop,
+  };
+
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);
   }
+
+  isDelete: boolean;
+  isAdded: boolean;
 
   componentWillReceiveProps(nextProps) {
     const { selectedItems } = this.props;
@@ -100,19 +118,5 @@ class TagsTrigger extends PureComponent {
     );
   }
 }
-
-TagsTrigger.propTypes = {
-  prefixCls: PropTypes.string,
-  selectedItems: PropTypes.array,
-  selectedItem: PropTypes.object,
-  placeholder: PropTypes.string,
-  value: PropTypes.any,
-  onDelete: PropTypes.func,
-};
-
-TagsTrigger.defaultProps = {
-  selectedItems: [],
-  onDelete: noop,
-};
 
 export default TagsTrigger;
