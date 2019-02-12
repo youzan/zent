@@ -813,6 +813,11 @@
   resolved "http://registry.npm.taobao.org/@types/classnames/download/@types/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
   integrity sha1-+2jMm+hIfm6lsTcA51m/urfg/v0=
 
+"@types/enquire.js@^2.1.1":
+  version "2.1.1"
+  resolved "http://registry.npm.taobao.org/@types/enquire.js/download/@types/enquire.js-2.1.1.tgz#2622a886db1f304788858b411d175dd17649bcba"
+  integrity sha1-JiKohtsfMEeIhYtBHRdd0XZJvLo=
+
 "@types/lodash-es@^4.17.1":
   version "4.17.1"
   resolved "http://registry.npm.taobao.org/@types/lodash-es/download/@types/lodash-es-4.17.1.tgz#56745e5411558362aeca31def918f88f725dd29d"

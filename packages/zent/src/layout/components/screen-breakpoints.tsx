@@ -1,5 +1,5 @@
-import has from 'lodash/has';
-import isPlainObject from 'lodash/isPlainObject';
+import has from 'lodash-es/has';
+import isPlainObject from 'lodash-es/isPlainObject';
 
 export const BREAKPOINT_MAP = {
   '(max-width: 575px)': 'xs',

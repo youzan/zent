@@ -1,12 +1,13 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
 import BreakpointContext from './BreakpointContext';
 import { getValueForBreakpoint } from './screen-breakpoints';
 
-export default class Col extends PureComponent {
+export default class Col extends Component<any> {
   static propTypes = {
     span: PropTypes.oneOfType([PropTypes.number, PropTypes.object]).isRequired,
     offset: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),

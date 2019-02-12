@@ -1,7 +1,8 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
-import enquire from 'enquire.js';
-import isBrowser from 'utils/isBrowser';
+import * as PropTypes from 'prop-types';
+import * as enquire from 'enquire.js';
+
+import isBrowser from '../../utils/isBrowser';
 
 /**
  * enquire can attatch multiple callbacks to the same media query.
@@ -11,7 +12,7 @@ import isBrowser from 'utils/isBrowser';
  *
  * So no need for one more media query manager.
  */
-export default class Breakpoint extends Component {
+export default class Breakpoint extends Component<any> {
   static propTypes = {
     breakpoints: PropTypes.array,
     onChange: PropTypes.func,

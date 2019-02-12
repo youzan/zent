@@ -1,14 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import omitBy from 'lodash/omitBy';
+import omitBy from 'lodash-es/omitBy';
 
 import ConfigContext from './ConfigContext';
 import Breakpoint from './Breakpoint';
 import BreakpointContext from './BreakpointContext';
 import { BREAKPOINTS } from './screen-breakpoints';
 
-export default class Grid extends Component {
+export interface IGridProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export interface IGridState {
+  breakpoints: string[];
+}
+
+export default class Grid extends Component<IGridProps, IGridState> {
   static propTypes = {
     className: PropTypes.string,
   };
@@ -41,7 +51,7 @@ export default class Grid extends Component {
               className={cx('zent-layout-grid', className)}
               style={layoutStyles}
             >
-              <BreakpointContext.Provider value={this.state.breakpoints}>
+              <BreakpointContext.Provider value={this.state}>
                 {this.props.children}
               </BreakpointContext.Provider>
               <Breakpoint
@@ -64,7 +74,7 @@ export default class Grid extends Component {
           { ...breakpoints, ...delta },
           (matched, brk) => !matched || delta[brk] === false
         ),
-      };
+      } as any;
     });
   };
 }

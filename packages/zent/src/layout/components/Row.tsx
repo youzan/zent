@@ -1,12 +1,26 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
 import BreakpointContext from './BreakpointContext';
 import { getValueForBreakpoint } from './screen-breakpoints';
 
-export default class Row extends PureComponent {
+export interface IRowProps {
+  className?: string;
+  justify?:
+    | 'start'
+    | 'center'
+    | 'end'
+    | 'space-around'
+    | 'space-between'
+    | 'space-evenly';
+  align?: 'start' | 'center' | 'end';
+  style?: React.CSSProperties;
+}
+
+export default class Row extends Component<IRowProps> {
   static propTypes = {
     justify: PropTypes.oneOf([
       'start',
