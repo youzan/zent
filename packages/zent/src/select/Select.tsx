@@ -2,25 +2,154 @@
  * Select 垃圾代码，需要清理
  */
 
-// import React, { Component, Children } from 'react';
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import omit from 'lodash/omit';
-import isEqual from 'lodash/isEqual';
-import isArray from 'lodash/isArray';
-import noop from 'lodash/noop';
-import cloneDeep from 'lodash/cloneDeep';
-import assign from 'lodash/assign';
+import omit from 'lodash-es/omit';
+import isEqual from 'lodash-es/isEqual';
+import isArray from 'lodash-es/isArray';
+import noop from 'lodash-es/noop';
+import cloneDeep from 'lodash-es/cloneDeep';
+import assign from 'lodash-es/assign';
 
-import Popover from 'popover';
+import Popover from '../popover';
 
 import Trigger from './trigger';
 import Popup from './Popup';
+import SelectTrigger from './trigger/BaseTrigger';
+import InputTrigger from './trigger/InputTrigger';
+import TagsTrigger from './trigger/TagsTrigger';
 
 const { Content } = Popover;
 
-class Select extends React.Component {
+export interface ISelectProps {
+  data: unknown[];
+  tags: unknown[];
+  value?: any;
+  index?: any;
+  disabled?: boolean;
+  placeholder?: string;
+  searchPlaceholder?: string;
+  emptyText?: string;
+  trigger?: React.ComponentType<any>;
+  optionText?: string;
+  optionValue?: string;
+  onChange?: (
+    event: {
+      target: { type: any; value: any };
+      preventDefault: () => void;
+      stopPropagation: () => void;
+    },
+    value: any
+  ) => void;
+  onDelete?: (date: any) => void;
+  filter?: (item: any, keyword?: string) => boolean;
+  onFilter?: (item: any, keyword?: string) => boolean;
+  maxToShow?: number;
+  onAsyncFilter?: (keyword: string, callback: (data: any) => void) => void;
+  onEmptySelected?: (
+    event: React.SyntheticEvent<HTMLSpanElement>,
+    value?: unknown
+  ) => void;
+  onOpen?: () => void;
+  className?: string;
+  popupClassName?: string;
+  autoWidth?: boolean;
+  resetOption?: boolean;
+  resetText?: string;
+  width?: number | string;
+  prefix?: string;
+  simple?: boolean;
+  search?: boolean;
+}
+
+class Select extends React.Component<ISelectProps, any> {
+  static propTypes = {
+    data: PropTypes.array,
+    prefix: PropTypes.string,
+    className: PropTypes.string,
+    open: PropTypes.bool,
+    popupClassName: PropTypes.string,
+    disabled: PropTypes.bool,
+    placeholder: PropTypes.string,
+    maxToShow: PropTypes.number,
+    searchPlaceholder: PropTypes.string,
+    emptyText: PropTypes.node,
+    selectedItem: PropTypes.shape({
+      value: PropTypes.any,
+      text: PropTypes.string,
+    }),
+    selectedItems: PropTypes.array,
+    trigger: PropTypes.func,
+    optionValue: PropTypes.string,
+    optionText: PropTypes.string,
+    onChange: PropTypes.func,
+    onDelete: PropTypes.func,
+    filter: PropTypes.func,
+    onAsyncFilter: PropTypes.func,
+    onEmptySelected: PropTypes.func,
+    onOpen: PropTypes.func,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+    // 自动根据ref计算弹层宽度
+    autoWidth: PropTypes.bool,
+
+    // 自动添加重置选项
+    resetOption: PropTypes.bool,
+
+    // 重置选项展示文本
+    resetText: PropTypes.string,
+
+    value: PropTypes.any,
+
+    index: PropTypes.number,
+
+    initialValue: PropTypes.any,
+
+    initialIndex: PropTypes.number,
+  };
+
+  static defaultProps = {
+    prefix: 'zent',
+    disabled: false,
+    className: '',
+    open: false,
+    popupClassName: '',
+    placeholder: '',
+    searchPlaceholder: '',
+    emptyText: '',
+    selectedItem: {
+      value: '',
+      text: '',
+    },
+    selectedItems: [],
+    optionValue: 'value',
+    optionText: 'text',
+    onChange: noop,
+    onDelete: noop,
+    onEmptySelected: noop,
+    onOpen: noop,
+    autoWidth: false,
+
+    // 重置为默认值
+    resetOption: false,
+    resetText: '...',
+
+    // 内部状态标记，默认初始值为 null
+    value: null,
+    index: null,
+    initialValue: null,
+    initialIndex: null,
+  };
+
+  static Option = Option;
+  static SelectTrigger = SelectTrigger;
+  static InputTrigger = InputTrigger;
+  static TagsTrigger = TagsTrigger;
+
+  popover: Popover | null = null;
+  popup: React.ComponentType<any> | null = null;
+
   constructor(props) {
     super(props);
 
@@ -38,6 +167,8 @@ class Select extends React.Component {
       props
     );
   }
+
+  uniformedData: any;
 
   componentWillMount() {
     /**
@@ -388,8 +519,9 @@ class Select extends React.Component {
             onAsyncFilter={onAsyncFilter}
             maxToShow={maxToShow}
             onChange={this.optionChangedHandler}
-            onFocus={this.popupFocusHandler}
-            onBlur={this.popupBlurHandler}
+            // WTF
+            // onFocus={this.popupFocusHandler}
+            // onBlur={this.popupBlurHandler}
             autoWidth={autoWidth}
             adjustPosition={
               this.popover && this.popover.adjustPosition.bind(this.popover)
@@ -400,83 +532,5 @@ class Select extends React.Component {
     );
   }
 }
-
-Select.propTypes = {
-  data: PropTypes.array,
-  prefix: PropTypes.string,
-  className: PropTypes.string,
-  open: PropTypes.bool,
-  popupClassName: PropTypes.string,
-  disabled: PropTypes.bool,
-  placeholder: PropTypes.string,
-  maxToShow: PropTypes.number,
-  searchPlaceholder: PropTypes.string,
-  emptyText: PropTypes.node,
-  selectedItem: PropTypes.shape({
-    value: PropTypes.any,
-    text: PropTypes.string,
-  }),
-  selectedItems: PropTypes.array,
-  trigger: PropTypes.func,
-  optionValue: PropTypes.string,
-  optionText: PropTypes.string,
-  onChange: PropTypes.func,
-  onDelete: PropTypes.func,
-  filter: PropTypes.func,
-  onAsyncFilter: PropTypes.func,
-  onEmptySelected: PropTypes.func,
-  onOpen: PropTypes.func,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
-  // 自动根据ref计算弹层宽度
-  autoWidth: PropTypes.bool,
-
-  // 自动添加重置选项
-  resetOption: PropTypes.bool,
-
-  // 重置选项展示文本
-  resetText: PropTypes.string,
-
-  value: PropTypes.any,
-
-  index: PropTypes.number,
-
-  initialValue: PropTypes.any,
-
-  initialIndex: PropTypes.number,
-};
-
-Select.defaultProps = {
-  prefix: 'zent',
-  disabled: false,
-  className: '',
-  open: false,
-  popupClassName: '',
-  placeholder: '',
-  searchPlaceholder: '',
-  emptyText: '',
-  selectedItem: {
-    value: '',
-    text: '',
-  },
-  selectedItems: [],
-  optionValue: 'value',
-  optionText: 'text',
-  onChange: noop,
-  onDelete: noop,
-  onEmptySelected: noop,
-  onOpen: noop,
-  autoWidth: false,
-
-  // 重置为默认值
-  resetOption: false,
-  resetText: '...',
-
-  // 内部状态标记，默认初始值为 null
-  value: null,
-  index: null,
-  initialValue: null,
-  initialIndex: null,
-};
 
 export default Select;

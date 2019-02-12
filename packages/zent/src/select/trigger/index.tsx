@@ -1,7 +1,7 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
-import Popover from 'popover';
+import Popover from '../../popover';
 
 import Input from './InputTrigger';
 import Base from './BaseTrigger';
@@ -37,7 +37,7 @@ export default class SelectClickTrigger extends Popover.Trigger.Click {
     onClick: PropTypes.func,
     trigger: PropTypes.object.isRequired,
     onKeyDown: PropTypes.func,
-  };
+  } as any;
 
   clickHandler = event => {
     const { onClick, close, open, contentVisible, disabled } = this.props;

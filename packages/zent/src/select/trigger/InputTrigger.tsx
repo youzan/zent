@@ -1,13 +1,29 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Component } from 'react';
 import cx from 'classnames';
 
-import { I18nReceiver as Receiver } from 'i18n';
+import { I18nReceiver as Receiver } from '../../i18n';
+import { ISelectTriggerProps } from './BaseTrigger';
 
-class InputTrigger extends Component {
+export interface IInputTriggerProps extends ISelectTriggerProps {
+  onChange(data: Partial<IInputTriggerProps>): void;
+  keyword?: string;
+  extraFilter?: boolean;
+}
+
+class InputTrigger extends Component<IInputTriggerProps> {
+  static propTypes = {
+    prefixCls: PropTypes.string,
+    value: PropTypes.any,
+    placeholder: PropTypes.string,
+  };
+  
   state = {
     value: '',
   };
+
+  input: HTMLInputElement | null = null;
 
   componentDidMount() {
     this.props.onChange({
@@ -42,7 +58,7 @@ class InputTrigger extends Component {
           <input
             ref={input => (this.input = input)}
             className={rootClass}
-            placeholder={placeholder || i18n.input}
+            placeholder={placeholder || i18n.input as any}
             type="text"
             value={keyword === null ? text : keyword}
             onChange={this.inputChangeHandler}
@@ -53,11 +69,5 @@ class InputTrigger extends Component {
     );
   }
 }
-
-InputTrigger.propTypes = {
-  prefixCls: PropTypes.string,
-  value: PropTypes.any,
-  placeholder: PropTypes.string,
-};
 
 export default InputTrigger;

@@ -1,7 +1,17 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { PureComponent } from 'react';
 
-class Search extends PureComponent {
+class Search extends PureComponent<any, any> {
+  static propTypes = {
+    prefixCls: PropTypes.string,
+    value: PropTypes.any,
+    placeholder: PropTypes.string,
+  };
+
+  focused: boolean;
+  input: HTMLInputElement | null = null;
+
   constructor(props) {
     super(props);
     this.changeHandler = this.changeHandler.bind(this);
@@ -38,11 +48,5 @@ class Search extends PureComponent {
     );
   }
 }
-
-Search.propTypes = {
-  prefixCls: PropTypes.string,
-  value: PropTypes.any,
-  placeholder: PropTypes.string,
-};
 
 export default Search;
