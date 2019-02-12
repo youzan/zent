@@ -1,4 +1,4 @@
-import Popover from 'popover';
+import Popover from '../popover';
 
 export const getPopoverBottomPosition = instance =>
   Popover.Position.create(

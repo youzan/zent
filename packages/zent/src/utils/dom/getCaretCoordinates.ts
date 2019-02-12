@@ -54,7 +54,7 @@ export interface IGetCaretCoordinatesOption {
   debug?: boolean;
 }
 
-function getCaretCoordinates(element: HTMLTextAreaElement, position: number, { debug }: IGetCaretCoordinatesOption) {
+function getCaretCoordinates(element: HTMLInputElement | HTMLTextAreaElement, position: number, { debug }: IGetCaretCoordinatesOption) {
   if (!isBrowser) {
     throw new Error('getCaretCoordinates should only be called in a browser');
   }
