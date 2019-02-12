@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import isArray from 'lodash/isArray';
-import isNumber from 'lodash/isNumber';
-import getWidth from 'utils/getWidth';
+// import isArray from 'lodash-es/isArray';
+import isNumber from 'lodash-es/isNumber';
+import getWidth from '../utils/getWidth';
 
 import Range from './Range';
 import InputField from './InputField';
@@ -12,7 +13,7 @@ import InputField from './InputField';
 function checkProps(props) {
   const { range, value, max, min, dots, marks } = props;
   if (range) {
-    if (!isArray(value)) {
+    if (!Array.isArray(value)) {
       throw '`value` must an array when `range` is true';
     }
     if (!(value.length === 2)) {
@@ -39,7 +40,28 @@ function checkProps(props) {
   }
 }
 
-export default class Slider extends PureComponent {
+export type SliderValueType = number | [number, number];
+
+export interface ISliderProps {
+  value: SliderValueType;
+  onChange?: (value: SliderValueType) => void;
+  range?: boolean;
+  min?: number;
+  max?: number;
+  step?: number;
+  withInput?: boolean;
+  dots?: boolean;
+  marks?: {
+    [key: number]: string
+  };
+  disabled?: boolean;
+  className?: string;
+  width?: number | string;
+  prefix?: string;
+}
+
+
+export class Slider extends PureComponent<ISliderProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -104,3 +126,5 @@ export default class Slider extends PureComponent {
     );
   }
 }
+
+export default Slider;

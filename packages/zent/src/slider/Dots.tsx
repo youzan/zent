@@ -1,11 +1,12 @@
-import React, { PureComponent } from 'react';
-import map from 'lodash/map';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import map from 'lodash-es/map';
 import classNames from 'classnames';
-import noop from 'lodash/noop';
+import noop from 'lodash-es/noop';
 
 import { getLeft, getClosest } from './common';
 
-export default class Dots extends PureComponent {
+export default class Dots extends PureComponent<any> {
   isInTrack = point => {
     const { range, value, disabled } = this.props;
     if (disabled) {

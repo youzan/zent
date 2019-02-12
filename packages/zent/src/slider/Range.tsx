@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as ReactDOM from 'react-dom';
 import cx from 'classnames';
-import WindowEventHandler from 'utils/component/WindowEventHandler';
+import WindowEventHandler from '../utils/component/WindowEventHandler';
 
 import Point from './Points';
 import Dots from './Dots';
@@ -9,7 +10,7 @@ import Marks from './Marks';
 import Container from './Container';
 import Track from './Track';
 
-export default class Range extends PureComponent {
+export default class Range extends PureComponent<any> {
   clientWidth = null;
 
   getClientWidth = () => {
@@ -20,7 +21,7 @@ export default class Range extends PureComponent {
   };
 
   handleResize = () => {
-    const $root = ReactDOM.findDOMNode(this);
+    const $root = ReactDOM.findDOMNode(this) as Element;
     this.clientWidth = $root.clientWidth;
   };
 
