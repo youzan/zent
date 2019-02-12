@@ -1,10 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import partial from 'lodash/partial';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import partial from 'lodash-es/partial';
 
 import Image from './Image';
 
-export default function previewImage(options = {}) {
+export interface IPreviewImageConfig {
+  images?: string[];
+  index?: number;
+  showRotateBtn?: boolean;
+  scaleRatio?: number;
+  parentComponent?: React.ReactInstance;
+  className?: string;
+  prefix?: string;
+}
+
+export default function previewImage(options: IPreviewImageConfig = {}) {
   const { parentComponent, ...rest } = options;
   let container = document.createElement('div');
 

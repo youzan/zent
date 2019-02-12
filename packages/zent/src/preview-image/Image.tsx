@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import Portal from 'portal';
-import Icon from 'icon';
+import * as React from 'react';
+import { Component } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
+import * as PropTypes from 'prop-types';
+import debounce from 'lodash-es/debounce';
 
-import { I18nReceiver as Receiver } from 'i18n';
+import { I18nReceiver as Receiver } from '../i18n';
+import Portal from '../portal';
+import Icon from '../icon';
 
 // 有关闭按钮的时候同时具有ESC关闭的行为
 const { withNonScrollable, withESCToClose } = Portal;
-const ImagePortalESCToClose = withESCToClose(withNonScrollable(Portal));
+const ImagePortalESCToClose = withESCToClose(withNonScrollable(Portal as any)) as any;
 
-export default class Image extends Component {
+export default class Image extends Component<any, any> {
   state = {
     imageIndex: this.props.index || 0,
     imageStyle: {},
@@ -159,7 +160,7 @@ export default class Image extends Component {
                           style={imageStyle}
                           src={image}
                           key={index}
-                          alt={i18n.alt}
+                          alt={i18n.alt as unknown as  string}
                         />
                       );
                     }
