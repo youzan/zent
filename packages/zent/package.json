@@ -32,6 +32,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.1.5",
+    "@types/autosize": "^3.0.6",
     "@types/classnames": "^2.2.7",
     "@types/enquire.js": "^2.1.1",
     "@types/lodash-es": "^4.17.1",

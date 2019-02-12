@@ -2,12 +2,11 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import kindOf from 'utils/kindOf';
-import isString from 'lodash/isString';
-import isArray from 'lodash/isArray';
-import includes from 'lodash/includes';
-import indexOf from 'lodash/indexOf';
-
+import isString from 'lodash-es/isString';
+import isArray from 'lodash-es/isArray';
+import includes from 'lodash-es/includes';
+import indexOf from 'lodash-es/indexOf';
+import kindOf from '../utils/kindOf';
 import Panel from './Panel';
 
 interface ICollapseProps {

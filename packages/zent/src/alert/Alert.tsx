@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import * as PropTypes from 'prop-types';
-import isFunction from 'lodash/isFunction';
+import isFunction from 'lodash-es/isFunction';
 
 export interface IAlertProps {
   type: 'info' | 'warning' | 'danger'

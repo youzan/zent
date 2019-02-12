@@ -3,9 +3,10 @@ import { Component, CSSProperties } from 'react';
 import cx from 'classnames';
 import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
-import WindowEventHandler from 'utils/component/WindowEventHandler';
-import getViewportSize from 'utils/dom/getViewportSize';
-import throttle from 'lodash/throttle';
+import throttle from 'lodash-es/throttle';
+
+import WindowEventHandler from '../utils/component/WindowEventHandler';
+import getViewportSize from '../utils/dom/getViewportSize';
 
 export interface IAffixProps {
   offsetTop?: number;

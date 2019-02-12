@@ -1,4 +1,4 @@
-import noop from 'lodash/noop';
+import noop from 'lodash-es/noop';
 
 export default function() {
   const selection = document.getSelection();

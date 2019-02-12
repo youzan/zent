@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import Pop from 'pop';
-import Icon from 'icon';
+import Pop, { PopPositions } from '../pop';
+import Icon from '../icon';
 
 export interface IBlockHeaderProps {
   className?: string
@@ -11,7 +11,7 @@ export interface IBlockHeaderProps {
   tooltip?: ReactNode
   content?: ReactNode,
   childAlign?: 'left' | 'right',
-  position?: string,
+  position?: PopPositions,
   prefix?: string
 }
 

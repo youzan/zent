@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
-import Button from 'button';
-import Notify from 'notify';
+import Button from '../button';
+import Notify from '../notify';
 
-import { I18nReceiver as Receiver } from 'i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import CopyToClipboard from './ReactCopyToClipboard';
 

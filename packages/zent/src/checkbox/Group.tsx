@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import findIndex from 'lodash/findIndex';
+import findIndex from 'lodash-es/findIndex';
 import memoize from 'memoize-one';
 
 import GroupContext from './GroupContext';

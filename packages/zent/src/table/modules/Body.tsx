@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import assign from 'lodash-es/assign';
 import includes from 'lodash-es/includes';
 import Td from './Td';

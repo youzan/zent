@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import keys from 'lodash-es/keys';
 import map from 'lodash-es/map';
-import noop from 'lodash/noop';
+import noop from 'lodash-es/noop';
 import classNames from 'classnames';
 
 import WindowEventHandler from '../utils/component/WindowEventHandler';

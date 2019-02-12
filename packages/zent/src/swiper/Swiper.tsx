@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Component, Children, cloneElement } from 'react';
-import WindowResizeHandler from 'utils/component/WindowResizeHandler';
-import Icon from 'icon';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import forEach from 'lodash/forEach';
-import throttle from 'lodash/throttle';
+import forEach from 'lodash-es/forEach';
+import throttle from 'lodash-es/throttle';
 
+import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import Icon from '../icon';
 import SwiperDots from './SwiperDots';
 
 function setStyle(target, styles) {
@@ -70,7 +70,7 @@ export class Swiper extends Component<ISwiperProps> {
     currentIndex: 0,
   };
 
-  init = (isResetToOrigin = false) => {
+  init = (isResetToOrigin: any = false) => {
     const { autoplay, children } = this.props;
     const { currentIndex } = this.state;
     const childrenCount = Children.count(children);

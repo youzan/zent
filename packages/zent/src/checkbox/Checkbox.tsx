@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import assign from 'lodash/assign';
-import findIndex from 'lodash/findIndex';
-import getWidth from 'utils/getWidth';
+import assign from 'lodash-es/assign';
+import findIndex from 'lodash-es/findIndex';
+import getWidth from '../utils/getWidth';
 
 import GroupContext from './GroupContext';
 
