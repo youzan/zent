@@ -1,7 +1,7 @@
-import React from 'react';
-import Input from 'input';
-import PropTypes from 'prop-types';
-import { I18nReceiver as Receiver } from 'i18n';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { I18nReceiver as Receiver } from '../../../i18n';
+import Input from '../../../input';
 
 import BasePageJumper from './BasePageJumper';
 
@@ -26,7 +26,7 @@ export default class PageJumper extends BasePageJumper {
 
     return (
       <Receiver componentName="Pagination">
-        {i18n => {
+        {(i18n: any) => {
           if (i18n.mark === 'zh-CN') {
             return (
               <div className="zent-pagination-page-jumper">

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import has from 'lodash/has';
 
-export default class BasePagination extends Component {
+export default class BasePagination extends Component<any, any> {
   shouldUpdateLayout(props, nextProps) {
     const { current, pageSize } = nextProps;
 

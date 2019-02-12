@@ -1,6 +1,8 @@
 import { Component } from 'react';
 
-export default class BasePageJumper extends Component {
+export default abstract class BasePageJumper extends Component<any, any> {
+  abstract handleJump(pageNumber: number): void;
+
   constructor(props) {
     super(props);
 

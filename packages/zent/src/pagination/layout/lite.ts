@@ -1,10 +1,11 @@
 import { getPageRange } from './getPageRange';
+import { PaginationLayout } from './type';
 
 /**
  * Show at most 5 pages
  * @param {object} options
  */
-export default function liteLayout(options) {
+export default function liteLayout(options): PaginationLayout[] {
   const { current } = options;
   const { min, max } = getPageRange(options);
 
@@ -29,8 +30,6 @@ export default function liteLayout(options) {
     type: 'right-arrow',
     disabled: current === max,
   };
-
-  console.log(layout);
 
   return layout;
 }

@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import isNumber from 'lodash/isNumber';
-import Select from 'select';
-import { I18nReceiver as Receiver } from 'i18n';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
+import isEmpty from 'lodash-es/isEmpty';
+import isNumber from 'lodash-es/isNumber';
+import Select from '../../select';
+import { I18nReceiver as Receiver } from '../../i18n';
 
-export default class PageSizeChanger extends Component {
+export default class PageSizeChanger extends Component<any, any> {
   static propTypes = {
     total: PropTypes.number,
     pageSize: PropTypes.number,
@@ -22,7 +23,7 @@ export default class PageSizeChanger extends Component {
 
     return (
       <Receiver componentName="Pagination">
-        {i18n => {
+        {(i18n: any) => {
           const select = (
             <PageSizeSelect
               pageSizeOptions={pageSizeOptions}
@@ -63,9 +64,9 @@ export default class PageSizeChanger extends Component {
   }
 }
 
-class PageSizeSelect extends Component {
+class PageSizeSelect extends Component<any, any> {
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
       options: this.normalizeSelectOptions(props.pageSizeOptions, props.i18n),
@@ -115,7 +116,7 @@ class PageSizeSelect extends Component {
   }
 }
 
-class StaticPageSize extends Component {
+class StaticPageSize extends Component<any, any> {
   static propTypes = {
     total: PropTypes.number,
     pageSize: PropTypes.number,

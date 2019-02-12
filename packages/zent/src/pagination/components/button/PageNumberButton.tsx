@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import Button from 'button';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
-export default class PageNumberButton extends Component {
+import Button from '../../../button';
+
+export default class PageNumberButton extends Component<any, any> {
   static propTypes = {
     selected: PropTypes.bool,
     bordered: PropTypes.bool,
