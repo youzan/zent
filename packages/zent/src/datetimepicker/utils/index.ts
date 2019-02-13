@@ -1,10 +1,11 @@
-import formatBase from 'utils/date/formatDate';
-import parseBase from 'utils/date/parseDate';
-import startOfMonth from 'date-fns/start_of_month';
-import startOfDay from 'date-fns/start_of_day';
-import endOfDay from 'date-fns/end_of_day';
+import * as startOfMonth from 'date-fns/start_of_month';
+import * as startOfDay from 'date-fns/start_of_day';
+import * as endOfDay from 'date-fns/end_of_day';
 
-import { getLocale } from 'i18n/time-locale';
+import formatBase from '../../utils/date/formatDate';
+import parseBase from '../../utils/date/parseDate';
+
+import { getLocale } from '../../i18n/time-locale';
 
 import { CURRENT_MONTH, ONEDAY, TIME_BEGIN } from '../constants';
 
@@ -108,7 +109,7 @@ export function dayEnd(date = new Date()) {
   return endOfDay(date);
 }
 
-export function setTime(date, time = TIME_BEGIN) {
+export function setTime(date: Date, time: Date | string = TIME_BEGIN): Date {
   let timeArr;
   if (time instanceof Date) {
     timeArr = [time.getHours(), time.getMinutes(), time.getSeconds()];
@@ -116,13 +117,13 @@ export function setTime(date, time = TIME_BEGIN) {
     timeArr = time.split(':');
   }
 
-  const dateTimeArr = [
+  const dateTimeArr: any = [
     date.getFullYear(),
     date.getMonth(),
     date.getDate(),
     ...timeArr,
   ];
-  return new Date(...dateTimeArr);
+  return new (Date as any)(...dateTimeArr);
 }
 
 export const commonFns = {

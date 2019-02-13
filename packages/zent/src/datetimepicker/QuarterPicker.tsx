@@ -1,12 +1,14 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import cx from 'classnames';
-import isArray from 'lodash/isArray';
-import getQuarter from 'date-fns/get_quarter';
+import isArray from 'lodash-es/isArray';
+import * as getQuarter from 'date-fns/get_quarter';
+import { Omit } from 'utility-types';
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
+import Input from '../input';
+import Popover from '../popover';
+import getWidth from '../utils/getWidth';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import QuarterPanel from './quarter/QuarterPanel';
 import { dayStart, dayEnd, formatDate, parseDate } from './utils';
@@ -16,6 +18,7 @@ import {
   commonProps,
   commonPropTypes,
 } from './constants';
+import { DatePickers } from './common/types';
 
 const quarterMonthMap = {
   0: 0,
@@ -32,10 +35,22 @@ function getQuarterLastDay(quarter, year) {
     3: [12, 0],
   };
 
-  return new Date(year, ...quarterLastDayMap[quarter]);
+  return new (Date as any)(year, ...quarterLastDayMap[quarter]);
 }
 
-function extractStateFromProps(props) {
+export interface IQuarterPickerProps
+  extends Omit<
+    DatePickers.ICommonProps<[DatePickers.Value, DatePickers.Value] | []>,
+    'disabledDate'
+  > {
+  disabledDate?: (
+    val: [DatePickers.Value, DatePickers.Value],
+    type?: DatePickers.RangeType
+  ) => boolean;
+  onBeforeClear?: () => boolean;
+}
+
+function extractStateFromProps(props: IQuarterPickerProps) {
   let showPlaceholder;
   let selected;
   let actived;
@@ -74,7 +89,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class QuarterPicker extends PureComponent {
+export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
   };
@@ -86,6 +101,7 @@ class QuarterPicker extends PureComponent {
   };
 
   retType = 'string';
+  picker: HTMLDivElement | null = null;
 
   constructor(props) {
     super(props);
@@ -105,7 +121,7 @@ class QuarterPicker extends PureComponent {
     this.setState(state);
   }
 
-  getReturnValue = date => {
+  getReturnValue = (date: Date) => {
     const { format } = this.props;
     if (this.retType === 'number') {
       return date.getTime();
@@ -134,7 +150,10 @@ class QuarterPicker extends PureComponent {
 
     const begin = new Date(year, month, 1);
     const end = getQuarterLastDay(quarter, year);
-    const ret = [dayStart(begin), dayEnd(end)];
+    const ret: [DatePickers.Value, DatePickers.Value] = [
+      dayStart(begin),
+      dayEnd(end),
+    ];
 
     this.setState({
       value: quarter,
@@ -144,7 +163,10 @@ class QuarterPicker extends PureComponent {
       showPlaceholder: false,
     });
 
-    onChange(ret.map(this.getReturnValue));
+    onChange(ret.map(this.getReturnValue) as [
+      DatePickers.Value,
+      DatePickers.Value
+    ]);
   };
 
   onClearInput = evt => {
@@ -164,7 +186,7 @@ class QuarterPicker extends PureComponent {
     const month = quarterMonthMap[quarter];
     const begin = dayStart(new Date(year, month, 1));
     const end = dayEnd(getQuarterLastDay(quarter, year));
-    const ret = [begin, end];
+    const ret: [DatePickers.Value, DatePickers.Value] = [begin, end];
 
     if (disabledDate) return disabledDate(ret);
     if (min && end < parseDate(min, format)) return true;
@@ -235,7 +257,7 @@ class QuarterPicker extends PureComponent {
     return (
       <div style={widthStyle} className={wrapperCls}>
         <Receiver componentName="TimePicker">
-          {i18n => {
+          {(i18n: any) => {
             let inputVal;
             if (selected) {
               inputVal =

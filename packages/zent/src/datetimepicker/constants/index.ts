@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
-import Popover from 'popover';
-import noop from 'lodash/noop';
+import * as PropTypes from 'prop-types';
+import noop from 'lodash-es/noop';
 
-export { default as noop } from 'lodash/noop';
+import Popover from '../../popover';
+
+export { default as noop } from 'lodash-es/noop';
 
 export const CURRENT = new Date();
 export const CURRENT_DAY = new Date(

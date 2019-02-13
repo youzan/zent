@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import cx from 'classnames';
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
+import Input from '../input';
+import Popover from '../popover';
+import getWidth from '../utils/getWidth';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
@@ -16,6 +17,7 @@ import {
   commonProps,
   commonPropTypes,
 } from './constants';
+import { DatePickers } from './common/types';
 
 function getYear(val) {
   if (val instanceof Date) {
@@ -25,7 +27,13 @@ function getYear(val) {
   return val;
 }
 
-function extractStateFromProps(props) {
+export interface IYearPickerProps extends DatePickers.ICommonProps {
+  needConfirm?: boolean;
+  isFooterVisble?: boolean;
+  onBeforeClear?: () => boolean;
+}
+
+function extractStateFromProps(props: IYearPickerProps) {
   let showPlaceholder;
   let selected;
   let actived;
@@ -59,7 +67,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class YearPicker extends PureComponent {
+class YearPicker extends PureComponent<IYearPickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
   };
@@ -70,6 +78,8 @@ class YearPicker extends PureComponent {
     format: 'YYYY',
     needConfirm: false,
   };
+
+  picker: HTMLDivElement | null = null;
 
   constructor(props) {
     super(props);
@@ -157,7 +167,7 @@ class YearPicker extends PureComponent {
     if (state.openPanel) {
       yearPicker = (
         <Receiver componentName="TimePicker">
-          {i18n => (
+          {(i18n: any) => (
             <div className="year-picker" ref={ref => (this.picker = ref)}>
               <YearPanel
                 actived={state.actived}

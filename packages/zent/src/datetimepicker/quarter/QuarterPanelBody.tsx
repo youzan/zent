@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classNames from 'classnames';
-import getQuarter from 'date-fns/get_quarter';
+import * as getQuarter from 'date-fns/get_quarter';
 
 import PanelCell from '../common/PanelCell';
 
 const ROW = 2;
 const COL = 2;
 
-export default class QuarterPanelBody extends PureComponent {
+export default class QuarterPanelBody extends PureComponent<any> {
   getQuarters() {
     const { disabledDate, selected, i18n } = this.props;
     const quarters = [];

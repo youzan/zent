@@ -1,5 +1,5 @@
-import React from 'react';
-import Icon from 'icon';
+import * as React from 'react';
+import Icon from '../../icon';
 
 const PanelHeader = props => {
   const { onClickTitle, next, prev, showPrev, showNext, title } = props;

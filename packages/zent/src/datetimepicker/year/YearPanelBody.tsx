@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 import { CURRENT_YEAR } from '../constants';
 import PanelCell from '../common/PanelCell';
@@ -8,7 +9,7 @@ import PanelCell from '../common/PanelCell';
 const ROW = 4;
 const COL = 3;
 
-export default class YearPanelBody extends PureComponent {
+export default class YearPanelBody extends PureComponent<any> {
   static propTypes = {
     actived: PropTypes.instanceOf(Date),
     onSelect: PropTypes.func,

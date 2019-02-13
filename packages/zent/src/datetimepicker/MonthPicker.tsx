@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import cx from 'classnames';
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
+import Input from '../input';
+import Popover from '../popover';
+import getWidth from '../utils/getWidth';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import MonthPanel from './month/MonthPanel';
 import PanelFooter from './common/PanelFooter';
@@ -16,8 +17,15 @@ import {
   commonProps,
   commonPropTypes,
 } from './constants';
+import { DatePickers } from './common/types';
 
-function extractStateFromProps(props) {
+export interface IMonthPickerProps extends DatePickers.ICommonProps {
+  disabled?: boolean;
+  isFooterVisble?: boolean;
+  onBeforeClear?: () => unknown;
+}
+
+function extractStateFromProps(props: IMonthPickerProps) {
   let showPlaceholder;
   let selected;
   let actived;
@@ -51,7 +59,7 @@ function extractStateFromProps(props) {
   };
 }
 
-class MonthPicker extends PureComponent {
+class MonthPicker extends PureComponent<IMonthPickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
   };
@@ -63,6 +71,7 @@ class MonthPicker extends PureComponent {
   };
 
   retType = 'string';
+  picker?: HTMLDivElement | null = null;
 
   constructor(props) {
     super(props);

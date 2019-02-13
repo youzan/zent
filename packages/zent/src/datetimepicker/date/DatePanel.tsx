@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 
 import { formatDate } from '../utils';
 import DatePanelBody from './DatePanelBody';
@@ -6,7 +7,7 @@ import MonthPanel from '../month/MonthPanel';
 import TimePanel from '../time/TimePanel';
 import PanelHeader from '../common/PanelHeader';
 
-export default class DatePanel extends PureComponent {
+export default class DatePanel extends PureComponent<any> {
   static defaultProps = {
     showPrev: true,
     showNext: true,

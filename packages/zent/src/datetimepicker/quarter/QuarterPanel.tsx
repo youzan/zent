@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
-
+import * as React from 'react';
+import { PureComponent } from 'react';
 import PanelHeader from '../common/PanelHeader';
-import MonthPanelBody from './MonthPanelBody';
+import QuarterPanelBody from './QuarterPanelBody';
 import YearPanel from '../year/YearPanel';
-import { goYears, monthStart } from '../utils';
+import { goYears } from '../utils';
 
-export default class MonthPanel extends PureComponent {
+export default class QuarterPanel extends PureComponent<any> {
   state = {
     showYear: false,
   };
@@ -13,13 +13,13 @@ export default class MonthPanel extends PureComponent {
   prevYear = () => {
     const { actived, onChange } = this.props;
     const prev = goYears(actived, -1);
-    onChange(prev, true);
+    onChange(prev);
   };
 
   nextYear = () => {
     const { actived, onChange } = this.props;
     const next = goYears(actived, 1);
-    onChange(next, true);
+    onChange(next);
   };
 
   showYearPanel = () => {
@@ -33,26 +33,19 @@ export default class MonthPanel extends PureComponent {
     const acp = new Date(actived);
 
     acp.setFullYear(val);
-    onChange(acp, true);
+    onChange(acp);
 
     this.setState({
       showYear: close,
     });
   };
 
-  onSelectMonth = val => {
-    const { actived, onSelect } = this.props;
-    const acp = monthStart(actived);
-
-    acp.setMonth(val);
-    onSelect(acp);
-  };
-
   render() {
     const {
-      props: { actived, disabledDate, i18n, selected },
+      props: { actived, disabledDate, i18n, onSelect, selected },
       state: { showYear },
     } = this;
+
     const title = `${actived.getFullYear()}`;
 
     let yearPanel;
@@ -63,26 +56,24 @@ export default class MonthPanel extends PureComponent {
           selected={selected}
           onChange={this.onSelectYear}
           onSelect={this.onSelectYear}
-          i18n={i18n}
         />
       );
     }
 
     return (
-      <div className="month-panel">
+      <div className="quarter-panel">
         <PanelHeader
           title={title}
           onClickTitle={this.showYearPanel}
           prev={this.prevYear}
           next={this.nextYear}
         />
-        <MonthPanelBody
+        <QuarterPanelBody
           actived={actived}
           selected={selected}
           disabledDate={disabledDate}
-          onSelect={this.onSelectMonth}
+          onSelect={onSelect}
           i18n={i18n}
-          year={actived.getFullYear()}
         />
         {showYear && yearPanel}
       </div>

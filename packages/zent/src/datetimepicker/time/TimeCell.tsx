@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import { noop } from '../constants';
 
-export default class TimeCell extends PureComponent {
+export default class TimeCell extends PureComponent<any> {
   static propTypes = {
     onSelect: PropTypes.func,
     cells: PropTypes.array,
