@@ -13,7 +13,7 @@ function setRowSpan(column, rows, currentRow) {
 export function groupedColumns(
   columns,
   currentRow = 0,
-  parentColumn = {},
+  parentColumn: any = {},
   rows = []
 ) {
   // track how many rows we got
