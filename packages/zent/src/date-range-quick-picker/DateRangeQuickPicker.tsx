@@ -32,7 +32,7 @@ export interface IDateRangeQuickPickerProps {
   max?: string | number | Date;
 }
 
-export default class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> {
+export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -125,3 +125,5 @@ export default class DateRangeQuickPicker extends Component<IDateRangeQuickPicke
     );
   }
 }
+
+export default DateRangeQuickPicker;

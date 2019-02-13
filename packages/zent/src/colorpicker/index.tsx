@@ -24,7 +24,7 @@ export interface IColorPickerProps {
   prefix?: string;
 }
 
-class ColorPicker extends PureComponent<IColorPickerProps> {
+export class ColorPicker extends PureComponent<IColorPickerProps> {
   state = {
     popVisible: false,
   };

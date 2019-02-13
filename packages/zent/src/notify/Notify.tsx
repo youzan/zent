@@ -106,11 +106,11 @@ const show = (text, duration, status, callback) => {
   return containerId;
 };
 
-export function success(text, duration, callback) {
+export function success(text, duration?: number, callback?: () => void) {
   return show(text, duration, 'success', callback);
 }
 
-export function error(text, duration, callback) {
+export function error(text, duration?: number, callback?: () => void) {
   return show(text, duration, 'error', callback);
 }
 

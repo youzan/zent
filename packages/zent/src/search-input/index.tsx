@@ -7,9 +7,9 @@ import Icon from '../icon';
 import Input, { IInputProps } from '../input';
 import getWidth from '../utils/getWidth';
 
-interface ISearchInputProps extends IInputProps {}
+export interface ISearchInputProps extends IInputProps {}
 
-export default class SearchInput extends Component<ISearchInputProps> {
+export class SearchInput extends Component<ISearchInputProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -35,3 +35,5 @@ export default class SearchInput extends Component<ISearchInputProps> {
     );
   }
 }
+
+export default SearchInput;

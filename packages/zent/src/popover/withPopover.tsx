@@ -13,6 +13,9 @@ import Popover from './Popover';
 export function exposePopover<N extends string>(propName: N) {
   return function<T extends {}>(Base: React.ComponentType<T>) {
     return class ExposePopover extends Component<T> {
+      static contextType = PopoverContext;
+      context!: IPopoverContext;
+
       render() {
         const { _zentPopover: popover } =
           this.context || ({} as IPopoverContext);

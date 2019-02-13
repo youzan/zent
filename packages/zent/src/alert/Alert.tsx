@@ -30,7 +30,7 @@ const sizeClassMap = {
   large: 'alert-size-large',
 };
 
-export default class Alert extends Component<IAlertProps> {
+export class Alert extends Component<IAlertProps> {
   static propTypes = {
     type: PropTypes.oneOf(['info', 'warning', 'danger', 'error']),
     size: PropTypes.oneOf(['large', 'normal']),
@@ -115,3 +115,5 @@ export default class Alert extends Component<IAlertProps> {
     );
   }
 }
+
+export default Alert;

@@ -127,8 +127,10 @@ export function confirm(config: Sweetalert.IConfirmOption = {}) {
   return sweet(config, 'confirm');
 }
 
-export default {
+export const Sweetalert = {
   alert,
   info,
   confirm,
 };
+
+export default Sweetalert;

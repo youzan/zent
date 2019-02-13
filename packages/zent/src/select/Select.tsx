@@ -63,7 +63,7 @@ export interface ISelectProps {
   search?: boolean;
 }
 
-class Select extends React.Component<ISelectProps, any> {
+export class Select extends React.Component<ISelectProps, any> {
   static propTypes = {
     data: PropTypes.array,
     prefix: PropTypes.string,

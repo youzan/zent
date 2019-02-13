@@ -67,7 +67,7 @@ function extractStateFromProps(props: IYearPickerProps) {
   };
 }
 
-class YearPicker extends PureComponent<IYearPickerProps, any> {
+export class YearPicker extends PureComponent<IYearPickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
   };

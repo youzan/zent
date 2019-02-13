@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import memoize from 'memoize-one';
+import memoize from '../utils/memorize-one';
 
 import { prefixName } from './utils';
 import { validElementType } from '../utils/prop-types';

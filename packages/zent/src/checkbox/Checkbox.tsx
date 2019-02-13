@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import assign from 'lodash-es/assign';
 import findIndex from 'lodash-es/findIndex';
 import getWidth from '../utils/getWidth';
-
+import Group from './Group';
 import GroupContext from './GroupContext';
 
 export interface ICheckboxEventTarget extends ICheckboxProps {
@@ -55,6 +55,8 @@ export class Checkbox extends Component<ICheckboxProps> {
   };
 
   static contextType = GroupContext;
+
+  static Group = Group;
 
   onChange = evt => {
     const { props, context } = this;

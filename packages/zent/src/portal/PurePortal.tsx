@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import memoize from 'memoize-one';
+import memoize from '../utils/memorize-one';
 
 import { getNodeFromSelector, removeAllChildren } from './util';
 import PortalContent, { IPortalContentProps } from './PortalContent';
