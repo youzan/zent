@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classNames from 'classnames';
-import isArray from 'lodash/isArray';
-import isWithinRange from 'date-fns/is_within_range';
+import isArray from 'lodash-es/isArray';
+import * as isWithinRange from 'date-fns/is_within_range';
 
 import {
   goDays,
@@ -16,7 +17,7 @@ import PanelCell from '../common/PanelCell';
 const ROW = 6;
 const COL = 7;
 
-export default class DatePanelBody extends PureComponent {
+export default class DatePanelBody extends PureComponent<any> {
   isSelected(val) {
     const { selected, disableSelectedHighlight } = this.props;
     if (!selected || disableSelectedHighlight) return false;
@@ -66,7 +67,7 @@ export default class DatePanelBody extends PureComponent {
       actived.getSeconds()
     );
     const firstDay = new Date(copy.setDate(1));
-    const diff = parseInt(firstDay.getDay(), 10);
+    const diff = firstDay.getDay();
     let index = 0;
 
     for (let rowIndex = 0; rowIndex < ROW; rowIndex++) {

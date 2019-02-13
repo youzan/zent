@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 
 import { padLeft, isSameDate } from '../utils';
 import HourPanel from './HourPanel';
@@ -18,7 +19,7 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-export default class TimePanel extends PureComponent {
+export default class TimePanel extends PureComponent<any> {
   static propTypes = {
     onChange: PropTypes.func,
     actived: PropTypes.instanceOf(Date),

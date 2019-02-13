@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classNames from 'classnames';
 
 import PanelHeader from '../common/PanelHeader';
@@ -6,24 +7,24 @@ import TimeCell from './TimeCell';
 import { padLeft } from '../utils';
 import { CURRENT } from '../constants';
 
-const ROW = 9;
+const ROW = 4;
 const COL = 7;
 
-export default class SecondPanel extends PureComponent {
+export default class HourPanel extends PureComponent<any> {
   isSelected(val) {
     const { selected } = this.props;
-    return selected.getSeconds() === val;
+    return selected.getHours() === val;
   }
 
   isCurrent(val) {
-    return CURRENT.getSeconds() === val;
+    return CURRENT.getHours() === val;
   }
 
-  getSeconds() {
+  getHours() {
     const cells = [];
     let i = 0;
     for (let j = 0; j < ROW; j++) {
-      for (let k = 0; k < COL && i < 60; k++) {
+      for (let k = 0; k < COL && i < 24; k++) {
         const isDisabled = this.props.isDisabled && this.props.isDisabled(i);
         const isSelected = this.isSelected(i);
         const isCurrent = this.isCurrent(i);
@@ -48,20 +49,20 @@ export default class SecondPanel extends PureComponent {
   }
 
   render() {
-    const { hidePanel, onSelect, i18n, className, hideHeader } = this.props;
-    const seconds = this.getSeconds();
+    const { hidePanel, i18n, onSelect, className, hideHeader } = this.props;
+    const hours = this.getHours();
 
     return (
-      <div className={classNames('second-panel', className)}>
+      <div className={classNames('hour-panel', className)}>
         {!hideHeader && (
           <PanelHeader
-            title={i18n.panel.secondSelect}
+            title={i18n.panel.hourSelect}
             showNext={false}
             prev={hidePanel}
           />
         )}
-        <div className="second-table panel-table">
-          <TimeCell cells={seconds} onSelect={onSelect} />
+        <div className="hour-table panel-table">
+          <TimeCell cells={hours} onSelect={onSelect} />
         </div>
       </div>
     );

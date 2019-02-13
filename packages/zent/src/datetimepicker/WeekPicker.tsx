@@ -1,17 +1,19 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import isArray from 'lodash/isArray';
-import startOfWeek from 'date-fns/start_of_week';
-import endOfWeek from 'date-fns/end_of_week';
-import addDays from 'date-fns/add_days';
-import subDays from 'date-fns/sub_days';
-import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import isArray from 'lodash-es/isArray';
+import * as startOfWeek from 'date-fns/start_of_week';
+import * as endOfWeek from 'date-fns/end_of_week';
+import * as addDays from 'date-fns/add_days';
+import * as subDays from 'date-fns/sub_days';
+import * as differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import { Omit } from 'utility-types';
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
+import Input from '../input';
+import Popover from '../popover';
+import getWidth from '../utils/getWidth';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
@@ -31,8 +33,9 @@ import {
   commonProps,
   commonPropTypes,
 } from './constants';
+import { DatePickers } from './common/types';
 
-function getSelectedWeek(val, start = 1, isDisabled) {
+function getSelectedWeek(val, start = 1, isDisabled): [Date?, Date?] {
   let weekStart = startOfWeek(val, {
     weekStartsOn: start,
   });
@@ -61,7 +64,14 @@ function getSelectedWeek(val, start = 1, isDisabled) {
   return [weekStart, weekEnd];
 }
 
-class WeekPicker extends PureComponent {
+export interface IWeekPickerProps
+  extends Omit<DatePickers.ICommonProps<[Date?, Date?]>, 'onClick'> {
+  startDay?: number;
+  onBeforeClear?: () => boolean;
+  onClick?: (val: [Date?, Date?], type?: DatePickers.RangeType) => void;
+}
+
+export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
     startDay: PropTypes.number,
@@ -74,6 +84,8 @@ class WeekPicker extends PureComponent {
   };
 
   retType = 'string';
+  isfooterShow: boolean;
+  picker: HTMLDivElement | null = null;
 
   constructor(props) {
     super(props);
@@ -266,7 +278,7 @@ class WeekPicker extends PureComponent {
     onClose && onClose();
   };
 
-  isDisabled = (val, props) => {
+  isDisabled = (val, props?: IWeekPickerProps) => {
     const { disabledDate, min, max, format } = props || this.props;
 
     if (disabledDate && disabledDate(val)) return true;

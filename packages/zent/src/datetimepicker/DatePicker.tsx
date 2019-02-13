@@ -1,12 +1,13 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import assign from 'lodash/assign';
+// import assign from 'lodash/assign';
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
+import Input from '../input';
+import Popover from '../popover';
+import getWidth from '../utils/getWidth';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import DatePanel from './date/DatePanel';
 import PanelFooter from './common/PanelFooter';
@@ -18,7 +19,8 @@ import {
   dayStart,
   dayEnd,
   setTime,
-  commonFns,
+  goDays,
+  goYears,
 } from './utils';
 import {
   CURRENT_DAY,
@@ -28,8 +30,9 @@ import {
   commonProps,
   commonPropTypes,
 } from './constants';
+import { DatePickers } from './common/types';
 
-function extractStateFromProps(props) {
+function extractStateFromProps(props: IDatePickerProps) {
   let selected;
   let actived;
   let showPlaceholder;
@@ -84,7 +87,14 @@ function extractStateFromProps(props) {
   };
 }
 
-class DatePicker extends PureComponent {
+export interface IDatePickerProps extends DatePickers.ICommonProps {
+  showTime?: boolean;
+  disabledTime?: () => DatePickers.IDisabledTime;
+  onBeforeConfirm?: () => boolean;
+  onBeforeClear?: () => boolean;
+}
+
+export class DatePicker extends PureComponent<IDatePickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
     showTime: PropTypes.bool,
@@ -96,6 +106,18 @@ class DatePicker extends PureComponent {
     ...commonProps,
     placeholder: '',
   };
+
+  static goDays = goDays;
+  static goMonths = goMonths;
+  static goYears = goYears;
+  static setTime = setTime;
+  static dayStart = dayStart;
+  static dayEnd = dayEnd;
+  static parseDate = parseDate;
+  static formatDate = formatDate;
+
+  isfooterShow: boolean;
+  picker: HTMLDivElement | null = null;
 
   retType = 'string';
 
@@ -256,7 +278,7 @@ class DatePicker extends PureComponent {
       showPlaceholder: false,
     });
 
-    const ret = this.getReturnValue(tmp, format);
+    const ret = this.getReturnValue(tmp);
     onChange(ret);
     onClose && onClose();
   };
@@ -280,18 +302,13 @@ class DatePicker extends PureComponent {
 
     // let isShow
     if (this.props.showTime) {
-      showTime = assign(
-        {
-          min: min && parseDate(min, format),
-          max: max && parseDate(max, format),
-          actived: activedTime,
-          disabledTime: noop,
-        },
-        {
-          disabledTime: disabledTime && disabledTime(),
-          onChange: this.onChangeTime,
-        }
-      );
+      showTime = {
+        min: min && parseDate(min, format),
+        max: max && parseDate(max, format),
+        actived: activedTime,
+        disabledTime: disabledTime && disabledTime(),
+        onChange: this.onChangeTime,
+      };
     }
 
     // 打开面板的时候才渲染
@@ -416,7 +433,5 @@ class DatePicker extends PureComponent {
     );
   }
 }
-
-assign(DatePicker, commonFns); // 挂载一些常用方法暴露出去
 
 export default DatePicker;

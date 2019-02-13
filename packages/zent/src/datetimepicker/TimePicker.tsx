@@ -1,11 +1,12 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import Input from 'input';
-import Popover from 'popover';
-import getWidth from 'utils/getWidth';
-import { I18nReceiver as Receiver } from 'i18n';
+import Input from '../input';
+import Popover from '../popover';
+import getWidth from '../utils/getWidth';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import HourPanel from './time/HourPanel';
 import MinutePanel from './time/MinutePanel';
@@ -19,6 +20,7 @@ import {
   commonProps,
   commonPropTypes,
 } from './constants';
+import { DatePickers } from './common/types';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';
 const DEFAULT_FORMAT_WITHOUT_SECOND = 'HH:mm';
@@ -48,7 +50,18 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-export default class TimePicker extends PureComponent {
+export interface ITimePickerProps extends DatePickers.ICommonProps {
+  isFooterVisble?: boolean;
+  showSecond?: boolean;
+  hourStep?: number;
+  minuteStep?: number;
+  secondStep?: number;
+  onBeforeConfirm?: () => boolean;
+  onBeforeClear?: () => boolean;
+  disabledTime?: () => DatePickers.IDisabledTime;
+}
+
+export default class TimePicker extends PureComponent<ITimePickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
     valueType: PropTypes.oneOf(['string', 'number', 'date']),
@@ -72,6 +85,9 @@ export default class TimePicker extends PureComponent {
   };
 
   retType = 'string';
+  disabledTime: {
+    [key: string]: boolean;
+  };
 
   constructor(props) {
     super(props);
@@ -86,8 +102,9 @@ export default class TimePicker extends PureComponent {
       if (value instanceof Date) this.retType = 'date';
     }
 
-    this.state = this.extractStateFromProps(props);
-    this.state.tabKey = TIME_KEY.HOUR;
+    const state: any = this.extractStateFromProps(props);
+    state.tabKey = TIME_KEY.HOUR;
+    this.state = state;
     this.disabledTime = props.disabledTime() || {};
   }
 

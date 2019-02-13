@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classNames from 'classnames';
 
 import PanelHeader from '../common/PanelHeader';
@@ -9,17 +10,17 @@ import { CURRENT } from '../constants';
 const ROW = 9;
 const COL = 7;
 
-export default class MinutePanel extends PureComponent {
+export default class SecondPanel extends PureComponent<any> {
   isSelected(val) {
     const { selected } = this.props;
-    return selected.getMinutes() === val;
+    return selected.getSeconds() === val;
   }
 
   isCurrent(val) {
-    return CURRENT.getMinutes() === val;
+    return CURRENT.getSeconds() === val;
   }
 
-  getMinutes() {
+  getSeconds() {
     const cells = [];
     let i = 0;
     for (let j = 0; j < ROW; j++) {
@@ -49,19 +50,19 @@ export default class MinutePanel extends PureComponent {
 
   render() {
     const { hidePanel, onSelect, i18n, className, hideHeader } = this.props;
-    const minutes = this.getMinutes();
+    const seconds = this.getSeconds();
 
     return (
-      <div className={classNames('minute-panel', className)}>
+      <div className={classNames('second-panel', className)}>
         {!hideHeader && (
           <PanelHeader
-            title={i18n.panel.minuteSelect}
+            title={i18n.panel.secondSelect}
             showNext={false}
             prev={hidePanel}
           />
         )}
-        <div className="minute-table panel-table">
-          <TimeCell cells={minutes} onSelect={onSelect} />
+        <div className="second-table panel-table">
+          <TimeCell cells={seconds} onSelect={onSelect} />
         </div>
       </div>
     );

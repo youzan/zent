@@ -1,19 +1,16 @@
-/**
- * TimeRangePicker
- *
- * @author hyczzhu
- */
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
-import isString from 'lodash/isString';
-import isDate from 'lodash/isDate';
-import isArray from 'lodash/isArray';
+import * as PropTypes from 'prop-types';
+import isString from 'lodash-es/isString';
+import isDate from 'lodash-es/isDate';
+import isArray from 'lodash-es/isArray';
 
-import { I18nReceiver as Receiver } from 'i18n';
+import { I18nReceiver as Receiver } from '../i18n';
 
-import { commonProps, commonPropTypes, noop } from './constants';
-import TimePicker from './TimePicker';
+import { TIME_BEGIN, commonProps, commonPropTypes, noop } from './constants';
+import DatePicker from './DatePicker';
+import { DatePickers } from './common/types';
 
 // type
 const START = 'start';
@@ -25,34 +22,31 @@ function compatibleInterface(prop) {
   return isString(prop) || isDate(prop) ? [prop, prop] : prop;
 }
 
-export default class TimeRangePicker extends PureComponent {
+export interface IDateRangePickerProps extends DatePickers.ICommonProps<[DatePickers.Value, DatePickers.Value]> {
+  showTime?: boolean;
+  disabledTime?: (type: DatePickers.RangeType) => DatePickers.IDisabledTime;
+}
+
+export class DateRangePicker extends PureComponent<IDateRangePickerProps> {
   static propTypes = {
     ...commonPropTypes,
+    showTime: PropTypes.bool,
     placeholder: PropTypes.array,
-    valueType: PropTypes.oneOf(['string', 'number', 'date']),
-    value: PropTypes.arrayOf(
+    defaultTime: PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     ),
-    hourStep: PropTypes.number,
-    minuteStep: PropTypes.number,
-    secondStep: PropTypes.number,
-    showSecond: PropTypes.bool,
     disabledTime: PropTypes.func,
   };
 
   static defaultProps = {
     ...commonProps,
-    format: 'HH:mm:ss',
-    isFooterVisble: true,
-    hourStep: 1,
-    minuteStep: 1,
-    secondStep: 1,
     disabledDate: noop,
     placeholder: ['', ''],
+    format: 'YYYY-MM-DD',
     value: [],
     openPanel: [],
-    showSecond: false,
-    disabledTime: () => {},
+    defaultTime: [TIME_BEGIN, TIME_BEGIN],
+    disabledTime: () => undefined,
   };
 
   onChange = type => {
@@ -65,16 +59,21 @@ export default class TimeRangePicker extends PureComponent {
       } else {
         ret.length === 0 ? ret.splice(1, 1, '', val) : ret.splice(1, 1, val);
       }
-      onChange(ret);
+      onChange(ret as any);
     };
   };
 
   renderPicker() {
     const {
       className,
+      defaultTime,
       defaultValue,
+      disabledDate,
+      onChange,
+      onClick,
       onClose,
       onOpen,
+      openPanel,
       placeholder,
       value,
       disabledTime,
@@ -82,21 +81,26 @@ export default class TimeRangePicker extends PureComponent {
     } = this.props;
     let rangePicker;
     // 兼容老 api ，支持传入字符串
+    const timeArr = compatibleInterface(defaultTime);
     const defaultValueArr = compatibleInterface(defaultValue);
 
     rangePicker = (
       <div className={cx(className, 'range-picker2')}>
         <Receiver componentName="TimePicker">
           {i18n => (
-            <TimePicker
+            <DatePicker
               {...pickerProps}
-              placeholder={placeholder[0] || i18n.startTime}
+              openPanel={openPanel[0]}
+              placeholder={placeholder[0] || i18n.start}
               max={value[1] || pickerProps.max}
               defaultValue={defaultValueArr[0]}
+              defaultTime={timeArr[0]}
               value={value[0]}
+              onClick={val => onClick && onClick(val, START)}
               onOpen={() => onOpen && onOpen(START)}
               onClose={() => onClose && onClose(START)}
               onChange={this.onChange(START)}
+              disabledDate={val => disabledDate(val, START)}
               disabledTime={() => disabledTime(START)}
             />
           )}
@@ -108,15 +112,19 @@ export default class TimeRangePicker extends PureComponent {
 
         <Receiver componentName="TimePicker">
           {i18n => (
-            <TimePicker
+            <DatePicker
               {...pickerProps}
-              placeholder={placeholder[1] || i18n.endTime}
+              openPanel={openPanel[1]}
+              placeholder={placeholder[1] || i18n.end}
               min={value[0] || pickerProps.min}
               defaultValue={defaultValueArr[1]}
+              defaultTime={timeArr[1]}
               value={value[1]}
+              onClick={val => onClick && onClick(val, END)}
               onOpen={() => onOpen && onOpen(END)}
               onClose={() => onClose && onClose(END)}
               onChange={this.onChange(END)}
+              disabledDate={val => disabledDate(val, END)}
               disabledTime={() => disabledTime(END)}
             />
           )}
@@ -131,10 +139,12 @@ export default class TimeRangePicker extends PureComponent {
     const { prefix, className } = this.props;
     const prefixCls = cx(
       `${prefix}-datetime-picker`,
-      `${prefix}-timerange-picker`,
+      `${prefix}-daterange-picker`,
       className
     );
 
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }
 }
+
+export default DateRangePicker;
