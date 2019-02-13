@@ -1,14 +1,38 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Component } from 'react';
+import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import map from 'lodash/map';
+import map from 'lodash-es/map';
 
-import DateRangePicker from 'datetimepicker/DateRangePicker';
-import { I18nReceiver as Receiver } from 'i18n';
+import DateRangePicker from '../datetimepicker/DateRangePicker';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import * as Helper from './helper';
 
-export default class DateRangeQuickPicker extends Component {
+export type DateRangeQuickPickerValue = number | string;
+
+export interface IDateRangeQuickPickerPreset {
+  text: string;
+  value: number;
+}
+
+export interface IDateRangeQuickPickerProps {
+  prefix?: string;
+  className?: string;
+  onChange: (
+    value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue],
+    choosePresetValue?: number
+  ) => void;
+  value?: [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
+  valueType?: 'string' | 'number';
+  format?: string;
+  chooseDays?: number;
+  preset?: Array<IDateRangeQuickPickerPreset>;
+  min?: string | number | Date;
+  max?: string | number | Date;
+}
+
+export default class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
