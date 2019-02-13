@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Notify from 'notify';
-import toArray from 'lodash/toArray';
-import forEach from 'lodash/forEach';
-import isPromise from 'utils/isPromise';
-import { I18nReceiver as Receiver } from 'i18n';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
+import toArray from 'lodash-es/toArray';
+import forEach from 'lodash-es/forEach';
+import isPromise from '../../utils/isPromise';
+import { I18nReceiver as Receiver } from '../../i18n';
+import Notify from '../../notify';
 
 import {
   formatFileSize,
@@ -17,7 +18,7 @@ import { UID_KEY, DEFAULT_ACCEPT } from '../constants';
 
 const noop = res => res;
 
-export default class FileInput extends PureComponent {
+export default class FileInput extends PureComponent<any, any> {
   static defaultProps = {
     initIndex: 0,
     maxAmount: 0,
@@ -124,7 +125,7 @@ export default class FileInput extends PureComponent {
 
     fileReader.onload = e => {
       const mimeType = fileType(
-        base64ToArrayBuffer(e.target.result.replace(/^(.*?)base64,/, ''))
+        base64ToArrayBuffer((e.target as any).result.replace(/^(.*?)base64,/, ''))
       );
       if (
         accept &&
@@ -132,7 +133,7 @@ export default class FileInput extends PureComponent {
           mimeType.mime.match(new RegExp(accept.replace(/, ?/g, '|'))))
       ) {
         localFiles.push({
-          src: e.target.result,
+          src: (e.target as any).result,
           file,
           [UID_KEY]: initIndex + index,
         });
@@ -168,7 +169,7 @@ export default class FileInput extends PureComponent {
 
     return (
       <Receiver componentName="Upload">
-        {i18n => (
+        {(i18n: any) => (
           <input
             ref={this.autoShowInput}
             type="file"

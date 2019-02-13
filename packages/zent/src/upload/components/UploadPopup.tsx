@@ -1,19 +1,31 @@
 /**
  * 上传图片弹框
  */
-
-import React, { Component } from 'react';
-import Button from 'button';
-import Input from 'input';
-import Select from 'select';
+import * as React from 'react';
+import { Component } from 'react';
+import Button from '../../button';
+import Input from '../../input';
+import Select from '../../select';
 import FileInput from './FileInput';
 import uploadLocalImage from './UploadLocal';
 import UploadImageItem from './UploadImageItem';
 import { initSortable, swapArray } from '../utils/sortable';
 import { formatFileSize } from '../utils';
 import { UID_KEY } from '../constants';
+import * as Sortable from 'sortablejs';
 
-class UploadPopup extends Component {
+class UploadPopup extends Component<any, any> {
+  static defaultProps = {
+    networkImage: {},
+    networkUploading: false,
+    buttonText: '',
+    options: {},
+    className: '',
+  };
+
+  networkUrl: string;
+  sortable: Sortable;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -343,13 +355,5 @@ class UploadPopup extends Component {
     }
   };
 }
-
-UploadPopup.defaultProps = {
-  networkImage: {},
-  networkUploading: false,
-  buttonText: '',
-  options: {},
-  className: '',
-};
 
 export default UploadPopup;

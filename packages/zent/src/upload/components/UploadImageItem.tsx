@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 
-class UploadImageItem extends PureComponent {
+class UploadImageItem extends PureComponent<any> {
   static propTypes = {
     // 组件所在位置的下标
     index: PropTypes.number.isRequired,

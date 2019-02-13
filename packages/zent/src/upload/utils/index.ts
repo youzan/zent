@@ -9,7 +9,7 @@ const oneGB = 1024 * oneMB;
  * @example
  * formatFileSize(1024) => '1 MB'
  */
-export function formatFileSize(size, toFixed) {
+export function formatFileSize(size, toFixed?: number) {
   size = +size || 0;
 
   if (typeof toFixed === 'undefined') {
