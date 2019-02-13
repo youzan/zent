@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import Checkbox from 'checkbox';
-import includes from 'lodash/includes';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import includes from 'lodash-es/includes';
+import Checkbox from '../checkbox';
 
-class SelectionCheckbox extends PureComponent {
+class SelectionCheckbox extends PureComponent<any, any> {
   constructor(props) {
     super(props);
 
@@ -10,6 +11,8 @@ class SelectionCheckbox extends PureComponent {
       checked: this.getCheckState(props),
     };
   }
+
+  unsubscribe: any;
 
   subscribe = () => {
     const { store } = this.props;

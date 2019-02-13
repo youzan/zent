@@ -1,20 +1,21 @@
-import React, { PureComponent } from 'react';
-import Pagination from 'pagination';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import classnames from 'classnames';
-import size from 'lodash/size';
+import size from 'lodash-es/size';
+import Pagination from '../pagination';
 
 const defaultPageInfo = {
   current: 1,
   pageSize: 10,
 };
 
-class Footer extends PureComponent {
+class Footer extends PureComponent<any> {
   hasPagination(props) {
     const { pageInfo } = props || this.props;
     return pageInfo && size(pageInfo);
   }
 
-  getDefaultPagination(props) {
+  getDefaultPagination(props?: any) {
     const { pageInfo } = props || this.props;
 
     return this.hasPagination(props)

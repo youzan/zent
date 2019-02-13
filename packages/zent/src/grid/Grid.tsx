@@ -1,26 +1,27 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import BlockLoading from 'loading/BlockLoading';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
-import has from 'lodash/has';
-import get from 'lodash/get';
-import every from 'lodash/every';
-import assign from 'lodash/assign';
-import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
-import forEach from 'lodash/forEach';
-import noop from 'lodash/noop';
-import size from 'lodash/size';
-import some from 'lodash/some';
-import map from 'lodash/map';
-import isFunction from 'lodash/isFunction';
-import filter from 'lodash/filter';
-import includes from 'lodash/includes';
-import measureScrollbar from 'utils/dom/measureScrollbar';
-import WindowResizeHandler from 'utils/component/WindowResizeHandler';
-import { I18nReceiver as Receiver } from 'i18n';
-import { groupedColumns, getLeafColumns } from './utils';
+import has from 'lodash-es/has';
+import get from 'lodash-es/get';
+import every from 'lodash-es/every';
+import assign from 'lodash-es/assign';
+import debounce from 'lodash-es/debounce';
+import isEqual from 'lodash-es/isEqual';
+import forEach from 'lodash-es/forEach';
+import noop from 'lodash-es/noop';
+import size from 'lodash-es/size';
+import some from 'lodash-es/some';
+import map from 'lodash-es/map';
+import isFunction from 'lodash-es/isFunction';
+import filter from 'lodash-es/filter';
+import includes from 'lodash-es/includes';
 
+import measureScrollbar from '../utils/dom/measureScrollbar';
+import WindowResizeHandler from '../utils/component/WindowResizeHandler';
+import { I18nReceiver as Receiver } from '../i18n';
+import { groupedColumns, getLeafColumns } from './utils';
+import BlockLoading from '../loading/BlockLoading';
 import Store from './Store';
 import ColGroup from './ColGroup';
 import Header from './Header';
@@ -36,7 +37,90 @@ function stopPropagation(e) {
   }
 }
 
-class Grid extends PureComponent {
+export type GridScrollPosition = 'both' | 'left' | 'right' | 'middle';
+
+export interface IGridColumn {
+  title: React.ReactNode;
+  name?: string;
+  width?: number | string;
+  bodyRender?:
+    | ((data: any, pos: number, name: string) => React.ReactNode)
+    | React.ReactNode;
+  className?: string;
+  needSort?: boolean;
+  colSpan?: number;
+  fixed?: 'left' | 'right' | true;
+  onCellClick?: (
+    data: any,
+    event: React.MouseEvent<HTMLTableDataCellElement>
+  ) => any;
+  textAign?: 'left' | 'right' | 'center';
+  nowrap?: boolean;
+  defaultText?: React.ReactNode;
+  children?: IGridColumn[];
+}
+
+export interface IGridOnChangeConfig {
+  current?: number;
+  sortBy?: string;
+  sortType?: 'asc' | 'desc' | '';
+  pageSize?: number;
+}
+
+export interface IGridProps {
+  columns: Array<IGridColumn>;
+  datasets: Array<Object>;
+  rowKey?: string;
+  onChange?: (conf: IGridOnChangeConfig) => any;
+  scroll?: {
+    x?: number;
+    y?: number;
+  };
+  sortBy?: string;
+  sortType?: 'desc' | 'asc';
+  emptyLabel?: string;
+  selection?: {
+    selectedRowKeys?: Array<string>;
+    onSelect?: (
+      selectedkeys: string,
+      selectedRows: Array<any>,
+      currentRow: number
+    ) => any;
+    getCheckboxProps?: (data: object) => { disabled?: boolean };
+  };
+  expandation?: {
+    isExpanded?: (record: any, index: number) => boolean;
+    expandRender?: (data: any) => React.ReactNode;
+  };
+  loading?: boolean;
+  bordered?: boolean;
+  className?: string;
+  rowClassName?: string | ((data: object, rowIndex: number) => string);
+  prefix?: string;
+  pageInfo?: {
+    current?: number;
+    total?: number;
+    pageSize?: number;
+  };
+  onRowClick?: (
+    data: any,
+    index: number,
+    event: React.MouseEvent<HTMLTableRowElement>
+  ) => any;
+  ellipsis?: boolean;
+  onExpand?: (data: {
+    expanded: boolean;
+    data: any;
+    event: React.MouseEvent<HTMLTableRowElement>;
+    index: number;
+  }) => any;
+  components?: {
+    row?: React.ReactNode;
+  };
+  rowProps?: (data: any, index: number) => any;
+}
+
+export class Grid extends PureComponent<IGridProps, any> {
   static propTypes = {
     className: PropTypes.string,
     bordered: PropTypes.bool,
@@ -80,12 +164,25 @@ class Grid extends PureComponent {
     onExpand: noop,
   };
 
+  mounted: boolean;
+  checkboxPropsCache: any;
+  store: Store;
+  tableNode: HTMLDivElement | null = null;
+  bodyTable: HTMLDivElement | null = null;
+  leftBody: HTMLDivElement | null = null;
+  rightBody: HTMLDivElement | null = null;
+  scrollBody: HTMLDivElement | null = null;
+  scrollHeader: HTMLDivElement | null = null;
+  scrollPosition: GridScrollPosition;
+  lastScrollLeft: number;
+  lastScrollTop: number;
+
   constructor(props) {
     super(props);
 
     this.mounted = false;
     this.checkboxPropsCache = {};
-    this.store = new Store(props);
+    this.store = new Store();
     const expandRowKeys = this.getExpandRowKeys(props);
     this.store.setState({
       columns: this.getColumns(props, props.columns, expandRowKeys),
@@ -184,7 +281,7 @@ class Grid extends PureComponent {
 
   onChange = conf => {
     const params = assign({}, this.store.getState('conf'), conf);
-    this.store.setState('conf', params);
+    this.store.setState('conf');
     this.props.onChange(params);
   };
 
@@ -270,7 +367,7 @@ class Grid extends PureComponent {
     );
   };
 
-  getColumns = (props, columns, expandRowKeys) => {
+  getColumns = (props, columns?: any[], expandRowKeys?: string[]) => {
     let { selection, datasets, expandation } = props || this.props;
     const isStoreColumns = !columns;
     columns = (columns || this.store.getState('columns')).slice();
@@ -290,10 +387,10 @@ class Grid extends PureComponent {
         return true;
       });
 
-      const selectionColumn = {
+      const selectionColumn: any = {
         key: 'selection-column',
         width: '20px',
-        bodyRender: this.renderSelectionCheckbox(selection.type),
+        bodyRender: this.renderSelectionCheckbox(),
       };
 
       const checkboxAllDisabled = every(data, (item, index) => {
@@ -324,7 +421,7 @@ class Grid extends PureComponent {
 
     // 判断是否展开
     if (expandation) {
-      const expandColumn = {
+      const expandColumn: any = {
         key: 'expand-column',
         width: '20px',
         bodyRender: this.getExpandBodyRender(expandRowKeys),
@@ -357,7 +454,7 @@ class Grid extends PureComponent {
     });
   };
 
-  setScrollPosition(position) {
+  setScrollPosition(position: GridScrollPosition) {
     this.scrollPosition = position;
 
     if (this.tableNode) {
@@ -445,7 +542,7 @@ class Grid extends PureComponent {
     });
   };
 
-  getTable = (options = {}) => {
+  getTable = (options: any = {}) => {
     const {
       prefix,
       datasets,
@@ -464,8 +561,8 @@ class Grid extends PureComponent {
     const columns = options.columns || this.store.getState('columns');
     const { expandRowKeys } = this.state;
     let tableClassName = '';
-    let bodyStyle = {};
-    let tableStyle = {};
+    let bodyStyle: React.CSSProperties = {};
+    let tableStyle: React.CSSProperties = {};
 
     if (fixed || scroll.x) {
       tableClassName = `${prefix}-grid-fixed`;
@@ -517,8 +614,11 @@ class Grid extends PureComponent {
 
     if (y) {
       const scrollbarWidth = measureScrollbar();
-      const headStyle = {};
-      const scrollBodyStyle = { maxHeight: y, overflowY: 'scroll' };
+      const headStyle: React.CSSProperties = {};
+      const scrollBodyStyle: React.CSSProperties = {
+        maxHeight: y,
+        overflowY: 'scroll',
+      };
       if (scrollbarWidth > 0) {
         headStyle.paddingBottom = 0;
         if (!fixed && x) {
