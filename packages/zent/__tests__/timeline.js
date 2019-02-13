@@ -47,6 +47,12 @@ describe('Timeline', () => {
     expect(
       wrapper.find('.zent-timeline').hasClass('zent-timeline-horizontal')
     ).toBe(true);
+    console.log(
+      wrapper
+        .find('.zent-timeline')
+        .children()
+        .childAt(0)
+    );
     expect(wrapper.find('.zent-timeline').children().length).toBe(3);
     const first = wrapper.find('.zent-timeline').childAt(0);
     expect(first.find('.zent-timeline-item-label').text()).toBe('Time 1');

@@ -59,7 +59,7 @@ function extractStateFromProps(props: IMonthPickerProps) {
   };
 }
 
-class MonthPicker extends PureComponent<IMonthPickerProps, any> {
+export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
   };

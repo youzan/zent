@@ -19,7 +19,7 @@ const DEFAULT_REANDER_KEY = {
   parentId: 'parentId',
 };
 
-interface ITreeData {
+export interface ITreeData {
   id: number | string;
   title: number | string;
   children?: Array<ITreeData>;
@@ -28,14 +28,14 @@ interface ITreeData {
   isLeaf?: boolean;
 }
 
-interface ITreeOperation {
+export interface ITreeOperation {
   name: string;
   icon?: string | React.ReactNode;
   action: (data: ITreeData) => void;
   shouldRender?: (data: ITreeData) => boolean;
 }
 
-interface ITreeProps {
+export interface ITreeProps {
   useNew?: boolean;
   dataType?: 'tree' | 'plain';
   data: Array<ITreeData>;
@@ -64,7 +64,7 @@ interface ITreeProps {
   prefix?: string;
 }
 
-export default class Tree extends PureComponent<ITreeProps, any> {
+export class Tree extends PureComponent<ITreeProps, any> {
   renderKeyMap = DEFAULT_REANDER_KEY;
 
   static propTypes = {
@@ -723,3 +723,5 @@ export default class Tree extends PureComponent<ITreeProps, any> {
     );
   }
 }
+
+export default Tree;

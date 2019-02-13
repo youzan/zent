@@ -9,7 +9,7 @@ import set from 'lodash/set';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import memoize from 'memoize-one';
+import memoize from '../utils/memorize-one';
 
 import { prefixName, unliftFieldArrayValue } from './utils';
 import unknownProps from './unknownProps';

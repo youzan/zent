@@ -25,7 +25,7 @@ export interface IErrorBoundaryProps {
   FallbackComponent?: React.ComponentType<IErrorBoundaryFallbackComponentProps>;
 }
 
-class ErrorBoundary extends Component<IErrorBoundaryProps> {
+export class ErrorBoundary extends Component<IErrorBoundaryProps> {
   static propTypes = {
     children: PropTypes.node.isRequired,
     onError: PropTypes.func,

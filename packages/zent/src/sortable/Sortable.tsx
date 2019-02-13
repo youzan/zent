@@ -64,7 +64,7 @@ export interface ISortableProps {
   onClone?: (event: Event) => boolean;
 }
 
-export default class Sortable extends Component<ISortableProps> {
+export class Sortable extends Component<ISortableProps> {
   static propTypes = {
     className: PropTypes.string,
     prefix: PropTypes.string,
@@ -190,3 +190,5 @@ export default class Sortable extends Component<ISortableProps> {
     );
   }
 }
+
+export default Sortable;

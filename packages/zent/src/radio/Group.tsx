@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import memoize from 'memoize-one';
 import noop from 'lodash-es/noop';
 
+import memoize from '../utils/memorize-one';
 import GroupContext from './GroupContext';
 
 const GroupContextProvider = GroupContext.Provider;

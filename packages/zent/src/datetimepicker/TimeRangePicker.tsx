@@ -37,7 +37,7 @@ export interface ITimeRangePickerProps
   disabledTime?: (type: DatePickers.RangeType) => DatePickers.IDisabledTime;
 }
 
-export default class TimeRangePicker extends PureComponent<
+export class TimeRangePicker extends PureComponent<
   ITimeRangePickerProps
 > {
   static propTypes = {
@@ -152,3 +152,5 @@ export default class TimeRangePicker extends PureComponent<
     return <div className={prefixCls}>{this.renderPicker()}</div>;
   }
 }
+
+export default TimeRangePicker;

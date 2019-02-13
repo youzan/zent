@@ -35,7 +35,7 @@ export interface IPaginationProps {
   maxPageToShow?: number;
 }
 
-export default class Pagination extends Component<IPaginationProps> {
+export class Pagination extends Component<IPaginationProps> {
   static propTypes = {
     type: PropTypes.oneOf(['normal', 'lite', 'mini']),
     current: PropTypes.number,
@@ -151,3 +151,5 @@ export default class Pagination extends Component<IPaginationProps> {
     return total || totalItem;
   }
 }
+
+export default Pagination;

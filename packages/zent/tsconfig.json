@@ -4,6 +4,7 @@
     "module": "es2015",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": false,
+    "importHelpers": true,
     "outDir": "es",
     "jsx": "react",
     "declaration": true,
@@ -15,7 +16,8 @@
   "exclude": [
     "lib",
     "es",
-    "typings"
+    "typings",
+    "__tests__"
   ],
   "include": [
     "src"

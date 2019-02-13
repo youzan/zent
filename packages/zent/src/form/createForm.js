@@ -12,7 +12,7 @@ import map from 'lodash/map';
 import startsWith from 'lodash/startsWith';
 import isPromise from 'utils/isPromise';
 import PropTypes from 'prop-types';
-import memoize from 'memoize-one';
+import memoize from '../utils/memorize-one';
 
 import {
   getDisplayName,

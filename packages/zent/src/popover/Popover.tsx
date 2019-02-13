@@ -28,7 +28,7 @@ import isPromise from '../utils/isPromise';
 import * as PropTypes from 'prop-types';
 import kindOf from '../utils/kindOf';
 import getWidth from '../utils/getWidth';
-import memoize from 'memoize-one';
+import memoize from '../utils/memorize-one';
 
 import PopoverContent from './Content';
 import Trigger from './trigger';
@@ -84,7 +84,7 @@ export interface IPopoverState {
   visible?: boolean;
 }
 
-export class Popover<T extends IPopoverTriggerProps = IPopoverTriggerProps> extends Component<IPopoverProps, IPopoverState> {
+export class Popover extends Component<IPopoverProps, IPopoverState> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,
@@ -147,6 +147,15 @@ export class Popover<T extends IPopoverTriggerProps = IPopoverTriggerProps> exte
   static Position = Position;
   static withPopover = withPopover;
 
+  registerDescendant = (popover: Popover) => {
+    this.descendants.push(popover);
+  };
+
+  unregisterDescendant = (popover: Popover) => {
+    const idx = this.descendants.indexOf(popover);
+    this.descendants.splice(idx, 1);
+  };
+
   getPopoverContext = memoize((): IPopoverContext => {
     return {
       _zentPopover: {
@@ -160,15 +169,6 @@ export class Popover<T extends IPopoverTriggerProps = IPopoverTriggerProps> exte
       },
     };
   });
-
-  registerDescendant = (popover: Popover) => {
-    this.descendants.push(popover);
-  };
-
-  unregisterDescendant = (popover: Popover) => {
-    const idx = this.descendants.indexOf(popover);
-    this.descendants.splice(idx, 1);
-  };
 
   context!: IPopoverContext;
   id: string;

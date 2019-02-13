@@ -14,7 +14,7 @@ export interface IPreviewImageConfig {
   prefix?: string;
 }
 
-export default function previewImage(options: IPreviewImageConfig = {}) {
+export function previewImage(options: IPreviewImageConfig = {}) {
   const { parentComponent, ...rest } = options;
   let container = document.createElement('div');
 
@@ -39,3 +39,5 @@ export default function previewImage(options: IPreviewImageConfig = {}) {
 
   render(<Image {...props} />, container);
 }
+
+export default previewImage;

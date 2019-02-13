@@ -5,7 +5,7 @@ import Rectangle from './shapes/Rectangle';
 import TextBlock from './presets/TextBlock';
 import RichTextBlock from './presets/RichTextBlock';
 
-export default {
+export const Placeholder = {
   // 基础构建组件
   TextRow,
   TextRowDashed,
@@ -16,3 +16,5 @@ export default {
   TextBlock,
   RichTextBlock,
 };
+
+export default Placeholder;

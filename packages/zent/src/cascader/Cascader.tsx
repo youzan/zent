@@ -54,7 +54,7 @@ export interface ICascaderState {
   loadingStage?: number;
 }
 
-class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
+export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   static propTypes = {
     prefix: PropTypes.string,
     className: PropTypes.string,

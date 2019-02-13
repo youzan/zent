@@ -1,4 +1,14 @@
 {
+  "preset": "ts-jest/presets/js-with-babel",
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "tsconfig.test.json"
+    },
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "transformIgnorePatterns": ["/node_modules/(?!(lodash-es|fecha)/)"],
   "testURL": "https://youzan.github.io/zent",
   "verbose": true,
   "automock": false,
@@ -48,6 +58,7 @@
     "<rootDir>/src/portal/.+"
   ],
   "moduleNameMapper": {
+    "fecha": "<rootDir>/../../node_modules/fecha/src/fecha.js",
     "^affix$": "<rootDir>/src/affix",
     "^affix/(.+)$": "<rootDir>/src/affix/$1",
     "^alert$": "<rootDir>/src/alert",

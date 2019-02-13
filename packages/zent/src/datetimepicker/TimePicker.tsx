@@ -61,7 +61,7 @@ export interface ITimePickerProps extends DatePickers.ICommonProps {
   disabledTime?: () => DatePickers.IDisabledTime;
 }
 
-export default class TimePicker extends PureComponent<ITimePickerProps, any> {
+export class TimePicker extends PureComponent<ITimePickerProps, any> {
   static propTypes = {
     ...commonPropTypes,
     valueType: PropTypes.oneOf(['string', 'number', 'date']),
@@ -484,3 +484,5 @@ export default class TimePicker extends PureComponent<ITimePickerProps, any> {
     );
   }
 }
+
+export default TimePicker;
