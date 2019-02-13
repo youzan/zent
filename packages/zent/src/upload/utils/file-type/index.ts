@@ -2,9 +2,9 @@
 
 /* See README.md for why this exists. */
 
-import toArray from 'lodash/toArray';
-import assign from 'lodash/assign';
-import findIndex from 'lodash/findIndex';
+import toArray from 'lodash-es/toArray';
+import assign from 'lodash-es/assign';
+import findIndex from 'lodash-es/findIndex';
 
 const toBytes = s => toArray(s).map(c => c.charCodeAt(0));
 const xpiZipFilename = toBytes('META-INF/mozilla.rsa');
@@ -18,7 +18,7 @@ const getFileType = input => {
     return null;
   }
 
-  const check = (header, opts) => {
+  const check = (header, opts?: any) => {
     opts = assign(
       {
         offset: 0,

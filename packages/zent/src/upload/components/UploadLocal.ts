@@ -1,5 +1,5 @@
-import isFunction from 'lodash/isFunction';
-import isPromise from 'utils/isPromise';
+import isFunction from 'lodash-es/isFunction';
+import isPromise from '../../utils/isPromise';
 
 export default function uploadLocalImage(options, uploadConfig) {
   return new Promise((resolve, reject) => {

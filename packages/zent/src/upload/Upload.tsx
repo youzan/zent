@@ -2,13 +2,13 @@
  * 上传图片组件
  * @author huangshiyu <huangshiyu@youzan.com>
  */
-
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import classnames from 'classnames';
-import identity from 'lodash/identity';
+import identity from 'lodash-es/identity';
 
-import Dialog from 'dialog';
-import { I18nReceiver as Receiver } from 'i18n';
+import Dialog from '../dialog';
+import { I18nReceiver as Receiver } from '../i18n';
 
 import UploadPopup from './components/UploadPopup';
 import FileInput from './components/FileInput';
@@ -16,7 +16,80 @@ import { DEFAULT_ACCEPT } from './constants';
 
 const promiseNoop = () => new Promise(resolve => resolve([]));
 
-class Upload extends Component {
+export interface IUploadErrorMessage {
+  overMaxSize?: string | ((data: { maxSize: string; type: string }) => string);
+  overMaxAmount?:
+    | string
+    | ((data: { maxAmount: number; type: string }) => string);
+  wrongMimeType?: string | ((data: { type: string }) => string);
+}
+
+export interface IUploadLocalFile {
+  file: File;
+  src: string;
+  __uid: number;
+}
+
+export interface IUploadConfig {
+  categoryId: number;
+  localFiles: IUploadLocalFile[];
+  onProgress: (progress: number, index: number) => void;
+}
+
+export interface IUploadProps {
+  prefix?: string;
+  className?: string;
+  type?: 'image' | 'video';
+  triggerClassName?: string;
+  maxSize?: number;
+  maxAmount?: number;
+  accept?: string;
+  tips?: string;
+  localOnly?: boolean;
+  auto?: boolean;
+  filterFiles?: (files: File[]) => File[] | Promise<File[]>;
+  onFetch?: (networkUrl: string, categoryId: number) => Promise<any>;
+  onUpload?: (
+    localFiles: IUploadLocalFile[],
+    uploadConfig: IUploadConfig
+  ) => void | Promise<any>;
+  categoryList?: Array<{
+    value: any;
+    text: string | number;
+  }>;
+  categoryId?: number;
+  errorMessages?: IUploadErrorMessage;
+  triggerInline?: boolean;
+  silent?: boolean;
+  withoutPopup?: boolean;
+  trigger?: React.ComponentType<any>;
+}
+
+export class Upload extends Component<IUploadProps, any> {
+  static FileInput = FileInput;
+  static defaultProps = {
+    prefix: 'zent',
+    className: 'zent-upload',
+    triggerClassName: 'zent-upload-trigger',
+    maxSize: 1 * 1024 * 1024,
+    maxAmount: 0,
+    tips: '',
+    localOnly: false,
+    auto: false,
+    type: 'image',
+    filterFiles: identity,
+    onFetch: promiseNoop,
+    onUpload: promiseNoop,
+    categoryList: [],
+    categoryId: '',
+    triggerInline: false,
+    silent: false,
+    withoutPopup: false,
+    errorMessages: {},
+  };
+
+  isUnmount: boolean;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -142,28 +215,5 @@ class Upload extends Component {
     }
   };
 }
-
-Upload.defaultProps = {
-  prefix: 'zent',
-  className: 'zent-upload',
-  triggerClassName: 'zent-upload-trigger',
-  maxSize: 1 * 1024 * 1024,
-  maxAmount: 0,
-  tips: '',
-  localOnly: false,
-  auto: false,
-  type: 'image',
-  filterFiles: identity,
-  onFetch: promiseNoop,
-  onUpload: promiseNoop,
-  categoryList: [],
-  categoryId: '',
-  triggerInline: false,
-  silent: false,
-  withoutPopup: false,
-  errorMessages: {},
-};
-
-Upload.FileInput = FileInput;
 
 export default Upload;
