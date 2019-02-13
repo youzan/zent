@@ -70,7 +70,7 @@ export class Timeline extends PureComponent<ITimelineProps> {
       if (typeof child === 'string' || typeof child === 'number') {
         return null;
       }
-      React.cloneElement(child, {
+      return React.cloneElement(child, {
         type,
       });
     });
