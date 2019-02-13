@@ -1,12 +1,18 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
-import get from 'lodash/get';
-import forEach from 'lodash/forEach';
+import get from 'lodash-es/get';
+import forEach from 'lodash-es/forEach';
 import Row from './Row';
 import ColGroup from './ColGroup';
 
-class Body extends PureComponent {
+class Body extends PureComponent<any> {
+  static propTypes = {
+    prefix: PropTypes.string,
+    columns: PropTypes.array,
+  };
+
   getRows() {
     const {
       prefix,
@@ -98,7 +104,7 @@ class Body extends PureComponent {
 
   render() {
     const { scroll, fixed, prefix, columns } = this.props;
-    const bodyStyle = {};
+    const bodyStyle: React.CSSProperties = {};
     if (!fixed && scroll.x) {
       bodyStyle.width = scroll.x;
     }
@@ -112,10 +118,5 @@ class Body extends PureComponent {
     );
   }
 }
-
-Body.propTypes = {
-  prefix: PropTypes.string,
-  columns: PropTypes.array,
-};
 
 export default Body;

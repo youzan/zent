@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import get from 'lodash/get';
-import has from 'lodash/has';
-import isNil from 'lodash/isNil';
+import * as React from 'react';
+import { Component } from 'react';
+import get from 'lodash-es/get';
+import has from 'lodash-es/has';
+import isNil from 'lodash-es/isNil';
 import classnames from 'classnames';
 
-class Cell extends Component {
+class Cell extends Component<any> {
   isInvalidRenderCellText(text) {
     return (
       text &&

@@ -1,13 +1,19 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
-import map from 'lodash/map';
-import forEach from 'lodash/forEach';
-import filter from 'lodash/filter';
+import map from 'lodash-es/map';
+import forEach from 'lodash-es/forEach';
+import filter from 'lodash-es/filter';
 
 import ColGroup from './ColGroup';
 
-class Header extends PureComponent {
+class Header extends PureComponent<any, any> {
+  static propTypes = {
+    prefix: PropTypes.string,
+    columns: PropTypes.array,
+  };
+
   constructor(props) {
     super(props);
 
@@ -15,6 +21,8 @@ class Header extends PureComponent {
       rows: this.getHeaderRows(props),
     };
   }
+
+  unsubscribe: any;
 
   onSort = (column, props, newSortType) => {
     const { sortBy } = props;
@@ -66,7 +74,7 @@ class Header extends PureComponent {
     return column.title;
   };
 
-  getHeaderRows = (props, columns, currentRow = 0, rows) => {
+  getHeaderRows = (props?: any, columns?: any[], currentRow = 0, rows?: any[]) => {
     props = props || this.props;
     const { prefix, columns: propsColumns } = props;
     columns = columns || propsColumns;
@@ -89,7 +97,7 @@ class Header extends PureComponent {
         nowrap,
         textAlign,
       } = column;
-      const cell = {
+      const cell: any = {
         key: name || key || index,
         className: classnames(`${prefix}-grid-th`, className, {
           [`${prefix}-grid-text-align-${textAlign}`]: textAlign,
@@ -174,7 +182,7 @@ class Header extends PureComponent {
 
   render() {
     const { scroll, fixed, prefix, columns } = this.props;
-    const headerStyle = {};
+    const headerStyle: React.CSSProperties = {};
     if (!fixed && scroll.x) {
       headerStyle.width = scroll.x;
     }
@@ -188,10 +196,5 @@ class Header extends PureComponent {
     );
   }
 }
-
-Header.propTypes = {
-  prefix: PropTypes.string,
-  columns: PropTypes.array,
-};
 
 export default Header;

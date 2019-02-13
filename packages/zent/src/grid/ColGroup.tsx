@@ -1,9 +1,14 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import map from 'lodash/map';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
+import map from 'lodash-es/map';
 import { getLeafColumns } from './utils';
 
-class ColGroup extends PureComponent {
+class ColGroup extends PureComponent<any> {
+  static propTypes = {
+    columns: PropTypes.array,
+  };
+
   render() {
     const { columns } = this.props;
 
@@ -17,9 +22,5 @@ class ColGroup extends PureComponent {
     return <colgroup>{cols}</colgroup>;
   }
 }
-
-ColGroup.propTypes = {
-  columns: PropTypes.array,
-};
 
 export default ColGroup;

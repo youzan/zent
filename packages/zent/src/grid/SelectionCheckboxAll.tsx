@@ -1,11 +1,12 @@
-import React, { PureComponent } from 'react';
-import Checkbox from 'checkbox';
-import size from 'lodash/size';
-import every from 'lodash/every';
-import some from 'lodash/some';
-import includes from 'lodash/includes';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import size from 'lodash-es/size';
+import every from 'lodash-es/every';
+import some from 'lodash-es/some';
+import includes from 'lodash-es/includes';
+import Checkbox from '../checkbox';
 
-class SelectionCheckboxAll extends PureComponent {
+class SelectionCheckboxAll extends PureComponent<any, any> {
   constructor(props) {
     super(props);
 
@@ -14,6 +15,8 @@ class SelectionCheckboxAll extends PureComponent {
       indeterminate: this.getIndeterminateState(props),
     };
   }
+
+  unsubscribe: any;
 
   subscribe = () => {
     const { store } = this.props;
