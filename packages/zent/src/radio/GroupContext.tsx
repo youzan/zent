@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { IRadioEvent } from './Radio';
+import { IRadioEvent } from './AbstractRadio';
 
 export interface IRadioContext {
   value: unknown;
