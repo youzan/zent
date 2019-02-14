@@ -3,9 +3,9 @@ import cx from 'classnames';
 
 import getWidth from '../utils/getWidth';
 
-import Radio from './Radio';
+import AbstractRadio from './AbstractRadio';
 
-export class RadioButton extends Radio {
+export class RadioButton extends AbstractRadio {
   render() {
     const { onRadioChange } = this.context;
     if (!onRadioChange) {
