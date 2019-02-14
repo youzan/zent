@@ -1,6 +1,13 @@
 import Dialog from 'dialog';
 
-const { openDialog, closeDialog } = Dialog;
+const { closeDialog } = Dialog;
+
+function openDialog(...args) {
+  jest.runAllTimers();
+  const close = Dialog.openDialog(...args);
+  jest.runAllTimers();
+  return close;
+}
 
 describe('Dialog component', () => {
   let close;
