@@ -45,7 +45,7 @@ class TabsContent extends PureComponent<ItabsContentProps> {
     expandTrigger: PropTypes.oneOf(['click', 'hover']),
   };
 
-  renderCascaderItems(items, stage, popover) {
+  renderCascaderItems(items: ICascaderItem[], stage: number, popover: Popover) {
     let { prefix, value, clickHandler } = this.props;
 
     let cascaderItems = items.map(item => {
@@ -85,7 +85,7 @@ class TabsContent extends PureComponent<ItabsContentProps> {
     return title;
   }
 
-  renderPanels(popover, i18n) {
+  renderPanels(popover: Popover, i18n: any) {
     let PanelEls = [];
     let tabIndex = 1;
     let { title, options, value, recursiveNextOptions } = this.props;
@@ -149,4 +149,6 @@ class TabsContent extends PureComponent<ItabsContentProps> {
   }
 }
 
-export default withPopover(TabsContent as any) as typeof TabsContent;
+export default withPopover(TabsContent as React.ComponentType<
+  ItabsContentProps
+>);
