@@ -103,7 +103,7 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
   retType = 'string';
   picker: HTMLDivElement | null = null;
 
-  constructor(props) {
+  constructor(props: IQuarterPickerProps) {
     super(props);
     this.state = extractStateFromProps(props);
 
