@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Component, createRef } from 'react';
-import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
-// import animatedClosable from '../utils/component/animatedClosable';
 
 export interface IDialogInnerElProps {
   prefix?: string;
@@ -160,39 +158,3 @@ export class DialogElWrapper extends Component<IDialogElWrapper> {
     );
   }
 }
-
-// // Make DialogWrapper a animated closable wrapper,
-// // so that its children have css transition classes during closing
-// // and the wrapper itself unmount after a timeout.
-// const AnimatedClosableDialogElWrapper: React.ComponentType<
-//   any
-// > = animatedClosable(DialogElWrapper);
-
-// Compose all dialog components
-// export default class DialogEl extends Component<any> {
-//   render() {
-//     const { prefix, visible, origin, refClose, timeout } = this.props;
-
-//     return (
-//       <AnimatedClosableDialogElWrapper
-//         animationClassName={`${prefix}-zoom`}
-//         timout={timeout || 300}
-//         {...this.props}
-//         refClose={refClose}
-//         origin={origin}
-//         open={visible}
-//       >
-//         <DialogInnerEl {...this.props} />
-//       </AnimatedClosableDialogElWrapper>
-//     );
-//   }
-// }
-
-// export default function DialogEl(props: any) {
-//   console.log(props.className)
-//   return (
-//     <DialogElWrapper {...props}>
-//       <DialogInnerEl {...props} />
-//     </DialogElWrapper>
-//   )
-// }
