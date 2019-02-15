@@ -49,14 +49,13 @@ class StandaloneDialog extends Component<IStandaloneDialogProps> {
 
   onClosed = () => {
     const {
-      options: { onClose, dialogId },
+      options: { onClose },
       container,
     } = this.props;
     const { triggerOnClose = true } = this.closeOptions;
     if (triggerOnClose && onClose) {
       onClose();
     }
-    dialogInstanceMap.delete(dialogId);
     ReactDOM.unmountComponentAtNode(container);
   };
 
@@ -65,6 +64,13 @@ class StandaloneDialog extends Component<IStandaloneDialogProps> {
       triggerOnClose: e !== false,
     });
   };
+
+  componentWillUnmount() {
+    const {
+      options: { dialogId },
+    } = this.props;
+    dialogInstanceMap.delete(dialogId);
+  }
 
   render() {
     const { options } = this.props;
