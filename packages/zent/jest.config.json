@@ -47,7 +47,9 @@
     "<rootDir>/src/layout",
     "<rootDir>/src/form/.+",
     "<rootDir>/src/portal/.+",
-    "<rootDir>/src/loading/.+"
+    "<rootDir>/src/loading/.+",
+    "<rootDir>/src/radio/GroupContext.js",
+    "<rootDir>/src/checkbox/GroupContext.js"
   ],
   "moduleNameMapper": {
     "^affix$": "<rootDir>/src/affix",
