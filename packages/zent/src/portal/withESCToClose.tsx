@@ -3,7 +3,7 @@ import { Component } from 'react';
 import * as PropTypes from 'prop-types';
 
 export interface IESCToCloseWrapperProps {
-  onClose(): void;
+  onClose(e: KeyboardEvent): void;
   visible?: boolean;
 }
 
@@ -25,7 +25,7 @@ export default function withESCToClose<P extends { visible?: boolean }>(
 
     onKeyUp = (evt: KeyboardEvent) => {
       if (evt.keyCode === 27) {
-        this.props.onClose();
+        this.props.onClose(evt);
       }
     };
 

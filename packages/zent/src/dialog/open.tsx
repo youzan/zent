@@ -1,63 +1,106 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Component, createRef } from 'react';
 import noop from 'lodash-es/noop';
 import partial from 'lodash-es/partial';
 import uniqueId from 'lodash-es/uniqueId';
+import { Omit } from 'utility-types';
 
 import isBrowser from '../utils/isBrowser';
 import Dialog, { IDialogProps } from './Dialog';
 
-const dialogInstanceMap = {};
+const dialogInstanceMap = new Map<string, React.RefObject<StandaloneDialog>>();
 
-function ensureUniqDialogInstance(dialogId) {
-  if (dialogInstanceMap[dialogId]) {
+function ensureUniqDialogInstance(dialogId: string) {
+  if (dialogInstanceMap.has(dialogId)) {
     throw new Error(`Duplicate dialog id found: ${dialogId}`);
   }
 }
 
-function addDialogInstance(dialogId, dialog) {
-  dialogInstanceMap[dialogId] = dialog;
+function addDialogInstance(
+  dialogId: string,
+  ref: React.RefObject<StandaloneDialog>
+) {
+  dialogInstanceMap.set(dialogId, ref);
 }
 
 export interface ICloseDialogOption {
   triggerOnClose?: boolean;
 }
 
-export function closeDialog(dialogId: string, options: ICloseDialogOption = {}) {
-  const dialog = dialogInstanceMap[dialogId];
+interface IStandaloneDialogProps {
+  options: IOpenDialogOption & { dialogId: string };
+  container: HTMLDivElement;
+}
+
+class StandaloneDialog extends Component<IStandaloneDialogProps> {
+  state = {
+    visible: true,
+  };
+
+  closeOptions: ICloseDialogOption = {};
+
+  close(options: ICloseDialogOption = {}) {
+    this.closeOptions = options;
+    this.setState({
+      visible: false,
+    });
+  }
+
+  onClosed = () => {
+    const {
+      options: { onClose, dialogId },
+      container,
+    } = this.props;
+    const { triggerOnClose = true } = this.closeOptions;
+    if (triggerOnClose && onClose) {
+      onClose();
+    }
+    dialogInstanceMap.delete(dialogId);
+    ReactDOM.unmountComponentAtNode(container);
+  };
+
+  onClose = (e: unknown) => {
+    this.close({
+      triggerOnClose: e !== false,
+    });
+  };
+
+  render() {
+    const { options } = this.props;
+    const { visible } = this.state;
+    return (
+      <Dialog
+        {...options}
+        onClose={this.onClose}
+        onClosed={this.onClosed}
+        visible={visible}
+      />
+    );
+  }
+}
+
+export function closeDialog(
+  dialogId: string,
+  options: ICloseDialogOption = {}
+) {
+  const dialog = dialogInstanceMap.get(dialogId);
 
   if (!dialog) {
     return;
   }
-
-  delete dialogInstanceMap[dialogId];
-
-  const { onClose, container, getClose } = dialog;
-
-  const closeCallback = () => {
-    const { triggerOnClose = true } = options;
-    if (triggerOnClose && onClose) {
-      onClose();
-    }
-
-    ReactDOM.unmountComponentAtNode(container);
-  };
-
-  const close = getClose();
-
-  if (close) {
-    close(() => {
-      closeCallback();
-    });
-  } else {
-    closeCallback();
+  const wrapper = dialog.current;
+  if (!wrapper) {
+    return;
   }
+  wrapper.close(options);
 }
 
-export interface IOpenDialogOption extends IDialogProps {
+export interface IOpenDialogOption extends Omit<IDialogProps, 'onClose'> {
   dialogId?: string;
-  ref?: (el: any) => void;
-  parentComponent?: any;
+  ref?: (ins: Dialog) => void | React.RefObject<Dialog>;
+  parentComponent?: React.ReactInstance;
+  onClose?: () => void;
 }
 
 /*
@@ -66,52 +109,39 @@ export interface IOpenDialogOption extends IDialogProps {
 export function openDialog(options: IOpenDialogOption = {}) {
   if (!isBrowser) return noop;
 
-  const {
-    onClose: oldOnClose,
-    ref,
-    dialogId = uniqueId('__zent-dialog__'),
-    parentComponent,
-  } = options;
+  const { dialogId = uniqueId('__zent-dialog__'), parentComponent } = options;
 
   ensureUniqDialogInstance(dialogId);
 
   let container = document.createElement('div');
 
   // 确保多次调用close不会报错
-  const closeHandler = evt => {
+  const closeHandler = (evt: unknown) => {
     closeDialog(dialogId, {
       triggerOnClose: evt !== false,
     });
   };
 
-  let close = null;
-
-  const props = {
-    ...options,
-    visible: true,
-    onClose: closeHandler,
-    refClose: closeInstance => {
-      close = closeInstance;
-    },
-  };
-
-  // 只支持函数形式的ref
-  if (ref && typeof ref !== 'function') {
-    delete props.ref;
-  }
-
   const render = parentComponent
     ? partial(ReactDOM.unstable_renderSubtreeIntoContainer, parentComponent)
     : ReactDOM.render;
 
-  // 不要依赖render的返回值，以后可能行为会改变
-  render(React.createElement(Dialog, props), container);
+  const ref = createRef<StandaloneDialog>();
 
-  addDialogInstance(dialogId, {
-    onClose: oldOnClose,
-    container,
-    getClose: () => close, // the order of the call of refClose and here is uncertain, use closure
-  });
+  // 不要依赖render的返回值，以后可能行为会改变
+  render(
+    <StandaloneDialog
+      ref={ref}
+      options={{
+        ...options,
+        dialogId,
+      }}
+      container={container}
+    />,
+    container
+  );
+
+  addDialogInstance(dialogId, ref);
 
   return closeHandler;
 }

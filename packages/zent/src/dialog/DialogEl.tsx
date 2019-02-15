@@ -3,12 +3,12 @@ import { Component, createRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
-import animatedClosable from '../utils/component/animatedClosable';
+// import animatedClosable from '../utils/component/animatedClosable';
 
 export interface IDialogInnerElProps {
   prefix?: string;
   title?: React.ReactNode;
-  onClose?: (e: any) => void;
+  onClose?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
   closeBtn?: boolean;
   style?: React.CSSProperties;
@@ -19,7 +19,7 @@ export interface IDialogInnerElProps {
   } | null;
 }
 
-class DialogInnerEl extends Component<IDialogInnerElProps> {
+export class DialogInnerEl extends Component<IDialogInnerElProps> {
   dialogEl: HTMLDivElement | null = null;
 
   componentDidMount() {
@@ -70,7 +70,7 @@ class DialogInnerEl extends Component<IDialogInnerElProps> {
   }
 
   render() {
-    let {
+    const {
       onClose,
       className,
       prefix,
@@ -80,18 +80,18 @@ class DialogInnerEl extends Component<IDialogInnerElProps> {
       children,
     } = this.props;
 
-    let Header = this.renderHeader();
+    const Header = this.renderHeader();
 
     const closeBtnCls = cx(`${prefix}-dialog-r-close`, {
       [`${prefix}-dialog-r-has-title`]: !!Header,
     });
-    let Closer = closeBtn && (
+    const Closer = closeBtn && (
       <button type="button" className={closeBtnCls} onClick={onClose}>
         ×
       </button>
     );
 
-    let Footer = footer && (
+    const Footer = footer && (
       <div className={`${prefix}-dialog-r-footer`}>{footer}</div>
     );
 
@@ -116,10 +116,10 @@ export interface IDialogElWrapper {
   maskClosable?: boolean;
   visible?: boolean;
   closing?: boolean;
-  onClose(e: any): void;
+  onClose(e: React.MouseEvent<HTMLDivElement>): void;
 }
 
-class DialogElWrapper extends Component<IDialogElWrapper> {
+export class DialogElWrapper extends Component<IDialogElWrapper> {
   rootRef = createRef<HTMLDivElement>();
 
   componentDidMount() {
@@ -135,7 +135,7 @@ class DialogElWrapper extends Component<IDialogElWrapper> {
     }
   }
 
-  onMaskClick = e => {
+  onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (
       e.target === e.currentTarget &&
       this.props.mask &&
@@ -146,11 +146,11 @@ class DialogElWrapper extends Component<IDialogElWrapper> {
   };
 
   render() {
-    let { prefix, mask, visible, closing, children } = this.props;
+    let { prefix, mask, visible, children } = this.props;
 
     return (
       <div ref={this.rootRef} tabIndex={-1} className={`${prefix}-dialog-r-root`}>
-        {visible && !closing && mask && (
+        {visible && mask && (
           <div className={`${prefix}-dialog-r-backdrop`} />
         )}
         <div className={`${prefix}-dialog-r-wrap`} onClick={this.onMaskClick}>
@@ -161,29 +161,38 @@ class DialogElWrapper extends Component<IDialogElWrapper> {
   }
 }
 
-// Make DialogWrapper a animated closable wrapper,
-// so that its children have css transition classes during closing
-// and the wrapper itself unmount after a timeout.
-const AnimatedClosableDialogElWrapper: React.ComponentType<
-  any
-> = animatedClosable(DialogElWrapper);
+// // Make DialogWrapper a animated closable wrapper,
+// // so that its children have css transition classes during closing
+// // and the wrapper itself unmount after a timeout.
+// const AnimatedClosableDialogElWrapper: React.ComponentType<
+//   any
+// > = animatedClosable(DialogElWrapper);
 
 // Compose all dialog components
-export default class DialogEl extends Component<any> {
-  render() {
-    const { prefix, visible, origin, refClose, timeout } = this.props;
+// export default class DialogEl extends Component<any> {
+//   render() {
+//     const { prefix, visible, origin, refClose, timeout } = this.props;
 
-    return (
-      <AnimatedClosableDialogElWrapper
-        animationClassName={`${prefix}-zoom`}
-        timout={timeout || 300}
-        {...this.props}
-        refClose={refClose}
-        origin={origin}
-        open={visible}
-      >
-        <DialogInnerEl {...this.props} />
-      </AnimatedClosableDialogElWrapper>
-    );
-  }
-}
+//     return (
+//       <AnimatedClosableDialogElWrapper
+//         animationClassName={`${prefix}-zoom`}
+//         timout={timeout || 300}
+//         {...this.props}
+//         refClose={refClose}
+//         origin={origin}
+//         open={visible}
+//       >
+//         <DialogInnerEl {...this.props} />
+//       </AnimatedClosableDialogElWrapper>
+//     );
+//   }
+// }
+
+// export default function DialogEl(props: any) {
+//   console.log(props.className)
+//   return (
+//     <DialogElWrapper {...props}>
+//       <DialogInnerEl {...props} />
+//     </DialogElWrapper>
+//   )
+// }
