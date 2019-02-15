@@ -29,6 +29,7 @@
     "prismjs": "1.8.4",
     "prop-types": "^15.6.0",
     "react": "16.8.x",
+    "react-beautiful-dnd": "^10.0.4",
     "react-dom": "16.8.x",
     "react-loadable": "^5.3.0",
     "react-router-dom": "^4.1.1",
