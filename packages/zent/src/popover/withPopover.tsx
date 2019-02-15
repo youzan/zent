@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Assign } from 'utility-types';
+import { Omit } from 'utility-types';
 
 import PopoverContext, { IPopoverContext } from './PopoverContext';
 import Popover from './Popover';
@@ -30,6 +30,6 @@ export function exposePopover<N extends string>(propName: N) {
   };
 }
 
-export default exposePopover('popover') as <T extends {}>(
-  Comp: React.ComponentType<T & { popover: Popover }>
-) => React.ComponentType<T>;
+export default exposePopover('popover') as <T extends { popover: Popover }>(
+  Comp: React.ComponentType<T>
+) => React.ComponentType<Omit<T, 'popover'>>;
