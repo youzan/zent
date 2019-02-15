@@ -20,7 +20,8 @@
     "<rootDir>/__tests__/form/CreateForm-Field.js",
     "<rootDir>/__tests__/form/CreateForm-FieldArray.js",
     "<rootDir>/__tests__/form/GetControlGroup-Component_Fields.js",
-    "<rootDir>/__tests__/portal/.+"
+    "<rootDir>/__tests__/portal/.+",
+    "<rootDir>/__tests__/loading.js"
   ],
   "coveragePathIgnorePatterns": [
     "<rootDir>/src/slider/common.js",
@@ -45,7 +46,8 @@
     "<rootDir>/src/datetimepicker",
     "<rootDir>/src/layout",
     "<rootDir>/src/form/.+",
-    "<rootDir>/src/portal/.+"
+    "<rootDir>/src/portal/.+",
+    "<rootDir>/src/loading/.+"
   ],
   "moduleNameMapper": {
     "^affix$": "<rootDir>/src/affix",

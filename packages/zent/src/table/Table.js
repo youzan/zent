@@ -449,7 +449,7 @@ export default class Table extends PureComponent {
       <Receiver componentName="Table">
         {i18n => (
           <div className={`${prefix}-table-container`}>
-            <Loading show={this.props.loading} static>
+            <Loading.Block loading={this.props.loading}>
               {columns && (
                 <div className={`${prefix}-table ${className}`}>
                   {this.state.placeHolderHeight && (
@@ -512,7 +512,7 @@ export default class Table extends PureComponent {
                   />
                 </div>
               )}
-            </Loading>
+            </Loading.Block>
           </div>
         )}
       </Receiver>

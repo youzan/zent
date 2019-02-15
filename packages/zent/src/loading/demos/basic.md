@@ -9,5 +9,5 @@ en-US:
 ```js
 import { Loading } from 'zent';
 
-ReactDOM.render(<Loading show />, mountNode);
+ReactDOM.render(<Loading.Block loading />, mountNode);
 ```

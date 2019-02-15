@@ -6,21 +6,45 @@ group: Feedback
 
 ## Loading
 
-Loading is used for indicate loading state of section.
+`Loading` is used to indicate loading state.
 
 ### Guides
 
--  You can use this component to reduce users' anxiety when the page is rendering or some data is loaded asynchronously.
+- You can use this component to reduce users' anxiety when the page is rendering or data is loading asynchronously.
 
 ### API
 
-| Props          | Description                          | Type     | Default |
-| -------------- | ---------------------------------------- | ------ | -------- |
-| show           | Show loading                    | bool   | `false`  |
-| showDelay      | Show delay in milliseconds     | number | 0 |
-| float          | Remove from the normal document flow     | bool   | `false`   |
-| height         | Available only when `float` is `false` | number | `160`    |
-| zIndex         | `z-index` of loading            | number | `9998`   |
-| className      | Custom classname                           | string | `''`     |
-| containerClass | Custom classname of loading container      | string | `''`     |
-| prefix         | Custom prefix                            | string | `'zent'` |
+`Loading` has 3 different types: `Loading.Block`, `Loading.Inline` and `Loading.FullScreen`. Most of the props are shared between these types, but each type may have its own set of props.
+
+#### Common props
+
+| Property     | Description                          | Type   | Required | Default    | Alternative                      |
+| ------------ | ------------------------------------ | ------ | -------- | ---------- | -------------------------------- |
+| loading      | Loading state                        | bool   | No       | `false`    | `true`                           |
+| delay        | Milliseconds to delay before loading | number | No       | `0`        |                                  |
+| icon         | Icon type                            | string | No       | `'youzan'` | `'circle'`                       |
+| iconSize     | Icon size                            | number | No       |            |                                  |
+| iconText     | Icon text                            | string | No       |            |                                  |
+| textPosition | Text position relative to icon       | string | No       | `'bottom'` | `'top'` \| `'left'` \| `'right'` |
+| className    | Custom class                         | string | No       |            |                                  |
+
+#### Loading.Block
+
+Block level `Loading`, content can be wrapped or a default height will be used. Used for loading a page section.
+
+| Property | Description                                                       | Type   | Required | Default | Alternative |
+| -------- | ----------------------------------------------------------------- | ------ | -------- | ------- | ----------- |
+| height   | Uses content height if wrapping content, or uses a default height | number | No       | `160`   |             |
+| children | Wrapped content                                                   | node   | No       |         |             |
+
+#### Loading.Inline
+
+Inline `Loading`, can't wrap content.
+
+#### Loading.FullScreen
+
+Full screen `Loading`, can't wrap content. Used for page loading.
+
+| Property | Description  | Type   | Required | Default | Alternative |
+| -------- | ------------ | ------ | -------- | ------- | ----------- |
+| zIndex   | Mask z-index | number | No       |         |             |

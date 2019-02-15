@@ -1,10 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import isUndefined from 'lodash/isUndefined';
+
 import { getNodeFromSelector } from './util';
 
 /*
   Provides an HOC component for ensuring container is non-scrollable during component
   lifecycle.
+
+  PurePortal has no `visible` prop.
 */
 export default function withNonScrollable(Portal) {
   let portalVisibleCount = 0;
@@ -40,13 +44,17 @@ export default function withNonScrollable(Portal) {
     }
 
     componentDidMount() {
-      if (this.props.visible) {
+      const { visible } = this.props;
+
+      if (isUndefined(visible) || visible) {
         this.saveStyle();
       }
     }
 
     componentWillUnmount() {
-      if (this.props.visible) {
+      const { visible } = this.props;
+
+      if (isUndefined(visible) || visible) {
         this.restoreStyle();
       }
     }

@@ -7,7 +7,7 @@ zh-CN:
 en-US:
 	title: Global Mode
 	open: Open
-	close: Global Close
+	close: Close
 ---
 
 ```js
@@ -30,7 +30,7 @@ class Example extends React.Component {
 				>
 					{i18n.close}
 				</Button>
-				<Loading float show={this.state.on} />
+				<Loading.FullScreen loading={this.state.on} />
 			</div>
 		);
 	}

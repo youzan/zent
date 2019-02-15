@@ -21,83 +21,87 @@ en-US:
 ```js
 import { Table } from 'zent';
 
-const datasets = [{
-  item_id: '5024217',
-  bro_uvpv: '0/0',
-  stock_num: '60',
-  sold_num: 0,
-}, {
-  item_id: '5024277',
-  bro_uvpv: '0/0',
-  stock_num: 59,
-  sold_num: 0,
-}, {
-  item_id: '13213123',
-  bro_uvpv: '0/0',
-  stock_num: 159,
-  sold_num: 0,
-}];
+const datasets = [
+	{
+		item_id: '5024217',
+		bro_uvpv: '0/0',
+		stock_num: '60',
+		sold_num: 0,
+	},
+	{
+		item_id: '5024277',
+		bro_uvpv: '0/0',
+		stock_num: 59,
+		sold_num: 0,
+	},
+	{
+		item_id: '13213123',
+		bro_uvpv: '0/0',
+		stock_num: 159,
+		sold_num: 0,
+	},
+];
 
-const columns = [{
-  title: '{i18n.product}',
-  bodyRender: (data) => {
-    return (
-      <div>{data.item_id}</div>
-    );
-  }
-}, {
-  title: '{i18n.uv}',
-  name: 'bro_uvpv',
-  width: '200px'
-}, {
-  title: '{i18n.stock}',
-  name: 'stock_num',
-  width: '100px',
-  textAlign: 'center',
-  isMoney: true
-}, {
-  width: '6em',
-  title: '{i18n.sold_num}',
-  name: 'sold_num'
-}];
+const columns = [
+	{
+		title: '{i18n.product}',
+		bodyRender: data => {
+			return <div>{data.item_id}</div>;
+		},
+	},
+	{
+		title: '{i18n.uv}',
+		name: 'bro_uvpv',
+		width: '200px',
+	},
+	{
+		title: '{i18n.stock}',
+		name: 'stock_num',
+		width: '100px',
+		textAlign: 'center',
+		isMoney: true,
+	},
+	{
+		width: '6em',
+		title: '{i18n.sold_num}',
+		name: 'sold_num',
+	},
+];
 
-class Loading extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true
-    };
-  }
+class Demo extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			loading: true,
+		};
+	}
 
-  // 用定时器模拟loading
-  componentWillMount() {
-    let self = this;
-    setTimeout(() => {
-      self.setState({
-        loading: false
-      });
-    }, 3000);
-  }
+	// 用定时器模拟loading
+	componentWillMount() {
+		let self = this;
+		setTimeout(() => {
+			self.setState({
+				loading: false,
+			});
+		}, 3000);
+	}
 
-  onChange(conf) {
-    this.setState(conf);
-  }
+	onChange(conf) {
+		this.setState(conf);
+	}
 
-  render() {
-    return (
-      <Table
-        columns={columns}
-        datasets={datasets}
-        onChange={this.onChange.bind(this)}
-        loading={this.state.loading}
-        rowKey="item_id"
-      />
-    );
-  }
+	render() {
+		return (
+			<Table
+				columns={columns}
+				datasets={datasets}
+				onChange={this.onChange.bind(this)}
+				loading={this.state.loading}
+				rowKey="item_id"
+			/>
+		);
+	}
 }
 
-ReactDOM.render(
-	<Loading />,
-	mountNode
-);
+ReactDOM.render(<Demo />, mountNode);
 ```

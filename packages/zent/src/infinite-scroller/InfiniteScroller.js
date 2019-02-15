@@ -23,7 +23,7 @@ export default class InfiniteScroller extends PureComponent {
     initialLoad: true,
     useWindow: true,
     useCapture: false,
-    loader: <Loading height={60} show />,
+    loader: <Loading.Block height={60} loading />,
   };
 
   state = {

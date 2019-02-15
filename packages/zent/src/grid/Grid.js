@@ -788,7 +788,7 @@ class Grid extends PureComponent {
 
           return (
             <div className={className} ref={node => (this.tableNode = node)}>
-              <Loading show={loading}>
+              <Loading.Block loading={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
                   <div className={`${prefix}-grid-fixed-left`}>
@@ -800,7 +800,7 @@ class Grid extends PureComponent {
                     {this.getRightFixedTable()}
                   </div>
                 )}
-              </Loading>
+              </Loading.Block>
               <WindowResizeHandler onResize={this.onResize} />
             </div>
           );
