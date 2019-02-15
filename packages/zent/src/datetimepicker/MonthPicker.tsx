@@ -73,7 +73,7 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
   retType = 'string';
   picker?: HTMLDivElement | null = null;
 
-  constructor(props) {
+  constructor(props: IMonthPickerProps) {
     super(props);
     this.state = extractStateFromProps(props);
     const { value, valueType } = props;
@@ -185,7 +185,7 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
         small: isFooterVisble,
       });
       monthPicker = (
-        <div className={monthPickerCls} ref={ref => (this.picker = ref)}>
+        <div className={monthPickerCls}>
           <MonthPanel
             actived={actived}
             selected={selected}

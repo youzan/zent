@@ -69,6 +69,8 @@ export interface IWeekPickerProps
   startDay?: number;
   onBeforeClear?: () => boolean;
   onClick?: (val: [Date?, Date?], type?: DatePickers.RangeType) => void;
+  isFooterVisible?: boolean;
+  showTime?: boolean;
 }
 
 export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
@@ -85,11 +87,10 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
 
   retType = 'string';
   isfooterShow: boolean;
-  picker: HTMLDivElement | null = null;
 
-  constructor(props) {
+  constructor(props: IWeekPickerProps) {
     super(props);
-    const { value, valueType, showTime, isFooterVisble } = props;
+    const { value, valueType, showTime, isFooterVisible } = props;
 
     if (valueType) {
       this.retType = valueType.toLowerCase();
@@ -100,7 +101,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
 
     this.state = this.extractStateFromProps(props);
     // 没有footer的逻辑
-    this.isfooterShow = showTime || isFooterVisble;
+    this.isfooterShow = showTime || isFooterVisible;
   }
 
   extractStateFromProps(props) {
@@ -309,7 +310,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
       });
 
       weekPicker = (
-        <div className={weekPickerCls} ref={ref => (this.picker = ref)}>
+        <div className={weekPickerCls}>
           <div onMouseOut={this.onMouseOut}>
             <DatePanel
               range={range}

@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
+import { PureComponent, createRef } from 'react';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-// import assign from 'lodash/assign';
 
 import Input from '../input';
 import Popover from '../popover';
@@ -88,6 +87,7 @@ function extractStateFromProps(props: IDatePickerProps) {
 }
 
 export interface IDatePickerProps extends DatePickers.ICommonProps {
+  isFooterVisible?: boolean;
   showTime?: boolean;
   disabledTime?: () => DatePickers.IDisabledTime;
   onBeforeConfirm?: () => boolean;
@@ -117,13 +117,12 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
   static formatDate = formatDate;
 
   isfooterShow: boolean;
-  picker: HTMLDivElement | null = null;
 
   retType = 'string';
 
-  constructor(props) {
+  constructor(props: IDatePickerProps) {
     super(props);
-    const { isFooterVisble, showTime, value, valueType } = props;
+    const { isFooterVisible, showTime, value, valueType } = props;
     /**
      * 如果没有有明确指定 valueType，则返回和 value 一致的值，数字或日期或字符串
      */
@@ -136,7 +135,7 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
 
     this.state = extractStateFromProps(props);
     // 没有footer的逻辑
-    this.isfooterShow = showTime || isFooterVisble;
+    this.isfooterShow = showTime || isFooterVisible;
   }
 
   componentWillReceiveProps(next) {
@@ -324,7 +323,7 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
       });
 
       datePicker = (
-        <div className={datePickerCls} ref={ref => (this.picker = ref)}>
+        <div className={datePickerCls}>
           <DatePanel
             showTime={showTime}
             actived={actived}

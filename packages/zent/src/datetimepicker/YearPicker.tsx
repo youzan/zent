@@ -81,7 +81,7 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
 
   picker: HTMLDivElement | null = null;
 
-  constructor(props) {
+  constructor(props: IYearPickerProps) {
     super(props);
     this.state = extractStateFromProps(props);
   }
