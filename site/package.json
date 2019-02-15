@@ -2,6 +2,7 @@
   "name": "zent-docs",
   "version": "0.0.1",
   "description": "doc site generator for zent",
+  "private": true,
   "keywords": [
     "docs",
     "react",
