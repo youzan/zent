@@ -12,7 +12,7 @@ const withPopover = Popover.withPopover;
 export interface IMenuContentProps {
   prefix?: string;
   className?: string;
-  clickHandler: CascaderHandler,
+  clickHandler: CascaderHandler;
   value: CascaderValue[];
   options: ICascaderItem[];
   isLoading?: boolean;
@@ -131,4 +131,6 @@ class MenuContent extends PureComponent<IMenuContentProps> {
   }
 }
 
-export default withPopover(MenuContent as any) as typeof MenuContent;
+export default withPopover(MenuContent as React.ComponentType<
+  IMenuContentProps
+>);
