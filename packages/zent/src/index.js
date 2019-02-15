@@ -16,7 +16,6 @@ import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
-import Design from 'design';
 import Dialog from 'dialog';
 import ErrorBoundary from 'error-boundary';
 import Form from 'form';
@@ -84,7 +83,6 @@ export {
   DatePicker,
   DateRangePicker,
   DateRangeQuickPicker,
-  Design,
   Dialog,
   ErrorBoundary,
   Form,
