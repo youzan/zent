@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { Component } from 'react';
 import * as PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 
 import Portal, { IPortalProps } from '../portal';
-import animatedClosable from '../utils/component/animatedClosable';
 import isBrowser from '../utils/isBrowser';
-import DialogEl from './DialogEl';
+import { DialogElWrapper, DialogInnerEl } from './DialogEl';
 import { openDialog, closeDialog } from './open';
 
 const { withNonScrollable, withESCToClose } = Portal;
 const DialogPortal = withNonScrollable(Portal as React.ComponentType<
   IPortalProps
 >);
-const DialogPortalESCToClose = animatedClosable(withESCToClose(DialogPortal));
+const DialogPortalESCToClose = withESCToClose(DialogPortal);
 
 const TIMEOUT = 300; // ms
 
@@ -34,15 +34,22 @@ export interface IDialogProps {
   footer?: React.ReactNode;
   visible?: boolean;
   closeBtn?: boolean;
-  onClose?: (e: any) => void;
+  onClose?: (e: KeyboardEvent | React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>) => void;
   mask?: boolean;
   maskClosable?: boolean;
   className?: string;
   prefix?: string;
   style?: React.CSSProperties;
+  onOpened?: () => void;
+  onClosed?: () => void;
 }
 
-export class Dialog extends Component<IDialogProps> {
+export interface IDialogState {
+  prevOpen: boolean;
+  exiting: boolean;
+}
+
+export class Dialog extends Component<IDialogProps, IDialogState> {
   static propTypes = {
     prefix: PropTypes.string,
     onClose: PropTypes.func,
@@ -74,12 +81,60 @@ export class Dialog extends Component<IDialogProps> {
 
   lastMousePosition = null;
 
-  onClose = e => {
-    this.props.onClose && this.props.onClose(e);
+  constructor(props: IDialogProps) {
+    super(props);
+    this.state = {
+      prevOpen: props.visible,
+      exiting: false,
+    };
+  }
+
+  onClose = (e: KeyboardEvent | React.MouseEvent<HTMLDivElement>) => {
+    const { onClose } = this.props;
+    onClose && onClose(e);
   };
 
+  onExited = () => {
+    const { onClosed } = this.props;
+    this.setState({
+      exiting: false,
+    });
+    onClosed && onClosed();
+  };
+
+  static getDerivedStateFromProps(
+    props: IDialogProps,
+    { prevOpen }: IDialogState
+  ): Partial<IDialogState> | null {
+    if (props.visible === prevOpen) {
+      return null;
+    }
+    if (props.visible) {
+      return {
+        prevOpen: props.visible,
+        exiting: false,
+      };
+    }
+    return {
+      prevOpen: props.visible,
+      exiting: true,
+    };
+  }
+
   render() {
-    const { visible, prefix, closeBtn, style } = this.props;
+    const {
+      visible,
+      prefix,
+      closeBtn,
+      style,
+      onOpened,
+      onClosed,
+      mask,
+      maskClosable,
+      children,
+      ...props
+    } = this.props;
+    const { exiting } = this.state;
 
     // load default max/min-width value when width is not specified in style prop
     const elStyle = {
@@ -94,29 +149,42 @@ export class Dialog extends Component<IDialogProps> {
     }
 
     // 有关闭按钮的时候同时具有ESC关闭的行为
-    const PortalComponent: React.ComponentType<any> = closeBtn
-      ? DialogPortalESCToClose
-      : DialogPortal;
+    const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
 
     return (
-      // Here use animatedClosable to unmount content after a timeout.
-      // Yet do not refClose here, call refClose in DialogEl instead.
       <PortalComponent
-        open={visible}
-        visible={visible}
+        visible={visible || exiting}
         onClose={this.onClose}
         className={`${prefix}-dialog-r-anchor`}
-        timeout={TIMEOUT} // animation timeout
       >
-        <DialogEl
-          {...this.props}
+        <DialogElWrapper
+          prefix={prefix}
+          mask={mask}
+          maskClosable={maskClosable}
+          visible={visible}
           onClose={this.onClose}
-          style={elStyle}
-          timeout={TIMEOUT}
-          mousePosition={this.lastMousePosition}
         >
-          {this.props.children}
-        </DialogEl>
+          <CSSTransition
+            appear
+            mountOnEnter
+            unmountOnExit
+            in={visible}
+            timeout={TIMEOUT}
+            classNames={`${prefix}-zoom`}
+            onEntered={onOpened}
+            onExited={this.onExited}
+          >
+            <DialogInnerEl
+              {...props}
+              prefix={prefix}
+              style={elStyle}
+              closeBtn={closeBtn}
+              mousePosition={this.lastMousePosition}
+            >
+              {children}
+            </DialogInnerEl>
+          </CSSTransition>
+        </DialogElWrapper>
       </PortalComponent>
     );
   }
