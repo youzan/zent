@@ -32,7 +32,7 @@ export interface ICascaderProps {
   type?: 'tabs' | 'menu';
   value?: CascaderValue[];
   options?: ICascaderItem[];
-  title?: React.ReactNode;
+  title?: React.ReactNode[];
   onChange?: (value: ICascaderItem[]) => void;
   loadMore?: (item: ICascaderItem, stage: number) => Promise<ICascaderItem[]>;
   changeOnSelect?: boolean;
@@ -96,8 +96,6 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       open: false,
     };
   }
-
-  cascader: any | null = null;
 
   componentWillMount() {
     this.resetCascaderValue(null, null, false);
@@ -259,7 +257,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   getPopoverContent(i18n) {
     const { type, prefix, title, options, expandTrigger } = this.props;
     let { activeId, value, isLoading, loadingStage } = this.state;
-    let PopoverContentType: React.ComponentType<any>;
+    let PopoverContentType: typeof TabsPopoverContent | typeof MenuPopoverContent | null = null;
     if (type === 'tabs') {
       PopoverContentType = TabsPopoverContent;
     } else if (type === 'menu') {
@@ -285,7 +283,6 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
           recursiveNextOptions={this.recursiveNextOptions}
           options={options}
           expandTrigger={expandTrigger}
-          ref={ref => (this.cascader = ref)}
         />
       </PopoverContent>
     );
