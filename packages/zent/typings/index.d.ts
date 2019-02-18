@@ -19,7 +19,6 @@
 /// <reference path="./libs/CopyButton.d.ts" />
 /// <reference path="./libs/DateRangeQuickPicker.d.ts" />
 /// <reference path="./libs/DateTimePicker.d.ts" />
-/// <reference path="./libs/Design.d.ts" />
 /// <reference path="./libs/Dialog.d.ts" />
 /// <reference path="./libs/ErrorBoundary.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
@@ -44,7 +43,6 @@
 /// <reference path="./libs/Rate.d.ts" />
 /// <reference path="./libs/SearchInput.d.ts" />
 /// <reference path="./libs/Select.d.ts" />
-/// <reference path="./libs/SKU.d.ts" />
 /// <reference path="./libs/Slider.d.ts" />
 /// <reference path="./libs/Sortable.d.ts" />
 /// <reference path="./libs/SplitButton.d.ts" />
@@ -78,7 +76,6 @@ declare module 'zent' {
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
   import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangePicker from 'zent/lib/datetimepicker/DateRangePicker';
-  import Design from 'zent/lib/design';
   import Dialog from 'zent/lib/dialog';
   import ErrorBoundary from 'zent/lib/error-boundary';
   import Form from 'zent/lib/form';
@@ -105,7 +102,6 @@ declare module 'zent' {
   import Rate from 'zent/lib/rate';
   import SearchInput from 'zent/lib/search-input';
   import Select from 'zent/lib/select';
-  import SKU from 'zent/lib/sku';
   import Slider from 'zent/lib/slider';
   import Sortable from 'zent/lib/sortable';
   import SplitButton from 'zent/lib/split-button';
@@ -142,7 +138,6 @@ declare module 'zent' {
     DatePicker,
     DateRangePicker,
     DateRangeQuickPicker,
-    Design,
     Dialog,
     ErrorBoundary,
     Form,
@@ -169,7 +164,6 @@ declare module 'zent' {
     Rate,
     SearchInput,
     Select,
-    SKU,
     Slider,
     Sortable,
     SplitButton,

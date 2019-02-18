@@ -44,7 +44,6 @@ import Rate from 'rate';
 import SearchInput from 'search-input';
 import Select from 'select';
 import SelectMenu from 'select-menu'; // eslint-disable-line
-import SKU from 'sku';
 import Slider from 'slider';
 import Sortable from 'sortable';
 import SplitButton from 'split-button';
@@ -110,7 +109,6 @@ export {
   Rate,
   SearchInput,
   Select,
-  SKU,
   Slider,
   Sortable,
   SplitButton,
