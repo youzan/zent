@@ -2,8 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 
 import { InlinePropTypes, InlineDefaultProps } from './props';
-import useDelayed from '../hooks/useDelayed';
-import Icon from '../icons';
+import useDelayed from './hooks/useDelayed';
+import Icon from './components/icons';
 
 function InlineLoading(props) {
   const {

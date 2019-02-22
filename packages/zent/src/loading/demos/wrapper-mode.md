@@ -7,7 +7,7 @@ en-US:
 ---
 
 ```js
-import { Loading, Switch } from 'zent';
+import { BlockLoading, Switch } from 'zent';
 
 class Wrapper extends React.Component {
 	state = { loading: false };
@@ -21,9 +21,9 @@ class Wrapper extends React.Component {
 
 		return (
 			<div>
-				<Loading.Block loading={loading}>
+				<BlockLoading loading={loading}>
 					<div className="zent-loading-example-hello-world">Hello World</div>
-				</Loading.Block>
+				</BlockLoading>
 				<Switch
 					className="zent-loading-example-switch"
 					checked={loading}

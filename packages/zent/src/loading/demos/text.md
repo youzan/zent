@@ -9,12 +9,12 @@ en-US:
 ---
 
 ```js
-import { Loading } from 'zent';
+import { BlockLoading } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Loading.Block loading iconSize={64} iconText="{i18n.text}" />
-		<Loading.Block loading icon="circle" iconSize={64} iconText="{i18n.text}" />
+		<BlockLoading loading iconSize={64} iconText="{i18n.text}" />
+		<BlockLoading loading icon="circle" iconSize={64} iconText="{i18n.text}" />
 	</div>,
 	mountNode
 );

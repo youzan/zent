@@ -3,8 +3,8 @@ import has from 'lodash/has';
 import cx from 'classnames';
 
 import { BlockPropTypes, BlockDefaultProps } from './props';
-import LoadingMask from '../LoadingMask';
-import useDelayed from '../hooks/useDelayed';
+import LoadingMask from './components/LoadingMask';
+import useDelayed from './hooks/useDelayed';
 
 function BlockLoading(props) {
   const height = getHeight(props);

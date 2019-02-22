@@ -9,20 +9,20 @@ en-US:
 ---
 
 ```js
-import { Loading } from 'zent';
+import { InlineLoading } from 'zent';
 
 ReactDOM.render(
 	<div className="zent-loading-demo-inline-container">
-		<Loading.Inline loading />
-		<Loading.Inline loading iconText="{i18n.loading}" />
-		<Loading.Inline loading iconText="{i18n.loading}" textPosition="top" />
-		<Loading.Inline
+		<InlineLoading loading />
+		<InlineLoading loading iconText="{i18n.loading}" />
+		<InlineLoading loading iconText="{i18n.loading}" textPosition="top" />
+		<InlineLoading
 			loading
 			icon="circle"
 			iconText="{i18n.loading}"
 			textPosition="left"
 		/>
-		<Loading.Inline
+		<InlineLoading
 			loading
 			icon="circle"
 			iconText="{i18n.loading}"

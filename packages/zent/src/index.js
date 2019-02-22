@@ -4,6 +4,7 @@ import AutoComplete from 'auto-complete';
 import Avatar from 'avatar';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
+import BlockLoading from 'loading/BlockLoading';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Card from 'card';
@@ -19,13 +20,14 @@ import DateRangeQuickPicker from 'date-range-quick-picker';
 import Dialog from 'dialog';
 import ErrorBoundary from 'error-boundary';
 import Form from 'form';
+import FullScreenLoading from 'loading/FullScreenLoading';
 import Grid from 'grid';
 import I18nProvider from 'i18n';
 import Icon from 'icon';
 import InfiniteScroller from 'infinite-scroller';
+import InlineLoading from 'loading/InlineLoading';
 import Input from 'input';
 import Layout from 'layout';
-import Loading from 'loading';
 import Mention from 'mention';
 import Menu from 'menu';
 import MonthPicker from 'datetimepicker/MonthPicker';
@@ -70,6 +72,7 @@ export {
   Avatar,
   Badge,
   BlockHeader,
+  BlockLoading,
   Breadcrumb,
   Button,
   Card,
@@ -85,13 +88,14 @@ export {
   Dialog,
   ErrorBoundary,
   Form,
+  FullScreenLoading,
   Grid,
   I18nProvider,
   Icon,
   InfiniteScroller,
+  InlineLoading,
   Input,
   Layout,
-  Loading,
   Mention,
   Menu,
   MonthPicker,

@@ -7,7 +7,7 @@ en-US:
 ---
 
 ```js
-import { Loading } from 'zent';
+import { BlockLoading } from 'zent';
 
-ReactDOM.render(<Loading.Block loading />, mountNode);
+ReactDOM.render(<BlockLoading loading />, mountNode);
 ```

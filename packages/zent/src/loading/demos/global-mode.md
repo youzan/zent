@@ -11,26 +11,32 @@ en-US:
 ---
 
 ```js
-import { Loading, Button } from 'zent';
+import { FullScreenLoading, Button } from 'zent';
 
 class Example extends React.Component {
 	state = {
-		on: false
+		on: false,
 	};
 
 	render() {
 		return (
 			<div>
-				<Button onClick={() => { this.setState({ on: true }) }}>
+				<Button
+					onClick={() => {
+						this.setState({ on: true });
+					}}
+				>
 					{i18n.open}
 				</Button>
 				<Button
-					onClick={() => { this.setState({ on: false }) }}
+					onClick={() => {
+						this.setState({ on: false });
+					}}
 					style={{ zIndex: 9999, position: 'relative' }}
 				>
 					{i18n.close}
 				</Button>
-				<Loading.FullScreen loading={this.state.on} />
+				<FullScreenLoading loading={this.state.on} />
 			</div>
 		);
 	}

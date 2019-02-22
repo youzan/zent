@@ -4,9 +4,9 @@ import PurePortal from 'portal/PurePortal';
 import withNonScrollable from 'portal/withNonScrollable';
 import isUndefined from 'lodash/isUndefined';
 
-import useDelayed from '../hooks/useDelayed';
+import useDelayed from './hooks/useDelayed';
 import { FullScreenPropTypes, FullScreenDefaultProps } from './props';
-import LoadingMask from '../LoadingMask';
+import LoadingMask from './components/LoadingMask';
 
 const NO_STYLE = {};
 

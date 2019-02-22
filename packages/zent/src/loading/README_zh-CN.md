@@ -15,7 +15,7 @@ group: 反馈
 
 ### API
 
-`Loading` 有 3 种类型：`Loading.Block`, `Loading.Inline` 以及 `Loading.FullScreen`。
+`Loading` 有 3 种类型：`BlockLoading`, `InlineLoading` 以及 `FullScreenLoading`。
 3 种类型共享大部分参数，每种类型可能有独有的参数。
 
 #### 通用的参数
@@ -30,7 +30,7 @@ group: 反馈
 | textPosition | 文案相对图标的位置   | string | 否       | `'bottom'` | `'top'` \| `'left'` \| `'right'` |
 | className    | 自定义额外类名       | string | 否       |            |                                  |
 
-#### Loading.Block
+#### BlockLoading
 
 块级 `Loading`，可以包裹内容，或者给定一个高度。常用于页面区块的加载。
 
@@ -39,11 +39,11 @@ group: 反馈
 | height   | 如果包裹了组件，默认表现为组件高度；否则将使用默认高度 | number | `160`    |        |        |
 | children | 包裹的内容                                             | node   | 否       |        |        |
 
-#### Loading.Inline
+#### InlineLoading
 
 内联 `Loading`，不能包裹内容，行内显示。
 
-#### Loading.FullScreen
+#### FullScreenLoading
 
 全屏 `Loading`，不能包裹内容，全屏显示。用于页面级的加载。
 

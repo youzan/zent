@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Loading from 'loading';
+import BlockLoading from 'loading/BlockLoading';
 import classnames from 'classnames';
 import has from 'lodash/has';
 import get from 'lodash/get';
@@ -788,7 +788,7 @@ class Grid extends PureComponent {
 
           return (
             <div className={className} ref={node => (this.tableNode = node)}>
-              <Loading.Block loading={loading}>
+              <BlockLoading loading={loading}>
                 {scrollTable}
                 {this.isAnyColumnsLeftFixed() && (
                   <div className={`${prefix}-grid-fixed-left`}>
@@ -800,7 +800,7 @@ class Grid extends PureComponent {
                     {this.getRightFixedTable()}
                   </div>
                 )}
-              </Loading.Block>
+              </BlockLoading>
               <WindowResizeHandler onResize={this.onResize} />
             </div>
           );

@@ -14,7 +14,7 @@ group: Feedback
 
 ### API
 
-`Loading` has 3 different types: `Loading.Block`, `Loading.Inline` and `Loading.FullScreen`. Most of the props are shared between these types, but each type may have its own set of props.
+`Loading` has 3 different types: `BlockLoading`, `InlineLoading` and `FullScreenLoading`. Most of the props are shared between these types, but each type may have its own set of props.
 
 #### Common props
 
@@ -28,7 +28,7 @@ group: Feedback
 | textPosition | Text position relative to icon       | string | No       | `'bottom'` | `'top'` \| `'left'` \| `'right'` |
 | className    | Custom class                         | string | No       |            |                                  |
 
-#### Loading.Block
+#### BlockLoading
 
 Block level `Loading`, content can be wrapped or a default height will be used. Used for loading a page section.
 
@@ -37,11 +37,11 @@ Block level `Loading`, content can be wrapped or a default height will be used. 
 | height   | Uses content height if wrapping content, or uses a default height | number | No       | `160`   |             |
 | children | Wrapped content                                                   | node   | No       |         |             |
 
-#### Loading.Inline
+#### InlineLoading
 
 Inline `Loading`, can't wrap content.
 
-#### Loading.FullScreen
+#### LoadingFullScreen
 
 Full screen `Loading`, can't wrap content. Used for page loading.
 
