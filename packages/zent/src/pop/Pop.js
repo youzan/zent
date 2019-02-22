@@ -86,7 +86,6 @@ class PopAction extends PureComponent {
               loading={cancelPending}
               disabled={confirmPending}
               size="small"
-              type="secondary"
               onClick={this.handleCancel}
             >
               {cancelText || i18n.cancel}

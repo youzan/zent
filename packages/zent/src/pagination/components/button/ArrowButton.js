@@ -43,7 +43,6 @@ export default class ArrowButton extends Component {
     return (
       <Button
         {...rest}
-        type={bordered ? 'secondary' : 'default'}
         className={cx('zent-pagination-arrow-button', {
           'zent-pagination-page-button--no-border': !bordered,
         })}
