@@ -90,6 +90,8 @@
 
     &:active,
     &-active {
+      background: transparent;
+
       .zent-pagination-arrow {
         stroke: $theme-primary-1;
       }

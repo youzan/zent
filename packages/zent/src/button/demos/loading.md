@@ -2,13 +2,11 @@
 order: 3
 zh-CN:
 	title: 正在加载的状态
-	secondary: 次级按钮
 	button1: 实心按钮
 	button2: 描边按钮
 	button3: 普通按钮
 en-US:
 	title: Loading
-	secondary: Secondary
 	button1: Filled
 	button2: Outline
 	button3: Normal
@@ -22,9 +20,6 @@ ReactDOM.render(
 		<div>
 			<Button loading type="primary">
 				{i18n.button1}
-			</Button>
-			<Button loading type="secondary">
-				{i18n.secondary}
 			</Button>
 			<Button loading type="danger">
 				{i18n.button1}
