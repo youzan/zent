@@ -15,10 +15,12 @@ describe('CreateForm and Field', () => {
   const returnedFunction = createForm();
   // const DivCreated = returnedFunction('div');
   const FormCreated = returnedFunction(Form);
-  const DivComponent = props => {
-    const passableProps = omit(props, unknownProps);
-    return <div {...passableProps} />;
-  };
+  class DivComponent extends React.Component {
+    render() {
+      const passableProps = omit(this.props, unknownProps);
+      return <div {...passableProps} />;
+    }
+  }
   const context = mount(
     <FormCreated>
       <Field name="bar" component={DivComponent} />

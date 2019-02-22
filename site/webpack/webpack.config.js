@@ -59,7 +59,8 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        exclude: /node_modules\/(?!transliteration\/)/,
+        // exclude: /node_modules\/(?!transliteration\/)/,
+        exclude: /node_modules/,
         use: 'happypack/loader?id=js',
       },
       {

@@ -64,7 +64,7 @@
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@babel/types": "^7.1.6",
-    "@types/react": "^16.7.6",
+    "@types/react": "^16.8.2",
     "autoprefixer": "^9.4.6",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.0.0",
@@ -93,8 +93,8 @@
     "lint-staged": "^8.0.5",
     "node-sass": "^4.11.0",
     "prettier": "^1.15.2",
-    "react": "16.7.x",
-    "react-dom": "16.7.x",
+    "react": "16.8.x",
+    "react-dom": "16.8.x",
     "sass-lint": "^1.12.1"
   }
 }

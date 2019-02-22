@@ -8,6 +8,12 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('CreatedForm and HandleSubmit', () => {
   const { Form, createForm, Field, InputField, SubmissionError } = ZentForm;
 
+  class Dummy extends React.Component {
+    render() {
+      return <div>12</div>;
+    }
+  }
+
   it('onSubmit of CreatedForm can be a function as a prop', () => {
     class SubmitProp extends React.Component {
       render() {
@@ -16,7 +22,7 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit}>
             <Field
               name="foo"
-              component={() => <div />}
+              component={Dummy}
               validations={{ required: true }}
               value="占位"
             >
@@ -77,6 +83,7 @@ describe('CreatedForm and HandleSubmit', () => {
       return 1;
     };
     const promiseSuccessMock = jest.fn();
+
     class SubmitFunc extends React.Component {
       render() {
         const { handleSubmit } = this.props;
@@ -84,7 +91,7 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submitFunc)}>
             <Field
               name="foo"
-              component={() => <div />}
+              component={Dummy}
               validations={{ required: true }}
               value="非空"
             >
@@ -128,7 +135,7 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submitFunc)}>
             <Field
               name="foo"
-              component={() => <div />}
+              component={Dummy}
               validations={{ required: true }}
               value="非空"
             >
@@ -185,7 +192,7 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submit)}>
             <Field
               name="foo"
-              component={() => <div />}
+              component={Dummy}
               validations={{ required: true }}
               value="占位"
             >
@@ -219,7 +226,7 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submit)}>
             <Field
               name="foo"
-              component={() => <div />}
+              component={Dummy}
               validations={{ required: true }}
               value="占位"
             >
@@ -252,7 +259,7 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submitMock)}>
             <Field
               name="foo"
-              component={() => <div />}
+              component={Dummy}
               validations={{ required: true }}
               value=""
             >

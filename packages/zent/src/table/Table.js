@@ -1,7 +1,7 @@
 /* eslint-disable no-lonely-if */
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
-import Loading from 'loading';
+import BlockLoading from 'loading/BlockLoading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
 
@@ -449,7 +449,7 @@ export default class Table extends PureComponent {
       <Receiver componentName="Table">
         {i18n => (
           <div className={`${prefix}-table-container`}>
-            <Loading show={this.props.loading} static>
+            <BlockLoading loading={this.props.loading}>
               {columns && (
                 <div className={`${prefix}-table ${className}`}>
                   {this.state.placeHolderHeight && (
@@ -512,7 +512,7 @@ export default class Table extends PureComponent {
                   />
                 </div>
               )}
-            </Loading>
+            </BlockLoading>
           </div>
         )}
       </Receiver>
