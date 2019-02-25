@@ -25,7 +25,7 @@ class Simple extends React.Component {
 			});
 			closeLoading && closeLoading();
 
-		}, 50000);
+		}, 500);
 
 	}
 
