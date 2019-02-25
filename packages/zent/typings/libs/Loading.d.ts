@@ -1,16 +1,39 @@
 /// <reference types="react" />
 
-declare module 'zent/lib/loading' {
-  interface ILoadingProps {
-    show?: boolean;
-    showDelay?: number;
-    float?: boolean;
+interface IBaseLoadingProps {
+  loading?: boolean;
+  delay?: number;
+  icon?: 'youzan' | 'circle';
+  iconSize?: number;
+  iconText?: React.ReactNode;
+  textPosition?: 'top' | 'bottom' | 'right' | 'left';
+  className?: string;
+}
+
+declare module 'zent/lib/loading/BlockLoading' {
+  interface IBlockLoadingProps extends IBaseLoadingProps {
     height?: number;
-    zIndex?: number;
-    className?: string;
-    containerClass?: string;
-    prefix?: string;
   }
 
-  export default class Loading extends React.Component<ILoadingProps, any> {}
+  const BlockLoading: React.FunctionComponent<IBlockLoadingProps>;
+
+  export default BlockLoading;
+}
+
+declare module 'zent/lib/loading/InlineLoading' {
+  interface IInlineLoadingProps extends IBaseLoadingProps {}
+
+  const InlineLoading: React.FunctionComponent<IInlineLoadingProps>;
+
+  export default InlineLoading;
+}
+
+declare module 'zent/lib/loading/FullScreenLoading' {
+  interface IFullScreenLoadingProps extends IBaseLoadingProps {
+    zIndex?: number;
+  }
+
+  const FullScreenLoading: React.FunctionComponent<IFullScreenLoadingProps>;
+
+  export default FullScreenLoading;
 }

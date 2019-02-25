@@ -81,7 +81,9 @@ declare module 'zent' {
   import Form from 'zent/lib/form';
   import Grid from 'zent/lib/grid';
   import Layout from 'zent/lib/layout';
-  import Loading from 'zent/lib/loading';
+  import BlockLoading from 'zent/lib/loading/BlockLoading';
+  import InlineLoading from 'zent/lib/loading/InlineLoading';
+  import FullScreenLoading from 'zent/lib/loading/FullScreenLoading';
   import Icon from 'zent/lib/icon';
   import Input from 'zent/lib/input';
   import InfiniteScroller from 'zent/lib/infinite-scroller';
@@ -143,7 +145,9 @@ declare module 'zent' {
     Form,
     Grid,
     Layout,
-    Loading,
+    BlockLoading,
+    InlineLoading,
+    FullScreenLoading,
     Icon,
     Input,
     InfiniteScroller,
