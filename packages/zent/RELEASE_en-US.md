@@ -7,6 +7,13 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.6.2 (2019-02-26)
+
+- `Form` 
+  - 🦀️ Fix field error even if async validation is passed
+  - 🦀️ Update `createForm` TypeScript definition
+- 🦀️ Handle DOM not exist exception for `Affix` and `Avatar`
+
 ### 6.6.1 (2019-01-30)
 
 - 🦀️ Fix bug in `Grid` header scroll
