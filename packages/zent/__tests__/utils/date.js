@@ -1,5 +1,6 @@
 import { getValidDate } from 'utils/date/helpers';
 import i18n from 'utils/date/i18n';
+import parseDate from 'utils/date/parseDate';
 
 describe('getValidDate', () => {
   it('throws when passed undefined', () => {
@@ -39,5 +40,17 @@ describe('i18n', () => {
     expect(DoFn(2)).toBe('2nd');
     expect(DoFn(3)).toBe('3rd');
     expect(DoFn(4)).toBe('4th');
+  });
+});
+
+describe('parseDate', () => {
+  it('Date', () => {
+    const now = new Date();
+    expect(parseDate(now)).toBe(now);
+    expect(parseDate('2019-01-02', 'xxx-f-d-')).toBe(null);
+    expect(parseDate(now.getTime()).getTime()).toBe(now.getTime());
+    expect(parseDate('2019-01-02', 'YYYY-MM-DD').getTime()).toBe(
+      new Date(2019, 0, 2).getTime()
+    );
   });
 });
