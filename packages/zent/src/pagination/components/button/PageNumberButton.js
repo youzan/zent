@@ -21,7 +21,7 @@ export default class PageNumberButton extends Component {
     if (selected) {
       buttonType = 'primary';
     } else {
-      buttonType = bordered ? 'secondary' : 'default';
+      buttonType = 'default';
     }
 
     return (
