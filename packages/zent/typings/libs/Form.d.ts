@@ -50,7 +50,7 @@ declare module 'zent/lib/form' {
       handleSubmit: (submit: (values: any, zentForm: IZentForm) => any) => any
     }
 
-    function createForm(config?: { formValidations?: any }): (component: React.Component<IWrappedComponentProps|any ,any>) => React.Component<IConnectedFormProps, any>
+    function createForm(config?: { formValidations?: any }): (component: React.ComponentClass<IWrappedComponentProps|any>) => React.ComponentClass<IConnectedFormProps>
 
     interface IValidation {
       required?: boolean
