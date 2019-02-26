@@ -627,7 +627,7 @@ const createForm = (config = {}) => {
           field.setState({
             _isValidating: false,
             _isValid: !rejected && field.state._validationError.length === 0,
-            _externalError: error ? [error] : null,
+            _externalError: rejected && error ? [error] : null,
             _asyncValidated: true,
           });
 
