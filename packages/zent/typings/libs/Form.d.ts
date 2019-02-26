@@ -57,8 +57,8 @@ declare module 'zent/lib/form' {
     function createForm(config?: {
       formValidations?: any;
     }): (
-      component: React.Component<IWrappedComponentProps | any, any>
-    ) => React.Component<IConnectedFormProps, any>;
+      component: React.ComponentClass<IWrappedComponentProps | any>
+    ) => React.ComponentClass<IConnectedFormProps>;
 
     interface IValidation {
       required?: boolean;
