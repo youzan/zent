@@ -54,6 +54,12 @@ module.exports = {
           groupName: '升级',
           list: [
             {
+              title: '7.0.0 更新日志',
+              path: 'guides/changelog-v7',
+              source:
+                "DocLoadable({ loader: () => import('../../packages/zent/RELEASE_NEXT.md') })",
+            },
+            {
               title: '更新日志',
               path: 'guides/changelog',
               source:
