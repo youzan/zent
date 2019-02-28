@@ -28,8 +28,10 @@ import InfiniteScroller from 'infinite-scroller';
 import InlineLoading from 'loading/InlineLoading';
 import Input from 'input';
 import Layout from 'layout';
+import LitePagination from 'pagination/LitePagination';
 import Mention from 'mention';
 import Menu from 'menu';
+import MiniPagination from 'pagination/MiniPagination';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
 import NumberInput from 'number-input';
@@ -96,8 +98,10 @@ export {
   InlineLoading,
   Input,
   Layout,
+  LitePagination,
   Mention,
   Menu,
+  MiniPagination,
   MonthPicker,
   Notify,
   NumberInput,

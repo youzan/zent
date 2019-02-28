@@ -7,7 +7,7 @@ en-US:
 ---
 
 ```jsx
-import { Pagination } from 'zent';
+import { Pagination, MiniPagination, LitePagination } from 'zent';
 
 class Test extends Component {
 	state = {
@@ -34,8 +34,7 @@ class Test extends Component {
 
 				<br />
 
-				<Pagination
-					type="lite"
+				<LitePagination
 					current={current}
 					pageSize={pageSize}
 					total={101}
@@ -44,8 +43,7 @@ class Test extends Component {
 
 				<br />
 
-				<Pagination
-					type="mini"
+				<MiniPagination
 					current={current}
 					pageSize={pageSize}
 					total={101}

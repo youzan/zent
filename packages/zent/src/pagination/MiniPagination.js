@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import MiniPageList from '../components/list/MiniPageList';
-import layoutMini from '../layout/mini';
-import BasePagination from './BasePagination';
+import MiniPageList from './components/list/MiniPageList';
+import layoutMini from './layout/mini';
+import BasePagination from './impl/BasePagination';
 
 export default class MiniPagination extends BasePagination {
   static propTypes = {
@@ -14,6 +14,15 @@ export default class MiniPagination extends BasePagination {
     onChange: PropTypes.func.isRequired,
     buttonBordered: PropTypes.bool,
     className: PropTypes.string,
+  };
+
+  static defaultProps = {
+    // Don't give a default value
+    // total: 0,
+
+    current: 1,
+    pageSize: 10,
+    buttonBordered: false,
   };
 
   constructor(props) {
