@@ -1,4 +1,4 @@
-## 迁移指南
+## 7.0.0 迁移指南
 
 #### React
 
@@ -43,6 +43,12 @@
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.5(2019-02-28)
+
+### Breaking changes
+
+- 拆分 `Pagination` 为 `Pagination`, `MiniPagination` 以及 `LitePagination` 三个独立的样式。
 
 
 ## 7.0.0-next.4(2019-02-26)
