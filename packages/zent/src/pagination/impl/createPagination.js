@@ -32,7 +32,6 @@ export default function createPagination(name, layoutFn) {
     render() {
       const { layout } = this.state;
       const {
-        total,
         current,
         pageSize,
         pageSizeOptions,
@@ -41,6 +40,7 @@ export default function createPagination(name, layoutFn) {
         buttonBordered,
         className,
       } = this.props;
+      const total = this.getTotal();
 
       return (
         <div

@@ -64,6 +64,7 @@ declare module 'zent' {
   import AutoComplete from 'zent/lib/auto-complete';
   import Badge from 'zent/lib/badge';
   import BlockHeader from 'zent/lib/block-header';
+  import BlockLoading from 'zent/lib/loading/BlockLoading';
   import Breadcrumb from 'zent/lib/breadcrumb';
   import Button from 'zent/lib/button';
   import Cascader from 'zent/lib/cascader';
@@ -79,17 +80,18 @@ declare module 'zent' {
   import Dialog from 'zent/lib/dialog';
   import ErrorBoundary from 'zent/lib/error-boundary';
   import Form from 'zent/lib/form';
+  import FullScreenLoading from 'zent/lib/loading/FullScreenLoading';
   import Grid from 'zent/lib/grid';
   import Layout from 'zent/lib/layout';
-  import BlockLoading from 'zent/lib/loading/BlockLoading';
+  import LitePagination from 'zent/lib/pagination/LitePagination';
   import InlineLoading from 'zent/lib/loading/InlineLoading';
-  import FullScreenLoading from 'zent/lib/loading/FullScreenLoading';
   import Icon from 'zent/lib/icon';
   import Input from 'zent/lib/input';
   import InfiniteScroller from 'zent/lib/infinite-scroller';
   import NumberInput from 'zent/lib/number-input';
   import Mention from 'zent/lib/mention';
   import Menu from 'zent/lib/menu';
+  import MiniPagination from 'zent/lib/pagination/MiniPagination';
   import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
   import Notify from 'zent/lib/notify';
   import Pagination from 'zent/lib/pagination';
@@ -129,6 +131,7 @@ declare module 'zent' {
     AutoComplete,
     Badge,
     BlockHeader,
+    BlockLoading,
     Breadcrumb,
     Button,
     Cascader,
@@ -143,17 +146,18 @@ declare module 'zent' {
     Dialog,
     ErrorBoundary,
     Form,
+    FullScreenLoading,
     Grid,
     Layout,
-    BlockLoading,
+    LitePagination,
     InlineLoading,
-    FullScreenLoading,
     Icon,
     Input,
     InfiniteScroller,
     NumberInput,
     Mention,
     Menu,
+    MiniPagination,
     MonthPicker,
     Notify,
     Pagination,
