@@ -1,7 +1,55 @@
+## 迁移指南
+
+#### React
+
+必须升级到 16.8 以上
+
+#### `Pagination`
+
+`Pagination` 分为 3 种类型，`import { Pagination, LitePagination, MiniPagination } from 'zent'`。后两种是新增的，不涉及迁移问题。`Pagination` 的一些参数有变化：
+
+- `totalItem` 重命名为 `total`，老的参数名还是支持的，新代码请用 `total`
+- `onChange` 回调函数的参数是个对象，包含当前分页大小和当前页码，老版本只有当前页码
+- 删除了 `onPageSizeChange` 和 `maxPageToShow`，`onPageSizeChange` 的能力合并到 `onChange` 之中了
+- `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
+- CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
+
+#### `Loading`
+
+`Loading` 拆分成了 3 种子类型，`import { BlockLoading, InlineLoading, FullScreenLoading } from 'zent'`，`InlineLoading` 是新增的能力，不涉及迁移问题。新增了一种样式和描述文案支持。
+
+- 老版中用到 `float` 参数的场景可以用 `FullScreenLoading` 替换，非 `float` 的场景用 `BlockLoading` 替换
+- `showDelay` 重命名为 `delay`，逻辑一致
+- `show` 重命名为 `loading`，逻辑一致
+- 删除了 `containerClass` 参数
+- CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
+
+#### `RadioGroup` 和 `CheckboxGroup`
+
+应该没有影响，只是内部实现变了。
+
+#### `Design` 和 `SKU`
+
+使用 `@zent/design` 和 `@zent/sku`，功能一致的。
+
+#### `Switch`
+
+用了大号样式的地方统一改成默认样式，同时找视觉确认下。
+
+#### `Tree`
+
+删除了老版的非受控代码，只支持受控模式（这个很早就存在了），参数是一致的，一些选中逻辑会有细微区别。
+
+#### 源样式
+
+如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+
 ## 7.0.0-next.4(2019-02-26)
 
 ### Breaking changes
 
+- `prefix` 参数不再支持，后续后全面移除，现在部分组件已经移除
 - 不再支持 16.8 以下的 React(Hooks 的最小可用版本)
 - 删除 UMD 格式输出
 - `Pagination` 重写，API 跟老版不兼容，具体参考 API 文档
