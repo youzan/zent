@@ -1,11 +1,14 @@
 import { getPageRange } from './getPageRange';
 import { PaginationLayout } from './type';
+import { IPaginationLayoutOptions } from '../impl/BasePagination';
 
 /**
  * Show at most 5 pages
  * @param {object} options
  */
-export default function liteLayout(options): PaginationLayout[] {
+export default function liteLayout(
+  options: IPaginationLayoutOptions
+): PaginationLayout[] {
   const { current } = options;
   const { min, max } = getPageRange(options);
 

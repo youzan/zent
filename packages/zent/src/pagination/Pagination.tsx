@@ -1,17 +1,21 @@
-import createPagination from './impl/createPagination';
 import layoutNormal from './layout/normal';
+import AbstractPagination from './impl/AbstractPagination';
 
-const Pagination = createPagination('normal', layoutNormal);
+export class Pagination extends AbstractPagination {
+  static defaultProps = {
+    // Don't give a default value
+    // total: 0,
 
-Pagination.defaultProps = {
-  // Don't give a default value
-  // total: 0,
+    current: 1,
+    pageSize: 10,
+    buttonBordered: true,
+    showQuickJumper: true,
+    showSizeChanger: true,
+  };
 
-  current: 1,
-  pageSize: 10,
-  buttonBordered: true,
-  showQuickJumper: true,
-  showSizeChanger: true,
-};
+  name = 'normal';
+
+  layoutFn = layoutNormal;
+}
 
 export default Pagination;

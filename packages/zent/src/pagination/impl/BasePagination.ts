@@ -1,8 +1,63 @@
 import { Component } from 'react';
-import has from 'lodash/has';
+import has from 'lodash-es/has';
+import { PaginationLayout } from '../layout/type';
 
-export default class BasePagination extends Component<any, any> {
-  shouldUpdateLayout(props, nextProps) {
+export interface PaginationChangeHandler {
+  (detail: { current: number; pageSize: number }): any;
+}
+
+export interface IBasePaginationProps {
+  current: number;
+  pageSize: number;
+  total?: number;
+  onChange: PaginationChangeHandler;
+
+  /** deprecated, use total */
+  totalItem?: number;
+  className?: string;
+}
+
+export interface IPaginationLayoutOptions {
+  current: number;
+  total: number;
+  pageSize: number;
+}
+
+export type PaginationLayoutFunction = (
+  options: IPaginationLayoutOptions
+) => PaginationLayout[];
+
+export interface IPaginationState {
+  layout: PaginationLayout[];
+}
+
+export default abstract class BasePagination<Delta> extends Component<
+  IBasePaginationProps & Delta,
+  IPaginationState
+> {
+  name: string;
+  layoutFn: PaginationLayoutFunction;
+
+  constructor(props: IBasePaginationProps & Delta) {
+    super(props);
+
+    this.state = {
+      layout: this.layoutFn(this.getLayoutOptions(props)),
+    };
+  }
+
+  componentWillReceiveProps(nextProps: IBasePaginationProps & Delta) {
+    if (this.shouldUpdateLayout(this.props, nextProps)) {
+      this.setState({
+        layout: this.layoutFn(this.getLayoutOptions(nextProps)),
+      });
+    }
+  }
+
+  shouldUpdateLayout(
+    props: IBasePaginationProps & Delta,
+    nextProps: IBasePaginationProps & Delta
+  ) {
     const { current, pageSize } = nextProps;
 
     return (
@@ -12,17 +67,17 @@ export default class BasePagination extends Component<any, any> {
     );
   }
 
-  getLayoutOptions(props) {
+  getLayoutOptions(props: IBasePaginationProps & Delta) {
     const { current, pageSize } = props;
 
     return {
       current,
       total: this.getTotal(props),
       pageSize,
-    };
+    } as IPaginationLayoutOptions;
   }
 
-  onPageChange = page => {
+  onPageChange = (page: number) => {
     const { current, pageSize, onChange } = this.props;
     const total = this.getTotal();
     page = Math.max(1, page);
@@ -36,7 +91,7 @@ export default class BasePagination extends Component<any, any> {
     }
   };
 
-  onPageSizeChange = pageSize => {
+  onPageSizeChange = (pageSize: number) => {
     const { current } = this.props;
     const total = this.getTotal();
     if (this.props.pageSize !== pageSize) {
@@ -50,14 +105,14 @@ export default class BasePagination extends Component<any, any> {
     }
   };
 
-  getTotalPages(total, pageSize) {
+  getTotalPages(total: number, pageSize: number) {
     return Math.ceil(total / pageSize);
   }
 
   /**
    * 兼容老的参数
    */
-  getTotal(props) {
+  getTotal(props?: IBasePaginationProps) {
     props = props || this.props;
 
     if (has(props, 'total')) {

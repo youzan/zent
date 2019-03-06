@@ -1,9 +1,12 @@
 import { getPageRange } from './getPageRange';
 import { PaginationLayout } from './type';
+import { IPaginationLayoutOptions } from '../impl/BasePagination';
 
 const MAX_PAGES_TO_EXPAND = 5;
 
-export default function normalLayout(options): PaginationLayout[] {
+export default function normalLayout(
+  options: IPaginationLayoutOptions
+): PaginationLayout[] {
   const { pageSize, total, current } = options;
   const totalPages = Math.ceil(total / pageSize);
 
