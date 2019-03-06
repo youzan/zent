@@ -4,12 +4,16 @@
 
 必须升级到 16.8 以上
 
+#### 默认字号从 12 调整为 14
+
+注意调整后的页面样式有没有问题
+
 #### `Pagination`
 
 `Pagination` 分为 3 种类型，`import { Pagination, LitePagination, MiniPagination } from 'zent'`。后两种是新增的，不涉及迁移问题。`Pagination` 的一些参数有变化：
 
 - `totalItem` 重命名为 `total`，老的参数名还是支持的，新代码请用 `total`
-- `onChange` 回调函数的参数是个对象，包含当前分页大小和当前页码，老版本只有当前页码
+- `onChange` 回调函数的参数是个对象（老版是个数字），包含当前分页大小和当前页码，老版本只有当前页码
 - 删除了 `onPageSizeChange` 和 `maxPageToShow`，`onPageSizeChange` 的能力合并到 `onChange` 之中了
 - `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
@@ -55,6 +59,7 @@
 
 ### Breaking changes
 
+- 默认字号从 12 调整为 14
 - `prefix` 参数不再支持，后续后全面移除，现在部分组件已经移除
 - 不再支持 16.8 以下的 React(Hooks 的最小可用版本)
 - 删除 UMD 格式输出
