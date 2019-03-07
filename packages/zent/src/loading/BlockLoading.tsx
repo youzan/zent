@@ -1,12 +1,12 @@
-import React from 'react';
-import has from 'lodash/has';
+import * as React from 'react';
+import has from 'lodash-es/has';
 import cx from 'classnames';
 
-import { BlockPropTypes, BlockDefaultProps } from './props';
+import { IBlockLoadingProps, BlockDefaultProps } from './props';
 import LoadingMask from './components/LoadingMask';
 import useDelayed from './hooks/useDelayed';
 
-function BlockLoading(props) {
+export function BlockLoading(props: IBlockLoadingProps) {
   const height = getHeight(props);
   const {
     loading,
@@ -43,7 +43,7 @@ function BlockLoading(props) {
   );
 }
 
-function getHeight(props) {
+function getHeight(props: IBlockLoadingProps) {
   // 没有包裹内容时设置一个默认高度，有包裹内容时默认撑满内容高度
   const hasHeightProp = has(props, 'height');
   const { children } = props;
@@ -59,7 +59,6 @@ function getHeight(props) {
   return props.height;
 }
 
-BlockLoading.propTypes = BlockPropTypes;
 BlockLoading.defaultProps = BlockDefaultProps;
 
 export default BlockLoading;

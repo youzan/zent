@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 
-export default function useDelayed({ loading, delay }) {
+export interface ILoadingUseDelayedParams {
+  loading: boolean;
+  delay: number;
+}
+
+export default function useDelayed({
+  loading,
+  delay,
+}: ILoadingUseDelayedParams) {
   const [delayed, setDelayed] = useState(true);
 
   useEffect(() => {

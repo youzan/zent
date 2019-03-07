@@ -7,7 +7,7 @@ import { getNodeFromSelector } from './util';
 import { IPurePoralProps } from './PurePortal';
 
 export interface INonScrollableWrapperProps {
-  selector: string | Element;
+  selector: string | HTMLElement;
   visible?: boolean;
 }
 

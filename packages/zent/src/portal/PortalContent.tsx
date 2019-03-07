@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export interface IPortalContentProps {
@@ -6,7 +6,9 @@ export interface IPortalContentProps {
   onUnmount?: () => void;
 }
 
-export default class PortalContent extends Component<IPortalContentProps> {
+export default class PortalContent extends React.Component<
+  IPortalContentProps
+> {
   static propTypes = {
     onMount: PropTypes.func,
     onUnmount: PropTypes.func,

@@ -1,11 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import cx from 'classnames';
 
-import { InlinePropTypes, InlineDefaultProps } from './props';
+import { IInlineLoadingProps, InlineDefaultProps } from './props';
 import useDelayed from './hooks/useDelayed';
 import Icon from './components/icons';
 
-function InlineLoading(props) {
+export function InlineLoading(props: IInlineLoadingProps) {
   const {
     loading,
     delay,
@@ -34,7 +34,6 @@ function InlineLoading(props) {
   );
 }
 
-InlineLoading.propTypes = InlinePropTypes;
 InlineLoading.defaultProps = InlineDefaultProps;
 
 export default InlineLoading;

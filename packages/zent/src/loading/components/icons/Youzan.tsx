@@ -1,12 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import cx from 'classnames';
+
 import getTextPosition from './position';
+import { IIconProps } from './IconProps';
 
 const DEFAULT_WIDTH = 19;
 const DEFAULT_HEIGHT = 23;
 const DEFAULT_SIZE = 40;
 
-export default function YouzanIcon({ size, text, textPosition }) {
+export default function YouzanIcon({ size, text, textPosition }: IIconProps) {
   size = size || DEFAULT_SIZE;
 
   return (
@@ -27,7 +29,7 @@ export default function YouzanIcon({ size, text, textPosition }) {
   );
 }
 
-function YouzanSvg({ size }) {
+function YouzanSvg({ size }: { size: number }) {
   return (
     <svg
       width={scaleSvgSize(size, DEFAULT_WIDTH)}
@@ -44,6 +46,6 @@ function YouzanSvg({ size }) {
   );
 }
 
-function scaleSvgSize(size, value) {
+function scaleSvgSize(size: number, value: number) {
   return (size / DEFAULT_SIZE) * value;
 }

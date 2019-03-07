@@ -1,9 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 
 import YouzanIcon from './Youzan';
 import CircleIcon from './Circle';
+import { IIconProps } from './IconProps';
 
-export default function Icon({ icon, ...rest }) {
+export interface IIconPropsWithType extends IIconProps {
+  icon: string;
+}
+
+export default function Icon({ icon, ...rest }: IIconPropsWithType) {
   if (icon === 'youzan') {
     return <YouzanIcon {...rest} />;
   }

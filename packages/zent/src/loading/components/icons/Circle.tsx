@@ -1,10 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import cx from 'classnames';
+
 import getTextPosition from './position';
+import { IIconProps } from './IconProps';
 
 const DEFAULT_SIZE = 24;
 
-export default function CircleIcon({ size, text, textPosition }) {
+export default function CircleIcon({ size, text, textPosition }: IIconProps) {
   size = size || DEFAULT_SIZE;
 
   return (
