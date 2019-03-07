@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 
 export interface ITimelineLegendProps {
   color?: string;
@@ -19,14 +18,6 @@ export const TimelineDot = ({ color = '', prefix = 'zent', ...props }) => (
 );
 
 export class TimelineLegend extends Component<ITimelineLegendProps> {
-  static propTypes = {
-    color: PropTypes.string,
-    children: PropTypes.node,
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

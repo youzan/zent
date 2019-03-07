@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import uniqueId from 'lodash-es/uniqueId';
 
 const GRADIENT_ID = uniqueId('zentAnimatedArcStrokeGradient');
@@ -29,19 +28,6 @@ export interface IAnimatedArcProps {
  * Draw an arc then rotate it along the path
  */
 export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
-  static propTypes = {
-    className: PropTypes.string,
-
-    // 圆心到描边的中点距离
-    radius: PropTypes.number,
-
-    // 目标圆弧的周长
-    arcLength: PropTypes.number,
-
-    // 描边宽度
-    strokeWidth: PropTypes.number,
-  };
-
   animationDelayTimerId: number;
   transitionEndTimerId: number;
 

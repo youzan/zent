@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import findIndex from 'lodash-es/findIndex';
 import memoize from '../utils/memorize-one';
@@ -21,17 +20,6 @@ export interface ICheckboxGroupProps {
 }
 
 export class CheckboxGroup extends Component<ICheckboxGroupProps> {
-  static propTypes = {
-    value: PropTypes.array,
-    isValueEqual: PropTypes.func,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    onChange: PropTypes.func,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     value: [],
     prefix: 'zent',

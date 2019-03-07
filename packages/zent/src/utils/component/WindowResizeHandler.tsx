@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 
 import getViewportSize from '../dom/getViewportSize';
 import WindowEventHandler from './WindowEventHandler';
@@ -24,10 +23,6 @@ export interface IWindowResizeHandlerProps {
 export default class WindowResizeHandler extends Component<
   IWindowResizeHandlerProps
 > {
-  static propTypes = {
-    onResize: PropTypes.func.isRequired,
-  };
-
   _prevViewportSize: {
     width: number;
     height: number;

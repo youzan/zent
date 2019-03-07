@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 export interface IPlaceholderTextRowProps {
@@ -12,14 +11,6 @@ export interface IPlaceholderTextRowProps {
 }
 
 export default class TextRow extends PureComponent<IPlaceholderTextRowProps> {
-  static propTypes = {
-    lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    style: PropTypes.object,
-    animate: PropTypes.bool,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     lineSpacing: '0.7em',
     animate: true,

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import Button from '../button';
 import Notify from '../notify';
 
@@ -15,12 +14,6 @@ export interface ICopyButtonProps {
 }
 
 export class CopyButton extends Component<ICopyButtonProps> {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    onCopySuccess: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    onCopyError: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  };
-
   static defaultProps = {
     onCopySuccess: '',
     onCopyError: '',

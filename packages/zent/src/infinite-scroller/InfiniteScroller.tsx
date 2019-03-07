@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import BlockLoading from '../loading/BlockLoading';
 
@@ -17,18 +16,6 @@ export interface IInfiniteScrollerProps {
 }
 
 export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    hasMore: PropTypes.bool,
-    loadMore: PropTypes.func,
-    offset: PropTypes.number,
-    initialLoad: PropTypes.bool,
-    useWindow: PropTypes.bool,
-    useCapture: PropTypes.bool,
-    loader: PropTypes.node,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     hasMore: true,
@@ -59,8 +46,11 @@ export class InfiniteScroller extends Component<IInfiniteScrollerProps> {
   getWindowScrollTop = () => {
     return window.pageYOffset !== undefined
       ? window.pageYOffset
-      : (document.documentElement || (document.body.parentNode as HTMLHtmlElement) || document.body)
-          .scrollTop;
+      : (
+          document.documentElement ||
+          (document.body.parentNode as HTMLHtmlElement) ||
+          document.body
+        ).scrollTop;
   };
 
   isScrollAtBottom = () => {

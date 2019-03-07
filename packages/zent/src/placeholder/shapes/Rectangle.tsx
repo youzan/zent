@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Base, { IPlaceholderBaseShapeProps } from './Base';
@@ -10,18 +9,7 @@ export interface IPlaceholderRectangleProps extends IPlaceholderBaseShapeProps {
   height?: number;
 }
 
-export default class Rectangle extends PureComponent<
-  IPlaceholderRectangleProps
-> {
-  static propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    animate: PropTypes.bool,
-    prefix: PropTypes.string,
-  };
-
+export default class Rectangle extends PureComponent<IPlaceholderRectangleProps> {
   static defaultProps = {
     style: {},
     prefix: 'zent',

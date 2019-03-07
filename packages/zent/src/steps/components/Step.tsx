@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Icon from '../../icon';
@@ -18,19 +17,6 @@ export interface IStepProps {
 }
 
 export default class Step extends Component<IStepProps> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    style: PropTypes.object,
-    wrapperStyle: PropTypes.object,
-    stepLast: PropTypes.bool,
-    isCurrentStep: PropTypes.bool,
-    isLastFinishStep: PropTypes.bool,
-    stepNumber: PropTypes.string,
-    status: PropTypes.string,
-    title: PropTypes.node,
-    description: PropTypes.node,
-  };
-
   static defaultProps = {
     description: '',
   };

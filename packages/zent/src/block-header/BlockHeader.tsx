@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import Pop, { PopPositions } from '../pop';
 import Icon from '../icon';
@@ -16,16 +15,6 @@ export interface IBlockHeaderProps {
 }
 
 export class BlockHeader extends Component<IBlockHeaderProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    tooltip: PropTypes.node,
-    content: PropTypes.node,
-    childAlign: PropTypes.oneOf(['left', 'right']),
-    position: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

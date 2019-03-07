@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import noop from 'lodash-es/noop';
 
@@ -21,17 +20,6 @@ export interface IGroupProps {
 }
 
 export class RadioGroup extends Component<IGroupProps> {
-  static propTypes = {
-    value: PropTypes.any,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    isValueEqual: PropTypes.func,
-    onChange: PropTypes.func,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

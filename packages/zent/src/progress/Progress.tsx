@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 import AnimatedArc from './AnimatedArc';
 import Icon from '../icon';
 
@@ -34,23 +33,6 @@ export interface IProgressProps {
 }
 
 export class Progress extends PureComponent<IProgressProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    type: PropTypes.string,
-    percent: PropTypes.number,
-    showInfo: PropTypes.bool,
-    status: PropTypes.string,
-    format: PropTypes.func,
-    strokeWidth: PropTypes.number,
-    width: PropTypes.number,
-    style: PropTypes.object,
-    normalColor: PropTypes.string,
-    exceptionColor: PropTypes.string,
-    successColor: PropTypes.string,
-    bgColor: PropTypes.string,
-  };
-
   static defaultProps = {
     type: 'line',
     percent: 0,

@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { Component } from 'react';
 
 export interface IWindowEventHandlerProps<K extends keyof WindowEventMap> {
@@ -10,12 +9,6 @@ export interface IWindowEventHandlerProps<K extends keyof WindowEventMap> {
 export default class WindowEventHandler<
   K extends keyof WindowEventMap
 > extends Component<IWindowEventHandlerProps<K>> {
-  static propTypes = {
-    eventName: PropTypes.string.isRequired,
-    callback: PropTypes.func.isRequired,
-    useCapture: PropTypes.bool,
-  };
-
   static defaultProps = {
     useCapture: false,
   };

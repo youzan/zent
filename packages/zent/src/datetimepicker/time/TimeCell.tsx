@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import { noop } from '../constants';
+import { DatePickers } from '../common/types';
 
-export default class TimeCell extends PureComponent<any> {
-  static propTypes = {
-    onSelect: PropTypes.func,
-    cells: PropTypes.array,
-  };
+export interface ITimeCellProps {
+  onSelect: (number) => void;
+  cells: DatePickers.ITimeCellValue[][];
+}
 
+export default class TimeCell extends PureComponent<ITimeCellProps> {
   static defaultProps = {
     onSelect: noop,
   };
@@ -26,7 +26,7 @@ export default class TimeCell extends PureComponent<any> {
             <span
               onClick={() => this.onClickCell(col)}
               className={col.className}
-              title={col.value}
+              title={`${col.value}`}
             >
               {col.text}
             </span>

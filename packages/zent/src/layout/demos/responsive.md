@@ -7,9 +7,12 @@ en-US:
 ---
 
 ```js
-import { Layout } from 'zent';
-
-const { Row, Col, Grid, ConfigProvider } = Layout;
+import {
+	LayoutRow as Row,
+	LayoutCol as Col,
+	LayoutGrid as Grid,
+	LayoutConfigProvider as ConfigProvider,
+} from 'zent';
 
 ReactDOM.render(
 	<ConfigProvider

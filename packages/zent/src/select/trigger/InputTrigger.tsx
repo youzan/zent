@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { Component } from 'react';
 import cx from 'classnames';
 
@@ -13,12 +12,6 @@ export interface IInputTriggerProps extends ISelectTriggerProps {
 }
 
 class InputTrigger extends Component<IInputTriggerProps> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    value: PropTypes.any,
-    placeholder: PropTypes.string,
-  };
-  
   state = {
     value: '',
   };

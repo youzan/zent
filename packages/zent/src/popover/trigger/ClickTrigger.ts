@@ -1,9 +1,4 @@
-import * as PropTypes from 'prop-types';
-
-import Trigger, {
-  PopoverTriggerPropTypes,
-  IPopoverTriggerProps,
-} from './Trigger';
+import Trigger, { IPopoverTriggerProps } from './Trigger';
 
 export interface IPopoverClickTriggerProps extends IPopoverTriggerProps {
   autoClose?: boolean;
@@ -12,18 +7,6 @@ export interface IPopoverClickTriggerProps extends IPopoverTriggerProps {
 export default class PopoverClickTrigger<
   P extends IPopoverClickTriggerProps = IPopoverClickTriggerProps
 > extends Trigger<P> {
-  static propTypes = {
-    ...PopoverTriggerPropTypes,
-
-    // click anywhere outside to close
-    // If set to false, you have to close popover manually
-    autoClose: PropTypes.bool,
-
-    // Optional click outside check
-    // (target) => boolean
-    isOutside: PropTypes.func,
-  };
-
   static defaultProps = {
     autoClose: true,
   };

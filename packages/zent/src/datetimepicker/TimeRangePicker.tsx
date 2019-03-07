@@ -6,14 +6,13 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 import isString from 'lodash-es/isString';
 import isDate from 'lodash-es/isDate';
 import isArray from 'lodash-es/isArray';
 
 import { I18nReceiver as Receiver } from '../i18n';
 
-import { commonProps, commonPropTypes, noop } from './constants';
+import { commonProps, noop } from './constants';
 import TimePicker from './TimePicker';
 import { DatePickers } from './common/types';
 
@@ -37,23 +36,7 @@ export interface ITimeRangePickerProps
   disabledTime?: (type: DatePickers.RangeType) => DatePickers.IDisabledTime;
 }
 
-export class TimeRangePicker extends PureComponent<
-  ITimeRangePickerProps
-> {
-  static propTypes = {
-    ...commonPropTypes,
-    placeholder: PropTypes.array,
-    valueType: PropTypes.oneOf(['string', 'number', 'date']),
-    value: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
-    ),
-    hourStep: PropTypes.number,
-    minuteStep: PropTypes.number,
-    secondStep: PropTypes.number,
-    showSecond: PropTypes.bool,
-    disabledTime: PropTypes.func,
-  };
-
+export class TimeRangePicker extends PureComponent<ITimeRangePickerProps> {
   static defaultProps = {
     ...commonProps,
     format: 'HH:mm:ss',

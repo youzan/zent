@@ -11,7 +11,8 @@
     "lib": [
       "dom",
       "es2017"
-    ]
+    ],
+    "noUnusedLocals": true
   },
   "exclude": [
     "lib",

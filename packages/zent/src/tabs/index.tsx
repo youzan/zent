@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-// import ssign from 'lodash/assign';
-import * as PropTypes from 'prop-types';
 import LazyMount from '../utils/component/LazyMount';
 
 import TabPanel from './components/TabPanel';
@@ -35,40 +33,6 @@ export interface ITabsProps {
 }
 
 export class Tabs extends Component<ITabsProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    type: PropTypes.oneOf(['normal', 'card', 'slider']),
-    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    // 推荐使用activeId代替原来的activeKey
-    // 更直观
-    activeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    size: PropTypes.oneOf(['huge', 'normal']),
-    align: PropTypes.oneOf(['left', 'right', 'center']),
-
-    // deprecated, do NOT use
-    onTabChange: PropTypes.func,
-    onTabDel: PropTypes.func,
-    onTabAdd: PropTypes.func,
-
-    // Use these instead
-    onChange: PropTypes.func,
-    onDelete: PropTypes.func,
-    onAdd: PropTypes.func,
-
-    candel: PropTypes.bool,
-    canadd: PropTypes.bool,
-    tabs: PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-          .isRequired,
-        title: PropTypes.node.isRequired,
-        disabled: PropTypes.bool,
-      })
-    ),
-    navExtraContent: PropTypes.node,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

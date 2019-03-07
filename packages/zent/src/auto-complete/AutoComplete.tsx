@@ -3,7 +3,6 @@
  */
 import * as React from 'react';
 import { Component, Children } from 'react';
-import * as PropTypes from 'prop-types';
 import cn from 'classnames';
 import * as keycode from 'keycode';
 
@@ -64,52 +63,13 @@ export class AutoComplete extends Component<
   IAutoCompleteProps,
   IAutoCompleteState
 > {
-  static propTypes = {
-    // auto complete props
-    value: PropTypes.any,
-    initialValue: PropTypes.any,
-    placeholder: PropTypes.string,
-    data: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.shape({
-          value: PropTypes.any,
-          content: PropTypes.node,
-          isGroup: PropTypes.bool,
-          isDivider: PropTypes.bool,
-
-          // the props below are preserved for future refacter
-          searchContent: PropTypes.string,
-          icon: PropTypes.string,
-          disabled: PropTypes.bool,
-          active: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        }),
-      ])
-    ),
-    valueField: PropTypes.string,
-    contentField: PropTypes.string,
-    textField: PropTypes.string,
-    onChange: PropTypes.func, // function (value) => {} | callback when input value change or option is selected
-    onSearch: PropTypes.func, // function (searchText) => {} | callback during input
-    onSelect: PropTypes.func, // function (value, option) => {} | callback when select option
-    filterOption: PropTypes.func, // function (searchText, { value, content }) => bool
-    valueFromOptions: PropTypes.bool, // only change value to the ones in options
-
-    // view
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    popupClassName: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
-
   static defaultProps = {
     prefix: 'zent',
     filterOption: caselessMatchFilterOption,
     valueFromOptions: false,
   };
 
-  blurHandlerPrevented: boolean = false
+  blurHandlerPrevented: boolean = false;
   refMenuItemList: SelectMenu | null = null;
 
   constructor(props) {

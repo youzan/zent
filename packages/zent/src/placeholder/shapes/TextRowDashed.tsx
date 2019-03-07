@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import sample from 'lodash-es/sample';
 import isArray from 'lodash-es/isArray';
@@ -33,15 +32,6 @@ export default class TextRowDashed extends PureComponent<
   IPlaceholderTextRowDashedProps,
   IPlaceholderTextRowDashedState
 > {
-  static propTypes = {
-    style: PropTypes.object,
-    lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    segments: PropTypes.array,
-    animate: PropTypes.bool,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     lineSpacing: '0.7em',
     animate: true,

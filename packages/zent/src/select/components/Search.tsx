@@ -1,14 +1,16 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-class Search extends PureComponent<any, any> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    value: PropTypes.any,
-    placeholder: PropTypes.string,
-  };
+export interface ISearchProps {
+  prefixCls?: string;
+  value?: any;
+  placeholder?: string;
+  keyword?: string;
+  onChange(string): void;
+  ready?: boolean;
+}
 
+class Search extends PureComponent<ISearchProps, any> {
   focused: boolean;
   input: HTMLInputElement | null = null;
 

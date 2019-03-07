@@ -1,5 +1,4 @@
 import { Component, ReactNode } from 'react';
-import * as PropTypes from 'prop-types';
 
 import I18nContext from './I18nContext';
 
@@ -21,11 +20,6 @@ export interface II18nReceiverProps<P> {
 export default class I18nReceiver<P extends {}> extends Component<
   II18nReceiverProps<P> & P
 > {
-  static propTypes = {
-    componentName: PropTypes.string.isRequired,
-    defaultI18n: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-  };
-
   static contextType = I18nContext;
 
   receive() {

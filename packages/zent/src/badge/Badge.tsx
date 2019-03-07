@@ -1,35 +1,23 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 import isArray from 'lodash-es/isArray';
 
 const NO_STYLE = {};
 
 export interface IBadgeProps {
-  count?: number
-  maxCount?: number
-  dot?: boolean
-  showZero?: boolean
-  offset?: [number, number]
-  style?: React.CSSProperties
-  className?: string
-  prefix?: string
+  count?: number;
+  maxCount?: number;
+  dot?: boolean;
+  showZero?: boolean;
+  offset?: [number, number];
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+  className?: string;
+  prefix?: string;
 }
 
 export class Badge extends PureComponent<IBadgeProps> {
-  static propTypes = {
-    count: PropTypes.number,
-    maxCount: PropTypes.number,
-    dot: PropTypes.bool,
-    showZero: PropTypes.bool,
-    offset: PropTypes.array,
-    style: PropTypes.object,
-    children: PropTypes.node,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     count: 0,
     maxCount: 99,

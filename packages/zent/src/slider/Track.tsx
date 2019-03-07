@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import calssNames from 'classnames';
+import cx from 'classnames';
 
 import { getLeft } from './common';
 
@@ -22,7 +22,7 @@ export default class Track extends PureComponent<any> {
     return (
       <div
         style={{ width: `${this.getWidth()}%`, left: `${this.getLeft()}%` }}
-        className={calssNames(
+        className={cx(
           { [`${prefix}-slider-track-disabled`]: disabled },
           `${prefix}-slider-track`
         )}

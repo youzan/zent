@@ -1,3 +1,10 @@
+export * from './shapes/TextRow';
+export * from './shapes/TextRowDashed';
+export * from './shapes/Circle';
+export * from './shapes/Rectangle';
+export * from './presets/TextBlock';
+export * from './presets/RichTextBlock';
+
 import TextRow from './shapes/TextRow';
 import TextRowDashed from './shapes/TextRowDashed';
 import Circle from './shapes/Circle';

@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
-import isString from 'lodash-es/isString';
 import isNumber from 'lodash-es/isNumber';
-import includes from 'lodash-es/includes';
 import Icon from '../icon';
 
 const NO_STYLE = {};
@@ -25,29 +22,6 @@ export interface IAvatarProps {
 }
 
 export class Avatar extends Component<IAvatarProps> {
-  static propTypes = {
-    shape: PropTypes.oneOf(['circle', 'square']),
-    size(props, propName, componentName) {
-      const value = props[propName];
-      const isValid =
-        (isString(value) && includes(['small', 'default', 'large'], value)) ||
-        isNumber(value);
-
-      if (!isValid) {
-        throw new Error(
-          `Invalid prop \`${propName}\` in ${componentName}, expected one of 'small', 'default', 'large' or a number, but got ${value}.`
-        );
-      }
-    },
-    icon: PropTypes.string,
-    src: PropTypes.string,
-    children: PropTypes.string,
-    bordered: PropTypes.bool,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     shape: 'circle',
     size: 'default',

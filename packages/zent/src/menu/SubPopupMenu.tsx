@@ -1,19 +1,9 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import CommonMenu from './CommonMenu';
 
 export default class PopupMenu extends CommonMenu<any, any> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    visible: PropTypes.bool,
-    onClick: PropTypes.func,
-    specKey: PropTypes.string,
-    overlayCx: PropTypes.string,
-    onSubMenuClick: PropTypes.func,
-  };
-
   handleClick = (e, specKey) => {
     const { onClick } = this.props;
     onClick(e, specKey);

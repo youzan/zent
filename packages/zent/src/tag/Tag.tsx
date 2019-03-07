@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 import isFunction from 'lodash-es/isFunction';
 import Icon from '../icon';
 
@@ -26,24 +25,6 @@ export interface ITagProps {
 }
 
 export class Tag extends Component<ITagProps> {
-  static propTypes = {
-    color: PropTypes.string,
-    outline: PropTypes.bool,
-    rounded: PropTypes.bool,
-    borderColor: PropTypes.string,
-    bgColor: PropTypes.string,
-    fontColor: PropTypes.string,
-    closeButtonFontColor: PropTypes.string,
-    closable: PropTypes.bool,
-    visible: PropTypes.bool,
-    onVisibleChange: PropTypes.func,
-    onClose: PropTypes.func,
-    children: PropTypes.node,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     color: 'red',
     outline: false,

@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
 
 import throttle from 'lodash-es/throttle';
 import intersection from 'lodash-es/intersection';
@@ -19,8 +18,6 @@ import Head from './modules/Head';
 import Body from './modules/Body';
 import Foot from './modules/Foot';
 import helper from './helper';
-
-const { func, bool, string, array, oneOf, object } = PropTypes;
 
 export interface ITableColumn {
   title: string;
@@ -83,27 +80,6 @@ export interface ITableProps {
 }
 
 export class Table extends PureComponent<ITableProps, any> {
-  static propTypes = {
-    className: string,
-    prefix: string,
-    columns: array,
-    datasets: array,
-    onChange: func,
-    sortBy: string,
-    sortType: oneOf(['desc', 'asc']),
-    pageInfo: object,
-    rowKey: string,
-    loading: bool,
-    autoScroll: bool,
-    autoStick: bool,
-    selection: object,
-    expandation: object,
-    batchComponentsAutoFixed: bool,
-    batchComponents: array,
-    pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
-    emptyLabel: PropTypes.node,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     pageSize: 10,

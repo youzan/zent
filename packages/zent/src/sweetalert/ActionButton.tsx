@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 
 import Button from '../button';
 import isPromise from '../utils/isPromise';
@@ -14,14 +13,6 @@ export interface IActionButtonProps {
 }
 
 export default class ActionButton extends Component<IActionButtonProps> {
-  static propTypes = {
-    type: PropTypes.string.isRequired,
-    text: PropTypes.node.isRequired,
-    className: PropTypes.string.isRequired,
-    getClose: PropTypes.func.isRequired,
-    onClick: PropTypes.func,
-  };
-
   state = {
     loading: false,
   };

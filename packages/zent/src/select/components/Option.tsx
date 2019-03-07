@@ -1,17 +1,18 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-class Option extends PureComponent<any, any> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    cid: PropTypes.string,
-    value: PropTypes.any,
-    text: PropTypes.any,
-    placeholder: PropTypes.string,
-    onMouseEnter: PropTypes.func,
-  };
+export interface ISelectOptionProps {
+  prefixCls?: string;
+  cid?: string;
+  value?: any;
+  text: any;
+  placeholder?: string;
+  className?: string;
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>;
+  onClick: (evt: React.MouseEvent<HTMLElement>, cid: string) => void;
+}
 
+class Option extends PureComponent<ISelectOptionProps, any> {
   constructor(props) {
     super(props);
     this.optionClickHandler = this.optionClickHandler.bind(this);

@@ -1,19 +1,32 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
 import map from 'lodash-es/map';
 import forEach from 'lodash-es/forEach';
 import filter from 'lodash-es/filter';
 
 import ColGroup from './ColGroup';
+import {
+  IGridColumn,
+  GridSortType,
+  IGridOnChangeConfig,
+  GridFixedType,
+  GridScrollDelta,
+} from './types';
 
-class Header extends PureComponent<any, any> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    columns: PropTypes.array,
-  };
+export interface IGridHeaderProps {
+  prefix: string;
+  columns: IGridColumn[];
+  sortType: GridSortType;
+  sortBy: string;
+  onChange: (config: IGridOnChangeConfig) => void;
+  store: any;
+  fixed: GridFixedType;
+  fixedColumnsHeadRowsHeight: number[];
+  scroll: GridScrollDelta;
+}
 
+class Header extends PureComponent<IGridHeaderProps, any> {
   constructor(props) {
     super(props);
 
@@ -27,7 +40,7 @@ class Header extends PureComponent<any, any> {
   onSort = (column, props, newSortType) => {
     const { sortBy } = props;
     let name = column.name;
-    let sortType = '';
+    let sortType: GridSortType = '';
 
     if (name === sortBy) {
       if (newSortType === this.props.sortType) {
@@ -74,7 +87,12 @@ class Header extends PureComponent<any, any> {
     return column.title;
   };
 
-  getHeaderRows = (props?: any, columns?: any[], currentRow = 0, rows?: any[]) => {
+  getHeaderRows = (
+    props?: any,
+    columns?: any[],
+    currentRow = 0,
+    rows?: any[]
+  ) => {
     props = props || this.props;
     const { prefix, columns: propsColumns } = props;
     columns = columns || propsColumns;

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
-// import isArray from 'lodash/isArray';
 import classnames from 'classnames';
 import Popover from '../../popover';
 import Tabs from '../../tabs';
@@ -33,18 +31,6 @@ export interface ItabsContentProps {
 }
 
 class TabsContent extends PureComponent<ItabsContentProps> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    clickHandler: PropTypes.func,
-    value: PropTypes.array,
-    options: PropTypes.array,
-    title: PropTypes.array,
-    isLoading: PropTypes.bool,
-    recursiveNextOptions: PropTypes.func,
-    expandTrigger: PropTypes.oneOf(['click', 'hover']),
-  };
-
   renderCascaderItems(items: ICascaderItem[], stage: number, popover: Popover) {
     let { prefix, value, clickHandler } = this.props;
 

@@ -1,28 +1,27 @@
 import * as React from 'react';
 import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
 import noop from 'lodash-es/noop';
 
 import Tab from './Tab';
 import navUtil from './navUtil';
 
-class Nav extends Component<any> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    tabListData: PropTypes.array,
-    onChange: PropTypes.func,
-    type: PropTypes.string,
-    align: PropTypes.string,
-    size: PropTypes.string,
-    onDelete: PropTypes.func,
-    onTabAdd: PropTypes.func,
-    candel: PropTypes.bool,
-    canadd: PropTypes.bool,
-    uniqueId: PropTypes.number,
-    navExtraContent: PropTypes.node,
-  };
+export interface INavProps {
+  prefix: string;
+  tabListData: any[];
+  onChange: (id: number | string) => void;
+  type: string;
+  align: string;
+  size: string;
+  onDelete: (id: number | string) => void;
+  onTabAdd: () => void;
+  candel: boolean;
+  canadd: boolean;
+  uniqueId: number;
+  navExtraContent: React.ReactNode;
+}
 
+class Nav extends Component<INavProps> {
   static defaultProps = {
     prefix: 'zent',
     onChange: noop,
@@ -38,7 +37,7 @@ class Nav extends Component<any> {
   };
 
   inkBarDom: HTMLSpanElement | null = null;
-  activeTab: Tab | null = null
+  activeTab: Tab | null = null;
   navContentDom: HTMLDivElement | null = null;
   tabwrapDom: HTMLDivElement | null = null;
 

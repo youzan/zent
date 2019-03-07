@@ -1,7 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
 import noop from 'lodash-es/noop';
-import * as PropTypes from 'prop-types';
 
 import CommonMenu from './CommonMenu';
 import MenuItem from './MenuItem';
@@ -27,21 +26,6 @@ export class Menu extends CommonMenu<IMenuProps, any> {
   static MenuItem = MenuItem;
 
   static SubMenu = SubMenu;
-
-  static propTypes = {
-    onClick: PropTypes.func,
-    style: PropTypes.object,
-    mode: PropTypes.string,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    onSubMenuClick: PropTypes.func,
-    onExpandChange: PropTypes.func,
-
-    // inline模式独有props
-    defaultExpandKeys: PropTypes.array,
-    defaultSelectedKey: PropTypes.string,
-    inlineIndent: PropTypes.number,
-  };
 
   static defaultProps = {
     prefix: 'zent',

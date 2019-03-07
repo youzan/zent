@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-const LayoutConfigContext = createContext({
+export const LayoutConfigContext = createContext({
   rowGutter: 0,
   colGutter: 0,
 });

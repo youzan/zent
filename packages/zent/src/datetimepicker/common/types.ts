@@ -36,4 +36,19 @@ export namespace DatePickers {
     disabledMinute: (val: number) => boolean;
     disabledSecond: (val: number) => boolean;
   }
+
+  export interface IPanelCellValue {
+    text: number;
+    value: Date;
+    title: string;
+    isDisabled: boolean;
+    className: string;
+  }
+
+  export interface ITimeCellValue {
+    text: string;
+    value: number;
+    isDisabled: boolean;
+    className: string;
+  }
 }

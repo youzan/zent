@@ -1,16 +1,14 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-class Tag extends PureComponent<any, any> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    cid: PropTypes.string,
-    value: PropTypes.any,
-    text: PropTypes.any,
-    onFocus: PropTypes.func,
-  };
+export interface ISelectTagProps {
+  prefixCls: string;
+  cid: string;
+  text: any;
+  onDelete(cid: string): void;
+}
 
+class Tag extends PureComponent<ISelectTagProps, any> {
   constructor(props) {
     super(props);
     this.deleteTagHandler = this.deleteTagHandler.bind(this);

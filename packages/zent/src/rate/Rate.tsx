@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
 
@@ -26,19 +25,6 @@ export interface IRateState {
 }
 
 export class Rate extends PureComponent<IRateProps, IRateState> {
-  static propTypes = {
-    disabled: PropTypes.bool,
-    value: PropTypes.number,
-    count: PropTypes.number,
-    allowHalf: PropTypes.bool,
-    allowClear: PropTypes.bool,
-    style: PropTypes.object,
-    prefix: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    className: PropTypes.string,
-    character: PropTypes.node,
-  };
-
   static defaultProps = {
     value: 0,
     count: 5,

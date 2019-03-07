@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
-import BreakpointContext from './BreakpointContext';
+import LayoutBreakpointContext from './BreakpointContext';
 import { getValueForBreakpoint } from './screen-breakpoints';
 
-export interface IRowProps {
+export interface ILayoutRowProps {
   className?: string;
   justify?:
     | 'start'
@@ -20,20 +19,7 @@ export interface IRowProps {
   style?: React.CSSProperties;
 }
 
-export default class Row extends Component<IRowProps> {
-  static propTypes = {
-    justify: PropTypes.oneOf([
-      'start',
-      'end',
-      'center',
-      'space-around',
-      'space-between',
-      'space-evenly',
-    ]),
-    align: PropTypes.oneOf(['start', 'center', 'end']),
-    className: PropTypes.string,
-  };
-
+export class LayoutRow extends Component<ILayoutRowProps> {
   static defaultProps = {
     justify: 'start',
     align: 'start',
@@ -52,7 +38,7 @@ export default class Row extends Component<IRowProps> {
     );
 
     return (
-      <BreakpointContext.Consumer>
+      <LayoutBreakpointContext.Consumer>
         {breakpoints => (
           <ConfigContext.Consumer>
             {config => {
@@ -92,7 +78,9 @@ export default class Row extends Component<IRowProps> {
             }}
           </ConfigContext.Consumer>
         )}
-      </BreakpointContext.Consumer>
+      </LayoutBreakpointContext.Consumer>
     );
   }
 }
+
+export default LayoutRow;

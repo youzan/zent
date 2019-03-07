@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 
 import { padLeft, isSameDate } from '../utils';
 import HourPanel from './HourPanel';
 import MinutePanel from './MinutePanel';
 import SecondPanel from './SecondPanel';
+import { DatePickers } from '../common/types';
 
 const stateMap = {
   hour: 'openHour',
@@ -19,12 +19,16 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-export default class TimePanel extends PureComponent<any> {
-  static propTypes = {
-    onChange: PropTypes.func,
-    actived: PropTypes.instanceOf(Date),
-  };
+export interface ITimePanelProps {
+  onChange: (Date, string) => void;
+  actived: Date;
+  min?: Date;
+  max?: Date;
+  disabledTime: DatePickers.IDisabledTime;
+  i18n: any;
+}
 
+export default class TimePanel extends PureComponent<ITimePanelProps> {
   state = {
     openHour: false,
     openMinute: false,

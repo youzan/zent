@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 import isFunction from 'lodash-es/isFunction';
 
 export interface IAlertProps {
-  type: 'info' | 'warning' | 'danger'
-  size?: 'normal' | 'large'
-  rounded?: boolean
-  closable?: boolean
-  onClose?: () => void
-  className?: string
-  prefix?: string
+  type: 'info' | 'warning' | 'danger' | 'error';
+  size?: 'normal' | 'large';
+  rounded?: boolean;
+  closable?: boolean;
+  onClose?: () => void;
+  children: React.ReactNode;
+  className?: string;
+  prefix?: string;
 }
 
 // 忽略不支持的style
@@ -31,17 +31,6 @@ const sizeClassMap = {
 };
 
 export class Alert extends Component<IAlertProps> {
-  static propTypes = {
-    type: PropTypes.oneOf(['info', 'warning', 'danger', 'error']),
-    size: PropTypes.oneOf(['large', 'normal']),
-    rounded: PropTypes.bool,
-    closable: PropTypes.bool,
-    onClose: PropTypes.func,
-    children: PropTypes.node,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     type: 'info',
     size: 'normal',

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import isNil from 'lodash-es/isNil';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import Placeholder from '../placeholder';
 
@@ -17,17 +16,6 @@ export interface ICardProps {
 }
 
 export class Card extends Component<ICardProps> {
-  static propTypes = {
-    title: PropTypes.node,
-    action: PropTypes.node,
-    loading: PropTypes.bool,
-    type: PropTypes.oneOf(['nested', 'normal']),
-    style: PropTypes.object,
-    bodyStyle: PropTypes.object,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     type: 'normal',
     style: {},

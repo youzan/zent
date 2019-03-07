@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import isFunction from 'lodash-es/isFunction';
 
 import ErrorBoundaryFallbackComponent from './Fallback';
@@ -26,12 +25,6 @@ export interface IErrorBoundaryProps {
 }
 
 export class ErrorBoundary extends Component<IErrorBoundaryProps> {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    onError: PropTypes.func,
-    FallbackComponent: PropTypes.func,
-  };
-
   static defaultProps = {
     FallbackComponent: ErrorBoundaryFallbackComponent,
   };

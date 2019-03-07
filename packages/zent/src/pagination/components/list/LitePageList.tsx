@@ -1,18 +1,10 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 import PageNumberButton from '../button/PageNumberButton';
 import ArrowButton from '../button/ArrowButton';
 import BasePageList from './BasePageList';
 
 export default class LitePageList extends BasePageList {
-  static propTypes = {
-    layout: PropTypes.array,
-    current: PropTypes.number,
-    buttonBordered: PropTypes.bool,
-    onPageChange: PropTypes.func,
-  };
-
   resetActiveDoubleArrowButton() {}
 
   render() {

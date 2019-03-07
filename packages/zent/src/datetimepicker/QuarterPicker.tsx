@@ -16,7 +16,6 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes,
 } from './constants';
 import { DatePickers } from './common/types';
 
@@ -90,10 +89,6 @@ function extractStateFromProps(props: IQuarterPickerProps) {
 }
 
 export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
-  static propTypes = {
-    ...commonPropTypes,
-  };
-
   static defaultProps = {
     ...commonProps,
     placeholder: '',

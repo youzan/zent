@@ -5,7 +5,6 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 
 import MenuList, { IMenuListObjectItem, IMenuListItem } from './MenuList';
 
@@ -58,28 +57,6 @@ export interface ISelectMenuState {
 }
 
 export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
-  static propTypes = {
-    // auto complete props
-    value: PropTypes.any,
-    searchText: PropTypes.string,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.any,
-        content: PropTypes.node,
-        isGroup: PropTypes.bool,
-        isDivider: PropTypes.bool,
-
-        // the props below are preserved for future refacter
-        searchContent: PropTypes.string,
-        icon: PropTypes.string,
-        disabled: PropTypes.bool,
-        active: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-      })
-    ),
-    onSelect: PropTypes.func, // function (value, option) => {} | callback when select option
-    filterOption: PropTypes.func, // function (searchText, { value, content }) => bool
-  };
-
   static defaultProps = {
     filterOption: caselessMatchFilterOption,
   };

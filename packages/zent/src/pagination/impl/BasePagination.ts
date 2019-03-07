@@ -31,7 +31,7 @@ export interface IPaginationState {
   layout: PaginationLayout[];
 }
 
-export default abstract class BasePagination<
+export abstract class BasePagination<
   IProps extends IBasePaginationProps
 > extends Component<IProps, IPaginationState> {
   name: string;
@@ -120,3 +120,5 @@ export default abstract class BasePagination<
     }
   }
 }
+
+export default BasePagination;

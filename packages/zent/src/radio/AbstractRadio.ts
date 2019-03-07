@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import noop from 'lodash-es/noop';
 
 import GroupContext, { IRadioContext } from './GroupContext';
@@ -26,18 +25,6 @@ export interface IRadioProps {
 }
 
 abstract class AbstractRadio extends Component<IRadioProps> {
-  static propTypes = {
-    checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-    value: PropTypes.any,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    onChange: PropTypes.func,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    prefix: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

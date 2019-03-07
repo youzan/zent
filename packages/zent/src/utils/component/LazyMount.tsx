@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { Component } from 'react';
 
 export interface ILazyMountProps {
@@ -13,10 +12,6 @@ export default class LazyMount extends Component<
   ILazyMountProps,
   ILazyMountState
 > {
-  static propTypes = {
-    mount: PropTypes.bool,
-  };
-
   static defaultProps = {
     mount: false,
   };

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import isUndefined from 'lodash-es/isUndefined';
 
 import { getNodeFromSelector } from './util';
 import { IPurePoralProps } from './PurePortal';
 
 export interface INonScrollableWrapperProps {
-  selector: string | HTMLElement;
+  selector?: string | HTMLElement;
   visible?: boolean;
 }
 
@@ -26,10 +25,6 @@ export default function withNonScrollable<P extends IPurePoralProps>(
   return class NonScrollableWrapper extends Component<
     P & INonScrollableWrapperProps
   > {
-    static propTypes = {
-      selector: PropTypes.string,
-    };
-
     static defaultProps = {
       selector: 'body',
     };

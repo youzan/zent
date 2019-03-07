@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import map from 'lodash-es/map';
 
@@ -33,27 +32,6 @@ export interface IDateRangeQuickPickerProps {
 }
 
 export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.array,
-    valueType: PropTypes.oneOf(['date', 'number', 'string']),
-    format: PropTypes.string,
-    chooseDays: PropTypes.number,
-    preset: PropTypes.array,
-    min: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date),
-    ]),
-    max: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.instanceOf(Date),
-    ]),
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

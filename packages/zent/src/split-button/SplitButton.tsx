@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import camelCase from 'lodash-es/camelCase';
 import upperFirst from 'lodash-es/upperFirst';
@@ -47,41 +46,6 @@ export interface ISplitButtonProps {
 }
 
 export class SplitButton extends Component<ISplitButtonProps> {
-  static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
-    disabled: PropTypes.bool,
-    loading: PropTypes.bool,
-    size: PropTypes.oneOf(['large', 'medium', 'small']),
-    dropdownTrigger: PropTypes.oneOf(['click', 'hover']),
-    dropdownData: PropTypes.array,
-    dropdownValue: PropTypes.string,
-    dropdownText: PropTypes.string,
-    dropdownPosition: PropTypes.oneOf([
-      'left-top',
-      'left-center',
-      'left-bottom',
-      'right-top',
-      'right-center',
-      'right-bottom',
-      'top-left',
-      'top-center',
-      'top-right',
-      'bottom-left',
-      'bottom-center',
-      'bottom-right',
-      'auto-bottom-center',
-      'auto-bottom-left',
-      'auto-bottom-right',
-      'auto-top-center',
-      'auto-top-left',
-      'auto-top-right',
-    ]),
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    onClick: PropTypes.func,
-    onSelect: PropTypes.func,
-  };
-
   static defaultProps = {
     type: 'default',
     size: 'medium',

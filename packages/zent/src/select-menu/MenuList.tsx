@@ -5,7 +5,6 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cn from 'classnames';
 import * as keycode from 'keycode';
 // import isNaN from 'lodash/isNaN';
@@ -43,29 +42,6 @@ export default class MenuList extends Component<
   IMenuListProps,
   IMenuListState
 > {
-  static propTypes = {
-    items: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.shape({
-          value: PropTypes.any,
-          content: PropTypes.node,
-          isGroup: PropTypes.bool,
-          isDivider: PropTypes.bool,
-          onClick: PropTypes.func,
-
-          // the props below are preserved for future refactor
-          searchContent: PropTypes.string,
-          icon: PropTypes.string,
-          disabled: PropTypes.bool,
-          active: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        }),
-      ])
-    ),
-    onRequestClose: PropTypes.func,
-  };
-
   refMenuScrollContainer: HTMLDivElement | null = null;
   refMenuItemList: HTMLUListElement | null = null;
 

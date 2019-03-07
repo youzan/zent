@@ -1,18 +1,10 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 import ArrowButton from '../button/ArrowButton';
 import MiniPageJumper from '../jumper/MiniPageJumper';
 import BasePageList from './BasePageList';
 
 export default class MiniPageList extends BasePageList {
-  static propTypes = {
-    layout: PropTypes.array,
-    current: PropTypes.number,
-    buttonBordered: PropTypes.bool,
-    onPageChange: PropTypes.func,
-  };
-
   resetActiveDoubleArrowButton() {}
 
   render() {

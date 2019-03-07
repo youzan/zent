@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash-es/assign';
 import findIndex from 'lodash-es/findIndex';
@@ -33,18 +32,6 @@ export interface ICheckboxProps {
 }
 
 export class Checkbox extends Component<ICheckboxProps> {
-  static propTypes = {
-    checked: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    indeterminate: PropTypes.bool,
-    onChange: PropTypes.func,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    prefix: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

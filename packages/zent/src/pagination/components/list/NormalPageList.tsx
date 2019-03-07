@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 import ArrowButton from '../button/ArrowButton';
@@ -6,13 +5,6 @@ import PageNumberButton from '../button/PageNumberButton';
 import BasePageList from './BasePageList';
 
 export default class NormalPageList extends BasePageList {
-  static propTypes = {
-    layout: PropTypes.array.isRequired,
-    current: PropTypes.number,
-    buttonBordered: PropTypes.bool,
-    onPageChange: PropTypes.func,
-  };
-
   state = {
     activeDoubleArrowButton: '',
   };

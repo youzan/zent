@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
-
 import { noop } from '../constants';
+import { DatePickers } from './types';
 
-export default class PanelCell extends PureComponent<any> {
-  static propTypes = {
-    onHover: PropTypes.func,
-    onSelect: PropTypes.func,
-  };
+export interface IPanelCellProps {
+  onHover: (value: Date) => void;
+  onSelect: (value: Date) => void;
+  cells: DatePickers.IPanelCellValue[][];
+}
 
+export default class PanelCell extends PureComponent<IPanelCellProps> {
   static defaultProps = {
     onHover: noop,
   };

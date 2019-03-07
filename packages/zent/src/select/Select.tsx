@@ -3,7 +3,6 @@
  */
 
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import omit from 'lodash-es/omit';
 import isEqual from 'lodash-es/isEqual';
@@ -64,51 +63,6 @@ export interface ISelectProps {
 }
 
 export class Select extends React.Component<ISelectProps, any> {
-  static propTypes = {
-    data: PropTypes.array,
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    open: PropTypes.bool,
-    popupClassName: PropTypes.string,
-    disabled: PropTypes.bool,
-    placeholder: PropTypes.string,
-    maxToShow: PropTypes.number,
-    searchPlaceholder: PropTypes.string,
-    emptyText: PropTypes.node,
-    selectedItem: PropTypes.shape({
-      value: PropTypes.any,
-      text: PropTypes.string,
-    }),
-    selectedItems: PropTypes.array,
-    trigger: PropTypes.func,
-    optionValue: PropTypes.string,
-    optionText: PropTypes.string,
-    onChange: PropTypes.func,
-    onDelete: PropTypes.func,
-    filter: PropTypes.func,
-    onAsyncFilter: PropTypes.func,
-    onEmptySelected: PropTypes.func,
-    onOpen: PropTypes.func,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
-    // 自动根据ref计算弹层宽度
-    autoWidth: PropTypes.bool,
-
-    // 自动添加重置选项
-    resetOption: PropTypes.bool,
-
-    // 重置选项展示文本
-    resetText: PropTypes.string,
-
-    value: PropTypes.any,
-
-    index: PropTypes.number,
-
-    initialValue: PropTypes.any,
-
-    initialIndex: PropTypes.number,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     disabled: false,

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 
 import Popover from '../popover';
 import { TimelineDot } from './Dot';
@@ -49,21 +48,6 @@ export interface ITimelineItemProps {
 }
 
 export class TimelineItem extends PureComponent<ITimelineItemProps> {
-  static propTypes = {
-    size: PropTypes.number,
-    color: PropTypes.string,
-    label: PropTypes.node,
-    tip: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    type: PropTypes.oneOf(['vertical', 'horizontal']),
-    prefix: PropTypes.string,
-    showLabel: PropTypes.bool,
-    showDot: PropTypes.bool,
-    lineColor: PropTypes.string,
-    dotColor: PropTypes.string,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     showLabel: true,

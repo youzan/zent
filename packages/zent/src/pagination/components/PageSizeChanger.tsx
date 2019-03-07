@@ -1,19 +1,30 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import isEmpty from 'lodash-es/isEmpty';
 import isNumber from 'lodash-es/isNumber';
 import Select from '../../select';
 import { I18nReceiver as Receiver } from '../../i18n';
 
-export default class PageSizeChanger extends Component<any, any> {
-  static propTypes = {
-    total: PropTypes.number,
-    pageSize: PropTypes.number,
-    pageSizeOptions: PropTypes.array,
-    onPageSizeChange: PropTypes.func,
-  };
+export interface IPaginationPageSizeCompoundOption {
+  text: React.ReactNode;
+  value: number;
+}
 
+export type PaginationPageSizeOption =
+  | number
+  | IPaginationPageSizeCompoundOption;
+
+export interface IPaginationPageSizeChangerProps {
+  total?: number;
+  pageSize?: number;
+  pageSizeOptions?: PaginationPageSizeOption[];
+  onPageSizeChange?: (pageSize: number) => void;
+}
+
+export default class PageSizeChanger extends Component<
+  IPaginationPageSizeChangerProps,
+  any
+> {
   render() {
     const { total, pageSize, pageSizeOptions, onPageSizeChange } = this.props;
 
@@ -116,12 +127,12 @@ class PageSizeSelect extends Component<any, any> {
   }
 }
 
-class StaticPageSize extends Component<any, any> {
-  static propTypes = {
-    total: PropTypes.number,
-    pageSize: PropTypes.number,
-  };
+export interface IPaginationStaticPageSizeProps {
+  total?: number;
+  pageSize?: number;
+}
 
+class StaticPageSize extends Component<IPaginationStaticPageSizeProps, any> {
   render() {
     const { total, pageSize } = this.props;
 

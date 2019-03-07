@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import isFunction from 'lodash-es/isFunction';
 
 import PurePortal, { IPurePoralProps } from './PurePortal';
@@ -25,31 +24,6 @@ export interface ILayeredPortalProps extends IPurePoralProps {
   Portal的核心，只负责管理child。index.js实际export的不是这个component.
 */
 export class LayeredPortal extends Component<ILayeredPortalProps> {
-  static propTypes = {
-    // visible
-    visible: PropTypes.bool,
-    onMount: PropTypes.func,
-    onUnmount: PropTypes.func,
-
-    // children
-    children: PropTypes.node,
-    render: PropTypes.func,
-
-    // parent node
-    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-    // layer
-    layer: PropTypes.string, // the layer tag
-    useLayerForClickAway: PropTypes.bool,
-    onClickAway: PropTypes.func,
-    onLayerReady: PropTypes.func,
-
-    // layer style
-    className: PropTypes.string,
-    style: PropTypes.object,
-    css: PropTypes.object, // deprecated
-  };
-
   static defaultProps = {
     selector: 'body',
     layer: 'div',

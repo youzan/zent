@@ -1,20 +1,36 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import ConfigContext from './ConfigContext';
-import BreakpointContext from './BreakpointContext';
+import LayoutBreakpointContext from './BreakpointContext';
 import { getValueForBreakpoint } from './screen-breakpoints';
 
-export default class Col extends Component<any> {
-  static propTypes = {
-    span: PropTypes.oneOfType([PropTypes.number, PropTypes.object]).isRequired,
-    offset: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-    order: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-    className: PropTypes.string,
-  };
+export interface ILayoutResponsiveValue {
+  // Fallback value when no breakpoint is matched
+  fallback: number;
 
+  // Breakpoints from bootstrap 4
+  xs?: number; // width <576px
+  sm?: number; // width ≥576px
+  md?: number; // width ≥768px
+  lg?: number; // width ≥992px
+  xl?: number; // width ≥1200px
+
+  // These breakpoints are not in bootstrap
+  xxl?: number; // width ≥1600px;
+  fhd?: number; // width ≥1920px;
+}
+
+export interface ILayoutColProps {
+  span: number | ILayoutResponsiveValue;
+  offset?: number | ILayoutResponsiveValue;
+  order?: number | ILayoutResponsiveValue;
+  style?: React.CSSProperties;
+  className?: string;
+}
+
+export class LayoutCol extends Component<ILayoutColProps> {
   static defaultProps = {
     offset: 0,
     order: 0,
@@ -22,7 +38,7 @@ export default class Col extends Component<any> {
 
   render() {
     return (
-      <BreakpointContext.Consumer>
+      <LayoutBreakpointContext.Consumer>
         {breakpoints => (
           <ConfigContext.Consumer>
             {config => {
@@ -75,7 +91,9 @@ export default class Col extends Component<any> {
             }}
           </ConfigContext.Consumer>
         )}
-      </BreakpointContext.Consumer>
+      </LayoutBreakpointContext.Consumer>
     );
   }
 }
+
+export default LayoutCol;

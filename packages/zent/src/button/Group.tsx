@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import setClass from 'classnames';
-import * as PropTypes from 'prop-types';
 
 export interface IButtonGroupProps {
   className?: string
@@ -10,12 +9,6 @@ export interface IButtonGroupProps {
 }
 
 export class ButtonGroup extends Component<IButtonGroupProps> {
-  static propTypes = {
-    style: PropTypes.object,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     style: null,
     className: '',

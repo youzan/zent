@@ -3,7 +3,6 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import take from 'lodash-es/take';
 import noop from 'lodash-es/noop';
 
@@ -14,20 +13,26 @@ import Search from './components/Search';
 import Option from './components/Option';
 import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
 
-class Popup extends Component<any, any> {
-  static propTypes = {
-    adjustPosition: PropTypes.func,
-    cid: PropTypes.string,
-    keyword: PropTypes.any,
-    selectedItems: PropTypes.array,
-    searchPlaceholder: PropTypes.string,
-    emptyText: PropTypes.any,
-    prefixCls: PropTypes.string,
-    extraFilter: PropTypes.bool,
-    filter: PropTypes.func,
-    onAsyncFilter: PropTypes.func,
-  };
+export interface IPopupProps {
+  adjustPosition: () => void;
+  cid: string;
+  keyword: any;
+  selectedItems: any[];
+  searchPlaceholder: string;
+  emptyText: any;
+  prefixCls: string;
+  extraFilter: boolean;
+  filter: <T>(items: T[], keyword: string) => T[];
+  autoWidth: boolean;
+  popover: any;
+  onAsyncFilter: (keyword: string) => void;
+  data: any[];
+  maxToShow?: number;
+  ready?: boolean;
+  onChange: (evt: React.ReactEventHandler, items: any[]) => void;
+}
 
+class Popup extends Component<IPopupProps, any> {
   static defaultProps = {
     adjustPosition: noop,
     cid: -1,

@@ -1,18 +1,15 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { I18nReceiver as Receiver } from '../../../i18n';
 import Input from '../../../input';
 
-import BasePageJumper from './BasePageJumper';
+import BasePageJumper, { IPaginationBaseJumperProps } from './BasePageJumper';
 
 const INPUT_WIDTH = 56;
 
-export default class PageJumper extends BasePageJumper {
-  static propTypes = {
-    current: PropTypes.number,
-    onJump: PropTypes.func,
-  };
+export interface IPaginationPageJumperProps
+  extends IPaginationBaseJumperProps {}
 
+export class PageJumper extends BasePageJumper<IPaginationPageJumperProps> {
   render() {
     const { value } = this.state;
     const input = (
@@ -56,3 +53,5 @@ export default class PageJumper extends BasePageJumper {
     });
   }
 }
+
+export default PageJumper;

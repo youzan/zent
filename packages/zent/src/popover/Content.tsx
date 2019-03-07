@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import throttle from 'lodash-es/throttle';
-import * as PropTypes from 'prop-types';
-
 import Portal from '../portal';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
@@ -53,36 +51,6 @@ export default class PopoverContent extends Component<
   IPopoverContentProps,
   any
 > {
-  static propTypes = {
-    children: PropTypes.node,
-
-    prefix: PropTypes.string,
-
-    className: PropTypes.string,
-
-    id: PropTypes.string,
-
-    getContentNode: PropTypes.func,
-
-    visible: PropTypes.bool,
-
-    // placement strategy
-    placement: PropTypes.func,
-
-    cushion: PropTypes.number,
-
-    // A function that returns the anchor for this popover
-    // () => Node
-    getAnchor: PropTypes.func,
-
-    // defaults to body
-    containerSelector: PropTypes.string,
-
-    onPositionUpdated: PropTypes.func,
-
-    onPositionReady: PropTypes.func,
-  };
-
   positionReady: boolean;
   positionedParent: Element | null;
 

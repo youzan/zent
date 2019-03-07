@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 
 import Portal, { IPortalProps } from '../portal';
@@ -50,19 +49,6 @@ export interface IDialogState {
 }
 
 export class Dialog extends Component<IDialogProps, IDialogState> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    onClose: PropTypes.func,
-    visible: PropTypes.bool,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    title: PropTypes.node,
-    closeBtn: PropTypes.bool,
-    mask: PropTypes.bool,
-    maskClosable: PropTypes.bool,
-    footer: PropTypes.node,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     onClose() {},

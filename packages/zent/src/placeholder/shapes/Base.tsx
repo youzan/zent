@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 export interface IPlaceholderBaseShapeProps {
@@ -11,13 +10,6 @@ export interface IPlaceholderBaseShapeProps {
 }
 
 export default class Base extends PureComponent<IPlaceholderBaseShapeProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-    animate: PropTypes.bool,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     style: {},
     prefix: 'zent',

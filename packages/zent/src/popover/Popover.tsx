@@ -25,7 +25,6 @@ import uniqueId from 'lodash-es/uniqueId';
 import isFunction from 'lodash-es/isFunction';
 import isBoolean from 'lodash-es/isBoolean';
 import isPromise from '../utils/isPromise';
-import * as PropTypes from 'prop-types';
 import kindOf from '../utils/kindOf';
 import getWidth from '../utils/getWidth';
 import memoize from '../utils/memorize-one';
@@ -85,46 +84,6 @@ export interface IPopoverState {
 }
 
 export class Popover extends Component<IPopoverProps, IPopoverState> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-
-    // custom classname for trigger wrapper
-    wrapperClassName: PropTypes.string,
-
-    // container的display属性
-    display: PropTypes.string,
-
-    // position strategy
-    position: PropTypes.func.isRequired,
-
-    // 定位时的偏移量
-    cushion: PropTypes.number,
-
-    // 只有用户触发的打开／关闭才会触发这两个毁掉
-    onBeforeClose: PropTypes.func,
-    onBeforeShow: PropTypes.func,
-
-    // 不管打开／关闭时如何触发的都会被调用
-    onClose: PropTypes.func,
-    onShow: PropTypes.func,
-
-    // defaults to body
-    containerSelector: PropTypes.string,
-
-    children: PropTypes.node.isRequired,
-
-    // 两个必须一起出现
-    visible: PropTypes.bool,
-    onVisibleChange: PropTypes.func,
-
-    // 位置改变后会触发，可能存在实际位置没变但也触发的情况
-    onPositionUpdated: PropTypes.func,
-
-    // content 第一次进入屏幕内时触发, 生命周期内只触发一次
-    onPositionReady: PropTypes.func,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

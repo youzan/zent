@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
-import * as PropTypes from 'prop-types';
-// import omit from 'lodash/omit';
 import isFunction from 'lodash-es/isFunction';
 import noop from 'lodash-es/noop';
 import { Omit } from 'utility-types';
@@ -35,20 +33,6 @@ export interface INumberInputProps
 }
 
 export class NumberInput extends PureComponent<INumberInputProps, any> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    showStepper: PropTypes.bool,
-    showCounter: PropTypes.bool,
-    decimal: PropTypes.number,
-    disabled: PropTypes.bool,
-    value: PropTypes.any,
-    max: PropTypes.number,
-    min: PropTypes.number,
-    onChange: PropTypes.func,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
-
   static defaultProps = {
     prefix: 'zent',
     showStepper: false,

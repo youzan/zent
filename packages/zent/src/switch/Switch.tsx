@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import setClass from 'classnames';
 
 export interface ISwitchProps {
@@ -16,16 +15,6 @@ export interface ISwitchProps {
 }
 
 export class Switch extends Component<ISwitchProps> {
-  static propTypes = {
-    size: PropTypes.oneOf(['default', 'small']),
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    checked: PropTypes.bool,
-    loading: PropTypes.bool,
-    onChange: PropTypes.func,
-  };
-
   static defaultProps = {
     size: 'default',
     prefix: 'zent',

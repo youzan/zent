@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import TextRow, { IPlaceholderTextRowProps } from '../shapes/TextRow';
@@ -24,22 +23,6 @@ export interface IPlaceholderTextBlockProps {
 export default class TextBlock extends PureComponent<
   IPlaceholderTextBlockProps
 > {
-  static propTypes = {
-    rows: PropTypes.number.isRequired,
-    lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    widths: PropTypes.arrayOf(PropTypes.number),
-    dashSegments: PropTypes.arrayOf(
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-    dashed: PropTypes.bool,
-    animate: PropTypes.bool,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     widths: [97, 99, 94, 92, 96, 95, 98, 60],
     dashSegments: DEFAULT_SEGMENTS,

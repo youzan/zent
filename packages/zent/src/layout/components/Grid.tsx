@@ -1,28 +1,23 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import omitBy from 'lodash-es/omitBy';
 
 import ConfigContext from './ConfigContext';
 import Breakpoint from './Breakpoint';
-import BreakpointContext from './BreakpointContext';
+import LayoutBreakpointContext from './BreakpointContext';
 import { BREAKPOINTS } from './screen-breakpoints';
 
-export interface IGridProps {
+export interface ILayoutGridProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-export interface IGridState {
+export interface ILayoutGridState {
   breakpoints: string[];
 }
 
-export default class Grid extends Component<IGridProps, IGridState> {
-  static propTypes = {
-    className: PropTypes.string,
-  };
-
+export class LayoutGrid extends Component<ILayoutGridProps, ILayoutGridState> {
   state = {
     breakpoints: [],
   };
@@ -51,9 +46,9 @@ export default class Grid extends Component<IGridProps, IGridState> {
               className={cx('zent-layout-grid', className)}
               style={layoutStyles}
             >
-              <BreakpointContext.Provider value={this.state}>
+              <LayoutBreakpointContext.Provider value={this.state}>
                 {this.props.children}
-              </BreakpointContext.Provider>
+              </LayoutBreakpointContext.Provider>
               <Breakpoint
                 breakpoints={BREAKPOINTS}
                 onChange={this.onBreakpointChange}
@@ -65,16 +60,18 @@ export default class Grid extends Component<IGridProps, IGridState> {
     );
   }
 
-  onBreakpointChange = delta => {
+  onBreakpointChange = (name, matched) => {
     this.setState(prevState => {
       const { breakpoints } = prevState;
 
       return {
         breakpoints: omitBy(
-          { ...breakpoints, ...delta },
-          (matched, brk) => !matched || delta[brk] === false
+          { ...breakpoints, [name]: matched },
+          matched => !matched || matched === false
         ),
       } as any;
     });
   };
 }
+
+export default LayoutGrid;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import debounce from 'lodash-es/debounce';
 import identity from 'lodash-es/identity';
@@ -29,21 +28,6 @@ export interface IClampLinesState {
 }
 
 export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    lines: PropTypes.number,
-    delay: PropTypes.number,
-    ellipsis: PropTypes.string,
-    showPop: PropTypes.bool,
-    popWidth: PropTypes.number,
-    trigger: PropTypes.oneOf(['click', 'hover', 'focus']),
-    renderPop: PropTypes.func,
-    resizable: PropTypes.bool,
-    extra: PropTypes.element,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     className: '',
     prefix: 'zent',

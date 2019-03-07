@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
-import * as PropTypes from 'prop-types';
 import isFunction from 'lodash-es/isFunction';
 import omit from 'lodash-es/omit';
 import isNumber from 'lodash-es/isNumber';
@@ -51,30 +50,6 @@ export interface IInputProps
 }
 
 export class Input extends PureComponent<IInputProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    type: PropTypes.string,
-    size: PropTypes.oneOf(['large', 'normal', 'small']),
-    placeholder: PropTypes.string,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    value: PropTypes.any,
-    defaultValue: PropTypes.any,
-    addonBefore: PropTypes.node,
-    addonAfter: PropTypes.node,
-    onPressEnter: PropTypes.func,
-    showCount: PropTypes.bool,
-    showClear: PropTypes.bool,
-    autoSize: PropTypes.bool,
-    onChange: PropTypes.func,
-    autoFocus: PropTypes.bool,
-    initSelectionStart: PropTypes.number,
-    initSelectionEnd: PropTypes.number,
-    autoSelect: PropTypes.bool,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  };
-
   static defaultProps = {
     disabled: false,
     readOnly: false,

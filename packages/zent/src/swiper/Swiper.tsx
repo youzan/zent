@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component, Children, cloneElement } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import forEach from 'lodash-es/forEach';
@@ -33,20 +32,6 @@ export interface ISwiperProps {
 }
 
 export class Swiper extends Component<ISwiperProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    transitionDuration: PropTypes.number,
-    autoplay: PropTypes.bool,
-    autoplayInterval: PropTypes.number,
-    dots: PropTypes.bool,
-    dotsColor: PropTypes.string,
-    dotsSize: PropTypes.oneOf(['normal', 'small', 'large']),
-    arrows: PropTypes.bool,
-    arrowsType: PropTypes.oneOf(['dark', 'light']),
-    onChange: PropTypes.func,
-  };
-
   static defaultProps = {
     className: '',
     prefix: 'zent',

@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
 import get from 'lodash-es/get';
-import omit from 'lodash-es/omit';
 import defer from 'lodash-es/defer';
 import isFunction from 'lodash-es/isFunction';
 import includes from 'lodash-es/includes';
 import isEqual from 'lodash-es/isEqual';
 import isUndefined from 'lodash-es/isUndefined';
 import throttle from 'lodash-es/throttle';
-import * as PropTypes from 'prop-types';
 import * as keycode from 'keycode';
 import cx from 'classnames';
 import Input, { IInputChangeEvent } from '../input';
@@ -58,35 +56,6 @@ export interface IMentionProps {
 }
 
 export class Mention extends Component<IMentionProps> {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    multiLine: PropTypes.bool,
-    position: PropTypes.oneOf(['top', 'bottom']),
-    onSearchChange: PropTypes.func,
-    suggestions: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.shape({
-          value: PropTypes.any.isRequired,
-          content: PropTypes.node,
-          isGroup: PropTypes.bool,
-          isDivider: PropTypes.bool,
-
-          // the props below are preserved for future refactor
-          icon: PropTypes.string,
-          disabled: PropTypes.bool,
-          // active: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        }),
-      ])
-    ),
-    suggestionNotFoundContent: PropTypes.node,
-    triggerText: PropTypes.string,
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-  };
-
   static defaultProps = {
     multiLine: false,
     position: 'bottom',

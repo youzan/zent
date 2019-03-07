@@ -15,7 +15,6 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes,
 } from './constants';
 import { DatePickers } from './common/types';
 
@@ -60,10 +59,6 @@ function extractStateFromProps(props: IMonthPickerProps) {
 }
 
 export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
-  static propTypes = {
-    ...commonPropTypes,
-  };
-
   static defaultProps = {
     ...commonProps,
     placeholder: '',

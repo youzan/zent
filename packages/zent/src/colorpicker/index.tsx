@@ -6,18 +6,20 @@
  */
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import ColorBoard from './ColorBoard';
 import SketchPresetColors from './SketchPresetColors';
 import PopoverClickTrigger from './PopoverClickTrigger';
 import Popover from '../popover';
 
+export type PresetColors = Array<string>;
+export type ColorPickerType = 'default' | 'simple';
+
 export interface IColorPickerProps {
   color: string;
   showAlpha?: boolean;
-  type?: 'default' | 'simple';
-  presetColors?: Array<string>;
+  type?: ColorPickerType;
+  presetColors?: PresetColors;
   onChange?: (color: string) => any;
   className?: string;
   wrapperClassName?: string;
@@ -27,17 +29,6 @@ export interface IColorPickerProps {
 export class ColorPicker extends PureComponent<IColorPickerProps> {
   state = {
     popVisible: false,
-  };
-
-  static propTypes = {
-    color: PropTypes.string.isRequired,
-    showAlpha: PropTypes.bool,
-    onChange: PropTypes.func,
-    className: PropTypes.string,
-    wrapperClassName: PropTypes.string,
-    prefix: PropTypes.string,
-    type: PropTypes.oneOf(['default', 'simple']),
-    presetColors: PropTypes.array,
   };
 
   static defaultProps = {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { Component } from 'react';
 import noop from 'lodash-es/noop';
 
@@ -14,16 +13,6 @@ export interface ITabPanelProps {
 }
 
 class TabPanel extends Component<ITabPanelProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    actived: PropTypes.bool,
-    tab: PropTypes.any.isRequired,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onTabReady: PropTypes.func,
-    uniqueId: PropTypes.number,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

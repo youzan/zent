@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 
@@ -14,13 +13,6 @@ export interface ISimpleTriggerProps {
 }
 
 class SimpleTrigger extends PureComponent<ISimpleTriggerProps> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    value: PropTypes.any,
-    text: PropTypes.any,
-    placeholder: PropTypes.string,
-  };
-
   render() {
     const { prefixCls, onClick, visible } = this.props;
     const rootClass = cx(`${prefixCls}-simple`, { visible });

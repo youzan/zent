@@ -12,7 +12,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import isFunction from 'lodash-es/isFunction';
 import isString from 'lodash-es/isString';
@@ -67,20 +66,6 @@ export class AnimateHeightNoAppear extends PureComponent<
   IAnimateHeightNoAppearProps,
   IAnimateHeightNoAppearState
 > {
-  static propTypes = {
-    animationStateClasses: PropTypes.object,
-    applyInlineTransitions: PropTypes.bool,
-    children: PropTypes.any.isRequired,
-    contentClassName: PropTypes.string,
-    duration: PropTypes.number,
-    easing: PropTypes.string,
-    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onAnimationEnd: PropTypes.func,
-    onAnimationStart: PropTypes.func,
-    style: PropTypes.object,
-    className: PropTypes.string,
-  };
-
   static defaultProps = {
     duration: 250,
     easing: 'ease',

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Circle from '../shapes/Circle';
@@ -11,31 +10,17 @@ export interface IPlaceholderRichTextBlock {
   className?: string;
   style?: React.CSSProperties;
   rows?: number;
-  shape?: string,
-  prefix?: string,
-  size?: number,
-  animate?: boolean,
-  dashed?: boolean,
-  widths,
-  dashSegments,
-  lineSpacing,
+  shape?: string;
+  prefix?: string;
+  size?: number;
+  animate?: boolean;
+  dashed?: boolean;
+  widths;
+  dashSegments;
+  lineSpacing;
 }
 
 export default class RichTextBlock extends PureComponent<IPlaceholderRichTextBlock> {
-  static propTypes = {
-    rows: PropTypes.number.isRequired,
-    shape: PropTypes.oneOf(['circle', 'rect']),
-    size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    lineSpacing: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    widths: PropTypes.arrayOf(PropTypes.number),
-    dashed: PropTypes.bool,
-    dashSegments: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-    animate: PropTypes.bool,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     style: {},
     className: '',

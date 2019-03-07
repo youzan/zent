@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import isArray from 'lodash-es/isArray';
 import * as startOfWeek from 'date-fns/start_of_week';
@@ -31,7 +30,6 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes,
 } from './constants';
 import { DatePickers } from './common/types';
 
@@ -74,11 +72,6 @@ export interface IWeekPickerProps
 }
 
 export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
-  static propTypes = {
-    ...commonPropTypes,
-    startDay: PropTypes.number,
-  };
-
   static defaultProps = {
     ...commonProps,
     placeholder: '',

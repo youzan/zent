@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 import debounce from 'lodash-es/debounce';
 
 import { I18nReceiver as Receiver } from '../i18n';
@@ -10,30 +9,24 @@ import Icon from '../icon';
 
 // 有关闭按钮的时候同时具有ESC关闭的行为
 const { withNonScrollable, withESCToClose } = Portal;
-const ImagePortalESCToClose = withESCToClose(withNonScrollable(Portal as any)) as any;
+const ImagePortalESCToClose = withESCToClose(withNonScrollable(Portal));
 
-export default class Image extends Component<any, any> {
+export interface IPreviewImageProps {
+  className: string;
+  prefix: string;
+  showRotateBtn: boolean;
+  images: any[];
+  index: number;
+  onClose(): void;
+  scaleRatio?: number;
+}
+
+export default class Image extends Component<IPreviewImageProps, any> {
   state = {
     imageIndex: this.props.index || 0,
     imageStyle: {},
     rotateIndex: 0,
     scaleTag: false,
-  };
-
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    showRotateBtn: PropTypes.bool,
-    images: PropTypes.array,
-    index: PropTypes.number,
-    scaleRatio(props, propName, componentName) {
-      const value = props[propName];
-      if (value < 1) {
-        return new Error(
-          `Invalid prop \`${propName}\` in ${componentName}, ${propName} should be greater than 1. Validation failed.`
-        );
-      }
-    },
   };
 
   static defaultProps = {
@@ -89,6 +82,13 @@ export default class Image extends Component<any, any> {
   handleRotate = () => {
     const { scaleTag } = this.state;
     const { scaleRatio } = this.props;
+
+    if (scaleRatio < 1) {
+      throw new Error(
+        `Invalid prop \`scaleRatio\` in previewImage, it should be greater than 1.`
+      );
+    }
+
     let rotateIndex = this.state.rotateIndex;
     let deg = 90 + rotateIndex * 90;
     rotateIndex++;
@@ -111,6 +111,13 @@ export default class Image extends Component<any, any> {
   handleScale = () => {
     const { rotateIndex, scaleTag } = this.state;
     const { scaleRatio } = this.props;
+
+    if (scaleRatio < 1) {
+      throw new Error(
+        `Invalid prop \`scaleRatio\` in previewImage, it should be greater than 1.`
+      );
+    }
+
     let deg = rotateIndex * 90;
 
     // 缩放时，旋转样式带上
@@ -160,7 +167,7 @@ export default class Image extends Component<any, any> {
                           style={imageStyle}
                           src={image}
                           key={index}
-                          alt={i18n.alt as unknown as  string}
+                          alt={(i18n.alt as unknown) as string}
                         />
                       );
                     }

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import cx from 'classnames';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
 import throttle from 'lodash-es/throttle';
 
 import WindowEventHandler from '../utils/component/WindowEventHandler';
@@ -26,17 +25,6 @@ export interface IAffixState {
 }
 
 export class Affix extends Component<IAffixProps, IAffixState> {
-  static propTypes = {
-    placeHoldClassName: PropTypes.string,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    zIndex: PropTypes.number,
-    offsetTop: PropTypes.number,
-    offsetBottom: PropTypes.number,
-    onPin: PropTypes.func,
-    onUnpin: PropTypes.func,
-  };
-
   static defaultProps = {
     offsetTop: 0,
     prefix: 'zent',

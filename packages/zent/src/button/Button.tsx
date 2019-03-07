@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component, MouseEventHandler, CSSProperties, Children } from 'react';
 import setClass from 'classnames';
-import * as PropTypes from 'prop-types';
 import { Omit } from 'utility-types';
 import omit from 'lodash-es/omit';
 import Icon from '../icon';
@@ -64,21 +63,6 @@ export interface IButtonProps
 }
 
 export class Button extends Component<IButtonProps> {
-  static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'success', 'danger']),
-    size: PropTypes.oneOf(['large', 'medium', 'small']),
-    htmlType: PropTypes.oneOf(['button', 'submit', 'reset']),
-    className: PropTypes.string,
-    block: PropTypes.bool,
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    disabled: PropTypes.bool,
-    loading: PropTypes.bool,
-    outline: PropTypes.bool,
-    bordered: PropTypes.bool,
-    insertSpace: PropTypes.bool,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     type: 'default',
     size: 'medium',

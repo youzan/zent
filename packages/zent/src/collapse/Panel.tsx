@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import AnimateHeight from '../utils/component/AnimateHeight';
 import LazyMount from '../utils/component/LazyMount';
@@ -29,24 +28,6 @@ export interface ICollapsePanelProps {
 }
 
 export class CollapsePanel extends Component<ICollapsePanelProps> {
-  static propTypes = {
-    title: PropTypes.node.isRequired,
-    disabled: PropTypes.bool,
-    showArrow: PropTypes.bool,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    children: PropTypes.node,
-
-    // Internal props
-    active: PropTypes.bool,
-    onChange: PropTypes.func,
-    panelKey: PropTypes.string,
-    panelTitleBackground: PropTypes.string,
-    isLast: PropTypes.bool,
-    bordered: PropTypes.bool,
-  };
-
   static defaultProps = {
     disabled: false,
     showArrow: true,

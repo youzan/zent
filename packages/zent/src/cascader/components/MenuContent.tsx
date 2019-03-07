@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import Popover from '../../popover';
@@ -26,17 +25,6 @@ export interface IMenuContentProps {
 }
 
 class MenuContent extends PureComponent<IMenuContentProps> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    clickHandler: PropTypes.func,
-    value: PropTypes.array,
-    options: PropTypes.array,
-    isLoading: PropTypes.bool,
-    recursiveNextOptions: PropTypes.func,
-    expandTrigger: PropTypes.oneOf(['click', 'hover']),
-  };
-
   getMenuItemIcon(item, isShowLoading, isActive) {
     const { prefix } = this.props;
 

@@ -2,14 +2,10 @@ import 'react';
 import capitalize from 'lodash-es/capitalize';
 import throttle from 'lodash-es/throttle';
 import uniq from 'lodash-es/uniq';
-import * as PropTypes from 'prop-types';
 
 import isBrowser from '../../utils/isBrowser';
 
-import Trigger, {
-  PopoverTriggerPropTypes,
-  IPopoverTriggerProps,
-} from './Trigger';
+import Trigger, { IPopoverTriggerProps } from './Trigger';
 
 const MOUSE_EVENT_WHITE_LIST = [
   'down',
@@ -231,17 +227,6 @@ export interface IPopoverHoverTriggerProps extends IPopoverTriggerProps {
 export default class PopoverHoverTrigger<
   P extends IPopoverHoverTriggerProps = IPopoverHoverTriggerProps
 > extends Trigger<P> {
-  static propTypes = {
-    ...PopoverTriggerPropTypes,
-
-    showDelay: PropTypes.number,
-    hideDelay: PropTypes.number,
-
-    isOutside: PropTypes.func,
-
-    quirk: PropTypes.bool,
-  };
-
   static defaultProps = {
     showDelay: 150,
     hideDelay: 150,

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import memoize from '../utils/memorize-one';
 
@@ -9,7 +8,7 @@ import PortalContent, { IPortalContentProps } from './PortalContent';
 
 export interface IPurePoralProps extends IPortalContentProps {
   render?: () => React.ReactNode;
-  selector: string | HTMLElement;
+  selector?: string | HTMLElement;
   append?: boolean;
 }
 

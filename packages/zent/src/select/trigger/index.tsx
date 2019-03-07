@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 import Popover from '../../popover';
 
@@ -43,16 +42,6 @@ function decideTrigger({ simple, search, tags, trigger }) {
 export default class SelectClickTrigger extends Popover.Trigger.Click<
   ISelectClickTriggerProps
 > {
-  static propTypes = {
-    disabled: PropTypes.bool.isRequired,
-    open: PropTypes.func,
-    close: PropTypes.func,
-    contentVisible: PropTypes.bool,
-    onClick: PropTypes.func,
-    trigger: PropTypes.object.isRequired,
-    onKeyDown: PropTypes.func,
-  } as any;
-
   clickHandler = event => {
     const { onClick, close, open, contentVisible, disabled } = this.props;
     event.preventDefault();

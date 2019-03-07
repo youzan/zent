@@ -1,9 +1,26 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import reactCSS from './helpers/reactcss';
 import { Swatch } from './common';
+import { PresetColors, ColorPickerType } from '.';
 
-const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
+export type SketchPresetColorValue = string | { hex: string; source: string };
+
+export interface ISketchPresetColors {
+  colors: PresetColors;
+  onClick(
+    color: SketchPresetColorValue,
+    e?: React.MouseEvent<HTMLElement>
+  ): any;
+  prefix: string;
+  type: ColorPickerType;
+}
+
+const SketchPresetColors = ({
+  colors,
+  onClick,
+  prefix,
+  type,
+}: ISketchPresetColors) => {
   const styles: any = reactCSS(
     {
       default: {
@@ -77,18 +94,6 @@ const SketchPresetColors = ({ colors, onClick, prefix, type }) => {
       })}
     </div>
   );
-};
-
-SketchPresetColors.propTypes = {
-  colors: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({
-        color: PropTypes.string,
-        title: PropTypes.string,
-      }),
-    ])
-  ),
 };
 
 export default SketchPresetColors;

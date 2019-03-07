@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import isString from 'lodash-es/isString';
 import { isElement } from 'react-is';
@@ -40,14 +39,6 @@ export interface ITimelineProps {
 }
 
 export class Timeline extends PureComponent<ITimelineProps> {
-  static propTypes = {
-    type: PropTypes.oneOf(['vertical', 'horizontal']),
-    className: PropTypes.string,
-    size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    style: PropTypes.object,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     type: 'horizontal',

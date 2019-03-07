@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import noop from 'lodash-es/noop';
 import isFunction from 'lodash-es/isFunction';
@@ -40,6 +39,15 @@ export type PopPositions =
   | 'auto-top-left'
   | 'auto-top-right';
 
+export type PopActionCallback =
+  | ((close: () => void) => void)
+  | (() => Promise<any>);
+
+export type PopHookCallback = (
+  callback?: () => void,
+  escape?: () => void
+) => void;
+
 export interface IPopProps {
   content: React.ReactNode;
   trigger?: 'none' | 'click' | 'hover' | 'focus';
@@ -49,10 +57,10 @@ export interface IPopProps {
   block?: boolean;
   onShow?: () => void;
   onClose?: () => void;
-  onBeforeShow?: (callback?: () => void, escape?: () => void) => void;
-  onBeforeClose?: (callback?: () => void, escape?: () => void) => void;
-  onConfirm?: ((close: () => void) => void) | (() => Promise<any>);
-  onCancel?: ((close: () => void) => void) | (() => Promise<any>);
+  onBeforeShow?: PopHookCallback;
+  onBeforeClose?: PopHookCallback;
+  onConfirm?: PopActionCallback;
+  onCancel?: PopActionCallback;
   confirmText?: string;
   cancelText?: string;
   type?: 'primary' | 'default' | 'danger' | 'success';
@@ -78,7 +86,20 @@ export interface IPopProps {
   mouseLeaveDelay?: number;
 }
 
-class PopAction extends Component<any> {
+export interface IPopActionProps {
+  prefix: string;
+  type: 'primary' | 'default' | 'danger' | 'success' | 'secondary';
+  onConfirm: PopActionCallback;
+  onCancel: PopActionCallback;
+  confirmText: string;
+  cancelText: string;
+  confirmPending: boolean;
+  cancelPending: boolean;
+  changePending: (key: string, state: boolean, callback?: () => void) => void;
+  popover: any;
+}
+
+class PopAction extends Component<IPopActionProps> {
   // 支持异步的回调函数
   // onConfirm/onCancel异步等待的时候要禁用用户关闭
   handleClick(callbackName) {
@@ -169,88 +190,9 @@ class PopAction extends Component<any> {
   }
 }
 
-const BoundPopAction = withPopover(PopAction) as React.ComponentType<any>;
+const BoundPopAction = withPopover(PopAction);
 
 export class Pop extends Component<IPopProps> {
-  static propTypes = {
-    trigger: PropTypes.oneOf(['click', 'hover', 'focus', 'none']),
-    position: PropTypes.oneOfType([
-      PropTypes.oneOf([
-        'left-top',
-        'left-center',
-        'left-bottom',
-        'right-top',
-        'right-center',
-        'right-bottom',
-        'top-left',
-        'top-center',
-        'top-right',
-        'bottom-left',
-        'bottom-center',
-        'bottom-right',
-        'auto-bottom-center',
-        'auto-bottom-left',
-        'auto-bottom-right',
-        'auto-top-center',
-        'auto-top-left',
-        'auto-top-right',
-      ]),
-      PropTypes.func,
-    ]),
-
-    // 是否按小箭头居中对齐trigger来定位
-    centerArrow: PropTypes.bool,
-
-    // trigger是否块级显示
-    block: PropTypes.bool,
-
-    content: PropTypes.node,
-    header: PropTypes.node,
-
-    // confirm形式相关
-    onConfirm: PropTypes.func,
-    onCancel: PropTypes.func,
-    confirmText: PropTypes.string,
-    cancelText: PropTypes.string,
-    type: PropTypes.oneOf(['primary', 'default', 'danger', 'success']),
-
-    // 打开之后的回调函数
-    onShow: PropTypes.func,
-
-    // 关闭之后的回调函数
-    onClose: PropTypes.func,
-
-    // 打开／关闭前的回调函数，只有用户触发的操作才会调用；通过外部改变`visible`不会触发
-    onBeforeShow: PropTypes.func,
-    onBeforeClose: PropTypes.func,
-
-    visible: PropTypes.bool,
-    onVisibleChange: PropTypes.func,
-
-    // 只有trigger为hover时才有效
-    mouseLeaveDelay: PropTypes.number,
-    mouseEnterDelay: PropTypes.number,
-    quirk: PropTypes.bool,
-
-    // 只有trigger为click时才有效
-    closeOnClickOutside: PropTypes.bool,
-
-    isOutside: PropTypes.func,
-
-    // 在 popover-content 进入屏幕内时触发, 生命周期内仅触发一次
-    onPositionReady: PropTypes.func,
-
-    // 在 popover-content 新位置计算完成时触发
-    onPositionUpdated: PropTypes.func,
-
-    // defaults to body
-    containerSelector: PropTypes.string,
-
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    wrapperClassName: PropTypes.string,
-  };
-
   static defaultProps = {
     trigger: 'none',
     position: 'top-center',
@@ -367,11 +309,7 @@ export class Pop extends Component<IPopProps> {
     }
 
     if (trigger === 'none') {
-      return (
-        <NoneTrigger>
-          {children}
-        </NoneTrigger>
-      );
+      return <NoneTrigger>{children}</NoneTrigger>;
     }
 
     return null;

@@ -1,6 +1,13 @@
 import { Component } from 'react';
 
-export default abstract class BasePageJumper extends Component<any, any> {
+export interface IPaginationBaseJumperProps {
+  current?: number;
+  onJump?: (page: number) => void;
+}
+
+export abstract class BasePageJumper<
+  P extends IPaginationBaseJumperProps
+> extends Component<P, any> {
   abstract handleJump(pageNumber: number): void;
 
   constructor(props) {
@@ -25,3 +32,5 @@ export default abstract class BasePageJumper extends Component<any, any> {
     }
   };
 }
+
+export default BasePageJumper;

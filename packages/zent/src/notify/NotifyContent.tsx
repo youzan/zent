@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import * as PropTypes from 'prop-types';
 import Portal from '../portal';
 
 const NotifyTransition = ({ children, ...props }) => (
@@ -19,12 +18,6 @@ export interface INotifyContentProps {
 }
 
 export default class NotifyContent extends Component<INotifyContentProps> {
-  static propTypes = {
-    text: PropTypes.any,
-    status: PropTypes.string,
-    className: PropTypes.string,
-  };
-
   static defaultProps = {
     text: '',
     status: '',

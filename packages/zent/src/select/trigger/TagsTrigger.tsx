@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import noop from 'lodash-es/noop';
 import cx from 'classnames';
 
@@ -8,16 +7,29 @@ import { I18nReceiver as Receiver } from '../../i18n';
 
 import Tag from '../components/Tag';
 
-class TagsTrigger extends PureComponent<any, any> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    selectedItems: PropTypes.array,
-    selectedItem: PropTypes.object,
-    placeholder: PropTypes.string,
-    value: PropTypes.any,
-    onDelete: PropTypes.func,
-  };
+export interface TagsTriggerItem {
+  text: string;
+  value: any;
+  cid: number;
+}
 
+export interface ITagsTriggerProps {
+  prefixCls: string;
+  selectedItems: any[];
+  selectedItem: object;
+  placeholder: string;
+  value: any;
+  onChange: (val: {
+    selectedItems?: TagsTriggerItem[];
+    selectedItem: { value?: string };
+    open?: boolean;
+  }) => void;
+  onDelete: (val: TagsTriggerItem) => void;
+  onClick: React.MouseEventHandler<HTMLElement>;
+  visible: boolean;
+}
+
+class TagsTrigger extends PureComponent<ITagsTriggerProps, any> {
   static defaultProps = {
     selectedItems: [],
     onDelete: noop,

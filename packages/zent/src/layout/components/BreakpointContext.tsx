@@ -4,8 +4,8 @@ export interface IBreakpointContext {
   breakpoints: string[];
 }
 
-const BreakpointContext = createContext<IBreakpointContext>({
+export const LayoutBreakpointContext = createContext<IBreakpointContext>({
   breakpoints: [],
 });
 
-export default BreakpointContext;
+export default LayoutBreakpointContext;

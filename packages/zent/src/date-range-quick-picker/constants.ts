@@ -1,4 +1,4 @@
-let nowDate = new Date();
+const nowDate = new Date();
 nowDate.setHours(0);
 nowDate.setMinutes(0);
 nowDate.setSeconds(0);

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import cx from 'classnames';
-import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 import AnimateHeight from '../utils/component/AnimateHeight';
 import CommonMenu from './CommonMenu';
@@ -27,23 +26,6 @@ export interface ISubMenuProps {
 }
 
 export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
-  static propTypes = {
-    title: PropTypes.node,
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    overlayClassName: PropTypes.string,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    isInline: PropTypes.bool,
-    onSubMenuClick: PropTypes.func,
-
-    // inline模式独有props
-    depth: PropTypes.number,
-    expandKeys: PropTypes.array,
-    inlineIndent: PropTypes.number,
-    toggleExpand: PropTypes.func,
-  };
-
   static defaultProps = {
     className: '',
     prefix: 'zent',

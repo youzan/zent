@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import toArray from 'lodash-es/toArray';
 import forEach from 'lodash-es/forEach';
 import isPromise from '../../utils/isPromise';
@@ -15,10 +14,31 @@ import {
 import fileType from '../utils/file-type';
 import uploadLocalImage from './UploadLocal';
 import { UID_KEY, DEFAULT_ACCEPT } from '../constants';
+import { IUploadErrorMessage } from '../Upload';
 
 const noop = res => res;
 
-export default class FileInput extends PureComponent<any, any> {
+export interface UploadLocalFile {
+  src: string;
+  file: Blob;
+  __uid: number;
+}
+
+export interface IFileInputProps {
+  initIndex: number;
+  maxAmount: number;
+  silent: boolean;
+  maxSize: number;
+  type: string;
+  auto?: boolean;
+  filterFiles: (files: File[]) => File[] | Promise<File[]>;
+  onError: () => void;
+  onChange?: (files: UploadLocalFile[]) => void;
+  errorMessages?: IUploadErrorMessage;
+  i18n: any;
+}
+
+export default class FileInput extends PureComponent<IFileInputProps, any> {
   static defaultProps = {
     initIndex: 0,
     maxAmount: 0,
@@ -27,16 +47,6 @@ export default class FileInput extends PureComponent<any, any> {
     type: '',
     filterFiles: noop,
     onError: noop,
-  };
-
-  static propTypes = {
-    initIndex: PropTypes.number,
-    maxAmount: PropTypes.number,
-    silent: PropTypes.bool,
-    maxSize: PropTypes.number,
-    type: PropTypes.string,
-    filterFiles: PropTypes.func,
-    onError: PropTypes.func,
   };
 
   constructor(props) {
@@ -81,7 +91,7 @@ export default class FileInput extends PureComponent<any, any> {
     evt.target.value = null;
   };
 
-  iteratorFiles = i18n => files => {
+  iteratorFiles = i18n => (files: File[]) => {
     const {
       type,
       maxSize,
@@ -125,7 +135,9 @@ export default class FileInput extends PureComponent<any, any> {
 
     fileReader.onload = e => {
       const mimeType = fileType(
-        base64ToArrayBuffer((e.target as any).result.replace(/^(.*?)base64,/, ''))
+        base64ToArrayBuffer(
+          (e.target as any).result.replace(/^(.*?)base64,/, '')
+        )
       );
       if (
         accept &&

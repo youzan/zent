@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
 import has from 'lodash-es/has';
 import get from 'lodash-es/get';
@@ -29,42 +28,19 @@ import Body from './Body';
 import Footer from './Footer';
 import SelectionCheckbox from './SelectionCheckbox';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
+import {
+  IGridColumn,
+  IGridOnChangeConfig,
+  GridScrollPosition,
+  GridSortType,
+  GridRowClassNameType,
+} from './types';
 
 function stopPropagation(e) {
   e.stopPropagation();
   if (e.nativeEvent.stopImmediatePropagation) {
     e.nativeEvent.stopImmediatePropagation();
   }
-}
-
-export type GridScrollPosition = 'both' | 'left' | 'right' | 'middle';
-
-export interface IGridColumn {
-  title: React.ReactNode;
-  name?: string;
-  width?: number | string;
-  bodyRender?:
-    | ((data: any, pos: number, name: string) => React.ReactNode)
-    | React.ReactNode;
-  className?: string;
-  needSort?: boolean;
-  colSpan?: number;
-  fixed?: 'left' | 'right' | true;
-  onCellClick?: (
-    data: any,
-    event: React.MouseEvent<HTMLTableDataCellElement>
-  ) => any;
-  textAign?: 'left' | 'right' | 'center';
-  nowrap?: boolean;
-  defaultText?: React.ReactNode;
-  children?: IGridColumn[];
-}
-
-export interface IGridOnChangeConfig {
-  current?: number;
-  sortBy?: string;
-  sortType?: 'asc' | 'desc' | '';
-  pageSize?: number;
 }
 
 export interface IGridProps {
@@ -77,7 +53,7 @@ export interface IGridProps {
     y?: number;
   };
   sortBy?: string;
-  sortType?: 'desc' | 'asc';
+  sortType?: GridSortType;
   emptyLabel?: string;
   selection?: {
     selectedRowKeys?: Array<string>;
@@ -95,7 +71,7 @@ export interface IGridProps {
   loading?: boolean;
   bordered?: boolean;
   className?: string;
-  rowClassName?: string | ((data: object, rowIndex: number) => string);
+  rowClassName?: GridRowClassNameType;
   prefix?: string;
   pageInfo?: {
     current?: number;
@@ -121,30 +97,6 @@ export interface IGridProps {
 }
 
 export class Grid extends PureComponent<IGridProps, any> {
-  static propTypes = {
-    className: PropTypes.string,
-    bordered: PropTypes.bool,
-    rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    prefix: PropTypes.string,
-    datasets: PropTypes.array,
-    columns: PropTypes.array,
-    loading: PropTypes.bool,
-    pageInfo: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-    onChange: PropTypes.func,
-    expandation: PropTypes.object,
-    selection: PropTypes.object,
-    rowKey: PropTypes.string,
-    scroll: PropTypes.object,
-    sortBy: PropTypes.string,
-    sortType: PropTypes.string,
-    onRowClick: PropTypes.func,
-    ellipsis: PropTypes.bool,
-    onExpand: PropTypes.func,
-    components: PropTypes.object,
-    rowProps: PropTypes.func,
-    emptyLabel: PropTypes.node,
-  };
-
   static defaultProps = {
     className: '',
     bordered: false,

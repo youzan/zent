@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 
-import * as PropTypes from 'prop-types';
-
 import Item, { IBreadcrumbItemProps } from './Item';
 
 export interface IBreadcrumbProps {
@@ -13,12 +11,6 @@ export interface IBreadcrumbProps {
 }
 
 export class Breadcrumb extends Component<IBreadcrumbProps> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    breads: PropTypes.array,
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

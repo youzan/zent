@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import isString from 'lodash-es/isString';
 import isArray from 'lodash-es/isArray';
@@ -8,6 +7,7 @@ import includes from 'lodash-es/includes';
 import indexOf from 'lodash-es/indexOf';
 import kindOf from '../utils/kindOf';
 import Panel from './Panel';
+import { isElement } from 'react-is';
 
 interface ICollapseProps {
   activeKey?: string | string[];
@@ -20,34 +20,6 @@ interface ICollapseProps {
 }
 
 export class Collapse extends Component<ICollapseProps> {
-  static propTypes = {
-    activeKey: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-    ]),
-    onChange: PropTypes.func.isRequired,
-    accordion: PropTypes.bool,
-    bordered: PropTypes.bool,
-    panelTitleBackground: PropTypes.oneOf(['none', 'default']),
-    children(props, propName, componentName) {
-      const propValue = props[propName];
-
-      React.Children.forEach(propValue, c => {
-        if (
-          typeof c === 'string' ||
-          typeof c === 'number' ||
-          !kindOf(c.type, Panel)
-        ) {
-          throw new Error(
-            `Invalid prop ${propName} supplied to ${componentName}. Each child should be a Panel.`
-          );
-        }
-      });
-    },
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-  };
-
   static defaultProps = {
     bordered: true,
     panelTitleBackground: 'default',
@@ -74,16 +46,22 @@ export class Collapse extends Component<ICollapseProps> {
           [`${prefix}-collpase--no-border`]: !bordered,
         })}
       >
-        {React.Children.map(children, (c: any, idx) =>
-          React.cloneElement(c, {
+        {React.Children.map(children, (c, idx) => {
+          if (!isElement(c) || !kindOf(c.type, Panel)) {
+            throw new Error(
+              `Invalid children supplied to Collapse. Each child should be a Panel.`
+            );
+          }
+
+          return React.cloneElement(c, {
             onChange: this.onChange,
             active: isPanelActive(activeKey, c.key),
             panelKey: c.key,
             panelTitleBackground,
             isLast: idx === React.Children.count(children) - 1,
             bordered,
-          })
-        )}
+          });
+        })}
       </div>
     );
   }

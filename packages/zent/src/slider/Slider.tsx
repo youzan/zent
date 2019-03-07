@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-// import isArray from 'lodash-es/isArray';
 import isNumber from 'lodash-es/isNumber';
 import getWidth from '../utils/getWidth';
 
@@ -52,7 +50,7 @@ export interface ISliderProps {
   withInput?: boolean;
   dots?: boolean;
   marks?: {
-    [key: number]: string
+    [key: number]: string;
   };
   disabled?: boolean;
   className?: string;
@@ -60,27 +58,7 @@ export interface ISliderProps {
   prefix?: string;
 }
 
-
 export class Slider extends PureComponent<ISliderProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    max: PropTypes.number,
-    min: PropTypes.number,
-    dots: PropTypes.bool,
-    marks: PropTypes.object,
-    value: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(PropTypes.number),
-    ]),
-    disabled: PropTypes.bool,
-    range: PropTypes.bool,
-    step: PropTypes.number,
-    withInput: PropTypes.bool,
-    onChange: PropTypes.func,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
-
   static defaultProps = {
     min: 0,
     max: 100,

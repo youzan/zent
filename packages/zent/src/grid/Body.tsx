@@ -1,18 +1,43 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import classnames from 'classnames';
 import get from 'lodash-es/get';
 import forEach from 'lodash-es/forEach';
 import Row from './Row';
 import ColGroup from './ColGroup';
+import {
+  IGridColumn,
+  GridFixedType,
+  GridScrollDelta,
+  GridRowClassNameType,
+} from './types';
 
-class Body extends PureComponent<any> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    columns: PropTypes.array,
+export interface IGridBodyProps {
+  prefix: string;
+  columns: IGridColumn[];
+  rowKey: string;
+  rowClassName: GridRowClassNameType;
+  fixed: GridFixedType;
+  scroll: GridScrollDelta;
+  fixedColumnsBodyRowsHeight: number[];
+  fixedColumnsBodyExpandRowsHeight: number[];
+  expandRowKeys: string[];
+  mouseOverRowIndex: number;
+  expandRender: (any) => React.ReactNode;
+  rowProps(any, number): any;
+  datasets: object[];
+  components: {
+    row?: React.ReactNode;
   };
+  onRowClick: (
+    data: any,
+    index: number,
+    event: React.MouseEvent<HTMLTableRowElement>
+  ) => void;
+  onRowMoverOver: (index: number) => void;
+}
 
+class Body extends PureComponent<IGridBodyProps> {
   getRows() {
     const {
       prefix,
@@ -88,7 +113,7 @@ class Body extends PureComponent<any> {
     const { prefix, onRowMoverOver, scroll, columns } = this.props;
     const tbodyClass = classnames(`${prefix}-grid-tbody`, {
       [`${prefix}-grid-tbody-span`]: columns.some(
-        item => item.colSpan || item.rowSpan
+        item => !!(item.colSpan || item.rowSpan)
       ),
     });
 

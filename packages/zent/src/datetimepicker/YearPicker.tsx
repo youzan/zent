@@ -10,13 +10,7 @@ import { I18nReceiver as Receiver } from '../i18n';
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart } from './utils';
-import {
-  CURRENT,
-  noop,
-  popPositionMap,
-  commonProps,
-  commonPropTypes,
-} from './constants';
+import { CURRENT, noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 
 function getYear(val) {
@@ -68,10 +62,6 @@ function extractStateFromProps(props: IYearPickerProps) {
 }
 
 export class YearPicker extends PureComponent<IYearPickerProps, any> {
-  static propTypes = {
-    ...commonPropTypes,
-  };
-
   static defaultProps = {
     ...commonProps,
     placeholder: '',

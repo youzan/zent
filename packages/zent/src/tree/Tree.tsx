@@ -6,7 +6,6 @@ import forEach from 'lodash-es/forEach';
 import uniq from 'lodash-es/uniq';
 import assign from 'lodash-es/assign';
 import classnames from 'classnames';
-import * as PropTypes from 'prop-types';
 
 import AnimateHeight from '../utils/component/AnimateHeight';
 import Checkbox from '../checkbox';
@@ -66,28 +65,6 @@ export interface ITreeProps {
 
 export class Tree extends PureComponent<ITreeProps, any> {
   renderKeyMap = DEFAULT_REANDER_KEY;
-
-  static propTypes = {
-    dataType: PropTypes.oneOf(['plain', 'tree']),
-    data: PropTypes.arrayOf(PropTypes.object),
-    isRoot: PropTypes.func,
-    loadMore: PropTypes.func,
-    foldable: PropTypes.bool,
-    checkable: PropTypes.bool,
-    controlled: PropTypes.bool,
-    autoExpandOnSelect: PropTypes.bool,
-    defaultCheckedKeys: PropTypes.arrayOf(PropTypes.any),
-    disabledCheckedKeys: PropTypes.arrayOf(PropTypes.any),
-    onCheck: PropTypes.func,
-    onExpand: PropTypes.func,
-    onSelect: PropTypes.func,
-    size: PropTypes.oneOf(['large', 'medium', 'small']),
-    operations: PropTypes.arrayOf(PropTypes.object),
-    render: PropTypes.func,
-    prefix: PropTypes.string,
-    renderKey: PropTypes.object,
-    commonStyle: PropTypes.object,
-  };
 
   static defaultProps = {
     autoExpandOnSelect: true,

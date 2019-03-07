@@ -1,8 +1,12 @@
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import * as enquire from 'enquire.js';
 
 import isBrowser from '../../utils/isBrowser';
+
+export interface ILayoutBreakPointProps {
+  breakpoints: string[];
+  onChange: (brk: string, matched: boolean) => void;
+}
 
 /**
  * enquire can attatch multiple callbacks to the same media query.
@@ -12,12 +16,7 @@ import isBrowser from '../../utils/isBrowser';
  *
  * So no need for one more media query manager.
  */
-export default class Breakpoint extends Component<any> {
-  static propTypes = {
-    breakpoints: PropTypes.array,
-    onChange: PropTypes.func,
-  };
-
+export class LayoutBreakpoint extends Component<ILayoutBreakPointProps> {
   render() {
     return null;
   }
@@ -46,11 +45,11 @@ export default class Breakpoint extends Component<any> {
     breakpoints.forEach(brk => {
       enquire.register(brk, {
         match() {
-          onChange({ [brk]: true });
+          onChange(brk, true);
         },
 
         unmatch() {
-          onChange({ [brk]: false });
+          onChange(brk, false);
         },
       });
     });
@@ -68,3 +67,5 @@ export default class Breakpoint extends Component<any> {
     });
   }
 }
+
+export default LayoutBreakpoint;

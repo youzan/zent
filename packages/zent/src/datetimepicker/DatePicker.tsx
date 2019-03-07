@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { PureComponent, createRef } from 'react';
-import * as PropTypes from 'prop-types';
+import { PureComponent } from 'react';
 import cx from 'classnames';
 
 import Input from '../input';
@@ -27,7 +26,6 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes,
 } from './constants';
 import { DatePickers } from './common/types';
 
@@ -95,13 +93,6 @@ export interface IDatePickerProps extends DatePickers.ICommonProps {
 }
 
 export class DatePicker extends PureComponent<IDatePickerProps, any> {
-  static propTypes = {
-    ...commonPropTypes,
-    showTime: PropTypes.bool,
-    onBeforeConfirm: PropTypes.func,
-    onBeforeClear: PropTypes.func,
-  };
-
   static defaultProps = {
     ...commonProps,
     placeholder: '',

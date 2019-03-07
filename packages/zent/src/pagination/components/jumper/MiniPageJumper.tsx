@@ -1,18 +1,15 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 import Input from '../../../input';
-import BasePageJumper from './BasePageJumper';
+import BasePageJumper, { IPaginationBaseJumperProps } from './BasePageJumper';
 
 const INPUT_WIDTH = 56;
 
-export default class MiniPageJumper extends BasePageJumper {
-  static propTypes = {
-    current: PropTypes.number,
-    totalPages: PropTypes.number,
-    onJump: PropTypes.func,
-  };
+export interface IPaginationMiniPageJumper extends IPaginationBaseJumperProps {
+  totalPages?: number;
+}
 
+export class MiniPageJumper extends BasePageJumper<IPaginationMiniPageJumper> {
   reset: boolean;
 
   constructor(props) {
@@ -65,3 +62,5 @@ export default class MiniPageJumper extends BasePageJumper {
     }
   }
 }
+
+export default MiniPageJumper;

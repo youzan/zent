@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Icon from '../icon';
@@ -10,12 +9,6 @@ import getWidth from '../utils/getWidth';
 export interface ISearchInputProps extends IInputProps {}
 
 export class SearchInput extends Component<ISearchInputProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    style: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  };
-
   static defaultProps = {
     className: '',
     prefix: 'zent',

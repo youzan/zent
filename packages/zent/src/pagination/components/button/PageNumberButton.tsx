@@ -1,16 +1,19 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Button from '../../../button';
 
-export default class PageNumberButton extends Component<any, any> {
-  static propTypes = {
-    selected: PropTypes.bool,
-    bordered: PropTypes.bool,
-  };
+export interface IPaginationPageNumberButtonProps {
+  selected?: boolean;
+  bordered?: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+}
 
+export class PageNumberButton extends Component<
+  IPaginationPageNumberButtonProps,
+  any
+> {
   static defaultProps = {
     selected: false,
     bordered: true,
@@ -37,3 +40,5 @@ export default class PageNumberButton extends Component<any, any> {
     );
   }
 }
+
+export default PageNumberButton;

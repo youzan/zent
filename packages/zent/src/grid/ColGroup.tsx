@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import map from 'lodash-es/map';
 import { getLeafColumns } from './utils';
+import { IGridColumn } from './types';
 
-class ColGroup extends PureComponent<any> {
-  static propTypes = {
-    columns: PropTypes.array,
-  };
+export interface IGridColGroupProps {
+  columns: IGridColumn[];
+}
 
+class ColGroup extends PureComponent<IGridColGroupProps> {
   render() {
     const { columns } = this.props;
 

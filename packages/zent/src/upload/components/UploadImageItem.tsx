@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 
-class UploadImageItem extends PureComponent<any> {
-  static propTypes = {
-    // 组件所在位置的下标
-    index: PropTypes.number.isRequired,
-    // 删除组件的回调函数
-    onDelete: PropTypes.func.isRequired,
-  };
+export interface IUploadImageItemProps {
+  index: number;
+  onDelete(index: number): void;
+  prefix: string;
+  src: string;
+  progress?: number;
+}
 
+export class UploadImageItem extends PureComponent<IUploadImageItemProps> {
   state = {
     hideDeleteIcon: false,
   };

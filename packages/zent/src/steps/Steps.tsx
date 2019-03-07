@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import Step from './components/Step';
 
 import NumberSteps from './components/NumberSteps';
@@ -18,19 +17,6 @@ export interface IStepsProps {
 }
 
 export class Steps extends Component<IStepsProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefix: PropTypes.string,
-    children: PropTypes.any,
-    type: PropTypes.string,
-    current: PropTypes.number,
-    direction: PropTypes.string,
-    size: PropTypes.string,
-    status: PropTypes.string,
-    sequence: PropTypes.bool,
-    onStepChange: PropTypes.func,
-  };
-
   static defaultProps = {
     className: '',
     prefix: 'zent',

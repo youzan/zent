@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import Input from '../input';
@@ -18,7 +17,6 @@ import {
   noop,
   popPositionMap,
   commonProps,
-  commonPropTypes,
 } from './constants';
 import { DatePickers } from './common/types';
 
@@ -62,17 +60,6 @@ export interface ITimePickerProps extends DatePickers.ICommonProps {
 }
 
 export class TimePicker extends PureComponent<ITimePickerProps, any> {
-  static propTypes = {
-    ...commonPropTypes,
-    valueType: PropTypes.oneOf(['string', 'number', 'date']),
-    value: PropTypes.string,
-    hourStep: PropTypes.number,
-    minuteStep: PropTypes.number,
-    secondStep: PropTypes.number,
-    onBeforeConfirm: PropTypes.func,
-    disabledTime: PropTypes.func,
-  };
-
   static defaultProps = {
     ...commonProps,
     placeholder: '',

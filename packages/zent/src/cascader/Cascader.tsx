@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
-import * as PropTypes from 'prop-types';
 import noop from 'lodash-es/noop';
 
 import Popover from '../popover';
@@ -55,22 +54,6 @@ export interface ICascaderState {
 }
 
 export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
-  static propTypes = {
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    popClassName: PropTypes.string,
-    onChange: PropTypes.func,
-    loadMore: PropTypes.func,
-    value: PropTypes.array,
-    displayText: PropTypes.func,
-    options: PropTypes.array,
-    placeholder: PropTypes.string,
-    changeOnSelect: PropTypes.bool,
-    title: PropTypes.array,
-    type: PropTypes.oneOf(['tabs', 'menu']),
-    expandTrigger: PropTypes.oneOf(['click', 'hover']),
-  };
-
   static defaultProps = {
     prefix: 'zent',
     className: '',

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import { getExtraStyle } from './utils';
 
@@ -19,19 +18,6 @@ export interface IMenuItemProps {
 }
 
 export class MenuItem extends Component<IMenuItemProps> {
-  static propTypes = {
-    disabled: PropTypes.bool,
-    prefix: PropTypes.string,
-    className: PropTypes.string,
-    isInline: PropTypes.bool,
-
-    // inline模式独有props
-    depth: PropTypes.number,
-    inlineIndent: PropTypes.number,
-    selectedKey: PropTypes.string,
-    handleSelect: PropTypes.func,
-  };
-
   static defaultProps = {
     prefix: 'zent',
   };
