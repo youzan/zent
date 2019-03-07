@@ -83,6 +83,7 @@ function sweet(config, sweetType) {
         {!isAlert && (
           <ActionButton
             key="sweetalert-cancel"
+            type="default"
             className={`${prefix}-sweetalert-${sweetType}-btn-cancel`}
             getClose={() => close}
             onClick={onCancel}

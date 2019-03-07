@@ -333,8 +333,6 @@ export class Pop extends Component<IPopProps> {
   renderTrigger() {
     const {
       trigger,
-      visible,
-      onVisibleChange,
       closeOnClickOutside,
       isOutside,
       mouseLeaveDelay,
@@ -370,7 +368,7 @@ export class Pop extends Component<IPopProps> {
 
     if (trigger === 'none') {
       return (
-        <NoneTrigger visible={visible} onVisibleChange={onVisibleChange}>
+        <NoneTrigger>
           {children}
         </NoneTrigger>
       );

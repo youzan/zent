@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
+import { isElement } from 'react-is';
 import { IStepsProps } from '../Steps';
 
 export default class NumberSteps extends Component<IStepsProps> {
@@ -36,7 +37,7 @@ export default class NumberSteps extends Component<IStepsProps> {
             status: 'wait',
           };
 
-          if (typeof item === 'number' || typeof item === 'string') {
+          if (!isElement(item)) {
             return null;
           }
 

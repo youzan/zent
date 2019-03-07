@@ -3,6 +3,7 @@ import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import cx from 'classnames';
 import isString from 'lodash-es/isString';
+import { isElement } from 'react-is';
 
 import { TimelineItem, ITimelineItemProps } from './Item';
 import { TimelineLegend } from './Dot';
@@ -67,9 +68,10 @@ export class Timeline extends PureComponent<ITimelineProps> {
       }, []);
     }
     return React.Children.map(children, child => {
-      if (typeof child === 'string' || typeof child === 'number') {
+      if (!isElement(child)) {
         return null;
       }
+
       return React.cloneElement(child, {
         type,
       });

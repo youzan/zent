@@ -33,7 +33,7 @@ export interface IPopoverTriggerProps {
     getNodeForTriggerRefChange: (el: HTMLElement) => HTMLElement
   ) => void;
   getNodeForTriggerRefChange?: (el: HTMLElement) => HTMLElement;
-  children: React.ReactElement<unknown>;
+  children: React.ReactNode;
   isOutside?: (
     el: Element,
     options: {
@@ -44,7 +44,9 @@ export interface IPopoverTriggerProps {
   isOutsideStacked?: (target: Element) => boolean;
 }
 
-export class PopoverTrigger extends Component<any> {
+export class PopoverTrigger<
+  T extends IPopoverTriggerProps = IPopoverTriggerProps
+> extends Component<T> {
   static propTypes = {
     ...PopoverTriggerPropTypes,
   };
@@ -114,8 +116,8 @@ export class PopoverTrigger extends Component<any> {
       );
     }
 
-    const child = Children.only(this.props.children);
-    if ((child as any).ref && !isFunction((child as any).ref)) {
+    const child = Children.only<any>(this.props.children);
+    if (child.ref && !isFunction(child.ref)) {
       throw new Error('String ref is not allowed on Popover trigger');
     }
 
@@ -128,7 +130,7 @@ export class PopoverTrigger extends Component<any> {
     onTriggerRefChange(instance, getNodeForTriggerRefChange);
 
     const child = this.validateChildren();
-    if (isFunction((child as any).ref)) {
+    if (isFunction(child.ref)) {
       (child as any).ref(instance);
     }
   };

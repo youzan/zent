@@ -228,7 +228,9 @@ export interface IPopoverHoverTriggerProps extends IPopoverTriggerProps {
   showDelay: number;
 }
 
-export default class PopoverHoverTrigger extends Trigger {
+export default class PopoverHoverTrigger<
+  P extends IPopoverHoverTriggerProps = IPopoverHoverTriggerProps
+> extends Trigger<P> {
   static propTypes = {
     ...PopoverTriggerPropTypes,
 

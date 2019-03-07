@@ -3,6 +3,7 @@ import { Component } from 'react';
 import cx from 'classnames';
 
 import { IStepsProps } from '../Steps';
+import { isElement } from 'react-is';
 
 export default class BreadcrumbSteps extends Component<IStepsProps> {
   onStepChange = id => {
@@ -39,7 +40,8 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
             'is-current': (isCard || isTabs) && index === current - 1,
             'is-clicked': Boolean(onStepChange),
           });
-          if (typeof item === 'number' || typeof item === 'string') {
+
+          if (!isElement(item)) {
             return null;
           }
 

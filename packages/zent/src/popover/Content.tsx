@@ -27,17 +27,17 @@ function translateToContainerCoordinates(containerBB, bb) {
 export interface IPopoverContentProps {
   prefix?: string;
   visible?: boolean;
-  getAnchor(): Element;
-  containerSelector: string;
-  getContentNode(): Element;
-  placement: PositionFunction;
-  onPositionUpdated(): void;
-  onPositionReady(): void;
-  id: string;
+  getAnchor?: () => Element;
+  containerSelector?: string;
+  getContentNode?: () => Element;
+  placement?: PositionFunction;
+  onPositionUpdated?: () => void;
+  onPositionReady?: () => void;
+  id?: string;
   className?: string;
-  cushion: number;
-  anchor: HTMLElement;
-  container: HTMLElement;
+  cushion?: number;
+  anchor?: HTMLElement;
+  container?: HTMLElement;
 }
 
 export interface IPopoverContentState {
@@ -49,7 +49,10 @@ export interface IPopoverContentState {
  *
  * The props on this class are all private.
  */
-export default class PopoverContent extends Component<any, any> {
+export default class PopoverContent extends Component<
+  IPopoverContentProps,
+  any
+> {
   static propTypes = {
     children: PropTypes.node,
 

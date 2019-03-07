@@ -9,7 +9,9 @@ export interface IPopoverClickTriggerProps extends IPopoverTriggerProps {
   autoClose?: boolean;
 }
 
-export default class PopoverClickTrigger extends Trigger {
+export default class PopoverClickTrigger<
+  P extends IPopoverClickTriggerProps = IPopoverClickTriggerProps
+> extends Trigger<P> {
   static propTypes = {
     ...PopoverTriggerPropTypes,
 

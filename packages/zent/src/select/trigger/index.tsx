@@ -7,6 +7,18 @@ import Input from './InputTrigger';
 import Base from './BaseTrigger';
 import Simple from './SimpleTrigger';
 import Tags from './TagsTrigger';
+import { IPopoverClickTriggerProps } from '../../popover/trigger/ClickTrigger';
+
+export interface ISelectClickTriggerProps extends IPopoverClickTriggerProps {
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+  trigger?: {
+    simple: boolean;
+    search: boolean;
+    tags: boolean;
+    trigger: React.ReactNode;
+  };
+}
 
 /**
  * @description Return string tag used to determine which trigger will be used
@@ -28,7 +40,9 @@ function decideTrigger({ simple, search, tags, trigger }) {
  * @method {render} Major changes, Omit the check and React.cloneElement.
  * @method {clickHandler} Click event Agent
  */
-export default class SelectClickTrigger extends Popover.Trigger.Click {
+export default class SelectClickTrigger extends Popover.Trigger.Click<
+  ISelectClickTriggerProps
+> {
   static propTypes = {
     disabled: PropTypes.bool.isRequired,
     open: PropTypes.func,

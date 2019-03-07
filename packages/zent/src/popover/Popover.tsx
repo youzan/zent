@@ -156,19 +156,21 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     this.descendants.splice(idx, 1);
   };
 
-  getPopoverContext = memoize((): IPopoverContext => {
-    return {
-      _zentPopover: {
-        close: this.close,
-        open: this.open,
-        getContentNode: this.getPopoverNode,
-        getTriggerNode: this.getTriggerNode,
+  getPopoverContext = memoize(
+    (): IPopoverContext => {
+      return {
+        _zentPopover: {
+          close: this.close,
+          open: this.open,
+          getContentNode: this.getPopoverNode,
+          getTriggerNode: this.getTriggerNode,
 
-        registerDescendant: this.registerDescendant,
-        unregisterDescendant: this.unregisterDescendant,
-      },
-    };
-  });
+          registerDescendant: this.registerDescendant,
+          unregisterDescendant: this.unregisterDescendant,
+        },
+      };
+    }
+  );
 
   context!: IPopoverContext;
   id: string;
@@ -176,9 +178,9 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   descendants: Popover[];
   pendingOnBeforeHook: boolean;
   triggerNode: HTMLElement | null;
-  triggerInstance: PopoverTrigger;
+  triggerInstance: PopoverTrigger<any>;
   contentInstance: PopoverContent;
-  isOutsideSelf: (el: HTMLElement) => boolean  | null;
+  isOutsideSelf: (el: HTMLElement) => boolean | null;
 
   constructor(props) {
     super(props);
@@ -221,7 +223,11 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     return state.visible;
   };
 
-  setVisible = (visible: boolean, props?: IPopoverProps, state?: IPopoverState) => {
+  setVisible = (
+    visible: boolean,
+    props?: IPopoverProps,
+    state?: IPopoverState
+  ) => {
     props = props || this.props;
     state = state || this.state;
     const beforeHook = visible ? props.onBeforeShow : props.onBeforeClose;
@@ -336,8 +342,11 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
       );
     }
 
-    const { trigger, content } = childArray.reduce(
-      (state, c: React.ReactElement<unknown>) => {
+    const { trigger, content } = childArray.reduce<{
+      trigger: any;
+      content: any;
+    }>(
+      (state, c: React.ReactElement<any>) => {
         const type = c.type;
         if (kindOf(type, PopoverTrigger)) {
           state.trigger = c;
@@ -367,7 +376,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   }
 
   componentDidMount() {
-    const { _zentPopover: popover } = this.context || {} as IPopoverContext;
+    const { _zentPopover: popover } = this.context || ({} as IPopoverContext);
     if (popover && popover.registerDescendant) {
       popover.registerDescendant(this);
     }
@@ -386,7 +395,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   }
 
   componentWillUnmount() {
-    const { _zentPopover: popover } = this.context || {} as IPopoverContext;
+    const { _zentPopover: popover } = this.context || ({} as IPopoverContext);
     if (popover && popover.unregisterDescendant) {
       popover.unregisterDescendant(this);
     }
