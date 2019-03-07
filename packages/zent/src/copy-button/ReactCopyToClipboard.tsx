@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { Component } from 'react';
-import * as PropTypes from 'prop-types';
 import copy from './CopyToClipboard';
 
 export interface CopyToClipboardProps {
   text: string;
+  children: React.ReactNode;
   onCopy?: (text: string, result: boolean) => void;
 }
 
-export class CopyToClipboard extends Component<CopyToClipboardProps> {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    children: PropTypes.element.isRequired,
-    onCopy: PropTypes.func,
-  };
+export interface ICopyToClipboardChildProps {
+  onClick?: React.MouseEventHandler<HTMLElement>;
+}
 
+export class CopyToClipboard extends Component<CopyToClipboardProps> {
   onClick = event => {
     const { text, onCopy, children } = this.props;
 
-    const elem = React.Children.only(children);
+    const elem = React.Children.only(children) as React.ReactElement<
+      ICopyToClipboardChildProps
+    >;
 
     const result = copy(text);
 
@@ -34,7 +34,9 @@ export class CopyToClipboard extends Component<CopyToClipboardProps> {
 
   render() {
     const { text: _text, onCopy: _onCopy, children, ...props } = this.props;
-    const elem = React.Children.only(children);
+    const elem = React.Children.only(children) as React.ReactElement<
+      ICopyToClipboardChildProps
+    >;
 
     return React.cloneElement(elem, { ...props, onClick: this.onClick });
   }
