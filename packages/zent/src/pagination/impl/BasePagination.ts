@@ -31,14 +31,13 @@ export interface IPaginationState {
   layout: PaginationLayout[];
 }
 
-export default abstract class BasePagination<Delta> extends Component<
-  IBasePaginationProps & Delta,
-  IPaginationState
-> {
+export default abstract class BasePagination<
+  IProps extends IBasePaginationProps
+> extends Component<IProps, IPaginationState> {
   name: string;
   layoutFn: PaginationLayoutFunction;
 
-  constructor(props: IBasePaginationProps & Delta) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -46,7 +45,7 @@ export default abstract class BasePagination<Delta> extends Component<
     };
   }
 
-  componentWillReceiveProps(nextProps: IBasePaginationProps & Delta) {
+  componentWillReceiveProps(nextProps: IProps) {
     if (this.shouldUpdateLayout(this.props, nextProps)) {
       this.setState({
         layout: this.layoutFn(this.getLayoutOptions(nextProps)),
@@ -54,10 +53,7 @@ export default abstract class BasePagination<Delta> extends Component<
     }
   }
 
-  shouldUpdateLayout(
-    props: IBasePaginationProps & Delta,
-    nextProps: IBasePaginationProps & Delta
-  ) {
+  shouldUpdateLayout(props: IProps, nextProps: IProps) {
     const { current, pageSize } = nextProps;
 
     return (
@@ -67,7 +63,7 @@ export default abstract class BasePagination<Delta> extends Component<
     );
   }
 
-  getLayoutOptions(props: IBasePaginationProps & Delta) {
+  getLayoutOptions(props: IProps) {
     const { current, pageSize } = props;
 
     return {
@@ -112,7 +108,7 @@ export default abstract class BasePagination<Delta> extends Component<
   /**
    * 兼容老的参数
    */
-  getTotal(props?: IBasePaginationProps) {
+  getTotal(props?: IProps) {
     props = props || this.props;
 
     if (has(props, 'total')) {

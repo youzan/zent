@@ -4,7 +4,7 @@ import cx from 'classnames';
 import PageSizeChanger from '../components/PageSizeChanger';
 import NormalPageList from '../components/list/NormalPageList';
 import PageJumper from '../components/jumper/PageJumper';
-import BasePagination from './BasePagination';
+import BasePagination, { IBasePaginationProps } from './BasePagination';
 
 export interface IPaginationPageSizeCompoundOption {
   text: React.ReactNode;
@@ -15,7 +15,7 @@ export type PaginationPageSizeOption =
   | number
   | IPaginationPageSizeCompoundOption;
 
-export interface IAbstractPaginationPropsDelta {
+export interface IAbstractPaginationProps extends IBasePaginationProps {
   pageSizeOptions?: PaginationPageSizeOption[];
   showQuickJumper?: boolean;
   showSizeChanger?: boolean;
@@ -23,7 +23,7 @@ export interface IAbstractPaginationPropsDelta {
 }
 
 export default abstract class AbstractPagination extends BasePagination<
-  IAbstractPaginationPropsDelta
+  IAbstractPaginationProps
 > {
   render() {
     const { layout } = this.state;

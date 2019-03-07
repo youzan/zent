@@ -3,13 +3,13 @@ import cx from 'classnames';
 
 import MiniPageList from './components/list/MiniPageList';
 import layoutMini from './layout/mini';
-import BasePagination from './impl/BasePagination';
+import BasePagination, { IBasePaginationProps } from './impl/BasePagination';
 
-export interface IMiniPaginationPropsDelta {
+export interface IMiniPaginationProps extends IBasePaginationProps {
   buttonBordered?: boolean;
 }
 
-export class MiniPagination extends BasePagination<IMiniPaginationPropsDelta> {
+export class MiniPagination extends BasePagination<IMiniPaginationProps> {
   name = 'mini';
 
   layoutFn = layoutMini;
