@@ -31,7 +31,7 @@ import memoize from '../utils/memorize-one';
 
 import PopoverContent from './Content';
 import Trigger from './trigger';
-import PopoverTrigger, { IPopoverTriggerProps } from './trigger/Trigger';
+import PopoverTrigger from './trigger/Trigger';
 import PopoverContext, { IPopoverContext } from './PopoverContext';
 import { PositionFunction } from './position-function';
 import withPopover from './withPopover';

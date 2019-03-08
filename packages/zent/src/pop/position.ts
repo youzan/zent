@@ -6,7 +6,7 @@ import { CSSProperties } from 'react';
 
 const { Position } = Popover;
 
-// FIXME: these values and css variables in pop.pcss are interrelated
+// FIXME: these values and css variables in pop.scss are interrelated
 const ARROW_OFFSET_H = 15;
 const ARROW_OFFSET_V = 9;
 

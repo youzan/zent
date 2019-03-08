@@ -4,7 +4,7 @@ import omit from 'lodash-es/omit';
 import cx from 'classnames';
 import * as autosize from 'autosize';
 
-import { Input, IInputProps } from './Input';
+import { Input } from './Input';
 
 export interface ITextAreaProps {
   wrapClass?: string;

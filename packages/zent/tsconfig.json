@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "es6",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": false,
     "importHelpers": true,
@@ -10,14 +10,14 @@
     "declaration": true,
     "lib": [
       "dom",
-      "es2017"
+      "es2018"
     ],
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "removeComments": true
   },
   "exclude": [
     "lib",
     "es",
-    "typings",
     "node_modules",
     "__tests__"
   ],
