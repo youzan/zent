@@ -9,6 +9,8 @@ import Icon from '../icon';
 import getWidth from '../utils/getWidth';
 import Textarea from './Textarea';
 
+export type InputType = 'text' | 'number' | 'password' | 'textarea';
+
 export interface IInputChangeEvent {
   target: IInputProps;
   preventDefault(): void;
@@ -24,7 +26,7 @@ export interface IInputProps
   className?: string;
   prefix?: string;
   width?: number | string;
-  type?: 'text' | 'number' | 'password' | 'textarea';
+  type?: InputType;
   size?: 'large' | 'normal' | 'small';
   defaultValue?: string;
   value?: string;

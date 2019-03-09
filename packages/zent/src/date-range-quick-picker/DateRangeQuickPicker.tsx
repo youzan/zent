@@ -10,6 +10,11 @@ import * as Helper from './helper';
 
 export type DateRangeQuickPickerValue = number | string;
 
+export type DateRangeQuickPickerChangeCallback = (
+  value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue],
+  choosePresetValue?: number
+) => void;
+
 export interface IDateRangeQuickPickerPreset {
   text: string;
   value: number;
@@ -18,10 +23,7 @@ export interface IDateRangeQuickPickerPreset {
 export interface IDateRangeQuickPickerProps {
   prefix?: string;
   className?: string;
-  onChange: (
-    value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue],
-    choosePresetValue?: number
-  ) => void;
+  onChange: DateRangeQuickPickerChangeCallback;
   value?: [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
   valueType?: 'string' | 'number';
   format?: string;
@@ -31,7 +33,9 @@ export interface IDateRangeQuickPickerProps {
   max?: string | number | Date;
 }
 
-export class DateRangeQuickPicker extends Component<IDateRangeQuickPickerProps> {
+export class DateRangeQuickPicker extends Component<
+  IDateRangeQuickPickerProps
+> {
   static defaultProps = {
     prefix: 'zent',
     className: '',

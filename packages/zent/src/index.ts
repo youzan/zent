@@ -19,7 +19,7 @@ export * from './datetimepicker/DateRangePicker';
 export * from './date-range-quick-picker';
 export * from './dialog';
 export * from './error-boundary';
-export { default as Form } from './form';
+export * from './form';
 export * from './loading/FullScreenLoading';
 export * from './grid';
 export * from './i18n';
