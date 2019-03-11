@@ -26,6 +26,9 @@ postcss css --use autoprefixer --replace --no-map
 # minify index.css
 cleancss -o css/index.min.css css/index.css
 
+# generate icon types from zenticons
+node $basepath/./generate-icon-type.js
+
 # transpile using babel
 # cross-env BABEL_ENV=transpile babel src --out-dir lib
 # cross-env BABEL_ENV=es babel src --out-dir es

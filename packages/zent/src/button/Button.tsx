@@ -3,7 +3,7 @@ import { Component, MouseEventHandler, CSSProperties, Children } from 'react';
 import setClass from 'classnames';
 import { Omit } from 'utility-types';
 import omit from 'lodash-es/omit';
-import Icon from '../icon';
+import Icon, { IconType } from '../icon';
 import Group from './Group';
 
 const BLACK_LIST = [
@@ -58,7 +58,7 @@ export interface IButtonProps
   style?: CSSProperties;
   prefix?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  icon?: string;
+  icon?: IconType;
   insertSpace?: boolean;
 }
 

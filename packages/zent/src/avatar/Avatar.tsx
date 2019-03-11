@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import isNumber from 'lodash-es/isNumber';
-import Icon from '../icon';
+import Icon, { IconType } from '../icon';
 
 const NO_STYLE = {};
 const HIDDEN_STYLE = {
@@ -12,7 +12,7 @@ const HIDDEN_STYLE = {
 export interface IAvatarProps {
   shape?: 'circle' | 'square'
   size?: 'small' | 'default' | 'large' | number
-  icon?: string
+  icon?: IconType
   src?: string
   children?: string
   bordered?: boolean
