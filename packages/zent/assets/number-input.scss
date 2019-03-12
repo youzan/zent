@@ -3,7 +3,7 @@
 @mixin disable {
   cursor: not-allowed;
   pointer-events: none;
-  color: $btn-gray;
+  color: $theme-stroke-4;
   background: $theme-stroke-8;
 }
 
