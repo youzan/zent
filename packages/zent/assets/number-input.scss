@@ -20,7 +20,7 @@
   &-arrows {
     display: flex;
     flex-direction: column;
-    border-left: 1px solid $defaultBorderColor;
+    border-left: 1px solid $theme-stroke-5;
     margin-left: -1px;
 
     #{$p}-arrow {
@@ -49,7 +49,7 @@
     }
 
     #{$p}-arrowup {
-      border-bottom: 1px solid $defaultBorderColor;
+      border-bottom: 1px solid $theme-stroke-5;
 
       .zenticon {
         transform: rotate(-90deg) scale(0.4);
