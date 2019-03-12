@@ -1,7 +1,5 @@
 @import './theme/default';
 
-$white: #fff;
-
 @mixin disable {
   cursor: not-allowed;
   pointer-events: none;
@@ -68,7 +66,7 @@ $white: #fff;
   &-count {
     width: 28px;
     height: 100%;
-    background: $white;
+    background: $theme-stroke-9;
     cursor: pointer;
     text-align: center;
     color: $theme-stroke-2;
