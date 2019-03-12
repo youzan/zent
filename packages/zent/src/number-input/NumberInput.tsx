@@ -244,7 +244,7 @@ export class NumberInput extends PureComponent<
   }
 
   componentDidUpdate(prevProps: INumberInputProps) {
-    if (this.props.value !== prevProps.value) {
+    if (this.props.value !== prevProps.value && this.state.value !== this.props.value) {
       const e = this.formatEvent(this.state.value);
       this.props.onChange(e);
     }
