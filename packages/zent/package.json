@@ -28,7 +28,7 @@
     "lib/",
     "es/",
     "css/",
-    "typings/"
+    "dependency-graph.json"
   ],
   "dependencies": {
     "@babel/runtime": "^7.1.5",
@@ -69,8 +69,14 @@
     "react-dom": ">=16.8.2 < 17.0.0"
   },
   "devDependencies": {
+    "@types/camelcase": "^5.2.0",
+    "@types/chalk": "^2.2.0",
+    "camelcase": "^5.2.0",
+    "chalk": "^2.4.2",
     "clean-css-cli": "^4.2.1",
     "node-sass-magic-importer": "^5.3.0",
-    "postcss-cli": "^6.1.1"
+    "postcss-cli": "^6.1.1",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.3333"
   }
 }

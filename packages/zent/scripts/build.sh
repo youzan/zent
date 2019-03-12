@@ -38,5 +38,5 @@ tsc
 echo "Compiling commonjs..."
 tsc --outDir lib --module commonjs
 
-# echo 'Generate component mapping...'
-# node ./scripts/generate-module-config.js
+echo 'Generate component dependency graph...'
+ts-node --project $basepath/./cruiser/tsconfig.json  $basepath/./cruiser/index.ts $basepath/../src/index.ts $basepath/../assets

@@ -8,20 +8,11 @@
     "outDir": "es",
     "jsx": "react",
     "declaration": true,
-    "lib": [
-      "dom",
-      "es2018"
-    ],
+    "lib": ["dom", "es2018"],
     "noUnusedLocals": true,
-    "removeComments": true
+    "removeComments": true,
+    "skipLibCheck": true
   },
-  "exclude": [
-    "lib",
-    "es",
-    "node_modules",
-    "__tests__"
-  ],
-  "include": [
-    "src"
-  ]
+  "exclude": ["lib", "es", "node_modules", "__tests__"],
+  "include": ["src"]
 }

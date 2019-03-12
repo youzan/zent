@@ -21,7 +21,7 @@ function compile(code, options) {
       [
         pluginZent,
         Object.assign(
-          { moduleMappingFile: '../../zent/lib/module-mapping.json' },
+          { moduleMappingFile: '../../zent/dependency-graph.json' },
           options
         ),
       ],
@@ -38,7 +38,7 @@ describe('babel-plugin-zent', () => {
 
   it('throws on namespace import', () => {
     expect(() => compile("import * as Zent from 'zent'")).toThrowError(
-      /Namespace import is not allowd in zent/
+      /Namespace import is not allowed in zent/
     );
   });
 
@@ -60,13 +60,13 @@ describe('babel-plugin-zent', () => {
 
   it('transforms component imports', () => {
     // eslint-disable-next-line
-    const rules = require('../../zent/lib/module-mapping.json');
+    const rules = require('../../zent/dependency-graph.json');
 
     Object.keys(rules).forEach(component => {
       const src = `import { ${component} } from 'zent'`;
       expect(
         compile(src).indexOf(
-          `import ${component} from \"${rules[component].js}\"`
+          `import ${component} from \"zent/lib${rules[component].js}\"`
         )
       ).not.toBe(-1);
     });
