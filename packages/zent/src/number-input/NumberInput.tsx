@@ -39,8 +39,8 @@ function getCorrectedValue({
   value,
   decimalPlaces,
 }: {
-  min: number | string;
-  max: number | string;
+  min: number | string | undefined;
+  max: number | string | undefined;
   value: number | string;
   decimalPlaces: number;
 }) {
@@ -220,7 +220,7 @@ export class NumberInput extends PureComponent<
   static getDerivedStateFromProps(
     { value, min, max, decimal: decimalPlaces }: INumberInputProps,
     { prevValue }: INumberInputState
-  ): Partial<INumberInputState> {
+  ): Partial<INumberInputState> | null {
     if (value !== prevValue) {
       const nextValue = getCorrectedValue({
         value: trimLeadingPlus(value.toString()),
@@ -244,7 +244,10 @@ export class NumberInput extends PureComponent<
   }
 
   componentDidUpdate(prevProps: INumberInputProps) {
-    if (this.props.value !== prevProps.value && this.state.value !== this.props.value) {
+    if (
+      this.props.value !== prevProps.value &&
+      this.state.value !== this.props.value
+    ) {
       const e = this.formatEvent(this.state.value);
       this.props.onChange(e);
     }
