@@ -47,6 +47,7 @@
     "autosize": "^4.0.0",
     "classnames": "^2.2.6",
     "date-fns": "^1.29.0",
+    "decimal.js": "^10.1.1",
     "enquire.js": "^2.1.6",
     "fecha": "^3.0.2",
     "keycode": "^2.1.9",

@@ -3485,6 +3485,11 @@ decamelize@^2.0.0:
   dependencies:
     xregexp "4.0.0"
 
+decimal.js@^10.1.1:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.1.1.tgz#fb541922a2e8fc618f5e6fbb474e281ed3d2a64c"
+  integrity sha512-vEEgyk1fWVEnv7lPjkNedAIjzxQDue5Iw4FeX4UkNUDSVyD/jZTD0Bw2kAO7k6iyyJRAhM9oxxI0D1ET6k0Mmg==
+
 decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"

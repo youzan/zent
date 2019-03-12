@@ -215,7 +215,7 @@ export class Input extends PureComponent<IInputProps> {
     return (
       <div className={wrapClass} style={widthStyle}>
         {addonBefore && (
-          <span className={`${prefix}-input-addon-before`}>{addonBefore}</span>
+          <div className={`${prefix}-input-addon-before`}>{addonBefore}</div>
         )}
         <input
           ref={input => {
@@ -236,7 +236,7 @@ export class Input extends PureComponent<IInputProps> {
           />
         )}
         {addonAfter && (
-          <span className={`${prefix}-input-addon-after`}>{addonAfter}</span>
+          <div className={`${prefix}-input-addon-after`}>{addonAfter}</div>
         )}
       </div>
     );
