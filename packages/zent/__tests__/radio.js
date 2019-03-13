@@ -6,6 +6,7 @@ import Radio from 'radio';
 Enzyme.configure({ adapter: new Adapter() });
 
 const Group = Radio.Group;
+const RadioButton = Radio.Button;
 
 /**
  * Radio Section, 相对简单，而且很多prop会被复写，行为要和Group组合使用才能测试
@@ -25,7 +26,7 @@ describe('Radio Section', () => {
     expect(wrapper.hasClass('zent-radio-wrap')).toBe(true);
     expect(wrapper.childAt(0).type()).toBe('span');
     expect(wrapper.childAt(0).hasClass('zent-radio')).toBe(true);
-    expect(wrapper.childAt(1).type()).toBe(null);
+    expect(wrapper.children().length).toBe(1);
     expect(
       wrapper
         .find('.zent-radio')
@@ -144,9 +145,10 @@ describe('RadioGroup Section', () => {
     const wrapper = shallow(
       <Group className="foo" prefix="bar" style={styleObj} />
     );
-    expect(wrapper.hasClass('bar-radio-group')).toBe(true);
-    expect(wrapper.hasClass('foo')).toBe(true);
-    expect(wrapper.props().style).toBe(styleObj);
+    expect(wrapper.find('.bar-radio-group').length).toBe(1);
+    const group = wrapper.find('.bar-radio-group');
+    expect(group.hasClass('foo')).toBe(true);
+    expect(group.props().style).toBe(styleObj);
   });
 
   it('Group have custom child', () => {
@@ -177,7 +179,7 @@ describe('RadioGroup Section', () => {
       return typeof a === typeof b;
     };
     const wrapper = mount(
-      <Group value={'foo'} isValueEqual={customISValueEqual}>
+      <Group value="foo" isValueEqual={customISValueEqual}>
         <Radio value={radioValues[0]} />
         <Radio value={radioValues[1]} />
         <Radio value={radioValues[2]} />
@@ -277,5 +279,29 @@ describe('RadioGroup Section', () => {
         .children()
         .hasClass('zent-radio-checked')
     ).toBe(false);
+  });
+
+  it('Have button style', () => {
+    const onChange = jest.fn();
+    const wrapper = mount(
+      <Group onChange={onChange} value="apple">
+        <RadioButton value="apple" disabled>
+          apple
+        </RadioButton>
+        <RadioButton value="pear" disabled>
+          pear
+        </RadioButton>
+        <RadioButton value="banana">banana</RadioButton>
+        <RadioButton value="tomato">tomato</RadioButton>
+      </Group>
+    );
+
+    expect(wrapper.find(RadioButton).length).toBe(4);
+  });
+
+  it('Radio.Button cannot be used outside a Radio.Group', () => {
+    expect(() => {
+      mount(<RadioButton>1</RadioButton>);
+    }).toThrow();
   });
 });

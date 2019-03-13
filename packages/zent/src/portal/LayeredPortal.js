@@ -1,9 +1,8 @@
-import { PureComponent, Children } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
 
-import { unstable_renderPortal, unstable_unrenderPortal } from './PurePortal';
-
+import PurePortal from './PurePortal';
 import {
   getNodeFromSelector,
   createContainerNode,
@@ -26,8 +25,7 @@ export default class LayeredPortal extends PureComponent {
     render: PropTypes.func,
 
     // parent node
-    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-      .isRequired,
+    selector: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
     // layer
     layer: PropTypes.string, // the layer tag
@@ -54,35 +52,15 @@ export default class LayeredPortal extends PureComponent {
   // DOM node, the parent node of portal content
   parentNode = null;
 
-  // openPortal和closePortal之所以不暴露出去是因为这两个API的调用容易出BUG，有操作是异步的。
-  componentDidMount() {
-    this.renderLayer();
-  }
+  onUnmount = () => {
+    this.unrenderLayer();
 
-  componentWillReceiveProps(nextProps) {
-    // 如果selector变了的话，删除再重新打开
-    const { selector } = this.props;
-    if (selector !== nextProps.selector) {
-      // 真正的工作是在componentDidUpdate里做的
-      this.pendingDestroy = true;
+    const layerNode = this.getLayer();
+    if (layerNode) {
+      const { onUnmount } = this.props;
+      isFunction(onUnmount) && onUnmount();
     }
-  }
-
-  componentDidUpdate() {
-    if (this.pendingDestroy) {
-      // unrenderLayer是异步的（原因看unstable_unrenderPortal的代码），所以用callback的形式调用renderLayer
-      this.unrenderLayer.call(this, () => {
-        this.pendingDestroy = false;
-        this.renderLayer.call(this);
-      });
-    } else {
-      this.renderLayer.call(this);
-    }
-  }
-
-  componentWillUnmount() {
-    this.unrenderLayer.call(this);
-  }
+  };
 
   getLayer = () => this.layerNode;
 
@@ -95,7 +73,7 @@ export default class LayeredPortal extends PureComponent {
       return;
     }
 
-    const layerNode = this.layerNode;
+    const layerNode = this.getLayer();
     if (
       !(event.target instanceof Node) ||
       (event.target !== layerNode && event.target === window) ||
@@ -122,14 +100,13 @@ export default class LayeredPortal extends PureComponent {
 
     // 1, Customize the className and style for layer node.
     layerNode.className = className || '';
-    let cssKeys = Object.keys(css || {});
-    if (css && cssKeys.length) {
-      // Setting css is only for compatibility
-      layerNode.style.cssText = cssKeys.map(k => `${k}: ${css[k]}`).join('; ');
+    const cssMap = style || css || {};
+    const cssKeys = Object.keys(cssMap);
+    if (cssMap && cssKeys.length) {
+      layerNode.style.cssText = cssKeys
+        .map(k => `${k}: ${cssMap[k]}`)
+        .join('; ');
     }
-    Object.keys(style || {}).forEach(k => {
-      layerNode.style[k] = style[k];
-    });
 
     // 2, Predefined layer decorations
     if (this.props.useLayerForClickAway) {
@@ -152,28 +129,19 @@ export default class LayeredPortal extends PureComponent {
     onLayerReady && onLayerReady(this.layerNode);
   };
 
-  unrenderLayer = callback => {
-    const layerNode = this.layerNode;
-    if (!layerNode) {
-      return;
-    }
+  unrenderLayer = () => {
+    const layerNode = this.getLayer();
+
     if (layerNode) {
       this.undecorateLayer(layerNode);
 
-      unstable_unrenderPortal.call(
-        this,
-        layerNode,
-        () => {
-          removeNodeFromDOMTree(layerNode);
+      removeNodeFromDOMTree(layerNode);
 
-          // Reset
-          this.layerNode = null;
-          this.parentNode = null;
+      // Reset
+      this.layerNode = null;
+      this.parentNode = null;
 
-          isFunction(callback) && callback();
-        },
-        this.props.onUnmount
-      );
+      isFunction(this.props.onUnmount) && this.props.onUnmount();
     }
   };
 
@@ -187,31 +155,30 @@ export default class LayeredPortal extends PureComponent {
 
       // Create the layer DOM node for portal content
       const { layer } = props;
-      if (!layer || (layer && typeof layer === 'string')) {
-        if (!this.layerNode) {
-          this.layerNode = createContainerNode(this.parentNode, layer);
-        }
+      if (!this.layerNode) {
+        this.layerNode = createContainerNode(this.parentNode, layer);
       }
 
       // customize the container, e.g. style, event listener
       this.decorateLayer(this.layerNode);
-
-      // Render the portal content to container node or parent node
-      const { children, render } = props;
-      const content = render ? render() : Children.only(children);
-
-      unstable_renderPortal.call(
-        this,
-        content,
-        this.layerNode,
-        this.props.onMount
-      );
-    } else {
-      this.unrenderLayer();
     }
   };
 
   render() {
-    return null;
+    this.renderLayer();
+
+    // Render the portal content to container node or parent node
+    const { children, render, visible } = this.props;
+    const content = render ? render() : children;
+
+    return visible ? (
+      <PurePortal
+        selector={this.layerNode}
+        onMount={this.props.onMount}
+        onUnmount={this.onUnmount}
+      >
+        {content}
+      </PurePortal>
+    ) : null;
   }
 }

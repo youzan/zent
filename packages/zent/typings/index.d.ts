@@ -19,7 +19,6 @@
 /// <reference path="./libs/CopyButton.d.ts" />
 /// <reference path="./libs/DateRangeQuickPicker.d.ts" />
 /// <reference path="./libs/DateTimePicker.d.ts" />
-/// <reference path="./libs/Design.d.ts" />
 /// <reference path="./libs/Dialog.d.ts" />
 /// <reference path="./libs/ErrorBoundary.d.ts" />
 /// <reference path="./libs/Form.d.ts" />
@@ -44,7 +43,6 @@
 /// <reference path="./libs/Rate.d.ts" />
 /// <reference path="./libs/SearchInput.d.ts" />
 /// <reference path="./libs/Select.d.ts" />
-/// <reference path="./libs/SKU.d.ts" />
 /// <reference path="./libs/Slider.d.ts" />
 /// <reference path="./libs/Sortable.d.ts" />
 /// <reference path="./libs/SplitButton.d.ts" />
@@ -66,6 +64,7 @@ declare module 'zent' {
   import AutoComplete from 'zent/lib/auto-complete';
   import Badge from 'zent/lib/badge';
   import BlockHeader from 'zent/lib/block-header';
+  import BlockLoading from 'zent/lib/loading/BlockLoading';
   import Breadcrumb from 'zent/lib/breadcrumb';
   import Button from 'zent/lib/button';
   import Cascader from 'zent/lib/cascader';
@@ -78,19 +77,21 @@ declare module 'zent' {
   import DateRangeQuickPicker from 'zent/lib/date-range-quick-picker';
   import DatePicker from 'zent/lib/datetimepicker/DatePicker';
   import DateRangePicker from 'zent/lib/datetimepicker/DateRangePicker';
-  import Design from 'zent/lib/design';
   import Dialog from 'zent/lib/dialog';
   import ErrorBoundary from 'zent/lib/error-boundary';
   import Form from 'zent/lib/form';
+  import FullScreenLoading from 'zent/lib/loading/FullScreenLoading';
   import Grid from 'zent/lib/grid';
   import Layout from 'zent/lib/layout';
-  import Loading from 'zent/lib/loading';
+  import LitePagination from 'zent/lib/pagination/LitePagination';
+  import InlineLoading from 'zent/lib/loading/InlineLoading';
   import Icon from 'zent/lib/icon';
   import Input from 'zent/lib/input';
   import InfiniteScroller from 'zent/lib/infinite-scroller';
   import NumberInput from 'zent/lib/number-input';
   import Mention from 'zent/lib/mention';
   import Menu from 'zent/lib/menu';
+  import MiniPagination from 'zent/lib/pagination/MiniPagination';
   import MonthPicker from 'zent/lib/datetimepicker/MonthPicker';
   import Notify from 'zent/lib/notify';
   import Pagination from 'zent/lib/pagination';
@@ -105,7 +106,6 @@ declare module 'zent' {
   import Rate from 'zent/lib/rate';
   import SearchInput from 'zent/lib/search-input';
   import Select from 'zent/lib/select';
-  import SKU from 'zent/lib/sku';
   import Slider from 'zent/lib/slider';
   import Sortable from 'zent/lib/sortable';
   import SplitButton from 'zent/lib/split-button';
@@ -131,6 +131,7 @@ declare module 'zent' {
     AutoComplete,
     Badge,
     BlockHeader,
+    BlockLoading,
     Breadcrumb,
     Button,
     Cascader,
@@ -142,19 +143,21 @@ declare module 'zent' {
     DatePicker,
     DateRangePicker,
     DateRangeQuickPicker,
-    Design,
     Dialog,
     ErrorBoundary,
     Form,
+    FullScreenLoading,
     Grid,
     Layout,
-    Loading,
+    LitePagination,
+    InlineLoading,
     Icon,
     Input,
     InfiniteScroller,
     NumberInput,
     Mention,
     Menu,
+    MiniPagination,
     MonthPicker,
     Notify,
     Pagination,
@@ -169,7 +172,6 @@ declare module 'zent' {
     Rate,
     SearchInput,
     Select,
-    SKU,
     Slider,
     Sortable,
     SplitButton,

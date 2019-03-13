@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import assign from 'lodash/assign';
 import getWidth from 'utils/getWidth';
+import noop from 'lodash/noop';
+
+import GroupContext from './GroupContext';
 
 export default class Radio extends Component {
   static propTypes = {
@@ -23,18 +26,15 @@ export default class Radio extends Component {
     style: {},
     disabled: false,
     readOnly: false,
-    onChange() {},
+    onChange: noop,
   };
 
-  static contextTypes = {
-    radioGroup: PropTypes.any,
-  };
+  static contextType = GroupContext;
 
   // event liftup
   // link: https://facebook.github.io/react/docs/lifting-state-up.html
   handleChange = evt => {
     const { props, context } = this;
-    const { radioGroup } = context;
     const e = {
       target: {
         ...props,
@@ -51,45 +51,52 @@ export default class Radio extends Component {
       },
     };
 
-    if (radioGroup) {
-      radioGroup.onRadioChange(e);
+    if (context.onRadioChange) {
+      context.onRadioChange(e);
     } else {
       props.onChange(e);
     }
   };
 
-  render() {
-    const { props, context } = this;
-    let {
+  getRadioState() {
+    let { checked, disabled, readOnly, value } = this.props;
+    const { context } = this;
+
+    if (context.onRadioChange) {
+      checked = context.isValueEqual(context.value, value);
+      disabled = context.disabled || disabled;
+      readOnly = context.readOnly || readOnly;
+    }
+
+    return {
       checked,
+      disabled,
+      readOnly,
+    };
+  }
+
+  render() {
+    const {
       className,
       style,
       prefix,
-      disabled,
-      readOnly,
       children,
 
-      // value不要放到input上去
+      // value 不要放到 input 上去
       value,
       width,
       ...others
-    } = props;
-    const { radioGroup } = context;
+    } = this.props;
+    const { checked, disabled, readOnly } = this.getRadioState();
 
-    if (radioGroup) {
-      checked = radioGroup.isValueEqual(radioGroup.value, value);
-      disabled = radioGroup.disabled || disabled;
-      readOnly = radioGroup.readOnly || readOnly;
-    }
-
-    const classString = classNames({
-      [className]: !!className,
-      [`${prefix}-radio-wrap`]: true,
+    const classString = classNames(className, `${prefix}-radio-wrap`, {
       [`${prefix}-radio-checked`]: !!checked,
       [`${prefix}-radio-disabled`]: disabled || readOnly,
     });
+
     const widthStyle = getWidth(width);
     const wrapStyle = assign({}, style, widthStyle);
+
     return (
       <label className={classString} style={wrapStyle}>
         <span className={`${prefix}-radio`}>
@@ -103,7 +110,7 @@ export default class Radio extends Component {
             onChange={this.handleChange}
           />
         </span>
-        {children !== undefined ? <span>{children}</span> : null}
+        {children !== undefined && <span>{children}</span>}
       </label>
     );
   }

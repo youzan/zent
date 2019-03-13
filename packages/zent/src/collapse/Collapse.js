@@ -18,6 +18,7 @@ export default class Collapse extends PureComponent {
     onChange: PropTypes.func.isRequired,
     accordion: PropTypes.bool,
     bordered: PropTypes.bool,
+    panelTitleBackground: PropTypes.oneOf(['none', 'default']),
     children(props, propName, componentName) {
       const propValue = props[propName];
 
@@ -35,12 +36,20 @@ export default class Collapse extends PureComponent {
 
   static defaultProps = {
     bordered: true,
+    panelTitleBackground: 'default',
     accordion: false,
     prefix: 'zent',
   };
 
   render() {
-    const { className, prefix, bordered, children, activeKey } = this.props;
+    const {
+      className,
+      prefix,
+      bordered,
+      panelTitleBackground,
+      children,
+      activeKey,
+    } = this.props;
 
     return (
       <div
@@ -54,6 +63,7 @@ export default class Collapse extends PureComponent {
             onChange: this.onChange,
             active: isPanelActive(activeKey, c.key),
             panelKey: c.key,
+            panelTitleBackground,
             isLast: idx === React.Children.count(children) - 1,
             bordered,
           })
@@ -88,7 +98,9 @@ export default class Collapse extends PureComponent {
 function isPanelActive(activeKey, key) {
   if (isString(activeKey)) {
     return activeKey === key;
-  } else if (isArray(activeKey)) {
+  }
+
+  if (isArray(activeKey)) {
     return includes(activeKey, key);
   }
 

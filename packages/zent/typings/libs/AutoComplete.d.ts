@@ -23,5 +23,8 @@ declare module 'zent/lib/auto-complete' {
     width?: number | string;
   }
 
-  export default class AutoComplete extends React.Component<IAutoCompleteProps, any> {}
+  export default class AutoComplete extends React.Component<
+    IAutoCompleteProps,
+    any
+  > {}
 }

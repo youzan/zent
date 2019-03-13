@@ -46,6 +46,7 @@ describe('Affix component', () => {
       state = {
         value: 0,
       };
+
       onUnpin = () => {
         this.setState({ value: 10 });
       };

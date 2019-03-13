@@ -15,6 +15,7 @@ const BLACK_LIST = [
   'outline',
   'bordered',
   'icon',
+  'insertSpace',
   'className',
   'prefix',
 ];
@@ -40,7 +41,7 @@ const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
 
 export default class Button extends PureComponent {
   static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'success', 'danger', 'link']),
+    type: PropTypes.oneOf(['default', 'primary', 'success', 'danger']),
     size: PropTypes.oneOf(['large', 'medium', 'small']),
     htmlType: PropTypes.oneOf(['button', 'submit', 'reset']),
     className: PropTypes.string,
@@ -50,6 +51,7 @@ export default class Button extends PureComponent {
     loading: PropTypes.bool,
     outline: PropTypes.bool,
     bordered: PropTypes.bool,
+    insertSpace: PropTypes.bool,
     prefix: PropTypes.string,
   };
 
@@ -63,6 +65,7 @@ export default class Button extends PureComponent {
     loading: false,
     outline: false,
     bordered: true,
+    insertSpace: false,
     prefix: 'zent',
   };
 
@@ -81,8 +84,8 @@ export default class Button extends PureComponent {
   }
 
   isNeedInsertSpace() {
-    const { icon, children } = this.props;
-    return React.Children.count(children) === 1 && !icon;
+    const { icon, children, insertSpace } = this.props;
+    return insertSpace && React.Children.count(children) === 1 && !icon;
   }
 
   // render a 标签

@@ -1,5 +1,5 @@
 import isPromise from 'utils/isPromise';
-import SubmissionError from './SubmissionError';
+import SubmissionError, { isSubmissionError } from './SubmissionError';
 import { scrollToFirstError } from './utils';
 
 const handleSubmit = (submit, zentForm) => {
@@ -12,35 +12,32 @@ const handleSubmit = (submit, zentForm) => {
 
   const handleOnSubmitError = error => {
     zentForm.updateFormSubmitStatus(false);
-    onSubmitFail(error);
+    onSubmitFail && onSubmitFail(error);
   };
 
   const handleOnSubmitSuccess = result => {
     zentForm.updateFormSubmitStatus(true);
-    onSubmitSuccess(result);
+    onSubmitSuccess && onSubmitSuccess(result);
   };
 
   // 如果有异步校验未完成，阻止表单提交
   if (zentForm.isValidating()) {
-    if (onSubmitFail) {
-      handleOnSubmitError(
-        new SubmissionError({
-          isValidating: true,
-        })
-      );
-    }
-    return;
+    return handleOnSubmitError(
+      new SubmissionError({
+        isValidating: true,
+      })
+    );
   }
 
   const handleSubmitError = submitError => {
-    // 只处理SubmissionError类型的错误
-    const error =
-      submitError instanceof SubmissionError ? submitError.errors : undefined;
-    if (onSubmitFail) {
-      handleOnSubmitError(error);
+    handleOnSubmitError(submitError);
+
+    // SubmissionError 类型的错误内部处理，其他类型的错误需要重新抛出
+    if (!isSubmissionError(submitError) && !onSubmitFail) {
+      throw submitError;
     }
 
-    return error;
+    return submitError;
   };
 
   const doSubmit = () => {
@@ -49,12 +46,7 @@ const handleSubmit = (submit, zentForm) => {
       // 传入zentForm是为了使用服务端校验时可以调用setFieldExternalErrors方法
       result = submit(values, zentForm);
     } catch (submitError) {
-      const error = handleSubmitError(submitError);
-      if (error || onSubmitFail) {
-        return error;
-      }
-      // 没有处理过的error才throw
-      throw submitError;
+      return handleSubmitError(submitError);
     }
 
     if (isPromise(result)) {
@@ -67,29 +59,20 @@ const handleSubmit = (submit, zentForm) => {
           zentForm.setState({
             isSubmitting: false,
           });
-          if (onSubmitSuccess) {
-            handleOnSubmitSuccess(submitResult);
-          }
+          handleOnSubmitSuccess(submitResult);
           return submitResult;
         },
         submitError => {
           zentForm.setState({
             isSubmitting: false,
           });
-          const error = handleSubmitError(submitError);
-          if (error || onSubmitFail) {
-            return error;
-          }
-
-          throw submitError;
+          return handleSubmitError(submitError);
         }
       );
     }
 
     // submit是一个同步过程，直接当成功处理
-    if (onSubmitSuccess) {
-      handleOnSubmitSuccess(result);
-    }
+    handleOnSubmitSuccess(result);
     return result;
   };
 

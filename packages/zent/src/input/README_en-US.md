@@ -22,6 +22,7 @@ A input widget for buiding forms in React, based on raw input. you can enter con
 | prefix       | a custom prefix class        | string        | `'zent'` |                         | No    |
 | width       | width          | string or number       |   |                         | No   |
 | type         | content type          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | No    |
+| size         | size(height)，use `width` to control input width | string | `'normal'` | `'large'` \| `'small'` | No |
 | defaultValue | default value             | string        |          |                         | No    |
 | value        | input value             | string        |          |                         | No    |
 | readOnly     | whether is only read or not          | bool          | `false`  |                         | No    |

@@ -2,7 +2,7 @@
 order: 5
 zh-CN:
 	title: 类型为 card 的步骤条（通过 sequence 覆写步骤项序号）
-	stepOneText: 一、登录有赞账号
+	stepOneText: 一、登录有赞帐号
 	stepTwoText: 二、选择门店
 	stepThreeText: 三、绑定门店
 	stepFourText: 四、完成

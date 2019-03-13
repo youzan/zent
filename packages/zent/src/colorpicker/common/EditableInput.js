@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import isNaN from 'lodash/isNaN';
 import reactCSS from '../helpers/reactcss';
 
 export default class EditableInput extends Component {
@@ -27,8 +28,10 @@ export default class EditableInput extends Component {
   }
 
   handleBlur = e => {
-    if (this.state.blurValue) {
-      this.setState({ value: this.state.blurValue, blurValue: null });
+    const { blurValue } = this.state;
+
+    if (blurValue) {
+      this.setState({ value: blurValue, blurValue: null });
     }
     this.props.onBlur && this.props.onBlur(e);
   };

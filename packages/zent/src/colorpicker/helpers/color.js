@@ -1,4 +1,6 @@
 import each from 'lodash/each';
+import isNaN from 'lodash/isNaN';
+import isNumber from 'lodash/isNumber';
 import tinycolor from 'tinycolor2';
 
 export default {
@@ -6,10 +8,13 @@ export default {
     const keysToCheck = ['r', 'g', 'b', 'a', 'h', 's', 'a', 'v'];
     let checked = 0;
     let passed = 0;
+
     each(keysToCheck, letter => {
-      if (data[letter]) {
+      const v = data[letter];
+
+      if (v) {
         checked += 1;
-        if (!isNaN(data[letter])) {
+        if (isNumber(v) && !isNaN(v)) {
           passed += 1;
         }
       }

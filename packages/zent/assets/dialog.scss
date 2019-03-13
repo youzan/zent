@@ -1,0 +1,129 @@
+@import './theme/default';
+@import './theme/font';
+
+$normalcolor: $theme-stroke-1;
+$graycolor: $theme-stroke-4;
+$bordercolor: $theme-stroke-5;
+$z-index: 1050;
+
+/*
+  WARNING: Do NOT use transform: translate(-50%, -50%) to center dialog,
+  it makes content blurry.
+
+  With GPU rendering elements we are translating, their sizes must be
+  even numbers.
+
+  The bad news is that we cannot control the size of dialogs.
+
+  http://stackoverflow.com/questions/6411361/webkit-based-blurry-distorted-text-post-animation-via-translate3d
+
+  Here we're using inline-blocks to center the dialog.
+
+  https://css-tricks.com/centering-in-the-unknown/
+*/
+.zent-dialog-r-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index;
+  outline: 0;
+  text-align: center;
+  font-size: 0;
+  white-space: nowrap;
+
+  &::before {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle; // required
+  }
+}
+
+.zent-dialog-r {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle; // required
+  text-align: initial;
+  background-color: $theme-stroke-9;
+  border-radius: 4px;
+  padding: 16px 0;
+  box-sizing: border-box;
+  white-space: normal;
+}
+
+.zent-dialog-r-title {
+  @include font-normal;
+
+  padding: 0 16px 14px;
+  border-bottom: 1px solid $bordercolor;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: $font-weight-medium;
+  color: $normalcolor;
+}
+
+.zent-dialog-r-close {
+  position: absolute;
+  display: inline-block;
+  top: 4px;
+  right: 10px;
+  color: $graycolor;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: right;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 0;
+  background-color: $theme-stroke-9;
+  outline: none;
+  user-select: none;
+  padding: 0 6px;
+  margin: 0;
+
+  &:link,
+  &:active,
+  &:focus {
+    color: $graycolor;
+  }
+
+  &.zent-dialog-r-has-title {
+    top: 14px;
+    right: 12px;
+  }
+}
+
+.zent-dialog-r-body {
+  @include font-normal;
+
+  color: $theme-stroke-2;
+  padding: 16px;
+  min-height: 132px;
+
+  &.with-success-icon,
+  &.with-warning-icon {
+    padding-left: 30px;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.zent-dialog-r-footer {
+  text-align: right;
+  padding: 16px 16px 0;
+}
+
+.zent-dialog-r-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(black, 0.6);
+  height: 100%;
+  z-index: $z-index;
+}

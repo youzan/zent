@@ -2,8 +2,20 @@
 order: 4
 zh-CN:
 	title: 支持排序
+	product: 商品
+	productName: 商品名
+	babyProducts: 母婴商品
+	uv: 访问量
+	stock: 库存
+	sold_num: 销售量
 en-US:
 	title: Sorting
+	product: Product
+	productName: Product Name
+	babyProducts: Baby Products
+	uv: UV
+	stock: Stock
+	sold_num: Sales
 ---
 
 ```js
@@ -28,19 +40,19 @@ const datasets = [{
 }];
 
 const columns = [{
-  title: 'Product',
+  title: '{i18n.product}',
   bodyRender: (data) => {
     return (
       <div>{data.item_id}</div>
     );
   }
 }, {
-  title: 'PV',
+  title: '{i18n.uv}',
   name: 'bro_uvpv',
   needSort: true,
   width: '200px'
 }, {
-  title: 'Stock',
+  title: '{i18n.stock}',
   name: 'stock_num',
   width: '100px',
   needSort: true,
@@ -48,7 +60,7 @@ const columns = [{
   isMoney: true
 }, {
   width: '6em',
-  title: 'Sales',
+  title: '{i18n.sold_num}',
   needSort: true,
   name: 'sold_num'
 }];

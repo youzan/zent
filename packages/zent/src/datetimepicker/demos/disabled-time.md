@@ -41,13 +41,13 @@ class Demo extends Component {
 
 	disabledRangeTime(type) {
 		const disabledHour = val => {
-			return type === 'start' ? val < 12 : val > 12;
+			return type === 'start' ? val > 12 : val < 12;
 		};
 		const disabledMinute = val => {
-			return type === 'start' ? val > 30 : val > 30;
+			return type === 'start' ? val > 30 : val < 30;
 		};
 		const disabledSecond = val => {
-			return type === 'start' ? val < 20 : val > 40;
+			return type === 'start' ? val > 40 : val < 40;
 		};
 		return {
 			disabledHour,

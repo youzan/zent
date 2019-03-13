@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
@@ -9,10 +9,13 @@ import set from 'lodash/set';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
+import memoize from 'memoize-one';
 
 import { prefixName, unliftFieldArrayValue } from './utils';
 import unknownProps from './unknownProps';
 import { FieldArrayMutatorAction } from './constants';
+import { validElementType } from '../utils/prop-types';
+import FormContext from './FormContext';
 
 function fieldValueReader(callback, fieldArrayValues, item, index) {
   const name = `[${index}]`;
@@ -32,28 +35,23 @@ class FieldArray extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.array,
-    component: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
-      .isRequired,
+    component: validElementType,
   };
 
-  static contextTypes = {
-    zentForm: PropTypes.object,
-  };
+  static contextType = FormContext;
 
-  static childContextTypes = {
-    zentForm: PropTypes.object.isRequired,
-  };
-
-  getChildContext() {
+  getFormContext = memoize(name => {
     const { zentForm } = this.context;
+
     return {
       zentForm: {
         ...zentForm,
-        prefix: this._name,
+        // prefix: this._name,
+        prefix: name,
         onChangeFieldArray: this.onChangeFieldArray,
       },
     };
-  }
+  });
 
   constructor(props, context) {
     super(props, context);
@@ -129,6 +127,10 @@ class FieldArray extends Component {
 
   getWrappedComponent = () => {
     return this.wrappedComponent;
+  };
+
+  saveWrappedComponent = ref => {
+    this.wrappedComponent = ref;
   };
 
   // Propagate field array change to containing field array
@@ -341,46 +343,48 @@ class FieldArray extends Component {
     return (fieldArray || []).map(unliftFieldArrayValue);
   }
 
+  getFieldOperations = memoize((name, fieldArray) => ({
+    name,
+    length: fieldArray.length,
+    forEach: this.forEachFields,
+    get: this.getField,
+    getAll: this.getAllFields,
+    map: this.mapFields,
+    move: this.moveFields,
+    pop: this.popFields,
+    push: this.pushFields,
+    remove: this.removeFields,
+    removeAll: this.removeAllFields,
+    shift: this.shiftFields,
+    swap: this.swapFields,
+    unshift: this.unshiftFields,
+    concat: this.concatFields,
+    replaceAll: this.replaceAllFields,
+  }));
+
   componentWillUnmount() {
     const { zentForm } = this.context;
     zentForm.detachFromForm(this, { isFieldContainer: true });
   }
 
   render() {
-    const { component, ...rest } = this.props;
-    const passableProps = {
+    const { component: Comp, ...rest } = this.props;
+    let passableProps = {
       ...rest,
-      ref: ref => {
-        this.wrappedComponent = ref;
-      },
-      fields: {
-        name: this._name,
-        length: this.state.fieldArray.length,
-        forEach: this.forEachFields,
-        get: this.getField,
-        getAll: this.getAllFields,
-        map: this.mapFields,
-        move: this.moveFields,
-        pop: this.popFields,
-        push: this.pushFields,
-        remove: this.removeFields,
-        removeAll: this.removeAllFields,
-        shift: this.shiftFields,
-        swap: this.swapFields,
-        unshift: this.unshiftFields,
-        concat: this.concatFields,
-        replaceAll: this.replaceAllFields,
-      },
+      ref: this.saveWrappedComponent,
+      fields: this.getFieldOperations(this._name, this.state.fieldArray),
     };
 
     // 原生的标签不能传非标准属性进去
     if (typeof component === 'string') {
-      return createElement(component, {
-        ...omit(passableProps, unknownProps),
-      });
+      passableProps = omit(passableProps, unknownProps);
     }
 
-    return createElement(component, passableProps);
+    return (
+      <FormContext.Provider value={this.getFormContext(this._name)}>
+        <Comp {...passableProps} />
+      </FormContext.Provider>
+    );
   }
 }
 

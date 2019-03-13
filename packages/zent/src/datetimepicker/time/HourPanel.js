@@ -46,6 +46,7 @@ export default class HourPanel extends PureComponent {
 
     return cells;
   }
+
   render() {
     const { hidePanel, i18n, onSelect, className, hideHeader } = this.props;
     const hours = this.getHours();

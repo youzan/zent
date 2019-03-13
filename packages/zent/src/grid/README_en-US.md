@@ -30,8 +30,9 @@ The function of the component is similar to the function of [Table](table) compo
 | onRowClick   | callback fires when a row is clicked                                                                       | (data: any, index: number, event: Event) => any     |             | No       |
 | ellipsis     | whether ellipsis should be displayed when content overflows (nowrap of columns needs to be set)            | bool                                                 | false       | No       |
 | onExpand     | callback fires when the row expand icon is clicked                                                         | (data: {expanded: boolean, data: any, event: Event, index: number}) => any | | No |
-| components  | custom table element               | object { row?: ReactNode }    |        |   否|
-| rowProps  | custom row props        | (data: any, index: number) => object   |   |   否  |
+| components  | custom table element               | object { row?: ReactNode }    |        |   No|
+| rowProps  | custom row props        | (data: any, index: number) => object   |   |   No  |
+| bordered      | whether to display the outer border and column border                                     | bool                                                 | `false`            | No       |
 
 #### onChange function declaration
 
@@ -62,6 +63,7 @@ onChange will throw an object, which includes parameters about the change part o
 | textAlign   | Text alignment                                                                                      | string                                                             | No       |
 | nowrap      | whether to wrap, true by default                                                                    | bool                                                               | No       |
 | defaultText | default display text                                                 | ReactNode                                                               | No       |
+| children | render grouping table headers                   | array       | No       |
 
 #### selection
 
@@ -75,7 +77,7 @@ onChange will throw an object, which includes parameters about the change part o
 
 | Property  | Description                              | Type   | Required |
 | --------- | ---------------------------------------- | ------ | -------- |
-| totalItem | Total number of items                    | number | No       |
+| total | Total number of items                    | number | No       |
 | pageSize  | Number of items to be displayed per page | number | No       |
 | current   | current page                             | number | No       |
 

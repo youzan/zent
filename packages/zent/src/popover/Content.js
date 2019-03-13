@@ -34,6 +34,8 @@ export default class PopoverContent extends PureComponent {
 
     prefix: PropTypes.string,
 
+    className: PropTypes.string,
+
     id: PropTypes.string,
 
     getContentNode: PropTypes.func,
@@ -203,7 +205,7 @@ export default class PopoverContent extends PureComponent {
         visible={visible}
         selector={containerSelector}
         className={cls}
-        css={position.getCSSStyle()}
+        style={position.getCSSStyle()}
         onMount={this.adjustPosition}
       >
         <div className={`${prefix}-popover-content`}>

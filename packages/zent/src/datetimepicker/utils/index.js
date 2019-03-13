@@ -1,8 +1,5 @@
-import {
-  formatDate as formatBase,
-  parseDate as parseBase,
-} from 'zan-utils/date';
-
+import formatBase from 'utils/date/formatDate';
+import parseBase from 'utils/date/parseDate';
 import startOfMonth from 'date-fns/start_of_month';
 import startOfDay from 'date-fns/start_of_day';
 import endOfDay from 'date-fns/end_of_day';

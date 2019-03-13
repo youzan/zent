@@ -176,6 +176,10 @@ export default class Avatar extends PureComponent {
 }
 
 function fitText(containerNode, textNode) {
+  if (!containerNode || !textNode) {
+    return 1;
+  }
+
   // When using with transforms, getBoundingClientRect().width and offsetWidth
   // returns different results.
   // https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements

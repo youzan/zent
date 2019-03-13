@@ -6,6 +6,8 @@ group: Domain-specific
 
 ## Design
 
+Please use `@zent/design`
+
 H5 page editor, build your H5 pages in a WYSIWYG way.
 
 ### API

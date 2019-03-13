@@ -9,7 +9,6 @@ import Button from 'button';
 import isPromise from 'utils/isPromise';
 import { exposePopover } from 'popover/withPopover';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Pop as I18nDefault } from 'i18n/default';
 
 import NoneTrigger from './NoneTrigger';
 import getPosition from './position';
@@ -81,7 +80,19 @@ class PopAction extends PureComponent {
 
     return (
       <div className={`${prefix}-pop-buttons`}>
-        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
+        <Receiver componentName="Pop">
+          {i18n => (
+            <Button
+              loading={cancelPending}
+              disabled={confirmPending}
+              size="small"
+              onClick={this.handleCancel}
+            >
+              {cancelText || i18n.cancel}
+            </Button>
+          )}
+        </Receiver>
+        <Receiver componentName="Pop">
           {i18n => (
             <Button
               loading={confirmPending}
@@ -91,18 +102,6 @@ class PopAction extends PureComponent {
               onClick={this.handleConfirm}
             >
               {confirmText || i18n.confirm}
-            </Button>
-          )}
-        </Receiver>
-        <Receiver componentName="Pop" defaultI18n={I18nDefault}>
-          {i18n => (
-            <Button
-              loading={cancelPending}
-              disabled={confirmPending}
-              size="small"
-              onClick={this.handleCancel}
-            >
-              {cancelText || i18n.cancel}
             </Button>
           )}
         </Receiver>
@@ -116,25 +115,28 @@ const BoundPopAction = withPopover(PopAction);
 class Pop extends PureComponent {
   static propTypes = {
     trigger: PropTypes.oneOf(['click', 'hover', 'focus', 'none']),
-    position: PropTypes.oneOf([
-      'left-top',
-      'left-center',
-      'left-bottom',
-      'right-top',
-      'right-center',
-      'right-bottom',
-      'top-left',
-      'top-center',
-      'top-right',
-      'bottom-left',
-      'bottom-center',
-      'bottom-right',
-      'auto-bottom-center',
-      'auto-bottom-left',
-      'auto-bottom-right',
-      'auto-top-center',
-      'auto-top-left',
-      'auto-top-right',
+    position: PropTypes.oneOfType([
+      PropTypes.oneOf([
+        'left-top',
+        'left-center',
+        'left-bottom',
+        'right-top',
+        'right-center',
+        'right-bottom',
+        'top-left',
+        'top-center',
+        'top-right',
+        'bottom-left',
+        'bottom-center',
+        'bottom-right',
+        'auto-bottom-center',
+        'auto-bottom-left',
+        'auto-bottom-right',
+        'auto-top-center',
+        'auto-top-left',
+        'auto-top-right',
+      ]),
+      PropTypes.func,
     ]),
 
     // 是否按小箭头居中对齐trigger来定位
@@ -240,10 +242,11 @@ class Pop extends PureComponent {
       type,
     } = this.props;
     const { confirmPending, cancelPending } = this.state;
+    const hasHeader = !!header;
 
     return (
       <Popover.Content>
-        {header && <div className={`${prefix}-pop-header`}>{header}</div>}
+        {hasHeader && <div className={`${prefix}-pop-header`}>{header}</div>}
         <div className={`${prefix}-pop-inner`}>
           {content}
           <BoundPopAction
@@ -327,6 +330,7 @@ class Pop extends PureComponent {
       onShow,
       onClose,
       position,
+      header,
       centerArrow,
       onBeforeClose,
       onBeforeShow,
@@ -334,6 +338,13 @@ class Pop extends PureComponent {
       onPositionReady,
       containerSelector,
     } = this.props;
+
+    const hasHeader = !!header;
+    const cls = cx(`${prefix}-pop`, className, {
+      [`${prefix}-pop--has-header`]: hasHeader,
+      [`${prefix}-pop--no-header`]: !hasHeader,
+    });
+
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
       onVisibleChange = onVisibleChange || noop;
@@ -348,7 +359,7 @@ class Pop extends PureComponent {
         onVisibleChange={closePending ? noop : onVisibleChange}
         prefix={prefix}
         wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
-        className={cx(`${prefix}-pop`, className)}
+        className={cls}
         cushion={10}
         position={getPosition(position, centerArrow)}
         display={block ? 'block' : 'inline-block'}

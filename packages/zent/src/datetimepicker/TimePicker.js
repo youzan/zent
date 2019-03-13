@@ -6,7 +6,6 @@ import Input from 'input';
 import Popover from 'popover';
 import getWidth from 'utils/getWidth';
 import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
 
 import HourPanel from './time/HourPanel';
 import MinutePanel from './time/MinutePanel';
@@ -428,7 +427,7 @@ export default class TimePicker extends PureComponent {
 
     return (
       <div style={widthStyle} className={wrapperCls}>
-        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker">
           {i18n => (
             <Popover
               cushion={5}

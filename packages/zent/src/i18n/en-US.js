@@ -18,10 +18,11 @@ export const CopyButton = {
 
 export const Pagination = {
   comma: common.comma,
+  page: 'page',
+  jump: 'Goto',
   total: 'Total',
-  pages: 'pages',
   items: ' items',
-  perPage: ' per page',
+  perPage: 'per page',
 };
 
 export const Pop = {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import isFunction from 'lodash/isFunction';
 
 // 支持的color style
-const colorTypes = ['red', 'green', 'yellow', 'blue', 'darkgreen'];
+const colorTypes = ['red', 'green', 'yellow', 'blue', 'darkgreen', 'grey'];
 
 export default class Tag extends PureComponent {
   static propTypes = {
@@ -15,6 +15,7 @@ export default class Tag extends PureComponent {
     borderColor: PropTypes.string,
     bgColor: PropTypes.string,
     fontColor: PropTypes.string,
+    closeButtonFontColor: PropTypes.string,
     closable: PropTypes.bool,
     visible: PropTypes.bool,
     onVisibleChange: PropTypes.func,
@@ -90,6 +91,7 @@ export default class Tag extends PureComponent {
       borderColor,
       bgColor,
       fontColor,
+      closeButtonFontColor,
       closable,
       children,
       className,
@@ -116,6 +118,11 @@ export default class Tag extends PureComponent {
     borderColor && (styles.borderColor = borderColor);
     bgColor && (styles.background = bgColor);
     fontColor && (styles.color = fontColor);
+    const closeButtonStyle = closeButtonFontColor
+      ? {
+          color: closeButtonFontColor,
+        }
+      : undefined;
 
     return (
       <div className={containerCls} style={styles}>
@@ -125,6 +132,7 @@ export default class Tag extends PureComponent {
             type="close"
             className={`${prefix}-tag-close-btn`}
             onClick={this.onClose}
+            style={closeButtonStyle}
           />
         )}
       </div>

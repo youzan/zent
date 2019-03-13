@@ -1,0 +1,247 @@
+@import './constants';
+
+body {
+  background-color: #fff;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale; // sass-lint:disable-line no-vendor-prefixes
+  -webkit-font-smoothing: antialiased; // sass-lint:disable-line no-vendor-prefixes
+  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+  font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
+}
+
+a {
+  color: $link-color;
+}
+
+code[class*='language-'] {
+  display: block;
+  font-size: 13px;
+  overflow-x: auto;
+  font-weight: 400;
+  line-height: 22px;
+  border-radius: 3px;
+  margin-bottom: 25px;
+  position: relative;
+  word-break: break-all;
+  white-space: pre-wrap;
+  background-color: #f5f7fa;
+  color: #455a64;
+  padding: 18px 10px 18px 20px;
+  font-family: Source Code Pro, Monaco, Inconsolata, monospace;
+}
+
+.clearfix {
+  &::before {
+    display: table;
+    content: '';
+  }
+
+  &::after {
+    display: table;
+    content: '';
+    clear: both;
+  }
+}
+
+.main-content {
+  min-height: calc(100vh - $top-nav-height - $footer-height - 20px);
+
+  @media (min-width: 1440px) {
+    width: 1440px;
+    margin: 0 auto;
+  }
+}
+
+.page-container {
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+  display: flex;
+  border-radius: 4px;
+}
+
+.page-content {
+  box-sizing: border-box;
+  flex-grow: 1;
+
+  section {
+    padding: 0 40px;
+
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6 {
+      line-height: 1.5;
+      font-weight: normal;
+      position: relative;
+      margin: 20px 0 10px;
+      color: rgba(51, 51, 51, 0.9);
+      font-family: $code-font-family;
+
+      &:hover a:first-child {
+        opacity: 0.4;
+      }
+
+      a:first-child {
+        float: left;
+        margin-left: -20px;
+        opacity: 0;
+        cursor: pointer;
+      }
+    }
+
+    > h1 {
+      font-size: 36px;
+      line-height: 45px;
+    }
+
+    > h2 {
+      font-size: 30px;
+    }
+
+    > h3 {
+      font-size: 22px;
+    }
+
+    > h4 {
+      font-size: 20px;
+    }
+
+    > h3,
+    > h4 {
+      margin-top: 40px;
+
+      + h3,
+      + h4 {
+        margin-top: 15px;
+      }
+    }
+
+    > h5 {
+      font-size: 14px;
+    }
+
+    > h6 {
+      font-size: 14px;
+      color: #666;
+    }
+
+    > p {
+      font-size: 14px;
+      line-height: 20px;
+      color: #666;
+      margin: 14px 0;
+    }
+
+    > ul li,
+    > ol li {
+      color: #666;
+      font-size: 14px;
+      line-height: 20px;
+      margin: 10px 0 10px 20px;
+      padding-left: 20px;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        margin-top: 8px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        border: 1px solid #666;
+      }
+
+      li {
+        margin-left: 0;
+      }
+    }
+
+    .anchor-point {
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  p > code,
+  .table code,
+  li > code {
+    margin: 0;
+    font-size: 13px;
+    overflow-x: auto;
+    font-weight: 400;
+    line-height: 22px;
+    border-radius: 3px;
+    position: relative;
+    word-break: break-all;
+    white-space: pre-wrap;
+    background-color: #f5f7fa;
+    color: #455a64;
+    font-family: Source Code Pro, Monaco, Inconsolata, monospace;
+    padding: 4px 7px;
+    display: inline;
+  }
+
+  blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+  }
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 45px;
+
+  th {
+    padding: 10px;
+    text-align: left;
+    font-weight: normal;
+    background-color: #f5f7fa;
+    border: 1px solid $border-color;
+
+    &:first-child {
+      padding-left: 10px;
+    }
+  }
+
+  td {
+    padding: 10px;
+    border: 1px solid $border-color;
+  }
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #1976d2;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #32a973;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #1976d2;
+}

@@ -1,0 +1,137 @@
+@import './constants';
+@import './animation';
+
+.app {
+  min-width: 1200px;
+}
+
+.page-content {
+  overflow-x: auto;
+  position: relative;
+}
+
+.react-doc-page-content {
+  min-height: 100%;
+  padding: 10px 0 62px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.zandoc-react-container {
+  .zandoc-react-demo {
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    margin: 0 40px;
+
+    & + .zandoc-react-demo {
+      margin-top: 40px;
+    }
+
+    &__preview {
+      padding: 40px;
+    }
+
+    &__bottom {
+      padding: 20px;
+      border-top: 1px solid $border-color;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      background-color: #f5f7fa;
+
+      &:hover {
+        background-color: #ebeff5;
+      }
+    }
+
+    &__toggle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      color: $toggle-color;
+      font-size: 12px;
+      line-height: 20px;
+      flex: 0 0 auto;
+      transition: 0.2s ease;
+
+      &-off {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__title {
+      flex: 1;
+      color: #666;
+      font-size: 14px;
+      min-height: 20px;
+      margin-right: 20px;
+    }
+
+    &__code {
+      code[class*='language-'] {
+        margin: 0;
+        border-top: 1px solid $border-color;
+      }
+    }
+  }
+}
+
+.zandoc-react-color-row {
+  margin-bottom: 10px;
+
+  .zandoc-react-color-cell {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.zandoc-react-color-cell {
+  display: inline-block;
+  width: 250px;
+  height: 80px;
+  border-radius: 4px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+
+  .zandoc-react-color-cell__name {
+    margin-top: 8px;
+    font-size: 20px;
+  }
+
+  .zandoc-react-color-cell__color {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  &--light {
+    .zandoc-react-color-cell__name {
+      color: #fff;
+    }
+
+    .zandoc-react-color-cell__color {
+      color: #e5e5e5;
+    }
+  }
+
+  &--dark {
+    .zandoc-react-color-cell__name {
+      color: #333;
+    }
+
+    .zandoc-react-color-cell__color {
+      color: #999;
+    }
+  }
+
+  &__mask-white {
+    border: 1px solid #e5e5e5;
+  }
+}

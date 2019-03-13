@@ -11,7 +11,6 @@ import isDate from 'lodash/isDate';
 import isArray from 'lodash/isArray';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
 
 import { commonProps, commonPropTypes, noop } from './constants';
 import TimePicker from './TimePicker';
@@ -87,7 +86,7 @@ export default class TimeRangePicker extends PureComponent {
 
     rangePicker = (
       <div className={cx(className, 'range-picker2')}>
-        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker">
           {i18n => (
             <TimePicker
               {...pickerProps}
@@ -103,11 +102,11 @@ export default class TimeRangePicker extends PureComponent {
           )}
         </Receiver>
 
-        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker">
           {i18n => <span className="picker-seperator">{i18n.to}</span>}
         </Receiver>
 
-        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker">
           {i18n => (
             <TimePicker
               {...pickerProps}

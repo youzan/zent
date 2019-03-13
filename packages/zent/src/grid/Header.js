@@ -16,25 +16,21 @@ class Header extends PureComponent {
     };
   }
 
-  onSort = (column, props) => {
+  onSort = (column, props, newSortType) => {
     const { sortBy } = props;
     let name = column.name;
     let sortType = '';
 
     if (name === sortBy) {
-      if (this.props.sortType === '') {
-        sortType = 'desc';
-      }
-      if (this.props.sortType === 'desc') {
-        sortType = 'asc';
-      }
-      if (this.props.sortType === 'asc') {
+      if (newSortType === this.props.sortType) {
         sortType = '';
+      } else {
+        sortType = newSortType;
       }
     }
 
     if (name !== sortBy) {
-      sortType = 'desc';
+      sortType = newSortType;
     }
 
     this.props.onChange({
@@ -45,38 +41,54 @@ class Header extends PureComponent {
 
   getChildren = (column, props) => {
     const { prefix, sortBy, sortType } = props;
+    const cn = classnames(`${prefix}-grid-thead-sort`, {
+      [`${prefix}-grid-thead-sort-${sortType}`]:
+        sortType && column.name === sortBy,
+    });
 
     if (column.needSort) {
       return (
-        <a
-          onClick={() => this.onSort(column, props)}
-          className={`${prefix}-grid-thead-sort-btn`}
-        >
+        <div className={`${prefix}-grid-thead-sort-btn`}>
           {column.title}
-          {column.name === sortBy && (
+          <span className={cn}>
             <span
-              className={
-                sortType
-                  ? `${prefix}-grid-thead-sort-${sortType}`
-                  : `${prefix}-grid-thead-sort`
-              }
+              onClick={() => this.onSort(column, props, 'asc')}
+              className="caret-up"
             />
-          )}
-        </a>
+            <span
+              onClick={() => this.onSort(column, props, 'desc')}
+              className="caret-down"
+            />
+          </span>
+        </div>
       );
     }
     return column.title;
   };
 
-  getHeaderRows = (props, currentRow = 0, rows) => {
+  getHeaderRows = (props, columns, currentRow = 0, rows) => {
     props = props || this.props;
-    const { prefix, columns } = props;
+    const { prefix, columns: propsColumns } = props;
+    columns = columns || propsColumns;
 
     rows = rows || [];
     rows[currentRow] = rows[currentRow] || [];
 
     forEach(columns, (column, index) => {
-      const { name, key, className, colSpan, nowrap, textAlign } = column;
+      if (column.rowSpan && rows.length < column.rowSpan) {
+        while (rows.length < column.rowSpan) {
+          rows.push([]);
+        }
+      }
+      const {
+        name,
+        key,
+        className,
+        colSpan,
+        rowSpan,
+        nowrap,
+        textAlign,
+      } = column;
       const cell = {
         key: name || key || index,
         className: classnames(`${prefix}-grid-th`, className, {
@@ -86,10 +98,15 @@ class Header extends PureComponent {
         children: this.getChildren(column, props),
       };
 
+      if (column.children) {
+        this.getHeaderRows(props, column.children, currentRow + 1, rows);
+      }
       if (typeof colSpan === 'number') {
         cell.colSpan = colSpan;
       }
-
+      if (typeof rowSpan === 'number') {
+        cell.rowSpan = rowSpan;
+      }
       if (cell.colSpan !== 0) {
         rows[currentRow].push(cell);
       }
@@ -129,14 +146,14 @@ class Header extends PureComponent {
 
   renderThead() {
     const { prefix, fixed, fixedColumnsHeadRowsHeight } = this.props;
+    const { rows } = this.state;
+    const headerHeight = fixedColumnsHeadRowsHeight[0];
+    const rowsLen = rows.length;
 
     return (
       <thead className={`${prefix}-grid-thead`}>
-        {map(this.state.rows, (row, index) => {
-          const height =
-            fixed && fixedColumnsHeadRowsHeight[index]
-              ? fixedColumnsHeadRowsHeight[index]
-              : null;
+        {map(rows, (row, index) => {
+          const height = fixed && headerHeight ? headerHeight / rowsLen : null;
           return (
             <tr
               key={index}
@@ -145,7 +162,9 @@ class Header extends PureComponent {
                 height,
               }}
             >
-              {row.map(props => <th {...props} />)}
+              {row.map(props => (
+                <th {...props} />
+              ))}
             </tr>
           );
         })}

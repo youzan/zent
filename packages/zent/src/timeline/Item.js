@@ -52,8 +52,8 @@ export class TimelineItem extends PureComponent {
     prefix: 'zent',
     showLabel: true,
     showDot: true,
-    lineColor: '#999',
-    dotColor: '#4b0',
+    lineColor: '#f2f3f5',
+    dotColor: '#155BD4',
   };
 
   mousePosition = {

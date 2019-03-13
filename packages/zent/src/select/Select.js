@@ -1,5 +1,5 @@
 /**
- * Select
+ * Select 垃圾代码，需要清理
  */
 
 // import React, { Component, Children } from 'react';
@@ -11,6 +11,7 @@ import isEqual from 'lodash/isEqual';
 import isArray from 'lodash/isArray';
 import noop from 'lodash/noop';
 import cloneDeep from 'lodash/cloneDeep';
+import assign from 'lodash/assign';
 
 import Popover from 'popover';
 
@@ -23,7 +24,7 @@ class Select extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign(
+    this.state = assign(
       {
         selectedItems: [],
         selectedItem: {
@@ -113,7 +114,7 @@ class Select extends React.Component {
         React.Children.map(children, (item, index) => {
           let value = item.props.value;
           value = typeof value === 'undefined' ? item : value;
-          return Object.assign({}, item.props, {
+          return assign({}, item.props, {
             value,
             cid: `${index}`,
             text: item.props.children,
@@ -338,6 +339,7 @@ class Select extends React.Component {
     return (
       <Popover
         display="inline-block"
+        cushion={4}
         ref={ref => (this.popover = ref)}
         position={Popover.Position.AutoBottomLeft}
         visible={open}
@@ -354,6 +356,7 @@ class Select extends React.Component {
         }}
       >
         <Trigger
+          visible={open}
           disabled={disabled}
           prefixCls={prefixCls}
           placeholder={placeholder}
@@ -413,6 +416,7 @@ Select.propTypes = {
     value: PropTypes.any,
     text: PropTypes.string,
   }),
+  selectedItems: PropTypes.array,
   trigger: PropTypes.func,
   optionValue: PropTypes.string,
   optionText: PropTypes.string,
@@ -432,6 +436,14 @@ Select.propTypes = {
 
   // 重置选项展示文本
   resetText: PropTypes.string,
+
+  value: PropTypes.any,
+
+  index: PropTypes.number,
+
+  initialValue: PropTypes.any,
+
+  initialIndex: PropTypes.number,
 };
 
 Select.defaultProps = {

@@ -2,12 +2,14 @@
 order: 5
 zh-CN:
 	title: 自定义 Confirm 形式的气泡提示按钮
-	content: Pop关闭了
+	content: Pop 打开了
+	popHeader: Pop 标题
 	popContent: 提示内容
 	btnText: 打开气泡
 en-US:
 	title: Custom confirm pop
-	content: Pop closed
+	content: Pop opened
+	popHeader: Pop title
 	popContent: Pop content
 	btnText: Open
 ---
@@ -27,6 +29,7 @@ class Wrapper extends React.Component {
 		return (
 			<Pop
 				trigger="click"
+				header="{i18n.popHeader}"
 				content="{i18n.popContent}"
 				type="danger"
 				confirmText="Error"

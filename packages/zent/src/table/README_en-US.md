@@ -4,7 +4,7 @@ path: component/table
 group: Navigation
 ---
 
-## Table
+## Table(⚠️ Deprecated, use `Grid` instead)
 
 ### Guides
 
@@ -17,7 +17,7 @@ group: Navigation
 | columns    | All data needed of each column                                 | array[object] |             |         | yes    |
 | datasets   | Data need to display of each row                               | array[object] |             |         | yes    |
 | rowKey     | Key of each row           | string        | `id`        |         | no    |
-| sortBy     | Field which used to sort, should be one element's key of columns       | string        |             |         | no    |
+| sortBy     | Field which used to sort, should be one element's key of columns. Note: you have to sort data by yourself.       | string        |             |         | no    |
 | sortType   | Sort order                                       | string        | `'desc'`    | `'asc'` | no    |
 | onChange   | Change callback  | func          |             |         | no    |
 | emptyLabel | Prompt text when list is empty                                | node        | `'No data'` |         | no    |
@@ -83,6 +83,7 @@ onChange will throw an object containing pagination and sorting parameters：
 | Props              | Description              | Type    |  Default | Required |
 | --------------- | --------------- | ----- | ---- | ----- |
 | selectedRowKeys | Selected by default            | array |  | no    |
+| indeterminateRowKeys | indeterminate rows | array | no |
 | isSingleSelection | Radio or not           | bool | `false` | no    |
 | needCrossPage |   Cross-page multiple choice or not | bool | `false` | no    |
 | onSelect(@selectedkeys, @selectedRows, @currentRow) | Check callback | func  |  | no    |

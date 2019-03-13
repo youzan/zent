@@ -9,7 +9,6 @@ import noop from 'lodash/noop';
 
 import Popover from 'popover';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Select as I18nDefault } from 'i18n/default';
 
 import Search from './components/Search';
 import Option from './components/Option';
@@ -268,7 +267,7 @@ class Popup extends Component {
           );
         })}
         {showEmpty && (
-          <Receiver componentName="Select" defaultI18n={I18nDefault}>
+          <Receiver componentName="Select">
             {i18n => (
               <Option
                 className={`${prefixCls}-empty`}

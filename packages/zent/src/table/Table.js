@@ -1,7 +1,7 @@
 /* eslint-disable no-lonely-if */
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
-import Loading from 'loading';
+import BlockLoading from 'loading/BlockLoading';
 import PropTypes from 'prop-types';
 import isBrowser from 'utils/isBrowser';
 
@@ -12,7 +12,6 @@ import uniqBy from 'lodash/uniqBy';
 import pullAll from 'lodash/pullAll';
 import pullAllBy from 'lodash/pullAllBy';
 import { I18nReceiver as Receiver } from 'i18n';
-import { Table as I18nDefault } from 'i18n/default';
 
 import Head from './modules/Head';
 import Body from './modules/Body';
@@ -39,6 +38,8 @@ export default class Table extends PureComponent {
     expandation: object,
     batchComponentsAutoFixed: bool,
     batchComponents: array,
+    pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
+    emptyLabel: PropTypes.node,
   };
 
   static defaultProps = {
@@ -69,10 +70,12 @@ export default class Table extends PureComponent {
     };
     this.tableRect = null;
     this.relativeTop = 0;
+    this.mounted = false;
   }
 
   // 一个global的selectedRowKeys用于保存所有选中的选项
   selectedRowKeys = [];
+
   selectedRows = [];
 
   componentWillReceiveProps(nextProps) {
@@ -84,10 +87,12 @@ export default class Table extends PureComponent {
   }
 
   componentDidMount() {
+    this.mounted = true;
     this.addEventListener(this.props);
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.removeEventListener(this.props);
   }
 
@@ -138,15 +143,27 @@ export default class Table extends PureComponent {
   }
 
   setRectParam() {
-    this.tableRectTop = ReactDOM.findDOMNode(this).getBoundingClientRect().top;
-    this.tableRectHeight = ReactDOM.findDOMNode(
-      this
-    ).getBoundingClientRect().height;
+    if (!this.mounted) {
+      return;
+    }
+
+    const node = ReactDOM.findDOMNode(this);
+    if (!node) {
+      return;
+    }
+
+    const rect = node.getBoundingClientRect();
+    this.tableRectTop = rect.top;
+    this.tableRectHeight = rect.height;
     this.relativeTop =
       this.tableRectTop - document.documentElement.getBoundingClientRect().top;
   }
 
   toggleBatchComponents() {
+    if (!this.mounted) {
+      return;
+    }
+
     const needFixedBatchComps = helper.needFixBatchComps(
       this.isTableInView(),
       this.isFootInView(),
@@ -179,19 +196,11 @@ export default class Table extends PureComponent {
     this.wrapPropsOnChange(conf);
   };
 
-  onPageChange = current => {
-    this.wrapPropsOnChange({
-      current,
-    });
+  onPageChange = data => {
+    this.wrapPropsOnChange(data);
     if (this.props.autoScroll) {
       this.scrollToTop(400);
     }
-  };
-
-  onPageSizeChange = pageSize => {
-    this.wrapPropsOnChange({
-      pageSize,
-    });
   };
 
   /**
@@ -397,6 +406,7 @@ export default class Table extends PureComponent {
       isSingleSelection = selection.isSingleSelection || false;
     }
     let selectedRowKeys = [];
+    let indeterminateRowKeys = [];
 
     let canSelectAll = false;
     let isSelectAll = false;
@@ -422,6 +432,7 @@ export default class Table extends PureComponent {
       });
 
       selectedRowKeys = selection.selectedRowKeys || [];
+      indeterminateRowKeys = selection.indeterminateRowKeys || [];
       canSelectAll = canSelectRowKeysArr.length > 0;
       canRowSelect = selection.canRowSelect;
       isSelectAll =
@@ -435,10 +446,10 @@ export default class Table extends PureComponent {
     }
 
     return (
-      <Receiver defaultI18n={I18nDefault} componentName="Table">
+      <Receiver componentName="Table">
         {i18n => (
           <div className={`${prefix}-table-container`}>
-            <Loading show={this.props.loading} static>
+            <BlockLoading loading={this.props.loading}>
               {columns && (
                 <div className={`${prefix}-table ${className}`}>
                   {this.state.placeHolderHeight && (
@@ -473,6 +484,7 @@ export default class Table extends PureComponent {
                     selection={{
                       needSelect,
                       selectedRowKeys,
+                      indeterminateRowKeys,
                       isSingleSelection,
                       onSelect: this.onSelectOneRow,
                       canRowSelect,
@@ -500,7 +512,7 @@ export default class Table extends PureComponent {
                   />
                 </div>
               )}
-            </Loading>
+            </BlockLoading>
           </div>
         )}
       </Receiver>

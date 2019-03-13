@@ -11,6 +11,7 @@ describe('Slider', () => {
       state = {
         value: 0,
       };
+
       onChange = value => {
         this.setState({ value });
       };
@@ -114,6 +115,7 @@ describe('Slider', () => {
       state = {
         value: [0, 20],
       };
+
       onChange = value => {
         this.setState({ value });
       };

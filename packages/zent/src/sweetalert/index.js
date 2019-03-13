@@ -2,7 +2,6 @@ import React from 'react';
 import cx from 'classnames';
 
 import { I18nReceiver as Receiver } from 'i18n';
-import { Sweetalert as i18nDefault } from 'i18n/default';
 import Dialog from 'dialog';
 import Icon from 'icon';
 
@@ -60,6 +59,15 @@ function sweet(config, sweetType) {
     const isAlert = sweetType === 'alert';
     return (
       <div className={`sweet-${sweetType}-actions`}>
+        {!isAlert && (
+          <ActionButton
+            key="sweetalert-cancel"
+            className={`${prefix}-sweetalert-${sweetType}-btn-cancel`}
+            getClose={() => close}
+            onClick={onCancel}
+            text={cancelText || i18n.cancel}
+          />
+        )}
         <ActionButton
           key="sweetalert-confirm"
           type={confirmType}
@@ -68,16 +76,6 @@ function sweet(config, sweetType) {
           onClick={onConfirm}
           text={confirmText || (isAlert ? i18n.ok : i18n.confirm)}
         />
-        {!isAlert && (
-          <ActionButton
-            key="sweetalert-cancel"
-            type="default"
-            className={`${prefix}-sweetalert-${sweetType}-btn-cancel`}
-            getClose={() => close}
-            onClick={onCancel}
-            text={cancelText || i18n.cancel}
-          />
-        )}
       </div>
     );
   };
@@ -89,17 +87,9 @@ function sweet(config, sweetType) {
     className: cx(`${prefix}-sweetalert-${sweetType}`, {
       [className]: !!className,
     }),
-    title: (
-      <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
-        {renderTitle}
-      </Receiver>
-    ),
+    title: <Receiver componentName="Sweetalert">{renderTitle}</Receiver>,
     children: content,
-    footer: (
-      <Receiver componentName="Sweetalert" defaultI18n={i18nDefault}>
-        {renderButtons}
-      </Receiver>
-    ),
+    footer: <Receiver componentName="Sweetalert">{renderButtons}</Receiver>,
     parentComponent,
   });
 

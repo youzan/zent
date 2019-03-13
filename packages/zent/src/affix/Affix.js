@@ -56,6 +56,10 @@ class Affix extends PureComponent {
   setWidth() {
     const element = ReactDOM.findDOMNode(this);
 
+    if (!element) {
+      return;
+    }
+
     this.setState({
       width: element.offsetWidth,
       placeHoldStyle: {
@@ -69,6 +73,11 @@ class Affix extends PureComponent {
     const affix = this.affix;
     const props = this.props;
     const element = ReactDOM.findDOMNode(this);
+
+    if (!element) {
+      return;
+    }
+
     let reallyNum, propsNum;
 
     if (props.offsetBottom !== undefined) {

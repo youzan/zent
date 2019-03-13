@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 
-const babylon = require('babylon');
-const t = require('babel-types');
+const babelParser = require('@babel/parser');
+const t = require('@babel/types');
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
+
+const PARSER_PLGUINS = [
+  'jsx',
+  'objectRestSpread',
+  'classProperties',
+  'exportDefaultFrom',
+  'exportNamespaceFrom',
+];
 
 function main() {
   const cssConfig = generateCSSConfig();
@@ -53,9 +61,9 @@ function mergeJSAndCSS(js, css) {
 
 function generateModuleJSMapping() {
   const zentIndex = readFileFromZent('src/index.js');
-  const ast = babylon.parse(zentIndex, {
+  const ast = babelParser.parse(zentIndex, {
     sourceType: 'module',
-    plugins: ['objectRestSpread', 'classProperties', 'exportExtensions'],
+    plugins: PARSER_PLGUINS,
   });
 
   return ast.program.body
@@ -89,11 +97,11 @@ function generateCSSConfig() {
     .filter(
       f =>
         fs.statSync(path.join(styleDir, f)).isFile() &&
-        f !== 'index.pcss' &&
+        f !== 'index.scss' &&
         !f.startsWith('.')
     )
     .reduce((mapping, f) => {
-      const comp = path.basename(f, '.pcss');
+      const comp = path.basename(f, '.scss');
       mapping[comp] = `zent/css/${comp}.css`;
       return mapping;
     }, {});
@@ -111,20 +119,9 @@ function findComponentDependencies(component, components) {
         .map(filename => {
           const filepath = path.join(cwd, filename);
           const source = fs.readFileSync(filepath, { encoding: 'utf-8' });
-          const ast = babylon.parse(source, {
+          const ast = babelParser.parse(source, {
             sourceType: 'module',
-            plugins: [
-              'jsx',
-              'doExpressions',
-              'objectRestSpread',
-              'decorators',
-              'classProperties',
-              'exportExtensions',
-              'asyncGenerators',
-              'functionBind',
-              'functionSent',
-              'dynamicImport',
-            ],
+            plugins: PARSER_PLGUINS,
           });
 
           return ast.program.body
@@ -177,8 +174,8 @@ function appendPostcssToMapping(mapping) {
     const config = mapping[componentName];
     const { css } = config;
 
-    config.postcss = css.map(cssPath =>
-      cssPath.replace(/\/css\/(.+)\.css$/, '/assets/$1.pcss')
+    config.style = css.map(cssPath =>
+      cssPath.replace(/\/css\/(.+)\.css$/, '/assets/$1.scss')
     );
   });
 

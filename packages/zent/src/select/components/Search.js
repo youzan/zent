@@ -11,7 +11,7 @@ class Search extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (!this.focused && nextProps.ready) {
       setTimeout(() => {
-        this.input.focus();
+        this.input && this.input.focus();
       }, 150);
       this.focused = true;
     }

@@ -50,7 +50,7 @@ export default class Slider extends PureComponent {
     value: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.arrayOf(PropTypes.number),
-    ]).isRequired,
+    ]),
     disabled: PropTypes.bool,
     range: PropTypes.bool,
     step: PropTypes.number,
@@ -97,10 +97,9 @@ export default class Slider extends PureComponent {
     return (
       <div className={wrapClass} style={getWidth(width)}>
         <Range {...restProps} onChange={this.onChange} />
-        {withInput &&
-          !restProps.dots && (
-            <InputField onChange={this.onChange} {...restProps} />
-          )}
+        {withInput && !restProps.dots && (
+          <InputField onChange={this.onChange} {...restProps} />
+        )}
       </div>
     );
   }

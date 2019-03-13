@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import omit from 'lodash/omit';
 
-import { PopoverContextType } from './Popover';
+import PopoverContext from './PopoverContext';
 
 /**
  * A high order component to expose imperative APIs for popover.
@@ -10,7 +10,7 @@ import { PopoverContextType } from './Popover';
  */
 export const exposePopover = propName => Base => {
   return class ExposePopover extends PureComponent {
-    static contextTypes = PopoverContextType;
+    static contextType = PopoverContext;
 
     render() {
       const { _zentPopover: popover } = this.context || {};

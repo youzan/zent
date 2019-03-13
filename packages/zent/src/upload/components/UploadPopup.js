@@ -117,7 +117,7 @@ class UploadPopup extends Component {
             {buttonText}
           </Button>
           <div className={`${prefix}-image-preview`}>
-            <img src={networkImage.attachment_url} alt="" role="presentation" />
+            <img src={networkImage.attachment_url} alt="" />
           </div>
         </div>
       </div>

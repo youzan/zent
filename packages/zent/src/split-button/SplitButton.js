@@ -113,6 +113,7 @@ export default class SplitButton extends PureComponent {
           {children}
         </Button>
         <Popover
+          wrapperClassName={cx(`${prefix}-split-button__dropdown-wrapper`)}
           visible={this.state.isShowDropdown}
           onVisibleChange={isShow => this.toggleDropdown(isShow)}
           position={Popover.Position[position]}

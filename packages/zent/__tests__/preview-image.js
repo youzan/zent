@@ -27,8 +27,6 @@ describe('previewImage render', () => {
 
     Simulate.click(document.querySelector('.zent-image-p-close'));
 
-    // Simulate a quick "double" click to trigger onClose twice for code coverage
-    Simulate.click(document.querySelector('.zent-image-p-close'));
     jest.runAllTimers();
     expect(document.querySelectorAll('.zent-portal').length).toBe(0);
   });

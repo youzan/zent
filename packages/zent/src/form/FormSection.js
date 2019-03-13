@@ -1,11 +1,15 @@
-import { PureComponent, createElement } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import memoize from 'memoize-one';
+
 import { prefixName } from './utils';
+import { validElementType } from '../utils/prop-types';
+import FormContext from './FormContext';
 
 class FormSection extends PureComponent {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    component: validElementType,
     children: PropTypes.any,
   };
 
@@ -13,38 +17,35 @@ class FormSection extends PureComponent {
     component: 'div',
   };
 
-  static contextTypes = {
-    zentForm: PropTypes.object,
-  };
-
-  static childContextTypes = {
-    zentForm: PropTypes.object.isRequired,
-  };
+  static contextType = FormContext;
 
   constructor(props, context) {
     super(props, context);
+
     if (!context.zentForm) {
       throw new Error('FormSection must be in zent-form');
     }
   }
 
-  getChildContext() {
+  getFormContext = memoize(name => {
     const { zentForm } = this.context;
-    const { name } = this.props;
+
     return {
       zentForm: {
         ...zentForm,
         prefix: prefixName(zentForm, name),
       },
     };
-  }
+  });
 
   render() {
-    const { children, component, ...rest } = this.props;
-    return createElement(component, {
-      ...rest,
-      children,
-    });
+    const { component: Comp, ...rest } = this.props;
+
+    return (
+      <FormContext.Provider value={this.getFormContext(this.props.name)}>
+        <Comp {...rest} />
+      </FormContext.Provider>
+    );
   }
 }
 

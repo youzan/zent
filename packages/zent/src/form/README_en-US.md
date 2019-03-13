@@ -72,9 +72,16 @@ When a `Field` needs to contains multiple elements, it is recommended to assembl
 #### The usage of form validations
 
 - The `Field` component supports passing `validations` and `validationErrors` to specify the validation rules and validation prompts;
-- `validations` provides several internal validation rules(See more detail in section [Built-in validation rules](#built-in-validation-rules). It also supports custom validation function. When the validation function returns `true`, it is indicates that the validation is passed;
+- `validations` provides several internal validation rules(See more detail in section [Built-in validation rules](#built-in-validation-rules). It also supports custom validation function. See details below.
 - Internal validation rules can be extended through using `Form.createForm`, which is explained in [`Form.createForm` API](#form-createform) 。
 - When any field is validated, all of the other fields will be validated. If you want to change this default behavior, you can set the `relatedFields` property of `Field` as an array of fields' names so that when the current field is validated, only those specified fields will be valiated.
+
+Custom form validation function:
+
+`function validate(formValues, fieldValue): string | boolean`
+
+- If validate returns `boolean`, `true` means validation is passed; `false` means validation is failed, in this case it must be used together with a corresponding key in `validationErrors`.
+- Or the validate function may return a `string` directly, in this case, `validationErrors` is not used.
 
 <!-- demo-slot-5 -->
 
@@ -209,7 +216,7 @@ The `createForm` method builds a higher-order component that defines some additi
 |------|------|------|------|------|
 | onChange | The callback function that is triggered when any fields in the form. The parameter of this function is the object of all the values of fields. | func(values: Object) | noop | no |
 | onSubmitSuccess | The callback function that is triggered when the form submission is successful. The parameter of this function is the return result of the promise in submit function. | func(submitResult: any) | noop | no |
-| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or `undefined`. | func(submitError: SubmissionError) | noop | no |
+| onSubmitFail | The callback function that is triggered when the form submission is failed. The parameter of this function is an instance of `SubmissionError` or any error thrown during submit. | func(submitError: SubmissionError | Error) | noop | no |
 | scrollToError | The form automatically scrolls to the first field with error when the form is submitting or extra error is setting. | boolean | `false` | no |
 
 ⚠️Ps:

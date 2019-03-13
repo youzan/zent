@@ -1,70 +1,25 @@
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import Checkbox from 'checkbox';
+import isEqual from 'lodash/isEqual';
+import get from 'lodash/get';
+import forEach from 'lodash/forEach';
+import uniq from 'lodash/uniq';
 import assign from 'lodash/assign';
-import clone from 'lodash/clone';
-import find from 'lodash/find';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import AnimateHeight from 'utils/component/AnimateHeight';
 
 import Loading from './components/Loading';
 
-// 记录是否已经触发收起展开逻辑
-// 防止出现闪烁的bug
-let isTriggerSlide = false;
-
-const deepClone = arr => {
-  let i;
-  let copy;
-
-  if (Array.isArray(arr)) {
-    copy = arr.slice(0);
-    for (i = 0; i < copy.length; i += 1) {
-      copy[i] = deepClone(copy[i]);
-    }
-    return copy;
-  } else if (typeof arr === 'object') {
-    return assign({}, arr);
-  }
-  return arr;
+const DEFAULT_REANDER_KEY = {
+  id: 'id',
+  title: 'title',
+  children: 'children',
+  parentId: 'parentId',
 };
 
-const toggleSlide = (el, isClose) => {
-  if (!isClose) {
-    el.style.display = 'block';
-    el.style.height = 0;
-  }
-  const maxDelay = 300;
-  const height = el.scrollHeight;
-  const speed = Math.max(height / maxDelay, 0.5); // px/ms
-  let sum = 0;
-
-  let start = null;
-  const animate = timestamp => {
-    if (!start) start = timestamp;
-    const progress = timestamp - start;
-    sum = progress * speed;
-    el.style.height = `${isClose ? height - sum : sum}px`;
-    if (height < sum) {
-      if (isClose) {
-        el.style.display = 'none';
-      }
-      el.style.height = '';
-      isTriggerSlide = false;
-    } else {
-      window.requestAnimationFrame(animate);
-    }
-  };
-  window.requestAnimationFrame(animate);
-};
-
-export default class Tree extends PureComponent {
-  isInitial = true;
-  isDataUpdate = false;
-
-  state = {
-    checkedTree: {},
-    loadingNode: [],
-  };
+export default class Tree extends (PureComponent || Component) {
+  renderKeyMap = DEFAULT_REANDER_KEY;
 
   static propTypes = {
     dataType: PropTypes.oneOf(['plain', 'tree']),
@@ -73,6 +28,7 @@ export default class Tree extends PureComponent {
     loadMore: PropTypes.func,
     foldable: PropTypes.bool,
     checkable: PropTypes.bool,
+    controlled: PropTypes.bool,
     autoExpandOnSelect: PropTypes.bool,
     defaultCheckedKeys: PropTypes.arrayOf(PropTypes.any),
     disabledCheckedKeys: PropTypes.arrayOf(PropTypes.any),
@@ -83,6 +39,8 @@ export default class Tree extends PureComponent {
     operations: PropTypes.arrayOf(PropTypes.object),
     render: PropTypes.func,
     prefix: PropTypes.string,
+    renderKey: PropTypes.object,
+    commonStyle: PropTypes.object,
   };
 
   static defaultProps = {
@@ -90,305 +48,557 @@ export default class Tree extends PureComponent {
     dataType: 'tree',
     foldable: true,
     checkable: false,
+    controlled: false,
     size: 'medium',
     prefix: 'zent',
+    renderKey: DEFAULT_REANDER_KEY,
   };
 
-  componentWillMount() {
-    // init checkedTree
-    const { data, dataType } = this.props;
-    const formatData = this.formatDataIntoTree(data, dataType);
+  constructor(props) {
+    super(props);
+    const {
+      tree,
+      treeMap,
+      checkMap,
+      expandNode,
+      checkedNode,
+      disabledNode,
+      halfCheckNode,
+    } = this.formatDataByProp(props);
 
-    this.setState({
-      checkedTree: this.formatDataIntoCheckedTree(formatData),
-    });
+    this.state = {
+      treeMap,
+      expandNode,
+      tree,
+      checkMap,
+      checkedNode,
+      disabledNode,
+      halfCheckNode,
+      loadingNode: [],
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      // update checkTree
-      this.isDataUpdate = true;
+    if (!isEqual(nextProps.data, this.props.data)) {
+      const formatData = this.formatDataByProp(nextProps);
+      let nextExpandNode = formatData.expandNode;
 
-      const data = this.formatDataIntoTree(nextProps.data, nextProps.dataType);
+      // 只有在 loadMore 状态下，我会保持原有打开状态
+      if (this.props.loadMore || nextProps.loadMore) {
+        const { expandNode, tree } = this.state;
+
+        nextExpandNode = this.filterExpandNode(
+          {
+            tree,
+            expandNode,
+          },
+          formatData
+        );
+      }
+
       this.setState({
-        checkedTree: this.formatDataIntoCheckedTree(data),
+        treeMap: formatData.treeMap,
+        tree: formatData.tree,
+        expandNode: nextExpandNode,
+        checkMap: formatData.checkMap,
+        checkedNode: formatData.checkedNode,
+        disabledNode: formatData.disabledNode,
+        halfCheckNode: formatData.halfCheckNode,
+      });
+      return;
+    }
+
+    if (
+      nextProps.checkable &&
+      (!isEqual(this.props.defaultCheckedKeys, nextProps.defaultCheckedKeys) ||
+        !isEqual(
+          this.props.disabledCheckedKeys,
+          nextProps.disabledCheckedKeys
+        ) ||
+        this.props.controlled !== nextProps.controlled)
+    ) {
+      const { checkedNode, disabledNode, halfCheckNode } = this.formatCheckInfo(
+        {
+          defaultCheckedKeys: nextProps.defaultCheckedKeys,
+          disabledCheckedKeys: nextProps.disabledCheckedKeys,
+          checkMap: this.state.checkMap,
+          tree: this.state.tree,
+          checkable: nextProps.checkable,
+          controlled: nextProps.controlled,
+        }
+      );
+
+      this.setState({
+        checkedNode,
+        disabledNode,
+        halfCheckNode,
       });
     }
   }
 
-  formatDataIntoTree(data, dataType) {
+  formatDataByProp({
+    data,
+    isRoot,
+    renderKey,
+    dataType,
+    isExpandAll,
+    loadMore,
+    checkable,
+    controlled,
+    disabledCheckedKeys = [],
+    defaultCheckedKeys = [],
+  }) {
+    this.renderKeyMap = assign({}, DEFAULT_REANDER_KEY, renderKey);
+    const { children, parentId, id } = this.renderKeyMap;
+    const treeMap = {};
+    const expandNode = [];
+    const checkMap = {};
     let roots = [];
+
     if (dataType === 'plain') {
-      const { isRoot } = this.props;
       const map = {};
       const orderRecord = [];
 
       data.forEach((node, index) => {
         if (!node.isLeaf) {
-          node.children = [];
+          node[children] = [];
         }
-        map[node.id] = node;
-        orderRecord[index] = node.id;
+
+        map[node[id]] = node;
+        orderRecord[index] = node[id];
       });
 
       orderRecord.forEach(key => {
         const node = map[key];
         const isRootNode =
           (isRoot && isRoot(node)) ||
-          node.parentId === 0 ||
-          node.parentId === undefined ||
-          node.parentId === '0';
+          node[parentId] === 0 ||
+          node[parentId] === undefined ||
+          node[parentId] === '0';
 
         if (isRootNode) {
           roots.push(node);
-        } else if (map[node.parentId]) {
+        } else if (map[node[parentId]]) {
           // 防止只删除父节点没有子节点的情况
-          map[node.parentId].children.push(node);
+          map[node[parentId]][children].push(node);
         }
       });
     } else if (dataType === 'tree') {
       roots = data;
-    } else {
-      // console.error(`The dataType should be declared as plain/tree, but your dataType is ${dataType}, Please check your config.`)
     }
-    return roots;
+
+    this.collector({
+      isExpandAll,
+      loadMore,
+      tree: roots,
+      parentPath: [],
+      exPandCb: rootId => {
+        expandNode.push(rootId);
+      },
+      mapCb: (rootId, path) => {
+        treeMap[rootId] = path;
+      },
+      checkCb: (pId, cId) => {
+        if (!checkable) {
+          return;
+        }
+
+        if (checkMap[cId]) {
+          checkMap[cId].unshift(cId);
+        } else {
+          checkMap[cId] = [cId];
+        }
+
+        if (pId !== undefined) {
+          checkMap[pId] = checkMap[pId] || [];
+          checkMap[pId] = checkMap[pId].concat(checkMap[cId]);
+        }
+      },
+    });
+
+    const { checkedNode, disabledNode, halfCheckNode } = this.formatCheckInfo({
+      tree: roots,
+      checkMap,
+      checkable,
+      controlled,
+      disabledCheckedKeys,
+      defaultCheckedKeys,
+    });
+
+    return {
+      treeMap,
+      expandNode,
+      checkMap,
+      tree: roots,
+      checkedNode,
+      disabledNode,
+      halfCheckNode,
+    };
   }
 
-  formatDataIntoCheckedTree(data) {
-    let checkedTree = {};
-    if (this.isInitial) {
-      checkedTree = this.initialCheckedTree(data);
-      this.isInitial = false;
-    } else if (this.isDataUpdate) {
-      checkedTree = this.reloadCheckedTree(data);
-      this.isDataUpdate = false;
-    }
-    this.updateWholeCheckedTree(checkedTree);
-    return checkedTree;
-  }
+  formatCheckInfo({
+    defaultCheckedKeys,
+    disabledCheckedKeys,
+    checkMap,
+    tree,
+    checkable,
+    controlled,
+  }) {
+    let checkedNode = [];
+    let disabledNode = [];
+    let halfCheckNode = [];
 
-  isSwitcherExpanded(node) {
-    return !node.parentNode.classList.contains('off');
-  }
+    if (checkable) {
+      if (!controlled) {
+        const realChecked = uniq(
+          defaultCheckedKeys.reduce((total, rootId) => {
+            return total.concat(checkMap[rootId]);
+          }, [])
+        );
+        const realDisabled = uniq(
+          disabledCheckedKeys.reduce((total, rootId) => {
+            return total.concat(checkMap[rootId]);
+          }, [])
+        );
 
-  handleExpandClick(root, e) {
-    const { loadMore } = this.props;
-    const { loadingNode } = this.state;
-    if (loadMore) {
-      if (!root.children || root.children.length === 0) {
-        e.persist();
-        this.setState({ loadingNode: [root.id, ...loadingNode] });
-        loadMore(root)
-          .then(() => {
-            this.setState({
-              loadingNode: loadingNode.filter(x => x !== root.id),
-            });
-            this.handleFoldClick(root, e);
-          })
-          .catch(() => {});
-        return;
+        const correntCheck = this.correctCheckInfo({
+          checkMap,
+          tree,
+          checkedNode: realChecked,
+          disabledNode: realDisabled,
+          isInital: true,
+        });
+
+        checkedNode = correntCheck.checkedNode;
+        disabledNode = correntCheck.disabledNode;
+        halfCheckNode = correntCheck.halfCheckNode;
+      } else {
+        checkedNode = defaultCheckedKeys;
+        disabledNode = disabledCheckedKeys;
       }
     }
-    this.handleFoldClick(root, e);
+
+    return {
+      checkedNode,
+      disabledNode,
+      halfCheckNode,
+    };
   }
 
-  handleFoldClick(root, e) {
-    if (!isTriggerSlide) {
-      const { onExpand } = this.props;
-      const switcher = e.target;
-      const elp = switcher.parentNode;
-      elp.classList.toggle('off');
-      const isClose = !this.isSwitcherExpanded(switcher);
+  collector({
+    isExpandAll,
+    loadMore,
+    tree,
+    parentPath,
+    exPandCb,
+    mapCb,
+    checkCb,
+    parentId,
+  }) {
+    const { children, id } = this.renderKeyMap;
 
-      if (onExpand) {
-        onExpand(root, {
-          isExpanded: !isClose,
+    tree.forEach((item, index) => {
+      let currentPath = parentPath.concat(index);
+      mapCb(item[id], currentPath);
+
+      if (
+        this.isParentNode(item, loadMore) &&
+        (item.expand || (item.expand === undefined && isExpandAll))
+      ) {
+        exPandCb(item[id]);
+      }
+
+      if (item[children]) {
+        this.collector({
+          isExpandAll,
+          tree: item[children],
+          parentPath: currentPath,
+          exPandCb,
+          mapCb,
+          checkCb,
+          parentId: item[id],
         });
       }
 
-      const el = elp.nextSibling;
-      // no content, unmount switcher
-      if (!el) {
-        switcher.remove();
-        return;
-      }
-      isTriggerSlide = true;
-      toggleSlide(el, isClose);
-    }
+      checkCb(parentId, item[id]);
+    });
   }
 
-  triggerSwitcherClick(root, e) {
-    const { autoExpandOnSelect, onSelect } = this.props;
-    const target = e.currentTarget;
-    if (onSelect) {
-      onSelect(root, target);
-    }
-    if (target && autoExpandOnSelect) {
-      const switcher = target.parentNode.previousSibling;
-      if (switcher) {
-        switcher.click();
+  filterExpandNode(current, next) {
+    const { id, children } = this.renderKeyMap;
+    const { tree: cTree, expandNode: cExpandNode } = current;
+    const { tree: nTree, treeMap: nTreeMap, expandNode: nExpandNode } = next;
+
+    // use .values will add a polyfill, just for jest
+    // Object.values(nTreeMap).forEach(path => {
+    forEach(nTreeMap, pathKey => {
+      const nPath = pathKey.join(`.${children}.`);
+      const cItem = get(cTree, nPath);
+      const nItem = get(nTree, nPath);
+      const nId = nItem[id];
+
+      // 如果是续费成员 cItem[id] === nId
+      // 当前打开存在，下个打开不存在
+      if (
+        cItem &&
+        cItem[id] === nId &&
+        cExpandNode.indexOf(nId) > -1 &&
+        nExpandNode.indexOf(nId) === -1
+      ) {
+        nExpandNode.push(nId);
       }
+    });
+    return nExpandNode;
+  }
+
+  isParentNode(root, loadMore) {
+    // loadMore 的 parent children 边界有点模糊
+    const { children } = this.renderKeyMap;
+    return !!(
+      !root.isLeaf &&
+      (loadMore || (root[children] && root[children].length > 0))
+    );
+  }
+
+  correctCheckInfo({ checkedNode, disabledNode, tree, isInital }) {
+    const { id, children } = this.renderKeyMap;
+    const tempParentCheckdMap = {};
+    const tempDisabled = disabledNode;
+    const tempHalfCheck = [];
+    let tempChecked = checkedNode;
+
+    tree.forEach(item => {
+      shouldNodeCheck(item);
+    });
+
+    function shouldNodeCheck(root, pId) {
+      const rootId = root[id];
+      const rootChildren = root[children];
+
+      if (
+        (isInital || tempChecked.indexOf(rootId) === -1) &&
+        rootChildren &&
+        rootChildren.length
+      ) {
+        const childLength = rootChildren.length;
+        const rootCount = (tempParentCheckdMap[rootId] = {
+          checkedCount: 0,
+          disabledCount: 0,
+          validCheckedCount: 0,
+        });
+
+        rootChildren.forEach(child => {
+          shouldNodeCheck(child, rootId);
+        });
+
+        const validCheckedLength = childLength - rootCount.disabledCount;
+        const validCheckedCount = rootCount.validCheckedCount;
+
+        if (validCheckedCount) {
+          if (validCheckedCount === validCheckedLength) {
+            tempChecked.push(rootId);
+          } else {
+            tempHalfCheck.push(rootId);
+          }
+        } else {
+          tempChecked = tempChecked.filter(cid => cid !== rootId);
+        }
+
+        if (
+          rootCount.disabledCount === childLength &&
+          tempDisabled.indexOf(rootId) === -1
+        ) {
+          tempDisabled.push(rootId);
+        }
+      }
+
+      if (pId) {
+        if (tempChecked.indexOf(rootId) > -1) {
+          tempParentCheckdMap[pId].checkedCount++;
+
+          if (tempDisabled.indexOf(rootId) === -1) {
+            tempParentCheckdMap[pId].validCheckedCount++;
+          }
+        }
+
+        if (tempDisabled.indexOf(rootId) > -1) {
+          tempParentCheckdMap[pId].disabledCount++;
+        }
+      }
+    }
+
+    return {
+      checkedNode: tempChecked,
+      disabledNode: tempDisabled,
+      halfCheckNode: tempHalfCheck,
+    };
+  }
+
+  handleExpandClick(root, e) {
+    const { id } = this.renderKeyMap;
+    const { loadMore, foldable } = this.props;
+    if (!foldable) {
+      return;
+    }
+
+    const { loadingNode } = this.state;
+    const isSwitcher = e.currentTarget.classList[0] === 'switcher';
+
+    if (loadMore) {
+      if (!root.children || root.children.length === 0) {
+        e.persist();
+        const nextLoadingNode = loadingNode.concat(root[id]);
+        this.setState({ loadingNode: nextLoadingNode });
+        loadMore(root)
+          .then(() => {
+            this.setState({
+              loadingNode: nextLoadingNode.filter(x => x !== root[id]),
+            });
+            this.handleExpand(root, isSwitcher);
+          })
+          .catch(() => {
+            this.setState({
+              loadingNode: nextLoadingNode.filter(x => x !== root[id]),
+            });
+          });
+        return;
+      }
+    }
+    this.handleExpand(root, isSwitcher);
+  }
+
+  handleExpand(root, isSwitcher) {
+    const { onExpand, autoExpandOnSelect } = this.props;
+    const { expandNode } = this.state;
+
+    if (!isSwitcher && !autoExpandOnSelect) {
+      return;
+    }
+
+    const { id } = this.renderKeyMap;
+    const activeId = root[id];
+    let newExpandNode = expandNode.slice();
+    let isClose = true;
+
+    if (expandNode.indexOf(activeId) > -1) {
+      newExpandNode = expandNode.filter(expandId => expandId !== activeId);
+    } else {
+      isClose = false;
+      newExpandNode.push(activeId);
+    }
+
+    this.setState({
+      expandNode: newExpandNode,
+    });
+
+    if (onExpand) {
+      onExpand(root, {
+        isExpanded: !isClose,
+      });
     }
   }
 
   handleCheckboxClick(root) {
-    const { onCheck } = this.props;
-    const { checkedTree } = this.state;
-    this.updateCheckedTree(root.id, checkedTree[root.id].t !== 2 ? 2 : 0);
-    if (onCheck) {
-      onCheck(
-        Object.keys(checkedTree)
-          .filter(k => checkedTree[k].t === 2)
-          .map(x => {
-            if (typeof root.id === 'number') {
-              x = +x;
-            }
-            return x;
-          })
-      );
-    }
-  }
+    const { onCheck, controlled } = this.props;
+    const rootId = root[this.renderKeyMap.id];
+    let { checkedNode, disabledNode, tree, checkMap } = this.state;
 
-  updateUpstream(id, type, checkedTree) {
-    if (!id) return;
-    if (type === 2) {
-      checkedTree[id].t = Object.keys(checkedTree)
-        .filter(x => checkedTree[x].p === id)
-        .every(x => checkedTree[x].t === 2)
-        ? 2
-        : 1;
-    } else if (type === 1) {
-      checkedTree[id].t = 1;
-    } else if (type === 0) {
-      checkedTree[id].t = Object.keys(checkedTree)
-        .filter(x => checkedTree[x].p === id)
-        .every(x => checkedTree[x].t === 0)
-        ? 0
-        : 1;
-    }
-    if (checkedTree[id].p) {
-      this.updateUpstream(checkedTree[id].p, checkedTree[id].t, checkedTree);
-    }
-  }
-
-  updateDownstream(id, type, checkedTree) {
-    if (!id) return;
-    checkedTree[id].t = type;
-    const childrenId = Object.keys(checkedTree).filter(
-      x => checkedTree[x].p === id
-    );
-    if (childrenId.length > 0) {
-      childrenId.forEach(childId => {
-        this.updateDownstream(childId, type, checkedTree);
-      });
-    }
-  }
-
-  updateCheckedTree(id, type) {
-    // shallow clone
-    // We can reuse most of the nodes
-    const checkedTree = clone(this.state.checkedTree);
-    const parentId = checkedTree[id].p;
-    const childrenId = Object.keys(checkedTree).filter(
-      x => checkedTree[x].p === id.toString()
-    );
-    checkedTree[id].t = type;
-
-    this.updateUpstream(parentId, type, checkedTree);
-    childrenId.forEach(childId => {
-      this.updateDownstream(childId, type, checkedTree);
-    });
-
-    this.setState({ checkedTree });
-  }
-
-  updateCheckedTreeRecursive(root, parentId, func) {
-    func(root, parentId);
-    if (root.children && root.children.length > 0) {
-      root.children.forEach(child => {
-        this.updateCheckedTreeRecursive(child, root.id, func);
-      });
-    }
-  }
-
-  updateWholeCheckedTree(checkedTree) {
-    Object.keys(checkedTree).forEach(id => {
-      if (checkedTree[id].t === 2) {
-        this.updateUpstream(id, 2, checkedTree);
-        this.updateDownstream(id, 2, checkedTree);
+    // 受控模式
+    if (controlled) {
+      if (checkedNode.indexOf(rootId) > -1) {
+        checkedNode = checkedNode.filter(id => id !== rootId);
+      } else {
+        checkedNode = checkedNode.concat(rootId);
       }
-    });
-  }
+      onCheck && onCheck(checkedNode.slice());
 
-  initialCheckedTree(data) {
-    let newCheckedTree = {};
-    const { defaultCheckedKeys } = this.props;
+      // zent 模式
+    } else {
+      if (checkedNode.indexOf(rootId) > -1) {
+        checkedNode = checkedNode.filter(id => {
+          return (
+            disabledNode.indexOf(id) > -1 ||
+            (checkMap[id].indexOf(rootId) === -1 &&
+              checkMap[rootId].indexOf(id) === -1)
+          );
+        });
+      } else {
+        checkedNode = uniq(
+          checkedNode.concat(
+            checkMap[rootId].filter(id => disabledNode.indexOf(id) === -1)
+          )
+        );
+      }
 
-    data.forEach(tree => {
-      this.updateCheckedTreeRecursive(tree, '', (root, parentId) => {
-        const isSetDefault =
-          defaultCheckedKeys &&
-          find(defaultCheckedKeys, x => x === root.id) >= 0;
-        newCheckedTree[root.id] = {
-          p: parentId.toString(),
-          t: isSetDefault ? 2 : 0,
-        };
+      const checkInfo = this.correctCheckInfo({
+        checkedNode,
+        disabledNode,
+        tree,
+        checkMap,
       });
-    });
-    return newCheckedTree;
+
+      this.setState(checkInfo);
+
+      onCheck && onCheck(checkInfo.checkedNode.slice());
+    }
   }
 
-  reloadCheckedTree(data) {
-    let newCheckedTree = {};
-    const { checkedTree } = this.state;
-
-    data.forEach(tree => {
-      this.updateCheckedTreeRecursive(tree, '', (root, parentId) => {
-        newCheckedTree[root.id] = {
-          p: parentId.toString(),
-          t: checkedTree[root.id] ? checkedTree[root.id].t : 0,
-        };
-      });
-    });
-    return newCheckedTree;
-  }
-
-  renderSwitcher(root) {
-    const { foldable, loadMore } = this.props;
-    if (
-      !root.isLeaf &&
-      (loadMore || (root.children && root.children.length > 0))
-    ) {
+  renderSwitcher(root, isParent) {
+    if (isParent) {
       return (
         <i
           className="switcher"
-          onClick={
-            foldable ? this.handleExpandClick.bind(this, root) : undefined
-          }
+          onClick={e => {
+            this.handleExpandClick(root, e);
+          }}
         />
       );
     }
+
+    return null;
+  }
+
+  renderContent(root, isParent, isExpanded) {
+    const { title } = this.renderKeyMap;
+    const { render, onSelect } = this.props;
+    return (
+      <span
+        className="content"
+        onClick={e => {
+          onSelect && onSelect(root, e.currentTarget);
+
+          if (isParent) {
+            this.handleExpandClick(root, e);
+          }
+        }}
+      >
+        {render ? render(root, isExpanded) : root[title]}
+      </span>
+    );
   }
 
   renderCheckbox(root) {
-    const { checkable, disabledCheckedKeys } = this.props;
-    const isDisabled =
-      disabledCheckedKeys &&
-      find(disabledCheckedKeys, key => key === root.id) >= 0;
+    const { checkable } = this.props;
+    const { checkedNode, disabledNode, halfCheckNode } = this.state;
 
-    if (checkable) {
-      return (
-        <Checkbox
-          onChange={this.handleCheckboxClick.bind(this, root)}
-          checked={this.state.checkedTree[root.id].t === 2}
-          indeterminate={this.state.checkedTree[root.id].t === 1}
-          disabled={isDisabled}
-        />
-      );
+    if (!checkable) {
+      return null;
     }
+
+    const rootId = root[this.renderKeyMap.id];
+
+    return (
+      <Checkbox
+        onChange={this.handleCheckboxClick.bind(this, root)}
+        checked={checkedNode.indexOf(rootId) > -1}
+        disabled={disabledNode.indexOf(rootId) > -1}
+        indeterminate={halfCheckNode.indexOf(rootId) > -1}
+      />
+    );
   }
 
-  renderOperations(root) {
+  renderOperations(root, isExpanded) {
+    const { id } = this.renderKeyMap;
     const opts = this.props.operations;
     if (opts) {
       const optNodes = opts.map(opt => {
@@ -396,8 +606,8 @@ export default class Tree extends PureComponent {
         return (
           shouldRender(root) && (
             <span
-              key={`${opt.name}-${root.id}`}
-              onClick={opt.action.bind(null, root)}
+              key={`${opt.name}-${root[id]}`}
+              onClick={opt.action.bind(null, root, isExpanded)}
               className="opt"
             >
               {typeof opt.icon === 'string' ? (
@@ -415,49 +625,38 @@ export default class Tree extends PureComponent {
   }
 
   renderTreeNodes(roots) {
-    const { loadingNode } = this.state;
-    const { loadMore, prefix, expandAll, render } = this.props;
+    const { id, children } = this.renderKeyMap;
+    const { expandNode, loadingNode } = this.state;
+    const { loadMore, prefix } = this.props;
     if (roots && roots.length > 0) {
       return roots.map(root => {
-        // 单独节点的expand属性具有最高优先级，如果expand没有设置会根据是否设置loadMore
-        // 来判断是否收起，因为需要loadMore的节点是没有内容的，需要收起。在以上情况都不发生
-        // 的情况下以expandAll为准
-        let isShowChildren = expandAll;
-        if (loadMore) {
-          isShowChildren = root.expand;
-        }
-        if (root.expand) {
-          isShowChildren = root.expand;
-        }
+        const isShowChildren = expandNode.indexOf(root[id]) > -1;
         const barClassName = classnames(`${prefix}-tree-bar`, {
           off: !isShowChildren,
         });
+        const isParent = this.isParentNode(root, loadMore);
         return (
-          <li key={`${root.id}`}>
+          <li key={root[id]}>
             <div className={barClassName}>
-              {this.renderSwitcher(root)}
+              {this.renderSwitcher(root, isParent)}
               <div className="zent-tree-node">
                 {this.renderCheckbox(root)}
-                {loadingNode.indexOf(root.id) > -1 ? <Loading /> : null}
-                <span
-                  className="content"
-                  onClick={this.triggerSwitcherClick.bind(this, root)}
-                >
-                  {render ? render(root) : root.title}
-                </span>
-                {this.renderOperations(root)}
+                {loadingNode.indexOf(root[id]) > -1 ? <Loading /> : null}
+                {this.renderContent(root, isParent, isShowChildren)}
+                {this.renderOperations(root, isShowChildren)}
               </div>
             </div>
-            {root.children &&
-              root.children.length > 0 && (
-                <ul
-                  key={`ul-${root.id}`}
-                  className={`${prefix}-tree-child`}
-                  style={isShowChildren ? {} : { display: 'none' }}
-                >
-                  {this.renderTreeNodes(root.children)}
+            {root[children] && root[children].length > 0 && (
+              <AnimateHeight
+                appear
+                duration={200}
+                height={isShowChildren ? 'auto' : 0}
+              >
+                <ul key={`ul-${root[id]}`} className={`${prefix}-tree-child`}>
+                  {this.renderTreeNodes(root[children])}
                 </ul>
-              )}
+              </AnimateHeight>
+            )}
           </li>
         );
       });
@@ -465,16 +664,15 @@ export default class Tree extends PureComponent {
   }
 
   render() {
-    const { commonStyle, data, dataType, prefix, size } = this.props;
-    const roots = this.formatDataIntoTree(deepClone(data), dataType);
-    const treeNodes = this.renderTreeNodes(roots);
+    const { commonStyle, prefix, size } = this.props;
+    const { tree } = this.state;
     const classNames = classnames(`${prefix}-tree`, {
       [`${prefix}-tree-${size}`]: size !== 'medium',
     });
 
     return (
       <ul className={classNames} style={commonStyle}>
-        {treeNodes}
+        {this.renderTreeNodes(tree)}
       </ul>
     );
   }

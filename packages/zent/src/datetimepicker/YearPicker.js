@@ -5,7 +5,6 @@ import Input from 'input';
 import Popover from 'popover';
 import getWidth from 'utils/getWidth';
 import { I18nReceiver as Receiver } from 'i18n';
-import { TimePicker as I18nDefault } from 'i18n/default';
 
 import YearPanel from './year/YearPanel';
 import PanelFooter from './common/PanelFooter';
@@ -157,7 +156,7 @@ class YearPicker extends PureComponent {
     let yearPicker;
     if (state.openPanel) {
       yearPicker = (
-        <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+        <Receiver componentName="TimePicker">
           {i18n => (
             <div className="year-picker" ref={ref => (this.picker = ref)}>
               <YearPanel
@@ -237,7 +236,7 @@ class YearPicker extends PureComponent {
         >
           <Popover.Trigger.Click>
             <div style={widthStyle} className={inputCls}>
-              <Receiver componentName="TimePicker" defaultI18n={I18nDefault}>
+              <Receiver componentName="TimePicker">
                 {i18n => (
                   <Input
                     name={name}

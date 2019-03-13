@@ -15,7 +15,7 @@ export function calculateChange(e, skip, props, container) {
     } else if (top > containerHeight) {
       a = 1;
     } else {
-      a = Math.round(top * 100 / containerHeight) / 100;
+      a = Math.round((top * 100) / containerHeight) / 100;
     }
 
     if (props.hsl.a !== a) {
@@ -34,7 +34,7 @@ export function calculateChange(e, skip, props, container) {
     } else if (left > containerWidth) {
       a = 1;
     } else {
-      a = Math.round(left * 100 / containerWidth) / 100;
+      a = Math.round((left * 100) / containerWidth) / 100;
     }
 
     if (props.a !== a) {

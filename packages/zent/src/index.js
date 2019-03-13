@@ -4,6 +4,7 @@ import AutoComplete from 'auto-complete';
 import Avatar from 'avatar';
 import Badge from 'badge';
 import BlockHeader from 'block-header';
+import BlockLoading from 'loading/BlockLoading';
 import Breadcrumb from 'breadcrumb';
 import Button from 'button';
 import Card from 'card';
@@ -16,19 +17,21 @@ import CopyButton from 'copy-button';
 import DatePicker from 'datetimepicker/DatePicker';
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import DateRangeQuickPicker from 'date-range-quick-picker';
-import Design from 'design';
 import Dialog from 'dialog';
 import ErrorBoundary from 'error-boundary';
 import Form from 'form';
+import FullScreenLoading from 'loading/FullScreenLoading';
 import Grid from 'grid';
 import I18nProvider from 'i18n';
 import Icon from 'icon';
 import InfiniteScroller from 'infinite-scroller';
+import InlineLoading from 'loading/InlineLoading';
 import Input from 'input';
 import Layout from 'layout';
-import Loading from 'loading';
+import LitePagination from 'pagination/LitePagination';
 import Mention from 'mention';
 import Menu from 'menu';
+import MiniPagination from 'pagination/MiniPagination';
 import MonthPicker from 'datetimepicker/MonthPicker';
 import Notify from 'notify';
 import NumberInput from 'number-input';
@@ -45,7 +48,6 @@ import Rate from 'rate';
 import SearchInput from 'search-input';
 import Select from 'select';
 import SelectMenu from 'select-menu'; // eslint-disable-line
-import SKU from 'sku';
 import Slider from 'slider';
 import Sortable from 'sortable';
 import SplitButton from 'split-button';
@@ -72,6 +74,7 @@ export {
   Avatar,
   Badge,
   BlockHeader,
+  BlockLoading,
   Breadcrumb,
   Button,
   Card,
@@ -84,19 +87,21 @@ export {
   DatePicker,
   DateRangePicker,
   DateRangeQuickPicker,
-  Design,
   Dialog,
   ErrorBoundary,
   Form,
+  FullScreenLoading,
   Grid,
   I18nProvider,
   Icon,
   InfiniteScroller,
+  InlineLoading,
   Input,
   Layout,
-  Loading,
+  LitePagination,
   Mention,
   Menu,
+  MiniPagination,
   MonthPicker,
   Notify,
   NumberInput,
@@ -112,7 +117,6 @@ export {
   Rate,
   SearchInput,
   Select,
-  SKU,
   Slider,
   Sortable,
   SplitButton,

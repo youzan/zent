@@ -15,7 +15,6 @@ en-US:
 ---
 
 ```jsx
-
 import { Grid, Switch } from 'zent';
 
 const columns = [
@@ -23,17 +22,18 @@ const columns = [
 		title: '{i18n.longName}',
 		name: 'name',
 		width: 100,
-		nowrap: true
-	}, {
+		nowrap: true,
+	},
+	{
 		title: '{i18n.alignRight}',
 		name: 'uv',
 		textAlign: 'right',
-		width: 300
-	}, {
+		width: 300,
+	},
+	{
 		title: '{i18n.bigStock}',
 		name: 'stock',
-		className: 'big-size'
-	}
+	},
 ];
 
 const datasets = [];
@@ -43,14 +43,14 @@ for (let i = 0; i < 3; i++) {
 		id: i,
 		name: `{i18n.product} ${i}`,
 		uv: 20,
-		stock: 5
-	})
+		stock: 5,
+	});
 }
 
-class Loading extends React.Component {
-	state={
-		loading: true
-	}
+class Demo extends React.Component {
+	state = {
+		loading: true,
+	};
 	render() {
 		return (
 			<div>
@@ -68,11 +68,7 @@ class Loading extends React.Component {
 			</div>
 		);
 	}
-};
+}
 
-ReactDOM.render(
-		<Loading />
-	, mountNode
-);
-
+ReactDOM.render(<Demo />, mountNode);
 ```

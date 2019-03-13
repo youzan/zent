@@ -19,7 +19,7 @@ class Controlled extends Component {
 		visible: false
 	};
 
-	onBeforeShow = (cont) => {
+	onBeforeShow(cont) {
 		setTimeout(cont, 500);
 	};
 
