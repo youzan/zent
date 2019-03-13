@@ -1,50 +1,31 @@
 import get from 'lodash-es/get';
+import { Validations, Dictionary } from './utils';
 
-export interface IValidation {
-  required?: boolean;
-  isExisty?: boolean;
-  matchRegex?: RegExp;
-  isUndefined?: boolean;
-  isEmptyString?: boolean;
-  isEmail?: boolean;
-  isUrl?: boolean;
-  isTrue?: boolean;
-  isFalse?: boolean;
-  isNumeric?: boolean;
-  isInt?: boolean;
-  isFloat?: boolean;
-  isLength?: boolean;
-  equals?: any;
-  equalsField?: string;
-  maxLength?: number;
-  minLength?: number;
-}
-
-const isExisty = function(value) {
+function isExisty(value: unknown) {
   return value !== null && value !== undefined;
 };
 
-const isEmpty = function(value) {
+function isEmpty(value: unknown) {
   return value === '';
 };
 
 const validations = {
-  required(values, value) {
+  required(values: Dictionary, value: unknown) {
     return isExisty(value) && !isEmpty(value);
   },
-  isExisty(values, value) {
+  isExisty(values: Dictionary, value: unknown) {
     return isExisty(value);
   },
-  matchRegex(values, value, regexp) {
+  matchRegex(values: Dictionary, value: string, regexp: RegExp) {
     return !isExisty(value) || isEmpty(value) || regexp.test(value);
   },
-  isUndefined(values, value) {
+  isUndefined(values: Dictionary, value: unknown) {
     return value === undefined;
   },
-  isEmptyString(values, value) {
+  isEmptyString(values: Dictionary, value: unknown) {
     return isEmpty(value);
   },
-  isEmail(values, value) {
+  isEmail(values: Dictionary, value: string): boolean {
     return validations.matchRegex(
       values,
       value,
@@ -101,4 +82,4 @@ const validations = {
   },
 };
 
-export default validations;
+export default validations as Validations<unknown>;

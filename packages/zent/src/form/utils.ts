@@ -1,174 +1,172 @@
-import isPlainObject from 'lodash-es/isPlainObject';
-import assign from 'lodash-es/assign';
-import get from 'lodash-es/get';
-import has from 'lodash-es/has';
-import isFunction from 'lodash-es/isFunction';
-import { findDOMNode } from 'react-dom';
+import * as React from 'react';
+import { Observable } from 'rxjs';
+import { IVerifyOption, Validator } from 'formulr';
+import { IFormContext } from './context';
+import isPromise from '../utils/isPromise';
 import scroll from '../utils/scroll';
-import { FieldArrayMutatorAction } from './constants';
 
-const getSelectedValues = options => {
-  const result = [];
-  if (options) {
-    for (let i = 0; i < options.length; i++) {
-      const option = options[i];
-      if (option.selected) {
-        result.push(option.value);
-      }
-    }
-  }
-  return result;
-};
-
-const isEvent = candidate =>
-  !!(candidate && candidate.stopPropagation && candidate.preventDefault);
-
-export function getValue(event, realValue?: any) {
-  if (arguments.length >= 2) {
-    return realValue;
-  }
-
-  // 简单判断是否是一个原生事件对象
-  if (isEvent(event)) {
-    const {
-      target: { type, value, checked, files },
-      dataTransfer,
-    } = event;
-    if (type === 'checkbox') {
-      return checked;
-    }
-    if (type === 'file') {
-      return files || (dataTransfer && dataTransfer.files);
-    }
-    if (type === 'select-multiple') {
-      return getSelectedValues(event.target.options);
-    }
-    if (value !== '' && (type === 'number' || type === 'range')) {
-      return parseFloat(value);
-    }
-    return value;
-  }
-
-  // 自定义组件需要直接抛出value或者把value放在一个对象中
-  return event && event.value !== undefined ? event.value : event;
-}
-
-// 根据旧值和变化值，得到当前值
-export function getCurrentValue(changedValue, prevValue) {
-  let currentValue;
-  if (prevValue && isPlainObject(prevValue)) {
-    currentValue = assign({}, prevValue, changedValue);
-  } else {
-    currentValue = changedValue;
-  }
-  return currentValue;
-}
-
-export function getDisplayName(Component) {
-  return Component.displayName || Component.name || 'Component';
-}
-
-export function silenceEvent(event) {
-  const is = isEvent(event);
-  if (is) {
-    event.preventDefault();
-  }
-  return is;
-}
-
-export function silenceEvents(fn) {
-  return (event, ...args) => {
-    silenceEvent(event) ? fn(...args) : fn(event, ...args);
-  };
-}
-
-export function prefixName(zentForm, name) {
-  const { prefix } = zentForm;
-  let newName;
-  if (!prefix) {
-    newName = name;
-  } else if (/^\[\d+\]/.test(name)) {
-    newName = `${prefix}${name}`;
-  } else {
-    newName = `${prefix}.${name}`;
-  }
-  return newName;
-}
-
-export function isFunctional(Component) {
-  return (
-    typeof Component !== 'string' &&
-    typeof Component.prototype.render !== 'function'
-  );
-}
-
-export function scrollToNode(node: React.ReactInstance) {
-  const element = findDOMNode(node);
-
-  // Skip if element is not a DOM node or text node
-  if (
-    !element ||
-    element.nodeType !== Node.ELEMENT_NODE ||
-    !isFunction((element as Element).getBoundingClientRect)
-  ) {
+export function scrollToNode(el: Element) {
+  if (typeof el.getBoundingClientRect !== 'function') {
     return;
   }
-
-  const elementBound = (element as Element).getBoundingClientRect();
+  const elementBound = el.getBoundingClientRect();
   const y = elementBound.top + window.pageYOffset;
   const x = elementBound.left + window.pageXOffset;
   scroll(document.body, x, y);
 }
 
-export function scrollToFirstError(fields) {
-  for (let i = 0; i < fields.length; i++) {
-    const field = fields[i];
-    if (!field.isValid()) {
-      const fieldComponent = field.getWrappedComponent();
-      let node;
+export const ASYNC = Symbol('async');
 
-      if (fieldComponent && isFunction(fieldComponent.getControlInstance)) {
-        node = fieldComponent.getControlInstance();
-      } else {
-        node = fieldComponent;
+interface IState {
+  [key: string]: unknown | Promise<unknown>;
+  [ASYNC]?: AsyncValidation<unknown>;
+}
+
+export interface Dictionary<T = unknown> {
+  [key: string]: T;
+}
+
+export type AsyncValidation<T> = (value: T) => Promise<any>;
+
+export interface Validations<T> {
+  [key: string]:
+    | boolean
+    | ((values: { [key: string]: unknown }, value: T, extra?: unknown) => boolean)
+    | AsyncValidation<T>;
+}
+
+export interface IValidationProps<T> {
+  validations?: Validations<T>;
+  validationErrors?: {
+    [key: string]: React.ReactNode;
+  };
+  asyncValidation?: (values: unknown, value: T) => Promise<unknown>;
+}
+
+export interface IFormCommonProps<T> extends IValidationProps<T> {
+  name: string;
+  defaultValue?: T;
+  validateOnChange?: boolean;
+  validateOnBlur?: boolean;
+  relatedFields?: string[];
+  onBlur?: (e: unknown) => void;
+  onFocus?: (e: unknown) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export const validate = <T>(
+  g: Validations<T>,
+  local: Validations<T>,
+  value: T
+) => {
+  const state: IState = {};
+  const pending = new Set<Promise<unknown>>();
+  return new Observable(observer => {
+    const then = (key: string | symbol, promise: Promise<unknown> | null) => (
+      err: unknown
+    ) => {
+      state[key as any] = err;
+      promise && pending.delete(promise);
+      observer.next(state);
+      if (pending.size === 0) {
+        observer.complete();
       }
-
-      if (node) {
-        scrollToNode(node);
-        return true;
+    };
+    const call = (
+      key: string | symbol,
+      validator: (values: unknown, a: T, extra: unknown) => unknown,
+      extra: unknown
+    ) => {
+      const e = validator({}, value, extra) || false;
+      if (isPromise(e)) {
+        state[key as any] = e;
+        pending.add(e);
+        e.then(then(key, e), (err: unknown) => {
+          observer.error(err);
+        });
+      } else {
+        then(key, null)(e);
+      }
+    };
+    for (const key of Object.keys(local)) {
+      const validation = local[key];
+      if (typeof validation === 'function') {
+        call(key, validation, validation);
+      } else if (validation) {
+        const vf = g[key];
+        if (typeof vf !== 'function') {
+          observer.error(new Error(`Validation '${key}' not found`));
+          return;
+        }
+        call(key, vf, validation);
       }
     }
-  }
+    const asyncValidation = local[ASYNC as any];
+    if (asyncValidation) {
+      call(ASYNC, asyncValidation as AsyncValidation<unknown>, asyncValidation);
+    }
+  });
+};
 
+export interface IWithFormContext {
+  context: IFormContext;
+}
+
+export function makeValidator<T>(
+  comp: { props: IValidationProps<T> } & IWithFormContext
+): Validator<T> {
+  return (value: T, verifyOption: IVerifyOption) => {
+    const { validations, asyncValidation } = comp.props;
+    const v: Validations<T> = {};
+    Object.assign(v, validations || {});
+    switch (verifyOption.source) {
+      case 'change':
+      case 'submit':
+      case 'focus':
+        break;
+      default:
+        Object.assign(v, {
+          [ASYNC]: asyncValidation,
+        });
+        break;
+    }
+    return validate(comp.context.validations || {}, v, value);
+  };
+}
+
+export function ensureContext(comp: IWithFormContext): IFormContext {
+  if (!comp.context) {
+    throw new Error(
+      `${comp.constructor.name} must be child of a 'Form' component`
+    );
+  }
+  return comp.context;
+}
+
+export function hasError(errors: { [key: string]: unknown } | null) {
+  if (!errors) {
+    return false;
+  }
+  for (const value of Object.values(errors)) {
+    if (value !== null && value !== undefined && !value) {
+      return true;
+    }
+  }
   return false;
 }
 
-export function updateFieldArray(fieldArrays, data, options) {
-  const shouldRemove = get(options, 'removeIfNotExists', false);
-
-  fieldArrays.forEach(fc => {
-    const name = fc.getName();
-    const value = get(data, name);
-    if (value !== undefined) {
-      fc.replaceAllFields(value);
-    } else if (shouldRemove) {
-      fc.removeAllFields();
-    }
-
-    fc.setMutatorAction(
-      get(options, 'mutatorAction', FieldArrayMutatorAction.Set)
-    );
-  });
-}
-
-export function isFieldArrayValue(value) {
-  return has(value, '_fieldInternalValue') && has(value, '_fieldInternalKey');
-}
-
-export function unliftFieldArrayValue(value) {
-  while (isFieldArrayValue(value)) {
-    value = get(value, '_fieldInternalValue');
+export function shouldShowError(errors: { [key: string]: Promise<any> | boolean } | null | undefined) {
+  if (!errors) {
+    return false;
   }
-
-  return value;
+  for (const error of Object.values(errors)) {
+    if (!error) {
+      return true;
+    }
+  }
+  if (errors[ASYNC as any]) {
+    return true;
+  }
+  return false;
 }
