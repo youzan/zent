@@ -22,11 +22,7 @@ const handleSubmit = (submit, zentForm) => {
 
   // 如果有异步校验未完成，阻止表单提交
   if (zentForm.isValidating()) {
-    return handleOnSubmitError(
-      new SubmissionError({
-        isValidating: true,
-      })
-    );
+    return handleOnSubmitError(new SubmissionError('Submit abort: validating'));
   }
 
   const handleSubmitError = submitError => {
