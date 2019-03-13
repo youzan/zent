@@ -49,7 +49,7 @@ export * from './getControlGroup';
 export * from './createForm';
 
 export const Form = assign(_Form, {
-  _Form,
+  Form: _Form,
   createForm,
   Field,
   FieldArray,

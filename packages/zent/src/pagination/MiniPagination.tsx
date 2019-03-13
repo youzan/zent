@@ -10,9 +10,13 @@ export interface IMiniPaginationProps extends IBasePaginationProps {
 }
 
 export class MiniPagination extends BasePagination<IMiniPaginationProps> {
-  name = 'mini';
+  get name() {
+    return 'mini';
+  }
 
-  layoutFn = layoutMini;
+  get layoutFn() {
+    return layoutMini;
+  }
 
   static defaultProps = {
     // Don't give a default value

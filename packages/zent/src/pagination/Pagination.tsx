@@ -13,9 +13,13 @@ export class Pagination extends AbstractPagination {
     showSizeChanger: true,
   };
 
-  name = 'normal';
+  get name() {
+    return 'normal';
+  }
 
-  layoutFn = layoutNormal;
+  get layoutFn() {
+    return layoutNormal;
+  }
 }
 
 export default Pagination;

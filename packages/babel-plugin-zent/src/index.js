@@ -11,7 +11,7 @@ const MODULE_NAME = 'zent';
 // import Button from 'zent/button';
 // import Button from 'zent-button';
 // require('zent-button')
-module.exports = function(babel) {
+export default function foobar(babel) {
   const { types: t } = babel;
 
   return {
@@ -80,7 +80,7 @@ module.exports = function(babel) {
       },
     },
   };
-};
+}
 
 function buildImportReplacement(specifier, types, state, originalPath) {
   initModuleMappingAsNecessary(state);

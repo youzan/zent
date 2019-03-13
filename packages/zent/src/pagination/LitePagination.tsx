@@ -13,9 +13,13 @@ export class LitePagination extends AbstractPagination {
     showSizeChanger: false,
   };
 
-  name = 'lite';
+  get name() {
+    return 'lite';
+  }
 
-  layoutFn = layoutLite;
+  get layoutFn() {
+    return layoutLite;
+  }
 }
 
 export default LitePagination;
