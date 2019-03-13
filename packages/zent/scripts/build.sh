@@ -15,7 +15,7 @@ rm -rf lib es css
 
 # transpile scss to css
 # custom importer for @import '~some-node-module'
-echo "Compiling styles..."
+echo "Compile styles..."
 node-sass \
   --importer $basepath/../../../node_modules/node-sass-magic-importer/dist/cli.js \
   assets -o css -q
@@ -32,11 +32,10 @@ node $basepath/./generate-icon-type.js
 # transpile using babel
 # cross-env BABEL_ENV=transpile babel src --out-dir lib
 # cross-env BABEL_ENV=es babel src --out-dir es
-echo "Compiling esm..."
+echo "Compile esm..."
 tsc
 
-echo "Compiling commonjs..."
+echo "Compile commonjs..."
 tsc --outDir lib --module commonjs
 
-echo 'Generate component dependency graph...'
-ts-node --project $basepath/./cruiser/tsconfig.json  $basepath/./cruiser/index.ts $basepath/../src/index.ts $basepath/../assets
+$basepath/./cruiser.sh
