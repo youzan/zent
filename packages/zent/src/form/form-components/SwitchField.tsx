@@ -1,23 +1,32 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import Switch from '../../switch';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import Switch, { ISwitchProps } from '../../switch';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
+import { Omit } from 'utility-types';
 
-export interface IFormSwitchWrapProps {
-  value: boolean;
-}
+export type ISwitchFieldProps = IControlGroupProps &
+  Omit<ISwitchProps, 'checked'> & {
+    value: boolean;
+  };
 
-class SwitchWrap extends Component<IFormSwitchWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
+const SwitchField = forwardRef<HTMLDivElement, ISwitchFieldProps>(
+  (props, ref) => {
+    const {
+      controlGroupProps,
+      otherProps: { value, ...otherProps },
+    } = pickControlGroupProps(props);
     return (
-      <Switch {...passableProps} size="small" checked={this.props.value} />
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <Switch {...otherProps} checked={value} />
+      </ControlGroup>
     );
   }
-}
-const SwitchField = getControlGroup(SwitchWrap);
+);
+
+SwitchField.displayName = 'SwitchField';
 
 export default SwitchField;

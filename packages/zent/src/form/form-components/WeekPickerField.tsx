@@ -1,22 +1,26 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import WeekPicker from '../../datetimepicker/WeekPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import WeekPicker, { IWeekPickerProps } from '../../datetimepicker/WeekPicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormWeekPickerWrapProps {
-  dateFormat: string;
-}
+export type IWeekPickerFieldProps = IControlGroupProps & IWeekPickerProps;
 
-class WeekPickerWrap extends Component<IFormWeekPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <WeekPicker {...passableProps} format={dateFormat} />;
-  }
-}
-const WeekPickerField = getControlGroup(WeekPickerWrap);
+export const WeekPickerField = forwardRef<
+  HTMLDivElement,
+  IWeekPickerFieldProps
+>((props, ref) => {
+  const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+  return (
+    <ControlGroup ref={ref} {...controlGroupProps}>
+      <WeekPicker {...otherProps} />
+    </ControlGroup>
+  );
+});
+
+WeekPickerField.displayName = 'WeekPickerField';
 
 export default WeekPickerField;

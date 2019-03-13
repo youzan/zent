@@ -1,28 +1,32 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import Checkbox from '../../checkbox';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import Checkbox, { ICheckboxProps } from '../../checkbox';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
+import { Omit } from 'utility-types';
 
-export interface IFormCheckboxWrapProps {
-  value: boolean;
-}
+export type ICheckboxFieldProps = IControlGroupProps &
+  Omit<ICheckboxProps, 'value' | 'checked'> & {
+    value: boolean;
+  };
 
-class CheckboxWrap extends Component<IFormCheckboxWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
+const CheckboxField = forwardRef<HTMLDivElement, ICheckboxFieldProps>(
+  (props, ref) => {
+    const {
+      controlGroupProps,
+      otherProps: { value, ...otherProps },
+    } = pickControlGroupProps(props);
     return (
-      <Checkbox
-        className="zent-form__checkbox"
-        checked={this.props.value === true}
-        {...passableProps}
-      />
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <Checkbox {...otherProps} checked={value} />
+      </ControlGroup>
     );
   }
-}
+);
 
-const CheckboxField = getControlGroup(CheckboxWrap);
+CheckboxField.displayName = 'CheckboxField';
 
 export default CheckboxField;

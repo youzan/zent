@@ -19,10 +19,7 @@ export interface IControlGroupProps {
   style?: React.CSSProperties;
 }
 
-export const ControlGroup = forwardRef<
-  HTMLDivElement,
-  IControlGroupProps
->(
+export const ControlGroup = forwardRef<HTMLDivElement, IControlGroupProps>(
   (
     {
       required = false,
@@ -35,7 +32,8 @@ export const ControlGroup = forwardRef<
       isActive,
       error,
       children,
-      ...props
+      isDirty,
+      style,
     },
     ref
   ) => {
@@ -47,16 +45,14 @@ export const ControlGroup = forwardRef<
       [className]: true,
     });
     return (
-      <div ref={ref} className={groupClassName} {...props}>
+      <div ref={ref} className={groupClassName} style={style}>
         <label className="zent-form__control-label">
           {required ? <em className="zent-form__required">*</em> : null}
           {label}
         </label>
         <div className="zent-form__controls">
           {children}
-          {showError && (
-            <FormError errors={error} display={validationErrors} />
-          )}
+          {showError && <FormError errors={error} display={validationErrors} />}
           {notice && <div className="zent-form__notice-desc">{notice}</div>}
           {helpDesc && <div className="zent-form__help-desc">{helpDesc}</div>}
         </div>
@@ -103,6 +99,39 @@ export function getControlGroup<P>(Child: React.ComponentType<P>) {
   const componentName = Child.displayName || Child.name || 'Component';
   comp.displayName = `getControlGroup(${componentName})`;
   return comp;
+}
+
+export function pickControlGroupProps<T extends IControlGroupProps>({
+  required,
+  helpDesc,
+  notice,
+  label,
+  className,
+  displayError,
+  validationErrors,
+  isActive,
+  error,
+  isDirty,
+  style,
+
+  ...otherProps
+}: T) {
+  return {
+    controlGroupProps: {
+      required,
+      helpDesc,
+      notice,
+      label,
+      className,
+      displayError,
+      validationErrors,
+      isActive,
+      error,
+      isDirty,
+      style,
+    },
+    otherProps,
+  };
 }
 
 export default ControlGroup;

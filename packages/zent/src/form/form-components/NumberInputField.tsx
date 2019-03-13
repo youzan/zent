@@ -1,17 +1,25 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import NumberInput from '../../number-input';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import NumberInput, { INumberInputProps } from '../../number-input';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-class NumberInputWrap extends Component {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return <NumberInput {...passableProps} />;
+export type INumberInputFieldProps = IControlGroupProps & INumberInputProps;
+
+const NumberInputField = forwardRef<HTMLDivElement, INumberInputFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <NumberInput {...otherProps} />
+      </ControlGroup>
+    );
   }
-}
-const NumberInputField = getControlGroup(NumberInputWrap);
+);
+
+NumberInputField.displayName = 'NumberInputField';
 
 export default NumberInputField;

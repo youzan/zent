@@ -1,22 +1,26 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import TimePicker from '../../datetimepicker/TimePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import TimePicker, { ITimePickerProps } from '../../datetimepicker/TimePicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormTimePickerWrapProps {
-  timeFormat: string;
-}
+export type ITimePickerFieldProps = IControlGroupProps & ITimePickerProps;
 
-class TimePickerWrap extends Component<IFormTimePickerWrapProps> {
-  render() {
-    const { timeFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['timeFormat']);
-    return <TimePicker {...passableProps} format={timeFormat} />;
+const TimePickerField = forwardRef<HTMLDivElement, ITimePickerFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <TimePicker {...otherProps} />
+      </ControlGroup>
+    );
   }
-}
-const TimePickerField = getControlGroup(TimePickerWrap);
+);
+
+TimePickerField.displayName = 'TimePickerField';
 
 export default TimePickerField;

@@ -1,22 +1,27 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import MonthPicker from '../../datetimepicker/MonthPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import MonthPicker, {
+  IMonthPickerProps,
+} from '../../datetimepicker/MonthPicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormMonthPickerWrapProps {
-  dateFormat?: string;
-}
+export type IMonthPickerFieldProps = IControlGroupProps & IMonthPickerProps;
 
-class MonthPickerWrap extends Component<IFormMonthPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <MonthPicker {...passableProps} format={dateFormat} />;
+const MonthPickerField = forwardRef<HTMLDivElement, IMonthPickerFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <MonthPicker {...otherProps} />
+      </ControlGroup>
+    );
   }
-}
-const MonthPickerField = getControlGroup(MonthPickerWrap);
+);
+
+MonthPickerField.displayName = 'MonthPickerField';
 
 export default MonthPickerField;

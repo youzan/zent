@@ -1,22 +1,29 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import DateRangePicker from '../../datetimepicker/DateRangePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import DateRangePicker, {
+  IDateRangePickerProps,
+} from '../../datetimepicker/DateRangePicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormDateRangePickerWrapProps {
-  dateFormat?: string;
-}
+export type IDateRangePickerFieldProps = IControlGroupProps &
+  IDateRangePickerProps;
 
-class DateRangePickerWrap extends Component<IFormDateRangePickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <DateRangePicker {...passableProps} format={dateFormat} />;
-  }
-}
-const DateRangePickerField = getControlGroup(DateRangePickerWrap);
+const DateRangePickerField = forwardRef<
+  HTMLDivElement,
+  IDateRangePickerFieldProps
+>((props, ref) => {
+  const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+  return (
+    <ControlGroup ref={ref} {...controlGroupProps}>
+      <DateRangePicker {...otherProps} />
+    </ControlGroup>
+  );
+});
+
+DateRangePickerField.displayName = 'DateRangePickerField';
 
 export default DateRangePickerField;

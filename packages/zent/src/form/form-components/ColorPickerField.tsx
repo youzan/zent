@@ -1,21 +1,36 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import ColorPicker from '../../colorpicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import ColorPicker, { IColorPickerProps } from '../../colorpicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
+import { Omit } from 'utility-types';
 
 export interface IFormColorPickerWrapProps {
   value?: string;
 }
 
-class ColorPickerWrap extends Component<IFormColorPickerWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return <ColorPicker {...passableProps} color={this.props.value} />;
+export type IColorPickerFieldProps = IControlGroupProps &
+  Omit<IColorPickerProps, 'color'> & {
+    value: string;
+  };
+
+const ColorPickerField = forwardRef<HTMLDivElement, IColorPickerFieldProps>(
+  (props, ref) => {
+    const {
+      controlGroupProps,
+      otherProps: { value, ...otherProps },
+    } = pickControlGroupProps(props);
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <ColorPicker {...otherProps} color={value} />
+      </ControlGroup>
+    );
   }
-}
-const ColorPickerField = getControlGroup(ColorPickerWrap);
+);
+
+ColorPickerField.displayName = 'ColorPickerField';
 
 export default ColorPickerField;

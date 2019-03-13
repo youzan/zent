@@ -8,7 +8,7 @@ import GroupContext from './GroupContext';
 
 const GroupContextProvider = GroupContext.Provider;
 
-export interface IGroupProps {
+export interface IRadioGroupProps {
   value: any;
   disabled?: boolean;
   readOnly?: boolean;
@@ -19,7 +19,7 @@ export interface IGroupProps {
   style?: React.CSSProperties;
 }
 
-export class RadioGroup extends Component<IGroupProps> {
+export class RadioGroup extends Component<IRadioGroupProps> {
   static defaultProps = {
     prefix: 'zent',
     className: '',

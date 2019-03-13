@@ -1,30 +1,35 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import Select, { SelectTrigger } from '../../select';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import Select, { ISelectProps } from '../../select';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
+import { Omit } from 'utility-types';
 
-export interface IFormSelectWrapProps {
-  trigger?: any;
-  onChange(value: any): void;
-  data: unknown[];
-}
+export type ISelectFieldProps = IControlGroupProps &
+  Omit<ISelectProps, 'onChange'> & {
+    onChange(value: unknown): void;
+  };
 
-class SelectWrap extends Component<IFormSelectWrapProps> {
-  render() {
-    const { trigger = SelectTrigger, ...props } = this.props;
-    const passableProps = omit(props, unknownProps) as { data: unknown[] };
+const SelectField = forwardRef<HTMLDivElement, ISelectFieldProps>(
+  (props, ref) => {
+    const {
+      controlGroupProps,
+      otherProps: { onChange, ...otherProps },
+    } = pickControlGroupProps(props);
     const wrappedOnChange = (e, selectedItem) => {
-      props.onChange(selectedItem.value);
+      onChange(selectedItem.value);
     };
     return (
-      <Select {...passableProps} onChange={wrappedOnChange} trigger={trigger} />
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <Select {...otherProps} onChange={wrappedOnChange} />
+      </ControlGroup>
     );
   }
-}
+);
 
-const SelectField = getControlGroup(SelectWrap);
+SelectField.displayName = 'SelectField';
 
 export default SelectField;

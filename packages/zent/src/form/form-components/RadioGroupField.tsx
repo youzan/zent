@@ -1,24 +1,25 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import Radio from '../../radio';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import { RadioGroup, IRadioGroupProps } from '../../radio';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-const RadioGroup = Radio.Group;
+export type IRadioGroupFieldProps = IControlGroupProps & IRadioGroupProps;
 
-export interface IFormRadioGroupWrapProps {
-  value: any;
-}
-
-class RadioGroupWrap extends Component<IFormRadioGroupWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return <RadioGroup className="zent-form__radio-group" {...passableProps} />;
+const RadioGroupField = forwardRef<HTMLDivElement, IRadioGroupFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <RadioGroup {...otherProps} />
+      </ControlGroup>
+    );
   }
-}
+);
 
-const RadioGroupField = getControlGroup(RadioGroupWrap);
+RadioGroupField.displayName = 'RadioGroupField'
 
 export default RadioGroupField;

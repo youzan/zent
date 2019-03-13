@@ -1,22 +1,25 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import YearPicker from '../../datetimepicker/YearPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import YearPicker, { IYearPickerProps } from '../../datetimepicker/YearPicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormYearPickerWrapProps {
-  dateFormat: string;
-}
+export type IYearPickerFieldProps = IControlGroupProps & IYearPickerProps;
 
-class YearPickerWrap extends Component<IFormYearPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <YearPicker {...passableProps} format={dateFormat} />;
+const YearPickerField = forwardRef<HTMLDivElement, IYearPickerFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <YearPicker {...otherProps} />
+      </ControlGroup>
+    );
   }
-}
-const YearPickerField = getControlGroup(YearPickerWrap);
+);
+
+YearPickerField.displayName = 'YearPickerField';
 
 export default YearPickerField;

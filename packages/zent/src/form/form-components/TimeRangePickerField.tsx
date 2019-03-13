@@ -1,22 +1,29 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import TimeRangePicker from '../../datetimepicker/TimeRangePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import TimeRangePicker, {
+  ITimeRangePickerProps,
+} from '../../datetimepicker/TimeRangePicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormTimeRangePickerWrapProps {
-  timeFormat: string;
-}
+export type ITimeRangePickerFieldProps = IControlGroupProps &
+  ITimeRangePickerProps;
 
-class TimeRangePickerWrap extends Component<IFormTimeRangePickerWrapProps> {
-  render() {
-    const { timeFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['timeFormat']);
-    return <TimeRangePicker {...passableProps} format={timeFormat} />;
-  }
-}
-const TimeRangePickerField = getControlGroup(TimeRangePickerWrap);
+const TimeRangePickerField = forwardRef<
+  HTMLDivElement,
+  ITimeRangePickerFieldProps
+>((props, ref) => {
+  const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+  return (
+    <ControlGroup ref={ref} {...controlGroupProps}>
+      <TimeRangePicker {...otherProps} />
+    </ControlGroup>
+  );
+});
+
+TimeRangePickerField.displayName = 'TimeRangePickerField';
 
 export default TimeRangePickerField;

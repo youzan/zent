@@ -1,22 +1,25 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import DatePicker from '../../datetimepicker/DatePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import DatePicker, { IDatePickerProps } from '../../datetimepicker/DatePicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormDatePickerWrapProps {
-  dateFormat?: string;
-}
+export type IDatePickerFieldProps = IControlGroupProps & IDatePickerProps;
 
-class DatePickerWrap extends Component<IFormDatePickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <DatePicker {...passableProps} format={dateFormat} />;
+const DatePickerField = forwardRef<HTMLDivElement, IDatePickerFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <DatePicker {...otherProps} />
+      </ControlGroup>
+    );
   }
-}
-const DatePickerField = getControlGroup(DatePickerWrap);
+);
+
+DatePickerField.displayName = 'DatePickerField';
 
 export default DatePickerField;

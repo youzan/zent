@@ -1,22 +1,25 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { forwardRef } from 'react';
 
-import Checkbox from '../../checkbox';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import { CheckboxGroup, ICheckboxGroupProps } from '../../checkbox';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-const CheckboxGroup = Checkbox.Group;
+export type ICheckboxGroupFieldProps = IControlGroupProps & ICheckboxGroupProps;
 
-class CheckboxGroupWrap extends Component {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
+const CheckboxGroupField = forwardRef<HTMLDivElement, ICheckboxGroupFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
     return (
-      <CheckboxGroup className="zent-form__checkbox-group" {...passableProps} />
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <CheckboxGroup {...otherProps} />
+      </ControlGroup>
     );
   }
-}
+);
 
-const CheckboxGroupField = getControlGroup(CheckboxGroupWrap);
+CheckboxGroupField.displayName = 'CheckboxGroupField';
 
 export default CheckboxGroupField;

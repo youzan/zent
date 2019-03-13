@@ -1,28 +1,29 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
 import DateRangeQuickPicker, {
-  DateRangeQuickPickerChangeCallback,
+  IDateRangeQuickPickerProps,
 } from '../../date-range-quick-picker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormDateRangeQuickPickerWrapProps {
-  dateFormat?: string;
-  onChange: DateRangeQuickPickerChangeCallback;
-}
+export type IDateRangePickerFieldProps = IControlGroupProps &
+  IDateRangeQuickPickerProps;
 
-class DateRangeQuickPickerWrap extends Component<
-  IFormDateRangeQuickPickerWrapProps
-> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <DateRangeQuickPicker {...passableProps} format={dateFormat} />;
-  }
-}
+const DateRangeQuickPickerField = forwardRef<
+  HTMLDivElement,
+  IDateRangePickerFieldProps
+>((props, ref) => {
+  const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+  return (
+    <ControlGroup ref={ref} {...controlGroupProps}>
+      <DateRangeQuickPicker {...otherProps} />
+    </ControlGroup>
+  );
+});
 
-const DateRangeQuickPickerField = getControlGroup(DateRangeQuickPickerWrap);
+DateRangeQuickPickerField.displayName = 'DateRangeQuickPickerField';
 
 export default DateRangeQuickPickerField;

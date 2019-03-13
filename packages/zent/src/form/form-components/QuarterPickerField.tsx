@@ -1,22 +1,27 @@
-import { Component } from 'react';
+import { forwardRef } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
 
-import QuarterPicker from '../../datetimepicker/QuarterPicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+import QuarterPicker, {
+  IQuarterPickerProps,
+} from '../../datetimepicker/QuarterPicker';
+import ControlGroup, {
+  IControlGroupProps,
+  pickControlGroupProps,
+} from '../ControlGroup';
 
-export interface IFormQuarterPickerWrapProps {
-  dateFormat?: string;
-}
+export type IQuarterPickerFieldProps = IControlGroupProps & IQuarterPickerProps;
 
-class QuarterPickerWrap extends Component<IFormQuarterPickerWrapProps> {
-  render() {
-    const { dateFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['dateFormat']);
-    return <QuarterPicker {...passableProps} format={dateFormat} />;
+const QuarterPickerField = forwardRef<HTMLDivElement, IQuarterPickerFieldProps>(
+  (props, ref) => {
+    const { controlGroupProps, otherProps } = pickControlGroupProps(props);
+    return (
+      <ControlGroup ref={ref} {...controlGroupProps}>
+        <QuarterPicker {...otherProps} />
+      </ControlGroup>
+    );
   }
-}
-const QuarterPickerField = getControlGroup(QuarterPickerWrap);
+);
+
+QuarterPickerField.displayName = 'QuarterPickerField';
 
 export default QuarterPickerField;
