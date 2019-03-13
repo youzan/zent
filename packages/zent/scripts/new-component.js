@@ -60,7 +60,7 @@ function insertTs(name) {
   moduleExports.push(`export * from './${name}';`);
   sortByModulePath(moduleExports);
 
-  fs.writeFileSync(tsIndexFile, `${moduleExports.join('\n')}\n`);
+  fs.writeFileSync(tsIndexPath, `${moduleExports.join('\n')}\n`);
 }
 
 // style
@@ -71,7 +71,11 @@ function insertCss(name) {
 
   const cssIndexFileArr = cssIndexFile.trim().split('\n');
   cssIndexFileArr.push(cssImportStr);
+
+  // Make sure base comes first
+  const base = cssIndexFileArr.splice(0, 1);
   sortByModulePath(cssIndexFileArr);
+  cssIndexFileArr.unshift(base);
 
   fs.writeFileSync(cssIndexPath, `${cssIndexFileArr.join('\n')}\n`);
 }
@@ -102,7 +106,7 @@ function addFiles(name) {
 
   fs.writeFileSync(
     `${componentDir}/index.ts`,
-    `export * from './${upperComponentName}';\nexport default from './${upperComponentName};\n`
+    `import ${upperComponentName} from './${upperComponentName}';\n\nexport * from './${upperComponentName}';\nexport default ${upperComponentName};\n`
   );
   fs.writeFileSync(
     `${componentDir}/README_en-US.md`,
