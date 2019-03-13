@@ -16,7 +16,7 @@
   "scripts": {
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
-    "theme": "rm -rf css && node ./scripts/build-theme.js",
+    "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js"
   },
   "typings": "typings/index.d.ts",
