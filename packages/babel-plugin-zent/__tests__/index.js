@@ -75,6 +75,16 @@ describe('babel-plugin-zent', () => {
     expect(
       compile("import { Button as Foobar } from 'zent'; console.log(Foobar)")
     ).toMatch('console.log(Foobar)');
+
+    // No module named NotExist
+    expect(() => compile("import { NotExist } from 'zent';")).toThrow();
+
+    expect(() =>
+      compile("import { Affix } from 'zent';", {
+        moduleMappingFile: './fakeModuleMapping.json',
+        automaticStyleImport: true,
+      })
+    ).toThrow();
   });
 
   it('can add css imports', () => {

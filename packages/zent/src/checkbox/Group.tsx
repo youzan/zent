@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
 import findIndex from 'lodash-es/findIndex';
+import eq from 'lodash-es/eq';
 import memoize from '../utils/memorize-one';
 
 import GroupContext from './GroupContext';
@@ -28,9 +29,7 @@ export class CheckboxGroup extends Component<ICheckboxGroupProps> {
     className: '',
     style: {},
     onChange() {},
-    isValueEqual(a, b) {
-      return a === b;
-    },
+    isValueEqual: eq,
   };
 
   getGroupContext = memoize((value, disabled, readOnly, isValueEqual) => ({

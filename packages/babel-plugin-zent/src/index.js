@@ -67,7 +67,7 @@ export default function foobar(babel) {
               return r.concat(buildImportReplacement(sp, t, state, path));
             }
 
-            throw path.buildCodeFrameError('Unexpected import type');
+            return r;
           }, []);
 
           const { opts: options } = state;
@@ -101,12 +101,6 @@ function buildImportReplacement(specifier, types, state, originalPath) {
     } = options;
     const rule = data.MODULE_MAPPING[importedName];
 
-    if (!rule) {
-      throw originalPath.buildCodeFrameError(
-        `No export named '${importedName}' found in zent.`
-      );
-    }
-
     // js
     if (!noModuleRewrite) {
       replacement.push(
@@ -121,7 +115,7 @@ function buildImportReplacement(specifier, types, state, originalPath) {
     if (automaticStyleImport) {
       if (!rule.style) {
         throw originalPath.buildCodeFrameError(
-          '`useRawStyle` is not compatible with old versions of zent, please upgrade zent to >= zent@7.0.0'
+          'Please upgrade zent to >= zent@7.0.0'
         );
       }
 
@@ -137,6 +131,10 @@ function buildImportReplacement(specifier, types, state, originalPath) {
         }
       });
     }
+  } else {
+    throw originalPath.buildCodeFrameError(
+      `No export named '${importedName}' found in zent.`
+    );
   }
 
   return replacement;

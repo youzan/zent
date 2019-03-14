@@ -24,7 +24,7 @@ You can select a value by dragging or clicking `Slider`.
 | min          | The min value     | number     |  0  |   -100        | no    |
 | step         |The interval between values | number |  1 |     | no    |
 | withInput    | Whether the input is included | bool   | `true` | `false` |  no |
-| dots         | Whether the value of slider can only be selected from label values or not | bool | true |   | no |
+| dots         | Whether the value of slider can only be selected from label values or not | bool | false |   | no |
 | marks        | label values | object |   |   | no |
 | disabled     | Disable the silder | bool  | `false`  |      | no |
 | className    | The custom classname | string | `''` | | no |

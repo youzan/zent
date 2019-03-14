@@ -220,4 +220,14 @@ describe('Slider', () => {
       .instance()
       .onChange('end', { target: { value: 50 } });
   });
+
+  it('for code coverage', () => {
+    const wrapper = mount(<Slider range value={[20, 30]} />);
+    wrapper.find('Container').simulate('click');
+    wrapper
+      .find('ToolTips')
+      .at(0)
+      .find('.zent-slider-point')
+      .simulate('mousedown');
+  });
 });

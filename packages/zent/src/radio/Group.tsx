@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
 import noop from 'lodash-es/noop';
+import eq from 'lodash-es/eq';
 
 import memoize from '../utils/memorize-one';
 import GroupContext from './GroupContext';
@@ -26,9 +27,7 @@ export class RadioGroup extends Component<IGroupProps> {
     style: {},
     disabled: false,
     readOnly: false,
-    isValueEqual(a, b) {
-      return a === b;
-    },
+    isValueEqual: eq,
     onChange: noop,
   };
 
