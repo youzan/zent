@@ -575,6 +575,8 @@ const createForm = (
                   return arr.indexOf(x) === pos;
                 });
             }
+
+            return emptyArray;
           })(),
         };
       };

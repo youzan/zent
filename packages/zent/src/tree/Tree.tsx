@@ -623,6 +623,7 @@ export class Tree extends PureComponent<ITreeProps, any> {
   renderOperations(root, isExpanded) {
     const { id } = this.renderKeyMap;
     const opts = this.props.operations;
+
     if (opts) {
       const optNodes = opts.map(opt => {
         const shouldRender = opt.shouldRender || (() => true);
@@ -645,6 +646,8 @@ export class Tree extends PureComponent<ITreeProps, any> {
       });
       return <div className="operation">{optNodes}</div>;
     }
+
+    return null;
   }
 
   renderTreeNodes(roots) {

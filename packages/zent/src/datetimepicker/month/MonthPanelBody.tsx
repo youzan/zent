@@ -15,6 +15,8 @@ export default class MonthPanelBody extends PureComponent<any> {
     if (selected && selected instanceof Date) {
       return val === selected.getMonth() && year === selected.getFullYear();
     }
+
+    return false;
   }
 
   render() {

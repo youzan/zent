@@ -325,11 +325,13 @@ class UploadPopup extends Component<any, any> {
     const { categoryId } = this.state;
 
     if (!this.networkUrl) return false;
+
     this.setState({
       networkUploading: true,
       buttonText: i18n.popup.extracting,
     });
-    options.onFetch(this.networkUrl, categoryId).then(
+
+    return options.onFetch(this.networkUrl, categoryId).then(
       () => {
         this.setState({
           networkImage: {},

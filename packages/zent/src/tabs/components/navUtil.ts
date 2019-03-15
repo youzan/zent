@@ -11,7 +11,7 @@ const navUtil = {
   },
 
   modifyTabListData(props) {
-    let widthInfo = this.getWidth(props) || {};
+    let widthInfo = this.getWidth(props);
     let { tabListData, candel } = props;
     let modifiedTabListData = [];
     let modifiedTabInfo;
@@ -36,7 +36,7 @@ const navUtil = {
   },
 
   getWidth(props) {
-    // 当align为center时做处理
+    // 当 align 为 center 时做处理
     let { align, tabListData } = props;
 
     if (align === 'center') {
@@ -50,6 +50,8 @@ const navUtil = {
         lastWidth,
       };
     }
+
+    return {};
   },
 };
 

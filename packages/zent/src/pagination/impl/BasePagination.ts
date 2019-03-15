@@ -118,6 +118,8 @@ export abstract class BasePagination<
     if (has(props, 'totalItem')) {
       return props.totalItem || 0;
     }
+
+    return 0;
   }
 }
 

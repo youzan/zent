@@ -73,6 +73,8 @@ export class Tag extends Component<ITagProps> {
     if (!closable && isVisibleBoolean) {
       return true;
     }
+
+    return false;
   }
 
   render() {

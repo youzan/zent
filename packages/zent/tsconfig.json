@@ -1,17 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "allowSyntheticDefaultImports": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "jsx": "react",
+    "lib": ["dom", "es2018"],
     "module": "es6",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": false,
-    "importHelpers": true,
-    "outDir": "es",
-    "jsx": "react",
-    "declaration": true,
-    "lib": ["dom", "es2018"],
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
     "noUnusedLocals": true,
+    "outDir": "es",
+    "pretty": true,
     "removeComments": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "target": "es5"
   },
   "exclude": ["lib", "es", "node_modules", "__tests__"],
   "include": ["src"]

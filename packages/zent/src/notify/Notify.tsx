@@ -76,7 +76,7 @@ const createNotifyContainerNode = (): HTMLElement => {
  * @param  {Function} callback notify消失时回调
  */
 const show = (text, duration, status, callback) => {
-  if (!isBrowser) return;
+  if (!isBrowser) return null;
 
   let container = document.createElement('div');
   const notifyContainerNode = createNotifyContainerNode();

@@ -111,6 +111,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
         !silent && message && Notify.error(message);
         return false;
       }
+
       if (!maxSize || file.size <= maxSize) {
         this.addFile(file, index, i18n);
       } else {
@@ -124,6 +125,8 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
         );
         !silent && message && Notify.error(message);
       }
+
+      return true;
     });
   };
 

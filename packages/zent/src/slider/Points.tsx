@@ -35,6 +35,7 @@ export default class Points extends PureComponent<any, any> {
 
   handleMouseDown = (type, evt) => {
     evt.preventDefault();
+
     if (this.isLeftButton(evt)) {
       this.left = evt.clientX;
       this.setState({ type, visibility: true });
@@ -46,7 +47,6 @@ export default class Points extends PureComponent<any, any> {
         value = value[1];
       }
       this.value = value;
-      return false;
     }
   };
 

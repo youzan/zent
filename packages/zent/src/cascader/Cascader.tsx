@@ -110,6 +110,8 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
         return currOptions.children;
       }
     }
+
+    return null;
   }
 
   resetCascaderValue(

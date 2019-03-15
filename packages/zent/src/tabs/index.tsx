@@ -112,6 +112,8 @@ export class Tabs extends Component<ITabsProps> {
         />
       );
     }
+
+    return null;
   }
 
   renderTabPanel(tabListData) {

@@ -21,6 +21,7 @@ export default function useDelayed({
     }
 
     setDelayed(shouldDelay);
+    return null;
   }, [loading, delay]);
 
   return delayed;
