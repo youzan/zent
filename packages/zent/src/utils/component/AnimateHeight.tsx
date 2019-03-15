@@ -138,7 +138,8 @@ export class AnimateHeightNoAppear extends PureComponent<
     if (shouldUseTransitions && applyInlineTransitions) {
       componentStyle.WebkitTransition = transitionString;
       componentStyle.MozTransition = transitionString;
-      componentStyle.OTransition = transitionString;
+      // bye Opera
+      // componentStyle.OTransition = transitionString;
       (componentStyle as any).msTransition = transitionString;
       componentStyle.transition = transitionString;
     }

@@ -22,10 +22,12 @@ export default class I18nReceiver<P extends {}> extends Component<
 > {
   static contextType = I18nContext;
 
+  context!: React.ContextType<typeof I18nContext>;
+
   receive() {
     const { componentName, defaultI18n } = this.props;
     const zentI18n = this.context;
-    const i18n = (zentI18n && zentI18n[componentName]) || {};
+    const i18n = (zentI18n && (zentI18n as any)[componentName]) || {};
 
     return {
       ...(typeof defaultI18n === 'function' ? defaultI18n() : defaultI18n),

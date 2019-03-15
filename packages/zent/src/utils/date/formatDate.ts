@@ -1,6 +1,6 @@
 import fecha from 'fecha';
 
-import i18n from './i18n';
+import { zhCN } from '../../i18n/time-locale';
 import { getValidDate } from './helpers';
 
 /**
@@ -8,7 +8,7 @@ import { getValidDate } from './helpers';
  * @memberof module:date
  * @param date Date 的实例
  * @param mask 解析的格式，默认为 'default'
- * @param locale i18n 的设置，默认为 'zh'
+ * @param locale i18n 的设置，默认为 zhCN
  * @returns date 对象
  * @example
  * const formatDate = require('zan-utils/date/formatDate');
@@ -24,12 +24,8 @@ import { getValidDate } from './helpers';
 export default function formatDate(
   date: string | Date | number,
   mask = 'default',
-  locale = 'zh'
+  locale = zhCN
 ): string {
   date = getValidDate(date);
-  return fecha.format(
-    date,
-    mask,
-    typeof locale === 'string' ? i18n[locale] : locale
-  );
+  return fecha.format(date, mask, locale);
 }

@@ -1,6 +1,24 @@
 import { setLocale, enUS } from './time-locale';
+import {
+  II18nLocaleCommon,
+  II18nLocaleCopyButton,
+  II18nLocalePagination,
+  II18nLocalePop,
+  II18nLocalePreviewImage,
+  II18nLocaleRangePicker,
+  II18nLocaleSelect,
+  II18nLocaleSweetalert,
+  II18nLocaleSwitch,
+  II18nLocaleGrid,
+  II18nLocaleTable,
+  II18nLocaleCascader,
+  I18nLocaleTimePicker,
+  II18nLocaleUpload,
+  II18nLocaleMention,
+  II18nLocaleTypeMap,
+} from './locale';
 
-const common = {
+const common: II18nLocaleCommon = {
   confirm: 'Confirm',
   cancel: 'Cancel',
   comma: ', ',
@@ -10,13 +28,13 @@ const common = {
 
 export const mark = 'en-US';
 
-export const CopyButton = {
+export const CopyButton: II18nLocaleCopyButton = {
   copy: 'Copy',
   success: 'Copied',
   error: 'Copy failed',
 };
 
-export const Pagination = {
+export const Pagination: II18nLocalePagination = {
   comma: common.comma,
   page: 'page',
   jump: 'Goto',
@@ -25,54 +43,54 @@ export const Pagination = {
   perPage: 'per page',
 };
 
-export const Pop = {
+export const Pop: II18nLocalePop = {
   ...common,
 };
 
-export const PreviewImage = {
+export const PreviewImage: II18nLocalePreviewImage = {
   alt: 'Image download failed',
   prev: 'Previous',
   next: 'Next',
   rotate: 'Rotate',
 };
 
-export const RangePicker = {
+export const RangePicker: II18nLocaleRangePicker = {
   7: '7 days',
   30: '30 days',
 };
 
-export const Select = {
+export const Select: II18nLocaleSelect = {
   input: 'Please choose...',
   empty: 'No matches found',
 };
 
-export const Sweetalert = {
+export const Sweetalert: II18nLocaleSweetalert = {
   ...common,
   title: 'Alert',
 };
 
-export const Switch = {
+export const Switch: II18nLocaleSwitch = {
   checked: 'On',
   unchecked: 'Off',
 };
 
-export const Grid = {
+export const Grid: II18nLocaleGrid = {
   ...common,
   emptyLabel: 'No data',
 };
 
-export const Table = {
+export const Table: II18nLocaleTable = {
   ...common,
   emptyLabel: 'No data',
 };
 
-export const Cascader = {
+export const Cascader: II18nLocaleCascader = {
   ...common,
   title: 'Title',
   placeholder: 'Please choose',
 };
 
-export const TimePicker = () => {
+export const TimePicker: I18nLocaleTimePicker = () => {
   setLocale(enUS);
   return {
     ...common,
@@ -110,7 +128,7 @@ export const TimePicker = () => {
         '3rd Quarter',
         '4th Quarter',
       ],
-      dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+      dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       monthNames: [
         'Jan',
         'Feb',
@@ -129,29 +147,12 @@ export const TimePicker = () => {
   };
 };
 
-export const Sku = {
-  notify: 'The same sku name not allowed',
-  buttonAdd: 'Add sku',
-  container: {
-    del: 'Delete',
-    replace: 'Replace',
-    add: '+Add',
-  },
-  group: {
-    add: 'Add sku image',
-    imageTip1: 'Only the first sku portrait can be set',
-    imageTip2:
-      'After setting, corresponding portrait of the choosen sku will be rendered.',
-    imageTip3: 'Recommended size: 640 x 640 pixels.',
-  },
-};
-
-const TypeMap = {
+const TypeMap: II18nLocaleTypeMap = {
   image: 'Image',
   voice: 'Audio',
 };
 
-export const Upload = {
+export const Upload: II18nLocaleUpload = {
   ...common,
   title_voice: 'Choose voice',
   title_image: 'Choose image',
@@ -181,6 +182,6 @@ export const Upload = {
   },
 };
 
-export const Mention = {
+export const Mention: II18nLocaleMention = {
   noContent: 'No result found, press SPACE to finish typing',
 };

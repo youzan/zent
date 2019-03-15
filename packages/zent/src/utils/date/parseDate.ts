@@ -1,6 +1,6 @@
 import fecha from 'fecha';
 
-import i18n from './i18n';
+import { zhCN } from '../../i18n/time-locale';
 
 /**
  * 解析日期，字符串转化为日期
@@ -9,7 +9,7 @@ import i18n from './i18n';
  * - 如果传入Date的实例则直接返回这个实例;
  * - 如果传入时间戳数字，则返回 new Date(date) 函数调用后的值;
  * @param mask 解析的格式
- * @param locale i18n 的设置，默认为 'zh'
+ * @param locale i18n 的设置，默认为 zhCN
  * @see {@link https://github.com/taylorhakes/fecha#parsing|parse文档}
  * @returns {date} 转化后的日期
  * @example
@@ -22,7 +22,7 @@ import i18n from './i18n';
 export default function parseDate(
   date: string | Date,
   mask = 'default',
-  locale = 'zh'
+  locale = zhCN
 ): Date {
   if (date instanceof Date) {
     return date;
@@ -34,11 +34,7 @@ export default function parseDate(
 
   mask = mask || 'default';
 
-  const ret = fecha.parse(
-    date,
-    mask,
-    typeof locale === 'string' ? i18n[locale] : locale
-  );
+  const ret = fecha.parse(date, mask, locale);
 
   if (!ret) {
     return null;

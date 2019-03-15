@@ -18,7 +18,7 @@ export interface IFieldEventHandlerOptions {
 export interface IFieldProps {
   ref?: (ref: any) => void;
   name: string;
-  component: React.ReactType;
+  component: React.ElementType;
   value: any;
   normalize?: (
     value: any,
@@ -85,6 +85,8 @@ class Field extends Component<IFieldProps, IFieldState> {
   };
 
   static contextType = FormContext;
+
+  context!: React.ContextType<typeof FormContext>;
 
   constructor(props, context) {
     super(props, context);

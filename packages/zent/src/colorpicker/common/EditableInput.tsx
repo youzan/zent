@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component, createRef } from 'react';
+import * as keycode from 'keycode';
 import reactCSS from '../helpers/reactcss';
 
 export default class EditableInput extends Component<any, any> {
@@ -57,9 +58,9 @@ export default class EditableInput extends Component<any, any> {
     }
 
     const amount = this.props.arrowOffset || 1;
+    const key = keycode(e);
 
-    // Up
-    if (e.keyCode === 38) {
+    if (key === 'up') {
       if (this.props.label !== null) {
         this.props.onChange({ [this.props.label]: val + amount }, e);
       } else {
@@ -69,8 +70,7 @@ export default class EditableInput extends Component<any, any> {
       this.setState({ value: val + amount });
     }
 
-    // Down
-    if (e.keyCode === 40) {
+    if (key === 'down') {
       if (this.props.label !== null) {
         this.props.onChange({ [this.props.label]: val - amount }, e);
       } else {
@@ -80,8 +80,7 @@ export default class EditableInput extends Component<any, any> {
       this.setState({ value: val - amount });
     }
 
-    // Enter
-    if (e.keyCode === 13) {
+    if (key === 'enter') {
       this.props.onPressEnter && this.props.onPressEnter(e);
     }
   };

@@ -1,5 +1,11 @@
 import * as React from 'react';
 
-const FormContext = React.createContext({ zentForm: {} });
+export interface IFormContext {
+  zentForm: {
+    [key: string]: any;
+  };
+}
+
+const FormContext = React.createContext<IFormContext>({ zentForm: {} });
 
 export default FormContext;

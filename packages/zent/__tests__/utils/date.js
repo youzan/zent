@@ -1,5 +1,4 @@
 import { getValidDate } from 'utils/date/helpers';
-import i18n from 'utils/date/i18n';
 import parseDate from 'utils/date/parseDate';
 
 describe('getValidDate', () => {
@@ -20,26 +19,6 @@ describe('getValidDate', () => {
   it('date', () => {
     const now = new Date();
     expect(getValidDate(now)).toEqual(now);
-  });
-});
-
-describe('i18n', () => {
-  it('zh', () => {
-    const { DoFn } = i18n.zh;
-
-    expect(DoFn(1)).toBe('1st');
-    expect(DoFn(2)).toBe('2nd');
-    expect(DoFn(3)).toBe('3rd');
-    expect(DoFn(4)).toBe('4th');
-  });
-
-  it('en', () => {
-    const { DoFn } = i18n.en;
-
-    expect(DoFn(1)).toBe('1st');
-    expect(DoFn(2)).toBe('2nd');
-    expect(DoFn(3)).toBe('3rd');
-    expect(DoFn(4)).toBe('4th');
   });
 });
 

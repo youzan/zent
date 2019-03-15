@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import noop from 'lodash-es/noop';
 
-import GroupContext, { IRadioContext } from './GroupContext';
+import GroupContext from './GroupContext';
 
 export interface IRadioEvent {
   target: {
@@ -38,7 +38,7 @@ abstract class AbstractRadio extends Component<IRadioProps> {
   // static Group: typeof Group;
 
   static contextType = GroupContext;
-  context!: IRadioContext;
+  context!: React.ContextType<typeof GroupContext>;
 
   // event liftup
   // link: https://facebook.github.io/react/docs/lifting-state-up.html

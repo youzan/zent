@@ -7,7 +7,7 @@ import FormContext from './FormContext';
 
 export interface IFormSectionProps {
   name: string;
-  component?: React.ReactType;
+  component?: React.ElementType;
 }
 
 class FormSection extends PureComponent<IFormSectionProps> {
@@ -16,6 +16,8 @@ class FormSection extends PureComponent<IFormSectionProps> {
   };
 
   static contextType = FormContext;
+
+  context!: React.ContextType<typeof FormContext>;
 
   constructor(props, context) {
     super(props, context);

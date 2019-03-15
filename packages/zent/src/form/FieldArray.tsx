@@ -22,7 +22,7 @@ export interface IFieldArrayStateValue {
 export interface IFieldArrayProps {
   name: string;
   value?: any[];
-  component: React.ReactType;
+  component: React.ElementType;
 }
 
 export interface IFieldArrayState {
@@ -45,6 +45,8 @@ function fieldValueReader(callback, fieldArrayValues, item, index) {
 
 class FieldArray extends Component<IFieldArrayProps, IFieldArrayState> {
   static contextType = FormContext;
+
+  context!: React.ContextType<typeof FormContext>;
 
   _uniqueKey: number;
   _name: string;

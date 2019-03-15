@@ -5,6 +5,7 @@ import isFunction from 'lodash-es/isFunction';
 import omit from 'lodash-es/omit';
 import isNumber from 'lodash-es/isNumber';
 import { Omit } from 'utility-types';
+import * as keycode from 'keycode';
 import Icon from '../icon';
 import getWidth from '../utils/getWidth';
 import Textarea from './Textarea';
@@ -99,7 +100,7 @@ export class Input extends PureComponent<IInputProps> {
 
   handleKeyDown = evt => {
     const { onKeyDown, onPressEnter } = this.props;
-    if (onPressEnter && evt.keyCode === 13) {
+    if (onPressEnter && keycode(evt) === 'enter') {
       onPressEnter(evt);
     }
 

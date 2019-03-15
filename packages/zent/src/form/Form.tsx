@@ -10,6 +10,7 @@ import { PureComponent } from 'react';
 import * as React from 'react';
 import classNames from 'classnames';
 import noop from 'lodash-es/noop';
+import * as keycode from 'keycode';
 
 export interface IFormProps {
   className?: string;
@@ -33,7 +34,11 @@ class Form extends PureComponent<IFormProps> {
     // 默认禁止输入框回车触发表单提交事件
     const isFromInput = event.target.tagName === 'INPUT';
 
-    if (isFromInput && this.props.disableEnterSubmit && event.keyCode === 13) {
+    if (
+      isFromInput &&
+      this.props.disableEnterSubmit &&
+      keycode(event) === 'enter'
+    ) {
       event.preventDefault();
     }
   };

@@ -1,6 +1,24 @@
 import { setLocale, zhCN } from './time-locale';
+import {
+  II18nLocaleCommon,
+  II18nLocaleCopyButton,
+  II18nLocalePagination,
+  II18nLocalePop,
+  II18nLocalePreviewImage,
+  II18nLocaleRangePicker,
+  II18nLocaleSelect,
+  II18nLocaleSwitch,
+  II18nLocaleSweetalert,
+  II18nLocaleGrid,
+  II18nLocaleTable,
+  II18nLocaleCascader,
+  I18nLocaleTimePicker,
+  II18nLocaleTypeMap,
+  II18nLocaleUpload,
+  II18nLocaleMention,
+} from './locale';
 
-const common = {
+const common: II18nLocaleCommon = {
   confirm: '确认',
   cancel: '取消',
   ok: '我知道了',
@@ -10,17 +28,13 @@ const common = {
 
 export const mark = 'zh-CN';
 
-export const CopyButton = {
+export const CopyButton: II18nLocaleCopyButton = {
   copy: '复制',
   success: '复制成功',
   error: '复制失败',
 };
 
-export const Pagination = {
-  // total: '共',
-  // pages: '页',
-  // items: '条',
-  // perPage: '每页',
+export const Pagination: II18nLocalePagination = {
   page: '页',
   jump: '跳至',
   total: '共',
@@ -29,54 +43,54 @@ export const Pagination = {
   comma: common.comma,
 };
 
-export const Pop = {
+export const Pop: II18nLocalePop = {
   ...common,
 };
 
-export const PreviewImage = {
+export const PreviewImage: II18nLocalePreviewImage = {
   alt: '图片下载失败',
   prev: '上一张',
   next: '下一张',
   rotate: '翻转',
 };
 
-export const RangePicker = {
+export const RangePicker: II18nLocaleRangePicker = {
   7: '近7天',
   30: '近30天',
 };
 
-export const Select = {
+export const Select: II18nLocaleSelect = {
   input: '请选择',
   empty: '没有找到匹配项',
 };
 
-export const Switch = {
+export const Switch: II18nLocaleSwitch = {
   checked: '开启',
   unchecked: '关闭',
 };
 
-export const Sweetalert = {
+export const Sweetalert: II18nLocaleSweetalert = {
   ...common,
   title: '提示',
 };
 
-export const Grid = {
+export const Grid: II18nLocaleGrid = {
   ...common,
   emptyLabel: '没有更多数据了',
 };
 
-export const Table = {
+export const Table: II18nLocaleTable = {
   ...common,
   emptyLabel: '没有更多数据了',
 };
 
-export const Cascader = {
+export const Cascader: II18nLocaleCascader = {
   ...common,
   title: '标题',
   placeholder: '请选择',
 };
 
-export const TimePicker = () => {
+export const TimePicker: I18nLocaleTimePicker = () => {
   setLocale(zhCN);
 
   return {
@@ -129,28 +143,12 @@ export const TimePicker = () => {
   };
 };
 
-export const Sku = {
-  notify: '规格名不能相同',
-  buttonAdd: '添加规格项目',
-  container: {
-    del: '删除',
-    replace: '替换',
-    add: '+添加',
-  },
-  group: {
-    add: '添加规格图片',
-    imageTip1: '目前只支持为第一个规格设置不同的规格图片',
-    imageTip2: '设置后，用户选择不同规格会显示不同图片',
-    imageTip3: '建议尺寸：640 x 640像素',
-  },
-};
-
-const TypeMap = {
+const TypeMap: II18nLocaleTypeMap = {
   image: '图片',
   voice: '音频',
 };
 
-export const Upload = {
+export const Upload: II18nLocaleUpload = {
   ...common,
   title_voice: '声音选择',
   title_image: '图片选择',
@@ -182,6 +180,6 @@ export const Upload = {
   },
 };
 
-export const Mention = {
+export const Mention: II18nLocaleMention = {
   noContent: '无匹配结果，轻敲空格完成输入',
 };

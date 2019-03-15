@@ -81,7 +81,7 @@ export const setSameDate = (val, target) => {
  * @param {string|object} locale the i18n setting for fecha
  * @returns {strning} format result by zan-utils
  */
-export function formatDate(date, format, locale = getLocale() || 'zh') {
+export function formatDate(date, format, locale = getLocale()) {
   return formatBase(date, format, locale);
 }
 
@@ -93,7 +93,7 @@ export function formatDate(date, format, locale = getLocale() || 'zh') {
  * @param {string} format
  * @param {string|object} locale the i18n setting for fecha
  */
-export function parseDate(dateStr, format, locale = getLocale() || 'zh') {
+export function parseDate(dateStr, format, locale = getLocale()) {
   return parseBase(dateStr, format, locale);
 }
 

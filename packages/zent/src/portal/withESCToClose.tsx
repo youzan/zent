@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import * as keycode from 'keycode';
 
 export interface IESCToCloseWrapperProps {
   onClose(e: KeyboardEvent): void;
@@ -18,7 +19,7 @@ export default function withESCToClose<P extends { visible?: boolean }>(
     IESCToCloseWrapperProps & P
   > {
     onKeyUp = (evt: KeyboardEvent) => {
-      if (evt.keyCode === 27) {
+      if (keycode(evt) === 'esc') {
         this.props.onClose(evt);
       }
     };

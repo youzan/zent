@@ -1,15 +1,17 @@
-let locale = null;
+import { i18nSettings } from 'fecha';
 
-export function setLocale(map) {
+let locale: i18nSettings;
+
+export function setLocale(map: i18nSettings): i18nSettings {
   return (locale = map);
 }
 
-export function getLocale() {
+export function getLocale(): i18nSettings {
   return locale;
 }
 
-export const enUS = {
-  dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+export const enUS: i18nSettings = {
+  dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   dayNames: [
     'Sunday',
     'Monday',
@@ -58,7 +60,7 @@ export const enUS = {
   },
 };
 
-export const zhCN = {
+export const zhCN: i18nSettings = {
   dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
   dayNames: [
     '星期日',

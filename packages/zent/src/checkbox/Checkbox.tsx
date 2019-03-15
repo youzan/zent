@@ -43,6 +43,8 @@ export class Checkbox extends Component<ICheckboxProps> {
 
   static contextType = GroupContext;
 
+  context!: React.ContextType<typeof GroupContext>;
+
   static Group = Group;
 
   onChange = evt => {

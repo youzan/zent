@@ -5,13 +5,13 @@ import * as React from 'react';
 import { Component } from 'react';
 import take from 'lodash-es/take';
 import noop from 'lodash-es/noop';
+import * as keycode from 'keycode';
 
 import Popover from '../popover';
 import { I18nReceiver as Receiver } from '../i18n';
 
 import Search from './components/Search';
 import Option from './components/Option';
-import { KEY_EN, KEY_UP, KEY_DOWN, KEY_ESC } from './constants';
 
 export interface IPopupProps {
   adjustPosition: () => void;
@@ -173,7 +173,7 @@ class Popup extends Component<IPopupProps, any> {
   };
 
   keydownHandler = ev => {
-    const code = ev.keyCode;
+    const code = keycode(ev);
     const itemIds = this.itemIds;
     let { currentId, keyword } = this.state;
     const index = itemIds.indexOf(currentId);
@@ -183,10 +183,10 @@ class Popup extends Component<IPopupProps, any> {
       'current'
     )[0] as HTMLElement;
     switch (code) {
-      case KEY_ESC:
+      case 'esc':
         this.props.popover.close();
         break;
-      case KEY_DOWN:
+      case 'down':
         ev.preventDefault();
         if (this.itemIds[index + 1]) {
           currentId = this.itemIds[index + 1];
@@ -202,7 +202,7 @@ class Popup extends Component<IPopupProps, any> {
           this.popup.scrollTop = 0;
         }
         break;
-      case KEY_UP:
+      case 'up':
         ev.preventDefault();
         if (index > 0) {
           currentId = this.itemIds[index - 1];
@@ -215,7 +215,7 @@ class Popup extends Component<IPopupProps, any> {
           this.popup.scrollTop = scrollHeight;
         }
         break;
-      case KEY_EN:
+      case 'enter':
         ev.preventDefault();
         this.optionChangedHandler(keyword, currentId);
         this.currentIdUpdated = false;
