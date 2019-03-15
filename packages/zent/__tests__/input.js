@@ -61,19 +61,21 @@ describe('Input', () => {
     );
     expect(wrapper.hasClass('foo-input-wrapper')).toBe(true);
     expect(wrapper.hasClass('foo-input-addons')).toBe(true);
-    expect(
-      wrapper
-        .find('span')
-        .at(0)
-        .hasClass('foo-input-addon-before')
-    ).toBe(true);
+    expect(wrapper.find('.foo-input-addon-before').length).toBe(1);
+    // expect(
+    //   wrapper
+    //     .find('div')
+    //     .at(0)
+    //     .hasClass('foo-input-addon-before')
+    // ).toBe(true);
     expect(wrapper.find('input').hasClass('foo-input')).toBe(true);
-    expect(
-      wrapper
-        .find('span')
-        .at(1)
-        .hasClass('foo-input-addon-after')
-    ).toBe(true);
+    expect(wrapper.find('.foo-input-addon-after').length).toBe(1);
+    // expect(
+    //   wrapper
+    //     .find('span')
+    //     .at(1)
+    //     .hasClass('foo-input-addon-after')
+    // ).toBe(true);
   });
 
   it('pass any props to real input element except "className" & "prefix"', () => {
@@ -100,35 +102,35 @@ describe('Input', () => {
     expect(wrapper.find('input').props().disabled).toBe(true);
   });
 
-  it('can insert span aside controlled by prop addon(Before|After)(node)', () => {
+  it('can insert div aside controlled by prop addon(Before|After)(node)', () => {
     const wrapper = shallow(<Input addonAfter="foo" addonBefore="bar" />);
     expect(
       wrapper
-        .find('div')
+        .find('.zent-input-wrapper')
         .childAt(0)
         .type()
-    ).toBe('span');
+    ).toBe('div');
     expect(
       wrapper
-        .find('div')
+        .find('.zent-input-wrapper')
         .childAt(0)
         .text()
     ).toBe('bar');
     expect(
       wrapper
-        .find('div')
+        .find('.zent-input-wrapper')
         .childAt(1)
         .type()
     ).toBe('input');
     expect(
       wrapper
-        .find('div')
+        .find('.zent-input-wrapper')
         .childAt(2)
         .type()
-    ).toBe('span');
+    ).toBe('div');
     expect(
       wrapper
-        .find('div')
+        .find('.zent-input-wrapper')
         .childAt(2)
         .text()
     ).toBe('foo');
