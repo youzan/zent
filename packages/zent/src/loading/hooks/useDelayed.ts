@@ -20,8 +20,7 @@ export default function useDelayed({
       return () => clearTimeout(timerId);
     }
 
-    setDelayed(shouldDelay);
-    return null;
+    return setDelayed(shouldDelay);
   }, [loading, delay]);
 
   return delayed;
