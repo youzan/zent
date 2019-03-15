@@ -21,7 +21,9 @@ function main() {
     (a, p1, p2, p3) => `${p1}${tsType}${p3}`
   );
 
-  fs.writeFileSync(SRC, replacedIconSrc, { encoding: 'utf-8' });
+  if (iconSrc !== replacedIconSrc) {
+    fs.writeFileSync(SRC, replacedIconSrc, { encoding: 'utf-8' });
+  }
 }
 
 main();
