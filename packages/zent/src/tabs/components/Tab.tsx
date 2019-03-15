@@ -28,19 +28,19 @@ class Tab extends Component<ITabProps> {
 
   onDel(e) {
     e.stopPropagation();
-    let { onDelete, id } = this.props;
+    const { onDelete, id } = this.props;
     onDelete(id);
   }
 
   onClick() {
-    let { onSelected, id, actived, disabled } = this.props;
+    const { onSelected, id, actived, disabled } = this.props;
     if (!actived && !disabled) {
       onSelected(id);
     }
   }
 
   renderDelOperater() {
-    let { candel, prefix } = this.props;
+    const { candel, prefix } = this.props;
     if (candel) {
       return (
         <span
@@ -55,8 +55,8 @@ class Tab extends Component<ITabProps> {
   }
 
   render() {
-    let props = this.props;
-    let { prefix, minWidth } = props;
+    const props = this.props;
+    const { prefix, minWidth } = props;
     let classes = `${prefix}-tabs-tab`;
     if (props.actived) {
       classes += ` ${prefix}-tabs-actived`;
@@ -64,7 +64,7 @@ class Tab extends Component<ITabProps> {
     if (props.disabled) {
       classes += ` ${prefix}-tabs-disabled`;
     }
-    let style: React.CSSProperties = {};
+    const style: React.CSSProperties = {};
     if (minWidth) {
       style.minWidth = minWidth;
     }

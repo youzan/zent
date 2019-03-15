@@ -144,7 +144,7 @@ export class DialogElWrapper extends Component<IDialogElWrapper> {
   };
 
   render() {
-    let { prefix, mask, visible, children } = this.props;
+    const { prefix, mask, visible, children } = this.props;
 
     return (
       <div

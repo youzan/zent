@@ -57,8 +57,8 @@ export default class Foot extends PureComponent<any, any> {
   render() {
     const { onPageChange, batchComponents, selection, current } = this.props;
 
-    let pageInfo = this.props.pageInfo || {};
-    let { totalItem, pageSize, total, limit } = pageInfo;
+    const pageInfo = this.props.pageInfo || {};
+    const { totalItem, pageSize, total, limit } = pageInfo;
 
     const { needSelect, selectedRows } = selection;
     let batchClassName = 'tfoot__batchcomponents';

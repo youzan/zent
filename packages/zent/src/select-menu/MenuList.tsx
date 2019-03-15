@@ -194,7 +194,7 @@ export default class MenuList extends Component<
   };
 
   getTopMenu = () => {
-    let ins = this;
+    const ins = this;
     // TODO find the topped menu when there are sub menus
     // while (_ins && _ins.state.lastOpenIndex != null && _ins.refs[`sub_${_ins.state.lastOpenIndex}`]) {
     //   _ins = _ins.refs[`sub_${_ins.state.lastOpenIndex}`]

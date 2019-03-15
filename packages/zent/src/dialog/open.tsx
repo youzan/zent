@@ -119,7 +119,7 @@ export function openDialog(options: IOpenDialogOption = {}) {
 
   ensureUniqDialogInstance(dialogId);
 
-  let container = document.createElement('div');
+  const container = document.createElement('div');
 
   // 确保多次调用close不会报错
   const closeHandler = (evt: unknown) => {

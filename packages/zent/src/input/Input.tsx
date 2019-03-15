@@ -180,7 +180,7 @@ export class Input extends PureComponent<IInputProps> {
     );
 
     // 黑名单，下面这些props不应该带入到Input上
-    let inputProps: any = omit(this.props, [
+    const inputProps: any = omit(this.props, [
       'className',
       'prefix',
       'addonBefore',

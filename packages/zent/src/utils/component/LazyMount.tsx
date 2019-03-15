@@ -25,15 +25,15 @@ export default class LazyMount extends Component<
   }
 
   render() {
-    let { children } = this.props;
-    let { mounted } = this.state;
+    const { children } = this.props;
+    const { mounted } = this.state;
 
     return mounted ? children : null;
   }
 
   componentWillReceiveProps(nextProps) {
-    let { mount } = nextProps;
-    let { mounted } = this.state;
+    const { mount } = nextProps;
+    const { mounted } = this.state;
     if (mount && !mounted) {
       this.setState({
         mounted: true,

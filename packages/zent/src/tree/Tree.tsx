@@ -21,7 +21,7 @@ const DEFAULT_REANDER_KEY = {
 export interface ITreeData {
   id: number | string;
   title: number | string;
-  children?: Array<ITreeData>;
+  children?: ITreeData[];
   parendId?: string | number;
   expand?: boolean;
   isLeaf?: boolean;
@@ -37,7 +37,7 @@ export interface ITreeOperation {
 export interface ITreeProps {
   useNew?: boolean;
   dataType?: 'tree' | 'plain';
-  data: Array<ITreeData>;
+  data: ITreeData[];
   renderKey?: {
     id?: string;
     title?: string;
@@ -45,7 +45,7 @@ export interface ITreeProps {
     parentId?: string;
   };
   render?: (data: ITreeData, isExpanded?: boolean) => React.ReactNode;
-  operations?: Array<ITreeOperation>;
+  operations?: ITreeOperation[];
   foldable?: boolean;
   onCheck?: (data: Array<number | string>) => void;
   checkable?: boolean;
@@ -321,7 +321,7 @@ export class Tree extends PureComponent<ITreeProps, any> {
     const { children, id } = this.renderKeyMap;
 
     tree.forEach((item, index) => {
-      let currentPath = parentPath.concat(index);
+      const currentPath = parentPath.concat(index);
       mapCb(item[id], currentPath);
 
       if (

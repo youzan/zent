@@ -19,11 +19,11 @@ import TabPanel from './components/TabPanel';
 
 const tabUtil = {
   getTabListData(children, activeId) {
-    let childrenList = React.Children.toArray(children);
-    let listData = [];
+    const childrenList = React.Children.toArray(children);
+    const listData = [];
     React.Children.forEach(childrenList, child => {
       if (this.checkIfTabPanel(child)) {
-        let {
+        const {
           id,
           disabled,
           tab,

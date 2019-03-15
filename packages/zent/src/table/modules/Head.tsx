@@ -56,7 +56,7 @@ export default class Head extends PureComponent<any, any> {
       return;
     }
 
-    let tmpRect = node.getBoundingClientRect();
+    const tmpRect = node.getBoundingClientRect();
     this.rect = {
       top: tmpRect.top,
       height: tmpRect.height - 1,
@@ -121,8 +121,8 @@ export default class Head extends PureComponent<any, any> {
   }
 
   sort = (item, nextSortType) => {
-    let name = item.name;
-    let { sortType } = this.props;
+    const name = item.name;
+    const { sortType } = this.props;
     if (sortType === nextSortType) {
       nextSortType = '';
     }
@@ -142,7 +142,7 @@ export default class Head extends PureComponent<any, any> {
   };
 
   renderCheckBox(index, selection) {
-    let { canSelectAll, needSelect, isSingleSelection } = selection;
+    const { canSelectAll, needSelect, isSingleSelection } = selection;
     if (needSelect && index === 0 && !isSingleSelection) {
       return (
         <Checkbox
@@ -159,10 +159,10 @@ export default class Head extends PureComponent<any, any> {
   }
 
   renderTr(isFixTr, style = {}) {
-    let { selection, needExpand } = this.props;
-    let { needSelect } = selection;
-    let className = isFixTr ? fixRowClass : stickRowClass;
-    let tds = [];
+    const { selection, needExpand } = this.props;
+    const { needSelect } = selection;
+    const className = isFixTr ? fixRowClass : stickRowClass;
+    const tds = [];
 
     if (needExpand) {
       tds.push(<div key="-1" className="td expanded-item" />);
@@ -218,8 +218,8 @@ export default class Head extends PureComponent<any, any> {
   }
 
   render() {
-    let { style } = this.props;
-    let { isShowFixRow, fixStyle } = this.state;
+    const { style } = this.props;
+    const { isShowFixRow, fixStyle } = this.state;
 
     return (
       <div className="thead" style={style}>

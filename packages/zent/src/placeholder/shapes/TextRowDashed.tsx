@@ -21,7 +21,7 @@ export interface IPlaceholderTextRowDashedProps {
   style?: React.CSSProperties;
   lineSpacing?: number | string;
   animate?: boolean;
-  segments?: (number | string)[];
+  segments?: Array<number | string>;
 }
 
 export interface IPlaceholderTextRowDashedState {

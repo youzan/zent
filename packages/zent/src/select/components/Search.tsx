@@ -6,7 +6,7 @@ export interface ISearchProps {
   value?: any;
   placeholder?: string;
   keyword?: string;
-  onChange(string): void;
+  onChange(val: string): void;
   ready?: boolean;
 }
 

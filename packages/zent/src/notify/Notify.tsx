@@ -78,7 +78,7 @@ const createNotifyContainerNode = (): HTMLElement => {
 const show = (text, duration, status, callback) => {
   if (!isBrowser) return null;
 
-  let container = document.createElement('div');
+  const container = document.createElement('div');
   const notifyContainerNode = createNotifyContainerNode();
   const props: any = {
     text,

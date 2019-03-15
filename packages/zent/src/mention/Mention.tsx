@@ -65,7 +65,7 @@ export class Mention extends Component<IMentionProps> {
     prefix: 'zent',
   };
 
-  __compositing: boolean;
+  _compositing: boolean;
   input: HTMLInputElement | null = null;
   suggestionList: SelectMenu | null = null;
 
@@ -209,11 +209,11 @@ export class Mention extends Component<IMentionProps> {
   }, 16);
 
   onInputCompositionStart = () => {
-    this.__compositing = true;
+    this._compositing = true;
   };
 
   onInputCompositionEnd = () => {
-    this.__compositing = false;
+    this._compositing = false;
   };
 
   // onInputFocus = evt => {
@@ -308,7 +308,7 @@ export class Mention extends Component<IMentionProps> {
    * @param {string} value
    */
   setSuggestionVisible = (value?: unknown) => {
-    if (!this.input || this.__compositing) {
+    if (!this.input || this._compositing) {
       return;
     }
 

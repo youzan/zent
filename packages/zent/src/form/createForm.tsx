@@ -37,7 +37,7 @@ const checkSubmit = submit => {
   return submit;
 };
 
-export interface FormCreateFormConfig {
+export interface IFormCreateFormConfig {
   formValidations?: { [key: string]: any };
   onChange?: () => void;
   onSubmitSuccess?: () => void;
@@ -64,7 +64,7 @@ export interface IFormCreateFormWrapperProps {
 }
 
 const createForm = (
-  config: FormCreateFormConfig = {} as FormCreateFormConfig
+  config: IFormCreateFormConfig = {} as IFormCreateFormConfig
 ) => {
   const {
     formValidations,
@@ -349,7 +349,7 @@ const createForm = (
 
       setFieldArrayMembers = (fieldArrayName, value) => {
         let matchedFa;
-        let matchedFaChildren = [];
+        const matchedFaChildren = [];
         this.fieldArrays.forEach(fa => {
           const faName = fa.getName();
           if (faName === fieldArrayName) {
@@ -448,7 +448,7 @@ const createForm = (
           let currentKey = keyPath[0];
           if (/\[\d+\]/.test(currentKey)) {
             // array
-            let index = currentKey.match(/\d+(?=\])/)[0];
+            const index = currentKey.match(/\d+(?=\])/)[0];
             currentKey = currentKey.replace(/\[\d+\]/, '');
             if (!values[currentKey]) {
               values[currentKey] = [];
@@ -548,7 +548,7 @@ const createForm = (
 
         return {
           isValid,
-          error: (function() {
+          error: (function error() {
             if (isValid) {
               return emptyArray;
             }

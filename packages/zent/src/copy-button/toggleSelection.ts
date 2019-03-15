@@ -1,6 +1,6 @@
 import noop from 'lodash-es/noop';
 
-export default function() {
+export default function toggleSelection() {
   const selection = document.getSelection();
   if (!selection.rangeCount) {
     return noop;
@@ -8,7 +8,7 @@ export default function() {
 
   let active = document.activeElement;
 
-  let ranges = [];
+  const ranges = [];
 
   for (let i = 0; i < selection.rangeCount; i++) {
     ranges.push(selection.getRangeAt(i));
@@ -28,7 +28,7 @@ export default function() {
   }
 
   selection.removeAllRanges();
-  return function() {
+  return function restoreSelection() {
     selection.type === 'Caret' && selection.removeAllRanges();
 
     if (!selection.rangeCount) {

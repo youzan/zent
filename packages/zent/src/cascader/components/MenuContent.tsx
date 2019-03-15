@@ -43,7 +43,7 @@ class MenuContent extends PureComponent<IMenuContentProps> {
   }
 
   renderCascaderItems(items: ICascaderItem[], stage: number, popover) {
-    let {
+    const {
       prefix,
       value,
       clickHandler,
@@ -54,9 +54,9 @@ class MenuContent extends PureComponent<IMenuContentProps> {
 
     const isShowLoading = isLoading && stage === loadingStage;
 
-    let cascaderItems = items.map(item => {
+    const cascaderItems = items.map(item => {
       const isActive = item.id === value[stage - 1];
-      let cascaderItemCls = classnames({
+      const cascaderItemCls = classnames({
         [`${prefix}-cascader__menu-item`]: true,
         active: isActive,
       });
@@ -87,9 +87,10 @@ class MenuContent extends PureComponent<IMenuContentProps> {
   }
 
   renderPanels(popover) {
-    let PanelEls = [];
+    const PanelEls = [];
+    const { value, recursiveNextOptions } = this.props;
+    let { options } = this.props;
     let tabIndex = 1;
-    let { options, value, recursiveNextOptions } = this.props;
 
     PanelEls.push(this.renderCascaderItems(options, tabIndex, popover));
 

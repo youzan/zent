@@ -152,9 +152,9 @@ export class Button extends Component<IButtonProps> {
       icon,
       children,
     } = this.props;
-    let renderer = href || target ? 'renderLink' : 'renderButton';
-    let { className } = this.props;
-    let classNames = setClass(
+    const renderer = href || target ? 'renderLink' : 'renderButton';
+    const { className } = this.props;
+    const classNames = setClass(
       {
         [`${prefix}-btn-${type}${outline ? '-outline' : ''}`]:
           type !== 'default',

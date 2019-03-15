@@ -50,9 +50,9 @@ export default class EditableInput extends Component<any, any> {
   };
 
   handleKeyDown = e => {
-    const number = Number(e.target.value);
+    const val = Number(e.target.value);
 
-    if (isNaN(number)) {
+    if (isNaN(val)) {
       return;
     }
 
@@ -61,23 +61,23 @@ export default class EditableInput extends Component<any, any> {
     // Up
     if (e.keyCode === 38) {
       if (this.props.label !== null) {
-        this.props.onChange({ [this.props.label]: number + amount }, e);
+        this.props.onChange({ [this.props.label]: val + amount }, e);
       } else {
-        this.props.onChange(number + amount, e);
+        this.props.onChange(val + amount, e);
       }
 
-      this.setState({ value: number + amount });
+      this.setState({ value: val + amount });
     }
 
     // Down
     if (e.keyCode === 40) {
       if (this.props.label !== null) {
-        this.props.onChange({ [this.props.label]: number - amount }, e);
+        this.props.onChange({ [this.props.label]: val - amount }, e);
       } else {
-        this.props.onChange(number - amount, e);
+        this.props.onChange(val - amount, e);
       }
 
-      this.setState({ value: number - amount });
+      this.setState({ value: val - amount });
     }
 
     // Enter

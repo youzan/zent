@@ -15,7 +15,7 @@ export class UploadImageItem extends PureComponent<IUploadImageItemProps> {
   };
 
   handleRemove = () => {
-    let { index, onDelete } = this.props;
+    const { index, onDelete } = this.props;
     onDelete(index);
   };
 
@@ -32,9 +32,9 @@ export class UploadImageItem extends PureComponent<IUploadImageItemProps> {
   };
 
   render() {
-    let { progress, src, index, prefix } = this.props;
+    const { progress, src, index, prefix } = this.props;
 
-    let { hideDeleteIcon } = this.state;
+    const { hideDeleteIcon } = this.state;
 
     return (
       <li

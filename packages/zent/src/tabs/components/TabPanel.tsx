@@ -26,15 +26,15 @@ class TabPanel extends Component<ITabPanelProps> {
   }
 
   componentDidUpdate() {
-    let { onTabReady, id } = this.props;
+    const { onTabReady, id } = this.props;
     // Dom ready后的回调
     onTabReady(id);
   }
 
   render() {
-    let props = this.props;
-    let actived = props.actived;
-    let hiddenStyle: React.CSSProperties = {};
+    const props = this.props;
+    const actived = props.actived;
+    const hiddenStyle: React.CSSProperties = {};
     if (!actived) {
       hiddenStyle.display = 'none';
     }

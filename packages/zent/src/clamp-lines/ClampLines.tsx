@@ -95,7 +95,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   clampLines() {
     const original = this.state.original;
-    let maxHeight = this.lineHeight * this.props.lines + 1;
+    const maxHeight = this.lineHeight * this.props.lines + 1;
     let start = 0;
     let middle = 0;
     let end = original.length;

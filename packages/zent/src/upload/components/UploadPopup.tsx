@@ -54,7 +54,7 @@ class UploadPopup extends Component<any, any> {
   }
 
   render() {
-    let { prefix, options, className } = this.props;
+    const { prefix, options, className } = this.props;
     const { categoryList } = options;
 
     return (
@@ -79,7 +79,7 @@ class UploadPopup extends Component<any, any> {
    * 渲染上传分组
    */
   renderUploadGroup(props) {
-    let {
+    const {
       prefix,
       i18n,
       options: { categoryList },
@@ -107,8 +107,8 @@ class UploadPopup extends Component<any, any> {
    * 网络图片渲染
    */
   renderNetworkRegion(props) {
-    let { prefix, i18n } = props;
-    let { networkImage, networkUploading, buttonText } = this.state;
+    const { prefix, i18n } = props;
+    const { networkImage, networkUploading, buttonText } = this.state;
     return (
       <div className={`${prefix}-network-image-region`}>
         <div className={`${prefix}-title`}>{i18n.popup.web}：</div>
@@ -182,11 +182,11 @@ class UploadPopup extends Component<any, any> {
    * 本地上传图片、语音
    */
   renderLocalUploadRegion(props) {
-    let { prefix, accept, options, i18n } = props;
-    let { localFiles } = this.state;
+    const { prefix, accept, options, i18n } = props;
+    const { localFiles } = this.state;
     // 记录最后一项的索引
     let lastIndex = 0;
-    let filesLength = localFiles.length;
+    const filesLength = localFiles.length;
     if (filesLength > 0) {
       // 保证新添加的都是在旧添加的文件后面
       lastIndex = localFiles[filesLength - 1][UID_KEY] + 1;
@@ -266,7 +266,7 @@ class UploadPopup extends Component<any, any> {
   };
 
   handleDelete = index => {
-    let { localFiles } = this.state;
+    const { localFiles } = this.state;
     localFiles.splice(index, 1);
     this.setState({
       localFiles,
@@ -274,8 +274,8 @@ class UploadPopup extends Component<any, any> {
   };
 
   uploadLocalImages() {
-    let { options, showUploadPopup } = this.props;
-    let { localFiles, categoryId } = this.state;
+    const { options, showUploadPopup } = this.props;
+    const { localFiles, categoryId } = this.state;
     this.setState({
       localUploading: true,
     });
@@ -302,7 +302,7 @@ class UploadPopup extends Component<any, any> {
   }
 
   fileProgressHandler(progress, index) {
-    let { localFiles } = this.state;
+    const { localFiles } = this.state;
     localFiles[index].progress = progress;
     this.setState(localFiles);
   }
@@ -321,7 +321,7 @@ class UploadPopup extends Component<any, any> {
    * 提取网络图片
    */
   confirmNetworkUrl() {
-    let { options, showUploadPopup, i18n } = this.props;
+    const { options, showUploadPopup, i18n } = this.props;
     const { categoryId } = this.state;
 
     if (!this.networkUrl) return false;

@@ -133,16 +133,16 @@ export class Upload extends Component<IUploadProps, any> {
       ...uploadOptions
     } = this.props;
 
-    let { visible } = this.state;
+    const { visible } = this.state;
 
-    let Node = trigger;
+    const Node = trigger;
 
     // 防止类名重复
     if (className === `${prefix}-upload`) {
       className = '';
     }
 
-    let dialogClassName = classnames([`${prefix}-upload`, className]);
+    const dialogClassName = classnames([`${prefix}-upload`, className]);
 
     className = classnames([
       dialogClassName,
@@ -205,7 +205,7 @@ export class Upload extends Component<IUploadProps, any> {
    * @param [boolean] visible 是否显示弹框
    */
   showUpload = (visible = true) => {
-    let { localOnly, maxAmount } = this.props;
+    const { localOnly, maxAmount } = this.props;
 
     if (!this.isUnmount && (!localOnly || maxAmount !== 1)) {
       // 直接打开本地文件

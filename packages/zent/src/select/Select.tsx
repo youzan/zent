@@ -269,7 +269,7 @@ export class Select extends React.Component<ISelectProps, any> {
     const { value, index } = coord;
 
     if (isArray(value)) {
-      let valueIndex = value.indexOf(item.value);
+      const valueIndex = value.indexOf(item.value);
       // rerender 去重
       if (
         valueIndex > -1 &&

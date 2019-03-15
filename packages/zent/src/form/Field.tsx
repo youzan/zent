@@ -10,7 +10,10 @@ import unknownProps from './unknownProps';
 import FormContext from './FormContext';
 import { IValidation } from './validationRules';
 
-export type FieldEventHandlerOptions = { merge: boolean; value?: any };
+export interface IFieldEventHandlerOptions {
+  merge: boolean;
+  value?: any;
+}
 
 export interface IFieldProps {
   ref?: (ref: any) => void;
@@ -47,10 +50,10 @@ export interface IFieldProps {
   validationErrors?: { [key: string]: any };
   validateOnChange?: boolean;
   validateOnBlur?: boolean;
-  asyncValidation?: (values: Object, value: any) => Promise<any>;
+  asyncValidation?: (values: {}, value: any) => Promise<any>;
   displayError?: boolean;
   clearErrorOnFocus?: boolean;
-  relatedFields?: Array<string>;
+  relatedFields?: string[];
 }
 
 export interface IFieldState {
@@ -256,7 +259,7 @@ class Field extends Component<IFieldProps, IFieldState> {
 
   handleChange = (
     event,
-    options: FieldEventHandlerOptions = { merge: false }
+    options: IFieldEventHandlerOptions = { merge: false }
   ) => {
     const { onChange, validateOnChange } = this.props;
     const previousValue = this.getValue();
@@ -283,7 +286,7 @@ class Field extends Component<IFieldProps, IFieldState> {
 
   handleFocus = event => {
     const { onFocus, clearErrorOnFocus } = this.props;
-    let data = {
+    const data = {
       _active: true,
     };
 
@@ -304,7 +307,7 @@ class Field extends Component<IFieldProps, IFieldState> {
 
   handleBlur = (
     event,
-    options: FieldEventHandlerOptions = { merge: false }
+    options: IFieldEventHandlerOptions = { merge: false }
   ) => {
     const { onBlur, asyncValidation, validateOnBlur } = this.props;
     const previousValue = this.getValue();

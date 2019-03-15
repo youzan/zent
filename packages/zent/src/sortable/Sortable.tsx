@@ -25,8 +25,8 @@ export interface ISortableProps {
   className?: string;
   prefix?: string;
   tag?: string;
-  items?: Array<any>;
-  onChange?: (newItems: Array<any>) => void;
+  items?: any[];
+  onChange?: (newItems: any[]) => void;
   filterClass?: string;
 
   // advance api

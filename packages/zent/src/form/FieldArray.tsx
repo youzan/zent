@@ -21,7 +21,7 @@ export interface IFieldArrayStateValue {
 
 export interface IFieldArrayProps {
   name: string;
-  value?: Array<any>;
+  value?: any[];
   component: React.ReactType;
 }
 

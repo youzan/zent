@@ -90,7 +90,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
     }
 
     let rotateIndex = this.state.rotateIndex;
-    let deg = 90 + rotateIndex * 90;
+    const deg = 90 + rotateIndex * 90;
     rotateIndex++;
 
     // 旋转时，缩放样式带上
@@ -118,7 +118,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
       );
     }
 
-    let deg = rotateIndex * 90;
+    const deg = rotateIndex * 90;
 
     // 缩放时，旋转样式带上
     const transformStyle = scaleTag

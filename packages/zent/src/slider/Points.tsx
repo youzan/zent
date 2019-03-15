@@ -88,7 +88,7 @@ export default class Points extends PureComponent<any, any> {
       }
       newValue = toFixed(newValue, step);
       newValue = checkValueInRange(newValue, max, min);
-      let { conf } = this.state;
+      const { conf } = this.state;
       conf[type] = newValue;
       this.setState({ conf });
       onChange && onChange(range ? [conf.start, conf.end] : newValue);

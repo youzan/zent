@@ -85,7 +85,7 @@ export class Tabs extends Component<ITabsProps> {
   };
 
   renderNav(tabListData) {
-    let {
+    const {
       type,
       align,
       canadd,
@@ -117,8 +117,8 @@ export class Tabs extends Component<ITabsProps> {
   }
 
   renderTabPanel(tabListData) {
-    let { prefix } = this.props;
-    let newChildren = [];
+    const { prefix } = this.props;
+    const newChildren = [];
     if (tabListData && tabListData.length) {
       tabListData.forEach(tabItem => {
         newChildren.push(
@@ -147,7 +147,7 @@ export class Tabs extends Component<ITabsProps> {
     // 向上兼容
     // 因为defaultProps里面activeId和activeKey默认值为空，所以不应该用是否是undefined来处理
     activeId = activeId === '' ? activeKey : activeId;
-    let tabListData = tabUtil.getTabListData(children, activeId);
+    const tabListData = tabUtil.getTabListData(children, activeId);
     return (
       <div className={`${prefix}-tabs ${className}`}>
         {this.renderNav(tabListData)}
@@ -159,7 +159,7 @@ export class Tabs extends Component<ITabsProps> {
   }
 
   renderWithoutPanel() {
-    let { tabs, prefix, className, activeId } = this.props;
+    const { tabs, prefix, className, activeId } = this.props;
 
     return (
       <div className={`${prefix}-tabs ${className}`}>
@@ -174,7 +174,7 @@ export class Tabs extends Component<ITabsProps> {
   }
 
   render() {
-    let { tabs } = this.props;
+    const { tabs } = this.props;
     if (tabs) {
       return this.renderWithoutPanel();
     }

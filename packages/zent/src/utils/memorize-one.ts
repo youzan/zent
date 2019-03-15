@@ -30,7 +30,7 @@ export default function<F extends Function>(
   let lastThis: unknown;
   let lastArgs: unknown[] = [];
   let lastResult: unknown;
-  let calledOnce: boolean = false;
+  let calledOnce = false;
 
   // breaking cache when context (this) or arguments change
   const result = function(...newArgs: unknown[]) {

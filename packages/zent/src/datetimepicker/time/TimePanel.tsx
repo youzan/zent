@@ -20,7 +20,7 @@ const disabledMap = {
 };
 
 export interface ITimePanelProps {
-  onChange: (Date, string) => void;
+  onChange: (Date, str) => void;
   actived: Date;
   min?: Date;
   max?: Date;

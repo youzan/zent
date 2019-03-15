@@ -51,20 +51,20 @@ class Nav extends Component<INavProps> {
   }
 
   positionInkBar() {
-    let { type } = this.props;
+    const { type } = this.props;
     if (type === 'slider') {
-      let activeTabDom = ReactDOM.findDOMNode(this.activeTab);
+      const activeTabDom = ReactDOM.findDOMNode(this.activeTab);
       if (activeTabDom) {
-        let activeTabInner = (activeTabDom as any).children[0];
-        let activeTabInnerContentDom = activeTabInner.children[0];
-        let targetDom = activeTabInnerContentDom || activeTabInner;
+        const activeTabInner = (activeTabDom as any).children[0];
+        const activeTabInnerContentDom = activeTabInner.children[0];
+        const targetDom = activeTabInnerContentDom || activeTabInner;
         let tWidth = navUtil.getOffsetWH(targetDom);
-        let tLeft = navUtil.getOffsetLT(targetDom);
+        const tLeft = navUtil.getOffsetLT(targetDom);
         let wrapLeft = navUtil.getOffsetLT(this.tabwrapDom);
         if (!activeTabInnerContentDom) {
-          let cssStyle = window.getComputedStyle(activeTabInner);
-          let paddingLeft = parseInt(cssStyle.paddingLeft);
-          let paddingRight = parseInt(cssStyle.paddingRight);
+          const cssStyle = window.getComputedStyle(activeTabInner);
+          const paddingLeft = parseInt(cssStyle.paddingLeft, 10);
+          const paddingRight = parseInt(cssStyle.paddingRight, 10);
           tWidth = tWidth - paddingLeft - paddingRight;
           wrapLeft -= paddingLeft;
         }
@@ -75,10 +75,10 @@ class Nav extends Component<INavProps> {
   }
 
   renderTabs() {
-    let renderData = navUtil.modifyTabListData(this.props);
-    let TabList = [];
+    const renderData = navUtil.modifyTabListData(this.props);
+    const TabList = [];
     renderData.forEach(renderDataItem => {
-      let refParam = {};
+      const refParam = {};
       if (renderDataItem.actived) {
         (refParam as any).ref = c => {
           this.activeTab = c;
@@ -102,22 +102,22 @@ class Nav extends Component<INavProps> {
   }
 
   onTabSelected = id => {
-    let { onChange } = this.props;
+    const { onChange } = this.props;
     onChange(id);
   };
 
   onTabDel = id => {
-    let { onDelete } = this.props;
+    const { onDelete } = this.props;
     onDelete(id);
   };
 
   onTabAdd = () => {
-    let { onTabAdd } = this.props;
+    const { onTabAdd } = this.props;
     onTabAdd();
   };
 
   render() {
-    let { prefix, align, canadd, size, type, navExtraContent } = this.props;
+    const { prefix, align, canadd, size, type, navExtraContent } = this.props;
     let classes = `${prefix}-tabs-size-${size} ${prefix}-tabs-type-${type} ${prefix}-tabs-align-${align}`;
     if (type === 'slider' && size === 'normal') {
       classes += ` ${prefix}-tabs-third-level`;

@@ -1,4 +1,4 @@
-let scrollbarWidth: number = 0;
+let scrollbarWidth = 0;
 
 // Measure scrollbar width for padding body during modal show/hide
 const scrollbarMeasure = {

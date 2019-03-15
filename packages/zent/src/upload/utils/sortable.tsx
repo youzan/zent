@@ -4,7 +4,7 @@ const UNSORTABLE = 'unsortable';
 
 export function initSortable(el, onMove) {
   let initState = [];
-  let sortable = Sortable.create(el, {
+  const sortable = Sortable.create(el, {
     filter: `.${UNSORTABLE}`,
     onStart() {
       initState = sortable.toArray();

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import copy from './CopyToClipboard';
 
-export interface CopyToClipboardProps {
+export interface ICopyToClipboardProps {
   text: string;
   children?: React.ReactNode;
   onCopy?: (text: string, result: boolean) => void;
@@ -12,7 +12,7 @@ export interface ICopyToClipboardChildProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-export class CopyToClipboard extends Component<CopyToClipboardProps> {
+export class CopyToClipboard extends Component<ICopyToClipboardProps> {
   onClick = event => {
     const { text, onCopy, children } = this.props;
 

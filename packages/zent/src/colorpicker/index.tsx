@@ -12,7 +12,7 @@ import SketchPresetColors from './SketchPresetColors';
 import PopoverClickTrigger from './PopoverClickTrigger';
 import Popover from '../popover';
 
-export type PresetColors = Array<string>;
+export type PresetColors = string[];
 export type ColorPickerType = 'default' | 'simple';
 
 export interface IColorPickerProps {

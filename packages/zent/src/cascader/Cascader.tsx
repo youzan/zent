@@ -85,10 +85,10 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   }
 
   componentWillReceiveProps(nextProps) {
-    let { loadMore } = this.props;
+    const { loadMore } = this.props;
 
     if (nextProps.hasOwnProperty('value')) {
-      let nextValue = Array.isArray(nextProps.value) ? nextProps.value : [];
+      const nextValue = Array.isArray(nextProps.value) ? nextProps.value : [];
       if (!loadMore) {
         this.setState({
           value: nextValue,
@@ -105,7 +105,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
 
   recursiveNextOptions(options: ICascaderItem[], id: unknown) {
     if (options && options.length > 0) {
-      let currOptions = options.find(it => it.id === id);
+      const currOptions = options.find(it => it.id === id);
       if (currOptions && currOptions.children) {
         return currOptions.children;
       }
@@ -119,18 +119,18 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     options?: ICascaderItem[],
     isTriggerChange = true
   ) {
-    let activeValue = [];
+    const activeValue = [];
     let activeId = 1;
-    let { onChange } = this.props;
-    let state = this.state;
+    const { onChange } = this.props;
+    const state = this.state;
     value = value || state.value;
     options = options || state.options;
 
     if (options && options.length > 0 && value && value.length > 0) {
       activeId = 0;
       for (let i = 0; i < value.length; i++) {
-        let id = value[i];
-        let nextOption = options.find(it => it.id === id);
+        const id = value[i];
+        const nextOption = options.find(it => it.id === id);
         activeId++;
         if (!nextOption) break;
 
@@ -179,9 +179,9 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     popover,
     triggerType = 'click'
   ) => {
-    let { loadMore } = this.props;
-    let { options } = this.state;
-    let needLoading =
+    const { loadMore } = this.props;
+    const { options } = this.state;
+    const needLoading =
       !item.isLeaf &&
       loadMore &&
       (!item.children || item.children.length === 0);
@@ -212,13 +212,13 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     triggerType?: 'click' | 'hover'
   ) => {
     let { value } = this.state;
-    let { changeOnSelect } = this.props;
+    const { changeOnSelect } = this.props;
     let hasClose = false;
 
     value = value.slice(0, stage - 1);
     value.push(item.id);
 
-    let obj: Partial<ICascaderState> = {
+    const obj: Partial<ICascaderState> = {
       value,
     };
 
@@ -241,7 +241,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
 
   getPopoverContent(i18n) {
     const { type, prefix, title, options, expandTrigger } = this.props;
-    let { activeId, value, isLoading, loadingStage } = this.state;
+    const { activeId, value, isLoading, loadingStage } = this.state;
     let PopoverContentType:
       | typeof TabsPopoverContent
       | typeof MenuPopoverContent
@@ -280,8 +280,8 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     return (
       <Receiver componentName="Cascader">
         {i18n => {
-          let { prefix, className, popClassName, placeholder } = this.props;
-          let { activeValue, open } = this.state;
+          const { prefix, className, popClassName, placeholder } = this.props;
+          const { activeValue, open } = this.state;
 
           let cascaderValue: React.ReactNode = placeholder || i18n.placeholder;
           let hasValue = false;
@@ -297,13 +297,13 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
             }
           }
 
-          let cascaderCls = classnames({
+          const cascaderCls = classnames({
             [`${prefix}-cascader`]: true,
             [className]: true,
             open,
           });
 
-          let selectTextCls = classnames({
+          const selectTextCls = classnames({
             [`${prefix}-cascader__select-text`]: true,
             'is-placeholder': !hasValue,
           });

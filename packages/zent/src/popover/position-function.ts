@@ -1,7 +1,7 @@
-export type IPopoverPosition = {
+export interface IPopoverPosition {
   getCSSStyle: () => React.CSSProperties;
   name: string;
-};
+}
 
 export type PositionFunctionImpl = (
   anchorBoundingBox: ClientRect,

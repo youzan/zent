@@ -2,9 +2,10 @@ import { Component } from 'react';
 import has from 'lodash-es/has';
 import { PaginationLayout } from '../layout/type';
 
-export interface PaginationChangeHandler {
-  (detail: { current: number; pageSize: number }): any;
-}
+export type PaginationChangeHandler = (detail: {
+  current: number;
+  pageSize: number;
+}) => any;
 
 export interface IBasePaginationProps {
   current: number;

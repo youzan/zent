@@ -63,7 +63,7 @@ export class NumberInput extends PureComponent<INumberInputProps, any> {
 
   componentWillReceiveProps(nextProps) {
     this.validateStatus(nextProps);
-    let props = this.props;
+    const props = this.props;
     if (
       nextProps.decimal !== props.decimal ||
       nextProps.disabled !== props.disabled ||
@@ -119,16 +119,16 @@ export class NumberInput extends PureComponent<INumberInputProps, any> {
 
   countFied(num, len, count) {
     // 步进器加减的计算
-    let result = ((Math.round(num * 10 ** len) + count) / 10 ** len).toFixed(
+    const result = ((Math.round(num * 10 ** len) + count) / 10 ** len).toFixed(
       len
     );
-    let { min, max } = this.props;
+    const { min, max } = this.props;
     // 检查范围
     return this.adjustFixed(result, min, max, len);
   }
 
   onChange = ev => {
-    let value = ev.target.value;
+    const value = ev.target.value;
     if (!value) {
       this.setState({ value });
     } else if (
@@ -189,7 +189,7 @@ export class NumberInput extends PureComponent<INumberInputProps, any> {
     if (disabled) return;
     const { value } = this.state;
     const { decimal } = this.props;
-    let { num, upArrow, downArrow } = this.countFied(value, decimal, count);
+    const { num, upArrow, downArrow } = this.countFied(value, decimal, count);
     this.setState({
       value: num,
       upArrow,
@@ -257,8 +257,8 @@ export class NumberInput extends PureComponent<INumberInputProps, any> {
     const { value, upArrow, downArrow } = this.state;
 
     // 箭头状态
-    let addState = disabled || readOnly || upArrow;
-    let reduceState = disabled || readOnly || downArrow;
+    const addState = disabled || readOnly || upArrow;
+    const reduceState = disabled || readOnly || downArrow;
 
     // 最外层样式
     const wrapClass = classNames(

@@ -20,13 +20,13 @@ export interface IValidation {
   minLength?: number;
 }
 
-const isExisty = function(value) {
+function isExisty(value) {
   return value !== null && value !== undefined;
-};
+}
 
-const isEmpty = function(value) {
+function isEmpty(value) {
   return value === '';
-};
+}
 
 const validations = {
   required(values, value) {
@@ -86,12 +86,10 @@ const validations = {
     return !isExisty(value) || isEmpty(value) || value.length === length;
   },
   equals(values, value, eql) {
-    /* eslint-disable eqeqeq */
-    return !isExisty(value) || isEmpty(value) || value == eql;
+    return !isExisty(value) || isEmpty(value) || value === eql;
   },
   equalsField(values, value, field) {
-    return value == get(values, field);
-    /* eslint-enable eqeqeq */
+    return value === get(values, field);
   },
   maxLength(values, value, length) {
     return !isExisty(value) || value.length <= length;

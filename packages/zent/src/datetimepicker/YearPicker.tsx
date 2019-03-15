@@ -141,7 +141,7 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
   };
 
   isDisabled = val => {
-    let { disabledDate, min, max } = this.props;
+    const { disabledDate, min, max } = this.props;
 
     if (disabledDate && disabledDate(val)) return true;
     if (min && +val < +getYear(min)) return true;

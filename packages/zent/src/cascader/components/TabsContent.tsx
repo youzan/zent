@@ -32,10 +32,10 @@ export interface ItabsContentProps {
 
 class TabsContent extends PureComponent<ItabsContentProps> {
   renderCascaderItems(items: ICascaderItem[], stage: number, popover: Popover) {
-    let { prefix, value, clickHandler } = this.props;
+    const { prefix, value, clickHandler } = this.props;
 
-    let cascaderItems = items.map(item => {
-      let cascaderItemCls = classnames({
+    const cascaderItems = items.map(item => {
+      const cascaderItemCls = classnames({
         [`${prefix}-cascader__list-link`]: true,
         active: item.id === value[stage - 1],
       });
@@ -57,7 +57,7 @@ class TabsContent extends PureComponent<ItabsContentProps> {
   }
 
   renderTabTitle(title: React.ReactNode, stage: number) {
-    let { prefix, isLoading, loadingStage } = this.props;
+    const { prefix, isLoading, loadingStage } = this.props;
 
     if (isLoading && stage === loadingStage) {
       return (
@@ -72,7 +72,7 @@ class TabsContent extends PureComponent<ItabsContentProps> {
   }
 
   renderPanels(popover: Popover, i18n: any) {
-    let PanelEls = [];
+    const PanelEls = [];
     let tabIndex = 1;
     let { title, options, value, recursiveNextOptions } = this.props;
 

@@ -6,8 +6,8 @@ import findIndex from 'lodash-es/findIndex';
 import isEmpty from 'lodash-es/isEmpty';
 import isFirefox from '../utils/isFirefox';
 
-let gEventRegistered = false;
-let subscriberList = [];
+const gEventRegistered = false;
+const subscriberList = [];
 
 export function install(config) {
   if (!gEventRegistered) {

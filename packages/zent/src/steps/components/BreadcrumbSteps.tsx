@@ -7,7 +7,7 @@ import { isElement } from 'react-is';
 
 export default class BreadcrumbSteps extends Component<IStepsProps> {
   onStepChange = id => {
-    let { onStepChange } = this.props;
+    const { onStepChange } = this.props;
     onStepChange && onStepChange(id);
   };
 
@@ -45,7 +45,7 @@ export default class BreadcrumbSteps extends Component<IStepsProps> {
             return null;
           }
 
-          let itemTitle = item.props.title;
+          const itemTitle = item.props.title;
 
           return (
             <div

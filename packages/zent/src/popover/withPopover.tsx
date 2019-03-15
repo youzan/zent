@@ -11,7 +11,7 @@ import Popover from './Popover';
  * Adds a popover prop to component.
  */
 export function exposePopover<N extends string>(propName: N) {
-  return function<T extends {}>(Base: React.ComponentType<T>) {
+  return function expose<T extends {}>(Base: React.ComponentType<T>) {
     return class ExposePopover extends Component<T> {
       static contextType = PopoverContext;
       context!: IPopoverContext;

@@ -4,7 +4,7 @@ import { noop } from '../constants';
 import { DatePickers } from '../common/types';
 
 export interface ITimeCellProps {
-  onSelect: (number) => void;
+  onSelect: (val) => void;
   cells: DatePickers.ITimeCellValue[][];
 }
 
@@ -20,7 +20,7 @@ export default class TimeCell extends PureComponent<ITimeCellProps> {
   getTbody() {
     const { cells } = this.props;
     return cells.map((row, i) => {
-      let tds = row.map((col, j) => {
+      const tds = row.map((col, j) => {
         return (
           <li className="grid-cell" role="gridcell" key={j}>
             <span

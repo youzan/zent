@@ -7,7 +7,7 @@ import { I18nReceiver as Receiver } from '../../i18n';
 
 import Tag from '../components/Tag';
 
-export interface TagsTriggerItem {
+export interface ITagsTriggerItem {
   text: string;
   value: any;
   cid: number;
@@ -20,11 +20,11 @@ export interface ITagsTriggerProps {
   placeholder: string;
   value: any;
   onChange: (val: {
-    selectedItems?: TagsTriggerItem[];
+    selectedItems?: ITagsTriggerItem[];
     selectedItem: { value?: string };
     open?: boolean;
   }) => void;
-  onDelete: (val: TagsTriggerItem) => void;
+  onDelete: (val: ITagsTriggerItem) => void;
   onClick: React.MouseEventHandler<HTMLElement>;
   visible: boolean;
 }

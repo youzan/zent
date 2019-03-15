@@ -28,7 +28,7 @@ export default class MinutePanel extends PureComponent<any> {
         const isDisabled = this.props.isDisabled && this.props.isDisabled(i);
         const isSelected = this.isSelected(i);
         const isCurrent = this.isCurrent(i);
-        let className = classNames({
+        const className = classNames({
           'panel__cell time-panel__cell': true,
           'panel__cell--disabled': isDisabled,
           'panel__cell--selected': isSelected,

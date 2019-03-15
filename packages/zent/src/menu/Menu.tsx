@@ -15,7 +15,7 @@ export interface IMenuProps {
   onExpandChange?: (expanded?: string[]) => void;
   style?: React.CSSProperties;
   mode?: 'pop' | 'inline';
-  defaultExpandKeys?: Array<string>;
+  defaultExpandKeys?: string[];
   defaultSelectedKey?: string;
   inlineIndent?: number;
   className?: string;

@@ -10,11 +10,11 @@ import GroupContext from './GroupContext';
 const GroupContextProvider = GroupContext.Provider;
 
 export interface ICheckboxGroupProps {
-  value: Array<any>;
+  value: any[];
   isValueEqual?: (value1: any, value2: any) => boolean;
   disabled?: boolean;
   readOnly?: boolean;
-  onChange?: (values: Array<any>) => void;
+  onChange?: (values: any[]) => void;
   className?: string;
   style?: React.CSSProperties;
   prefix?: string;

@@ -35,7 +35,11 @@ export function findMentionAtCaretPosition({
   const { selectionEnd } = input;
 
   // Find the first space before caret
-  let mentionStartIndex = findLastIndex(value, isWhiteSpace, selectionEnd - 1);
+  const mentionStartIndex = findLastIndex(
+    value,
+    isWhiteSpace,
+    selectionEnd - 1
+  );
 
   // Don't trigger suggestion if caret is right after the space
   if (mentionStartIndex + 1 === selectionEnd) {
@@ -44,7 +48,7 @@ export function findMentionAtCaretPosition({
   }
 
   // Find the next space after caret
-  let mentionEndIndex = findIndex(value, isWhiteSpace, selectionEnd);
+  const mentionEndIndex = findIndex(value, isWhiteSpace, selectionEnd);
 
   // Now try to match triggerText from mentionStartIndex
   let i =
@@ -53,7 +57,7 @@ export function findMentionAtCaretPosition({
       : Math.min(mentionStartIndex + 1, value.length - 1);
   const caretMeasureStart = i;
 
-  let end =
+  const end =
     mentionEndIndex === -1
       ? value.length - 1
       : Math.max(mentionEndIndex - 1, 0);

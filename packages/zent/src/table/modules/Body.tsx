@@ -27,7 +27,7 @@ export default class Body extends PureComponent<any, any> {
 
   handleExpand(rowIndex) {
     return () => {
-      let expandItems = assign({}, this.state.expandItems);
+      const expandItems = assign({}, this.state.expandItems);
 
       expandItems[rowIndex] = !(expandItems[rowIndex] || 0);
 
@@ -49,7 +49,7 @@ export default class Body extends PureComponent<any, any> {
   }
 
   render() {
-    let {
+    const {
       datasets,
       columns,
       emptyLabel,
@@ -60,12 +60,12 @@ export default class Body extends PureComponent<any, any> {
       needExpand,
     } = this.props;
 
-    let trs = [];
-    let dataIterator = (rowData, rowIndex) => {
-      let { canSelect = true, rowClass = '' } = getRowConf(rowData, rowIndex);
+    const trs = [];
+    const dataIterator = (rowData, rowIndex) => {
+      const { canSelect = true, rowClass = '' } = getRowConf(rowData, rowIndex);
       const key = rowData[rowKey] || rowIndex;
 
-      let tds = [];
+      const tds = [];
       if (needExpand) {
         tds.push(
           <div key="-1" className="td expanded-item">
@@ -83,7 +83,7 @@ export default class Body extends PureComponent<any, any> {
 
       columns.forEach((item, columnIndex) => {
         // 位置信息
-        let pos = {
+        const pos = {
           row: rowIndex,
           column: columnIndex,
         };
@@ -123,7 +123,7 @@ export default class Body extends PureComponent<any, any> {
       );
     };
 
-    let expandedInterator = (rowData, rowIndex) => {
+    const expandedInterator = (rowData, rowIndex) => {
       const key = rowData[rowKey] || rowIndex;
 
       trs.push(

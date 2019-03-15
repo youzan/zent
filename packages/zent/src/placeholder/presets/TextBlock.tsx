@@ -12,7 +12,7 @@ export interface IPlaceholderTextBlockProps {
   rows: number;
   lineSpacing?: string | number;
   widths?: number[];
-  dashSegments?: (string | number)[][];
+  dashSegments?: Array<Array<string | number>>;
   animate?: boolean;
   dashed?: boolean;
   style?: React.CSSProperties;

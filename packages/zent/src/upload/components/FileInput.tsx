@@ -18,7 +18,7 @@ import { IUploadErrorMessage } from '../Upload';
 
 const noop = res => res;
 
-export interface UploadLocalFile {
+export interface IUploadLocalFile {
   src: string;
   file: Blob;
   __uid: number;
@@ -33,7 +33,7 @@ export interface IFileInputProps {
   auto?: boolean;
   filterFiles: (files: File[]) => File[] | Promise<File[]>;
   onError: () => void;
-  onChange?: (files: UploadLocalFile[]) => void;
+  onChange?: (files: IUploadLocalFile[]) => void;
   errorMessages?: IUploadErrorMessage;
   i18n: any;
 }
@@ -78,7 +78,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
     let files = toArray(evt.target.files);
     const { filterFiles, onError } = this.props;
 
-    let filterResult = filterFiles(files);
+    const filterResult = filterFiles(files);
     const iterator = this.iteratorFiles(i18n);
     if (isPromise(filterResult)) {
       filterResult.then(iterator, onError);
@@ -103,7 +103,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
 
     forEach(files, (file, index) => {
       if (maxAmount && index + initIndex >= maxAmount) {
-        let message = formatErrorMessages(
+        const message = formatErrorMessages(
           errorMessages.overMaxAmount,
           { maxAmount, type },
           i18n.input.maxAmount
@@ -115,7 +115,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
       if (!maxSize || file.size <= maxSize) {
         this.addFile(file, index, i18n);
       } else {
-        let message = formatErrorMessages(
+        const message = formatErrorMessages(
           errorMessages.overMaxSize,
           {
             maxSize: formatFileSize(maxSize),
@@ -131,10 +131,10 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
   };
 
   addFile(file, index, i18n) {
-    let fileReader = new FileReader();
-    let { type, initIndex, silent, errorMessages } = this.props;
-    let { accept } = this.state;
-    let localFiles = [];
+    const fileReader = new FileReader();
+    const { type, initIndex, silent, errorMessages } = this.props;
+    const { accept } = this.state;
+    const localFiles = [];
 
     fileReader.onload = e => {
       const mimeType = fileType(
@@ -153,7 +153,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
           [UID_KEY]: initIndex + index,
         });
       } else {
-        let message = formatErrorMessages(
+        const message = formatErrorMessages(
           errorMessages.wrongMimeType,
           { type },
           i18n.input.type
@@ -167,7 +167,7 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
   }
 
   autoShowInput = fileInput => {
-    let { maxAmount, auto } = this.props;
+    const { maxAmount, auto } = this.props;
     if (
       auto &&
       maxAmount === 1 &&
@@ -179,8 +179,8 @@ export default class FileInput extends PureComponent<IFileInputProps, any> {
   };
 
   render() {
-    let { maxAmount } = this.props;
-    let { accept } = this.state;
+    const { maxAmount } = this.props;
+    const { accept } = this.state;
 
     return (
       <Receiver componentName="Upload">

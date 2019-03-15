@@ -1,4 +1,4 @@
-import deselectCurrent from './ToggleSelection';
+import toggleSelection from './toggleSelection';
 
 function copy(text) {
   let reselectPrevious,
@@ -8,7 +8,7 @@ function copy(text) {
     success = false;
 
   try {
-    reselectPrevious = deselectCurrent();
+    reselectPrevious = toggleSelection();
 
     range = document.createRange();
     selection = document.getSelection();
@@ -34,7 +34,7 @@ function copy(text) {
     range.selectNodeContents(mark);
     selection.addRange(range);
 
-    let successful = document.execCommand('copy');
+    const successful = document.execCommand('copy');
     if (!successful) {
       throw new Error('copy command was unsuccessful');
     }

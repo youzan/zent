@@ -38,7 +38,7 @@ class Row extends PureComponent<any, any> {
         : null;
 
     forEach(columns, (column, columnIndex) => {
-      let pos = {
+      const pos = {
         row: rowIndex,
         column: columnIndex,
       };

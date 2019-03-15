@@ -44,8 +44,8 @@ function stopPropagation(e) {
 }
 
 export interface IGridProps {
-  columns: Array<IGridColumn>;
-  datasets: Array<Object>;
+  columns: IGridColumn[];
+  datasets: Array<{}>;
   rowKey?: string;
   onChange?: (conf: IGridOnChangeConfig) => any;
   scroll?: {
@@ -56,10 +56,10 @@ export interface IGridProps {
   sortType?: GridSortType;
   emptyLabel?: string;
   selection?: {
-    selectedRowKeys?: Array<string>;
+    selectedRowKeys?: string[];
     onSelect?: (
       selectedkeys: string,
-      selectedRows: Array<any>,
+      selectedRows: any[],
       currentRow: number
     ) => any;
     getCheckboxProps?: (data: object) => { disabled?: boolean };
@@ -191,7 +191,7 @@ export class Grid extends PureComponent<IGridProps, any> {
           `tbody .${prefix}-grid-tr__expanded`
         )) ||
       [];
-    let headRows = this.scrollHeader
+    const headRows = this.scrollHeader
       ? this.scrollHeader.querySelectorAll('thead')
       : this.bodyTable.querySelectorAll('thead');
 
@@ -320,7 +320,7 @@ export class Grid extends PureComponent<IGridProps, any> {
   };
 
   getColumns = (props, columns?: any[], expandRowKeys?: string[]) => {
-    let { selection, datasets, expandation } = props || this.props;
+    const { selection, datasets, expandation } = props || this.props;
     const isStoreColumns = !columns;
     columns = (columns || this.store.getState('columns')).slice();
     expandRowKeys = expandRowKeys || this.state.expandRowKeys;
@@ -513,8 +513,8 @@ export class Grid extends PureComponent<IGridProps, any> {
     const columns = options.columns || this.store.getState('columns');
     const { expandRowKeys } = this.state;
     let tableClassName = '';
-    let bodyStyle: React.CSSProperties = {};
-    let tableStyle: React.CSSProperties = {};
+    const bodyStyle: React.CSSProperties = {};
+    const tableStyle: React.CSSProperties = {};
 
     if (fixed || scroll.x) {
       tableClassName = `${prefix}-grid-fixed`;
@@ -687,7 +687,7 @@ export class Grid extends PureComponent<IGridProps, any> {
   handleBatchSelect = (type, data) => {
     let selectedRowKeys = this.store.getState('selectedRowKeys').slice();
 
-    let changeRowKeys = [];
+    const changeRowKeys = [];
 
     switch (type) {
       case 'selectAll':
@@ -782,7 +782,7 @@ export class Grid extends PureComponent<IGridProps, any> {
       nextProps.datasets !== this.props.datasets
     ) {
       this.checkboxPropsCache = {};
-      let expandRowKeys = this.getExpandRowKeys(nextProps);
+      const expandRowKeys = this.getExpandRowKeys(nextProps);
       this.store.setState({
         columns: this.getColumns(nextProps, nextProps.columns, expandRowKeys),
       });
@@ -801,7 +801,7 @@ export class Grid extends PureComponent<IGridProps, any> {
   render() {
     const { prefix, loading, pageInfo, bordered } = this.props;
     let className = `${prefix}-grid`;
-    let borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
+    const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName);
 
     if (this.scrollPosition === 'both') {

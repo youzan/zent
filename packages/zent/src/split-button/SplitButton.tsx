@@ -16,7 +16,7 @@ export interface ISplitButtonProps {
   size?: 'medium' | 'large' | 'small';
   disabled?: boolean;
   loading?: boolean;
-  dropdownData?: Array<any>;
+  dropdownData?: any[];
   dropdownTrigger?: 'click' | 'hover';
   dropdownText?: string;
   dropdownValue?: string;

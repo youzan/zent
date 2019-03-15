@@ -11,7 +11,7 @@ import {
   GridSortType,
   IGridOnChangeConfig,
   GridFixedType,
-  GridScrollDelta,
+  IGridScrollDelta,
 } from './types';
 
 export interface IGridHeaderProps {
@@ -23,7 +23,7 @@ export interface IGridHeaderProps {
   store: any;
   fixed: GridFixedType;
   fixedColumnsHeadRowsHeight: number[];
-  scroll: GridScrollDelta;
+  scroll: IGridScrollDelta;
 }
 
 class Header extends PureComponent<IGridHeaderProps, any> {
@@ -39,7 +39,7 @@ class Header extends PureComponent<IGridHeaderProps, any> {
 
   onSort = (column, props, newSortType) => {
     const { sortBy } = props;
-    let name = column.name;
+    const name = column.name;
     let sortType: GridSortType = '';
 
     if (name === sortBy) {

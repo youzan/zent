@@ -5,7 +5,7 @@ export function getPageRange(options) {
   const end = totalPages + (endDelta || 0);
   let min = Math.max(start, current - 2);
   let max = Math.min(current + 2, end);
-  let len = max - min + 1;
+  const len = max - min + 1;
 
   // 不足 5 项的，尝试往一边加满 5 项
   if (len < 5) {

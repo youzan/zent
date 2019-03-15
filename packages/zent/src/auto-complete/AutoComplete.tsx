@@ -69,7 +69,7 @@ export class AutoComplete extends Component<
     valueFromOptions: false,
   };
 
-  blurHandlerPrevented: boolean = false;
+  blurHandlerPrevented = false;
   refMenuItemList: SelectMenu | null = null;
 
   constructor(props) {
@@ -155,7 +155,7 @@ export class AutoComplete extends Component<
         if (!this.blurHandlerPrevented) {
           // Try to match searchText to item value
           const { searchText, value } = this.state;
-          let selectedValue = this.getSelectedValueFromSearchText(searchText);
+          const selectedValue = this.getSelectedValueFromSearchText(searchText);
           if (selectedValue) {
             if (selectedValue !== value) {
               this.props.onSelect && this.props.onSelect(selectedValue);

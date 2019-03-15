@@ -28,7 +28,7 @@ export interface IDateRangeQuickPickerProps {
   valueType?: 'string' | 'number';
   format?: string;
   chooseDays?: number;
-  preset?: Array<IDateRangeQuickPickerPreset>;
+  preset?: IDateRangeQuickPickerPreset[];
   min?: string | number | Date;
   max?: string | number | Date;
 }

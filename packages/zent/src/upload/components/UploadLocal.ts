@@ -9,7 +9,10 @@ export default function uploadLocalImage(options, uploadConfig) {
       return reject('onUpload is not a function');
     }
 
-    let uploadCallback = onUpload(uploadConfig.localFiles || [], uploadConfig);
+    const uploadCallback = onUpload(
+      uploadConfig.localFiles || [],
+      uploadConfig
+    );
     if (isPromise(uploadCallback)) {
       uploadCallback.then(resolve).catch(reject);
     } else {

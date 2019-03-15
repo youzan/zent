@@ -28,7 +28,7 @@ class SelectionCheckboxAll extends PureComponent<any, any> {
   getCheckBoxState = (props, type) => {
     const { datasets, store, getDataKey } = props;
     let state;
-    let func = type === 'every' ? every : some;
+    const func = type === 'every' ? every : some;
 
     if (size(datasets) === 0) {
       state = false;
@@ -61,7 +61,7 @@ class SelectionCheckboxAll extends PureComponent<any, any> {
 
   onChange = e => {
     const { datasets } = this.props;
-    let checked = e.target.checked;
+    const checked = e.target.checked;
     this.props.onSelect(checked ? 'selectAll' : 'removeAll', datasets);
   };
 

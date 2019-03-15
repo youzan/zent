@@ -10,7 +10,7 @@ export type GridRowClassNameType =
   | string
   | ((data: object, rowIndex: number) => string);
 
-export interface GridScrollDelta {
+export interface IGridScrollDelta {
   x?: number;
   y?: number;
 }

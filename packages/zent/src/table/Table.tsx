@@ -29,43 +29,43 @@ export interface ITableColumn {
   textAign?: 'left' | 'right' | 'center';
 }
 
-export type TableChangeConfig = {
+export interface ITableChangeConfig {
   sortBy: string;
   sortType: 'asc' | 'desc';
   current: number;
   pageSize: number;
-};
+}
 
 export interface ITableProps {
-  columns: Array<ITableColumn>;
-  datasets: Array<Object>;
+  columns: ITableColumn[];
+  datasets: Array<{}>;
   rowKey?: string;
   sortBy?: string;
   sortType?: 'desc' | 'asc';
-  onChange?: (conf: TableChangeConfig) => void;
+  onChange?: (conf: ITableChangeConfig) => void;
   emptyLabel?: string;
   selection?: {
-    selectedRowKeys?: Array<string>;
-    indeterminateRowKeys?: Array<string>;
+    selectedRowKeys?: string[];
+    indeterminateRowKeys?: string[];
     isSingleSelection?: boolean;
     needCrossPage?: boolean;
     onSelect?: (
       selectedkeys: string[],
-      selectedRows: Array<any>,
+      selectedRows: any[],
       currentRow: number
     ) => void;
     canRowSelect?: boolean;
   };
   loading?: boolean;
   getRowConf?: (
-    data: Object,
+    data: {},
     index: number
   ) => { canSelect: boolean; rowClass: string };
   expandation?: {
     isExpanded?: (record: any, index: number) => boolean;
     expandRender?: (data: any) => React.ReactNode;
   };
-  batchComponents?: Array<any>;
+  batchComponents?: any[];
   batchComponentsAutoFixed?: boolean;
   autoStick?: boolean;
   autoScroll?: boolean;
@@ -255,7 +255,7 @@ export class Table extends PureComponent<ITableProps, any> {
    * 设置内部属性，cached选中结果
    */
   setSelection() {
-    let { selection } = this.props;
+    const { selection } = this.props;
     this.selectedRowKeys = selection.selectedRowKeys.slice(0); // copy 一份数组
     this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
   }
@@ -265,9 +265,9 @@ export class Table extends PureComponent<ITableProps, any> {
    * @param isSelect {Boolean} 表示是否全选
    */
   onSelectAllRows = isSelect => {
-    let rowKeysCurrentPage = [];
-    let rowsCurrentPage = [];
-    let {
+    const rowKeysCurrentPage = [];
+    const rowsCurrentPage = [];
+    const {
       rowKey,
       datasets,
       selection,
@@ -283,7 +283,7 @@ export class Table extends PureComponent<ITableProps, any> {
 
     // 找出所有canSelect为true的row
     for (let i = 0, len = datasets.length; i < len; i++) {
-      let { canSelect = true } = getRowConf(datasets[i], i);
+      const { canSelect = true } = getRowConf(datasets[i], i);
       if (canSelect) {
         rowKeysCurrentPage.push(datasets[i][rowKey]);
         rowsCurrentPage.push(datasets[i]);
@@ -320,10 +320,10 @@ export class Table extends PureComponent<ITableProps, any> {
    * @param isSelect {Boolean} 是否被选中
    */
   onSelectOneRow = (rowKey, isSelect) => {
-    let { selection } = this.props;
+    const { selection } = this.props;
     this.setSelection();
-    let index = this.selectedRowKeys.indexOf(rowKey);
-    let isSingleSelection = selection.isSingleSelection || false;
+    const index = this.selectedRowKeys.indexOf(rowKey);
+    const isSingleSelection = selection.isSingleSelection || false;
 
     if (isSingleSelection) {
       // radio的isSelect永远是true，所以一旦选择了，则不能取消
@@ -345,14 +345,14 @@ export class Table extends PureComponent<ITableProps, any> {
       );
     }
     this.selectedRows = this.getSelectedRowsByKeys(this.selectedRowKeys);
-    let currentRow = isSelect ? this.getCurrentRow(rowKey) : null;
+    const currentRow = isSelect ? this.getCurrentRow(rowKey) : null;
 
     selection.onSelect(this.selectedRowKeys, this.selectedRows, currentRow);
   };
 
   getCurrentRow(key) {
     let currentRow;
-    let self = this;
+    const self = this;
 
     if (key) {
       this.props.datasets.forEach(item => {
@@ -392,10 +392,10 @@ export class Table extends PureComponent<ITableProps, any> {
    * @return rows Array 一个每行的数据的数组
    */
   getSelectedRowsByKeys(rowKeys) {
-    let rows = [];
-    let self = this;
+    const rows = [];
+    const self = this;
     // 之前缓存的rows和本页的总datasets整个作为搜索的区间
-    let allRows = uniqBy(
+    const allRows = uniqBy(
       this.selectedRows.concat(this.props.datasets),
       this.props.rowKey
     );
@@ -418,7 +418,7 @@ export class Table extends PureComponent<ITableProps, any> {
 
     let scrollCount = 0;
     let scrollMargin;
-    let scrollInterval = setInterval(() => {
+    const scrollInterval = setInterval(() => {
       if (window.scrollY > this.relativeTop) {
         scrollCount += 1;
         scrollMargin =
@@ -431,7 +431,7 @@ export class Table extends PureComponent<ITableProps, any> {
   }
 
   render() {
-    let {
+    const {
       selection,
       prefix,
       columns,
@@ -450,7 +450,7 @@ export class Table extends PureComponent<ITableProps, any> {
       batchComponents = null,
     } = this.props;
 
-    let needSelect = selection !== null;
+    const needSelect = selection !== null;
     let isSingleSelection;
     if (selection) {
       isSingleSelection = selection.isSingleSelection || false;
@@ -475,7 +475,7 @@ export class Table extends PureComponent<ITableProps, any> {
     if (needSelect) {
       const canSelectRowKeysArr = [];
       datasets.forEach((item, index) => {
-        let { canSelect = true } = getRowConf(item, index);
+        const { canSelect = true } = getRowConf(item, index);
         if (canSelect) {
           canSelectRowKeysArr.push(item[rowKey]);
         }

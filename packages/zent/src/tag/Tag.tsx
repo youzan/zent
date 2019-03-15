@@ -111,7 +111,7 @@ export class Tag extends Component<ITagProps> {
       }
     );
 
-    let styles = style || {};
+    const styles = style || {};
     if (colorTypes.indexOf(color) < 0) {
       styles.borderColor = color;
       outline ? (styles.color = color) : (styles.background = color);

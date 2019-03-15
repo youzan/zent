@@ -21,7 +21,7 @@ export default class PanelCell extends PureComponent<IPanelCellProps> {
   getTbody() {
     const { cells, onHover } = this.props;
     return cells.map((row, i) => {
-      let tds = row.map((col, j) => {
+      const tds = row.map((col, j) => {
         return (
           <li className="grid-cell" role="gridcell" key={j}>
             <div

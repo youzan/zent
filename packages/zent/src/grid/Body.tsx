@@ -8,7 +8,7 @@ import ColGroup from './ColGroup';
 import {
   IGridColumn,
   GridFixedType,
-  GridScrollDelta,
+  IGridScrollDelta,
   GridRowClassNameType,
 } from './types';
 
@@ -18,13 +18,13 @@ export interface IGridBodyProps {
   rowKey: string;
   rowClassName: GridRowClassNameType;
   fixed: GridFixedType;
-  scroll: GridScrollDelta;
+  scroll: IGridScrollDelta;
   fixedColumnsBodyRowsHeight: number[];
   fixedColumnsBodyExpandRowsHeight: number[];
   expandRowKeys: string[];
   mouseOverRowIndex: number;
-  expandRender: (any) => React.ReactNode;
-  rowProps(any, number): any;
+  expandRender: (data: any) => React.ReactNode;
+  rowProps(data: any, index: number): any;
   datasets: object[];
   components: {
     row?: React.ReactNode;
