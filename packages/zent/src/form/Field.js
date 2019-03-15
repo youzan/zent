@@ -78,6 +78,12 @@ class Field extends Component {
       this._validations = nextProps.validations;
     }
 
+    if(!isEqual(this.state._value, nextProps.value)) {
+      this.setState({
+        _value: nextProps.value
+      })
+    }
+
     this._name = prefixName(this.context.zentForm, nextProps.name);
   }
 
