@@ -62,20 +62,8 @@ describe('Input', () => {
     expect(wrapper.hasClass('foo-input-wrapper')).toBe(true);
     expect(wrapper.hasClass('foo-input-addons')).toBe(true);
     expect(wrapper.find('.foo-input-addon-before').length).toBe(1);
-    // expect(
-    //   wrapper
-    //     .find('div')
-    //     .at(0)
-    //     .hasClass('foo-input-addon-before')
-    // ).toBe(true);
     expect(wrapper.find('input').hasClass('foo-input')).toBe(true);
     expect(wrapper.find('.foo-input-addon-after').length).toBe(1);
-    // expect(
-    //   wrapper
-    //     .find('span')
-    //     .at(1)
-    //     .hasClass('foo-input-addon-after')
-    // ).toBe(true);
   });
 
   it('pass any props to real input element except "className" & "prefix"', () => {
