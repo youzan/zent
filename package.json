@@ -7,9 +7,8 @@
     "test": "./scripts/test.sh",
     "test-component": "./scripts/test-component.sh",
     "lint": "yarn lint-js && yarn lint-style",
-    "lint-js": "eslint packages/*/src packages/*/__tests__ site/src/ site/webpack site/zent site/scripts",
+    "lint-js": "eslint packages/babel-plugin-zent/src packages/*/__tests__ site/src/ site/webpack site/zent site/scripts",
     "lint-style": "sass-lint -vq",
-    "eslint-check": "eslint --print-config packages/zent/button/index.js | eslint-config-prettier-check",
     "bootstrap": "./scripts/bootstrap.sh",
     "format": "prettier --write",
     "prettify-style": "prettier --write -- \"packages/zent/assets/**/*.scss\" \"site/src/**/*.scss\"",
@@ -26,24 +25,6 @@
     "packages/babel-plugin-zent",
     "packages/zent"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn lint && yarn test"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn format",
-      "eslint",
-      "git add"
-    ],
-    "*.scss": [
-      "yarn format",
-      "sass-lint -vq",
-      "git add"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:youzan/zent.git"

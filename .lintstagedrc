@@ -1,0 +1,4 @@
+{
+  "*.js": ["yarn format", "eslint", "git add"],
+  "*.scss": ["yarn format", "sass-lint -vq", "git add"]
+}
