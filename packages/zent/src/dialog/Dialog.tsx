@@ -33,7 +33,12 @@ export interface IDialogProps {
   footer?: React.ReactNode;
   visible?: boolean;
   closeBtn?: boolean;
-  onClose?: (e: KeyboardEvent | React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>) => void;
+  onClose?: (
+    e:
+      | KeyboardEvent
+      | React.MouseEvent<HTMLDivElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => void;
   mask?: boolean;
   maskClosable?: boolean;
   className?: string;

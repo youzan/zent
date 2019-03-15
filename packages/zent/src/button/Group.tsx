@@ -3,9 +3,9 @@ import { Component } from 'react';
 import setClass from 'classnames';
 
 export interface IButtonGroupProps {
-  className?: string
-  prefix?: string
-  style?: React.CSSProperties
+  className?: string;
+  prefix?: string;
+  style?: React.CSSProperties;
 }
 
 export class ButtonGroup extends Component<IButtonGroupProps> {

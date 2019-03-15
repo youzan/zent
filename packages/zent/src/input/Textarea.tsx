@@ -12,7 +12,7 @@ export interface ITextAreaProps {
   prefix?: string;
   handleKeyDown?: React.KeyboardEventHandler<HTMLTextAreaElement>;
   inputRef: Input;
-  inputProps: React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  inputProps: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
   autoSize?: boolean;
   showCount?: boolean;
 }
@@ -37,7 +37,7 @@ export default class Textarea extends Component<ITextAreaProps> {
       prefix,
       handleKeyDown,
       inputRef,
-      showCount
+      showCount,
     } = this.props;
     let { inputProps } = this.props;
     const { value = '', maxLength } = inputProps;

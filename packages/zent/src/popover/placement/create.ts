@@ -1,4 +1,4 @@
-import { PositionFunction, PositionFunctionImpl } from "../position-function";
+import { PositionFunction, PositionFunctionImpl } from '../position-function';
 
 /**
  * Create a new placement.
@@ -6,7 +6,9 @@ import { PositionFunction, PositionFunctionImpl } from "../position-function";
  * @param {function} locate (anchorBoundingBox, containerBoundingBox, contentDimension, options) => { name, getCSSStyle }
  * @return {function}
  */
-export default function createPlacement(locate: PositionFunctionImpl): PositionFunction {
+export default function createPlacement(
+  locate: PositionFunctionImpl
+): PositionFunction {
   const pos: PositionFunction = (prefix, ...args) => {
     const placement = locate(...args);
 

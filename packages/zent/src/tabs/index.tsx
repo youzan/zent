@@ -164,7 +164,7 @@ export class Tabs extends Component<ITabsProps> {
         {this.renderNav(
           tabs.map(tab => ({
             ...tab,
-            actived: tab.key === activeId
+            actived: tab.key === activeId,
           }))
         )}
       </div>

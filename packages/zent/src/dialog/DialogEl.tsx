@@ -147,10 +147,12 @@ export class DialogElWrapper extends Component<IDialogElWrapper> {
     let { prefix, mask, visible, children } = this.props;
 
     return (
-      <div ref={this.rootRef} tabIndex={-1} className={`${prefix}-dialog-r-root`}>
-        {visible && mask && (
-          <div className={`${prefix}-dialog-r-backdrop`} />
-        )}
+      <div
+        ref={this.rootRef}
+        tabIndex={-1}
+        className={`${prefix}-dialog-r-root`}
+      >
+        {visible && mask && <div className={`${prefix}-dialog-r-backdrop`} />}
         <div className={`${prefix}-dialog-r-wrap`} onClick={this.onMaskClick}>
           {children}
         </div>

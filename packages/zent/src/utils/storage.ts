@@ -17,7 +17,11 @@ export function read(namespace: string, key: string) {
  * @param {any} value
  * @return {bool} true 表示成功，false 写入失败
  */
-export function write(namespace: string, key: string, value?: unknown): boolean {
+export function write(
+  namespace: string,
+  key: string,
+  value?: unknown
+): boolean {
   let ns = readNamespace(namespace);
   const isRemove = value === undefined;
 

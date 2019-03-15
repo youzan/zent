@@ -24,7 +24,7 @@ export default class Store {
     });
   };
 
-  getState = (propsName, callBack?:  () => void) => {
+  getState = (propsName, callBack?: () => void) => {
     if (propsName) {
       const props = get(this.state, propsName);
       if (callBack && !has(this.state, propsName)) {

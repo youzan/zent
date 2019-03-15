@@ -36,7 +36,9 @@ export default class Foot extends PureComponent<any, any> {
   componentWillReceiveProps(nextProps) {
     if (nextProps.batchComponentsFixed) {
       this.footStyleFixed = {
-        height: (ReactDOM.findDOMNode(this.batch) as Element).getBoundingClientRect().height,
+        height: (ReactDOM.findDOMNode(
+          this.batch
+        ) as Element).getBoundingClientRect().height,
       };
     } else {
       this.footStyleFixed = {};

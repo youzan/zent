@@ -44,7 +44,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
 
   element: HTMLDivElement;
   innerElement: HTMLSpanElement;
-  original: string
+  original: string;
   lineHeight: number;
   maxHeight: number;
   ssr: boolean;

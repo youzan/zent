@@ -14,7 +14,12 @@ export default class Hue extends Component<any, any> {
   }
 
   handleChange = (e, skip?: boolean) => {
-    const change = hue.calculateChange(e, skip, this.props, this.containerRef.current);
+    const change = hue.calculateChange(
+      e,
+      skip,
+      this.props,
+      this.containerRef.current
+    );
     change && this.props.onChange(change, e);
   };
 

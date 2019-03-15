@@ -2,7 +2,11 @@
  * Utility to reorder list
  * Scans the list only once.
  */
-export default function reorder<T>(array: T[], fromIndex: number, toIndex: number) {
+export default function reorder<T>(
+  array: T[],
+  fromIndex: number,
+  toIndex: number
+) {
   const lastIndex = array.length - 1;
   const firstIndex = 0;
   const result = new Array(array.length);

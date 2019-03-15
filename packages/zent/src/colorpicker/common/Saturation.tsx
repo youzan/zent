@@ -20,7 +20,12 @@ export default class Saturation extends Component<any, any> {
   handleChange = (e, skip?: boolean) => {
     this.throttle(
       this.props.onChange,
-      saturation.calculateChange(e, skip, this.props, this.containerRef.current),
+      saturation.calculateChange(
+        e,
+        skip,
+        this.props,
+        this.containerRef.current
+      ),
       e
     );
   };
@@ -41,7 +46,8 @@ export default class Saturation extends Component<any, any> {
   }
 
   render() {
-    const { color, white, black, pointer, circle } = this.props.style || {} as any;
+    const { color, white, black, pointer, circle } =
+      this.props.style || ({} as any);
     const styles: any = reactCSS(
       {
         default: {

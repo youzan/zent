@@ -55,7 +55,7 @@ const locate: PositionFunctionImpl = (
     contentDimension,
     options
   );
-}
+};
 
 const AutoBottomRight = createPlacement(locate);
 

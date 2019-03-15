@@ -375,7 +375,9 @@ export class Table extends PureComponent<ITableProps, any> {
   }
 
   isFootInView() {
-    const footRect = (ReactDOM.findDOMNode(this.foot) as Element).getBoundingClientRect();
+    const footRect = (ReactDOM.findDOMNode(
+      this.foot
+    ) as Element).getBoundingClientRect();
     const footY =
       footRect.top - document.documentElement.getBoundingClientRect().top;
     return (

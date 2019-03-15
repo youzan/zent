@@ -12,12 +12,7 @@ import MinutePanel from './time/MinutePanel';
 import SecondPanel from './time/SecondPanel';
 import PanelFooter from './common/PanelFooter';
 import { formatDate, parseDate, dayStart, padLeft } from './utils';
-import {
-  timeFnMap,
-  noop,
-  popPositionMap,
-  commonProps,
-} from './constants';
+import { timeFnMap, noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 
 const DEFAULT_FORMAT = 'HH:mm:ss';

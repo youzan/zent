@@ -5,13 +5,13 @@ import Pop, { PopPositions } from '../pop';
 import Icon from '../icon';
 
 export interface IBlockHeaderProps {
-  className?: string
-  title: string
-  tooltip?: ReactNode
-  content?: ReactNode,
-  childAlign?: 'left' | 'right',
-  position?: PopPositions,
-  prefix?: string
+  className?: string;
+  title: string;
+  tooltip?: ReactNode;
+  content?: ReactNode;
+  childAlign?: 'left' | 'right';
+  position?: PopPositions;
+  prefix?: string;
 }
 
 export class BlockHeader extends Component<IBlockHeaderProps> {

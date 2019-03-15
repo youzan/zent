@@ -240,7 +240,10 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
   getPopoverContent(i18n) {
     const { type, prefix, title, options, expandTrigger } = this.props;
     let { activeId, value, isLoading, loadingStage } = this.state;
-    let PopoverContentType: typeof TabsPopoverContent | typeof MenuPopoverContent | null = null;
+    let PopoverContentType:
+      | typeof TabsPopoverContent
+      | typeof MenuPopoverContent
+      | null = null;
     if (type === 'tabs') {
       PopoverContentType = TabsPopoverContent;
     } else if (type === 'menu') {

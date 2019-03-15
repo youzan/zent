@@ -7,8 +7,8 @@ import * as raf from 'raf';
 import isBrowser from './isBrowser';
 
 const SCROLL_TIME = 250;
-const w = isBrowser ? window : {} as Window;
-const d = isBrowser ? document : {} as Document;
+const w = isBrowser ? window : ({} as Window);
+const d = isBrowser ? document : ({} as Document);
 const originalScroll = w.scroll || w.scrollTo;
 const now =
   w.performance && w.performance.now
@@ -75,7 +75,12 @@ function step(context: IStepContext) {
  * @param {Number} y target position y
  * @param {Number} duration animation duration
  */
-export default function smoothScroll(el: HTMLElement | Window, x: number, y: number, duration: number = SCROLL_TIME) {
+export default function smoothScroll(
+  el: HTMLElement | Window,
+  x: number,
+  y: number,
+  duration: number = SCROLL_TIME
+) {
   if (!isBrowser) {
     return;
   }

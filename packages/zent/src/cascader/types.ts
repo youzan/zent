@@ -1,4 +1,4 @@
-import Popover from "../popover";
+import Popover from '../popover';
 
 export type CascaderValue = string | number;
 
@@ -9,4 +9,9 @@ export interface ICascaderItem {
   isLeaf?: boolean;
 }
 
-export type CascaderHandler = (item: ICascaderItem, stage: number, popover: Popover, trigger?: 'click' | 'hover') => void;
+export type CascaderHandler = (
+  item: ICascaderItem,
+  stage: number,
+  popover: Popover,
+  trigger?: 'click' | 'hover'
+) => void;

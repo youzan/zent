@@ -1,7 +1,9 @@
-import { PaginationLayout } from "./type";
-import { IPaginationLayoutOptions } from "../impl/BasePagination";
+import { PaginationLayout } from './type';
+import { IPaginationLayoutOptions } from '../impl/BasePagination';
 
-export default function miniLayout(options: IPaginationLayoutOptions): PaginationLayout[] {
+export default function miniLayout(
+  options: IPaginationLayoutOptions
+): PaginationLayout[] {
   const { current, pageSize, total } = options;
   const totalPages = Math.ceil(total / pageSize);
 

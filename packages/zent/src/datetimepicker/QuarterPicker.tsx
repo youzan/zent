@@ -12,11 +12,7 @@ import { I18nReceiver as Receiver } from '../i18n';
 
 import QuarterPanel from './quarter/QuarterPanel';
 import { dayStart, dayEnd, formatDate, parseDate } from './utils';
-import {
-  noop,
-  popPositionMap,
-  commonProps,
-} from './constants';
+import { noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 
 const quarterMonthMap = {

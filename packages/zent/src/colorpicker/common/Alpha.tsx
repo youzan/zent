@@ -15,7 +15,12 @@ export class Alpha extends Component<any, any> {
   }
 
   handleChange = (e, skip?: boolean) => {
-    const change = alpha.calculateChange(e, skip, this.props, this.containerRef.current);
+    const change = alpha.calculateChange(
+      e,
+      skip,
+      this.props,
+      this.containerRef.current
+    );
     change && this.props.onChange(change, e);
   };
 

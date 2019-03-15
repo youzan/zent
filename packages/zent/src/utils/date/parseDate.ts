@@ -19,7 +19,11 @@ import i18n from './i18n';
  * parseDate('5/3/98', 'shortDate'); // new Date(1998, 4, 3)
  * parseDate('November 4, 2005', 'longDate'); // new Date(2005, 10, 4)
  */
-export default function parseDate(date: string | Date, mask = 'default', locale = 'zh'): Date {
+export default function parseDate(
+  date: string | Date,
+  mask = 'default',
+  locale = 'zh'
+): Date {
   if (date instanceof Date) {
     return date;
   }

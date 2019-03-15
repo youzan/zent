@@ -27,7 +27,11 @@ const NOT_FOUND: FindMentionAtCaretPositionReturn = {
   code: MENTION_NOT_FOUND,
 };
 
-export function findMentionAtCaretPosition({ input, value, triggerText }): FindMentionAtCaretPositionReturn {
+export function findMentionAtCaretPosition({
+  input,
+  value,
+  triggerText,
+}): FindMentionAtCaretPositionReturn {
   const { selectionEnd } = input;
 
   // Find the first space before caret

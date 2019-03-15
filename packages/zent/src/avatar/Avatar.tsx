@@ -10,15 +10,15 @@ const HIDDEN_STYLE = {
 };
 
 export interface IAvatarProps {
-  shape?: 'circle' | 'square'
-  size?: 'small' | 'default' | 'large' | number
-  icon?: IconType
-  src?: string
-  children?: string
-  bordered?: boolean
-  style?: React.CSSProperties
-  className?: string
-  prefix?: string
+  shape?: 'circle' | 'square';
+  size?: 'small' | 'default' | 'large' | number;
+  icon?: IconType;
+  src?: string;
+  children?: string;
+  bordered?: boolean;
+  style?: React.CSSProperties;
+  className?: string;
+  prefix?: string;
 }
 
 export class Avatar extends Component<IAvatarProps> {

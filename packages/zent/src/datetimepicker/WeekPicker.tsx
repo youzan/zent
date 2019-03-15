@@ -25,12 +25,7 @@ import {
   setTime,
   isSameDate,
 } from './utils';
-import {
-  CURRENT_DAY,
-  noop,
-  popPositionMap,
-  commonProps,
-} from './constants';
+import { CURRENT_DAY, noop, popPositionMap, commonProps } from './constants';
 import { DatePickers } from './common/types';
 
 function getSelectedWeek(val, start = 1, isDisabled): [Date?, Date?] {

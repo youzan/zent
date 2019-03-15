@@ -21,7 +21,8 @@ function compatibleInterface(prop) {
   return isString(prop) || isDate(prop) ? [prop, prop] : prop;
 }
 
-export interface IDateRangePickerProps extends DatePickers.ICommonProps<[DatePickers.Value, DatePickers.Value]> {
+export interface IDateRangePickerProps
+  extends DatePickers.ICommonProps<[DatePickers.Value, DatePickers.Value]> {
   showTime?: boolean;
   disabledTime?: (type: DatePickers.RangeType) => DatePickers.IDisabledTime;
 }

@@ -9,7 +9,9 @@ export interface IPlaceholderRectangleProps extends IPlaceholderBaseShapeProps {
   height?: number;
 }
 
-export default class Rectangle extends PureComponent<IPlaceholderRectangleProps> {
+export default class Rectangle extends PureComponent<
+  IPlaceholderRectangleProps
+> {
   static defaultProps = {
     style: {},
     prefix: 'zent',

@@ -51,7 +51,7 @@ class InputTrigger extends Component<IInputTriggerProps> {
           <input
             ref={input => (this.input = input)}
             className={rootClass}
-            placeholder={placeholder || i18n.input as any}
+            placeholder={placeholder || (i18n.input as any)}
             type="text"
             value={keyword === null ? text : keyword}
             onChange={this.inputChangeHandler}

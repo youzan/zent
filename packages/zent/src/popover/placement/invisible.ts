@@ -21,7 +21,7 @@ const locate: PositionFunctionImpl = () => {
 
     name: 'position-invisible',
   };
-}
+};
 
 const Invisible = createPlacement(locate);
 

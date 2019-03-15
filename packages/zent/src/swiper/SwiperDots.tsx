@@ -46,7 +46,11 @@ export default class SwiperDots extends PureComponent<ISwiperDotsProps> {
     return (
       <ul className={classString}>
         {Children.map(items, (item, index) => {
-          const isActive = this.isDotActive(index, currentIndex, (items as any).length);
+          const isActive = this.isDotActive(
+            index,
+            currentIndex,
+            (items as any).length
+          );
           if (isActive && !this.isBuildInColor(dotsColor)) {
             return (
               <li
