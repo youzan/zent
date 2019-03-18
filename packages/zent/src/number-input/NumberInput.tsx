@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
-import noop from 'lodash-es/noop';
 import { Omit } from 'utility-types';
 import Decimal from 'decimal.js';
 import Icon from '../icon';
@@ -68,17 +67,11 @@ export interface INumberInputTarget extends INumberInputProps {
   value: string;
 }
 
-export interface INumberInputChangeEvent {
-  target: INumberInputTarget;
-  preventDefault: () => void;
-  stopPropagation: () => void;
-}
-
 export interface INumberInputProps
   extends Omit<IInputProps, 'onChange' | 'type' | 'value'> {
   type: 'number';
   value: number | string;
-  onChange: (e: INumberInputChangeEvent) => any;
+  onChange: (e: string) => any;
   showStepper: boolean;
   showCounter: boolean;
   decimal: number;
@@ -119,17 +112,6 @@ export class NumberInput extends PureComponent<
     this.state = {
       value,
       prevValue: value,
-    };
-  }
-
-  private formatEvent(value: string): INumberInputChangeEvent {
-    return {
-      target: {
-        ...this.props,
-        value,
-      },
-      stopPropagation: noop,
-      preventDefault: noop,
     };
   }
 
@@ -176,11 +158,10 @@ export class NumberInput extends PureComponent<
       value,
       decimalPlaces,
     });
-    const event = this.formatEvent(nextValue);
     this.setState({
       value: nextValue,
     });
-    onChange(event);
+    onChange(nextValue);
     const { onBlur } = this.props;
     onBlur && onBlur(e);
   };
@@ -194,9 +175,8 @@ export class NumberInput extends PureComponent<
     }
     this.setState(state => {
       const decimal = new Decimal(state.value);
-      const delta = '0' + '1'.padStart(decimalPlaces, '0');
       return {
-        value: decimal.plus(delta).toFixed(decimalPlaces),
+        value: decimal.plus(this.getDelta()).toFixed(decimalPlaces),
       };
     });
   };
@@ -210,12 +190,16 @@ export class NumberInput extends PureComponent<
     }
     this.setState(state => {
       const decimal = new Decimal(state.value);
-      const delta = '0' + '1'.padStart(decimalPlaces, '0');
       return {
-        value: decimal.minus(delta).toFixed(decimalPlaces),
+        value: decimal.minus(this.getDelta()).toFixed(decimalPlaces),
       };
     });
   };
+
+  private getDelta() {
+    const { decimal } = this.props;
+    return decimal ? '.' + '1'.padStart(decimal, '0') : '1';
+  }
 
   static getDerivedStateFromProps(
     { value, min, max, decimal: decimalPlaces }: INumberInputProps,
@@ -238,8 +222,7 @@ export class NumberInput extends PureComponent<
 
   componentDidMount() {
     if (this.props.value !== this.state.value) {
-      const e = this.formatEvent(this.state.value);
-      this.props.onChange(e);
+      this.props.onChange(this.state.value);
     }
   }
 
@@ -248,8 +231,7 @@ export class NumberInput extends PureComponent<
       this.props.value !== prevProps.value &&
       this.state.value !== this.props.value
     ) {
-      const e = this.formatEvent(this.state.value);
-      this.props.onChange(e);
+      this.props.onChange(this.state.value);
     }
   }
 

@@ -57,9 +57,9 @@ describe('NumberInput', () => {
 
   it('NumberInput has its core function, change value with click on arrow', () => {
     let wrapper = mount(<NumberInput showStepper value={2} />);
-    const onChangeMock = jest.fn().mockImplementation(e => {
+    const onChangeMock = jest.fn().mockImplementation(value => {
       wrapper.setProps({
-        value: e.target.value,
+        value,
       });
     });
     const onBlurMock = jest.fn();
@@ -92,8 +92,8 @@ describe('NumberInput', () => {
   });
 
   it('NumberInput onchange value', () => {
-    const handleChange = e => {
-      expect(e.target.value).toBe('1');
+    const handleChange = value => {
+      expect(value).toBe('1');
     };
 
     const wrapper = mount(<NumberInput onChange={handleChange} value={1} />);
