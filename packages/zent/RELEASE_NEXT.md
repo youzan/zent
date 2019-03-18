@@ -44,6 +44,9 @@
 
 删除了老版的非受控代码，只支持受控模式（这个很早就存在了），参数是一致的，一些选中逻辑会有细微区别。
 
+#### `NumberInput`
+`onChange` 的参数改为字符串。修改了`onChange`触发的行为，现在不会乱触发`onChange`。
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
@@ -70,6 +73,7 @@
 - `Switch` 删除大号样式支持
 - `Tree` 组件删除老版支持(即不再支持 `useNew` 参数选择使用的版本)
 - 废弃 `postcss` 改用 `node-sass`，样式源文件（assets 目录下的）按需加载需要升级 `babel-plugin-zent` 到 `2.0.0-next.3`
+- `NumberInput` 的 `onChange` 回调的参数是 `string`
 
 ### Other changes
 
