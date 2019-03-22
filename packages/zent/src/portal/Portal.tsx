@@ -22,10 +22,24 @@ export class Portal extends Component<IPortalProps> {
   static PurePortal = PurePortal;
   static LayeredPortal = LayeredPortal;
 
+  layeredPortalRef = React.createRef<LayeredPortal>();
+
+  contains(el: Element) {
+    const layeredPortal = this.layeredPortalRef.current;
+    if (!layeredPortal) {
+      return false;
+    }
+    return layeredPortal.contains(el);
+  }
+
   render() {
     const { prefix, className, ...other } = this.props;
     return (
-      <LayeredPortal className={cx(`${prefix}-portal`, className)} {...other} />
+      <LayeredPortal
+        ref={this.layeredPortalRef}
+        className={cx(`${prefix}-portal`, className)}
+        {...other}
+      />
     );
   }
 }

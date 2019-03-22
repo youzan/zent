@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import isFunction from 'lodash-es/isFunction';
 
-import PurePortal, { IPurePoralProps } from './PurePortal';
+import PurePortal, { IPurePortalProps } from './PurePortal';
 import {
   getNodeFromSelector,
   createContainerNode,
@@ -10,7 +10,7 @@ import {
   isDescendant,
 } from './util';
 
-export interface ILayeredPortalProps extends IPurePoralProps {
+export interface ILayeredPortalProps extends IPurePortalProps {
   visible?: boolean;
   layer?: string;
   useLayerForClickAway?: boolean;
@@ -36,6 +36,16 @@ export class LayeredPortal extends Component<ILayeredPortalProps> {
 
   // DOM node, the parent node of portal content
   parentNode: Element | null = null;
+
+  purePortalRef = React.createRef<PurePortal>();
+
+  contains(el: Element) {
+    const purePortal = this.purePortalRef.current;
+    if (!purePortal) {
+      return false;
+    }
+    return purePortal.contains(el);
+  }
 
   onUnmount = () => {
     this.unrenderLayer();
@@ -158,6 +168,7 @@ export class LayeredPortal extends Component<ILayeredPortalProps> {
 
     return visible ? (
       <PurePortal
+        ref={this.purePortalRef}
         selector={this.layerNode}
         onMount={this.props.onMount}
         onUnmount={this.onUnmount}
