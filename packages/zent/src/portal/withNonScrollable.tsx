@@ -3,7 +3,7 @@ import { Component } from 'react';
 import isUndefined from 'lodash-es/isUndefined';
 
 import { getNodeFromSelector } from './util';
-import { IPurePoralProps } from './PurePortal';
+import { IPurePortalProps } from './PurePortal';
 
 export interface INonScrollableWrapperProps {
   selector?: string | HTMLElement;
@@ -16,7 +16,7 @@ export interface INonScrollableWrapperProps {
 
   PurePortal has no `visible` prop.
 */
-export default function withNonScrollable<P extends IPurePoralProps>(
+export default function withNonScrollable<P extends IPurePortalProps>(
   Portal: React.ComponentType<P>
 ) {
   let portalVisibleCount = 0;
