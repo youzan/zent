@@ -210,15 +210,15 @@ describe('Slider', () => {
   it('can input onchange props', () => {
     const wrapper = mount(<Slider range value={[20, 30]} />);
     wrapper
-      .find('InputField')
+      .find('SliderInputField')
       .at(0)
       .instance()
-      .onChange('start', { target: { value: 25 } });
+      .onStartChange(25);
     wrapper
-      .find('InputField')
+      .find('SliderInputField')
       .at(0)
       .instance()
-      .onChange('end', { target: { value: 50 } });
+      .onEndChange(50);
   });
 
   it('for code coverage', () => {
