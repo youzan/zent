@@ -1,21 +1,31 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import pick from 'lodash-es/pick';
+import { Omit } from 'utility-types';
+
 import NumberInput from '../number-input';
-
 import { getDecimal } from './common';
-import { SliderValueType } from './Slider';
+import { SliderValueType, ISliderProps } from './Slider';
 
-export default class InputField extends PureComponent<any> {
-  onChange = (type, e) => {
+export interface ISliderInputFieldProps
+  extends Omit<ISliderProps, 'withInput' | 'className' | 'width' | 'onChange'> {
+  onChange(value: SliderValueType): void;
+}
+
+export default class SliderInputField extends PureComponent<
+  ISliderInputFieldProps
+> {
+  onStartChange = (newValue: string) => {
     const { onChange, value } = this.props;
-    let newValue: SliderValueType = Number(e.target.value);
-    if (type === 'start') {
-      newValue = [newValue, value[1]];
-    } else if (type === 'end') {
-      newValue = [value[0], newValue];
-    }
-    onChange && onChange(newValue);
+    onChange([+newValue, value[1]]);
+  };
+
+  onEndChange = (newValue: string) => {
+    const { onChange, value } = this.props;
+    onChange([value[0], +newValue]);
+  };
+
+  onSingleChange = (value: string) => {
+    this.props.onChange(+value);
   };
 
   render() {
@@ -26,16 +36,14 @@ export default class InputField extends PureComponent<any> {
       min,
       max,
       disabled,
-      className,
       ...restProps
     } = this.props;
-    const numberInputProps = pick(restProps, [
-      'max',
-      'min',
-      'disabled',
-      'className',
-      'prefix',
-    ]);
+    const numberInputProps = {
+      max,
+      min,
+      disabled,
+      prefix,
+    };
     return (
       <div className={`${prefix}-slider-input`}>
         {range ? (
@@ -44,7 +52,7 @@ export default class InputField extends PureComponent<any> {
               {...numberInputProps}
               max={value[1]}
               decimal={getDecimal(restProps.step)}
-              onChange={this.onChange.bind(null, 'start')}
+              onChange={this.onStartChange}
               value={value[0]}
             />
             <span className="slider-input-line">-</span>
@@ -54,7 +62,7 @@ export default class InputField extends PureComponent<any> {
               prefix={prefix}
               min={value[0]}
               decimal={getDecimal(restProps.step)}
-              onChange={this.onChange.bind(null, 'end')}
+              onChange={this.onEndChange}
               value={value[1]}
             />
           </div>
@@ -62,8 +70,8 @@ export default class InputField extends PureComponent<any> {
           <NumberInput
             {...numberInputProps}
             decimal={getDecimal(restProps.step)}
-            onChange={this.onChange.bind(null, 'single')}
-            value={value}
+            onChange={this.onSingleChange}
+            value={value as number}
           />
         )}
       </div>

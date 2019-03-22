@@ -50,7 +50,7 @@ export interface ISliderProps {
   range?: boolean;
   min?: number;
   max?: number;
-  step?: number;
+  step?: number | string;
   withInput?: boolean;
   dots?: boolean;
   marks?: {

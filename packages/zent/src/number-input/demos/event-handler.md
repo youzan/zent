@@ -13,25 +13,29 @@ import { NumberInput, Button } from 'zent';
 
 class EventTest extends React.Component {
   state = {
-    log: ''
+    value: ''
   };
 
-  onChange(ev) {
-    this.setState({ log: ev.target.value });
+  onChange = (value) => {
+    this.setState({ value });
   }
 
-  setToThree= (ev) => {
-    this.setState({ log: 3 });
-  }
+  setToThree = () => {
+    this.setState({ value: 3 });
+	}
+	
+	onPressEnter = () => {
+		console.log('pressed enter')
+	}
 
   render() {
     return (
       <div>
         <NumberInput
           showStepper
-          value={this.state.log}
-          onChange={this.onChange.bind(this)} 
-          onPressEnter={() => console.log('pressed enter')}/>
+          value={this.state.value}
+          onChange={this.onChange} 
+          onPressEnter={this.onPressEnter}/>
         <Button onClick={this.setToThree}>{i18n.msg}</Button>
       </div>
     );
