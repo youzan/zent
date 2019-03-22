@@ -1,6 +1,7 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/timeline' {
+
   interface ITimelineLegendProps {
     color?: string;
     children?: React.ReactNode;
@@ -9,10 +10,7 @@ declare module 'zent/lib/timeline' {
     style?: React.CSSProperties;
   }
 
-  export class TimelineLegend extends React.Component<
-    ITimelineLegendProps,
-    any
-  > {}
+  export class TimelineLegend extends React.Component<ITimelineLegendProps, any> {}
 
   interface ITimelineItemProps {
     size?: number;
@@ -41,7 +39,7 @@ declare module 'zent/lib/timeline' {
     timeline?: ITimelineArrayItem[];
     type?: 'vertical' | 'horizontal';
     className?: string;
-    prefix?: string;
+    prefix?: string
     style?: React.CSSProperties;
   }
 

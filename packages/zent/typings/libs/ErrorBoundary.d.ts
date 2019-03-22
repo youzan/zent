@@ -32,11 +32,10 @@ declare module 'zent/lib/error-boundary' {
     }): React.Component<any, any>;
 
     function catchError(spec: {
-      onError?: (error: Error, componentStack: string) => void;
-      FallbackComponent?: React.ReactElement<
-        IErrorBoundaryFallbackComponentProps
-      >;
-    }): (baseComponent: React.Component) => React.Component;
+      onError?: (error: Error, componentStack: string) => void,
+      FallbackComponent?: React.ReactElement<IErrorBoundaryFallbackComponentProps>;
+    }): (baseComponent: React.Component) => React.Component
+
   }
 
   export default ErrorBoundary;

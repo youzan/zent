@@ -2,85 +2,68 @@
 
 declare module 'zent/lib/grid' {
   interface IGridColumn {
-    title: React.ReactNode;
-    name?: string;
-    width?: number | string;
-    bodyRender?:
-      | ((data: any, pos: number, name: string) => React.ReactNode)
-      | React.ReactNode;
-    className?: string;
-    needSort?: boolean;
-    colSpan?: number;
-    fixed?: 'left' | 'right' | true;
-    onCellClick?: (
-      data: any,
-      event: React.MouseEvent<HTMLTableDataCellElement>
-    ) => any;
-    textAign?: 'left' | 'right' | 'center';
-    nowrap?: boolean;
-    defaultText?: React.ReactNode;
-    children?: Array<IGridColumn>;
+    title: React.ReactNode
+    name?: string
+    width?: number | string
+    bodyRender?: ((data: any, pos: number, name: string) => React.ReactNode) | React.ReactNode
+    className?: string
+    needSort?: boolean
+    colSpan?: number
+    fixed?: 'left' | 'right' | true
+    onCellClick?: (data: any, event: React.MouseEvent<HTMLTableDataCellElement>) => any
+    textAign?: 'left' | 'right' | 'center'
+    nowrap?: boolean
+    defaultText?: React.ReactNode
+    children?: Array<IGridColumn>
   }
 
   interface IGridOnChangeConfig {
-    current: number;
-    sortBy: string;
-    sortType: 'asc' | 'desc' | '';
-    pageSize: number;
+    current: number
+    sortBy: string
+    sortType: 'asc' | 'desc' | ''
+    pageSize: number
   }
 
   interface IGridProps {
-    columns: Array<IGridColumn>;
-    datasets: Array<Object>;
-    rowKey?: string;
-    onChange?: (conf: IGridOnChangeConfig) => any;
+    columns: Array<IGridColumn>
+    datasets: Array<Object>
+    rowKey?: string
+    onChange?: (conf: IGridOnChangeConfig) => any
     scroll?: {
-      x?: number;
-      y?: number;
-    };
-    sortBy?: string;
-    sortType?: 'desc' | 'asc';
-    emptyLabel?: string;
+      x?: number,
+      y?: number
+    }
+    sortBy?: string
+    sortType?: 'desc' | 'asc'
+    emptyLabel?: string
     selection?: {
-      selectedRowKeys?: Array<string>;
-      onSelect?: (
-        selectedkeys: string,
-        selectedRows: Array<any>,
-        currentRow: number
-      ) => any;
-      getCheckboxProps?: (data: object) => { disabled?: boolean };
-    };
+      selectedRowKeys?: Array<string | number>,
+      onSelect?: (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => any,
+      getCheckboxProps?: (data: object) => { disabled?: boolean }
+    }
     expandation?: {
-      isExpanded?: (record: any, index: number) => boolean;
-      expandRender?: (data: any) => React.ReactNode;
-    };
-    loading?: boolean;
-    bordered?: boolean;
-    className?: string;
-    rowClassName?: string | ((data: object, rowIndex: number) => string);
-    prefix?: string;
+      isExpanded?: (record: any, index: number) => boolean,
+      expandRender?: (data: any) => React.ReactNode
+    }
+    loading?: boolean
+    bordered?: boolean
+    className?: string
+    rowClassName?: string | ((data: object, rowIndex: number) => string)
+    prefix?: string
     pageInfo?: {
-      current?: number;
-      total?: number;
-      pageSize?: number;
-    };
-    onRowClick?: (
-      data: any,
-      index: number,
-      event: React.MouseEvent<HTMLTableRowElement>
-    ) => any;
-    ellipsis?: boolean;
-    onExpand?: (data: {
-      expanded: boolean;
-      data: any;
-      event: React.MouseEvent<HTMLTableRowElement>;
-      index: number;
-    }) => any;
+      current?: number
+      totalItem?: number
+      pageSize?: number
+    }
+    onRowClick?: (data: any, index: number, event: React.MouseEvent<HTMLTableRowElement>) => any
+    ellipsis?: boolean
+    onExpand?: (data: {expanded: boolean, data: any, event: React.MouseEvent<HTMLTableRowElement>, index: number}) => any
     components?: {
-      row?: React.ReactNode;
-    };
-    rowProps?: (data: any, index: number) => any;
+      row?: React.ReactNode
+    },
+    rowProps?: (data: any, index: number) => any
   }
 
-  export default class Grid extends React.Component<IGridProps, any> {}
+  export default class Grid extends React.Component<IGridProps, any> { }
 }
+

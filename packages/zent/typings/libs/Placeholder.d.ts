@@ -2,40 +2,40 @@
 
 declare module 'zent/lib/placeholder' {
   interface IShapeProps {
-    style?: React.CSSProperties;
-    animate?: boolean;
-    className?: string;
-    prefix?: string;
+    style?: React.CSSProperties
+    animate?: boolean
+    className?: string
+    prefix?: string
   }
 
   interface ITextRowProps extends IShapeProps {
-    lineSpacing?: number | string;
+    lineSpacing?: number | string
   }
 
   interface ITextRowDashedProps extends ITextRowProps {
-    segments?: (string | number)[];
+    segments?: (string | number)[]
   }
 
   interface ICircleProps extends IShapeProps {
-    diameter?: number | string;
+    diameter?: number | string
   }
 
   interface IRectangleProps extends IShapeProps {
-    width: number | string;
-    height: number | string;
+    width: number | string
+    height: number | string
   }
 
   interface ITextBlockProps extends IShapeProps {
-    rows: number;
-    lineSpacing?: number | string;
-    widths?: number[];
-    dashed?: boolean;
-    dashSegments?: (string | number)[][];
+    rows: number
+    lineSpacing?: number | string
+    widths?: number[]
+    dashed?: boolean
+    dashSegments?: (string | number)[][]
   }
 
   interface IRichTextBlockProps extends ITextRowProps {
-    shape?: 'circle' | 'react';
-    size?: string | number;
+    shape?: 'circle' | 'react'
+    size?: string | number
   }
 
   module Placeholder {
@@ -47,5 +47,5 @@ declare module 'zent/lib/placeholder' {
     class Rectangle extends React.Component<IRectangleProps, any> {}
   }
 
-  export default Placeholder;
+  export default Placeholder
 }

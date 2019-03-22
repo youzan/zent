@@ -2,12 +2,12 @@
 
 declare module 'zent/lib/mention' {
   interface ICompoundMentionSuggestion {
-    value: any;
-    content?: React.ReactNode;
-    isGroup?: boolean;
-    isDivider?: boolean;
-    icon?: string;
-    disabled?: boolean;
+    value: any
+    content?: React.ReactNode
+    isGroup?: boolean
+    isDivider?: boolean
+    icon?: string
+    disabled?: boolean
   }
 
   interface IMentionProps {
