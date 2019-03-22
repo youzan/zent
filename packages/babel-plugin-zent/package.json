@@ -11,6 +11,11 @@
     "lib"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.1.5"
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/runtime": "^7.1.5",
+    "jest": "^24.5.0",
+    "babel-jest": "^24.5.0"
   }
 }

@@ -1,0 +1,5 @@
+{
+  "*.js": ["yarn format", "eslint", "git add"],
+  "*.{ts,tsx}": ["yarn format", "tslint --format stylish --project packages/zent/tsconfig.json", "git add"],
+  "*.scss": ["yarn format", "sass-lint -vq", "git add"]
+}
