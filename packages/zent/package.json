@@ -33,6 +33,7 @@
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "@types/autosize": "^3.0.6",
+    "@types/big.js": "^4.0.5",
     "@types/classnames": "^2.2.7",
     "@types/enquire.js": "^2.1.1",
     "@types/lodash-es": "^4.17.1",
@@ -47,7 +48,7 @@
     "autosize": "^4.0.0",
     "classnames": "^2.2.6",
     "date-fns": "^1.29.0",
-    "decimal.js": "^10.1.1",
+    "big.js": "^5.2.2",
     "enquire.js": "^2.1.6",
     "fecha": "^3.0.2",
     "keycode": "^2.1.9",

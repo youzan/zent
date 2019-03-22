@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 import { Omit } from 'utility-types';
-import Decimal from 'decimal.js';
+import Decimal from 'big.js';
 import Icon from '../icon';
 import Input, { IInputProps } from '../input';
 
@@ -49,13 +49,13 @@ function getCorrectedValue({
   let decimal = new Decimal(value);
   if (min !== null && min !== undefined) {
     const minDec = new Decimal(min);
-    if (minDec.comparedTo(decimal) === 1) {
+    if (minDec.cmp(decimal) === 1) {
       decimal = minDec;
     }
   }
   if (max !== null && max !== undefined) {
     const maxDec = new Decimal(max);
-    if (maxDec.comparedTo(decimal) === -1) {
+    if (maxDec.cmp(decimal) === -1) {
       decimal = maxDec;
     }
   }
@@ -128,11 +128,11 @@ export class NumberInput extends PureComponent<
     const dec = new Decimal(value);
     if (min !== null && min !== undefined && isDecimal(min)) {
       const minDec = new Decimal(min);
-      canDec = minDec.comparedTo(dec) === -1;
+      canDec = minDec.cmp(dec) === -1;
     }
     if (max !== null && max !== undefined && isDecimal(max)) {
       const maxDec = new Decimal(max);
-      canInc = maxDec.comparedTo(dec) === 1;
+      canInc = maxDec.cmp(dec) === 1;
     }
     return {
       canDec,
