@@ -10,18 +10,24 @@ const HIDDEN_STYLE = {
 };
 
 export interface IAvatarProps {
-  shape?: 'circle' | 'square';
-  size?: 'small' | 'default' | 'large' | number;
+  shape: 'circle' | 'square';
+  size: 'small' | 'default' | 'large' | number;
   icon?: IconType;
   src?: string;
   children?: string;
-  bordered?: boolean;
+  bordered: boolean;
   style?: React.CSSProperties;
   className?: string;
-  prefix?: string;
+  prefix: string;
 }
 
-export class Avatar extends Component<IAvatarProps> {
+export interface IAvatarState {
+  textScale: number;
+  textReady: boolean;
+  prevChildren?: string;
+}
+
+export class Avatar extends Component<IAvatarProps, IAvatarState> {
   static defaultProps = {
     shape: 'circle',
     size: 'default',
@@ -29,8 +35,8 @@ export class Avatar extends Component<IAvatarProps> {
     prefix: 'zent',
   };
 
-  textNode: HTMLSpanElement | null;
-  avatarNode: HTMLSpanElement | null;
+  textNodeRef = React.createRef<HTMLSpanElement>();
+  avatarNodeRef = React.createRef<HTMLSpanElement>();
 
   state = {
     textScale: 1,
@@ -50,7 +56,6 @@ export class Avatar extends Component<IAvatarProps> {
       className,
     } = this.props;
     const useImage = !!src;
-    const useIcon = !!icon;
     const useString = !!children;
     const cls = cx(`${prefix}-avatar`, className, {
       [`${prefix}-avatar--size-large`]: size === 'large',
@@ -58,7 +63,7 @@ export class Avatar extends Component<IAvatarProps> {
       [`${prefix}-avatar--size-small`]: size === 'small',
       [`${prefix}-avatar--shape-circle`]: shape === 'circle',
       [`${prefix}-avatar--shape-square`]: shape === 'square',
-      [`${prefix}-avatar--type-icon`]: useIcon,
+      [`${prefix}-avatar--type-icon`]: !!icon,
       [`${prefix}-avatar--type-image`]: useImage,
       [`${prefix}-avatar--type-string`]: useString,
       [`${prefix}-avatar--bordered`]: bordered,
@@ -72,7 +77,7 @@ export class Avatar extends Component<IAvatarProps> {
       );
     }
 
-    if (useIcon) {
+    if (icon) {
       return (
         <span style={style} className={cls}>
           <Icon type={icon} />
@@ -81,10 +86,10 @@ export class Avatar extends Component<IAvatarProps> {
     }
 
     const { textScale, textReady } = this.state;
-    const { textNode } = this;
+    const textNode = this.textNodeRef.current;
     let textStyle = NO_STYLE;
 
-    if (!textReady) {
+    if (!textReady || !textNode) {
       textStyle = HIDDEN_STYLE;
     } else if (textScale === 1) {
       textStyle = NO_STYLE;
@@ -111,11 +116,11 @@ export class Avatar extends Component<IAvatarProps> {
       : style;
 
     return (
-      <span style={avatarStyle} className={cls} ref={this.saveAvatarNode}>
+      <span style={avatarStyle} className={cls} ref={this.avatarNodeRef}>
         <span
           className={`${prefix}-avatar-string`}
           style={textStyle}
-          ref={this.saveTextNode}
+          ref={this.textNodeRef}
         >
           {children}
         </span>
@@ -127,16 +132,20 @@ export class Avatar extends Component<IAvatarProps> {
     this.updateTextScale();
   }
 
-  componentWillReceiveProps(nextProps) {
-    // Hide text when text changes
-    if (nextProps.children !== this.props.children) {
-      this.setState({
+  static getDerivedStateFromProps(
+    { children }: IAvatarProps,
+    { prevChildren }: IAvatarState
+  ): Partial<IAvatarState> | null {
+    if (children !== prevChildren) {
+      return {
         textReady: false,
-      });
+        prevChildren: children,
+      };
     }
+    return null;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: IAvatarProps) {
     if (prevProps.children !== this.props.children) {
       this.updateTextScale();
     }
@@ -146,7 +155,10 @@ export class Avatar extends Component<IAvatarProps> {
     const { children } = this.props;
 
     if (children) {
-      const scale = fitText(this.avatarNode, this.textNode);
+      const scale = fitText(
+        this.avatarNodeRef.current,
+        this.textNodeRef.current
+      );
 
       // eslint-disable-next-line
       this.setState({
@@ -155,17 +167,12 @@ export class Avatar extends Component<IAvatarProps> {
       });
     }
   }
-
-  saveAvatarNode = node => {
-    this.avatarNode = node;
-  };
-
-  saveTextNode = node => {
-    this.textNode = node;
-  };
 }
 
-function fitText(containerNode, textNode) {
+function fitText(
+  containerNode: HTMLSpanElement | null,
+  textNode: HTMLSpanElement | null
+) {
   if (!containerNode || !textNode) {
     return 1;
   }
