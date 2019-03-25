@@ -1,5 +1,6 @@
 ---
 title: Timeline
+subtitle: 时间轴
 path: component/timeline
 group: 展示
 ---

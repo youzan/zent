@@ -2,8 +2,8 @@
 
 #### 全局变更
 
-* `React` 必须升级到 16.8 以上
-* 删除了所有组件上的 `propTypes`
+- `React` 必须升级到 16.8 以上
+- 删除了所有组件上的 `propTypes`
 
 #### `babel-plugin-zent`
 
@@ -51,35 +51,66 @@
 
 #### `NumberInput`
 
-组件重写，`onChange` 的参数改为字符串。修改了`onChange`触发的行为，现在不会乱触发`onChange`。
+组件重写，`onChange` 的参数改为字符串。修改了 `onChange` 触发的行为，现在只会在 `onBlur` 或者通过加减按钮修改时触发 `onChange`。
 
 #### `Form`
 
-* `equals` 和 `equalsField` 这两个内置校验方法迁移到 `===`，以前是 `==`，用到的地方需要自行排查是否兼容。
+`equals` 和 `equalsField` 这两个内置校验方法迁移到 `===`，以前是 `==`，用到的地方需要自行排查是否兼容。
+
+#### `Layout`
+
+组件真正支持响应式布局，意味着布局可以随着屏幕大小变化而调整，之前的版本布局是固定的。
+
+导出的组件名字变了，老的写法
+
+```js
+import { Layout } from 'zent';
+
+const { Row, Col } = Layout
+```
+
+新的写法
+
+```js
+import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
+```
+
+另外，`LayoutRow` 和 `LayoutCol` 必须在 `LayoutGrid` 内部。
 
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.7(2019-03-25)
+
+- 修复 `NumberInput` 的样式问题
+- 修复 `Timeline` 的演示代码问题
+
 ## 7.0.0-next.6(2019-03-25)
 
-- 组件代码迁移到 TypeScript，同时使用 `tsc` 替代 `babel` 做转码
+### 不兼容改动
+
+- `Form` 校验方法中的 `equals` 和 `equalsField` 迁移到 `===` 比较，之前是 `==`
+- 重写 `NumberInput` 组件，`onChange` 参数修改为字符串，不再是个模拟的事件对象；同时 `onChange` 只在 blur 的时候触发
+- 更新了 `babel-plugin-zent` 插件的数据格式，不兼容以前的版本
+- 重写 `Layout`，不再导出 `Layout` 这个命名空间；同时真正支持响应式布局
+
+### 其他
+
 - 删除了组件上所有的 `propTypes`，现在依赖 `TypeScript` 的类型系统；使用 JavaScript 的话就没有 props 的类型检查了
+- 组件代码迁移到 TypeScript，同时使用 `tsc` 替代 `babel` 做转码
 - 恢复主题自定义功能，使用方式有变化，具体看文档
 - `Portal` 支持嵌套，后续会把 `Popover` 里处理嵌套的相关逻辑迁移到 `Portal`
-- `Form` 校验方法中的 `equals` 和 `equalsField` 迁移到 `===` 比较，之前是 `==`
-- 更新了 `babel-plugin-zent` 插件的数据格式，不兼容以前的版本
 
 ## 7.0.0-next.5(2019-02-28)
 
-### Breaking changes
+### 不兼容改动
 
 - 拆分 `Pagination` 为 `Pagination`, `MiniPagination` 以及 `LitePagination` 三个独立的样式。
 
-
 ## 7.0.0-next.4(2019-02-26)
 
-### Breaking changes
+### 不兼容改动
 
 - 默认字号从 12 调整为 14
 - `prefix` 参数不再支持，后续后全面移除，现在部分组件已经移除
@@ -94,7 +125,7 @@
 - 废弃 `postcss` 改用 `node-sass`，样式源文件（assets 目录下的）按需加载需要升级 `babel-plugin-zent` 到 `2.0.0-next.3`
 - `NumberInput` 的 `onChange` 回调的参数是 `string`
 
-### Other changes
+### 其他
 
 - 样式更新：`Button`, `SplitButton`, `Breadcrumb`, `Steps`, `Menu`, `Radio`, `Checkbox`, `Input`, `Select`, `Slider`, `Switch`, `Badge`, `Collapse`, `Pop`, `Tabs`, `Tag`, `Timeline`, `Dialog`, `Progress`, `Rate`, `Collapse`, `Table`, `Grid`
 - 增加 `RadioButton`，按钮样式的单选框
