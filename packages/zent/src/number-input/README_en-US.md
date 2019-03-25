@@ -30,7 +30,7 @@ A input widget for entering number through mouse or keyboard
 | prefix      | custom class prefix            | string              | `'zent'` |             | No       |
 
 <style>
-.zent-number-input-wrapper {
+.zent-number-input {
   width: 200px;
   margin-bottom: 20px;
 }

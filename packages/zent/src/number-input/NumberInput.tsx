@@ -334,6 +334,9 @@ export class NumberInput extends PureComponent<
     return (
       <Input
         {...inputProps}
+        prefix={prefix}
+        readOnly={readOnly}
+        disabled={disabled}
         className={cx(`${prefix}-number-input`, className)}
         value={value}
         onChange={this.onChange}

@@ -31,7 +31,7 @@ group: 数据
 | prefix      | 自定义类前缀          | string              | `'zent'` |        | 否       |
 
 <style>
-.zent-number-input-wrapper {
+.zent-number-input {
   width: 200px;
   margin-bottom: 20px;
 }

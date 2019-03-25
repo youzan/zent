@@ -2,9 +2,20 @@
 
 @mixin disable {
   cursor: not-allowed;
-  pointer-events: none;
   color: $theme-stroke-4;
   background: $theme-stroke-8;
+
+  > .zenticon {
+    color: $theme-stroke-4;
+  }
+
+  &:hover {
+    color: $theme-stroke-4;
+
+    > .zenticon {
+      color: $theme-stroke-4;
+    }
+  }
 }
 
 .zent-number-input {
@@ -22,6 +33,7 @@
     flex-direction: column;
     border-left: 1px solid $theme-stroke-5;
     margin-left: -1px;
+    user-select: none;
 
     #{$p}-arrow {
       cursor: pointer;
@@ -31,7 +43,7 @@
       background-color: white;
       text-align: center;
 
-      &-disable {
+      &.zent-number-input-arrow-disable {
         @include disable;
       }
 
@@ -70,8 +82,9 @@
     cursor: pointer;
     text-align: center;
     color: $theme-stroke-2;
+    user-select: none;
 
-    &-disable {
+    &.zent-number-input-count-disable {
       @include disable;
     }
 
