@@ -20,7 +20,7 @@ A input widget for entering number through mouse or keyboard
 | onChange    | change event                   | func(value: string) |          |             | No       |
 | showStepper | whether stepper is open        | bool                | `false`  |             | No       |
 | showCounter | whether counter is open        | bool                | `false`  |             | No       |
-| decimal     | number decimal                 | number              |          |             | No       |
+| decimal     | number decimal                 | number              |  `0`     |             | No       |
 | min         | the minimum value in the range | number              |          |             | No       |
 | max         | the maximum value in the range | number              |          |             | No       |
 | placeholder | raw placeholder text           | string              | `''`     |             | No       |
