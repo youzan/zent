@@ -1,4 +1,14 @@
 {
+  "preset": "ts-jest/presets/js-with-babel",
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "tsconfig.test.json"
+    },
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "transformIgnorePatterns": ["/node_modules/(?!(lodash-es|fecha)/)"],
   "testURL": "https://youzan.github.io/zent",
   "verbose": true,
   "automock": false,
@@ -20,23 +30,22 @@
     "<rootDir>/__tests__/form/CreateForm-Field.js",
     "<rootDir>/__tests__/form/CreateForm-FieldArray.js",
     "<rootDir>/__tests__/form/GetControlGroup-Component_Fields.js",
-    "<rootDir>/__tests__/portal/.+",
-    "<rootDir>/__tests__/loading.js"
+    "<rootDir>/__tests__/portal/.+"
   ],
   "coveragePathIgnorePatterns": [
-    "<rootDir>/src/slider/common.js",
-    "<rootDir>/src/slider/Container.js",
-    "<rootDir>/src/slider/Points.js",
+    "<rootDir>/src/slider/common.ts",
+    "<rootDir>/src/slider/Container.tsx",
+    "<rootDir>/src/slider/Point.tsx",
     "<rootDir>/src/sortable",
     "<rootDir>/src/colorpicker/helpers/reactcss",
-    "<rootDir>/src/colorpicker/SketchFields.js",
-    "<rootDir>/src/colorpicker/SketchPresetColors.js",
-    "<rootDir>/src/colorpicker/common/ColorWrap.js",
-    "<rootDir>/src/colorpicker/helpers/checkboard.js",
-    "<rootDir>/src/utils/scroll.js",
-    "<rootDir>/src/utils/getWidth.js",
-    "<rootDir>/src/utils/component/AnimateHeight.js",
-    "<rootDir>/scr/utils/component/LazyMount.js",
+    "<rootDir>/src/colorpicker/SketchFields.tsx",
+    "<rootDir>/src/colorpicker/SketchPresetColors.tsx",
+    "<rootDir>/src/colorpicker/common/ColorWrap.tsx",
+    "<rootDir>/src/colorpicker/helpers/checkboard.ts",
+    "<rootDir>/src/utils/scroll.ts",
+    "<rootDir>/src/utils/getWidth.ts",
+    "<rootDir>/src/utils/component/AnimateHeight.tsx",
+    "<rootDir>/scr/utils/component/LazyMount.tsx",
     "<rootDir>/scr/utils/date",
     "<rootDir>/src/i18n",
     "<rootDir>/src/pagination",
@@ -48,10 +57,10 @@
     "<rootDir>/src/form/.+",
     "<rootDir>/src/portal/.+",
     "<rootDir>/src/loading/.+",
-    "<rootDir>/src/radio/GroupContext.js",
-    "<rootDir>/src/checkbox/GroupContext.js"
+    "<rootDir>/src/slider/Points.tsx"
   ],
   "moduleNameMapper": {
+    "fecha": "<rootDir>/../../node_modules/fecha/src/fecha.js",
     "^affix$": "<rootDir>/src/affix",
     "^affix/(.+)$": "<rootDir>/src/affix/$1",
     "^alert$": "<rootDir>/src/alert",

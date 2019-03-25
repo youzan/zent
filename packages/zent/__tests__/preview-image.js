@@ -104,24 +104,4 @@ describe('previewImage render', () => {
       index: 0,
     });
   });
-
-  it('throws if scaleRatio is less than 1', () => {
-    /* eslint-disable no-console */
-    const oldFn = console.error;
-    console.error = err => {
-      throw err;
-    };
-    expect(() => {
-      mount(
-        <Image
-          images={imgArr}
-          showRotateBtn={false}
-          index={0}
-          scaleRatio={0.5}
-        />
-      );
-    }).toThrow();
-    console.error = oldFn;
-    /* eslint-enable no-console */
-  });
 });

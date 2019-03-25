@@ -7,11 +7,11 @@ const MODULE_NAME = 'zent';
 // require('zent');
 //
 //
-// Ingore:
+// Ignore:
 // import Button from 'zent/button';
 // import Button from 'zent-button';
 // require('zent-button')
-module.exports = function(babel) {
+export default function foobar(babel) {
   const { types: t } = babel;
 
   return {
@@ -52,7 +52,7 @@ module.exports = function(babel) {
             // no import * as Zent from 'zent'
             if (t.isImportNamespaceSpecifier(sp)) {
               throw path.buildCodeFrameError(
-                `Namespace import is not allowd in ${MODULE_NAME}, pick the components you need.`
+                `Namespace import is not allowed in ${MODULE_NAME}, pick the components you need.`
               );
             }
 
@@ -67,7 +67,7 @@ module.exports = function(babel) {
               return r.concat(buildImportReplacement(sp, t, state, path));
             }
 
-            throw path.buildCodeFrameError('Unexpected import type');
+            return r;
           }, []);
 
           const { opts: options } = state;
@@ -80,10 +80,10 @@ module.exports = function(babel) {
       },
     },
   };
-};
+}
 
 function buildImportReplacement(specifier, types, state, originalPath) {
-  initModuleMapppingAsNecessary(state);
+  initModuleMappingAsNecessary(state);
 
   // import {Button as _Button} from 'zent'
   // imported name is Button, but local name is _Button
@@ -93,52 +93,54 @@ function buildImportReplacement(specifier, types, state, originalPath) {
   const { opts: options, data } = state;
 
   if (data.MODULE_MAPPING.hasOwnProperty(importedName)) {
+    const {
+      noModuleRewrite,
+      automaticStyleImport,
+      useESM,
+      useRawStyle,
+    } = options;
     const rule = data.MODULE_MAPPING[importedName];
 
     // js
-    if (!options.noModuleRewrite) {
+    if (!noModuleRewrite) {
       replacement.push(
         types.importDeclaration(
           [types.importDefaultSpecifier(types.identifier(localName))],
-          types.stringLiteral(rule.js)
+          types.stringLiteral(getJavaScriptPath(rule.js, useESM))
         )
       );
     }
 
     // style
-    if (options.automaticStyleImport) {
-      if (options.useRawStyle) {
-        if (!rule.style) {
-          throw originalPath.buildCodeFrameError(
-            '`useRawStyle` is not compatible with old versions of zent, please upgrade zent to >= zent@3.8.1'
-          );
-        }
-
-        rule.style.forEach(path => {
-          if (data.STYLE_IMPORT_MAPPING[path] === undefined) {
-            replacement.push(
-              types.importDeclaration([], types.stringLiteral(path))
-            );
-            data.STYLE_IMPORT_MAPPING[path] = true;
-          }
-        });
-      } else {
-        rule.css.forEach(path => {
-          if (data.STYLE_IMPORT_MAPPING[path] === undefined) {
-            replacement.push(
-              types.importDeclaration([], types.stringLiteral(path))
-            );
-            data.STYLE_IMPORT_MAPPING[path] = true;
-          }
-        });
+    if (automaticStyleImport) {
+      if (!rule.style) {
+        throw originalPath.buildCodeFrameError(
+          'Please upgrade zent to >= zent@7.0.0'
+        );
       }
+
+      rule.style.forEach(path => {
+        if (data.STYLE_IMPORT_MAPPING[path] === undefined) {
+          replacement.push(
+            types.importDeclaration(
+              [],
+              types.stringLiteral(getStylePath(path, useRawStyle))
+            )
+          );
+          data.STYLE_IMPORT_MAPPING[path] = true;
+        }
+      });
     }
+  } else {
+    throw originalPath.buildCodeFrameError(
+      `No export named '${importedName}' found in zent.`
+    );
   }
 
   return replacement;
 }
 
-function initModuleMapppingAsNecessary(state) {
+function initModuleMappingAsNecessary(state) {
   const { opts: options } = state;
 
   if (!state.data) {
@@ -148,7 +150,7 @@ function initModuleMapppingAsNecessary(state) {
   const data = state.data;
   if (!data.MODULE_MAPPING) {
     const moduleMappingFile =
-      options.moduleMappingFile || 'zent/lib/module-mapping.json';
+      options.moduleMappingFile || 'zent/dependency-graph.json';
 
     // eslint-disable-next-line
     data.MODULE_MAPPING = require(moduleMappingFile);
@@ -158,4 +160,21 @@ function initModuleMapppingAsNecessary(state) {
       data.STYLE_IMPORT_MAPPING = {};
     }
   }
+}
+
+function getJavaScriptPath(relativePath, useESM) {
+  const parentDir = useESM ? 'es' : 'lib';
+  return `zent/${parentDir}${relativePath}`;
+}
+
+function getStylePath(component, useRaw) {
+  let suffix, parentDir;
+  if (useRaw) {
+    suffix = '.scss';
+    parentDir = 'assets';
+  } else {
+    suffix = '.css';
+    parentDir = 'css';
+  }
+  return `zent/${parentDir}/${component}${suffix}`;
 }

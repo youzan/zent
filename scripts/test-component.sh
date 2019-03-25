@@ -2,8 +2,8 @@
 
 set -e
 
-pushd packages/zent
+pushd packages/zent >/dev/null 2>&1
 mkdir -p lib
-node scripts/generate-module-config.js
+ts-node --project scripts/cruiser/tsconfig.json  scripts/cruiser/index.ts src/index.ts assets
 jest -c jest.config.json __tests__/$1
-popd
+popd >/dev/null 2>&1
