@@ -28,7 +28,10 @@ const A_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
 
 const TWO_CN_CHAR_REG = /^[\u4e00-\u9fa5]{2}$/;
 
-const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
+const wrapTextWithSpanTag = (
+  children: React.ReactNode,
+  isNeedInsertSpace: boolean
+) => {
   return Children.map(children, child => {
     if (typeof child === 'string') {
       if (isNeedInsertSpace && TWO_CN_CHAR_REG.test(child)) {
@@ -43,23 +46,23 @@ const wrapTextWithSpanTag = (children, isNeedInsertSpace) => {
 
 export interface IButtonProps
   extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
-  type?: 'default' | 'primary' | 'secondary' | 'danger' | 'success';
-  size?: 'medium' | 'large' | 'small';
-  htmlType?: 'button' | 'submit' | 'reset';
-  block?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
-  outline?: boolean;
-  bordered?: boolean;
+  type: 'default' | 'primary' | 'secondary' | 'danger' | 'success';
+  size: 'medium' | 'large' | 'small';
+  htmlType: 'button' | 'submit' | 'reset';
+  block: boolean;
+  disabled: boolean;
+  loading: boolean;
+  outline: boolean;
+  bordered: boolean;
   component?: React.ComponentType<any> | string;
   href?: string;
   target?: string;
   className?: string;
   style?: CSSProperties;
-  prefix?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  prefix: string;
+  onClick?: MouseEventHandler<Element>;
   icon?: IconType;
-  insertSpace?: boolean;
+  insertSpace: boolean;
 }
 
 export class Button extends Component<IButtonProps> {
@@ -79,27 +82,26 @@ export class Button extends Component<IButtonProps> {
 
   static Group = Group;
 
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   // 处理点击事件
-  handleClick(event) {
+  handleClick: React.MouseEventHandler = event => {
     if (this.props.disabled || this.props.loading) return;
 
     if (this.props.onClick) {
       this.props.onClick(event);
     }
-  }
+  };
 
-  isNeedInsertSpace() {
+  isNeedInsertSpace(): boolean {
     const { icon, children, insertSpace } = this.props;
-    return insertSpace && React.Children.count(children) === 1 && !icon;
+    return !!insertSpace && React.Children.count(children) === 1 && !icon;
   }
 
   // render a 标签
-  renderLink(classNames, iconNode, wrappedChildren) {
+  renderLink(
+    classNames: string,
+    iconNode: React.ReactNode,
+    wrappedChildren: React.ReactNode
+  ) {
     const { component, disabled, loading, href = '', target } = this.props;
     const Node = component || 'a';
     const nodeProps = omit(this.props, A_BLACK_LIST);
@@ -118,7 +120,11 @@ export class Button extends Component<IButtonProps> {
   }
 
   // render button 标签
-  renderButton(classNames, iconNode, wrappedChildren) {
+  renderButton(
+    classNames: string,
+    iconNode: React.ReactNode,
+    wrappedChildren: React.ReactNode
+  ) {
     const { component, disabled, loading, htmlType } = this.props;
     const Node = component || 'button';
     const nodeProps = omit(this.props, BTN_BLACK_LIST);
@@ -152,7 +158,6 @@ export class Button extends Component<IButtonProps> {
       icon,
       children,
     } = this.props;
-    const renderer = href || target ? 'renderLink' : 'renderButton';
     const { className } = this.props;
     const classNames = setClass(
       {
@@ -172,8 +177,15 @@ export class Button extends Component<IButtonProps> {
       children,
       this.isNeedInsertSpace()
     );
-
-    return this[renderer](classNames, iconNode, wrappedChildren);
+    const args: [string, React.ReactNode, React.ReactNode] = [
+      classNames,
+      iconNode,
+      wrappedChildren,
+    ];
+    if (href || target) {
+      return this.renderLink.apply(this, args);
+    }
+    return this.renderButton.apply(this, args);
   }
 }
 

@@ -3,14 +3,13 @@ import { Component } from 'react';
 import setClass from 'classnames';
 
 export interface IButtonGroupProps {
-  className?: string;
-  prefix?: string;
+  className: string;
+  prefix: string;
   style?: React.CSSProperties;
 }
 
 export class ButtonGroup extends Component<IButtonGroupProps> {
   static defaultProps = {
-    style: null,
     className: '',
     prefix: 'zent',
   };
