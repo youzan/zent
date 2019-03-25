@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-zent",
-  "version": "2.0.0-next.3",
+  "version": "2.0.0-next.4",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -15,7 +15,7 @@
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.6",
     "@babel/runtime": "^7.1.5",
-    "jest": "^24.5.0",
-    "babel-jest": "^24.5.0"
+    "babel-jest": "^24.5.0",
+    "jest": "^24.5.0"
   }
 }
