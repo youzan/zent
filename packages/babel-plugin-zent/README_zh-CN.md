@@ -39,7 +39,6 @@
 // 默认值
 {
 	noModuleRewrite: false,
-	useESM: false,
 	automaticStyleImport: false,
 	useRawStyle: false
 }

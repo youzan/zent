@@ -35,6 +35,7 @@ import {
   GridSortType,
   GridRowClassNameType,
 } from './types';
+import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
 
 function stopPropagation(e) {
   e.stopPropagation();
@@ -77,6 +78,7 @@ export interface IGridProps {
     current?: number;
     total?: number;
     pageSize?: number;
+    pageSizeOptions?: PaginationPageSizeOption[];
   };
   onRowClick?: (
     data: any,

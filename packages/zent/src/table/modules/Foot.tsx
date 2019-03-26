@@ -58,7 +58,7 @@ export default class Foot extends PureComponent<any, any> {
     const { onPageChange, batchComponents, selection, current } = this.props;
 
     const pageInfo = this.props.pageInfo || {};
-    const { totalItem, pageSize, total, limit } = pageInfo;
+    const { totalItem, pageSize, total, limit, pageSizeOptions } = pageInfo;
 
     const { needSelect, selectedRows } = selection;
     let batchClassName = 'tfoot__batchcomponents';
@@ -97,6 +97,7 @@ export default class Foot extends PureComponent<any, any> {
                 totalItem={isNil(totalItem) ? total : totalItem}
                 pageSize={isNil(pageSize) ? limit : pageSize}
                 onChange={onPageChange}
+                pageSizeOptions={pageSizeOptions}
               />
             )}
           </div>
