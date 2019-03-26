@@ -6,15 +6,15 @@ import isArray from 'lodash-es/isArray';
 const NO_STYLE = {};
 
 export interface IBadgeProps {
-  count?: number;
-  maxCount?: number;
-  dot?: boolean;
-  showZero?: boolean;
+  count: number;
+  maxCount: number;
+  dot: boolean;
+  showZero: boolean;
   offset?: [number, number];
   style?: React.CSSProperties;
   children: React.ReactNode;
-  className?: string;
-  prefix?: string;
+  className: string;
+  prefix: string;
 }
 
 export class Badge extends PureComponent<IBadgeProps> {
@@ -27,7 +27,7 @@ export class Badge extends PureComponent<IBadgeProps> {
     prefix: 'zent',
   };
 
-  render() {
+  renderCount() {
     const {
       count,
       maxCount,
@@ -35,10 +35,30 @@ export class Badge extends PureComponent<IBadgeProps> {
       showZero,
       offset,
       style,
-      className,
       prefix,
-      children,
     } = this.props;
+    const posStyle =
+      isArray(offset) && offset.length === 2
+        ? {
+            top: offset[0],
+            right: offset[1],
+          }
+        : NO_STYLE;
+    const badgeStyle = style ? { ...style, ...posStyle } : posStyle;
+    if (dot) {
+      return <span className={`${prefix}-badge-dot`} style={badgeStyle} />;
+    } else if (count > 0 || (count === 0 && showZero)) {
+      return (
+        <span className={`${prefix}-badge-count`} style={badgeStyle}>
+          {count > maxCount ? `${maxCount}+` : count}
+        </span>
+      );
+    }
+    return null;
+  }
+
+  render() {
+    const { className, prefix, children } = this.props;
     const containerCls = cx({
       [`${prefix}-badge`]: true,
       [`${prefix}-badge--has-content`]: children,
@@ -48,37 +68,13 @@ export class Badge extends PureComponent<IBadgeProps> {
       // For compatibility only
       [`${prefix}-badge-none-cont`]: !children,
     });
-    const posStyle =
-      isArray(offset) && offset.length === 2
-        ? {
-            top: offset[0],
-            right: offset[1],
-          }
-        : NO_STYLE;
-    const badgeStyle = style ? { ...style, ...posStyle } : posStyle;
-
-    const renderCount = () => {
-      let countEle = null;
-      if (dot) {
-        countEle = (
-          <span className={`${prefix}-badge-dot`} style={badgeStyle} />
-        );
-      } else if (count > 0 || (count === 0 && showZero)) {
-        countEle = (
-          <span className={`${prefix}-badge-count`} style={badgeStyle}>
-            {count > maxCount ? `${maxCount}+` : count}
-          </span>
-        );
-      }
-      return countEle;
-    };
 
     return (
       <div className={containerCls}>
         {children ? (
           <div className={`${prefix}-badge-content`}>{children}</div>
         ) : null}
-        {renderCount()}
+        {this.renderCount()}
       </div>
     );
   }

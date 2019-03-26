@@ -5,9 +5,9 @@ import cx from 'classnames';
 import Item, { IBreadcrumbItemProps } from './Item';
 
 export interface IBreadcrumbProps {
-  breads?: IBreadcrumbItemProps[];
-  className?: string;
-  prefix?: string;
+  breads: IBreadcrumbItemProps[];
+  className: string;
+  prefix: string;
 }
 
 export class Breadcrumb extends Component<IBreadcrumbProps> {

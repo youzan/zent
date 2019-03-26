@@ -8,10 +8,10 @@ export interface IBlockHeaderProps {
   className?: string;
   title: string;
   tooltip?: ReactNode;
-  content?: ReactNode;
+  content: ReactNode;
   childAlign?: 'left' | 'right';
-  position?: PopPositions;
-  prefix?: string;
+  position: PopPositions;
+  prefix: string;
 }
 
 export class BlockHeader extends Component<IBlockHeaderProps> {

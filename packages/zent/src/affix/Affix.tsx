@@ -8,11 +8,11 @@ import WindowEventHandler from '../utils/component/WindowEventHandler';
 import getViewportSize from '../utils/dom/getViewportSize';
 
 export interface IAffixProps {
-  offsetTop?: number;
+  offsetTop: number;
   offsetBottom?: number;
   onPin?: () => void;
   onUnpin?: () => void;
-  zIndex?: number;
+  zIndex: number;
   className?: string;
   placeHoldClassName?: string;
   prefix?: string;
@@ -20,7 +20,7 @@ export interface IAffixProps {
 
 export interface IAffixState {
   position: 'static' | 'fixed';
-  width: number | null;
+  width: number | undefined;
   placeHoldStyle: CSSProperties;
 }
 
@@ -33,7 +33,7 @@ export class Affix extends Component<IAffixProps, IAffixState> {
 
   state: IAffixState = {
     position: 'static',
-    width: null,
+    width: undefined,
     placeHoldStyle: {},
   };
 
@@ -54,7 +54,7 @@ export class Affix extends Component<IAffixProps, IAffixState> {
     this.affix = false;
     this.setState({
       position: 'static',
-      width: null,
+      width: undefined,
       placeHoldStyle: { overflow: 'hidden' },
     });
     onUnpin && onUnpin();
@@ -85,7 +85,7 @@ export class Affix extends Component<IAffixProps, IAffixState> {
       return;
     }
 
-    let reallyNum, propsNum;
+    let reallyNum: number, propsNum: number;
 
     if (props.offsetBottom !== undefined) {
       reallyNum =

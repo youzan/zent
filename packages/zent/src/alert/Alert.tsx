@@ -5,13 +5,13 @@ import isFunction from 'lodash-es/isFunction';
 
 export interface IAlertProps {
   type: 'info' | 'warning' | 'danger' | 'error';
-  size?: 'normal' | 'large';
-  rounded?: boolean;
-  closable?: boolean;
+  size: 'normal' | 'large';
+  rounded: boolean;
+  closable: boolean;
   onClose?: () => void;
   children: React.ReactNode;
   className?: string;
-  prefix?: string;
+  prefix: string;
 }
 
 // 忽略不支持的style
@@ -78,8 +78,8 @@ export class Alert extends Component<IAlertProps> {
       `${prefix}-alert`,
       `${prefix}-${styleClassMap[type]}`,
       `${prefix}-${sizeClassMap[size]}`,
+      className,
       {
-        [className]: !!className,
         [`${prefix}-alert-border-rounded`]: rounded,
         [`${prefix}-alert-closable`]: closable,
       }
