@@ -131,7 +131,7 @@ class SKUGroup extends PureComponent {
       <div className={prefix}>
         <h3 className="group-title">
           {isShowSkuLabel && (
-            <span className="group-title__label">规格名：</span>
+            <span className="group-title__label">{i18n.container.skuKey}</span>
           )}
           <Select
             open={typeof sku[optionValue] === 'undefined'}

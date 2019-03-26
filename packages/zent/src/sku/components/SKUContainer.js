@@ -227,7 +227,9 @@ class SKUContainer extends PureComponent {
     return (
       <div className="group-container">
         <div className="sku-list">
-          {isShowSkuLabel && <span className="sku-list__label">规格值：</span>}
+          {isShowSkuLabel && (
+            <span className="sku-list__label">{i18n.container.skuValue}</span>
+          )}
           {sku.leaf.map((item, index) => {
             return (
               <div
