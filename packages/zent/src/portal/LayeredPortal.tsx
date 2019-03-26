@@ -1,18 +1,16 @@
 import * as React from 'react';
 import { Component } from 'react';
-import isFunction from 'lodash-es/isFunction';
 
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import {
-  getNodeFromSelector,
-  createContainerNode,
   removeNodeFromDOMTree,
   isDescendant,
+  getNodeFromSelector,
 } from './util';
 
 export interface ILayeredPortalProps extends IPurePortalProps {
   visible?: boolean;
-  layer?: string;
+  layer: string;
   useLayerForClickAway?: boolean;
   onClickAway?: (e: TouchEvent | MouseEvent) => void;
   onLayerReady?: (node: HTMLElement) => void;
@@ -20,10 +18,20 @@ export interface ILayeredPortalProps extends IPurePortalProps {
   style?: React.CSSProperties;
 }
 
+export interface ILayeredPortalState {
+  prevLayer: string;
+  prevSelector: string | HTMLElement;
+  layer: HTMLElement;
+  parent: Element;
+}
+
 /*
   Portal的核心，只负责管理child。index.js实际export的不是这个component.
 */
-export class LayeredPortal extends Component<ILayeredPortalProps> {
+export class LayeredPortal extends Component<
+  ILayeredPortalProps,
+  ILayeredPortalState
+> {
   static defaultProps = {
     selector: 'body',
     layer: 'div',
@@ -31,13 +39,19 @@ export class LayeredPortal extends Component<ILayeredPortalProps> {
     visible: true,
   };
 
-  // DOM node, the container of the portal content
-  layerNode: HTMLElement | null = null;
-
-  // DOM node, the parent node of portal content
-  parentNode: Element | null = null;
-
   purePortalRef = React.createRef<PurePortal>();
+
+  constructor(props: ILayeredPortalProps) {
+    super(props);
+    const layer = document.createElement(props.layer);
+    const parent = getNodeFromSelector(props.selector);
+    this.state = {
+      prevLayer: props.layer,
+      prevSelector: props.selector,
+      layer,
+      parent,
+    };
+  }
 
   contains(el: Element) {
     const purePortal = this.purePortalRef.current;
@@ -47,39 +61,25 @@ export class LayeredPortal extends Component<ILayeredPortalProps> {
     return purePortal.contains(el);
   }
 
-  onUnmount = () => {
-    this.unrenderLayer();
-
-    const layerNode = this.getLayer();
-    if (layerNode) {
-      const { onUnmount } = this.props;
-      isFunction(onUnmount) && onUnmount();
-    }
-  };
-
-  getLayer = () => this.layerNode;
-
-  onClickAway = event => {
-    if (
-      event.defaultPrevented ||
-      !this.props.onClickAway ||
-      !this.props.visible
-    ) {
+  onClickAway = (event: TouchEvent | MouseEvent) => {
+    const { onClickAway, visible } = this.props;
+    if (event.defaultPrevented || !onClickAway || !visible) {
       return;
     }
 
-    const layerNode = this.getLayer();
+    const { layer: layerNode } = this.state;
     if (
       !(event.target instanceof Node) ||
-      (event.target !== layerNode && event.target === window) ||
+      (event.target !== layerNode &&
+        event.target === ((window as unknown) as Node)) ||
       (document.documentElement.contains(event.target) &&
         !isDescendant(layerNode, event.target))
     ) {
-      this.props.onClickAway(event);
+      onClickAway(event);
     }
   };
 
-  undecorateLayer = layerNode => {
+  undecorateLayer = (layerNode: HTMLElement) => {
     if (this.props.useLayerForClickAway) {
       layerNode.style.position = 'relative';
       layerNode.removeEventListener('touchstart', this.onClickAway);
@@ -90,7 +90,11 @@ export class LayeredPortal extends Component<ILayeredPortalProps> {
     }
   };
 
-  decorateLayer = (layerNode: HTMLElement, props = this.props) => {
+  decorateLayer = (
+    layerNode: HTMLElement,
+    parent: Element,
+    props = this.props
+  ) => {
     const { onLayerReady, className, style } = props;
 
     // 1, Customize the className and style for layer node.
@@ -108,7 +112,7 @@ export class LayeredPortal extends Component<ILayeredPortalProps> {
       layerNode.addEventListener('touchstart', this.onClickAway);
       layerNode.addEventListener('click', this.onClickAway);
       layerNode.style.position =
-        this.parentNode === document.body ? 'fixed' : 'absolute';
+        parent === document.body ? 'fixed' : 'absolute';
       layerNode.style.top = '0';
       layerNode.style.bottom = '0';
       layerNode.style.left = '0';
@@ -121,58 +125,68 @@ export class LayeredPortal extends Component<ILayeredPortalProps> {
     }
 
     // 3, Callback when layer node is ready
-    onLayerReady && onLayerReady(this.layerNode);
+    onLayerReady && onLayerReady(layerNode);
   };
 
-  unrenderLayer = () => {
-    const layerNode = this.getLayer();
+  mountLayer() {
+    const { layer, parent } = this.state;
+    parent.appendChild(layer);
+    this.decorateLayer(layer, parent);
+  }
 
-    if (layerNode) {
-      this.undecorateLayer(layerNode);
+  unmountLayer() {
+    const { layer } = this.state;
+    this.undecorateLayer(layer);
+    removeNodeFromDOMTree(layer);
+  }
 
-      removeNodeFromDOMTree(layerNode);
-
-      // Reset
-      this.layerNode = null;
-      this.parentNode = null;
-
-      isFunction(this.props.onUnmount) && this.props.onUnmount();
+  static getDerivedStateFromProps(
+    { layer, selector }: ILayeredPortalProps,
+    { prevLayer, prevSelector }: ILayeredPortalState
+  ): Partial<ILayeredPortalState> | null {
+    const state: Partial<ILayeredPortalState> = {};
+    if (layer !== prevLayer) {
+      state.layer = document.createElement(layer);
+      state.prevLayer = layer;
     }
-  };
-
-  renderLayer = (props = this.props) => {
-    if (props.visible) {
-      // Cache the parentNode
-      if (!this.parentNode) {
-        const { selector } = props;
-        this.parentNode = getNodeFromSelector(selector);
-      }
-
-      // Create the layer DOM node for portal content
-      const { layer } = props;
-      if (!this.layerNode) {
-        this.layerNode = createContainerNode(this.parentNode, layer);
-      }
-
-      // customize the container, e.g. style, event listener
-      this.decorateLayer(this.layerNode);
+    if (selector !== prevSelector) {
+      state.parent = getNodeFromSelector(selector);
+      state.prevSelector = selector;
     }
-  };
+    return state;
+  }
+
+  componentDidMount() {
+    if (this.props.visible) {
+      this.mountLayer();
+    }
+  }
+
+  componentDidUpdate(prevProps: ILayeredPortalProps) {
+    if (
+      prevProps.selector !== this.props.selector ||
+      prevProps.layer !== this.props.layer ||
+      !this.props.visible
+    ) {
+      this.unmountLayer();
+    }
+    if (this.props.visible) {
+      this.mountLayer();
+    }
+  }
+
+  componentWillUnmount() {
+    this.unmountLayer();
+  }
 
   render() {
-    this.renderLayer();
-
     // Render the portal content to container node or parent node
     const { children, render, visible } = this.props;
+    const { layer } = this.state;
     const content = render ? render() : children;
 
     return visible ? (
-      <PurePortal
-        ref={this.purePortalRef}
-        selector={this.layerNode}
-        onMount={this.props.onMount}
-        onUnmount={this.onUnmount}
-      >
+      <PurePortal ref={this.purePortalRef} selector={layer}>
         {content}
       </PurePortal>
     ) : null;

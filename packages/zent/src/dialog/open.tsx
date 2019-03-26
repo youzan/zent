@@ -29,7 +29,7 @@ export interface ICloseDialogOption {
 }
 
 interface IStandaloneDialogProps {
-  options: IOpenDialogOption & { dialogId: string };
+  options: Partial<IOpenDialogOption> & { dialogId: string };
   container: HTMLDivElement;
 }
 
@@ -112,7 +112,7 @@ export interface IOpenDialogOption extends Omit<IDialogProps, 'onClose'> {
 /*
   打开一个dialog，返回值是一个用来关闭dialog的函数。
 */
-export function openDialog(options: IOpenDialogOption = {}) {
+export function openDialog(options: Partial<IOpenDialogOption> = {}) {
   if (!isBrowser) return noop;
 
   const { dialogId = uniqueId('__zent-dialog__'), parentComponent } = options;

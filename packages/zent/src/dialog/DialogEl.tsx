@@ -3,6 +3,11 @@ import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
 
+export interface IMousePosition {
+  x: number;
+  y: number;
+}
+
 export interface IDialogInnerElProps {
   prefix?: string;
   title?: React.ReactNode;
@@ -11,10 +16,7 @@ export interface IDialogInnerElProps {
   closeBtn?: boolean;
   style?: React.CSSProperties;
   footer?: React.ReactNode;
-  mousePosition?: {
-    x: number;
-    y: number;
-  } | null;
+  mousePosition?: IMousePosition | null;
 }
 
 export class DialogInnerEl extends Component<IDialogInnerElProps> {
@@ -41,7 +43,7 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
       const origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
       const style = this.dialogEl.style;
       ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {
-        style[`${prefix}TransformOrigin`] = origin;
+        style[`${prefix}TransformOrigin` as any] = origin;
       });
       style.transformOrigin = origin;
     }

@@ -26,7 +26,7 @@ export default class WindowResizeHandler extends Component<
   _prevViewportSize: {
     width: number;
     height: number;
-  };
+  } | null = null;
 
   onResize = (evt: UIEvent) => {
     const viewportSize = getViewportSize();
@@ -36,10 +36,15 @@ export default class WindowResizeHandler extends Component<
     }
 
     const prevViewportSize = this._prevViewportSize;
-    const delta = {
-      deltaX: viewportSize.width - prevViewportSize.width,
-      deltaY: viewportSize.height - prevViewportSize.height,
-    };
+    const delta = prevViewportSize
+      ? {
+          deltaX: viewportSize.width - prevViewportSize.width,
+          deltaY: viewportSize.height - prevViewportSize.height,
+        }
+      : {
+          deltaX: 0,
+          deltaY: 0,
+        };
 
     if (delta.deltaX === 0 && delta.deltaY === 0) {
       return;

@@ -4,12 +4,12 @@ import { createPortal } from 'react-dom';
 import memoize from '../utils/memorize-one';
 
 import { getNodeFromSelector, removeAllChildren } from './util';
-import PortalContent, { IPortalContentProps } from './PortalContent';
+import { IPortalContentProps } from './PortalContent';
 import { IPortalContext, PortalContext } from './context';
 
 export interface IPurePortalProps extends IPortalContentProps {
   render?: () => React.ReactNode;
-  selector?: string | HTMLElement;
+  selector: string | HTMLElement;
   append?: boolean;
 }
 
@@ -65,7 +65,7 @@ export class PurePortal extends Component<IPurePortalProps> {
   }
 
   render() {
-    const { selector: container, onMount, onUnmount } = this.props;
+    const { selector: container } = this.props;
 
     // Render the portal content to container node or parent node
     const { children, render } = this.props;
@@ -78,9 +78,7 @@ export class PurePortal extends Component<IPurePortalProps> {
 
     return createPortal(
       <PortalContext.Provider value={this.childContext}>
-        <PortalContent onMount={onMount} onUnmount={onUnmount}>
-          {content}
-        </PortalContent>
+        {content}
       </PortalContext.Provider>,
       domNode
     );

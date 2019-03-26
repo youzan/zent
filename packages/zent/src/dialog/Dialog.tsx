@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import Portal, { IPortalProps } from '../portal';
 import isBrowser from '../utils/isBrowser';
-import { DialogElWrapper, DialogInnerEl } from './DialogEl';
+import { DialogElWrapper, DialogInnerEl, IMousePosition } from './DialogEl';
 import { openDialog, closeDialog } from './open';
 
 const { withNonScrollable, withESCToClose } = Portal;
@@ -15,7 +15,7 @@ const DialogPortalESCToClose = withESCToClose(DialogPortal);
 
 const TIMEOUT = 300; // ms
 
-let mousePosition = null;
+let mousePosition: IMousePosition | null = null;
 
 // Inspired by antd and rc-dialog
 if (isBrowser) {
@@ -31,7 +31,7 @@ export interface IDialogProps {
   title?: React.ReactNode;
   children?: React.ReactNode;
   footer?: React.ReactNode;
-  visible?: boolean;
+  visible: boolean;
   closeBtn?: boolean;
   onClose?: (
     e:
@@ -43,7 +43,7 @@ export interface IDialogProps {
   maskClosable?: boolean;
   className?: string;
   prefix?: string;
-  style?: React.CSSProperties;
+  style: React.CSSProperties;
   onOpened?: () => void;
   onClosed?: () => void;
 }
@@ -70,7 +70,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
   static openDialog = openDialog;
   static closeDialog = closeDialog;
 
-  lastMousePosition = null;
+  lastMousePosition: IMousePosition | null = null;
 
   constructor(props: IDialogProps) {
     super(props);
@@ -140,7 +140,9 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     }
 
     // 有关闭按钮的时候同时具有ESC关闭的行为
-    const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
+    const PortalComponent = closeBtn
+      ? DialogPortalESCToClose
+      : (DialogPortal as any);
 
     return (
       <PortalComponent

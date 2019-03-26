@@ -13,6 +13,7 @@ export interface IPortalProps extends ILayeredPortalProps {
 
 export class Portal extends Component<IPortalProps> {
   static defaultProps = {
+    ...LayeredPortal.defaultProps,
     prefix: 'zent',
     visible: true,
   };
