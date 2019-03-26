@@ -131,6 +131,8 @@ export const Sku = {
     del: '删除',
     replace: '替换',
     add: '+添加',
+    skuKey: '规格名：',
+    skuValue: '规格值：',
   },
   group: {
     add: '添加规格图片',

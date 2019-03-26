@@ -31,7 +31,9 @@ You can create a editable page with a variety of goods and services
 | onCreateSKU | create a new sku value, such as "virgo"  | function | `Promise` |  |
 | onChange | the callback will return current sku value when sku changes | function | `noop` |  |
 | prefix | custom prefix | string | 'rc-sku' | null |
-
+| isShowAddSkuImage | Whether to Display AddSkuImage | bool | true | false |
+| isShowSkuLabel | Whether to Display SkuLabel | bool | false | true |
+| customBtn | custom button | node | null | null |
 #### Utility methods
 
 In order to easily manipulate sku date, sku widget supports some utility methods

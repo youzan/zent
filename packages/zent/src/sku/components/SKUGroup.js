@@ -102,7 +102,14 @@ class SKUGroup extends PureComponent {
   };
 
   render() {
-    let { sku, index, skuTree, i18n } = this.props;
+    let {
+      sku,
+      index,
+      skuTree,
+      i18n,
+      isShowAddSkuImage,
+      isShowSkuLabel,
+    } = this.props;
     let { optionValue, optionText } = this.context;
     let { newSKUText, hasSKUImage } = this.state;
 
@@ -123,6 +130,9 @@ class SKUGroup extends PureComponent {
     return (
       <div className={prefix}>
         <h3 className="group-title">
+          {isShowSkuLabel && (
+            <span className="group-title__label">{i18n.container.skuKey}</span>
+          )}
           <Select
             open={typeof sku[optionValue] === 'undefined'}
             optionValue={optionValue}
@@ -133,7 +143,7 @@ class SKUGroup extends PureComponent {
             onOpen={this.handleReset}
             value={sku[optionValue] || ''}
           />
-          {index === 0 ? (
+          {index === 0 && isShowAddSkuImage ? (
             <Checkbox checked={hasSKUImage} onChange={this.checkSKUImage}>
               {i18n.group.add}
             </Checkbox>
@@ -147,6 +157,7 @@ class SKUGroup extends PureComponent {
         <SKUContainer
           sku={{ ...sku }}
           i18n={i18n}
+          isShowSkuLabel={isShowSkuLabel}
           hasSKUImage={hasSKUImage}
           onSKULeafChange={this.onSKULeafChange}
         />
