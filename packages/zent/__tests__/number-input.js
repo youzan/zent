@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow, mount, render } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import NumberInput from 'number-input';
 
@@ -7,8 +7,9 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('NumberInput', () => {
   it('will render div wrapper contains an Input component', () => {
-    const wrapper = render(<NumberInput />);
-    expect(wrapper.hasClass('zent-number-input')).toBe(true);
+    const wrapper = shallow(<NumberInput />);
+    expect(wrapper.type()).toBe('div');
+    expect(wrapper.hasClass('zent-number-input-wrapper')).toBe(true);
   });
 
   it('will throw error with showStepper and showCounter', () => {
@@ -24,7 +25,7 @@ describe('NumberInput', () => {
 
   it('can have custom prefix of classNames', () => {
     const wrapper = shallow(<NumberInput prefix="foo" />);
-    expect(wrapper.hasClass('foo-number-input')).toBe(true);
+    expect(wrapper.hasClass('foo-number-input-wrapper')).toBe(true);
   });
 
   it('change value is - or + ', () => {
@@ -38,7 +39,9 @@ describe('NumberInput', () => {
   });
 
   it('change value within min and max ', () => {
-    let wrapper = mount(<NumberInput showStepper value={2} min={0} max={3} />);
+    let wrapper = shallow(
+      <NumberInput showStepper value={2} min={0} max={3} />
+    );
     wrapper.find('.zent-number-input-arrowup').simulate('click');
     wrapper.find('.zent-number-input-arrowup').simulate('click');
     wrapper.find('.zent-number-input-arrowup').simulate('click');
@@ -49,21 +52,23 @@ describe('NumberInput', () => {
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
     wrapper.find('.zent-number-input-arrowdown').simulate('click');
     expect(wrapper.state('value')).toBe('0');
-    wrapper = mount(<NumberInput showStepper value={0} min={1} max={3} />);
+    wrapper = shallow(<NumberInput showStepper value={0} min={1} max={3} />);
     expect(wrapper.state('value')).toBe('1');
-    wrapper = mount(<NumberInput showStepper value={6} min={0} max={3} />);
+    wrapper = shallow(<NumberInput showStepper value={6} min={0} max={3} />);
     expect(wrapper.state('value')).toBe('3');
   });
 
   it('NumberInput has its core function, change value with click on arrow', () => {
     let wrapper = mount(<NumberInput showStepper value={2} />);
-    const onChangeMock = jest.fn().mockImplementation(value => {
-      wrapper.setProps({
-        value,
-      });
+    const onChangeMock = jest.fn();
+    const onBlurMock = jest.fn().mockImplementation(arg => {
+      // simulate outside setState()
+      wrapper.setProps({ value: arg });
     });
-    const onBlurMock = jest.fn();
-    const onPressEnter = jest.fn();
+    const onPressEnter = jest.fn().mockImplementation(arg => {
+      // simulate outside setState()
+      wrapper.setProps({ value: arg });
+    });
     wrapper = mount(
       <NumberInput
         onChange={onChangeMock}
@@ -79,7 +84,7 @@ describe('NumberInput', () => {
     expect(wrapper.state('value')).toBe('2');
 
     wrapper.find('input').simulate('change');
-    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls.length).toBe(2);
     wrapper.find('input').simulate('blur');
     expect(onBlurMock.mock.calls.length).toBe(1);
     wrapper.find('input').simulate('keyDown', { keyCode: 13 });
@@ -92,8 +97,8 @@ describe('NumberInput', () => {
   });
 
   it('NumberInput onchange value', () => {
-    const handleChange = value => {
-      expect(value).toBe('1');
+    const handleChange = e => {
+      expect(e.target.value).toBe('1');
     };
 
     const wrapper = mount(<NumberInput onChange={handleChange} value={1} />);

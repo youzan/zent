@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import RouterContext from '../router-context-type';
 
-import './style.scss';
+import './style.pcss';
 
 export default class SideNav extends Component {
   static contextTypes = RouterContext;

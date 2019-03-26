@@ -2,12 +2,8 @@
 order: 3
 zh-CN:
 	title: dropdown位置设置
-	up: 上面
-	down: 下面
 en-US:
 	title: dropdown position setting
-	up: Upside
-	down: Downside
 ---
 
 ```js
@@ -50,7 +46,7 @@ class Simple extends React.Component {
 					onClick={this.handleClick}
 					onSelect={this.handleSelect}
 				>
-					{i18n.up}
+					primary
 				</SplitButton>
 				<SplitButton
 					type="danger"
@@ -61,7 +57,7 @@ class Simple extends React.Component {
 					onClick={this.handleClick}
 					onSelect={this.handleSelect}
 				>
-					{i18n.down}
+					danger
 				</SplitButton>
 			</div>
 		);

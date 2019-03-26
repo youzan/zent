@@ -1,0 +1,107 @@
+@import './theme/default.pcss';
+
+.zent-notify-container {
+  z-index: 10000;
+  position: fixed;
+  min-width: 330px;
+  max-width: 720px;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.zent-notify {
+  padding-bottom: 10px;
+
+  &-content {
+    padding: 0 25px;
+    line-height: 40px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 14px;
+    color: $theme-stroke-10;
+    text-align: center;
+    border-radius: 2px;
+    box-sizing: border-box;
+
+    &:empty:before {
+      content: "\200b";
+    }
+
+    &.zent-notify-content-success {
+      background: $notify-success;
+    }
+
+    &.zent-notify-content-error {
+      background: $notify-error;
+    }
+  }
+}
+
+.notify-appear {
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.notify-appear.notify-appear-active {
+  animation-play-state: running;
+  animation-name: notifyMoveIn;
+  animation-duration: 0.3s;
+}
+
+.notify-exit {
+  animation-fill-mode: both;
+  animation-play-state: paused;
+
+  .zent-notify-content {
+    animation-fill-mode: both;
+    animation-play-state: paused;
+  }
+}
+
+.notify-exit.notify-exit-active {
+  animation-play-state: running;
+  animation-name: notifyMoveOut;
+  animation-duration: 0.3s;
+
+  .zent-notify-content {
+    animation-play-state: running;
+    animation-name: notifyContentMoveOut;
+    animation-duration: 0.3s;
+  }
+}
+
+@keyframes notifyMoveIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes notifyMoveOut {
+  0% {
+    opacity: 1;
+    max-height: 50px;
+  }
+
+  100% {
+    opacity: 0;
+    max-height: 0;
+    padding: 0;
+  }
+}
+
+@keyframes notifyContentMoveOut {
+  0% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}

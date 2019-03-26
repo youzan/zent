@@ -1,43 +1,47 @@
 ---
 order: 2
 zh-CN:
-  title: 修改分页大小
+	title: 动态 PageSize
 en-US:
-  title: Change page size
+	title: Dynamic PageSize
 ---
 
 ```jsx
 import { Pagination } from 'zent';
 
-const PAGE_SIZE_OPTIONS = [10, 20, 30];
-
-class Test extends Component {
+class Dynamic extends Component {
 	state = {
-		pageSize: 10,
-		current: 2,
-	};
-
-	onChange = options => {
-		console.log(options);
-		this.setState(options);
+		current: 1,
+		totalItem: 1000,
+		pageSize: 30,
 	};
 
 	render() {
-		const { current, pageSize } = this.state;
-
 		return (
-			<div>
-				<Pagination
-					current={current}
-					pageSize={pageSize}
-					pageSizeOptions={PAGE_SIZE_OPTIONS}
-					total={101}
-					onChange={this.onChange}
-				/>
-			</div>
+			<Pagination
+				current={this.state.current}
+				totalItem={this.state.totalItem}
+				onChange={this.onChange}
+				pageSize={[20, { value: 30, isCurrent: true }]}
+				onPageSizeChange={this.onPageSizeChange}
+			/>
 		);
 	}
+
+	onChange = page => {
+		this.setState({
+			current: page,
+		});
+	};
+
+	onPageSizeChange = pageSize => {
+		this.setState({
+			pageSize,
+		});
+
+		console.log(pageSize);
+	};
 }
 
-ReactDOM.render(<Test />, mountNode);
+ReactDOM.render(<Dynamic />, mountNode);
 ```

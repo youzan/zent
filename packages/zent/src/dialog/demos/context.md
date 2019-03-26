@@ -12,39 +12,54 @@ en-US:
 
 ```js
 import { Dialog, Button } from 'zent';
+import PropTypes from 'prop-types';
 
 const { openDialog } = Dialog;
 
-const DemoContext = React.createContext({
-	shared: 'This is from context',
-});
+class ContextProvider extends React.Component {
+	static childContextTypes = {
+		shared: PropTypes.string
+	};
+
+	getChildContext() {
+		return {
+			shared: 'This is from context'
+		};
+	}
+
+	render() {
+		return <div>{this.props.children}</div>;
+	}
+}
+
+class ContextConsumer extends React.Component {
+	static contextTypes = {
+		shared: PropTypes.string
+	};
+
+	render() {
+		return <span>{this.context.shared}</span>;
+	}
+}
 
 class Example extends React.Component {
 	open = () => {
 		openDialog({
 			parentComponent: this,
 			title: '{i18n.title1}',
-			children: (
-				<DemoContext.Consumer>
-					{({ shared }) => <span>{shared}</span>}
-				</DemoContext.Consumer>
-			),
-		});
-	};
+			children: <ContextConsumer />
+		})
+	}
 
 	render() {
-		return (
-			<Button type="primary" onClick={this.open}>
-				{i18n.show}
-			</Button>
-		);
+		return <Button type="primary" onClick={this.open}>{i18n.show}</Button>
 	}
 }
 
 ReactDOM.render(
-	<DemoContext.Provider>
+	<ContextProvider>
 		<Example />
-	</DemoContext.Provider>,
-	mountNode
+	</ContextProvider>
+	, mountNode
 );
 ```

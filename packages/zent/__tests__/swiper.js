@@ -38,9 +38,18 @@ describe('Swiper', () => {
   it('can change page', () => {
     const childs = [1, 2, 3];
     class Test extends React.Component {
+      state = {
+        currentIndex: null,
+        prevIndex: null,
+      };
+
+      handleChange = (currentIndex, prevIndex) => {
+        this.setState({ currentIndex, prevIndex });
+      };
+
       render() {
         return (
-          <Swiper arrows>
+          <Swiper arrows onChange={this.handleChange}>
             {childs.map((item, index) => (
               <div key={index} className="swiper-text-child">
                 {item}

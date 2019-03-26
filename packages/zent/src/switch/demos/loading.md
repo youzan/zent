@@ -1,9 +1,9 @@
 ---
-order: 3
+order: 4
 zh-CN:
-  title: 开关loading
+	title: 开关loading
 en-US:
-  title: Switch with loading
+	title: Switch with loading
 ---
 
 ```jsx
@@ -18,7 +18,8 @@ ReactDOM.render(
 		<Switch checked size="small" loading />
 		&nbsp;&nbsp;
 		<Switch size="small" loading />
-	</div>,
-	mountNode
+	</div>
+	, mountNode
 );
+
 ```

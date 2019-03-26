@@ -1,0 +1,31 @@
+@import './theme/default.pcss';
+
+.zent-date-range-picker__filter {
+  display: inline-block;
+}
+
+.zent-date-range-picker__btn {
+  margin-left: 10px;
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 12px;
+  color: $theme-stroke-5;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid $theme-stroke-7;
+  border-radius: 2px;
+
+  &:first-child {
+    margin-left: 15px;
+  }
+
+  &:hover {
+    color: $theme-primary-2;
+    border-color: $theme-primary-2;
+  }
+
+  &.active {
+    border-color: $theme-primary-2;
+    color: $theme-primary-2;
+  }
+}

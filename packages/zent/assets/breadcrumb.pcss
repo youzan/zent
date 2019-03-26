@@ -1,0 +1,91 @@
+@import './theme/default.pcss';
+$zent-breadcrumb-link-color: $theme-primary-2;
+$zent-breadcrumb-nav-link-color: $theme-stroke-3;
+$zent-breadcrumb-text-color: $theme-stroke-1;
+
+/**
+ * zent-breadcrumb:
+ * `.zent-breadcrumb` - 面包屑
+ *
+ *     @example
+ *     <div class="zent-breadcrumb">
+ *         <a href="#">微页面</a>
+ *         <span>发布页面</span>
+ *     </div>
+ *
+ */
+
+.zent-breadcrumb {
+  color: $zent-breadcrumb-text-color;
+  font-size: 0;
+  line-height: 0;
+  padding: 15px 0;
+
+  span,
+  a {
+    font-size: 14px;
+    line-height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+
+    &::after {
+      content: "/";
+      display: inline-block;
+      vertical-align: middle;
+      color: $theme-stroke-5;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+
+  span,
+  a {
+    &:last-child {
+      &::after {
+        content: "";
+        display: none;
+      }
+    }
+  }
+
+  span {
+    color: $zent-breadcrumb-text-color;
+  }
+
+  a {
+    color: $zent-breadcrumb-link-color;
+  }
+
+  &.zent-breadcrumb-nav {
+    padding: 0;
+
+    a {
+      display: inline-block;
+      height: 50px;
+      line-height: 48px;
+      padding: 0 20px;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      color: $zent-breadcrumb-nav-link-color;
+      text-align: center;
+      box-sizing: border-box;
+
+      &:after {
+        display: none;
+      }
+    }
+
+    .zent-breadcrumb-nav-active {
+      &:after {
+        display: block;
+        color: $zent-breadcrumb-text-color;
+        border-bottom: 2px solid $zent-breadcrumb-link-color;
+        content: '';
+        margin: 0;
+      }
+    }
+  }
+}

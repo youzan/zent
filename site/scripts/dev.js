@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const cp = require('child_process');
 
 const webpackConfig = require('../webpack/webpack.dev.config.js');
@@ -15,17 +16,13 @@ let onceMark = true;
 
 const compiler = webpack(webpackConfig);
 
-// compiler.apply(
-//   new ProgressPlugin((percentage, message, ...args) => {
-//     // {
-//     //   format: '  build [:bar] :percent (:elapsed seconds)',
-//     //   clear: false,
-//     //   width: 60,
-//     // }
-//     // e.g. Output each progress message directly to the console:
-//     console.info(percentage, message, ...args);
-//   })
-// );
+compiler.apply(
+  new ProgressPlugin({
+    format: '  build [:bar] :percent (:elapsed seconds)',
+    clear: false,
+    width: 60,
+  })
+);
 
 compiler.plugin('done', () => {
   if (onceMark) {

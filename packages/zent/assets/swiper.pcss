@@ -1,0 +1,93 @@
+@import './theme/default.pcss';
+$blue: $theme-primary-2;
+$red: $theme-error-2;
+$green: $theme-success-2;
+
+.zent-swiper {
+  position: relative;
+  overflow: hidden;
+
+  &__container {
+    height: 100%;
+    position: relative;
+    transition: ease-in-out;
+  }
+
+  &__arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    &-icon {
+      color: $theme-stroke-7;
+      font-size: 20px;
+    }
+
+    &-left {
+      left: 10px;
+
+      .zent-swiper__arrow-icon {
+        transform: rotate(180deg);
+      }
+    }
+
+    &-right {
+      right: 20px;
+    }
+  }
+
+  &-light {
+    .zent-swiper__arrow-icon {
+      color: $theme-stroke-10;
+    }
+  }
+
+  &__dots {
+    list-style: none;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+
+    &-item {
+      display: inline-block;
+      margin: 12px 5px;
+      border: 0;
+      cursor: pointer;
+      background: $theme-stroke-7;
+      height: 12px;
+      width: 12px;
+      border-radius: 100%;
+      outline: none;
+    }
+
+    &-large .zent-swiper__dots-item {
+      height: 15px;
+      width: 15px;
+    }
+
+    &-small .zent-swiper__dots-item {
+      height: 10px;
+      width: 10px;
+    }
+
+    &-black .zent-swiper__dots-item-active {
+      background: $theme-stroke-1;
+    }
+
+    &-blue .zent-swiper__dots-item-active {
+      background: $blue;
+    }
+
+    &-red .zent-swiper__dots-item-active {
+      background: $red;
+    }
+
+    &-green .zent-swiper__dots-item-active {
+      background: $green;
+    }
+  }
+}

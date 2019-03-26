@@ -1,0 +1,122 @@
+@import './theme/default.pcss';
+$defaultBorderColor: $theme-stroke-5;
+
+.zent-number-input-wrapper {
+  position: relative;
+}
+
+.zent-number-input-wrapper.zent-number-input-count-wrapper {
+  .zent-input {
+    padding: 0 20px 0 10px;
+  }
+}
+
+.zent-number-input-wrapper.zent-number-input-counter-wrapper {
+  width: 108px;
+
+  .zent-input {
+    padding: 0 35px;
+    text-align: center;
+  }
+}
+
+.zent-number-input-arrow,
+.zent-number-input-count {
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.zent-number-input-arrow {
+  right: 1px;
+  width: 20px;
+  height: 50%;
+  line-height: 50%;
+
+  i {
+    cursor: pointer;
+    color: $theme-stroke-3;
+
+    &:hover {
+      color: $theme-primary-2;
+    }
+  }
+
+  &:hover {
+    i {
+      color: $theme-primary-2;
+    }
+  }
+}
+
+.zent-number-input-count {
+  user-select: none;
+  width: 34px;
+  top: 1px;
+  color: $theme-stroke-1;
+  line-height: 28px;
+
+  &:hover {
+    color: $theme-primary-2;
+  }
+
+  &.zent-number-input-count-disable {
+    cursor: not-allowed;
+    color: $theme-stroke-6;
+    background: $theme-stroke-9;
+  }
+}
+
+.zent-number-input-arrow-disable {
+  cursor: not-allowed;
+
+  i {
+    cursor: not-allowed;
+    color: $theme-stroke-6;
+  }
+
+  &:hover {
+    i {
+      color: $theme-stroke-6;
+    }
+  }
+}
+
+.zent-number-input-countadd {
+  right: 1px;
+  border-left: 1px solid $defaultBorderColor;
+
+  &.zent-number-input-count-disable {
+    border-left-color: $theme-stroke-7;
+  }
+}
+
+.zent-number-input-arrowup {
+  top: 1px;
+  border-left: 1px solid $theme-stroke-7;
+  border-bottom: 1px solid $theme-stroke-7;
+
+  i {
+    transform: rotate(-90deg) scale(0.4);
+  }
+}
+
+.zent-number-input-countreduce {
+  left: 1px;
+  border-right: 1px solid $defaultBorderColor;
+
+  &.zent-number-input-count-disable {
+    border-right-color: $theme-stroke-7;
+  }
+}
+
+.zent-number-input-arrowdown {
+  bottom: 1px;
+  border-left: 1px solid $theme-stroke-7;
+
+  i {
+    transform: rotate(90deg) scale(0.4);
+  }
+}

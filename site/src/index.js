@@ -1,11 +1,10 @@
-import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 import 'prismjs/themes/prism.css';
-import './docs.scss';
-import './react-docs.scss';
+import './docs.pcss';
+import './react-docs.pcss';
 
 import App from './App';
 

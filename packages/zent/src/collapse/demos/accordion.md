@@ -45,23 +45,19 @@ import { Collapse } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		activeKey: '1',
+		activeKey: '1'
 	};
 
 	handleChange(activeKey) {
 		this.setState({
-			activeKey,
+			activeKey
 		});
 	}
 
 	render() {
 		const { activeKey } = this.state;
 		return (
-			<Collapse
-				activeKey={activeKey}
-				onChange={this.handleChange.bind(this)}
-				accordion
-			>
+			<Collapse activeKey={activeKey} onChange={this.handleChange.bind(this)} accordion>
 				<Collapse.Panel title="{i18n.panelOneTitle}" key="1">
 					{i18n.panelOneContent}
 				</Collapse.Panel>
@@ -72,9 +68,12 @@ class Simple extends React.Component {
 					{i18n.panelThreeContent}
 				</Collapse.Panel>
 			</Collapse>
-		);
+		)
 	}
 }
 
-ReactDOM.render(<Simple />, mountNode);
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
 ```

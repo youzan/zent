@@ -253,9 +253,9 @@ describe('Validation-Rules', () => {
 
     // return value == eql
     expect(equals(values, 12, 12)).toBe(true);
-    expect(equals(values, 12, '12')).toBe(false);
-    expect(equals(values, 0x12, '18')).toBe(false);
-    expect(equals(values, [1, 2], '1,2')).toBe(false);
+    expect(equals(values, 12, '12')).toBe(true);
+    expect(equals(values, 0x12, '18')).toBe(true);
+    expect(equals(values, [1, 2], '1,2')).toBe(true);
     expect(
       equals(
         values,
@@ -267,7 +267,7 @@ describe('Validation-Rules', () => {
         },
         12
       )
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it('equalsField', () => {
@@ -282,7 +282,7 @@ describe('Validation-Rules', () => {
     // }).toThrow();
     expect(equalsField(specialValues, 12, 'foo')).toBe(true);
     expect(equalsField(specialValues, 12, 'bar')).toBe(false);
-    expect(equalsField(specialValues, '12', 'foo')).toBe(false);
+    expect(equalsField(specialValues, '12', 'foo')).toBe(true);
     expect(
       equalsField(
         specialValues,
@@ -294,8 +294,8 @@ describe('Validation-Rules', () => {
         },
         'foo'
       )
-    ).toBe(false);
-    expect(equalsField(specialValues, [1, 2], 'bar')).toBe(false);
+    ).toBe(true);
+    expect(equalsField(specialValues, [1, 2], 'bar')).toBe(true);
   });
 
   it('maxLength', () => {

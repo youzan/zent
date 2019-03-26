@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import './style.scss';
+import './style.pcss';
 
 class FooterNav extends Component {
   state = {

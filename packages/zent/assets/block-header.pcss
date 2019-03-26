@@ -1,0 +1,59 @@
+@import './theme/default.pcss';
+
+.zent-block-header {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: $theme-stroke-9;
+  height: 50px;
+  box-sizing: border-box;
+
+  &__left {
+    display: inline-block;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      position: relative;
+      top: 1px;
+      background: $theme-notice-1;
+    }
+
+    h3 {
+      display: inline-block;
+      margin: 0;
+      padding-left: 5px;
+      font-weight: normal;
+      font-size: 14px;
+    }
+  }
+
+  &__content {
+    display: inline-block;
+    margin-left: 10px;
+
+    &-right {
+      float: right;
+    }
+  }
+
+  &__pop {
+    display: inline-block;
+    color: $theme-stroke-5;
+    font-size: 16px;
+  }
+
+  &__tooltip {
+    max-width: 300px;
+    word-wrap: normal;
+
+    &-trigger {
+      color: $theme-stroke-6;
+      margin-left: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+}

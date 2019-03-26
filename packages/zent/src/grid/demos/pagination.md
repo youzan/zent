@@ -41,8 +41,8 @@ const columns = [
 	}
 ];
 
-// const pageSize = 5;
-// const totalItem = 10;
+const pageSize = 5;
+const totalItem = 10;
 
 const datasets = [];
 const datasets2 = [];
@@ -65,8 +65,6 @@ for (let i = 0; i < 5; i++) {
 class PageInfo extends React.Component {
 	state = {
 		current: 1,
-		pageSize: 5,
-		total: 10,
 		datasets
 	}
 
@@ -78,7 +76,7 @@ class PageInfo extends React.Component {
 	}
 
 	render() {
-		const { current, pageSize, total } = this.state;
+		const { current } = this.state;
 		return (
 			<Grid
 				columns={columns}
@@ -86,8 +84,8 @@ class PageInfo extends React.Component {
 				pageInfo={{
 					current: current,
 					pageSize: pageSize,
-					total: total,
-					pageSizeOptions: [ 5, 10 ]
+					totalItem: totalItem,
+					pageSize: [ {value: 5, isCurrent: true}, 10 ]
 				}}
 				onChange={this.onChange}
 				ellipsis

@@ -11,7 +11,6 @@ describe('Slider', () => {
       state = {
         value: 0,
       };
-
       onChange = value => {
         this.setState({ value });
       };
@@ -115,7 +114,6 @@ describe('Slider', () => {
       state = {
         value: [0, 20],
       };
-
       onChange = value => {
         this.setState({ value });
       };
@@ -210,24 +208,14 @@ describe('Slider', () => {
   it('can input onchange props', () => {
     const wrapper = mount(<Slider range value={[20, 30]} />);
     wrapper
-      .find('SliderInputField')
+      .find('InputField')
       .at(0)
       .instance()
-      .onStartChange(25);
+      .onChange('start', { target: { value: 25 } });
     wrapper
-      .find('SliderInputField')
+      .find('InputField')
       .at(0)
       .instance()
-      .onEndChange(50);
-  });
-
-  it('for code coverage', () => {
-    const wrapper = mount(<Slider range value={[20, 30]} />);
-    wrapper.find('Container').simulate('click');
-    wrapper
-      .find('ToolTips')
-      .at(0)
-      .find('.zent-slider-point')
-      .simulate('mousedown');
+      .onChange('end', { target: { value: 50 } });
   });
 });

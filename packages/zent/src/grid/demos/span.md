@@ -1,7 +1,7 @@
 ---
 order: 6
 zh-CN:
-	title: 合并单元格
+	title: colSpan & rowSpan
 	product: 商品
 	productName: 商品名
 	uv: 访问量
@@ -22,7 +22,7 @@ import { Grid } from 'zent';
 
 const columns = [
 	{
-		title: '{i18n.title}',
+		title: '',
 		name: 'name',
 		colSpan: 2,
 		width: '200px'
@@ -32,7 +32,7 @@ const columns = [
 		colSpan: 0,
 		width: '200px',
 		bodyRender: (data, pos) => {
-			return <span>{data.sub}</span>
+			return <span style={{ color: 'red' }}>{data.sub}</span>
 		}
 	}, {
 		title: '{i18n.uv}',

@@ -35,9 +35,9 @@ class App extends React.Component {
 		size: 500
 	}
 
-	onChange = (size) => {
+	onChange = (e) => {
 		this.setState({
-			size,
+			size: e.target.value
 		});
 	}
 

@@ -77,7 +77,7 @@ onChange will throw an object, which includes parameters about the change part o
 
 | Property  | Description                              | Type   | Required |
 | --------- | ---------------------------------------- | ------ | -------- |
-| total | Total number of items                    | number | No       |
+| totalItem | Total number of items                    | number | No       |
 | pageSize  | Number of items to be displayed per page | number | No       |
 | current   | current page                             | number | No       |
 

@@ -1,0 +1,132 @@
+@import './theme/default.pcss';
+$circle-width: 76px;
+$circle-path-width: 3px;
+$color-info: $theme-stroke-4;
+$color-bg: $theme-stroke-9;
+$color-success: $theme-success-2;
+$color-exception: $theme-error-2;
+$transition-duration: 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
+
+.zent-progress {
+  &.zent-progress-line {
+    .zent-progress-wrapper {
+      display: inline-block;
+      background: $color-bg;
+    }
+
+    .zent-progress-inner {
+      transition: all $transition-duration;
+    }
+
+    .zent-progress-info {
+      display: inline-block;
+      min-width: 27px;
+      min-height: 15px;
+      margin-left: 10px;
+      font-size: 12px;
+      color: $color-info;
+      white-space: nowrap;
+    }
+
+    .zent-progress-inprogress {
+      .zent-progress-inner {
+        background: $color-exception;
+      }
+
+      .zent-progress-info {
+        color: $color-info;
+      }
+    }
+
+    .zent-progress-success {
+      .zent-progress-inner {
+        background: $color-success;
+      }
+
+      .zent-progress-info {
+        color: $color-success;
+      }
+    }
+
+    .zent-progress-exception {
+      .zent-progress-inner {
+        background: $color-exception;
+      }
+
+      .zent-progress-info {
+        color: $color-exception;
+      }
+    }
+  }
+
+  &.zent-progress-circle {
+    position: relative;
+    display: inline-block;
+
+    .zent-progress-wrapper,
+    .zent-progress-inner {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .zent-progress-wrapper {
+      border-style: solid;
+      border-color: $color-bg;
+      box-sizing: border-box;
+    }
+
+    .zent-progress-info {
+      display: inline-block;
+      font-size: 12px;
+      color: $color-info;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+
+    .zent-progress-inner-path {
+      stroke-linecap: round;
+      fill: none;
+      transition: stroke-dashoffset $transition-duration;
+      transform: rotate(-90deg);
+      transform-origin: center center;
+    }
+
+    .zent-progress-inprogress {
+      .zent-progress-inner-path {
+        stroke: $color-exception;
+      }
+
+      .zent-progress-info {
+        color: $color-info;
+      }
+    }
+
+    .zent-progress-success {
+      .zent-progress-inner-path {
+        stroke: $color-success;
+      }
+
+      .zent-progress-info {
+        color: $color-success;
+      }
+    }
+
+    .zent-progress-exception {
+      .zent-progress-inner-path {
+        stroke: $color-exception;
+      }
+
+      .zent-progress-info {
+        color: $color-exception;
+      }
+    }
+  }
+}

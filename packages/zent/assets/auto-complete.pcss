@@ -1,0 +1,32 @@
+@import './theme/default.pcss';
+$c-bg-gray: $theme-stroke-9;
+
+.zent-auto-complete {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0;
+  line-height: 1.5;
+  margin-right: 10px;
+  outline: none;
+  position: relative;
+  text-align: left;
+  user-select: none;
+  width: 160px;
+  vertical-align: middle;
+
+  &.disabled {
+    color: $theme-stroke-6;
+    cursor: not-allowed;
+
+    .zent-select-input,
+    .zent-select-text,
+    .zent-select-tags {
+      border-color: $theme-stroke-7;
+      background-color: $c-bg-gray;
+
+      &::after {
+        opacity: 0.25;
+      }
+    }
+  }
+}

@@ -10,12 +10,10 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('GetControlGroup and Component_Fields', () => {
   const { Form, createForm, Field, getControlGroup, unknownProps } = ZentForm;
   const FormCreated = createForm()(Form);
-  class DivComponent extends React.Component {
-    render() {
-      const passableProps = omit(this.props, unknownProps);
-      return <div {...passableProps} />;
-    }
-  }
+  const DivComponent = props => {
+    const passableProps = omit(props, unknownProps);
+    return <div {...passableProps} />;
+  };
   const context = mount(
     <FormCreated>
       <Field name="bar" component={DivComponent} />
@@ -53,13 +51,13 @@ describe('GetControlGroup and Component_Fields', () => {
     ).toBe(true);
   });
 
-  it('will render without ref when the wrapped component is functional', () => {
+  it('will render without ref when the wrapped component is functionial', () => {
     function Input(props) {
       const passableProps = omit(props, unknownProps);
       return <input {...passableProps} />;
     }
-    const input = getControlGroup(Input);
-    const wrapper = mount(<Field name="foo" component={input} />, {
+    const addtionInput = getControlGroup(Input);
+    const wrapper = mount(<Field name="foo" component={addtionInput} />, {
       context,
     });
     expect(
@@ -75,14 +73,14 @@ describe('GetControlGroup and Component_Fields', () => {
       const passableProps = omit(props, unknownProps);
       return <input type="text" {...passableProps} />;
     };
-    const input = getControlGroup(Input);
+    const addtionInput = getControlGroup(Input);
     const wrapper = mount(
       <Field
         name="foo"
-        component={input}
+        component={addtionInput}
         required
-        helpDesc="foo"
-        notice="bar"
+        helpDesc={'foo'}
+        notice={'bar'}
         validations={{ isEmail: true }}
         validationErrors={{ isEmail: '必须输入有效的Email地址' }}
       />,

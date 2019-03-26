@@ -1,0 +1,94 @@
+@import './theme/default.pcss';
+
+.zent-pagination {
+  font-size: 12px;
+  line-height: 16px;
+  text-align: right;
+
+  .pagination-list {
+    display: inline-block;
+
+    .pager {
+      position: relative;
+      display: inline-block;
+      box-sizing: border-box;
+      margin: 0 0 0 5px;
+      border: 1px solid $theme-stroke-5;
+      border-radius: 2px;
+      padding: 6px 8px;
+      min-width: 30px;
+      text-align: center;
+      background: $theme-stroke-10;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .pager--current {
+      color: $theme-stroke-10;
+      background: $theme-primary-2;
+      border-color: $theme-primary-2;
+      cursor: default;
+    }
+
+    .pager--disabled {
+      border-color: $theme-stroke-7;
+      cursor: not-allowed;
+      color: $theme-stroke-7;
+    }
+
+    .pager--jump {
+      margin-left: 15px;
+      padding: 0;
+      cursor: default;
+      background-color: $theme-stroke-7;
+    }
+
+    .pager--omni {
+      margin-left: 0;
+      margin-right: -5px;
+      border: none;
+      cursor: default;
+    }
+
+    .pager__input {
+      box-sizing: border-box;
+      margin: -1px;
+      margin-right: 0;
+      border: 1px solid $theme-stroke-5;
+      border-right-color: $theme-stroke-5;
+      padding: 6px 2px;
+      min-width: 21px;
+      max-width: 40px;
+      height: 30px;
+      text-align: center;
+      font-weight: normal;
+      outline: none;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+      background-color: $theme-stroke-10;
+
+      &:focus {
+        border-color: $theme-primary-2;
+        box-shadow: 0 0 1px $theme-primary-4;
+      }
+    }
+
+    .pager__suffix {
+      padding: 7px 5px;
+    }
+  }
+}
+
+.zent-pagination__info {
+  display: inline-block;
+
+  .zent-select {
+    width: 60px;
+  }
+
+  .total {
+    .zent-select {
+      margin-right: 0;
+    }
+  }
+}

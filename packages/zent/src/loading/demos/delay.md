@@ -1,37 +1,13 @@
 ---
-order: 3
+order: 4
 zh-CN:
-  title: 延迟 1s 显示
+	title: 延迟 3s 显示
 en-US:
-  title: Delay 1 seconds
+	title: Delay 3 seconds
 ---
 
 ```js
-import { BlockLoading, Switch } from 'zent';
+import { Loading } from 'zent';
 
-class Wrapper extends React.Component {
-	state = { loading: false };
-
-	onChange = value => {
-		this.setState({ loading: value });
-	};
-
-	render() {
-		const { loading } = this.state;
-
-		return (
-			<div>
-				<BlockLoading loading={loading} delay={1000} />
-				<Switch
-					className="zent-loading-example-switch"
-					checked={loading}
-					onChange={this.onChange}
-					size="small"
-				/>
-			</div>
-		);
-	}
-}
-
-ReactDOM.render(<Wrapper />, mountNode);
+ReactDOM.render(<Loading show showDelay={3000} />, mountNode);
 ```

@@ -104,7 +104,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
@@ -156,7 +161,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
@@ -179,7 +189,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
@@ -202,7 +217,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(true);
     expect(
       wrapper.contains(
@@ -267,7 +287,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: '#eee' }}
+          />
+        )
     ).toBe(true);
 
     wrapper = mount(
@@ -289,7 +314,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: '#eee' }}
+          />
+        )
     ).toBe(true);
 
     wrapper = mount(
@@ -316,7 +346,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: '#000' }}
+          />
+        )
     ).toBe(true);
   });
 
@@ -331,7 +366,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-check-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-check-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(false);
 
     wrapper = mount(
@@ -342,7 +382,12 @@ describe('Progress', () => {
     expect(
       wrapper
         .find('.zent-progress-info')
-        .contains(<i className="zenticon zenticon-close-circle" />)
+        .contains(
+          <i
+            className="zenticon zenticon-close-circle"
+            style={{ color: undefined }}
+          />
+        )
     ).toBe(false);
   });
 

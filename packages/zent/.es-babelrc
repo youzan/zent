@@ -1,0 +1,23 @@
+{
+  "presets": [
+    ["es2015", { "modules": false }],
+    "es2016",
+    "es2017",
+    "react",
+    "stage-1"
+  ],
+  "plugins": [
+    "transform-es3-member-expression-literals",
+    "transform-es3-property-literals",
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "regenerator": false
+      }
+    ],
+    "transform-remove-console",
+    "transform-remove-debugger",
+    "./scripts/babel/babel-plugin-resolve-zent-module"
+  ]
+}

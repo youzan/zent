@@ -61,9 +61,7 @@ describe('Table', () => {
 
     // NOTE: scroll method have an setInterval function
     wrapper
-      .find(
-        '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
-      )
+      .find('.zent-pagination .pagination-list .pager')
       .at(2)
       .simulate('click');
     jest.runAllTimers();

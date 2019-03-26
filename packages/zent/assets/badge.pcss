@@ -1,0 +1,57 @@
+@import './theme/default.pcss';
+$count-height: 16px;
+$count-color: $theme-stroke-10;
+$count-bgcolor: $theme-error-2;
+$dot-diameter: 8px;
+
+.zent-badge {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  .zent-badge-count {
+    display: inline-block;
+    height: $count-height;
+    line-height: calc($count-height - 2px);
+    background: $count-bgcolor;
+    color: $count-color;
+    box-sizing: border-box;
+    font-size: 10px;
+    border: 1px solid $theme-stroke-10;
+    border-radius: $count-height;
+    text-align: center;
+    padding: 0 4px;
+  }
+
+  .zent-badge-dot {
+    display: inline-block;
+    height: $dot-diameter;
+    width: $dot-diameter;
+    border-radius: 50%;
+    background: $count-bgcolor;
+    font-size: 0;
+  }
+
+  &.zent-badge--no-content {
+    font-size: 0;
+
+    .zent-badge-count,
+    .zent-badge-dot {
+      margin: 0 5px;
+    }
+  }
+
+  &.zent-badge--has-content {
+    .zent-badge-count {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+    }
+
+    .zent-badge-dot {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+    }
+  }
+}

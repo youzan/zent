@@ -9,22 +9,16 @@ describe('CreateForm and FormSection', () => {
   const { Form, createForm, Field, FormSection, InputField } = ZentForm;
   const returnedFunction = createForm();
   const FormCreated = returnedFunction(Form);
-
-  class Address extends React.Component {
-    render() {
-      return <Field name="address" component={InputField} type="text" />;
-    }
-  }
-
-  class Party extends React.Component {
-    render() {
-      return (
-        <FormSection name="party" component={this.props.component}>
-          <Address />
-        </FormSection>
-      );
-    }
-  }
+  const Address = () => {
+    return <Field name="address" component={InputField} type="text" />;
+  };
+  const Party = props => {
+    return (
+      <FormSection name="party" component={props.component}>
+        <Address />
+      </FormSection>
+    );
+  };
 
   it('FieldSection must be in Form Component', () => {
     expect(() => {

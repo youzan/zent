@@ -33,6 +33,5 @@ npm-debug.log
 .tmp/
 .DS_Store
 custom-theme.js
-dependency-graph.json
 
 css/

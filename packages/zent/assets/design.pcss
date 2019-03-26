@@ -1,0 +1,92 @@
+@import './design/_variable.pcss';
+@import './design/preview.pcss';
+@import './design/preview-item.pcss';
+@import './design/editor-item.pcss';
+@import './design/preview-controller.pcss';
+@import './design/editor-add-component.pcss';
+@import './design/editor.pcss';
+
+.zent-design {
+  width: 760px;
+  text-rendering: optimizelegibility;
+  font-family: inherit;
+
+  &__restore-cache-alert {
+    margin-bottom: 10px;
+
+    &-use {
+      text-decoration: none;
+    }
+  }
+
+  &__item-list {
+    min-height: 304px;
+    padding-bottom: 9px;
+
+    &--full-height {
+      min-height: $preview-height;
+      padding-bottom: 0;
+    }
+  }
+
+  &__add {
+    padding-bottom: 5px;
+    position: relative;
+    border-top: 1px solid $theme-stroke-7;
+
+    /*
+      三角形边框的原理：生成两个边长相差 1px 的三角形，大的颜色用边框颜色，小的颜色用背景色，小的盖在大的里面即可。
+    &:after,
+    &:before {
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    &:after {
+      border-width: 8px;
+      margin-left: -8px;
+      top: -16px;
+    }
+
+    &:before {
+      border-bottom-color: $theme-stroke-7;
+      border-width: 9px;
+      margin-left: -9px;
+      top: -18px;
+    }
+    */
+
+    &--mixed {
+      background: $theme-stroke-9;
+
+      &:after {
+        border-bottom-color: $theme-stroke-9;
+      }
+    }
+
+    &--grouped {
+      background: $theme-stroke-10;
+
+      &:after {
+        border-bottom-color: $theme-stroke-10;
+      }
+    }
+  }
+
+  &__disabled-mask {
+    position: absolute;
+    z-index: 10;
+    background-color: $theme-mask-black-2;
+    height: 100%;
+    width: 100%;
+    cursor: not-allowed;
+    top: 0;
+    left: 0;
+  }
+}

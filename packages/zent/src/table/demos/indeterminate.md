@@ -2,20 +2,8 @@
 order: 10
 zh-CN:
 	title: 支持半选状态
-	product: 商品
-	productName: 商品名
-	babyProducts: 母婴商品
-	uv: 访问量
-	stock: 库存
-	sold_num: 销售量
 en-US:
 	title: Support indeterminate status
-	product: Product
-	productName: Product Name
-	babyProducts: Baby Products
-	uv: UV
-	stock: Stock
-	sold_num: Sales
 ---
 
 ```jsx
@@ -44,19 +32,19 @@ const datasets = [
 
 const columns = [
 	{
-		title: '{i18n.product}',
+		title: 'Product',
 		name: 'item_id',
 	},
 	{
-		title: '{i18n.uv}',
+		title: 'PV',
 		name: 'bro_uvpv',
 	},
 	{
-		title: '{i18n.stock}',
+		title: 'Stock',
 		name: 'stock_num',
 	},
 	{
-		title: '{i18n.sold_num}',
+		title: 'Sales',
 		name: 'sold_num',
 	}
 ];

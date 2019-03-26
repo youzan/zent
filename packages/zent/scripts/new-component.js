@@ -15,7 +15,7 @@ function main() {
   }
 
   addFiles(componentName);
-  exec(path.resolve(__dirname, './cruiser.sh'));
+  exec('node ./scripts/update-jest-module-mapper.js');
 }
 
 main();
@@ -39,51 +39,68 @@ function getComponentName(name) {
   return componentName;
 }
 
-function sortByModulePath(lines) {
-  lines.sort((a, b) => {
-    const modPathRegexp = /'.+'/;
-    const modA = modPathRegexp.exec(a)[0];
-    const modB = modPathRegexp.exec(b)[0];
-
-    return modA.localeCompare(modB);
-  });
-
-  return lines;
+function compareFunction(a, b) {
+  return a.toLowerCase().localeCompare(b.toLowerCase());
 }
 
-// ts
-function insertTs(name) {
-  const tsIndexPath = path.resolve(__dirname, '../src/index.ts');
-  const tsIndexFile = fs.readFileSync(tsIndexPath, { encoding: 'utf-8' });
-
-  const moduleExports = tsIndexFile.trim().split('\n');
-  moduleExports.push(`export * from './${name}';`);
-  sortByModulePath(moduleExports);
-
-  fs.writeFileSync(tsIndexPath, `${moduleExports.join('\n')}\n`);
+function pushAndSort(arr, item) {
+  arr.push(item);
+  arr.sort(compareFunction);
+  return arr;
 }
 
-// style
+// 插入js
+function insertJs(name) {
+  const upperComponentName = getComponentName(name);
+
+  const jsIndexPath = path.resolve(__dirname, '../src/index.js');
+  const jsIndexFile = fs.readFileSync(jsIndexPath, { encoding: 'utf-8' });
+  const jsImportStr = `import ${upperComponentName} from '${name}'`;
+
+  // 分割成上下两部分
+  const jsIndexFileArr = jsIndexFile.split(';\n\n');
+
+  // 分别拆分
+  const jsIndexFilePart1Arr = jsIndexFileArr[0].split(';\n');
+  const jsIndexFilePart2Arr = jsIndexFileArr[1]
+    .substring(9, jsIndexFileArr[1].length - 4)
+    .split(',\n');
+
+  const jsIndexFilePart1Str = pushAndSort(
+    jsIndexFilePart1Arr,
+    jsImportStr
+  ).join(';\n');
+  const jsIndexFilePart2Str = pushAndSort(
+    jsIndexFilePart2Arr,
+    `  ${upperComponentName}`
+  ).join(',\n');
+
+  const finalStr = `${jsIndexFilePart1Str};\n\nexport {\n${jsIndexFilePart2Str}\n};\n`;
+  fs.writeFileSync(jsIndexPath, finalStr);
+}
+
+// 插入css
 function insertCss(name) {
-  const cssIndexPath = path.resolve(__dirname, '../assets/index.scss');
+  const cssIndexPath = path.resolve(__dirname, '../assets/index.pcss');
   const cssIndexFile = fs.readFileSync(cssIndexPath, { encoding: 'utf-8' });
-  const cssImportStr = `@import './${name}';`;
+  const cssImportStr = `@import './${name}.pcss'`;
 
-  const cssIndexFileArr = cssIndexFile.trim().split('\n');
-  cssIndexFileArr.push(cssImportStr);
+  const cssIndexFileArr = cssIndexFile.split(';\n');
+  // 去掉最后一个空串
+  if (cssIndexFileArr[cssIndexFileArr.length - 1] === '') {
+    cssIndexFileArr.pop();
+  }
 
-  // Make sure base comes first
-  const base = cssIndexFileArr.splice(0, 1);
-  sortByModulePath(cssIndexFileArr);
-  cssIndexFileArr.unshift(base);
-
-  fs.writeFileSync(cssIndexPath, `${cssIndexFileArr.join('\n')}\n`);
+  const finalStr = `${pushAndSort(cssIndexFileArr, cssImportStr).join(
+    ';\n'
+  )};\n`;
+  fs.writeFileSync(cssIndexPath, finalStr);
 }
 
 // js/css 加到index文件导出
 function addFilesToIndex(name) {
   insertCss(name);
-  insertTs(name);
+  insertJs(name);
 }
 
 // 创建组件文件夹以及js/css文件
@@ -105,8 +122,8 @@ function addFiles(name) {
   }
 
   fs.writeFileSync(
-    `${componentDir}/index.ts`,
-    `import ${upperComponentName} from './${upperComponentName}';\n\nexport * from './${upperComponentName}';\nexport default ${upperComponentName};\n`
+    `${componentDir}/index.js`,
+    `export default from './${upperComponentName}.js';`
   );
   fs.writeFileSync(
     `${componentDir}/README_en-US.md`,
@@ -116,8 +133,8 @@ function addFiles(name) {
     `${componentDir}/README_zh-CN.md`,
     `## ${upperComponentName}`
   );
-  fs.writeFileSync(`${componentDir}/${upperComponentName}.tsx`, '');
-  fs.writeFileSync(`${assetsDir}/${name}.scss`, '');
+  fs.writeFileSync(`${componentDir}/${upperComponentName}.js`, '');
+  fs.writeFileSync(`${assetsDir}/${name}.pcss`, '');
 
   addFilesToIndex(name);
 }

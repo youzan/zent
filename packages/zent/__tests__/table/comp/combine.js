@@ -46,7 +46,7 @@ const columns = [
 class Simple extends Component {
   state = {
     limit: 10,
-    current: 1,
+    current: 0,
     total: 101,
     sortBy: 'bro_uvpv',
     sortType: 'desc',
@@ -87,7 +87,6 @@ class Simple extends Component {
           limit: this.state.limit,
           current: this.state.current,
           total: this.state.total,
-          pageSize: 10,
         }}
       />
     );

@@ -1,0 +1,71 @@
+@import './theme/default.pcss';
+$c-border: $theme-stroke-5;
+$c-blue: $theme-primary-2;
+$c-light-blue: $theme-primary-4;
+
+.zent-color-picker-popover {
+  z-index: 2000;
+}
+
+.zent-color-picker {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 10px;
+  outline: none;
+  position: relative;
+  text-align: left;
+  user-select: none;
+  height: 32px;
+  vertical-align: middle;
+
+  &.open {
+    .zent-color-picker__text {
+      border-color: $c-blue;
+      box-shadow: 0 1px 1px $c-light-blue;
+
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__text {
+    box-sizing: border-box;
+    border: 1px solid $c-border;
+    border-radius: 2px;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    outline: none;
+    padding: 5px;
+    transition: border-color 0.25s;
+    background-color: $theme-stroke-10;
+    position: relative;
+  }
+
+  &__preview {
+    box-sizing: border-box;
+    width: 38px;
+    height: 18px;
+  }
+}
+
+.zent-colorpicker-colors-select {
+  background: $theme-stroke-10;
+  width: 190px;
+  box-shadow: 0 1px 4px $theme-mask-black-2;
+  box-sizing: content-box;
+  line-height: 10px;
+  padding-top: 10px;
+}
+
+.zent-colorpicker-colors-select__preview {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px $theme-mask-black-2;
+}

@@ -10,9 +10,9 @@ Zent 提供一个 Provider 组件用于配置组件内部文案的语言。组�
 import { I18nProvider as Provider } from 'zent';
 import enUS from 'zent/lib/i18n/en-US';
 
-<Provider value={enUS}>
+<Provider i18n={enUS}>
 	<App />
-</Provider>;
+</Provider>
 ```
 
-目前仅有中文/英文两种语言包，分别对应 i18n 文件夹下 `en-US.js`/`zh-CN.js`两个文件。
+目前仅有中文/英文两种语言包，分别对应i18n文件夹下 `en-US.js`/`zh-CN.js`两个文件。

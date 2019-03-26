@@ -121,6 +121,7 @@ Sortable 主要用于一个容器内元素的拖拽排序
 	},
 ```
 
+
 <style>
 	.demo-sortable {
 		padding: 0 140px;
@@ -129,16 +130,12 @@ Sortable 主要用于一个容器内元素的拖拽排序
 		justify-content: flex-start;
 	}
 
-	.zent-card:not(:last-child) {
-		margin-bottom: 4px;
-	}
-
 	.demo-sortable-item,
 	.demo-sortable-add {
 		position: relative;
 		text-align: center;
 		line-height: 100px;
-		border: 1px solid #dcdde0;
+		border: 1px solid #bbb;
 		border-radius: 4px;
 		flex: 0 0 100px;
 		height: 100px;

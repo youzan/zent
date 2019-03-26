@@ -1,0 +1,124 @@
+@import './theme/default.pcss';
+$graycolor: $theme-stroke-4;
+$theme-stroke-10color: $theme-stroke-10;
+$rgbamaskbgcolor: $theme-mask-black-6;
+
+.zent-image-p-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+
+  .zent-show-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: zoom-in;
+
+    &.image-is-zooming {
+      cursor: zoom-out;
+    }
+  }
+}
+
+.zent-image-p-close {
+  position: fixed;
+  text-align: center;
+  border-radius: 40px;
+  background: $theme-mask-white-6;
+  box-shadow: 0 0 8px $theme-mask-black-6;
+  right: 20px;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 2;
+
+  &:hover {
+    background: $theme-stroke-10color;
+  }
+
+  i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.zent-image-p-footer {
+  position: fixed;
+  border-radius: 40px;
+  background: $theme-mask-white-6;
+  box-shadow: 0 0 8px $theme-mask-black-6;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%);
+  height: 40px;
+  line-height: 40px;
+  color: $theme-stroke-1;
+  z-index: 2;
+  font-size: 16px;
+
+  &.image-p-footer-paging {
+    min-width: 216px;
+
+    &.show-rotate-btn {
+      min-width: 308px;
+    }
+  }
+
+  &.show-rotate-btn {
+    min-width: 92px;
+  }
+
+  .zent-image-p-action {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 30px;
+    user-select: none;
+    font-size: 16px;
+    min-width: 65px;
+    text-align: center;
+
+    &:hover {
+      background: $theme-stroke-10;
+    }
+
+    &:first-child {
+      border-radius: 40px 0 0 40px;
+    }
+
+    &:last-child {
+      border-radius: 0 40px 40px 0;
+    }
+
+    &.rotate-action {
+      border-radius: 40px;
+    }
+  }
+}
+
+.zent-image-p-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $rgbamaskbgcolor;
+  height: 100%;
+  z-index: 1050;
+}
+
+.zent-image-p-wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}

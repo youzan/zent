@@ -2,7 +2,6 @@
 order: 1
 zh-CN:
 	title: 基础用法
-	showBg: 底色
 	panelOneTitle: 南歌子（暮春）
 	panelOneContent: "紫陌寻春去，红尘拂面来。无人不道看花回。惟见石榴新蕊、一枝开。
 	冰簟堆云髻，金尊滟玉醅。绿阴青子相催。留取红巾千点、照池台。"
@@ -15,7 +14,6 @@ zh-CN:
 废沼夜来秋水满，茂林深处晚莺啼。行人肠断草凄迷。"
 en-US:
 	title: Basic usage
-	showBg: Background
 	panelOneTitle: A Lover's Complaint
 	panelOneContent: "FROM off a hill whose concave womb reworded
 A plaintful story from a sistering vale,
@@ -43,57 +41,39 @@ In clamours of all size, both high and low."
 ---
 
 ```jsx
-import { Collapse, Switch } from 'zent';
+import { Collapse } from 'zent';
 
 class Simple extends React.Component {
 	state = {
-		activeKey: '1',
-		bg: true,
+		activeKey: '1'
 	};
 
-	handleChange = activeKey => {
+	handleChange(activeKey) {
 		this.setState({
-			activeKey,
+			activeKey
 		});
-	};
-
-	handleBgChange = bg => {
-		this.setState({ bg });
-	};
+	}
 
 	render() {
-		const { activeKey, bg } = this.state;
-		const titleBg = bg ? 'default' : 'none';
-
+		const { activeKey } = this.state;
 		return (
-			<>
-				<div style={{ marginBottom: 20 }}>
-					<Switch
-						size="small"
-						checked={this.state.bg}
-						onChange={this.handleBgChange}
-					/>
-					<span> {i18n.showBg}</span>
-				</div>
-				<Collapse
-					panelTitleBackground={titleBg}
-					activeKey={activeKey}
-					onChange={this.handleChange}
-				>
-					<Collapse.Panel title="{i18n.panelOneTitle}" key="1">
-						{i18n.panelOneContent}
-					</Collapse.Panel>
-					<Collapse.Panel title="{i18n.panelTwoTitle}" key="2">
-						{i18n.panelTwoContent}
-					</Collapse.Panel>
-					<Collapse.Panel title="{i18n.panelThreeTitle}" key="3" disabled>
-						{i18n.panelThreeContent}
-					</Collapse.Panel>
-				</Collapse>
-			</>
-		);
+			<Collapse activeKey={activeKey} onChange={this.handleChange.bind(this)}>
+				<Collapse.Panel title="{i18n.panelOneTitle}" key="1">
+					{i18n.panelOneContent}
+				</Collapse.Panel>
+				<Collapse.Panel title="{i18n.panelTwoTitle}" key="2">
+					{i18n.panelTwoContent}
+				</Collapse.Panel>
+				<Collapse.Panel title="{i18n.panelThreeTitle}" key="3" disabled>
+					{i18n.panelThreeContent}
+				</Collapse.Panel>
+			</Collapse>
+		)
 	}
 }
 
-ReactDOM.render(<Simple />, mountNode);
+ReactDOM.render(
+	<Simple />
+	, mountNode
+);
 ```

@@ -1,0 +1,47 @@
+@import '../theme/default.pcss';
+
+.zent-switch {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 70px;
+  height: 40px;
+  line-height: 20px;
+  vertical-align: middle;
+  border-radius: 20px;
+  border: 1px solid $switch-off;
+  background-color: $switch-off;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+
+  &:after {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    left: 2px;
+    top: 2px;
+    border-radius: 100%;
+    background-color: $theme-stroke-10;
+    content: " ";
+    cursor: pointer;
+    transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:focus:hover {
+    box-shadow: none;
+  }
+
+  .zent-switch-inner {
+    color: $theme-stroke-10;
+    font-size: 12px;
+    position: absolute;
+    left: 39px;
+    top: 9px;
+    transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    user-select: none;
+  }
+}

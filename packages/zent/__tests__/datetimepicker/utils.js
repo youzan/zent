@@ -1,5 +1,5 @@
-import makeDateStr from 'utils/date/makeDateStr';
-import makeDateTimeStr from 'utils/date/makeDateTimeStr';
+import makeDateStr from 'zan-utils/date/makeDateStr';
+import makeDateTimeStr from 'zan-utils/date/makeDateTimeStr';
 import * as Ut from 'datetimepicker/utils';
 import { CURRENT, CURRENT_MONTH } from 'datetimepicker/constants';
 

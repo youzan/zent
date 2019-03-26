@@ -1,0 +1,214 @@
+@import './theme/default.pcss';
+$defaultBorderColor: $theme-stroke-5;
+$errorBorderColor: $theme-error-2;
+$borderRadius: 2px;
+
+.zent-input-wrapper {
+  display: flex;
+  position: relative;
+  height: 30px;
+  max-height: 36px;
+
+  &__not-editable {
+    .zent-input-addon-before,
+    .zent-input-addon-after {
+      border-color: $theme-stroke-7;
+      color: $theme-stroke-6;
+      background: $theme-stroke-8;
+    }
+  }
+
+  .zenticon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    &-close-circle {
+      font-size: 12px;
+      right: 10px;
+      cursor: pointer;
+      padding: 4px 0;
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.zent-textarea-wrapper {
+  height: auto;
+  max-height: none;
+}
+
+.zent-input,
+.zent-input[type=text],
+.zent-input[type=password],
+.zent-input[type=datetime],
+.zent-input[type=date],
+.zent-input[type=month],
+.zent-input[type=time],
+.zent-input[type=week],
+.zent-input[type=number],
+.zent-input[type=email],
+.zent-input[type=url],
+.zent-input[type=tel],
+.zent-input[type=color],
+.zent-input[type=search],
+.zent-textarea {
+  display: inline-block;
+  flex: 1;
+  min-width: 80px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+  margin: 0;
+  border: 1px solid $defaultBorderColor;
+  color: $theme-stroke-1;
+  font-size: 12px;
+  border-radius: $borderRadius;
+  box-shadow: none;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border: 1px solid $theme-primary-2;
+    box-shadow: 0 0 5px $theme-primary-4;
+  }
+}
+
+.zent-textarea[disabled],
+.zent-textarea[readonly],
+.zent-input[disabled],
+.zent-input[readonly] {
+  border-color: $theme-stroke-7;
+  background-color: $theme-stroke-9;
+  cursor: not-allowed;
+  color: $theme-stroke-6;
+
+  &:focus {
+    border-color: $theme-stroke-7;
+    box-shadow: none;
+  }
+}
+
+.zent-input-addon-before,
+.zent-input-addon-after {
+  display: inline-block;
+  height: 100%;
+  padding: 0 5px;
+  border: 1px solid $defaultBorderColor;
+  box-sizing: border-box;
+  vertical-align: middle;
+  background-color: $theme-stroke-7;
+  font-size: 12px;
+  line-height: 28px;
+  color: $theme-stroke-1;
+}
+
+.zent-input-addon-before {
+  border-top-left-radius: $borderRadius;
+  border-bottom-left-radius: $borderRadius;
+  border-right: none;
+}
+
+.zent-input-addon-after {
+  border-top-right-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
+  border-left: none;
+}
+
+.zent-input-addons {
+  & > .zent-input {
+    border-radius: 0;
+  }
+
+  & > .zent-input:first-child {
+    border-top-left-radius: $borderRadius;
+    border-bottom-left-radius: $borderRadius;
+  }
+
+  & > .zent-input[disabled]:first-child {
+    border-right: 1px solid $theme-stroke-7;
+  }
+
+  & > .zent-input:last-child {
+    border-top-right-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
+  }
+
+  & > .zent-input[disabled]:last-child {
+    border-left: 1px solid $theme-stroke-7;
+  }
+}
+
+.zent-textarea {
+  height: 54px;
+  padding: 5px 10px;
+  appearance: none;
+  line-height: 1.5;
+
+  &-with-count {
+    padding-bottom: 21px;
+  }
+
+  &-count {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    font-size: 10px;
+    color: $theme-stroke-4;
+  }
+}
+
+/** placeholder **/
+$placeholderColor: $theme-stroke-4;
+
+.zent-input::-webkit-input-placeholder { /* WebKit browsers */
+  color: $placeholderColor;
+}
+
+.zent-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: $placeholderColor;
+}
+
+.zent-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: $placeholderColor;
+}
+
+.zent-input:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: $placeholderColor;
+}
+
+.zent-textarea::-webkit-input-placeholder { /* WebKit browsers */
+  color: $placeholderColor;
+}
+
+.zent-textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: $placeholderColor;
+}
+
+.zent-textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: $placeholderColor;
+}
+
+.zent-textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: $placeholderColor;
+}
+
+.has-error {
+  .zent-textarea,
+  .zent-input {
+    border: 1px solid $errorBorderColor;
+    color: $theme-error-2;
+
+    &:focus {
+      border-color: $errorBorderColor;
+      box-shadow: 0 0 5px $theme-error-3;
+    }
+  }
+}

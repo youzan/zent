@@ -10,19 +10,16 @@ describe('CreateForm and Fieldset', () => {
   const { Form, createForm, Field, Fieldset, unknownProps } = ZentForm;
   const returnedFunction = createForm();
   const FormCreated = returnedFunction(Form);
-
-  class SimpleComponent extends React.Component {
-    render() {
-      const passableProps = omit(this.props, unknownProps);
-      return <div {...passableProps} />;
-    }
-  }
+  const DivComponent = props => {
+    const passableProps = omit(props, unknownProps);
+    return <div {...passableProps} />;
+  };
 
   it('Fieldset can have legend prop', () => {
     const nestedWrapper = mount(
       <FormCreated>
         <Fieldset legend="legend1">
-          <Field name="bar" component={SimpleComponent} />
+          <Field name="bar" component={DivComponent} />
         </Fieldset>
       </FormCreated>
     );

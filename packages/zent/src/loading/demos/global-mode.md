@@ -7,36 +7,30 @@ zh-CN:
 en-US:
 	title: Global Mode
 	open: Open
-	close: Close
+	close: Global Close
 ---
 
 ```js
-import { FullScreenLoading, Button } from 'zent';
+import { Loading, Button } from 'zent';
 
 class Example extends React.Component {
 	state = {
-		on: false,
+		on: false
 	};
 
 	render() {
 		return (
 			<div>
-				<Button
-					onClick={() => {
-						this.setState({ on: true });
-					}}
-				>
+				<Button onClick={() => { this.setState({ on: true }) }}>
 					{i18n.open}
 				</Button>
 				<Button
-					onClick={() => {
-						this.setState({ on: false });
-					}}
+					onClick={() => { this.setState({ on: false }) }}
 					style={{ zIndex: 9999, position: 'relative' }}
 				>
 					{i18n.close}
 				</Button>
-				<FullScreenLoading loading={this.state.on} />
+				<Loading float show={this.state.on} />
 			</div>
 		);
 	}

@@ -1,0 +1,161 @@
+@import './theme/default.pcss';
+$item-color: $theme-stroke-3;
+$hover-item-color: $theme-primary-1;
+$shadow-color: $theme-stroke-8;
+$disabled-color: $theme-stroke-6;
+$hover-background-color: $theme-primary-2;
+
+.zent-menu {
+  font-size: 12px;
+  color: $item-color;
+  width: 100px;
+  background-color: $theme-stroke-10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid $theme-stroke-8;
+  box-shadow: 0 1px 2px $shadow-color;
+
+  &-item {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    padding-left: 10px;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $hover-background-color;
+      color: $theme-stroke-10;
+    }
+
+    &.zent-submenu:hover {
+      background-color: $theme-stroke-10;
+      color: $item-color;
+    }
+
+    &-disabled {
+      color: $disabled-color;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $theme-stroke-10;
+        color: $disabled-color;
+      }
+    }
+  }
+
+  .zenticon {
+    margin-right: 10px;
+
+    &.zent-submenu-title-operate-icon {
+      margin-right: 0;
+    }
+  }
+
+  .zenticon-right {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $theme-stroke-5;
+    font-size: 8px;
+  }
+
+  .zent-submenu > .zent-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: 4px;
+  }
+
+  .zent-submenu-title {
+    margin-left: -10px;
+    padding-left: 10px;
+
+    &:hover {
+      background-color: $hover-background-color;
+      color: $theme-stroke-10;
+    }
+  }
+}
+
+.zent-menu__inline {
+  width: 200px;
+
+  &-item {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 0;
+
+    &:not(.zent-menu-item-disabled) {
+      cursor: pointer;
+
+      &:hover {
+        color: $hover-item-color;
+        background-color: $theme-stroke-10;
+
+        .zenticon {
+          color: $hover-item-color;
+        }
+      }
+    }
+
+    &-selected {
+      color: $theme-primary-1;
+      background-color: $theme-primary-5;
+
+      &:not(.zent-menu-item-disabled)&:hover {
+        background-color: $theme-primary-5;
+      }
+    }
+  }
+
+  &-submenu {
+    .zenticon-right {
+      top: 13px;
+      right: 20px;
+      transform: rotate(90deg);
+      transition: transform 200ms ease;
+    }
+
+    &-icon--expand.zenticon-right {
+      transform: rotate(-90deg);
+    }
+
+    .zent-menu__inner {
+      width: 100%;
+      background-color: $theme-stroke-10;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    &-title {
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      text-align: left;
+      padding-left: 10px;
+      box-sizing: border-box;
+      position: relative;
+      cursor: pointer;
+
+      &.zent-submenu-disabled {
+        color: $disabled-color;
+        cursor: not-allowed;
+      }
+
+      &:not(.zent-submenu-disabled)&:hover {
+        color: $hover-item-color;
+        background-color: $theme-stroke-10;
+
+        .zenticon {
+          color: $hover-item-color;
+        }
+      }
+    }
+  }
+}

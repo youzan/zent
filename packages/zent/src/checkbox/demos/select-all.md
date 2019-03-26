@@ -9,61 +9,57 @@ en-US:
 ---
 
 ```jsx
-import { Checkbox } from 'zent';
+import { Checkbox } from 'zent'
 
-const CheckboxGroup = Checkbox.Group;
-const ITEMS = ['Item 1', 'Item 2', 'Item 3'];
+const CheckboxGroup = Checkbox.Group
+const ITEMS = ['Item 1', 'Item 2', 'Item 3']
 
 class App extends Component {
-	state = {
-		checkedList: [],
-	};
 
-	handleCheckedAll = e => {
+	state = {
+		checkedList: []
+	}
+
+	handleCheckedAll = (e) => {
 		this.setState({
-			checkedList: e.target.checked ? ITEMS.slice() : [],
-		});
-	};
+			checkedList: e.target.checked ? ITEMS.slice() : []
+		})
+	}
 
 	handleChange(checkedList) {
-		this.setState({ checkedList });
+		this.setState({ checkedList })
 	}
 
 	render() {
-		const { checkedList } = this.state;
-		const checkedAll =
-			!!checkedList.length && checkedList.length === ITEMS.length;
-		const indeterminate =
-			!!checkedList.length && checkedList.length !== ITEMS.length;
+		const { checkedList } = this.state
+		const checkedAll = !!checkedList.length && (checkedList.length === ITEMS.length)
+		const indeterminate = !!checkedList.length && (checkedList.length !== ITEMS.length)
 
 		return (
 			<div>
-				<Checkbox
+				<Checkbox 
 					checked={checkedAll}
 					indeterminate={indeterminate}
 					onChange={this.handleCheckedAll}
-				>
-					{i18n.content}
-				</Checkbox>
+				>{i18n.content}</Checkbox>
 
-				<div style={{ margin: '5px 0', height: 1, background: '#dcdee0' }} />
+				<hr />
 
-				<CheckboxGroup
+				<CheckboxGroup 
 					value={checkedList}
 					onChange={this.handleChange.bind(this)}
 				>
 					{ITEMS.map(item => {
-						return (
-							<Checkbox key={item} value={item}>
-								{item}
-							</Checkbox>
-						);
-					})}
+                        return <Checkbox key={item} value={item}>{item}</Checkbox>
+                    })}
 				</CheckboxGroup>
 			</div>
-		);
+		)
 	}
 }
 
-ReactDOM.render(<App />, mountNode);
+ReactDOM.render(
+	<App />
+	, mountNode
+);
 ```

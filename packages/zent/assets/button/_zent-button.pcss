@@ -1,0 +1,61 @@
+@import '../theme/default.pcss';
+
+.zent-btn {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 15px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-family: inherit;
+  color: $theme-stroke-1;
+  background: $btn-white;
+  border: 1px solid $btn-gray;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:link,
+  &:visited,
+  &:focus {
+    color: $theme-stroke-1;
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $btn-primary-hover;
+    border-color: $btn-primary-hover;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $theme-stroke-1;
+    background: $btn-light-gray;
+    border-color: $btn-gray;
+    text-decoration: none;
+  }
+
+  &.zent-btn-loading {
+    &:hover,
+    &:active {
+      background: $btn-white;
+      border: 1px solid $btn-gray;
+    }
+  }
+
+  &[type="button"],
+  &[type="reset"],
+  &[type="submit"] {
+    -webkit-appearance: none;
+  }
+}
+
+.zent-btn + .zent-btn {
+  margin-left: 10px;
+}

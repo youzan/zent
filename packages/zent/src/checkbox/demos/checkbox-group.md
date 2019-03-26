@@ -5,13 +5,13 @@ zh-CN:
 	apple: 苹果
 	pear: 梨子
 	orange: 橘子
-	rottenOrange: 烂苹果
+	rottenOrange: 烂橘子
 en-US:
 	title: Checkbox group
 	apple: Apple
 	pear: Pear
 	orange: Orange
-	rottenOrange: Rotten Apple
+	rottenOrange: Rotten Orange
 ---
 
 ```jsx

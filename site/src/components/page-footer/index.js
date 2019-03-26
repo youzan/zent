@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './style.scss';
+import './style.pcss';
 
 const TEXT = {
   'zh-CN': {

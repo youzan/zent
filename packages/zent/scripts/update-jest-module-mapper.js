@@ -13,8 +13,10 @@ function createMapper() {
   return packages
     .filter(p => fs.statSync(path.join(packagesDir, p)).isDirectory())
     .reduce((alias, p) => {
-      alias[`^${p}$`] = `<rootDir>/src/${p}`;
-      alias[`^${p}/(.+)$`] = `<rootDir>/src/${p}/$1`;
+      var regexp = `^${p}(.*)$`;
+      var actual = `<rootDir>/src/${p}$1`;
+
+      alias[regexp] = actual;
       return alias;
     }, {});
 }
@@ -22,7 +24,4 @@ function createMapper() {
 var jestConfig = require('../jest.config.json');
 jestConfig.moduleNameMapper = createMapper();
 
-fs.writeFileSync(
-  require.resolve('../jest.config.json'),
-  JSON.stringify(jestConfig, null, '  ')
-);
+fs.writeFileSync(require.resolve('../jest.config.json'), JSON.stringify(jestConfig, null, '  '));

@@ -1,21 +1,9 @@
 ---
 order: 8
 zh-CN:
-	title: 支持批量操作
-	product: 商品
-	productName: 商品名
-	babyProducts: 母婴商品
-	uv: 访问量
-	stock: 库存
-	sold_num: 销售量
+  title: 支持批量操作
 en-US:
-	title: Batch Operation
-	product: Product
-	productName: Product Name
-	babyProducts: Baby Products
-	uv: UV
-	stock: Stock
-	sold_num: Sales
+  title: Batch Operation
 ---
 
 ```js
@@ -56,7 +44,7 @@ const datasets2 = [{
 }];
 
 const columns = [{
-  title: '{i18n.product}',
+  title: 'Product',
   width: '150px',
   bodyRender: (data) => {
     return (
@@ -64,15 +52,15 @@ const columns = [{
     );
   }
 }, {
-  title: '{i18n.uv}',
+  title: 'PV',
   name: 'bro_uvpv',
   width: '100px'
 }, {
-  title: '{i18n.stock}',
+  title: 'Stock',
   name: 'stock_num',
   width: '100px'
 }, {
-  title: '{i18n.sold_num}',
+  title: 'Sales',
   name: 'sold_num'
 }];
 

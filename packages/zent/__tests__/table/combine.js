@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Button from 'button';
+
 import Combine from './comp/combine';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -19,86 +19,67 @@ describe('Combine', () => {
 
   it('pagination render', () => {
     expect(wrapper.find('.zent-pagination').length).toBe(1);
-    expect(
-      wrapper.find('.zent-pagination .zent-pagination-page-list--normal').length
-    ).toBe(1);
+    expect(wrapper.find('.zent-pagination .pagination-list').length).toBe(1);
     expect(
       wrapper
-        .find(
-          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-arrow-button'
-        )
+        .find('.zent-pagination .pagination-list .pager')
         .first()
-        .childAt(0)
-        .hasClass('zent-btn-disabled')
+        .hasClass('pager--disabled')
     ).toBeTruthy();
     expect(
       wrapper
-        .find(
-          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
-        )
-        .first()
-        .childAt(0)
-        .hasClass('zent-btn-primary')
+        .find('.zent-pagination .pagination-list .pager')
+        .at(1)
+        .hasClass('pager--current')
     ).toBeTruthy();
   });
 
   it('header sort change', () => {
-    expect(wrapper.find('Head .sort-col--active .caret-up').length).toBe(1);
-    expect(wrapper.find('Head .sort-col--active .caret-down').length).toBe(1);
+    expect(wrapper.find('Head a .desc').length).toBe(1);
 
-    wrapper.find('Head .sort-col--active .caret-up').simulate('click');
-    expect(
-      wrapper.find('Head .sort-col--active .caret-up').hasClass('sort-active')
-    ).toBe(true);
+    wrapper.find('Head .desc').simulate('click');
 
-    wrapper.find('Head .sort-col--active .caret-down').simulate('click');
-    expect(
-      wrapper.find('Head .sort-col--active .caret-down').hasClass('sort-active')
-    ).toBe(true);
+    expect(wrapper.find('Head a .desc').length).toBe(0);
+    expect(wrapper.find('Head a .asc').length).toBe(1);
+    wrapper.find('Head a .asc').simulate('click');
+    expect(wrapper.find('Head a .desc').length).toBe(1);
+    expect(wrapper.find('Head a .asc').length).toBe(0);
   });
 
   it('pagination click change', () => {
+    expect(wrapper.find('.pager__input').prop('value')).toBe('1');
+
     wrapper
-      .find(
-        '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
-      )
+      .find('.zent-pagination .pagination-list .pager')
       .at(2)
       .simulate('click');
 
     expect(
       wrapper
-        .find(
-          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
-        )
+        .find('.zent-pagination .pagination-list .pager')
         .at(2)
-        .childAt(0)
-        .hasClass('zent-btn-primary')
+        .hasClass('pager--current')
     ).toBeTruthy();
+    expect(wrapper.find('.pager__input').prop('value')).toBe('2');
   });
 
   it('pagination current change', () => {
+    expect(wrapper.find('.pager__input').prop('value')).toBe('1');
+
     wrapper.setState({ current: 3 });
 
+    expect(wrapper.find('.pager__input').prop('value')).toBe('3');
     expect(
       wrapper
-        .find(
-          '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
-        )
-        .find(Button)
-        .at(2)
-        .childAt(0)
-        .hasClass('zent-btn-primary')
+        .find('.zent-pagination .pagination-list .pager')
+        .at(3)
+        .hasClass('pager--current')
     ).toBeTruthy();
   });
 
   it('pagination total info', () => {
     wrapper.setState({ total: 1000 });
-    expect(
-      wrapper
-        .find('.zent-pagination-count')
-        .at(0)
-        .text()
-    ).toContain('1000');
+    expect(wrapper.find('.total').text()).toContain('1000');
   });
 
   it('selectRows', () => {

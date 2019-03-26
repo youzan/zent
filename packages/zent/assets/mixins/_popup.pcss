@@ -1,0 +1,18 @@
+@import '../theme/default.pcss';
+$c-white: $theme-stroke-10;
+$c-half-black: $theme-mask-black-2;
+
+@define-mixin popup {
+  box-shadow: 0 1px 4px $c-half-black;
+  left: 0;
+  outline: none;
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
+  z-index: 2000;
+  margin-top: 2px;
+  background-color: $c-white;
+  max-height: 224px;
+  border-radius: 3px;
+  font-size: 12px;
+}

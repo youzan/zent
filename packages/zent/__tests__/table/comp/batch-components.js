@@ -110,7 +110,8 @@ class BatchCompsClass extends React.Component {
                 className="child-comps child-comps--func"
                 style={{ color: 'blueviolet' }}
               >
-                这是一个函数，选中了{data.length}个元素
+                {' '}
+                这是一个函数，选中了{data.length}个元素{' '}
               </span>
             );
           },

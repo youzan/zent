@@ -8,12 +8,6 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('CreatedForm and HandleSubmit', () => {
   const { Form, createForm, Field, InputField, SubmissionError } = ZentForm;
 
-  class Dummy extends React.Component {
-    render() {
-      return <div>12</div>;
-    }
-  }
-
   it('onSubmit of CreatedForm can be a function as a prop', () => {
     class SubmitProp extends React.Component {
       render() {
@@ -22,9 +16,9 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit}>
             <Field
               name="foo"
-              component={Dummy}
+              component={() => <div />}
               validations={{ required: true }}
-              value="占位"
+              value={'占位'}
             >
               <span />
             </Field>
@@ -36,7 +30,7 @@ describe('CreatedForm and HandleSubmit', () => {
     let wrapper;
 
     // HACK: console.error
-    //  = mount(<CreatedForm onSubmit="string type" />);
+    //  = mount(<CreatedForm onSubmit={'string type'} />);
     // expect(() => { wrapper.simulate('submit') }).toThrow();
     const onSubmitMock = jest.fn().mockImplementation(() => 'foobar');
     const onSubmitSuccessMock = jest.fn();
@@ -83,7 +77,6 @@ describe('CreatedForm and HandleSubmit', () => {
       return 1;
     };
     const promiseSuccessMock = jest.fn();
-
     class SubmitFunc extends React.Component {
       render() {
         const { handleSubmit } = this.props;
@@ -91,9 +84,9 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submitFunc)}>
             <Field
               name="foo"
-              component={Dummy}
+              component={() => <div />}
               validations={{ required: true }}
-              value="非空"
+              value={'非空'}
             >
               <span />
             </Field>
@@ -135,9 +128,9 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submitFunc)}>
             <Field
               name="foo"
-              component={Dummy}
+              component={() => <div />}
               validations={{ required: true }}
-              value="非空"
+              value={'非空'}
             >
               <span />
             </Field>
@@ -192,9 +185,9 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submit)}>
             <Field
               name="foo"
-              component={Dummy}
+              component={() => <div />}
               validations={{ required: true }}
-              value="占位"
+              value={'占位'}
             >
               <span />
             </Field>
@@ -212,7 +205,7 @@ describe('CreatedForm and HandleSubmit', () => {
     wrapper = mount(<CreatedForm onSubmitFail={null} />);
     expect(() => {
       wrapper.simulate('submit');
-    }).toThrow();
+    }).not.toThrow();
   });
 
   it('While submit, HandleSubmit method of CreatedForm will throw when error is not instance of SubmissionError', () => {
@@ -226,9 +219,9 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submit)}>
             <Field
               name="foo"
-              component={Dummy}
+              component={() => <div />}
               validations={{ required: true }}
-              value="占位"
+              value={'占位'}
             >
               <span />
             </Field>
@@ -259,9 +252,9 @@ describe('CreatedForm and HandleSubmit', () => {
           <Form onSubmit={handleSubmit(submitMock)}>
             <Field
               name="foo"
-              component={Dummy}
+              component={() => <div />}
               validations={{ required: true }}
-              value=""
+              value={''}
             >
               <span />
             </Field>

@@ -35,7 +35,11 @@ const columns = [
 ];
 
 class Simple extends Component {
-  state = {};
+  state = {
+    limit: 10,
+    current: 0,
+    total: 101,
+  };
 
   onChange = conf => {
     this.setState(conf);

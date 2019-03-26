@@ -25,6 +25,7 @@ Our goal is making React development faster and simpler.
 * Builtin TypeScript support
 * Supports custom themes
 * Import JavaScript and styles only if they are used
+* yarn + webpack + babel + postcss + prettier + stylefmt
 * Handmade icon font
 * Tests coverage is above 90%
 

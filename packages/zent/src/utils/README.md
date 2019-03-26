@@ -48,3 +48,7 @@
 #### Smooth scroll
 
 `scroll(element: HTMLElement, x: number, y: number, duration?: number)`
+
+#### UUID
+
+`uuid()` generate a UUID.

@@ -1,0 +1,103 @@
+@import '../theme/default.pcss';
+
+.zent-switch-checked {
+  border-color: $switch-on;
+  background-color: $switch-on;
+
+  &::after {
+    left: 32px;
+  }
+
+  .zent-switch-inner {
+    left: 6px;
+    top: 9px;
+  }
+}
+
+.zent-switch-disabled {
+  cursor: not-allowed;
+  background: $switch-disabled;
+  border-color: $switch-disabled;
+
+  &.zent-switch-checked {
+    background: $switch-disabled-checked;
+    border-color: $switch-disabled-checked;
+  }
+
+  &::after {
+    background: $switch-disabled-after;
+    cursor: not-allowed;
+  }
+}
+
+.zent-switch-loading {
+  position: relative;
+  color: transparent;
+  cursor: not-allowed;
+
+  &::after {
+    cursor: not-allowed;
+  }
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    top: 43%;
+    left: 38%;
+    z-index: 2;
+    width: 16px;
+    height: 16px;
+    margin: -5px 0 0 -15px;
+    border: 3px solid $theme-mask-black-2;
+    border-radius: 100%;
+    box-sizing: border-box;
+    border-color: $theme-stroke-3 transparent transparent;
+    animation: switch-spin 0.6s linear;
+    animation-iteration-count: infinite;
+  }
+
+  &.zent-switch-checked {
+    &::before {
+      margin: -5px 0 0 15px;
+    }
+  }
+
+  /* small switch */
+  &.zent-switch-small {
+    &::before {
+      width: 12px;
+      height: 12px;
+      margin: -5px 0 0 -9px;
+      border-width: 2px;
+    }
+
+    &.zent-switch-checked {
+      &::before {
+        margin: -5px 0 0 6px;
+      }
+    }
+  }
+
+  /* large switch */
+  &.zent-switch-large {
+    &::before {
+      margin: -5px 0 0 -17px;
+    }
+
+    &.zent-switch-checked {
+      &::before {
+        margin: -5px 0 0 23px;
+      }
+    }
+  }
+}
+
+@keyframes switch-spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

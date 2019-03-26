@@ -1,0 +1,131 @@
+@import './_fn.pcss';
+@import '../theme/default.pcss';
+
+.zent-design-editor-add-component {
+  box-sizing: border-box;
+
+  /* Remove this style */
+  .zent-design-editor-add-component__mixed {
+    padding: 0 5px;
+
+    &-title {
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      color: $theme-stroke-1;
+    }
+
+    &-list {
+      @mixin clearfix;
+
+      padding-right: 5px;
+    }
+
+    &-btn-wrapper {
+      float: left;
+      padding-left: 5px;
+      margin-bottom: 10px;
+      height: 40px;
+      width: 20%;
+      box-sizing: border-box;
+    }
+
+    &-btn {
+      border: 1px solid $theme-stroke-7;
+      color: $theme-primary-2;
+      font-size: 12px;
+      background: $theme-stroke-10;
+      box-sizing: border-box;
+      border-radius: 0;
+      height: 100%;
+      width: 100%;
+      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
+  .zent-design-editor-add-component__grouped {
+    padding: 0 5px 0 10px;
+
+    &-title {
+      font-size: 12px;
+      margin-bottom: 8px;
+      margin-top: 13px;
+    }
+
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &-btn-wrapper {
+      box-sizing: border-box;
+      flex: 0 0 33.33%;
+      height: 30px;
+      margin-bottom: 5px;
+      padding-right: 5px;
+    }
+
+    &-btn {
+      border: 1px dashed $theme-stroke-7;
+      color: $theme-stroke-3;
+      background: $theme-stroke-9;
+      box-sizing: border-box;
+      font-size: 12px;
+      border-radius: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      br {
+        display: none;
+      }
+    }
+  }
+
+  .zent-design-editor-add-component-btn-wrapper {
+    &:hover {
+      .zent-design-editor-add-component__mixed-btn {
+        color: $theme-primary-2;
+
+        &--disabled {
+          color: $theme-stroke-5;
+        }
+      }
+
+      .zent-design-editor-add-component__grouped-btn {
+        background: $theme-primary-5;
+        border-color: $theme-primary-4;
+        color: $theme-primary-2;
+
+        &--disabled {
+          color: $theme-stroke-5;
+        }
+      }
+    }
+
+    .zent-design-editor-add-component__mixed-btn--disabled {
+      cursor: not-allowed;
+      background: $theme-stroke-9;
+      color: $theme-stroke-5;
+    }
+
+    .zent-design-editor-add-component__grouped-btn--disabled {
+      color: $theme-stroke-5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.zent-design-editor-add-component-pop {
+  max-width: 250px;
+}
