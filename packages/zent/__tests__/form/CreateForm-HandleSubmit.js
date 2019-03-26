@@ -212,7 +212,7 @@ describe('CreatedForm and HandleSubmit', () => {
     wrapper = mount(<CreatedForm onSubmitFail={null} />);
     expect(() => {
       wrapper.simulate('submit');
-    }).not.toThrow();
+    }).toThrow();
   });
 
   it('While submit, HandleSubmit method of CreatedForm will throw when error is not instance of SubmissionError', () => {

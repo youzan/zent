@@ -7,9 +7,7 @@ en-US:
 ---
 
 ```js
-import { Layout } from 'zent';
-
-const { Row, Col, Grid } = Layout;
+import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 
 ReactDOM.render(
 	<Grid className="layout-demo-basic">

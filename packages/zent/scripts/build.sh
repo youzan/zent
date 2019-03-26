@@ -10,10 +10,12 @@ $basepath/validate-pop-size.sh
 $basepath/check-style-colors.sh
 
 # clean
-rm -rf lib css
+echo "Clean up..."
+rm -rf lib es css
 
 # transpile scss to css
 # custom importer for @import '~some-node-module'
+echo "Compile styles..."
 node-sass \
   --importer $basepath/../../../node_modules/node-sass-magic-importer/dist/cli.js \
   assets -o css -q
@@ -24,9 +26,16 @@ postcss css --use autoprefixer --replace --no-map
 # minify index.css
 cleancss -o css/index.min.css css/index.css
 
-# transpile using babel
-cross-env BABEL_ENV=transpile babel src --out-dir lib
-cross-env BABEL_ENV=es babel src --out-dir es
+# generate icon types from zenticons
+node $basepath/./generate-icon-type.js
 
-echo 'Generate component mapping...'
-node ./scripts/generate-module-config.js
+# transpile using babel
+# cross-env BABEL_ENV=transpile babel src --out-dir lib
+# cross-env BABEL_ENV=es babel src --out-dir es
+echo "Compile esm..."
+tsc
+
+echo "Compile commonjs..."
+tsc --outDir lib --module commonjs
+
+$basepath/./cruiser.sh
