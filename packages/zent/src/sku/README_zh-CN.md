@@ -32,6 +32,9 @@ group: 业务组件
 | onCreateSKU | 创建新的规格值，如“处女座” | function | `Promise` |  |
 | onChange | 当sku发生改变时的回调，返回值为sku当前value | function | `noop` |  |
 | prefix | 自定义前缀 | string | 'rc-sku' | null |
+| isShowAddSkuImage | 是否显示添加规格图片按钮 | bool | true | false |
+| customBtn | 自定义按钮 | node | null | null |
+| isShowSkuLabel | 是否显示 sku label | bool | false | false |
 
 #### 工具方法
 
