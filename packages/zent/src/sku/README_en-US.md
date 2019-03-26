@@ -33,7 +33,8 @@ You can create a editable page with a variety of goods and services
 | prefix | custom prefix | string | 'rc-sku' | null |
 | showAddSKUImage | Whether to Display AddSkuImage | bool | true | false |
 | showSKULabel | Whether to Display SkuLabel | bool | false | true |
-| customBtn | custom button | node | null | null |
+| groupButtonAddon | Extra group button content | node | null | null |
+
 #### Utility methods
 
 In order to easily manipulate sku date, sku widget supports some utility methods

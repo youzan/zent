@@ -34,7 +34,7 @@ group: 业务组件
 | prefix | 自定义前缀 | string | 'rc-sku' | null |
 | showAddSKUImage | 是否显示添加规格图片按钮 | bool | true | false |
 | showSKULabel | 是否显示规格 label | bool | false | true |
-| customBtn | 自定义按钮 | node | null | null |
+| groupButtonAddon | 规格列表按钮自定义内容 | node | null | null |
 
 #### 工具方法
 

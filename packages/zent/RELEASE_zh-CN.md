@@ -7,6 +7,10 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.6.3 (2019-03-26)
+
+- ✨ `SKU` 增加三个新属性 `showAddSKUImage`、`showSKULabel` 以及 `groupButtonAddon`
+
 ### 6.6.2 (2019-02-26)
 
 - `Form` 

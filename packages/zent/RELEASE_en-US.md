@@ -7,6 +7,10 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.6.3 (2019-03-26)
+
+- ✨ `SKU` add three new props `showAddSKUImage`, `showSKULabel` and `groupButtonAddon`
+
 ### 6.6.2 (2019-02-26)
 
 - `Form` 

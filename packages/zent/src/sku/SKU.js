@@ -102,7 +102,7 @@ class SKU extends PureComponent {
       maxSize,
       onCreateGroup,
       disabled,
-      customBtn,
+      groupButtonAddon,
       showAddSKUImage,
       showSKULabel,
     } = this.props;
@@ -131,7 +131,7 @@ class SKU extends PureComponent {
               <SKUButton
                 onClick={this.addSKU}
                 i18n={i18n}
-                customBtn={data.length ? customBtn : null}
+                groupButtonAddon={data.length ? groupButtonAddon : null}
                 disabled={disabled}
               />
             )}
@@ -171,7 +171,7 @@ SKU.propTypes = {
   prefix: PropTypes.string,
   showAddSKUImage: PropTypes.bool,
   showSKULabel: PropTypes.bool,
-  customBtn: PropTypes.node,
+  groupButtonAddon: PropTypes.node,
 };
 
 SKU.defaultProps = {
@@ -190,7 +190,7 @@ SKU.defaultProps = {
   onChange: noop,
   prefix: 'zent',
   showAddSKUImage: true,
-  customBtn: null,
+  groupButtonAddon: null,
   showSKULabel: false,
 };
 
