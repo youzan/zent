@@ -40,7 +40,7 @@ $c-gray-darker: $theme-stroke-3 !default;
       height: 18px;
       font-size: 14px;
       line-height: 16px;
-      background: $theme-mask-white-6;
+      background: rgba(153, 153, 153, 0.6);
       border-radius: 10px;
       text-indent: 0;
     }
@@ -100,17 +100,21 @@ $c-gray-darker: $theme-stroke-3 !default;
           text-align: left;
         }
       }
+
+      &__label {
+        line-height: 30px;
+        width: 50px;
+        font-size: 12px;
+      }
     }
 
     .sku-add {
       display: inline-block;
-      padding: 0 5px;
-      margin: 9px 5px 0;
-      vertical-align: top;
       font-size: 12px;
       color: $theme-primary-2;
       text-decoration: none;
       cursor: pointer;
+      line-height: 30px;
     }
 
     .zent-sku-pop {
@@ -128,8 +132,6 @@ $c-gray-darker: $theme-stroke-3 !default;
     padding: 5px;
     display: inline-block;
     margin-right: 10px;
-    margin-bottom: 5px;
-    margin-top: 5px;
     width: 80px;
     vertical-align: middle;
     text-align: center;

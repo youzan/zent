@@ -69,7 +69,7 @@ class Simple extends Component {
   }
 
   render() {
-    return <SKU onFetchGroup={this.fetchSKUTree} onFetchSKU={this.fetchSKU} />;
+    return <SKU isShowSkuLabel onFetchGroup={this.fetchSKUTree} onFetchSKU={this.fetchSKU} />;
   }
 }
 

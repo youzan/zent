@@ -7,7 +7,7 @@ const happyThreadPool = require('./happypack-thread-pool');
 module.exports = Object.assign({}, base, {
   entry: {
     docs: [
-      'react-hot-loader/patch',
+      // 'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4396',
       'webpack/hot/only-dev-server',
       './src/index.js',
