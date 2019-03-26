@@ -135,8 +135,8 @@ export const Sku = {
     del: 'Delete',
     replace: 'Replace',
     add: '+Add',
-    skuKey: 'skuKey:',
-    skuValue: 'skuValue:',
+    skuKey: 'SKU:',
+    skuValue: 'Value:',
   },
   group: {
     add: 'Add sku image',
