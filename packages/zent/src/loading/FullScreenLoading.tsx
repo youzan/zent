@@ -3,14 +3,11 @@ import cx from 'classnames';
 import isUndefined from 'lodash-es/isUndefined';
 
 import PurePortal from '../portal/PurePortal';
-import withNonScrollable from '../portal/withNonScrollable';
 import useDelayed from './hooks/useDelayed';
 import { IFullScreenLoadingProps, FullScreenDefaultProps } from './props';
 import LoadingMask from './components/LoadingMask';
 
 const NO_STYLE = {};
-
-const NonScrollablePurePortal = withNonScrollable(PurePortal);
 
 export function FullScreenLoading(props: IFullScreenLoadingProps) {
   const {
@@ -32,7 +29,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
   const style = isUndefined(zIndex) ? NO_STYLE : { zIndex };
 
   return (
-    <NonScrollablePurePortal selector={document.body} append>
+    <PurePortal selector={document.body} append withNonScrollable>
       <div
         className={cx('zent-loading', 'zent-loading--fullscreen', className)}
         style={style}
@@ -44,7 +41,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
           textPosition={textPosition}
         />
       </div>
-    </NonScrollablePurePortal>
+    </PurePortal>
   );
 }
 

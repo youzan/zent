@@ -19,8 +19,6 @@ Portal provides a first-class way to render children into a DOM node that exists
 | children  | Only supports one child        | string    | No  |          |                |
 | selector  | DOM node to render child    | string or DOM Element | No | `'body'` | legal CSS selector or certain DOM node |
 | visible   | Whether to render child    | bool   | No     | `true`   |                |
-| onMount   | Callback after child is mounted | func | No | | |
-| onUnmount | Callback after child is unmounted | func | No | | |
 | layer | The layer curtain tag name | string | No | `div` | |
 | useLayerForClickAway | Whether to use a layer for click away from `Portal` | boolean | No | false | |
 | onClickAway | The callback when user clicks away from `Portal` | function | No | | |
@@ -88,8 +86,6 @@ This component is which `Portal` depends on internally, the difference against `
 | render    | Render the content of `LayeredPortal`, prior to children | func | No | | |
 | selector  | DOM node to render child    | string or DOM Element | No | `'body'` | legal CSS selector or certain DOM node |
 | visible   | Whether to render child    | bool   | No     | `true`   |                |
-| onMount   | Callback after child is mounted | func | No | | |
-| onUnmount | Callback after child is unmounted | func | No | | |
 | layer | The layer curtain tag name | string | No | `div` | |
 | useLayerForClickAway | Whether to use a layer for click away from `Portal` | boolean | No | false | |
 | onClickAway | The callback when user clicks away from `Portal` | function | No | | |
@@ -114,4 +110,3 @@ Portal behaves like React 16 Portal，which will overwrite all content inside it
 | render    | Render the content of `LayeredPortal`, prior to children | func | No | | |
 | selector  | DOM node to render child    | string or DOM Element | No | `'body'` | legal CSS selector or certain DOM node |
 | onMount   | Callback after child is mounted | func | No | | |
-| onUnmount | Callback after child is unmounted | func | No | | |

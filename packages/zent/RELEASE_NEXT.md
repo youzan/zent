@@ -63,6 +63,11 @@
 
 导出的组件名字变了，老的写法
 
+#### `Portal`
+
+去除`Portal.withEscToClose`和`Portal.withNonScrollable`，添加两个参数`withEscToClose`和`withNonScrollable`。
+去除`onMount`和`onUnmount`，直接使用`componentDidMount`和`componentWillUnmount`即可。
+
 ```js
 import { Layout } from 'zent';
 

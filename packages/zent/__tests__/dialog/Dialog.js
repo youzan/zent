@@ -118,7 +118,7 @@ describe('Dialog component', () => {
 
     expect(document.querySelectorAll('.zent-dialog-r-anchor').length).toBe(1);
 
-    const escKeyUpEvent = new window.KeyboardEvent('keyup', {
+    const escKeyUpEvent = new window.KeyboardEvent('keydown', {
       keyCode: 27,
     });
     document.body.dispatchEvent(escKeyUpEvent);

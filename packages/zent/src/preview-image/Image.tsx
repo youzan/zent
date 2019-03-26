@@ -7,10 +7,6 @@ import { I18nReceiver as Receiver } from '../i18n';
 import Portal from '../portal';
 import Icon from '../icon';
 
-// 有关闭按钮的时候同时具有ESC关闭的行为
-const { withNonScrollable, withESCToClose } = Portal;
-const ImagePortalESCToClose = withESCToClose(withNonScrollable(Portal)) as any;
-
 export interface IPreviewImageProps {
   className: string;
   prefix: string;
@@ -142,10 +138,12 @@ export default class Image extends Component<IPreviewImageProps, any> {
     });
 
     return (
-      <ImagePortalESCToClose
+      <Portal
         visible
         onClose={this.onClose}
         className={cx(`${prefix}-image-p-anchor`, className)}
+        withEscToClose
+        withNonScrollable
       >
         <div className={`${prefix}-image-p-backdrop`}>
           <div className={`${prefix}-image-p-wrap`}>
@@ -218,7 +216,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
             </Receiver>
           </div>
         </div>
-      </ImagePortalESCToClose>
+      </Portal>
     );
   }
 }

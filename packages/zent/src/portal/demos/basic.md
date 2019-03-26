@@ -21,7 +21,7 @@ en-US:
 import { Portal, Button } from 'zent';
 
 const PurePortal = Portal.PurePortal;
-const WrappedPortal = Portal.withNonScrollable(Portal.withESCToClose(Portal));
+// const WrappedPortal = Portal.withNonScrollable(Portal.withESCToClose(Portal));
 
 class PortalBasic extends Component {
 	state = {
@@ -51,13 +51,15 @@ class PortalBasic extends Component {
 				) : null}
 				<Button onClick={this.togglePurePortal}>Toggle PurePortal</Button>
 				<Button onClick={this.showBodyPortal}>{i18n.bodyPortalButton}</Button>
-				<WrappedPortal
+				<Portal
 					visible={this.state.bodyPortalVisible}
 					onClickAway={this.hideBodyPortal}
 					onClose={this.hideBodyPortal}
 					className="layer"
 					style={{ background: 'rgba(0, 0, 0, 0.2)' }}
 					useLayerForClickAway
+					withESCToClose
+					withNonScrollable
 				>
 					<div
 						className="zent-doc-portal-content"
@@ -74,7 +76,7 @@ class PortalBasic extends Component {
 					>
 						{i18n.bodyPortalContent}
 					</div>
-				</WrappedPortal>
+				</Portal>
 			</div>
 		);
 	}

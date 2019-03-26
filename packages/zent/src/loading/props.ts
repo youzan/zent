@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 export interface ILoadingBaseProps {
-  loading?: boolean;
-  delay?: number;
-  icon?: 'youzan' | 'circle';
+  loading: boolean;
+  delay: number;
+  icon: 'youzan' | 'circle';
   iconSize?: number;
   iconText?: React.ReactNode;
-  textPosition?: 'top' | 'bottom' | 'left' | 'right';
+  textPosition: 'top' | 'bottom' | 'left' | 'right';
   className?: string;
 }
 

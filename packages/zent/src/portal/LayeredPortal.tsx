@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
+import * as keycode from 'keycode';
+import cx from 'classnames';
 
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import {
@@ -15,7 +17,8 @@ export interface ILayeredPortalProps extends IPurePortalProps {
   onClickAway?: (e: TouchEvent | MouseEvent) => void;
   onLayerReady?: (node: HTMLElement) => void;
   className?: string;
-  style?: React.CSSProperties;
+  prefix: string;
+  style?: CSSStyleDeclaration;
 }
 
 export interface ILayeredPortalState {
@@ -33,11 +36,15 @@ export class LayeredPortal extends Component<
   ILayeredPortalState
 > {
   static defaultProps = {
+    prefix: 'zent',
     selector: 'body',
     layer: 'div',
     className: '',
     visible: true,
   };
+
+  static LayeredPortal = LayeredPortal;
+  static PurePortal = PurePortal;
 
   purePortalRef = React.createRef<PurePortal>();
 
@@ -60,6 +67,16 @@ export class LayeredPortal extends Component<
     }
     return purePortal.contains(el);
   }
+
+  onKeyDown = (e: KeyboardEvent) => {
+    const { withEscToClose, onClose } = this.props;
+    if (!withEscToClose || !onClose) {
+      return;
+    }
+    if (keycode(e) === 'esc') {
+      onClose(e);
+    }
+  };
 
   onClickAway = (event: TouchEvent | MouseEvent) => {
     const { onClickAway, visible } = this.props;
@@ -95,10 +112,16 @@ export class LayeredPortal extends Component<
     parent: Element,
     props = this.props
   ) => {
-    const { onLayerReady, className, style } = props;
+    const {
+      onLayerReady,
+      className,
+      style,
+      useLayerForClickAway,
+      prefix,
+    } = props;
 
     // 1, Customize the className and style for layer node.
-    layerNode.className = className || '';
+    layerNode.className = cx(className, `${prefix}-portal`);
     const cssMap = style || (props as any).css || {};
     const cssKeys = Object.keys(cssMap);
     if (cssMap && cssKeys.length) {
@@ -108,7 +131,7 @@ export class LayeredPortal extends Component<
     }
 
     // 2, Predefined layer decorations
-    if (this.props.useLayerForClickAway) {
+    if (useLayerForClickAway) {
       layerNode.addEventListener('touchstart', this.onClickAway);
       layerNode.addEventListener('click', this.onClickAway);
       layerNode.style.position =
@@ -181,14 +204,11 @@ export class LayeredPortal extends Component<
 
   render() {
     // Render the portal content to container node or parent node
-    const { children, render, visible } = this.props;
+    const { render, visible, ...otherProps } = this.props;
     const { layer } = this.state;
-    const content = render ? render() : children;
 
     return visible ? (
-      <PurePortal ref={this.purePortalRef} selector={layer}>
-        {content}
-      </PurePortal>
+      <PurePortal ref={this.purePortalRef} {...otherProps} selector={layer} />
     ) : null;
   }
 }

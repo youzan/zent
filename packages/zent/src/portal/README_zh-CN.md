@@ -20,8 +20,6 @@ group: 基础
 | children  | 只支持一个child        | string         |  否   |     |                |
 | selector  | 渲染child的DOM节点     | string or DOM Element | 否 | `'body'` | 合法的CSS selector或者某个DOM节点 |
 | visible   | 是否渲染child    | bool         | 否 | `true`   |                |
-| onMount   | `children` 被 mount 之后的回调函数 | func | 否 | | |
-| onUnmount | `children` 被 unmount 之后的回调函数 | func | 否 | | |
 | layer | 遮罩的标签名 | string | 否 | `div` | |
 | useLayerForClickAway | 是否使用遮罩来触发`Portal`关闭 | boolean | 否 | false | |
 | onClickAway | 点击到非`Portal`处的回调 | function | 否 | | |
@@ -89,8 +87,6 @@ const Portal = withNonScrollable(_Portal);
 | render    | 返回传送门需要渲染的内容，优先级高于children | func | 否 | | |
 | selector  | 渲染child的DOM节点     | string or DOM Element | 否 | `'body'` | 合法的CSS selector或者某个DOM节点 |
 | visible   | 是否渲染child    | bool         | 否 | `true`   |                |
-| onMount   | `children` 被 mount 之后的回调函数 | func | 否 | | |
-| onUnmount | `children` 被 unmount 之后的回调函数 | func | 否 | | |
 | layer | 遮罩的标签名 | string | 否 | `div` | |
 | useLayerForClickAway | 是否使用遮罩来触发`Portal`关闭 | boolean | 否 | false | |
 | onClickAway | 点击到非`Portal`处的回调 | function | 否 | | |
@@ -113,5 +109,3 @@ const Portal = withNonScrollable(_Portal);
 | children  | 只支持一个child        | string         |  否   |     |                |
 | render    | 返回传送门需要渲染的内容，优先级高于children | func | 否 | | |
 | selector  | 渲染child的DOM节点     | string or DOM Element | 是 | `'body'` | 合法的CSS selector或者某个DOM节点 |
-| onMount   | `children` 被 mount 之后的回调函数 | func | 否 | | |
-| onUnmount | `children` 被 unmount 之后的回调函数 | func | 否 | | |

@@ -201,7 +201,6 @@ export default class PopoverContent extends Component<
         selector={containerSelector}
         className={cls}
         style={position.getCSSStyle()}
-        onMount={this.adjustPosition}
       >
         <div className={`${prefix}-popover-content`}>
           {children}

@@ -2,16 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import Portal, { IPortalProps } from '../portal';
+import Portal from '../portal';
 import isBrowser from '../utils/isBrowser';
 import { DialogElWrapper, DialogInnerEl, IMousePosition } from './DialogEl';
 import { openDialog, closeDialog } from './open';
-
-const { withNonScrollable, withESCToClose } = Portal;
-const DialogPortal = withNonScrollable(Portal as React.ComponentType<
-  IPortalProps
->);
-const DialogPortalESCToClose = withESCToClose(DialogPortal);
 
 const TIMEOUT = 300; // ms
 
@@ -139,16 +133,13 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
       this.lastMousePosition = null;
     }
 
-    // 有关闭按钮的时候同时具有ESC关闭的行为
-    const PortalComponent = closeBtn
-      ? DialogPortalESCToClose
-      : (DialogPortal as any);
-
     return (
-      <PortalComponent
+      <Portal
         visible={visible || exiting}
         onClose={this.onClose}
         className={`${prefix}-dialog-r-anchor`}
+        withEscToClose={closeBtn}
+        withNonScrollable
       >
         <DialogElWrapper
           prefix={prefix}
@@ -178,7 +169,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
             </DialogInnerEl>
           </CSSTransition>
         </DialogElWrapper>
-      </PortalComponent>
+      </Portal>
     );
   }
 }
