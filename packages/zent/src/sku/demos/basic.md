@@ -25,56 +25,63 @@ en-US:
 ```jsx
 import { SKU } from 'zent';
 
-
 const skuTree = [
-  {
-    id: 10740,
-    text: "{i18n.color}"
-  },
-  {
-    id: 40732,
-    text: "{i18n.size}"
-  }
+	{
+		id: 10740,
+		text: '{i18n.color}',
+	},
+	{
+		id: 40732,
+		text: '{i18n.size}',
+	},
 ];
 
-const sku = [{
-  id: 3,
-  text: "{i18n.blue}"
-}, {
-  id: 10,
-  text: "{i18n.red}"
-}, {
-  id: 30,
-  text: "{i18n.golden}"
-}, {
-  id: 137,
-  text: "{i18n.black}"
-}, {
-  id: 138,
-  text: "{i18n.gray}"
-}];
-
+const sku = [
+	{
+		id: 3,
+		text: '{i18n.blue}',
+	},
+	{
+		id: 10,
+		text: '{i18n.red}',
+	},
+	{
+		id: 30,
+		text: '{i18n.golden}',
+	},
+	{
+		id: 137,
+		text: '{i18n.black}',
+	},
+	{
+		id: 138,
+		text: '{i18n.gray}',
+	},
+];
 
 class Simple extends Component {
-  fetchSKUTree() {
-    return new Promise(resolve => {
-      resolve(skuTree);
-    });
-  }
+	fetchSKUTree() {
+		return new Promise(resolve => {
+			resolve(skuTree);
+		});
+	}
 
-  fetchSKU() {
-    return new Promise(resolve => {
-      resolve(sku);
-    });
-  }
+	fetchSKU() {
+		return new Promise(resolve => {
+			resolve(sku);
+		});
+	}
 
-  render() {
-    return <SKU isShowSkuLabel onFetchGroup={this.fetchSKUTree} onFetchSKU={this.fetchSKU} />;
-  }
+	render() {
+		return (
+			<SKU
+				showSKULabel
+				onFetchGroup={this.fetchSKUTree}
+				onFetchSKU={this.fetchSKU}
+			/>
+		);
+	}
 }
 
-ReactDOM.render(
-    <Simple />
-    , mountNode
-);
+ReactDOM.render(<Simple />, mountNode);
 ```

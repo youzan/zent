@@ -222,12 +222,12 @@ class SKUContainer extends PureComponent {
   render() {
     let { optionValue, optionText, prefix } = this.context;
 
-    let { sku, hasSKUImage, i18n, isShowSkuLabel } = this.props;
+    let { sku, hasSKUImage, i18n, showSKULabel } = this.props;
 
     return (
       <div className="group-container">
         <div className="sku-list">
-          {isShowSkuLabel && (
+          {showSKULabel && (
             <span className="sku-list__label">{i18n.container.skuValue}</span>
           )}
           {sku.leaf.map((item, index) => {

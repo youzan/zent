@@ -103,8 +103,8 @@ class SKU extends PureComponent {
       onCreateGroup,
       disabled,
       customBtn,
-      isShowAddSkuImage,
-      isShowSkuLabel,
+      showAddSKUImage,
+      showSKULabel,
     } = this.props;
 
     const { skuTree, data } = this.state;
@@ -119,8 +119,8 @@ class SKU extends PureComponent {
                 index={index}
                 sku={item}
                 i18n={i18n}
-                isShowAddSkuImage={isShowAddSkuImage}
-                isShowSkuLabel={isShowSkuLabel}
+                showAddSKUImage={showAddSKUImage}
+                showSKULabel={showSKULabel}
                 skuTree={skuTree}
                 onSKUChange={this.rebuildSKU(i18n)}
                 onSKUDelete={this.deleteSKU.bind(this, index)}
@@ -169,8 +169,8 @@ SKU.propTypes = {
   onCreateSKU: PropTypes.func,
   onChange: PropTypes.func,
   prefix: PropTypes.string,
-  isShowAddSkuImage: PropTypes.bool,
-  isShowSkuLabel: PropTypes.bool,
+  showAddSKUImage: PropTypes.bool,
+  showSKULabel: PropTypes.bool,
   customBtn: PropTypes.node,
 };
 
@@ -189,9 +189,9 @@ SKU.defaultProps = {
   onCreateSKU: noopPromise,
   onChange: noop,
   prefix: 'zent',
-  isShowAddSkuImage: true,
+  showAddSKUImage: true,
   customBtn: null,
-  isShowSkuLabel: false,
+  showSKULabel: false,
 };
 
 export default SKU;

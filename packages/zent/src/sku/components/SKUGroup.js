@@ -107,8 +107,8 @@ class SKUGroup extends PureComponent {
       index,
       skuTree,
       i18n,
-      isShowAddSkuImage,
-      isShowSkuLabel,
+      showAddSKUImage,
+      showSKULabel,
     } = this.props;
     let { optionValue, optionText } = this.context;
     let { newSKUText, hasSKUImage } = this.state;
@@ -130,7 +130,7 @@ class SKUGroup extends PureComponent {
     return (
       <div className={prefix}>
         <h3 className="group-title">
-          {isShowSkuLabel && (
+          {showSKULabel && (
             <span className="group-title__label">{i18n.container.skuKey}</span>
           )}
           <Select
@@ -143,7 +143,7 @@ class SKUGroup extends PureComponent {
             onOpen={this.handleReset}
             value={sku[optionValue] || ''}
           />
-          {index === 0 && isShowAddSkuImage ? (
+          {index === 0 && showAddSKUImage ? (
             <Checkbox checked={hasSKUImage} onChange={this.checkSKUImage}>
               {i18n.group.add}
             </Checkbox>
@@ -157,7 +157,7 @@ class SKUGroup extends PureComponent {
         <SKUContainer
           sku={{ ...sku }}
           i18n={i18n}
-          isShowSkuLabel={isShowSkuLabel}
+          showSKULabel={showSKULabel}
           hasSKUImage={hasSKUImage}
           onSKULeafChange={this.onSKULeafChange}
         />
