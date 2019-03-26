@@ -4,7 +4,6 @@
   "parser": "babel-eslint",
   "plugins": ["lean-imports"],
   "rules": {
-    "no-console": 0,
     "one-var": 0,
     "no-var": 2,
     "max-len": 0,
@@ -14,8 +13,6 @@
     "prefer-const": 0,
     "arrow-body-style": 0,
     "operator-assignment": 0,
-    "prefer-destructuring": 0,
-    "prefer-promise-reject-errors": 0,
     "react/prefer-stateless-function": 0,
     "react/sort-comp": 0,
     "react/no-multi-comp": 0,
@@ -31,9 +28,6 @@
     "react/forbid-prop-types": 0,
     "react/no-render-return-value": 0,
     "react/no-string-refs": 0,
-    "react/destructuring-assignment": 0,
-    "react/button-has-type": 0,
-    "react/no-access-state-in-setstate": 0,
     "no-param-reassign": 0,
     "no-return-assign": 0,
     "no-underscore-dangle": [
@@ -66,14 +60,6 @@
     "import/prefer-default-export": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/label-has-for": 0,
-    "jsx-a11y/anchor-has-content": 0,
-    "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/no-noninteractive-element-interactions": 0,
-    "jsx-a11y/anchor-is-valid": 0,
-    "jsx-a11y/label-has-associated-control": 0,
-    "jsx-a11y/no-noninteractive-tabindex": 0,
-    "jsx-a11y/interactive-supports-focus": 0,
-    "jsx-a11y/mouse-events-have-key-events": 0,
-    "jsx-a11y/no-noninteractive-element-to-interactive-role": 0
+    "jsx-a11y/anchor-has-content": 0
   }
 }

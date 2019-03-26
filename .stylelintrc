@@ -1,0 +1,7 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "selector-pseudo-element-colon-notation": null
+  },
+  "ignoreFiles": ["node_modules", "**/*.js", "packages/zent/css"]
+}
