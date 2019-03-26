@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { AppContainer } from 'react-hot-loader';
+import { AppContainer } from 'react-hot-loader';
 
 import 'prismjs/themes/prism.css';
 import './docs.pcss';
@@ -10,7 +10,9 @@ import App from './App';
 
 const render = ChildComponent => {
   ReactDOM.render(
-    <ChildComponent />,
+    <AppContainer warnings={false}>
+      <ChildComponent />
+    </AppContainer>,
     document.getElementById('app-container') // eslint-disable-line
   );
 };
