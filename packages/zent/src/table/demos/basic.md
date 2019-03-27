@@ -64,7 +64,6 @@ const columns = [{
 ReactDOM.render(
   <Table
     columns={columns}
-		pageInfo={null}
     datasets={datasets}
     rowKey="item_id"
 	/>,

@@ -32,6 +32,7 @@
 ### 配置
 
 - `noModuleRewrite`: 关闭 JavaScript 模块重写，一般配合打包工具的 tree-shaking 使用。
+- `useESM`: 使用 esm 版本的代码重写 `import`
 - `automaticStyleImport`: 设置为 `true` 启用样式自动引入。
 - `useRawStyle`: 配合 `automaticStyleImport` 使用, 设置为 `true` 自动引入样式源文件(PostCSS). **需要 Zent >= 3.8.1**
 

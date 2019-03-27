@@ -19,20 +19,21 @@ en-US:
 ---
 
 ```jsx
-
 import { Grid, Notify } from 'zent';
 
 const columns = [
 	{
 		title: '{i18n.productName}',
-		name: 'name'
-	}, {
+		name: 'name',
+	},
+	{
 		title: '{i18n.uv}',
-		name: 'uv'
-	}, {
+		name: 'uv',
+	},
+	{
 		title: '{i18n.stock}',
-		name: 'stock'
-	}
+		name: 'stock',
+	},
 ];
 
 const pageSize = 5;
@@ -46,29 +47,29 @@ for (let i = 0; i < 5; i++) {
 		id: `f-${i}`,
 		name: `{i18n.babyProducts} ${i}`,
 		uv: 20,
-		stock: 5
-	})
+		stock: 5,
+	});
 	datasets2.push({
 		id: `s-${i}`,
 		name: `{i18n.petProducts} ${i}`,
 		uv: 20,
-		stock: 5
-	})
+		stock: 5,
+	});
 }
 
 class Selection extends React.Component {
 	state = {
-		selectedRowKeys: [ 'f-0' ],
+		selectedRowKeys: ['f-0'],
 		datasets,
-		current: 1
-	}
+		current: 1,
+	};
 
 	onChange = ({ current }) => {
 		this.setState({
 			current,
-			datasets: current === 1 ? datasets : datasets2
-		})
-	}
+			datasets: current === 1 ? datasets : datasets2,
+		});
+	};
 
 	render() {
 		return (
@@ -77,37 +78,33 @@ class Selection extends React.Component {
 				datasets={this.state.datasets}
 				pageInfo={{
 					pageSize: pageSize,
-					totalItem: totalItem,
-					current: this.state.current
+					total: totalItem,
+					current: this.state.current,
 				}}
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {
-            if (selectedRowKeys.length > 2) {
-              Notify.error('你最多选择两个')
-              this.setState({
-                selectedRowKeys: [].concat(this.state.selectedRowKeys)
-              })
-            } else {
-              this.setState({
-                selectedRowKeys
-              });
-            }
+						if (selectedRowKeys.length > 2) {
+							Notify.error('你最多选择两个');
+							this.setState({
+								selectedRowKeys: [].concat(this.state.selectedRowKeys),
+							});
+						} else {
+							this.setState({
+								selectedRowKeys,
+							});
+						}
 					},
-					getCheckboxProps: (data) => ({
-							disabled: data.name === '{i18n.babyProducts} 1'
-					})
+					getCheckboxProps: data => ({
+						disabled: data.name === '{i18n.babyProducts} 1',
+					}),
 				}}
 				rowKey="id"
 				onChange={this.onChange}
 			/>
 		);
 	}
-};
+}
 
-ReactDOM.render(
-		<Selection />
-	, mountNode
-);
-
+ReactDOM.render(<Selection />, mountNode);
 ```

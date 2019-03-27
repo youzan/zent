@@ -18,6 +18,7 @@ import Head from './modules/Head';
 import Body from './modules/Body';
 import Foot from './modules/Foot';
 import helper from './helper';
+import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
 
 export interface ITableColumn {
   title: string;
@@ -75,7 +76,7 @@ export interface ITableProps {
     current?: number;
     totalItem?: number;
     pageSize?: number;
-    maxPageToShow?: number;
+    pageSizeOptions?: PaginationPageSizeOption[];
   };
 }
 

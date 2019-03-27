@@ -66,7 +66,7 @@ class Indeterminate extends React.Component {
 		page: {
 			pageSize: 3,
 			current: 0,
-			totalItem: 3,
+			total: 3,
 		},
 		datasets,
 		selectedRowKeys: ['5024217'],

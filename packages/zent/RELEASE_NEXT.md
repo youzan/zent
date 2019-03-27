@@ -23,6 +23,10 @@
 - `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
 
+#### `Grid 和 `Table`
+
+因为这两个组件的 `pageInfo` 参数依赖 `Pagination`，所以 `Pagination` 的改动对这个参数一样有影响。
+
 #### `Loading`
 
 `Loading` 拆分成了 3 种子类型，`import { BlockLoading, InlineLoading, FullScreenLoading } from 'zent'`，`InlineLoading` 是新增的能力，不涉及迁移问题。新增了一种样式和描述文案支持。
