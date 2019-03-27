@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import * as keycode from 'keycode';
-import cx from 'classnames';
 
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import {
@@ -24,7 +23,6 @@ export interface ILayeredPortalProps extends IPurePortalProps {
   onClickAway?: (e: TouchEvent | MouseEvent) => void;
   onLayerReady?: (node: HTMLElement) => void;
   className?: string;
-  prefix: string;
   style?: Partial<CSSStyleDeclaration>;
   withNonScrollable?: boolean;
 }
@@ -44,7 +42,6 @@ export class LayeredPortal extends Component<
   ILayeredPortalState
 > {
   static defaultProps = {
-    prefix: 'zent',
     selector: 'body',
     layer: 'div',
     className: '',
@@ -118,16 +115,10 @@ export class LayeredPortal extends Component<
   };
 
   decorateLayer = (layerNode: HTMLElement, parent: Element) => {
-    const {
-      onLayerReady,
-      className,
-      style,
-      useLayerForClickAway,
-      prefix,
-    } = this.props;
+    const { onLayerReady, className, style, useLayerForClickAway } = this.props;
 
     // 1, Customize the className and style for layer node.
-    layerNode.className = cx(className, `${prefix}-portal`);
+    layerNode.className = className;
     const cssMap = style || (this.props as any).css || {};
     const cssKeys = Object.keys(cssMap);
     if (cssMap && cssKeys.length) {
