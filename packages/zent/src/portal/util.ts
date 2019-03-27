@@ -1,3 +1,5 @@
+import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
+
 export function getNodeFromSelector(selector: string | Element): Element {
   const node =
     typeof selector === 'string' ? document.querySelector(selector) : selector;
@@ -31,4 +33,14 @@ export function removeAllChildren(node: Node) {
   while (node && node.firstChild) {
     node.removeChild(node.firstChild);
   }
+}
+
+export function hasScrollbarY(element: Element) {
+  if (!SCROLLBAR_WIDTH) {
+    return false;
+  }
+  if (element === document.body) {
+    return element.scrollHeight > window.innerHeight;
+  }
+  return element.scrollHeight > element.clientHeight;
 }

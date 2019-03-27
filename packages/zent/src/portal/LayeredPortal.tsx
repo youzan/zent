@@ -8,7 +8,14 @@ import {
   removeNodeFromDOMTree,
   isDescendant,
   getNodeFromSelector,
+  hasScrollbarY,
 } from './util';
+import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
+
+interface IRelatedStyle {
+  overflowY: string | null;
+  paddingRight: string | null;
+}
 
 export interface ILayeredPortalProps extends IPurePortalProps {
   visible?: boolean;
@@ -18,7 +25,8 @@ export interface ILayeredPortalProps extends IPurePortalProps {
   onLayerReady?: (node: HTMLElement) => void;
   className?: string;
   prefix: string;
-  style?: CSSStyleDeclaration;
+  style?: Partial<CSSStyleDeclaration>;
+  withNonScrollable?: boolean;
 }
 
 export interface ILayeredPortalState {
@@ -45,6 +53,8 @@ export class LayeredPortal extends Component<
 
   static LayeredPortal = LayeredPortal;
   static PurePortal = PurePortal;
+
+  private originalStyle: IRelatedStyle | null = null;
 
   purePortalRef = React.createRef<PurePortal>();
 
@@ -107,22 +117,18 @@ export class LayeredPortal extends Component<
     }
   };
 
-  decorateLayer = (
-    layerNode: HTMLElement,
-    parent: Element,
-    props = this.props
-  ) => {
+  decorateLayer = (layerNode: HTMLElement, parent: Element) => {
     const {
       onLayerReady,
       className,
       style,
       useLayerForClickAway,
       prefix,
-    } = props;
+    } = this.props;
 
     // 1, Customize the className and style for layer node.
     layerNode.className = cx(className, `${prefix}-portal`);
-    const cssMap = style || (props as any).css || {};
+    const cssMap = style || (this.props as any).css || {};
     const cssKeys = Object.keys(cssMap);
     if (cssMap && cssKeys.length) {
       layerNode.style.cssText = cssKeys
@@ -155,12 +161,49 @@ export class LayeredPortal extends Component<
     const { layer, parent } = this.state;
     parent.appendChild(layer);
     this.decorateLayer(layer, parent);
+    this.patchScroll();
   }
 
   unmountLayer() {
     const { layer } = this.state;
+    this.restoreScroll();
     this.undecorateLayer(layer);
     removeNodeFromDOMTree(layer);
+  }
+
+  patchScroll() {
+    const { withNonScrollable } = this.props;
+    if (!withNonScrollable) {
+      return;
+    }
+    const { parent: target } = this.state;
+    /**
+     * this.originalStyle !== null means it's already patched
+     */
+    if (
+      hasScrollbarY(target) &&
+      this.originalStyle === null &&
+      target instanceof HTMLElement
+    ) {
+      this.originalStyle = {
+        overflowY: target.style.overflowY,
+        paddingRight: target.style.paddingRight,
+      };
+      const originalPadding = getComputedStyle(target).paddingRight;
+      const newPadding = parseFloat(originalPadding || '0') + SCROLLBAR_WIDTH;
+      target.style.overflowY = 'hidden';
+      target.style.paddingRight = `${newPadding}px`;
+    }
+  }
+
+  restoreScroll() {
+    const { parent: target } = this.state;
+    const { originalStyle } = this;
+    if (target instanceof HTMLElement && originalStyle) {
+      target.style.overflowY = originalStyle.overflowY;
+      target.style.paddingRight = originalStyle.paddingRight;
+      this.originalStyle = null;
+    }
   }
 
   static getDerivedStateFromProps(

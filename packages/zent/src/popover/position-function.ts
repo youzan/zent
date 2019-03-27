@@ -1,5 +1,5 @@
 export interface IPopoverPosition {
-  getCSSStyle: () => React.CSSProperties;
+  getCSSStyle: () => Partial<CSSStyleDeclaration>;
   name: string;
 }
 

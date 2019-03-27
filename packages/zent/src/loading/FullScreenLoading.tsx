@@ -1,13 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
-import isUndefined from 'lodash-es/isUndefined';
+import isNumber from 'lodash-es/isNumber';
 
-import PurePortal from '../portal/PurePortal';
 import useDelayed from './hooks/useDelayed';
 import { IFullScreenLoadingProps, FullScreenDefaultProps } from './props';
 import LoadingMask from './components/LoadingMask';
+import { LayeredPortal } from '../portal';
 
-const NO_STYLE = {};
+const NO_STYLE: Partial<CSSStyleDeclaration> = {};
 
 export function FullScreenLoading(props: IFullScreenLoadingProps) {
   const {
@@ -26,22 +26,21 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     return null;
   }
 
-  const style = isUndefined(zIndex) ? NO_STYLE : { zIndex };
+  const style = isNumber(zIndex) ? NO_STYLE : { zIndex };
 
   return (
-    <PurePortal selector={document.body} append withNonScrollable>
-      <div
-        className={cx('zent-loading', 'zent-loading--fullscreen', className)}
-        style={style}
-      >
-        <LoadingMask
-          icon={icon}
-          size={iconSize}
-          text={iconText}
-          textPosition={textPosition}
-        />
-      </div>
-    </PurePortal>
+    <LayeredPortal
+      className={cx('zent-loading', 'zent-loading--fullscreen', className)}
+      style={style}
+      withNonScrollable
+    >
+      <LoadingMask
+        icon={icon}
+        size={iconSize}
+        text={iconText}
+        textPosition={textPosition}
+      />
+    </LayeredPortal>
   );
 }
 
