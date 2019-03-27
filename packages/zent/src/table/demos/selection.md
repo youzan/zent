@@ -122,7 +122,7 @@ class Selection extends React.Component {
 			page: {
 				pageSize: 3,
 				current: conf.current,
-				totalItem: 6,
+				total: 6,
 			},
 			datasets: conf.current === 1 ? datasets : datasets2,
 		});

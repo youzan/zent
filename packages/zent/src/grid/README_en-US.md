@@ -79,6 +79,7 @@ onChange will throw an object, which includes parameters about the change part o
 | --------- | ---------------------------------------- | ------ | -------- |
 | total | Total number of items                    | number | No       |
 | pageSize  | Number of items to be displayed per page | number | No       |
+| pageSizeOptions | Page size options | number[] | No |
 | current   | current page                             | number | No       |
 
 ### expandation

@@ -80,6 +80,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | --------- | ---------- | ------ | -------- |
 | total | 总条目个数 | number | 否       |
 | pageSize  | 每页个数   | number | 否       |
+| pageSizeOptions | 分页选项 | number[] | 否 |
 | current   | 当前页码   | number | 否       |
 
 ### expandation
