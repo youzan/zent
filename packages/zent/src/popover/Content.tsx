@@ -194,7 +194,6 @@ export default class PopoverContent extends Component<
 
     return (
       <Portal
-        prefix={prefix}
         visible={visible}
         selector={containerSelector}
         className={cls}
