@@ -81,6 +81,7 @@ class Selection extends React.Component {
 					total: totalItem,
 					current: this.state.current,
 				}}
+				paginationType="lite"
 				selection={{
 					selectedRowKeys: this.state.selectedRowKeys,
 					onSelect: (selectedRowKeys, selectedRows, currentRow) => {

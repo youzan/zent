@@ -7,8 +7,28 @@ import isNil from 'lodash-es/isNil';
 import helper from '../helper';
 import Pagination from '../../pagination';
 import Checkbox from '../../checkbox';
+import { TablePaginationType, ITablePageInfo } from '../Table';
+import { PaginationChangeHandler } from '../../pagination/impl/BasePagination';
+import LitePagination from '../../pagination/LitePagination';
 
-export default class Foot extends PureComponent<any, any> {
+export interface ITableFootProps {
+  pageInfo: ITablePageInfo;
+  paginationType: TablePaginationType;
+  batchComponentsFixed: boolean;
+  onPageChange: PaginationChangeHandler;
+  selection: {
+    needSelect: boolean;
+    isSingleSelection: boolean;
+    onSelectAll: (isSelectAll: boolean) => any;
+    selectedRows: any[];
+    isSelectAll: boolean;
+    isSelectPart: boolean;
+  };
+  batchComponents: any[];
+  current: number;
+}
+
+export default class Foot extends PureComponent<ITableFootProps> {
   footStyleFixed: React.CSSProperties;
   batch: HTMLDivElement | null = null;
 
@@ -55,9 +75,17 @@ export default class Foot extends PureComponent<any, any> {
   };
 
   render() {
-    const { onPageChange, batchComponents, selection, current } = this.props;
+    const {
+      onPageChange,
+      paginationType,
+      batchComponents,
+      selection,
+      current,
+    } = this.props;
 
     const pageInfo = this.props.pageInfo || {};
+
+    // tslint:disable-next-line:deprecation
     const { totalItem, pageSize, total, limit, pageSizeOptions } = pageInfo;
 
     const { needSelect, selectedRows } = selection;
@@ -73,6 +101,9 @@ export default class Foot extends PureComponent<any, any> {
     if (this.props.batchComponentsFixed) {
       batchClassName += ' tfoot__batchcomponents--fixed';
     }
+
+    const PaginationComp =
+      paginationType === 'lite' ? LitePagination : Pagination;
 
     return (
       shouldRenderFoot && (
@@ -92,9 +123,9 @@ export default class Foot extends PureComponent<any, any> {
           </div>
           <div className="tfoot__page">
             {Object.keys(pageInfo).length > 0 && (
-              <Pagination
+              <PaginationComp
                 current={current}
-                totalItem={isNil(totalItem) ? total : totalItem}
+                total={isNil(total) ? totalItem : total}
                 pageSize={isNil(pageSize) ? limit : pageSize}
                 onChange={onPageChange}
                 pageSizeOptions={pageSizeOptions}
