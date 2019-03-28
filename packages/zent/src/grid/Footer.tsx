@@ -3,19 +3,31 @@ import { PureComponent } from 'react';
 import classnames from 'classnames';
 import size from 'lodash-es/size';
 import Pagination from '../pagination';
+import LitePagination from '../pagination/LitePagination';
+import { IGridPageInfo, GridPaginationType } from './Grid';
+import { IGridOnChangeConfig } from './types';
+import { PaginationChangeHandler } from '../pagination/impl/BasePagination';
 
 const defaultPageInfo = {
   current: 1,
   pageSize: 10,
 };
 
-class Footer extends PureComponent<any> {
-  hasPagination(props) {
+export interface IGridFooterProps {
+  prefix: string;
+  pageInfo: IGridPageInfo;
+  paginationType: GridPaginationType;
+  onChange: (conf: IGridOnChangeConfig) => any;
+  onPaginationChange: (pageSize: number, current: number) => any;
+}
+
+class Footer extends PureComponent<IGridFooterProps> {
+  hasPagination(props: IGridFooterProps) {
     const { pageInfo } = props || this.props;
     return pageInfo && size(pageInfo);
   }
 
-  getDefaultPagination(props?: any) {
+  getDefaultPagination(props?: IGridFooterProps) {
     const { pageInfo } = props || this.props;
 
     return this.hasPagination(props)
@@ -27,20 +39,28 @@ class Footer extends PureComponent<any> {
       : null;
   }
 
-  handlePageChange = ({ pageSize, current }) => {
+  handlePageChange: PaginationChangeHandler = ({ pageSize, current }) => {
     const { onPaginationChange } = this.props;
     onPaginationChange && onPaginationChange(pageSize, current);
   };
 
   render() {
-    const { prefix } = this.props;
+    const { prefix, paginationType } = this.props;
     const curPageInfo = this.getDefaultPagination();
 
     if (curPageInfo) {
       return (
         <div className={`${prefix}-grid-tfoot`}>
           <div className={classnames(`${prefix}-grid-tfoot-page`)}>
-            <Pagination {...curPageInfo} onChange={this.handlePageChange} />
+            {paginationType === 'default' && (
+              <Pagination {...curPageInfo} onChange={this.handlePageChange} />
+            )}
+            {paginationType === 'lite' && (
+              <LitePagination
+                {...curPageInfo}
+                onChange={this.handlePageChange}
+              />
+            )}
           </div>
         </div>
       );

@@ -93,7 +93,7 @@ class Selection extends React.Component {
 		this.state = {
 			page: {
 				pageSize: 3,
-				current: 0,
+				current: 1,
 				totalItem: 6,
 			},
 			datasets: datasets,
@@ -138,6 +138,7 @@ class Selection extends React.Component {
 				rowKey="item_id"
 				getRowConf={this.getRowConf}
 				pageInfo={this.state.page}
+				paginationType="lite"
 				onChange={conf => {
 					this.onChange(conf);
 				}}

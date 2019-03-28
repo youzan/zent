@@ -20,6 +20,19 @@ import Foot from './modules/Foot';
 import helper from './helper';
 import { PaginationPageSizeOption } from '../pagination/components/PageSizeChanger';
 
+export type TablePaginationType = 'default' | 'lite';
+
+export interface ITablePageInfo {
+  current?: number;
+  total?: number;
+  /** @deprecated use total */
+  totalItem?: number;
+  pageSize?: number;
+  /** @deprecated use pageSize */
+  limit?: number;
+  pageSizeOptions?: PaginationPageSizeOption[];
+}
+
 export interface ITableColumn {
   title: string;
   name: string;
@@ -72,18 +85,14 @@ export interface ITableProps {
   autoScroll?: boolean;
   className?: string;
   prefix?: string;
-  pageInfo?: {
-    current?: number;
-    totalItem?: number;
-    pageSize?: number;
-    pageSizeOptions?: PaginationPageSizeOption[];
-  };
+  pageInfo?: ITablePageInfo;
+  paginationType: TablePaginationType;
 }
 
 export class Table extends PureComponent<ITableProps, any> {
   static defaultProps = {
     prefix: 'zent',
-    pageSize: 10,
+    paginationType: 'default',
     className: '',
     datasets: [],
     columns: [],
@@ -443,6 +452,7 @@ export class Table extends PureComponent<ITableProps, any> {
       datasets,
       rowKey,
       pageInfo,
+      paginationType,
       emptyLabel,
       getRowConf = () => {
         return { canSelect: true, rowClass: '' };
@@ -549,6 +559,7 @@ export class Table extends PureComponent<ITableProps, any> {
                     ref={c => (this.foot = c)}
                     batchComponents={batchComponents}
                     pageInfo={pageInfo}
+                    paginationType={paginationType}
                     batchComponentsFixed={this.state.batchComponentsFixed}
                     selection={{
                       needSelect,
@@ -560,8 +571,6 @@ export class Table extends PureComponent<ITableProps, any> {
                     }}
                     current={this.state.current}
                     onPageChange={this.onPageChange}
-                    // WTF
-                    // onPageSizeChange={this.onPageSizeChange}
                   />
                 </div>
               )}
