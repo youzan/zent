@@ -11,7 +11,7 @@ export interface IRegistry {
   [key: string]: { exports: Set<ValueExport>; dependencies: Set<string> };
 }
 
-interface SourceFile extends ts.SourceFile {
+interface ISourceFile extends ts.SourceFile {
   imports?: ts.StringLiteral[];
 }
 
@@ -82,7 +82,7 @@ function parseValueExports(
  * Excludes export ... from './x'
  */
 function getModuleLocalExportedValueNames(
-  sourceFile: SourceFile
+  sourceFile: ISourceFile
 ): Set<ValueExport> {
   const exportedVariables = new Set<ValueExport>();
   sourceFile.statements.forEach(stmt => {
@@ -124,7 +124,7 @@ function getModuleLocalExportedValueNames(
  * 4. imports of 1,2,3
  */
 function getModuleValueNames(
-  sourceFile: SourceFile,
+  sourceFile: ISourceFile,
   cwd: string,
   registry: IRegistry,
   exportedLocalVariables: Set<ValueExport>
@@ -207,7 +207,7 @@ function getModuleValueNames(
  * 4. re-exports of 1,2,3 from other modules
  */
 function getModuleValueExportNames(
-  sourceFile: SourceFile,
+  sourceFile: ISourceFile,
   cwd: string,
   registry: IRegistry,
   localValueVariables: Set<ValueExport>
@@ -216,7 +216,7 @@ function getModuleValueExportNames(
   sourceFile.statements.forEach(stmt => {
     if (ts.isVariableStatement(stmt)) {
       // export const A = 1
-      if (isNodeExported((<unknown>stmt) as ts.Declaration)) {
+      if (isNodeExported((stmt as unknown) as ts.Declaration)) {
         const vars = getVariableNames(stmt.declarationList.declarations);
         for (const v of vars) {
           if (localValueVariables.has(v)) {
@@ -278,7 +278,7 @@ function getModuleValueExportNames(
           } else if (stmt.moduleSpecifier) {
             console.warn(
               chalk.yellow(
-                `Named export '${propertyName}' not found in module ${dependentModulePath}`
+                `Named export '${propertyName}' not found in module ${dependentModulePath}\nYou can safely ignore this warning if it is an exported type`
               )
             );
           }
@@ -384,7 +384,7 @@ function getBindingNames(
 /**
  * Parse a module
  */
-function createSourceFile(filename: string): SourceFile {
+function createSourceFile(filename: string): ISourceFile {
   /** ts.CompilerHost */
   const compilerHost = {
     fileExists: () => true,

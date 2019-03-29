@@ -120,7 +120,7 @@ function tsort(edges: Graph): string[] {
   };
 
   // 1. build data structures
-  edges.forEach(function(v) {
+  edges.forEach(v => {
     const from = v[0];
     const to = v[1];
     if (!nodes[from]) nodes[from] = new Node(from);
@@ -147,19 +147,15 @@ function tsort(edges: Graph): string[] {
 
     visited[idstr] = true;
 
-    node.afters.forEach(function(afterID) {
+    node.afters.forEach(afterID => {
       const ances = ancestors as string[];
 
-      if (ances.indexOf(afterID) >= 0)
+      if (ances.indexOf(afterID) >= 0) {
         // if already in ancestors, a closed chain exists.
         throw new Error('closed chain : ' + afterID + ' is in ' + id);
+      }
 
-      visit(
-        afterID.toString(),
-        ances.map(function(v) {
-          return v;
-        })
-      ); // recursive call
+      visit(afterID.toString(), ances.map(v => v)); // recursive call
     });
 
     sorted.unshift(id);
