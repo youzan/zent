@@ -85,6 +85,13 @@ import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.8(2019-03-29)
+
+- 新增 `TextMark` 组件，用于高亮文本中的一组关键字
+- `Table` 和 `Grid` 
+  - 支持通过 `paginationType="lite"` 选择简化版的分页器
+  - 修复一个样式问题
+
 ## 7.0.0-next.7(2019-03-25)
 
 - 修复 `NumberInput` 的样式问题
