@@ -55,7 +55,7 @@ $border-color: $theme-stroke-6;
 
     th,
     td {
-      border: 1px solid $border-color;
+      box-shadow: inset 1px -1px 0 0 $theme-stroke-6;
     }
 
     .zent-grid-header th {
@@ -278,7 +278,7 @@ $border-color: $theme-stroke-6;
   }
 
   &-tfoot {
-    margin-top: 10px;
+    margin-top: 16px;
     overflow: hidden;
 
     .zent-grid-tfoot-page {
