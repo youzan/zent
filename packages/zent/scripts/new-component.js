@@ -108,13 +108,45 @@ function addFiles(name) {
     `${componentDir}/index.ts`,
     `import ${upperComponentName} from './${upperComponentName}';\n\nexport * from './${upperComponentName}';\nexport default ${upperComponentName};\n`
   );
+
   fs.writeFileSync(
     `${componentDir}/README_en-US.md`,
-    `## ${upperComponentName}`
+    `---
+title: ${upperComponentName}
+path: component/${componentDir}
+group: FIXME group name here
+---
+
+## ${upperComponentName}
+
+Describe ${upperComponentName}.
+
+### API
+
+| Property     |  Description  | Type     |  Required  |   Default  | Alternative   |
+| ------------ | -------------- | -------- | ---------- | ---------- | ------------- |
+| className    | Custom class name  | string     |  No        |  |  |`
   );
+
   fs.writeFileSync(
     `${componentDir}/README_zh-CN.md`,
-    `## ${upperComponentName}`
+    `---
+title: ${upperComponentName}
+subtitle: FIXME 中文名
+path: component/${componentDir}
+group: FIXME 中文分组名
+---
+
+## ${upperComponentName}
+
+简单描述 ${upperComponentName} 组件。
+
+### API
+
+| 参数        |   说明       | 类型     | 是否必须    | 默认值      | 备选值     |
+| ------------| ----------- | -------- | ---------- | ---------- | ---------- |
+| className   | 额外类名     | string   |  否         |           |            |
+`
   );
   fs.writeFileSync(`${componentDir}/${upperComponentName}.tsx`, '');
   fs.writeFileSync(`${assetsDir}/${name}.scss`, '');

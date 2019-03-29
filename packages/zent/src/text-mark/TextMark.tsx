@@ -69,21 +69,21 @@ const memoizedLowercaseProps = memoizeOne(lowercaseProps);
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
 export function TextMark({
-  activeClassName = '',
-  activeIndex = -1,
-  activeStyle,
-  autoEscape,
-  caseSensitive = false,
-  className,
-  findChunks,
+  textToHighlight,
+  searchWords,
   highlightClassName = '',
   highlightStyle = {},
-  highlightTag = 'mark',
-  sanitize,
-  searchWords,
-  textToHighlight,
+  activeIndex = -1,
+  activeClassName = '',
+  activeStyle,
   unhighlightClassName = '',
   unhighlightStyle,
+  highlightTag = 'mark',
+  autoEscape = false,
+  caseSensitive = false,
+  sanitize,
+  findChunks,
+  className,
   ...rest
 }: ITextMarkProps) {
   const chunks = findAll({
