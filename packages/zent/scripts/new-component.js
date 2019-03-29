@@ -113,7 +113,7 @@ function addFiles(name) {
     `${componentDir}/README_en-US.md`,
     `---
 title: ${upperComponentName}
-path: component/${componentDir}
+path: component/${name}
 group: FIXME group name here
 ---
 
@@ -133,7 +133,7 @@ Describe ${upperComponentName}.
     `---
 title: ${upperComponentName}
 subtitle: FIXME 中文名
-path: component/${componentDir}
+path: component/${name}
 group: FIXME 中文分组名
 ---
 
