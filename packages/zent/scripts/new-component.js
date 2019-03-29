@@ -106,7 +106,7 @@ function addFiles(name) {
 
   fs.writeFileSync(
     `${componentDir}/index.ts`,
-    `import ${upperComponentName} from './${upperComponentName}';\n\nexport * from './${upperComponentName}';\nexport default ${upperComponentName};\n`
+    `import ${upperComponentName} from './${upperComponentName}';\n\nexport * from './${upperComponentName}';\n`
   );
 
   fs.writeFileSync(
