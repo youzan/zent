@@ -39,7 +39,7 @@ const checkSubmit = submit => {
 
 export interface IFormCreateFormConfig {
   formValidations?: { [key: string]: any };
-  onChange?: () => void;
+  onChange?: (values?: {}, isChanged?: boolean) => void;
   onSubmitSuccess?: () => void;
   onSubmitFail?: () => void;
   scrollToError?: boolean;
