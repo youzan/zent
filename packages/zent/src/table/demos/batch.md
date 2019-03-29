@@ -93,7 +93,7 @@ class BatchCompsClass extends React.Component {
 			datasets,
 			page: {
 				pageSize: 3,
-				current: 0,
+				current: 1,
 				totalItem: 6,
 			},
       selectedRowKeys: []

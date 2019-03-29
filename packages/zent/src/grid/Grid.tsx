@@ -44,6 +44,15 @@ function stopPropagation(e) {
   }
 }
 
+export type GridPaginationType = 'default' | 'lite';
+
+export interface IGridPageInfo {
+  current?: number;
+  total?: number;
+  pageSize?: number;
+  pageSizeOptions?: PaginationPageSizeOption[];
+}
+
 export interface IGridProps {
   columns: IGridColumn[];
   datasets: Array<{}>;
@@ -74,12 +83,8 @@ export interface IGridProps {
   className?: string;
   rowClassName?: GridRowClassNameType;
   prefix?: string;
-  pageInfo?: {
-    current?: number;
-    total?: number;
-    pageSize?: number;
-    pageSizeOptions?: PaginationPageSizeOption[];
-  };
+  pageInfo?: IGridPageInfo;
+  paginationType?: GridPaginationType;
   onRowClick?: (
     data: any,
     index: number,
@@ -107,6 +112,7 @@ export class Grid extends PureComponent<IGridProps, any> {
     columns: [],
     loading: false,
     pageInfo: false,
+    paginationType: 'default',
     onChange: noop,
     expandation: null,
     selection: null,
@@ -801,7 +807,7 @@ export class Grid extends PureComponent<IGridProps, any> {
   }
 
   render() {
-    const { prefix, loading, pageInfo, bordered } = this.props;
+    const { prefix, loading, pageInfo, paginationType, bordered } = this.props;
     let className = `${prefix}-grid`;
     const borderedClassName = bordered ? `${prefix}-grid-bordered` : '';
     className = classnames(className, this.props.className, borderedClassName);
@@ -829,6 +835,7 @@ export class Grid extends PureComponent<IGridProps, any> {
               key="footer"
               prefix={prefix}
               pageInfo={pageInfo}
+              paginationType={paginationType}
               onChange={this.onChange}
               onPaginationChange={this.onPaginationChange}
             />,
