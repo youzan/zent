@@ -1,2 +1,6 @@
-export { TextMarkSanitizeFunction, TextMarkFindChunksFunction } from './chunk';
+export {
+  TextMarkSanitizeFunction,
+  TextMarkFindChunksFunction,
+  TextMarkSearchWords,
+} from './chunk';
 export * from './TextMark';

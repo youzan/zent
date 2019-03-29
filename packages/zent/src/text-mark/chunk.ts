@@ -86,7 +86,7 @@ export function findAll({
 /**
  * Takes an array of chunks and combines chunks that overlap into single chunks.
  */
-export function combineChunks({
+function combineChunks({
   chunks,
 }: ITextMarkCombineChunksParamters): ITextMarkChunk[] {
   chunks = chunks
@@ -121,7 +121,7 @@ export function combineChunks({
  * Given a set of chunks to highlight, create an additional set of chunks
  * to represent the bits of text between the highlighted text.
  */
-export function fillInChunks({
+function fillInChunks({
   chunksToHighlight,
   totalLength,
 }: ITextMarkFillInChunksParameters): ITextMarkChunk[] {
