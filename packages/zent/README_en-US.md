@@ -17,11 +17,10 @@ Our goal is making React development faster and simpler.
 * Supports custom themes
 * Import JavaScript and styles only if they are used
 * Handmade icon font
-* Tests coverage is above 90%
 
 ### Supported Environments
 
-* React >= 15.6
+* React >= 16.8
 * Modern browsers and IE >= 11
 * Supports server-side rendering(SSR)
 
@@ -57,6 +56,8 @@ import Button from 'zent/lib/button';
 This plugin is useful if you are developing a library based on Zent, or if you only use a small part of Zent components.
 
 You can find detailed instructions in its [documentation](babel-plugin-zent).
+
+Using ESM with tree-shaking enabled bundler is also possible.
 
 <style>
 img[alt="zent-components"] {

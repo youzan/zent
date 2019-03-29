@@ -26,11 +26,10 @@ Our goal is making React development faster and simpler.
 * Supports custom themes
 * Import JavaScript and styles only if they are used
 * Handmade icon font
-* Tests coverage is above 90%
 
 ### Supported Environments
 
-* React >= 15.6
+* React >= 16.8
 * Modern browsers and IE >= 11
 * Supports server-side rendering(SSR)
 
