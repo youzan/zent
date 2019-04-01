@@ -10,28 +10,30 @@ The function of the component is similar to the function of [Table](table) compo
 
 ### API
 
-| Property     | Descripition                                                                                               | Type                                                 | Default     | Required |
-| ------------ | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ----------- | -------- |
-| columns      | columns                                                                                                    | array                                                |             | Yes      |
-| datasets     | data to be displayed                                                                                       | array                                                |             | Yes      |
-| rowKey       | key for each row                                                                                           | string                                               | `id`        | No       |
-| onChange     | callback fires when columns change, filtering and sorting included                                         | (conf: any) => any                                  | `noop`      | No       |
-| scroll       | can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body | { x?: number, y?: number }                           |             | No       |
-| sortBy       | the field which rows are sorted accoring to, should be one of keys for columns                             | string                                               | ''          | No       |
-| sortType     | The way to sort                                                                                            | string                                               | ''          | No       |
-| emptyLabel   | Text to be displayed when there's no data                                                                  | string                                               | `'No data'` | No       |
-| selection    | the configuration for selection                                                                            | object                                               |             | No       |
-| expandation  | Expand configuration                                                                                       | object                                               |             |          | no |
-| loading      | determines whether data is being loaded or not                                                             | bool                                                 | `false`     | No       |
-| className    | extra custom class name                                                                                    | string                                               | `''`        | No       |
-| rowClassName | class name for row                                                                                         | string \| (data: object, rowIndex: number) => string | ''          | No       |
-| prefix       | custom prefix                                                                                              | string                                               | `'zent'`    | No       |
-| pageInfo     | pagination information                                                                                     | object                                               | null        | No       |
-| onRowClick   | callback fires when a row is clicked                                                                       | (data: any, index: number, event: Event) => any     |             | No       |
-| ellipsis     | whether ellipsis should be displayed when content overflows (nowrap of columns needs to be set)            | bool                                                 | false       | No       |
-| onExpand     | callback fires when the row expand icon is clicked                                                         | (data: {expanded: boolean, data: any, event: Event, index: number}) => any | | No |
-| components  | custom table element               | object { row?: ReactNode }    |        |   否|
-| rowProps  | custom row props        | (data: any, index: number) => object   |   |   否  |
+| Property       | Descripition                                                                                               | Type                                                                       | Default     | Required |
+| -------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------- | -------- |
+| columns        | columns                                                                                                    | array                                                                      |             | Yes      |
+| datasets       | data to be displayed                                                                                       | array                                                                      |             | Yes      |
+| rowKey         | key for each row                                                                                           | string                                                                     | `id`        | No       |
+| onChange       | callback fires when columns change, filtering and sorting included                                         | (conf: any) => any                                                         | `noop`      | No       |
+| scroll         | can be scrolled in x/y direction, x or y can be a number that indicates the width and height of table body | { x?: number, y?: number }                                                 |             | No       |
+| sortBy         | the field which rows are sorted accoring to, should be one of keys for columns                             | string                                                                     | ''          | No       |
+| sortType       | The way to sort                                                                                            | string                                                                     | ''          | No       |
+| emptyLabel     | Text to be displayed when there's no data                                                                  | string                                                                     | `'No data'` | No       |
+| selection      | the configuration for selection                                                                            | object                                                                     |             | No       |
+| expandation    | Expand configuration                                                                                       | object                                                                     |             |          | no |
+| loading        | determines whether data is being loaded or not                                                             | bool                                                                       | `false`     | No       |
+| className      | extra custom class name                                                                                    | string                                                                     | `''`        | No       |
+| rowClassName   | class name for row                                                                                         | string \| (data: object, rowIndex: number) => string                       | ''          | No       |
+| prefix         | custom prefix                                                                                              | string                                                                     | `'zent'`    | No       |
+| pageInfo       | pagination information                                                                                     | object                                                                     | null        | No       |
+| paginationType | Pagination type, `'default'` \| `'lite'`                                                                   | string                                                                     | `'default'` | No       |
+| onRowClick     | callback fires when a row is clicked                                                                       | (data: any, index: number, event: Event) => any                            |             | No       |
+| ellipsis       | whether ellipsis should be displayed when content overflows (nowrap of columns needs to be set)            | bool                                                                       | false       | No       |
+| onExpand       | callback fires when the row expand icon is clicked                                                         | (data: {expanded: boolean, data: any, event: Event, index: number}) => any |             | No       |
+| components     | custom table element                                                                                       | object { row?: ReactNode }                                                 |             | No       |
+| rowProps       | custom row props                                                                                           | (data: any, index: number) => object                                       |             | No       |
+| bordered       | whether to display the outer border and column border                                                      | bool                                                                       | `false`     | No       |
 
 #### onChange function declaration
 
@@ -58,26 +60,28 @@ onChange will throw an object, which includes parameters about the change part o
 | needSort    | whether to support sorting                                                                          | bool                                                               | No       |
 | colSpan     | span of columns. It won't be rendered if the value is set to 0                                      | number                                                             | No       |
 | fixed       | whether columns fixed or not. The value can be `left` `right` `true` (`true` is same to `left`)     | bool \| strig                                                      | No       |
-| onCellClick | callback fires when a cell is clicked                                                               | (data: any, event: Event) => any                                  | No       |
+| onCellClick | callback fires when a cell is clicked                                                               | (data: any, event: Event) => any                                   | No       |
 | textAlign   | Text alignment                                                                                      | string                                                             | No       |
 | nowrap      | whether to wrap, true by default                                                                    | bool                                                               | No       |
-| defaultText | default display text                                                 | ReactNode                                                               | No       |
+| defaultText | default display text                                                                                | ReactNode                                                          | No       |
+| children    | render grouping table headers                                                                       | array                                                              | No       |
 
 #### selection
 
-| Property         | Description                                | Type                                                                         | Required |
-| ---------------- | ------------------------------------------ | ---------------------------------------------------------------------------- | -------- |
-| selectedRowKeys  | keys of selected rows by default           | array                                                                        | No       |
+| Property         | Description                                | Type                                                                        | Required |
+| ---------------- | ------------------------------------------ | --------------------------------------------------------------------------- | -------- |
+| selectedRowKeys  | keys of selected rows by default           | array                                                                       | No       |
 | onSelect         | callback fires when a check changes        | (selectedkeys: string, selectedRows: Array<any>, currentRow: number) => any | No       |
-| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean }                                     | No       |
+| getCheckboxProps | function to get properties of the checkbox | (data: object) => { disabled?: boolean }                                    | No       |
 
 #### pageInfo
 
-| Property  | Description                              | Type   | Required |
-| --------- | ---------------------------------------- | ------ | -------- |
-| totalItem | Total number of items                    | number | No       |
-| pageSize  | Number of items to be displayed per page | number | No       |
-| current   | current page                             | number | No       |
+| Property        | Description                              | Type     | Required |
+| --------------- | ---------------------------------------- | -------- | -------- |
+| total           | Total number of items                    | number   | No       |
+| pageSize        | Number of items to be displayed per page | number   | No       |
+| pageSizeOptions | Page size options                        | number[] | No       |
+| current         | current page                             | number   | No       |
 
 ### expandation
 

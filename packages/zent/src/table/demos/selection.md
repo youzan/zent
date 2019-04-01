@@ -2,8 +2,20 @@
 order: 5
 zh-CN:
 	title: 选择模式
+	product: 商品
+	productName: 商品名
+	babyProducts: 母婴商品
+	uv: 访问量
+	stock: 库存
+	sold_num: 销售量
 en-US:
 	title: Selection
+	product: Product
+	productName: Product Name
+	babyProducts: Baby Products
+	uv: UV
+	stock: Stock
+	sold_num: Sales
 ---
 
 ```js
@@ -52,24 +64,24 @@ const datasets2 = [
 
 const columns = [
 	{
-		title: 'Product',
+		title: '{i18n.product}',
 		width: 50,
 		bodyRender: data => {
 			return <div>{data.item_id}</div>;
 		},
 	},
 	{
-		title: 'PV',
+		title: '{i18n.uv}',
 		name: 'bro_uvpv',
 		width: 10,
 	},
 	{
-		title: 'Stock',
+		title: '{i18n.stock}',
 		name: 'stock_num',
 		width: 20,
 	},
 	{
-		title: 'Sales',
+		title: '{i18n.sold_num}',
 		name: 'sold_num',
 		width: 20,
 	},
@@ -81,7 +93,7 @@ class Selection extends React.Component {
 		this.state = {
 			page: {
 				pageSize: 3,
-				current: 0,
+				current: 1,
 				totalItem: 6,
 			},
 			datasets: datasets,
@@ -110,7 +122,7 @@ class Selection extends React.Component {
 			page: {
 				pageSize: 3,
 				current: conf.current,
-				totalItem: 6,
+				total: 6,
 			},
 			datasets: conf.current === 1 ? datasets : datasets2,
 		});
@@ -126,6 +138,7 @@ class Selection extends React.Component {
 				rowKey="item_id"
 				getRowConf={this.getRowConf}
 				pageInfo={this.state.page}
+				paginationType="lite"
 				onChange={conf => {
 					this.onChange(conf);
 				}}

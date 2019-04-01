@@ -1,0 +1,61 @@
+@import '../../constants';
+
+.side-nav {
+  width: 250px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 25px 0 10px;
+
+  li {
+    list-style: none;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .nav-group-item {
+    a {
+      height: 44px;
+      line-height: 44px;
+      display: block;
+      color: #455a64;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s;
+      padding: 0 20px 0 40px;
+    }
+
+    .nav-item {
+      a {
+        font-size: 14px;
+        font-weight: normal;
+
+        .nav-item__subtitle {
+          font-size: 12px;
+          color: #666;
+        }
+
+        &:hover,
+        &.active {
+          color: $link-color;
+          background-color: #f5f7fa;
+
+          .nav-item__subtitle {
+            color: $link-color;
+          }
+        }
+      }
+    }
+  }
+
+  .nav-group__title {
+    font-size: 13px;
+    line-height: 44px;
+    padding-left: 40px;
+    color: rgba(69, 90, 100, 0.6);
+  }
+}

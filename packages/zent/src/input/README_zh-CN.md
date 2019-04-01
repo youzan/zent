@@ -23,6 +23,7 @@ group: 数据
 | prefix       | 自定义类前缀          | string        | `'zent'` |                         | 否    |
 | width       | 宽度          | string or number       |   |                         | 否    |
 | type         | 类型          | string        | `'text'` | `'number'`、`'password'`、`'textarea'` | 否    |
+| size         | 大小（高度），宽度可以通过 width 控制 | string | `'normal'` | `'large'` \| `'small'` | 否 |
 | defaultValue | 默认值             | string        |          |                         | 否    |
 | value        | 输入值             | string        |          |                         | 否    |
 | readOnly     | 是否只读            | bool          | `false`  |                         | 否    |

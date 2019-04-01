@@ -9,7 +9,7 @@ import ResultList from './ResultList';
 import makeSearcher from './search';
 import { SKIP_SCROLL } from './constants';
 
-import './style.pcss';
+import './style.scss';
 
 const i18n = {
   'zh-CN': {
@@ -180,7 +180,9 @@ class SearchBox extends Component {
     data.sort((a, b) => {
       if (a.title > b.title) {
         return 1;
-      } else if (a.title === b.title) {
+      }
+
+      if (a.title === b.title) {
         return 0;
       }
 

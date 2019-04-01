@@ -10,26 +10,32 @@ $basepath/validate-pop-size.sh
 $basepath/check-style-colors.sh
 
 # clean
-rm -rf lib css
+echo "Clean up..."
+rm -rf lib es css
 
-# build styles
-postcss assets/*.pcss -d css --ext css
+# transpile scss to css
+# custom importer for @import '~some-node-module'
+echo "Compile styles..."
+node-sass \
+  --importer $basepath/../../../node_modules/node-sass-magic-importer/dist/cli.js \
+  assets -o css -q
+
+# autoprefixer
+postcss css --use autoprefixer --replace --no-map
+
+# minify index.css
+cleancss -o css/index.min.css css/index.css
+
+# generate icon types from zenticons
+node $basepath/./generate-icon-type.js
 
 # transpile using babel
-cross-env BABEL_ENV=transpile babel src --out-dir lib
+# cross-env BABEL_ENV=transpile babel src --out-dir lib
+# cross-env BABEL_ENV=es babel src --out-dir es
+echo "Compile esm..."
+tsc
 
-# babel 6 doesn't support env specific preset option
-cp -fp .babelrc .babelrc.bak
-cp -fp .es-babelrc .babelrc
-cross-env BABEL_ENV=es babel src --out-dir es
-cp -fp .babelrc .es-babelrc
-cp -fp .babelrc.bak .babelrc
-rm -rf .babelrc.bak
+echo "Compile commonjs..."
+tsc --outDir lib --module commonjs
 
-# build umd output
-cross-env NODE_ENV=production webpack --progress
-echo 'Minify umd bundle...'
-uglifyjs lib/zent-umd.js --compress warnings=false --mangle --output lib/zent-umd.min.js
-
-echo 'Generate component mapping...'
-node ./scripts/generate-module-config.js
+$basepath/./cruiser.sh

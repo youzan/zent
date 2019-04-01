@@ -85,7 +85,7 @@ describe('InfiniteScroller', () => {
     expect(wrapper.find('.child').length).toBe(3);
   });
 
-  it('can scroll to bottom and load more no use window', () => {
+  it('can scroll to bottom and load more not using window', () => {
     class Test extends React.Component {
       state = {
         list: [1, 2, 3],
@@ -124,7 +124,6 @@ describe('InfiniteScroller', () => {
     wrapper.instance().scroll.handleScroll();
     wrapper.update();
     expect(wrapper.find('.child').length).toBe(4);
-    wrapper.unmount();
   });
 
   it('can scroll to bottom and load more use window', () => {
@@ -165,7 +164,6 @@ describe('InfiniteScroller', () => {
     wrapper.instance().scroll.handleScroll();
     wrapper.update();
     expect(wrapper.find('.child').length).toBe(4);
-    wrapper.unmount();
   });
 
   it('loading will disappear when promise reject', () => {
@@ -207,7 +205,6 @@ describe('InfiniteScroller', () => {
     wrapper.instance().scroll.handleScroll();
     wrapper.update();
     expect(wrapper.find('.child').length).toBe(4);
-    wrapper.unmount();
   });
 
   it('can stop load more', () => {
@@ -247,7 +244,6 @@ describe('InfiniteScroller', () => {
     const wrapper = mount(<Test />);
     wrapper.instance().scroll.handleScroll();
     expect(wrapper.find('.child').length).toBe(3);
-    wrapper.unmount();
   });
 
   it('wont load more untils scroll at bottom', () => {
@@ -288,6 +284,5 @@ describe('InfiniteScroller', () => {
     const wrapper = mount(<Test />);
     wrapper.instance().scroll.handleScroll();
     expect(wrapper.find('.child').length).toBe(3);
-    wrapper.unmount();
   });
 });

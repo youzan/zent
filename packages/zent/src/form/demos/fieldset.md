@@ -13,13 +13,13 @@ en-US:
 ---
 
 ```jsx
-import { Form, Nofity } from 'zent';
+import { Form, Notify } from 'zent';
 
 const { Field, Fieldset, FormInputField, createForm } = Form;
 
 class FieldsetForm extends React.Component {
 	submit = (values, zentForm) => {
-		Nofity.success(JSON.stringify(values));
+		Notify.success(JSON.stringify(values));
 	};
 
 	render() {

@@ -18,5 +18,6 @@
     "packages/*"
   ],
   "version": "independent",
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "useWorkspaces": true
 }

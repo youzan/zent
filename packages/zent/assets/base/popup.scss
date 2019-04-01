@@ -1,0 +1,5 @@
+@import '../mixins/popup';
+
+.zent-popup {
+  @include popup;
+}

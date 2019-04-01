@@ -1,40 +1,58 @@
 ---
 order: 1
 zh-CN:
-	title: 基础用法
+  title: 基础用法
 en-US:
-	title: Basic Usage
+  title: Basic Usage
 ---
 
 ```jsx
-import { Pagination } from 'zent';
+import { Pagination, MiniPagination, LitePagination } from 'zent';
 
-class Basic extends Component {
-  state = {
-    current: 1,
-    totalItem: 1000
-  }
+class Test extends Component {
+	state = {
+		pageSize: 10,
+		current: 2,
+	};
 
-  render() {
-    return (
-      <Pagination
-        current={this.state.current}
-        totalItem={this.state.totalItem}
-        onChange={this.onChange}
-        maxPageToShow={12}
-      />
-    );
-  }
+	onChange = options => {
+		console.log(options);
+		this.setState(options);
+	};
 
-  onChange = (page) => {
-    this.setState({
-      current: page
-    });
-  };
+	render() {
+		const { current, pageSize } = this.state;
+
+		return (
+			<div>
+				<Pagination
+					current={current}
+					pageSize={pageSize}
+					total={101}
+					onChange={this.onChange}
+				/>
+
+				<br />
+
+				<LitePagination
+					current={current}
+					pageSize={pageSize}
+					total={101}
+					onChange={this.onChange}
+				/>
+
+				<br />
+
+				<MiniPagination
+					current={current}
+					pageSize={pageSize}
+					total={101}
+					onChange={this.onChange}
+				/>
+			</div>
+		);
+	}
 }
 
-ReactDOM.render(
-  <Basic />
-  , mountNode
-);
+ReactDOM.render(<Test />, mountNode);
 ```

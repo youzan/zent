@@ -35,9 +35,6 @@ const columns = [
 
 class Simple extends Component {
   state = {
-    limit: 10,
-    current: 0,
-    total: 101,
     loading: true,
   };
 

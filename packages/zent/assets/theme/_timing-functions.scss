@@ -1,0 +1,4 @@
+$timing-fn-ease-in-out: cubic-bezier(0.5, 0, 0.5, 0.1); // 组件内变化
+$timing-fn-ease-in: cubic-bezier(0.17, 0.84, 0.44, 0.1); // 入场
+$timing-fn-ease-out: cubic-bezier(0.18, 0.66, 0.6, 0.82); // 出场
+$timing-fn-linear: cubic-bezier(0, 0, 0.1, 0.1); // 线性

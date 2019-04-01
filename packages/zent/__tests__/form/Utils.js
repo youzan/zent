@@ -1,6 +1,10 @@
 import * as Utils from 'form/utils';
 import keys from 'lodash/keys';
 
+beforeAll(() => {
+  window.scroll = () => {};
+});
+
 describe('Form-Utilities', () => {
   const {
     getValue,

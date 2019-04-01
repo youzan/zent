@@ -21,7 +21,7 @@ A floating card opened by clicking, hovering or focusing.
 |------|------|------|--------|--------|-------|
 | content | Pop content | `node` | Yes | | |
 | trigger | Trigger method | string | No | `'none'` | `'click'`, `'hover'`, `'focus'` |
-| position | Pop content position, naming rule: content position relative to trigger + arrow position relative to Pop | string | No | `'top-center'` |  |
+| position | Pop content position, naming rule: content position relative to trigger + arrow position relative to Pop. Can be a placement function, see `Popover.Position.create` | string \| func | No | `'top-center'` |  |
 | centerArrow | Always center arrow to trigger | bool | No | `false` |  |
 | header | Pop header | node | No | | |
 | block | Is trigger a block element | bool | No | `false` |  |

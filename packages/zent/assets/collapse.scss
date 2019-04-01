@@ -1,0 +1,93 @@
+@import './theme/default';
+@import './theme/font';
+@import './theme/timing-functions';
+
+$border-style: 1px solid $theme-stroke-6;
+$content-padding-h: 36px;
+
+.zent-collapse {
+  box-sizing: border-box;
+  overflow: hidden;
+
+  &--has-border {
+    border-top: $border-style;
+    border-bottom: $border-style;
+
+    .zent-collapse-panel__title {
+      border-left: $border-style;
+      border-right: $border-style;
+    }
+
+    .zent-collapse-panel__content-box {
+      padding: 0 $content-padding-h + 1px; // Add 1px border
+    }
+  }
+}
+
+.zent-collapse-panel {
+  box-sizing: border-box;
+
+  &__title {
+    @include font-normal;
+
+    padding: 14px 10px;
+    border-bottom: $border-style;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: $theme-stroke-1;
+
+    &--bg-default {
+      background: $theme-stroke-8;
+    }
+
+    &--bg-none {
+      background: $theme-stroke-9;
+    }
+  }
+
+  &__content-box {
+    @include font-normal;
+
+    padding: 0 $content-padding-h;
+    border-bottom: $border-style;
+    background: $theme-stroke-9;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  &__content {
+    padding: 16px 0;
+    color: $theme-stroke-1;
+  }
+
+  &__arrow {
+    fill: $theme-stroke-1;
+    margin-right: 10px;
+    transform: rotate(180deg);
+    transform-origin: center;
+    transition: transform 160ms $timing-fn-ease-in-out;
+  }
+
+  &--inactive {
+    .zent-collapse-panel__arrow {
+      transform: rotate(0deg);
+    }
+  }
+
+  &--disabled {
+    .zent-collapse-panel__arrow {
+      fill: $theme-stroke-4;
+    }
+
+    .zent-collapse-panel__title {
+      color: $theme-stroke-4;
+      cursor: not-allowed;
+    }
+  }
+
+  &--animating {
+    user-select: none;
+  }
+}

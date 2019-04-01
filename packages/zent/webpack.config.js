@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const createAlias = require('./createAlias');
 
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
 
   output: {
@@ -10,17 +11,17 @@ module.exports = {
     filename: 'zent-umd.js',
     library: 'zent',
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
   },
 
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
-      }
-    ]
+        use: 'babel-loader',
+      },
+    ],
   },
 
   externals: [
@@ -29,24 +30,40 @@ module.exports = {
         amd: 'react',
         root: 'React',
         commonjs2: 'react',
-        commonjs: 'react'
+        commonjs: 'react',
       },
       'react-dom': {
         amd: 'react-dom',
         root: 'ReactDOM',
         commonjs2: 'react-dom',
-        commonjs: 'react-dom'
-      }
-    }
+        commonjs: 'react-dom',
+      },
+    },
   ],
 
   resolve: {
-    alias: createAlias(path.resolve(__dirname, './src'))
+    alias: createAlias(path.resolve(__dirname, './src')),
   },
 
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production' // use 'development' unless process.env.NODE_ENV is defined
-    })
-  ]
+      NODE_ENV: 'production', // defaults to production
+    }),
+  ],
+
+  optimization: {
+    minimize: false,
+  },
+
+  performance: {
+    hints: false,
+  },
+
+  stats: {
+    modules: false,
+    children: false,
+    performance: false,
+    entrypoints: false,
+    colors: true,
+  },
 };
