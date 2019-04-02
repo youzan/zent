@@ -57,7 +57,7 @@ export default class PopoverContent extends Component<
   constructor(props) {
     super(props);
     this.state = {
-      position: null,
+      position: (invisiblePlacement as any)(props.prefix),
     };
 
     // 标记 content 的位置是否 ready
@@ -185,10 +185,6 @@ export default class PopoverContent extends Component<
       containerSelector,
     } = this.props;
     const { position } = this.state;
-
-    if (!position) {
-      return null;
-    }
 
     const cls = cx(className, `${prefix}-popover`, id, position.toString());
 

@@ -243,12 +243,14 @@ export class LayeredPortal extends Component<
 
   render() {
     // Render the portal content to container node or parent node
-    const { visible, withEscToClose, append } = this.props;
+    const { visible, withEscToClose, append, children } = this.props;
     const { layer } = this.state;
 
     return visible ? (
       <>
-        <PurePortal ref={this.purePortalRef} append={append} selector={layer} />
+        <PurePortal ref={this.purePortalRef} append={append} selector={layer}>
+          {children}
+        </PurePortal>
         {withEscToClose && (
           <BodyEventHandler eventName="keyup" callback={this.onKeyDown} />
         )}
