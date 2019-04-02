@@ -1,4 +1,9 @@
+import isBrowser from './isBrowser';
+
 function getScrollbarWidth() {
+  if (!isBrowser) {
+    return 0;
+  }
   const scrollDiv = document.createElement('div');
   Object.assign(scrollDiv.style, {
     position: 'absolute',
