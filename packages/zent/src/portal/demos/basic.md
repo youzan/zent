@@ -18,9 +18,8 @@ en-US:
 ---
 
 ```jsx
-import { Portal, Button } from 'zent';
+import { Portal, Button, PurePortal } from 'zent';
 
-const PurePortal = Portal.PurePortal;
 // const WrappedPortal = Portal.withNonScrollable(Portal.withESCToClose(Portal));
 
 class PortalBasic extends Component {

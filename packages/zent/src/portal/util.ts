@@ -1,9 +1,11 @@
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 
-export function getNodeFromSelector(selector: string | Element): Element {
+export function getNodeFromSelector(
+  selector?: string | Element
+): Element | null | undefined {
   const node =
     typeof selector === 'string' ? document.querySelector(selector) : selector;
-  return node || document.body;
+  return node;
 }
 
 export function createContainerNode(parent: Node, tag = 'div') {

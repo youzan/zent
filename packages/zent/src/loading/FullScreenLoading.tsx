@@ -5,7 +5,7 @@ import isNumber from 'lodash-es/isNumber';
 import useDelayed from './hooks/useDelayed';
 import { IFullScreenLoadingProps, FullScreenDefaultProps } from './props';
 import LoadingMask from './components/LoadingMask';
-import { LayeredPortal } from '../portal';
+import { Portal } from '../portal';
 
 const NO_STYLE: Partial<CSSStyleDeclaration> = {};
 
@@ -29,7 +29,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
   const style = isNumber(zIndex) ? { zIndex: `${zIndex}` } : NO_STYLE;
 
   return (
-    <LayeredPortal
+    <Portal
       className={cx('zent-loading', 'zent-loading--fullscreen', className)}
       style={style}
       withNonScrollable
@@ -40,7 +40,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
         text={iconText}
         textPosition={textPosition}
       />
-    </LayeredPortal>
+    </Portal>
   );
 }
 

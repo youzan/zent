@@ -7,7 +7,7 @@ import { getNodeFromSelector, removeAllChildren } from './util';
 import { IPortalContext, PortalContext } from './context';
 
 export interface IPurePortalProps {
-  selector: string | HTMLElement;
+  selector?: string | HTMLElement;
   append?: boolean;
 }
 
@@ -27,8 +27,11 @@ export class PurePortal extends Component<IPurePortalProps> {
   };
 
   getContainer = memoize(
-    (selector: string | HTMLElement): Element => {
+    (selector?: string | HTMLElement): Element | null | undefined => {
       const node = getNodeFromSelector(selector);
+      if (!node) {
+        return node;
+      }
       if (!this.props.append) {
         removeAllChildren(node);
       }
@@ -37,7 +40,7 @@ export class PurePortal extends Component<IPurePortalProps> {
     }
   );
 
-  contains(el: Element): boolean {
+  contains(el: Node): boolean {
     const container = this.getContainer(this.props.selector);
     if (!container) {
       return false;

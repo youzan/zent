@@ -1,8 +1,4 @@
-import Portal from './LayeredPortal';
+import Portal from './Portal';
 export * from './PurePortal';
-export * from './LayeredPortal';
-export {
-  ILayeredPortalProps as IPortalProps,
-  LayeredPortal as Portal,
-} from './LayeredPortal';
+export * from './Portal';
 export default Portal;
