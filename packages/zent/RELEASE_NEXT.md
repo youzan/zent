@@ -65,11 +65,11 @@
 
 #### `Portal`
 
-合并`Portal`和`LayeredPortal`。
+新的写法 `import { Portal, PurePortal } from 'zent'`，`PurePortal` 不再挂载在 `Portal` 上。
 
-去除`Portal.withEscToClose`和`Portal.withNonScrollable`，`Portal`添加两个参数`withEscToClose`和`withNonScrollable`，`PurePortal`添加`withEscToClose`。
-
-去除`onMount`和`onUnmount`，直接使用`componentDidMount`和`componentWillUnmount`即可。
+- 合并 `Portal` 和 `LayeredPortal`，删除了 `LayeredPortal`。
+- 去除 `Portal.withEscToClose` 和 `Portal.withNonScrollable` 这两个高阶组件，`Portal` 添加两个参数`withEscToClose` 和 `withNonScrollable` 参数替代原来的高阶组件。
+- 去除 `onMount` 和 `onUnmount`，使用方直接使用上层组件的 `componentDidMount` 和 `componentWillUnmount` 即可。
 
 ```js
 import { Layout } from 'zent';

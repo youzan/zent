@@ -12,7 +12,10 @@ export interface IPurePortalProps {
 }
 
 /**
- * Pure portal, render the content (from render prop or from the only children) into the container
+ * A thin wrapper around React.createPortal with
+ *
+ * 1. Awareness of nested portals
+ * 2. `append` to mimic old `unstable_renderIntoContainer` behavior for backward compatibility
  */
 export class PurePortal extends Component<IPurePortalProps> {
   static defaultProps = {
