@@ -70,7 +70,7 @@ export class AutoComplete extends Component<
   };
 
   blurHandlerPrevented = false;
-  refMenuItemList: SelectMenu | null = null;
+  refMenuItemList = React.createRef<SelectMenu>();
 
   constructor(props) {
     super(props);
@@ -340,20 +340,25 @@ export class AutoComplete extends Component<
   getItemByValue = value => this.iterateItems(this.state.items, value);
 
   moveFocusIndexDown = () => {
-    if (this.refMenuItemList) {
-      return this.refMenuItemList.moveFocusIndexDown();
+    const menuList = this.refMenuItemList.current;
+    if (menuList) {
+      return menuList.moveFocusIndexDown();
     }
   };
 
   moveFocusIndexUp = () => {
-    if (this.refMenuItemList) {
-      return this.refMenuItemList.moveFocusIndexUp();
+    const menuList = this.refMenuItemList.current;
+
+    if (menuList) {
+      return menuList.moveFocusIndexUp();
     }
   };
 
   selectCurrentFocusIndex = e => {
-    if (this.refMenuItemList) {
-      return this.refMenuItemList.selectCurrentFocusIndex(e);
+    const menuList = this.refMenuItemList.current;
+
+    if (menuList) {
+      return menuList.selectCurrentFocusIndex(e);
     }
   };
 
@@ -397,7 +402,7 @@ export class AutoComplete extends Component<
         </Popover.Trigger.Click>
         <Popover.Content>
           <SelectMenu
-            ref={el => (this.refMenuItemList = el)}
+            ref={this.refMenuItemList}
             items={items}
             value={this.state.value}
             searchText={this.state.searchText}
