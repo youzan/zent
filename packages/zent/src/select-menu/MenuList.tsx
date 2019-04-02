@@ -5,26 +5,13 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
-import cn from 'classnames';
 import * as keycode from 'keycode';
-// import isNaN from 'lodash/isNaN';
+import isNaN from 'lodash-es/isNaN';
 import isNumber from 'lodash-es/isNumber';
+import isUndefined from 'lodash-es/isUndefined';
+import { IMenuListItem, MenuListItem, handleItemClick } from './MenuListItem';
 
 const menuListPaddingTop = 0;
-
-export interface IMenuListObjectItem {
-  value?: unknown;
-  content?: React.ReactNode;
-  isGroup?: boolean;
-  isDivider?: boolean;
-  onClick?: () => void;
-  searchContent?: string;
-  icon?: string;
-  disables?: string;
-  active?: boolean;
-}
-
-export type IMenuListItem = string | number | IMenuListObjectItem;
 
 export interface IMenuListProps {
   items?: IMenuListItem[];
@@ -37,13 +24,13 @@ export interface IMenuListState {
   open?: boolean;
 }
 
-// css file: _popup-menu.pcss
+// css file: _popup-menu.scss
 export default class MenuList extends Component<
   IMenuListProps,
   IMenuListState
 > {
-  refMenuScrollContainer: HTMLDivElement | null = null;
-  refMenuItemList: HTMLUListElement | null = null;
+  private refMenuScrollContainer = React.createRef<HTMLDivElement>();
+  private refMenuItemList = React.createRef<HTMLUListElement>();
 
   constructor(props) {
     super(props);
@@ -53,24 +40,31 @@ export default class MenuList extends Component<
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setControlled(nextProps, 'value');
+  componentDidUpdate() {
+    this.autoScroll();
   }
 
-  componentDidUpdate() {
+  autoScroll() {
     const itemsLength = (this.props.items || []).length;
+    const { focusIdx, autoScrollFocusIdx } = this.state;
+    const menuListNode = this.refMenuItemList.current;
+    const scrollContainer = this.refMenuScrollContainer.current;
+
     // Auto scroll logic
     if (
       itemsLength &&
-      this.state.focusIdx !== null &&
-      this.state.focusIdx === this.state.autoScrollFocusIdx &&
-      this.refMenuItemList &&
-      this.refMenuScrollContainer
+      focusIdx !== null &&
+      focusIdx === autoScrollFocusIdx &&
+      menuListNode &&
+      scrollContainer
     ) {
-      const focusedItemNode = this.refMenuItemList.childNodes[
+      const focusedItemNode = menuListNode.childNodes[
         this.state.focusIdx
       ] as HTMLElement;
-      const scrollContainer = this.refMenuScrollContainer;
+
+      if (!focusedItemNode) {
+        return;
+      }
 
       const itemOffsetTop = focusedItemNode.offsetTop;
       const itemOffsetHeight = focusedItemNode.offsetHeight;
@@ -122,31 +116,14 @@ export default class MenuList extends Component<
     }
   };
 
-  /** Helpers */
-
-  /**
-   * Set the controlled props if needed.
-   * @param nextProps
-   * @param k
-   */
-  setControlled = (nextProps, k) => {
-    if (nextProps[k] !== undefined) {
-      this.setState({
-        [k]: nextProps[k],
-      } as any);
-    }
-  };
-
-  /** focus idx */
-
-  setFocusIndex = (focusIdx, autoScroll = true) => {
+  setFocusIndex = (focusIdx: number | null, autoScroll = true) => {
     this.setState({
       focusIdx: focusIdx == null ? null : this.getItemIdxInItems(focusIdx),
       autoScrollFocusIdx: autoScroll ? focusIdx : null,
     });
   };
 
-  getItemIdxInItems = idx => {
+  getItemIdxInItems = (idx: number) => {
     const { items } = this.props;
     let targetIdx = idx % items.length;
     if (targetIdx < 0) {
@@ -155,7 +132,7 @@ export default class MenuList extends Component<
     return targetIdx;
   };
 
-  getValidItemIdx = (idx, searchDown = true) => {
+  getValidItemIdx = (idx: number, searchDown = true) => {
     const { items } = this.props;
     if (
       !(items && items.length) ||
@@ -202,15 +179,14 @@ export default class MenuList extends Component<
     return ins;
   };
 
-  moveFocusIndex = offset => {
+  moveFocusIndex = (offset: number) => {
     const { focusIdx } = this.state;
-    // if (this.props.items && this.props.items.length) {
+
     if (focusIdx !== null) {
       this.setFocusIndex(this.getValidItemIdx(focusIdx + offset, offset > 0));
     } else {
       this.setFocusIndex(this.getValidItemIdx(0));
     }
-    // }
   };
 
   moveFocusIndexDown = () => {
@@ -224,94 +200,35 @@ export default class MenuList extends Component<
   selectCurrentFocusIndex = e => {
     const ins = this.getTopMenu();
     const { focusIdx } = ins.state;
+
     if (focusIdx !== null) {
-      const callbackKey = `${focusIdx}_callback`;
-      ins[callbackKey] && ins[callbackKey](e);
+      const { items, onRequestClose } = this.props;
+      const item = items[focusIdx];
+
+      handleItemClick({ item, event: e, onRequestClose });
     }
   };
 
   close = () => {
     this.setState({
       open: false,
-      // anchorEl: null,
-      // searchText: '',
     });
   };
 
-  renderItems = (items = []) => {
+  renderItems = (items: IMenuListItem[] = []) => {
+    const { onRequestClose } = this.props;
+    const { focusIdx } = this.state;
+
     return items.map((item, index) => {
-      if (!item) {
-        return null;
-      }
-
-      if (item.isDivider) {
-        return <div key={index} className={cn('zent-divider-line')} />;
-      }
-
-      if (item.isGroup) {
-        return (
-          <li key={index} className={cn('zent-menu-item-group-header')}>
-            <span>{item.content}</span>
-          </li>
-        );
-      }
-
-      const callbackKey = `${index}_callback`;
-
-      // auto closes
-      const onClick = e => {
-        if (item.disabled) {
-          return;
-        }
-
-        if (item.onClick) {
-          // Item has a touch tap handler, Close it when it's done
-          item.onClick(e);
-          // closeHandler() // Close sub menus
-          if (!e.defaultPrevented) {
-            e.preventDefault();
-            e.stopPropagation();
-            // this._onRequestCloseAll('menu item finish', e) // Try to close all
-            this.props.onRequestClose && this.props.onRequestClose();
-          }
-        }
-      };
-      const onMouseEnter = () => {
-        this.setFocusIndex(index, false);
-      };
-      const onMouseLeave = () => {
-        this.setFocusIndex(null);
-      };
-
-      const title = typeof item.content === 'string' ? item.content : undefined;
-      const active =
-        typeof item.active === 'function'
-          ? item.active(item.value)
-          : !!item.active;
-      const hoverable = item.hoverable === undefined ? true : !!item.hoverable;
-
-      this[callbackKey] = onClick;
-
       return (
-        <li
-          key={item.value || index} // eslint-disable-line
-          className={cn(
-            'zent-popup-menu-item',
-            {
-              hoverable,
-              disabled: item.disabled,
-              active,
-              hover: this.state.focusIdx === index,
-            },
-            item.className
-          )}
-          onClick={this[callbackKey]}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        >
-          {item.icon ? <i className={cn('zent-popup-menu-item-icon')} /> : null}
-          <span title={title}>{item.content}</span>
-        </li>
+        <MenuListItem
+          key={isUndefined(item.value) ? index : item.value}
+          index={index}
+          item={item}
+          onRequestClose={onRequestClose}
+          focusTo={this.setFocusIndex}
+          hover={focusIdx === index}
+        />
       );
     });
   };
@@ -321,15 +238,13 @@ export default class MenuList extends Component<
 
     return (
       <div
-        ref={el => (this.refMenuScrollContainer = el)}
+        ref={this.refMenuScrollContainer}
         className="zent-popup-menu"
         tabIndex={0}
         onKeyDown={this.onKeyDown}
       >
         {items && items.length ? (
-          <ul ref={el => (this.refMenuItemList = el)}>
-            {this.renderItems(items)}
-          </ul>
+          <ul ref={this.refMenuItemList}>{this.renderItems(items)}</ul>
         ) : null}
       </div>
     );

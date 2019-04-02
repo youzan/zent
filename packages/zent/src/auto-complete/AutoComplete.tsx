@@ -2,21 +2,20 @@
  * AutoComplete
  */
 import * as React from 'react';
-import { Component, Children } from 'react';
+import { Component } from 'react';
 import cn from 'classnames';
 import * as keycode from 'keycode';
 
 import Input from '../input';
 import Popover from '../popover';
-import SelectMenu from '../select-menu';
+import SelectMenu, { ISelectMenuItem } from '../select-menu';
+import { Omit } from 'utility-types';
 
 const { caselessMatchFilterOption } = SelectMenu;
 
-export interface IAutoCompleteMenuObjectItem {
+export interface IAutoCompleteMenuObjectItem
+  extends Omit<ISelectMenuItem, 'items'> {
   value: string;
-  content?: React.ReactNode;
-  isGroup?: boolean;
-  isDivider?: boolean;
   valueField?: string;
   textField?: string;
   contentField?: string;
@@ -39,7 +38,7 @@ export interface IAutoCompleteProps {
   onSearch?: (searchText: string) => void;
   filterOption?: (
     searchText: string,
-    menuItem: IAutoCompleteMenuItem
+    menuItem: IAutoCompleteMenuObjectItem
   ) => boolean;
   valueFromOption?: boolean;
   className?: string;
@@ -50,6 +49,7 @@ export interface IAutoCompleteProps {
   contentField?: string;
   textField?: string;
   disabled?: boolean;
+  children?: any;
 }
 
 export interface IAutoCompleteState {
@@ -225,7 +225,9 @@ export class AutoComplete extends Component<
    * @returns {*}
    * @private
    */
-  getTransformedItemConfigs = (props = this.props) => {
+  getTransformedItemConfigs = (
+    props: IAutoCompleteProps = this.props
+  ): IAutoCompleteMenuObjectItem[] => {
     let transformedItems = this.getPropsItems(props);
 
     // handle items
@@ -255,20 +257,6 @@ export class AutoComplete extends Component<
       throw new Error('AutoComplete unresolvable option!');
     });
 
-    // handle option children
-    if (props.children) {
-      transformedItems = transformedItems.concat(
-        Children.map(props.children, (item: any) => {
-          let value = item.props.value;
-          value = typeof value === 'undefined' ? item : value;
-          return {
-            ...item.props,
-            value,
-            content: item.props.children,
-          };
-        })
-      );
-    }
     return transformedItems;
   };
 
