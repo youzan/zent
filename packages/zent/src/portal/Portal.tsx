@@ -112,16 +112,20 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     }, [node, useLayerForClickAway, visible]);
 
     useLayoutEffect(() => {
-      if (!visible || !(parent instanceof HTMLElement)) {
+      if (
+        !visible ||
+        !parent ||
+        !withNonScrollable ||
+        !(parent instanceof HTMLElement) ||
+        !hasScrollbarY(parent)
+      ) {
         return noop;
       }
       const { overflowY, paddingRight } = parent.style;
-      if (hasScrollbarY(parent)) {
-        const originalPadding = getComputedStyle(parent).paddingRight;
-        const newPadding = parseFloat(originalPadding || '0') + SCROLLBAR_WIDTH;
-        parent.style.overflowY = 'hidden';
-        parent.style.paddingRight = `${newPadding}px`;
-      }
+      const originalPadding = getComputedStyle(parent).paddingRight;
+      const newPadding = parseFloat(originalPadding || '0') + SCROLLBAR_WIDTH;
+      parent.style.overflowY = 'hidden';
+      parent.style.paddingRight = `${newPadding}px`;
       return () => {
         parent.style.overflowY = overflowY;
         parent.style.paddingRight = paddingRight;
@@ -160,7 +164,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
           window.removeEventListener('click', onClickAway);
         }
       };
-    }, [visible, useLayerForClickAway, !!onClickAway, node, parent, propsRef]);
+    }, [visible, useLayerForClickAway, !!onClickAway, node, propsRef]);
 
     useEffect(() => {
       if (!visible || !withEscToClose) {
