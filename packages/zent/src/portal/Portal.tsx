@@ -49,9 +49,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       children,
       append,
     } = props;
-    const propsRef = useRef<IPortalProps>() as React.MutableRefObject<
-      IPortalProps
-    >;
+    const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;
     const purePortalRef = useRef<PurePortal>(null);
     const contains = useCallback(
