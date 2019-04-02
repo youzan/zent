@@ -52,23 +52,20 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;
     const purePortalRef = useRef<PurePortal>(null);
-    const contains = useCallback(
-      (node: Node) => {
-        const purePortal = purePortalRef.current;
-        if (!purePortal) {
-          return false;
-        }
-        return purePortal.contains(node);
-      },
-      [purePortalRef]
-    );
+    const contains = useCallback((node: Node) => {
+      const purePortal = purePortalRef.current;
+      if (!purePortal) {
+        return false;
+      }
+      return purePortal.contains(node);
+    }, []);
     useImperativeHandle<IPortalImperativeHandlers, IPortalImperativeHandlers>(
       ref,
       () => ({
         contains,
         purePortalRef,
       }),
-      [purePortalRef, contains]
+      []
     );
     const node = useMemo(() => document.createElement(layer), [layer]);
     const parent = useMemo(() => getNodeFromSelector(selector), [selector]);
@@ -162,7 +159,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
           window.removeEventListener('click', onClickAway);
         }
       };
-    }, [visible, useLayerForClickAway, !!onClickAway, node, propsRef]);
+    }, [visible, useLayerForClickAway, !!onClickAway, node]);
 
     useEffect(() => {
       if (!visible || !withEscToClose) {
