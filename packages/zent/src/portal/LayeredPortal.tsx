@@ -10,6 +10,7 @@ import {
   hasScrollbarY,
 } from './util';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
+import { BodyEventHandler } from '../utils/component/BodyEventHandler';
 
 interface IRelatedStyle {
   overflowY: string | null;
@@ -25,6 +26,8 @@ export interface ILayeredPortalProps extends IPurePortalProps {
   className?: string;
   style?: Partial<CSSStyleDeclaration>;
   withNonScrollable?: boolean;
+  withEscToClose?: boolean;
+  onClose?: (e: KeyboardEvent) => void;
 }
 
 export interface ILayeredPortalState {
@@ -238,11 +241,16 @@ export class LayeredPortal extends Component<
 
   render() {
     // Render the portal content to container node or parent node
-    const { render, visible, ...otherProps } = this.props;
+    const { visible, withEscToClose, append } = this.props;
     const { layer } = this.state;
 
     return visible ? (
-      <PurePortal ref={this.purePortalRef} {...otherProps} selector={layer} />
+      <>
+        <PurePortal ref={this.purePortalRef} append={append} selector={layer} />
+        {withEscToClose && (
+          <BodyEventHandler eventName="keyup" callback={this.onKeyDown} />
+        )}
+      </>
     ) : null;
   }
 }

@@ -1,19 +1,14 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
-import * as keycode from 'keycode';
 
-import { BodyEventHandler } from '../utils/component/BodyEventHandler';
 import memoize from '../utils/memorize-one';
 import { getNodeFromSelector, removeAllChildren } from './util';
 import { IPortalContext, PortalContext } from './context';
 
 export interface IPurePortalProps {
-  render?: () => React.ReactNode;
   selector: string | HTMLElement;
   append?: boolean;
-  withEscToClose?: boolean;
-  onClose?: (e: KeyboardEvent) => void;
 }
 
 /**
@@ -58,16 +53,6 @@ export class PurePortal extends Component<IPurePortalProps> {
     return false;
   }
 
-  onKeyDown = (e: KeyboardEvent) => {
-    const { withEscToClose, onClose } = this.props;
-    if (!withEscToClose || !onClose) {
-      return;
-    }
-    if (keycode(e) === 'esc') {
-      onClose(e);
-    }
-  };
-
   componentDidMount() {
     this.context.children.push(this);
   }
@@ -80,11 +65,8 @@ export class PurePortal extends Component<IPurePortalProps> {
   }
 
   render() {
-    const { selector: container, withEscToClose } = this.props;
-
-    // Render the portal content to container node or parent node
-    const { children, render } = this.props;
-    const content = render ? render() : children;
+    const { selector: container } = this.props;
+    const { children } = this.props;
     const domNode = this.getContainer(container);
 
     if (!domNode) {
@@ -93,10 +75,7 @@ export class PurePortal extends Component<IPurePortalProps> {
 
     return createPortal(
       <PortalContext.Provider value={this.childContext}>
-        {content}
-        {withEscToClose && (
-          <BodyEventHandler eventName="keyup" callback={this.onKeyDown} />
-        )}
+        {children}
       </PortalContext.Provider>,
       domNode
     );
