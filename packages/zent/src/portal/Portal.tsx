@@ -97,20 +97,17 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         return noop;
       }
       const { position, top, bottom, left, right } = node.style;
-      const original = {
-        position,
-        top,
-        bottom,
-        left,
-        right,
-      };
       node.style.position = parent === document.body ? 'fixed' : 'absolute';
       node.style.top = '0';
       node.style.bottom = '0';
       node.style.left = '0';
       node.style.right = '0';
       return () => {
-        Object.assign(node.style, original);
+        node.style.position = position;
+        node.style.top = top;
+        node.style.bottom = bottom;
+        node.style.left = left;
+        node.style.right = right;
       };
     }, [node, useLayerForClickAway, visible]);
 
@@ -118,10 +115,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       if (!visible || !(parent instanceof HTMLElement)) {
         return noop;
       }
-      const originalStyle = {
-        overflowY: parent.style.overflowY,
-        paddingRight: parent.style.paddingRight,
-      };
+      const { overflowY, paddingRight } = parent.style;
       if (hasScrollbarY(parent)) {
         const originalPadding = getComputedStyle(parent).paddingRight;
         const newPadding = parseFloat(originalPadding || '0') + SCROLLBAR_WIDTH;
@@ -129,7 +123,8 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         parent.style.paddingRight = `${newPadding}px`;
       }
       return () => {
-        Object.assign(parent.style, originalStyle);
+        parent.style.overflowY = overflowY;
+        parent.style.paddingRight = paddingRight;
       };
     }, [parent, visible, withNonScrollable]);
 

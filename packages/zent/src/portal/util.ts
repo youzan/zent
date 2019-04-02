@@ -13,24 +13,6 @@ export function createContainerNode(parent: Node, tag = 'div') {
   return parent.appendChild(div);
 }
 
-export function removeNodeFromDOMTree(node: Node) {
-  const { parentNode } = node;
-  if (parentNode) {
-    parentNode.removeChild(node);
-  }
-}
-
-export function isDescendant(parent: Node, child: Node) {
-  let node = child.parentNode;
-
-  while (node !== null) {
-    if (node === parent) return true;
-    node = node.parentNode;
-  }
-
-  return false;
-}
-
 export function removeAllChildren(node: Node) {
   while (node && node.firstChild) {
     node.removeChild(node.firstChild);
