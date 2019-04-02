@@ -5,7 +5,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import cn from 'classnames';
 import * as keycode from 'keycode';
+import isUndefined from 'lodash-es/isUndefined';
 
+import memoize from '../utils/memorize-one';
 import Input from '../input';
 import Popover from '../popover';
 import SelectMenu, { ISelectMenuItem } from '../select-menu';
@@ -45,9 +47,9 @@ export interface IAutoCompleteProps {
   popupClassName?: string;
   width?: number | string;
   valueFromOptions?: boolean;
-  valueField?: string;
-  contentField?: string;
-  textField?: string;
+  valueField: string;
+  contentField: string;
+  textField: string;
   disabled?: boolean;
   children?: any;
 }
@@ -56,7 +58,6 @@ export interface IAutoCompleteState {
   open: boolean;
   value: unknown;
   searchText: string;
-  items: IAutoCompleteMenuObjectItem[];
 }
 
 export class AutoComplete extends Component<
@@ -67,6 +68,9 @@ export class AutoComplete extends Component<
     prefix: 'zent',
     filterOption: caselessMatchFilterOption,
     valueFromOptions: false,
+    valueField: 'value',
+    contentField: 'content',
+    textField: 'text',
   };
 
   blurHandlerPrevented = false;
@@ -79,25 +83,19 @@ export class AutoComplete extends Component<
       open: false,
       value: props.initialValue || props.value || null,
       searchText: '', // combo specific
-
-      items: this.getTransformedItemConfigs(props),
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setControlled(nextProps, 'value');
-
-    // items transform
-    const { items, data } = nextProps;
-    if (
-      this.props.data !== data ||
-      this.props.items !== items ||
-      !!nextProps.children
-    ) {
-      this.setState({
-        items: this.getTransformedItemConfigs(nextProps),
-      });
-    }
+  static getDerivedStateFromProps(
+    props: IAutoCompleteProps,
+    state: IAutoCompleteState
+  ) {
+    const { value } = props;
+    return isUndefined(value) || state.value === value
+      ? null
+      : {
+          value: props.value,
+        };
   }
 
   onSearchTextChange = e => {
@@ -173,7 +171,7 @@ export class AutoComplete extends Component<
 
   getSelectedValueFromSearchText = searchText => {
     let selectedValue = null;
-    (this.state.items || []).some(item => {
+    this.getTransformedItemConfigsFromProps().some(item => {
       if (
         item.searchContent === searchText ||
         item.content === searchText ||
@@ -200,24 +198,6 @@ export class AutoComplete extends Component<
   };
 
   /** Helpers */
-
-  /**
-   * Set the controlled props if needed.
-   * @param nextProps
-   * @param k
-   */
-  setControlled = (nextProps, k) => {
-    if (nextProps[k] !== undefined) {
-      this.setState({
-        [k]: nextProps[k],
-      } as any);
-    }
-  };
-
-  getPropsItems(props) {
-    return props.items || props.data || [];
-  }
-
   /**
    * Convert passed in data to item config list.
    *
@@ -225,40 +205,46 @@ export class AutoComplete extends Component<
    * @returns {*}
    * @private
    */
-  getTransformedItemConfigs = (
-    props: IAutoCompleteProps = this.props
-  ): IAutoCompleteMenuObjectItem[] => {
-    let transformedItems = this.getPropsItems(props);
+  getTransformedItemConfigs = memoize(
+    (
+      valueField: string,
+      textField: string,
+      contentField: string,
+      items?: IAutoCompleteMenuItem[],
+      data?: IAutoCompleteMenuItem[]
+    ): IAutoCompleteMenuObjectItem[] => {
+      return (items || data || []).map(item => {
+        if (typeof item === 'string' || typeof item === 'number') {
+          return {
+            value: item,
+            content: item,
+          };
+        }
 
-    // handle items
-    transformedItems = transformedItems.map(item => {
-      if (typeof item === 'string' || typeof item === 'number') {
-        return {
-          value: item,
-          content: item,
-        };
-      }
+        if (typeof item === 'object') {
+          return {
+            ...item,
+            value: item[valueField],
+            content: item[contentField] || item[textField] || item[valueField],
+          };
+        }
 
-      if (typeof item === 'object') {
-        const {
-          valueField = 'value',
-          textField = 'text',
-          contentField = 'content',
-        } = props;
+        throw new Error('AutoComplete unresolvable option!');
+      });
+    }
+  );
 
-        return {
-          ...item,
-          value: item[valueField],
-          content: item[contentField] || item[textField] || item[valueField],
-        };
-        /* eslint-disable no-else-return */
-      }
+  getTransformedItemConfigsFromProps() {
+    const { items, data, textField, valueField, contentField } = this.props;
 
-      throw new Error('AutoComplete unresolvable option!');
-    });
-
-    return transformedItems;
-  };
+    return this.getTransformedItemConfigs(
+      valueField,
+      textField,
+      contentField,
+      items,
+      data
+    );
+  }
 
   /**
    * Get the display text of selected value, since the value and content might be different, and content might be node.
@@ -337,7 +323,8 @@ export class AutoComplete extends Component<
    * @param value
    * @private
    */
-  getItemByValue = value => this.iterateItems(this.state.items, value);
+  getItemByValue = value =>
+    this.iterateItems(this.getTransformedItemConfigsFromProps(), value);
 
   moveFocusIndexDown = () => {
     const menuList = this.refMenuItemList.current;
@@ -370,7 +357,8 @@ export class AutoComplete extends Component<
       popupClassName,
       disabled,
     } = this.props;
-    const { open, items, searchText } = this.state;
+    const { open, searchText } = this.state;
+    const items = this.getTransformedItemConfigsFromProps();
 
     const prefixCls = 'zent-auto-complete';
 
