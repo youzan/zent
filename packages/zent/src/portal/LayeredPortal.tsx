@@ -18,15 +18,15 @@ interface IRelatedStyle {
 }
 
 export interface ILayeredPortalProps extends IPurePortalProps {
-  visible?: boolean;
+  visible: boolean;
   layer: string;
-  useLayerForClickAway?: boolean;
+  useLayerForClickAway: boolean;
   onClickAway?: (e: TouchEvent | MouseEvent) => void;
   onLayerReady?: (node: HTMLElement) => void;
   className?: string;
   style?: Partial<CSSStyleDeclaration>;
-  withNonScrollable?: boolean;
-  withEscToClose?: boolean;
+  withNonScrollable: boolean;
+  withEscToClose: boolean;
   onClose?: (e: KeyboardEvent) => void;
 }
 
@@ -47,8 +47,10 @@ export class LayeredPortal extends Component<
   static defaultProps = {
     selector: 'body',
     layer: 'div',
-    className: '',
+    useLayerForClickAway: false,
     visible: true,
+    withNonScrollable: false,
+    withEscToClose: false,
   };
 
   static LayeredPortal = LayeredPortal;
