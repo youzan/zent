@@ -5,82 +5,74 @@
  */
 import * as React from 'react';
 import { Component } from 'react';
+import isString from 'lodash-es/isString';
+import isNumber from 'lodash-es/isNumber';
 
-import MenuList, { IMenuListObjectItem, IMenuListItem } from './MenuList';
+import memoize from '../utils/memorize-one';
+import MenuList from './MenuList';
+import { IMenuListItem } from './MenuListItem';
 
-export const caselessMatchFilterOption = (searchText, item) => {
-  if (!searchText) {
-    return true;
-  }
+export interface ISelectMenuItem extends IMenuListItem {
+  searchContent?: React.ReactNode;
+  items?: ISelectMenuItem[];
+}
 
-  // search searchContent first if searchContent is string or number
-  if (
-    typeof item.searchContent === 'string' ||
-    typeof item.searchContent === 'number'
-  ) {
-    if (
-      `${item.searchContent}`.toUpperCase().includes(searchText.toUpperCase())
-    ) {
-      return true;
-    }
-    // search content second if content is string or number
-  } else if (
-    typeof item.content === 'string' ||
-    typeof item.content === 'number'
-  ) {
-    if (`${item.content}`.toUpperCase().includes(searchText.toUpperCase())) {
-      return true;
-    }
-    // else search value
-  } else if (`${item.value}`.toUpperCase().includes(searchText.toUpperCase())) {
-    return true;
-  }
-  return false;
-};
+export interface ISelectMenuNestedItem extends ISelectMenuItem {
+  idx: number;
+  parentIndexes: number[];
+  items?: ISelectMenuNestedItem[];
+}
 
 export interface ISelectMenuProps {
   value?: unknown;
   searchText?: string;
-  items?: IMenuListItem[];
-  onSelect?: (
-    value: unknown,
-    item: string | number | IMenuListObjectItem
-  ) => void;
-  filterOption?: (searchText: string, item: IMenuListItem) => void;
-  nullOptionContent?: React.ReactNode;
+  items: ISelectMenuItem[];
+  onSelect?: (value: unknown, item: ISelectMenuItem) => void;
+  filterOption?: (searchText: string, item: ISelectMenuItem) => void;
   onRequestClose?: () => void;
-  nullOption?: boolean;
+  nullOptionContent?: React.ReactNode;
+  nullOption: boolean;
 }
 
 export interface ISelectMenuState {
   items: IMenuListItem[];
 }
 
+const isStringOrNumber = (x: any) => isString(x) || isNumber(x);
+
+export function caselessMatchFilterOption(
+  searchText: string,
+  item: ISelectMenuItem
+) {
+  if (!searchText) {
+    return true;
+  }
+
+  if (isStringOrNumber(item.searchContent)) {
+    // search searchContent first if searchContent is string or number
+    return `${item.searchContent}`
+      .toUpperCase()
+      .includes(searchText.toUpperCase());
+  } else if (isStringOrNumber(item.content)) {
+    // search content second if content is string or number
+    return `${item.content}`.toUpperCase().includes(searchText.toUpperCase());
+  } else if (isStringOrNumber(item.value)) {
+    // otherwise search value
+    return `${item.value}`.toUpperCase().includes(searchText.toUpperCase());
+  }
+
+  return false;
+}
+
 export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
   static defaultProps = {
     filterOption: caselessMatchFilterOption,
+    nullOption: false,
   };
 
   static caselessMatchFilterOption = caselessMatchFilterOption;
-  refMenuItemList: MenuList | null = null;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      items: this.transformItems(props),
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // items transform
-    const { items } = nextProps;
-    if (this.props.items !== items) {
-      this.setState({
-        items: this.transformItems(nextProps),
-      });
-    }
-  }
+  private refMenuItemList = React.createRef<MenuList>();
 
   /**
    * Wrap items with its idx.
@@ -88,7 +80,10 @@ export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
    * @param parentIndexes
    * @private
    */
-  wrapWithIdx = (items = [], parentIndexes = []) =>
+  wrapWithIdx = (
+    items: ISelectMenuItem[] = [],
+    parentIndexes: number[] = []
+  ): ISelectMenuNestedItem[] =>
     items.map((item, idx) => ({
       ...item,
       idx,
@@ -105,17 +100,17 @@ export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
    * @private
    */
   wrapWithNullOption = (
-    items: IMenuListItem[] = [],
+    items: ISelectMenuNestedItem[] = [],
     nullOptionContent?: React.ReactNode
-  ) =>
-    // TODO null option
-    items;
-  // [ {
-  //   content: nullOptionContent || '请选择...',
-  //   value: null,
-  //   idx: -1,
-  //   parentIndexes: [],
-  // } ].concat(items)
+  ): ISelectMenuNestedItem[] =>
+    [
+      {
+        content: nullOptionContent,
+        value: null,
+        idx: -1,
+        parentIndexes: [],
+      } as ISelectMenuNestedItem,
+    ].concat(items);
 
   /**
    * Wrap items with value callback recursively.
@@ -125,11 +120,9 @@ export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
    * @param items
    * @private
    */
-  wrapWithValueCallback = (items = []) =>
+  wrapWithValueCallback = (items: ISelectMenuNestedItem[] = []) =>
     items.map(item => ({
-      ...{
-        active: value => value === this.props.value, // set default active calculator
-      },
+      active: value => value === this.props.value, // set default active calculator
       ...item,
       ...(item.value !== undefined
         ? {
@@ -139,47 +132,62 @@ export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
             },
           }
         : {}),
+      items: this.wrapWithValueCallback(item.items),
     }));
 
   /**
    * Transform the passed-in props.items to make it easier to use internally.
-   * @param props
    * @private
    */
-  transformItems = (props: ISelectMenuProps) => {
-    const { items = [], nullOption, nullOptionContent } = props;
-    let wrappedItems = items;
-    wrappedItems = this.wrapWithIdx(wrappedItems);
-    if (nullOption) {
-      wrappedItems = this.wrapWithNullOption(wrappedItems, nullOptionContent);
+  transformItems = memoize(
+    (
+      items: ISelectMenuItem[],
+      nullOption: boolean,
+      nullOptionContent?: React.ReactNode
+    ) => {
+      let wrappedItems = this.wrapWithIdx(items);
+      if (nullOption) {
+        wrappedItems = this.wrapWithNullOption(wrappedItems, nullOptionContent);
+      }
+      wrappedItems = this.wrapWithValueCallback(wrappedItems);
+      return wrappedItems;
     }
-    wrappedItems = this.wrapWithValueCallback(wrappedItems);
-    return wrappedItems;
-  };
+  );
 
   /** menu list delegates */
 
   moveFocusIndexDown = () => {
-    if (this.refMenuItemList) {
-      return this.refMenuItemList.moveFocusIndexDown();
+    const menuList = this.refMenuItemList.current;
+    if (menuList) {
+      return menuList.moveFocusIndexDown();
     }
   };
 
   moveFocusIndexUp = () => {
-    if (this.refMenuItemList) {
-      return this.refMenuItemList.moveFocusIndexUp();
+    const menuList = this.refMenuItemList.current;
+
+    if (menuList) {
+      return menuList.moveFocusIndexUp();
     }
   };
 
   selectCurrentFocusIndex = e => {
-    if (this.refMenuItemList) {
-      return this.refMenuItemList.selectCurrentFocusIndex(e);
+    const menuList = this.refMenuItemList.current;
+
+    if (menuList) {
+      return menuList.selectCurrentFocusIndex(e);
     }
   };
 
   render() {
-    const { filterOption, searchText } = this.props;
-    const { items } = this.state;
+    const {
+      filterOption,
+      searchText,
+      items: rawItems,
+      nullOption,
+      nullOptionContent,
+    } = this.props;
+    const items = this.transformItems(rawItems, nullOption, nullOptionContent);
 
     let filteredItems = items || [];
     if (typeof filterOption === 'function') {
@@ -188,11 +196,9 @@ export class SelectMenu extends Component<ISelectMenuProps, ISelectMenuState> {
       });
     }
 
-    // this.filteredItems = filteredItems;
-
     return (
       <MenuList
-        ref={el => (this.refMenuItemList = el)}
+        ref={this.refMenuItemList}
         items={filteredItems}
         onRequestClose={this.props.onRequestClose}
       />
