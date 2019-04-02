@@ -131,7 +131,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       if (!visible) {
         return noop;
       }
-      function onClickAway(event: TouchEvent | MouseEvent) {
+      function handler(event: TouchEvent | MouseEvent) {
         const { onClickAway } = propsRef.current;
         if (event.defaultPrevented || !onClickAway || !visible) {
           return;
@@ -141,24 +141,27 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
           onClickAway && onClickAway(event);
         }
       }
-      if (useLayerForClickAway) {
-        node.addEventListener('touchstart', onClickAway);
-        node.addEventListener('click', onClickAway);
-      } else if (onClickAway) {
-        window.addEventListener('touchstart', onClickAway);
-        window.addEventListener('click', onClickAway);
+      let dispose = noop;
+      if (onClickAway) {
+        if (useLayerForClickAway) {
+          node.addEventListener('touchstart', handler);
+          node.addEventListener('click', handler);
+          dispose = () => {
+            node.removeEventListener('touchstart', handler);
+            node.removeEventListener('click', handler);
+          };
+        } else {
+          window.addEventListener('touchstart', handler);
+          window.addEventListener('click', handler);
+          dispose = () => {
+            window.removeEventListener('touchstart', handler);
+            window.removeEventListener('click', handler);
+          };
+        }
       }
       const { onLayerReady } = propsRef.current;
       onLayerReady && onLayerReady(node);
-      return () => {
-        if (useLayerForClickAway) {
-          node.removeEventListener('touchstart', onClickAway);
-          node.removeEventListener('click', onClickAway);
-        } else if (onClickAway) {
-          window.removeEventListener('touchstart', onClickAway);
-          window.removeEventListener('click', onClickAway);
-        }
-      };
+      return dispose;
     }, [visible, useLayerForClickAway, !!onClickAway, node]);
 
     useEffect(() => {
