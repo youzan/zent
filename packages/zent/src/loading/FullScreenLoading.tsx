@@ -26,7 +26,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     return null;
   }
 
-  const style = isNumber(zIndex) ? NO_STYLE : { zIndex };
+  const style = isNumber(zIndex) ? { zIndex: `${zIndex}` } : NO_STYLE;
 
   return (
     <LayeredPortal
