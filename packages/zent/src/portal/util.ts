@@ -20,9 +20,6 @@ export function removeAllChildren(node: Node) {
 }
 
 export function hasScrollbarY(element: Element) {
-  if (!SCROLLBAR_WIDTH) {
-    return false;
-  }
   if (element === document.body) {
     return element.scrollHeight > window.innerHeight;
   }
