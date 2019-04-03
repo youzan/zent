@@ -7,7 +7,7 @@ import { getNodeFromSelector, removeAllChildren } from './util';
 import { IPortalContext, PortalContext } from './context';
 
 export interface IPurePortalProps {
-  selector?: string | HTMLElement;
+  selector: string | HTMLElement;
   append?: boolean;
 }
 
@@ -15,7 +15,7 @@ export interface IPurePortalProps {
  * A thin wrapper around React.createPortal with
  *
  * 1. Awareness of nested portals
- * 2. `append` to mimic old `unstable_renderIntoContainer` behavior for backward compatibility
+ * 2. `append=false` to mimic old `unstable_renderIntoContainer` behavior for backward compatibility
  */
 export class PurePortal extends Component<IPurePortalProps> {
   static defaultProps = {
@@ -30,7 +30,7 @@ export class PurePortal extends Component<IPurePortalProps> {
   };
 
   getContainer = memoize(
-    (selector?: string | HTMLElement): Element | null | undefined => {
+    (selector: string | HTMLElement): Element | null => {
       const node = getNodeFromSelector(selector);
       if (!node) {
         return node;

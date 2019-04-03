@@ -27,16 +27,11 @@ export interface IDialogProps {
   footer?: React.ReactNode;
   visible: boolean;
   closeBtn?: boolean;
-  onClose?: (
-    e:
-      | KeyboardEvent
-      | React.MouseEvent<HTMLDivElement>
-      | React.MouseEvent<HTMLButtonElement>
-  ) => void;
+  onClose?: (e: KeyboardEvent | MouseEvent | TouchEvent) => void;
   mask?: boolean;
   maskClosable?: boolean;
   className?: string;
-  prefix?: string;
+  prefix: string;
   style: React.CSSProperties;
   onOpened?: () => void;
   onClosed?: () => void;
@@ -74,7 +69,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     };
   }
 
-  onClose = (e: KeyboardEvent | React.MouseEvent<HTMLDivElement>) => {
+  onClose = (e: KeyboardEvent | MouseEvent | TouchEvent) => {
     const { onClose } = this.props;
     onClose && onClose(e);
   };
@@ -138,8 +133,8 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
         visible={visible || exiting}
         onClose={this.onClose}
         className={`${prefix}-dialog-r-anchor`}
-        withEscToClose={closeBtn}
-        withNonScrollable
+        closeOnESC={closeBtn}
+        blockPageScroll
       >
         <DialogElWrapper
           prefix={prefix}

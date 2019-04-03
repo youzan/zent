@@ -1,8 +1,8 @@
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 
 export function getNodeFromSelector(
-  selector?: string | Element
-): Element | null | undefined {
+  selector: string | Element
+): Element | null {
   const node =
     typeof selector === 'string' ? document.querySelector(selector) : selector;
   return node;

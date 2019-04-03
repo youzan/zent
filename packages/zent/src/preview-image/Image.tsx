@@ -142,8 +142,8 @@ export default class Image extends Component<IPreviewImageProps, any> {
         visible
         onClose={this.onClose}
         className={cx(`${prefix}-image-p-anchor`, className)}
-        withEscToClose
-        withNonScrollable
+        closeOnESC
+        blockPageScroll
       >
         <div className={`${prefix}-image-p-backdrop`}>
           <div className={`${prefix}-image-p-wrap`}>

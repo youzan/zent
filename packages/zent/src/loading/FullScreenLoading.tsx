@@ -32,7 +32,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     <Portal
       className={cx('zent-loading', 'zent-loading--fullscreen', className)}
       style={style}
-      withNonScrollable
+      blockPageScroll
     >
       <LoadingMask
         icon={icon}

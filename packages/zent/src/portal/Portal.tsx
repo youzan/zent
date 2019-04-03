@@ -15,18 +15,18 @@ import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 
-export interface IPortalProps extends IPurePortalProps {
+export interface IPortalProps extends Partial<IPurePortalProps> {
   visible?: boolean;
   layer?: string;
-  useLayerForClickAway?: boolean;
-  onClickAway?: (e: TouchEvent | MouseEvent) => void;
   onLayerReady?: (node: HTMLElement) => void;
+  blockPageScroll?: boolean;
+  closeOnESC?: boolean;
+  closeOnClickOutside?: boolean;
+  useLayerForClickAway?: boolean;
+  onClose?: (e: KeyboardEvent | TouchEvent | MouseEvent) => void;
+  children?: React.ReactNode;
   className?: string;
   style?: Partial<CSSStyleDeclaration>;
-  withNonScrollable?: boolean;
-  withEscToClose?: boolean;
-  onClose?: (e: KeyboardEvent) => void;
-  children?: React.ReactNode;
 }
 
 export interface IPortalImperativeHandlers {
@@ -41,17 +41,21 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       layer = 'div',
       selector = 'body',
       useLayerForClickAway = false,
-      onClickAway,
       className,
       style,
-      withNonScrollable = false,
-      withEscToClose = false,
+      blockPageScroll = false,
+      closeOnESC = false,
+      closeOnClickOutside = false,
       children,
       append,
     } = props;
+    const node = useMemo(() => document.createElement(layer), [layer]);
+    const parent = useMemo(() => getNodeFromSelector(selector), [selector]);
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;
     const purePortalRef = useRef<PurePortal>(null);
+
+    // Methods for use on ref
     const contains = useCallback((node: Node) => {
       const purePortal = purePortalRef.current;
       if (!purePortal) {
@@ -67,8 +71,6 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       }),
       []
     );
-    const node = useMemo(() => document.createElement(layer), [layer]);
-    const parent = useMemo(() => getNodeFromSelector(selector), [selector]);
 
     useLayoutEffect(() => {
       if (!visible || !parent) {
@@ -109,8 +111,8 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     useLayoutEffect(() => {
       if (
         !visible ||
+        !blockPageScroll ||
         !parent ||
-        !withNonScrollable ||
         !(parent instanceof HTMLElement) ||
         !hasScrollbarY(parent)
       ) {
@@ -125,24 +127,27 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         parent.style.overflowY = overflowY;
         parent.style.paddingRight = paddingRight;
       };
-    }, [parent, visible, withNonScrollable]);
+    }, [parent, visible, blockPageScroll]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (!visible) {
         return noop;
       }
+
       function handler(event: TouchEvent | MouseEvent) {
-        const { onClickAway } = propsRef.current;
-        if (event.defaultPrevented || !onClickAway || !visible) {
+        const { closeOnClickOutside, onClose } = propsRef.current;
+        if (event.defaultPrevented || !closeOnClickOutside || !visible) {
           return;
         }
+
         const { target } = event;
         if (!(target instanceof Node) || target === node || !contains(target)) {
-          onClickAway && onClickAway(event);
+          onClose && onClose(event);
         }
       }
+
       let dispose = noop;
-      if (onClickAway) {
+      if (closeOnClickOutside) {
         if (useLayerForClickAway) {
           node.addEventListener('touchstart', handler);
           node.addEventListener('click', handler);
@@ -159,13 +164,15 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
           };
         }
       }
+
       const { onLayerReady } = propsRef.current;
       onLayerReady && onLayerReady(node);
+
       return dispose;
-    }, [visible, useLayerForClickAway, !!onClickAway, node]);
+    }, [visible, useLayerForClickAway, !!closeOnClickOutside, node]);
 
     useEffect(() => {
-      if (!visible || !withEscToClose) {
+      if (!visible || !closeOnESC) {
         return noop;
       }
       function onKeyUp(e: KeyboardEvent) {
@@ -181,7 +188,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       return () => {
         document.body.removeEventListener('keyup', onKeyUp);
       };
-    }, [withEscToClose, visible]);
+    }, [closeOnESC, visible]);
 
     return visible ? (
       <PurePortal ref={purePortalRef} append={append} selector={node}>

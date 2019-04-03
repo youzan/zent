@@ -52,13 +52,13 @@ class PortalBasic extends Component {
 				<Button onClick={this.showBodyPortal}>{i18n.bodyPortalButton}</Button>
 				<Portal
 					visible={this.state.bodyPortalVisible}
-					onClickAway={this.hideBodyPortal}
 					onClose={this.hideBodyPortal}
 					className="layer"
 					style={{ background: 'rgba(0, 0, 0, 0.2)' }}
 					useLayerForClickAway
-					withESCToClose
-					withNonScrollable
+					closeOnClickOutside
+					closeOnESC
+					blockPageScroll
 				>
 					<div
 						className="zent-doc-portal-content"

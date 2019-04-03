@@ -21,12 +21,17 @@ group: 基础
 | selector  | 渲染child的DOM节点     | string or DOM Element | 否 | `'body'` | 合法的CSS selector或者某个DOM节点 |
 | visible   | 是否渲染child    | bool         | 否 | `true`   |                |
 | layer | 遮罩的标签名 | string | 否 | `div` | |
-| useLayerForClickAway | 是否使用遮罩来触发`Portal`关闭 | boolean | 否 | false | |
-| onClickAway | 点击到非`Portal`处的回调 | function | 否 | | |
-| onLayerReady | 遮罩准备好时的hook | function | 否 | | |
-| className | 遮罩的className      | string | 否 | `''`     |         |
+| useLayerForClickAway | 是否使用遮罩来触发 `Portal` 关闭 | bool | 否 | `false` | |
+| onLayerReady | 遮罩准备好时的hook | (node: HTMLElement) => void | 否 | |
+| closeOnClickOutside | 点击到 `Portal` 外部时关闭 | function | 否 | |
+| closeOnESC | 按下 ESC 键时关闭 | bool | 否 | `false` |  |
+| onClose | 关闭时回调函数 | (e: Event) => void | 否 |  | 
+| blockPageScroll | 打开时禁止页面滚动 | bool | 否 | `false` | |
+| className | 遮罩的className      | string | 否 |     |         |
 | style | 遮罩的style | object | 否 | | |
 | css      | (已废弃, 请使用style)额外的css样式. 例如, `{ 'margin-left': '10px' }` | object  | 否 | `{}`     |     |
+
+`Portal` 实例上有一个 `contains` 方法可以用来判断一个 DOM 节点是否是它的子节点，这个方法对嵌套的 `Portal` 内的子节点一样有效。 
 
 ### 组件原理
 
@@ -46,8 +51,5 @@ group: 基础
 | 参数        | 说明             | 类型       | 是否必须    | 默认值      | 备选值              |
 | --------- | ----------------- | ---------- | ----------- | -------- | ------------------- |
 | children  | 只支持一个child        | string         |  否   |     |                |
-| render    | 返回传送门需要渲染的内容，优先级高于children | func | 否 | | |
-| selector  | 渲染child的DOM节点     | string or DOM Element | 是 | `'body'` | 合法的CSS selector或者某个DOM节点 |
-| withEscToClose | | bool | 否 | false |  |  |
-| onClose | ESC按下时的回调函数 | func | 否 |  | 
+| selector  | 渲染 child 的 DOM 节点     | string or DOM Element | 是 | `'body'` | 合法的CSS selector 或者某个 DOM 节点 |
 | append | 是否在将内容添加到容器中，如果是 false 会覆盖容器的内容 | bool | 否 | false |  |
