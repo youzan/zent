@@ -5,10 +5,6 @@ import Portal from 'portal';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const { withNonScrollable } = Portal;
-
-const MyPortal = withNonScrollable(Portal);
-
 export default class NonScrollable extends Component {
   state = {
     visible: false,
@@ -39,15 +35,16 @@ export default class NonScrollable extends Component {
             open
           </button>
         )}
-        <MyPortal
+        <Portal
           className="non-scrollable-body-portal"
           visible={this.state.visible}
           onClose={this.onClose}
+          blockPageScroll
         >
           <div className="inspect-hint">
             Toggle the portal and inspect body.style.overflow in devtool
           </div>
-        </MyPortal>
+        </Portal>
       </div>
     );
   }
