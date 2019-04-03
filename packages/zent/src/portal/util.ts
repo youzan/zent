@@ -1,5 +1,3 @@
-import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
-
 export function getNodeFromSelector(
   selector: string | Element
 ): Element | null {
