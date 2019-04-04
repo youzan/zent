@@ -16,7 +16,7 @@ export interface IPreviewImageConfig {
 
 export function previewImage(options: IPreviewImageConfig = {}) {
   const { parentComponent, ...rest } = options;
-  let container = document.createElement('div');
+  let container: HTMLElement | null = document.createElement('div');
 
   const closePreviewMask = () => {
     if (!container) {
@@ -24,7 +24,7 @@ export function previewImage(options: IPreviewImageConfig = {}) {
     }
 
     ReactDOM.unmountComponentAtNode(container);
-    container = undefined;
+    container = null;
   };
 
   const props = {

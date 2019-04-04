@@ -2,7 +2,6 @@ import capitalize from 'lodash-es/capitalize';
 import isFunction from 'lodash-es/isFunction';
 
 import Popover from '../popover';
-import { CSSProperties } from 'react';
 
 const { Position } = Popover;
 
@@ -12,7 +11,7 @@ const ARROW_OFFSET_V = 9;
 
 const createPosition = (x, y, side) => {
   return {
-    getCSSStyle(): CSSProperties {
+    getCSSStyle(): Partial<CSSStyleDeclaration> {
       return {
         position: 'absolute',
         left: `${Math.round(x)}px`,

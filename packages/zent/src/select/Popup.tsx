@@ -62,7 +62,7 @@ class Popup extends Component<IPopupProps, any> {
     this.focused = false;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { autoWidth, popover } = this.props;
     if (autoWidth) {
       this.setState({
@@ -71,9 +71,6 @@ class Popup extends Component<IPopupProps, any> {
         },
       });
     }
-  }
-
-  componentDidMount() {
     this.popup.addEventListener('mousewheel', this.handleScroll);
   }
 

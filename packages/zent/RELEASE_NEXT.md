@@ -67,6 +67,31 @@
 
 导出的组件名字变了，老的写法
 
+#### `Portal`
+
+```js
+import { Portal } from 'zent';
+const { PurePortal } = Portal;
+
+const MyPortal1 = Portal.withEscToClose(Portal);
+const MyPortal2 = Portal.withNonScrollable(Portal);
+```
+
+新的写法 
+
+```js
+import { Portal, PurePortal } from 'zent'
+
+// 替代 withEscToClose
+<Portal closeOnESC>...</Portal>
+
+// 替代 withNonScrollable
+<Portal blockPageScroll>...</Portal>
+```
+
+- 删除了 `LayeredPortal`，请用 `Portal` 替换。
+- 去除 `onMount` 和 `onUnmount`，使用方直接使用上层组件的 `componentDidMount` 和 `componentWillUnmount` 即可。
+
 ```js
 import { Layout } from 'zent';
 

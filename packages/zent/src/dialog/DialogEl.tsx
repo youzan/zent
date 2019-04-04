@@ -3,18 +3,20 @@ import { Component, createRef } from 'react';
 import cx from 'classnames';
 import focusWithoutScroll from '../utils/dom/focusWithoutScroll';
 
+export interface IMousePosition {
+  x: number;
+  y: number;
+}
+
 export interface IDialogInnerElProps {
   prefix?: string;
   title?: React.ReactNode;
-  onClose?: React.MouseEventHandler<HTMLButtonElement>;
+  onClose?: (e: KeyboardEvent | MouseEvent | TouchEvent) => void;
   className?: string;
   closeBtn?: boolean;
   style?: React.CSSProperties;
   footer?: React.ReactNode;
-  mousePosition?: {
-    x: number;
-    y: number;
-  } | null;
+  mousePosition?: IMousePosition | null;
 }
 
 export class DialogInnerEl extends Component<IDialogInnerElProps> {
@@ -41,7 +43,7 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
       const origin = `${mousePosition.x - x}px ${mousePosition.y - y}px 0`;
       const style = this.dialogEl.style;
       ['Webkit', 'Moz', 'Ms', 'ms'].forEach(prefix => {
-        style[`${prefix}TransformOrigin`] = origin;
+        style[`${prefix}TransformOrigin` as any] = origin;
       });
       style.transformOrigin = origin;
     }
@@ -67,16 +69,15 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
     );
   }
 
+  onClickClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { onClose } = this.props;
+    if (onClose) {
+      onClose(e as any);
+    }
+  };
+
   render() {
-    const {
-      onClose,
-      className,
-      prefix,
-      closeBtn,
-      footer,
-      style,
-      children,
-    } = this.props;
+    const { className, prefix, closeBtn, footer, style, children } = this.props;
 
     const Header = this.renderHeader();
 
@@ -84,7 +85,7 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
       [`${prefix}-dialog-r-has-title`]: !!Header,
     });
     const Closer = closeBtn && (
-      <button type="button" className={closeBtnCls} onClick={onClose}>
+      <button type="button" className={closeBtnCls} onClick={this.onClickClose}>
         ×
       </button>
     );
@@ -113,8 +114,7 @@ export interface IDialogElWrapper {
   mask?: boolean;
   maskClosable?: boolean;
   visible?: boolean;
-  closing?: boolean;
-  onClose(e: React.MouseEvent<HTMLDivElement>): void;
+  onClose(e: MouseEvent | TouchEvent | KeyboardEvent): void;
 }
 
 export class DialogElWrapper extends Component<IDialogElWrapper> {
@@ -139,7 +139,7 @@ export class DialogElWrapper extends Component<IDialogElWrapper> {
       this.props.mask &&
       this.props.maskClosable
     ) {
-      this.props.onClose(e);
+      this.props.onClose(e as any);
     }
   };
 

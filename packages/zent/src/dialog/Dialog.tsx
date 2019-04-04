@@ -2,20 +2,14 @@ import * as React from 'react';
 import { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import Portal, { IPortalProps } from '../portal';
+import Portal from '../portal';
 import isBrowser from '../utils/isBrowser';
-import { DialogElWrapper, DialogInnerEl } from './DialogEl';
+import { DialogElWrapper, DialogInnerEl, IMousePosition } from './DialogEl';
 import { openDialog, closeDialog } from './open';
-
-const { withNonScrollable, withESCToClose } = Portal;
-const DialogPortal = withNonScrollable(Portal as React.ComponentType<
-  IPortalProps
->);
-const DialogPortalESCToClose = withESCToClose(DialogPortal);
 
 const TIMEOUT = 300; // ms
 
-let mousePosition = null;
+let mousePosition: IMousePosition | null = null;
 
 // Inspired by antd and rc-dialog
 if (isBrowser) {
@@ -31,19 +25,14 @@ export interface IDialogProps {
   title?: React.ReactNode;
   children?: React.ReactNode;
   footer?: React.ReactNode;
-  visible?: boolean;
+  visible: boolean;
   closeBtn?: boolean;
-  onClose?: (
-    e:
-      | KeyboardEvent
-      | React.MouseEvent<HTMLDivElement>
-      | React.MouseEvent<HTMLButtonElement>
-  ) => void;
+  onClose?: (e: KeyboardEvent | MouseEvent | TouchEvent) => void;
   mask?: boolean;
   maskClosable?: boolean;
   className?: string;
-  prefix?: string;
-  style?: React.CSSProperties;
+  prefix: string;
+  style: React.CSSProperties;
   onOpened?: () => void;
   onClosed?: () => void;
 }
@@ -70,7 +59,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
   static openDialog = openDialog;
   static closeDialog = closeDialog;
 
-  lastMousePosition = null;
+  lastMousePosition: IMousePosition | null = null;
 
   constructor(props: IDialogProps) {
     super(props);
@@ -80,7 +69,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     };
   }
 
-  onClose = (e: KeyboardEvent | React.MouseEvent<HTMLDivElement>) => {
+  onClose = (e: KeyboardEvent | MouseEvent | TouchEvent) => {
     const { onClose } = this.props;
     onClose && onClose(e);
   };
@@ -139,14 +128,13 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
       this.lastMousePosition = null;
     }
 
-    // 有关闭按钮的时候同时具有ESC关闭的行为
-    const PortalComponent = closeBtn ? DialogPortalESCToClose : DialogPortal;
-
     return (
-      <PortalComponent
+      <Portal
         visible={visible || exiting}
         onClose={this.onClose}
         className={`${prefix}-dialog-r-anchor`}
+        closeOnESC={closeBtn}
+        blockPageScroll
       >
         <DialogElWrapper
           prefix={prefix}
@@ -176,7 +164,7 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
             </DialogInnerEl>
           </CSSTransition>
         </DialogElWrapper>
-      </PortalComponent>
+      </Portal>
     );
   }
 }

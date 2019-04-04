@@ -5,9 +5,6 @@ import Portal from 'portal';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const { withESCToClose } = Portal;
-const MyPortal = withESCToClose(Portal);
-
 class EscToClose extends Component {
   state = {
     visible: false,
@@ -38,13 +35,14 @@ class EscToClose extends Component {
             open
           </button>
         )}
-        <MyPortal
+        <Portal
           className="esc-close-portal"
           visible={this.state.visible}
           onClose={this.onClose}
+          closeOnESC
         >
           <div className="close-hint">Press ESC to close portal</div>
-        </MyPortal>
+        </Portal>
       </div>
     );
   }

@@ -49,7 +49,7 @@ export interface IPopoverContentState {
  */
 export default class PopoverContent extends Component<
   IPopoverContentProps,
-  any
+  IPopoverContentState
 > {
   positionReady: boolean;
   positionedParent: Element | null;
@@ -57,7 +57,7 @@ export default class PopoverContent extends Component<
   constructor(props) {
     super(props);
     this.state = {
-      position: null,
+      position: (invisiblePlacement as any)(props.prefix),
     };
 
     // 标记 content 的位置是否 ready
@@ -135,7 +135,6 @@ export default class PopoverContent extends Component<
         containerBoundingBoxViewport: parentBoundingBox,
       }
     );
-
     if (!isEqualPlacement(this.state.position, position)) {
       this.setState(
         {
@@ -162,7 +161,6 @@ export default class PopoverContent extends Component<
 
   componentDidMount() {
     const { visible } = this.props;
-
     if (visible) {
       this.adjustPosition();
     }
@@ -188,20 +186,14 @@ export default class PopoverContent extends Component<
     } = this.props;
     const { position } = this.state;
 
-    if (!position) {
-      return null;
-    }
-
     const cls = cx(className, `${prefix}-popover`, id, position.toString());
 
     return (
       <Portal
-        prefix={prefix}
         visible={visible}
         selector={containerSelector}
         className={cls}
         style={position.getCSSStyle()}
-        onMount={this.adjustPosition}
       >
         <div className={`${prefix}-popover-content`}>
           {children}

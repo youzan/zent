@@ -7,10 +7,6 @@ import { I18nReceiver as Receiver } from '../i18n';
 import Portal from '../portal';
 import Icon from '../icon';
 
-// 有关闭按钮的时候同时具有ESC关闭的行为
-const { withNonScrollable, withESCToClose } = Portal;
-const ImagePortalESCToClose = withESCToClose(withNonScrollable(Portal));
-
 export interface IPreviewImageProps {
   className: string;
   prefix: string;
@@ -18,7 +14,7 @@ export interface IPreviewImageProps {
   images: any[];
   index: number;
   onClose(): void;
-  scaleRatio?: number;
+  scaleRatio: number;
 }
 
 export default class Image extends Component<IPreviewImageProps, any> {
@@ -38,7 +34,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
     scaleRatio: 1.5,
   };
 
-  onMaskClick = e => {
+  onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       this.props.onClose();
     }
@@ -142,10 +138,12 @@ export default class Image extends Component<IPreviewImageProps, any> {
     });
 
     return (
-      <ImagePortalESCToClose
+      <Portal
         visible
         onClose={this.onClose}
         className={cx(`${prefix}-image-p-anchor`, className)}
+        closeOnESC
+        blockPageScroll
       >
         <div className={`${prefix}-image-p-backdrop`}>
           <div className={`${prefix}-image-p-wrap`}>
@@ -218,7 +216,7 @@ export default class Image extends Component<IPreviewImageProps, any> {
             </Receiver>
           </div>
         </div>
-      </ImagePortalESCToClose>
+      </Portal>
     );
   }
 }

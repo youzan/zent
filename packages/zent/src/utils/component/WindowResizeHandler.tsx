@@ -26,7 +26,7 @@ export default class WindowResizeHandler extends Component<
   _prevViewportSize: {
     width: number;
     height: number;
-  };
+  } | null = null;
 
   onResize = (evt: UIEvent) => {
     const viewportSize = getViewportSize();

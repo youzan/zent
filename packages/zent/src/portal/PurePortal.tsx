@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
-import memoize from '../utils/memorize-one';
 
+import memoize from '../utils/memorize-one';
 import { getNodeFromSelector, removeAllChildren } from './util';
-import PortalContent, { IPortalContentProps } from './PortalContent';
 import { IPortalContext, PortalContext } from './context';
 
-export interface IPurePortalProps extends IPortalContentProps {
-  render?: () => React.ReactNode;
-  selector?: string | HTMLElement;
+export interface IPurePortalProps {
+  selector: string | HTMLElement;
   append?: boolean;
 }
 
 /**
- * Pure portal, render the content (from render prop or from the only children) into the container
+ * A thin wrapper around React.createPortal with
+ *
+ * 1. Awareness of nested portals
+ * 2. `append=false` to mimic old `unstable_renderIntoContainer` behavior for backward compatibility
  */
 export class PurePortal extends Component<IPurePortalProps> {
   static defaultProps = {
@@ -25,12 +26,15 @@ export class PurePortal extends Component<IPurePortalProps> {
   context!: IPortalContext;
 
   private readonly childContext: IPortalContext = {
-    children: new Set(),
+    children: [],
   };
 
   getContainer = memoize(
-    (selector: string | HTMLElement): Element => {
+    (selector: string | HTMLElement): Element | null => {
       const node = getNodeFromSelector(selector);
+      if (!node) {
+        return node;
+      }
       if (!this.props.append) {
         removeAllChildren(node);
       }
@@ -39,7 +43,7 @@ export class PurePortal extends Component<IPurePortalProps> {
     }
   );
 
-  contains(el: Element): boolean {
+  contains(el: Node): boolean {
     const container = this.getContainer(this.props.selector);
     if (!container) {
       return false;
@@ -47,29 +51,28 @@ export class PurePortal extends Component<IPurePortalProps> {
     if (container.contains(el)) {
       return true;
     }
-    let ret = false;
-    this.childContext.children.forEach(child => {
+    for (const child of this.childContext.children) {
       if (child.contains(el)) {
-        ret = true;
+        return true;
       }
-    });
-    return ret;
+    }
+    return false;
   }
 
   componentDidMount() {
-    this.context.children.add(this);
+    this.context.children.push(this);
   }
 
   componentWillUnmount() {
-    this.context.children.delete(this);
+    const index = this.context.children.indexOf(this);
+    if (index !== -1) {
+      this.context.children.splice(index, 1);
+    }
   }
 
   render() {
-    const { selector: container, onMount, onUnmount } = this.props;
-
-    // Render the portal content to container node or parent node
-    const { children, render } = this.props;
-    const content = render ? render() : children;
+    const { selector: container } = this.props;
+    const { children } = this.props;
     const domNode = this.getContainer(container);
 
     if (!domNode) {
@@ -78,9 +81,7 @@ export class PurePortal extends Component<IPurePortalProps> {
 
     return createPortal(
       <PortalContext.Provider value={this.childContext}>
-        <PortalContent onMount={onMount} onUnmount={onUnmount}>
-          {content}
-        </PortalContent>
+        {children}
       </PortalContext.Provider>,
       domNode
     );

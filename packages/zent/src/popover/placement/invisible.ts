@@ -9,13 +9,13 @@ const locate: PositionFunctionImpl = () => {
   const y = -100000;
 
   return {
-    getCSSStyle() {
+    getCSSStyle(): Partial<CSSStyleDeclaration> {
       return {
         position: 'fixed',
         left: `${x}px`,
         top: `${y}px`,
-        zIndex: -10,
-        opacity: 0,
+        zIndex: '-10',
+        opacity: '0',
       };
     },
 
