@@ -91,7 +91,7 @@ export default class AnimatedArc extends PureComponent<IAnimatedArcProps> {
     return [radius + w, w];
   }
 
-  // 终点只可能在第一象限(圆形为原点的坐标系)
+  // 终点只可能在第一象限(圆心为原点的坐标系)
   // 需要转换成左上角的坐标系内位置
   getArcEndPoint() {
     const { radius, strokeWidth } = this.props;
