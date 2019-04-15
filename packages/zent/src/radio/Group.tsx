@@ -6,21 +6,22 @@ import eq from 'lodash-es/eq';
 
 import memoize from '../utils/memorize-one';
 import GroupContext from './GroupContext';
+import { IRadioEvent } from './AbstractRadio';
 
 const GroupContextProvider = GroupContext.Provider;
 
-export interface IGroupProps {
-  value: any;
-  disabled?: boolean;
-  readOnly?: boolean;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  isValueEqual?: (value1: any, value2: any) => boolean;
+export interface IRadioGroupProps {
+  value: unknown;
+  disabled: boolean;
+  readOnly: boolean;
+  onChange: (e: IRadioEvent) => void;
+  isValueEqual: (value1: unknown, value2: unknown) => boolean;
   className?: string;
   prefix?: string;
   style?: React.CSSProperties;
 }
 
-export class RadioGroup extends Component<IGroupProps> {
+export class RadioGroup extends Component<IRadioGroupProps> {
   static defaultProps = {
     prefix: 'zent',
     className: '',
@@ -31,15 +32,22 @@ export class RadioGroup extends Component<IGroupProps> {
     onChange: noop,
   };
 
-  getGroupContext = memoize((value, disabled, readOnly, isValueEqual) => ({
-    value,
-    disabled,
-    readOnly,
-    isValueEqual,
-    onRadioChange: this.onRadioChange,
-  }));
+  getGroupContext = memoize(
+    (
+      value: unknown,
+      disabled: boolean,
+      readOnly: boolean,
+      isValueEqual: (value1: unknown, value2: unknown) => boolean
+    ) => ({
+      value,
+      disabled,
+      readOnly,
+      isValueEqual,
+      onRadioChange: this.onRadioChange,
+    })
+  );
 
-  onRadioChange = e => {
+  onRadioChange = (e: IRadioEvent) => {
     this.props.onChange(e);
   };
 
@@ -55,10 +63,12 @@ export class RadioGroup extends Component<IGroupProps> {
       children,
     } = this.props;
 
-    const classString = classNames({
-      [`${prefix}-radio-group`]: true,
-      [className]: !!className,
-    });
+    const classString = classNames(
+      {
+        [`${prefix}-radio-group`]: true,
+      },
+      className
+    );
 
     return (
       <GroupContextProvider

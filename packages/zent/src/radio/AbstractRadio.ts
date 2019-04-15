@@ -20,7 +20,7 @@ export interface IRadioProps {
   className?: string;
   prefix?: string;
   checked?: boolean;
-  onChange?: (e: IRadioEvent) => void;
+  onChange: (e: IRadioEvent) => void;
   style?: React.CSSProperties;
 }
 
@@ -42,7 +42,7 @@ abstract class AbstractRadio extends Component<IRadioProps> {
 
   // event liftup
   // link: https://facebook.github.io/react/docs/lifting-state-up.html
-  handleChange = evt => {
+  handleChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
     const { props, context } = this;
     const e: IRadioEvent = {
       target: {
