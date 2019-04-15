@@ -1,22 +1,42 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import { ICheckboxGroupProps, CheckboxGroup } from '../../checkbox';
+import { FormField, IFormFieldChildProps } from '../Field';
+import { IFormComponentProps } from '../shared';
+import { $MergeParams } from '../utils';
 
-import Checkbox from '../../checkbox';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormCheckboxGroupFieldProps<T> = IFormComponentProps<
+  T[],
+  Omit<ICheckboxGroupProps<T>, 'value'>
+> & {
+  children?: React.ReactNode;
+};
 
-const CheckboxGroup = Checkbox.Group;
-
-class CheckboxGroupWrap extends Component {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return (
-      <CheckboxGroup className="zent-form__checkbox-group" {...passableProps} />
-    );
-  }
+function renderCheckboxGroup<T>(
+  childProps: IFormFieldChildProps<T[]>,
+  props: IFormCheckboxGroupFieldProps<T>
+) {
+  return (
+    <CheckboxGroup {...props.props} {...childProps}>
+      {props.children}
+    </CheckboxGroup>
+  );
 }
 
-const CheckboxGroupField = getControlGroup(CheckboxGroupWrap);
+const DEFAULT_VALUE = [] as any[];
 
-export default CheckboxGroupField;
+export function FormCheckboxGroupField<T>(
+  props: IFormCheckboxGroupFieldProps<T>
+) {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormCheckboxGroupFieldProps<T>>).defaultValue ||
+        DEFAULT_VALUE
+      }
+    >
+      {childProps => renderCheckboxGroup(childProps, props)}
+    </FormField>
+  );
+}

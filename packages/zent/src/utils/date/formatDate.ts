@@ -27,5 +27,8 @@ export default function formatDate(
   locale = zhCN
 ): string {
   date = getValidDate(date);
+  /**
+   * TODO: remove as any after fecha fixes its d.ts
+   */
   return fecha.format(date, mask, locale);
 }

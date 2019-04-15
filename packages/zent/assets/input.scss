@@ -183,6 +183,10 @@ $large-size: 40px;
       @include theme-color(border-color, stroke, 5);
     }
   }
+
+  .zent-input {
+    @include theme-color(color, error, 2);
+  }
 }
 
 .zent-input::placeholder,

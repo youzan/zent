@@ -1,28 +1,48 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import Checkbox, { ICheckboxProps, ICheckboxEvent } from '../../checkbox';
+import { IFormComponentProps } from '../shared';
+import { FormField, IFormFieldChildProps } from '../Field';
+import { $MergeParams } from '../utils';
 
-import Checkbox from '../../checkbox';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormCheckboxFieldProps<Value> = IFormComponentProps<
+  boolean,
+  Omit<ICheckboxProps<Value>, 'checked'>
+>;
 
-export interface IFormCheckboxWrapProps {
-  value: boolean;
+function renderCheckbox<Value>(
+  childProps: IFormFieldChildProps<boolean>,
+  props: IFormCheckboxFieldProps<Value>
+) {
+  const { value, ...passedProps } = childProps;
+  const onChange = React.useCallback(
+    (e: ICheckboxEvent<Value>) => {
+      childProps.onChange(e.target.checked);
+    },
+    [childProps.onChange]
+  );
+  return (
+    <Checkbox
+      {...props.props}
+      {...passedProps}
+      checked={value}
+      onChange={onChange}
+    />
+  );
 }
 
-class CheckboxWrap extends Component<IFormCheckboxWrapProps> {
-  render() {
-    const passableProps = omit(this.props, unknownProps);
-    return (
-      <Checkbox
-        className="zent-form__checkbox"
-        checked={this.props.value === true}
-        {...passableProps}
-      />
-    );
-  }
+export function FormCheckboxField<Value>(
+  props: IFormCheckboxFieldProps<Value>
+) {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormCheckboxFieldProps<Value>>).defaultValue ||
+        false
+      }
+    >
+      {childProps => renderCheckbox(childProps, props)}
+    </FormField>
+  );
 }
-
-const CheckboxField = getControlGroup(CheckboxWrap);
-
-export default CheckboxField;
