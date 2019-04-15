@@ -129,10 +129,10 @@ function extractStateFromProps(props: IWeekPickerProps) {
 }
 
 export interface IWeekPickerProps
-  extends Omit<DatePickers.ICommonProps<[Date?, Date?]>, 'onClick'> {
+  extends Omit<DatePickers.ICommonProps<DatePickers.RangeValue>, 'onClick'> {
   startDay?: number;
   onBeforeClear?: () => boolean;
-  onClick?: (val: [Date?, Date?], type?: DatePickers.RangeType) => void;
+  onClick?: (val: DatePickers.RangeValue, type?: DatePickers.RangeType) => void;
   isFooterVisible?: boolean;
   showTime?: boolean;
 }

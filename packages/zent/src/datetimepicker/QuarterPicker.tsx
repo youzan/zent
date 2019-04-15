@@ -21,20 +21,23 @@ const quarterMonthMap = {
   3: 9,
 };
 
-function getQuarterLastDay(quarter, year) {
-  const quarterLastDayMap = {
-    0: [3, 0],
-    1: [6, 0],
-    2: [9, 0],
-    3: [12, 0],
-  };
+const QUARTER_LAST_YEAR_MAP = {
+  0: [3, 0],
+  1: [6, 0],
+  2: [9, 0],
+  3: [12, 0],
+};
 
-  return new (Date as any)(year, ...quarterLastDayMap[quarter]);
+function getQuarterLastDay(
+  quarter: keyof typeof QUARTER_LAST_YEAR_MAP,
+  year: number
+) {
+  return new (Date as any)(year, ...QUARTER_LAST_YEAR_MAP[quarter]);
 }
 
 export interface IQuarterPickerProps
   extends Omit<
-    DatePickers.ICommonProps<[DatePickers.Value, DatePickers.Value] | []>,
+    DatePickers.ICommonProps<DatePickers.RangeValue>,
     'disabledDate'
   > {
   disabledDate?: (

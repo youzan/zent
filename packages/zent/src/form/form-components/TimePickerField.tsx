@@ -1,22 +1,28 @@
-import { Component } from 'react';
 import * as React from 'react';
-import omit from 'lodash-es/omit';
+import { Omit } from 'utility-types';
+import { DatePickers } from '../../datetimepicker/common/types';
+import { dateDefaultValueFactory, IFormComponentProps } from '../shared';
+import TimePicker, { ITimePickerProps } from '../../datetimepicker/TimePicker';
+import { FormField } from '../Field';
+import { $MergeParams } from '../utils';
 
-import TimePicker from '../../datetimepicker/TimePicker';
-import getControlGroup from '../getControlGroup';
-import unknownProps from '../unknownProps';
+export type IFormTimePickerField = IFormComponentProps<
+  DatePickers.Value,
+  Omit<ITimePickerProps, 'value'>
+>;
 
-export interface IFormTimePickerWrapProps {
-  timeFormat: string;
-}
-
-class TimePickerWrap extends Component<IFormTimePickerWrapProps> {
-  render() {
-    const { timeFormat } = this.props;
-    const passableProps = omit(this.props, unknownProps, ['timeFormat']);
-    return <TimePicker {...passableProps} format={timeFormat} />;
-  }
-}
-const TimePickerField = getControlGroup(TimePickerWrap);
-
-export default TimePickerField;
+export const FormTimePickerField: React.FunctionComponent<
+  IFormTimePickerField
+> = props => {
+  return (
+    <FormField
+      {...props}
+      defaultValue={
+        (props as $MergeParams<IFormTimePickerField>).defaultValue ||
+        dateDefaultValueFactory
+      }
+    >
+      {childProps => <TimePicker {...props.props} {...childProps} />}
+    </FormField>
+  );
+};

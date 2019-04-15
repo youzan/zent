@@ -15,8 +15,6 @@
   "exclude": [
     "lib",
     "es",
-    "../packages/zent/typings",
-    "../node_modules/zent/typings/libs/Input.d.ts"
   ],
   "include": [
     "src",
