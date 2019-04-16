@@ -126,4 +126,16 @@ describe('Steps', () => {
     );
     expect(wrapper.find('.zent-steps__vertical').length).toBe(1);
   });
+
+  it('tabs steps', () => {
+    const wrapper = mount(
+      <Steps type="tabs" current={1}>
+        <Step title="第一步" />
+        <Step title="第二步" />
+        <Step title="第三步" />
+      </Steps>
+    );
+    expect(wrapper.find('.zent-steps-tabs').length).toBe(1);
+    expect(wrapper.find('.zent-steps-item.is-current').length).toBe(1);
+  });
 });

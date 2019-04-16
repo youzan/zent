@@ -1,4 +1,4 @@
-import { transform } from 'babel-core';
+import { transform } from '@babel/core';
 
 import pluginZent from '../src';
 
@@ -7,10 +7,10 @@ function compile(code, options) {
     babelrc: false,
     presets: [
       [
-        'env',
+        '@babel/preset-env',
         {
           targets: {
-            node: 4,
+            node: 6,
           },
           modules: false,
         },
@@ -21,7 +21,7 @@ function compile(code, options) {
       [
         pluginZent,
         Object.assign(
-          { moduleMappingFile: '../../zent/lib/module-mapping.json' },
+          { moduleMappingFile: '../../zent/dependency-graph.json' },
           options
         ),
       ],
@@ -38,7 +38,7 @@ describe('babel-plugin-zent', () => {
 
   it('throws on namespace import', () => {
     expect(() => compile("import * as Zent from 'zent'")).toThrowError(
-      /Namespace import is not allowd in zent/
+      /Namespace import is not allowed in zent/
     );
   });
 
@@ -60,13 +60,13 @@ describe('babel-plugin-zent', () => {
 
   it('transforms component imports', () => {
     // eslint-disable-next-line
-    const rules = require('../../zent/lib/module-mapping.json');
+    const rules = require('../../zent/dependency-graph.json');
 
     Object.keys(rules).forEach(component => {
       const src = `import { ${component} } from 'zent'`;
       expect(
         compile(src).indexOf(
-          `import ${component} from '${rules[component].js}'`
+          `import ${component} from \"zent/lib${rules[component].js}\"`
         )
       ).not.toBe(-1);
     });
@@ -75,45 +75,55 @@ describe('babel-plugin-zent', () => {
     expect(
       compile("import { Button as Foobar } from 'zent'; console.log(Foobar)")
     ).toMatch('console.log(Foobar)');
+
+    // No module named NotExist
+    expect(() => compile("import { NotExist } from 'zent';")).toThrow();
+
+    expect(() =>
+      compile("import { Affix } from 'zent';", {
+        moduleMappingFile: './fakeModuleMapping.json',
+        automaticStyleImport: true,
+      })
+    ).toThrow();
   });
 
   it('can add css imports', () => {
     expect(
       compile("import { Button } from 'zent'", { automaticStyleImport: true })
-    ).toMatch("import 'zent/css/button.css'");
+    ).toMatch('import "zent/css/button.css"');
 
     expect(
       compile("import { Portal } from 'zent'", { automaticStyleImport: true })
-    ).toMatch("import 'zent/css/base.css'");
+    ).toMatch('import "zent/css/base.css"');
 
     const transformedCode = compile("import { Pop, Button } from 'zent'", {
       automaticStyleImport: true,
     });
-    expect(transformedCode).toMatch("import 'zent/css/button.css'");
-    expect(transformedCode).toMatch("import 'zent/css/pop.css'");
+    expect(transformedCode).toMatch('import "zent/css/button.css"');
+    expect(transformedCode).toMatch('import "zent/css/pop.css"');
   });
 
-  it('can add postcss imports', () => {
+  it('can add raw style imports', () => {
     expect(
       compile("import { Button } from 'zent'", {
         automaticStyleImport: true,
         useRawStyle: true,
       })
-    ).toMatch("import 'zent/assets/button.pcss'");
+    ).toMatch('import "zent/assets/button.scss"');
 
     expect(
       compile("import { Portal } from 'zent'", {
         automaticStyleImport: true,
         useRawStyle: true,
       })
-    ).toMatch("import 'zent/assets/base.pcss'");
+    ).toMatch('import "zent/assets/base.scss"');
 
     const transformedCode = compile("import { Pop, Button } from 'zent'", {
       automaticStyleImport: true,
       useRawStyle: true,
     });
-    expect(transformedCode).toMatch("import 'zent/assets/button.pcss'");
-    expect(transformedCode).toMatch("import 'zent/assets/pop.pcss'");
+    expect(transformedCode).toMatch('import "zent/assets/button.scss"');
+    expect(transformedCode).toMatch('import "zent/assets/pop.scss"');
   });
 
   it('can disable javascript module rewrite', () => {
@@ -129,8 +139,8 @@ describe('babel-plugin-zent', () => {
       automaticStyleImport: true,
     });
     expect(transformedCode).toMatch(code);
-    expect(transformedCode).toMatch("import 'zent/css/button.css'");
-    expect(transformedCode).toMatch("import 'zent/css/alert.css'");
+    expect(transformedCode).toMatch('import "zent/css/button.css"');
+    expect(transformedCode).toMatch('import "zent/css/alert.css"');
 
     transformedCode = compile(code, {
       noModuleRewrite: true,
@@ -138,7 +148,7 @@ describe('babel-plugin-zent', () => {
       useRawStyle: true,
     });
     expect(transformedCode).toMatch(code);
-    expect(transformedCode).toMatch("import 'zent/assets/button.pcss'");
-    expect(transformedCode).toMatch("import 'zent/assets/alert.pcss'");
+    expect(transformedCode).toMatch('import "zent/assets/button.scss"');
+    expect(transformedCode).toMatch('import "zent/assets/alert.scss"');
   });
 });

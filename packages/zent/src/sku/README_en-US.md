@@ -4,7 +4,9 @@ path: component/sku
 group: Domain-specific
 ---
 
-## SKU Selector
+## SKU Selector(DEPRECATED)
+
+Please use `@zent/sku`.
 
 A widget for SKU selection.
 

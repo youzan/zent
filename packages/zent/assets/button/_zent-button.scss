@@ -1,0 +1,63 @@
+@import '../theme/default';
+@import '../theme/font';
+@import './zent-button-variable';
+
+.zent-btn {
+  display: inline-block;
+  height: $btn-height-normal;
+  line-height: $btn-height-normal - 2px;
+  font-size: $font-size-normal;
+  padding: 0 16px;
+  border-radius: 2px;
+  font-family: inherit;
+  color: $theme-stroke-1;
+  background: $btn-white;
+  border: 1px solid $theme-stroke-5;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:link,
+  &:visited,
+  &:focus {
+    color: $theme-stroke-1;
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $btn-primary-hover;
+    border-color: $btn-primary-hover;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $theme-stroke-1;
+    background: $theme-stroke-10;
+    border-color: $theme-stroke-5;
+    text-decoration: none;
+  }
+
+  &.zent-btn-loading {
+    &:hover,
+    &:active {
+      background: $btn-white;
+      border: 1px solid $theme-stroke-5;
+    }
+  }
+
+  &[type='button'],
+  &[type='reset'],
+  &[type='submit'] {
+    appearance: none;
+  }
+}
+
+.zent-btn + .zent-btn {
+  margin-left: 10px;
+}

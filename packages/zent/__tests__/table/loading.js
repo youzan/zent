@@ -15,10 +15,11 @@ describe('Loading', () => {
   });
 
   it('table loading', () => {
-    expect(wrapper.find('.zent-page-loading').length).toBe(1);
+    expect(wrapper.find('BlockLoading').length).toBe(1);
+    expect(wrapper.find('BlockLoading').prop('loading')).toBe(true);
     jest.runAllTimers();
     wrapper.update();
-    expect(wrapper.find('.zent-page-loading').length).toBe(0);
+    expect(wrapper.find('BlockLoading').prop('loading')).toBe(false);
   });
 
   it('table onChange', () => {

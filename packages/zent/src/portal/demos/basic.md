@@ -18,59 +18,68 @@ en-US:
 ---
 
 ```jsx
-import { Portal, Button } from 'zent';
+import { Portal, Button, PurePortal } from 'zent';
 
-const PurePortal = Portal.PurePortal;
-const WrappedPortal = Portal.withNonScrollable(Portal.withESCToClose(Portal));
+// const WrappedPortal = Portal.withNonScrollable(Portal.withESCToClose(Portal));
 
 class PortalBasic extends Component {
-    state = {
-        bodyPortalVisible: false,
-        purePortalVisible: false,
-    }
-    togglePurePortal = () => this.setState({ purePortalVisible: !this.state.purePortalVisible})
-    showBodyPortal = () => this.setState({ bodyPortalVisible: true })
-    hideBodyPortal = () => this.setState({ bodyPortalVisible: false })
-    render () {
-        return (
-            <div className="zent-doc-portal-container">
-        		<div className="zent-doc-portal-mount-node">{i18n.originalContent}</div>
-        		<Portal selector=".zent-doc-portal-mount-node">
-        			<div className="zent-doc-portal-content">{i18n.portalContent}</div>
-        		</Portal>
-        		<div className="zent-doc-pure-portal-mount-node" key={this.state.purePortalVisible}>content to be overwritten</div>
-        		{ this.state.purePortalVisible ? 
-        		<PurePortal selector=".zent-doc-pure-portal-mount-node">
-                    <div className="zent-doc-portal-content">{i18n.purePortalContent}</div>
-                </PurePortal> : null }
-                <Button onClick={this.togglePurePortal}>Toggle PurePortal</Button>
-        		<Button onClick={this.showBodyPortal}>{i18n.bodyPortalButton}</Button>
-        		<WrappedPortal 
-        		    visible={this.state.bodyPortalVisible} 
-        		    onClickAway={this.hideBodyPortal} 
-        		    onClose={this.hideBodyPortal}
-        		    className="layer"
-        		    style={{ background: 'rgba(0, 0, 0, 0.2)' }}
-        		    useLayerForClickAway
-                >
-        		    <div className="zent-doc-portal-content" style={{
-        		        position: 'absolute',
-        		        left: '50%',
-        		        top: '50%',
-        		        transform: 'translate3d(-50%, -50%, 0)',
-        		        border: '1px solid #d3d3d3',
-        		        borderRadius: '3px',
-        		        padding: '50px',
-        		        background: 'white',
-                    }}>{i18n.bodyPortalContent}</div>
-        		</WrappedPortal>
-        	</div>
-        );
-    }
+	state = {
+		bodyPortalVisible: false,
+		purePortalVisible: false,
+	};
+	togglePurePortal = () =>
+		this.setState({ purePortalVisible: !this.state.purePortalVisible });
+	showBodyPortal = () => this.setState({ bodyPortalVisible: true });
+	hideBodyPortal = () => this.setState({ bodyPortalVisible: false });
+	render() {
+		return (
+			<div className="zent-doc-portal-container">
+				<div className="zent-doc-portal-mount-node">{i18n.originalContent}</div>
+				<Portal selector=".zent-doc-portal-mount-node">
+					<div className="zent-doc-portal-content">{i18n.portalContent}</div>
+				</Portal>
+				<div className="zent-doc-pure-portal-mount-node">
+					content to be overwritten
+				</div>
+				{this.state.purePortalVisible ? (
+					<PurePortal selector=".zent-doc-pure-portal-mount-node">
+						<div className="zent-doc-portal-content">
+							{i18n.purePortalContent}
+						</div>
+					</PurePortal>
+				) : null}
+				<Button onClick={this.togglePurePortal}>Toggle PurePortal</Button>
+				<Button onClick={this.showBodyPortal}>{i18n.bodyPortalButton}</Button>
+				<Portal
+					visible={this.state.bodyPortalVisible}
+					onClose={this.hideBodyPortal}
+					className="layer"
+					style={{ background: 'rgba(0, 0, 0, 0.2)' }}
+					useLayerForClickAway
+					closeOnClickOutside
+					closeOnESC
+					blockPageScroll
+				>
+					<div
+						className="zent-doc-portal-content"
+						style={{
+							position: 'absolute',
+							left: '50%',
+							top: '50%',
+							transform: 'translate3d(-50%, -50%, 0)',
+							border: '1px solid #d3d3d3',
+							borderRadius: '3px',
+							padding: '50px',
+							background: 'white',
+						}}
+					>
+						{i18n.bodyPortalContent}
+					</div>
+				</Portal>
+			</div>
+		);
+	}
 }
 
-ReactDOM.render(
-	<PortalBasic />,
-	mountNode,
-);
+ReactDOM.render(<PortalBasic />, mountNode);
 ```

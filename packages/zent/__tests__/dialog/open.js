@@ -1,6 +1,10 @@
 import Dialog from 'dialog';
 
-const { openDialog, closeDialog } = Dialog;
+const { closeDialog } = Dialog;
+
+function openDialog(...args) {
+  return Dialog.openDialog(...args);
+}
 
 describe('Dialog component', () => {
   let close;

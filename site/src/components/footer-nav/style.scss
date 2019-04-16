@@ -1,0 +1,48 @@
+@import '../../constants';
+
+.footer {
+  &-nav {
+    padding: 20px 40px 0;
+    overflow: hidden;
+    border-top: 1px solid #f4f4f4;
+    font-size: 14px;
+    position: absolute;
+    bottom: 20px;
+    box-sizing: border-box;
+    width: 100%;
+
+    &__link {
+      color: $link-color;
+      overflow: hidden;
+      position: relative;
+      line-height: 1.5;
+      cursor: pointer;
+
+      .zenticon {
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+    }
+
+    &__left {
+      float: left;
+
+      .zenticon {
+        float: left;
+        transform: rotate(180deg);
+        margin-right: 10px;
+      }
+    }
+
+    &__right {
+      float: right;
+
+      .zenticon {
+        float: right;
+        margin-left: 10px;
+      }
+    }
+  }
+}

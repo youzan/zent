@@ -20,7 +20,6 @@ en-US:
 ---
 
 ```jsx
-
 import { Grid } from 'zent';
 
 const columns = [
@@ -31,18 +30,20 @@ const columns = [
 		nowrap: true,
 		onCellClick: data => {
 			console.log(data, 'data');
-		}
-	}, {
+		},
+	},
+	{
 		title: '{i18n.uv}',
-		name: 'uv'
-	}, {
+		name: 'uv',
+	},
+	{
 		title: '{i18n.uv}',
-		name: 'stock'
-	}
+		name: 'stock',
+	},
 ];
 
-const pageSize = 5;
-const totalItem = 10;
+// const pageSize = 5;
+// const totalItem = 10;
 
 const datasets = [];
 const datasets2 = [];
@@ -52,31 +53,33 @@ for (let i = 0; i < 5; i++) {
 		id: `f-${i}`,
 		name: `{i18n.babyProducts} ${i}`,
 		uv: 20,
-		stock: 5
-	})
+		stock: 5,
+	});
 	datasets2.push({
 		id: `s-${i}`,
 		name: `{i18n.petProducts} ${i}`,
 		uv: 20,
-		stock: 5
-	})
+		stock: 5,
+	});
 }
 
 class PageInfo extends React.Component {
 	state = {
 		current: 1,
-		datasets
-	}
+		pageSize: 5,
+		total: 10,
+		datasets,
+	};
 
 	onChange = ({ current, pageSize }) => {
 		this.setState({
 			current,
 			pageSize,
-		})
-	}
+		});
+	};
 
 	render() {
-		const { current } = this.state;
+		const { current, pageSize, total } = this.state;
 		return (
 			<Grid
 				columns={columns}
@@ -84,19 +87,15 @@ class PageInfo extends React.Component {
 				pageInfo={{
 					current: current,
 					pageSize: pageSize,
-					totalItem: totalItem,
-					pageSize: [ {value: 5, isCurrent: true}, 10 ]
+					total: total,
+					pageSizeOptions: [5, 10],
 				}}
 				onChange={this.onChange}
 				ellipsis
 			/>
 		);
 	}
-};
+}
 
-ReactDOM.render(
-		<PageInfo />
-	, mountNode
-);
-
+ReactDOM.render(<PageInfo />, mountNode);
 ```

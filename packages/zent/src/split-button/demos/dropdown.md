@@ -2,8 +2,12 @@
 order: 2
 zh-CN:
 	title: dropdown设置
+	button: 按钮
+	disabled: 禁用
 en-US:
 	title: dropdown setting
+	button: Button
+	disabled: Disabled
 ---
 
 ```js
@@ -45,7 +49,7 @@ class Simple extends React.Component {
 					onClick={this.handleClick}
 					onSelect={this.handleSelect}
 				>
-					primary
+					{i18n.button}
 				</SplitButton>
 				<SplitButton
 					type="danger"
@@ -57,7 +61,7 @@ class Simple extends React.Component {
 					onClick={this.handleClick}
 					onSelect={this.handleSelect}
 				>
-					danger
+					{i18n.disabled}
 				</SplitButton>
 			</div>
 		);

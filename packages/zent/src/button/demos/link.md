@@ -16,8 +16,22 @@ import { Button, Alert } from 'zent';
 ReactDOM.render(
 	<div>
 		<Button href="https://youzan.com">{i18n.index}</Button>
-		<Button href="https://youzan.com" target="_blank">{i18n.newWindow}</Button>
-	</div>
-	, mountNode
+		<Button href="https://youzan.com" target="_blank">
+			{i18n.newWindow}
+		</Button>
+		<a className="zent-link" href="https://youzan.com">
+			{i18n.index}
+		</a>
+		<a className="zent-link zent-link__disabled" href="https://youzan.com">
+			{i18n.index}
+		</a>
+	</div>,
+	mountNode
 );
 ```
+
+<style>
+  .zent-link {
+    margin-left: 10px;
+  }
+</style>

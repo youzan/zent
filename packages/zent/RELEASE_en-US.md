@@ -7,7 +7,49 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.6.2 (2019-02-26)
+
+- `Form` 
+  - 🦀️ Fix field error even if async validation is passed
+  - 🦀️ Update `createForm` TypeScript definition
+- 🦀️ Handle DOM not exist exception for `Affix` and `Avatar`
+
+### 6.6.1 (2019-01-30)
+
+- 🦀️ Fix bug in `Grid` header scroll
+
+### 6.6.0 (2019-01-29)
+
+- ✨ `Grid` supports head groups
+- 🦀️ Fix `undefined` error in `Table`, `Grid` and `WindowResizeHandler`
+
+### 6.5.3 (2019-01-13)
+
+- ✨ `Pop` `position` now supports function value, same as `Popover.Position.create`
+- `Form`
+  - 📚 Add docs about custom validation function
+  - 🦀️ Fix form scroll when using `Fragment`
+- 🦀️ Fix `ClampLines` not updating when changing `text`
+- 🦀️ Fix use after unmount bug in some components, e.g. `Table`, `Select`, `Grid` and `ClampLines`
+
+### 6.5.2 (2018-12-12)
+
+- ⚠️ Reverts an regression introduced in `6.4.0`. When using `FormSelectField` in `tags` mode, the value in `onChange` callback is broken. `Select` itself is not affected.
+
+### 6.5.1 (2018-12-07)
+
+⚠️ `6.5.2` reverted a regression for `FormSelectField` in `tags` mode.
+
+- ✨ Add a new icon
+- `Table`
+  - ✨ Support indeterminate state for row selection checkbox
+  - 🦀️ Fix right align not working
+- 🦀️ Fix `Form` component validation in propTypes definition
+- 🦀️ Fix some TypeScript definition bugs
+
 ### 6.5.0 (2018-10-29)
+
+⚠️ `6.5.2` reverted a regression for `FormSelectField` in `tags` mode.
 
 ⚠️ `Form`'s change may reveal bugs in working code, you can handle these unhandled exceptions in `onSubmitFail`.
 
@@ -19,11 +61,15 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 
 ### 6.4.1 (2018-10-16)
 
+⚠️ `6.5.2` reverted a regression for `FormSelectField` in `tags` mode.
+
 - ✨ `Tabs` can have custom content through `navExtraContent`
 
 ### 6.4.0 (2018-09-26)
 
-- ✨ Support `tags` mode in `FormSelectField`
+⚠️ `6.5.2` reverted a regression for `FormSelectField` in `tags` mode.
+
+- ✨ Support `tags` mode in `FormSelectField` (*reverted*)
 - 🦀️ Fix `Select` placeholder color
 - 🦀️ Fix `Upload` broken style when uploading multiple audio files
 

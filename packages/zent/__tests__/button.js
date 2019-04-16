@@ -112,7 +112,7 @@ describe('<Button />', () => {
     mount(<Button target="_blank" />);
 
     expect(buttonNode.tagName.toLowerCase()).toBe('a');
-    expect(buttonNode.href).toBe('');
+    expect(buttonNode.href).toBe(window.location.href);
     expect(buttonNode.target).toBe('_blank');
   });
 
@@ -235,7 +235,7 @@ describe('<Button />', () => {
     }
     mount(<Button to="/path" component={Link} />);
 
-    expect(buttonNode.href).toBe('/#/path');
+    expect(buttonNode.href).toBe(`${window.location.origin}/#/path`);
     expect(buttonNode.classList.contains('zent-btn')).toBe(true);
     expect(buttonNode.tagName.toLowerCase()).toBe('a');
   });
@@ -255,7 +255,8 @@ describe('<Button />', () => {
   test('placing an Icon component within the Button', () => {
     const wrapper = shallow(
       <Button>
-        <Icon type="check" />Check
+        <Icon type="check" />
+        Check
       </Button>
     );
 
@@ -265,7 +266,7 @@ describe('<Button />', () => {
 
   // 按钮文字为两个中文文字的时候，中间空出一个空格空间
   test('two chinese char button', () => {
-    const wrapper = shallow(<Button>中文</Button>);
+    const wrapper = shallow(<Button insertSpace>中文</Button>);
     expect(wrapper.contains(<span>中 文</span>)).toBe(true);
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "zent",
-  "version": "6.5.0",
+  "version": "7.0.0-next.10",
   "description": "一套前端设计语言和基于React的实现",
   "bugs": "https://github.com/youzan/zent/issues",
   "repository": {
@@ -11,12 +11,12 @@
   "module": "./es/index.js",
   "sideEffects": [
     "./css/**/*.css",
-    "./assets/**/*.pcss"
+    "./assets/**/*.scss"
   ],
   "scripts": {
     "test": "./scripts/test.sh",
     "build": "./scripts/build.sh",
-    "theme": "rm -rf css && node ./scripts/build-theme.js",
+    "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js"
   },
   "typings": "typings/index.d.ts",
@@ -28,25 +28,59 @@
     "lib/",
     "es/",
     "css/",
-    "typings/"
+    "dependency-graph.json"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.1.5",
+    "@types/autosize": "^3.0.6",
+    "@types/big.js": "^4.0.5",
+    "@types/classnames": "^2.2.7",
+    "@types/enquire.js": "^2.1.1",
+    "@types/lodash-es": "^4.17.1",
+    "@types/memoize-one": "^4.1.0",
+    "@types/raf": "^3.4.0",
+    "@types/react": "^16.8.7",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-is": "^16.7.1",
+    "@types/react-transition-group": "^2.0.16",
+    "@types/sortablejs": "^1.7.2",
+    "@types/tinycolor2": "^1.4.1",
     "autosize": "^4.0.0",
-    "babel-runtime": "^6.23.0",
-    "classnames": "^2.2.5",
+    "big.js": "^5.2.2",
+    "classnames": "^2.2.6",
     "date-fns": "^1.29.0",
-    "es6-error": "4.0.x",
-    "fecha": "2.3.x",
+    "enquire.js": "^2.1.6",
+    "fecha": "^3.0.2",
     "keycode": "^2.1.9",
-    "lodash": "^4.17.5",
+    "lodash-es": "^4.17.11",
+    "memoize-one": "^5.0.0",
     "prop-types": "^15.6.1",
     "raf": "^3.3.2",
-    "react-beautiful-dnd": "6.0.1",
-    "react-transition-group": "^2.2.1",
+    "react-is": "^16.8.1",
+    "react-transition-group": "^2.6.0",
     "sortablejs": "^1.7.0",
     "tinycolor2": "^1.4.1",
-    "uuid": "^3.1.0",
-    "zan-utils": "^1.2.8",
-    "zenticons": "1.4.0"
+    "tslib": "^1.9.3",
+    "utility-types": "^3.4.1",
+    "zenticons": "1.4.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.4.6",
+    "camelcase": "^5.2.0",
+    "chalk": "^2.4.2",
+    "clean-css-cli": "^4.2.1",
+    "cssnano": "^4.1.7",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "jest": "^24.5.0",
+    "node-sass": "^4.11.0",
+    "node-sass-magic-importer": "^5.3.0",
+    "postcss-cli": "^6.1.1",
+    "react": "16.8.x",
+    "react-dom": "16.8.x",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.3333"
   }
 }

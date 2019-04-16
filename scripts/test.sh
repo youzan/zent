@@ -3,6 +3,6 @@
 set -e
 
 mkdir -p packages/zent/lib
-node packages/zent/scripts/generate-module-config.js
-pushd packages/zent && yarn test && popd
-pushd packages/babel-plugin-zent && yarn test && popd
+ts-node --project packages/zent/scripts/cruiser/tsconfig.json  packages/zent/scripts/cruiser/index.ts packages/zent/src/index.ts packages/zent/assets
+yarn workspace zent test
+yarn workspace babel-plugin-zent test
