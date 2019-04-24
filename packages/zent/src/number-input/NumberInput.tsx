@@ -333,6 +333,7 @@ export class NumberInput extends PureComponent<
 
     return (
       <Input
+        autoComplete="off"
         {...inputProps}
         prefix={prefix}
         readOnly={readOnly}
