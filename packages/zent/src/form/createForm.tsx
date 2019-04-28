@@ -54,8 +54,6 @@ export interface IFormCreateFormWrapperProps {
   onChange?: (values?: object, isChanged?: boolean) => void;
   validationErrors?: { [key: string]: string };
   scrollToError?: boolean;
-  handleSubmit?: (e: any) => any;
-  zentForm?: Record<string, any>;
 
   [key: string]: any;
 }

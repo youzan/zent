@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-timeline {
   padding: 10px 0;
@@ -42,7 +43,7 @@
 
     &-label {
       vertical-align: middle;
-      font-size: 12px;
+      font-size: $font-size-small;
       margin-left: 5px;
     }
   }
@@ -170,5 +171,5 @@
   color: white;
   border-radius: 5px;
   z-index: 5000;
-  font-size: 12px;
+  font-size: $font-size-small;
 }

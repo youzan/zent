@@ -1,4 +1,5 @@
 @import '../theme/default';
+@import '../theme/font';
 
 @mixin popup {
   box-shadow: $shadow-spec-layer;
@@ -11,5 +12,5 @@
   background-color: $theme-stroke-9;
   max-height: 224px;
   border-radius: 3px;
-  font-size: 12px;
+  font-size: $font-size-normal;
 }

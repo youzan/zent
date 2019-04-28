@@ -1,3 +1,5 @@
+@import './theme/font';
+
 .zent-search-input {
   position: relative;
 
@@ -8,7 +10,7 @@
     transform: translate(0, -50%);
 
     &-search {
-      font-size: 12px;
+      font-size: $font-size-normal;
       left: 10px;
     }
   }

@@ -1,4 +1,6 @@
 @import './theme/default';
+@import './theme/font';
+
 $cart-color: $theme-stroke-1;
 $wait-color: $theme-stroke-4;
 $error-color: $theme-error-2;
@@ -63,7 +65,7 @@ $icon-color: $theme-stroke-4;
     text-align: center;
 
     .zent-step-title {
-      font-size: 14px;
+      font-size: $font-size-normal;
       max-width: 160px;
       line-height: 14px;
       margin-top: 10px;
@@ -73,7 +75,7 @@ $icon-color: $theme-stroke-4;
 
     .zent-step-description {
       max-width: 160px;
-      font-size: 12px;
+      font-size: $font-size-small;
       line-height: 16px;
       margin-top: 8px;
       word-wrap: break-word;
@@ -98,7 +100,7 @@ $icon-color: $theme-stroke-4;
     text-align: center;
     background: $icon-color;
     color: $theme-stroke-9;
-    font-size: 14px;
+    font-size: $font-size-normal;
   }
 
   .zenticon {
@@ -315,7 +317,7 @@ $icon-color: $theme-stroke-4;
     .zent-steps-step {
       height: 50px;
       line-height: 50px;
-      font-size: 14px;
+      font-size: $font-size-normal;
       background: $bg-color;
       color: $cart-color;
       text-align: center;
@@ -380,7 +382,7 @@ $icon-color: $theme-stroke-4;
     .zent-steps-step {
       height: 48px;
       line-height: 48px;
-      font-size: 14px;
+      font-size: $font-size-normal;
       background: $bg-color;
       color: $cart-color;
       text-align: center;
@@ -487,7 +489,7 @@ $icon-color: $theme-stroke-4;
     .zent-steps-step {
       height: 46px;
       line-height: 46px;
-      font-size: 14px;
+      font-size: $font-size-normal;
       text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
