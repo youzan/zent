@@ -1,4 +1,6 @@
 @import './theme/default';
+@import './theme/font';
+
 $activecolor: $theme-stroke-1;
 $color: $theme-stroke-2;
 $tabbg: $theme-stroke-8;
@@ -7,7 +9,7 @@ $disablecolor: $theme-stroke-4;
 $slidercolor: $theme-primary-3;
 
 .zent-tabs {
-  font-size: 14px;
+  font-size: $font-size-normal;
   line-height: 1.42857143;
 
   &-nav {
@@ -91,14 +93,14 @@ $slidercolor: $theme-primary-3;
       min-width: 90px;
       position: relative;
       box-sizing: border-box;
-      font-size: 12px;
+      font-size: $font-size-normal;
 
       &-del {
         line-height: 1;
         position: absolute;
         top: 3px;
         right: 3px;
-        font-size: 12px;
+        font-size: $font-size-small;
         display: none;
       }
     }
@@ -156,7 +158,7 @@ $slidercolor: $theme-primary-3;
 
   .zent-tabs-tab-inner {
     padding: 14px 40px;
-    font-size: 14px;
+    font-size: $font-size-normal;
   }
 
   .zent-tabs-actived {
@@ -239,7 +241,7 @@ $slidercolor: $theme-primary-3;
   .zent-tabs-nav-ink-bar {
     position: absolute;
     display: block;
-    bottom: 0;
+    bottom: 2px;
     height: 2px;
     background-color: $slidercolor;
     width: 0;

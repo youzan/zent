@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 @mixin vertical-center {
   position: absolute;
@@ -19,7 +20,7 @@ $close-icon-size: 14px;
 .zent-alert {
   box-sizing: border-box;
   width: 100%;
-  font-size: 12px;
+  font-size: $font-size-normal;
   line-height: 12px;
   position: relative;
 

@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-slider {
   display: flex;
@@ -114,7 +115,7 @@
         padding: 4px 5px;
         background-color: $theme-stroke-1;
         border-radius: 2px;
-        font-size: 12px;
+        font-size: $font-size-normal;
         color: $theme-stroke-9;
         line-height: 11px;
         position: relative;
@@ -163,7 +164,7 @@
   &-marks {
     position: absolute;
     width: 100%;
-    font-size: 12px;
+    font-size: $font-size-normal;
     margin-top: 4px;
     color: $theme-stroke-1;
 

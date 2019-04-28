@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 $c-border: $theme-stroke-4;
 $c-blue: $theme-primary-1;
@@ -45,7 +46,7 @@ $c-blue-hover: $theme-primary-6;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: 12px;
+      font-size: $font-size-normal;
 
       &-content {
         line-height: inherit;
@@ -61,7 +62,7 @@ $c-blue-hover: $theme-primary-6;
         right: 10px;
         top: 50%;
         transition: transform 0.25s;
-        font-size: 12px;
+        font-size: $font-size-normal;
         transform: scale(0.5);
       }
     }
@@ -79,7 +80,7 @@ $c-blue-hover: $theme-primary-6;
     overflow: auto;
 
     &-item {
-      font-size: 12px;
+      font-size: $font-size-normal;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.3s;
@@ -143,7 +144,7 @@ $c-blue-hover: $theme-primary-6;
     &-link {
       cursor: pointer;
       display: inline-block;
-      font-size: 12px;
+      font-size: $font-size-normal;
       padding: 0 5px;
       line-height: 18px;
       vertical-align: middle;

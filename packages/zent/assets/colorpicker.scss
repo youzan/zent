@@ -1,4 +1,6 @@
 @import './theme/default';
+@import './theme/font';
+
 $c-border: $theme-stroke-5;
 $c-blue: $theme-primary-2;
 $c-light-blue: $theme-primary-4;
@@ -10,7 +12,6 @@ $c-light-blue: $theme-primary-4;
 .zent-color-picker {
   cursor: pointer;
   display: inline-block;
-  font-size: 12px;
   margin-right: 10px;
   outline: none;
   position: relative;

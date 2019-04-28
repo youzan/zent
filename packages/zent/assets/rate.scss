@@ -1,10 +1,11 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-rate {
   color: $rate-star-color;
   display: inline-block;
   outline: none;
-  font-size: 16px;
+  font-size: $font-size-large;
 
   &-star {
     display: inline-block;

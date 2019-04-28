@@ -22,6 +22,7 @@ import Field from '../Field';
 
 export interface IFormComponentFieldCommonProps {
   name: string;
+  [key: string]: any;
 }
 
 export class FormCheckboxField extends Component<

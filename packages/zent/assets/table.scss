@@ -1,8 +1,7 @@
 @import './theme/default';
+@import './theme/font';
 
 $blue: $theme-primary-2;
-$darkblue: $theme-primary-1;
-$orange: $theme-error-3;
 
 .zent-table-container {
   margin-bottom: 20px;
@@ -50,7 +49,7 @@ $orange: $theme-error-3;
       background: $theme-stroke-7;
 
       .cell {
-        font-size: 14px;
+        font-size: $font-size-normal;
         font-weight: 500;
       }
     }
@@ -163,7 +162,7 @@ $orange: $theme-error-3;
 
     .cell {
       min-height: 56px;
-      font-size: 14px;
+      font-size: $font-size-normal;
     }
   }
 
@@ -209,7 +208,7 @@ $orange: $theme-error-3;
     min-height: 56px;
     align-items: center;
     text-align: left;
-    font-size: 12px;
+    font-size: $font-size-normal;
 
     &__child-container {
       overflow: hidden;
@@ -290,31 +289,6 @@ $orange: $theme-error-3;
       transform: translateY(-50%);
       margin-top: 0;
     }
-  }
-
-  .card__thumb {
-    float: left;
-    margin-right: 5px;
-    height: 50px;
-  }
-
-  .card__title {
-    display: block;
-    height: 32px;
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 12px;
-    color: $blue;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  .card__info {
-    font-size: 12px;
-    color: $orange;
   }
 
   .clearfix:after {

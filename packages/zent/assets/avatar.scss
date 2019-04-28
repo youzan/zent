@@ -1,4 +1,6 @@
 @import './theme/default';
+@import './theme/font';
+
 $avatar-size-small: 24px;
 $avatar-size-default: 32px;
 $avatar-size-large: 40px;
@@ -11,7 +13,7 @@ $avatar-size-large: 40px;
   cursor: default;
   overflow: hidden;
   position: relative;
-  font-size: 16px;
+  font-size: $font-size-large;
 
   &--size-default {
     width: $avatar-size-default;
@@ -49,7 +51,7 @@ $avatar-size-large: 40px;
     }
 
     &.zent-avatar--size-small {
-      font-size: 14px;
+      font-size: $font-size-normal;
     }
 
     &.zent-avatar--size-large {
@@ -62,7 +64,7 @@ $avatar-size-large: 40px;
     font-size: 18px;
 
     &.zent-avatar--size-small {
-      font-size: 14px;
+      font-size: $font-size-normal;
     }
 
     &.zent-avatar--size-large {
