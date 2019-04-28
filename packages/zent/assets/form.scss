@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-form {
   margin-bottom: 30px;
@@ -22,7 +23,7 @@
   margin-bottom: 20px;
   width: 100%;
   border-bottom: 1px solid $theme-stroke-6;
-  font-size: 14px;
+  font-size: $font-size-normal;
   font-weight: bold;
 }
 
@@ -39,7 +40,7 @@
 
 .zent-form__static-value {
   padding-top: 5px;
-  font-size: 14px;
+  font-size: $font-size-normal;
   line-height: 18px;
   padding-bottom: 5px;
   word-break: break-all;
@@ -48,13 +49,13 @@
 .zent-form__control-action {
   padding-top: 5px;
   display: inline-block;
-  font-size: 14px;
+  font-size: $font-size-normal;
   line-height: 18px;
 }
 
 .zent-form__required {
   margin-right: 6px;
-  font-size: 16px;
+  font-size: $font-size-large;
   color: $theme-error-1;
   vertical-align: middle;
 }
@@ -64,13 +65,13 @@
 .zent-form__help-desc,
 .zent-form__notice-desc {
   line-height: 14px;
-  font-size: 12px;
+  font-size: $font-size-small;
   margin-top: 10px;
   margin-bottom: 0;
   color: $theme-stroke-3;
 
   ul li {
-    font-size: 12px;
+    font-size: $font-size-small;
     line-height: 12px;
   }
 
@@ -94,7 +95,7 @@
   .zent-form__control-label {
     display: inline-block;
     width: 120px;
-    font-size: 12px;
+    font-size: $font-size-normal;
     line-height: 30px;
     text-align: right;
     vertical-align: top;
@@ -139,7 +140,7 @@
 
     .zent-form__control-label {
       display: inline-block;
-      font-size: 12px;
+      font-size: $font-size-normal;
       vertical-align: top;
 
       & + .zent-form__controls {
@@ -153,7 +154,7 @@
 .zent-form--vertical {
   .zent-form__control-label {
     display: block;
-    font-size: 12px;
+    font-size: $font-size-normal;
     margin-bottom: 10px;
   }
 }

@@ -19,7 +19,7 @@ export interface IFieldProps {
   ref?: (ref: any) => void;
   name: string;
   component: React.ElementType;
-  value: any;
+  value?: any;
   normalize?: (
     value: any,
     previousValue: any,
@@ -54,6 +54,9 @@ export interface IFieldProps {
   displayError?: boolean;
   clearErrorOnFocus?: boolean;
   relatedFields?: string[];
+
+  // Pass any other props to component
+  [key: string]: any;
 }
 
 export interface IFieldState {

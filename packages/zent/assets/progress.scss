@@ -108,7 +108,7 @@ $mask-opacity: 0.2;
 
     .zent-progress-info {
       display: inline-block;
-      font-size: 12px;
+      font-size: $font-size-small;
       color: $color-info;
       position: absolute;
       top: 0;

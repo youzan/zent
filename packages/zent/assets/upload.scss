@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 @mixin ellipsis {
   text-overflow: ellipsis;
@@ -61,7 +62,7 @@
 
   .zent-upload-title {
     float: left;
-    font-size: 14px;
+    font-size: $font-size-normal;
     font-weight: bold;
     text-align: right;
     width: 100px;
@@ -124,7 +125,7 @@
   .zent-upload-local-tips {
     clear: both;
     padding-top: 20px;
-    font-size: 12px;
+    font-size: $font-size-small;
   }
 
   .zent-upload__upload-local-image-list {
@@ -161,7 +162,7 @@
         color: $theme-stroke-9;
         text-align: center;
         line-height: 80px;
-        font-size: 14px;
+        font-size: $font-size-normal;
       }
     }
   }
@@ -246,7 +247,7 @@
         color: $theme-stroke-9;
         text-align: center;
         line-height: 60px;
-        font-size: 14px;
+        font-size: $font-size-normal;
       }
 
       &__size {
@@ -271,7 +272,7 @@
   right: -8px;
   width: 18px;
   height: 18px;
-  font-size: 14px;
+  font-size: $font-size-normal;
   line-height: 16px;
   border-radius: 9px;
 
@@ -344,7 +345,7 @@
 
 .zent-upload-tips {
   line-height: 14px;
-  font-size: 12px;
+  font-size: $font-size-small;
   margin-top: 6px;
   margin-bottom: 0;
   color: $theme-stroke-2;

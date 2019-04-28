@@ -1,9 +1,10 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-error-boundary-fallback-component {
   &__error {
     color: $theme-error-2;
-    font-size: 14px;
+    font-size: $font-size-normal;
 
     .zenticon-error-circle {
       margin-right: 5px;

@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 @import './mixins/index';
 
 .zent-select {
@@ -34,7 +35,8 @@
   .zent-select-popup,
   .zent-select-input,
   .zent-select-tags {
-    font-size: 12px;
+    font-size: $font-size-normal;
+    line-height: 18px;
   }
 
   &__popover {
@@ -115,14 +117,12 @@
   white-space: nowrap;
   overflow: hidden;
   padding: 6px 25px;
-  padding-left: 16px;
+  padding-left: 12px;
 }
 
 .zent-select-tags {
-  padding: 3px 5px;
-  padding-right: 25px;
+  padding: 4px 25px 4px 12px;
   max-height: none;
-  line-height: 24px;
 
   // sass-lint:disable no-vendor-prefixes
   &::-webkit-scrollbar {
@@ -132,7 +132,7 @@
 
   &.tags__empty {
     padding: 6px 25px;
-    padding-left: 16px;
+    padding-left: 12px;
     line-height: 18px;
   }
 
@@ -151,6 +151,7 @@
     padding: 0 4px;
     padding-right: 18px;
     line-height: 16px;
+    font-size: $font-size-small;
     position: relative;
   }
 

@@ -14,6 +14,7 @@ export interface IFormControlGroupProps {
   isDirty: boolean;
   error: string;
   isActive: boolean;
+  [key: string]: any;
 }
 
 export default (Control: React.ElementType) => {

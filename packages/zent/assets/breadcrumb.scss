@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-breadcrumb {
   color: $theme-stroke-3;
@@ -8,7 +9,7 @@
 
   span,
   a {
-    font-size: 14px;
+    font-size: $font-size-normal;
     line-height: 1em;
     display: inline-block;
     vertical-align: middle;
@@ -53,7 +54,7 @@
       min-width: 0;
       border: 0;
       background: transparent;
-      font-size: 14px;
+      font-size: $font-size-normal;
       color: $theme-stroke-3;
       text-align: center;
       box-sizing: border-box;

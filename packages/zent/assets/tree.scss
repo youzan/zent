@@ -1,8 +1,9 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-tree {
   color: $theme-stroke-1;
-  font-size: 14px;
+  font-size: $font-size-normal;
 
   ul,
   li {
@@ -54,7 +55,7 @@
 }
 
 .zent-tree.zent-tree-large {
-  font-size: 16px;
+  font-size: $font-size-large;
 
   .zent-tree-bar {
     .switcher {
@@ -69,7 +70,7 @@
 }
 
 .zent-tree.zent-tree-small {
-  font-size: 12px;
+  font-size: $font-size-small;
 
   .zent-tree-bar {
     .switcher {

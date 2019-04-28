@@ -19,7 +19,6 @@
     "theme": "./scripts/build-theme.sh",
     "new-component": "node ./scripts/new-component.js"
   },
-  "typings": "typings/index.d.ts",
   "author": "Youzan FE",
   "license": "MIT",
   "files": [

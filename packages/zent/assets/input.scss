@@ -1,5 +1,6 @@
 @import './theme/default';
 @import './theme/font';
+
 $defaultBorderColor: $theme-stroke-5;
 $errorBorderColor: $theme-error-4;
 $borderRadius: 2px;
@@ -68,7 +69,7 @@ $large-size: 40px;
     color: $theme-stroke-5;
 
     &-close-circle {
-      font-size: 12px;
+      font-size: $font-size-small;
       right: 10px;
       cursor: pointer;
       padding: 4px 0;
