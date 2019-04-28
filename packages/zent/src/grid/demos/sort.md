@@ -24,8 +24,8 @@ for (let i = 0; i < 3; i++) {
 	datasets.push({
 		id: i,
 		name: `{i18n.product} ${i}`,
-		uv: 20,
-		stock: 5
+		uv: i * 10,
+		stock: i * 5
 	})
 }
 
@@ -49,6 +49,7 @@ class Sort extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+			datasets: datasets,
       sortBy: 'name',
       sortType: ''
     };
@@ -56,14 +57,22 @@ class Sort extends React.Component {
 
   onChange = (conf) => {
   	console.log(conf, 'conf')
-    this.setState(assign({}, this.state, conf));
+		const { sortType, sortBy } = conf;
+		const { datasets } = this.state;
+		let sortDatasets = datasets;
+		if (sortType === 'asc') {
+			sortDatasets = datasets.sort((a, b) => a[sortBy] - b[sortBy]);
+		} else if (sortType === 'desc') {
+			sortDatasets = datasets.sort((a, b) => b[sortBy] - a[sortBy]);
+		}
+    this.setState(assign({}, this.state, conf, { datasets: sortDatasets }));
   }
 
   render() {
     return (
       <Grid
         columns={columns}
-        datasets={datasets}
+        datasets={this.state.datasets}
         onChange={this.onChange}
         sortBy={this.state.sortBy}
         sortType={this.state.sortType}
