@@ -54,6 +54,9 @@ export interface IFieldProps {
   displayError?: boolean;
   clearErrorOnFocus?: boolean;
   relatedFields?: string[];
+
+  // Pass any other props to component
+  [key: string]: any;
 }
 
 export interface IFieldState {

@@ -54,9 +54,13 @@ export interface IFormCreateFormWrapperProps {
   onChange?: (values?: object, isChanged?: boolean) => void;
   validationErrors?: { [key: string]: string };
   scrollToError?: boolean;
+  handleSubmit: (e: any) => any;
+  zentForm: Record<string, any>;
+
+  [key: string]: any;
 }
 
-export interface IFormCreateFormWrapperProps {
+export interface IFormCreateFormWrapperState {
   isFormValid: boolean;
   isSubmitting: boolean;
   submitFail: boolean;
@@ -78,7 +82,7 @@ const createForm = (
   return WrappedForm => {
     return class Form extends Component<
       IFormCreateFormWrapperProps,
-      IFormCreateFormWrapperProps
+      IFormCreateFormWrapperState
     > {
       fields: any[];
       fieldArrays: any[];
