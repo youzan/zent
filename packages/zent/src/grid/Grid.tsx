@@ -148,7 +148,7 @@ export class Grid extends PureComponent<IGridProps, any> {
       columns: this.getColumns(props, props.columns, expandRowKeys),
       selectedRowKeys: get(props, 'selection.selectedRowKeys'),
     });
-    this.setScrollPosition('left');
+    this.setScrollPosition('both');
 
     this.state = {
       mouseOverRowIndex: -1,
@@ -753,7 +753,7 @@ export class Grid extends PureComponent<IGridProps, any> {
 
   componentDidMount() {
     this.mounted = true;
-
+    this.setScrollPositionClassName();
     if (this.isAnyColumnsFixed()) {
       this.syncFixedTableRowHeight();
     }

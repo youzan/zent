@@ -1,4 +1,5 @@
 @import './theme/default';
+@import './theme/font';
 
 .zent-slider {
   display: flex;
@@ -107,16 +108,16 @@
 
     .toolTips-content {
       position: absolute;
-      top: -33px;
+      top: -48px;
       transform: translateX(-50%);
 
       .toolTips-inner {
-        padding: 4px 5px;
+        @include font-normal;
+        padding: 8px 10px;
         background-color: $theme-stroke-1;
         border-radius: 2px;
-        font-size: 12px;
         color: $theme-stroke-9;
-        line-height: 11px;
+        line-height: 14px;
         position: relative;
         z-index: 2;
         white-space: nowrap;
@@ -128,9 +129,9 @@
         left: 50%;
         position: absolute;
         z-index: 1;
-        top: 13px;
-        width: 6px;
-        height: 6px;
+        top: 20px;
+        width: 10px;
+        height: 10px;
         overflow: hidden;
       }
     }
@@ -161,9 +162,9 @@
   }
 
   &-marks {
+    @include font-normal;
     position: absolute;
     width: 100%;
-    font-size: 12px;
     margin-top: 4px;
     color: $theme-stroke-1;
 
