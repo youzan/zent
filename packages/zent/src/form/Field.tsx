@@ -19,7 +19,7 @@ export interface IFieldProps {
   ref?: (ref: any) => void;
   name: string;
   component: React.ElementType;
-  value: any;
+  value?: any;
   normalize?: (
     value: any,
     previousValue: any,
