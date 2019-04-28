@@ -45,6 +45,7 @@ export * from './pagination/MiniPagination';
 export * from './placeholder';
 export * from './pop';
 export * from './popover';
+export * from './popup';
 export * from './portal';
 export * from './preview-image';
 export * from './progress';
