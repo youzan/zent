@@ -4,6 +4,7 @@
 
 - `React` 必须升级到 16.8 以上
 - 删除了所有组件上的 `propTypes`
+- 由于 `React` 内部逻辑的变更，在 `Portal` 内部触发的事件会随着组件树往上冒泡，注意不是 DOM 树，而是组件树。请仔细阅读[官方文档](https://reactjs.org/docs/portals.html#event-bubbling-through-portals)。
 
 #### `babel-plugin-zent`
 
@@ -110,6 +111,23 @@ import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.11(2019-04-29)
+
+### 不兼容改动
+
+- `Portal` hooks 重构，API 有变化，具体看上面的 `Portal` 部分
+- `NumberInput` 默认关闭 `autoComplete`
+- 更新了组件的字体大小，现在是 14，之前改漏了
+
+### 其他
+
+- 更新打包时的警告信息
+- 更新了一些组件的类型定义
+- 清理 `SelectMenu` 的代码
+- `Grid` 文档里的排序功能增加了数据变化，更加直观
+- 修复了 `Grid` 没有滚动条时的多余阴影问题
+
+## 7.0.0-next.10(2019-03-29)
 ## 7.0.0-next.9(2019-03-29)
 
 - 新增 `TextMark` 组件，用于高亮文本中的一组关键字
