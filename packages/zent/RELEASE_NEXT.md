@@ -68,6 +68,20 @@
 
 导出的组件名字变了，老的写法
 
+```js
+import { Layout } from 'zent';
+
+const { Row, Col } = Layout
+```
+
+新的写法
+
+```js
+import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
+```
+
+另外，`LayoutRow` 和 `LayoutCol` 必须在 `LayoutGrid` 内部。
+
 #### `Portal`
 
 ```js
@@ -92,20 +106,6 @@ import { Portal, PurePortal } from 'zent'
 
 - 删除了 `LayeredPortal`，请用 `Portal` 替换。
 - 去除 `onMount` 和 `onUnmount`，使用方直接使用上层组件的 `componentDidMount` 和 `componentWillUnmount` 即可。
-
-```js
-import { Layout } from 'zent';
-
-const { Row, Col } = Layout
-```
-
-新的写法
-
-```js
-import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
-```
-
-另外，`LayoutRow` 和 `LayoutCol` 必须在 `LayoutGrid` 内部。
 
 #### 源样式
 
