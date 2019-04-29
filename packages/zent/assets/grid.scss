@@ -155,8 +155,8 @@ $border-color: $theme-stroke-6;
   }
 
   &-fixed-left {
+    @include shadow-spec-layer;
     left: 0;
-    box-shadow: $shadow-spec-layer;
 
     .zent-grid-header .zent-grid-table {
       border-right: 0;
@@ -175,8 +175,8 @@ $border-color: $theme-stroke-6;
   }
 
   &-fixed-right {
+    @include shadow-spec-layer;
     right: 0;
-    box-shadow: $shadow-spec-layer;
 
     .zent-grid-header .zent-grid-table {
       border-left: 0;

@@ -73,9 +73,9 @@
   }
 
   &:after {
+    @include shadow-spec-layer;
     z-index: 1;
     background: $theme-stroke-9;
-    box-shadow: $shadow-spec-layer;
   }
 
   &-svg {

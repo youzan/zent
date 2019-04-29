@@ -84,8 +84,8 @@
   }
 
   &.visible {
+    @include shadow-spec-focus;
     border-color: $theme-primary-2;
-    box-shadow: $shadow-spec-focus;
 
     &::after {
       transform: rotate(180deg) translateY(50%);

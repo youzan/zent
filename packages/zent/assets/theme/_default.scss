@@ -48,10 +48,17 @@ $theme-warn-1: #ed6a0c !default;
 $theme-warn-2: #f1924e !default;
 $theme-warn-3: #fff5ed !default;
 
-// Shadow
-$shadow-spec-focus: 0 0 4px 0 rgba($theme-primary-8, 0.2) !default;
-$shadow-spec-layer: 0 2px 8px 0 rgba($theme-stroke-4, 0.5) !default;
-$shadow-spec-modal: 0 2px 24px 0 rgba($theme-stroke-4, 0.5) !default;
+@mixin shadow-spec-focus($color: $theme-primary-8) {
+  box-shadow: 0 0 4px 0 rgba($color, 0.2);
+}
+
+@mixin shadow-spec-layer($color: $theme-stroke-4) {
+  box-shadow: 0 2px 8px 0 rgba($color, 0.5);
+}
+
+@mixin shadow-spec-modal($color: $theme-stroke-4) {
+  box-shadow: 0 2px 24px 0 rgba($color, 0.5);
+}
 
 // Rate color
 $rate-star-color: #fad20c !default;

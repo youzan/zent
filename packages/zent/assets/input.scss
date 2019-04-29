@@ -5,7 +5,6 @@ $defaultBorderColor: $theme-stroke-5;
 $errorBorderColor: $theme-error-4;
 $borderRadius: 2px;
 $border-default: 1px solid $defaultBorderColor;
-$focus-box-shadow: $shadow-spec-focus;
 $border-transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 $normal-size: 32px;
 $small-size: 24px;
@@ -48,8 +47,8 @@ $large-size: 40px;
   }
 
   &.zent-input--has-focus:not(.zent-input-wrapper__not-editable) {
+    @include shadow-spec-focus;
     border-color: $theme-primary-2;
-    box-shadow: $focus-box-shadow;
   }
 
   &__not-editable {

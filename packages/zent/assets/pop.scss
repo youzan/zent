@@ -9,9 +9,9 @@ $arrow-cover-size: 11px;
 
 .zent-pop {
   @include font-normal;
+  @include shadow-spec-layer;
 
   border-radius: 2px;
-  box-shadow: $shadow-spec-layer;
   background-color: $theme-stroke-9;
   z-index: 2000;
 
@@ -44,12 +44,12 @@ $arrow-cover-size: 11px;
   }
 
   .zent-pop-arrow {
+    @include shadow-spec-layer;
     position: absolute;
     z-index: 1;
     width: $arrow-size;
     height: $arrow-size;
     background: $theme-stroke-9;
-    box-shadow: $shadow-spec-layer;
     overflow: hidden;
   }
 

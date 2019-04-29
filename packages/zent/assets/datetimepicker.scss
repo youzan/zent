@@ -124,11 +124,11 @@ $input_width: 190px;
     .week-picker,
     .year-picker,
     .quarter-picker {
+      @include shadow-spec-layer;
       background: $theme-stroke-9;
       width: $default_width;
       font-size: $font-size-normal;
       border-radius: 2px;
-      box-shadow: $shadow-spec-layer;
       z-index: 10;
     }
 

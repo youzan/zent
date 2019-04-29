@@ -9,6 +9,7 @@ $menu-item-height: 32px;
 $menu-border-radius: 2px;
 
 .zent-menu {
+  @include shadow-spec-layer;
   font-size: $font-size-normal;
   color: $item-color;
   width: $menu-item-width;
@@ -16,7 +17,6 @@ $menu-border-radius: 2px;
   list-style: none;
   padding: 0;
   margin: 0;
-  box-shadow: $shadow-spec-layer;
   border-radius: $menu-border-radius;
 
   &-item {

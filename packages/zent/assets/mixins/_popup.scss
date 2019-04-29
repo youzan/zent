@@ -2,7 +2,7 @@
 @import '../theme/font';
 
 @mixin popup {
-  box-shadow: $shadow-spec-layer;
+  @include shadow-spec-layer;
   left: 0;
   outline: none;
   overflow-y: auto;
