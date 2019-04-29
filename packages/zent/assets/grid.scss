@@ -59,6 +59,12 @@ $border-color: $theme-stroke-6;
       box-shadow: inset 1px -1px 0 0 $theme-stroke-6;
     }
 
+    tr:first-of-type {
+      th:first-of-type {
+        box-shadow: none;
+      }
+    }
+
     .zent-grid-header th {
       border-bottom: 0;
     }
