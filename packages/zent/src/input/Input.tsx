@@ -1,70 +1,28 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import classNames from 'classnames';
-import isFunction from 'lodash-es/isFunction';
-import omit from 'lodash-es/omit';
+// import isFunction from 'lodash-es/isFunction';
+// import omit from 'lodash-es/omit';
 import isNumber from 'lodash-es/isNumber';
-import { Omit } from 'utility-types';
 import * as keycode from 'keycode';
-import Icon from '../icon';
 import getWidth from '../utils/getWidth';
-import Textarea from './Textarea';
+import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
+import { InputCore } from './InputCore';
+import { TextArea } from './TextArea';
 
-export type InputType = 'text' | 'number' | 'password' | 'textarea';
-
-export interface IInputChangeEvent {
-  target: IInputProps;
-  preventDefault(): void;
-  stopPropagation(): void;
-  fromClearButton: boolean;
+export interface IInputState {
+  hasFocus: boolean;
 }
 
-export interface IInputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'size' | 'onChange'
-  > {
-  className?: string;
-  prefix?: string;
-  width?: number | string;
-  type?: InputType;
-  size?: 'large' | 'normal' | 'small';
-  defaultValue?: string;
-  value?: string;
-  readOnly?: boolean;
-  disabled?: boolean;
-  placeholder?: string;
-  showClear?: boolean;
-  addonBefore?: React.ReactNode;
-  addonAfter?: React.ReactNode;
-  autoFocus?: boolean;
-  autoSelect?: boolean;
-  initSelectionStart?: number;
-  initSelectionEnd?: number;
-  onChange?: (
-    e: IInputChangeEvent | React.ChangeEvent<HTMLInputElement>
-  ) => void;
-  onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
+export class Input extends Component<IInputProps, IInputState> {
+  static displayName = 'ZentInput';
 
-  // textarea
-  maxLength?: number;
-  showCount?: boolean;
-  autoSize?: boolean;
-}
-
-export class Input extends PureComponent<IInputProps> {
   static defaultProps = {
-    disabled: false,
-    readOnly: false,
-    prefix: 'zent',
     type: 'text',
     size: 'normal',
-    autoFocus: false,
-    autoSelect: false,
-    showClear: false,
   };
 
-  input: HTMLInputElement | HTMLTextAreaElement;
+  elementRef = React.createRef<HTMLInputElement & HTMLTextAreaElement>();
 
   state = {
     hasFocus: false,
@@ -77,9 +35,9 @@ export class Input extends PureComponent<IInputProps> {
       initSelectionStart,
       initSelectionEnd,
     } = this.props;
-
+    const el = this.elementRef.current;
     if (autoFocus) {
-      this.input.focus();
+      el && el.focus();
     }
     if (autoSelect) {
       this.select(initSelectionStart, initSelectionEnd);
@@ -87,157 +45,107 @@ export class Input extends PureComponent<IInputProps> {
   }
 
   focus() {
-    this.input.focus();
+    const el = this.elementRef.current;
+    el && el.focus();
   }
 
-  select(selectioinStart, selectionEnd) {
-    if (isNumber(selectioinStart) && isNumber(selectionEnd)) {
-      this.input.setSelectionRange(selectioinStart, selectionEnd);
+  select(selectionStart?: number, selectionEnd?: number) {
+    const el = this.elementRef.current;
+    if (!el) {
+      return;
+    }
+    if (isNumber(selectionStart) && isNumber(selectionEnd)) {
+      el.setSelectionRange(selectionStart, selectionEnd);
     } else {
-      this.input.select();
+      el.select();
     }
   }
 
-  handleKeyDown = evt => {
+  onKeyDown = (
+    e:
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
     const { onKeyDown, onPressEnter } = this.props;
-    if (onPressEnter && keycode(evt) === 'enter') {
-      onPressEnter(evt);
+    if (onPressEnter && keycode(e.nativeEvent) === 'enter') {
+      onPressEnter(e as any);
     }
 
-    if (onKeyDown) onKeyDown(evt);
+    onKeyDown && onKeyDown(e as any);
   };
 
-  handleOnFocus = evt => {
+  handleOnFocus: React.FocusEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = evt => {
     this.setState({
       hasFocus: true,
     });
 
     const { onFocus } = this.props;
-    onFocus && onFocus(evt);
+    onFocus && onFocus(evt as any);
   };
 
-  handleOnBlur = evt => {
+  handleOnBlur: React.FocusEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = evt => {
     this.setState({
       hasFocus: false,
     });
 
     const { onBlur } = this.props;
-    onBlur && onBlur(evt);
+    onBlur && onBlur(evt as any);
   };
 
-  clearInput = evt => {
+  clearInput: React.MouseEventHandler<HTMLElement> = evt => {
     const { onChange } = this.props;
-
-    isFunction(onChange) &&
-      onChange({
-        target: {
-          ...this.props,
-          value: '',
-        },
-        preventDefault: () => evt.preventDefault(),
-        stopPropagation: () => evt.stopPropagation(),
-
-        // 标记这个事件来自清空按钮
-        fromClearButton: true,
-      });
+    const e: IInputClearEvent = Object.create(evt);
+    e.target = {
+      ...(this.props as IInputCoreProps),
+      value: '',
+    };
+    e.fromClearButton = true;
+    onChange && onChange(e as any);
   };
 
-  retainInputFocus = evt => {
-    evt.preventDefault();
+  retainInputFocus: React.MouseEventHandler<HTMLElement> = e => {
+    e.preventDefault();
   };
 
   render() {
-    const {
-      addonBefore,
-      addonAfter,
-      prefix,
-      className,
-      type,
-      size,
-      onChange,
-      value,
-      showClear,
-      width,
-      disabled,
-      readOnly,
-      showCount,
-      autoSize,
-    } = this.props;
+    const props = this.props as IInputProps;
+    const { type, className, width, size } = props;
     const { hasFocus } = this.state;
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
-    const editable = !(disabled || readOnly);
+    const editable = !(this.props.disabled || this.props.readOnly);
 
     const wrapClass = classNames(
+      'zent-input-wrapper',
+      `zent-input--size-${size}`,
       {
-        [`${prefix}-input-wrapper`]: true,
-        [`${prefix}-input-wrapper__not-editable`]: !editable,
-        [`${prefix}-textarea-wrapper`]: isTextarea,
-        [`${prefix}-input-addons`]: !isTextarea && (addonAfter || addonBefore),
-        [`${prefix}-input--size-${size}`]: true,
-        [`${prefix}-input--has-focus`]: hasFocus,
+        'zent-input-wrapper__not-editable': !editable,
+        'zent-textarea-wrapper': isTextarea,
+        'zent-input-addons':
+          !isTextarea &&
+          ((props as IInputCoreProps).addonAfter ||
+            (props as IInputCoreProps).addonBefore),
+        'zent-input--has-focus': hasFocus,
       },
       className
     );
 
-    // 黑名单，下面这些props不应该带入到Input上
-    const inputProps: any = omit(this.props, [
-      'className',
-      'prefix',
-      'addonBefore',
-      'addonAfter',
-      'onPressEnter',
-      'width',
-      'showClear',
-      'autoSelect',
-      'initSelectionStart',
-      'initSelectionEnd',
-    ]);
-
-    if (isTextarea) {
-      inputProps.onBlur = this.handleOnBlur;
-      inputProps.onFocus = this.handleOnFocus;
-
-      return (
-        <Textarea
-          wrapClass={wrapClass}
-          widthStyle={widthStyle}
-          prefix={prefix}
-          handleKeyDown={this.handleKeyDown}
-          inputProps={inputProps}
-          inputRef={this}
-          showCount={showCount}
-          autoSize={autoSize}
-        />
+    let children: React.ReactNode;
+    if (props.type === 'textarea') {
+      children = <TextArea ref={this.elementRef} {...props} />;
+    } else {
+      children = (
+        <InputCore ref={this.elementRef} {...props} onClear={this.clearInput} />
       );
     }
 
     return (
       <div className={wrapClass} style={widthStyle}>
-        {addonBefore && (
-          <div className={`${prefix}-input-addon-before`}>{addonBefore}</div>
-        )}
-        <input
-          ref={input => {
-            this.input = input;
-          }}
-          className={`${prefix}-input`}
-          {...inputProps}
-          value={value}
-          onKeyDown={this.handleKeyDown}
-          onFocus={this.handleOnFocus}
-          onBlur={this.handleOnBlur}
-        />
-        {isFunction(onChange) && showClear && value && (
-          <Icon
-            type="close-circle"
-            onClick={this.clearInput}
-            onMouseDown={this.retainInputFocus}
-          />
-        )}
-        {addonAfter && (
-          <div className={`${prefix}-input-addon-after`}>{addonAfter}</div>
-        )}
+        {children}
       </div>
     );
   }
