@@ -28,22 +28,6 @@ export class Input extends Component<IInputProps, IInputState> {
     hasFocus: false,
   };
 
-  componentDidMount() {
-    const {
-      autoFocus,
-      autoSelect,
-      initSelectionStart,
-      initSelectionEnd,
-    } = this.props;
-    const el = this.elementRef.current;
-    if (autoFocus) {
-      el && el.focus();
-    }
-    if (autoSelect) {
-      this.select(initSelectionStart, initSelectionEnd);
-    }
-  }
-
   focus() {
     const el = this.elementRef.current;
     el && el.focus();
@@ -74,8 +58,8 @@ export class Input extends Component<IInputProps, IInputState> {
     onKeyDown && onKeyDown(e as any);
   };
 
-  handleOnFocus: React.FocusEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
+  onFocus: React.FocusEventHandler<
+    HTMLInputElement & HTMLTextAreaElement
   > = evt => {
     this.setState({
       hasFocus: true,
@@ -85,8 +69,8 @@ export class Input extends Component<IInputProps, IInputState> {
     onFocus && onFocus(evt as any);
   };
 
-  handleOnBlur: React.FocusEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
+  onBlur: React.FocusEventHandler<
+    HTMLInputElement & HTMLTextAreaElement
   > = evt => {
     this.setState({
       hasFocus: false,
@@ -107,9 +91,21 @@ export class Input extends Component<IInputProps, IInputState> {
     onChange && onChange(e as any);
   };
 
-  retainInputFocus: React.MouseEventHandler<HTMLElement> = e => {
-    e.preventDefault();
-  };
+  componentDidMount() {
+    const {
+      autoFocus,
+      autoSelect,
+      initSelectionStart,
+      initSelectionEnd,
+    } = this.props;
+    const el = this.elementRef.current;
+    if (autoFocus) {
+      el && el.focus();
+    }
+    if (autoSelect) {
+      this.select(initSelectionStart, initSelectionEnd);
+    }
+  }
 
   render() {
     const props = this.props as IInputProps;
@@ -136,10 +132,25 @@ export class Input extends Component<IInputProps, IInputState> {
 
     let children: React.ReactNode;
     if (props.type === 'textarea') {
-      children = <TextArea ref={this.elementRef} {...props} />;
+      children = (
+        <TextArea
+          {...props}
+          ref={this.elementRef}
+          onKeyDown={this.onKeyDown}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+        />
+      );
     } else {
       children = (
-        <InputCore ref={this.elementRef} {...props} onClear={this.clearInput} />
+        <InputCore
+          {...props}
+          ref={this.elementRef}
+          onClear={this.clearInput}
+          onKeyDown={this.onKeyDown}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+        />
       );
     }
 
