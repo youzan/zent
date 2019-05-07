@@ -3,19 +3,25 @@ import { NOW, TOMORROW, ONE_DAY, NOWDATE } from './constants';
 
 export function calculateTime(format, chooseDays, valueType) {
   let startTime;
-  if (chooseDays > 1) {
-    startTime = NOW - (chooseDays - 1) * ONE_DAY;
-  } else {
-    startTime = NOW - chooseDays * ONE_DAY;
-  }
-
   let endTime;
-  if (chooseDays === 0) {
-    endTime = TOMORROW - 1000;
-  } else if (chooseDays === 1) {
-    endTime = NOW - 1000;
+
+  if (Array.isArray(chooseDays)) {
+    startTime = chooseDays[0];
+    endTime = chooseDays[1];
   } else {
-    endTime = NOWDATE;
+    if (chooseDays > 1) {
+      startTime = NOW - (chooseDays - 1) * ONE_DAY;
+    } else {
+      startTime = NOW - chooseDays * ONE_DAY;
+    }
+  
+    if (chooseDays === 0) {
+      endTime = TOMORROW - 1000;
+    } else if (chooseDays === 1) {
+      endTime = NOW - 1000;
+    } else {
+      endTime = NOWDATE;
+    }
   }
 
   const startTimeRes = formatDate(startTime, format);
