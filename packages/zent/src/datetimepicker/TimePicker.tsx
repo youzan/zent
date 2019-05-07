@@ -114,7 +114,6 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
       if (value instanceof Date) this.retType = 'date';
     }
     const state: any = getStateFromProps(props);
-    state.isPanelOpen = false;
     state.tabKey = TIME_KEY.HOUR;
     this.state = state;
     this.disabledTime = props.disabledTime() || {};
