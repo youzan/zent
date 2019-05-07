@@ -43,14 +43,17 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-function getValueFromProps(props) {
+function getStateFromProps(props) {
   const parsedDate = parseDate(props.value || '', getFormat(props));
 
   if (!parsedDate) {
     console.warn("time and format don't match."); // eslint-disable-line
   }
 
-  return parsedDate || dayStart();
+  return {
+    value: parsedDate || dayStart(),
+    isPanelOpen: props.isPanelOpen || false,
+  };
 }
 
 export interface ITimePickerProps extends DatePickers.ICommonProps {
@@ -83,12 +86,9 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
 
   static getDerivedStateFromProps(props, state) {
     if (props.value !== undefined) {
-      const valueFromProps = getValueFromProps(props);
-      if (valueFromProps && state.valueFromProps !== valueFromProps) {
-        return {
-          value: valueFromProps,
-          valueFromProps,
-        };
+      const nextState = getStateFromProps(props);
+      if (state.value !== nextState.value) {
+        return nextState;
       }
     }
 
@@ -113,10 +113,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
     }
-    const valueFromProps = getValueFromProps(props);
-    const state: any = {};
-    state.value = valueFromProps;
-    state.valueFromProps = valueFromProps;
+    const state: any = getStateFromProps(props);
     state.isPanelOpen = false;
     state.tabKey = TIME_KEY.HOUR;
     this.state = state;
