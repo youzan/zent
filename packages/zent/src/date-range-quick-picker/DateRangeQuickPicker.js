@@ -17,8 +17,23 @@ export default class DateRangeQuickPicker extends Component {
     value: PropTypes.array,
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
-    chooseDays: PropTypes.number,
-    preset: PropTypes.array,
+    chooseDays: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      ),
+    ]),
+    preset: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string,
+        value: PropTypes.oneOfType([
+          PropTypes.number,
+          PropTypes.arrayOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ]),
+      })
+    ),
     min: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
