@@ -43,6 +43,16 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
+function getValueFromProps(props) {
+  const parsedDate = parseDate(props.value || '', getFormat(props));
+
+  if (!parsedDate) {
+    console.warn("time and format don't match."); // eslint-disable-line
+  }
+
+  return parsedDate || dayStart();
+}
+
 export interface ITimePickerProps extends DatePickers.ICommonProps {
   isFooterVisble?: boolean;
   showSecond?: boolean;
@@ -71,6 +81,26 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
     [key: string]: boolean;
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.value !== undefined) {
+      const valueFromProps = getValueFromProps(props);
+      if (valueFromProps && state.valueFromProps !== valueFromProps) {
+        return {
+          value: valueFromProps,
+          valueFromProps,
+        };
+      }
+    }
+
+    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
+      return {
+        openPanel: props.openPanel,
+      };
+    }
+
+    return null;
+  }
+
   constructor(props) {
     super(props);
     const { value, valueType } = props;
@@ -83,33 +113,15 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
     }
-
-    const state: any = this.extractStateFromProps(props);
+    const valueFromProps = getValueFromProps(props);
+    const state: any = {};
+    state.value = valueFromProps;
+    state.valueFromProps = valueFromProps;
+    state.isPanelOpen = false;
     state.tabKey = TIME_KEY.HOUR;
     this.state = state;
     this.disabledTime = props.disabledTime() || {};
   }
-
-  componentWillReceiveProps(next) {
-    this.setState(this.extractStateFromProps(next));
-  }
-
-  extractParsedDate = props => {
-    return parseDate(props.value || '', getFormat(props));
-  };
-
-  extractStateFromProps = props => {
-    const parsedDate = this.extractParsedDate(props);
-
-    if (!parsedDate) {
-      console.warn("time and format don't match."); // eslint-disable-line
-    }
-
-    return {
-      value: parsedDate || dayStart(), // 利用传入的format解析value，失败则返回默认值
-      isPanelOpen: false,
-    };
-  };
 
   onChangeTime = (val, type) => {
     const fn = timeFnMap[type];
@@ -265,7 +277,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
 
   resetTime = () => {
     this.setState({
-      value: this.extractParsedDate(this.props) || dayStart(),
+      value: this.state.valueFormProps,
     });
   };
 

@@ -69,16 +69,29 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
     needConfirm: false,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.value !== undefined) {
+      const nextState = extractStateFromProps(props);
+
+      if (nextState.value !== state.value) {
+        return nextState;
+      }
+    }
+
+    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
+      return {
+        openPanel: props.openPanel,
+      };
+    }
+
+    return null;
+  }
+
   picker: HTMLDivElement | null = null;
 
   constructor(props: IYearPickerProps) {
     super(props);
     this.state = extractStateFromProps(props);
-  }
-
-  componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
   }
 
   onChangeYear = val => {

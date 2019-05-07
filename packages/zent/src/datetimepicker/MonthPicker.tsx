@@ -63,6 +63,24 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
   retType = 'string';
   picker?: HTMLDivElement | null = null;
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.value !== undefined) {
+      const nextState = extractStateFromProps(props);
+
+      if (nextState.value !== state.value) {
+        return nextState;
+      }
+    }
+
+    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
+      return {
+        openPanel: props.openPanel,
+      };
+    }
+
+    return null;
+  }
+
   constructor(props: IMonthPickerProps) {
     super(props);
     this.state = extractStateFromProps(props);
@@ -74,11 +92,6 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
     }
-  }
-
-  componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
   }
 
   getReturnValue = date => {

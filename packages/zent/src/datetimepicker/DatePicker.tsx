@@ -33,7 +33,7 @@ function extractStateFromProps(props: IDatePickerProps) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { openPanel, value, format, defaultValue, defaultTime } = props;
+  const { openPanel = false, value, format, defaultValue, defaultTime } = props;
 
   if (value) {
     const tmp = parseDate(value, format);
@@ -107,6 +107,24 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
   static parseDate = parseDate;
   static formatDate = formatDate;
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.value !== undefined) {
+      const nextState = extractStateFromProps(props);
+
+      if (nextState.value !== state.value) {
+        return nextState;
+      }
+    }
+
+    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
+      return {
+        openPanel: props.openPanel,
+      };
+    }
+
+    return null;
+  }
+
   isfooterShow: boolean;
 
   retType = 'string';
@@ -127,11 +145,6 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
     this.state = extractStateFromProps(props);
     // 没有footer的逻辑
     this.isfooterShow = showTime || isFooterVisible;
-  }
-
-  componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
   }
 
   getDate = () => {
