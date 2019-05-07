@@ -23,6 +23,6 @@ group: 数据
 | value          | 起始、结束时间       | array           |   `[]`        |             |
 | valueType | 设置 onChange 的返回值  | string     | `''` | `'string'`, `'number'` |
 | format         | 返回日期字符串格式   |  string          |   `'YYYY-MM-DD'` 或 `'YYYY-MM-DD HH:mm:ss'`   |           |
-| chooseDays     | 选择天数           |  number          |               |         |
+| chooseDays     | 选择天数           |  number/array          |               |         |
 | min            | 可选日期的最小值    | string/instanceOf(Date)  | `''`  |    |
 | max            | 可选日期的最大值    | string/instanceOf(Date)  | `''`  |    |
