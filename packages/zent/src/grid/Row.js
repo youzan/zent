@@ -40,6 +40,7 @@ class Row extends PureComponent {
       let pos = {
         row: rowIndex,
         column: columnIndex,
+        fixed: fixed,
       };
 
       cells.push(

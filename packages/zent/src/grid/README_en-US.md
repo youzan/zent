@@ -54,7 +54,7 @@ onChange will throw an object, which includes parameters about the change part o
 | title       | column title                                                                                        | ReactNode                                                          | Yes      |
 | name        | key for the corresponding data(recommanded to be set). Nested description like `a.b.c` is supported | string                                                             | No       |
 | width       | column width                                                                                        | string \| number                                                   | No       |
-| bodyRender  | Render complex component                                                                            | ((data: any, pos: number, name: string) => ReactNode) \| ReactNode | No       |
+| bodyRender  | Render complex component                                                                            | ((data: any, pos: {row: number, column: number, fixed: undefined|'left'|'right'}, name: string) => ReactNode) \| ReactNode | No       |
 | className   | class name of the column title                                                                      | string                                                             | No       |
 | needSort    | whether to support sorting                                                                          | bool                                                               | No       |
 | colSpan     | span of columns. It won't be rendered if the value is set to 0                                      | number                                                             | No       |
