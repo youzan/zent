@@ -17,6 +17,8 @@
     "prettify-js": "prettier --write -- \"packages/*/{src,__tests__}/**/*.js\" \"site/{src,scripts,webpack,zent}/**/*.js\"",
     "prettify": "yarn prettify-js && yarn prettify-style",
     "postinstall": "./scripts/ensure-husky-hooks.sh",
+    "precommit": "lint-staged",
+    "prepush": "yarn lint && yarn test",
     "build": "lerna run build",
     "dev": "cd site && yarn dev",
     "deploy": "cd site && yarn deploy"
