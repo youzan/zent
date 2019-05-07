@@ -1,11 +1,17 @@
 /// <reference types="react" />
 
 declare module 'zent/lib/grid' {
+  interface IGridColumnBodyRenderPos {
+    row: number,
+    column: number,
+    fixed: undefined | 'left' | 'right'
+  }
+
   interface IGridColumn {
     title: React.ReactNode
     name?: string
     width?: number | string
-    bodyRender?: ((data: any, pos: number, name: string) => React.ReactNode) | React.ReactNode
+    bodyRender?: ((data: any, pos: IGridColumnBodyRenderPos, name: string) => React.ReactNode) | React.ReactNode
     className?: string
     needSort?: boolean
     colSpan?: number
