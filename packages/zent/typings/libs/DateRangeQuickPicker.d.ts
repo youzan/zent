@@ -4,9 +4,11 @@ declare module 'zent/lib/date-range-quick-picker' {
 
   type DateRangeQuickPickerValue = number | string
 
+  type DateRangeQuickPickerPresetValue = number | [DateRangeQuickPickerValue, DateRangeQuickPickerValue]
+
   interface IDateRangeQuickPickerPreset {
     text: string
-    value: number
+    value: DateRangeQuickPickerPresetValue
   }
 
   interface IDateRangeQuickPickerProps {
@@ -16,7 +18,7 @@ declare module 'zent/lib/date-range-quick-picker' {
     value?: Array<DateRangeQuickPickerValue>
     valueType?: 'string' | 'number'
     format?: string
-    chooseDays?: number
+    chooseDays?: DateRangeQuickPickerPresetValue
     preset?: Array<IDateRangeQuickPickerPreset>
     min?: string|number|Date
     max?: string|number|Date

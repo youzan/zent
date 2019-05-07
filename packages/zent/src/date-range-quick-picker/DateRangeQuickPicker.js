@@ -22,7 +22,6 @@ export default class DateRangeQuickPicker extends Component {
       PropTypes.arrayOf(PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
-        PropTypes.instanceOf(Date),
       ])),
     ]),
     preset: PropTypes.arrayOf(PropTypes.shape({
@@ -32,7 +31,6 @@ export default class DateRangeQuickPicker extends Component {
         PropTypes.arrayOf(PropTypes.oneOfType([
           PropTypes.string,
           PropTypes.number,
-          PropTypes.instanceOf(Date),
         ])),
       ]),
     })),
