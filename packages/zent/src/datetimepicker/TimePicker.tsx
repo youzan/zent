@@ -274,7 +274,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
 
   resetTime = () => {
     this.setState({
-      value: this.state.valueFormProps,
+      value: getStateFromProps(this.props).value,
     });
   };
 
