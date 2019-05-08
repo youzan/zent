@@ -69,7 +69,7 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
     needConfirm: false,
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: IYearPickerProps, state: any) {
     if (props.value !== undefined) {
       const nextState = extractStateFromProps(props);
 

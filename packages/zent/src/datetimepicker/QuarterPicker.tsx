@@ -91,7 +91,7 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
     format: 'YYYY-MM-DD',
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: IQuarterPickerProps, state: any) {
     if (props.value !== undefined) {
       const nextState = extractStateFromProps(props);
 

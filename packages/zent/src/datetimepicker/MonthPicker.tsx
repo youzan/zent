@@ -63,7 +63,7 @@ export class MonthPicker extends PureComponent<IMonthPickerProps, any> {
   retType = 'string';
   picker?: HTMLDivElement | null = null;
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: IMonthPickerProps, state: any) {
     if (props.value !== undefined) {
       const nextState = extractStateFromProps(props);
 

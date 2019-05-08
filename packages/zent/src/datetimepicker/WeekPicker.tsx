@@ -72,7 +72,7 @@ function isDisabled(val, props: IWeekPickerProps) {
   return false;
 }
 
-function extractStateFromProps(props) {
+function extractStateFromProps(props: IWeekPickerProps) {
   let selected;
   let actived;
   let showPlaceholder;
@@ -144,7 +144,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
     startDay: 1,
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: IWeekPickerProps, state: any) {
     if (props.value !== undefined) {
       const nextState = extractStateFromProps(props);
 
@@ -163,7 +163,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
   }
 
   retType = 'string';
-  isfooterShow: boolean;
+  isFooterShow: boolean;
 
   constructor(props: IWeekPickerProps) {
     super(props);
@@ -178,7 +178,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
 
     this.state = extractStateFromProps(props);
     // 没有footer的逻辑
-    this.isfooterShow = showTime || isFooterVisible;
+    this.isFooterShow = showTime || isFooterVisible || false;
   }
 
   onChangeDate = val => {
@@ -212,7 +212,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
         selected: week,
       },
       () => {
-        if (!this.isfooterShow) {
+        if (!this.isFooterShow) {
           this.onConfirm();
         }
       }
@@ -317,7 +317,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
 
       const weekPickerCls = cx({
         'week-picker': true,
-        small: this.isfooterShow,
+        small: this.isFooterShow,
       });
 
       weekPicker = (
@@ -337,7 +337,7 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
               i18n={i18n}
             />
           </div>
-          {this.isfooterShow ? (
+          {this.isFooterShow ? (
             <PanelFooter
               buttonText={confirmText || i18n.confirm}
               onClickButton={this.onConfirm}

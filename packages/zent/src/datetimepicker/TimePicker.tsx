@@ -43,7 +43,7 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-function getStateFromProps(props) {
+function getStateFromProps(props: ITimePickerProps) {
   const parsedDate = parseDate(props.value || '', getFormat(props));
 
   if (!parsedDate) {
@@ -52,7 +52,7 @@ function getStateFromProps(props) {
 
   return {
     value: parsedDate || dayStart(),
-    isPanelOpen: props.isPanelOpen || false,
+    isPanelOpen: props.openPanel || false,
   };
 }
 
@@ -80,11 +80,9 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
   };
 
   retType = 'string';
-  disabledTime: {
-    [key: string]: boolean;
-  };
+  disabledTime: Partial<DatePickers.IDisabledTime>;
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: ITimePickerProps, state: any) {
     if (props.value !== undefined) {
       const nextState = getStateFromProps(props);
       if (state.value !== nextState.value) {
@@ -94,14 +92,14 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
 
     if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
       return {
-        openPanel: props.openPanel,
+        isPanelOpen: props.openPanel,
       };
     }
 
     return null;
   }
 
-  constructor(props) {
+  constructor(props: ITimePickerProps) {
     super(props);
     const { value, valueType } = props;
     /**
@@ -116,7 +114,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
     const state: any = getStateFromProps(props);
     state.tabKey = TIME_KEY.HOUR;
     this.state = state;
-    this.disabledTime = props.disabledTime() || {};
+    this.disabledTime = (props.disabledTime && props.disabledTime()) || {};
   }
 
   onChangeTime = (val, type) => {
