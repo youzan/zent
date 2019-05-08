@@ -83,37 +83,12 @@ export default class DateRangeQuickPicker extends Component {
     onChange(value, num);
   };
 
-  isActiveBtn = value => {
-    const { chooseDays } = this.props;
-
-    if (Array.isArray(chooseDays) || Array.isArray(value)) {
-      const [st1, et1] = chooseDays;
-      const [st2, et2] = value;
-
-      let steq = false;
-      let eteq = false;
-      if (st1 instanceof Date && st2 instanceof Date) {
-        steq = st1.getTime() === st2.getTime();
-      } else {
-        steq = st1 === st2;
-      }
-      if (et1 instanceof Date && et2 instanceof Date) {
-        eteq = et1.getTime() === et2.getTime();
-      } else {
-        eteq = et1 === et2;
-      }
-
-      return steq && eteq;
-    }
-
-    return chooseDays === value;
-  };
-
   render() {
     const {
       className,
       format,
       value,
+      chooseDays,
       prefix,
       preset,
       ...pickerProps
@@ -140,7 +115,8 @@ export default class DateRangeQuickPicker extends Component {
                 <span
                   key={index}
                   className={cx(`${prefix}-date-range-picker__btn`, {
-                    active: this.isActiveBtn(item.value),
+                    active:
+                      JSON.stringify(chooseDays) === JSON.stringify(item.value),
                   })}
                   onClick={this.handleChooseDays.bind(this, item.value)}
                 >
