@@ -2,7 +2,7 @@
 
 declare module 'zent/lib/date-range-quick-picker' {
 
-  type DateRangeQuickPickerValue = number | string
+  type DateRangeQuickPickerValue = number | string | Date
 
   type DateRangeQuickPickerPresetValue = number | [DateRangeQuickPickerValue, DateRangeQuickPickerValue]
 

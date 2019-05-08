@@ -20,7 +20,11 @@ export default class DateRangeQuickPicker extends Component {
     chooseDays: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+          PropTypes.instanceOf(Date),
+        ])
       ),
     ]),
     preset: PropTypes.arrayOf(
@@ -29,7 +33,11 @@ export default class DateRangeQuickPicker extends Component {
         value: PropTypes.oneOfType([
           PropTypes.number,
           PropTypes.arrayOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.instanceOf(Date),
+            ])
           ),
         ]),
       })
