@@ -6,8 +6,7 @@ export function calculateTime(format, chooseDays, valueType) {
   let endTime;
 
   if (Array.isArray(chooseDays)) {
-    startTime = chooseDays[0];
-    endTime = chooseDays[1];
+    [startTime, endTime] = chooseDays;
   } else {
     if (chooseDays > 1) {
       startTime = NOW - (chooseDays - 1) * ONE_DAY;
