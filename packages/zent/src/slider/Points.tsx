@@ -13,10 +13,8 @@ import { SliderValueType } from './Slider';
 export default class Points extends PureComponent<any, any> {
   constructor(props) {
     super(props);
-    const { range, value } = props;
     this.state = {
       visibility: false,
-      conf: range ? { start: value[0], end: value[1] } : { simple: value },
     };
   }
 
@@ -88,9 +86,8 @@ export default class Points extends PureComponent<any, any> {
       }
       newValue = toFixed(newValue, step);
       newValue = checkValueInRange(newValue, max, min);
-      const { conf } = this.state;
+      const conf = this.getConfig();
       conf[type] = newValue;
-      this.setState({ conf });
       onChange && onChange(range ? [conf.start, conf.end] : newValue);
     }
   };
@@ -100,39 +97,43 @@ export default class Points extends PureComponent<any, any> {
     this.setState({ visibility: false });
   };
 
-  componentWillReceiveProps(props) {
-    const { range, value } = props;
-    if (this.left === null) {
-      this.setState({
-        conf: range ? { start: value[0], end: value[1] } : { simple: value },
-      });
-    }
+  getConfig() {
+    const { range, value } = this.props;
+    return range ? { start: value[0], end: value[1] } : { simple: value };
+  }
+
+  getPoint(value, index) {
+    const { visibility, type } = this.state;
+    const { disabled, prefix } = this.props;
+
+    return (
+      <ToolTips
+        prefix={prefix}
+        key={index}
+        content={value}
+        visibility={index === type && visibility}
+        left={this.getLeft(value)}
+      >
+        <span
+          onMouseDown={
+            !disabled ? this.handleMouseDown.bind(this, index) : noop
+          }
+          className={classNames(
+            { [`${prefix}-slider-point-disabled`]: disabled },
+            `${prefix}-slider-point`
+          )}
+        />
+      </ToolTips>
+    );
   }
 
   render() {
-    const { visibility, type, conf } = this.state;
     const { disabled, prefix } = this.props;
+    const conf = this.getConfig();
+
     return (
       <div className={`${prefix}-slider-points`}>
-        {map(conf, (value, index) => (
-          <ToolTips
-            prefix={prefix}
-            key={index}
-            content={value}
-            visibility={index === type && visibility}
-            left={this.getLeft(value)}
-          >
-            <span
-              onMouseDown={
-                !disabled ? this.handleMouseDown.bind(this, index) : noop
-              }
-              className={classNames(
-                { [`${prefix}-slider-point-disabled`]: disabled },
-                `${prefix}-slider-point`
-              )}
-            />
-          </ToolTips>
-        ))}
+        {map(conf, (value, index) => this.getPoint(value, index))}
         {!disabled && (
           <WindowEventHandler
             eventName="mousemove"

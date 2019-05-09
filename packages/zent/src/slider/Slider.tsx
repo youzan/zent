@@ -74,14 +74,15 @@ export class Slider extends PureComponent<ISliderProps> {
     value: 0,
   };
 
+  static getDerivedStateFromProps(nextProps) {
+    checkProps(nextProps);
+    return null;
+  }
+
   constructor(props) {
     super(props);
     checkProps(props);
   }
-
-  componentWillReceiveProps = newProps => {
-    checkProps(newProps);
-  };
 
   onChange = value => {
     const { range, onChange } = this.props;
