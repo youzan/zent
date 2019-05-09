@@ -1,4 +1,5 @@
 import formatDate from 'zan-utils/date/formatDate';
+import getValidDate from 'zan-utils/date/getValidDate';
 import { NOW, TOMORROW, ONE_DAY, NOWDATE } from './constants';
 
 export function calculateTime(format, chooseDays, valueType) {
@@ -27,7 +28,9 @@ export function calculateTime(format, chooseDays, valueType) {
   const endTimeRes = formatDate(endTime, format);
 
   if (valueType === 'number') {
-    return [startTime, endTime];
+    const st = getValidDate(startTime);
+    const et = getValidDate(endTime);
+    return [st.getTime(), et.getTime()];
   }
   return [startTimeRes, endTimeRes];
 }
