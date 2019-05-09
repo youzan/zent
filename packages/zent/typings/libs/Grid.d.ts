@@ -4,7 +4,7 @@ declare module 'zent/lib/grid' {
   interface IGridColumnBodyRenderPos {
     row: number,
     column: number,
-    fixed: undefined | 'left' | 'right'
+    fixed?: 'left' | 'right'
   }
 
   interface IGridColumn {
