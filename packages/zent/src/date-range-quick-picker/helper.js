@@ -26,20 +26,17 @@ export function calculateTime(format, choosedItem, valueType) {
     }
   }
 
-  // 先format成string
-  const startTimeRes = formatDate(startTime, format);
-  const endTimeRes = formatDate(endTime, format);
+  const startTimeStr = formatDate(startTime, format);
+  const endTimeStr = formatDate(endTime, format);
 
-  // 再转换为date
-  const startTimeDate = parseDate(startTimeRes, format);
-  const endTimeDate = parseDate(endTimeRes, format);
+  if (valueType === 'number' || valueType === 'date') {
+    const startTimeDate = parseDate(startTimeStr, format);
+    const endTimeDate = parseDate(endTimeStr, format);
 
-  if (valueType === 'number') {
-    // 转时间戳
-    return [startTimeDate.getTime(), endTimeDate.getTime()];
-  } else if (valueType === 'date') {
-    // 转 Date 类型
-    return [startTimeDate, endTimeDate];
+    return valueType === 'number'
+      ? [startTimeDate.getTime(), endTimeDate.getTime()]
+      : [startTimeDate, endTimeDate];
   }
-  return [startTimeRes, endTimeRes];
+
+  return [startTimeStr, endTimeStr];
 }
