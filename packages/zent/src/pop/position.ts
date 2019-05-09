@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import capitalize from 'lodash-es/capitalize';
 import isFunction from 'lodash-es/isFunction';
 
@@ -11,7 +12,7 @@ const ARROW_OFFSET_V = 9;
 
 const createPosition = (x, y, side) => {
   return {
-    getCSSStyle(): Partial<CSSStyleDeclaration> {
+    getCSSStyle(): CSSProperties {
       return {
         position: 'absolute',
         left: `${Math.round(x)}px`,

@@ -7,7 +7,7 @@ import { IFullScreenLoadingProps, FullScreenDefaultProps } from './props';
 import LoadingMask from './components/LoadingMask';
 import { Portal } from '../portal';
 
-const NO_STYLE: Partial<CSSStyleDeclaration> = {};
+const NO_STYLE: React.CSSProperties = {};
 
 export function FullScreenLoading(props: IFullScreenLoadingProps) {
   const {
@@ -26,7 +26,7 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     return null;
   }
 
-  const style = isNumber(zIndex) ? { zIndex: `${zIndex}` } : NO_STYLE;
+  const style = isNumber(zIndex) ? { zIndex } : NO_STYLE;
 
   return (
     <Portal
