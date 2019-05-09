@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import map from 'lodash/map';
+import isEqual from 'lodash/isEqual';
 
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from 'i18n';
@@ -115,8 +116,7 @@ export default class DateRangeQuickPicker extends Component {
                 <span
                   key={index}
                   className={cx(`${prefix}-date-range-picker__btn`, {
-                    active:
-                      JSON.stringify(chooseDays) === JSON.stringify(item.value),
+                    active: isEqual(chooseDays, item.value),
                   })}
                   onClick={this.handleChooseDays.bind(this, item.value)}
                 >
