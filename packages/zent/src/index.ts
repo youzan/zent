@@ -68,3 +68,4 @@ export * from './text-mark';
 export * from './timeline';
 export * from './tree';
 export * from './upload';
+export * from './popup';

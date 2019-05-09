@@ -1,20 +1,30 @@
 import * as React from 'react';
 import * as Position from './position';
 import { IPositionCalculator } from './position';
+import Portal, { IPortalImperativeHandlers } from '../portal';
 
-class Popup<Anchor extends Element, Content extends Element> {
+export class Popup<Anchor extends Element, Content extends Element> {
   private scheduled = false;
 
   constructor(
     readonly anchorRef: React.RefObject<Anchor | undefined>,
     readonly contentRef: React.MutableRefObject<Content | null>,
-    public visible: boolean,
+    private _visible: boolean,
     readonly setVisible: (visible: boolean) => void,
     public positionCalculator: IPositionCalculator<Anchor, Content>,
-    private readonly setStyle: (style: Partial<CSSStyleDeclaration>) => void,
-    public style: Partial<CSSStyleDeclaration>,
-    public cushion: number
+    private readonly setProps: (style: Position.IPositionProps) => void,
+    public props: Position.IPositionProps,
+    public cushion: number,
+    readonly portalRef: React.RefObject<IPortalImperativeHandlers>
   ) {}
+
+  get visible() {
+    return this._visible;
+  }
+
+  set visible(visible: boolean) {
+    this.setVisible(visible);
+  }
 
   adjustPosition(sync = false) {
     if (sync) {
@@ -29,16 +39,16 @@ class Popup<Anchor extends Element, Content extends Element> {
     this.scheduled = false;
     const anchor = this.anchorRef.current;
     const content = this.contentRef.current;
-    if (!anchor || !content) {
+    if (!anchor || !content || !this.visible) {
       return;
     }
     const { positionCalculator, cushion } = this;
-    const style = positionCalculator({
+    const props = positionCalculator({
       anchor,
       content,
       cushion,
     });
-    this.setStyle(style);
+    this.setProps(props);
   };
 
   open() {
@@ -54,14 +64,20 @@ export interface IUsePopupOptions {
   cushion: number;
 }
 
-export function usePopup<Anchor extends Element, Content extends Element>(
+export function usePopup<
+  Anchor extends Element,
+  Content extends Element = HTMLDivElement
+>(
   pos: IPositionCalculator<Anchor, Content>,
   { cushion = 0 }: Partial<IUsePopupOptions> = {}
 ) {
   const anchorRef = React.useRef<Anchor>();
   const contentRef = React.useRef<Content | null>(null);
+  const portalRef = React.useRef<IPortalImperativeHandlers>(null);
   const [visible, setVisible] = React.useState(false);
-  const [style, setStyle] = React.useState<Partial<CSSStyleDeclaration>>({});
+  const [props, setProps] = React.useState<Position.IPositionProps>(
+    Position.INVISIBLE_POSITION
+  );
   const popup = React.useMemo(
     () =>
       new Popup<Anchor, Content>(
@@ -70,56 +86,17 @@ export function usePopup<Anchor extends Element, Content extends Element>(
         visible,
         setVisible,
         Position.invisible,
-        setStyle,
-        style,
-        cushion
+        setProps,
+        props,
+        cushion,
+        portalRef
       ),
     []
   );
-  popup.visible = visible;
+  (popup as any)._visible = visible;
   popup.positionCalculator = pos;
-  popup.style = style;
-  React.useLayoutEffect(() => {
-    popup.adjustPosition();
-  });
+  popup.props = props;
   return popup;
-}
-
-export interface IHoverProps<E extends Element> {
-  onMouseEnter: React.MouseEventHandler<E>;
-  onMouseLeave: React.MouseEventHandler<E>;
-}
-
-export function useHoverPopup<Anchor extends Element, Content extends Element>(
-  pos: IPositionCalculator<Anchor, Content>,
-  props?: Partial<IHoverProps<Anchor>>
-) {
-  const popup = usePopup<Anchor, Content>(pos);
-  const propsRef = React.useRef(props);
-  propsRef.current = props;
-  const anchorProps = React.useMemo<IHoverProps<Anchor>>(
-    () => ({
-      ref: popup.anchorRef,
-      onMouseEnter(e) {
-        const props = propsRef.current;
-        if (props) {
-          const { onMouseEnter } = props;
-          onMouseEnter && onMouseEnter(e);
-        }
-        popup.setVisible(true);
-      },
-      onMouseLeave(e) {
-        const props = propsRef.current;
-        if (props) {
-          const { onMouseLeave } = props;
-          onMouseLeave && onMouseLeave(e);
-        }
-        popup.setVisible(false);
-      },
-    }),
-    [popup]
-  );
-  return [anchorProps, popup];
 }
 
 export interface IPopupContentProps<
@@ -128,8 +105,29 @@ export interface IPopupContentProps<
 > {
   popup: Popup<Anchor, Content>;
   children?: React.ReactNode;
+  arrow?: boolean;
 }
 
-export function PopupContent<Anchor extends Element, Content extends Element>({
-  ,
-}: IPopupContentProps<Anchor, Content>) {}
+export function PopupContent<Anchor extends Element>({
+  popup,
+  arrow = true,
+  children,
+}: IPopupContentProps<Anchor, HTMLDivElement>) {
+  const { visible } = popup;
+  React.useLayoutEffect(() => {
+    popup.adjustPosition();
+  }, [children, visible]);
+  return (
+    <Portal
+      {...popup.props}
+      ref={popup.portalRef}
+      className="zent-popup-portal"
+      visible={popup.visible}
+    >
+      <div ref={popup.contentRef} className="zent-popup zent-popup-content">
+        {children}
+      </div>
+      {arrow ? <div className="zent-popup-arrow" /> : null}
+    </Portal>
+  );
+}

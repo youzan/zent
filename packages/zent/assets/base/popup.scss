@@ -2,4 +2,42 @@
 
 .zent-popup {
   @include popup;
+
+  &-portal {
+    overflow: visible;
+  }
+
+  &-content {
+    padding: 10px;
+  }
+
+  &-arrow {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    overflow: hidden;
+    box-shadow: 0 16px 10px -20px rgba(0, 0, 0, 0.5);
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      transform: rotate(45deg);
+      top: 12px;
+      left: 4px;
+      box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.5);
+    }
+
+    &.zent-popup-right {
+      transform: rotate(-90deg);
+      left: -16px;
+    }
+
+    &.zent-popup-center {
+      top: 0;
+      bottom: 0;
+    }
+  }
 }
