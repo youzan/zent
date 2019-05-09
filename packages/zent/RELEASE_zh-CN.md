@@ -7,6 +7,11 @@
 - [3.x 升级指南](../migrating/3x)
 - [2.1.x 升级指南](../migrating/21x)
 
+### 6.6.4 (2019-05-09)
+
+- ✨ `Grid` `bodyRender` 会传入 `fixed` 参数
+- ✨ `DateRangeQuickPicker` 支持通过 `preset` 传入自定义的时间区间选项
+
 ### 6.6.3 (2019-03-26)
 
 - ✨ `SKU` 增加三个新属性 `showAddSKUImage`、`showSKULabel` 以及 `groupButtonAddon`

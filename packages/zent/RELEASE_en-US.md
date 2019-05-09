@@ -7,6 +7,11 @@ You can find detailed change logs for versions prior to 3.5.3 at [Github Log](gi
 - [Upgrade to 3.x](../migrating/3x)
 - [Upgrade to 2.1.x](../migrating/21x)
 
+### 6.6.4 (2019-05-09)
+
+- ✨ `Grid` `bodyRender` receives `fixed` as parameter
+- ✨ `DateRangeQuickPicker` allow custom date range through `preset`
+
 ### 6.6.3 (2019-03-26)
 
 - ✨ `SKU` add three new props `showAddSKUImage`, `showSKULabel` and `groupButtonAddon`

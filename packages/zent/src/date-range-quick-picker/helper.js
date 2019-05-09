@@ -1,42 +1,54 @@
 import isArray from 'lodash/isArray';
 import formatDate from 'zan-utils/date/formatDate';
-import parseDate from 'zan-utils/date/parseDate';
-import { NOW, TOMORROW, ONE_DAY, NOWDATE } from './constants';
+import getValidDate from 'zan-utils/date/getValidDate';
+import { ONE_DAY } from './constants';
 
 export function calculateTime(format, choosedItem, valueType) {
   // 起始时间结果
   let startTime;
   let endTime;
 
+  const today = getToday();
+  const tomorrow = today + ONE_DAY;
+
   if (isArray(choosedItem)) {
     [startTime, endTime] = choosedItem;
   } else {
     if (choosedItem > 1) {
-      startTime = NOW - (choosedItem - 1) * ONE_DAY;
+      startTime = today - (choosedItem - 1) * ONE_DAY;
     } else {
-      startTime = NOW - choosedItem * ONE_DAY;
+      startTime = today - choosedItem * ONE_DAY;
     }
 
     if (choosedItem === 0) {
-      endTime = TOMORROW - 1000;
+      endTime = tomorrow - 1000;
     } else if (choosedItem === 1) {
-      endTime = NOW - 1000;
+      endTime = today - 1000;
     } else {
-      endTime = NOWDATE;
+      endTime = Date.now();
     }
   }
 
-  const startTimeStr = formatDate(startTime, format);
-  const endTimeStr = formatDate(endTime, format);
+  const startTimeDate = getValidDate(startTime);
+  const endTimeDate = getValidDate(endTime);
 
-  if (valueType === 'number' || valueType === 'date') {
-    const startTimeDate = parseDate(startTimeStr, format);
-    const endTimeDate = parseDate(endTimeStr, format);
-
-    return valueType === 'number'
-      ? [startTimeDate.getTime(), endTimeDate.getTime()]
-      : [startTimeDate, endTimeDate];
+  if (valueType === 'number') {
+    return [startTimeDate.getTime(), endTimeDate.getTime()];
+  } else if (valueType === 'date') {
+    return [startTimeDate, endTimeDate];
   }
 
+  // valueType is string
+  const startTimeStr = formatDate(startTimeDate, format);
+  const endTimeStr = formatDate(endTimeDate, format);
   return [startTimeStr, endTimeStr];
+}
+
+function getToday() {
+  const d = new Date();
+  d.setHours(0);
+  d.setMinutes(0);
+  d.setSeconds(0);
+  d.setMilliseconds(0);
+  return d.getTime();
 }
