@@ -14,6 +14,24 @@ import noop from 'lodash-es/noop';
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
+import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
+
+function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
+  const result: React.CSSProperties = {};
+  const prevKeys = Object.keys(prev) as Array<keyof React.CSSProperties>;
+  for (let i = 0; i < prevKeys.length; i += 1) {
+    const key = prevKeys[i];
+    if (!next[key]) {
+      result[key] = '';
+    }
+  }
+  const nextKeys = Object.keys(next) as Array<keyof React.CSSProperties>;
+  for (let i = 0; i < prevKeys.length; i += 1) {
+    const key = nextKeys[i];
+    result[key] = next[key];
+  }
+  return result;
+}
 
 export interface IPortalProps extends Partial<IPurePortalProps> {
   visible?: boolean;
@@ -26,7 +44,7 @@ export interface IPortalProps extends Partial<IPurePortalProps> {
   onClose?: (e: KeyboardEvent | TouchEvent | MouseEvent) => void;
   children?: React.ReactNode;
   className?: string;
-  style?: Partial<CSSStyleDeclaration>;
+  style?: React.CSSProperties;
 }
 
 export interface IPortalImperativeHandlers {
@@ -53,6 +71,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     const parent = useMemo(() => getNodeFromSelector(selector), [selector]);
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;
+    const prevStyleRef = useRef<React.CSSProperties | undefined>(style);
     const purePortalRef = useRef<PurePortal>(null);
 
     // Methods for use on ref
@@ -77,17 +96,20 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         return noop;
       }
       parent.appendChild(node);
-      className && (node.className = className);
-      if (style) {
-        const cssKeys = Object.keys(style) as Array<keyof CSSStyleDeclaration>;
-        if (cssKeys.length) {
-          node.style.cssText = cssKeys.map(k => `${k}: ${style[k]}`).join('; ');
-        }
-      }
       return () => {
         parent.removeChild(node);
       };
-    }, [visible, node, parent, style, className]);
+    }, [visible, node, parent]);
+
+    useLayoutEffect(() => {
+      className && (node.className = className);
+    }, [node, className]);
+
+    useLayoutEffect(() => {
+      const result = diffStyle(prevStyleRef.current || {}, style || {});
+      setValueForStyles(node, result);
+      prevStyleRef.current = style;
+    }, [node, style]);
 
     useLayoutEffect(() => {
       if (!visible || !useLayerForClickAway) {
