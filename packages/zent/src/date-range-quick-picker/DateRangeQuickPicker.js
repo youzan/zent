@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import map from 'lodash/map';
+import isEqual from 'lodash/isEqual';
 
 import DateRangePicker from 'datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from 'i18n';
@@ -17,8 +18,31 @@ export default class DateRangeQuickPicker extends Component {
     value: PropTypes.array,
     valueType: PropTypes.oneOf(['date', 'number', 'string']),
     format: PropTypes.string,
-    chooseDays: PropTypes.number,
-    preset: PropTypes.array,
+    chooseDays: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+          PropTypes.instanceOf(Date),
+        ])
+      ),
+    ]),
+    preset: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string,
+        value: PropTypes.oneOfType([
+          PropTypes.number,
+          PropTypes.arrayOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.instanceOf(Date),
+            ])
+          ),
+        ]),
+      })
+    ),
     min: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -92,7 +116,7 @@ export default class DateRangeQuickPicker extends Component {
                 <span
                   key={index}
                   className={cx(`${prefix}-date-range-picker__btn`, {
-                    active: chooseDays === item.value,
+                    active: isEqual(chooseDays, item.value),
                   })}
                   onClick={this.handleChooseDays.bind(this, item.value)}
                 >
