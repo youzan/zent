@@ -57,7 +57,8 @@
     "<rootDir>/src/form/.+",
     "<rootDir>/src/portal/.+",
     "<rootDir>/src/loading/.+",
-    "<rootDir>/src/slider/Points.tsx"
+    "<rootDir>/src/slider/Points.tsx",
+    "<rootDir>/src/utils/style/warnValidStyle.ts"
   ],
   "moduleNameMapper": {
     "fecha": "<rootDir>/../../node_modules/fecha/src/fecha.js",
