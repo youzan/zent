@@ -21,7 +21,7 @@ As a filter control above list pages.
 | preset         | custom quick option text      | array             | `[{text: '7 days', value: 7}, {text: '30 days', value: 30}]`    |           |
 | onChange       | change event callback  | func             |         |              |
 | value          | starting and end time       | array           |   `[]`        |             |
-| valueType | Argument type of onChange | string | `''` | `'string'`, `'number'` |
+| valueType | Argument type of onChange | string | `''` | `'date'`, `'string'`, `'number'` |
 | format         | Format of returned Date string |  string          |   `'YYYY-MM-DD'`, `'YYYY-MM-DD HH:mm:ss'`   |           |
 | chooseDays     | Number of choosen days |  number/array          |               |         |
 | min            | Minimum value of optional date | string, Date  | `''`  |    |
