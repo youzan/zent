@@ -1,10 +1,9 @@
 import isArray from 'lodash/isArray';
 import formatDate from 'zan-utils/date/formatDate';
-import parseDate from 'zan-utils/date/parseDate';
+import getValidDate from 'zan-utils/date/getValidDate';
 import { NOW, TOMORROW, ONE_DAY, NOWDATE } from './constants';
 
 export function calculateTime(format, choosedItem, valueType) {
-  // 起始时间结果
   let startTime;
   let endTime;
 
@@ -26,20 +25,20 @@ export function calculateTime(format, choosedItem, valueType) {
     }
   }
 
-  // 先format成string
-  const startTimeRes = formatDate(startTime, format);
-  const endTimeRes = formatDate(endTime, format);
+  // 转换为 date
+  const startTimeDate = getValidDate(startTime);
+  const endTimeDate = getValidDate(endTime);
 
-  // 再转换为date
-  const startTimeDate = parseDate(startTimeRes, format);
-  const endTimeDate = parseDate(endTimeRes, format);
-
-  if (valueType === 'number') {
-    // 转时间戳
-    return [startTimeDate.getTime(), endTimeDate.getTime()];
-  } else if (valueType === 'date') {
-    // 转 Date 类型
+  if (valueType === 'date') {
+    // 返回 Date
     return [startTimeDate, endTimeDate];
+  } else if (valueType === 'number') {
+    // 返回时间戳
+    return [startTimeDate.getTime(), endTimeDate.getTime()];
   }
+
+  // 返回格式化字符串
+  const startTimeRes = formatDate(startTimeDate, format);
+  const endTimeRes = formatDate(endTimeDate, format);
   return [startTimeRes, endTimeRes];
 }
