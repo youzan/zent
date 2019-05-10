@@ -17,6 +17,7 @@
     position: absolute;
     overflow: hidden;
     box-shadow: 0 16px 10px -20px rgba(0, 0, 0, 0.5);
+    z-index: 2000;
 
     &:after {
       content: '';
@@ -29,15 +30,21 @@
       left: 4px;
       box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.5);
     }
+  }
 
-    &.zent-popup-right {
-      transform: rotate(-90deg);
-      left: -16px;
-    }
-
-    &.zent-popup-center {
+  &-vertical-center {
+    & .zent-popup-arrow {
       top: 0;
       bottom: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  }
+
+  &-right {
+    & .zent-popup-arrow {
+      left: -16px;
+      transform: rotate(-90deg);
     }
   }
 }

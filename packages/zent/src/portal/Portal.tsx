@@ -50,6 +50,7 @@ export interface IPortalProps extends Partial<IPurePortalProps> {
 export interface IPortalImperativeHandlers {
   contains(node: Node): boolean;
   purePortalRef: React.RefObject<PurePortal | undefined>;
+  container: Element | null;
 }
 
 export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
@@ -74,7 +75,6 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     const prevStyleRef = useRef<React.CSSProperties | undefined>(style);
     const purePortalRef = useRef<PurePortal>(null);
 
-    // Methods for use on ref
     const contains = useCallback((node: Node) => {
       const purePortal = purePortalRef.current;
       if (!purePortal) {
@@ -87,8 +87,9 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       () => ({
         contains,
         purePortalRef,
+        container: parent,
       }),
-      []
+      [parent]
     );
 
     useLayoutEffect(() => {

@@ -4,8 +4,13 @@ export interface IPositionCalculatorOptions<
   Anchor extends Element,
   Content extends Element
 > {
-  anchor: Anchor;
-  content: Content;
+  anchorRect: ClientRect | DOMRect;
+  contentRect: ClientRect | DOMRect;
+  positionedParentRect: ClientRect | DOMRect;
+  /**
+   * Relative rect of anchor to content's position parent
+   */
+  relativeRect: ClientRect;
   cushion: number;
 }
 
@@ -26,8 +31,9 @@ export const INVISIBLE_POSITION: IPositionProps = {
   name: 'invisible',
   style: {
     position: 'absolute',
-    top: '-9999px',
-    left: '-9999px',
+    top: -9999,
+    left: -9999,
+    zIndex: -10,
   },
 };
 
@@ -36,23 +42,21 @@ export function invisible(): IPositionProps {
 }
 
 export function rightCenter<Anchor extends Element, Content extends Element>({
-  anchor,
-  cushion = 10,
-  content,
+  cushion,
+  contentRect,
+  relativeRect,
 }: IPositionCalculatorOptions<Anchor, Content>): IPositionProps {
-  const { right, top, bottom } = anchor.getBoundingClientRect();
-  const x = right;
-  const middle = (top + bottom) / 2;
-  const y = middle - content.getBoundingClientRect().height / 2;
+  const x = relativeRect.right + cushion;
+  const middle = (relativeRect.top + relativeRect.bottom) / 2;
+  const y = middle - contentRect.height / 2;
   const style: CSSProperties = {
     position: 'absolute',
-    left: `${Math.round(x)}px`,
-    top: `${Math.round(y)}px`,
-    paddingLeft: `${cushion}px`,
+    left: Math.round(x) + cushion,
+    top: Math.round(y),
   };
   return {
     name: 'top-center',
     style,
-    className: 'zent-popup-right zent-popup-center',
+    className: 'zent-popup-right zent-popup-vertical-center',
   };
 }
