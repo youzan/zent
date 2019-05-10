@@ -75,6 +75,7 @@ export class TimeRangePicker extends PureComponent<ITimeRangePickerProps> {
       placeholder,
       value,
       disabledTime,
+      openPanel,
       ...pickerProps
     } = this.props;
     let rangePicker;
@@ -87,6 +88,7 @@ export class TimeRangePicker extends PureComponent<ITimeRangePickerProps> {
           {i18n => (
             <TimePicker
               {...pickerProps}
+              openPanel={openPanel[0]}
               placeholder={placeholder[0] || i18n.startTime}
               max={value[1] || pickerProps.max}
               defaultValue={defaultValueArr[0]}
@@ -107,6 +109,7 @@ export class TimeRangePicker extends PureComponent<ITimeRangePickerProps> {
           {i18n => (
             <TimePicker
               {...pickerProps}
+              openPanel={openPanel[1]}
               placeholder={placeholder[1] || i18n.endTime}
               min={value[0] || pickerProps.min}
               defaultValue={defaultValueArr[1]}

@@ -43,17 +43,14 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-function getStateFromProps(props: ITimePickerProps) {
+function getValueFromProps(props: ITimePickerProps) {
   const parsedDate = parseDate(props.value || '', getFormat(props));
 
   if (!parsedDate) {
     console.warn("time and format don't match."); // eslint-disable-line
   }
 
-  return {
-    value: parsedDate || dayStart(),
-    isPanelOpen: props.openPanel || false,
-  };
+  return parsedDate || dayStart();
 }
 
 export interface ITimePickerProps extends DatePickers.ICommonProps {
@@ -83,17 +80,24 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
   disabledTime: Partial<DatePickers.IDisabledTime>;
 
   static getDerivedStateFromProps(props: ITimePickerProps, state: any) {
+    let nextState = null;
     if (props.value !== undefined) {
-      const nextState = getStateFromProps(props);
-      if (state.value !== nextState.value) {
-        return nextState;
+      const value = getValueFromProps(props);
+      if (state.value !== value) {
+        nextState = {
+          value,
+        };
       }
     }
 
     if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
-      return {
-        isPanelOpen: props.openPanel,
-      };
+      if (nextState) {
+        nextState.isPanelOpen = props.openPanel;
+      } else {
+        nextState = {
+          isPanelOpen: props.openPanel,
+        };
+      }
     }
 
     return null;
@@ -111,7 +115,9 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
     }
-    const state: any = getStateFromProps(props);
+    const state: any = {};
+    state.value = getValueFromProps(props);
+    state.isPanelOpen = state.isPanelOpen || false;
     state.tabKey = TIME_KEY.HOUR;
     this.state = state;
     this.disabledTime = (props.disabledTime && props.disabledTime()) || {};
@@ -271,7 +277,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
 
   resetTime = () => {
     this.setState({
-      value: getStateFromProps(this.props).value,
+      value: getValueFromProps(this.props),
     });
   };
 
