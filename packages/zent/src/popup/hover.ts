@@ -3,7 +3,7 @@ import { usePopup, Popup } from './Popup';
 import { IPositionCalculator } from './position';
 import { IDot, isLineIntersectRect, ILine, IRect } from './utils';
 
-const SPEED_THRESHOLD = 0;
+const SPEED_THRESHOLD = 5;
 
 function boundingClientRectToIRect({
   left,
@@ -39,8 +39,8 @@ function windowMouseMove<Anchor extends Element, Content extends Element>(
   popup: Popup<Anchor, Content>
 ) {
   const prev = positionRef.current;
-  const x = e.screenX;
-  const y = e.screenY;
+  const x = e.clientX;
+  const y = e.clientY;
   const pos = {
     x,
     y,
@@ -55,7 +55,8 @@ function windowMouseMove<Anchor extends Element, Content extends Element>(
     return;
   }
   const duration = now - prevTime;
-  const distance = Math.sqrt(Math.pow(x - prev.x, 2) + Math.pow(y - prev.y, 2));
+  const distance =
+    Math.sqrt(Math.pow(x - prev.x, 2) + Math.pow(y - prev.y, 2)) * 1000;
   const speed = distance / duration;
   const line: ILine = {
     a: prev,
@@ -67,7 +68,7 @@ function windowMouseMove<Anchor extends Element, Content extends Element>(
   const anchorRect = boundingClientRectToIRect(anchor.getBoundingClientRect());
   const isTowardsAnchor = isLineIntersectRect(line, anchorRect);
   const isTowardsContent = isLineIntersectRect(line, contentRect);
-  console.log(isTowardsAnchor, isTowardsContent, line, anchorRect, contentRect);
+  console.log(distance, duration, speed);
   if (speed > SPEED_THRESHOLD && (isTowardsAnchor || isTowardsContent)) {
     return;
   }
