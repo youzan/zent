@@ -41,6 +41,28 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
     subMenuVisible: false,
   };
 
+  static getDerivedStateFromProps(props: ISubMenuProps, state) {
+    const { cachedSpecKey, cachedExpandKeys } = state;
+    const { expandKeys, specKey } = props;
+    if (!cachedExpandKeys) {
+      return {
+        cachedExpandKeys: expandKeys,
+        cachedSpecKey: specKey,
+      };
+    }
+
+    if (cachedExpandKeys.length !== expandKeys.length) {
+      const isExpand = expandKeys.indexOf(cachedSpecKey) !== -1;
+      return {
+        cachedExpandKeys: expandKeys,
+        cachedSpecKey: specKey,
+        isExpand,
+      };
+    }
+
+    return null;
+  }
+
   getEventHanders = (disabled, isInline) => {
     let eventHanders = {};
 
@@ -145,21 +167,6 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
         </ul>
       </AnimateHeight>
     );
-  }
-
-  componentWillReceiveProps({ expandKeys: nextExpandKeys }: ISubMenuProps) {
-    const { specKey, expandKeys } = this.props;
-
-    // 一次只能展开一个subMenu，因此可以只通过length判断是否改变
-    if (expandKeys.length === nextExpandKeys.length) {
-      return;
-    }
-
-    const isExpand = nextExpandKeys.indexOf(specKey) !== -1;
-
-    this.setState({
-      isExpand,
-    });
   }
 
   render() {
