@@ -14,18 +14,25 @@ export interface ISubMenuProps {
   className?: string;
   prefix?: string;
   isInline?: boolean;
-  onClick?: (e: React.MouseEvent, index: unknown) => void;
-  specKey?: unknown;
-  onSubMenuClick?: (index: unknown) => void;
-  toggleExpand?: (index: unknown) => void;
+  onClick?: (e: React.MouseEvent, index: string) => void;
+  specKey?: string;
+  onSubMenuClick?: (index?: string | number) => void;
+  toggleExpand?: (index: string) => void;
   depth?: number;
-  expandKeys?: unknown[];
+  expandKeys?: string[];
   inlineIndent?: number;
-  selectedKey?: unknown;
-  handleSelect?: (specKey: unknown) => void;
+  selectedKey?: string;
+  handleSelect?: (specKey: string) => void;
 }
 
-export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
+export interface ISubMenuState {
+  isExpand: boolean;
+  subMenuVisible: boolean;
+  cachedSpecKey?: string;
+  cachedExpandKeys?: string[];
+}
+
+export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
   static defaultProps = {
     className: '',
     prefix: 'zent',
