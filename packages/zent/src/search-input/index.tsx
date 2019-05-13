@@ -3,10 +3,10 @@ import { Component } from 'react';
 import cx from 'classnames';
 
 import Icon from '../icon';
-import Input, { IInputProps } from '../input';
+import Input, { IInputCoreProps } from '../input';
 import getWidth from '../utils/getWidth';
 
-export interface ISearchInputProps extends IInputProps {}
+export interface ISearchInputProps extends IInputCoreProps {}
 
 export class SearchInput extends Component<ISearchInputProps> {
   static defaultProps = {

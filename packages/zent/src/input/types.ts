@@ -31,7 +31,6 @@ export interface IInputCoreProps
   showClear?: boolean;
   addonBefore?: React.ReactNode;
   addonAfter?: React.ReactNode;
-  onClear: React.MouseEventHandler<HTMLElement>;
   value?: string;
   onChange?: (
     e: IInputClearEvent | React.ChangeEvent<HTMLInputElement>
