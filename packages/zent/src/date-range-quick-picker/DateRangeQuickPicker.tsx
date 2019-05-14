@@ -3,6 +3,7 @@ import { Component } from 'react';
 import cx from 'classnames';
 import map from 'lodash-es/map';
 import isEqual from 'lodash-es/isEqual';
+import isNumber from 'lodash-es/isNumber';
 
 import DateRangePicker from '../datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from '../i18n';
@@ -13,7 +14,9 @@ export type DateRangeQuickPickerValue = Date | number | string;
 
 export type DateRangeQuickPickerValueType = 'date' | 'number' | 'string';
 
-export type DateRangeQuickPickerPresetValue = number | [DateRangeQuickPickerValue, DateRangeQuickPickerValue]
+export type DateRangeQuickPickerPresetValue =
+  | number
+  | [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
 
 export type DateRangeQuickPickerChangeCallback = (
   value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue],
@@ -102,7 +105,7 @@ export class DateRangeQuickPicker extends Component<
                   })}
                   onClick={this.handleChooseDays.bind(this, item.value)}
                 >
-                  {item.text || i18n[item.value]}
+                  {item.text || (isNumber(item.value) ? i18n[item.value] : '')}
                 </span>
               )}
             </Receiver>
