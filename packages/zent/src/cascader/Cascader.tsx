@@ -51,6 +51,33 @@ export interface ICascaderState {
   open: boolean;
   isLoading?: boolean;
   loadingStage?: number;
+  prevProps: ICascaderProps;
+}
+
+function resetCascaderValue(value: unknown[], options?: ICascaderItem[]) {
+  const activeValue = [];
+  let activeId = 1;
+
+  if (options && options.length > 0 && value && value.length > 0) {
+    activeId = 0;
+    for (let i = 0; i < value.length; i++) {
+      const id = value[i];
+      const nextOption = options.find(it => it.id === id);
+      activeId++;
+      if (!nextOption) break;
+
+      options = nextOption.children;
+      activeValue.push({
+        id: nextOption.id,
+        title: nextOption.title,
+      });
+    }
+  }
+
+  return {
+    activeValue,
+    activeId,
+  };
 }
 
 export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
@@ -68,39 +95,48 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     expandTrigger: 'click',
   };
 
+  static getDerivedStateFromProps(
+    nextProps: ICascaderProps,
+    { prevProps, open }: ICascaderState
+  ) {
+    const newState: Partial<ICascaderState> = {
+      prevProps: nextProps,
+    };
+
+    if ('value' in nextProps && nextProps.value !== prevProps.value) {
+      newState.value = nextProps.value || [];
+      Object.assign(
+        newState,
+        resetCascaderValue(nextProps.value, nextProps.options)
+      );
+      if (open && nextProps.changeOnSelect) {
+        newState.activeId = newState.activeId + 1;
+      }
+    }
+
+    if (nextProps.options !== prevProps.options) {
+      newState.options = nextProps.options || [];
+    }
+
+    return Object.keys(newState).length > 0 ? newState : null;
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      value: Array.isArray(props.value) ? props.value : [],
-      options: Array.isArray(props.options) ? props.options : [],
+      value: props.value || [],
+      options: props.options || [],
       activeValue: [],
       activeId: 1,
       open: false,
+      prevProps: props,
     };
   }
 
-  componentWillMount() {
-    this.resetCascaderValue(null, null, false);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { loadMore } = this.props;
-
-    if (nextProps.hasOwnProperty('value')) {
-      const nextValue = Array.isArray(nextProps.value) ? nextProps.value : [];
-      if (!loadMore) {
-        this.setState({
-          value: nextValue,
-        });
-      }
-      this.resetCascaderValue(nextValue, nextProps.options, false);
-    }
-    if (this.props.options !== nextProps.options) {
-      this.setState({
-        options: Array.isArray(nextProps.options) ? nextProps.options : [],
-      });
-    }
+  componentDidMount() {
+    const { value, options } = this.state;
+    this.setState(resetCascaderValue(value, options));
   }
 
   recursiveNextOptions(options: ICascaderItem[], id: unknown) {
@@ -112,44 +148,6 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     }
 
     return null;
-  }
-
-  resetCascaderValue(
-    value: unknown[],
-    options?: ICascaderItem[],
-    isTriggerChange = true
-  ) {
-    const activeValue = [];
-    let activeId = 1;
-    const { onChange } = this.props;
-    const state = this.state;
-    value = value || state.value;
-    options = options || state.options;
-
-    if (options && options.length > 0 && value && value.length > 0) {
-      activeId = 0;
-      for (let i = 0; i < value.length; i++) {
-        const id = value[i];
-        const nextOption = options.find(it => it.id === id);
-        activeId++;
-        if (!nextOption) break;
-
-        options = nextOption.children;
-        activeValue.push({
-          id: nextOption.id,
-          title: nextOption.title,
-        });
-      }
-    }
-
-    if (isTriggerChange) {
-      onChange(activeValue);
-    }
-
-    this.setState({
-      activeValue,
-      activeId,
-    });
   }
 
   onShow = () => {
@@ -211,7 +209,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
     willLoading: boolean,
     triggerType?: 'click' | 'hover'
   ) => {
-    let { value } = this.state;
+    let { value, options } = this.state;
     const { changeOnSelect } = this.props;
     let hasClose = false;
 
@@ -231,9 +229,12 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       hasClose = true;
       popover.close();
     }
+
     // 选择即改变只针对click
     if (hasClose || (changeOnSelect && triggerType === 'click')) {
-      this.resetCascaderValue(value);
+      const activeObj = resetCascaderValue(value, options);
+      this.props.onChange(activeObj.activeValue);
+      Object.assign(obj, activeObj);
     }
 
     this.setState(obj as any);
