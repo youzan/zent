@@ -43,14 +43,18 @@ const disabledMap = {
   second: 'disabledSecond',
 };
 
-function getValueFromProps(props: ITimePickerProps) {
+function extractStateFromProps(props: ITimePickerProps) {
   const parsedDate = parseDate(props.value || '', getFormat(props));
 
   if (!parsedDate) {
     console.warn("time and format don't match."); // eslint-disable-line
   }
 
-  return parsedDate || dayStart();
+  return {
+    value: parsedDate || dayStart(), // 利用传入的format解析value，失败则返回默认值
+    isPanelOpen: false,
+    prevProps: props,
+  };
 }
 
 export interface ITimePickerProps extends DatePickers.ICommonProps {
@@ -80,26 +84,9 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
   disabledTime: Partial<DatePickers.IDisabledTime>;
 
   static getDerivedStateFromProps(props: ITimePickerProps, state: any) {
-    let nextState = null;
-    if (props.value !== undefined) {
-      const value = getValueFromProps(props);
-      if (state.value !== value) {
-        nextState = {
-          value,
-        };
-      }
+    if (props !== state.prevProps) {
+      return extractStateFromProps(props);
     }
-
-    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
-      if (nextState) {
-        nextState.isPanelOpen = props.openPanel;
-      } else {
-        nextState = {
-          isPanelOpen: props.openPanel,
-        };
-      }
-    }
-
     return null;
   }
 
@@ -115,9 +102,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
     }
-    const state: any = {};
-    state.value = getValueFromProps(props);
-    state.isPanelOpen = state.isPanelOpen || false;
+    const state: any = extractStateFromProps(props);
     state.tabKey = TIME_KEY.HOUR;
     this.state = state;
     this.disabledTime = (props.disabledTime && props.disabledTime()) || {};
@@ -277,7 +262,7 @@ export class TimePicker extends PureComponent<ITimePickerProps, any> {
 
   resetTime = () => {
     this.setState({
-      value: getValueFromProps(this.props),
+      value: extractStateFromProps(this.props),
     });
   };
 

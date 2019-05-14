@@ -58,6 +58,7 @@ function extractStateFromProps(props: IYearPickerProps) {
     selected,
     openPanel: false,
     showPlaceholder,
+    prevProps: props,
   };
 }
 
@@ -70,20 +71,9 @@ export class YearPicker extends PureComponent<IYearPickerProps, any> {
   };
 
   static getDerivedStateFromProps(props: IYearPickerProps, state: any) {
-    if (props.value !== undefined) {
-      const nextState = extractStateFromProps(props);
-
-      if (nextState.value !== state.value) {
-        return nextState;
-      }
+    if (props !== state.prevProps) {
+      return extractStateFromProps(props);
     }
-
-    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
-      return {
-        openPanel: props.openPanel,
-      };
-    }
-
     return null;
   }
 

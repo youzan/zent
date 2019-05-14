@@ -35,7 +35,7 @@ export const commonProps = {
   confirmText: '',
   format: 'YYYY-MM-DD',
   popPosition: 'left',
-  // openPanel: false,
+  openPanel: false,
   onChange: noop,
   isFooterVisble: false,
   canClear: true,

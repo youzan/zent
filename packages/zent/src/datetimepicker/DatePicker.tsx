@@ -33,7 +33,7 @@ function extractStateFromProps(props: IDatePickerProps) {
   let selected;
   let actived;
   let showPlaceholder;
-  const { openPanel = false, value, format, defaultValue, defaultTime } = props;
+  const { openPanel, value, format, defaultValue, defaultTime } = props;
 
   if (value) {
     const tmp = parseDate(value, format);
@@ -81,6 +81,7 @@ function extractStateFromProps(props: IDatePickerProps) {
     activedTime: selected || actived,
     openPanel,
     showPlaceholder,
+    prevProps: props,
   };
 }
 
@@ -108,20 +109,9 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
   static formatDate = formatDate;
 
   static getDerivedStateFromProps(props: IDatePickerProps, state: any) {
-    if (props.value !== undefined) {
-      const nextState = extractStateFromProps(props);
-
-      if (nextState.value !== state.value) {
-        return nextState;
-      }
+    if (props !== state.prevProps) {
+      return extractStateFromProps(props);
     }
-
-    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
-      return {
-        openPanel: props.openPanel,
-      };
-    }
-
     return null;
   }
 

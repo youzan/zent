@@ -125,6 +125,7 @@ function extractStateFromProps(props: IWeekPickerProps) {
     selected,
     openPanel,
     showPlaceholder,
+    prevProps: props,
   };
 }
 
@@ -145,20 +146,9 @@ export class WeekPicker extends PureComponent<IWeekPickerProps, any> {
   };
 
   static getDerivedStateFromProps(props: IWeekPickerProps, state: any) {
-    if (props.value !== undefined) {
-      const nextState = extractStateFromProps(props);
-
-      if (nextState.value !== state.value) {
-        return nextState;
-      }
+    if (props !== state.prevProps) {
+      return extractStateFromProps(props);
     }
-
-    if (props.openPanel !== undefined && props.openPanel !== state.openPanel) {
-      return {
-        openPanel: props.openPanel,
-      };
-    }
-
     return null;
   }
 
