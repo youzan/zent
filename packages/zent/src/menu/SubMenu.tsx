@@ -26,10 +26,7 @@ export interface ISubMenuProps {
 }
 
 export interface ISubMenuState {
-  isExpand: boolean;
   subMenuVisible: boolean;
-  cachedSpecKey?: string;
-  cachedExpandKeys?: string[];
 }
 
 export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
@@ -42,33 +39,8 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
   enterTimer: number;
 
   state = {
-    isExpand:
-      this.props.isInline &&
-      this.props.expandKeys.indexOf(this.props.specKey) !== -1,
     subMenuVisible: false,
   };
-
-  static getDerivedStateFromProps(props: ISubMenuProps, state) {
-    const { cachedSpecKey, cachedExpandKeys } = state;
-    const { expandKeys, specKey } = props;
-    if (!cachedExpandKeys) {
-      return {
-        cachedExpandKeys: expandKeys,
-        cachedSpecKey: specKey,
-      };
-    }
-
-    if (cachedExpandKeys.length !== expandKeys.length) {
-      const isExpand = expandKeys.indexOf(cachedSpecKey) !== -1;
-      return {
-        cachedExpandKeys: expandKeys,
-        cachedSpecKey: specKey,
-        isExpand,
-      };
-    }
-
-    return null;
-  }
 
   getEventHanders = (disabled, isInline) => {
     let eventHanders = {};
@@ -148,9 +120,9 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
       specKey,
       overlayClassName,
       isInline,
+      expandKeys,
     } = this.props;
-
-    const { isExpand } = this.state;
+    const isExpand = expandKeys && expandKeys.indexOf(specKey) !== -1;
 
     if (!isInline) {
       return (
@@ -185,8 +157,10 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
       isInline,
       depth,
       inlineIndent,
+      expandKeys,
+      specKey,
     } = this.props;
-    const { isExpand } = this.state;
+    const isExpand = expandKeys && expandKeys.indexOf(specKey) !== -1;
 
     const eventHanders = this.getEventHanders(disabled, isInline);
     const styleObj = getExtraStyle({ isInline, depth, inlineIndent });
