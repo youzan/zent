@@ -14,18 +14,22 @@ export interface ISubMenuProps {
   className?: string;
   prefix?: string;
   isInline?: boolean;
-  onClick?: (e: React.MouseEvent, index: unknown) => void;
-  specKey?: unknown;
-  onSubMenuClick?: (index: unknown) => void;
-  toggleExpand?: (index: unknown) => void;
+  onClick?: (e: React.MouseEvent, index: string) => void;
+  specKey?: string;
+  onSubMenuClick?: (index?: string | number) => void;
+  toggleExpand?: (index: string) => void;
   depth?: number;
-  expandKeys?: unknown[];
+  expandKeys?: string[];
   inlineIndent?: number;
-  selectedKey?: unknown;
-  handleSelect?: (specKey: unknown) => void;
+  selectedKey?: string;
+  handleSelect?: (specKey: string) => void;
 }
 
-export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
+export interface ISubMenuState {
+  subMenuVisible: boolean;
+}
+
+export default class SubMenu extends CommonMenu<ISubMenuProps, ISubMenuState> {
   static defaultProps = {
     className: '',
     prefix: 'zent',
@@ -35,9 +39,6 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
   enterTimer: number;
 
   state = {
-    isExpand:
-      this.props.isInline &&
-      this.props.expandKeys.indexOf(this.props.specKey) !== -1,
     subMenuVisible: false,
   };
 
@@ -119,9 +120,9 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
       specKey,
       overlayClassName,
       isInline,
+      expandKeys,
     } = this.props;
-
-    const { isExpand } = this.state;
+    const isExpand = expandKeys && expandKeys.indexOf(specKey) !== -1;
 
     if (!isInline) {
       return (
@@ -147,21 +148,6 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
     );
   }
 
-  componentWillReceiveProps({ expandKeys: nextExpandKeys }: ISubMenuProps) {
-    const { specKey, expandKeys } = this.props;
-
-    // 一次只能展开一个subMenu，因此可以只通过length判断是否改变
-    if (expandKeys.length === nextExpandKeys.length) {
-      return;
-    }
-
-    const isExpand = nextExpandKeys.indexOf(specKey) !== -1;
-
-    this.setState({
-      isExpand,
-    });
-  }
-
   render() {
     const {
       prefix,
@@ -171,8 +157,10 @@ export default class SubMenu extends CommonMenu<ISubMenuProps, any> {
       isInline,
       depth,
       inlineIndent,
+      expandKeys,
+      specKey,
     } = this.props;
-    const { isExpand } = this.state;
+    const isExpand = expandKeys && expandKeys.indexOf(specKey) !== -1;
 
     const eventHanders = this.getEventHanders(disabled, isInline);
     const styleObj = getExtraStyle({ isInline, depth, inlineIndent });
