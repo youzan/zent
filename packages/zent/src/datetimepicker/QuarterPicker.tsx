@@ -81,6 +81,7 @@ function extractStateFromProps(props: IQuarterPickerProps) {
     selected,
     openPanel: false,
     showPlaceholder,
+    prevProps: props,
   };
 }
 
@@ -90,6 +91,13 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
     placeholder: '',
     format: 'YYYY-MM-DD',
   };
+
+  static getDerivedStateFromProps(props: IQuarterPickerProps, state: any) {
+    if (props !== state.prevProps) {
+      return extractStateFromProps(props);
+    }
+    return null;
+  }
 
   retType = 'string';
   picker: HTMLDivElement | null = null;
@@ -105,11 +113,6 @@ export class QuarterPicker extends PureComponent<IQuarterPickerProps, any> {
       if (typeof value === 'number') this.retType = 'number';
       if (value instanceof Date) this.retType = 'date';
     }
-  }
-
-  componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
   }
 
   getReturnValue = (date: Date) => {
