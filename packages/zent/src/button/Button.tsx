@@ -14,6 +14,7 @@ export interface IButtonProps
   href?: string;
   target?: string;
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  download?: string;
 }
 
 export class Button extends React.Component<IButtonProps> {
@@ -41,17 +42,27 @@ export class Button extends React.Component<IButtonProps> {
       bordered,
       icon,
       children,
+      download,
       ...props
     } = this.props;
     let child: React.ReactElement<IButtonProps>;
     if (href || target) {
       child = (
-        <a href={href} target={target} {...props}>
+        <a
+          href={disabled || loading ? undefined : href || ''}
+          target={target}
+          download={download}
+          {...props}
+        >
           {children}
         </a>
       );
     } else {
-      child = <button {...props}>{children}</button>;
+      child = (
+        <button type={htmlType} disabled={!!(disabled || loading)} {...props}>
+          {children}
+        </button>
+      );
     }
     return (
       <ButtonDirective
