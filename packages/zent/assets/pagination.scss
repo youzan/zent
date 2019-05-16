@@ -1,6 +1,8 @@
 @import './theme/default';
 @import './theme/font';
 
+$zent-btn-cls-name: 'zent-btn';
+
 .zent-pagination {
   display: flex;
   font-size: $font-size-normal;
@@ -26,8 +28,8 @@
     transform: translate(-50%, -50%);
   }
 
-  &-page-number-button,
-  &-arrow-button {
+  &-page-number-button.#{$zent-btn-cls-name},
+  &-arrow-button.#{$zent-btn-cls-name} {
     padding: 0 8px;
     min-width: 32px;
     position: relative;
