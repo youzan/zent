@@ -76,6 +76,10 @@ $border-color: $theme-stroke-6;
 
   &-text-align-right {
     text-align: right;
+
+    .zent-grid-thead-sort {
+      margin-right: 16px;
+    }
   }
 
   &-text-align-center {
