@@ -7,7 +7,7 @@ import PopoverContext, {
   IPopoverContext,
   getAnchor,
 } from './PopoverContext';
-import Portal, { IPortalImperativeHandlers } from '../portal';
+import Portal from '../portal';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
@@ -69,7 +69,6 @@ class PopoverContent extends Component<
   context!: IPopoverContext;
 
   private callbackNode: Scheduler.CallbackNode | null = null;
-  portalRef = React.createRef<IPortalImperativeHandlers>();
   isPopoverContent!: true;
 
   state = {
@@ -91,7 +90,7 @@ class PopoverContent extends Component<
     }
     const parent = findPositionedParent(container);
     const parentRect = parent.getBoundingClientRect();
-    const portal = this.portalRef.current;
+    const portal = ctx.portalRef.current;
     if (!portal) {
       return;
     }
@@ -175,7 +174,7 @@ class PopoverContent extends Component<
       children,
       // containerSelector,
     } = this.props;
-    const { visible, containerSelector } = getContext(this);
+    const { visible, containerSelector, portalRef } = getContext(this);
     const { position } = this.state;
 
     const cls = cx(className, 'zent-popover', position.className);
@@ -183,7 +182,7 @@ class PopoverContent extends Component<
     return (
       <>
         <Portal
-          ref={this.portalRef}
+          ref={portalRef}
           visible={visible}
           selector={containerSelector}
           className={cls}

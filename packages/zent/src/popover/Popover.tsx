@@ -33,6 +33,7 @@ import PopoverTrigger, {
 import PopoverContext from './PopoverContext';
 import { IPositionFunction } from './position-function';
 import withPopover from './withPopover';
+import { IPortalImperativeHandlers } from '../portal';
 // import Position from './placement';
 
 const SKIPPED = Symbol('ZentPopoverHookSkip');
@@ -106,6 +107,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
   private isUnmounted = false;
   private pendingOnBeforeHook = false;
+  portalRef = React.createRef<IPortalImperativeHandlers>();
   isPositionReady = false;
   triggerRef = React.createRef<PopoverTrigger>();
   contentRef = React.createRef<PopoverContent>();
@@ -262,6 +264,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
           containerSelector,
           placement: position,
           cushion,
+          portalRef: this.portalRef,
         }}
       >
         {React.cloneElement(trigger, {
