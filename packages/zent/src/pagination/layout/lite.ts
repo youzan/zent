@@ -18,7 +18,7 @@ export default function liteLayout(
 
   layout[0] = {
     type: 'left-arrow',
-    disabled: current === 1,
+    disabled: current <= 1,
   };
 
   for (let i = min; i <= max; i++) {
@@ -31,7 +31,7 @@ export default function liteLayout(
 
   layout[len - 1] = {
     type: 'right-arrow',
-    disabled: current === max,
+    disabled: current >= max,
   };
 
   return layout;
