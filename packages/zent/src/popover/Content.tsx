@@ -1,23 +1,37 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
-import throttle from 'lodash-es/throttle';
-import Portal from '../portal';
+import * as Scheduler from 'scheduler';
+import PopoverContext, {
+  getContext,
+  IPopoverContext,
+  getAnchor,
+} from './PopoverContext';
+import Portal, { IPortalImperativeHandlers } from '../portal';
 import WindowResizeHandler from '../utils/component/WindowResizeHandler';
 import WindowEventHandler from '../utils/component/WindowEventHandler';
 import findPositionedParent from '../utils/dom/findPositionedParent';
-import { getViewportSize } from '../utils/dom/getViewportSize';
-import isEqualPlacement from './placement/isEqual';
-import invisiblePlacement from './placement/invisible';
-import { PositionFunction, IPopoverPosition } from './position-function';
+import memorize from '../utils/memorize-one';
+import { IPopoverPosition } from './position-function';
+import { INVISIBLE_POSITION } from './placement';
+import { positionUpdated } from './position-updated';
 
-export function isPositionVisible(rect) {
-  const viewSize = getViewportSize();
-  return !(rect.bottom < 0 || rect.top - viewSize.height > 0);
-}
+const {
+  unstable_ImmediatePriority: ImmediatePriority,
+  unstable_scheduleCallback: scheduleCallback,
+  unstable_cancelCallback: cancelCallback,
+} = Scheduler;
 
-function translateToContainerCoordinates(containerBB, bb) {
-  const { left, top } = containerBB;
+export type IPopoverContentElement = React.ReactElement<
+  IPopoverContentProps,
+  typeof PopoverContent
+>;
+
+function translateToContainerCoordinates(
+  containerRect: ClientRect | DOMRect,
+  bb: ClientRect | DOMRect
+): ClientRect {
+  const { left, top } = containerRect;
   return {
     width: bb.width,
     height: bb.height,
@@ -29,23 +43,17 @@ function translateToContainerCoordinates(containerBB, bb) {
 }
 
 export interface IPopoverContentProps {
-  prefix?: string;
-  visible?: boolean;
-  getAnchor?: () => Element;
-  containerSelector?: string;
-  getContentNode?: () => Element;
-  placement?: PositionFunction;
-  onPositionUpdated?: () => void;
-  onPositionReady?: () => void;
-  id?: string;
   className?: string;
-  cushion?: number;
-  anchor?: HTMLElement;
-  container?: HTMLElement;
 }
 
 export interface IPopoverContentState {
   position: IPopoverPosition;
+}
+
+export function isPopoverContent(
+  maybe: React.ReactElement<any, any>
+): maybe is IPopoverContentElement {
+  return !!maybe.type.prototype.isPopoverContent;
 }
 
 /**
@@ -53,164 +61,147 @@ export interface IPopoverContentState {
  *
  * The props on this class are all private.
  */
-export default class PopoverContent extends Component<
+class PopoverContent extends Component<
   IPopoverContentProps,
   IPopoverContentState
 > {
-  positionReady: boolean;
-  positionedParent: Element | null;
+  static contextType = PopoverContext;
+  context!: IPopoverContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      position: (invisiblePlacement as any)(props.prefix),
-    };
+  private callbackNode: Scheduler.CallbackNode | null = null;
+  portalRef = React.createRef<IPortalImperativeHandlers>();
+  isPopoverContent!: true;
 
-    // 标记 content 的位置是否 ready
-    this.positionReady = false;
-  }
+  state = {
+    position: INVISIBLE_POSITION,
+  };
 
-  getAnchor() {
-    return this.props.getAnchor();
-  }
+  getContainer = memorize((selector: string) =>
+    document.querySelector(selector)
+  );
 
-  getPositionedParent() {
-    // findPositionedParent returns null on fail
-    if (this.positionedParent !== undefined) {
-      return this.positionedParent;
-    }
-
-    const { containerSelector } = this.props;
-    const container = document.querySelector(containerSelector);
-    const parent = findPositionedParent(container, true);
-    this.positionedParent = parent;
-    return parent;
-  }
-
-  adjustPosition = () => {
-    if (!this.props.visible) {
+  private adjustPositionImpl() {
+    const ctx = getContext(this);
+    if (!ctx.visible) {
       return;
     }
-
-    const content = this.props.getContentNode();
-
-    // 可能还未渲染出来，先放到一个不可见的位置
-    if (!content) {
-      this.setState({
-        position: (invisiblePlacement as any)(this.props.prefix),
-      });
-      setTimeout(this.adjustPosition, 0);
+    const container = this.getContainer(ctx.containerSelector);
+    if (!container) {
+      throw new Error('Container is null');
+    }
+    const parent = findPositionedParent(container);
+    const parentRect = parent.getBoundingClientRect();
+    const portal = this.portalRef.current;
+    if (!portal) {
       return;
     }
-
-    const contentBoundingBox = content.getBoundingClientRect();
-
-    const anchor = this.getAnchor();
+    const { element: content } = portal;
+    const contentRect = content.getBoundingClientRect();
+    // const container = document.querySelector()
+    /**
+     * trigger's render method guarantees child must be an HTMLElement
+     */
+    const anchor = getAnchor(ctx) as HTMLElement | null;
     if (!anchor) {
       return;
     }
-    const boundingBox = anchor.getBoundingClientRect();
+    const anchorRect = anchor.getBoundingClientRect();
+    const relativeRect = translateToContainerCoordinates(
+      parentRect,
+      anchorRect
+    );
+    const position = ctx.placement({
+      relativeRect,
+      anchor,
+      anchorRect,
+      content,
+      contentRect,
+      containerRect: parentRect,
+      container,
+      cushion: ctx.cushion,
+    });
+    this.setState({
+      position,
+    });
+  }
 
-    const parent = this.getPositionedParent();
-    if (!parent) {
-      return;
-    }
-    const parentBoundingBox = parent.getBoundingClientRect();
-
-    const relativeBB = translateToContainerCoordinates(
-      parentBoundingBox,
-      boundingBox
-    );
-    const relativeContainerBB = translateToContainerCoordinates(
-      parentBoundingBox,
-      parentBoundingBox
-    );
-    const position = this.props.placement(
-      this.props.prefix,
-      relativeBB,
-      relativeContainerBB,
-      {
-        width: contentBoundingBox.width,
-        height: contentBoundingBox.height,
-      },
-      {
-        cushion: this.props.cushion,
-        anchor,
-        container: parent,
-        anchorBoundingBoxViewport: boundingBox,
-        containerBoundingBoxViewport: parentBoundingBox,
-      }
-    );
-    if (!isEqualPlacement(this.state.position, position)) {
-      this.setState(
-        {
-          position,
-        },
-        () => {
-          this.props.onPositionUpdated();
-          if (isPositionVisible(boundingBox) && !this.positionReady) {
-            this.positionReady = true;
-            this.props.onPositionReady();
-          }
-        }
-      );
+  adjustPosition = (sync = false) => {
+    if (sync) {
+      this.adjustPositionImpl();
+    } else if (this.callbackNode !== null) {
+      this.callbackNode = scheduleCallback(ImmediatePriority, () => {
+        this.callbackNode = null;
+        this.adjustPositionImpl();
+      });
     }
   };
 
-  onWindowResize = throttle((evt, delta) => {
-    if (this.props.visible && (delta.deltaX !== 0 || delta.deltaY !== 0)) {
-      this.adjustPosition();
-    }
-  }, 16);
-
-  onWindowScroll = throttle(this.adjustPosition, 16);
+  windowEventHandler = () => {
+    this.adjustPosition();
+  };
 
   componentDidMount() {
-    const { visible } = this.props;
+    const { visible } = getContext(this);
     if (visible) {
       this.adjustPosition();
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.visible && prevProps.visible !== this.props.visible) {
-      // reset position mark
-      this.positionReady = false;
+  componentDidUpdate(
+    prevProps: IPopoverContentProps,
+    prevState: IPopoverContentState
+  ) {
+    const { popover } = getContext(this);
+    if (
+      this.state.position !== INVISIBLE_POSITION &&
+      prevState.position !== this.state.position
+    ) {
+      positionUpdated(popover);
+    }
+  }
 
-      this.adjustPosition();
+  componentWillUnmount() {
+    if (this.callbackNode !== null) {
+      cancelCallback(this.callbackNode);
     }
   }
 
   render() {
     const {
-      prefix,
+      // prefix,
       className,
-      id,
-      visible,
+      // id,
+      // visible,
       children,
-      containerSelector,
+      // containerSelector,
     } = this.props;
+    const { visible, containerSelector } = getContext(this);
     const { position } = this.state;
 
-    const cls = cx(className, `${prefix}-popover`, id, position.toString());
+    const cls = cx(className, 'zent-popover', position.className);
 
     return (
-      <Portal
-        visible={visible}
-        selector={containerSelector}
-        className={cls}
-        style={position.getCSSStyle()}
-      >
-        <div className={`${prefix}-popover-content`}>
+      <>
+        <Portal
+          ref={this.portalRef}
+          visible={visible}
+          selector={containerSelector}
+          className={cls}
+          style={position.style}
+        >
           {children}
-          <WindowResizeHandler onResize={this.onWindowResize} />
-          <WindowEventHandler
-            eventName="scroll"
-            callback={this.onWindowScroll}
-            useCapture
-          />
-        </div>
-      </Portal>
+        </Portal>
+        <WindowResizeHandler onResize={this.windowEventHandler} />
+        <WindowEventHandler
+          eventName="scroll"
+          callback={this.windowEventHandler}
+          useCapture
+        />
+      </>
     );
   }
 }
+
+PopoverContent.prototype.isPopoverContent = true;
+
+export default PopoverContent;

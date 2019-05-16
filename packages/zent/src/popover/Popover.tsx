@@ -18,85 +18,83 @@
 
 import * as React from 'react';
 import { Component, Children } from 'react';
-import * as ReactDOM from 'react-dom';
-import cx from 'classnames';
-import noop from 'lodash-es/noop';
-import uniqueId from 'lodash-es/uniqueId';
-import isFunction from 'lodash-es/isFunction';
-import isBoolean from 'lodash-es/isBoolean';
 import isPromise from '../utils/isPromise';
-import kindOf from '../utils/kindOf';
-import getWidth from '../utils/getWidth';
-import memoize from '../utils/memorize-one';
 
-import PopoverContent from './Content';
+import * as Position from './placement';
+import PopoverContent, {
+  isPopoverContent,
+  IPopoverContentElement,
+} from './Content';
 import Trigger from './trigger';
-import PopoverTrigger from './trigger/Trigger';
-import PopoverContext, { IPopoverContext } from './PopoverContext';
-import { PositionFunction } from './position-function';
+import PopoverTrigger, {
+  isPopoverTrigger,
+  IPopoverTriggerElement,
+} from './trigger/Trigger';
+import PopoverContext from './PopoverContext';
+import { IPositionFunction } from './position-function';
 import withPopover from './withPopover';
-import Position from './placement';
+// import Position from './placement';
 
-const SKIPPED = () => {};
+const SKIPPED = Symbol('ZentPopoverHookSkip');
 
-function handleBeforeHook(beforeFn, arity, continuation, escape) {
+export interface IPopoverBeforeHook {
+  (continuation?: () => void, escape?: () => void): Promise<void> | void;
+}
+
+function handleBeforeHook(
+  beforeFn: (
+    continuation?: () => void,
+    escape?: () => void
+  ) => Promise<void> | void | symbol,
+  arity: number,
+  continuation: () => void,
+  escape: () => void
+) {
   // 有参数，传入continuation，由外部去控制何时调用
-  // escapse 用来终止 onChange 操作
-  if (arity === 1) {
-    return beforeFn(continuation);
-  }
-
-  if (arity >= 2) {
+  // escape 用来终止 onChange 操作
+  if (arity >= 1) {
     return beforeFn(continuation, escape);
   }
-
   // 无参数，如果返回Promise那么resolve后调用continuation, reject 的话调用 escape；
   // 如果返回不是Promise，直接调用Promise
   const mayBePromise = beforeFn();
-  if (!isPromise(mayBePromise) && mayBePromise !== SKIPPED) {
+  if (isPromise<void>(mayBePromise)) {
+    mayBePromise.then(continuation, escape);
+  } else if (mayBePromise !== SKIPPED) {
     return continuation();
   }
-
-  mayBePromise.then(continuation, escape);
 }
 
+export type IPopoverChildren =
+  | [IPopoverTriggerElement, IPopoverContentElement]
+  | [IPopoverContentElement, IPopoverTriggerElement];
+
 export interface IPopoverProps {
-  position: PositionFunction;
-  cushion?: number;
-  display?: string;
+  position: IPositionFunction;
+  cushion: number;
+  // display?: string;
   onShow?: () => void;
   onClose?: () => void;
-  onBeforeShow?: (callback?: () => void, escape?: () => void) => void;
-  onBeforeClose?: (callback?: () => void, escape?: () => void) => void;
-  containerSelector?: string;
+  onBeforeShow?: IPopoverBeforeHook;
+  onBeforeClose?: IPopoverBeforeHook;
+  containerSelector: string;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   onPositionUpdated?: () => void;
   onPositionReady?: () => void;
   className?: string;
-  wrapperClassName?: string;
-  width?: number | string;
-  prefix?: string;
+  children: IPopoverChildren;
 }
 
 export interface IPopoverState {
-  visible?: boolean;
+  visible: boolean;
 }
 
 export class Popover extends Component<IPopoverProps, IPopoverState> {
   static defaultProps = {
-    prefix: 'zent',
-    className: '',
-    wrapperClassName: '',
-    display: 'block',
-    onBeforeClose: noop,
-    onBeforeShow: noop,
-    onClose: noop,
-    onShow: noop,
-    cushion: 0,
+    // display: 'block',
+    cushion: 10,
     containerSelector: 'body',
-    onPositionUpdated: noop,
-    onPositionReady: noop,
   };
 
   static contextType = PopoverContext;
@@ -106,322 +104,173 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   static Position = Position;
   static withPopover = withPopover;
 
-  registerDescendant = (popover: Popover) => {
-    this.descendants.push(popover);
+  private isUnmounted = false;
+  private pendingOnBeforeHook = false;
+  isPositionReady = false;
+  triggerRef = React.createRef<PopoverTrigger>();
+  contentRef = React.createRef<PopoverContent>();
+
+  state = {
+    visible: false,
   };
 
-  unregisterDescendant = (popover: Popover) => {
-    const idx = this.descendants.indexOf(popover);
-    this.descendants.splice(idx, 1);
+  private escape = () => {
+    this.pendingOnBeforeHook = false;
   };
 
-  getPopoverContext = memoize(
-    (): IPopoverContext => {
-      return {
-        _zentPopover: {
-          close: this.close,
-          open: this.open,
-          getContentNode: this.getPopoverNode,
-          getTriggerNode: this.getTriggerNode,
-
-          registerDescendant: this.registerDescendant,
-          unregisterDescendant: this.unregisterDescendant,
-        },
-      };
+  setVisible(visible: boolean) {
+    const { onBeforeClose, onBeforeShow } = this.props;
+    const beforeHook = visible ? onBeforeShow : onBeforeClose;
+    if (!beforeHook || this.pendingOnBeforeHook) {
+      return;
     }
-  );
-
-  context!: IPopoverContext;
-  id: string;
-  isUnmounted: boolean;
-  descendants: Popover[];
-  pendingOnBeforeHook: boolean;
-  triggerNode: HTMLElement | null;
-  triggerInstance: PopoverTrigger<any>;
-  contentInstance: PopoverContent;
-  isOutsideSelf: (el: HTMLElement) => boolean | null;
-
-  constructor(props) {
-    super(props);
-
-    // id用来唯一标识popover实例
-    this.id = uniqueId(`${props.prefix}-popover-internal-id-`);
-
-    // 记录 Popover 子孙
-    this.descendants = [];
-
-    if (!this.isVisibilityControlled(props)) {
-      this.state = {
-        // eslint-disable-next-line
-        visible: false,
-      };
-    }
-
-    this.isUnmounted = false;
-  }
-
-  isVisibilityControlled(props?: IPopoverProps) {
-    const { visible, onVisibleChange } = props || this.props;
-    const hasOnChange = isFunction(onVisibleChange);
-    const hasVisible = isBoolean(visible);
-
-    if ((hasVisible && !hasOnChange) || (hasOnChange && !hasVisible)) {
-      throw new Error('visible and onVisibleChange must be used together');
-    }
-
-    return hasVisible && hasOnChange;
-  }
-
-  getVisible = (props?: IPopoverProps, state?: IPopoverState) => {
-    if (this.isVisibilityControlled(props)) {
-      props = props || this.props;
-      return props.visible;
-    }
-
-    state = state || this.state;
-    return state.visible;
-  };
-
-  setVisible = (
-    visible: boolean,
-    props?: IPopoverProps,
-    state?: IPopoverState
-  ) => {
-    props = props || this.props;
-    state = state || this.state;
-    const beforeHook = visible ? props.onBeforeShow : props.onBeforeClose;
-    const onBefore = (...args) => {
+    const onBefore: (
+      continuation?: () => void,
+      escape?: () => void
+    ) => Promise<void> | void | symbol = (...args) => {
       // 确保pending的时候不会触发多次beforeHook
       if (this.pendingOnBeforeHook) {
         return SKIPPED;
       }
-
       this.pendingOnBeforeHook = true;
       return beforeHook(...args);
     };
-    const escapse = () => {
-      this.pendingOnBeforeHook = false;
-    };
-
-    if (this.isVisibilityControlled(props)) {
-      if (this.pendingOnBeforeHook || props.visible === visible) {
-        return;
-      }
-
-      handleBeforeHook(
-        onBefore,
-        beforeHook.length,
-        () => {
-          props.onVisibleChange(visible);
-          this.pendingOnBeforeHook = false;
-        },
-        escapse
-      );
-    } else {
-      if (this.pendingOnBeforeHook || state.visible === visible) {
-        return;
-      }
-
-      handleBeforeHook(
-        onBefore,
-        beforeHook.length,
-        () => {
-          this.safeSetState({ visible });
-          this.pendingOnBeforeHook = false;
-        },
-        escapse
-      );
-    }
-  };
-
-  getPopoverNode = () => {
-    return document.querySelector(`.${this.id}`);
-  };
-
-  onTriggerRefChange = (triggerInstance, nodeFilter) => {
-    const node = triggerInstance
-      ? ReactDOM.findDOMNode(triggerInstance)
-      : undefined;
-
-    this.triggerNode = isFunction(nodeFilter) ? nodeFilter(node) : node;
-
-    this.triggerInstance = triggerInstance;
-  };
-
-  onContentRefChange = contentInstance => {
-    this.contentInstance = contentInstance;
-  };
-
-  getTriggerNode = () => {
-    return this.triggerNode;
-  };
-
-  adjustPosition() {
-    if (this.contentInstance && this.contentInstance.adjustPosition) {
-      this.contentInstance.adjustPosition();
-    }
+    handleBeforeHook(
+      onBefore,
+      beforeHook.length,
+      () => {
+        this.safeSetState({ visible });
+        this.pendingOnBeforeHook = false;
+      },
+      this.escape
+    );
   }
 
-  onPositionUpdated = () => {
-    // 嵌套的时候需要通知下层更新位置
-    this.descendants.forEach(child => {
-      child.adjustPosition();
-    });
-
-    const { onPositionUpdated } = this.props;
-    if (onPositionUpdated) {
-      onPositionUpdated();
+  adjustPosition() {
+    const content = this.contentRef.current;
+    if (!content) {
+      return;
     }
-  };
+    content.adjustPosition();
+  }
 
-  open = () => {
+  open() {
     this.setVisible(true);
-  };
+  }
 
-  close = () => {
+  close() {
     this.setVisible(false);
-  };
-
-  injectIsOutsideSelf = impl => {
-    this.isOutsideSelf = impl;
-  };
-
-  // Popover up in the tree will call this method to see if the node lies outside
-  isOutsideStacked = node => {
-    if (this.isOutsideSelf) {
-      // 在自身内部，肯定不在外面
-      if (!this.isOutsideSelf(node)) {
-        return false;
-      }
-    }
-
-    // 问下面的 Popover 是否在外面
-    if (this.descendants.some(popover => !popover.isOutsideStacked(node))) {
-      return false;
-    }
-
-    return true;
-  };
+  }
 
   validateChildren() {
     const { children } = this.props;
-    const childArray = Children.toArray(children);
-
+    const childArray = Children.toArray(children) as IPopoverChildren;
     if (childArray.length !== 2) {
       throw new Error(
         'There must be one and only one trigger and content in Popover'
       );
     }
-
-    const { trigger, content } = childArray.reduce<{
-      trigger: any;
-      content: any;
-    }>(
-      (state, c: React.ReactElement<any>) => {
-        const type = c.type;
-        if (kindOf(type, PopoverTrigger)) {
-          state.trigger = c;
-        } else if (kindOf(type, PopoverContent)) {
-          state.content = c;
-        }
-
-        return state;
-      },
-      { trigger: null, content: null }
-    );
-
-    if (!trigger) {
+    const _0 = childArray[0];
+    const _1 = childArray[1];
+    let trigger: IPopoverTriggerElement;
+    let content: IPopoverContentElement;
+    if (isPopoverTrigger(_0)) {
+      trigger = _0;
+    } else if (isPopoverTrigger(_1)) {
+      trigger = _1;
+    } else {
       throw new Error('Missing trigger in Popover');
     }
-    if (!content) {
+    if (isPopoverContent(_0)) {
+      content = _0;
+    } else if (isPopoverContent(_1)) {
+      content = _1;
+    } else {
       throw new Error('Missing content in Popover');
     }
-
-    return { trigger, content };
+    if ((trigger as any).ref) {
+      throw new Error('Ref on Trigger Component is not allowed');
+    }
+    if ((content as any).ref) {
+      throw new Error('Ref on Content Component is not allowed');
+    }
+    return {
+      trigger,
+      content,
+    };
   }
 
-  safeSetState(updater, callback?: () => void) {
+  safeSetState(
+    updater:
+      | ((
+          prevState: Readonly<IPopoverState>,
+          props: Readonly<IPopoverProps>
+        ) => Partial<IPopoverState> | null)
+      | (Partial<IPopoverState> | null),
+    callback?: () => void
+  ) {
     if (!this.isUnmounted) {
-      return this.setState(updater, callback);
+      return this.setState(updater as any, callback);
     }
+  }
+
+  static getDerivedStateFromProps({
+    visible,
+  }: IPopoverProps): Partial<IPopoverState> | null {
+    if (typeof visible === 'boolean') {
+      return {
+        visible,
+      };
+    }
+    return null;
   }
 
   componentDidMount() {
-    const { _zentPopover: popover } = this.context || ({} as IPopoverContext);
-    if (popover && popover.registerDescendant) {
-      popover.registerDescendant(this);
-    }
-
-    if (this.isVisibilityControlled() && this.props.visible) {
-      this.props.onShow();
+    const { onShow } = this.props;
+    if (this.state.visible) {
+      onShow && onShow();
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const visible = this.getVisible();
-    if (visible !== this.getVisible(prevProps, prevState)) {
-      const afterHook = visible ? this.props.onShow : this.props.onClose;
-      afterHook();
+  componentDidUpdate(prevProps: IPopoverProps, prevState: IPopoverState) {
+    if (prevState.visible === this.state.visible) {
+      return;
+    }
+    const { onShow, onClose } = this.props;
+    if (this.state.visible) {
+      this.isPositionReady = false;
+      this.adjustPosition();
+      onShow && onShow();
+    } else {
+      onClose && onClose();
     }
   }
 
   componentWillUnmount() {
-    const { _zentPopover: popover } = this.context || ({} as IPopoverContext);
-    if (popover && popover.unregisterDescendant) {
-      popover.unregisterDescendant(this);
-    }
-
     this.isUnmounted = true;
   }
 
   render() {
     const { trigger, content } = this.validateChildren();
-    const {
-      display,
-      prefix,
-      className,
-      wrapperClassName,
-      containerSelector,
-      position,
-      cushion,
-      width,
-      onPositionReady,
-    } = this.props;
-    const visible = this.getVisible();
-
+    const { containerSelector, position, cushion } = this.props;
+    const { visible } = this.state;
     return (
-      <div
-        style={{ display, ...getWidth(width) }}
-        className={cx(`${prefix}-popover-wrapper`, wrapperClassName)}
+      <PopoverContext.Provider
+        value={{
+          popover: this,
+          visible,
+          containerSelector,
+          placement: position,
+          cushion,
+        }}
       >
-        <PopoverContext.Provider value={this.getPopoverContext()}>
-          {React.cloneElement(trigger, {
-            prefix,
-            contentVisible: visible,
-            onTriggerRefChange: this.onTriggerRefChange,
-            getTriggerNode: this.getTriggerNode,
-            getContentNode: this.getPopoverNode,
-            open: this.open,
-            close: this.close,
-            isOutsideStacked: this.isOutsideStacked,
-            injectIsOutsideSelf: this.injectIsOutsideSelf,
-          })}
-          {React.cloneElement(content, {
-            prefix,
-            className,
-            id: this.id,
-            getContentNode: this.getPopoverNode,
-            getAnchor: this.getTriggerNode,
-            ref: this.onContentRefChange,
-            visible,
-            cushion,
-            containerSelector,
-            placement: position,
-            onPositionUpdated: this.onPositionUpdated,
-            onPositionReady,
-          })}
-        </PopoverContext.Provider>
-      </div>
+        {React.cloneElement(trigger, {
+          ref: this.triggerRef,
+        })}
+        {React.cloneElement(content, {
+          ref: this.contentRef,
+        })}
+      </PopoverContext.Provider>
     );
   }
 }

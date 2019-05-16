@@ -1,28 +1,21 @@
 import { CSSProperties } from 'react';
 
 export interface IPopoverPosition {
-  getCSSStyle: () => CSSProperties;
-  name: string;
+  style: CSSProperties;
+  className?: string;
 }
 
-export type PositionFunctionImpl = (
-  anchorBoundingBox: ClientRect,
-  containerBoundingBox: ClientRect,
-  contentDimension: { width: number; height: number },
-  options: {
-    cushion: number;
-    anchor: Element;
-    container: Element;
-    anchorBoundingBoxViewport: any;
-    containerBoundingBoxViewport: any;
-  }
-) => IPopoverPosition;
+export interface IPositionFunctionProps {
+  anchorRect: ClientRect | DOMRect;
+  containerRect: ClientRect | DOMRect;
+  contentRect: ClientRect | DOMRect;
+  relativeRect: ClientRect;
+  cushion: number;
+  anchor: Element;
+  container: Element;
+  content: Element;
+}
 
-type ArgumentTypes<F extends Function> = F extends (...args: infer A) => any
-  ? A
-  : never;
-
-export type PositionFunction = (
-  prefix: string,
-  ...args: ArgumentTypes<PositionFunctionImpl>
-) => IPopoverPosition;
+export interface IPositionFunction {
+  (option: IPositionFunctionProps): IPopoverPosition;
+}
