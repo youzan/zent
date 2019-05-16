@@ -1,124 +1,97 @@
 import * as React from 'react';
-import isFunction from 'lodash-es/isFunction';
 import { Component, Children } from 'react';
+import PopoverContext, { IPopoverContext } from '../PopoverContext';
 
-export interface IPopoverTriggerProps {
-  getTriggerNode?: () => HTMLElement;
-  getContentNode?: () => HTMLElement;
-  open?: () => void;
-  close?: () => void;
-  contentVisible?: boolean;
-  onTriggerRefChange?: (
-    instance: React.ReactInstance,
-    getNodeForTriggerRefChange: (el: HTMLElement) => HTMLElement
-  ) => void;
-  getNodeForTriggerRefChange?: (el: HTMLElement) => HTMLElement;
-  children: React.ReactNode;
-  isOutside?: (
-    el: Element,
-    options: {
-      contentNode: HTMLElement;
-      triggerNode: HTMLElement;
-    }
-  ) => void;
-  isOutsideStacked?: (target: Element) => boolean;
+export interface IPopoverTriggerProps<ChildProps> {
+  children: React.ReactElement<ChildProps, any> | string | number;
+}
+
+export type IPopoverTriggerElement = React.ReactElement<
+  IPopoverTriggerProps<any>,
+  typeof PopoverTrigger
+>;
+
+export function isPopoverTrigger(
+  trigger: React.ReactElement<any, any>
+): trigger is IPopoverTriggerElement {
+  return !!trigger.type.prototype.isPopoverTrigger;
 }
 
 export class PopoverTrigger<
-  T extends IPopoverTriggerProps = IPopoverTriggerProps
+  TriggerChildProps = {},
+  T extends IPopoverTriggerProps<TriggerChildProps> = IPopoverTriggerProps<
+    TriggerChildProps
+  >
 > extends Component<T> {
-  constructor(props) {
-    super(props);
+  static contextType = PopoverContext;
+  context!: IPopoverContext;
 
-    props.injectIsOutsideSelf(this.isOutsideSelf);
-  }
+  isPopoverTrigger!: true;
 
-  // 注意：
-  // 在Trigger里判断一个节点在外面请用this.props.isOutsideStacked
-  //
-  // 这个函数之所以放在这里是为了兼容老的API，因为 isOutside 原来是放在Trigger上的，其实放在 Popover 上更好。
-  isOutsideSelf = target => {
-    const { isOutside, getContentNode, getTriggerNode } = this.props;
-    const box = getContentNode();
-    const anchor = getTriggerNode();
-    if (isOutside) {
-      return isOutside(target, {
-        contentNode: box,
-        triggerNode: anchor,
-      });
-    }
-
-    if (anchor && anchor.contains(target)) {
-      return false;
-    }
-
-    if (box && box.contains(target)) {
-      return false;
-    }
-
-    return true;
-  };
-
-  // Override this function to add custom event handlers
-  getTriggerProps(child?: JSX.Element) {
-    return {};
-  }
+  protected triggerProps: Partial<TriggerChildProps> = {};
 
   // helper to trigger event on child
-  triggerEvent(element, eventName, event) {
-    const handler = element.props[eventName];
-    if (handler) handler(event);
-  }
+  // triggerEvent(element, eventName, event) {
+  //   const handler = element.props[eventName];
+  //   if (handler) handler(event);
+  // }
 
-  validateChildren() {
-    const { children } = this.props;
-    const count = Children.count(children);
+  // validateChildren() {
+  //   const { children } = this.props;
+  //   const count = Children.count(children);
 
-    if (count === 0) {
-      throw new Error('Popover trigger requires a child');
-    }
+  //   if (count === 0) {
+  //     throw new Error('Popover trigger requires a child');
+  //   }
 
-    const childrenType = typeof children;
-    if (
-      (count === 1 && childrenType === 'string') ||
-      childrenType === 'number'
-    ) {
-      return <span>{children}</span>;
-    }
+  //   const childrenType = typeof children;
+  //   if (
+  //     (count === 1 && childrenType === 'string') ||
+  //     childrenType === 'number'
+  //   ) {
+  //     return <span>{children}</span>;
+  //   }
 
-    if (count > 1) {
-      throw new Error(
-        `Popover trigger requires only one child, but found ${count}`
-      );
-    }
+  //   if (count > 1) {
+  //     throw new Error(
+  //       `Popover trigger requires only one child, but found ${count}`
+  //     );
+  //   }
 
-    const child = Children.only<any>(this.props.children);
-    if (child.ref && !isFunction(child.ref)) {
-      throw new Error('String ref is not allowed on Popover trigger');
-    }
+  //   const child = Children.only(this.props.children);
+  //   if (child.ref && !isFunction(child.ref)) {
+  //     throw new Error('String ref is not allowed on Popover trigger');
+  //   }
 
-    return child;
-  }
+  //   return child;
+  // }
 
-  onRefChange = instance => {
-    const { onTriggerRefChange, getNodeForTriggerRefChange } = this.props;
+  // onRefChange = instance => {
+  //   const { onTriggerRefChange, getNodeForTriggerRefChange } = this.props;
 
-    onTriggerRefChange(instance, getNodeForTriggerRefChange);
+  //   onTriggerRefChange(instance, getNodeForTriggerRefChange);
 
-    const child = this.validateChildren();
-    if (isFunction(child.ref)) {
-      (child as any).ref(instance);
-    }
-  };
+  //   const child = this.validateChildren();
+  //   if (isFunction(child.ref)) {
+  //     (child as any).ref(instance);
+  //   }
+  // };
 
   render() {
-    const child = this.validateChildren();
-
-    return React.cloneElement(child, {
-      ref: this.onRefChange,
-      ...this.getTriggerProps(child),
-    });
+    const child:
+      | React.ReactElement<TriggerChildProps, any>
+      | string
+      | number = Children.only(this.props.children);
+    if (!child) {
+      throw new Error();
+    }
+    if (typeof child === 'number' || typeof child === 'string') {
+      return <span {...this.triggerProps}>{child}</span>;
+    }
+    return React.cloneElement(child, this.triggerProps);
   }
 }
+
+PopoverTrigger.prototype.isPopoverTrigger = true;
 
 export default PopoverTrigger;

@@ -1,7 +1,8 @@
-import { createContext } from 'react';
-import Popover from './Popover';
+import { createContext, RefObject } from 'react';
 import { findDOMNode } from 'react-dom';
+import Popover from './Popover';
 import { IPositionFunction } from './position-function';
+import { IPortalImperativeHandlers } from '../portal';
 
 export interface IPopoverContext {
   popover: Popover;
@@ -9,6 +10,7 @@ export interface IPopoverContext {
   containerSelector: string;
   placement: IPositionFunction;
   cushion: number;
+  portalRef: RefObject<IPortalImperativeHandlers>;
 }
 
 const context = createContext<IPopoverContext | null>(null);
