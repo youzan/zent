@@ -13,7 +13,7 @@ const positionMap: Record<string, IPositionFunction> = {
   TopRight,
 };
 
-const AutoBottomLeft: IPositionFunction = props => {
+export const AutoBottomLeft: IPositionFunction = props => {
   const { contentRect, cushion, anchorRect } = props;
   const viewport = getViewportSize();
 
@@ -44,5 +44,3 @@ const AutoBottomLeft: IPositionFunction = props => {
 
   return positionMap[key](props);
 };
-
-export default AutoBottomLeft;
