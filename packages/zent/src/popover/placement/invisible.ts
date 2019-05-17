@@ -1,5 +1,5 @@
 // import { CSSProperties } from 'react';
-// import createPlacement from './create';
+//
 import { IPopoverPosition } from '../position-function';
 import { prefix } from './prefix';
 
@@ -36,7 +36,7 @@ export function Invisible(): IPopoverPosition {
 //       };
 //     },
 
-//     name: 'position-invisible',
+//     className: prefix('className: prefix('position-invisible')'),
 //   };
 // };
 

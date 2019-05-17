@@ -1,45 +1,22 @@
 export * from './invisible';
-
-// import create from './create';
-// import BottomLeft from './bottom-left';
-// import BottomCenter from './bottom-center';
-// import BottomRight from './bottom-right';
-// import LeftTop from './left-top';
-// import LeftCenter from './left-center';
-// import LeftBottom from './left-bottom';
-// import RightTop from './right-top';
-// import RightCenter from './right-center';
-// import RightBottom from './right-bottom';
-// import TopLeft from './top-left';
-// import TopCenter from './top-center';
-// import TopRight from './top-right';
-
-// // Auto positions
-// import AutoBottomLeft from './auto-bottom-left';
-// import AutoBottomRight from './auto-bottom-right';
-// import AutoBottomCenter from './auto-bottom-center';
-// import AutoTopLeft from './auto-top-left';
-// import AutoTopRight from './auto-top-right';
-// import AutoTopCenter from './auto-top-center';
-
-// export default {
-//   create,
-//   BottomLeft,
-//   BottomCenter,
-//   BottomRight,
-//   LeftTop,
-//   LeftCenter,
-//   LeftBottom,
-//   RightTop,
-//   RightCenter,
-//   RightBottom,
-//   TopLeft,
-//   TopCenter,
-//   TopRight,
-//   AutoBottomLeft,
-//   AutoBottomRight,
-//   AutoBottomCenter,
-//   AutoTopLeft,
-//   AutoTopRight,
-//   AutoTopCenter,
-// };
+export * from './auto-bottom-center';
+export * from './auto-bottom-left';
+export * from './auto-bottom-right';
+export * from './auto-top-center';
+export * from './auto-top-left';
+export * from './auto-top-right';
+export * from './auto-top-center';
+export * from './auto-top-left';
+export * from './auto-top-right';
+export * from './bottom-center';
+export * from './bottom-left';
+export * from './bottom-right';
+export * from './left-top';
+export * from './left-center';
+export * from './left-bottom';
+export * from './right-top';
+export * from './right-center';
+export * from './right-bottom';
+export * from './top-left';
+export * from './top-center';
+export * from './top-right';
