@@ -32,7 +32,7 @@ import PopoverTrigger, {
 } from './trigger/Trigger';
 import PopoverContext from './PopoverContext';
 import { IPositionFunction } from './position-function';
-// import withPopover from './withPopover';
+import withPopover, { usePopover } from './withPopover';
 import { IPortalImperativeHandlers } from '../portal';
 // import Position from './placement';
 
@@ -103,7 +103,8 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   static Content = PopoverContent;
   static Trigger = Trigger;
   static Position = Position;
-  // static withPopover = withPopover;
+  static withPopover = withPopover;
+  static usePopover = usePopover;
 
   private isUnmounted = false;
   private pendingOnBeforeHook = false;
