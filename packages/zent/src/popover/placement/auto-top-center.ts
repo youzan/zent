@@ -17,7 +17,7 @@ const positionMap: Record<string, IPositionFunction> = {
   TopCenter,
 };
 
-const AutoBottomCenter: IPositionFunction = props => {
+export const AutoTopCenter: IPositionFunction = props => {
   const { contentRect, cushion, anchorRect } = props;
   const viewport = getViewportSize();
 
@@ -56,5 +56,3 @@ const AutoBottomCenter: IPositionFunction = props => {
 
   return positionMap[key](props);
 };
-
-export default AutoBottomCenter;
