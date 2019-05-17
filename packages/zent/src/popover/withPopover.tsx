@@ -1,9 +1,21 @@
 import * as React from 'react';
-import { Component } from 'react';
 import { Omit } from 'utility-types';
+import { isForwardRef } from 'react-is';
 
-import PopoverContext, { IPopoverContext } from './PopoverContext';
+import PopoverContext from './PopoverContext';
 import Popover from './Popover';
+
+function isClassComponent(component: Function) {
+  return !!component.prototype.isReactComponent;
+}
+
+export function usePopover() {
+  const ctx = React.useContext(PopoverContext);
+  if (ctx === null) {
+    throw new Error('usePopover must be used as child of Popover');
+  }
+  return ctx.popover;
+}
 
 /**
  * A high order component to expose imperative APIs for popover.
@@ -11,24 +23,27 @@ import Popover from './Popover';
  * Adds a popover prop to component.
  */
 export function exposePopover<N extends string>(propName: N) {
-  return function expose<T extends IPopoverContext>(
-    Base: React.ComponentType<T>
-  ) {
-    return class ExposePopover extends Component<T> {
-      static contextType = PopoverContext;
-      context!: IPopoverContext;
-
-      render() {
-        const { _zentPopover: popover } =
-          this.context || ({} as IPopoverContext);
-        const { registerDescendant, unregisterDescendant, ...others } = popover;
-        const context = {
-          [propName]: others,
-        };
-
-        return <Base {...this.props} {...context} />;
+  return function expose<
+    Props extends Record<string, any> = Record<string, any>
+  >(Base: React.ComponentType<Props>) {
+    const componentName =
+      Base.displayName || Base.constructor.name || 'Component';
+    const shouldPassRef = isClassComponent(Base) || isForwardRef(Base);
+    const comp = React.forwardRef<any, Props>((props, ref) => {
+      const popover = usePopover();
+      const childProps: any = {
+        [propName]: popover,
+      };
+      if (shouldPassRef) {
+        childProps.ref = ref;
       }
-    };
+      return React.createElement(Base, {
+        ...props,
+        childProps,
+      });
+    });
+    comp.displayName = `withPopover(${componentName})`;
+    return comp;
   };
 }
 
