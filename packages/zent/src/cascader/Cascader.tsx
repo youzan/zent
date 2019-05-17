@@ -103,7 +103,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       prevProps: nextProps,
     };
 
-    if ('value' in nextProps && nextProps.value !== prevProps.value) {
+    if ('value' in nextProps && nextProps !== prevProps) {
       newState.value = nextProps.value || [];
       Object.assign(
         newState,
@@ -114,11 +114,11 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       }
     }
 
-    if (nextProps.options !== prevProps.options) {
+    if (nextProps !== prevProps) {
       newState.options = nextProps.options || [];
     }
 
-    return Object.keys(newState).length > 0 ? newState : null;
+    return newState;
   }
 
   constructor(props) {
