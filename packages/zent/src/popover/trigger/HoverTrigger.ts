@@ -1,325 +1,252 @@
-import 'react';
-import capitalize from 'lodash-es/capitalize';
-import throttle from 'lodash-es/throttle';
-import uniq from 'lodash-es/uniq';
+import * as React from 'react';
 
-import isBrowser from '../../utils/isBrowser';
-
+import { getContext } from '../PopoverContext';
 import Trigger, { IPopoverTriggerProps } from './Trigger';
+import { isElement } from 'react-is';
+import { findDOMNode } from 'react-dom';
 
-const MOUSE_EVENT_WHITE_LIST = [
-  'down',
-  'up',
-  'move',
-  'over',
-  'out',
-  'enter',
-  'leave',
-];
-
-function isMouseEventSuffix(suffix) {
-  return MOUSE_EVENT_WHITE_LIST.indexOf(suffix) !== -1;
+interface IDot {
+  x: number;
+  y: number;
 }
 
-// Hover识别的状态
-const HoverState = {
-  Init: 1,
+interface ILine {
+  a: IDot;
+  b: IDot;
+}
 
-  // Leave识别开始必须先由内出去
-  Started: 2,
+interface IRect {
+  a: IDot;
+  b: IDot;
+  c: IDot;
+  d: IDot;
+}
 
-  // 延迟等待中
-  Pending: 3,
+function isUpSide(k: number, b: number, dot: IDot) {
+  return dot.x * k + b < dot.y;
+}
 
-  Finish: 255,
-};
+function isLeft(x: number, dot: IDot) {
+  return dot.x < x;
+}
 
-/**
- * 创建一个新state，每个state是一次性的，识别完成后需要创建一个新的state
- *
- * @param {string} name state的名称
- * @param {function} onFinish 识别成功时的回调函数
- */
-const makeState = (name, onFinish, initState = HoverState.Init) => {
-  let state = initState;
-
-  return {
-    transit(nextState) {
-      // console.log(`${name}: ${state} -> ${nextState}`); // eslint-disable-line
-
-      state = nextState;
-
-      if (state === HoverState.Finish) {
-        onFinish();
-      }
-    },
-
-    is(st) {
-      return st === state;
-    },
-
-    name,
-  };
-};
-
-function forEachHook(hooks, action) {
-  if (!hooks) {
-    return;
-  }
-
-  if (!isBrowser) return;
-
-  const hookNames = Object.keys(hooks);
-  hookNames.forEach(hookName => {
-    const eventName = isMouseEventSuffix(hookName)
-      ? `mouse${hookName}`
-      : hookName;
-    if (action === 'install') {
-      window.addEventListener(eventName, hooks[hookName], true);
-    } else if (action === 'uninstall') {
-      window.removeEventListener(eventName, hooks[hookName], true);
+function isLineIntersectRect(line: ILine, rect: IRect): boolean {
+  let p = 0;
+  if (line.a.x === line.b.x) {
+    const { x } = line.a;
+    if (isLeft(x, rect.a)) {
+      p |= 0b0001;
     }
-  });
+    if (isLeft(x, rect.b)) {
+      p |= 0b0010;
+    }
+    if (isLeft(x, rect.c)) {
+      p |= 0b0100;
+    }
+    if (isLeft(x, rect.d)) {
+      p |= 0b1000;
+    }
+  } else {
+    /**
+     * y = kx + b
+     */
+    const k = (line.b.y - line.a.y) / (line.b.x - line.a.x);
+    const b = line.a.y - k * line.a.x;
+    if (isUpSide(k, b, rect.a)) {
+      p |= 0b0001;
+    }
+    if (isUpSide(k, b, rect.b)) {
+      p |= 0b0010;
+    }
+    if (isUpSide(k, b, rect.c)) {
+      p |= 0b0100;
+    }
+    if (isUpSide(k, b, rect.d)) {
+      p |= 0b1000;
+    }
+  }
+  return !(p === 0b0000 || p === 0b1111);
 }
 
-function makeRecognizer(state, options) {
-  const recognizer = {
-    ...options,
-
-    destroy() {
-      if (!state.is(HoverState.Finish)) {
-        forEachHook(recognizer.global, 'uninstall');
-
-        // console.log(`destroy ${state.name}`); // eslint-disable-line
-      }
+function boundingClientRectToRect({
+  left,
+  top,
+  width,
+  height,
+}: ClientRect | DOMRect) {
+  return {
+    a: {
+      x: left,
+      y: top,
+    },
+    b: {
+      x: left + width,
+      y: top,
+    },
+    c: {
+      x: left,
+      y: top + height,
+    },
+    d: {
+      x: left + width,
+      y: top + height,
     },
   };
-
-  forEachHook(recognizer.global, 'install');
-  return recognizer;
 }
 
-/**
- * 进入和离开的识别是独立的recognizer，每个recognizer可以绑定任意`onmouse***`事件。
- * 组件内部只需要提供识别完成后的回调函数，不需要知道recognizer的细节。
- *
- * local下的事件是直接绑定在trigger上的
- * global下的事件是绑定在window上的capture事件
- */
+class MouseHandler {
+  constructor(public showDelay: number, public hideDelay: number) {}
 
-/**
- * 进入状态的识别
- */
-function makeHoverEnterRecognizer({ enterDelay, onEnter }) {
-  const state = makeState('enter', onEnter);
-  let timerId;
+  nextMouseIn: boolean | null = null;
+  isMouseIn = false;
+  timer: number | null = null;
 
-  const recognizer = makeRecognizer(state, {
-    local: {
-      enter() {
-        state.transit(HoverState.Pending);
+  onMouseEnter() {
+    if (this.timer !== null && this.nextMouseIn !== true) {
+      clearTimeout(this.timer);
+      this.timer = null;
+      this.nextMouseIn = null;
+    } else {
+      this.nextMouseIn = true;
+      this.timer = setTimeout(() => {
+        this.timer = null;
+        this.isMouseIn = true;
+        this.nextMouseIn = null;
+      }, this.showDelay) as any;
+    }
+  }
 
-        timerId = setTimeout(() => {
-          state.transit(HoverState.Finish);
-          forEachHook(recognizer.global, 'uninstall');
-        }, enterDelay);
-      },
-
-      leave() {
-        if (timerId) {
-          clearTimeout(timerId);
-          timerId = undefined;
-
-          state.transit(HoverState.Init);
-        }
-      },
-    },
-  });
-
-  return recognizer;
-}
-
-/**
- * 离开状态的识别
- */
-function makeHoverLeaveRecognizer({ leaveDelay, onLeave, isOutSide, quirk }) {
-  const state = makeState('leave', onLeave);
-  let recognizer;
-  let timerId;
-
-  const gotoFinishState = () => {
-    state.transit(HoverState.Finish);
-    forEachHook(recognizer.global, 'uninstall');
-  };
-
-  recognizer = makeRecognizer(state, {
-    global: {
-      move: throttle(evt => {
-        const { target } = evt;
-
-        if (isOutSide(target)) {
-          if (!quirk && !state.is(HoverState.Started)) {
-            return;
-          }
-
-          state.transit(HoverState.Pending);
-
-          timerId = setTimeout(gotoFinishState, leaveDelay);
-        } else {
-          if (state.is(HoverState.Init)) {
-            state.transit(HoverState.Started);
-            return;
-          }
-
-          if (!state.is(HoverState.Pending)) {
-            return;
-          }
-
-          if (timerId) {
-            clearTimeout(timerId);
-            timerId = undefined;
-
-            state.transit(HoverState.Started);
-          }
-        }
-      }, 16),
-
-      // 页面失去焦点的时候强制关闭，否则会出现必须先移动进来再出去才能关闭的问题
-      blur: evt => {
-        // 确保事件来自 window
-        // React 的事件系统会 bubble blur事件，但是原生的是不会 bubble 的。
-        // https://github.com/facebook/react/issues/6410#issuecomment-292895495
-        const target = evt.target || evt.srcElement;
-        if (target !== window) {
-          return;
-        }
-
-        if (timerId) {
-          clearTimeout(timerId);
-          timerId = undefined;
-        }
-
-        gotoFinishState();
-      },
-    },
-  });
-
-  return recognizer;
-}
-
-function callHook(recognizer, namespace, hookName, ...args) {
-  const ns = recognizer && recognizer[namespace];
-  if (ns && ns[hookName]) ns[hookName](...args);
-}
-
-function destroyRecognizer(recognizer) {
-  if (recognizer) {
-    recognizer.destroy();
+  onMouseLeave() {
+    if (this.timer !== null && this.nextMouseIn !== false) {
+      clearTimeout(this.timer);
+      this.timer = null;
+      this.nextMouseIn = null;
+    } else {
+      this.nextMouseIn = false;
+      this.timer = setTimeout(() => {
+        this.timer = null;
+        this.isMouseIn = false;
+        this.nextMouseIn = null;
+      }, this.hideDelay) as any;
+    }
   }
 }
 
-export interface IPopoverHoverTriggerProps extends IPopoverTriggerProps {
+export interface IPopoverHoverTriggerChildProps {
+  onMouseEnter: React.MouseEventHandler;
+  onMouseLeave: React.MouseEventHandler;
+}
+
+export interface IPopoverHoverTriggerProps<
+  P extends IPopoverHoverTriggerChildProps
+> extends IPopoverTriggerProps<P> {
   hideDelay: number;
-  quirk?: boolean;
   showDelay: number;
 }
 
 export default class PopoverHoverTrigger<
-  P extends IPopoverHoverTriggerProps = IPopoverHoverTriggerProps
-> extends Trigger<P> {
+  P extends IPopoverHoverTriggerChildProps = IPopoverHoverTriggerChildProps
+> extends Trigger<
+  IPopoverHoverTriggerChildProps,
+  IPopoverHoverTriggerProps<P>
+> {
   static defaultProps = {
     showDelay: 150,
     hideDelay: 150,
-    quirk: false,
   };
 
-  open = () => {
-    this.props.open();
+  private triggerHandler: MouseHandler;
+  private contentHandler: MouseHandler;
+  private mousePosition: IDot = {
+    x: 0,
+    y: 0,
   };
 
-  close = () => {
-    this.props.close();
+  constructor(props: IPopoverHoverTriggerProps<P>) {
+    super(props);
+    const { showDelay, hideDelay } = this.props;
+    this.triggerHandler = new MouseHandler(showDelay, hideDelay);
+    this.contentHandler = new MouseHandler(showDelay, hideDelay);
+  }
+
+  protected triggerProps: IPopoverHoverTriggerChildProps = {
+    onMouseEnter: e => {
+      this.triggerHandler.onMouseEnter();
+      const { children } = this.props;
+      if (isElement(children)) {
+        const { onMouseEnter } = children.props;
+        onMouseEnter && onMouseEnter(e);
+      }
+    },
+    onMouseLeave: e => {
+      this.triggerHandler.onMouseLeave();
+      const { children } = this.props;
+      if (isElement(children)) {
+        const { onMouseLeave } = children.props;
+        onMouseLeave && onMouseLeave(e);
+      }
+    },
   };
 
-  state = {
-    enterRecognizer: null,
-    leaveRecognizer: null,
+  onMouseMove = (e: MouseEvent) => {
+    const prev = this.mousePosition;
+    const current: IDot = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+    this.mousePosition = current;
+    if (this.triggerHandler.isMouseIn || this.contentHandler.isMouseIn) {
+      return;
+    }
+    const { portalRef, popover } = getContext(this);
+    const line: ILine = {
+      a: prev,
+      b: current,
+    };
+    const portal = portalRef.current;
+    if (!portal) {
+      return;
+    }
+    const content = portal.element;
+    const trigger = findDOMNode(this);
+    if (!(trigger instanceof Element)) {
+      return;
+    }
+    const contentRect = boundingClientRectToRect(
+      content.getBoundingClientRect()
+    );
+    const triggerRect = boundingClientRectToRect(
+      trigger.getBoundingClientRect()
+    );
+    if (
+      isLineIntersectRect(line, contentRect) ||
+      isLineIntersectRect(line, triggerRect)
+    ) {
+      return;
+    }
+    popover.close();
   };
 
-  makeEnterRecognizer() {
-    const { showDelay } = this.props;
+  onWindowBlur = () => {
+    this.triggerHandler.onMouseLeave();
+    this.contentHandler.onMouseLeave();
+  };
 
-    return makeHoverEnterRecognizer({
-      enterDelay: showDelay,
-      onEnter: this.open,
-    });
+  componentDidMount() {
+    window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('blur', this.onWindowBlur);
   }
 
-  makeLeaveRecognizer() {
-    const { quirk, hideDelay, isOutsideStacked } = this.props;
-
-    return makeHoverLeaveRecognizer({
-      leaveDelay: hideDelay,
-      onLeave: this.close,
-      isOutSide: isOutsideStacked,
-      quirk,
-    });
-  }
-
-  getTriggerProps(child) {
-    const { enterRecognizer, leaveRecognizer } = this.state;
-    const enterHooks = (enterRecognizer && enterRecognizer.local) || {};
-    const leaveHooks = (leaveRecognizer && leaveRecognizer.local) || {};
-    const eventNames = uniq(
-      [].concat(Object.keys(enterHooks), Object.keys(leaveHooks))
-    ).map(name => `onMouse${capitalize(name)}`);
-    const eventNameToHookName = eventName =>
-      eventName.slice('onMouse'.length).toLowerCase();
-
-    return eventNames.reduce((events, evtName) => {
-      const hookName = eventNameToHookName(evtName);
-      events[evtName] = evt => {
-        callHook(enterRecognizer, 'local', hookName);
-        callHook(leaveRecognizer, 'local', hookName);
-
-        this.triggerEvent(child, evtName, evt);
-      };
-
-      return events;
-    }, {});
-  }
-
-  cleanup() {
-    // ensure global events are removed
-    destroyRecognizer(this.state.enterRecognizer);
-    destroyRecognizer(this.state.leaveRecognizer);
-  }
-
-  initRecognizers(props?: any) {
-    props = props || this.props;
-    const { contentVisible } = props;
-
-    this.cleanup();
-    this.setState({
-      enterRecognizer: contentVisible ? null : this.makeEnterRecognizer(),
-      leaveRecognizer: contentVisible ? this.makeLeaveRecognizer() : null,
-    });
+  componentDidUpdate() {
+    const { showDelay, hideDelay } = this.props;
+    this.triggerHandler.showDelay = showDelay;
+    this.triggerHandler.hideDelay = hideDelay;
+    this.contentHandler.showDelay = showDelay;
+    this.contentHandler.hideDelay = hideDelay;
   }
 
   componentWillUnmount() {
-    this.cleanup();
-  }
-
-  componentDidMount() {
-    this.initRecognizers();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { contentVisible } = nextProps;
-
-    // visibility changed, create new recognizers
-    if (contentVisible !== this.props.contentVisible) {
-      this.initRecognizers(nextProps);
-    }
+    window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('blur', this.onWindowBlur);
   }
 }
