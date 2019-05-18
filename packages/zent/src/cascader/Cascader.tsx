@@ -114,7 +114,7 @@ export class Cascader extends PureComponent<ICascaderProps, ICascaderState> {
       }
     }
 
-    if (nextProps !== prevProps) {
+    if (nextProps.options !== prevProps.options) {
       newState.options = nextProps.options || [];
     }
 
