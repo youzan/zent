@@ -16,7 +16,6 @@ export interface IChangePending {
 }
 
 export interface IPopActionProps {
-  prefix: string;
   type: 'primary' | 'default' | 'danger' | 'success' | 'secondary';
   onConfirm?: IPopActionCallback;
   onCancel?: IPopActionCallback;
@@ -58,7 +57,6 @@ function handleClick(
 }
 
 function PopAction({
-  prefix,
   type,
   onConfirm,
   onCancel,
@@ -82,7 +80,7 @@ function PopAction({
     handleClick('cancelPending', changePending, popover, onCancel);
   }, [onCancel, popover, changePending]);
   return (
-    <div className={`${prefix}-pop-buttons`}>
+    <div className="zent-pop-buttons">
       <Receiver componentName="Pop">
         {i18n => (
           <Button

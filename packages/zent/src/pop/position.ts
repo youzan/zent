@@ -1,173 +1,187 @@
-import { CSSProperties } from 'react';
-import capitalize from 'lodash-es/capitalize';
-import isFunction from 'lodash-es/isFunction';
+import camelCase from 'camelcase';
+import { Omit } from 'utility-types';
 
-import Popover from '../popover';
+import Popover, { IPositionFunction } from '../popover';
 
 const { Position } = Popover;
 
-export type PopPositions =
-  | 'left-top'
-  | 'left-center'
-  | 'left-bottom'
-  | 'right-top'
-  | 'right-center'
-  | 'right-bottom'
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right'
-  | 'auto-bottom-center'
-  | 'auto-bottom-left'
-  | 'auto-bottom-right'
-  | 'auto-top-center'
-  | 'auto-top-left'
-  | 'auto-top-right';
+export const POSITIONS = [
+  'left-top',
+  'left-center',
+  'left-bottom',
+  'right-top',
+  'right-center',
+  'right-bottom',
+  'top-left',
+  'top-center',
+  'top-right',
+  'bottom-left',
+  'bottom-center',
+  'bottom-right',
+  'auto-bottom-center',
+  'auto-bottom-left',
+  'auto-bottom-right',
+  'auto-top-center',
+  'auto-top-left',
+  'auto-top-right',
+] as const;
 
-// FIXME: these values and css variables in pop.scss are interrelated
-const ARROW_OFFSET_H = 15;
-const ARROW_OFFSET_V = 9;
+export type PopPositions = typeof POSITIONS[number];
 
-const createPosition = (x, y, side) => {
-  return {
-    getCSSStyle(): CSSProperties {
-      return {
-        position: 'absolute',
-        left: `${Math.round(x)}px`,
-        top: `${Math.round(y)}px`,
-      };
-    },
+type PopoverPositions = keyof Omit<typeof Position, 'INVISIBLE_POSITION'>;
 
-    name: `position-${side}`,
-  };
-};
+const POSITION_MAP = {} as Record<PopPositions, PopoverPositions>;
 
-const CenterArrowPosition = {
-  ...(() => {
-    const make = (getX, side: string) =>
-      Position.create(
-        (
-          anchorBoundingBox,
-          containerBoundingBox,
-          contentDimension,
-          options
-        ) => {
-          const { right, left, top } = anchorBoundingBox;
-          const middle = (left + right) / 2;
-          const x = getX(middle, contentDimension);
-          const y = top - contentDimension.height - options.cushion;
+for (let i = 0; i < POSITIONS.length; i += 1) {
+  const name = POSITIONS[i];
+  const pascal = camelCase(name, {
+    pascalCase: true,
+  }) as PopoverPositions;
+  POSITION_MAP[name] = pascal;
+}
 
-          return createPosition(x, y, `top-${side}`);
-        }
-      );
+// // FIXME: these values and css variables in pop.scss are interrelated
+// const ARROW_OFFSET_H = 15;
+// const ARROW_OFFSET_V = 9;
 
-    return {
-      TopLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
-      TopRight: make(
-        (middle, contentDimension) =>
-          middle - (contentDimension.width - ARROW_OFFSET_H),
-        'right'
-      ),
-    };
-  })(),
+// // const createPosition = (x, y, side) => {
+// //   return {
+// //     getCSSStyle(): CSSProperties {
+// //       return {
+// //         position: 'absolute',
+// //         left: `${Math.round(x)}px`,
+// //         top: `${Math.round(y)}px`,
+// //       };
+// //     },
 
-  ...(() => {
-    const make = (getX, side) =>
-      Position.create(
-        (
-          anchorBoundingBox,
-          containerBoundingBox,
-          contentDimension,
-          options
-        ) => {
-          const { left, right, bottom } = anchorBoundingBox;
-          const middle = (left + right) / 2;
-          const x = getX(middle, contentDimension);
-          const y = bottom + options.cushion;
+// //     name: `position-${side}`,
+// //   };
+// // };
 
-          return createPosition(x, y, `bottom-${side}`);
-        }
-      );
+// const CenterArrowPosition = {
+//   ...(() => {
+//     const make = (getX, side: string) =>
+//       Position.create(
+//         (
+//           anchorBoundingBox,
+//           containerBoundingBox,
+//           contentDimension,
+//           options
+//         ) => {
+//           const { right, left, top } = anchorBoundingBox;
+//           const middle = (left + right) / 2;
+//           const x = getX(middle, contentDimension);
+//           const y = top - contentDimension.height - options.cushion;
 
-    return {
-      BottomLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
-      BottomRight: make(
-        (middle, contentDimension) =>
-          middle - (contentDimension.width - ARROW_OFFSET_H),
-        'right'
-      ),
-    };
-  })(),
+//           return createPosition(x, y, `top-${side}`);
+//         }
+//       );
 
-  ...(() => {
-    const make = (getY, side) =>
-      Position.create(
-        (
-          anchorBoundingBox,
-          containerBoundingBox,
-          contentDimension,
-          options
-        ) => {
-          const x =
-            anchorBoundingBox.left - contentDimension.width - options.cushion;
-          const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
-          const y = getY(middle, contentDimension);
+//     return {
+//       TopLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
+//       TopRight: make(
+//         (middle, contentDimension) =>
+//           middle - (contentDimension.width - ARROW_OFFSET_H),
+//         'right'
+//       ),
+//     };
+//   })(),
 
-          return createPosition(x, y, `left-${side}`);
-        }
-      );
+//   ...(() => {
+//     const make = (getX, side) =>
+//       Position.create(
+//         (
+//           anchorBoundingBox,
+//           containerBoundingBox,
+//           contentDimension,
+//           options
+//         ) => {
+//           const { left, right, bottom } = anchorBoundingBox;
+//           const middle = (left + right) / 2;
+//           const x = getX(middle, contentDimension);
+//           const y = bottom + options.cushion;
 
-    return {
-      LeftTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
-      LeftBottom: make(
-        (middle, contentDimension) =>
-          middle - (contentDimension.height - ARROW_OFFSET_V),
-        'bottom'
-      ),
-    };
-  })(),
+//           return createPosition(x, y, `bottom-${side}`);
+//         }
+//       );
 
-  ...(() => {
-    const make = (getY, side) =>
-      Position.create(
-        (
-          anchorBoundingBox,
-          containerBoundingBox,
-          contentDimension,
-          options
-        ) => {
-          const { right, top, bottom } = anchorBoundingBox;
-          const x = right + options.cushion;
-          const middle = (top + bottom) / 2;
-          const y = getY(middle, contentDimension);
+//     return {
+//       BottomLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
+//       BottomRight: make(
+//         (middle, contentDimension) =>
+//           middle - (contentDimension.width - ARROW_OFFSET_H),
+//         'right'
+//       ),
+//     };
+//   })(),
 
-          return createPosition(x, y, `right-${side}`);
-        }
-      );
+//   ...(() => {
+//     const make = (getY, side) =>
+//       Position.create(
+//         (
+//           anchorBoundingBox,
+//           containerBoundingBox,
+//           contentDimension,
+//           options
+//         ) => {
+//           const x =
+//             anchorBoundingBox.left - contentDimension.width - options.cushion;
+//           const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
+//           const y = getY(middle, contentDimension);
 
-    return {
-      RightTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
-      RightBottom: make(
-        (middle, contentDimension) =>
-          middle - (contentDimension.height - ARROW_OFFSET_V),
-        'bottom'
-      ),
-    };
-  })(),
-};
+//           return createPosition(x, y, `left-${side}`);
+//         }
+//       );
 
-export default function getPosition(position, centerArrow) {
-  if (isFunction(position)) {
+//     return {
+//       LeftTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
+//       LeftBottom: make(
+//         (middle, contentDimension) =>
+//           middle - (contentDimension.height - ARROW_OFFSET_V),
+//         'bottom'
+//       ),
+//     };
+//   })(),
+
+//   ...(() => {
+//     const make = (getY, side) =>
+//       Position.create(
+//         (
+//           anchorBoundingBox,
+//           containerBoundingBox,
+//           contentDimension,
+//           options
+//         ) => {
+//           const { right, top, bottom } = anchorBoundingBox;
+//           const x = right + options.cushion;
+//           const middle = (top + bottom) / 2;
+//           const y = getY(middle, contentDimension);
+
+//           return createPosition(x, y, `right-${side}`);
+//         }
+//       );
+
+//     return {
+//       RightTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
+//       RightBottom: make(
+//         (middle, contentDimension) =>
+//           middle - (contentDimension.height - ARROW_OFFSET_V),
+//         'bottom'
+//       ),
+//     };
+//   })(),
+// };
+
+export default function getPosition(
+  position: PopPositions | IPositionFunction,
+  centerArrow?: boolean
+) {
+  if (typeof position === 'function') {
     return position;
   }
 
-  let positionName = position
-    .split('-')
-    .map(s => capitalize(s))
-    .join('');
-  let pos = Position[positionName];
+  let positionName = POSITION_MAP[position];
+  let pos: IPositionFunction = Position[positionName];
 
   // Choose a fallback in case position is invalid
   if (!pos) {
@@ -175,10 +189,12 @@ export default function getPosition(position, centerArrow) {
     positionName = 'TopCenter';
   }
 
-  // *-center postions are not affected by centerArrow parameter
-  if (!centerArrow || /^.+Center$/.test(positionName)) {
-    return pos;
-  }
+  return pos;
 
-  return CenterArrowPosition[positionName];
+  // // *-center postions are not affected by centerArrow parameter
+  // if (!centerArrow || /^.+Center$/.test(positionName)) {
+  //   return pos;
+  // }
+
+  // return CenterArrowPosition[positionName];
 }

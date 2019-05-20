@@ -69,14 +69,13 @@ export interface IPopCommonProps {
   onPositionReady?: () => void;
   className?: string;
   containerSelector?: string;
-  prefix: string;
 }
 
 export type IPopProps =
   | IPopNoneTriggerProps<any>
+  | IPopFocusTriggerProps<any>
   | IPopClickTriggerProps<any>
-  | IPopHoverTriggerProps<any>
-  | IPopFocusTriggerProps<any>;
+  | IPopHoverTriggerProps<any>;
 
 export interface IPopState {
   confirmPending: boolean;
@@ -94,6 +93,8 @@ export class Pop extends Component<IPopProps, IPopState> {
     onPositionUpdated: noop,
     onPositionReady: noop,
     containerSelector: 'body',
+    showDelay: 150,
+    hideDelay: 150,
   };
 
   static withPop = exposePopover('pop');
@@ -136,7 +137,6 @@ export class Pop extends Component<IPopProps, IPopState> {
 
   renderContent() {
     const {
-      prefix,
       content,
       header,
       onConfirm,
@@ -144,28 +144,35 @@ export class Pop extends Component<IPopProps, IPopState> {
       confirmText,
       cancelText,
       type,
+      className,
     } = this.props;
     const { confirmPending, cancelPending } = this.state;
     const hasHeader = !!header;
-
+    const cls = cx('zent-pop', className, {
+      'zent-pop--has-header': hasHeader,
+      'zent-pop--no-header': !hasHeader,
+    });
     return (
       <Popover.Content>
-        {hasHeader && <div className={`${prefix}-pop-header`}>{header}</div>}
-        <div className={`${prefix}-pop-inner`}>
-          {content}
-          <Action
-            prefix={prefix}
-            onConfirm={onConfirm}
-            onCancel={onCancel}
-            confirmText={confirmText}
-            cancelText={cancelText}
-            confirmPending={confirmPending}
-            cancelPending={cancelPending}
-            changePending={this.changePending}
-            type={type}
-          />
+        <div className={cls}>
+          {hasHeader && <div className="zent-pop-header">{header}</div>}
+          <div className="zent-pop-inner">
+            {content}
+            {(onConfirm || onCancel) && (
+              <Action
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                confirmText={confirmText}
+                cancelText={cancelText}
+                confirmPending={confirmPending}
+                cancelPending={cancelPending}
+                changePending={this.changePending}
+                type={type}
+              />
+            )}
+          </div>
+          <div className="zent-pop-arrow" />
         </div>
-        <i className={`${prefix}-pop-arrow`} />
       </Popover.Content>
     );
   }
@@ -207,14 +214,11 @@ export class Pop extends Component<IPopProps, IPopState> {
 
   render() {
     const {
-      className,
       trigger,
       visible,
-      prefix,
       onShow,
       onClose,
       position,
-      header,
       centerArrow,
       onBeforeClose,
       onBeforeShow,
@@ -222,12 +226,6 @@ export class Pop extends Component<IPopProps, IPopState> {
       onPositionReady,
       containerSelector,
     } = this.props;
-
-    const hasHeader = !!header;
-    const cls = cx(`${prefix}-pop`, className, {
-      [`${prefix}-pop--has-header`]: hasHeader,
-      [`${prefix}-pop--no-header`]: !hasHeader,
-    });
 
     let { onVisibleChange } = this.props;
     if (trigger === 'none') {
@@ -242,7 +240,7 @@ export class Pop extends Component<IPopProps, IPopState> {
         ref={this.popoverRef}
         visible={closePending ? true : visible}
         onVisibleChange={closePending ? noop : onVisibleChange}
-        className={cls}
+        className="zent-pop-portal"
         cushion={10}
         position={getPosition(position, centerArrow)}
         onShow={onShow}

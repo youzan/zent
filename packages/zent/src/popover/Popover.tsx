@@ -1,24 +1,5 @@
-/**
- * 设计：
- *
- * Popover组件只是一个壳子，负责组装Trigger和Content。
- *
- * 弹层实际的打开／关闭都是Content完成的，而什么情况打开弹层是Trigger控制的。
- *
- * Popover 组件是一个递归的组件，支持嵌套。
- *
- *
- *            context                       context
- *            ------>                       ------>
- * Popover               Popover child                    Popover grand-child     ......
- *            <------                       <------
- *        isOutsideStacked              isOutsideStacked
- *
- */
-
 import * as React from 'react';
 import { Component, Children } from 'react';
-import isPromise from '../utils/isPromise';
 
 import * as Position from './placement';
 import PopoverContent, {
@@ -34,36 +15,9 @@ import PopoverContext from './PopoverContext';
 import { IPositionFunction } from './position-function';
 import withPopover, { usePopover } from './withPopover';
 import { IPortalImperativeHandlers } from '../portal';
-// import Position from './placement';
-
-const SKIPPED = Symbol('ZentPopoverHookSkip');
 
 export interface IPopoverBeforeHook {
   (continuation?: () => void, escape?: () => void): Promise<void> | void;
-}
-
-function handleBeforeHook(
-  beforeFn: (
-    continuation?: () => void,
-    escape?: () => void
-  ) => Promise<void> | void | symbol,
-  arity: number,
-  continuation: () => void,
-  escape: () => void
-) {
-  // 有参数，传入continuation，由外部去控制何时调用
-  // escape 用来终止 onChange 操作
-  if (arity >= 1) {
-    return beforeFn(continuation, escape);
-  }
-  // 无参数，如果返回Promise那么resolve后调用continuation, reject 的话调用 escape；
-  // 如果返回不是Promise，直接调用Promise
-  const mayBePromise = beforeFn();
-  if (isPromise<void>(mayBePromise)) {
-    mayBePromise.then(continuation, escape);
-  } else if (mayBePromise !== SKIPPED) {
-    return continuation();
-  }
 }
 
 export type IPopoverChildren =
@@ -98,8 +52,6 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     containerSelector: 'body',
   };
 
-  static contextType = PopoverContext;
-
   static Content = PopoverContent;
   static Trigger = Trigger;
   static Position = Position;
@@ -123,30 +75,24 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
   setVisible(visible: boolean) {
     const { onBeforeClose, onBeforeShow } = this.props;
-    const beforeHook = visible ? onBeforeShow : onBeforeClose;
-    if (!beforeHook || this.pendingOnBeforeHook) {
+    const hook = visible ? onBeforeShow : onBeforeClose;
+    if (this.pendingOnBeforeHook) {
       return;
     }
-    const onBefore: (
-      continuation?: () => void,
-      escape?: () => void
-    ) => Promise<void> | void | symbol = (...args) => {
-      // 确保pending的时候不会触发多次beforeHook
-      if (this.pendingOnBeforeHook) {
-        return SKIPPED;
-      }
-      this.pendingOnBeforeHook = true;
-      return beforeHook(...args);
+    if (!hook) {
+      return this.safeSetState({ visible });
+    }
+    this.pendingOnBeforeHook = true;
+    const continuation = () => {
+      this.safeSetState({
+        visible,
+      });
+      this.pendingOnBeforeHook = false;
     };
-    handleBeforeHook(
-      onBefore,
-      beforeHook.length,
-      () => {
-        this.safeSetState({ visible });
-        this.pendingOnBeforeHook = false;
-      },
-      this.escape
-    );
+    if (hook.length >= 1) {
+      return hook(continuation, this.escape);
+    }
+    Promise.resolve(hook()).then(continuation, this.escape);
   }
 
   adjustPosition() {
@@ -255,7 +201,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
 
   render() {
     const { trigger, content } = this.validateChildren();
-    const { containerSelector, position, cushion } = this.props;
+    const { containerSelector, position, cushion, className } = this.props;
     const { visible } = this.state;
     return (
       <PopoverContext.Provider
@@ -266,6 +212,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
           placement: position,
           cushion,
           portalRef: this.portalRef,
+          className,
         }}
       >
         {React.cloneElement(trigger, {

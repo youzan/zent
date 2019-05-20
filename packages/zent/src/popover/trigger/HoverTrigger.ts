@@ -95,7 +95,11 @@ function boundingClientRectToRect({
 }
 
 class MouseHandler {
-  constructor(public showDelay: number, public hideDelay: number) {}
+  constructor(
+    public showDelay: number,
+    public hideDelay: number,
+    private readonly trigger: PopoverHoverTrigger<any>
+  ) {}
 
   nextMouseIn: boolean | null = null;
   isMouseIn = false;
@@ -109,6 +113,7 @@ class MouseHandler {
     } else {
       this.nextMouseIn = true;
       this.timer = setTimeout(() => {
+        this.trigger.getPopover().open();
         this.timer = null;
         this.isMouseIn = true;
         this.nextMouseIn = null;
@@ -124,6 +129,7 @@ class MouseHandler {
     } else {
       this.nextMouseIn = false;
       this.timer = setTimeout(() => {
+        this.trigger.getPopover().close();
         this.timer = null;
         this.isMouseIn = false;
         this.nextMouseIn = null;
@@ -166,8 +172,8 @@ export default class PopoverHoverTrigger<
   constructor(props: IPopoverHoverTriggerProps<P>) {
     super(props);
     const { showDelay, hideDelay } = this.props;
-    this.triggerHandler = new MouseHandler(showDelay, hideDelay);
-    this.contentHandler = new MouseHandler(showDelay, hideDelay);
+    this.triggerHandler = new MouseHandler(showDelay, hideDelay, this);
+    this.contentHandler = new MouseHandler(showDelay, hideDelay, this);
   }
 
   protected triggerProps: IPopoverHoverTriggerChildProps = {
@@ -246,6 +252,10 @@ export default class PopoverHoverTrigger<
     this.triggerHandler.onMouseLeave();
     this.contentHandler.onMouseLeave();
   };
+
+  getPopover() {
+    return getContext(this).popover;
+  }
 
   componentDidMount() {
     window.addEventListener('mousemove', this.onMouseMove);
