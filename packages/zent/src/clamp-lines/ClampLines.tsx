@@ -13,8 +13,8 @@ export interface IClampLinesProps {
   ellipsis?: string;
   showPop?: boolean;
   popWidth?: number;
-  trigger?: 'click' | 'hover' | 'focus';
-  renderPop?: (text: string) => React.ReactNode;
+  trigger: 'click' | 'hover' | 'focus';
+  renderPop: (text: string) => React.ReactNode;
   resizable?: boolean;
   extra?: React.ReactNode;
   className?: string;
@@ -196,7 +196,7 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     if (showPop) {
       return (
         <Pop
-          trigger={trigger}
+          trigger={trigger as any}
           content={<div style={{ maxWidth: popWidth }}>{renderPop(text)}</div>}
         >
           {this.renderClampedText()}

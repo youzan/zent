@@ -53,7 +53,6 @@ export class BlockHeader extends Component<IBlockHeaderProps> {
                   {tooltip}
                 </div>
               }
-              wrapperClassName={`${prefix}-block-header__tooltip-trigger`}
             >
               <Icon type="help-circle" />
             </Pop>
