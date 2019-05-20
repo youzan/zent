@@ -14,18 +14,38 @@ $arrow-cover-size: 11px;
   border-radius: 2px;
   box-shadow: $shadow-spec-layer;
   z-index: 2000;
+  position: relative;
 
-  .zent-pop-inner,
-  .zent-pop-header {
-    @include theme-color(background-color, stroke, 9);
-    @include theme-color(color, stroke, 1);
+  &-arrow {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    overflow: hidden;
+    box-shadow: 0 16px 10px -20px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      transform: rotate(45deg);
+      top: 12px;
+      left: 4px;
+      box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  & &-inner,
+  & &-header {
     position: relative;
     border-radius: 2px;
     padding: 13px 12px;
     z-index: 2;
   }
 
-  .zent-pop-header {
+  & &-header {
     @include font-large;
 
     border-bottom-left-radius: 0;
@@ -34,28 +54,9 @@ $arrow-cover-size: 11px;
     font-weight: $font-weight-bold;
   }
 
-  .zent-pop-buttons {
+  & &-buttons {
     text-align: right;
     vertical-align: top;
-  }
-
-  .zent-pop-arrow {
-    @include theme-color(background-color, stroke, 9);
-
-    position: absolute;
-    z-index: 1;
-    width: $arrow-size;
-    height: $arrow-size;
-    box-shadow: $shadow-spec-layer;
-    overflow: hidden;
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: $arrow-cover-size;
-    height: $arrow-cover-size;
   }
 
   &--no-header {
@@ -71,7 +72,7 @@ $arrow-cover-size: 11px;
     }
   }
 
-  &.zent-popover-position {
+  &-portal.zent-popover-position {
     // bottom side
     &-bottom-left,
     &-bottom-center,
@@ -79,31 +80,25 @@ $arrow-cover-size: 11px;
       .zent-pop-arrow {
         top: 0;
       }
-
-      &::after {
-        top: -$arrow-cover-size;
-        width: 100%;
-        left: 0;
-      }
     }
 
     &-bottom-left {
       .zent-pop-arrow {
-        transform: translateY(-50%) rotate(45deg);
+        transform: translateY(-100%);
         left: $arrow-offset-h;
       }
     }
 
     &-bottom-center {
       .zent-pop-arrow {
-        transform: translate(-50%, -50%) rotate(45deg);
+        transform: translate(-50%, -100%);
         left: 50%;
       }
     }
 
     &-bottom-right {
       .zent-pop-arrow {
-        transform: translateY(-50%) rotate(45deg);
+        transform: translateY(-100%);
         right: $arrow-offset-h;
       }
     }
@@ -116,30 +111,30 @@ $arrow-cover-size: 11px;
         bottom: 0;
       }
 
-      &::after {
-        bottom: -$arrow-cover-size;
-        width: 100%;
-        left: 0;
-      }
+      // &::after {
+      //   bottom: -$arrow-cover-size;
+      //   width: 100%;
+      //   left: 0;
+      // }
     }
 
     &-top-left {
       .zent-pop-arrow {
-        transform: translateY(50%) rotate(45deg);
+        transform: translateY(100%) rotate(180deg);
         left: $arrow-offset-h;
       }
     }
 
     &-top-center {
       .zent-pop-arrow {
-        transform: translate(-50%, 50%) rotate(45deg);
+        transform: translate(-50%, 100%) rotate(180deg);
         left: 50%;
       }
     }
 
     &-top-right {
       .zent-pop-arrow {
-        transform: translateY(50%) rotate(45deg);
+        transform: translateY(100%) rotate(180deg);
         right: $arrow-offset-h;
       }
     }
@@ -151,31 +146,25 @@ $arrow-cover-size: 11px;
       .zent-pop-arrow {
         right: 0;
       }
-
-      &::after {
-        right: -$arrow-cover-size;
-        height: 100%;
-        top: 0;
-      }
     }
 
     &-left-top {
       .zent-pop-arrow {
-        transform: translateX(50%) rotate(45deg);
+        transform: translateX(100%) rotate(90deg);
         top: $arrow-offset-v;
       }
     }
 
     &-left-center {
       .zent-pop-arrow {
-        transform: translate(50%, -50%) rotate(45deg);
+        transform: translate(100%, -50%) rotate(90deg);
         top: 50%;
       }
     }
 
     &-left-bottom {
       .zent-pop-arrow {
-        transform: translateX(50%) rotate(45deg);
+        transform: translateX(100%) rotate(90deg);
         bottom: $arrow-offset-v;
       }
     }
@@ -187,31 +176,25 @@ $arrow-cover-size: 11px;
       .zent-pop-arrow {
         left: 0;
       }
-
-      &::after {
-        left: -$arrow-cover-size;
-        height: 100%;
-        top: 0;
-      }
     }
 
     &-right-top {
       .zent-pop-arrow {
-        transform: translateX(-50%) rotate(45deg);
+        transform: translateX(-100%) rotate(-90deg);
         top: $arrow-offset-v;
       }
     }
 
     &-right-center {
       .zent-pop-arrow {
-        transform: translate(-50%, -50%) rotate(45deg);
+        transform: translate(-100%, -50%) rotate(-90deg);
         top: 50%;
       }
     }
 
     &-right-bottom {
       .zent-pop-arrow {
-        transform: translateX(-50%) rotate(45deg);
+        transform: translateX(-100%) rotate(-90deg);
         bottom: $arrow-offset-v;
       }
     }

@@ -11,6 +11,7 @@ export interface IPopoverContext {
   placement: IPositionFunction;
   cushion: number;
   portalRef: RefObject<IPortalImperativeHandlers>;
+  className?: string;
 }
 
 const context = createContext<IPopoverContext | null>(null);
