@@ -1,6 +1,6 @@
 import { findDOMNode } from 'react-dom';
 import { isElement } from 'react-is';
-import Trigger, { IPopoverTriggerProps } from './Trigger';
+import Trigger, { IPopoverTriggerProps, IIsOutside } from './Trigger';
 import PopoverContext, { IPopoverContext, getContext } from '../PopoverContext';
 import { RefObject } from 'react';
 import { IPortalImperativeHandlers } from '../../portal';
@@ -13,6 +13,7 @@ export interface IPopoverClickTriggerProps<
   P extends IPopoverClickTriggerChildProps
 > extends IPopoverTriggerProps<P> {
   autoClose?: boolean;
+  isOutside?: IIsOutside;
 }
 
 function isOutside(
@@ -62,6 +63,10 @@ export default class PopoverClickTrigger<
       }
     },
   };
+
+  protected getTriggerProps() {
+    return this.childProps;
+  }
 
   onClick = (e: MouseEvent) => {
     if (!(e.target instanceof Element) || !this.props.autoClose) {

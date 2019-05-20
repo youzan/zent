@@ -6,6 +6,26 @@ import Popover from '../popover';
 
 const { Position } = Popover;
 
+export type PopPositions =
+  | 'left-top'
+  | 'left-center'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right-center'
+  | 'right-bottom'
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'auto-bottom-center'
+  | 'auto-bottom-left'
+  | 'auto-bottom-right'
+  | 'auto-top-center'
+  | 'auto-top-left'
+  | 'auto-top-right';
+
 // FIXME: these values and css variables in pop.scss are interrelated
 const ARROW_OFFSET_H = 15;
 const ARROW_OFFSET_V = 9;

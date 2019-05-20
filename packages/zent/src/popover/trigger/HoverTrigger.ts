@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { getContext } from '../PopoverContext';
-import Trigger, { IPopoverTriggerProps } from './Trigger';
+import Trigger, { IPopoverTriggerProps, IIsOutside } from './Trigger';
 import { isElement } from 'react-is';
 import { findDOMNode } from 'react-dom';
 
@@ -142,6 +142,7 @@ export interface IPopoverHoverTriggerProps<
 > extends IPopoverTriggerProps<P> {
   hideDelay: number;
   showDelay: number;
+  isOutside?: IIsOutside;
 }
 
 export default class PopoverHoverTrigger<
@@ -188,6 +189,10 @@ export default class PopoverHoverTrigger<
     },
   };
 
+  protected getTriggerProps() {
+    return this.triggerProps;
+  }
+
   onMouseMove = (e: MouseEvent) => {
     const prev = this.mousePosition;
     const current: IDot = {
@@ -211,6 +216,16 @@ export default class PopoverHoverTrigger<
     const trigger = findDOMNode(this);
     if (!(trigger instanceof Element)) {
       return;
+    }
+    const { isOutside } = this.props;
+    if (
+      isOutside &&
+      isOutside(e, {
+        triggerNode: trigger,
+        contentNode: content,
+      })
+    ) {
+      return popover.close();
     }
     const contentRect = boundingClientRectToRect(
       content.getBoundingClientRect()

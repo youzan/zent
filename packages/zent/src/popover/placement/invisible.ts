@@ -1,6 +1,4 @@
-// import { CSSProperties } from 'react';
-//
-import { IPopoverPosition } from '../position-function';
+import { IPopoverPosition, IPositionFunction } from '../position-function';
 import { prefix } from './prefix';
 
 export const INVISIBLE_POSITION: IPopoverPosition = {
@@ -14,32 +12,6 @@ export const INVISIBLE_POSITION: IPopoverPosition = {
   className: prefix('position-invisible'),
 };
 
-export function Invisible(): IPopoverPosition {
+export const Invisible: IPositionFunction = () => {
   return INVISIBLE_POSITION;
-}
-
-// /**
-//  * 不可见定位
-//  */
-// const locate: PositionFunctionImpl = () => {
-//   const x = -100000;
-//   const y = -100000;
-
-//   return {
-//     getCSSStyle(): CSSProperties {
-//       return {
-//         position: 'fixed',
-//         left: `${x}px`,
-//         top: `${y}px`,
-//         zIndex: -10,
-//         opacity: 0,
-//       };
-//     },
-
-//     className: prefix('className: prefix('position-invisible')'),
-//   };
-// };
-
-// const Invisible = createPlacement(locate);
-
-// export default Invisible;
+};

@@ -157,13 +157,13 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     content.adjustPosition();
   }
 
-  open() {
+  open = () => {
     this.setVisible(true);
-  }
+  };
 
-  close() {
+  close = () => {
     this.setVisible(false);
-  }
+  };
 
   validateChildren() {
     const { children } = this.props;

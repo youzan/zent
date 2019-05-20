@@ -2,29 +2,39 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classnames from 'classnames';
 import noop from 'lodash-es/noop';
-import assign from 'lodash-es/assign';
+import { isElement } from 'react-is';
 
-import Popover from '../popover';
+import Popover, { IPopoverClickTriggerChildProps } from '../popover';
 import Icon from '../icon';
 import { I18nReceiver as Receiver } from '../i18n';
 import { ICascaderItem, CascaderHandler, CascaderValue } from './types';
 import TabsPopoverContent from './components/TabsContent';
 import MenuPopoverContent from './components/MenuContent';
+import { getContext } from '../popover/PopoverContext';
 
 const PopoverContent = Popover.Content;
 
-class PopoverClickTrigger extends Popover.Trigger.Click {
-  getTriggerProps(child) {
-    return {
-      onClick: evt => {
-        if (this.props.contentVisible) {
-          this.props.close();
-        } else {
-          this.props.open();
-        }
-        this.triggerEvent(child, 'onClick', evt);
-      },
-    };
+class PopoverClickTrigger<
+  P extends IPopoverClickTriggerChildProps
+> extends Popover.Trigger.Click<P> {
+  protected childProps: IPopoverClickTriggerChildProps = {
+    onClick: e => {
+      const { children } = this.props;
+      const { popover, visible } = getContext(this);
+      if (visible) {
+        popover.close();
+      } else {
+        popover.open();
+      }
+      if (isElement(children)) {
+        const { onClick } = children.props;
+        onClick && onClick(e);
+      }
+    },
+  };
+
+  protected getTriggerProps() {
+    return this.childProps;
   }
 }
 
