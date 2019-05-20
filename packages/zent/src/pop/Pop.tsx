@@ -51,7 +51,9 @@ export interface IPopFocusTriggerProps<
 
 export interface IPopCommonProps {
   content: React.ReactNode;
-  position: PopPositions | IPositionFunction;
+  trigger?: 'none' | 'click' | 'hover' | 'focus';
+  position?: PopPositions | IPositionFunction;
+  cushion?: number;
   centerArrow?: boolean;
   header?: React.ReactNode;
   onShow?: () => void;
@@ -87,6 +89,11 @@ export class Pop extends Component<IPopProps, IPopState> {
   static defaultProps = {
     trigger: 'none',
     position: 'top-center',
+    cushion: 10,
+    centerArrow: false,
+    block: false,
+    confirmText: '',
+    cancelText: '',
     type: 'primary',
     closeOnClickOutside: true,
     mouseLeaveDelay: 200,

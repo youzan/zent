@@ -42,9 +42,7 @@ function translateToContainerCoordinates(
   };
 }
 
-export interface IPopoverContentProps {
-  className?: string;
-}
+export interface IPopoverContentProps {}
 
 export interface IPopoverContentState {
   position: IPopoverPosition;
@@ -150,8 +148,10 @@ class PopoverContent extends Component<
     prevProps: IPopoverContentProps,
     prevState: IPopoverContentState
   ) {
-    const { popover } = getContext(this);
-    if (
+    const { popover, visible } = getContext(this);
+    if (visible && prevState.position === INVISIBLE_POSITION) {
+      this.adjustPositionImpl();
+    } else if (
       this.state.position !== INVISIBLE_POSITION &&
       prevState.position !== this.state.position
     ) {
@@ -166,15 +166,10 @@ class PopoverContent extends Component<
   }
 
   render() {
-    const {
-      // prefix,
-      className,
-      // id,
-      // visible,
-      children,
-      // containerSelector,
-    } = this.props;
-    const { visible, containerSelector, portalRef } = getContext(this);
+    const { children } = this.props;
+    const { visible, containerSelector, portalRef, className } = getContext(
+      this
+    );
     const { position } = this.state;
 
     const cls = cx(className, 'zent-popover', position.className);
