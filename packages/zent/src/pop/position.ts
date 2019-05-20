@@ -1,7 +1,11 @@
 import camelCase from 'camelcase';
 import { Omit } from 'utility-types';
 
-import Popover, { IPositionFunction } from '../popover';
+import Popover, {
+  IPositionFunction,
+  IPopoverPosition,
+  IPositionFunctionProps,
+} from '../popover';
 
 const { Position } = Popover;
 
@@ -40,142 +44,108 @@ for (let i = 0; i < POSITIONS.length; i += 1) {
   POSITION_MAP[name] = pascal;
 }
 
-// // FIXME: these values and css variables in pop.scss are interrelated
-// const ARROW_OFFSET_H = 15;
-// const ARROW_OFFSET_V = 9;
+// FIXME: these values and css variables in pop.scss are interrelated
+const ARROW_OFFSET_H = 15;
+const ARROW_OFFSET_V = 9;
 
-// // const createPosition = (x, y, side) => {
-// //   return {
-// //     getCSSStyle(): CSSProperties {
-// //       return {
-// //         position: 'absolute',
-// //         left: `${Math.round(x)}px`,
-// //         top: `${Math.round(y)}px`,
-// //       };
-// //     },
+/**
+ * 4√2
+ */
+const ARROW_WIDTH_HALF = 5.657;
 
-// //     name: `position-${side}`,
-// //   };
-// // };
+interface IFixUpFunction {
+  (position: IPopoverPosition, props: IPositionFunctionProps): IPopoverPosition;
+}
 
-// const CenterArrowPosition = {
-//   ...(() => {
-//     const make = (getX, side: string) =>
-//       Position.create(
-//         (
-//           anchorBoundingBox,
-//           containerBoundingBox,
-//           contentDimension,
-//           options
-//         ) => {
-//           const { right, left, top } = anchorBoundingBox;
-//           const middle = (left + right) / 2;
-//           const x = getX(middle, contentDimension);
-//           const y = top - contentDimension.height - options.cushion;
+const FIX_UP_FUNCTIONS: Record<string, IFixUpFunction> = {
+  'left-top'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.top === 'number') {
+      style.top +=
+        props.anchorRect.height / 2 - ARROW_OFFSET_V - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+  'left-bottom'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.top === 'number') {
+      style.top -=
+        props.anchorRect.height / 2 - ARROW_OFFSET_V - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+  'right-top'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.top === 'number') {
+      style.top +=
+        props.anchorRect.height / 2 - ARROW_OFFSET_V - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+  'right-bottom'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.top === 'number') {
+      style.top -=
+        props.anchorRect.height / 2 - ARROW_OFFSET_V - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+  'top-left'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.left === 'number') {
+      style.left +=
+        props.anchorRect.width / 2 - ARROW_OFFSET_H - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+  'top-right'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.left === 'number') {
+      style.left -=
+        props.anchorRect.width / 2 - ARROW_OFFSET_H - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+  'bottom-left'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.left === 'number') {
+      style.left +=
+        props.anchorRect.width / 2 - ARROW_OFFSET_H - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+  'bottom-right'(position: IPopoverPosition, props: IPositionFunctionProps) {
+    const { style } = position;
+    if (typeof style.left === 'number') {
+      style.left -=
+        props.anchorRect.width / 2 - ARROW_OFFSET_H - ARROW_WIDTH_HALF;
+    }
+    return position;
+  },
+};
 
-//           return createPosition(x, y, `top-${side}`);
-//         }
-//       );
-
-//     return {
-//       TopLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
-//       TopRight: make(
-//         (middle, contentDimension) =>
-//           middle - (contentDimension.width - ARROW_OFFSET_H),
-//         'right'
-//       ),
-//     };
-//   })(),
-
-//   ...(() => {
-//     const make = (getX, side) =>
-//       Position.create(
-//         (
-//           anchorBoundingBox,
-//           containerBoundingBox,
-//           contentDimension,
-//           options
-//         ) => {
-//           const { left, right, bottom } = anchorBoundingBox;
-//           const middle = (left + right) / 2;
-//           const x = getX(middle, contentDimension);
-//           const y = bottom + options.cushion;
-
-//           return createPosition(x, y, `bottom-${side}`);
-//         }
-//       );
-
-//     return {
-//       BottomLeft: make(middle => middle - ARROW_OFFSET_H, 'left'),
-//       BottomRight: make(
-//         (middle, contentDimension) =>
-//           middle - (contentDimension.width - ARROW_OFFSET_H),
-//         'right'
-//       ),
-//     };
-//   })(),
-
-//   ...(() => {
-//     const make = (getY, side) =>
-//       Position.create(
-//         (
-//           anchorBoundingBox,
-//           containerBoundingBox,
-//           contentDimension,
-//           options
-//         ) => {
-//           const x =
-//             anchorBoundingBox.left - contentDimension.width - options.cushion;
-//           const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
-//           const y = getY(middle, contentDimension);
-
-//           return createPosition(x, y, `left-${side}`);
-//         }
-//       );
-
-//     return {
-//       LeftTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
-//       LeftBottom: make(
-//         (middle, contentDimension) =>
-//           middle - (contentDimension.height - ARROW_OFFSET_V),
-//         'bottom'
-//       ),
-//     };
-//   })(),
-
-//   ...(() => {
-//     const make = (getY, side) =>
-//       Position.create(
-//         (
-//           anchorBoundingBox,
-//           containerBoundingBox,
-//           contentDimension,
-//           options
-//         ) => {
-//           const { right, top, bottom } = anchorBoundingBox;
-//           const x = right + options.cushion;
-//           const middle = (top + bottom) / 2;
-//           const y = getY(middle, contentDimension);
-
-//           return createPosition(x, y, `right-${side}`);
-//         }
-//       );
-
-//     return {
-//       RightTop: make(middle => middle - ARROW_OFFSET_V, 'top'),
-//       RightBottom: make(
-//         (middle, contentDimension) =>
-//           middle - (contentDimension.height - ARROW_OFFSET_V),
-//         'bottom'
-//       ),
-//     };
-//   })(),
-// };
+function withFixUp(
+  props: IPositionFunctionProps,
+  pos: IPositionFunction,
+  position: PopPositions
+) {
+  const p = pos(props);
+  if (!POSITION_MAP[position]) {
+    return p;
+  }
+  const name = p.className && p.className.substring(22);
+  console.log(name);
+  const fix = name && FIX_UP_FUNCTIONS[name];
+  if (fix) {
+    return fix(p, props);
+  }
+  return p;
+}
 
 export default function getPosition(
   position: PopPositions | IPositionFunction,
   centerArrow?: boolean
-) {
+): IPositionFunction {
   if (typeof position === 'function') {
     return position;
   }
@@ -189,12 +159,9 @@ export default function getPosition(
     positionName = 'TopCenter';
   }
 
+  if (centerArrow) {
+    return props => withFixUp(props, pos, position);
+  }
+
   return pos;
-
-  // // *-center postions are not affected by centerArrow parameter
-  // if (!centerArrow || /^.+Center$/.test(positionName)) {
-  //   return pos;
-  // }
-
-  // return CenterArrowPosition[positionName];
 }

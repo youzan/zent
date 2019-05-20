@@ -23,9 +23,9 @@ export function usePopover() {
  * Adds a popover prop to component.
  */
 export function exposePopover<N extends string>(propName: N) {
-  return function expose<
-    Props extends Record<string, any> = Record<string, any>
-  >(Base: React.ComponentType<Props>) {
+  return function expose<Props extends Record<N, Popover> = Record<N, Popover>>(
+    Base: React.ComponentType<Props>
+  ) {
     const componentName =
       Base.displayName || Base.constructor.name || 'Component';
     const shouldPassRef = isClassComponent(Base) || isForwardRef(Base);
@@ -39,7 +39,7 @@ export function exposePopover<N extends string>(propName: N) {
       }
       return React.createElement(Base, {
         ...props,
-        childProps,
+        ...childProps,
       });
     });
     comp.displayName = `withPopover(${componentName})`;
