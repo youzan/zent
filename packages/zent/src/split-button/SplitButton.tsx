@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
+import { Omit } from 'utility-types';
 import camelCase from 'lodash-es/camelCase';
 import upperFirst from 'lodash-es/upperFirst';
 import capitalize from 'lodash-es/capitalize';
@@ -92,12 +93,15 @@ export class SplitButton extends Component<ISplitButtonProps> {
 
     const classString = cx(`${prefix}-split-button`, className);
 
-    const trigger = capitalize(dropdownTrigger);
+    const trigger = capitalize(dropdownTrigger) as keyof typeof Popover.Trigger;
 
     const Trigger =
       disabled || loading ? Popover.Trigger.Base : Popover.Trigger[trigger];
 
-    const position = upperFirst(camelCase(dropdownPosition));
+    const position = upperFirst(camelCase(dropdownPosition)) as keyof Omit<
+      typeof Popover.Position,
+      'INVISIBLE_POSITION'
+    >;
 
     return (
       <div className={classString}>
@@ -112,11 +116,9 @@ export class SplitButton extends Component<ISplitButtonProps> {
           {children}
         </Button>
         <Popover
-          wrapperClassName={cx(`${prefix}-split-button__dropdown-wrapper`)}
           visible={this.state.isShowDropdown}
           onVisibleChange={isShow => this.toggleDropdown(isShow)}
           position={Popover.Position[position]}
-          display="inline"
           cushion={5}
         >
           <Trigger>

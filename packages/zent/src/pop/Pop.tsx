@@ -2,228 +2,115 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import noop from 'lodash-es/noop';
-import isFunction from 'lodash-es/isFunction';
 
-import Popover, { PositionFunction } from '../popover';
-import Button from '../button';
-import isPromise from '../utils/isPromise';
+import Popover, {
+  IPositionFunction,
+  IPopoverClickTriggerChildProps,
+  IPopoverClickTriggerProps,
+  IPopoverTriggerProps,
+  IPopoverHoverTriggerChildProps,
+  IPopoverHoverTriggerProps,
+  IPopoverFocusTriggerChildProps,
+  IPopoverFocusTriggerProps,
+  IPopoverBeforeHook,
+} from '../popover';
 import { exposePopover } from '../popover/withPopover';
-import { I18nReceiver as Receiver } from '../i18n';
 
 import NoneTrigger from './NoneTrigger';
-import getPosition from './position';
+import getPosition, { PopPositions } from './position';
+import Action, { IPopActionCallback } from './Action';
 
-const { Trigger, withPopover } = Popover;
-const stateMap = {
-  onConfirm: 'confirmPending',
-  onCancel: 'cancelPending',
-};
+const { Trigger } = Popover;
 
-export type PopPositions =
-  | 'left-top'
-  | 'left-center'
-  | 'left-bottom'
-  | 'right-top'
-  | 'right-center'
-  | 'right-bottom'
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right'
-  | 'auto-bottom-center'
-  | 'auto-bottom-left'
-  | 'auto-bottom-right'
-  | 'auto-top-center'
-  | 'auto-top-left'
-  | 'auto-top-right';
+export interface IPopNoneTriggerProps<Props extends object>
+  extends IPopoverTriggerProps<Props>,
+    IPopCommonProps {
+  trigger: 'none';
+}
 
-export type PopActionCallback =
-  | ((close: () => void) => void)
-  | (() => Promise<any>);
+export interface IPopClickTriggerProps<
+  Props extends IPopoverClickTriggerChildProps
+> extends IPopoverClickTriggerProps<Props>, IPopCommonProps {
+  trigger: 'click';
+  closeOnClickOutside?: boolean;
+}
 
-export type PopHookCallback = (
-  callback?: () => void,
-  escape?: () => void
-) => void;
+export interface IPopHoverTriggerProps<
+  Props extends IPopoverHoverTriggerChildProps
+> extends IPopoverHoverTriggerProps<Props>, IPopCommonProps {
+  trigger: 'hover';
+  mouseEnterDelay?: number;
+  mouseLeaveDelay?: number;
+}
 
-export interface IPopProps {
+export interface IPopFocusTriggerProps<
+  Props extends IPopoverFocusTriggerChildProps
+> extends IPopoverFocusTriggerProps<Props>, IPopCommonProps {
+  trigger: 'focus';
+}
+
+export interface IPopCommonProps {
   content: React.ReactNode;
-  trigger?: 'none' | 'click' | 'hover' | 'focus';
-  position?: PopPositions | PositionFunction;
+  position: PopPositions | IPositionFunction;
   centerArrow?: boolean;
   header?: React.ReactNode;
-  block?: boolean;
   onShow?: () => void;
   onClose?: () => void;
-  onBeforeShow?: PopHookCallback;
-  onBeforeClose?: PopHookCallback;
-  onConfirm?: PopActionCallback;
-  onCancel?: PopActionCallback;
+  onBeforeShow?: IPopoverBeforeHook;
+  onBeforeClose?: IPopoverBeforeHook;
+  onConfirm?: IPopActionCallback;
+  onCancel?: IPopActionCallback;
   confirmText?: string;
   cancelText?: string;
-  type?: 'primary' | 'default' | 'danger' | 'success';
+  type: 'primary' | 'default' | 'danger' | 'success';
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   onPositionUpdated?: () => void;
   onPositionReady?: () => void;
   className?: string;
-  wrapperClassName?: string;
   containerSelector?: string;
-  prefix?: string;
-  isOutside?: (
-    target: HTMLElement,
-    node: { contentNode: HTMLElement; triggerNode: HTMLElement }
-  ) => boolean;
-
-  // trigger: click
-  closeOnClickOutside?: boolean;
-
-  // trigger: hover
-  quirk?: boolean;
-  mouseEnterDelay?: number;
-  mouseLeaveDelay?: number;
+  prefix: string;
 }
 
-export interface IPopActionProps {
-  prefix: string;
-  type: 'primary' | 'default' | 'danger' | 'success' | 'secondary';
-  onConfirm: PopActionCallback;
-  onCancel: PopActionCallback;
-  confirmText: string;
-  cancelText: string;
+export type IPopProps =
+  | IPopNoneTriggerProps<any>
+  | IPopClickTriggerProps<any>
+  | IPopHoverTriggerProps<any>
+  | IPopFocusTriggerProps<any>;
+
+export interface IPopState {
   confirmPending: boolean;
   cancelPending: boolean;
-  changePending: (key: string, state: boolean, callback?: () => void) => void;
-  popover: any;
 }
 
-class PopAction extends Component<IPopActionProps> {
-  // 支持异步的回调函数
-  // onConfirm/onCancel异步等待的时候要禁用用户关闭
-  handleClick(callbackName) {
-    const callback = this.props[callbackName];
-    const { popover } = this.props;
-    if (!isFunction(callback)) {
-      return popover.close();
-    }
-
-    const { changePending } = this.props;
-    const stateKey = stateMap[callbackName];
-    const startClose = () => {
-      changePending(stateKey, true);
-    };
-    const finishClose = () => {
-      changePending(stateKey, false, popover.close);
-    };
-
-    if (callback.length >= 1) {
-      startClose();
-      return callback(finishClose);
-    }
-
-    const maybePromise = callback();
-    if (isPromise(maybePromise)) {
-      startClose();
-      maybePromise
-        .then(finishClose)
-        .catch(() => changePending(stateKey, false));
-    } else {
-      popover.close();
-    }
-  }
-
-  handleConfirm = () => {
-    this.handleClick('onConfirm');
-  };
-
-  handleCancel = () => {
-    this.handleClick('onCancel');
-  };
-
-  render() {
-    const {
-      prefix,
-      type,
-      onConfirm,
-      onCancel,
-      confirmText,
-      cancelText,
-      confirmPending,
-      cancelPending,
-    } = this.props;
-
-    if (!onConfirm && !onCancel) {
-      return null;
-    }
-
-    return (
-      <div className={`${prefix}-pop-buttons`}>
-        <Receiver componentName="Pop">
-          {i18n => (
-            <Button
-              loading={cancelPending}
-              disabled={confirmPending}
-              size="small"
-              onClick={this.handleCancel}
-            >
-              {cancelText || i18n.cancel}
-            </Button>
-          )}
-        </Receiver>
-        <Receiver componentName="Pop">
-          {i18n => (
-            <Button
-              loading={confirmPending}
-              disabled={cancelPending}
-              size="small"
-              type={type}
-              onClick={this.handleConfirm}
-            >
-              {confirmText || i18n.confirm}
-            </Button>
-          )}
-        </Receiver>
-      </div>
-    );
-  }
-}
-
-const BoundPopAction = withPopover(PopAction);
-
-export class Pop extends Component<IPopProps> {
+export class Pop extends Component<IPopProps, IPopState> {
   static defaultProps = {
     trigger: 'none',
     position: 'top-center',
-    centerArrow: false,
-    block: false,
-    confirmText: '',
-    cancelText: '',
     type: 'primary',
     closeOnClickOutside: true,
     mouseLeaveDelay: 200,
     mouseEnterDelay: 200,
     onPositionUpdated: noop,
     onPositionReady: noop,
-    className: '',
-    wrapperClassName: '',
     containerSelector: 'body',
-    prefix: 'zent',
-    quirk: true,
   };
 
   static withPop = exposePopover('pop');
 
-  popover: Popover;
-  isUnmounted = false;
+  private popoverRef = React.createRef<Popover>();
+  private isUnmounted = false;
 
   state = {
     confirmPending: false,
     cancelPending: false,
   };
 
-  changePending = (key, pending, callback) => {
+  changePending = (
+    key: keyof IPopState,
+    pending: boolean,
+    callback?: () => void
+  ) => {
     if (this.isUnmounted) {
       return;
     }
@@ -231,10 +118,21 @@ export class Pop extends Component<IPopProps> {
     this.setState(
       {
         [key]: pending,
-      },
+      } as any,
       callback
     );
   };
+
+  adjustPosition() {
+    const popover = this.popoverRef.current;
+    if (popover) {
+      popover.adjustPosition();
+    }
+  }
+
+  getWrappedPopover() {
+    return this.popoverRef.current;
+  }
 
   renderContent() {
     const {
@@ -255,7 +153,7 @@ export class Pop extends Component<IPopProps> {
         {hasHeader && <div className={`${prefix}-pop-header`}>{header}</div>}
         <div className={`${prefix}-pop-inner`}>
           {content}
-          <BoundPopAction
+          <Action
             prefix={prefix}
             onConfirm={onConfirm}
             onCancel={onCancel}
@@ -273,46 +171,34 @@ export class Pop extends Component<IPopProps> {
   }
 
   renderTrigger() {
-    const {
-      trigger,
-      closeOnClickOutside,
-      isOutside,
-      mouseLeaveDelay,
-      mouseEnterDelay,
-      children,
-      quirk,
-    } = this.props;
-
-    if (trigger === 'click') {
-      return (
-        <Trigger.Click autoClose={closeOnClickOutside} isOutside={isOutside}>
-          {children}
-        </Trigger.Click>
-      );
+    const { props } = this;
+    switch (props.trigger) {
+      case 'click':
+        return (
+          <Trigger.Click
+            autoClose={props.closeOnClickOutside}
+            isOutside={props.isOutside}
+          >
+            {props.children}
+          </Trigger.Click>
+        );
+      case 'hover':
+        return (
+          <Trigger.Hover
+            showDelay={props.mouseEnterDelay}
+            hideDelay={props.mouseLeaveDelay}
+            isOutside={props.isOutside}
+          >
+            {props.children}
+          </Trigger.Hover>
+        );
+      case 'focus':
+        return <Trigger.Focus>{props.children}</Trigger.Focus>;
+      case 'none':
+        return <NoneTrigger>{props.children}</NoneTrigger>;
+      default:
+        throw new Error('Pop trigger not assigned');
     }
-
-    if (trigger === 'hover') {
-      return (
-        <Trigger.Hover
-          showDelay={mouseEnterDelay}
-          hideDelay={mouseLeaveDelay}
-          isOutside={isOutside}
-          quirk={quirk}
-        >
-          {children}
-        </Trigger.Hover>
-      );
-    }
-
-    if (trigger === 'focus') {
-      return <Trigger.Focus>{children}</Trigger.Focus>;
-    }
-
-    if (trigger === 'none') {
-      return <NoneTrigger>{children}</NoneTrigger>;
-    }
-
-    return null;
   }
 
   componentWillUnmount() {
@@ -322,11 +208,9 @@ export class Pop extends Component<IPopProps> {
   render() {
     const {
       className,
-      wrapperClassName,
       trigger,
       visible,
       prefix,
-      block,
       onShow,
       onClose,
       position,
@@ -355,14 +239,12 @@ export class Pop extends Component<IPopProps> {
 
     return (
       <Popover
+        ref={this.popoverRef}
         visible={closePending ? true : visible}
         onVisibleChange={closePending ? noop : onVisibleChange}
-        prefix={prefix}
-        wrapperClassName={cx(`${prefix}-pop-wrapper`, wrapperClassName)}
         className={cls}
         cushion={10}
         position={getPosition(position, centerArrow)}
-        display={block ? 'block' : 'inline-block'}
         onShow={onShow}
         onClose={onClose}
         onBeforeClose={onBeforeClose}
@@ -370,26 +252,11 @@ export class Pop extends Component<IPopProps> {
         onPositionUpdated={onPositionUpdated}
         onPositionReady={onPositionReady}
         containerSelector={containerSelector}
-        ref={this.onPopoverRefChange}
       >
         {this.renderTrigger()}
         {this.renderContent()}
       </Popover>
     );
-  }
-
-  onPopoverRefChange = popoverInstance => {
-    this.popover = popoverInstance;
-  };
-
-  adjustPosition() {
-    if (this.popover) {
-      this.popover.adjustPosition();
-    }
-  }
-
-  getWrappedPopover() {
-    return this.popover;
   }
 }
 

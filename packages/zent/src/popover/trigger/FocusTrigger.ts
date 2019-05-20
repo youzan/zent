@@ -2,18 +2,22 @@ import Trigger, { IPopoverTriggerProps } from './Trigger';
 import { getContext } from '../PopoverContext';
 import { isElement } from 'react-is';
 
-export interface IFocusTriggerChildProps {
+export interface IPopoverFocusTriggerChildProps {
   onFocus: React.FocusEventHandler;
   onBlur: React.FocusEventHandler;
 }
 
-export interface IFocusTriggerProps<P extends IFocusTriggerChildProps>
-  extends IPopoverTriggerProps<P> {}
+export interface IPopoverFocusTriggerProps<
+  P extends IPopoverFocusTriggerChildProps
+> extends IPopoverTriggerProps<P> {}
 
 export default class FocusTrigger<
-  P extends IFocusTriggerChildProps = IFocusTriggerChildProps
-> extends Trigger<IFocusTriggerChildProps, IFocusTriggerProps<P>> {
-  protected triggerProps: IFocusTriggerChildProps = {
+  P extends IPopoverFocusTriggerChildProps = IPopoverFocusTriggerChildProps
+> extends Trigger<
+  IPopoverFocusTriggerChildProps,
+  IPopoverFocusTriggerProps<P>
+> {
+  protected triggerProps: IPopoverFocusTriggerChildProps = {
     onFocus: e => {
       const { children } = this.props;
       const { popover } = getContext(this);
@@ -33,4 +37,8 @@ export default class FocusTrigger<
       }
     },
   };
+
+  protected getTriggerProps() {
+    return this.triggerProps;
+  }
 }
