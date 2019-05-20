@@ -2,6 +2,15 @@ import * as React from 'react';
 import { Component, Children } from 'react';
 import PopoverContext, { IPopoverContext } from '../PopoverContext';
 
+export interface IIsOutsideProps {
+  contentNode: Element;
+  triggerNode: Element;
+}
+
+export interface IIsOutside {
+  (e: MouseEvent, props: IIsOutsideProps): boolean;
+}
+
 export interface IPopoverTriggerProps<ChildProps> {
   children: React.ReactElement<ChildProps, any> | string | number;
 }
@@ -28,7 +37,11 @@ export class PopoverTrigger<
 
   isPopoverTrigger!: true;
 
-  protected triggerProps: Partial<TriggerChildProps> = {};
+  protected getTriggerProps(
+    _child: React.ReactElement<TriggerChildProps>
+  ): Partial<TriggerChildProps> {
+    return {};
+  }
 
   // helper to trigger event on child
   // triggerEvent(element, eventName, event) {
@@ -78,7 +91,7 @@ export class PopoverTrigger<
   // };
 
   render() {
-    const child:
+    let child:
       | React.ReactElement<TriggerChildProps, any>
       | string
       | number = Children.only(this.props.children);
@@ -86,9 +99,9 @@ export class PopoverTrigger<
       throw new Error();
     }
     if (typeof child === 'number' || typeof child === 'string') {
-      return <span {...this.triggerProps}>{child}</span>;
+      child = <span>{child}</span>;
     }
-    return React.cloneElement(child, this.triggerProps);
+    return React.cloneElement(child, this.getTriggerProps(child));
   }
 }
 

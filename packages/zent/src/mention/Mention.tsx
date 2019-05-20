@@ -111,12 +111,8 @@ export class Mention extends Component<IMentionProps> {
               position={
                 position === 'bottom' ? this.BottomPosition : this.TopPosition
               }
-              display="inline-block"
-              wrapperClassName={cx(`${prefix}-mention`, className)}
             >
-              <Popover.Trigger.Click
-                getNodeForTriggerRefChange={Utils.getInputNodeForTrigger}
-              >
+              <Popover.Trigger.Click>
                 <Input
                   type={inputType}
                   ref={this.saveInputRef}

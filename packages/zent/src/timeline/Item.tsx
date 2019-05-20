@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import cx from 'classnames';
 
-import Popover from '../popover';
+import Popover, { IPositionFunction } from '../popover';
 import { TimelineDot } from './Dot';
 
 const TimelineItemOptionalPop = ({
@@ -18,8 +18,6 @@ const TimelineItemOptionalPop = ({
       <Popover
         ref={popoverRef}
         className={`${prefix}-timeline-tip`}
-        wrapperClassName={`${prefix}-timeline-item-wrapper`}
-        display={display}
         position={position}
         cushion={20}
       >
@@ -69,32 +67,29 @@ export class TimelineItem extends PureComponent<ITimelineItemProps> {
     this.popover && this.popover.adjustPosition();
   };
 
-  position = Popover.Position.create(
-    (anchorBoundingBox, containerBoundingBox, contentDimension) => {
-      const x = anchorBoundingBox.left;
-      const middle = (anchorBoundingBox.top + anchorBoundingBox.bottom) / 2;
-      const y = middle - contentDimension.height / 2;
-
-      return {
-        getCSSStyle: () => {
-          if (this.props.type === 'horizontal') {
-            return {
-              position: 'absolute',
-              left: `${Math.round(this.mousePosition.x)}px`,
-              top: `${Math.round(y - 40)}px`,
-            };
-          }
-          return {
-            position: 'absolute',
-            left: `${Math.round(x + 20)}px`,
-            top: `${Math.round(this.mousePosition.y)}px`,
-          };
-        },
-
-        name: 'timeline-tip-position',
+  position: IPositionFunction = ({ relativeRect, contentRect }) => {
+    const x = relativeRect.left;
+    const middle = (relativeRect.top + relativeRect.bottom) / 2;
+    const y = middle - contentRect.height / 2;
+    const { type } = this.props;
+    let style: React.CSSProperties;
+    if (type === 'horizontal') {
+      style = {
+        position: 'absolute',
+        left: this.mousePosition.x,
+        top: y - 40,
+      };
+    } else {
+      style = {
+        position: 'absolute',
+        left: x + 20,
+        top: this.mousePosition.y,
       };
     }
-  );
+    return {
+      style,
+    };
+  };
 
   popoverRef = el => (this.popover = el);
 

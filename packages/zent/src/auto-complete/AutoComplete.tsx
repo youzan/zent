@@ -368,18 +368,15 @@ export class AutoComplete<Value> extends Component<
 
     return (
       <Popover
-        display="inline-block"
         position={Popover.Position.AutoBottomLeft}
         visible={open}
         className={cn(prefixCls, popupClassName)}
-        wrapperClassName={cn(prefixCls, className, { disabled })}
         onVisibleChange={this.togglePopoverOpen}
-        width={width}
         cushion={4}
       >
         <Popover.Trigger.Click>
           <Input
-            className={cn({
+            className={cn('btn', className, {
               active: open,
             })}
             value={(open ? searchText : displayValue) || ''}
@@ -388,6 +385,7 @@ export class AutoComplete<Value> extends Component<
             onKeyDown={this.onSearchKeyDown}
             onBlur={this.onSearchBlur}
             disabled={disabled}
+            width={width}
           />
         </Popover.Trigger.Click>
         <Popover.Content>
