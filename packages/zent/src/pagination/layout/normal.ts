@@ -17,11 +17,11 @@ export default function normalLayout(
 
     layout[0] = {
       type: 'left-arrow',
-      disabled: current === 1,
+      disabled: current <= 1,
     };
     layout[buttonCount - 1] = {
       type: 'right-arrow',
-      disabled: current === totalPages,
+      disabled: current >= totalPages,
     };
 
     for (let i = 1; i <= totalPages; i++) {
@@ -39,7 +39,7 @@ export default function normalLayout(
   const layout: PaginationLayout[] = [
     {
       type: 'left-arrow',
-      disabled: current === 1,
+      disabled: current <= 1,
     },
     {
       type: 'number',
@@ -82,7 +82,7 @@ export default function normalLayout(
     },
     {
       type: 'right-arrow',
-      disabled: current === totalPages,
+      disabled: current >= totalPages,
     }
   );
 
