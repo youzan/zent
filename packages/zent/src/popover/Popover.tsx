@@ -74,10 +74,13 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   };
 
   setVisible(visible: boolean) {
-    const { onBeforeClose, onBeforeShow } = this.props;
+    const { onBeforeClose, onBeforeShow, onVisibleChange } = this.props;
     const hook = visible ? onBeforeShow : onBeforeClose;
     if (this.pendingOnBeforeHook) {
       return;
+    }
+    if (onVisibleChange) {
+      return onVisibleChange(visible);
     }
     if (!hook) {
       return this.safeSetState({ visible });
@@ -203,6 +206,13 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     const { trigger, content } = this.validateChildren();
     const { containerSelector, position, cushion, className } = this.props;
     const { visible } = this.state;
+    /**
+     * content must before trigger here,
+     * because trigger need to get content's instance in its componentDidMount.
+     * if trigger is ahead of content, content's ref (including portal's ref) will be null in trigger's componentDidMount.
+     * this is bound to React's internal implementation.
+     * THIS IS DANGEROUS, DO NOT IMITATE!
+     */
     return (
       <PopoverContext.Provider
         value={{
@@ -215,11 +225,11 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
           className,
         }}
       >
-        {React.cloneElement(trigger, {
-          ref: this.triggerRef,
-        })}
         {React.cloneElement(content, {
           ref: this.contentRef,
+        })}
+        {React.cloneElement(trigger, {
+          ref: this.triggerRef,
         })}
       </PopoverContext.Provider>
     );

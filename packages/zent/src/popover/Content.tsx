@@ -54,11 +54,6 @@ export function isPopoverContent(
   return !!maybe.type.prototype.isPopoverContent;
 }
 
-/**
- * Like triggers, content can be replaced with your own implementation, all you have to do is extend this base class.
- *
- * The props on this class are all private.
- */
 class PopoverContent extends Component<
   IPopoverContentProps,
   IPopoverContentState
