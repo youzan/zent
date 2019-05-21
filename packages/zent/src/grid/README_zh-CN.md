@@ -56,7 +56,7 @@ onChange 会抛出一个对象，这个对象包含分页变化的参数：
 | title       | 列头的名称                                                        | ReactNode                                                          | 是       |
 | name        | 对应数据中的 key (建议设置) 支持 `a.b.c` 的嵌套写法               | string                                                             | 否       |
 | width       | 列表宽度                                                          | string \| number                                                   | 否       |
-| bodyRender  | 渲染复杂组件                                                      | ((data: any, pos: number, name: string) => ReactNode) \| ReactNode | 否       |
+| bodyRender  | 渲染复杂组件                                                      | ((data: any, pos: {row: number, column: number, fixed?: 'left' \| 'right'}, name: string) => ReactNode) \| ReactNode | 否       |
 | className   | 列头的 className                                                  | string                                                             | 否       |
 | needSort    | 是否支持排序 (使用此功能 请设置 name)                             | bool                                                               | 否       |
 | colSpan     | 列合并 当为 0 时不渲染                                            | number                                                             | 否       |
