@@ -2,22 +2,30 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 import map from 'lodash-es/map';
+import isEqual from 'lodash-es/isEqual';
+import isNumber from 'lodash-es/isNumber';
 
 import DateRangePicker from '../datetimepicker/DateRangePicker';
 import { I18nReceiver as Receiver } from '../i18n';
 
 import * as Helper from './helper';
 
-export type DateRangeQuickPickerValue = number | string;
+export type DateRangeQuickPickerValue = Date | number | string;
+
+export type DateRangeQuickPickerValueType = 'date' | 'number' | 'string';
+
+export type DateRangeQuickPickerPresetValue =
+  | number
+  | [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
 
 export type DateRangeQuickPickerChangeCallback = (
   value: [DateRangeQuickPickerValue, DateRangeQuickPickerValue],
-  choosePresetValue?: number
+  choosePresetValue?: DateRangeQuickPickerPresetValue
 ) => void;
 
 export interface IDateRangeQuickPickerPreset {
   text: string;
-  value: number;
+  value: DateRangeQuickPickerPresetValue;
 }
 
 export interface IDateRangeQuickPickerProps {
@@ -25,9 +33,9 @@ export interface IDateRangeQuickPickerProps {
   className?: string;
   onChange: DateRangeQuickPickerChangeCallback;
   value?: [DateRangeQuickPickerValue, DateRangeQuickPickerValue];
-  valueType?: 'string' | 'number';
+  valueType?: DateRangeQuickPickerValueType;
   format?: string;
-  chooseDays?: number;
+  chooseDays?: DateRangeQuickPickerPresetValue;
   preset?: IDateRangeQuickPickerPreset[];
   min?: string | number | Date;
   max?: string | number | Date;
@@ -93,11 +101,11 @@ export class DateRangeQuickPicker extends Component<
                 <span
                   key={index}
                   className={cx(`${prefix}-date-range-picker__btn`, {
-                    active: chooseDays === item.value,
+                    active: isEqual(chooseDays, item.value),
                   })}
                   onClick={this.handleChooseDays.bind(this, item.value)}
                 >
-                  {item.text || i18n[item.value]}
+                  {item.text || (isNumber(item.value) ? i18n[item.value] : '')}
                 </span>
               )}
             </Receiver>
