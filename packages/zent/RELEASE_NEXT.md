@@ -111,6 +111,12 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.12(2019-05-21)
+
+- 支持 `React.CSSProperties` 形式的 style 属性
+- 修复 `Portal` 每次 render 都重新 mount 的问题
+- 移除 `DatePicker`, `ClampLine` 以及 `Menu` 的 `componentWillReceiveProps` 生命周期依赖
+
 ## 7.0.0-next.11(2019-04-29)
 
 ### 不兼容改动
