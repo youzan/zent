@@ -43,53 +43,6 @@ export class PopoverTrigger<
     return {};
   }
 
-  // helper to trigger event on child
-  // triggerEvent(element, eventName, event) {
-  //   const handler = element.props[eventName];
-  //   if (handler) handler(event);
-  // }
-
-  // validateChildren() {
-  //   const { children } = this.props;
-  //   const count = Children.count(children);
-
-  //   if (count === 0) {
-  //     throw new Error('Popover trigger requires a child');
-  //   }
-
-  //   const childrenType = typeof children;
-  //   if (
-  //     (count === 1 && childrenType === 'string') ||
-  //     childrenType === 'number'
-  //   ) {
-  //     return <span>{children}</span>;
-  //   }
-
-  //   if (count > 1) {
-  //     throw new Error(
-  //       `Popover trigger requires only one child, but found ${count}`
-  //     );
-  //   }
-
-  //   const child = Children.only(this.props.children);
-  //   if (child.ref && !isFunction(child.ref)) {
-  //     throw new Error('String ref is not allowed on Popover trigger');
-  //   }
-
-  //   return child;
-  // }
-
-  // onRefChange = instance => {
-  //   const { onTriggerRefChange, getNodeForTriggerRefChange } = this.props;
-
-  //   onTriggerRefChange(instance, getNodeForTriggerRefChange);
-
-  //   const child = this.validateChildren();
-  //   if (isFunction(child.ref)) {
-  //     (child as any).ref(instance);
-  //   }
-  // };
-
   render() {
     let child:
       | React.ReactElement<TriggerChildProps, any>
