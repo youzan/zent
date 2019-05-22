@@ -12,7 +12,7 @@ const PRESET_COLOR = {
 };
 
 export interface ITagProps {
-  color: string;
+  color?: string;
   outline?: boolean;
   rounded?: boolean;
   closable?: boolean;
@@ -20,6 +20,7 @@ export interface ITagProps {
   style?: React.CSSProperties;
   closeButtonStyle?: React.CSSProperties;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const Tag = React.forwardRef<HTMLDivElement, ITagProps>(
