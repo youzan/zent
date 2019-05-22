@@ -17,17 +17,6 @@ group: 数据
 
 核心控制器，主要职责是格式化数据，负责 Popup 和 Trigger 间的数据传输
 
-#### Popup
-
-选项列表弹出层，主要负责展示选项，数据过滤控制
-
-#### Trigger
-
-- 触发器，暴露给使用者，可以通过 trigger 属性进行配置
-- 核心的 trigger 有 SelectTrigger 和 InputTrigger
-- TagsTrigger 是基于 InputTrigger 扩展出来的拥有多选功能的 trigger
-- 使用者可以自行扩展或开发 trigger
-
 ### API
 
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
@@ -39,9 +28,6 @@ group: 数据
 | placeholder | 默认提示文案 | string | `'请选择'` | 否 |
 | searchPlaceholder | 搜索框默认文案 | string | `''` | 否 |
 | emptyText | 空列表提示文案 | string | `'没有找到匹配项'` | 否 |
-| trigger | 自定义触发器 | function | `Select.SelectTrigger` | 否 |
-| optionText | 自定义选项显示文案对应的key, 如{ id: 1, name: '文案' }, 设置optionText="name" | string | `'text'` | 否 |
-| optionValue | 自定义选项的值对应的key, 如{ id: 1, name: '文案' }, 设置optionValue="id" | string | `'value'` | 否 |
 | onChange | 选择变更后的回调函数 | function | `noop` | 否 |
 | onDelete | 删除标签后的回调函数 | function | `noop` | 否 |
 | filter | 过滤条件，设置以后才会开启过滤功能 | function | `null` | 否 |

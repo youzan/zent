@@ -71,7 +71,7 @@
     "progress-bar-webpack-plugin": "^1.11.0",
     "ramda": "^0.25.0",
     "react-dom": "16.8.x",
-    "react-hot-loader": "^4.6.3",
+    "react-hot-loader": "^4.8.6",
     "react-markdown-doc-loader": "^3.0.0",
     "react": "16.8.x",
     "sass-loader": "^7.1.0",

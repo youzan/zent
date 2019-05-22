@@ -2,7 +2,74 @@
 @import './theme/font';
 @import './mixins/index';
 
-// .zent-select {
+.zent-select {
+  background-color: $theme-stroke-9;
+  box-sizing: border-box;
+  border: 1px solid $theme-stroke-5;
+  border-radius: 2px;
+  cursor: pointer;
+  min-height: 30px;
+  outline: none;
+  padding: 5px 25px 5px 10px;
+  transition: border-color 0.25s;
+  position: relative;
+
+  &.zent-select-active {
+    border-color: $theme-primary-2;
+    box-shadow: $shadow-spec-focus;
+
+    &::after {
+      transform: rotate(180deg) translateY(50%);
+    }
+  }
+
+  &-search {
+    outline: none;
+    border: 0;
+  }
+
+  &::after {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAMAAAAhxq8pAAAAP1BMVEUAAAAzMzMyMjRAQEAyMjQyMjQ0NDQ2NjYyMjMzMzMyMjMyMjMzMzQyMjQ4ODgzMzNGRkYzMzMyMjUzMzMyMjNbbAmOAAAAFHRSTlMAqr0Grn1SLvTr39GXiSAUC2hbMlOyMCEAAABbSURBVBjTfc5JEoAgDETRlnkGlfufVSkLxWD5ln+RDj7xdSEkR6yTCDZHgW2OCgi0hbZEDjCOU3ZjcxlotHma0cBFjSM32ZvEQPQPR8W35gtekq3VJhA7Yxp/Dk7RDBdwecf8AAAAAElFTkSuQmCC')
+      no-repeat;
+    background-size: 10px 8px;
+    background-position: center;
+    top: 50%;
+    right: 8px;
+    width: 16px;
+    content: '';
+    height: 16px;
+    position: absolute;
+    transform: translateY(-50%);
+    transition: transform 0.25s;
+  }
+
+  &-pop {
+    @include popup;
+  }
+
+  &-empty {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #c8c9cc;
+    line-height: 20px;
+  }
+
+  &-option {
+    box-sizing: border-box;
+    padding: 6px 12px;
+    cursor: pointer;
+    min-height: 32px;
+    line-height: 20px;
+    color: #323233;
+
+    &:hover {
+      background-color: #edf4ff;
+    }
+  }
+}
 // cursor: pointer;
 // display: inline-block;
 // font-size: 0;

@@ -6,7 +6,9 @@ import { useSelectContext } from './context';
 export interface ISelectOptionProps<Value> {
   value: Value;
   className?: string;
+  active?: boolean;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 
 function includes(
@@ -21,10 +23,11 @@ export function SelectOption<Value>({
   children,
   value,
   className,
+  active,
+  disabled,
 }: ISelectOptionProps<Value>) {
   const ctx = useSelectContext();
   const { isEqual, onSelect } = ctx;
-  const active = isEqual(ctx.active, value);
   let selected = false;
   if (ctx.multi) {
     selected = includes(value, ctx.value, isEqual);
@@ -40,6 +43,7 @@ export function SelectOption<Value>({
       className={cx('zent-select-option', className, {
         'zent-select-option-active': active,
         'zent-select-option-selected': selected,
+        'zent-select-option-disabled': disabled,
       })}
       onClick={onClick}
     >
