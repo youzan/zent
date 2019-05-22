@@ -68,6 +68,11 @@
 
 导出的组件名字变了，老的写法
 
+### `Tag`
+
+删除`visible`和`onVisibleChange`，不再有内部`state`，删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制。
+
+
 ```js
 import { Layout } from 'zent';
 
