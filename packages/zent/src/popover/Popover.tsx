@@ -15,6 +15,7 @@ import PopoverContext from './PopoverContext';
 import { IPositionFunction } from './position-function';
 import withPopover, { usePopover } from './withPopover';
 import { IPortalImperativeHandlers } from '../portal';
+import memorize from '../utils/memorize-one';
 
 export interface IPopoverBeforeHook {
   (continuation?: () => void, escape?: () => void): Promise<void> | void;
@@ -47,8 +48,7 @@ export interface IPopoverState {
 
 export class Popover extends Component<IPopoverProps, IPopoverState> {
   static defaultProps = {
-    // display: 'block',
-    cushion: 10,
+    cushion: 0,
     containerSelector: 'body',
   };
 
@@ -57,6 +57,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   static Position = Position;
   static withPopover = withPopover;
   static usePopover = usePopover;
+  static Context = PopoverContext;
 
   private isUnmounted = false;
   private pendingOnBeforeHook = false;
@@ -114,8 +115,7 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
     this.setVisible(false);
   };
 
-  validateChildren() {
-    const { children } = this.props;
+  validateChildrenImpl(children: React.ReactNode) {
     const childArray = Children.toArray(children) as IPopoverChildren;
     if (childArray.length !== 2) {
       throw new Error(
@@ -151,6 +151,10 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
       content,
     };
   }
+
+  validateChildren = memorize((children: IPopoverChildren) =>
+    this.validateChildrenImpl(children)
+  );
 
   safeSetState(
     updater:
@@ -203,9 +207,16 @@ export class Popover extends Component<IPopoverProps, IPopoverState> {
   }
 
   render() {
-    const { trigger, content } = this.validateChildren();
-    const { containerSelector, position, cushion, className } = this.props;
+    const {
+      containerSelector,
+      position,
+      cushion,
+      className,
+      children,
+    } = this.props;
     const { visible } = this.state;
+    const { validateChildren } = this;
+    const { trigger, content } = validateChildren(children);
     /**
      * content must before trigger here,
      * because trigger need to get content's instance in its componentDidMount.
