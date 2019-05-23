@@ -10,12 +10,14 @@ export interface ISelectCommonProps<Value> {
   isEqual(a: Value, b: Value): boolean;
   className?: string;
   search?: string;
-  placeholder?: string;
+  placeholder?: React.ReactNode;
+  searchPlaceholder?: string;
   onSearchChange?: (
     search: string,
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
   renderSelectedValue: (value: Value) => React.ReactNode;
+  autoAlignWidth?: boolean;
   children?: ISelectChildren<Value>;
 }
 

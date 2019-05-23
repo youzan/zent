@@ -45,7 +45,7 @@ export class SelectTrigger<Value> extends React.Component<
 
   isPopoverTrigger!: true;
 
-  private elementRef = React.createRef<HTMLDivElement>();
+  elementRef = React.createRef<HTMLDivElement>();
   private inputRef = React.createRef<HTMLInputElement>();
 
   onFocus = (e: React.MouseEvent | React.FocusEvent) => {

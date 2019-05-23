@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as keycode from 'keycode';
+import { isElement } from 'react-is';
+import ResizeObserver from 'resize-observer-polyfill';
 import {
   ISelectProps,
   ISelectSingleValueProps,
@@ -11,8 +13,8 @@ import { SelectContext } from './context';
 import { SelectOption } from './Option';
 import { SelectTrigger } from './Trigger';
 import { ISelectOptionProps } from './Option';
-import { isElement } from 'react-is';
 import { OPTION, GROUP } from './symbol';
+import { IPortalImperativeHandlers } from '../portal';
 
 type ChildArray<Value> = Array<
   React.ReactElement<ISelectOptionProps<Value>, SelectOption>
@@ -95,6 +97,7 @@ export class Select<Value> extends React.Component<
   static Option = SelectOption;
 
   private popoverRef = React.createRef<Popover>();
+  private resizeObserver = new ResizeObserver(() => this.syncTriggerWidth());
 
   state: ISelectState<Value> = {
     search: '',
@@ -214,11 +217,40 @@ export class Select<Value> extends React.Component<
     return state;
   }
 
+  syncTriggerWidth() {
+    const { autoAlignWidth } = this.props;
+    if (!autoAlignWidth) {
+      return;
+    }
+    const popover = this.popoverRef.current as Popover;
+    const portal = popover.portalRef.current as IPortalImperativeHandlers;
+    const trigger = (popover.triggerRef.current as unknown) as SelectTrigger<
+      Value
+    >;
+    const element = trigger.elementRef.current as HTMLDivElement;
+    const { width } = getComputedStyle(element);
+    portal.element.style.width = width;
+  }
+
+  componentDidMount() {
+    const popover = this.popoverRef.current as Popover;
+    const trigger = (popover.triggerRef.current as unknown) as SelectTrigger<
+      Value
+    >;
+    const element = trigger.elementRef.current as HTMLDivElement;
+    this.resizeObserver.observe(element);
+  }
+
+  componentWillUnmount() {
+    this.resizeObserver.disconnect();
+  }
+
   render() {
     const {
       multi,
       isEqual,
       placeholder,
+      searchPlaceholder,
       renderSelectedValue,
       className,
     } = this.props;
@@ -274,6 +306,7 @@ export class Select<Value> extends React.Component<
             search={search}
             onSearchChange={this.onSearchChange}
             placeholder={placeholder}
+            searchPlaceholder={searchPlaceholder}
             renderSelectedValue={renderSelectedValue}
             onDelete={this.onDelete}
             onSearchKeyDown={this.onSearchKeyDown}
