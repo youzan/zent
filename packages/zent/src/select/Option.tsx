@@ -17,7 +17,7 @@ function includes(
   v: unknown[],
   isEqual: (a: unknown, b: unknown) => boolean
 ) {
-  return v.find(b => isEqual(a, b)) !== undefined;
+  return v.findIndex(b => isEqual(a, b)) !== -1;
 }
 
 export function SelectOption<Value>({

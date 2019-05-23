@@ -14,7 +14,7 @@ export interface ISelectCommonProps<Value> {
   searchPlaceholder?: string;
   onSearchChange?: (
     search: string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e?: React.ChangeEvent<HTMLInputElement>
   ) => void;
   renderSelectedValue: (value: Value) => React.ReactNode;
   autoAlignWidth?: boolean;
@@ -39,6 +39,7 @@ export interface ISelectMultiValueProps<Value> {
 export interface ISelectMultiProps<Value>
   extends ISelectMultiValueProps<Value> {
   onChange?: (value: Value[]) => void;
+  getValueKey?: (value: Value) => string;
 }
 
 export type ISelectProps<Value> = ISelectCommonProps<Value> &

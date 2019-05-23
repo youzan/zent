@@ -27,7 +27,6 @@ function traverseOptions<Value>(
   const optionIndexes: Array<[number] | [number, number]> = [];
   for (let i = 0; i <= children.length; i += 1) {
     const child = children[i];
-    // console.log(child, children)
     if (!isElement(child)) {
       continue;
     }
@@ -97,7 +96,11 @@ export class Select<Value> extends React.Component<
   static Option = SelectOption;
 
   private popoverRef = React.createRef<Popover>();
-  private resizeObserver = new ResizeObserver(() => this.syncTriggerWidth());
+  private resizeObserver = new ResizeObserver(() => {
+    this.syncTriggerWidth();
+    const popover = this.popoverRef.current;
+    popover && popover.adjustPosition();
+  });
 
   state: ISelectState<Value> = {
     search: '',
@@ -109,7 +112,18 @@ export class Select<Value> extends React.Component<
     optionIndexes: [],
   };
 
-  onDelete = (value: Value) => {};
+  onDelete = (deleted: Value) => {
+    const { isEqual, onChange } = this.props;
+    const value = this.state.value as Value[];
+    const nextValue = value.filter(v => !isEqual(v, deleted));
+    if (onChange) {
+      (onChange as (value: Value[]) => void)(nextValue);
+    } else {
+      this.setState({
+        value: nextValue,
+      });
+    }
+  };
 
   onVisibleChange = (visible: boolean) => {
     this.setState({
@@ -117,7 +131,10 @@ export class Select<Value> extends React.Component<
     });
   };
 
-  onSearchChange = (search: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  onSearchChange = (
+    search: string,
+    e?: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { onSearchChange } = this.props;
     if (onSearchChange) {
       onSearchChange(search, e);
@@ -154,10 +171,11 @@ export class Select<Value> extends React.Component<
           value: selected as Value,
         });
       }
+      this.setState({
+        visible: false,
+      });
     }
-    this.setState({
-      visible: false,
-    });
+    this.onSearchChange('');
   };
 
   selectByCurrentIndex() {
@@ -173,6 +191,25 @@ export class Select<Value> extends React.Component<
     }
   }
 
+  deleteLast() {
+    if (!this.props.multi) {
+      return;
+    }
+    const { onChange } = this.props;
+    const value = this.state.value as Value[];
+    if (value.length === 0) {
+      return;
+    }
+    const nextValue = value.slice(0, value.length - 1);
+    if (onChange) {
+      onChange(nextValue);
+    } else {
+      this.setState({
+        value: nextValue,
+      });
+    }
+  }
+
   onSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement> = e => {
     switch (keycode(e.nativeEvent)) {
       case 'up':
@@ -183,6 +220,9 @@ export class Select<Value> extends React.Component<
         break;
       case 'enter':
         this.selectByCurrentIndex();
+        break;
+      case 'backspace':
+        this.deleteLast();
         break;
       default:
         break;
@@ -310,6 +350,7 @@ export class Select<Value> extends React.Component<
             renderSelectedValue={renderSelectedValue}
             onDelete={this.onDelete}
             onSearchKeyDown={this.onSearchKeyDown}
+            getValueKey={(this.props as any).getValueKey}
             {...valueProps}
           />
           <Popover.Content>{children}</Popover.Content>

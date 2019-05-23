@@ -14,23 +14,11 @@ export interface ISelectTriggerCommonProps<Value> {
   searchPlaceholder?: string;
   onSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
   onDelete: (value: Value) => void;
+  getValueKey?: (value: Value) => string;
 }
 
 export type ISelectTriggerProps<Value> = ISelectTriggerCommonProps<Value> &
   Required<ISelectSingleValueProps<Value> | ISelectMultiValueProps<Value>>;
-
-function getSearchPlaceholder(
-  searchPlaceholder: string | undefined,
-  placeholder: React.ReactNode
-) {
-  if (typeof searchPlaceholder === 'string') {
-    return searchPlaceholder;
-  }
-  if (typeof placeholder === 'string') {
-    return placeholder;
-  }
-  return undefined;
-}
 
 /**
  * can't use function with hooks here for now
@@ -48,7 +36,7 @@ export class SelectTrigger<Value> extends React.Component<
   elementRef = React.createRef<HTMLDivElement>();
   private inputRef = React.createRef<HTMLInputElement>();
 
-  onFocus = (e: React.MouseEvent | React.FocusEvent) => {
+  onClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       const { popover } = getContext(this);
       popover.setVisible(true);
@@ -90,32 +78,36 @@ export class SelectTrigger<Value> extends React.Component<
     // window.addEventListener('blur', this.onWindowBlur);
   }
 
-  // componentDidUpdate() {
-  //   const { visible } = getContext(this);
-  //   const input = this.inputRef.current;
-  //   if (input) {
-  //     if (visible) {
-  //       input.focus();
-  //     } else {
-  //       input.blur();
-  //     }
-  //   }
-  // }
-
   componentWillUnmount() {
     window.removeEventListener('click', this.onGlobalClick);
     // window.removeEventListener('blur', this.onWindowBlur);
   }
 
-  renderValue() {
+  renderValue(visible: boolean) {
     const { props } = this;
     if (props.multi) {
-      const { onDelete } = props;
-      return props.value.map(item => (
-        <Tag color="red" closable onClose={() => onDelete(item)}>
+      const { onDelete, getValueKey } = props;
+      return props.value.map((item, index) => (
+        <Tag
+          key={getValueKey ? getValueKey(item) : index}
+          className="zent-select-tag"
+          color="#dcdee0"
+          closable
+          outline
+          style={{
+            color: '#323233',
+          }}
+          closeButtonStyle={{
+            color: '#dcdee0',
+          }}
+          onClose={() => onDelete(item)}
+        >
           {props.renderSelectedValue(item)}
         </Tag>
       ));
+    }
+    if (visible) {
+      return null;
     }
     if (!props.value) {
       return props.placeholder;
@@ -129,7 +121,6 @@ export class SelectTrigger<Value> extends React.Component<
       className,
       onSearchKeyDown,
       searchPlaceholder,
-      placeholder,
     } = this.props;
     const { visible } = getContext(this);
     return (
@@ -138,22 +129,20 @@ export class SelectTrigger<Value> extends React.Component<
         className={cx('zent-select', className, {
           'zent-select-active': visible,
         })}
-        onClick={this.onFocus}
+        onClick={this.onClick}
       >
+        {this.renderValue(visible)}
         {visible ? (
           <input
             ref={this.inputRef}
             className="zent-select-search"
             autoFocus
-            placeholder={getSearchPlaceholder(searchPlaceholder, placeholder)}
+            placeholder={searchPlaceholder}
             value={search}
             onChange={this.onSearchChange}
-            onFocus={this.onFocus}
             onKeyDown={onSearchKeyDown}
           />
-        ) : (
-          this.renderValue()
-        )}
+        ) : null}
       </div>
     );
   }

@@ -14,6 +14,7 @@
   transition: border-color 0.25s;
   position: relative;
   width: 240px;
+  display: inline-flex;
 
   &.zent-select-active {
     border-color: $theme-primary-2;
@@ -24,10 +25,18 @@
     }
   }
 
+  &-tag {
+    flex: 0 0 auto;
+    margin-right: 4px;
+  }
+
   &-search {
+    flex: 1 1 auto;
     outline: none;
     border: 0;
     padding: 0;
+    overflow: hidden;
+    min-width: 50px;
   }
 
   &::after {
