@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { ISelectSingleValueProps, ISelectMultiValueProps } from './type';
+import { ISelectSingleValueProps, ISelectMultiValueProps } from './shared';
 
 export interface ISelectCommonContext {
   search: string;
-  active: unknown;
   isEqual(a: unknown, b: unknown): boolean;
   onSelect: (value: unknown, e: React.KeyboardEvent | React.MouseEvent) => void;
+  onMouseEnterOption(): void;
 }
 
 export type ISelectContext = ISelectCommonContext &

@@ -2,6 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 import { SelectOptionGroup } from './Group';
 import { useSelectContext } from './context';
+import { OPTION } from './symbol';
 
 export interface ISelectOptionProps<Value> {
   value: Value;
@@ -27,7 +28,7 @@ export function SelectOption<Value>({
   disabled,
 }: ISelectOptionProps<Value>) {
   const ctx = useSelectContext();
-  const { isEqual, onSelect } = ctx;
+  const { isEqual, onSelect, onMouseEnterOption } = ctx;
   let selected = false;
   if (ctx.multi) {
     selected = includes(value, ctx.value, isEqual);
@@ -38,13 +39,19 @@ export function SelectOption<Value>({
     (e: React.MouseEvent) => onSelect(value, e),
     [value]
   );
+  const elementRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    // active && elementRef.current && elementRef.current.scrollIntoView(false);
+  }, [active]);
   return (
     <div
+      ref={elementRef}
       className={cx('zent-select-option', className, {
         'zent-select-option-active': active,
         'zent-select-option-selected': selected,
         'zent-select-option-disabled': disabled,
       })}
+      onMouseEnter={onMouseEnterOption}
       onClick={onClick}
     >
       {children}
@@ -53,3 +60,4 @@ export function SelectOption<Value>({
 }
 
 SelectOption.Group = SelectOptionGroup;
+SelectOption.selectOption = OPTION;

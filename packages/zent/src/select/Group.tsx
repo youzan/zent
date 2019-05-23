@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import { ISelectOptionProps } from './Option';
+import { GROUP } from './symbol';
 
 export interface ISelectOptionGroupProps<Value> {
   label: React.ReactNode;
@@ -20,3 +21,5 @@ export function SelectOptionGroup<Value>({
     </div>
   );
 }
+
+SelectOptionGroup.selectOptionGroup = GROUP;

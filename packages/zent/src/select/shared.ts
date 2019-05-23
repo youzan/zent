@@ -1,4 +1,10 @@
 import * as React from 'react';
+import { ISelectOptionProps } from './Option';
+import { SelectOption } from './Option';
+
+export type ISelectChildren<Value> =
+  | React.ReactElement<ISelectOptionProps<Value>, SelectOption>
+  | Array<React.ReactElement<ISelectOptionProps<Value>, SelectOption>>;
 
 export interface ISelectCommonProps<Value> {
   isEqual(a: Value, b: Value): boolean;
@@ -10,6 +16,7 @@ export interface ISelectCommonProps<Value> {
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
   renderSelectedValue: (value: Value) => React.ReactNode;
+  children?: ISelectChildren<Value>;
 }
 
 export interface ISelectSingleValueProps<Value> {

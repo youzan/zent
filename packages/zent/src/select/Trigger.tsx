@@ -1,6 +1,6 @@
 import * as React from 'react';
 import cx from 'classnames';
-import { ISelectSingleValueProps, ISelectMultiValueProps } from './type';
+import { ISelectSingleValueProps, ISelectMultiValueProps } from './shared';
 import Tag from '../tag';
 import Popover from '../popover';
 import { getContext, IPopoverContext } from '../popover/PopoverContext';
@@ -10,12 +10,27 @@ export interface ISelectTriggerCommonProps<Value> {
   search: string;
   onSearchChange(value: string, e: React.ChangeEvent<HTMLInputElement>): void;
   renderSelectedValue(value: Value): React.ReactNode;
-  placeholder?: string;
+  placeholder?: React.ReactNode;
+  searchPlaceholder?: string;
+  onSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
   onDelete: (value: Value) => void;
 }
 
 export type ISelectTriggerProps<Value> = ISelectTriggerCommonProps<Value> &
   Required<ISelectSingleValueProps<Value> | ISelectMultiValueProps<Value>>;
+
+function getSearchPlaceholder(
+  searchPlaceholder: string | undefined,
+  placeholder: React.ReactNode
+) {
+  if (typeof searchPlaceholder === 'string') {
+    return searchPlaceholder;
+  }
+  if (typeof placeholder === 'string') {
+    return placeholder;
+  }
+  return undefined;
+}
 
 /**
  * can't use function with hooks here for now
@@ -41,7 +56,8 @@ export class SelectTrigger<Value> extends React.Component<
   };
 
   onSearchChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    const {} = this.props;
+    const { onSearchChange } = this.props;
+    onSearchChange(e.target.value, e);
   };
 
   onGlobalClickImpl(e: MouseEvent) {
@@ -60,23 +76,35 @@ export class SelectTrigger<Value> extends React.Component<
     popover.setVisible(false);
   }
 
+  onWindowBlur = () => {
+    const { popover } = getContext(this);
+    popover.setVisible(false);
+  };
+
   onGlobalClick = (e: MouseEvent) => {
     this.onGlobalClickImpl(e);
   };
 
   componentDidMount() {
     window.addEventListener('click', this.onGlobalClick);
+    // window.addEventListener('blur', this.onWindowBlur);
   }
 
-  componentDidUpdate() {
-    const { visible } = getContext(this);
-    if (visible && this.inputRef.current) {
-      this.inputRef.current.focus();
-    }
-  }
+  // componentDidUpdate() {
+  //   const { visible } = getContext(this);
+  //   const input = this.inputRef.current;
+  //   if (input) {
+  //     if (visible) {
+  //       input.focus();
+  //     } else {
+  //       input.blur();
+  //     }
+  //   }
+  // }
 
   componentWillUnmount() {
     window.removeEventListener('click', this.onGlobalClick);
+    // window.removeEventListener('blur', this.onWindowBlur);
   }
 
   renderValue() {
@@ -96,7 +124,13 @@ export class SelectTrigger<Value> extends React.Component<
   }
 
   render() {
-    const { search, className } = this.props;
+    const {
+      search,
+      className,
+      onSearchKeyDown,
+      searchPlaceholder,
+      placeholder,
+    } = this.props;
     const { visible } = getContext(this);
     return (
       <div
@@ -106,16 +140,20 @@ export class SelectTrigger<Value> extends React.Component<
         })}
         onClick={this.onFocus}
       >
-        {this.renderValue()}
-        {focus ? (
+        {visible ? (
           <input
             ref={this.inputRef}
             className="zent-select-search"
+            autoFocus
+            placeholder={getSearchPlaceholder(searchPlaceholder, placeholder)}
             value={search}
             onChange={this.onSearchChange}
             onFocus={this.onFocus}
+            onKeyDown={onSearchKeyDown}
           />
-        ) : null}
+        ) : (
+          this.renderValue()
+        )}
       </div>
     );
   }
