@@ -120,7 +120,7 @@ class PopoverContent extends Component<
   adjustPosition = (sync = false) => {
     if (sync) {
       this.adjustPositionImpl();
-    } else if (this.callbackNode !== null) {
+    } else if (this.callbackNode === null) {
       this.callbackNode = scheduleCallback(ImmediatePriority, () => {
         this.callbackNode = null;
         this.adjustPositionImpl();
