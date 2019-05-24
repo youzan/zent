@@ -8,7 +8,6 @@ import isEqual from 'lodash-es/isEqual';
 import isUndefined from 'lodash-es/isUndefined';
 import throttle from 'lodash-es/throttle';
 import * as keycode from 'keycode';
-import cx from 'classnames';
 import Input, { IInputChangeEvent } from '../input';
 import Popover from '../popover';
 import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
