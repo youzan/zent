@@ -8,7 +8,8 @@ import Simple from './SimpleTrigger';
 import Tags from './TagsTrigger';
 import { IPopoverClickTriggerProps } from '../../popover/trigger/ClickTrigger';
 
-export interface ISelectClickTriggerProps extends IPopoverClickTriggerProps {
+export interface ISelectClickTriggerProps
+  extends IPopoverClickTriggerProps<any> {
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
   trigger?: {
@@ -39,11 +40,10 @@ function decideTrigger({ simple, search, tags, trigger }) {
  * @method {render} Major changes, Omit the check and React.cloneElement.
  * @method {clickHandler} Click event Agent
  */
-export default class SelectClickTrigger extends Popover.Trigger.Click<
-  ISelectClickTriggerProps
-> {
+export default class SelectClickTrigger extends Popover.Trigger.Click<any> {
   clickHandler = event => {
-    const { onClick, close, open, contentVisible, disabled } = this.props;
+    const { onClick, close, open, contentVisible, disabled } = this
+      .props as any;
     event.preventDefault();
     if (contentVisible) {
       close();
@@ -56,7 +56,7 @@ export default class SelectClickTrigger extends Popover.Trigger.Click<
   };
 
   render() {
-    const { onClick, trigger, onTriggerRefChange, ...rest } = this.props;
+    const { onClick, trigger, onTriggerRefChange, ...rest } = this.props as any;
     const Node = decideTrigger(trigger);
     return (
       <Node {...rest} ref={onTriggerRefChange} onClick={this.clickHandler} />
