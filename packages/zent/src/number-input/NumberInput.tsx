@@ -167,33 +167,41 @@ export class NumberInput extends PureComponent<
   };
 
   inc = () => {
-    const { disabled, decimal: decimalPlaces } = this.props;
+    const { disabled, decimal: decimalPlaces, onChange } = this.props;
     const { value } = this.state;
     const { canInc } = this.calculateLimit(value);
     if (disabled || !canInc) {
       return;
     }
-    this.setState(state => {
-      const decimal = new Decimal(state.value);
-      return {
-        value: decimal.plus(this.getDelta()).toFixed(decimalPlaces),
-      };
-    });
+    const decimal = new Decimal(value);
+    decimal.plus(this.getDelta());
+    const nextValue = decimal.toFixed(decimalPlaces);
+    if (onChange) {
+      onChange(nextValue);
+    } else {
+      this.setState({
+        value: nextValue,
+      });
+    }
   };
 
   dec = () => {
-    const { disabled, decimal: decimalPlaces } = this.props;
+    const { disabled, decimal: decimalPlaces, onChange } = this.props;
     const { value } = this.state;
     const { canDec } = this.calculateLimit(value);
     if (disabled || !canDec) {
       return;
     }
-    this.setState(state => {
-      const decimal = new Decimal(state.value);
-      return {
-        value: decimal.minus(this.getDelta()).toFixed(decimalPlaces),
-      };
-    });
+    const decimal = new Decimal(value);
+    decimal.minus(this.getDelta());
+    const nextValue = decimal.toFixed(decimalPlaces);
+    if (onChange) {
+      onChange(nextValue);
+    } else {
+      this.setState({
+        value: nextValue,
+      });
+    }
   };
 
   private getDelta() {
