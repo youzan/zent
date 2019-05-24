@@ -1,4 +1,4 @@
-import Popover, { IPositionFunction } from '../popover';
+import { IPositionFunction } from '../popover';
 import Mention from './Mention';
 
 export const getPopoverBottomPosition = (

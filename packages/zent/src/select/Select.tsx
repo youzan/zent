@@ -414,67 +414,72 @@ export class Select extends React.Component<ISelectProps, any> {
     const disabledCls = disabled ? 'disabled' : '';
     const prefixCls = `${this.props.prefix}-select`;
     return (
-      <Popover
-        display="inline-block"
-        cushion={4}
-        ref={ref => (this.popover = ref)}
-        position={Popover.Position.AutoBottomLeft}
-        visible={open}
-        className={cx(`${prefixCls}__popover`, popupClassName, {
-          'auto-width': autoWidth,
-        })}
-        wrapperClassName={cx(prefixCls, className, disabledCls)}
-        onVisibleChange={this.handlePopoverVisibleChange}
-        width={width}
-        onPositionReady={() => {
-          this.setState({
-            optionsReady: true,
-          });
+      <div
+        className={cx(prefixCls, className, disabledCls)}
+        style={{
+          width,
+          display: 'inline-block',
         }}
       >
-        <Trigger
+        <Popover
+          cushion={4}
+          ref={ref => (this.popover = ref)}
+          position={Popover.Position.AutoBottomLeft}
           visible={open}
-          disabled={disabled}
-          prefixCls={prefixCls}
-          placeholder={placeholder}
-          selectedItems={selectedItems}
-          keyword={keyword}
-          {...selectedItem}
-          trigger={{
-            simple,
-            search,
-            tags,
-            trigger,
+          className={cx(`${prefixCls}__popover`, popupClassName, {
+            'auto-width': autoWidth,
+          })}
+          onVisibleChange={this.handlePopoverVisibleChange}
+          onPositionReady={() => {
+            this.setState({
+              optionsReady: true,
+            });
           }}
-          onChange={this.triggerChangeHandler}
-          onDelete={this.triggerDeleteHandler}
-        />
-        <Content>
-          <Popup
-            ref={ref => (this.popup = ref)}
-            cid={cid}
+        >
+          <Trigger
+            visible={open}
+            disabled={disabled}
             prefixCls={prefixCls}
-            data={this.uniformedData}
-            ready={optionsReady}
+            placeholder={placeholder}
             selectedItems={selectedItems}
-            extraFilter={extraFilter}
-            searchPlaceholder={searchPlaceholder}
-            emptyText={emptyText}
             keyword={keyword}
-            filter={filter}
-            onAsyncFilter={onAsyncFilter}
-            maxToShow={maxToShow}
-            onChange={this.optionChangedHandler}
-            // WTF
-            // onFocus={this.popupFocusHandler}
-            // onBlur={this.popupBlurHandler}
-            autoWidth={autoWidth}
-            adjustPosition={
-              this.popover && this.popover.adjustPosition.bind(this.popover)
-            }
+            {...selectedItem}
+            trigger={{
+              simple,
+              search,
+              tags,
+              trigger,
+            }}
+            onChange={this.triggerChangeHandler}
+            onDelete={this.triggerDeleteHandler}
           />
-        </Content>
-      </Popover>
+          <Content>
+            <Popup
+              ref={ref => (this.popup = ref)}
+              cid={cid}
+              prefixCls={prefixCls}
+              data={this.uniformedData}
+              ready={optionsReady}
+              selectedItems={selectedItems}
+              extraFilter={extraFilter}
+              searchPlaceholder={searchPlaceholder}
+              emptyText={emptyText}
+              keyword={keyword}
+              filter={filter}
+              onAsyncFilter={onAsyncFilter}
+              maxToShow={maxToShow}
+              onChange={this.optionChangedHandler}
+              // WTF
+              // onFocus={this.popupFocusHandler}
+              // onBlur={this.popupBlurHandler}
+              autoWidth={autoWidth}
+              adjustPosition={
+                this.popover && this.popover.adjustPosition.bind(this.popover)
+              }
+            />
+          </Content>
+        </Popover>
+      </div>
     );
   }
 }
