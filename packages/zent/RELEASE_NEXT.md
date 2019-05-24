@@ -111,6 +111,18 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.13(2019-05-21)
+
+- 修复 `Pagination` 样式
+- `Grid` 支持 `bodyRender` 的参数添加 `fixed` 属性，用来判断固定了哪里的列
+- `DataRangeQuickPicker` 支持在 `preset` 里自定义时间区间
+
+## 7.0.0-next.12(2019-05-21)
+
+- 支持 `React.CSSProperties` 形式的 style 属性
+- 修复 `Portal` 每次 render 都重新 mount 的问题
+- 移除 `DatePicker`, `ClampLine` 以及 `Menu` 的 `componentWillReceiveProps` 生命周期依赖
+
 ## 7.0.0-next.11(2019-04-29)
 
 ### 不兼容改动

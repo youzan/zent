@@ -81,6 +81,7 @@ function extractStateFromProps(props: IDatePickerProps) {
     activedTime: selected || actived,
     openPanel,
     showPlaceholder,
+    prevProps: props,
   };
 }
 
@@ -107,7 +108,14 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
   static parseDate = parseDate;
   static formatDate = formatDate;
 
-  isfooterShow: boolean;
+  static getDerivedStateFromProps(props: IDatePickerProps, state: any) {
+    if (props !== state.prevProps) {
+      return extractStateFromProps(props);
+    }
+    return null;
+  }
+
+  isFooterShow: boolean;
 
   retType = 'string';
 
@@ -126,12 +134,7 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
 
     this.state = extractStateFromProps(props);
     // 没有footer的逻辑
-    this.isfooterShow = showTime || isFooterVisible;
-  }
-
-  componentWillReceiveProps(next) {
-    const state = extractStateFromProps(next);
-    this.setState(state);
+    this.isFooterShow = showTime || isFooterVisible || false;
   }
 
   getDate = () => {
@@ -165,7 +168,7 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
         activedTime,
       },
       () => {
-        if (!this.isfooterShow) {
+        if (!this.isFooterShow) {
           this.onConfirm();
         }
       }
@@ -310,7 +313,7 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
       });
       const datePickerCls = cx({
         'date-picker': true,
-        small: this.isfooterShow,
+        small: this.isFooterShow,
       });
 
       datePicker = (
@@ -326,7 +329,7 @@ export class DatePicker extends PureComponent<IDatePickerProps, any> {
             onNext={this.onChangeMonth('next')}
             i18n={i18n}
           />
-          {this.isfooterShow ? (
+          {this.isFooterShow ? (
             <PanelFooter
               buttonText={confirmText || i18n.confirm}
               onClickButton={this.onConfirm}
