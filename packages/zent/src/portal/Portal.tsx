@@ -33,6 +33,14 @@ function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
   return result;
 }
 
+interface IPatchMeta {
+  count: number;
+  paddingRight: CSSStyleDeclaration['paddingRight'];
+  overflowY: CSSStyleDeclaration['overflowY'];
+}
+
+const patched = new Map<HTMLElement, IPatchMeta>();
+
 export interface IPortalProps extends Partial<IPurePortalProps> {
   visible?: boolean;
   layer?: string;
@@ -140,14 +148,36 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       ) {
         return noop;
       }
-      const { overflowY, paddingRight } = parent.style;
-      const originalPadding = getComputedStyle(parent).paddingRight;
-      const newPadding = parseFloat(originalPadding || '0') + SCROLLBAR_WIDTH;
-      parent.style.overflowY = 'hidden';
-      parent.style.paddingRight = `${newPadding}px`;
+      const meta = patched.get(parent);
+      if (meta) {
+        meta.count += 1;
+      } else {
+        const { overflowY, paddingRight } = parent.style;
+        const originalPadding = getComputedStyle(parent).paddingRight;
+        const newPadding = parseFloat(originalPadding || '0') + SCROLLBAR_WIDTH;
+        parent.style.overflowY = 'hidden';
+        parent.style.paddingRight = `${newPadding}px`;
+        const newMeta: IPatchMeta = {
+          count: 1,
+          overflowY,
+          paddingRight,
+        };
+        patched.set(parent, newMeta);
+      }
       return () => {
-        parent.style.overflowY = overflowY;
-        parent.style.paddingRight = paddingRight;
+        const meta = patched.get(parent);
+        if (!meta) {
+          throw new Error(
+            'This looks like a bug of zent, please file an issue'
+          );
+        }
+        if (meta.count === 1) {
+          patched.delete(parent);
+          parent.style.overflowY = meta.overflowY;
+          parent.style.paddingRight = meta.paddingRight;
+        } else {
+          meta.count -= 1;
+        }
       };
     }, [parent, visible, blockPageScroll]);
 

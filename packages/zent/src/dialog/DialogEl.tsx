@@ -30,7 +30,7 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
     this.resetTransformOrigin();
   }
 
-  resetTransformOrigin = (props = this.props) => {
+  resetTransformOrigin(props = this.props) {
     const { mousePosition } = props;
     if (
       mousePosition &&
@@ -47,7 +47,7 @@ export class DialogInnerEl extends Component<IDialogInnerElProps> {
       });
       style.transformOrigin = origin;
     }
-  };
+  }
 
   renderHeader() {
     let { prefix, title } = this.props;
