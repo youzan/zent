@@ -42,14 +42,12 @@ export class CopyButton extends Component<ICopyButtonProps> {
 
     return (
       <Receiver componentName="CopyButton">
-        {(i18n, { onClick = null }) => (
+        {i18n => (
           <CopyToClipboard text={text} onCopy={this.onCopy(i18n)}>
             {children ? (
               React.Children.only(children)
             ) : (
-              <Button onClick={onClick} type="primary">
-                {i18n.copy}
-              </Button>
+              <Button type="primary">{i18n.copy}</Button>
             )}
           </CopyToClipboard>
         )}
