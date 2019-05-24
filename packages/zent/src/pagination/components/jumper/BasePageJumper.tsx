@@ -5,17 +5,22 @@ export interface IPaginationBaseJumperProps {
   onJump?: (page: number) => void;
 }
 
+export interface IPaginationBaseJumperState {
+  value: string;
+}
+
 export abstract class BasePageJumper<
-  P extends IPaginationBaseJumperProps
-> extends Component<P, any> {
+  P extends IPaginationBaseJumperProps,
+  S extends IPaginationBaseJumperState
+> extends Component<P, S> {
   abstract handleJump(pageNumber: number): void;
 
-  constructor(props) {
+  constructor(props: P) {
     super(props);
 
     this.state = {
-      value: props.current || '',
-    };
+      value: (props.current || '').toString(),
+    } as S;
   }
 
   onChange = evt => {
