@@ -70,10 +70,10 @@ export interface INumberInputTarget extends INumberInputProps {
 export interface INumberInputProps
   extends Omit<IInputProps, 'onChange' | 'type' | 'value'> {
   type: 'number';
-  value: number | string;
-  onChange: (e: string) => any;
-  showStepper: boolean;
-  showCounter: boolean;
+  value?: number | string;
+  onChange?: (e: string) => void;
+  showStepper?: boolean;
+  showCounter?: boolean;
   decimal: number;
   min?: number | string;
   max?: number | string;
@@ -81,7 +81,7 @@ export interface INumberInputProps
 }
 
 export interface INumberInputState {
-  prevValue: number | string;
+  prevProps: INumberInputProps;
   value: string;
 }
 
@@ -92,12 +92,7 @@ export class NumberInput extends PureComponent<
   static defaultProps = {
     prefix: 'zent',
     type: 'number',
-    showStepper: false,
-    showCounter: false,
-    value: '',
     decimal: 0,
-    disabled: false,
-    onChange: () => {},
   };
 
   constructor(props: INumberInputProps) {
@@ -111,7 +106,7 @@ export class NumberInput extends PureComponent<
     });
     this.state = {
       value,
-      prevValue: value,
+      prevProps: props,
     };
   }
 
@@ -158,10 +153,13 @@ export class NumberInput extends PureComponent<
       value,
       decimalPlaces,
     });
-    this.setState({
-      value: nextValue,
-    });
-    onChange(nextValue);
+    if (onChange) {
+      onChange(nextValue);
+    } else {
+      this.setState({
+        value: nextValue,
+      });
+    }
     const { onBlur } = this.props;
     onBlur && onBlur(e);
   };
@@ -174,8 +172,7 @@ export class NumberInput extends PureComponent<
       return;
     }
     const decimal = new Decimal(value);
-    decimal.plus(this.getDelta());
-    const nextValue = decimal.toFixed(decimalPlaces);
+    const nextValue = decimal.plus(this.getDelta()).toFixed(decimalPlaces);
     if (onChange) {
       onChange(nextValue);
     } else {
@@ -193,8 +190,7 @@ export class NumberInput extends PureComponent<
       return;
     }
     const decimal = new Decimal(value);
-    decimal.minus(this.getDelta());
-    const nextValue = decimal.toFixed(decimalPlaces);
+    const nextValue = decimal.minus(this.getDelta()).toFixed(decimalPlaces);
     if (onChange) {
       onChange(nextValue);
     } else {
@@ -210,10 +206,14 @@ export class NumberInput extends PureComponent<
   }
 
   static getDerivedStateFromProps(
-    { value, min, max, decimal: decimalPlaces }: INumberInputProps,
-    { prevValue }: INumberInputState
+    props: INumberInputProps,
+    { prevProps }: INumberInputState
   ): Partial<INumberInputState> | null {
-    if (value !== prevValue) {
+    const { value, min, max, decimal: decimalPlaces } = props;
+    if (props === prevProps) {
+      return null;
+    }
+    if (typeof value === 'string' || typeof value === 'number') {
       const nextValue = getCorrectedValue({
         value: trimLeadingPlus(value.toString()),
         min,
@@ -222,15 +222,18 @@ export class NumberInput extends PureComponent<
       });
       return {
         value: nextValue,
-        prevValue: value,
+        prevProps: props,
       };
     }
-    return null;
+    return {
+      prevProps: props,
+    };
   }
 
   componentDidMount() {
     if (this.props.value !== this.state.value) {
-      this.props.onChange(this.state.value);
+      const { onChange } = this.props;
+      onChange && onChange(this.state.value);
     }
   }
 
@@ -239,7 +242,8 @@ export class NumberInput extends PureComponent<
       this.props.value !== prevProps.value &&
       this.state.value !== this.props.value
     ) {
-      this.props.onChange(this.state.value);
+      const { onChange } = this.props;
+      onChange && onChange(this.state.value);
     }
   }
 
