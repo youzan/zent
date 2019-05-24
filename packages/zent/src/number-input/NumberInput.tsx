@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Omit } from 'utility-types';
 import Decimal from 'big.js';
 import Icon from '../icon';
-import Input, { IInputProps } from '../input';
+import Input, { IInputProps, IInputChangeEvent } from '../input';
 
 function isDecimal(value: string | number): boolean {
   if (typeof value === 'number') {
@@ -99,7 +99,7 @@ export class NumberInput extends PureComponent<
     super(props);
     const { min, max, decimal: decimalPlaces } = props;
     const value = getCorrectedValue({
-      value: props.value,
+      value: props.value || '',
       min,
       max,
       decimalPlaces,
@@ -135,7 +135,7 @@ export class NumberInput extends PureComponent<
     };
   }
 
-  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChange = (e: React.ChangeEvent<HTMLInputElement> | IInputChangeEvent) => {
     const { value } = e.target;
     if (isPotentialValue(value) || isDecimal(value)) {
       this.setState({
