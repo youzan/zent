@@ -74,16 +74,6 @@ export class Slider extends PureComponent<ISliderProps> {
     value: 0,
   };
 
-  static getDerivedStateFromProps(nextProps) {
-    checkProps(nextProps);
-    return null;
-  }
-
-  constructor(props) {
-    super(props);
-    checkProps(props);
-  }
-
   onChange = value => {
     const { range, onChange } = this.props;
     value = range
@@ -93,6 +83,7 @@ export class Slider extends PureComponent<ISliderProps> {
   };
 
   render() {
+    checkProps(this.props);
     const { withInput, className, width, ...restProps } = this.props;
     const wrapClass = classNames(
       `${restProps.prefix}-slider`,
