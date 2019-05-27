@@ -9,6 +9,7 @@ import CopyToClipboard from './ReactCopyToClipboard';
 
 export interface ICopyButtonProps {
   text: string;
+  onClick?: React.MouseEventHandler;
   onCopySuccess?: () => void | string;
   onCopyError?: () => void | string;
 }
@@ -38,7 +39,7 @@ export class CopyButton extends Component<ICopyButtonProps> {
   };
 
   render() {
-    const { text, children } = this.props;
+    const { text, children, onClick } = this.props;
 
     return (
       <Receiver componentName="CopyButton">
@@ -47,7 +48,9 @@ export class CopyButton extends Component<ICopyButtonProps> {
             {children ? (
               React.Children.only(children)
             ) : (
-              <Button type="primary">{i18n.copy}</Button>
+              <Button onClick={onClick} type="primary">
+                {i18n.copy}
+              </Button>
             )}
           </CopyToClipboard>
         )}
