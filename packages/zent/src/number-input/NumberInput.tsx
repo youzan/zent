@@ -89,9 +89,7 @@ function isValidValue(value: unknown): value is string | number {
   const type = typeof value;
   return (
     (type === 'string' && isDecimal(value as string)) ||
-    (type === 'number' &&
-      !Number.isNaN(value as number) &&
-      Number.isFinite(value as number))
+    (type === 'number' && Number.isFinite(value as number))
   );
 }
 
