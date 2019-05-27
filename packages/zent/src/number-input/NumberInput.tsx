@@ -87,7 +87,12 @@ export interface INumberInputState {
 
 function isValidValue(value: unknown): value is string | number {
   const type = typeof value;
-  return type === 'string' || type === 'number';
+  return (
+    (type === 'string' && isDecimal(value as string)) ||
+    (type === 'number' &&
+      !Number.isNaN(value as number) &&
+      Number.isFinite(value as number))
+  );
 }
 
 export class NumberInput extends PureComponent<
