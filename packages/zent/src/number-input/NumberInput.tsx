@@ -260,7 +260,6 @@ export class NumberInput extends PureComponent<
       type,
 
       onChange,
-      // width,
 
       showStepper,
       showCounter,
