@@ -85,6 +85,11 @@ export interface INumberInputState {
   value: string;
 }
 
+function isValidValue(value: unknown): value is string | number {
+  const type = typeof value;
+  return type === 'string' || type === 'number';
+}
+
 export class NumberInput extends PureComponent<
   INumberInputProps,
   INumberInputState
@@ -99,7 +104,7 @@ export class NumberInput extends PureComponent<
     super(props);
     const { min, max, decimal: decimalPlaces } = props;
     const value = getCorrectedValue({
-      value: props.value || '',
+      value: isValidValue(props.value) ? props.value : '',
       min,
       max,
       decimalPlaces,
@@ -213,7 +218,7 @@ export class NumberInput extends PureComponent<
     if (props === prevProps) {
       return null;
     }
-    if (typeof value === 'string' || typeof value === 'number') {
+    if (isValidValue(value)) {
       const nextValue = getCorrectedValue({
         value: trimLeadingPlus(value.toString()),
         min,
@@ -238,10 +243,7 @@ export class NumberInput extends PureComponent<
   }
 
   componentDidUpdate(prevProps: INumberInputProps) {
-    if (
-      this.props.value !== prevProps.value &&
-      this.state.value !== this.props.value
-    ) {
+    if (this.props !== prevProps && this.state.value !== this.props.value) {
       const { onChange } = this.props;
       onChange && onChange(this.state.value);
     }
