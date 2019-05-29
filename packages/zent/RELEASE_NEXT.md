@@ -111,6 +111,11 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.14(2019-05-29)
+
+- 修复嵌套 `Dialog` 关闭时窗口滚动问题
+- 修复 `NumberInput` 加减按钮没有 `onChange` 回调的问题
+
 ## 7.0.0-next.13(2019-05-21)
 
 - 修复 `Pagination` 样式
