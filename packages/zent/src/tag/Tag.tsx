@@ -20,6 +20,7 @@ export interface ITagProps {
   style?: React.CSSProperties;
   closeButtonStyle?: React.CSSProperties;
   className?: string;
+  visible?: boolean;
   children?: React.ReactNode;
 }
 
@@ -35,9 +36,13 @@ export const Tag = React.forwardRef<HTMLDivElement, ITagProps>(
       style,
       onClose,
       closeButtonStyle,
+      visible = true,
     },
     ref
   ) => {
+    if (!visible) {
+      return null;
+    }
     const colorPart = PRESET_COLOR[color] ? `-${color}` : '';
     const outlinePart = outline ? '-outline' : '';
     return (
