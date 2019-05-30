@@ -1,21 +1,35 @@
 import * as React from 'react';
 
 import Input from '../../../input';
-import BasePageJumper, { IPaginationBaseJumperProps } from './BasePageJumper';
+import BasePageJumper, {
+  IPaginationBaseJumperProps,
+  IPaginationBaseJumperState,
+} from './BasePageJumper';
 
 const INPUT_WIDTH = 56;
 
-export interface IPaginationMiniPageJumper extends IPaginationBaseJumperProps {
+export interface IPaginationMiniPageJumperProps
+  extends IPaginationBaseJumperProps {
   totalPages?: number;
 }
 
-export class MiniPageJumper extends BasePageJumper<IPaginationMiniPageJumper> {
+interface IPaginationMiniPageJumperState extends IPaginationBaseJumperState {
+  prevProps?: IPaginationMiniPageJumperProps;
+}
+
+export class MiniPageJumper extends BasePageJumper<
+  IPaginationMiniPageJumperProps,
+  IPaginationMiniPageJumperState
+> {
   reset: boolean;
+
+  state!: IPaginationMiniPageJumperState;
 
   constructor(props) {
     super(props);
 
     this.reset = false;
+    this.state.prevProps = props;
   }
 
   render() {
@@ -36,12 +50,11 @@ export class MiniPageJumper extends BasePageJumper<IPaginationMiniPageJumper> {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { current } = nextProps;
-
-    this.setState({
-      value: current,
-    });
+  static getDerivedStateFromProps(props, state) {
+    return {
+      value: props !== state.prevProps ? props.current : state.value,
+      prevProps: props,
+    };
   }
 
   handleJump(pageNumber) {
