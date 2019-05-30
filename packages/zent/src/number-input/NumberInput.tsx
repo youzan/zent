@@ -215,7 +215,7 @@ export class NumberInput extends React.PureComponent<
     props: INumberInputProps,
     { prevProps }: INumberInputState
   ): Partial<INumberInputState> | null {
-    const { value, min, max } = props;
+    const { value, min, max, decimal: decimalPlaces } = props;
     if (props === prevProps) {
       return null;
     }
@@ -224,7 +224,7 @@ export class NumberInput extends React.PureComponent<
         value: trimLeadingPlus(value.toString()),
         min,
         max,
-        decimalPlaces: props.decimal,
+        decimalPlaces,
       });
       return {
         value: nextValue,

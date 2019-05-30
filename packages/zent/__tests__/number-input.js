@@ -22,11 +22,6 @@ describe('NumberInput', () => {
     expect(wrapper.hasClass('foo')).toBe(true);
   });
 
-  it('can have custom prefix of classNames', () => {
-    const wrapper = shallow(<NumberInput prefix="foo" />);
-    expect(wrapper.hasClass('foo-number-input')).toBe(true);
-  });
-
   it('change value is - or + ', () => {
     let wrapper = mount(<NumberInput value={0} />);
     wrapper.setState({ value: '+' });

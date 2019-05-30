@@ -14,7 +14,7 @@ class InputWrap extends Component<IFormInputWrapProps> {
   render() {
     const { type = 'text', ...rest } = this.props;
     const passableProps = omit(rest, unknownProps);
-    return <Input {...passableProps} type={type} />;
+    return <Input {...passableProps} type={type as any} />;
   }
 }
 
