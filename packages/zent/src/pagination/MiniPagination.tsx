@@ -29,7 +29,7 @@ export class MiniPagination extends BasePagination<IMiniPaginationProps> {
 
   render() {
     const { current, buttonBordered, className } = this.props;
-    const { layout } = this.state;
+    const layout = this.getLayout(this.props);
 
     return (
       <div

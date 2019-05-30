@@ -2,14 +2,23 @@ import * as React from 'react';
 import { I18nReceiver as Receiver } from '../../../i18n';
 import Input from '../../../input';
 
-import BasePageJumper, { IPaginationBaseJumperProps } from './BasePageJumper';
+import BasePageJumper, {
+  IPaginationBaseJumperProps,
+  IPaginationBaseJumperState,
+} from './BasePageJumper';
 
 const INPUT_WIDTH = 56;
 
 export interface IPaginationPageJumperProps
   extends IPaginationBaseJumperProps {}
 
-export class PageJumper extends BasePageJumper<IPaginationPageJumperProps> {
+export interface IPaginationPageJumperState
+  extends IPaginationBaseJumperState {}
+
+export class PageJumper extends BasePageJumper<
+  IPaginationPageJumperProps,
+  IPaginationPageJumperState
+> {
   render() {
     const { value } = this.state;
     const input = (
