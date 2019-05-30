@@ -3,17 +3,7 @@ import { PureComponent } from 'react';
 import cx from 'classnames';
 import sample from 'lodash-es/sample';
 import isArray from 'lodash-es/isArray';
-
-export const DEFAULT_SEGMENTS = [
-  [61.8, 38],
-  [30, 25, 44],
-  [20, 75],
-  [33, 16, 20, 27],
-  [12, 32, 53],
-  [45, 12, 42],
-  [20, 10, 47, 18],
-  [14, 47, 37],
-];
+import { DEFAULT_SEGMENTS } from './consts';
 
 export interface IPlaceholderTextRowDashedProps {
   className?: string;
