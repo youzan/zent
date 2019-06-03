@@ -16,15 +16,15 @@ Tag is suitable for marking and sorting。
 
 ### API
 
-| Property             | Description                                                  | Type   | Default   | Alternative                                                                 |
-| -------------------- | ------------------------------------------------------------ | ------ | --------- | --------------------------------------------------------------------------- |
-| color                | The color of tag                                             | string | `'red'`   | `'red'` \| `'green'` \| `'yellow'` \| `'blue'` \| `'darkgreen'` \| `'grey'` |
-| outline              | The style with colorful border and transparent backgound.    | bool   | `'false'` | `true` \| `false`                                                           |
-| rounded              | Whether the tag is rounded or not                            | bool   | `true`    | `true` \| `false`                                                           |
-| closable             | Whether the tag can be closed                                | bool   | `false`   | `true` \| `false`                                                           |
-| onClose              | The callback function that is trigged when the tag is closed | func   | `noop`    |                                                                             |
-| closeButtonFontColor | Color of close button                                        | string |           |                                                                             |
-| className            | The custom classname                                         | string | `''`      |                                                                             |
-| prefix               | The custom prefix                                            | string | `'zent'`  |                                                                             |
+| Property         | Description                                                  | Type   | Default   | Alternative                                                                 |
+| ---------------- | ------------------------------------------------------------ | ------ | --------- | --------------------------------------------------------------------------- |
+| color            | The color of tag                                             | string | `'red'`   | `'red'` \| `'green'` \| `'yellow'` \| `'blue'` \| `'darkgreen'` \| `'grey'` |
+| outline          | The style with colorful border and transparent backgound.    | bool   | `'false'` | `true` \| `false`                                                           |
+| rounded          | Whether the tag is rounded or not                            | bool   | `true`    | `true` \| `false`                                                           |
+| closable         | Whether the tag can be closed                                | bool   | `false`   | `true` \| `false`                                                           |
+| onClose          | The callback function that is trigged when the tag is closed | func   | `noop`    |                                                                             |
+| closeButtonStyle | Style of close button                                        | object |           |                                                                             |
+| className        | The custom classname                                         | string | `''`      |                                                                             |
+| prefix           | The custom prefix                                            | string | `'zent'`  |                                                                             |
 
 > All props are optional, visibility can be controlled by using `visible` and `onVisibleChange` together.

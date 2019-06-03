@@ -24,7 +24,7 @@
 - `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
 
-#### `Grid 和 `Table`
+#### `Grid 和`Table`
 
 因为这两个组件的 `pageInfo` 参数依赖 `Pagination`，所以 `Pagination` 的改动对这个参数一样有影响。
 
@@ -70,13 +70,12 @@
 
 ### `Tag`
 
-删除`visible`和`onVisibleChange`，不再有内部`state`，删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制。
-
+删除`onVisibleChange`，不再有内部`state`；删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；删除`closeButtonFontColor`，添加`closeButtonStyle`。
 
 ```js
 import { Layout } from 'zent';
 
-const { Row, Col } = Layout
+const { Row, Col } = Layout;
 ```
 
 新的写法
@@ -97,7 +96,7 @@ const MyPortal1 = Portal.withEscToClose(Portal);
 const MyPortal2 = Portal.withNonScrollable(Portal);
 ```
 
-新的写法 
+新的写法
 
 ```js
 import { Portal, PurePortal } from 'zent'
@@ -145,10 +144,11 @@ import { Portal, PurePortal } from 'zent'
 - 修复了 `Grid` 没有滚动条时的多余阴影问题
 
 ## 7.0.0-next.10(2019-03-29)
+
 ## 7.0.0-next.9(2019-03-29)
 
 - 新增 `TextMark` 组件，用于高亮文本中的一组关键字
-- `Table` 和 `Grid` 
+- `Table` 和 `Grid`
   - 支持通过 `paginationType="lite"` 选择简化版的分页器
   - 修复一个样式问题
 
