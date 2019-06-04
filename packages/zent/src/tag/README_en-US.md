@@ -22,9 +22,10 @@ Tag is suitable for marking and sorting。
 | outline          | The style with colorful border and transparent backgound.    | bool   | `'false'` | `true` \| `false`                                                           |
 | rounded          | Whether the tag is rounded or not                            | bool   | `true`    | `true` \| `false`                                                           |
 | closable         | Whether the tag can be closed                                | bool   | `false`   | `true` \| `false`                                                           |
-| onClose          | The callback function that is trigged when the tag is closed | func   | `noop`    |                                                                             |
+| onClose          | The callback function that is trigged when the tag is closed | func   | `noop`    |
+| visible          | Tag is visible                                               | bool   | `true`    | `false`                                                                     |  |
 | closeButtonStyle | Style of close button                                        | object |           |                                                                             |
 | className        | The custom classname                                         | string | `''`      |                                                                             |
 | prefix           | The custom prefix                                            | string | `'zent'`  |                                                                             |
 
-> All props are optional, visibility can be controlled by using `visible` and `onVisibleChange` together.
+> All props are optional, a tag can be closed by using `visible` and `onClose` together.

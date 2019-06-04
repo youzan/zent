@@ -70,7 +70,7 @@
 
 ### `Tag`
 
-删除`onVisibleChange`，不再有内部`state`；删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；删除`closeButtonFontColor`，添加`closeButtonStyle`。
+删除`onVisibleChange`，不再有内部`state`；搭配 `visible` 和 `onClose` 可以实现关闭效果；删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；删除`closeButtonFontColor`，添加`closeButtonStyle`。
 
 ```js
 import { Layout } from 'zent';
