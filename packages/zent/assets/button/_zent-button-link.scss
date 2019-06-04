@@ -30,6 +30,7 @@
   &.zent-link__disabled {
     color: $btn-gray;
     cursor: not-allowed;
+    pointer-events: none;
     background: transparent;
   }
 }
