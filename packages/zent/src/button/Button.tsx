@@ -1,152 +1,38 @@
 import * as React from 'react';
-import { Component, MouseEventHandler, CSSProperties, Children } from 'react';
-import setClass from 'classnames';
 import { Omit } from 'utility-types';
-import omit from 'lodash-es/omit';
-import Icon, { IconType } from '../icon';
 import Group from './Group';
-
-const BLACK_LIST = [
-  'type',
-  'size',
-  'htmlType',
-  'block',
-  'component',
-  'disabled',
-  'loading',
-  'outline',
-  'bordered',
-  'icon',
-  'insertSpace',
-  'className',
-  'prefix',
-];
-
-const BTN_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
-
-const A_BLACK_LIST = ['href', 'target'].concat(BLACK_LIST);
-
-const TWO_CN_CHAR_REG = /^[\u4e00-\u9fa5]{2}$/;
-
-const wrapTextWithSpanTag = (
-  children: React.ReactNode,
-  isNeedInsertSpace: boolean
-) => {
-  return Children.map(children, child => {
-    if (typeof child === 'string') {
-      if (isNeedInsertSpace && TWO_CN_CHAR_REG.test(child)) {
-        // 按钮文字为两个中文文字的时候，中间空出一个空格空间
-        return <span>{(child as string).split('').join(' ')}</span>;
-      }
-      return <span>{child}</span>;
-    }
-    return child;
-  });
-};
+import { IButtonDirectiveProps, ButtonDirective } from './Directive';
 
 export interface IButtonProps
-  extends Omit<React.HTMLProps<HTMLButtonElement>, 'size'> {
-  type: 'default' | 'primary' | 'secondary' | 'danger' | 'success';
-  size: 'medium' | 'large' | 'small';
-  htmlType: 'button' | 'submit' | 'reset';
-  block: boolean;
-  disabled: boolean;
-  loading: boolean;
-  outline: boolean;
-  bordered: boolean;
-  component?: React.ComponentType<any> | string;
+  extends Omit<
+      IButtonDirectiveProps<React.ButtonHTMLAttributes<HTMLButtonElement>>,
+      'children'
+    >,
+    React.HTMLAttributes<HTMLElement> {
+  className?: string;
+  style?: React.CSSProperties;
   href?: string;
   target?: string;
-  className?: string;
-  style?: CSSProperties;
-  prefix: string;
-  onClick?: MouseEventHandler<Element>;
-  icon?: IconType;
-  insertSpace: boolean;
+  htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  download?: string;
 }
 
-export class Button extends Component<IButtonProps> {
+export class Button extends React.Component<IButtonProps> {
   static defaultProps = {
     type: 'default',
     size: 'medium',
     htmlType: 'button',
-    className: '',
-    block: false,
-    disabled: false,
-    loading: false,
-    outline: false,
     bordered: true,
-    insertSpace: false,
-    prefix: 'zent',
   };
 
+  // for backward compatible
   static Group = Group;
-
-  // 处理点击事件
-  handleClick: React.MouseEventHandler = event => {
-    if (this.props.disabled || this.props.loading) return;
-
-    if (this.props.onClick) {
-      this.props.onClick(event);
-    }
-  };
-
-  isNeedInsertSpace(): boolean {
-    const { icon, children, insertSpace } = this.props;
-    return !!insertSpace && React.Children.count(children) === 1 && !icon;
-  }
-
-  // render a 标签
-  renderLink(
-    classNames: string,
-    iconNode: React.ReactNode,
-    wrappedChildren: React.ReactNode
-  ) {
-    const { component, disabled, loading, href = '', target } = this.props;
-    const Node = component || 'a';
-    const nodeProps = omit(this.props, A_BLACK_LIST);
-
-    return (
-      <Node
-        {...(disabled || loading ? {} : { href, target })}
-        {...nodeProps}
-        className={classNames}
-        onClick={this.handleClick}
-      >
-        {iconNode}
-        {wrappedChildren}
-      </Node>
-    );
-  }
-
-  // render button 标签
-  renderButton(
-    classNames: string,
-    iconNode: React.ReactNode,
-    wrappedChildren: React.ReactNode
-  ) {
-    const { component, disabled, loading, htmlType } = this.props;
-    const Node = component || 'button';
-    const nodeProps = omit(this.props, BTN_BLACK_LIST);
-
-    return (
-      <Node
-        {...nodeProps}
-        {...(htmlType ? { type: htmlType } : {})}
-        className={classNames}
-        disabled={disabled || loading}
-        onClick={this.handleClick}
-      >
-        {iconNode}
-        {wrappedChildren}
-      </Node>
-    );
-  }
 
   render() {
     const {
       href,
       target,
+      htmlType,
       type,
       size,
       block,
@@ -154,38 +40,44 @@ export class Button extends Component<IButtonProps> {
       loading,
       outline,
       bordered,
-      prefix,
       icon,
       children,
+      download,
+      ...props
     } = this.props;
-    const { className } = this.props;
-    const classNames = setClass(
-      {
-        [`${prefix}-btn-${type}${outline ? '-outline' : ''}`]:
-          type !== 'default',
-        [`${prefix}-btn-${size}`]: size !== 'medium',
-        [`${prefix}-btn-block`]: block,
-        [`${prefix}-btn-loading`]: loading,
-        [`${prefix}-btn-disabled`]: disabled,
-        [`${prefix}-btn-border-transparent`]: !bordered,
-      },
-      `${prefix}-btn`,
-      className
-    );
-    const iconNode = icon ? <Icon type={icon} /> : null;
-    const wrappedChildren = wrapTextWithSpanTag(
-      children,
-      this.isNeedInsertSpace()
-    );
-    const args: [string, React.ReactNode, React.ReactNode] = [
-      classNames,
-      iconNode,
-      wrappedChildren,
-    ];
+    let child: React.ReactElement<IButtonProps>;
     if (href || target) {
-      return this.renderLink.apply(this, args);
+      child = (
+        <a
+          href={disabled || loading ? undefined : href || ''}
+          target={target}
+          download={download}
+          {...props}
+        >
+          {children}
+        </a>
+      );
+    } else {
+      child = (
+        <button type={htmlType} disabled={!!(disabled || loading)} {...props}>
+          {children}
+        </button>
+      );
     }
-    return this.renderButton.apply(this, args);
+    return (
+      <ButtonDirective
+        type={type}
+        size={size}
+        block={block}
+        disabled={disabled}
+        loading={loading}
+        outline={outline}
+        bordered={bordered}
+        icon={icon}
+      >
+        {child}
+      </ButtonDirective>
+    );
   }
 }
 

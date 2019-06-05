@@ -1,29 +1,14 @@
 import * as React from 'react';
-import { Component } from 'react';
-import setClass from 'classnames';
+import cx from 'classnames';
 
-export interface IButtonGroupProps {
-  className: string;
-  prefix: string;
-  style?: React.CSSProperties;
-}
+export interface IButtonGroupProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
 
-export class ButtonGroup extends Component<IButtonGroupProps> {
-  static defaultProps = {
-    className: '',
-    prefix: 'zent',
-  };
-
-  render() {
-    const { prefix, className, style, children, ...other } = this.props;
-    const classNames = setClass(`${prefix}-btn-group`, className);
-
-    return (
-      <div className={classNames} style={style} {...other}>
-        {children}
-      </div>
-    );
-  }
-}
+export const ButtonGroup: React.FunctionComponent<IButtonGroupProps> = ({
+  className,
+  ...props
+}) => {
+  return <div className={cx('zent-btn-group', className)} {...props} />;
+};
 
 export default ButtonGroup;
