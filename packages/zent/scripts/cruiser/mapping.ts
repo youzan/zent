@@ -35,6 +35,7 @@ export function getModuleMapping(
     const {
       relativeJavaScriptPath,
       exportName,
+      isDefaultExport,
       moduleName,
       dependencyModuleNames,
     } = exportEntry;
@@ -47,6 +48,7 @@ export function getModuleMapping(
 
     mapping[exportName] = {
       js: relativeJavaScriptPath,
+      isDefaultExport,
       style: styleDependencies,
     };
 

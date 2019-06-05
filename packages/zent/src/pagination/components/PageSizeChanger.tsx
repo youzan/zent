@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import isEmpty from 'lodash-es/isEmpty';
 import isNumber from 'lodash-es/isNumber';
+import memoize from '../../utils/memorize-one';
 import Select from '../../select';
 import { I18nReceiver as Receiver } from '../../i18n';
 
@@ -20,6 +21,19 @@ export interface IPaginationPageSizeChangerProps {
   pageSizeOptions?: PaginationPageSizeOption[];
   onPageSizeChange?: (pageSize: number) => void;
 }
+
+const memoizedNormalizeSelectOptions = memoize(function normalizeSelectOptions(
+  pageSizeOptions,
+  i18n
+) {
+  return (pageSizeOptions || []).map(opt => {
+    if (isNumber(opt)) {
+      return { value: opt, text: `${opt} ${i18n.items}` };
+    }
+
+    return opt;
+  });
+});
 
 export default class PageSizeChanger extends Component<
   IPaginationPageSizeChangerProps,
@@ -76,30 +90,9 @@ export default class PageSizeChanger extends Component<
 }
 
 class PageSizeSelect extends Component<any, any> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      options: this.normalizeSelectOptions(props.pageSizeOptions, props.i18n),
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { pageSizeOptions, i18n } = nextProps;
-
-    if (
-      pageSizeOptions !== this.props.pageSizeOptions ||
-      i18n !== this.props.i18n
-    ) {
-      this.setState({
-        options: this.normalizeSelectOptions(pageSizeOptions, i18n),
-      });
-    }
-  }
-
   render() {
-    const { options } = this.state;
-    const { pageSize, i18n } = this.props;
+    const { pageSize, i18n, pageSizeOptions } = this.props;
+    const options = memoizedNormalizeSelectOptions(pageSizeOptions, i18n);
 
     return (
       <Select
@@ -115,16 +108,6 @@ class PageSizeSelect extends Component<any, any> {
   onChange = (evt, data) => {
     this.props.onPageSizeChange(data.value);
   };
-
-  normalizeSelectOptions(pageSizeOptions, i18n) {
-    return (pageSizeOptions || []).map(opt => {
-      if (isNumber(opt)) {
-        return { value: opt, text: `${opt} ${i18n.items}` };
-      }
-
-      return opt;
-    });
-  }
 }
 
 export interface IPaginationStaticPageSizeProps {

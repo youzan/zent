@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import has from 'lodash-es/has';
 import { PaginationLayout } from '../layout/type';
+import memoize from '../../utils/memorize-one';
 
 export type PaginationChangeHandler = (detail: {
   current: number;
@@ -28,31 +29,15 @@ export type PaginationLayoutFunction = (
   options: IPaginationLayoutOptions
 ) => PaginationLayout[];
 
-export interface IPaginationState {
-  layout: PaginationLayout[];
-}
-
 export abstract class BasePagination<
   IProps extends IBasePaginationProps
-> extends Component<IProps, IPaginationState> {
+> extends Component<IProps> {
   name: string;
   layoutFn: PaginationLayoutFunction;
 
-  constructor(props: IProps) {
-    super(props);
-
-    this.state = {
-      layout: this.layoutFn(this.getLayoutOptions(props)),
-    };
-  }
-
-  componentWillReceiveProps(nextProps: IProps) {
-    if (this.shouldUpdateLayout(this.props, nextProps)) {
-      this.setState({
-        layout: this.layoutFn(this.getLayoutOptions(nextProps)),
-      });
-    }
-  }
+  getLayout = memoize(props => {
+    return this.layoutFn(this.getLayoutOptions(props));
+  });
 
   shouldUpdateLayout(props: IProps, nextProps: IProps) {
     const { current, pageSize } = nextProps;

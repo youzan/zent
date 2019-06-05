@@ -19,7 +19,7 @@ export abstract class AbstractPagination extends BasePagination<
   IAbstractPaginationProps
 > {
   render() {
-    const { layout } = this.state;
+    const layout = this.getLayout(this.props);
     const {
       current,
       pageSize,

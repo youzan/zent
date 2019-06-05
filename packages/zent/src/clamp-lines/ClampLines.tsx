@@ -64,27 +64,30 @@ export class ClampLines extends Component<IClampLinesProps, IClampLinesState> {
     };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    const { text } = props;
+    if (state.original !== text) {
+      return {
+        original: text,
+        noClamp: false,
+      };
+    }
+
+    return null;
+  }
+
+  componentDidUpdate(prevProps) {
+    const { text } = prevProps;
+    if (text && text !== this.state.original) {
+      this.clampLines();
+    }
+  }
+
   componentDidMount() {
     const { text } = this.props;
     if (text && !this.ssr) {
       this.lineHeight = this.element.clientHeight + 1;
       this.clampLines();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.state.original !== nextProps.text) {
-      this.setState(
-        {
-          original: nextProps.text,
-          noClamp: false,
-        },
-        () => {
-          if (nextProps.text) {
-            this.clampLines();
-          }
-        }
-      );
     }
   }
 

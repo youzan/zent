@@ -27,7 +27,7 @@ ReactDOM.render(
 	<div>
 		<Tag closable onClose={closeCallback} outline>{i18n.text1}</Tag>
 		<Tag closable onClose={closeCallback2}>{i18n.text2}</Tag>
-		<Tag color="grey" closable closeButtonFontColor="#969799">{i18n.text3}</Tag>
+		<Tag color="grey" closable closeButtonStyle={{ color: '#969799' }}>{i18n.text3}</Tag>
 	</div>
 	, mountNode
 );

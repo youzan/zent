@@ -59,6 +59,7 @@ export class ArrowButton extends Component<IPaginationArrowButtonProps, any> {
 class DoubleArrowButton extends Component<any, any> {
   state = {
     showArrow: false,
+    prevActive: false,
   };
 
   render() {
@@ -92,13 +93,18 @@ class DoubleArrowButton extends Component<any, any> {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { active } = nextProps;
-    if (active !== this.props.active) {
-      this.setState({
-        showArrow: active,
-      });
+  static getDerivedStateFromProps(props, state) {
+    const { active } = props;
+    const stateDiff = {
+      prevActive: active,
+      showArrow: state.showArrow,
+    };
+
+    if (active !== state.prevActive) {
+      stateDiff.showArrow = active;
     }
+
+    return stateDiff;
   }
 
   onMouseOver = () => {

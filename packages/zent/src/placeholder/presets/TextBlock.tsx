@@ -4,9 +4,9 @@ import cx from 'classnames';
 
 import TextRow, { IPlaceholderTextRowProps } from '../shapes/TextRow';
 import TextRowDashed, {
-  DEFAULT_SEGMENTS,
   IPlaceholderTextRowDashedProps,
 } from '../shapes/TextRowDashed';
+import { DEFAULT_SEGMENTS } from '../shapes/consts';
 
 export interface IPlaceholderTextBlockProps {
   rows: number;

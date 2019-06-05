@@ -105,7 +105,12 @@ function buildImportReplacement(specifier, types, state, originalPath) {
     if (!noModuleRewrite) {
       replacement.push(
         types.importDeclaration(
-          [types.importDefaultSpecifier(types.identifier(localName))],
+          buildImportSpecifier(
+            types,
+            rule.isDefaultExport,
+            importedName,
+            localName
+          ),
           types.stringLiteral(getJavaScriptPath(rule.js, useESM))
         )
       );
@@ -138,6 +143,19 @@ function buildImportReplacement(specifier, types, state, originalPath) {
   }
 
   return replacement;
+}
+
+function buildImportSpecifier(types, isDefaultExport, importedName, localName) {
+  if (isDefaultExport) {
+    return [types.importDefaultSpecifier(types.identifier(localName))];
+  }
+
+  return [
+    types.importSpecifier(
+      types.identifier(localName),
+      types.identifier(importedName)
+    ),
+  ];
 }
 
 function initModuleMappingAsNecessary(state) {
