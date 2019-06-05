@@ -4,7 +4,7 @@ import cx from 'classnames';
 export interface IButtonGroupProps
   extends React.HTMLAttributes<HTMLDivElement> {}
 
-const ButtonGroup: React.FunctionComponent<IButtonGroupProps> = ({
+export const ButtonGroup: React.FunctionComponent<IButtonGroupProps> = ({
   className,
   ...props
 }) => {
