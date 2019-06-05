@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithTag,
   Simulate,
 } from 'react-dom/test-utils';
-import Button from 'button';
+import { Button, ButtonGroup, ButtonDirective } from 'button';
 import Icon from 'icon';
 
 class Wrapper extends React.Component {
@@ -247,9 +247,9 @@ describe('<Button />', () => {
     }
     const tree = renderIntoDocument(
       <Wrapper>
-        <Button.Directive>
+        <ButtonDirective>
           <Link to="/path" />
-        </Button.Directive>
+        </ButtonDirective>
       </Wrapper>
     );
     const node = findRenderedDOMComponentWithTag(tree, 'a');
@@ -285,11 +285,11 @@ describe('<Button />', () => {
   });
 });
 
-describe('<Button.Group />', () => {
-  test('Default Button.Group', () => {
+describe('<ButtonGroup />', () => {
+  test('Default ButtonGroup', () => {
     const tree = renderIntoDocument(
       <Wrapper>
-        <Button.Group />
+        <ButtonGroup />
       </Wrapper>
     );
     const node = findRenderedDOMComponentWithTag(tree, 'div');
@@ -299,7 +299,7 @@ describe('<Button.Group />', () => {
   test('Custom ClassName', () => {
     const tree = renderIntoDocument(
       <Wrapper>
-        <Button.Group className="custom-group" />
+        <ButtonGroup className="custom-group" />
       </Wrapper>
     );
     const node = findRenderedDOMComponentWithTag(tree, 'div');
@@ -309,7 +309,7 @@ describe('<Button.Group />', () => {
   test('Custom inline style', () => {
     const tree = renderIntoDocument(
       <Wrapper>
-        <Button.Group style={{ fontSize: '20px' }} />
+        <ButtonGroup style={{ fontSize: '20px' }} />
       </Wrapper>
     );
     const node = findRenderedDOMComponentWithTag(tree, 'div');
