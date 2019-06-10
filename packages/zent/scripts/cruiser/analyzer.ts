@@ -2,7 +2,7 @@ import * as path from 'path';
 import camelCase from 'camelcase';
 import { getModuleRegistry, ValueExport, IRegistry } from './registry';
 
-// const { log } = require('./log');
+// const { log } = require('./json');
 
 export interface IExportedName {
   exportName: string;

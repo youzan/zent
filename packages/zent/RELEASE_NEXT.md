@@ -14,6 +14,10 @@
 
 注意调整后的页面样式有没有问题
 
+#### `Button`
+
+`Button` 删除了 `component` 属性，请使用新的 `ButtonDirective` 组件处理之前 `component` 的使用场景。
+
 #### `Pagination`
 
 `Pagination` 分为 3 种类型，`import { Pagination, LitePagination, MiniPagination } from 'zent'`。后两种是新增的，不涉及迁移问题。`Pagination` 的一些参数有变化：
@@ -24,7 +28,7 @@
 - `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
 
-#### `Grid 和 `Table`
+#### `Grid 和`Table`
 
 因为这两个组件的 `pageInfo` 参数依赖 `Pagination`，所以 `Pagination` 的改动对这个参数一样有影响。
 
@@ -68,10 +72,14 @@
 
 导出的组件名字变了，老的写法
 
+### `Tag`
+
+删除`onVisibleChange`，不再有内部`state`；搭配 `visible` 和 `onClose` 可以实现关闭效果；删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；删除`closeButtonFontColor`，添加`closeButtonStyle`。
+
 ```js
 import { Layout } from 'zent';
 
-const { Row, Col } = Layout
+const { Row, Col } = Layout;
 ```
 
 新的写法
@@ -92,7 +100,7 @@ const MyPortal1 = Portal.withEscToClose(Portal);
 const MyPortal2 = Portal.withNonScrollable(Portal);
 ```
 
-新的写法 
+新的写法
 
 ```js
 import { Portal, PurePortal } from 'zent'
@@ -110,6 +118,29 @@ import { Portal, PurePortal } from 'zent'
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.15(2019-06-10)
+
+- 修复 `babel-plugin-zent` 处理非 `default export` 的问题
+- 修复 `TabPanel` 缺失的 `disabled` 属性
+- 修复 `Upload` 在小屏幕情况下样式问题
+- 重构 `Button`，新增 `ButtonDirective` 替换 `component` 的使用场景
+- 重构 `Tag`，删除`onVisibleChange`，不再有内部`state`；搭配 `visible` 和 `onClose` 可以实现关闭效果；删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；删除`closeButtonFontColor`，添加`closeButtonStyle`
+- 重构 `AnimationHeight`，删除无用功能，保留最小可用功能
+- `Pagination`
+  - 删除 `componentWillReceiveProps`
+  - 优化上一个、下一个按钮的禁用逻辑
+
+## 7.0.0-next.14(2019-05-29)
+
+- 修复嵌套 `Dialog` 关闭时窗口滚动问题
+- 修复 `NumberInput` 加减按钮没有 `onChange` 回调的问题
+
+## 7.0.0-next.13(2019-05-21)
+
+- 修复 `Pagination` 样式
+- `Grid` 支持 `bodyRender` 的参数添加 `fixed` 属性，用来判断固定了哪里的列
+- `DataRangeQuickPicker` 支持在 `preset` 里自定义时间区间
 
 ## 7.0.0-next.12(2019-05-21)
 
@@ -134,10 +165,11 @@ import { Portal, PurePortal } from 'zent'
 - 修复了 `Grid` 没有滚动条时的多余阴影问题
 
 ## 7.0.0-next.10(2019-03-29)
+
 ## 7.0.0-next.9(2019-03-29)
 
 - 新增 `TextMark` 组件，用于高亮文本中的一组关键字
-- `Table` 和 `Grid` 
+- `Table` 和 `Grid`
   - 支持通过 `paginationType="lite"` 选择简化版的分页器
   - 修复一个样式问题
 

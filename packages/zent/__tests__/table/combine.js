@@ -29,6 +29,7 @@ describe('Combine', () => {
         )
         .first()
         .childAt(0)
+        .childAt(0)
         .hasClass('zent-btn-disabled')
     ).toBeTruthy();
     expect(
@@ -37,6 +38,7 @@ describe('Combine', () => {
           '.zent-pagination .zent-pagination-page-list--normal .zent-pagination-page-number-button'
         )
         .first()
+        .childAt(0)
         .childAt(0)
         .hasClass('zent-btn-primary')
     ).toBeTruthy();
@@ -72,6 +74,7 @@ describe('Combine', () => {
         )
         .at(2)
         .childAt(0)
+        .childAt(0)
         .hasClass('zent-btn-primary')
     ).toBeTruthy();
   });
@@ -86,6 +89,7 @@ describe('Combine', () => {
         )
         .find(Button)
         .at(2)
+        .childAt(0)
         .childAt(0)
         .hasClass('zent-btn-primary')
     ).toBeTruthy();

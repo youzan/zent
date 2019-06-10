@@ -27,13 +27,15 @@ export default class Points extends PureComponent<any, any> {
     return getLeft(point, max, min);
   };
 
-  isLeftButton = e => {
-    e = e || window.event;
+  isLeftButton = (e: React.MouseEvent<HTMLSpanElement>): boolean => {
     const btnCode = e.button;
     return btnCode === 0;
   };
 
-  handleMouseDown = (type, evt) => {
+  handleMouseDown = (
+    type: 'start' | 'end',
+    evt: React.MouseEvent<HTMLSpanElement>
+  ) => {
     evt.preventDefault();
 
     if (this.isLeftButton(evt)) {
