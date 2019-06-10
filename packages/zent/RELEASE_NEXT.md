@@ -14,6 +14,10 @@
 
 注意调整后的页面样式有没有问题
 
+#### `Button`
+
+`Button` 删除了 `component` 属性，请使用新的 `ButtonDirective` 组件处理之前 `component` 的使用场景。
+
 #### `Pagination`
 
 `Pagination` 分为 3 种类型，`import { Pagination, LitePagination, MiniPagination } from 'zent'`。后两种是新增的，不涉及迁移问题。`Pagination` 的一些参数有变化：
@@ -114,6 +118,18 @@ import { Portal, PurePortal } from 'zent'
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.15(2019-06-10)
+
+- 修复 `babel-plugin-zent` 处理非 `default export` 的问题
+- 修复 `TabPanel` 缺失的 `disabled` 属性
+- 修复 `Upload` 在小屏幕情况下样式问题
+- 重构 `Button`，新增 `ButtonDirective` 替换 `component` 的使用场景
+- 重构 `Tag`，删除`onVisibleChange`，不再有内部`state`；搭配 `visible` 和 `onClose` 可以实现关闭效果；删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；删除`closeButtonFontColor`，添加`closeButtonStyle`
+- 重构 `AnimationHeight`，删除无用功能，保留最小可用功能
+- `Pagination`
+  - 删除 `componentWillReceiveProps`
+  - 优化上一个、下一个按钮的禁用逻辑
 
 ## 7.0.0-next.14(2019-05-29)
 
