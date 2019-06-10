@@ -6,6 +6,7 @@ export interface ITabPanelProps {
   className?: string;
   prefix?: string;
   actived?: boolean;
+  disabled?: boolean;
   tab: React.ReactNode;
   id: string | number;
   onTabReady?: (id: string | number) => void;
