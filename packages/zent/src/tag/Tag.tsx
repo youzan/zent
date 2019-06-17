@@ -12,7 +12,7 @@ const PRESET_COLOR = {
 };
 
 export interface ITagProps {
-  color?: string;
+  color?: keyof typeof PRESET_COLOR;
   outline?: boolean;
   rounded?: boolean;
   closable?: boolean;
