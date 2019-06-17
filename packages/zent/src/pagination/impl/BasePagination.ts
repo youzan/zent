@@ -12,6 +12,7 @@ export interface IBasePaginationProps {
   current: number;
   pageSize: number;
   total?: number;
+  formatTotal?: (total: number) => React.ReactNode;
   onChange: PaginationChangeHandler;
 
   /** deprecated, use total */
@@ -32,10 +33,10 @@ export type PaginationLayoutFunction = (
 export abstract class BasePagination<
   IProps extends IBasePaginationProps
 > extends Component<IProps> {
-  name: string;
-  layoutFn: PaginationLayoutFunction;
+  name!: string;
+  layoutFn!: PaginationLayoutFunction;
 
-  getLayout = memoize(props => {
+  getLayout = memoize((props: IProps) => {
     return this.layoutFn(this.getLayoutOptions(props));
   });
 
