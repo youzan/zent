@@ -57,11 +57,7 @@ export const Tag = React.forwardRef<HTMLDivElement, ITagProps>(
             'zent-tag-closable': closable,
           }
         )}
-        style={{
-          [outline ? 'color' : 'backgroundColor']: color,
-          borderColor: color,
-          ...style,
-        }}
+        style={style}
       >
         <div className="zent-tag-content">{children}</div>
         {closable ? (
