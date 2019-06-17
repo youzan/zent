@@ -172,12 +172,10 @@ $blue: $theme-primary-2;
 
     &__batchcomponents {
       float: left;
-      padding: 5px;
       padding-left: 10px;
 
       &--has-children {
         margin-bottom: 10px;
-        border: 1px solid $theme-stroke-6;
         background: $theme-stroke-9;
       }
 
