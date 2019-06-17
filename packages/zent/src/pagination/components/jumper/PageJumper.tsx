@@ -54,7 +54,7 @@ export class PageJumper extends BasePageJumper<
     );
   }
 
-  handleJump(pageNumber) {
+  handleJump(pageNumber: number) {
     this.props.onJump(pageNumber);
 
     this.setState({
