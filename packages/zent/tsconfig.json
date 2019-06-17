@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": false,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "strict": true,
+    "strict": false,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
