@@ -175,7 +175,7 @@ function getModuleDependencies(
     }
   }
 
-  const depModuleNames = new Set();
+  const depModuleNames = new Set<string>();
   for (const mod of dependencies) {
     depModuleNames.add(resolveModule(mod, rootDir));
   }

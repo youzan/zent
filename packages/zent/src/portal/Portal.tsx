@@ -18,14 +18,14 @@ import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 
 function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
   const result: React.CSSProperties = {};
-  const prevKeys = Object.keys(prev) as Array<keyof React.CSSProperties>;
+  const prevKeys = Object.keys(prev);
   for (let i = 0; i < prevKeys.length; i += 1) {
     const key = prevKeys[i];
     if (!next[key]) {
       result[key] = '';
     }
   }
-  const nextKeys = Object.keys(next) as Array<keyof React.CSSProperties>;
+  const nextKeys = Object.keys(next);
   for (let i = 0; i < prevKeys.length; i += 1) {
     const key = nextKeys[i];
     result[key] = next[key];
