@@ -44,29 +44,29 @@ describe('Tag', () => {
     expect(() => wrapper.find('Icon').simulate('click')).not.toThrow();
   });
 
-  it('has red style', () => {
-    const wrapper = mount(<Tag color="red" />);
+  it('has red theme', () => {
+    const wrapper = mount(<Tag theme="red" />);
     expect(wrapper.find('.zent-tag-style-red').length).toBe(1);
   });
 
-  it('has green style', () => {
-    const wrapper = mount(<Tag color="green" />);
+  it('has green theme', () => {
+    const wrapper = mount(<Tag theme="green" />);
     expect(wrapper.find('.zent-tag-style-green').length).toBe(1);
   });
 
-  it('has yellow style', () => {
-    const wrapper = mount(<Tag color="yellow" />);
+  it('has yellow theme', () => {
+    const wrapper = mount(<Tag theme="yellow" />);
     expect(wrapper.find('.zent-tag-style-yellow').length).toBe(1);
   });
 
-  it('has blue style', () => {
-    const wrapper = mount(<Tag color="blue" />);
+  it('has blue theme', () => {
+    const wrapper = mount(<Tag theme="blue" />);
     expect(wrapper.find('.zent-tag-style-blue').length).toBe(1);
   });
 
-  it('has darkgreen style', () => {
-    const wrapper = mount(<Tag color="darkgreen" />);
-    expect(wrapper.find('.zent-tag-style-darkgreen').length).toBe(1);
+  it('has grey theme', () => {
+    const wrapper = mount(<Tag theme="grey" />);
+    expect(wrapper.find('.zent-tag-style-grey').length).toBe(1);
   });
 
   it('has outline style', () => {
@@ -74,13 +74,21 @@ describe('Tag', () => {
     expect(wrapper.find('.zent-tag-style-red-outline').length).toBe(1);
   });
 
-  it('can have custom color style', () => {
-    const wrapper = mount(<Tag color="#ff1493">#ff1493</Tag>);
-    console.log(wrapper);
+  it('can have custom style', () => {
+    const wrapper = mount(
+      <Tag
+        style={{
+          backgroundColor: '#ff1493',
+          borderColor: '#ff1493',
+        }}
+      >
+        #ff1493
+      </Tag>
+    );
     expect(
       wrapper.contains(
         <div
-          className="zent-tag zent-tag-style zent-tag-rounded"
+          className="zent-tag zent-tag-style-red zent-tag-rounded"
           style={{ backgroundColor: '#ff1493', borderColor: '#ff1493' }}
         >
           <div className="zent-tag-content">#ff1493</div>
@@ -88,25 +96,6 @@ describe('Tag', () => {
       )
     ).toBe(true);
     expect(wrapper.find('.zent-tag-close-btn').length).toBe(0);
-  });
-
-  it('can have custom color outline style', () => {
-    const wrapper = mount(
-      <Tag color="#ff1493" outline>
-        #ff1493
-      </Tag>
-    );
-    expect(
-      wrapper.contains(
-        <div
-          className="zent-tag zent-tag-style-outline zent-tag-rounded"
-          style={{ color: '#ff1493', borderColor: '#ff1493' }}
-        >
-          <div className="zent-tag-content">#ff1493</div>
-        </div>
-      )
-    ).toBe(true);
-    expect(wrapper.find('.zent-tag').length).toBe(1);
   });
 
   it('can show none rounded corner', () => {

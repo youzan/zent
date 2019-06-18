@@ -72,10 +72,6 @@
 
 导出的组件名字变了，老的写法
 
-### `Tag`
-
-删除`onVisibleChange`，不再有内部`state`；搭配 `visible` 和 `onClose` 可以实现关闭效果；删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；删除`closeButtonFontColor`，添加`closeButtonStyle`。
-
 ```js
 import { Layout } from 'zent';
 
@@ -89,6 +85,13 @@ import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 ```
 
 另外，`LayoutRow` 和 `LayoutCol` 必须在 `LayoutGrid` 内部。
+
+### `Tag`
+
+- 删除`onVisibleChange`，不再有内部`state`；搭配 `visible` 和 `onClose` 可以实现关闭效果；
+- 删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；
+- 删除`closeButtonFontColor`，添加`closeButtonStyle`。
+- 预设主题色属性从 `color` 改名为 `theme`，移除 `darkgreen` 主题色，且不再支持自定义颜色传递，需要自定义样式可改用 `style`
 
 #### `Portal`
 

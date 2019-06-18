@@ -21,7 +21,6 @@ ReactDOM.render(
 			style={{
 				borderColor: '#9370db',
 				backgroundColor: '#9370db',
-				color: '#fff',
 			}}
 		>
 			#9370db
@@ -48,7 +47,6 @@ ReactDOM.render(
 			style={{
 				borderColor: '#778899',
 				backgroundColor: '#778899',
-				color: '#fff',
 			}}
 			rounded={false}
 		>
@@ -58,7 +56,6 @@ ReactDOM.render(
 			style={{
 				borderColor: '#48d1cc',
 				backgroundColor: '#48d1cc',
-				color: '#fff',
 				fontSize: 14,
 			}}
 		>
