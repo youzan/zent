@@ -337,7 +337,7 @@ function getVariableNames(
 function getBindingNames(
   bindings: ts.NamedImportsOrExports | ts.NamespaceImport
 ): Set<{ name: string; propertyName: ValueExport }> {
-  const names = new Set();
+  const names = new Set<{ name: string; propertyName: ValueExport }>();
 
   if (ts.isNamespaceImport(bindings)) {
     const { name } = bindings;
@@ -533,7 +533,7 @@ function getModuleRelativeImports(
   imports: ts.StringLiteral[],
   cwd: string
 ): Set<string> {
-  const importFiles = new Set();
+  const importFiles = new Set<string>();
 
   if (imports) {
     imports.forEach(imp => {
