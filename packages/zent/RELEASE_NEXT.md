@@ -124,6 +124,14 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.16(2019-06-18)
+
+- 更新全局字体配色
+- 修复 `Tag` 组件样式问题，移除 `color` 属性，增加 `theme` 属性
+- 修复 `Loading` 组件包裹内容时导致内容重绘的问题
+- `Pagination` 增加 `formatTotal` 用来自定义总数
+- 修复 `Table` 批量操作区域样式
+
 ## 7.0.0-next.15(2019-06-10)
 
 - 修复 `babel-plugin-zent` 处理非 `default export` 的问题
