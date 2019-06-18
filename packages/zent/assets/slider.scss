@@ -21,7 +21,7 @@
 
     &:hover {
       .zent-slider-track {
-        background: $theme-primary-2;
+        background: $theme-primary-4;
 
         &-disabled {
           background: $theme-stroke-4;
@@ -44,12 +44,12 @@
 
   &-track {
     height: 4px;
-    background: $theme-primary-4;
+    background: $theme-primary-6;
     position: absolute;
     border-radius: 8px;
 
     &:hover {
-      background: $theme-primary-2;
+      background: $theme-primary-4;
     }
 
     &-disabled {
@@ -69,13 +69,13 @@
     margin-top: -5px;
     margin-left: -7px;
     border-radius: 50%;
-    border: 2px solid $theme-primary-4;
+    border: 2px solid $theme-primary-6;
     background-color: $theme-stroke-9;
     transition: border-color 0.3s ease,
       transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
     &:hover {
-      border-color: $theme-primary-2;
+      border-color: $theme-primary-4;
       transform: scale(1.2);
       transform-origin: center center;
     }
@@ -191,7 +191,7 @@
       border-radius: 50%;
 
       &-active {
-        border: 1px solid $theme-primary-4;
+        border: 1px solid $theme-primary-6;
       }
     }
   }

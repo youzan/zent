@@ -84,7 +84,7 @@
   }
 
   &.visible {
-    border-color: $theme-primary-2;
+    border-color: $theme-primary-4;
     box-shadow: $shadow-spec-focus;
 
     &::after {
@@ -98,12 +98,12 @@
 }
 
 .zent-select-simple {
-  color: $theme-primary-2;
+  color: $theme-primary-4;
 
   &::after {
     content: '';
     border-left: 4px solid transparent;
-    border-top: 6px solid $theme-primary-2;
+    border-top: 6px solid $theme-primary-4;
     border-right: 4px solid transparent;
     display: inline-block;
     margin-left: 5px;

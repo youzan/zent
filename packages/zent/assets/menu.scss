@@ -3,7 +3,7 @@
 $item-color: $theme-stroke-1;
 $hover-item-color: $theme-stroke-1;
 $disabled-color: $theme-stroke-5;
-$hover-background-color: $theme-primary-6;
+$hover-background-color: $theme-primary-8;
 $menu-item-width: 240px;
 $menu-item-height: 32px;
 $menu-border-radius: 2px;
@@ -107,17 +107,17 @@ $menu-border-radius: 2px;
       cursor: pointer;
 
       &:hover {
-        color: $theme-primary-2;
+        color: $theme-primary-4;
       }
     }
 
     &-selected {
       color: $theme-stroke-9;
-      background-color: $theme-primary-2;
+      background-color: $theme-primary-4;
 
       &:not(.zent-menu-item-disabled):hover {
         color: $theme-stroke-9;
-        background-color: $theme-primary-1;
+        background-color: $theme-primary-3;
       }
     }
   }
@@ -158,11 +158,11 @@ $menu-border-radius: 2px;
       }
 
       &:not(.zent-submenu-disabled):hover {
-        color: $theme-primary-2;
+        color: $theme-primary-4;
         background-color: $theme-stroke-9;
 
         .zenticon {
-          color: $theme-primary-2;
+          color: $theme-primary-4;
         }
       }
     }

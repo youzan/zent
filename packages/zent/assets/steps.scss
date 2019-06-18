@@ -5,7 +5,7 @@ $cart-color: $theme-stroke-1;
 $wait-color: $theme-stroke-4;
 $error-color: $theme-error-2;
 $bg-color: $theme-stroke-8;
-$current-bg-color: $theme-primary-2;
+$current-bg-color: $theme-primary-4;
 $icon-color: $theme-stroke-4;
 
 .zent-steps {
@@ -330,13 +330,13 @@ $icon-color: $theme-stroke-4;
     &.is-current {
       &:hover {
         .zent-steps-step {
-          background: $theme-primary-3;
+          background: $theme-primary-5;
         }
       }
 
       &:active {
         .zent-steps-step {
-          background: $theme-primary-1;
+          background: $theme-primary-3;
         }
       }
 
@@ -420,6 +420,21 @@ $icon-color: $theme-stroke-4;
     &.is-finish {
       &:hover {
         .zent-steps-step {
+          background: $theme-primary-5;
+
+          &::after {
+            border-left-color: $theme-primary-5;
+          }
+
+          &::before {
+            border-top-color: $theme-primary-5;
+            border-bottom-color: $theme-primary-5;
+          }
+        }
+      }
+
+      &:active {
+        .zent-steps-step {
           background: $theme-primary-3;
 
           &::after {
@@ -429,21 +444,6 @@ $icon-color: $theme-stroke-4;
           &::before {
             border-top-color: $theme-primary-3;
             border-bottom-color: $theme-primary-3;
-          }
-        }
-      }
-
-      &:active {
-        .zent-steps-step {
-          background: $theme-primary-1;
-
-          &::after {
-            border-left-color: $theme-primary-1;
-          }
-
-          &::before {
-            border-top-color: $theme-primary-1;
-            border-bottom-color: $theme-primary-1;
           }
         }
       }
