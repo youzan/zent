@@ -93,6 +93,7 @@ import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 - 搭配 `visible` 和 `onClose` 可以实现关闭效果
 - 删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制
 - 删除`closeButtonFontColor`，添加`closeButtonStyle`
+- 预设主题色属性从 `color` 改名为 `theme`，移除 `darkgreen` 主题色，且不再支持自定义颜色传递，需要自定义样式可改用 `style`
 
 #### `Portal`
 

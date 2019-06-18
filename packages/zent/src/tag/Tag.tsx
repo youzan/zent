@@ -7,12 +7,11 @@ const PRESET_COLOR = {
   green: true,
   yellow: true,
   blue: true,
-  darkgreen: true,
   grey: true,
 };
 
 export interface ITagProps {
-  color?: string;
+  theme?: keyof typeof PRESET_COLOR;
   outline?: boolean;
   rounded?: boolean;
   closable?: boolean;
@@ -27,7 +26,7 @@ export interface ITagProps {
 export const Tag = React.forwardRef<HTMLDivElement, ITagProps>(
   (
     {
-      color = 'red',
+      theme = 'red',
       outline,
       rounded = true,
       closable,
@@ -43,7 +42,7 @@ export const Tag = React.forwardRef<HTMLDivElement, ITagProps>(
     if (!visible) {
       return null;
     }
-    const colorPart = PRESET_COLOR[color] ? `-${color}` : '';
+    const colorPart = PRESET_COLOR[theme] ? `-${theme}` : '';
     const outlinePart = outline ? '-outline' : '';
     return (
       <div
@@ -57,11 +56,7 @@ export const Tag = React.forwardRef<HTMLDivElement, ITagProps>(
             'zent-tag-closable': closable,
           }
         )}
-        style={{
-          [outline ? 'color' : 'backgroundColor']: color,
-          borderColor: color,
-          ...style,
-        }}
+        style={style}
       >
         <div className="zent-tag-content">{children}</div>
         {closable ? (

@@ -17,8 +17,21 @@ import { Tag } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Tag color="#9370db">#9370db</Tag>
-		<Tag color="#9370db" outline>
+		<Tag
+			style={{
+				borderColor: '#9370db',
+				backgroundColor: '#9370db',
+			}}
+		>
+			#9370db
+		</Tag>
+		<Tag
+			style={{
+				borderColor: '#9370db',
+				color: '#9370db',
+			}}
+			outline
+		>
 			#9370db
 		</Tag>
 		<Tag
@@ -30,10 +43,22 @@ ReactDOM.render(
 		>
 			{i18n.color}
 		</Tag>
-		<Tag color="#778899" rounded={false}>
+		<Tag
+			style={{
+				borderColor: '#778899',
+				backgroundColor: '#778899',
+			}}
+			rounded={false}
+		>
 			{i18n.style}
 		</Tag>
-		<Tag color="#48d1cc" style={{ fontSize: 14 }}>
+		<Tag
+			style={{
+				borderColor: '#48d1cc',
+				backgroundColor: '#48d1cc',
+				fontSize: 14,
+			}}
+		>
 			{i18n.size}
 		</Tag>
 	</div>,

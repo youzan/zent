@@ -5,7 +5,6 @@ $color-red: $theme-error-2;
 $color-green: $theme-success-2;
 $color-yellow: $theme-warn-1;
 $color-blue: $theme-primary-2;
-$color-darkgreen: $theme-success-1;
 $color-grey: $theme-stroke-7;
 $color-grey-outline: $theme-stroke-4;
 $color-text: $theme-stroke-9;
@@ -73,16 +72,6 @@ $color-text: $theme-stroke-9;
   &.zent-tag-style-blue-outline {
     color: $color-blue;
     border-color: $theme-primary-4;
-  }
-
-  &.zent-tag-style-darkgreen {
-    background: $color-darkgreen;
-    border-color: $color-darkgreen;
-  }
-
-  &.zent-tag-style-darkgreen-outline {
-    color: $color-darkgreen;
-    border-color: $theme-success-3;
   }
 
   &.zent-tag-style-grey {
