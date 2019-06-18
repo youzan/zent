@@ -10,7 +10,7 @@ const INPUT_WIDTH = 56;
 
 export interface IPaginationMiniPageJumperProps
   extends IPaginationBaseJumperProps {
-  totalPages?: number;
+  totalPages: number;
 }
 
 interface IPaginationMiniPageJumperState extends IPaginationBaseJumperState {
@@ -25,7 +25,7 @@ export class MiniPageJumper extends BasePageJumper<
 
   state!: IPaginationMiniPageJumperState;
 
-  constructor(props) {
+  constructor(props: IPaginationMiniPageJumperProps) {
     super(props);
 
     this.reset = false;
@@ -50,14 +50,17 @@ export class MiniPageJumper extends BasePageJumper<
     );
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(
+    props: IPaginationMiniPageJumperProps,
+    state: IPaginationMiniPageJumperState
+  ) {
     return {
       value: props !== state.prevProps ? props.current : state.value,
       prevProps: props,
     };
   }
 
-  handleJump(pageNumber) {
+  handleJump(pageNumber: number) {
     const { onJump, totalPages } = this.props;
 
     onJump(pageNumber);

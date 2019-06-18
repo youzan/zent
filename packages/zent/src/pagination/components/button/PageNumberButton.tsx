@@ -22,7 +22,7 @@ export class PageNumberButton extends Component<
   render() {
     const { selected, bordered, ...rest } = this.props;
 
-    let buttonType;
+    let buttonType: 'primary' | 'default';
     if (selected) {
       buttonType = 'primary';
     } else {

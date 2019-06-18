@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 export interface IPaginationBaseJumperProps {
   current?: number;
-  onJump?: (page: number) => void;
+  onJump: (page: number) => void;
 }
 
 export interface IPaginationBaseJumperState {
@@ -23,7 +23,7 @@ export abstract class BasePageJumper<
     } as S;
   }
 
-  onChange = evt => {
+  onChange = (evt: any) => {
     this.setState({
       value: evt.target.value,
     });

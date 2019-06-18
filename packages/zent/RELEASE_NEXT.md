@@ -24,7 +24,8 @@
 
 - `totalItem` 重命名为 `total`，老的参数名还是支持的，新代码请用 `total`
 - `onChange` 回调函数的参数是个对象（老版是个数字），包含当前分页大小和当前页码，老版本只有当前页码
-- 删除了 `onPageSizeChange` 和 `maxPageToShow`，`onPageSizeChange` 的能力合并到 `onChange` 之中了
+- 删除了 `onPageSizeChange`，`onPageSizeChange` 的能力合并到 `onChange` 之中了
+- 删除了 `maxPageToShow`，`maxPageToShow` 的效果可以用 `formatTotal` 来实现，但是请注意语义不一样
 - `pageSize` 不再耦合当前页码和页码选项，拆开成两个独立参数：`pageSize` 和 `pageSizeOptions`。分页选项配置也和原来的不一致，接受数字或者 `{value: number, text: node}`。
 - CSS 类名和 HTML 结果有变化，有样式复写的需要确认样式是否正常。
 
@@ -88,9 +89,10 @@ import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 
 ### `Tag`
 
-- 删除`onVisibleChange`，不再有内部`state`；搭配 `visible` 和 `onClose` 可以实现关闭效果；
-- 删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制；
-- 删除`closeButtonFontColor`，添加`closeButtonStyle`。
+- 删除`onVisibleChange`，不再有内部`state`
+- 搭配 `visible` 和 `onClose` 可以实现关闭效果
+- 删除`borderColor`，`bgColor`，`fontColor`，直接从`style`传入控制
+- 删除`closeButtonFontColor`，添加`closeButtonStyle`
 - 预设主题色属性从 `color` 改名为 `theme`，移除 `darkgreen` 主题色，且不再支持自定义颜色传递，需要自定义样式可改用 `style`
 
 #### `Portal`
