@@ -65,7 +65,7 @@
     }
 
     &::after {
-      border-color: $btn-primary $btn-primary $theme-primary-6 $theme-primary-6;
+      border-color: $btn-primary $btn-primary $theme-primary-8 $theme-primary-8;
     }
   }
 }
@@ -136,7 +136,7 @@
     }
 
     &::after {
-      border-color: $btn-danger $btn-danger $theme-primary-6 $theme-primary-6;
+      border-color: $btn-danger $btn-danger $theme-primary-8 $theme-primary-8;
     }
   }
 }
@@ -208,7 +208,7 @@
     }
 
     &::after {
-      border-color: $btn-success $btn-success $theme-primary-6 $theme-primary-6;
+      border-color: $btn-success $btn-success $theme-primary-8 $theme-primary-8;
     }
   }
 }

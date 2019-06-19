@@ -93,8 +93,8 @@ $size: 16px;
 .zent-checkbox-checked {
   & > .zent-checkbox {
     & > .zent-checkbox-inner {
-      border-color: $theme-primary-2;
-      background: $theme-primary-2;
+      border-color: $theme-primary-4;
+      background: $theme-primary-4;
 
       &::after {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAABGdBTUEAALGPC/xhBQAAASxJREFUOBGlkr9LQlEUx01Di1pCCKQhkAZxaMs/oFnwD3Bwqcmh0cnB0ak5HBwdHNyT5sDFIUIQxMXBQWgIIjB7fa7c+zjvvnfR9MCH8+t7vtOJxfYMz/OyMIIniB/u44dBhvs+ZCEHX7BbYHYGbyBjtpMbDifwKp2ol1D8tyFHSXgGGb805YAZg+PAIKJBE4cu2FH15WyOoA8fUPAXEQX7FthRD0jZdoRiQZ0PCHTDvCl0pnwMadlMzFbnGflSCulrlka1bTiQunXN8AY+QcaY5lwJyPdyoeseOREyMwOWt/CtxSYNKe5gZQY6v5BT5taZEZXgRx+50oDFqdPEXiCugPqpqHhnmLZvNvYcPUS4TZldbDx2CThuCNM59ZVLu/UcE/V36qWutz5C+AfE+OIwPOZePgAAAABJRU5ErkJggg==');
@@ -107,7 +107,7 @@ $size: 16px;
 .zent-checkbox-indeterminate {
   & > .zent-checkbox {
     & > .zent-checkbox-inner {
-      border-color: $theme-primary-2;
+      border-color: $theme-primary-4;
       background: $theme-stroke-9;
 
       &::after {
@@ -116,7 +116,7 @@ $size: 16px;
         width: 10px;
         height: 2px;
         border: 0;
-        background: $theme-primary-2;
+        background: $theme-primary-4;
         transform: rotate(0deg);
       }
     }
