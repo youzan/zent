@@ -94,12 +94,12 @@
   box-sizing: border-box;
   border-width: 2px;
   border-style: solid;
-  border-color: $theme-primary-2 $theme-primary-2 $theme-primary-6
-    $theme-primary-6;
+  border-color: $theme-primary-4 $theme-primary-4 $theme-primary-8
+    $theme-primary-8;
   animation: zentLoading 0.6s $timing-fn-linear infinite;
 
   + .zent-loading-icon-text {
-    color: $theme-primary-2;
+    color: $theme-primary-4;
   }
 }
 

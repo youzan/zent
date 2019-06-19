@@ -1,7 +1,7 @@
 @import './theme/default';
 @import './theme/font';
 
-$blue: $theme-primary-2;
+$blue: $theme-primary-4;
 
 .zent-table-container {
   margin-bottom: 20px;
@@ -94,11 +94,11 @@ $blue: $theme-primary-2;
       }
 
       .caret-up.sort-active {
-        border-bottom-color: $theme-primary-2;
+        border-bottom-color: $theme-primary-4;
       }
 
       .caret-down.sort-active {
-        border-top-color: $theme-primary-2;
+        border-top-color: $theme-primary-4;
       }
 
       &:hover {
@@ -119,7 +119,7 @@ $blue: $theme-primary-2;
   .tbody {
     .tr {
       &:hover {
-        background: $theme-primary-6;
+        background: $theme-primary-8;
 
         .empty-data {
           background: transparent;
