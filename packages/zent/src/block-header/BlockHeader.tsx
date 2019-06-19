@@ -5,68 +5,92 @@ import Pop, { PopPositions } from '../pop';
 import Icon from '../icon';
 
 export interface IBlockHeaderProps {
-  className?: string;
   title: string;
+  className?: string;
   tooltip?: ReactNode;
-  content: ReactNode;
-  childAlign?: 'left' | 'right';
-  position: PopPositions;
-  prefix: string;
+  position?: PopPositions;
+  leftContent?: ReactNode;
+  rightContent?: ReactNode;
+  prefix?: string;
 }
 
 export class BlockHeader extends Component<IBlockHeaderProps> {
   static defaultProps = {
     prefix: 'zent',
     className: '',
-    childAlign: 'left',
     position: 'top-right',
-    tooltip: '',
-    content: '',
   };
+
+  private renderTitle() {
+    const { title, prefix } = this.props;
+    return (
+      <div className={`${prefix}-block-header__title`}>
+        <h3>{title}</h3>
+      </div>
+    );
+  }
+
+  private renderTooltip() {
+    const { tooltip, position, prefix } = this.props;
+    return (
+      <div className={`${prefix}-block-header__pop`}>
+        <Pop
+          trigger="hover"
+          centerArrow
+          position={position}
+          content={
+            <div className={`${prefix}-block-header__tooltip`}>{tooltip}</div>
+          }
+          wrapperClassName={`${prefix}-block-header__tooltip-trigger`}
+        >
+          <Icon type="help-circle" />
+        </Pop>
+      </div>
+    );
+  }
+
+  private renderLeftContent() {
+    const { leftContent, prefix } = this.props;
+    return (
+      <div
+        className={cx(
+          `${prefix}-block-header__content`,
+          `${prefix}-block-header__content-left`
+        )}
+      >
+        {leftContent}
+      </div>
+    );
+  }
+
+  private renderRightContent() {
+    const { rightContent, prefix } = this.props;
+    return (
+      <div
+        className={cx(
+          `${prefix}-block-header__content`,
+          `${prefix}-block-header__content-right`
+        )}
+      >
+        {rightContent}
+      </div>
+    );
+  }
 
   render() {
     const {
       prefix,
-      content,
-      title,
+      leftContent,
+      rightContent,
       tooltip,
-      childAlign,
-      position,
       className,
-      children,
     } = this.props;
     return (
       <div className={cx(`${prefix}-block-header`, className)}>
-        {title && (
-          <div className={`${prefix}-block-header__left`}>
-            <h3>{title}</h3>
-          </div>
-        )}
-        <div className={`${prefix}-block-header__pop`}>
-          {tooltip && (
-            <Pop
-              trigger="hover"
-              centerArrow
-              position={position}
-              content={
-                <div className={`${prefix}-block-header__tooltip`}>
-                  {tooltip}
-                </div>
-              }
-              wrapperClassName={`${prefix}-block-header__tooltip-trigger`}
-            >
-              <Icon type="help-circle" />
-            </Pop>
-          )}
-        </div>
-        <div
-          className={cx(`${prefix}-block-header__content`, {
-            [`${prefix}-block-header__content-right`]: childAlign === 'right',
-          })}
-        >
-          {content && content}
-          {children && children}
-        </div>
+        {this.renderTitle()}
+        {tooltip && this.renderTooltip()}
+        {leftContent && this.renderLeftContent()}
+        {rightContent && this.renderRightContent()}
       </div>
     );
   }

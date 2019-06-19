@@ -2,48 +2,50 @@
 @import './theme/font';
 
 .zent-block-header {
-  position: relative;
-  margin-bottom: 20px;
-  padding: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  margin-bottom: 16px;
+  padding: 10px;
   background-color: $theme-stroke-8;
-  height: 50px;
+  min-height: 40px;
   box-sizing: border-box;
 
-  &__left {
-    display: inline-block;
+  &__title {
+    display: flex;
+    align-items: center;
 
-    &:before {
+    &::before {
       content: '';
-      display: inline-block;
       width: 3px;
       height: 14px;
-      position: relative;
-      top: 2px;
       background: $theme-primary-2;
     }
 
     h3 {
-      display: inline-block;
-      margin: 0;
-      padding-left: 5px;
-      font-weight: normal;
-      font-size: $font-size-normal;
+      @include font-normal;
+      font-weight: $font-weight-normal;
+      padding-left: 8px;
     }
   }
 
   &__content {
-    display: inline-block;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
 
     &-right {
-      float: right;
+      flex-grow: 1;
+      justify-content: flex-end;
     }
   }
 
   &__pop {
-    display: inline-block;
+    @include font-large;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
     color: $theme-stroke-4;
-    font-size: $font-size-large;
   }
 
   &__tooltip {
@@ -51,9 +53,8 @@
     word-wrap: normal;
 
     &-trigger {
+      @include font-normal;
       color: $theme-stroke-5;
-      margin-left: 10px;
-      font-size: $font-size-normal;
       cursor: pointer;
     }
   }
