@@ -23,8 +23,8 @@ export type IButtonHtmlType = 'button' | 'submit' | 'reset';
 export interface IButtonDirectiveProps<
   ChildProps extends IButtonDirectiveChildProps
 > {
-  size: IButtonSize;
-  type: IButtonType;
+  size?: IButtonSize;
+  type?: IButtonType;
   disabled?: boolean;
   loading?: boolean;
   outline?: boolean;
@@ -40,8 +40,8 @@ export function ButtonDirective<ChildProps extends IButtonDirectiveChildProps>(
 ) {
   const {
     outline,
-    type,
-    size,
+    type = 'default',
+    size = 'medium',
     block,
     loading,
     disabled,
