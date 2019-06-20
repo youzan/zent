@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
 import isNumber from 'lodash-es/isNumber';
-import * as keycode from 'keycode';
 import getWidth from '../utils/getWidth';
 import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
@@ -53,7 +52,7 @@ export class Input extends Component<IInputProps, IInputState> {
       | React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     const { onKeyDown, onPressEnter } = this.props;
-    if (onPressEnter && keycode(e.nativeEvent) === 'enter') {
+    if (onPressEnter && e.key === 'Enter') {
       onPressEnter(e as any);
     }
 

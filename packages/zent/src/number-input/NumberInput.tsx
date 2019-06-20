@@ -77,7 +77,6 @@ export interface INumberInputProps
   decimal: number;
   min?: number | string;
   max?: number | string;
-  onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
 export interface INumberInputState {
