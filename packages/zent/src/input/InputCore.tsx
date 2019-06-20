@@ -24,6 +24,7 @@ export const InputCore = React.forwardRef<
     autoSelect,
     initSelectionStart,
     initSelectionEnd,
+    icon,
     ...otherProps
   } = props;
   return (
@@ -31,17 +32,17 @@ export const InputCore = React.forwardRef<
       {addonBefore && (
         <div className="zent-input-addon-before">{addonBefore}</div>
       )}
+      {icon ? <Icon className="zent-input-icon" type={icon} /> : null}
       <input {...otherProps} ref={ref} className="zent-input" value={value} />
       {showClear && value && (
         <Icon
+          className="zent-input-close"
           type="close-circle"
           onClick={onClear}
           onMouseDown={preventDefault}
         />
       )}
-      {addonAfter && (
-        <div className="prefix}-input-addon-after">{addonAfter}</div>
-      )}
+      {addonAfter && <div className="zent-input-addon-after">{addonAfter}</div>}
     </>
   );
 });

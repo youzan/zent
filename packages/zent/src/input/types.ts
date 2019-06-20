@@ -1,4 +1,4 @@
-import { Omit } from 'utility-types';
+import { IconType } from '../icon';
 
 export type InputType = 'text' | 'number' | 'password' | 'textarea';
 
@@ -28,6 +28,7 @@ export interface IInputCoreProps
     >,
     IInputCommonProps {
   type: 'text' | 'number' | 'password';
+  icon?: IconType;
   showClear?: boolean;
   addonBefore?: React.ReactNode;
   addonAfter?: React.ReactNode;

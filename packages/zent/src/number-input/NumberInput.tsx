@@ -4,6 +4,7 @@ import { Omit } from 'utility-types';
 import Decimal from 'big.js';
 import Icon from '../icon';
 import Input, { IInputClearEvent, IInputCoreProps } from '../input';
+import { InputContext, IInputContext } from '../input/context';
 
 function isDecimal(value: string | number): boolean {
   if (typeof value === 'number') {
@@ -99,6 +100,10 @@ export class NumberInput extends React.PureComponent<
   static defaultProps = {
     type: 'number',
     decimal: 0,
+  };
+
+  private inputContext: IInputContext = {
+    renderInner: children => this.renderChild(children),
   };
 
   constructor(props: INumberInputProps) {
@@ -250,34 +255,13 @@ export class NumberInput extends React.PureComponent<
     }
   }
 
-  render() {
-    verifyProps(this.props);
-    const {
-      className,
-      disabled,
-      readOnly,
-
-      type,
-
-      onChange,
-
-      showStepper,
-      showCounter,
-      min,
-      max,
-      decimal,
-
-      addonBefore: addonBeforeProp,
-      addonAfter: addonAfterProp,
-
-      ...inputProps
-    } = this.props;
+  renderChild(children: React.ReactNode) {
+    const { disabled, readOnly, showCounter, showStepper } = this.props;
     const { value } = this.state;
     const { canDec, canInc } = this.calculateLimit(value);
     // 箭头状态
     const addState = disabled || readOnly || !canInc;
     const reduceState = disabled || readOnly || !canDec;
-
     // 上arrow样式
     const upArrowClass = cx({
       'zent-number-input-arrow': true,
@@ -306,57 +290,67 @@ export class NumberInput extends React.PureComponent<
       'zent-number-input-count-disable': addState,
     });
 
-    let addonBefore: React.ReactNode = null;
-    if (addonBeforeProp || showCounter) {
-      addonBefore = (
-        <>
-          {showCounter && (
-            <div className={reduceCountClass} onClick={this.dec}>
-              –
+    return (
+      <>
+        {showCounter && (
+          <div className={reduceCountClass} onClick={this.dec}>
+            –
+          </div>
+        )}
+        {children}
+        {showCounter && (
+          <div className={addCountClass} onClick={this.inc}>
+            +
+          </div>
+        )}
+        {showStepper && (
+          <div className={'zent-number-input-arrows'}>
+            <div className={upArrowClass} onClick={this.inc}>
+              <Icon type="right" />
             </div>
-          )}
-          {addonBeforeProp}
-        </>
-      );
-    }
+            <div className={downArrowClass} onClick={this.dec}>
+              <Icon type="right" />
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
 
-    let addonAfter: React.ReactNode = null;
-    if (addonAfterProp || showCounter || showStepper) {
-      addonAfter = (
-        <>
-          {addonAfterProp}
-          {showCounter && (
-            <div className={addCountClass} onClick={this.inc}>
-              +
-            </div>
-          )}
-          {showStepper && (
-            <div className={'zent-number-input-arrows'}>
-              <div className={upArrowClass} onClick={this.inc}>
-                <Icon type="right" />
-              </div>
-              <div className={downArrowClass} onClick={this.dec}>
-                <Icon type="right" />
-              </div>
-            </div>
-          )}
-        </>
-      );
-    }
+  render() {
+    verifyProps(this.props);
+    const {
+      className,
+      disabled,
+      readOnly,
+
+      type,
+
+      onChange,
+
+      showStepper,
+      showCounter,
+      min,
+      max,
+      decimal,
+
+      ...inputProps
+    } = this.props;
+    const { value } = this.state;
 
     return (
-      <Input
-        autoComplete="off"
-        {...inputProps}
-        readOnly={readOnly}
-        disabled={disabled}
-        className={cx('zent-number-input', className)}
-        value={value}
-        onChange={this.onChange}
-        onBlur={this.onBlur}
-        addonBefore={addonBefore}
-        addonAfter={addonAfter}
-      />
+      <InputContext.Provider value={this.inputContext}>
+        <Input
+          autoComplete="off"
+          {...inputProps}
+          readOnly={readOnly}
+          disabled={disabled}
+          className={cx('zent-number-input', className)}
+          value={value}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+        />
+      </InputContext.Provider>
     );
   }
 }

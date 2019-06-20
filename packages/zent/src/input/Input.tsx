@@ -1,26 +1,28 @@
 import * as React from 'react';
 import { Component } from 'react';
 import classNames from 'classnames';
-// import isFunction from 'lodash-es/isFunction';
-// import omit from 'lodash-es/omit';
 import isNumber from 'lodash-es/isNumber';
 import * as keycode from 'keycode';
 import getWidth from '../utils/getWidth';
 import { IInputProps, IInputCoreProps, IInputClearEvent } from './types';
 import { InputCore } from './InputCore';
 import { TextArea } from './TextArea';
+import { InputContext, IInputContext } from './context';
 
 export interface IInputState {
   hasFocus: boolean;
 }
 
 export class Input extends Component<IInputProps, IInputState> {
+  static contextType = InputContext;
   static displayName = 'ZentInput';
 
   static defaultProps = {
     type: 'text',
     size: 'normal',
   };
+
+  context!: IInputContext;
 
   elementRef = React.createRef<HTMLInputElement & HTMLTextAreaElement>();
 
@@ -114,6 +116,7 @@ export class Input extends Component<IInputProps, IInputState> {
     const widthStyle = getWidth(width);
     const isTextarea = type.toLowerCase() === 'textarea';
     const editable = !(this.props.disabled || this.props.readOnly);
+    const { renderInner } = this.context;
 
     const wrapClass = classNames(
       'zent-input-wrapper',
@@ -156,7 +159,7 @@ export class Input extends Component<IInputProps, IInputState> {
 
     return (
       <div className={wrapClass} style={widthStyle}>
-        {children}
+        {renderInner ? renderInner(children) : children}
       </div>
     );
   }

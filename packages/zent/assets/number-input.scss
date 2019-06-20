@@ -23,11 +23,6 @@
 
   $p: &;
 
-  .zent-input-addon-before,
-  .zent-input-addon-after {
-    padding: 0;
-  }
-
   &-arrows {
     display: flex;
     flex-direction: column;
@@ -76,6 +71,10 @@
   }
 
   &-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     width: 28px;
     height: 100%;
     background: $theme-stroke-9;
@@ -90,6 +89,14 @@
 
     &:hover {
       color: $theme-primary-4;
+    }
+
+    &reduce {
+      border-right: 1px solid $theme-stroke-5;
+    }
+
+    &add {
+      border-left: 1px solid $theme-stroke-5;
     }
   }
 }
