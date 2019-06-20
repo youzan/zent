@@ -100,6 +100,7 @@ export class NumberInput extends React.PureComponent<
   static defaultProps = {
     type: 'number',
     decimal: 0,
+    size: 'normal',
   };
 
   private inputContext: IInputContext = {
