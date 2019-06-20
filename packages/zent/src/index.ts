@@ -50,7 +50,6 @@ export * from './preview-image';
 export * from './progress';
 export * from './radio';
 export * from './rate';
-export * from './search-input';
 export * from './select-menu';
 export * from './select';
 export * from './slider';
