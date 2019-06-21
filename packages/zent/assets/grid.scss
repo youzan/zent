@@ -160,7 +160,7 @@ $border-color: $theme-stroke-6;
 
   &-fixed-left {
     left: 0;
-    box-shadow: $shadow-spec-layer;
+    box-shadow: 6px 0 6px -4px rgba($theme-stroke-4, 0.5);
 
     .zent-grid-header .zent-grid-table {
       border-right: 0;
@@ -180,7 +180,7 @@ $border-color: $theme-stroke-6;
 
   &-fixed-right {
     right: 0;
-    box-shadow: $shadow-spec-layer;
+    box-shadow: -6px 0 6px -4px rgba($theme-stroke-4, 0.5);
 
     .zent-grid-header .zent-grid-table {
       border-left: 0;
@@ -279,11 +279,15 @@ $border-color: $theme-stroke-6;
       &.zent-grid-expand-btn::after {
         content: '+';
         box-sizing: border-box;
+        width: 8px;
+        display: inline-block;
       }
 
       &.zent-grid-collapse-btn::after {
         content: '-';
         box-sizing: border-box;
+        width: 8px;
+        display: inline-block;
       }
     }
   }
