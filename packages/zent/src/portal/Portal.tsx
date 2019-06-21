@@ -17,18 +17,20 @@ import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
 import { setValueForStyles } from '../utils/style/CSSPropertyOperations';
 
 function diffStyle(prev: React.CSSProperties, next: React.CSSProperties) {
-  const result: React.CSSProperties = {};
-  const prevKeys = Object.keys(prev);
-  for (let i = 0; i < prevKeys.length; i += 1) {
-    const key = prevKeys[i];
-    if (!next[key]) {
-      result[key] = '';
+  const result: any = {};
+  if (prev !== next) {
+    const prevKeys = Object.keys(prev) as Array<keyof React.CSSProperties>;
+    for (let i = 0; i < prevKeys.length; i += 1) {
+      const key = prevKeys[i];
+      if (!next[key]) {
+        (result as any)[key] = '';
+      }
     }
-  }
-  const nextKeys = Object.keys(next);
-  for (let i = 0; i < prevKeys.length; i += 1) {
-    const key = nextKeys[i];
-    result[key] = next[key];
+    const nextKeys = Object.keys(next) as Array<keyof React.CSSProperties>;
+    for (let i = 0; i < prevKeys.length; i += 1) {
+      const key = nextKeys[i];
+      result[key] = next[key];
+    }
   }
   return result;
 }
@@ -133,14 +135,12 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     );
 
     useLayoutEffect(() => {
-      if (!visible || !parent) {
+      if (!parent) {
         return noop;
       }
       parent.appendChild(node);
-      return () => {
-        parent.removeChild(node);
-      };
-    }, [visible, node, parent]);
+      return () => parent.removeChild(node);
+    }, [node, parent]);
 
     useLayoutEffect(() => {
       className && (node.className = className);
@@ -149,8 +149,13 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     useLayoutEffect(() => {
       const result = diffStyle(prevStyleRef.current || {}, style || {});
       setValueForStyles(node, result);
+      if (!visible) {
+        node.style.setProperty('display', 'none', 'important');
+      } else {
+        node.style.display = style ? style.display || '' : '';
+      }
       prevStyleRef.current = style;
-    }, [node, style]);
+    }, [node, style, visible]);
 
     useLayoutEffect(() => {
       if (!visible || !useLayerForClickAway) {

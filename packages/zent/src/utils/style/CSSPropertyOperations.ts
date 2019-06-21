@@ -29,7 +29,7 @@ export function setValueForStyles(node: HTMLElement, styles: CSSProperties) {
     const isCustomProperty = styleName.indexOf('--') === 0;
     if (process.env.NODE_ENV !== 'production') {
       if (!isCustomProperty) {
-        warnValidStyle(styleName, styles[styleName as any]);
+        warnValidStyle(styleName, (styles as any)[styleName]);
       }
     }
     const styleValue = dangerousStyleValue(
@@ -43,7 +43,7 @@ export function setValueForStyles(node: HTMLElement, styles: CSSProperties) {
     if (isCustomProperty) {
       style.setProperty(styleName, styleValue);
     } else {
-      style[styleName as any] = styleValue;
+      (style as any)[styleName] = styleValue;
     }
   }
 }
