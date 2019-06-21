@@ -79,7 +79,7 @@ describe('NumberInput', () => {
     expect(wrapper.state('value')).toBe('2');
 
     wrapper.find('input').simulate('change');
-    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls.length).toBe(3);
     wrapper.find('input').simulate('blur');
     expect(onBlurMock.mock.calls.length).toBe(1);
     wrapper.find('input').simulate('keyDown', { keyCode: 13 });

@@ -26,8 +26,8 @@
     transform: translate(-50%, -50%);
   }
 
-  &-page-number-button,
-  &-arrow-button {
+  &-page-number-button.zent-btn,
+  &-arrow-button.zent-btn {
     padding: 0 8px;
     min-width: 32px;
     position: relative;
@@ -50,7 +50,7 @@
     }
 
     &:active {
-      color: $theme-primary-1;
+      color: $theme-primary-3;
     }
 
     &.zent-pagination-arrow-button[disabled] {
@@ -64,13 +64,13 @@
     &.zent-pagination-arrow-button:not([disabled]) {
       &:hover {
         .zent-pagination-arrow {
-          stroke: $theme-primary-2;
+          stroke: $theme-primary-4;
         }
       }
 
       &:active {
         .zent-pagination-arrow {
-          stroke: $theme-primary-1;
+          stroke: $theme-primary-3;
         }
       }
     }
@@ -85,7 +85,7 @@
 
     &:hover {
       .zent-pagination-arrow {
-        stroke: $theme-primary-2;
+        stroke: $theme-primary-4;
       }
     }
 
@@ -94,7 +94,7 @@
       background: transparent;
 
       .zent-pagination-arrow {
-        stroke: $theme-primary-1;
+        stroke: $theme-primary-3;
       }
     }
   }

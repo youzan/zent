@@ -20,9 +20,10 @@ export function BlockLoading(props: IBlockLoadingProps) {
   } = props;
   const hasChildren = !!children;
   const delayed = useDelayed({ loading, delay });
+  const showMask = !delayed && loading;
 
-  if (delayed || !loading) {
-    return hasChildren ? <>{children}</> : null;
+  if (!showMask && !hasChildren) {
+    return null;
   }
 
   return (
@@ -33,12 +34,14 @@ export function BlockLoading(props: IBlockLoadingProps) {
       style={{ height }}
     >
       {children}
-      <LoadingMask
-        icon={icon}
-        size={iconSize}
-        text={iconText}
-        textPosition={textPosition}
-      />
+      {showMask && (
+        <LoadingMask
+          icon={icon}
+          size={iconSize}
+          text={iconText}
+          textPosition={textPosition}
+        />
+      )}
     </div>
   );
 }

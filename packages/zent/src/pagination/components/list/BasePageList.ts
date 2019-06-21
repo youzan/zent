@@ -4,7 +4,7 @@ import memoize from 'lodash-es/memoize';
 
 export interface IPaginationBasePageListProps {
   layout: any[];
-  current?: number;
+  current: number;
   buttonBordered?: boolean;
   onPageChange: (page: number) => void;
 }
@@ -21,7 +21,7 @@ export default abstract class BasePageList<
     this.resetActiveDoubleArrowButton();
   });
 
-  jumpToPageDelta = (delta, cb?: () => void) => () => {
+  jumpToPageDelta = (delta: number, cb?: () => void) => () => {
     const { current, onPageChange } = this.props;
 
     onPageChange(current + delta);

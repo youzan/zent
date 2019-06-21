@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import cx from 'classnames';
 
-import Button from '../../../button';
+import Button, { IButtonProps } from '../../../button';
 
 const XML_NS = 'http://www.w3.org/2000/svg';
 
@@ -15,7 +15,14 @@ export interface IPaginationArrowButtonProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-export class ArrowButton extends Component<IPaginationArrowButtonProps, any> {
+interface IPaginationDoubleArrowButtonState {
+  showArrow: boolean;
+  prevActive: boolean;
+}
+
+export class ArrowButton extends Component<
+  IPaginationArrowButtonProps & Partial<IButtonProps>
+> {
   static defaultProps = {
     double: false,
     active: false,
@@ -36,7 +43,7 @@ export class ArrowButton extends Component<IPaginationArrowButtonProps, any> {
       );
     }
 
-    let Arrow = null;
+    let Arrow = (null as unknown) as React.FC;
     if (direction === 'left') {
       Arrow = LeftArrow;
     } else if (direction === 'right') {
@@ -56,15 +63,25 @@ export class ArrowButton extends Component<IPaginationArrowButtonProps, any> {
   }
 }
 
-class DoubleArrowButton extends Component<any, any> {
+class DoubleArrowButton extends Component<
+  IPaginationArrowButtonProps & Partial<IButtonProps>,
+  IPaginationDoubleArrowButtonState
+> {
+  static defaultProps = {
+    double: false,
+    active: false,
+    bordered: true,
+  };
+
   state = {
     showArrow: false,
+    prevActive: false,
   };
 
   render() {
     const { direction, active, bordered, ...rest } = this.props;
     const { showArrow } = this.state;
-    let Arrow = null;
+    let Arrow = (null as unknown) as React.FC;
     if (direction === 'left') {
       Arrow = LeftDoubleArrow;
     } else if (direction === 'right') {
@@ -92,13 +109,21 @@ class DoubleArrowButton extends Component<any, any> {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { active } = nextProps;
-    if (active !== this.props.active) {
-      this.setState({
-        showArrow: active,
-      });
+  static getDerivedStateFromProps(
+    props: IPaginationArrowButtonProps & Partial<IButtonProps>,
+    state: IPaginationDoubleArrowButtonState
+  ) {
+    const { active } = props;
+    const stateDiff = {
+      prevActive: active,
+      showArrow: state.showArrow,
+    } as IPaginationDoubleArrowButtonState;
+
+    if (active !== state.prevActive) {
+      stateDiff.showArrow = !!active;
     }
+
+    return stateDiff;
   }
 
   onMouseOver = () => {

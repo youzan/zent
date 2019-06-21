@@ -2,23 +2,28 @@ import { Component } from 'react';
 
 export interface IPaginationBaseJumperProps {
   current?: number;
-  onJump?: (page: number) => void;
+  onJump: (page: number) => void;
+}
+
+export interface IPaginationBaseJumperState {
+  value: string;
 }
 
 export abstract class BasePageJumper<
-  P extends IPaginationBaseJumperProps
-> extends Component<P, any> {
+  P extends IPaginationBaseJumperProps,
+  S extends IPaginationBaseJumperState
+> extends Component<P, S> {
   abstract handleJump(pageNumber: number): void;
 
-  constructor(props) {
+  constructor(props: P) {
     super(props);
 
     this.state = {
-      value: props.current || '',
-    };
+      value: (props.current || '').toString(),
+    } as S;
   }
 
-  onChange = evt => {
+  onChange = (evt: any) => {
     this.setState({
       value: evt.target.value,
     });

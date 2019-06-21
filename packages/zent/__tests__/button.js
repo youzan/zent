@@ -1,41 +1,36 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-dom/test-utils';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import Button from 'button';
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithTag,
+  Simulate,
+} from 'react-dom/test-utils';
+import { Button, ButtonGroup, ButtonDirective } from 'button';
 import Icon from 'icon';
 
-Enzyme.configure({ adapter: new Adapter() });
+class Wrapper extends React.Component {
+  render() {
+    return this.props.children;
+  }
+}
 
 describe('<Button />', () => {
-  let button;
-  let buttonNode;
-
-  function mount(Component) {
-    button = TestUtils.renderIntoDocument(Component);
-    buttonNode = ReactDOM.findDOMNode(button);
-  }
-
-  afterEach(() => {
-    button = null;
-    buttonNode = null;
-  });
-
   test('Default Button', () => {
-    mount(<Button>OK</Button>);
-
-    expect(buttonNode.className).toContain('zent-btn');
-    expect(buttonNode.textContent).toBe('OK');
-    expect(buttonNode.querySelectorAll('span').length).toBe(1);
-    expect(buttonNode.tagName.toLowerCase()).toBe('button');
+    const tree = renderIntoDocument(<Button>OK</Button>);
+    const a = findRenderedDOMComponentWithTag(tree, 'button');
+    expect(a.classList).toContain('zent-btn');
+    expect(a.textContent).toBe('OK');
   });
 
   test('Primary Button', () => {
-    mount(<Button type="primary" />);
-    expect(buttonNode.classList.contains('zent-btn-primary')).toBe(true);
+    const tree = renderIntoDocument(<Button type="primary" />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
 
-    mount(<Button type="primary" outline />);
+    expect(buttonNode.classList.contains('zent-btn-primary')).toBe(true);
+  });
+
+  test('Primary Button Outline', () => {
+    const tree = renderIntoDocument(<Button type="primary" outline />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.classList.contains('zent-btn-primary')).toBe(false);
     expect(buttonNode.classList.contains('zent-btn-primary-outline')).toBe(
       true
@@ -43,10 +38,14 @@ describe('<Button />', () => {
   });
 
   test('Success Button', () => {
-    mount(<Button type="success" />);
+    const tree = renderIntoDocument(<Button type="success" />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.classList.contains('zent-btn-success')).toBe(true);
+  });
 
-    mount(<Button type="success" outline />);
+  test('Success Button Outline', () => {
+    const tree = renderIntoDocument(<Button type="success" outline />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.classList.contains('zent-btn-success')).toBe(false);
     expect(buttonNode.classList.contains('zent-btn-success-outline')).toBe(
       true
@@ -54,85 +53,82 @@ describe('<Button />', () => {
   });
 
   test('Danger Button', () => {
-    mount(<Button type="danger" />);
+    const tree = renderIntoDocument(<Button type="danger" />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.classList.contains('zent-btn-danger')).toBe(true);
+  });
 
-    mount(<Button type="danger" outline />);
+  test('Danger Button Outline', () => {
+    const tree = renderIntoDocument(<Button type="danger" outline />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.classList.contains('zent-btn-danger')).toBe(false);
     expect(buttonNode.classList.contains('zent-btn-danger-outline')).toBe(true);
   });
 
   test('Transparent Border Button', () => {
-    mount(<Button bordered={false} />);
-
+    const tree = renderIntoDocument(<Button bordered={false} />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.className).toContain('zent-btn-border-transparent');
   });
 
   test('Large Button', () => {
-    mount(<Button size="large" />);
-
+    const tree = renderIntoDocument(<Button size="large" />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.className).toContain('zent-btn-large');
   });
 
   test('Small Button', () => {
-    mount(<Button size="small" />);
-
+    const tree = renderIntoDocument(<Button size="small" />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.className).toContain('zent-btn-small');
   });
 
   test('Custom ClassName', () => {
-    mount(<Button className="custom-btn" />);
-
+    const tree = renderIntoDocument(<Button className="custom-btn" />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.className).toContain('zent-btn');
     expect(buttonNode.className).toContain('custom-btn');
   });
 
   test('Block Button', () => {
-    mount(<Button block />);
-
+    const tree = renderIntoDocument(<Button block />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.className).toContain('zent-btn-block');
   });
 
-  test('Prefix', () => {
-    mount(<Button prefix="custom" />);
-
-    expect(buttonNode.classList.contains('zent-btn')).toBe(false);
-    expect(buttonNode.classList.contains('custom-btn')).toBe(true);
-  });
-
   test('Link Button', () => {
-    mount(<Button href="http://youzan.com/" target="_blank" />);
-
-    expect(buttonNode.tagName.toLowerCase()).toBe('a');
+    const tree = renderIntoDocument(
+      <Button href="http://youzan.com/" target="_blank" />
+    );
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'a');
     expect(buttonNode.href).toBe('http://youzan.com/');
     expect(buttonNode.target).toBe('_blank');
   });
 
   test('Button target', () => {
-    mount(<Button target="_blank" />);
-
-    expect(buttonNode.tagName.toLowerCase()).toBe('a');
+    const tree = renderIntoDocument(<Button target="_blank" />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'a');
     expect(buttonNode.href).toBe(window.location.href);
     expect(buttonNode.target).toBe('_blank');
   });
 
   test('onClick', () => {
     let isClicked = false;
-    mount(
+    const tree = renderIntoDocument(
       <Button
         onClick={() => {
           isClicked = true;
         }}
       />
     );
-
-    TestUtils.Simulate.click(buttonNode);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
+    Simulate.click(buttonNode);
     expect(isClicked).toBe(true);
   });
 
   test('Disabled Button', () => {
     let isClicked = false;
-    mount(
+    const tree = renderIntoDocument(
       <Button
         disabled
         onClick={() => {
@@ -140,16 +136,16 @@ describe('<Button />', () => {
         }}
       />
     );
-
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.disabled).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(true);
-    TestUtils.Simulate.click(buttonNode);
+    Simulate.click(buttonNode);
     expect(isClicked).toBe(false);
   });
 
   test('Disabled Link Button', () => {
     let isClicked = false;
-    mount(
+    const tree = renderIntoDocument(
       <Button
         disabled
         href="http://youzan.com/"
@@ -158,16 +154,16 @@ describe('<Button />', () => {
         }}
       />
     );
-
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'a');
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(true);
     expect(buttonNode.href).toBe('');
-    TestUtils.Simulate.click(buttonNode);
+    Simulate.click(buttonNode);
     expect(isClicked).toBe(false);
   });
 
   test('Loading Button', () => {
     let isClicked = false;
-    mount(
+    const tree = renderIntoDocument(
       <Button
         loading
         onClick={() => {
@@ -175,18 +171,18 @@ describe('<Button />', () => {
         }}
       />
     );
-
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.disabled).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-loading')).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(false);
-    TestUtils.Simulate.click(buttonNode);
+    Simulate.click(buttonNode);
 
     expect(isClicked).toBe(false);
   });
 
   test('Loading Link Button', () => {
     let isClicked = false;
-    mount(
+    const tree = renderIntoDocument(
       <Button
         href="http://youzan.com/"
         loading
@@ -195,37 +191,53 @@ describe('<Button />', () => {
         }}
       />
     );
-
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'a');
     expect(buttonNode.classList.contains('zent-btn-loading')).toBe(true);
     expect(buttonNode.classList.contains('zent-btn-disabled')).toBe(false);
     expect(buttonNode.href).toBe('');
-    TestUtils.Simulate.click(buttonNode);
+    Simulate.click(buttonNode);
     expect(isClicked).toBe(false);
   });
 
   test('Button htmlType', () => {
-    mount(<Button />);
-    expect(buttonNode.type).toBe('button');
+    {
+      const tree = renderIntoDocument(<Button />);
+      const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
+      expect(buttonNode.type).toBe('button');
+    }
 
-    mount(<Button htmlType="submit" />);
-    expect(buttonNode.type).toBe('submit');
+    {
+      const tree = renderIntoDocument(<Button htmlType="submit" />);
+      const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
+      expect(buttonNode.type).toBe('submit');
+    }
 
-    mount(<Button htmlType="reset" />);
-    expect(buttonNode.type).toBe('reset');
+    {
+      const tree = renderIntoDocument(<Button htmlType="reset" />);
+      const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
+      expect(buttonNode.type).toBe('reset');
+    }
 
-    mount(<Button htmlType="button" />);
-    expect(buttonNode.type).toBe('button');
+    {
+      const tree = renderIntoDocument(<Button htmlType="button" />);
+      const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
+      expect(buttonNode.type).toBe('button');
+    }
 
-    mount(<Button htmlType={null} />);
-    expect(buttonNode.type).toBe('submit');
+    {
+      const tree = renderIntoDocument(<Button htmlType={null} />);
+      const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
+      expect(buttonNode.type).toBe('submit');
+    }
   });
 
   test('Custom inline style', () => {
-    mount(<Button style={{ fontSize: '20px' }} />);
+    const tree = renderIntoDocument(<Button style={{ fontSize: '20px' }} />);
+    const buttonNode = findRenderedDOMComponentWithTag(tree, 'button');
     expect(buttonNode.style.fontSize).toBe('20px');
   });
 
-  test('Component', () => {
+  test('Directive', () => {
     function Link({ to, children, ...rest }) {
       return (
         <a href={`/#${to}`} {...rest}>
@@ -233,76 +245,74 @@ describe('<Button />', () => {
         </a>
       );
     }
-    mount(<Button to="/path" component={Link} />);
-
-    expect(buttonNode.href).toBe(`${window.location.origin}/#/path`);
-    expect(buttonNode.classList.contains('zent-btn')).toBe(true);
-    expect(buttonNode.tagName.toLowerCase()).toBe('a');
+    const tree = renderIntoDocument(
+      <Wrapper>
+        <ButtonDirective>
+          <Link to="/path" />
+        </ButtonDirective>
+      </Wrapper>
+    );
+    const node = findRenderedDOMComponentWithTag(tree, 'a');
+    expect(node.href).toBe(`${window.location.origin}/#/path`);
+    expect(node.classList.contains('zent-btn')).toBe(true);
   });
 
   test('Link with additional props', () => {
-    mount(<Button href="http://www.youzan.com" download="foobar" />);
-
-    expect(buttonNode.download).toBe('foobar');
+    const tree = renderIntoDocument(
+      <Button href="http://www.youzan.com" download="foobar" />
+    );
+    const node = findRenderedDOMComponentWithTag(tree, 'a');
+    expect(node.download).toBe('foobar');
   });
 
   test('with icon props', () => {
-    const wrapper = shallow(<Button icon="check" />);
-
-    expect(wrapper.contains(<Icon type="check" />)).toBe(true);
+    const tree = renderIntoDocument(<Button icon="check" />);
+    const node = findRenderedDOMComponentWithTag(tree, 'i');
+    expect(node.className).toBe('zenticon zenticon-check');
   });
 
   test('placing an Icon component within the Button', () => {
-    const wrapper = shallow(
+    const tree = renderIntoDocument(
       <Button>
         <Icon type="check" />
         Check
       </Button>
     );
-
-    expect(wrapper.contains(<Icon type="check" />)).toBe(true);
-    expect(wrapper.contains(<span>Check</span>)).toBe(true);
-  });
-
-  // 按钮文字为两个中文文字的时候，中间空出一个空格空间
-  test('two chinese char button', () => {
-    const wrapper = shallow(<Button insertSpace>中文</Button>);
-    expect(wrapper.contains(<span>中 文</span>)).toBe(true);
+    const node = findRenderedDOMComponentWithTag(tree, 'i');
+    const button = findRenderedDOMComponentWithTag(tree, 'button');
+    expect(node.className).toBe('zenticon zenticon-check');
+    expect(button.childNodes[1].textContent).toBe('Check');
   });
 });
 
-describe('<Button.Group />', () => {
-  let buttonGroup;
-  let buttonGroupNode;
-
-  function mount(Component) {
-    buttonGroup = TestUtils.renderIntoDocument(Component);
-    buttonGroupNode = ReactDOM.findDOMNode(buttonGroup);
-  }
-
-  afterEach(() => {
-    buttonGroup = null;
-    buttonGroupNode = null;
-  });
-
-  test('Default Button.Group', () => {
-    mount(<Button.Group />);
-    expect(buttonGroupNode.classList.contains('zent-btn-group')).toBe(true);
-  });
-
-  test('Prefix', () => {
-    mount(<Button.Group prefix="hi" />);
-    expect(buttonGroupNode.classList.contains('zent-btn-group')).toBe(false);
-    expect(buttonGroupNode.classList.contains('hi-btn-group')).toBe(true);
+describe('<ButtonGroup />', () => {
+  test('Default ButtonGroup', () => {
+    const tree = renderIntoDocument(
+      <Wrapper>
+        <ButtonGroup />
+      </Wrapper>
+    );
+    const node = findRenderedDOMComponentWithTag(tree, 'div');
+    expect(node.classList.contains('zent-btn-group')).toBe(true);
   });
 
   test('Custom ClassName', () => {
-    mount(<Button.Group className="custom-group" />);
-    expect(buttonGroupNode.classList.contains('custom-group')).toBe(true);
+    const tree = renderIntoDocument(
+      <Wrapper>
+        <ButtonGroup className="custom-group" />
+      </Wrapper>
+    );
+    const node = findRenderedDOMComponentWithTag(tree, 'div');
+    expect(node.classList.contains('custom-group')).toBe(true);
   });
 
   test('Custom inline style', () => {
-    mount(<Button.Group style={{ fontSize: '20px' }} />);
-    expect(buttonGroupNode.style.fontSize).toBe('20px');
+    const tree = renderIntoDocument(
+      <Wrapper>
+        <ButtonGroup style={{ fontSize: '20px' }} />
+      </Wrapper>
+    );
+    const node = findRenderedDOMComponentWithTag(tree, 'div');
+    expect(node.style.fontSize).toBe('20px');
   });
 });

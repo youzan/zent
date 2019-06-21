@@ -19,7 +19,7 @@ export abstract class AbstractPagination extends BasePagination<
   IAbstractPaginationProps
 > {
   render() {
-    const { layout } = this.state;
+    const layout = this.getLayout(this.props);
     const {
       current,
       pageSize,
@@ -28,6 +28,7 @@ export abstract class AbstractPagination extends BasePagination<
       showSizeChanger,
       buttonBordered,
       className,
+      formatTotal,
     } = this.props;
     const total = this.getTotal();
 
@@ -42,6 +43,7 @@ export abstract class AbstractPagination extends BasePagination<
           <PageSizeChanger
             pageSize={pageSize}
             total={total}
+            formatTotal={formatTotal}
             pageSizeOptions={pageSizeOptions}
             onPageSizeChange={this.onPageSizeChange}
           />

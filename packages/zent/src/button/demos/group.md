@@ -23,31 +23,31 @@ en-US:
 ---
 
 ```jsx
-import { Button } from 'zent';
+import { ButtonGroup, Button } from 'zent';
 
 ReactDOM.render(
 	<div>
-		<Button.Group>
+		<ButtonGroup>
 			<Button>{i18n.b}</Button>
 			<Button>{i18n.i}</Button>
 			<Button>{i18n.u}</Button>
-		</Button.Group>
-		<Button.Group>
+		</ButtonGroup>
+		<ButtonGroup>
 			<Button>{i18n.l}</Button>
 			<Button>{i18n.m}</Button>
 			<Button>{i18n.r}</Button>
-		</Button.Group>
-		<Button.Group>
+		</ButtonGroup>
+		<ButtonGroup>
 			<Button disabled>{i18n.l}</Button>
 			<Button disabled>{i18n.m}</Button>
 			<Button disabled>{i18n.r}</Button>
-		</Button.Group>
+		</ButtonGroup>
 		<br />
 		<br />
-		<Button.Group>
+		<ButtonGroup>
 			<Button type="primary" icon="share">{i18n.share}</Button>
 			<Button type="primary" icon="download">{i18n.download}</Button>
-		</Button.Group>
+		</ButtonGroup>
 	</div>
 	, mountNode
 );

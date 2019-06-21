@@ -90,11 +90,11 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   &.zent-radio-checked {
     & > .zent-radio {
       & > .zent-radio-inner {
-        border-color: $theme-primary-2;
+        border-color: $theme-primary-4;
 
         &::after {
           transform: scale(1);
-          background: $theme-primary-2;
+          background: $theme-primary-4;
         }
       }
     }
@@ -173,13 +173,13 @@ $inner-circle-offset: ($outer-circle-size - $inner-circle-size - 2px) / 2;
   }
 
   &:hover:not(&--disabled) {
-    color: $theme-primary-2;
+    color: $theme-primary-4;
   }
 
   &--checked {
-    color: $theme-primary-2;
-    border-color: $theme-primary-2;
-    background: $theme-primary-6;
+    color: $theme-primary-4;
+    border-color: $theme-primary-4;
+    background: $theme-primary-8;
     z-index: 1;
   }
 

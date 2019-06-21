@@ -9,7 +9,7 @@ import { IPaginationLayoutOptions } from '../impl/BasePagination';
 export default function liteLayout(
   options: IPaginationLayoutOptions
 ): PaginationLayout[] {
-  const { current } = options;
+  const { current, total } = options;
   const { min, max } = getPageRange(options);
 
   // 总个数，算上箭头
@@ -18,7 +18,7 @@ export default function liteLayout(
 
   layout[0] = {
     type: 'left-arrow',
-    disabled: current === 1,
+    disabled: current <= 1 || total <= 0,
   };
 
   for (let i = min; i <= max; i++) {
@@ -31,7 +31,7 @@ export default function liteLayout(
 
   layout[len - 1] = {
     type: 'right-arrow',
-    disabled: current === max,
+    disabled: current >= max || total <= 0,
   };
 
   return layout;

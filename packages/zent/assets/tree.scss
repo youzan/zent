@@ -26,7 +26,7 @@
       width: 10px;
       border-radius: 50%;
       margin-right: 5px;
-      border: 1px solid $theme-primary-2;
+      border: 1px solid $theme-primary-4;
 
       &:after {
         content: '';
@@ -141,7 +141,7 @@
       transition: all 0.3s ease-in-out;
 
       &:hover {
-        background-color: $theme-primary-6;
+        background-color: $theme-primary-8;
       }
     }
 

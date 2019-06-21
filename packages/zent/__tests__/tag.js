@@ -25,11 +25,6 @@ describe('Tag', () => {
     expect(wrapper.find('.zent-tag.label').length).toBe(1);
   });
 
-  it('can have custom prefix', () => {
-    const wrapper = mount(<Tag prefix="label" />);
-    expect(wrapper.find('.label-tag').length).toBe(1);
-  });
-
   it('can have close button', () => {
     const wrapper = mount(
       <Tag closable>
@@ -49,29 +44,29 @@ describe('Tag', () => {
     expect(() => wrapper.find('Icon').simulate('click')).not.toThrow();
   });
 
-  it('has red style', () => {
-    const wrapper = mount(<Tag color="red" />);
+  it('has red theme', () => {
+    const wrapper = mount(<Tag theme="red" />);
     expect(wrapper.find('.zent-tag-style-red').length).toBe(1);
   });
 
-  it('has green style', () => {
-    const wrapper = mount(<Tag color="green" />);
+  it('has green theme', () => {
+    const wrapper = mount(<Tag theme="green" />);
     expect(wrapper.find('.zent-tag-style-green').length).toBe(1);
   });
 
-  it('has yellow style', () => {
-    const wrapper = mount(<Tag color="yellow" />);
+  it('has yellow theme', () => {
+    const wrapper = mount(<Tag theme="yellow" />);
     expect(wrapper.find('.zent-tag-style-yellow').length).toBe(1);
   });
 
-  it('has blue style', () => {
-    const wrapper = mount(<Tag color="blue" />);
+  it('has blue theme', () => {
+    const wrapper = mount(<Tag theme="blue" />);
     expect(wrapper.find('.zent-tag-style-blue').length).toBe(1);
   });
 
-  it('has darkgreen style', () => {
-    const wrapper = mount(<Tag color="darkgreen" />);
-    expect(wrapper.find('.zent-tag-style-darkgreen').length).toBe(1);
+  it('has grey theme', () => {
+    const wrapper = mount(<Tag theme="grey" />);
+    expect(wrapper.find('.zent-tag-style-grey').length).toBe(1);
   });
 
   it('has outline style', () => {
@@ -79,57 +74,28 @@ describe('Tag', () => {
     expect(wrapper.find('.zent-tag-style-red-outline').length).toBe(1);
   });
 
-  it('can have custom color style', () => {
-    const wrapper = mount(<Tag color="#ff1493">#ff1493</Tag>);
-    expect(
-      wrapper.contains(
-        <div
-          className="zent-tag zent-tag-style zent-tag-rounded"
-          style={{ background: '#ff1493', borderColor: '#ff1493' }}
-        >
-          <div className="zent-tag-content">#ff1493</div>
-        </div>
-      )
-    ).toBe(true);
-    expect(wrapper.find('.zent-tag-close-btn').length).toBe(0);
-  });
-
-  it('can have custom color outline style', () => {
+  it('can have custom style', () => {
     const wrapper = mount(
-      <Tag color="#ff1493" outline>
+      <Tag
+        style={{
+          backgroundColor: '#ff1493',
+          borderColor: '#ff1493',
+        }}
+      >
         #ff1493
       </Tag>
     );
     expect(
       wrapper.contains(
         <div
-          className="zent-tag zent-tag-style-outline zent-tag-rounded"
-          style={{ color: '#ff1493', borderColor: '#ff1493' }}
+          className="zent-tag zent-tag-style-red zent-tag-rounded"
+          style={{ backgroundColor: '#ff1493', borderColor: '#ff1493' }}
         >
           <div className="zent-tag-content">#ff1493</div>
         </div>
       )
     ).toBe(true);
-    expect(wrapper.find('.zent-tag').length).toBe(1);
-  });
-
-  it('can have custom border color, backgound color, font color', () => {
-    const wrapper = mount(
-      <Tag color="#ff1493" borderColor="#eee" bgColor="#fff" fontColor="#000">
-        custom
-      </Tag>
-    );
-    expect(
-      wrapper.contains(
-        <div
-          className="zent-tag zent-tag-style zent-tag-rounded"
-          style={{ borderColor: '#eee', background: '#fff', color: '#000' }}
-        >
-          <div className="zent-tag-content">custom</div>
-        </div>
-      )
-    ).toBe(true);
-    expect(wrapper.find('.zent-tag').length).toBe(1);
+    expect(wrapper.find('.zent-tag-close-btn').length).toBe(0);
   });
 
   it('can show none rounded corner', () => {
@@ -147,30 +113,5 @@ describe('Tag', () => {
     expect(wrapper.contains(<a href="https://www.youzan.com">youzan</a>)).toBe(
       true
     );
-  });
-
-  it('visibility can be controlled from props', () => {
-    let visible = true;
-    const onVisibleChange = jest.fn().mockImplementation(value => {
-      visible = value;
-    });
-    const onClose = jest.fn();
-
-    const wrapper = mount(
-      <Tag
-        closable
-        visible={visible}
-        onVisibleChange={onVisibleChange}
-        onClose={onClose}
-      />
-    );
-    wrapper.find('Icon').simulate('click');
-    expect(onClose.mock.calls.length).toBe(1);
-    expect(onVisibleChange.mock.calls.length).toBe(1);
-    expect(visible).toBe(false);
-
-    // Hidden tag
-    const wrapper2 = mount(<Tag visible={false} />);
-    expect(wrapper2.find('.zent-tag').length).toBe(0);
   });
 });

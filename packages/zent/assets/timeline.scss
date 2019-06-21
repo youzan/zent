@@ -11,7 +11,7 @@
     height: 10px;
     background-color: $theme-stroke-7;
     border-radius: 50%;
-    border: 2px solid $theme-primary-2;
+    border: 2px solid $theme-primary-4;
     box-sizing: border-box;
   }
 
@@ -28,7 +28,7 @@
       display: inline-block;
       width: 18px;
       height: 2px;
-      background-color: $theme-primary-2;
+      background-color: $theme-primary-4;
       vertical-align: middle;
 
       .zent-timeline-dot {

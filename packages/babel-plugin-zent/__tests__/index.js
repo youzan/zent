@@ -63,12 +63,21 @@ describe('babel-plugin-zent', () => {
     const rules = require('../../zent/dependency-graph.json');
 
     Object.keys(rules).forEach(component => {
+      const rule = rules[component];
       const src = `import { ${component} } from 'zent'`;
-      expect(
-        compile(src).indexOf(
-          `import ${component} from \"zent/lib${rules[component].js}\"`
-        )
-      ).not.toBe(-1);
+      const compiled = compile(src);
+
+      if (rule.isDefaultExport) {
+        expect(
+          compiled.indexOf(`import ${component} from \"zent/lib${rule.js}\"`)
+        ).not.toBe(-1);
+      } else {
+        expect(
+          compiled.indexOf(
+            `import { ${component} } from \"zent/lib${rule.js}\"`
+          )
+        ).not.toBe(-1);
+      }
     });
 
     // rename imports

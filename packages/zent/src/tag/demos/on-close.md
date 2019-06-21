@@ -15,20 +15,26 @@ en-US:
 ```jsx
 import { Tag, Notify } from 'zent';
 
-const closeCallback = (e) => {
-	Notify.success("Close tag")
-}
+const closeCallback = e => {
+	Notify.success('Close tag');
+};
 
-const closeCallback2 = (e) => {
-	Notify.success("Close tag2")
-}
+const closeCallback2 = e => {
+	Notify.success('Close tag2');
+};
 
 ReactDOM.render(
 	<div>
-		<Tag closable onClose={closeCallback} outline>{i18n.text1}</Tag>
-		<Tag closable onClose={closeCallback2}>{i18n.text2}</Tag>
-		<Tag color="grey" closable closeButtonFontColor="#969799">{i18n.text3}</Tag>
-	</div>
-	, mountNode
+		<Tag closable onClose={closeCallback} outline>
+			{i18n.text1}
+		</Tag>
+		<Tag closable onClose={closeCallback2}>
+			{i18n.text2}
+		</Tag>
+		<Tag theme="grey" closable closeButtonStyle={{ color: '#969799' }}>
+			{i18n.text3}
+		</Tag>
+	</div>,
+	mountNode
 );
 ```

@@ -1,9 +1,6 @@
 @import './theme/default';
 @import './theme/font';
 
-$normalcolor: $theme-stroke-1;
-$graycolor: $theme-stroke-4;
-$bordercolor: $theme-stroke-5;
 $z-index: 1050;
 
 /*
@@ -58,11 +55,11 @@ $z-index: 1050;
   @include font-normal;
 
   padding: 0 16px 14px;
-  border-bottom: 1px solid $bordercolor;
+  border-bottom: 1px solid $theme-stroke-5;
   margin: 0;
   box-sizing: border-box;
   font-weight: $font-weight-medium;
-  color: $normalcolor;
+  color: $theme-stroke-1;
 }
 
 .zent-dialog-r-close {
@@ -70,7 +67,7 @@ $z-index: 1050;
   display: inline-block;
   top: 4px;
   right: 10px;
-  color: $graycolor;
+  color: $theme-stroke-4;
   font-size: 20px;
   line-height: 20px;
   text-align: right;
@@ -86,7 +83,7 @@ $z-index: 1050;
   &:link,
   &:active,
   &:focus {
-    color: $graycolor;
+    color: $theme-stroke-4;
   }
 
   &.zent-dialog-r-has-title {
@@ -98,9 +95,8 @@ $z-index: 1050;
 .zent-dialog-r-body {
   @include font-normal;
 
-  color: $theme-stroke-2;
+  color: $theme-stroke-1;
   padding: 16px;
-  min-height: 132px;
 
   &.with-success-icon,
   &.with-warning-icon {

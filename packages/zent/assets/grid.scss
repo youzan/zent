@@ -76,6 +76,10 @@ $border-color: $theme-stroke-6;
 
   &-text-align-right {
     text-align: right;
+
+    .zent-grid-thead-sort {
+      margin-right: 16px;
+    }
   }
 
   &-text-align-center {
@@ -121,13 +125,13 @@ $border-color: $theme-stroke-6;
 
     &-sort-desc {
       .caret-down {
-        border-top-color: $theme-primary-2;
+        border-top-color: $theme-primary-4;
       }
     }
 
     &-sort-asc {
       .caret-up {
-        border-bottom-color: $theme-primary-2;
+        border-bottom-color: $theme-primary-4;
       }
     }
   }
@@ -225,11 +229,11 @@ $border-color: $theme-stroke-6;
     background-color: $theme-stroke-9;
 
     &:hover {
-      background: $theme-primary-6;
+      background: $theme-primary-8;
     }
 
     &__mouseover {
-      background: $theme-primary-6;
+      background: $theme-primary-8;
     }
 
     &__expanded {
@@ -299,7 +303,7 @@ $border-color: $theme-stroke-6;
   }
 
   a {
-    color: $theme-primary-2;
+    color: $theme-primary-4;
     cursor: pointer;
   }
 }

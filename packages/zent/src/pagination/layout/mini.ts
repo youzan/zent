@@ -10,7 +10,7 @@ export default function miniLayout(
   return [
     {
       type: 'left-arrow',
-      disabled: current === 1,
+      disabled: current <= 1 || total <= 0,
     },
     {
       type: 'mini-jumper',
@@ -18,7 +18,7 @@ export default function miniLayout(
     },
     {
       type: 'right-arrow',
-      disabled: current === totalPages,
+      disabled: current >= totalPages || total <= 0,
     },
   ];
 }
