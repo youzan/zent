@@ -138,16 +138,17 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       parent.appendChild(node);
     }
     useLayoutEffect(() => {
-      if (!visible && node.parentElement === parent) {
-        parent.removeChild(node);
-        return noop();
-      }
       return () => {
         if (node.parentElement === parent) {
           parent.removeChild(node);
         }
       };
     }, [node, parent, visible]);
+    useLayoutEffect(() => {
+      if (!visible && node.parentElement === parent) {
+        parent.removeChild(node);
+      }
+    }, [visible]);
 
     useLayoutEffect(() => {
       className && (node.className = className);
