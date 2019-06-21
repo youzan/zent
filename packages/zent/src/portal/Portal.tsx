@@ -110,15 +110,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       append,
     } = props;
     const parent = useMemo(() => getNodeFromSelector(selector), [selector]);
-    const node = useMemo(() => {
-      const node = document.createElement(layer);
-      parent.appendChild(node);
-      /** @modifies {parent} */
-      if (!visible) {
-        node.style.setProperty('display', 'none', 'important');
-      }
-      return node;
-    }, [parent, layer]);
+    const node = useMemo(() => document.createElement(layer), [layer]);
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;
     const prevStyleRef = useRef<React.CSSProperties | undefined>(style);
@@ -139,15 +131,23 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       []
     );
 
+    /**
+     * To ensure node is append to document tree before child components mount
+     */
+    if (visible && node.parentElement !== parent) {
+      parent.appendChild(node);
+    }
     useLayoutEffect(() => {
-      /**
-       * To ensure node is append to document tree before child components mount,
-       * `parent.appendChild(node);` is moved to node creation
-       */
-      return () => {
+      if (!visible && node.parentElement === parent) {
         parent.removeChild(node);
+        return noop();
+      }
+      return () => {
+        if (node.parentElement === parent) {
+          parent.removeChild(node);
+        }
       };
-    }, [node, parent]);
+    }, [node, parent, visible]);
 
     useLayoutEffect(() => {
       className && (node.className = className);
@@ -156,13 +156,8 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     useLayoutEffect(() => {
       const result = diffStyle(prevStyleRef.current || {}, style || {});
       setValueForStyles(node, result);
-      if (!visible) {
-        node.style.setProperty('display', 'none', 'important');
-      } else {
-        node.style.display = style ? style.display || '' : '';
-      }
       prevStyleRef.current = style;
-    }, [node, style, visible]);
+    }, [node, style]);
 
     useLayoutEffect(() => {
       if (!visible || !useLayerForClickAway) {
@@ -197,12 +192,8 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     }, [parent, visible, blockPageScroll]);
 
     useLayoutEffect(() => {
-      if (!visible) {
-        return noop;
-      }
-
       function handler(event: TouchEvent | MouseEvent) {
-        const { closeOnClickOutside, onClose } = propsRef.current;
+        const { closeOnClickOutside, onClose, visible } = propsRef.current;
         if (event.defaultPrevented || !closeOnClickOutside || !visible) {
           return;
         }
@@ -242,7 +233,7 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       onLayerReady && onLayerReady(node);
 
       return dispose;
-    }, [visible, useLayerForClickAway, !!closeOnClickOutside, node]);
+    }, [useLayerForClickAway, !!closeOnClickOutside, node]);
 
     useEffect(() => {
       if (!visible || !closeOnESC) {
