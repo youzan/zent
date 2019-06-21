@@ -6,7 +6,6 @@ import {
   useMemo,
   forwardRef,
   useEffect,
-  useCallback,
 } from 'react';
 import * as keycode from 'keycode';
 import noop from 'lodash-es/noop';
@@ -110,36 +109,44 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       children,
       append,
     } = props;
-    const node = useMemo(() => document.createElement(layer), [layer]);
     const parent = useMemo(() => getNodeFromSelector(selector), [selector]);
+    const node = useMemo(() => {
+      const node = document.createElement(layer);
+      parent.appendChild(node);
+      /** @modifies {parent} */
+      if (!visible) {
+        node.style.setProperty('display', 'none', 'important');
+      }
+      return node;
+    }, [parent, layer]);
     const propsRef = useRef<IPortalProps>(props);
     propsRef.current = props;
     const prevStyleRef = useRef<React.CSSProperties | undefined>(style);
     const purePortalRef = useRef<PurePortal>(null);
 
-    // Methods for use on ref
-    const contains = useCallback((node: Node) => {
-      const purePortal = purePortalRef.current;
-      if (!purePortal) {
-        return false;
-      }
-      return purePortal.contains(node);
-    }, []);
     useImperativeHandle<IPortalImperativeHandlers, IPortalImperativeHandlers>(
       ref,
       () => ({
-        contains,
+        contains() {
+          const purePortal = purePortalRef.current;
+          if (!purePortal) {
+            return false;
+          }
+          return purePortal.contains(node);
+        },
         purePortalRef,
       }),
       []
     );
 
     useLayoutEffect(() => {
-      if (!parent) {
-        return noop;
-      }
-      parent.appendChild(node);
-      return () => parent.removeChild(node);
+      /**
+       * To ensure node is append to document tree before child components mount,
+       * `parent.appendChild(node);` is moved to node creation
+       */
+      return () => {
+        parent.removeChild(node);
+      };
     }, [node, parent]);
 
     useLayoutEffect(() => {
@@ -180,7 +187,6 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       if (
         !visible ||
         !blockPageScroll ||
-        !parent ||
         !(parent instanceof HTMLElement) ||
         !hasScrollbarY(parent)
       ) {
@@ -202,7 +208,13 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
         }
 
         const { target } = event;
-        if (!(target instanceof Node) || target === node || !contains(target)) {
+        const purePortal = purePortalRef.current;
+        if (
+          !(target instanceof Node) ||
+          target === node ||
+          !purePortal ||
+          !purePortal.contains(target)
+        ) {
           onClose && onClose(event);
         }
       }

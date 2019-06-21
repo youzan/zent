@@ -56,7 +56,16 @@ export class Dialog extends Component<IDialogProps, IDialogState> {
     footer: null,
   };
 
+  /**
+   * @deprecated
+   */
+  // tslint:disable-next-line deprecation
   static openDialog = openDialog;
+
+  /**
+   * @deprecated
+   */
+  // tslint:disable-next-line deprecation
   static closeDialog = closeDialog;
 
   lastMousePosition: IMousePosition | null = null;

@@ -35,6 +35,7 @@ export namespace Sweetalert {
  * 另调整组件的文件组织结构方便维护
  */
 
+// tslint:disable-next-line deprecation
 const { openDialog } = Dialog;
 
 /**
@@ -102,6 +103,7 @@ function sweet(config, sweetType) {
     );
   };
 
+  // tslint:disable-next-line deprecation
   close = openDialog({
     prefix,
     closeBtn,

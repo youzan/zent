@@ -86,6 +86,9 @@ class StandaloneDialog extends Component<IStandaloneDialogProps> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export function closeDialog(
   dialogId: string,
   options: ICloseDialogOption = {}
@@ -109,9 +112,11 @@ export interface IOpenDialogOption extends Omit<IDialogProps, 'onClose'> {
   onClose?: () => void;
 }
 
-/*
-  打开一个dialog，返回值是一个用来关闭dialog的函数。
-*/
+/**
+ * 打开一个dialog，返回值是一个用来关闭dialog的函数。
+ *
+ * @deprecated
+ */
 export function openDialog(options: Partial<IOpenDialogOption> = {}) {
   if (!isBrowser) return noop;
 
@@ -123,6 +128,7 @@ export function openDialog(options: Partial<IOpenDialogOption> = {}) {
 
   // 确保多次调用close不会报错
   const closeHandler = (evt: unknown) => {
+    // tslint:disable-next-line deprecation
     closeDialog(dialogId, {
       triggerOnClose: evt !== false,
     });

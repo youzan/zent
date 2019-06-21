@@ -1,9 +1,14 @@
-export function getNodeFromSelector(
-  selector: string | Element
-): Element | null {
-  const node =
-    typeof selector === 'string' ? document.querySelector(selector) : selector;
-  return node;
+export function getNodeFromSelector(selector: string | Element): Element {
+  if (selector instanceof Element) {
+    return selector;
+  } else if (typeof selector === 'string') {
+    const node = document.querySelector(selector);
+    if (node === null) {
+      throw new Error(`Element not exist for selector ${selector}`);
+    }
+    return node;
+  }
+  return document.body;
 }
 
 export function createContainerNode(parent: Node, tag = 'div') {
