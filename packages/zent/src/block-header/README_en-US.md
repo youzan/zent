@@ -12,7 +12,6 @@ This is a block header.
 
 | Property     | Description          | Type      | Default     | Alternative |
 | ------------ | -------------------- | --------- | ----------- | ----------- |
-| prefix       | custom prefix        | string    | `'zent'`    |             |
 | className    | custom class name    | string    | ''          |             |
 | title        | title                | string    |             |             |
 | tooltip      | content of the pop   | ReactNode |             |             |

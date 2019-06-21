@@ -13,7 +13,6 @@ group: 展示
 
 | 参数         | 说明           | 类型      | 默认值      | 备选值 |
 | ------------ | -------------- | --------- | ----------- | ------ |
-| prefix       | 自定义前缀     | string    | `'zent'`    |        |
 | className    | 自定义类名     | string    | ''          |        |
 | title        | 标题           | string    |             |        |
 | tooltip      | pop 显示内容   | ReactNode |             |        |

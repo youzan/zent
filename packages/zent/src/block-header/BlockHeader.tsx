@@ -11,37 +11,33 @@ export interface IBlockHeaderProps {
   position?: PopPositions;
   leftContent?: ReactNode;
   rightContent?: ReactNode;
-  prefix?: string;
 }
 
 export class BlockHeader extends Component<IBlockHeaderProps> {
   static defaultProps = {
-    prefix: 'zent',
     className: '',
     position: 'top-right',
   };
 
   private renderTitle() {
-    const { title, prefix } = this.props;
+    const { title } = this.props;
     return (
-      <div className={`${prefix}-block-header__title`}>
+      <div className="zent-block-header__title">
         <h3>{title}</h3>
       </div>
     );
   }
 
   private renderTooltip() {
-    const { tooltip, position, prefix } = this.props;
+    const { tooltip, position } = this.props;
     return (
-      <div className={`${prefix}-block-header__pop`}>
+      <div className="zent-block-header__pop">
         <Pop
           trigger="hover"
           centerArrow
           position={position}
-          content={
-            <div className={`${prefix}-block-header__tooltip`}>{tooltip}</div>
-          }
-          wrapperClassName={`${prefix}-block-header__tooltip-trigger`}
+          content={<div className="zent-block-header__tooltip">{tooltip}</div>}
+          wrapperClassName="zent-block-header__tooltip-trigger"
         >
           <Icon type="help-circle" />
         </Pop>
@@ -50,12 +46,12 @@ export class BlockHeader extends Component<IBlockHeaderProps> {
   }
 
   private renderLeftContent() {
-    const { leftContent, prefix } = this.props;
+    const { leftContent } = this.props;
     return (
       <div
         className={cx(
-          `${prefix}-block-header__content`,
-          `${prefix}-block-header__content-left`
+          'zent-block-header__content',
+          'zent-block-header__content-left'
         )}
       >
         {leftContent}
@@ -64,12 +60,12 @@ export class BlockHeader extends Component<IBlockHeaderProps> {
   }
 
   private renderRightContent() {
-    const { rightContent, prefix } = this.props;
+    const { rightContent } = this.props;
     return (
       <div
         className={cx(
-          `${prefix}-block-header__content`,
-          `${prefix}-block-header__content-right`
+          'zent-block-header__content',
+          'zent-block-header__content-right'
         )}
       >
         {rightContent}
@@ -78,15 +74,9 @@ export class BlockHeader extends Component<IBlockHeaderProps> {
   }
 
   render() {
-    const {
-      prefix,
-      leftContent,
-      rightContent,
-      tooltip,
-      className,
-    } = this.props;
+    const { leftContent, rightContent, tooltip, className } = this.props;
     return (
-      <div className={cx(`${prefix}-block-header`, className)}>
+      <div className={cx('zent-block-header', className)}>
         {this.renderTitle()}
         {tooltip && this.renderTooltip()}
         {leftContent && this.renderLeftContent()}
