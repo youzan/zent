@@ -160,6 +160,7 @@ $border-color: $theme-stroke-6;
 
   &-fixed-left {
     left: 0;
+    // FIXME: 为了让fix住的部分底部阴影去除
     box-shadow: 6px 0 6px -4px rgba($theme-stroke-4, 0.5);
 
     .zent-grid-header .zent-grid-table {
@@ -180,6 +181,7 @@ $border-color: $theme-stroke-6;
 
   &-fixed-right {
     right: 0;
+    // FIXME: 为了让fix住的部分底部阴影去除
     box-shadow: -6px 0 6px -4px rgba($theme-stroke-4, 0.5);
 
     .zent-grid-header .zent-grid-table {
