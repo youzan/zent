@@ -3,7 +3,7 @@ import cx from 'classnames';
 import isNumber from 'lodash-es/isNumber';
 
 import useDelayed from './hooks/useDelayed';
-import { IFullScreenLoadingProps, FullScreenDefaultProps } from './props';
+import { IFullScreenLoadingProps } from './props';
 import LoadingMask from './components/LoadingMask';
 import { Portal } from '../portal';
 
@@ -11,13 +11,13 @@ const NO_STYLE: React.CSSProperties = {};
 
 export function FullScreenLoading(props: IFullScreenLoadingProps) {
   const {
-    loading,
-    delay,
+    loading = false,
+    delay = 0,
     className,
-    icon,
+    icon = 'youzan',
     iconSize,
     iconText,
-    textPosition,
+    textPosition = 'bottom',
     zIndex,
   } = props;
   const delayed = useDelayed({ loading, delay });
@@ -43,7 +43,5 @@ export function FullScreenLoading(props: IFullScreenLoadingProps) {
     </Portal>
   );
 }
-
-FullScreenLoading.defaultProps = FullScreenDefaultProps;
 
 export default FullScreenLoading;
