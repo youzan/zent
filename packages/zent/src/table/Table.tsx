@@ -25,6 +25,7 @@ export type TablePaginationType = 'default' | 'lite';
 export interface ITablePageInfo {
   current?: number;
   total?: number;
+  formatTotal?: (total: number) => React.ReactNode;
   /** @deprecated use total */
   totalItem?: number;
   pageSize?: number;

@@ -49,6 +49,7 @@ export type GridPaginationType = 'default' | 'lite';
 export interface IGridPageInfo {
   current?: number;
   total?: number;
+  formatTotal?: (total: number) => React.ReactNode;
   pageSize?: number;
   pageSizeOptions?: PaginationPageSizeOption[];
 }
