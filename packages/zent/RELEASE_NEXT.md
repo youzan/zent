@@ -124,6 +124,14 @@ import { Portal, PurePortal } from 'zent'
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
 
+## 7.0.0-next.17(2019-06-24)
+
+- 重排 `primary` 颜色的顺序，从深到浅，自定义主题的需要更新一下主题色顺序([1096](https://github.com/youzan/zent/pull/1096))
+- 修复 `Grid` 类型没倒出完全的问题
+- 修复 `ButtonDirective` 默认值问题
+- `Table` 和 `Grid` 增加 `Pagination` 的 `formatTotal` 支持
+- 修复 `Grid` 样式问题
+
 ## 7.0.0-next.16(2019-06-18)
 
 - 更新全局字体配色
