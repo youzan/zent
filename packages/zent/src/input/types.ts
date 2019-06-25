@@ -1,3 +1,4 @@
+import { Omit } from 'utility-types';
 import { IconType } from '../icon';
 
 export type InputType = 'text' | 'number' | 'password' | 'textarea';
