@@ -50,7 +50,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
         />
         {showCount && (
           <span className="zent-textarea-count">
-            {value.length}/{maxLength}
+            {(value || '').length}/{maxLength}
           </span>
         )}
       </>
