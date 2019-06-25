@@ -162,10 +162,10 @@ export const Upload: II18nLocaleUpload = {
       return `Only ${maxAmount} ${TypeMap[type]} files can be added`;
     },
     maxSize({ maxSize, type }) {
-      return `${TypeMap[type]} files larger than ${maxSize} have been filtered`;
+      return `Cannot upload ${TypeMap[type]} files larger than ${maxSize}`;
     },
     type({ type }) {
-      return `${TypeMap[type]} files with incorrect type have been filtered`;
+      return `Cannot upload ${TypeMap[type]} files with unsupported type`;
     },
   },
   popup: {
