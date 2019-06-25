@@ -238,7 +238,7 @@ $blue: $theme-primary-4;
 
     &.cell--money,
     &.cell--end {
-      justify-content: end;
+      justify-content: flex-end;
 
       .cell__child-container {
         text-align: right;
@@ -246,7 +246,7 @@ $blue: $theme-primary-4;
     }
 
     &.cell--start {
-      justify-content: start;
+      justify-content: flex-start;
 
       .cell__child-container {
         text-align: left;
