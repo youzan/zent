@@ -11,7 +11,7 @@ export interface ITextAreaState {
 export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
   (props, ref) => {
     const {
-      value = '',
+      value,
       autoSize,
       showCount,
       maxLength,
