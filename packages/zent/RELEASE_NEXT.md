@@ -95,6 +95,12 @@ import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 - 删除`closeButtonFontColor`，添加`closeButtonStyle`
 - 预设主题色属性从 `color` 改名为 `theme`，移除 `darkgreen` 主题色，且不再支持自定义颜色传递，需要自定义样式可改用 `style`
 
+### `BlockHeader`
+
+- 整体布局改为 flex 布局
+- 删除 `content` 和 `childAlign`，改用 `leftContent` 和 `rightContent` 来控制左右侧额外展示的内容
+- 不再渲染 `children` 中的内容
+
 #### `Portal`
 
 ```js
@@ -127,6 +133,18 @@ import { Portal, PurePortal } from 'zent'
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。
+
+## 7.0.0-next.18(2019-06-24)
+
+- 重排 `primary` 颜色的顺序，从深到浅，自定义主题的需要更新一下主题色顺序([1096](https://github.com/youzan/zent/pull/1096))
+- 修复 `Grid` 类型没导出完全的问题
+- 修复 `ButtonDirective` 默认值问题
+- `Table` 和 `Grid` 增加 `Pagination` 的 `formatTotal` 支持
+- 修复 `Grid` 样式问题
+
+## 7.0.0-next.17(2019-06-24)
+
+内容同 `7.0.0-next.18`，遇到一个 `TypeScript` 的 [bug](https://github.com/microsoft/TypeScript/issues/32057)，已下线，不要使用。
 
 ## 7.0.0-next.16(2019-06-18)
 

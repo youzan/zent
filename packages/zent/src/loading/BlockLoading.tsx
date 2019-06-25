@@ -2,21 +2,21 @@ import * as React from 'react';
 import has from 'lodash-es/has';
 import cx from 'classnames';
 
-import { IBlockLoadingProps, BlockDefaultProps } from './props';
+import { IBlockLoadingProps } from './props';
 import LoadingMask from './components/LoadingMask';
 import useDelayed from './hooks/useDelayed';
 
 export function BlockLoading(props: IBlockLoadingProps) {
   const height = getHeight(props);
   const {
-    loading,
-    delay,
+    loading = false,
+    delay = 0,
     className,
     children,
-    icon,
+    icon = 'youzan',
     iconSize,
     iconText,
-    textPosition,
+    textPosition = 'bottom',
   } = props;
   const hasChildren = !!children;
   const delayed = useDelayed({ loading, delay });
@@ -61,7 +61,5 @@ function getHeight(props: IBlockLoadingProps) {
 
   return props.height;
 }
-
-BlockLoading.defaultProps = BlockDefaultProps;
 
 export default BlockLoading;
