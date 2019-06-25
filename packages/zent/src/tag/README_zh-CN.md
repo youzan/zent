@@ -17,17 +17,16 @@ group: 展示
 
 ### API
 
-| 参数             | 说明               | 类型                | 默认值   | 备选值                                                     |
-| ---------------- | ------------------ | ------------------- | -------- | ---------------------------------------------------------- |
-| theme            | 标签的预置颜色     | string              | `'red'`  | `'red'` \| `'green'` \| `'yellow'` \| `'blue'` \| `'grey'` |
-| outline          | 边框有颜色，无底色 | bool                | `false`  | `true` \| `false`                                          |
-| rounded          | 是否有圆角         | bool                | `true`   | `true` \| `false`                                          |
-| closable         | 是否可以关闭       | bool                | `false`  | `true` \| `false`                                          |
-| visible          | 是否显示           | bool                | `true`   | `false`                                                    |
-| onClose          | 关闭时的回调       | func                | `noop`   |                                                            |
-| closeButtonStyle | 关闭按钮样式       | React.CSSProperties |          |                                                            |
-| className        | 自定义额外类名     | string              |          |                                                            |
-| prefix           | 自定义前缀         | string              | `'zent'` |                                                            |
-| style            | 自定义样式         | React.CSSProperties |          |                                                            |
+| 参数             | 说明               | 类型                | 默认值  | 备选值                                                     |
+| ---------------- | ------------------ | ------------------- | ------- | ---------------------------------------------------------- |
+| theme            | 标签的预置颜色     | string              | `'red'` | `'red'` \| `'green'` \| `'yellow'` \| `'blue'` \| `'grey'` |
+| outline          | 边框有颜色，无底色 | bool                | `false` | `true` \| `false`                                          |
+| rounded          | 是否有圆角         | bool                | `true`  | `true` \| `false`                                          |
+| closable         | 是否可以关闭       | bool                | `false` | `true` \| `false`                                          |
+| visible          | 是否显示           | bool                | `true`  | `false`                                                    |
+| onClose          | 关闭时的回调       | func                | `noop`  |                                                            |
+| closeButtonStyle | 关闭按钮样式       | React.CSSProperties |         |                                                            |
+| className        | 自定义额外类名     | string              |         |                                                            |
+| style            | 自定义样式         | React.CSSProperties |         |                                                            |
 
 > 所有参数都是可选，搭配 `visible` 和 `onClose` 可以实现关闭效果

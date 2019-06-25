@@ -95,6 +95,12 @@ import { LayoutRow as Row, LayoutCol as Col, LayoutGrid as Grid } from 'zent';
 - 删除`closeButtonFontColor`，添加`closeButtonStyle`
 - 预设主题色属性从 `color` 改名为 `theme`，移除 `darkgreen` 主题色，且不再支持自定义颜色传递，需要自定义样式可改用 `style`
 
+### `BlockHeader`
+
+- 整体布局改为 flex 布局
+- 删除 `content` 和 `childAlign`，改用 `leftContent` 和 `rightContent` 来控制左右侧额外展示的内容
+- 不再渲染 `children` 中的内容
+
 #### `Portal`
 
 ```js

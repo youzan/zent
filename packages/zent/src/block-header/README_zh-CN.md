@@ -11,13 +11,11 @@ group: 展示
 
 ## API
 
-| 参数            | 说明               | 类型             | 默认值      | 备选值     |
-|------          |------              |------            |--------    |--------   |
-| prefix         | 自定义前缀           | string          | `'zent'`    |           |
-| className      | 自定义类名          | string            |   ''    |              |
-| title          | 标题               | string            |         |              |
-| tooltip        | pop显示内容         | node             |          |             |
-| content        | 自定义content       | node             |            |           |
-| childAlign     | 子元素对齐方式 | string | `'left'`  | `'left'、'right'` |
-| position       | pop posotion       | string           | 'top-right' |          |
-
+| 参数         | 说明           | 类型      | 默认值      | 备选值 |
+| ------------ | -------------- | --------- | ----------- | ------ |
+| className    | 自定义类名     | string    | ''          |        |
+| title        | 标题           | string    |             |        |
+| tooltip      | pop 显示内容   | ReactNode |             |        |
+| position     | pop 显示位置   | string    | 'top-right' |        |
+| leftContent  | 左侧自定义内容 | ReactNode |             |        |
+| rightContent | 右侧自定义内容 | ReactNode |             |        |
