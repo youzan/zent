@@ -148,6 +148,11 @@ const TypeMap: II18nLocaleTypeMap = {
   voice: '音频',
 };
 
+const TypeUnitMap = {
+  image: '张',
+  voice: '个',
+};
+
 export const Upload: II18nLocaleUpload = {
   ...common,
   title_voice: '声音选择',
@@ -155,13 +160,13 @@ export const Upload: II18nLocaleUpload = {
   input: {
     holder: '添加',
     maxAmount({ maxAmount, type }) {
-      return `已经自动过滤${maxAmount}张之后的${TypeMap[type]}文件`;
+      return `最多上传 ${maxAmount} ${TypeUnitMap[type]}${TypeMap[type]}`;
     },
     maxSize({ maxSize, type }) {
-      return `已经自动过滤大于${maxSize}的${TypeMap[type]}文件`;
+      return `不能上传大于 ${maxSize} 的${TypeMap[type]}`;
     },
     type({ type }) {
-      return `已经自动过滤类型不正确的${TypeMap[type]}文件`;
+      return `不能上传不支持的${TypeMap[type]}类型`;
     },
   },
   popup: {
