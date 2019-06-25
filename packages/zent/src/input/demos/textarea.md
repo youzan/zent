@@ -11,7 +11,7 @@ import { Input } from 'zent';
 
 ReactDOM.render(
   <div>
-      <Input type="textarea" />
+      <Input type="textarea" autoSize />
   </div>
   , mountNode
 );

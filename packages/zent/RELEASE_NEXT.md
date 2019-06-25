@@ -126,6 +126,10 @@ import { Portal, PurePortal } from 'zent'
 - 删除了 `LayeredPortal`，请用 `Portal` 替换。
 - 去除 `onMount` 和 `onUnmount`，使用方直接使用上层组件的 `componentDidMount` 和 `componentWillUnmount` 即可。
 
+#### Input
+- 增加了`icon`属性
+- 删除了`SearchInput`，用`<input icon="search" />`代替
+
 #### 源样式
 
 如果之前依赖了 postcss 的源样式，需要改成 sass。

@@ -9,7 +9,7 @@ import isUndefined from 'lodash-es/isUndefined';
 import throttle from 'lodash-es/throttle';
 import * as keycode from 'keycode';
 import cx from 'classnames';
-import Input, { IInputChangeEvent } from '../input';
+import Input, { IInputClearEvent } from '../input';
 import Popover from '../popover';
 import getCaretCoordinates from '../utils/dom/getCaretCoordinates';
 import isFirefox from '../utils/isFirefox';
@@ -132,7 +132,7 @@ export class Mention extends Component<IMentionProps> {
                   onWheel={this.onInputScroll}
                   onCompositionStart={this.onInputCompositionStart}
                   onCompositionEnd={this.onInputCompositionEnd}
-                  {...passThroughProps}
+                  {...passThroughProps as any}
                 />
               </Popover.Trigger.Click>
               <Popover.Content>
@@ -197,7 +197,7 @@ export class Mention extends Component<IMentionProps> {
   };
 
   onInputChange = (
-    evt: IInputChangeEvent | React.ChangeEvent<HTMLInputElement>
+    evt: IInputClearEvent | React.ChangeEvent<HTMLInputElement>
   ) => {
     this.props.onChange(evt.target.value);
   };

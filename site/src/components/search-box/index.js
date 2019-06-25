@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popover, SearchInput } from 'zent';
+import { Popover, Input } from 'zent';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import { withRouter } from 'react-router-dom';
@@ -59,8 +59,9 @@ class SearchBox extends Component {
         wrapperClassName="zandoc-react-search-box-popover-wrapper"
       >
         <Popover.Trigger.Click>
-          <SearchInput
+          <Input
             className="zandoc-react-search-box-input"
+            icon="search"
             placeholder={i18n[locale].placeholder}
             value={keyword}
             onChange={this.onKeywordChange.bind(this)}
