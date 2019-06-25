@@ -11,6 +11,7 @@ import {
 import * as keycode from 'keycode';
 import noop from 'lodash-es/noop';
 
+import MountElement from './MountElement';
 import PurePortal, { IPurePortalProps } from './PurePortal';
 import { getNodeFromSelector, hasScrollbarY } from './util';
 import { SCROLLBAR_WIDTH } from '../utils/getScrollbarWidth';
@@ -133,16 +134,6 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
     );
 
     useLayoutEffect(() => {
-      if (!visible || !parent) {
-        return noop;
-      }
-      parent.appendChild(node);
-      return () => {
-        parent.removeChild(node);
-      };
-    }, [visible, node, parent]);
-
-    useLayoutEffect(() => {
       className && (node.className = className);
     }, [node, className]);
 
@@ -246,8 +237,17 @@ export const Portal = forwardRef<IPortalImperativeHandlers, IPortalProps>(
       };
     }, [closeOnESC, visible]);
 
+    /**
+     * @HACK
+     * @TODO 当React提供了合适的API后替换掉
+     *
+     * 这是为了确保在children的componentDidMount(useEffect, useLayoutEffect)在被调用之前把元素挂载到容器里
+     * 这里利用了React的内部实现，MountElement的componentDidMount(useEffect, useLayoutEffect)
+     * 会在children的之前被调用
+     */
     return visible ? (
       <PurePortal ref={purePortalRef} append={append} selector={node}>
+        {visible ? <MountElement node={node} parent={parent} /> : null}
         {children}
       </PurePortal>
     ) : null;
